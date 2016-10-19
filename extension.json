@@ -1,0 +1,34 @@
+{
+	"name": "WikibaseLexeme",
+	"version": "0.0.0",
+	"author": [
+		"The Wikidata team"
+	],
+	"url": "https://www.mediawiki.org/wiki/Extension:WikibaseLexeme",
+	"descriptionmsg": "wikibase-lexeme-desc",
+	"license-name": "GPL-2.0+",
+	"type": "Wikibase",
+	"AutoloadClasses": {
+		"WikibaseLexemeHooks": "WikibaseLexeme.hooks.php"
+	},
+	"config": {},
+	"Hooks": {
+		"WikibaseEntityNamespaces": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityNamespaces"
+		],
+		"SetupAfterCache": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onSetupAfterCache"
+		],
+		"WikibaseRepoEntityTypes": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
+		]
+	},
+	"MessagesDirs": {
+		"WikibaseLexeme": [
+			"i18n"
+		]
+	},
+	"ResourceModules": {},
+	"ResourceFileModulePaths": {},
+	"manifest_version": 1
+}
