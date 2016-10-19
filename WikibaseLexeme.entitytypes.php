@@ -26,7 +26,6 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 use Wikibase\Lexeme\Services\LexemeServices;
 use Wikibase\Lexeme\View\LexemeView;
-use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
 

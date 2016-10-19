@@ -6,7 +6,6 @@ use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Sense\DataModel\Sense;
 use Wikibase\Form\DataModel\Form;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * MediaWiki hook handlers for the Wikibase Lexeme extension.
@@ -41,7 +40,7 @@ class WikibaseLexemeHooks {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		# Sense and Form will be added later.
-		$entites = [ 'Lexeme' ];
+		$entities = [ 'Lexeme' ];
 		foreach ( $entities as $entity ) {
 			// Setting the namespace to false disabled automatic registration.
 			$entityNamespace = $config->get( $entity . 'Namespace' );
