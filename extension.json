@@ -8,10 +8,14 @@
 	"descriptionmsg": "wikibase-lexeme-desc",
 	"license-name": "GPL-2.0+",
 	"type": "Wikibase",
+	"load_composer_autoloader": true,
 	"AutoloadClasses": {
-		"WikibaseLexemeHooks": "WikibaseLexeme.hooks.php"
+		"Wikibase\\Lexeme\\WikibaseLexemeHooks": "src/WikibaseLexeme.hooks.php"
 	},
-	"config": {},
+	"config": {
+		"LexemeNamespace": 146,
+		"LexemeTalkNamespace": 147
+	},
 	"Hooks": {
 		"WikibaseEntityNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityNamespaces"

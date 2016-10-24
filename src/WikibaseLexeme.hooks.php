@@ -3,9 +3,6 @@
 namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Sense\DataModel\Sense;
-use Wikibase\Form\DataModel\Form;
 
 /**
  * MediaWiki hook handlers for the Wikibase Lexeme extension.
@@ -59,6 +56,7 @@ class WikibaseLexemeHooks {
 				}
 			}
 		}
+		return true;
 	}
 
 	/**
