@@ -7,7 +7,8 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 
-class LexemeDiffer implements EntityDifferStrategy  {
+class LexemeDiffer implements EntityDifferStrategy {
+
 	public function canDiffEntityType( $entityType ) {
 		// TODO: Implement canDiffEntityType() method.
 	}

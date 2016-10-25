@@ -8,6 +8,7 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityPatcherStrategy;
 
 class LexemePatcher implements EntityPatcherStrategy {
+
 	public function canPatchEntityType( $entityType ) {
 		// TODO: Implement canPatchEntityType() method.
 	}

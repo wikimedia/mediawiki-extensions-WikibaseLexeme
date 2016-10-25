@@ -2,10 +2,11 @@
 
 namespace Wikibase\Lexeme\Content;
 
-use MWException;
+use InvalidArgumentException;
 use Wikibase\Content\EntityHolder;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\EntityContent;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0+
@@ -14,19 +15,65 @@ class LexemeContent extends EntityContent {
 
 	const CONTENT_MODEL_ID = 'wikibase-lexeme';
 
+	/**
+	 * @var EntityHolder
+	 */
+	private $lexemeHolder;
+
+	/**
+	 * @param EntityHolder $lexemeHolder
+	 *
+	 * @throws InvalidArgumentException
+	 */
+	public function __construct( EntityHolder $lexemeHolder ) {
+		parent::__construct( self::CONTENT_MODEL_ID );
+
+		Assert::parameter(
+			$lexemeHolder->getEntityType() === Lexeme::ENTITY_TYPE,
+			'$lexemeHolder',
+			'$lexemeHolder must contain a Lexeme entity'
+		);
+
+		$this->lexemeHolder = $lexemeHolder;
+	}
+
+	/**
+	 * @see EntityContent::getEntity
+	 *
+	 * @return Lexeme
+	 */
 	public function getEntity() {
-		// TODO: Implement getEntity() method.
+		return $this->lexemeHolder->getEntity( Lexeme::class );
 	}
 
-	protected function getEntityHolder() {
-		// TODO: Implement getEntityHolder() method.
-	}
-
-	public function isStub() {
-		// TODO: Implement isStub() method.
-	}
-
+	/**
+	 * @see EntityContent::isCountable
+	 *
+	 * @param bool|null $hasLinks
+	 *
+	 * @return bool
+	 */
 	public function isCountable( $hasLinks = null ) {
-		// TODO: Implement isCountable() method.
+		return !$this->isRedirect() && !$this->getEntity()->isEmpty();
+	}
+
+	/**
+	 * @see EntityContent::getEntityHolder
+	 *
+	 * @return EntityHolder
+	 */
+	protected function getEntityHolder() {
+		return $this->lexemeHolder;
+	}
+
+	/**
+	 * @see EntityContent::isStub
+	 *
+	 * @return bool
+	 */
+	public function isStub() {
+		return !$this->isRedirect()
+			&& !$this->getEntity()->isEmpty()
+			&& $this->getEntity()->getStatements()->isEmpty();
 	}
 }
