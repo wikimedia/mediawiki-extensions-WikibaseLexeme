@@ -11,6 +11,7 @@
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -33,13 +34,11 @@ return [
 	'lexeme' => [
 		'serializer-factory-callback' => function( SerializerFactory $serializerFactory ) {
 			return new LexemeSerializer(
-				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
 		'deserializer-factory-callback' => function( DeserializerFactory $deserializerFactory ) {
 			return new LexemeDeserializer(
-				$deserializerFactory->newTermListDeserializer(),
 				$deserializerFactory->newStatementListDeserializer()
 			);
 		},
@@ -54,7 +53,17 @@ return [
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
 		'content-handler-factory-callback' => function() {
-			return new LexemeHandler();
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			return new LexemeHandler(
+				$wikibaseRepo->getStore()->newEntityPerPage(),
+				$wikibaseRepo->getStore()->getTermIndex(),
+				$wikibaseRepo->getEntityContentDataCodec(),
+				$wikibaseRepo->getEntityConstraintProvider(),
+				$wikibaseRepo->getValidatorErrorLocalizer(),
+				$wikibaseRepo->getEntityIdParser(),
+				$wikibaseRepo->getEntityIdLookup(),
+				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory()
+			);
 		},
 		'entity-id-pattern' => LexemeId::PATTERN,
 		'entity-id-builder' => function( $serialization ) {
