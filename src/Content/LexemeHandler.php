@@ -2,14 +2,22 @@
 
 namespace Wikibase\Lexeme\Content;
 
+use IContextSource;
+use Page;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\EditEntityAction;
+use Wikibase\HistoryEntityAction;
+use Wikibase\ViewEntityAction;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Store\EntityPerPage;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Store\EntityIdLookup;
+use Wikibase\SubmitEntityAction;
 use Wikibase\TermIndex;
 
 class LexemeHandler extends EntityHandler {
@@ -59,20 +67,51 @@ class LexemeHandler extends EntityHandler {
 		$this->labelLookupFactory = $labelLookupFactory;
 	}
 
+	/**
+	 * @see ContentHandler::getActionOverrides
+	 *
+	 * @return array
+	 */
+	public function getActionOverrides() {
+		return [
+			'history' => function( Page $page, IContextSource $context = null ) {
+				return new HistoryEntityAction(
+					$page,
+					$context,
+					$this->entityIdLookup,
+					$this->labelLookupFactory->newLabelDescriptionLookup( $context->getLanguage() )
+				);
+			},
+			'view' => ViewEntityAction::class,
+			'edit' => EditEntityAction::class,
+			'submit' => SubmitEntityAction::class,
+		];
+	}
+	/**
+	 * @return string
+	 */
 	protected function getContentClass() {
-		// TODO: Implement getContentClass() method.
+		return LexemeContent::class;
 	}
-
+	/**
+	 * @return Lexeme
+	 */
 	public function makeEmptyEntity() {
-		// TODO: Implement makeEmptyEntity() method.
+		return new Lexeme();
 	}
-
+	/**
+	 * @param string $id
+	 *
+	 * @return LexemeId
+	 */
 	public function makeEntityId( $id ) {
-		// TODO: Implement makeEntityId() method.
+		return new LexemeId( $id );
 	}
-
+	/**
+	 * @return string
+	 */
 	public function getEntityType() {
-		// TODO: Implement getEntityType() method.
+		return Lexeme::ENTITY_TYPE;
 	}
 
 	public function getSpecialPageForCreation() {
