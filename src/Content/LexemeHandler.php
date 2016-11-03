@@ -7,9 +7,9 @@ use Page;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
-use Wikibase\ViewEntityAction;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lexeme\Actions\ViewLexemeAction;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
@@ -86,7 +86,7 @@ class LexemeHandler extends EntityHandler {
 					$this->labelLookupFactory->newLabelDescriptionLookup( $context->getLanguage() )
 				);
 			},
-			'view' => ViewEntityAction::class,
+			'view' => ViewLexemeAction::class,
 			'edit' => EditEntityAction::class,
 			'submit' => SubmitEntityAction::class,
 		];

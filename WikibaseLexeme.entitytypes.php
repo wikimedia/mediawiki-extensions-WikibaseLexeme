@@ -11,6 +11,7 @@
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
+use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\SerializerFactory;
@@ -27,6 +28,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
+use Wikibase\View\Template\TemplateFactory;
 
 return [
 	'lexeme' => [
@@ -47,7 +49,20 @@ return [
 			EditSectionGenerator $editSectionGenerator,
 			EntityTermsView $entityTermsView
 		) {
-			return new LexemeView();
+			$viewFactory = WikibaseRepo::getDefaultInstance()->getViewFactory();
+
+			return new LexemeView(
+				TemplateFactory::getDefaultInstance(),
+				$entityTermsView,
+				$viewFactory->newStatementSectionsView(
+					$languageCode,
+					$labelDescriptionLookup,
+					$fallbackChain,
+					$editSectionGenerator
+				),
+				new MediaWikiLanguageDirectionalityLookup(),
+				$languageCode
+			);
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
 		'content-handler-factory-callback' => function() {

@@ -35,8 +35,69 @@
 			"i18n"
 		]
 	},
-	"ResourceModules": {},
-	"ResourceFileModulePaths": {},
+	"ResourceModules": {
+		"jquery.wikibase.lexemeview": {
+			"scripts": "jquery.wikibase.lexemeview.js",
+			"dependencies": [
+				"jquery.wikibase.entityview"
+			]
+		},
+		"wikibase.lexeme": {
+			"scripts": "__namespace.js",
+			"dependencies": "wikibase"
+		},
+		"wikibase.lexeme.lexemeview": {
+			"dependencies": [
+				"jquery.wikibase.lexemeview",
+				"wikibase.lexeme.getDeserializer",
+				"wikibase.lexeme.styles"
+			]
+		},
+		"wikibase.lexeme.datamodel.Lexeme": {
+			"scripts": [
+				"datamodel/__namespace.js",
+				"datamodel/Lexeme.js"
+			],
+			"dependencies": [
+				"util.inherit",
+				"wikibase.datamodel.Entity",
+				"wikibase.datamodel.Fingerprint",
+				"wikibase.datamodel.StatementGroupSet",
+				"wikibase.datamodel.TermMap",
+				"wikibase.lexeme"
+			]
+		},
+		"wikibase.lexeme.getDeserializer": {
+			"scripts": "getDeserializer.js",
+			"dependencies": [
+				"wikibase.lexeme.serialization.LexemeDeserializer"
+			]
+		},
+		"wikibase.lexeme.serialization.LexemeDeserializer": {
+			"scripts": [
+				"serialization/__namespace.js",
+				"serialization/LexemeDeserializer.js"
+			],
+			"dependencies": [
+				"util.inherit",
+				"wikibase.lexeme",
+				"wikibase.lexeme.datamodel.Lexeme",
+				"wikibase.serialization.Deserializer",
+				"wikibase.serialization.StatementGroupSetDeserializer",
+				"wikibase.serialization.TermMapDeserializer"
+			]
+		},
+		"wikibase.lexeme.styles": {
+			"position": "top",
+			"styles": [
+				"lexeme.css"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "WikibaseLexeme/resources"
+	},
 	"SpecialPages": {
 		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme"
         },

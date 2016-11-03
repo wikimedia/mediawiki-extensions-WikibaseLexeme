@@ -1,0 +1,1 @@
+wikibase.lexeme = wikibase.lexeme || {};
