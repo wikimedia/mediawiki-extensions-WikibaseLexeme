@@ -9,7 +9,6 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\FingerprintProvider;
-use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0+
@@ -84,14 +83,20 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	}
 
 	/**
-	 * @param EntityId $id
+	 * @param LexemeId|int $id
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function setId( $id ) {
-		Assert::parameterType( LexemeId::class, $id, '$id' );
-
-		$this->id = $id;
+		if ( $id instanceof LexemeId ) {
+			$this->id = $id;
+		} elseif ( is_int( $id ) ) {
+			$this->id = new LexemeId( 'L' . $id );
+		} else {
+			throw new InvalidArgumentException(
+				'$id must be an instance of LexemeId or an integer.'
+			);
+		}
 	}
 
 	/**

@@ -65,7 +65,6 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		return [
 			[ null ],
 			[ false ],
-			[ 1 ],
 			[ 1.0 ],
 			[ 'L1' ],
 			[ new ItemId( 'Q1' ) ],
