@@ -2,5 +2,9 @@
 	"@metadata": {
 		"authors": []
 	},
-	"wikibase-lexeme-desc": "Extension to handle lexeme entity type."
+	"wikibase-lexeme-desc": "Extension to handle lexeme entity type.",
+	"special-newlexeme": "Create a new lexeme",
+	"wikibase-newlexeme-fieldset": "Create a new lexeme",
+	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-lemma-edit-placeholder": "Enter the lemma"
 }

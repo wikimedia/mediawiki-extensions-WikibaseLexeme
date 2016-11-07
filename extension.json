@@ -16,6 +16,9 @@
 		"LexemeNamespace": 146,
 		"LexemeTalkNamespace": 147
 	},
+	"ExtensionMessagesFiles": {
+		"WikibaseLexemeAlias": "WikibaseLexeme.i18n.alias.php"
+	},
 	"Hooks": {
 		"WikibaseEntityNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityNamespaces"
@@ -34,5 +37,8 @@
 	},
 	"ResourceModules": {},
 	"ResourceFileModulePaths": {},
+	"SpecialPages": {
+		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme"
+        },
 	"manifest_version": 1
 }
