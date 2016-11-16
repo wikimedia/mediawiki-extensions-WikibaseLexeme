@@ -11,7 +11,6 @@ use Page;
 use PHPUnit_Framework_TestCase;
 use RequestContext;
 use Title;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lib\Store\EntityContentDataCodec;
