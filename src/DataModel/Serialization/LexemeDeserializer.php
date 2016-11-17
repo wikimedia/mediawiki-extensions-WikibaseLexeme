@@ -39,8 +39,10 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	public function deserialize( $serialization ) {
 		$this->assertCanDeserialize( $serialization );
 
+		// TODO: Add lemma deserializer
 		return new Lexeme(
 			$this->deserializeId( $serialization ),
+			null,
 			$this->deserializeStatements( $serialization )
 		);
 	}

@@ -27,11 +27,13 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	public function testConstructor() {
 		$id = new LexemeId( 'L1' );
 		$statements = new StatementList();
+		$lemma = new Term( 'fa', 'Karaj' );
 
-		$lexeme = new Lexeme( $id, $statements );
+		$lexeme = new Lexeme( $id, $lemma, $statements );
 
 		$this->assertSame( $id, $lexeme->getId() );
 		$this->assertSame( $statements, $lexeme->getStatements() );
+		$this->assertSame( $lemma, $lexeme->getLemma() );
 	}
 
 	public function testEmptyConstructor() {
@@ -39,6 +41,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertNull( $lexeme->getId() );
 		$this->assertEquals( new StatementList(), $lexeme->getStatements() );
+		$this->assertNull( $lexeme->getLemma() );
 	}
 
 	public function testGetEntityType() {
@@ -184,7 +187,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCopyWithContentEquals() {
-		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), new Term( 'de', 'Cologne' ) );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$this->assertEquals( $lexeme, $lexeme->copy() );
@@ -194,7 +197,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$id = new LexemeId( 'L1' );
 		$statements = new StatementList();
 
-		$lexeme = new Lexeme( $id, $statements );
+		$lexeme = new Lexeme( $id, null, $statements );
 		$copy = $lexeme->copy();
 
 		$this->assertSame( $id, $copy->getId() );
@@ -233,4 +236,13 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame( $fingerprint, $lexeme->getFingerprint() );
 	}
 
+	public function testSetLemma() {
+		$id = new LexemeId( 'L1' );
+		$lemma = new Term( 'fa', 'Karaj' );
+
+		$lexeme = new Lexeme( $id );
+		$lexeme->setLemma( $lemma );
+
+		$this->assertSame( $lemma, $lexeme->getLemma() );
+	}
 }
