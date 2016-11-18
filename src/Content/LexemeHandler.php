@@ -20,6 +20,10 @@ use Wikibase\Store\EntityIdLookup;
 use Wikibase\SubmitEntityAction;
 use Wikibase\TermIndex;
 
+/**
+ * @license GPL-2.0+
+ * @author Amir Sarabadani <ladsgroup@gmail.com>
+ */
 class LexemeHandler extends EntityHandler {
 
 	/**

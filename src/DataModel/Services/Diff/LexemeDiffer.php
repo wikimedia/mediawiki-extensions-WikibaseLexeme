@@ -45,6 +45,8 @@ class LexemeDiffer implements EntityDifferStrategy {
 		Assert::parameterType( Lexeme::class, $from, '$from' );
 		Assert::parameterType( Lexeme::class, $to, '$to' );
 
+		/** @var Lexeme $from */
+		/** @var Lexeme $to */
 		return $this->diffLexemes( $from, $to );
 	}
 

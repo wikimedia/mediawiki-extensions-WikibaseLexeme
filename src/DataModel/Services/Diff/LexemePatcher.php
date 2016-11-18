@@ -48,9 +48,9 @@ class LexemePatcher implements EntityPatcherStrategy {
 	 * @throws InvalidArgumentException
 	 */
 	public function patchEntity( EntityDocument $entity, EntityDiff $patch ) {
-
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
+		/** @var Lexeme $entity */
 		$this->statementListPatcher->patchStatementList(
 			$entity->getStatements(),
 			$patch->getClaimsDiff()

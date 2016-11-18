@@ -41,7 +41,6 @@ class LexemeHandlerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	private function newLexemeHandler() {
-
 		$labelLookupFactory = $this->getMockWithoutConstructor(
 			LanguageFallbackLabelDescriptionLookupFactory::class
 		);
