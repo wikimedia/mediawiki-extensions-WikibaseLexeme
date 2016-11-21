@@ -11,13 +11,15 @@ use Wikibase\DataModel\Term\DescriptionsProvider;
 use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\FingerprintProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
+use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Providers\LemmaProvider;
 
 /**
  * @license GPL-2.0+
  */
 class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvider,
-		LabelsProvider, DescriptionsProvider {
+		LabelsProvider, DescriptionsProvider, LemmaProvider {
 
 	const ENTITY_TYPE = 'lexeme';
 
@@ -37,11 +39,18 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	private $fingerprint;
 
 	/**
+	 * @var Term
+	 */
+	private $lemma;
+
+	/**
 	 * @param LexemeId|null $id
+	 * @param Term|null $lemma
 	 * @param StatementList|null $statements
 	 */
 	public function __construct(
 		LexemeId $id = null,
+		Term $lemma = null,
 		StatementList $statements = null
 	) {
 		// TODO: add lemma, language and lexical category
@@ -49,6 +58,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 		$this->statements = $statements ?: new StatementList();
 		// TODO: Remove this once Wikibase can work without fingerprint
 		$this->fingerprint = new Fingerprint();
+		$this->lemma = $lemma;
 	}
 
 	/**
@@ -161,5 +171,19 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	public function __clone() {
 		// TODO: should also clone other attributes once implemented
 		$this->statements = unserialize( serialize( $this->statements ) );
+	}
+
+	/**
+	 * @return Term
+	 */
+	public function getLemma() {
+		return $this->lemma;
+	}
+
+	/**
+	 * @param Term $lemma
+	 */
+	public function setLemma( Term $lemma ) {
+		$this->lemma = $lemma;
 	}
 }
