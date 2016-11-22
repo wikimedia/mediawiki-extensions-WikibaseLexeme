@@ -5,7 +5,7 @@
 		"The Wikidata team"
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:WikibaseLexeme",
-	"descriptionmsg": "wikibase-lexeme-desc",
+	"descriptionmsg": "wikibaselexeme-desc",
 	"license-name": "GPL-2.0+",
 	"type": "Wikibase",
 	"load_composer_autoloader": true,

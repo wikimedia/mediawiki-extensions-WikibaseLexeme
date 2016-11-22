@@ -2,7 +2,7 @@
 	"@metadata": {
 		"authors": []
 	},
-	"wikibase-lexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
+	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
 	"special-newlexeme": "Title of Special:NewLexeme",
 	"wikibase-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
 	"wikibase-newentity-lemma": "Name for \"Lemma\"",
