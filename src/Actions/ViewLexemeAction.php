@@ -12,7 +12,7 @@ use Wikibase\ViewEntityAction;
  */
 class ViewLexemeAction extends ViewEntityAction {
 
-	function show() {
+	public function show() {
 		parent::show();
 		$this->getOutput()->addJsConfigVars( 'wbUserSpecifiedLanguages', [] );
 		$this->getOutput()->addModules( 'wikibase.lexeme.lexemeview' );

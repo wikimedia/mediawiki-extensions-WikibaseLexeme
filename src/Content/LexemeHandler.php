@@ -91,18 +91,21 @@ class LexemeHandler extends EntityHandler {
 			'submit' => SubmitEntityAction::class,
 		];
 	}
+
 	/**
 	 * @return string
 	 */
 	protected function getContentClass() {
 		return LexemeContent::class;
 	}
+
 	/**
 	 * @return Lexeme
 	 */
 	public function makeEmptyEntity() {
 		return new Lexeme();
 	}
+
 	/**
 	 * @param string $id
 	 *
@@ -111,6 +114,7 @@ class LexemeHandler extends EntityHandler {
 	public function makeEntityId( $id ) {
 		return new LexemeId( $id );
 	}
+
 	/**
 	 * @return string
 	 */

@@ -16,6 +16,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
  * @license GPL-2.0+
  */
 class LexemeDifferTest extends PHPUnit_Framework_TestCase {
+
 	public function testGivenTwoEmptyLexemes_emptyLexemeDiffIsReturned() {
 		$differ = new LexemeDiffer();
 

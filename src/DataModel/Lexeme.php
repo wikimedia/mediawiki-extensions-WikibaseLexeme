@@ -186,4 +186,5 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	public function setLemma( Term $lemma ) {
 		$this->lemma = $lemma;
 	}
+
 }

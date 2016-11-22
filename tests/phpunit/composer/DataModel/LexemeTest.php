@@ -245,4 +245,5 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertSame( $lemma, $lexeme->getLemma() );
 	}
+
 }

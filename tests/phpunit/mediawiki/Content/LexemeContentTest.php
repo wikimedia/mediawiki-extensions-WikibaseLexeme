@@ -74,4 +74,5 @@ class LexemeContentTest extends PHPUnit_Framework_TestCase {
 
 		return $noStubs;
 	}
+
 }
