@@ -4,10 +4,12 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use PHPUnit_Framework_TestCase;
 use Serializers\Exceptions\SerializationException;
-use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
+use Wikibase\DataModel\Serializers\StatementListSerializer;
+use Wikibase\DataModel\Serializers\TermSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
@@ -23,14 +25,29 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
 class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	private function newSerializer() {
-		$statementListSerializer = $this->getMock( Serializer::class );
+		$statementListSerializer = $this->getMockBuilder( StatementListSerializer::class )
+			->disableOriginalConstructor()
+			->getMock();
 		$statementListSerializer->expects( $this->any() )
 			->method( 'serialize' )
 			->will( $this->returnCallback( function( StatementList $statementList ) {
 				return implode( '|', $statementList->getPropertyIds() );
 			} ) );
 
-		return new LexemeSerializer( $statementListSerializer );
+		$termSerializer = $this->getMockBuilder( TermSerializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$termSerializer->expects( $this->any() )
+			->method( 'serialize' )
+			->will( $this->returnCallback( function( Term $term ) {
+				$serialized = [
+					'language' => $term->getLanguageCode(),
+					'value' => $term->getText(),
+				];
+				return $serialized;
+			} ) );
+
+		return new LexemeSerializer( $termSerializer, $statementListSerializer );
 	}
 
 	public function provideObjectSerializations() {

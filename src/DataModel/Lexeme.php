@@ -136,7 +136,8 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 */
 	public function isEmpty() {
 		// TODO: should also check other attributes once implemented
-		return $this->statements->isEmpty();
+		return is_null( $this->lemma )
+			&& $this->statements->isEmpty();
 	}
 
 	/**
@@ -152,7 +153,15 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 			return true;
 		}
 
-		return $target instanceof self
+		if ( !( $target instanceof self ) ) {
+			return false;
+		}
+
+		$sameLemma = ( $this->lemma === $target->getLemma() || (
+			$this->lemma !== null
+			&& $this->lemma->equals( $target->getLemma() ) )
+		);
+		return $sameLemma
 			&& $this->statements->equals( $target->statements );
 	}
 

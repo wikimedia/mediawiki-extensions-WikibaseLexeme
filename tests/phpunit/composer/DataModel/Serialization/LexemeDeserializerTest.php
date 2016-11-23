@@ -2,11 +2,13 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
-use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
 use PHPUnit_Framework_TestCase;
+use Wikibase\DataModel\Deserializers\StatementListDeserializer;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
@@ -22,7 +24,9 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 
 	private function newDeserializer() {
-		$statementListDeserializer = $this->getMock( Deserializer::class );
+		$statementListDeserializer = $this->getMockBuilder( StatementListDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
 		$statementListDeserializer->expects( $this->any() )
 			->method( 'deserialize' )
 			->will( $this->returnCallback( function( array $serialization ) {
@@ -35,7 +39,19 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				return $statementList;
 			} ) );
 
-		return new LexemeDeserializer( $statementListDeserializer );
+		$termDeserializer = $this->getMockBuilder( TermDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$termDeserializer->expects( $this->any() )
+			->method( 'deserialize' )
+			->will( $this->returnCallback( function( array $serialization ) {
+				return new Term(
+					$serialization['language'],
+					$serialization['value']
+				);
+			} ) );
+
+		return new LexemeDeserializer( $termDeserializer, $statementListDeserializer );
 	}
 
 	public function provideObjectSerializations() {
@@ -49,7 +65,6 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$serializations['empty lists'] = [
 			[
 				'type' => 'lexeme',
-				'descriptions' => [],
 				'claims' => []
 			],
 			new Lexeme()
@@ -91,6 +106,18 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				'type' => 'lexeme',
 				'id' => 'L2',
 				'claims' => [ 42 ]
+			],
+			$lexeme
+		];
+
+		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
+		$lexeme->setLemma( new Term( 'el', 'Hey' ) );
+
+		$serializations['with content and lemma'] = [
+			[
+				'type' => 'lexeme',
+				'id' => 'L2',
+				'lemma' => [ 'language' => 'el', 'value' => 'Hey' ],
 			],
 			$lexeme
 		];
