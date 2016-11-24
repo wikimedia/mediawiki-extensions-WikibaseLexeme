@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Derugon"
+		]
+	},
+	"wikibaselexeme-desc": "Manipuler le type d'entité lexème",
+	"special-newlexeme": "Créer un nouveau lexème",
+	"wikibase-newlexeme-fieldset": "Créer un nouveau lexème",
+	"wikibase-newentity-lemma": "Lemme",
+	"wikibase-lemma-edit-placeholder": "Entrez le lemme"
+}

@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Metalhead64"
+		]
+	},
+	"wikibaselexeme-desc": "Bietet eine Unterstützung für den Objekttyp „Lexeme“",
+	"special-newlexeme": "Ein neues Lexeme erstellen",
+	"wikibase-newlexeme-fieldset": "Ein neues Lexeme erstellen",
+	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-lemma-edit-placeholder": "Das Lemma eingeben"
+}
