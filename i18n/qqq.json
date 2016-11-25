@@ -1,8 +1,12 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": [
+			"Liuxinyu970226"
+		]
+	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
 	"special-newlexeme": "Title of Special:NewLexeme",
 	"wikibase-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
-	"wikibase-newentity-lemma": "Name for \"Lemma\"",
+	"wikibase-newentity-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
 	"wikibase-lemma-edit-placeholder": "Placeholder content for lemma"
 }

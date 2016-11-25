@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Xuacu"
+		]
+	},
+	"wikibaselexeme-desc": "Alministrar el tipu d'entidá lexema",
+	"special-newlexeme": "Crear un nuevu lexema",
+	"wikibase-newlexeme-fieldset": "Crear un nuevu lexema",
+	"wikibase-newentity-lemma": "Llema",
+	"wikibase-lemma-edit-placeholder": "Escribe'l llema"
+}

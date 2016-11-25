@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"wikibaselexeme-desc": "Gestisce tipi di entità lessema",
+	"special-newlexeme": "Crea un nuovo lessema",
+	"wikibase-newlexeme-fieldset": "Crea un nuovo lessema",
+	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-lemma-edit-placeholder": "Inserisci il lemma"
+}

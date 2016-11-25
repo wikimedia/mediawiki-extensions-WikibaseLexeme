@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Elisardojm"
+			"Elisardojm",
+			"Banjo"
 		]
 	},
+	"special-newlexeme": "Crear un novo lexema",
+	"wikibase-newlexeme-fieldset": "Crear un novo lexema",
 	"wikibase-newentity-lemma": "Lema",
 	"wikibase-lemma-edit-placeholder": "Indique o lema"
 }

@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Hamilton Abreu"
+		]
+	},
+	"wikibaselexeme-desc": "Tratar o tipo de entidade lexema",
+	"special-newlexeme": "Criar um lexema novo",
+	"wikibase-newlexeme-fieldset": "Criar um lexema novo",
+	"wikibase-newentity-lemma": "Lema",
+	"wikibase-lemma-edit-placeholder": "Introduza o lema"
+}

@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bjankuloski06"
+		]
+	},
+	"wikibaselexeme-desc": "Работа со видот единица „лексема“",
+	"special-newlexeme": "Создај нова лексема",
+	"wikibase-newlexeme-fieldset": "Создај нова лексема",
+	"wikibase-newentity-lemma": "Лема",
+	"wikibase-lemma-edit-placeholder": "Внесете ја лемата"
+}
