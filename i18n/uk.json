@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piramidion"
+		]
+	},
+	"wikibaselexeme-desc": "Управляти типом сутності лексеми",
+	"special-newlexeme": "Створити нову лексему",
+	"wikibase-newlexeme-fieldset": "Створити нову лексему",
+	"wikibase-newentity-lemma": "Лемма",
+	"wikibase-lemma-edit-placeholder": "Введіть лемму"
+}
