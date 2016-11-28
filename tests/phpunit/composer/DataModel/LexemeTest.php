@@ -103,6 +103,19 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $lexeme->isEmpty() );
 	}
 
+	public function testIsNotEmptyWithLemma() {
+		$lexeme = new Lexeme( new LexemeId( 'l1' ), new Term( 'zh', 'Beijing' ) );
+
+		$this->assertFalse( $lexeme->isEmpty() );
+	}
+
+	public function testIsNotEmptyWithLemmaAndStatement() {
+		$lexeme = new Lexeme( new LexemeId( 'l1' ), new Term( 'zh', 'Beijing' ) );
+		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
+
+		$this->assertFalse( $lexeme->isEmpty() );
+	}
+
 	public function equalLexemesProvider() {
 		$empty = new Lexeme();
 
@@ -144,6 +157,12 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $a->equals( $b ) );
 	}
 
+	public function testEqualLemma() {
+		$lexeme = new Lexeme();
+		$lexeme->setLemma( new Term( 'es', 'Barcelona' ) );
+		$this->assertFalse( $lexeme->getLemma()->equals( null ) );
+	}
+
 	public function differentLexemesProvider() {
 		$withStatement1 = new Lexeme();
 		$withStatement1->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
@@ -164,6 +183,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 				$withStatement1,
 				$withStatement2
 			],
+		    'different lemmata' => [
+				new Lexeme( new LexemeId( 'l1' ), new Term( 'fa', 'Shiraz' ) ),
+				new Lexeme( new LexemeId( 'l1' ), new Term( 'fa', 'Tehran' ) ),
+		    ]
 		];
 	}
 
