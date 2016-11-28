@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
+use Diff\Differ\MapDiffer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
@@ -20,7 +21,16 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	private $statementListDiffer;
 
+	/**
+	 * @var MapDiffer
+	 */
+	private $recursiveMapDiffer;
+
+	/**
+	 * LexemeDiffer constructor.
+	 */
 	public function __construct() {
+		$this->recursiveMapDiffer = new MapDiffer( true );
 		$this->statementListDiffer = new StatementListDiffer();
 	}
 
@@ -57,12 +67,36 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 * @return EntityDiff
 	 */
 	public function diffLexemes( Lexeme $from, Lexeme $to ) {
-		return new EntityDiff( [
-			'claim' => $this->statementListDiffer->getDiff(
-				$from->getStatements(),
-				$to->getStatements()
-			),
-		] );
+		$diffOps = $this->recursiveMapDiffer->doDiff(
+			$this->toDiffArray( $from ),
+			$this->toDiffArray( $to )
+		);
+
+		$diffOps['claim'] = $this->statementListDiffer->getDiff(
+			$from->getStatements(),
+			$to->getStatements()
+		);
+
+		return new LexemeDiff( $diffOps );
+	}
+
+	/**
+	 * @param Lexeme $lexeme
+	 *
+	 * @return string[]
+	 */
+	private function toDiffArray( Lexeme $lexeme ) {
+		$array = [];
+		$lemma = $lexeme->getLemma();
+
+		if ( !is_null( $lemma ) ) {
+			$array['lemma'] = [
+				'language' => $lemma->getLanguageCode(),
+				'value' => $lemma->getText()
+			];
+		}
+
+		return $array;
 	}
 
 	/**
