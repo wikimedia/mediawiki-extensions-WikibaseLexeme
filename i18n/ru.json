@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kareyac"
+		]
+	},
+	"special-newlexeme": "Создать новую лексему",
+	"wikibase-newlexeme-fieldset": "Создать новую лексему",
+	"wikibase-newentity-lemma": "Лемма",
+	"wikibase-lemma-edit-placeholder": "Введите лемму"
+}
