@@ -5,9 +5,9 @@ namespace Wikibase\Lexeme\DataModel\Serialization;
 use Deserializers\Exceptions\DeserializationException;
 use Deserializers\TypedObjectDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
-use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Deserializers\TermListDeserializer;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
@@ -18,9 +18,9 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 class LexemeDeserializer extends TypedObjectDeserializer {
 
 	/**
-	 * @var TermDeserializer
+	 * @var TermListDeserializer
 	 */
-	private $termDeserializer;
+	private $termListDeserializer;
 
 	/**
 	 * @var StatementListDeserializer
@@ -28,15 +28,15 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	private $statementListDeserializer;
 
 	/**
-	 * @param TermDeserializer $termDeserializer
+	 * @param TermListDeserializer $termListDeserializer
 	 * @param StatementListDeserializer $statementListDeserializer
 	 */
 	public function __construct(
-		TermDeserializer $termDeserializer,
+		TermListDeserializer $termListDeserializer,
 		StatementListDeserializer $statementListDeserializer
 	) {
 		parent::__construct( 'lexeme', 'type' );
-		$this->termDeserializer = $termDeserializer;
+		$this->termListDeserializer = $termListDeserializer;
 		$this->statementListDeserializer = $statementListDeserializer;
 	}
 
@@ -51,7 +51,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 
 		return new Lexeme(
 			$this->deserializeId( $serialization ),
-			$this->deserializeLemma( $serialization ),
+			$this->deserializeLemmata( $serialization ),
 			$this->deserializeStatements( $serialization )
 		);
 	}
@@ -85,11 +85,11 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	/**
 	 * @param array $serialization
 	 *
-	 * @return Term|null
+	 * @return TermList|null
 	 */
-	private function deserializeLemma( array $serialization ) {
-		if ( array_key_exists( 'lemma', $serialization ) ) {
-			return $this->termDeserializer->deserialize( $serialization['lemma'] );
+	private function deserializeLemmata( array $serialization ) {
+		if ( array_key_exists( 'lemmata', $serialization ) ) {
+			return $this->termListDeserializer->deserialize( $serialization['lemmata'] );
 		}
 
 		return null;

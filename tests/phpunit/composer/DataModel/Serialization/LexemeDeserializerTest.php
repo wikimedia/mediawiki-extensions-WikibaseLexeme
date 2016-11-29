@@ -5,10 +5,11 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 use Deserializers\Exceptions\DeserializationException;
 use PHPUnit_Framework_TestCase;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
-use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Deserializers\TermListDeserializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
@@ -39,19 +40,20 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				return $statementList;
 			} ) );
 
-		$termDeserializer = $this->getMockBuilder( TermDeserializer::class )
+		$termListDeserializer = $this->getMockBuilder( TermListDeserializer::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$termDeserializer->expects( $this->any() )
+		$termListDeserializer->expects( $this->any() )
 			->method( 'deserialize' )
 			->will( $this->returnCallback( function( array $serialization ) {
-				return new Term(
-					$serialization['language'],
-					$serialization['value']
-				);
+				$terms = [];
+				foreach ( $serialization as $language => $value ) {
+					$terms[] = new Term( $language, $value );
+				}
+				return new TermList( $terms );
 			} ) );
 
-		return new LexemeDeserializer( $termDeserializer, $statementListDeserializer );
+		return new LexemeDeserializer( $termListDeserializer, $statementListDeserializer );
 	}
 
 	public function provideObjectSerializations() {
@@ -111,13 +113,13 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
-		$lexeme->setLemma( new Term( 'el', 'Hey' ) );
+		$lexeme->setLemmata( new TermList( [ new Term( 'el', 'Hey' ) ] ) );
 
-		$serializations['with content and lemma'] = [
+		$serializations['with content and lemmata'] = [
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
-				'lemma' => [ 'language' => 'el', 'value' => 'Hey' ],
+				'lemmata' => [ 'el'  => 'Hey' ],
 			],
 			$lexeme
 		];

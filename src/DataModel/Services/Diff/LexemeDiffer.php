@@ -87,13 +87,10 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	private function toDiffArray( Lexeme $lexeme ) {
 		$array = [];
-		$lemma = $lexeme->getLemma();
+		$lemmata = $lexeme->getLemmata();
 
-		if ( !is_null( $lemma ) ) {
-			$array['lemma'] = [
-				'language' => $lemma->getLanguageCode(),
-				'value' => $lemma->getText()
-			];
+		if ( !is_null( $lemmata ) ) {
+			$array['lemmata'] = $lemmata->toTextArray();
 		}
 
 		return $array;

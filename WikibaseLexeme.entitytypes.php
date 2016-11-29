@@ -34,13 +34,13 @@ return [
 	'lexeme' => [
 		'serializer-factory-callback' => function( SerializerFactory $serializerFactory ) {
 			return new LexemeSerializer(
-				$serializerFactory->newTermSerializer(),
+				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
 		'deserializer-factory-callback' => function( DeserializerFactory $deserializerFactory ) {
 			return new LexemeDeserializer(
-				$deserializerFactory->newTermDeserializer(),
+				$deserializerFactory->newTermListDeserializer(),
 				$deserializerFactory->newStatementListDeserializer()
 			);
 		},

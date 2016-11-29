@@ -11,15 +11,14 @@ use Wikibase\DataModel\Term\DescriptionsProvider;
 use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\FingerprintProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
-use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Providers\LemmaProvider;
+use Wikibase\Lexeme\DataModel\Providers\LemmataProvider;
 
 /**
  * @license GPL-2.0+
  */
 class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvider,
-		LabelsProvider, DescriptionsProvider, LemmaProvider {
+		LabelsProvider, DescriptionsProvider, LemmataProvider {
 
 	const ENTITY_TYPE = 'lexeme';
 
@@ -39,26 +38,26 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	private $fingerprint;
 
 	/**
-	 * @var Term
+	 * @var TermList|null
 	 */
-	private $lemma;
+	private $lemmata;
 
 	/**
 	 * @param LexemeId|null $id
-	 * @param Term|null $lemma
+	 * @param TermList|null $lemmata
 	 * @param StatementList|null $statements
 	 */
 	public function __construct(
 		LexemeId $id = null,
-		Term $lemma = null,
+		TermList $lemmata = null,
 		StatementList $statements = null
 	) {
 		// TODO: add lemma, language and lexical category
 		$this->id = $id;
+		$this->lemmata = $lemmata;
 		$this->statements = $statements ?: new StatementList();
 		// TODO: Remove this once Wikibase can work without fingerprint
 		$this->fingerprint = new Fingerprint();
-		$this->lemma = $lemma;
 	}
 
 	/**
@@ -136,7 +135,8 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 */
 	public function isEmpty() {
 		// TODO: should also check other attributes once implemented
-		return is_null( $this->lemma )
+		return ( is_null( $this->lemmata )
+			|| $this->lemmata->isEmpty() )
 			&& $this->statements->isEmpty();
 	}
 
@@ -157,11 +157,11 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 			return false;
 		}
 
-		$sameLemma = ( $this->lemma === $target->getLemma() || (
-			$this->lemma !== null
-			&& $this->lemma->equals( $target->getLemma() ) )
+		$sameLemmata = ( $this->lemmata === $target->getLemmata() || (
+			$this->lemmata !== null
+			&& $this->lemmata->equals( $target->getLemmata() ) )
 		);
-		return $sameLemma
+		return $sameLemmata
 			&& $this->statements->equals( $target->statements );
 	}
 
@@ -183,17 +183,17 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	}
 
 	/**
-	 * @return Term
+	 * @return TermList
 	 */
-	public function getLemma() {
-		return $this->lemma;
+	public function getLemmata() {
+		return $this->lemmata;
 	}
 
 	/**
-	 * @param Term $lemma
+	 * @param TermList $lemmata
 	 */
-	public function setLemma( Term $lemma ) {
-		$this->lemma = $lemma;
+	public function setLemmata( TermList $lemmata ) {
+		$this->lemmata = $lemmata;
 	}
 
 }

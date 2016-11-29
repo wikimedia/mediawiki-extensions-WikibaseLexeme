@@ -6,7 +6,7 @@ use Serializers\DispatchableSerializer;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
 use Wikibase\DataModel\Serializers\StatementListSerializer;
-use Wikibase\DataModel\Serializers\TermSerializer;
+use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
 
 /**
@@ -16,9 +16,9 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 class LexemeSerializer implements DispatchableSerializer {
 
 	/**
-	 * @var TermSerializer
+	 * @var TermListSerializer
 	 */
-	private $termSerializer;
+	private $termListSerializer;
 
 	/**
 	 * @var StatementListSerializer
@@ -26,14 +26,14 @@ class LexemeSerializer implements DispatchableSerializer {
 	private $statementListSerializer;
 
 	/**
-	 * @param TermSerializer $termSerializer
+	 * @param TermListSerializer $termListSerializer
 	 * @param StatementListSerializer $statementListSerializer
 	 */
 	public function __construct(
-		TermSerializer $termSerializer,
+		TermListSerializer $termListSerializer,
 		StatementListSerializer $statementListSerializer
 	) {
-		$this->termSerializer = $termSerializer;
+		$this->termListSerializer = $termListSerializer;
 		$this->statementListSerializer = $statementListSerializer;
 	}
 
@@ -80,9 +80,9 @@ class LexemeSerializer implements DispatchableSerializer {
 			$serialization['id'] = $id->getSerialization();
 		}
 
-		if ( $lexeme->getLemma() !== null ) {
-			$serialization['lemma'] = $this->termSerializer->serialize(
-				$lexeme->getLemma()
+		if ( $lexeme->getLemmata() !== null ) {
+			$serialization['lemmata'] = $this->termListSerializer->serialize(
+				$lexeme->getLemmata()
 			);
 		}
 

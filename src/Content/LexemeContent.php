@@ -74,7 +74,8 @@ class LexemeContent extends EntityContent {
 	public function isStub() {
 		return !$this->isRedirect()
 			&& !$this->getEntity()->isEmpty()
-			&& !$this->getEntity()->getLemma()
+			&& ( is_null( $this->getEntity()->getLemmata() )
+				|| !$this->getEntity()->getLemmata()->isEmpty() )
 			&& $this->getEntity()->getStatements()->isEmpty();
 	}
 
