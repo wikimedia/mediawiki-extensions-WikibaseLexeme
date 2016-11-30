@@ -11,6 +11,7 @@
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\DataModel\DeserializerFactory;
@@ -84,8 +85,12 @@ return [
 		'entity-id-builder' => function( $serialization ) {
 			return new LexemeId( $serialization );
 		},
-		'entity-id-composer' => function( $uniquePart ) {
-			return new LexemeId( 'L' . $uniquePart );
+		'entity-id-composer-callback' => function( $repositoryName, $uniquePart ) {
+			return new LexemeId( EntityId::joinSerialization( [
+				$repositoryName,
+				'',
+				'L' . $uniquePart
+			] ) );
 		},
 		'entity-differ-strategy-builder' => function() {
 			return new LexemeDiffer();
