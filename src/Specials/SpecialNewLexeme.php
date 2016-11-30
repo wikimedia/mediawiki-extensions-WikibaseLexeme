@@ -8,7 +8,8 @@ use InvalidArgumentException;
 use Status;
 use Wikibase\CopyrightMessageBuilder;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Term\FingerprintProvider;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\WikibaseRepo;
@@ -16,6 +17,7 @@ use Wikibase\Repo\Specials\SpecialWikibaseRepoPage;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Summary;
 use Wikibase\View\LanguageDirectionalityLookup;
+use Wikimedia\Assert\Assert;
 
 /**
  * Page for creating new Lexeme entities that contain a Fingerprint.
@@ -191,11 +193,9 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	 * @return Status
 	 */
 	protected function modifyEntity( EntityDocument &$entity ) {
-		if ( !( $entity instanceof FingerprintProvider ) ) {
-			throw new InvalidArgumentException( '$entity must be a FingerprintProvider' );
-		}
+		/** @var Lexeme $entity */
+		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		$fingerprint = $entity->getFingerprint();
 		$status = Status::newGood();
 
 		$languageCode = $this->contentLanguageCode;
@@ -204,7 +204,8 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 			return $status;
 		}
 
-		$fingerprint->setLabel( $languageCode, $this->lemma );
+		$lemmata = new TermList( [ new Term( $languageCode, $this->lemma ) ] );
+		$entity->setLemmata( $lemmata );
 
 		return $status;
 	}

@@ -122,8 +122,11 @@ class LexemeHandler extends EntityHandler {
 		return Lexeme::ENTITY_TYPE;
 	}
 
+	/**
+	 * @return string
+	 */
 	public function getSpecialPageForCreation() {
-		// TODO: Implement getSpecialPageForCreation() method.
+		return 'NewLexeme';
 	}
 
 }

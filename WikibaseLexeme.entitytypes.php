@@ -12,10 +12,12 @@
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
+use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
@@ -52,6 +54,11 @@ return [
 			EntityTermsView $entityTermsView
 		) {
 			$viewFactory = WikibaseRepo::getDefaultInstance()->getViewFactory();
+			$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
+			$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
+				$languageDirectionalityLookup,
+				new LanguageNameLookup( $languageCode )
+			);
 
 			return new LexemeView(
 				TemplateFactory::getDefaultInstance(),
@@ -62,7 +69,8 @@ return [
 					$fallbackChain,
 					$editSectionGenerator
 				),
-				new MediaWikiLanguageDirectionalityLookup(),
+				$languageDirectionalityLookup,
+				$htmlTermRenderer,
 				$languageCode
 			);
 		},
