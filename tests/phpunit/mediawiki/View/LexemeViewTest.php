@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use InvalidArgumentException;
-use MediaWiki\Linker\LinkRenderer;
 use PHPUnit_Framework_TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -13,11 +12,14 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\LexemeView;
+use Wikibase\Lib\LanguageNameLookup;
+use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
 use Wikibase\View\Template\TemplateFactory;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers Wikibase\Lexeme\View\LexemeView
@@ -73,18 +75,19 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			$statementSectionsView = $this->newStatementSectionsViewMock();
 		}
 
-		/** @var LinkRenderer $linkRenderer */
-		$linkRenderer = $this->getMockBuilder( LinkRenderer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$languageDirectionalityLookup = $this->newLanguageDirectionalityLookupMock();
+		$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
+			$languageDirectionalityLookup,
+			new LanguageNameLookup( $contentLanguageCode )
+		);
 
 		return new LexemeView(
 			$templateFactory,
 			$entityTermsView,
 			$statementSectionsView,
-			$this->newLanguageDirectionalityLookupMock(),
-			$contentLanguageCode,
-			$linkRenderer
+			$languageDirectionalityLookup,
+			$htmlTermRenderer,
+			$contentLanguageCode
 		);
 	}
 
@@ -190,8 +193,8 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 		/** @var EntityDocument $entity */
 		$entity = $this->getMock( EntityDocument::class );
-		$html = $view->getTitleHtml( $entity );
-		$this->assertSame( $html, '' );
+		$this->setExpectedException( ParameterTypeException::class );
+		$view->getTitleHtml( $entity );
 	}
 
 }

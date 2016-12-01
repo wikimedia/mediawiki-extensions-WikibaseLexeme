@@ -12,6 +12,7 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 
 /**
@@ -29,7 +30,7 @@ class LexemePatcherTest extends PHPUnit_Framework_TestCase {
 
 		$patched = $lexeme->copy();
 		$patcher = new LexemePatcher();
-		$patcher->patchEntity( $patched, new EntityDiff() );
+		$patcher->patchEntity( $patched, new LexemeDiff() );
 
 		$this->assertInstanceOf( Lexeme::class, $patched );
 		$this->assertTrue( $lexeme->equals( $patched ) );
@@ -47,7 +48,7 @@ class LexemePatcherTest extends PHPUnit_Framework_TestCase {
 		$patcher = new LexemePatcher();
 
 		$this->setExpectedException( InvalidArgumentException::class );
-		$patcher->patchEntity( new Item(), new EntityDiff() );
+		$patcher->patchEntity( new Item(), new LexemeDiff() );
 	}
 
 	public function testStatementsArePatched() {
@@ -57,7 +58,7 @@ class LexemePatcherTest extends PHPUnit_Framework_TestCase {
 		$lexeme = new Lexeme();
 		$lexeme->getStatements()->addStatement( $removedStatement );
 
-		$patch = new EntityDiff( [
+		$patch = new LexemeDiff( [
 			'claim' => new Diff( [
 				's1' => new DiffOpRemove( $removedStatement ),
 				's2' => new DiffOpAdd( $addedStatement ),
