@@ -204,8 +204,8 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 			return $status;
 		}
 
-		$lemmata = new TermList( [ new Term( $languageCode, $this->lemma ) ] );
-		$entity->setLemmata( $lemmata );
+		$lemmas = new TermList( [ new Term( $languageCode, $this->lemma ) ] );
+		$entity->setLemmas( $lemmas );
 
 		return $status;
 	}

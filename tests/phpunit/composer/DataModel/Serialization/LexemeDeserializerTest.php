@@ -113,13 +113,13 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
-		$lexeme->setLemmata( new TermList( [ new Term( 'el', 'Hey' ) ] ) );
+		$lexeme->setLemmas( new TermList( [ new Term( 'el', 'Hey' ) ] ) );
 
-		$serializations['with content and lemmata'] = [
+		$serializations['with content and lemmas'] = [
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
-				'lemmata' => [ 'el'  => 'Hey' ],
+				'lemmas' => [ 'el'  => 'Hey' ],
 			],
 			$lexeme
 		];

@@ -121,7 +121,7 @@ class LexemeView extends EntityView {
 				$this->getLocalizedMessage( 'parentheses', [ $id ] )
 			);
 
-			$label = $this->getMainTerm( $entity->getLemmata() );
+			$label = $this->getMainTerm( $entity->getLemmas() );
 			if ( $label !== null ) {
 				$labelHtml = $this->htmlTermRenderer->renderTerm( $label );
 				$isEmpty = false;
@@ -143,17 +143,17 @@ class LexemeView extends EntityView {
 	}
 
 	/**
-	 * @param TermList|null $lemmata
+	 * @param TermList|null $lemmas
 	 * @return Term|null
 	 */
-	private function getMainTerm( $lemmata ) {
+	private function getMainTerm( $lemmas ) {
 
-		if ( is_null( $lemmata ) || $lemmata->isEmpty() ) {
+		if ( is_null( $lemmas ) || $lemmas->isEmpty() ) {
 			return null;
 		}
 
 		// Return the first term, until we build a proper UI
-		foreach ( $lemmata->getIterator() as $term ) {
+		foreach ( $lemmas->getIterator() as $term ) {
 			return $term;
 		}
 

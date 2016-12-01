@@ -53,10 +53,10 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 		/** @var Lexeme $entity */
 		/** @var LexemeDiff $patch */
-		$lemmata = !is_null( $entity->getLemmata() ) ? $entity->getLemmata() : new TermList();
+		$lemmas = !is_null( $entity->getLemmas() ) ? $entity->getLemmas() : new TermList();
 		$this->termListPatcher->patchTermList(
-			$lemmata,
-			$patch->getLemmataDiff()
+			$lemmas,
+			$patch->getLemmasDiff()
 		);
 
 		/** @var Lexeme $entity */

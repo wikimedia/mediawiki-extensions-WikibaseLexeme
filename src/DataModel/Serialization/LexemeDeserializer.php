@@ -51,7 +51,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 
 		return new Lexeme(
 			$this->deserializeId( $serialization ),
-			$this->deserializeLemmata( $serialization ),
+			$this->deserializeLemmas( $serialization ),
 			$this->deserializeStatements( $serialization )
 		);
 	}
@@ -87,9 +87,9 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	 *
 	 * @return TermList|null
 	 */
-	private function deserializeLemmata( array $serialization ) {
-		if ( array_key_exists( 'lemmata', $serialization ) ) {
-			return $this->termListDeserializer->deserialize( $serialization['lemmata'] );
+	private function deserializeLemmas( array $serialization ) {
+		if ( array_key_exists( 'lemmas', $serialization ) ) {
+			return $this->termListDeserializer->deserialize( $serialization['lemmas'] );
 		}
 
 		return null;

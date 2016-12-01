@@ -28,12 +28,12 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$id = new LexemeId( 'L1' );
 		$statements = new StatementList();
 		$lemma = new Term( 'fa', 'Karaj' );
-		$lemmata = new TermList( [ $lemma ] );
-		$lexeme = new Lexeme( $id, $lemmata, $statements );
+		$lemmas = new TermList( [ $lemma ] );
+		$lexeme = new Lexeme( $id, $lemmas, $statements );
 
 		$this->assertSame( $id, $lexeme->getId() );
 		$this->assertSame( $statements, $lexeme->getStatements() );
-		$this->assertSame( $lemmata, $lexeme->getLemmata() );
+		$this->assertSame( $lemmas, $lexeme->getLemmas() );
 	}
 
 	public function testEmptyConstructor() {
@@ -41,7 +41,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertNull( $lexeme->getId() );
 		$this->assertEquals( new StatementList(), $lexeme->getStatements() );
-		$this->assertNull( $lexeme->getLemmata() );
+		$this->assertNull( $lexeme->getLemmas() );
 	}
 
 	public function testGetEntityType() {
@@ -103,16 +103,16 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $lexeme->isEmpty() );
 	}
 
-	public function testIsNotEmptyWithLemmata() {
-		$lemmata = new TermList( [ new Term( 'zh', 'Beijing' ) ] );
-		$lexeme = new Lexeme( new LexemeId( 'l1' ), $lemmata );
+	public function testIsNotEmptyWithLemmas() {
+		$lemmas = new TermList( [ new Term( 'zh', 'Beijing' ) ] );
+		$lexeme = new Lexeme( new LexemeId( 'l1' ), $lemmas );
 
 		$this->assertFalse( $lexeme->isEmpty() );
 	}
 
-	public function testIsNotEmptyWithLemmataAndStatement() {
-		$lemmata = new TermList( [ new Term( 'zh', 'Beijing' ) ] );
-		$lexeme = new Lexeme( new LexemeId( 'l1' ), $lemmata );
+	public function testIsNotEmptyWithLemmasAndStatement() {
+		$lemmas = new TermList( [ new Term( 'zh', 'Beijing' ) ] );
+		$lexeme = new Lexeme( new LexemeId( 'l1' ), $lemmas );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$this->assertFalse( $lexeme->isEmpty() );
@@ -159,11 +159,11 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $a->equals( $b ) );
 	}
 
-	public function testEqualLemmata() {
+	public function testEqualLemmas() {
 		$lexeme = new Lexeme();
-		$lemmata = new TermList( [ new Term( 'es', 'Barcelona' ) ] );
-		$lexeme->setLemmata( $lemmata );
-		$this->assertFalse( $lexeme->getLemmata()->equals( null ) );
+		$lemmas = new TermList( [ new Term( 'es', 'Barcelona' ) ] );
+		$lexeme->setLemmas( $lemmas );
+		$this->assertFalse( $lexeme->getLemmas()->equals( null ) );
 	}
 
 	public function differentLexemesProvider() {
@@ -173,8 +173,8 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$withStatement2 = new Lexeme();
 		$withStatement2->getStatements()->addNewStatement( new PropertyNoValueSnak( 24 ) );
 
-		$lemmata1 = new TermList( [ new Term( 'fa', 'Shiraz' ) ] );
-		$lemmata2 = new TermList( [ new Term( 'fa', 'Tehran' ) ] );
+		$lemmas1 = new TermList( [ new Term( 'fa', 'Shiraz' ) ] );
+		$lemmas2 = new TermList( [ new Term( 'fa', 'Tehran' ) ] );
 		return [
 			'null' => [
 				new Lexeme(),
@@ -188,9 +188,9 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 				$withStatement1,
 				$withStatement2
 			],
-		    'different lemmata' => [
-				new Lexeme( new LexemeId( 'l1' ), $lemmata1 ),
-				new Lexeme( new LexemeId( 'l1' ), $lemmata2 ),
+		    'different lemmas' => [
+				new Lexeme( new LexemeId( 'l1' ), $lemmas1 ),
+				new Lexeme( new LexemeId( 'l1' ), $lemmas2 ),
 		    ]
 		];
 	}
@@ -215,8 +215,8 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCopyWithContentEquals() {
-		$lemmata = new TermList( [ new Term( 'de', 'Cologne' ) ] );
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), $lemmata );
+		$lemmas = new TermList( [ new Term( 'de', 'Cologne' ) ] );
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), $lemmas );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$this->assertEquals( $lexeme, $lexeme->copy() );
@@ -265,14 +265,14 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame( $fingerprint, $lexeme->getFingerprint() );
 	}
 
-	public function testSetLemmata() {
+	public function testSetLemmas() {
 		$id = new LexemeId( 'L1' );
-		$lemmata = new TermList( [ new Term( 'fa', 'Karaj' ) ] );
+		$lemmas = new TermList( [ new Term( 'fa', 'Karaj' ) ] );
 
 		$lexeme = new Lexeme( $id );
-		$lexeme->setLemmata( $lemmata );
+		$lexeme->setLemmas( $lemmas );
 
-		$this->assertSame( $lemmata, $lexeme->getLemmata() );
+		$this->assertSame( $lemmas, $lexeme->getLemmas() );
 	}
 
 }

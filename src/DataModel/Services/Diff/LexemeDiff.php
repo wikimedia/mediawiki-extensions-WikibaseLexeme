@@ -20,7 +20,7 @@ class LexemeDiff extends EntityDiff {
 	 * @param DiffOp[] $operations
 	 */
 	public function __construct( array $operations = [] ) {
-		$this->fixSubstructureDiff( $operations, 'lemmata' );
+		$this->fixSubstructureDiff( $operations, 'lemmas' );
 		$this->fixSubstructureDiff( $operations, 'claim' );
 
 		parent::__construct( $operations, true );
@@ -31,8 +31,8 @@ class LexemeDiff extends EntityDiff {
 	 *
 	 * @return Diff
 	 */
-	public function getLemmataDiff() {
-		return isset( $this['lemmata'] ) ? $this['lemmata'] : new Diff( [], true );
+	public function getLemmasDiff() {
+		return isset( $this['lemmas'] ) ? $this['lemmas'] : new Diff( [], true );
 	}
 
 	/**
@@ -41,7 +41,7 @@ class LexemeDiff extends EntityDiff {
 	 * @return bool
 	 */
 	public function isEmpty() {
-		return $this->getLemmataDiff()->isEmpty()
+		return $this->getLemmasDiff()->isEmpty()
 		       && $this->getClaimsDiff()->isEmpty();
 	}
 
