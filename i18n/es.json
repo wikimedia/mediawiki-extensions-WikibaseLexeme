@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fitoschido"
+		]
+	},
+	"wikibaselexeme-desc": "Gestión del tipo de entidad «lexema»",
+	"special-newlexeme": "Crear un lexema nuevo",
+	"wikibase-newlexeme-fieldset": "Crear un lexema nuevo",
+	"wikibase-newentity-lemma": "Lema",
+	"wikibase-lemma-edit-placeholder": "Escribe el lema"
+}

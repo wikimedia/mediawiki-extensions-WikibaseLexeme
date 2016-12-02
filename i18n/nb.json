@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jon Harald Søby"
+		]
+	},
+	"wikibaselexeme-desc": "Støtte entitetstypen leksem",
+	"special-newlexeme": "Opprett et nytt leksem",
+	"wikibase-newlexeme-fieldset": "Opprett et nytt leksem",
+	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-lemma-edit-placeholder": "Skriv inn lemmaet"
+}
