@@ -52,6 +52,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		return new Lexeme(
 			$this->deserializeId( $serialization ),
 			$this->deserializeLemmas( $serialization ),
+			null,
 			$this->deserializeStatements( $serialization )
 		);
 	}

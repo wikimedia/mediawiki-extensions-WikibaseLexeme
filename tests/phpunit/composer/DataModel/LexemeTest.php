@@ -29,11 +29,13 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$statements = new StatementList();
 		$lemma = new Term( 'fa', 'Karaj' );
 		$lemmas = new TermList( [ $lemma ] );
-		$lexeme = new Lexeme( $id, $lemmas, $statements );
+		$lexicalCategory = new ItemId( 'Q1' );
+		$lexeme = new Lexeme( $id, $lemmas, $lexicalCategory, $statements );
 
 		$this->assertSame( $id, $lexeme->getId() );
 		$this->assertSame( $statements, $lexeme->getStatements() );
 		$this->assertSame( $lemmas, $lexeme->getLemmas() );
+		$this->assertSame( $lexicalCategory, $lexeme->getLexicalCategory() );
 	}
 
 	public function testEmptyConstructor() {
@@ -42,6 +44,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertNull( $lexeme->getId() );
 		$this->assertEquals( new StatementList(), $lexeme->getStatements() );
 		$this->assertNull( $lexeme->getLemmas() );
+		$this->assertNull( $lexeme->getLexicalCategory() );
 	}
 
 	public function testGetEntityType() {
@@ -118,6 +121,13 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $lexeme->isEmpty() );
 	}
 
+	public function testIsNotEmptyWithLexicalCategory() {
+		$lexicalCategory = new ItemId( 'Q1' );
+		$lexeme = new Lexeme( new LexemeId( 'l1' ), null, $lexicalCategory );
+
+		$this->assertFalse( $lexeme->isEmpty() );
+	}
+
 	public function equalLexemesProvider() {
 		$empty = new Lexeme();
 
@@ -175,6 +185,9 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$lemmas1 = new TermList( [ new Term( 'fa', 'Shiraz' ) ] );
 		$lemmas2 = new TermList( [ new Term( 'fa', 'Tehran' ) ] );
+
+		$lexicalCategory1 = new ItemId( 'Q2' );
+		$lexicalCategory2 = new ItemId( 'Q4' );
 		return [
 			'null' => [
 				new Lexeme(),
@@ -191,6 +204,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		    'different lemmas' => [
 				new Lexeme( new LexemeId( 'l1' ), $lemmas1 ),
 				new Lexeme( new LexemeId( 'l1' ), $lemmas2 ),
+		    ],
+		    'different lexical categories' => [
+			    new Lexeme( new LexemeId( 'l1' ), null, $lexicalCategory1 ),
+			    new Lexeme( new LexemeId( 'l1' ), null, $lexicalCategory2 ),
 		    ]
 		];
 	}
@@ -216,7 +233,8 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 	public function testCopyWithContentEquals() {
 		$lemmas = new TermList( [ new Term( 'de', 'Cologne' ) ] );
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), $lemmas );
+		$lexicalCategories = new ItemId( 'Q2' );
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), $lemmas, $lexicalCategories );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$this->assertEquals( $lexeme, $lexeme->copy() );
@@ -226,7 +244,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$id = new LexemeId( 'L1' );
 		$statements = new StatementList();
 
-		$lexeme = new Lexeme( $id, null, $statements );
+		$lexeme = new Lexeme( $id, null, null, $statements );
 		$copy = $lexeme->copy();
 
 		$this->assertSame( $id, $copy->getId() );
@@ -273,6 +291,16 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$lexeme->setLemmas( $lemmas );
 
 		$this->assertSame( $lemmas, $lexeme->getLemmas() );
+	}
+
+	public function testSetLexicalCategory() {
+		$id = new LexemeId( 'L1' );
+		$lexicalCategory = new ItemId( 'Q55' );
+
+		$lexeme = new Lexeme( $id );
+		$lexeme->setLexicalCategory( $lexicalCategory );
+
+		$this->assertSame( $lexicalCategory, $lexeme->getLexicalCategory() );
 	}
 
 }

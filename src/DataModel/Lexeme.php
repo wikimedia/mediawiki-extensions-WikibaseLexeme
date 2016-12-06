@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme\DataModel;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\Item;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\DescriptionsProvider;
@@ -13,12 +15,13 @@ use Wikibase\DataModel\Term\FingerprintProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Providers\LemmasProvider;
+use Wikibase\Lexeme\DataModel\Providers\LexicalCategoryProvider;
 
 /**
  * @license GPL-2.0+
  */
 class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvider,
-		LabelsProvider, DescriptionsProvider, LemmasProvider {
+		LabelsProvider, DescriptionsProvider, LemmasProvider, LexicalCategoryProvider {
 
 	const ENTITY_TYPE = 'lexeme';
 
@@ -43,18 +46,26 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	private $lemmas;
 
 	/**
+	 * @var ItemId|null
+	 */
+	private $lexicalCategory;
+
+	/**
 	 * @param LexemeId|null $id
 	 * @param TermList|null $lemmas
+	 * @param ItemId|null $lexicalCategory
 	 * @param StatementList|null $statements
 	 */
 	public function __construct(
 		LexemeId $id = null,
 		TermList $lemmas = null,
+		ItemId $lexicalCategory = null,
 		StatementList $statements = null
 	) {
-		// TODO: add lemma, language and lexical category
+		// TODO: add language
 		$this->id = $id;
 		$this->lemmas = $lemmas;
+		$this->lexicalCategory = $lexicalCategory;
 		$this->statements = $statements ?: new StatementList();
 		// TODO: Remove this once Wikibase can work without fingerprint
 		$this->fingerprint = new Fingerprint();
@@ -137,6 +148,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 		// TODO: should also check other attributes once implemented
 		return ( is_null( $this->lemmas )
 			|| $this->lemmas->isEmpty() )
+			&& is_null( $this->lexicalCategory )
 			&& $this->statements->isEmpty();
 	}
 
@@ -161,7 +173,14 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 			$this->lemmas !== null
 			&& $this->lemmas->equals( $target->getLemmas() ) )
 		);
+
+		$sameLexicalCategory = ( $this->lexicalCategory === $target->getLexicalCategory() || (
+				$this->lexicalCategory !== null
+				&& $this->lexicalCategory->equals( $target->getLexicalCategory() ) )
+		);
+
 		return $sameLemmas
+			&& $sameLexicalCategory
 			&& $this->statements->equals( $target->statements );
 	}
 
@@ -194,6 +213,20 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 */
 	public function setLemmas( TermList $lemmas ) {
 		$this->lemmas = $lemmas;
+	}
+
+	/**
+	 * @return ItemId|null
+	 */
+	public function getLexicalCategory() {
+		return $this->lexicalCategory;
+	}
+
+	/**
+	 * @param ItemId $lexicalCategory
+	 */
+	public function setLexicalCategory( ItemId $lexicalCategory ) {
+		$this->lexicalCategory = $lexicalCategory;
 	}
 
 }

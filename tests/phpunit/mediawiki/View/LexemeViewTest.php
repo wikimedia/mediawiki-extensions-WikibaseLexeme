@@ -169,7 +169,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 				$lexemeId
 			],
 			[
-				new Lexeme( $lexemeId, null, $statements ),
+				new Lexeme( $lexemeId, null, null, $statements ),
 				$lexemeId,
 				'en',
 				$statements
@@ -180,7 +180,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 				'lkt'
 			],
 			[
-				new Lexeme( $lexemeId, null, $statements ),
+				new Lexeme( $lexemeId, null, null, $statements ),
 				$lexemeId,
 				'lkt',
 				$statements
