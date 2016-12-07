@@ -202,7 +202,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	}
 
 	/**
-	 * @return TermList
+	 * @return TermList|null
 	 */
 	public function getLemmas() {
 		return $this->lemmas;
