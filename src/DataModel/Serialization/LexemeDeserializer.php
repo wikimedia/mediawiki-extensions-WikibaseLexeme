@@ -4,8 +4,10 @@ namespace Wikibase\Lexeme\DataModel\Serialization;
 
 use Deserializers\Exceptions\DeserializationException;
 use Deserializers\TypedObjectDeserializer;
+use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Deserializers\TermListDeserializer;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -16,6 +18,11 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemeDeserializer extends TypedObjectDeserializer {
+
+	/**
+	 * @var EntityIdDeserializer
+	 */
+	private $entityIdDeserializer;
 
 	/**
 	 * @var TermListDeserializer
@@ -32,12 +39,14 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	 * @param StatementListDeserializer $statementListDeserializer
 	 */
 	public function __construct(
+		EntityIdDeserializer $entityIdDeserializer,
 		TermListDeserializer $termListDeserializer,
 		StatementListDeserializer $statementListDeserializer
 	) {
 		parent::__construct( 'lexeme', 'type' );
 		$this->termListDeserializer = $termListDeserializer;
 		$this->statementListDeserializer = $statementListDeserializer;
+		$this->entityIdDeserializer = $entityIdDeserializer;
 	}
 
 	/**
@@ -52,7 +61,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		return new Lexeme(
 			$this->deserializeId( $serialization ),
 			$this->deserializeLemmas( $serialization ),
-			null,
+			$this->deserializeLexicalCategory( $serialization ),
 			$this->deserializeStatements( $serialization )
 		);
 	}
@@ -91,6 +100,19 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	private function deserializeLemmas( array $serialization ) {
 		if ( array_key_exists( 'lemmas', $serialization ) ) {
 			return $this->termListDeserializer->deserialize( $serialization['lemmas'] );
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param array $serialization
+	 *
+	 * @return ItemId|null
+	 */
+	private function deserializeLexicalCategory( array $serialization ) {
+		if ( array_key_exists( 'lexicalCategory', $serialization ) ) {
+			return $this->entityIdDeserializer->deserialize( $serialization['lexicalCategory'] );
 		}
 
 		return null;

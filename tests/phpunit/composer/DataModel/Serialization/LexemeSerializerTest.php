@@ -5,10 +5,12 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 use PHPUnit_Framework_TestCase;
 use Serializers\Exceptions\SerializationException;
 use Wikibase\DataModel\Entity\Item;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Serializers\StatementListSerializer;
 use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -93,6 +95,31 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
+		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
+		$lexeme->setLemmas( new TermList( [ new Term( 'ja', 'Tokyo' ) ] ) );
+
+		$serializations['with lemmas and id'] = [
+			$lexeme,
+			[
+				'type' => 'lexeme',
+				'id' => 'L2',
+				'lemmas' => [ 'ja' => 'Tokyo' ],
+				'claims' => '',
+			]
+		];
+
+		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
+		$lexeme->setLexicalCategory( new ItemId( 'Q32' ) );
+
+		$serializations['with lexical category and id'] = [
+			$lexeme,
+			[
+				'type' => 'lexeme',
+				'id' => 'L2',
+				'lexicalCategory' => 'Q32',
+				'claims' => '',
+			]
+		];
 		return $serializations;
 	}
 

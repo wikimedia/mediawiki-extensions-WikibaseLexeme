@@ -4,13 +4,16 @@ namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
+use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use Wikibase\DataModel\Entity\Item;
-use Wikibase\DataModel\Services\Diff\EntityDiff;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
@@ -71,6 +74,51 @@ class LexemePatcherTest extends PHPUnit_Framework_TestCase {
 		$patcher = new LexemePatcher();
 		$patcher->patchEntity( $lexeme, $patch );
 		$this->assertEquals( $expected->getStatements(), $lexeme->getStatements() );
+		$this->assertTrue( $expected->equals( $lexeme ) );
+	}
+
+	public function testLemmasArePatched() {
+		$removedLemma = new Term( 'en', 'Alan Turing' );
+		$addedLemma = new Term( 'fa', 'آلن تورینگ' );
+
+		$lexeme = new Lexeme();
+		$lexeme->setLemmas( new TermList( [ $removedLemma ] ) );
+
+		$patch = new LexemeDiff( [
+			'lemmas' => new Diff( [
+				'en' => new DiffOpRemove( 'Alan Turing' ),
+				'fa' => new DiffOpAdd( 'آلن تورینگ' ),
+			] ),
+		] );
+
+		$expected = new Lexeme();
+		$expected->setLemmas( new TermList( [ $addedLemma ] ) );
+
+		$patcher = new LexemePatcher();
+		$patcher->patchEntity( $lexeme, $patch );
+		$this->assertEquals( $expected->getLemmas(), $lexeme->getLemmas() );
+		$this->assertTrue( $expected->equals( $lexeme ) );
+	}
+
+	public function testLexicalCategoryIsPatched() {
+		$removedLexicalCategory = new ItemId( 'Q11' );
+		$addedLexicalCategory = new ItemId( 'Q22' );
+
+		$lexeme = new Lexeme();
+		$lexeme->setLexicalCategory( $removedLexicalCategory );
+
+		$patch = new LexemeDiff( [
+			'lexicalCategory' => new Diff( [
+				'id' => new DiffOpChange( 'Q11', 'Q22' ),
+			] ),
+		] );
+
+		$expected = new Lexeme();
+		$expected->setLexicalCategory( $addedLexicalCategory );
+
+		$patcher = new LexemePatcher();
+		$patcher->patchEntity( $lexeme, $patch );
+		$this->assertEquals( $expected->getLexicalCategory(), $lexeme->getLexicalCategory() );
 		$this->assertTrue( $expected->equals( $lexeme ) );
 	}
 

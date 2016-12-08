@@ -4,8 +4,10 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use Deserializers\Exceptions\DeserializationException;
 use PHPUnit_Framework_TestCase;
+use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Deserializers\TermListDeserializer;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
@@ -25,6 +27,16 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 
 	private function newDeserializer() {
+
+		$entityIdDeserializer = $this->getMockBuilder( EntityIdDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$entityIdDeserializer->expects( $this->any() )
+			->method( 'deserialize' )
+			->will( $this->returnCallback( function( $serialization ) {
+				return new ItemId( $serialization );
+			} ) );
+
 		$statementListDeserializer = $this->getMockBuilder( StatementListDeserializer::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -53,7 +65,11 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				return new TermList( $terms );
 			} ) );
 
-		return new LexemeDeserializer( $termListDeserializer, $statementListDeserializer );
+		return new LexemeDeserializer(
+			$entityIdDeserializer,
+			$termListDeserializer,
+			$statementListDeserializer
+		);
 	}
 
 	public function provideObjectSerializations() {
@@ -120,6 +136,17 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				'type' => 'lexeme',
 				'id' => 'L2',
 				'lemmas' => [ 'el'  => 'Hey' ],
+			],
+			$lexeme
+		];
+
+		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
+		$lexeme->setLexicalCategory( new ItemId( 'Q33' ) );
+		$serializations['with lexical category and id'] = [
+			[
+				'type' => 'lexeme',
+				'id' => 'L2',
+				'lexicalCategory' => 'Q33'
 			],
 			$lexeme
 		];

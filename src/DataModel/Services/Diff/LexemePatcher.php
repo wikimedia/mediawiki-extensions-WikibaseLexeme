@@ -2,8 +2,15 @@
 
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
+use Diff\DiffOp\Diff\Diff;
+use Diff\DiffOp\DiffOp;
+use Diff\DiffOp\DiffOpAdd;
+use Diff\DiffOp\DiffOpChange;
+use Diff\DiffOp\DiffOpRemove;
+use Diff\Patcher\PatcherException;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityPatcherStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListPatcher;
@@ -64,6 +71,40 @@ class LexemePatcher implements EntityPatcherStrategy {
 			$entity->getStatements(),
 			$patch->getClaimsDiff()
 		);
+
+		$this->patchLexicalCategory(
+			$entity,
+			$patch->getLexicalCategoryDiff()
+		);
+	}
+
+	private function patchLexicalCategory( Lexeme $lexeme, Diff $patch ) {
+		/** @var DiffOp $diffOp */
+		foreach ( $patch as $diffOp ) {
+			switch ( true ) {
+				case $diffOp instanceof DiffOpAdd:
+					/** @var DiffOpAdd $diffOp */
+					$lexeme->setLexicalCategory(
+						new ItemId( $diffOp->getNewValue() )
+					);
+					break;
+
+				case $diffOp instanceof DiffOpChange:
+					/** @var DiffOpAdd $diffOp */
+					$lexeme->setLexicalCategory(
+						new ItemId( $diffOp->getNewValue() )
+					);
+					break;
+
+				case $diffOp instanceof DiffOpRemove:
+					/** @var DiffOpRemove $diffOp */
+					$lexeme->setLexicalCategory( null );
+					break;
+
+				default:
+					throw new PatcherException( 'Invalid lexical category diff' );
+			}
+		}
 	}
 
 }

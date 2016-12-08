@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\DataModel;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
@@ -223,9 +222,9 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	}
 
 	/**
-	 * @param ItemId $lexicalCategory
+	 * @param ItemId|null $lexicalCategory
 	 */
-	public function setLexicalCategory( ItemId $lexicalCategory ) {
+	public function setLexicalCategory( $lexicalCategory ) {
 		$this->lexicalCategory = $lexicalCategory;
 	}
 
