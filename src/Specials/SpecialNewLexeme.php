@@ -8,6 +8,7 @@ use InvalidArgumentException;
 use Status;
 use Wikibase\CopyrightMessageBuilder;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -58,6 +59,11 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	 * @var LanguageDirectionalityLookup
 	 */
 	private $languageDirectionalityLookup;
+
+	/**
+	 * @var string
+	 */
+	private $lexicalCategory;
 
 	/**
 	 * @var LanguageNameLookup
@@ -163,6 +169,12 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		);
 		$this->lemma = $this->stringNormalizer->trimToNFC( $lemma );
 
+		$lexicalCategory = $this->getRequest()->getVal(
+			'lexicalcategory',
+			isset( $this->parts[0] ) ? $this->parts[0] : ''
+		);
+		$this->lexicalCategory = $this->stringNormalizer->trimToNFC( $lexicalCategory );
+
 		$this->contentLanguageCode = $this->getRequest()->getVal(
 			'lang', $this->getLanguage()->getCode()
 		);
@@ -206,6 +218,10 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 
 		$lemmas = new TermList( [ new Term( $languageCode, $this->lemma ) ] );
 		$entity->setLemmas( $lemmas );
+
+		if ( $this->lexicalCategory !== '' ) {
+			$entity->setLexicalCategory( new ItemId( $this->lexicalCategory ) );
+		}
 
 		return $status;
 	}
@@ -252,6 +268,18 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 					'wikibase-lemma-edit-placeholder'
 				)->text(),
 				'label-message' => 'wikibase-newentity-lemma'
+			],
+			'lexicalcategory' => [
+				'name' => 'lexicalcategory',
+				'default' => $this->lexicalCategory,
+				'type' => 'text',
+				'id' => 'wb-newentity-lexicalCategory',
+				'lang' => $langCode,
+				'dir' => $langDir,
+				'placeholder' => $this->msg(
+					'wikibase-lexicalcategory-edit-placeholder'
+				)->text(),
+				'label-message' => 'wikibase-newentity-lexicalcategory'
 			]
 		];
 	}

@@ -8,5 +8,7 @@
 	"special-newlexeme": "Title of Special:NewLexeme",
 	"wikibase-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
 	"wikibase-newentity-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
-	"wikibase-lemma-edit-placeholder": "Placeholder content for lemma"
+	"wikibase-lemma-edit-placeholder": "Placeholder content for lemma",
+	"wikibase-newentity-lexicalcategory": "Name for \"lexical category\"",
+	"wikibase-lexicalcategory-edit-placeholder": "Placeholder content for lexical category"
 }

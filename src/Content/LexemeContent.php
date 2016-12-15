@@ -76,8 +76,7 @@ class LexemeContent extends EntityContent {
 			&& !$this->getEntity()->isEmpty()
 			&& ( is_null( $this->getEntity()->getLemmas() )
 				|| !$this->getEntity()->getLemmas()->isEmpty() )
-			&& ( is_null( $this->getEntity()->getLexicalCategory() )
-				|| !$this->getEntity()->getLexicalCategory()->isEmpty() )
+			&& is_null( $this->getEntity()->getLexicalCategory() )
 			&& $this->getEntity()->getStatements()->isEmpty();
 	}
 

@@ -6,5 +6,7 @@
 	"special-newlexeme": "Create a new lexeme",
 	"wikibase-newlexeme-fieldset": "Create a new lexeme",
 	"wikibase-newentity-lemma": "Lemma",
-	"wikibase-lemma-edit-placeholder": "Enter the lemma"
+	"wikibase-lemma-edit-placeholder": "Enter the lemma",
+	"wikibase-newentity-lexicalcategory": "Lexical category",
+	"wikibase-lexicalcategory-edit-placeholder": "Enter the lexical category item ID e.g. Q10"
 }
