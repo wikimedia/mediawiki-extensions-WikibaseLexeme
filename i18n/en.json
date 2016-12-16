@@ -8,5 +8,7 @@
 	"wikibase-newentity-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Enter the lemma",
 	"wikibase-newentity-lexicalcategory": "Lexical category",
-	"wikibase-lexicalcategory-edit-placeholder": "Enter the lexical category item ID e.g. Q10"
+	"wikibase-lexicalcategory-edit-placeholder": "Enter the lexical category item ID e.g. Q10",
+	"wikibase-newentity-language": "Language of lexeme",
+	"wikibase-language-edit-placeholder": "Enter the language item ID e.g. Q20"
 }

@@ -76,6 +76,11 @@ class LexemePatcher implements EntityPatcherStrategy {
 			$entity,
 			$patch->getLexicalCategoryDiff()
 		);
+
+		$this->patchLanguage(
+			$entity,
+			$patch->getLanguageDiff()
+		);
 	}
 
 	private function patchLexicalCategory( Lexeme $lexeme, Diff $patch ) {
@@ -103,6 +108,35 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 				default:
 					throw new PatcherException( 'Invalid lexical category diff' );
+			}
+		}
+	}
+
+	private function patchLanguage( Lexeme $lexeme, Diff $patch ) {
+		/** @var DiffOp $diffOp */
+		foreach ( $patch as $diffOp ) {
+			switch ( true ) {
+				case $diffOp instanceof DiffOpAdd:
+					/** @var DiffOpAdd $diffOp */
+					$lexeme->setLanguage(
+						new ItemId( $diffOp->getNewValue() )
+					);
+					break;
+
+				case $diffOp instanceof DiffOpChange:
+					/** @var DiffOpAdd $diffOp */
+					$lexeme->setLanguage(
+						new ItemId( $diffOp->getNewValue() )
+					);
+					break;
+
+				case $diffOp instanceof DiffOpRemove:
+					/** @var DiffOpRemove $diffOp */
+					$lexeme->setLanguage( null );
+					break;
+
+				default:
+					throw new PatcherException( 'Invalid language diff' );
 			}
 		}
 	}

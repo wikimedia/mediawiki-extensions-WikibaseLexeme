@@ -120,6 +120,20 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'claims' => '',
 			]
 		];
+
+		$lexeme = new Lexeme( new LexemeId( 'l3' ) );
+		$lexeme->setLanguage( new ItemId( 'Q11' ) );
+
+		$serializations['with language and id'] = [
+			$lexeme,
+			[
+				'type' => 'lexeme',
+				'id' => 'L3',
+				'language' => 'Q11',
+				'claims' => '',
+			]
+		];
+
 		return $serializations;
 	}
 
