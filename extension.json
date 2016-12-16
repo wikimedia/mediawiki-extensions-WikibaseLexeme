@@ -100,6 +100,6 @@
 	},
 	"SpecialPages": {
 		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme"
-        },
+	},
 	"manifest_version": 1
 }

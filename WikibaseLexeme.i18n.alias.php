@@ -8,5 +8,5 @@
 $specialPageAliases = [];
 /** English (English) */
 $specialPageAliases['en'] = [
-	'NewLexeme' => [ 'Newlexeme' ]
+	'NewLexeme' => [ 'NewLexeme' ]
 ];
