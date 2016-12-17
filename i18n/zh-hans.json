@@ -8,5 +8,7 @@
 	"special-newlexeme": "创建新词位",
 	"wikibase-newlexeme-fieldset": "创建新词位",
 	"wikibase-newentity-lemma": "引理",
-	"wikibase-lemma-edit-placeholder": "输入引理"
+	"wikibase-lemma-edit-placeholder": "输入引理",
+	"wikibase-newentity-lexicalcategory": "词类",
+	"wikibase-lexicalcategory-edit-placeholder": "输入词类项ID，例如Q10"
 }

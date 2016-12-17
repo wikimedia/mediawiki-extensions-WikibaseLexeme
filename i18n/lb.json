@@ -7,5 +7,6 @@
 	"special-newlexeme": "En neie Lexerne uleeën",
 	"wikibase-newlexeme-fieldset": "En neie Lexerne generéieren",
 	"wikibase-newentity-lemma": "Lemma",
-	"wikibase-lemma-edit-placeholder": "Gitt de Lemma an"
+	"wikibase-lemma-edit-placeholder": "Gitt de Lemma an",
+	"wikibase-newentity-lexicalcategory": "Lexikalesch Kategorie"
 }
