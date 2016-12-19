@@ -1,12 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Derugon"
+			"Derugon",
+			"Gomoko",
+			"Wladek92"
 		]
 	},
 	"wikibaselexeme-desc": "Manipuler le type d'entité lexème",
 	"special-newlexeme": "Créer un nouveau lexème",
 	"wikibase-newlexeme-fieldset": "Créer un nouveau lexème",
 	"wikibase-newentity-lemma": "Lemme",
-	"wikibase-lemma-edit-placeholder": "Entrez le lemme"
+	"wikibase-lemma-edit-placeholder": "Entrez le lemme",
+	"wikibase-newentity-lexicalcategory": "Catégorie lexicale",
+	"wikibase-lexicalcategory-edit-placeholder": "Saisir l’ID de l’élément de la catégorie lexicale, par ex. Q10"
 }
