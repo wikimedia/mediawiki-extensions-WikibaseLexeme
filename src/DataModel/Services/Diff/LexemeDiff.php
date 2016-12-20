@@ -22,6 +22,7 @@ class LexemeDiff extends EntityDiff {
 	public function __construct( array $operations = [] ) {
 		$this->fixSubstructureDiff( $operations, 'lemmas' );
 		$this->fixSubstructureDiff( $operations, 'lexicalCategory' );
+		$this->fixSubstructureDiff( $operations, 'language' );
 		$this->fixSubstructureDiff( $operations, 'claim' );
 
 		parent::__construct( $operations, true );
@@ -37,12 +38,21 @@ class LexemeDiff extends EntityDiff {
 	}
 
 	/**
-	 * Returns a Diff object with the lemma differences.
+	 * Returns a Diff object with the lexical category differences.
 	 *
 	 * @return Diff
 	 */
 	public function getLexicalCategoryDiff() {
 		return isset( $this['lexicalCategory'] ) ? $this['lexicalCategory'] : new Diff( [], true );
+	}
+
+	/**
+	 * Returns a Diff object with the language differences.
+	 *
+	 * @return Diff
+	 */
+	public function getLanguageDiff() {
+		return isset( $this['language'] ) ? $this['language'] : new Diff( [], true );
 	}
 
 	/**

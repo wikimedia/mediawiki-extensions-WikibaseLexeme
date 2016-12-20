@@ -90,6 +90,10 @@ class LexemeSerializer implements DispatchableSerializer {
 			$serialization['lexicalCategory'] = $lexeme->getLexicalCategory()->getSerialization();
 		}
 
+		if ( $lexeme->getLanguage() !== null ) {
+			$serialization['language'] = $lexeme->getLanguage()->getSerialization();
+		}
+
 		$serialization['claims'] = $this->statementListSerializer->serialize(
 			$lexeme->getStatements()
 		);

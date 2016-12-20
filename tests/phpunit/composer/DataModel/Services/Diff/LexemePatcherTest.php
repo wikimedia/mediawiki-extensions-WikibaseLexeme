@@ -122,4 +122,26 @@ class LexemePatcherTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $expected->equals( $lexeme ) );
 	}
 
+	public function testLanguageIsPatched() {
+		$removedLanguage = new ItemId( 'Q1' );
+		$addedLanguage = new ItemId( 'Q2' );
+
+		$lexeme = new Lexeme();
+		$lexeme->setLanguage( $removedLanguage );
+
+		$patch = new LexemeDiff( [
+			'language' => new Diff( [
+				'id' => new DiffOpChange( 'Q1', 'Q2' ),
+			] ),
+		] );
+
+		$expected = new Lexeme();
+		$expected->setLanguage( $addedLanguage );
+
+		$patcher = new LexemePatcher();
+		$patcher->patchEntity( $lexeme, $patch );
+		$this->assertEquals( $expected->getLanguage(), $lexeme->getLanguage() );
+		$this->assertTrue( $expected->equals( $lexeme ) );
+	}
+
 }

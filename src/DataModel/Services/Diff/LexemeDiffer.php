@@ -98,6 +98,11 @@ class LexemeDiffer implements EntityDifferStrategy {
 			$array['lexicalCategory'] = [ 'id' => $lexicalCategory->getSerialization() ];
 		}
 
+		$language = $lexeme->getLanguage();
+		if ( !is_null( $language ) ) {
+			$array['language'] = [ 'id' => $language->getSerialization() ];
+		}
+
 		return $array;
 	}
 

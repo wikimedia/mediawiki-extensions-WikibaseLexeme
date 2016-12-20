@@ -62,6 +62,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$this->deserializeId( $serialization ),
 			$this->deserializeLemmas( $serialization ),
 			$this->deserializeLexicalCategory( $serialization ),
+			$this->deserializeLanguage( $serialization ),
 			$this->deserializeStatements( $serialization )
 		);
 	}
@@ -113,6 +114,19 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	private function deserializeLexicalCategory( array $serialization ) {
 		if ( array_key_exists( 'lexicalCategory', $serialization ) ) {
 			return $this->entityIdDeserializer->deserialize( $serialization['lexicalCategory'] );
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param array $serialization
+	 *
+	 * @return ItemId|null
+	 */
+	private function deserializeLanguage( array $serialization ) {
+		if ( array_key_exists( 'language', $serialization ) ) {
+			return $this->entityIdDeserializer->deserialize( $serialization['language'] );
 		}
 
 		return null;

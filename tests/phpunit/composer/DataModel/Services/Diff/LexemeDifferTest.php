@@ -73,6 +73,19 @@ class LexemeDifferTest extends PHPUnit_Framework_TestCase {
 		$this->assertCount( 1, $diff->getLexicalCategoryDiff()->getAdditions() );
 	}
 
+	public function testLanguageIsDiffed() {
+		$firstLexeme = new Lexeme();
+
+		$secondLexeme = new Lexeme();
+		$secondLexeme->setLanguage( new ItemId( 'Q11' ) );
+
+		$differ = new LexemeDiffer();
+		$diff = $differ->diffLexemes( $firstLexeme, $secondLexeme );
+
+		/** @var LexemeDiff $diff */
+		$this->assertCount( 1, $diff->getLanguageDiff()->getAdditions() );
+	}
+
 	public function testGivenEmptyLexeme_constructionDiffIsEmpty() {
 		$differ = new LexemeDiffer();
 		$this->assertTrue( $differ->getConstructionDiff( new Lexeme() )->isEmpty() );

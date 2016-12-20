@@ -66,6 +66,11 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	private $lexicalCategory;
 
 	/**
+	 * @var string
+	 */
+	private $language;
+
+	/**
 	 * @var LanguageNameLookup
 	 */
 	private $languageNameLookup;
@@ -175,6 +180,12 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		);
 		$this->lexicalCategory = $this->stringNormalizer->trimToNFC( $lexicalCategory );
 
+		$language = $this->getRequest()->getVal(
+			'language',
+			isset( $this->parts[0] ) ? $this->parts[0] : ''
+		);
+		$this->language = $this->stringNormalizer->trimToNFC( $language );
+
 		$this->contentLanguageCode = $this->getRequest()->getVal(
 			'lang', $this->getLanguage()->getCode()
 		);
@@ -221,6 +232,10 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 
 		if ( $this->lexicalCategory !== '' ) {
 			$entity->setLexicalCategory( new ItemId( $this->lexicalCategory ) );
+		}
+
+		if ( $this->language !== '' ) {
+			$entity->setLanguage( new ItemId( $this->language ) );
 		}
 
 		return $status;
@@ -280,6 +295,18 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 					'wikibase-lexicalcategory-edit-placeholder'
 				)->text(),
 				'label-message' => 'wikibase-newentity-lexicalcategory'
+			],
+			'language' => [
+				'name' => 'language',
+				'default' => $this->language,
+				'type' => 'text',
+				'id' => 'wb-newentity-language',
+				'lang' => $langCode,
+				'dir' => $langDir,
+				'placeholder' => $this->msg(
+					'wikibase-language-edit-placeholder'
+				)->text(),
+				'label-message' => 'wikibase-newentity-language'
 			]
 		];
 	}

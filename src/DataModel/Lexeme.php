@@ -13,6 +13,7 @@ use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\FingerprintProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Providers\LanguageProvider;
 use Wikibase\Lexeme\DataModel\Providers\LemmasProvider;
 use Wikibase\Lexeme\DataModel\Providers\LexicalCategoryProvider;
 
@@ -20,7 +21,8 @@ use Wikibase\Lexeme\DataModel\Providers\LexicalCategoryProvider;
  * @license GPL-2.0+
  */
 class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvider,
-		LabelsProvider, DescriptionsProvider, LemmasProvider, LexicalCategoryProvider {
+		LabelsProvider, DescriptionsProvider, LemmasProvider, LexicalCategoryProvider,
+		LanguageProvider {
 
 	const ENTITY_TYPE = 'lexeme';
 
@@ -50,21 +52,28 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	private $lexicalCategory;
 
 	/**
+	 * @var ItemId|null
+	 */
+	private $language;
+
+	/**
 	 * @param LexemeId|null $id
 	 * @param TermList|null $lemmas
 	 * @param ItemId|null $lexicalCategory
+	 * @param ItemId|null $language
 	 * @param StatementList|null $statements
 	 */
 	public function __construct(
 		LexemeId $id = null,
 		TermList $lemmas = null,
 		ItemId $lexicalCategory = null,
+		ItemId $language = null,
 		StatementList $statements = null
 	) {
-		// TODO: add language
 		$this->id = $id;
 		$this->lemmas = $lemmas;
 		$this->lexicalCategory = $lexicalCategory;
+		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
 		// TODO: Remove this once Wikibase can work without fingerprint
 		$this->fingerprint = new Fingerprint();
@@ -144,10 +153,10 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 * @return bool
 	 */
 	public function isEmpty() {
-		// TODO: should also check other attributes once implemented
 		return ( is_null( $this->lemmas )
 			|| $this->lemmas->isEmpty() )
 			&& is_null( $this->lexicalCategory )
+			&& is_null( $this->language )
 			&& $this->statements->isEmpty();
 	}
 
@@ -159,7 +168,6 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 * @return bool
 	 */
 	public function equals( $target ) {
-		// TODO: should also check other attributes once implemented
 		if ( $this === $target ) {
 			return true;
 		}
@@ -178,8 +186,14 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 				&& $this->lexicalCategory->equals( $target->getLexicalCategory() ) )
 		);
 
+		$sameLanguage = ( $this->language === $target->getLanguage() || (
+				$this->language !== null
+				&& $this->language->equals( $target->getLanguage() ) )
+		);
+
 		return $sameLemmas
 			&& $sameLexicalCategory
+			&& $sameLanguage
 			&& $this->statements->equals( $target->statements );
 	}
 
@@ -226,6 +240,20 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 */
 	public function setLexicalCategory( $lexicalCategory ) {
 		$this->lexicalCategory = $lexicalCategory;
+	}
+
+	/**
+	 * @return ItemId|null
+	 */
+	public function getLanguage() {
+		return $this->language;
+	}
+
+	/**
+	 * @param ItemId|null $language
+	 */
+	public function setLanguage( $language ) {
+		$this->language = $language;
 	}
 
 }
