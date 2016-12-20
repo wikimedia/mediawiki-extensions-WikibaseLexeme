@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
-use Diff\DiffOp\DiffOp;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
@@ -22,6 +21,7 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
+ * @author Thiemo Mättig
  */
 class LexemePatcher implements EntityPatcherStrategy {
 
@@ -72,50 +72,44 @@ class LexemePatcher implements EntityPatcherStrategy {
 			$patch->getClaimsDiff()
 		);
 
-		$this->patchItemId(
-			$entity,
-			$patch->getLexicalCategoryDiff(),
-			'setLexicalCategory',
-			'lexical category'
-		);
+		$itemId = $this->getPatchedItemId( $patch->getLexicalCategoryDiff() );
+		if ( $itemId !== false ) {
+			$entity->setLexicalCategory( $itemId );
+		}
 
-		$this->patchItemId(
-			$entity,
-			$patch->getLanguageDiff(),
-			'setLanguage',
-			'language'
-		);
+		$itemId = $this->getPatchedItemId( $patch->getLanguageDiff() );
+		if ( $itemId !== false ) {
+			$entity->setLanguage( $itemId );
+		}
 	}
 
-	private function patchItemId( Lexeme $lexeme, Diff $patch, $setMethod, $attrName ) {
-		/** @var DiffOp $diffOp */
-		foreach ( $patch as $diffOp ) {
-			switch ( true ) {
-				case $diffOp instanceof DiffOpAdd:
-					/** @var DiffOpAdd $diffOp */
-					call_user_func(
-						[ $lexeme, $setMethod ],
-						new ItemId( $diffOp->getNewValue() )
-					);
-					break;
-
-				case $diffOp instanceof DiffOpChange:
-					/** @var DiffOpAdd $diffOp */
-					call_user_func(
-						[ $lexeme, $setMethod ],
-						new ItemId( $diffOp->getNewValue() )
-					);
-					break;
-
-				case $diffOp instanceof DiffOpRemove:
-					/** @var DiffOpRemove $diffOp */
-					$lexeme->setLanguage( null );
-					break;
-
-				default:
-					throw new PatcherException( "Invalid $attrName diff" );
-			}
+	/**
+	 * @param Diff $patch
+	 *
+	 * @throws PatcherException
+	 * @return ItemId|null|false False in case the diff is valid, but does not contain a change.
+	 */
+	private function getPatchedItemId( Diff $patch ) {
+		if ( $patch->isEmpty() ) {
+			return false;
 		}
+
+		$diffOp = $patch['id'];
+
+		switch ( true ) {
+			case $diffOp instanceof DiffOpAdd:
+				/** @var DiffOpAdd $diffOp */
+				return new ItemId( $diffOp->getNewValue() );
+
+			case $diffOp instanceof DiffOpChange:
+				/** @var DiffOpChange $diffOp */
+				return new ItemId( $diffOp->getNewValue() );
+
+			case $diffOp instanceof DiffOpRemove:
+				return null;
+		}
+
+		throw new PatcherException( 'Invalid ItemId diff' );
 	}
 
 }

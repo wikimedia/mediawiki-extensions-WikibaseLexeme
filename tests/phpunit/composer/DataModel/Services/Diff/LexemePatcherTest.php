@@ -144,4 +144,16 @@ class LexemePatcherTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $expected->equals( $lexeme ) );
 	}
 
+	public function testElementsNotInDiffAreNotRemoved() {
+		$lexeme = new Lexeme();
+		$lexeme->setLexicalCategory( new ItemId( 'Q1' ) );
+		$lexeme->setLanguage( new ItemId( 'Q2' ) );
+
+		$patcher = new LexemePatcher();
+		$patcher->patchEntity( $lexeme, new LexemeDiff() );
+
+		$this->assertNotNull( $lexeme->getLexicalCategory() );
+		$this->assertNotNull( $lexeme->getLanguage() );
+	}
+
 }

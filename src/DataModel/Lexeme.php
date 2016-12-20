@@ -238,7 +238,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	/**
 	 * @param ItemId|null $lexicalCategory
 	 */
-	public function setLexicalCategory( $lexicalCategory ) {
+	public function setLexicalCategory( ItemId $lexicalCategory = null ) {
 		$this->lexicalCategory = $lexicalCategory;
 	}
 
@@ -252,7 +252,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	/**
 	 * @param ItemId|null $language
 	 */
-	public function setLanguage( $language ) {
+	public function setLanguage( ItemId $language = null ) {
 		$this->language = $language;
 	}
 
