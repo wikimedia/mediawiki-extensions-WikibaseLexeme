@@ -72,60 +72,37 @@ class LexemePatcher implements EntityPatcherStrategy {
 			$patch->getClaimsDiff()
 		);
 
-		$this->patchLexicalCategory(
+		$this->patchItemId(
 			$entity,
-			$patch->getLexicalCategoryDiff()
+			$patch->getLexicalCategoryDiff(),
+			'setLexicalCategory',
+			'lexical category'
 		);
 
-		$this->patchLanguage(
+		$this->patchItemId(
 			$entity,
-			$patch->getLanguageDiff()
+			$patch->getLanguageDiff(),
+			'setLanguage',
+			'language'
 		);
 	}
 
-	private function patchLexicalCategory( Lexeme $lexeme, Diff $patch ) {
+	private function patchItemId( Lexeme $lexeme, Diff $patch, $setMethod, $attrName ) {
 		/** @var DiffOp $diffOp */
 		foreach ( $patch as $diffOp ) {
 			switch ( true ) {
 				case $diffOp instanceof DiffOpAdd:
 					/** @var DiffOpAdd $diffOp */
-					$lexeme->setLexicalCategory(
+					call_user_func(
+						[ $lexeme, $setMethod ],
 						new ItemId( $diffOp->getNewValue() )
 					);
 					break;
 
 				case $diffOp instanceof DiffOpChange:
 					/** @var DiffOpAdd $diffOp */
-					$lexeme->setLexicalCategory(
-						new ItemId( $diffOp->getNewValue() )
-					);
-					break;
-
-				case $diffOp instanceof DiffOpRemove:
-					/** @var DiffOpRemove $diffOp */
-					$lexeme->setLexicalCategory( null );
-					break;
-
-				default:
-					throw new PatcherException( 'Invalid lexical category diff' );
-			}
-		}
-	}
-
-	private function patchLanguage( Lexeme $lexeme, Diff $patch ) {
-		/** @var DiffOp $diffOp */
-		foreach ( $patch as $diffOp ) {
-			switch ( true ) {
-				case $diffOp instanceof DiffOpAdd:
-					/** @var DiffOpAdd $diffOp */
-					$lexeme->setLanguage(
-						new ItemId( $diffOp->getNewValue() )
-					);
-					break;
-
-				case $diffOp instanceof DiffOpChange:
-					/** @var DiffOpAdd $diffOp */
-					$lexeme->setLanguage(
+					call_user_func(
+						[ $lexeme, $setMethod ],
 						new ItemId( $diffOp->getNewValue() )
 					);
 					break;
@@ -136,7 +113,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 					break;
 
 				default:
-					throw new PatcherException( 'Invalid language diff' );
+					throw new PatcherException( "Invalid $attrName diff" );
 			}
 		}
 	}
