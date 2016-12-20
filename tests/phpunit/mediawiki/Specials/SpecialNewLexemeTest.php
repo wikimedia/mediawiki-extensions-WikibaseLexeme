@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\Specials;
 
 use SpecialPageTestBase;
 use Wikibase\Lexeme\Specials\SpecialNewLexeme;
-use Wikibase\Repo\Specials\SpecialNewProperty;
 
 /**
  * @covers Wikibase\Lexeme\Specials\SpecialNewLexeme
