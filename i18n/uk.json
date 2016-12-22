@@ -8,5 +8,9 @@
 	"special-newlexeme": "Створити нову лексему",
 	"wikibase-newlexeme-fieldset": "Створити нову лексему",
 	"wikibase-newentity-lemma": "Лемма",
-	"wikibase-lemma-edit-placeholder": "Введіть лемму"
+	"wikibase-lemma-edit-placeholder": "Введіть лемму",
+	"wikibase-newentity-lexicalcategory": "Лексична категорія",
+	"wikibase-lexicalcategory-edit-placeholder": "Введіть ідентифікатор елемента лексичної категорії, напр., Q10",
+	"wikibase-newentity-language": "Мова лексеми",
+	"wikibase-language-edit-placeholder": "Введіть ідентифікатор елемента мови, напр., Q20"
 }

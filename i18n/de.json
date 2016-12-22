@@ -10,5 +10,7 @@
 	"wikibase-newentity-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Das Lemma eingeben",
 	"wikibase-newentity-lexicalcategory": "Lexikalische Kategorie",
-	"wikibase-lexicalcategory-edit-placeholder": "Gib die Objektkennung der lexikalischen Kategorie ein, z.&nbsp;B. Q10"
+	"wikibase-lexicalcategory-edit-placeholder": "Gib die Objektkennung der lexikalischen Kategorie ein, z.&nbsp;B. Q10",
+	"wikibase-newentity-language": "Sprache:",
+	"wikibase-language-edit-placeholder": "Gib die Objektkennung der Sprache ein, z.&nbsp;B. Q20"
 }

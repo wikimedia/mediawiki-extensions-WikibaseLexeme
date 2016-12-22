@@ -10,5 +10,7 @@
 	"wikibase-newentity-lemma": "Лема",
 	"wikibase-lemma-edit-placeholder": "Внесете ја лемата",
 	"wikibase-newentity-lexicalcategory": "Лексичка категорија",
-	"wikibase-lexicalcategory-edit-placeholder": "Внесете ја назнаката на предметот за лексичката категорија, како на пр. Q10."
+	"wikibase-lexicalcategory-edit-placeholder": "Внесете ја назнаката на предметот за лексичката категорија, како на пр. Q10.",
+	"wikibase-newentity-language": "Јазик:",
+	"wikibase-language-edit-placeholder": "Предметна назнака за јазикот, како на пр. Q20"
 }

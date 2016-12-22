@@ -8,5 +8,6 @@
 	"wikibase-newlexeme-fieldset": "En neie Lexerne generéieren",
 	"wikibase-newentity-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Gitt de Lemma an",
-	"wikibase-newentity-lexicalcategory": "Lexikalesch Kategorie"
+	"wikibase-newentity-lexicalcategory": "Lexikalesch Kategorie",
+	"wikibase-newentity-language": "Sprooch:"
 }

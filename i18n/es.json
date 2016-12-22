@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Dgstranz"
+			"Dgstranz",
+			"Macofe"
 		]
 	},
 	"wikibaselexeme-desc": "Gestión del tipo de entidad «lexema»",
@@ -11,5 +12,6 @@
 	"wikibase-newentity-lemma": "Lema",
 	"wikibase-lemma-edit-placeholder": "Escribe el lema",
 	"wikibase-newentity-lexicalcategory": "Categoría léxica",
-	"wikibase-lexicalcategory-edit-placeholder": "Introduce el ID del elemento de la categoría léxica, por ejemplo, Q10"
+	"wikibase-lexicalcategory-edit-placeholder": "Introduce el ID del elemento de la categoría léxica, por ejemplo, Q10",
+	"wikibase-newentity-language": "Idioma:"
 }
