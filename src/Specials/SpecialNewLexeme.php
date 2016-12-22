@@ -270,7 +270,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 				'default' => $langCode,
 				'type' => 'combobox',
 				'id' => 'wb-newentity-language',
-				'label-message' => 'wikibase-newentity-language'
+				'label-message' => 'wikibase-lexeme-newentity-language'
 			],
 			'lemma' => [
 				'name' => 'lemma',
@@ -306,7 +306,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 				'placeholder' => $this->msg(
 					'wikibase-language-edit-placeholder'
 				)->text(),
-				'label-message' => 'wikibase-newentity-language'
+				'label-message' => 'wikibase-lexeme-newentity-language'
 			]
 		];
 	}
