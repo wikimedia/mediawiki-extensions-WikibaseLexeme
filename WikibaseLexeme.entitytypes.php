@@ -73,6 +73,7 @@ return [
 				),
 				$languageDirectionalityLookup,
 				$htmlTermRenderer,
+				$labelDescriptionLookup,
 				$languageCode
 			);
 		},

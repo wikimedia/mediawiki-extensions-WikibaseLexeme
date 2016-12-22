@@ -6,6 +6,9 @@ use InvalidArgumentException;
 use Language;
 use Message;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookupException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -46,11 +49,17 @@ class LexemeView extends EntityView {
 	private $htmlTermRenderer;
 
 	/**
+	 * @var LabelDescriptionLookup
+	 */
+	private $labelDescriptionLookup;
+
+	/**
 	 * @param TemplateFactory $templateFactory
 	 * @param EntityTermsView $entityTermsView
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param HtmlTermRenderer $htmlTermRenderer
+	 * @param LabelDescriptionLookup $labelDescriptionLookup
 	 * @param string $languageCode
 	 */
 	public function __construct(
@@ -59,6 +68,7 @@ class LexemeView extends EntityView {
 		StatementSectionsView $statementSectionsView,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		HtmlTermRenderer $htmlTermRenderer,
+		LabelDescriptionLookup $labelDescriptionLookup,
 		$languageCode
 	) {
 		parent::__construct(
@@ -72,6 +82,7 @@ class LexemeView extends EntityView {
 		$this->templateFactory = $templateFactory;
 		$this->languageCode = $languageCode;
 		$this->htmlTermRenderer = $htmlTermRenderer;
+		$this->labelDescriptionLookup = $labelDescriptionLookup;
 	}
 
 	/**
@@ -137,9 +148,33 @@ class LexemeView extends EntityView {
 		);
 	}
 
-	private function getHtmlForLexicalCategoryAndLanguage( $entity ) {
-		// TODO: Implement when building LexicalCategory and Language
-		return '';
+	/**
+	 * @param Lexeme $lexeme
+	 *
+	 * @return string HTML
+	 */
+	private function getHtmlForLexicalCategoryAndLanguage( Lexeme $lexeme ) {
+		$lexicalCategory = $this->getItemIdHtml( $lexeme ->getLexicalCategory() );
+		$language = $this->getItemIdHtml( $lexeme ->getLanguage() );
+		switch ( true ) {
+			case $language === null && $lexicalCategory === null:
+				return '';
+			case $lexicalCategory === null:
+				return $this->getLocalizedMessage(
+					'wikibase-lexeme-view-language',
+					[ $language ]
+				);
+			case $language === null:
+				return $this->getLocalizedMessage(
+					'wikibase-lexeme-view-lexical-category',
+					[ $lexicalCategory ]
+				);
+			default:
+				return $this->getLocalizedMessage(
+					'wikibase-lexeme-view-language-lexical-category',
+					[ $lexicalCategory, $language ]
+				);
+		}
 	}
 
 	/**
@@ -162,6 +197,24 @@ class LexemeView extends EntityView {
 
 	private function getLocalizedMessage( $key, array $params = [] ) {
 		return ( new Message( $key, $params, Language::factory( $this->languageCode ) ) )->text();
+	}
+
+	private function getItemIdHtml( $itemId ) {
+		if ( is_null( $itemId ) || !( $itemId instanceof ItemId ) ) {
+			return null;
+		}
+
+		try {
+			$label = $this->labelDescriptionLookup->getLabel( $itemId );
+		} catch ( LabelDescriptionLookupException $e ) {
+			return $itemId->getSerialization();
+		}
+
+		if ( is_null( $label ) ) {
+			return $itemId->getSerialization();
+		}
+		return $this->htmlTermRenderer->renderTerm( $label );
+
 	}
 
 }

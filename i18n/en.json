@@ -10,5 +10,8 @@
 	"wikibase-newentity-lexicalcategory": "Lexical category",
 	"wikibase-lexicalcategory-edit-placeholder": "Enter the lexical category item ID e.g. Q10",
 	"wikibase-lexeme-newentity-language": "Language of lexeme",
-	"wikibase-language-edit-placeholder": "Enter the language item ID e.g. Q20"
+	"wikibase-language-edit-placeholder": "Enter the language item ID e.g. Q20",
+	"wikibase-lexeme-view-language": "Lexeme in $1",
+	"wikibase-lexeme-view-lexical-category": "$1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
 }

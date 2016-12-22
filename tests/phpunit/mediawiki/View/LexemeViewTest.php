@@ -5,10 +5,13 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\LexemeView;
@@ -38,6 +41,27 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		return $this->getMockBuilder( StatementSectionsView::class )
 			->disableOriginalConstructor()
 			->getMock();
+	}
+
+	/**
+	 * @return LabelDescriptionLookup
+	 */
+	private function newLabelDescriptionLookup() {
+		$labelDescriptionLookup = $this->getMockBuilder( LabelDescriptionLookup::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$labelDescriptionLookup
+			->method( 'getLabel' )
+			->will(
+				$this->returnCallback( function ( ItemId $itemId ) {
+					if ( $itemId->getSerialization() === 'Q1' ) {
+						return null;
+					}
+					return new Term( 'en', '[[' . $itemId->getSerialization() . ']]' );
+				} )
+			);
+
+		return $labelDescriptionLookup;
 	}
 
 	/**
@@ -81,12 +105,15 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			new LanguageNameLookup( $contentLanguageCode )
 		);
 
+		$labelDescriptionLookup = $this->newLabelDescriptionLookup();
+
 		return new LexemeView(
 			$templateFactory,
 			$entityTermsView,
 			$statementSectionsView,
 			$languageDirectionalityLookup,
 			$htmlTermRenderer,
+			$labelDescriptionLookup,
 			$contentLanguageCode
 		);
 	}
@@ -117,7 +144,6 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		StatementList $statements = null
 	) {
 		$entityTermsView = $this->newEntityTermsViewMock();
-		// TODO: Change this to Lexical category and language later
 		$entityTermsView
 			->method( 'getHtml' )
 			->with(
@@ -195,6 +221,73 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$entity = $this->getMock( EntityDocument::class );
 		$this->setExpectedException( ParameterTypeException::class );
 		$view->getTitleHtml( $entity );
+	}
+
+	public function provideTestGetHtmlForLexicalCategoryAndLanguage() {
+		$lexemeId = new LexemeId( 'L1' );
+		$language = new ItemId( 'Q2' );
+		$lexicalCategory = new ItemId( 'Q3' );
+		$missingLabelItem = new ItemId( 'Q1' );
+
+		return [
+			[
+				new Lexeme(),
+				[ 'wb-lexeme' ]
+			],
+			[
+				new Lexeme( $lexemeId, null, $lexicalCategory ),
+				[ 'wb-lexeme', '[[Q3]]' ]
+			],
+			[
+				new Lexeme( $lexemeId, null, null, $language ),
+				[ 'wb-lexeme', 'Lexeme in [[Q2]]' ]
+			],
+			[
+				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
+				[ 'wb-lexeme', '[[Q3]] in [[Q2]]' ]
+			],
+			[
+				new Lexeme( $lexemeId, null, $missingLabelItem, $language ),
+				[ 'wb-lexeme', 'Q1 in [[Q2]]' ]
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideTestGetHtmlForLexicalCategoryAndLanguage
+	 */
+	public function testGetHtmlForLexicalCategoryAndLanguage(
+		Lexeme $entity,
+		array $expectedContents
+	) {
+		$entityTermsView = $this->newEntityTermsViewMock();
+		$entityTermsView
+			->method( 'getHtml' )
+			->with(
+				'en',
+				$entity,
+				$entity,
+				null,
+				$entity->getId()
+			)
+			->will( $this->returnValue( 'entityTermsView->getHtml' ) );
+
+		$entityTermsView->expects( $this->never() )
+			->method( 'getEntityTermsForLanguageListView' );
+
+		$statementSectionsView = $this->newStatementSectionsViewMock();
+
+		$view = $this->newLexemeView(
+			'en',
+			$entityTermsView,
+			$statementSectionsView
+		);
+
+		$result = $view->getHtml( $entity );
+		$this->assertInternalType( 'string', $result );
+		foreach ( $expectedContents as $expectedContent ) {
+			$this->assertContains( $expectedContent, $result );
+		}
 	}
 
 }
