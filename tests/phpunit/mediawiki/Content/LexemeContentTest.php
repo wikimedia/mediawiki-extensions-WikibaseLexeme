@@ -54,25 +54,4 @@ class LexemeContentTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $lexemeContent->isCountable() );
 	}
 
-	/**
-	 * TODO: isStub tests have to be added once additional Lexeme fields are implemented
-	 * @dataProvider noStubProvider
-	 */
-	public function testNoStub( $lexeme ) {
-		$lexemeContent = new LexemeContent( new EntityInstanceHolder( $lexeme ) );
-		$this->assertFalse( $lexemeContent->isStub() );
-	}
-
-	public function noStubProvider() {
-		$noStubs = [];
-
-		$lexeme = new Lexeme();
-		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
-		$noStubs[] = [ $lexeme ];
-
-		$noStubs[] = [ new Lexeme() ];
-
-		return $noStubs;
-	}
-
 }
