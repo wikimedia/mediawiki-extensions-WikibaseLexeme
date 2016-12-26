@@ -13,6 +13,5 @@
 	"wikibase-lemma-edit-placeholder": "Entrez le lemme",
 	"wikibase-newentity-lexicalcategory": "Catégorie lexicale",
 	"wikibase-lexicalcategory-edit-placeholder": "Saisir l’ID de l’élément de la catégorie lexicale, par ex. Q10",
-	"wikibase-newentity-language": "Langue :",
 	"wikibase-language-edit-placeholder": "Entrer l'ID de l'élément correspondant à la langue par exemple Q20"
 }

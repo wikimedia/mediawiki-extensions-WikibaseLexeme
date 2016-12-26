@@ -11,6 +11,5 @@
 	"wikibase-lemma-edit-placeholder": "Skriv inn lemmaet",
 	"wikibase-newentity-lexicalcategory": "Leksikalsk kategori",
 	"wikibase-lexicalcategory-edit-placeholder": "Skriv inn element-ID-en for den leksikale kategorien, f.eks. Q10",
-	"wikibase-newentity-language": "Leksemets språk",
 	"wikibase-language-edit-placeholder": "Skriv inn språkets element-ID, f.eks. Q20"
 }

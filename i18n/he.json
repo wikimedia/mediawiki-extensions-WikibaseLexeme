@@ -11,6 +11,5 @@
 	"wikibase-lemma-edit-placeholder": "נא להזין משפט מוגדר",
 	"wikibase-newentity-lexicalcategory": "קטגוריה מילונית",
 	"wikibase-lexicalcategory-edit-placeholder": "נא להזין את מזהה הפריט של הקטגוריה הלשונית, למשל Q10",
-	"wikibase-newentity-language": "שפה:",
 	"wikibase-language-edit-placeholder": "נא להזין את מזהה הפריט של השפה, למשל Q20"
 }

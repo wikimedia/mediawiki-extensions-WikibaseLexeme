@@ -10,6 +10,5 @@
 	"wikibase-newlexeme-fieldset": "Crea un nuovo lessema",
 	"wikibase-newentity-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Inserisci il lemma",
-	"wikibase-newentity-language": "Lingua:",
 	"wikibase-language-edit-placeholder": "Inserisci l'ID elemento della lingua, ad esempio Q20"
 }

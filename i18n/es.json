@@ -12,6 +12,5 @@
 	"wikibase-newentity-lemma": "Lema",
 	"wikibase-lemma-edit-placeholder": "Escribe el lema",
 	"wikibase-newentity-lexicalcategory": "Categoría léxica",
-	"wikibase-lexicalcategory-edit-placeholder": "Introduce el ID del elemento de la categoría léxica, por ejemplo, Q10",
-	"wikibase-newentity-language": "Idioma:"
+	"wikibase-lexicalcategory-edit-placeholder": "Introduce el ID del elemento de la categoría léxica, por ejemplo, Q10"
 }
