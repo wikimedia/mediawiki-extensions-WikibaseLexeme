@@ -27,14 +27,15 @@ class SpecialNewLemexeTest extends SpecialPageTestBase {
 		$matchers['lemma'] = [
 			'tag' => 'div',
 			'attributes' => [
-				'id' => 'wb-newentity-label',
+				'id' => 'wb-newlexeme-lemma',
 			],
 			'child' => [
 				'tag' => 'input',
 				'attributes' => [
 					'name' => 'lemma',
 				]
-			] ];
+			]
+		];
 
 		list( $output, ) = $this->executeSpecialPage( '' );
 		foreach ( $matchers as $key => $matcher ) {
