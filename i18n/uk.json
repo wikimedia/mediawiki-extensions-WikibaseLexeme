@@ -11,5 +11,6 @@
 	"wikibase-lemma-edit-placeholder": "Введіть лемму",
 	"wikibase-newentity-lexicalcategory": "Лексична категорія",
 	"wikibase-lexicalcategory-edit-placeholder": "Введіть ідентифікатор елемента лексичної категорії, напр., Q10",
+	"wikibase-lexeme-newentity-language": "Мова лексеми",
 	"wikibase-language-edit-placeholder": "Введіть ідентифікатор елемента мови, напр., Q20"
 }

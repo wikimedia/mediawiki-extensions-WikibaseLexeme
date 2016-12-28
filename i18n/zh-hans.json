@@ -11,5 +11,6 @@
 	"wikibase-lemma-edit-placeholder": "输入引理",
 	"wikibase-newentity-lexicalcategory": "词类",
 	"wikibase-lexicalcategory-edit-placeholder": "输入词类项ID，例如Q10",
+	"wikibase-lexeme-newentity-language": "词位的语言",
 	"wikibase-language-edit-placeholder": "输入语言项ID，例如Q20"
 }
