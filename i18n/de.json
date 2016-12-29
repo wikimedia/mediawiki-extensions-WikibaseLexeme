@@ -12,5 +12,6 @@
 	"wikibase-newentity-lexicalcategory": "Lexikalische Kategorie",
 	"wikibase-lexicalcategory-edit-placeholder": "Gib die Objektkennung der lexikalischen Kategorie ein, z.&nbsp;B. Q10",
 	"wikibase-lexeme-newentity-language": "Lexeme-Sprache",
-	"wikibase-language-edit-placeholder": "Gib die Objektkennung der Sprache ein, z.&nbsp;B. Q20"
+	"wikibase-language-edit-placeholder": "Gib die Objektkennung der Sprache ein, z.&nbsp;B. Q20",
+	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
 }
