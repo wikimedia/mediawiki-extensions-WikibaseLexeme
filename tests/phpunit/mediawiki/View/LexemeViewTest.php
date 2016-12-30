@@ -57,7 +57,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 					if ( $itemId->getSerialization() === 'Q1' ) {
 						return null;
 					}
-					return new Term( 'en', '[[' . $itemId->getSerialization() . ']]' );
+					return new Term( 'en', '<Label of ' . $itemId->getSerialization() . '>' );
 				} )
 			);
 
@@ -236,19 +236,19 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			],
 			[
 				new Lexeme( $lexemeId, null, $lexicalCategory ),
-				[ 'wb-lexeme', '[[Q3]]' ]
+				[ 'wb-lexeme', '&lt;Label of Q3&gt;' ]
 			],
 			[
 				new Lexeme( $lexemeId, null, null, $language ),
-				[ 'wb-lexeme', 'Lexeme in [[Q2]]' ]
+				[ 'wb-lexeme', 'Lexeme in &lt;Label of Q2&gt;' ]
 			],
 			[
 				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
-				[ 'wb-lexeme', '[[Q3]] in [[Q2]]' ]
+				[ 'wb-lexeme', '&lt;Label of Q3&gt; in &lt;Label of Q2&gt;' ]
 			],
 			[
 				new Lexeme( $lexemeId, null, $missingLabelItem, $language ),
-				[ 'wb-lexeme', 'Q1 in [[Q2]]' ]
+				[ 'wb-lexeme', 'Q1 in &lt;Label of Q2&gt;' ]
 			],
 		];
 	}
