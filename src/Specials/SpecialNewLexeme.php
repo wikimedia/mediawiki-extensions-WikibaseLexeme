@@ -269,44 +269,44 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 				'options' => $this->getLanguageOptions(),
 				'default' => $langCode,
 				'type' => 'combobox',
-				'id' => 'wb-newentity-language',
-				'label-message' => 'wikibase-lexeme-newentity-language'
+				'id' => 'wb-newlexeme-language',
+				'label-message' => 'wikibase-newlexeme-language'
 			],
 			'lemma' => [
 				'name' => 'lemma',
 				'default' => $this->lemma ?: '',
 				'type' => 'text',
-				'id' => 'wb-newentity-label',
+				'id' => 'wb-newlexeme-lemma',
 				'lang' => $langCode,
 				'dir' => $langDir,
 				'placeholder' => $this->msg(
 					'wikibase-lemma-edit-placeholder'
 				)->text(),
-				'label-message' => 'wikibase-newentity-lemma'
+				'label-message' => 'wikibase-newlexeme-lemma'
 			],
 			'lexicalcategory' => [
 				'name' => 'lexicalcategory',
 				'default' => $this->lexicalCategory,
 				'type' => 'text',
-				'id' => 'wb-newentity-lexicalCategory',
+				'id' => 'wb-newlexeme-lexicalCategory',
 				'lang' => $langCode,
 				'dir' => $langDir,
 				'placeholder' => $this->msg(
 					'wikibase-lexicalcategory-edit-placeholder'
 				)->text(),
-				'label-message' => 'wikibase-newentity-lexicalcategory'
+				'label-message' => 'wikibase-newlexeme-lexicalcategory'
 			],
 			'language' => [
 				'name' => 'language',
 				'default' => $this->language,
 				'type' => 'text',
-				'id' => 'wb-newentity-language',
+				'id' => 'wb-newlexeme-language',
 				'lang' => $langCode,
 				'dir' => $langDir,
 				'placeholder' => $this->msg(
 					'wikibase-language-edit-placeholder'
 				)->text(),
-				'label-message' => 'wikibase-lexeme-newentity-language'
+				'label-message' => 'wikibase-newlexeme-language'
 			]
 		];
 	}
@@ -321,10 +321,10 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		$this->addCopyrightText();
 
 		HTMLForm::factory( 'ooui', $additionalFormElements, $this->getContext() )
-			->setId( 'mw-newentity-form1' )
-			->setSubmitID( 'wb-newentity-submit' )
+			->setId( 'mw-newlexeme-form1' )
+			->setSubmitID( 'wb-newlexeme-submit' )
 			->setSubmitName( 'submit' )
-			->setSubmitTextMsg( 'wikibase-newentity-submit' )
+			->setSubmitTextMsg( 'wikibase-newlexeme-submit' )
 			->setWrapperLegendMsg( $legend )
 			->setSubmitCallback( function () {// no-op
 			} )->show();
@@ -334,7 +334,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	 * @todo could factor this out into a special page form builder and renderer
 	 */
 	private function addCopyrightText() {
-		$html = $this->copyrightView->getHtml( $this->getLanguage(), 'wikibase-newentity-submit' );
+		$html = $this->copyrightView->getHtml( $this->getLanguage(), 'wikibase-newlexeme-submit' );
 
 		$this->getOutput()->addHTML( $html );
 	}
