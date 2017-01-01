@@ -7,7 +7,9 @@
 	},
 	"special-newlexeme": "Создать новую лексему",
 	"wikibase-newlexeme-fieldset": "Создать новую лексему",
-	"wikibase-newentity-lemma": "Лемма",
+	"wikibase-newlexeme-lemma": "Лемма",
 	"wikibase-lemma-edit-placeholder": "Введите лемму",
-	"wikibase-newentity-lexicalcategory": "Лексическая категория"
+	"wikibase-newlexeme-lexicalcategory": "Лексическая категория",
+	"wikibase-newlexeme-language": "Язык лексемы",
+	"wikibase-lexeme-view-language-lexical-category": "$1 на $2"
 }

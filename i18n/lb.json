@@ -6,8 +6,10 @@
 	},
 	"special-newlexeme": "En neie Lexerne uleeën",
 	"wikibase-newlexeme-fieldset": "En neie Lexerne generéieren",
-	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-newlexeme-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Gitt de Lemma an",
-	"wikibase-newentity-lexicalcategory": "Lexikalesch Kategorie",
-	"wikibase-lexeme-newentity-language": "Lexeme-Sprooch"
+	"wikibase-newlexeme-lexicalcategory": "Lexikalesch Kategorie",
+	"wikibase-newlexeme-language": "Lexeme-Sprooch",
+	"wikibase-lexeme-view-language": "Lexeme op $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 op $2"
 }

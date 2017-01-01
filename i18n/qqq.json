@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"Robby",
-			"Amire80"
+			"Amire80",
+			"Raymond"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -17,5 +18,5 @@
 	"wikibase-language-edit-placeholder": "Placeholder content for language",
 	"wikibase-lexeme-view-language": "Description when there is the language but not lexical category",
 	"wikibase-lexeme-view-lexical-category": "Description when there is the lexical category but not language",
-	"wikibase-lexeme-view-language-lexical-category": "Description when both lexical category and language are present"
+	"wikibase-lexeme-view-language-lexical-category": "Description when both lexical category and language are present\n{{Identical|In}}"
 }

@@ -3,14 +3,18 @@
 		"authors": [
 			"Fitoschido",
 			"Dgstranz",
-			"Macofe"
+			"Macofe",
+			"Fortega"
 		]
 	},
 	"wikibaselexeme-desc": "Gestión del tipo de entidad «lexema»",
 	"special-newlexeme": "Crear un lexema nuevo",
 	"wikibase-newlexeme-fieldset": "Crear un lexema nuevo",
-	"wikibase-newentity-lemma": "Lema",
+	"wikibase-newlexeme-lemma": "Lema",
 	"wikibase-lemma-edit-placeholder": "Escribe el lema",
-	"wikibase-newentity-lexicalcategory": "Categoría léxica",
-	"wikibase-lexicalcategory-edit-placeholder": "Introduce el ID del elemento de la categoría léxica, por ejemplo, Q10"
+	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
+	"wikibase-lexicalcategory-edit-placeholder": "Introduce el ID del elemento de la categoría léxica, por ejemplo, Q10",
+	"wikibase-newlexeme-language": "Idioma del lexema",
+	"wikibase-lexeme-view-language": "Lexema en $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 en $2"
 }

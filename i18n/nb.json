@@ -7,9 +7,12 @@
 	"wikibaselexeme-desc": "Støtte entitetstypen leksem",
 	"special-newlexeme": "Opprett et nytt leksem",
 	"wikibase-newlexeme-fieldset": "Opprett et nytt leksem",
-	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-newlexeme-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Skriv inn lemmaet",
-	"wikibase-newentity-lexicalcategory": "Leksikalsk kategori",
+	"wikibase-newlexeme-lexicalcategory": "Leksikalsk kategori",
 	"wikibase-lexicalcategory-edit-placeholder": "Skriv inn element-ID-en for den leksikale kategorien, f.eks. Q10",
-	"wikibase-language-edit-placeholder": "Skriv inn språkets element-ID, f.eks. Q20"
+	"wikibase-newlexeme-language": "Leksemets språk",
+	"wikibase-language-edit-placeholder": "Skriv inn språkets element-ID, f.eks. Q20",
+	"wikibase-lexeme-view-language": "Leksem på $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 på $2"
 }

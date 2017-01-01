@@ -8,10 +8,12 @@
 	"wikibaselexeme-desc": "Gestisce tipi di entità lessema",
 	"special-newlexeme": "Crea un nuovo lessema",
 	"wikibase-newlexeme-fieldset": "Crea un nuovo lessema",
-	"wikibase-newentity-lemma": "Lemma",
+	"wikibase-newlexeme-lemma": "Lemma",
 	"wikibase-lemma-edit-placeholder": "Inserisci il lemma",
-	"wikibase-newentity-lexicalcategory": "Categoria lessicale",
+	"wikibase-newlexeme-lexicalcategory": "Categoria lessicale",
 	"wikibase-lexicalcategory-edit-placeholder": "Inserisci l'ID elemento della categoria lessicale, ad esempio Q10",
-	"wikibase-lexeme-newentity-language": "Lingua del lessema",
-	"wikibase-language-edit-placeholder": "Inserisci l'ID elemento della lingua, ad esempio Q20"
+	"wikibase-newlexeme-language": "Lingua del lessema",
+	"wikibase-language-edit-placeholder": "Inserisci l'ID elemento della lingua, ad esempio Q20",
+	"wikibase-lexeme-view-language": "Lessema in $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
 }

@@ -4,6 +4,6 @@
 			"Chrumps"
 		]
 	},
-	"wikibase-newentity-lexicalcategory": "Kategoria leksykalna",
-	"wikibase-newentity-language": "Język:"
+	"wikibase-newlexeme-lexicalcategory": "Kategoria leksykalna",
+	"wikibase-lexeme-view-language-lexical-category": "$1 w $2"
 }

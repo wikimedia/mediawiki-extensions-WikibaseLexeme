@@ -9,10 +9,12 @@
 	"wikibaselexeme-desc": "Manipuler le type d'entité lexème",
 	"special-newlexeme": "Créer un nouveau lexème",
 	"wikibase-newlexeme-fieldset": "Créer un nouveau lexème",
-	"wikibase-newentity-lemma": "Lemme",
+	"wikibase-newlexeme-lemma": "Lemme",
 	"wikibase-lemma-edit-placeholder": "Entrez le lemme",
-	"wikibase-newentity-lexicalcategory": "Catégorie lexicale",
+	"wikibase-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibase-lexicalcategory-edit-placeholder": "Saisir l’ID de l’élément de la catégorie lexicale, par ex. Q10",
-	"wikibase-lexeme-newentity-language": "Langue du lexème",
-	"wikibase-language-edit-placeholder": "Entrer l'ID de l'élément correspondant à la langue par exemple Q20"
+	"wikibase-newlexeme-language": "Langue du lexème",
+	"wikibase-language-edit-placeholder": "Entrer l'ID de l'élément correspondant à la langue par exemple Q20",
+	"wikibase-lexeme-view-language": "Lexème dans $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 dans $2"
 }
