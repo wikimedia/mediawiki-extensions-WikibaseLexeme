@@ -181,13 +181,13 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		$this->lexicalCategory = $this->stringNormalizer->trimToNFC( $lexicalCategory );
 
 		$language = $this->getRequest()->getVal(
-			'language',
+			'lexeme-language',
 			isset( $this->parts[0] ) ? $this->parts[0] : ''
 		);
 		$this->language = $this->stringNormalizer->trimToNFC( $language );
 
 		$this->contentLanguageCode = $this->getRequest()->getVal(
-			'lang', $this->getLanguage()->getCode()
+			'lemma-language', $this->getLanguage()->getCode()
 		);
 	}
 
@@ -264,12 +264,12 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		$langCode = $this->contentLanguageCode;
 		$langDir = $this->languageDirectionalityLookup->getDirectionality( $this->contentLanguageCode );
 		return [
-			'lang' => [
-				'name' => 'lang',
+			'lemma-language' => [
+				'name' => 'lemma-language',
 				'options' => $this->getLanguageOptions(),
 				'default' => $langCode,
 				'type' => 'combobox',
-				'id' => 'wb-newlexeme-language',
+				'id' => 'wb-newlexeme-lemma-language',
 				'label-message' => 'wikibase-newlexeme-language'
 			],
 			'lemma' => [
@@ -296,11 +296,11 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 				)->text(),
 				'label-message' => 'wikibase-newlexeme-lexicalcategory'
 			],
-			'language' => [
-				'name' => 'language',
+			'lexeme-language' => [
+				'name' => 'lexeme-language',
 				'default' => $this->language,
 				'type' => 'text',
-				'id' => 'wb-newlexeme-language',
+				'id' => 'wb-newlexeme-lexeme-language',
 				'lang' => $langCode,
 				'dir' => $langDir,
 				'placeholder' => $this->msg(
@@ -321,7 +321,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		$this->addCopyrightText();
 
 		HTMLForm::factory( 'ooui', $additionalFormElements, $this->getContext() )
-			->setId( 'mw-newlexeme-form1' )
+			->setId( 'wb-newlexeme-form1' )
 			->setSubmitID( 'wb-newlexeme-submit' )
 			->setSubmitName( 'submit' )
 			->setSubmitTextMsg( 'wikibase-newlexeme-submit' )
