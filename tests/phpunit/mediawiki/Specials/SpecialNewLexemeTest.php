@@ -2,12 +2,16 @@
 
 namespace Wikibase\Lexeme\Tests\Specials;
 
+use User;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\Item;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Specials\SpecialNewLexeme;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTest;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers Wikibase\Lexeme\Specials\SpecialNewLexeme
@@ -16,16 +20,12 @@ use Wikibase\Repo\Tests\Specials\SpecialNewEntityTest;
  * @group WikibaseRepo
  * @group SpecialPage
  * @group WikibaseSpecialPage
+ * @group Database
  *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class SpecialNewLemexeTest extends SpecialNewEntityTest {
-
-	const FIELD_LEMMA_LANGUAGE = 'lemma-language';
-	const FIELD_LEMMA = 'lemma';
-	const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
-	const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
 
 	protected function newSpecialPage() {
 		return new SpecialNewLexeme();
@@ -35,109 +35,111 @@ class SpecialNewLemexeTest extends SpecialNewEntityTest {
 
 		list( $html ) = $this->executeSpecialPage();
 
-		$this->assertHtmlContainsInputWithName( $html, self::FIELD_LEMMA_LANGUAGE );
-		$this->assertHtmlContainsInputWithName( $html, self::FIELD_LEMMA );
-		$this->assertHtmlContainsInputWithName( $html, self::FIELD_LEXICAL_CATEGORY );
-		$this->assertHtmlContainsInputWithName( $html, self::FIELD_LEXEME_LANGUAGE );
+		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEMMA_LANGUAGE );
+		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEMMA );
+		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEXICAL_CATEGORY );
+		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEXEME_LANGUAGE );
 		$this->assertHtmlContainsSubmitControl( $html );
 	}
 
 	public function provideValidEntityCreationRequests() {
+
+		$existingItemId = 'Q1';
+		$this->givenItemExists( $existingItemId );
+
 		return [
 			'lemma is set' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma text',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
 			],
 			'another lemma language' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'fr',
-					self::FIELD_LEMMA => 'some lemma text',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'fr',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
 			],
 			'lexical category is set' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma text',
-					self::FIELD_LEXICAL_CATEGORY => 'Q1',
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
 			],
 			'lexeme language is set' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma text',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => 'Q1',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 			],
 		];
 	}
 
 	public function provideInvalidEntityCreationRequests() {
-		$this->markTestSkipped( "Fixes in the code needed" );
-
 		$nonexistentItemId = 'Q100';
 
 		return [
 			'unknown language' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'some-weird-language',
-					self::FIELD_LEMMA => 'some lemma',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'some-weird-language',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
 				'language code was not recognized',
 			],
 			'empty lemma' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => '',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => '',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
-				'you need to fill',
+				'value is required',
 			],
 			'lexical category has wrong format' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma',
-					self::FIELD_LEXICAL_CATEGORY => 'x',
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => 'x',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
-				'???',
+				'invalid format',
 			],
 			'lexeme language has wrong format' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => 'x',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => 'x',
 				],
-				'???',
+				'invalid format',
 			],
 			'lexical category does not exist' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma',
-					self::FIELD_LEXICAL_CATEGORY => $nonexistentItemId,
-					self::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $nonexistentItemId,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
-				'???',
+				'does not exist',
 			],
 			'lexeme language does not exist' => [
 				[
-					self::FIELD_LEMMA_LANGUAGE => 'en',
-					self::FIELD_LEMMA => 'some lemma',
-					self::FIELD_LEXICAL_CATEGORY => '',
-					self::FIELD_LEXEME_LANGUAGE => $nonexistentItemId,
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $nonexistentItemId,
 				],
-				'???',
+				'does not exist',
 			],
 		];
 	}
@@ -156,25 +158,38 @@ class SpecialNewLemexeTest extends SpecialNewEntityTest {
 		$this->assertInstanceOf( Lexeme::class, $entity );
 		/** @var Lexeme $entity */
 
-		$language = $form[ self::FIELD_LEMMA_LANGUAGE ];
+		$language = $form[ SpecialNewLexeme::FIELD_LEMMA_LANGUAGE ];
 		self::assertEquals(
-			$form[ self::FIELD_LEMMA ],
+			$form[ SpecialNewLexeme::FIELD_LEMMA ],
 			$entity->getLemmas()->getByLanguage( $language )->getText()
 		);
 
-		if ( $form[ self::FIELD_LEXICAL_CATEGORY ] ) {
+		if ( $form[ SpecialNewLexeme::FIELD_LEXICAL_CATEGORY ] ) {
 			self::assertEquals(
-				$form[ self::FIELD_LEXICAL_CATEGORY ],
+				$form[ SpecialNewLexeme::FIELD_LEXICAL_CATEGORY ],
 				$entity->getLexicalCategory()->getSerialization()
 			);
 		}
 
-		if ( $form[ self::FIELD_LEXEME_LANGUAGE ] ) {
+		if ( $form[ SpecialNewLexeme::FIELD_LEXEME_LANGUAGE ] ) {
 			self::assertEquals(
-				$form[ self::FIELD_LEXEME_LANGUAGE ],
+				$form[ SpecialNewLexeme::FIELD_LEXEME_LANGUAGE ],
 				$entity->getLanguage()->getSerialization()
 			);
 		}
+	}
+
+	/**
+	 * @param string $itemId
+	 */
+	private function givenItemExists( $itemId ) {
+		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+		$existingItem = new Item( new ItemId( $itemId ) );
+
+		$editEntityFactory = $wikibaseRepo->newEditEntityFactory()
+			->newEditEntity( new User(), $existingItem );
+
+		$editEntityFactory->attemptSave( '', EDIT_NEW, false );
 	}
 
 }

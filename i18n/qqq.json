@@ -11,6 +11,7 @@
 	"special-newlexeme": "Title of Special:NewLexeme",
 	"wikibase-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
 	"wikibase-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
+	"wikibase-newlexeme-lemma-language": "Name for \"Lemma\" language",
 	"wikibase-lemma-edit-placeholder": "Placeholder content for lemma",
 	"wikibase-newlexeme-lexicalcategory": "Name for \"lexical category\"",
 	"wikibase-lexicalcategory-edit-placeholder": "Placeholder content for lexical category",
