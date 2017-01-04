@@ -10,6 +10,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Repo\Specials\HTMLForm\HTMLContentLanguageField;
+use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Specials\SpecialNewEntity;
 use Wikibase\Repo\WikibaseRepo;
@@ -62,53 +63,15 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
-				'type' => 'text',
+				'class' => HTMLItemReferenceField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
-				'placeholder-message' => 'wikibase-lexicalcategory-edit-placeholder',
 				'label-message' => 'wikibase-newlexeme-lexicalcategory',
-				'validation-callback' => function ( $value ) {
-					if ( empty( $value ) ) {
-						return true;
-					}
-
-					if ( !preg_match( ItemId::PATTERN, $value ) ) {
-						// FIXME add text in language files
-						return $this->msg( 'invalid format' );
-					}
-
-					$entityLookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
-					if ( !$entityLookup->hasEntity( new ItemId( $value ) ) ) {
-						// FIXME add text in language files
-						return $this->msg( 'does not exist' );
-					}
-
-					return true;
-				},
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,
-				'type' => 'text',
+				'class' => HTMLItemReferenceField::class,
 				'id' => 'wb-newlexeme-lexeme-language',
-				'placeholder-message' => 'wikibase-language-edit-placeholder',
 				'label-message' => 'wikibase-newlexeme-language',
-				'validation-callback' => function ( $value ) {
-					if ( empty( $value ) ) {
-						return true;
-					}
-
-					if ( !preg_match( ItemId::PATTERN, $value ) ) {
-						// FIXME add text in language files
-						return $this->msg( 'invalid format' );
-					}
-
-					$entityLookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
-					if ( !$entityLookup->hasEntity( new ItemId( $value ) ) ) {
-						// FIXME add text in language files
-						return $this->msg( 'does not exist' );
-					}
-
-					return true;
-				},
 			]
 		];
 	}

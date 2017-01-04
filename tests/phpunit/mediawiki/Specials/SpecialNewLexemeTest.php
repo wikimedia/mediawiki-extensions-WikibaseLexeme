@@ -25,7 +25,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class SpecialNewLemexeTest extends SpecialNewEntityTest {
+class SpecialNewLexemeTest extends SpecialNewEntityTest {
 
 	protected function newSpecialPage() {
 		return new SpecialNewLexeme();

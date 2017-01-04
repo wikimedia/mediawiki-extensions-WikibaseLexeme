@@ -9,9 +9,7 @@
 	"wikibase-newlexeme-lemma-language": "Language of lemma",
 	"wikibase-lemma-edit-placeholder": "Enter the lemma",
 	"wikibase-newlexeme-lexicalcategory": "Lexical category",
-	"wikibase-lexicalcategory-edit-placeholder": "Enter the lexical category item ID e.g. Q10",
 	"wikibase-newlexeme-language": "Language of lexeme",
-	"wikibase-language-edit-placeholder": "Enter the language item ID e.g. Q20",
 	"wikibase-lexeme-view-language": "Lexeme in $1",
 	"wikibase-lexeme-view-lexical-category": "$1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
