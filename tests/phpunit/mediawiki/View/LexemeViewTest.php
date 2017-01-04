@@ -31,16 +31,26 @@ use Wikimedia\Assert\ParameterTypeException;
  *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
+ * @author Thiemo Mättig
  */
 class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * @param StatementList|null $expectedStatements
+	 *
 	 * @return StatementSectionsView
 	 */
-	private function newStatementSectionsViewMock() {
-		return $this->getMockBuilder( StatementSectionsView::class )
+	private function newStatementSectionsViewMock( StatementList $expectedStatements = null ) {
+		$statementSectionsView = $this->getMockBuilder( StatementSectionsView::class )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$statementSectionsView->expects( $expectedStatements ? $this->once() : $this->never() )
+			->method( 'getHtml' )
+			->with( $expectedStatements )
+			->will( $this->returnValue( 'statementSectionsView->getHtml' ) );
+
+		return $statementSectionsView;
 	}
 
 	/**
@@ -57,7 +67,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 					if ( $itemId->getSerialization() === 'Q1' ) {
 						return null;
 					}
-					return new Term( 'en', '<Label of ' . $itemId->getSerialization() . '>' );
+					return new Term( 'en', '<ITEM-' . $itemId->getSerialization() . '>' );
 				} )
 			);
 
@@ -68,9 +78,17 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 	 * @return EntityTermsView
 	 */
 	private function newEntityTermsViewMock() {
-		return $this->getMockBuilder( EntityTermsView::class )
+		$entityTermsView = $this->getMockBuilder( EntityTermsView::class )
 			->disableOriginalConstructor()
 			->getMock();
+
+		$entityTermsView->expects( $this->never() )
+			->method( 'getHtml' );
+
+		$entityTermsView->expects( $this->never() )
+			->method( 'getTitleHtml' );
+
+		return $entityTermsView;
 	}
 
 	/**
@@ -84,37 +102,22 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		return $languageDirectionalityLookup;
 	}
 
-	private function newLexemeView(
-		$contentLanguageCode = 'en',
-		EntityTermsView $entityTermsView = null,
-		StatementSectionsView $statementSectionsView = null
-	) {
-		$templateFactory = TemplateFactory::getDefaultInstance();
-
-		if ( !$entityTermsView ) {
-			$entityTermsView = $this->newEntityTermsViewMock();
-		}
-
-		if ( !$statementSectionsView ) {
-			$statementSectionsView = $this->newStatementSectionsViewMock();
-		}
-
+	private function newLexemeView( StatementList $expectedStatements = null ) {
 		$languageDirectionalityLookup = $this->newLanguageDirectionalityLookupMock();
+
 		$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
 			$languageDirectionalityLookup,
-			new LanguageNameLookup( $contentLanguageCode )
+			new LanguageNameLookup( 'en' )
 		);
 
-		$labelDescriptionLookup = $this->newLabelDescriptionLookup();
-
 		return new LexemeView(
-			$templateFactory,
-			$entityTermsView,
-			$statementSectionsView,
+			TemplateFactory::getDefaultInstance(),
+			$this->newEntityTermsViewMock(),
+			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$languageDirectionalityLookup,
 			$htmlTermRenderer,
-			$labelDescriptionLookup,
-			$contentLanguageCode
+			$this->newLabelDescriptionLookup(),
+			'en'
 		);
 	}
 
@@ -137,47 +140,14 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideTestGetHtml
 	 */
-	public function testGetHtml(
-		Lexeme $entity,
-		LexemeId $entityId = null,
-		$contentLanguageCode = 'en',
-		StatementList $statements = null
-	) {
-		$entityTermsView = $this->newEntityTermsViewMock();
-		$entityTermsView
-			->method( 'getHtml' )
-			->with(
-				$contentLanguageCode,
-				$entity,
-				$entity,
-				null,
-				$entityId
-			)
-			->will( $this->returnValue( 'entityTermsView->getHtml' ) );
+	public function testGetHtml( Lexeme $lexeme ) {
+		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$entityTermsView->expects( $this->never() )
-			->method( 'getEntityTermsForLanguageListView' );
-
-		$statementSectionsView = $this->newStatementSectionsViewMock();
-		$statementSectionsView
-			->method( 'getHtml' )
-			->with(
-				$this->callback( function( StatementList $statementList ) use ( $statements ) {
-					return $statements ? $statementList === $statements : $statementList->isEmpty();
-				} )
-			)
-			->will( $this->returnValue( 'statementSectionsView->getHtml' ) );
-
-		$view = $this->newLexemeView(
-			$contentLanguageCode,
-			$entityTermsView,
-			$statementSectionsView
-		);
-
-		$result = $view->getHtml( $entity );
-		$this->assertInternalType( 'string', $result );
-		$this->assertContains( 'wb-lexeme', $result );
-
+		$html = $view->getHtml( $lexeme );
+		$this->assertInternalType( 'string', $html );
+		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
+		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
+		$this->assertContains( 'statementSectionsView->getHtml', $html );
 	}
 
 	public function provideTestGetHtml() {
@@ -188,28 +158,13 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 		return [
 			[
-				new Lexeme()
+				new Lexeme(),
 			],
 			[
 				new Lexeme( $lexemeId ),
-				$lexemeId
 			],
 			[
 				new Lexeme( $lexemeId, null, null, null, $statements ),
-				$lexemeId,
-				'en',
-				$statements
-			],
-			[
-				new Lexeme( $lexemeId ),
-				$lexemeId,
-				'lkt'
-			],
-			[
-				new Lexeme( $lexemeId, null, null, null, $statements ),
-				$lexemeId,
-				'lkt',
-				$statements
 			],
 		];
 	}
@@ -232,23 +187,23 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		return [
 			[
 				new Lexeme(),
-				[ 'wb-lexeme' ]
+				''
 			],
 			[
 				new Lexeme( $lexemeId, null, $lexicalCategory ),
-				[ 'wb-lexeme', '&lt;Label of Q3&gt;' ]
+				'&lt;ITEM-Q3&gt;'
 			],
 			[
 				new Lexeme( $lexemeId, null, null, $language ),
-				[ 'wb-lexeme', 'Lexeme in &lt;Label of Q2&gt;' ]
+				'Lexeme in &lt;ITEM-Q2&gt;'
 			],
 			[
 				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
-				[ 'wb-lexeme', '&lt;Label of Q3&gt; in &lt;Label of Q2&gt;' ]
+				'&lt;ITEM-Q3&gt; in &lt;ITEM-Q2&gt;'
 			],
 			[
 				new Lexeme( $lexemeId, null, $missingLabelItem, $language ),
-				[ 'wb-lexeme', 'Q1 in &lt;Label of Q2&gt;' ]
+				'Q1 in &lt;ITEM-Q2&gt;'
 			],
 		];
 	}
@@ -258,36 +213,18 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetHtmlForLexicalCategoryAndLanguage(
 		Lexeme $entity,
-		array $expectedContents
+		$expectedHeadline
 	) {
-		$entityTermsView = $this->newEntityTermsViewMock();
-		$entityTermsView
-			->method( 'getHtml' )
-			->with(
-				'en',
-				$entity,
-				$entity,
-				null,
-				$entity->getId()
-			)
-			->will( $this->returnValue( 'entityTermsView->getHtml' ) );
+		$view = $this->newLexemeView( $entity->getStatements() );
 
-		$entityTermsView->expects( $this->never() )
-			->method( 'getEntityTermsForLanguageListView' );
-
-		$statementSectionsView = $this->newStatementSectionsViewMock();
-
-		$view = $this->newLexemeView(
-			'en',
-			$entityTermsView,
-			$statementSectionsView
+		$html = $view->getHtml( $entity );
+		$this->assertInternalType( 'string', $html );
+		$this->assertContains(
+			'<div class="wikibase-entityview-main">'
+				. $expectedHeadline
+				. '<div id="toc"></div>statementSectionsView->getHtml</div>',
+			$html
 		);
-
-		$result = $view->getHtml( $entity );
-		$this->assertInternalType( 'string', $result );
-		foreach ( $expectedContents as $expectedContent ) {
-			$this->assertContains( $expectedContent, $result );
-		}
 	}
 
 }
