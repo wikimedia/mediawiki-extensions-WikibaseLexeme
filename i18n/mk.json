@@ -10,9 +10,7 @@
 	"wikibase-newlexeme-lemma": "Лема",
 	"wikibase-lemma-edit-placeholder": "Внесете ја лемата",
 	"wikibase-newlexeme-lexicalcategory": "Лексичка категорија",
-	"wikibase-lexicalcategory-edit-placeholder": "Внесете ја назнаката на предметот за лексичката категорија, како на пр. Q10.",
 	"wikibase-newlexeme-language": "Јазик на лексемата",
-	"wikibase-language-edit-placeholder": "Предметна назнака за јазикот, како на пр. Q20",
 	"wikibase-lexeme-view-language": "Лексема на $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 на $2"
 }

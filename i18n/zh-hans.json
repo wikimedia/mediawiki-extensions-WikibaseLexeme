@@ -10,9 +10,7 @@
 	"wikibase-newlexeme-lemma": "引理",
 	"wikibase-lemma-edit-placeholder": "输入引理",
 	"wikibase-newlexeme-lexicalcategory": "词类",
-	"wikibase-lexicalcategory-edit-placeholder": "输入词类项ID，例如Q10",
 	"wikibase-newlexeme-language": "词位的语言",
-	"wikibase-language-edit-placeholder": "输入语言项ID，例如Q20",
 	"wikibase-lexeme-view-language": "$1中的词位",
 	"wikibase-lexeme-view-language-lexical-category": "$2中的$1"
 }

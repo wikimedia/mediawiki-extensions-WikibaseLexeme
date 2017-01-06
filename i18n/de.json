@@ -8,11 +8,10 @@
 	"special-newlexeme": "Ein neues Lexeme erstellen",
 	"wikibase-newlexeme-fieldset": "Ein neues Lexeme erstellen",
 	"wikibase-newlexeme-lemma": "Lemma",
+	"wikibase-newlexeme-lemma-language": "Lemmasprache",
 	"wikibase-lemma-edit-placeholder": "Das Lemma eingeben",
 	"wikibase-newlexeme-lexicalcategory": "Lexikalische Kategorie",
-	"wikibase-lexicalcategory-edit-placeholder": "Gib die Objektkennung der lexikalischen Kategorie ein, z.&nbsp;B. Q10",
 	"wikibase-newlexeme-language": "Lexeme-Sprache",
-	"wikibase-language-edit-placeholder": "Gib die Objektkennung der Sprache ein, z.&nbsp;B. Q20",
 	"wikibase-lexeme-view-language": "Lexeme auf $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
 }

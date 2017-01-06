@@ -10,9 +10,7 @@
 	"wikibase-newlexeme-lemma": "משפט מוגדר",
 	"wikibase-lemma-edit-placeholder": "נא להזין משפט מוגדר",
 	"wikibase-newlexeme-lexicalcategory": "קטגוריה מילונית",
-	"wikibase-lexicalcategory-edit-placeholder": "נא להזין את מזהה הפריט של הקטגוריה המילונית, למשל Q10",
 	"wikibase-newlexeme-language": "שפת היחידה המילונית",
-	"wikibase-language-edit-placeholder": "נא להזין את מזהה הפריט של השפה, למשל Q20",
 	"wikibase-lexeme-view-language": "יחידה מילונית ב$1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 ב$2"
 }
