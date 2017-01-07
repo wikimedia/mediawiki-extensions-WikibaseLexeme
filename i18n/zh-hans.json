@@ -8,6 +8,7 @@
 	"special-newlexeme": "创建新词位",
 	"wikibase-newlexeme-fieldset": "创建新词位",
 	"wikibase-newlexeme-lemma": "引理",
+	"wikibase-newlexeme-lemma-language": "引理的语言",
 	"wikibase-lemma-edit-placeholder": "输入引理",
 	"wikibase-newlexeme-lexicalcategory": "词类",
 	"wikibase-newlexeme-language": "词位的语言",

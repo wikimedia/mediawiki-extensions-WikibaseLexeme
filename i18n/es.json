@@ -11,6 +11,7 @@
 	"special-newlexeme": "Crear un lexema nuevo",
 	"wikibase-newlexeme-fieldset": "Crear un lexema nuevo",
 	"wikibase-newlexeme-lemma": "Lema",
+	"wikibase-newlexeme-lemma-language": "Idioma del lema",
 	"wikibase-lemma-edit-placeholder": "Escribe el lema",
 	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
 	"wikibase-newlexeme-language": "Idioma del lexema",

@@ -10,6 +10,7 @@
 	"special-newlexeme": "Créer un nouveau lexème",
 	"wikibase-newlexeme-fieldset": "Créer un nouveau lexème",
 	"wikibase-newlexeme-lemma": "Lemme",
+	"wikibase-newlexeme-lemma-language": "Langue du lemme",
 	"wikibase-lemma-edit-placeholder": "Entrez le lemme",
 	"wikibase-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibase-newlexeme-language": "Langue du lexème",
