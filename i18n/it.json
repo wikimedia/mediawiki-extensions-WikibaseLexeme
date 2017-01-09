@@ -9,11 +9,10 @@
 	"special-newlexeme": "Crea un nuovo lessema",
 	"wikibase-newlexeme-fieldset": "Crea un nuovo lessema",
 	"wikibase-newlexeme-lemma": "Lemma",
+	"wikibase-newlexeme-lemma-language": "Lingua del lemma",
 	"wikibase-lemma-edit-placeholder": "Inserisci il lemma",
 	"wikibase-newlexeme-lexicalcategory": "Categoria lessicale",
-	"wikibase-lexicalcategory-edit-placeholder": "Inserisci l'ID elemento della categoria lessicale, ad esempio Q10",
 	"wikibase-newlexeme-language": "Lingua del lessema",
-	"wikibase-language-edit-placeholder": "Inserisci l'ID elemento della lingua, ad esempio Q20",
 	"wikibase-lexeme-view-language": "Lessema in $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
 }

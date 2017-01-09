@@ -8,6 +8,7 @@
 	"special-newlexeme": "Создать новую лексему",
 	"wikibase-newlexeme-fieldset": "Создать новую лексему",
 	"wikibase-newlexeme-lemma": "Лемма",
+	"wikibase-newlexeme-lemma-language": "Язык леммы",
 	"wikibase-lemma-edit-placeholder": "Введите лемму",
 	"wikibase-newlexeme-lexicalcategory": "Лексическая категория",
 	"wikibase-newlexeme-language": "Язык лексемы",

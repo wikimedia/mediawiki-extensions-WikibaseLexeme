@@ -8,6 +8,7 @@
 	"special-newlexeme": "Opprett et nytt leksem",
 	"wikibase-newlexeme-fieldset": "Opprett et nytt leksem",
 	"wikibase-newlexeme-lemma": "Lemma",
+	"wikibase-newlexeme-lemma-language": "Lemmets språk",
 	"wikibase-lemma-edit-placeholder": "Skriv inn lemmaet",
 	"wikibase-newlexeme-lexicalcategory": "Leksikalsk kategori",
 	"wikibase-newlexeme-language": "Leksemets språk",
