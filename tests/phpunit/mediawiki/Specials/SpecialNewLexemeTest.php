@@ -17,7 +17,6 @@ use Wikibase\Repo\WikibaseRepo;
  * @covers Wikibase\Lexeme\Specials\SpecialNewLexeme
  *
  * @group Wikibase
- * @group WikibaseRepo
  * @group SpecialPage
  * @group WikibaseSpecialPage
  * @group Database
