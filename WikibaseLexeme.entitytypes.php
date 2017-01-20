@@ -20,6 +20,7 @@ use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\ChangeOp\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -114,5 +115,8 @@ return [
 		// Identifier of a resource loader module that, when `require`d, returns a function
 		// returning a deserializer
 		'js-deserializer-factory-function' => 'wikibase.lexeme.getDeserializer',
+		'changeop-deserializer-callback' => function () {
+			return new LexemeChangeOpDeserializer();
+		}
 	]
 ];
