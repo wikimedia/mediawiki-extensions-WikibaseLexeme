@@ -7,6 +7,11 @@
 	"wikibaselexeme-desc": "Alministrar el tipu d'entidá lexema",
 	"special-newlexeme": "Crear un nuevu lexema",
 	"wikibase-newlexeme-fieldset": "Crear un nuevu lexema",
-	"wikibase-newentity-lemma": "Llema",
-	"wikibase-lemma-edit-placeholder": "Escribe'l llema"
+	"wikibase-newlexeme-lemma": "Llema",
+	"wikibase-newlexeme-lemma-language": "Llingua del llema",
+	"wikibase-lemma-edit-placeholder": "Escribe'l llema",
+	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
+	"wikibase-newlexeme-language": "Llingua del lexema",
+	"wikibase-lexeme-view-language": "Lexema en $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 en $2"
 }
