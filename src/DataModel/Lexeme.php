@@ -153,10 +153,10 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 * @return bool
 	 */
 	public function isEmpty() {
-		return ( is_null( $this->lemmas )
+		return ( $this->lemmas === null
 			|| $this->lemmas->isEmpty() )
-			&& is_null( $this->lexicalCategory )
-			&& is_null( $this->language )
+			&& $this->lexicalCategory === null
+			&& $this->language === null
 			&& $this->statements->isEmpty();
 	}
 

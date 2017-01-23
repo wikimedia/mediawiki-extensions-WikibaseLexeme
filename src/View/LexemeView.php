@@ -183,7 +183,7 @@ class LexemeView extends EntityView {
 	 */
 	private function getMainTerm( $lemmas ) {
 
-		if ( is_null( $lemmas ) || $lemmas->isEmpty() ) {
+		if ( $lemmas === null || $lemmas->isEmpty() ) {
 			return null;
 		}
 
@@ -200,7 +200,7 @@ class LexemeView extends EntityView {
 	}
 
 	private function getItemIdHtml( $itemId ) {
-		if ( is_null( $itemId ) || !( $itemId instanceof ItemId ) ) {
+		if ( $itemId === null || !( $itemId instanceof ItemId ) ) {
 			return null;
 		}
 
@@ -210,7 +210,7 @@ class LexemeView extends EntityView {
 			return $itemId->getSerialization();
 		}
 
-		if ( is_null( $label ) ) {
+		if ( $label === null ) {
 			return $itemId->getSerialization();
 		}
 		return $this->htmlTermRenderer->renderTerm( $label );
