@@ -54,7 +54,7 @@ class LexemeId extends EntityId implements Int32EntityId {
 	 * @return string
 	 */
 	public function serialize() {
-		return json_encode( [ 'lexeme', $this->serialization ] );
+		return $this->serialization;
 	}
 
 	/**
@@ -63,7 +63,7 @@ class LexemeId extends EntityId implements Int32EntityId {
 	 * @param string $serialized
 	 */
 	public function unserialize( $serialized ) {
-		list( , $this->serialization ) = json_decode( $serialized );
+		$this->serialization = $serialized;
 	}
 
 	/**
