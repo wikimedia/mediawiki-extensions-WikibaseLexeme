@@ -206,8 +206,8 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 * @see http://php.net/manual/en/language.oop5.cloning.php
 	 */
 	public function __clone() {
-		// TODO: should also clone other attributes once implemented
-		$this->statements = unserialize( serialize( $this->statements ) );
+		$this->lemmas = clone $this->lemmas;
+		$this->statements = clone $this->statements;
 	}
 
 	/**
