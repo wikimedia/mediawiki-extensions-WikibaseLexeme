@@ -80,7 +80,7 @@ class LexemeSerializer implements DispatchableSerializer {
 			$serialization['id'] = $id->getSerialization();
 		}
 
-		if ( $lexeme->getLemmas() !== null ) {
+		if ( !$lexeme->getLemmas()->isEmpty() ) {
 			$serialization['lemmas'] = $this->termListSerializer->serialize(
 				$lexeme->getLemmas()
 			);

@@ -45,7 +45,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertNull( $lexeme->getId() );
 		$this->assertEquals( new StatementList(), $lexeme->getStatements() );
-		$this->assertNull( $lexeme->getLemmas() );
+		$this->assertEquals( new TermList(), $lexeme->getLemmas() );
 		$this->assertNull( $lexeme->getLexicalCategory() );
 		$this->assertNull( $lexeme->getLanguage() );
 	}

@@ -42,7 +42,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	private $fingerprint;
 
 	/**
-	 * @var TermList|null
+	 * @var TermList
 	 */
 	private $lemmas;
 
@@ -71,7 +71,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 		StatementList $statements = null
 	) {
 		$this->id = $id;
-		$this->lemmas = $lemmas;
+		$this->lemmas = $lemmas ?: new TermList();
 		$this->lexicalCategory = $lexicalCategory;
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
@@ -153,8 +153,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 * @return bool
 	 */
 	public function isEmpty() {
-		return ( $this->lemmas === null
-			|| $this->lemmas->isEmpty() )
+		return $this->lemmas->isEmpty()
 			&& $this->lexicalCategory === null
 			&& $this->language === null
 			&& $this->statements->isEmpty();
@@ -176,10 +175,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 			return false;
 		}
 
-		$sameLemmas = ( $this->lemmas === $target->getLemmas() || (
-			$this->lemmas !== null
-			&& $this->lemmas->equals( $target->getLemmas() ) )
-		);
+		$sameLemmas = $this->lemmas->equals( $target->getLemmas() );
 
 		$sameLexicalCategory = ( $this->lexicalCategory === $target->getLexicalCategory() || (
 				$this->lexicalCategory !== null
@@ -215,7 +211,7 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	}
 
 	/**
-	 * @return TermList|null
+	 * @return TermList
 	 */
 	public function getLemmas() {
 		return $this->lemmas;
