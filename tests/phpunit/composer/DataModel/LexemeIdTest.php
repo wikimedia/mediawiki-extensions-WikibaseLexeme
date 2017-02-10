@@ -23,6 +23,14 @@ class LexemeIdTest extends \PHPUnit_Framework_TestCase {
 		$this->assertSame( $normalizedSerialization, $id->getSerialization() );
 	}
 
+	/**
+	 * @dataProvider idSerializationProvider
+	 */
+	public function testSerializationWorksProperly( $serialization ) {
+		$id = new LexemeId( $serialization );
+		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
+	}
+
 	public function idSerializationProvider() {
 		return [
 			[ 'l1', 'L1' ],
@@ -74,7 +82,7 @@ class LexemeIdTest extends \PHPUnit_Framework_TestCase {
 
 	public function testSerialize() {
 		$id = new LexemeId( 'L1' );
-		$this->assertSame( '["lexeme","L1"]', $id->serialize() );
+		$this->assertSame( 'L1', $id->serialize() );
 	}
 
 	/**
@@ -88,15 +96,14 @@ class LexemeIdTest extends \PHPUnit_Framework_TestCase {
 
 	public function serializationProvider() {
 		return [
-			[ '["lexeme","L2"]', 'L2' ],
+			[ 'L2', 'L2' ],
 
 			// All these cases are kind of an injection vector and allow constructing invalid ids.
-			[ '["string","L2"]', 'L2' ],
-			[ '["","string"]', 'string' ],
-			[ '["",""]', '' ],
-			[ '["",2]', 2 ],
-			[ '["",null]', null ],
-			[ '', null ],
+			[ 'L2', 'L2' ],
+			[ 'string', 'string' ],
+			[ '', '' ],
+			[ 2, 2 ],
+			[ null, null ],
 		];
 	}
 
