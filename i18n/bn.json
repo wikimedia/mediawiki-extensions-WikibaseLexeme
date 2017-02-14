@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Elias Ahmmad"
+			"Elias Ahmmad",
+			"Aftabuzzaman"
 		]
 	},
-	"wikibase-newlexeme-lemma": "থিম",
+	"wikibase-newlexeme-lemma": "লেম্মা",
 	"wikibase-newlexeme-lexicalcategory": "আভিধানিক বিভাগ",
 	"wikibase-newlexeme-language": "Lexeme ভাষা"
 }
