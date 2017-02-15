@@ -28,6 +28,9 @@
 		],
 		"WikibaseRepoEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
+		],
+		"WikibaseClientEntityTypes": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
 		]
 	},
 	"MessagesDirs": {
