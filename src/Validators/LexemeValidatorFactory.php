@@ -47,7 +47,7 @@ class LexemeValidatorFactory {
 			[
 				new TypeValidator( 'string' ),
 				new StringLengthValidator( 1, $this->maxTermLength, 'mb_strlen' ),
-				new RegexValidator( '/^\s|[\r\n\t]|\s$/', true ),
+				new RegexValidator( '/^\s|\v|\s$/', true ),
 			],
 			true
 		);
