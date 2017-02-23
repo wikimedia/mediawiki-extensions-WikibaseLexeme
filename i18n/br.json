@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Fulup"
+		]
+	},
+	"wikibaselexeme-desc": "Embreger ar seurt entite 'l\"emma''",
+	"special-newlexeme": "Krouiñ ul lemma nevez",
+	"wikibase-newlexeme-fieldset": "Krouiñ ul lemma nevez",
+	"wikibase-newlexeme-lemma": "Lemma",
+	"wikibase-newlexeme-lemma-language": "Yezh al lemma",
+	"wikibase-lemma-edit-placeholder": "Merkit al lemma",
+	"wikibase-newlexeme-lexicalcategory": "Rummenn-ger",
+	"wikibase-newlexeme-language": "Yezh al leksem",
+	"wikibase-lexeme-view-language": "Leksem e $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 e $2"
+}
