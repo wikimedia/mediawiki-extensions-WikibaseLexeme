@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Validators;
 
+use ValueValidators\NullValidator;
 use ValueValidators\ValueValidator;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\Validators\RegexValidator;
@@ -58,6 +59,14 @@ class LexemeValidatorFactory {
 	 */
 	public function getLanguageCodeValidator() {
 		return $this->termValidatorFactory->getLanguageValidator();
+	}
+
+	/**
+	 * @return ValueValidator
+	 */
+	public function getLanguageValidator() {
+		// TODO: Implement this
+		return new NullValidator();
 	}
 
 }
