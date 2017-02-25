@@ -12,6 +12,9 @@
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\Repo\WikibaseRepo;
@@ -20,7 +23,7 @@ use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\LanguageFallbackChain;
-use Wikibase\Lexeme\ChangeOp\LexemeChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -116,7 +119,20 @@ return [
 		// returning a deserializer
 		'js-deserializer-factory-function' => 'wikibase.lexeme.getDeserializer',
 		'changeop-deserializer-callback' => function () {
-			return new LexemeChangeOpDeserializer();
-		}
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			return new LexemeChangeOpDeserializer(
+				new LemmaChangeOpDeserializer(
+					// TODO: WikibaseRepo should probably provide this validator?
+					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
+					// that should be allowed as "languages" of lemma terms
+					new TermChangeOpSerializationValidator( $wikibaseRepo->getTermsLanguages() ),
+					new LexemeValidatorFactory(
+						1000, // TODO: move to setting, at least change to some reasonable hard-coded value
+						$wikibaseRepo->getTermValidatorFactory()
+					),
+					$wikibaseRepo->getStringNormalizer()
+				)
+			);
+		},
 	]
 ];
