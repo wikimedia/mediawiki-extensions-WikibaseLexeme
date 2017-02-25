@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;
@@ -141,7 +142,13 @@ class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 
 	private function getLexemeValidatorFactory() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );
-		return new LexemeValidatorFactory( 10, $mockProvider->getMockTermValidatorFactory() );
+		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
+		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
+			$this,
+			10,
+			$mockProvider->getMockTermValidatorFactory(),
+			[ 'Q123', 'Q321' ]
+		);
 	}
 
 }

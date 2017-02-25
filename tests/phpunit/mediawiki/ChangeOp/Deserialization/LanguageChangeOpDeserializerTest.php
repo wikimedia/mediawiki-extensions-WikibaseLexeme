@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
@@ -23,8 +24,13 @@ class LanguageChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 
 	private function newLanguageChangeOpDeserializer() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );
+		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
 		return new LanguageChangeOpDeserializer(
-			new LexemeValidatorFactory( 10, $mockProvider->getMockTermValidatorFactory() ),
+			$validatorFactoryMockProvider->getLexemeValidatorFactory(
+				$this,
+				10,
+				$mockProvider->getMockTermValidatorFactory()
+			),
 			new StringNormalizer(),
 			new StringValidator()
 		);

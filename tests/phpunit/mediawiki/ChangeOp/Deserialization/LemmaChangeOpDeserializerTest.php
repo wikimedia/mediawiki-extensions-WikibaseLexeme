@@ -8,6 +8,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
@@ -26,9 +27,14 @@ class LemmaChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 
 	private function newLemmaChangeOpDeserializer() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );
+		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
 		return new LemmaChangeOpDeserializer(
 			new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en' ] ) ),
-			new LexemeValidatorFactory( 10, $mockProvider->getMockTermValidatorFactory() ),
+			$validatorFactoryMockProvider->getLexemeValidatorFactory(
+				$this,
+				10,
+				$mockProvider->getMockTermValidatorFactory()
+			),
 			new StringNormalizer()
 		);
 	}

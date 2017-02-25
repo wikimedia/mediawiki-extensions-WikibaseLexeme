@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Validators;
 
-use ValueValidators\NullValidator;
 use ValueValidators\ValueValidator;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\Validators\RegexValidator;
@@ -29,14 +28,25 @@ class LexemeValidatorFactory {
 	private $termValidatorFactory;
 
 	/**
+	 * @var ValueValidator[]
+	 */
+	private $itemValidators;
+
+	/**
 	 * @param int $maxTermLength max string length for lemma term
 	 * @param TermValidatorFactory $termValidatorFactory
+	 * @param ValueValidator[] $itemValidators
 	 */
-	public function __construct( $maxTermLength, TermValidatorFactory $termValidatorFactory ) {
+	public function __construct(
+		$maxTermLength,
+		TermValidatorFactory $termValidatorFactory,
+		array $itemValidators
+	) {
 		Assert::parameterType( 'integer', $maxTermLength, '$maxLength' );
 
 		$this->maxTermLength = $maxTermLength;
 		$this->termValidatorFactory = $termValidatorFactory;
+		$this->itemValidators = $itemValidators;
 	}
 
 	/**
@@ -65,8 +75,10 @@ class LexemeValidatorFactory {
 	 * @return ValueValidator
 	 */
 	public function getLanguageValidator() {
-		// TODO: Implement this
-		return new NullValidator();
+		return new CompositeValidator(
+			$this->itemValidators,
+			true
+		);
 	}
 
 }
