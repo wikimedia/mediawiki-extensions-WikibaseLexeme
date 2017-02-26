@@ -9,8 +9,6 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\DescriptionsProvider;
-use Wikibase\DataModel\Term\Fingerprint;
-use Wikibase\DataModel\Term\FingerprintProvider;
 use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Providers\LanguageProvider;
@@ -20,8 +18,8 @@ use Wikibase\Lexeme\DataModel\Providers\LexicalCategoryProvider;
 /**
  * @license GPL-2.0+
  */
-class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvider,
-		LabelsProvider, DescriptionsProvider, LemmasProvider, LexicalCategoryProvider,
+class Lexeme implements EntityDocument, StatementListProvider, LabelsProvider,
+		DescriptionsProvider, LemmasProvider, LexicalCategoryProvider,
 		LanguageProvider {
 
 	const ENTITY_TYPE = 'lexeme';
@@ -35,11 +33,6 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 * @var StatementList
 	 */
 	private $statements;
-
-	/**
-	 * @var Fingerprint
-	 */
-	private $fingerprint;
 
 	/**
 	 * @var TermList
@@ -75,8 +68,6 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 		$this->lexicalCategory = $lexicalCategory;
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
-		// TODO: Remove this once Wikibase can work without fingerprint
-		$this->fingerprint = new Fingerprint();
 	}
 
 	/**
@@ -98,20 +89,6 @@ class Lexeme implements EntityDocument, StatementListProvider, FingerprintProvid
 	 */
 	public function getStatements() {
 		return $this->statements;
-	}
-
-	/**
-	 * @return Fingerprint
-	 */
-	public function getFingerprint() {
-		return $this->fingerprint;
-	}
-
-	/**
-	 * @param Fingerprint $fingerprint
-	 */
-	public function setFingerprint( Fingerprint $fingerprint ) {
-		$this->fingerprint = $fingerprint;
 	}
 
 	/**

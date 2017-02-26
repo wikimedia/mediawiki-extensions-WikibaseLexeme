@@ -8,7 +8,6 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -287,18 +286,6 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			Statement::RANK_NORMAL,
 			$lexeme->getStatements()->getFirstStatementWithGuid( null )->getRank()
 		);
-	}
-
-	public function testGetFingerprintSetFingerprint() {
-		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
-
-		$fingerprint = new Fingerprint( new TermList( [ new Term( 'en', 'English label' ) ] ) );
-
-		$this->assertTrue( $lexeme->getFingerprint()->isEmpty() );
-
-		$lexeme->setFingerprint( $fingerprint );
-
-		$this->assertSame( $fingerprint, $lexeme->getFingerprint() );
 	}
 
 	public function testSetLemmas() {
