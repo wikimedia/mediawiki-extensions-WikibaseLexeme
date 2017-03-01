@@ -11,8 +11,11 @@
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
+
+use ValueValidators\StringValidator;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
@@ -120,17 +123,23 @@ return [
 		'js-deserializer-factory-function' => 'wikibase.lexeme.getDeserializer',
 		'changeop-deserializer-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$lexemeValidatorFactory = new LexemeValidatorFactory(
+				1000, // TODO: move to setting, at least change to some reasonable hard-coded value
+				$wikibaseRepo->getTermValidatorFactory()
+			);
 			return new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
 					// TODO: WikibaseRepo should probably provide this validator?
 					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 					// that should be allowed as "languages" of lemma terms
 					new TermChangeOpSerializationValidator( $wikibaseRepo->getTermsLanguages() ),
-					new LexemeValidatorFactory(
-						1000, // TODO: move to setting, at least change to some reasonable hard-coded value
-						$wikibaseRepo->getTermValidatorFactory()
-					),
+					$lexemeValidatorFactory,
 					$wikibaseRepo->getStringNormalizer()
+				),
+				new LanguageChangeOpDeserializer(
+					$lexemeValidatorFactory,
+					$wikibaseRepo->getStringNormalizer(),
+					new StringValidator()
 				)
 			);
 		},

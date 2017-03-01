@@ -19,8 +19,17 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $lemmaChangeOpDeserializer;
 
-	public function __construct( LemmaChangeOpDeserializer $lemmaChangeOpDeserializer ) {
+	/**
+	 * @var LanguageChangeOpDeserializer
+	 */
+	private $languageChangeOpDeserializer;
+
+	public function __construct(
+		LemmaChangeOpDeserializer $lemmaChangeOpDeserializer,
+		LanguageChangeOpDeserializer $languageChangeOpDeserializer
+	) {
 		$this->lemmaChangeOpDeserializer = $lemmaChangeOpDeserializer;
+		$this->languageChangeOpDeserializer = $languageChangeOpDeserializer;
 	}
 
 	/**
@@ -34,6 +43,10 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 
 		if ( array_key_exists( 'lemmas', $changeRequest ) ) {
 			$changeOps->add( $this->lemmaChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
+		}
+
+		if ( array_key_exists( 'language', $changeRequest ) ) {
+			$changeOps->add( $this->languageChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
 		}
 
 		return $changeOps;

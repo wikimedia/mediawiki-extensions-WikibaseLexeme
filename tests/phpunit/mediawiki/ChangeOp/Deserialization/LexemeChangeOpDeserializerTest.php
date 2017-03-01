@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\ChangeOp\Deserialization;
 
 use Wikibase\ChangeOp\ChangeOp;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 
@@ -24,8 +25,20 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 	}
 
+	/**
+	 * @return LanguageChangeOpDeserializer
+	 */
+	private function getLanguageChangeOpDeserializer() {
+		return $this->getMockBuilder( LanguageChangeOpDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
 	public function testCreateEntityChangeOpReturnsChangeOpInstance() {
-		$deserializer = new LexemeChangeOpDeserializer( $this->getLemmaChangeOpDeserializer() );
+		$deserializer = new LexemeChangeOpDeserializer(
+			$this->getLemmaChangeOpDeserializer(),
+			$this->getLanguageChangeOpDeserializer()
+		);
 
 		$this->assertInstanceOf( ChangeOp::class, $deserializer->createEntityChangeOp( [] ) );
 	}
@@ -36,10 +49,31 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 			->method( 'createEntityChangeOp' )
 			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
 
-		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer );
+		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
+		$languageDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer, $languageDeserializer );
 
 		$deserializer->createEntityChangeOp(
 			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
+		);
+	}
+
+	public function testGivenLanguageInChangeRequest_languageChangeOpDeserializerIsUsed() {
+		$lemmaDeserializer = $this->getLemmaChangeOpDeserializer();
+		$lemmaDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
+		$languageDeserializer->expects( $this->atLeastOnce() )
+			->method( 'createEntityChangeOp' )
+			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
+
+		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer, $languageDeserializer );
+
+		$deserializer->createEntityChangeOp(
+			[ 'language' => 'q100' ]
 		);
 	}
 
@@ -48,7 +82,11 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 		$lemmaDeserializer->expects( $this->never() )
 			->method( $this->anything() );
 
-		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer );
+		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
+		$languageDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer, $languageDeserializer );
 
 		$deserializer->createEntityChangeOp(
 			[ 'labels' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
