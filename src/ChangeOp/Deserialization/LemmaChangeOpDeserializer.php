@@ -18,7 +18,7 @@ use Wikibase\StringNormalizer;
  *
  * @license GPL-2.0+
  */
-class LemmaChangeOpDeserializer implements ChangeOpDeserializer{
+class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
 	 * @var TermChangeOpSerializationValidator

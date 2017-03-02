@@ -20,7 +20,7 @@ use Wikibase\StringNormalizer;
  *
  * @license GPL-2.0+
  */
-class LanguageChangeOpDeserializer implements ChangeOpDeserializer{
+class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
 	 * @var LexemeValidatorFactory
