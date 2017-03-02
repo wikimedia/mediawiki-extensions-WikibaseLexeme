@@ -10,6 +10,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;
@@ -179,7 +180,12 @@ class ChangeOpLemmaTest extends \PHPUnit_Framework_TestCase {
 
 	private function getLexemeValidatorFactory() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );
-		return new LexemeValidatorFactory( 10, $mockProvider->getMockTermValidatorFactory() );
+		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
+		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
+			$this,
+			10,
+			$mockProvider->getMockTermValidatorFactory()
+		);
 	}
 
 }
