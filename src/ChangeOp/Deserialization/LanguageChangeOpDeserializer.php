@@ -93,15 +93,13 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private function validateItemId( $idSerialization ) {
 		try {
-			$itemId = new ItemId( $idSerialization );
+			return new ItemId( $idSerialization );
 		} catch ( InvalidArgumentException $e ) {
 			throw new ChangeOpDeserializationException(
 				'Item id can not be parsed',
 				'invalid-item-id'
 			);
 		}
-
-		return $itemId;
 	}
 
 }

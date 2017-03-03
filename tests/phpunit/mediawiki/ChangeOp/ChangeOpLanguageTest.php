@@ -9,7 +9,6 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;
 
@@ -23,28 +22,13 @@ use Wikibase\Summary;
 class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 
 	/**
-	 * @dataProvider invalidConstructorArgumentsProvider
-	 */
-	public function testGivenInvalidArguments_constructorThrowsException( $language ) {
-		$this->setExpectedException( InvalidArgumentException::class );
-		new ChangeOpLanguage( $language, $this->getLexemeValidatorFactory() );
-	}
-
-	public function invalidConstructorArgumentsProvider() {
-		return [
-			'not a ItemId as a language code (int)' => [ 123 ],
-			'not a ItemId as a language code (string)' => [ 'duck' ],
-		];
-	}
-
-	/**
 	 * @dataProvider invalidEntityProvider
 	 */
 	public function testGivenNotALanguageProvider_validateThrowsException(
 		EntityDocument $entity
 	) {
-		$this->setExpectedException( InvalidArgumentException::class );
 		$changeOp = new ChangeOpLanguage( new ItemId( 'Q2' ), $this->getLexemeValidatorFactory() );
+		$this->setExpectedException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 

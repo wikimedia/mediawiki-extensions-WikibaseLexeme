@@ -34,7 +34,10 @@ class ChangeOpLanguage extends ChangeOpBase {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( $language, LexemeValidatorFactory $lexemeValidatorFactory ) {
+	public function __construct(
+		ItemId $language = null,
+		LexemeValidatorFactory $lexemeValidatorFactory
+	) {
 		if ( $language !== null ) {
 			Assert::parameterType( ItemId::class, $language, '$language' );
 		}
