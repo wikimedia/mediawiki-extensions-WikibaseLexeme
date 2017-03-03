@@ -3,9 +3,7 @@
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use InvalidArgumentException;
-use ValueValidators\StringValidator;
 use Wikibase\ChangeOp\ChangeOp;
-use Wikibase\ChangeOp\ChangeOps;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
@@ -32,19 +30,12 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $stringNormalizer;
 
-	/**
-	 * @var StringValidator
-	 */
-	private $stringValidator;
-
 	public function __construct(
 		LexemeValidatorFactory $lexemeValidatorFactory,
-		StringNormalizer $stringNormalizer,
-		StringValidator $stringValidator
+		StringNormalizer $stringNormalizer
 	) {
 		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
 		$this->stringNormalizer = $stringNormalizer;
-		$this->stringValidator = $stringValidator;
 	}
 
 	/**
@@ -53,41 +44,32 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 	 * @param array $changeRequest
 	 *
 	 * @throws ChangeOpDeserializationException
-	 *
 	 * @return ChangeOp
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
-		$changeOps = new ChangeOps();
-
-		$result = $this->stringValidator->validate( $changeRequest['language'] );
-		if ( $result->isValid() !== true ) {
+		if ( !isset( $changeRequest['language'] )
+			|| ( !is_string( $changeRequest['language'] ) && $changeRequest['language'] !== null )
+		) {
 			throw new ChangeOpDeserializationException(
-				'language needs to be string',
+				'language must be a string or null',
 				'invalid-language'
 			);
 		}
+
 		$languageSerialization = $this->stringNormalizer->cleanupToNFC( $changeRequest['language'] );
 
 		if ( $languageSerialization === '' ) {
-			$changeOps->add( new ChangeOpLanguage(
-				null,
-				$this->lexemeValidatorFactory
-			) );
-			return $changeOps;
+			return new ChangeOpLanguage( null, $this->lexemeValidatorFactory );
 		}
 
 		$itemId = $this->validateItemId( $languageSerialization );
 		// TODO: maybe move creating ChangeOpLanguage instance to some kind of factory?
-		$changeOps->add( new ChangeOpLanguage(
-			$itemId,
-			$this->lexemeValidatorFactory
-		) );
-
-		return $changeOps;
+		return new ChangeOpLanguage( $itemId, $this->lexemeValidatorFactory );
 	}
 
 	/**
 	 * @param string $idSerialization
+	 *
 	 * @return ItemId
 	 * @throws ChangeOpDeserializationException
 	 */

@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\ChangeOp\Deserialization;
 
-use ValueValidators\StringValidator;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -31,8 +30,7 @@ class LanguageChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 				10,
 				$mockProvider->getMockTermValidatorFactory()
 			),
-			new StringNormalizer(),
-			new StringValidator()
+			new StringNormalizer()
 		);
 	}
 
@@ -45,15 +43,13 @@ class LanguageChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGivenLanguageSerializationIsInvalid_exceptionIsThrown() {
-
 		$lexemeValidatorFactory = $this->getMockBuilder( LexemeValidatorFactory::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$deserializer = new LanguageChangeOpDeserializer(
 			$lexemeValidatorFactory,
-			new StringNormalizer(),
-			new StringValidator()
+			new StringNormalizer()
 		);
 
 		$this->setExpectedException( ChangeOpDeserializationException::class );

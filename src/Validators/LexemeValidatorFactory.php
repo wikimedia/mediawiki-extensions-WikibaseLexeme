@@ -58,7 +58,7 @@ class LexemeValidatorFactory {
 			[
 				new TypeValidator( 'string' ),
 				new StringLengthValidator( 1, $this->maxTermLength, 'mb_strlen' ),
-				new RegexValidator( '/^\s|\v|\s$/', true ),
+				new RegexValidator( '/^\s|[\v\t]|\s$/', true ),
 			],
 			true
 		);
@@ -75,10 +75,7 @@ class LexemeValidatorFactory {
 	 * @return ValueValidator
 	 */
 	public function getLanguageValidator() {
-		return new CompositeValidator(
-			$this->itemValidators,
-			true
-		);
+		return new CompositeValidator( $this->itemValidators, true );
 	}
 
 }

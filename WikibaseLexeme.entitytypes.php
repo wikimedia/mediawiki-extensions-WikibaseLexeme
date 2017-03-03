@@ -12,7 +12,6 @@
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 
-use ValueValidators\StringValidator;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
@@ -125,7 +124,9 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$lexemeValidatorFactory = new LexemeValidatorFactory(
 				1000, // TODO: move to setting, at least change to some reasonable hard-coded value
-				$wikibaseRepo->getTermValidatorFactory()
+				$wikibaseRepo->getTermValidatorFactory(),
+				// FIXME: What does belong here?
+				[]
 			);
 			return new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
@@ -138,8 +139,7 @@ return [
 				),
 				new LanguageChangeOpDeserializer(
 					$lexemeValidatorFactory,
-					$wikibaseRepo->getStringNormalizer(),
-					new StringValidator()
+					$wikibaseRepo->getStringNormalizer()
 				)
 			);
 		},
