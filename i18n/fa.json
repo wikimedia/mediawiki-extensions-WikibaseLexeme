@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Reza1615"
+		]
+	},
+	"wikibaselexeme-desc": "مدیریت نوع ورودی بن‌واژه",
+	"special-newlexeme": "ایجاد یک بن‌واژه جدید",
+	"wikibase-newlexeme-fieldset": "ایجاد یک بن‌واژه جدید",
+	"wikibase-newlexeme-lemma": "فرنام",
+	"wikibase-newlexeme-lemma-language": "زبان فرنام",
+	"wikibase-lemma-edit-placeholder": "وارد کردن فرنام",
+	"wikibase-newlexeme-lexicalcategory": "رده واژه‌ای",
+	"wikibase-newlexeme-language": "زبان بن‌واژه",
+	"wikibase-lexeme-view-language": "بن‌واژه در $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 در $2"
+}
