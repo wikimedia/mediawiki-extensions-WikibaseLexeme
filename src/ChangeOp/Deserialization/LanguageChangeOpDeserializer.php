@@ -47,7 +47,7 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 	 * @return ChangeOp
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
-		if ( !isset( $changeRequest['language'] )
+		if ( !array_key_exists( 'language', $changeRequest )
 			|| ( !is_string( $changeRequest['language'] ) && $changeRequest['language'] !== null )
 		) {
 			throw new ChangeOpDeserializationException(
@@ -56,13 +56,14 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 			);
 		}
 
-		$languageSerialization = $this->stringNormalizer->cleanupToNFC( $changeRequest['language'] );
+		$value = $changeRequest['language'];
+		$value = $value === null ? '' : $this->stringNormalizer->cleanupToNFC( $value );
 
-		if ( $languageSerialization === '' ) {
+		if ( $value === '' ) {
 			return new ChangeOpLanguage( null, $this->lexemeValidatorFactory );
 		}
 
-		$itemId = $this->validateItemId( $languageSerialization );
+		$itemId = $this->validateItemId( $value );
 		// TODO: maybe move creating ChangeOpLanguage instance to some kind of factory?
 		return new ChangeOpLanguage( $itemId, $this->lexemeValidatorFactory );
 	}

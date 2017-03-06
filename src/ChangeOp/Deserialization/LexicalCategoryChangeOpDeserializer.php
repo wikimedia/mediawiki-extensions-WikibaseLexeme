@@ -44,37 +44,34 @@ class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 	 * @param array $changeRequest
 	 *
 	 * @throws ChangeOpDeserializationException
-	 *
 	 * @return ChangeOp
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
-
-		$lexicalCategorySerialization = $changeRequest['lexicalCategory'];
-		if ( !isset( $lexicalCategorySerialization )
-			|| ( !is_string( $lexicalCategorySerialization ) && $lexicalCategorySerialization !== null )
+		if ( !array_key_exists( 'lexicalCategory', $changeRequest )
+			|| ( !is_string( $changeRequest['lexicalCategory'] )
+				&& $changeRequest['lexicalCategory'] !== null
+			)
 		) {
 			throw new ChangeOpDeserializationException(
-				'lexicalCategory must be string or null',
+				'lexicalCategory must be a string or null',
 				'invalid-lexical-category'
 			);
 		}
 
-		$lexicalCategorySerialization = $this->stringNormalizer->cleanupToNFC(
-			$changeRequest['lexicalCategory'] );
+		$value = $changeRequest['lexicalCategory'];
+		$value = $value === null ? '' : $this->stringNormalizer->cleanupToNFC( $value );
 
-		if ( $lexicalCategorySerialization === '' ) {
-			return new ChangeOpLexicalCategory(
-				null,
-				$this->lexemeValidatorFactory
-			);
+		if ( $value === '' ) {
+			return new ChangeOpLexicalCategory( null, $this->lexemeValidatorFactory );
 		}
 
-		$itemId = $this->validateItemId( $lexicalCategorySerialization );
+		$itemId = $this->validateItemId( $value );
 		return new ChangeOpLexicalCategory( $itemId, $this->lexemeValidatorFactory );
 	}
 
 	/**
 	 * @param string $idSerialization
+	 *
 	 * @return ItemId
 	 * @throws ChangeOpDeserializationException
 	 */
