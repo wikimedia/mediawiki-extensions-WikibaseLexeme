@@ -129,7 +129,7 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider invalidLanguageValidatorArgsProvider
 	 */
-	public function testGiveninputIsInvalid_validatorThrowsException( $language ) {
+	public function testGivenLanguageInputIsInvalid_validatorThrowsException( $language ) {
 		$this->setExpectedException( InvalidArgumentException::class );
 		$languageValidator = $this
 			->getLexemeValidatorFactory( 10, null, [ 'Q123' ] )
@@ -142,6 +142,68 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 			[ false ],
 			[ '' ],
 			[ 'Q123' ]
+		];
+	}
+
+	public function testGetLexicalCategoryValidatorValid() {
+		$lexicalCategoryValidator = $this
+			->getLexemeValidatorFactory( 10, null, [ 'Q234' ] )
+			->getLexicalCategoryValidator();
+
+		$this->assertTrue(
+			$lexicalCategoryValidator->validate( new ItemId( 'Q234' ) )->isValid()
+		);
+	}
+
+	public function testGetLexicalCategoryValidatorEmptyLexicalCategoryValid() {
+		$lexicalCategoryValidator = $this
+			->getLexemeValidatorFactory( 10, null, [ 'Q234' ] )
+			->getLexicalCategoryValidator();
+
+		$this->assertTrue(
+			$lexicalCategoryValidator->validate( null )->isValid()
+		);
+	}
+
+	/**
+	 * @dataProvider lexicalCategoryProviderInvalid
+	 */
+	public function testGetLexicalCategoryValidatorInvalid( $lexicalCategory ) {
+		$lexicalCategoryValidator = $this
+			->getLexemeValidatorFactory( 10, null, [ 'Q234' ] )
+			->getLexicalCategoryValidator();
+
+		$this->assertFalse(
+			$lexicalCategoryValidator->validate( $lexicalCategory )->isValid()
+		);
+	}
+
+	public function lexicalCategoryProviderInvalid() {
+		return [
+			'not existing item' => [ new ItemId( 'Q432' ) ],
+			'property' => [ new PropertyId( 'P321' ) ],
+			'lexeme' => [ new LexemeId( 'L321' ) ],
+		];
+	}
+
+	/**
+	 * @dataProvider invalidLanguageValidatorArgsProvider
+	 */
+	public function testGivenLexicalCategoryInputIsInvalid_validatorThrowsException(
+		$lexicalCategory
+	) {
+		$this->setExpectedException( InvalidArgumentException::class );
+		$lexicalCategoryValidator = $this
+			->getLexemeValidatorFactory( 10, null, [ 'Q234' ] )
+			->getLexicalCategoryValidator();
+		$lexicalCategoryValidator->validate( $lexicalCategory )->isValid();
+	}
+
+	public function invalidLexicalCategoryValidatorArgsProvider() {
+		return [
+			[ false ],
+			[ '' ],
+			[ 'Q234' ]
 		];
 	}
 

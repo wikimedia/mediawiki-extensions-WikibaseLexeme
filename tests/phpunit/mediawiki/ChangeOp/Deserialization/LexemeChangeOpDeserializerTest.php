@@ -6,6 +6,7 @@ use Wikibase\ChangeOp\ChangeOp;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 
 /**
  * @covers Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
@@ -34,9 +35,19 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 			->getMock();
 	}
 
+	/**
+	 * @return LexicalCategoryChangeOpDeserializer
+	 */
+	private function getLexicalCategoryChangeOpDeserializer() {
+		return $this->getMockBuilder( LexicalCategoryChangeOpDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
 	public function testCreateEntityChangeOpReturnsChangeOpInstance() {
 		$deserializer = new LexemeChangeOpDeserializer(
 			$this->getLemmaChangeOpDeserializer(),
+			$this->getLexicalCategoryChangeOpDeserializer(),
 			$this->getLanguageChangeOpDeserializer()
 		);
 
@@ -53,7 +64,15 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 		$languageDeserializer->expects( $this->never() )
 			->method( $this->anything() );
 
-		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer, $languageDeserializer );
+		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
+		$lexicalCategoryDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$deserializer = new LexemeChangeOpDeserializer(
+			$lemmaDeserializer,
+			$lexicalCategoryDeserializer,
+			$languageDeserializer
+		);
 
 		$deserializer->createEntityChangeOp(
 			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
@@ -70,10 +89,43 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 			->method( 'createEntityChangeOp' )
 			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
 
-		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer, $languageDeserializer );
+		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
+		$lexicalCategoryDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$deserializer = new LexemeChangeOpDeserializer(
+			$lemmaDeserializer,
+			$lexicalCategoryDeserializer,
+			$languageDeserializer
+		);
 
 		$deserializer->createEntityChangeOp(
 			[ 'language' => 'q100' ]
+		);
+	}
+
+	public function testGivenLexCatInChangeRequest_lexCatChangeOpDeserializerIsUsed() {
+		$lemmaDeserializer = $this->getLemmaChangeOpDeserializer();
+		$lemmaDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
+		$languageDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
+		$lexicalCategoryDeserializer->expects( $this->atLeastOnce() )
+			->method( 'createEntityChangeOp' )
+			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
+
+		$deserializer = new LexemeChangeOpDeserializer(
+			$lemmaDeserializer,
+			$lexicalCategoryDeserializer,
+			$languageDeserializer
+		);
+
+		$deserializer->createEntityChangeOp(
+			[ 'lexicalCategory' => 'q200' ]
 		);
 	}
 
@@ -86,7 +138,15 @@ class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 		$languageDeserializer->expects( $this->never() )
 			->method( $this->anything() );
 
-		$deserializer = new LexemeChangeOpDeserializer( $lemmaDeserializer, $languageDeserializer );
+		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
+		$lexicalCategoryDeserializer->expects( $this->never() )
+			->method( $this->anything() );
+
+		$deserializer = new LexemeChangeOpDeserializer(
+			$lemmaDeserializer,
+			$lexicalCategoryDeserializer,
+			$languageDeserializer
+		);
 
 		$deserializer->createEntityChangeOp(
 			[ 'labels' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]

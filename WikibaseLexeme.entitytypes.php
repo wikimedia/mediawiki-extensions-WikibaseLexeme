@@ -15,6 +15,7 @@
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
@@ -134,6 +135,10 @@ return [
 					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 					// that should be allowed as "languages" of lemma terms
 					new TermChangeOpSerializationValidator( $wikibaseRepo->getTermsLanguages() ),
+					$lexemeValidatorFactory,
+					$wikibaseRepo->getStringNormalizer()
+				),
+				new LexicalCategoryChangeOpDeserializer(
 					$lexemeValidatorFactory,
 					$wikibaseRepo->getStringNormalizer()
 				),

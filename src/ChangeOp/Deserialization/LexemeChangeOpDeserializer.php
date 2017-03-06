@@ -20,15 +20,22 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 	private $lemmaChangeOpDeserializer;
 
 	/**
+	 * @var LexicalCategoryChangeOpDeserializer
+	 */
+	private $lexicalCategoryChangeOpDeserializer;
+
+	/**
 	 * @var LanguageChangeOpDeserializer
 	 */
 	private $languageChangeOpDeserializer;
 
 	public function __construct(
 		LemmaChangeOpDeserializer $lemmaChangeOpDeserializer,
+		LexicalCategoryChangeOpDeserializer $lexicalCategoryChangeOpDeserializer,
 		LanguageChangeOpDeserializer $languageChangeOpDeserializer
 	) {
 		$this->lemmaChangeOpDeserializer = $lemmaChangeOpDeserializer;
+		$this->lexicalCategoryChangeOpDeserializer = $lexicalCategoryChangeOpDeserializer;
 		$this->languageChangeOpDeserializer = $languageChangeOpDeserializer;
 	}
 
@@ -43,6 +50,12 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 
 		if ( array_key_exists( 'lemmas', $changeRequest ) ) {
 			$changeOps->add( $this->lemmaChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
+		}
+
+		if ( array_key_exists( 'lexicalCategory', $changeRequest ) ) {
+			$changeOps->add(
+				$this->lexicalCategoryChangeOpDeserializer->createEntityChangeOp( $changeRequest )
+			);
 		}
 
 		if ( array_key_exists( 'language', $changeRequest ) ) {
