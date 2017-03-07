@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Specials;
 
+use OutputPage;
 use Status;
 use Wikibase\CopyrightMessageBuilder;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -11,6 +12,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
+use Wikibase\Lexeme\Specials\HTMLForm\LanguageLookupWidgetField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLContentLanguageField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
@@ -66,12 +68,6 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	 */
 	protected function getFormFields() {
 		return [
-			self::FIELD_LEMMA_LANGUAGE => [
-				'name' => self::FIELD_LEMMA_LANGUAGE,
-				'class' => HTMLContentLanguageField::class,
-				'id' => 'wb-newlexeme-lemma-language',
-				'label-message' => 'wikibase-newlexeme-lemma-language',
-			],
 			self::FIELD_LEMMA => [
 				'name' => self::FIELD_LEMMA,
 				'class' => HTMLTrimmedTextField::class,
@@ -80,18 +76,24 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'placeholder-message' => 'wikibase-lemma-edit-placeholder',
 				'label-message' => 'wikibase-newlexeme-lemma'
 			],
+			self::FIELD_LEMMA_LANGUAGE => [
+				'name' => self::FIELD_LEMMA_LANGUAGE,
+				'class' => HTMLContentLanguageField::class,
+				'id' => 'wb-newlexeme-lemma-language',
+				'label-message' => 'wikibase-newlexeme-lemma-language',
+			],
+			self::FIELD_LEXEME_LANGUAGE => [
+				'name' => self::FIELD_LEXEME_LANGUAGE,
+				'class' => LanguageLookupWidgetField::class,
+				'id' => 'wb-newlexeme-lexeme-language',
+				'label-message' => 'wikibase-newlexeme-language',
+				'required' => true,
+			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
 				'class' => HTMLItemReferenceField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibase-newlexeme-lexicalcategory',
-				'required' => true,
-			],
-			self::FIELD_LEXEME_LANGUAGE => [
-				'name' => self::FIELD_LEXEME_LANGUAGE,
-				'class' => HTMLItemReferenceField::class,
-				'id' => 'wb-newlexeme-lexeme-language',
-				'label-message' => 'wikibase-newlexeme-language',
 				'required' => true,
 			]
 		];
@@ -161,6 +163,11 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		}
 
 		return [];
+	}
+
+	protected function displayBeforeForm( OutputPage $output ) {
+		parent::displayBeforeForm( $output );
+		$output->addModules( 'wikibase.lexeme.special.NewLexeme' );
 	}
 
 }

@@ -31,6 +31,9 @@
 		],
 		"WikibaseClientEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
+		],
+		"ResourceLoaderTestModules": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onResourceLoaderTestModules"
 		]
 	},
 	"MessagesDirs": {
@@ -88,6 +91,27 @@
 				"wikibase.serialization.Deserializer",
 				"wikibase.serialization.StatementGroupSetDeserializer",
 				"wikibase.serialization.TermMapDeserializer"
+			]
+		},
+		"wikibase.lexeme.widgets.LanguageLookupWidget": {
+			"scripts": [
+				"widgets/__namespace.js",
+				"widgets/LanguageLookupWidget.js"
+			],
+			"dependencies": [
+				"oojs-ui-core",
+				"oojs-ui-widgets",
+				"wikibase.lexeme"
+			]
+		},
+		"wikibase.lexeme.special.NewLexeme": {
+			"scripts": [
+				"special/__namespace.js",
+				"special/NewLexeme.js"
+			],
+			"dependencies": [
+				"mw.config.values.wbRepo",
+				"wikibase.lexeme.widgets.LanguageLookupWidget"
 			]
 		},
 		"wikibase.lexeme.styles": {
