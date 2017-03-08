@@ -19,6 +19,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Rdf\RdfVocabulary;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
@@ -148,6 +149,10 @@ return [
 				new LanguageChangeOpDeserializer(
 					$lexemeValidatorFactory,
 					$wikibaseRepo->getStringNormalizer()
+				),
+				new ClaimsChangeOpDeserializer(
+					$wikibaseRepo->getExternalFormatStatementDeserializer(),
+					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 				)
 			);
 		},

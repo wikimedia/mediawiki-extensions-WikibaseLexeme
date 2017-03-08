@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 use Wikibase\ChangeOp\ChangeOp;
 use Wikibase\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * Class for creating ChangeOp for EditEntity API
@@ -29,14 +30,18 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $languageChangeOpDeserializer;
 
+	private $statementChangeOpDeserializer;
+
 	public function __construct(
 		LemmaChangeOpDeserializer $lemmaChangeOpDeserializer,
 		LexicalCategoryChangeOpDeserializer $lexicalCategoryChangeOpDeserializer,
-		LanguageChangeOpDeserializer $languageChangeOpDeserializer
+		LanguageChangeOpDeserializer $languageChangeOpDeserializer,
+		ClaimsChangeOpDeserializer $statementChangeOpDeserializer
 	) {
 		$this->lemmaChangeOpDeserializer = $lemmaChangeOpDeserializer;
 		$this->lexicalCategoryChangeOpDeserializer = $lexicalCategoryChangeOpDeserializer;
 		$this->languageChangeOpDeserializer = $languageChangeOpDeserializer;
+		$this->statementChangeOpDeserializer = $statementChangeOpDeserializer;
 	}
 
 	/**
@@ -60,6 +65,10 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 
 		if ( array_key_exists( 'language', $changeRequest ) ) {
 			$changeOps->add( $this->languageChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
+		}
+
+		if ( array_key_exists( 'claims', $changeRequest ) ) {
+			$changeOps->add( $this->statementChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
 		}
 
 		return $changeOps;
