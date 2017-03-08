@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
+use Exception;
 use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
@@ -346,9 +348,143 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 		);
 	}
 
-	// TODO: add tests for invalid input
+	public function provideInvalidData() {
+		return [
+			'not string as language' => [
+				[ 'language' => 100 ],
+				'invalid-language'
+			],
+			'not item ID as language (random string)' => [
+				[ 'language' => 'XXX' ],
+				'invalid-item-id'
+			],
+			'not item ID as language (property ID)' => [
+				[ 'language' => 'P123' ],
+				'invalid-item-id'
+			],
+			'empty string as a language' => [
+				[ 'language' => '' ],
+				'invalid-item-id'
+			],
+			'null as a language' => [
+				[ 'language' => null ],
+				'invalid-language'
+			],
+			'not string as lexical category' => [
+				[ 'lexicalCategory' => 100 ],
+				'invalid-lexical-category'
+			],
+			'not item ID as lexical category (random string)' => [
+				[ 'lexicalCategory' => 'XXX' ],
+				'invalid-item-id'
+			],
+			'not item ID as lexical category (property ID)' => [
+				[ 'lexicalCategory' => 'P123' ],
+				'invalid-item-id'
+			],
+			'empty string as a lexical category' => [
+				[ 'lexicalCategory' => '' ],
+				'invalid-item-id'
+			],
+			'null as a lexical category' => [
+				[ 'lexicalCategory' => null ],
+				'invalid-lexical-category'
+			],
+			'lemmas not an array' => [
+				[ 'lemmas' => 'BAD' ],
+				'not-recognized-array'
+			],
+			'no language in lemma change request' => [
+				[ 'lemmas' => [ 'en' => [ 'value' => 'foo' ] ] ],
+				'missing-language'
+			],
+			'no language in lemma change request (remove)' => [
+				[ 'lemmas' => [ 'en' => [ 'remove' => '' ] ] ],
+				'missing-language'
+			],
+			'inconsistent language in lemma change request' => [
+				[ 'lemmas' => [ 'en' => [ 'language' => 'en-gb', 'value' => 'colour' ] ] ],
+				'inconsistent-language'
+			],
+			'unknown language in lemma change request' => [
+				[ 'lemmas' => [ 'SUPERODD' => [ 'language' => 'SUPERODD', 'value' => 'foo' ] ] ],
+				'not-recognized-language'
+			],
+			'too long term in lemma change request' => [
+				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => str_repeat( 'x', 10000 ) ] ] ],
+				'modification-failed'
+			],
+		];
+	}
 
-	// TODO: add tests for trying to remove language, lexcat
+	/**
+	 * @dataProvider provideInvalidData
+	 */
+	public function testGivenInvalidData_errorIsReported( array $dataArgs, $expectedErrorCode ) {
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( $dataArgs ),
+		];
+
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
+		/** @var ApiUsageException $exception */
+		$this->assertSame( $expectedErrorCode, $exception->getCodeString() );
+	}
+
+	public function provideInvalidDataWithClear() {
+		return [
+			'language missing in new data' => [
+				[
+					'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'foo' ] ],
+					'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
+				],
+			],
+			'lexical category missing in new data' => [
+				[
+					'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'foo' ] ],
+					'language' => self::EXISTING_LEXEME_LANGUAGE_ITEM_ID,
+				],
+			],
+			'language and lexical category missing in new data' => [
+				[
+					'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'foo' ] ],
+				],
+			],
+		];
+	}
+
+	/**
+	 * @dataProvider provideInvalidDataWithClear
+	 */
+	public function testGivenInvalidDataInClearRequest_errorIsReported( array $dataArgs ) {
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'clear' => true,
+			'data' => json_encode( $dataArgs ),
+		];
+
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
+		/** @var ApiUsageException $exception */
+		$this->assertSame( 'failed-save', $exception->getCodeString() );
+	}
 
 	private function assertEntityFieldsEqual( array $expected, array $actual ) {
 		foreach ( array_keys( $expected ) as $field ) {
