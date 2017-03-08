@@ -2,11 +2,22 @@
 
 namespace Wikibase\Lexeme\Tests\ChangeOp\Deserialization;
 
-use Wikibase\ChangeOp\ChangeOp;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\ItemIdParser;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
+use Wikibase\LabelDescriptionDuplicateDetector;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
+use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
+use Wikibase\Repo\Validators\TermValidatorFactory;
+use Wikibase\StringNormalizer;
 
 /**
  * @covers Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
@@ -17,140 +28,186 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer
  */
 class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 
-	/**
-	 * @return LemmaChangeOpDeserializer
-	 */
-	private function getLemmaChangeOpDeserializer() {
-		 return $this->getMockBuilder( LemmaChangeOpDeserializer::class )
+	private function getLexemeValidatorFactory() {
+		$duplicateDetector = $this->getMockBuilder( LabelDescriptionDuplicateDetector::class )
 			->disableOriginalConstructor()
 			->getMock();
-	}
 
-	/**
-	 * @return LanguageChangeOpDeserializer
-	 */
-	private function getLanguageChangeOpDeserializer() {
-		return $this->getMockBuilder( LanguageChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return LexicalCategoryChangeOpDeserializer
-	 */
-	private function getLexicalCategoryChangeOpDeserializer() {
-		return $this->getMockBuilder( LexicalCategoryChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	public function testCreateEntityChangeOpReturnsChangeOpInstance() {
-		$deserializer = new LexemeChangeOpDeserializer(
-			$this->getLemmaChangeOpDeserializer(),
-			$this->getLexicalCategoryChangeOpDeserializer(),
-			$this->getLanguageChangeOpDeserializer()
-		);
-
-		$this->assertInstanceOf( ChangeOp::class, $deserializer->createEntityChangeOp( [] ) );
-	}
-
-	public function testGivenLemmasInChangeRequest_lemmaChangeOpDeserializerIsUsed() {
-		$lemmaDeserializer = $this->getLemmaChangeOpDeserializer();
-		$lemmaDeserializer->expects( $this->atLeastOnce() )
-			->method( 'createEntityChangeOp' )
-			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
-
-		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
-		$languageDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
-		$lexicalCategoryDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$deserializer = new LexemeChangeOpDeserializer(
-			$lemmaDeserializer,
-			$lexicalCategoryDeserializer,
-			$languageDeserializer
-		);
-
-		$deserializer->createEntityChangeOp(
-			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
+		return new LexemeValidatorFactory(
+			100,
+			new TermValidatorFactory(
+				100,
+				[ 'en', 'enm' ],
+				new ItemIdParser(),
+				$duplicateDetector
+			),
+			[]
 		);
 	}
 
-	public function testGivenLanguageInChangeRequest_languageChangeOpDeserializerIsUsed() {
-		$lemmaDeserializer = $this->getLemmaChangeOpDeserializer();
-		$lemmaDeserializer->expects( $this->never() )
-			->method( $this->anything() );
+	private function getChangeOpDeserializer() {
+		$lexemeValidatorFactory = $this->getLexemeValidatorFactory();
+		$stringNormalizer = new StringNormalizer();
 
-		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
-		$languageDeserializer->expects( $this->atLeastOnce() )
-			->method( 'createEntityChangeOp' )
-			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
-
-		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
-		$lexicalCategoryDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$deserializer = new LexemeChangeOpDeserializer(
-			$lemmaDeserializer,
-			$lexicalCategoryDeserializer,
-			$languageDeserializer
-		);
-
-		$deserializer->createEntityChangeOp(
-			[ 'language' => 'q100' ]
+		return new LexemeChangeOpDeserializer(
+			new LemmaChangeOpDeserializer(
+				new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) ),
+				$lexemeValidatorFactory,
+				$stringNormalizer
+			),
+			new LexicalCategoryChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer ),
+			new LanguageChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer )
 		);
 	}
 
-	public function testGivenLexCatInChangeRequest_lexCatChangeOpDeserializerIsUsed() {
-		$lemmaDeserializer = $this->getLemmaChangeOpDeserializer();
-		$lemmaDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
-		$languageDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
-		$lexicalCategoryDeserializer->expects( $this->atLeastOnce() )
-			->method( 'createEntityChangeOp' )
-			->will( $this->returnValue( $this->getMock( ChangeOp::class ) ) );
-
-		$deserializer = new LexemeChangeOpDeserializer(
-			$lemmaDeserializer,
-			$lexicalCategoryDeserializer,
-			$languageDeserializer
-		);
-
-		$deserializer->createEntityChangeOp(
-			[ 'lexicalCategory' => 'q200' ]
+	private function getEnglishLexeme() {
+		return new Lexeme(
+			null,
+			new TermList( [ new Term( 'en', 'apple' ) ] ),
+			new ItemId( 'Q1084' ),
+			new ItemId( 'Q1860' )
 		);
 	}
 
-	public function testGivenNoLexemeRelevantFieldsInRequest_lemmaChangeOpDeserializerIsNotUsed() {
-		$lemmaDeserializer = $this->getLemmaChangeOpDeserializer();
-		$lemmaDeserializer->expects( $this->never() )
-			->method( $this->anything() );
+	public function testGivenChangeRequestWithLemma_lemmaIsSet() {
+		$lexeme = $this->getEnglishLexeme();
 
-		$languageDeserializer = $this->getLanguageChangeOpDeserializer();
-		$languageDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$lexicalCategoryDeserializer = $this->getLexicalCategoryChangeOpDeserializer();
-		$lexicalCategoryDeserializer->expects( $this->never() )
-			->method( $this->anything() );
-
-		$deserializer = new LexemeChangeOpDeserializer(
-			$lemmaDeserializer,
-			$lexicalCategoryDeserializer,
-			$languageDeserializer
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp(
+			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ] ]
 		);
 
-		$deserializer->createEntityChangeOp(
-			[ 'labels' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
+		$changeOp->apply( $lexeme );
+
+		$this->assertSame( 'worm', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
+	}
+
+	public function testGivenChangeRequestWithLemmaAndNewLanguageCode_lemmaIsAdded() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp(
+			[ 'lemmas' => [ 'enm' => [ 'language' => 'enm', 'value' => 'appel' ] ] ]
 		);
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertTrue( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
+		$this->assertSame( 'appel', $lexeme->getLemmas()->getByLanguage( 'enm' )->getText() );
+	}
+
+	public function testGivenChangeRequestWithRemoveLemma_lemmaIsRemoved() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp(
+			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'remove' => '' ] ] ]
+		);
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
+	}
+
+	public function testGivenChangeRequestWithEmptyLemma_lemmaIsRemoved() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp(
+			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
+		);
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
+	}
+
+	public function testGivenChangeRequestWithLanguage_languageIsChanged() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp( [ 'language' => 'Q123' ] );
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertEquals( 'Q123', $lexeme->getLanguage()->getSerialization() );
+	}
+
+	public function testGivenChangeRequestWithLexicalCategory_lexicalCategoryIsChanged() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp( [ 'lexicalCategory' => 'Q300' ] );
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertSame( 'Q300', $lexeme->getLexicalCategory()->getSerialization() );
+	}
+
+	public function testGivenChangeRequestWithEmptyLanguage_exceptionIsThrown() {
+		$deserializer = $this->getChangeOpDeserializer();
+
+		$exception = null;
+
+		try {
+			$deserializer->createEntityChangeOp( [ 'language' => '' ] );
+		} catch ( ChangeOpDeserializationException $ex ) {
+			$exception = $ex;
+		}
+
+		$this->assertInstanceOf( ChangeOpDeserializationException::class, $exception );
+		$this->assertEquals( 'invalid-item-id', $exception->getErrorCode() );
+	}
+
+	public function testGivenChangeRequestWithEmptyLexicalCategory_exceptionIsThrown() {
+		$deserializer = $this->getChangeOpDeserializer();
+
+		$exception = null;
+
+		try {
+			$deserializer->createEntityChangeOp( [ 'lexicalCategory' => '' ] );
+		} catch ( ChangeOpDeserializationException $ex ) {
+			$exception = $ex;
+		}
+
+		$this->assertInstanceOf( ChangeOpDeserializationException::class, $exception );
+		$this->assertEquals( 'invalid-item-id', $exception->getErrorCode() );
+	}
+
+	public function testGivenChangeRequestWithManyFields_allFieldsAreUpdated() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp( [
+			'language' => 'Q123',
+			'lexicalCategory' => 'Q321',
+			'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ]
+		] );
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertEquals( 'Q123', $lexeme->getLanguage()->getSerialization() );
+		$this->assertEquals( 'Q321', $lexeme->getLexicalCategory()->getSerialization() );
+		$this->assertEquals( 'worm', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
+	}
+
+	public function testNonLexemeRelatedFieldsAreIgnored() {
+		$lexeme = $this->getEnglishLexeme();
+
+		$englishLemma = $lexeme->getLemmas()->getByLanguage( 'en' )->getText();
+		$language = $lexeme->getLanguage()->getSerialization();
+		$lexicalCategory = $lexeme->getLexicalCategory()->getSerialization();
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp(
+			[ 'labels' => [ 'en' => [ 'language' => 'en', 'value' => 'pear' ] ] ]
+		);
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertSame( 'apple', $englishLemma );
+		$this->assertSame( 'Q1860', $language );
+		$this->assertSame( 'Q1084', $lexicalCategory );
 	}
 
 }
