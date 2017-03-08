@@ -8,8 +8,10 @@
 	"special-newlexeme": "Створити нову лексему",
 	"wikibase-newlexeme-fieldset": "Створити нову лексему",
 	"wikibase-newlexeme-lemma": "Лемма",
+	"wikibase-newlexeme-lemma-language": "Мова лемми",
 	"wikibase-lemma-edit-placeholder": "Введіть лемму",
 	"wikibase-newlexeme-lexicalcategory": "Лексична категорія",
 	"wikibase-newlexeme-language": "Мова лексеми",
-	"wikibase-lexeme-view-language": "Лексема в $1"
+	"wikibase-lexeme-view-language": "Лексема в $1",
+	"wikibase-lexeme-view-language-lexical-category": "$1 у $2"
 }
