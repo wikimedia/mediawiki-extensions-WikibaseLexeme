@@ -27,7 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
 class SpecialNewLexemeTest extends SpecialNewEntityTest {
 
 	protected function newSpecialPage() {
-		return new SpecialNewLexeme();
+		return new SpecialNewLexeme( $this->copyrightView );
 	}
 
 	public function testAllNecessaryFormFieldsArePresent_WhenRendered() {
@@ -47,35 +47,11 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 		$this->givenItemExists( $existingItemId );
 
 		return [
-			'lemma is set' => [
-				[
-					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
-					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
-				],
-			],
-			'another lemma language' => [
-				[
-					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'fr',
-					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
-				],
-			],
-			'lexical category is set' => [
+			'everything is set' => [
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
-				],
-			],
-			'lexeme language is set' => [
-				[
-					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
-					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 			],
@@ -85,13 +61,16 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 	public function provideInvalidEntityCreationRequests() {
 		$nonexistentItemId = 'Q100';
 
+		$existingItemId = 'Q1';
+		$this->givenItemExists( $existingItemId );
+
 		return [
 			'unknown language' => [
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'some-weird-language',
 					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 				'language code was not recognized',
 			],
@@ -99,8 +78,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA => '',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 				'value is required',
 			],
@@ -109,7 +88,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => 'x',
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 				'invalid format',
 			],
@@ -117,7 +96,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => 'x',
 				],
 				'invalid format',
@@ -127,7 +106,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $nonexistentItemId,
-					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 				'does not exist',
 			],
@@ -135,10 +114,28 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
-					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $nonexistentItemId,
 				],
 				'does not exist',
+			],
+			'lexeme language is not set' => [
+				[
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
+				],
+				'invalid format',
+			],
+			'lexical category is not set' => [
+				[
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
+				],
+				'invalid format',
 			],
 		];
 	}

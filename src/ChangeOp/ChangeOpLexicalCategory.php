@@ -19,7 +19,7 @@ use Wikimedia\Assert\Assert;
 class ChangeOpLexicalCategory extends ChangeOpBase {
 
 	/**
-	 * @var ItemId|null
+	 * @var ItemId
 	 */
 	private $lexicalCategory;
 
@@ -29,13 +29,13 @@ class ChangeOpLexicalCategory extends ChangeOpBase {
 	private $lexemeValidatorFactory;
 
 	/**
-	 * @param ItemId|null $lexicalCategory
+	 * @param ItemId $lexicalCategory
 	 * @param LexemeValidatorFactory $lexemeValidatorFactory
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
-		ItemId $lexicalCategory = null,
+		ItemId $lexicalCategory,
 		LexemeValidatorFactory $lexemeValidatorFactory
 	) {
 		$this->lexicalCategory = $lexicalCategory;
@@ -67,22 +67,6 @@ class ChangeOpLexicalCategory extends ChangeOpBase {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		/** @var Lexeme $entity */
-		$lexicalCategory = $entity->getLexicalCategory();
-
-		if ( $this->lexicalCategory === null ) {
-			if ( $lexicalCategory ) {
-				$this->updateSummary(
-					$summary,
-					'remove',
-					'',
-					$lexicalCategory->getSerialization()
-				);
-				$entity->setLexicalCategory( null );
-			}
-
-			return;
-		}
-
 		$this->updateSummary( $summary, 'set', '', $this->lexicalCategory->getSerialization() );
 		$entity->setLexicalCategory( $this->lexicalCategory );
 	}

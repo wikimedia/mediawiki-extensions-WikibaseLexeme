@@ -34,12 +34,25 @@ class LanguageChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testGivenLanguageSerializationIsNotString_exceptionIsThrown() {
+	public function provideInvalidSerialization() {
+		return [
+			[ [] ],
+			[ null ],
+			[ '' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideInvalidSerialization
+	 */
+	public function testGivenLanguageSerializationIsNotString_exceptionIsThrown(
+		$serialization
+	) {
 		$deserializer = $this->newLanguageChangeOpDeserializer();
 
 		$this->setExpectedException( ChangeOpDeserializationException::class );
 
-		$deserializer->createEntityChangeOp( [ 'language' => [] ] );
+		$deserializer->createEntityChangeOp( [ 'language' => $serialization ] );
 	}
 
 	public function testGivenLanguageSerializationIsInvalid_exceptionIsThrown() {
@@ -82,32 +95,6 @@ class LanguageChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
 
 		$changeOp->apply( $lexeme );
 		$this->assertSame( 'Q200', $lexeme->getLanguage()->getSerialization() );
-	}
-
-	public function testGivenRemoveRequestLanguageExists_changeOpRemovesLanguage() {
-		$lexeme = new Lexeme( new LexemeId( 'L100' ), null, null, new ItemId( 'Q100' ) );
-
-		$deserializer = $this->newLanguageChangeOpDeserializer();
-
-		$changeOp = $deserializer->createEntityChangeOp(
-			[ 'language' => '' ]
-		);
-
-		$changeOp->apply( $lexeme );
-		$this->assertNull( $lexeme->getLanguage() );
-	}
-
-	public function testRequestRemoveLanguageDoesNotExist_changeOpDoesNothing() {
-		$lexeme = new Lexeme( new LexemeId( 'L100' ) );
-
-		$deserializer = $this->newLanguageChangeOpDeserializer();
-
-		$changeOp = $deserializer->createEntityChangeOp(
-			[ 'language' => '' ]
-		);
-
-		$changeOp->apply( $lexeme );
-		$this->assertNull( $lexeme->getLanguage() );
 	}
 
 }

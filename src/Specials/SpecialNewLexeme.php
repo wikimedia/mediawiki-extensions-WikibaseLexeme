@@ -66,12 +66,14 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'class' => HTMLItemReferenceField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibase-newlexeme-lexicalcategory',
+				'required' => true,
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,
 				'class' => HTMLItemReferenceField::class,
 				'id' => 'wb-newlexeme-lexeme-language',
 				'label-message' => 'wikibase-newlexeme-language',
+				'required' => true,
 			]
 		];
 	}

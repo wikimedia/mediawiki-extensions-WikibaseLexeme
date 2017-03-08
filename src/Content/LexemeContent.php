@@ -66,4 +66,15 @@ class LexemeContent extends EntityContent {
 		return $this->lexemeHolder;
 	}
 
+	/**
+	 * @see Content::isValid()
+	 *
+	 * @return bool
+	 */
+	public function isValid() {
+		return parent::isValid()
+			&& $this->getEntity()->getLanguage() !== null
+			&& $this->getEntity()->getLexicalCategory() !== null;
+	}
+
 }

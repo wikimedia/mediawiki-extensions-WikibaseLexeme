@@ -50,14 +50,6 @@ class ChangeOpLexicalCategoryTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
 	}
 
-	public function testGivenLexicalCategoryIsNull_validateReturnsValidResult() {
-		$lexeme = new Lexeme();
-
-		$changeOp = new ChangeOpLexicalCategory( null, $this->getLexemeValidatorFactory() );
-
-		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
-	}
-
 	/**
 	 * @dataProvider invalidEntityProvider
 	 */
@@ -70,20 +62,6 @@ class ChangeOpLexicalCategoryTest extends \PHPUnit_Framework_TestCase {
 			$this->getLexemeValidatorFactory()
 		);
 		$changeOp->apply( $entity );
-	}
-
-	public function testGivenLexicalCategoryIsNull_applyRemovesLexicalCategoryAndSetsTheSummary() {
-		$lexicalCategory = new ItemId( 'Q234' );
-		$lexeme = new Lexeme( null, null, $lexicalCategory );
-		$summary = new Summary();
-
-		$changeOp = new ChangeOpLexicalCategory( null, $this->getLexemeValidatorFactory() );
-		$changeOp->apply( $lexeme, $summary );
-
-		$this->assertNull( $lexeme->getLexicalCategory() );
-
-		$this->assertSame( 'remove', $summary->getActionName() );
-		$this->assertSame( [ 'Q234' ], $summary->getAutoSummaryArgs() );
 	}
 
 	public function testGivenLexicalCategoryExists_applySetsLexicalCategoryAndSetsTheSummary() {
@@ -119,17 +97,6 @@ class ChangeOpLexicalCategoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'set', $summary->getActionName() );
 		$this->assertSame( [ 'Q234' ], $summary->getAutoSummaryArgs() );
-	}
-
-	public function testGivenLexicalCategoryIsNullAndNoLexicalCategoryExists_applyMakesNoChange() {
-		$lexeme = new Lexeme();
-		$summary = new Summary();
-
-		$changeOp = new ChangeOpLexicalCategory( null, $this->getLexemeValidatorFactory() );
-		$changeOp->apply( $lexeme, $summary );
-
-		$this->assertNull( $lexeme->getLexicalCategory() );
-		$this->assertNull( $summary->getActionName() );
 	}
 
 	private function getLexemeValidatorFactory() {

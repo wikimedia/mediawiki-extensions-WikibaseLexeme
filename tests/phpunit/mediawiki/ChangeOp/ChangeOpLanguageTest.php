@@ -47,14 +47,6 @@ class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
 	}
 
-	public function testGivenLanguageIsNull_validateReturnsValidResult() {
-		$lexeme = new Lexeme();
-
-		$changeOp = new ChangeOpLanguage( null, $this->getLexemeValidatorFactory() );
-
-		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
-	}
-
 	/**
 	 * @dataProvider invalidEntityProvider
 	 */
@@ -65,20 +57,6 @@ class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 			$this->getLexemeValidatorFactory()
 		);
 		$changeOp->apply( $entity );
-	}
-
-	public function testGivenLanguageIsNull_applyRemovesLanguageForGivenLanguageAndSetsTheSummary() {
-		$language = new ItemId( 'Q123' );
-		$lexeme = new Lexeme( null, null, null, $language );
-		$summary = new Summary();
-
-		$changeOp = new ChangeOpLanguage( null, $this->getLexemeValidatorFactory() );
-		$changeOp->apply( $lexeme, $summary );
-
-		$this->assertNull( $lexeme->getLanguage() );
-
-		$this->assertSame( 'remove', $summary->getActionName() );
-		$this->assertSame( [ 'Q123' ], $summary->getAutoSummaryArgs() );
 	}
 
 	public function testGivenLanguageExists_applySetsLanguageAndSetsTheSummary() {
@@ -111,17 +89,6 @@ class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'set', $summary->getActionName() );
 		$this->assertSame( [ 'Q123' ], $summary->getAutoSummaryArgs() );
-	}
-
-	public function testGivenLanguageIsNullAndNoLanguageExists_applyMakesNoChange() {
-		$lexeme = new Lexeme();
-		$summary = new Summary();
-
-		$changeOp = new ChangeOpLanguage( null, $this->getLexemeValidatorFactory() );
-		$changeOp->apply( $lexeme, $summary );
-
-		$this->assertNull( $lexeme->getLanguage() );
-		$this->assertNull( $summary->getActionName() );
 	}
 
 	private function getLexemeValidatorFactory() {
