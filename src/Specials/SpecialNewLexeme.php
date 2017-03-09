@@ -5,10 +5,12 @@ namespace Wikibase\Lexeme\Specials;
 use Status;
 use Wikibase\CopyrightMessageBuilder;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLContentLanguageField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
@@ -42,11 +44,21 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			$settings->getSetting( 'dataRightsText' )
 		);
 
-		return new self( $copyrightView );
+		return new self( $copyrightView, $wikibaseRepo->getEntityNamespaceLookup() );
 	}
 
-	public function __construct( SpecialPageCopyrightView $copyrightView ) {
-		parent::__construct( 'NewLexeme', 'createpage', $copyrightView );
+	public function __construct(
+		SpecialPageCopyrightView $copyrightView,
+		EntityNamespaceLookup $entityNamespaceLookup
+	) {
+		parent::__construct( 'NewLexeme', 'createpage', $copyrightView, $entityNamespaceLookup );
+	}
+
+	/**
+	 * @see SpecialNewEntity::getEntityType
+	 */
+	protected function getEntityType() {
+		return Lexeme::ENTITY_TYPE;
 	}
 
 	/**

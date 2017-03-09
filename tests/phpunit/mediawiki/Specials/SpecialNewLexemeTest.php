@@ -10,6 +10,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Specials\SpecialNewLexeme;
+use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTest;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -27,11 +28,15 @@ use Wikibase\Repo\WikibaseRepo;
 class SpecialNewLexemeTest extends SpecialNewEntityTest {
 
 	protected function newSpecialPage() {
-		return new SpecialNewLexeme( $this->copyrightView );
+		$irrelevantNamespaceNumber = -1;
+
+		return new SpecialNewLexeme(
+			$this->copyrightView,
+			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => $irrelevantNamespaceNumber ] )
+		);
 	}
 
 	public function testAllNecessaryFormFieldsArePresent_WhenRendered() {
-
 		list( $html ) = $this->executeSpecialPage();
 
 		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEMMA_LANGUAGE );
@@ -42,7 +47,6 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 	}
 
 	public function provideValidEntityCreationRequests() {
-
 		$existingItemId = 'Q1';
 		$this->givenItemExists( $existingItemId );
 
