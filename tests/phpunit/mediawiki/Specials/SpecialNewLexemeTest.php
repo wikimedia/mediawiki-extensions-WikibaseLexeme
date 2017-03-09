@@ -27,7 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
 class SpecialNewLexemeTest extends SpecialNewEntityTest {
 
 	protected function newSpecialPage() {
-		return new SpecialNewLexeme();
+		return new SpecialNewLexeme( $this->copyrightView );
 	}
 
 	public function testAllNecessaryFormFieldsArePresent_WhenRendered() {

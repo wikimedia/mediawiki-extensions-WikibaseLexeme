@@ -29,7 +29,10 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	const FIELD_LEMMA = 'lemma';
 	const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
-	public function __construct() {
+	/**
+	 * @return self
+	 */
+	public static function newFromGlobalState() {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 		$settings = $wikibaseRepo->getSettings();
@@ -39,6 +42,10 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			$settings->getSetting( 'dataRightsText' )
 		);
 
+		return new self( $copyrightView );
+	}
+
+	public function __construct( SpecialPageCopyrightView $copyrightView ) {
 		parent::__construct( 'NewLexeme', 'createpage', $copyrightView );
 	}
 

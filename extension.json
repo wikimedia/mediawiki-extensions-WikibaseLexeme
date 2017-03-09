@@ -102,7 +102,7 @@
 		"remoteExtPath": "WikibaseLexeme/resources"
 	},
 	"SpecialPages": {
-		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme"
+		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme::newFromGlobalState"
 	},
 	"manifest_version": 1
 }
