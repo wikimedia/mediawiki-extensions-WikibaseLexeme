@@ -1,0 +1,14 @@
+{
+    "id": "L2",
+    "type": "lexeme",
+    "lemmas": {
+        "en-us": {
+            "language": "en-us",
+            "value": "Color"
+        },
+        "en-gb": {
+            "language": "en-gb",
+            "value": "Colour"
+        }
+    }
+}
