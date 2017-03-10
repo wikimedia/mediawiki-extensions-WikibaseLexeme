@@ -84,9 +84,15 @@ class WikibaseLexemeHooks {
 		$testModules['qunit']['WikibaseLexeme.tests'] = [
 			'scripts' => [
 				'tests/qunit/widgets/LanguageLookupWidget.tests.js',
+				'tests/qunit/services/ItemLookup.tests.js',
+				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
+				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 			],
 			'dependencies' => [
 				'wikibase.lexeme.widgets.LanguageLookupWidget',
+				'wikibase.lexeme.services.ItemLookup',
+				'wikibase.lexeme.services.LanguageFromItemExtractor',
+				'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver',
 				'oojs-ui'
 			],
 			'localBasePath' => dirname( __DIR__ ),

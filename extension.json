@@ -14,7 +14,8 @@
 	},
 	"config": {
 		"LexemeNamespace": 146,
-		"LexemeTalkNamespace": 147
+		"LexemeTalkNamespace": 147,
+		"LexemeLanguageCodePropertyId": null
 	},
 	"ExtensionMessagesFiles": {
 		"WikibaseLexemeAlias": "WikibaseLexeme.i18n.alias.php"
@@ -103,15 +104,56 @@
 				"wikibase.lexeme"
 			]
 		},
+		"wikibase.lexeme.special": {
+			"scripts": "special/__namespace.js",
+			"dependencies": "wikibase.lexeme"
+		},
+		"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver": {
+			"scripts": [
+				"special/formHelpers/__namespace.js",
+				"special/formHelpers/LexemeLanguageFieldObserver.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme.special"
+			]
+		},
+		"wikibase.lexeme.services.ItemLookup": {
+			"scripts": [
+				"services/__namespace.js",
+				"services/ItemLookup.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme"
+			]
+		},
+		"wikibase.lexeme.services.LanguageFromItemExtractor": {
+			"scripts": [
+				"services/__namespace.js",
+				"services/LanguageFromItemExtractor.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme"
+			]
+		},
 		"wikibase.lexeme.special.NewLexeme": {
 			"scripts": [
 				"special/__namespace.js",
 				"special/NewLexeme.js"
 			],
 			"dependencies": [
+				"util.inherit",
 				"mw.config.values.wbRepo",
-				"wikibase.lexeme.widgets.LanguageLookupWidget"
+				"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig",
+				"wikibase.api.getLocationAgnosticMwApi",
+				"wikibase.api.RepoApi",
+				"wikibase.lexeme.widgets.LanguageLookupWidget",
+				"wikibase.lexeme.services.ItemLookup",
+				"wikibase.lexeme.services.LanguageFromItemExtractor",
+				"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver"
 			]
+		},
+		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig": {
+			"class": "Wikibase\\Lexeme\\Config\\LexemeLanguageCodePropertyIdConfig"
 		},
 		"wikibase.lexeme.styles": {
 			"position": "top",

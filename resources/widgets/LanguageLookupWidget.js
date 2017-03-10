@@ -1,4 +1,4 @@
-(function ( $, mw, wb ) {
+(function ( $, wb ) {
 	'use strict';
 
 	/**
@@ -34,6 +34,11 @@
 		_timeout: null,
 
 		/**
+		 * @property {LexemeLanguageFieldObserver}
+		 */
+		_changeObserver: null,
+
+		/**
 		 * @property {boolean}
 		 */
 		_isInitialized: false,
@@ -42,7 +47,7 @@
 		 * Used to inject dependencies into the widget, since the element gets instantiated
 		 * automatically from OOJS
 		 *
-		 * @param {Object} options containing apiUrl, language and timeout
+		 * @param {Object} options containing apiUrl, language, timeout and changeObserver
 		 */
 		initialize: function ( options ) {
 			if ( !options.apiUrl || !options.language || !options.timeout ) {
@@ -52,6 +57,7 @@
 			this._language = options.language;
 			this._apiUrl = options.apiUrl;
 			this._timeout = options.timeout;
+			this._changeObserver = options.changeObserver;
 
 			this._isInitialized = true;
 		},
@@ -108,7 +114,7 @@
 			for ( i = 0; i < data.length; i++ ) {
 				items.push( new OO.ui.MenuOptionWidget( {
 					data: data[ i ].id,
-					label: data[ i ].label
+					label: data[ i ].label + ' (' + data[ i ].id + ')'
 				} ) );
 			}
 
@@ -124,9 +130,18 @@
 				uselang: this._language,
 				type: 'item'
 			};
+		},
+
+		/**
+		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuItemChoose
+		 */
+		onLookupMenuItemChoose: function ( item ) {
+			this.setValue( item.getData() );
+
+			this._changeObserver.notify( item.getData() );
 		}
 	} );
 
 	wb.lexeme.widgets.LanguageLookupWidget = LanguageLookupWidget;
 
-})( jQuery, mediaWiki, wikibase );
+})( jQuery, wikibase );
