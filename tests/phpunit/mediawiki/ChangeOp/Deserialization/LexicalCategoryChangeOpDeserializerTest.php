@@ -34,12 +34,25 @@ class LexicalCategoryChangeOpDeserializerTest extends \PHPUnit_Framework_TestCas
 		);
 	}
 
-	public function testGivenLexicalCategorySerializationIsNotString_exceptionIsThrown() {
+	public function provideInvalidSerialization() {
+		return [
+			[ [] ],
+			[ null ],
+			[ '' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideInvalidSerialization
+	 */
+	public function testGivenLexicalCategorySerializationIsNotString_exceptionIsThrown(
+		$serialization
+	) {
 		$deserializer = $this->newLexicalCategoryChangeOpDeserializer();
 
 		$this->setExpectedException( ChangeOpDeserializationException::class );
 
-		$deserializer->createEntityChangeOp( [ 'lexicalCategory' => [] ] );
+		$deserializer->createEntityChangeOp( [ 'lexicalCategory' => $serialization ] );
 	}
 
 	public function testGivenLexicalCategorySerializationIsInvalid_exceptionIsThrown() {
@@ -82,32 +95,6 @@ class LexicalCategoryChangeOpDeserializerTest extends \PHPUnit_Framework_TestCas
 
 		$changeOp->apply( $lexeme );
 		$this->assertSame( 'Q200', $lexeme->getLexicalCategory()->getSerialization() );
-	}
-
-	public function testGivenRemoveRequestLexicalCategoryExists_changeOpRemovesLexicalCategory() {
-		$lexeme = new Lexeme( new LexemeId( 'L100' ), null, null, new ItemId( 'Q100' ) );
-
-		$deserializer = $this->newLexicalCategoryChangeOpDeserializer();
-
-		$changeOp = $deserializer->createEntityChangeOp(
-			[ 'lexicalCategory' => '' ]
-		);
-
-		$changeOp->apply( $lexeme );
-		$this->assertNull( $lexeme->getLexicalCategory() );
-	}
-
-	public function testRequestRemoveLexicalCategoryDoesNotExist_changeOpDoesNothing() {
-		$lexeme = new Lexeme( new LexemeId( 'L100' ) );
-
-		$deserializer = $this->newLexicalCategoryChangeOpDeserializer();
-
-		$changeOp = $deserializer->createEntityChangeOp(
-			[ 'lexicalCategory' => '' ]
-		);
-
-		$changeOp->apply( $lexeme );
-		$this->assertNull( $lexeme->getLexicalCategory() );
 	}
 
 }

@@ -48,22 +48,15 @@ class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
 		if ( !array_key_exists( 'lexicalCategory', $changeRequest )
-			|| ( !is_string( $changeRequest['lexicalCategory'] )
-				&& $changeRequest['lexicalCategory'] !== null
-			)
+			|| !is_string( $changeRequest['lexicalCategory'] )
 		) {
 			throw new ChangeOpDeserializationException(
-				'lexicalCategory must be a string or null',
+				'lexicalCategory must be a string',
 				'invalid-lexical-category'
 			);
 		}
 
-		$value = $changeRequest['lexicalCategory'];
-		$value = $value === null ? '' : $this->stringNormalizer->cleanupToNFC( $value );
-
-		if ( $value === '' ) {
-			return new ChangeOpLexicalCategory( null, $this->lexemeValidatorFactory );
-		}
+		$value = $this->stringNormalizer->cleanupToNFC( $changeRequest['lexicalCategory'] );
 
 		$itemId = $this->validateItemId( $value );
 		return new ChangeOpLexicalCategory( $itemId, $this->lexemeValidatorFactory );

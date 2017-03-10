@@ -7,7 +7,7 @@ See docs/change-op-serialization.wiki in Wikibase Git repository for general ove
 === Language ===
 
 * A language is defined by adding a "language" key to the change request JSON array. The value should be a string containing the ID of an existing item. That item should be a about a language (for example French or Chinese), but we don't enforce that, and constraint reports should take care of such violations.
-* In order to remove the language, you can set it to an empty string or null.
+* Language can't be null or empty.
 
 Example of a change request setting language to "Q666" can be seen below (only relevant parts of the request included in the example).
 
@@ -43,7 +43,7 @@ Example of a change request setting lemma in language "en" to "colour" can be se
 
 === Lexical category ===
 * The lexical category is defined by adding a "lexicalCategory" key to the change request JSON array. The value should be a string containing the ID of an existing item. That item should be about a lexical category (for example verb or noun), but we don't enforce that, and constraint reports should take care of such violations.
-* In order to remove the lexical category, you can set it to empty string or null.
+* Lexical category can't be null or empty.
 
 Example of a change request setting lexical category to "Q42" can be seen below (only relevant parts of the request included in the example).
 

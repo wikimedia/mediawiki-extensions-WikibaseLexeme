@@ -19,7 +19,7 @@ use Wikimedia\Assert\Assert;
 class ChangeOpLanguage extends ChangeOpBase {
 
 	/**
-	 * @var ItemId|null
+	 * @var ItemId
 	 */
 	private $language;
 
@@ -29,19 +29,15 @@ class ChangeOpLanguage extends ChangeOpBase {
 	private $lexemeValidatorFactory;
 
 	/**
-	 * @param ItemId|null $language
+	 * @param ItemId $language
 	 * @param LexemeValidatorFactory $lexemeValidatorFactory
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
-		ItemId $language = null,
+		ItemId $language,
 		LexemeValidatorFactory $lexemeValidatorFactory
 	) {
-		if ( $language !== null ) {
-			Assert::parameterType( ItemId::class, $language, '$language' );
-		}
-
 		$this->language = $language;
 		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
 	}
@@ -71,23 +67,6 @@ class ChangeOpLanguage extends ChangeOpBase {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		/** @var Lexeme $entity */
-		// TODO: Add setLanguage to LanguageProvider interface
-		$language = $entity->getLanguage();
-
-		if ( $this->language === null ) {
-			if ( $language ) {
-				$this->updateSummary(
-					$summary,
-					'remove',
-					'',
-					$language->getSerialization()
-				);
-				$entity->setLanguage( null );
-			}
-
-			return;
-		}
-
 		$this->updateSummary( $summary, 'set', '', $this->language->getSerialization() );
 		$entity->setLanguage( $this->language );
 	}
