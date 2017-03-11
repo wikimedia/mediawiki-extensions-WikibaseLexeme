@@ -16,7 +16,9 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
@@ -39,6 +41,7 @@ use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\Template\TemplateFactory;
+use Wikimedia\Purtle\RdfWriter;
 
 return [
 	'lexeme' => [
@@ -148,5 +151,17 @@ return [
 				)
 			);
 		},
+		'rdf-builder-factory-callback' => function(
+			$flavorFlags,
+			RdfVocabulary $vocabulary,
+			RdfWriter $writer,
+			$mentionedEntityTracker,
+			$dedupe
+		) {
+			return new LexemeRdfBuilder(
+				$vocabulary,
+				$writer
+			);
+		}
 	]
 ];
