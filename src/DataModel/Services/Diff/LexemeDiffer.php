@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
 use Diff\Differ\MapDiffer;
+use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
@@ -93,14 +94,16 @@ class LexemeDiffer implements EntityDifferStrategy {
 			$array['lemmas'] = $lemmas->toTextArray();
 		}
 
-		$lexicalCategory = $lexeme->getLexicalCategory();
-		if ( $lexicalCategory !== null ) {
-			$array['lexicalCategory'] = [ 'id' => $lexicalCategory->getSerialization() ];
+		try {
+			$array['lexicalCategory'] = [ 'id' => $lexeme->getLexicalCategory()->getSerialization() ];
+		} catch ( UnexpectedValueException $ex ) {
+			// It's fine to skip uninitialized properties in a diff
 		}
 
-		$language = $lexeme->getLanguage();
-		if ( $language !== null ) {
-			$array['language'] = [ 'id' => $language->getSerialization() ];
+		try {
+			$array['language'] = [ 'id' => $lexeme->getLanguage()->getSerialization() ];
+		} catch ( UnexpectedValueException $ex ) {
+			// It's fine to skip uninitialized properties in a diff
 		}
 
 		return $array;
@@ -115,6 +118,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	public function getConstructionDiff( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+
 		return $this->diffEntities( new Lexeme(), $entity );
 	}
 
@@ -127,6 +131,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	public function getDestructionDiff( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+
 		return $this->diffEntities( $entity, new Lexeme() );
 	}
 

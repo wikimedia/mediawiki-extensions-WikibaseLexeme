@@ -186,19 +186,21 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 	public function provideTestGetHtml() {
 		$lexemeId = new LexemeId( 'L1' );
+		$lexicalCategory = new ItemId( 'Q32' );
+		$language = new ItemId( 'Q11' );
 		$statements = new StatementList( [
 			new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) )
 		] );
 
 		return [
 			[
-				new Lexeme(),
+				new Lexeme( null, null, $lexicalCategory, $language ),
 			],
 			[
-				new Lexeme( $lexemeId ),
+				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
 			],
 			[
-				new Lexeme( $lexemeId, null, null, null, $statements ),
+				new Lexeme( $lexemeId, null, $lexicalCategory, $language, $statements ),
 			],
 		];
 	}
@@ -219,18 +221,6 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$missingLabelItem = new ItemId( 'Q1' );
 
 		return [
-			[
-				new Lexeme(),
-				''
-			],
-			[
-				new Lexeme( $lexemeId, null, $lexicalCategory ),
-				'&lt;ITEM-Q3&gt;'
-			],
-			[
-				new Lexeme( $lexemeId, null, null, $language ),
-				'Lexeme in &lt;ITEM-Q2&gt;'
-			],
 			[
 				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
 				'&lt;ITEM-Q3&gt; in &lt;ITEM-Q2&gt;'

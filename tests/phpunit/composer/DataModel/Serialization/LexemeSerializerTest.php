@@ -51,39 +51,47 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	public function provideObjectSerializations() {
 		$serializations = [];
 
-		$lexeme = new Lexeme();
+		$lexicalCategory = new ItemId( 'Q32' );
+		$language = new ItemId( 'Q11' );
+		$lexeme = new Lexeme( null, null, $lexicalCategory, $language );
 
 		$serializations['empty'] = [
 			$lexeme,
 			[
 				'type' => 'lexeme',
+				'lexicalCategory' => 'Q32',
+				'language' => 'Q11',
 				'claims' => '',
 			]
 		];
 
-		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, $lexicalCategory, $language );
 
 		$serializations['with id'] = [
 			$lexeme,
 			[
 				'type' => 'lexeme',
 				'id' => 'L1',
+				'lexicalCategory' => 'Q32',
+				'language' => 'Q11',
 				'claims' => '',
 			]
 		];
 
-		$lexeme = new Lexeme();
+		$lexeme = new Lexeme( null, null, $lexicalCategory, $language );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$serializations['with content'] = [
 			$lexeme,
 			[
 				'type' => 'lexeme',
+				'lexicalCategory' => 'Q32',
+				'language' => 'Q11',
 				'claims' => 'P42',
 			]
 		];
 
-		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
+		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, $lexicalCategory, $language );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$serializations['with content and id'] = [
@@ -91,11 +99,13 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
+				'lexicalCategory' => 'Q32',
+				'language' => 'Q11',
 				'claims' => 'P42',
 			]
 		];
 
-		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
+		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, $lexicalCategory, $language );
 		$lexeme->setLemmas( new TermList( [ new Term( 'ja', 'Tokyo' ) ] ) );
 
 		$serializations['with lemmas and id'] = [
@@ -104,31 +114,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'type' => 'lexeme',
 				'id' => 'L2',
 				'lemmas' => [ 'ja' => 'Tokyo' ],
-				'claims' => '',
-			]
-		];
-
-		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
-		$lexeme->setLexicalCategory( new ItemId( 'Q32' ) );
-
-		$serializations['with lexical category and id'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'id' => 'L2',
 				'lexicalCategory' => 'Q32',
-				'claims' => '',
-			]
-		];
-
-		$lexeme = new Lexeme( new LexemeId( 'l3' ) );
-		$lexeme->setLanguage( new ItemId( 'Q11' ) );
-
-		$serializations['with language and id'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'id' => 'L3',
 				'language' => 'Q11',
 				'claims' => '',
 			]
@@ -147,11 +133,13 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializationOrder() {
-		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
+		$lexicalCategory = new ItemId( 'Q32' );
+		$language = new ItemId( 'Q11' );
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, $lexicalCategory, $language );
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$this->assertSame(
-			[ 'type', 'id', 'claims' ],
+			[ 'type', 'id', 'lexicalCategory', 'language', 'claims' ],
 			array_keys( $serialization )
 		);
 	}

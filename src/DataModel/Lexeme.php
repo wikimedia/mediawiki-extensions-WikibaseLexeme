@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataModel;
 
 use InvalidArgumentException;
+use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
@@ -43,6 +44,10 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	private $language;
 
 	/**
+	 * Note that $lexicalCategory and $language can only be null during construction time. Their
+	 * setters can not be called with null, and their getters will throw an exception if the
+	 * corresponding field was never initialized.
+	 *
 	 * @param LexemeId|null $id
 	 * @param TermList|null $lemmas
 	 * @param ItemId|null $lexicalCategory
@@ -177,9 +182,15 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @return ItemId|null
+	 * @throw UnexpectedValueException when the object was constructed with $lexicalCategory set to
+	 * null, and the field was never initialized since then.
+	 * @return ItemId
 	 */
 	public function getLexicalCategory() {
+		if ( !$this->lexicalCategory ) {
+			throw new UnexpectedValueException( 'Can not access uninitialized field' );
+		}
+
 		return $this->lexicalCategory;
 	}
 
@@ -191,9 +202,15 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @return ItemId|null
+	 * @throw UnexpectedValueException when the object was constructed with $language set to null,
+	 * and the field was never initialized since then.
+	 * @return ItemId
 	 */
 	public function getLanguage() {
+		if ( !$this->language ) {
+			throw new UnexpectedValueException( 'Can not access uninitialized field' );
+		}
+
 		return $this->language;
 	}
 
@@ -202,6 +219,13 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 */
 	public function setLanguage( ItemId $language ) {
 		$this->language = $language;
+	}
+
+	/**
+	 * @return bool False if a non-optional field was never initialized, true otherwise.
+	 */
+	public function isSufficientlyInitialized() {
+		return $this->language !== null && $this->lexicalCategory !== null;
 	}
 
 }
