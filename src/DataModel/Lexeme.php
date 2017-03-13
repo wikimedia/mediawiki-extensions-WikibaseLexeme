@@ -209,9 +209,9 @@ class Lexeme implements EntityDocument, StatementListProvider, LabelsProvider,
 	}
 
 	/**
-	 * @param ItemId|null $lexicalCategory
+	 * @param ItemId $lexicalCategory
 	 */
-	public function setLexicalCategory( ItemId $lexicalCategory = null ) {
+	public function setLexicalCategory( ItemId $lexicalCategory ) {
 		$this->lexicalCategory = $lexicalCategory;
 	}
 
@@ -223,9 +223,9 @@ class Lexeme implements EntityDocument, StatementListProvider, LabelsProvider,
 	}
 
 	/**
-	 * @param ItemId|null $language
+	 * @param ItemId $language
 	 */
-	public function setLanguage( ItemId $language = null ) {
+	public function setLanguage( ItemId $language ) {
 		$this->language = $language;
 	}
 
