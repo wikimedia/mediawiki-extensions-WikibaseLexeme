@@ -136,18 +136,18 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $lexeme->isEmpty() );
 	}
 
-	public function testIsNotEmptyWithLexicalCategory() {
+	public function testIsEmptyWithLexicalCategory() {
 		$lexicalCategory = new ItemId( 'Q1' );
 		$lexeme = new Lexeme( new LexemeId( 'l1' ), null, $lexicalCategory );
 
-		$this->assertFalse( $lexeme->isEmpty() );
+		$this->assertTrue( $lexeme->isEmpty() );
 	}
 
-	public function testIsNotEmptyWithLanguage() {
+	public function testIsEmptyWithLanguage() {
 		$language = new ItemId( 'Q11' );
 		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, $language );
 
-		$this->assertFalse( $lexeme->isEmpty() );
+		$this->assertTrue( $lexeme->isEmpty() );
 	}
 
 	public function equalLexemesProvider() {

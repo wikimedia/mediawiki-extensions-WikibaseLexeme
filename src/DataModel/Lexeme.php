@@ -107,12 +107,12 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @return bool
+	 * @return bool A entity is empty if it does not contain any content that can be removed. Note
+	 *  that neither ID nor lexical category nor language can be set to null, and are therefor not
+	 *  taken into account.
 	 */
 	public function isEmpty() {
 		return $this->lemmas->isEmpty()
-			&& $this->lexicalCategory === null
-			&& $this->language === null
 			&& $this->statements->isEmpty();
 	}
 
@@ -132,19 +132,15 @@ class Lexeme implements EntityDocument, StatementListProvider {
 			return false;
 		}
 
-		$sameLemmas = $this->lemmas->equals( $target->lemmas );
-
 		$sameLexicalCategory = $this->lexicalCategory === $target->lexicalCategory
 			|| ( $this->lexicalCategory !== null
-				&& $this->lexicalCategory->equals( $target->lexicalCategory )
-			);
+				&& $this->lexicalCategory->equals( $target->lexicalCategory ) );
 
 		$sameLanguage = $this->language === $target->language
 			|| ( $this->language !== null
-				&& $this->language->equals( $target->language )
-			);
+				&& $this->language->equals( $target->language ) );
 
-		return $sameLemmas
+		return $this->lemmas->equals( $target->lemmas )
 			&& $sameLexicalCategory
 			&& $sameLanguage
 			&& $this->statements->equals( $target->statements );
