@@ -17,5 +17,6 @@
 	"wikibase-newlexeme-language": "Label for field in the lexeme creation form.",
 	"wikibase-lexeme-view-language": "Description when there is the language but not lexical category",
 	"wikibase-lexeme-view-lexical-category": "Description when there is the lexical category but not language",
-	"wikibase-lexeme-view-language-lexical-category": "Description when both lexical category and language are present\n{{Identical|In}}"
+	"wikibase-lexeme-view-language-lexical-category": "Description when both lexical category and language are present\n{{Identical|In}}",
+	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a lexeme"
 }

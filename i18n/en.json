@@ -12,5 +12,6 @@
 	"wikibase-newlexeme-language": "Language of lexeme",
 	"wikibase-lexeme-view-language": "Lexeme in $1",
 	"wikibase-lexeme-view-lexical-category": "$1",
-	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
+	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
+	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme"
 }
