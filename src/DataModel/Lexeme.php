@@ -8,8 +8,6 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
-use Wikibase\DataModel\Term\DescriptionsProvider;
-use Wikibase\DataModel\Term\LabelsProvider;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Providers\LanguageProvider;
 use Wikibase\Lexeme\DataModel\Providers\LemmasProvider;
@@ -18,9 +16,8 @@ use Wikibase\Lexeme\DataModel\Providers\LexicalCategoryProvider;
 /**
  * @license GPL-2.0+
  */
-class Lexeme implements EntityDocument, StatementListProvider, LabelsProvider,
-		DescriptionsProvider, LemmasProvider, LexicalCategoryProvider,
-		LanguageProvider {
+class Lexeme implements EntityDocument, LanguageProvider, LemmasProvider, LexicalCategoryProvider,
+	StatementListProvider {
 
 	const ENTITY_TYPE = 'lexeme';
 
@@ -106,24 +103,6 @@ class Lexeme implements EntityDocument, StatementListProvider, LabelsProvider,
 				'$id must be an instance of LexemeId or an integer.'
 			);
 		}
-	}
-
-	/**
-	 * Workaround for T150084
-	 *
-	 * @return TermList
-	 */
-	public function getDescriptions() {
-		return new TermList();
-	}
-
-	/**
-	 * Workaround for T150084
-	 *
-	 * @return TermList
-	 */
-	public function getLabels() {
-		return new TermList();
 	}
 
 	/**
