@@ -12,26 +12,15 @@
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 
-use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
-use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
-use Wikibase\Lexeme\View\LexemeFormsView;
-use Wikibase\Rdf\RdfVocabulary;
-use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
-use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
-use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
-use Wikibase\Repo\MediaWikiLocalizedTextProvider;
-use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
-use Wikibase\Repo\WikibaseRepo;
 use Wikibase\DataModel\DeserializerFactory;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -40,10 +29,15 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
-use Wikibase\Lexeme\View\LexemeView;
+use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
+use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\View\LexemeViewFactory;
+use Wikibase\Rdf\RdfVocabulary;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
-use Wikibase\View\Template\TemplateFactory;
 use Wikimedia\Purtle\RdfWriter;
 
 return [
@@ -68,32 +62,15 @@ return [
 			EditSectionGenerator $editSectionGenerator,
 			EntityTermsView $entityTermsView
 		) {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$userLanguage = $wikibaseRepo->getUserLanguage();
-			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage->getCode() );
-			$viewFactory = $wikibaseRepo->getViewFactory();
-			$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
-			$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
-				$languageDirectionalityLookup,
-				new LanguageNameLookup( $languageCode )
+			$factory = new LexemeViewFactory(
+				$languageCode,
+				$labelDescriptionLookup,
+				$fallbackChain,
+				$editSectionGenerator,
+				$entityTermsView
 			);
 
-			// TODO: One of the next steps should be to extract this to a LexemeViewFactory.
-			return new LexemeView(
-				TemplateFactory::getDefaultInstance(),
-				$entityTermsView,
-				$languageDirectionalityLookup,
-				$languageCode,
-				new LexemeFormsView( $textProvider ),
-				$viewFactory->newStatementSectionsView(
-					$languageCode,
-					$labelDescriptionLookup,
-					$fallbackChain,
-					$editSectionGenerator
-				),
-				$htmlTermRenderer,
-				$labelDescriptionLookup
-			);
+			return $factory->newLexemeView();
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
 		'content-handler-factory-callback' => function() {
