@@ -13,5 +13,6 @@
 	"wikibase-newlexeme-lexicalcategory": "词类",
 	"wikibase-newlexeme-language": "词位的语言",
 	"wikibase-lexeme-view-language": "$1中的词位",
-	"wikibase-lexeme-view-language-lexical-category": "$2中的$1"
+	"wikibase-lexeme-view-language-lexical-category": "$2中的$1",
+	"wikibase-lexeme-summary-wbeditentity-update": "已更改词位"
 }
