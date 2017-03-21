@@ -76,16 +76,16 @@ return [
 			return new LexemeView(
 				TemplateFactory::getDefaultInstance(),
 				$entityTermsView,
+				$languageDirectionalityLookup,
+				$languageCode,
 				$viewFactory->newStatementSectionsView(
 					$languageCode,
 					$labelDescriptionLookup,
 					$fallbackChain,
 					$editSectionGenerator
 				),
-				$languageDirectionalityLookup,
 				$htmlTermRenderer,
-				$labelDescriptionLookup,
-				$languageCode
+				$labelDescriptionLookup
 			);
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
