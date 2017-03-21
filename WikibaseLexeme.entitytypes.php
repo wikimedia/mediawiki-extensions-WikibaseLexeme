@@ -18,6 +18,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\View\LexemeFormsView;
 use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
@@ -78,6 +79,7 @@ return [
 				$entityTermsView,
 				$languageDirectionalityLookup,
 				$languageCode,
+				new LexemeFormsView(),
 				$viewFactory->newStatementSectionsView(
 					$languageCode,
 					$labelDescriptionLookup,

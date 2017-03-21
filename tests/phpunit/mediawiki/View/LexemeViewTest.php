@@ -14,6 +14,7 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\View\LexemeFormsView;
 use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
@@ -36,6 +37,20 @@ use Wikimedia\Assert\ParameterTypeException;
 class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 	/**
+	 * @return LexemeFormsView
+	 */
+	private function newFormsViewMock() {
+		$view = $this->getMockBuilder( LexemeFormsView::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$view->method( 'getHtml' )
+			->will( $this->returnValue( "lexemeFormsView->getHtml\n" ) );
+
+		return $view;
+	}
+
+	/**
 	 * @param StatementList|null $expectedStatements
 	 *
 	 * @return StatementSectionsView
@@ -48,7 +63,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$statementSectionsView->expects( $expectedStatements ? $this->once() : $this->never() )
 			->method( 'getHtml' )
 			->with( $expectedStatements )
-			->will( $this->returnValue( 'statementSectionsView->getHtml' ) );
+			->will( $this->returnValue( "statementSectionsView->getHtml\n" ) );
 
 		return $statementSectionsView;
 	}
@@ -115,6 +130,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			$this->newEntityTermsViewMock(),
 			$languageDirectionalityLookup,
 			'en',
+			$this->newFormsViewMock(),
 			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$htmlTermRenderer,
 			$this->newLabelDescriptionLookup()
@@ -147,6 +163,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $html );
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
+		$this->assertContains( 'lexemeFormsView->getHtml', $html );
 		$this->assertContains( 'statementSectionsView->getHtml', $html );
 	}
 
@@ -222,7 +239,9 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains(
 			'<div class="wikibase-entityview-main">'
 				. $expectedHeadline
-				. '<div id="toc"></div>statementSectionsView->getHtml</div>',
+				. '<div id="toc"></div>'
+				. "statementSectionsView->getHtml\nlexemeFormsView->getHtml\n"
+				. '</div>',
 			$html
 		);
 	}

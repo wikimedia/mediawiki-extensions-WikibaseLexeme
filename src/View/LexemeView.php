@@ -29,6 +29,11 @@ use Wikimedia\Assert\Assert;
 class LexemeView extends EntityView {
 
 	/**
+	 * @var LexemeFormsView
+	 */
+	private $formsView;
+
+	/**
 	 * @var StatementSectionsView
 	 */
 	private $statementSectionsView;
@@ -48,6 +53,7 @@ class LexemeView extends EntityView {
 	 * @param EntityTermsView $entityTermsView
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param string $languageCode
+	 * @param LexemeFormsView $formsView
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param HtmlTermRenderer $htmlTermRenderer
 	 * @param LabelDescriptionLookup $labelDescriptionLookup
@@ -57,6 +63,7 @@ class LexemeView extends EntityView {
 		EntityTermsView $entityTermsView,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		$languageCode,
+		LexemeFormsView $formsView,
 		StatementSectionsView $statementSectionsView,
 		HtmlTermRenderer $htmlTermRenderer,
 		LabelDescriptionLookup $labelDescriptionLookup
@@ -68,6 +75,7 @@ class LexemeView extends EntityView {
 			$languageCode
 		);
 
+		$this->formsView = $formsView;
 		$this->statementSectionsView = $statementSectionsView;
 		$this->htmlTermRenderer = $htmlTermRenderer;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
@@ -87,7 +95,8 @@ class LexemeView extends EntityView {
 
 		$html = $this->getHtmlForLexicalCategoryAndLanguage( $entity )
 			. $this->templateFactory->render( 'wikibase-toc' )
-			. $this->statementSectionsView->getHtml( $entity->getStatements() );
+			. $this->statementSectionsView->getHtml( $entity->getStatements() )
+			. $this->formsView->getHtml();
 
 		return $html;
 	}
