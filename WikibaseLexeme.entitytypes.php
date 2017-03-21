@@ -23,6 +23,7 @@ use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
+use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\DataModel\DeserializerFactory;
@@ -67,19 +68,23 @@ return [
 			EditSectionGenerator $editSectionGenerator,
 			EntityTermsView $entityTermsView
 		) {
-			$viewFactory = WikibaseRepo::getDefaultInstance()->getViewFactory();
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$userLanguage = $wikibaseRepo->getUserLanguage();
+			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage->getCode() );
+			$viewFactory = $wikibaseRepo->getViewFactory();
 			$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 			$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
 				$languageDirectionalityLookup,
 				new LanguageNameLookup( $languageCode )
 			);
 
+			// TODO: One of the next steps should be to extract this to a LexemeViewFactory.
 			return new LexemeView(
 				TemplateFactory::getDefaultInstance(),
 				$entityTermsView,
 				$languageDirectionalityLookup,
 				$languageCode,
-				new LexemeFormsView(),
+				new LexemeFormsView( $textProvider ),
 				$viewFactory->newStatementSectionsView(
 					$languageCode,
 					$labelDescriptionLookup,

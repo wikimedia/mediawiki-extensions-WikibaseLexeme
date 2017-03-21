@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use PHPUnit_Framework_TestCase;
 use Wikibase\Lexeme\View\LexemeFormsView;
+use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
  * @covers Wikibase\Lexeme\View\LexemeFormsView
@@ -16,11 +17,16 @@ use Wikibase\Lexeme\View\LexemeFormsView;
 class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsTheFormsHeadline() {
-		$view = new LexemeFormsView();
+		$view = $this->newFormsView();
 		$html = $view->getHtml();
 
 		$this->assertSame( 1, substr_count( $html, '</h2>' ) );
 		$this->assertContains( ' id="forms"', $html );
+		$this->assertContains( '(wikibase-lexeme-view-forms)', $html );
+	}
+
+	private function newFormsView() {
+		return new LexemeFormsView( new DummyLocalizedTextProvider() );
 	}
 
 }
