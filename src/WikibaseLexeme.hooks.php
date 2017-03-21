@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
+use ResourceLoader;
 
 /**
  * MediaWiki hook handlers for the Wikibase Lexeme extension.
@@ -74,6 +75,22 @@ class WikibaseLexemeHooks {
 			$entityTypeDefinitions,
 			require __DIR__ . '/../WikibaseLexeme.entitytypes.php'
 		);
+	}
+
+	public static function onResourceLoaderTestModules( array &$testModules, ResourceLoader $rl ) {
+		$testModules['qunit']['WikibaseLexeme.tests'] = [
+			'scripts' => [
+				'tests/qunit/widgets/LanguageLookupWidget.tests.js',
+			],
+			'dependencies' => [
+				'wikibase.lexeme.widgets.LanguageLookupWidget',
+				'oojs-ui'
+			],
+			'localBasePath' => dirname( __DIR__ ),
+			'remoteExtPath' => 'WikibaseLexeme',
+		];
+
+		return true;
 	}
 
 }
