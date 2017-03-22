@@ -113,11 +113,11 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),
 			$this->newEntityTermsViewMock(),
-			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$languageDirectionalityLookup,
+			'en',
+			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$htmlTermRenderer,
-			$this->newLabelDescriptionLookup(),
-			'en'
+			$this->newLabelDescriptionLookup()
 		);
 	}
 

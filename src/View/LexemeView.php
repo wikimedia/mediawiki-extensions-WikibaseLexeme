@@ -34,16 +34,6 @@ class LexemeView extends EntityView {
 	private $statementSectionsView;
 
 	/**
-	 * @var TemplateFactory
-	 */
-	protected $templateFactory;
-
-	/**
-	 * @var string
-	 */
-	protected $languageCode;
-
-	/**
 	 * @var HtmlTermRenderer
 	 */
 	private $htmlTermRenderer;
@@ -56,20 +46,20 @@ class LexemeView extends EntityView {
 	/**
 	 * @param TemplateFactory $templateFactory
 	 * @param EntityTermsView $entityTermsView
-	 * @param StatementSectionsView $statementSectionsView
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
+	 * @param string $languageCode
+	 * @param StatementSectionsView $statementSectionsView
 	 * @param HtmlTermRenderer $htmlTermRenderer
 	 * @param LabelDescriptionLookup $labelDescriptionLookup
-	 * @param string $languageCode
 	 */
 	public function __construct(
 		TemplateFactory $templateFactory,
 		EntityTermsView $entityTermsView,
-		StatementSectionsView $statementSectionsView,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
+		$languageCode,
+		StatementSectionsView $statementSectionsView,
 		HtmlTermRenderer $htmlTermRenderer,
-		LabelDescriptionLookup $labelDescriptionLookup,
-		$languageCode
+		LabelDescriptionLookup $labelDescriptionLookup
 	) {
 		parent::__construct(
 			$templateFactory,
@@ -79,8 +69,6 @@ class LexemeView extends EntityView {
 		);
 
 		$this->statementSectionsView = $statementSectionsView;
-		$this->templateFactory = $templateFactory;
-		$this->languageCode = $languageCode;
 		$this->htmlTermRenderer = $htmlTermRenderer;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
 	}
@@ -90,7 +78,7 @@ class LexemeView extends EntityView {
 	 *
 	 * @param EntityDocument $entity
 	 *
-	 * @throws InvalidArgumentException
+	 * @throws InvalidArgumentException if the entity type does not match.
 	 * @return string HTML
 	 */
 	protected function getMainHtml( EntityDocument $entity ) {
@@ -117,6 +105,7 @@ class LexemeView extends EntityView {
 
 	/**
 	 * @param EntityDocument $entity
+	 *
 	 * @return string
 	 */
 	public function getTitleHtml( EntityDocument $entity ) {
@@ -138,8 +127,10 @@ class LexemeView extends EntityView {
 				$isEmpty = false;
 			}
 		}
+
 		$title = $isEmpty ? htmlspecialchars(
 			$this->getLocalizedMessage( 'wikibase-label-empty' ) ) : $labelHtml;
+
 		return $this->templateFactory->render(
 			'wikibase-title',
 			$isEmpty ? 'wb-empty' : '',
@@ -154,8 +145,9 @@ class LexemeView extends EntityView {
 	 * @return string HTML
 	 */
 	private function getHtmlForLexicalCategoryAndLanguage( Lexeme $lexeme ) {
-		$lexicalCategory = $this->getItemIdHtml( $lexeme ->getLexicalCategory() );
-		$language = $this->getItemIdHtml( $lexeme ->getLanguage() );
+		$lexicalCategory = $this->getItemIdHtml( $lexeme->getLexicalCategory() );
+		$language = $this->getItemIdHtml( $lexeme->getLanguage() );
+
 		switch ( true ) {
 			case $language === null && $lexicalCategory === null:
 				return '';
@@ -179,10 +171,10 @@ class LexemeView extends EntityView {
 
 	/**
 	 * @param TermList|null $lemmas
+	 *
 	 * @return Term|null
 	 */
-	private function getMainTerm( $lemmas ) {
-
+	private function getMainTerm( TermList $lemmas = null ) {
 		if ( $lemmas === null || $lemmas->isEmpty() ) {
 			return null;
 		}
@@ -195,12 +187,23 @@ class LexemeView extends EntityView {
 		return null;
 	}
 
+	/**
+	 * @param string $key
+	 * @param array $params
+	 *
+	 * @return string Plain text
+	 */
 	private function getLocalizedMessage( $key, array $params = [] ) {
 		return ( new Message( $key, $params, Language::factory( $this->languageCode ) ) )->text();
 	}
 
-	private function getItemIdHtml( $itemId ) {
-		if ( $itemId === null || !( $itemId instanceof ItemId ) ) {
+	/**
+	 * @param ItemId|null $itemId
+	 *
+	 * @return string|null
+	 */
+	private function getItemIdHtml( ItemId $itemId = null ) {
+		if ( $itemId === null ) {
 			return null;
 		}
 
@@ -213,8 +216,8 @@ class LexemeView extends EntityView {
 		if ( $label === null ) {
 			return $itemId->getSerialization();
 		}
-		return $this->htmlTermRenderer->renderTerm( $label );
 
+		return $this->htmlTermRenderer->renderTerm( $label );
 	}
 
 }
