@@ -12,5 +12,6 @@
 	"wikibase-newlexeme-lexicalcategory": "Lexikalesch Kategorie",
 	"wikibase-newlexeme-language": "Lexeme-Sprooch",
 	"wikibase-lexeme-view-language": "Lexeme op $1",
-	"wikibase-lexeme-view-language-lexical-category": "$1 op $2"
+	"wikibase-lexeme-view-language-lexical-category": "$1 op $2",
+	"wikibase-lexeme-view-forms": "Formulairen"
 }

@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Kareyac",
-			"Okras"
+			"Okras",
+			"Redredsonia"
 		]
 	},
 	"special-newlexeme": "Создать новую лексему",
@@ -12,5 +13,6 @@
 	"wikibase-lemma-edit-placeholder": "Введите лемму",
 	"wikibase-newlexeme-lexicalcategory": "Лексическая категория",
 	"wikibase-newlexeme-language": "Язык лексемы",
-	"wikibase-lexeme-view-language-lexical-category": "$1 на $2"
+	"wikibase-lexeme-view-language-lexical-category": "$1 на $2",
+	"wikibase-lexeme-view-forms": "Формы"
 }
