@@ -6,5 +6,6 @@ Feature: Forms of a Lexeme
       And The copyright warning has been dismissed
       And Anonymous edit warnings are disabled
 
-  Scenario: Forms header
+  Scenario: Basic forms section
     Then Forms header should be there
+     And Forms container should be there

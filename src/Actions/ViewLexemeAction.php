@@ -14,6 +14,10 @@ class ViewLexemeAction extends ViewEntityAction {
 
 	public function show() {
 		parent::show();
+
+		// Basic styles that should also be loaded if JavaScript is disabled
+		$this->getOutput()->addModuleStyles( 'wikibase.lexeme.styles' );
+
 		$this->getOutput()->addJsConfigVars( 'wbUserSpecifiedLanguages', [] );
 		$this->getOutput()->addModules( 'wikibase.lexeme.lexemeview' );
 	}

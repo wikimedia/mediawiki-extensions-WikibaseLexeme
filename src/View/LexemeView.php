@@ -12,6 +12,7 @@ use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookupException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeForm;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
 use Wikibase\View\HtmlTermRenderer;
@@ -93,10 +94,17 @@ class LexemeView extends EntityView {
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
+		// TODO: This obviously is a dummy that must be removed
+		$forms = [
+			new LexemeForm( 'A' ),
+			new LexemeForm( 'B' ),
+			new LexemeForm( 'C' ),
+		];
+
 		$html = $this->getHtmlForLexicalCategoryAndLanguage( $entity )
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
-			. $this->formsView->getHtml();
+			. $this->formsView->getHtml( $forms );
 
 		return $html;
 	}

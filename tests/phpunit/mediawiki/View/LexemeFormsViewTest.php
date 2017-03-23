@@ -18,11 +18,30 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsTheFormsHeadline() {
 		$view = $this->newFormsView();
-		$html = $view->getHtml();
+		$html = $view->getHtml( [] );
 
-		$this->assertSame( 1, substr_count( $html, '</h2>' ) );
-		$this->assertContains( ' id="forms"', $html );
-		$this->assertContains( '(wikibase-lexeme-view-forms)', $html );
+		assertThat(
+			$html,
+			is(
+				htmlPiece( havingChild(
+					both( withTagName( 'h2' ) )
+						->andAlso( havingChild(
+							both( withAttribute( 'id' )->havingValue( 'forms' ) )
+								->andAlso( havingTextContents( '(wikibase-lexeme-view-forms)' ) )
+						) )
+				) )
+			)
+		);
+	}
+
+	public function testHtmlContainsFormsContainer() {
+		$view = $this->newFormsView();
+		$html = $view->getHtml( [] );
+
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild( tagMatchingOutline(
+				'<div class="wikibase-lexeme-forms">' ) ) ) ) );
 	}
 
 	private function newFormsView() {

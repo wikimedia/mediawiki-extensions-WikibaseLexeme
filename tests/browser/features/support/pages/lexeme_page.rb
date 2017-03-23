@@ -3,6 +3,7 @@ class LexemePage
   include EntityPage
 
   span(:forms_header, id: 'forms')
+  div(:forms_container, class: 'wikibase-lexeme-forms')
 
   def create_lexeme(lexeme_data)
     wb_api = MediawikiApi::Wikidata::WikidataClient.new URL.repo_api

@@ -55,8 +55,7 @@
 		"wikibase.lexeme.lexemeview": {
 			"dependencies": [
 				"jquery.wikibase.lexemeview",
-				"wikibase.lexeme.getDeserializer",
-				"wikibase.lexeme.styles"
+				"wikibase.lexeme.getDeserializer"
 			]
 		},
 		"wikibase.lexeme.datamodel.Lexeme": {
