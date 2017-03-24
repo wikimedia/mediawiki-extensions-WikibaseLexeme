@@ -77,6 +77,7 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 	public function lemmaTermProvider() {
 		return [
 			'valid' => [ true, 'foo' ],
+			'cyrillic "х"' => [ true, 'х' ],
 			'not a string' => [ false, false ],
 			'empty' => [ false, '' ],
 			'exceeds maxLength of 10' => [ false, 'foooooooooo' ],
