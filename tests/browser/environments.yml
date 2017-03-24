@@ -26,3 +26,9 @@ default:
   mediawiki_password: …
   user_factory: true
   # lexeme_namespace: 'Lexeme:'
+
+integration:
+  item_namespace: 'Item:'
+  language_code: en
+  browser: firefox
+  user_factory: true
