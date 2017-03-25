@@ -1,7 +1,6 @@
 <?php
 
-
-namespace Wikibase\Lexeme\Tests\ChangeOp\Deserialization;
+namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;

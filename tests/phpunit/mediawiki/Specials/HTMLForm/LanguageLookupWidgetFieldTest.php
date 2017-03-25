@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Specials\HTMLForm;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
 use ReflectionClass;
 use Wikibase\Lexeme\Specials\HTMLForm\LanguageLookupWidget;

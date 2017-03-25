@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Specials;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;

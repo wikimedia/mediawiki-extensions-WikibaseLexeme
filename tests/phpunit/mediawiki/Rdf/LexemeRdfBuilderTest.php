@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Rdf;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Repo\Tests\Rdf\NTriplesRdfTestHelper;
