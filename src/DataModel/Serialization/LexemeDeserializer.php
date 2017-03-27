@@ -2,11 +2,9 @@
 
 namespace Wikibase\Lexeme\DataModel\Serialization;
 
+use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
 use Deserializers\TypedObjectDeserializer;
-use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
-use Wikibase\DataModel\Deserializers\StatementListDeserializer;
-use Wikibase\DataModel\Deserializers\TermListDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
@@ -20,37 +18,34 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 class LexemeDeserializer extends TypedObjectDeserializer {
 
 	/**
-	 * @var EntityIdDeserializer
+	 * @var Deserializer
 	 */
 	private $entityIdDeserializer;
 
 	/**
-	 * @var TermListDeserializer
+	 * @var Deserializer
 	 */
 	private $termListDeserializer;
 
 	/**
-	 * @var StatementListDeserializer
+	 * @var Deserializer
 	 */
 	private $statementListDeserializer;
 
-	/**
-	 * @param TermListDeserializer $termListDeserializer
-	 * @param StatementListDeserializer $statementListDeserializer
-	 */
 	public function __construct(
-		EntityIdDeserializer $entityIdDeserializer,
-		TermListDeserializer $termListDeserializer,
-		StatementListDeserializer $statementListDeserializer
+		Deserializer $entityIdDeserializer,
+		Deserializer $termListDeserializer,
+		Deserializer $statementListDeserializer
 	) {
 		parent::__construct( 'lexeme', 'type' );
+
+		$this->entityIdDeserializer = $entityIdDeserializer;
 		$this->termListDeserializer = $termListDeserializer;
 		$this->statementListDeserializer = $statementListDeserializer;
-		$this->entityIdDeserializer = $entityIdDeserializer;
 	}
 
 	/**
-	 * @param mixed $serialization
+	 * @param array $serialization
 	 *
 	 * @throws DeserializationException
 	 * @return Lexeme
