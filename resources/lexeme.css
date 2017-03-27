@@ -12,3 +12,8 @@
 	border-right: 0;
 	width: 60%;
 }
+
+.wikibase-lexeme-form-representation {
+	clear: left;
+	margin-left: 10px; /* same as .wb-section-heading */
+}
