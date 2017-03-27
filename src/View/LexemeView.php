@@ -13,6 +13,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
 use Wikibase\View\HtmlTermRenderer;
@@ -96,9 +97,9 @@ class LexemeView extends EntityView {
 
 		// TODO: This obviously is a dummy that must be removed
 		$forms = [
-			new LexemeForm( 'A' ),
-			new LexemeForm( 'B' ),
-			new LexemeForm( 'C' ),
+			new LexemeForm( new LexemeFormId( 'F1' ), 'A' ),
+			new LexemeForm( new LexemeFormId( 'F2' ), 'B' ),
+			new LexemeForm( new LexemeFormId( 'F3' ), 'C' ),
 		];
 
 		$html = $this->getHtmlForLexicalCategoryAndLanguage( $entity )
