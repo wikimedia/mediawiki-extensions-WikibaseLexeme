@@ -5,8 +5,7 @@ namespace Wikibase\Lexeme\DataModel\Serialization;
 use Serializers\DispatchableSerializer;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
-use Wikibase\DataModel\Serializers\StatementListSerializer;
-use Wikibase\DataModel\Serializers\TermListSerializer;
+use Serializers\Serializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
 
 /**
@@ -16,22 +15,18 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 class LexemeSerializer implements DispatchableSerializer {
 
 	/**
-	 * @var TermListSerializer
+	 * @var Serializer
 	 */
 	private $termListSerializer;
 
 	/**
-	 * @var StatementListSerializer
+	 * @var Serializer
 	 */
 	private $statementListSerializer;
 
-	/**
-	 * @param TermListSerializer $termListSerializer
-	 * @param StatementListSerializer $statementListSerializer
-	 */
 	public function __construct(
-		TermListSerializer $termListSerializer,
-		StatementListSerializer $statementListSerializer
+		Serializer $termListSerializer,
+		Serializer $statementListSerializer
 	) {
 		$this->termListSerializer = $termListSerializer;
 		$this->statementListSerializer = $statementListSerializer;
