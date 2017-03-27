@@ -4,7 +4,7 @@
 	/**
 	 * @see OO.ui.TextInputWidget
 	 *
-	 * @param config
+	 * @param {Object} [config]
 	 *
 	 * @license GPL-2.0+
 	 */
@@ -29,7 +29,7 @@
 		_apiUrl: null,
 
 		/**
-		 * @property {integer}
+		 * @property {number}
 		 */
 		_timeout: null,
 
