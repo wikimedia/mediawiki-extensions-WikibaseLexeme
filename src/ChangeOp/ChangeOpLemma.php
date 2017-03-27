@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use ValueValidators\Result;
 use Wikibase\ChangeOp\ChangeOpBase;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\DataModel\Providers\LemmasProvider;
+use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -51,11 +51,10 @@ class ChangeOpLemma extends ChangeOpBase {
 	 * @param EntityDocument $entity
 	 *
 	 * @return Result
-	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function validate( EntityDocument $entity ) {
-		Assert::parameterType( LemmasProvider::class, $entity, '$entity' );
+		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		$languageValidator = $this->lexemeValidatorFactory->getLanguageCodeValidator();
 		$termValidator = $this->lexemeValidatorFactory->getLemmaTermValidator();
@@ -80,9 +79,9 @@ class ChangeOpLemma extends ChangeOpBase {
 		// NOTE: This part is very likely to change completely once a decision
 		//       about the lemma representation has been made.
 
-		Assert::parameterType( LemmasProvider::class, $entity, '$entity' );
+		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		/** @var LemmasProvider $entity */
+		/** @var Lexeme $entity */
 		$lemmas = $entity->getLemmas();
 		$hasLemma = $lemmas->hasTermForLanguage( $this->language );
 

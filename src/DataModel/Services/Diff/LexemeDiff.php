@@ -25,7 +25,7 @@ class LexemeDiff extends EntityDiff {
 		$this->fixSubstructureDiff( $operations, 'language' );
 		$this->fixSubstructureDiff( $operations, 'claim' );
 
-		parent::__construct( $operations, true );
+		parent::__construct( $operations );
 	}
 
 	/**

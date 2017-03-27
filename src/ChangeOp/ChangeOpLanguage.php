@@ -8,7 +8,6 @@ use Wikibase\ChangeOp\ChangeOpBase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Providers\LanguageProvider;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -46,11 +45,10 @@ class ChangeOpLanguage extends ChangeOpBase {
 	 * @param EntityDocument $entity
 	 *
 	 * @return Result
-	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function validate( EntityDocument $entity ) {
-		Assert::parameterType( LanguageProvider::class, $entity, '$entity' );
+		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		$languageValidator = $this->lexemeValidatorFactory->getLanguageValidator();
 

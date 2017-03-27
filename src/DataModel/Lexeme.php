@@ -9,15 +9,11 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Providers\LanguageProvider;
-use Wikibase\Lexeme\DataModel\Providers\LemmasProvider;
-use Wikibase\Lexeme\DataModel\Providers\LexicalCategoryProvider;
 
 /**
  * @license GPL-2.0+
  */
-class Lexeme implements EntityDocument, LanguageProvider, LemmasProvider, LexicalCategoryProvider,
-	StatementListProvider {
+class Lexeme implements EntityDocument, StatementListProvider {
 
 	const ENTITY_TYPE = 'lexeme';
 
