@@ -54,4 +54,30 @@
 		assert.equal( languageExtractor.getLanguageFromItem( itemSerialization ), null );
 	} );
 
+	QUnit.test( 'returns the language code of a statement with the highest rank', function ( assert ) {
+		var languageExtractor = newLanguageExtractor( 'P123' ),
+			itemSerialization = {
+				claims: {
+					'P123': [
+						{ mainsnak: { datavalue: { value: 'foo' } }, rank: 'deprecated' },
+						{ mainsnak: { datavalue: { value: 'bar' } }, rank: 'normal' },
+						{ mainsnak: { datavalue: { value: 'baz' } }, rank: 'preferred' }
+					]
+				}
+			};
+
+		assert.equal( languageExtractor.getLanguageFromItem( itemSerialization ), 'baz' );
+	} );
+
+	QUnit.test( 'returns false in case of empty statement list', function ( assert ) {
+		var languageExtractor = newLanguageExtractor( 'P123' ),
+			itemSerialization = {
+				claims: {
+					'P123': []
+				}
+			};
+
+		assert.equal( languageExtractor.getLanguageFromItem( itemSerialization ), false );
+	} );
+
 }( wikibase, jQuery, QUnit ) );

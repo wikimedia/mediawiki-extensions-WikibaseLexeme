@@ -23,8 +23,23 @@
 		getLanguageFromItem: function ( itemSerialization ) {
 			return this._languageCodePropertyId
 				&& itemSerialization.claims[ this._languageCodePropertyId ]
-				&& itemSerialization.claims[ this._languageCodePropertyId ][ 0 ]
-				&& itemSerialization.claims[ this._languageCodePropertyId ][ 0 ].mainsnak.datavalue.value;
+				&& itemSerialization.claims[ this._languageCodePropertyId ].length > 0
+				&& this._getBestRankedLanguageCode( itemSerialization.claims[ this._languageCodePropertyId ] );
+		},
+
+		/**
+		 * @param {Object[]} statements
+		 */
+		_getBestRankedLanguageCode: function ( statements ) {
+			var RANK_ORDER = [ 'preferred', 'normal', 'deprecated' ];
+
+			return statements.reduce( function ( currentBest, current ) {
+				if ( RANK_ORDER.indexOf( current.rank ) < RANK_ORDER.indexOf( currentBest.rank ) ) {
+					return current;
+				}
+
+				return currentBest;
+			}, statements[ 0 ] ).mainsnak.datavalue.value;
 		}
 	} );
 
