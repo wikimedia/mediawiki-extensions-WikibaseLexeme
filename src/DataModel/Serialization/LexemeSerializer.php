@@ -8,6 +8,7 @@ use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
 use UnexpectedValueException;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeForm;
 
 /**
  * @license GPL-2.0+
@@ -99,6 +100,41 @@ class LexemeSerializer implements DispatchableSerializer {
 			$lexeme->getStatements()
 		);
 
+		$serialization['forms'] = $this->serializeForms( $lexeme->getForms() );
+
+		return $serialization;
+	}
+
+	/**
+	 * @param LexemeForm[] $forms
+	 *
+	 * @return array[]
+	 */
+	private function serializeForms( array $forms ) {
+		$serialization = [];
+
+		foreach ( $forms as $form ) {
+			$serialization[] = $this->serializeForm( $form );
+		}
+
+		return $serialization;
+	}
+
+	/**
+	 * @param LexemeForm $form
+	 *
+	 * @return array
+	 */
+	private function serializeForm( LexemeForm $form ) {
+		$serialization = [];
+
+		$id = $form->getId();
+		if ( $id !== null ) {
+			// Note: This ID serialization is final, because there is no EntityIdSerializer
+			$serialization['id'] = $id->getSerialization();
+		}
+
+		$serialization['representation'] = $form->getRepresentation();
 		return $serialization;
 	}
 

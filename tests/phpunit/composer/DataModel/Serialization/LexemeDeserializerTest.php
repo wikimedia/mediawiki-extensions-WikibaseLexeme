@@ -13,6 +13,8 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 
@@ -158,6 +160,30 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				'type' => 'lexeme',
 				'id' => 'L3',
 				'language' => 'Q11'
+			],
+			$lexeme
+		];
+
+		$forms = [ new LexemeForm( null, 'form' ) ];
+		$lexeme = new Lexeme( null, null, null, null, null, $forms );
+		$serializations['with minimal forms'] = [
+			[
+				'type' => 'lexeme',
+				'forms' => [ [ 'representation' => 'form' ] ],
+			],
+			$lexeme
+		];
+
+		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form' ) ];
+		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, null, null, null, $forms );
+		$serializations['with forms and all IDs set'] = [
+			[
+				'type' => 'lexeme',
+				'id' => 'L5',
+				'forms' => [ [
+					'id' => 'F5',
+					'representation' => 'form',
+				] ],
 			],
 			$lexeme
 		];

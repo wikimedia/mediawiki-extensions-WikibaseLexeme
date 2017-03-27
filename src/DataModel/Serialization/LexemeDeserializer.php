@@ -9,6 +9,8 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
@@ -58,7 +60,8 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$this->deserializeLemmas( $serialization ),
 			$this->deserializeLexicalCategory( $serialization ),
 			$this->deserializeLanguage( $serialization ),
-			$this->deserializeStatements( $serialization )
+			$this->deserializeStatements( $serialization ),
+			$this->deserializeForms( $serialization )
 		);
 	}
 
@@ -125,6 +128,41 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		}
 
 		return null;
+	}
+
+	/**
+	 * @param array $serialization
+	 *
+	 * @return LexemeForm[]
+	 */
+	private function deserializeForms( array $serialization ) {
+		// TODO: Extract to a LexemeFormsDeserializer
+		$forms = [];
+
+		if ( array_key_exists( 'forms', $serialization ) ) {
+			foreach ( $serialization['forms'] as $formSerialization ) {
+				$forms[] = $this->deserializeForm( $formSerialization );
+			}
+		}
+
+		return $forms;
+	}
+
+	/**
+	 * @param array $serialization
+	 *
+	 * @return LexemeForm
+	 */
+	private function deserializeForm( array $serialization ) {
+		$id = null;
+
+		if ( array_key_exists( 'id', $serialization ) ) {
+			// We may want to use an EntityIdDeserializer here
+			$id = new LexemeFormId( $serialization['id'] );
+		}
+
+		// TODO: Throw proper exception if array key does not exist
+		return new LexemeForm( $id, $serialization['representation'] );
 	}
 
 }
