@@ -22,15 +22,13 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 
 		assertThat(
 			$html,
-			is(
-				htmlPiece( havingChild(
-					both( withTagName( 'h2' ) )
-						->andAlso( havingChild(
-							both( withAttribute( 'id' )->havingValue( 'forms' ) )
-								->andAlso( havingTextContents( '(wikibase-lexeme-view-forms)' ) )
-						) )
-				) )
-			)
+			is( htmlPiece( havingChild(
+				both( withTagName( 'h2' ) )
+					->andAlso( havingChild(
+						both( withAttribute( 'id' )->havingValue( 'forms' ) )
+							->andAlso( havingTextContents( '(wikibase-lexeme-view-forms)' ) )
+					) )
+			) ) )
 		);
 	}
 
@@ -41,7 +39,9 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		assertThat(
 			$html,
 			is( htmlPiece( havingChild( tagMatchingOutline(
-				'<div class="wikibase-lexeme-forms">' ) ) ) ) );
+				'<div class="wikibase-lexeme-forms">'
+			) ) ) )
+		);
 	}
 
 	private function newFormsView() {

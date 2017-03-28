@@ -9,15 +9,29 @@ namespace Wikibase\Lexeme\DataModel;
 class LexemeForm {
 
 	/**
+	 * @var LexemeFormId|null
+	 */
+	private $id;
+
+	/**
 	 * @var string
 	 */
 	private $representation;
 
 	/**
+	 * @param LexemeFormId $id|null
 	 * @param string $representation
 	 */
-	public function __construct( $representation ) {
+	public function __construct( LexemeFormId $id = null, $representation ) {
+		$this->id = $id;
 		$this->representation = $representation;
+	}
+
+	/**
+	 * @return LexemeFormId|null
+	 */
+	public function getId() {
+		return $this->id;
 	}
 
 	/**

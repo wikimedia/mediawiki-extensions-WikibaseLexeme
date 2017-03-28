@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\View;
 
 use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -51,7 +52,24 @@ class LexemeFormsView {
 
 		return '<h3 class="wikibase-lexeme-form-representation">'
 			. htmlspecialchars( $representation )
+			. $this->getFormIdHtml( $form->getId() )
 			. '</h3>';
+	}
+
+	/**
+	 * @param LexemeFormId|null $id
+	 *
+	 * @return string HTML
+	 */
+	private function getFormIdHtml( LexemeFormId $id = null ) {
+		if ( $id === null ) {
+			return '';
+		}
+
+		return ' <span class="wikibase-title-id">'
+			. wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $id->getSerialization() ) )
+				->text()
+			. '</span>';
 	}
 
 }
