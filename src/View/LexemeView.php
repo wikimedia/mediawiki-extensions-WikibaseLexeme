@@ -36,6 +36,11 @@ class LexemeView extends EntityView {
 	private $formsView;
 
 	/**
+	 * @var SensesView
+	 */
+	private $sensesView;
+
+	/**
 	 * @var StatementSectionsView
 	 */
 	private $statementSectionsView;
@@ -56,6 +61,7 @@ class LexemeView extends EntityView {
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param string $languageCode
 	 * @param LexemeFormsView $formsView
+	 * @param SensesView $sensesView
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param HtmlTermRenderer $htmlTermRenderer
 	 * @param LabelDescriptionLookup $labelDescriptionLookup
@@ -66,6 +72,7 @@ class LexemeView extends EntityView {
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		$languageCode,
 		LexemeFormsView $formsView,
+		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
 		HtmlTermRenderer $htmlTermRenderer,
 		LabelDescriptionLookup $labelDescriptionLookup
@@ -78,6 +85,7 @@ class LexemeView extends EntityView {
 		);
 
 		$this->formsView = $formsView;
+		$this->sensesView = $sensesView;
 		$this->statementSectionsView = $statementSectionsView;
 		$this->htmlTermRenderer = $htmlTermRenderer;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
@@ -105,7 +113,8 @@ class LexemeView extends EntityView {
 		$html = $this->getHtmlForLexicalCategoryAndLanguage( $entity )
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
-			. $this->formsView->getHtml( $forms );
+			. $this->formsView->getHtml( $forms )
+			. $this->sensesView->getHtml();
 
 		return $html;
 	}

@@ -15,6 +15,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\LexemeFormsView;
+use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
@@ -51,6 +52,20 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @return SensesView
+	 */
+	private function newSensesViewMock() {
+		$view = $this->getMockBuilder( SensesView::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$view->method( 'getHtml' )
+			->will( $this->returnValue( "lexemeSensesView->getHtml\n" ) );
+
+		return $view;
+	}
+
+	/**
 	 * @param StatementList|null $expectedStatements
 	 *
 	 * @return StatementSectionsView
@@ -78,7 +93,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$labelDescriptionLookup
 			->method( 'getLabel' )
 			->will(
-				$this->returnCallback( function ( ItemId $itemId ) {
+				$this->returnCallback( function( ItemId $itemId ) {
 					if ( $itemId->getSerialization() === 'Q1' ) {
 						return null;
 					}
@@ -131,6 +146,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			$languageDirectionalityLookup,
 			'en',
 			$this->newFormsViewMock(),
+			$this->newSensesViewMock(),
 			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$htmlTermRenderer,
 			$this->newLabelDescriptionLookup()
@@ -164,6 +180,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
 		$this->assertContains( 'lexemeFormsView->getHtml', $html );
+		$this->assertContains( 'lexemeSensesView->getHtml', $html );
 		$this->assertContains( 'statementSectionsView->getHtml', $html );
 	}
 
@@ -238,10 +255,12 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $html );
 		$this->assertContains(
 			'<div class="wikibase-entityview-main">'
-				. $expectedHeadline
-				. '<div id="toc"></div>'
-				. "statementSectionsView->getHtml\nlexemeFormsView->getHtml\n"
-				. '</div>',
+			. $expectedHeadline
+			. '<div id="toc"></div>'
+			. "statementSectionsView->getHtml\n"
+			. "lexemeFormsView->getHtml\n"
+			. "lexemeSensesView->getHtml\n"
+			. '</div>',
 			$html
 		);
 	}

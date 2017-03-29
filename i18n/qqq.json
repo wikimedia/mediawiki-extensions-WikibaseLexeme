@@ -19,5 +19,6 @@
 	"wikibase-lexeme-view-lexical-category": "Description when there is the lexical category but not language",
 	"wikibase-lexeme-view-language-lexical-category": "Description when both lexical category and language are present\n{{Identical|In}}",
 	"wikibase-lexeme-view-forms": "Subheading for the forms section on a lexeme page.\n{{Identical|Form}}",
+	"wikibase-lexeme-view-senses": "Subheading for the senses section on a lexeme page.\n{{Identical|Sense}}",
 	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a lexeme"
 }

@@ -14,5 +14,6 @@
 	"wikibase-lexeme-view-lexical-category": "$1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
 	"wikibase-lexeme-view-forms": "Forms",
+	"wikibase-lexeme-view-senses": "Senses",
 	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme"
 }
