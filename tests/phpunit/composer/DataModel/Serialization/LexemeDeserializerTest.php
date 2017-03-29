@@ -168,16 +168,16 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideObjectSerializations
 	 */
-	public function testDeserialize( $serialization, $object ) {
+	public function testDeserialize( array $serialization, Lexeme $lexeme ) {
 		$deserializer = $this->newDeserializer();
 
-		$this->assertEquals( $object, $deserializer->deserialize( $serialization ) );
+		$this->assertEquals( $lexeme, $deserializer->deserialize( $serialization ) );
 	}
 
 	/**
 	 * @dataProvider provideObjectSerializations
 	 */
-	public function testIsDeserializerFor( $serialization ) {
+	public function testIsDeserializerFor( array $serialization ) {
 		$deserializer = $this->newDeserializer();
 
 		$this->assertTrue( $deserializer->isDeserializerFor( $serialization ) );

@@ -140,10 +140,10 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideObjectSerializations
 	 */
-	public function testSerialize( $object, $serialization ) {
+	public function testSerialize( Lexeme $lexeme, array $serialization ) {
 		$serializer = $this->newSerializer();
 
-		$this->assertSame( $serialization, $serializer->serialize( $object ) );
+		$this->assertSame( $serialization, $serializer->serialize( $lexeme ) );
 	}
 
 	public function testSerializationOrder() {
@@ -159,10 +159,10 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @dataProvider provideObjectSerializations
 	 */
-	public function testIsSerializerFor( $object ) {
+	public function testIsSerializerFor( Lexeme $lexeme ) {
 		$serializer = $this->newSerializer();
 
-		$this->assertTrue( $serializer->isSerializerFor( $object ) );
+		$this->assertTrue( $serializer->isSerializerFor( $lexeme ) );
 	}
 
 	public function provideInvalidObjects() {
