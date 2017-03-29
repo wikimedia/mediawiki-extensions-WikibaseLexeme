@@ -66,6 +66,7 @@ class LexemeFormsView {
 			return '';
 		}
 
+		// TODO: Use an existing message instead of the hard coded space
 		return ' <span class="wikibase-lexeme-form-id wikibase-title-id">'
 			. wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $id->getSerialization() ) )
 				->text()
