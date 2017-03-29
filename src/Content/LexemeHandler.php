@@ -7,6 +7,7 @@ use Page;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
+use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Actions\ViewLexemeAction;
@@ -44,6 +45,7 @@ class LexemeHandler extends EntityHandler {
 	 * @param EntityIdParser $entityIdParser
 	 * @param EntityIdLookup $entityIdLookup
 	 * @param LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory
+	 * @param LexemeFieldDefinitions $fieldDefinitions
 	 * @param callable|null $legacyExportFormatDetector
 	 */
 	public function __construct(
@@ -55,6 +57,7 @@ class LexemeHandler extends EntityHandler {
 		EntityIdParser $entityIdParser,
 		EntityIdLookup $entityIdLookup,
 		LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory,
+		LexemeFieldDefinitions $fieldDefinitions,
 		$legacyExportFormatDetector = null
 	) {
 		parent::__construct(
@@ -65,6 +68,7 @@ class LexemeHandler extends EntityHandler {
 			$constraintProvider,
 			$errorLocalizer,
 			$entityIdParser,
+			$fieldDefinitions,
 			$legacyExportFormatDetector
 		);
 		$this->entityIdLookup = $entityIdLookup;

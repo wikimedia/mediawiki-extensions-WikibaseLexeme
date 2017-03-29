@@ -30,6 +30,7 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
+use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Rdf\RdfVocabulary;
@@ -83,7 +84,8 @@ return [
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				$wikibaseRepo->getEntityIdParser(),
 				$wikibaseRepo->getEntityIdLookup(),
-				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory()
+				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
+				new LexemeFieldDefinitions()
 			);
 		},
 		'entity-id-pattern' => LexemeId::PATTERN,

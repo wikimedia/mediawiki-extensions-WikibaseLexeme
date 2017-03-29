@@ -13,6 +13,7 @@ use RequestContext;
 use Title;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Content\LexemeHandler;
@@ -56,7 +57,8 @@ class LexemeHandlerTest extends PHPUnit_Framework_TestCase {
 			$this->getMock( ValidatorErrorLocalizer::class ),
 			$this->getMock( EntityIdParser::class ),
 			$this->getMock( EntityIdLookup::class ),
-			$labelLookupFactory
+			$labelLookupFactory,
+			new LexemeFieldDefinitions()
 		);
 	}
 
