@@ -10,7 +10,7 @@ ENV['WIKIDATA_REPO_API'] = lenv.lookup(:mediawiki_url_api, default: lambda do
       .gsub(%r{wiki/$}, 'w/api.php')
       .gsub(%r{index.php/?$}, 'api.php')
 end)
-ENV['LEXEME_NAMESPACE'] = lenv.lookup(:item_namespace, default: -> { 'Lexeme:' })
+ENV['LEXEME_NAMESPACE'] = 'Lexeme:'
 ENV['LANGUAGE_CODE'] = lenv.lookup(:language_code, default: -> { 'en' })
 
 require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/modules'

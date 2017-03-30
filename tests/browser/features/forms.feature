@@ -6,6 +6,9 @@ Feature: Forms of a Lexeme
       And The copyright warning has been dismissed
       And Anonymous edit warnings are disabled
 
-  Scenario: Basic forms section
+@integration
+  Scenario: Basic Forms section
     Then Forms header should be there
      And Forms container should be there
+     And for each Form there is a representation and an ID
+     And each representation is enclosed in tag having lang attribute with "some language" as a value

@@ -4,6 +4,8 @@ class LexemePage
 
   span(:forms_header, id: 'forms')
   div(:forms_container, class: 'wikibase-lexeme-forms')
+  h3(:form_representation, class: 'wikibase-lexeme-form-representation')
+  span(:form_id, class: 'wikibase-lexeme-form-id')
 
   def create_lexeme(lexeme_data)
     wb_api = MediawikiApi::Wikidata::WikidataClient.new URL.repo_api
