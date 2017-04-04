@@ -57,6 +57,9 @@ class WikibaseLexemeHooks {
 				}
 			}
 		}
+		// FIXME: Ugly hack find solution to avoid this line
+		\MWNamespace::getCanonicalNamespaces( true );
+
 		return true;
 	}
 
