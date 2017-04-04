@@ -50,7 +50,7 @@ class LexemeFormsView {
 	private function getFormHtml( LexemeForm $form ) {
 		$representation = $form->getRepresentation();
 
-		return '<h3 class="wikibase-lexeme-form-representation">'
+		return '<h3 class="wikibase-lexeme-form-representation" lang="some language">'
 			. htmlspecialchars( $representation )
 			. $this->getFormIdHtml( $form->getId() )
 			. '</h3>';
@@ -66,7 +66,7 @@ class LexemeFormsView {
 			return '';
 		}
 
-		return ' <span class="wikibase-title-id">'
+		return ' <span class="wikibase-lexeme-form-id wikibase-title-id">'
 			. wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $id->getSerialization() ) )
 				->text()
 			. '</span>';
