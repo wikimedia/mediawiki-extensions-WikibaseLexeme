@@ -27,40 +27,34 @@ class WikibaseLexemeHooks {
 	}
 
 	/**
-	 * Hook to register the default namespace names with $wgExtraNamespaces.
+	 * Hook to register the default namespace names.
 	 *
-	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/SetupAfterCache
+	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
 	 */
-	public static function onSetupAfterCache() {
-		global $wgExtraNamespaces;
-
+	public static function onCanonicalNamespaces( array &$namespaces ) {
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		# Sense and Form will be added later.
-		$entities = [ 'Lexeme' ];
-		foreach ( $entities as $entity ) {
-			// Setting the namespace to false disabled automatic registration.
-			$entityNamespace = $config->get( $entity . 'Namespace' );
-			$talkNamespace = $config->get( $entity . 'TalkNamespace' );
-
-			if ( $entityNamespace !== false ) {
-				if ( !isset( $wgExtraNamespaces[$entityNamespace] ) && $entityNamespace >= 100 ) {
-					$wgExtraNamespaces[$entityNamespace] = $entity;
-				}
-			}
-
-			if ( $talkNamespace !== false ) {
-				if ( !isset( $wgExtraNamespaces[$talkNamespace] ) && $entityNamespace >= 100 ) {
-					// XXX: Localize the default talk namespace?
-					$wgExtraNamespaces[$talkNamespace] = $entity . '_Talk';
-				}
-			}
+		// Setting the namespace to false disabled automatic registration.
+		$lexemeNamespaceId = $config->get( 'LexemeNamespace' );
+		$lexemeNamespaceName = 'Lexeme';
+		if ( $lexemeNamespaceId !== false ) {
+			$namespaces = self::registerNamespace(
+				$namespaces,
+				$lexemeNamespaceId,
+				$lexemeNamespaceName
+			);
 		}
-		// FIXME: Ugly hack find solution to avoid this line
-		\MWNamespace::getCanonicalNamespaces( true );
 
-		return true;
+		$talkNamespaceId = $config->get( 'LexemeTalkNamespace' );
+		$talkNamespaceName = $lexemeNamespaceName . '_Talk';
+		if ( $talkNamespaceId !== false ) {
+			$namespaces = self::registerNamespace(
+				$namespaces,
+				$talkNamespaceId,
+				$talkNamespaceName
+			);
+		}
 	}
 
 	/**
@@ -94,6 +88,31 @@ class WikibaseLexemeHooks {
 		];
 
 		return true;
+	}
+
+	/**
+	 * @param array $namespaces
+	 * @param int $namespaceId
+	 * @param string $namespaceName
+	 * @return array
+	 * @throws \RuntimeException If namespace ID is already registered with another name
+	 */
+	private static function registerNamespace( array $namespaces, $namespaceId, $namespaceName ) {
+		if (
+			isset( $namespaces[$namespaceId] ) &&
+			$namespaces[$namespaceId] !== $namespaceName
+		) {
+			throw new \RuntimeException(
+				"Tried to register `$namespaceName` namespace with ID `$namespaceId`, " .
+				"but ID was already occupied by `{$namespaces[$namespaceId]} namespace`"
+			);
+		}
+
+		if ( !isset( $namespaces[$namespaceId] ) && $namespaceId >= 100 ) {
+			$namespaces[$namespaceId] = $namespaceName;
+		}
+
+		return $namespaces;
 	}
 
 }
