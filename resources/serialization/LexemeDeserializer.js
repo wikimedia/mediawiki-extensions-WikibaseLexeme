@@ -32,7 +32,7 @@
 			return new wikibase.datamodel.Lexeme(
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.labels ),
-				statementGroupSetDeserializer.deserialize( serialization.statements )
+				statementGroupSetDeserializer.deserialize( serialization.claims )
 			);
 		}
 	} );
