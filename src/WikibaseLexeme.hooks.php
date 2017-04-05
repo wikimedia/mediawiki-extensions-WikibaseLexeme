@@ -83,9 +83,11 @@ class WikibaseLexemeHooks {
 	public static function onResourceLoaderTestModules( array &$testModules, ResourceLoader $rl ) {
 		$testModules['qunit']['WikibaseLexeme.tests'] = [
 			'scripts' => [
+				'tests/qunit/serialization/LexemeDeserializer.tests.js',
 				'tests/qunit/widgets/LanguageLookupWidget.tests.js',
 			],
 			'dependencies' => [
+				'wikibase.lexeme.serialization.LexemeDeserializer',
 				'wikibase.lexeme.widgets.LanguageLookupWidget',
 				'oojs-ui'
 			],
