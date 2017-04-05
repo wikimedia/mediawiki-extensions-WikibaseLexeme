@@ -17,5 +17,6 @@
 	"wikibase-lexeme-view-language": "Lexème dans $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 dans $2",
 	"wikibase-lexeme-view-forms": "Formulaires",
+	"wikibase-lexeme-view-senses": "Sens",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié"
 }

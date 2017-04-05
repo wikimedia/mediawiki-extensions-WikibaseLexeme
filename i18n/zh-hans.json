@@ -15,5 +15,6 @@
 	"wikibase-lexeme-view-language": "$1中的词位",
 	"wikibase-lexeme-view-language-lexical-category": "$2中的$1",
 	"wikibase-lexeme-view-forms": "词形",
+	"wikibase-lexeme-view-senses": "意义",
 	"wikibase-lexeme-summary-wbeditentity-update": "已更改词位"
 }

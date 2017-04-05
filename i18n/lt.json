@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Eitvys200"
+			"Eitvys200",
+			"Nuodas"
 		]
 	},
-	"wikibase-lexeme-view-forms": "Formos"
+	"wikibase-lexeme-view-forms": "Formos",
+	"wikibase-lexeme-view-senses": "Pojūčiai"
 }
