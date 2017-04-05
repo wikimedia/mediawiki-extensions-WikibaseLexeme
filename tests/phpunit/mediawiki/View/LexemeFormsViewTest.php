@@ -6,6 +6,7 @@ use PHPUnit_Framework_TestCase;
 use Wikibase\Lexeme\DataModel\LexemeForm;
 use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\View\LexemeFormsView;
+use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
@@ -46,22 +47,25 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testHtmlContainsFormRepresentationWithIdÁndLanguage() {
+	public function testHtmlContainsFormRepresentationWithIdAndLanguage() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( [
-				new LexemeForm( new LexemeFormId( 'FORM_ID' ), 'FORM_REPRESENTATION' )
-			] );
+			new LexemeForm( new LexemeFormId( 'FORM_ID' ), 'FORM_REPRESENTATION' )
+		] );
 
 		assertThat(
 			$html,
 			is( htmlPiece( havingChild( both( tagMatchingOutline(
 				'<h3 class="wikibase-lexeme-form-representation" lang="some language">'
-				) )->andAlso( havingTextContents( 'FORM_REPRESENTATION (FORM_ID)' ) ) ) ) )
-			);
+			) )->andAlso( havingTextContents( 'FORM_REPRESENTATION (FORM_ID)' ) ) ) ) )
+		);
 	}
 
 	private function newFormsView() {
-		return new LexemeFormsView( new DummyLocalizedTextProvider() );
+		return new LexemeFormsView(
+			new DummyLocalizedTextProvider(),
+			LexemeTemplateFactory::getDefaultInstance()
+		);
 	}
 
 }
