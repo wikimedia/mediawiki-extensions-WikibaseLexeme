@@ -43,6 +43,11 @@
 			if ( this.$statements.length === 0 ) {
 				this.$statements = $( '<div/>' ).appendTo( this.$main );
 			}
+
+			new $.wikibase.lexemeformsectionview(
+				{},
+				$( '.wikibase-lexeme-forms-section' )
+			);
 		},
 
 		/**
