@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\View;
 
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
@@ -69,7 +70,10 @@ class LexemeViewFactory {
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
-		$formsView = new LexemeFormsView( $localizedTextProvider );
+		$formsView = new LexemeFormsView(
+			$localizedTextProvider,
+			LexemeTemplateFactory::getDefaultInstance()
+		);
 		$sensesView = new SensesView( $localizedTextProvider );
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();

@@ -14,5 +14,13 @@ namespace Wikibase\Lexeme;
 return call_user_func( function() {
 	$templates = [];
 
+	$templates['wikibase-lexeme-form'] = <<<'HTML'
+<h3 class="wikibase-lexeme-form-representation" lang="$1">$2<!-- wikibase-lexeme-form-id --> $3</h3>
+HTML;
+
+	$templates['wikibase-lexeme-form-id'] = <<<'HTML'
+<span class="wikibase-lexeme-form-id wikibase-title-id">$1</span>
+HTML;
+
 	return $templates;
 } );

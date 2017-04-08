@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\View;
 
 use Wikibase\Lexeme\DataModel\LexemeForm;
 use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -17,8 +18,17 @@ class LexemeFormsView {
 	 */
 	private $textProvider;
 
-	public function __construct( LocalizedTextProvider $textProvider ) {
+	/**
+	 * @var LexemeTemplateFactory $templateFactory
+	 */
+	private $templateFactory;
+
+	public function __construct(
+		LocalizedTextProvider $textProvider,
+		LexemeTemplateFactory $templateFactory
+	) {
 		$this->textProvider = $textProvider;
+		$this->templateFactory = $templateFactory;
 	}
 
 	/**
@@ -50,10 +60,11 @@ class LexemeFormsView {
 	private function getFormHtml( LexemeForm $form ) {
 		$representation = $form->getRepresentation();
 
-		return '<h3 class="wikibase-lexeme-form-representation" lang="some language">'
-			. htmlspecialchars( $representation )
-			. $this->getFormIdHtml( $form->getId() )
-			. '</h3>';
+		return $this->templateFactory->render( 'wikibase-lexeme-form', [
+			'some language',
+			htmlspecialchars( $representation ),
+			$this->getFormIdHtml( $form->getId() )
+		] );
 	}
 
 	/**
@@ -67,10 +78,11 @@ class LexemeFormsView {
 		}
 
 		// TODO: Use an existing message instead of the hard coded space
-		return ' <span class="wikibase-lexeme-form-id wikibase-title-id">'
-			. wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $id->getSerialization() ) )
+		return $this->templateFactory->render(
+			'wikibase-lexeme-form-id',
+			wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $id->getSerialization() ) )
 				->text()
-			. '</span>';
+		);
 	}
 
 }
