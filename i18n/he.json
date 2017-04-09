@@ -15,5 +15,6 @@
 	"wikibase-lexeme-view-language": "יחידה מילונית ב$1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 ב$2",
 	"wikibase-lexeme-view-forms": "טפסים",
+	"wikibase-lexeme-view-senses": "משמעויות",
 	"wikibase-lexeme-summary-wbeditentity-update": "שונתה יחידה מילונית"
 }
