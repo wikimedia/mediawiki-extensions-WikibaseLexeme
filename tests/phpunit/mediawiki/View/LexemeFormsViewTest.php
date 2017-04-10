@@ -56,7 +56,7 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		assertThat(
 			$html,
 			is( htmlPiece( havingChild( both( tagMatchingOutline(
-				'<h3 class="wikibase-lexeme-form-representation" lang="some language">'
+				'<h3 lang="some language">'
 			) )->andAlso( havingTextContents( 'FORM_REPRESENTATION (FORM_ID)' ) ) ) ) )
 		);
 	}
@@ -64,7 +64,10 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 	private function newFormsView() {
 		return new LexemeFormsView(
 			new DummyLocalizedTextProvider(),
-			LexemeTemplateFactory::getDefaultInstance()
+			new LexemeTemplateFactory( [
+				'wikibase-lexeme-form' => '<h3 lang="$1">$2 $3</h3>',
+				'wikibase-lexeme-form-id' => '$1',
+			] )
 		);
 	}
 
