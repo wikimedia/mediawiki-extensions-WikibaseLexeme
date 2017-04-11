@@ -24,8 +24,8 @@
 		"WikibaseEntityNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityNamespaces"
 		],
-		"SetupAfterCache": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onSetupAfterCache"
+		"CanonicalNamespaces": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCanonicalNamespaces"
 		],
 		"WikibaseRepoEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
