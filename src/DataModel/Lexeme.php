@@ -127,17 +127,17 @@ class Lexeme implements EntityDocument, StatementListProvider {
 			return false;
 		}
 
-		$sameLemmas = $this->lemmas->equals( $target->getLemmas() );
+		$sameLemmas = $this->lemmas->equals( $target->lemmas );
 
-		$sameLexicalCategory = ( $this->lexicalCategory === $target->getLexicalCategory() || (
-				$this->lexicalCategory !== null
-				&& $this->lexicalCategory->equals( $target->getLexicalCategory() ) )
-		);
+		$sameLexicalCategory = $this->lexicalCategory === $target->lexicalCategory
+			|| ( $this->lexicalCategory !== null
+				&& $this->lexicalCategory->equals( $target->lexicalCategory )
+			);
 
-		$sameLanguage = ( $this->language === $target->getLanguage() || (
-				$this->language !== null
-				&& $this->language->equals( $target->getLanguage() ) )
-		);
+		$sameLanguage = $this->language === $target->language
+			|| ( $this->language !== null
+				&& $this->language->equals( $target->language )
+			);
 
 		return $sameLemmas
 			&& $sameLexicalCategory
