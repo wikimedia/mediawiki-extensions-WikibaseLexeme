@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\View;
 
+use Language;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
@@ -89,6 +90,14 @@ class LexemeViewFactory {
 			new LanguageNameLookup( $this->languageCode )
 		);
 
+		// TODO: $this->labelDescriptionLookup is an EntityInfo based lookup that only knows
+		// entities processed via EntityParserOutputDataUpdater first, which processes statements
+		// and sitelinks only and does not know about Lexeme-specific concepts like lexical category
+		// and language.
+		$retrievingLabelDescriptionLookup = $wikibaseRepo
+			->getLanguageFallbackLabelDescriptionLookupFactory()
+			->newLabelDescriptionLookup( Language::factory( $this->languageCode ) );
+
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),
 			$this->entityTermsView,
@@ -98,7 +107,7 @@ class LexemeViewFactory {
 			$sensesView,
 			$statementSectionsView,
 			$htmlTermRenderer,
-			$this->labelDescriptionLookup
+			$retrievingLabelDescriptionLookup
 		);
 	}
 
