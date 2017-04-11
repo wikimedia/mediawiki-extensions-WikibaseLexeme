@@ -87,9 +87,8 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 	 * @return LabelDescriptionLookup
 	 */
 	private function newLabelDescriptionLookup() {
-		$labelDescriptionLookup = $this->getMockBuilder( LabelDescriptionLookup::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$labelDescriptionLookup = $this->getMock( LabelDescriptionLookup::class );
+
 		$labelDescriptionLookup
 			->method( 'getLabel' )
 			->will(
@@ -108,9 +107,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 	 * @return EntityTermsView
 	 */
 	private function newEntityTermsViewMock() {
-		$entityTermsView = $this->getMockBuilder( EntityTermsView::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$entityTermsView = $this->getMock( EntityTermsView::class );
 
 		$entityTermsView->expects( $this->never() )
 			->method( 'getHtml' );
