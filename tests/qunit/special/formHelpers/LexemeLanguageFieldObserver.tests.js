@@ -43,9 +43,13 @@
 				getMockLanguageExtractor()
 			);
 
-		assert.ok( $field.css( 'display' ) === 'none' );
+		$field.appendTo( 'body' );
+
+		assert.equal( $field.css( 'display' ), 'none' );
 		languageFieldObserver.notify( 'Q123' );
-		assert.ok( $field.css( 'display' ) === 'block' );
+		assert.equal( $field.css( 'display' ), 'block' );
+
+		$field.remove();
 	} );
 
 	QUnit.test( 'Given the provided item has a language code statement, lemma language field is hidden', function ( assert ) {
@@ -57,7 +61,7 @@
 			);
 
 		languageFieldObserver.notify( 'Q123' );
-		assert.ok( $field.css( 'display' ) === 'none' );
+		assert.equal( $field.css( 'display' ), 'none' );
 		assert.equal( $field.find( 'input' ).val(), 'en' );
 	} );
 
