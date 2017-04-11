@@ -10,8 +10,6 @@
 	"wikibase-lemma-edit-placeholder": "Enter the lemma",
 	"wikibase-newlexeme-lexicalcategory": "Lexical category",
 	"wikibase-newlexeme-language": "Language of lexeme",
-	"wikibase-lexeme-view-language": "Lexeme in $1",
-	"wikibase-lexeme-view-lexical-category": "$1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
 	"wikibase-lexeme-view-forms": "Forms",
 	"wikibase-lexeme-view-senses": "Senses",

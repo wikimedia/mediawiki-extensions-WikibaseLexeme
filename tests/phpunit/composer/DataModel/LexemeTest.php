@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit_Framework_TestCase;
+use UnexpectedValueException;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
@@ -45,8 +46,20 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertNull( $lexeme->getId() );
 		$this->assertEquals( new StatementList(), $lexeme->getStatements() );
 		$this->assertEquals( new TermList(), $lexeme->getLemmas() );
-		$this->assertNull( $lexeme->getLexicalCategory() );
-		$this->assertNull( $lexeme->getLanguage() );
+	}
+
+	public function testUninitializedLexicalCategory() {
+		$lexeme = new Lexeme();
+
+		$this->setExpectedException( UnexpectedValueException::class );
+		$lexeme->getLexicalCategory();
+	}
+
+	public function testUninitializedLanguage() {
+		$lexeme = new Lexeme();
+
+		$this->setExpectedException( UnexpectedValueException::class );
+		$lexeme->getLanguage();
 	}
 
 	public function testGetEntityType() {

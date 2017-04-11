@@ -175,25 +175,10 @@ class LexemeView extends EntityView {
 		$lexicalCategory = $this->getItemIdHtml( $lexeme->getLexicalCategory() );
 		$language = $this->getItemIdHtml( $lexeme->getLanguage() );
 
-		switch ( true ) {
-			case $language === null && $lexicalCategory === null:
-				return '';
-			case $lexicalCategory === null:
-				return $this->getLocalizedMessage(
-					'wikibase-lexeme-view-language',
-					[ $language ]
-				);
-			case $language === null:
-				return $this->getLocalizedMessage(
-					'wikibase-lexeme-view-lexical-category',
-					[ $lexicalCategory ]
-				);
-			default:
-				return $this->getLocalizedMessage(
-					'wikibase-lexeme-view-language-lexical-category',
-					[ $lexicalCategory, $language ]
-				);
-		}
+		return $this->getLocalizedMessage(
+			'wikibase-lexeme-view-language-lexical-category',
+			[ $lexicalCategory, $language ]
+		);
 	}
 
 	/**
@@ -225,19 +210,15 @@ class LexemeView extends EntityView {
 	}
 
 	/**
-	 * @param ItemId|null $itemId
+	 * @param ItemId $itemId
 	 *
-	 * @return string|null
+	 * @return string HTML
 	 */
-	private function getItemIdHtml( ItemId $itemId = null ) {
-		if ( $itemId === null ) {
-			return null;
-		}
-
+	private function getItemIdHtml( ItemId $itemId ) {
 		try {
 			$label = $this->labelDescriptionLookup->getLabel( $itemId );
 		} catch ( LabelDescriptionLookupException $e ) {
-			return $itemId->getSerialization();
+			$label = null;
 		}
 
 		if ( $label === null ) {

@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Content;
 
 use InvalidArgumentException;
+use MongoDB\Driver\Exception\UnexpectedValueException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -67,14 +68,12 @@ class LexemeContent extends EntityContent {
 	}
 
 	/**
-	 * @see Content::isValid()
+	 * @see EntityContent::isValid
 	 *
 	 * @return bool
 	 */
 	public function isValid() {
-		return parent::isValid()
-			&& $this->getEntity()->getLanguage() !== null
-			&& $this->getEntity()->getLexicalCategory() !== null;
+		return parent::isValid() && $this->getEntity()->isSufficientlyInitialized();
 	}
 
 }

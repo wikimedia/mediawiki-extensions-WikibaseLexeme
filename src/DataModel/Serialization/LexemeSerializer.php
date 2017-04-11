@@ -6,6 +6,7 @@ use Serializers\DispatchableSerializer;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
+use UnexpectedValueException;
 use Wikibase\Lexeme\DataModel\Lexeme;
 
 /**
@@ -64,6 +65,8 @@ class LexemeSerializer implements DispatchableSerializer {
 
 	/**
 	 * @param Lexeme $lexeme
+	 *
+	 * @throws SerializationException
 	 * @return array
 	 */
 	private function getSerialized( Lexeme $lexeme ) {
@@ -81,12 +84,15 @@ class LexemeSerializer implements DispatchableSerializer {
 			);
 		}
 
-		if ( $lexeme->getLexicalCategory() !== null ) {
+		try {
 			$serialization['lexicalCategory'] = $lexeme->getLexicalCategory()->getSerialization();
-		}
-
-		if ( $lexeme->getLanguage() !== null ) {
 			$serialization['language'] = $lexeme->getLanguage()->getSerialization();
+		} catch ( UnexpectedValueException $ex ) {
+			throw new UnsupportedObjectException(
+				$lexeme,
+				'Can not serialize incomplete Lexeme',
+				$ex
+			);
 		}
 
 		$serialization['claims'] = $this->statementListSerializer->serialize(
