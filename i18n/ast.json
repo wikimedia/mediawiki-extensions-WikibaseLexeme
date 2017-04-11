@@ -12,7 +12,6 @@
 	"wikibase-lemma-edit-placeholder": "Escribe'l llema",
 	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
 	"wikibase-newlexeme-language": "Llingua del lexema",
-	"wikibase-lexeme-view-language": "Lexema en $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
 	"wikibase-lexeme-view-forms": "Formularios",
 	"wikibase-lexeme-view-senses": "Sentíos",

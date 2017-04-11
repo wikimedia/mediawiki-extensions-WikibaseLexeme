@@ -14,7 +14,6 @@
 	"wikibase-lemma-edit-placeholder": "Entrez le lemme",
 	"wikibase-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibase-newlexeme-language": "Langue du lexème",
-	"wikibase-lexeme-view-language": "Lexème dans $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 dans $2",
 	"wikibase-lexeme-view-forms": "Formulaires",
 	"wikibase-lexeme-view-senses": "Sens",
