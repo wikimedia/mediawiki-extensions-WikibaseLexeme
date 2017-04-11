@@ -145,7 +145,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 	public function testIsEmptyWithLanguage() {
 		$language = new ItemId( 'Q11' );
-		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, $language );
+		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, null, $language );
 
 		$this->assertTrue( $lexeme->isEmpty() );
 	}
@@ -262,9 +262,9 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 	public function testCopyWithContentEquals() {
 		$lemmas = new TermList( [ new Term( 'de', 'Cologne' ) ] );
-		$lexicalCategories = new ItemId( 'Q2' );
+		$lexicalCategory = new ItemId( 'Q2' );
 		$language = new ItemId( 'Q73' );
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), $lemmas, $lexicalCategories, $language );
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), $lemmas, $lexicalCategory, $language );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
 		$this->assertEquals( $lexeme, $lexeme->copy() );

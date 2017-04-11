@@ -76,8 +76,8 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			new TermList( [
 				new Term( self::EXISTING_LEXEME_LEMMA_LANGUAGE, self::EXISTING_LEXEME_LEMMA ),
 			] ),
-			new ItemId( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID ),
-			new ItemId( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID )
+			new ItemId( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID ),
+			new ItemId( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID )
 		);
 
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();

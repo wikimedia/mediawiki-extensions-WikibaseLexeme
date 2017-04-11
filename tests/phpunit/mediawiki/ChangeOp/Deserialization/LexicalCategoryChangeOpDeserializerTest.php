@@ -85,7 +85,7 @@ class LexicalCategoryChangeOpDeserializerTest extends \PHPUnit_Framework_TestCas
 	}
 
 	public function testGivenRequestWithLexicalCategoryExists_changeOpSetsLexicalCategoryToNewValue() {
-		$lexeme = new Lexeme( new LexemeId( 'L100' ), null, null, new ItemId( 'Q100' ) );
+		$lexeme = new Lexeme( new LexemeId( 'L100' ), null, new ItemId( 'Q100' ) );
 
 		$deserializer = $this->newLexicalCategoryChangeOpDeserializer();
 
