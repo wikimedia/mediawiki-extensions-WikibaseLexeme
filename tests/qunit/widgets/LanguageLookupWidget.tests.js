@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0+
  */
-( function ( wb, $, QUnit ) {
+( function ( wb, $, QUnit, sinon ) {
 	QUnit.module( 'wikibase.lexeme.widgets.LanguageLookupWidget' );
 
 	var newInitializedLanguageLookupWidget = function () {
@@ -16,22 +16,26 @@
 		return widget;
 	};
 
-	var stubWbsearchentitiesResponse = function ( response ) {
-		$.ajax = function () {
-			var deferred = $.Deferred().resolve( response );
-			return deferred.promise();
-		}
+	var executeWithWbsearchentitiesResponseStub = function ( response, assertionCallback ) {
+		var ajaxStub = sinon.stub( jQuery, 'ajax' );
+
+		ajaxStub.returns( $.Deferred().resolve( response ).promise() );
+		assertionCallback();
+		ajaxStub.restore();
 	};
 
 	QUnit.test( 'getLookupRequest returns request results', function ( assert ) {
 		var widget = newInitializedLanguageLookupWidget(),
 			searchEntitiesResults = [ { id: 'Q123', label: 'English' }, { id: 'Q234', label: 'German' } ];
 
-		stubWbsearchentitiesResponse( { search: searchEntitiesResults } );
-
-		widget.getLookupRequest().done( function ( items ) {
-			assert.deepEqual( items, searchEntitiesResults );
-		} );
+		executeWithWbsearchentitiesResponseStub(
+			{ search: searchEntitiesResults },
+			function () {
+				widget.getLookupRequest().done( function ( items ) {
+					assert.deepEqual( items, searchEntitiesResults );
+				} );
+			}
+		);
 	} );
 
 	QUnit.test( 'getLookupMenuOptionsFromData returns suggestions from results', function ( assert ) {
@@ -69,11 +73,14 @@
 	QUnit.test( 'getLookupRequest if the LanguageLookupWidget was not initialized', function ( assert ) {
 		var widget = new wb.lexeme.widgets.LanguageLookupWidget();
 
-		stubWbsearchentitiesResponse( { search: [] } );
-
-		assert.throws( function () {
-			widget.getLookupRequest();
-		} );
+		executeWithWbsearchentitiesResponseStub(
+			{ search: [] },
+			function () {
+				assert.throws( function () {
+					widget.getLookupRequest();
+				} );
+			}
+		);
 	} );
 
-}( wikibase, jQuery, QUnit ) );
+}( wikibase, jQuery, QUnit, sinon ) );
