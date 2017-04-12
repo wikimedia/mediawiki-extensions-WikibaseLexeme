@@ -7,7 +7,7 @@
 	"url": "https://www.mediawiki.org/wiki/Extension:WikibaseLexeme",
 	"descriptionmsg": "wikibaselexeme-desc",
 	"license-name": "GPL-2.0+",
-	"type": "Wikibase",
+	"type": "wikibase",
 	"load_composer_autoloader": true,
 	"AutoloadClasses": {
 		"Wikibase\\Lexeme\\WikibaseLexemeHooks": "src/WikibaseLexeme.hooks.php"
