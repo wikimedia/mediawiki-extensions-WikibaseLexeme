@@ -12,8 +12,8 @@
 	"wikibase-lemma-edit-placeholder": "Введіть лемму",
 	"wikibase-newlexeme-lexicalcategory": "Лексична категорія",
 	"wikibase-newlexeme-language": "Мова лексеми",
-	"wikibase-lexeme-view-language": "Лексема в $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 у $2",
 	"wikibase-lexeme-view-forms": "Форми",
+	"wikibase-lexeme-view-senses": "Чуття",
 	"wikibase-lexeme-summary-wbeditentity-update": "Змінено лексему"
 }
