@@ -1,4 +1,14 @@
 {
+	"name": "wikibase/lexeme",
+	"type": "mediawiki-extension",
+	"description": "Wikibase extension to manage structured lexical data",
+	"homepage": "http://wikiba.se",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "The Wikidata team"
+		}
+	],
 	"support": {
 		"issues": "https://phabricator.wikimedia.org/",
 		"irc": "irc://irc.freenode.net/wikidata"
