@@ -8,6 +8,10 @@
 	"special-newlexeme": "Crear un novo lexema",
 	"wikibase-newlexeme-fieldset": "Crear un novo lexema",
 	"wikibase-newlexeme-lemma": "Lema",
+	"wikibase-newlexeme-lemma-language": "Lingua do lema",
 	"wikibase-lemma-edit-placeholder": "Indique o lema",
-	"wikibase-lexeme-view-language-lexical-category": "$1 en $2"
+	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
+	"wikibase-newlexeme-language": "Lingua do lexema",
+	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
+	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado"
 }
