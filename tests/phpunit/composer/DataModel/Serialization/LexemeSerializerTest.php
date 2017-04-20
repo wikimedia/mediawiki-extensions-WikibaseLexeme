@@ -13,6 +13,8 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
 
@@ -62,6 +64,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => '',
+				'forms' => [],
 			]
 		];
 
@@ -75,6 +78,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => '',
+				'forms' => [],
 			]
 		];
 
@@ -88,6 +92,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => 'P42',
+				'forms' => [],
 			]
 		];
 
@@ -102,6 +107,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => 'P42',
+				'forms' => [],
 			]
 		];
 
@@ -117,6 +123,37 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => '',
+				'forms' => [],
+			]
+		];
+
+		$forms = [ new LexemeForm( null, 'form' ) ];
+		$lexeme = new Lexeme( null, null, $lexicalCategory, $language, null, $forms );
+		$serializations['with minimal forms'] = [
+			$lexeme,
+			[
+				'type' => 'lexeme',
+				'lexicalCategory' => 'Q32',
+				'language' => 'Q11',
+				'claims' => '',
+				'forms' => [ [ 'representation' => 'form' ] ],
+			]
+		];
+
+		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form' ) ];
+		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, $lexicalCategory, $language, null, $forms );
+		$serializations['with forms and all IDs set'] = [
+			$lexeme,
+			[
+				'type' => 'lexeme',
+				'id' => 'L5',
+				'lexicalCategory' => 'Q32',
+				'language' => 'Q11',
+				'claims' => '',
+				'forms' => [ [
+					'id' => 'F5',
+					'representation' => 'form',
+				] ],
 			]
 		];
 
@@ -139,7 +176,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$this->assertSame(
-			[ 'type', 'id', 'lexicalCategory', 'language', 'claims' ],
+			[ 'type', 'id', 'lexicalCategory', 'language', 'claims', 'forms' ],
 			array_keys( $serialization )
 		);
 	}
