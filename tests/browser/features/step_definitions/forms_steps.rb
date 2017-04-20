@@ -22,3 +22,25 @@ Given(/^for each Form there is a grammatical feature list$/) do
     expect(form.grammatical_features?).to be true
   end
 end
+
+When(/^I click the Forms list add button$/) do
+  on(LexemePage).add_lexeme_form_element.when_visible.click
+end
+
+When(/^I enter "(.+)" as the form representation$/) do |representation|
+  on(LexemePage) do |page|
+    page.lexeme_form_input_field_element.when_visible.clear
+    page.lexeme_form_input_field = representation
+  end
+end
+
+When(/^I save the new Form$/) do
+  on(LexemePage).lexeme_form_save_element.when_visible.click
+end
+
+Then(/^"(.+)" should be displayed as a representation in the list of Forms$/) do |representation|
+  has_lexeme_form = on(LexemePage).lexeme_form_representation_text_elements
+    .any? { |element| element.text == representation }
+
+  expect(has_lexeme_form).to be true
+end

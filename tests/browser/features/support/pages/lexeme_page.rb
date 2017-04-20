@@ -18,6 +18,12 @@ class LexemePage
 
   page_sections(:forms, LexemeForm, class: 'wikibase-lexeme-form')
 
+  # Lexeme Form
+  a(:add_lexeme_form, css: '.wikibase-lexeme-forms-section > .wikibase-addtoolbar-container a')
+  textarea(:lexeme_form_input_field, css: '.wikibase-lexemeformview:last-of-type .wikibase-lexeme-form-text > textarea')
+  spans(:lexeme_form_representation_text, css: '.wikibase-lexeme-form-representation .wikibase-lexeme-form-text')
+  a(:lexeme_form_save, css: '.wikibase-lexemeformview:last-of-type .wikibase-toolbar-button-save > a')
+
   def create_lexeme(lexeme_data)
     wb_api = MediawikiApi::Wikidata::WikidataClient.new URL.repo_api
     resp = wb_api.create_entity(lexeme_data, "lexeme")

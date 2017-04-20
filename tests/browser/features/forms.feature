@@ -16,3 +16,11 @@ Feature: Forms of a Lexeme
   @integration
   Scenario: View Forms grammatical features
     And for each Form there is a grammatical feature list
+
+  @integration
+  Scenario: Add Form
+    When I am on a Lexeme page
+     And I click the Forms list add button
+     And I enter "whatever" as the form representation
+     And I save the new Form
+    Then "whatever" should be displayed as a representation in the list of Forms
