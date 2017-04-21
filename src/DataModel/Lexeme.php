@@ -240,7 +240,9 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @return bool False if a non-optional field was never initialized, true otherwise.
 	 */
 	public function isSufficientlyInitialized() {
-		return $this->language !== null && $this->lexicalCategory !== null;
+		return $this->id !== null
+			&& $this->language !== null
+			&& $this->lexicalCategory !== null;
 	}
 
 }

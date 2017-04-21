@@ -73,7 +73,8 @@ class LexemeContent extends EntityContent {
 	 * @return bool
 	 */
 	public function isValid() {
-		return parent::isValid() && $this->getEntity()->isSufficientlyInitialized();
+		return parent::isValid()
+			&& $this->getEntity()->isSufficientlyInitialized();
 	}
 
 }
