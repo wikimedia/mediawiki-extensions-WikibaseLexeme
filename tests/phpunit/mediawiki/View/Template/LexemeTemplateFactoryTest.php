@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\Mediawiki\View\Template;
 
 use PHPUnit_Framework_TestCase;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
-use Wikibase\View\Template\TemplateRegistry;
 
 /**
  * @covers Wikibase\Lexeme\View\Template\LexemeTemplateFactory
@@ -19,24 +18,7 @@ use Wikibase\View\Template\TemplateRegistry;
 class TemplateFactoryTest extends PHPUnit_Framework_TestCase {
 
 	private function newInstance() {
-		return new LexemeTemplateFactory( new TemplateRegistry( [ 'basic' => '$1' ] ) );
-	}
-
-	public function testGetDefaultInstance() {
-		$instance = LexemeTemplateFactory::getDefaultInstance();
-		$this->assertInstanceOf( LexemeTemplateFactory::class, $instance );
-	}
-
-	public function testGetTemplates() {
-		$templates = $this->newInstance()->getTemplates();
-		$this->assertSame( [ 'basic' => '$1' ], $templates );
-	}
-
-	public function testGet() {
-		$template = $this->newInstance()->get( 'basic', [ '<PARAM>' ] );
-		$this->assertSame( 'basic', $template->getKey() );
-		$this->assertSame( [ '<PARAM>' ], $template->getParams() );
-		$this->assertSame( '<PARAM>', $template->plain() );
+		return new LexemeTemplateFactory( [ 'basic' => '$1' ] );
 	}
 
 	/**

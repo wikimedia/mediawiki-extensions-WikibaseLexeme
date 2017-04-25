@@ -68,12 +68,13 @@ class LexemeViewFactory {
 	}
 
 	public function newLexemeView() {
+		$templates = include __DIR__ . '/../../resources/templates.php';
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
 		$formsView = new LexemeFormsView(
 			$localizedTextProvider,
-			LexemeTemplateFactory::getDefaultInstance()
+			new LexemeTemplateFactory( $templates )
 		);
 		$sensesView = new SensesView( $localizedTextProvider );
 
