@@ -82,6 +82,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/services/ItemLookup.tests.js',
 				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
 				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
+				'tests/qunit/jquery.wikibase.lexemeformview.tests.js',
 			],
 			'dependencies' => [
 				'wikibase.lexeme.serialization.LexemeDeserializer',
@@ -89,6 +90,8 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.services.ItemLookup',
 				'wikibase.lexeme.services.LanguageFromItemExtractor',
 				'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver',
+				'wikibase.lexeme.datamodel.LexemeForm',
+				'jquery.wikibase.lexemeformview',
 				'oojs-ui'
 			],
 			'localBasePath' => dirname( __DIR__ ),
