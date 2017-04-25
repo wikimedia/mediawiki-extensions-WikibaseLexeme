@@ -83,6 +83,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
 				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'tests/qunit/jquery.wikibase.lexemeformview.tests.js',
+				'tests/qunit/datamodel/LexemeForm.tests.js',
 			],
 			'dependencies' => [
 				'wikibase.lexeme.serialization.LexemeDeserializer',
