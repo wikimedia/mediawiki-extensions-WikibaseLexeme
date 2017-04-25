@@ -14,5 +14,6 @@
 	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
 	"wikibase-newlexeme-language": "Lingua do lexema",
 	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
+	"wikibase-lexeme-view-forms": "Formularios",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado"
 }
