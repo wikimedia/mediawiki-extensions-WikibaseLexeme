@@ -17,6 +17,8 @@
 	"wikibase-newlexeme-language": "Label for field in the lexeme creation form.",
 	"wikibase-lexeme-view-language-lexical-category": "Description when both lexical category and language are present\n{{Identical|In}}",
 	"wikibase-lexeme-view-forms": "Subheading for the forms section on a lexeme page.\n{{Identical|Form}}",
+	"wikibase-lexeme-enter-form-representation": "Placeholder for the lexeme form representation input field.",
+	"wikibase-lexeme-empty-form-representation": "Placeholder message displayed instead of the lexeme form representation in case no representation has been specified yet.",
 	"wikibase-lexeme-view-senses": "Subheading for the senses section on a lexeme page.\n{{Identical|Sense}}",
 	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a lexeme"
 }

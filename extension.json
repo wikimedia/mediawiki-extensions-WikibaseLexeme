@@ -46,8 +46,9 @@
 		"jquery.wikibase.lexemeview": {
 			"scripts": "jquery.wikibase.lexemeview.js",
 			"dependencies": [
+				"wikibase.lexeme.view.ControllerViewFactory",
 				"jquery.wikibase.entityview",
-				"jquery.wikibase.lexemeformsectionview"
+				"jquery.wikibase.lexemeformlistview"
 			]
 		},
 		"wikibase.lexeme": {
@@ -60,8 +61,8 @@
 				"wikibase.lexeme.getDeserializer"
 			]
 		},
-		"jquery.wikibase.lexemeformsectionview": {
-			"scripts": "jquery.wikibase.lexemeformsectionview.js",
+		"jquery.wikibase.lexemeformlistview": {
+			"scripts": "jquery.wikibase.lexemeformlistview.js",
 			"dependencies": [
 				"jquery.wikibase.lexemeformview",
 				"jquery.ui.widget"
@@ -72,6 +73,10 @@
 			"dependencies": [
 				"wikibase.templates.lexeme",
 				"jquery.ui.EditableTemplatedWidget"
+			],
+			"messages": [
+				"wikibase-lexeme-empty-form-representation",
+				"wikibase-lexeme-enter-form-representation"
 			]
 		},
 		"wikibase.templates.lexeme": {
@@ -91,6 +96,16 @@
 				"wikibase.datamodel.Fingerprint",
 				"wikibase.datamodel.StatementGroupSet",
 				"wikibase.datamodel.TermMap",
+				"wikibase.lexeme"
+			]
+		},
+		"wikibase.lexeme.datamodel.LexemeForm": {
+			"scripts": [
+				"datamodel/__namespace.js",
+				"datamodel/LexemeForm.js"
+			],
+			"dependencies": [
+				"util.inherit",
 				"wikibase.lexeme"
 			]
 		},
@@ -171,6 +186,18 @@
 				"wikibase.lexeme.services.ItemLookup",
 				"wikibase.lexeme.services.LanguageFromItemExtractor",
 				"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver"
+			]
+		},
+		"wikibase.lexeme.view.ControllerViewFactory": {
+			"scripts": [
+				"view/__namespace.js",
+				"view/ControllerViewFactory.js"
+			],
+			"dependencies": [
+				"util.inherit",
+				"wikibase.view.ControllerViewFactory",
+				"wikibase.lexeme.datamodel.LexemeForm",
+				"wikibase.lexeme"
 			]
 		},
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig": {

@@ -23,7 +23,8 @@
 		 * @protected
 		 */
 		options: {
-			buildStatementGroupListView: null
+			buildStatementGroupListView: null,
+			buildLexemeFormListView: null
 		},
 
 		/**
@@ -44,10 +45,7 @@
 				this.$statements = $( '<div/>' ).appendTo( this.$main );
 			}
 
-			new $.wikibase.lexemeformsectionview(
-				{},
-				$( '.wikibase-lexeme-forms-section' )
-			);
+			this.options.buildLexemeFormListView();
 		},
 
 		/**
@@ -55,7 +53,7 @@
 		 * @protected
 		 */
 		_init: function() {
-			if ( !this.options.buildStatementGroupListView ) {
+			if ( !this.options.buildStatementGroupListView || !this.options.buildLexemeFormListView ) {
 				throw new Error( 'Required option(s) missing' );
 			}
 

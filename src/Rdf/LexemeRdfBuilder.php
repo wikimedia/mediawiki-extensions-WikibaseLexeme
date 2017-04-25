@@ -47,7 +47,6 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	 */
 	public function addLemmas( $entityLName, TermList $lemmas ) {
 		foreach ( $lemmas->toTextArray() as $lemmaCode => $lemmaText ) {
-
 			$this->writer->about( RdfVocabulary::NS_ENTITY, $entityLName )
 				->say( 'rdfs', 'label' )
 				->text( $lemmaText, $lemmaCode )

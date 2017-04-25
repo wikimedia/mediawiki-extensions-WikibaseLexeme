@@ -74,7 +74,8 @@ class LexemeFormsView {
 		return $this->templateFactory->render( 'wikibase-lexeme-form', [
 			'some language',
 			htmlspecialchars( $representation ),
-			$this->getFormIdHtml( $form->getId() ),
+			wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $form->getId()->getSerialization() ) )
+				->text(),
 			implode(
 				$this->textProvider->get( 'comma-separator' ),
 				array_map(
@@ -93,24 +94,6 @@ class LexemeFormsView {
 	 */
 	private function getGrammaticalFeatureHtml( ItemId $id ) {
 		return $this->entityIdHtmlFormatter->formatEntityId( $id );
-	}
-
-	/**
-	 * @param LexemeFormId|null $id
-	 *
-	 * @return string HTML
-	 */
-	private function getFormIdHtml( LexemeFormId $id = null ) {
-		if ( $id === null ) {
-			return '';
-		}
-
-		// TODO: Use an existing message instead of the hard coded space
-		return $this->templateFactory->render(
-			'wikibase-lexeme-form-id',
-			wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $id->getSerialization() ) )
-				->text()
-		);
 	}
 
 }

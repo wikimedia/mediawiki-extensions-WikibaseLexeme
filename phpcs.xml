@@ -8,6 +8,9 @@
 	<rule ref="Generic.CodeAnalysis.UnconditionalIfStatement" />
 	<rule ref="Generic.ControlStructures" />
 	<rule ref="Generic.Files.InlineHTML" />
+	<rule ref="Generic.Files.LineLength">
+		<exclude-pattern>resources/templates\.php</exclude-pattern>
+	</rule>
 	<rule ref="Generic.Files.OneInterfacePerFile" />
 	<rule ref="Generic.Files.OneTraitPerFile" />
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />

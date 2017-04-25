@@ -16,17 +16,15 @@ return call_user_func( function() {
 
 	$templates['wikibase-lexeme-form'] = <<<'HTML'
 <div class="wikibase-lexeme-form">
-	<h3 class="wikibase-lexeme-form-representation" lang="$1">$2 $3</h3>
+	<h3 class="wikibase-lexeme-form-representation" lang="$1">
+		<span class="wikibase-lexeme-form-text">$2</span>
+		<span class="wikibase-lexeme-form-id wikibase-title-id"> $3</span>
+	</h3>
 	<div class="wikibase-lexeme-form-grammatical-features">
 		<div class="wikibase-lexeme-form-grammatical-features-header">Grammatical features</div>
 		<div class="wikibase-lexeme-form-grammatical-features-values">$4</div>
 	</div>
 </div>
-HTML;
-
-	//TODO Join these templates
-	$templates['wikibase-lexeme-form-id'] = <<<'HTML'
-<span class="wikibase-lexeme-form-id wikibase-title-id">$1</span>
 HTML;
 
 	return $templates;
