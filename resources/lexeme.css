@@ -53,3 +53,14 @@
 .wikibase-lexeme-form-grammatical-features-values {
 	margin: 0 10px;
 }
+
+.wikibase-lexeme-form .wikibase-statementgrouplistview::after,
+.wikibase-lexeme-form .wikibase-listview::after,
+.wikibase-lexeme-form .wikibase-addtoolbar::after
+{
+	/* This is clearfix */
+	/* TODO: Should be done in Wikibase for all elements */
+	content: "";
+	display: table;
+	clear: both;
+}

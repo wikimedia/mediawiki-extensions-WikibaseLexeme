@@ -2,6 +2,7 @@ class LexemeForm
   include PageObject
 
   div(:grammatical_features, class: 'wikibase-lexeme-form-grammatical-features')
+  div(:statements, class: 'wikibase-statementgrouplistview')
 end
 
 

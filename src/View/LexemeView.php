@@ -2,13 +2,19 @@
 
 namespace Wikibase\Lexeme\View;
 
+use DataValues\StringValue;
 use InvalidArgumentException;
 use Language;
 use Message;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookupException;
+use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -104,10 +110,23 @@ class LexemeView extends EntityView {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		// TODO: This obviously is a dummy that must be removed
+		$grammaticalFeatures1 = [ new ItemId( 'Q2' ) ];
+		$grammaticalFeatures2 = [ new ItemId( 'Q2' ), new ItemId( 'Q3' ) ];
+		$statements1 = new StatementList( [
+			new Statement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) )
+		] );
+		$statements2 = new StatementList( [
+			new Statement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) ),
+			new Statement( new PropertyValueSnak(
+				new PropertyId( 'P3' ),
+				new StringValue( 'asd' )
+			) ),
+		 ] );
+
 		$forms = [
 			new LexemeForm( new LexemeFormId( 'F1' ), 'A', [] ),
-			new LexemeForm( new LexemeFormId( 'F2' ), 'B', [ new ItemId( 'Q2' ) ] ),
-			new LexemeForm( new LexemeFormId( 'F3' ), 'C', [ new ItemId( 'Q2' ), new ItemId( 'Q3' ) ] ),
+			new LexemeForm( new LexemeFormId( 'F2' ), 'B', $grammaticalFeatures1, $statements1 ),
+			new LexemeForm( new LexemeFormId( 'F3' ), 'C', $grammaticalFeatures2, $statements2 ),
 		];
 
 		$html = $this->getHtmlForLexicalCategoryAndLanguage( $entity )

@@ -24,6 +24,7 @@ return call_user_func( function() {
 		<div class="wikibase-lexeme-form-grammatical-features-header">Grammatical features</div>
 		<div class="wikibase-lexeme-form-grammatical-features-values">$4</div>
 	</div>
+	$5
 </div>
 HTML;
 

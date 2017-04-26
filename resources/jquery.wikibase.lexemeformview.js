@@ -24,7 +24,8 @@
 				function () {
 					return '';
 				},
-				''
+				'',
+				'Statements\' section will be here' //TODO find way to render block of statements
 			],
 			templateShortCuts: {
 				$text: '.wikibase-lexeme-form-text',

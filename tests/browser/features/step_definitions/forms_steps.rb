@@ -6,10 +6,21 @@ Then(/^Forms container should be there$/) do
   expect(on(LexemePage).forms_container?).to be true
 end
 
+Then(/^I see at least one Form$/) do
+  expect(on(LexemePage).forms.count).to be > 0
+end
+
+
 Then(/^for each Form there is a representation and an ID$/) do
   #todo: this only checks if there is at least one id and representation
   expect(on(LexemePage).form_representation?).to be true
   expect(on(LexemePage).form_id?).to be true
+end
+
+Then(/^for each Form there is a statement list$/) do
+  on(LexemePage).forms.each do |form|
+    expect(form.statements?).to be true
+  end
 end
 
 Then(/^each representation is enclosed in tag having lang attribute with "(.+)" as a value$/) do  |value|

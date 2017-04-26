@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use PHPUnit_Framework_TestCase;
+use Prophecy\Argument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lexeme\DataModel\LexemeForm;
@@ -13,6 +14,7 @@ use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
+use Wikibase\View\StatementSectionsView;
 
 /**
  * @covers Wikibase\Lexeme\View\LexemeFormsView
@@ -23,6 +25,8 @@ use Wikibase\View\DummyLocalizedTextProvider;
  * @author Thiemo Mättig
  */
 class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
+
+	const STATEMENT_SECTION_HTML = '<div class="statement-section"></div>';
 
 	public function testHtmlContainsTheFormsHeadline() {
 		$view = $this->newFormsView();
@@ -84,17 +88,33 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testHtmlContainsStatementSection() {
+		$view = $this->newFormsView();
+		$html = $view->getHtml( [
+			new LexemeForm( new LexemeFormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
+		] );
+
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild( tagMatchingOutline( self::STATEMENT_SECTION_HTML ) ) ) )
+		);
+	}
+
 	private function newFormsView() {
+		$statementSectionView = $this->prophesize( StatementSectionsView::class );
+		$statementSectionView->getHtml( Argument::any() )->willReturn( self::STATEMENT_SECTION_HTML );
+
 		return new LexemeFormsView(
 			new DummyLocalizedTextProvider(),
 			new LexemeTemplateFactory( [
-				'wikibase-lexeme-form' => '<h3 lang="$1">$2 $3 $4</h3>',
+				'wikibase-lexeme-form' => '<h3 lang="$1">$2 $3 $4$5</h3>'
 			] ),
 			new EntityIdHtmlLinkFormatter(
 				$this->getMock( LabelDescriptionLookup::class ),
 				$this->getMock( EntityTitleLookup::class ),
 				$this->getMock( LanguageNameLookup::class )
-			)
+			),
+			$statementSectionView->reveal()
 		);
 	}
 

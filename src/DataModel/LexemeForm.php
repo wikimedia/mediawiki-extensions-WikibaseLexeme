@@ -2,13 +2,15 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
 
 /**
  * @license GPL-2.0+
  * @author Thiemo Mättig
  */
-class LexemeForm {
+class LexemeForm implements StatementListProvider {
 
 	/**
 	 * @var LexemeFormId|null
@@ -26,18 +28,26 @@ class LexemeForm {
 	private $grammaticalFeatures;
 
 	/**
+	 * @var StatementList
+	 */
+	private $statementList;
+
+	/**
 	 * @param LexemeFormId $id |null
 	 * @param string $representation
 	 * @param ItemId[] $grammaticalFeatures
+	 * @param StatementList|null $statementList
 	 */
 	public function __construct(
 		LexemeFormId $id = null,
 		$representation,
-		array $grammaticalFeatures
+		array $grammaticalFeatures,
+		StatementList $statementList = null
 	) {
 		$this->id = $id;
 		$this->representation = $representation;
 		$this->grammaticalFeatures = $grammaticalFeatures;
+		$this->statementList = $statementList ?: new StatementList();
 	}
 
 	/**
@@ -56,6 +66,13 @@ class LexemeForm {
 
 	public function getGrammaticalFeatures() {
 		return $this->grammaticalFeatures;
+	}
+
+	/**
+	 * @see StatementListProvider::getStatements()
+	 */
+	public function getStatements() {
+		return $this->statementList;
 	}
 
 }

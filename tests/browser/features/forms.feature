@@ -6,7 +6,7 @@ Feature: Forms of a Lexeme
       And The copyright warning has been dismissed
       And Anonymous edit warnings are disabled
 
-@integration
+  @integration
   Scenario: Basic Forms section
     Then Forms header should be there
      And Forms container should be there
@@ -24,3 +24,8 @@ Feature: Forms of a Lexeme
      And I enter "whatever" as the form representation
      And I save the new Form
     Then "whatever" should be displayed as a representation in the list of Forms
+
+  @integration
+  Scenario: I can see each Form's statements
+    Then I see at least one Form
+    And for each Form there is a statement list

@@ -107,7 +107,8 @@ class LexemeViewFactory {
 			$localizedTextProvider,
 			new LexemeTemplateFactory( $templates ),
 			$this->entityIdHtmlLinkFormatterFactory
-				->getEntityIdFormatter( $retrievingLabelDescriptionLookup )
+				->getEntityIdFormatter( $retrievingLabelDescriptionLookup ),
+			$statementSectionsView
 		);
 
 		return new LexemeView(

@@ -8,6 +8,7 @@ use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\View\LocalizedTextProvider;
+use Wikibase\View\StatementSectionsView;
 
 /**
  * @license GPL-2.0+
@@ -30,14 +31,21 @@ class LexemeFormsView {
 	 */
 	private $entityIdHtmlFormatter;
 
+	/**
+	 * @var StatementSectionsView
+	 */
+	private $statementSectionView;
+
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LexemeTemplateFactory $templateFactory,
-		EntityIdHtmlLinkFormatter $entityIdHtmlFormatter
+		EntityIdHtmlLinkFormatter $entityIdHtmlFormatter,
+		StatementSectionsView $statementSectionView
 	) {
 		$this->textProvider = $textProvider;
 		$this->templateFactory = $templateFactory;
 		$this->entityIdHtmlFormatter = $entityIdHtmlFormatter;
+		$this->statementSectionView = $statementSectionView;
 	}
 
 	/**
@@ -84,7 +92,8 @@ class LexemeFormsView {
 					},
 					$form->getGrammaticalFeatures()
 				)
-			)
+			),
+			$this->statementSectionView->getHtml( $form->getStatements() )
 		] );
 	}
 
