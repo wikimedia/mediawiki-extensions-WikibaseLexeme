@@ -164,7 +164,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			$lexeme
 		];
 
-		$forms = [ new LexemeForm( null, 'form' ) ];
+		$forms = [ new LexemeForm( null, 'form', [] ) ];
 		$lexeme = new Lexeme( null, null, null, null, null, $forms );
 		$serializations['with minimal forms'] = [
 			[
@@ -174,7 +174,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			$lexeme
 		];
 
-		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form' ) ];
+		//TODO: Test grammatical features (de)serialization
+		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form', [] ) ];
 		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, null, null, null, $forms );
 		$serializations['with forms and all IDs set'] = [
 			[

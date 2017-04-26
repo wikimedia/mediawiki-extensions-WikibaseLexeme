@@ -105,9 +105,9 @@ class LexemeView extends EntityView {
 
 		// TODO: This obviously is a dummy that must be removed
 		$forms = [
-			new LexemeForm( new LexemeFormId( 'F1' ), 'A' ),
-			new LexemeForm( new LexemeFormId( 'F2' ), 'B' ),
-			new LexemeForm( new LexemeFormId( 'F3' ), 'C' ),
+			new LexemeForm( new LexemeFormId( 'F1' ), 'A', [] ),
+			new LexemeForm( new LexemeFormId( 'F2' ), 'B', [ new ItemId( 'Q2' ) ] ),
+			new LexemeForm( new LexemeFormId( 'F3' ), 'C', [ new ItemId( 'Q2' ), new ItemId( 'Q3' ) ] ),
 		];
 
 		$html = $this->getHtmlForLexicalCategoryAndLanguage( $entity )

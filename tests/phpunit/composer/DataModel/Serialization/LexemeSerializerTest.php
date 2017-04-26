@@ -127,7 +127,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$forms = [ new LexemeForm( null, 'form' ) ];
+		$forms = [ new LexemeForm( null, 'form', [] ) ];
 		$lexeme = new Lexeme( null, null, $lexicalCategory, $language, null, $forms );
 		$serializations['with minimal forms'] = [
 			$lexeme,
@@ -140,7 +140,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			]
 		];
 
-		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form' ) ];
+		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form', [] ) ];
 		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, $lexicalCategory, $language, null, $forms );
 		$serializations['with forms and all IDs set'] = [
 			$lexeme,

@@ -68,7 +68,8 @@ return [
 				$labelDescriptionLookup,
 				$fallbackChain,
 				$editSectionGenerator,
-				$entityTermsView
+				$entityTermsView,
+				WikibaseRepo::getDefaultInstance()->getEntityIdHtmlLinkFormatterFactory()
 			);
 
 			return $factory->newLexemeView();

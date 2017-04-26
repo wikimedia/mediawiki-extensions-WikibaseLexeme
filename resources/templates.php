@@ -15,7 +15,13 @@ return call_user_func( function() {
 	$templates = [];
 
 	$templates['wikibase-lexeme-form'] = <<<'HTML'
-<h3 class="wikibase-lexeme-form-representation" lang="$1">$2<!-- wikibase-lexeme-form-id --> $3</h3>
+<div class="wikibase-lexeme-form">
+	<h3 class="wikibase-lexeme-form-representation" lang="$1">$2 $3</h3>
+	<div class="wikibase-lexeme-form-grammatical-features">
+		<div class="wikibase-lexeme-form-grammatical-features-header">Grammatical features</div>
+		<div class="wikibase-lexeme-form-grammatical-features-values">$4</div>
+	</div>
+</div>
 HTML;
 
 	$templates['wikibase-lexeme-form-id'] = <<<'HTML'

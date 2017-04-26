@@ -16,3 +16,9 @@ Then(/^each representation is enclosed in tag having lang attribute with "(.+)" 
   #todo: this only checks if there is at least one lang attribute
  on(LexemePage).form_representation_element.attribute('lang').should == value
 end
+
+Given(/^for each Form there is a grammatical feature list$/) do
+  on(LexemePage).forms.each do |form|
+    expect(form.grammatical_features?).to be true
+  end
+end

@@ -162,7 +162,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		}
 
 		// TODO: Throw proper exception if array key does not exist
-		return new LexemeForm( $id, $serialization['representation'] );
+		return new LexemeForm( $id, $serialization['representation'], [] );
 	}
 
 }

@@ -7,6 +7,7 @@ use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\LanguageNameLookup;
+use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
@@ -47,6 +48,11 @@ class LexemeViewFactory {
 	private $entityTermsView;
 
 	/**
+	 * @var EntityIdHtmlLinkFormatterFactory
+	 */
+	private $entityIdHtmlLinkFormatterFactory;
+
+	/**
 	 * @param string $languageCode
 	 * @param LabelDescriptionLookup $labelDescriptionLookup
 	 * @param LanguageFallbackChain $fallbackChain
@@ -58,13 +64,15 @@ class LexemeViewFactory {
 		LabelDescriptionLookup $labelDescriptionLookup,
 		LanguageFallbackChain $fallbackChain,
 		EditSectionGenerator $editSectionGenerator,
-		EntityTermsView $entityTermsView
+		EntityTermsView $entityTermsView,
+		EntityIdHtmlLinkFormatterFactory $entityIdHtmlLinkFormatterFactory
 	) {
 		$this->languageCode = $languageCode;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
 		$this->fallbackChain = $fallbackChain;
 		$this->editSectionGenerator = $editSectionGenerator;
 		$this->entityTermsView = $entityTermsView;
+		$this->entityIdHtmlLinkFormatterFactory = $entityIdHtmlLinkFormatterFactory;
 	}
 
 	public function newLexemeView() {
@@ -72,10 +80,6 @@ class LexemeViewFactory {
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
-		$formsView = new LexemeFormsView(
-			$localizedTextProvider,
-			new LexemeTemplateFactory( $templates )
-		);
 		$sensesView = new SensesView( $localizedTextProvider );
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
@@ -98,6 +102,13 @@ class LexemeViewFactory {
 		$retrievingLabelDescriptionLookup = $wikibaseRepo
 			->getLanguageFallbackLabelDescriptionLookupFactory()
 			->newLabelDescriptionLookup( Language::factory( $this->languageCode ) );
+
+		$formsView = new LexemeFormsView(
+			$localizedTextProvider,
+			new LexemeTemplateFactory( $templates ),
+			$this->entityIdHtmlLinkFormatterFactory
+				->getEntityIdFormatter( $retrievingLabelDescriptionLookup )
+		);
 
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),

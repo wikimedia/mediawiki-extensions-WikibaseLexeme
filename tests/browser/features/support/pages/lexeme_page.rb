@@ -1,3 +1,10 @@
+class LexemeForm
+  include PageObject
+
+  div(:grammatical_features, class: 'wikibase-lexeme-form-grammatical-features')
+end
+
+
 class LexemePage
   include PageObject
   include EntityPage
@@ -8,6 +15,8 @@ class LexemePage
   span(:form_id, class: 'wikibase-lexeme-form-id')
   span(:senses_header, id: 'senses')
   div(:senses_container, class: 'wikibase-lexeme-senses')
+
+  page_sections(:forms, LexemeForm, class: 'wikibase-lexeme-form')
 
   def create_lexeme(lexeme_data)
     wb_api = MediawikiApi::Wikidata::WikidataClient.new URL.repo_api
