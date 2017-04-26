@@ -46,9 +46,9 @@
 		"jquery.wikibase.lexemeview": {
 			"scripts": "jquery.wikibase.lexemeview.js",
 			"dependencies": [
-				"wikibase.lexeme.view.ControllerViewFactory",
 				"jquery.wikibase.entityview",
-				"jquery.wikibase.lexemeformlistview"
+				"jquery.wikibase.lexemeformlistview",
+				"wikibase.lexeme.view.ControllerViewFactory"
 			]
 		},
 		"wikibase.lexeme": {
@@ -64,15 +64,15 @@
 		"jquery.wikibase.lexemeformlistview": {
 			"scripts": "jquery.wikibase.lexemeformlistview.js",
 			"dependencies": [
-				"jquery.wikibase.lexemeformview",
-				"jquery.ui.widget"
+				"jquery.ui.widget",
+				"jquery.wikibase.lexemeformview"
 			]
 		},
 		"jquery.wikibase.lexemeformview": {
 			"scripts": "jquery.wikibase.lexemeformview.js",
 			"dependencies": [
-				"wikibase.templates.lexeme",
-				"jquery.ui.EditableTemplatedWidget"
+				"jquery.ui.EditableTemplatedWidget",
+				"wikibase.templates.lexeme"
 			],
 			"messages": [
 				"wikibase-lexeme-empty-form-representation",
@@ -177,15 +177,15 @@
 				"special/NewLexeme.js"
 			],
 			"dependencies": [
-				"util.inherit",
 				"mw.config.values.wbRepo",
-				"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig",
+				"util.inherit",
 				"wikibase.api.getLocationAgnosticMwApi",
 				"wikibase.api.RepoApi",
-				"wikibase.lexeme.widgets.LanguageLookupWidget",
+				"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig",
 				"wikibase.lexeme.services.ItemLookup",
 				"wikibase.lexeme.services.LanguageFromItemExtractor",
-				"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver"
+				"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver",
+				"wikibase.lexeme.widgets.LanguageLookupWidget"
 			]
 		},
 		"wikibase.lexeme.view.ControllerViewFactory": {
@@ -195,9 +195,9 @@
 			],
 			"dependencies": [
 				"util.inherit",
-				"wikibase.view.ControllerViewFactory",
+				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.LexemeForm",
-				"wikibase.lexeme"
+				"wikibase.view.ControllerViewFactory"
 			]
 		},
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig": {
