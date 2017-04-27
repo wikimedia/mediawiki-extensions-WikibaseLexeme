@@ -24,6 +24,7 @@ return call_user_func( function() {
 </div>
 HTML;
 
+	//TODO Join these templates
 	$templates['wikibase-lexeme-form-id'] = <<<'HTML'
 <span class="wikibase-lexeme-form-id wikibase-title-id">$1</span>
 HTML;

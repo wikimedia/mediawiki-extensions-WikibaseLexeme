@@ -46,16 +46,18 @@ class LexemeFormsView {
 	 * @return string HTML
 	 */
 	public function getHtml( array $forms ) {
-		$html = '<h2 class="wb-section-heading section-heading">'
+		$html = '<div class="wikibase-lexeme-forms-section">';
+		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="forms">'
 			. htmlspecialchars( $this->textProvider->get( 'wikibase-lexeme-view-forms' ) )
 			. '</span>'
 			. '</h2>';
 
-		$html .= '<div class="wikibase-lexeme-forms">';
+		$html .= '<div class="wikibase-lexeme-forms ">';
 		foreach ( $forms as $form ) {
 			$html .= $this->getFormHtml( $form );
 		}
+		$html .= '</div>';
 		$html .= '</div>';
 
 		return $html;

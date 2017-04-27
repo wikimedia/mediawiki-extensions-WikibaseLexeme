@@ -46,7 +46,8 @@
 		"jquery.wikibase.lexemeview": {
 			"scripts": "jquery.wikibase.lexemeview.js",
 			"dependencies": [
-				"jquery.wikibase.entityview"
+				"jquery.wikibase.entityview",
+				"jquery.wikibase.lexemeformsectionview"
 			]
 		},
 		"wikibase.lexeme": {
@@ -57,6 +58,26 @@
 			"dependencies": [
 				"jquery.wikibase.lexemeview",
 				"wikibase.lexeme.getDeserializer"
+			]
+		},
+		"jquery.wikibase.lexemeformsectionview": {
+			"scripts": "jquery.wikibase.lexemeformsectionview.js",
+			"dependencies": [
+				"jquery.wikibase.lexemeformview",
+				"jquery.ui.widget"
+			]
+		},
+		"jquery.wikibase.lexemeformview": {
+			"scripts": "jquery.wikibase.lexemeformview.js",
+			"dependencies": [
+				"wikibase.templates.lexeme",
+				"jquery.ui.EditableTemplatedWidget"
+			]
+		},
+		"wikibase.templates.lexeme": {
+			"class": "\\Wikibase\\Lexeme\\View\\TemplateModule",
+			"dependencies": [
+				"wikibase.templates"
 			]
 		},
 		"wikibase.lexeme.datamodel.Lexeme": {
