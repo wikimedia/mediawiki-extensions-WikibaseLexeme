@@ -9,9 +9,11 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lexeme\Specials\HTMLForm\LanguageLookupWidgetField;
+use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLContentLanguageField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
@@ -19,6 +21,7 @@ use Wikibase\Repo\Specials\SpecialNewEntity;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Summary;
+use Wikibase\SummaryFormatter;
 
 /**
  * Page for creating new Lexeme entities.
@@ -45,14 +48,31 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			$settings->getSetting( 'dataRightsText' )
 		);
 
-		return new self( $copyrightView, $wikibaseRepo->getEntityNamespaceLookup() );
+		return new self(
+			$copyrightView,
+			$wikibaseRepo->getEntityNamespaceLookup(),
+			$wikibaseRepo->getSummaryFormatter(),
+			$wikibaseRepo->getEntityTitleLookup(),
+			$wikibaseRepo->newEditEntityFactory()
+		);
 	}
 
 	public function __construct(
 		SpecialPageCopyrightView $copyrightView,
-		EntityNamespaceLookup $entityNamespaceLookup
+		EntityNamespaceLookup $entityNamespaceLookup,
+		SummaryFormatter $summaryFormatter,
+		EntityTitleLookup $entityTitleLookup,
+		EditEntityFactory $editEntityFactory
 	) {
-		parent::__construct( 'NewLexeme', 'createpage', $copyrightView, $entityNamespaceLookup );
+		parent::__construct(
+			'NewLexeme',
+			'createpage',
+			$copyrightView,
+			$entityNamespaceLookup,
+			$summaryFormatter,
+			$entityTitleLookup,
+			$editEntityFactory
+		);
 	}
 
 	/**

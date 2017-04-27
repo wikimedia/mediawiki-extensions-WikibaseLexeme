@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Specials\SpecialNewLexeme;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTest;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\SummaryFormatter;
 
 /**
  * @covers Wikibase\Lexeme\Specials\SpecialNewLexeme
@@ -30,9 +31,19 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 	protected function newSpecialPage() {
 		$irrelevantNamespaceNumber = -1;
 
+		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+
+		/** @var SummaryFormatter $summaryFormatter */
+		$summaryFormatter = $this->getMockBuilder( SummaryFormatter::class )
+			->disableOriginalConstructor()
+			->getMock();
+
 		return new SpecialNewLexeme(
 			$this->copyrightView,
-			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => $irrelevantNamespaceNumber ] )
+			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => $irrelevantNamespaceNumber ] ),
+			$summaryFormatter,
+			$wikibaseRepo->getEntityTitleLookup(),
+			$wikibaseRepo->newEditEntityFactory()
 		);
 	}
 
