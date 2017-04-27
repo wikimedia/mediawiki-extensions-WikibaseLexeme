@@ -12,3 +12,7 @@ Feature: Forms of a Lexeme
      And Forms container should be there
      And for each Form there is a representation and an ID
      And each representation is enclosed in tag having lang attribute with "some language" as a value
+
+  @integration
+  Scenario: View Forms grammatical features
+    And for each Form there is a grammatical feature list

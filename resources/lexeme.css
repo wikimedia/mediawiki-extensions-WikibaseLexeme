@@ -17,3 +17,11 @@
 	clear: left;
 	margin-left: 10px; /* same as .wb-section-heading */
 }
+
+.wikibase-lexeme-form-grammatical-features {
+	display: flex;
+}
+
+.wikibase-lexeme-form-grammatical-features-values {
+	margin: 0 10px;
+}

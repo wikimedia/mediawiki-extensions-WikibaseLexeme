@@ -2,9 +2,11 @@
 
 namespace Wikibase\Lexeme\View;
 
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\LexemeForm;
 use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -23,12 +25,19 @@ class LexemeFormsView {
 	 */
 	private $templateFactory;
 
+	/**
+	 * @var EntityIdHtmlLinkFormatter
+	 */
+	private $entityIdHtmlFormatter;
+
 	public function __construct(
 		LocalizedTextProvider $textProvider,
-		LexemeTemplateFactory $templateFactory
+		LexemeTemplateFactory $templateFactory,
+		EntityIdHtmlLinkFormatter $entityIdHtmlFormatter
 	) {
 		$this->textProvider = $textProvider;
 		$this->templateFactory = $templateFactory;
+		$this->entityIdHtmlFormatter = $entityIdHtmlFormatter;
 	}
 
 	/**
@@ -63,8 +72,25 @@ class LexemeFormsView {
 		return $this->templateFactory->render( 'wikibase-lexeme-form', [
 			'some language',
 			htmlspecialchars( $representation ),
-			$this->getFormIdHtml( $form->getId() )
+			$this->getFormIdHtml( $form->getId() ),
+			implode(
+				$this->textProvider->get( 'comma-separator' ),
+				array_map(
+					function ( ItemId $id ) {
+						return $this->getGrammaticalFeatureHtml( $id );
+					},
+					$form->getGrammaticalFeatures()
+				)
+			)
 		] );
+	}
+
+	/**
+	 * @param ItemId $id
+	 * @return string
+	 */
+	private function getGrammaticalFeatureHtml( ItemId $id ) {
+		return $this->entityIdHtmlFormatter->formatEntityId( $id );
 	}
 
 	/**

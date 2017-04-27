@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use Wikibase\DataModel\Entity\ItemId;
+
 /**
  * @license GPL-2.0+
  * @author Thiemo Mättig
@@ -19,12 +21,23 @@ class LexemeForm {
 	private $representation;
 
 	/**
-	 * @param LexemeFormId $id|null
-	 * @param string $representation
+	 * @var ItemId[]
 	 */
-	public function __construct( LexemeFormId $id = null, $representation ) {
+	private $grammaticalFeatures;
+
+	/**
+	 * @param LexemeFormId $id |null
+	 * @param string $representation
+	 * @param ItemId[] $grammaticalFeatures
+	 */
+	public function __construct(
+		LexemeFormId $id = null,
+		$representation,
+		array $grammaticalFeatures
+	) {
 		$this->id = $id;
 		$this->representation = $representation;
+		$this->grammaticalFeatures = $grammaticalFeatures;
 	}
 
 	/**
@@ -39,6 +52,10 @@ class LexemeForm {
 	 */
 	public function getRepresentation() {
 		return $this->representation;
+	}
+
+	public function getGrammaticalFeatures() {
+		return $this->grammaticalFeatures;
 	}
 
 }
