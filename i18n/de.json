@@ -14,6 +14,8 @@
 	"wikibase-newlexeme-language": "Lexeme-Sprache",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
 	"wikibase-lexeme-view-forms": "Formulare",
+	"wikibase-lexeme-enter-form-representation": "Neue Formulardarstellung eingeben",
+	"wikibase-lexeme-empty-form-representation": "Keine Formulardarstellung definiert",
 	"wikibase-lexeme-view-senses": "Sinne",
 	"wikibase-lexeme-summary-wbeditentity-update": "Änderte ein Lexeme"
 }

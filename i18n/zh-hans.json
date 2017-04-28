@@ -14,6 +14,8 @@
 	"wikibase-newlexeme-language": "词位的语言",
 	"wikibase-lexeme-view-language-lexical-category": "$2中的$1",
 	"wikibase-lexeme-view-forms": "词形",
+	"wikibase-lexeme-enter-form-representation": "输入新表单实现",
+	"wikibase-lexeme-empty-form-representation": "没有定义表单实现",
 	"wikibase-lexeme-view-senses": "意义",
 	"wikibase-lexeme-summary-wbeditentity-update": "已更改词位"
 }
