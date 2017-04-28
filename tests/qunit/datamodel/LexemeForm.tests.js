@@ -28,38 +28,38 @@
 		var id = 'L123',
 			representation = 'foo',
 			form = newForm( id, representation ),
+			comparison = newForm( id, representation );
+
+		assert.equal( form.equals( comparison ), true );
+	} );
+
+	QUnit.test( 'not equals()', function ( assert ) {
+		var id = 'L123',
+			representation = 'foo',
+			form = newForm( id, representation ),
 			equalsDataProvider = [
 				{
-					comparison: newForm( id, representation ),
-					expectedResult: true,
-					message: 'Same id, same representation'
-				},
-				{
 					comparison: newForm( id, 'bar' ),
-					expectedResult: false,
 					message: 'same id, different representation'
 				},
 				{
 					comparison: newForm( 'L234', representation ),
-					expectedResult: false,
 					message: 'different id, same representation'
 				},
 				{
 					comparison: newForm( 'L234', 'bar' ),
-					expectedResult: false,
 					message: 'different id, different representation'
 				},
 				{
 					comparison: null,
-					expectedResult: false,
 					message: 'not a LexemeForm object'
 				}
 			];
 
 		equalsDataProvider.forEach( function ( testData ) {
 			assert.equal(
-				form.equals(testData.comparison),
-				testData.expectedResult,
+				form.equals( testData.comparison ),
+				false,
 				testData.message
 			);
 		} );
