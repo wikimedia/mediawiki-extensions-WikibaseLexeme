@@ -22,7 +22,7 @@ class LexemeFormsView {
 	private $textProvider;
 
 	/**
-	 * @var LexemeTemplateFactory $templateFactory
+	 * @var LexemeTemplateFactory
 	 */
 	private $templateFactory;
 
