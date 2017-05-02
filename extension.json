@@ -140,6 +140,15 @@
 				"wikibase.lexeme"
 			]
 		},
+		"wikibase.lexeme.widgets.GrammaticalFeatureListWidget": {
+			"scripts": [
+				"widgets/GrammaticalFeatureListWidget.js"
+			],
+			"dependencies": [
+				"oojs-ui-core",
+				"oojs-ui-widgets"
+			]
+		},
 		"wikibase.lexeme.special": {
 			"scripts": "special/__namespace.js",
 			"dependencies": "wikibase.lexeme"
