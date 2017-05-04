@@ -19,7 +19,7 @@
 			language = 'en',
 			itemSerialization = {
 				claims: {
-					'P123': [
+					P123: [
 						{ mainsnak: { datavalue: { value: language } } }
 					]
 				}
@@ -32,7 +32,7 @@
 		var languageExtractor = newLanguageExtractor( 'P123' ),
 			itemSerialization = {
 				claims: {
-					'P234': [
+					P234: [
 						{ mainsnak: { datavalue: { value: 'en' } } }
 					]
 				}
@@ -45,7 +45,7 @@
 		var languageExtractor = newLanguageExtractor( null ),
 			itemSerialization = {
 				claims: {
-					'P123': [
+					P123: [
 						{ mainsnak: { datavalue: { value: 'en' } } }
 					]
 				}
@@ -58,7 +58,7 @@
 		var languageExtractor = newLanguageExtractor( 'P123' ),
 			itemSerialization = {
 				claims: {
-					'P123': [
+					P123: [
 						{ mainsnak: { datavalue: { value: 'foo' } }, rank: 'deprecated' },
 						{ mainsnak: { datavalue: { value: 'bar' } }, rank: 'normal' },
 						{ mainsnak: { datavalue: { value: 'baz' } }, rank: 'preferred' }
@@ -73,7 +73,7 @@
 		var languageExtractor = newLanguageExtractor( 'P123' ),
 			itemSerialization = {
 				claims: {
-					'P123': []
+					P123: []
 				}
 			};
 

@@ -2,8 +2,6 @@
 	"preset": "wikimedia",
 
 	"disallowDanglingUnderscores": null,
-	// FIXME: Not needed quotes on object keys should be removed.
-	"disallowQuotedKeysInObjects": null,
 	"jsDoc": {
 		"checkAnnotations": {
 			"preset": "jsduck5",
@@ -33,8 +31,6 @@
 	],
 	"requireSpaceAfterLineComment": null,
 	"requireVarDeclFirst": null,
-	// FIXME: Inconsistent quotes should be fixed.
-	"validateQuoteMarks": null,
 
 	"excludeFiles": [ "node_modules/**", "vendor/**" ]
 }

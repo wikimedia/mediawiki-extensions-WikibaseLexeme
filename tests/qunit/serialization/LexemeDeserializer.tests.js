@@ -8,13 +8,13 @@
 	QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
 
 	var serialization = {
-		"type": "lexeme",
-		"id": "L1",
-		"lemmas": {},
-		"lexicalCategory": "Q2",
-		"language": "Q2",
-		"claims": {
-			"P1": [
+		type: 'lexeme',
+		id: 'L1',
+		lemmas: {},
+		lexicalCategory: 'Q2',
+		language: 'Q2',
+		claims: {
+			P1: [
 					{
 						id: 'L1$1',
 						mainsnak: {
