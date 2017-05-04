@@ -107,7 +107,8 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		return new LexemeFormsView(
 			new DummyLocalizedTextProvider(),
 			new LexemeTemplateFactory( [
-				'wikibase-lexeme-form' => '<h3 lang="$1">$2 $3 $4$5</h3>'
+				'wikibase-lexeme-form' => '<h3 lang="$1">$2 $3</h3>$4 $5',
+				'wikibase-lexeme-form-grammatical-features' => '<div>$1</div>'
 			] ),
 			new EntityIdHtmlLinkFormatter(
 				$this->getMock( LabelDescriptionLookup::class ),

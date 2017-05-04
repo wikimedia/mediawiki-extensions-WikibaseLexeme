@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function ( $, mw ) {
 	'use strict';
 
 	var PARENT = $.ui.EditableTemplatedWidget;
@@ -24,16 +24,22 @@
 				function () {
 					return '';
 				},
-				'',
+				function () {
+					return mw.wbTemplate( 'wikibase-lexeme-form-grammatical-features', '' );
+				},
 				'Statements\' section will be here' //TODO find way to render block of statements
 			],
 			templateShortCuts: {
 				$text: '.wikibase-lexeme-form-text',
-				$id: '.wikibase-lexeme-form-id'
+				$id: '.wikibase-lexeme-form-id',
+				$grammaticalFeatures: '.wikibase-lexeme-form-grammatical-features'
 			},
-			inputNodeName: 'TEXTAREA'
+			inputNodeName: 'TEXTAREA',
+			buildGrammaticalFeatureView: null
 		},
 		_inEditMode: false,
+
+		_grammaticalFeatureView: null,
 
 		/**
 		 * This method acts as a setter if it is given a LexemeForm object.
@@ -46,6 +52,7 @@
 		value: function ( value ) {
 			if ( value instanceof wb.lexeme.datamodel.LexemeForm ) {
 				this.option( 'value', value );
+				this._grammaticalFeatureView.value( value.getGrammaticalFeatures() );
 				return;
 			}
 
@@ -55,31 +62,53 @@
 
 			return new wb.lexeme.datamodel.LexemeForm(
 				Math.round( Math.random() * 100 ), // TODO: should be a unique numeric ID per form
-				$.trim( this.$text.children( this.inputNodeName ).val() )
+				$.trim( this.$text.children( this.inputNodeName ).val() ),
+				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
 			);
 		},
+
 		_create: function () {
 			PARENT.prototype._create.call( this );
+			this._grammaticalFeatureView = this._buildGrammaticalFeatureView();
+
 			if ( !this.value() ) {
 				this.startEditing();
 			}
 		},
+		_buildGrammaticalFeatureView: function buildGrammaticalFeatureView() {
+			var self = this;
+
+			var value = this.value() ? this.value().getGrammaticalFeatures() : [];
+			var labelFormattingService = this.options.labelFormattingService;
+			this.$grammaticalFeatures.grammaticalfeatureview( {
+				value: value,
+				labelFormattingService: labelFormattingService,
+				api: self.options.api
+			} );
+
+			return this.$grammaticalFeatures.data( 'grammaticalfeatureview' );
+		},
+
 		_startEditing: function () {
-			// FIXME: This could be much faster
 			this._inEditMode = true;
+			this._grammaticalFeatureView.startEditing();// FIXME this line breaks edit mode when adding lexeme form
 			return this.draw();
 		},
+
 		_stopEditing: function ( dropValue ) {
 			this._inEditMode = false;
 			if ( dropValue && this.options.value.getRepresentation() === '' ) {
 				this.$text.children( this.inputNodeName ).val( '' );
 			}
+			this._grammaticalFeatureView.stopEditing( dropValue );
 
 			return this.draw();
 		},
+
 		isInEditMode: function () {
 			return this._inEditMode;
 		},
+
 		/**
 		 * @inheritdoc
 		 */
@@ -89,8 +118,6 @@
 			if ( !value || value.getRepresentation() === '' ) {
 				value = null;
 			}
-
-			this.element.toggleClass( 'wb-empty', !value );
 
 			if ( !this.isInEditMode() && !value ) {
 				this.$text.text( mw.msg( 'wikibase-lexeme-empty-form-representation' ) );
@@ -128,4 +155,4 @@
 			return deferred.resolve().promise();
 		}
 	} );
-}( jQuery ) );
+}( jQuery, mw ) );

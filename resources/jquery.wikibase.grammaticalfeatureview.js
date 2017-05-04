@@ -1,0 +1,123 @@
+( function ( $, mw, require ) {
+	'use strict';
+
+	var PARENT = $.ui.EditableTemplatedWidget;
+
+	/** @type {wikibase.lexeme.widgets.GrammaticalFeatureListWidget} */
+	var GrammaticalFeatureListWidget = require( 'wikibase.lexeme.widgets.GrammaticalFeatureListWidget' );
+
+	/**
+	 * @class jQuery.wikibase.grammaticalfeatureview
+	 * @extends jQuery.ui.EditableTemplatedWidget
+	 * @license GPL-2.0+
+	 *
+	 * @constructor
+	 *
+	 * @param {Object} options
+	 * @param {wikibase.datamodel.Forms} options.value
+	 */
+	$.widget( 'wikibase.grammaticalfeatureview', PARENT, {
+		options: {
+			template: 'wikibase-lexeme-form-grammatical-features',
+			templateShortCuts: {
+				$header: '.wikibase-lexeme-form-grammatical-features-header',
+				$values: '.wikibase-lexeme-form-grammatical-features-values'
+			},
+			labelFormattingService: null,
+			api: null
+		},
+		_inEditMode: false,
+
+		_labelFormattingService: null,
+
+		_grammaticalFeatureListWidget: null,
+
+		value: function ( value ) {
+			if ( typeof value !== 'undefined' ) {
+				this.option( 'value', value );
+			}
+
+			if ( !this.isInEditMode() ) {
+				return this.options.value;
+			}
+
+			return this._grammaticalFeatureListWidget.getValue();
+		},
+		_create: function () {
+			PARENT.prototype._create.call( this );
+			this._labelFormattingService = this.options.labelFormattingService;
+			if ( !this.value() ) {
+				this.startEditing();
+			}
+		},
+		_startEditing: function () {
+			this._inEditMode = true;
+			return this.draw();
+		},
+		_stopEditing: function ( dropValue ) {
+			this._inEditMode = false;
+
+			return this.draw();
+		},
+		isInEditMode: function () {
+			return this._inEditMode;
+		},
+		/**
+		 * @inheritdoc
+		 */
+		draw: function () {
+			var self = this;
+
+			if ( this.isInEditMode() ) {
+				return this._drawEdit();
+			}
+
+			var deferred = $.Deferred(),
+				value = this.value() || [];
+
+			if ( this._grammaticalFeatureListWidget ) {
+				this._grammaticalFeatureListWidget.$element.remove();
+			}
+
+			this.$values.empty();
+			value.forEach( function ( value, i ) {
+				var $el = $( '<span>' ).text( value );
+				self._labelFormattingService.getHtml( value ).then( function ( html ) {
+					$el.empty().append( html );
+				} );
+
+				if ( i > 0 ) {
+					self.$values.append( ', ' ); // TODO i18n
+				}
+				self.$values.append( $el );
+			} );
+
+			return deferred.resolve().promise();
+		},
+
+		_drawEdit: function () {
+			var deferred = $.Deferred();
+			var self = this;
+
+			var value = this.options.value || [];
+			this._grammaticalFeatureListWidget = new GrammaticalFeatureListWidget( {
+				api: self.options.api,
+				labelFormattingService: this._labelFormattingService,
+				language: mw.config.get( 'wgUserLanguage' ),
+				selected: value.map( function ( item ) {
+					var $el = $( '<span>' ).text( item );
+					self._labelFormattingService.getHtml( item ).then( function ( html ) {
+						$el.empty().append( html );
+					} );
+					return {
+						data: item,
+						label: $el
+					};
+				} )
+			} );
+
+			this.$values.empty().append( this._grammaticalFeatureListWidget.$element );
+			return deferred.resolve().promise();
+		}
+	} );
+}( jQuery, mediaWiki, require ) );

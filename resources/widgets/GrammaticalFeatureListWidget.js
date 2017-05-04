@@ -9,6 +9,7 @@ module.exports = ( function ( $, OO ) {
 	 * @param {Object} [config] Configuration object
 	 * @cfg {mw.Api} [api] Api object to access 'wbsearchentities' action
 	 * @cfg {string} [language]
+	 * @cfg {wikibase.LabelFormattingService} [labelFormattingService]
 	 *
 	 * @license GPL-2.0+
 	 */
@@ -30,14 +31,15 @@ module.exports = ( function ( $, OO ) {
 			this.setValue( selected );
 		}
 
-		if ( !config.api || !config.language ) {
-			throw new Error( 'api and language need to be specified.' );
+		if ( !config.api || !config.labelFormattingService || !config.language ) {
+			throw new Error( 'api, labelFormattingService and language need to be specified.' );
 		}
 		this._api = config.api;
+		this._labelFormattingService = config.labelFormattingService;
 		this._language = config.language;
 
 		var debounceInterval = typeof config.debounceInterval === 'number' ? config.debounceInterval : 250;
-		this.input.on( 'change',  OO.ui.debounce( this.updateMenu.bind( this ), debounceInterval ) );
+		this.input.on( 'change', OO.ui.debounce( this.updateMenu.bind( this ), debounceInterval ) );
 	};
 
 	OO.inheritClass( GrammaticalFeatureListWidget, OO.ui.MenuTagMultiselectWidget );
@@ -54,6 +56,11 @@ module.exports = ( function ( $, OO ) {
 		 * @property {mw.Api}
 		 */
 		_api: null,
+
+		/**
+		 * @property {wikibase.LabelFormattingService}
+		 */
+		_labelFormattingService: null,
 
 		/**
 		 * @protected
@@ -121,7 +128,13 @@ module.exports = ( function ( $, OO ) {
 		onMenuChoose: function onMenuChoose( menuItem ) {
 			// To avoid displaying multiline selected boxes in the widget
 			// we have to replace the label contents
-			this.addTag( menuItem.getData(), menuItem.getLabel().data( 'label' ) );
+			var itemId = menuItem.getData();
+			var $label = $( '<span>' ).text( menuItem.getLabel().data( 'label' ) );
+			this._labelFormattingService.getHtml( itemId ).then( function ( html ) {
+				// FIXME: Add target="blank"
+				$label.empty().append( html );
+			} );
+			this.addTag( itemId, $label );
 			this.clearInput();
 			this.clearMenuItems();
 		},

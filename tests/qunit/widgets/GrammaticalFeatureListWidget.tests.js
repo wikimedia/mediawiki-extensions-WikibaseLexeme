@@ -9,11 +9,23 @@
 	/** @type {wikibase.lexeme.widgets.GrammaticalFeatureListWidget} */
 	var GrammaticalFeatureListWidget = require( 'wikibase.lexeme.widgets.GrammaticalFeatureListWidget' );
 
+	var dummyLabelFormattingService = {
+		getHtml: function ( itemId ) {
+			return $.Deferred().resolve( itemId ).promise();
+		}
+	};
+
 	QUnit.module( 'wikibase.lexeme.widgets.GrammaticalFeatureListWidget' );
 
 	QUnit.test( 'throws an error if no api provided', function ( assert ) {
 		assert.throws( function () {
 			new GrammaticalFeatureListWidget( { language: 'en' } );
+		} );
+	} );
+
+	QUnit.test( 'throws an error if no formatting service provided', function ( assert ) {
+		assert.throws( function () {
+			new GrammaticalFeatureListWidget( { language: 'en', api: {} } );
 		} );
 	} );
 
@@ -29,7 +41,7 @@
 			return $.Deferred().resolve( { search: [] } ).promise();
 		};
 		var api = { get: sinon.spy( apiCallback ) };
-		var widget = new GrammaticalFeatureListWidget( { api: api, language: 'en', debounceInterval: 0 } );
+		var widget = new GrammaticalFeatureListWidget( { api: api, language: 'en', debounceInterval: 0, labelFormattingService: {} } );
 
 		widget.input.setValue( 'some input value' );
 
@@ -62,7 +74,7 @@
 			}
 		};
 
-		var widget = new GrammaticalFeatureListWidget( { api: api, language: 'en', debounceInterval: 0 } );
+		var widget = new GrammaticalFeatureListWidget( { api: api, language: 'en', debounceInterval: 0, labelFormattingService: {} } );
 
 		widget.input.setValue( 'anything' );
 
@@ -92,7 +104,12 @@
 			}
 		};
 
-		var widget = new GrammaticalFeatureListWidget( { api: api, language: 'en', debounceInterval: 0 } );
+		var widget = new GrammaticalFeatureListWidget( {
+			api: api,
+			labelFormattingService: dummyLabelFormattingService,
+			language: 'en',
+			debounceInterval: 0
+		} );
 
 		widget.input.setValue( 'anything' );
 
@@ -108,6 +125,7 @@
 	QUnit.test( 'I can preset selected values', function ( assert ) {
 		var widget = new GrammaticalFeatureListWidget( {
 			api: {},
+			labelFormattingService: {},
 			language: 'en',
 			debounceInterval: 0,
 			selected: [ 'Q1' ]
@@ -119,6 +137,7 @@
 	QUnit.test( 'I can preset selected values with labels', function ( assert ) {
 		var widget = new GrammaticalFeatureListWidget( {
 			api: {},
+			labelFormattingService: dummyLabelFormattingService,
 			language: 'en',
 			debounceInterval: 0,
 			selected: [ { data: 'Q1', label: 'Q1-label' } ]

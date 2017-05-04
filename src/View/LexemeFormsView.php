@@ -79,12 +79,9 @@ class LexemeFormsView {
 	private function getFormHtml( LexemeForm $form ) {
 		$representation = $form->getRepresentation();
 
-		return $this->templateFactory->render( 'wikibase-lexeme-form', [
-			'some language',
-			htmlspecialchars( $representation ),
-			wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $form->getId()->getSerialization() ) )
-				->text(),
-			implode(
+		$grammaticalFeaturesHtml = $this->templateFactory->render(
+			'wikibase-lexeme-form-grammatical-features',
+			[ implode(
 				$this->textProvider->get( 'comma-separator' ),
 				array_map(
 					function ( ItemId $id ) {
@@ -92,7 +89,15 @@ class LexemeFormsView {
 					},
 					$form->getGrammaticalFeatures()
 				)
-			),
+			) ]
+		);
+
+		return $this->templateFactory->render( 'wikibase-lexeme-form', [
+			'some language',
+			htmlspecialchars( $representation ),
+			wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $form->getId()->getSerialization() ) )
+				->text(),
+			$grammaticalFeaturesHtml,
 			$this->statementSectionView->getHtml( $form->getStatements() )
 		] );
 	}

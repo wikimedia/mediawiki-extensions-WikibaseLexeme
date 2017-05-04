@@ -13,6 +13,7 @@
 	 *
 	 * @param {Object} options
 	 * @param {Function} options.buildStatementGroupListView
+	 * @param {Function} options.buildLexemeFormListView
 	 *
 	 * @constructor
 	 *

@@ -14,8 +14,17 @@
 
 	var newLexemeFormView = function ( options ) {
 		var $node = $( '<div/>' ).appendTo( 'body' );
+		options = options || {};
 
 		$node.addClass( TEST_LEXMEFORMVIEW_CLASS );
+
+		options.api = options.api || {};
+		options.language = options.language || 'en';
+		options.labelFormattingService = options.labelFormattingService || {
+			getHtml: function ( id ) {
+				return $.Deferred().resolve( id ).promise();
+			}
+		};
 
 		return $node.lexemeformview( options || {} ).data( 'lexemeformview' );
 	};

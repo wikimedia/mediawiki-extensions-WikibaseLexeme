@@ -52,6 +52,7 @@
 
 .wikibase-lexeme-form-grammatical-features-values {
 	margin: 0 10px;
+	flex-grow: 1;
 }
 
 .wikibase-lexeme-form .wikibase-statementgrouplistview::after,

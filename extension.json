@@ -72,11 +72,20 @@
 			"scripts": "jquery.wikibase.lexemeformview.js",
 			"dependencies": [
 				"jquery.ui.EditableTemplatedWidget",
-				"wikibase.templates.lexeme"
+				"wikibase.templates.lexeme",
+				"jquery.wikibase.grammaticalfeatureview"
 			],
 			"messages": [
 				"wikibase-lexeme-empty-form-representation",
 				"wikibase-lexeme-enter-form-representation"
+			]
+		},
+		"jquery.wikibase.grammaticalfeatureview": {
+			"scripts": "jquery.wikibase.grammaticalfeatureview.js",
+			"dependencies": [
+				"jquery.ui.EditableTemplatedWidget",
+				"wikibase.templates.lexeme",
+				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
 			]
 		},
 		"wikibase.templates.lexeme": {

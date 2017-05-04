@@ -80,6 +80,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/datamodel/LexemeForm.tests.js',
 				'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
 				'tests/qunit/jquery.wikibase.lexemeformview.tests.js',
+				'tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js',
 				'tests/qunit/serialization/LexemeDeserializer.tests.js',
 				'tests/qunit/services/ItemLookup.tests.js',
 				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
@@ -90,6 +91,7 @@ class WikibaseLexemeHooks {
 			'dependencies' => [
 				'jquery.wikibase.lexemeformlistview',
 				'jquery.wikibase.lexemeformview',
+				'jquery.wikibase.grammaticalfeatureview',
 				'oojs-ui',
 				'wikibase.lexeme.datamodel.LexemeForm',
 				'wikibase.lexeme.serialization.LexemeDeserializer',

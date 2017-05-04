@@ -7,9 +7,10 @@
 	 */
 	var LexemeForm = util.inherit(
 		'LexemeForm',
-		function ( id, representation ) {
+		function ( id, representation, grammaticalFeatures ) {
 			this._id = id;
 			this._representation = representation;
+			this._grammaticalFeatures = grammaticalFeatures;
 		},
 		{
 
@@ -24,6 +25,11 @@
 			_representation: null,
 
 			/**
+			 * @return {string[]}
+			 */
+			_grammaticalFeatures: [],
+
+			/**
 			 * @return {string}
 			 */
 			getId: function () {
@@ -35,6 +41,13 @@
 			 */
 			getRepresentation: function () {
 				return this._representation;
+			},
+
+			/**
+			 * @return {string[]}
+			 */
+			getGrammaticalFeatures: function () {
+				return this._grammaticalFeatures;
 			},
 
 			/**
