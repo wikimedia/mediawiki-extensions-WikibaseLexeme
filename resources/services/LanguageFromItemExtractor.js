@@ -1,4 +1,4 @@
-(function ( $, wb ) {
+( function ( $, wb ) {
 	'use strict';
 
 	var LanguageFromItemExtractor = function ( languageCodePropertyId ) {
@@ -45,4 +45,4 @@
 
 	wb.lexeme.services.LanguageFromItemExtractor = LanguageFromItemExtractor;
 
-})( jQuery, wikibase );
+} )( jQuery, wikibase );

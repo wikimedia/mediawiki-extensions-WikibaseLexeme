@@ -1,4 +1,4 @@
-(function ( $, wb ) {
+( function ( $, wb ) {
 	'use strict';
 
 	/**
@@ -33,7 +33,7 @@
 					}
 				} )
 				.fail( function () {
-					deferred.reject()
+					deferred.reject();
 				} );
 
 			return deferred;
@@ -42,4 +42,4 @@
 
 	wb.lexeme.services.ItemLookup = ItemLookup;
 
-})( jQuery, wikibase );
+} )( jQuery, wikibase );

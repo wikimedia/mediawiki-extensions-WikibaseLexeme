@@ -82,7 +82,7 @@
 		_removeItem: function( lexemeformview ) {
 			this._listview.removeItem( lexemeformview.element );
 			this._trigger( 'afterremove' );
-		},
+		}
 
 	} );
 }( jQuery ) );

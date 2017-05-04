@@ -44,7 +44,7 @@
 			equals: function ( form ) {
 				return form instanceof LexemeForm
 					&& this.getId() === form.getId()
-					&& this.getRepresentation() === form.getRepresentation()
+					&& this.getRepresentation() === form.getRepresentation();
 			}
 		} );
 

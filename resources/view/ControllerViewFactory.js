@@ -114,7 +114,7 @@
 
 				if ( $element.text() !== '' ) { // FIXME: values should come from lexeme object
 					value = new wb.lexeme.datamodel.LexemeForm(
-						$element.find( '.wikibase-lexeme-form-id' ).text().match( /\d+/ )[0],
+						$element.find( '.wikibase-lexeme-form-id' ).text().match( /\d+/ )[ 0 ],
 						$element.find( '.wikibase-lexeme-form-text' ).text()
 					);
 				}

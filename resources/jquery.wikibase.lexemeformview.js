@@ -41,7 +41,7 @@
 		 * input value otherwise.
 		 *
 		 * @param {wikibase.lexeme.datamodel.LexemeForm} value
-		 * @returns {wikibase.lexeme.datamodel.LexemeForm|undefined}
+		 * @return {wikibase.lexeme.datamodel.LexemeForm|undefined}
 		 */
 		value: function ( value ) {
 			if ( value instanceof wb.lexeme.datamodel.LexemeForm ) {

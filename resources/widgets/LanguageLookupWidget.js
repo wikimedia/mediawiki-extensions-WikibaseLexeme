@@ -1,4 +1,4 @@
-(function ( $, wb ) {
+( function ( $, wb ) {
 	'use strict';
 
 	/**
@@ -144,4 +144,4 @@
 
 	wb.lexeme.widgets.LanguageLookupWidget = LanguageLookupWidget;
 
-})( jQuery, wikibase );
+} )( jQuery, wikibase );

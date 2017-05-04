@@ -20,7 +20,7 @@
 		changeObserver: new wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver(
 			$lemmaLanguageField,
 			new wb.lexeme.services.ItemLookup( new wb.api.RepoApi( mwApi ) ),
-			new wb.lexeme.services.LanguageFromItemExtractor( mw.config.get('LexemeLanguageCodePropertyId') )
+			new wb.lexeme.services.LanguageFromItemExtractor( mw.config.get( 'LexemeLanguageCodePropertyId' ) )
 		)
 	} );
 

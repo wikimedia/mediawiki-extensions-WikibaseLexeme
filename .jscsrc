@@ -1,13 +1,16 @@
 {
 	"preset": "wikimedia",
 
+	"disallowDanglingUnderscores": null,
 	// FIXME: Not needed quotes on object keys should be removed.
 	"disallowQuotedKeysInObjects": null,
 	"jsDoc": {
 		"checkAnnotations": {
+			"preset": "jsduck5",
 			"extra": {
-				"author": "some",
-				"license": "some"
+				"license": "some",
+				"see": "some",
+				"todo": "some"
 			}
 		}
 	},
@@ -28,6 +31,7 @@
 		"typeof"
 		// FIXME: Currently disabled for "function".
 	],
+	"requireSpaceAfterLineComment": null,
 	"requireVarDeclFirst": null,
 	// FIXME: Inconsistent quotes should be fixed.
 	"validateQuoteMarks": null,
