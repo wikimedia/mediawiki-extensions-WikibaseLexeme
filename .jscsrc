@@ -1,4 +1,36 @@
 {
 	"preset": "wikimedia",
+
+	// FIXME: Not needed quotes on object keys should be removed.
+	"disallowQuotedKeysInObjects": null,
+	"jsDoc": {
+		"checkAnnotations": {
+			"extra": {
+				"author": "some",
+				"license": "some"
+			}
+		}
+	},
+	"requireMultipleVarDecl": null,
+	"requireSpaceAfterKeywords": [
+		"do",
+		"for",
+		"if",
+		"else",
+		"switch",
+		"case",
+		"try",
+		"catch",
+		"void",
+		"while",
+		"with",
+		"return",
+		"typeof"
+		// FIXME: Currently disabled for "function".
+	],
+	"requireVarDeclFirst": null,
+	// FIXME: Inconsistent quotes should be fixed.
+	"validateQuoteMarks": null,
+
 	"excludeFiles": [ "node_modules/**", "vendor/**" ]
 }

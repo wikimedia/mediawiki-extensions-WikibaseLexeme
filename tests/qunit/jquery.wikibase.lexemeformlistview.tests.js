@@ -33,7 +33,7 @@
 	QUnit.test( 'Can be created', function( assert ) {
 		var view = newView();
 
-		assert.ok( view instanceof $.wikibase.lexemeformlistview )
+		assert.ok( view instanceof $.wikibase.lexemeformlistview );
 	} );
 
 	QUnit.test( 'enterNewItem adds new list item', function( assert ) {

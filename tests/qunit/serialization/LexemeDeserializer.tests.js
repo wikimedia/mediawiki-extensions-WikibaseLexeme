@@ -3,9 +3,9 @@
  * @author Jonas Kress
  */
 ( function( $, wb, QUnit ) {
-'use strict';
+	'use strict';
 
-QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
+	QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
 
 	var serialization = {
 		"type": "lexeme",
@@ -23,7 +23,7 @@ QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
 						},
 						type: 'statement',
 						rank: 'normal'
-					},
+					}
 			]
 		}
 	};

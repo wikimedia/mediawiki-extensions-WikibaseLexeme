@@ -54,7 +54,7 @@
 
 		lookup.fetchEntity( 'Q123' ).fail( function () {
 			assert.ok( true );
-		} )
+		} );
 	} );
 
 	QUnit.test( 'fails for unexpected API response', function ( assert ) {
