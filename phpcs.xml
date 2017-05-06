@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <ruleset name="WikibaseLexeme">
-	<rule ref="vendor/wikibase/wikibase-codesniffer/Wikibase">
-	</rule>
+	<rule ref="vendor/wikibase/wikibase-codesniffer/Wikibase" />
 
 	<!-- Exceptions -->
 

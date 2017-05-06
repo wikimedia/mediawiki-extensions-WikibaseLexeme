@@ -1,4 +1,4 @@
-( function( wb, util ) {
+( function ( wb, util ) {
 	'use strict';
 
 	var MODULE = wb.lexeme.serialization,
@@ -21,7 +21,7 @@
 		 *
 		 * @throws {Error} if serialization does not resolve to a serialized Lexeme.
 		 */
-		deserialize: function( serialization ) {
+		deserialize: function ( serialization ) {
 			if ( serialization.type !== wb.datamodel.Lexeme.TYPE ) {
 				throw new Error( 'Serialization does not resolve to a Lexeme' );
 			}

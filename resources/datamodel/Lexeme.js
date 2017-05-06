@@ -1,4 +1,4 @@
-( function( wb, util ) {
+( function ( wb, util ) {
 	'use strict';
 
 	var PARENT = wb.datamodel.Entity;
@@ -21,7 +21,7 @@
 	var SELF = wb.datamodel.Lexeme = util.inherit(
 		'WbDataModelLexeme',
 		PARENT,
-		function( lexemeId, labels, statementGroupSet ) {
+		function ( lexemeId, labels, statementGroupSet ) {
 			labels = labels || new wb.datamodel.TermMap();
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 
@@ -48,28 +48,28 @@
 		/**
 		 * @return {wikibase.datamodel.StatementGroupSet}
 		 */
-		getStatements: function() {
+		getStatements: function () {
 			return this._statementGroupSet;
 		},
 
 		/**
 		 * @param {wikibase.datamodel.Statement} statement
 		 */
-		addStatement: function( statement ) {
+		addStatement: function ( statement ) {
 			this._statementGroupSet.addStatement( statement );
 		},
 
 		/**
 		 * @param {wikibase.datamodel.Statement} statement
 		 */
-		removeStatement: function( statement ) {
+		removeStatement: function ( statement ) {
 			this._statementGroupSet.removeStatement( statement );
 		},
 
 		/**
 		 * @return {boolean}
 		 */
-		isEmpty: function() {
+		isEmpty: function () {
 			return this._statementGroupSet.isEmpty() && this._fingerprint.isEmpty();
 		},
 
@@ -77,7 +77,7 @@
 		 * @param {*} lexeme
 		 * @return {boolean}
 		 */
-		equals: function( lexeme ) {
+		equals: function ( lexeme ) {
 			return lexeme === this ||
 				( lexeme instanceof SELF &&
 					this._id === lexeme.getId() &&
