@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Subi"
+		]
+	},
+	"wikibaselexeme-desc": "Kudeatu lexema entitate-mota",
+	"special-newlexeme": "Lexema berria sortu",
+	"wikibase-newlexeme-fieldset": "Lexema berria sortu",
+	"wikibase-newlexeme-lemma": "Lema",
+	"wikibase-newlexeme-lemma-language": "Lemaren hizkuntza",
+	"wikibase-lemma-edit-placeholder": "Idatzi lema",
+	"wikibase-newlexeme-lexicalcategory": "Kategoria lexikoa",
+	"wikibase-newlexeme-language": "Lexemaren hizkuntza"
+}
