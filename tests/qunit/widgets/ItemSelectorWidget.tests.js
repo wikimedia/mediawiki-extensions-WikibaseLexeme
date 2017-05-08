@@ -2,10 +2,10 @@
  * @license GPL-2.0+
  */
 ( function ( wb, $, QUnit, sinon ) {
-	QUnit.module( 'wikibase.lexeme.widgets.LanguageLookupWidget' );
+	QUnit.module( 'wikibase.lexeme.widgets.ItemSelectorWidget' );
 
-	var newInitializedLanguageLookupWidget = function () {
-		var widget = new wb.lexeme.widgets.LanguageLookupWidget();
+	var newInitializedItemSelectorWidget = function () {
+		var widget = new wb.lexeme.widgets.ItemSelectorWidget();
 
 		widget.initialize( {
 			apiUrl: '-',
@@ -25,7 +25,7 @@
 	};
 
 	QUnit.test( 'getLookupRequest returns request results', function ( assert ) {
-		var widget = newInitializedLanguageLookupWidget(),
+		var widget = newInitializedItemSelectorWidget(),
 			searchEntitiesResults = [ { id: 'Q123', label: 'English' }, { id: 'Q234', label: 'German' } ];
 
 		executeWithWbsearchentitiesResponseStub(
@@ -39,7 +39,7 @@
 	} );
 
 	QUnit.test( 'getLookupMenuOptionsFromData returns suggestions from results', function ( assert ) {
-		var widget = newInitializedLanguageLookupWidget(),
+		var widget = newInitializedItemSelectorWidget(),
 			searchEntitiesResults = [ { id: 'Q123', label: 'English' }, { id: 'Q234', label: 'German' } ],
 			suggestions = widget.getLookupMenuOptionsFromData( searchEntitiesResults );
 
@@ -57,7 +57,7 @@
 	} );
 
 	QUnit.test( 'initialize throws error when required parameters are not provided', function ( assert ) {
-		var widget = new wb.lexeme.widgets.LanguageLookupWidget();
+		var widget = new wb.lexeme.widgets.ItemSelectorWidget();
 
 		assert.throws( function () {
 			widget.initialize( { apiUrl: null, language: 'en', timeout: 100 } );
@@ -70,8 +70,8 @@
 		} );
 	} );
 
-	QUnit.test( 'getLookupRequest if the LanguageLookupWidget was not initialized', function ( assert ) {
-		var widget = new wb.lexeme.widgets.LanguageLookupWidget();
+	QUnit.test( 'getLookupRequest if the ItemSelectorWidget was not initialized', function ( assert ) {
+		var widget = new wb.lexeme.widgets.ItemSelectorWidget();
 
 		executeWithWbsearchentitiesResponseStub(
 			{ search: [] },

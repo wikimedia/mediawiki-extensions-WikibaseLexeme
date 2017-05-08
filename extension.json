@@ -129,10 +129,10 @@
 				"wikibase.serialization.TermMapDeserializer"
 			]
 		},
-		"wikibase.lexeme.widgets.LanguageLookupWidget": {
+		"wikibase.lexeme.widgets.ItemSelectorWidget": {
 			"scripts": [
 				"widgets/__namespace.js",
-				"widgets/LanguageLookupWidget.js"
+				"widgets/ItemSelectorWidget.js"
 			],
 			"dependencies": [
 				"oojs-ui-core",
@@ -185,7 +185,7 @@
 				"wikibase.lexeme.services.ItemLookup",
 				"wikibase.lexeme.services.LanguageFromItemExtractor",
 				"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver",
-				"wikibase.lexeme.widgets.LanguageLookupWidget"
+				"wikibase.lexeme.widgets.ItemSelectorWidget"
 			]
 		},
 		"wikibase.lexeme.view.ControllerViewFactory": {

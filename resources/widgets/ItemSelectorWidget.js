@@ -8,15 +8,15 @@
 	 *
 	 * @license GPL-2.0+
 	 */
-	var LanguageLookupWidget = function ( config ) {
+	var ItemSelectorWidget = function ( config ) {
 		OO.ui.TextInputWidget.call( this, config );
 		OO.ui.mixin.LookupElement.call( this, config );
 	};
 
-	OO.inheritClass( LanguageLookupWidget, OO.ui.TextInputWidget );
-	OO.mixinClass( LanguageLookupWidget, OO.ui.mixin.LookupElement );
+	OO.inheritClass( ItemSelectorWidget, OO.ui.TextInputWidget );
+	OO.mixinClass( ItemSelectorWidget, OO.ui.mixin.LookupElement );
 
-	$.extend( LanguageLookupWidget.prototype, {
+	$.extend( ItemSelectorWidget.prototype, {
 
 		/**
 		 * @property {string}
@@ -34,7 +34,8 @@
 		_timeout: null,
 
 		/**
-		 * @property {LexemeLanguageFieldObserver}
+		 * TODO: make this more generic
+		 * @property {null|LexemeLanguageFieldObserver}
 		 */
 		_changeObserver: null,
 
@@ -70,7 +71,7 @@
 				deferred = $.Deferred();
 
 			if ( !this._isInitialized ) {
-				throw new Error( 'The LanguageLookupWidget has not been properly initialized.' );
+				throw new Error( 'The ItemSelectorWidget has not been properly initialized.' );
 			}
 
 			$.ajax( {
@@ -138,10 +139,12 @@
 		onLookupMenuItemChoose: function ( item ) {
 			this.setValue( item.getData() );
 
-			this._changeObserver.notify( item.getData() );
+			if ( this._changeObserver ) {
+				this._changeObserver.notify( item.getData() );
+			}
 		}
 	} );
 
-	wb.lexeme.widgets.LanguageLookupWidget = LanguageLookupWidget;
+	wb.lexeme.widgets.ItemSelectorWidget = ItemSelectorWidget;
 
 } )( jQuery, wikibase );

@@ -11,11 +11,10 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
-use Wikibase\Lexeme\Specials\HTMLForm\LanguageLookupWidgetField;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLContentLanguageField;
-use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Specials\SpecialNewEntity;
 use Wikibase\Repo\WikibaseRepo;
@@ -103,14 +102,14 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,
-				'class' => LanguageLookupWidgetField::class,
+				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexeme-language',
 				'label-message' => 'wikibase-newlexeme-language',
 				'required' => true,
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
-				'class' => HTMLItemReferenceField::class,
+				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibase-newlexeme-lexicalcategory',
 				'required' => true,
