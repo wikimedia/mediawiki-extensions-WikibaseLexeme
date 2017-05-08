@@ -2,7 +2,7 @@
  * @license GPL-2.0+
  * @author Jonas Kress
  */
-( function( $, wb, QUnit ) {
+( function ( $, wb, QUnit ) {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
@@ -39,7 +39,7 @@
 			] )
 		);
 
-	QUnit.test( 'deserialize()', 2, function( assert ) {
+	QUnit.test( 'deserialize()', 2, function ( assert ) {
 		var ds = new wb.lexeme.serialization.LexemeDeserializer();
 
 		assert.deepEqual(

@@ -46,7 +46,7 @@
 		 * @inheritdoc
 		 * @protected
 		 */
-		destroy: function() {
+		destroy: function () {
 			this._listview.destroy();
 			PARENT.prototype.destroy.call( this );
 		},
@@ -56,7 +56,7 @@
 		 *
 		 * @private
 		 */
-		_createListView: function() {
+		_createListView: function () {
 			this._listview = new $.wikibase.listview( {
 				listItemAdapter: this.options.getListItemAdapter( this._removeItem.bind( this ) ),
 				listItemNodeName: 'div'
@@ -70,7 +70,7 @@
 		 * @see jQuery.wikibase.listview.enterNewItem
 		 * @return {jQuery.Promise}
 		 */
-		enterNewItem: function() {
+		enterNewItem: function () {
 			return this._listview.enterNewItem();
 		},
 
@@ -79,7 +79,7 @@
 		 *
 		 * @param {jQuery.wikibase.lexemeformview} lexemeformview
 		 */
-		_removeItem: function( lexemeformview ) {
+		_removeItem: function ( lexemeformview ) {
 			this._listview.removeItem( lexemeformview.element );
 			this._trigger( 'afterremove' );
 		}

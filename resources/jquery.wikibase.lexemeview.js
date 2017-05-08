@@ -1,4 +1,4 @@
-( function( $ ) {
+( function ( $ ) {
 	'use strict';
 
 	var PARENT = $.wikibase.entityview;
@@ -37,7 +37,7 @@
 		 * @inheritdoc
 		 * @protected
 		 */
-		_create: function() {
+		_create: function () {
 			this._createEntityview();
 
 			this.$statements = $( '.wikibase-statementgrouplistview', this.element );
@@ -52,7 +52,7 @@
 		 * @inheritdoc
 		 * @protected
 		 */
-		_init: function() {
+		_init: function () {
 			if ( !this.options.buildStatementGroupListView || !this.options.buildLexemeFormListView ) {
 				throw new Error( 'Required option(s) missing' );
 			}
@@ -64,7 +64,7 @@
 		/**
 		 * @protected
 		 */
-		_initStatements: function() {
+		_initStatements: function () {
 			this.options.buildStatementGroupListView( this.options.value, this.$statements );
 
 			// This is here to be sure there is never a duplicate id:
@@ -78,7 +78,7 @@
 		 * @inheritdoc
 		 * @protected
 		 */
-		_attachEventHandlers: function() {
+		_attachEventHandlers: function () {
 			PARENT.prototype._attachEventHandlers.call( this );
 
 			var self = this;
@@ -88,7 +88,7 @@
 				'statementviewafterstartediting.' + this.widgetName,
 				'referenceviewafterstartediting.' + this.widgetName
 			].join( ' ' ),
-			function() {
+			function () {
 				self._trigger( 'afterstartediting' );
 			} );
 
@@ -99,7 +99,7 @@
 				'statementviewafterremove.' + this.widgetName,
 				'referenceviewafterstopediting.' + this.widgetName
 			].join( ' ' ),
-			function( event, dropValue ) {
+			function ( event, dropValue ) {
 				self._trigger( 'afterstopediting', null, [ dropValue ] );
 			} );
 		},
@@ -108,7 +108,7 @@
 		 * @inheritdoc
 		 * @protected
 		 */
-		_setState: function( state ) {
+		_setState: function ( state ) {
 			PARENT.prototype._setState.call( this, state );
 
 			this.$statements.data( 'statementgrouplistview' )[ state ]();

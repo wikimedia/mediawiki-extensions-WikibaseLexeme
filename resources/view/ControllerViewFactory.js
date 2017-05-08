@@ -103,7 +103,7 @@
 	SELF.prototype.getListItemAdapterForLexemeFormListView = function ( startEditingCallback, removeCallback ) {
 		var self = this,
 			view,
-			doRemove = function() {
+			doRemove = function () {
 				return removeCallback( view );
 			};
 
