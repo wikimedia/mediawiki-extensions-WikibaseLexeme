@@ -5,7 +5,10 @@
 	QUnit.module( 'wikibase.lexeme.widgets.ItemSelectorWidget' );
 
 	var newInitializedItemSelectorWidget = function () {
-		var widget = new wb.lexeme.widgets.ItemSelectorWidget();
+		var $hiddenField = $( '<input>' )
+			.attr( 'type', 'hidden' ),
+			config = { $valueField: $hiddenField },
+			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 
 		widget.initialize( {
 			apiUrl: '-',
@@ -57,7 +60,10 @@
 	} );
 
 	QUnit.test( 'initialize throws error when required parameters are not provided', function ( assert ) {
-		var widget = new wb.lexeme.widgets.ItemSelectorWidget();
+		var $hiddenField = $( '<input>' )
+			.attr( 'type', 'hidden' ),
+			config = { $valueField: $hiddenField },
+			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 
 		assert.throws( function () {
 			widget.initialize( { apiUrl: null, language: 'en', timeout: 100 } );
@@ -70,8 +76,17 @@
 		} );
 	} );
 
+	QUnit.test( 'constructor throws error when value field is not provided', function ( assert ) {
+		assert.throws( function () {
+			new wb.lexeme.widgets.ItemSelectorWidget( {} );
+		} );
+	} );
+
 	QUnit.test( 'getLookupRequest if the ItemSelectorWidget was not initialized', function ( assert ) {
-		var widget = new wb.lexeme.widgets.ItemSelectorWidget();
+		var $hiddenField = $( '<input>' )
+			.attr( 'type', 'hidden' ),
+			config = { $valueField: $hiddenField },
+			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 
 		executeWithWbsearchentitiesResponseStub(
 			{ search: [] },

@@ -102,6 +102,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,
+				'labelFieldName' => self::FIELD_LEXEME_LANGUAGE . '-label',
 				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexeme-language',
 				'label-message' => 'wikibase-newlexeme-language',
@@ -109,6 +110,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
+				'labelFieldName' => self::FIELD_LEXICAL_CATEGORY . '-label',
 				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibase-newlexeme-lexicalcategory',

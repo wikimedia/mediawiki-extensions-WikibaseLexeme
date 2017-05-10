@@ -4,13 +4,20 @@
 	/**
 	 * @see OO.ui.TextInputWidget
 	 *
-	 * @param {Object} [config]
+	 * @param {Object} [config] Must contain $valueField
 	 *
 	 * @license GPL-2.0+
 	 */
 	var ItemSelectorWidget = function ( config ) {
+		if ( !config.$valueField ) {
+			throw new Error( '$valueField must be specified' );
+		}
+
 		OO.ui.TextInputWidget.call( this, config );
 		OO.ui.mixin.LookupElement.call( this, config );
+
+		this.$valueField = config.$valueField;
+		this.$element.append( this.$valueField );
 	};
 
 	OO.inheritClass( ItemSelectorWidget, OO.ui.TextInputWidget );
@@ -43,6 +50,8 @@
 		 * @property {boolean}
 		 */
 		_isInitialized: false,
+
+		$valueField: null,
 
 		/**
 		 * Used to inject dependencies into the widget, since the element gets instantiated
@@ -137,13 +146,29 @@
 		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuItemChoose
 		 */
 		onLookupMenuItemChoose: function ( item ) {
-			this.setValue( item.getData() );
+			this.setValue( item.getLabel() );
+			this.$valueField.val( item.getData() );
 
 			if ( this._changeObserver ) {
 				this._changeObserver.notify( item.getData() );
 			}
+		},
+
+		/**
+		 * @see OO.ui.TextInputWidget.prototype.onChange
+		 */
+		onChange: function () {
+			if ( this.$valueField.val() !== '' ) {
+				this.$valueField.val( '' );
+			}
 		}
 	} );
+
+	ItemSelectorWidget.static.reusePreInfuseDOM = function ( node, config ) {
+		config = ItemSelectorWidget.parent.static.reusePreInfuseDOM( node, config );
+		config.$valueField = $( node ).find( '.oo-ui-wikibase-item-selector-value' );
+		return config;
+	};
 
 	wb.lexeme.widgets.ItemSelectorWidget = ItemSelectorWidget;
 
