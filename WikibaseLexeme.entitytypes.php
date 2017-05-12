@@ -78,7 +78,6 @@ return [
 		'content-handler-factory-callback' => function() {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
-				$wikibaseRepo->getStore()->newEntityPerPage(),
 				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
