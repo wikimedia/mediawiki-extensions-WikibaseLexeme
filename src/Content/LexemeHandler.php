@@ -14,6 +14,7 @@ use Wikibase\Lexeme\Actions\ViewLexemeAction;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
+use Wikibase\Repo\Store\EntityPerPage;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Store\EntityIdLookup;
@@ -36,6 +37,7 @@ class LexemeHandler extends EntityHandler {
 	private $labelLookupFactory;
 
 	/**
+	 * @param EntityPerPage $entityPerPage
 	 * @param TermIndex $termIndex
 	 * @param EntityContentDataCodec $contentCodec
 	 * @param EntityConstraintProvider $constraintProvider
@@ -47,6 +49,7 @@ class LexemeHandler extends EntityHandler {
 	 * @param callable|null $legacyExportFormatDetector
 	 */
 	public function __construct(
+		EntityPerPage $entityPerPage,
 		TermIndex $termIndex,
 		EntityContentDataCodec $contentCodec,
 		EntityConstraintProvider $constraintProvider,
@@ -59,6 +62,7 @@ class LexemeHandler extends EntityHandler {
 	) {
 		parent::__construct(
 			LexemeContent::CONTENT_MODEL_ID,
+			$entityPerPage,
 			$termIndex,
 			$contentCodec,
 			$constraintProvider,

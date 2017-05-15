@@ -19,6 +19,7 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Repo\Store\EntityPerPage;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Store\EntityIdLookup;
@@ -49,6 +50,7 @@ class LexemeHandlerTest extends PHPUnit_Framework_TestCase {
 			->will( $this->returnValue( $this->getMock( LabelDescriptionLookup::class ) ) );
 
 		return new LexemeHandler(
+			$this->getMock( EntityPerPage::class ),
 			$this->getMock( TermIndex::class ),
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
 			$this->getMockWithoutConstructor( EntityConstraintProvider::class ),
