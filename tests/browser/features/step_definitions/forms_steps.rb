@@ -46,7 +46,7 @@ When(/^I enter "(.+)" as the form representation$/) do |representation|
 end
 
 When(/^I save the new Form$/) do
-  on(LexemePage).lexeme_form_save_element.when_visible.click
+  on(LexemePage).lexeme_new_form_save_element.when_visible.click
 end
 
 Then(/^"(.+)" should be displayed as a representation in the list of Forms$/) do |representation|
@@ -54,4 +54,30 @@ Then(/^"(.+)" should be displayed as a representation in the list of Forms$/) do
     .any? { |element| element.text == representation }
 
   expect(has_lexeme_form).to be true
+end
+
+Given(/^I have a Lexeme with a Form$/) do
+  step 'I have a Lexeme to test' # TODO: implement once Forms are storable
+end
+
+When(/^I click on first Form's edit button$/) do
+  on(LexemePage).lexeme_first_form_edit_element.when_visible.click
+end
+
+When(/^I select "(.*?)" as the grammatical feature$/) do |feature|
+  on(LexemePage) do |page|
+    page.grammatical_feature_input_element.send_keys(feature)
+    page.grammatical_feature_selection_first_option_element.when_visible.click
+  end
+end
+
+When(/^I save the first Form$/) do
+  on(LexemePage).lexeme_first_form_save_element.when_visible.click
+end
+
+Then(/^I should see "(.*?)" in the list of grammatical features$/) do |feature|
+  Watir::Wait.until(timeout = 5) do
+    on(LexemePage).first_form_grammatical_features_element.text.include? feature
+  end
+
 end
