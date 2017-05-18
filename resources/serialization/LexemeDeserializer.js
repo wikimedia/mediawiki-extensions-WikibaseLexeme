@@ -29,10 +29,29 @@
 			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer(),
 				termMapDeserializer = new SERIALIZER.TermMapDeserializer();
 
-			return new wikibase.datamodel.Lexeme(
+			var forms = serialization.forms || [];
+			var deserializedForms = forms.map( function ( form ) {
+				return this.deserializeForm( form );
+			}.bind( this ) );
+
+			var lexeme = new wikibase.datamodel.Lexeme(
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.labels ),
 				statementGroupSetDeserializer.deserialize( serialization.claims )
+			);
+
+			// TODO switch to setter/constructor
+			lexeme.forms = deserializedForms;
+			return lexeme;
+		},
+
+		deserializeForm: function ( formSerialization ) {
+			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer();
+			return new wb.lexeme.datamodel.LexemeForm(
+				formSerialization.id,
+				formSerialization.representation,
+				formSerialization.gramaaticalFeatures,
+				statementGroupSetDeserializer.deserialize( formSerialization.claims )
 			);
 		}
 	} );
