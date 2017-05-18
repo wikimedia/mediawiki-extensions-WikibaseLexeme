@@ -17,12 +17,12 @@
 		/**
 		 * @inheritdoc
 		 *
-		 * @return {wikibase.datamodel.Lexeme}
+		 * @return {wikibase.lexeme.datamodel.Lexeme}
 		 *
 		 * @throws {Error} if serialization does not resolve to a serialized Lexeme.
 		 */
 		deserialize: function ( serialization ) {
-			if ( serialization.type !== wb.datamodel.Lexeme.TYPE ) {
+			if ( serialization.type !== wb.lexeme.datamodel.Lexeme.TYPE ) {
 				throw new Error( 'Serialization does not resolve to a Lexeme' );
 			}
 
@@ -34,7 +34,7 @@
 				return this.deserializeForm( form );
 			}.bind( this ) );
 
-			var lexeme = new wikibase.datamodel.Lexeme(
+			var lexeme = new wikibase.lexeme.datamodel.Lexeme(
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.labels ),
 				statementGroupSetDeserializer.deserialize( serialization.claims )

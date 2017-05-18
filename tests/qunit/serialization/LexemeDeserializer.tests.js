@@ -35,7 +35,7 @@
 				new wb.datamodel.PropertyNoValueSnak( 'P1' ), null, 'L1$1' ) )
 		] ) )
 	] );
-	var expectedDataModel = new wikibase.datamodel.Lexeme(
+	var expectedDataModel = new wikibase.lexeme.datamodel.Lexeme(
 		'L1',
 		null,
 		expectedStatementGroupSet

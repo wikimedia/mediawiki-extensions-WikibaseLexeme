@@ -4,7 +4,7 @@
 	var PARENT = wb.datamodel.Entity;
 
 	/**
-	 * @class wikibase.datamodel.Lexeme
+	 * @class wikibase.lexeme.datamodel.Lexeme
 	 * @extends wikibase.datamodel.Entity
 	 * @license GNU GPL v2+
 	 * @author Adrian Heine <adrian.heine@wikimedia.de>
@@ -18,7 +18,7 @@
 	 *
 	 * @throws {Error} if a required parameter is not specified properly.
 	 */
-	var SELF = wb.datamodel.Lexeme = util.inherit(
+	var SELF = wb.lexeme.datamodel.Lexeme = util.inherit(
 		'WbDataModelLexeme',
 		PARENT,
 		function ( lexemeId, labels, statementGroupSet ) {
