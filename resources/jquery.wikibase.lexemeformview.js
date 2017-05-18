@@ -34,7 +34,23 @@
 				function () {
 					return mw.wbTemplate( 'wikibase-lexeme-form-grammatical-features', '' );
 				},
-				'Statements\' section will be here' //TODO find way to render block of statements
+				function () {
+					var $container = $( '<div/>' ),
+						$header = $( '<h2/>' ).applyTemplate(
+						'wb-section-heading',
+						[
+							mw.message( 'wikibase-statementsection-statements' ).escaped(),
+							'',
+							'wikibase-statements'
+						]
+					);
+					$container.append( $header );
+
+					this.$statements = $( '<div/>' );
+					$container.append( this.$statements );
+
+					return $container;
+				}
 			],
 			templateShortCuts: {
 				$text: '.wikibase-lexeme-form-text',
@@ -42,7 +58,7 @@
 				$grammaticalFeatures: '.wikibase-lexeme-form-grammatical-features'
 			},
 			inputNodeName: 'TEXTAREA',
-			buildGrammaticalFeatureView: null,
+			api: null,
 
 			/**
 			 * @type {buildStatementGroupListView}
@@ -65,6 +81,7 @@
 			if ( value instanceof wikibase.lexeme.datamodel.LexemeForm ) {
 				this.option( 'value', value );
 				this._grammaticalFeatureView.value( value.getGrammaticalFeatures() );
+				this.draw();
 				return;
 			}
 
@@ -73,7 +90,7 @@
 			}
 
 			return new wikibase.lexeme.datamodel.LexemeForm(
-				Math.round( Math.random() * 100 ), // TODO: should be a unique numeric ID per form
+				null,
 				$.trim( this.$text.children( this.inputNodeName ).val() ),
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
 			);
@@ -83,9 +100,10 @@
 			PARENT.prototype._create.call( this );
 
 			this._grammaticalFeatureView = this._buildGrammaticalFeatureView();
+			var $statements = this.$statements || $( '.wikibase-statementgrouplistview', this.element );
 			this.options.buildStatementGroupListView(
 				this.value(),
-				$( '.wikibase-statementgrouplistview', this.element )
+				$statements
 			);
 		},
 
