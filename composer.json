@@ -25,7 +25,8 @@
 		"jakub-onderka/php-parallel-lint": "0.9.2",
 		"phpunit/phpunit": "~4.8",
 		"wikibase/wikibase-codesniffer": "^0.1.0",
-		"jakub-onderka/php-console-highlighter": "0.3.2"
+		"jakub-onderka/php-console-highlighter": "0.3.2",
+		"hamcrest/hamcrest-php": "^2.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -34,6 +35,11 @@
 			"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/",
 			"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/"
 		}
+	},
+	"autoload-dev": {
+		"files":[
+			"vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest.php"
+		]
 	},
 	"scripts": {
 		"fix": "phpcbf",

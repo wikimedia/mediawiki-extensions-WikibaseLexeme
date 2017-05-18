@@ -6,9 +6,11 @@ use PHPUnit_Framework_TestCase;
 use Serializers\Exceptions\SerializationException;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Serializers\StatementListSerializer;
 use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -32,8 +34,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		$statementListSerializer = $this->getMockBuilder( StatementListSerializer::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$statementListSerializer->expects( $this->any() )
-			->method( 'serialize' )
+		$statementListSerializer->method( 'serialize' )
 			->will( $this->returnCallback( function( StatementList $statementList ) {
 				return implode( '|', $statementList->getPropertyIds() );
 			} ) );
@@ -41,8 +42,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		$termListSerializer = $this->getMockBuilder( TermListSerializer::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$termListSerializer->expects( $this->any() )
-			->method( 'serialize' )
+		$termListSerializer->method( 'serialize' )
 			->will( $this->returnCallback( function( TermList $termList ) {
 				return $termList->toTextArray();
 			} ) );
@@ -136,7 +136,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => '',
-				'forms' => [ [ 'representation' => 'form' ] ],
+				'forms' => [ [ 'representation' => 'form', 'claims' => '' ] ],
 			]
 		];
 
@@ -153,6 +153,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'forms' => [ [
 					'id' => 'F5',
 					'representation' => 'form',
+					'claims' => '',
 				] ],
 			]
 		];
@@ -216,6 +217,23 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		$serializer = $this->newSerializer();
 
 		$this->assertFalse( $serializer->isSerializerFor( $object ) );
+	}
+
+	public function testSerializesStatementsOnLexemeForms() {
+		$statement = new Statement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) );
+		$forms = [ new LexemeForm(
+			null,
+			'some representation',
+			[],
+			new StatementList( [ $statement ] )
+		) ];
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q1' ), null, $forms );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( "forms",
+			hasItemInArray(
+				hasKeyValuePair( "claims", equalTo( "P2" ) ) ) ) );
 	}
 
 }

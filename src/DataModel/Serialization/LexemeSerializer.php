@@ -135,6 +135,11 @@ class LexemeSerializer implements DispatchableSerializer {
 		}
 
 		$serialization['representation'] = $form->getRepresentation();
+
+		$serialization['claims'] = $this->statementListSerializer->serialize(
+			$form->getStatements()
+		);
+
 		return $serialization;
 	}
 
