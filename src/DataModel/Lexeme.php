@@ -233,6 +233,14 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
+	 * @param LexemeForm[] $forms
+	 * @deprecated Temporary method, for demo. Just don't use.
+	 */
+	public function setForms( $forms ) {
+		$this->forms = $forms;
+	}
+
+	/**
 	 * @return bool False if a non-optional field was never initialized, true otherwise.
 	 */
 	public function isSufficientlyInitialized() {
