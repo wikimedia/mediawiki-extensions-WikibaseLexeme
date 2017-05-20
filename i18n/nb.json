@@ -12,6 +12,10 @@
 	"wikibase-lemma-edit-placeholder": "Skriv inn lemmaet",
 	"wikibase-newlexeme-lexicalcategory": "Leksikalsk kategori",
 	"wikibase-newlexeme-language": "Leksemets språk",
-	"wikibase-lexeme-view-language": "Leksem på $1",
-	"wikibase-lexeme-view-language-lexical-category": "$1 på $2"
+	"wikibase-lexeme-view-language-lexical-category": "$1 på $2",
+	"wikibase-lexeme-view-forms": "Former",
+	"wikibase-lexeme-enter-form-representation": "Skriv inn ny formrepresentasjon",
+	"wikibase-lexeme-empty-form-representation": "Ingen formrepresentasjon definert",
+	"wikibase-lexeme-view-senses": "Betydninger",
+	"wikibase-lexeme-summary-wbeditentity-update": "Endret et leksem"
 }
