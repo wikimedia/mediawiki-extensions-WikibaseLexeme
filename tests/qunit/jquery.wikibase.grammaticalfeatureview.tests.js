@@ -53,8 +53,7 @@
 	} );
 
 	QUnit.test( 'value() creates value from input if it is in edit mode', function ( assert ) {
-		var view = newGrammaticalFeatureView(),
-			textInput = 'foobar';
+		var view = newGrammaticalFeatureView();
 
 		view.startEditing();
 		view._grammaticalFeatureListWidget.allowedValues.push( 'Q1' );

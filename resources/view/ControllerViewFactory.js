@@ -74,6 +74,14 @@
 		);
 	};
 
+	var fakeModel = { // FIXME: replace with EntityChanger
+		save: function ( value ) {
+			var deferred = $.Deferred();
+			deferred.resolve( value );
+			return deferred.promise();
+		}
+	};
+
 	SELF.prototype.getLexemeFormView = function ( value, labelFormattingService, $dom, startEditingCallback, removeCallback ) {
 		var self = this;
 
@@ -97,14 +105,6 @@
 		}
 
 		return lexemeFormView;
-	};
-
-	var fakeModel = { // FIXME: replace with EntityChanger
-		save: function ( value ) {
-			var deferred = $.Deferred();
-			deferred.resolve( value );
-			return deferred.promise();
-		}
 	};
 
 	/**
@@ -133,7 +133,7 @@
 					id: entityId
 				},
 				type: 'wikibase-entityid'
-			} ),// FIXME use data value
+			} ), // FIXME use data value
 			format: 'json',
 			language: mw.config.get( 'wgUserLanguage' ),
 			uselang: mw.config.get( 'wgUserLanguage' ),

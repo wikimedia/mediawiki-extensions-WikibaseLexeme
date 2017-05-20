@@ -1,0 +1,28 @@
+{
+	"extends": "wikimedia",
+	"env": {
+		"browser": true,
+		"jquery": true
+	},
+	"globals": {
+		"mediaWiki": false,
+		"module": false,
+		"OO": false,
+		"require": false,
+		"util": false,
+		"wikibase": false
+	},
+	"rules": {
+		"dot-notation": "off",
+		"indent": "off",
+		"new-cap": "off",
+		"no-unused-vars": "off",
+		"no-underscore-dangle": "off",
+		"one-var": "off",
+		"operator-linebreak": "off",
+		"spaced-comment": "off",
+		"valid-jsdoc": "off",
+		"vars-on-top": "off",
+		"wrap-iife": "off"
+	}
+}
