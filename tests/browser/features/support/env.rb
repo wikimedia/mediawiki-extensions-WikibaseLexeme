@@ -17,4 +17,5 @@ ENV['LANGUAGE_CODE'] = lenv.lookup(:language_code, default: -> { 'en' })
 require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/modules'
 require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/step_definitions'
 require_all File.dirname(__FILE__) + '/pages'
+require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/utils'
 require File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/pages/item_page'
