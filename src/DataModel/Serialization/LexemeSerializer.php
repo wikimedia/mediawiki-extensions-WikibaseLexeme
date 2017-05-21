@@ -7,6 +7,7 @@ use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
 use UnexpectedValueException;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeForm;
 
@@ -135,6 +136,12 @@ class LexemeSerializer implements DispatchableSerializer {
 		}
 
 		$serialization['representation'] = $form->getRepresentation();
+		$serialization['grammaticalFeatures'] = array_map(
+			function ( ItemId $itemId ) {
+				return $itemId->getSerialization();
+			},
+			$form->getGrammaticalFeatures()
+		);
 
 		$serialization['claims'] = $this->statementListSerializer->serialize(
 			$form->getStatements()

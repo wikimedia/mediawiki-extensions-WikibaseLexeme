@@ -136,7 +136,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'lexicalCategory' => 'Q32',
 				'language' => 'Q11',
 				'claims' => '',
-				'forms' => [ [ 'representation' => 'form', 'claims' => '' ] ],
+				'forms' => [ [ 'representation' => 'form', 'grammaticalFeatures' => [], 'claims' => '' ] ],
 			]
 		];
 
@@ -153,6 +153,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				'forms' => [ [
 					'id' => 'F5',
 					'representation' => 'form',
+					'grammaticalFeatures' => [],
 					'claims' => '',
 				] ],
 			]
@@ -234,6 +235,23 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		assertThat( $serialization, hasKeyValuePair( "forms",
 			hasItemInArray(
 				hasKeyValuePair( "claims", equalTo( "P2" ) ) ) ) );
+	}
+
+	public function testSerializeGrammaticalFeaturesOnLexemeForms() {
+		$forms = [ new LexemeForm(
+			null,
+			'some representation',
+			[ new ItemId( 'Q1' ) ]
+		) ];
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q1' ), null, $forms );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( "forms",
+			 hasItemInArray(
+					hasKeyValuePair( "grammaticalFeatures", equalTo( [ 'Q1' ] ) )
+			 )
+		) );
 	}
 
 }
