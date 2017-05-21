@@ -68,8 +68,8 @@
 		assert.equal( view.value().getRepresentation(), textInput );
 	} );
 
-	QUnit.test( 'should be in edit mode by default when initialized without a value', function ( assert ) {
-		assert.ok( newLexemeFormView().isInEditMode() );
+	QUnit.test( 'should not be in edit mode when initialized without a value', function ( assert ) {
+		assert.notOk( newLexemeFormView().isInEditMode() );
 	} );
 
 	QUnit.test( 'should not be in edit mode by default when initialized with a value', function ( assert ) {

@@ -62,7 +62,6 @@
 				listItemNodeName: 'div',
 				value: this.options.value
 			}, this.element.find( '.wikibase-lexeme-forms' ) );
-
 		},
 
 		/**

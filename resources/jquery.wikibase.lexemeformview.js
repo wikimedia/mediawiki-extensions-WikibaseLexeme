@@ -87,10 +87,6 @@
 				this.value(),
 				$( '.wikibase-statementgrouplistview', this.element )
 			);
-
-			if ( !this.value() ) {
-				this.startEditing();
-			}
 		},
 
 		_buildGrammaticalFeatureView: function buildGrammaticalFeatureView() {

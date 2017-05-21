@@ -46,9 +46,6 @@
 		_create: function () {
 			PARENT.prototype._create.call( this );
 			this._labelFormattingService = this.options.labelFormattingService;
-			if ( !this.value() ) {
-				this.startEditing();
-			}
 		},
 		_startEditing: function () {
 			this._inEditMode = true;
