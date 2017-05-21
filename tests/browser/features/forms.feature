@@ -21,11 +21,11 @@ Feature: Forms of a Lexeme
   Scenario: Add grammatical feature
     Given I have a Lexeme with a Form
      And I am on the page of the Lexeme to test
-     And I have an item with label "Plural" and description "Plural"
+     And I have an item to test
     When I click on first Form's edit button
-     And I select "Plural" as the grammatical feature
+     And I select the test item as the grammatical feature
      And I save the first Form
-    Then I should see "Plural" in the list of grammatical features
+    Then I should see the item's label in the list of grammatical features
 
   @integration
   Scenario: Add Form
