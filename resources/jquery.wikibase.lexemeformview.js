@@ -50,7 +50,7 @@
 		 * @return {wikibase.lexeme.datamodel.LexemeForm|undefined}
 		 */
 		value: function ( value ) {
-			if ( value instanceof wb.lexeme.datamodel.LexemeForm ) {
+			if ( value instanceof wikibase.lexeme.datamodel.LexemeForm ) {
 				this.option( 'value', value );
 				this._grammaticalFeatureView.value( value.getGrammaticalFeatures() );
 				return;
@@ -60,7 +60,7 @@
 				return this.options.value;
 			}
 
-			return new wb.lexeme.datamodel.LexemeForm(
+			return new wikibase.lexeme.datamodel.LexemeForm(
 				Math.round( Math.random() * 100 ), // TODO: should be a unique numeric ID per form
 				$.trim( this.$text.children( this.inputNodeName ).val() ),
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
@@ -155,4 +155,4 @@
 			return deferred.resolve().promise();
 		}
 	} );
-}( jQuery, mw ) );
+}( jQuery, mediaWiki ) );
