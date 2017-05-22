@@ -26,9 +26,26 @@
 				repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php';
 			this._api = wb.api.getLocationAgnosticMwApi( repoApiUrl );
 
+			var fakeEntityChangersFactory = {};
+			$.extend( fakeEntityChangersFactory, entityChangersFactory );
+			fakeEntityChangersFactory.getStatementsChanger = function () {
+				var statementsChanger = entityChangersFactory.getStatementsChanger();
+				var fakeStatementsChanger = {};
+				$.extend( fakeStatementsChanger, statementsChanger );
+				fakeStatementsChanger.save = function fakeStatementsChangerSave( statement ) {
+					var guid = statement.getClaim().getGuid();
+					if ( /^L\d+-F\d+/.test( guid ) || /^F\d+/.test( guid ) ) {
+						return $.Deferred().resolve( statement ).promise();
+					} else {
+						return statementsChanger.save( statement );
+					}
+				};
+				return fakeStatementsChanger;
+			};
+
 			PARENT.apply( this, [
 				toolbarFactory,
-				entityChangersFactory,
+				fakeEntityChangersFactory,
 				structureEditorFactory,
 				contentLanguages,
 				dataTypeStore,
