@@ -177,7 +177,7 @@
 
 			if ( !this.isInEditMode() ) {
 				this.$text.text( value.getRepresentation() );
-				this.$id.text( ' (F' + value.getId() + ')' ); // TODO: whitespace and brackets (?) should be i18nable
+				this.$id.text( ' (' + value.getId() + ')' ); // TODO: whitespace and brackets (?) should be i18nable
 
 				return deferred.resolve().promise();
 			}

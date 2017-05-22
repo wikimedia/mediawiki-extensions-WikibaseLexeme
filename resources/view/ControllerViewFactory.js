@@ -56,20 +56,20 @@
 				buildEntityTermsView: this.getEntityTermsView.bind( this, startEditingCallback ),
 				buildSitelinkGroupListView: this.getSitelinkGroupListView.bind( this, startEditingCallback ),
 				buildStatementGroupListView: this.getStatementGroupListView.bind( this, startEditingCallback ),
-				buildLexemeFormListView: this.getLexemeFormListView.bind( this, lexeme.forms, startEditingCallback ),
+				buildLexemeFormListView: this.getLexemeFormListView.bind( this, lexeme, startEditingCallback ),
 				value: lexeme
 			}
 		);
 	};
 
-	SELF.prototype.getLexemeFormListView = function ( forms, startEditingCallback ) {
+	SELF.prototype.getLexemeFormListView = function ( lexeme, startEditingCallback ) {
 		return this._getView(
 			'lexemeformlistview',
 			$( '.wikibase-lexeme-forms-section' ),
 			{
-				getListItemAdapter: this.getListItemAdapterForLexemeFormListView.bind( this, startEditingCallback ),
+				getListItemAdapter: this.getListItemAdapterForLexemeFormListView.bind( this, lexeme, startEditingCallback ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
-				value: forms
+				value: lexeme.forms
 			}
 		);
 	};
@@ -85,7 +85,14 @@
 		}
 	};
 
-	SELF.prototype.getLexemeFormView = function ( form, labelFormattingService, $dom, startEditingCallback, removeCallback ) {
+	SELF.prototype.getLexemeFormView = function (
+		lexemeId,
+		form,
+		labelFormattingService,
+		$dom,
+		startEditingCallback,
+		removeCallback
+	) {
 		var self = this;
 
 		var lexemeFormView = this._getView(
@@ -104,7 +111,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( lexemeFormView.element ),
 				lexemeFormView,
-				fakeModel,
+				fakeModelCreator( lexemeId ),
 				removeCallback,
 				form,
 				startEditingCallback
@@ -117,6 +124,19 @@
 
 		return lexemeFormView;
 	};
+
+	function fakeModelCreator( lexemeId ) {
+		return { // FIXME: replace with EntityChanger
+			save: function ( form ) {
+				var deferred = $.Deferred();
+				if ( !form.getId() ) {
+					form._id = lexemeId + '-F' + Math.round( Math.random() * 100 );
+				}
+				deferred.resolve( form );
+				return deferred.promise();
+			}
+		};
+	}
 
 	/**
 	 * @class wikibase.LabelFormattingService
@@ -157,7 +177,7 @@
 		return deferred.promise();
 	};
 
-	SELF.prototype.getListItemAdapterForLexemeFormListView = function ( startEditingCallback, removeCallback ) {
+	SELF.prototype.getListItemAdapterForLexemeFormListView = function ( lexeme, startEditingCallback, removeCallback ) {
 		var self = this,
 			view,
 			doRemove = function () {
@@ -166,18 +186,17 @@
 
 		return new $.wikibase.listview.ListItemAdapter( {
 			listItemWidget: $.wikibase.lexemeformview,
-			getNewItem: function ( value, element ) {
+			getNewItem: function ( form, element ) {
 				var $element = $( element );
 
-				view = self.getLexemeFormView(
-					value || null, // FIXME: if this is undefined instead of null, things break
+				return self.getLexemeFormView(
+					lexeme.getId(),
+					form || null,
 					new FakeLabelFormattingService( self._api, self._getExistingGrammaticalFormattedFeatures( $element ) ),
 					$element,
 					startEditingCallback,
 					doRemove // FIXME: This is not doing the right thing
 				);
-
-				return view;
 			}
 		} );
 	};

@@ -18,6 +18,7 @@
 		"new-cap": "off",
 		"no-unused-vars": "off",
 		"no-underscore-dangle": "off",
+		"no-use-before-define": [ "error", "nofunc" ],
 		"one-var": "off",
 		"operator-linebreak": "off",
 		"spaced-comment": "off",
