@@ -66,7 +66,7 @@
 			forms: [ {
 				id: 'F1',
 				representation: 'some representation',
-				gramaaticalFeatures: [ 'Q1' ],
+				grammaticalFeatures: [ 'Q1' ],
 				claims: claimsSerialization
 			} ]
 		} );

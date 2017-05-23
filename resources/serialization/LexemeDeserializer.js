@@ -50,7 +50,7 @@
 			return new wb.lexeme.datamodel.LexemeForm(
 				formSerialization.id,
 				formSerialization.representation,
-				formSerialization.gramaaticalFeatures,
+				formSerialization.grammaticalFeatures,
 				statementGroupSetDeserializer.deserialize( formSerialization.claims )
 			);
 		}
