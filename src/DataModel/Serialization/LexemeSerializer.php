@@ -76,7 +76,7 @@ class LexemeSerializer implements DispatchableSerializer {
 
 		$id = $lexeme->getId();
 
-		if ( $id !== null ) {
+		if ( $id !== null ) { // TODO: Should fail if ID is not present
 			$serialization['id'] = $id->getSerialization();
 		}
 

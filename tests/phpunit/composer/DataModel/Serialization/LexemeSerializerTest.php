@@ -12,13 +12,12 @@ use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeForm;
 use Wikibase\Lexeme\DataModel\LexemeFormId;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
+use Wikibase\Lexeme\Tests\DataModel\LexemeBuilder;
 
 /**
  * @covers Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer
@@ -51,9 +50,10 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializationOrder() {
-		$lexicalCategory = new ItemId( 'Q32' );
-		$language = new ItemId( 'Q11' );
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, $lexicalCategory, $language );
+		$lexeme = LexemeBuilder::create()
+			->withId( 'L1' )
+			->build();
+
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$this->assertSame(
@@ -97,7 +97,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyLexeme_SerializationHasType() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -105,7 +105,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithLexicalCategory_SerializesLexicalCategory() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()
+			->withLexicalCategory( 'Q1' )
+			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -113,7 +115,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithLanguage_SerializesLanguage() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()
+			->withLanguage( 'Q2' )
+			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -121,7 +125,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithId_SerializesId() {
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()
+			->withId( 'L1' )
+			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -129,10 +135,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithStatements_SerializesStatements() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
-		$lexeme->getStatements()->addNewStatement(
-			new PropertyNoValueSnak( new PropertyId( 'P1' ) )
-		);
+		$lexeme = LexemeBuilder::create()
+			->withStatement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) )
+			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -140,8 +145,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithLemmas_SerializesLemmas() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
-		$lexeme->setLemmas( new TermList( [ new Term( 'ja', 'Tokyo' ) ] ) );
+		$lexeme = LexemeBuilder::create()
+			->withLemma( 'ja', 'Tokyo' )
+			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -149,7 +155,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithoutForms_LexemeSerializationEmptyArrayAsForms() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -157,7 +163,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeHasFormWithId_LexemeSerializationHasFormWithThatId() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()->build();
 		$lexeme->setForms( [ new LexemeForm( new LexemeFormId( 'F1' ), '', [] ) ] );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -169,7 +175,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme = LexemeBuilder::create()->build();
 		$lexeme->setForms( [ new LexemeForm( null, 'some representation', [] ) ] );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -193,7 +199,8 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			[],
 			new StatementList( [ $statement ] )
 		) ];
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q1' ), null, $forms );
+		$lexeme = LexemeBuilder::create()->build();
+		$lexeme->setForms( $forms );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -208,7 +215,8 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			'some representation',
 			[ new ItemId( 'Q1' ) ]
 		) ];
-		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q1' ), null, $forms );
+		$lexeme = LexemeBuilder::create()->build();
+		$lexeme->setForms( $forms );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
