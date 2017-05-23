@@ -59,7 +59,8 @@
 		_createListView: function () {
 			this._listview = new $.wikibase.listview( {
 				listItemAdapter: this.options.getListItemAdapter( this._removeItem.bind( this ) ),
-				listItemNodeName: 'div'
+				listItemNodeName: 'div',
+				value: this.options.value
 			}, this.element.find( '.wikibase-lexeme-forms' ) );
 
 		},

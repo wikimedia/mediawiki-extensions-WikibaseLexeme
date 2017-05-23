@@ -4,6 +4,13 @@
 	var PARENT = $.ui.EditableTemplatedWidget;
 
 	/**
+	 * Initializes StatementGroupListView on given DOM element
+	 * @callback buildStatementGroupListView
+	 * @param {wikibase.datamodel.LexemeForm}
+	 * @param {jQuery} JQuery DOM element
+	 */
+
+	/**
 	 * @class jQuery.wikibase.lexemeformview
 	 * @extends jQuery.ui.EditableTemplatedWidget
 	 * @license GPL-2.0+
@@ -35,7 +42,12 @@
 				$grammaticalFeatures: '.wikibase-lexeme-form-grammatical-features'
 			},
 			inputNodeName: 'TEXTAREA',
-			buildGrammaticalFeatureView: null
+			buildGrammaticalFeatureView: null,
+
+			/**
+			 * @type {buildStatementGroupListView}
+			 */
+			buildStatementGroupListView: null
 		},
 		_inEditMode: false,
 
@@ -69,12 +81,18 @@
 
 		_create: function () {
 			PARENT.prototype._create.call( this );
+
 			this._grammaticalFeatureView = this._buildGrammaticalFeatureView();
+			this.options.buildStatementGroupListView(
+				this.value(),
+				$( '.wikibase-statementgrouplistview', this.element )
+			);
 
 			if ( !this.value() ) {
 				this.startEditing();
 			}
 		},
+
 		_buildGrammaticalFeatureView: function buildGrammaticalFeatureView() {
 			var self = this;
 

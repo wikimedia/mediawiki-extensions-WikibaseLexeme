@@ -41,7 +41,7 @@
 		_create: function () {
 			this._createEntityview();
 
-			this.$statements = $( '.wikibase-statementgrouplistview', this.element );
+			this.$statements = $( '.wikibase-entityview-main > .wikibase-statementgrouplistview', this.element );
 			if ( this.$statements.length === 0 ) {
 				this.$statements = $( '<div/>' ).appendTo( this.$main );
 			}

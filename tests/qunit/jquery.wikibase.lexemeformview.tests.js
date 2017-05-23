@@ -25,6 +25,7 @@
 				return $.Deferred().resolve( id ).promise();
 			}
 		};
+		options.buildStatementGroupListView = function () {};
 
 		return $node.lexemeformview( options || {} ).data( 'lexemeformview' );
 	};
