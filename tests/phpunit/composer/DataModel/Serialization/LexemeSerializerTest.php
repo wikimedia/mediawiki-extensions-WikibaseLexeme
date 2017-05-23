@@ -50,127 +50,6 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		return new LexemeSerializer( $termListSerializer, $statementListSerializer );
 	}
 
-	public function provideObjectSerializations() {
-		$serializations = [];
-
-		$lexicalCategory = new ItemId( 'Q32' );
-		$language = new ItemId( 'Q11' );
-		$lexeme = new Lexeme( null, null, $lexicalCategory, $language );
-
-		$serializations['empty'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => '',
-				'forms' => [],
-			]
-		];
-
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, $lexicalCategory, $language );
-
-		$serializations['with id'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'id' => 'L1',
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => '',
-				'forms' => [],
-			]
-		];
-
-		$lexeme = new Lexeme( null, null, $lexicalCategory, $language );
-		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
-
-		$serializations['with content'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => 'P42',
-				'forms' => [],
-			]
-		];
-
-		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, $lexicalCategory, $language );
-		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
-
-		$serializations['with content and id'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'id' => 'L2',
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => 'P42',
-				'forms' => [],
-			]
-		];
-
-		$lexeme = new Lexeme( new LexemeId( 'l2' ), null, $lexicalCategory, $language );
-		$lexeme->setLemmas( new TermList( [ new Term( 'ja', 'Tokyo' ) ] ) );
-
-		$serializations['with lemmas and id'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'id' => 'L2',
-				'lemmas' => [ 'ja' => 'Tokyo' ],
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => '',
-				'forms' => [],
-			]
-		];
-
-		$forms = [ new LexemeForm( null, 'form', [] ) ];
-		$lexeme = new Lexeme( null, null, $lexicalCategory, $language, null, $forms );
-		$serializations['with minimal forms'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => '',
-				'forms' => [ [ 'representation' => 'form', 'grammaticalFeatures' => [], 'claims' => '' ] ],
-			]
-		];
-
-		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form', [] ) ];
-		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, $lexicalCategory, $language, null, $forms );
-		$serializations['with forms and all IDs set'] = [
-			$lexeme,
-			[
-				'type' => 'lexeme',
-				'id' => 'L5',
-				'lexicalCategory' => 'Q32',
-				'language' => 'Q11',
-				'claims' => '',
-				'forms' => [ [
-					'id' => 'F5',
-					'representation' => 'form',
-					'grammaticalFeatures' => [],
-					'claims' => '',
-				] ],
-			]
-		];
-
-		return $serializations;
-	}
-
-	/**
-	 * @dataProvider provideObjectSerializations
-	 */
-	public function testSerialize( Lexeme $lexeme, array $serialization ) {
-		$serializer = $this->newSerializer();
-
-		$this->assertSame( $serialization, $serializer->serialize( $lexeme ) );
-	}
-
 	public function testSerializationOrder() {
 		$lexicalCategory = new ItemId( 'Q32' );
 		$language = new ItemId( 'Q11' );
@@ -183,13 +62,10 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	/**
-	 * @dataProvider provideObjectSerializations
-	 */
-	public function testIsSerializerFor( Lexeme $lexeme ) {
+	public function testIsSerializerFor() {
 		$serializer = $this->newSerializer();
 
-		$this->assertTrue( $serializer->isSerializerFor( $lexeme ) );
+		$this->assertTrue( $serializer->isSerializerFor( new Lexeme() ) );
 	}
 
 	public function provideInvalidObjects() {
@@ -218,6 +94,95 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		$serializer = $this->newSerializer();
 
 		$this->assertFalse( $serializer->isSerializerFor( $object ) );
+	}
+
+	public function testEmptyLexeme_SerializationHasType() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'type', 'lexeme' ) );
+	}
+
+	public function testLexemeWithLexicalCategory_SerializesLexicalCategory() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'lexicalCategory', 'Q1' ) );
+	}
+
+	public function testLexemeWithLanguage_SerializesLanguage() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'language', 'Q2' ) );
+	}
+
+	public function testLexemeWithId_SerializesId() {
+		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'id', 'L1' ) );
+	}
+
+	public function testLexemeWithStatements_SerializesStatements() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme->getStatements()->addNewStatement(
+			new PropertyNoValueSnak( new PropertyId( 'P1' ) )
+		);
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'claims', 'P1' ) );
+	}
+
+	public function testLexemeWithLemmas_SerializesLemmas() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme->setLemmas( new TermList( [ new Term( 'ja', 'Tokyo' ) ] ) );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'lemmas', hasKeyValuePair( 'ja', 'Tokyo' ) ) );
+	}
+
+	public function testLexemeWithoutForms_LexemeSerializationEmptyArrayAsForms() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'forms', emptyArray() ) );
+	}
+
+	public function testLexemeHasFormWithId_LexemeSerializationHasFormWithThatId() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme->setForms( [ new LexemeForm( new LexemeFormId( 'F1' ), '', [] ) ] );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat(
+			$serialization,
+			hasKeyValuePair( 'forms', hasItemInArray( hasKeyValuePair( 'id', 'F1' ) ) )
+		);
+	}
+
+	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
+		$lexeme = new Lexeme( null, null, new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
+		$lexeme->setForms( [ new LexemeForm( null, 'some representation', [] ) ] );
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat(
+			$serialization,
+			hasKeyValuePair(
+				'forms',
+				hasItemInArray(
+					hasKeyValuePair( 'representation', 'some representation' )
+				)
+			)
+		);
 	}
 
 	public function testSerializesStatementsOnLexemeForms() {

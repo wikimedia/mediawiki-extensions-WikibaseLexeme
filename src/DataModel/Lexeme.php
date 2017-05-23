@@ -236,7 +236,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param LexemeForm[] $forms
 	 * @deprecated Temporary method, for demo. Just don't use.
 	 */
-	public function setForms( $forms ) {
+	public function setForms( array $forms ) {
 		$this->forms = $forms;
 	}
 
