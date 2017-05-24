@@ -1,8 +1,14 @@
 class LexemeForm
   include PageObject
 
+  span(:representation, class: 'wikibase-lexeme-form-text')
   div(:grammatical_features, class: 'wikibase-lexeme-form-grammatical-features')
   div(:statements, class: 'wikibase-statementgrouplistview')
+  textarea(:representation_input, css: '.wikibase-lexeme-form-text > textarea')
+  text_field(:grammatical_features_input, css: '.wikibase-lexeme-form-grammatical-features-values input')
+  a(:save, css: '.wikibase-toolbar-button-save > a')
+  a(:edit, css: '.wikibase-toolbar-button-edit > a')
+  a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
 end
 
 
@@ -21,14 +27,6 @@ class LexemePage
 
   # Lexeme Form
   a(:add_lexeme_form, css: '.wikibase-lexeme-forms-section > .wikibase-addtoolbar-container a')
-  textarea(:lexeme_form_input_field, css: '.wikibase-lexemeformview:last-of-type .wikibase-lexeme-form-text > textarea')
-  spans(:lexeme_form_representation_text, css: '.wikibase-lexeme-form-representation .wikibase-lexeme-form-text')
-  a(:lexeme_new_form_save, css: '.wikibase-lexemeformview:last-of-type .wikibase-toolbar-button-save > a')
-  a(:lexeme_first_form_save, css: '.wikibase-lexeme-form:first-of-type .wikibase-toolbar-button-save > a')
-  a(:lexeme_first_form_edit, css: '.wikibase-lexeme-form:first-of-type .wikibase-toolbar-button-edit > a')
-  text_field(:grammatical_feature_input, css: '.wikibase-lexeme-form-grammatical-features-values input')
-  a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
-  div(:first_form_grammatical_features, css: '.wikibase-lexeme-form:first-of-type .wikibase-lexeme-form-grammatical-features-values')
 
   def create_lexeme(lexeme_data)
     wb_api = MediawikiApi::Wikidata::WikidataClient.new URL.repo_api

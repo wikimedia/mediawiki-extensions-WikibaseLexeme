@@ -24,16 +24,16 @@ Feature: Forms of a Lexeme
      And I have an item to test
     When I click on first Form's edit button
      And I select the test item as the grammatical feature
-     And I save the first Form
-    Then I should see the item's label in the list of grammatical features
+     And I save the Form
+    Then I should see the item's label in the list of grammatical features of the Form
 
   @integration
   Scenario: Add Form
     When I am on a Lexeme page
      And I click the Forms list add button
      And I enter "whatever" as the form representation
-     And I save the new Form
-    Then "whatever" should be displayed as a representation in the list of Forms
+     And I save the Form
+    Then "whatever" should be displayed as a representation of the Form
 
   @integration
   Scenario: I can see each Form's statements

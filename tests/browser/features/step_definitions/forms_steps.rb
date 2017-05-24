@@ -36,24 +36,20 @@ end
 
 When(/^I click the Forms list add button$/) do
   on(LexemePage).add_lexeme_form_element.when_visible.click
+  @form_I_am_currently_editing = on(LexemePage).forms[-1]
 end
 
 When(/^I enter "(.+)" as the form representation$/) do |representation|
-  on(LexemePage) do |page|
-    page.lexeme_form_input_field_element.when_visible.clear
-    page.lexeme_form_input_field = representation
-  end
+  @form_I_am_currently_editing.representation_input_element.when_visible.clear
+  @form_I_am_currently_editing.representation_input = representation
 end
 
-When(/^I save the new Form$/) do
-  on(LexemePage).lexeme_new_form_save_element.when_visible.click
+When(/^I save the Form$/) do
+  @form_I_am_currently_editing.save_element.when_visible.click
 end
 
-Then(/^"(.+)" should be displayed as a representation in the list of Forms$/) do |representation|
-  has_lexeme_form = on(LexemePage).lexeme_form_representation_text_elements
-    .any? { |element| element.text == representation }
-
-  expect(has_lexeme_form).to be true
+Then(/^"(.+)" should be displayed as a representation of the Form$/) do |representation|
+  @form_I_am_currently_editing.representation_element.text.should == representation
 end
 
 Given(/^I have a Lexeme with a Form$/) do
@@ -61,22 +57,17 @@ Given(/^I have a Lexeme with a Form$/) do
 end
 
 When(/^I click on first Form's edit button$/) do
-  on(LexemePage).lexeme_first_form_edit_element.when_visible.click
+  @form_I_am_currently_editing = on(LexemePage).forms[0]
+  @form_I_am_currently_editing.edit_element.when_visible.click
 end
 
 When(/^I select the test item as the grammatical feature$/) do
-  on(LexemePage) do |page|
-    page.grammatical_feature_input_element.send_keys(@item_under_test['label'])
-    page.grammatical_feature_selection_first_option_element.when_visible.click
-  end
+  @form_I_am_currently_editing.grammatical_features_input_element.send_keys(@item_under_test['label'])
+  @form_I_am_currently_editing.grammatical_feature_selection_first_option_element.when_visible.click
 end
 
-When(/^I save the first Form$/) do
-  on(LexemePage).lexeme_first_form_save_element.when_visible.click
-end
-
-Then(/^I should see the item's label in the list of grammatical features$/) do
+Then(/^I should see the item's label in the list of grammatical features of the Form$/) do
   Watir::Wait.until(timeout = 5) do
-    on(LexemePage).first_form_grammatical_features_element.text.include? @item_under_test['label']
+    @form_I_am_currently_editing.grammatical_features_element.text.include? @item_under_test['label']
   end
 end
