@@ -6,20 +6,18 @@
 
 	QUnit.module( 'wikibase.lexeme.datamodel.LexemeForm' );
 
-	var newForm = function ( id, representation ) {
-		return new wb.lexeme.datamodel.LexemeForm( id, representation );
-	};
+	var Form = wb.lexeme.datamodel.LexemeForm;
 
 	QUnit.test( 'getId()', function ( assert ) {
 		var expectedId = 'L123',
-			form = newForm( expectedId, 'foo' );
+			form = new Form( expectedId, 'foo' );
 
 		assert.equal( form.getId(), expectedId );
 	} );
 
 	QUnit.test( 'getRepresentation()', function ( assert ) {
 		var expectedRepresentation = 'foo',
-			form = newForm( 'L123', expectedRepresentation );
+			form = new Form( 'L123', expectedRepresentation );
 
 		assert.equal( form.getRepresentation(), expectedRepresentation );
 	} );
@@ -27,27 +25,46 @@
 	QUnit.test( 'equals()', function ( assert ) {
 		var id = 'L123',
 			representation = 'foo',
-			form = newForm( id, representation ),
-			comparison = newForm( id, representation );
+			form = new Form( id, representation ),
+			comparison = new Form( id, representation );
 
 		assert.equal( form.equals( comparison ), true );
+	} );
+
+	QUnit.test( 'equals() also checks grammatical features', function ( assert ) {
+		var id = 'L123',
+			representation = 'foo',
+			form = new Form( id, representation, [ 'Q1' ] );
+
+		assert.ok(
+			form.equals( new Form( id, representation, [ 'Q1' ] ) ),
+			'same grammatical features'
+		);
+		assert.notOk(
+			form.equals( new Form( id, representation, [] ) ),
+			'one form has grammatical features, another doesn`t'
+		);
+		assert.notOk(
+			form.equals( new Form( id, representation, [ 'Q2' ] ) ),
+			'different grammatical features'
+		);
 	} );
 
 	QUnit.test( 'not equals()', function ( assert ) {
 		var id = 'L123',
 			representation = 'foo',
-			form = newForm( id, representation ),
+			form = new Form( id, representation ),
 			equalsDataProvider = [
 				{
-					comparison: newForm( id, 'bar' ),
+					comparison: new Form( id, 'bar' ),
 					message: 'same id, different representation'
 				},
 				{
-					comparison: newForm( 'L234', representation ),
+					comparison: new Form( 'L234', representation ),
 					message: 'different id, same representation'
 				},
 				{
-					comparison: newForm( 'L234', 'bar' ),
+					comparison: new Form( 'L234', 'bar' ),
 					message: 'different id, different representation'
 				},
 				{

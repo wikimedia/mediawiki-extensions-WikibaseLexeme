@@ -2,13 +2,20 @@ class LexemeForm
   include PageObject
 
   span(:representation, class: 'wikibase-lexeme-form-text')
-  div(:grammatical_features, class: 'wikibase-lexeme-form-grammatical-features')
+  div(:grammatical_feature_list, class: 'wikibase-lexeme-form-grammatical-features')
+  as(:grammatical_features, css: '.wikibase-lexeme-form-grammatical-features-values > span > a')
   div(:statements, class: 'wikibase-statementgrouplistview')
   textarea(:representation_input, css: '.wikibase-lexeme-form-text > textarea')
   text_field(:grammatical_features_input, css: '.wikibase-lexeme-form-grammatical-features-values input')
   a(:save, css: '.wikibase-toolbar-button-save > a')
   a(:edit, css: '.wikibase-toolbar-button-edit > a')
   a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
+
+  def grammatical_feature?(label)
+    self.grammatical_features_element.select do |gf_element|
+      gf_element.text == label
+    end.count > 0
+  end
 end
 
 

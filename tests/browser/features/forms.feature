@@ -28,6 +28,15 @@ Feature: Forms of a Lexeme
     Then I should see the item's label in the list of grammatical features of the Form
 
   @integration
+  Scenario: Change representation
+    Given I have a Lexeme with a Form
+     And I am on the page of the Lexeme to test
+    When I click on first Form's edit button
+     And I enter "new-representation" as the form representation
+     And I save the Form
+    Then "new-representation" should be displayed as a representation of the Form
+
+  @integration
   Scenario: Add Form
     When I am on a Lexeme page
      And I click the Forms list add button

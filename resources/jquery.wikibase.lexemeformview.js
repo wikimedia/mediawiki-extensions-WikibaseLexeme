@@ -104,7 +104,7 @@
 			}
 
 			return new wikibase.lexeme.datamodel.LexemeForm(
-				null,
+				this.options.value ? this.options.value.getId() : null,
 				$.trim( this.$text.children( this.inputNodeName ).val() ),
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
 			);
@@ -129,6 +129,12 @@
 				value: value,
 				labelFormattingService: labelFormattingService,
 				api: self.options.api
+			} );
+
+			//FIXME add representation change propagation
+
+			this.$grammaticalFeatures.on( 'grammaticalfeatureviewchange', function () {
+				self._trigger( 'change' );
 			} );
 
 			return this.$grammaticalFeatures.data( 'grammaticalfeatureview' );
@@ -183,7 +189,8 @@
 			}
 
 			var $input = $( document.createElement( this.options.inputNodeName ) )
-				.attr( 'placeholder', mw.msg( 'wikibase-lexeme-enter-form-representation' ) );
+				.attr( 'placeholder', mw.msg( 'wikibase-lexeme-enter-form-representation' ) )
+				.on( 'change', function () { this._trigger( 'change' ); }.bind( this ) );
 
 			if ( value ) {
 				$input.val( value.getRepresentation() );
