@@ -77,7 +77,8 @@
 			],
 			"messages": [
 				"wikibase-lexeme-empty-form-representation",
-				"wikibase-lexeme-enter-form-representation"
+				"wikibase-lexeme-enter-form-representation",
+				"wikibase-statementsection-statements"
 			]
 		},
 		"jquery.wikibase.grammaticalfeatureview": {

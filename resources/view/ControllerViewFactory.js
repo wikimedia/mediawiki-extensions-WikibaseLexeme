@@ -75,9 +75,12 @@
 	};
 
 	var fakeModel = { // FIXME: replace with EntityChanger
-		save: function ( value ) {
+		save: function ( form ) {
 			var deferred = $.Deferred();
-			deferred.resolve( value );
+			if ( !form.getId() ) {
+				form._id = Math.round( Math.random() * 100 );
+			}
+			deferred.resolve( form );
 			return deferred.promise();
 		}
 	};
