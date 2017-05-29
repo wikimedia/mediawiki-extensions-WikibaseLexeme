@@ -35,19 +35,27 @@
 					return mw.wbTemplate( 'wikibase-lexeme-form-grammatical-features', '' );
 				},
 				function () {
-					var $container = $( '<div/>' ),
-						$header = $( '<h2/>' ).applyTemplate(
-						'wb-section-heading',
-						[
-							mw.message( 'wikibase-statementsection-statements' ).escaped(),
-							'',
-							'wikibase-statements'
-						]
-					);
-					$container.append( $header );
+					var $container = $( '<div/>' );
+					this.deferredFormWithId = $.Deferred();
 
-					this.$statements = $( '<div/>' );
-					$container.append( this.$statements );
+					this.deferredFormWithId.promise().then( function ( form ) {
+						var $header = $( '<h2/>' ).applyTemplate(
+							'wb-section-heading',
+							[
+								mw.message( 'wikibase-statementsection-statements' ).escaped(),
+								'',
+								'wikibase-statements'
+							]
+						);
+						$container.append( $header );
+
+						var $statements = $( '<div/>' );
+						this.options.buildStatementGroupListView(
+							form,
+							$statements
+						);
+						$container.append( $statements );
+					}.bind( this ) );
 
 					return $container;
 				}
@@ -74,13 +82,19 @@
 		 * Otherwise it returns its value if it is not in edit mode and returns a new LexemeForm from its
 		 * input value otherwise.
 		 *
-		 * @param {wikibase.lexeme.datamodel.LexemeForm} value
+		 * @param {wikibase.lexeme.datamodel.LexemeForm} form
 		 * @return {wikibase.lexeme.datamodel.LexemeForm|undefined}
 		 */
-		value: function ( value ) {
-			if ( value instanceof wikibase.lexeme.datamodel.LexemeForm ) {
-				this.option( 'value', value );
-				this._grammaticalFeatureView.value( value.getGrammaticalFeatures() );
+		value: function ( form ) {
+			if ( form instanceof wikibase.lexeme.datamodel.LexemeForm ) {
+				this.option( 'value', form );
+				this._grammaticalFeatureView.value( form.getGrammaticalFeatures() );
+				if ( this.deferredFormWithId ) {
+					if ( form.getId() ) {
+						this.deferredFormWithId.resolve( form );
+						this.deferredFormWithId = null;
+					}
+				}
 				this.draw();
 				return;
 			}
@@ -100,10 +114,9 @@
 			PARENT.prototype._create.call( this );
 
 			this._grammaticalFeatureView = this._buildGrammaticalFeatureView();
-			var $statements = this.$statements || $( '.wikibase-statementgrouplistview', this.element );
 			this.options.buildStatementGroupListView(
 				this.value(),
-				$statements
+				$( '.wikibase-statementgrouplistview', this.element )
 			);
 		},
 
