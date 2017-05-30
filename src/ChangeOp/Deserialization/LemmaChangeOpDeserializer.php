@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
-use Wikibase\ChangeOp\ChangeOp;
-use Wikibase\ChangeOp\ChangeOps;
+use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
