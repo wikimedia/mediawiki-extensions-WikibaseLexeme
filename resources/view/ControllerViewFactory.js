@@ -129,7 +129,7 @@
 				this._toolbarFactory.getToolbarContainer( lexemeFormView.element ),
 				lexemeFormView,
 				fakeModelCreator( lexemeId ),
-				removeCallback,
+				removeCallback.bind( null, lexemeFormView ),
 				form,
 				startEditingCallback
 			);
@@ -195,11 +195,7 @@
 	};
 
 	SELF.prototype.getListItemAdapterForLexemeFormListView = function ( lexeme, startEditingCallback, removeCallback ) {
-		var self = this,
-			view,
-			doRemove = function () {
-				return removeCallback( view );
-			};
+		var self = this;
 
 		return new $.wikibase.listview.ListItemAdapter( {
 			listItemWidget: $.wikibase.lexemeformview,
@@ -212,7 +208,7 @@
 					new FakeLabelFormattingService( self._api, self._getExistingGrammaticalFormattedFeatures( $element ) ),
 					$element,
 					startEditingCallback,
-					doRemove // FIXME: This is not doing the right thing
+					removeCallback
 				);
 			}
 		} );

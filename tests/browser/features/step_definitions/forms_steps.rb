@@ -73,3 +73,11 @@ Then(/^I should see the item's label in the list of grammatical features of the 
 
   expect(@form_I_am_currently_editing.grammatical_feature?(@item_under_test['label'])).to be true
 end
+
+When(/^I cancel the editing of the Form$/) do
+  @form_I_am_currently_editing.cancel_element.when_visible.click
+end
+
+Then(/^I don't see the Form$/) do
+  expect(@form_I_am_currently_editing.present?).to be false
+end
