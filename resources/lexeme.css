@@ -1,171 +1,192 @@
 .wb-lexeme.wikibase-entityview {
-    float: none;
+	float: none;
 }
 
 .wb-lexeme .wikibase-entitytermsforlanguagelistview-aliases,
 .wb-lexeme .wikibase-entitytermsforlanguageview-aliases,
 .wb-lexeme .wikibase-entitytermsview-aliases .wikibase-entitytermsforlanguagelistview-description {
-    display: none;
+	display: none;
 }
 
 .wb-lexeme .wikibase-entitytermsforlanguagelistview .wikibase-entitytermsforlanguagelistview-header .wikibase-entitytermsforlanguagelistview-header-row {
-    border-right: 0;
-    width: 60%;
+	border-right: 0;
+	width: 60%;
 }
 
 .wikibase-lexeme-forms .wikibase-lexeme-form {
-    position: relative;
-    clear: left;
+	position: relative;
+	clear: left;
 }
 
 .wikibase-lexeme-forms .wikibase-lexeme-form-representation {
-    clear: left;
-    margin-left: 10px; /* same as .wb-section-heading */
-    position: relative;
-    border-bottom: 1px solid #a2a9b1;
-    font-weight: normal;
+	clear: left;
+	margin-left: 10px; /* same as .wb-section-heading */
+	position: relative;
+	border-bottom: 1px solid #a2a9b1;
+	font-weight: normal;
 }
 
 .wikibase-lexeme-form-representation .wikibase-toolbar-container {
-    font-size: 0.833em; /* reset from h3 size to 100% for toolbar alignment */
+	font-size: 0.833em; /* reset from h3 size to 100% for toolbar alignment */
 }
 
 .wikibase-lexeme-forms .wikibase-lexeme-form-representation textarea {
-    display: inline-block;
-    font-size: 0.9em;
-    height: 1.5em;
-    vertical-align: middle;
+	display: inline-block;
+	font-size: 0.9em;
+	height: 1.5em;
+	vertical-align: middle;
 }
 
 .wikibase-lexeme-form-representation .wikibase-lexeme-form-id {
-    color: #72777d;
+	color: #72777d;
 }
 
 .wikibase-lexeme-forms-section > .wikibase-toolbar-container {
-    position: static;
-    float: left;
+	position: static;
+	float: left;
 }
 
 .wikibase-lexeme-form-grammatical-features {
-    display: flex;
+	display: flex;
 }
 
 .wikibase-lexeme-form-grammatical-features-values {
-    margin: 0 10px;
-    flex-grow: 1;
+	margin: 0 10px;
+	flex-grow: 1;
 }
 
 .wikibase-lexeme-form .wikibase-statementgrouplistview::after,
 .wikibase-lexeme-form .wikibase-listview::after,
 .wikibase-lexeme-form .wikibase-addtoolbar::after {
-    /* This is clearfix */
-    /* TODO: Should be done in Wikibase for all elements */
-    content: "";
-    display: table;
-    clear: both;
+	/* This is clearfix */
+	/* TODO: Should be done in Wikibase for all elements */
+	content: "";
+	display: table;
+	clear: both;
 }
 
 .lemma-widget {
-    display: flex;
+	display: flex;
 }
 
 .lemma-widget_lemma-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    flex-grow: 1;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	flex-grow: 1;
 }
 
 .lemma-widget_lemma {
-    display: flex;
-    flex-direction: column;
-    border-left: 6px solid #ededed;
-    padding: 0 9px;
-    margin-bottom: 22px;
+	display: flex;
+	flex-direction: column;
+	border-left: 6px solid #ededed;
+	padding: 0 9px;
+	margin-bottom: 22px;
 }
 
 .lemma-widget_lemma-value {
-    font-size: 3em;
-    font-weight: bold;
+	font-size: 3em;
+	font-weight: bold;
 }
 
 .lemma-widget_lemma-language {
-    font-size: 1.5em;
+	font-size: 1.5em;
 }
+
 .lemma-widget_edit-area {
-    display: flex;
-    border: 3px solid #99ccff;
+	display: flex;
+	border: 3px solid #99ccff;
 }
 
 .lemma-widget_controls {
-    width: 100px;
-    padding: 20px 40px;
-    background: #dae8fc;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+	width: 100px;
+	padding: 20px 40px;
+	background: #dae8fc;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
 }
 
 .lemma-widget_control {
-    background: transparent;
-    border: none;
-    font-size: 1.5em;
-    margin: 10px;
-    cursor: pointer;
-    color: #0d4c99;
+	background: transparent;
+	border: none;
+	font-size: 1.5em;
+	margin: 10px;
+	cursor: pointer;
+	color: #0d4c99;
 }
 
 .lemma-widget_lemma-edit-box {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    border-left: 6px solid #dae8fc;
-    padding: 0 45px 0 9px;
-    margin-bottom: 22px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-left: 6px solid #dae8fc;
+	padding: 0 45px 0 9px;
+	margin-bottom: 22px;
 
-    height: 132px;
+	height: 132px;
 }
 
 .lemma-widget_lemma-value-input {
-    resize: horizontal;
-    min-width: 120px;
-    padding-right: 20px;
+	resize: horizontal;
+	min-width: 120px;
+	padding-right: 20px;
 
-    font-size: 3em;
+	font-size: 3em;
 }
+
 .lemma-widget_lemma-value-input:active {
-    width: auto;
+	width: auto;
 }
+
 .lemma-widget_lemma-language-input {
-    resize: horizontal;
-    min-width: 120px;
-    font-size: 1.5em;
-    padding-right: 20px;
+	resize: horizontal;
+	min-width: 120px;
+	font-size: 1.5em;
+	padding-right: 20px;
 }
+
 .lemma-widget_lemma-language-input:active {
-    width: auto;
+	width: auto;
 }
 
 .lemma-widget_lemma-remove {
-    border: none;
-    background: transparent;
-    color: #074c99;
-    font-size: 2em;
-    cursor: pointer;
+	border: none;
+	background: transparent;
+	color: #074c99;
+	font-size: 2em;
+	cursor: pointer;
 
-    position: absolute;
-    top: -11px;
-    right: 23px;
+	position: absolute;
+	top: -11px;
+	right: 23px;
 }
 
 .lemma-widget_add {
-    height: 132px;
-    border: none;
-    font-size: 3em;
-    text-align: center;
-    background: #dae8fc;
-    cursor: pointer;
+	height: 132px;
+	border: none;
+	font-size: 3em;
+	text-align: center;
+	background: #dae8fc;
+	cursor: pointer;
+}
+
+.wikibase-lexeme-senses .wikibase-lexeme-sense {
+	position: relative;
+	clear: left;
+}
+
+.wikibase-lexeme-senses .wikibase-lexeme-sense-gloss {
+	clear: left;
+	margin-left: 10px; /* same as .wb-section-heading */
+	position: relative;
+	border-bottom: 1px solid #a2a9b1;
+	font-weight: normal;
+}
+
+.wikibase-lexeme-sense-gloss .wikibase-lexeme-sense-id {
+	color: #72777d;
 }

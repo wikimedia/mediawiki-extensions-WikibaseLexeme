@@ -50,6 +50,14 @@ class LexemeForm
 end
 
 
+class Sense
+  include PageObject
+
+  h3(:sense_gloss, class: 'wikibase-lexeme-sense-gloss')
+  span(:sense_id, class: 'wikibase-lexeme-sense-id')
+end
+
+
 class LexemePage
   include PageObject
   include EntityPage
@@ -62,6 +70,7 @@ class LexemePage
   div(:senses_container, class: 'wikibase-lexeme-senses')
 
   page_sections(:forms, LexemeForm, class: 'wikibase-lexeme-form')
+  page_sections(:senses, Sense, class: 'wikibase-lexeme-sense')
 
   # Lexeme Form
   a(:add_lexeme_form, css: '.wikibase-lexeme-forms-section > .wikibase-addtoolbar-container a')

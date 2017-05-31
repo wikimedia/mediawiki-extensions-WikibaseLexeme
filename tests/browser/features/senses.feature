@@ -10,3 +10,5 @@ Feature: Senses of a Lexeme
   Scenario: Basic senses section
     Then Senses header should be there
      And Senses container should be there
+     And I see at least one Sense
+     And for each Sense there is a gloss and an ID

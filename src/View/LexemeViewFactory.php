@@ -77,10 +77,17 @@ class LexemeViewFactory {
 
 	public function newLexemeView() {
 		$templates = include __DIR__ . '/../../resources/templates.php';
+		$templateFactory = new LexemeTemplateFactory( $templates );
+
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
-		$sensesView = new SensesView( $localizedTextProvider );
+		$sensesView = new SensesView(
+			$localizedTextProvider,
+			$languageDirectionalityLookup,
+			$templateFactory,
+			$this->languageCode
+		);
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
@@ -105,7 +112,7 @@ class LexemeViewFactory {
 
 		$formsView = new LexemeFormsView(
 			$localizedTextProvider,
-			new LexemeTemplateFactory( $templates ),
+			$templateFactory,
 			$this->entityIdHtmlLinkFormatterFactory
 				->getEntityIdFormatter( $retrievingLabelDescriptionLookup ),
 			$statementSectionsView

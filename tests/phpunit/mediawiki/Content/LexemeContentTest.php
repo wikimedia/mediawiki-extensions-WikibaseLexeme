@@ -27,7 +27,7 @@ class LexemeContentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetEntity() {
-		$lexeme = new Lexeme();
+		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
 		$lexemeContent = new LexemeContent( new EntityInstanceHolder( $lexeme ) );
 
 		$this->assertSame( $lexeme, $lexemeContent->getEntity() );
@@ -44,7 +44,7 @@ class LexemeContentTest extends PHPUnit_Framework_TestCase {
 	public function countableLexemeProvider() {
 		$countable = [];
 
-		$lexeme = new Lexeme();
+		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 		$countable[] = [ $lexeme ];
 
@@ -52,7 +52,9 @@ class LexemeContentTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testNotCountable() {
-		$lexemeContent = new LexemeContent( new EntityInstanceHolder( new Lexeme() ) );
+		$lexemeContent = new LexemeContent( new EntityInstanceHolder(
+			new Lexeme( new LexemeId( 'L1' ) )
+		) );
 		$this->assertFalse( $lexemeContent->isCountable() );
 	}
 

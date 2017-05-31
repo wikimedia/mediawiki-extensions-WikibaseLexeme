@@ -4,8 +4,12 @@ namespace Wikibase\Lexeme\Content;
 
 use InvalidArgumentException;
 use Wikibase\Content\EntityHolder;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikimedia\Assert\Assert;
 
 use DataValues\StringValue;
@@ -86,6 +90,30 @@ class LexemeContent extends EntityContent {
 		];
 
 		$lexeme->setForms( $forms );
+
+		$senses = [
+			new Sense(
+				new SenseId( 'S1' ),
+				new TermList( [
+					new Term( 'en', 'A mammal, Capra aegagrus hircus, and similar species of the genus Capra.' )
+				] ),
+				new StatementList()
+			),
+			new Sense(
+				new SenseId( 'S2' ),
+				new TermList( [ new Term( 'en', 'A scapegoat.' ) ] ),
+				new StatementList( [
+					new Statement(
+						new PropertyValueSnak( new PropertyId( 'P900' ), new StringValue( 'informal' ) ),
+						null,
+						null,
+						'guid900'
+					),
+				] )
+			)
+		];
+
+		$lexeme->setSenses( $senses );
 
 		return $lexeme;
 	}

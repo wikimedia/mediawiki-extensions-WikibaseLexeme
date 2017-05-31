@@ -106,7 +106,7 @@ class LexemeView extends EntityView {
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
 			. $this->formsView->getHtml( $entity->getForms() )
-			. $this->sensesView->getHtml();
+			. $this->sensesView->getHtml( $entity->getSenses() );
 	}
 
 	/**

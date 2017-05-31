@@ -256,6 +256,14 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
+	 * @param Sense[] $senses
+	 * @deprecated Only for demonstration purposes. Do not use otherwise!
+	 */
+	public function setSenses( array $senses ) {
+		$this->senses = $senses;
+	}
+
+	/**
 	 * @return bool False if a non-optional field was never initialized, true otherwise.
 	 */
 	public function isSufficientlyInitialized() {
