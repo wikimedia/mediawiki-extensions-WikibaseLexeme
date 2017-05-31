@@ -23,14 +23,14 @@ Then(/^for each Form there is a statement list$/) do
   end
 end
 
-Then(/^each representation is enclosed in tag having lang attribute with "(.+)" as a value$/) do  |value|
+Then(/^each representation is enclosed in tag having lang attribute with "(.+)" as a value$/) do |value|
   #todo: this only checks if there is at least one lang attribute
- on(LexemePage).form_representation_element.attribute('lang').should == value
+  on(LexemePage).form_representation_element.attribute('lang').should == value
 end
 
 Given(/^for each Form there is a grammatical feature list$/) do
   on(LexemePage).forms.each do |form|
-    expect(form.grammatical_features?).to be true
+    expect(form.grammatical_feature_list?).to be true
   end
 end
 
@@ -68,6 +68,8 @@ end
 
 Then(/^I should see the item's label in the list of grammatical features of the Form$/) do
   Watir::Wait.until(timeout = 5) do
-    @form_I_am_currently_editing.grammatical_features_element.text.include? @item_under_test['label']
+    @form_I_am_currently_editing.grammatical_feature?(@item_under_test['label'])
   end
+
+  expect(@form_I_am_currently_editing.grammatical_feature?(@item_under_test['label'])).to be true
 end

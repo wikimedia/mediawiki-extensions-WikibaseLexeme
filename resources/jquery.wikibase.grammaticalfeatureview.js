@@ -113,6 +113,10 @@
 				} )
 			} );
 
+			this._grammaticalFeatureListWidget.on( 'change', function () {
+				self._trigger( 'change' );
+			} );
+
 			this.$values.empty().append( this._grammaticalFeatureListWidget.$element );
 			return deferred.resolve().promise();
 		}

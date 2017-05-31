@@ -13,7 +13,7 @@
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 			this._id = id;
 			this._representation = representation;
-			this._grammaticalFeatures = grammaticalFeatures;
+			this._grammaticalFeatures = grammaticalFeatures || [];
 
 			if (
 				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
@@ -75,15 +75,30 @@
 			},
 
 			/**
-			 * @param {LexemeForm} form
+			 * @param {LexemeForm} other
 			 * @return {boolean}
 			 */
-			equals: function ( form ) {
-				return form instanceof LexemeForm
-					&& this.getId() === form.getId()
-					&& this.getRepresentation() === form.getRepresentation();
+			equals: function ( other ) {
+				if ( !( other instanceof LexemeForm ) ) {
+					return false;
+				}
+
+				if ( this._grammaticalFeatures.length !== other._grammaticalFeatures.length ) {
+					return false;
+				}
+
+				var hasAllGrammaticalFeatures = true;
+				this._grammaticalFeatures.forEach( function ( gf ) {
+					hasAllGrammaticalFeatures = hasAllGrammaticalFeatures &&
+						other._grammaticalFeatures.indexOf( gf ) >= 0;
+				} );
+
+				return this.getId() === other.getId()
+					&& this.getRepresentation() === other.getRepresentation()
+					&& hasAllGrammaticalFeatures;
 			}
-		} );
+		}
+	);
 
 	wb.lexeme.datamodel.LexemeForm = LexemeForm;
 
