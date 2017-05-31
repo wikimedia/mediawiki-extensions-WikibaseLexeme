@@ -48,7 +48,8 @@
 			"dependencies": [
 				"jquery.wikibase.entityview",
 				"jquery.wikibase.lexemeformlistview",
-				"wikibase.lexeme.view.ControllerViewFactory"
+				"wikibase.lexeme.view.ControllerViewFactory",
+				"lemma-widget"
 			]
 		},
 		"wikibase.lexeme": {
@@ -88,6 +89,39 @@
 				"wikibase.templates.lexeme",
 				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
 			]
+		},
+		"vue": {
+			"scripts":"vendor/vue-2.3.3.js"
+		},
+		"vuex": {
+			"scripts":"vendor/vuex-2.3.0.js",
+			"dependencies": [
+				"vue",
+				"promise-polyfill"
+			]
+		},
+		"promise-polyfill": {
+			"scripts":"vendor/es6-promise.auto.js"
+		},
+		"lemma-widget":{
+			"scripts": "widgets/LemmaWidget.js",
+			"dependencies": [
+				"vue",
+				"vuex",
+				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore",
+				"wikibase.api.RepoApi",
+				"mediawiki.api"
+			],
+			"messages":[
+				"wikibase-edit",
+				"wikibase-save",
+				"wikibase-cancel",
+				"wikibase-add",
+				"wikibase-remove"
+			]
+		},
+		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore": {
+			"scripts": "widgets/LemmaWidget.newLemmaWidgetStore.js"
 		},
 		"wikibase.templates.lexeme": {
 			"class": "\\Wikibase\\Lexeme\\View\\TemplateModule",

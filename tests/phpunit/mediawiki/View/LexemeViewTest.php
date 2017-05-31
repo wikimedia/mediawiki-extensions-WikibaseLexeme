@@ -242,8 +242,11 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $html );
 		$this->assertContains(
 			'<div class="wikibase-entityview-main">'
-			. $expectedHeadline
-			. '<div id="toc"></div>'
+			. $expectedHeadline,
+			$html
+		);
+		$this->assertContains(
+			'<div id="toc"></div>'
 			. "statementSectionsView->getHtml\n"
 			. "lexemeFormsView->getHtml\n"
 			. "lexemeSensesView->getHtml\n"

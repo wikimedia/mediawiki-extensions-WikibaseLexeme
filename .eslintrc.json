@@ -10,7 +10,9 @@
 		"OO": false,
 		"require": false,
 		"util": false,
-		"wikibase": false
+		"wikibase": false,
+		"Vue": false,
+		"Vuex": false
 	},
 	"rules": {
 		"dot-notation": "off",

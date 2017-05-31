@@ -60,6 +60,14 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 		$changeOps = new ChangeOps();
 
 		foreach ( $changeRequest['lemmas'] as $languageCode => $serialization ) {
+			// TODO: Temporary implementation of language validation. Not tested
+			// To allow language codes like 'de-x-Q123'
+			list( $languageCode ) = explode( '-x-', $languageCode );
+			if ( is_array( $serialization ) && array_key_exists( 'language', $serialization ) ) {
+				list( $language ) = explode( '-x-', $serialization['language'] );
+				$serialization['language'] = $language;
+			}
+
 			$this->termChangeOpSerializationValidator->validateTermSerialization(
 				$serialization,
 				$languageCode

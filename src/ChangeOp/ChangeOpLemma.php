@@ -59,7 +59,10 @@ class ChangeOpLemma extends ChangeOpBase {
 		$languageValidator = $this->lexemeValidatorFactory->getLanguageCodeValidator();
 		$termValidator = $this->lexemeValidatorFactory->getLemmaTermValidator();
 
-		$result = $languageValidator->validate( $this->language );
+		// TODO: Temporary implementation of language validation. Not tested
+		// To allow language codes like 'de-x-Q123'
+		list( $language ) = explode( '-x-', $this->language );
+		$result = $languageValidator->validate( $language );
 		if ( $result->isValid() && $this->lemma !== null ) {
 			$result = $termValidator->validate( $this->lemma );
 		}

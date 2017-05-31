@@ -87,6 +87,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'tests/qunit/widgets/ItemSelectorWidget.tests.js',
 				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
+				'tests/qunit/widgets/LemmaWidgetStore.tests.js',
 			],
 			'dependencies' => [
 				'jquery.wikibase.lexemeformlistview',
@@ -100,6 +101,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver',
 				'wikibase.lexeme.widgets.ItemSelectorWidget',
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
+				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore',
 			],
 			'localBasePath' => dirname( __DIR__ ),
 			'remoteExtPath' => 'WikibaseLexeme',
