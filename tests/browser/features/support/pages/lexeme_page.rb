@@ -8,6 +8,7 @@ class LexemeForm
   textarea(:representation_input, css: '.wikibase-lexeme-form-text > textarea')
   text_field(:grammatical_features_input, css: '.wikibase-lexeme-form-grammatical-features-values input')
   a(:save, css: '.wikibase-toolbar-button-save > a')
+  a(:cancel, css: '.wikibase-toolbar-button-cancel > a')
   a(:edit, css: '.wikibase-toolbar-button-edit > a')
   a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
 

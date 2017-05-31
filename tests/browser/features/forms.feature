@@ -44,6 +44,14 @@ Feature: Forms of a Lexeme
      And I save the Form
     Then "whatever" should be displayed as a representation of the Form
 
+
+  @integration
+  Scenario: Cancel Form addition
+    Given I am on a Lexeme page
+      And I click the Forms list add button
+     When I cancel the editing of the Form
+     Then I don't see the Form
+
   @integration
   Scenario: I can see each Form's statements
     Then I see at least one Form
