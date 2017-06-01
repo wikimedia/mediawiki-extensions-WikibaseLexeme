@@ -286,7 +286,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 	public function testGivenIdOfExistingLexemeAndStatementData_statementIsAdded() {
 		$this->saveDummyLexemeToDatabase();
 
-		$property = new Property( new PropertyId( 'P909' ), null, '' );
+		$property = new Property( new PropertyId( 'P909' ), null, 'test' );
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 		$store->saveEntity( $property, self::class, $this->getMock( User::class ) );
 
