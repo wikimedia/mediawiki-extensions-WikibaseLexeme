@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\View;
 
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\LexemeForm;
-use Wikibase\Lexeme\DataModel\LexemeFormId;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\View\LocalizedTextProvider;
