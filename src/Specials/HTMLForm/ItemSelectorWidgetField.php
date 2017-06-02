@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Specials\HTMLForm;
 
 use Language;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
