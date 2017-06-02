@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Content;
 
 use InvalidArgumentException;
+use LogicException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -30,23 +31,25 @@ class LexemeContent extends EntityContent {
 	const CONTENT_MODEL_ID = 'wikibase-lexeme';
 
 	/**
-	 * @var EntityHolder
+	 * @var EntityHolder|null
 	 */
 	private $lexemeHolder;
 
 	/**
-	 * @param EntityHolder $lexemeHolder
+	 * @param EntityHolder|null $lexemeHolder
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( EntityHolder $lexemeHolder ) {
+	public function __construct( EntityHolder $lexemeHolder = null ) {
 		parent::__construct( self::CONTENT_MODEL_ID );
 
-		Assert::parameter(
-			$lexemeHolder->getEntityType() === Lexeme::ENTITY_TYPE,
-			'$lexemeHolder',
-			'$lexemeHolder must contain a Lexeme entity'
-		);
+		if ( $lexemeHolder !== null ) {
+			Assert::parameter(
+				$lexemeHolder->getEntityType() === Lexeme::ENTITY_TYPE,
+				'$lexemeHolder',
+				'$lexemeHolder must contain a Lexeme entity'
+			);
+		}
 
 		$this->lexemeHolder = $lexemeHolder;
 	}
@@ -57,6 +60,10 @@ class LexemeContent extends EntityContent {
 	 * @return Lexeme
 	 */
 	public function getEntity() {
+		if ( !$this->lexemeHolder ) {
+			throw new LogicException( 'This content object is empty!' );
+		}
+
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->lexemeHolder->getEntity( Lexeme::class );
 
@@ -132,7 +139,7 @@ class LexemeContent extends EntityContent {
 	/**
 	 * @see EntityContent::getEntityHolder
 	 *
-	 * @return EntityHolder
+	 * @return EntityHolder|null
 	 */
 	protected function getEntityHolder() {
 		return $this->lexemeHolder;
