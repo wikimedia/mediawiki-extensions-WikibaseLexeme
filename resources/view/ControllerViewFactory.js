@@ -79,6 +79,10 @@
 		);
 	};
 
+	SELF.prototype.getEntityTermsView = function () {
+		return null; // Don't render terms view
+	};
+
 	SELF.prototype.getLexemeFormListView = function ( lexeme, startEditingCallback ) {
 		return this._getView(
 			'lexemeformlistview',
