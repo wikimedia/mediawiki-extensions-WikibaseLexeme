@@ -68,9 +68,7 @@ When(/^I select the test item as the grammatical feature$/) do
 end
 
 Then(/^I should see the item's label in the list of grammatical features of the Form$/) do
-  Watir::Wait.until(timeout = 5) do
-    @form_I_am_currently_editing.grammatical_feature?(@item_under_test['label'])
-  end
+  Watir::Wait.until { @form_I_am_currently_editing.grammatical_feature?(@item_under_test['label']) }
 
   expect(@form_I_am_currently_editing.grammatical_feature?(@item_under_test['label'])).to be true
 end
@@ -80,7 +78,7 @@ When(/^I cancel the editing of the Form$/) do
 end
 
 Then(/^I don't see the Form$/) do
-  expect(@form_I_am_currently_editing.present?).to be false
+  expect(@form_I_am_currently_editing.exists?).to be false
 end
 
 When(/^I click add statement on the Form$/) do

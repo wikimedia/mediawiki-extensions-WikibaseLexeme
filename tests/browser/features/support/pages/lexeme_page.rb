@@ -20,13 +20,17 @@ class StatementGroup
   end
 end
 
+class GrammaticalFeatureValue
+  include PageObject
+
+  a(:value)
+end
 
 class LexemeForm
   include PageObject
 
   span(:representation, class: 'wikibase-lexeme-form-text')
   div(:grammatical_feature_list, class: 'wikibase-lexeme-form-grammatical-features')
-  as(:grammatical_features, css: '.wikibase-lexeme-form-grammatical-features-values > span > a')
   div(:statements, class: 'wikibase-statementgrouplistview')
   textarea(:representation_input, css: '.wikibase-lexeme-form-text > textarea')
   text_field(:grammatical_features_input, css: '.wikibase-lexeme-form-grammatical-features-values input')
@@ -36,10 +40,11 @@ class LexemeForm
   a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
 
   page_section(:statement_group, StatementGroup, class: 'wikibase-statementgrouplistview')
+  page_sections(:grammatical_features, GrammaticalFeatureValue, css: '.wikibase-lexeme-form-grammatical-features-values > span')
 
   def grammatical_feature?(label)
-    self.grammatical_features_element.any? do |gf_element|
-      gf_element.text == label
+    self.grammatical_features.any? do |gf|
+      gf.value_element.when_present.text == label
     end
   end
 end
