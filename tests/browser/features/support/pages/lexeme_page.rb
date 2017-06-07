@@ -1,3 +1,26 @@
+
+class Statement
+  include PageObject
+
+  div(:property_label, class: 'wikibase-statementgroupview-property-label')
+  div(:value, css: '.wikibase-statementview-mainsnak .wikibase-snakview-value')
+  a(:save, css: '.wikibase-toolbar-button-save a' )
+end
+
+class StatementGroup
+  include PageObject
+
+  page_sections(:statements, Statement, css: '.wikibase-statementgroupview.listview-item')
+  a(:add_statement, css: '.wikibase-statementgrouplistview > .wikibase-addtoolbar-container a')
+
+  def statement_with_value?(property_label, value)
+    self.statements.any? do |statement|
+      statement.property_label_element.text == property_label && statement.value_element.text == value
+    end
+  end
+end
+
+
 class LexemeForm
   include PageObject
 
@@ -11,6 +34,8 @@ class LexemeForm
   a(:cancel, css: '.wikibase-toolbar-button-cancel > a')
   a(:edit, css: '.wikibase-toolbar-button-edit > a')
   a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
+
+  page_section(:statement_group, StatementGroup, class: 'wikibase-statementgrouplistview')
 
   def grammatical_feature?(label)
     self.grammatical_features_element.select do |gf_element|

@@ -45,6 +45,7 @@ When(/^I enter "(.+)" as the form representation$/) do |representation|
 end
 
 When(/^I save the Form$/) do
+  # TODO: Had some problems here with element clickability, but failed to reproduce. Fix is probably needed
   @form_I_am_currently_editing.save_element.when_visible.click
 end
 
@@ -80,4 +81,22 @@ end
 
 Then(/^I don't see the Form$/) do
   expect(@form_I_am_currently_editing.present?).to be false
+end
+
+When(/^I click add statement on the Form$/) do
+  @form_I_am_currently_editing.statement_group.add_statement_element.when_visible.click
+  @statement_I_am_currently_editing = @form_I_am_currently_editing.statement_group.statements[-1]
+end
+
+When(/^I save the statement$/) do
+  @statement_I_am_currently_editing.save_element.when_visible.click
+end
+
+Then(/^I see (.+?)=(.+?) statement in the Form statement list$/) do |handle, property_value|
+  property_label = @properties[handle]['label']
+  Watir::Wait.until(timeout = 5) do
+    @form_I_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)
+  end
+
+  expect(@form_I_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)).to be true
 end

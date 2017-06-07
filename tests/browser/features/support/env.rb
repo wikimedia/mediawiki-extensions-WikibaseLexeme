@@ -12,6 +12,7 @@ ENV['WIKIDATA_REPO_API'] = lenv.lookup(:mediawiki_url_api, default: lambda do
 end)
 ENV['LEXEME_NAMESPACE'] = 'Lexeme:'
 ENV['ITEM_NAMESPACE'] = 'Item:'
+ENV['PROPERTY_NAMESPACE'] = 'Property:'
 ENV['LANGUAGE_CODE'] = lenv.lookup(:language_code, default: -> { 'en' })
 
 require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/modules'
@@ -19,3 +20,4 @@ require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/fea
 require_all File.dirname(__FILE__) + '/pages'
 require_all File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/utils'
 require File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/pages/item_page'
+require File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/features/support/pages/property_page'

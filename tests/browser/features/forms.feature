@@ -53,6 +53,21 @@ Feature: Forms of a Lexeme
      Then I don't see the Form
 
   @integration
+  Scenario: Edit statements on new Form
+    Given I have the following properties with datatype:
+      | stringprop | string |
+      And I am on a Lexeme page
+      And I click the Forms list add button
+      And I enter "newForm" as the form representation
+      And I save the Form
+     When I click add statement on the Form
+      And I select the claim property stringprop
+      And I enter somestring in the claim value input field
+      And I save the statement
+     Then I see stringprop=somestring statement in the Form statement list
+
+
+  @integration
   Scenario: I can see each Form's statements
     Then I see at least one Form
     And for each Form there is a statement list
