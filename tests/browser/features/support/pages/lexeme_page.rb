@@ -38,9 +38,9 @@ class LexemeForm
   page_section(:statement_group, StatementGroup, class: 'wikibase-statementgrouplistview')
 
   def grammatical_feature?(label)
-    self.grammatical_features_element.select do |gf_element|
+    self.grammatical_features_element.any? do |gf_element|
       gf_element.text == label
-    end.count > 0
+    end
   end
 end
 
