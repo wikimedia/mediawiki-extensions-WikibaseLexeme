@@ -16,5 +16,6 @@
 	"wikibase-lexeme-empty-form-representation": "No form representation defined",
 	"wikibase-lexeme-view-senses": "Senses",
 	"wikibase-lexeme-gloss-empty": "No gloss defined",
-	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme"
+	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme",
+	"datatypes-type-wikibase-lexeme": "Lexeme"
 }

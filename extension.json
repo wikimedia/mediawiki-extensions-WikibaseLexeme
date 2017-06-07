@@ -30,6 +30,9 @@
 		"WikibaseRepoEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
 		],
+		"WikibaseRepoDataTypes": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseDataTypes"
+		],
 		"WikibaseClientEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
 		],

@@ -21,5 +21,6 @@
 	"wikibase-lexeme-empty-form-representation": "Placeholder message displayed instead of the lexeme form representation in case no representation has been specified yet.",
 	"wikibase-lexeme-view-senses": "Subheading for the senses section on a lexeme page.\n{{Identical|Sense}}",
 	"wikibase-lexeme-gloss-empty": "Placeholder message displayed instead of the gloss of the sense in case the gloss in the display language has not been specified yet.",
-	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a lexeme"
+	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a lexeme",
+	"datatypes-type-wikibase-lexeme": "The name of a data type for lexemes in Wikibase.\n{{Identical|Lexeme}}"
 }
