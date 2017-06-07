@@ -58,7 +58,7 @@ class WikibaseLexemeHooks {
 	}
 
 	/**
-	 * Adds the definition of the media info entity type to the definitions array Wikibase uses.
+	 * Adds the definition of the lexeme entity type to the definitions array Wikibase uses.
 	 *
 	 * @see WikibaseLexeme.entitytypes.php
 	 *
