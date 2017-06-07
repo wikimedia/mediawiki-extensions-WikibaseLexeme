@@ -16,3 +16,9 @@ Then(/^for each Sense there is a gloss and an ID$/) do
      expect(sense.sense_id?).to be true
   end
 end
+
+Then(/^for each Sense there is a statement list$/) do
+  on(LexemePage).senses.each do |sense|
+    expect(sense.statements?).to be true
+  end
+end

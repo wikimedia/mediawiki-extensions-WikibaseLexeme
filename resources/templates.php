@@ -39,6 +39,7 @@ HTML;
 		<span class="wikibase-lexeme-sense-gloss-text $3">$4</span>
 		<span class="wikibase-lexeme-sense-id wikibase-title-id"> $5</span>
 	</h3>
+	$6
 </div>
 HTML;
 

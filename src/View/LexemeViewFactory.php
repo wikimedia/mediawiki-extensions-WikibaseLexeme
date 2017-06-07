@@ -82,13 +82,6 @@ class LexemeViewFactory {
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
-		$sensesView = new SensesView(
-			$localizedTextProvider,
-			$languageDirectionalityLookup,
-			$templateFactory,
-			$this->languageCode
-		);
-
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->languageCode,
@@ -116,6 +109,14 @@ class LexemeViewFactory {
 			$this->entityIdHtmlLinkFormatterFactory
 				->getEntityIdFormatter( $retrievingLabelDescriptionLookup ),
 			$statementSectionsView
+		);
+
+		$sensesView = new SensesView(
+			$localizedTextProvider,
+			$languageDirectionalityLookup,
+			$templateFactory,
+			$statementSectionsView,
+			$this->languageCode
 		);
 
 		return new LexemeView(

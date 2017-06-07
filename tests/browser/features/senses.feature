@@ -12,3 +12,8 @@ Feature: Senses of a Lexeme
      And Senses container should be there
      And I see at least one Sense
      And for each Sense there is a gloss and an ID
+
+  @integration
+  Scenario: I can see statements of each Sense
+    Then I see at least one Sense
+    And for each Sense there is a statement list

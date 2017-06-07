@@ -12,6 +12,7 @@ use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
+use Wikibase\View\StatementSectionsView;
 
 /**
  * @covers Wikibase\Lexeme\View\LexemeSensesView
@@ -21,6 +22,8 @@ use Wikibase\View\DummyLocalizedTextProvider;
  * @license GPL-2.0+
  */
 class SensesViewTest extends PHPUnit_Framework_TestCase {
+
+	const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
 
 	public function testHtmlContainsTheSensesHeadline() {
 		$view = $this->newSensesView();
@@ -90,13 +93,36 @@ class SensesViewTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testHtmlContainsStatementSection() {
+		$view = $this->newSensesView();
+		$html = $view->getHtml( [
+			new Sense(
+				new SenseId( 'S1' ),
+				new TermList( [ new Term( 'en', 'test gloss' ) ] ),
+				new StatementList()
+			)
+		] );
+
+		assertThat(
+			$html,
+			is( htmlPiece( havingChild( tagMatchingOutline( self::STATEMENT_SECTION_HTML ) ) ) )
+		);
+	}
+
 	private function newSensesView() {
+		$statementSectionView = $this->getMockBuilder( StatementSectionsView::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$statementSectionView->method( 'getHtml' )
+			->will( $this->returnValue( self::STATEMENT_SECTION_HTML ) );
+
 		return new SensesView(
 			new DummyLocalizedTextProvider(),
 			new MediaWikiLanguageDirectionalityLookup(),
 			new LexemeTemplateFactory( [
-				'wikibase-lexeme-sense' => '<h3 dir="$1" lang="$2"><span class="$3">$4</span> $5</h3>',
+				'wikibase-lexeme-sense' => '<h3 dir="$1" lang="$2"><span class="$3">$4</span> $5</h3>$6',
 			] ),
+			$statementSectionView,
 			'en'
 		);
 	}

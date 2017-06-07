@@ -6,6 +6,7 @@ use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
+use Wikibase\View\StatementSectionsView;
 
 /**
  * @license GPL-2.0+
@@ -28,6 +29,11 @@ class SensesView {
 	private $templateFactory;
 
 	/**
+	 * @var StatementSectionsView
+	 */
+	private $statementSectionsView;
+
+	/**
 	 * @var string
 	 */
 	private $languageCode;
@@ -36,17 +42,20 @@ class SensesView {
 	 * @param LocalizedTextProvider $textProvider
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param LexemeTemplateFactory $templateFactory
+	 * @param StatementSectionsView $statementSectionsView
 	 * @param string $languageCode
 	 */
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		LexemeTemplateFactory $templateFactory,
+		StatementSectionsView $statementSectionsView,
 		$languageCode
 	) {
 		$this->textProvider = $textProvider;
 		$this->languageDirectionalityLookup = $languageDirectionalityLookup;
 		$this->templateFactory = $templateFactory;
+		$this->statementSectionsView = $statementSectionsView;
 		$this->languageCode = $languageCode;
 	}
 
@@ -95,7 +104,8 @@ class SensesView {
 					// TODO: should it rather fallback to gloss in language that exists?
 					: $this->textProvider->get( $emptyTextKey ),
 				wfMessage( 'parentheses' )->rawParams( htmlspecialchars( $sense->getId()->getSerialization() ) )
-					->text()
+					->text(),
+				$this->statementSectionsView->getHtml( $sense->getStatements() )
 			]
 		);
 	}

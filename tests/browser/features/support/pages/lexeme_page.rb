@@ -60,6 +60,7 @@ class Sense
 
   h3(:sense_gloss, class: 'wikibase-lexeme-sense-gloss')
   span(:sense_id, class: 'wikibase-lexeme-sense-id')
+  div(:statements, class: 'wikibase-statementgrouplistview')
 end
 
 
