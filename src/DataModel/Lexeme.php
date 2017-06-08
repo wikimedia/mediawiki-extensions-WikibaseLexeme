@@ -49,6 +49,11 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	private $forms;
 
 	/**
+	 * @var Sense[]
+	 */
+	private $senses;
+
+	/**
 	 * Note that $lexicalCategory and $language can only be null during construction time. Their
 	 * setters can not be called with null, and their getters will throw an exception if the
 	 * corresponding field was never initialized.
@@ -59,6 +64,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param ItemId|null $language
 	 * @param StatementList|null $statements
 	 * @param LexemeForm[] $forms
+	 * @oaram Sense[] $senses
 	 */
 	public function __construct(
 		LexemeId $id = null,
@@ -66,7 +72,8 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		ItemId $lexicalCategory = null,
 		ItemId $language = null,
 		StatementList $statements = null,
-		array $forms = []
+		array $forms = [],
+		array $senses = []
 	) {
 		$this->id = $id;
 		$this->lemmas = $lemmas ?: new TermList();
@@ -74,6 +81,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
 		$this->forms = $forms;
+		$this->senses = $senses;
 	}
 
 	/**
@@ -238,6 +246,13 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 */
 	public function setForms( array $forms ) {
 		$this->forms = $forms;
+	}
+
+	/**
+	 * @return Sense[]
+	 */
+	public function getSenses() {
+		return $this->senses;
 	}
 
 	/**
