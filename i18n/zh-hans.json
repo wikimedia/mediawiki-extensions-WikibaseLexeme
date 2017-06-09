@@ -17,5 +17,6 @@
 	"wikibase-lexeme-enter-form-representation": "输入新表单实现",
 	"wikibase-lexeme-empty-form-representation": "没有定义表单实现",
 	"wikibase-lexeme-view-senses": "意义",
+	"wikibase-lexeme-gloss-empty": "未定义注解",
 	"wikibase-lexeme-summary-wbeditentity-update": "已更改词位"
 }
