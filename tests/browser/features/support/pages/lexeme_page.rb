@@ -24,6 +24,7 @@ class GrammaticalFeatureValue
   include PageObject
 
   a(:value)
+  a(:delete_button, css: '.oo-ui-buttonElement > .oo-ui-buttonElement-button')
 end
 
 class LexemeForm
@@ -40,7 +41,11 @@ class LexemeForm
   a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
 
   page_section(:statement_group, StatementGroup, class: 'wikibase-statementgrouplistview')
-  page_sections(:grammatical_features, GrammaticalFeatureValue, css: '.wikibase-lexeme-form-grammatical-features-values > span')
+  page_sections(
+    :grammatical_features,
+    GrammaticalFeatureValue,
+    css: '.wikibase-lexeme-form-grammatical-features-values > span, .wikibase-lexeme-form-grammatical-features-values .oo-ui-tagItemWidget'
+  )
 
   def grammatical_feature?(label)
     self.grammatical_features.any? do |gf|
