@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Content;
 
 use IContextSource;
 use Page;
+use Wikibase\Content\EntityHolder;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
@@ -97,17 +98,21 @@ class LexemeHandler extends EntityHandler {
 	}
 
 	/**
-	 * @return string
-	 */
-	protected function getContentClass() {
-		return LexemeContent::class;
-	}
-
-	/**
 	 * @return Lexeme
 	 */
 	public function makeEmptyEntity() {
 		return new Lexeme();
+	}
+
+	/**
+	 * @see EntityHandler::makeEntityContent
+	 *
+	 * @param EntityHolder $entityHolder
+	 *
+	 * @return LexemeContent
+	 */
+	public function makeEntityContent( EntityHolder $entityHolder ) {
+		return new LexemeContent( $entityHolder );
 	}
 
 	/**
