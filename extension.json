@@ -109,8 +109,10 @@
 				"vue",
 				"vuex",
 				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore",
+				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget",
 				"wikibase.api.RepoApi",
-				"mediawiki.api"
+				"mediawiki.api",
+				"wikibase.lexeme.datamodel.Lemma"
 			],
 			"messages":[
 				"wikibase-edit",
@@ -122,6 +124,12 @@
 		},
 		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore": {
 			"scripts": "widgets/LemmaWidget.newLemmaWidgetStore.js"
+		},
+		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": {
+			"scripts": "widgets/LemmaWidget.newLemmaWidget.js",
+			"dependencies": [
+				"wikibase.lexeme.datamodel.Lemma"
+			]
 		},
 		"wikibase.templates.lexeme": {
 			"class": "\\Wikibase\\Lexeme\\View\\TemplateModule",
@@ -142,6 +150,9 @@
 				"wikibase.datamodel.TermMap",
 				"wikibase.lexeme"
 			]
+		},
+		"wikibase.lexeme.datamodel.Lemma": {
+			"scripts": "datamodel/Lemma.js"
 		},
 		"wikibase.lexeme.datamodel.LexemeForm": {
 			"scripts": [
