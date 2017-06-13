@@ -22,16 +22,25 @@ Feature: Forms of a Lexeme
     Given I have a Lexeme with a Form
      And I am on the page of the Lexeme to test
      And I have an item to test
-    When I click on first Form's edit button
+    When I click on the first Form's edit button
      And I select the test item as the grammatical feature
      And I save the Form
     Then I should see the item's label in the list of grammatical features of the Form
 
   @integration
+  Scenario: Remove grammatical feature
+    Given I have a Lexeme with a Form
+     And I am on the page of the Lexeme to test
+     And a grammatical feature exists for the first Form of the Lexeme
+    When I click on the first Form's edit button
+     And I remove the first grammatical feature of the first Form
+    Then the first Form should no longer have the removed grammatical feature
+
+  @integration
   Scenario: Change representation
     Given I have a Lexeme with a Form
      And I am on the page of the Lexeme to test
-    When I click on first Form's edit button
+    When I click on the first Form's edit button
      And I enter "new-representation" as the form representation
      And I save the Form
     Then "new-representation" should be displayed as a representation of the Form

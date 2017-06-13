@@ -57,7 +57,7 @@ Given(/^I have a Lexeme with a Form$/) do
   step 'I have a Lexeme to test' # TODO: implement once Forms are storable
 end
 
-When(/^I click on first Form's edit button$/) do
+When(/^I click on the first Form's edit button$/) do
   @form_I_am_currently_editing = on(LexemePage).forms[0]
   @form_I_am_currently_editing.edit_element.when_visible.click
 end
@@ -97,4 +97,25 @@ Then(/^I see (.+?)=(.+?) statement in the Form statement list$/) do |handle, pro
   end
 
   expect(@form_I_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)).to be true
+end
+
+Given(/^a grammatical feature exists for the first Form of the Lexeme$/) do
+  # TODO: the grammatical feature to remove should be added in the backend once Forms can be stored
+  step 'I have an item to test'
+  step 'I click on the first Form\'s edit button'
+  step 'I select the test item as the grammatical feature'
+  step 'I save the Form'
+end
+
+When(/^I remove the first grammatical feature of the first Form$/) do
+  gf_to_delete = on(LexemePage).forms[0].grammatical_features[0]
+  @grammatical_feature_to_delete = gf_to_delete.text
+
+  gf_to_delete.delete_button_element
+      .when_visible
+      .click
+end
+
+Then(/^the first Form should no longer have the removed grammatical feature$/) do
+  expect(@form_I_am_currently_editing.grammatical_feature?(@grammatical_feature_to_delete)).to be false
 end
