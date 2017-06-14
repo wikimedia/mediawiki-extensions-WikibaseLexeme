@@ -10,6 +10,7 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\Sense;
 
 /**
  * @license GPL-2.0+
@@ -102,6 +103,7 @@ class LexemeSerializer implements DispatchableSerializer {
 		);
 
 		$serialization['forms'] = $this->serializeForms( $lexeme->getForms() );
+		$serialization['senses'] = $this->serializeSenses( $lexeme->getSenses() );
 
 		return $serialization;
 	}
@@ -146,6 +148,35 @@ class LexemeSerializer implements DispatchableSerializer {
 		$serialization['claims'] = $this->statementListSerializer->serialize(
 			$form->getStatements()
 		);
+
+		return $serialization;
+	}
+
+	/**
+	 * @param Sense[] $senses
+	 *
+	 * @return array[]
+	 */
+	private function serializeSenses( array $senses ) {
+		$serialization = [];
+
+		foreach ( $senses as $sense ) {
+			$serialization[] = $this->serializeSense( $sense );
+		}
+
+		return $serialization;
+	}
+
+	/**
+	 * @param Sense $sense
+	 *
+	 * @return array
+	 */
+	private function serializeSense( Sense $sense ) {
+		$serialization = [];
+
+		$serialization['id'] = $sense->getId()->getSerialization();
+		$serialization['glosses'] = $this->termListSerializer->serialize( $sense->getGlosses() );
 
 		return $serialization;
 	}
