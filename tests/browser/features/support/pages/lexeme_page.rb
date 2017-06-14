@@ -58,8 +58,8 @@ end
 class Sense
   include PageObject
 
-  h3(:sense_gloss, class: 'wikibase-lexeme-sense-gloss')
-  span(:sense_id, class: 'wikibase-lexeme-sense-id')
+  element(:gloss, class: 'wikibase-lexeme-sense-gloss')
+  span(:id, class: 'wikibase-lexeme-sense-glosses-sense-id')
   div(:statements, class: 'wikibase-statementgrouplistview')
 end
 

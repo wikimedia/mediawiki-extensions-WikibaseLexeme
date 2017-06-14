@@ -32,14 +32,10 @@ HTML;
 </div>
 HTML;
 
-	// TODO: i18n space before id?
 	$templates['wikibase-lexeme-sense'] = <<< 'HTML'
-<div class="wikibase-lexeme-sense">
-	<h3 class="wikibase-lexeme-sense-gloss" dir="$1" lang="$2">
-		<span class="wikibase-lexeme-sense-gloss-text $3">$4</span>
-		<span class="wikibase-lexeme-sense-id wikibase-title-id"> $5</span>
-	</h3>
-	$6
+<div class="wikibase-lexeme-sense" data-sense-id="$1">
+    $2
+    $3
 </div>
 HTML;
 

@@ -108,6 +108,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
 				'tests/qunit/widgets/LemmaWidgetStore.tests.js',
 				'tests/qunit/widgets/LemmaWidget.tests.js',
+				'tests/qunit/widgets/GlossWidget.tests.js',
 			],
 			'dependencies' => [
 				'jquery.wikibase.lexemeformlistview',
@@ -124,6 +125,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore',
 				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget',
+				'wikibase.lexeme.widgets.GlossWidget',
 				'vue',
 				'vuex',
 			],

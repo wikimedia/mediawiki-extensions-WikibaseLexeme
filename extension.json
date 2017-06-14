@@ -52,7 +52,8 @@
 				"jquery.wikibase.entityview",
 				"jquery.wikibase.lexemeformlistview",
 				"wikibase.lexeme.view.ControllerViewFactory",
-				"lemma-widget"
+				"lemma-widget",
+				"wikibase.lexeme.widgets.GlossWidget"
 			]
 		},
 		"wikibase.lexeme": {
@@ -116,6 +117,21 @@
 				"wikibase.api.RepoApi",
 				"mediawiki.api",
 				"wikibase.lexeme.datamodel.Lemma"
+			],
+			"messages":[
+				"wikibase-edit",
+				"wikibase-save",
+				"wikibase-cancel",
+				"wikibase-add",
+				"wikibase-remove"
+			]
+		},
+		"wikibase.lexeme.widgets.GlossWidget": {
+			"scripts": "widgets/GlossWidget.js",
+			"dependencies": [
+				"vue",
+				"vuex",
+				"jquery.util.getDirectionality"
 			],
 			"messages":[
 				"wikibase-edit",

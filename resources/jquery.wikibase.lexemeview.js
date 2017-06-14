@@ -3,6 +3,8 @@
 
 	var PARENT = $.wikibase.entityview;
 
+	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
+
 	/**
 	 * View for displaying a Wikibase `Lexeme`.
 	 * Copied from jQuery.wikibase.mediainfoview
@@ -47,6 +49,7 @@
 			}
 
 			this.options.buildLexemeFormListView();
+			GlossWidget.applyWidgetToLexemePage();
 		},
 
 		/**

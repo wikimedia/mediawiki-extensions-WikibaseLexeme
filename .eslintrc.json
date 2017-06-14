@@ -12,7 +12,8 @@
 		"util": false,
 		"wikibase": false,
 		"Vue": false,
-		"Vuex": false
+		"Vuex": false,
+		"Promise": false
 	},
 	"rules": {
 		"dot-notation": "off",

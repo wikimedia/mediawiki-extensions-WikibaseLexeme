@@ -179,14 +179,67 @@
 	clear: left;
 }
 
-.wikibase-lexeme-senses .wikibase-lexeme-sense-gloss {
-	clear: left;
-	margin-left: 10px; /* same as .wb-section-heading */
+.wikibase-lexeme-senses .wikibase-lexeme-sense {
 	position: relative;
-	border-bottom: 1px solid #a2a9b1;
-	font-weight: normal;
+	clear: left;
 }
 
-.wikibase-lexeme-sense-gloss .wikibase-lexeme-sense-id {
-	color: #72777d;
+/* =========== wikibase-lexeme-sense-glosses =========== */
+
+.wikibase-lexeme-sense-glosses {
+	display: flex;
+}
+
+.wikibase-lexeme-sense-glosses-list {
+	flex-grow: 1;
+}
+
+.wikibase-lexeme-sense-glosses-table {
+	width: 100%;
+}
+
+.wikibase-lexeme-sense-gloss:first-of-type {
+	font-weight: bold
+}
+
+.wikibase-lexeme-sense-glosses-sense-id {
+	display: none;
+}
+
+.wikibase-lexeme-sense-gloss:first-of-type .wikibase-lexeme-sense-glosses-sense-id {
+	display: inline;
+}
+
+.wikibase-lexeme-sense-gloss-language {
+	min-width: 10em;
+	white-space: nowrap;
+}
+
+.wikibase-lexeme-sense-gloss-value {
+	width: 99%; /* ... because it is a table cell */
+}
+
+.wikibase-lexeme-sense-gloss-value-input {
+	width: 100%;
+	resize: horizontal;
+}
+
+.wikibase-lexeme-sense-glosses-controls {
+	/* width: 18em; */
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: flex-end;
+}
+
+.wikibase-lexeme-sense-glosses-control {
+	text-transform: capitalize;
+	color: #1f66cc;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+}
+
+.wikibase-lexeme-sense-glosses-control:hover {
+	text-decoration: underline;
 }

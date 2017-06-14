@@ -102,7 +102,14 @@ class LexemeContent extends EntityContent {
 			new Sense(
 				new SenseId( 'S1' ),
 				new TermList( [
-					new Term( 'en', 'A mammal, Capra aegagrus hircus, and similar species of the genus Capra.' )
+					new Term(
+						'en',
+						'A mammal, Capra aegagrus hircus, and similar species of the genus Capra.'
+					),
+					new Term(
+						'fr',
+						'Un mammale, Capra aegagruse hircuse, et similare species de un genuse Capra.'
+					),
 				] ),
 				new StatementList()
 			),
@@ -111,7 +118,10 @@ class LexemeContent extends EntityContent {
 				new TermList( [ new Term( 'en', 'A scapegoat.' ) ] ),
 				new StatementList( [
 					new Statement(
-						new PropertyValueSnak( new PropertyId( 'P900' ), new StringValue( 'informal' ) ),
+						new PropertyValueSnak(
+							new PropertyId( 'P900' ),
+							new StringValue( 'informal' )
+						),
 						null,
 						null,
 						'guid900'
