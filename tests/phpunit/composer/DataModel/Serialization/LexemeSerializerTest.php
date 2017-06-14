@@ -16,8 +16,11 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeForm;
 use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
 use Wikibase\Lexeme\Tests\DataModel\LexemeBuilder;
+use Wikibase\Lexeme\Tests\DataModel\SenseBuilder;
 
 /**
  * @covers Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer
@@ -57,7 +60,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$this->assertSame(
-			[ 'type', 'id', 'lexicalCategory', 'language', 'claims', 'forms' ],
+			[ 'type', 'id', 'lexicalCategory', 'language', 'claims', 'forms', 'senses' ],
 			array_keys( $serialization )
 		);
 	}
@@ -223,6 +226,46 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		assertThat( $serialization, hasKeyValuePair( "forms",
 			 hasItemInArray(
 					hasKeyValuePair( "grammaticalFeatures", equalTo( [ 'Q1' ] ) )
+			 )
+		) );
+	}
+
+	public function testSerializeSensesIds() {
+		$lexeme = LexemeBuilder::create()
+			->withSense( SenseBuilder::havingId( 'S1' ) )
+			->withSense( SenseBuilder::havingId( 'S2' ) )
+			->build();
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( "senses",
+			 hasItems(
+				 hasKeyValuePair( "id", 'S1' ),
+				 hasKeyValuePair( "id", 'S2' )
+			 )
+		) );
+	}
+
+	public function testSerializeGlossesOnSenses() {
+		$lexeme = LexemeBuilder::create()
+			->withSense(
+				SenseBuilder::havingId( 'S1' )
+					->withGloss( 'en', 'en gloss' )
+					->withGloss( 'fr', 'fr gloss' )
+			)
+			->build();
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( "senses",
+			 hasItemInArray(
+				 hasKeyValuePair( "glosses",
+					  both(
+						  hasKeyValuePair( 'en', 'en gloss' )
+					  )->andAlso(
+						  hasKeyValuePair( 'fr', 'fr gloss' )
+					  )
+				 )
 			 )
 		) );
 	}

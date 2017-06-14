@@ -7,6 +7,7 @@ use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\Sense;
 
 class LexemeBuilder {
 
@@ -35,6 +36,11 @@ class LexemeBuilder {
 	 */
 	private $lemmas = [];
 
+	/**
+	 * @var Sense[]
+	 */
+	private $senses = [];
+
 	public function __construct() {
 		$this->lexicalCategory = $this->newRandomItemId();
 		$this->language = $this->newRandomItemId();
@@ -51,7 +57,8 @@ class LexemeBuilder {
 			$this->lexicalCategory,
 			$this->language,
 			null,
-			[]
+			[],
+			$this->senses
 		);
 
 		$lemmas = new TermList();
@@ -133,6 +140,23 @@ class LexemeBuilder {
 			$statements[] = clone $statement;
 		}
 		$this->statements = $statements;
+	}
+
+	/**
+	 * @param Sense|SenseBuilder $sense
+	 * @return self
+	 */
+	public function withSense( $sense ) {
+		$result = clone $this;
+
+		if ( $sense instanceof SenseBuilder ) {
+			$sense = $sense->build();
+		} elseif ( !$sense instanceof Sense ) {
+			throw new \InvalidArgumentException( '$sense has incorrect type' );
+		}
+
+		$result->senses[] = $sense;
+		return $result;
 	}
 
 }
