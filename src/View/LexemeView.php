@@ -19,6 +19,7 @@ use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
 use Wikibase\View\Template\TemplateFactory;
 use Wikimedia\Assert\Assert;
+use WMDE\VueJsTemplating\Templating;
 
 /**
  * Class for creating HTML views for Lexeme instances.
@@ -102,7 +103,7 @@ class LexemeView extends EntityView {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		return $this->getHtmlForLexicalCategoryAndLanguage( $entity )
-			. '<div id="lemmas-widget"></div>' . $this->getLemmaVueTemplate()
+			. $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate()
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
 			. $this->formsView->getHtml( $entity->getForms() )
@@ -219,46 +220,84 @@ class LexemeView extends EntityView {
 	}
 
 	private function getLemmaVueTemplate() {
-		return <<<'HTML'
+		return <<<HTML
 <script id="lemma-widget-vue-template" type="x-template">
-	<div class="lemma-widget">
-		<ul v-if="!inEditMode" class="lemma-widget_lemma-list">
-			<li v-for="lemma in lemmas" class="lemma-widget_lemma">
-				<span class="lemma-widget_lemma-value">{{lemma.value}}</span>
-				<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
-			</li>
-		</ul>
-		<div v-else>
-			<div class="lemma-widget_edit-area">
-				<ul class="lemma-widget_lemma-list">
-					<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
-						<input size="1" class="lemma-widget_lemma-value-input" 
-							v-model="lemma.value" :disabled="isSaving">
-						<input size="1" class="lemma-widget_lemma-language-input" 
-							v-model="lemma.language" :disabled="isSaving">
-						<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" 
-							:disabled="isSaving" :title="'wikibase-remove'|message">
-							&times;
-						</button>
-					</li>
-					<li>
-						<button type="button" class="lemma-widget_add" v-on:click="add" 
-							:disabled="isSaving" :title="'wikibase-add'|message">+</button>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="lemma-widget_controls">
-			<button type="button" class="lemma-widget_control" v-if="!inEditMode" 
-				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
-			<button type="button" class="lemma-widget_control" v-if="inEditMode" 
-				:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
-			<button type="button" class="lemma-widget_control" v-if="inEditMode" 
-				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
-		</div>
-	</div>
+	{$this->getRawLemmaVueTemplate()}
 </script>
 HTML;
+	}
+
+	private function getRawLemmaVueTemplate() {
+		return <<<'HTML'
+<div class="lemma-widget">
+	<ul v-if="!inEditMode" class="lemma-widget_lemma-list">
+		<li v-for="lemma in lemmas" class="lemma-widget_lemma">
+			<span class="lemma-widget_lemma-value">{{lemma.value}}</span>
+			<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
+		</li>
+	</ul>
+	<div v-else>
+		<div class="lemma-widget_edit-area">
+			<ul class="lemma-widget_lemma-list">
+				<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
+					<input size="1" class="lemma-widget_lemma-value-input" 
+						v-model="lemma.value" :disabled="isSaving">
+					<input size="1" class="lemma-widget_lemma-language-input" 
+						v-model="lemma.language" :disabled="isSaving">
+					<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" 
+						:disabled="isSaving" :title="'wikibase-remove'|message">
+						&times;
+					</button>
+				</li>
+				<li>
+					<button type="button" class="lemma-widget_add" v-on:click="add" 
+						:disabled="isSaving" :title="'wikibase-add'|message">+</button>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="lemma-widget_controls">
+		<button type="button" class="lemma-widget_control" v-if="!inEditMode" 
+			:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
+		<button type="button" class="lemma-widget_control" v-if="inEditMode" 
+			:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
+		<button type="button" class="lemma-widget_control" v-if="inEditMode" 
+			:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
+	</div>
+</div>
+HTML;
+	}
+
+	/**
+	 * @return string
+	 */
+	protected function renderLemmaWidget( Lexeme $lexeme ) {
+		$templating = new Templating();
+
+		$lemmas = array_map(
+			function ( Term $lemma ) {
+				return [ 'value' => $lemma->getText(), 'language' => $lemma->getLanguageCode() ];
+			},
+			iterator_to_array( $lexeme->getLemmas() )
+		);
+
+		$result = $templating->render(
+			$this->getRawLemmaVueTemplate(),
+			[
+				'inEditMode' => true,
+				'isSaving' => false,
+				'lemmas' => $lemmas
+			],
+			[
+				'message' => function ( $key ) {
+					return $this->getLocalizedMessage( $key );
+				}
+			]
+		);
+
+		return '<div id="lemmas-widget">'
+			. $result
+			. '</div>';
 	}
 
 }

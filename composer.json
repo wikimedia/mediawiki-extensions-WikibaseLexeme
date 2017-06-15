@@ -19,7 +19,8 @@
 		"wikimedia/assert": "~0.2.2",
 		"wikibase/data-model": "^7.0",
 		"wikibase/data-model-serialization": "~2.0",
-		"wikibase/data-model-services": "~3.6"
+		"wikibase/data-model-services": "~3.6",
+		"wmde/php-vuejs-templating": "dev-master"
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "0.9.2",
@@ -51,5 +52,11 @@
 			"@cs",
 			"phpunit"
 		]
-	}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/wmde/php-vuejs-templating.git"
+		}
+	]
 }
