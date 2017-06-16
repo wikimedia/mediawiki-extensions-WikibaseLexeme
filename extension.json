@@ -51,6 +51,7 @@
 			"dependencies": [
 				"jquery.wikibase.entityview",
 				"jquery.wikibase.lexemeformlistview",
+				"jquery.wikibase.senselistview",
 				"wikibase.lexeme.view.ControllerViewFactory",
 				"lemma-widget",
 				"wikibase.lexeme.widgets.GlossWidget"
@@ -92,6 +93,23 @@
 				"jquery.ui.EditableTemplatedWidget",
 				"wikibase.templates.lexeme",
 				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
+			]
+		},
+		"jquery.wikibase.senselistview": {
+			"scripts": "jquery.wikibase.senselistview.js",
+			"dependencies": [
+				"jquery.ui.widget",
+				"jquery.wikibase.senseview"
+			]
+		},
+		"jquery.wikibase.senseview": {
+			"scripts": "jquery.wikibase.senseview.js",
+			"dependencies": [
+				"jquery.ui.widget",
+				"wikibase.templates.lexeme"
+			],
+			"messages": [
+				"wikibase-statementsection-statements"
 			]
 		},
 		"vue": {
@@ -292,6 +310,7 @@
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.LexemeForm",
+				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.view.ControllerViewFactory"
 			]
 		},

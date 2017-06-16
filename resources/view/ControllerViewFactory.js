@@ -34,7 +34,7 @@
 				$.extend( fakeStatementsChanger, statementsChanger );
 				fakeStatementsChanger.save = function fakeStatementsChangerSave( statement ) {
 					var guid = statement.getClaim().getGuid();
-					if ( /^L\d+-F\d+/.test( guid ) || /^F\d+/.test( guid ) ) {
+					if ( /^L\d+-[FS]\d+/.test( guid ) || /^[FS]\d+/.test( guid ) ) {
 						return $.Deferred().resolve( statement ).promise();
 					} else {
 						return statementsChanger.save( statement );
@@ -74,6 +74,7 @@
 				buildSitelinkGroupListView: this.getSitelinkGroupListView.bind( this, startEditingCallback ),
 				buildStatementGroupListView: this.getStatementGroupListView.bind( this, startEditingCallback ),
 				buildLexemeFormListView: this.getLexemeFormListView.bind( this, lexeme, startEditingCallback ),
+				buildSenseListView: this.getSenseListView.bind( this, lexeme, startEditingCallback ),
 				value: lexeme
 			}
 		);
@@ -91,6 +92,17 @@
 				getListItemAdapter: this.getListItemAdapterForLexemeFormListView.bind( this, lexeme, startEditingCallback ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
 				value: lexeme.forms
+			}
+		);
+	};
+
+	SELF.prototype.getSenseListView = function ( lexeme, startEditingCallback ) {
+		return this._getView(
+			'senselistview',
+			$( '.wikibase-lexeme-senses-section' ),
+			{
+				getListItemAdapter: this.getListItemAdapterForSenseListView.bind( this, lexeme, startEditingCallback, function () {} ),
+				value: lexeme.senses
 			}
 		);
 	};
@@ -132,7 +144,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( lexemeFormView.element ),
 				lexemeFormView,
-				fakeModelCreator( lexemeId ),
+				fakeFormModelCreator( lexemeId ),
 				removeCallback.bind( null, lexemeFormView ),
 				form,
 				startEditingCallback
@@ -146,7 +158,7 @@
 		return lexemeFormView;
 	};
 
-	function fakeModelCreator( lexemeId ) {
+	function fakeFormModelCreator( lexemeId ) {
 		return { // FIXME: replace with EntityChanger
 			save: function ( form ) {
 				var deferred = $.Deferred();
@@ -154,6 +166,51 @@
 					form._id = lexemeId + '-F' + Math.round( Math.random() * 100 );
 				}
 				deferred.resolve( form );
+				return deferred.promise();
+			}
+		};
+	}
+
+	SELF.prototype.getSenseView = function (
+		lexemeId,
+		sense,
+		$dom,
+		startEditingCallback,
+		removeCallback
+	) {
+		var self = this;
+
+		var senseView = this._getView(
+			'senseview',
+			$dom,
+			{
+				value: sense || new wb.lexeme.datamodel.Sense(),
+				buildStatementGroupListView: this.getStatementGroupListView.bind(
+					this,
+					startEditingCallback
+				)
+			}
+			),
+			controller = this._getController(
+				this._toolbarFactory.getToolbarContainer( senseView.element ),
+				senseView,
+				fakeSenseModelCreator( lexemeId ),
+				removeCallback.bind( null, senseView ),
+				sense,
+				startEditingCallback
+			);
+
+		return senseView;
+	};
+
+	function fakeSenseModelCreator( lexemeId ) {
+		return { // FIXME: replace with EntityChanger
+			save: function ( sense ) {
+				var deferred = $.Deferred();
+				if ( !sense.getId() ) {
+					sense._id = lexemeId + '-S' + Math.round( Math.random() * 100 );
+				}
+				deferred.resolve( sense );
 				return deferred.promise();
 			}
 		};
@@ -239,6 +296,25 @@
 		} ).filter( Boolean );
 
 		return existingGrammaticalFeatures.concat( deletedGrammaticalFeatures );
+	};
+
+	SELF.prototype.getListItemAdapterForSenseListView = function ( lexeme, startEditingCallback, removeCallback ) {
+		var self = this;
+
+		return new $.wikibase.listview.ListItemAdapter( {
+			listItemWidget: $.wikibase.senseview,
+			getNewItem: function ( sense, element ) {
+				var $element = $( element );
+
+				return self.getSenseView(
+					lexeme.getId(),
+					sense || null,
+					$element,
+					startEditingCallback,
+					removeCallback
+				);
+			}
+		} );
 	};
 
 	wb.lexeme.view.ControllerViewFactory = SELF;

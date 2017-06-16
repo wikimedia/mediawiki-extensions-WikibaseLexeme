@@ -243,3 +243,15 @@
 .wikibase-lexeme-sense-glosses-control:hover {
 	text-decoration: underline;
 }
+
+.wikibase-lexeme-sense .wikibase-statementgrouplistview::after {
+	/* This is clearfix */
+	/* TODO: Should be done in Wikibase for all elements */
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.wikibase-lexeme-sense > .wikibase-edittoolbar-container {
+	display: none; /* FIXME: temporarily hidden until entering/editing glosses is possible */
+}

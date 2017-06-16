@@ -16,6 +16,7 @@
 	 * @param {Object} options
 	 * @param {Function} options.buildStatementGroupListView
 	 * @param {Function} options.buildLexemeFormListView
+	 * @param {Function} options.buildSenseListView
 	 *
 	 * @constructor
 	 *
@@ -27,7 +28,8 @@
 		 */
 		options: {
 			buildStatementGroupListView: null,
-			buildLexemeFormListView: null
+			buildLexemeFormListView: null,
+			buildSenseListView: null
 		},
 
 		/**
@@ -49,6 +51,7 @@
 			}
 
 			this.options.buildLexemeFormListView();
+			this.options.buildSenseListView();
 			GlossWidget.applyWidgetToLexemePage();
 		},
 
@@ -57,7 +60,10 @@
 		 * @protected
 		 */
 		_init: function () {
-			if ( !this.options.buildStatementGroupListView || !this.options.buildLexemeFormListView ) {
+			if ( !this.options.buildStatementGroupListView ||
+				!this.options.buildLexemeFormListView ||
+				!this.options.buildSenseListView
+			) {
 				throw new Error( 'Required option(s) missing' );
 			}
 
