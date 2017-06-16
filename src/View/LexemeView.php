@@ -284,7 +284,7 @@ HTML;
 		$result = $templating->render(
 			$this->getRawLemmaVueTemplate(),
 			[
-				'inEditMode' => true,
+				'inEditMode' => false,
 				'isSaving' => false,
 				'lemmas' => $lemmas
 			],
