@@ -13,7 +13,7 @@
 	"wikibase-lemma-edit-placeholder": "Inserisci il lemma",
 	"wikibase-newlexeme-lexicalcategory": "Categoria lessicale",
 	"wikibase-newlexeme-language": "Lingua del lessema",
-	"wikibase-lexeme-view-language": "Lessema in $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
-	"wikibase-lexeme-view-forms": "Moduli"
+	"wikibase-lexeme-view-forms": "Moduli",
+	"datatypes-type-wikibase-lexeme": "Lessema"
 }
