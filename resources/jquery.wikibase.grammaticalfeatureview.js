@@ -15,6 +15,8 @@
 	 *
 	 * @param {Object} options
 	 * @param {wikibase.datamodel.Forms} options.value
+	 * @param {wikibase.LabelFormattingService} options.labelFormattingService
+	 * @param {mediaWiki.Api} options.api
 	 */
 	$.widget( 'wikibase.grammaticalfeatureview', PARENT, {
 		options: {

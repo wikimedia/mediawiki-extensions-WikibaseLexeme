@@ -6,7 +6,7 @@
 	/**
 	 * Initializes StatementGroupListView on given DOM element
 	 * @callback buildStatementGroupListView
-	 * @param {wikibase.datamodel.LexemeForm}
+	 * @param {wikibase.lexeme.datamodel.LexemeForm}
 	 * @param {jQuery} JQuery DOM element
 	 */
 
@@ -18,7 +18,11 @@
 	 * @constructor
 	 *
 	 * @param {Object} options
-	 * @param {wikibase.datamodel.Forms} options.value
+	 * @param {wikibase.lexeme.datamodel.LexemeForm} options.value
+	 * @param {Function} options.buildStatementGroupListView
+	 * @param {wikibase.LabelFormattingService} options.labelFormattingService
+	 * @param {mediaWiki.Api} options.api
+	 * @param {string} options.inputNodeName
 	 */
 	$.widget( 'wikibase.lexemeformview', PARENT, {
 		options: {

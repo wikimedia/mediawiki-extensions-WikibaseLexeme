@@ -6,10 +6,10 @@ module.exports = ( function ( $, OO ) {
 	 * @extends OO.ui.MenuTagMultiselectWidget
 	 * @mixins OO.ui.mixin.RequestManager
 	 *
-	 * @param {Object} [config] Configuration object
-	 * @cfg {mw.Api} [api] Api object to access 'wbsearchentities' action
-	 * @cfg {string} [language]
-	 * @cfg {wikibase.LabelFormattingService} [labelFormattingService]
+	 * @param {Object} config Configuration object
+	 * @cfg {mediaWiki.Api} api Api object to access 'wbsearchentities' action
+	 * @cfg {string} language
+	 * @cfg {wikibase.LabelFormattingService} labelFormattingService
 	 *
 	 * @license GPL-2.0+
 	 */

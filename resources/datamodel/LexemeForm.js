@@ -6,6 +6,8 @@
 	 *
 	 * @param {string} id
 	 * @param {string} representation
+	 * @param {string[]} grammaticalFeatures
+	 * @param {wikibase.datamodel.StatementGroupSet} statementGroupSet
 	 */
 	var LexemeForm = util.inherit(
 		'LexemeForm',
