@@ -15,5 +15,6 @@
 	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
 	"wikibase-lexeme-view-forms": "Formularios",
 	"wikibase-lexeme-view-senses": "Sentíos",
-	"wikibase-lexeme-summary-wbeditentity-update": "Cambió un lexema"
+	"wikibase-lexeme-summary-wbeditentity-update": "Cambió un lexema",
+	"datatypes-type-wikibase-lexeme": "Lexema"
 }
