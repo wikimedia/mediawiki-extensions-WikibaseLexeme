@@ -167,6 +167,16 @@
 				"wikibase.lexeme"
 			]
 		},
+		"wikibase.lexeme.datamodel.Sense": {
+			"scripts": [
+				"datamodel/__namespace.js",
+				"datamodel/Sense.js"
+			],
+			"dependencies": [
+				"util.inherit",
+				"wikibase.lexeme"
+			]
+		},
 		"wikibase.lexeme.getDeserializer": {
 			"scripts": "getDeserializer.js",
 			"dependencies": [

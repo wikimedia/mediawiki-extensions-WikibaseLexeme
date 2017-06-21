@@ -96,6 +96,7 @@ class WikibaseLexemeHooks {
 		$testModules['qunit']['WikibaseLexeme.tests'] = [
 			'scripts' => [
 				'tests/qunit/datamodel/LexemeForm.tests.js',
+				'tests/qunit/datamodel/Sense.tests.js',
 				'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
 				'tests/qunit/jquery.wikibase.lexemeformview.tests.js',
 				'tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js',
@@ -114,6 +115,7 @@ class WikibaseLexemeHooks {
 				'jquery.wikibase.grammaticalfeatureview',
 				'oojs-ui',
 				'wikibase.lexeme.datamodel.LexemeForm',
+				'wikibase.lexeme.datamodel.Sense',
 				'wikibase.lexeme.serialization.LexemeDeserializer',
 				'wikibase.lexeme.services.ItemLookup',
 				'wikibase.lexeme.services.LanguageFromItemExtractor',
