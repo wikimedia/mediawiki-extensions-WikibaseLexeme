@@ -29,9 +29,14 @@
 			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer(),
 				termMapDeserializer = new SERIALIZER.TermMapDeserializer();
 
-			var forms = serialization.forms || [];
+			var forms = serialization.forms;
 			var deserializedForms = forms.map( function ( form ) {
 				return this.deserializeForm( form );
+			}.bind( this ) );
+
+			var senses = serialization.senses;
+			var deserializedSenses = senses.map( function ( sense ) {
+				return this.deserializeSense( sense );
 			}.bind( this ) );
 
 			var lexeme = new wikibase.lexeme.datamodel.Lexeme(
@@ -42,6 +47,8 @@
 
 			// TODO switch to setter/constructor
 			lexeme.forms = deserializedForms;
+			lexeme.senses = deserializedSenses;
+
 			return lexeme;
 		},
 
@@ -53,7 +60,27 @@
 				formSerialization.grammaticalFeatures,
 				statementGroupSetDeserializer.deserialize( formSerialization.claims )
 			);
+		},
+
+		deserializeSense: function ( senseSerialization ) {
+			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer();
+			return new wb.lexeme.datamodel.Sense(
+				senseSerialization.id,
+				this._deserializeGlosses( senseSerialization.glosses ),
+				statementGroupSetDeserializer.deserialize( senseSerialization.claims )
+			);
+		},
+
+		_deserializeGlosses: function ( serializedGlosses ) {
+			var glosses = {};
+
+			for ( var lang in serializedGlosses ) {
+				glosses[ serializedGlosses[ lang ][ 'language' ] ] = serializedGlosses[ lang ][ 'value' ];
+			}
+
+			return glosses;
 		}
+
 	} );
 
 }( wikibase, util ) );

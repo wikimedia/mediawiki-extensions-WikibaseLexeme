@@ -26,7 +26,9 @@
 		lemmas: {},
 		lexicalCategory: 'Q2',
 		language: 'Q2',
-		claims: claimsSerialization
+		claims: claimsSerialization,
+		forms: [],
+		senses: []
 	};
 
 	var expectedStatementGroupSet = new wb.datamodel.StatementGroupSet( [
@@ -41,6 +43,7 @@
 		expectedStatementGroupSet
 		);
 	expectedDataModel.forms = [];
+	expectedDataModel.senses = [];
 
 	QUnit.test( 'deserialize()', 2, function ( assert ) {
 		var ds = new wb.lexeme.serialization.LexemeDeserializer();
@@ -68,10 +71,11 @@
 				representation: 'some representation',
 				grammaticalFeatures: [ 'Q1' ],
 				claims: claimsSerialization
-			} ]
+			} ],
+			senses: []
 		} );
 
-		assert.ok( result.forms, 'Deserialized data model should contain form' );
+		assert.ok( result.forms, 'Deserialized data model should contain forms' );
 
 		var form = result.forms[ 0 ];
 		assert.ok(
@@ -92,6 +96,41 @@
 		assert.ok(
 			form.getStatements().equals( expectedStatementGroupSet ),
 			'Data model should have statements on form'
+		);
+	} );
+
+	QUnit.test( 'deserialize() deserializes senses', function ( assert ) {
+		var ds = new wb.lexeme.serialization.LexemeDeserializer();
+
+		var result = ds.deserialize( {
+			type: 'lexeme',
+			id: 'L1',
+			forms: [],
+			senses: [ {
+				id: 'S1',
+				glosses: {
+					en: { language: 'en', value: 'Some English gloss' }
+				},
+				claims: claimsSerialization
+			} ]
+		} );
+
+		assert.ok( result.senses, 'Deserialized data model should contain senses' );
+
+		var sense = result.senses[ 0 ];
+		assert.ok(
+			sense instanceof wb.lexeme.datamodel.Sense,
+			'Data model should contain instance of Sense'
+		);
+		assert.equal( sense.getId(), 'S1', 'Data model should contain sense id' );
+		assert.deepEqual(
+			sense.getGlosses(),
+			{ en: 'Some English gloss' },
+			'Data model should contain all glosses of a sense'
+		);
+		assert.ok(
+			sense.getStatements().equals( expectedStatementGroupSet ),
+			'Data model should have statements on sense'
 		);
 	} );
 

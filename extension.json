@@ -192,6 +192,8 @@
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Lexeme",
+				"wikibase.lexeme.datamodel.LexemeForm",
+				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.serialization.Deserializer",
 				"wikibase.serialization.StatementGroupSetDeserializer",
 				"wikibase.serialization.TermMapDeserializer"
