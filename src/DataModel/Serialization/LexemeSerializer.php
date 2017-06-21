@@ -178,6 +178,10 @@ class LexemeSerializer implements DispatchableSerializer {
 		$serialization['id'] = $sense->getId()->getSerialization();
 		$serialization['glosses'] = $this->termListSerializer->serialize( $sense->getGlosses() );
 
+		$serialization['claims'] = $this->statementListSerializer->serialize(
+			$sense->getStatements()
+		);
+
 		return $serialization;
 	}
 

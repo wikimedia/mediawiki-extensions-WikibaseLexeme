@@ -12,6 +12,7 @@ use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeForm;
@@ -20,7 +21,7 @@ use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
 use Wikibase\Lexeme\Tests\DataModel\LexemeBuilder;
-use Wikibase\Lexeme\Tests\DataModel\SenseBuilder;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
  * @covers Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer
@@ -232,8 +233,8 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	public function testSerializeSensesIds() {
 		$lexeme = LexemeBuilder::create()
-			->withSense( SenseBuilder::havingId( 'S1' ) )
-			->withSense( SenseBuilder::havingId( 'S2' ) )
+			->withSense( NewSense::havingId( 'S1' ) )
+			->withSense( NewSense::havingId( 'S2' ) )
 			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -249,7 +250,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	public function testSerializeGlossesOnSenses() {
 		$lexeme = LexemeBuilder::create()
 			->withSense(
-				SenseBuilder::havingId( 'S1' )
+				NewSense::havingId( 'S1' )
 					->withGloss( 'en', 'en gloss' )
 					->withGloss( 'fr', 'fr gloss' )
 			)
@@ -268,6 +269,26 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				 )
 			 )
 		) );
+	}
+
+	public function testSerializesStatementsOnSenses() {
+		$lexeme = LexemeBuilder::create()
+			->withSense(
+				NewSense::havingStatement( new PropertyId( 'P2' ) )
+			)
+			->build();
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat(
+			$serialization,
+			hasKeyValuePair(
+				'senses',
+				hasItemInArray(
+					hasKeyValuePair( 'claims', 'P2' )
+				)
+			)
+		);
 	}
 
 }

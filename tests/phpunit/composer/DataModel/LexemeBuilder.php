@@ -143,13 +143,13 @@ class LexemeBuilder {
 	}
 
 	/**
-	 * @param Sense|SenseBuilder $sense
+	 * @param Sense|NewSense $sense
 	 * @return self
 	 */
 	public function withSense( $sense ) {
 		$result = clone $this;
 
-		if ( $sense instanceof SenseBuilder ) {
+		if ( $sense instanceof NewSense ) {
 			$sense = $sense->build();
 		} elseif ( !$sense instanceof Sense ) {
 			throw new \InvalidArgumentException( '$sense has incorrect type' );
