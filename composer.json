@@ -55,7 +55,7 @@
 	},
 	"repositories": [
 		{
-			"type": "vcs",
+			"type": "git",
 			"url": "https://github.com/wmde/php-vuejs-templating.git"
 		}
 	]
