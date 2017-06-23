@@ -193,6 +193,7 @@
 						when = '',
 						selector = {
 							gloss: '.wikibase-lexeme-sense-gloss',
+							glossValueCell: '.wikibase-lexeme-sense-gloss-value-cell',
 							glossValue: '.wikibase-lexeme-sense-gloss-value',
 							glossLanguage: '.wikibase-lexeme-sense-gloss-language'
 						};
@@ -235,9 +236,11 @@
 								var found = false;
 								$( selector.gloss, widget.$el ).each( function () {
 									var $el = $( this );
+									var value = $el.find( selector.glossValue ).text();
+									var language = $el.find( selector.glossLanguage ).text();
 									found = found ||
-										$el.children( selector.glossValue ).text().indexOf( value ) !== -1 &&
-										$el.children( selector.glossLanguage ).text() === language;
+										value.trim() === value &&
+										language.trim() === language;
 								} );
 								var message = when + 'DOM contains gloss with value "' + value +
 									'" and language "' + language + '"';
@@ -253,9 +256,13 @@
 								var found = false;
 								$( selector.gloss, widget.$el ).each( function () {
 									var $el = $( this );
+									var value = $el.find( selector.glossValueCell )
+										.find( 'input' ).val();
+									var language = $el.find( selector.glossLanguage )
+										.find( 'input' ).val();
 									found = found ||
-										$el.children( selector.glossValue ).find( 'input' ).val() === value &&
-										$el.children( selector.glossLanguage ).find( 'input' ).val() === language;
+										value.trim() === value &&
+										language.trim() === language;
 								} );
 								var message = when + 'DOM contains inputs with gloss having value "' + value +
 									'" and language "' + language + '"';
@@ -306,11 +313,25 @@
 			'<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">\n' +
 			'<td class="wikibase-lexeme-sense-gloss-language">\n' +
 			'<span v-if="!inEditMode">{{gloss.language}}</span>\n' +
-			'<input v-else class="wikibase-lexeme-sense-gloss-language-input" v-model="gloss.language" :disabled="isSaving">\n' +
+			'<input v-else class="wikibase-lexeme-sense-gloss-language-input"\n' +
+			'v-model="gloss.language" :disabled="isSaving">\n' +
 			'</td>\n' +
-			'<td class="wikibase-lexeme-sense-gloss-value">\n' +
-			'<span v-if="!inEditMode" :dir="gloss.language|directionality" :lang="gloss.language">{{gloss.value}} <span class="wikibase-lexeme-sense-glosses-sense-id">({{senseId}})</span></span>\n' +
-			'<input v-else class="wikibase-lexeme-sense-gloss-value-input" v-model="gloss.value" :disabled="isSaving">\n' +
+			'<td class="wikibase-lexeme-sense-gloss-value-cell">\n' +
+			'<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"\n' +
+			':dir="gloss.language|directionality" :lang="gloss.language">{{gloss.value}}</span>\n' +
+			'<span v-if="!inEditMode" class="wikibase-lexeme-sense-glosses-sense-id">\n' +
+			'({{senseId}})\n' +
+			'</span>\n' +
+			'<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"\n' +
+			'v-model="gloss.value" :disabled="isSaving">\n' +
+			'</td>\n' +
+			'<td>\n' +
+			'<button v-if="inEditMode"\n' +
+			'class="wikibase-lexeme-sense-glosses-control\n' +
+			'wikibase-lexeme-sense-glosses-remove"\n' +
+			'v-on:click="remove(gloss)" :disabled="isSaving" type="button">\n' +
+			'{{\'wikibase-remove\'|message}}\n' +
+			'</button>\n' +
 			'</td>\n' +
 			'</tr>\n' +
 			'</tbody>\n' +
@@ -319,19 +340,25 @@
 			'<td>\n' +
 			'</td>\n' +
 			'<td>\n' +
-			'<button type="button" class="wikibase-lexeme-sense-glosses-control"\n' +
-			'    v-on:click="add" :disabled="isSaving">+ {{\'wikibase-add\'|message}}</button>\n' +
+			'<button type="button"\n' +
+			'class="wikibase-lexeme-sense-glosses-control\n' +
+			'wikibase-lexeme-sense-glosses-add"\n' +
+			'v-on:click="add" :disabled="isSaving">+ {{\'wikibase-add\'|message}}\n' +
+			'</button>\n' +
 			'</td>\n' +
 			'</tr>\n' +
 			'</tfoot>\n' +
 			'</table>\n' +
 			'</div>\n' +
 			'<div class="wikibase-lexeme-sense-glosses-controls">\n' +
-			'<button type="button" class="wikibase-lexeme-sense-glosses-control" v-if="!inEditMode" \n' +
+			'<button v-if="!inEditMode" type="button"\n' +
+			'class="wikibase-lexeme-sense-glosses-control wikibase-lexeme-sense-glosses-edit"\n' +
 			'v-on:click="edit" :disabled="isSaving">{{\'wikibase-edit\'|message}}</button>\n' +
-			'<button type="button" class="wikibase-lexeme-sense-glosses-control" v-if="inEditMode" \n' +
+			'<button v-if="inEditMode" type="button"\n' +
+			'class="wikibase-lexeme-sense-glosses-control wikibase-lexeme-sense-glosses-save"\n' +
 			'v-on:click="save" :disabled="isSaving">{{\'wikibase-save\'|message}}</button>\n' +
-			'<button type="button" class="wikibase-lexeme-sense-glosses-control" v-if="inEditMode" \n' +
+			'<button v-if="inEditMode" type="button"\n' +
+			'class="wikibase-lexeme-sense-glosses-control wikibase-lexeme-sense-glosses-cancel"\n' +
 			'v-on:click="cancel" :disabled="isSaving">{{\'wikibase-cancel\'|message}}</button>\n' +
 			'</div>\n' +
 			'</div>';

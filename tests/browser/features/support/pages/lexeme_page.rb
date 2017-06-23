@@ -55,12 +55,34 @@ class LexemeForm
 end
 
 
+class GlossDefinition
+  include PageObject
+
+  element(:language, class: 'wikibase-lexeme-sense-gloss-language')
+  text_field(:language_input, class: 'wikibase-lexeme-sense-gloss-language-input')
+  span(:value, class: 'wikibase-lexeme-sense-gloss-value')
+  text_field(:value_input, class: 'wikibase-lexeme-sense-gloss-value-input')
+  button(:remove, css:".wikibase-lexeme-sense-glosses-remove")
+end
+
 class Sense
   include PageObject
 
-  element(:gloss, class: 'wikibase-lexeme-sense-gloss')
+  button(:edit, class: 'wikibase-lexeme-sense-glosses-control')
+  button(:save, class: 'wikibase-lexeme-sense-glosses-save')
+  button(:add_gloss, css: '.wikibase-lexeme-sense-glosses-add')
+
   span(:id, class: 'wikibase-lexeme-sense-glosses-sense-id')
   div(:statements, class: 'wikibase-statementgrouplistview')
+
+  page_sections(:glosses, GlossDefinition, class: 'wikibase-lexeme-sense-gloss')
+
+  def gloss?(language_code, value)
+    self.glosses.any? do |g|
+      g.value_element.when_present.text == value &&
+          g.language_element.when_present.text == language_code
+    end
+  end
 end
 
 

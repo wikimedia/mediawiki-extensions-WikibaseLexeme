@@ -215,7 +215,7 @@
 	white-space: nowrap;
 }
 
-.wikibase-lexeme-sense-gloss-value {
+.wikibase-lexeme-sense-gloss-value-cell {
 	width: 99%; /* ... because it is a table cell */
 }
 
