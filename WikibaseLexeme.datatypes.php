@@ -22,6 +22,7 @@ use Wikibase\Repo\WikibaseRepo;
 
 return [
 	'PT:wikibase-lexeme' => [
+		'expert-module' => 'wikibase.experts.Lexeme',
 		'validator-factory-callback' => function() {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
