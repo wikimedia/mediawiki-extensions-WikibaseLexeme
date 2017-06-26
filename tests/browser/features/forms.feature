@@ -38,7 +38,7 @@ Feature: Forms of a Lexeme
 
   @integration
   Scenario: Change representation
-    Given I have a Lexeme with a Form
+   Given I have a Lexeme with a Form
      And I am on the page of the Lexeme to test
     When I click on the first Form's edit button
      And I enter "new-representation" as the form representation
@@ -47,8 +47,7 @@ Feature: Forms of a Lexeme
 
   @integration
   Scenario: Add Form
-    When I am on a Lexeme page
-     And I click the Forms list add button
+    When I click the Forms list add button
      And I enter "whatever" as the form representation
      And I save the Form
     Then "whatever" should be displayed as a representation of the Form
@@ -56,8 +55,7 @@ Feature: Forms of a Lexeme
 
   @integration
   Scenario: Cancel Form addition
-    Given I am on a Lexeme page
-      And I click the Forms list add button
+    Given I click the Forms list add button
      When I cancel the editing of the Form
      Then I don't see the Form
 
@@ -65,7 +63,6 @@ Feature: Forms of a Lexeme
   Scenario: Edit statements on new Form
     Given I have the following properties with datatype:
       | stringprop | string |
-      And I am on a Lexeme page
       And I click the Forms list add button
       And I enter "newForm" as the form representation
       And I save the Form
