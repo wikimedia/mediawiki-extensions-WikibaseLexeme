@@ -52,7 +52,6 @@
 
 			this.options.buildLexemeFormListView();
 			this.options.buildSenseListView();
-			GlossWidget.applyWidgetToLexemePage();
 		},
 
 		/**

@@ -3,6 +3,8 @@
 
 	var PARENT = $.Widget;
 
+	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
+
 	/**
 	 * Initializes StatementGroupListView on given DOM element
 	 * @callback buildStatementGroupListView
@@ -50,10 +52,27 @@
 				this.value(),
 				$( '.wikibase-statementgrouplistview', this.element )
 			);
+
+			GlossWidget.applyGlossWidget(
+				$( '.wikibase-lexeme-sense-glosses', this.element )[ 0 ],
+				this.value().getId(),
+				convertGlossesToGlossWidgetModel( this.value().getGlosses() )
+			);
 		},
 
 		getHelpMessage: function () {
 			return $.Deferred().resolve( this.options.helpMessage ).promise();
 		}
 	} );
+
+	function convertGlossesToGlossWidgetModel( glosses ) {
+		var result = [];
+		for ( var language in glosses ) {
+			if ( glosses.hasOwnProperty( language ) ) {
+				result.push( { value: glosses[ language ], language: language } );
+			}
+		}
+		return result;
+	}
+
 }( jQuery, mediaWiki ) );

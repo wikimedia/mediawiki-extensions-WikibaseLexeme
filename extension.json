@@ -53,8 +53,7 @@
 				"jquery.wikibase.lexemeformlistview",
 				"jquery.wikibase.senselistview",
 				"wikibase.lexeme.view.ControllerViewFactory",
-				"lemma-widget",
-				"wikibase.lexeme.widgets.GlossWidget"
+				"lemma-widget"
 			]
 		},
 		"wikibase.lexeme": {
@@ -106,7 +105,8 @@
 			"scripts": "jquery.wikibase.senseview.js",
 			"dependencies": [
 				"jquery.ui.widget",
-				"wikibase.templates.lexeme"
+				"wikibase.templates.lexeme",
+				"wikibase.lexeme.widgets.GlossWidget"
 			],
 			"messages": [
 				"wikibase-statementsection-statements"

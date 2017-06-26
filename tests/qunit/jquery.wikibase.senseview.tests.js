@@ -28,7 +28,9 @@
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {
-		assert.ok( newSenseView() instanceof $.wikibase.senseview );
+		var sense = newSense( 'S123', 'foo' );
+
+		assert.ok( newSenseView( { value: sense } ) instanceof $.wikibase.senseview );
 	} );
 
 	QUnit.test( 'value can be injected as option.value', function ( assert ) {

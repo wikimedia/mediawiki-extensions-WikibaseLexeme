@@ -5,39 +5,6 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 		return JSON.parse( JSON.stringify( object ) );
 	}
 
-	function applyWidgetToLexemePage() {
-		var wbEntity = JSON.parse( mw.config.get( 'wbEntity' ) );
-
-		var widgetElements = document.getElementsByClassName( 'wikibase-lexeme-sense-glosses' );
-
-		for ( var index in widgetElements ) {
-			if ( widgetElements.hasOwnProperty( index ) ) {
-				var widgetElement = widgetElements[ index ];
-				var senseId = $( widgetElement ).closest( '.wikibase-lexeme-sense' ).data(
-					'sense-id' );
-
-				var glosses = getGlossesForSense( wbEntity, senseId );
-
-				applyGlossWidget( widgetElement, senseId, glosses );
-			}
-		}
-	}
-
-	function getGlossesForSense( wbEntity, senseId ) {
-		var targetSense = wbEntity.senses.filter( function ( sense ) {
-			return sense.id === senseId;
-		} )[ 0 ];
-
-		var result = [];
-		for ( var language in targetSense.glosses ) {
-			if ( targetSense.glosses.hasOwnProperty( language ) ) {
-				result.push( { value: targetSense.glosses[ language ].value, language: language } );
-			}
-		}
-
-		return result;
-	}
-
 	function applyGlossWidget( widgetElement, senseId, glosses ) {
 		var store = new Vuex.Store( newGlossWidgetStore( glosses ) );
 		var template = '#gloss-widget-vue-template';
@@ -132,7 +99,7 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 	}
 
 	return {
-		applyWidgetToLexemePage: applyWidgetToLexemePage,
+		applyGlossWidget: applyGlossWidget,
 		newGlossWidget: newGlossWidget,
 		newGlossWidgetStore: newGlossWidgetStore
 	};
