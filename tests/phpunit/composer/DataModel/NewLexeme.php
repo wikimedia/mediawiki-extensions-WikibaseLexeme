@@ -10,6 +10,9 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
 
+/**
+ * @method static self havingId(LexemeId | string $lexemeId)
+ */
 class NewLexeme {
 
 	/**
@@ -185,6 +188,17 @@ class NewLexeme {
 		$result->forms[] = $form;
 
 		return $result;
+	}
+
+	/**
+	 * @param string $name
+	 * @param array $arguments
+	 * @return self
+	 */
+	public static function __callStatic( $name, $arguments ) {
+		$result = new self();
+		$methodName = str_replace( 'having', 'with', $name );
+		return call_user_func_array( [ $result, $methodName ], $arguments );
 	}
 
 	/**

@@ -13,10 +13,10 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
  * @covers Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
@@ -163,29 +163,22 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			$lexeme
 		];
 
-		$forms = [ new Form( null, 'form', [] ) ];
-		$lexeme = new Lexeme( null, null, null, null, null, $forms );
 		$serializations['with minimal forms'] = [
 			[
 				'type' => 'lexeme',
-				'forms' => [ [ 'representation' => 'form' ] ],
+				'id' => 'L1',
+				'lexicalCategory' => 'Q1',
+				'language' => 'Q2',
+				'forms' => [ [ 'id' => 'F1', 'representation' => 'form' ] ],
 			],
-			$lexeme
-		];
+			NewLexeme::havingId( 'L1' )
+				->withLexicalCategory( 'Q1' )
+				->withLanguage( 'Q2' )
+				->withForm(
+					NewForm::havingId( 'F1' )
+						->andRepresentation( 'form' )
+				)->build()
 
-		//TODO: Test grammatical features (de)serialization
-		$forms = [ new Form( new FormId( 'F5' ), 'form', [] ) ];
-		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, null, null, null, $forms );
-		$serializations['with forms and all IDs set'] = [
-			[
-				'type' => 'lexeme',
-				'id' => 'L5',
-				'forms' => [ [
-					'id' => 'F5',
-					'representation' => 'form',
-				] ],
-			],
-			$lexeme
 		];
 
 		return $serializations;
