@@ -317,6 +317,15 @@
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig": {
 			"class": "Wikibase\\Lexeme\\Config\\LexemeLanguageCodePropertyIdConfig"
 		},
+		"wikibase.experts.Lexeme": {
+			"scripts": [
+				"experts/Lexeme.js"
+			],
+			"dependencies": [
+				"jquery.valueview.Expert",
+				"wikibase.experts.Entity"
+			]
+		},
 		"wikibase.lexeme.styles": {
 			"position": "top",
 			"styles": [
