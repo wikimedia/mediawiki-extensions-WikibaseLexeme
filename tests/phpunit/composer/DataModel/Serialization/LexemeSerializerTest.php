@@ -12,14 +12,12 @@ use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\Sense;
-use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
@@ -179,8 +177,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
-		$lexeme = NewLexeme::create()->build();
-		$lexeme->setForms( [ new Form( null, 'some representation', [] ) ] );
+		$lexeme = NewLexeme::havingForm(
+			NewForm::havingRepresentation( 'some representation' )
+		)->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 

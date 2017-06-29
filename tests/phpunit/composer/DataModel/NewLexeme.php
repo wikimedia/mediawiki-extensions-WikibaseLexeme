@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
@@ -41,13 +42,27 @@ class NewLexeme {
 	 */
 	private $senses = [];
 
-	public function __construct() {
-		$this->lexicalCategory = $this->newRandomItemId();
-		$this->language = $this->newRandomItemId();
-	}
+	/**
+	 * @var Form[]
+	 */
+	private $forms = [];
 
 	public static function create() {
 		return new self();
+	}
+
+	/**
+	 * @param $form
+	 * @return self
+	 */
+	public static function havingForm( $form ) {
+		$result = new self();
+		return $result->withForm( $form );
+	}
+
+	public function __construct() {
+		$this->lexicalCategory = $this->newRandomItemId();
+		$this->language = $this->newRandomItemId();
 	}
 
 	public function build() {
@@ -57,7 +72,7 @@ class NewLexeme {
 			$this->lexicalCategory,
 			$this->language,
 			null,
-			[],
+			$this->forms,
 			$this->senses
 		);
 
@@ -135,11 +150,8 @@ class NewLexeme {
 	}
 
 	public function __clone() {
-		$statements = [];
-		foreach ( $this->statements as $statement ) {
-			$statements[] = clone $statement;
-		}
-		$this->statements = $statements;
+		$this->statements = $this->cloneArrayOfObjects( $this->statements );
+		$this->forms = $this->cloneArrayOfObjects( $this->forms );
 	}
 
 	/**
@@ -156,6 +168,34 @@ class NewLexeme {
 		}
 
 		$result->senses[] = $sense;
+		return $result;
+	}
+
+	/**
+	 * @param Form|NewForm $form
+	 * @return self
+	 */
+	public function withForm( $form ) {
+		$result = clone $this;
+
+		if ( $form instanceof NewForm ) {
+			$form = $form->build();
+		}
+
+		$result->forms[] = $form;
+
+		return $result;
+	}
+
+	/**
+	 * @param array $objects
+	 * @return array
+	 */
+	private function cloneArrayOfObjects( array $objects ) {
+		$result = [];
+		foreach ( $objects as $object ) {
+			$result[] = clone $object;
+		}
 		return $result;
 	}
 
