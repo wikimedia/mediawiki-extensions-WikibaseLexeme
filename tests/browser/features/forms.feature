@@ -11,7 +11,7 @@ Feature: Forms of a Lexeme
     Then Forms header should be there
      And Forms container should be there
      And for each Form there is a representation and an ID
-     And each representation is enclosed in tag having lang attribute with "some language" as a value
+     And each representation has a language
 
   @integration
   Scenario: View Forms grammatical features
@@ -37,20 +37,23 @@ Feature: Forms of a Lexeme
     Then the first Form should no longer have the removed grammatical feature
 
   @integration
-  Scenario: Change representation
-   Given I have a Lexeme with a Form
+  Scenario: Change multi-variant representations
+    Given I have a Lexeme with a Form
      And I am on the page of the Lexeme to test
     When I click on the first Form's edit button
-     And I enter "new-representation" as the form representation
+     And I enter "colors" as the "en-us" form representation
+     And I click on the add representation button
+     And I enter "colours" as the "en-gb" form representation
      And I save the Form
-    Then "new-representation" should be displayed as a representation of the Form
+    Then "colors" should be displayed as the "en-us" representation of the Form
+     And "colours" should be displayed as the "en-gb" representation of the Form
 
   @integration
   Scenario: Add Form
     When I click the Forms list add button
-     And I enter "whatever" as the form representation
+     And I enter "whatever" as the "en" form representation
      And I save the Form
-    Then "whatever" should be displayed as a representation of the Form
+    Then "whatever" should be displayed as the "en" representation of the Form
 
 
   @integration
@@ -64,7 +67,7 @@ Feature: Forms of a Lexeme
     Given I have the following properties with datatype:
       | stringprop | string |
       And I click the Forms list add button
-      And I enter "newForm" as the form representation
+      And I enter "newForm" as the "en" form representation
       And I save the Form
      When I click add statement on the Form
       And I select the claim property stringprop

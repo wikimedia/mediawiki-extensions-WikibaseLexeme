@@ -18,6 +18,14 @@
 	clear: left;
 }
 
+.wikibase-lexeme-form-header {
+	display: flex;
+	align-items: center;
+}
+.wikibase-lexeme-form-id {
+	font-size: 2em;
+}
+
 .wikibase-lexeme-forms .wikibase-lexeme-form-representation {
 	clear: left;
 	margin-left: 10px; /* same as .wb-section-heading */
@@ -35,10 +43,6 @@
 	font-size: 0.9em;
 	height: 1.5em;
 	vertical-align: middle;
-}
-
-.wikibase-lexeme-form-representation .wikibase-lexeme-form-id {
-	color: #72777d;
 }
 
 .wikibase-lexeme-forms-section > .wikibase-toolbar-container {
@@ -169,6 +173,116 @@
 	height: 132px;
 	border: none;
 	font-size: 3em;
+	text-align: center;
+	background: #dae8fc;
+	cursor: pointer;
+}
+
+.representation-widget {
+	display: flex;
+	margin: 0 2em;
+}
+
+.representation-widget_representation-list {
+	margin: 0 !important;
+	padding: 0 !important;
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	flex-grow: 1;
+}
+
+.representation-widget_representation {
+	display: flex;
+	flex-direction: column;
+	border-left: 6px solid #ededed;
+	padding: 0 9px;
+	margin: 11px 0;
+}
+
+.representation-widget_representation-value {
+	font-size: 2em;
+	font-weight: bold;
+}
+
+.representation-widget_representation-language {
+	font-size: 1em;
+}
+
+.representation-widget_edit-area {
+	display: flex;
+	border: 2px solid #99ccff;
+}
+
+.representation-widget_controls {
+	width: 100px;
+	padding: 20px 40px;
+	background: #dae8fc;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.representation-widget_control {
+	background: transparent;
+	border: none;
+	font-size: 1em;
+	margin: 10px;
+	cursor: pointer;
+	color: #0d4c99;
+}
+
+.representation-widget_representation-edit-box {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	border-left: 6px solid #dae8fc;
+	padding: 0 45px 0 9px;
+	margin: 11px 0;
+
+	height: 132px;
+}
+
+.representation-widget_representation-value-input {
+	resize: horizontal;
+	min-width: 120px;
+	padding-right: 20px;
+
+	font-size: 2em;
+}
+
+.representation-widget_representation-value-input:active {
+	width: auto;
+}
+
+.representation-widget_representation-language-input {
+	resize: horizontal;
+	min-width: 120px;
+	font-size: 1em;
+	padding-right: 20px;
+}
+
+.representation-widget_representation-language-input:active {
+	width: auto;
+}
+
+.representation-widget_representation-remove {
+	border: none;
+	background: transparent;
+	color: #074c99;
+	font-size: 2em;
+	cursor: pointer;
+
+	position: absolute;
+	top: -11px;
+	right: 23px;
+}
+
+.representation-widget_add {
+	height: 100%;
+	border: none;
+	font-size: 2em;
 	text-align: center;
 	background: #dae8fc;
 	cursor: pointer;

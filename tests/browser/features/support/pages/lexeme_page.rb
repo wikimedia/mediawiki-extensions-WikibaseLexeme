@@ -27,24 +27,38 @@ class GrammaticalFeatureValue
   a(:delete_button, css: '.oo-ui-buttonElement > .oo-ui-buttonElement-button')
 end
 
+class FormRepresentation
+  include PageObject
+
+  text_field(:value_input, class: 'representation-widget_representation-value-input')
+  text_field(:language_input, class: 'representation-widget_representation-language-input')
+  span(:value, class: 'representation-widget_representation-value')
+  span(:language, class: 'representation-widget_representation-language')
+end
+
 class LexemeForm
   include PageObject
 
-  span(:representation, class: 'wikibase-lexeme-form-text')
+  div(:id, class: 'wikibase-lexeme-form-id')
   div(:grammatical_feature_list, class: 'wikibase-lexeme-form-grammatical-features')
   div(:statements, class: 'wikibase-statementgrouplistview')
-  textarea(:representation_input, css: '.wikibase-lexeme-form-text > textarea')
   text_field(:grammatical_features_input, css: '.wikibase-lexeme-form-grammatical-features-values input')
   a(:save, css: '.wikibase-toolbar-button-save > a')
   a(:cancel, css: '.wikibase-toolbar-button-cancel > a')
   a(:edit, css: '.wikibase-toolbar-button-edit > a')
   a(:grammatical_feature_selection_first_option, css: '.wikibase-lexeme-form-grammatical-features-values .oo-ui-menuOptionWidget:first-of-type a')
+  button(:add_representation, class: 'representation-widget_add')
 
   page_section(:statement_group, StatementGroup, class: 'wikibase-statementgrouplistview')
   page_sections(
     :grammatical_features,
     GrammaticalFeatureValue,
     css: '.wikibase-lexeme-form-grammatical-features-values > span, .wikibase-lexeme-form-grammatical-features-values .oo-ui-tagItemWidget'
+  )
+  page_sections(
+    :representations,
+    FormRepresentation,
+    css: '.representation-widget_representation, .representation-widget_representation-edit-box'
   )
 
   def grammatical_feature?(label)
@@ -93,7 +107,6 @@ class LexemePage
   span(:forms_header, id: 'forms')
   div(:forms_container, class: 'wikibase-lexeme-forms')
   h3(:form_representation, class: 'wikibase-lexeme-form-representation')
-  span(:form_id, class: 'wikibase-lexeme-form-id')
   span(:senses_header, id: 'senses')
   div(:senses_container, class: 'wikibase-lexeme-senses')
 

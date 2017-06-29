@@ -3,6 +3,9 @@
 
 	var PARENT = $.ui.EditableTemplatedWidget;
 
+	/** @type {wikibase.lexeme.widgets.RepresentationWidget} */
+	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' );
+
 	/** @type {wikibase.datamodel.TermMap}*/
 	var TermMap = wb.datamodel.TermMap;
 	/** @type {wikibase.datamodel.Term}*/
@@ -34,19 +37,19 @@
 			template: 'wikibase-lexeme-form',
 			templateParams: [
 				function () {
-					return 'some lang';
+					var $container = $( '<span/>' );
+					this.deferredFormWithId.promise().then( function ( form ) {
+						$container.text( form.getId() );
+					} );
+
+					return $container;
 				},
 				'',
-				function () {
-					return '';
-				},
 				function () {
 					return mw.wbTemplate( 'wikibase-lexeme-form-grammatical-features', '' );
 				},
 				function () {
 					var $container = $( '<div/>' );
-					this.deferredFormWithId = $.Deferred();
-
 					this.deferredFormWithId.promise().then( function ( form ) {
 						var $header = $( '<h2/>' ).applyTemplate(
 							'wb-section-heading',
@@ -70,9 +73,9 @@
 				}
 			],
 			templateShortCuts: {
-				$text: '.wikibase-lexeme-form-text',
 				$id: '.wikibase-lexeme-form-id',
-				$grammaticalFeatures: '.wikibase-lexeme-form-grammatical-features'
+				$grammaticalFeatures: '.wikibase-lexeme-form-grammatical-features',
+				$representations: '.form-representations'
 			},
 			inputNodeName: 'TEXTAREA',
 			api: null,
@@ -86,6 +89,8 @@
 
 		_grammaticalFeatureView: null,
 
+		_representationsWidget: null,
+
 		/**
 		 * This method acts as a setter if it is given a LexemeForm object.
 		 * Otherwise it returns its value if it is not in edit mode and returns a new LexemeForm from its
@@ -98,11 +103,9 @@
 			if ( form instanceof wikibase.lexeme.datamodel.LexemeForm ) {
 				this.option( 'value', form );
 				this._grammaticalFeatureView.value( form.getGrammaticalFeatures() );
-				if ( this.deferredFormWithId ) {
-					if ( form.getId() ) {
-						this.deferredFormWithId.resolve( form );
-						this.deferredFormWithId = null;
-					}
+				if ( this.deferredFormWithId && form.getId() ) {
+					this.deferredFormWithId.resolve( form );
+					this.deferredFormWithId = null;
 				}
 				this.draw();
 				return;
@@ -112,21 +115,16 @@
 				return this.options.value;
 			}
 
-			var representations = new TermMap( {
-				en: new Term(
-					'en',
-					this.$text.children( this.inputNodeName ).val()
-				)
-			} );
-
 			return new wikibase.lexeme.datamodel.LexemeForm(
 				this.options.value ? this.options.value.getId() : null,
-				representations,
+				arrayToTermMap( this._representationsWidget.representations ),
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
 			);
 		},
 
 		_create: function () {
+			this.deferredFormWithId = $.Deferred();
+
 			PARENT.prototype._create.call( this );
 
 			this._grammaticalFeatureView = this._buildGrammaticalFeatureView();
@@ -134,6 +132,8 @@
 				this.value(),
 				$( '.wikibase-statementgrouplistview', this.element )
 			);
+
+			this._buildRepresentations( this.value() );
 		},
 
 		_buildGrammaticalFeatureView: function buildGrammaticalFeatureView() {
@@ -147,8 +147,6 @@
 				api: self.options.api
 			} );
 
-			//FIXME add representation change propagation
-
 			this.$grammaticalFeatures.on( 'grammaticalfeatureviewchange', function () {
 				self._trigger( 'change' );
 			} );
@@ -158,22 +156,37 @@
 
 		_startEditing: function () {
 			this._inEditMode = true;
-			this._grammaticalFeatureView.startEditing();// FIXME this line breaks edit mode when adding lexeme form
+			this._grammaticalFeatureView.startEditing();
+			this._representationsWidget.edit();
 			return this.draw();
 		},
 
 		_stopEditing: function ( dropValue ) {
 			this._inEditMode = false;
-			if ( dropValue && this.options.value.getRepresentation() === '' ) {
-				this.$text.children( this.inputNodeName ).val( '' );
+			if ( dropValue ) {
+				this._representationsWidget.representations = termMapToArray( this.value().getRepresentations() );
 			}
 			this._grammaticalFeatureView.stopEditing( dropValue );
+			this._representationsWidget.stopEditing();
 
 			return this.draw();
 		},
 
 		isInEditMode: function () {
 			return this._inEditMode;
+		},
+
+		_buildRepresentations: function ( form ) {
+			var representations = form ? termMapToArray( form.getRepresentations() ) : [];
+
+			this._representationsWidget = RepresentationWidget.create(
+				representations,
+				this.$representations[ 0 ],
+				'#representation-widget-vue-template',
+				function () {
+					this._trigger( 'change' );
+				}.bind( this )
+			);
 		},
 
 		/**
@@ -187,7 +200,6 @@
 			}
 
 			if ( !this.isInEditMode() && !value ) {
-				this.$text.text( mw.msg( 'wikibase-lexeme-empty-form-representation' ) );
 				// Apply lang and dir of UI language
 				// instead language of that row
 				var userLanguage = mw.config.get( 'wgUserLanguage' );
@@ -197,30 +209,38 @@
 				return deferred.resolve().promise();
 			}
 
-			if ( !this.isInEditMode() ) {
-				this.$text.text( value.getRepresentations().getItemByKey( 'en' ).getText() );
-				this.$id.text( ' (' + value.getId() + ')' ); // TODO: whitespace and brackets (?) should be i18nable
-
-				return deferred.resolve().promise();
-			}
-
-			var $input = $( document.createElement( this.options.inputNodeName ) )
-				.attr( 'placeholder', mw.msg( 'wikibase-lexeme-enter-form-representation' ) )
-				.on( 'change', function () { this._trigger( 'change' ); }.bind( this ) );
-
-			if ( value ) {
-				$input.val( value.getRepresentations().getItemByKey( 'en' ).getText() );
-			}
-
-			if ( $.fn.inputautoexpand ) {
-				$input.inputautoexpand( {
-					suppressNewLine: true
-				} );
-			}
-
-			this.$text.empty().append( $input );
-
 			return deferred.resolve().promise();
 		}
 	} );
+
+	function arrayToTermMap( representations ) {
+		var result = new wikibase.datamodel.TermMap();
+
+		representations.forEach( function ( representation ) {
+			try {
+				result.setItem(
+					representation.language,
+					new wikibase.datamodel.Term( representation.language, representation.value )
+				);
+			} catch ( e ) {
+				// ignore
+			}
+		} );
+
+		return result;
+	}
+
+	/**
+	 * @param {wikibase.datamodel.TermMap} representations
+	 * @return {Array}
+	 */
+	function termMapToArray( representations ) {
+		var result = [];
+
+		representations.each( function ( language, term ) {
+			result.push( { language: term.getLanguageCode(), value: term.getText() } );
+		} );
+
+		return result;
+	}
 }( jQuery, mediaWiki, wikibase ) );
