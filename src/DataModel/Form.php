@@ -10,10 +10,10 @@ use Wikibase\DataModel\Entity\ItemId;
  * @license GPL-2.0+
  * @author Thiemo Mättig
  */
-class LexemeForm implements StatementListProvider {
+class Form implements StatementListProvider {
 
 	/**
-	 * @var LexemeFormId|null
+	 * @var FormId|null
 	 */
 	private $id;
 
@@ -33,13 +33,13 @@ class LexemeForm implements StatementListProvider {
 	private $statementList;
 
 	/**
-	 * @param LexemeFormId $id |null
+	 * @param FormId $id |null
 	 * @param string $representation
 	 * @param ItemId[] $grammaticalFeatures
 	 * @param StatementList|null $statementList
 	 */
 	public function __construct(
-		LexemeFormId $id = null,
+		FormId $id = null,
 		$representation,
 		array $grammaticalFeatures,
 		StatementList $statementList = null
@@ -51,7 +51,7 @@ class LexemeForm implements StatementListProvider {
 	}
 
 	/**
-	 * @return LexemeFormId|null
+	 * @return FormId|null
 	 */
 	public function getId() {
 		return $this->id;

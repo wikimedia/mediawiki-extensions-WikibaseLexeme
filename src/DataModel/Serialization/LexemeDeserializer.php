@@ -9,8 +9,8 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeForm;
-use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
@@ -133,7 +133,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	/**
 	 * @param array $serialization
 	 *
-	 * @return LexemeForm[]
+	 * @return Form[]
 	 */
 	private function deserializeForms( array $serialization ) {
 		// TODO: Extract to a LexemeFormsDeserializer
@@ -151,18 +151,18 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	/**
 	 * @param array $serialization
 	 *
-	 * @return LexemeForm
+	 * @return Form
 	 */
 	private function deserializeForm( array $serialization ) {
 		$id = null;
 
 		if ( array_key_exists( 'id', $serialization ) ) {
 			// We may want to use an EntityIdDeserializer here
-			$id = new LexemeFormId( $serialization['id'] );
+			$id = new FormId( $serialization['id'] );
 		}
 
 		// TODO: Throw proper exception if array key does not exist
-		return new LexemeForm( $id, $serialization['representation'], [] );
+		return new Form( $id, $serialization['representation'], [] );
 	}
 
 }

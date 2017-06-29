@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\View;
 
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataModel\LexemeForm;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\View\LocalizedTextProvider;
@@ -48,7 +48,7 @@ class LexemeFormsView {
 	}
 
 	/**
-	 * @param LexemeForm[] $forms
+	 * @param Form[] $forms
 	 *
 	 * @return string HTML
 	 */
@@ -71,11 +71,11 @@ class LexemeFormsView {
 	}
 
 	/**
-	 * @param LexemeForm $form
+	 * @param Form $form
 	 *
 	 * @return string HTML
 	 */
-	private function getFormHtml( LexemeForm $form ) {
+	private function getFormHtml( Form $form ) {
 		$representation = $form->getRepresentation();
 
 		$grammaticalFeaturesHtml = $this->templateFactory->render(

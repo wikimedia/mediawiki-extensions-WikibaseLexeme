@@ -20,8 +20,8 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\Lexeme\DataModel\LexemeForm;
-use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 
 /**
  * @license GPL-2.0+
@@ -91,9 +91,9 @@ class LexemeContent extends EntityContent {
 		);
 
 		$forms = [
-			new LexemeForm( new LexemeFormId( 'F1' ), 'A', [] ),
-			new LexemeForm( new LexemeFormId( 'F2' ), 'B', $grammaticalFeatures1, $statements1 ),
-			new LexemeForm( new LexemeFormId( 'F3' ), 'C', $grammaticalFeatures2, $statements2 ),
+			new Form( new FormId( 'F1' ), 'A', [] ),
+			new Form( new FormId( 'F2' ), 'B', $grammaticalFeatures1, $statements1 ),
+			new Form( new FormId( 'F3' ), 'C', $grammaticalFeatures2, $statements2 ),
 		];
 
 		$lexeme->setForms( $forms );

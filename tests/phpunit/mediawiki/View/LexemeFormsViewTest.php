@@ -6,8 +6,8 @@ use PHPUnit_Framework_TestCase;
 use Prophecy\Argument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\Lexeme\DataModel\LexemeForm;
-use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\View\LexemeFormsView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
@@ -59,7 +59,7 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 	public function testHtmlContainsFormRepresentationWithIdAndLanguage() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( [
-			new LexemeForm( new LexemeFormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
+			new Form( new FormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
 		] );
 
 		assertThat(
@@ -74,8 +74,8 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 	public function testHtmlContainsFormGrammaticalFeatures() {
 		$view = $this->newFormsView();
 		$grammaticalFeature = new ItemId( 'Q1' );
-		$lexemeForm = new LexemeForm(
-			new LexemeFormId( 'FORM_ID' ),
+		$lexemeForm = new Form(
+			new FormId( 'FORM_ID' ),
 			'FORM_REPRESENTATION',
 			[ $grammaticalFeature ]
 		);
@@ -91,7 +91,7 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 	public function testHtmlContainsStatementSection() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( [
-			new LexemeForm( new LexemeFormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
+			new Form( new FormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
 		] );
 
 		assertThat(

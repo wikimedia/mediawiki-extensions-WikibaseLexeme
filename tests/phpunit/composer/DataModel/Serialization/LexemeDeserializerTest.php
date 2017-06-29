@@ -13,8 +13,8 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeForm;
-use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 
@@ -29,7 +29,6 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 
 	private function newDeserializer() {
-
 		$entityIdDeserializer = $this->getMockBuilder( EntityIdDeserializer::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -164,7 +163,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			$lexeme
 		];
 
-		$forms = [ new LexemeForm( null, 'form', [] ) ];
+		$forms = [ new Form( null, 'form', [] ) ];
 		$lexeme = new Lexeme( null, null, null, null, null, $forms );
 		$serializations['with minimal forms'] = [
 			[
@@ -175,7 +174,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		];
 
 		//TODO: Test grammatical features (de)serialization
-		$forms = [ new LexemeForm( new LexemeFormId( 'F5' ), 'form', [] ) ];
+		$forms = [ new Form( new FormId( 'F5' ), 'form', [] ) ];
 		$lexeme = new Lexeme( new LexemeId( 'L5' ), null, null, null, null, $forms );
 		$serializations['with forms and all IDs set'] = [
 			[

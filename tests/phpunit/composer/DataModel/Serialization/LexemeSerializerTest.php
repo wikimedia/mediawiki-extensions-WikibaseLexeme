@@ -15,8 +15,8 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeForm;
-use Wikibase\Lexeme\DataModel\LexemeFormId;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
@@ -168,7 +168,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	public function testLexemeHasFormWithId_LexemeSerializationHasFormWithThatId() {
 		$lexeme = LexemeBuilder::create()->build();
-		$lexeme->setForms( [ new LexemeForm( new LexemeFormId( 'F1' ), '', [] ) ] );
+		$lexeme->setForms( [ new Form( new FormId( 'F1' ), '', [] ) ] );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -180,7 +180,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
 		$lexeme = LexemeBuilder::create()->build();
-		$lexeme->setForms( [ new LexemeForm( null, 'some representation', [] ) ] );
+		$lexeme->setForms( [ new Form( null, 'some representation', [] ) ] );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -197,7 +197,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	public function testSerializesStatementsOnLexemeForms() {
 		$statement = new Statement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) );
-		$forms = [ new LexemeForm(
+		$forms = [ new Form(
 			null,
 			'some representation',
 			[],
@@ -214,7 +214,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializeGrammaticalFeaturesOnLexemeForms() {
-		$forms = [ new LexemeForm(
+		$forms = [ new Form(
 			null,
 			'some representation',
 			[ new ItemId( 'Q1' ) ]

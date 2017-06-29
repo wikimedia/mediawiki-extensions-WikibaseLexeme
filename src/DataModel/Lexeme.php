@@ -44,7 +44,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	private $language;
 
 	/**
-	 * @var LexemeForm[]
+	 * @var Form[]
 	 */
 	private $forms;
 
@@ -63,7 +63,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param ItemId|null $lexicalCategory
 	 * @param ItemId|null $language
 	 * @param StatementList|null $statements
-	 * @param LexemeForm[] $forms
+	 * @param Form[] $forms
 	 * @oaram Sense[] $senses
 	 */
 	public function __construct(
@@ -234,14 +234,14 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @return LexemeForm[]
+	 * @return Form[]
 	 */
 	public function getForms() {
 		return $this->forms;
 	}
 
 	/**
-	 * @param LexemeForm[] $forms
+	 * @param Form[] $forms
 	 * @deprecated Temporary method, for demo. Just don't use.
 	 */
 	public function setForms( array $forms ) {

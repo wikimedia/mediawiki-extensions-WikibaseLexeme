@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme\DataModel;
  * @license GPL-2.0+
  * @author Thiemo Mättig
  */
-class LexemeFormId {
+class FormId {
 
 	/**
 	 * @var string
