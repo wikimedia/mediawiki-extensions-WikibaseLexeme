@@ -137,7 +137,9 @@ class LexemeSerializer implements DispatchableSerializer {
 			$serialization['id'] = $id->getSerialization();
 		}
 
-		$serialization['representation'] = $form->getRepresentation();
+		$serialization['representations'] = $this->termListSerializer->serialize(
+			$form->getRepresentations()
+		);
 		$serialization['grammaticalFeatures'] = array_map(
 			function ( ItemId $itemId ) {
 				return $itemId->getSerialization();
