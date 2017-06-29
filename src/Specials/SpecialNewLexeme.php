@@ -156,7 +156,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	 *
 	 * @return Summary
 	 */
-	protected function createSummary( $lexeme ) {
+	protected function createSummary( EntityDocument $lexeme ) {
 		$uiLanguageCode = $this->getLanguage()->getCode();
 
 		$summary = new Summary( 'wbeditentity', 'create' );
