@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
 
-class LexemeBuilder {
+class NewLexeme {
 
 	/**
 	 * @var ItemId
@@ -76,7 +76,7 @@ class LexemeBuilder {
 
 	/**
 	 * @param ItemId|string $itemId
-	 * @return LexemeBuilder
+	 * @return NewLexeme
 	 */
 	public function withLexicalCategory( $itemId ) {
 		$result = clone $this;
@@ -89,7 +89,7 @@ class LexemeBuilder {
 
 	/**
 	 * @param ItemId|string $itemId
-	 * @return LexemeBuilder
+	 * @return NewLexeme
 	 */
 	public function withLanguage( $itemId ) {
 		$result = clone $this;
@@ -102,7 +102,7 @@ class LexemeBuilder {
 
 	/**
 	 * @param LexemeId|string $lexemeId
-	 * @return LexemeBuilder
+	 * @return NewLexeme
 	 */
 	public function withId( $lexemeId ) {
 		$result = clone $this;
@@ -122,7 +122,7 @@ class LexemeBuilder {
 	/**
 	 * @param string $language
 	 * @param string $lemma
-	 * @return LexemeBuilder
+	 * @return NewLexeme
 	 */
 	public function withLemma( $language, $lemma ) {
 		$result = clone $this;

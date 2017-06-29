@@ -20,7 +20,7 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
-use Wikibase\Lexeme\Tests\DataModel\LexemeBuilder;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
@@ -54,7 +54,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializationOrder() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withId( 'L1' )
 			->build();
 
@@ -101,7 +101,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testEmptyLexeme_SerializationHasType() {
-		$lexeme = LexemeBuilder::create()->build();
+		$lexeme = NewLexeme::create()->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -109,7 +109,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithLexicalCategory_SerializesLexicalCategory() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withLexicalCategory( 'Q1' )
 			->build();
 
@@ -119,7 +119,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithLanguage_SerializesLanguage() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withLanguage( 'Q2' )
 			->build();
 
@@ -129,7 +129,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithId_SerializesId() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withId( 'L1' )
 			->build();
 
@@ -139,7 +139,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithStatements_SerializesStatements() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withStatement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) )
 			->build();
 
@@ -149,7 +149,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithLemmas_SerializesLemmas() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withLemma( 'ja', 'Tokyo' )
 			->build();
 
@@ -159,7 +159,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeWithoutForms_LexemeSerializationEmptyArrayAsForms() {
-		$lexeme = LexemeBuilder::create()->build();
+		$lexeme = NewLexeme::create()->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
@@ -167,7 +167,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeHasFormWithId_LexemeSerializationHasFormWithThatId() {
-		$lexeme = LexemeBuilder::create()->build();
+		$lexeme = NewLexeme::create()->build();
 		$lexeme->setForms( [ new Form( new FormId( 'F1' ), '', [] ) ] );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -179,7 +179,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
-		$lexeme = LexemeBuilder::create()->build();
+		$lexeme = NewLexeme::create()->build();
 		$lexeme->setForms( [ new Form( null, 'some representation', [] ) ] );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -203,7 +203,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			[],
 			new StatementList( [ $statement ] )
 		) ];
-		$lexeme = LexemeBuilder::create()->build();
+		$lexeme = NewLexeme::create()->build();
 		$lexeme->setForms( $forms );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -219,7 +219,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			'some representation',
 			[ new ItemId( 'Q1' ) ]
 		) ];
-		$lexeme = LexemeBuilder::create()->build();
+		$lexeme = NewLexeme::create()->build();
 		$lexeme->setForms( $forms );
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -232,7 +232,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializeSensesIds() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withSense( NewSense::havingId( 'S1' ) )
 			->withSense( NewSense::havingId( 'S2' ) )
 			->build();
@@ -248,7 +248,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializeGlossesOnSenses() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withSense(
 				NewSense::havingId( 'S1' )
 					->withGloss( 'en', 'en gloss' )
@@ -272,7 +272,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testSerializesStatementsOnSenses() {
-		$lexeme = LexemeBuilder::create()
+		$lexeme = NewLexeme::create()
 			->withSense(
 				NewSense::havingStatement( new PropertyId( 'P2' ) )
 			)
