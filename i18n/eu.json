@@ -11,5 +11,6 @@
 	"wikibase-newlexeme-lemma-language": "Lemaren hizkuntza",
 	"wikibase-lemma-edit-placeholder": "Idatzi lema",
 	"wikibase-newlexeme-lexicalcategory": "Kategoria lexikoa",
-	"wikibase-newlexeme-language": "Lexemaren hizkuntza"
+	"wikibase-newlexeme-language": "Lexemaren hizkuntza",
+	"datatypes-type-wikibase-lexeme": "Lexema"
 }
