@@ -5,20 +5,22 @@
 	 * @class wikibase.lexeme.datamodel.LexemeForm
 	 *
 	 * @param {string} id
-	 * @param {string} representation
+	 * @param {wikibase.datamodel.TermMap} representations
 	 * @param {string[]} grammaticalFeatures
 	 * @param {wikibase.datamodel.StatementGroupSet} statementGroupSet
 	 */
 	var LexemeForm = util.inherit(
 		'LexemeForm',
-		function ( id, representation, grammaticalFeatures, statementGroupSet ) {
+		function ( id, representations, grammaticalFeatures, statementGroupSet ) {
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
+			representations = representations || new wb.datamodel.TermMap();
 			this._id = id;
-			this._representation = representation;
+			this._representations = representations;
 			this._grammaticalFeatures = grammaticalFeatures || [];
 
 			if (
-				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
+				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
+				!( representations instanceof wb.datamodel.TermMap )
 			) {
 				throw new Error( 'Required parameter(s) missing or not defined properly' );
 			}
@@ -33,9 +35,9 @@
 			_id: null,
 
 			/**
-			 * @type {string}
+			 * @type {wikibase.datamodel.TermMap}
 			 */
-			_representation: null,
+			_representations: null,
 
 			/**
 			 * @return {string[]}
@@ -56,10 +58,10 @@
 			},
 
 			/**
-			 * @return {string}
+			 * @return {wikibase.datamodel.TermMap}
 			 */
-			getRepresentation: function () {
-				return this._representation;
+			getRepresentations: function () {
+				return this._representations;
 			},
 
 			/**
@@ -96,7 +98,7 @@
 				} );
 
 				return this.getId() === other.getId()
-					&& this.getRepresentation() === other.getRepresentation()
+					&& this.getRepresentations().equals( other.getRepresentations() )
 					&& hasAllGrammaticalFeatures;
 			}
 		}

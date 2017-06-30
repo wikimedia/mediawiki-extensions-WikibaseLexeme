@@ -6,6 +6,11 @@
 
 	var TEST_LEXMEFORMVIEW_CLASS = 'test_lexemeformview';
 
+	/** @type {wikibase.datamodel.TermMap}*/
+	var TermMap = wb.datamodel.TermMap;
+	/** @type {wikibase.datamodel.Term}*/
+	var Term = wb.datamodel.Term;
+
 	QUnit.module( 'jquery.wikibase.lexemeformview', QUnit.newMwEnvironment( {
 		teardown: function () {
 			$( '.' + TEST_LEXMEFORMVIEW_CLASS ).remove();
@@ -30,8 +35,10 @@
 		return $node.lexemeformview( options || {} ).data( 'lexemeformview' );
 	};
 
-	var newForm = function ( id, representation ) {
-		return new wb.lexeme.datamodel.LexemeForm( id, representation );
+	var newForm = function ( id, defaultRepresentation ) {
+		var representations = new TermMap( { en: new Term( 'en', defaultRepresentation ) } );
+
+		return new wb.lexeme.datamodel.LexemeForm( id, representations );
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {
@@ -65,7 +72,7 @@
 		view.startEditing();
 		view.element.find( view.options.inputNodeName ).val( textInput );
 
-		assert.equal( view.value().getRepresentation(), textInput );
+		assert.equal( view.value().getRepresentations().getItemByKey( 'en' ).getText(), textInput );
 	} );
 
 	QUnit.test( 'should not be in edit mode when initialized without a value', function ( assert ) {
@@ -85,7 +92,7 @@
 		view.startEditing();
 		assert.equal(
 			view.element.find( view.options.inputNodeName ).val(),
-			form.getRepresentation()
+			form.getRepresentations().getItemByKey( 'en' ).getText()
 		);
 	} );
 
@@ -99,7 +106,7 @@
 		view.stopEditing();
 		assert.equal(
 			view.element.find( '.wikibase-lexeme-form-text' ).text(),
-			form.getRepresentation()
+			form.getRepresentations().getItemByKey( 'en' ).getText()
 		);
 	} );
 
