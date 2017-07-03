@@ -63,6 +63,10 @@
 		}
 	);
 
+	/**
+	 * @type {mediaWiki.Api}
+	 * @private
+	 */
 	SELF.prototype._api = null;
 
 	SELF.prototype.getEntityView = function ( startEditingCallback, lexeme, $entityview ) {
@@ -218,14 +222,26 @@
 
 	/**
 	 * @class wikibase.LabelFormattingService
-	 * @param api
-	 * @param cachedData
+	 * @param {mediaWiki.Api} api
+	 * @param {Object} cachedData
 	 * @constructor
 	 */
 	var FakeLabelFormattingService = function ( api, cachedData ) {
-		this._cachedData = cachedData;
 		this._api = api;
+		this._cachedData = cachedData;
 	};
+
+	/**
+	 * @type {mediaWiki.Api}
+	 * @private
+	 */
+	FakeLabelFormattingService.prototype._api = null;
+
+	/**
+	 * @type {Object}
+	 * @private
+	 */
+	FakeLabelFormattingService.prototype._cachedData = null;
 
 	FakeLabelFormattingService.prototype.getHtml = function getHtml( entityId ) {
 		var deferred = $.Deferred(),
@@ -277,6 +293,7 @@
 
 	SELF.prototype._getExistingGrammaticalFormattedFeatures = function ( $element ) {
 		var features = {};
+
 		$.each( $element.find( '.wikibase-lexeme-form-grammatical-features-values > a' ), function ( i, el ) {
 			features[ el.title.replace( 'Item:', '' ) ] = el.outerHTML; // TODO Find proper way to get Item ID here
 		} );
