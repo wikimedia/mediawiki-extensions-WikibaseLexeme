@@ -15,7 +15,7 @@
 	 *
 	 * @param {Object} options
 	 * @param {Function} options.buildStatementGroupListView
-	 * @param {Function} options.buildLexemeFormListView
+	 * @param {Function} options.buildFormListView
 	 * @param {Function} options.buildSenseListView
 	 *
 	 * @constructor
@@ -28,7 +28,7 @@
 		 */
 		options: {
 			buildStatementGroupListView: null,
-			buildLexemeFormListView: null,
+			buildFormListView: null,
 			buildSenseListView: null
 		},
 
@@ -50,7 +50,7 @@
 				this.$statements = $( '<div/>' ).appendTo( this.$main );
 			}
 
-			this.options.buildLexemeFormListView();
+			this.options.buildFormListView();
 			this.options.buildSenseListView();
 		},
 
@@ -60,7 +60,7 @@
 		 */
 		_init: function () {
 			if ( !this.options.buildStatementGroupListView ||
-				!this.options.buildLexemeFormListView ||
+				!this.options.buildFormListView ||
 				!this.options.buildSenseListView
 			) {
 				throw new Error( 'Required option(s) missing' );

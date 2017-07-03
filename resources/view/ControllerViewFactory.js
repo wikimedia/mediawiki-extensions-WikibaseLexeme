@@ -77,7 +77,7 @@
 				buildEntityTermsView: this.getEntityTermsView.bind( this, startEditingCallback ),
 				buildSitelinkGroupListView: this.getSitelinkGroupListView.bind( this, startEditingCallback ),
 				buildStatementGroupListView: this.getStatementGroupListView.bind( this, startEditingCallback ),
-				buildLexemeFormListView: this.getLexemeFormListView.bind( this, lexeme, startEditingCallback ),
+				buildFormListView: this.getFormListView.bind( this, lexeme, startEditingCallback ),
 				buildSenseListView: this.getSenseListView.bind( this, lexeme, startEditingCallback ),
 				value: lexeme
 			}
@@ -88,12 +88,12 @@
 		return null; // Don't render terms view
 	};
 
-	SELF.prototype.getLexemeFormListView = function ( lexeme, startEditingCallback ) {
+	SELF.prototype.getFormListView = function ( lexeme, startEditingCallback ) {
 		return this._getView(
 			'lexemeformlistview',
 			$( '.wikibase-lexeme-forms-section' ),
 			{
-				getListItemAdapter: this.getListItemAdapterForLexemeFormListView.bind( this, lexeme, startEditingCallback ),
+				getListItemAdapter: this.getListItemAdapterForFormListView.bind( this, lexeme, startEditingCallback ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
 				getMessage: $.proxy( mw.messages.get, mw.messages ),
 				value: lexeme.forms
@@ -114,7 +114,7 @@
 		);
 	};
 
-	SELF.prototype.getLexemeFormView = function (
+	SELF.prototype.getFormView = function (
 		lexemeId,
 		form,
 		labelFormattingService,
@@ -122,7 +122,7 @@
 		startEditingCallback,
 		removeCallback
 	) {
-		var lexemeFormView = this._getView(
+		var formView = this._getView(
 				'lexemeformview',
 				$dom,
 				{
@@ -136,20 +136,20 @@
 				}
 			),
 			controller = this._getController(
-				this._toolbarFactory.getToolbarContainer( lexemeFormView.element ),
-				lexemeFormView,
+				this._toolbarFactory.getToolbarContainer( formView.element ),
+				formView,
 				fakeFormModelCreator( lexemeId ),
-				removeCallback.bind( null, lexemeFormView ),
+				removeCallback.bind( null, formView ),
 				form,
 				startEditingCallback
 			);
 
 		// Empty formviews (added with the "add" button) should start in edit mode
 		if ( !form ) {
-			controller.startEditing().done( lexemeFormView.focus.bind( lexemeFormView ) );
+			controller.startEditing().done( formView.focus.bind( formView ) );
 		}
 
-		return lexemeFormView;
+		return formView;
 	};
 
 	function fakeFormModelCreator( lexemeId ) {
@@ -263,7 +263,7 @@
 		return deferred.promise();
 	};
 
-	SELF.prototype.getListItemAdapterForLexemeFormListView = function ( lexeme, startEditingCallback, removeCallback ) {
+	SELF.prototype.getListItemAdapterForFormListView = function ( lexeme, startEditingCallback, removeCallback ) {
 		var self = this;
 
 		return new $.wikibase.listview.ListItemAdapter( {
@@ -271,7 +271,7 @@
 			getNewItem: function ( form, element ) {
 				var $element = $( element );
 
-				return self.getLexemeFormView(
+				return self.getFormView(
 					lexeme.getId(),
 					form || null,
 					new FakeLabelFormattingService( self._api, self._getExistingGrammaticalFormattedFeatures( $element ) ),

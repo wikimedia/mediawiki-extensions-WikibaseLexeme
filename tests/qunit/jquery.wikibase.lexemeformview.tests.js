@@ -23,7 +23,7 @@
 		}
 	} ) );
 
-	var newLexemeFormView = function ( options ) {
+	var newFormView = function ( options ) {
 		var $node = $( '<div/>' ).appendTo( '#qunit-fixture' );
 
 		options = options || {};
@@ -47,12 +47,12 @@
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {
-		assert.ok( newLexemeFormView() instanceof $.wikibase.lexemeformview );
+		assert.ok( newFormView() instanceof $.wikibase.lexemeformview );
 	} );
 
 	QUnit.test( 'value can be injected as option.value', function ( assert ) {
 		var form = newForm( 'F123', 'foo' ),
-			view = newLexemeFormView( {
+			view = newFormView( {
 				value: form
 			} );
 
@@ -62,7 +62,7 @@
 	QUnit.test( 'value() sets internal value', function ( assert ) {
 		var form1 = newForm( 'F123', 'foo' ),
 			form2 = newForm( 'F234', 'bar' ),
-			view = newLexemeFormView( {
+			view = newFormView( {
 				value: form1
 			} );
 
@@ -72,7 +72,7 @@
 
 	QUnit.test( 'value() creates value from input if it is in edit mode', function ( assert ) {
 		var done = assert.async();
-		var view = newLexemeFormView(),
+		var view = newFormView(),
 			textInput = 'foobar';
 
 		view.startEditing().then( function () {
@@ -89,17 +89,17 @@
 	} );
 
 	QUnit.test( 'should not be in edit mode when initialized without a value', function ( assert ) {
-		assert.notOk( newLexemeFormView().isInEditMode() );
+		assert.notOk( newFormView().isInEditMode() );
 	} );
 
 	QUnit.test( 'should not be in edit mode by default when initialized with a value', function ( assert ) {
-		assert.notOk( newLexemeFormView( { value: newForm( 'F123', 'foo' ) } ).isInEditMode() );
+		assert.notOk( newFormView( { value: newForm( 'F123', 'foo' ) } ).isInEditMode() );
 	} );
 
 	QUnit.test( 'draws value in input node after startEditing()', function ( assert ) {
 		var done = assert.async();
 		var form = newForm( 'F123', 'foobar' ),
-			view = newLexemeFormView( {
+			view = newFormView( {
 				value: form
 			} );
 
@@ -118,7 +118,7 @@
 		var done = assert.async();
 
 		var form = newForm( 'F123', 'foobar' ),
-			view = newLexemeFormView( {
+			view = newFormView( {
 				value: form
 			} );
 

@@ -4,7 +4,7 @@
 ( function ( $, wb, QUnit, sinon ) {
 	'use strict';
 
-	var lexemeformviewListItemAdapter = wb.tests.getMockListItemAdapter(
+	var formViewListItemAdapter = wb.tests.getMockListItemAdapter(
 		'lexemeformview',
 		function () {
 		}
@@ -14,7 +14,7 @@
 		var $node = $( '<div><div class="wikibase-lexeme-forms"/></div>' );
 		return $node.lexemeformlistview( {
 			getListItemAdapter: function () {
-				return lexemeformviewListItemAdapter;
+				return formViewListItemAdapter;
 			},
 			getAdder: getAdder || function () {},
 			getMessage: message || function () { return 'localize me'; }
@@ -39,7 +39,7 @@
 
 	QUnit.test( 'enterNewItem adds new list item', function ( assert ) {
 		var view = newView(),
-			listItemAdapterSpy = sinon.spy( lexemeformviewListItemAdapter, 'newListItem' );
+			listItemAdapterSpy = sinon.spy( formViewListItemAdapter, 'newListItem' );
 
 		assert.notOk( listItemAdapterSpy.called );
 
