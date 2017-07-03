@@ -14,7 +14,7 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\View\LexemeFormsView;
+use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\Lib\LanguageNameLookup;
@@ -38,15 +38,15 @@ use Wikimedia\Assert\ParameterTypeException;
 class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 	/**
-	 * @return LexemeFormsView
+	 * @return FormsView
 	 */
 	private function newFormsViewMock() {
-		$view = $this->getMockBuilder( LexemeFormsView::class )
+		$view = $this->getMockBuilder( FormsView::class )
 			->disableOriginalConstructor()
 			->getMock();
 
 		$view->method( 'getHtml' )
-			->will( $this->returnValue( "lexemeFormsView->getHtml\n" ) );
+			->will( $this->returnValue( "FormsView::getHtml\n" ) );
 
 		return $view;
 	}
@@ -78,7 +78,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$statementSectionsView->expects( $expectedStatements ? $this->once() : $this->never() )
 			->method( 'getHtml' )
 			->with( $expectedStatements )
-			->will( $this->returnValue( "statementSectionsView->getHtml\n" ) );
+			->will( $this->returnValue( "StatementSectionsView::getHtml\n" ) );
 
 		return $statementSectionsView;
 	}
@@ -176,9 +176,9 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertInternalType( 'string', $html );
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
-		$this->assertContains( 'lexemeFormsView->getHtml', $html );
+		$this->assertContains( 'FormsView::getHtml', $html );
 		$this->assertContains( 'SensesView::getHtml', $html );
-		$this->assertContains( 'statementSectionsView->getHtml', $html );
+		$this->assertContains( 'StatementSectionsView::getHtml', $html );
 	}
 
 	public function provideTestGetHtml() {
@@ -247,8 +247,8 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		);
 		$this->assertContains(
 			'<div id="toc"></div>'
-			. "statementSectionsView->getHtml\n"
-			. "lexemeFormsView->getHtml\n"
+			. "StatementSectionsView::getHtml\n"
+			. "FormsView::getHtml\n"
 			. "SensesView::getHtml\n"
 			. '</div>',
 			$html

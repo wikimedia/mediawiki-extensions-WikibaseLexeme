@@ -110,7 +110,7 @@ class LexemeViewFactory {
 			->getLanguageFallbackLabelDescriptionLookupFactory()
 			->newLabelDescriptionLookup( Language::factory( $this->languageCode ) );
 
-		$formsView = new LexemeFormsView(
+		$formsView = new FormsView(
 			$localizedTextProvider,
 			$templateFactory,
 			$this->entityIdHtmlLinkFormatterFactory

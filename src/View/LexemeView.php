@@ -30,7 +30,7 @@ use WMDE\VueJsTemplating\Templating;
 class LexemeView extends EntityView {
 
 	/**
-	 * @var LexemeFormsView
+	 * @var FormsView
 	 */
 	private $formsView;
 
@@ -59,7 +59,7 @@ class LexemeView extends EntityView {
 	 * @param EntityTermsView $entityTermsView
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param string $languageCode
-	 * @param LexemeFormsView $formsView
+	 * @param FormsView $formsView
 	 * @param SensesView $sensesView
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param HtmlTermRenderer $htmlTermRenderer
@@ -70,7 +70,7 @@ class LexemeView extends EntityView {
 		EntityTermsView $entityTermsView,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		$languageCode,
-		LexemeFormsView $formsView,
+		FormsView $formsView,
 		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
 		HtmlTermRenderer $htmlTermRenderer,
