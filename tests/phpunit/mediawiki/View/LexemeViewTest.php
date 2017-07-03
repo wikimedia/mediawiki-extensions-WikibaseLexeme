@@ -60,7 +60,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			->getMock();
 
 		$view->method( 'getHtml' )
-			->will( $this->returnValue( "lexemeSensesView->getHtml\n" ) );
+			->will( $this->returnValue( "SensesView::getHtml\n" ) );
 
 		return $view;
 	}
@@ -177,7 +177,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
 		$this->assertContains( 'lexemeFormsView->getHtml', $html );
-		$this->assertContains( 'lexemeSensesView->getHtml', $html );
+		$this->assertContains( 'SensesView::getHtml', $html );
 		$this->assertContains( 'statementSectionsView->getHtml', $html );
 	}
 
@@ -249,7 +249,7 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			'<div id="toc"></div>'
 			. "statementSectionsView->getHtml\n"
 			. "lexemeFormsView->getHtml\n"
-			. "lexemeSensesView->getHtml\n"
+			. "SensesView::getHtml\n"
 			. '</div>',
 			$html
 		);
