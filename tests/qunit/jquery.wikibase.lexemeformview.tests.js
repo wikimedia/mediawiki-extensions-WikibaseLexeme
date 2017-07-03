@@ -43,7 +43,7 @@
 	var newForm = function ( id, defaultRepresentation ) {
 		var representations = new TermMap( { en: new Term( 'en', defaultRepresentation ) } );
 
-		return new wb.lexeme.datamodel.LexemeForm( id, representations );
+		return new wb.lexeme.datamodel.Form( id, representations );
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {

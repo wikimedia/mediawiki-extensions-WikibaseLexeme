@@ -4,9 +4,9 @@
 ( function ( $, wb, QUnit ) {
 	'use strict';
 
-	QUnit.module( 'wikibase.lexeme.datamodel.LexemeForm' );
+	QUnit.module( 'wikibase.lexeme.datamodel.Form' );
 
-	var Form = wb.lexeme.datamodel.LexemeForm;
+	var Form = wb.lexeme.datamodel.Form;
 	var TermMap = wb.datamodel.TermMap;
 	var Term = wb.datamodel.Term;
 
@@ -89,7 +89,7 @@
 				},
 				{
 					comparison: null,
-					message: 'not a LexemeForm object'
+					message: 'not a Form object'
 				}
 			];
 

@@ -5,8 +5,8 @@
 
 	/** @type {wikibase.lexeme.datamodel.Lexeme} */
 	var Lexeme = wb.lexeme.datamodel.Lexeme;
-	/** @type {wikibase.lexeme.datamodel.LexemeForm} */
-	var LexemeForm = wb.lexeme.datamodel.LexemeForm;
+	/** @type {wikibase.lexeme.datamodel.Form} */
+	var Form = wb.lexeme.datamodel.Form;
 
 	QUnit.test( 'Can create with ID and get it', function ( assert ) {
 		var lexeme = new Lexeme( 'L1' );
@@ -40,12 +40,12 @@
 	} );
 
 	QUnit.test(
-		'Can find existing statement on LexemeForm through Lexeme by GUID',
+		'Can find existing statement on Form through Lexeme by GUID',
 		function ( assert ) {
 			var lexemeStatementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'L1$1' );
 			var formStatementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'F1$1' );
 			var lexeme = new Lexeme( 'L1', lexemeStatementGroupSet );
-			lexeme.forms = [ new LexemeForm( 'F1', '', [], formStatementGroupSet ) ];
+			lexeme.forms = [ new Form( 'F1', '', [], formStatementGroupSet ) ];
 
 			assert.ok( lexeme.findStatementByGuid( 'F1$1' ) instanceof wb.datamodel.Statement );
 		}

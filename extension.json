@@ -208,10 +208,10 @@
 		"wikibase.lexeme.datamodel.Lemma": {
 			"scripts": "datamodel/Lemma.js"
 		},
-		"wikibase.lexeme.datamodel.LexemeForm": {
+		"wikibase.lexeme.datamodel.Form": {
 			"scripts": [
 				"datamodel/__namespace.js",
-				"datamodel/LexemeForm.js"
+				"datamodel/Form.js"
 			],
 			"dependencies": [
 				"util.inherit",
@@ -243,7 +243,7 @@
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Lexeme",
-				"wikibase.lexeme.datamodel.LexemeForm",
+				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.serialization.Deserializer",
 				"wikibase.serialization.StatementGroupSetDeserializer",
@@ -326,7 +326,7 @@
 			"dependencies": [
 				"util.inherit",
 				"wikibase.lexeme",
-				"wikibase.lexeme.datamodel.LexemeForm",
+				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.view.ControllerViewFactory"
 			]

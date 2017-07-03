@@ -14,7 +14,7 @@
 	/**
 	 * Initializes StatementGroupListView on given DOM element
 	 * @callback buildStatementGroupListView
-	 * @param {wikibase.lexeme.datamodel.LexemeForm}
+	 * @param {wikibase.lexeme.datamodel.Form}
 	 * @param {jQuery} JQuery DOM element
 	 */
 
@@ -26,7 +26,7 @@
 	 * @constructor
 	 *
 	 * @param {Object} options
-	 * @param {wikibase.lexeme.datamodel.LexemeForm} options.value
+	 * @param {wikibase.lexeme.datamodel.Form} options.value
 	 * @param {Function} options.buildStatementGroupListView
 	 * @param {wikibase.LabelFormattingService} options.labelFormattingService
 	 * @param {mediaWiki.Api} options.api
@@ -100,15 +100,15 @@
 		_representationsWidget: null,
 
 		/**
-		 * This method acts as a setter if it is given a LexemeForm object.
-		 * Otherwise it returns its value if it is not in edit mode and returns a new LexemeForm from its
+		 * This method acts as a setter if it is given a Form object.
+		 * Otherwise it returns its value if it is not in edit mode and returns a new Form from its
 		 * input value otherwise.
 		 *
-		 * @param {wikibase.lexeme.datamodel.LexemeForm} form
-		 * @return {wikibase.lexeme.datamodel.LexemeForm|undefined}
+		 * @param {wikibase.lexeme.datamodel.Form} form
+		 * @return {wikibase.lexeme.datamodel.Form|undefined}
 		 */
 		value: function ( form ) {
-			if ( form instanceof wikibase.lexeme.datamodel.LexemeForm ) {
+			if ( form instanceof wikibase.lexeme.datamodel.Form ) {
 				this.option( 'value', form );
 				this._grammaticalFeatureView.value( form.getGrammaticalFeatures() );
 				if ( this.deferredFormWithId && form.getId() ) {
@@ -123,7 +123,7 @@
 				return this.options.value;
 			}
 
-			return new wikibase.lexeme.datamodel.LexemeForm(
+			return new wikibase.lexeme.datamodel.Form(
 				this.options.value ? this.options.value.getId() : null,
 				arrayToTermMap( this._representationsWidget.representations ),
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []

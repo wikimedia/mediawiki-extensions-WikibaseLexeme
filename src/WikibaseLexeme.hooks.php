@@ -95,7 +95,7 @@ class WikibaseLexemeHooks {
 	public static function onResourceLoaderTestModules( array &$testModules, ResourceLoader $rl ) {
 		$testModules['qunit']['WikibaseLexeme.tests'] = [
 			'scripts' => [
-				'tests/qunit/datamodel/LexemeForm.tests.js',
+				'tests/qunit/datamodel/Form.tests.js',
 				'tests/qunit/datamodel/Sense.tests.js',
 				'tests/qunit/experts/Lexeme.tests.js',
 				'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
@@ -123,7 +123,7 @@ class WikibaseLexemeHooks {
 				'jquery.wikibase.senseview',
 				'oojs-ui',
 				'wikibase.experts.Lexeme',
-				'wikibase.lexeme.datamodel.LexemeForm',
+				'wikibase.lexeme.datamodel.Form',
 				'wikibase.lexeme.datamodel.Sense',
 				'wikibase.lexeme.serialization.LexemeDeserializer',
 				'wikibase.lexeme.services.ItemLookup',
