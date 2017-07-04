@@ -7,6 +7,9 @@
 
 	QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
 
+	var TermMap = wb.datamodel.TermMap;
+	var Term = wb.datamodel.Term;
+
 	var claimsSerialization = {
 		P1: [
 			{
@@ -68,7 +71,7 @@
 			id: 'L1',
 			forms: [ {
 				id: 'F1',
-				representation: 'some representation',
+				representations: { en: { language: 'en', value: 'some representation' } },
 				grammaticalFeatures: [ 'Q1' ],
 				claims: claimsSerialization
 			} ],
@@ -83,9 +86,13 @@
 			'Data model should contain instance of LexemeForm'
 		);
 		assert.equal( form.getId(), 'F1', 'Data model should contain form id' );
-		assert.equal(
-			form.getRepresentation(),
-			'some representation',
+		assert.ok(
+			form.getRepresentations().equals( new TermMap( {
+				en: new Term(
+					'en',
+					'some representation'
+				)
+			} ) ),
 			'Data model should contain form representation'
 		);
 		assert.deepEqual(

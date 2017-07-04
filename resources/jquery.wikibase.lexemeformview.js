@@ -1,7 +1,12 @@
-( function ( $, mw ) {
+( function ( $, mw, wb ) {
 	'use strict';
 
 	var PARENT = $.ui.EditableTemplatedWidget;
+
+	/** @type {wikibase.datamodel.TermMap}*/
+	var TermMap = wb.datamodel.TermMap;
+	/** @type {wikibase.datamodel.Term}*/
+	var Term = wb.datamodel.Term;
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
@@ -107,9 +112,16 @@
 				return this.options.value;
 			}
 
+			var representations = new TermMap( {
+				en: new Term(
+					'en',
+					this.$text.children( this.inputNodeName ).val()
+				)
+			} );
+
 			return new wikibase.lexeme.datamodel.LexemeForm(
 				this.options.value ? this.options.value.getId() : null,
-				$.trim( this.$text.children( this.inputNodeName ).val() ),
+				representations,
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
 			);
 		},
@@ -170,7 +182,7 @@
 		draw: function () {
 			var deferred = $.Deferred(),
 				value = this.options.value;
-			if ( !value || value.getRepresentation() === '' ) {
+			if ( !value || value.getRepresentations().isEmpty() ) {
 				value = null;
 			}
 
@@ -186,7 +198,7 @@
 			}
 
 			if ( !this.isInEditMode() ) {
-				this.$text.text( value.getRepresentation() );
+				this.$text.text( value.getRepresentations().getItemByKey( 'en' ).getText() );
 				this.$id.text( ' (' + value.getId() + ')' ); // TODO: whitespace and brackets (?) should be i18nable
 
 				return deferred.resolve().promise();
@@ -197,7 +209,7 @@
 				.on( 'change', function () { this._trigger( 'change' ); }.bind( this ) );
 
 			if ( value ) {
-				$input.val( value.getRepresentation() );
+				$input.val( value.getRepresentations().getItemByKey( 'en' ).getText() );
 			}
 
 			if ( $.fn.inputautoexpand ) {
@@ -211,4 +223,4 @@
 			return deferred.resolve().promise();
 		}
 	} );
-}( jQuery, mediaWiki ) );
+}( jQuery, mediaWiki, wikibase ) );
