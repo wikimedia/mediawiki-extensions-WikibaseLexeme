@@ -76,7 +76,8 @@ class LexemeFormsView {
 	 * @return string HTML
 	 */
 	private function getFormHtml( Form $form ) {
-		$representation = $form->getRepresentation();
+		//TODO Change to rendering all the representations
+		$representation = $form->getRepresentations()->getIterator()->current()->getText();
 
 		$grammaticalFeaturesHtml = $this->templateFactory->render(
 			'wikibase-lexeme-form-grammatical-features',

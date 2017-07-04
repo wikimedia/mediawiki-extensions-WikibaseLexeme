@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme\DataModel\Serialization;
 use Deserializers\Deserializer;
 use Deserializers\Exceptions\DeserializationException;
 use Deserializers\TypedObjectDeserializer;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Deserializers\TermListDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
@@ -36,13 +38,12 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 
 	public function __construct(
 		Deserializer $entityIdDeserializer,
-		Deserializer $termListDeserializer,
 		Deserializer $statementListDeserializer
 	) {
 		parent::__construct( 'lexeme', 'type' );
 
 		$this->entityIdDeserializer = $entityIdDeserializer;
-		$this->termListDeserializer = $termListDeserializer;
+		$this->termListDeserializer = new TermListDeserializer( new TermDeserializer() );
 		$this->statementListDeserializer = $statementListDeserializer;
 	}
 
@@ -161,8 +162,11 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$id = new FormId( $serialization['id'] );
 		}
 
-		// TODO: Throw proper exception if array key does not exist
-		return new Form( $id, $serialization['representation'], [] );
+		$representations = $this->termListDeserializer->deserialize(
+			$serialization['representations']
+		);
+
+		return new Form( $id, $representations, [] );
 	}
 
 }

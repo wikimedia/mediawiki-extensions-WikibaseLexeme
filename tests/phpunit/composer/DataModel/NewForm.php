@@ -6,12 +6,14 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @method static self havingRepresentation (string $representation)
+ * @method static self havingRepresentation (string $language, string $representation)
  * @method static self havingId (FormId | string $formId)
  * @method static self havingStatement (Statement | Snak | NewStatement $statement)
  * @method static self havingGrammaticalFeature (ItemId | string $itemId)
@@ -24,9 +26,9 @@ class NewForm {
 	private $formId;
 
 	/**
-	 * @var string
+	 * @var string[] Indexed by language
 	 */
-	private $representation;
+	private $representations = [];
 
 	/**
 	 * @var Statement[]
@@ -69,17 +71,18 @@ class NewForm {
 	}
 
 	/**
+	 * @param string $language
 	 * @param string $representation
-	 * @return self
+	 * @return NewForm
 	 */
-	public function andRepresentation( $representation ) {
-		if ( $this->representation ) {
+	public function andRepresentation( $language, $representation ) {
+		if ( array_key_exists( $language, $this->representations ) ) {
 			throw new \LogicException(
-				'Representation is already set. You are not allowed to change it'
+				"Representation for '{$language}' is already set. You are not allowed to change it"
 			);
 		}
 		$result = clone $this;
-		$result->representation = $representation;
+		$result->representations[$language] = $representation;
 		return $result;
 	}
 
@@ -118,10 +121,19 @@ class NewForm {
 	 */
 	public function build() {
 		$formId = $this->formId ?: $this->newRandomFormId();
-		$representation = $this->representation ?: 'representation' . mt_rand( 0, mt_getrandmax() );
+		if ( empty( $this->representations ) ) {
+			$representations = new TermList( [
+				new Term( 'qqq', 'representation' . mt_rand( 0, mt_getrandmax() ) )
+			] );
+		} else {
+			$representations = new TermList();
+			foreach ( $this->representations as $language => $representation ) {
+				$representations->setTextForLanguage( $language, $representation );
+			}
+		}
 		return new Form(
 			$formId,
-			$representation,
+			$representations,
 			$this->grammaticalFeatures,
 			new StatementList( $this->statements )
 		);

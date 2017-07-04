@@ -180,18 +180,17 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
 		$lexeme = NewLexeme::havingForm(
-			NewForm::havingRepresentation( 'some representation' )
+			NewForm::havingRepresentation( 'en', 'some representation' )
 		)->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
+		$formSerialization = $serialization['forms'][0];
 		assertThat(
-			$serialization,
+			$formSerialization,
 			hasKeyValuePair(
-				'forms',
-				hasItemInArray(
-					hasKeyValuePair( 'representation', 'some representation' )
-				)
+				'representations',
+				hasKeyValuePair( 'en', 'some representation' )
 			)
 		);
 	}

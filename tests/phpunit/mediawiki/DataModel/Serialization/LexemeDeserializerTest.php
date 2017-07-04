@@ -32,8 +32,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$entityIdDeserializer = $this->getMockBuilder( EntityIdDeserializer::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$entityIdDeserializer->expects( $this->any() )
-			->method( 'deserialize' )
+		$entityIdDeserializer->method( 'deserialize' )
 			->will( $this->returnCallback( function( $serialization ) {
 				return new ItemId( $serialization );
 			} ) );
@@ -41,8 +40,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$statementListDeserializer = $this->getMockBuilder( StatementListDeserializer::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$statementListDeserializer->expects( $this->any() )
-			->method( 'deserialize' )
+		$statementListDeserializer->method( 'deserialize' )
 			->will( $this->returnCallback( function( array $serialization ) {
 				$statementList = new StatementList();
 
@@ -53,22 +51,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				return $statementList;
 			} ) );
 
-		$termListDeserializer = $this->getMockBuilder( TermListDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$termListDeserializer->expects( $this->any() )
-			->method( 'deserialize' )
-			->will( $this->returnCallback( function( array $serialization ) {
-				$terms = [];
-				foreach ( $serialization as $language => $value ) {
-					$terms[] = new Term( $language, $value );
-				}
-				return new TermList( $terms );
-			} ) );
-
 		return new LexemeDeserializer(
 			$entityIdDeserializer,
-			$termListDeserializer,
 			$statementListDeserializer
 		);
 	}
@@ -136,7 +120,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
-				'lemmas' => [ 'el'  => 'Hey' ],
+				'lemmas' => [ 'el'  => [ 'language' => 'el', 'value' => 'Hey' ] ],
 			],
 			$lexeme
 		];
@@ -169,14 +153,21 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				'id' => 'L1',
 				'lexicalCategory' => 'Q1',
 				'language' => 'Q2',
-				'forms' => [ [ 'id' => 'F1', 'representation' => 'form' ] ],
+				'forms' => [
+					[
+						'id' => 'F1',
+						'representations' => [
+							'en' => [ 'language' => 'en', 'value' => 'form' ]
+						]
+					]
+				],
 			],
 			NewLexeme::havingId( 'L1' )
 				->withLexicalCategory( 'Q1' )
 				->withLanguage( 'Q2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
-						->andRepresentation( 'form' )
+						->andRepresentation( 'en', 'form' )
 				)->build()
 
 		];

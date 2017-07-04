@@ -61,7 +61,7 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( [
 			NewForm::havingId( 'F1' )
-				->andRepresentation( 'FORM_REPRESENTATION' )
+				->andRepresentation( 'en', 'FORM_REPRESENTATION' )
 				->build()
 		] );
 

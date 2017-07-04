@@ -91,9 +91,23 @@ class LexemeContent extends EntityContent {
 		);
 
 		$forms = [
-			new Form( new FormId( 'F1' ), 'A', [] ),
-			new Form( new FormId( 'F2' ), 'B', $grammaticalFeatures1, $statements1 ),
-			new Form( new FormId( 'F3' ), 'C', $grammaticalFeatures2, $statements2 ),
+			new Form(
+				new FormId( 'F1' ),
+				new TermList( [ new Term( 'en', 'A' ) ] ),
+				[]
+			),
+			new Form(
+				new FormId( 'F2' ),
+				new TermList( [ new Term( 'en', 'B' ) ] ),
+				$grammaticalFeatures1,
+				$statements1
+			),
+			new Form(
+				new FormId( 'F3' ),
+				new TermList( [ new Term( 'en', 'C' ) ] ),
+				$grammaticalFeatures2,
+				$statements2
+			),
 		];
 
 		$lexeme->setForms( $forms );

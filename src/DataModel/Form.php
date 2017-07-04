@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\DataModel;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Term\TermList;
 
 /**
  * @license GPL-2.0+
@@ -20,7 +21,7 @@ class Form implements StatementListProvider {
 	/**
 	 * @var string
 	 */
-	private $representation;
+	private $representations;
 
 	/**
 	 * @var ItemId[]
@@ -39,13 +40,17 @@ class Form implements StatementListProvider {
 	 * @param StatementList|null $statementList
 	 */
 	public function __construct(
-		FormId $id = null,
-		$representation,
+		FormId $id,
+		TermList $representations,
 		array $grammaticalFeatures,
 		StatementList $statementList = null
 	) {
+		if ( $representations->count() === 0 ) {
+			throw new \InvalidArgumentException( 'Form must have at least one representation' );
+		}
+
 		$this->id = $id;
-		$this->representation = $representation;
+		$this->representations = $representations;
 		$this->grammaticalFeatures = $grammaticalFeatures;
 		$this->statementList = $statementList ?: new StatementList();
 	}
@@ -58,10 +63,10 @@ class Form implements StatementListProvider {
 	}
 
 	/**
-	 * @return string
+	 * @return TermList
 	 */
-	public function getRepresentation() {
-		return $this->representation;
+	public function getRepresentations() {
+		return $this->representations;
 	}
 
 	public function getGrammaticalFeatures() {
