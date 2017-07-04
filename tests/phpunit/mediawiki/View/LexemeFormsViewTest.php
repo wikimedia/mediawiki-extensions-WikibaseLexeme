@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\View\LexemeFormsView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
@@ -59,28 +60,26 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 	public function testHtmlContainsFormRepresentationWithIdAndLanguage() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( [
-			new Form( new FormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
+			NewForm::havingId( 'F1' )
+				->andRepresentation( 'FORM_REPRESENTATION' )
+				->build()
 		] );
 
 		assertThat(
 			$html,
 			is( htmlPiece( havingChild(
 				both( tagMatchingOutline( '<h3 lang="some language">' ) )
-					->andAlso( havingTextContents( containsString( 'FORM_REPRESENTATION (FORM_ID)' ) ) )
+					->andAlso( havingTextContents( containsString( 'FORM_REPRESENTATION (F1)' ) ) )
 			) ) )
 		);
 	}
 
 	public function testHtmlContainsFormGrammaticalFeatures() {
 		$view = $this->newFormsView();
-		$grammaticalFeature = new ItemId( 'Q1' );
-		$lexemeForm = new Form(
-			new FormId( 'FORM_ID' ),
-			'FORM_REPRESENTATION',
-			[ $grammaticalFeature ]
-		);
 
-		$html = $view->getHtml( [ $lexemeForm ] );
+		$html = $view->getHtml( [
+			NewForm::havingGrammaticalFeature( 'Q1' )->build()
+		] );
 
 		assertThat(
 			$html,
@@ -91,7 +90,7 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 	public function testHtmlContainsStatementSection() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( [
-			new Form( new FormId( 'FORM_ID' ), 'FORM_REPRESENTATION', [] )
+			NewForm::any()->build()
 		] );
 
 		assertThat(
