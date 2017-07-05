@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use InvalidArgumentException;
-use Wikibase\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLexicalCategory;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
