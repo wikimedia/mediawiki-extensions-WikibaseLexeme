@@ -67,9 +67,32 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 
 		assertThat(
 			$html,
-			is( htmlPiece( havingChild(
-				both( tagMatchingOutline( '<h3 lang="some language">' ) )
-					->andAlso( havingTextContents( containsString( 'FORM_REPRESENTATION (F1)' ) ) )
+			is( htmlPiece(
+				both( havingChild(
+					allOf(
+						withClass( 'representation-widget_representation-value' ),
+						havingTextContents( containsString( 'FORM_REPRESENTATION' ) )
+					) ) )
+				->andAlso( havingChild(
+					allOf(
+						withClass( 'representation-widget_representation-language' ),
+						havingTextContents( containsString( 'en' ) )
+					)
+				) ) ) )
+		);
+	}
+
+	public function testHtmlContainsFormId() {
+		$view = $this->newFormsView();
+		$html = $view->getHtml( [
+			NewForm::havingId( 'F1' )->build()
+		] );
+
+		assertThat(
+			$html,
+			is( htmlPiece(
+				havingChild(
+					havingTextContents( containsString( 'F1' ) )
 			) ) )
 		);
 	}
@@ -106,7 +129,15 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		return new LexemeFormsView(
 			new DummyLocalizedTextProvider(),
 			new LexemeTemplateFactory( [
-				'wikibase-lexeme-form' => '<h3 lang="$1">$2 $3</h3>$4 $5',
+				'wikibase-lexeme-form' => '
+					<div class="wikibase-lexeme-form">
+						<div class="wikibase-lexeme-form-header">
+							<div class="wikibase-lexeme-form-id">$1</div>
+							<div class="form-representations">$2</div>
+						</div>
+						$3
+						$4
+					</div>',
 				'wikibase-lexeme-form-grammatical-features' => '<div>$1</div>'
 			] ),
 			new EntityIdHtmlLinkFormatter(

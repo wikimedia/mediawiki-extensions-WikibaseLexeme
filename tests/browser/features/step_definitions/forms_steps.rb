@@ -10,11 +10,11 @@ Then(/^I see at least one Form$/) do
   expect(on(LexemePage).forms.count).to be > 0
 end
 
-
 Then(/^for each Form there is a representation and an ID$/) do
-  #todo: this only checks if there is at least one id and representation
-  expect(on(LexemePage).form_representation?).to be true
-  expect(on(LexemePage).form_id?).to be true
+  on(LexemePage).forms.each do |form|
+    expect(form.representations.count).to be > 0
+    expect(form.id?).to be true
+  end
 end
 
 Then(/^for each Form there is a statement list$/) do
@@ -23,9 +23,12 @@ Then(/^for each Form there is a statement list$/) do
   end
 end
 
-Then(/^each representation is enclosed in tag having lang attribute with "(.+)" as a value$/) do |value|
-  #todo: this only checks if there is at least one lang attribute
-  on(LexemePage).form_representation_element.attribute('lang').should == value
+Then(/^each representation has a language$/) do
+  on(LexemePage).forms.each do |form|
+    form.representations.each do |representation|
+      expect(representation.language?).to be true
+    end
+  end
 end
 
 Given(/^for each Form there is a grammatical feature list$/) do
@@ -39,9 +42,11 @@ When(/^I click the Forms list add button$/) do
   @form_I_am_currently_editing = on(LexemePage).forms[-1]
 end
 
-When(/^I enter "(.+)" as the form representation$/) do |representation|
-  @form_I_am_currently_editing.representation_input_element.when_visible.clear
-  @form_I_am_currently_editing.representation_input = representation
+When(/^I enter "(.*?)" as the "(.*?)" form representation$/) do |representation, language|
+  last_representation = @form_I_am_currently_editing.representations[-1]
+
+  last_representation.value_input = representation
+  last_representation.language_input = language
 end
 
 When(/^I save the Form$/) do
@@ -49,8 +54,17 @@ When(/^I save the Form$/) do
   @form_I_am_currently_editing.save_element.when_visible.click
 end
 
-Then(/^"(.+)" should be displayed as a representation of the Form$/) do |representation|
-  @form_I_am_currently_editing.representation_element.text.should == representation
+Then(/^"(.*?)" should be displayed as the "(.*?)" representation of the Form$/) do |value, language|
+  has_representation_with_value = @form_I_am_currently_editing.representations.any? do |representation|
+    representation.value_element.when_visible.text == value
+    representation.language_element.when_visible.text == language
+  end
+
+  expect(has_representation_with_value).to be true
+end
+
+When(/^I click on the add representation button$/) do
+  @form_I_am_currently_editing.add_representation_element.when_visible.click
 end
 
 Given(/^I have a Lexeme with a Form$/) do

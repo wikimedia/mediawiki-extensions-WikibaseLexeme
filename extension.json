@@ -78,7 +78,8 @@
 			"dependencies": [
 				"jquery.ui.EditableTemplatedWidget",
 				"wikibase.templates.lexeme",
-				"jquery.wikibase.grammaticalfeatureview"
+				"jquery.wikibase.grammaticalfeatureview",
+				"wikibase.lexeme.widgets.RepresentationWidget"
 			],
 			"messages": [
 				"wikibase-lexeme-empty-form-representation",
@@ -140,6 +141,16 @@
 				"wikibase-edit",
 				"wikibase-save",
 				"wikibase-cancel",
+				"wikibase-add",
+				"wikibase-remove"
+			]
+		},
+		"wikibase.lexeme.widgets.RepresentationWidget": {
+			"scripts": "widgets/RepresentationWidget.js",
+			"dependencies": [
+				"vue"
+			],
+			"messages":[
 				"wikibase-add",
 				"wikibase-remove"
 			]

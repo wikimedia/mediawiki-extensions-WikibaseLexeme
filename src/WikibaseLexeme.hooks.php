@@ -112,6 +112,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/widgets/LemmaWidgetStore.tests.js',
 				'tests/qunit/widgets/LemmaWidget.tests.js',
 				'tests/qunit/widgets/GlossWidget.tests.js',
+				'tests/qunit/widgets/RepresentationWidget.tests.js',
 			],
 			'dependencies' => [
 				'jquery.valueview.tests.testExpert',
@@ -133,6 +134,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore',
 				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget',
 				'wikibase.lexeme.widgets.GlossWidget',
+				'wikibase.lexeme.widgets.RepresentationWidget',
 				'wikibase.tests.qunit.testrunner',
 				'vue',
 				'vuex',
