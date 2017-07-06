@@ -14,7 +14,7 @@
 	 * @constructor
 	 *
 	 * @param {Object} options
-	 * @param {wikibase.datamodel.Forms} options.value
+	 * @param {string[]} options.value
 	 * @param {wikibase.LabelFormattingService} options.labelFormattingService
 	 * @param {mediaWiki.Api} options.api
 	 */
@@ -28,10 +28,19 @@
 			labelFormattingService: null,
 			api: null
 		},
+
 		_inEditMode: false,
 
+		/**
+		 * @type {wikibase.LabelFormattingService}
+		 * @private
+		 */
 		_labelFormattingService: null,
 
+		/**
+		 * @type {wikibase.lexeme.widgets.GrammaticalFeatureListWidget}
+		 * @private
+		 */
 		_grammaticalFeatureListWidget: null,
 
 		value: function ( value ) {
@@ -45,22 +54,27 @@
 
 			return this._grammaticalFeatureListWidget.getValue();
 		},
+
 		_create: function () {
 			PARENT.prototype._create.call( this );
 			this._labelFormattingService = this.options.labelFormattingService;
 		},
+
 		_startEditing: function () {
 			this._inEditMode = true;
 			return this.draw();
 		},
+
 		_stopEditing: function ( dropValue ) {
 			this._inEditMode = false;
 
 			return this.draw();
 		},
+
 		isInEditMode: function () {
 			return this._inEditMode;
 		},
+
 		/**
 		 * @inheritdoc
 		 */
