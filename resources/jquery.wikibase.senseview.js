@@ -1,7 +1,7 @@
-( function ( $, mw ) {
+( function ( $, mw, wb ) {
 	'use strict';
 
-	var PARENT = $.Widget;
+	var PARENT = $.ui.EditableTemplatedWidget;
 
 	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
 
@@ -23,11 +23,26 @@
 	 */
 	$.widget( 'wikibase.senseview', PARENT, {
 		options: {
+			template: 'wikibase-lexeme-sense',
+			templateParams: [
+				function () {
+					return 'ID-GOES-HERE';
+				},
+				function () {
+					return $( '<div class="wikibase-lexeme-sense-glosses"></div>' );
+				},
+				function () {
+					return 'STATEMENTS-GO-HERE';
+				}
+			],
+
 			/**
 			 * @type {buildStatementGroupListView}
 			 */
 			buildStatementGroupListView: null
 		},
+
+		glossWidget: null,
 
 		/**
 		 * This method acts as a setter if it is given a Sense object.
@@ -53,11 +68,22 @@
 				$( '.wikibase-statementgrouplistview', this.element )
 			);
 
-			GlossWidget.applyGlossWidget(
+			this.glossWidget = GlossWidget.applyGlossWidget(
 				$( '.wikibase-lexeme-sense-glosses', this.element )[ 0 ],
 				this.value().getId(),
 				convertGlossesToGlossWidgetModel( this.value().getGlosses() )
 			);
+
+			if ( !this.value().getId() ) {
+				this._addNewSense();
+			}
+		},
+
+		_addNewSense: function () {
+			// TODO: generate random sense ID
+
+			this.glossWidget.add();
+			this.glossWidget.edit();
 		},
 
 		getHelpMessage: function () {

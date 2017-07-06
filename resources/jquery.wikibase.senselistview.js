@@ -36,7 +36,11 @@
 		_create: function () {
 			PARENT.prototype._create.call( this );
 
-			this._createListView();
+			this._listview = this._createListView();
+			this.options.getAdder(
+				this._listview.enterNewItem.bind( this._listview ),
+				this.element
+			);
 		},
 
 		/**
@@ -53,7 +57,7 @@
 		 * @private
 		 */
 		_createListView: function () {
-			this._listview = new $.wikibase.listview( {
+			return new $.wikibase.listview( {
 				listItemAdapter: this.options.getListItemAdapter(),
 				listItemNodeName: 'div',
 				value: this.options.value

@@ -10,7 +10,7 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 		var template = '#gloss-widget-vue-template';
 
 		// eslint-disable-next-line no-new
-		new Vue( newGlossWidget( widgetElement, template, senseId, store ) );
+		return new Vue( newGlossWidget( widgetElement, template, senseId, store ) );
 	}
 
 	function newGlossWidget( widgetElement, template, senseId, store ) {

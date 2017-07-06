@@ -106,6 +106,7 @@
 			$( '.wikibase-lexeme-senses-section' ),
 			{
 				getListItemAdapter: this.getListItemAdapterForSenseListView.bind( this, lexeme, startEditingCallback, function () {} ),
+				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
 				value: lexeme.senses
 			}
 		);

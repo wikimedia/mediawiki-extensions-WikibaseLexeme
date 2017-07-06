@@ -105,7 +105,7 @@
 		"jquery.wikibase.senseview": {
 			"scripts": "jquery.wikibase.senseview.js",
 			"dependencies": [
-				"jquery.ui.widget",
+				"jquery.ui.EditableTemplatedWidget",
 				"wikibase.templates.lexeme",
 				"wikibase.lexeme.widgets.GlossWidget"
 			],

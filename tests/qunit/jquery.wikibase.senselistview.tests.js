@@ -15,7 +15,8 @@
 		return $node.senselistview( {
 			getListItemAdapter: function () {
 				return senseviewListItemAdapter;
-			}
+			},
+			getAdder: function () {}
 		} );
 	};
 

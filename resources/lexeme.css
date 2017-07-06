@@ -298,6 +298,15 @@
 	clear: left;
 }
 
+.wikibase-lexeme-senses-section > .wikibase-toolbar-container {
+	position: static;
+	float: left;
+}
+
+.wikibase-lexeme-sense .wikibase-edittoolbar-container {
+	display: none; /* TODO: use toolbar or vue buttons */
+}
+
 /* =========== wikibase-lexeme-sense-glosses =========== */
 
 .wikibase-lexeme-sense-glosses {
@@ -364,8 +373,4 @@
 	content: "";
 	display: table;
 	clear: both;
-}
-
-.wikibase-lexeme-sense > .wikibase-edittoolbar-container {
-	display: none; /* FIXME: temporarily hidden until entering/editing glosses is possible */
 }
