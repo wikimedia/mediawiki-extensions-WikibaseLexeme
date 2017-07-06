@@ -37,6 +37,9 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 				},
 				edit: function () {
 					this.inEditMode = true;
+					if ( this.glosses.length === 0 ) {
+						this.add();
+					}
 				},
 				save: function () {
 					return store.dispatch( 'save', this.glosses ).then( function ( glosses ) {

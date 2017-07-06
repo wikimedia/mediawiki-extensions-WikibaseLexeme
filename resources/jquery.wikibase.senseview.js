@@ -75,15 +75,14 @@
 			);
 
 			if ( !this.value().getId() ) {
-				this._addNewSense();
+				this.startEditing();
 			}
 		},
 
-		_addNewSense: function () {
-			// TODO: generate random sense ID
-
-			this.glossWidget.add();
+		_startEditing: function () {
 			this.glossWidget.edit();
+
+			return $.Deferred().resolve().promise();
 		},
 
 		getHelpMessage: function () {

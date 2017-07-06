@@ -6,6 +6,8 @@
 
 	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
 
+	var EMPTY_GLOSS = { language: '', value: '' };
+
 	QUnit.module(
 		'wikibase.lexeme.widgets.GlossWidget',
 		setUpCustomAssertions(),
@@ -22,6 +24,17 @@
 						'en'
 					);
 				} );
+
+				QUnit.test(
+					'create with no glosses - when switched to edit mode empty gloss is added',
+					function ( assert ) {
+						var widget = newWidget( 'S1', [] );
+
+						widget.edit();
+
+						assert.deepEqual( widget.glosses[ 0 ], EMPTY_GLOSS );
+					}
+				);
 
 				QUnit.test( 'switch to edit mode', function ( assert ) {
 					var done = assert.async(),
