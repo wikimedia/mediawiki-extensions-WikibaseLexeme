@@ -61,6 +61,10 @@ class LexemeForm
     css: '.representation-widget_representation, .representation-widget_representation-edit-box'
   )
 
+  def anchor
+    @root_element.attribute('id')
+  end
+
   def grammatical_feature?(label)
     self.grammatical_features.any? do |gf|
       gf.value_element.when_present.text == label
@@ -90,6 +94,10 @@ class Sense
   div(:statements, class: 'wikibase-statementgrouplistview')
 
   page_sections(:glosses, GlossDefinition, class: 'wikibase-lexeme-sense-gloss')
+
+  def anchor
+    @root_element.attribute('id')
+  end
 
   def gloss?(language_code, value)
     self.glosses.any? do |g|

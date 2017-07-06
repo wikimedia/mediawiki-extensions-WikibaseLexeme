@@ -10,6 +10,15 @@ Then(/^I see at least one Sense$/) do
   expect(on(LexemePage).senses.count).to be > 0
 end
 
+Given(/^for each Sense there is an anchor equal to its ID$/) do
+  on(LexemePage).senses.each do |senses|
+    id = senses.id_element.when_visible.text.sub('(', '').sub(')', '')
+    anchor = senses.anchor
+
+    expect(anchor).to be == id
+  end
+end
+
 Then(/^for each Sense there is a gloss and an ID$/) do
   on(LexemePage).senses.each do |sense|
      expect(sense.glosses.count).to be > 0

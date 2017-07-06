@@ -19,6 +19,10 @@ Feature: Senses of a Lexeme
     And for each Sense there is a statement list
 
   @integration
+  Scenario: Link to Sense
+    And for each Sense there is an anchor equal to its ID
+
+  @integration
   Scenario: Adding Gloss
     Given there is a Sense to test
     When I click the first Sense's edit button

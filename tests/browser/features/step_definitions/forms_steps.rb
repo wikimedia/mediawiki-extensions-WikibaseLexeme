@@ -10,6 +10,16 @@ Then(/^I see at least one Form$/) do
   expect(on(LexemePage).forms.count).to be > 0
 end
 
+Given(/^for each Form there is an anchor equal to its ID$/) do
+  on(LexemePage).forms.each do |form|
+    id = form.id_element.when_visible.text
+    anchor = form.anchor
+
+    expect(anchor).to be == id
+  end
+end
+
+
 Then(/^for each Form there is a representation and an ID$/) do
   on(LexemePage).forms.each do |form|
     expect(form.representations.count).to be > 0

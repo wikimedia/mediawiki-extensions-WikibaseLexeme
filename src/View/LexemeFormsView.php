@@ -101,7 +101,9 @@ class LexemeFormsView {
 			htmlspecialchars( $form->getId()->getSerialization() ),
 			$this->renderRepresentationWidget( $form ),
 			$grammaticalFeaturesHtml,
-			$this->statementSectionView->getHtml( $form->getStatements() )
+			$this->statementSectionView->getHtml( $form->getStatements() ),
+			//Anchor separated from ID to avoid issue with front-end rendering
+			htmlspecialchars( $form->getId()->getSerialization() )
 		] );
 	}
 

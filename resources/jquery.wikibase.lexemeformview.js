@@ -70,6 +70,13 @@
 					}.bind( this ) );
 
 					return $container;
+				},
+				function () { //Anchor
+					this.deferredFormWithId.promise().then( function ( form ) {
+						this.element.attr( 'id', form.getId() );
+					}.bind( this ) );
+
+					return '';
 				}
 			],
 			templateShortCuts: {

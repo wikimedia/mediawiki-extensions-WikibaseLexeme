@@ -18,6 +18,10 @@ Feature: Forms of a Lexeme
     And for each Form there is a grammatical feature list
 
   @integration
+  Scenario: Link to Form
+    And for each Form there is an anchor equal to its ID
+
+  @integration
   Scenario: Add grammatical feature
     Given I have a Lexeme with a Form
      And I am on the page of the Lexeme to test
