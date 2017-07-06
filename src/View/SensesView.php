@@ -151,62 +151,49 @@ HTML;
 	private function getRawGlossWidgetTemplate() {
 		return <<<'HTML'
 <div class="wikibase-lexeme-sense-glosses">
-	<div class="wikibase-lexeme-sense-glosses-list">
-		<table class="wikibase-lexeme-sense-glosses-table">
-			<tbody>
-				<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
-					<td class="wikibase-lexeme-sense-gloss-language">
-						<span v-if="!inEditMode">{{gloss.language}}</span>
-						<input v-else class="wikibase-lexeme-sense-gloss-language-input"
-							v-model="gloss.language" :disabled="isSaving">
-					</td>
-					<td class="wikibase-lexeme-sense-gloss-value-cell">
-						<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"
-							:dir="gloss.language|directionality" :lang="gloss.language">
-							{{gloss.value}}
-						</span>
-						<span v-if="!inEditMode" class="wikibase-lexeme-sense-glosses-sense-id">
-						({{senseId}})
-						</span>
-						<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
-							v-model="gloss.value" :disabled="isSaving">
-					</td>
-					<td>
-						<button v-if="inEditMode"
+	<table class="wikibase-lexeme-sense-glosses-table">
+		<tbody>
+			<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
+				<td class="wikibase-lexeme-sense-gloss-language">
+					<span v-if="!inEditMode">{{gloss.language}}</span>
+					<input v-else class="wikibase-lexeme-sense-gloss-language-input"
+						v-model="gloss.language" >
+				</td>
+				<td class="wikibase-lexeme-sense-gloss-value-cell">
+					<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"
+						:dir="gloss.language|directionality" :lang="gloss.language">
+						{{gloss.value}}
+					</span>
+					<span v-if="!inEditMode" class="wikibase-lexeme-sense-glosses-sense-id">
+					({{senseId}})
+					</span>
+					<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
+						v-model="gloss.value" >
+				</td>
+				<td>
+					<button v-if="inEditMode"
+					class="wikibase-lexeme-sense-glosses-control
+						wikibase-lexeme-sense-glosses-remove"
+					v-on:click="remove(gloss)"  type="button">
+						{{'wikibase-remove'|message}}
+					</button>
+				</td>
+			</tr>
+		</tbody>
+		<tfoot v-if="inEditMode">
+			<tr>
+				<td>
+				</td>
+				<td>
+					<button type="button"
 						class="wikibase-lexeme-sense-glosses-control
-							wikibase-lexeme-sense-glosses-remove"
-						v-on:click="remove(gloss)" :disabled="isSaving" type="button">
-							{{'wikibase-remove'|message}}
-						</button>
-					</td>
-				</tr>
-			</tbody>
-			<tfoot v-if="inEditMode">
-				<tr>
-					<td>
-					</td>
-					<td>
-						<button type="button"
-							class="wikibase-lexeme-sense-glosses-control
-								wikibase-lexeme-sense-glosses-add"
-							v-on:click="add" :disabled="isSaving">+ {{'wikibase-add'|message}}
-						</button>
-					</td>
-				</tr>
-			</tfoot>
-		</table>
-	</div>
-	<div class="wikibase-lexeme-sense-glosses-controls">
-		<button v-if="!inEditMode" type="button"
-			class="wikibase-lexeme-sense-glosses-control wikibase-lexeme-sense-glosses-edit"
-			v-on:click="edit" :disabled="isSaving">{{'wikibase-edit'|message}}</button>
-		<button v-if="inEditMode" type="button"
-			class="wikibase-lexeme-sense-glosses-control wikibase-lexeme-sense-glosses-save"
-			v-on:click="save" :disabled="isSaving">{{'wikibase-save'|message}}</button>
-		<button v-if="inEditMode" type="button"
-			class="wikibase-lexeme-sense-glosses-control wikibase-lexeme-sense-glosses-cancel"
-			v-on:click="cancel" :disabled="isSaving">{{'wikibase-cancel'|message}}</button>
-	</div>
+							wikibase-lexeme-sense-glosses-add"
+						v-on:click="add" >+ {{'wikibase-add'|message}}
+					</button>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 </div>
 HTML;
 	}

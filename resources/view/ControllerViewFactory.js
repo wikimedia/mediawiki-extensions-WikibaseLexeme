@@ -105,7 +105,7 @@
 			'senselistview',
 			$( '.wikibase-lexeme-senses-section' ),
 			{
-				getListItemAdapter: this.getListItemAdapterForSenseListView.bind( this, lexeme, startEditingCallback, function () {} ),
+				getListItemAdapter: this.getListItemAdapterForSenseListView.bind( this, lexeme, startEditingCallback ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
 				value: lexeme.senses
 			}
@@ -171,18 +171,17 @@
 		removeCallback
 	) {
 		var senseView = this._getView(
-			'senseview',
-			$dom,
-			{
-				value: sense || new wb.lexeme.datamodel.Sense(),
-				buildStatementGroupListView: this.getStatementGroupListView.bind(
-					this,
-					startEditingCallback
-				)
-			}
-		);
-
-		this._getController(
+				'senseview',
+				$dom,
+				{
+					value: sense || new wb.lexeme.datamodel.Sense(),
+					buildStatementGroupListView: this.getStatementGroupListView.bind(
+						this,
+						startEditingCallback
+					)
+				}
+			);
+		var controller = this._getController(
 			this._toolbarFactory.getToolbarContainer( senseView.element ),
 			senseView,
 			fakeSenseModelCreator( lexemeId ),
@@ -190,6 +189,10 @@
 			sense,
 			startEditingCallback
 		);
+
+		if ( !sense ) {
+			controller.startEditing().done( senseView.focus.bind( senseView ) );
+		}
 
 		return senseView;
 	};

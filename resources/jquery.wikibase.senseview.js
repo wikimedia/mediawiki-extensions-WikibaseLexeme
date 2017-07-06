@@ -57,7 +57,14 @@
 				return;
 			}
 
-			return this.options.value;
+			if ( !this.isInEditMode() ) {
+				return this.options.value;
+			}
+
+			return new wikibase.lexeme.datamodel.Sense(
+				this.options.value ? this.options.value.getId() : null,
+				convertGlossWidgetModelToGlossHashMap( this.glossWidget.glosses )
+			);
 		},
 
 		_create: function () {
@@ -71,16 +78,26 @@
 			this.glossWidget = GlossWidget.applyGlossWidget(
 				$( '.wikibase-lexeme-sense-glosses', this.element )[ 0 ],
 				this.value().getId(),
-				convertGlossesToGlossWidgetModel( this.value().getGlosses() )
+				convertGlossesToGlossWidgetModel( this.value().getGlosses() ),
+				function () {
+					this._trigger( 'change' );
+				}.bind( this )
 			);
-
-			if ( !this.value().getId() ) {
-				this.startEditing();
-			}
 		},
 
 		_startEditing: function () {
 			this.glossWidget.edit();
+
+			return $.Deferred().resolve().promise();
+		},
+
+		_stopEditing: function ( dropValue ) {
+			this.glossWidget.stopEditing();
+			if ( dropValue ) {
+				this.glossWidget.glosses = convertGlossesToGlossWidgetModel(
+					this.value().getGlosses()
+				);
+			}
 
 			return $.Deferred().resolve().promise();
 		},
@@ -97,6 +114,16 @@
 				result.push( { value: glosses[ language ], language: language } );
 			}
 		}
+		return result;
+	}
+
+	function convertGlossWidgetModelToGlossHashMap( glosses ) {
+		var result = {};
+
+		glosses.forEach( function ( gloss ) {
+			result[ gloss.language ] = gloss.value;
+		} );
+
 		return result;
 	}
 

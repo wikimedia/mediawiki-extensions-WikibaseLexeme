@@ -303,18 +303,10 @@
 	float: left;
 }
 
-.wikibase-lexeme-sense .wikibase-edittoolbar-container {
-	display: none; /* TODO: use toolbar or vue buttons */
-}
-
 /* =========== wikibase-lexeme-sense-glosses =========== */
 
 .wikibase-lexeme-sense-glosses {
-	display: flex;
-}
-
-.wikibase-lexeme-sense-glosses-list {
-	flex-grow: 1;
+	margin-right: 252px;
 }
 
 .wikibase-lexeme-sense-glosses-table {
@@ -345,14 +337,6 @@
 .wikibase-lexeme-sense-gloss-value-input {
 	width: 100%;
 	resize: horizontal;
-}
-
-.wikibase-lexeme-sense-glosses-controls {
-	/* width: 18em; */
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: flex-end;
 }
 
 .wikibase-lexeme-sense-glosses-control {

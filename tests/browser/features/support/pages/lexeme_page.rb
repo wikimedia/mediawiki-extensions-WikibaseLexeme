@@ -86,8 +86,8 @@ end
 class Sense
   include PageObject
 
-  button(:edit, class: 'wikibase-lexeme-sense-glosses-control')
-  button(:save, class: 'wikibase-lexeme-sense-glosses-save')
+  a(:edit, css: '.wikibase-toolbar-button-edit > a')
+  a(:save, css: '.wikibase-toolbar-button-save > a')
   button(:add_gloss, css: '.wikibase-lexeme-sense-glosses-add')
 
   span(:id, class: 'wikibase-lexeme-sense-glosses-sense-id')

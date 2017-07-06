@@ -58,10 +58,20 @@
 		 */
 		_createListView: function () {
 			return new $.wikibase.listview( {
-				listItemAdapter: this.options.getListItemAdapter(),
+				listItemAdapter: this.options.getListItemAdapter( this._removeItem.bind( this ) ),
 				listItemNodeName: 'div',
 				value: this.options.value
 			}, this.element.find( '.wikibase-lexeme-senses' ) );
+		},
+
+		/**
+		 * Removes a `senselistview` widget.
+		 *
+		 * @param {jQuery.wikibase.senselistview} senselistview
+		 */
+		_removeItem: function ( senselistview ) {
+			this._listview.removeItem( senselistview.element );
+			this._trigger( 'afterremove' );
 		}
 
 	} );
