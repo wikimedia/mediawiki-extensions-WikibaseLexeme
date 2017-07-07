@@ -20,5 +20,6 @@
 	"wikibase-lexeme-empty-form-representation": "Présentation de forme non définie",
 	"wikibase-lexeme-view-senses": "Sens",
 	"wikibase-lexeme-gloss-empty": "Aucune apparence définie",
-	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié"
+	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
+	"datatypes-type-wikibase-lexeme": "Lexème"
 }
