@@ -112,17 +112,6 @@
 		);
 	};
 
-	var fakeModel = { // FIXME: replace with EntityChanger
-		save: function ( form ) {
-			var deferred = $.Deferred();
-			if ( !form.getId() ) {
-				form._id = Math.round( Math.random() * 100 );
-			}
-			deferred.resolve( form );
-			return deferred.promise();
-		}
-	};
-
 	SELF.prototype.getLexemeFormView = function (
 		lexemeId,
 		form,
@@ -131,15 +120,13 @@
 		startEditingCallback,
 		removeCallback
 	) {
-		var self = this;
-
 		var lexemeFormView = this._getView(
 				'lexemeformview',
 				$dom,
 				{
 					value: form || new wb.lexeme.datamodel.LexemeForm(),
 					labelFormattingService: labelFormattingService,
-					api: self._api,
+					api: this._api,
 					buildStatementGroupListView: this.getStatementGroupListView.bind(
 						this,
 						startEditingCallback
@@ -183,8 +170,6 @@
 		startEditingCallback,
 		removeCallback
 	) {
-		var self = this;
-
 		var senseView = this._getView(
 			'senseview',
 			$dom,
@@ -195,15 +180,16 @@
 					startEditingCallback
 				)
 			}
-			),
-			controller = this._getController(
-				this._toolbarFactory.getToolbarContainer( senseView.element ),
-				senseView,
-				fakeSenseModelCreator( lexemeId ),
-				removeCallback.bind( null, senseView ),
-				sense,
-				startEditingCallback
-			);
+		);
+
+		this._getController(
+			this._toolbarFactory.getToolbarContainer( senseView.element ),
+			senseView,
+			fakeSenseModelCreator( lexemeId ),
+			removeCallback.bind( null, senseView ),
+			sense,
+			startEditingCallback
+		);
 
 		return senseView;
 	};
@@ -300,20 +286,6 @@
 		} );
 
 		return features;
-	};
-
-	SELF.prototype._getExistingGrammaticalFeatures = function ( $element ) {
-		var existingGrammaticalFeatures = $.map( $element.find( '.wikibase-lexeme-form-grammatical-features-values > a' ), function ( el ) {
-			return $( el ).attr( 'title' );
-		} ).filter( Boolean ).map( function ( title ) {
-			return title.match( /Q\d+/ )[ 0 ];
-		} );
-
-		var deletedGrammaticalFeatures = $.map( $element.find( '.wikibase-lexeme-form-grammatical-features-values .wb-entity-undefinedinfo' ), function ( el ) {
-			return el.previousSibling.nodeValue.match( /Q\d+/ )[ 0 ];
-		} ).filter( Boolean );
-
-		return existingGrammaticalFeatures.concat( deletedGrammaticalFeatures );
 	};
 
 	SELF.prototype.getListItemAdapterForSenseListView = function ( lexeme, startEditingCallback, removeCallback ) {
