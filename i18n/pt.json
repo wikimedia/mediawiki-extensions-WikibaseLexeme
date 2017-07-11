@@ -7,6 +7,17 @@
 	"wikibaselexeme-desc": "Tratar o tipo de entidade lexema",
 	"special-newlexeme": "Criar um lexema novo",
 	"wikibase-newlexeme-fieldset": "Criar um lexema novo",
-	"wikibase-newentity-lemma": "Lema",
-	"wikibase-lemma-edit-placeholder": "Introduza o lema"
+	"wikibase-newlexeme-lemma": "Lema",
+	"wikibase-newlexeme-lemma-language": "Língua do lema",
+	"wikibase-lemma-edit-placeholder": "Introduza o lema",
+	"wikibase-newlexeme-lexicalcategory": "Categoria lexical",
+	"wikibase-newlexeme-language": "Língua do lexema",
+	"wikibase-lexeme-view-language-lexical-category": "$1 e $2",
+	"wikibase-lexeme-view-forms": "Formulários",
+	"wikibase-lexeme-enter-form-representation": "Introduza a nova representação do formulário",
+	"wikibase-lexeme-empty-form-representation": "Não foi definida uma representação do formulário",
+	"wikibase-lexeme-view-senses": "Sentidos",
+	"wikibase-lexeme-gloss-empty": "Não foi definida nenhuma glosa",
+	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
+	"datatypes-type-wikibase-lexeme": "Lexema"
 }
