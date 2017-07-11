@@ -55,6 +55,7 @@ And(/^I add a Gloss for "(.*?)" language with value "(.*?)"$/) do |language_code
   new_gloss = @sense_I_am_currently_editing.glosses[-1]
   new_gloss.language_input = language_code
   new_gloss.value_input = gloss_value
+  @new_gloss = { value: gloss_value, language: language_code }
 end
 
 And(/^I remove the first Gloss definition$/) do
@@ -80,4 +81,15 @@ end
 
 Then(/^I don't see that Gloss definition$/) do
   expect(@sense_I_am_currently_editing.gloss?(@removed_gloss_language, @removed_gloss_value)).to be false
+end
+
+When(/^I click on the Senses list add button$/) do
+  on(LexemePage).add_sense_element.when_visible.click
+  @sense_I_am_currently_editing = on(LexemePage).senses[-1]
+end
+
+Then(/^I should see a new Sense with that Gloss$/) do
+  last_sense_gloss = on(LexemePage).senses[-1].glosses[-1]
+  expect(last_sense_gloss.language_element.when_visible.text).to eq(@new_gloss[:language])
+  expect(last_sense_gloss.value_element.when_visible.text).to eq(@new_gloss[:value])
 end

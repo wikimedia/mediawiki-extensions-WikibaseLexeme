@@ -76,7 +76,7 @@ end
 class GlossDefinition
   include PageObject
 
-  element(:language, class: 'wikibase-lexeme-sense-gloss-language')
+  span(:language, css: '.wikibase-lexeme-sense-gloss-language > span')
   text_field(:language_input, class: 'wikibase-lexeme-sense-gloss-language-input')
   span(:value, class: 'wikibase-lexeme-sense-gloss-value')
   text_field(:value_input, class: 'wikibase-lexeme-sense-gloss-value-input')
@@ -121,8 +121,8 @@ class LexemePage
   page_sections(:forms, LexemeForm, class: 'wikibase-lexeme-form')
   page_sections(:senses, Sense, class: 'wikibase-lexeme-sense')
 
-  # Lexeme Form
   a(:add_lexeme_form, css: '.wikibase-lexeme-forms-section > .wikibase-addtoolbar-container a')
+  a(:add_sense, css: '.wikibase-lexeme-senses-section > .wikibase-addtoolbar-container a')
 
   def create_lexeme(lexeme_data)
     wb_api = MediawikiApi::Wikidata::WikidataClient.new URL.repo_api

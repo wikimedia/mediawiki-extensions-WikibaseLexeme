@@ -48,3 +48,11 @@ Feature: Senses of a Lexeme
      And I save the Sense
     # TODO refresh page
     Then I don't see that Gloss definition
+
+  @integration
+  Scenario: Adding Senses
+    When I click on the Senses list add button
+     And I add a Gloss for "en" language with value "Whatever"
+     And I save the Sense
+     # TODO refresh page
+    Then I should see a new Sense with that Gloss
