@@ -42,25 +42,6 @@
 	font-size: 1em;
 }
 
-.wikibase-lexeme-forms .wikibase-lexeme-form-representation {
-	clear: left;
-	margin-left: 10px; /* same as .wb-section-heading */
-	position: relative;
-	border-bottom: 1px solid #a2a9b1;
-	font-weight: normal;
-}
-
-.wikibase-lexeme-form-representation .wikibase-toolbar-container {
-	font-size: 0.833em; /* reset from h3 size to 100% for toolbar alignment */
-}
-
-.wikibase-lexeme-forms .wikibase-lexeme-form-representation textarea {
-	display: inline-block;
-	font-size: 0.9em;
-	height: 1.5em;
-	vertical-align: middle;
-}
-
 .wikibase-lexeme-forms-section > .wikibase-toolbar-container {
 	position: static;
 	float: left;
