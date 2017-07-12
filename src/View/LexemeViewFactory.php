@@ -122,7 +122,7 @@ class LexemeViewFactory {
 			$localizedTextProvider,
 			$languageDirectionalityLookup,
 			$templateFactory,
-			$statementSectionsView,
+			$statementGroupListView,
 			$this->languageCode
 		);
 
