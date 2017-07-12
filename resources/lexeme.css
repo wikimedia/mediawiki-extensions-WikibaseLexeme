@@ -13,9 +13,14 @@
 	width: 60%;
 }
 
+.wikibase-lexeme-forms {
+	margin-left: 10px;
+}
+
 .wikibase-lexeme-forms .wikibase-lexeme-form {
 	position: relative;
 	clear: left;
+	margin-bottom: 2em;
 }
 
 .wikibase-lexeme-form-header {
@@ -23,7 +28,18 @@
 	align-items: center;
 }
 .wikibase-lexeme-form-id {
-	font-size: 2em;
+	font-size: 1em;
+	min-width: 2.5em;
+	margin-right: 1.25em;
+}
+
+.wikibase-lexeme-form-body {
+	margin-left: 3.75em;
+}
+
+.wikibase-lexeme-form h2.wb-section-heading {
+	padding-left: 0;
+	font-size: 1em;
 }
 
 .wikibase-lexeme-forms .wikibase-lexeme-form-representation {
@@ -180,7 +196,6 @@
 
 .representation-widget {
 	display: flex;
-	margin: 0 2em;
 }
 
 .representation-widget_representation-list {
@@ -201,8 +216,7 @@
 }
 
 .representation-widget_representation-value {
-	font-size: 2em;
-	font-weight: bold;
+	font-size: 1em;
 }
 
 .representation-widget_representation-language {

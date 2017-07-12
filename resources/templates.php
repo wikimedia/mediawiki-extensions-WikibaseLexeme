@@ -20,8 +20,10 @@ return call_user_func( function() {
 		<div class="wikibase-lexeme-form-id">$1</div>
 		<div class="form-representations">$2</div>
 	</div>
-	$3
-	$4
+	<div class="wikibase-lexeme-form-body">
+		$3
+		$4
+	</div>
 </div>
 HTML;
 
