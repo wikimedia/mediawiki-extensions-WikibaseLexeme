@@ -164,9 +164,6 @@ HTML;
 						:dir="gloss.language|directionality" :lang="gloss.language">
 						{{gloss.value}}
 					</span>
-					<span v-if="!inEditMode" class="wikibase-lexeme-sense-glosses-sense-id">
-					({{senseId}})
-					</span>
 					<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
 						v-model="gloss.value" >
 				</td>

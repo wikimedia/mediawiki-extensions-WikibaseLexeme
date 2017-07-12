@@ -5,13 +5,13 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 		return JSON.parse( JSON.stringify( object ) );
 	}
 
-	function applyGlossWidget( widgetElement, senseId, glosses, beforeUpdate ) {
+	function applyGlossWidget( widgetElement, glosses, beforeUpdate ) {
 		var template = '#gloss-widget-vue-template';
 
-		return new Vue( newGlossWidget( widgetElement, template, senseId, glosses, beforeUpdate ) );
+		return new Vue( newGlossWidget( widgetElement, template, glosses, beforeUpdate ) );
 	}
 
-	function newGlossWidget( widgetElement, template, senseId, glosses, beforeUpdate ) {
+	function newGlossWidget( widgetElement, template, glosses, beforeUpdate ) {
 		return {
 			el: widgetElement,
 			template: template,
@@ -20,7 +20,6 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 
 			data: {
 				inEditMode: false,
-				senseId: senseId,
 				glosses: deepClone( glosses )
 			},
 			methods: {

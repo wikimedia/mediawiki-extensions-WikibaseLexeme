@@ -77,7 +77,6 @@
 
 			this.glossWidget = GlossWidget.applyGlossWidget(
 				$( '.wikibase-lexeme-sense-glosses', this.element )[ 0 ],
-				this.value().getId(),
 				convertGlossesToGlossWidgetModel( this.value().getGlosses() ),
 				function () {
 					this._trigger( 'change' );
