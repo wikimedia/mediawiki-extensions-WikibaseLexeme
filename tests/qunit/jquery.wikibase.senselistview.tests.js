@@ -10,13 +10,17 @@
 		}
 	);
 
-	var createViewElement = function () {
+	var createViewElement = function ( messageStub ) {
 		var $node = $( '<div><div class="wikibase-lexeme-senses"/></div>' );
 		return $node.senselistview( {
 			getListItemAdapter: function () {
 				return senseviewListItemAdapter;
 			},
-			getAdder: function () {}
+			getAdder: function ( add, $dom, label, title ) {
+				var options = { label: label, title: title };
+				return new wb.view.ToolbarFactory().getAddToolbar( options, $dom );
+			},
+			getMessage: messageStub || function () {}
 		} );
 	};
 
@@ -44,6 +48,17 @@
 		$view.data( 'senselistview' ).destroy();
 
 		assert.notOk( getViewFromElement( $view ) );
+	} );
+
+	QUnit.test( 'includes a button to "add sense"', function ( assert ) {
+		var translatedMessage = 'adde the lexeme!';
+		var messageStub = function ( key ) {
+			if ( key === 'wikibase-lexeme-add-sense' ) { return translatedMessage; }
+		};
+
+		var $view = createViewElement( messageStub );
+
+		assert.equal( $view.find( '.wikibase-toolbar-button-add' ).text(), translatedMessage );
 	} );
 
 }( jQuery, wikibase, QUnit, sinon ) );

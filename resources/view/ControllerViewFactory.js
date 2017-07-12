@@ -95,6 +95,7 @@
 			{
 				getListItemAdapter: this.getListItemAdapterForLexemeFormListView.bind( this, lexeme, startEditingCallback ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
+				getMessage: $.proxy( mw.messages.get, mw.messages ),
 				value: lexeme.forms
 			}
 		);
@@ -106,6 +107,7 @@
 			$( '.wikibase-lexeme-senses-section' ),
 			{
 				getListItemAdapter: this.getListItemAdapterForSenseListView.bind( this, lexeme, startEditingCallback ),
+				getMessage: $.proxy( mw.messages.get, mw.messages ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
 				value: lexeme.senses
 			}

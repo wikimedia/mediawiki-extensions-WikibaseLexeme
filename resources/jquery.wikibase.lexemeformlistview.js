@@ -13,6 +13,7 @@
 	 * @param {Object} options
 	 * @param {jquery.wikibase.listview.ListItemAdapter} options.getListItemAdapter
 	 * @param {jQuery.wikibase.addtoolbar} options.getAdder
+	 * @param {function} options.getMessage
 	 * @param {wikibase.lexeme.datamodel.LexemeForm} options.value
 	 */
 	$.widget( 'wikibase.lexemeformlistview', PARENT, {
@@ -23,6 +24,7 @@
 		options: {
 			getListItemAdapter: null,
 			getAdder: null,
+			getMessage: null,
 			value: null
 		},
 
@@ -36,10 +38,15 @@
 		 * @inheritdoc
 		 */
 		_create: function () {
+			if ( !this.options.getMessage && typeof this.options.getMessage !== 'function' ) {
+				throw new Error( 'Required option not specified properly' );
+			}
+
 			PARENT.prototype._create.call( this );
 
 			this._createListView();
-			this.options.getAdder( this.enterNewItem.bind( this ), this.element );
+			var addFormMessage = this.options.getMessage( 'wikibase-lexeme-add-form' );
+			this.options.getAdder( this.enterNewItem.bind( this ), this.element, addFormMessage );
 		},
 
 		/**

@@ -12,6 +12,7 @@
 	 *
 	 * @param {Object} options
 	 * @param {jquery.wikibase.listview.ListItemAdapter} options.getListItemAdapter
+	 * @param {function} options.getMessage
 	 * @param {jQuery.wikibase.addtoolbar} options.getAdder
 	 * @param {wikibase.lexeme.datamodel.Sense} options.value
 	 */
@@ -21,7 +22,8 @@
 		 */
 		options: {
 			getListItemAdapter: null,
-			value: null
+			value: null,
+			getMessage: null
 		},
 
 		/**
@@ -34,12 +36,17 @@
 		 * @inheritdoc
 		 */
 		_create: function () {
+			if ( !this.options.getMessage && typeof this.options.getMessage !== 'function' ) {
+				throw new Error( 'Required option not specified properly' );
+			}
+
 			PARENT.prototype._create.call( this );
 
 			this._listview = this._createListView();
 			this.options.getAdder(
 				this._listview.enterNewItem.bind( this._listview ),
-				this.element
+				this.element,
+				this.options.getMessage( 'wikibase-lexeme-add-sense' )
 			);
 		},
 

@@ -10,13 +10,14 @@
 		}
 	);
 
-	var createViewElement = function () {
+	var createViewElement = function ( getAdder, message ) {
 		var $node = $( '<div><div class="wikibase-lexeme-forms"/></div>' );
 		return $node.lexemeformlistview( {
 			getListItemAdapter: function () {
 				return lexemeformviewListItemAdapter;
 			},
-			getAdder: function () {}
+			getAdder: getAdder || function () {},
+			getMessage: message || function () { return 'localize me'; }
 		} );
 	};
 
@@ -46,6 +47,21 @@
 
 		assert.ok( listItemAdapterSpy.called );
 		listItemAdapterSpy.restore();
+	} );
+
+	QUnit.test( 'renders a localized add toolbar to add a form', function ( assert ) {
+		var messageKey = 'wikibase-lexeme-add-form';
+		var localizedMessage = 'some message';
+		var getAdder = sinon.spy();
+		var message = sinon.stub();
+
+		message.withArgs( messageKey ).returns( localizedMessage );
+		message.throws( 'Wrong argument to message()' );
+
+		var view = createViewElement( getAdder, message );
+
+		assert.ok( getAdder.calledOnce );
+		assert.equal( localizedMessage, getAdder.lastCall.args[ 2 ] );
 	} );
 
 	QUnit.test( 'Can be destroyed', function ( assert ) {
