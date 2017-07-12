@@ -51,10 +51,11 @@
 				function () {
 					var $container = $( '<div/>' );
 					this.deferredFormWithId.promise().then( function ( form ) {
+						var messageKey = 'wikibase-lexeme-statementsection-statements-about-form';
 						var $header = $( '<h2/>' ).applyTemplate(
 							'wb-section-heading',
 							[
-								mw.message( 'wikibase-statementsection-statements' ).escaped(),
+								mw.message( messageKey, form.getId() ).escaped(),
 								'',
 								'wikibase-statements'
 							]

@@ -4,10 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use PHPUnit_Framework_TestCase;
 use Prophecy\Argument;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\View\LexemeFormsView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
@@ -15,7 +12,7 @@ use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
-use Wikibase\View\StatementSectionsView;
+use Wikibase\View\StatementGroupListView;
 
 /**
  * @covers Wikibase\Lexeme\View\LexemeFormsView
@@ -27,7 +24,7 @@ use Wikibase\View\StatementSectionsView;
  */
 class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 
-	const STATEMENT_SECTION_HTML = '<div class="statement-section"></div>';
+	const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
 
 	public function testHtmlContainsTheFormsHeadline() {
 		$view = $this->newFormsView();
@@ -118,13 +115,13 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 
 		assertThat(
 			$html,
-			is( htmlPiece( havingChild( tagMatchingOutline( self::STATEMENT_SECTION_HTML ) ) ) )
+			is( htmlPiece( havingChild( tagMatchingOutline( self::STATEMENT_LIST_HTML ) ) ) )
 		);
 	}
 
 	private function newFormsView() {
-		$statementSectionView = $this->prophesize( StatementSectionsView::class );
-		$statementSectionView->getHtml( Argument::any() )->willReturn( self::STATEMENT_SECTION_HTML );
+		$statementSectionView = $this->prophesize( StatementGroupListView::class );
+		$statementSectionView->getHtml( Argument::any() )->willReturn( self::STATEMENT_LIST_HTML );
 
 		return new LexemeFormsView(
 			new DummyLocalizedTextProvider(),

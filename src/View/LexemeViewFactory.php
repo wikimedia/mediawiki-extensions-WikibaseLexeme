@@ -90,6 +90,13 @@ class LexemeViewFactory {
 			$this->editSectionGenerator
 		);
 
+		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
+			$this->languageCode,
+			$this->labelDescriptionLookup,
+			$this->fallbackChain,
+			$this->editSectionGenerator
+		);
+
 		$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
 			$languageDirectionalityLookup,
 			new LanguageNameLookup( $this->languageCode )
@@ -108,7 +115,7 @@ class LexemeViewFactory {
 			$templateFactory,
 			$this->entityIdHtmlLinkFormatterFactory
 				->getEntityIdFormatter( $retrievingLabelDescriptionLookup ),
-			$statementSectionsView
+			$statementGroupListView
 		);
 
 		$sensesView = new SensesView(
