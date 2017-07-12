@@ -50,6 +50,10 @@
 .wikibase-lexeme-form-grammatical-features {
 	display: flex;
 }
+.wikibase-lexeme-form-grammatical-features-header {
+	white-space: nowrap;
+	align-self: center;
+}
 
 .wikibase-lexeme-form-grammatical-features-values {
 	margin: 0 10px;
@@ -193,7 +197,7 @@
 	flex-direction: column;
 	border-left: 6px solid #ededed;
 	padding: 0 9px;
-	margin: 11px 0;
+	margin: 0.785em 0;
 }
 
 .representation-widget_representation-value {
@@ -206,7 +210,11 @@
 
 .representation-widget_edit-area {
 	display: flex;
-	border: 2px solid #99ccff;
+	border: 0.143em solid #99ccff;
+}
+
+.representation-widget_edit-area-controls {
+	margin: 0;
 }
 
 .representation-widget_controls {
@@ -233,18 +241,18 @@
 	flex-direction: column;
 	justify-content: space-around;
 	border-left: 6px solid #dae8fc;
-	padding: 0 45px 0 9px;
-	margin: 11px 0;
+	padding: 0 18px 0 9px;
+	margin: calc(0.785em - 0.143em) 0;
 
-	height: 132px;
+	height: 3.150em;
 }
 
 .representation-widget_representation-value-input {
 	resize: horizontal;
-	min-width: 120px;
-	padding-right: 20px;
+	min-width: 7.5em;
+	padding-right: 1.25em;
 
-	font-size: 2em;
+	font-size: 1em;
 }
 
 .representation-widget_representation-value-input:active {
@@ -253,9 +261,9 @@
 
 .representation-widget_representation-language-input {
 	resize: horizontal;
-	min-width: 120px;
+	min-width: 7.5em;
 	font-size: 1em;
-	padding-right: 20px;
+	padding-right: 1.25em;
 }
 
 .representation-widget_representation-language-input:active {
@@ -266,18 +274,18 @@
 	border: none;
 	background: transparent;
 	color: #074c99;
-	font-size: 2em;
+	font-size: 1em;
 	cursor: pointer;
 
 	position: absolute;
-	top: -11px;
-	right: 23px;
+	top: -0.3em;
+	right: 0.125em;
 }
 
 .representation-widget_add {
 	height: 100%;
 	border: none;
-	font-size: 2em;
+	font-size: 1em;
 	text-align: center;
 	background: #dae8fc;
 	cursor: pointer;

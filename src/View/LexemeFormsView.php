@@ -180,7 +180,7 @@ HTML;
 						&times;
 					</button>
 				</li>
-				<li>
+				<li class="representation-widget_edit-area-controls">
 					<button type="button" class="representation-widget_add" v-on:click="add" 
 						:title="'wikibase-add'|message">+</button>
 				</li>
