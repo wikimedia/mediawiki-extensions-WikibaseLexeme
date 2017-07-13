@@ -48,10 +48,6 @@ class Id {
 	const Q_SCOTLAND = 'Q16';
 	const Q_OLDENGLISH = 'Q15';
 	const Q_ADJECTIVE = 'Q14';
-	const Q_SYNONYM_SENSE = 'Q13';
-	const Q_TRANSLATES_TO_SENSE = 'Q12';
-	const Q_HOMOPHONE_FORM = 'Q11';
-	const Q_RHYMES_WITH_FORM = 'Q10';
 	const Q_FORM_ITEM = 'Q9';
 	const Q_NOUN = 'Q8';
 	const Q_GERMAN = 'Q7';
@@ -60,5 +56,13 @@ class Id {
 	const Q_ENGLISH_LANGUAGE = 'Q4';
 	const Q_ENGLISH = 'Q3';
 	const Q_VERB = 'Q2';
+
+	//Fake Forms to use in statements
+	const FAKE_F_RHYMES_WITH_FORM = 'Q10';
+	const FAKE_F_HOMOPHONE_FORM = 'Q11';
+
+	//Fake Senses to use in statements
+	const FAKE_S_SYNONYM_SENSE = 'Q13';
+	const FAKE_S_TRANSLATES_TO_SENSE = 'Q12';
 
 }
