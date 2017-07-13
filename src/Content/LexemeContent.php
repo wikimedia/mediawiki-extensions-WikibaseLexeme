@@ -55,8 +55,11 @@ class LexemeContent extends EntityContent {
 		$lexeme = $this->lexemeHolder->getEntity( Lexeme::class );
 
 		// TODO: This is a test dummy that must be removed later
-		if ( $lexeme->getId()->getSerialization() === DemoData\Id::L_HARD ) {
+		$id = $lexeme->getId()->getSerialization();
+		if ( $id === DemoData\Id::L_HARD ) {
 			( new DemoData\HardLexemePopulator() )->populate( $lexeme );
+		} elseif ( $id === DemoData\Id::L_LEITER ) {
+			( new DemoData\LeiterLexemePopulator() )->populate( $lexeme );
 		} else {
 			( new DemoData\DefaultPopulator() )->populate( $lexeme );
 		}
