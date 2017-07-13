@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
-use Wikibase\View\StatementSectionsView;
+use Wikibase\View\StatementGroupListView;
 use WMDE\VueJsTemplating\Templating;
 
 /**
@@ -33,33 +33,33 @@ class SensesView {
 	private $templateFactory;
 
 	/**
-	 * @var StatementSectionsView
-	 */
-	private $statementSectionsView;
-
-	/**
 	 * @var string
 	 */
 	private $languageCode;
 
 	/**
+	 * @var StatementGroupListView
+	 */
+	private $statementGroupListView;
+
+	/**
 	 * @param LocalizedTextProvider $textProvider
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param LexemeTemplateFactory $templateFactory
-	 * @param StatementSectionsView $statementSectionsView
+	 * @param StatementGroupListView $statementGroupListView
 	 * @param string $languageCode
 	 */
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		LexemeTemplateFactory $templateFactory,
-		StatementSectionsView $statementSectionsView,
+		StatementGroupListView $statementGroupListView,
 		$languageCode
 	) {
 		$this->textProvider = $textProvider;
 		$this->languageDirectionalityLookup = $languageDirectionalityLookup;
 		$this->templateFactory = $templateFactory;
-		$this->statementSectionsView = $statementSectionsView;
+		$this->statementGroupListView = $statementGroupListView;
 		$this->languageCode = $languageCode;
 	}
 
@@ -126,9 +126,33 @@ class SensesView {
 			[
 				$sense->getId()->getSerialization(),
 				$glossWidget,
-				$this->statementSectionsView->getHtml( $sense->getStatements() )
+				$this->getStatementSectionHtml( $sense )
 			]
 		);
+	}
+
+	/**
+	 * @param Sense $sense
+	 * @return string
+	 */
+	private function getStatementSectionHtml( Sense $sense ) {
+		$headerText = htmlspecialchars(
+			$this->textProvider->get(
+				'wikibase-lexeme-statementsection-statements-about-sense',
+				[ $sense->getId()->getSerialization() ]
+			)
+		);
+
+		$statementHeader = <<<HTML
+<h2 class="wb-section-heading section-heading wikibase-statements" dir="auto">
+	<span class="mw-headline">{$headerText}</span>
+</h2>
+HTML;
+
+		$statementSection = $this->statementGroupListView->getHtml(
+			$sense->getStatements()->toArray()
+		);
+		return $statementHeader . $statementSection;
 	}
 
 	/**

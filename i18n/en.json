@@ -15,6 +15,7 @@
 	"wikibase-lexeme-view-forms": "Forms",
 	"wikibase-lexeme-enter-form-representation": "Enter new form representation",
 	"wikibase-lexeme-empty-form-representation": "No form representation defined",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Statements about $1",
 	"wikibase-lexeme-view-senses": "Senses",
 	"wikibase-lexeme-gloss-empty": "No gloss defined",
 	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme",
