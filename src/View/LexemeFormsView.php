@@ -8,7 +8,7 @@ use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\View\LocalizedTextProvider;
-use Wikibase\View\StatementSectionsView;
+use Wikibase\View\StatementGroupListView;
 use WMDE\VueJsTemplating\Templating;
 
 /**
@@ -33,9 +33,9 @@ class LexemeFormsView {
 	private $entityIdHtmlFormatter;
 
 	/**
-	 * @var StatementSectionsView
+	 * @var StatementGroupListView
 	 */
-	private $statementSectionView;
+	private $statementGroupListView;
 
 	/**
 	 * @var string
@@ -46,12 +46,12 @@ class LexemeFormsView {
 		LocalizedTextProvider $textProvider,
 		LexemeTemplateFactory $templateFactory,
 		EntityIdHtmlLinkFormatter $entityIdHtmlFormatter,
-		StatementSectionsView $statementSectionView
+		StatementGroupListView $statementGroupListView
 	) {
 		$this->textProvider = $textProvider;
 		$this->templateFactory = $templateFactory;
 		$this->entityIdHtmlFormatter = $entityIdHtmlFormatter;
-		$this->statementSectionView = $statementSectionView;
+		$this->statementGroupListView = $statementGroupListView;
 	}
 
 	/**
@@ -101,7 +101,7 @@ class LexemeFormsView {
 			htmlspecialchars( $form->getId()->getSerialization() ),
 			$this->renderRepresentationWidget( $form ),
 			$grammaticalFeaturesHtml,
-			$this->statementSectionView->getHtml( $form->getStatements() ),
+			$this->getStatementSectionHtml( $form ),
 			//Anchor separated from ID to avoid issue with front-end rendering
 			htmlspecialchars( $form->getId()->getSerialization() )
 		] );
@@ -189,6 +189,30 @@ HTML;
 	</div>
 </div>
 HTML;
+	}
+
+	/**
+	 * @param Form $form
+	 * @return string
+	 */
+	private function getStatementSectionHtml( Form $form ) {
+		$headerText = htmlspecialchars(
+			$this->textProvider->get(
+				'wikibase-lexeme-statementsection-statements-about-form',
+				[ $form->getId()->getSerialization() ]
+			)
+		);
+
+		$statementHeader = <<<HTML
+<h2 class="wb-section-heading section-heading wikibase-statements" dir="auto">
+	<span class="mw-headline">{$headerText}</span>
+</h2>
+HTML;
+
+		$statementSection = $this->statementGroupListView->getHtml(
+			$form->getStatements()->toArray()
+		);
+		return $statementHeader . $statementSection;
 	}
 
 }
