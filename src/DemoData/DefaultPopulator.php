@@ -21,7 +21,6 @@ use Wikibase\Lexeme\DataModel\FormId;
 class DefaultPopulator {
 
 	public function populate( Lexeme $lexeme ) {
-		// TODO: This obviously is a dummy that must be removed
 		$grammaticalFeatures1 = [ new ItemId( 'Q2' ) ];
 		$grammaticalFeatures2 = [ new ItemId( 'Q2' ), new ItemId( 'Q3' ) ];
 		$statements1 = new StatementList(
