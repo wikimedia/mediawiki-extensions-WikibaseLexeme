@@ -90,7 +90,7 @@ class Sense
   a(:save, css: '.wikibase-toolbar-button-save > a')
   button(:add_gloss, css: '.wikibase-lexeme-sense-glosses-add')
 
-  span(:id, class: 'wikibase-lexeme-sense-glosses-sense-id')
+  element(:id, class: 'wikibase-lexeme-sense-id')
   div(:statements, class: 'wikibase-statementgrouplistview')
 
   page_sections(:glosses, GlossDefinition, class: 'wikibase-lexeme-sense-gloss')

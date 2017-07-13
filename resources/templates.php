@@ -36,8 +36,13 @@ HTML;
 
 	$templates['wikibase-lexeme-sense'] = <<< 'HTML'
 <div class="wikibase-lexeme-sense" data-sense-id="$1" id="$1">
-    $2
-    $3
+	<div class="wikibase-lexeme-sense-header">
+		<div class="wikibase-lexeme-sense-id">$1</div>
+		$2
+	</div>
+	<div class="wikibase-lexeme-sense-statements">
+		$3
+	</div>
 </div>
 HTML;
 

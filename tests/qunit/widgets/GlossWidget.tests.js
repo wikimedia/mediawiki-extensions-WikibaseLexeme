@@ -12,10 +12,7 @@
 		function () {
 			QUnit.module( 'widget', function () {
 				QUnit.test( 'initialize widget with one gloss', function ( assert ) {
-					var widget = newWidget(
-						'S1',
-						[ { language: 'en', value: 'gloss in english' } ]
-					);
+					var widget = newWidget( [ { language: 'en', value: 'gloss in english' } ] );
 
 					assert.widget( widget ).when( 'created' ).dom.containsGloss(
 						'gloss in english',
@@ -26,7 +23,7 @@
 				QUnit.test(
 					'create with no glosses - when switched to edit mode empty gloss is added',
 					function ( assert ) {
-						var widget = newWidget( 'S1', [] );
+						var widget = newWidget( [] );
 						var emptyGloss = { language: '', value: '' };
 
 						widget.edit();
@@ -37,10 +34,7 @@
 
 				QUnit.test( 'switch to edit mode', function ( assert ) {
 					var done = assert.async(),
-						widget = newWidget(
-							'S1',
-							[ { language: 'en', value: 'gloss in english' } ]
-						);
+						widget = newWidget( [ { language: 'en', value: 'gloss in english' } ] );
 
 					assert.widget( widget ).when( 'created' ).dom.hasNoInputFields();
 
@@ -54,10 +48,7 @@
 
 				QUnit.test( 'stop editing', function ( assert ) {
 					var done = assert.async(),
-						widget = newWidget(
-							'S1',
-							[ { language: 'en', value: 'gloss in english' } ]
-						);
+						widget = newWidget( [ { language: 'en', value: 'gloss in english' } ] );
 
 					widget.edit();
 					widget.stopEditing();
@@ -72,10 +63,7 @@
 
 				QUnit.test( 'add a new gloss', function ( assert ) {
 					var done = assert.async(),
-						widget = newWidget(
-							'S1',
-							[ { language: 'en', value: 'gloss in english' } ]
-						);
+						widget = newWidget( [ { language: 'en', value: 'gloss in english' } ] );
 
 					assert.widget( widget ).when( 'created' ).dom.containsGloss(
 						'gloss in english',
@@ -95,10 +83,7 @@
 				QUnit.test( 'remove a gloss', function ( assert ) {
 					var gloss = { language: 'en', value: 'gloss in english' },
 						done = assert.async(),
-						widget = newWidget(
-							'S1',
-							[ gloss ]
-						);
+						widget = newWidget( [ gloss ] );
 
 					widget.edit();
 					widget.remove( gloss );
@@ -113,11 +98,10 @@
 		}
 	);
 
-	function newWidget( senseId, glosses ) {
+	function newWidget( glosses ) {
 		return new Vue( GlossWidget.newGlossWidget(
 			document.createElement( 'div' ),
 			getTemplate(),
-			senseId,
 			glosses,
 			function () {}
 		) );
@@ -248,9 +232,6 @@
 			'<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"\n' +
 			':dir="gloss.language|directionality" :lang="gloss.language">\n' +
 			'{{gloss.value}}\n' +
-			'</span>\n' +
-			'<span v-if="!inEditMode" class="wikibase-lexeme-sense-glosses-sense-id">\n' +
-			'({{senseId}})\n' +
 			'</span>\n' +
 			'<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"\n' +
 			'v-model="gloss.value" >\n' +

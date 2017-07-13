@@ -294,6 +294,7 @@
 .wikibase-lexeme-senses .wikibase-lexeme-sense {
 	position: relative;
 	clear: left;
+	margin-bottom: 2em;
 }
 
 .wikibase-lexeme-senses .wikibase-lexeme-sense {
@@ -313,11 +314,17 @@
 }
 
 .wikibase-lexeme-sense-glosses-table {
+	color: #565a60;
 	width: 100%;
+	border-left: 6px solid #ededed;
+}
+
+.wikibase-lexeme-sense-glosses-table td {
+	vertical-align: top;
 }
 
 .wikibase-lexeme-sense-gloss:first-of-type {
-	font-weight: bold
+	color: #000;
 }
 
 .wikibase-lexeme-sense-glosses-sense-id {
@@ -329,7 +336,7 @@
 }
 
 .wikibase-lexeme-sense-gloss-language {
-	min-width: 10em;
+	padding: 0 5px;
 	white-space: nowrap;
 }
 
@@ -360,4 +367,28 @@
 	content: "";
 	display: table;
 	clear: both;
+}
+
+.wikibase-lexeme-sense-id {
+	padding: 5px 0;
+	min-width: 3.75em;
+}
+
+.wikibase-lexeme-sense-header {
+	padding-left: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.wikibase-lexeme-sense .wikibase-lexeme-sense-statements .wikibase-statements {
+	padding-left: 0;
+}
+
+.wikibase-lexeme-sense h2.wb-section-heading {
+	padding-left: 0;
+	font-size: 1em;
+}
+
+.wikibase-lexeme-sense .wikibase-lexeme-sense-statements {
+	margin-left: calc(3.75em + 10px);
 }
