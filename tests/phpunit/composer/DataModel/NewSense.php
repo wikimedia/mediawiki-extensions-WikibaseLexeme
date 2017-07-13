@@ -11,6 +11,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Repo\Tests\NewStatement;
 
 /**
  * Sense builder to use in tests
@@ -82,17 +83,18 @@ class NewSense {
 	}
 
 	/**
-	 * @param Statement|Snak|PropertyId $arg
+	 * @param Statement|Snak|PropertyId|NewStatement $arg
 	 *
 	 * @return NewSense
 	 */
 	public function withStatement( $arg ) {
 		$result = clone $this;
 		$statement = $arg;
-		if ( $arg instanceof PropertyId ) {
+		if ( $arg instanceof NewStatement ) {
+			$statement = $arg->build();
+		} elseif ( $arg instanceof PropertyId ) {
 			$statement = new Statement( new PropertyNoValueSnak( $arg ) );
-		}
-		if ( $arg instanceof Snak ) {
+		} elseif ( $arg instanceof Snak ) {
 			$statement = new Statement( $arg );
 		}
 		$result->statements[] = clone $statement;
