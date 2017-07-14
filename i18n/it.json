@@ -14,6 +14,8 @@
 	"wikibase-newlexeme-lexicalcategory": "Categoria lessicale",
 	"wikibase-newlexeme-language": "Lingua del lessema",
 	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
+	"wikibase-lexeme-statementsection-statements-about-form": "Dichiarazioni su $1",
 	"wikibase-lexeme-view-forms": "Moduli",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Dichiarazioni su $1",
 	"datatypes-type-wikibase-lexeme": "Lessema"
 }
