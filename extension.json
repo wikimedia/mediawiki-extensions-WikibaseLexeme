@@ -346,6 +346,15 @@
 				"wikibase.experts.Entity"
 			]
 		},
+		"wikibase.experts.Sense": {
+			"scripts": [
+				"experts/Sense.js"
+			],
+			"dependencies": [
+				"jquery.valueview.Expert",
+				"wikibase.experts.Entity"
+			]
+		},
 		"wikibase.lexeme.styles": {
 			"position": "top",
 			"styles": [

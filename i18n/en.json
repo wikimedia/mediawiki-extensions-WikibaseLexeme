@@ -20,5 +20,6 @@
 	"wikibase-lexeme-gloss-empty": "No gloss defined",
 	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
-	"datatypes-type-wikibase-lexeme-form": "Lexeme Form"
+	"datatypes-type-wikibase-lexeme-form": "Lexeme Form",
+	"datatypes-type-wikibase-lexeme-sense": "Lexeme Sense"
 }

@@ -21,6 +21,7 @@ use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\PropertyType\FormIdFormatter;
 use Wikibase\Lexeme\PropertyType\FormIdParser;
+use Wikibase\Lexeme\PropertyType\SenseIdFormatter;
 use Wikibase\Repo\WikibaseRepo;
 
 return [
@@ -39,6 +40,16 @@ return [
 		},
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			return new FormIdFormatter();
+		},
+		'value-type' => 'string',
+	],
+	'PT:wikibase-lexeme-sense' => [
+		'expert-module' => 'wikibase.experts.Sense',
+		'validator-factory-callback' => function() {
+			return [];
+		},
+		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
+			return new SenseIdFormatter();
 		},
 		'value-type' => 'string',
 	],

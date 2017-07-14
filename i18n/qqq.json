@@ -25,5 +25,6 @@
 	"wikibase-lexeme-gloss-empty": "Placeholder message displayed instead of the gloss of the sense in case the gloss in the display language has not been specified yet.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a lexeme",
 	"datatypes-type-wikibase-lexeme": "The name of a data type for lexemes in Wikibase.\n{{Identical|Lexeme}}",
-	"datatypes-type-wikibase-lexeme-form": "The name of a data type for lexeme forms in Wikibase."
+	"datatypes-type-wikibase-lexeme-form": "The name of a data type for lexeme forms in Wikibase.",
+	"datatypes-type-wikibase-lexeme-sense": "The name of a data type for lexeme senses in Wikibase."
 }
