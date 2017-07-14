@@ -37,41 +37,42 @@
 			this._statementGroupSet = statementGroupSet;
 			this._fingerprint = new wb.datamodel.Fingerprint( labels, new wb.datamodel.TermMap() );
 		},
-	{
+		{
 
-		/**
-		 * @property {wikibase.datamodel.StatementGroupSet}
-		 * @private
-		 */
-		_statementGroupSet: null,
+			/**
+			 * @property {wikibase.datamodel.StatementGroupSet}
+			 * @private
+			 */
+			_statementGroupSet: null,
 
-		/**
-		 * @return {wikibase.datamodel.StatementGroupSet}
-		 */
-		getStatements: function () {
-			return this._statementGroupSet;
-		},
+			/**
+			 * @return {wikibase.datamodel.StatementGroupSet}
+			 */
+			getStatements: function () {
+				return this._statementGroupSet;
+			},
 
-		/**
-		 * @return {boolean}
-		 */
-		isEmpty: function () {
-			return this._statementGroupSet.isEmpty() && this._fingerprint.isEmpty();
-		},
+			/**
+			 * @return {boolean}
+			 */
+			isEmpty: function () {
+				return this._statementGroupSet.isEmpty() && this._fingerprint.isEmpty();
+			},
 
-		/**
-		 * @param {*} lexeme
-		 * @return {boolean}
-		 */
-		equals: function ( lexeme ) {
-			return lexeme === this ||
-				( lexeme instanceof SELF &&
-					this._id === lexeme.getId() &&
-					this._statementGroupSet.equals( lexeme.getStatements() ) &&
-					this._fingerprint.equals( lexeme.getFingerprint() )
-				);
+			/**
+			 * @param {*} lexeme
+			 * @return {boolean}
+			 */
+			equals: function ( lexeme ) {
+				return lexeme === this ||
+					( lexeme instanceof SELF &&
+						this._id === lexeme.getId() &&
+						this._statementGroupSet.equals( lexeme.getStatements() ) &&
+						this._fingerprint.equals( lexeme.getFingerprint() )
+					);
+			}
 		}
-	} );
+	);
 
 	/**
 	 * @inheritdoc

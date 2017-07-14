@@ -123,18 +123,18 @@
 		removeCallback
 	) {
 		var lexemeFormView = this._getView(
-				'lexemeformview',
-				$dom,
-				{
-					value: form || new wb.lexeme.datamodel.LexemeForm(),
-					labelFormattingService: labelFormattingService,
-					api: this._api,
-					buildStatementGroupListView: this.getStatementGroupListView.bind(
-						this,
-						startEditingCallback
-					)
-				}
-			),
+			'lexemeformview',
+			$dom,
+			{
+				value: form || new wb.lexeme.datamodel.LexemeForm(),
+				labelFormattingService: labelFormattingService,
+				api: this._api,
+				buildStatementGroupListView: this.getStatementGroupListView.bind(
+					this,
+					startEditingCallback
+				)
+			}
+		),
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( lexemeFormView.element ),
 				lexemeFormView,
@@ -173,16 +173,16 @@
 		removeCallback
 	) {
 		var senseView = this._getView(
-				'senseview',
-				$dom,
-				{
-					value: sense || new wb.lexeme.datamodel.Sense(),
-					buildStatementGroupListView: this.getStatementGroupListView.bind(
-						this,
-						startEditingCallback
-					)
-				}
-			);
+			'senseview',
+			$dom,
+			{
+				value: sense || new wb.lexeme.datamodel.Sense(),
+				buildStatementGroupListView: this.getStatementGroupListView.bind(
+					this,
+					startEditingCallback
+				)
+			}
+		);
 		var controller = this._getController(
 			this._toolbarFactory.getToolbarContainer( senseView.element ),
 			senseView,

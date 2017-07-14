@@ -17,7 +17,7 @@
 	},
 	"rules": {
 		"dot-notation": "off",
-		"indent": "off",
+		"indent": [ "error", "tab", { "CallExpression": { "arguments": "first" } } ],
 		"new-cap": "off",
 		"no-unused-vars": "off",
 		"no-underscore-dangle": "off",

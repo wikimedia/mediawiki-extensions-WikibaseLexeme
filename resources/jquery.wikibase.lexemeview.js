@@ -92,25 +92,33 @@
 
 			var self = this;
 
-			this.element
-			.on( [
+			var startEditingEvents = [
 				'statementviewafterstartediting.' + this.widgetName,
 				'referenceviewafterstartediting.' + this.widgetName
-			].join( ' ' ),
-			function () {
-				self._trigger( 'afterstartediting' );
-			} );
+			];
 
 			this.element
-			.on( [
+			.on(
+				startEditingEvents.join( ' ' ),
+				function () {
+					self._trigger( 'afterstartediting' );
+				}
+			);
+
+			var stopEditingEvents = [
 				'statementlistviewafterremove.' + this.widgetName,
 				'statementviewafterstopediting.' + this.widgetName,
 				'statementviewafterremove.' + this.widgetName,
 				'referenceviewafterstopediting.' + this.widgetName
-			].join( ' ' ),
-			function ( event, dropValue ) {
-				self._trigger( 'afterstopediting', null, [ dropValue ] );
-			} );
+			];
+
+			this.element
+			.on(
+				stopEditingEvents.join( ' ' ),
+				function ( event, dropValue ) {
+					self._trigger( 'afterstopediting', null, [ dropValue ] );
+				}
+			);
 		},
 
 		/**
