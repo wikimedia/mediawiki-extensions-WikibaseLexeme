@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DemoData;
 
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -30,12 +31,15 @@ class HardLexemePopulator {
 			->andStatement(
 				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
 					->withValue( '/hɑːd/' )
+					->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
 					->withValue( '/hɑɹd/' )
+					->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_PRONUNCIATION_AUDIO )
 					->withValue( 'hard.ogg' )
+					->withSomeGuid()
 			)->build();
 	}
 
@@ -59,14 +63,17 @@ class HardLexemePopulator {
 //			->withStatement(
 //				NewStatement::forProperty(Id::P_SYNONYM_OF)
 //				->withValue(Id::___difficult)
+//				->withSomeGuid()
 //			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_REGISTER )
-					->withValue( Id::Q_COLLOQUIALISM )
+					->withValue( new ItemId( Id::Q_COLLOQUIALISM ) )
+					->withSomeGuid()
 			)
 //			->withStatement(
 //				NewStatement::forProperty(Id::P_Translation)
 //				->withValue(Id::S_schwierig)
+//				->withSomeGuid()
 //			)
 			->build();
 	}
@@ -81,22 +88,27 @@ class HardLexemePopulator {
 //			->withStatement(
 //				NewStatement::forProperty(Id::P_SYNONYM_OF)
 //				->withValue(Id::___difficult)
+//				->withSomeGuid()
 //			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
-					->withValue( Id::Q_ELASTICITY )
+					->withValue( new ItemId( Id::Q_ELASTICITY ) )
+					->withSomeGuid()
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
-					->withValue( Id::Q_DUCTILITY )
+					->withValue( new ItemId( Id::Q_DUCTILITY ) )
+					->withSomeGuid()
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
-					->withValue( Id::Q_HARDNESS )
+					->withValue( new ItemId( Id::Q_HARDNESS ) )
+					->withSomeGuid()
 			)
 //			->withStatement(
 //				NewStatement::forProperty(Id::P_Translation)
 //				->withValue(Id::S_schwierig)
+//				->withSomeGuid()
 //			)
 			->build();
 	}

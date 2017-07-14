@@ -32,9 +32,11 @@ class LeiterLexemePopulator {
 			->andStatement(
 				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
 					->withValue( '/.../' )
+					->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_SYLLABIFICATION )
 					->withValue( 'Lei-ter' )
+					->withSomeGuid()
 			)->build();
 	}
 
