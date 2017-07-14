@@ -21,5 +21,6 @@
 	"wikibase-lexeme-view-senses": "Sinne",
 	"wikibase-lexeme-gloss-empty": "Keine Fußnote definiert",
 	"wikibase-lexeme-summary-wbeditentity-update": "Änderte ein Lexeme",
-	"datatypes-type-wikibase-lexeme": "Lexeme"
+	"datatypes-type-wikibase-lexeme": "Lexeme",
+	"datatypes-type-wikibase-lexeme-form": "Lexeme-Formular"
 }
