@@ -337,6 +337,15 @@
 				"wikibase.experts.Entity"
 			]
 		},
+		"wikibase.experts.Form": {
+			"scripts": [
+				"experts/Form.js"
+			],
+			"dependencies": [
+				"jquery.valueview.Expert",
+				"wikibase.experts.Entity"
+			]
+		},
 		"wikibase.lexeme.styles": {
 			"position": "top",
 			"styles": [

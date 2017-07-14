@@ -17,7 +17,10 @@
  * @license GPL-2.0+
  */
 
+use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\PropertyType\FormIdFormatter;
+use Wikibase\Lexeme\PropertyType\FormIdParser;
 use Wikibase\Repo\WikibaseRepo;
 
 return [
@@ -28,5 +31,15 @@ return [
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
 		},
 		'value-type' => 'wikibase-entityid',
+	],
+	'PT:wikibase-lexeme-form' => [
+		'expert-module' => 'wikibase.experts.Form',
+		'validator-factory-callback' => function() {
+			return [];
+		},
+		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
+			return new FormIdFormatter();
+		},
+		'value-type' => 'string',
 	],
 ];
