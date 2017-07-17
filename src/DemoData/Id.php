@@ -12,10 +12,12 @@ class Id {
 	const L_ASK_2 = 'L18';
 	const L_ASK_OUT = 'L19';
 
+	const LF_CARD = 'L456-F4';
+	const LF_BARD = 'L888-F1';
+
 	const P_LANGUAGE_CODE = 'P2';
 	const P_INSTANCE_OF = 'P3';
 	const P_LEXEME_PROPERTY = 'P4';
-	const P_RHYMES_WITH = 'P5';
 	const P_HOMOPHONE = 'P6';
 	const P_TRANSLATES_TO = 'P7';
 	const P_SYNONYM_OF = 'P8';
@@ -30,6 +32,7 @@ class Id {
 	const P_GENDERED_FORM = 'P17';
 	const P_SYLLABIFICATION = 'P18';
 	const P_GRAMMATICAL_FRAME = 'P19';
+	const P_RHYME = 'P20';
 
 	const Q_VERBAL_PHRASE = 'Q31';
 	const Q_FEMALE = 'Q30';

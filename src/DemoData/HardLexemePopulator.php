@@ -40,6 +40,14 @@ class HardLexemePopulator {
 				NewStatement::forProperty( Id::P_PRONUNCIATION_AUDIO )
 					->withValue( 'hard.ogg' )
 					->withSomeGuid()
+			)->andStatement(
+				NewStatement::forProperty( Id::P_RHYME )
+					->withValue( Id::LF_CARD )
+					->withSomeGuid()
+			)->andStatement(
+				NewStatement::forProperty( Id::P_RHYME )
+					->withValue( Id::LF_BARD )
+					->withSomeGuid()
 			)->build();
 	}
 
