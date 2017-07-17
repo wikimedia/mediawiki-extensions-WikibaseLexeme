@@ -10,6 +10,7 @@ class AskOut1Populator {
 	public function populate( Lexeme $lexeme ) {
 		$defaultSense = $this->buildDefaultSense();
 
+		$lexeme->setForms( [] );
 		$lexeme->setSenses( [ $defaultSense ] );
 	}
 
