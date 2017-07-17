@@ -106,6 +106,21 @@
 		);
 	} );
 
+	QUnit.test(
+		'deserialize() deserializes forms when `forms` key is not present',
+		function ( assert ) {
+			var ds = new wb.lexeme.serialization.LexemeDeserializer();
+
+			var result = ds.deserialize( {
+				type: 'lexeme',
+				id: 'L1',
+				senses: []
+			} );
+
+			assert.ok( result.forms, 'Deserialized data model should contain forms' );
+		}
+	);
+
 	QUnit.test( 'deserialize() deserializes senses', function ( assert ) {
 		var ds = new wb.lexeme.serialization.LexemeDeserializer();
 
@@ -140,5 +155,20 @@
 			'Data model should have statements on sense'
 		);
 	} );
+
+	QUnit.test(
+		'deserialize() deserializes senses when `senses` key is not present',
+		function ( assert ) {
+			var ds = new wb.lexeme.serialization.LexemeDeserializer();
+
+			var result = ds.deserialize( {
+				type: 'lexeme',
+				id: 'L1',
+				forms: []
+			} );
+
+			assert.ok( result.senses, 'Deserialized data model should contain senses' );
+		}
+	);
 
 }( jQuery, wikibase, QUnit ) );

@@ -27,9 +27,13 @@ require File.dirname(__FILE__) + '/../../../../../Wikibase/tests/browser/feature
 
 class DriverJSError < StandardError; end
 
-# Fail on JS errors in browser
-AfterStep do |scenario, step|
-  errors = @browser.driver.manage.logs.get(:browser)
+# Fail on JS errors in browser or print browser log if scenario fails
+# Note: Both use-cases be in the same function, as soon as
+#       call `@browser.driver.manage.logs.get(:browser)` clears the log
+After do |scenario|
+  log_entries = @browser.driver.manage.logs.get(:browser)
+
+  errors = log_entries
                .select do |e|
                     e.level == "SEVERE" && e.message.present?
                   end
@@ -38,5 +42,11 @@ AfterStep do |scenario, step|
 
   if errors.present?
     raise DriverJSError, errors.join("\n\n")
+  end
+
+  if scenario.failed?
+      puts 'Current url: ' + @browser.driver.current_url
+      puts 'Browser console log:'
+      puts log_entries.map(&:message).join("\n")
   end
 end

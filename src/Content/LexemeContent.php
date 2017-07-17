@@ -62,6 +62,8 @@ class LexemeContent extends EntityContent {
 			( new DemoData\LeiterLexemePopulator() )->populate( $lexeme );
 		} elseif ( $id === DemoData\Id::L_ASK_1 ) {
 			( new DemoData\AskOut1Populator() )->populate( $lexeme );
+		} elseif ( $id === DemoData\Id::L_ASK_2 ) {
+			( new DemoData\AskOut2Populator() )->populate( $lexeme );
 		} else {
 			( new DemoData\DefaultPopulator() )->populate( $lexeme );
 		}

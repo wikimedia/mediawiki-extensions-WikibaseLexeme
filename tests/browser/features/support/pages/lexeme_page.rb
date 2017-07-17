@@ -86,7 +86,7 @@ end
 class Sense
   include PageObject
 
-  a(:edit, css: '.wikibase-toolbar-button-edit > a')
+  a(:edit, css: '.wikibase-lexeme-sense > .wikibase-edittoolbar-container .wikibase-toolbar-button-edit > a')
   a(:save, css: '.wikibase-toolbar-button-save > a')
   button(:add_gloss, css: '.wikibase-lexeme-sense-glosses-add')
 

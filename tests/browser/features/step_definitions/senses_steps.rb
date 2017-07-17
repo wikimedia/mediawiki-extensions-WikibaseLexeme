@@ -34,6 +34,7 @@ end
 
 Given(/^there is a Sense to test$/) do
   # TODO: All Lexemes have dummy senses at the moment; Needs to be changed once they're storable
+  expect(on(LexemePage).senses.count).to be > 0
 end
 
 When(/^I click the first Sense's edit button$/) do

@@ -29,12 +29,12 @@
 			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer(),
 				termMapDeserializer = new SERIALIZER.TermMapDeserializer();
 
-			var forms = serialization.forms;
+			var forms = serialization.forms || [];
 			var deserializedForms = forms.map( function ( form ) {
 				return this.deserializeForm( form );
 			}.bind( this ) );
 
-			var senses = serialization.senses;
+			var senses = serialization.senses || [];
 			var deserializedSenses = senses.map( function ( sense ) {
 				return this.deserializeSense( sense );
 			}.bind( this ) );
