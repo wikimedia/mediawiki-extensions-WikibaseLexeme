@@ -15,6 +15,7 @@
 	"wikibase-lemma-edit-placeholder": "Escribe el lema",
 	"wikibase-newlexeme-lexicalcategory": "Categoría léxica",
 	"wikibase-newlexeme-language": "Idioma del lexema",
-	"wikibase-lexeme-view-language": "Lexema en $1",
-	"wikibase-lexeme-view-language-lexical-category": "$1 en $2"
+	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
+	"wikibase-lexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Declaraciones sobre $1"
 }

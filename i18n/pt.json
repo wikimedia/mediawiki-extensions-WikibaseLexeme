@@ -13,11 +13,15 @@
 	"wikibase-newlexeme-lexicalcategory": "Categoria lexical",
 	"wikibase-newlexeme-language": "Língua do lexema",
 	"wikibase-lexeme-view-language-lexical-category": "$1 e $2",
-	"wikibase-lexeme-view-forms": "Formulários",
-	"wikibase-lexeme-enter-form-representation": "Introduza a nova representação do formulário",
-	"wikibase-lexeme-empty-form-representation": "Não foi definida uma representação do formulário",
+	"wikibase-lexeme-statementsection-statements-about-form": "Declarações sobre $1",
+	"wikibase-lexeme-view-forms": "Formas",
+	"wikibase-lexeme-enter-form-representation": "Introduza a nova representação da forma",
+	"wikibase-lexeme-empty-form-representation": "Não foi definida uma representação da forma",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Declarações sobre $1",
 	"wikibase-lexeme-view-senses": "Sentidos",
 	"wikibase-lexeme-gloss-empty": "Não foi definida nenhuma glosa",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
-	"datatypes-type-wikibase-lexeme": "Lexema"
+	"datatypes-type-wikibase-lexeme": "Lexema",
+	"datatypes-type-wikibase-lexeme-form": "Forma do lexema",
+	"datatypes-type-wikibase-lexeme-sense": "Sentido do lexema"
 }

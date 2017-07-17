@@ -1,8 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Festina90"
 		]
 	},
-	"wikibase-lexeme-view-language-lexical-category": "$1 in $2"
+	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
+	"wikibase-lexeme-statementsection-statements-about-form": "Uitspraken over $1",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Uitspraken over $1",
+	"datatypes-type-wikibase-lexeme-form": "De vorm van het lexeem",
+	"datatypes-type-wikibase-lexeme-sense": "De zin van het lexeem"
 }
