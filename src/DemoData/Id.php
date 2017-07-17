@@ -73,12 +73,4 @@ class Id {
 	const Q_ENGLISH = 'Q3';
 	const Q_VERB = 'Q2';
 
-	//Fake Forms to use in statements
-	const FAKE_F_RHYMES_WITH_FORM = 'Q10';
-	const FAKE_F_HOMOPHONE_FORM = 'Q11';
-
-	//Fake Senses to use in statements
-	const FAKE_S_SYNONYM_SENSE = 'Q13';
-	const FAKE_S_TRANSLATES_TO_SENSE = 'Q12';
-
 }
