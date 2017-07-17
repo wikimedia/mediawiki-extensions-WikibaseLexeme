@@ -17,6 +17,8 @@ class SenseIdFormatter implements ValueFormatter {
 		//If you change something here, change also there
 		$this->addSense( 'L13', 'hard', 'English adjective', 'S1', 'presenting difficulty' );
 		$this->addSense( 'L13', 'hard', 'English adjective', 'S2', 'resisting deformation' );
+
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_DIFFICULT
 		$this->addSense(
 			'L3627',
 			'difficult',
@@ -24,11 +26,17 @@ class SenseIdFormatter implements ValueFormatter {
 			'S4',
 			'not easy, requiring skill'
 		);
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_SCHWIERIG
 		$this->addSense( 'L283', 'schwierig', 'German adjective', 'S2', 'complicated' );
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_DUR
 		$this->addSense( 'L465', 'dur', 'French adjective', 'S1', 'hard' );
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_EASY
 		$this->addSense( 'L801', 'easy', 'English adjective', 'S1', 'not difficult' );
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_SIMPLE
 		$this->addSense( 'L802', 'simple', 'English adjective', 'S1', 'not difficult' );
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_SOFT
 		$this->addSense( 'L803', 'soft', 'English adjective', 'S1', 'easy to deform' );
+		// @see \Wikibase\Lexeme\DemoData\Id::LS_LEADER
 		$this->addSense( 'L15', 'Leiter', 'German noun', 'S1', 'leader' );
 		$this->addSense( 'L15', 'Leiter', 'German noun', 'S1', 'electrical conductor' );
 		$this->addSense(

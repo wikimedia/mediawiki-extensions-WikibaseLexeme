@@ -57,6 +57,11 @@ class LeiterLexemePopulator {
 			->andGrammaticalFeature( Id::Q_NOMINATIVE )
 			->andGrammaticalFeature( Id::Q_SINGULAR )
 			->andGrammaticalFeature( Id::Q_FEMALE )
+			->andStatement(
+				NewStatement::forProperty( Id::P_REFERS_TO_SENSE )
+					->withValue( Id::LS_LEADER )
+					->withSomeGuid()
+			)
 			->build();
 	}
 

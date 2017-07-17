@@ -68,21 +68,36 @@ class HardLexemePopulator {
 		return NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'presenting difficulty' )
 			->withGloss( 'de', 'Schwierig oder kompliziert' )
-//			->withStatement(
-//				NewStatement::forProperty(Id::P_SYNONYM_OF)
-//				->withValue(Id::___difficult)
-//				->withSomeGuid()
-//			)
+			->withStatement(
+				NewStatement::forProperty( Id::P_SYNONYM )
+				->withValue( Id::LS_DIFFICULT )
+				->withSomeGuid()
+			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_REGISTER )
 					->withValue( new ItemId( Id::Q_COLLOQUIALISM ) )
 					->withSomeGuid()
 			)
-//			->withStatement(
-//				NewStatement::forProperty(Id::P_Translation)
-//				->withValue(Id::S_schwierig)
-//				->withSomeGuid()
-//			)
+			->withStatement(
+				NewStatement::forProperty( Id::P_TRANSLATION )
+				->withValue( Id::LS_SCHWIERIG )
+				->withSomeGuid()
+			)
+			->withStatement(
+				NewStatement::forProperty( Id::P_TRANSLATION )
+				->withValue( Id::LS_DUR )
+				->withSomeGuid()
+			)
+			->withStatement(
+				NewStatement::forProperty( Id::P_ANTONYM )
+				->withValue( Id::LS_EASY )
+				->withSomeGuid()
+			)
+			->withStatement(
+				NewStatement::forProperty( Id::P_ANTONYM )
+				->withValue( Id::LS_SIMPLE )
+				->withSomeGuid()
+			)
 			->build();
 	}
 
@@ -93,11 +108,6 @@ class HardLexemePopulator {
 		return NewSense::havingId( 'S2' )
 			->withGloss( 'en', 'resisting deformation' )
 			->withGloss( 'de', 'schwer verformbar' )
-//			->withStatement(
-//				NewStatement::forProperty(Id::P_SYNONYM_OF)
-//				->withValue(Id::___difficult)
-//				->withSomeGuid()
-//			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
 					->withValue( new ItemId( Id::Q_ELASTICITY ) )
@@ -113,11 +123,11 @@ class HardLexemePopulator {
 					->withValue( new ItemId( Id::Q_HARDNESS ) )
 					->withSomeGuid()
 			)
-//			->withStatement(
-//				NewStatement::forProperty(Id::P_Translation)
-//				->withValue(Id::S_schwierig)
-//				->withSomeGuid()
-//			)
+			->withStatement(
+				NewStatement::forProperty( Id::P_ANTONYM )
+				->withValue( Id::LS_SOFT )
+				->withSomeGuid()
+			)
 			->build();
 	}
 
