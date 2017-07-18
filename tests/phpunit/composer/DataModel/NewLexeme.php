@@ -95,7 +95,8 @@ class NewLexeme {
 
 	/**
 	 * @param ItemId|string $itemId
-	 * @return NewLexeme
+	 *
+	 * @return self
 	 */
 	public function withLexicalCategory( $itemId ) {
 		$result = clone $this;
@@ -108,7 +109,8 @@ class NewLexeme {
 
 	/**
 	 * @param ItemId|string $itemId
-	 * @return NewLexeme
+	 *
+	 * @return self
 	 */
 	public function withLanguage( $itemId ) {
 		$result = clone $this;
@@ -121,7 +123,8 @@ class NewLexeme {
 
 	/**
 	 * @param LexemeId|string $lexemeId
-	 * @return NewLexeme
+	 *
+	 * @return self
 	 */
 	public function withId( $lexemeId ) {
 		$result = clone $this;
@@ -141,7 +144,8 @@ class NewLexeme {
 	/**
 	 * @param string $language
 	 * @param string $lemma
-	 * @return NewLexeme
+	 *
+	 * @return self
 	 */
 	public function withLemma( $language, $lemma ) {
 		$result = clone $this;
@@ -160,6 +164,7 @@ class NewLexeme {
 
 	/**
 	 * @param Sense|NewSense $sense
+	 *
 	 * @return self
 	 */
 	public function withSense( $sense ) {
@@ -177,6 +182,7 @@ class NewLexeme {
 
 	/**
 	 * @param Form|NewForm $form
+	 *
 	 * @return self
 	 */
 	public function withForm( $form ) {
@@ -194,6 +200,7 @@ class NewLexeme {
 	/**
 	 * @param string $name
 	 * @param array $arguments
+	 *
 	 * @return self
 	 */
 	public static function __callStatic( $name, $arguments ) {

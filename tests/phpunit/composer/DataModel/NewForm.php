@@ -73,7 +73,8 @@ class NewForm {
 	/**
 	 * @param string $language
 	 * @param string $representation
-	 * @return NewForm
+	 *
+	 * @return self
 	 */
 	public function andRepresentation( $language, $representation ) {
 		if ( array_key_exists( $language, $this->representations ) ) {
@@ -88,6 +89,7 @@ class NewForm {
 
 	/**
 	 * @param ItemId|string $itemId
+	 *
 	 * @return self
 	 */
 	public function andGrammaticalFeature( $itemId ) {
@@ -102,6 +104,7 @@ class NewForm {
 
 	/**
 	 * @param Statement|Snak|NewStatement $statement
+	 *
 	 * @return self
 	 */
 	public function andStatement( $statement ) {
@@ -142,6 +145,7 @@ class NewForm {
 	/**
 	 * @param string $name
 	 * @param array $arguments
+	 *
 	 * @return self
 	 */
 	public static function __callStatic( $name, $arguments ) {

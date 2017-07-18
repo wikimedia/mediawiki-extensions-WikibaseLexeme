@@ -35,7 +35,8 @@ class NewSense {
 
 	/**
 	 * @param SenseId|string $senseId
-	 * @return NewSense
+	 *
+	 * @return self
 	 */
 	public static function havingId( $senseId ) {
 		$senseBuilder = new self();
@@ -45,7 +46,8 @@ class NewSense {
 
 	/**
 	 * @param Statement|Snak|PropertyId $arg
-	 * @return NewSense
+	 *
+	 * @return self
 	 */
 	public static function havingStatement( $arg ) {
 		return ( new self() )->withStatement( $arg );
@@ -68,7 +70,7 @@ class NewSense {
 	 * @param string $language
 	 * @param string $gloss
 	 *
-	 * @return NewSense
+	 * @return self
 	 */
 	public function withGloss( $language, $gloss ) {
 		$result = clone $this;
@@ -85,7 +87,7 @@ class NewSense {
 	/**
 	 * @param Statement|Snak|PropertyId|NewStatement $arg
 	 *
-	 * @return NewSense
+	 * @return self
 	 */
 	public function withStatement( $arg ) {
 		$result = clone $this;
