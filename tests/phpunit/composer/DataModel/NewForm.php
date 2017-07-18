@@ -13,10 +13,10 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @method static self havingRepresentation (string $language, string $representation)
- * @method static self havingId (FormId | string $formId)
- * @method static self havingStatement (Statement | Snak | NewStatement $statement)
- * @method static self havingGrammaticalFeature (ItemId | string $itemId)
+ * @method static NewForm havingRepresentation (string $language, string $representation)
+ * @method static NewForm havingId (FormId | string $formId)
+ * @method static NewForm havingStatement (Statement | Snak | NewStatement $statement)
+ * @method static NewForm havingGrammaticalFeature (ItemId | string $itemId)
  */
 class NewForm {
 

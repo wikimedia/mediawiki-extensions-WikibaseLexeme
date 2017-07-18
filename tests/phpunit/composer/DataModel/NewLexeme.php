@@ -11,7 +11,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
 
 /**
- * @method static self havingId(LexemeId | string $lexemeId)
+ * @method static NewLexeme havingId(LexemeId | string $lexemeId)
  */
 class NewLexeme {
 
