@@ -9,17 +9,16 @@ use Wikibase\DataModel\Term\TermList;
 
 /**
  * @license GPL-2.0+
- * @author Thiemo Mättig
  */
 class Form implements StatementListProvider {
 
 	/**
-	 * @var FormId|null
+	 * @var FormId
 	 */
 	private $id;
 
 	/**
-	 * @var string
+	 * @var TermList
 	 */
 	private $representations;
 
@@ -34,8 +33,8 @@ class Form implements StatementListProvider {
 	private $statementList;
 
 	/**
-	 * @param FormId $id |null
-	 * @param string $representation
+	 * @param FormId $id
+	 * @param TermList $representations
 	 * @param ItemId[] $grammaticalFeatures
 	 * @param StatementList|null $statementList
 	 */
@@ -56,7 +55,7 @@ class Form implements StatementListProvider {
 	}
 
 	/**
-	 * @return FormId|null
+	 * @return FormId
 	 */
 	public function getId() {
 		return $this->id;
@@ -69,6 +68,9 @@ class Form implements StatementListProvider {
 		return $this->representations;
 	}
 
+	/**
+	 * @return ItemId[]
+	 */
 	public function getGrammaticalFeatures() {
 		return $this->grammaticalFeatures;
 	}
