@@ -55,7 +55,8 @@ class NewLexeme {
 	}
 
 	/**
-	 * @param $form
+	 * @param Form|NewForm $form
+	 *
 	 * @return self
 	 */
 	public static function havingForm( $form ) {
@@ -202,8 +203,9 @@ class NewLexeme {
 	}
 
 	/**
-	 * @param array $objects
-	 * @return array
+	 * @param object[] $objects
+	 *
+	 * @return object[]
 	 */
 	private function cloneArrayOfObjects( array $objects ) {
 		$result = [];

@@ -159,8 +159,9 @@ class NewForm {
 	}
 
 	/**
-	 * @param array $objects
-	 * @return array
+	 * @param object[] $objects
+	 *
+	 * @return object[]
 	 */
 	private function cloneArrayOfObjects( array $objects ) {
 		$result = [];

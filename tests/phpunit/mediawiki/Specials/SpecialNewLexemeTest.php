@@ -157,7 +157,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 
 	/**
 	 * @param string $url
-	 * @return EntityId
+	 *
+	 * @return LexemeId
 	 */
 	protected function extractEntityIdFromUrl( $url ) {
 		$serialization = preg_replace( '@^.*(L\d+)$@', '$1', $url );

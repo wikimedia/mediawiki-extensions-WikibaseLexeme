@@ -140,7 +140,8 @@ class LexemeFormsView {
 
 	/**
 	 * @param ItemId $id
-	 * @return string
+	 *
+	 * @return string HTML
 	 */
 	private function getGrammaticalFeatureHtml( ItemId $id ) {
 		return $this->entityIdHtmlFormatter->formatEntityId( $id );
@@ -193,7 +194,8 @@ HTML;
 
 	/**
 	 * @param Form $form
-	 * @return string
+	 *
+	 * @return string HTML
 	 */
 	private function getStatementSectionHtml( Form $form ) {
 		$headerText = htmlspecialchars(
