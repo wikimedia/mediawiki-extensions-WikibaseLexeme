@@ -102,8 +102,23 @@ class LexemeView extends EntityView {
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		return $this->getHtmlForLexicalCategoryAndLanguage( $entity )
-			. $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate()
+		$id = htmlspecialchars(
+			$this->getLocalizedMessage( 'parentheses', [ $entity->getId()->getSerialization() ] )
+		);
+
+		$lemmaWidget = $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate();
+
+		$lexemeHeader = <<<HTML
+			<h1 id="wb-lexeme-header" class="wb-lexeme-header">
+				<div class="wb-lexeme-header_id">$id</div>
+				<div class="wb-lexeme-header_lemma-widget">
+					$lemmaWidget
+				</div>
+			</h1>
+HTML;
+
+		return $lexemeHeader
+			. $this->getHtmlForLexicalCategoryAndLanguage( $entity )
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
 			. $this->formsView->getHtml( $entity->getForms() )
@@ -236,29 +251,29 @@ HTML;
 			<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
 		</li>
 	</ul>
-	<div v-else>
-		<div class="lemma-widget_edit-area">
-			<ul class="lemma-widget_lemma-list">
-				<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
-					<input size="1" class="lemma-widget_lemma-value-input" 
-						v-model="lemma.value" :disabled="isSaving">
-					<input size="1" class="lemma-widget_lemma-language-input" 
-						v-model="lemma.language" :disabled="isSaving">
-					<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" 
-						:disabled="isSaving" :title="'wikibase-remove'|message">
-						&times;
-					</button>
-				</li>
-				<li>
-					<button type="button" class="lemma-widget_add" v-on:click="add" 
-						:disabled="isSaving" :title="'wikibase-add'|message">+</button>
-				</li>
-			</ul>
-		</div>
+	<div v-else class="lemma-widget_edit-area">
+		<ul class="lemma-widget_lemma-list">
+			<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
+				<input size="1" class="lemma-widget_lemma-value-input" 
+					v-model="lemma.value" :disabled="isSaving">
+				<input size="1" class="lemma-widget_lemma-language-input" 
+					v-model="lemma.language" :disabled="isSaving">
+				<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" 
+					:disabled="isSaving" :title="'wikibase-remove'|message">
+					&times;
+				</button>
+			</li>
+			<li>
+				<button type="button" class="lemma-widget_add" v-on:click="add" 
+					:disabled="isSaving" :title="'wikibase-add'|message">+</button>
+			</li>
+		</ul>
 	</div>
 	<div class="lemma-widget_controls">
-		<button type="button" class="lemma-widget_control" v-if="!inEditMode" 
-			:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
+		<button type="button" class="lemma-widget_control" vif="!inEditMode" 
+			:disabled="isSaving" v-on:click="edit">
+			<span class="lemma-widget_edit-icon"></span>{{'wikibase-edit'|message}}
+		</button>
 		<button type="button" class="lemma-widget_control" v-if="inEditMode" 
 			:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
 		<button type="button" class="lemma-widget_control" v-if="inEditMode" 

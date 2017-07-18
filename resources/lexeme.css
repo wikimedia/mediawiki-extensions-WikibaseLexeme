@@ -1,3 +1,24 @@
+.wb-lexemepage #firstHeading {
+	display: none;
+}
+
+#wb-lexeme-header {
+	font-size: 100%;
+	margin: -1.428em 0 0.25em 0;
+	display: flex;
+	align-items: center;
+}
+
+.wb-lexeme-header_id {
+	font-size: 1.25em;
+	color: #72777d;
+}
+
+.wb-lexeme-header_lemma-widget {
+	flex-grow: 1;
+	margin-left: 1.6em;
+}
+
 .wb-lexeme.wikibase-entityview {
 	float: none;
 }
@@ -70,11 +91,11 @@
 	clear: both;
 }
 
-.lemma-widget {
+.wb-lexeme .lemma-widget {
 	display: flex;
 }
 
-.lemma-widget_lemma-list {
+.wb-lexeme .lemma-widget_lemma-list {
 	margin: 0;
 	padding: 0;
 	list-style: none;
@@ -83,59 +104,82 @@
 	flex-grow: 1;
 }
 
-.lemma-widget_lemma {
+.wb-lexeme .lemma-widget_lemma {
 	display: flex;
 	flex-direction: column;
 	border-left: 6px solid #ededed;
 	padding: 0 9px;
-	margin-bottom: 22px;
+	margin: 11px;
 }
 
-.lemma-widget_lemma-value {
+.wb-lexeme .lemma-widget_lemma-value {
 	font-size: 3em;
-	font-weight: bold;
 }
 
-.lemma-widget_lemma-language {
+.wb-lexeme .lemma-widget_lemma-language {
 	font-size: 1.5em;
+	font-family: sans-serif;
 }
 
-.lemma-widget_edit-area {
+.wb-lexeme .lemma-widget_edit-area {
+	flex-grow: 1;
 	display: flex;
 	border: 3px solid #99ccff;
 }
 
-.lemma-widget_controls {
-	width: 100px;
-	padding: 20px 40px;
-	background: #dae8fc;
+.wb-lexeme .lemma-widget_controls {
+	width: 18em; /* Same as div.wikibase-statementview-mainsnak right margin */
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
+	align-items: flex-start;
 }
 
-.lemma-widget_control {
+.wb-lexeme .lemma-widget_control {
 	background: transparent;
 	border: none;
-	font-size: 1.5em;
-	margin: 10px;
 	cursor: pointer;
 	color: #0d4c99;
 }
 
-.lemma-widget_lemma-edit-box {
+.wb-lexeme .lemma-widget_control:hover {
+	text-decoration: underline;
+}
+
+.wb-lexeme .lemma-widget_edit-icon {
+	/* Copied from .wikibase-toolbar-button .wb-icon */
+	background-size: 20px 20px;
+	width: 20px;
+	height: 20px;
+	display: inline-block;
+	vertical-align: middle;
+	opacity: .7;
+	/* @embed */
+	background-image: url(../../Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/oojs-ui/edit-ltr.png);
+	/* @embed */
+	background-image: -webkit-linear-gradient(transparent, transparent), url(../../Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/oojs-ui/edit-ltr.svg);
+	/* @embed */
+	background-image: linear-gradient(transparent, transparent), url(../../Wikibase/view/resources/jquery/wikibase/toolbar/themes/default/images/icons/oojs-ui/edit-ltr.svg);
+	background-position: 0 40%;
+}
+
+.wb-lexeme *:hover > .lemma-widget_edit-icon {
+	opacity: 1;
+}
+
+.wb-lexeme .lemma-widget_lemma-edit-box {
 	position: relative;
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	border-left: 6px solid #dae8fc;
 	padding: 0 45px 0 9px;
-	margin-bottom: 22px;
+	margin: 0;
 
 	height: 132px;
 }
 
-.lemma-widget_lemma-value-input {
+.wb-lexeme .lemma-widget_lemma-value-input {
 	resize: horizontal;
 	min-width: 120px;
 	padding-right: 20px;
@@ -143,22 +187,22 @@
 	font-size: 3em;
 }
 
-.lemma-widget_lemma-value-input:active {
+.wb-lexeme .lemma-widget_lemma-value-input:active {
 	width: auto;
 }
 
-.lemma-widget_lemma-language-input {
+.wb-lexeme .lemma-widget_lemma-language-input {
 	resize: horizontal;
 	min-width: 120px;
 	font-size: 1.5em;
 	padding-right: 20px;
 }
 
-.lemma-widget_lemma-language-input:active {
+.wb-lexeme .lemma-widget_lemma-language-input:active {
 	width: auto;
 }
 
-.lemma-widget_lemma-remove {
+.wb-lexeme .lemma-widget_lemma-remove {
 	border: none;
 	background: transparent;
 	color: #074c99;
@@ -166,11 +210,11 @@
 	cursor: pointer;
 
 	position: absolute;
-	top: -11px;
+	top: -5px;
 	right: 23px;
 }
 
-.lemma-widget_add {
+.wb-lexeme .lemma-widget_add {
 	height: 132px;
 	border: none;
 	font-size: 3em;

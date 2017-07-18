@@ -191,9 +191,6 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 		return [
 			[
-				new Lexeme( null, null, $lexicalCategory, $language ),
-			],
-			[
 				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
 			],
 			[
@@ -220,11 +217,11 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		return [
 			[
 				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
-				'&lt;ITEM-Q3&gt; in &lt;ITEM-Q2&gt;'
+				'<ITEM-Q3> in <ITEM-Q2>'
 			],
 			[
 				new Lexeme( $lexemeId, null, $missingLabelItem, $language ),
-				'Q1 in &lt;ITEM-Q2&gt;'
+				'Q1 in <ITEM-Q2>'
 			],
 		];
 	}
@@ -240,10 +237,16 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 
 		$html = $view->getHtml( $entity );
 		$this->assertInternalType( 'string', $html );
-		$this->assertContains(
-			'<div class="wikibase-entityview-main">'
-			. $expectedHeadline,
-			$html
+		assertThat(
+			$html,
+			is(
+				htmlPiece(
+					havingChild(
+						both( withClass( 'wikibase-entityview-main' ) )
+						->andAlso( havingTextContents( containsString( $expectedHeadline ) ) )
+					)
+				)
+			)
 		);
 		$this->assertContains(
 			'<div id="toc"></div>'
