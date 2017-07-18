@@ -147,10 +147,11 @@ class WikibaseLexemeHooks {
 	}
 
 	/**
-	 * @param array $namespaces
+	 * @param string[] $namespaces
 	 * @param int $namespaceId
 	 * @param string $namespaceName
-	 * @return array
+	 *
+	 * @return string[]
 	 * @throws \RuntimeException If namespace ID is already registered with another name
 	 */
 	private static function registerNamespace( array $namespaces, $namespaceId, $namespaceName ) {

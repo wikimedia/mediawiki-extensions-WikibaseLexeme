@@ -57,8 +57,9 @@ class SenseIdFormatter implements ValueFormatter {
 	}
 
 	/**
-	 * @param \DataValues\StringValue $value
-	 * @return string
+	 * @param StringValue $value
+	 *
+	 * @return string HTML
 	 */
 	public function format( $value ) {
 		$s = $this->findSenseInfo( $value );

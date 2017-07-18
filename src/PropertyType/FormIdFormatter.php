@@ -52,8 +52,9 @@ class FormIdFormatter implements ValueFormatter {
 	}
 
 	/**
-	 * @param \DataValues\StringValue $value
-	 * @return string
+	 * @param StringValue $value
+	 *
+	 * @return string HTML
 	 */
 	public function format( $value ) {
 		$f = $this->findFormInfo( $value );

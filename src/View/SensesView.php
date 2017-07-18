@@ -133,7 +133,8 @@ class SensesView {
 
 	/**
 	 * @param Sense $sense
-	 * @return string
+	 *
+	 * @return string HTML
 	 */
 	private function getStatementSectionHtml( Sense $sense ) {
 		$headerText = htmlspecialchars(

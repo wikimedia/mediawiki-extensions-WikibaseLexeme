@@ -30,8 +30,9 @@ class LexemeValidatorFactoryTestMockProvider {
 	}
 
 	/**
-	 * @param mixed $itemId
+	 * @param EntityId|null $itemId
 	 * @param string[] $existingItemIds
+	 *
 	 * @return Error|Result
 	 */
 	private function validateItemId( $itemId, array $existingItemIds = [] ) {
