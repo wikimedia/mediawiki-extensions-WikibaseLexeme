@@ -212,6 +212,7 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 	 * @param int $maxLength
 	 * @param TermValidatorFactory|null $termValidatorFactory
 	 * @param string[] $existingItemIds
+	 *
 	 * @return LexemeValidatorFactory
 	 */
 	private function getLexemeValidatorFactory(
@@ -237,6 +238,7 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @param string[] $existingItemIds
+	 *
 	 * @return ValueValidator[]
 	 */
 	private function getItemValidator(
@@ -256,6 +258,7 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 	/**
 	 * @param mixed $itemId
 	 * @param string[] $existingItemIds
+	 *
 	 * @return Error|Result
 	 */
 	private function validateItemId( $itemId, array $existingItemIds = [] ) {

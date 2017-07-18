@@ -22,6 +22,7 @@ class LexemeValidatorFactoryTestMockProvider {
 
 	/**
 	 * @param PHPUnit_Framework_TestCase $testCase
+	 *
 	 * @return TermValidatorFactory
 	 */
 	private function getTermValidatorFactory( PHPUnit_Framework_TestCase $testCase ) {
@@ -68,6 +69,7 @@ class LexemeValidatorFactoryTestMockProvider {
 	/**
 	 * @param PHPUnit_Framework_TestCase $testCase
 	 * @param string[] $existingItemIds
+	 *
 	 * @return ValueValidator[]
 	 */
 	private function getItemValidator(
@@ -90,6 +92,7 @@ class LexemeValidatorFactoryTestMockProvider {
 	 * @param int $maxLength
 	 * @param TermValidatorFactory|null $termValidatorFactory
 	 * @param string[] $existingItemIds
+	 *
 	 * @return LexemeValidatorFactory
 	 */
 	public function getLexemeValidatorFactory(

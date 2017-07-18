@@ -48,6 +48,7 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 	 * @see ChangeOpDeserializer::createEntityChangeOp
 	 *
 	 * @param array[] $changeRequest
+	 *
 	 * @return ChangeOp
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
