@@ -23,5 +23,7 @@
 	"wikibase-lexeme-summary-wbeditentity-update": "已更改词位",
 	"datatypes-type-wikibase-lexeme": "词位",
 	"datatypes-type-wikibase-lexeme-form": "词位形态",
-	"datatypes-type-wikibase-lexeme-sense": "词位意义"
+	"datatypes-type-wikibase-lexeme-sense": "词位意义",
+	"wikibase-lexeme-add-sense": "添加意义",
+	"wikibase-lexeme-add-form": "添加词形"
 }

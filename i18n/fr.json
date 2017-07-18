@@ -25,5 +25,7 @@
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
 	"datatypes-type-wikibase-lexeme": "Lexème",
 	"datatypes-type-wikibase-lexeme-form": "Forme du lexeme",
-	"datatypes-type-wikibase-lexeme-sense": "Sens du léxème"
+	"datatypes-type-wikibase-lexeme-sense": "Sens du léxème",
+	"wikibase-lexeme-add-sense": "ajouter un sens",
+	"wikibase-lexeme-add-form": "ajouter un formulaire"
 }
