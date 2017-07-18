@@ -31,15 +31,22 @@ class HardLexemePopulator {
 			->andStatement(
 				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
 					->withValue( '/hɑːd/' )
+					->withQualifier( Id::P_REGION, new ItemId( Id::Q_SCOTLAND ) )
 					->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
 					->withValue( '/hɑɹd/' )
-					->withSomeGuid()
+					->withQualifier(
+						Id::P_REGION,
+						new ItemId( Id::Q_UNITED_STATES_OF_AMERICA )
+					)->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_PRONUNCIATION_AUDIO )
 					->withValue( 'hard.ogg' )
-					->withSomeGuid()
+					->withQualifier(
+						Id::P_REGION,
+						new ItemId( Id::Q_UNITED_STATES_OF_AMERICA )
+					)->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_RHYME )
 					->withValue( Id::LF_CARD )
@@ -70,8 +77,8 @@ class HardLexemePopulator {
 			->withGloss( 'de', 'Schwierig oder kompliziert' )
 			->withStatement(
 				NewStatement::forProperty( Id::P_SYNONYM )
-				->withValue( Id::LS_DIFFICULT )
-				->withSomeGuid()
+					->withValue( Id::LS_DIFFICULT )
+					->withSomeGuid()
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_REGISTER )
@@ -80,23 +87,23 @@ class HardLexemePopulator {
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_TRANSLATION )
-				->withValue( Id::LS_SCHWIERIG )
-				->withSomeGuid()
+					->withValue( Id::LS_SCHWIERIG )
+					->withSomeGuid()
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_TRANSLATION )
-				->withValue( Id::LS_DUR )
-				->withSomeGuid()
+					->withValue( Id::LS_DUR )
+					->withSomeGuid()
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_ANTONYM )
-				->withValue( Id::LS_EASY )
-				->withSomeGuid()
+					->withValue( Id::LS_EASY )
+					->withSomeGuid()
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_ANTONYM )
-				->withValue( Id::LS_SIMPLE )
-				->withSomeGuid()
+					->withValue( Id::LS_SIMPLE )
+					->withSomeGuid()
 			)
 			->build();
 	}
@@ -125,8 +132,8 @@ class HardLexemePopulator {
 			)
 			->withStatement(
 				NewStatement::forProperty( Id::P_ANTONYM )
-				->withValue( Id::LS_SOFT )
-				->withSomeGuid()
+					->withValue( Id::LS_SOFT )
+					->withSomeGuid()
 			)
 			->build();
 	}
