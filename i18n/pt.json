@@ -23,5 +23,7 @@
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-lexeme-form": "Forma do lexema",
-	"datatypes-type-wikibase-lexeme-sense": "Sentido do lexema"
+	"datatypes-type-wikibase-lexeme-sense": "Sentido do lexema",
+	"wikibase-lexeme-add-sense": "adicionar sentido",
+	"wikibase-lexeme-add-form": "adicionar forma"
 }

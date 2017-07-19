@@ -13,7 +13,10 @@
 	"wikibase-lemma-edit-placeholder": "Idatzi lema",
 	"wikibase-newlexeme-lexicalcategory": "Kategoria lexikoa",
 	"wikibase-newlexeme-language": "Lexemaren hizkuntza",
+	"wikibase-lexeme-statementsection-statements-about-form": "Aitorpenak $1 ingurukoak",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Aitorpenak $1 ingurukoak",
 	"datatypes-type-wikibase-lexeme": "Lexema",
+	"datatypes-type-wikibase-lexeme-form": "Lexema Forma",
 	"datatypes-type-wikibase-lexeme-sense": "Lexema Zentzua",
 	"wikibase-lexeme-add-sense": "Zentzua eman",
 	"wikibase-lexeme-add-form": "formularioa gehitu"
