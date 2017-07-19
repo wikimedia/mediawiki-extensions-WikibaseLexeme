@@ -83,6 +83,15 @@ class LexemeViewFactory {
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+
+		// TODO: $this->labelDescriptionLookup is an EntityInfo based lookup that only knows
+		// entities processed via EntityParserOutputDataUpdater first, which processes statements
+		// and sitelinks only and does not know about Lexeme-specific concepts like lexical category
+		// and language.
+		$retrievingLabelDescriptionLookup = $wikibaseRepo
+			->getLanguageFallbackLabelDescriptionLookupFactory()
+			->newLabelDescriptionLookup( Language::factory( $this->languageCode ) );
+
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->languageCode,
 			$this->labelDescriptionLookup,
@@ -92,7 +101,7 @@ class LexemeViewFactory {
 
 		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
 			$this->languageCode,
-			$this->labelDescriptionLookup,
+			$retrievingLabelDescriptionLookup,
 			$this->fallbackChain,
 			$this->editSectionGenerator
 		);
@@ -101,14 +110,6 @@ class LexemeViewFactory {
 			$languageDirectionalityLookup,
 			new LanguageNameLookup( $this->languageCode )
 		);
-
-		// TODO: $this->labelDescriptionLookup is an EntityInfo based lookup that only knows
-		// entities processed via EntityParserOutputDataUpdater first, which processes statements
-		// and sitelinks only and does not know about Lexeme-specific concepts like lexical category
-		// and language.
-		$retrievingLabelDescriptionLookup = $wikibaseRepo
-			->getLanguageFallbackLabelDescriptionLookupFactory()
-			->newLabelDescriptionLookup( Language::factory( $this->languageCode ) );
 
 		$formsView = new FormsView(
 			$localizedTextProvider,
