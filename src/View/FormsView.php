@@ -15,7 +15,7 @@ use WMDE\VueJsTemplating\Templating;
  * @license GPL-2.0+
  * @author Thiemo Mättig
  */
-class LexemeFormsView {
+class FormsView {
 
 	/**
 	 * @var LocalizedTextProvider

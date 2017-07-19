@@ -137,7 +137,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	 * @return Form[]
 	 */
 	private function deserializeForms( array $serialization ) {
-		// TODO: Extract to a LexemeFormsDeserializer
+		// TODO: Extract to a FormsDeserializer
 		$forms = [];
 
 		if ( array_key_exists( 'forms', $serialization ) ) {

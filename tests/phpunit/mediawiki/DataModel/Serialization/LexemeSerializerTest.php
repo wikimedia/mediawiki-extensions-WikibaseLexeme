@@ -178,7 +178,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testLexemeFormWithRepresentation_SerializesFromRepresentation() {
+	public function testFormWithRepresentation_SerializesFromRepresentation() {
 		$lexeme = NewLexeme::havingForm(
 			NewForm::havingRepresentation( 'en', 'some representation' )
 		)->build();
@@ -195,7 +195,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testSerializesStatementsOnLexemeForms() {
+	public function testSerializesStatementsOnForms() {
 		$lexeme = NewLexeme::havingForm(
 			NewForm::havingStatement( NewStatement::forProperty( "P2" ) )
 		)->build();
@@ -207,7 +207,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				hasKeyValuePair( "claims", equalTo( "P2" ) ) ) ) );
 	}
 
-	public function testSerializeGrammaticalFeaturesOnLexemeForms() {
+	public function testSerializeGrammaticalFeaturesOnForms() {
 		$lexeme = NewLexeme::havingForm(
 			NewForm::havingGrammaticalFeature( 'Q1' )
 		)->build();

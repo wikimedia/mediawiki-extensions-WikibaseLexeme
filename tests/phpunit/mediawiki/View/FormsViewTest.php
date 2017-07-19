@@ -6,7 +6,7 @@ use PHPUnit_Framework_TestCase;
 use Prophecy\Argument;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\View\LexemeFormsView;
+use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\Lib\LanguageNameLookup;
@@ -15,14 +15,14 @@ use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 
 /**
- * @covers Wikibase\Lexeme\View\LexemeFormsView
+ * @covers Wikibase\Lexeme\View\FormsView
  *
  * @group WikibaseLexeme
  *
  * @license GPL-2.0+
  * @author Thiemo Mättig
  */
-class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
+class FormsViewTest extends PHPUnit_Framework_TestCase {
 
 	const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
 
@@ -123,7 +123,7 @@ class LexemeFormsViewTest extends PHPUnit_Framework_TestCase {
 		$statementSectionView = $this->prophesize( StatementGroupListView::class );
 		$statementSectionView->getHtml( Argument::any() )->willReturn( self::STATEMENT_LIST_HTML );
 
-		return new LexemeFormsView(
+		return new FormsView(
 			new DummyLocalizedTextProvider(),
 			new LexemeTemplateFactory( [
 				'wikibase-lexeme-form' => '
