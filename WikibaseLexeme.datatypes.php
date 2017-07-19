@@ -20,7 +20,6 @@
 use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\PropertyType\FormIdFormatter;
-use Wikibase\Lexeme\PropertyType\FormIdParser;
 use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdFormatter;
 use Wikibase\Lib\SnakFormatter;
@@ -37,7 +36,8 @@ return [
 			if ( $format === SnakFormatter::FORMAT_HTML ) {
 				return new LexemeIdHtmlFormatter(
 					WikibaseRepo::getDefaultInstance()->getEntityLookup(),
-					WikibaseRepo::getDefaultInstance()->getEntityTitleLookup()
+					WikibaseRepo::getDefaultInstance()->getEntityTitleLookup(),
+					Language::factory( $options->getOption( 'lang' ) )
 				);
 			}
 
