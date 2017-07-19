@@ -24,6 +24,7 @@ module.exports = ( function ( mw ) {
 			el: element,
 			template: template,
 			data: {
+				isInitialized: true,
 				inEditMode: false,
 				lemmas: copyLemmaList( store.state.lemmas )
 			},

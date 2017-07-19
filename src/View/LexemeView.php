@@ -271,7 +271,7 @@ HTML;
 			</li>
 		</ul>
 	</div>
-	<div class="lemma-widget_controls">
+	<div class="lemma-widget_controls" v-if="isInitialized" >
 		<button type="button" class="lemma-widget_edit" v-if="!inEditMode" 
 			:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
 		<button type="button" class="lemma-widget_save" v-if="inEditMode" 
@@ -299,6 +299,7 @@ HTML;
 		$result = $templating->render(
 			$this->getRawLemmaVueTemplate(),
 			[
+				'isInitialized' => false,
 				'inEditMode' => false,
 				'isSaving' => false,
 				'lemmas' => $lemmas
