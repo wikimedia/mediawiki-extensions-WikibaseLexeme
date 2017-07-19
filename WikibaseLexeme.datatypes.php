@@ -21,7 +21,9 @@ use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\PropertyType\FormIdFormatter;
 use Wikibase\Lexeme\PropertyType\FormIdParser;
+use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdFormatter;
+use Wikibase\Lib\SnakFormatter;
 use Wikibase\Repo\WikibaseRepo;
 
 return [
@@ -30,6 +32,17 @@ return [
 		'validator-factory-callback' => function() {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
+		},
+		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
+			if ( $format === SnakFormatter::FORMAT_HTML ) {
+				return new LexemeIdHtmlFormatter(
+					WikibaseRepo::getDefaultInstance()->getEntityLookup(),
+					WikibaseRepo::getDefaultInstance()->getEntityTitleLookup()
+				);
+			}
+
+			return WikibaseRepo::getDefaultValueFormatterBuilders()
+				->newEntityIdFormatter( $format, $options );
 		},
 		'value-type' => 'wikibase-entityid',
 	],
