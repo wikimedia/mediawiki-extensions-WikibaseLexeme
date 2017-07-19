@@ -103,6 +103,9 @@ class NewSense {
 		return $result;
 	}
 
+	/**
+	 * @return Sense
+	 */
 	public function build() {
 		return new Sense(
 			$this->senseId,
@@ -111,8 +114,11 @@ class NewSense {
 		);
 	}
 
+	/**
+	 * @return SenseId
+	 */
 	private function generateSenseId() {
-		return new SenseId( 'S' . mt_rand( 1, 4e9 ) );
+		return new SenseId( 'S' . mt_rand( 1, mt_getrandmax() ) );
 	}
 
 }

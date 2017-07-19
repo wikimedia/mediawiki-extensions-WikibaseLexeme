@@ -158,6 +158,9 @@ class NewForm {
 		$this->statements = $this->cloneArrayOfObjects( $this->statements );
 	}
 
+	/**
+	 * @return FormId
+	 */
 	private function newRandomFormId() {
 		return new FormId( 'F' . mt_rand( 1, mt_getrandmax() ) );
 	}
