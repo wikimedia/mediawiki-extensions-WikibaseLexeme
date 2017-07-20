@@ -364,7 +364,7 @@
 		"wikibase.lexeme.styles": {
 			"position": "top",
 			"styles": [
-				"lexeme.css"
+				"lexeme.less"
 			]
 		}
 	},
