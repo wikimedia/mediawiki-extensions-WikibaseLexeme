@@ -37,11 +37,12 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 
 	public function __construct(
 		EntityLookup $entityLookup,
-		EntityTitleLookup $entityTitleLookup
+		EntityTitleLookup $entityTitleLookup,
+		Language $language
 	) {
 		$this->entityLookup = $entityLookup;
 		$this->entityTitleLookup = $entityTitleLookup;
-		$this->language = Language::factory( 'en' );
+		$this->language = $language;
 	}
 
 	/**
@@ -78,9 +79,9 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 
 		$label = $this->buildLabel( $lexeme );
 		$attributes = [
-			'href' => $url
+			'href' => $url,
+			'title' => $this->buildTitle( $lexeme )
 		];
-
 		return Html::element( 'a', $attributes, $label );
 	}
 
@@ -103,6 +104,13 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 		return $lexemeId->getSerialization() . $separator . $undefinedInfo;
 	}
 
+	private function buildTitle( Lexeme $lexeme ) {
+		return $lexeme->getType().' '.wfMessage(
+			'colon',
+			$lexeme->getId()->getSerialization()
+			);
+	}
+
 	private function buildLabel( Lexeme $lexeme ) {
 		$label = '';
 
@@ -112,11 +120,6 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 		}
 
 		$label .= $this->language->commaList( $glossTexts );
-		$label .= ' ';
-		$label .= wfMessage(
-			'parentheses',
-			$lexeme->getId()->getSerialization()
-		);
 		$label .= ' ';
 
 		/** @var Item $languageItem */
@@ -128,11 +131,11 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 		// 'noun in English'
 		// TODO: Rethink way to present 'noun in English' - it will not look correct in Russian
 		//       because language word should be in the genitive which currently is not possible
-		$label .= wfMessage(
-			'wikibase-lexeme-view-language-lexical-category',
+		$label .= wfMessage( 'wikibase-lexeme-view-language-lexical-category',
 			[
-				$lexicalCategoryItem->getLabels()->getByLanguage( $languageCode )->getText(),
-				$languageItem->getLabels()->getByLanguage( $languageCode )->getText()
+				$lexicalCategoryItem ? $lexicalCategoryItem->getLabels()->getByLanguage(
+					$languageCode )->getText() : null,
+				$languageItem ? $languageItem->getLabels()->getByLanguage( $languageCode )->getText() : null
 			]
 		);
 
