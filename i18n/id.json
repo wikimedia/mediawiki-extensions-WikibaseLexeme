@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beeyan"
+		]
+	},
+	"special-newlexeme": "Buat leksem baru",
+	"wikibase-newlexeme-fieldset": "Buat leksem baru",
+	"wikibase-newlexeme-lemma": "Lema",
+	"wikibase-newlexeme-lemma-language": "Bahasa lema",
+	"wikibase-lemma-edit-placeholder": "Masukkan lema",
+	"wikibase-newlexeme-lexicalcategory": "Kategori leksikal",
+	"wikibase-newlexeme-language": "Bahasa leksem",
+	"wikibase-lexeme-statementsection-statements-about-form": "Pernyataan tentang $1",
+	"wikibase-lexeme-view-forms": "Bentuk"
+}
