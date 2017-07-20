@@ -82,8 +82,8 @@
 
 		var form = result.forms[ 0 ];
 		assert.ok(
-			form instanceof wb.lexeme.datamodel.LexemeForm,
-			'Data model should contain instance of LexemeForm'
+			form instanceof wb.lexeme.datamodel.Form,
+			'Data model should contain instance of Form'
 		);
 		assert.equal( form.getId(), 'F1', 'Data model should contain form id' );
 		assert.ok(

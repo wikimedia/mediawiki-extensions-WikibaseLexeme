@@ -14,7 +14,7 @@
 	 * @param {jquery.wikibase.listview.ListItemAdapter} options.getListItemAdapter
 	 * @param {jQuery.wikibase.addtoolbar} options.getAdder
 	 * @param {function} options.getMessage
-	 * @param {wikibase.lexeme.datamodel.LexemeForm} options.value
+	 * @param {wikibase.lexeme.datamodel.Form[]} options.value
 	 */
 	$.widget( 'wikibase.lexemeformlistview', PARENT, {
 		/**

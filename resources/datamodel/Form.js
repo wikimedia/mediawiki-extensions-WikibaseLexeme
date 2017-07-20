@@ -2,15 +2,15 @@
 	'use strict';
 
 	/**
-	 * @class wikibase.lexeme.datamodel.LexemeForm
+	 * @class wikibase.lexeme.datamodel.Form
 	 *
 	 * @param {string} id
 	 * @param {wikibase.datamodel.TermMap} representations
 	 * @param {string[]} grammaticalFeatures
 	 * @param {wikibase.datamodel.StatementGroupSet} statementGroupSet
 	 */
-	var LexemeForm = util.inherit(
-		'LexemeForm',
+	var Form = util.inherit(
+		'Form',
 		function ( id, representations, grammaticalFeatures, statementGroupSet ) {
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 			representations = representations || new wb.datamodel.TermMap();
@@ -79,11 +79,11 @@
 			},
 
 			/**
-			 * @param {LexemeForm} other
+			 * @param {Form} other
 			 * @return {boolean}
 			 */
 			equals: function ( other ) {
-				if ( !( other instanceof LexemeForm ) ) {
+				if ( !( other instanceof Form ) ) {
 					return false;
 				}
 
@@ -104,6 +104,6 @@
 		}
 	);
 
-	wb.lexeme.datamodel.LexemeForm = LexemeForm;
+	wb.lexeme.datamodel.Form = Form;
 
 }( wikibase, util ) );

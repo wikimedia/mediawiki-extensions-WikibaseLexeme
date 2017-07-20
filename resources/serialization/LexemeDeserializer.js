@@ -55,7 +55,7 @@
 		deserializeForm: function ( formSerialization ) {
 			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer();
 			var termMapDeserializer = new SERIALIZER.TermMapDeserializer();
-			return new wb.lexeme.datamodel.LexemeForm(
+			return new wb.lexeme.datamodel.Form(
 				formSerialization.id,
 				termMapDeserializer.deserialize( formSerialization.representations ),
 				formSerialization.grammaticalFeatures,
