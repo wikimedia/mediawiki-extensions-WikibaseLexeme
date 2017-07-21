@@ -41,17 +41,6 @@
 		align-items: flex-start;
 	}
 
-	&_control {
-		background: transparent;
-		border: none;
-		cursor: pointer;
-		color: #0d4c99;
-	}
-
-	&_control:hover {
-		text-decoration: underline;
-	}
-
 	.prepend-with-wikibase-oojs-icon(@image) {
 		&:before {
 			content:'';
@@ -81,13 +70,26 @@
 		}
 	}
 
+	.button-displayed-as-link() {
+		background: transparent;
+		border: none;
+		cursor: pointer;
+		color: #0d4c99;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
 	&_edit {
+		.button-displayed-as-link;
 		.prepend-with-wikibase-oojs-icon('edit-ltr.png');
 	}
 	&_save {
+		.button-displayed-as-link;
 		.prepend-with-wikibase-oojs-icon('check.png');
 	}
 	&_cancel {
+		.button-displayed-as-link;
 		.prepend-with-wikibase-oojs-icon('close-ltr.png');
 	}
 
