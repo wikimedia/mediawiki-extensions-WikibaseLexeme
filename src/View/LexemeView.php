@@ -272,13 +272,11 @@ HTML;
 		</ul>
 	</div>
 	<div class="lemma-widget_controls">
-		<button type="button" class="lemma-widget_control" vif="!inEditMode" 
-			:disabled="isSaving" v-on:click="edit">
-			<span class="lemma-widget_edit-icon"></span>{{'wikibase-edit'|message}}
-		</button>
-		<button type="button" class="lemma-widget_control" v-if="inEditMode" 
+		<button type="button" class="lemma-widget_control lemma-widget_edit" v-if="!inEditMode" 
+			:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
+		<button type="button" class="lemma-widget_control lemma-widget_save" v-if="inEditMode" 
 			:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
-		<button type="button" class="lemma-widget_control" v-if="inEditMode" 
+		<button type="button" class="lemma-widget_control lemma-widget_cancel" v-if="inEditMode" 
 			:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 	</div>
 </div>
