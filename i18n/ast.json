@@ -21,5 +21,9 @@
 	"wikibase-lexeme-view-senses": "Sentíos",
 	"wikibase-lexeme-gloss-empty": "Nun se definió nenguna glosa",
 	"wikibase-lexeme-summary-wbeditentity-update": "Cambió un lexema",
-	"datatypes-type-wikibase-lexeme": "Lexema"
+	"datatypes-type-wikibase-lexeme": "Lexema",
+	"datatypes-type-wikibase-lexeme-form": "Forma de lexema",
+	"datatypes-type-wikibase-lexeme-sense": "Sentíu de lexema",
+	"wikibase-lexeme-add-sense": "añadir sentíu",
+	"wikibase-lexeme-add-form": "añadir forma"
 }
