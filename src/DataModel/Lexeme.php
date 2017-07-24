@@ -106,18 +106,16 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @param LexemeId|int $id
+	 * @param LexemeId $id
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function setId( $id ) {
 		if ( $id instanceof LexemeId ) {
 			$this->id = $id;
-		} elseif ( is_int( $id ) ) {
-			$this->id = new LexemeId( 'L' . $id );
 		} else {
 			throw new InvalidArgumentException(
-				'$id must be an instance of LexemeId or an integer.'
+				'$id must be an instance of LexemeId.'
 			);
 		}
 	}
