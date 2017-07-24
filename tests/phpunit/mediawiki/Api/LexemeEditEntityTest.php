@@ -436,7 +436,9 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 
 		$this->assertInstanceOf( ApiUsageException::class, $exception );
 		/** @var ApiUsageException $exception */
-		$this->assertSame( $expectedErrorCode, $exception->getCodeString() );
+		$this->assertSame( $expectedErrorCode,
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
 	}
 
 	public function provideInvalidDataWithClear() {
@@ -481,7 +483,10 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 
 		$this->assertInstanceOf( ApiUsageException::class, $exception );
 		/** @var ApiUsageException $exception */
-		$this->assertSame( 'failed-save', $exception->getCodeString() );
+		$this->assertSame(
+			'failed-save',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
 	}
 
 	private function assertEntityFieldsEqual( array $expected, array $actual ) {
