@@ -4,6 +4,9 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-eslint' );
 	grunt.loadNpmTasks( 'grunt-jsonlint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
+	grunt.loadNpmTasks( 'grunt-jasmine-nodejs' );
+
+	require( 'module-alias/register' );
 
 	grunt.initConfig( {
 		eslint: {
@@ -18,9 +21,19 @@ module.exports = function ( grunt ) {
 				'!node_modules/**',
 				'!vendor/**'
 			]
+		},
+		jasmine_nodejs: {
+			all: {
+				options: {
+					random: true
+				},
+				specs: [
+					'tests/jasmine/**/*.spec.js'
+				]
+			}
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'jsonlint', 'banana' ] );
+	grunt.registerTask( 'test', [ 'eslint', 'jsonlint', 'banana', 'jasmine_nodejs' ] );
 	grunt.registerTask( 'default', 'test' );
 };
