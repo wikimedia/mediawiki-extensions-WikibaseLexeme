@@ -16,8 +16,7 @@
 		"Promise": false,
 		"global": false,
 		"describe": false,
-		"it": false,
-		"expect": false
+		"it": false
 	},
 	"rules": {
 		"dot-notation": "off",

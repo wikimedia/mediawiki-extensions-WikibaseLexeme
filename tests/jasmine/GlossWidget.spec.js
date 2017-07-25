@@ -18,10 +18,12 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 		}
 	};
 
+	var expect = require( 'unexpected' ).clone();
+	expect.installPlugin( require( 'unexpected-dom' ) );
 	var Vue = global.Vue = require( 'vue/dist/vue.js' );
 	global.Vuex = {};
-
 	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
+
 	it(
 		'create with no glosses - when switched to edit mode empty gloss is added',
 		function () {
@@ -30,7 +32,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 
 			widget.edit();
 
-			expect( widget.glosses[ 0 ] ).toEqual( emptyGloss );
+			expect( widget.glosses[ 0 ], 'to equal', emptyGloss );
 		}
 	);
 
@@ -43,6 +45,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 		widget.$nextTick( function () {
 			assertWidget( widget ).when( 'switched to edit mode' ).isInEditMode();
 			assertWidget( widget ).when( 'switched to edit mode' ).dom.hasAtLeastOneInputField();
+			expect( widget.$el, 'to contain elements matching', 'input' );
 			done();
 		} );
 	} );
@@ -113,13 +116,17 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 				glossLanguage: '.wikibase-lexeme-sense-gloss-language'
 			};
 
+		expect.addAssertion( '<DOMElement> to have trimmed text <string>', function ( expect, subject, value ) {
+			expect( subject.textContent.trim(), 'to equal', value );
+		} );
+
 		return {
 			isInEditMode: function () {
-				expect( widget.inEditMode ).toBe( true, when + 'is in edit mode' );
+				expect( widget.inEditMode, 'to be true' );
 
 			},
 			isNotInEditMode: function () {
-				expect( widget.inEditMode ).toBe( false, when + 'is not in edit mode' );
+				expect( widget.inEditMode, 'to be false' );
 			},
 			when: function ( text ) {
 				when = 'when ' + text + ': ';
@@ -127,26 +134,18 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			},
 			dom: {
 				hasNoInputFields: function () {
-					expect( widget.$el.querySelectorAll( 'input' ).length )
-						.toEqual( 0, when + 'DOM has no input fields' );
+					expect( widget.$el, 'to contain no elements matching', 'input' );
 				},
 				hasAtLeastOneInputField: function () {
-					expect( widget.$el.querySelectorAll( 'input' ).length )
-						.toBeGreaterThan( 0, when + 'has at least one input in DOM ' );
+					expect( widget.$el, 'to contain elements matching', 'input' );
 				},
 				containsGloss: function ( value, language ) {
-					var found = false;
-					widget.$el.querySelectorAll( selector.gloss ).forEach( function ( element ) {
-						var domValue = element.querySelector( selector.glossValue ).textContent;
-						var domLanguage = element.querySelector( selector.glossLanguage ).textContent;
-						found = found ||
-							domValue.trim() === value &&
-							domLanguage.trim() === language;
-					} );
+					var assertGloss = function ( element ) {
+						expect( element, 'queried for first', selector.glossValue, 'to have trimmed text', value );
+						expect( element, 'queried for first', selector.glossLanguage, 'to have trimmed text', language );
+					};
 
-					var message = when + 'DOM contains gloss with value "' + value +
-						'" and language "' + language + '"';
-					expect( found ).toBe( true, message );
+					expect( widget.$el, 'queried for', selector.gloss, 'to have an item satisfying', assertGloss );
 				},
 				containsInputsWithGloss: function ( value, language ) {
 					var found = false;
@@ -161,7 +160,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 
 					var message = when + 'DOM contains inputs with gloss having value "' + value +
 						'" and language "' + language + '"';
-					expect( found ).toBe( true, message );
+					expect( found, 'to be true' );
 				},
 				doesntContainInputsWithGloss: function ( value, language ) {
 					var found = false;
@@ -174,7 +173,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 					var message = when + 'DOM doesn\'t contain inputs with gloss ' +
 						'having value "' + value + '" and language "' + language + '"';
 
-					expect( found ).toBe( false, message );
+					expect( found, 'to be false' );
 				}
 			}
 
