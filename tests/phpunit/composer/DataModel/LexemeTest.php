@@ -74,13 +74,6 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame( $id, $lexeme->getId() );
 	}
 
-	public function testSetNewIdAsInt() {
-		$lexeme = new Lexeme();
-		$lexeme->setId( 1 );
-
-		$this->assertTrue( $lexeme->getId()->equals( new LexemeId( 'L1' ) ) );
-	}
-
 	public function testOverrideId() {
 		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
 		$id = new LexemeId( 'L2' );
@@ -94,6 +87,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			[ null ],
 			[ false ],
 			[ 1.0 ],
+			[ 1 ],
 			[ 'L1' ],
 			[ new ItemId( 'Q1' ) ],
 		];
