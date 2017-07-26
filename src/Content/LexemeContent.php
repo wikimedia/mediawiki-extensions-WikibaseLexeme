@@ -66,8 +66,6 @@ class LexemeContent extends EntityContent {
 			( new DemoData\AskOut2Populator() )->populate( $lexeme );
 		} elseif ( $id === DemoData\Id::L_ASK_OUT ) {
 			( new DemoData\AskOut3Populator() )->populate( $lexeme );
-		} else {
-			( new DemoData\DefaultPopulator() )->populate( $lexeme );
 		}
 
 		return $lexeme;
