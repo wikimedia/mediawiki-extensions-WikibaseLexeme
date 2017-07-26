@@ -13,11 +13,17 @@
 	"wikibase-newlexeme-lexicalcategory": "Лексичка категорија",
 	"wikibase-newlexeme-language": "Јазик на лексемата",
 	"wikibase-lexeme-view-language-lexical-category": "$1 на $2",
+	"wikibase-lexeme-statementsection-statements-about-form": "Искази за $1",
 	"wikibase-lexeme-view-forms": "Обрасци",
 	"wikibase-lexeme-enter-form-representation": "Внесете ново претставување на образецот",
 	"wikibase-lexeme-empty-form-representation": "Немате зададено претставување на образецот",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Искази за $1",
 	"wikibase-lexeme-view-senses": "Смисли",
 	"wikibase-lexeme-gloss-empty": "Нема определено подножна белешка",
 	"wikibase-lexeme-summary-wbeditentity-update": "Изменета лексема",
-	"datatypes-type-wikibase-lexeme": "Лексема"
+	"datatypes-type-wikibase-lexeme": "Лексема",
+	"datatypes-type-wikibase-lexeme-form": "Образец за Лексема",
+	"datatypes-type-wikibase-lexeme-sense": "Смисла за Лексема",
+	"wikibase-lexeme-add-sense": "додај смисла",
+	"wikibase-lexeme-add-form": "додај образец"
 }
