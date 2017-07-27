@@ -8,19 +8,21 @@ Feature: Senses of a Lexeme
 
   @integration
   Scenario: Basic senses section
+    Given there is a Sense to test
     Then Senses header should be there
      And Senses container should be there
      And I see at least one Sense
      And for each Sense there is a gloss and an ID
 
-  @integration
+  # TODO: add @integration tag once statements work again
   Scenario: I can see statements of each Sense
     Then I see at least one Sense
     And for each Sense there is a statement list
 
   @integration
   Scenario: Link to Sense
-    And for each Sense there is an anchor equal to its ID
+    Given there is a Sense to test
+    Then for each Sense there is an anchor equal to its ID
 
   @integration
   Scenario: Adding Gloss

@@ -33,8 +33,10 @@ Then(/^for each Sense there is a statement list$/) do
 end
 
 Given(/^there is a Sense to test$/) do
-  # TODO: All Lexemes have dummy senses at the moment; Needs to be changed once they're storable
-  expect(on(LexemePage).senses.count).to be > 0
+  # TODO: Creating the Sense should be done on the backend once it is possible
+  step 'I click on the Senses list add button'
+  step 'I add a Gloss for "en" language with value "some gloss"'
+  step 'I save the Sense'
 end
 
 When(/^I click the first Sense's edit button$/) do

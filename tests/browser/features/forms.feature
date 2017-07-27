@@ -24,7 +24,6 @@ Feature: Forms of a Lexeme
   @integration
   Scenario: Add grammatical feature
     Given I have a Lexeme with a Form
-     And I am on the page of the Lexeme to test
      And I have an item to test
     When I click on the first Form's edit button
      And I select the test item as the grammatical feature
@@ -34,7 +33,6 @@ Feature: Forms of a Lexeme
   @integration
   Scenario: Remove grammatical feature
     Given I have a Lexeme with a Form
-     And I am on the page of the Lexeme to test
      And a grammatical feature exists for the first Form of the Lexeme
     When I click on the first Form's edit button
      And I remove the first grammatical feature of the first Form
@@ -43,7 +41,6 @@ Feature: Forms of a Lexeme
   @integration
   Scenario: Change multi-variant representations
     Given I have a Lexeme with a Form
-     And I am on the page of the Lexeme to test
     When I click on the first Form's edit button
      And I enter "colors" as the "en-us" form representation
      And I click on the add representation button
@@ -82,5 +79,5 @@ Feature: Forms of a Lexeme
 
   @integration
   Scenario: I can see each Form's statements
-    Then I see at least one Form
-    And for each Form there is a statement list
+    Given I have a Lexeme with a Form
+    Then for each Form there is a statement list

@@ -79,6 +79,11 @@ end
 
 Given(/^I have a Lexeme with a Form$/) do
   step 'I have a Lexeme to test' # TODO: implement once Forms are storable
+
+  # TODO: Creating the Form should be done on the backend once it is possible
+  step 'I click the Forms list add button'
+  step 'I enter "some representation" as the "en" form representation'
+  step 'I save the Form'
 end
 
 When(/^I click on the first Form's edit button$/) do
