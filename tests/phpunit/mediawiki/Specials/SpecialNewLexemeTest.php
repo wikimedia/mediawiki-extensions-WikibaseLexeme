@@ -192,16 +192,19 @@ class SpecialNewLexemeTest extends SpecialNewEntityTest {
 	}
 
 	/**
-	 * @param string $itemId
+	 * @param string $itemIdString
 	 */
-	private function givenItemExists( $itemId ) {
+	private function givenItemExists( $itemIdString ) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		$existingItem = new Item( new ItemId( $itemId ) );
+		$itemId = new ItemId( $itemIdString );
+		$existingItem = new Item( $itemId );
 
-		$editEntityFactory = $wikibaseRepo->newEditEntityFactory()
-			->newEditEntity( new User(), $existingItem );
+		$lookup = $wikibaseRepo->getEntityLookup();
+		$store = $wikibaseRepo->getEntityStore();
 
-		$editEntityFactory->attemptSave( '', EDIT_NEW, false );
+		if ( !$lookup->hasEntity( $itemId ) ) {
+			$store->saveEntity( $existingItem, '', new User(), EDIT_NEW, false );
+		}
 	}
 
 }
