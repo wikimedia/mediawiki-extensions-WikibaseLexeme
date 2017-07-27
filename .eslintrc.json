@@ -13,7 +13,11 @@
 		"wikibase": false,
 		"Vue": false,
 		"Vuex": false,
-		"Promise": false
+		"Promise": false,
+		"global": false,
+		"describe": false,
+		"it": false,
+		"expect": false
 	},
 	"rules": {
 		"dot-notation": "off",
