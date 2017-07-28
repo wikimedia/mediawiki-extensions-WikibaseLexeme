@@ -1,12 +1,22 @@
 {
 	"@metadata": {
 		"authors": [
-			"Obsuser"
+			"Obsuser",
+			"Милан Јелисавчић"
 		]
 	},
+	"wikibase-newlexeme-lemma": "Лема",
+	"wikibase-newlexeme-lemma-language": "Језик леме",
+	"wikibase-newlexeme-lexicalcategory": "Лексичка категорија",
+	"wikibase-lexeme-view-language-lexical-category": "$1 у $2",
 	"wikibase-lexeme-view-forms": "Облици",
 	"wikibase-lexeme-enter-form-representation": "Унесите нову форму репрезентације",
 	"wikibase-lexeme-empty-form-representation": "Није дефинисана форма репрезентације",
 	"wikibase-lexeme-view-senses": "Чула",
-	"wikibase-lexeme-summary-wbeditentity-update": "Измењена лексема"
+	"wikibase-lexeme-summary-wbeditentity-update": "Измењена лексема",
+	"datatypes-type-wikibase-lexeme": "Лексема",
+	"datatypes-type-wikibase-lexeme-form": "Облик лексеме",
+	"datatypes-type-wikibase-lexeme-sense": "Смисао лексеме",
+	"wikibase-lexeme-add-sense": "додај смисао",
+	"wikibase-lexeme-add-form": "додај облик"
 }
