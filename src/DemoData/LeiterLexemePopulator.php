@@ -72,6 +72,11 @@ class LeiterLexemePopulator {
 		return NewSense::havingId( 'S1' )
 			->withGloss( 'de', 'Führungsperson' )
 			->withGloss( 'en', 'leader' )
+			->withStatement(
+				NewStatement::forProperty( Id::P_DENOTES )
+					->withValue( Id::Q_LEADER )
+					->withSomeGuid()
+			)
 			->build();
 	}
 
@@ -82,6 +87,11 @@ class LeiterLexemePopulator {
 		return NewSense::havingId( 'S2' )
 			->withGloss( 'de', 'elektrischer Leiter' )
 			->withGloss( 'en', 'electrical conductor' )
+			->withStatement(
+				NewStatement::forProperty( Id::P_DENOTES )
+					->withValue( Id::Q_CONDUCTOR )
+					->withSomeGuid()
+			)
 			->build();
 	}
 

@@ -19,7 +19,7 @@ class AskOut1Populator {
 	 */
 	private function buildDefaultSense() {
 		return NewSense::havingId( 'S5' )
-			->withGloss( 'en', 'To ask somebody out’: To request a romantic date' )
+			->withGloss( 'en', '’To ask somebody out’: To request a romantic date' )
 			->build();
 	}
 

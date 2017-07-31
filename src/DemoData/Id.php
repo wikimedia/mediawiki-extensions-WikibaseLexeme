@@ -33,12 +33,14 @@ class Id {
 	const P_REGION = 'P11';
 	const P_PRONUNCIATION_AUDIO = 'P12';
 	const P_REGISTER = 'P13';
-	const P_RELATED_CONCEPT = 'P14';
+	const P_EVOKES = 'P14';
 	const P_MORPHOLOGY = 'P15';
 	const P_GRAMMATICAL_GENDER = 'P16';
 	const P_GENDERED_FORM = 'P17';
 	const P_SYLLABIFICATION = 'P18';
 	const P_GRAMMATICAL_FRAME = 'P19';
+	const P_DENOTES = 'P26';
+
 	// Form type
 	const P_RHYME = 'P20';
 	//Sense type
@@ -47,6 +49,8 @@ class Id {
 	const P_ANTONYM = 'P24';
 	const P_REFERS_TO_SENSE = 'P25';
 
+	const Q_CONDUCTOR = 'Q33';
+	const Q_LEADER = 'Q32';
 	const Q_VERBAL_PHRASE = 'Q31';
 	const Q_FEMALE = 'Q30';
 	const Q_GENITIVE = 'Q29';

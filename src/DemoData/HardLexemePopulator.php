@@ -116,17 +116,17 @@ class HardLexemePopulator {
 			->withGloss( 'en', 'resisting deformation' )
 			->withGloss( 'de', 'schwer verformbar' )
 			->withStatement(
-				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
+				NewStatement::forProperty( Id::P_EVOKES )
 					->withValue( new ItemId( Id::Q_ELASTICITY ) )
 					->withSomeGuid()
 			)
 			->withStatement(
-				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
+				NewStatement::forProperty( Id::P_EVOKES )
 					->withValue( new ItemId( Id::Q_DUCTILITY ) )
 					->withSomeGuid()
 			)
 			->withStatement(
-				NewStatement::forProperty( Id::P_RELATED_CONCEPT )
+				NewStatement::forProperty( Id::P_EVOKES )
 					->withValue( new ItemId( Id::Q_HARDNESS ) )
 					->withSomeGuid()
 			)
