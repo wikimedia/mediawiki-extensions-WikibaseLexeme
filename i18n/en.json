@@ -18,6 +18,8 @@
 	"wikibase-lexeme-statementsection-statements-about-sense": "Statements about $1",
 	"wikibase-lexeme-view-senses": "Senses",
 	"wikibase-lexeme-gloss-empty": "No gloss defined",
+	"wikibase-lemma-field-lemma-label": "Lemma",
+	"wikibase-lemma-field-language-label": "Language",
 	"wikibase-form-field-representation-label": "Representation",
 	"wikibase-form-field-language-label": "Language",
 	"wikibase-gloss-field-language-label": "Language",

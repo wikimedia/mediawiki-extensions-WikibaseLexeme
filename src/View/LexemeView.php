@@ -256,8 +256,14 @@ HTML;
 	<div v-else class="lemma-widget_edit-area">
 		<ul class="lemma-widget_lemma-list">
 			<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
+				<span class="lemma-widget_lemma-value-label">
+					{{'wikibase-lemma-field-lemma-label'|message}}
+				</span>
 				<input size="1" class="lemma-widget_lemma-value-input" 
 					v-model="lemma.value" :disabled="isSaving">
+				<span class="lemma-widget_lemma-language-label">
+					{{'wikibase-lemma-field-language-label'|message}}
+				</span>
 				<input size="1" class="lemma-widget_lemma-language-input" 
 					v-model="lemma.language" :disabled="isSaving">
 				<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" 
