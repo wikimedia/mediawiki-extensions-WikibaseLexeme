@@ -31,7 +31,7 @@ class LeiterLexemePopulator {
 			->andGrammaticalFeature( Id::Q_SINGULAR )
 			->andStatement(
 				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
-					->withValue( '/.../' )
+					->withValue( '/ˈlaɪ̯tɐ/' )
 					->withSomeGuid()
 			)->andStatement(
 				NewStatement::forProperty( Id::P_SYLLABIFICATION )
