@@ -93,10 +93,8 @@
 
 .wb-lexeme {
 	@import 'lemma-widget';
-}
-
-.wb-lexeme {
 	@import 'form-representation-widget';
+	@import 'sense-gloss-widget';
 }
 
 .wikibase-lexeme-senses .wikibase-lexeme-sense {
@@ -115,63 +113,6 @@
 	float: left;
 }
 
-/* =========== wikibase-lexeme-sense-glosses =========== */
-
-.wikibase-lexeme-sense-glosses {
-	margin-right: 252px;
-}
-
-.wikibase-lexeme-sense-glosses-table {
-	color: #565a60;
-	width: 100%;
-	border-left: 6px solid #ededed;
-}
-
-.wikibase-lexeme-sense-gloss-table-header {
-	color: #000;
-}
-
-.wikibase-lexeme-sense-glosses-table td {
-	vertical-align: top;
-}
-
-.wikibase-lexeme-sense-gloss:first-of-type {
-	color: #000;
-}
-
-.wikibase-lexeme-sense-glosses-sense-id {
-	display: none;
-}
-
-.wikibase-lexeme-sense-gloss:first-of-type .wikibase-lexeme-sense-glosses-sense-id {
-	display: inline;
-}
-
-.wikibase-lexeme-sense-gloss-language {
-	padding: 0 5px;
-	white-space: nowrap;
-}
-
-.wikibase-lexeme-sense-gloss-value-cell {
-	width: 99%; /* ... because it is a table cell */
-}
-
-.wikibase-lexeme-sense-gloss-value-input {
-	width: 100%;
-	resize: horizontal;
-}
-
-.wikibase-lexeme-sense-glosses-control {
-	text-transform: capitalize;
-	color: #1f66cc;
-	background: transparent;
-	border: none;
-	cursor: pointer;
-}
-
-.wikibase-lexeme-sense-glosses-control:hover {
-	text-decoration: underline;
-}
 
 .wikibase-lexeme-sense .wikibase-statementgrouplistview::after {
 	/* This is clearfix */
