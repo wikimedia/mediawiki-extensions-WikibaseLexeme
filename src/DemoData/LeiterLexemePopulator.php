@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DemoData;
 
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -74,7 +75,7 @@ class LeiterLexemePopulator {
 			->withGloss( 'en', 'leader' )
 			->withStatement(
 				NewStatement::forProperty( Id::P_DENOTES )
-					->withValue( Id::Q_LEADER )
+					->withValue( new ItemId( Id::Q_LEADER ) )
 					->withSomeGuid()
 			)
 			->build();
@@ -89,7 +90,7 @@ class LeiterLexemePopulator {
 			->withGloss( 'en', 'electrical conductor' )
 			->withStatement(
 				NewStatement::forProperty( Id::P_DENOTES )
-					->withValue( Id::Q_CONDUCTOR )
+					->withValue( new ItemId( Id::Q_CONDUCTOR ) )
 					->withSomeGuid()
 			)
 			->build();
