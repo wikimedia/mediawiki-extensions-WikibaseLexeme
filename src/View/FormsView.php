@@ -171,8 +171,14 @@ HTML;
 			<ul class="representation-widget_representation-list">
 				<li v-for="representation in representations" 
 					class="representation-widget_representation-edit-box">
+					<span class="representation-widget_representation-value-label">
+						{{'wikibase-form-field-representation-label'|message}}
+					</span>
 					<input size="1" class="representation-widget_representation-value-input" 
 						v-model="representation.value">
+					<span class="representation-widget_representation-language-label">
+						{{'wikibase-form-field-language-label'|message}}
+					</span>
 					<input size="1" class="representation-widget_representation-language-input" 
 						v-model="representation.language">
 					<button class="representation-widget_representation-remove" 
