@@ -158,7 +158,9 @@
 			],
 			"messages":[
 				"wikibase-add",
-				"wikibase-remove"
+				"wikibase-remove",
+				"wikibase-form-field-representation-label",
+				"wikibase-form-field-language-label"
 			]
 		},
 		"wikibase.lexeme.widgets.GlossWidget": {
