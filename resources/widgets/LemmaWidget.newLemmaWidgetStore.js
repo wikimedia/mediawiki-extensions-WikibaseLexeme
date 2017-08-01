@@ -1,10 +1,33 @@
 module.exports = ( function () {
 	'use strict';
 
+	function getRequestLemmas( origLemmas, currentLemmas ) {
+		var removedLemmas = [];
+
+		origLemmas.forEach( function ( origLemma ) {
+			var lemmaNotRemoved = currentLemmas.some( function ( lemma ) {
+				return origLemma.language === lemma.language;
+			} );
+			if ( !lemmaNotRemoved ) {
+				removedLemmas.push( origLemma.copy() );
+			}
+		} );
+
+		var requestLemmas = [];
+		currentLemmas.forEach( function ( lemma ) {
+			requestLemmas.push( lemma.copy() );
+		} );
+		removedLemmas.forEach( function ( lemma ) {
+			requestLemmas.push( { language: lemma.language, remove: '' } );
+		} );
+
+		return requestLemmas;
+	}
+
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore
 	 * @param {wikibase.api.RepoApi} repoApi
-	 * @param {Array} lemmas
+	 * @param {wikibase.lexeme.datamodel.Lemma[]} lemmas
 	 * @param {string} entityId
 	 * @param {int} baseRevId
 	 */
@@ -36,7 +59,10 @@ module.exports = ( function () {
 						throw new Error( 'Already saving!' );
 					}
 					context.commit( 'startSaving' );
-					var data = { lemmas: lemmas };
+
+					var requestLemmas = getRequestLemmas( context.state.lemmas, lemmas );
+
+					var data = { lemmas: requestLemmas };
 
 					var clear = false;
 					return repoApi.editEntity(
