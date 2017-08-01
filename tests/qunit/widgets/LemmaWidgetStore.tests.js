@@ -8,6 +8,7 @@
 
 	/** @type {wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore} */
 	var newLemmaWidgetStore = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore' );
+	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 
 	var mutations = newLemmaWidgetStore( {}, [], '', 0 ).mutations;
 
@@ -117,7 +118,7 @@
 
 			newTestAction( assert ).test(
 				actions.save,
-				[ { value: 'lemma1', language: 'en' } ],
+				[ new Lemma( 'lemma1', 'en' ) ],
 				state,
 				[
 					{ type: 'startSaving' },
@@ -153,7 +154,7 @@
 				editEntity: this.spy( editEntity )
 			};
 
-			var lemmasToSave = [ { value: 'lemma1', language: 'en' } ];
+			var lemmasToSave = [ new Lemma( 'lemma1', 'en' ) ];
 
 			var actions = newLemmaWidgetStore( repoApi, [], entityId, baseRevisionId ).actions;
 			newTestAction( assert ).applyWithMutations(
@@ -167,6 +168,46 @@
 				assert.notOk( state.isSaving );
 
 				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, { lemmas: lemmasToSave }, false );
+				done();
+			} );
+		}
+	);
+
+	QUnit.test(
+		'action save calls API with correct parameters when removing an item from the state',
+		function ( assert ) {
+			var done = assert.async();
+			var baseRevisionId = 1;
+			var state = { isSaving: false, baseRevId: baseRevisionId, lemmas: [ new Lemma( 'a lemma', 'en' ) ] };
+
+			var newRevisionId = 2;
+
+			var entityId = 'Q1';
+			var response = {
+				entity: {
+					lastrevid: newRevisionId,
+					lemmas: []
+				}
+			};
+
+			var editEntity = function ( id, baseRevId, data, clear ) {
+				return $.Deferred().resolve( response ).promise();
+			};
+			var repoApi = {
+				editEntity: this.spy( editEntity )
+			};
+
+			var lemmasToSave = [];
+			var lemmasInApiRequest = [ { language: 'en', remove: '' } ];
+
+			var actions = newLemmaWidgetStore( repoApi, [], entityId, baseRevisionId ).actions;
+			newTestAction( assert ).applyWithMutations(
+				actions.save,
+				lemmasToSave,
+				state,
+				mutations
+			).then( function () {
+				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, { lemmas: lemmasInApiRequest }, false );
 				done();
 			} );
 		}
