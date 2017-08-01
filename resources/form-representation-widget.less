@@ -1,0 +1,112 @@
+.representation-widget {
+	display: flex;
+
+	&_representation-list {
+		margin: 0 !important;
+		padding: 0 !important;
+		list-style: none;
+		display: flex;
+		flex-wrap: wrap;
+		flex-grow: 1;
+	}
+
+	&_representation {
+		display: flex;
+		flex-direction: column;
+		border-left: 6px solid #ededed;
+		padding: 0 9px;
+		margin: 0.785em 0;
+	}
+
+	&_representation-value {
+		font-size: 1em;
+	}
+
+	&_representation-language {
+		font-size: 1em;
+	}
+
+	&_edit-area {
+		display: flex;
+		border: 0.143em solid #99ccff;
+	}
+
+	&_edit-area-controls {
+		margin: 0;
+	}
+
+	&_controls {
+		width: 100px;
+		padding: 20px 40px;
+		background: #dae8fc;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	&_control {
+		background: transparent;
+		border: none;
+		font-size: 1em;
+		margin: 10px;
+		cursor: pointer;
+		color: #0d4c99;
+	}
+
+	&_representation-edit-box {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		border-left: 6px solid #dae8fc;
+		padding: 0 18px 0 9px;
+		margin: calc(0.785em - 0.143em) 0;
+
+		height: 3.150em;
+	}
+
+	&_representation-value-input {
+		resize: horizontal;
+		min-width: 7.5em;
+		padding-right: 1.25em;
+
+		font-size: 1em;
+	}
+
+	&_representation-value-input:active {
+		width: auto;
+	}
+
+	&_representation-language-input {
+		resize: horizontal;
+		min-width: 7.5em;
+		font-size: 1em;
+		padding-right: 1.25em;
+	}
+
+	&_representation-language-input:active {
+		width: auto;
+	}
+
+	&_representation-remove {
+		border: none;
+		background: transparent;
+		color: #074c99;
+		font-size: 1em;
+		cursor: pointer;
+
+		position: absolute;
+		top: -0.3em;
+		right: 0.125em;
+	}
+
+	&_add {
+		height: 100%;
+		border: none;
+		font-size: 1em;
+		text-align: center;
+		background: #dae8fc;
+		cursor: pointer;
+	}
+
+}
