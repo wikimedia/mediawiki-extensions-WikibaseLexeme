@@ -148,7 +148,9 @@
 				"wikibase-save",
 				"wikibase-cancel",
 				"wikibase-add",
-				"wikibase-remove"
+				"wikibase-remove",
+				"wikibase-lemma-field-lemma-label",
+				"wikibase-lemma-field-language-label"
 			]
 		},
 		"wikibase.lexeme.widgets.RepresentationWidget": {
