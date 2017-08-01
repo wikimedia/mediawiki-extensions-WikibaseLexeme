@@ -18,6 +18,8 @@
 	"wikibase-lexeme-statementsection-statements-about-sense": "Statements about $1",
 	"wikibase-lexeme-view-senses": "Senses",
 	"wikibase-lexeme-gloss-empty": "No gloss defined",
+	"wikibase-gloss-field-language-label": "Language",
+	"wikibase-gloss-field-gloss-label": "Gloss",
 	"wikibase-lexeme-summary-wbeditentity-update": "Changed a lexeme",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"datatypes-type-wikibase-lexeme-form": "Lexeme Form",

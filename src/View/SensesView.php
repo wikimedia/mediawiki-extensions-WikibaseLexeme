@@ -177,6 +177,15 @@ HTML;
 		return <<<'HTML'
 <div class="wikibase-lexeme-sense-glosses">
 	<table class="wikibase-lexeme-sense-glosses-table">
+		<thead>
+			<tr class="wikibase-lexeme-sense-gloss-table-header">
+				<td class="wikibase-lexeme-sense-gloss-language">
+					{{'wikibase-gloss-field-language-label'|message}}
+				</td>
+				<td>{{'wikibase-gloss-field-gloss-label'|message}}</td>
+				<td></td>
+			</tr>
+		</thead>
 		<tbody>
 			<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
 				<td class="wikibase-lexeme-sense-gloss-language">
