@@ -1,14 +1,6 @@
 describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 	require( 'jsdom-global' )();
 
-	var mediaWiki = {
-		messages: {
-			get: function ( message ) {
-				'use strict';
-				return message;
-			}
-		}
-	};
 	var getDirectionality = function ( languageCode ) {
 		'use strict';
 		return languageCode + '-dir';
@@ -186,13 +178,20 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 	}
 
 	function newWidget( glosses ) {
+		'use strict';
+		var messages = {
+			getUnparameterizedTranslation: function ( key ) {
+				return key;
+			}
+		};
+
 		return new Vue( GlossWidget.newGlossWidget(
+			messages,
 			document.createElement( 'div' ),
 			getTemplate(),
 			glosses,
 			function () {
 			},
-			mediaWiki,
 			getDirectionality
 		) );
 	}

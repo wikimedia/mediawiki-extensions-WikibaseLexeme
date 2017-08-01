@@ -110,7 +110,8 @@ class WikibaseLexemeHooks {
 				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
 				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'tests/qunit/widgets/ItemSelectorWidget.tests.js',
-				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js'
+				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
+				'tests/qunit/i18n/Messages.tests.js'
 			],
 			'dependencies' => [
 				'jquery.valueview.tests.testExpert',
@@ -133,6 +134,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 				'wikibase.lexeme.widgets.GlossWidget',
 				'wikibase.lexeme.widgets.RepresentationWidget',
+				'wikibase.lexeme.i18n.Messages',
 				'wikibase.tests.qunit.testrunner',
 				'vue',
 				'vuex',
