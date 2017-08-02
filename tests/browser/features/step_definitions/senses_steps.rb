@@ -45,12 +45,15 @@ When(/^I click the first Sense's edit button$/) do
 end
 
 When(/^I change the text of the first Gloss definition$/) do
-  @new_gloss_value = generate_random_string(20)
+  gloss_value = generate_random_string(20)
 
-  @gloss_I_am_currently_editing = @sense_I_am_currently_editing.glosses[0]
+  gloss_I_am_currently_editing = @sense_I_am_currently_editing.glosses[0]
 
-  @gloss_I_am_currently_editing.value_input_element.when_visible.clear
-  @gloss_I_am_currently_editing.value_input = @new_gloss_value
+  gloss_I_am_currently_editing.value_input_element.when_visible.clear
+  gloss_I_am_currently_editing.value_input = gloss_value
+
+  language_code = gloss_I_am_currently_editing.language_input_element.attribute('value')
+  @new_gloss = { value: gloss_value, language: language_code }
 end
 
 And(/^I add a Gloss for "(.*?)" language with value "(.*?)"$/) do |language_code, gloss_value|
@@ -79,7 +82,7 @@ Then(/^I should see Gloss with value "(.*?)" for "(.*?)" language$/) do |gloss_v
 end
 
 Then(/^I should see the new text as the Gloss definition$/) do
-  expect(@gloss_I_am_currently_editing.value_element.when_visible.text).to include @new_gloss_value
+  expect(@sense_I_am_currently_editing.gloss?(@new_gloss[:language], @new_gloss[:value])).to be true
 end
 
 Then(/^I don't see that Gloss definition$/) do

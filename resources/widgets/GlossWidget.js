@@ -38,6 +38,9 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 				},
 				stopEditing: function () {
 					this.inEditMode = false;
+					this.glosses = this.glosses.filter( function ( gloss ) {
+						return gloss.value.trim() !== '' && gloss.language.trim() !== '';
+					} );
 				}
 			},
 			filters: {
