@@ -201,7 +201,7 @@ HTML;
 					<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
 						v-model="gloss.value" >
 				</td>
-				<td>
+				<td class="wikibase-lexeme-sense-gloss-actions-cell">
 					<button v-if="inEditMode"
 					class="wikibase-lexeme-sense-glosses-control
 						wikibase-lexeme-sense-glosses-remove"
