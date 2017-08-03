@@ -6,5 +6,8 @@
 	},
 	"wikibase-lexeme-view-language-lexical-category": "$1 på $2",
 	"wikibase-lexeme-view-forms": "Formulär",
+	"wikibase-lemma-field-language-label": "Språk",
+	"wikibase-form-field-language-label": "Språk",
+	"wikibase-gloss-field-language-label": "Språk",
 	"wikibase-lexeme-add-form": "lägg till formulär"
 }

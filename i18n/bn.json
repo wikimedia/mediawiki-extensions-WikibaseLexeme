@@ -8,5 +8,6 @@
 	"wikibase-newlexeme-lemma": "লেমমা",
 	"wikibase-newlexeme-lexicalcategory": "আভিধানিক বিভাগ",
 	"wikibase-newlexeme-language": "Lexeme ভাষা",
-	"wikibase-lexeme-view-forms": "ফরম"
+	"wikibase-lexeme-view-forms": "ফরম",
+	"wikibase-form-field-language-label": "ভাষা"
 }

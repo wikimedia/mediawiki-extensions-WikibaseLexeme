@@ -5,5 +5,8 @@
 			"Ykhwong"
 		]
 	},
-	"wikibase-lexeme-view-forms": "양식"
+	"wikibase-lexeme-view-forms": "양식",
+	"wikibase-lemma-field-language-label": "언어",
+	"wikibase-form-field-language-label": "언어",
+	"wikibase-gloss-field-language-label": "언어"
 }

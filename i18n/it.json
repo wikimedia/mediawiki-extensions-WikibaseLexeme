@@ -17,5 +17,8 @@
 	"wikibase-lexeme-statementsection-statements-about-form": "Dichiarazioni su $1",
 	"wikibase-lexeme-view-forms": "Moduli",
 	"wikibase-lexeme-statementsection-statements-about-sense": "Dichiarazioni su $1",
+	"wikibase-lemma-field-language-label": "Lingua",
+	"wikibase-form-field-language-label": "Lingua",
+	"wikibase-gloss-field-language-label": "Lingua",
 	"datatypes-type-wikibase-lexeme": "Lessema"
 }

@@ -15,6 +15,10 @@
 	"wikibase-newlexeme-language": "Lingua do lexema",
 	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
 	"wikibase-lexeme-view-forms": "Formularios",
+	"wikibase-lemma-field-language-label": "Lingua",
+	"wikibase-form-field-representation-label": "Representación",
+	"wikibase-form-field-language-label": "Lingua",
+	"wikibase-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema"
 }

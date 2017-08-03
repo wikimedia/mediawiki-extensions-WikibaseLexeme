@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Botansahin"
+		]
+	},
+	"wikibase-lemma-field-lemma-label": "baş teorem",
+	"wikibase-lemma-field-language-label": "Dil",
+	"wikibase-form-field-representation-label": "Temsil",
+	"wikibase-form-field-language-label": "Dil",
+	"wikibase-gloss-field-language-label": "Dil",
+	"wikibase-gloss-field-gloss-label": "Örtbas"
+}
