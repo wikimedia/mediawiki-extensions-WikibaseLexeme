@@ -177,7 +177,7 @@ HTML;
 		return <<<'HTML'
 <div class="wikibase-lexeme-sense-glosses">
 	<table class="wikibase-lexeme-sense-glosses-table">
-		<thead>
+		<thead v-if="inEditMode">
 			<tr class="wikibase-lexeme-sense-gloss-table-header">
 				<td class="wikibase-lexeme-sense-gloss-language">
 					{{'wikibase-gloss-field-language-label'|message}}

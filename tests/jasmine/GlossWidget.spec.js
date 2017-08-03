@@ -104,6 +104,16 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			done();
 		} );
 	} );
+	it( 'removes empty glosses when saved', function () {
+		var gloss = { language: 'en', value: 'gloss in english' },
+			widget = newWidget( [ gloss ] );
+
+		widget.edit();
+		widget.add();
+		widget.stopEditing();
+
+		expect( widget.glosses.length, 'to equal', 1 );
+	} );
 
 	function assertWidget( widget ) {
 		'use strict';
