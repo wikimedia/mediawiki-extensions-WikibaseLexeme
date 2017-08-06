@@ -4,5 +4,8 @@
 			"ElangoRamanujam"
 		]
 	},
-	"wikibase-lexeme-view-language-lexical-category": "$2ல் $1"
+	"wikibase-lexeme-view-language-lexical-category": "$2ல் $1",
+	"wikibase-lemma-field-language-label": "மொழி",
+	"wikibase-form-field-language-label": "மொழி",
+	"wikibase-gloss-field-language-label": "மொழி"
 }
