@@ -9,5 +9,7 @@
 	"wikibase-newlexeme-lexicalcategory": "আভিধানিক বিভাগ",
 	"wikibase-newlexeme-language": "Lexeme ভাষা",
 	"wikibase-lexeme-view-forms": "ফরম",
-	"wikibase-form-field-language-label": "ভাষা"
+	"wikibase-lemma-field-language-label": "ভাষা",
+	"wikibase-form-field-language-label": "ভাষা",
+	"wikibase-gloss-field-language-label": "ভাষা"
 }
