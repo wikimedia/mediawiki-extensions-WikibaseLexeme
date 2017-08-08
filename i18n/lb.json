@@ -16,7 +16,9 @@
 	"wikibase-lexeme-view-forms": "Formulairen",
 	"wikibase-lexeme-statementsection-statements-about-sense": "Deklaratiounen iwwer $1",
 	"wikibase-lexeme-view-senses": "Sënner",
+	"wikibase-lemma-field-lemma-label": "Lemma",
 	"wikibase-lemma-field-language-label": "Sprooch",
+	"wikibase-form-field-language-label": "Sprooch",
 	"wikibase-gloss-field-language-label": "Sprooch",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"wikibase-lexeme-add-form": "Formulaire derbäisetzen"
