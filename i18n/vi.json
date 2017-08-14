@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Minh Nguyen"
+		]
+	},
+	"wikibaselexeme-desc": "Thực hiện kiểu thực thể từ vị",
+	"special-newlexeme": "Tạo từ vị mới",
+	"wikibase-newlexeme-fieldset": "Tạo từ vị mới",
+	"wikibase-newlexeme-lemma": "Dạng chuẩn",
+	"wikibase-newlexeme-lemma-language": "Ngôn ngữ dạng chuẩn",
+	"wikibase-lemma-edit-placeholder": "Nhập dạng chuẩn",
+	"wikibase-newlexeme-lexicalcategory": "Từ loại",
+	"wikibase-newlexeme-language": "Ngôn ngữ từ vị",
+	"wikibase-lexeme-view-language-lexical-category": "$1 trong $2",
+	"wikibase-lexeme-statementsection-statements-about-form": "Tuyên bố về $1",
+	"wikibase-lexeme-view-forms": "Dạng",
+	"wikibase-lexeme-statementsection-statements-about-sense": "Tuyên bố về $1",
+	"wikibase-lexeme-view-senses": "Ngữ nghĩa",
+	"wikibase-lexeme-gloss-empty": "Không định rõ chú giải",
+	"wikibase-lemma-field-lemma-label": "Dạng chuẩn",
+	"wikibase-lemma-field-language-label": "Ngôn ngữ",
+	"wikibase-form-field-language-label": "Ngôn ngữ",
+	"wikibase-gloss-field-language-label": "Ngôn ngữ",
+	"wikibase-gloss-field-gloss-label": "Chú giải",
+	"wikibase-lexeme-summary-wbeditentity-update": "Thay đổi từ vị",
+	"datatypes-type-wikibase-lexeme": "Từ vị",
+	"datatypes-type-wikibase-lexeme-form": "Dạng từ vị",
+	"datatypes-type-wikibase-lexeme-sense": "Ngữ nghĩa từ vị",
+	"wikibase-lexeme-add-sense": "thêm ngữ nghĩa",
+	"wikibase-lexeme-add-form": "thêm dạng"
+}
