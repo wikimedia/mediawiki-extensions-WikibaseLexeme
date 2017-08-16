@@ -19,6 +19,7 @@
     "vue": "2.3.3"
   },
   "_moduleAliases": {
-    "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js"
+    "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
+    "wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js"
   }
 }
