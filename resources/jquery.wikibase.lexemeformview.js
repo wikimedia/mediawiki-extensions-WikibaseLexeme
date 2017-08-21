@@ -193,7 +193,8 @@
 				'#representation-widget-vue-template',
 				function () {
 					this._trigger( 'change' );
-				}.bind( this )
+				}.bind( this ),
+				mw
 			);
 		},
 

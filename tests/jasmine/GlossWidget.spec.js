@@ -1,7 +1,7 @@
 describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 	require( 'jsdom-global' )();
 
-	global.mediaWiki = {
+	var mediaWiki = {
 		messages: {
 			get: function ( message ) {
 				'use strict';
@@ -9,19 +9,14 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			}
 		}
 	};
-	global.jQuery = {
-		util: {
-			getDirectionality: function ( languageCode ) {
-				'use strict';
-				return languageCode + '-dir';
-			}
-		}
+	var getDirectionality = function ( languageCode ) {
+		'use strict';
+		return languageCode + '-dir';
 	};
 
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 	var Vue = global.Vue = require( 'vue/dist/vue.js' );
-	global.Vuex = {};
 	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
 
 	it(
@@ -196,7 +191,9 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			getTemplate(),
 			glosses,
 			function () {
-			}
+			},
+			mediaWiki,
+			getDirectionality
 		) );
 	}
 

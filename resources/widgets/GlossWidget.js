@@ -1,17 +1,17 @@
-module.exports = ( function ( $, mw, require, Vue, Vuex ) {
+module.exports = ( function ( require, Vue ) {
 	'use strict';
 
 	function deepClone( object ) {
 		return JSON.parse( JSON.stringify( object ) );
 	}
 
-	function applyGlossWidget( widgetElement, glosses, beforeUpdate ) {
+	function applyGlossWidget( widgetElement, glosses, beforeUpdate, mw, getDirectionality ) {
 		var template = '#gloss-widget-vue-template';
 
-		return new Vue( newGlossWidget( widgetElement, template, glosses, beforeUpdate ) );
+		return new Vue( newGlossWidget( widgetElement, template, glosses, beforeUpdate, mw, getDirectionality ) );
 	}
 
-	function newGlossWidget( widgetElement, template, glosses, beforeUpdate ) {
+	function newGlossWidget( widgetElement, template, glosses, beforeUpdate, mw, getDirectionality ) {
 		return {
 			el: widgetElement,
 			template: template,
@@ -48,7 +48,7 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 					return mw.messages.get( key );
 				},
 				directionality: function ( languageCode ) {
-					return $.util.getDirectionality( languageCode );
+					return getDirectionality( languageCode );
 				}
 			}
 		};
@@ -59,4 +59,4 @@ module.exports = ( function ( $, mw, require, Vue, Vuex ) {
 		newGlossWidget: newGlossWidget
 	};
 
-} )( jQuery, mediaWiki, require, Vue, Vuex );
+} )( require, Vue );

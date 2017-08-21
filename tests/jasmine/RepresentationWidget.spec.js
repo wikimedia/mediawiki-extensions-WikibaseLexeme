@@ -1,5 +1,7 @@
 describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 	var expect = require( 'unexpected' ).clone();
+	var mediaWiki = { messages: {} };
+
 	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' );
 
 	var EMPTY_REPRESENTATION = { language: '', value: '' };
@@ -90,7 +92,8 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 			document.createElement( 'div' ),
 			'<div id="dummy-template"></div>',
 			function () {
-			}
+			},
+			mediaWiki
 		);
 	}
 } );

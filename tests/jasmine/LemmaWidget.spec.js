@@ -85,8 +85,9 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		} );
 	} );
 
+	var messages = { get: function ( key ) { return key; } };
 	function newWidget( initialLemmas ) {
-		return newWidgetWithStore( newStore( initialLemmas ) );
+		return newWidgetWithStore( newStore( initialLemmas ), messages );
 	}
 
 	function newStore( initialLemmas ) {
@@ -96,7 +97,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	function newWidgetWithStore( store ) {
 		var element = document.createElement( 'div' );
 
-		return new Vue( newLemmaWidget( store, element, getTemplate() ) );
+		return new Vue( newLemmaWidget( store, element, getTemplate(), messages ) );
 	}
 
 	function assertWidget( widget ) {

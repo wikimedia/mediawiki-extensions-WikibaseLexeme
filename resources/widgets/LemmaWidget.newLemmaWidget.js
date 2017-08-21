@@ -1,4 +1,4 @@
-module.exports = ( function ( mw ) {
+module.exports = ( function () {
 	'use strict';
 
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
@@ -19,7 +19,7 @@ module.exports = ( function ( mw ) {
 	 * @param {string} element
 	 * @param {string} template - template string or selector
 	 */
-	return function ( store, element, template ) {
+	return function ( store, element, template, messages ) {
 		return {
 			el: element,
 			template: template,
@@ -56,9 +56,9 @@ module.exports = ( function ( mw ) {
 			},
 			filters: {
 				message: function ( key ) {
-					return mw.messages.get( key );
+					return messages.get( key );
 				}
 			}
 		};
 	};
-} )( mediaWiki );
+} )();

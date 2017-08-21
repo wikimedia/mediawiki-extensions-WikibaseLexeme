@@ -1,4 +1,4 @@
-module.exports = ( function ( mw ) {
+module.exports = ( function () {
 	'use strict';
 
 	/**
@@ -11,7 +11,7 @@ module.exports = ( function ( mw ) {
 	 *
 	 * @return {object} Vue component object
 	 */
-	function newComponent( representations, element, template, beforeUpdate ) {
+	function newComponent( representations, element, template, beforeUpdate, mw ) {
 		return {
 			el: element,
 			template: template,
@@ -64,8 +64,8 @@ module.exports = ( function ( mw ) {
 	 *
 	 * @return {Vue} Initialized widget
 	 */
-	function create( representations, element, template, beforeUpdate ) {
-		return new Vue( newComponent( representations, element, template, beforeUpdate ) );
+	function create( representations, element, template, beforeUpdate, mw ) {
+		return new Vue( newComponent( representations, element, template, beforeUpdate, mw ) );
 	}
 
 	/**
@@ -75,4 +75,4 @@ module.exports = ( function ( mw ) {
 		create: create
 	};
 
-} )( mediaWiki );
+} )();

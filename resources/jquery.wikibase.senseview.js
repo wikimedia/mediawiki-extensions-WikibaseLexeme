@@ -80,7 +80,9 @@
 				convertGlossesToGlossWidgetModel( this.value().getGlosses() ),
 				function () {
 					this._trigger( 'change' );
-				}.bind( this )
+				}.bind( this ),
+				mw,
+				$.util.getDirectionality
 			);
 		},
 
