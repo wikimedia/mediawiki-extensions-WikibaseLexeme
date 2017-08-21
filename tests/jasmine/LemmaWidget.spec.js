@@ -17,18 +17,18 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	it( 'initialize widget with one lemma', function () {
 		var widget = newWidget( [ new Lemma( 'hello', 'en' ) ] );
 
-		assertWidget( widget ).when( 'created' ).dom.containsLemma( 'hello', 'en' );
+		assertWidget( widget ).dom.containsLemma( 'hello', 'en' );
 	} );
 
 	it( 'switch to edit mode', function ( done ) {
 		var widget = newWidget( [ new Lemma( 'hello', 'en' ) ] );
 
-		assertWidget( widget ).when( 'created' ).dom.hasNoInputFields();
+		assertWidget( widget ).dom.hasNoInputFields();
 
 		widget.edit();
 		widget.$nextTick( function () {
-			assertWidget( widget ).when( 'switched to edit mode' ).isInEditMode();
-			assertWidget( widget ).when( 'switched to edit mode' ).dom.hasAtLeastOneInputField();
+			assertWidget( widget ).isInEditMode();
+			assertWidget( widget ).dom.hasAtLeastOneInputField();
 			done();
 		} );
 	} );
@@ -39,7 +39,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		widget.edit();
 		widget.cancel();
 		widget.$nextTick( function () {
-			assertWidget( widget ).when( 'canceled the edit mode' ).dom.hasNoInputFields();
+			assertWidget( widget ).dom.hasNoInputFields();
 			done();
 		} );
 	} );
@@ -47,11 +47,11 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	it( 'add a new lemma', function ( done ) {
 		var widget = newWidget( [ new Lemma( 'hello', 'en' ) ] );
 
-		assertWidget( widget ).when( 'created' ).dom.containsLemma( 'hello', 'en' );
+		assertWidget( widget ).dom.containsLemma( 'hello', 'en' );
 		widget.add();
 		widget.$nextTick( function () {
-			assertWidget( widget ).when( 'addition triggered' ).dom.containsLemma( 'hello', 'en' );
-			assertWidget( widget ).when( 'addition triggered' ).dom.containsLemma( '', '' );
+			assertWidget( widget ).dom.containsLemma( 'hello', 'en' );
+			assertWidget( widget ).dom.containsLemma( '', '' );
 			done();
 		} );
 	} );
@@ -60,10 +60,10 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		var lemmaToRemove = new Lemma( 'hello', 'en' ),
 			widget = newWidget( [ lemmaToRemove ] );
 
-		assertWidget( widget ).when( 'created' ).dom.containsLemma( 'hello', 'en' );
+		assertWidget( widget ).dom.containsLemma( 'hello', 'en' );
 		widget.remove( lemmaToRemove );
 		widget.$nextTick( function () {
-			assertWidget( widget ).when( 'lemma removed' ).dom.containsNoLemmas();
+			assertWidget( widget ).dom.containsNoLemmas();
 			done();
 		} );
 	} );
@@ -80,7 +80,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		widget.save().then( function () {
 			expect( storeSpy.called, 'to be true' );
 			expect( storeSpy.calledWith( 'save', lemmas ), 'to be true' );
-			assertWidget( widget ).when( 'saved' ).isNotInEditMode();
+			assertWidget( widget ).isNotInEditMode();
 			done();
 		} );
 	} );
@@ -100,12 +100,11 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	}
 
 	function assertWidget( widget ) {
-		var when = '',
-			selector = {
-				lemma: '.lemma-widget_lemma',
-				lemmaValue: '.lemma-widget_lemma-value',
-				lemmaLanguage: '.lemma-widget_lemma-language'
-			};
+		var selector = {
+			lemma: '.lemma-widget_lemma',
+			lemmaValue: '.lemma-widget_lemma-value',
+			lemmaLanguage: '.lemma-widget_lemma-language'
+		};
 
 		return {
 			isInEditMode: function () {
@@ -113,10 +112,6 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 			},
 			isNotInEditMode: function () {
 				expect( widget.inEditMode, 'to be false' );
-			},
-			when: function ( text ) {
-				when = 'when ' + text + ': ';
-				return this;
 			},
 			dom: {
 				hasNoInputFields: function () {
