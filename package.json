@@ -17,6 +17,7 @@
     "sinon": "^3.2.1",
     "unexpected": "^10.32.1",
     "unexpected-dom": "^4.0.0",
+    "unexpected-sinon": "^10.8.2",
     "vue": "2.3.3",
     "vuex": "^2.3.1"
   },
