@@ -109,8 +109,6 @@ class WikibaseLexemeHooks {
 				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'tests/qunit/widgets/ItemSelectorWidget.tests.js',
 				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
-				'tests/qunit/widgets/LemmaWidgetStore.tests.js',
-				'tests/qunit/widgets/LemmaWidget.tests.js',
 				'tests/qunit/widgets/RepresentationWidget.tests.js',
 			],
 			'dependencies' => [
@@ -130,8 +128,6 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver',
 				'wikibase.lexeme.widgets.ItemSelectorWidget',
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
-				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore',
-				'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget',
 				'wikibase.lexeme.widgets.GlossWidget',
 				'wikibase.lexeme.widgets.RepresentationWidget',
 				'wikibase.tests.qunit.testrunner',

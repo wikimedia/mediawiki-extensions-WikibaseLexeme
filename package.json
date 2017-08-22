@@ -14,12 +14,18 @@
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
     "module-alias": "^2.0.0",
+    "sinon": "^3.2.1",
     "unexpected": "^10.32.1",
     "unexpected-dom": "^4.0.0",
-    "vue": "2.3.3"
+    "vue": "2.3.3",
+    "vuex": "^2.3.1"
   },
   "_moduleAliases": {
     "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
-    "wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js"
+    "wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js",
+    "wikibase.lexeme.widgets.LemmaWidget": "./resources/widgets/LemmaWidget.js",
+    "wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": "./resources/widgets/LemmaWidget.newLemmaWidget.js",
+    "wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore": "./resources/widgets/LemmaWidget.newLemmaWidgetStore.js",
+    "wikibase.lexeme.datamodel.Lemma": "./resources/datamodel/Lemma.js"
   }
 }

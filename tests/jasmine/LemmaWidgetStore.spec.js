@@ -1,10 +1,9 @@
 /**
  * @license GPL-2.0+
  */
-( function ( wb, $, QUnit, sinon ) {
-	'use strict';
-
-	QUnit.module( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore' );
+describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function () {
+	var sinon = require( 'sinon' );
+	var expect = require( 'unexpected' ).clone();
 
 	/** @type {wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore} */
 	var newLemmaWidgetStore = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore' );
@@ -12,31 +11,31 @@
 
 	var mutations = newLemmaWidgetStore( {}, [], '', 0 ).mutations;
 
-	QUnit.test( 'mutation startSaving switches the isSaving flag to true', function ( assert ) {
+	it( 'mutation startSaving switches the isSaving flag to true', function () {
 		var state = { isSaving: false };
 
 		mutations.startSaving( state );
 
-		assert.ok( state.isSaving );
+		expect( state.isSaving, 'to be ok' );
 	} );
 
-	QUnit.test( 'mutation finishSaving switches the isSaving flag to false', function ( assert ) {
+	it( 'mutation finishSaving switches the isSaving flag to false', function () {
 		var state = { isSaving: true };
 
 		mutations.finishSaving( state );
 
-		assert.notOk( state.isSaving );
+		expect( state.isSaving, 'not to be ok' );
 	} );
 
-	QUnit.test( 'mutation updateRevisionId changes baseRevId to given value', function ( assert ) {
+	it( 'mutation updateRevisionId changes baseRevId to given value', function () {
 		var state = { baseRevId: 1 };
 
 		mutations.updateRevisionId( state, 2 );
 
-		assert.equal( 2, state.baseRevId );
+		expect( state.baseRevId, 'to be', 2 );
 	} );
 
-	function newTestAction( assert ) {
+	function newTestAction( done ) {
 
 		// helper for testing action with expected mutations
 		return {
@@ -49,12 +48,11 @@
 					{ commit: commit, state: state },
 					payload
 				).catch( function ( error ) {
-					assert.notOk( error );
+					expect( error, 'not to be ok' );
 				} );
 			},
 
 			test: function testAction( action, payload, state, expectedMutations ) {
-				var done = assert.async();
 				var count = 0;
 
 				// mock commit
@@ -62,15 +60,9 @@
 					var mutation = expectedMutations[ count ];
 
 					try {
-						assert.equal( mutation.type, type, 'Mutation has correct type' );
-						// expect( mutation.type ).to.equal( type );
+						expect( mutation.type, 'to equal', type );
 						if ( payload ) {
-							assert.deepEqual(
-								mutation.payload,
-								payload,
-								'Mutation was called with correct payload'
-							);
-							// expect( mutation.payload ).to.deep.equal( payload );
+							expect( mutation.payload, 'to equal', payload );
 						}
 					} catch ( error ) {
 						done( error );
@@ -87,17 +79,16 @@
 
 				// check if no mutations should have been dispatched
 				if ( expectedMutations.length === 0 ) {
-					assert.equal( 0, count );
-					// expect( count ).to.equal( 0 );
+					expect( count, 'to equal', 0 );
 					done();
 				}
 			}
 		};
 	}
 
-	QUnit.test(
+	it(
 		'action save on success mutates the state to start saving, updates revision, updates lemmas and finishes saving',
-		function ( assert ) {
+		function ( done ) {
 			var state = { isSaving: false, baseRevId: 1, lemmas: [] };
 
 			var newRevisionId = 2;
@@ -110,13 +101,13 @@
 
 			var repoApi = {
 				editEntity: function ( id, baseRevId, data, clear ) {
-					return $.Deferred().resolve( response ).promise();
+					return Promise.resolve( response );
 				}
 			};
 
 			var actions = newLemmaWidgetStore( repoApi, [], '', 0 ).actions;
 
-			newTestAction( assert ).test(
+			newTestAction( done ).test(
 				actions.save,
 				[ new Lemma( 'lemma1', 'en' ) ],
 				state,
@@ -130,10 +121,9 @@
 		}
 	);
 
-	QUnit.test(
+	it(
 		'action save calls API with correct parameters and changes state using data from response',
-		function ( assert ) {
-			var done = assert.async();
+		function ( done ) {
 			var baseRevisionId = 0;
 			var state = { isSaving: false, baseRevId: baseRevisionId, lemmas: [] };
 
@@ -148,24 +138,24 @@
 			};
 
 			var editEntity = function ( id, baseRevId, data, clear ) {
-				return $.Deferred().resolve( response ).promise();
+				return Promise.resolve( response );
 			};
 			var repoApi = {
-				editEntity: this.spy( editEntity )
+				editEntity: sinon.spy( editEntity )
 			};
 
 			var lemmasToSave = [ new Lemma( 'lemma1', 'en' ) ];
 
 			var actions = newLemmaWidgetStore( repoApi, [], entityId, baseRevisionId ).actions;
-			newTestAction( assert ).applyWithMutations(
+			newTestAction( done ).applyWithMutations(
 				actions.save,
 				lemmasToSave,
 				state,
 				mutations
 			).then( function () {
-				assert.equal( newRevisionId, state.baseRevId );
-				assert.deepEqual( [ { value: 'lemma1', language: 'en' } ], state.lemmas );
-				assert.notOk( state.isSaving );
+				expect( newRevisionId, 'to equal', state.baseRevId );
+				expect( [ { value: 'lemma1', language: 'en' } ], 'to equal', state.lemmas );
+				expect( state.isSaving, 'not to be ok' );
 
 				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, { lemmas: lemmasToSave }, false );
 				done();
@@ -173,10 +163,9 @@
 		}
 	);
 
-	QUnit.test(
+	it(
 		'action save calls API with correct parameters when removing an item from the state',
-		function ( assert ) {
-			var done = assert.async();
+		function ( done ) {
 			var baseRevisionId = 1;
 			var state = { isSaving: false, baseRevId: baseRevisionId, lemmas: [ new Lemma( 'a lemma', 'en' ) ] };
 
@@ -191,17 +180,17 @@
 			};
 
 			var editEntity = function ( id, baseRevId, data, clear ) {
-				return $.Deferred().resolve( response ).promise();
+				return Promise.resolve( response );
 			};
 			var repoApi = {
-				editEntity: this.spy( editEntity )
+				editEntity: sinon.spy( editEntity )
 			};
 
 			var lemmasToSave = [];
 			var lemmasInApiRequest = [ { language: 'en', remove: '' } ];
 
 			var actions = newLemmaWidgetStore( repoApi, [], entityId, baseRevisionId ).actions;
-			newTestAction( assert ).applyWithMutations(
+			newTestAction( done ).applyWithMutations(
 				actions.save,
 				lemmasToSave,
 				state,
@@ -212,5 +201,4 @@
 			} );
 		}
 	);
-
-}( wikibase, jQuery, QUnit, sinon ) );
+} );
