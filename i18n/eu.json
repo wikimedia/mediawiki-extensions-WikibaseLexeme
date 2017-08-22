@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Subi",
-			"Mikel Ibaiba"
+			"Mikel Ibaiba",
+			"Theklan"
 		]
 	},
 	"wikibaselexeme-desc": "Kudeatu lexema entitate-mota",
@@ -13,8 +14,21 @@
 	"wikibase-lemma-edit-placeholder": "Idatzi lema",
 	"wikibase-newlexeme-lexicalcategory": "Kategoria lexikoa",
 	"wikibase-newlexeme-language": "Lexemaren hizkuntza",
+	"wikibase-lexeme-view-language-lexical-category": "$1 $2(e)n",
 	"wikibase-lexeme-statementsection-statements-about-form": "Aitorpenak $1 ingurukoak",
+	"wikibase-lexeme-view-forms": "Formak",
+	"wikibase-lexeme-enter-form-representation": "Sartu forma honen errepresentazio berria",
+	"wikibase-lexeme-empty-form-representation": "Ez dago errepresantazio formarik denifituta",
 	"wikibase-lexeme-statementsection-statements-about-sense": "Aitorpenak $1 ingurukoak",
+	"wikibase-lexeme-view-senses": "Esanahiak",
+	"wikibase-lexeme-gloss-empty": "Ez da glosarik definitu",
+	"wikibase-lemma-field-lemma-label": "Lema",
+	"wikibase-lemma-field-language-label": "Hizkuntza",
+	"wikibase-form-field-representation-label": "Aurkezpena",
+	"wikibase-form-field-language-label": "Hizkuntza",
+	"wikibase-gloss-field-language-label": "Hizkuntza",
+	"wikibase-gloss-field-gloss-label": "Glosa",
+	"wikibase-lexeme-summary-wbeditentity-update": "Lexema bat aldatu da",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-lexeme-form": "Lexema Forma",
 	"datatypes-type-wikibase-lexeme-sense": "Lexema Zentzua",
