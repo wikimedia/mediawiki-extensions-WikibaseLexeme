@@ -16,7 +16,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
-	var Vue = global.Vue = require( 'vue/dist/vue.js' );
+	var Vue = global.Vue = require( 'vue/dist/vue.js' ); // eslint-disable-line no-restricted-globals
 	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
 
 	it(
