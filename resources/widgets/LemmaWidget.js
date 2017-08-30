@@ -20,5 +20,5 @@
 
 	var store = new Vuex.Store( newLemmaWidgetStore( repoApi, lemmas, entityId, baseRevId ) );
 
-	var app = new Vue( newLemmaWidget( store, '#lemmas-widget', '#lemma-widget-vue-template' ), mw.messages );
+	var app = new Vue( newLemmaWidget( store, '#lemmas-widget', '#lemma-widget-vue-template', mw.messages ) );
 } )( jQuery, mediaWiki, require, wikibase, Vue, Vuex );
