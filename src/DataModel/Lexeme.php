@@ -160,9 +160,12 @@ class Lexeme implements EntityDocument, StatementListProvider {
 			|| ( $this->language !== null
 				&& $this->language->equals( $target->language ) );
 
+		$sameForms = $this->forms == $target->forms;
+
 		return $this->lemmas->equals( $target->lemmas )
 			&& $sameLexicalCategory
 			&& $sameLanguage
+			&& $sameForms
 			&& $this->statements->equals( $target->statements );
 	}
 

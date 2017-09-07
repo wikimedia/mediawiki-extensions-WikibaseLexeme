@@ -152,6 +152,27 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$withStatement = new Lexeme();
 		$withStatement->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
+		$form = NewForm::havingId( 'F1' )
+			->andRepresentation( 'en', 'goat' )
+			->andGrammaticalFeature( 'Q1' );
+
+		$withForm1 = new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			[ $form->build() ]
+		);
+		$withForm2 = new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			[ $form->build() ]
+		);
+
 		return [
 			'empty' => [
 				$empty,
@@ -176,6 +197,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			'same statements' => [
 				$withStatement,
 				clone $withStatement
+			],
+			'same forms' => [
+				$withForm1,
+				$withForm2
 			],
 		];
 	}
@@ -233,6 +258,24 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			'different languages' => [
 				new Lexeme( new LexemeId( 'l2' ), null, null, $language1 ),
 				new Lexeme( new LexemeId( 'l2' ), null, null, $language2 ),
+			],
+			'different Form set' => [
+				new Lexeme(
+					new LexemeId( 'L1' ),
+					null,
+					null,
+					null,
+					null,
+					[]
+				),
+				new Lexeme(
+					new LexemeId( 'L1' ),
+					null,
+					null,
+					null,
+					null,
+					[ NewForm::any() ]
+				),
 			]
 		];
 	}
