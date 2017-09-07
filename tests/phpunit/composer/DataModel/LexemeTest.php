@@ -11,12 +11,14 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Lexeme
+ * @covers \Wikibase\Lexeme\DataModel\Lexeme
  *
  * @group WikibaseLexeme
  *
@@ -323,6 +325,51 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$lexeme->setLanguage( $language );
 
 		$this->assertSame( $language, $lexeme->getLanguage() );
+	}
+
+	public function testAddForm_ReturnsANewFormWithProvidedParameters() {
+		$lexeme = NewLexeme::create()->build();
+
+		$newForm = $lexeme->addForm(
+			new TermList( [ new Term( 'en', 'goat' ) ] ),
+			[ new ItemId( 'Q1' ) ]
+		);
+
+		$this->assertEquals(
+			new TermList( [ new Term( 'en', 'goat' ) ] ),
+			$newForm->getRepresentations()
+		);
+		$this->assertEquals(
+			[ new ItemId( 'Q1' ) ],
+			$newForm->getGrammaticalFeatures()
+		);
+	}
+
+	public function testAddForm_ReturnedFormIsAddedToTheLexeme() {
+		$lexeme = NewLexeme::create()->build();
+
+		$newForm = $lexeme->addForm(
+			new TermList( [ new Term( 'en', 'goat' ) ] ),
+			[]
+		);
+
+		$this->assertEquals( [ $newForm ], $lexeme->getForms() );
+	}
+
+	public function testAddFormTwoTimes_SecondFormHasAnIdWithNextNumber() {
+		$lexeme = NewLexeme::create()->build();
+
+		$newForm1 = $lexeme->addForm(
+			new TermList( [ new Term( 'en', 'goat' ) ] ),
+			[]
+		);
+		$newForm2 = $lexeme->addForm(
+			new TermList( [ new Term( 'en', 'goat1' ) ] ),
+			[]
+		);
+
+		$this->assertEquals( new FormId( 'F1' ), $newForm1->getId() );
+		$this->assertEquals( new FormId( 'F2' ), $newForm2->getId() );
 	}
 
 }
