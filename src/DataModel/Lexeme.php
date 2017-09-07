@@ -88,14 +88,13 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
 		//TODO add assertion on Forms and Senses types
+
+		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $forms );
+
+		$this->nextFormId = $nextFormId;
+
 		$this->forms = $forms;
 		$this->senses = $senses;
-		//FIXME: Add assertions regarding $nextFormId:
-		// * int
-		// * >=1
-		// * > max FormId in provided form list
-		// * > form count
-		$this->nextFormId = $nextFormId;
 	}
 
 	/**
@@ -290,6 +289,40 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		$this->forms[] = $form;
 
 		return $form;
+	}
+
+	/**
+	 * @param mixed $nextFormId
+	 * @param Form[] $forms
+	 */
+	private function assertCorrectNextFormIdIsGiven( $nextFormId, array $forms ) {
+		if ( !is_int( $nextFormId ) || $nextFormId < 1 ) {
+			throw new \InvalidArgumentException( '$nextFormId should be a positive integer' );
+		}
+
+		if ( $nextFormId <= count( $forms ) ) {
+			throw new \LogicException(
+				sprintf(
+					'$nextFormId must always be greater than the number of Forms. ' .
+					'$nextFormId = `%s`, number of forms = `%s`',
+					$nextFormId,
+					count( $forms )
+				)
+			);
+		}
+
+		$formSet = new FormSet( $forms );
+
+		if ( $nextFormId <= $formSet->maxFormIdNumber() ) {
+			throw new \LogicException(
+				sprintf(
+					'$nextFormId must always be greater than the max ID number of provided Forms. ' .
+					'$nextFormId = `%s`, max ID number of provided Forms = `%s`',
+					$nextFormId,
+					$formSet->maxFormIdNumber()
+				)
+			);
+		}
 	}
 
 }
