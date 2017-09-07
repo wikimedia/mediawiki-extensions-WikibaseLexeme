@@ -17,6 +17,11 @@ class FormId {
 	 * @param string $serialization
 	 */
 	public function __construct( $serialization ) {
+		if ( !preg_match( '/^F\d+$/', $serialization ) ) {
+			throw new \InvalidArgumentException(
+				"Form ID should have format `F\d+`. Given: $serialization"
+			);
+		}
 		$this->serialization = $serialization;
 	}
 

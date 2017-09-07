@@ -23,4 +23,13 @@ class FormTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testCreateForm_GrammaticalFeaturesIsNotAnArrayOfItemIds_ThrowsAnException() {
+		$this->setExpectedException( \Exception::class );
+		new Form(
+			new FormId( 'F1' ),
+			new TermList( [ new Term( 'en', 'representation' ) ] ),
+			[ 1 ]
+		);
+	}
+
 }

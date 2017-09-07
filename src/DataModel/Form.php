@@ -48,6 +48,12 @@ class Form implements StatementListProvider {
 			throw new \InvalidArgumentException( 'Form must have at least one representation' );
 		}
 
+		foreach ( $grammaticalFeatures as $grammaticalFeature ) {
+			if ( !$grammaticalFeature instanceof ItemId ) {
+				throw new \InvalidArgumentException( '$grammaticalFeatures should be array of ItemId' );
+			}
+		}
+
 		$this->id = $id;
 		$this->representations = $representations;
 		$this->grammaticalFeatures = $grammaticalFeatures;
