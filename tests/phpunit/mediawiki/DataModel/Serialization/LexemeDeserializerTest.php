@@ -32,7 +32,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$entityIdDeserializer->method( 'deserialize' )
-			->will( $this->returnCallback( function( $serialization ) {
+			->will( $this->returnCallback( function ( $serialization ) {
 				return new ItemId( $serialization );
 			} ) );
 
@@ -40,7 +40,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$statementListDeserializer->method( 'deserialize' )
-			->will( $this->returnCallback( function( array $serialization ) {
+			->will( $this->returnCallback( function ( array $serialization ) {
 				$statementList = new StatementList();
 
 				foreach ( $serialization as $propertyId ) {
@@ -220,6 +220,29 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$deserializer = $this->newDeserializer();
 
 		$this->assertFalse( $deserializer->isDeserializerFor( $serialization ) );
+	}
+
+	public function testDeserializesNewFormId() {
+		$serialization = $this->getMinimalValidSerialization();
+		$serialization['nextFormId'] = 4;
+
+		/** @var Lexeme $lexeme */
+		$lexeme = $this->newDeserializer()->deserialize( $serialization );
+
+		$this->assertEquals( 4, $lexeme->getNextFormId() );
+	}
+
+	private function getMinimalValidSerialization() {
+		return [
+			'type' => 'lexeme',
+			'id' => 'L2',
+			'lexicalCategory' => 'Q1',
+			'language' => 'Q2',
+			'lemmas' => [ 'el' => [ 'language' => 'el', 'value' => 'Hey' ] ],
+			'nextFormId' => 1,
+			"forms" => [],
+			"senses" => []
+		];
 	}
 
 }

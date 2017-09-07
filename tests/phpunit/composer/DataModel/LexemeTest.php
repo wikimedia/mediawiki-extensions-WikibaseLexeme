@@ -157,20 +157,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			->andGrammaticalFeature( 'Q1' );
 
 		$withForm1 = new Lexeme(
-			new LexemeId( 'L1' ),
-			null,
-			null,
-			null,
-			null,
-			[ $form->build() ]
+			new LexemeId( 'L1' ), null, null, null, null, 2, [ $form->build() ]
 		);
 		$withForm2 = new Lexeme(
-			new LexemeId( 'L1' ),
-			null,
-			null,
-			null,
-			null,
-			[ $form->build() ]
+			new LexemeId( 'L1' ), null, null, null, null, 2, [ $form->build() ]
 		);
 
 		return [
@@ -261,20 +251,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			],
 			'different Form set' => [
 				new Lexeme(
-					new LexemeId( 'L1' ),
-					null,
-					null,
-					null,
-					null,
-					[]
+					new LexemeId( 'L1' ), null, null, null, null, 1, []
 				),
 				new Lexeme(
-					new LexemeId( 'L1' ),
-					null,
-					null,
-					null,
-					null,
-					[ NewForm::any() ]
+					new LexemeId( 'L1' ), null, null, null, null, 1, [ NewForm::any() ]
 				),
 			]
 		];

@@ -68,6 +68,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param ItemId|null $lexicalCategory
 	 * @param ItemId|null $language
 	 * @param StatementList|null $statements
+	 * @param int $nextFormId
 	 * @param Form[] $forms
 	 * @oaram Sense[] $senses
 	 */
@@ -77,6 +78,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		ItemId $lexicalCategory = null,
 		ItemId $language = null,
 		StatementList $statements = null,
+		$nextFormId = 1,
 		array $forms = [],
 		array $senses = []
 	) {
@@ -88,6 +90,12 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		//TODO add assertion on Forms and Senses types
 		$this->forms = $forms;
 		$this->senses = $senses;
+		//FIXME: Add assertions regarding $nextFormId:
+		// * int
+		// * >=1
+		// * > max FormId in provided form list
+		// * > form count
+		$this->nextFormId = $nextFormId;
 	}
 
 	/**
@@ -280,8 +288,15 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getNextFormId() {
+		return $this->nextFormId;
+	}
+
+	/**
 	 * @param TermList $representations
-	 * @param array $grammaticalFeatures
+	 * @param ItemId[] $grammaticalFeatures
 	 *
 	 * @return Form
 	 */

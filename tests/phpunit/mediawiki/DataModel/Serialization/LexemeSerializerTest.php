@@ -33,7 +33,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$statementListSerializer->method( 'serialize' )
-			->will( $this->returnCallback( function( StatementList $statementList ) {
+			->will( $this->returnCallback( function ( StatementList $statementList ) {
 				return implode( '|', $statementList->getPropertyIds() );
 			} ) );
 
@@ -41,24 +41,11 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$termListSerializer->method( 'serialize' )
-			->will( $this->returnCallback( function( TermList $termList ) {
+			->will( $this->returnCallback( function ( TermList $termList ) {
 				return $termList->toTextArray();
 			} ) );
 
 		return new LexemeSerializer( $termListSerializer, $statementListSerializer );
-	}
-
-	public function testSerializationOrder() {
-		$lexeme = NewLexeme::create()
-			->withId( 'L1' )
-			->build();
-
-		$serialization = $this->newSerializer()->serialize( $lexeme );
-
-		$this->assertSame(
-			[ 'type', 'id', 'lexicalCategory', 'language', 'claims', 'forms', 'senses' ],
-			array_keys( $serialization )
-		);
 	}
 
 	public function testIsSerializerFor() {
@@ -275,6 +262,14 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				)
 			)
 		);
+	}
+
+	public function testSerializesNextFormId() {
+		$lexeme = NewLexeme::create()->build();
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		assertThat( $serialization, hasKeyValuePair( 'nextFormId', 1 ) );
 	}
 
 }

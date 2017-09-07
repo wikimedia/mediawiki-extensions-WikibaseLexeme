@@ -77,10 +77,11 @@ class LexemeSerializer implements DispatchableSerializer {
 
 		$id = $lexeme->getId();
 
-		if ( $id !== null ) { // TODO: Should fail if ID is not present
+		if ( $id !== null ) { // FIXME: Should fail if ID is not present
 			$serialization['id'] = $id->getSerialization();
 		}
 
+		//FIXME: Should always present
 		if ( !$lexeme->getLemmas()->isEmpty() ) {
 			$serialization['lemmas'] = $this->termListSerializer->serialize(
 				$lexeme->getLemmas()
@@ -101,6 +102,8 @@ class LexemeSerializer implements DispatchableSerializer {
 		$serialization['claims'] = $this->statementListSerializer->serialize(
 			$lexeme->getStatements()
 		);
+
+		$serialization['nextFormId'] = $lexeme->getNextFormId();
 
 		$serialization['forms'] = $this->serializeForms( $lexeme->getForms() );
 		$serialization['senses'] = $this->serializeSenses( $lexeme->getSenses() );

@@ -76,6 +76,7 @@ class NewLexeme {
 			$this->lexicalCategory,
 			$this->language,
 			null,
+			1,
 			$this->forms,
 			$this->senses
 		);
