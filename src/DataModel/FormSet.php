@@ -64,4 +64,8 @@ class FormSet {
 		$this->forms[$formId] = $form;
 	}
 
+	public function remove( FormId $formId ) {
+		unset( $this->forms[$formId->getSerialization()] );
+	}
+
 }

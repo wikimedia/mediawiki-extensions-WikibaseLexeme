@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
 
 class FormSetTest extends \PHPUnit_Framework_TestCase {
@@ -70,6 +71,14 @@ class FormSetTest extends \PHPUnit_Framework_TestCase {
 
 		$this->setExpectedException( \Exception::class );
 		$formSet->add( NewForm::havingId( 'F1' )->build() );
+	}
+
+	public function testRemove_CanRemoveAForm() {
+		$formSet = new FormSet( [ NewForm::havingId( 'F1' )->build() ] );
+
+		$formSet->remove( new FormId( 'F1' ) );
+
+		$this->assertCount( 0, $formSet->toArray() );
 	}
 
 }
