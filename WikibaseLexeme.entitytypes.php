@@ -25,8 +25,9 @@ use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
-use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
+use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
@@ -44,13 +45,15 @@ use Wikimedia\Purtle\RdfWriter;
 return [
 	'lexeme' => [
 		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
-			return new LexemeSerializer(
-				$serializerFactory->newTermListSerializer(),
-				$serializerFactory->newStatementListSerializer()
+			return new ExternalLexemeSerializer(
+				new StorageLexemeSerializer(
+					$serializerFactory->newTermListSerializer(),
+					$serializerFactory->newStatementListSerializer()
+				)
 			);
 		},
 		'storage-serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
-			return new LexemeSerializer(
+			return new StorageLexemeSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);

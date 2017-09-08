@@ -10,7 +10,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  */
 class WikibaseLexemeGenerators {
 
-	public static function lexeme( LexemeId $lexemeId ) {
+	public static function lexeme( LexemeId $lexemeId = null ) {
 		return new LexemeGenerator( $lexemeId );
 	}
 

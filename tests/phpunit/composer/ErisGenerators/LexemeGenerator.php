@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 use Eris\Generator;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
+use Wikibase\DataModel\Entity\Int32EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\FormSet;
@@ -15,11 +16,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  * @license GPL-2.0+
  */
 class LexemeGenerator implements Generator {
-
-	/**
-	 * @var LexemeId
-	 */
-	private $lexemeId;
 
 	/**
 	 * @var Generator
@@ -41,8 +37,22 @@ class LexemeGenerator implements Generator {
 	 */
 	private $formSetGenerator;
 
-	public function __construct( LexemeId $lexemeId ) {
-		$this->lexemeId = $lexemeId;
+	/**
+	 * @var Generator
+	 */
+	private $lexemeIdGenerator;
+
+	public function __construct( LexemeId $lexemeId = null ) {
+		if ( $lexemeId ) {
+			$this->lexemeIdGenerator = new Generator\ConstantGenerator( $lexemeId );
+		} else {
+			$this->lexemeIdGenerator = new Generator\MapGenerator(
+				function ( $number ) {
+					return new LexemeId( 'L' . $number );
+				},
+				new Generator\ChooseGenerator( 1, Int32EntityId::MAX )
+			);
+		}
 
 		$this->languageGenerator = new ItemIdGenerator();
 		$this->lexicalCategoryGenerator = new ItemIdGenerator();
@@ -61,11 +71,13 @@ class LexemeGenerator implements Generator {
 	public function __invoke( $size, $rand ) {
 		$size = min( $size, 25 );
 
+		$generateLexemeId = $this->lexemeIdGenerator;
 		$generateLanguage = $this->languageGenerator;
 		$generateLexicalCategory = $this->lexicalCategoryGenerator;
 		$generateLemmaList = $this->lemmaListGenerator;
 		$generateFormSet = $this->formSetGenerator;
 
+		$lexemeId = $generateLexemeId( $size, $rand )->unbox();
 		$language = $generateLanguage( $size, $rand )->unbox();
 		$lexicalCategory = $generateLexicalCategory( $size, $rand )->unbox();
 		$lemmas = $generateLemmaList( $size, $rand )->unbox();
@@ -76,7 +88,7 @@ class LexemeGenerator implements Generator {
 
 		$nextFormId = $formSet->maxFormIdNumber() + $counterIncrement;
 		$lexeme = new Lexeme(
-			$this->lexemeId,
+			$lexemeId,
 			$lemmas,
 			$lexicalCategory,
 			$language,

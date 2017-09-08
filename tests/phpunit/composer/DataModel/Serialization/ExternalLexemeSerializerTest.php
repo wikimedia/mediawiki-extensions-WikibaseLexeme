@@ -12,21 +12,22 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
+use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
+use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer
+ * @covers Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
  *
  * @group WikibaseLexeme
  *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
+class ExternalLexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	private function newSerializer() {
 		$statementListSerializer = $this->getMockBuilder( StatementListSerializer::class )
@@ -45,7 +46,9 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 				return $termList->toTextArray();
 			} ) );
 
-		return new LexemeSerializer( $termListSerializer, $statementListSerializer );
+		return new ExternalLexemeSerializer(
+			new StorageLexemeSerializer( $termListSerializer, $statementListSerializer )
+		);
 	}
 
 	public function testIsSerializerFor() {
@@ -180,7 +183,7 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	public function testSerializesStatementsOnForms() {
 		$lexeme = NewLexeme::havingForm(
-			NewForm::havingStatement( NewStatement::forProperty( "P2" ) )
+			NewForm::havingStatement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) )
 		)->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -264,12 +267,12 @@ class LexemeSerializerTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testSerializesNextFormId() {
+	public function testDoesNotSerializeNextFormId() {
 		$lexeme = NewLexeme::create()->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'nextFormId', 1 ) );
+		assertThat( $serialization, not( hasKeyInArray( 'nextFormId' ) ) );
 	}
 
 }

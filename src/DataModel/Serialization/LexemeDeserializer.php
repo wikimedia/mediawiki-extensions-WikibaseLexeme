@@ -168,7 +168,12 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$serialization['representations']
 		);
 
-		return new Form( $id, $representations, [] );
+		$grammaticalFeatures = [];
+		foreach ( $serialization['grammaticalFeatures'] as $featureId ) {
+			$grammaticalFeatures[] = $this->entityIdDeserializer->deserialize( $featureId );
+		}
+
+		return new Form( $id, $representations, $grammaticalFeatures );
 	}
 
 }
