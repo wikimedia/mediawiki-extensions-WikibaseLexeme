@@ -27,7 +27,9 @@
 		"phpunit/phpunit": "~4.8",
 		"wikibase/wikibase-codesniffer": "^0.1.0",
 		"jakub-onderka/php-console-highlighter": "0.3.2",
-		"hamcrest/hamcrest-php": "^2.0"
+		"hamcrest/hamcrest-php": "^2.0",
+		"giorgiosironi/eris":"dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
+		"icomefromthenet/reverse-regex": "^0.0.6.3"
 	},
 	"autoload": {
 		"psr-4": {
