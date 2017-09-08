@@ -371,6 +371,16 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testCopy_FormSetIsCopied() {
+		$lexeme = NewLexeme::create()->build();
+		$lexemeCopy = $lexeme->copy();
+
+		$lexemeCopy->addForm( new TermList( [ new Term( 'en', 'goat' ) ] ), [] );
+
+		$this->assertCount( 1, $lexemeCopy->getForms() );
+		$this->assertCount( 0, $lexeme->getForms() );
+	}
+
 	public function testSetLemmas() {
 		$id = new LexemeId( 'L1' );
 		$lemmas = new TermList( [ new Term( 'fa', 'Karaj' ) ] );

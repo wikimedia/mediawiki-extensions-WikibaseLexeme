@@ -44,7 +44,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	private $language;
 
 	/**
-	 * @var Form[]
+	 * @var FormSet
 	 */
 	private $forms;
 
@@ -87,13 +87,13 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		$this->lexicalCategory = $lexicalCategory;
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
-		//TODO add assertion on Forms and Senses types
 
-		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $forms );
-
+		$formSet = new FormSet( $forms );
+		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $formSet );
 		$this->nextFormId = $nextFormId;
+		$this->forms = $formSet;
 
-		$this->forms = $forms;
+		//TODO add assertion on Senses types
 		$this->senses = $senses;
 	}
 
@@ -191,6 +191,8 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	public function __clone() {
 		$this->lemmas = clone $this->lemmas;
 		$this->statements = clone $this->statements;
+		$this->forms = clone $this->forms;
+		//TODO add assertion on Senses types
 	}
 
 	/**
@@ -251,7 +253,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @return Form[]
 	 */
 	public function getForms() {
-		return $this->forms;
+		return $this->forms->toArray();
 	}
 
 	/**
@@ -286,7 +288,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	public function addForm( TermList $representations, array $grammaticalFeatures ) {
 		$formId = new FormId( 'F' . $this->nextFormId++ );
 		$form = new Form( $formId, $representations, $grammaticalFeatures );
-		$this->forms[] = $form;
+		$this->forms->add( $form );
 
 		return $form;
 	}
@@ -295,23 +297,21 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param mixed $nextFormId
 	 * @param Form[] $forms
 	 */
-	private function assertCorrectNextFormIdIsGiven( $nextFormId, array $forms ) {
+	private function assertCorrectNextFormIdIsGiven( $nextFormId, FormSet $formSet ) {
 		if ( !is_int( $nextFormId ) || $nextFormId < 1 ) {
 			throw new \InvalidArgumentException( '$nextFormId should be a positive integer' );
 		}
 
-		if ( $nextFormId <= count( $forms ) ) {
+		if ( $nextFormId <= $formSet->count() ) {
 			throw new \LogicException(
 				sprintf(
 					'$nextFormId must always be greater than the number of Forms. ' .
 					'$nextFormId = `%s`, number of forms = `%s`',
 					$nextFormId,
-					count( $forms )
+					$formSet->count()
 				)
 			);
 		}
-
-		$formSet = new FormSet( $forms );
 
 		if ( $nextFormId <= $formSet->maxFormIdNumber() ) {
 			throw new \LogicException(
