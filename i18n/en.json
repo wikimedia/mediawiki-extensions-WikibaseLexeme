@@ -29,5 +29,22 @@
 	"datatypes-type-wikibase-lexeme-form": "Lexeme Form",
 	"datatypes-type-wikibase-lexeme-sense": "Lexeme Sense",
 	"wikibase-lexeme-add-sense": "add sense",
-	"wikibase-lexeme-add-form": "add form"
+	"wikibase-lexeme-add-form": "add form",
+	"apihelp-wblexemeaddform-summary": "Adds Form to Lexeme",
+	"apihelp-wblexemeaddform-param-lexemeId": "ID of the Lexeme e.g. L10",
+	"apihelp-wblexemeaddform-param-data": "JSON encoded data for Form i.e. representations and grammaticalFeatures",
+	"apihelp-wblexemeaddform-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"{{int:group-bot}}\".",
+	"wikibase-lexeme-api-addform-lexemeid-invalid": "Invalid lexeme ID provided as \"lexemeId\"",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 is not a lexeme ID",
+	"wikibase-lexeme-api-addform-data-not-array": "\"data\" must be an array",
+	"wikibase-lexeme-api-addform-data-representations-key-missing": "No \"representations\" key in \"data\"",
+	"wikibase-lexeme-api-addform-data-invalid-json": "\"data\" is not a valid JSON",
+	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "No \"grammaticalFeatures\" key in \"data\"",
+	"wikibase-lexeme-api-addform-data-representations-not-array": "\"representations\" must be an array",
+	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "\"grammaticalFeatures\" must be an array",
+	"wikibase-lexeme-api-addform-representations-empty": "At least a single representation must be provided",
+	"wikibase-lexeme-api-addform-representation-text-missing": "No representation string provided for representation at position $1",
+	"wikibase-lexeme-api-addform-representation-language-missing": "No language provided for representation at position $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Invalid grammatical feature: $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Not an item ID: $1"
 }

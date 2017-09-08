@@ -11,6 +11,9 @@ use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
+/**
+ * TODO: Is this class actually needed? Could probably be removed
+ */
 class ChangeOpAddForm extends ChangeOpBase {
 
 	/**

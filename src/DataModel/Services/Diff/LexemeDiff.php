@@ -77,4 +77,8 @@ class LexemeDiff extends EntityDiff {
 		return isset( $this['nextFormId'] ) ? $this['nextFormId'] : new Diff( [], true );
 	}
 
+	public function toArray( $valueConverter = null ) {
+		return [];
+	}
+
 }

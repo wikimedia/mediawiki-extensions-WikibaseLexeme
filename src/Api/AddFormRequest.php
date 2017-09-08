@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpAddForm;
+use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikimedia\Assert\Assert;
 
@@ -60,6 +61,12 @@ class AddFormRequest {
 	 */
 	public function getLexemeId() {
 		return $this->lexemeId;
+	}
+
+	public function addFormTo( Lexeme $lexeme ) {
+		//FIXME Test it
+		//FIXME Assert on ID equality
+		return $lexeme->addForm( $this->representations, $this->grammaticalFeatures );
 	}
 
 }

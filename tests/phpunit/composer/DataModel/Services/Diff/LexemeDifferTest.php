@@ -11,8 +11,11 @@ use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
+use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer
@@ -22,6 +25,8 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
  * @license GPL-2.0+
  */
 class LexemeDifferTest extends PHPUnit_Framework_TestCase {
+
+	use ErisTest;
 
 	public function testGivenTwoEmptyLexemes_emptyLexemeDiffIsReturned() {
 		$differ = new LexemeDiffer();
@@ -103,6 +108,31 @@ class LexemeDifferTest extends PHPUnit_Framework_TestCase {
 		$this->assertTrue( $differ->canDiffEntityType( Lexeme::ENTITY_TYPE ) );
 		$this->assertFalse( $differ->canDiffEntityType( Item::ENTITY_TYPE ) );
 		$this->assertFalse( $differ->canDiffEntityType( Property::ENTITY_TYPE ) );
+	}
+
+	public function testProperty_LexemeDiffToArrayAlwaysReturnsAnEmptyArray() {
+		$differ = new LexemeDiffer();
+
+		/**
+		 * This property is needed to avoid serializing currently needless data in
+		 * \Wikibase\EntityChange::getSerializedInfo.
+		 * Making `toArray()` to always return an empty array was the easiest way to achieve this.
+		 */
+
+		$this->eris()
+			->limitTo( 10 )
+			->forAll(
+				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) ),
+				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) )
+			)
+			->then( function ( Lexeme $lexeme1, Lexeme $lexeme2 ) use ( $differ ) {
+				$patch = $differ->diffEntities( $lexeme1, $lexeme2 );
+				$patchAsArray = $patch->toArray( function ( $data ) {
+					return $data;
+				} );
+
+				$this->assertEquals( [], $patchAsArray );
+			} );
 	}
 
 }
