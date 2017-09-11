@@ -70,7 +70,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param StatementList|null $statements
 	 * @param int $nextFormId
 	 * @param Form[] $forms
-	 * @oaram Sense[] $senses
+	 * @param Sense[] $senses
 	 */
 	public function __construct(
 		LexemeId $id = null,
@@ -209,7 +209,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @throw UnexpectedValueException when the object was constructed with $lexicalCategory set to
+	 * @throws UnexpectedValueException when the object was constructed with $lexicalCategory set to
 	 * null, and the field was never initialized since then.
 	 * @return ItemId
 	 */
@@ -229,7 +229,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @throw UnexpectedValueException when the object was constructed with $language set to null,
+	 * @throws UnexpectedValueException when the object was constructed with $language set to null,
 	 * and the field was never initialized since then.
 	 * @return ItemId
 	 */
