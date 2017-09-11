@@ -6,6 +6,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
@@ -70,13 +71,14 @@ class NewLexeme {
 	}
 
 	public function build() {
+		$nextFormId = ( new FormSet( $this->forms ) )->maxFormIdNumber() + 1;
 		$lexeme = new Lexeme(
 			$this->lexemeId,
 			null,
 			$this->lexicalCategory,
 			$this->language,
 			null,
-			1,
+			$nextFormId,
 			$this->forms,
 			$this->senses
 		);

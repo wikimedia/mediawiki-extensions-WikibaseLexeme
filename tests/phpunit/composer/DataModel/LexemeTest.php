@@ -77,11 +77,62 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testOverrideId() {
+		//FIXME: This behaviour seems wrong. Should probably be changed
 		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
 		$id = new LexemeId( 'L2' );
 		$lexeme->setId( $id );
 
 		$this->assertSame( $id, $lexeme->getId() );
+	}
+
+	public function testCanNotCreateWithNonIntNextFormId() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1.0
+		);
+	}
+
+	public function testCanNotCreateWithNonPositiveNextFormId() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			0
+		);
+	}
+
+	public function testCanNotCreateWithNextFormIdSmallerOrEqualThanNumberOfProvidedForms() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			[ NewForm::any()->build() ]
+		);
+	}
+
+	public function testCanNotCreateWithNextFormIdSmallerOrEqualThanMaxExistingFormId() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			[ NewForm::havingId( 'F1' )->build() ]
+		);
 	}
 
 	public function provideInvalidIds() {
@@ -254,7 +305,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 					new LexemeId( 'L1' ), null, null, null, null, 1, []
 				),
 				new Lexeme(
-					new LexemeId( 'L1' ), null, null, null, null, 1, [ NewForm::any() ]
+					new LexemeId( 'L1' ), null, null, null, null, 2, [ NewForm::havingId( 'F1' )->build() ]
 				),
 			]
 		];
