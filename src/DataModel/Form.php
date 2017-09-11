@@ -2,10 +2,12 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use InvalidArgumentException;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0+
@@ -37,6 +39,8 @@ class Form implements StatementListProvider {
 	 * @param TermList $representations
 	 * @param ItemId[] $grammaticalFeatures
 	 * @param StatementList|null $statementList
+	 *
+	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
 		FormId $id,
@@ -44,15 +48,12 @@ class Form implements StatementListProvider {
 		array $grammaticalFeatures,
 		StatementList $statementList = null
 	) {
-		if ( $representations->count() === 0 ) {
-			throw new \InvalidArgumentException( 'Form must have at least one representation' );
-		}
-
-		foreach ( $grammaticalFeatures as $grammaticalFeature ) {
-			if ( !$grammaticalFeature instanceof ItemId ) {
-				throw new \InvalidArgumentException( '$grammaticalFeatures should be array of ItemId' );
-			}
-		}
+		Assert::parameter(
+			!$representations->isEmpty(),
+			'$representations',
+			'Form must have at least one representation'
+		);
+		Assert::parameterElementType( ItemId::class, $grammaticalFeatures, '$grammaticalFeatures' );
 
 		$this->id = $id;
 		$this->representations = $representations;
