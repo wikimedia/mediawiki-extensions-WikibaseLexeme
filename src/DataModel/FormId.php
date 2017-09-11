@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use Wikimedia\Assert\Assert;
+
 /**
  * @license GPL-2.0+
  * @author Thiemo Mättig
@@ -17,11 +19,13 @@ class FormId {
 	 * @param string $serialization
 	 */
 	public function __construct( $serialization ) {
-		if ( !preg_match( '/^F\d+$/', $serialization ) ) {
-			throw new \InvalidArgumentException(
-				"Form ID should have format `F\d+`. Given: $serialization"
-			);
-		}
+		Assert::parameterType( 'string', $serialization, '$serialization' );
+		Assert::parameter(
+			preg_match( '/^F[1-9]\d*\z/', $serialization ),
+			'$serialization',
+			'Form ID must match "F[1-9]\d*", given: ' . $serialization
+		);
+
 		$this->serialization = $serialization;
 	}
 
