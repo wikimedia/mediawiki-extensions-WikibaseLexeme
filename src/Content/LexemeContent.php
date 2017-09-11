@@ -51,24 +51,7 @@ class LexemeContent extends EntityContent {
 			throw new LogicException( 'This content object is empty!' );
 		}
 
-		/** @var Lexeme $lexeme */
-		$lexeme = $this->lexemeHolder->getEntity( Lexeme::class );
-
-		// TODO: This is a test dummy that must be removed later
-		$id = $lexeme->getId()->getSerialization();
-		if ( $id === DemoData\Id::L_HARD ) {
-			( new DemoData\HardLexemePopulator() )->populate( $lexeme );
-		} elseif ( $id === DemoData\Id::L_LEITER ) {
-			( new DemoData\LeiterLexemePopulator() )->populate( $lexeme );
-		} elseif ( $id === DemoData\Id::L_ASK_1 ) {
-			( new DemoData\AskOut1Populator() )->populate( $lexeme );
-		} elseif ( $id === DemoData\Id::L_ASK_2 ) {
-			( new DemoData\AskOut2Populator() )->populate( $lexeme );
-		} elseif ( $id === DemoData\Id::L_ASK_OUT ) {
-			( new DemoData\AskOut3Populator() )->populate( $lexeme );
-		}
-
-		return $lexeme;
+		return $this->lexemeHolder->getEntity( Lexeme::class );
 	}
 
 	/**

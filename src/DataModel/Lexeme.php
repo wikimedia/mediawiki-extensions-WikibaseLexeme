@@ -256,26 +256,10 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @param Form[] $forms
-	 * @deprecated Temporary method, for demo. Just don't use.
-	 */
-	public function setForms( array $forms ) {
-		$this->forms = $forms;
-	}
-
-	/**
 	 * @return Sense[]
 	 */
 	public function getSenses() {
 		return $this->senses;
-	}
-
-	/**
-	 * @param Sense[] $senses
-	 * @deprecated Only for demonstration purposes. Do not use otherwise!
-	 */
-	public function setSenses( array $senses ) {
-		$this->senses = $senses;
 	}
 
 	/**
