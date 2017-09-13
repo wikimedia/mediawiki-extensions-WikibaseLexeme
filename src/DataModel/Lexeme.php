@@ -167,11 +167,13 @@ class Lexeme implements EntityDocument, StatementListProvider {
 			|| ( $this->language !== null
 				&& $this->language->equals( $target->language ) );
 
+		$sameFormIdCounter = $this->nextFormId === $target->nextFormId;
 		$sameForms = $this->forms == $target->forms;
 
 		return $this->lemmas->equals( $target->lemmas )
 			&& $sameLexicalCategory
 			&& $sameLanguage
+			&& $sameFormIdCounter
 			&& $sameForms
 			&& $this->statements->equals( $target->statements );
 	}
@@ -291,6 +293,10 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		$this->forms->add( $form );
 
 		return $form;
+	}
+
+	public function removeForm( FormId $formId ) {
+		$this->forms->remove( $formId );
 	}
 
 	/**

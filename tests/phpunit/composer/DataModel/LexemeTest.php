@@ -275,6 +275,12 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$language1 = new ItemId( 'Q3' );
 		$language2 = new ItemId( 'Q5' );
+
+		$newLexeme = NewLexeme::create();
+		$lexemeWithInitialFormCounter = $newLexeme->build();
+		$lexemeWithChangedFormCounter = $newLexeme->withForm( NewForm::havingId( 'F1' ) )->build();
+		$lexemeWithChangedFormCounter->removeForm( new FormId( 'F1' ) );
+
 		return [
 			'null' => [
 				new Lexeme(),
@@ -307,6 +313,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 				new Lexeme(
 					new LexemeId( 'L1' ), null, null, null, null, 2, [ NewForm::havingId( 'F1' )->build() ]
 				),
+			],
+			'different internal form index counter state' => [
+				$lexemeWithInitialFormCounter,
+				$lexemeWithChangedFormCounter,
 			]
 		];
 	}
@@ -454,6 +464,14 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals( new FormId( 'F1' ), $newForm1->getId() );
 		$this->assertEquals( new FormId( 'F2' ), $newForm2->getId() );
+	}
+
+	public function testRemoveAForm() {
+		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
+
+		$lexeme->removeForm( new FormId( 'F1' ) );
+
+		$this->assertEquals( [], $lexeme->getForms() );
 	}
 
 }
