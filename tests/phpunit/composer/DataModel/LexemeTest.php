@@ -16,6 +16,7 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
+use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Lexeme
@@ -311,7 +312,13 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 					new LexemeId( 'L1' ), null, null, null, null, 1, []
 				),
 				new Lexeme(
-					new LexemeId( 'L1' ), null, null, null, null, 2, [ NewForm::havingId( 'F1' )->build() ]
+					new LexemeId( 'L1' ),
+					null,
+					null,
+					null,
+					null,
+					2,
+					[ NewForm::havingId( 'F1' )->build() ]
 				),
 			],
 			'different internal form index counter state' => [
@@ -472,6 +479,133 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$lexeme->removeForm( new FormId( 'F1' ) );
 
 		$this->assertEquals( [], $lexeme->getForms() );
+	}
+
+	public function testPatch_IncreaseNextFormIdTo_GivenLexemWithGreaterId_Increases() {
+		$lexemeWithoutForm = NewLexeme::create()->build();
+		$this->assertEquals( 1, $lexemeWithoutForm->getNextFormId() );
+
+		$lexemeWithoutForm->patch(
+			function ( LexemePatchAccess $patchAccess ) {
+				$patchAccess->increaseNextFormIdTo( 2 );
+			}
+		);
+
+		$this->assertEquals( 2, $lexemeWithoutForm->getNextFormId() );
+	}
+
+	public function testPatch_IncreaseNextFormIdTo_AddFormWithTooBigId_LexemesStateIsUnchanged() {
+		$lexeme = NewLexeme::create()->build();
+		$initialLexeme = clone $lexeme;
+		$newForm = NewForm::havingId( 'F3' )->build();
+
+		try {
+			$lexeme->patch(
+				function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+					$patchAccess->increaseNextFormIdTo( 2 );
+					$patchAccess->addForm( $newForm );
+				}
+			);
+			$this->fail( "patch() should have failed" );
+		} catch ( \Exception $e ) {
+			// ignore
+		}
+		$this->assertTrue( $lexeme->equals( $initialLexeme ), "Lexeme's state is changed" );
+	}
+
+	public function testPatch_AddAFormThatAlreadyExisted_AddsAForm() {
+		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
+		$lexeme->removeForm( new FormId( 'F1' ) );
+		$restoredForm = NewForm::havingId( 'F1' )->build();
+
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( $restoredForm ) {
+				$patchAccess->addForm( $restoredForm );
+			}
+		);
+
+		$this->assertEquals( [ $restoredForm ], $lexeme->getForms() );
+	}
+
+	public function testPatch_CannotAddAFromToLexemePatchAccessAfterPatchingIsFinished() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$form = NewForm::any()->build();
+
+		/** @var LexemePatchAccess $patchAccessFromOutside */
+		$patchAccessFromOutside = null;
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+				$patchAccessFromOutside = $patchAccess;
+			}
+		);
+
+		$this->setExpectedException( \Exception::class );
+		$patchAccessFromOutside->addForm( $form );
+	}
+
+	public function testPatch_CannotAddAFromToLexemePatchAccessIfPatchingHasFailed() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$form = NewForm::any()->build();
+
+		/** @var LexemePatchAccess $patchAccessFromOutside */
+		$patchAccessFromOutside = null;
+		try {
+			$lexeme->patch(
+				function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+					$patchAccessFromOutside = $patchAccess;
+					throw new \Exception();
+				}
+			);
+			$this->fail( "patch() should have failed" );
+		} catch ( \Exception $e ) {
+			// ignore
+		}
+		$this->setExpectedException( \Exception::class );
+		$patchAccessFromOutside->addForm( $form );
+	}
+
+	public function testPatch_CannotAddAFromIfLexemeAlreadyHasAFormWithTheSameIdIs() {
+		$existingForm = NewForm::havingId( 'F1' )->build();
+		$lexeme = NewLexeme::havingForm( $existingForm )->build();
+		$newForm = NewForm::havingId( 'F1' )->build();
+
+		$this->setExpectedException( \Exception::class );
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+				$patchAccess->addForm( $newForm );
+			}
+		);
+	}
+
+	public function testPatch_CannotAddAFromWithIdThatIsBiggerThanLexemeNextFormIdCounter() {
+		$lexeme = NewLexeme::create()->build();
+		$newForm = NewForm::havingId( 'F1' )->build();
+
+		$this->assertEquals( 1, $lexeme->getNextFormId() );
+		$this->setExpectedException( \Exception::class );
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+				$patchAccess->addForm( $newForm );
+			}
+		);
+	}
+
+	public function testPatch_FormAdditionFails_LexemesStateIsUnchanged() {
+		$lexeme = NewLexeme::create()->build();
+		$initialLexeme = clone $lexeme;
+		$newForm = NewForm::havingId( 'F1' )->build();
+
+		try {
+			$lexeme->patch(
+				function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+					$patchAccess->addForm( $newForm );
+				}
+			);
+			$this->fail( "patch() should have failed" );
+		} catch ( \Exception $e ) {
+			// ignore
+		}
+		$this->assertTrue( $lexeme->equals( $initialLexeme ), "Lexeme's state is changed" );
 	}
 
 }

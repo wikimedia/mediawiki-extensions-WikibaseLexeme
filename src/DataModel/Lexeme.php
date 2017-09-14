@@ -300,6 +300,40 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
+	 * @param int $number
+	 */
+	private function increaseNextFormIdTo( $number ) {
+		if ( !is_int( $number ) ) {
+			throw new \InvalidArgumentException( '$nextFormId` must be integer' );
+		}
+
+		if ( $number < $this->nextFormId ) {
+			throw new \LogicException(
+				"Cannot increase `nextFormId` because given number is less than counter value " .
+				"of this Lexeme. Current=`{$this->nextFormId}`, given=`{$number}`"
+			);
+		}
+
+		$this->nextFormId = $number;
+	}
+
+	public function patch( callable $patcher ) {
+		$lexemePatchAccess = new LexemePatchAccess( $this->nextFormId, $this->forms );
+		try {
+			$patcher( $lexemePatchAccess );
+		} finally {
+			$lexemePatchAccess->close();
+		}
+		$newFormSet = new FormSet( $lexemePatchAccess->getForms() );
+		$newNextFormId = $lexemePatchAccess->getNextFormId();
+
+		$this->assertCorrectNextFormIdIsGiven( $newNextFormId, $newFormSet );
+
+		$this->increaseNextFormIdTo( $newNextFormId );
+		$this->forms = $newFormSet;
+	}
+
+	/**
 	 * @param mixed $nextFormId
 	 * @param Form[] $forms
 	 */
