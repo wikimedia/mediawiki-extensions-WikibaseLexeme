@@ -6,6 +6,7 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use Diff\Patcher\ListPatcher;
 use Diff\Patcher\PatcherException;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -15,7 +16,9 @@ use Wikibase\DataModel\Services\Diff\EntityPatcherStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -24,7 +27,7 @@ use Wikimedia\Assert\Assert;
  * @author Thiemo Mättig
  */
 class LexemePatcher implements EntityPatcherStrategy {
-
+	private $formPatcher;
 	/**
 	 * @var TermListPatcher
 	 */
@@ -38,6 +41,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();
 		$this->statementListPatcher = new StatementListPatcher();
+		$this->formPatcher = new FormPatcher();
 	}
 
 	/**
@@ -57,9 +61,11 @@ class LexemePatcher implements EntityPatcherStrategy {
 	 */
 	public function patchEntity( EntityDocument $entity, EntityDiff $patch ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
-
+		Assert::parameterType( LexemeDiff::class, $patch, '$patch' );
 		/** @var Lexeme $entity */
 		/** @var LexemeDiff $patch */
+
+		//TODO Lemmas can't be null. Redundant check
 		$lemmas = $entity->getLemmas() !== null ? $entity->getLemmas() : new TermList();
 		$this->termListPatcher->patchTermList(
 			$lemmas,
@@ -81,6 +87,10 @@ class LexemePatcher implements EntityPatcherStrategy {
 		if ( $itemId !== false ) {
 			$entity->setLanguage( $itemId );
 		}
+
+		$this->patchNextFormId( $entity, $patch );
+
+		$this->patchForms( $entity, $patch );
 	}
 
 	/**
@@ -110,6 +120,59 @@ class LexemePatcher implements EntityPatcherStrategy {
 		}
 
 		throw new PatcherException( 'Invalid ItemId diff' );
+	}
+
+	private function patchNextFormId( Lexeme $entity, LexemeDiff $patch ) {
+		$nextFormIdDiffList = $patch->getNextFormIdDiff();
+		foreach ( $nextFormIdDiffList as $nextFormIdDiff ) {
+			switch ( get_class( $nextFormIdDiff ) ) {
+				case DiffOpChange::class:
+					/** @var DiffOpChange $nextFormIdDiff */
+					$newNumber = $nextFormIdDiff->getNewValue();
+					if ( $newNumber > $entity->getNextFormId() ) {
+						$entity->patch( function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
+							$patchAccess->increaseNextFormIdTo( $newNumber );
+						} );
+					}
+					break;
+				default:
+					throw new PatcherException( 'Invalid forms list diff' );
+			}
+		}
+	}
+
+	private function patchForms( Lexeme $entity, LexemeDiff $patch ) {
+		$formsDiff = $patch->getFormsDiff();
+		foreach ( $formsDiff as $formDiff ) {
+			switch ( get_class( $formDiff ) ) {
+				case DiffOpAdd::class:
+					/** @var DiffOpAdd $formDiff */
+					/** @var Form $form */
+					$form = $formDiff->getNewValue();
+					$entity->patch(
+						function ( LexemePatchAccess $patchAccess ) use ( $form ) {
+							$patchAccess->addForm( $form );
+						}
+					);
+					break;
+				case DiffOpRemove::class:
+					/** @var DiffOpRemove $formDiff */
+					/** @var Form $form */
+					$form = $formDiff->getOldValue();
+					$entity->removeForm( $form->getId() );
+					break;
+				case ChangeFormDiffOp::class:
+					/** @var ChangeFormDiffOp $formDiff */
+					/** @var Form $form */
+					//TODO: This implementation is incomplete/incorrect.
+					//TODO: Proper implementation of Forms patching is needed
+					$form = $entity->getForms()[0];
+					$this->formPatcher->patch( $form, $formDiff );
+					break;
+				default:
+					throw new PatcherException( 'Invalid forms list diff: ' . get_class( $formDiff ) );
+			}
+		}
 	}
 
 }

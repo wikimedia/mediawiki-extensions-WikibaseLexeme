@@ -20,6 +20,7 @@ class LexemeDiff extends EntityDiff {
 	 * @param DiffOp[] $operations
 	 */
 	public function __construct( array $operations = [] ) {
+		//TODO Probably can be removed. Does it do anything useful?
 		$this->fixSubstructureDiff( $operations, 'lemmas' );
 		$this->fixSubstructureDiff( $operations, 'lexicalCategory' );
 		$this->fixSubstructureDiff( $operations, 'language' );
@@ -56,13 +57,24 @@ class LexemeDiff extends EntityDiff {
 	}
 
 	/**
+	 * @return Diff
+	 */
+	public function getFormsDiff() {
+		return isset( $this['forms'] ) ? $this['forms'] : new Diff( [], true );
+	}
+
+	/**
 	 * Returns if there are any changes (equivalent to: any differences between the entities).
 	 *
 	 * @return bool
 	 */
 	public function isEmpty() {
 		return $this->getLemmasDiff()->isEmpty()
-		       && $this->getClaimsDiff()->isEmpty();
+			   && $this->getClaimsDiff()->isEmpty();
+	}
+
+	public function getNextFormIdDiff() {
+		return isset( $this['nextFormId'] ) ? $this['nextFormId'] : new Diff( [], true );
 	}
 
 }

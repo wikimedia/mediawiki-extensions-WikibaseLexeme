@@ -3,11 +3,14 @@
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
 use Diff\Differ\MapDiffer;
+use Diff\DiffOp\Diff\Diff;
+use Diff\DiffOp\DiffOpChange;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikimedia\Assert\Assert;
 use InvalidArgumentException;
@@ -27,9 +30,15 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	private $recursiveMapDiffer;
 
+	/**
+	 * @var FormDiffer
+	 */
+	private $formDiffer;
+
 	public function __construct() {
 		$this->recursiveMapDiffer = new MapDiffer( true );
 		$this->statementListDiffer = new StatementListDiffer();
+		$this->formDiffer = new FormDiffer();
 	}
 
 	/**
@@ -73,6 +82,13 @@ class LexemeDiffer implements EntityDifferStrategy {
 		$diffOps['claim'] = $this->statementListDiffer->getDiff(
 			$from->getStatements(),
 			$to->getStatements()
+		);
+
+		$diffOps['nextFormId'] = $this->getNextFormIdCounterDiff( $from, $to );
+
+		$diffOps['forms'] = $this->getFormsDiff(
+			$from->getForms(),
+			$to->getForms()
 		);
 
 		return new LexemeDiff( $diffOps );
@@ -130,6 +146,57 @@ class LexemeDiffer implements EntityDifferStrategy {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		return $this->diffEntities( $entity, new Lexeme() );
+	}
+
+	/**
+	 * @param Form[] $from
+	 * @param Form[] $to
+	 *
+	 * @return Diff;
+	 */
+	private function getFormsDiff( array $from, array $to ) {
+		$differ = new MapDiffer();
+
+		$differ->setComparisonCallback( function ( Form $from, Form $to ) {
+			return $from == $to;
+		} );
+
+		$from = $this->toFormsDiffArray( $from );
+		$to = $this->toFormsDiffArray( $to );
+		$formDiffOps = $differ->doDiff( $from, $to );
+
+		foreach ( $formDiffOps as $index => $formDiffOp ) {
+			if ( $formDiffOp instanceof DiffOpChange ) {
+				/** @var DiffOpChange $formDiffOp */
+				$formDiffOps[$index] = $this->formDiffer->diff(
+					$formDiffOp->getOldValue(),
+					$formDiffOp->getNewValue()
+				);
+
+			}
+		}
+
+		return new Diff( $formDiffOps, true );
+	}
+
+	/**
+	 * @param Form[] $forms
+	 */
+	private function toFormsDiffArray( array $forms ) {
+		$result = [];
+		foreach ( $forms as $form ) {
+			$result[$form->getId()->getSerialization()] = $form;
+		}
+
+		return $result;
+	}
+
+	private function getNextFormIdCounterDiff( Lexeme $from, Lexeme $to ) {
+		if ( $to->getNextFormId() <= $from->getNextFormId() ) {
+			return new Diff( [] );
+		}
+
+		return new Diff( [ new DiffOpChange( $from->getNextFormId(), $to->getNextFormId() ) ] );
 	}
 
 }
