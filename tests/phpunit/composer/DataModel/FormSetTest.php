@@ -5,6 +5,13 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
 
+/**
+ * @covers \Wikibase\Lexeme\DataModel\FormSet
+ *
+ * @group WikibaseLexeme
+ *
+ * @license GPL-2.0+
+ */
 class FormSetTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanNotCreateWithSomethingThatIsNotAForm() {

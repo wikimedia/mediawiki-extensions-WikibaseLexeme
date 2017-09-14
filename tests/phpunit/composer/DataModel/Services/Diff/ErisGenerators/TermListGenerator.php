@@ -7,10 +7,13 @@ use Eris\Generator\GeneratedValueSingle;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 
+/**
+ * @license GPL-2.0+
+ */
 class TermListGenerator implements Generator {
 
 	/**
-	 * @var TermGenerator
+	 * @var Generator
 	 */
 	private $termGenerator;
 
@@ -19,8 +22,11 @@ class TermListGenerator implements Generator {
 	}
 
 	/**
-	 * @param int The generation size
-	 * @param callable  a rand() function
+	 * @see Generator::__invoke
+	 *
+	 * @param int $size
+	 * @param callable $rand
+	 *
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
@@ -44,11 +50,10 @@ class TermListGenerator implements Generator {
 	}
 
 	/**
-	 * The conditions for terminating are either:
-	 * - returning the same GeneratedValueSingle passed in
-	 * - returning an empty GeneratedValueOptions
+	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T>
+	 * @param GeneratedValueSingle<T> $element
+	 *
 	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
 	 */
 	public function shrink( GeneratedValueSingle $element ) {
@@ -56,7 +61,8 @@ class TermListGenerator implements Generator {
 	}
 
 	/**
-	 * @param GeneratedValueSingle
+	 * @param GeneratedValueSingle $element
+	 *
 	 * @return bool
 	 */
 	public function contains( GeneratedValueSingle $element ) {

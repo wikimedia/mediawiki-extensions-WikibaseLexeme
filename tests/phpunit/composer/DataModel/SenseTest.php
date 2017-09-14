@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Sense
+ * @covers \Wikibase\Lexeme\DataModel\Sense
  *
  * @group WikibaseLexeme
  *

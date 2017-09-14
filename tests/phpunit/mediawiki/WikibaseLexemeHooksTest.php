@@ -8,6 +8,8 @@ use Wikibase\Lexeme\WikibaseLexemeHooks;
 /**
  * @covers \Wikibase\Lexeme\WikibaseLexemeHooks
  *
+ * @group WikibaseLexeme
+ *
  * @license GPL-2.0+
  */
 class WikibaseLexemeHooksTest extends \PHPUnit_Framework_TestCase {

@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 use Wikibase\Lexeme\DataModel\SenseId;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\SenseId
+ * @covers \Wikibase\Lexeme\DataModel\SenseId
  *
  * @group WikibaseLexeme
  *

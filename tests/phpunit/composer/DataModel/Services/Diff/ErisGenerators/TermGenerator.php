@@ -4,27 +4,35 @@ namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff\ErisGenerators;
 
 use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;
+use Eris\Generator\StringGenerator;
 use Wikibase\DataModel\Term\Term;
 
+/**
+ * @license GPL-2.0+
+ */
 class TermGenerator implements Generator {
 
 	/**
-	 * @var Generator\StringGenerator
+	 * @var Generator
 	 */
 	private $termValueGenerator;
+
 	/**
-	 * @var Generator\StringGenerator
+	 * @var Generator
 	 */
 	private $termLanguageGenerator;
 
 	public function __construct() {
-		$this->termValueGenerator = new Generator\StringGenerator();
+		$this->termValueGenerator = new StringGenerator();
 		$this->termLanguageGenerator = new LanguageCodeGenerator();
 	}
 
 	/**
-	 * @param int The generation size
-	 * @param callable  a rand() function
+	 * @see Generator::__invoke
+	 *
+	 * @param int $size
+	 * @param callable $rand
+	 *
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
@@ -37,11 +45,10 @@ class TermGenerator implements Generator {
 	}
 
 	/**
-	 * The conditions for terminating are either:
-	 * - returning the same GeneratedValueSingle passed in
-	 * - returning an empty GeneratedValueOptions
+	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T>
+	 * @param GeneratedValueSingle<T> $element
+	 *
 	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
 	 */
 	public function shrink( GeneratedValueSingle $element ) {
@@ -49,7 +56,8 @@ class TermGenerator implements Generator {
 	}
 
 	/**
-	 * @param GeneratedValueSingle
+	 * @param GeneratedValueSingle $element
+	 *
 	 * @return bool
 	 */
 	public function contains( GeneratedValueSingle $element ) {

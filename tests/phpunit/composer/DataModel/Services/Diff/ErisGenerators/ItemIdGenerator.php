@@ -7,20 +7,24 @@ use Eris\Generator\ChooseGenerator;
 use Eris\Generator\GeneratedValueSingle;
 use Wikibase\DataModel\Entity\ItemId;
 
+/**
+ * @license GPL-2.0+
+ */
 class ItemIdGenerator implements Generator {
 
+	/**
+	 * @var Generator
+	 */
 	private $chooseGenerator;
 
-	/**
-	 * ItemIdGenerator constructor.
-	 */
 	public function __construct() {
 		$this->chooseGenerator = new ChooseGenerator( 1, 2147483647 );
 	}
 
 	/**
-	 * @param $size
-	 * @param $rand
+	 * @param $size $size
+	 * @param $rand $rand
+	 *
 	 * @return GeneratedValueSingle
 	 */
 	public function generate( $size, $rand ) {
@@ -28,8 +32,11 @@ class ItemIdGenerator implements Generator {
 	}
 
 	/**
-	 * @param int The generation size
-	 * @param callable  a rand() function
+	 * @see Generator::__invoke
+	 *
+	 * @param int $size
+	 * @param callable $rand
+	 *
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
@@ -45,11 +52,10 @@ class ItemIdGenerator implements Generator {
 	}
 
 	/**
-	 * The conditions for terminating are either:
-	 * - returning the same GeneratedValueSingle passed in
-	 * - returning an empty GeneratedValueOptions
+	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T>
+	 * @param GeneratedValueSingle<T> $element
+	 *
 	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
 	 */
 	public function shrink( GeneratedValueSingle $element ) {
@@ -57,7 +63,8 @@ class ItemIdGenerator implements Generator {
 	}
 
 	/**
-	 * @param GeneratedValueSingle
+	 * @param GeneratedValueSingle $element
+	 *
 	 * @return bool
 	 */
 	public function contains( GeneratedValueSingle $element ) {

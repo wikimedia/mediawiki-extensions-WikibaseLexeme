@@ -19,7 +19,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher
  *
  * @group WikibaseLexeme
  *

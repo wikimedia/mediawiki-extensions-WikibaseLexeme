@@ -6,29 +6,35 @@ use DomainException;
 use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;
 
+/**
+ * @license GPL-2.0+
+ */
 class LanguageCodeGenerator implements Generator {
 
 	/**
-	 * @param int The generation size
-	 * @param callable  a rand() function
+	 * @see Generator::__invoke
+	 *
+	 * @param int $size
+	 * @param callable $rand
+	 *
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
 		$length = $rand( 2, 3 );
-
 		$built = '';
+
 		for ( $i = 0; $i < $length; $i++ ) {
 			$built .= chr( $rand( ord( 'a' ), ord( 'z' ) ) );
 		}
+
 		return GeneratedValueSingle::fromJustValue( $built, 'languageCode' );
 	}
 
 	/**
-	 * The conditions for terminating are either:
-	 * - returning the same GeneratedValueSingle passed in
-	 * - returning an empty GeneratedValueOptions
+	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T>
+	 * @param GeneratedValueSingle<T> $element
+	 *
 	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
 	 */
 	public function shrink( GeneratedValueSingle $element ) {
@@ -42,6 +48,7 @@ class LanguageCodeGenerator implements Generator {
 		if ( strlen( $element->unbox() ) <= 2 ) {
 			return $element;
 		}
+
 		return GeneratedValueSingle::fromJustValue(
 			substr( $element->unbox(), 0, -1 ),
 			'languageCode'
@@ -49,7 +56,8 @@ class LanguageCodeGenerator implements Generator {
 	}
 
 	/**
-	 * @param GeneratedValueSingle
+	 * @param GeneratedValueSingle $element
+	 *
 	 * @return bool
 	 */
 	public function contains( GeneratedValueSingle $element ) {
@@ -64,6 +72,7 @@ class LanguageCodeGenerator implements Generator {
 				return false;
 			}
 		}
+
 		return true;
 	}
 

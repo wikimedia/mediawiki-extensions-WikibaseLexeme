@@ -10,7 +10,9 @@ use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Form
+ * @covers \Wikibase\Lexeme\DataModel\Form
+ *
+ * @group WikibaseLexeme
  *
  * @license GPL-2.0+
  */

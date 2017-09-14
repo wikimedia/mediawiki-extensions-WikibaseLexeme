@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\LexemeId
+ * @covers \Wikibase\Lexeme\DataModel\LexemeId
  *
  * @group WikibaseLexeme
  *

@@ -15,7 +15,9 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer
+ *
+ * @group WikibaseLexeme
  *
  * @license GPL-2.0+
  */
