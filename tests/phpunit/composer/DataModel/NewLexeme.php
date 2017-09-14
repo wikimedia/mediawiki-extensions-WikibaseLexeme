@@ -157,7 +157,7 @@ class NewLexeme {
 	}
 
 	private function newRandomItemId() {
-		return new ItemId( 'Q' . mt_rand( 1, mt_getrandmax() ) );
+		return new ItemId( 'Q' . mt_rand( 1, ItemId::MAX ) );
 	}
 
 	public function __clone() {

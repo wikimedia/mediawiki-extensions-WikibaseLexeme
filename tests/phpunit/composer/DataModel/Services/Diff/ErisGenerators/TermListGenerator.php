@@ -30,6 +30,8 @@ class TermListGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
+		$generateTerm = $this->termGenerator;
+
 		$listSize = $rand( 0, $size );
 
 		$result = new TermList( [] );
@@ -39,10 +41,11 @@ class TermListGenerator implements Generator {
 		while ( $result->count() < $listSize && $trials < $maxTrials ) {
 			$trials++;
 			/** @var Term $term */
-			$term = $this->termGenerator->__invoke( $size, $rand )->unbox();
+			$term = $generateTerm( $size, $rand )->unbox();
 			if ( $result->hasTermForLanguage( $term->getLanguageCode() ) ) {
 				continue;
 			}
+
 			$result->setTerm( $term );
 		}
 

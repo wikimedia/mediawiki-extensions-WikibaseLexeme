@@ -8,7 +8,7 @@ use Wikibase\Lexeme\Tests\DataModel\Services\Diff\ErisGenerators\LexemeGenerator
 /**
  * @license GPL-2.0+
  */
-class ErisGenerators {
+class WikibaseLexemeGenerators {
 
 	public static function lexeme( LexemeId $lexemeId ) {
 		return new LexemeGenerator( $lexemeId );

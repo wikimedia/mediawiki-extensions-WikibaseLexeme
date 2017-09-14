@@ -15,16 +15,16 @@ class TermGenerator implements Generator {
 	/**
 	 * @var Generator
 	 */
-	private $termValueGenerator;
+	private $termLanguageGenerator;
 
 	/**
 	 * @var Generator
 	 */
-	private $termLanguageGenerator;
+	private $termTextGenerator;
 
 	public function __construct() {
-		$this->termValueGenerator = new StringGenerator();
 		$this->termLanguageGenerator = new LanguageCodeGenerator();
+		$this->termTextGenerator = new StringGenerator();
 	}
 
 	/**
@@ -36,11 +36,11 @@ class TermGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
-		$languageGenerator = $this->termLanguageGenerator;
-		$valueGenerator = $this->termValueGenerator;
+		$generateTermLanguage = $this->termLanguageGenerator;
+		$generateTermText = $this->termTextGenerator;
 
-		$languageCode = $languageGenerator( 3, $rand )->unbox();
-		$text = $valueGenerator( $size, $rand )->unbox();
+		$languageCode = $generateTermLanguage( 3, $rand )->unbox();
+		$text = $generateTermText( $size, $rand )->unbox();
 		return GeneratedValueSingle::fromJustValue( new Term( $languageCode, $text ), 'term' );
 	}
 

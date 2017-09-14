@@ -33,8 +33,8 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		$eris = new Facade();
 
 		$eris->forAll(
-				ErisGenerators::lexeme( new LexemeId( 'L1' ) ),
-				ErisGenerators::lexeme( new LexemeId( 'L1' ) )
+				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) ),
+				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) )
 			)
 			->then( function ( Lexeme $lexeme1, Lexeme $lexeme2 ) use ( $differ, $patcher ) {
 				$patch = $differ->diffEntities( $lexeme1, $lexeme2 );

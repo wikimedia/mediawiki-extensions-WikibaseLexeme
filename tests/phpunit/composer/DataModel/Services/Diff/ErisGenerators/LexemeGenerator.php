@@ -35,9 +35,9 @@ class LexemeGenerator implements Generator {
 	public function __construct( LexemeId $lexemeId ) {
 		$this->lexemeId = $lexemeId;
 
-		$this->lemmaListGenerator = new TermListGenerator();
 		$this->languageGenerator = new ItemIdGenerator();
 		$this->lexicalCategoryGenerator = new ItemIdGenerator();
+		$this->lemmaListGenerator = new TermListGenerator();
 	}
 
 	/**
@@ -49,9 +49,13 @@ class LexemeGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
-		$language = $this->languageGenerator->generate( $size, $rand )->unbox();
-		$lexicalCategory = $this->lexicalCategoryGenerator->generate( $size, $rand )->unbox();
-		$lemmas = $this->lemmaListGenerator->__invoke( $size, $rand )->unbox();
+		$generateLanguage = $this->languageGenerator;
+		$generateLexicalCategory = $this->lexicalCategoryGenerator;
+		$generateLemmaList = $this->lemmaListGenerator;
+
+		$language = $generateLanguage( $size, $rand )->unbox();
+		$lexicalCategory = $generateLexicalCategory( $size, $rand )->unbox();
+		$lemmas = $generateLemmaList( $size, $rand )->unbox();
 
 		$lexeme = new Lexeme( $this->lexemeId, $lemmas, $lexicalCategory, $language );
 		return GeneratedValueSingle::fromJustValue( $lexeme, 'lexeme' );

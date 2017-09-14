@@ -61,11 +61,12 @@ class LanguageCodeGenerator implements Generator {
 	 * @return bool
 	 */
 	public function contains( GeneratedValueSingle $element ) {
-		$aChar = ord( 'a' );
-		$zChar = ord( 'z' );
 		if ( !is_string( $element->unbox() ) ) {
 			return false;
 		}
+
+		$aChar = ord( 'a' );
+		$zChar = ord( 'z' );
 
 		foreach ( str_split( $element->unbox() ) as $char ) {
 			if ( $char < $aChar || $char > $zChar ) {

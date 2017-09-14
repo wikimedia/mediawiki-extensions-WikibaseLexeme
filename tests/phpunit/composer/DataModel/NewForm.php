@@ -21,9 +21,9 @@ use Wikibase\Repo\Tests\NewStatement;
 class NewForm {
 
 	/**
-	 * @var FormId
+	 * @var FormId|null
 	 */
-	private $formId;
+	private $formId = null;
 
 	/**
 	 * @var string[] Indexed by language

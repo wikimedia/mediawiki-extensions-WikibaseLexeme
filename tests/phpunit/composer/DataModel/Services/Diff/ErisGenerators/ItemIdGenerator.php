@@ -15,20 +15,10 @@ class ItemIdGenerator implements Generator {
 	/**
 	 * @var Generator
 	 */
-	private $chooseGenerator;
+	private $numericItemIdGenerator;
 
 	public function __construct() {
-		$this->chooseGenerator = new ChooseGenerator( 1, 2147483647 );
-	}
-
-	/**
-	 * @param $size $size
-	 * @param $rand $rand
-	 *
-	 * @return GeneratedValueSingle
-	 */
-	public function generate( $size, $rand ) {
-		return call_user_func( $this, $size, $rand );
+		$this->numericItemIdGenerator = new ChooseGenerator( 1, 2147483647 );
 	}
 
 	/**
@@ -40,12 +30,13 @@ class ItemIdGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
-		$chooseGenerator = $this->chooseGenerator;
-		/** @var GeneratedValueSingle $value */
-		$value = $chooseGenerator( $size, $rand );
-		return $value->map(
-			function ( $value ) {
-				return new ItemId( 'Q' . $value );
+		$generateNumericItemId = $this->numericItemIdGenerator;
+
+		/** @var GeneratedValueSingle $generatedValue */
+		$generatedValue = $generateNumericItemId( $size, $rand );
+		return $generatedValue->map(
+			function ( $numericId ) {
+				return new ItemId( 'Q' . $numericId );
 			},
 			'itemId'
 		);

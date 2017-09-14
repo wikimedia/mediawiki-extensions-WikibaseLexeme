@@ -19,9 +19,9 @@ use Wikibase\Repo\Tests\NewStatement;
 class NewSense {
 
 	/**
-	 * @var SenseId
+	 * @var SenseId|null
 	 */
-	private $senseId;
+	private $senseId = null;
 
 	/**
 	 * @var Term[] Indexed by language
@@ -51,10 +51,6 @@ class NewSense {
 	 */
 	public static function havingStatement( $arg ) {
 		return ( new self() )->withStatement( $arg );
-	}
-
-	private function __construct() {
-		$this->senseId = $this->generateSenseId();
 	}
 
 	public function __clone() {
@@ -107,17 +103,16 @@ class NewSense {
 	 * @return Sense
 	 */
 	public function build() {
+		$senseId = $this->senseId ?: $this->newRandomSenseId();
+
 		return new Sense(
-			$this->senseId,
+			$senseId,
 			new TermList( $this->glosses ),
 			new StatementList( $this->statements )
 		);
 	}
 
-	/**
-	 * @return SenseId
-	 */
-	private function generateSenseId() {
+	private function newRandomSenseId() {
 		return new SenseId( 'S' . mt_rand( 1, mt_getrandmax() ) );
 	}
 
