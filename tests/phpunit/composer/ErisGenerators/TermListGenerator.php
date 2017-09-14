@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff\ErisGenerators;
+namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;

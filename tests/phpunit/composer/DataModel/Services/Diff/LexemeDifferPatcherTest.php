@@ -7,6 +7,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer

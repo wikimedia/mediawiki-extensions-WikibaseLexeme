@@ -1,9 +1,8 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
+namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\Tests\DataModel\Services\Diff\ErisGenerators\LexemeGenerator;
 
 /**
  * @license GPL-2.0+
