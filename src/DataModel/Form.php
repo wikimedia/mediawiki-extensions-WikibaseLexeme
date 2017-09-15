@@ -82,6 +82,11 @@ class Form implements StatementListProvider {
 		return $this->grammaticalFeatures;
 	}
 
+	public function setGrammaticalFeatures( array $grammaticalFeatures ) {
+		//TODO Add uniqueness check because grammaticalFeatures is a set
+		$this->grammaticalFeatures = $grammaticalFeatures;
+	}
+
 	/**
 	 * @see StatementListProvider::getStatements()
 	 */
