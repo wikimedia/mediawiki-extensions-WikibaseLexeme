@@ -43,6 +43,10 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) )
 			)
 			->then( function ( Lexeme $lexeme1, Lexeme $lexeme2 ) use ( $differ, $patcher ) {
+				// Deep cloning is needed because $lexeme1 gets mutated in this test.
+				// Because of mutation shrinking will work incorrectly
+				$lexeme1 = unserialize( serialize( $lexeme1 ) );
+
 				$patch = $differ->diffEntities( $lexeme1, $lexeme2 );
 				$patcher->patchEntity( $lexeme1, $patch );
 

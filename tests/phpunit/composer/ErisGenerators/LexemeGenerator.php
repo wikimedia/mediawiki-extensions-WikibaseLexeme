@@ -95,7 +95,30 @@ class LexemeGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
 	 */
 	public function shrink( GeneratedValueSingle $element ) {
-		return $element;
+		/** @var Lexeme $lexeme */
+		$lexeme = $element->unbox();
+
+		$shrunkFormSet = $this->formSetGenerator->shrink(
+			GeneratedValueSingle::fromJustValue( new FormSet( $lexeme->getForms() ) )
+		);
+
+		$result = $shrunkFormSet
+			->map( function ( FormSet $formSet ) {
+				return new Lexeme(
+					new LexemeId( 'L1' ),
+					null,
+					new ItemId( 'Q1' ),
+					new ItemId( 'Q2' ),
+					null,
+					$formSet->maxFormIdNumber() + 1,
+					$formSet->toArray(),
+					[]
+				);
+			},
+			'lexeme'
+			);
+
+		return $result;
 	}
 
 	/**

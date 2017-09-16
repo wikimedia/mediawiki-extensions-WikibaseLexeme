@@ -43,7 +43,46 @@ class FormSetGenerator implements Generator {
 	}
 
 	public function shrink( GeneratedValueSingle $element ) {
-		return $element;
+		/** @var FormSet $formSet */
+		$formSet = $element->unbox();
+
+		if ( $formSet->count() === 0 ) {
+			return $element;
+		} elseif ( $formSet->count() === 1 ) {
+			return GeneratedValueSingle::fromValueAndInput(
+				new FormSet( [] ),
+				$element,
+				'FormSet'
+			);
+		} elseif ( $formSet->count() === 2 ) {
+			$shrunk1 = new FormSet( [ $formSet->toArray()[0] ] );
+			$shrunk2 = new FormSet( [ $formSet->toArray()[1] ] );
+			return new GeneratedValueOptions( [
+				GeneratedValueSingle::fromValueAndInput( $shrunk1, $element, 'FormSet' ),
+				GeneratedValueSingle::fromValueAndInput( $shrunk2, $element, 'FormSet' ),
+			] );
+		} else {
+			$forms = $formSet->toArray();
+			$chunkSize = round( count( $forms ) / 3 );
+
+			$chunk1 = array_slice( $forms, 0, $chunkSize );
+			$chunk2 = array_slice( $forms, $chunkSize, $chunkSize );
+			$chunk3 = array_slice( $forms, $chunkSize * 2 );
+
+			$shrunk1 = new FormSet( array_merge( $chunk1, $chunk2 ) );
+			$shrunk2 = new FormSet( array_merge( $chunk1, $chunk3 ) );
+			$shrunk3 = new FormSet( array_merge( $chunk2, $chunk3 ) );
+
+			array_pop( $forms );
+			$shrunkOneLess = new FormSet( $forms );
+
+			return new GeneratedValueOptions( [
+				 GeneratedValueSingle::fromValueAndInput( $shrunk1, $element, 'FormSet' ),
+				 GeneratedValueSingle::fromValueAndInput( $shrunk2, $element, 'FormSet' ),
+				 GeneratedValueSingle::fromValueAndInput( $shrunk3, $element, 'FormSet' ),
+				 GeneratedValueSingle::fromValueAndInput( $shrunkOneLess, $element, 'FormSet' ),
+			] );
+		}
 	}
 
 }
