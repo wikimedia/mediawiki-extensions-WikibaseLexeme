@@ -481,6 +481,31 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( [], $lexeme->getForms() );
 	}
 
+	public function testHasForm_LexemeDoesnHaveForms_ReturnsFalse() {
+		$lexeme = NewLexeme::create()->build();
+
+		$this->assertFalse( $lexeme->hasForm( new FormId( 'F1' ) ) );
+	}
+
+	public function testHasForm_LexemeHaveFormWithThatId_ReturnsTrue() {
+		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
+
+		$this->assertTrue( $lexeme->hasForm( new FormId( 'F1' ) ) );
+	}
+
+	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {
+		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
+
+		$this->assertInstanceOf( Form::class, $lexeme->getForm( new FormId( 'F1' ) ) );
+	}
+
+	public function testGetForm_LexemeDoesntHaveFormWithThatId_ThrowsAnException() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->setExpectedException( \OutOfRangeException::class );
+		$lexeme->getForm( new FormId( 'F1' ) );
+	}
+
 	public function testPatch_IncreaseNextFormIdTo_GivenLexemWithGreaterId_Increases() {
 		$lexemeWithoutForm = NewLexeme::create()->build();
 		$this->assertEquals( 1, $lexemeWithoutForm->getNextFormId() );

@@ -68,4 +68,15 @@ class FormSet {
 		unset( $this->forms[$formId->getSerialization()] );
 	}
 
+	/**
+	 * @param FormId $formId
+	 *
+	 * @return Form|null
+	 */
+	public function getById( FormId $formId ) {
+		return isset( $this->forms[$formId->getSerialization()] ) ?
+			$this->forms[$formId->getSerialization()]
+			: null;
+	}
+
 }
