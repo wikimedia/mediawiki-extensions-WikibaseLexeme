@@ -32,7 +32,9 @@ class FormSet {
 	 * @return Form[]
 	 */
 	public function toArray() {
-		return array_values( $this->forms );
+		$forms = $this->forms;
+		ksort( $forms );
+		return array_values( $forms );
 	}
 
 	public function count() {
