@@ -8,6 +8,8 @@ use Eris\Generator\GeneratedValueSingle;
 
 class CartesianProductTest extends \PHPUnit_Framework_TestCase {
 
+	use ErisTest;
+
 	public function testCanHandleOneGeneratedValueOptions() {
 		$this->skipTestIfErisIsNotInstalled();
 
@@ -143,19 +145,6 @@ class CartesianProductTest extends \PHPUnit_Framework_TestCase {
 		return new GeneratedValueOptions( [
 				GeneratedValueSingle::fromJustValue( $value )
 		] );
-	}
-
-	protected function skipTestIfErisIsNotInstalled() {
-		if ( !self::erisIsInstalled() ) {
-			$this->markTestSkipped( 'Package `giorgiosironi/eris` is not installed. Skipping' );
-		}
-	}
-
-	/**
-	 * @return bool
-	 */
-	private static function erisIsInstalled() {
-		return class_exists( Facade::class );
 	}
 
 }

@@ -2,14 +2,12 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
-use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
-use Eris\Facade;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -24,21 +22,17 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
  */
 class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 
-	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
-		if ( !class_exists( Facade::class ) ) {
-			$this->markTestSkipped( 'Package `giorgiosironi/eris` is not installed. Skipping' );
-		}
+	use ErisTest;
 
+	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
 		$differ = new LexemeDiffer();
 		$patcher = new LexemePatcher();
 
-		//Lines below is needed to reproduce failures. In case of failure seed will be in the output
-		//$seed = 1504876177284329;
-		//putenv("ERIS_SEED=$seed");
+		//Line below is needed to reproduce failures. In case of failure seed will be in the output
+		//$this->eris()->seed(1504876177284329)->forAll( ...
 
-		$eris = new Facade();
-
-		$eris->forAll(
+		$this->eris()
+			->forAll(
 				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) ),
 				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) )
 			)
