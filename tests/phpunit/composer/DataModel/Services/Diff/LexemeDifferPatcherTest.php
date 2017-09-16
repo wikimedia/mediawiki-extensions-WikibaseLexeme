@@ -159,4 +159,40 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testDiffAndPatchCanPatchAllForms() {
+		$differ = new LexemeDiffer();
+		$patcher = new LexemePatcher();
+		$initialLexeme = NewLexeme::create();
+		$lexeme1 = $initialLexeme
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'value-1-1' )
+			)->withForm(
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'value-1-2' )
+			)->build();
+		$lexeme2 = $initialLexeme
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'value-2-1' )
+			)->withForm(
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'value-2-2' )
+			)->build();
+
+		$diff = $differ->diffLexemes( $lexeme1, $lexeme2 );
+		$patcher->patchEntity( $lexeme1, $diff );
+
+		$form1 = $lexeme1->getForm( new FormId( 'F1' ) );
+		$form2 = $lexeme1->getForm( new FormId( 'F2' ) );
+		$this->assertEquals(
+			'value-2-1',
+			$form1->getRepresentations()->getByLanguage( 'en' )->getText()
+		);
+		$this->assertEquals(
+			'value-2-2',
+			$form2->getRepresentations()->getByLanguage( 'en' )->getText()
+		);
+	}
+
 }
