@@ -40,7 +40,10 @@ class TermGenerator implements Generator {
 		$generateTermText = $this->termTextGenerator;
 
 		$languageCode = $generateTermLanguage( 3, $rand )->unbox();
-		$text = $generateTermText( $size, $rand )->unbox();
+		do {
+			$text = $generateTermText( $size + 1, $rand )->unbox();
+		} while ( $text === '' );
+
 		return GeneratedValueSingle::fromJustValue( new Term( $languageCode, $text ), 'term' );
 	}
 

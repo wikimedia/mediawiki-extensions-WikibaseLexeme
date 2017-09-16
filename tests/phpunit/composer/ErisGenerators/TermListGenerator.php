@@ -17,8 +17,14 @@ class TermListGenerator implements Generator {
 	 */
 	private $termGenerator;
 
-	public function __construct() {
+	/**
+	 * @var int
+	 */
+	private $minimalSize;
+
+	public function __construct( $minimalSize = 0 ) {
 		$this->termGenerator = new TermGenerator();
+		$this->minimalSize = $minimalSize;
 	}
 
 	/**
@@ -32,7 +38,8 @@ class TermListGenerator implements Generator {
 	public function __invoke( $size, $rand ) {
 		$generateTerm = $this->termGenerator;
 
-		$listSize = $rand( 0, $size );
+		$size = max( $this->minimalSize, $size );
+		$listSize = $rand( $this->minimalSize, $size );
 
 		$result = new TermList( [] );
 
