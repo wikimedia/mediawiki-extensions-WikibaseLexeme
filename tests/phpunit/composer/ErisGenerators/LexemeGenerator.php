@@ -101,12 +101,17 @@ class LexemeGenerator implements Generator {
 		$shrunkFormSet = $this->formSetGenerator->shrink(
 			GeneratedValueSingle::fromJustValue( new FormSet( $lexeme->getForms() ) )
 		);
+		$shrunkLemmas = $this->lemmaListGenerator->shrink(
+			GeneratedValueSingle::fromJustValue( $lexeme->getLemmas() )
+		);
 
-		$result = $shrunkFormSet
-			->map( function ( FormSet $formSet ) {
+		$result = CartesianProduct::create(
+			$shrunkLemmas,
+			$shrunkFormSet
+		)->map( function ( TermList $lemmas, FormSet $formSet ) {
 				return new Lexeme(
 					new LexemeId( 'L1' ),
-					null,
+					$lemmas,
 					new ItemId( 'Q1' ),
 					new ItemId( 'Q2' ),
 					null,
@@ -114,7 +119,7 @@ class LexemeGenerator implements Generator {
 					$formSet->toArray(),
 					[]
 				);
-			},
+		},
 			'lexeme'
 			);
 

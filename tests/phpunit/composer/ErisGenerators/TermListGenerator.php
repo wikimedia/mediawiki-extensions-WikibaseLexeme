@@ -67,7 +67,37 @@ class TermListGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
 	 */
 	public function shrink( GeneratedValueSingle $element ) {
-		return $element;
+		/** @var TermList $termList */
+		$termList = $element->unbox();
+
+		if ( $termList->count() === 0 ) {
+			return $element;
+		} elseif ( $termList->count() === 1 ) {
+			return GeneratedValueSingle::fromValueAndInput(
+				new TermList( [] ),
+				$element,
+				'TermList'
+			);
+		} else {
+
+			$terms = iterator_to_array( $termList );
+
+			$splitIndex = (int)( count( $terms ) / 2 );
+			$terms1 = array_slice( $terms, 0, $splitIndex );
+			$terms2 = array_slice( $terms, $splitIndex );
+
+			$shrunk1 = new TermList( $terms1 );
+			$shrunk2 = new TermList( $terms2 );
+
+			array_pop( $terms );
+			$shrunkOneLess = new TermList( $terms );
+
+			return new Generator\GeneratedValueOptions( [
+				GeneratedValueSingle::fromValueAndInput( $shrunk1, $element, 'TermList' ),
+				GeneratedValueSingle::fromValueAndInput( $shrunk2, $element, 'TermList' ),
+				GeneratedValueSingle::fromValueAndInput( $shrunkOneLess, $element, 'TermList' ),
+			] );
+		}
 	}
 
 	/**
