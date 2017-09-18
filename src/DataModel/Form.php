@@ -53,11 +53,10 @@ class Form implements StatementListProvider {
 			'$representations',
 			'Form must have at least one representation'
 		);
-		Assert::parameterElementType( ItemId::class, $grammaticalFeatures, '$grammaticalFeatures' );
 
 		$this->id = $id;
 		$this->representations = $representations;
-		$this->grammaticalFeatures = $grammaticalFeatures;
+		$this->setGrammaticalFeatures( $grammaticalFeatures );
 		$this->statementList = $statementList ?: new StatementList();
 	}
 
@@ -83,8 +82,20 @@ class Form implements StatementListProvider {
 	}
 
 	public function setGrammaticalFeatures( array $grammaticalFeatures ) {
-		//TODO Add uniqueness check because grammaticalFeatures is a set
-		$this->grammaticalFeatures = $grammaticalFeatures;
+		Assert::parameterElementType( ItemId::class, $grammaticalFeatures, '$grammaticalFeatures' );
+
+		$result = [];
+		foreach ( $grammaticalFeatures as $grammaticalFeature ) {
+			if ( array_search( $grammaticalFeature, $result ) === false ) {
+				$result[] = $grammaticalFeature;
+			}
+		}
+
+		usort( $result, function ( ItemId $a, ItemId $b ) {
+			return strcmp( $a->getSerialization(), $b->getSerialization() );
+		} );
+
+		$this->grammaticalFeatures = $result;
 	}
 
 	/**
