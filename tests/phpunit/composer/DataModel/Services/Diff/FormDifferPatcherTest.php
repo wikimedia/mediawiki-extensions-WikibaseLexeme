@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
-use Eris\Facade;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -12,25 +11,22 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 
-	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
-		if ( !class_exists( Facade::class ) ) {
-			$this->markTestSkipped( 'Package `giorgiosironi/eris` is not installed. Skipping' );
-		}
+	use ErisTest;
 
+	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
 		$differ = new FormDiffer();
 		$patcher = new FormPatcher();
 
-		//Lines below is needed to reproduce failures. In case of failure seed will be in the output
-		//$seed = 1504876177284329;
-		//putenv("ERIS_SEED=$seed");
+		//Line below is needed to reproduce failures. In case of failure seed will be in the output
+		//$this->eris()->seed(1504876177284329)->forAll( ...
 
-		$eris = new Facade();
-
-		$eris->forAll(
+		$this->eris()
+			->forAll(
 			WikibaseLexemeGenerators::form( new FormId( 'F1' ) ),
 			WikibaseLexemeGenerators::form( new FormId( 'F1' ) )
 		)
