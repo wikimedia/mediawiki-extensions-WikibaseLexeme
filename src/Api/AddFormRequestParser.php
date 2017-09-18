@@ -33,7 +33,7 @@ class AddFormRequestParser {
 		}
 
 		$data = json_decode( $params['data'], true );
-		if ( $data === null ) {
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
 			return AddFormRequestParserResult::newWithErrors( [ 'data-invalid-json' ] );
 		}
 
