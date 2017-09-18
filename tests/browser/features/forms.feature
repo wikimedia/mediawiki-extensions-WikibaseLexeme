@@ -5,6 +5,7 @@ Feature: Forms of a Lexeme
     Given I am on a Lexeme page
       And The copyright warning has been dismissed
       And Anonymous edit warnings are disabled
+      And VisualEditor welcome message is disabled
 
   @integration
   Scenario: Basic Forms section
@@ -85,3 +86,21 @@ Feature: Forms of a Lexeme
   Scenario: I can see each Form's statements
     Given I have a Lexeme with a Form
     Then for each Form there is a statement list
+
+  @integration
+  Scenario: FormId counter is not decremented when change is undone
+    Given I am on a Lexeme page
+     Then I add a Form
+     Then I go to the history page
+      And I undo the latest change
+     When I add a Form
+     Then the new Form has the ID greater than the previous one
+
+  @integration
+  Scenario: FormId counter is not decremented when old revision is restored
+    Given I am on a Lexeme page
+      And I add a Form
+     Then I go to the history page
+      And I restore the previous revision
+     When I add a Form
+     Then the new Form has the ID greater than the previous one

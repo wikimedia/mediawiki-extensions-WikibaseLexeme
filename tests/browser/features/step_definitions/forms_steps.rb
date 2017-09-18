@@ -152,3 +152,38 @@ end
 Then(/^the first Form should no longer have the removed grammatical feature$/) do
   expect(@form_I_am_currently_editing.grammatical_feature?(@grammatical_feature_to_delete)).to be false
 end
+
+Then(/^I add a Form$/) do
+  step 'I click the Forms list add button'
+  step 'I enter "some representation" as the "en" form representation'
+  step 'I save the Form'
+end
+
+Then(/^I go to the history page$/) do
+  @last_form_id_before_undo = on(LexemePage).forms[-1].id_element.when_visible.text
+  on(LexemePage).view_history
+end
+
+
+Then(/^I undo the latest change$/) do
+  # pick the latest revision and click "undo" link
+  on(EntityHistoryPage).revisions[0].undo
+  # confirm "undo"
+  on(UndoPage).save_page
+  # got back to the initial Lexeme page
+end
+
+Then(/^I restore the previous revision$/) do
+  # pick the previous revision and click "restore" link
+  on(EntityHistoryPage).revisions[1].restore
+  # confirm "restore/undo"
+  on(UndoPage).save_page
+  # got back to the initial Lexeme page
+end
+
+Then(/^the new Form has the ID greater than the previous one$/) do
+  last_form_id = on(LexemePage).forms[-1].id_element.when_visible.text
+
+  expect(last_form_id).to be > @last_form_id_before_undo
+end
+

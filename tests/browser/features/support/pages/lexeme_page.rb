@@ -125,6 +125,8 @@ class LexemePage
   include PageObject
   include EntityPage
 
+  a(:view_history, css: '#ca-history a')
+
   span(:forms_header, id: 'forms')
   div(:forms_container, class: 'wikibase-lexeme-forms')
   h3(:form_representation, class: 'wikibase-lexeme-form-representation')
