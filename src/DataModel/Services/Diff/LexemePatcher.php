@@ -141,7 +141,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 		}
 	}
 
-	private function patchForms( Lexeme $entity, LexemeDiff $patch ) {
+	private function patchForms( Lexeme $lexeme, LexemeDiff $patch ) {
 		$formsDiff = $patch->getFormsDiff();
 		foreach ( $formsDiff as $formDiff ) {
 			switch ( get_class( $formDiff ) ) {
@@ -149,7 +149,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 					/** @var DiffOpAdd $formDiff */
 					/** @var Form $form */
 					$form = $formDiff->getNewValue();
-					$entity->patch(
+					$lexeme->patch(
 						function ( LexemePatchAccess $patchAccess ) use ( $form ) {
 							$patchAccess->addForm( $form );
 						}
@@ -159,15 +159,15 @@ class LexemePatcher implements EntityPatcherStrategy {
 					/** @var DiffOpRemove $formDiff */
 					/** @var Form $form */
 					$form = $formDiff->getOldValue();
-					$entity->removeForm( $form->getId() );
+					$lexeme->removeForm( $form->getId() );
 					break;
 				case ChangeFormDiffOp::class:
 					/** @var ChangeFormDiffOp $formDiff */
 					/** @var Form $form */
-					//TODO: This implementation is incomplete/incorrect.
-					//TODO: Proper implementation of Forms patching is needed
-					$form = $entity->getForms()[0];
-					$this->formPatcher->patch( $form, $formDiff );
+					if ( $lexeme->hasForm( $formDiff->getFormId() ) ) {
+						$form = $lexeme->getForm( $formDiff->getFormId() );
+						$this->formPatcher->patch( $form, $formDiff );
+					}
 					break;
 				default:
 					throw new PatcherException( 'Invalid forms list diff: ' . get_class( $formDiff ) );

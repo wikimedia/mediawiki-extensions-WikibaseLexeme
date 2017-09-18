@@ -24,6 +24,13 @@ class ChangeFormDiffOp implements DiffOp {
 	}
 
 	/**
+	 * @return FormId
+	 */
+	public function getFormId() {
+		return $this->formId;
+	}
+
+	/**
 	 * @return Diff
 	 */
 	public function getRepresentationDiffOps() {
