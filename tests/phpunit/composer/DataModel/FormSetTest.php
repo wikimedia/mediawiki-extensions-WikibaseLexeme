@@ -88,4 +88,23 @@ class FormSetTest extends \PHPUnit_Framework_TestCase {
 		$this->assertCount( 0, $formSet->toArray() );
 	}
 
+	public function testIndependentlyOnFormAdditionOrder_TwoSetsAreEqualIfTheyHaveTheSameForms() {
+		$form1 = NewForm::havingId( 'F1' )->build();
+		$form2 = NewForm::havingId( 'F2' )->build();
+
+		$formSet1 = new FormSet( [ $form1, $form2 ] );
+		$formSet2 = new FormSet( [ $form2, $form1 ] );
+
+		$this->assertEquals( $formSet1, $formSet2 );
+	}
+
+	public function testToArray_ReturnedFormsAreSortedByTheirId() {
+		$form1 = NewForm::havingId( 'F1' )->build();
+		$form2 = NewForm::havingId( 'F2' )->build();
+
+		$formSet2 = new FormSet( [ $form2, $form1 ] );
+
+		$this->assertEquals( [ $form1, $form2 ], $formSet2->toArray() );
+	}
+
 }
