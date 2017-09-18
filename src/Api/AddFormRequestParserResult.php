@@ -29,6 +29,12 @@ class AddFormRequestParserResult {
 	}
 
 	public function getRequest() {
+		if ( $this->errors ) {
+			throw new \LogicException(
+				'There have been errors when parsing the request. Call getErrors to handle them'
+			);
+		}
+
 		return $this->request;
 	}
 
