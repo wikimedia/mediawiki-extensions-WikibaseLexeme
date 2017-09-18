@@ -46,7 +46,32 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 				$patch = $differ->diffEntities( $lexeme1, $lexeme2 );
 				$patcher->patchEntity( $lexeme1, $patch );
 
-				$this->assertTrue( $lexeme1->equals( $lexeme2 ), 'Lexemes are not equal' );
+				$this->assertTrue(
+					$lexeme1->getLanguage()->equals( $lexeme2->getLanguage() ),
+					'Lexemes have different languages'
+				);
+				$this->assertTrue(
+					$lexeme1->getLexicalCategory()->equals( $lexeme2->getLexicalCategory() ),
+					'Lexemes have different lexical categories'
+				);
+				$this->assertTrue(
+					$lexeme1->getStatements()->equals( $lexeme2->getStatements() ),
+					'Lexemes have different statements'
+				);
+				$this->assertTrue(
+					$lexeme1->getLemmas()->equals( $lexeme2->getLemmas() ),
+					'Lexemes have different lemmas'
+				);
+
+				$this->assertEquals(
+					$lexeme2->getForms(),
+					$lexeme1->getForms(),
+					'Lexemes have different forms'
+				);
+				$this->assertGreaterThanOrEqual(
+					$lexeme2->getNextFormId(),
+					$lexeme1->getNextFormId()
+				);
 			} );
 	}
 

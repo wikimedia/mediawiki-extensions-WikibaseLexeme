@@ -11,14 +11,15 @@ use Wikibase\DataModel\Entity\ItemId;
  * @license GPL-2.0+
  */
 class ItemIdGenerator implements Generator {
+	const MAX_ITEM_ID = 2147483647;
 
 	/**
 	 * @var Generator
 	 */
 	private $numericItemIdGenerator;
 
-	public function __construct() {
-		$this->numericItemIdGenerator = new ChooseGenerator( 1, 2147483647 );
+	public function __construct( $maxItemId = self::MAX_ITEM_ID ) {
+		$this->numericItemIdGenerator = new ChooseGenerator( 1, $maxItemId );
 	}
 
 	/**

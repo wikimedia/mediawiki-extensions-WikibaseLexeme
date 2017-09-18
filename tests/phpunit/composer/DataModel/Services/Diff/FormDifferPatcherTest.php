@@ -2,16 +2,45 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
+use Eris\Facade;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
+
+	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
+		if ( !class_exists( Facade::class ) ) {
+			$this->markTestSkipped( 'Package `giorgiosironi/eris` is not installed. Skipping' );
+		}
+
+		$differ = new FormDiffer();
+		$patcher = new FormPatcher();
+
+		//Lines below is needed to reproduce failures. In case of failure seed will be in the output
+		//$seed = 1504876177284329;
+		//putenv("ERIS_SEED=$seed");
+
+		$eris = new Facade();
+
+		$eris->forAll(
+			WikibaseLexemeGenerators::form( new FormId( 'F1' ) ),
+			WikibaseLexemeGenerators::form( new FormId( 'F1' ) )
+		)
+			->then( function ( Form $form1, Form $form2 ) use ( $differ, $patcher ) {
+				$patch = $differ->diff( $form1, $form2 );
+				$patcher->patch( $form1, $patch );
+
+				$this->assertEquals( $form1, $form2 );
+			} );
+	}
 
 	public function testDiffAndPatchCanChangeRepresentations() {
 		$differ = new FormDiffer();
