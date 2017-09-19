@@ -138,7 +138,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
 				formView,
-				fakeFormModelCreator( lexemeId ),
+				new wb.lexeme.entityChangers.FormChanger( this._api, lexemeId ),
 				removeCallback.bind( null, formView ),
 				form,
 				startEditingCallback
@@ -151,19 +151,6 @@
 
 		return formView;
 	};
-
-	function fakeFormModelCreator( lexemeId ) {
-		return { // FIXME: replace with EntityChanger
-			save: function ( form ) {
-				var deferred = $.Deferred();
-				if ( !form.getId() ) {
-					form._id = lexemeId + '-F' + Math.round( Math.random() * 100 );
-				}
-				deferred.resolve( form );
-				return deferred.promise();
-			}
-		};
-	}
 
 	SELF.prototype.getSenseView = function (
 		lexemeId,

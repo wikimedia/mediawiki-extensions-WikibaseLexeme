@@ -60,6 +60,18 @@
 			"scripts": "__namespace.js",
 			"dependencies": "wikibase"
 		},
+
+		"wikibase.lexeme.entityChangers.FormChanger": {
+			"scripts": [
+				"entityChangers/__namespace.js",
+				"entityChangers/FormChanger.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme",
+				"wikibase.lexeme.serialization.FormSerializer"
+			]
+		},
+
 		"wikibase.lexeme.lexemeview": {
 			"dependencies": [
 				"jquery.wikibase.lexemeview",
@@ -240,6 +252,19 @@
 				"wikibase.lexeme.serialization.LexemeDeserializer"
 			]
 		},
+
+		"wikibase.lexeme.serialization.FormSerializer": {
+			"scripts": [
+				"serialization/__namespace.js",
+				"serialization/FormSerializer.js"
+			],
+			"dependencies": [
+				"util.inherit",
+				"wikibase.lexeme",
+				"wikibase.lexeme.datamodel.Form",
+				"wikibase.serialization.Serializer"
+			]
+		},
 		"wikibase.lexeme.serialization.LexemeDeserializer": {
 			"scripts": [
 				"serialization/__namespace.js",
@@ -256,6 +281,7 @@
 				"wikibase.serialization.TermMapDeserializer"
 			]
 		},
+
 		"wikibase.lexeme.widgets.ItemSelectorWidget": {
 			"scripts": [
 				"widgets/__namespace.js",
@@ -334,6 +360,7 @@
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
+				"wikibase.lexeme.entityChangers.FormChanger",
 				"wikibase.view.ControllerViewFactory"
 			]
 		},
