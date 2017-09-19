@@ -113,9 +113,10 @@ class AddForm extends ApiBase {
 
 		$lexeme = $this->entitySavingHelper->loadEntity( $request->getLexemeId() );
 		$newForm = $request->addFormTo( $lexeme );
+		$summary = new AddFormSummary( $lexeme->getId(), $newForm );
 		//FIXME: Handle failure
 		//FIXME: ACHTUNG! attemptSaveEntity() uses 'baserevid' internally which should not be used!
-		$status = $this->entitySavingHelper->attemptSaveEntity( $lexeme, new Summary() );
+		$status = $this->entitySavingHelper->attemptSaveEntity( $lexeme, $summary );
 
 		$apiResult = $this->getResult();
 

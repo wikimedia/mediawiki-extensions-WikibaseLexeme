@@ -46,5 +46,6 @@
 	"wikibase-lexeme-api-addform-representation-text-missing": "No representation string provided for representation at position $1",
 	"wikibase-lexeme-api-addform-representation-language-missing": "No language provided for representation at position $1",
 	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Invalid grammatical feature: $1",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Not an item ID: $1"
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Not an item ID: $1",
+	"wikibase-lexeme-summary-add-form": "Added new form $3 with {{PLURAL:$1|representation|representations}}"
 }
