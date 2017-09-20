@@ -40,7 +40,7 @@
 				lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
 
 			if ( form.getId() ) {
-				return form;// TODO: implement edit form
+				return $.Deferred().resolve( form ).promise();// TODO: implement edit form
 			}
 
 			var serializedForm = formSerializer.serialize( form );

@@ -69,7 +69,7 @@ When(/^I save the Form$/) do
 end
 
 Then(/^"(.*?)" should be displayed as the "(.*?)" representation of the Form$/) do |value, language|
-  has_representation_with_value = @form_I_am_currently_editing.representations.any? do |representation|
+  has_representation_with_value = on(LexemePage).forms.map { |f| f.representations.to_a }.to_a.flatten.any? do |representation|
     representation.value_element.when_visible.text == value
     representation.language_element.when_visible.text == language
   end
