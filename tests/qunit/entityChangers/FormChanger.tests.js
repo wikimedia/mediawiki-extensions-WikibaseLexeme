@@ -31,17 +31,18 @@
 		var gotParameters = callArguments[ 1 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( 'csrf', gotTokenType, 'Token type' );
-		assert.equal( 1, gotParameters.bot, 'BOT flag' );
-		assert.equal( lexemeId, gotParameters.lexemeId, 'lexemeId parameter' );
+		assert.equal( gotTokenType, 'csrf', 'Token type' );
+		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
+		assert.equal( gotParameters.bot, 1, 'BOT flag' );
+		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
 		assert.deepEqual(
-			[ { language: 'en', representation: 'test representation' } ],
 			gotData.representations,
+			[ { language: 'en', representation: 'test representation' } ],
 			'Representation list'
 		);
 		assert.deepEqual(
-			[ 'Q1', 'Q2' ],
 			gotData.grammaticalFeatures,
+			[ 'Q1', 'Q2' ],
 			'Grammatical feature set'
 		);
 	} );
@@ -85,5 +86,55 @@
 			done();
 		} ).catch( done );
 	} );
+
+	QUnit.test(
+		'New form - save fails with errors - converts errors to single RepoApiError',
+		function ( assert ) {
+			var done = assert.async();
+
+			var api = {
+				postWithToken: function () {
+					return $.Deferred().reject(
+						'some-generic-error-code',
+						{
+							errors: [
+								createError( 'error-code-1', 'Some text 1' ),
+								createError( 'error-code-1', 'Some text 2' )
+							],
+							'*': 'Some info'
+						}
+					).promise();
+				}
+			};
+
+			var changer = new FormChanger( api, 'L1' );
+
+			var form = new Form( null, null, [] );
+
+			changer.save( form ).catch( function ( error ) {
+				assert.ok(
+					error instanceof wb.api.RepoApiError,
+					'Error is instance of RepoApiError'
+				);
+				assert.ok(
+					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
+					'Detailed message contains text of the first error'
+				);
+				assert.ok(
+					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
+					'Detailed message contains text of the second error'
+				);
+				done();
+			} );
+
+			function createError( code, text ) {
+				return {
+					code: code,
+					data: {},
+					module: 'wblexemeaddform',
+					'*': text
+				};
+			}
+		} );
 
 }( jQuery, wikibase, QUnit, sinon ) );

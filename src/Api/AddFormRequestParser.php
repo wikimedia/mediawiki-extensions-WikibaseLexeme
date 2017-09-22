@@ -4,8 +4,21 @@ namespace Wikibase\Lexeme\Api;
 
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Api\Error\ApiError;
+use Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation;
+use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
+use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
+use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
+use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
+use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
+use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
@@ -13,13 +26,21 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  */
 class AddFormRequestParser {
 
+	const PARAM_DATA = 'data';
+	const PARAM_LEXEME_ID = 'lexemeId';
 	/**
 	 * @var EntityIdParser
 	 */
 	private $entityIdParser;
 
+	/**
+	 * @var ItemIdParser
+	 */
+	private $itemIdParser;
+
 	public function __construct( EntityIdParser $entityIdParser ) {
 		$this->entityIdParser = $entityIdParser;
+		$this->itemIdParser = new ItemIdParser();
 	}
 
 	/**
@@ -27,14 +48,20 @@ class AddFormRequestParser {
 	 * @return AddFormRequestParserResult
 	 */
 	public function parse( array $params ) {
+		//TODO: validate language. How?
+		//TODO: validate if all grammatical features exist
 		$errors = $this->validateRequiredFieldsPresent( $params );
 		if ( $errors ) {
 			return AddFormRequestParserResult::newWithErrors( $errors );
 		}
 
-		$data = json_decode( $params['data'], true );
-		if ( json_last_error() !== JSON_ERROR_NONE ) {
-			return AddFormRequestParserResult::newWithErrors( [ 'data-invalid-json' ] );
+		$data = json_decode( $params[self::PARAM_DATA] );
+		if ( !is_object( $data ) ) {
+			return AddFormRequestParserResult::newWithErrors(
+				[
+					new ParameterIsNotAJsonObject( self::PARAM_DATA, $params[self::PARAM_DATA] )
+				]
+			);
 		}
 
 		$errors = $this->validateDataStructure( $data );
@@ -42,9 +69,9 @@ class AddFormRequestParser {
 			return AddFormRequestParserResult::newWithErrors( $errors );
 		}
 
-		$lexemeId = $this->parseLexemeId( $params['lexemeId'], $errors );
-		$representations = $this->parseRepresentations( $data['representations'], $errors );
-		$grammaticalFeatures = $this->parseGrammaticalFeatures( $data['grammaticalFeatures'], $errors );
+		$lexemeId = $this->parseLexemeId( $params[self::PARAM_LEXEME_ID], $errors );
+		$representations = $this->parseRepresentations( $data->representations, $errors );
+		$grammaticalFeatures = $this->parseGrammaticalFeatures( $data->grammaticalFeatures, $errors );
 
 		if ( $errors ) {
 			return AddFormRequestParserResult::newWithErrors( $errors );
@@ -55,23 +82,29 @@ class AddFormRequestParser {
 		);
 	}
 
-	private function validateDataStructure( $data ) {
+	private function validateDataStructure( \stdClass $data ) {
 		$errors = [];
 
-		if ( !is_array( $data ) ) {
-			return [ 'data-not-array' ];
+		if ( !property_exists( $data, 'representations' ) ) {
+			$errors[] = new JsonFieldIsRequired( self::PARAM_DATA, [ 'representations' ] );
+		} elseif ( !is_array( $data->representations ) ) {
+			$errors[] = new JsonFieldHasWrongType(
+				self::PARAM_DATA,
+				[ 'representations' ],
+				'array',
+				gettype( $data->representations )
+			);
 		}
 
-		if ( !array_key_exists( 'representations', $data ) ) {
-			$errors[] = 'data-representations-key-missing';
-		} elseif ( !is_array( $data['representations'] ) ) {
-			$errors[] = 'data-representations-not-array';
-		}
-
-		if ( !array_key_exists( 'grammaticalFeatures', $data ) ) {
-			$errors[] = 'data-grammatical-features-key-missing';
-		} elseif ( !is_array( $data['grammaticalFeatures'] ) ) {
-			$errors[] = 'data-grammatical-features-not-array';
+		if ( !property_exists( $data, 'grammaticalFeatures' ) ) {
+			$errors[] = new JsonFieldIsRequired( self::PARAM_DATA, [ 'grammaticalFeatures' ] );
+		} elseif ( !is_array( $data->grammaticalFeatures ) ) {
+			$errors[] = new JsonFieldHasWrongType(
+				self::PARAM_DATA,
+				[ 'grammaticalFeatures' ],
+				'array',
+				gettype( $data->grammaticalFeatures )
+			);
 		}
 
 		return $errors;
@@ -85,30 +118,59 @@ class AddFormRequestParser {
 		try {
 			$lexemeId = $this->entityIdParser->parse( $id );
 		} catch ( EntityIdParsingException $e ) {
-			$errors[] = [ 'lexemeid-invalid', $id ];
+			$errors[] = new ParameterIsNotLexemeId( self::PARAM_LEXEME_ID, $id );
 			return null;
 		}
 
 		if ( $lexemeId->getEntityType() !== 'lexeme' ) {
-			$errors[] = [ 'lexemeid-not-lexeme-id', $id ];
+			$errors[] = new ParameterIsNotLexemeId( self::PARAM_LEXEME_ID, $id );
 			return null;
 		}
 
 		return $lexemeId;
 	}
 
-	private function parseRepresentations( array $data, array &$errors ) {
-		$representations = [];
+	/**
+	 * @param \stdClass[] $givenRepresentations
+	 * @param ApiError[] $errors
+	 * @return TermList
+	 */
+	private function parseRepresentations( array $givenRepresentations, array &$errors ) {
+		if ( empty( $givenRepresentations ) ) {
+			$errors[] = new FormMustHaveAtLeastOneRepresentation( self::PARAM_DATA, [ 'representations' ] );
+		}
 
-		foreach ( $data as $index => $representationData ) {
+		//FIXME: Array may contain representation with empty text (or untrimmed) which won't be added
+		$result = [];
+
+		foreach ( $givenRepresentations as $index => $el ) {
 			$incomplete = false;
 
-			if ( !array_key_exists( 'representation', $representationData ) ) {
-				$errors[] = [ 'representation-text-missing', $index ];
+			if ( !property_exists( $el, 'representation' ) ) {
+				$errors[] = new JsonFieldIsRequired(
+					self::PARAM_DATA,
+					[ 'representations', $index, 'representation' ]
+				);
+				$incomplete = true;
+			} elseif ( empty( $el->representation ) ) {
+				$errors[] = new RepresentationTextCanNotBeEmpty(
+					self::PARAM_DATA,
+					[ 'representations', $index, 'representation' ]
+				);
 				$incomplete = true;
 			}
-			if ( !array_key_exists( 'language', $representationData ) ) {
-				$errors[] = [ 'representation-language-missing', $index ];
+
+			if ( !property_exists( $el, 'language' ) ) {
+				$errors[] = new JsonFieldIsRequired(
+					self::PARAM_DATA,
+					[ 'representations', $index, 'language' ]
+				);
+				$incomplete = true;
+			} elseif ( empty( $el->language ) ) {
+				$errors[] = new RepresentationLanguageCanNotBeEmpty(
+					self::PARAM_DATA,
+					[ 'representations', $index, 'language' ]
+				);
 				$incomplete = true;
 			}
 
@@ -116,32 +178,42 @@ class AddFormRequestParser {
 				continue;
 			}
 
-			$representations[] = new Term(
-				$representationData['language'],
-				$representationData['representation']
-			);
+			if ( isset( $result[$el->language] ) ) {
+				$errors[] = new RepresentationsMustHaveUniqueLanguage(
+					self::PARAM_DATA,
+					[ 'representations', $index, 'language' ],
+					$el->language
+				);
+			}
+
+			$result[$el->language] = $el->representation;
 		}
 
-		if ( empty( $representations ) ) {
-			$errors[] = 'representations-empty';
+		$terms = [];
+		foreach ( $result as $language => $representation ) {
+			$terms[] = new Term( $language, $representation );
 		}
 
-		return new TermList( $representations );
+		return new TermList( $terms );
 	}
 
-	private function parseGrammaticalFeatures( $data, array &$errors ) {
+	/**
+	 * @param string[] $data
+	 * @param ApiError[] $errors
+	 * @return ItemId[]
+	 */
+	private function parseGrammaticalFeatures( array $data, array &$errors ) {
 		$features = [];
 
 		foreach ( $data as $index => $featureId ) {
 			try {
-				$id = $this->entityIdParser->parse( $featureId );
+				$id = $this->itemIdParser->parse( $featureId );
 			} catch ( EntityIdParsingException $e ) {
-				$errors[] = [ 'grammatical-feature-itemid-invalid', $featureId ];
-				continue;
-			}
-
-			if ( $id->getEntityType() !== 'item' ) {
-				$errors[] = [ 'grammatical-feature-not-item-id', $featureId ];
+				$errors[] = new JsonFieldIsNotAnItemId(
+					self::PARAM_DATA,
+					[ 'grammaticalFeatures', $index ],
+					$featureId
+				);
 				continue;
 			}
 
@@ -154,12 +226,12 @@ class AddFormRequestParser {
 	private function validateRequiredFieldsPresent( array $params ) {
 		$errors = [];
 
-		if ( !array_key_exists( 'lexemeId', $params ) ) {
-			$errors[] = 'lexemeId-param-missing';
+		if ( !array_key_exists( self::PARAM_LEXEME_ID, $params ) ) {
+			$errors[] = new ParameterIsRequired( self::PARAM_LEXEME_ID );
 		}
 
-		if ( !array_key_exists( 'data', $params ) ) {
-			$errors[] = 'data-parame-missing';
+		if ( !array_key_exists( self::PARAM_DATA, $params ) ) {
+			$errors[] = new ParameterIsRequired( self::PARAM_DATA );
 		}
 
 		return $errors;

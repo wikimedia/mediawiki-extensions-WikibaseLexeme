@@ -4,16 +4,7 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
-use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpAddForm;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
-use Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer;
-use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
-use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\EntitySavingHelper;
 use Wikibase\Summary;
 
@@ -28,16 +19,6 @@ class AddForm extends ApiBase {
 	 * @var AddFormRequestParser
 	 */
 	private $requestParser;
-
-	/**
-	 * @var ApiErrorReporter
-	 */
-	private $errorReporter;
-
-	/**
-	 * @var ExternalLexemeSerializer
-	 */
-	private $lexemeSerializer;
 
 	/**
 	 * @var FormSerializer
@@ -65,9 +46,6 @@ class AddForm extends ApiBase {
 			$formSerializer,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getEntitySavingHelper( $module );
-			},
-			function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getErrorReporter( $module );
 			}
 		);
 	}
@@ -77,36 +55,52 @@ class AddForm extends ApiBase {
 		$moduleName,
 		AddFormRequestParser $requestParser,
 		FormSerializer $formSerializer,
-		callable $entitySavingHelperInstantiator,
-		callable $errorReporterInstantiator
+		callable $entitySavingHelperInstantiator
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
 		$this->entitySavingHelper = $entitySavingHelperInstantiator( $this );
-		$this->errorReporter = $errorReporterInstantiator( $this );
 		$this->requestParser = $requestParser;
 		$this->formSerializer = $formSerializer;
 	}
 
 	/**
 	 * @see ApiBase::execute()
+	 *
+	 * @throws \ApiUsageException
 	 */
 	public function execute() {
-		//FIXME: Error reporting
+		/*
+		 * {
+			  "representations": [
+				{
+				  "representation": "",
+				  "language": ""
+				},
+				{
+				  "representation": "",
+				  "language": ""
+				}
+			  ],
+			  "grammaticalFeatures": [
+				"Q1",
+				"Q2"
+			  ]
+			}
+		 *
+		 */
+
 		//FIXME: Response structure? - Added form
+		//FIXME: Representation text normalization
+
+		//TODO: Corresponding HTTP codes on failure (e.g. 400, 404, 422) (?)
 		//TODO: Documenting response structure. Is it possible?
 
 		$parserResult = $this->requestParser->parse( $this->extractRequestParams() );
 
 		if ( $parserResult->hasErrors() ) {
-			$errorMessage = $parserResult->getErrors()[0];
-			if ( is_array( $errorMessage ) ) {
-				$errorMessage[0] = 'wikibase-lexeme-api-addform-' . $errorMessage[0];
-			} elseif ( is_string( $errorMessage ) ) {
-				$errorMessage = 'wikibase-lexeme-api-addform-' . $errorMessage;
-			}
-
-			$this->errorReporter->dieWithError( $errorMessage, 'invalid-param' );
+			//TODO: Increase stats counter on failure
+			$this->dieStatus( $parserResult->asFatalStatus() );
 		}
 
 		$request = $parserResult->getRequest();
