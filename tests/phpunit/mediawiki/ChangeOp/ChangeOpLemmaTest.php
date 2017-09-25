@@ -122,7 +122,7 @@ class ChangeOpLemmaTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
 		$this->assertSame( 'duck', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
 
-		$this->assertSame( 'remove', $summary->getActionName() );
+		$this->assertSame( 'remove', $summary->getMessageKey() );
 		$this->assertSame( 'de', $summary->getLanguageCode() );
 		$this->assertSame( [ 'Ente' ], $summary->getAutoSummaryArgs() );
 	}
@@ -143,7 +143,7 @@ class ChangeOpLemmaTest extends \PHPUnit_Framework_TestCase {
 		$this->assertTrue( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
 		$this->assertSame( 'duck', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
 
-		$this->assertSame( 'add', $summary->getActionName() );
+		$this->assertSame( 'add', $summary->getMessageKey() );
 		$this->assertSame( 'de', $summary->getLanguageCode() );
 		$this->assertSame( [ 'Ente' ], $summary->getAutoSummaryArgs() );
 	}
@@ -161,7 +161,7 @@ class ChangeOpLemmaTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'bar', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
 
-		$this->assertSame( 'set', $summary->getActionName() );
+		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( 'en', $summary->getLanguageCode() );
 		$this->assertSame( [ 'bar' ], $summary->getAutoSummaryArgs() );
 	}
@@ -174,7 +174,7 @@ class ChangeOpLemmaTest extends \PHPUnit_Framework_TestCase {
 		$changeOp->apply( $lexeme, $summary );
 
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
-		$this->assertNull( $summary->getActionName() );
+		$this->assertNull( $summary->getMessageKey() );
 	}
 
 	private function getLexemeValidatorFactory() {

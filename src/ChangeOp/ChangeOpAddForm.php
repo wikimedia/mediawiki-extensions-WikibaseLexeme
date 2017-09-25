@@ -45,7 +45,7 @@ class ChangeOpAddForm extends ChangeOpBase {
 
 		$this->updateSummary(
 			$summary,
-			'add',
+			'add-form',
 			'',
 			array_values( $form->getRepresentations()->toTextArray() )
 		);

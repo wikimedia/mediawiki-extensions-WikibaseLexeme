@@ -54,7 +54,7 @@ class ChangeOpAddFormTest extends \PHPUnit_Framework_TestCase {
 
 		$changeOp->apply( $lexeme, $summary );
 
-		$this->assertEquals( 'add', $summary->getActionName() );
+		$this->assertEquals( 'add-form', $summary->getMessageKey() );
 		$this->assertEquals( [ 'goat' ], $summary->getAutoSummaryArgs() );
 	}
 

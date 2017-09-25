@@ -43,19 +43,25 @@ use Wikimedia\Purtle\RdfWriter;
 
 return [
 	'lexeme' => [
-		'serializer-factory-callback' => function( SerializerFactory $serializerFactory ) {
+		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
 			return new LexemeSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
-		'deserializer-factory-callback' => function( DeserializerFactory $deserializerFactory ) {
+		'storage-serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
+			return new LexemeSerializer(
+				$serializerFactory->newTermListSerializer(),
+				$serializerFactory->newStatementListSerializer()
+			);
+		},
+		'deserializer-factory-callback' => function ( DeserializerFactory $deserializerFactory ) {
 			return new LexemeDeserializer(
 				$deserializerFactory->newEntityIdDeserializer(),
 				$deserializerFactory->newStatementListDeserializer()
 			);
 		},
-		'view-factory-callback' => function(
+		'view-factory-callback' => function (
 			$languageCode,
 			LabelDescriptionLookup $labelDescriptionLookup,
 			LanguageFallbackChain $fallbackChain,
@@ -74,7 +80,7 @@ return [
 			return $factory->newLexemeView();
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
-		'content-handler-factory-callback' => function() {
+		'content-handler-factory-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
 				$wikibaseRepo->getStore()->newEntityPerPage(),
@@ -89,23 +95,23 @@ return [
 			);
 		},
 		'entity-id-pattern' => LexemeId::PATTERN,
-		'entity-id-builder' => function( $serialization ) {
+		'entity-id-builder' => function ( $serialization ) {
 			return new LexemeId( $serialization );
 		},
-		'entity-id-composer-callback' => function( $repositoryName, $uniquePart ) {
+		'entity-id-composer-callback' => function ( $repositoryName, $uniquePart ) {
 			return new LexemeId( EntityId::joinSerialization( [
 				$repositoryName,
 				'',
 				'L' . $uniquePart
 			] ) );
 		},
-		'entity-differ-strategy-builder' => function() {
+		'entity-differ-strategy-builder' => function () {
 			return new LexemeDiffer();
 		},
-		'entity-patcher-strategy-builder' => function() {
+		'entity-patcher-strategy-builder' => function () {
 			return new LexemePatcher();
 		},
-		'entity-factory-callback' => function() {
+		'entity-factory-callback' => function () {
 			return new Lexeme();
 		},
 		// Identifier of a resource loader module that, when `require`d, returns a function
@@ -142,7 +148,7 @@ return [
 				)
 			);
 		},
-		'rdf-builder-factory-callback' => function(
+		'rdf-builder-factory-callback' => function (
 			$flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer,

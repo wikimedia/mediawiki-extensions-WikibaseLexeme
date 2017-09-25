@@ -78,7 +78,7 @@ class ChangeOpLexicalCategoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'Q432', $lexeme->getLexicalCategory()->getSerialization() );
 
-		$this->assertSame( 'set', $summary->getActionName() );
+		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( [ 'Q432' ], $summary->getAutoSummaryArgs() );
 	}
 
@@ -95,7 +95,7 @@ class ChangeOpLexicalCategoryTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'Q234', $lexeme->getLexicalCategory()->getSerialization() );
 
-		$this->assertSame( 'set', $summary->getActionName() );
+		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( [ 'Q234' ], $summary->getAutoSummaryArgs() );
 	}
 

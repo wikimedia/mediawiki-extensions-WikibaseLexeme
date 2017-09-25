@@ -70,7 +70,7 @@ class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'Q321', $lexeme->getLanguage()->getSerialization() );
 
-		$this->assertSame( 'set', $summary->getActionName() );
+		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( [ 'Q321' ], $summary->getAutoSummaryArgs() );
 	}
 
@@ -87,7 +87,7 @@ class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {
 
 		$this->assertSame( 'Q123', $lexeme->getLanguage()->getSerialization() );
 
-		$this->assertSame( 'set', $summary->getActionName() );
+		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( [ 'Q123' ], $summary->getAutoSummaryArgs() );
 	}
 
