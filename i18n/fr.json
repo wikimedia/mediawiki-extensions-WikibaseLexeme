@@ -3,7 +3,8 @@
 		"authors": [
 			"Derugon",
 			"Gomoko",
-			"Wladek92"
+			"Wladek92",
+			"Yzelf"
 		]
 	},
 	"wikibaselexeme-desc": "Manipuler le type d'entité lexème",
@@ -16,22 +17,22 @@
 	"wikibase-newlexeme-language": "Langue du lexème",
 	"wikibase-lexeme-view-language-lexical-category": "$1 dans $2",
 	"wikibase-lexeme-statementsection-statements-about-form": "Déclarations concernant $1",
-	"wikibase-lexeme-view-forms": "Formulaires",
-	"wikibase-lexeme-enter-form-representation": "Entrer la nouvelle présentation de forme",
-	"wikibase-lexeme-empty-form-representation": "Présentation de forme non définie",
+	"wikibase-lexeme-view-forms": "Formes",
+	"wikibase-lexeme-enter-form-representation": "Saisir une nouvelle représentation de la forme",
+	"wikibase-lexeme-empty-form-representation": "Aucune représentation de la forme définie",
 	"wikibase-lexeme-statementsection-statements-about-sense": "Déclarations concernant $1",
 	"wikibase-lexeme-view-senses": "Sens",
 	"wikibase-lexeme-gloss-empty": "Aucune apparence définie",
 	"wikibase-lemma-field-lemma-label": "Lemme",
 	"wikibase-lemma-field-language-label": "Langue",
-	"wikibase-form-field-representation-label": "Présentation",
+	"wikibase-form-field-representation-label": "Représentation",
 	"wikibase-form-field-language-label": "Langue",
 	"wikibase-gloss-field-language-label": "Langue",
 	"wikibase-gloss-field-gloss-label": "Apparence",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
 	"datatypes-type-wikibase-lexeme": "Lexème",
-	"datatypes-type-wikibase-lexeme-form": "Forme du lexeme",
-	"datatypes-type-wikibase-lexeme-sense": "Sens du léxème",
+	"datatypes-type-wikibase-lexeme-form": "Forme du lexème",
+	"datatypes-type-wikibase-lexeme-sense": "Sens du lexème",
 	"wikibase-lexeme-add-sense": "ajouter un sens",
-	"wikibase-lexeme-add-form": "ajouter un formulaire"
+	"wikibase-lexeme-add-form": "ajouter une forme"
 }
