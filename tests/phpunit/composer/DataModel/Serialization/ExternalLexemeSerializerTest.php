@@ -17,10 +17,10 @@ use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
-use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
+ * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer
+ * @covers \Wikibase\Lexeme\DataModel\Serialization\FormSerializer
  *
  * @group WikibaseLexeme
  *
