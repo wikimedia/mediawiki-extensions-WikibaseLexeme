@@ -170,4 +170,48 @@ class AddForm extends ApiBase {
 		return true;
 	}
 
+	protected function getExamplesMessages() {
+		$lexemeId = 'L12';
+		$exampleData = [
+			'representations' => [
+				[ 'representation' => 'color', 'language' => 'en-US' ],
+				[ 'representation' => 'colour', 'language' => 'en-GB' ],
+			],
+			'grammaticalFeatures' => [
+				'Q1', 'Q2'
+			]
+		];
+
+		$query = http_build_query( [
+			'action' => $this->getModuleName(),
+			'lexemeId' => $lexemeId,
+			'data' => json_encode( $exampleData )
+		] );
+
+		$languages = array_map( function ( $r ) {
+			return $r['language'];
+		}, $exampleData['representations'] );
+		$representations = array_map( function ( $r ) {
+			return $r['representation'];
+		}, $exampleData['representations'] );
+
+		$representationsText = $this->getLanguage()->commaList( $representations );
+		$languagesText = $this->getLanguage()->commaList( $languages );
+		$grammaticalFeaturesText = $this->getLanguage()->commaList( $exampleData['grammaticalFeatures'] );
+
+		$exampleMessage = new \Message(
+			'apihelp-wblexemeaddform-example-1',
+			[
+				$lexemeId,
+				$representationsText,
+				$languagesText,
+				$grammaticalFeaturesText
+			]
+		);
+
+		return [
+			$query => $exampleMessage
+		];
+	}
+
 }

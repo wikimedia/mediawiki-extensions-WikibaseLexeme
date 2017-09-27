@@ -39,6 +39,7 @@
 	"apihelp-wblexemeaddform-param-lexemeId": "{{doc-apihelp-param|wblexemeaddform|lexemeId}}",
 	"apihelp-wblexemeaddform-param-data": "{{doc-apihelp-param|wblexemeaddform|data}}",
 	"apihelp-wblexemeaddform-param-bot": "{{doc-apihelp-param|wblexemeaddform|bot}}",
+	"apihelp-wblexemeaddform-example-1": "{{doc-apihelp-example|wblexemeaddform}}",
 	"wikibase-lexeme-api-addform-lexemeid-invalid": "API error description",
 	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "API error description",
 	"wikibase-lexeme-api-addform-data-not-array": "API error description",

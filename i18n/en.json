@@ -34,6 +34,7 @@
 	"apihelp-wblexemeaddform-param-lexemeId": "ID of the Lexeme e.g. L10",
 	"apihelp-wblexemeaddform-param-data": "JSON encoded data for Form i.e. representations and grammaticalFeatures",
 	"apihelp-wblexemeaddform-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"{{int:group-bot}}\".",
+	"apihelp-wblexemeaddform-example-1": "Add Form to the Lexeme with ID <samp>$1</samp> having representations <samp>$2</samp> with languages <samp>$3</samp> respectively and grammatical features <samp>$4</samp>",
 	"wikibase-lexeme-api-addform-lexemeid-invalid": "Invalid lexeme ID provided as \"lexemeId\"",
 	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 is not a lexeme ID",
 	"wikibase-lexeme-api-addform-data-not-array": "\"data\" must be an array",
