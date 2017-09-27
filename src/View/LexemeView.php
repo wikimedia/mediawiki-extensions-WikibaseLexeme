@@ -107,18 +107,23 @@ class LexemeView extends EntityView {
 		);
 
 		$lemmaWidget = $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate();
+		$languageAndCategory = $this->renderLanguageAndLexicalCategoryWidget( $entity );
 
 		$lexemeHeader = <<<HTML
-			<h1 id="wb-lexeme-header" class="wb-lexeme-header">
-				<div class="wb-lexeme-header_id">$id</div>
-				<div class="wb-lexeme-header_lemma-widget">
-					$lemmaWidget
-				</div>
-			</h1>
+			<div id="wb-lexeme-header" class="wb-lexeme-header">
+				<h1 id="wb-lexeme-header-lemmas">
+					<div class="wb-lexeme-header_id">$id</div>
+					<div class="wb-lexeme-header_lemma-widget">
+						$lemmaWidget
+					</div>
+				</h1>
+				$languageAndCategory
+			</div>
 HTML;
 
 		return $lexemeHeader
-			. $this->getHtmlForLexicalCategoryAndLanguage( $entity )
+			. $this->getLexemeHeaderVueTemplate()
+			. $this->getLanguageAndLexicalCategoryVueTemplate()
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
 			. $this->formsView->getHtml( $entity->getForms() )
@@ -244,6 +249,83 @@ HTML;
 HTML;
 	}
 
+	private function getLexemeHeaderVueTemplate() {
+		return <<<HTML
+<script id="lexeme-header-widget-vue-template" type="x-template">
+	{$this->getRawLexemeHeaderVueTemplate()}
+</script>
+HTML;
+	}
+
+	private function getLanguageAndLexicalCategoryVueTemplate() {
+		return <<<HTML
+<script id="language-and-lexical-category-widget-vue-template" type="x-template">
+	{$this->getRawLanguageAndLexicalCategoryWidgetVueTemplate()}
+</script>
+HTML;
+	}
+
+	private function getRawLexemeHeaderVueTemplate() {
+		return <<<'HTML'
+<div id="wb-lexeme-header" class="wb-lexeme-header">
+	<h1 id="wb-lexeme-header-lemmas">
+		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
+		<div class="wb-lexeme-header_lemma-widget">
+			<lemma-widget :lemmas="lemmas" :inEditMode="inEditMode" :isSaving="isSaving"></lemma-widget>
+		</div>
+		<div class="lemma-widget_controls" v-if="isInitialized" >
+			<button type="button" class="lemma-widget_edit" v-if="!inEditMode" 
+				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
+			<button type="button" class="lemma-widget_save" v-if="inEditMode" 
+				:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
+			<button type="button" class="lemma-widget_cancel" v-if="inEditMode" 
+				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
+		</div>
+	</h1>
+	<language-and-category-widget
+		:language.sync="language"
+		:lexicalCategory.sync="lexicalCategory"
+		:inEditMode="inEditMode"
+		:isSaving="isSaving">
+	</language-and-category-widget>
+</div>
+HTML;
+	}
+
+	private function getRawLanguageAndLexicalCategoryWidgetVueTemplate() {
+		return <<<'HTML'
+<div class="language-lexical-category-widget">
+	<div v-if="!inEditMode">
+		<div>
+			<span>{{'wikibase-lexeme-language'|message}}</span>
+			<span class="language-lexical-category-widget_language">{{language}}</span>
+		</div>
+		<div>
+			<span>{{'wikibase-lexeme-lexical-category'|message}}</span>
+			<span class="language-lexical-category-widget_lexical-category">{{lexicalCategory}}</span>
+		</div>
+	</div>
+	<div v-else>
+		<div>
+			<label for="lexeme-language">{{'wikibase-lexeme-language'|message}}</label>
+			<input
+				id="lexeme-language"
+				v-bind:value="language"
+				@input="$emit('update:language', $event.target.value)">
+		</div>
+		<div>
+			<label for="lexeme-lexical-category">{{'wikibase-lexeme-lexical-category'|message}}</label>
+			<input
+				id="lexeme-lexical-category"
+				v-bind:value="lexicalCategory"
+				@input="$emit('update:lexicalCategory', $event.target.value)">
+		</div>
+	</div>
+</div>
+HTML;
+
+	}
+
 	private function getRawLemmaVueTemplate() {
 		return <<<'HTML'
 <div class="lemma-widget">
@@ -276,14 +358,6 @@ HTML;
 					:disabled="isSaving" :title="'wikibase-add'|message">+</button>
 			</li>
 		</ul>
-	</div>
-	<div class="lemma-widget_controls" v-if="isInitialized" >
-		<button type="button" class="lemma-widget_edit" v-if="!inEditMode" 
-			:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
-		<button type="button" class="lemma-widget_save" v-if="inEditMode" 
-			:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
-		<button type="button" class="lemma-widget_cancel" v-if="inEditMode" 
-			:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 	</div>
 </div>
 HTML;
@@ -320,6 +394,32 @@ HTML;
 		return '<div id="lemmas-widget">'
 			. $result
 			. '</div>';
+	}
+
+	/**
+	 * @param Lexeme $lexeme
+	 * @return string
+	 */
+	protected function renderLanguageAndLexicalCategoryWidget( Lexeme $lexeme ) {
+		$templating = new Templating();
+
+		$result = $templating->render(
+			$this->getRawLanguageAndLexicalCategoryWidgetVueTemplate(),
+			[
+				'isInitialized' => false,
+				'inEditMode' => false,
+				'isSaving' => false,
+				'language' => $lexeme->getLanguage()->getSerialization(),
+				'lexicalCategory' => $lexeme->getLexicalCategory()->getSerialization()
+			],
+			[
+				'message' => function ( $key ) {
+					return $this->getLocalizedMessage( $key );
+				}
+			]
+		);
+
+		return '<div>' . $result . '</div>';
 	}
 
 }
