@@ -34,6 +34,7 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 	) {
 		$this->termListSerializer = $termListSerializer;
 		$this->statementListSerializer = $statementListSerializer;
+		$this->formSerializer = new FormSerializer( $termListSerializer, $statementListSerializer );
 	}
 
 	/**
@@ -117,44 +118,12 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 	 * @return array[]
 	 */
 	private function serializeForms( array $forms ) {
-		$serialization = [];
-
-		foreach ( $forms as $form ) {
-			$serialization[] = $this->serializeForm( $form );
-		}
-
-		return $serialization;
-	}
-
-	/**
-	 * @param Form $form
-	 *
-	 * @return array
-	 */
-	private function serializeForm( Form $form ) {
-		$serialization = [];
-
-		$id = $form->getId();
-		if ( $id !== null ) {
-			// Note: This ID serialization is final, because there is no EntityIdSerializer
-			$serialization['id'] = $id->getSerialization();
-		}
-
-		$serialization['representations'] = $this->termListSerializer->serialize(
-			$form->getRepresentations()
-		);
-		$serialization['grammaticalFeatures'] = array_map(
-			function ( ItemId $itemId ) {
-				return $itemId->getSerialization();
+		return array_map(
+			function ( Form $form ) {
+				return $this->formSerializer->serialize( $form );
 			},
-			$form->getGrammaticalFeatures()
+			$forms
 		);
-
-		$serialization['claims'] = $this->statementListSerializer->serialize(
-			$form->getStatements()
-		);
-
-		return $serialization;
 	}
 
 	/**
