@@ -16,7 +16,7 @@ use Wikibase\Lexeme\DataModel\Sense;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeSerializer implements DispatchableSerializer {
+class StorageLexemeSerializer implements DispatchableSerializer {
 
 	/**
 	 * @var Serializer
