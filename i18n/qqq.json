@@ -34,5 +34,22 @@
 	"datatypes-type-wikibase-lexeme-form": "The name of a data type for lexeme forms in Wikibase.",
 	"datatypes-type-wikibase-lexeme-sense": "The name of a data type for lexeme senses in Wikibase.",
 	"wikibase-lexeme-add-sense": "Label for button to add a new sense",
-	"wikibase-lexeme-add-form": "Label for button to add a new form"
+	"wikibase-lexeme-add-form": "Label for button to add a new form",
+	"apihelp-wblexemeaddform-summary": "{{doc-apihelp-summary|wblexemeaddform}}",
+	"apihelp-wblexemeaddform-param-lexemeId": "{{doc-apihelp-param|wblexemeaddform|lexemeId}}",
+	"apihelp-wblexemeaddform-param-data": "{{doc-apihelp-param|wblexemeaddform|data}}",
+	"apihelp-wblexemeaddform-param-bot": "{{doc-apihelp-param|wblexemeaddform|bot}}",
+	"wikibase-lexeme-api-addform-lexemeid-invalid": "API error description",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "API error description",
+	"wikibase-lexeme-api-addform-data-not-array": "API error description",
+	"wikibase-lexeme-api-addform-data-representations-key-missing": "API error description",
+	"wikibase-lexeme-api-addform-data-invalid-json": "API error description",
+	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "API error description",
+	"wikibase-lexeme-api-addform-data-representations-not-array": "API error description",
+	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "API error description",
+	"wikibase-lexeme-api-addform-representations-empty": "API error description",
+	"wikibase-lexeme-api-addform-representation-text-missing": "API error description",
+	"wikibase-lexeme-api-addform-representation-language-missing": "API error description",
+	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "API error description",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "API error description"
 }

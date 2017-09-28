@@ -381,5 +381,11 @@
 	"SpecialPages": {
 		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme::newFromGlobalState"
 	},
+	"APIModules": {
+		"wblexemeaddform": {
+			"class": "Wikibase\\Lexeme\\Api\\AddForm",
+			"factory": "Wikibase\\Lexeme\\Api\\AddForm::newFromGlobalState"
+		}
+	},
 	"manifest_version": 1
 }
