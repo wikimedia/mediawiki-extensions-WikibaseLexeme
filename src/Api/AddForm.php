@@ -4,16 +4,18 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
+use Status;
+use Wikibase\EditEntity;
+use Wikibase\EditEntityFactory;
+use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
-use Wikibase\Repo\Api\EntitySavingHelper;
-use Wikibase\Summary;
+use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\StorageException;
+use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\SummaryFormatter;
 
 class AddForm extends ApiBase {
-
-	/**
-	 * @var EntitySavingHelper
-	 */
-	private $entitySavingHelper;
+	const LATEST_REVISION = 0;
 
 	/**
 	 * @var AddFormRequestParser
@@ -21,9 +23,28 @@ class AddForm extends ApiBase {
 	private $requestParser;
 
 	/**
+	 * @var ApiErrorReporter
+	 */
+	private $errorReporter;
+
+	/**
 	 * @var FormSerializer
 	 */
 	private $formSerializer;
+	/**
+	 * @var EditEntityFactory
+	 */
+	private $editEntityFactory;
+
+	/**
+	 * @var SummaryFormatter
+	 */
+	private $summaryFormatter;
+
+	/**
+	 * @var EntityRevisionLookup
+	 */
+	private $entityRevisionLookup;
 
 	/**
 	 * @return AddForm
@@ -44,8 +65,11 @@ class AddForm extends ApiBase {
 			$moduleName,
 			new AddFormRequestParser( $wikibaseRepo->getEntityIdParser() ),
 			$formSerializer,
+			$wikibaseRepo->getEntityRevisionLookup( 'uncached' ),
+			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
+			$wikibaseRepo->getSummaryFormatter(),
 			function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getEntitySavingHelper( $module );
+				return $apiHelperFactory->getErrorReporter( $module );
 			}
 		);
 	}
@@ -55,13 +79,19 @@ class AddForm extends ApiBase {
 		$moduleName,
 		AddFormRequestParser $requestParser,
 		FormSerializer $formSerializer,
-		callable $entitySavingHelperInstantiator
+		EntityRevisionLookup $entityRevisionLookup,
+		EditEntityFactory $editEntityFactory,
+		SummaryFormatter $summaryFormatter,
+		callable $errorReporterInstantiator
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
-		$this->entitySavingHelper = $entitySavingHelperInstantiator( $this );
+		$this->errorReporter = $errorReporterInstantiator( $this );
 		$this->requestParser = $requestParser;
 		$this->formSerializer = $formSerializer;
+		$this->editEntityFactory = $editEntityFactory;
+		$this->entityRevisionLookup = $entityRevisionLookup;
+		$this->summaryFormatter = $summaryFormatter;
 	}
 
 	/**
@@ -96,7 +126,8 @@ class AddForm extends ApiBase {
 		//TODO: Corresponding HTTP codes on failure (e.g. 400, 404, 422) (?)
 		//TODO: Documenting response structure. Is it possible?
 
-		$parserResult = $this->requestParser->parse( $this->extractRequestParams() );
+		$params = $this->extractRequestParams();
+		$parserResult = $this->requestParser->parse( $params );
 
 		if ( $parserResult->hasErrors() ) {
 			//TODO: Increase stats counter on failure
@@ -105,12 +136,50 @@ class AddForm extends ApiBase {
 
 		$request = $parserResult->getRequest();
 
-		$lexeme = $this->entitySavingHelper->loadEntity( $request->getLexemeId() );
+		//FIXME Check if found
+		try {
+			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
+				$request->getLexemeId(),
+				self::LATEST_REVISION,
+				EntityRevisionLookup::LATEST_FROM_MASTER
+			);
+		} catch ( StorageException $e ) {
+			//TODO Test it
+			if ( $e->getStatus() ) {
+				$this->dieStatus( $e->getStatus() );
+			} else {
+				//FIXME Do what???
+			}
+		}
+		/** @var Lexeme $lexeme */
+		$lexeme = $lexemeRevision->getEntity();
 		$newForm = $request->addFormTo( $lexeme );
-		$summary = new AddFormSummary( $lexeme->getId(), $newForm );
+
+		$editEntity = $this->editEntityFactory->newEditEntity(
+			$this->getUser(),
+			$request->getLexemeId(),
+			$lexemeRevision->getRevisionId()
+		);
+		$summaryString = $this->summaryFormatter->formatSummary(
+			new AddFormSummary( $lexeme->getId(), $newForm )
+		);
+		$flags = EDIT_UPDATE;
+		if ( isset( $params['bot'] ) && $params['bot'] && $this->getUser()->isAllowed( 'bot' ) ) {
+			$flags |= EDIT_FORCE_BOT;
+		}
+
+		$tokenThatDoesNotNeedChecking = false;
 		//FIXME: Handle failure
-		//FIXME: ACHTUNG! attemptSaveEntity() uses 'baserevid' internally which should not be used!
-		$status = $this->entitySavingHelper->attemptSaveEntity( $lexeme, $summary );
+		$status = $editEntity->attemptSave(
+			$lexeme,
+			$summaryString,
+			$flags,
+			$tokenThatDoesNotNeedChecking
+		);
+
+		if ( !$status->isGood() ) {
+			$this->dieStatus( $status ); //Seems like it is good enough
+		}
 
 		$apiResult = $this->getResult();
 
@@ -134,7 +203,6 @@ class AddForm extends ApiBase {
 					self::PARAM_TYPE => 'text',
 					self::PARAM_REQUIRED => true,
 				],
-				'token' => null,
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',
 					self::PARAM_DFLT => false,

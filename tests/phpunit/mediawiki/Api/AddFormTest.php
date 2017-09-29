@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiErrorFormatter;
+use Revision;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -155,6 +156,26 @@ class AddFormTest extends WikibaseApiTestCase {
 		$this->assertSame( 1, $result['success'] );
 	}
 
+	public function testSetsTheSummaryOfRevision() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeaddform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam()
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
+
+		$revision = Revision::loadFromId( wfGetDB( DB_MASTER ), $lexemeRevision->getRevisionId() );
+
+		$this->assertEquals( '/* add-form:1||F1 */ goat', $revision->getComment() );
+	}
+
 	private function saveLexeme( Lexeme $lexeme ) {
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 
@@ -168,6 +189,12 @@ class AddFormTest extends WikibaseApiTestCase {
 	private function getLexeme( $id ) {
 		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
+	}
+
+	private function getCurrentRevisionForLexeme( $id ) {
+		$lookup = WikibaseRepo::getDefaultInstance()->getEntityRevisionLookup();
+
+		return $lookup->getEntityRevision( new LexemeId( $id ) );
 	}
 
 }

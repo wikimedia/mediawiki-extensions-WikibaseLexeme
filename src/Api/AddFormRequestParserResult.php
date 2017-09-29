@@ -42,6 +42,9 @@ class AddFormRequestParserResult {
 		$this->errors = $errors;
 	}
 
+	/**
+	 * @return AddFormRequest
+	 */
 	public function getRequest() {
 		if ( $this->errors ) {
 			throw new \LogicException(
