@@ -31,5 +31,22 @@
 	"datatypes-type-wikibase-lexeme-form": "Lexeme-Formular",
 	"datatypes-type-wikibase-lexeme-sense": "Lexeme Sense",
 	"wikibase-lexeme-add-sense": "Sense hinzufügen",
-	"wikibase-lexeme-add-form": "Formular hinzufügen"
+	"wikibase-lexeme-add-form": "Formular hinzufügen",
+	"apihelp-wblexemeaddform-summary": "Ergänzt Form zu Lexeme",
+	"apihelp-wblexemeaddform-param-lexemeId": "Kennung des Lexemes, z.&nbsp;B. L10",
+	"apihelp-wblexemeaddform-param-data": "JSON-kodierte Daten für Form, z.&nbsp;B. representations und grammaticalFeatures",
+	"apihelp-wblexemeaddform-param-bot": "Markiert diese Bearbeitung als Bot. Dieses URL-Flag wird nur berücksichtigt, falls der Benutzer zur Gruppe der „{{int:group-bot}}“ gehört.",
+	"wikibase-lexeme-api-addform-lexemeid-invalid": "Es wurde eine ungültige Lexeme-Kennung als „lexemeId“ angegeben",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 ist keine Lexeme-Kennung",
+	"wikibase-lexeme-api-addform-data-not-array": "„data“ muss eine Anordnung sein",
+	"wikibase-lexeme-api-addform-data-representations-key-missing": "Kein Schlüssel „representations“ in „data“",
+	"wikibase-lexeme-api-addform-data-invalid-json": "„data“ ist kein gültiges JSON",
+	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "Kein Schlüssel „grammaticalFeatures“ in „data“",
+	"wikibase-lexeme-api-addform-data-representations-not-array": "„representations“ muss eine Anordnung sein",
+	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "„grammaticalFeatures“ muss eine Anordnung sein",
+	"wikibase-lexeme-api-addform-representations-empty": "Es muss mindestens eine einzelne Darstellung angegeben werden",
+	"wikibase-lexeme-api-addform-representation-text-missing": "Es wurde keine Darstellungszeichenfolge für die Darstellung bei Position $1 angegeben",
+	"wikibase-lexeme-api-addform-representation-language-missing": "Es wurde keine Sprache für die Darstellung bei Position $1 angegeben",
+	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Ungültige grammatikalische Funktion: $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Keine Objektkennung: $1"
 }

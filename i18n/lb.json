@@ -21,5 +21,7 @@
 	"wikibase-form-field-language-label": "Sprooch",
 	"wikibase-gloss-field-language-label": "Sprooch",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
-	"wikibase-lexeme-add-form": "Formulaire derbäisetzen"
+	"wikibase-lexeme-add-form": "Formulaire derbäisetzen",
+	"apihelp-wblexemeaddform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Keng ID vun engem Element: $1"
 }

@@ -31,5 +31,22 @@
 	"datatypes-type-wikibase-lexeme-form": "Forma do lexema",
 	"datatypes-type-wikibase-lexeme-sense": "Sentido do lexema",
 	"wikibase-lexeme-add-sense": "adicionar sentido",
-	"wikibase-lexeme-add-form": "adicionar forma"
+	"wikibase-lexeme-add-form": "adicionar forma",
+	"apihelp-wblexemeaddform-summary": "Adiciona uma forma ao lexema",
+	"apihelp-wblexemeaddform-param-lexemeId": "Identificador do lexema, por exemplo L10",
+	"apihelp-wblexemeaddform-param-data": "Dados JSON codificados para a forma, isto é, representações (representations) e propriedades gramaticais (grammaticalFeatures)",
+	"apihelp-wblexemeaddform-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"{{int:group-bot}}\".",
+	"wikibase-lexeme-api-addform-lexemeid-invalid": "Foi fornecido um identificador de lexema inválido em \"lexemId\"",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 não é um identificador de lexemas",
+	"wikibase-lexeme-api-addform-data-not-array": "\"data\" tem de ser uma matriz",
+	"wikibase-lexeme-api-addform-data-representations-key-missing": "Não existe uma chave \"representations\" em \"data\"",
+	"wikibase-lexeme-api-addform-data-invalid-json": "\"data\" não é um formato JSON válido",
+	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "Não existe uma chave \"grammaticalFeatures\" em \"data\"",
+	"wikibase-lexeme-api-addform-data-representations-not-array": "\"representations\" tem de ser uma matriz",
+	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "\"grammaticalFeatures\" tem de ser uma matriz",
+	"wikibase-lexeme-api-addform-representations-empty": "Tem de ser fornecida pelo menos uma representação",
+	"wikibase-lexeme-api-addform-representation-text-missing": "Não foi fornecido um texto de representação para a representação na posição $1",
+	"wikibase-lexeme-api-addform-representation-language-missing": "Não foi fornecida uma língua para a representação na posição $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Propriedade gramatical inválida: $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Não é um identificador de elemento: $1"
 }

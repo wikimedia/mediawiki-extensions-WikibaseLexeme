@@ -9,5 +9,6 @@
 	"wikibase-lemma-field-language-label": "Språk",
 	"wikibase-form-field-language-label": "Språk",
 	"wikibase-gloss-field-language-label": "Språk",
-	"wikibase-lexeme-add-form": "lägg till formulär"
+	"wikibase-lexeme-add-form": "lägg till formulär",
+	"wikibase-lexeme-api-addform-data-not-array": "\"data\" måste vara en array"
 }

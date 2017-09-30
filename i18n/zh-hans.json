@@ -31,5 +31,22 @@
 	"datatypes-type-wikibase-lexeme-form": "词位形态",
 	"datatypes-type-wikibase-lexeme-sense": "词位意义",
 	"wikibase-lexeme-add-sense": "添加意义",
-	"wikibase-lexeme-add-form": "添加词形"
+	"wikibase-lexeme-add-form": "添加词形",
+	"apihelp-wblexemeaddform-summary": "添加词形至词位",
+	"apihelp-wblexemeaddform-param-lexemeId": "词位的ID，例如L10",
+	"apihelp-wblexemeaddform-param-data": "用于词形的JSON编码数据，也就是表现和语法特性",
+	"apihelp-wblexemeaddform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时受尊重。",
+	"wikibase-lexeme-api-addform-lexemeid-invalid": "提供作为“lexemeId”的词位ID无效",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1不是词位ID",
+	"wikibase-lexeme-api-addform-data-not-array": "“data”必须是数组",
+	"wikibase-lexeme-api-addform-data-representations-key-missing": "“data”中没有“representations”关键字",
+	"wikibase-lexeme-api-addform-data-invalid-json": "“data”不是有效的JSON",
+	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "“data”中没有“grammaticalFeatures”关键字",
+	"wikibase-lexeme-api-addform-data-representations-not-array": "“representations”必须是数组",
+	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "“grammaticalFeatures”必须是数组",
+	"wikibase-lexeme-api-addform-representations-empty": "必须至少提供一个表现",
+	"wikibase-lexeme-api-addform-representation-text-missing": "在位置$1中没有为表现提供表现字符串",
+	"wikibase-lexeme-api-addform-representation-language-missing": "在位置$1中没有为表现提供语言",
+	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "无效语法特性：$1",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "不是项ID：$1"
 }

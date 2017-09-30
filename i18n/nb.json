@@ -31,5 +31,22 @@
 	"datatypes-type-wikibase-lexeme-form": "Leksemform",
 	"datatypes-type-wikibase-lexeme-sense": "Leksembetydning",
 	"wikibase-lexeme-add-sense": "legg til betydning",
-	"wikibase-lexeme-add-form": "legg til form"
+	"wikibase-lexeme-add-form": "legg til form",
+	"apihelp-wblexemeaddform-summary": "Legger til form til leksem",
+	"apihelp-wblexemeaddform-param-lexemeId": "ID for leksemet, f.eks. L10",
+	"apihelp-wblexemeaddform-param-data": "JSON-kodet data for form, altså representasjoner og grammaticalFeatures",
+	"apihelp-wblexemeaddform-param-bot": "Merk denne redigeringen som en botredigering. Dette URL-flaggen vil kun respekteres om brukeren tilhører brukergruppa «{{int:group-bot}}».",
+	"wikibase-lexeme-api-addform-lexemeid-invalid": "Ugyldig leksem-ID gitt som «lexemeId»",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 er ikke en leksem-ID",
+	"wikibase-lexeme-api-addform-data-not-array": "«data» må være en tabell",
+	"wikibase-lexeme-api-addform-data-representations-key-missing": "Ingen «representations»-nøkkel i «data»",
+	"wikibase-lexeme-api-addform-data-invalid-json": "«data» er ikke gyldig JSON",
+	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "Ingen «grammaticalFeatures»-nøkkel i «data»",
+	"wikibase-lexeme-api-addform-data-representations-not-array": "«representations» må være en tabell",
+	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "«grammaticalFeatures» må være en tabell",
+	"wikibase-lexeme-api-addform-representations-empty": "Minst én enkeltrepresentasjon må oppgis",
+	"wikibase-lexeme-api-addform-representation-text-missing": "Ingen representasjonsstreng oppgitt for representasjon på posisjonen $1",
+	"wikibase-lexeme-api-addform-representation-language-missing": "Intet språk oppgitt for representasjonen på posisjon $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Ugyldig grammatisk trekk: $1",
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Ikke en element-ID: $1"
 }

@@ -20,5 +20,6 @@
 	"wikibase-lemma-field-language-label": "Lingua",
 	"wikibase-form-field-language-label": "Lingua",
 	"wikibase-gloss-field-language-label": "Lingua",
-	"datatypes-type-wikibase-lexeme": "Lessema"
+	"datatypes-type-wikibase-lexeme": "Lessema",
+	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 non è un ID lessema"
 }
