@@ -29,6 +29,7 @@ end
 
 Then(/^for each Form there is a statement list$/) do
   on(LexemePage).forms.each do |form|
+    form.statements_element.when_visible
     expect(form.statements?).to be true
   end
 end
@@ -62,6 +63,9 @@ end
 When(/^I save the Form$/) do
   # TODO: Had some problems here with element clickability, but failed to reproduce. Fix is probably needed
   @form_I_am_currently_editing.save_element.when_visible.click
+
+  # Wait till the form is saved
+  @form_I_am_currently_editing.edit_element.when_visible
 end
 
 Then(/^"(.*?)" should be displayed as the "(.*?)" representation of the Form$/) do |value, language|
