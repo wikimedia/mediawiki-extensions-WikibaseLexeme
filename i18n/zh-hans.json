@@ -36,6 +36,7 @@
 	"apihelp-wblexemeaddform-param-lexemeId": "词位的ID，例如L10",
 	"apihelp-wblexemeaddform-param-data": "用于词形的JSON编码数据，也就是表现和语法特性",
 	"apihelp-wblexemeaddform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时受尊重。",
+	"apihelp-wblexemeaddform-example-1": "添加词形至ID为<samp>$1</samp>的词位，其分别具有表现<samp>$2</samp>与语言<samp>$3</samp>，以及语法特征<samp>$4</samp>",
 	"wikibase-lexeme-api-addform-lexemeid-invalid": "提供作为“lexemeId”的词位ID无效",
 	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1不是词位ID",
 	"wikibase-lexeme-api-addform-data-not-array": "“data”必须是数组",
@@ -48,5 +49,6 @@
 	"wikibase-lexeme-api-addform-representation-text-missing": "在位置$1中没有为表现提供表现字符串",
 	"wikibase-lexeme-api-addform-representation-language-missing": "在位置$1中没有为表现提供语言",
 	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "无效语法特性：$1",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "不是项ID：$1"
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "不是项ID：$1",
+	"wikibase-lexeme-summary-add-form": "已添加新词形$3与{{PLURAL:$1|表现}}"
 }

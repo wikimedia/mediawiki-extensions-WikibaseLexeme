@@ -36,6 +36,7 @@
 	"apihelp-wblexemeaddform-param-lexemeId": "Identificador do lexema, por exemplo L10",
 	"apihelp-wblexemeaddform-param-data": "Dados JSON codificados para a forma, isto é, representações (representations) e propriedades gramaticais (grammaticalFeatures)",
 	"apihelp-wblexemeaddform-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"{{int:group-bot}}\".",
+	"apihelp-wblexemeaddform-example-1": "Adicionar forma ao lexema com o identificador <samp>$1</samp>, tendo as representações <samp>$2</samp> com as línguas <samp>$3</samp> respetivamente e as propriedades gramaticais <samp>$4</samp>",
 	"wikibase-lexeme-api-addform-lexemeid-invalid": "Foi fornecido um identificador de lexema inválido em \"lexemId\"",
 	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 não é um identificador de lexemas",
 	"wikibase-lexeme-api-addform-data-not-array": "\"data\" tem de ser uma matriz",
@@ -48,5 +49,6 @@
 	"wikibase-lexeme-api-addform-representation-text-missing": "Não foi fornecido um texto de representação para a representação na posição $1",
 	"wikibase-lexeme-api-addform-representation-language-missing": "Não foi fornecida uma língua para a representação na posição $1",
 	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Propriedade gramatical inválida: $1",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Não é um identificador de elemento: $1"
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Não é um identificador de elemento: $1",
+	"wikibase-lexeme-summary-add-form": "Foi adicionada a nova forma $3 com {{PLURAL:$1|representação|representações}}"
 }

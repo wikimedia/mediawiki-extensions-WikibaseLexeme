@@ -36,6 +36,7 @@
 	"apihelp-wblexemeaddform-param-lexemeId": "Kennung des Lexemes, z.&nbsp;B. L10",
 	"apihelp-wblexemeaddform-param-data": "JSON-kodierte Daten für Form, z.&nbsp;B. representations und grammaticalFeatures",
 	"apihelp-wblexemeaddform-param-bot": "Markiert diese Bearbeitung als Bot. Dieses URL-Flag wird nur berücksichtigt, falls der Benutzer zur Gruppe der „{{int:group-bot}}“ gehört.",
+	"apihelp-wblexemeaddform-example-1": "Fügt das Formular zum Lexeme mit der Kennung <samp>$1</samp> hinzu, das Darstellungen <samp>$2</samp> jeweils mit den Sprachen <samp>$3</samp> und den grammatikalischen Funktionen <samp>$4</samp> hat",
 	"wikibase-lexeme-api-addform-lexemeid-invalid": "Es wurde eine ungültige Lexeme-Kennung als „lexemeId“ angegeben",
 	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 ist keine Lexeme-Kennung",
 	"wikibase-lexeme-api-addform-data-not-array": "„data“ muss eine Anordnung sein",
@@ -48,5 +49,6 @@
 	"wikibase-lexeme-api-addform-representation-text-missing": "Es wurde keine Darstellungszeichenfolge für die Darstellung bei Position $1 angegeben",
 	"wikibase-lexeme-api-addform-representation-language-missing": "Es wurde keine Sprache für die Darstellung bei Position $1 angegeben",
 	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Ungültige grammatikalische Funktion: $1",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Keine Objektkennung: $1"
+	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Keine Objektkennung: $1",
+	"wikibase-lexeme-summary-add-form": "Neues Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt"
 }
