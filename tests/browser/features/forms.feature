@@ -57,6 +57,7 @@ Feature: Forms of a Lexeme
     When I click the Forms list add button
      And I enter "whatever" as the "en" form representation
      And I save the Form
+     And I reload the page
     Then "whatever" should be displayed as the "en" representation of the Form
 
 
