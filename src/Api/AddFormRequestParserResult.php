@@ -2,30 +2,44 @@
 
 namespace Wikibase\Lexeme\Api;
 
+use Wikibase\Lexeme\Api\Error\ApiError;
+use Wikimedia\Assert\Assert;
+
 /**
  * @license GPL-2.0+
  */
 class AddFormRequestParserResult {
 
+	/**
+	 * @var AddFormRequest|null
+	 */
 	private $request;
 
-	private $errors;
-
 	/**
-	 * @param AddFormRequest|null $request
-	 * @param string[] $errors
+	 * @var ApiError[]
 	 */
-	public function __construct( AddFormRequest $request = null, array $errors ) {
-		$this->request = $request;
-		$this->errors = $errors;
-	}
+	private $errors;
 
 	public static function newWithRequest( AddFormRequest $request ) {
 		return new self( $request, [] );
 	}
 
+	/**
+	 * @param ApiError[] $errors
+	 * @return AddFormRequestParserResult
+	 */
 	public static function newWithErrors( array $errors ) {
 		return new self( null, $errors );
+	}
+
+	/**
+	 * @param AddFormRequest|null $request
+	 * @param ApiError[] $errors
+	 */
+	private function __construct( AddFormRequest $request = null, array $errors ) {
+		Assert::parameterElementType( ApiError::class, $errors, '$errors' );
+		$this->request = $request;
+		$this->errors = $errors;
 	}
 
 	public function getRequest() {
@@ -42,8 +56,19 @@ class AddFormRequestParserResult {
 		return !empty( $this->errors );
 	}
 
-	public function getErrors() {
-		return $this->errors;
+	/**
+	 * @return \Status
+	 */
+	public function asFatalStatus() {
+		if ( !$this->hasErrors() ) {
+			throw new \LogicException( 'Succesful result can not be converted to fatal status' );
+		}
+
+		$status = \Status::newGood();
+		foreach ( $this->errors as $error ) {
+			$status->fatal( $error->asApiMessage() );
+		}
+		return $status;
 	}
 
 }

@@ -58,11 +58,37 @@
 				action: 'wblexemeaddform',
 				lexemeId: this.lexemeId,
 				data: JSON.stringify( serializedForm ),
+				errorformat: 'plaintext',
 				bot: 1
 			} ).then( function ( data ) {
 				return lexemeDeserializer.deserializeForm( data.form );
-			} ); // TODO: Error handling
+			} ).catch( function ( code, response ) {
+				throw convertPlainTextErrorsToRepoApiError( response.errors );
+			} );
 		}
 	} );
+
+	function convertPlainTextErrorsToRepoApiError( errors ) {
+		var $ul = $( '<ul>' );
+
+		var code = '';
+		errors.forEach( function ( e ) {
+			if ( !code ) {
+				code = e.code;
+			}
+
+			var $li = $( '<li>' ).text( e[ '*' ] );
+			$ul.append( $li );
+		} );
+
+		var action = 'save';
+		var detailedMessage = $ul.html();
+		return new wb.api.RepoApiError(
+			code,
+			detailedMessage,
+			[],
+			action
+		);
+	}
 
 }( mediaWiki, wikibase, jQuery ) );
