@@ -9,13 +9,5 @@
 	"wikibase-lemma-field-language-label": "언어",
 	"wikibase-form-field-language-label": "언어",
 	"wikibase-gloss-field-language-label": "언어",
-	"apihelp-wblexemeaddform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
-	"wikibase-lexeme-api-addform-data-not-array": "\"data\"는 배열이어야 합니다",
-	"wikibase-lexeme-api-addform-data-representations-key-missing": "\"data\"에 \"representations\" 키가 없습니다",
-	"wikibase-lexeme-api-addform-data-invalid-json": "\"data\"는 유효한 JSON이 아닙니다",
-	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "\"data\"에 \"grammaticalFeatures\" 키가 없습니다",
-	"wikibase-lexeme-api-addform-data-representations-not-array": "\"representations\"는 배열이어야 합니다",
-	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "\"grammaticalFeatures\"는 배열이어야 합니다",
-	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "유효하지 않은 문법 기능: $1",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "항목 ID가 아닙니다: $1"
+	"apihelp-wblexemeaddform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다."
 }

@@ -4,6 +4,5 @@
 			"Nike"
 		]
 	},
-	"apihelp-wblexemeaddform-param-lexemeId": "Lekseemin ID, esim. L10",
-	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 ei ole lekseemi-ID"
+	"apihelp-wblexemeaddform-param-lexemeId": "Lekseemin ID, esim. L10"
 }

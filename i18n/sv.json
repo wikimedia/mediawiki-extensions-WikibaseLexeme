@@ -12,11 +12,5 @@
 	"wikibase-gloss-field-language-label": "Språk",
 	"wikibase-lexeme-add-form": "lägg till formulär",
 	"apihelp-wblexemeaddform-param-bot": "Markera denna redigering som en bot. Denna webbadressflagga kommer bara att respekteras om användare tillhör gruppen \"{{int:group-bot}}\".",
-	"wikibase-lexeme-api-addform-data-not-array": "\"data\" måste vara en lista (array)",
-	"wikibase-lexeme-api-addform-data-invalid-json": "\"data\" är inte giltig JSON",
-	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "Ingen \"grammaticalFeatures\"-nyckel i \"data\"",
-	"wikibase-lexeme-api-addform-data-representations-not-array": "\"representations\" måste vara en lista (array)",
-	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "\"grammaticalFeatures\" måste vara en lista (array)",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "Inte ett objekt-ID: $1",
 	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}"
 }

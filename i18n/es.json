@@ -18,14 +18,5 @@
 	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
 	"wikibase-lexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
 	"wikibase-lexeme-statementsection-statements-about-sense": "Declaraciones sobre $1",
-	"apihelp-wblexemeaddform-param-lexemeId": "Id. del lexema; p. ej., L10",
-	"wikibase-lexeme-api-addform-lexemeid-invalid": "Se proporcionó un identificador de lexema no válido en «lexemeId»",
-	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 no es un identificador de lexema",
-	"wikibase-lexeme-api-addform-data-not-array": "«data» debe ser una matriz",
-	"wikibase-lexeme-api-addform-data-representations-key-missing": "No hay ninguna clave «representations» en «data»",
-	"wikibase-lexeme-api-addform-data-invalid-json": "«data» no contiene JSON válido",
-	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "No hay ninguna clave «grammaticalFeatures» en «data»",
-	"wikibase-lexeme-api-addform-data-representations-not-array": "«representations» debe ser una matriz",
-	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "«grammaticalFeatures» debe ser una matriz",
-	"wikibase-lexeme-api-addform-representations-empty": "Debe proveerse por lo menos una representación sencilla"
+	"apihelp-wblexemeaddform-param-lexemeId": "Id. del lexema; p. ej., L10"
 }

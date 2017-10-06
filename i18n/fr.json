@@ -40,18 +40,5 @@
 	"apihelp-wblexemeaddform-param-data": "Données encodées au format JSON pour le formulaire; par exemple les représentations et les propriétés grammaticales",
 	"apihelp-wblexemeaddform-param-bot": "Marquer cette modification comme faite par un robot. Cette marque d'URL ne sera prise en compte si l'utilisateur appartient au groupe « {{int:group-bot}} » .",
 	"apihelp-wblexemeaddform-example-1": "Ajout de forme au lexème ayant respectivement pour ID <samp>$1</samp> , pour représentations <samp>$2</samp> , pour langues <samp>$3</samp> et pour propriétés grammaticales <samp>$4</samp>",
-	"wikibase-lexeme-api-addform-lexemeid-invalid": "ID de lexeme non valide fournit en tant que « lexemeId »",
-	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 n'est pas un ID de lexeme",
-	"wikibase-lexeme-api-addform-data-not-array": "\"data\" doit être un tableau",
-	"wikibase-lexeme-api-addform-data-representations-key-missing": "Pas de clé \"representations\" dans \"data\"",
-	"wikibase-lexeme-api-addform-data-invalid-json": "\"data\" n'est pas un format JSON valide",
-	"wikibase-lexeme-api-addform-data-grammatical-features-key-missing": "Clé \"grammaticalFeatures\" absente dans \"data\"",
-	"wikibase-lexeme-api-addform-data-representations-not-array": "\"representations\" doit être un tableau",
-	"wikibase-lexeme-api-addform-data-grammatical-features-not-array": "« grammaticalFeatures » doit être un tableau",
-	"wikibase-lexeme-api-addform-representations-empty": "Au moins une représentation doit être fournie",
-	"wikibase-lexeme-api-addform-representation-text-missing": "Pas de chaîne de représentation fournie pour la représentation à la position $1",
-	"wikibase-lexeme-api-addform-representation-language-missing": "Pas de langue fournie pour la representation à la position $1",
-	"wikibase-lexeme-api-addform-grammatical-feature-itemid-invalid": "Fonctionalité grammatique invalide : $1",
-	"wikibase-lexeme-api-addform-grammatical-feature-not-item-id": "N'est pas un ID d'élément : $1",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}"
 }
