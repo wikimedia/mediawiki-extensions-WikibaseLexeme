@@ -16,6 +16,7 @@ use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\SummaryFormatter;
 
 class AddForm extends ApiBase {
+
 	const LATEST_REVISION = 0;
 
 	/**
@@ -32,6 +33,7 @@ class AddForm extends ApiBase {
 	 * @var FormSerializer
 	 */
 	private $formSerializer;
+
 	/**
 	 * @var EditEntityFactory
 	 */
@@ -48,7 +50,7 @@ class AddForm extends ApiBase {
 	private $entityRevisionLookup;
 
 	/**
-	 * @return AddForm
+	 * @return self
 	 */
 	public static function newFromGlobalState( \ApiMain $mainModule, $moduleName ) {
 		$wikibaseRepo = \Wikibase\Repo\WikibaseRepo::getDefaultInstance();
@@ -61,7 +63,7 @@ class AddForm extends ApiBase {
 			$serializerFactory->newStatementListSerializer()
 		);
 
-		return new AddForm(
+		return new self(
 			$mainModule,
 			$moduleName,
 			new AddFormRequestParser( $wikibaseRepo->getEntityIdParser() ),
@@ -196,6 +198,7 @@ class AddForm extends ApiBase {
 
 		$serializedForm = $this->formSerializer->serialize( $newForm );
 
+		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );
 		$apiResult->addValue( null, 'form', $serializedForm );
 	}
