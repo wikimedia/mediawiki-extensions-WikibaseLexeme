@@ -21,5 +21,9 @@
 	"wikibase-form-field-language-label": "Lingua",
 	"wikibase-gloss-field-language-label": "Lingua",
 	"datatypes-type-wikibase-lexeme": "Lessema",
-	"wikibase-lexeme-api-addform-lexemeid-not-lexeme-id": "$1 non è un ID lessema"
+	"wikibase-lexeme-api-error-parameter-required": "Il parametro \"$1\" è obbligatorio",
+	"wikibase-lexeme-api-error-json-field-required": "Il campo \"$2\" nel parametro \"$1\" è obbligatorio",
+	"wikibase-lexeme-api-error-json-field-not-item-id": "Il campo \"$2\" nel parametro \"$1\" dovrebbe essere un ID elemento. Fornito: \"$3\"",
+	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Il campo \"$2\" nel parametro \"$1\" dovrebbe essere di tipo \"$3\". Fornito: \"$4\"",
+	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Il parametro \"$1\" dovrebbe essere un ID lessema. Fornito: \"$2\""
 }

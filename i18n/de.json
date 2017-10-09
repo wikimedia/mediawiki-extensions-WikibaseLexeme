@@ -39,6 +39,7 @@
 	"apihelp-wblexemeaddform-example-1": "Fügt das Formular zum Lexeme mit der Kennung <samp>$1</samp> hinzu, das Darstellungen <samp>$2</samp> jeweils mit den Sprachen <samp>$3</samp> und den grammatikalischen Funktionen <samp>$4</samp> hat",
 	"wikibase-lexeme-api-error-parameter-required": "Der Parameter „$1“ ist erforderlich",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Es wird erwartet, dass der Parameter „$1“ ein gültiges JSON-Objekt ist, es wurde jedoch „$2“ angegeben.",
+	"wikibase-lexeme-api-error-lexeme-not-found": "Es wurde kein Lexeme mit der Kennung „$1“ gefunden.",
 	"wikibase-lexeme-api-error-json-field-required": "Das Feld „$2“ im Parameter „$1“ ist erforderlich",
 	"wikibase-lexeme-api-error-json-field-not-item-id": "Es wird erwartet, dass das Feld „$2“ im Parameter „$1“ eine Objektkennung ist. Es wurde angegeben: „$3“",
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Es wird erwartet, dass das Feld „$2“ im Parameter „$1“ den Typ „$3“ hat. Es wurde angegeben: „$4“",
@@ -46,5 +47,6 @@
 	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "Der Darstellungstext kann nicht leer sein",
 	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "Die Darstellungssprache kann nicht leer sein",
 	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "Das Formular muss mindestens eine Darstellung haben",
+	"wikibase-lexeme-api-error-representations-language-not-unique": "Darstellungen müssen eine einzigartige Sprache haben. Die Sprache „$1“ wurde erneut verwendet.",
 	"wikibase-lexeme-summary-add-form": "Neues Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt"
 }

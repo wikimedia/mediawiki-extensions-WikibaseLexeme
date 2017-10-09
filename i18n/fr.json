@@ -40,5 +40,15 @@
 	"apihelp-wblexemeaddform-param-data": "Données encodées au format JSON pour le formulaire; par exemple les représentations et les propriétés grammaticales",
 	"apihelp-wblexemeaddform-param-bot": "Marquer cette modification comme faite par un robot. Cette marque d'URL ne sera prise en compte si l'utilisateur appartient au groupe « {{int:group-bot}} » .",
 	"apihelp-wblexemeaddform-example-1": "Ajout de forme au lexème ayant respectivement pour ID <samp>$1</samp> , pour représentations <samp>$2</samp> , pour langues <samp>$3</samp> et pour propriétés grammaticales <samp>$4</samp>",
+	"wikibase-lexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
+	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",
+	"wikibase-lexeme-api-error-json-field-required": "Le champ « $2 » dans le paramètre « $1 » est obligatoire",
+	"wikibase-lexeme-api-error-json-field-not-item-id": "Le champ « $2 » dans le paramètre « $1 » doit être un Id. d’élément. Fourni : « $3 »",
+	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Le champ « $2 » dans le paramètre « $1 » doit être du type « $3 ». Fourni : « $4 »",
+	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Le paramètre « $1 » doit être un ID de lexème. Fourni : « $2 »",
+	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "Le texte de la représentation ne peut pas être vide",
+	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "La langue de la représentation ne peut pas être vide",
+	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "Le formulaire doit avoir au moins une représentation",
+	"wikibase-lexeme-api-error-representations-language-not-unique": "Les représentations doivent avoir une langue unique. La langue « $1 » est réutilisée",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}"
 }

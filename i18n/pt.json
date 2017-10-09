@@ -37,5 +37,15 @@
 	"apihelp-wblexemeaddform-param-data": "Dados JSON codificados para a forma, isto é, representações (representations) e propriedades gramaticais (grammaticalFeatures)",
 	"apihelp-wblexemeaddform-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wblexemeaddform-example-1": "Adicionar forma ao lexema com o identificador <samp>$1</samp>, tendo as representações <samp>$2</samp> com as línguas <samp>$3</samp> respetivamente e as propriedades gramaticais <samp>$4</samp>",
+	"wikibase-lexeme-api-error-parameter-required": "O parâmetro \"$1\" é obrigatório",
+	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Era esperado que o parâmetro \"$1\" fosse um objeto JSON válido. Foi fornecido: \"$2\"",
+	"wikibase-lexeme-api-error-json-field-required": "O campo \"$2\" do parâmetro \"$1\" é obrigatório",
+	"wikibase-lexeme-api-error-json-field-not-item-id": "Era esperado que o campo \"$2\" do parâmetro \"$1\" fosse um identificador de elemento. Foi fornecido: \"$3\"",
+	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Era esperado que o campo \"$2\" do parâmetro \"$1\" fosse do tipo \"$3\". Foi fornecido: \"$4\"",
+	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Era esperado que o parâmetro \"$1\" fosse um identificador de lexema. Foi fornecido: \"$2\"",
+	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "O texto de representação não pode estar vazio",
+	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "A língua de representação não pode estar vazia",
+	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "A forma tem de ter pelo menos uma representação",
+	"wikibase-lexeme-api-error-representations-language-not-unique": "As representações têm de ter uma língua única. A língua \"$1\" está a ser reutilizada",
 	"wikibase-lexeme-summary-add-form": "Foi adicionada a nova forma $3 com {{PLURAL:$1|representação|representações}}"
 }

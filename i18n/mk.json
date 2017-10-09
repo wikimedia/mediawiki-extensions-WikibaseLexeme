@@ -31,5 +31,6 @@
 	"datatypes-type-wikibase-lexeme-form": "Образец за Лексема",
 	"datatypes-type-wikibase-lexeme-sense": "Смисла за Лексема",
 	"wikibase-lexeme-add-sense": "додај смисла",
-	"wikibase-lexeme-add-form": "додај образец"
+	"wikibase-lexeme-add-form": "додај образец",
+	"apihelp-wblexemeaddform-param-lexemeId": "назнака на лексемата, како на пр. L10"
 }
