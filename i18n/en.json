@@ -37,6 +37,7 @@
 	"apihelp-wblexemeaddform-example-1": "Add Form to the Lexeme with ID <samp>$1</samp> having representations <samp>$2</samp> with languages <samp>$3</samp> respectively and grammatical features <samp>$4</samp>",
 	"wikibase-lexeme-api-error-parameter-required": "Parameter \"$1\" is required",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Parameter \"$1\" expected to be a valid JSON object, given \"$2\"",
+	"wikibase-lexeme-api-error-lexeme-not-found": "No Lexeme with ID \"$1\" was found.",
 	"wikibase-lexeme-api-error-json-field-required": "Field \"$2\" in parameter \"$1\" is required",
 	"wikibase-lexeme-api-error-json-field-not-item-id": "Field \"$2\" in parameter \"$1\" expected to be na Item Id. Given: \"$3\"",
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Field \"$2\" in parameter \"$1\" expected to be of type \"$3\". Given: \"$4\"",

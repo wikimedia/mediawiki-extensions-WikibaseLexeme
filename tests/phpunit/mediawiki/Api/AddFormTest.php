@@ -101,6 +101,15 @@ class AddFormTest extends WikibaseApiTestCase {
 					'api-error-data' => []
 				],
 			],
+			'Lexeme is not found' => [
+				[ 'lexemeId' => 'L999', 'data' => $this->getDataParam() ],
+				[
+					'message-key' => 'wikibase-lexeme-api-error-lexeme-not-found',
+					'message-parameters' => [ 'L999' ],
+					'api-error-code' => 'not-found',
+					'api-error-data' => []
+				],
+			],
 		];
 	}
 

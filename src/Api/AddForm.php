@@ -7,6 +7,7 @@ use ApiMain;
 use Status;
 use Wikibase\EditEntity;
 use Wikibase\EditEntityFactory;
+use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -131,18 +132,28 @@ class AddForm extends ApiBase {
 
 		if ( $parserResult->hasErrors() ) {
 			//TODO: Increase stats counter on failure
+			// `wikibase.repo.api.errors.total` counter
+			// What does it mean? What it is used for?
+			// Comment from Grafana dashboard:
+			//     Used to spot issues with the Wikibase API.
+			//     Spikes can indicate issues with Wikibase deployments.
 			$this->dieStatus( $parserResult->asFatalStatus() );
 		}
 
 		$request = $parserResult->getRequest();
 
-		//FIXME Check if found
 		try {
+			$lexemeId = $request->getLexemeId();
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
-				$request->getLexemeId(),
+				$lexemeId,
 				self::LATEST_REVISION,
 				EntityRevisionLookup::LATEST_FROM_MASTER
 			);
+
+			if ( !$lexemeRevision ) {
+				$error = new LexemeNotFound( $lexemeId );
+				$this->dieWithError( $error->asApiMessage() );
+			}
 		} catch ( StorageException $e ) {
 			//TODO Test it
 			if ( $e->getStatus() ) {

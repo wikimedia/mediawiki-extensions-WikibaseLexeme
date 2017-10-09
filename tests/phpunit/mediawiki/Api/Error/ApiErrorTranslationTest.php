@@ -7,12 +7,14 @@ use Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
 use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
+use Wikibase\Lexeme\DataModel\LexemeId;
 
 class ApiErrorTranslationTest extends \PHPUnit_Framework_TestCase {
 
@@ -74,6 +76,10 @@ class ApiErrorTranslationTest extends \PHPUnit_Framework_TestCase {
 				),
 				[ 'dummy-language' ]
 			],
+			LexemeNotFound::class => [
+				new LexemeNotFound( new LexemeId( 'L1' ) ),
+				[ 'L1' ]
+			]
 		];
 	}
 
