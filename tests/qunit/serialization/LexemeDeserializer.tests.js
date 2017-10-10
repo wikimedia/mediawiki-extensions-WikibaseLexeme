@@ -48,7 +48,7 @@
 	expectedDataModel.forms = [];
 	expectedDataModel.senses = [];
 
-	QUnit.test( 'deserialize()', 2, function ( assert ) {
+	QUnit.test( 'deserialize()', function ( assert ) {
 		var ds = new wb.lexeme.serialization.LexemeDeserializer();
 
 		assert.deepEqual(
