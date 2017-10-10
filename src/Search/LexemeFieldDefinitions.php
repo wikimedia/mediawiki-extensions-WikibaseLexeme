@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Search;
 
 use Wikibase\Repo\Search\Elastic\Fields\FieldDefinitions;
 use Wikibase\Repo\Search\Elastic\Fields\StatementCountField;
+use Wikibase\Repo\Search\Elastic\Fields\WikibaseIndexField;
 
 /**
  * @license GPL-2.0+
@@ -12,14 +13,12 @@ use Wikibase\Repo\Search\Elastic\Fields\StatementCountField;
 class LexemeFieldDefinitions implements FieldDefinitions {
 
 	/**
-	 * @return SearchIndexField[]
+	 * @return WikibaseIndexField[]
 	 */
 	public function getFields() {
-		$fields = [
+		return [
 			'statement_count' => new StatementCountField()
 		];
-
-		return $fields;
 	}
 
 }
