@@ -11,5 +11,6 @@
 	"wikibase-lexeme-view-forms": "ফরম",
 	"wikibase-lemma-field-language-label": "ভাষা",
 	"wikibase-form-field-language-label": "ভাষা",
-	"wikibase-gloss-field-language-label": "ভাষা"
+	"wikibase-gloss-field-language-label": "ভাষা",
+	"wikibase-lexeme-api-error-parameter-required": "প্যারামিটার \"$1\" আবশ্যক"
 }

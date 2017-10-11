@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Eduardo Addad de Oliveira"
+		]
+	},
+	"apihelp-wblexemeaddform-summary": "Adiciona uma forma ao lexema",
+	"apihelp-wblexemeaddform-param-lexemeId": "Identificador do lexema, por exemplo L10",
+	"apihelp-wblexemeaddform-param-data": "Dados JSON codificados para a forma, isto é, representações (representations) e propriedades gramaticais (grammaticalFeatures)",
+	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "O texto de representação não pode estar vazio",
+	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "A linguagem de representação não pode estar vazia",
+	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "O formulário deve ter pelo menos uma representação"
+}

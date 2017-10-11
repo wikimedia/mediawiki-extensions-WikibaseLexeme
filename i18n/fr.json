@@ -4,7 +4,8 @@
 			"Derugon",
 			"Gomoko",
 			"Wladek92",
-			"Yzelf"
+			"Yzelf",
+			"Oupsa"
 		]
 	},
 	"wikibaselexeme-desc": "Manipuler le type d'entité lexème",
@@ -42,7 +43,7 @@
 	"apihelp-wblexemeaddform-example-1": "Ajout de forme au lexème ayant respectivement pour ID <samp>$1</samp> , pour représentations <samp>$2</samp> , pour langues <samp>$3</samp> et pour propriétés grammaticales <samp>$4</samp>",
 	"wikibase-lexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",
-	"wikibase-lexeme-api-error-lexeme-not-found": "Pas de lexème ayant l'ID « $1 ».",
+	"wikibase-lexeme-api-error-lexeme-not-found": "Aucune entité avec l’ID « $1 » n’a été trouvée",
 	"wikibase-lexeme-api-error-json-field-required": "Le champ « $2 » dans le paramètre « $1 » est obligatoire",
 	"wikibase-lexeme-api-error-json-field-not-item-id": "Le champ « $2 » dans le paramètre « $1 » doit être un Id. d’élément. Fourni : « $3 »",
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Le champ « $2 » dans le paramètre « $1 » doit être du type « $3 ». Fourni : « $4 »",
