@@ -211,7 +211,13 @@
 			"scripts": "widgets/LexemeHeader.newLexemeHeader.js"
 		},
 		"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget": {
-			"scripts": "widgets/LanguageAndLexicalCategoryWidget.js"
+			"scripts": "widgets/LanguageAndLexicalCategoryWidget.js",
+			"dependencies": [
+				"wikibase.lexeme.widgets.ItemSelectorWrapper"
+			]
+		},
+		"wikibase.lexeme.widgets.ItemSelectorWrapper": {
+			"scripts": "widgets/ItemSelectorWrapper.js"
 		},
 		"wikibase.templates.lexeme": {
 			"class": "\\Wikibase\\Lexeme\\View\\TemplateModule",

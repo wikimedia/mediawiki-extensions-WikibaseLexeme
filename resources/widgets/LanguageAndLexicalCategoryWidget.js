@@ -1,6 +1,8 @@
 module.exports = ( function () {
 	'use strict';
 
+	var ItemSelectorWrapper = require( 'wikibase.lexeme.widgets.ItemSelectorWrapper' );
+
 	/**
 	 * @callback wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget
 	 *
@@ -11,6 +13,9 @@ module.exports = ( function () {
 		return {
 			props: [ 'language', 'lexicalCategory', 'inEditMode', 'isSaving' ],
 			template: template,
+			components: {
+				'item-selector': ItemSelectorWrapper
+			},
 
 			filters: {
 				message: function ( key ) {

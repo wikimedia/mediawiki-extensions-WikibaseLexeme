@@ -2,11 +2,19 @@
  * @license GPL-2.0+
  */
 describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function () {
+	global.mediaWiki = { // eslint-disable-line no-restricted-globals
+		config: {
+			get: function () {
+				return '';
+			}
+		}
+	};
+
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 
-	var Vue = global.Vue = require( 'vue/dist/vue.js' ); // eslint-disable-line no-restricted-globals
-	var Vuex = global.Vuex = require( 'vuex/dist/vuex.js' ); // eslint-disable-line no-restricted-globals
+	var Vue = global.Vue = require( 'vue/dist/vue.js' ), // eslint-disable-line no-restricted-globals
+		Vuex = global.Vuex = require( 'vuex/dist/vuex.js' ); // eslint-disable-line no-restricted-globals
 	Vue.use( Vuex );
 
 	var newLanguageAndLexicalCategoryWidget = require( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget' );

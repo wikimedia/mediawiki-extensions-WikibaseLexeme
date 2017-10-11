@@ -311,17 +311,17 @@ HTML;
 	<div v-else>
 		<div>
 			<label for="lexeme-language">{{'wikibase-lexeme-language'|message}}</label>
-			<input
+			<item-selector
 				id="lexeme-language"
 				v-bind:value="language"
-				@input="$emit('update:language', $event.target.value)">
+				@input="$emit('update:language', $event)"></item-selector>
 		</div>
 		<div>
 			<label for="lexeme-lexical-category">{{'wikibase-lexeme-lexical-category'|message}}</label>
-			<input
+			<item-selector
 				id="lexeme-lexical-category"
 				v-bind:value="lexicalCategory"
-				@input="$emit('update:lexicalCategory', $event.target.value)">
+				@input="$emit('update:lexicalCategory', $event)"></item-selector>
 		</div>
 	</div>
 </div>
