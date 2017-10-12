@@ -31,7 +31,7 @@ class AddFormRequestTest extends \PHPUnit_Framework_TestCase {
 
 		$changeOp->apply( $lexeme );
 
-		$forms = $lexeme->getForms();
+		$forms = $lexeme->getForms()->toArray();
 
 		$this->assertCount( 1, $forms );
 		$this->assertEquals( [ 'en' => 'goat' ], $forms[0]->getRepresentations()->toTextArray() );

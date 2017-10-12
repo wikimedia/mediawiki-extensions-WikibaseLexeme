@@ -63,10 +63,10 @@ class LexemePatchAccess {
 	}
 
 	/**
-	 * @return Form[]
+	 * @return FormSet
 	 */
 	public function getForms() {
-		return $this->forms->toArray();
+		return $this->forms;
 	}
 
 	/**

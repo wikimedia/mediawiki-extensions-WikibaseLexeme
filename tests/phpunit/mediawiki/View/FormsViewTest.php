@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use PHPUnit_Framework_TestCase;
 use Prophecy\Argument;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
@@ -28,7 +29,7 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsTheFormsHeadline() {
 		$view = $this->newFormsView();
-		$html = $view->getHtml( [] );
+		$html = $view->getHtml( new FormSet() );
 
 		assertThat(
 			$html,
@@ -44,7 +45,7 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsFormsContainer() {
 		$view = $this->newFormsView();
-		$html = $view->getHtml( [] );
+		$html = $view->getHtml( new FormSet() );
 
 		assertThat(
 			$html,
@@ -56,11 +57,11 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsFormRepresentationWithIdAndLanguage() {
 		$view = $this->newFormsView();
-		$html = $view->getHtml( [
+		$html = $view->getHtml( new FormSet( [
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en', 'FORM_REPRESENTATION' )
 				->build()
-		] );
+		] ) );
 
 		assertThat(
 			$html,
@@ -81,9 +82,9 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsFormId() {
 		$view = $this->newFormsView();
-		$html = $view->getHtml( [
+		$html = $view->getHtml( new FormSet( [
 			NewForm::havingId( 'F1' )->build()
-		] );
+		] ) );
 
 		assertThat(
 			$html,
@@ -97,9 +98,9 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 	public function testHtmlContainsFormGrammaticalFeatures() {
 		$view = $this->newFormsView();
 
-		$html = $view->getHtml( [
+		$html = $view->getHtml( new FormSet( [
 			NewForm::havingGrammaticalFeature( 'Q1' )->build()
-		] );
+		] ) );
 
 		assertThat(
 			$html,
@@ -109,9 +110,9 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 
 	public function testHtmlContainsStatementSection() {
 		$view = $this->newFormsView();
-		$html = $view->getHtml( [
+		$html = $view->getHtml( new FormSet( [
 			NewForm::any()->build()
-		] );
+		] ) );
 
 		assertThat(
 			$html,

@@ -3,10 +3,11 @@
 namespace Wikibase\Lexeme\View;
 
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
-use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\View\LocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 use WMDE\VueJsTemplating\Templating;
@@ -28,38 +29,33 @@ class FormsView {
 	private $templateFactory;
 
 	/**
-	 * @var EntityIdHtmlLinkFormatter
+	 * @var EntityIdFormatter
 	 */
-	private $entityIdHtmlFormatter;
+	private $entityIdFormatter;
 
 	/**
 	 * @var StatementGroupListView
 	 */
 	private $statementGroupListView;
 
-	/**
-	 * @var string
-	 */
-	private $languageCode;
-
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LexemeTemplateFactory $templateFactory,
-		EntityIdHtmlLinkFormatter $entityIdHtmlFormatter,
+		EntityIdFormatter $entityIdFormatter,
 		StatementGroupListView $statementGroupListView
 	) {
 		$this->textProvider = $textProvider;
 		$this->templateFactory = $templateFactory;
-		$this->entityIdHtmlFormatter = $entityIdHtmlFormatter;
+		$this->entityIdFormatter = $entityIdFormatter;
 		$this->statementGroupListView = $statementGroupListView;
 	}
 
 	/**
-	 * @param Form[] $forms
+	 * @param FormSet $forms
 	 *
 	 * @return string HTML
 	 */
-	public function getHtml( array $forms ) {
+	public function getHtml( FormSet $forms ) {
 		$html = '<div class="wikibase-lexeme-forms-section">';
 		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="forms">'
@@ -68,7 +64,7 @@ class FormsView {
 			. '</h2>';
 
 		$html .= '<div class="wikibase-lexeme-forms ">';
-		foreach ( $forms as $form ) {
+		foreach ( $forms->toArray() as $form ) {
 			$html .= $this->getFormHtml( $form );
 		}
 		$html .= '</div>';
@@ -144,7 +140,7 @@ class FormsView {
 	 * @return string HTML
 	 */
 	private function getGrammaticalFeatureHtml( ItemId $id ) {
-		return $this->entityIdHtmlFormatter->formatEntityId( $id );
+		return $this->entityIdFormatter->formatEntityId( $id );
 	}
 
 	private function getRepresentationsVueTemplate() {

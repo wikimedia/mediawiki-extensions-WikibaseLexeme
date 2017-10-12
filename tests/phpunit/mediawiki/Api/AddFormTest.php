@@ -141,9 +141,9 @@ class AddFormTest extends WikibaseApiTestCase {
 
 		$lexeme = $this->getLexeme( 'L1' );
 
-		$forms = $lexeme->getForms();
+		$forms = $lexeme->getForms()->toArray();
 
-		$this->assertCount( 1, $lexeme->getForms() );
+		$this->assertCount( 1, $forms );
 		$this->assertEquals( 'goat', $forms[0]->getRepresentations()->getByLanguage( 'en' )->getText() );
 		$this->assertEquals( [ new ItemId( 'Q17' ) ], $forms[0]->getGrammaticalFeatures() );
 	}
