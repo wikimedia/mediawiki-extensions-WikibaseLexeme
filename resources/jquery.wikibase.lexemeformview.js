@@ -6,11 +6,6 @@
 	/** @type {wikibase.lexeme.widgets.RepresentationWidget} */
 	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' );
 
-	/** @type {wikibase.datamodel.TermMap}*/
-	var TermMap = wb.datamodel.TermMap;
-	/** @type {wikibase.datamodel.Term}*/
-	var Term = wb.datamodel.Term;
-
 	/**
 	 * Initializes StatementGroupListView on given DOM element
 	 * @callback buildStatementGroupListView
@@ -108,7 +103,7 @@
 		 * @return {wikibase.lexeme.datamodel.Form|undefined}
 		 */
 		value: function ( form ) {
-			if ( form instanceof wikibase.lexeme.datamodel.Form ) {
+			if ( form instanceof wb.lexeme.datamodel.Form ) {
 				this.option( 'value', form );
 				this._grammaticalFeatureView.value( form.getGrammaticalFeatures() );
 				if ( this.deferredFormWithId && form.getId() ) {
@@ -123,7 +118,7 @@
 				return this.options.value;
 			}
 
-			return new wikibase.lexeme.datamodel.Form(
+			return new wb.lexeme.datamodel.Form(
 				this.options.value ? this.options.value.getId() : null,
 				arrayToTermMap( this._representationsWidget.representations ),
 				this._grammaticalFeatureView ? this._grammaticalFeatureView.value() : []
@@ -223,13 +218,13 @@
 	} );
 
 	function arrayToTermMap( representations ) {
-		var result = new wikibase.datamodel.TermMap();
+		var result = new wb.datamodel.TermMap();
 
 		representations.forEach( function ( representation ) {
 			try {
 				result.setItem(
 					representation.language,
-					new wikibase.datamodel.Term( representation.language, representation.value )
+					new wb.datamodel.Term( representation.language, representation.value )
 				);
 			} catch ( e ) {
 				// ignore

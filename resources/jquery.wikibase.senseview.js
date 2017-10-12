@@ -52,7 +52,7 @@
 		 * @return {wikibase.lexeme.datamodel.Sense|undefined}
 		 */
 		value: function ( sense ) {
-			if ( sense instanceof wikibase.lexeme.datamodel.Sense ) {
+			if ( sense instanceof wb.lexeme.datamodel.Sense ) {
 				this.option( 'value', sense );
 				return;
 			}
@@ -61,7 +61,7 @@
 				return this.options.value;
 			}
 
-			return new wikibase.lexeme.datamodel.Sense(
+			return new wb.lexeme.datamodel.Sense(
 				this.options.value ? this.options.value.getId() : null,
 				convertGlossWidgetModelToGlossHashMap( this.glossWidget.glosses )
 			);
@@ -128,4 +128,4 @@
 		return result;
 	}
 
-}( jQuery, mediaWiki ) );
+}( jQuery, mediaWiki, wikibase ) );

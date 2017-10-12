@@ -20,7 +20,7 @@
 		serialize: function ( form ) {
 			var representations = {};
 
-			if ( !( form instanceof wikibase.lexeme.datamodel.Form ) ) {
+			if ( !( form instanceof wb.lexeme.datamodel.Form ) ) {
 				throw new Error( 'Not an instance of wikibase.lexeme.datamodel.Form' );
 			}
 
