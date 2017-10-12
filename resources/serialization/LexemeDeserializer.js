@@ -39,7 +39,7 @@
 				return this.deserializeSense( sense );
 			}.bind( this ) );
 
-			var lexeme = new wikibase.lexeme.datamodel.Lexeme(
+			var lexeme = new wb.lexeme.datamodel.Lexeme(
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.labels ),
 				statementGroupSetDeserializer.deserialize( serialization.claims )
