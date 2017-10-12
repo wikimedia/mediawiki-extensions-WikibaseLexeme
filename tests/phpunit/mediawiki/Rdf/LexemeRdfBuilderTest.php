@@ -8,9 +8,8 @@ use Wikibase\Repo\Tests\Rdf\RdfBuilderTestData;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
- * @covers Wikibase\Lexeme\Rdf\LexemeRdfBuilder
+ * @covers \Wikibase\Lexeme\Rdf\LexemeRdfBuilder
  *
- * @group Wikibase
  * @group WikibaseRdf
  *
  * @license GPL-2.0+

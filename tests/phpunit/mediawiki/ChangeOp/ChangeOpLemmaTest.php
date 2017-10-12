@@ -15,7 +15,7 @@ use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;
 
 /**
- * @covers Wikibase\Lexeme\ChangeOp\ChangeOpLemma
+ * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLemma
  *
  * @group WikibaseLexeme
  *

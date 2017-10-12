@@ -13,7 +13,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
- * @covers Wikibase\Lexeme\Content\LexemeContent
+ * @covers \Wikibase\Lexeme\Content\LexemeContent
  *
  * @group WikibaseLexeme
  *

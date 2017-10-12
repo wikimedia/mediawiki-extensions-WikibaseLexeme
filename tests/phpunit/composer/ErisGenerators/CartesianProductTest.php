@@ -6,6 +6,11 @@ use Eris\Facade;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
 
+/**
+ * @covers \Wikibase\Lexeme\Tests\ErisGenerators\CartesianProduct
+ *
+ * @license GPL-2.0+
+ */
 class CartesianProductTest extends \PHPUnit_Framework_TestCase {
 
 	use ErisTest;

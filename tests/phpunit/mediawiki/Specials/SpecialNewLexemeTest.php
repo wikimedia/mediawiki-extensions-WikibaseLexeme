@@ -15,9 +15,8 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @covers Wikibase\Lexeme\Specials\SpecialNewLexeme
+ * @covers \Wikibase\Lexeme\Specials\SpecialNewLexeme
  *
- * @group Wikibase
  * @group SpecialPage
  * @group WikibaseSpecialPage
  * @group Database

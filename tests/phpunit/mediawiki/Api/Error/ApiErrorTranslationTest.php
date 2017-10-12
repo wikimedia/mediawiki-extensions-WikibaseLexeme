@@ -16,6 +16,21 @@ use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
+/**
+ * @covers \Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation
+ * @covers \Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType
+ * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId
+ * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsRequired
+ * @covers \Wikibase\Lexeme\Api\Error\LexemeNotFound
+ * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject
+ * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId
+ * @covers \Wikibase\Lexeme\Api\Error\ParameterIsRequired
+ * @covers \Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty
+ * @covers \Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage
+ * @covers \Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty
+ *
+ * @license GPL-2.0+
+ */
 class ApiErrorTranslationTest extends \PHPUnit_Framework_TestCase {
 
 	/**

@@ -6,9 +6,8 @@ use PHPUnit_Framework_TestCase;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 
 /**
- * @covers Wikibase\Lexeme\View\Template\LexemeTemplateFactory
+ * @covers \Wikibase\Lexeme\View\Template\LexemeTemplateFactory
  *
- * @group Wikibase
  * @group WikibaseView
  * @group WikibaseLexeme
  *

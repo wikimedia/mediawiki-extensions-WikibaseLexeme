@@ -26,7 +26,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\StringNormalizer;
 
 /**
- * @covers Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
  *
  * @group WikibaseLexeme
  *

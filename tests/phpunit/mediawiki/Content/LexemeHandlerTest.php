@@ -25,7 +25,7 @@ use Wikibase\Store\EntityIdLookup;
 use Wikibase\TermIndex;
 
 /**
- * @covers Wikibase\Lexeme\Content\LexemeHandler
+ * @covers \Wikibase\Lexeme\Content\LexemeHandler
  *
  * @group WikibaseLexeme
  *

@@ -18,7 +18,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
+ * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
  *
  * @group WikibaseLexeme
  *

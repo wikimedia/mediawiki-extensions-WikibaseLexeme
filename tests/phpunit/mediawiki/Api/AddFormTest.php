@@ -8,15 +8,15 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers Wikibase\Lexeme\Api\AddForm
+ * @covers \Wikibase\Lexeme\Api\AddForm
  *
  * @license GPL-2.0+
  *
- * @group Wikibase
  * @group Database
  * @group medium
  * @group WikibaseLexeme
@@ -193,6 +193,7 @@ class AddFormTest extends WikibaseApiTestCase {
 
 	/**
 	 * @param string $id
+	 *
 	 * @return Lexeme|null
 	 */
 	private function getLexeme( $id ) {
@@ -200,6 +201,11 @@ class AddFormTest extends WikibaseApiTestCase {
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 
+	/**
+	 * @param string $id
+	 *
+	 * @return EntityRevision|null
+	 */
 	private function getCurrentRevisionForLexeme( $id ) {
 		$lookup = WikibaseRepo::getDefaultInstance()->getEntityRevisionLookup();
 

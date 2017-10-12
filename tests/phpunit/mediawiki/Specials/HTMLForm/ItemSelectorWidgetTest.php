@@ -7,9 +7,7 @@ use OOUI\Theme;
 use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
 
 /**
- * @covers Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget
- *
- * @group Wikibase
+ * @covers \Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget
  *
  * @license GPL-2.0+
  */

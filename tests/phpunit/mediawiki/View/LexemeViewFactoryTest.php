@@ -14,7 +14,7 @@ use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
 
 /**
- * @covers Wikibase\Lexeme\View\LexemeViewFactory
+ * @covers \Wikibase\Lexeme\View\LexemeViewFactory
  *
  * @group WikibaseLexeme
  *
@@ -24,6 +24,7 @@ use Wikibase\View\EntityTermsView;
 class LexemeViewFactoryTest extends PHPUnit_Framework_TestCase {
 
 	public function testNewLexemeView() {
+		/** @var EntityIdHtmlLinkFormatterFactory $formatterFactory */
 		$formatterFactory = $this->prophesize( EntityIdHtmlLinkFormatterFactory::class );
 		$formatter = $this->prophesize( EntityIdHtmlLinkFormatter::class );
 		$formatterFactory->getEntityIdFormatter( Argument::any() )->willReturn( $formatter );

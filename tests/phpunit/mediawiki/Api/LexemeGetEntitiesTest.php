@@ -12,6 +12,8 @@ use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
+ * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
+ *
  * @license GPL-2.0+
  *
  * @group Database

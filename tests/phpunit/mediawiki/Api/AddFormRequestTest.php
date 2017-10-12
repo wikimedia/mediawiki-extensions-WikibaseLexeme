@@ -10,7 +10,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers Wikibase\Lexeme\Api\AddFormRequest
+ * @covers \Wikibase\Lexeme\Api\AddFormRequest
  *
  * @group WikibaseLexeme
  *

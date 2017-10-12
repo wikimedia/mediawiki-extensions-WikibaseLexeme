@@ -15,7 +15,7 @@ use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementSectionsView;
 
 /**
- * @covers Wikibase\Lexeme\View\SensesView
+ * @covers \Wikibase\Lexeme\View\SensesView
  *
  * @group WikibaseLexeme
  *

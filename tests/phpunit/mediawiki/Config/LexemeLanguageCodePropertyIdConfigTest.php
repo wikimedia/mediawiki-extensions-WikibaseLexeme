@@ -8,7 +8,7 @@ use ResourceLoaderContext;
 use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
 
 /**
- * @covers Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig
+ * @covers \Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig
  *
  * @group WikibaseLexeme
  *

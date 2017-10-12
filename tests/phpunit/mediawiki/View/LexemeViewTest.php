@@ -27,7 +27,7 @@ use Wikibase\View\Template\TemplateFactory;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers Wikibase\Lexeme\View\LexemeView
+ * @covers \Wikibase\Lexeme\View\LexemeView
  *
  * @group WikibaseLexeme
  *

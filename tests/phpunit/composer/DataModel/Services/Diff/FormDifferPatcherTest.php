@@ -14,6 +14,12 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
+/**
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher
+ *
+ * @license GPL-2.0+
+ */
 class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 
 	use ErisTest;

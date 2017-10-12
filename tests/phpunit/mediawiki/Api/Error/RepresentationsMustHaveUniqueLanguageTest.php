@@ -4,6 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
 use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 
+/**
+ * @covers \Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage
+ *
+ * @license GPL-2.0+
+ */
 class RepresentationsMustHaveUniqueLanguageTest extends \PHPUnit_Framework_TestCase {
 
 	public function testApiMessageHasUnprocessableRequestCode() {

@@ -10,6 +10,11 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Summary;
 
+/**
+ * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpAddForm
+ *
+ * @license GPL-2.0+
+ */
 class ChangeOpAddFormTest extends \PHPUnit_Framework_TestCase {
 
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {

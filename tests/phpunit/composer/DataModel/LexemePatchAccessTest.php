@@ -5,6 +5,11 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 
+/**
+ * @covers \Wikibase\Lexeme\DataModel\LexemePatchAccess
+ *
+ * @license GPL-2.0+
+ */
 class LexemePatchAccessTest extends \PHPUnit_Framework_TestCase {
 
 	public function testCanAddAForm() {

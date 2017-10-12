@@ -17,7 +17,7 @@ use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
 
 /**
- * @covers Wikibase\Lexeme\Validators\LexemeValidatorFactory
+ * @covers \Wikibase\Lexeme\Validators\LexemeValidatorFactory
  *
  * @group WikibaseLexeme
  *

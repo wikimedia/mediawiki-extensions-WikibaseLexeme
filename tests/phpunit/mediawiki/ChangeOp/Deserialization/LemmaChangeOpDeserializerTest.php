@@ -16,7 +16,7 @@ use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\StringNormalizer;
 
 /**
- * @covers Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer
  *
  * @group WikibaseLexeme
  *

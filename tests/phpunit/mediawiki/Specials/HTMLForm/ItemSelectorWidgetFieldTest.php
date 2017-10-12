@@ -12,9 +12,7 @@ use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
 use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
 
 /**
- * @covers Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField
- *
- * @group Wikibase
+ * @covers \Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField
  *
  * @license GPL-2.0+
  */

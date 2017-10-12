@@ -13,7 +13,7 @@ use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;
 
 /**
- * @covers Wikibase\Lexeme\ChangeOp\ChangeOpLexicalCategory
+ * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLexicalCategory
  *
  * @group WikibaseLexeme
  *

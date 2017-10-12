@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use Wikibase\DataModel\Statement\StatementList;

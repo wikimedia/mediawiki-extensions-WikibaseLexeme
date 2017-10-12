@@ -6,7 +6,7 @@ use ResourceLoaderContext;
 use Wikibase\Lexeme\View\TemplateModule;
 
 /**
- * @covers Wikibase\Lexeme\View\TemplateModule
+ * @covers \Wikibase\Lexeme\View\TemplateModule
  *
  * @group WikibaseLexeme
  *

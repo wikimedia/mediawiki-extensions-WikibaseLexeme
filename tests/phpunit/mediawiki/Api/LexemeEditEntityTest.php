@@ -16,12 +16,11 @@ use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers Wikibase\Repo\Api\EditEntity
+ * @covers \Wikibase\Repo\Api\EditEntity
  *
  * @license GPL-2.0+
  *
  * @group API
- * @group Wikibase
  * @group WikibaseAPI
  * @group Database
  * @group medium
