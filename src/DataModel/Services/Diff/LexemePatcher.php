@@ -6,7 +6,6 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
-use Diff\Patcher\ListPatcher;
 use Diff\Patcher\PatcherException;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -27,7 +26,7 @@ use Wikimedia\Assert\Assert;
  * @author Thiemo Mättig
  */
 class LexemePatcher implements EntityPatcherStrategy {
-	private $formPatcher;
+
 	/**
 	 * @var TermListPatcher
 	 */
@@ -37,6 +36,11 @@ class LexemePatcher implements EntityPatcherStrategy {
 	 * @var StatementListPatcher
 	 */
 	private $statementListPatcher;
+
+	/**
+	 * @var FormPatcher
+	 */
+	private $formPatcher;
 
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();
