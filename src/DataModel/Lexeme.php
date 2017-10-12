@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataModel;
 
 use InvalidArgumentException;
+use OutOfRangeException;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
@@ -69,7 +70,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @param ItemId|null $language
 	 * @param StatementList|null $statements
 	 * @param int $nextFormId
-	 * @param Form[] $forms
+	 * @param FormSet|null $forms
 	 * @param Sense[] $senses
 	 */
 	public function __construct(
@@ -79,7 +80,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		ItemId $language = null,
 		StatementList $statements = null,
 		$nextFormId = 1,
-		array $forms = [],
+		FormSet $forms = null,
 		array $senses = []
 	) {
 		$this->id = $id;
@@ -87,14 +88,12 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		$this->lexicalCategory = $lexicalCategory;
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
-
-		$formSet = new FormSet( $forms );
-		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $formSet );
-		$this->nextFormId = $nextFormId;
-		$this->forms = $formSet;
-
-		//TODO add assertion on Senses types
+		$this->forms = $forms ?: new FormSet( [] );
+		// TODO: Add assertion on Senses types.
 		$this->senses = $senses;
+
+		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $this->forms );
+		$this->nextFormId = $nextFormId;
 	}
 
 	/**
@@ -181,7 +180,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	/**
 	 * @see EntityDocument::copy
 	 *
-	 * @return Lexeme
+	 * @return self
 	 */
 	public function copy() {
 		return clone $this;
@@ -281,13 +280,24 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		return $this->nextFormId;
 	}
 
+	/**
+	 * @param FormId $formId
+	 *
+	 * @return bool
+	 */
 	public function hasForm( FormId $formId ) {
 		return (bool)$this->forms->getById( $formId );
 	}
 
+	/**
+	 * @param FormId $formId
+	 *
+	 * @throws OutOfRangeException
+	 * @return Form
+	 */
 	public function getForm( FormId $formId ) {
 		if ( !$this->hasForm( $formId ) ) {
-			throw new \OutOfRangeException(
+			throw new OutOfRangeException(
 				"Lexeme {$this->id->getSerialization()} doesn't have Form " .
 				"{$formId->getSerialization()}. Use hasForm() to check first"
 			);
@@ -349,8 +359,8 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @param mixed $nextFormId
-	 * @param Form[] $forms
+	 * @param int $nextFormId
+	 * @param FormSet $formSet
 	 */
 	private function assertCorrectNextFormIdIsGiven( $nextFormId, FormSet $formSet ) {
 		if ( !is_int( $nextFormId ) || $nextFormId < 1 ) {

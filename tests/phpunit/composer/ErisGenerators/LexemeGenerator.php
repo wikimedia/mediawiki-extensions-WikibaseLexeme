@@ -94,7 +94,7 @@ class LexemeGenerator implements Generator {
 			$language,
 			null,
 			$nextFormId,
-			$formSet->toArray()
+			$formSet
 		);
 		return GeneratedValueSingle::fromJustValue( $lexeme, 'lexeme' );
 	}
