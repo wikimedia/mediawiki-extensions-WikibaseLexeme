@@ -53,7 +53,7 @@
 				"jquery.wikibase.lexemeformlistview",
 				"jquery.wikibase.senselistview",
 				"wikibase.lexeme.view.ControllerViewFactory",
-				"lemma-widget"
+				"lexeme-header"
 			]
 		},
 		"wikibase.lexeme": {
@@ -144,12 +144,14 @@
 		"promise-polyfill": {
 			"scripts":"vendor/es6-promise.auto.js"
 		},
-		"lemma-widget":{
-			"scripts": "widgets/LemmaWidget.js",
+		"lexeme-header":{
+			"scripts": "widgets/LexemeHeader.js",
 			"dependencies": [
 				"vue",
 				"vuex",
-				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore",
+				"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget",
+				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader",
+				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore",
 				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget",
 				"wikibase.api.RepoApi",
 				"mediawiki.api",
@@ -162,7 +164,9 @@
 				"wikibase-add",
 				"wikibase-remove",
 				"wikibase-lemma-field-lemma-label",
-				"wikibase-lemma-field-language-label"
+				"wikibase-lemma-field-language-label",
+				"wikibase-lexeme-language",
+				"wikibase-lexeme-lexical-category"
 			]
 		},
 		"wikibase.lexeme.widgets.RepresentationWidget": {
@@ -194,14 +198,20 @@
 				"wikibase-gloss-field-gloss-label"
 			]
 		},
-		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore": {
-			"scripts": "widgets/LemmaWidget.newLemmaWidgetStore.js"
+		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore": {
+			"scripts": "widgets/LexemeHeader.newLexemeHeaderStore.js"
 		},
 		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": {
 			"scripts": "widgets/LemmaWidget.newLemmaWidget.js",
 			"dependencies": [
 				"wikibase.lexeme.datamodel.Lemma"
 			]
+		},
+		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader": {
+			"scripts": "widgets/LexemeHeader.newLexemeHeader.js"
+		},
+		"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget": {
+			"scripts": "widgets/LanguageAndLexicalCategoryWidget.js"
 		},
 		"wikibase.templates.lexeme": {
 			"class": "\\Wikibase\\Lexeme\\View\\TemplateModule",

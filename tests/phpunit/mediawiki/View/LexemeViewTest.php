@@ -208,42 +208,56 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 		$view->getTitleHtml( $entity );
 	}
 
-	public function provideTestGetHtmlForLexicalCategoryAndLanguage() {
+	public function testGetHtmlForLanguage() {
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
-		$missingLabelItem = new ItemId( 'Q1' );
 
-		return [
-			[
-				new Lexeme( $lexemeId, null, $lexicalCategory, $language ),
-				'<ITEM-Q3> in <ITEM-Q2>'
-			],
-			[
-				new Lexeme( $lexemeId, null, $missingLabelItem, $language ),
-				'Q1 in <ITEM-Q2>'
-			],
-		];
-	}
+		$lexeme = new Lexeme( $lexemeId, null, $lexicalCategory, $language );
 
-	/**
-	 * @dataProvider provideTestGetHtmlForLexicalCategoryAndLanguage
-	 */
-	public function testGetHtmlForLexicalCategoryAndLanguage(
-		Lexeme $entity,
-		$expectedHeadline
-	) {
-		$view = $this->newLexemeView( $entity->getStatements() );
+		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $entity );
+		$html = $view->getHtml( $lexeme );
 		$this->assertInternalType( 'string', $html );
 		assertThat(
 			$html,
 			is(
 				htmlPiece(
 					havingChild(
-						both( withClass( 'wikibase-entityview-main' ) )
-						->andAlso( havingTextContents( containsString( $expectedHeadline ) ) )
+						both( withClass( 'language-lexical-category-widget_language' ) )
+							->andAlso( havingTextContents( containsString( 'Q2' ) ) )
+					)
+				)
+			)
+		);
+		$this->assertContains(
+			'<div id="toc"></div>'
+			. "StatementSectionsView::getHtml\n"
+			. "FormsView::getHtml\n"
+			. "SensesView::getHtml\n"
+			. '</div>',
+			$html
+		);
+	}
+
+	public function testGetHtmlForLexicalCategory() {
+		$lexemeId = new LexemeId( 'L1' );
+		$language = new ItemId( 'Q2' );
+		$lexicalCategory = new ItemId( 'Q3' );
+
+		$lexeme = new Lexeme( $lexemeId, null, $lexicalCategory, $language );
+
+		$view = $this->newLexemeView( $lexeme->getStatements() );
+
+		$html = $view->getHtml( $lexeme );
+		$this->assertInternalType( 'string', $html );
+		assertThat(
+			$html,
+			is(
+				htmlPiece(
+					havingChild(
+						both( withClass( 'language-lexical-category-widget_lexical-category' ) )
+							->andAlso( havingTextContents( containsString( 'Q3' ) ) )
 					)
 				)
 			)

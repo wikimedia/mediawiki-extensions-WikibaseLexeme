@@ -25,19 +25,21 @@ module.exports = ( function () {
 	}
 
 	/**
-	 * @callback wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore
+	 * @callback wikibase.lexeme.widgets.LexemeHeader.newLemmaWidgetStore
 	 * @param {wikibase.api.RepoApi} repoApi
-	 * @param {wikibase.lexeme.datamodel.Lemma[]} lemmas
-	 * @param {string} entityId
+	 * @param {wikibase.lexeme.datamodel.Lexeme} lexeme
 	 * @param {int} baseRevId
 	 */
-	return function ( repoApi, lemmas, entityId, baseRevId ) {
+	return function ( repoApi, lexeme, baseRevId ) {
 		return {
 			strict: true, //FIXME make it configurable
 			state: {
 				isSaving: false,
 				baseRevId: baseRevId,
-				lemmas: lemmas
+				id: lexeme.id,
+				lemmas: lexeme.lemmas,
+				language: lexeme.language,
+				lexicalCategory: lexeme.lexicalCategory
 			},
 			mutations: {
 				updateLemmas: function ( state, newLemmas ) {
@@ -54,25 +56,29 @@ module.exports = ( function () {
 				}
 			},
 			actions: {
-				save: function ( context, lemmas ) {
+				save: function ( context, lexeme ) {
 					if ( context.state.isSaving ) {
 						throw new Error( 'Already saving!' );
 					}
 					context.commit( 'startSaving' );
 
-					var requestLemmas = getRequestLemmas( context.state.lemmas, lemmas );
+					var requestLemmas = getRequestLemmas( context.state.lemmas, lexeme.lemmas );
 
-					var data = { lemmas: requestLemmas };
+					var data = {
+						lemmas: requestLemmas,
+						language: lexeme.language,
+						lexicalCategory: lexeme.lexicalCategory
+					};
 
 					var clear = false;
 					return repoApi.editEntity(
-						entityId,
+						context.state.id,
 						context.state.baseRevId,
 						data,
 						clear
 					).then( function ( response ) {
 						context.commit( 'updateRevisionId', response.entity.lastrevid );
-						//TODO: This doesn't work correctly as soon as wbeditentity doesn't return lemmas in response
+						//TODO:  update lemmas, language and lexicalCategory once response contains the data
 						context.commit( 'updateLemmas', response.entity.lemmas );
 						context.commit( 'finishSaving' );
 					} ).catch( function () {

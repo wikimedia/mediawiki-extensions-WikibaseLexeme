@@ -1,15 +1,15 @@
 /**
  * @license GPL-2.0+
  */
-describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function () {
+describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function () {
 	var sinon = require( 'sinon' );
 	var expect = require( 'unexpected' ).clone();
 
-	/** @type {wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore} */
-	var newLemmaWidgetStore = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore' );
+	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
+	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 
-	var mutations = newLemmaWidgetStore( {}, [], '', 0 ).mutations;
+	var mutations = newLexemeHeaderStore( {}, [], '', 0 ).mutations;
 
 	it( 'mutation startSaving switches the isSaving flag to true', function () {
 		var state = { isSaving: false };
@@ -105,11 +105,11 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function ()
 				}
 			};
 
-			var actions = newLemmaWidgetStore( repoApi, [], '', 0 ).actions;
+			var actions = newLexemeHeaderStore( repoApi, [], '', 0 ).actions;
 
 			newTestAction( done ).test(
 				actions.save,
-				[ new Lemma( 'lemma1', 'en' ) ],
+				{ lemmas: [ new Lemma( 'lemma1', 'en' ) ] },
 				state,
 				[
 					{ type: 'startSaving' },
@@ -125,11 +125,11 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function ()
 		'action save calls API with correct parameters and changes state using data from response',
 		function ( done ) {
 			var baseRevisionId = 0;
-			var state = { isSaving: false, baseRevId: baseRevisionId, lemmas: [] };
+			var entityId = 'L1';
+			var state = { id: entityId, isSaving: false, baseRevId: baseRevisionId, lemmas: [] };
 
 			var newRevisionId = 2;
 
-			var entityId = 'Q1';
 			var response = {
 				entity: {
 					lastrevid: newRevisionId,
@@ -144,12 +144,16 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function ()
 				editEntity: sinon.spy( editEntity )
 			};
 
-			var lemmasToSave = [ new Lemma( 'lemma1', 'en' ) ];
+			var lexemeToSave = {
+				lemmas: [ new Lemma( 'lemma1', 'en' ) ],
+				language: 'Q123',
+				lexicalCategory: 'Q234'
+			};
 
-			var actions = newLemmaWidgetStore( repoApi, [], entityId, baseRevisionId ).actions;
+			var actions = newLexemeHeaderStore( repoApi, { id: entityId }, baseRevisionId ).actions;
 			newTestAction( done ).applyWithMutations(
 				actions.save,
-				lemmasToSave,
+				lexemeToSave,
 				state,
 				mutations
 			).then( function () {
@@ -157,7 +161,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function ()
 				expect( [ { value: 'lemma1', language: 'en' } ], 'to equal', state.lemmas );
 				expect( state.isSaving, 'not to be ok' );
 
-				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, { lemmas: lemmasToSave }, false );
+				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, lexemeToSave, false );
 				done();
 			} );
 		}
@@ -167,11 +171,11 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function ()
 		'action save calls API with correct parameters when removing an item from the state',
 		function ( done ) {
 			var baseRevisionId = 1;
-			var state = { isSaving: false, baseRevId: baseRevisionId, lemmas: [ new Lemma( 'a lemma', 'en' ) ] };
+			var entityId = 'L1';
+			var state = { id: entityId, isSaving: false, baseRevId: baseRevisionId, lemmas: [ new Lemma( 'a lemma', 'en' ) ] };
 
 			var newRevisionId = 2;
 
-			var entityId = 'Q1';
 			var response = {
 				entity: {
 					lastrevid: newRevisionId,
@@ -186,17 +190,25 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidgetStore', function ()
 				editEntity: sinon.spy( editEntity )
 			};
 
-			var lemmasToSave = [];
-			var lemmasInApiRequest = [ { language: 'en', remove: '' } ];
+			var lexemeToSave = {
+				lemmas: [],
+				language: 'Q123',
+				lexicalCategory: 'Q234'
+			};
+			var lexemeInApiRequest = {
+				lemmas: [ { language: 'en', remove: '' } ],
+				language: 'Q123',
+				lexicalCategory: 'Q234'
+			};
 
-			var actions = newLemmaWidgetStore( repoApi, [], entityId, baseRevisionId ).actions;
+			var actions = newLexemeHeaderStore( repoApi, { id: entityId }, baseRevisionId ).actions;
 			newTestAction( done ).applyWithMutations(
 				actions.save,
-				lemmasToSave,
+				lexemeToSave,
 				state,
 				mutations
 			).then( function () {
-				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, { lemmas: lemmasInApiRequest }, false );
+				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, lexemeInApiRequest, false );
 				done();
 			} );
 		}
