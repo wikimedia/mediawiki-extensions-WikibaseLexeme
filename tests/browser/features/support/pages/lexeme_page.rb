@@ -108,6 +108,19 @@ class Sense
 end
 
 
+class LexemeHeader
+  include PageObject
+
+  button(:edit, class: 'lemma-widget_edit')
+  button(:save, class: 'lemma-widget_save')
+
+  text_field(:lexeme_language_input, id: 'lexeme-language')
+  text_field(:lexical_category_input, id: 'lexeme-lexical-category')
+  span(:lexeme_language, class: 'language-lexical-category-widget_language')
+  span(:lexical_category, class: 'language-lexical-category-widget_lexical-category')
+end
+
+
 class LexemePage
   include PageObject
   include EntityPage
@@ -118,6 +131,7 @@ class LexemePage
   span(:senses_header, id: 'senses')
   div(:senses_container, class: 'wikibase-lexeme-senses')
 
+  page_section(:lexeme_header, LexemeHeader, id: 'wb-lexeme-header')
   page_sections(:forms, LexemeForm, class: 'wikibase-lexeme-form')
   page_sections(:senses, Sense, class: 'wikibase-lexeme-sense')
 
