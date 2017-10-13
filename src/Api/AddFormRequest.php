@@ -2,11 +2,10 @@
 
 namespace Wikibase\Lexeme\Api;
 
-use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpAddForm;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikimedia\Assert\Assert;
@@ -63,6 +62,11 @@ class AddFormRequest {
 		return $this->lexemeId;
 	}
 
+	/**
+	 * @param Lexeme $lexeme
+	 *
+	 * @return Form
+	 */
 	public function addFormTo( Lexeme $lexeme ) {
 		//FIXME Test it
 		//FIXME Assert on ID equality

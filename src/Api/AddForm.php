@@ -4,8 +4,6 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
-use Status;
-use Wikibase\EditEntity;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\DataModel\Lexeme;
