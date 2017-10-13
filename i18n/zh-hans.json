@@ -49,5 +49,7 @@
 	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "表现语言不能为空",
 	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "词性必须至少有一个表现",
 	"wikibase-lexeme-api-error-representations-language-not-unique": "表现必须有唯一的语言。语言“$1”被复用",
-	"wikibase-lexeme-summary-add-form": "已添加新词性$3与{{PLURAL:$1|表现}}"
+	"wikibase-lexeme-summary-add-form": "已添加新词性$3与{{PLURAL:$1|表现}}",
+	"wikibase-lexeme-language": "语言",
+	"wikibase-lexeme-lexical-category": "词类"
 }

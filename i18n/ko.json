@@ -13,5 +13,6 @@
 	"wikibase-lexeme-api-error-parameter-required": "\"$1\" 변수는 필수입니다",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "\"$1\" 변수에 유효한 JSON 객체를 예측했지만 지정된 값은 \"$2\"입니다",
 	"wikibase-lexeme-api-error-json-field-required": "\"$1\" 변수에 \"$2\" 필드는 필수입니다",
-	"wikibase-lexeme-api-error-json-field-has-wrong-type": "\"$1\" 변수의 \"$2\" 필드에 \"$3\" 유형을 예측했습니다. 지정된 값: \"$4\""
+	"wikibase-lexeme-api-error-json-field-has-wrong-type": "\"$1\" 변수의 \"$2\" 필드에 \"$3\" 유형을 예측했습니다. 지정된 값: \"$4\"",
+	"wikibase-lexeme-language": "언어"
 }

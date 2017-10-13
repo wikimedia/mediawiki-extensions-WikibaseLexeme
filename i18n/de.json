@@ -48,5 +48,7 @@
 	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "Die Darstellungssprache kann nicht leer sein",
 	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "Das Formular muss mindestens eine Darstellung haben",
 	"wikibase-lexeme-api-error-representations-language-not-unique": "Darstellungen müssen eine einzigartige Sprache haben. Die Sprache „$1“ wurde erneut verwendet.",
-	"wikibase-lexeme-summary-add-form": "Neues Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt"
+	"wikibase-lexeme-summary-add-form": "Neues Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt",
+	"wikibase-lexeme-language": "Sprache",
+	"wikibase-lexeme-lexical-category": "Lexikalische Kategorie"
 }

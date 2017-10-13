@@ -25,5 +25,7 @@
 	"apihelp-wblexemeaddform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
 	"wikibase-lexeme-api-error-parameter-required": "Parameter \"$1\" ass obligatoresch",
 	"wikibase-lexeme-api-error-json-field-required": "Feld \"$2\" am Parameter \"$1\" ass obligatoresch",
-	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "De Formular muss mindestens eng Duerstellung hunn"
+	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "De Formular muss mindestens eng Duerstellung hunn",
+	"wikibase-lexeme-language": "Sprooch",
+	"wikibase-lexeme-lexical-category": "Lexikalesch Kategorie"
 }
