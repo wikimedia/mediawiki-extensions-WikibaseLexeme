@@ -29,8 +29,6 @@ use Wikibase\TermIndex;
 /**
  * @covers \Wikibase\Lexeme\Content\LexemeHandler
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Bene* < benestar.wikimedia@gmail.com >
  */

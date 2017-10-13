@@ -10,8 +10,6 @@ use Wikibase\Lexeme\DataModel\SenseId;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Sense
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class SenseTest extends \PHPUnit_Framework_TestCase {

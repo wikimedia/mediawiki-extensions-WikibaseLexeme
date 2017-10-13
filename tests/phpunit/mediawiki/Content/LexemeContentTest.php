@@ -15,8 +15,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 /**
  * @covers \Wikibase\Lexeme\Content\LexemeContent
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeContentTest extends PHPUnit_Framework_TestCase {

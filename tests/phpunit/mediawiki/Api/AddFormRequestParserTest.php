@@ -26,8 +26,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class AddFormRequestParserTest extends \PHPUnit_Framework_TestCase {

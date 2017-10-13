@@ -18,8 +18,6 @@ use Wikibase\View\StatementGroupListView;
 /**
  * @covers \Wikibase\Lexeme\View\FormsView
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */

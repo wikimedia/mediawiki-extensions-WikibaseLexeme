@@ -24,7 +24,6 @@ use Wikibase\Repo\WikibaseRepo;
  * @group WikibaseAPI
  * @group Database
  * @group medium
- * @group WikibaseLexeme
  */
 class LexemeEditEntityTest extends WikibaseApiTestCase {
 

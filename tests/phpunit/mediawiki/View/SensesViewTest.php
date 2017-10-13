@@ -17,8 +17,6 @@ use Wikibase\View\StatementSectionsView;
 /**
  * @covers \Wikibase\Lexeme\View\SensesView
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class SensesViewTest extends PHPUnit_Framework_TestCase {

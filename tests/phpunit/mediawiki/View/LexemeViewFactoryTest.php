@@ -16,8 +16,6 @@ use Wikibase\View\EntityTermsView;
 /**
  * @covers \Wikibase\Lexeme\View\LexemeViewFactory
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */

@@ -15,8 +15,6 @@ use Wikibase\Summary;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLanguage
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class ChangeOpLanguageTest extends \PHPUnit_Framework_TestCase {

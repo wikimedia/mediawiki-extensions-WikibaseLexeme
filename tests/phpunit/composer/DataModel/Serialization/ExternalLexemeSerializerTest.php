@@ -21,8 +21,6 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */

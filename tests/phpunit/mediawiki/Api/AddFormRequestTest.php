@@ -12,8 +12,6 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequest
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class AddFormRequestTest extends \PHPUnit_Framework_TestCase {

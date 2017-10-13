@@ -20,8 +20,6 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */

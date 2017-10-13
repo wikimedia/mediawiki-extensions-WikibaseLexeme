@@ -21,8 +21,6 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */

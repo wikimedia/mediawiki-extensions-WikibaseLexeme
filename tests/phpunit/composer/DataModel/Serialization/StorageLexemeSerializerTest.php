@@ -31,8 +31,6 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class StorageLexemeSerializerTest extends \PHPUnit_Framework_TestCase {

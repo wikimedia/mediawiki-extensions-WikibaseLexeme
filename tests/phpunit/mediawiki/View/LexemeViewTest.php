@@ -31,8 +31,6 @@ use Wikimedia\Assert\ParameterTypeException;
 /**
  * @covers \Wikibase\Lexeme\View\LexemeView
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  * @author Thiemo Kreuz

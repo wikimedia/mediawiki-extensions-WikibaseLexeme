@@ -9,8 +9,6 @@ use Wikibase\Lexeme\Api\Error\ApiError;
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParserResult
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class AddFormRequestParserResultTest extends \PHPUnit_Framework_TestCase {

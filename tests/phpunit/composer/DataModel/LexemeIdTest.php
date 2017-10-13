@@ -9,8 +9,6 @@ use RuntimeException;
 /**
  * @covers \Wikibase\Lexeme\DataModel\LexemeId
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeIdTest extends \PHPUnit_Framework_TestCase {

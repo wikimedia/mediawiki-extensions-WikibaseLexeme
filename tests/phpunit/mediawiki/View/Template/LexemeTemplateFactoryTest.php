@@ -9,7 +9,6 @@ use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
  * @covers \Wikibase\Lexeme\View\Template\LexemeTemplateFactory
  *
  * @group WikibaseView
- * @group WikibaseLexeme
  *
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>

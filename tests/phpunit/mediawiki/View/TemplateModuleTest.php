@@ -8,8 +8,6 @@ use Wikibase\Lexeme\View\TemplateModule;
 /**
  * @covers \Wikibase\Lexeme\View\TemplateModule
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class TemplateModuleTest extends \PHPUnit_Framework_TestCase {

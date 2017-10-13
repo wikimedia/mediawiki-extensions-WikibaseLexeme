@@ -18,8 +18,6 @@ use Wikibase\StringNormalizer;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LemmaChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {

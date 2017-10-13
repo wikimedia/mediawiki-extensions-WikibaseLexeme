@@ -17,8 +17,6 @@ use Wikibase\Lexeme\DataModel\FormId;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Form
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class FormTest extends PHPUnit_Framework_TestCase {

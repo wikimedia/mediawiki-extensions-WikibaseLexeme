@@ -19,8 +19,6 @@ use Wikibase\Repo\Validators\TermValidatorFactory;
 /**
  * @covers \Wikibase\Lexeme\Validators\LexemeValidatorFactory
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {

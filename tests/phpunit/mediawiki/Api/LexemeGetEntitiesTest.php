@@ -18,7 +18,6 @@ use Wikibase\Repo\WikibaseRepo;
  *
  * @group Database
  * @group medium
- * @group WikibaseLexeme
  */
 class LexemeGetEntitiesTest extends WikibaseApiTestCase {
 

@@ -16,8 +16,6 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {

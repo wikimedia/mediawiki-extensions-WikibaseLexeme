@@ -15,8 +15,6 @@ use Wikibase\StringNormalizer;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexicalCategoryChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {

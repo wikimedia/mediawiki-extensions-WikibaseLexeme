@@ -15,8 +15,6 @@ use Wikibase\StringNormalizer;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LanguageChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {

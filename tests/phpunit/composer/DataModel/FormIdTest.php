@@ -9,8 +9,6 @@ use Wikibase\Lexeme\DataModel\FormId;
 /**
  * @covers \Wikibase\Lexeme\DataModel\FormId
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class FormIdTest extends PHPUnit_Framework_TestCase {

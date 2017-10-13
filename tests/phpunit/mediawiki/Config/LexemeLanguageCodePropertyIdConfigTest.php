@@ -10,8 +10,6 @@ use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
 /**
  * @covers \Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeLanguageCodePropertyIdConfigTest extends PHPUnit_Framework_TestCase {

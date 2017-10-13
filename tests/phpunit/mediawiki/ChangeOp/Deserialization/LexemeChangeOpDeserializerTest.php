@@ -28,8 +28,6 @@ use Wikibase\StringNormalizer;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {

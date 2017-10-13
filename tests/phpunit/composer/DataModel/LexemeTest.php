@@ -22,8 +22,6 @@ use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Lexeme
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeTest extends PHPUnit_Framework_TestCase {

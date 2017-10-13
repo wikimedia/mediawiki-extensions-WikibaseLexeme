@@ -20,8 +20,6 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer
  *
- * @group WikibaseLexeme
- *
  * @license GPL-2.0+
  */
 class LexemeDifferTest extends PHPUnit_Framework_TestCase {
