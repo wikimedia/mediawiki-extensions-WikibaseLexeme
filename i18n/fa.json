@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Reza1615",
-			"Dejavu"
+			"Dejavu",
+			"Ommmmid"
 		]
 	},
 	"wikibaselexeme-desc": "مدیریت نوع ورودی بن‌واژه",
@@ -13,7 +14,7 @@
 	"wikibase-lemma-edit-placeholder": "وارد کردن فرنام",
 	"wikibase-newlexeme-lexicalcategory": "رده واژه‌ای",
 	"wikibase-newlexeme-language": "زبان بن‌واژه",
-	"wikibase-lexeme-view-language": "بن‌واژه در $1",
 	"wikibase-lexeme-view-language-lexical-category": "$1 در $2",
-	"wikibase-lexeme-view-forms": "فرم‌ها"
+	"wikibase-lexeme-view-forms": "فرم‌ها",
+	"wikibase-lexeme-language": "زبان"
 }

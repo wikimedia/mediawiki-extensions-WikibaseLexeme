@@ -25,5 +25,6 @@
 	"datatypes-type-wikibase-lexeme-form": "צורת יחידה מילונית",
 	"datatypes-type-wikibase-lexeme-sense": "משמעות ילידה מילונית",
 	"wikibase-lexeme-add-sense": "הוספת משמעות",
-	"wikibase-lexeme-add-form": "הוספת צורה"
+	"wikibase-lexeme-add-form": "הוספת צורה",
+	"wikibase-lexeme-language": "שפה"
 }
