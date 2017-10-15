@@ -26,6 +26,7 @@
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Se esperaba que el tipo del campo «$2» en el parámetro «$1» fuese del tipo «$3». Se proporcionó: «$4»",
 	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Se esperaba que el parámetro «$1» fuese un identificador de lexema. Se proporcionó: «$2»",
 	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "El texto de representación no puede estar vacío",
+	"wikibase-lexeme-summary-add-form": "Se añadió la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-language": "Idioma",
 	"wikibase-lexeme-lexical-category": "Categoría léxica"
 }
