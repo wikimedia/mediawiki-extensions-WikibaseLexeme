@@ -7,6 +7,12 @@ use LogicException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DemoData\Id as DemoDataId;
+use Wikibase\Lexeme\DemoData\AskOut1Populator;
+use Wikibase\Lexeme\DemoData\AskOut2Populator;
+use Wikibase\Lexeme\DemoData\AskOut3Populator;
+use Wikibase\Lexeme\DemoData\HardLexemePopulator;
+use Wikibase\Lexeme\DemoData\LeiterLexemePopulator;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -50,7 +56,24 @@ class LexemeContent extends EntityContent {
 			throw new LogicException( 'This content object is empty!' );
 		}
 
-		return $this->lexemeHolder->getEntity( Lexeme::class );
+		/** @var Lexeme $lexeme */
+		$lexeme = $this->lexemeHolder->getEntity( Lexeme::class );
+
+		// TODO: This is a test dummy that must be removed later
+		$id = $lexeme->getId()->getSerialization();
+		if ( $id === DemoDataId::L_HARD ) {
+			( new HardLexemePopulator() )->populate( $lexeme );
+		} elseif ( $id === DemoDataId::L_LEITER ) {
+			( new LeiterLexemePopulator() )->populate( $lexeme );
+		} elseif ( $id === DemoDataId::L_ASK_1 ) {
+			( new AskOut1Populator() )->populate( $lexeme );
+		} elseif ( $id === DemoDataId::L_ASK_2 ) {
+			( new AskOut2Populator() )->populate( $lexeme );
+		} elseif ( $id === DemoDataId::L_ASK_OUT ) {
+			( new AskOut3Populator() )->populate( $lexeme );
+		}
+
+		return $lexeme;
 	}
 
 	/**
