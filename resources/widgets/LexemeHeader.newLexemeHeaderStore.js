@@ -78,8 +78,8 @@ module.exports = ( function () {
 						clear
 					).then( function ( response ) {
 						context.commit( 'updateRevisionId', response.entity.lastrevid );
-						//TODO:  update lemmas, language and lexicalCategory once response contains the data
-						context.commit( 'updateLemmas', response.entity.lemmas );
+						//TODO:  update state of lemmas, language and lexicalCategory if needed
+						context.commit( 'updateLemmas', response.entity.lemmas || lexeme.lemmas );
 						context.commit( 'finishSaving' );
 					} ).catch( function () {
 						context.commit( 'finishSaving' );
