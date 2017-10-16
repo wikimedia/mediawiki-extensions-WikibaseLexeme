@@ -38,12 +38,12 @@ class FormSetTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testCount() {
-		$this->assertEquals( 0, ( new FormSet( [] ) )->count() );
+		$this->assertEquals( 0, ( new FormSet() )->count() );
 		$this->assertEquals( 1, ( new FormSet( [ NewForm::any()->build() ] ) )->count() );
 	}
 
 	public function testMaxFormIdNumber_EmptySet_ReturnsZero() {
-		$this->assertEquals( 0, ( new FormSet( [] ) )->maxFormIdNumber() );
+		$this->assertEquals( 0, ( new FormSet() )->maxFormIdNumber() );
 	}
 
 	public function testMaxFormIdNumber_SetWithOneForm_ReturnsThatFormIdNumber() {
@@ -65,7 +65,7 @@ class FormSetTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddForm_EmptySet_FormIsAdded() {
-		$formSet = new FormSet( [] );
+		$formSet = new FormSet();
 		$form = NewForm::havingId( 'F1' )->build();
 
 		$formSet->add( $form );
