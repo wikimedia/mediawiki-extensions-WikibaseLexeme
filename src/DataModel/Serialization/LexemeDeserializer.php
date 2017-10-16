@@ -62,8 +62,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$this->deserializeLexicalCategory( $serialization ),
 			$this->deserializeLanguage( $serialization ),
 			$this->deserializeStatements( $serialization ),
-			//FIXME: Should not be optional in serialization
-			isset( $serialization['nextFormId'] ) ? $serialization['nextFormId'] : 1,
+			$serialization['nextFormId'],
 			$this->deserializeForms( $serialization )
 		);
 	}

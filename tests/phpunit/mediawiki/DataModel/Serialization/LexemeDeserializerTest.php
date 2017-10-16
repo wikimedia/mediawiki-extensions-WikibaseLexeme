@@ -60,14 +60,15 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$serializations = [];
 
 		$serializations['empty'] = [
-			[ 'type' => 'lexeme' ],
+			[ 'type' => 'lexeme', 'nextFormId' => 1, ],
 			new Lexeme()
 		];
 
 		$serializations['empty lists'] = [
 			[
 				'type' => 'lexeme',
-				'claims' => []
+				'claims' => [],
+				'nextFormId' => 1,
 			],
 			new Lexeme()
 		];
@@ -75,7 +76,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$serializations['with id'] = [
 			[
 				'type' => 'lexeme',
-				'id' => 'L1'
+				'id' => 'L1',
+				'nextFormId' => 1,
 			],
 			new Lexeme( new LexemeId( 'L1' ) )
 		];
@@ -84,7 +86,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L1',
-				'claims' => []
+				'claims' => [],
+				'nextFormId' => 1,
 			],
 			new Lexeme( new LexemeId( 'L1' ) )
 		];
@@ -95,7 +98,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$serializations['with content'] = [
 			[
 				'type' => 'lexeme',
-				'claims' => [ 42 ]
+				'claims' => [ 42 ],
+				'nextFormId' => 1,
 			],
 			$lexeme
 		];
@@ -107,7 +111,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
-				'claims' => [ 42 ]
+				'claims' => [ 42 ],
+				'nextFormId' => 1,
 			],
 			$lexeme
 		];
@@ -120,6 +125,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				'type' => 'lexeme',
 				'id' => 'L2',
 				'lemmas' => [ 'el'  => [ 'language' => 'el', 'value' => 'Hey' ] ],
+				'nextFormId' => 1,
 			],
 			$lexeme
 		];
@@ -130,7 +136,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
-				'lexicalCategory' => 'Q33'
+				'lexicalCategory' => 'Q33',
+				'nextFormId' => 1,
 			],
 			$lexeme
 		];
@@ -141,7 +148,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L3',
-				'language' => 'Q11'
+				'language' => 'Q11',
+				'nextFormId' => 1,
 			],
 			$lexeme
 		];
