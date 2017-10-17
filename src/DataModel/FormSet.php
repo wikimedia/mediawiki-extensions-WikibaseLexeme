@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme\DataModel;
 /**
  * Set of Forms in which uniqueness of a Form is controlled by it's ID.
  * Supposed to be used only inside the Lexeme class
+ *
+ * @license GPL-2.0+
  */
 class FormSet {
 
@@ -16,14 +18,12 @@ class FormSet {
 	/**
 	 * @param Form[] $forms
 	 */
-	public function __construct( array $forms ) {
+	public function __construct( array $forms = [] ) {
 		foreach ( $forms as $form ) {
 			if ( !$form instanceof Form ) {
 				throw new \InvalidArgumentException( '$forms must be an array of Forms' );
 			}
-		}
 
-		foreach ( $forms as $form ) {
 			$this->add( $form );
 		}
 	}
@@ -33,10 +33,14 @@ class FormSet {
 	 */
 	public function toArray() {
 		$forms = $this->forms;
+		// FIXME: Why is this specific order enforced at this point?
 		ksort( $forms );
 		return array_values( $forms );
 	}
 
+	/**
+	 * @return int
+	 */
 	public function count() {
 		return count( $this->forms );
 	}

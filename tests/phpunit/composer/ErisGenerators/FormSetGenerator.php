@@ -24,7 +24,7 @@ class FormSetGenerator implements Generator {
 
 		$listSize = $rand( 0, $size );
 
-		$result = new FormSet( [] );
+		$result = new FormSet();
 
 		$trials = 0;
 		$maxTrials = 2 * $listSize;
@@ -50,7 +50,7 @@ class FormSetGenerator implements Generator {
 			return $element;
 		} elseif ( $formSet->count() === 1 ) {
 			return GeneratedValueSingle::fromValueAndInput(
-				new FormSet( [] ),
+				new FormSet(),
 				$element,
 				'FormSet'
 			);
