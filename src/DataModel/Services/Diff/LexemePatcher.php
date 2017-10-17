@@ -42,6 +42,11 @@ class LexemePatcher implements EntityPatcherStrategy {
 	 */
 	private $formPatcher;
 
+	/**
+	 * @var FormPatcher
+	 */
+	private $formPatcher;
+
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();
 		$this->statementListPatcher = new StatementListPatcher();
@@ -127,20 +132,17 @@ class LexemePatcher implements EntityPatcherStrategy {
 	}
 
 	private function patchNextFormId( Lexeme $entity, LexemeDiff $patch ) {
-		$nextFormIdDiffList = $patch->getNextFormIdDiff();
-		foreach ( $nextFormIdDiffList as $nextFormIdDiff ) {
-			switch ( get_class( $nextFormIdDiff ) ) {
-				case DiffOpChange::class:
-					/** @var DiffOpChange $nextFormIdDiff */
-					$newNumber = $nextFormIdDiff->getNewValue();
-					if ( $newNumber > $entity->getNextFormId() ) {
-						$entity->patch( function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
-							$patchAccess->increaseNextFormIdTo( $newNumber );
-						} );
-					}
-					break;
-				default:
-					throw new PatcherException( 'Invalid forms list diff' );
+		// FIXME: Why is this a loop? The nextFormId field is not an array!
+		foreach ( $patch->getNextFormIdDiff() as $nextFormIdDiff ) {
+			if ( !( $nextFormIdDiff instanceof DiffOpChange ) ) {
+				throw new PatcherException( 'Invalid forms list diff' );
+			}
+
+			$newNumber = $nextFormIdDiff->getNewValue();
+			if ( $newNumber > $entity->getNextFormId() ) {
+				$entity->patch( function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
+					$patchAccess->increaseNextFormIdTo( $newNumber );
+				} );
 			}
 		}
 	}
@@ -148,8 +150,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 	private function patchForms( Lexeme $lexeme, LexemeDiff $patch ) {
 		$formsDiff = $patch->getFormsDiff();
 		foreach ( $formsDiff as $formDiff ) {
-			switch ( get_class( $formDiff ) ) {
-				case DiffOpAdd::class:
+			switch ( true ) {
+				case $formDiff instanceof DiffOpAdd:
 					/** @var DiffOpAdd $formDiff */
 					/** @var Form $form */
 					$form = $formDiff->getNewValue();
@@ -159,13 +161,15 @@ class LexemePatcher implements EntityPatcherStrategy {
 						}
 					);
 					break;
-				case DiffOpRemove::class:
+
+				case $formDiff instanceof DiffOpRemove:
 					/** @var DiffOpRemove $formDiff */
 					/** @var Form $form */
 					$form = $formDiff->getOldValue();
 					$lexeme->removeForm( $form->getId() );
 					break;
-				case ChangeFormDiffOp::class:
+
+				case $formDiff instanceof ChangeFormDiffOp:
 					/** @var ChangeFormDiffOp $formDiff */
 					/** @var Form $form */
 					if ( $lexeme->hasForm( $formDiff->getFormId() ) ) {
@@ -173,6 +177,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 						$this->formPatcher->patch( $form, $formDiff );
 					}
 					break;
+
 				default:
 					throw new PatcherException( 'Invalid forms list diff: ' . get_class( $formDiff ) );
 			}
