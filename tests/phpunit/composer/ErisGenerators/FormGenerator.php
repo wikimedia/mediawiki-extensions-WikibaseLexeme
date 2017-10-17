@@ -10,6 +10,9 @@ use Eris\Generator\SetGenerator;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 
+/**
+ * @license GPL-2.0+
+ */
 class FormGenerator implements Generator {
 
 	const MAX_FORM_ID = 100;

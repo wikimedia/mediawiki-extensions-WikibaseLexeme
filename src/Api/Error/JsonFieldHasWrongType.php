@@ -2,19 +2,26 @@
 
 namespace Wikibase\Lexeme\Api\Error;
 
+/**
+ * @license GPL-2.0+
+ */
 class JsonFieldHasWrongType implements ApiError {
+
 	/**
 	 * @var string
 	 */
 	private $parameterName;
+
 	/**
 	 * @var string[]
 	 */
 	private $fieldPath;
+
 	/**
 	 * @var string
 	 */
 	private $expectedType;
+
 	/**
 	 * @var string
 	 */

@@ -7,7 +7,6 @@ use LogicException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DemoData;
 use Wikimedia\Assert\Assert;
 
 /**

@@ -5,6 +5,9 @@ namespace Wikibase\Lexeme\PropertyType;
 use DataValues\StringValue;
 use ValueFormatters\ValueFormatter;
 
+/**
+ * @license GPL-2.0+
+ */
 class FormIdFormatter implements ValueFormatter {
 
 	/**
@@ -17,9 +20,7 @@ class FormIdFormatter implements ValueFormatter {
 		//If you change something here, change also there
 		$this->addForm( 'L13', 'hard English adjective', 'F1', 'hard', [ 'normative' ] );
 		$this->addForm( 'L13', 'hard English adjective', 'F2', 'harder', [ 'comparative' ] );
-		// @see \Wikibase\Lexeme\DemoData\Id::LF_CARD
 		$this->addForm( 'L456', 'card English noun', 'F4', 'card', [ 'normative' ] );
-		// @see \Wikibase\Lexeme\DemoData\Id::LF_BARD
 		$this->addForm( 'L888', 'bard English noun', 'F1', 'bard', [ 'normative' ] );
 		$this->addForm(
 			'L14',

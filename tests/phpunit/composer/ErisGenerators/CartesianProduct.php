@@ -5,6 +5,9 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
 
+/**
+ * @license GPL-2.0+
+ */
 class CartesianProduct {
 
 	/**

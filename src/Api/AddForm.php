@@ -13,6 +13,9 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\SummaryFormatter;
 
+/**
+ * @license GPL-2.0+
+ */
 class AddForm extends ApiBase {
 
 	const LATEST_REVISION = 0;

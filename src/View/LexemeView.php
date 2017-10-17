@@ -326,7 +326,6 @@ HTML;
 	</div>
 </div>
 HTML;
-
 	}
 
 	private function getRawLemmaVueTemplate() {
