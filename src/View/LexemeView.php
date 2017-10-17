@@ -102,9 +102,12 @@ class LexemeView extends EntityView {
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		$id = htmlspecialchars(
-			$this->getLocalizedMessage( 'parentheses', [ $entity->getId()->getSerialization() ] )
-		);
+		$id = '';
+		if ( $entity->getId() ) {
+			$id = htmlspecialchars(
+				$this->getLocalizedMessage( 'parentheses', [ $entity->getId()->getSerialization() ] )
+			);
+		}
 
 		$lemmaWidget = $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate();
 		$languageAndCategory = $this->renderLanguageAndLexicalCategoryWidget( $entity );
