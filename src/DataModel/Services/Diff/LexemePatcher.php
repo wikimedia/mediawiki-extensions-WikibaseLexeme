@@ -42,11 +42,6 @@ class LexemePatcher implements EntityPatcherStrategy {
 	 */
 	private $formPatcher;
 
-	/**
-	 * @var FormPatcher
-	 */
-	private $formPatcher;
-
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();
 		$this->statementListPatcher = new StatementListPatcher();
