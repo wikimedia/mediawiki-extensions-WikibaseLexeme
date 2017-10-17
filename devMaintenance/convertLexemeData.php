@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DevelopmentMaintenance;
 
 use Maintenance;
+use Wikibase\Lib\Reporting\ObservableMessageReporter;
 use Wikibase\Repo\WikibaseRepo;
 
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
@@ -23,9 +24,6 @@ class RebuildTermSqlIndex extends Maintenance {
 			'NEVER RUN IN PRODUCTION ENVIRONMENT!' );
 	}
 
-	/**
-	 *
-	 */
 	public function execute() {
 		if ( !defined( 'WB_VERSION' ) ) {
 			$this->error( "You need to have Wikibase enabled in order to use this script!\n\n", 1 );
@@ -33,10 +31,22 @@ class RebuildTermSqlIndex extends Maintenance {
 
 		$namespaceLookup = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
 		$lexemeNamespaceId = $namespaceLookup->getEntityNamespace( 'lexeme' );
+
 		$updater = new LexemeSerializationUpdater( wfGetDB( DB_MASTER ), $lexemeNamespaceId );
+		$updater->setMessageReporter( $this->getReporter() );
+
 		$updater->update();
 
 		$this->output( "Done.\n" );
+	}
+
+	private function getReporter() {
+		$reporter = new ObservableMessageReporter();
+		$reporter->registerReporterCallback( function( $message ) {
+			$this->output( "$message\n" );
+		} );
+
+		return $reporter;
 	}
 
 }
