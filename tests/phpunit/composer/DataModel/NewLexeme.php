@@ -71,7 +71,8 @@ class NewLexeme {
 	}
 
 	public function build() {
-		$nextFormId = ( new FormSet( $this->forms ) )->maxFormIdNumber() + 1;
+		$forms = new FormSet( $this->forms );
+		$nextFormId = $forms->maxFormIdNumber() + 1;
 		$lexeme = new Lexeme(
 			$this->lexemeId,
 			null,
@@ -79,7 +80,7 @@ class NewLexeme {
 			$this->language,
 			null,
 			$nextFormId,
-			$this->forms,
+			$forms,
 			$this->senses
 		);
 

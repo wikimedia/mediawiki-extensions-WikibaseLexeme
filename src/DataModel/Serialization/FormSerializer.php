@@ -7,6 +7,9 @@ use Wikibase\DataModel\Serializers\StatementListSerializer;
 use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\Lexeme\DataModel\Form;
 
+/**
+ * @license GPL-2.0+
+ */
 class FormSerializer {
 
 	/**

@@ -10,6 +10,7 @@ use Wikibase\DataModel\Deserializers\TermListDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
@@ -135,15 +136,15 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	/**
 	 * @param array $serialization
 	 *
-	 * @return Form[]
+	 * @return FormSet
 	 */
 	private function deserializeForms( array $serialization ) {
 		// TODO: Extract to a FormsDeserializer
-		$forms = [];
+		$forms = new FormSet( [] );
 
 		if ( array_key_exists( 'forms', $serialization ) ) {
 			foreach ( $serialization['forms'] as $formSerialization ) {
-				$forms[] = $this->deserializeForm( $formSerialization );
+				$forms->add( $this->deserializeForm( $formSerialization ) );
 			}
 		}
 

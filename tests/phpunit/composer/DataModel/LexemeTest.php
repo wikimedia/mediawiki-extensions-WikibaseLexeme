@@ -13,6 +13,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
@@ -119,7 +120,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			null,
 			null,
 			1,
-			[ NewForm::any()->build() ]
+			new FormSet( [ NewForm::any()->build() ] )
 		);
 	}
 
@@ -132,7 +133,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			null,
 			null,
 			1,
-			[ NewForm::havingId( 'F1' )->build() ]
+			new FormSet( [ NewForm::havingId( 'F1' )->build() ] )
 		);
 	}
 
@@ -209,10 +210,10 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			->andGrammaticalFeature( 'Q1' );
 
 		$withForm1 = new Lexeme(
-			new LexemeId( 'L1' ), null, null, null, null, 2, [ $form->build() ]
+			new LexemeId( 'L1' ), null, null, null, null, 2, new FormSet( [ $form->build() ] )
 		);
 		$withForm2 = new Lexeme(
-			new LexemeId( 'L1' ), null, null, null, null, 2, [ $form->build() ]
+			new LexemeId( 'L1' ), null, null, null, null, 2, new FormSet( [ $form->build() ] )
 		);
 
 		return [
@@ -308,9 +309,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 				new Lexeme( new LexemeId( 'l2' ), null, null, $language2 ),
 			],
 			'different Form set' => [
-				new Lexeme(
-					new LexemeId( 'L1' ), null, null, null, null, 1, []
-				),
+				new Lexeme( new LexemeId( 'L1' ) ),
 				new Lexeme(
 					new LexemeId( 'L1' ),
 					null,
@@ -318,7 +317,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 					null,
 					null,
 					2,
-					[ NewForm::havingId( 'F1' )->build() ]
+					new FormSet( [ NewForm::havingId( 'F1' )->build() ] )
 				),
 			],
 			'different internal form index counter state' => [

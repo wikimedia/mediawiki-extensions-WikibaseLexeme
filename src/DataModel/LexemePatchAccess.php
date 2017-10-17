@@ -2,6 +2,9 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+/**
+ * @license GPL-2.0+
+ */
 class LexemePatchAccess {
 
 	/**
