@@ -183,6 +183,7 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		foreach ( $data as $index => $entry ) {
 			$selectReturnRows[] = (object)[
+				'page_title' => 'L' . $index,
 				'rev_id' => $index + 1,
 				'old_id' => $index + 1,
 				'old_text' => json_encode( $entry ),

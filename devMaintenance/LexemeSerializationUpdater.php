@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\DevelopmentMaintenance;
 
+use Wikibase\Lib\Reporting\MessageReporter;
+use Wikibase\Lib\Reporting\NullMessageReporter;
 use Wikimedia\Rdbms\IDatabase;
 
 /**
@@ -24,6 +26,8 @@ class LexemeSerializationUpdater {
 
 	private $db;
 
+	private $reporter;
+
 	/**
 	 * @param IDatabase $db
 	 * @param int $namespaceId
@@ -31,6 +35,12 @@ class LexemeSerializationUpdater {
 	public function __construct( IDatabase $db, $namespaceId ) {
 		$this->db = $db;
 		$this->namespaceId = $namespaceId;
+
+		$this->reporter = new NullMessageReporter();
+	}
+
+	public function setMessageReporter( MessageReporter $reporter ) {
+		$this->reporter = $reporter;
 	}
 
 	public function update() {
@@ -48,7 +58,7 @@ class LexemeSerializationUpdater {
 	private function getSerializedLexemeData() {
 		$rows = $this->db->select(
 			[ 'page', 'revision', 'text' ],
-			[ 'rev_id', 'old_id', 'old_text' ],
+			[ 'page_title', 'rev_id', 'old_id', 'old_text' ],
 			$this->getConds(),
 			__METHOD__,
 			[ 'LIMIT' => $this->batchSize, 'ORDER BY' => 'rev_id ASC' ]
@@ -59,6 +69,8 @@ class LexemeSerializationUpdater {
 
 		foreach ( $rows as $row ) {
 			$serializedData[] = [
+				'lexemeId' => $row->page_title,
+				'revisionId' => $row->rev_id,
 				'id' => $row->old_id,
 				'data' => $row->old_text,
 			];
@@ -100,6 +112,10 @@ class LexemeSerializationUpdater {
 					[ 'old_text' => $newData, ],
 					[ 'old_id' => $blobId ],
 					__METHOD__
+				);
+
+				$this->reporter->reportMessage(
+					'Updated: ' . $lexemeData['lexemeId'] . ' (rev: ' . $lexemeData['revisionId'] . ')'
 				);
 			}
 		}
