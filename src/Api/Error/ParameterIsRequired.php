@@ -2,7 +2,11 @@
 
 namespace Wikibase\Lexeme\Api\Error;
 
+/**
+ * @license GPL-2.0+
+ */
 class ParameterIsRequired implements ApiError {
+
 	/**
 	 * @var string
 	 */

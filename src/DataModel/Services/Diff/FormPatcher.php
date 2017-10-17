@@ -7,6 +7,9 @@ use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
 use Wikibase\Lexeme\DataModel\Form;
 
+/**
+ * @license GPL-2.0+
+ */
 class FormPatcher {
 
 	public function __construct() {

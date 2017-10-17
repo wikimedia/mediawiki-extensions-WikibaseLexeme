@@ -6,6 +6,9 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOp;
 use Wikibase\Lexeme\DataModel\FormId;
 
+/**
+ * @license GPL-2.0+
+ */
 class ChangeFormDiffOp implements DiffOp {
 
 	/**

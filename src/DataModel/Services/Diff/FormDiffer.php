@@ -7,6 +7,9 @@ use Diff\DiffOp\Diff\Diff;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
 use Wikibase\Lexeme\DataModel\Form;
 
+/**
+ * @license GPL-2.0+
+ */
 class FormDiffer {
 
 	/**

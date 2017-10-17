@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
-use Eris\Facade;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
 

@@ -6,11 +6,16 @@ use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\FormatableSummary;
 
+/**
+ * @license GPL-2.0+
+ */
 class AddFormSummary implements FormatableSummary {
+
 	/**
 	 * @var LexemeId
 	 */
 	private $lexemeId;
+
 	/**
 	 * @var Form
 	 */

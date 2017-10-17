@@ -8,6 +8,9 @@ use Eris\Generator\GeneratedValueSingle;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormSet;
 
+/**
+ * @license GPL-2.0+
+ */
 class FormSetGenerator implements Generator {
 
 	/**

@@ -6,7 +6,6 @@ use RuntimeException;
 use Wikimedia\Rdbms\DBMasterPos;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\IResultWrapper;
-use Wikimedia\ScopedCallback;
 
 /**
  * A very incomplete and limited spy, used to log update calls.

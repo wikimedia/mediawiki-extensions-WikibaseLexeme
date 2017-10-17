@@ -14,7 +14,6 @@ use Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
-use Wikibase\Lexeme\Api\Error\JsonFieldMustNotBeEmpty;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\Api\Error\ParameterIsRequired;

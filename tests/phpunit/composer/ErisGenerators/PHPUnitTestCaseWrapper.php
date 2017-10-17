@@ -4,6 +4,9 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\TestTrait;
 
+/**
+ * @license GPL-2.0+
+ */
 class PHPUnitTestCaseWrapper {
 
 	use TestTrait {

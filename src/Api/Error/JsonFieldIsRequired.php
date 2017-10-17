@@ -2,11 +2,16 @@
 
 namespace Wikibase\Lexeme\Api\Error;
 
+/**
+ * @license GPL-2.0+
+ */
 class JsonFieldIsRequired implements ApiError {
+
 	/**
 	 * @var
 	 */
 	private $parameterName;
+
 	/**
 	 * @var string[]
 	 */
