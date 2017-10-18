@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Papuass"
+		]
+	},
+	"wikibase-lexeme-api-error-parameter-required": "Parametrs \"$1\" ir obligāts",
+	"wikibase-lexeme-language": "Valoda"
+}

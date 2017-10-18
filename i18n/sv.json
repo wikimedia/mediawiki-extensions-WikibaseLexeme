@@ -12,5 +12,10 @@
 	"wikibase-gloss-field-language-label": "Språk",
 	"wikibase-lexeme-add-form": "lägg till formulär",
 	"apihelp-wblexemeaddform-param-bot": "Markera denna redigering som en bot. Denna webbadressflagga kommer bara att respekteras om användare tillhör gruppen \"{{int:group-bot}}\".",
-	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}"
+	"wikibase-lexeme-api-error-parameter-required": "Parametern \"$1\" är nödvändig",
+	"wikibase-lexeme-api-error-json-field-not-item-id": "Fältet \"$2\" i parametern \"$1\" förväntas vara ett objekt-ID. Angivet: \"$3\"",
+	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "Representationstexten kan inte vara tom",
+	"wikibase-lexeme-api-error-representations-language-not-unique": "Representationer måste ha unika språk. Språket \"$1\" återanvänds",
+	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}",
+	"wikibase-lexeme-language": "Språk"
 }
