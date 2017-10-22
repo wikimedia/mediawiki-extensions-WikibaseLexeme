@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
-use OOUI\MediaWikiTheme;
 use OOUI\Theme;
+use OOUI\WikimediaUITheme;
 use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
 
 /**
@@ -15,7 +15,7 @@ class ItemSelectorWidgetTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new MediaWikiTheme() );
+		Theme::setSingleton( new WikimediaUITheme() );
 	}
 
 	public function tearDown() {
