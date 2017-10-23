@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
-use OOUI\MediaWikiTheme;
 use OOUI\Theme;
+use OOUI\WikimediaUITheme;
 use ReflectionClass;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -20,7 +20,7 @@ class ItemSelectorWidgetFieldTest extends \PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new MediaWikiTheme() );
+		Theme::setSingleton( new WikimediaUITheme() );
 	}
 
 	public function tearDown() {
