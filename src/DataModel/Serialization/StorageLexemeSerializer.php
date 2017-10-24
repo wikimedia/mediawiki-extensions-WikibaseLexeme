@@ -27,6 +27,11 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 	 */
 	private $statementListSerializer;
 
+	/**
+	 * @var Serializer
+	 */
+	private $formSerializer;
+
 	public function __construct(
 		Serializer $termListSerializer,
 		Serializer $statementListSerializer
