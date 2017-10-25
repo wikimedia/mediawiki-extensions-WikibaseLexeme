@@ -1,40 +1,68 @@
 module.exports = ( function ( mw ) {
 	'use strict';
 
-	return {
-		props: [ 'value' ],
-		template: '<input>',
-		mounted: function () {
-			var vm = this,
-				repoConfig = mw.config.get( 'wbRepo' ),
-				repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
-				expertType = 'item',
-				$input = $( this.$el );
+	/**
+	 * @param {wikibase.api.RepoApi} api
+	 * @param {string} id
+	 * @return {jquery.Promise}
+	 */
+	function formatEntityLabel( api, id ) {
+		var deferred = $.Deferred(),
+			dataValue = { value: { id: id }, type: 'wikibase-entityid' };
 
-			$input.val( this.value );
+		api.formatValue(
+			dataValue,
+			{},
+			'wikibase-item',
+			'text/plain',
+			''
+		).then( function ( response ) {
+			deferred.resolve( response.result );
+		} );
 
-			$input.entityselector( {
-				url: repoApiUrl,
-				type: expertType,
-				selectOnAutocomplete: true
-			} );
+		return deferred.promise();
+	}
 
-			$input.on( 'entityselectorselected', function ( e ) {
-				var entitySelector = $( vm.$el ).data( 'entityselector' ),
-					selectedEntity = entitySelector.selectedEntity();
+	return function ( api ) {
+		return {
+			props: [ 'value' ],
+			template: '<input>',
+			mounted: function () {
+				var vm = this,
+					repoConfig = mw.config.get( 'wbRepo' ),
+					repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
+					expertType = 'item',
+					$input = $( this.$el );
 
-				var value = selectedEntity ? selectedEntity.id : '';
+				formatEntityLabel( api, this.value ).then( function ( label ) {
+					$input.val( label );
 
-				vm.$emit( 'input', value );
-			} );
-		},
-		watch: {
-			value: function ( value ) {
-				$( this.$el ).data( 'entityselector' ).selectedEntity( value );
+					$input.entityselector( {
+						url: repoApiUrl,
+						type: expertType,
+						selectOnAutocomplete: true
+					} );
+
+					$input.on( 'entityselectorselected', function ( e ) {
+						var entitySelector = $( vm.$el ).data( 'entityselector' ),
+							selectedEntity = entitySelector.selectedEntity();
+
+						var value = selectedEntity ? selectedEntity.id : '';
+
+						vm.$emit( 'input', value );
+					} );
+				} );
+
+			},
+			watch: {
+				value: function ( value ) {
+					$( this.$el ).data( 'entityselector' ).selectedEntity( value );
+				}
+			},
+			destroyed: function () {
+				$( this.$el ).data( 'entityselector' ).destroy();
 			}
-		},
-		destroyed: function () {
-			$( this.$el ).data( 'entityselector' ).destroy();
-		}
+		};
 	};
+
 } )( mediaWiki );

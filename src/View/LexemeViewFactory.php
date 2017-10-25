@@ -112,11 +112,13 @@ class LexemeViewFactory {
 			new LanguageNameLookup( $this->languageCode )
 		);
 
+		$idLinkFormatter = $this->entityIdFormatterFactory
+			->getEntityIdFormatter( $retrievingLabelDescriptionLookup );
+
 		$formsView = new FormsView(
 			$localizedTextProvider,
 			$templateFactory,
-			$this->entityIdFormatterFactory
-				->getEntityIdFormatter( $retrievingLabelDescriptionLookup ),
+			$idLinkFormatter,
 			$statementGroupListView
 		);
 
@@ -137,7 +139,8 @@ class LexemeViewFactory {
 			$sensesView,
 			$statementSectionsView,
 			$htmlTermRenderer,
-			$retrievingLabelDescriptionLookup
+			$retrievingLabelDescriptionLookup,
+			$idLinkFormatter
 		);
 	}
 

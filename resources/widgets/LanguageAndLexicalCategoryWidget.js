@@ -7,19 +7,28 @@ module.exports = ( function () {
 	 * @callback wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget
 	 *
 	 * @param {string} template - template string or selector
+	 * @param {wikibase.api.RepoApi} repoApi
 	 * @param {Object} messages - mw.messages localization service
 	 */
-	return function ( template, messages ) {
+	return function ( template, api, messages ) {
 		return {
 			props: [ 'language', 'lexicalCategory', 'inEditMode', 'isSaving' ],
 			template: template,
 			components: {
-				'item-selector': ItemSelectorWrapper
+				'item-selector': ItemSelectorWrapper( api )
 			},
 
 			filters: {
 				message: function ( key ) {
 					return messages.get( key );
+				}
+			},
+			computed: {
+				formattedLanguage: function () {
+					return this.$store.state.languageLink;
+				},
+				formattedLexicalCategory: function () {
+					return this.$store.state.lexicalCategoryLink;
 				}
 			}
 		};

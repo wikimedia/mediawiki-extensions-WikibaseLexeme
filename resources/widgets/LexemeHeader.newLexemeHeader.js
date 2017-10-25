@@ -24,6 +24,7 @@ module.exports = ( function () {
 		return {
 			el: element,
 			template: template,
+			store: store,
 
 			data: {
 				isInitialized: true,

@@ -11,6 +11,7 @@
     "grunt-jasmine-nodejs": "^1.6.0",
     "grunt-jsonlint": "1.0.7",
     "jasmine": "^2.6.0",
+    "jquery": "^3.2.1",
     "jsdom": "^11.1.0",
     "jsdom-global": "^3.0.2",
     "module-alias": "^2.0.0",
@@ -28,7 +29,7 @@
     "wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": "./resources/widgets/LemmaWidget.newLemmaWidget.js",
     "wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore": "./resources/widgets/LexemeHeader.newLexemeHeaderStore.js",
     "wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget": "./resources/widgets/LanguageAndLexicalCategoryWidget.js",
-    "wikibase.lexeme.widgets.ItemSelectorWrapper" : "./resources/widgets/ItemSelectorWrapper.js",
+    "wikibase.lexeme.widgets.ItemSelectorWrapper": "./resources/widgets/ItemSelectorWrapper.js",
     "wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader": "./resources/widgets/LexemeHeader.newLexemeHeader.js",
     "wikibase.lexeme.datamodel.Lemma": "./resources/datamodel/Lemma.js"
   }

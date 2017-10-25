@@ -24,8 +24,11 @@ describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function (
 			lexicalCategory = 'Q234',
 			widget = newWidget( language, lexicalCategory );
 
-		expect( widget.$el.textContent, 'to contain', language );
-		expect( widget.$el.textContent, 'to contain', lexicalCategory );
+		expect( widget.$el.textContent, 'to contain', 'Link for ' + language );
+		expect( widget.$el.textContent, 'to contain', 'Link for ' + lexicalCategory );
+
+		expect( widget.$el, 'to contain elements matching', '.language-link' );
+		expect( widget.$el, 'to contain elements matching', '.lexical-category-link' );
 	} );
 
 	it( 'switches to edit mode and back', function ( done ) {
@@ -54,13 +57,19 @@ describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function (
 	} );
 
 	function newWidget( language, lexicalCategory ) {
-		var LanguageAndLexicalCategoryWidget = Vue.extend( newLanguageAndLexicalCategoryWidget( getTemplate(), {
+		var LanguageAndLexicalCategoryWidget = Vue.extend( newLanguageAndLexicalCategoryWidget( getTemplate(), {}, {
 			get: function ( key ) {
 				return key;
 			}
 		} ) );
 
 		return new LanguageAndLexicalCategoryWidget( {
+			store: {
+				state: {
+					languageLink: '<a href="#" class="language-link">Link for ' + language + '</a>',
+					lexicalCategoryLink: '<a href="#" class="lexical-category-link">Link for ' + lexicalCategory + '</a>'
+				}
+			},
 			propsData: {
 				language: language,
 				lexicalCategory: lexicalCategory,
@@ -75,11 +84,11 @@ describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function (
 			+ '<div v-if="!inEditMode">'
 			+ '<div>'
 			+ '<span>{{\'wikibase-lexeme-language\'|message}}</span>'
-			+ '<span>{{language}}</span>'
+			+ '<span v-html="formattedLanguage"></span>'
 			+ '</div>'
 			+ '<div>'
 			+ '<span>{{\'wikibase-lexeme-lexical-category\'|message}}</span>'
-			+ '<span>{{lexicalCategory}}</span>'
+			+ '<span v-html="formattedLexicalCategory"></span>'
 			+ '</div>'
 			+ '</div>'
 			+ '<div v-else>'
