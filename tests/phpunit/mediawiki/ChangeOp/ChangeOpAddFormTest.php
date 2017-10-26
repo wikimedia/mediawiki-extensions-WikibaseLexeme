@@ -46,8 +46,9 @@ class ChangeOpAddFormTest extends \PHPUnit_Framework_TestCase {
 
 		$changeOp->apply( $lexeme );
 
-		$this->assertEquals( $representations, $lexeme->getForms()[0]->getRepresentations() );
-		$this->assertEquals( [ new ItemId( 'Q1' ) ], $lexeme->getForms()[0]->getGrammaticalFeatures() );
+		$form = $lexeme->getForms()->toArray()[0];
+		$this->assertEquals( $representations, $form->getRepresentations() );
+		$this->assertEquals( [ new ItemId( 'Q1' ) ], $form->getGrammaticalFeatures() );
 	}
 
 	public function test_applySetsTheSummary() {

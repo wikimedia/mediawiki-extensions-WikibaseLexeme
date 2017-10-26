@@ -19,12 +19,12 @@ class LexemePatchAccessTest extends \PHPUnit_Framework_TestCase {
 
 		$lexemePatchAccess->addForm( $form );
 
-		$this->assertEquals( [ $form ], $lexemePatchAccess->getForms() );
+		$this->assertEquals( new FormSet( [ $form ] ), $lexemePatchAccess->getForms() );
 	}
 
 	public function testCanNotAddAFormIfPatchAccessIsClosed() {
 		$forms = new FormSet();
-		$lexemePatchAccess = new LexemePatchAccess( 1,  $forms );
+		$lexemePatchAccess = new LexemePatchAccess( 1, $forms );
 		$form = NewForm::any()->build();
 		$lexemePatchAccess->close();
 

@@ -393,8 +393,8 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$lexemeCopy->addForm( new TermList( [ new Term( 'en', 'goat' ) ] ), [] );
 
-		$this->assertCount( 1, $lexemeCopy->getForms() );
-		$this->assertCount( 0, $lexeme->getForms() );
+		$this->assertCount( 1, $lexemeCopy->getForms()->toArray() );
+		$this->assertEmpty( $lexeme->getForms()->toArray() );
 	}
 
 	public function testSetLemmas() {
@@ -453,7 +453,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			[]
 		);
 
-		$this->assertEquals( [ $newForm ], $lexeme->getForms() );
+		$this->assertEquals( new FormSet( [ $newForm ] ), $lexeme->getForms() );
 	}
 
 	public function testAddFormTwoTimes_SecondFormHasAnIdWithNextNumber() {
@@ -477,7 +477,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 		$lexeme->removeForm( new FormId( 'F1' ) );
 
-		$this->assertEquals( [], $lexeme->getForms() );
+		$this->assertEquals( [], $lexeme->getForms()->toArray() );
 	}
 
 	public function testHasForm_LexemeDoesnHaveForms_ReturnsFalse() {
@@ -548,7 +548,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			}
 		);
 
-		$this->assertEquals( [ $restoredForm ], $lexeme->getForms() );
+		$this->assertEquals( new FormSet( [ $restoredForm ] ), $lexeme->getForms() );
 	}
 
 	public function testPatch_CannotAddAFromToLexemePatchAccessAfterPatchingIsFinished() {

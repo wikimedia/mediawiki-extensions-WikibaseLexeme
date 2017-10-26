@@ -7,12 +7,12 @@ use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Lib\LanguageNameLookup;
-use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
+use Wikibase\View\EntityIdFormatterFactory;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\Template\TemplateFactory;
 
@@ -48,9 +48,9 @@ class LexemeViewFactory {
 	private $entityTermsView;
 
 	/**
-	 * @var EntityIdHtmlLinkFormatterFactory
+	 * @var EntityIdFormatterFactory
 	 */
-	private $entityIdHtmlLinkFormatterFactory;
+	private $entityIdFormatterFactory;
 
 	/**
 	 * @param string $languageCode
@@ -58,6 +58,7 @@ class LexemeViewFactory {
 	 * @param LanguageFallbackChain $fallbackChain
 	 * @param EditSectionGenerator $editSectionGenerator
 	 * @param EntityTermsView $entityTermsView
+	 * @param EntityIdFormatterFactory $entityIdFormatterFactory
 	 */
 	public function __construct(
 		$languageCode,
@@ -65,14 +66,14 @@ class LexemeViewFactory {
 		LanguageFallbackChain $fallbackChain,
 		EditSectionGenerator $editSectionGenerator,
 		EntityTermsView $entityTermsView,
-		EntityIdHtmlLinkFormatterFactory $entityIdHtmlLinkFormatterFactory
+		EntityIdFormatterFactory $entityIdFormatterFactory
 	) {
 		$this->languageCode = $languageCode;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
 		$this->fallbackChain = $fallbackChain;
 		$this->editSectionGenerator = $editSectionGenerator;
 		$this->entityTermsView = $entityTermsView;
-		$this->entityIdHtmlLinkFormatterFactory = $entityIdHtmlLinkFormatterFactory;
+		$this->entityIdFormatterFactory = $entityIdFormatterFactory;
 	}
 
 	public function newLexemeView() {
@@ -114,7 +115,7 @@ class LexemeViewFactory {
 		$formsView = new FormsView(
 			$localizedTextProvider,
 			$templateFactory,
-			$this->entityIdHtmlLinkFormatterFactory
+			$this->entityIdFormatterFactory
 				->getEntityIdFormatter( $retrievingLabelDescriptionLookup ),
 			$statementGroupListView
 		);

@@ -251,10 +251,10 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	}
 
 	/**
-	 * @return Form[]
+	 * @return FormSet
 	 */
 	public function getForms() {
-		return $this->forms->toArray();
+		return $this->forms;
 	}
 
 	/**
@@ -349,7 +349,7 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		} finally {
 			$lexemePatchAccess->close();
 		}
-		$newFormSet = new FormSet( $lexemePatchAccess->getForms() );
+		$newFormSet = $lexemePatchAccess->getForms();
 		$newNextFormId = $lexemePatchAccess->getNextFormId();
 
 		$this->assertCorrectNextFormIdIsGiven( $newNextFormId, $newFormSet );

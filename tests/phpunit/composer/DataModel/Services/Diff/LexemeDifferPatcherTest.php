@@ -99,7 +99,7 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		$diff = $differ->diffLexemes( $lexemeWithForm, $lexemeWithoutForm );
 		$patcher->patchEntity( $lexemeWithForm, $diff );
 
-		$this->assertEquals( [], $lexemeWithForm->getForms() );
+		$this->assertEquals( [], $lexemeWithForm->getForms()->toArray() );
 	}
 
 	public function testDiffAndPatchCanIncreaseNextFormIdCounter() {
@@ -171,7 +171,7 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		$diff = $differ->diffLexemes( $lexeme1, $lexeme2 );
 		$patcher->patchEntity( $latestLexeme, $diff );
 
-		$form = $latestLexeme->getForms()[0];
+		$form = $latestLexeme->getForms()->toArray()[0];
 		$this->assertEquals(
 			'fr-value',
 			$form->getRepresentations()->getByLanguage( 'fr' )->getText()

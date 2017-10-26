@@ -11,6 +11,7 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
 use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikimedia\Assert\Assert;
 use InvalidArgumentException;
@@ -149,12 +150,12 @@ class LexemeDiffer implements EntityDifferStrategy {
 	}
 
 	/**
-	 * @param Form[] $from
-	 * @param Form[] $to
+	 * @param FormSet $from
+	 * @param FormSet $to
 	 *
 	 * @return Diff;
 	 */
-	private function getFormsDiff( array $from, array $to ) {
+	private function getFormsDiff( FormSet $from, FormSet $to ) {
 		$differ = new MapDiffer();
 
 		$differ->setComparisonCallback( function ( Form $from, Form $to ) {
@@ -180,11 +181,14 @@ class LexemeDiffer implements EntityDifferStrategy {
 	}
 
 	/**
-	 * @param Form[] $forms
+	 * @param FormSet $forms
+	 *
+	 * @return Form[]
 	 */
-	private function toFormsDiffArray( array $forms ) {
+	private function toFormsDiffArray( FormSet $forms ) {
 		$result = [];
-		foreach ( $forms as $form ) {
+
+		foreach ( $forms->toArray() as $form ) {
 			$result[$form->getId()->getSerialization()] = $form;
 		}
 

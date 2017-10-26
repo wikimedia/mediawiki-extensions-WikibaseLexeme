@@ -7,8 +7,8 @@ use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
 use UnexpectedValueException;
+use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Sense;
 
 /**
@@ -112,17 +112,18 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 	}
 
 	/**
-	 * @param Form[] $forms
+	 * @param FormSet $forms
 	 *
 	 * @return array[]
 	 */
-	private function serializeForms( array $forms ) {
-		return array_map(
-			function ( Form $form ) {
-				return $this->formSerializer->serialize( $form );
-			},
-			$forms
-		);
+	private function serializeForms( FormSet $forms ) {
+		$serialization = [];
+
+		foreach ( $forms->toArray() as $form ) {
+			$serialization[] = $this->formSerializer->serialize( $form );
+		}
+
+		return $serialization;
 	}
 
 	/**

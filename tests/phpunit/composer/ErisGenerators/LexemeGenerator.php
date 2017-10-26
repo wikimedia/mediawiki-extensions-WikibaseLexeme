@@ -111,7 +111,7 @@ class LexemeGenerator implements Generator {
 		$lexeme = $element->unbox();
 
 		$shrunkFormSet = $this->formSetGenerator->shrink(
-			GeneratedValueSingle::fromJustValue( new FormSet( $lexeme->getForms() ) )
+			GeneratedValueSingle::fromJustValue( $lexeme->getForms() )
 		);
 		$shrunkLemmas = $this->lemmaListGenerator->shrink(
 			GeneratedValueSingle::fromJustValue( $lexeme->getLemmas() )
