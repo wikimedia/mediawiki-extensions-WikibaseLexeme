@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use InvalidArgumentException;
 use PHPUnit_Framework_TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -17,6 +18,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;
+use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\View\EntityTermsView;
@@ -137,6 +139,16 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			new LanguageNameLookup( 'en' )
 		);
 
+		$linkFormatter = $this->getMockBuilder( EntityIdHtmlLinkFormatter::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$linkFormatter->method( 'formatEntityId' )
+			->willReturnCallback( function( EntityId $entityId ) {
+				$id = $entityId->getSerialization();
+				$label = 'LABEL OF ' . $id;
+				return "<a href='foobar/$id'>$label</a>";
+			} );
+
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),
 			$this->newEntityTermsViewMock(),
@@ -146,7 +158,8 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 			$this->newSensesViewMock(),
 			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$htmlTermRenderer,
-			$this->newLabelDescriptionLookup()
+			$this->newLabelDescriptionLookup(),
+			$linkFormatter
 		);
 	}
 
@@ -225,7 +238,13 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 				htmlPiece(
 					havingChild(
 						both( withClass( 'language-lexical-category-widget_language' ) )
-							->andAlso( havingTextContents( containsString( 'Q2' ) ) )
+							->andAlso( havingChild(
+								both(
+									tagMatchingOutline( '<a href="foobar/Q2"/>' )
+								)->andAlso(
+									havingTextContents( containsString( 'LABEL OF Q2' ) )
+								)
+							) )
 					)
 				)
 			)
@@ -257,7 +276,13 @@ class LexemeViewTest extends PHPUnit_Framework_TestCase {
 				htmlPiece(
 					havingChild(
 						both( withClass( 'language-lexical-category-widget_lexical-category' ) )
-							->andAlso( havingTextContents( containsString( 'Q3' ) ) )
+							->andAlso( havingChild(
+								both(
+									tagMatchingOutline( '<a href="foobar/Q3"/>' )
+								)->andAlso(
+									havingTextContents( containsString( 'LABEL OF Q3' ) )
+								)
+							) )
 					)
 				)
 			)

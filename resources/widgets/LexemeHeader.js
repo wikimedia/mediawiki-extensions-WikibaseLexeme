@@ -26,11 +26,18 @@
 
 	var baseRevId = mw.config.get( 'wgCurRevisionId' );
 
-	var store = new Vuex.Store( newLexemeHeaderStore( repoApi, lexeme, baseRevId ) );
+	var store = new Vuex.Store( newLexemeHeaderStore(
+		repoApi,
+		lexeme,
+		baseRevId,
+		$( '.language-lexical-category-widget_language' ).html(),
+		$( '.language-lexical-category-widget_lexical-category' ).html()
+	) );
 
 	var lemmaWidget = newLemmaWidget( '#lemma-widget-vue-template', mw.messages );
 	var languageAndLexicalCategoryWidget = newLanguageAndLexicalCategoryWidget(
 		'#language-and-lexical-category-widget-vue-template',
+		repoApi,
 		mw.messages
 	);
 	var app = new Vue( newLexemeHeader(

@@ -7,6 +7,7 @@ use Language;
 use Message;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookupException;
 use Wikibase\DataModel\Term\Term;
@@ -55,6 +56,11 @@ class LexemeView extends EntityView {
 	private $labelDescriptionLookup;
 
 	/**
+	 * @var EntityIdFormatter
+	 */
+	private $idFormatter;
+
+	/**
 	 * @param TemplateFactory $templateFactory
 	 * @param EntityTermsView $entityTermsView
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
@@ -64,6 +70,7 @@ class LexemeView extends EntityView {
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param HtmlTermRenderer $htmlTermRenderer
 	 * @param LabelDescriptionLookup $labelDescriptionLookup
+	 * @param EntityIdFormatter $idFormatter
 	 */
 	public function __construct(
 		TemplateFactory $templateFactory,
@@ -74,7 +81,8 @@ class LexemeView extends EntityView {
 		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
 		HtmlTermRenderer $htmlTermRenderer,
-		LabelDescriptionLookup $labelDescriptionLookup
+		LabelDescriptionLookup $labelDescriptionLookup,
+		EntityIdFormatter $idFormatter
 	) {
 		parent::__construct(
 			$templateFactory,
@@ -88,6 +96,7 @@ class LexemeView extends EntityView {
 		$this->statementSectionsView = $statementSectionsView;
 		$this->htmlTermRenderer = $htmlTermRenderer;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
+		$this->idFormatter = $idFormatter;
 	}
 
 	/**
@@ -277,11 +286,11 @@ HTML;
 			<lemma-widget :lemmas="lemmas" :inEditMode="inEditMode" :isSaving="isSaving"></lemma-widget>
 		</div>
 		<div class="lemma-widget_controls" v-if="isInitialized" >
-			<button type="button" class="lemma-widget_edit" v-if="!inEditMode" 
+			<button type="button" class="lemma-widget_edit" v-if="!inEditMode"
 				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
-			<button type="button" class="lemma-widget_save" v-if="inEditMode" 
+			<button type="button" class="lemma-widget_save" v-if="inEditMode"
 				:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
-			<button type="button" class="lemma-widget_cancel" v-if="inEditMode" 
+			<button type="button" class="lemma-widget_cancel" v-if="inEditMode"
 				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 		</div>
 	</h1>
@@ -301,11 +310,12 @@ HTML;
 	<div v-if="!inEditMode">
 		<div>
 			<span>{{'wikibase-lexeme-language'|message}}</span>
-			<span class="language-lexical-category-widget_language">{{language}}</span>
+			<span class="language-lexical-category-widget_language" v-html="formattedLanguage"></span>
 		</div>
 		<div>
 			<span>{{'wikibase-lexeme-lexical-category'|message}}</span>
-			<span class="language-lexical-category-widget_lexical-category">{{lexicalCategory}}</span>
+			<span class="language-lexical-category-widget_lexical-category"
+				v-html="formattedLexicalCategory"></span>
 		</div>
 	</div>
 	<div v-else>
@@ -343,20 +353,20 @@ HTML;
 				<span class="lemma-widget_lemma-value-label">
 					{{'wikibase-lemma-field-lemma-label'|message}}
 				</span>
-				<input size="1" class="lemma-widget_lemma-value-input" 
+				<input size="1" class="lemma-widget_lemma-value-input"
 					v-model="lemma.value" :disabled="isSaving">
 				<span class="lemma-widget_lemma-language-label">
 					{{'wikibase-lemma-field-language-label'|message}}
 				</span>
-				<input size="1" class="lemma-widget_lemma-language-input" 
+				<input size="1" class="lemma-widget_lemma-language-input"
 					v-model="lemma.language" :disabled="isSaving">
-				<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" 
+				<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)"
 					:disabled="isSaving" :title="'wikibase-remove'|message">
 					&times;
 				</button>
 			</li>
 			<li>
-				<button type="button" class="lemma-widget_add" v-on:click="add" 
+				<button type="button" class="lemma-widget_add" v-on:click="add"
 					:disabled="isSaving" :title="'wikibase-add'|message">+</button>
 			</li>
 		</ul>
@@ -405,14 +415,21 @@ HTML;
 	protected function renderLanguageAndLexicalCategoryWidget( Lexeme $lexeme ) {
 		$templating = new Templating();
 
+		$languageId = $lexeme->getLanguage();
+		$lexicalCategoryId = $lexeme->getLexicalCategory();
+
 		$result = $templating->render(
 			$this->getRawLanguageAndLexicalCategoryWidgetVueTemplate(),
 			[
 				'isInitialized' => false,
 				'inEditMode' => false,
 				'isSaving' => false,
-				'language' => $lexeme->getLanguage()->getSerialization(),
-				'lexicalCategory' => $lexeme->getLexicalCategory()->getSerialization()
+				'formattedLanguage' => $this->idFormatter->formatEntityId( $languageId ),
+				'language' => $languageId->getSerialization(),
+				'formattedLexicalCategory' => $this->idFormatter->formatEntityId(
+					$lexicalCategoryId
+				),
+				'lexicalCategory' => $lexicalCategoryId->getSerialization()
 			],
 			[
 				'message' => function ( $key ) {
