@@ -56,6 +56,6 @@
 	"wikibase-lexeme-lexical-category": "Label for the lexeme lexical category field in the lexeme header",
 	"wikibaselexeme-diffview-lemma": "Title of lemma in diff page",
 	"wikibaselexeme-diffview-lexical-category": "Title of lexical category in diff page",
-	"wikibaselexeme-diffview-language": "Title of language in diff page",
+	"wikibaselexeme-diffview-language": "Title of language in diff page\n{{Identical|Language}}",
 	"wikibaselexeme-diffview-form": "Title of form in diff page"
 }

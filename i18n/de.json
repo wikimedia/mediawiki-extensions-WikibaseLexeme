@@ -50,5 +50,9 @@
 	"wikibase-lexeme-api-error-representations-language-not-unique": "Darstellungen müssen eine einzigartige Sprache haben. Die Sprache „$1“ wurde erneut verwendet.",
 	"wikibase-lexeme-summary-add-form": "Neues Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt",
 	"wikibase-lexeme-language": "Sprache",
-	"wikibase-lexeme-lexical-category": "Lexikalische Kategorie"
+	"wikibase-lexeme-lexical-category": "Lexikalische Kategorie",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-lexical-category": "Lexikalische Kategorie",
+	"wikibaselexeme-diffview-language": "Sprache",
+	"wikibaselexeme-diffview-form": "Formular"
 }

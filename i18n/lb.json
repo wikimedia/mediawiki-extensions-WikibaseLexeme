@@ -27,5 +27,9 @@
 	"wikibase-lexeme-api-error-json-field-required": "Feld \"$2\" am Parameter \"$1\" ass obligatoresch",
 	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "De Formular muss mindestens eng Duerstellung hunn",
 	"wikibase-lexeme-language": "Sprooch",
-	"wikibase-lexeme-lexical-category": "Lexikalesch Kategorie"
+	"wikibase-lexeme-lexical-category": "Lexikalesch Kategorie",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-lexical-category": "Lexikalesch Kategorie",
+	"wikibaselexeme-diffview-language": "Sprooch",
+	"wikibaselexeme-diffview-form": "Formulaire"
 }
