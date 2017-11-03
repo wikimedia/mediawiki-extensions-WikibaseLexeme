@@ -15,6 +15,7 @@
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\SerializerFactory;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
@@ -30,6 +31,7 @@ use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
@@ -37,6 +39,9 @@ use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
+use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
+use Wikibase\Repo\Diff\ClaimDiffer;
+use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
@@ -160,6 +165,26 @@ return [
 			return new LexemeRdfBuilder(
 				$vocabulary,
 				$writer
+			);
+		},
+		'entity-diff-visualizer-callback' => function (
+			MessageLocalizer $messageLocalizer,
+			ClaimDiffer $claimDiffer,
+			ClaimDifferenceVisualizer $claimDiffView,
+			SiteLookup $siteLookup,
+			EntityIdFormatter $entityIdFormatter
+		) {
+			$basicEntityDiffVisualizer = new BasicEntityDiffVisualizer(
+				$messageLocalizer,
+				$claimDiffer,
+				$claimDiffView,
+				$siteLookup,
+				$entityIdFormatter
+			);
+
+			return new LexemeDiffVisualizer(
+				$messageLocalizer,
+				$basicEntityDiffVisualizer
 			);
 		}
 	]
