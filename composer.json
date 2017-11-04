@@ -28,8 +28,9 @@
 		"wikibase/wikibase-codesniffer": "^0.2.0",
 		"jakub-onderka/php-console-highlighter": "0.3.2",
 		"hamcrest/hamcrest-php": "^2.0",
-		"giorgiosironi/eris":"dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
-		"icomefromthenet/reverse-regex": "^0.0.6.3"
+		"giorgiosironi/eris": "dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
+		"icomefromthenet/reverse-regex": "^0.0.6.3",
+		"mediawiki/minus-x": "0.2.0"
 	},
 	"autoload": {
 		"psr-4": {
@@ -41,16 +42,20 @@
 		}
 	},
 	"autoload-dev": {
-		"files":[
+		"files": [
 			"vendor/hamcrest/hamcrest-php/hamcrest/Hamcrest.php"
 		]
 	},
 	"scripts": {
-		"fix": "phpcbf",
+		"fix": [
+			"phpcbf",
+			"minus-x fix ."
+		],
 		"test": [
 			"parallel-lint . --exclude vendor",
 			"phpcs -p -s",
-			"phpunit"
+			"phpunit",
+			"minus-x check ."
 		]
 	},
 	"repositories": [
