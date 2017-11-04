@@ -54,5 +54,9 @@
 	"wikibase-lexeme-api-error-representations-language-not-unique": "Les représentations doivent avoir une langue unique. La langue « $1 » est réutilisée",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}",
 	"wikibase-lexeme-language": "Langue",
-	"wikibase-lexeme-lexical-category": "Nature"
+	"wikibase-lexeme-lexical-category": "Nature",
+	"wikibaselexeme-diffview-lemma": "Lemme",
+	"wikibaselexeme-diffview-lexical-category": "catégorie lexicale",
+	"wikibaselexeme-diffview-language": "langue",
+	"wikibaselexeme-diffview-form": "formulaire"
 }

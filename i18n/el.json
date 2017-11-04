@@ -1,8 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"GR"
+			"GR",
+			"KATRINE1992"
 		]
 	},
-	"wikibase-lexeme-view-forms": "Φόρμες"
+	"wikibase-lexeme-view-forms": "Φόρμες",
+	"wikibaselexeme-diffview-lemma": "Λήμμα",
+	"wikibaselexeme-diffview-lexical-category": "λεκτική κατηγορία",
+	"wikibaselexeme-diffview-language": "γλώσσα",
+	"wikibaselexeme-diffview-form": "φόρμα"
 }

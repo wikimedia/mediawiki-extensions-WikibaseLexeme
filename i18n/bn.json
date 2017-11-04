@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Elias Ahmmad",
-			"Aftabuzzaman"
+			"Aftabuzzaman",
+			"Rasal Lia"
 		]
 	},
 	"wikibase-newlexeme-lemma": "লেমমা",
@@ -13,5 +14,7 @@
 	"wikibase-form-field-language-label": "ভাষা",
 	"wikibase-gloss-field-language-label": "ভাষা",
 	"wikibase-lexeme-api-error-parameter-required": "প্যারামিটার \"$1\" আবশ্যক",
-	"wikibase-lexeme-language": "ভাষা"
+	"wikibase-lexeme-language": "ভাষা",
+	"wikibaselexeme-diffview-lexical-category": "অাভিধানিক বিষয়শ্রেণী",
+	"wikibaselexeme-diffview-language": "ভাষা"
 }

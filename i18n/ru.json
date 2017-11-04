@@ -15,5 +15,8 @@
 	"wikibase-newlexeme-language": "Язык лексемы",
 	"wikibase-lexeme-view-language-lexical-category": "$1 на $2",
 	"wikibase-lexeme-view-forms": "Формы",
-	"wikibase-lexeme-language": "Язык"
+	"wikibase-lexeme-language": "Язык",
+	"wikibaselexeme-diffview-lemma": "Лемма",
+	"wikibaselexeme-diffview-lexical-category": "лексическая категория",
+	"wikibaselexeme-diffview-language": "язык"
 }

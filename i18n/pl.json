@@ -10,5 +10,7 @@
 	"wikibase-form-field-language-label": "Język",
 	"wikibase-gloss-field-language-label": "Język",
 	"wikibase-lexeme-api-error-parameter-required": "Parametr „$1” jest wymagany",
-	"wikibase-lexeme-language": "Język"
+	"wikibase-lexeme-language": "Język",
+	"wikibaselexeme-diffview-lexical-category": "kategoria leksykalna",
+	"wikibaselexeme-diffview-language": "język"
 }
