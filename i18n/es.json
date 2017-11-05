@@ -5,7 +5,8 @@
 			"Dgstranz",
 			"Macofe",
 			"Fortega",
-			"RicardoSGZ"
+			"RicardoSGZ",
+			"KATRINE1992"
 		]
 	},
 	"wikibaselexeme-desc": "Gestión del tipo de entidad «lexema»",
@@ -30,5 +31,9 @@
 	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "El texto de representación no puede estar vacío",
 	"wikibase-lexeme-summary-add-form": "Se añadió la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-language": "Idioma",
-	"wikibase-lexeme-lexical-category": "Categoría léxica"
+	"wikibase-lexeme-lexical-category": "Categoría léxica",
+	"wikibaselexeme-diffview-lemma": "Extracto",
+	"wikibaselexeme-diffview-lexical-category": "categoria lexica",
+	"wikibaselexeme-diffview-language": "idioma",
+	"wikibaselexeme-diffview-form": "forma"
 }

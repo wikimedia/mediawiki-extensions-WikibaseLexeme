@@ -17,5 +17,7 @@
 	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "Representationstexten kan inte vara tom",
 	"wikibase-lexeme-api-error-representations-language-not-unique": "Representationer måste ha unika språk. Språket \"$1\" återanvänds",
 	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}",
-	"wikibase-lexeme-language": "Språk"
+	"wikibase-lexeme-language": "Språk",
+	"wikibaselexeme-diffview-language": "språk",
+	"wikibaselexeme-diffview-form": "formulär"
 }
