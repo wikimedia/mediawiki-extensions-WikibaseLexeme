@@ -7,5 +7,6 @@
 	"wikibase-lemma-field-language-label": "زبان",
 	"wikibase-form-field-language-label": "زبان",
 	"wikibase-gloss-field-language-label": "زبان",
-	"wikibase-lexeme-language": "زبان"
+	"wikibase-lexeme-language": "زبان",
+	"wikibaselexeme-diffview-language": "زبان"
 }

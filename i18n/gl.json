@@ -15,10 +15,22 @@
 	"wikibase-newlexeme-language": "Lingua do lexema",
 	"wikibase-lexeme-view-language-lexical-category": "$1 en $2",
 	"wikibase-lexeme-view-forms": "Formularios",
+	"wikibase-lemma-field-lemma-label": "Lema",
 	"wikibase-lemma-field-language-label": "Lingua",
 	"wikibase-form-field-representation-label": "Representación",
 	"wikibase-form-field-language-label": "Lingua",
 	"wikibase-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
-	"datatypes-type-wikibase-lexeme": "Lexema"
+	"datatypes-type-wikibase-lexeme": "Lexema",
+	"datatypes-type-wikibase-lexeme-form": "Forma do lexema",
+	"wikibase-lexeme-add-form": "engadir forma",
+	"apihelp-wblexemeaddform-summary": "Engade unha forma ó lexema",
+	"apihelp-wblexemeaddform-param-lexemeId": "Id. do lexema; p. ex., L10",
+	"wikibase-lexeme-api-error-parameter-required": "O parámetro «$1» é obrigatorio",
+	"wikibase-lexeme-language": "Lingua",
+	"wikibase-lexeme-lexical-category": "Categoría léxica",
+	"wikibaselexeme-diffview-lemma": "Lema",
+	"wikibaselexeme-diffview-lexical-category": "categoría léxica",
+	"wikibaselexeme-diffview-language": "lingua",
+	"wikibaselexeme-diffview-form": "forma"
 }

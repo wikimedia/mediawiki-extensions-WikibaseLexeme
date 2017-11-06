@@ -28,5 +28,8 @@
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Il campo \"$2\" nel parametro \"$1\" dovrebbe essere di tipo \"$3\". Fornito: \"$4\"",
 	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Il parametro \"$1\" dovrebbe essere un ID lessema. Fornito: \"$2\"",
 	"wikibase-lexeme-language": "Lingua",
-	"wikibase-lexeme-lexical-category": "Categoria lessicale"
+	"wikibase-lexeme-lexical-category": "Categoria lessicale",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-lexical-category": "categoria lessicale",
+	"wikibaselexeme-diffview-language": "lingua"
 }
