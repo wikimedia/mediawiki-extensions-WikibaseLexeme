@@ -32,8 +32,11 @@
 	"datatypes-type-wikibase-lexeme-sense": "Sentíu de lexema",
 	"wikibase-lexeme-add-sense": "añadir sentíu",
 	"wikibase-lexeme-add-form": "añadir forma",
+	"apihelp-wblexemeaddform-summary": "Añade una forma al lexema",
 	"apihelp-wblexemeaddform-param-lexemeId": "Id del lexema; p. ex., L10",
+	"apihelp-wblexemeaddform-param-data": "Datos codificaos en JSON pa Forma, esto ye, representaciones y carauterístiques gramaticales",
 	"apihelp-wblexemeaddform-param-bot": "Marcar esta edición como bot. Esta marca d'URL sólo se respetará si l'usuariu pertenez al grupu «{{int:group-bot}}».",
+	"apihelp-wblexemeaddform-example-1": "Añadir Forma al Lexema con ID <samp>$1</samp> que tien les representaciones <samp>$2</samp> coles llingües <samp>$3</samp> respeutivamente, y les carauterístiques gramaticales <samp>$4</samp>",
 	"wikibase-lexeme-api-error-parameter-required": "El parámetru «$1» ye obligatoriu",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Esperábase que'l parámetru «$1» fuera un oxetu JSON válidu; apurrióse «$2»",
 	"wikibase-lexeme-api-error-lexeme-not-found": "Nun s'alcontró nengún lexema con ID «$1».",
@@ -43,6 +46,13 @@
 	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Esperábase que'l parámetru «$1» fuera un identificador de lexema. Apurrióse: «$2»",
 	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "El testu representativu nun puede tar vacíu",
 	"wikibase-lexeme-api-error-representation-language-cannot-be-empty": "La llingua de representación nun puede tar vacia",
+	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "La Forma tien de tener polo menos una representación",
+	"wikibase-lexeme-api-error-representations-language-not-unique": "Les representaciones tienen de tener una llingua única. La llingua «$1» reutilizóse",
+	"wikibase-lexeme-summary-add-form": "Añadióse la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-language": "Llingua",
-	"wikibase-lexeme-lexical-category": "Categoría léxica"
+	"wikibase-lexeme-lexical-category": "Categoría léxica",
+	"wikibaselexeme-diffview-lemma": "Lema",
+	"wikibaselexeme-diffview-lexical-category": "categoría léxica",
+	"wikibaselexeme-diffview-language": "llingua",
+	"wikibaselexeme-diffview-form": "forma"
 }

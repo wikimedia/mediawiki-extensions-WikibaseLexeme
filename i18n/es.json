@@ -32,8 +32,8 @@
 	"wikibase-lexeme-summary-add-form": "Se añadió la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-language": "Idioma",
 	"wikibase-lexeme-lexical-category": "Categoría léxica",
-	"wikibaselexeme-diffview-lemma": "Extracto",
-	"wikibaselexeme-diffview-lexical-category": "categoria lexica",
+	"wikibaselexeme-diffview-lemma": "Lema",
+	"wikibaselexeme-diffview-lexical-category": "categoría léxica",
 	"wikibaselexeme-diffview-language": "idioma",
 	"wikibaselexeme-diffview-form": "forma"
 }
