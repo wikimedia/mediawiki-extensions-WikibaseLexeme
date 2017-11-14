@@ -64,6 +64,9 @@ class LexemeId extends EntityId implements Int32EntityId {
 	 */
 	public function unserialize( $serialized ) {
 		$this->serialization = $serialized;
+		list( $this->repositoryName, $this->localPart ) = self::extractRepositoryNameAndLocalPart(
+			$serialized
+		);
 	}
 
 	/**

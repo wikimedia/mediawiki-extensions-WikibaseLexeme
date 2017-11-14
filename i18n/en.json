@@ -52,5 +52,6 @@
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-lexical-category": "lexical category",
 	"wikibaselexeme-diffview-language": "language",
-	"wikibaselexeme-diffview-form": "form"
+	"wikibaselexeme-diffview-form": "form",
+	"content-model-wikibase-lexeme": "Wikibase lexeme"
 }

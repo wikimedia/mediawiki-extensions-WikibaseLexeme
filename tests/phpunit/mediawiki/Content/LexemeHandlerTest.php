@@ -2,25 +2,27 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
-use Action;
-use Closure;
-use FauxRequest;
-use IContextSource;
-use Language;
-use Page;
-use PHPUnit_Framework_TestCase;
-use RequestContext;
-use Title;
+use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Repo\Content\EntityHandler;
+use Wikibase\Repo\Tests\Content\EntityHandlerTest;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
+use Wikibase\Repo\WikibaseRepo;
+use Wikibase\SettingsArray;
 use Wikibase\Store\EntityIdLookup;
 use Wikibase\TermIndex;
 
@@ -32,7 +34,100 @@ use Wikibase\TermIndex;
  * @license GPL-2.0+
  * @author Bene* < benestar.wikimedia@gmail.com >
  */
-class LexemeHandlerTest extends PHPUnit_Framework_TestCase {
+class LexemeHandlerTest extends EntityHandlerTest {
+
+	/**
+	 * @return string
+	 */
+	public function getModelId() {
+		return LexemeContent::CONTENT_MODEL_ID;
+	}
+
+	/**
+	 * @param SettingsArray|null $settings
+	 *
+	 * @return EntityHandler
+	 */
+	protected function getHandler( SettingsArray $settings = null ) {
+		return $this->getWikibaseRepo( $settings )
+			->getEntityContentFactory()
+			->getContentHandlerForType( Lexeme::ENTITY_TYPE );
+	}
+
+	/**
+	 * @param EntityId|null $id
+	 *
+	 * @return EntityDocument
+	 */
+	protected function newEntity( EntityId $id = null ) {
+		if ( !$id ) {
+			$id = new LexemeId( 'L7' );
+		}
+
+		$lexeme = new Lexeme( $id );
+		$lexeme->setLemmas(
+			new TermList(
+				[
+					new Term( 'en', 'goat' ),
+					new Term( 'de', 'Ziege' ),
+				]
+			)
+		);
+		$lexeme->setLanguage( new ItemId( 'Q123' ) );
+		$lexeme->setLexicalCategory( new ItemId( 'Q567' ) );
+
+		return $lexeme;
+	}
+
+	/**
+	 * Returns EntityContents that can be serialized by the EntityHandler deriving class.
+	 *
+	 * @return array[]
+	 */
+	public function contentProvider() {
+		$content = $this->newEntityContent();
+
+		return [
+			[ $content ],
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	public function entityIdProvider() {
+		return [
+			[ 'L7' ],
+		];
+	}
+
+	/**
+	 * @return array
+	 */
+	protected function getExpectedSearchIndexFields() {
+		return [ 'statement_count' ];
+	}
+
+	/**
+	 * @return LexemeContent
+	 */
+	protected function getTestContent() {
+		return $this->newEntityContent();
+	}
+
+	protected function getEntityTypeDefinitions() {
+		return new EntityTypeDefinitions(
+			require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.php'
+		);
+	}
+
+	protected function getEntitySerializer() {
+		$baseModelSerializerFactory = WikibaseRepo::getDefaultInstance()
+			->getBaseDataModelSerializerFactory();
+		$entityTypeDefinitions = $this->getEntityTypeDefinitions();
+		$serializerFactoryCallbacks = $entityTypeDefinitions->getSerializerFactoryCallbacks();
+		return $serializerFactoryCallbacks['lexeme']( $baseModelSerializerFactory );
+	}
 
 	private function getMockWithoutConstructor( $className ) {
 		return $this->getMockBuilder( $className )
@@ -60,67 +155,6 @@ class LexemeHandlerTest extends PHPUnit_Framework_TestCase {
 		);
 	}
 
-	public function testGetActionOverrides() {
-		$lexemeHandler = $this->newLexemeHandler();
-		$overrides = $lexemeHandler->getActionOverrides();
-
-		$this->assertSame( [ 'history', 'view', 'edit', 'submit' ], array_keys( $overrides ) );
-
-		$this->assertActionOverride( $overrides['history'] );
-		$this->assertActionOverride( $overrides['view'] );
-		$this->assertActionOverride( $overrides['edit'] );
-		$this->assertActionOverride( $overrides['submit'] );
-	}
-
-	private function assertActionOverride( $override ) {
-		if ( $override instanceof Closure ) {
-			$context = $this->getMock( IContextSource::class );
-			$context->expects( $this->any() )
-				->method( 'getLanguage' )
-				->will( $this->returnValue( $this->getMockWithoutConstructor( Language::class ) ) );
-
-			$action = $override( $this->getMock( Page::class ), $context );
-			$this->assertInstanceOf( Action::class, $action );
-		} else {
-			$this->assertTrue( is_subclass_of( $override, Action::class ) );
-		}
-	}
-
-	public function testMakeEmptyEntity() {
-		$lexemeHandler = $this->newLexemeHandler();
-
-		$this->assertTrue(
-			$lexemeHandler->makeEmptyEntity()->equals( new Lexeme() )
-		);
-	}
-
-	public function testMakeEntityId() {
-		$lexemeHandler = $this->newLexemeHandler();
-
-		$this->assertTrue(
-			$lexemeHandler->makeEntityId( 'L1' )->equals( new LexemeId( 'L1' ) )
-		);
-	}
-
-	public function testGetEntityType() {
-		$lexemeHandler = $this->newLexemeHandler();
-
-		$this->assertSame( Lexeme::ENTITY_TYPE, $lexemeHandler->getEntityType() );
-	}
-
-	public function testShowMissingEntity() {
-		$lexemeHandler = $this->newLexemeHandler();
-
-		$title = Title::makeTitle( 112, 'L11' );
-		$context = new RequestContext( new FauxRequest() );
-		$context->setTitle( $title );
-
-		$lexemeHandler->showMissingEntity( $title, $context );
-
-		$html = $context->getOutput()->getHTML();
-		$this->assertContains( 'noarticletext', $html );
-	}
-
 	public function testAllowAutomaticIds() {
 		$lexemeHandler = $this->newLexemeHandler();
 
@@ -131,6 +165,21 @@ class LexemeHandlerTest extends PHPUnit_Framework_TestCase {
 		$lexemeHandler = $this->newLexemeHandler();
 
 		$this->assertFalse( $lexemeHandler->canCreateWithCustomId( new LexemeId( 'L1' ) ) );
+	}
+
+	public function testDataForSearchIndex() {
+		$handler = $this->getHandler();
+		$engine = $this->getMock( \SearchEngine::class );
+
+		$page = $this->getMockWikiPage( $handler );
+
+		// TODO: test with statements!
+		$data = $handler->getDataForSearchIndex( $page, new \ParserOutput(), $engine );
+		$this->assertSame( 0, $data['statement_count'], 'statement_count' );
+	}
+
+	public function testExportTransform() {
+		$this->markTestSkipped( 'serialized data transformation issues are irrelevant to Lexemes' );
 	}
 
 }

@@ -27,8 +27,23 @@ class LexemeIdTest extends \PHPUnit_Framework_TestCase {
 	 * @dataProvider idSerializationProvider
 	 */
 	public function testSerializationWorksProperly( $serialization ) {
-		$id = new LexemeId( $serialization );
-		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
+		$expected = new LexemeId( $serialization );
+
+		/** @var LexemeId $unserialized */
+		$unserialized = unserialize( serialize( $expected ) );
+
+		$this->assertTrue( $expected->equals( $unserialized ), 'equality as defined in EntityId' );
+
+		$this->assertSame(
+			$expected->getRepositoryName(),
+			$unserialized->getRepositoryName(),
+			'getRepositoryName works as expected after unserialize'
+		);
+		$this->assertSame(
+			$expected->getLocalPart(),
+			$unserialized->getLocalPart(),
+			'getLocalPart works as expected after unserialize'
+		);
 	}
 
 	public function idSerializationProvider() {
