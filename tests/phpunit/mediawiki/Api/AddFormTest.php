@@ -181,7 +181,7 @@ class AddFormTest extends WikibaseApiTestCase {
 
 		$revision = Revision::loadFromId( wfGetDB( DB_MASTER ), $lexemeRevision->getRevisionId() );
 
-		$this->assertEquals( '/* add-form:1||F1 */ goat', $revision->getComment() );
+		$this->assertEquals( '/* add-form:1||L1-F1 */ goat', $revision->getComment() );
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {

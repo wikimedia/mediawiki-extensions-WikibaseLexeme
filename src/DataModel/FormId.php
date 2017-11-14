@@ -10,7 +10,7 @@ use Wikimedia\Assert\Assert;
  */
 class FormId {
 
-	const PATTERN = '/^F[1-9]\d*\z/';
+	const PATTERN = '/^L[1-9]\d*-F[1-9]\d*\z/';
 
 	/**
 	 * @var string

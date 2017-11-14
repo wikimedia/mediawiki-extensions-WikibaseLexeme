@@ -159,7 +159,7 @@ class ExternalLexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 		assertThat(
 			$serialization,
-			hasKeyValuePair( 'forms', hasItemInArray( hasKeyValuePair( 'id', 'F1' ) ) )
+			hasKeyValuePair( 'forms', hasItemInArray( hasKeyValuePair( 'id', 'L1-F1' ) ) )
 		);
 	}
 

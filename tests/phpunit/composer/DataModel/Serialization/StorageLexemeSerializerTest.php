@@ -147,7 +147,7 @@ class StorageLexemeSerializerTest extends \PHPUnit_Framework_TestCase {
 			'nextFormId' => 3,
 			'forms' => [
 				[
-					'id' => 'F1',
+					'id' => 'L1-F1',
 					'representations' => [
 						'en' => [ 'language' => 'en', 'value' => 'color' ],
 						'en_gb' => [ 'language' => 'en_gb', 'value' => 'colour' ],
@@ -166,7 +166,7 @@ class StorageLexemeSerializerTest extends \PHPUnit_Framework_TestCase {
 					],
 				],
 				[
-					'id' => 'F2',
+					'id' => 'L1-F2',
 					'representations' => [
 						'en' => [ 'language' => 'en', 'value' => 'colors' ],
 						'en_gb' => [ 'language' => 'en_gb', 'value' => 'colours' ],

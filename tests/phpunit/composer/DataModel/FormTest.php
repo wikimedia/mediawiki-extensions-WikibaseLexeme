@@ -21,12 +21,12 @@ class FormTest extends PHPUnit_Framework_TestCase {
 
 	public function testCreateFormWithoutRepresentations_ThrowsAnException() {
 		$this->setExpectedException( InvalidArgumentException::class );
-		new Form( new FormId( 'F1' ), new TermList(), [] );
+		new Form( new FormId( 'L1-F1' ), new TermList(), [] );
 	}
 
 	public function testCreateFormWithOneRepresentation_CreatesIt() {
 		new Form(
-			new FormId( 'F1' ),
+			new FormId( 'L1-F1' ),
 			new TermList( [ new Term( 'en', 'representation' ) ] ),
 			[]
 		);
@@ -35,7 +35,7 @@ class FormTest extends PHPUnit_Framework_TestCase {
 	public function testCreateForm_GrammaticalFeaturesIsNotAnArrayOfItemIds_ThrowsAnException() {
 		$this->setExpectedException( InvalidArgumentException::class );
 		new Form(
-			new FormId( 'F1' ),
+			new FormId( 'L1-F1' ),
 			new TermList( [ new Term( 'en', 'representation' ) ] ),
 			[ 1 ]
 		);

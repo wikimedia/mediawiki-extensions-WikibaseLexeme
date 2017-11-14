@@ -330,7 +330,11 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @return Form
 	 */
 	public function addForm( TermList $representations, array $grammaticalFeatures ) {
-		$formId = new FormId( 'F' . $this->nextFormId++ );
+		if ( !$this->id ) {
+			throw new \LogicException( 'Can not add forms to a lexeme with no ID' );
+		}
+
+		$formId = new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ );
 		$form = new Form( $formId, $representations, $grammaticalFeatures );
 		$this->forms->add( $form );
 

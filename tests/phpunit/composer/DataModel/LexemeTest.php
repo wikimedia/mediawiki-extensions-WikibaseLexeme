@@ -281,7 +281,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 		$newLexeme = NewLexeme::create();
 		$lexemeWithInitialFormCounter = $newLexeme->build();
 		$lexemeWithChangedFormCounter = $newLexeme->withForm( NewForm::havingId( 'F1' ) )->build();
-		$lexemeWithChangedFormCounter->removeForm( new FormId( 'F1' ) );
+		$lexemeWithChangedFormCounter->removeForm( new FormId( 'L1-F1' ) );
 
 		return [
 			'null' => [
@@ -388,7 +388,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testCopy_FormSetIsCopied() {
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$lexemeCopy = $lexeme->copy();
 
 		$lexemeCopy->addForm( new TermList( [ new Term( 'en', 'goat' ) ] ), [] );
@@ -428,7 +428,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddForm_ReturnsANewFormWithProvidedParameters() {
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$newForm = $lexeme->addForm(
 			new TermList( [ new Term( 'en', 'goat' ) ] ),
@@ -446,7 +446,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddForm_ReturnedFormIsAddedToTheLexeme() {
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$newForm = $lexeme->addForm(
 			new TermList( [ new Term( 'en', 'goat' ) ] ),
@@ -457,7 +457,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	}
 
 	public function testAddFormTwoTimes_SecondFormHasAnIdWithNextNumber() {
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$newForm1 = $lexeme->addForm(
 			new TermList( [ new Term( 'en', 'goat' ) ] ),
@@ -468,14 +468,14 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 			[]
 		);
 
-		$this->assertEquals( new FormId( 'F1' ), $newForm1->getId() );
-		$this->assertEquals( new FormId( 'F2' ), $newForm2->getId() );
+		$this->assertEquals( new FormId( 'L1-F1' ), $newForm1->getId() );
+		$this->assertEquals( new FormId( 'L1-F2' ), $newForm2->getId() );
 	}
 
 	public function testRemoveAForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 
-		$lexeme->removeForm( new FormId( 'F1' ) );
+		$lexeme->removeForm( new FormId( 'L1-F1' ) );
 
 		$this->assertEquals( [], $lexeme->getForms()->toArray() );
 	}
@@ -483,26 +483,26 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 	public function testHasForm_LexemeDoesnHaveForms_ReturnsFalse() {
 		$lexeme = NewLexeme::create()->build();
 
-		$this->assertFalse( $lexeme->hasForm( new FormId( 'F1' ) ) );
+		$this->assertFalse( $lexeme->hasForm( new FormId( 'L1-F1' ) ) );
 	}
 
 	public function testHasForm_LexemeHaveFormWithThatId_ReturnsTrue() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 
-		$this->assertTrue( $lexeme->hasForm( new FormId( 'F1' ) ) );
+		$this->assertTrue( $lexeme->hasForm( new FormId( 'L1-F1' ) ) );
 	}
 
 	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 
-		$this->assertInstanceOf( Form::class, $lexeme->getForm( new FormId( 'F1' ) ) );
+		$this->assertInstanceOf( Form::class, $lexeme->getForm( new FormId( 'L1-F1' ) ) );
 	}
 
 	public function testGetForm_LexemeDoesntHaveFormWithThatId_ThrowsAnException() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->setExpectedException( \OutOfRangeException::class );
-		$lexeme->getForm( new FormId( 'F1' ) );
+		$lexeme->getForm( new FormId( 'L1-F1' ) );
 	}
 
 	public function testPatch_IncreaseNextFormIdTo_GivenLexemWithGreaterId_Increases() {
@@ -539,7 +539,7 @@ class LexemeTest extends PHPUnit_Framework_TestCase {
 
 	public function testPatch_AddAFormThatAlreadyExisted_AddsAForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
-		$lexeme->removeForm( new FormId( 'F1' ) );
+		$lexeme->removeForm( new FormId( 'L1-F1' ) );
 		$restoredForm = NewForm::havingId( 'F1' )->build();
 
 		$lexeme->patch(

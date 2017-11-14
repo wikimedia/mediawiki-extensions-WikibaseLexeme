@@ -27,7 +27,7 @@ class AddFormRequestTest extends \PHPUnit_Framework_TestCase {
 
 		$changeOp = $request->getChangeOp();
 
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$changeOp->apply( $lexeme );
 

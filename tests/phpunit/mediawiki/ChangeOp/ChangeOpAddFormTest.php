@@ -42,7 +42,7 @@ class ChangeOpAddFormTest extends \PHPUnit_Framework_TestCase {
 	public function test_applyAddsFormIfGivenALexeme() {
 		$representations = new TermList( [ new Term( 'en', 'goat' ) ] );
 		$changeOp = new ChangeOpAddForm( $representations, [ new ItemId( 'Q1' ) ] );
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$changeOp->apply( $lexeme );
 
@@ -54,7 +54,7 @@ class ChangeOpAddFormTest extends \PHPUnit_Framework_TestCase {
 	public function test_applySetsTheSummary() {
 		$representations = new TermList( [ new Term( 'en', 'goat' ) ] );
 		$changeOp = new ChangeOpAddForm( $representations, [] );
-		$lexeme = NewLexeme::create()->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$summary = new Summary();
 

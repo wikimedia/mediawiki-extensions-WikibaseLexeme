@@ -108,7 +108,7 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		$initialLexeme = NewLexeme::create();
 		$lexemeWithoutForm = $initialLexeme->build();
 		$lexemeThatHadForm = $initialLexeme->withForm( NewForm::havingId( 'F1' ) )->build();
-		$lexemeThatHadForm->removeForm( new FormId( 'F1' ) );
+		$lexemeThatHadForm->removeForm( new FormId( 'L1-F1' ) );
 
 		$diff = $differ->diffLexemes( $lexemeWithoutForm, $lexemeThatHadForm );
 		$patcher->patchEntity( $lexemeWithoutForm, $diff );
@@ -206,8 +206,8 @@ class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		$diff = $differ->diffLexemes( $lexeme1, $lexeme2 );
 		$patcher->patchEntity( $lexeme1, $diff );
 
-		$form1 = $lexeme1->getForm( new FormId( 'F1' ) );
-		$form2 = $lexeme1->getForm( new FormId( 'F2' ) );
+		$form1 = $lexeme1->getForm( new FormId( 'L1-F1' ) );
+		$form2 = $lexeme1->getForm( new FormId( 'L1-F2' ) );
 		$this->assertEquals(
 			'value-2-1',
 			$form1->getRepresentations()->getByLanguage( 'en' )->getText()

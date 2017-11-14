@@ -10,10 +10,13 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
  * @method static NewForm havingRepresentation (string $language, string $representation)
+ * @method static NewForm havingLexeme (Lexeme | LexemeId | string $lexeme)
  * @method static NewForm havingId (FormId | string $formId)
  * @method static NewForm havingStatement (Statement | Snak | NewStatement $statement)
  * @method static NewForm havingGrammaticalFeature (ItemId | string $itemId)
@@ -21,7 +24,12 @@ use Wikibase\Repo\Tests\NewStatement;
 class NewForm {
 
 	/**
-	 * @var FormId|null
+	 * @var string
+	 */
+	private $lexemeId = 'L1';
+
+	/**
+	 * @var string|null
 	 */
 	private $formId = null;
 
@@ -51,6 +59,27 @@ class NewForm {
 	}
 
 	/**
+	 * @param Lexeme|LexemeId|string $lexeme
+	 *
+	 * @return self
+	 */
+	public function andLexeme( $lexeme ) {
+		$result = clone $this;
+
+		if ( $lexeme instanceof Lexeme ) {
+			$lexeme = $lexeme->getId();
+		}
+
+		if ( $lexeme instanceof LexemeId ) {
+			$lexeme = $lexeme->getSerialization();
+		}
+
+		$this->lexemeId = $lexeme;
+
+		return $result;
+	}
+
+	/**
 	 * @param FormId|string $formId
 	 *
 	 * @return self
@@ -59,10 +88,11 @@ class NewForm {
 		if ( $this->formId ) {
 			throw new \LogicException( 'Form ID is already set. You are not allowed to change it' );
 		}
+
 		$result = clone $this;
 
-		if ( is_string( $formId ) ) {
-			$formId = new FormId( $formId );
+		if ( $formId instanceof FormId ) {
+			list( , $formId ) = explode( '-', $formId->getSerialization() );
 		}
 
 		$result->formId = $formId;
@@ -124,6 +154,7 @@ class NewForm {
 	 */
 	public function build() {
 		$formId = $this->formId ?: $this->newRandomFormId();
+
 		if ( empty( $this->representations ) ) {
 			$representations = new TermList( [
 				new Term( 'qqq', 'representation' . mt_rand( 0, mt_getrandmax() ) )
@@ -134,8 +165,9 @@ class NewForm {
 				$representations->setTextForLanguage( $language, $representation );
 			}
 		}
+
 		return new Form(
-			$formId,
+			new FormId( $this->lexemeId . '-' . $formId ),
 			$representations,
 			$this->grammaticalFeatures,
 			new StatementList( $this->statements )
@@ -159,10 +191,10 @@ class NewForm {
 	}
 
 	/**
-	 * @return FormId
+	 * @return string
 	 */
 	private function newRandomFormId() {
-		return new FormId( 'F' . mt_rand( 1, mt_getrandmax() ) );
+		return 'F' . mt_rand( 1, mt_getrandmax() );
 	}
 
 	/**

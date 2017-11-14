@@ -33,8 +33,8 @@ class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 
 		$this->eris()
 			->forAll(
-			WikibaseLexemeGenerators::form( new FormId( 'F1' ) ),
-			WikibaseLexemeGenerators::form( new FormId( 'F1' ) )
+			WikibaseLexemeGenerators::form( new FormId( 'L1-F1' ) ),
+			WikibaseLexemeGenerators::form( new FormId( 'L1-F1' ) )
 		)
 			->then( function ( Form $form1, Form $form2 ) use ( $differ, $patcher ) {
 				$patch = $differ->diff( $form1, $form2 );

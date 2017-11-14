@@ -54,6 +54,7 @@ class FormSet {
 		}
 
 		$numbers = array_map( function ( $formId ){
+			list( , $formId ) = explode( '-', $formId );
 			return (int)substr( $formId, 1 );
 		}, array_keys( $this->forms ) );
 		return max( $numbers );

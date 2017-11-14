@@ -83,7 +83,7 @@ class FormSetTest extends \PHPUnit_Framework_TestCase {
 	public function testRemove_CanRemoveAForm() {
 		$formSet = new FormSet( [ NewForm::havingId( 'F1' )->build() ] );
 
-		$formSet->remove( new FormId( 'F1' ) );
+		$formSet->remove( new FormId( 'L1-F1' ) );
 
 		$this->assertEmpty( $formSet->toArray() );
 	}

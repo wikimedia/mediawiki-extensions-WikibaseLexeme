@@ -163,7 +163,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				'nextFormId' => 2,
 				'forms' => [
 					[
-						'id' => 'F1',
+						'id' => 'L1-F1',
 						'representations' => [
 							'en' => [ 'language' => 'en', 'value' => 'form' ]
 						],

@@ -40,7 +40,8 @@ class FormGenerator implements Generator {
 		} else {
 			$this->formIdGenerator = new MapGenerator(
 				function ( $number ) {
-					return new FormId( 'F' . $number );
+					// FIXME: This hard coded parent ID will result in inconsistent test data!
+					return new FormId( 'L1-F' . $number );
 				},
 				new Generator\ChooseGenerator( 1, self::MAX_FORM_ID )
 			);
