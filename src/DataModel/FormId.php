@@ -10,6 +10,8 @@ use Wikimedia\Assert\Assert;
  */
 class FormId {
 
+	const PATTERN = '/^F[1-9]\d*\z/';
+
 	/**
 	 * @var string
 	 */
@@ -21,9 +23,9 @@ class FormId {
 	public function __construct( $serialization ) {
 		Assert::parameterType( 'string', $serialization, '$serialization' );
 		Assert::parameter(
-			preg_match( '/^F[1-9]\d*\z/', $serialization ),
+			preg_match( self::PATTERN, $serialization ),
 			'$serialization',
-			'Form ID must match "F[1-9]\d*", given: ' . $serialization
+			'Form ID must match "' . self::PATTERN . '", given: ' . $serialization
 		);
 
 		$this->serialization = $serialization;
