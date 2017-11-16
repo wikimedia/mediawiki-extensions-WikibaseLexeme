@@ -19,8 +19,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeSerializer
- * @covers \Wikibase\Lexeme\DataModel\Serialization\FormSerializer
+ * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
  *
  * @group WikibaseLexeme
  *
