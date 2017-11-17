@@ -15,9 +15,12 @@ use Wikibase\Lexeme\DataModel\FormId;
  */
 class FormIdTest extends PHPUnit_Framework_TestCase {
 
-	public function testGivenValidSerialization_getSerializationReturnsIt() {
+	public function testGivenValidSerialization_allGettersBehaveConsistent() {
 		$id = new FormId( 'L1-F1' );
 		$this->assertSame( 'L1-F1', $id->getSerialization() );
+		$this->assertSame( '', $id->getRepositoryName(), 'getRepositoryName' );
+		$this->assertSame( 'L1-F1', $id->getLocalPart(), 'getLocalPart' );
+		$this->assertFalse( $id->isForeign(), 'isForeign' );
 	}
 
 	public function provideInvalidSerializations() {
@@ -32,6 +35,8 @@ class FormIdTest extends PHPUnit_Framework_TestCase {
 			[ '  L1-F1  ' ],
 			[ "L1-F1\n" ],
 			[ 'P1' ],
+			[ ':L1-F1' ],
+			[ 'repo:L1-F1' ],
 		];
 	}
 
@@ -41,6 +46,11 @@ class FormIdTest extends PHPUnit_Framework_TestCase {
 	public function testGivenInvalidSerialization_constructorThrowsAnException( $id ) {
 		$this->setExpectedException( InvalidArgumentException::class );
 		new FormId( $id );
+	}
+
+	public function testPhpSerializationRoundtrip() {
+		$id = new FormId( 'L1-F1' );
+		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
 	}
 
 }
