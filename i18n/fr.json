@@ -58,5 +58,6 @@
 	"wikibaselexeme-diffview-lemma": "Lemme",
 	"wikibaselexeme-diffview-lexical-category": "catégorie lexicale",
 	"wikibaselexeme-diffview-language": "langue",
-	"wikibaselexeme-diffview-form": "formulaire"
+	"wikibaselexeme-diffview-form": "formulaire",
+	"content-model-wikibase-lexeme": "Lexème de Wikibase"
 }

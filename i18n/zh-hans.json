@@ -55,5 +55,6 @@
 	"wikibaselexeme-diffview-lemma": "引理",
 	"wikibaselexeme-diffview-lexical-category": "词类",
 	"wikibaselexeme-diffview-language": "语言",
-	"wikibaselexeme-diffview-form": "词性"
+	"wikibaselexeme-diffview-form": "词性",
+	"content-model-wikibase-lexeme": "Wikibase词位"
 }

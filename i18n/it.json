@@ -31,5 +31,6 @@
 	"wikibase-lexeme-lexical-category": "Categoria lessicale",
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-lexical-category": "categoria lessicale",
-	"wikibaselexeme-diffview-language": "lingua"
+	"wikibaselexeme-diffview-language": "lingua",
+	"content-model-wikibase-lexeme": "Lessema Wikibase"
 }
