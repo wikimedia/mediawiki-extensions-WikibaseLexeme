@@ -17,16 +17,14 @@ class FormId extends EntityId {
 	 * @param string $serialization
 	 */
 	public function __construct( $serialization ) {
-		Assert::parameterType( 'string', $serialization, '$serialization' );
-		Assert::parameter(
-			preg_match( self::PATTERN, $serialization ),
-			'$serialization',
-			'Form ID must match "' . self::PATTERN . '", given: ' . $serialization
-		);
+		parent::__construct( $serialization );
 
-		$this->serialization = $serialization;
-		$this->repositoryName = '';
-		$this->localPart = $serialization;
+		list( , , $id ) = self::splitSerialization( $this->localPart );
+		Assert::parameter(
+			preg_match( self::PATTERN, $id ),
+			'$serialization',
+			'Form ID must match "' . self::PATTERN . '", given: ' . $id
+		);
 	}
 
 	/**
@@ -55,8 +53,9 @@ class FormId extends EntityId {
 	 */
 	public function unserialize( $serialized ) {
 		$this->serialization = $serialized;
-		$this->repositoryName = '';
-		$this->localPart = $serialized;
+		list( $this->repositoryName, $this->localPart ) = $this->extractRepositoryNameAndLocalPart(
+			$serialized
+		);
 	}
 
 }
