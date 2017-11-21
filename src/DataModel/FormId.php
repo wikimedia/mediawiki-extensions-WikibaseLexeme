@@ -5,6 +5,10 @@ namespace Wikibase\Lexeme\DataModel;
 use Wikimedia\Assert\Assert;
 
 /**
+ * Immutable ID of a Lexeme' form in the lexiographical data model.
+ *
+ * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Form
+ *
  * @license GPL-2.0+
  * @author Thiemo Mättig
  */

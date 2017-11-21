@@ -3,7 +3,9 @@
 namespace Wikibase\Lexeme\DataModel;
 
 /**
- * An ID of a sense of a lexeme.
+ * Immutable ID of a Lexeme's sense in the lexiographical data model.
+ *
+ * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Sense
  *
  * @license GPL-2.0+
  */

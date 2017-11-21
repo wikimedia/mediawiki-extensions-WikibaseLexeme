@@ -6,7 +6,10 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 
 /**
- * A sense of a Lexeme.
+ * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme's sense in
+ * the lexiographical data model.
+ *
+ * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Sense
  *
  * @license GPL-2.0+
  */

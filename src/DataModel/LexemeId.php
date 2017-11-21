@@ -9,6 +9,10 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
+ * Immutable ID of a Lexeme in the lexiographical data model.
+ *
+ * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Lexeme
+ *
  * @license GPL-2.0+
  */
 class LexemeId extends EntityId implements Int32EntityId {

@@ -10,6 +10,11 @@ use Wikibase\DataModel\Term\TermList;
 use Wikimedia\Assert\Assert;
 
 /**
+ * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme's form in the
+ * lexiographical data model.
+ *
+ * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Form
+ *
  * @license GPL-2.0+
  */
 class Form implements StatementListProvider {

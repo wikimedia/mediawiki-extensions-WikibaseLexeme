@@ -13,6 +13,11 @@ use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
 
 /**
+ * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme in the
+ * lexiographical data model.
+ *
+ * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Lexeme
+ *
  * @license GPL-2.0+
  */
 class Lexeme implements EntityDocument, StatementListProvider {
