@@ -3,6 +3,8 @@
 namespace Wikibase\Lexeme\DataModel;
 
 use InvalidArgumentException;
+use LogicException;
+use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
@@ -17,7 +19,7 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0+
  */
-class Form implements StatementListProvider {
+class Form implements EntityDocument, StatementListProvider {
 
 	/**
 	 * @var FormId
@@ -66,10 +68,28 @@ class Form implements StatementListProvider {
 	}
 
 	/**
+	 * @return string
+	 */
+	public function getType() {
+		return 'form';
+	}
+
+	/**
 	 * @return FormId
 	 */
 	public function getId() {
 		return $this->id;
+	}
+
+	/**
+	 * @param FormId $id
+	 *
+	 * @throws LogicException always
+	 */
+	public function setId( $id ) {
+		throw new LogicException( 'Setting the ID of a Form is currently not implemented, and '
+			. 'might not be needed any more, except when implementing the "clear" feature of the '
+			. '"wbeditentity" API' );
 	}
 
 	/**
@@ -108,6 +128,53 @@ class Form implements StatementListProvider {
 	 */
 	public function getStatements() {
 		return $this->statementList;
+	}
+
+	/**
+	 * @see EntityDocument::isEmpty
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		return $this->representations->isEmpty()
+			&& $this->grammaticalFeatures === []
+			&& $this->statementList->isEmpty();
+	}
+
+	/**
+	 * @see EntityDocument::equals
+	 *
+	 * @param mixed $target
+	 *
+	 * @return bool True if the forms contents are equal. Does not consider the ID.
+	 */
+	public function equals( $target ) {
+		if ( $this === $target ) {
+			return true;
+		}
+
+		return $target instanceof self
+			&& $this->representations->equals( $target->representations )
+			&& $this->grammaticalFeatures == $target->grammaticalFeatures
+			&& $this->statementList->equals( $target->statementList );
+	}
+
+	/**
+	 * @see EntityDocument::copy
+	 *
+	 * @return self
+	 */
+	public function copy() {
+		return clone $this;
+	}
+
+	/**
+	 * The forms ID and grammatical features (a set of ItemIds) are immutable and don't need
+	 * individual cloning.
+	 */
+	public function __clone() {
+		$this->representations = clone $this->representations;
+		$this->statementList = clone $this->statementList;
 	}
 
 }
