@@ -47,7 +47,7 @@
 				$.extend( fakeStatementsChanger, statementsChanger );
 				fakeStatementsChanger.save = function fakeStatementsChangerSave( statement ) {
 					var guid = statement.getClaim().getGuid();
-					if ( /^L\d+-[FS]\d+/.test( guid ) || /^[FS]\d+/.test( guid ) ) {
+					if ( /^(L\d+-)?S\d+\$/.test( guid ) ) {
 						return $.Deferred().resolve( statement ).promise();
 					} else {
 						return statementsChanger.save( statement );
