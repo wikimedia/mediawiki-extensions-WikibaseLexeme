@@ -19,7 +19,7 @@ use Wikibase\View\EntityTermsView;
  * @group WikibaseLexeme
  *
  * @license GPL-2.0+
- * @author Thiemo Mättig
+ * @author Thiemo Kreuz
  */
 class LexemeViewFactoryTest extends PHPUnit_Framework_TestCase {
 

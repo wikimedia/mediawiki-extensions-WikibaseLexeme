@@ -21,7 +21,7 @@ use Wikibase\View\StatementGroupListView;
  * @group WikibaseLexeme
  *
  * @license GPL-2.0+
- * @author Thiemo Mättig
+ * @author Thiemo Kreuz
  */
 class FormsViewTest extends PHPUnit_Framework_TestCase {
 

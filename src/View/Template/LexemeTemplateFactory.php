@@ -8,7 +8,7 @@ use Wikibase\View\Template\TemplateRegistry;
 /**
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
- * @author Thiemo Mättig
+ * @author Thiemo Kreuz
  */
 class LexemeTemplateFactory {
 
