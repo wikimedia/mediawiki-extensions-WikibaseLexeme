@@ -4,13 +4,18 @@ namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
+use DomainException;
+use InvalidArgumentException;
+use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Services\Diff\EntityDiff;
+use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
 use Wikibase\Lexeme\DataModel\Form;
 
 /**
  * @license GPL-2.0+
  */
-class FormDiffer {
+class FormDiffer implements EntityDifferStrategy {
 
 	/**
 	 * @var MapDiffer
@@ -28,6 +33,54 @@ class FormDiffer {
 	}
 
 	/**
+	 * @param string $entityType
+	 *
+	 * @return bool
+	 */
+	public function canDiffEntityType( $entityType ) {
+		return $entityType === 'form';
+	}
+
+	/**
+	 * @param EntityDocument $from
+	 * @param EntityDocument $to
+	 *
+	 * @return EntityDiff
+	 * @throws InvalidArgumentException
+	 */
+	public function diffEntities( EntityDocument $from, EntityDocument $to ) {
+		if ( !( $from instanceof Form ) || !( $to instanceof Form ) ) {
+			throw new InvalidArgumentException( 'Can only diff Forms' );
+		}
+
+		return $this->diff( $from, $to );
+	}
+
+	/**
+	 * @param EntityDocument $entity
+	 *
+	 * @return EntityDiff
+	 * @throws InvalidArgumentException
+	 */
+	public function getConstructionDiff( EntityDocument $entity ) {
+		throw new DomainException( 'Forms aren\'t stored as separate wiki pages, and can only show '
+			. 'up in regular diffs that add or remove a Form' );
+	}
+
+	/**
+	 * @param EntityDocument $entity
+	 *
+	 * @return EntityDiff
+	 * @throws InvalidArgumentException
+	 */
+	public function getDestructionDiff( EntityDocument $entity ) {
+		throw new DomainException( 'Forms aren\'t stored as separate wiki pages, and can only show '
+			. 'up in regular diffs that add or remove a Form' );
+	}
+
+	/**
+	 * @deprecated use self::diffEntities instead
+	 *
 	 * @param Form $old
 	 * @param Form $new
 	 *

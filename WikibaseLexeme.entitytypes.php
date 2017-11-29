@@ -24,24 +24,33 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
+use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
+use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Lexeme\Store\FormRevisionLookup;
+use Wikibase\Lexeme\Store\FormStore;
+use Wikibase\Lexeme\Store\FormTitleStoreLookup;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lexeme\View\LexemeViewFactory;
+use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
+use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
@@ -187,5 +196,33 @@ return [
 				$basicEntityDiffVisualizer
 			);
 		}
-	]
+	],
+	'form' => [
+		'entity-store-factory-callback' => function (
+			EntityStore $defaultStore,
+			EntityRevisionLookup $lookup
+		) {
+			return new FormStore( $defaultStore, $lookup );
+		},
+		'entity-revision-lookup-factory-callback' => function (
+			EntityRevisionLookup $defaultLookup
+		) {
+			return new FormRevisionLookup( $defaultLookup );
+		},
+		'entity-title-store-lookup-factory-callback' => function (
+			EntityTitleStoreLookup $defaultLookup
+		) {
+			return new FormTitleStoreLookup( $defaultLookup );
+		},
+		'entity-id-pattern' => FormId::PATTERN,
+		'entity-id-builder' => function ( $serialization ) {
+			return new FormId( $serialization );
+		},
+		'entity-differ-strategy-builder' => function () {
+			return new FormDiffer();
+		},
+		'entity-patcher-strategy-builder' => function () {
+			return new FormPatcher();
+		},
+	],
 ];
