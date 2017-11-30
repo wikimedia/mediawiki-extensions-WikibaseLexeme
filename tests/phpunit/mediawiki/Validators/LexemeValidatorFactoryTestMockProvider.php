@@ -80,8 +80,7 @@ class LexemeValidatorFactoryTestMockProvider {
 		$validatorMock = $testCase->getMockBuilder( EntityExistsValidator::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$validatorMock->expects( $testCase->any() )
-			->method( 'validate' )
+		$validatorMock->method( 'validate' )
 			->will( $testCase->returnCallback( function ( $itemId ) use ( $existingItemIds ) {
 				return $this->validateItemId( $itemId, $existingItemIds );
 			} ) );

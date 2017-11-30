@@ -90,8 +90,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 	private function getMockMessageLocalizer() {
 		$mock = $this->getMock( MessageLocalizer::class );
 
-		$mock->expects( $this->any() )
-			->method( 'msg' )
+		$mock->method( 'msg' )
 			->will( $this->returnCallback( function ( $key ) {
 				return new RawMessage( "($key)" );
 			} ) );

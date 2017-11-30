@@ -245,8 +245,7 @@ class LexemeValidatorFactoryTest extends \PHPUnit_Framework_TestCase {
 		$validatorMock = $this->getMockBuilder( EntityExistsValidator::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$validatorMock->expects( $this->any() )
-			->method( 'validate' )
+		$validatorMock->method( 'validate' )
 			->will( $this->returnCallback( function ( $itemId ) use ( $existingItemIds ) {
 				return $this->validateItemId( $itemId, $existingItemIds );
 			} ) );
