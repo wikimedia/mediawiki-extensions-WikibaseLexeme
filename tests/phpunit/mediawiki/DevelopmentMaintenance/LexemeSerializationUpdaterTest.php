@@ -63,6 +63,25 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testGivenLexemeDataWithFormIdsMissingLexemeId_formIdsArePrepended() {
+		$lexemeDataWithFormIdsPrependedWithLexemeId = $this->getLexemeDataWithNextFormId();
+
+		$db = $this->getDB( [ $this->getLexemeDataWithFormIdsMissingLexemeIdPart() ] );
+
+		$updater = $this->newUpdater( $db );
+
+		$updater->update();
+
+		$updatedData = $db->getUpdateData();
+
+		$this->assertCount( 1, $updatedData );
+		$this->assertEquals( [ 'old_id' => 1 ], $updatedData[0]['conds'] );
+		$this->assertEquals(
+			$lexemeDataWithFormIdsPrependedWithLexemeId,
+			json_decode( $updatedData[0]['new']['old_text'], true )
+		);
+	}
+
 	public function testGivenLexemeDataStructureIsUpToDate_noUpdateDone() {
 		$db = $this->getDB( [ $this->getLexemeDataWithNextFormId() ] );
 
@@ -104,7 +123,7 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'claims' => [],
 			'forms' => [
 				[
-					'id' => 'F2',
+					'id' => 'L1-F2',
 					'representations' => [
 						[ 'en' => [ 'language' => 'en', 'value' => 'goat' ] ],
 					],
@@ -153,7 +172,7 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 			'nextFormId' => 3,
 			'forms' => [
 				[
-					'id' => 'F2',
+					'id' => 'L1-F2',
 					'representations' => [
 						[ 'en' => [ 'language' => 'en', 'value' => 'goat' ] ],
 					],
@@ -170,6 +189,14 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 
 		$data['forms'] = [];
 		$data['nextFormId'] = 1;
+
+		return $data;
+	}
+
+	private function getLexemeDataWithFormIdsMissingLexemeIdPart() {
+		$data = $this->getLexemeDataWithNextFormId();
+
+		$data['forms'][0]['id'] = 'F2';
 
 		return $data;
 	}

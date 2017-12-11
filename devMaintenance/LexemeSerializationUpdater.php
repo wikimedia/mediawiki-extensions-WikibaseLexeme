@@ -102,6 +102,9 @@ class LexemeSerializationUpdater {
 
 			$this->addFormsField( $blobData );
 			$this->addSensesField( $blobData );
+
+			$this->prependFormIds( $blobData );
+
 			$this->addNextFormIdField( $blobData );
 
 			if ( $blobData !== $oldData ) {
@@ -166,11 +169,27 @@ class LexemeSerializationUpdater {
 	private function getMaxFormId( array $data ) {
 		return (int)array_reduce(
 			$data['forms'],
-			function ( $currentMaxId, $x ) {
-				return max( $currentMaxId, (int)substr( $x['id'], 1 ) );
+			function ( $currentMaxId, $x ) use ( $data ) {
+				$formIdPart = substr( $x['id'], strlen( $data['id'] . '-' ) );
+				return max( $currentMaxId, (int)substr( $formIdPart, 1 ) );
 			},
 			0
 		);
+	}
+
+	/**
+	 * Prepends all form IDs with a lexeme ID.
+	 * This change has been made to the data in the commit
+	 * 6995fe11a7b637bf2301293c492b1fb3ff7a82a4.
+	 */
+	private function prependFormIds( array &$data ) {
+		$lexemeId = $data['id'];
+
+		foreach ( $data['forms'] as &$formData ) {
+			if ( strncmp( $formData['id'], $lexemeId . '-', strlen( $lexemeId ) + 1 ) !== 0 ) {
+				$formData['id'] = $lexemeId . '-' . $formData['id'];
+			}
+		}
 	}
 
 }
