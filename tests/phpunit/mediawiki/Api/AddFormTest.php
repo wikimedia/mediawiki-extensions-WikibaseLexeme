@@ -185,6 +185,24 @@ class AddFormTest extends WikibaseApiTestCase {
 		$this->assertEquals( '/* add-form:1||L1-F1 */ goat', $revision->getComment()->text );
 	}
 
+	public function testResponseContainsRevisionId() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeaddform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam()
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
+
+		$this->assertEquals( $lexemeRevision->getRevisionId(), $result['lastrevid'] );
+	}
+
 	private function saveLexeme( Lexeme $lexeme ) {
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 

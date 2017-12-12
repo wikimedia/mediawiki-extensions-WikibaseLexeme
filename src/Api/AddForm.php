@@ -197,11 +197,15 @@ class AddForm extends ApiBase {
 
 		$apiResult = $this->getResult();
 
+		$statusValue = $status->getValue();
+		$revisionId = $statusValue['revision']->getRevisionId();
+
 		$serializedForm = $this->formSerializer->serialize( $newForm );
 
 		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );
 		$apiResult->addValue( null, 'form', $serializedForm );
+		$apiResult->addValue( null, 'lastrevid', $revisionId );
 	}
 
 	/**
