@@ -9,7 +9,6 @@
 	 * @class wikibase.serialization.LexemeDeserializer
 	 * @extends wikibase.serialization.Deserializer
 	 * @license GNU GPL v2+
-	 * @author Adrian Heine <adrian.heine@wikimedia.de>
 	 *
 	 * @constructor
 	 */
@@ -52,6 +51,10 @@
 			return lexeme;
 		},
 
+		/**
+		 * @param {Object} formSerialization
+		 * @return {wikibase.lexeme.datamodel.Form}
+		 */
 		deserializeForm: function ( formSerialization ) {
 			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer();
 			var termMapDeserializer = new SERIALIZER.TermMapDeserializer();

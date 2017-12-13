@@ -21,7 +21,11 @@
 		this.lexemeId = lexemeId;
 	};
 
+	/**
+	 * @class wikibase.lexeme.entityChangers.FormChanger
+	 */
 	$.extend( SELF.prototype, {
+
 		/**
 		 * @type {mediaWiki.Api}
 		 * @private
