@@ -8,14 +8,25 @@
 	"descriptionmsg": "wikibaselexeme-desc",
 	"license-name": "GPL-2.0+",
 	"type": "wikibase",
-	"load_composer_autoloader": true,
-	"AutoloadClasses": {
-		"Wikibase\\Lexeme\\WikibaseLexemeHooks": "src/WikibaseLexeme.hooks.php"
+	"requires": {
+		"MediaWiki": ">= 1.31.0"
+	},
+	"AutoloadNamespaces": {
+		"Wikibase\\Lexeme\\": "src/",
+		"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/",
+		"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/",
+		"Wikibase\\Lexeme\\DevelopmentMaintenance\\": "devMaintenance/"
 	},
 	"config": {
-		"LexemeNamespace": 146,
-		"LexemeTalkNamespace": 147,
-		"LexemeLanguageCodePropertyId": null
+		"LexemeNamespace": {
+			"value": 146
+		},
+		"LexemeTalkNamespace": {
+			"value": 147
+		},
+		"LexemeLanguageCodePropertyId": {
+			"value": null
+		}
 	},
 	"ExtensionMessagesFiles": {
 		"WikibaseLexemeAlias": "WikibaseLexeme.i18n.alias.php"
@@ -430,5 +441,5 @@
 			"factory": "Wikibase\\Lexeme\\Api\\AddForm::newFromGlobalState"
 		}
 	},
-	"manifest_version": 1
+	"manifest_version": 2
 }
