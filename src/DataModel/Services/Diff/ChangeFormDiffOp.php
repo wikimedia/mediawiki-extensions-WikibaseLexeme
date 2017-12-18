@@ -3,13 +3,13 @@
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
-use Diff\DiffOp\DiffOp;
+use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
  * @license GPL-2.0+
  */
-class ChangeFormDiffOp implements DiffOp {
+class ChangeFormDiffOp extends EntityDiff {
 
 	/**
 	 * @var FormId
@@ -23,6 +23,7 @@ class ChangeFormDiffOp implements DiffOp {
 
 	public function __construct( FormId $formId, Diff $diffOps ) {
 		$this->formId = $formId;
+		// FIXME: This class already extends Diff. It should note require an other Diff object.
 		$this->diffOps = $diffOps;
 	}
 
@@ -79,8 +80,22 @@ class ChangeFormDiffOp implements DiffOp {
 		throw new \LogicException( "toArray() is not implemented" );
 	}
 
+	/**
+	 * @see Diff::count
+	 *
+	 * @return int
+	 */
 	public function count() {
-		throw new \LogicException( "count() is not implemented" );
+		return $this->diffOps->count();
+	}
+
+	/**
+	 * @see Diff::isEmpty
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		return $this->diffOps->isEmpty();
 	}
 
 }
