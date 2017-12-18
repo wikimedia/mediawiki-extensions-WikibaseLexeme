@@ -7,6 +7,7 @@ use PHPUnit_Framework_TestCase;
 use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
@@ -16,6 +17,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Repo\Tests\NewStatement;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
@@ -41,8 +43,10 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			->will( $this->returnCallback( function ( array $serialization ) {
 				$statementList = new StatementList();
 
-				foreach ( $serialization as $propertyId ) {
-					$statementList->addNewStatement( new PropertyNoValueSnak( $propertyId ) );
+				foreach ( $serialization as $propertyId => $propertyStatements ) {
+					foreach ( $propertyStatements as $ignoredStatementData ) {
+						$statementList->addNewStatement( new PropertyNoValueSnak( new PropertyId( $propertyId ) ) );
+					}
 				}
 
 				return $statementList;
@@ -96,7 +100,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 		$serializations['with content'] = [
 			[
 				'type' => 'lexeme',
-				'claims' => [ 42 ],
+				'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
 				'nextFormId' => 1,
 			],
 			$lexeme
@@ -109,7 +113,7 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 			[
 				'type' => 'lexeme',
 				'id' => 'L2',
-				'claims' => [ 42 ],
+				'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
 				'nextFormId' => 1,
 			],
 			$lexeme
@@ -165,7 +169,8 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 						'representations' => [
 							'en' => [ 'language' => 'en', 'value' => 'form' ]
 						],
-						'grammaticalFeatures' => []
+						'grammaticalFeatures' => [],
+						'claims' => [],
 					]
 				],
 			],
@@ -175,6 +180,35 @@ class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'form' )
+				)->build()
+
+		];
+
+		$serializations['with statement on a form'] = [
+			[
+				'type' => 'lexeme',
+				'id' => 'L1',
+				'lexicalCategory' => 'Q1',
+				'language' => 'Q2',
+				'nextFormId' => 2,
+				'forms' => [
+					[
+						'id' => 'L1-F1',
+						'representations' => [
+							'en' => [ 'language' => 'en', 'value' => 'form' ]
+						],
+						'grammaticalFeatures' => [],
+						'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
+					]
+				],
+			],
+			NewLexeme::havingId( 'L1' )
+				->withLexicalCategory( 'Q1' )
+				->withLanguage( 'Q2' )
+				->withForm(
+					NewForm::havingId( 'F1' )
+						->andRepresentation( 'en', 'form' )
+						->andStatement( NewStatement::noValueFor( 'P42' )->build() )
 				)->build()
 
 		];

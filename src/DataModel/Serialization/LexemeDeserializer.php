@@ -173,7 +173,9 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$grammaticalFeatures[] = $this->entityIdDeserializer->deserialize( $featureId );
 		}
 
-		return new Form( $id, $representations, $grammaticalFeatures );
+		$statements = $this->statementListDeserializer->deserialize( $serialization['claims'] );
+
+		return new Form( $id, $representations, $grammaticalFeatures, $statements );
 	}
 
 }
