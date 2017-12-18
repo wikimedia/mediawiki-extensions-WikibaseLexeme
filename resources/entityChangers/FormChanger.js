@@ -8,13 +8,16 @@
 	 * @constructor
 	 *
 	 * @param {mediaWiki.Api} api
+	 * @param {wikibase.lexeme.RevisionStore} revisionStore
 	 * @param {string} lexemeId
 	 */
 	var SELF = wb.lexeme.entityChangers.FormChanger = function WbLexemeFormChanger(
 		api,
+		revisionStore,
 		lexemeId
 	) {
 		this.api = api;
+		this.revisionStore = revisionStore;
 		this.lexemeId = lexemeId;
 	};
 
@@ -24,6 +27,12 @@
 		 * @private
 		 */
 		api: null,
+
+		/**
+		 * @type {wikibase.lexeme.RevisionStore}
+		 * @private
+		 */
+		revisionStore: null,
 
 		/**
 		 * @type {string}
@@ -37,7 +46,8 @@
 		 */
 		save: function ( form ) {
 			var formSerializer = new wb.lexeme.serialization.FormSerializer(),
-				lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
+				lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer(),
+				self = this;
 
 			if ( form.getId() ) {
 				return $.Deferred().resolve( form ).promise();// TODO: implement edit form
@@ -61,7 +71,9 @@
 				errorformat: 'plaintext',
 				bot: 1
 			} ).then( function ( data ) {
-				return lexemeDeserializer.deserializeForm( data.form );
+				var form = lexemeDeserializer.deserializeForm( data.form );
+				self.revisionStore.setFormRevision( data.lastrevid, form.getId() );
+				return form;
 			} ).catch( function ( code, response ) {
 				throw convertPlainTextErrorsToRepoApiError( response.errors );
 			} );

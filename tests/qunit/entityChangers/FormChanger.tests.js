@@ -18,9 +18,12 @@
 		var api = {
 			postWithToken: postWithToken
 		};
+		var revisionStore = {
+			setFormRevision: function () {}
+		};
 
 		var lexemeId = 'L11';
-		var changer = new FormChanger( api, lexemeId );
+		var changer = new FormChanger( api, revisionStore, lexemeId );
 		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
 		var form = new Form( null, representations, [ 'Q1', 'Q2' ] );
 
@@ -54,7 +57,7 @@
 			postWithToken: function () {
 				return $.Deferred().resolve( {
 					form: {
-						id: 'F100',
+						id: 'L1-F100',
 						representations: {
 							en: {
 								language: 'en',
@@ -66,13 +69,16 @@
 				} ).promise();
 			}
 		};
+		var revisionStore = {
+			setFormRevision: function () {}
+		};
 
-		var changer = new FormChanger( api, 'L1' );
+		var changer = new FormChanger( api, revisionStore, 'L1' );
 
 		var form = new Form( null, null, [] );
 
 		changer.save( form ).then( function ( form ) {
-			assert.equal( form.getId(), 'F100', 'Saved Form ID' );
+			assert.equal( form.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.equal(
 				form.getRepresentations().getItemByKey( 'en' ).getText(),
 				'some representation',
@@ -83,6 +89,39 @@
 				[ 'Q1', 'Q2' ],
 				'Saved grammatical features'
 			);
+			done();
+		} ).catch( done );
+	} );
+
+	QUnit.test( 'New form - save - sets the base revision to the one from API result', function ( assert ) {
+		var done = assert.async();
+
+		var api = {
+			postWithToken: function () {
+				return $.Deferred().resolve( {
+					form: { id: 'L1-F100' },
+					lastrevid: 303
+				} ).promise();
+			}
+		};
+		var revisionStore = {
+			formBaseRevisions: {
+			},
+			getFormRevision: function ( formId ) {
+				return this.formBaseRevisions[ formId ];
+			},
+			setFormRevision: function ( revision, formId ) {
+				this.formBaseRevisions[ formId ] = revision;
+
+			}
+		};
+
+		var changer = new FormChanger( api, revisionStore, 'L1' );
+
+		var form = new Form( null, null, [] );
+
+		changer.save( form ).then( function () {
+			assert.equal( revisionStore.getFormRevision( 'L1-F100' ), 303 );
 			done();
 		} ).catch( done );
 	} );
@@ -107,7 +146,7 @@
 				}
 			};
 
-			var changer = new FormChanger( api, 'L1' );
+			var changer = new FormChanger( api, {}, 'L1' );
 
 			var form = new Form( null, null, [] );
 
