@@ -6,6 +6,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -147,6 +148,7 @@ class LexemeHandlerTest extends EntityHandlerTest {
 			$this->getMock( ValidatorErrorLocalizer::class ),
 			$this->getMock( EntityIdParser::class ),
 			$this->getMock( EntityIdLookup::class ),
+			$this->getMock( EntityLookup::class ),
 			$labelLookupFactory,
 			new LexemeFieldDefinitions()
 		);
