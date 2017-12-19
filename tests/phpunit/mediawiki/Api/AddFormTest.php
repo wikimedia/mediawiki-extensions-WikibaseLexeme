@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use Revision;
+use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -178,9 +178,11 @@ class AddFormTest extends WikibaseApiTestCase {
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
 
-		$revision = Revision::loadFromId( wfGetDB( DB_MASTER ), $lexemeRevision->getRevisionId() );
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$lexemeRevision->getRevisionId()
+		);
 
-		$this->assertEquals( '/* add-form:1||L1-F1 */ goat', $revision->getComment() );
+		$this->assertEquals( '/* add-form:1||L1-F1 */ goat', $revision->getComment()->text );
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {
