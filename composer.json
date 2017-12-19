@@ -35,10 +35,7 @@
 	"autoload": {
 		"psr-4": {
 			"Wikibase\\Lexeme\\": "src/",
-			"Wikibase\\Lexeme\\DataModel\\": "src/DataModel/",
-			"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/",
-			"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/",
-			"Wikibase\\Lexeme\\DevelopmentMaintenance\\": "devMaintenance/"
+			"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/"
 		}
 	},
 	"autoload-dev": {
