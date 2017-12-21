@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Elisardojm",
-			"Banjo"
+			"Banjo",
+			"Athena in Wonderland"
 		]
 	},
 	"wikibaselexeme-desc": "Xestionar o tipo de entidade «lexema»",
@@ -32,5 +33,6 @@
 	"wikibaselexeme-diffview-lemma": "Lema",
 	"wikibaselexeme-diffview-lexical-category": "categoría léxica",
 	"wikibaselexeme-diffview-language": "lingua",
-	"wikibaselexeme-diffview-form": "forma"
+	"wikibaselexeme-diffview-form": "forma",
+	"content-model-wikibase-lexeme": "Lexema Wikibase"
 }
