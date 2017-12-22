@@ -101,10 +101,6 @@
 			}
 
 			return $.Deferred().resolve().promise();
-		},
-
-		getHelpMessage: function () {
-			return $.Deferred().resolve( this.options.helpMessage ).promise();
 		}
 	} );
 
