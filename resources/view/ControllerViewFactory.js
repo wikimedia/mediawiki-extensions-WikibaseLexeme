@@ -26,10 +26,23 @@
 				repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php';
 			this._api = wb.api.getLocationAgnosticMwApi( repoApiUrl );
 
+			var revisionStore = new wb.lexeme.RevisionStore(
+				entityChangersFactory.getRevisionStore()
+			);
+			var changersFactory = new wb.entityChangers.EntityChangersFactory(
+				new wb.api.RepoApi( this._api ),
+				revisionStore,
+				entityChangersFactory.getEntity(),
+				function ( hookName ) {
+					var hook = mw.hook( hookName );
+					hook.fire.apply( hook, Array.prototype.slice.call( arguments, 1 ) );
+				}
+			);
+
 			var fakeEntityChangersFactory = {};
-			$.extend( fakeEntityChangersFactory, entityChangersFactory );
+			$.extend( fakeEntityChangersFactory, changersFactory );
 			fakeEntityChangersFactory.getStatementsChanger = function () {
-				var statementsChanger = entityChangersFactory.getStatementsChanger();
+				var statementsChanger = changersFactory.getStatementsChanger();
 				var fakeStatementsChanger = {};
 				$.extend( fakeStatementsChanger, statementsChanger );
 				fakeStatementsChanger.save = function fakeStatementsChangerSave( statement ) {

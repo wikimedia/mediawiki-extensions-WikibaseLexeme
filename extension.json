@@ -73,14 +73,32 @@
 			"dependencies": "wikibase"
 		},
 
+		"wikibase.lexeme.entityChangers": {
+			"scripts": [
+				"entityChangers/__namespace.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme"
+			]
+		},
+
 		"wikibase.lexeme.entityChangers.FormChanger": {
 			"scripts": [
-				"entityChangers/__namespace.js",
 				"entityChangers/FormChanger.js"
 			],
 			"dependencies": [
-				"wikibase.lexeme",
+				"wikibase.lexeme.entityChangers",
 				"wikibase.lexeme.serialization.FormSerializer"
+			]
+		},
+
+		"wikibase.lexeme.entityChangers.LexemeRevisionStore": {
+			"scripts": [
+				"entityChangers/LexemeRevisionStore.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme",
+				"wikibase.lexeme.entityChangers"
 			]
 		},
 
@@ -389,7 +407,11 @@
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.lexeme.entityChangers.FormChanger",
-				"wikibase.view.ControllerViewFactory"
+				"wikibase.lexeme.entityChangers.LexemeRevisionStore",
+				"wikibase.entityChangers.EntityChangersFactory",
+				"wikibase.view.ControllerViewFactory",
+				"wikibase.api.getLocationAgnosticMwApi",
+				"wikibase.api.RepoApi"
 			]
 		},
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig": {
