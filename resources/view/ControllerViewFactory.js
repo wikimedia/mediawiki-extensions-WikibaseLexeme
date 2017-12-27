@@ -26,12 +26,12 @@
 				repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php';
 			this._api = wb.api.getLocationAgnosticMwApi( repoApiUrl );
 
-			var revisionStore = new wb.lexeme.RevisionStore(
+			this._revisionStore = new wb.lexeme.RevisionStore(
 				entityChangersFactory.getRevisionStore()
 			);
 			var changersFactory = new wb.entityChangers.EntityChangersFactory(
 				new wb.api.RepoApi( this._api ),
-				revisionStore,
+				this._revisionStore,
 				entityChangersFactory.getEntity(),
 				function ( hookName ) {
 					var hook = mw.hook( hookName );
@@ -81,6 +81,12 @@
 	 * @private
 	 */
 	SELF.prototype._api = null;
+
+	/**
+	 * @type {wikibase.lexeme.RevisionStore}
+	 * @private
+	 */
+	SELF.prototype._revisionStore = null;
 
 	SELF.prototype.getEntityView = function ( startEditingCallback, lexeme, $entityview ) {
 		return this._getView(
@@ -151,7 +157,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
 				formView,
-				new wb.lexeme.entityChangers.FormChanger( this._api, lexemeId ),
+				new wb.lexeme.entityChangers.FormChanger( this._api, this._revisionStore, lexemeId ),
 				removeCallback.bind( null, formView ),
 				form,
 				startEditingCallback
