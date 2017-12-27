@@ -6,9 +6,14 @@ use Article;
 use IContextSource;
 use Page;
 use Wikibase\Content\EntityHolder;
+use Wikibase\Content\EntityInstanceHolder;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
@@ -33,6 +38,12 @@ class LexemeHandler extends EntityHandler {
 	 * @var EntityIdLookup
 	 */
 	private $entityIdLookup;
+
+	/**
+	 * @var EntityLookup
+	 */
+	private $entityLookup;
+
 	/**
 	 * @var LanguageFallbackLabelDescriptionLookupFactory
 	 */
@@ -45,6 +56,7 @@ class LexemeHandler extends EntityHandler {
 	 * @param ValidatorErrorLocalizer $errorLocalizer
 	 * @param EntityIdParser $entityIdParser
 	 * @param EntityIdLookup $entityIdLookup
+	 * @param EntityLookup $entityLookup
 	 * @param LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory
 	 * @param LexemeFieldDefinitions $fieldDefinitions
 	 * @param callable|null $legacyExportFormatDetector
@@ -56,6 +68,7 @@ class LexemeHandler extends EntityHandler {
 		ValidatorErrorLocalizer $errorLocalizer,
 		EntityIdParser $entityIdParser,
 		EntityIdLookup $entityIdLookup,
+		EntityLookup $entityLookup,
 		LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory,
 		LexemeFieldDefinitions $fieldDefinitions,
 		$legacyExportFormatDetector = null
@@ -71,6 +84,7 @@ class LexemeHandler extends EntityHandler {
 			$legacyExportFormatDetector
 		);
 		$this->entityIdLookup = $entityIdLookup;
+		$this->entityLookup = $entityLookup;
 		$this->labelLookupFactory = $labelLookupFactory;
 	}
 
@@ -116,7 +130,17 @@ class LexemeHandler extends EntityHandler {
 	 * @return LexemeContent
 	 */
 	protected function newEntityContent( EntityHolder $entityHolder = null ) {
+		if ( $entityHolder !== null && $entityHolder->getEntityType() === Form::ENTITY_TYPE ) {
+			$lexemeId = $this->getLexemeId( $entityHolder->getEntityId() );
+			$entityHolder = new EntityInstanceHolder( $this->entityLookup->getEntity( $lexemeId ) );
+		}
 		return new LexemeContent( $entityHolder );
+	}
+
+	private function getLexemeId( FormId $formId ) {
+		$parts = EntityId::splitSerialization( $formId->getLocalPart() );
+		$parts = explode( '-', $parts[2], 2 );
+		return new LexemeId( $parts[0] );
 	}
 
 	/**

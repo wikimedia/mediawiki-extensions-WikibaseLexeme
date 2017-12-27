@@ -21,6 +21,8 @@ use Wikimedia\Assert\Assert;
  */
 class Form implements EntityDocument, StatementListProvider {
 
+	const ENTITY_TYPE = 'form';
+
 	/**
 	 * @var FormId
 	 */

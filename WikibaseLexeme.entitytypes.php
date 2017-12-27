@@ -106,6 +106,7 @@ return [
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				$wikibaseRepo->getEntityIdParser(),
 				$wikibaseRepo->getEntityIdLookup(),
+				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
 				new LexemeFieldDefinitions()
 			);
@@ -223,6 +224,20 @@ return [
 		},
 		'entity-patcher-strategy-builder' => function () {
 			return new FormPatcher();
+		},
+		'content-handler-factory-callback' => function () {
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			return new LexemeHandler(
+				$wikibaseRepo->getStore()->getTermIndex(),
+				$wikibaseRepo->getEntityContentDataCodec(),
+				$wikibaseRepo->getEntityConstraintProvider(),
+				$wikibaseRepo->getValidatorErrorLocalizer(),
+				$wikibaseRepo->getEntityIdParser(),
+				$wikibaseRepo->getEntityIdLookup(),
+				$wikibaseRepo->getEntityLookup(),
+				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
+				new LexemeFieldDefinitions()
+			);
 		},
 	],
 ];
