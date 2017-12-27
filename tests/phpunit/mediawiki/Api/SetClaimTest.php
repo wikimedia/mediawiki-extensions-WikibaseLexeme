@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use DataValues\StringValue;
-use Revision;
+use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -27,8 +27,6 @@ use Wikibase\Repo\WikibaseRepo;
 class SetClaimTest extends WikibaseApiTestCase {
 
 	public function testGivenFormId_setClaimAddsStatementOnTheForm() {
-		$this->markTestSkipped( 'wbsetclaim does not work with L1-F1 kind of ids yet' );
-
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
@@ -55,13 +53,11 @@ class SetClaimTest extends WikibaseApiTestCase {
 		$statements = $form->getStatements()->getByPropertyId( $propertyId )->toArray();
 		$statement = $statements[0];
 
-		$this->assertEquals( $value, $statement->getMainSnak()->getDataValue()->getValue() );
-		$this->assertEquals( $guid, $statement->getGuid() );
+		$this->assertSame( $value, $statement->getMainSnak()->getDataValue()->getValue() );
+		$this->assertSame( $guid, $statement->getGuid() );
 	}
 
 	public function testGivenFormIdAndGuidOfExistingStatement_setClaimEditsTheStatement() {
-		$this->markTestSkipped( 'wbsetclaim does not work with L1-F1 kind of ids yet' );
-
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
@@ -89,13 +85,11 @@ class SetClaimTest extends WikibaseApiTestCase {
 		$statements = $form->getStatements()->getByPropertyId( $propertyId )->toArray();
 		$statement = $statements[0];
 
-		$this->assertEquals( 'test', $statement->getMainSnak()->getDataValue()->getValue() );
-		$this->assertEquals( $guid, $statement->getGuid() );
+		$this->assertSame( 'goat', $statement->getMainSnak()->getDataValue()->getValue() );
+		$this->assertSame( $guid, $statement->getGuid() );
 	}
 
 	public function testGivenFormIdAndIndex_setClaimReordersStatementsAccordingly() {
-		$this->markTestSkipped( 'wbsetclaim does not work with L1-F1 kind of ids yet' );
-
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
@@ -129,13 +123,11 @@ class SetClaimTest extends WikibaseApiTestCase {
 		$statements = $form->getStatements()->getByPropertyId( $propertyId )->toArray();
 		$statement = $statements[0];
 
-		$this->assertEquals( 'goat', $statement->getMainSnak()->getDataValue()->getValue() );
-		$this->assertEquals( $guidGoat, $statement->getGuid() );
+		$this->assertSame( 'goat', $statement->getMainSnak()->getDataValue()->getValue() );
+		$this->assertSame( $guidGoat, $statement->getGuid() );
 	}
 
 	public function testGivenFormId_setClaimResponseSetsSuccess() {
-		$this->markTestSkipped( 'wbsetclaim does not work with L1-F1 kind of ids yet' );
-
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
@@ -157,14 +149,12 @@ class SetClaimTest extends WikibaseApiTestCase {
 
 		list ( $result, ) = $this->doApiRequestWithToken( $params );
 
-		$this->assertEquals( 1, $result['success'] );
+		$this->assertSame( 1, $result['success'] );
 	}
 
 	// TODO: test statement data in response?
 
 	public function testGivenFormId_setClaimSetsEditSummaryAccordingly() {
-		$this->markTestSkipped( 'wbsetclaim does not work with L1-F1 kind of ids yet' );
-
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
@@ -188,12 +178,13 @@ class SetClaimTest extends WikibaseApiTestCase {
 
 		$revision = $this->loadPageRevision( $lexemeId );
 
-		$this->assertEquals( 'CHANGE ME WHEN DEFINED HOW SUMMARY LOOKS LIKE', $revision->getComment() );
+		$this->assertSame(
+			'/* wbsetclaim-create:2||1 */ [[Property:P1]]: test',
+			$revision->getComment()->text
+		);
 	}
 
 	public function testGivenFormIdAndCustomSummary_setClaimSetsEditSummaryAccordingly() {
-		$this->markTestSkipped( 'wbsetclaim does not work with L1-F1 kind of ids yet' );
-
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
@@ -218,7 +209,10 @@ class SetClaimTest extends WikibaseApiTestCase {
 
 		$revision = $this->loadPageRevision( $lexemeId );
 
-		$this->assertEquals( 'CHANGE ME WHEN DEFINED HOW SUMMARY LOOKS LIKE', $revision->getComment() );
+		$this->assertSame(
+			'/* wbsetclaim-create:2||1 */ [[Property:P1]]: test, The best edit ever',
+			$revision->getComment()->text
+		);
 	}
 
 	private function saveTestProperty( PropertyId $propertyId ) {
@@ -287,7 +281,7 @@ class SetClaimTest extends WikibaseApiTestCase {
 		$lookup = WikibaseRepo::getDefaultInstance()->getEntityRevisionLookup();
 		$revisionId = $lookup->getEntityRevision( $lexemeId )->getRevisionId();
 
-		return Revision::loadFromId( wfGetDB( DB_MASTER ), $revisionId );
+		return MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById( $revisionId );
 	}
 
 }
