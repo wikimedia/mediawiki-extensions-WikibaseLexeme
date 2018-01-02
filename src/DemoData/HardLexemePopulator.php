@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\DemoData;
 
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Repo\Tests\NewStatement;
 
@@ -14,61 +13,10 @@ use Wikibase\Repo\Tests\NewStatement;
 class HardLexemePopulator {
 
 	public function populate( Lexeme $lexeme ) {
-		$hardForm = $this->buildHardForm();
-		$harderForm = $this->buildHarderForm();
-
 		$presentingDifficultySense = $this->buildPresentingDifficultySense();
 		$resistingDeformationSense = $this->buildResistingDeformationSense();
 
-		$lexeme->setForms( [ $hardForm, $harderForm ] );
 		$lexeme->setSenses( [ $presentingDifficultySense, $resistingDeformationSense ] );
-	}
-
-	/**
-	 * @return \Wikibase\Lexeme\DataModel\Form
-	 */
-	private function buildHardForm() {
-		return NewForm::havingId( 'F1' )
-			->andRepresentation( 'en', 'hard' )
-			->andGrammaticalFeature( Id::Q_NORMATIVE )
-			->andStatement(
-				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
-					->withValue( '/hɑːd/' )
-					->withQualifier( Id::P_REGION, new ItemId( Id::Q_SCOTLAND ) )
-					->withSomeGuid()
-			)->andStatement(
-				NewStatement::forProperty( Id::P_IPA_PRONUNCIATION )
-					->withValue( '/hɑɹd/' )
-					->withQualifier(
-						Id::P_REGION,
-						new ItemId( Id::Q_UNITED_STATES_OF_AMERICA )
-					)->withSomeGuid()
-			)->andStatement(
-				NewStatement::forProperty( Id::P_PRONUNCIATION_AUDIO )
-					->withValue( 'hard.ogg' )
-					->withQualifier(
-						Id::P_REGION,
-						new ItemId( Id::Q_UNITED_STATES_OF_AMERICA )
-					)->withSomeGuid()
-			)->andStatement(
-				NewStatement::forProperty( Id::P_RHYME )
-					->withValue( Id::LF_CARD )
-					->withSomeGuid()
-			)->andStatement(
-				NewStatement::forProperty( Id::P_RHYME )
-					->withValue( Id::LF_BARD )
-					->withSomeGuid()
-			)->build();
-	}
-
-	/**
-	 * @return \Wikibase\Lexeme\DataModel\Form
-	 */
-	private function buildHarderForm() {
-		return NewForm::havingId( 'F2' )
-			->andRepresentation( 'en', 'harder' )
-			->andGrammaticalFeature( Id::Q_COMPARATIVE )
-			->build();
 	}
 
 	/**
