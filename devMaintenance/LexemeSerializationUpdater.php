@@ -104,6 +104,7 @@ class LexemeSerializationUpdater {
 			$this->addSensesField( $blobData );
 
 			$this->prependFormIds( $blobData );
+			$this->useFormIdInStatementId( $blobData );
 
 			$this->addNextFormIdField( $blobData );
 
@@ -188,6 +189,25 @@ class LexemeSerializationUpdater {
 		foreach ( $data['forms'] as &$formData ) {
 			if ( strncmp( $formData['id'], $lexemeId . '-', strlen( $lexemeId ) + 1 ) !== 0 ) {
 				$formData['id'] = $lexemeId . '-' . $formData['id'];
+			}
+		}
+	}
+
+	/**
+	 * Use form ID in IDs of all statementents on a form.
+	 * This change has been made to the data in the commit
+	 * 699517bbb992e8a73c20955603f3aafb998183f033f4.
+	 */
+	private function useFormIdInStatementId( array &$data ) {
+		foreach ( $data['forms'] as &$formData ) {
+			$formId = $formData['id'];
+			foreach ( $formData['claims'] as &$statementsPerProperty ) {
+				foreach ( $statementsPerProperty as &$statementData ) {
+					list( $entityId, $guid ) = explode( '$', $statementData['id'], 2 );
+					if ( $entityId !== $formId ) {
+						$statementData['id'] = $formId . '$' . $guid;
+					}
+				}
 			}
 		}
 	}
