@@ -53,5 +53,7 @@
 	"wikibaselexeme-diffview-lexical-category": "lexical category",
 	"wikibaselexeme-diffview-language": "language",
 	"wikibaselexeme-diffview-form": "form",
+	"wikibaselexeme-diffview-representation": "representation",
+	"wikibaselexeme-diffview-grammatical-feature": "grammatical feature",
 	"content-model-wikibase-lexeme": "Wikibase lexeme"
 }

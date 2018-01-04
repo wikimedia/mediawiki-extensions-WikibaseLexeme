@@ -13,6 +13,8 @@ use RawMessage;
 use Site;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
+use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Repo\Content\EntityContentDiff;
@@ -39,6 +41,13 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 	}
 
 	public function diffProvider() {
+		$formDiff = new ChangeFormDiffOp(
+			new FormId( 'L1-F1' ),
+			new Diff( [
+				'representations' => new Diff( [ 'en' => new DiffOpChange( 'old', 'new' ) ], true ),
+				'grammaticalFeatures' => new DiffOpChange( 'Q5', 'Q6' )
+			], true )
+		);
 		$lexemeDiff = new EntityContentDiff(
 			new LexemeDiff( [
 				'lemmas' => new Diff( [
@@ -52,11 +61,15 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 				'language' => new Diff( [
 					'id' => new DiffOpChange( 'Q3', 'Q4' ),
 				], true ),
+				'forms' => new Diff( [
+					'L1-F1' => $formDiff,
+				], true ),
 			] ),
 			new Diff(),
 			'lexeme'
 		);
 
+		$expectedForm = '(wikibaselexeme-diffview-form) / L1-F1 / (wikibaselexeme-diffview-';
 		$lexemeTags = [
 			'has <td>lemma / en</td>' => '>(wikibaselexeme-diffview-lemma) / en</td>',
 			'has <ins>O_o</ins>' => '>O_o</ins>',
@@ -65,6 +78,12 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 			'has <td>language / id</td>' => '>(wikibaselexeme-diffview-language) / id</td>',
 			'has <del>Q3</del>' => '>Q3</del>',
 			'has <ins>Q4</ins>' => '>Q4</ins>',
+			'has form representation' => $expectedForm . 'representation) / en<',
+			'has <del>old</del>' => '>old</del>',
+			'has <ins>new</ins>' => '>new</ins>',
+			'has form grammatical-feature' => $expectedForm . 'grammatical-feature)',
+			'has <del>Q5</del>' => '>Q5</del>',
+			'has <ins>Q6</ins>' => '>Q6</ins>',
 		];
 
 		$redirectDiff = new EntityContentDiff(
@@ -135,7 +154,9 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 
 		return new LexemeDiffVisualizer(
 			$this->getMockMessageLocalizer(),
-			$baiscVisualizer
+			$baiscVisualizer,
+			$this->getMockClaimDiffer(),
+			$this->getMockClaimDiffVisualizer()
 		);
 	}
 
