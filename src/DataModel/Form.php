@@ -101,6 +101,10 @@ class Form implements EntityDocument, StatementListProvider {
 		return $this->representations;
 	}
 
+	public function setRepresentations( TermList $representations ) {
+		$this->representations = $representations;
+	}
+
 	/**
 	 * @return ItemId[]
 	 */
