@@ -26,7 +26,7 @@ class AddFormRequestParserResult {
 
 	/**
 	 * @param ApiError[] $errors
-	 * @return AddFormRequestParserResult
+	 * @return self
 	 */
 	public static function newWithErrors( array $errors ) {
 		return new self( null, $errors );

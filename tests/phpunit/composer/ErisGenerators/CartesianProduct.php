@@ -19,7 +19,7 @@ class CartesianProduct {
 	 * @param GeneratedValueOptions|GeneratedValueSingle $generatedValue
 	 * @param GeneratedValueOptions|GeneratedValueSingle $_generatedValue
 	 *
-	 * @return CartesianProduct
+	 * @return self
 	 */
 	public static function create( $generatedValue /*, ...$_generatedValue*/ ) {
 		$args = func_get_args();
