@@ -19,6 +19,7 @@
 		this.api = api;
 		this.revisionStore = revisionStore;
 		this.lexemeId = lexemeId;
+		this.lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
 	};
 
 	/**
@@ -45,17 +46,17 @@
 		lexemeId: null,
 
 		/**
+		 * @type {wikibase.lexeme.serialization.LexemeDeserializer}
+		 * @private
+		 */
+		lexemeDeserializer: null,
+
+		/**
 		 * @param {wikibase.lexeme.datamodel.Form} form
 		 * @return {jQuery.Promise}
 		 */
 		save: function ( form ) {
-			var formSerializer = new wb.lexeme.serialization.FormSerializer(),
-				lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer(),
-				self = this;
-
-			if ( form.getId() ) {
-				return $.Deferred().resolve( form ).promise();// TODO: implement edit form
-			}
+			var formSerializer = new wb.lexeme.serialization.FormSerializer();
 
 			var serializedForm = formSerializer.serialize( form );
 			var representations = [];
@@ -65,17 +66,46 @@
 				}
 			}
 
-			serializedForm.representations = representations;
-			delete serializedForm[ 'id' ];
+			if ( form.getId() ) {
+				return this.saveChangedFormData( form.getId(), representations, serializedForm.grammaticalFeatures );
+			}
+
+			return this.saveNewFormData( representations, serializedForm.grammaticalFeatures );
+		},
+
+		saveChangedFormData: function ( formId, representations, grammaticalFeatures ) {
+			var self = this;
+
+			return this.api.postWithToken( 'csrf', {
+				action: 'wblexemeeditformelements',
+				formId: formId,
+				data: JSON.stringify( {
+					representations: representations,
+					grammaticalFeatures: grammaticalFeatures
+				} ),
+				errorformat: 'plaintext',
+				bot: 0
+			} ).then( function ( data ) {
+				return self.lexemeDeserializer.deserializeForm( data.form );
+			} ).catch( function ( code, response ) {
+				throw convertPlainTextErrorsToRepoApiError( response.errors );
+			} );
+		},
+
+		saveNewFormData: function ( representations, grammaticalFeatures ) {
+			var self = this;
 
 			return this.api.postWithToken( 'csrf', {
 				action: 'wblexemeaddform',
 				lexemeId: this.lexemeId,
-				data: JSON.stringify( serializedForm ),
+				data: JSON.stringify( {
+					representations: representations,
+					grammaticalFeatures: grammaticalFeatures
+				} ),
 				errorformat: 'plaintext',
 				bot: 1
 			} ).then( function ( data ) {
-				var form = lexemeDeserializer.deserializeForm( data.form );
+				var form = self.lexemeDeserializer.deserializeForm( data.form );
 				self.revisionStore.setFormRevision( data.lastrevid, form.getId() );
 				return form;
 			} ).catch( function ( code, response ) {

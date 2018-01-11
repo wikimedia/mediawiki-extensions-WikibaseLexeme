@@ -100,10 +100,11 @@ When(/^I select the test item as the grammatical feature$/) do
   @form_I_am_currently_editing.grammatical_feature_selection_first_option_element.when_visible.click
 end
 
-Then(/^I should see the item's label in the list of grammatical features of the Form$/) do
-  Watir::Wait.until { @form_I_am_currently_editing.grammatical_feature?(@item_under_test['label']) }
+Then(/^I should see the item's label in the list of grammatical features of the first Form$/) do
+  @first_form = on(LexemePage).forms[0]
+  Watir::Wait.until { @first_form.grammatical_feature?(@item_under_test['label']) }
 
-  expect(@form_I_am_currently_editing.grammatical_feature?(@item_under_test['label'])).to be true
+  expect(@first_form.grammatical_feature?(@item_under_test['label'])).to be true
 end
 
 When(/^I cancel the editing of the Form$/) do
@@ -150,7 +151,7 @@ When(/^I remove the first grammatical feature of the first Form$/) do
 end
 
 Then(/^the first Form should no longer have the removed grammatical feature$/) do
-  expect(@form_I_am_currently_editing.grammatical_feature?(@grammatical_feature_to_delete)).to be false
+  expect(on(LexemePage).forms[0].grammatical_feature?(@grammatical_feature_to_delete)).to be false
 end
 
 Then(/^I add a Form$/) do

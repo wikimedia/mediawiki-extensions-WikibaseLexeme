@@ -22,27 +22,27 @@ Feature: Forms of a Lexeme
   Scenario: Link to Form
     And for each Form there is an anchor equal to its ID
 
-  #Unskip when we implement Form editing
-  @integration @skip
+  @integration
   Scenario: Add grammatical feature
     Given I have a Lexeme with a Form
      And I have an item to test
     When I click on the first Form's edit button
      And I select the test item as the grammatical feature
      And I save the Form
-    Then I should see the item's label in the list of grammatical features of the Form
+     And I reload the page
+    Then I should see the item's label in the list of grammatical features of the first Form
 
-  #Unskip when we implement Form editing
-  @integration @skip
+  @integration
   Scenario: Remove grammatical feature
     Given I have a Lexeme with a Form
      And a grammatical feature exists for the first Form of the Lexeme
     When I click on the first Form's edit button
      And I remove the first grammatical feature of the first Form
+     And I save the Form
+     And I reload the page
     Then the first Form should no longer have the removed grammatical feature
 
-  #Unskip when we implement Form editing
-  @integration @skip
+  @integration
   Scenario: Change multi-variant representations
     Given I have a Lexeme with a Form
     When I click on the first Form's edit button
@@ -50,6 +50,7 @@ Feature: Forms of a Lexeme
      And I click on the add representation button
      And I enter "colours" as the "en-gb" form representation
      And I save the Form
+     And I reload the page
     Then "colors" should be displayed as the "en-us" representation of the Form
      And "colours" should be displayed as the "en-gb" representation of the Form
 
