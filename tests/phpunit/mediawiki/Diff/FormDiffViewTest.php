@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\Diff;
 
 use Diff\Comparer\ComparableComparer;
+use Diff\Differ\OrderedListDiffer;
 use Diff\DiffOp\Diff\Diff;
-use Diff\OrderedListDiffer;
 use MessageLocalizer;
 use RawMessage;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -36,18 +36,14 @@ class FormDiffViewTest extends \PHPUnit_Framework_TestCase {
 
 	/**
 	 * @param string $returnValue
-	 * @param string $format
 	 *
 	 * @return SnakFormatter
 	 */
-	public function newSnakFormatter(
-		$returnValue = '<i>SNAK</i>',
-		$format = SnakFormatter::FORMAT_HTML
-	) {
+	public function newSnakFormatter( $returnValue = '<i>SNAK</i>' ) {
 		$instance = $this->getMock( SnakFormatter::class );
 		$instance->expects( $this->any() )
 			->method( 'getFormat' )
-			->will( $this->returnValue( $format ) );
+			->will( $this->returnValue( SnakFormatter::FORMAT_HTML ) );
 		$instance->expects( $this->any() )
 			->method( 'canFormatSnak' )
 			->will( $this->returnValue( true ) );
@@ -100,6 +96,8 @@ class FormDiffViewTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @param ChangeFormDiffOp $diff
+	 *
 	 * @return FormDiffView
 	 */
 	private function getDiffView( ChangeFormDiffOp $diff ) {
@@ -225,7 +223,7 @@ class FormDiffViewTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @return mixed
+	 * @return Statement
 	 */
 	private function someStatement( $propertyId, $guid ) {
 		$statement = new Statement(
