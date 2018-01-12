@@ -27,14 +27,7 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	 */
 	private $writer;
 
-	/**
-	 * @param RdfVocabulary $vocabulary
-	 * @param RdfWriter $writer
-	 */
-	public function __construct(
-		RdfVocabulary $vocabulary,
-		RdfWriter $writer
-	) {
+	public function __construct( RdfVocabulary $vocabulary, RdfWriter $writer ) {
 		$this->vocabulary = $vocabulary;
 		$this->writer = $writer;
 	}

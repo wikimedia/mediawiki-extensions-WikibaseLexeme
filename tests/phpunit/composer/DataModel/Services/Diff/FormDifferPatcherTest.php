@@ -163,10 +163,6 @@ class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals( [], $form1->getGrammaticalFeatures() );
 	}
 
-	/**
-	 * @param ItemId $gf
-	 * @param Form $form
-	 */
 	private function assertHasGrammaticalFeature( ItemId $gf, Form $form ) {
 		$this->assertContains(
 			$gf,
@@ -178,10 +174,6 @@ class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
-	/**
-	 * @param ItemId $gf
-	 * @param Form $form
-	 */
 	private function assertDoentHaveGrammaticalFeature( ItemId $gf, Form $form ) {
 		$this->assertNotContains(
 			$gf,

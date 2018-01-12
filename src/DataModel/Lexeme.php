@@ -208,9 +208,6 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		return $this->lemmas;
 	}
 
-	/**
-	 * @param TermList $lemmas
-	 */
 	public function setLemmas( TermList $lemmas ) {
 		$this->lemmas = $lemmas;
 	}
@@ -228,9 +225,6 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		return $this->lexicalCategory;
 	}
 
-	/**
-	 * @param ItemId $lexicalCategory
-	 */
 	public function setLexicalCategory( ItemId $lexicalCategory ) {
 		$this->lexicalCategory = $lexicalCategory;
 	}
@@ -248,9 +242,6 @@ class Lexeme implements EntityDocument, StatementListProvider {
 		return $this->language;
 	}
 
-	/**
-	 * @param ItemId $language
-	 */
 	public function setLanguage( ItemId $language ) {
 		$this->language = $language;
 	}
