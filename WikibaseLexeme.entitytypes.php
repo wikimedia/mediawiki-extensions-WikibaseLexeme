@@ -194,7 +194,9 @@ return [
 
 			return new LexemeDiffVisualizer(
 				$messageLocalizer,
-				$basicEntityDiffVisualizer
+				$basicEntityDiffVisualizer,
+				$claimDiffer,
+				$claimDiffView
 			);
 		}
 	],

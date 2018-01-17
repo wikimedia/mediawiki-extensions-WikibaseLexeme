@@ -15,7 +15,6 @@ class ChangeFormDiffOp extends EntityDiff {
 	 * @var FormId
 	 */
 	private $formId;
-
 	/**
 	 * @var Diff
 	 */

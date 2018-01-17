@@ -65,5 +65,7 @@
 	"wikibaselexeme-diffview-lexical-category": "Title of lexical category in diff page",
 	"wikibaselexeme-diffview-language": "Title of language in diff page\n{{Identical|Language}}",
 	"wikibaselexeme-diffview-form": "Title of form in diff page",
+	"wikibaselexeme-diffview-representation": "Title of representation in diff page",
+	"wikibaselexeme-diffview-grammatical-feature": "Title of grammatical feature in diff page",
 	"content-model-wikibase-lexeme": "The name for Wikibase lexeme content model, used when describing what type of content a page contains."
 }
