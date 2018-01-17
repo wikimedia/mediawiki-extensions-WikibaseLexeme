@@ -462,6 +462,10 @@
 		"wblexemeaddform": {
 			"class": "Wikibase\\Lexeme\\Api\\AddForm",
 			"factory": "Wikibase\\Lexeme\\Api\\AddForm::newFromGlobalState"
+		},
+		"wblexemeeditformelements": {
+			"class": "Wikibase\\Lexeme\\Api\\EditFormElements",
+			"factory": "Wikibase\\Lexeme\\Api\\EditFormElements::newFromGlobalState"
 		}
 	},
 	"manifest_version": 2
