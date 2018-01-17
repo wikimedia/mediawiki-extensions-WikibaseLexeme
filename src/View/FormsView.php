@@ -86,7 +86,7 @@ class FormsView {
 				$this->textProvider->get( 'comma-separator' ),
 				array_map(
 					function ( ItemId $id ) {
-						return $this->getGrammaticalFeatureHtml( $id );
+						return '<span>' . $this->getGrammaticalFeatureHtml( $id ) . '</span>';
 					},
 					$form->getGrammaticalFeatures()
 				)
