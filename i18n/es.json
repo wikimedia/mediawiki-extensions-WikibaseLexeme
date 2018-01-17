@@ -21,13 +21,16 @@
 	"wikibase-lexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
 	"wikibase-lexeme-statementsection-statements-about-sense": "Declaraciones sobre $1",
 	"apihelp-wblexemeaddform-param-lexemeId": "Id. del lexema; p. ej., L10",
+	"apihelp-wblexemeeditformelements-param-formId": "Identificador del formulario; p. ej., L10-F2",
 	"wikibase-lexeme-api-error-parameter-required": "El parámetro «$1» es obligatorio",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Se esperaba un objeto JSON válido en el parámetro «$1»; se proporcionó «$2»",
 	"wikibase-lexeme-api-error-lexeme-not-found": "No se encontró ningún lexema con el identificador «$1».",
+	"wikibaselexeme-api-error-form-not-found": "No se encontró ningún formulario con el identificador «$1».",
 	"wikibase-lexeme-api-error-json-field-required": "El campo «$2» en el parámetro «$1» es obligatorio",
 	"wikibase-lexeme-api-error-json-field-not-item-id": "Se esperaba que el campo «$2» del parámetro «$1» fuera un identificador de artículo. Se proporcionó: «$3»",
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Se esperaba que el tipo del campo «$2» en el parámetro «$1» fuese del tipo «$3». Se proporcionó: «$4»",
 	"wikibase-lexeme-api-error-parameter-not-lexeme-id": "Se esperaba que el parámetro «$1» fuese un identificador de lexema. Se proporcionó: «$2»",
+	"wikibaselexeme-api-error-parameter-not-form-id": "Se esperaba que el parámetro «$1» fuera un identificador de formulario. Se proporcionó: «$2»",
 	"wikibase-lexeme-api-error-representation-text-cannot-be-empty": "El texto de representación no puede estar vacío",
 	"wikibase-lexeme-summary-add-form": "Se añadió la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-language": "Idioma",
@@ -36,5 +39,6 @@
 	"wikibaselexeme-diffview-lexical-category": "categoría léxica",
 	"wikibaselexeme-diffview-language": "idioma",
 	"wikibaselexeme-diffview-form": "forma",
+	"wikibaselexeme-diffview-representation": "representación",
 	"content-model-wikibase-lexeme": "Lexema de Wikibase"
 }
