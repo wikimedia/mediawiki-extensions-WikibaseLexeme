@@ -31,5 +31,7 @@
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-lexical-category": "Lexikalesch Kategorie",
 	"wikibaselexeme-diffview-language": "Sprooch",
-	"wikibaselexeme-diffview-form": "Formulaire"
+	"wikibaselexeme-diffview-form": "Formulaire",
+	"wikibaselexeme-diffview-representation": "Duerstellung",
+	"wikibaselexeme-diffview-grammatical-feature": "grammatesch Funktioun"
 }

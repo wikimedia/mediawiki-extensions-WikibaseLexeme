@@ -42,6 +42,7 @@
 	"wikibase-lexeme-api-error-parameter-required": "O parâmetro \"$1\" é obrigatório",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Era esperado que o parâmetro \"$1\" fosse um objeto JSON válido. Foi fornecido: \"$2\"",
 	"wikibase-lexeme-api-error-lexeme-not-found": "Não foi encontrado nenhum lexema com o identificador \"$1\".",
+	"wikibaselexeme-api-error-form-not-found": "Não foi encontrado nenhum formulário com o identificador \"$1\".",
 	"wikibase-lexeme-api-error-json-field-required": "O campo \"$2\" do parâmetro \"$1\" é obrigatório",
 	"wikibase-lexeme-api-error-json-field-not-item-id": "Era esperado que o campo \"$2\" do parâmetro \"$1\" fosse um identificador de elemento. Foi fornecido: \"$3\"",
 	"wikibase-lexeme-api-error-json-field-has-wrong-type": "Era esperado que o campo \"$2\" do parâmetro \"$1\" fosse do tipo \"$3\". Foi fornecido: \"$4\"",

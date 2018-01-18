@@ -44,6 +44,8 @@
 	"apihelp-wblexemeeditformelements-summary": "Modifie les représentations et les caractères grammaticaux d’un formulaire",
 	"apihelp-wblexemeeditformelements-param-formId": "ID du formulaire, par ex. L10-F2",
 	"apihelp-wblexemeeditformelements-param-data": "Représentation encodée en JSON et données à caractère grammatical",
+	"apihelp-wblexemeeditformelements-param-bot": "Marquer cette modification comme robot. Ce drapeau d’URL sera respecté uniquement si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wblexemeeditformelements-example-1": "Modifie le formulaire d’ID <samp>$1</samp> pour avoir des représentations <samp>$2</samp> dans les langues <samp>$3</samp> respectivement, et les caractéristiques grammaticales <samp>$4</samp>.",
 	"wikibase-lexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
 	"wikibase-lexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",
 	"wikibase-lexeme-api-error-lexeme-not-found": "Aucune entité avec l’ID « $1 » n’a été trouvée",

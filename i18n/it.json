@@ -21,6 +21,7 @@
 	"wikibase-form-field-language-label": "Lingua",
 	"wikibase-gloss-field-language-label": "Lingua",
 	"datatypes-type-wikibase-lexeme": "Lessema",
+	"apihelp-wblexemeeditformelements-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
 	"wikibase-lexeme-api-error-parameter-required": "Il parametro \"$1\" è obbligatorio",
 	"wikibase-lexeme-api-error-lexeme-not-found": "Non è stato trovato nessun lessema avente ID $1.",
 	"wikibase-lexeme-api-error-json-field-required": "Il campo \"$2\" nel parametro \"$1\" è obbligatorio",
@@ -32,5 +33,6 @@
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-lexical-category": "categoria lessicale",
 	"wikibaselexeme-diffview-language": "lingua",
+	"wikibaselexeme-diffview-representation": "rappresentazione",
 	"content-model-wikibase-lexeme": "Lessema Wikibase"
 }
