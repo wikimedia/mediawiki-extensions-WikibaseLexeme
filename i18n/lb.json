@@ -23,6 +23,7 @@
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"wikibase-lexeme-add-form": "Formulaire dobäisetzen",
 	"apihelp-wblexemeaddform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
+	"apihelp-wblexemeeditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
 	"wikibase-lexeme-api-error-parameter-required": "Parameter \"$1\" ass obligatoresch",
 	"wikibase-lexeme-api-error-json-field-required": "Feld \"$2\" am Parameter \"$1\" ass obligatoresch",
 	"wikibase-lexeme-api-error-form-must-have-at-least-one-representation": "De Formular muss mindestens eng Duerstellung hunn",
