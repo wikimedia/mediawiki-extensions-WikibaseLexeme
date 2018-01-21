@@ -3,7 +3,8 @@
 		"authors": [
 			"Kareyac",
 			"Okras",
-			"Redredsonia"
+			"Redredsonia",
+			"Gehhrr"
 		]
 	},
 	"special-newlexeme": "Создать новую лексему",
@@ -18,5 +19,6 @@
 	"wikibase-lexeme-language": "Язык",
 	"wikibaselexeme-diffview-lemma": "Лемма",
 	"wikibaselexeme-diffview-lexical-category": "лексическая категория",
-	"wikibaselexeme-diffview-language": "язык"
+	"wikibaselexeme-diffview-language": "язык",
+	"wikibaselexeme-diffview-grammatical-feature": "грамматическая особенность"
 }
