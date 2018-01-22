@@ -4,10 +4,9 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use PHPUnit_Framework_TestCase;
 use Serializers\Exceptions\SerializationException;
+use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\DataModel\Serializers\StatementListSerializer;
-use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
@@ -27,17 +26,13 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
 class ExternalLexemeSerializerTest extends PHPUnit_Framework_TestCase {
 
 	private function newSerializer() {
-		$statementListSerializer = $this->getMockBuilder( StatementListSerializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$statementListSerializer = $this->getMock( Serializer::class );
 		$statementListSerializer->method( 'serialize' )
 			->will( $this->returnCallback( function ( StatementList $statementList ) {
 				return implode( '|', $statementList->getPropertyIds() );
 			} ) );
 
-		$termListSerializer = $this->getMockBuilder( TermListSerializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$termListSerializer = $this->getMock( Serializer::class );
 		$termListSerializer->method( 'serialize' )
 			->will( $this->returnCallback( function ( TermList $termList ) {
 				return $termList->toTextArray();

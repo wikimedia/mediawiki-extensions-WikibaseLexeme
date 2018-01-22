@@ -2,9 +2,8 @@
 
 namespace Wikibase\Lexeme\DataModel\Serialization;
 
+use Serializers\Serializer;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Serializers\StatementListSerializer;
-use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\Lexeme\DataModel\Form;
 
 /**
@@ -13,18 +12,18 @@ use Wikibase\Lexeme\DataModel\Form;
 class FormSerializer {
 
 	/**
-	 * @var TermListSerializer
+	 * @var Serializer
 	 */
 	private $termListSerializer;
 
 	/**
-	 * @var StatementListSerializer
+	 * @var Serializer
 	 */
 	private $statementListSerializer;
 
 	public function __construct(
-		TermListSerializer $termListSerializer,
-		StatementListSerializer $statementListSerializer
+		Serializer $termListSerializer,
+		Serializer $statementListSerializer
 	) {
 		$this->termListSerializer = $termListSerializer;
 		$this->statementListSerializer = $statementListSerializer;
