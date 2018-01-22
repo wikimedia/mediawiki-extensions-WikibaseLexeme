@@ -196,6 +196,14 @@ class EditFormElements extends \ApiBase {
 	}
 
 	/**
+	 * As long as this codebase is in development and APIs might change any time without notice, we
+	 * mark all as internal. This adds an "unstable" notice, but does not hide them in any way.
+	 */
+	public function isInternal() {
+		return true;
+	}
+
+	/**
 	 * @see ApiBase::needsToken()
 	 */
 	public function needsToken() {
