@@ -13,8 +13,6 @@ use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\DataModel\Serializers\TermListSerializer;
-use Wikibase\DataModel\Serializers\TermSerializer;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
@@ -228,7 +226,7 @@ class StorageLexemeSerializerTest extends \PHPUnit_Framework_TestCase {
 			SerializerFactory::OPTION_DEFAULT
 		);
 		return new StorageLexemeSerializer(
-			new TermListSerializer( new TermSerializer(), false ),
+			$serializerFactory->newTermListSerializer(),
 			$serializerFactory->newStatementListSerializer()
 		);
 	}
