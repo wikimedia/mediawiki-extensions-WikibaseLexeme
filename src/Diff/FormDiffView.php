@@ -22,12 +22,12 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 class FormDiffView extends BasicDiffView {
 
 	/**
-	 * @var ClaimDiffer|null
+	 * @var ClaimDiffer
 	 */
 	private $claimDiffer;
 
 	/**
-	 * @var ClaimDifferenceVisualizer|null
+	 * @var ClaimDifferenceVisualizer
 	 */
 	private $claimDiffVisualizer;
 
@@ -61,26 +61,29 @@ class FormDiffView extends BasicDiffView {
 	 * @param string[] $path
 	 * @param DiffOp $op
 	 *
-	 * @return string
-	 * @throws MWException
+	 * @return string HTML
 	 */
 	protected function generateOpHtml( array $path, DiffOp $op ) {
-		$html = '';
 		if ( $op->isAtomic() ) {
 			return parent::generateOpHtml( $path, $op );
 		}
+
+		$html = '';
+
 		foreach ( $op as $key => $subOp ) {
-			if ( !$subOp instanceof ChangeFormDiffOp ) {
-				$html .= $this->generateOpHtml( array_merge( $path, [ $key ] ), $subOp );
-			} else {
+			if ( $subOp instanceof ChangeFormDiffOp ) {
 				$html .= $this->generateFormOpHtml( $path, $subOp, $key );
+			} else {
+				$html .= $this->generateOpHtml( array_merge( $path, [ $key ] ), $subOp );
 			}
 		}
+
 		return $html;
 	}
 
-	private function generateFormOpHtml( $path, ChangeFormDiffOp $op, $key ) {
+	private function generateFormOpHtml( array $path, ChangeFormDiffOp $op, $key ) {
 		$html = '';
+
 		foreach ( $op->getStatementsDiffOps() as $claimDiffOp ) {
 			$html .= $this->getClaimDiffHtml(
 				$claimDiffOp,
@@ -108,33 +111,31 @@ class FormDiffView extends BasicDiffView {
 	}
 
 	/**
-	 * @param DiffOp $claimDiffOp
+	 * @param DiffOp $diffOp
 	 *
 	 * @return string HTML
 	 * @throws MWException
 	 */
-	protected function getClaimDiffHtml( DiffOp $claimDiffOp, array $path ) {
-		if ( $claimDiffOp instanceof DiffOpChange ) {
-			$claimDifference = $this->claimDiffer->diffClaims(
-				$claimDiffOp->getOldValue(),
-				$claimDiffOp->getNewValue()
-			);
-			return $this->claimDiffVisualizer->visualizeClaimChange(
-				$claimDifference,
-				$claimDiffOp->getNewValue(),
-				$path
-			);
-		}
+	private function getClaimDiffHtml( DiffOp $diffOp, array $path ) {
+		switch ( true ) {
+			case $diffOp instanceof DiffOpChange:
+				return $this->claimDiffVisualizer->visualizeClaimChange(
+					$this->claimDiffer->diffClaims(
+						$diffOp->getOldValue(),
+						$diffOp->getNewValue()
+					),
+					$diffOp->getNewValue(),
+					$path
+				);
 
-		if ( $claimDiffOp instanceof DiffOpAdd ) {
-			return $this->claimDiffVisualizer->visualizeNewClaim( $claimDiffOp->getNewValue(), $path );
-		} elseif ( $claimDiffOp instanceof DiffOpRemove ) {
-			return $this->claimDiffVisualizer->visualizeRemovedClaim(
-				$claimDiffOp->getOldValue(),
-				$path
-			);
-		} else {
-			throw new MWException( 'Encountered an unexpected diff operation type for a claim' );
+			case $diffOp instanceof DiffOpAdd:
+				return $this->claimDiffVisualizer->visualizeNewClaim( $diffOp->getNewValue(), $path );
+
+			case $diffOp instanceof DiffOpRemove:
+				return $this->claimDiffVisualizer->visualizeRemovedClaim( $diffOp->getOldValue(), $path );
+
+			default:
+				throw new MWException( 'Encountered an unexpected diff operation type for a claim' );
 		}
 	}
 

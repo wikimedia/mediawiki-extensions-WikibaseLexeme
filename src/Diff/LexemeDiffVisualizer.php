@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use MessageLocalizer;
-use Wikibase\DataModel\Services\Diff\EntityDiff;
+use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\Diff\BasicDiffView;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
@@ -13,8 +13,6 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\EntityDiffVisualizer;
 
 /**
- * Class for generating views of EntityDiff objects.
- *
  * @license GPL-2.0+
  * @author Amir Sarabadani
  */
@@ -31,12 +29,12 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 	private $basicEntityDiffVisualizer;
 
 	/**
-	 * @var ClaimDiffer|null
+	 * @var ClaimDiffer
 	 */
 	private $claimDiffer;
 
 	/**
-	 * @var ClaimDifferenceVisualizer|null
+	 * @var ClaimDifferenceVisualizer
 	 */
 	private $claimDiffVisualizer;
 
@@ -53,31 +51,26 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 	}
 
 	/**
-	 * Generates and returns an HTML visualization of the provided EntityContentDiff.
-	 *
 	 * @param EntityContentDiff $diff
 	 *
-	 * @return string
+	 * @return string HTML
 	 */
 	public function visualizeEntityContentDiff( EntityContentDiff $diff ) {
 		if ( $diff->isEmpty() ) {
 			return '';
 		}
 
-		$basicHtml = $this->basicEntityDiffVisualizer->visualizeEntityContentDiff( $diff );
-
-		return $basicHtml . $this->visualizeEntityDiff( $diff->getEntityDiff() );
+		return $this->basicEntityDiffVisualizer->visualizeEntityContentDiff( $diff )
+			. $this->visualizeEntityDiff( $diff->getEntityDiff() );
 	}
 
 	/**
-	 * Generates and returns an HTML visualization of the provided EntityDiff.
+	 * @param LexemeDiff $diff
 	 *
-	 * @param EntityDiff $diff
-	 *
-	 * @return string
+	 * @return string HTML
 	 */
-	private function visualizeEntityDiff( EntityDiff $diff ) {
-		$basicDiff = ( new BasicDiffView(
+	private function visualizeEntityDiff( LexemeDiff $diff ) {
+		$basicDiffView = new BasicDiffView(
 			[],
 			new Diff(
 				[
@@ -90,8 +83,9 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 				],
 				true
 			)
-		) )->getHtml();
-		$formDiff = ( new FormDiffView(
+		);
+
+		$formDiffView = new FormDiffView(
 			[],
 			new Diff(
 				[
@@ -103,8 +97,9 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			$this->claimDiffer,
 			$this->claimDiffVisualizer,
 			$this->messageLocalizer
-		) )->getHtml();
-		return $basicDiff . $formDiff;
+		);
+
+		return $basicDiffView->getHtml() . $formDiffView->getHtml();
 	}
 
 }
