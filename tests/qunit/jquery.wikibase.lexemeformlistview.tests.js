@@ -50,7 +50,7 @@
 	} );
 
 	QUnit.test( 'renders a localized add toolbar to add a form', function ( assert ) {
-		var messageKey = 'wikibase-lexeme-add-form';
+		var messageKey = 'wikibaselexeme-add-form';
 		var localizedMessage = 'some message';
 		var getAdder = sinon.spy();
 		var message = sinon.stub();

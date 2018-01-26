@@ -59,7 +59,7 @@ class FormsView {
 		$html = '<div class="wikibase-lexeme-forms-section">';
 		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="forms">'
-			. htmlspecialchars( $this->textProvider->get( 'wikibase-lexeme-view-forms' ) )
+			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-view-forms' ) )
 			. '</span>'
 			. '</h2>';
 
@@ -168,12 +168,12 @@ HTML;
 				<li v-for="representation in representations" 
 					class="representation-widget_representation-edit-box">
 					<span class="representation-widget_representation-value-label">
-						{{'wikibase-form-field-representation-label'|message}}
+						{{'wikibaselexeme-form-field-representation-label'|message}}
 					</span>
 					<input size="1" class="representation-widget_representation-value-input" 
 						v-model="representation.value">
 					<span class="representation-widget_representation-language-label">
-						{{'wikibase-form-field-language-label'|message}}
+						{{'wikibaselexeme-form-field-language-label'|message}}
 					</span>
 					<input size="1" class="representation-widget_representation-language-input" 
 						v-model="representation.language">
@@ -202,7 +202,7 @@ HTML;
 	private function getStatementSectionHtml( Form $form ) {
 		$headerText = htmlspecialchars(
 			$this->textProvider->get(
-				'wikibase-lexeme-statementsection-statements-about-form',
+				'wikibaselexeme-statementsection-statements-about-form',
 				[ $form->getId()->getSerialization() ]
 			)
 		);

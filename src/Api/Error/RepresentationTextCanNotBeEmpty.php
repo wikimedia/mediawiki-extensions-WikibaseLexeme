@@ -31,7 +31,7 @@ class RepresentationTextCanNotBeEmpty implements ApiError {
 	 */
 	public function asApiMessage() {
 		$message = new \Message(
-			'wikibase-lexeme-api-error-representation-text-cannot-be-empty',
+			'wikibaselexeme-api-error-representation-text-cannot-be-empty',
 			[]
 		);
 		return new \ApiMessage(

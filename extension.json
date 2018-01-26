@@ -115,7 +115,7 @@
 				"jquery.wikibase.lexemeformview"
 			],
 			"messages": [
-				"wikibase-lexeme-add-form"
+				"wikibaselexeme-add-form"
 			]
 		},
 		"jquery.wikibase.lexemeformview": {
@@ -127,9 +127,9 @@
 				"wikibase.lexeme.widgets.RepresentationWidget"
 			],
 			"messages": [
-				"wikibase-lexeme-empty-form-representation",
-				"wikibase-lexeme-enter-form-representation",
-				"wikibase-lexeme-statementsection-statements-about-form"
+				"wikibaselexeme-empty-form-representation",
+				"wikibaselexeme-enter-form-representation",
+				"wikibaselexeme-statementsection-statements-about-form"
 			]
 		},
 		"jquery.wikibase.grammaticalfeatureview": {
@@ -147,7 +147,7 @@
 				"jquery.wikibase.senseview"
 			],
 			"messages": [
-				"wikibase-lexeme-add-sense"
+				"wikibaselexeme-add-sense"
 			]
 		},
 		"jquery.wikibase.senseview": {
@@ -193,10 +193,10 @@
 				"wikibase-cancel",
 				"wikibase-add",
 				"wikibase-remove",
-				"wikibase-lemma-field-lemma-label",
-				"wikibase-lemma-field-language-label",
-				"wikibase-lexeme-language",
-				"wikibase-lexeme-lexical-category"
+				"wikibaselexeme-lemma-field-lemma-label",
+				"wikibaselexeme-lemma-field-language-label",
+				"wikibaselexeme-field-language-label",
+				"wikibaselexeme-field-lexical-category-label"
 			]
 		},
 		"wikibase.lexeme.widgets.RepresentationWidget": {
@@ -207,8 +207,8 @@
 			"messages":[
 				"wikibase-add",
 				"wikibase-remove",
-				"wikibase-form-field-representation-label",
-				"wikibase-form-field-language-label"
+				"wikibaselexeme-form-field-representation-label",
+				"wikibaselexeme-form-field-language-label"
 			]
 		},
 		"wikibase.lexeme.widgets.GlossWidget": {
@@ -224,8 +224,8 @@
 				"wikibase-cancel",
 				"wikibase-add",
 				"wikibase-remove",
-				"wikibase-gloss-field-language-label",
-				"wikibase-gloss-field-gloss-label"
+				"wikibaselexeme-gloss-field-language-label",
+				"wikibaselexeme-gloss-field-gloss-label"
 			]
 		},
 		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore": {

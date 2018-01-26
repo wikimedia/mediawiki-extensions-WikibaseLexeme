@@ -37,7 +37,7 @@ class RepresentationsMustHaveUniqueLanguage implements ApiError {
 	 */
 	public function asApiMessage() {
 		$message = new \Message(
-			'wikibase-lexeme-api-error-representations-language-not-unique',
+			'wikibaselexeme-api-error-representations-language-not-unique',
 			[ $this->language ]
 		);
 		return new \ApiMessage(

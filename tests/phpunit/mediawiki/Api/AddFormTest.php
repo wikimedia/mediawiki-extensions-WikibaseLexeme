@@ -84,7 +84,7 @@ class AddFormTest extends WikibaseApiTestCase {
 			'invalid lexeme ID (random string not ID)' => [
 				[ 'lexemeId' => 'foo', 'data' => $this->getDataParam() ],
 				[
-					'message-key' => 'wikibase-lexeme-api-error-parameter-not-lexeme-id',
+					'message-key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
 					'message-parameters' => [ 'lexemeId', 'foo' ],
 					'api-error-code' => 'bad-request',
 					'api-error-data' => []
@@ -93,7 +93,7 @@ class AddFormTest extends WikibaseApiTestCase {
 			'data not a well-formed JSON object' => [
 				[ 'lexemeId' => 'L1', 'data' => '{foo' ],
 				[
-					'message-key' => 'wikibase-lexeme-api-error-parameter-invalid-json-object',
+					'message-key' => 'wikibaselexeme-api-error-parameter-invalid-json-object',
 					'message-parameters' => [ 'data', '{foo' ],
 					'api-error-code' => 'bad-request',
 					'api-error-data' => []
@@ -102,7 +102,7 @@ class AddFormTest extends WikibaseApiTestCase {
 			'Lexeme is not found' => [
 				[ 'lexemeId' => 'L999', 'data' => $this->getDataParam() ],
 				[
-					'message-key' => 'wikibase-lexeme-api-error-lexeme-not-found',
+					'message-key' => 'wikibaselexeme-api-error-lexeme-not-found',
 					'message-parameters' => [ 'L999' ],
 					'api-error-code' => 'not-found',
 					'api-error-data' => []

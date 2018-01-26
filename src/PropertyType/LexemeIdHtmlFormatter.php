@@ -131,7 +131,7 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 		// 'noun in English'
 		// TODO: Rethink way to present 'noun in English' - it will not look correct in Russian
 		//       because language word should be in the genitive which currently is not possible
-		$label .= wfMessage( 'wikibase-lexeme-view-language-lexical-category',
+		$label .= wfMessage( 'wikibaselexeme-view-language-lexical-category',
 			[
 				$lexicalCategoryItem ? $lexicalCategoryItem->getLabels()->getByLanguage(
 					$languageCode )->getText() : null,

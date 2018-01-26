@@ -46,7 +46,7 @@
 			this.options.getAdder(
 				this._listview.enterNewItem.bind( this._listview ),
 				this.element,
-				this.options.getMessage( 'wikibase-lexeme-add-sense' )
+				this.options.getMessage( 'wikibaselexeme-add-sense' )
 			);
 		},
 

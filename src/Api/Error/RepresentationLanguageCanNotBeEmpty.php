@@ -31,7 +31,7 @@ class RepresentationLanguageCanNotBeEmpty implements ApiError {
 	 */
 	public function asApiMessage() {
 		$message = new \Message(
-			'wikibase-lexeme-api-error-representation-language-cannot-be-empty',
+			'wikibaselexeme-api-error-representation-language-cannot-be-empty',
 			[]
 		);
 		return new \ApiMessage(
