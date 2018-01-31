@@ -122,6 +122,7 @@ end
 
 When(/^I save the statement$/) do
   @statement_I_am_currently_editing.save_element.when_visible.click
+  on(LexemePage).ajax_wait
 end
 
 Then(/^I see (.+?)=(.+?) statement in the Form statement list$/) do |handle, property_value|
