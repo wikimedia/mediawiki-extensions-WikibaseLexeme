@@ -14,7 +14,6 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityPatcherStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
@@ -69,12 +68,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 		/** @var Lexeme $entity */
 		/** @var LexemeDiff $patch */
 
-		//TODO Lemmas can't be null. Redundant check
-		$lemmas = $entity->getLemmas() !== null ? $entity->getLemmas() : new TermList();
-		$this->termListPatcher->patchTermList(
-			$lemmas,
-			$patch->getLemmasDiff()
-		);
+		$this->termListPatcher->patchTermList( $entity->getLemmas(), $patch->getLemmasDiff() );
 
 		/** @var Lexeme $entity */
 		$this->statementListPatcher->patchStatementList(
