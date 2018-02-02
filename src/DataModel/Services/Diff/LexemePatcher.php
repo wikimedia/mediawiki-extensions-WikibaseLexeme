@@ -139,8 +139,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 		foreach ( $patch->getFormsDiff() as $formDiff ) {
 			switch ( true ) {
-				case $formDiff instanceof DiffOpAdd:
-					$form = $formDiff->getNewValue();
+				case $formDiff instanceof AddFormDiff:
+					$form = $formDiff->getAddedForm();
 					$lexeme->patch(
 						function ( LexemePatchAccess $patchAccess ) use ( $form ) {
 							$patchAccess->addForm( $form );

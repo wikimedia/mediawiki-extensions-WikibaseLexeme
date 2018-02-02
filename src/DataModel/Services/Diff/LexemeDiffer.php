@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\DataModel\Services\Diff;
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
+use Diff\DiffOp\DiffOpAdd;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
@@ -173,7 +174,9 @@ class LexemeDiffer implements EntityDifferStrategy {
 					$formDiffOp->getOldValue(),
 					$formDiffOp->getNewValue()
 				);
-
+			}
+			if ( $formDiffOp instanceof DiffOpAdd ) {
+				$formDiffOps[$index] = $this->formDiffer->getAddFormDiff( $formDiffOp->getNewValue() );
 			}
 		}
 
