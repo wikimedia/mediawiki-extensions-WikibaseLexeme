@@ -47,7 +47,6 @@ class StorageLexemeSerializerTest extends TestCase {
 				$newLexeme = $deserializer->deserialize( $serialized );
 
 				$this->assertTrue( $newLexeme->equals( $lexeme ), 'Lexemes are not equal' );
-				$this->assertEquals( $lexeme, $newLexeme ); //Just to be sure
 			} );
 	}
 
@@ -65,7 +64,6 @@ class StorageLexemeSerializerTest extends TestCase {
 				$newLexeme = $deserializer->deserialize( $serialized );
 
 				$this->assertTrue( $newLexeme->equals( $lexeme ), 'Lexemes are not equal' );
-				$this->assertEquals( $lexeme, $newLexeme ); //Just to be sure
 			} );
 	}
 
