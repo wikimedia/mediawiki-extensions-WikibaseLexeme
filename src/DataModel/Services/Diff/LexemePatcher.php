@@ -112,11 +112,9 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 		switch ( true ) {
 			case $diffOp instanceof DiffOpAdd:
-				/** @var DiffOpAdd $diffOp */
 				return new ItemId( $diffOp->getNewValue() );
 
 			case $diffOp instanceof DiffOpChange:
-				/** @var DiffOpChange $diffOp */
 				return new ItemId( $diffOp->getNewValue() );
 
 			case $diffOp instanceof DiffOpRemove:
@@ -143,12 +141,11 @@ class LexemePatcher implements EntityPatcherStrategy {
 	}
 
 	private function patchForms( Lexeme $lexeme, LexemeDiff $patch ) {
-		$formsDiff = $patch->getFormsDiff();
-		foreach ( $formsDiff as $formDiff ) {
+		/** @var Form $form */
+
+		foreach ( $patch->getFormsDiff() as $formDiff ) {
 			switch ( true ) {
 				case $formDiff instanceof DiffOpAdd:
-					/** @var DiffOpAdd $formDiff */
-					/** @var Form $form */
 					$form = $formDiff->getNewValue();
 					$lexeme->patch(
 						function ( LexemePatchAccess $patchAccess ) use ( $form ) {
@@ -158,15 +155,11 @@ class LexemePatcher implements EntityPatcherStrategy {
 					break;
 
 				case $formDiff instanceof DiffOpRemove:
-					/** @var DiffOpRemove $formDiff */
-					/** @var Form $form */
 					$form = $formDiff->getOldValue();
 					$lexeme->removeForm( $form->getId() );
 					break;
 
 				case $formDiff instanceof ChangeFormDiffOp:
-					/** @var ChangeFormDiffOp $formDiff */
-					/** @var Form $form */
 					if ( $lexeme->hasForm( $formDiff->getFormId() ) ) {
 						$form = $lexeme->getForm( $formDiff->getFormId() );
 						$this->formPatcher->patch( $form, $formDiff );
