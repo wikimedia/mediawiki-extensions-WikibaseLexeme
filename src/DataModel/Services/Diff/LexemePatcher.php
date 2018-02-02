@@ -57,38 +57,35 @@ class LexemePatcher implements EntityPatcherStrategy {
 	}
 
 	/**
-	 * @param EntityDocument $entity
-	 * @param EntityDiff $patch
+	 * @param Lexeme $lexeme
+	 * @param LexemeDiff $patch
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function patchEntity( EntityDocument $entity, EntityDiff $patch ) {
-		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+	public function patchEntity( EntityDocument $lexeme, EntityDiff $patch ) {
+		Assert::parameterType( Lexeme::class, $lexeme, '$lexeme' );
 		Assert::parameterType( LexemeDiff::class, $patch, '$patch' );
-		/** @var Lexeme $entity */
-		/** @var LexemeDiff $patch */
 
-		$this->termListPatcher->patchTermList( $entity->getLemmas(), $patch->getLemmasDiff() );
+		$this->termListPatcher->patchTermList( $lexeme->getLemmas(), $patch->getLemmasDiff() );
 
-		/** @var Lexeme $entity */
 		$this->statementListPatcher->patchStatementList(
-			$entity->getStatements(),
+			$lexeme->getStatements(),
 			$patch->getClaimsDiff()
 		);
 
 		$itemId = $this->getPatchedItemId( $patch->getLexicalCategoryDiff() );
 		if ( $itemId !== false ) {
-			$entity->setLexicalCategory( $itemId );
+			$lexeme->setLexicalCategory( $itemId );
 		}
 
 		$itemId = $this->getPatchedItemId( $patch->getLanguageDiff() );
 		if ( $itemId !== false ) {
-			$entity->setLanguage( $itemId );
+			$lexeme->setLanguage( $itemId );
 		}
 
-		$this->patchNextFormId( $entity, $patch );
+		$this->patchNextFormId( $lexeme, $patch );
 
-		$this->patchForms( $entity, $patch );
+		$this->patchForms( $lexeme, $patch );
 	}
 
 	/**
