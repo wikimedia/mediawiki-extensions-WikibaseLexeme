@@ -69,7 +69,7 @@ class LexemeGenerator implements Generator {
 	 * @return GeneratedValueSingle<T>
 	 */
 	public function __invoke( $size, $rand ) {
-		$size = min( $size, 25 );
+		$size = min( $size, 10 );
 
 		$generateLexemeId = $this->lexemeIdGenerator;
 		$generateLanguage = $this->languageGenerator;
