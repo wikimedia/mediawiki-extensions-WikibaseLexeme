@@ -115,6 +115,19 @@ class FormDiffer implements EntityDifferStrategy {
 		return new AddFormDiff( $form, new Diff( $diffOps ) );
 	}
 
+	public function getRemoveFormDiff( Form $form ) {
+		$diffOps = $this->recursiveMapDiffer->doDiff(
+			$this->toFormDiffArray( $form ),
+			[]
+		);
+		$diffOps['claim'] = $this->statementListDiffer->getDiff(
+			$form->getStatements(),
+			new StatementList()
+		);
+
+		return new RemoveFormDiff( $form->getId(), new Diff( $diffOps ) );
+	}
+
 	/**
 	 * @param Form $form
 	 *
