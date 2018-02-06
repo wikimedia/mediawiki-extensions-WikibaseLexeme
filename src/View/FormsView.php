@@ -59,7 +59,7 @@ class FormsView {
 		$html = '<div class="wikibase-lexeme-forms-section">';
 		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="forms">'
-			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-view-forms' ) )
+			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-header-forms' ) )
 			. '</span>'
 			. '</h2>';
 

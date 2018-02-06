@@ -34,7 +34,7 @@ class SensesViewTest extends PHPUnit_Framework_TestCase {
 				both( withTagName( 'h2' ) )
 					->andAlso( havingChild(
 						both( withAttribute( 'id' )->havingValue( 'senses' ) )
-							->andAlso( havingTextContents( '(wikibaselexeme-view-senses)' ) )
+							->andAlso( havingTextContents( '(wikibaselexeme-header-senses)' ) )
 					) )
 			) ) )
 		);

@@ -72,7 +72,7 @@ class SensesView {
 		$html = '<div class="wikibase-lexeme-senses-section">';
 		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="senses">'
-			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-view-senses' ) )
+			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-header-senses' ) )
 			. '</span>'
 			. '</h2>';
 
