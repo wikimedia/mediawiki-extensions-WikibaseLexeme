@@ -190,23 +190,6 @@ HTML;
 	}
 
 	/**
-	 * @param Lexeme $lexeme
-	 *
-	 * @return string HTML
-	 */
-	private function getHtmlForLexicalCategoryAndLanguage( Lexeme $lexeme ) {
-		$lexicalCategory = $this->getItemIdHtml( $lexeme->getLexicalCategory() );
-		$language = $this->getItemIdHtml( $lexeme->getLanguage() );
-
-		// TODO: Rethink way to present 'noun in English' - it will not look correct in Russian
-		//       because language word should be in the genitive which currently is not possible
-		return $this->getLocalizedMessage(
-			'wikibase-lexeme-view-language-lexical-category',
-			[ $lexicalCategory, $language ]
-		);
-	}
-
-	/**
 	 * @param TermList|null $lemmas
 	 *
 	 * @return Term|null
