@@ -117,10 +117,8 @@ class LexemeGenerator implements Generator {
 			GeneratedValueSingle::fromJustValue( $lexeme->getLemmas() )
 		);
 
-		$result = CartesianProduct::create(
-			$shrunkLemmas,
-			$shrunkFormSet
-		)->map( function ( TermList $lemmas, FormSet $formSet ) {
+		return CartesianProduct::create( $shrunkLemmas, $shrunkFormSet )->map(
+			function ( TermList $lemmas, FormSet $formSet ) {
 				return new Lexeme(
 					new LexemeId( 'L1' ),
 					$lemmas,
@@ -128,14 +126,11 @@ class LexemeGenerator implements Generator {
 					new ItemId( 'Q2' ),
 					null,
 					$formSet->maxFormIdNumber() + 1,
-					$formSet->toArray(),
-					[]
+					$formSet
 				);
-		},
+			},
 			'lexeme'
-			);
-
-		return $result;
+		);
 	}
 
 	/**
