@@ -4,6 +4,6 @@
 			"Papuass"
 		]
 	},
-	"wikibase-lexeme-api-error-parameter-required": "Parametrs \"$1\" ir obligāts",
-	"wikibase-lexeme-language": "Valoda"
+	"wikibaselexeme-api-error-parameter-required": "Parametrs \"$1\" ir obligāts",
+	"wikibaselexeme-field-language-label": "Valoda"
 }

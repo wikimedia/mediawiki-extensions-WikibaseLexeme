@@ -4,13 +4,13 @@
 			"Chrumps"
 		]
 	},
-	"wikibase-newlexeme-lexicalcategory": "Kategoria leksykalna",
-	"wikibase-lexeme-view-language-lexical-category": "$1 w $2",
-	"wikibase-lemma-field-language-label": "Język",
-	"wikibase-form-field-language-label": "Język",
-	"wikibase-gloss-field-language-label": "Język",
-	"wikibase-lexeme-api-error-parameter-required": "Parametr „$1” jest wymagany",
-	"wikibase-lexeme-language": "Język",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Kategoria leksykalna",
+	"wikibaselexeme-language-lexical-category-value": "$1 w $2",
+	"wikibaselexeme-lemma-field-language-label": "Język",
+	"wikibaselexeme-form-field-language-label": "Język",
+	"wikibaselexeme-gloss-field-language-label": "Język",
+	"wikibaselexeme-api-error-parameter-required": "Parametr „$1” jest wymagany",
+	"wikibaselexeme-field-language-label": "Język",
 	"wikibaselexeme-diffview-lexical-category": "kategoria leksykalna",
 	"wikibaselexeme-diffview-language": "język"
 }

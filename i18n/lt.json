@@ -5,7 +5,7 @@
 			"Nuodas"
 		]
 	},
-	"wikibase-lexeme-view-forms": "Formos",
-	"wikibase-lexeme-view-senses": "Pojūčiai",
-	"wikibase-lexeme-language": "Kalba"
+	"wikibaselexeme-header-forms": "Formos",
+	"wikibaselexeme-header-senses": "Pojūčiai",
+	"wikibaselexeme-field-language-label": "Kalba"
 }

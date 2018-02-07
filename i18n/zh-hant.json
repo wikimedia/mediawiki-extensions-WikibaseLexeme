@@ -4,10 +4,10 @@
 			"Liuxinyu970226"
 		]
 	},
-	"wikibase-lexeme-view-forms": "詞性",
-	"wikibase-lemma-field-language-label": "語言",
-	"wikibase-form-field-language-label": "語言",
-	"wikibase-gloss-field-language-label": "語言",
-	"wikibase-lexeme-language": "語言",
+	"wikibaselexeme-header-forms": "詞性",
+	"wikibaselexeme-lemma-field-language-label": "語言",
+	"wikibaselexeme-form-field-language-label": "語言",
+	"wikibaselexeme-gloss-field-language-label": "語言",
+	"wikibaselexeme-field-language-label": "語言",
 	"wikibaselexeme-diffview-language": "語言"
 }

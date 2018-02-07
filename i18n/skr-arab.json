@@ -4,9 +4,9 @@
 			"Saraiki"
 		]
 	},
-	"wikibase-lemma-field-language-label": "زبان",
-	"wikibase-form-field-language-label": "زبان",
-	"wikibase-gloss-field-language-label": "زبان",
-	"wikibase-lexeme-language": "زبان",
+	"wikibaselexeme-lemma-field-language-label": "زبان",
+	"wikibaselexeme-form-field-language-label": "زبان",
+	"wikibaselexeme-gloss-field-language-label": "زبان",
+	"wikibaselexeme-field-language-label": "زبان",
 	"wikibaselexeme-diffview-language": "زبان"
 }

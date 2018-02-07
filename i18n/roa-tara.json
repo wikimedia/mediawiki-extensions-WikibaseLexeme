@@ -4,6 +4,6 @@
 			"Joetaras"
 		]
 	},
-	"wikibase-lemma-field-lemma-label": "Lemma",
-	"wikibase-form-field-language-label": "Lènghe"
+	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
+	"wikibaselexeme-form-field-language-label": "Lènghe"
 }

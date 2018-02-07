@@ -5,9 +5,9 @@
 			"Festina90"
 		]
 	},
-	"wikibase-lexeme-view-language-lexical-category": "$1 in $2",
-	"wikibase-lexeme-statementsection-statements-about-form": "Uitspraken over $1",
-	"wikibase-lexeme-statementsection-statements-about-sense": "Uitspraken over $1",
+	"wikibaselexeme-language-lexical-category-value": "$1 in $2",
+	"wikibaselexeme-statementsection-statements-about-form": "Uitspraken over $1",
+	"wikibaselexeme-statementsection-statements-about-sense": "Uitspraken over $1",
 	"datatypes-type-wikibase-lexeme-form": "De vorm van het lexeem",
 	"datatypes-type-wikibase-lexeme-sense": "De zin van het lexeem"
 }

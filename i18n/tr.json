@@ -5,11 +5,11 @@
 			"Sayginer"
 		]
 	},
-	"wikibase-lemma-field-lemma-label": "baş teorem",
-	"wikibase-lemma-field-language-label": "Dil",
-	"wikibase-form-field-representation-label": "Temsil",
-	"wikibase-form-field-language-label": "Dil",
-	"wikibase-gloss-field-language-label": "Dil",
-	"wikibase-gloss-field-gloss-label": "Örtbas",
-	"wikibase-lexeme-language": "Dil"
+	"wikibaselexeme-lemma-field-lemma-label": "baş teorem",
+	"wikibaselexeme-lemma-field-language-label": "Dil",
+	"wikibaselexeme-form-field-representation-label": "Temsil",
+	"wikibaselexeme-form-field-language-label": "Dil",
+	"wikibaselexeme-gloss-field-language-label": "Dil",
+	"wikibaselexeme-gloss-field-gloss-label": "Örtbas",
+	"wikibaselexeme-field-language-label": "Dil"
 }
