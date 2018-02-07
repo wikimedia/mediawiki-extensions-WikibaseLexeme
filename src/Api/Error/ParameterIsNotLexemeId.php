@@ -32,7 +32,7 @@ class ParameterIsNotLexemeId implements ApiError {
 	public function asApiMessage() {
 		// Parameter "$1" expected to be a valid Lexeme ID (ex. "L10"), given "$2"
 		$message = new \Message(
-			'wikibase-lexeme-api-error-parameter-not-lexeme-id',
+			'wikibaselexeme-api-error-parameter-not-lexeme-id',
 			[ $this->parameterName, $this->given ]
 		);
 		return new \ApiMessage( $message, 'bad-request' );

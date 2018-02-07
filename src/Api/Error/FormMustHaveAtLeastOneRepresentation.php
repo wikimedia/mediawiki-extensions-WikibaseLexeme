@@ -31,7 +31,7 @@ class FormMustHaveAtLeastOneRepresentation implements ApiError {
 	 */
 	public function asApiMessage() {
 		$message = new \Message(
-			'wikibase-lexeme-api-error-form-must-have-at-least-one-representation',
+			'wikibaselexeme-api-error-form-must-have-at-least-one-representation',
 			[]
 		);
 		return new \ApiMessage(

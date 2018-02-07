@@ -24,7 +24,7 @@ class ParameterIsRequired implements ApiError {
 	 */
 	public function asApiMessage() {
 		$message = new \Message(
-			'wikibase-lexeme-api-error-parameter-required',
+			'wikibaselexeme-api-error-parameter-required',
 			[ $this->parameterName ]
 		);
 		return new \ApiMessage( $message, 'bad-request' );

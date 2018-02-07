@@ -91,21 +91,21 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'class' => HTMLTrimmedTextField::class,
 				'id' => 'wb-newlexeme-lemma',
 				'required' => true,
-				'placeholder-message' => 'wikibase-lemma-edit-placeholder',
-				'label-message' => 'wikibase-newlexeme-lemma'
+				'placeholder-message' => 'wikibaselexeme-lemma-edit-placeholder',
+				'label-message' => 'wikibaselexeme-newlexeme-lemma'
 			],
 			self::FIELD_LEMMA_LANGUAGE => [
 				'name' => self::FIELD_LEMMA_LANGUAGE,
 				'class' => HTMLContentLanguageField::class,
 				'id' => 'wb-newlexeme-lemma-language',
-				'label-message' => 'wikibase-newlexeme-lemma-language',
+				'label-message' => 'wikibaselexeme-newlexeme-lemma-language',
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,
 				'labelFieldName' => self::FIELD_LEXEME_LANGUAGE . '-label',
 				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexeme-language',
-				'label-message' => 'wikibase-newlexeme-language',
+				'label-message' => 'wikibaselexeme-newlexeme-language',
 				'required' => true,
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
@@ -113,7 +113,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'labelFieldName' => self::FIELD_LEXICAL_CATEGORY . '-label',
 				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
-				'label-message' => 'wikibase-newlexeme-lexicalcategory',
+				'label-message' => 'wikibaselexeme-newlexeme-lexicalcategory',
 				'required' => true,
 			]
 		];
@@ -169,7 +169,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	}
 
 	protected function getLegend() {
-		return $this->msg( 'wikibase-newlexeme-fieldset' );
+		return $this->msg( 'wikibaselexeme-newlexeme-fieldset' );
 	}
 
 	protected function getWarnings() {

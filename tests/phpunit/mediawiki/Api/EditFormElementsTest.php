@@ -109,7 +109,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 			'data not a well-formed JSON object' => [
 				[ 'formId' => 'L1-F1', 'data' => '{foo' ],
 				[
-					'message-key' => 'wikibase-lexeme-api-error-parameter-invalid-json-object',
+					'message-key' => 'wikibaselexeme-api-error-parameter-invalid-json-object',
 					'message-parameters' => [ 'data', '{foo' ],
 					'api-error-code' => 'bad-request',
 					'api-error-data' => []

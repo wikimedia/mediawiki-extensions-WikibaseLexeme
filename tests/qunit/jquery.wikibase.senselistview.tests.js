@@ -53,7 +53,7 @@
 	QUnit.test( 'includes a button to "add sense"', function ( assert ) {
 		var translatedMessage = 'adde the lexeme!';
 		var messageStub = function ( key ) {
-			if ( key === 'wikibase-lexeme-add-sense' ) { return translatedMessage; }
+			if ( key === 'wikibaselexeme-add-sense' ) { return translatedMessage; }
 		};
 
 		var $view = createViewElement( messageStub );

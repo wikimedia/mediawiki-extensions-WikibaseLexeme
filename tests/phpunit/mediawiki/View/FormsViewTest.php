@@ -35,7 +35,7 @@ class FormsViewTest extends PHPUnit_Framework_TestCase {
 				both( withTagName( 'h2' ) )
 					->andAlso( havingChild(
 						both( withAttribute( 'id' )->havingValue( 'forms' ) )
-							->andAlso( havingTextContents( '(wikibase-lexeme-view-forms)' ) )
+							->andAlso( havingTextContents( '(wikibaselexeme-view-forms)' ) )
 					) )
 			) ) )
 		);

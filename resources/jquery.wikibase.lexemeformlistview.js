@@ -45,7 +45,7 @@
 			PARENT.prototype._create.call( this );
 
 			this._createListView();
-			var addFormMessage = this.options.getMessage( 'wikibase-lexeme-add-form' );
+			var addFormMessage = this.options.getMessage( 'wikibaselexeme-add-form' );
 			this.options.getAdder( this.enterNewItem.bind( this ), this.element, addFormMessage );
 		},
 

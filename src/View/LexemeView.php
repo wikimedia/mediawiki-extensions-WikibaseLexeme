@@ -292,25 +292,27 @@ HTML;
 <div class="language-lexical-category-widget">
 	<div v-if="!inEditMode">
 		<div>
-			<span>{{'wikibase-lexeme-language'|message}}</span>
+			<span>{{'wikibaselexeme-field-language-label'|message}}</span>
 			<span class="language-lexical-category-widget_language" v-html="formattedLanguage"></span>
 		</div>
 		<div>
-			<span>{{'wikibase-lexeme-lexical-category'|message}}</span>
+			<span>{{'wikibaselexeme-field-lexical-category-label'|message}}</span>
 			<span class="language-lexical-category-widget_lexical-category"
 				v-html="formattedLexicalCategory"></span>
 		</div>
 	</div>
 	<div v-else>
 		<div>
-			<label for="lexeme-language">{{'wikibase-lexeme-language'|message}}</label>
+			<label for="lexeme-language">{{'wikibaselexeme-field-language-label'|message}}</label>
 			<item-selector
 				id="lexeme-language"
 				v-bind:value="language"
 				@input="$emit('update:language', $event)"></item-selector>
 		</div>
 		<div>
-			<label for="lexeme-lexical-category">{{'wikibase-lexeme-lexical-category'|message}}</label>
+			<label for="lexeme-lexical-category">
+				{{'wikibaselexeme-field-lexical-category-label'|message}}
+			</label>
 			<item-selector
 				id="lexeme-lexical-category"
 				v-bind:value="lexicalCategory"
@@ -334,12 +336,12 @@ HTML;
 		<ul class="lemma-widget_lemma-list">
 			<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
 				<span class="lemma-widget_lemma-value-label">
-					{{'wikibase-lemma-field-lemma-label'|message}}
+					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
 				</span>
 				<input size="1" class="lemma-widget_lemma-value-input"
 					v-model="lemma.value" :disabled="isSaving">
 				<span class="lemma-widget_lemma-language-label">
-					{{'wikibase-lemma-field-language-label'|message}}
+					{{'wikibaselexeme-lemma-field-language-label'|message}}
 				</span>
 				<input size="1" class="lemma-widget_lemma-language-input"
 					v-model="lemma.language" :disabled="isSaving">

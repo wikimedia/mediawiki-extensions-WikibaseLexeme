@@ -72,7 +72,7 @@ class SensesView {
 		$html = '<div class="wikibase-lexeme-senses-section">';
 		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="senses">'
-			. htmlspecialchars( $this->textProvider->get( 'wikibase-lexeme-view-senses' ) )
+			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-view-senses' ) )
 			. '</span>'
 			. '</h2>';
 
@@ -139,7 +139,7 @@ class SensesView {
 	private function getStatementSectionHtml( Sense $sense ) {
 		$headerText = htmlspecialchars(
 			$this->textProvider->get(
-				'wikibase-lexeme-statementsection-statements-about-sense',
+				'wikibaselexeme-statementsection-statements-about-sense',
 				[ $sense->getId()->getSerialization() ]
 			)
 		);
@@ -180,9 +180,9 @@ HTML;
 		<thead v-if="inEditMode">
 			<tr class="wikibase-lexeme-sense-gloss-table-header">
 				<td class="wikibase-lexeme-sense-gloss-language">
-					{{'wikibase-gloss-field-language-label'|message}}
+					{{'wikibaselexeme-gloss-field-language-label'|message}}
 				</td>
-				<td>{{'wikibase-gloss-field-gloss-label'|message}}</td>
+				<td>{{'wikibaselexeme-gloss-field-gloss-label'|message}}</td>
 				<td></td>
 			</tr>
 		</thead>
