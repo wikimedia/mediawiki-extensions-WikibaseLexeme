@@ -10,6 +10,7 @@ use Diff\DiffOp\DiffOpRemove;
 use MessageLocalizer;
 use MWException;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
+use Wikibase\Lexeme\DataModel\Services\Diff\FormDiff;
 use Wikibase\Repo\Diff\BasicDiffView;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
@@ -72,6 +73,8 @@ class FormDiffView extends BasicDiffView {
 
 		foreach ( $op as $key => $subOp ) {
 			if ( $subOp instanceof ChangeFormDiffOp ) {
+				$html .= $this->generateChangeFormOpHtml( $path, $subOp, $key );
+			} elseif ( $subOp instanceof FormDiff ) {
 				$html .= $this->generateFormOpHtml( $path, $subOp, $key );
 			} else {
 				$html .= $this->generateOpHtml( array_merge( $path, [ $key ] ), $subOp );
@@ -81,7 +84,7 @@ class FormDiffView extends BasicDiffView {
 		return $html;
 	}
 
-	private function generateFormOpHtml( array $path, ChangeFormDiffOp $op, $key ) {
+	private function generateChangeFormOpHtml( array $path, ChangeFormDiffOp $op, $key ) {
 		$html = '';
 
 		foreach ( $op->getStatementsDiffOps() as $claimDiffOp ) {
@@ -106,6 +109,35 @@ class FormDiffView extends BasicDiffView {
 			),
 			$op->getGrammaticalFeaturesDiffOps()
 		);
+
+		return $html;
+	}
+
+	private function generateFormOpHtml( array $path, FormDiff $op, $key ) {
+		$html = '';
+
+		$html .= parent::generateOpHtml(
+			array_merge(
+				$path,
+				[ $key, $this->messageLocalizer->msg( 'wikibaselexeme-diffview-representation' )->text() ]
+			),
+			$op->getRepresentationDiff()
+		);
+
+		$html .= parent::generateOpHtml(
+			array_merge(
+				$path,
+				[ $key, $this->messageLocalizer->msg( 'wikibaselexeme-diffview-grammatical-feature' )->text() ]
+			),
+			$op->getGrammaticalFeaturesDiff()
+		);
+
+		foreach ( $op->getStatementsDiff() as $claimDiffOp ) {
+			$html .= $this->getClaimDiffHtml(
+				$claimDiffOp,
+				array_merge( $path, [ $key ] )
+			);
+		}
 
 		return $html;
 	}

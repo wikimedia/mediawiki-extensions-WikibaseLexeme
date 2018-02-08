@@ -10,6 +10,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\DataModel\Form;
 
 /**
@@ -99,6 +100,19 @@ class FormDiffer implements EntityDifferStrategy {
 		);
 
 		return new ChangeFormDiffOp( $old->getId(), new Diff( $diffOps ) );
+	}
+
+	public function getAddFormDiff( Form $form ) {
+		$diffOps = $this->recursiveMapDiffer->doDiff(
+			[],
+			$this->toFormDiffArray( $form )
+		);
+		$diffOps['claim'] = $this->statementListDiffer->getDiff(
+			new StatementList(),
+			$form->getStatements()
+		);
+
+		return new AddFormDiff( $form, new Diff( $diffOps ) );
 	}
 
 	/**

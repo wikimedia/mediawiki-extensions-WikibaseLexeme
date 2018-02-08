@@ -3,41 +3,36 @@
 namespace Wikibase\Lexeme\DataModel\Services\Diff;
 
 use Diff\DiffOp\Diff\Diff;
-use Wikibase\DataModel\Services\Diff\EntityDiff;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Form;
 
 /**
  * @license GPL-2.0+
- * TODO: make it implement FormDiff?
  */
-class ChangeFormDiffOp extends EntityDiff {
+class AddFormDiff implements FormDiff {
 
 	/**
-	 * @var FormId
+	 * @var Form
 	 */
-	private $formId;
+	private $form;
+
 	/**
 	 * @var Diff
 	 */
 	private $diffOps;
 
-	public function __construct( FormId $formId, Diff $diffOps ) {
-		$this->formId = $formId;
-		// FIXME: This class already extends Diff. It should note require an other Diff object.
+	public function __construct( Form $addedForm, Diff $diffOps ) {
+		$this->form = $addedForm;
 		$this->diffOps = $diffOps;
 	}
 
-	/**
-	 * @return FormId
-	 */
-	public function getFormId() {
-		return $this->formId;
+	public function getAddedForm() {
+		return $this->form;
 	}
 
 	/**
 	 * @return Diff
 	 */
-	public function getRepresentationDiffOps() {
+	public function getRepresentationDiff() {
 		return isset( $this->diffOps['representations'] ) ?
 			$this->diffOps['representations']
 			: new Diff( [] );
@@ -46,7 +41,7 @@ class ChangeFormDiffOp extends EntityDiff {
 	/**
 	 * @return Diff
 	 */
-	public function getGrammaticalFeaturesDiffOps() {
+	public function getGrammaticalFeaturesDiff() {
 		return isset( $this->diffOps['grammaticalFeatures'] ) ?
 			$this->diffOps['grammaticalFeatures']
 			: new Diff( [] );
@@ -55,7 +50,7 @@ class ChangeFormDiffOp extends EntityDiff {
 	/**
 	 * @return Diff
 	 */
-	public function getStatementsDiffOps() {
+	public function getStatementsDiff() {
 		return isset( $this->diffOps['claim'] ) ?
 			$this->diffOps['claim']
 			: new Diff( [] );
@@ -68,7 +63,6 @@ class ChangeFormDiffOp extends EntityDiff {
 	}
 
 	public function getType() {
-//		return 'diff/lexeme/form';
 		return 'diff';
 	}
 
@@ -77,25 +71,11 @@ class ChangeFormDiffOp extends EntityDiff {
 	}
 
 	public function toArray( $valueConverter = null ) {
-		throw new \LogicException( "toArray() is not implemented" );
+		throw new \LogicException( 'toArray() is not implemented' );
 	}
 
-	/**
-	 * @see Diff::count
-	 *
-	 * @return int
-	 */
 	public function count() {
 		return $this->diffOps->count();
-	}
-
-	/**
-	 * @see Diff::isEmpty
-	 *
-	 * @return bool
-	 */
-	public function isEmpty() {
-		return $this->diffOps->isEmpty();
 	}
 
 }
