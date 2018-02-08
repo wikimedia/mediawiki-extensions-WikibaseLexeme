@@ -60,18 +60,18 @@ class FormPatcher implements EntityPatcherStrategy {
 	public function patch( Form $form, ChangeFormDiffOp $diff ) {
 		$this->termListPatcher->patchTermList(
 			$form->getRepresentations(),
-			$diff->getRepresentationDiffOps()
+			$diff->getRepresentationDiff()
 		);
 		$grammaticalFeatures = $form->getGrammaticalFeatures();
 		$patchedGrammaticalFeatures = $this->listPatcher->patch(
 			$grammaticalFeatures,
-			$diff->getGrammaticalFeaturesDiffOps()
+			$diff->getGrammaticalFeaturesDiff()
 		);
 		$form->setGrammaticalFeatures( $patchedGrammaticalFeatures );
 
 		$this->statementListPatcher->patchStatementList(
 			$form->getStatements(),
-			$diff->getStatementsDiffOps()
+			$diff->getStatementsDiff()
 		);
 	}
 

@@ -8,9 +8,8 @@ use Wikibase\Lexeme\DataModel\FormId;
 
 /**
  * @license GPL-2.0+
- * TODO: make it implement FormDiff?
  */
-class ChangeFormDiffOp extends EntityDiff {
+class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 
 	/**
 	 * @var FormId
@@ -37,7 +36,7 @@ class ChangeFormDiffOp extends EntityDiff {
 	/**
 	 * @return Diff
 	 */
-	public function getRepresentationDiffOps() {
+	public function getRepresentationDiff() {
 		return isset( $this->diffOps['representations'] ) ?
 			$this->diffOps['representations']
 			: new Diff( [] );
@@ -46,7 +45,7 @@ class ChangeFormDiffOp extends EntityDiff {
 	/**
 	 * @return Diff
 	 */
-	public function getGrammaticalFeaturesDiffOps() {
+	public function getGrammaticalFeaturesDiff() {
 		return isset( $this->diffOps['grammaticalFeatures'] ) ?
 			$this->diffOps['grammaticalFeatures']
 			: new Diff( [] );
@@ -55,7 +54,7 @@ class ChangeFormDiffOp extends EntityDiff {
 	/**
 	 * @return Diff
 	 */
-	public function getStatementsDiffOps() {
+	public function getStatementsDiff() {
 		return isset( $this->diffOps['claim'] ) ?
 			$this->diffOps['claim']
 			: new Diff( [] );
