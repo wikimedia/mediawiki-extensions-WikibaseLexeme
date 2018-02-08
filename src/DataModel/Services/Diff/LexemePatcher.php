@@ -148,9 +148,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 					);
 					break;
 
-				case $formDiff instanceof DiffOpRemove:
-					$form = $formDiff->getOldValue();
-					$lexeme->removeForm( $form->getId() );
+				case $formDiff instanceof RemoveFormDiff:
+					$lexeme->removeForm( $formDiff->getRemovedFormId() );
 					break;
 
 				case $formDiff instanceof ChangeFormDiffOp:

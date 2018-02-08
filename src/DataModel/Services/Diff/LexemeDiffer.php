@@ -6,6 +6,7 @@ use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpAdd;
+use Diff\DiffOp\DiffOpRemove;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
@@ -177,6 +178,9 @@ class LexemeDiffer implements EntityDifferStrategy {
 			}
 			if ( $formDiffOp instanceof DiffOpAdd ) {
 				$formDiffOps[$index] = $this->formDiffer->getAddFormDiff( $formDiffOp->getNewValue() );
+			}
+			if ( $formDiffOp instanceof DiffOpRemove ) {
+				$formDiffOps[$index] = $this->formDiffer->getRemoveFormDiff( $formDiffOp->getOldValue() );
 			}
 		}
 
