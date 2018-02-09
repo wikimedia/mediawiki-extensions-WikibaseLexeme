@@ -22,6 +22,8 @@ class RebuildTermSqlIndex extends Maintenance {
 
 		$this->addDescription( 'Updates serialization of lexeme data in the outdated format. ' .
 			'NEVER RUN IN PRODUCTION ENVIRONMENT!' );
+
+		$this->requireExtension( 'WikibaseLexeme' );
 	}
 
 	public function execute() {
