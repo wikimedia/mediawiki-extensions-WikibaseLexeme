@@ -4,12 +4,14 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiMessage;
 use ApiUsageException;
+use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -22,6 +24,13 @@ use Wikibase\Repo\WikibaseRepo;
  * @group medium
  */
 class EditFormElementsTest extends WikibaseApiTestCase {
+
+	public function setUp() {
+		parent::setUp();
+
+		$this->tablesUsed[] = 'page';
+		$this->tablesUsed[] = 'revision';
+	}
 
 	/**
 	 * @dataProvider provideInvalidParams
@@ -297,7 +306,209 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->assertEmpty( $form->getGrammaticalFeatures() );
 	}
 
-	// TODO: test summary once its set!
+	public function testGivenChangedRepresentation_summarySetAccordingly() {
+		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeeditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'goadth' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$formRevision = $this->getCurrentRevisionForForm( 'L1-F1' );
+
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$formRevision->getRevisionId()
+		);
+
+		$this->assertEquals(
+			'/* set-form-representations:1||L1-F1 */ en: goadth',
+			$revision->getComment()->text
+		);
+	}
+
+	public function testGivenAddedRepresentationInNewLanguage_summarySetAccordingly() {
+		$form = NewForm::havingId( 'F1' )
+			->andRepresentation( 'en', 'colour' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeeditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'colour' ],
+					[ 'language' => 'en-us', 'representation' => 'color' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$formRevision = $this->getCurrentRevisionForForm( 'L1-F1' );
+
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$formRevision->getRevisionId()
+		);
+
+		$this->assertEquals(
+			'/* add-form-representations:1||L1-F1 */ en-us: color',
+			$revision->getComment()->text
+		);
+	}
+
+	public function testGivenRemovedRepresentation_summarySetAccordingly() {
+		$form = NewForm::havingId( 'F1' )
+			->andRepresentation( 'en', 'colour' )
+			->andRepresentation( 'en-us', 'color' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeeditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'colour' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$formRevision = $this->getCurrentRevisionForForm( 'L1-F1' );
+
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$formRevision->getRevisionId()
+		);
+
+		$this->assertEquals(
+			'/* remove-form-representations:1||L1-F1 */ en-us: color',
+			$revision->getComment()->text
+		);
+	}
+
+	public function testGivenAddedGrammaticalFeature_summarySetAccordingly() {
+		$form = NewForm::havingId( 'F1' )
+			->andGrammaticalFeature( 'Q123' )
+			->andRepresentation( 'en', 'goat' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeeditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'goat' ],
+				],
+				'grammaticalFeatures' => [ 'Q123', 'Q678' ],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$formRevision = $this->getCurrentRevisionForForm( 'L1-F1' );
+
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$formRevision->getRevisionId()
+		);
+
+		$this->assertStringStartsWith(
+			'/* add-form-grammatical-features:1||L1-F1 */',
+			$revision->getComment()->text
+		);
+		$this->assertContains( 'Q678', $revision->getComment()->text );
+	}
+
+	public function testGivenRemovedGrammaticalFeature_summarySetAccordingly() {
+		$form = NewForm::havingId( 'F1' )
+			->andGrammaticalFeature( 'Q123' )
+			->andRepresentation( 'en', 'goat' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeeditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'goat' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$formRevision = $this->getCurrentRevisionForForm( 'L1-F1' );
+
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$formRevision->getRevisionId()
+		);
+
+		$this->assertStringStartsWith(
+			'/* remove-form-grammatical-features:1||L1-F1 */',
+			$revision->getComment()->text
+		);
+		$this->assertContains( 'Q123', $revision->getComment()->text );
+	}
+
+	public function testGivenSeveralPartsChanged_genericSummaryUsed() {
+		$form = NewForm::havingId( 'F1' )
+			->andRepresentation( 'en', 'colour' )
+			->andGrammaticalFeature( 'Q123' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wblexemeeditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'colour' ],
+					[ 'language' => 'en-us', 'representation' => 'color' ],
+				],
+				'grammaticalFeatures' => [ 'Q678' ],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$formRevision = $this->getCurrentRevisionForForm( 'L1-F1' );
+
+		$revision = MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById(
+			$formRevision->getRevisionId()
+		);
+
+		$this->assertEquals(
+			'/* update-form-elements:0||L1-F1 */',
+			$revision->getComment()->text
+		);
+	}
 
 	public function testGivenFormEdited_responseContainsSuccessMarker() {
 		$form = NewForm::havingId( 'F1' )
@@ -354,8 +565,6 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		);
 	}
 
-	// TODO: test API response contains the revision ID
-
 	private function saveLexeme( Lexeme $lexeme ) {
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 
@@ -370,6 +579,17 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 	private function getLexeme( $id ) {
 		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return EntityRevision|null
+	 */
+	private function getCurrentRevisionForForm( $id ) {
+		$lookup = WikibaseRepo::getDefaultInstance()->getEntityRevisionLookup();
+
+		return $lookup->getEntityRevision( new FormId( $id ) );
 	}
 
 }

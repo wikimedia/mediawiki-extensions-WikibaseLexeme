@@ -107,11 +107,13 @@ class EditFormElements extends \ApiBase {
 		$form = $formRevision->getEntity();
 
 		$changeOp = $request->getChangeOp();
-		$summary = new EditFormElementsSummary();
-		// TODO: We can not use summary in the changeop, we should
+		// TODO: Uses some FormattableSummary instead of Summary
+		$summary = $changeOp->generateSummaryWhenAppliedToForm( $form );
 		$changeOp->apply( $form );
 
-		$status = $this->saveForm( $form, $summary, $formRevision->getRevisionId(), $params );
+		$summaryString = $this->summaryFormatter->formatSummary( $summary );
+
+		$status = $this->saveForm( $form, $summaryString, $formRevision->getRevisionId(), $params );
 
 		if ( !$status->isGood() ) {
 			$this->dieStatus( $status );
@@ -122,14 +124,14 @@ class EditFormElements extends \ApiBase {
 
 	/**
 	 * @param Form $form
-	 * @param EditFormElementsSummary $summary
+	 * @param string $summary
 	 * @param int $baseRevisionId
 	 * @param array $params
 	 * @return \Status
 	 */
 	private function saveForm(
 		Form $form,
-		EditFormElementsSummary $summary,
+		$summary,
 		$baseRevisionId,
 		array $params
 	) {
@@ -148,7 +150,7 @@ class EditFormElements extends \ApiBase {
 		$tokenThatDoesNotNeedChecking = false;
 		return $editEntity->attemptSave(
 			$form,
-			$this->summaryFormatter->formatSummary( $summary ),
+			$summary,
 			$flags,
 			$tokenThatDoesNotNeedChecking
 		);
