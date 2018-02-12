@@ -39,7 +39,7 @@ class AddGrammaticalFeatureSummary implements FormatableSummary {
 	}
 
 	public function getMessageKey() {
-		/** @see "wikibaselexeme-summary-add-form-grammatical-features" message */
+		// Effective message key: wikibase-lexeme-summary-add-form-grammatical-features
 		return 'add-form-grammatical-features';
 	}
 

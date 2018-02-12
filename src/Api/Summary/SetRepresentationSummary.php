@@ -16,7 +16,7 @@ class SetRepresentationSummary implements FormatableSummary {
 	private $formId;
 
 	/**
-	 * @var string
+	 * @var string[]
 	 */
 	private $representations;
 
@@ -38,7 +38,7 @@ class SetRepresentationSummary implements FormatableSummary {
 	}
 
 	public function getMessageKey() {
-		/** @see "wikibaselexeme-summary-set-form-representations" message */
+		// Effective message key: wikibase-lexeme-summary-set-form-representations
 		return 'set-form-representations';
 	}
 

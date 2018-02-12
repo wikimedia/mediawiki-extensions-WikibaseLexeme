@@ -27,11 +27,11 @@ class ChangeFormElementsSummary implements FormatableSummary {
 	}
 
 	public function getLanguageCode() {
-		return ''; // TODO: ????
+		return null;
 	}
 
 	public function getMessageKey() {
-		/** @see "wikibaselexeme-summary-update-form-elements" message */
+		// Effective message key: wikibase-lexeme-summary-update-form-elements
 		return 'update-form-elements';
 	}
 

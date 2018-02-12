@@ -16,7 +16,7 @@ class RemoveRepresentationSummary implements FormatableSummary {
 	private $formId;
 
 	/**
-	 * @var string
+	 * @var string[]
 	 */
 	private $removedRepresentations;
 
@@ -38,7 +38,7 @@ class RemoveRepresentationSummary implements FormatableSummary {
 	}
 
 	public function getMessageKey() {
-		/** @see "wikibaselexeme-summary-remove-form-representations" message */
+		// Effective message key: wikibase-lexeme-summary-remove-form-representations
 		return 'remove-form-representations';
 	}
 

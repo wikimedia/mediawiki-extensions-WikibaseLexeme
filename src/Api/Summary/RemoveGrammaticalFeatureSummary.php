@@ -39,7 +39,7 @@ class RemoveGrammaticalFeatureSummary implements FormatableSummary {
 	}
 
 	public function getMessageKey() {
-		/** @see "wikibaselexeme-summary-remove-form-grammatical-features" message */
+		// Effective message key: wikibase-lexeme-summary-remove-form-grammatical-features
 		return 'remove-form-grammatical-features';
 	}
 

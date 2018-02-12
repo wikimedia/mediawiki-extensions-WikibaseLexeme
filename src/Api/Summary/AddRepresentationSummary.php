@@ -38,7 +38,7 @@ class AddRepresentationSummary implements FormatableSummary {
 	}
 
 	public function getMessageKey() {
-		/** @see "wikibaselexeme-summary-add-form-representations" message */
+		// Effective message key: wikibase-lexeme-summary-add-form-representations
 		return 'add-form-representations';
 	}
 
