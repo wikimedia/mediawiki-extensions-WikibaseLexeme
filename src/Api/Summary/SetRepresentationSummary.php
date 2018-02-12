@@ -34,7 +34,7 @@ class SetRepresentationSummary implements FormatableSummary {
 	}
 
 	public function getLanguageCode() {
-		return null;
+		return count( $this->representations ) === 1 ? key( $this->representations ) : null;
 	}
 
 	public function getMessageKey() {

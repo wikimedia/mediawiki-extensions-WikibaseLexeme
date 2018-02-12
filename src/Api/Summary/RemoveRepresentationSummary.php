@@ -34,7 +34,7 @@ class RemoveRepresentationSummary implements FormatableSummary {
 	}
 
 	public function getLanguageCode() {
-		return null;
+		return count( $this->removedRepresentations ) === 1 ? key( $this->removedRepresentations ) : null;
 	}
 
 	public function getMessageKey() {
