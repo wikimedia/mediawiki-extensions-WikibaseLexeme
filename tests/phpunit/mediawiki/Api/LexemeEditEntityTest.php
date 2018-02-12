@@ -44,7 +44,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertArrayHasKey( 'id', $result['entity'] );
@@ -94,7 +94,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
@@ -124,7 +124,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
@@ -154,7 +154,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
@@ -176,7 +176,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
@@ -204,7 +204,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
@@ -232,7 +232,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
@@ -262,7 +262,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
@@ -300,7 +300,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
@@ -327,7 +327,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			] ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );

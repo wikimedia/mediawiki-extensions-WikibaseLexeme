@@ -26,7 +26,7 @@ class LexemeGetEntitiesTest extends WikibaseApiTestCase {
 	public function testNextFormIdIsNotIncludedInLexemeData() {
 		$this->saveDummyLexemeToDatabase();
 
-		list ( $result, ) = $this->doApiRequest( [
+		list( $result, ) = $this->doApiRequest( [
 			'action' => 'wbgetentities',
 			'ids' => self::LEXEME_ID,
 		] );
