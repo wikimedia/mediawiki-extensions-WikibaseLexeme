@@ -13,7 +13,7 @@ use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class TemplateFactoryTest extends PHPUnit_Framework_TestCase {
+class LexemeTemplateFactoryTest extends PHPUnit_Framework_TestCase {
 
 	private function newInstance() {
 		return new LexemeTemplateFactory( [ 'basic' => '$1' ] );

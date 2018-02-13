@@ -147,7 +147,7 @@ class SetClaimTest extends WikibaseApiTestCase {
 			'claim' => json_encode( $this->getStatementData( $guid, $propertyId, $value ) ),
 		];
 
-		list ( $result, ) = $this->doApiRequestWithToken( $params );
+		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 	}

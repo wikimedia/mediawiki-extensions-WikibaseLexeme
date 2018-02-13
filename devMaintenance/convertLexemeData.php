@@ -15,7 +15,7 @@ require_once $basePath . '/maintenance/Maintenance.php';
 /**
  * @license GPL-2.0+
  */
-class RebuildTermSqlIndex extends Maintenance {
+class ConvertLexemeData extends Maintenance {
 
 	public function __construct() {
 		parent::__construct();
@@ -53,5 +53,5 @@ class RebuildTermSqlIndex extends Maintenance {
 
 }
 
-$maintClass = RebuildTermSqlIndex::class;
+$maintClass = ConvertLexemeData::class;
 require_once RUN_MAINTENANCE_IF_MAIN;

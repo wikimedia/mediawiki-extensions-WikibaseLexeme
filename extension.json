@@ -6,7 +6,7 @@
 	],
 	"url": "https://www.mediawiki.org/wiki/Extension:WikibaseLexeme",
 	"descriptionmsg": "wikibaselexeme-desc",
-	"license-name": "GPL-2.0+",
+	"license-name": "GPL-2.0-or-later",
 	"type": "wikibase",
 	"requires": {
 		"MediaWiki": ">= 1.31.0"
