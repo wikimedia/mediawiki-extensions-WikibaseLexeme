@@ -1,0 +1,13 @@
+{
+	"@metadata": {
+		"authors": [
+			"Ilimanaq29"
+		]
+	},
+	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Přidána reprezentace|Přidány reprezentace}} formy $3",
+	"wikibase-lexeme-summary-set-form-representations": "{{PLURAL:$1|Změněna reprezentace|Změněny reprezentace}} formy $3",
+	"wikibase-lexeme-summary-remove-form-representations": "{{PLURAL:$1|Odstraněna reprezentace|Odstraněny reprezentace}} formy $3",
+	"wikibase-lexeme-summary-add-form-grammatical-features": "Přidány gramatické {{PLURAL:$1|funkce}} formy $3",
+	"wikibase-lexeme-summary-remove-form-grammatical-features": "Odebrány gramatické {{PLURAL:$1|funkce}} formy $3",
+	"wikibase-lexeme-summary-update-form-elements": "Změněny reprezentace a/nebo gramatické funkce formy $3"
+}
