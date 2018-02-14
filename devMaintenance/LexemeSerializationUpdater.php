@@ -188,7 +188,13 @@ class LexemeSerializationUpdater {
 
 		foreach ( $data['forms'] as &$formData ) {
 			if ( strncmp( $formData['id'], $lexemeId . '-', strlen( $lexemeId ) + 1 ) !== 0 ) {
-				$formData['id'] = $lexemeId . '-' . $formData['id'];
+				$formId = $formData['id'];
+				$formIdParts = explode( '-', $formData['id'], 2 );
+				if ( count( $formIdParts ) === 2 ) {
+					$formId = $formIdParts[1];
+				}
+
+				$formData['id'] = $lexemeId . '-' . $formId;
 			}
 		}
 	}

@@ -82,6 +82,25 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 		);
 	}
 
+	public function testGivenLexemeDataWithFormIdsContainingWrongLexemeId_formIdsArePrepended() {
+		$lexemeDataWithFormIdsPrependedWithLexemeId = $this->getLexemeDataWithNextFormId();
+
+		$db = $this->getDB( [ $this->getLexemeDataWithFormIdsContainingWrongLexemeIdPart() ] );
+
+		$updater = $this->newUpdater( $db );
+
+		$updater->update();
+
+		$updatedData = $db->getUpdateData();
+
+		$this->assertCount( 1, $updatedData );
+		$this->assertEquals( [ 'old_id' => 1 ], $updatedData[0]['conds'] );
+		$this->assertEquals(
+			$lexemeDataWithFormIdsPrependedWithLexemeId,
+			json_decode( $updatedData[0]['new']['old_text'], true )
+		);
+	}
+
 	public function testGivenLexemeDataWithInvalidFormStatementId_statementIdsIsUpdated() {
 		$lexemeDataWithFormIdsPrependedWithLexemeId = $this->getLexemeDataWithStatementOnForm();
 
@@ -216,6 +235,14 @@ class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
 		$data = $this->getLexemeDataWithNextFormId();
 
 		$data['forms'][0]['id'] = 'F2';
+
+		return $data;
+	}
+
+	private function getLexemeDataWithFormIdsContainingWrongLexemeIdPart() {
+		$data = $this->getLexemeDataWithNextFormId();
+
+		$data['forms'][0]['id'] = 'L666-F2';
 
 		return $data;
 	}
