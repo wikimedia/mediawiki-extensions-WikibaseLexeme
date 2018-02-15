@@ -20,6 +20,8 @@
 	"wikibaselexeme-language-lexical-category-value": "$1 en $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Declaraciones sobre $1",
+	"wikibaselexeme-add-sense": "añadir sentido",
+	"wikibaselexeme-add-form": "añadir forma",
 	"apihelp-wblexemeaddform-param-lexemeId": "Id. del lexema; p. ej., L10",
 	"apihelp-wblexemeeditformelements-param-formId": "Identificador del formulario; p. ej., L10-F2",
 	"wikibaselexeme-api-error-parameter-required": "El parámetro «$1» es obligatorio",
