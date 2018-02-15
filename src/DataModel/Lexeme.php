@@ -287,27 +287,20 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	/**
 	 * @param FormId $formId
 	 *
-	 * @return bool
-	 */
-	public function hasForm( FormId $formId ) {
-		return (bool)$this->forms->getById( $formId );
-	}
-
-	/**
-	 * @param FormId $formId
-	 *
 	 * @throws OutOfRangeException
 	 * @return Form
 	 */
 	public function getForm( FormId $formId ) {
-		if ( !$this->hasForm( $formId ) ) {
+		$form = $this->forms->getById( $formId );
+
+		if ( $form === null ) {
 			throw new OutOfRangeException(
 				"Lexeme {$this->id->getSerialization()} doesn't have Form " .
-				"{$formId->getSerialization()}. Use hasForm() to check first"
+				$formId->getSerialization()
 			);
 		}
 
-		return $this->forms->getById( $formId );
+		return $form;
 	}
 
 	/**
