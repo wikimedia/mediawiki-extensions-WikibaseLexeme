@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Store;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -19,7 +19,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */
-class FormRevisionLookupTest extends PHPUnit_Framework_TestCase {
+class FormRevisionLookupTest extends TestCase {
 
 	/**
 	 * @var LexemeId

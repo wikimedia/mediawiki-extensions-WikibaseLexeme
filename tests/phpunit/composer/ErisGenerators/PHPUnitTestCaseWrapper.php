@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\TestTrait;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @license GPL-2.0+
@@ -19,11 +20,11 @@ class PHPUnitTestCaseWrapper {
 	}
 
 	/**
-	 * @var \PHPUnit_Framework_TestCase
+	 * @var TestCase
 	 */
 	private $testCase;
 
-	public function __construct( \PHPUnit_Framework_TestCase $testCase ) {
+	public function __construct( TestCase $testCase ) {
 		$this->testCase = $testCase;
 	}
 

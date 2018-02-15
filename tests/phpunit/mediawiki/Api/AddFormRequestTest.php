@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -14,7 +15,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
  *
  * @license GPL-2.0+
  */
-class AddFormRequestTest extends \PHPUnit_Framework_TestCase {
+class AddFormRequestTest extends TestCase {
 
 	public function testReturnsChangeOpThatAddsForm() {
 		$request = new AddFormRequest(

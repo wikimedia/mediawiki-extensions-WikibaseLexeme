@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ValueValidators\Error;
 use ValueValidators\Result;
 use ValueValidators\ValueValidator;
@@ -21,11 +21,11 @@ use Wikibase\Repo\Validators\TermValidatorFactory;
 class LexemeValidatorFactoryTestMockProvider {
 
 	/**
-	 * @param PHPUnit_Framework_TestCase $testCase
+	 * @param TestCase $testCase
 	 *
 	 * @return TermValidatorFactory
 	 */
-	private function getTermValidatorFactory( PHPUnit_Framework_TestCase $testCase ) {
+	private function getTermValidatorFactory( TestCase $testCase ) {
 		$mockProvider = new ChangeOpTestMockProvider( $testCase );
 		return $mockProvider->getMockTermValidatorFactory();
 	}
@@ -68,13 +68,13 @@ class LexemeValidatorFactoryTestMockProvider {
 	}
 
 	/**
-	 * @param PHPUnit_Framework_TestCase $testCase
+	 * @param TestCase $testCase
 	 * @param string[] $existingItemIds
 	 *
 	 * @return ValueValidator[]
 	 */
 	private function getItemValidator(
-		PHPUnit_Framework_TestCase $testCase,
+		TestCase $testCase,
 		array $existingItemIds = []
 	) {
 		$validatorMock = $testCase->getMockBuilder( EntityExistsValidator::class )
@@ -88,7 +88,7 @@ class LexemeValidatorFactoryTestMockProvider {
 	}
 
 	/**
-	 * @param PHPUnit_Framework_TestCase $testCase
+	 * @param TestCase $testCase
 	 * @param int $maxLength
 	 * @param TermValidatorFactory|null $termValidatorFactory
 	 * @param string[] $existingItemIds
@@ -96,7 +96,7 @@ class LexemeValidatorFactoryTestMockProvider {
 	 * @return LexemeValidatorFactory
 	 */
 	public function getLexemeValidatorFactory(
-		PHPUnit_Framework_TestCase $testCase,
+		TestCase $testCase,
 		$maxLength,
 		TermValidatorFactory $termValidatorFactory = null,
 		array $existingItemIds = []

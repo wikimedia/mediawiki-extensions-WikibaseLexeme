@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
@@ -20,7 +21,7 @@ use Wikibase\StringNormalizer;
  *
  * @license GPL-2.0+
  */
-class LemmaChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
+class LemmaChangeOpDeserializerTest extends TestCase {
 
 	private function newLemmaChangeOpDeserializer() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );

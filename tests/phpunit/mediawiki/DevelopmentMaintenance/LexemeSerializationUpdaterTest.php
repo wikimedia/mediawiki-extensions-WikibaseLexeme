@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\DevelopmentMaintenance;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DevelopmentMaintenance\LexemeSerializationUpdater;
 use Wikimedia\Rdbms\FakeResultWrapper;
 use Wikimedia\Rdbms\IDatabase;
@@ -11,7 +12,7 @@ use Wikimedia\Rdbms\IDatabase;
  *
  * @license GPL-2.0+
  */
-class LexemeSerializationUpdaterTest extends \PHPUnit_Framework_TestCase {
+class LexemeSerializationUpdaterTest extends TestCase {
 
 	public function testGivenLexemeDataWithoutFormsField_fieldIsAdded() {
 		$db = $this->getDB( [ $this->getLexemeDataWithNoFormsField() ] );

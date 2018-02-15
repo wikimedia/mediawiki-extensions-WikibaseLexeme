@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -30,7 +31,7 @@ use Wikibase\StringNormalizer;
  *
  * @license GPL-2.0+
  */
-class LexemeChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
+class LexemeChangeOpDeserializerTest extends TestCase {
 
 	private function getLexemeValidatorFactory() {
 		$duplicateDetector = $this->getMockBuilder( LabelDescriptionDuplicateDetector::class )

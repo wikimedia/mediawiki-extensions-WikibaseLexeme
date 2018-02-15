@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\Store;
 
 use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 use User;
 use Wikibase\DataModel\Entity\EntityRedirect;
@@ -24,7 +24,7 @@ use Wikibase\Lib\Store\EntityStore;
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */
-class FormStoreTest extends PHPUnit_Framework_TestCase {
+class FormStoreTest extends TestCase {
 
 	/**
 	 * @var LexemeId

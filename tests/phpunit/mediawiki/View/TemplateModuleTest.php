@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use PHPUnit\Framework\TestCase;
 use ResourceLoaderContext;
 use Wikibase\Lexeme\View\TemplateModule;
 
@@ -10,7 +11,7 @@ use Wikibase\Lexeme\View\TemplateModule;
  *
  * @license GPL-2.0+
  */
-class TemplateModuleTest extends \PHPUnit_Framework_TestCase {
+class TemplateModuleTest extends TestCase {
 
 	/**
 	 * @return ResourceLoaderContext

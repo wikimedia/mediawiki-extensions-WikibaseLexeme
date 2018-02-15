@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -14,7 +15,7 @@ use Wikibase\Repo\Tests\NewItem;
  *
  * @license GPL-2.0+
  */
-class ChangeOpEditFormElementsTest extends \PHPUnit_Framework_TestCase {
+class ChangeOpEditFormElementsTest extends TestCase {
 
 	public function test_validateFailsIfProvidedEntityIsNotAForm() {
 		$changeOp = new ChangeOpEditFormElements( new TermList(), [] );

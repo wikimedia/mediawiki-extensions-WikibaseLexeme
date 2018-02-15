@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Repo\Tests\Rdf\NTriplesRdfTestHelper;
 use Wikibase\Repo\Tests\Rdf\RdfBuilderTestData;
@@ -15,7 +16,7 @@ use Wikimedia\Purtle\RdfWriter;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeRdfBuilderTest extends \PHPUnit_Framework_TestCase {
+class LexemeRdfBuilderTest extends TestCase {
 
 	/**
 	 * @var NTriplesRdfTestHelper

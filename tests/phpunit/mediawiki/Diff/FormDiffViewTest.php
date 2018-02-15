@@ -6,6 +6,7 @@ use Diff\Comparer\ComparableComparer;
 use Diff\Differ\OrderedListDiffer;
 use Diff\DiffOp\Diff\Diff;
 use MessageLocalizer;
+use PHPUnit\Framework\TestCase;
 use RawMessage;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
@@ -25,7 +26,7 @@ use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
  *
  * @license GPL-2.0+
  */
-class FormDiffViewTest extends \PHPUnit_Framework_TestCase {
+class FormDiffViewTest extends TestCase {
 
 	/**
 	 * @return ClaimDiffer

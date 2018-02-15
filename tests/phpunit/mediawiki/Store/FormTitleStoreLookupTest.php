@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Store;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use UnexpectedValueException;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -15,7 +15,7 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */
-class FormTitleStoreLookupTest extends PHPUnit_Framework_TestCase {
+class FormTitleStoreLookupTest extends TestCase {
 
 	/**
 	 * @var LexemeId

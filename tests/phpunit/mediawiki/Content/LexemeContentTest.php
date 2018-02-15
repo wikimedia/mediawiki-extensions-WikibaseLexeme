@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -17,7 +17,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  *
  * @license GPL-2.0+
  */
-class LexemeContentTest extends PHPUnit_Framework_TestCase {
+class LexemeContentTest extends TestCase {
 
 	public function testInvalidEntityType() {
 		$this->setExpectedException( InvalidArgumentException::class );

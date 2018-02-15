@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
@@ -35,7 +35,7 @@ use Wikimedia\Assert\ParameterTypeException;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  * @author Thiemo Kreuz
  */
-class LexemeViewTest extends PHPUnit_Framework_TestCase {
+class LexemeViewTest extends TestCase {
 
 	/**
 	 * @return FormsView

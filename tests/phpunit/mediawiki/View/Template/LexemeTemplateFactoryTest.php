@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Mediawiki\View\Template;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 
 /**
@@ -13,7 +13,7 @@ use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeTemplateFactoryTest extends PHPUnit_Framework_TestCase {
+class LexemeTemplateFactoryTest extends TestCase {
 
 	private function newInstance() {
 		return new LexemeTemplateFactory( [ 'basic' => '$1' ] );

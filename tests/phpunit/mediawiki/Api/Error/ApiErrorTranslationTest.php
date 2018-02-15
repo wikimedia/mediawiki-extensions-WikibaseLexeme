@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Api\Error\ApiError;
 use Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
@@ -31,7 +32,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  *
  * @license GPL-2.0+
  */
-class ApiErrorTranslationTest extends \PHPUnit_Framework_TestCase {
+class ApiErrorTranslationTest extends TestCase {
 
 	/**
 	 * @dataProvider provideApiErrors

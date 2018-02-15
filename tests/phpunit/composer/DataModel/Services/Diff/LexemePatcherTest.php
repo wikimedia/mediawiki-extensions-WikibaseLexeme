@@ -7,7 +7,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
@@ -24,7 +24,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemePatcherTest extends PHPUnit_Framework_TestCase {
+class LexemePatcherTest extends TestCase {
 
 	public function testGivenEmptyDiff_lexemeIsReturnedAsIs() {
 		$lexeme = new Lexeme();

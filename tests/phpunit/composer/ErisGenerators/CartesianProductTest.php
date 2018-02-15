@@ -4,13 +4,14 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @covers \Wikibase\Lexeme\Tests\ErisGenerators\CartesianProduct
  *
  * @license GPL-2.0+
  */
-class CartesianProductTest extends \PHPUnit_Framework_TestCase {
+class CartesianProductTest extends TestCase {
 
 	use ErisTest;
 

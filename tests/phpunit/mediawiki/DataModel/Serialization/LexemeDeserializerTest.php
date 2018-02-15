@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use Deserializers\Exceptions\DeserializationException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
@@ -25,7 +25,7 @@ use Wikibase\Repo\Tests\NewStatement;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeDeserializerTest extends PHPUnit_Framework_TestCase {
+class LexemeDeserializerTest extends TestCase {
 
 	private function newDeserializer() {
 		$entityIdDeserializer = $this->getMockBuilder( EntityIdDeserializer::class )

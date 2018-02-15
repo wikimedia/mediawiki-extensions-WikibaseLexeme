@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -17,7 +18,7 @@ use Wikibase\StringNormalizer;
  *
  * @license GPL-2.0+
  */
-class LexicalCategoryChangeOpDeserializerTest extends \PHPUnit_Framework_TestCase {
+class LexicalCategoryChangeOpDeserializerTest extends TestCase {
 
 	private function newLexicalCategoryChangeOpDeserializer() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );

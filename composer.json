@@ -29,7 +29,7 @@
 		"giorgiosironi/eris": "dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/minus-x": "0.3.1",
-		"phpunit/phpunit": "~4.8",
+		"phpunit/phpunit": "^4.8.35",
 		"wikibase/wikibase-codesniffer": "^0.3.0"
 	},
 	"autoload": {

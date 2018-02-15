@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\SenseId;
 
 /**
@@ -9,7 +10,7 @@ use Wikibase\Lexeme\DataModel\SenseId;
  *
  * @license GPL-2.0+
  */
-class SenseIdTest extends \PHPUnit_Framework_TestCase {
+class SenseIdTest extends TestCase {
 
 	public function testCanBeCreated() {
 		$id = new SenseId( 'S1' );

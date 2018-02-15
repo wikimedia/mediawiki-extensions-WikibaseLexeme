@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
 use RuntimeException;
@@ -11,7 +12,7 @@ use RuntimeException;
  *
  * @license GPL-2.0+
  */
-class LexemeIdTest extends \PHPUnit_Framework_TestCase {
+class LexemeIdTest extends TestCase {
 
 	/**
 	 * @dataProvider idSerializationProvider

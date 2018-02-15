@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Sense;
@@ -12,7 +13,7 @@ use Wikibase\Lexeme\DataModel\SenseId;
  *
  * @license GPL-2.0+
  */
-class SenseTest extends \PHPUnit_Framework_TestCase {
+class SenseTest extends TestCase {
 
 	public function testCanBeCreated() {
 		$sense = new Sense( new SenseId( 'S1' ), new TermList(), new StatementList() );

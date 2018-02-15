@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -19,7 +19,7 @@ use Wikibase\View\StatementSectionsView;
  *
  * @license GPL-2.0+
  */
-class SensesViewTest extends PHPUnit_Framework_TestCase {
+class SensesViewTest extends TestCase {
 
 	const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
 

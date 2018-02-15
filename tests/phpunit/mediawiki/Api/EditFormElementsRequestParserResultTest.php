@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Api\EditFormElementsRequest;
 use Wikibase\Lexeme\Api\EditFormElementsRequestParserResult;
 use Wikibase\Lexeme\Api\Error\ApiError;
@@ -11,7 +12,7 @@ use Wikibase\Lexeme\Api\Error\ApiError;
  *
  * @license GPL-2.0+
  */
-class EditFormElementsRequestParserResultTest extends \PHPUnit_Framework_TestCase {
+class EditFormElementsRequestParserResultTest extends TestCase {
 
 	public function testGivenThereAreErrors_getRequestThrowsException() {
 		$result = EditFormElementsRequestParserResult::newWithErrors( [ $this->newApiError() ] );

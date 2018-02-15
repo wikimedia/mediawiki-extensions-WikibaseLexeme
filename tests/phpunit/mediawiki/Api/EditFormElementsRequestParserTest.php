@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -27,7 +28,7 @@ use Wikibase\Lexeme\DataModel\FormId;
  *
  * @license GPL-2.0+
  */
-class EditFormElementsRequestParserTest extends \PHPUnit_Framework_TestCase {
+class EditFormElementsRequestParserTest extends TestCase {
 
 	const DEFAULT_REPRESENTATION = 'colour';
 	const DEFAULT_REPRESENTATION_LANGUAGE = 'en';

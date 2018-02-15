@@ -6,6 +6,7 @@ use DataValues\Deserializers\DataValueDeserializer;
 use DataValues\NumberValue;
 use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
@@ -31,7 +32,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  *
  * @license GPL-2.0+
  */
-class StorageLexemeSerializerTest extends \PHPUnit_Framework_TestCase {
+class StorageLexemeSerializerTest extends TestCase {
 
 	use ErisTest;
 

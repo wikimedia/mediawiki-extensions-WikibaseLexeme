@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 
@@ -10,7 +11,7 @@ use Wikibase\Lexeme\DataModel\LexemePatchAccess;
  *
  * @license GPL-2.0+
  */
-class LexemePatchAccessTest extends \PHPUnit_Framework_TestCase {
+class LexemePatchAccessTest extends TestCase {
 
 	public function testCanAddAForm() {
 		$forms = new FormSet();

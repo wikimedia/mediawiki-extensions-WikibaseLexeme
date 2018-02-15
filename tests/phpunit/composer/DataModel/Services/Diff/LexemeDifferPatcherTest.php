@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -18,7 +19,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
  *
  * @license GPL-2.0+
  */
-class LexemeDifferPatcherTest extends \PHPUnit_Framework_TestCase {
+class LexemeDifferPatcherTest extends TestCase {
 
 	use ErisTest;
 

@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
@@ -23,7 +23,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
  * @license GPL-2.0+
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class ExternalLexemeSerializerTest extends PHPUnit_Framework_TestCase {
+class ExternalLexemeSerializerTest extends TestCase {
 
 	private function newSerializer() {
 		$statementListSerializer = $this->getMock( Serializer::class );

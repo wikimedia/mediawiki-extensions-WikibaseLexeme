@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
 
@@ -10,7 +11,7 @@ use Wikibase\Lexeme\DataModel\FormSet;
  *
  * @license GPL-2.0+
  */
-class FormSetTest extends \PHPUnit_Framework_TestCase {
+class FormSetTest extends TestCase {
 
 	public function testCanNotCreateWithSomethingThatIsNotAForm() {
 		$this->setExpectedException( \Exception::class );

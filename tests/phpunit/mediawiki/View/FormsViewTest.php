@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lexeme\DataModel\FormSet;
@@ -21,7 +21,7 @@ use Wikibase\View\StatementGroupListView;
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */
-class FormsViewTest extends PHPUnit_Framework_TestCase {
+class FormsViewTest extends TestCase {
 
 	const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
 

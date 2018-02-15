@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
@@ -19,7 +19,7 @@ use Wikibase\View\EntityTermsView;
  * @license GPL-2.0+
  * @author Thiemo Kreuz
  */
-class LexemeViewFactoryTest extends PHPUnit_Framework_TestCase {
+class LexemeViewFactoryTest extends TestCase {
 
 	public function testNewLexemeView() {
 		/** @var EntityIdHtmlLinkFormatterFactory $formatterFactory */

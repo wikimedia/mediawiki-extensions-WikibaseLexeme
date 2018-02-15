@@ -7,7 +7,7 @@ use Eris\Facade;
 /**
  * Helper trait to simplify Eris usage in Mediawiki PHPUnit tests
  *
- * IMPORTANT: This trait can only be applied to \PHPUnit_Framework_TestCase
+ * IMPORTANT: This trait can only be applied to \PHPUnit\Framework\TestCase
  */
 trait ErisTest {
 

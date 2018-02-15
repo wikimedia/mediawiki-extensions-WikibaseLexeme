@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -14,7 +15,7 @@ use Wikibase\Lexeme\DataModel\FormId;
  *
  * @license GPL-2.0+
  */
-class EditFormElementsRequestTest extends \PHPUnit_Framework_TestCase {
+class EditFormElementsRequestTest extends TestCase {
 
 	public function testReturnsChangeOpThatChangesFormElements() {
 		$formId = new FormId( 'L1-F1' );

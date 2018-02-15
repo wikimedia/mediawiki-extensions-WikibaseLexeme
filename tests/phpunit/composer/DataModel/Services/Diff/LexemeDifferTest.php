@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
@@ -22,7 +22,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  *
  * @license GPL-2.0+
  */
-class LexemeDifferTest extends PHPUnit_Framework_TestCase {
+class LexemeDifferTest extends TestCase {
 
 	use ErisTest;
 

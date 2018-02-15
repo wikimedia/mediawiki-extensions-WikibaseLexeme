@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -20,7 +21,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  *
  * @license GPL-2.0+
  */
-class FormDifferPatcherTest extends \PHPUnit_Framework_TestCase {
+class FormDifferPatcherTest extends TestCase {
 
 	use ErisTest;
 

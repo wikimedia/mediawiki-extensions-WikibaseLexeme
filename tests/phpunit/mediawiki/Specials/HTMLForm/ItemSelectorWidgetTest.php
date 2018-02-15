@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
 
 /**
@@ -11,7 +12,7 @@ use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
  *
  * @license GPL-2.0+
  */
-class ItemSelectorWidgetTest extends \PHPUnit_Framework_TestCase {
+class ItemSelectorWidgetTest extends TestCase {
 
 	public function setUp() {
 		parent::setUp();

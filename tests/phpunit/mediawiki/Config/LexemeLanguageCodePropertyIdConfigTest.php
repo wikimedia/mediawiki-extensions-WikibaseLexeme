@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\Config;
 
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 use ResourceLoaderContext;
 use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
 
@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
  *
  * @license GPL-2.0+
  */
-class LexemeLanguageCodePropertyIdConfigTest extends PHPUnit_Framework_TestCase {
+class LexemeLanguageCodePropertyIdConfigTest extends TestCase {
 
 	/**
 	 * @return PHPUnit_Framework_MockObject_MockObject|ResourceLoaderContext

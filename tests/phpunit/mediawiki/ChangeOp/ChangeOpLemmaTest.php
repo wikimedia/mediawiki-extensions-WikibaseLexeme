@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -19,7 +20,7 @@ use Wikibase\Summary;
  *
  * @license GPL-2.0+
  */
-class ChangeOpLemmaTest extends \PHPUnit_Framework_TestCase {
+class ChangeOpLemmaTest extends TestCase {
 
 	/**
 	 * @dataProvider invalidConstructorArgumentsProvider
