@@ -9,6 +9,7 @@
 	"wikibaselexeme-lemma-field-language-label": "언어",
 	"wikibaselexeme-form-field-language-label": "언어",
 	"wikibaselexeme-gloss-field-language-label": "언어",
+	"wikibaselexeme-add-form": "양식 추가",
 	"apihelp-wblexemeaddform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"apihelp-wblexemeeditformelements-param-formId": "양식의 ID (예: L10-F2)",
 	"apihelp-wblexemeeditformelements-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
@@ -18,5 +19,6 @@
 	"wikibaselexeme-api-error-json-field-required": "\"$1\" 변수에 \"$2\" 필드는 필수입니다",
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "\"$1\" 변수의 \"$2\" 필드에 \"$3\" 유형을 예측했습니다. 지정된 값: \"$4\"",
 	"wikibaselexeme-field-language-label": "언어",
-	"wikibaselexeme-diffview-language": "언어"
+	"wikibaselexeme-diffview-language": "언어",
+	"wikibaselexeme-diffview-form": "양식"
 }
