@@ -4,21 +4,23 @@ namespace Wikibase\Lexeme\PropertyType;
 
 use Html;
 use InvalidArgumentException;
-use Language;
-use ValueFormatters\FormattingException;
-use ValueFormatters\ValueFormatter;
-use Wikibase\DataModel\Entity\EntityIdValue;
-use Wikibase\DataModel\Entity\Item;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\View\LocalizedTextProvider;
 
 /**
- * @note This class is not tested and assumed to be temporary solution for demo purposes
- * @deprecated Will be gone some time later
+ * TODO: move me to some other namespace.
+ *
+ * @license GPL-2.0+
  */
-class LexemeIdHtmlFormatter implements ValueFormatter {
+class LexemeIdHtmlFormatter implements EntityIdFormatter {
 
 	/**
 	 * @var EntityLookup
@@ -26,120 +28,102 @@ class LexemeIdHtmlFormatter implements ValueFormatter {
 	private $entityLookup;
 
 	/**
-	 * @var EntityTitleLookup
+	 * @var LabelDescriptionLookup
 	 */
-	private $entityTitleLookup;
+	private $labelDescriptionLookup;
 
 	/**
-	 * @var Language
+	 * @var EntityTitleLookup
 	 */
-	private $language;
+	private $titleLookup;
+
+	/**
+	 * @var LocalizedTextProvider
+	 */
+	private $textProvider;
 
 	public function __construct(
 		EntityLookup $entityLookup,
-		EntityTitleLookup $entityTitleLookup,
-		Language $language
+		LabelDescriptionLookup $labelDescriptionLookup,
+		EntityTitleLookup $titleLookup,
+		LocalizedTextProvider $textProvider
 	) {
+		// TODO: This formatter should not load entire entities.
 		$this->entityLookup = $entityLookup;
-		$this->entityTitleLookup = $entityTitleLookup;
-		$this->language = $language;
+		$this->labelDescriptionLookup = $labelDescriptionLookup;
+		$this->titleLookup = $titleLookup;
+		$this->textProvider = $textProvider;
 	}
 
-	/**
-	 * @param mixed $value
-	 *
-	 * @return string
-	 * @throws FormattingException
-	 */
-	public function format( $value ) {
-		if ( !( $value instanceof EntityIdValue ) ) {
-			throw new InvalidArgumentException(
-				'Data value type mismatch. Expected an EntityIdValue.'
-			);
+	public function formatEntityId( EntityId $id ) {
+		if ( !$id instanceof LexemeId ) {
+			throw new InvalidArgumentException( 'Not a lexeme ID: ' . $id->getSerialization() );
 		}
 
-		if ( !( $value->getEntityId() instanceof LexemeId ) ) {
-			throw new InvalidArgumentException(
-				'Data value type mismatch. Expected an EntityIdValue referencing Lexeme.'
-			);
-		}
-
-		/** @var LexemeId $lexemeId */
-		$lexemeId = $value->getEntityId();
 		/** @var Lexeme $lexeme */
-		$lexeme = $this->entityLookup->getEntity( $lexemeId );
+		$lexeme = $this->entityLookup->getEntity( $id );
 
-		$title = $this->entityTitleLookup->getTitleForId( $lexemeId );
+		$lemmas = $lexeme->getLemmas();
 
-		if ( $title === null ) {
-			return $this->getHtmlForNonExistent( $lexemeId );
-		}
+		$linkLabel = $this->buildLinkLabel( $lemmas );
 
+		$title = $this->titleLookup->getTitleForId( $id );
 		$url = $title->isLocal() ? $title->getLocalURL() : $title->getFullURL();
 
-		$label = $this->buildLabel( $lexeme );
 		$attributes = [
 			'href' => $url,
-			'title' => $this->buildTitle( $lexeme )
+			'title' => $this->buildLinkTitle( $id, $lexeme->getLanguage(), $lexeme->getLexicalCategory() )
 		];
-		return Html::element( 'a', $attributes, $label );
+		return Html::rawElement( 'a', $attributes, $linkLabel );
 	}
 
 	/**
-	 * @param LexemeId $lexemeId
+	 * @param TermList $lemmas
 	 *
 	 * @return string HTML
 	 */
-	private function getHtmlForNonExistent( LexemeId $lexemeId ) {
-		$attributes = [ 'class' => 'wb-entity-undefinedinfo' ];
-
-		$message = wfMessage(
-			'parentheses',
-			wfMessage( 'wikibase-deletedentity-lexeme' )->text()
+	private function buildLinkLabel( TermList $lemmas ) {
+		return implode(
+			Html::element( 'span', [], $this->textProvider->get(
+				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
+			) ),
+			$this->formatLemmas( $lemmas )
 		);
-
-		$undefinedInfo = Html::element( 'span', $attributes, $message );
-
-		$separator = wfMessage( 'word-separator' )->text();
-		return $lexemeId->getSerialization() . $separator . $undefinedInfo;
 	}
 
-	private function buildTitle( Lexeme $lexeme ) {
-		return $lexeme->getType().' '.wfMessage(
-			'colon',
-			$lexeme->getId()->getSerialization()
-			);
-	}
-
-	private function buildLabel( Lexeme $lexeme ) {
-		$label = '';
-
-		$glossTexts = [];
-		foreach ( $lexeme->getLemmas() as $lemma ) {
-			$glossTexts[] = $lemma->getText();
+	/**
+	 * @param TermList $lemmas
+	 *
+	 * @return string[] HTML elements
+	 */
+	private function formatLemmas( TermList $lemmas ) {
+		$elements = [];
+		foreach ( $lemmas->toTextArray() as $languageCode => $lemma ) {
+			$elements[] = Html::element( 'span', [ 'lang' => $languageCode ], $lemma );
 		}
+		return $elements;
+	}
 
-		$label .= $this->language->commaList( $glossTexts );
-		$label .= ' ';
+	/**
+	 * @param LexemeId $id
+	 * @param ItemId $languageId
+	 * @param ItemId $lexicalCategoryId
+	 *
+	 * @return string Plain text
+	 */
+	private function buildLinkTitle( LexemeId $id, ItemId $languageId, ItemId $lexicalCategoryId ) {
+		$languageLabel = $this->labelDescriptionLookup->getLabel( $languageId )->getText();
+		$lexicalCategoryLabel = $this->labelDescriptionLookup->getLabel( $lexicalCategoryId )->getText();
 
-		/** @var Item $languageItem */
-		$languageItem = $this->entityLookup->getEntity( $lexeme->getLanguage() );
-		/** @var Item $lexicalCategoryItem */
-		$lexicalCategoryItem = $this->entityLookup->getEntity( $lexeme->getLexicalCategory() );
-
-		$languageCode = $this->language->getCode();
-		// 'noun in English'
-		// TODO: Rethink way to present 'noun in English' - it will not look correct in Russian
-		//       because language word should be in the genitive which currently is not possible
-		$label .= wfMessage( 'wikibaselexeme-language-lexical-category-value',
-			[
-				$lexicalCategoryItem ? $lexicalCategoryItem->getLabels()->getByLanguage(
-					$languageCode )->getText() : null,
-				$languageItem ? $languageItem->getLabels()->getByLanguage( $languageCode )->getText() : null
-			]
+		$titleContent = $this->textProvider->get(
+			'wikibaselexeme-presentation-lexeme-secondary-label',
+			[ $languageLabel, $lexicalCategoryLabel ]
 		);
 
-		return $label;
+		return $this->textProvider->get(
+			'wikibaselexeme-lexeme-link-title',
+			[ $id->getSerialization(), $titleContent ]
+		);
 	}
 
 }

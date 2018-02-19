@@ -68,5 +68,8 @@
 	"wikibaselexeme-diffview-form": "Form",
 	"wikibaselexeme-diffview-representation": "representation",
 	"wikibaselexeme-diffview-grammatical-feature": "grammatical feature",
-	"content-model-wikibase-lexeme": "Wikibase Lexeme"
+	"content-model-wikibase-lexeme": "Wikibase Lexeme",
+	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
+	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
+	"wikibaselexeme-lexeme-link-title": "$1: $2"
 }

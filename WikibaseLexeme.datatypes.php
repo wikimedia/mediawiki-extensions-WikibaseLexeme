@@ -22,7 +22,10 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\PropertyType\FormIdFormatter;
 use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdFormatter;
+use Wikibase\Lib\EntityIdValueFormatter;
 use Wikibase\Lib\SnakFormatter;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
+use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\WikibaseRepo;
 
 return [
@@ -34,10 +37,24 @@ return [
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			if ( $format === SnakFormatter::FORMAT_HTML ) {
-				return new LexemeIdHtmlFormatter(
-					WikibaseRepo::getDefaultInstance()->getEntityLookup(),
-					WikibaseRepo::getDefaultInstance()->getEntityTitleLookup(),
-					Language::factory( $options->getOption( 'lang' ) )
+				$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+				$userLanguage = $wikibaseRepo->getUserLanguage();
+
+				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
+				$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
+					// TODO: Where is the prefetching done for the ItemIds used in Lexemes?
+					$wikibaseRepo->getPrefetchingTermLookup(),
+					$wikibaseRepo->getLanguageFallbackChainFactory()
+						->newFromLanguage( $userLanguage )
+				);
+
+				return new EntityIdValueFormatter(
+					new LexemeIdHtmlFormatter(
+						$wikibaseRepo->getEntityLookup(),
+						$labelDescriptionLookup,
+						$wikibaseRepo->getEntityTitleLookup(),
+						new MediaWikiLocalizedTextProvider( $userLanguage->getCode() )
+					)
 				);
 			}
 
