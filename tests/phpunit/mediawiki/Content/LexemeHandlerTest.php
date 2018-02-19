@@ -19,7 +19,7 @@ use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
-use Wikibase\Repo\Tests\Content\EntityHandlerTest;
+use Wikibase\Repo\Tests\Content\EntityHandlerTestCase;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Repo\WikibaseRepo;
@@ -33,7 +33,7 @@ use Wikibase\TermIndex;
  * @license GPL-2.0+
  * @author Bene* < benestar.wikimedia@gmail.com >
  */
-class LexemeHandlerTest extends EntityHandlerTest {
+class LexemeHandlerTest extends EntityHandlerTestCase {
 
 	/**
 	 * @return string
