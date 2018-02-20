@@ -14,7 +14,6 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityPatcherStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
-use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 use Wikimedia\Assert\Assert;
@@ -135,8 +134,6 @@ class LexemePatcher implements EntityPatcherStrategy {
 	}
 
 	private function patchForms( Lexeme $lexeme, LexemeDiff $patch ) {
-		/** @var Form $form */
-
 		foreach ( $patch->getFormsDiff() as $formDiff ) {
 			switch ( true ) {
 				case $formDiff instanceof AddFormDiff:
@@ -153,8 +150,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 					break;
 
 				case $formDiff instanceof ChangeFormDiffOp:
-					if ( $lexeme->hasForm( $formDiff->getFormId() ) ) {
-						$form = $lexeme->getForm( $formDiff->getFormId() );
+					$form = $lexeme->getForm( $formDiff->getFormId() );
+					if ( $form !== null ) {
 						$this->formPatcher->patch( $form, $formDiff );
 					}
 					break;

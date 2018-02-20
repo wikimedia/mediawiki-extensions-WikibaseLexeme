@@ -478,18 +478,6 @@ class LexemeTest extends TestCase {
 		$this->assertEquals( [], $lexeme->getForms()->toArray() );
 	}
 
-	public function testHasForm_LexemeDoesnHaveForms_ReturnsFalse() {
-		$lexeme = NewLexeme::create()->build();
-
-		$this->assertFalse( $lexeme->hasForm( new FormId( 'L1-F1' ) ) );
-	}
-
-	public function testHasForm_LexemeHaveFormWithThatId_ReturnsTrue() {
-		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
-
-		$this->assertTrue( $lexeme->hasForm( new FormId( 'L1-F1' ) ) );
-	}
-
 	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 
