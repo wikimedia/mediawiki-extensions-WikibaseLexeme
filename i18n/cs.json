@@ -1,16 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ilimanaq29"
+			"Ilimanaq29",
+			"Mormegil"
 		]
 	},
-	"wikibaselexeme-desc": "Editovat subjekt lexému",
+	"wikibaselexeme-desc": "Zpracovává typ entity Lexém",
 	"special-newlexeme": "Vytvořit nový lexém",
 	"wikibaselexeme-newlexeme-fieldset": "Vytvořit nový lexém",
 	"wikibaselexeme-newlexeme-language": "Jazyk lexému",
 	"wikibaselexeme-enter-form-representation": "Vložit novou reprezentaci formy",
 	"wikibaselexeme-empty-form-representation": "Žádná reprezentace formy nebyla definována",
-	"wikibase-lexeme-summary-wbeditentity-update": "Přidat lexém",
+	"wikibase-lexeme-summary-wbeditentity-update": "Změněn lexém",
 	"wikibaselexeme-add-sense": "Přidat smysl",
 	"wikibaselexeme-add-form": "Přidat formu",
 	"apihelp-wblexemeeditformelements-example-1": "Edituje formu s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>",
@@ -18,9 +19,9 @@
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Přidána reprezentace|Přidány reprezentace}} formy $3",
 	"wikibase-lexeme-summary-set-form-representations": "{{PLURAL:$1|Změněna reprezentace|Změněny reprezentace}} formy $3",
 	"wikibase-lexeme-summary-remove-form-representations": "{{PLURAL:$1|Odstraněna reprezentace|Odstraněny reprezentace}} formy $3",
-	"wikibase-lexeme-summary-add-form-grammatical-features": "Přidány gramatické {{PLURAL:$1|funkce}} formy $3",
-	"wikibase-lexeme-summary-remove-form-grammatical-features": "Odebrány gramatické {{PLURAL:$1|funkce}} formy $3",
+	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Přidána gramatická vlastnost|Přidány gramatické vlastnosti}} formy $3",
+	"wikibase-lexeme-summary-remove-form-grammatical-features": "{{PLURAL:$1|Odebrána gramatická vlastnost|Odebrány gramatické vlastnosti}} formy $3",
 	"wikibase-lexeme-summary-update-form-elements": "Změněny reprezentace a/nebo gramatické funkce formy $3",
 	"wikibaselexeme-diffview-form": "Forma",
-	"content-model-wikibase-lexeme": "Lexém na základě Wikipedie"
+	"content-model-wikibase-lexeme": "Lexém Wikibase"
 }
