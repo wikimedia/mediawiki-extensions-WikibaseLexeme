@@ -19,6 +19,9 @@
 		"Wikibase\\Lexeme\\DevelopmentMaintenance\\": "devMaintenance/"
 	},
 	"config": {
+		"LexemeDisableSenses": {
+			"value": true
+		},
 		"LexemeNamespace": {
 			"value": 146
 		},

@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
@@ -35,7 +34,7 @@ use Wikimedia\Assert\ParameterTypeException;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  * @author Thiemo Kreuz
  */
-class LexemeViewTest extends TestCase {
+class LexemeViewTest extends \MediaWikiTestCase {
 
 	/**
 	 * @return FormsView
@@ -188,6 +187,21 @@ class LexemeViewTest extends TestCase {
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
 		$this->assertContains( 'FormsView::getHtml', $html );
+		$this->assertContains( 'StatementSectionsView::getHtml', $html );
+	}
+
+	/**
+	 * @dataProvider provideTestGetHtml
+	 */
+	public function testGetHtmlSensesIncluded( Lexeme $lexeme ) {
+		$this->setMwGlobals( 'wgLexemeDisableSenses', false );
+		$view = $this->newLexemeView( $lexeme->getStatements() );
+
+		$html = $view->getHtml( $lexeme );
+		$this->assertInternalType( 'string', $html );
+		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
+		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
+		$this->assertContains( 'FormsView::getHtml', $html );
 		$this->assertContains( 'SensesView::getHtml', $html );
 		$this->assertContains( 'StatementSectionsView::getHtml', $html );
 	}
@@ -251,13 +265,89 @@ class LexemeViewTest extends TestCase {
 			'<div id="toc"></div>'
 			. "StatementSectionsView::getHtml\n"
 			. "FormsView::getHtml\n"
-			. "SensesView::getHtml\n"
 			. '</div>',
 			$html
 		);
 	}
 
 	public function testGetHtmlForLexicalCategory() {
+		$lexemeId = new LexemeId( 'L1' );
+		$language = new ItemId( 'Q2' );
+		$lexicalCategory = new ItemId( 'Q3' );
+
+		$lexeme = new Lexeme( $lexemeId, null, $lexicalCategory, $language );
+
+		$view = $this->newLexemeView( $lexeme->getStatements() );
+
+		$html = $view->getHtml( $lexeme );
+		$this->assertInternalType( 'string', $html );
+		assertThat(
+			$html,
+			is(
+				htmlPiece(
+					havingChild(
+						both( withClass( 'language-lexical-category-widget_lexical-category' ) )
+							->andAlso( havingChild(
+								both(
+									tagMatchingOutline( '<a href="foobar/Q3"/>' )
+								)->andAlso(
+									havingTextContents( containsString( 'LABEL OF Q3' ) )
+								)
+							) )
+					)
+				)
+			)
+		);
+		$this->assertContains(
+			'<div id="toc"></div>'
+			. "StatementSectionsView::getHtml\n"
+			. "FormsView::getHtml\n"
+			. '</div>',
+			$html
+		);
+	}
+
+	public function testGetHtmlForLanguageSensesIncluded() {
+		$this->setMwGlobals( 'wgLexemeDisableSenses', false );
+		$lexemeId = new LexemeId( 'L1' );
+		$language = new ItemId( 'Q2' );
+		$lexicalCategory = new ItemId( 'Q3' );
+
+		$lexeme = new Lexeme( $lexemeId, null, $lexicalCategory, $language );
+
+		$view = $this->newLexemeView( $lexeme->getStatements() );
+
+		$html = $view->getHtml( $lexeme );
+		$this->assertInternalType( 'string', $html );
+		assertThat(
+			$html,
+			is(
+				htmlPiece(
+					havingChild(
+						both( withClass( 'language-lexical-category-widget_language' ) )
+							->andAlso( havingChild(
+								both(
+									tagMatchingOutline( '<a href="foobar/Q2"/>' )
+								)->andAlso(
+									havingTextContents( containsString( 'LABEL OF Q2' ) )
+								)
+							) )
+					)
+				)
+			)
+		);
+		$this->assertContains(
+			'<div id="toc"></div>'
+			. "StatementSectionsView::getHtml\n"
+			. "FormsView::getHtml\n"
+			. "SensesView::getHtml\n"
+			. '</div>',
+			$html
+		);
+	}
+
+	public function testGetHtmlForLexicalCategorySensesIncluded() {
+		$this->setMwGlobals( 'wgLexemeDisableSenses', false );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
