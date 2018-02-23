@@ -108,7 +108,7 @@ class LexemeView extends EntityView {
 	 * @return string HTML
 	 */
 	protected function getMainHtml( EntityDocument $entity ) {
-		global $wgLexemeDisableSenses;
+		global $wgLexemeEnableSenses;
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
@@ -141,7 +141,7 @@ HTML;
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
 			. $this->formsView->getHtml( $entity->getForms() );
 
-		if ( $wgLexemeDisableSenses !== true ) {
+		if ( $wgLexemeEnableSenses ) {
 			$html .= $this->sensesView->getHtml( $entity->getSenses() );
 		}
 
