@@ -6,7 +6,7 @@ Feature: Senses of a Lexeme
       And The copyright warning has been dismissed
       And Anonymous edit warnings are disabled
 
-  @integration
+  # TODO: add @integration tag once senses work again
   Scenario: Basic senses section
     Given there is a Sense to test
     Then Senses header should be there
@@ -19,12 +19,12 @@ Feature: Senses of a Lexeme
     Then I see at least one Sense
     And for each Sense there is a statement list
 
-  @integration
+  # TODO: add @integration tag once senses work again
   Scenario: Link to Sense
     Given there is a Sense to test
     Then for each Sense there is an anchor equal to its ID
 
-  @integration
+  # TODO: add @integration tag once senses work again
   Scenario: Adding Gloss
     Given there is a Sense to test
     When I click the first Sense's edit button
@@ -33,7 +33,7 @@ Feature: Senses of a Lexeme
     # TODO refresh page
     Then I should see Gloss with value "Просто коза" for "ru" language
 
-  @integration
+  # TODO: add @integration tag once senses work again
   Scenario: Changing Glosses
     Given there is a Sense to test
     When I click the first Sense's edit button
@@ -42,7 +42,7 @@ Feature: Senses of a Lexeme
     # TODO refresh page
     Then I should see the new text as the Gloss definition
 
-  @integration
+  # TODO: add @integration tag once senses work again
   Scenario: Removing Gloss
     Given there is a Sense to test
     When I click the first Sense's edit button
@@ -51,7 +51,7 @@ Feature: Senses of a Lexeme
     # TODO refresh page
     Then I don't see that Gloss definition
 
-  @integration
+  # TODO: add @integration tag once senses work again
   Scenario: Adding Senses
     When I click on the Senses list add button
      And I add a Gloss for "en" language with value "Whatever"

@@ -108,6 +108,7 @@ class LexemeView extends EntityView {
 	 * @return string HTML
 	 */
 	protected function getMainHtml( EntityDocument $entity ) {
+		global $wgLexemeDisableSenses;
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
@@ -133,13 +134,18 @@ class LexemeView extends EntityView {
 			</div>
 HTML;
 
-		return $lexemeHeader
+		$html = $lexemeHeader
 			. $this->getLexemeHeaderVueTemplate()
 			. $this->getLanguageAndLexicalCategoryVueTemplate()
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
-			. $this->formsView->getHtml( $entity->getForms() )
-			. $this->sensesView->getHtml( $entity->getSenses() );
+			. $this->formsView->getHtml( $entity->getForms() );
+
+		if ( $wgLexemeDisableSenses !== true ) {
+			$html .= $this->sensesView->getHtml( $entity->getSenses() );
+		}
+
+		return $html;
 	}
 
 	/**
