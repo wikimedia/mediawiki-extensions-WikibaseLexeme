@@ -194,7 +194,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	 * @dataProvider provideTestGetHtml
 	 */
 	public function testGetHtmlSensesIncluded( Lexeme $lexeme ) {
-		$this->setMwGlobals( 'wgLexemeDisableSenses', false );
+		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
 		$html = $view->getHtml( $lexeme );
@@ -308,7 +308,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetHtmlForLanguageSensesIncluded() {
-		$this->setMwGlobals( 'wgLexemeDisableSenses', false );
+		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
@@ -347,7 +347,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetHtmlForLexicalCategorySensesIncluded() {
-		$this->setMwGlobals( 'wgLexemeDisableSenses', false );
+		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
