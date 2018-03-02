@@ -22,7 +22,7 @@ use Wikibase\Repo\Tests\NewStatement;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemeDeserializerTest extends TestCase {

@@ -21,7 +21,7 @@ use Wikibase\SummaryFormatter;
  * @group WikibaseSpecialPage
  * @group Database
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class SpecialNewLexemeTest extends SpecialNewEntityTest {

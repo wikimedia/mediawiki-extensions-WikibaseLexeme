@@ -7,7 +7,7 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 

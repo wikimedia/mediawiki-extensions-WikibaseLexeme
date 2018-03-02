@@ -14,7 +14,7 @@ use Wikimedia\Rdbms\IDatabase;
  * This is NOT supposed to be used in production! It is only for convenience when
  * doing changes during the development phase.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeSerializationUpdater {
 

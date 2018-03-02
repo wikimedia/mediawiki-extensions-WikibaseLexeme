@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme\DataModel;
  * Set of Forms in which uniqueness of a Form is controlled by it's ID.
  * Supposed to be used only inside the Lexeme class
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormSet {
 

@@ -14,7 +14,7 @@
  * @see ValidatorsBuilders
  * @see docs/datatypes.wiki in the Wikibase.git repository for documentation
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 
 use ValueFormatters\FormatterOptions;

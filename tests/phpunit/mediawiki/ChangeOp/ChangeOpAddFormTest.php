@@ -14,7 +14,7 @@ use Wikibase\Summary;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpAddForm
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ChangeOpAddFormTest extends TestCase {
 

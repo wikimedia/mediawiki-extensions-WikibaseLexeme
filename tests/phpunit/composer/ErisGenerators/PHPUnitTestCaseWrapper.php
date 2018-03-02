@@ -6,7 +6,7 @@ use Eris\TestTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class PHPUnitTestCaseWrapper {
 

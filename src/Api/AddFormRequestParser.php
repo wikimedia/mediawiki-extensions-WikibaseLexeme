@@ -22,7 +22,7 @@ use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddFormRequestParser {
 

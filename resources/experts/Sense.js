@@ -33,7 +33,7 @@ module.exports = ( function ( wb, vv ) {
 	 * @see jQuery.valueview.Expert
 	 * @class wikibase.experts.Sense
 	 * @extends wikibase.experts.Entity
-	 * @license GPL-2.0+
+	 * @license GPL-2.0-or-later
 	 */
 	var SELF = vv.expert( 'wikibaselexemesense', PARENT, {
 		/**

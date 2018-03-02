@@ -15,7 +15,7 @@ use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
 /**
  * @covers \Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ItemSelectorWidgetFieldTest extends TestCase {
 

@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 /**
  * @covers \Wikibase\Lexeme\DataModel\LexemePatchAccess
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemePatchAccessTest extends TestCase {
 

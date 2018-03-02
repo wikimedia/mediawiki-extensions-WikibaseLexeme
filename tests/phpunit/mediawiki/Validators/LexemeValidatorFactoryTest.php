@@ -20,7 +20,7 @@ use Wikibase\Repo\Validators\TermValidatorFactory;
 /**
  * @covers \Wikibase\Lexeme\Validators\LexemeValidatorFactory
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeValidatorFactoryTest extends TestCase {
 

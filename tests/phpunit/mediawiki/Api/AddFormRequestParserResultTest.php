@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Api\Error\ApiError;
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParserResult
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddFormRequestParserResultTest extends TestCase {
 

@@ -10,7 +10,7 @@ use Wikimedia\Rdbms\IDatabase;
 /**
  * @covers Wikibase\Lexeme\DevelopmentMaintenance\LexemeSerializationUpdater
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeSerializationUpdaterTest extends TestCase {
 

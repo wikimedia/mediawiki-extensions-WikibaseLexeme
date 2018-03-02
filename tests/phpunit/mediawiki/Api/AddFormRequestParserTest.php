@@ -27,7 +27,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddFormRequestParserTest extends TestCase {
 

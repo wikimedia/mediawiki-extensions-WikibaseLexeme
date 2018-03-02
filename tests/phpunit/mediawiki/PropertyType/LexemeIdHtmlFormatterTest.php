@@ -16,7 +16,7 @@ use Wikibase\View\DummyLocalizedTextProvider;
 /**
  * @covers \Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeIdHtmlFormatterTest extends TestCase {
 

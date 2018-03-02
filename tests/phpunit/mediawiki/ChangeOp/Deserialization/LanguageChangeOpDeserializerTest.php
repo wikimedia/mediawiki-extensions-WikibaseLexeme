@@ -16,7 +16,7 @@ use Wikibase\StringNormalizer;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LanguageChangeOpDeserializerTest extends TestCase {
 

@@ -13,7 +13,7 @@ use Wikibase\Repo\Tests\NewItem;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpEditFormElements
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ChangeOpEditFormElementsTest extends TestCase {
 

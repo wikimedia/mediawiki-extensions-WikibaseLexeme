@@ -13,7 +13,7 @@ use Wikibase\Lexeme\DataModel\FormId;
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElementsRequest
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class EditFormElementsRequestTest extends TestCase {
 

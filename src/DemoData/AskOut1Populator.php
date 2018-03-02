@@ -6,7 +6,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AskOut1Populator {
 

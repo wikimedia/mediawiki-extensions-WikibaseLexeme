@@ -11,7 +11,7 @@ module.exports = ( function ( $, OO ) {
 	 * @cfg {string} language
 	 * @cfg {wikibase.LabelFormattingService} labelFormattingService
 	 *
-	 * @license GPL-2.0+
+	 * @license GPL-2.0-or-later
 	 */
 	var GrammaticalFeatureListWidget = function ( config ) {
 		var selected = config.selected;

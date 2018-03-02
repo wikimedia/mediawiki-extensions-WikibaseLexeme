@@ -1,5 +1,5 @@
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 ( function ( wb, $, QUnit, sinon ) {
 	QUnit.module( 'wikibase.lexeme.widgets.ItemSelectorWidget' );

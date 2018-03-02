@@ -7,7 +7,7 @@ use Eris\Generator;
 use Eris\Generator\GeneratedValueSingle;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LanguageCodeGenerator implements Generator {
 

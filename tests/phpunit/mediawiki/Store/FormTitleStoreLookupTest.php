@@ -12,7 +12,7 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
 /**
  * @covers \Wikibase\Lexeme\Store\FormTitleStoreLookup
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class FormTitleStoreLookupTest extends TestCase {

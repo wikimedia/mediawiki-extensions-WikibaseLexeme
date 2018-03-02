@@ -8,7 +8,7 @@
 	 * Copied from jQuery.wikibase.mediainfoview
 	 * @class jQuery.wikibase.lexemeview
 	 * @extends jQuery.wikibase.entityview
-	 * @license GPL-2.0+
+	 * @license GPL-2.0-or-later
 	 * @author Adrian Heine
 	 *
 	 * @param {Object} options

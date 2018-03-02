@@ -9,7 +9,7 @@
 	/**
 	 * @class jQuery.wikibase.grammaticalfeatureview
 	 * @extends jQuery.ui.EditableTemplatedWidget
-	 * @license GPL-2.0+
+	 * @license GPL-2.0-or-later
 	 *
 	 * @constructor
 	 *

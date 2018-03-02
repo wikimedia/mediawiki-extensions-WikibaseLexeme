@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Api\Error;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 interface ApiError {
 

@@ -7,7 +7,7 @@ use ResourceLoaderContext;
 use ResourceLoaderModule;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeLanguageCodePropertyIdConfig extends ResourceLoaderModule {
 

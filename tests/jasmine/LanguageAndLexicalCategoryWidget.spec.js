@@ -1,5 +1,5 @@
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function () {
 	global.mediaWiki = { // eslint-disable-line no-restricted-globals

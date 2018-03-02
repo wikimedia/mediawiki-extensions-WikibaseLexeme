@@ -20,7 +20,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeDifferTest extends TestCase {
 

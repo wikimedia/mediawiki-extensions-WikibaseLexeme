@@ -16,7 +16,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 /**
  * @covers \Wikibase\Lexeme\Store\FormRevisionLookup
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class FormRevisionLookupTest extends TestCase {

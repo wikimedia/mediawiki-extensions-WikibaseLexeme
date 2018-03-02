@@ -14,7 +14,7 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  *
  * @group Database
  * @group medium

@@ -6,7 +6,7 @@ use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class CartesianProduct {
 

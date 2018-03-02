@@ -8,7 +8,7 @@ use Wikibase\Lexeme\ChangeOp\ChangeOpEditFormElements;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class EditFormElementsRequest {
 

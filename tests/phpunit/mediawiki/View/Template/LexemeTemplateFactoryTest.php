@@ -10,7 +10,7 @@ use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
  *
  * @group WikibaseView
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemeTemplateFactoryTest extends TestCase {

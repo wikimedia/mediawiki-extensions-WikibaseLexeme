@@ -18,7 +18,7 @@ use Wikibase\View\LocalizedTextProvider;
 /**
  * TODO: move me to some other namespace.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeIdHtmlFormatter implements EntityIdFormatter {
 

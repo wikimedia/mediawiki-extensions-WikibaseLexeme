@@ -17,7 +17,7 @@ use Wikibase\Lexeme\DataModel\FormId;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Form
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormTest extends TestCase {
 

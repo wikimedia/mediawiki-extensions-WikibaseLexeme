@@ -19,7 +19,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormDifferPatcherTest extends TestCase {
 

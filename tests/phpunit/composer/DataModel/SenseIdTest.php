@@ -8,7 +8,7 @@ use Wikibase\Lexeme\DataModel\SenseId;
 /**
  * @covers \Wikibase\Lexeme\DataModel\SenseId
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class SenseIdTest extends TestCase {
 

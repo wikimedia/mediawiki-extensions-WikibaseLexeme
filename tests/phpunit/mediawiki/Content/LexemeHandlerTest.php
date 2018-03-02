@@ -30,7 +30,7 @@ use Wikibase\TermIndex;
 /**
  * @covers \Wikibase\Lexeme\Content\LexemeHandler
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Bene* < benestar.wikimedia@gmail.com >
  */
 class LexemeHandlerTest extends EntityHandlerTest {

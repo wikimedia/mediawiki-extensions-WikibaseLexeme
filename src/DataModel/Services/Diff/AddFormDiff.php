@@ -6,7 +6,7 @@ use Diff\DiffOp\Diff\Diff;
 use Wikibase\Lexeme\DataModel\Form;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddFormDiff implements FormDiff {
 

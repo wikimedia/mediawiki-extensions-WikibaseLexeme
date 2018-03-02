@@ -22,7 +22,7 @@ use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Lexeme
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeTest extends TestCase {
 

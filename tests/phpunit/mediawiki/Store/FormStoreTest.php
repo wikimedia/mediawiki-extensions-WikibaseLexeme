@@ -21,7 +21,7 @@ use Wikibase\Lib\Store\EntityStore;
 /**
  * @covers \Wikibase\Lexeme\Store\FormStore
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class FormStoreTest extends TestCase {

@@ -17,7 +17,7 @@ use Wikibase\View\StatementSectionsView;
 /**
  * @covers \Wikibase\Lexeme\View\SensesView
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class SensesViewTest extends TestCase {
 

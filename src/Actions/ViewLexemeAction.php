@@ -7,7 +7,7 @@ use Wikibase\ViewEntityAction;
 /**
  * Handles the view action for Wikibase Lexeme.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class ViewLexemeAction extends ViewEntityAction {

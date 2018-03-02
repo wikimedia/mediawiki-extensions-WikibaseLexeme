@@ -13,7 +13,7 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * Passes ItemSelectorWidget instead of OOUI\TextInputWidget to the frontend
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ItemSelectorWidgetField extends HTMLItemReferenceField {
 

@@ -18,7 +18,7 @@ use Wikibase\View\StatementGroupListView;
 /**
  * @covers \Wikibase\Lexeme\View\FormsView
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class FormsViewTest extends TestCase {

@@ -10,7 +10,7 @@ use OOUI\TextInputWidget;
  *
  * TODO: make it configurable from PHP in order to inject API URL, timeout etc.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ItemSelectorWidget extends TextInputWidget {
 

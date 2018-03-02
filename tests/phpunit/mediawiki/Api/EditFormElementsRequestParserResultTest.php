@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Api\Error\ApiError;
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElementsRequestParserResult
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class EditFormElementsRequestParserResultTest extends TestCase {
 

@@ -18,7 +18,7 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * @covers \Wikibase\Repo\Api\EditEntity
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  *
  * @group API
  * @group WikibaseAPI

@@ -8,7 +8,7 @@ use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 /**
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class RepresentationsMustHaveUniqueLanguageTest extends TestCase {
 

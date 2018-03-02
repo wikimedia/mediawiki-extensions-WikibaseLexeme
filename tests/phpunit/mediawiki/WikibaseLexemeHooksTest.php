@@ -9,7 +9,7 @@ use Wikibase\Lexeme\WikibaseLexemeHooks;
 /**
  * @covers \Wikibase\Lexeme\WikibaseLexemeHooks
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class WikibaseLexemeHooksTest extends TestCase {
 

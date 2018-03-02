@@ -16,7 +16,7 @@ use Wikibase\Summary;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLexicalCategory
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ChangeOpLexicalCategoryTest extends TestCase {
 

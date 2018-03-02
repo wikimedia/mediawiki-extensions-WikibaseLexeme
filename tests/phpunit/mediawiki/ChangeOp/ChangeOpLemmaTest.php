@@ -18,7 +18,7 @@ use Wikibase\Summary;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLemma
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ChangeOpLemmaTest extends TestCase {
 

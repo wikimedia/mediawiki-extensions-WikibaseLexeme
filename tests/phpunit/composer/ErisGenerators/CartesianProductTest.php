@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @covers \Wikibase\Lexeme\Tests\ErisGenerators\CartesianProduct
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class CartesianProductTest extends TestCase {
 

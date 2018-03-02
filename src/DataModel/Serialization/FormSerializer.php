@@ -7,7 +7,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Form;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormSerializer {
 

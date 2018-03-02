@@ -30,7 +30,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class StorageLexemeSerializerTest extends TestCase {
 

@@ -14,7 +14,7 @@ use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\SummaryFormatter;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddForm extends ApiBase {
 

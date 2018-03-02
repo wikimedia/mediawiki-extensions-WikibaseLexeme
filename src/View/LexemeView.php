@@ -25,7 +25,7 @@ use WMDE\VueJsTemplating\Templating;
 /**
  * Class for creating HTML views for Lexeme instances.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemeView extends EntityView {

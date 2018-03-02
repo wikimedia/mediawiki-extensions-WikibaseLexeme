@@ -17,7 +17,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 /**
  * Class for generating views of DiffOp objects of forms.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormDiffView extends BasicDiffView {
 

@@ -15,7 +15,7 @@
 	/**
 	 * @class jQuery.wikibase.senseview
 	 * @extends jQuery.ui.Widget
-	 * @license GPL-2.0+
+	 * @license GPL-2.0-or-later
 	 *
 	 * @constructor
 	 *

@@ -16,7 +16,7 @@ use Wikibase\Lexeme\DemoData\LeiterLexemePopulator;
 use Wikimedia\Assert\Assert;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeContent extends EntityContent {
 

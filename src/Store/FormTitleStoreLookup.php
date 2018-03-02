@@ -10,7 +10,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class FormTitleStoreLookup implements EntityTitleStoreLookup {

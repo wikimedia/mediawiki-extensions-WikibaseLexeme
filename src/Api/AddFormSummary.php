@@ -7,7 +7,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\FormatableSummary;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddFormSummary implements FormatableSummary {
 

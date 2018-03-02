@@ -18,7 +18,7 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElements
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  *
  * @group Database
  * @group medium

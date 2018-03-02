@@ -13,7 +13,7 @@ use Wikimedia\Assert\Assert;
 /**
  * Provides validators that can be used to validates elements of the Lexeme entity.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeValidatorFactory {
 

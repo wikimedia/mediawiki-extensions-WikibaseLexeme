@@ -30,7 +30,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ApiErrorTranslationTest extends TestCase {
 

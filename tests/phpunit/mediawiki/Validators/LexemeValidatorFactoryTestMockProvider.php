@@ -16,7 +16,7 @@ use Wikibase\Repo\Validators\TermValidatorFactory;
 
 /**
  * Provider of the LexemeValidatorFactory mock for test purposes
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeValidatorFactoryTestMockProvider {
 

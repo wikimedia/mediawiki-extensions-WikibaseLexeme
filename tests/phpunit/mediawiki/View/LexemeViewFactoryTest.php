@@ -16,7 +16,7 @@ use Wikibase\View\EntityTermsView;
 /**
  * @covers \Wikibase\Lexeme\View\LexemeViewFactory
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class LexemeViewFactoryTest extends TestCase {

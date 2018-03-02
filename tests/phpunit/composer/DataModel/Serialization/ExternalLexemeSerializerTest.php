@@ -20,7 +20,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class ExternalLexemeSerializerTest extends TestCase {

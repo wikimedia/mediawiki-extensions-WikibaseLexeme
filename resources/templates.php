@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme;
  * Contains templates of lexemes commonly used in server-side output generation and client-side
  * JavaScript processing.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  *
  * @return array
  */

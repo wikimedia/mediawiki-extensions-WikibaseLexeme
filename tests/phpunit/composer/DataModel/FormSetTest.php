@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataModel\FormSet;
 /**
  * @covers \Wikibase\Lexeme\DataModel\FormSet
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormSetTest extends TestCase {
 

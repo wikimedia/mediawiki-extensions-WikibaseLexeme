@@ -13,7 +13,7 @@ use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ChangeOpLanguage extends ChangeOpBase {
 

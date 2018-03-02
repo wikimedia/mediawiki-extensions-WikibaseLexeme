@@ -17,7 +17,7 @@ use Wikibase\View\EntityTermsView;
 use Wikibase\View\Template\TemplateFactory;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class LexemeViewFactory {

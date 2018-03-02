@@ -12,7 +12,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class EditFormElements extends \ApiBase {
 

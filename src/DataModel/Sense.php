@@ -11,7 +11,7 @@ use Wikibase\DataModel\Term\TermList;
  *
  * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Sense
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class Sense {
 

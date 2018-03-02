@@ -6,7 +6,7 @@ use DataValues\StringValue;
 use ValueFormatters\ValueFormatter;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class SenseIdFormatter implements ValueFormatter {
 

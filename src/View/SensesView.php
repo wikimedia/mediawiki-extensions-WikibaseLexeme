@@ -13,7 +13,7 @@ use Wikibase\View\StatementGroupListView;
 use WMDE\VueJsTemplating\Templating;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class SensesView {
 

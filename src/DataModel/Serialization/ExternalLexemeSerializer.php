@@ -12,7 +12,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
  * (i.e. API, Special pages, dumps etc).
  * For serialization to be used in the internal Wikibase storage layer use LexemeSerializer instead.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ExternalLexemeSerializer implements DispatchableSerializer {
 

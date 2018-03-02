@@ -19,7 +19,7 @@ use Wikimedia\Assert\Assert;
 use InvalidArgumentException;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeDiffer implements EntityDifferStrategy {
 

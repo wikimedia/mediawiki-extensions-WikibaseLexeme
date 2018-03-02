@@ -21,7 +21,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemePatcherTest extends TestCase {

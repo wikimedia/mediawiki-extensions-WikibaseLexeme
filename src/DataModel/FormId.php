@@ -10,7 +10,7 @@ use Wikimedia\Assert\Assert;
  *
  * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Form
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
 class FormId extends EntityId {

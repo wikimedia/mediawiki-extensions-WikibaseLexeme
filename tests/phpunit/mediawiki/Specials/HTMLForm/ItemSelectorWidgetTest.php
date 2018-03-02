@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
 /**
  * @covers \Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ItemSelectorWidgetTest extends TestCase {
 

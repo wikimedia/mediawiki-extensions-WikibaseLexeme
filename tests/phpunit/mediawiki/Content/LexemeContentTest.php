@@ -15,7 +15,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 /**
  * @covers \Wikibase\Lexeme\Content\LexemeContent
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeContentTest extends TestCase {
 

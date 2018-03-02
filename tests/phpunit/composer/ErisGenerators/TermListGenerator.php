@@ -8,7 +8,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class TermListGenerator implements Generator {
 

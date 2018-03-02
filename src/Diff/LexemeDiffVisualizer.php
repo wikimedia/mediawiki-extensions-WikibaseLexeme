@@ -13,7 +13,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\EntityDiffVisualizer;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  * @author Amir Sarabadani
  */
 class LexemeDiffVisualizer implements EntityDiffVisualizer {

@@ -12,7 +12,7 @@ use Wikibase\DataModel\Services\Diff\TermListPatcher;
 use Wikibase\Lexeme\DataModel\Form;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class FormPatcher implements EntityPatcherStrategy {
 

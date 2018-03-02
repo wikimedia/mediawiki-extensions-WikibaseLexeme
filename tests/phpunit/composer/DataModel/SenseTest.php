@@ -11,7 +11,7 @@ use Wikibase\Lexeme\DataModel\SenseId;
 /**
  * @covers \Wikibase\Lexeme\DataModel\Sense
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class SenseTest extends TestCase {
 

@@ -25,7 +25,7 @@ use Wikibase\SummaryFormatter;
 /**
  * Page for creating new Lexeme entities.
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class SpecialNewLexeme extends SpecialNewEntity {
 

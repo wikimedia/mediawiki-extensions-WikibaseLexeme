@@ -6,7 +6,7 @@
 	 *
 	 * @param {Object} [config] Must contain $valueField
 	 *
-	 * @license GPL-2.0+
+	 * @license GPL-2.0-or-later
 	 */
 	var ItemSelectorWidget = function ( config ) {
 		if ( !config.$valueField ) {

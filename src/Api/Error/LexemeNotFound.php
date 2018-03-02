@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Api\Error;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeNotFound implements ApiError {
 

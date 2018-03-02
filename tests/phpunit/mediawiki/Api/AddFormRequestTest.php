@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequest
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class AddFormRequestTest extends TestCase {
 

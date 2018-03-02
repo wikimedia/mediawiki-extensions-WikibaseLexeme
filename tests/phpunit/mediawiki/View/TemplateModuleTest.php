@@ -9,7 +9,7 @@ use Wikibase\Lexeme\View\TemplateModule;
 /**
  * @covers \Wikibase\Lexeme\View\TemplateModule
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class TemplateModuleTest extends TestCase {
 

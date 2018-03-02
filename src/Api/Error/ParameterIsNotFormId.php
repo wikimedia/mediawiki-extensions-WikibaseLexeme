@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Api\Error;
 use ApiMessage;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class ParameterIsNotFormId implements ApiError {
 

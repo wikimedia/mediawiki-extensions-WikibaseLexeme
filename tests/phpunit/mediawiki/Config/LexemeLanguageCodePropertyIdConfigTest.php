@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
 /**
  * @covers \Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeLanguageCodePropertyIdConfigTest extends TestCase {
 

@@ -29,7 +29,7 @@ use Wikibase\StringNormalizer;
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeChangeOpDeserializerTest extends TestCase {
 

@@ -10,7 +10,7 @@ use RuntimeException;
 /**
  * @covers \Wikibase\Lexeme\DataModel\LexemeId
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemeIdTest extends TestCase {
 

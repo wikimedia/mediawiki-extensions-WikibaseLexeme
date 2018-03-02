@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\DataModel;
 
 /**
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class LexemePatchAccess {
 

@@ -26,7 +26,7 @@ use Wikibase\Lexeme\DataModel\FormId;
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElementsRequestParser
  *
- * @license GPL-2.0+
+ * @license GPL-2.0-or-later
  */
 class EditFormElementsRequestParserTest extends TestCase {
 
