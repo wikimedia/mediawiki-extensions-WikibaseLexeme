@@ -42,8 +42,7 @@ return [
 
 				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
 				$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
-					// TODO: Where is the prefetching done for the ItemIds used in Lexemes?
-					$wikibaseRepo->getPrefetchingTermLookup(),
+					$wikibaseRepo->getTermLookup(),
 					$wikibaseRepo->getLanguageFallbackChainFactory()
 						->newFromLanguage( $userLanguage )
 				);
