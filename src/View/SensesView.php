@@ -124,7 +124,7 @@ class SensesView {
 		return $this->templateFactory->render(
 			'wikibase-lexeme-sense',
 			[
-				$sense->getId()->getSerialization(),
+				htmlspecialchars( $sense->getId()->getSerialization() ),
 				$glossWidget,
 				$this->getStatementSectionHtml( $sense )
 			]
