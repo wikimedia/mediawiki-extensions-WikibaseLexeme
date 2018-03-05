@@ -7,11 +7,9 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\FormsView;
@@ -83,26 +81,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @return LabelDescriptionLookup
-	 */
-	private function newLabelDescriptionLookup() {
-		$labelDescriptionLookup = $this->getMock( LabelDescriptionLookup::class );
-
-		$labelDescriptionLookup
-			->method( 'getLabel' )
-			->will(
-				$this->returnCallback( function( ItemId $itemId ) {
-					if ( $itemId->getSerialization() === 'Q1' ) {
-						return null;
-					}
-					return new Term( 'en', '<ITEM-' . $itemId->getSerialization() . '>' );
-				} )
-			);
-
-		return $labelDescriptionLookup;
-	}
-
-	/**
 	 * @return EntityTermsView
 	 */
 	private function newEntityTermsViewMock() {
@@ -155,7 +133,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 			$this->newSensesViewMock(),
 			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$htmlTermRenderer,
-			$this->newLabelDescriptionLookup(),
 			$linkFormatter
 		);
 	}

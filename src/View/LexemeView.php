@@ -6,10 +6,7 @@ use InvalidArgumentException;
 use Language;
 use Message;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookupException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -51,11 +48,6 @@ class LexemeView extends EntityView {
 	private $htmlTermRenderer;
 
 	/**
-	 * @var LabelDescriptionLookup
-	 */
-	private $labelDescriptionLookup;
-
-	/**
 	 * @var EntityIdFormatter
 	 */
 	private $idFormatter;
@@ -69,7 +61,6 @@ class LexemeView extends EntityView {
 	 * @param SensesView $sensesView
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param HtmlTermRenderer $htmlTermRenderer
-	 * @param LabelDescriptionLookup $labelDescriptionLookup
 	 * @param EntityIdFormatter $idFormatter
 	 */
 	public function __construct(
@@ -81,7 +72,6 @@ class LexemeView extends EntityView {
 		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
 		HtmlTermRenderer $htmlTermRenderer,
-		LabelDescriptionLookup $labelDescriptionLookup,
 		EntityIdFormatter $idFormatter
 	) {
 		parent::__construct(
@@ -95,7 +85,6 @@ class LexemeView extends EntityView {
 		$this->sensesView = $sensesView;
 		$this->statementSectionsView = $statementSectionsView;
 		$this->htmlTermRenderer = $htmlTermRenderer;
-		$this->labelDescriptionLookup = $labelDescriptionLookup;
 		$this->idFormatter = $idFormatter;
 	}
 
@@ -221,25 +210,6 @@ HTML;
 	 */
 	private function getLocalizedMessage( $key, array $params = [] ) {
 		return ( new Message( $key, $params, Language::factory( $this->languageCode ) ) )->text();
-	}
-
-	/**
-	 * @param ItemId $itemId
-	 *
-	 * @return string HTML
-	 */
-	private function getItemIdHtml( ItemId $itemId ) {
-		try {
-			$label = $this->labelDescriptionLookup->getLabel( $itemId );
-		} catch ( LabelDescriptionLookupException $e ) {
-			$label = null;
-		}
-
-		if ( $label === null ) {
-			return $itemId->getSerialization();
-		}
-
-		return $this->htmlTermRenderer->renderTerm( $label );
 	}
 
 	private function getLemmaVueTemplate() {
