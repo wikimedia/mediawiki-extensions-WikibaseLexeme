@@ -139,7 +139,6 @@ class LexemeViewFactory {
 			$sensesView,
 			$statementSectionsView,
 			$htmlTermRenderer,
-			$retrievingLabelDescriptionLookup,
 			$idLinkFormatter
 		);
 	}
