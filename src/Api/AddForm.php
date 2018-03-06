@@ -8,6 +8,7 @@ use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
+use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
@@ -195,17 +196,17 @@ class AddForm extends ApiBase {
 			$this->dieStatus( $status ); //Seems like it is good enough
 		}
 
-		$apiResult = $this->getResult();
-
-		$statusValue = $status->getValue();
-		$revisionId = $statusValue['revision']->getRevisionId();
+		/** @var EntityRevision $entityRevision */
+		$entityRevision = $status->getValue()['revision'];
+		$revisionId = $entityRevision->getRevisionId();
 
 		$serializedForm = $this->formSerializer->serialize( $newForm );
 
+		$apiResult = $this->getResult();
+		$apiResult->addValue( null, 'lastrevid', $revisionId );
 		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );
 		$apiResult->addValue( null, 'form', $serializedForm );
-		$apiResult->addValue( null, 'lastrevid', $revisionId );
 	}
 
 	/**
