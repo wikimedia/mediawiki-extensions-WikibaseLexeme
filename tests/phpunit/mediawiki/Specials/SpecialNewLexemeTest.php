@@ -10,7 +10,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Specials\SpecialNewLexeme;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
-use Wikibase\Repo\Tests\Specials\SpecialNewEntityTest;
+use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
@@ -24,7 +24,7 @@ use Wikibase\SummaryFormatter;
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class SpecialNewLexemeTest extends SpecialNewEntityTest {
+class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	protected function newSpecialPage() {
 		$irrelevantNamespaceNumber = -1;
