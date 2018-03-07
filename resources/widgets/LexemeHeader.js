@@ -8,44 +8,80 @@
 	var newLexemeHeader = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 
-	var wbEntity = JSON.parse( mw.config.get( 'wbEntity' ) );
+	/**
+	 * FIXME Use wikibase.lexeme.datamodel.Lexeme
+	 *
+	 * @param {Object} wbEntity
+	 * @return {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}}
+	 */
+	function hydrateLexeme( wbEntity ) {
+		return {
+			lemmas: hydrateLemmas( wbEntity.lemmas ),
+			lexicalCategory: wbEntity.lexicalCategory,
+			language: wbEntity.language,
+			id: mw.config.get( 'wbEntityId' )
+		};
+	}
 
-	var lemmas = [];
-	$.each( wbEntity.lemmas, function ( index, lemma ) {
-		lemmas.push( new Lemma( lemma.value, lemma.language ) );
-	} );
+	/**
+	 * Create an array of wikibase.lexeme.datamodel.Lemma from lemma information per wikibase entity object
+	 *
+	 * @param {Object} lemmaInfo
+	 * @return {wikibase.lexeme.datamodel.Lemma[]}
+	 */
+	function hydrateLemmas( lemmaInfo ) {
+		var lemmas = [];
+		$.each( lemmaInfo, function ( index, lemma ) {
+			lemmas.push( new Lemma( lemma.value, lemma.language ) );
+		} );
+		return lemmas;
+	}
 
-	var lexeme = {
-		lemmas: lemmas,
-		lexicalCategory: wbEntity.lexicalCategory,
-		language: wbEntity.language,
-		id: mw.config.get( 'wbEntityId' )
-	};
+	/**
+	 * @tutorial Parameter is _not_ wikibase.lexeme.datamodel.Lexeme! See hydrateLexeme()
+	 *
+	 * @param {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
+	 */
+	function init( lexeme ) {
+		var repoApi = new wb.api.RepoApi( new mw.Api() );
 
-	var repoApi = new wb.api.RepoApi( new mw.Api() );
+		var baseRevId = mw.config.get( 'wgCurRevisionId' );
 
-	var baseRevId = mw.config.get( 'wgCurRevisionId' );
+		var store = new Vuex.Store( newLexemeHeaderStore(
+			repoApi,
+			lexeme,
+			baseRevId,
+			$( '.language-lexical-category-widget_language' ).html(),
+			$( '.language-lexical-category-widget_lexical-category' ).html()
+		) );
 
-	var store = new Vuex.Store( newLexemeHeaderStore(
-		repoApi,
-		lexeme,
-		baseRevId,
-		$( '.language-lexical-category-widget_language' ).html(),
-		$( '.language-lexical-category-widget_lexical-category' ).html()
-	) );
+		var lemmaWidget = newLemmaWidget( '#lemma-widget-vue-template', mw.messages );
+		var languageAndLexicalCategoryWidget = newLanguageAndLexicalCategoryWidget(
+			'#language-and-lexical-category-widget-vue-template',
+			repoApi,
+			mw.messages
+		);
 
-	var lemmaWidget = newLemmaWidget( '#lemma-widget-vue-template', mw.messages );
-	var languageAndLexicalCategoryWidget = newLanguageAndLexicalCategoryWidget(
-		'#language-and-lexical-category-widget-vue-template',
-		repoApi,
-		mw.messages
-	);
-	var app = new Vue( newLexemeHeader(
-		store,
-		'#wb-lexeme-header',
-		'#lexeme-header-widget-vue-template',
-		lemmaWidget,
-		languageAndLexicalCategoryWidget,
-		mw.messages
-	) );
+		var app = new Vue( newLexemeHeader(
+			store,
+			'#wb-lexeme-header',
+			'#lexeme-header-widget-vue-template',
+			lemmaWidget,
+			languageAndLexicalCategoryWidget,
+			mw.messages
+		) );
+	}
+
+	$.Deferred( function ( deferred ) {
+		mw.hook( 'wikibase.entityPage.entityLoaded' ).add( function ( wbEntity ) {
+			deferred.resolve( hydrateLexeme( wbEntity ) );
+		} );
+	} )
+		.then( init )
+		.fail( function ( reason ) {
+			// FIXME: Change to lexeme-extension-specific logger once defined
+			mw.log.error( 'LexemeHeader could not be initialized from wikibase.entityPage.entityLoaded', reason );
+		} )
+	;
+
 } )( jQuery, mediaWiki, require, wikibase, Vue, Vuex );
