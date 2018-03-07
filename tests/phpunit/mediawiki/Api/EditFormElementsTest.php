@@ -332,7 +332,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* set-form-representations:1||L1-F1 */ en: goadth',
+			'/* set-form-representations:1|en|L1-F1 */ en: goadth',
 			$revision->getComment()->text
 		);
 	}
@@ -366,7 +366,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* add-form-representations:1||L1-F1 */ en-us: color',
+			'/* add-form-representations:1|en-us|L1-F1 */ en-us: color',
 			$revision->getComment()->text
 		);
 	}
@@ -400,7 +400,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* remove-form-representations:1||L1-F1 */ en-us: color',
+			'/* remove-form-representations:1|en-us|L1-F1 */ en-us: color',
 			$revision->getComment()->text
 		);
 	}
