@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Specials;
 
+use Iterator;
 use OutputPage;
 use Status;
 use Wikibase\CopyrightMessageBuilder;
@@ -21,6 +22,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
+use Wikimedia\Assert\Assert;
 
 /**
  * Page for creating new Lexeme entities.
@@ -161,8 +163,15 @@ class SpecialNewLexeme extends SpecialNewEntity {
 
 		$summary = new Summary( 'wbeditentity', 'create' );
 		$summary->setLanguage( $uiLanguageCode );
+
+		$lemmaIterator = $lexeme->getLemmas()->getIterator();
+		// As getIterator can also in theory return a Traversable, guard against that
+		Assert::invariant(
+			$lemmaIterator instanceof Iterator,
+			'TermList::getIterator did not return an instance of Iterator'
+		);
 		/** @var Term|null $lemmaTerm */
-		$lemmaTerm = $lexeme->getLemmas()->getIterator()->current();
+		$lemmaTerm = $lemmaIterator->current();
 		$summary->addAutoSummaryArgs( $lemmaTerm->getText() );
 
 		return $summary;
