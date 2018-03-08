@@ -1,0 +1,6 @@
+{
+	"extends": "../.eslintrc.json",
+	"rules": {
+		"promise/no-native": "off"
+	}
+}

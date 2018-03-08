@@ -18,6 +18,9 @@
 		"describe": false,
 		"it": false
 	},
+	"plugins": [
+		"promise"
+	],
 	"rules": {
 		"dot-notation": "off",
 		"indent": [ "error", "tab", { "CallExpression": { "arguments": "first" } } ],
@@ -27,6 +30,7 @@
 		"no-use-before-define": [ "error", "nofunc" ],
 		"one-var": "off",
 		"operator-linebreak": "off",
+		"promise/no-native": "error",
 		"spaced-comment": "off",
 		"valid-jsdoc": "off",
 		"vars-on-top": "off",
