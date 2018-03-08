@@ -593,4 +593,12 @@ class DatabaseSpy implements IDatabase {
 		throw new \RuntimeException( 'not yet implemented!' );
 	}
 
+	public function buildSubString( $input, $startPosition, $length = null ) {
+		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
+	}
+
+	public function buildIntegerCast( $field ) {
+		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
+	}
+
 }
