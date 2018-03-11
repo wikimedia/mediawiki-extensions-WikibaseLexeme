@@ -1,8 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Cûndûllah el-Kurdî"
+			"Cûndûllah el-Kurdî",
+			"Ghybu"
 		]
 	},
-	"wikibaselexeme-field-language-label": "Ziman"
+	"wikibaselexeme-lemma-field-language-label": "Ziman",
+	"wikibaselexeme-form-field-language-label": "Ziman",
+	"wikibaselexeme-gloss-field-language-label": "Ziman",
+	"wikibaselexeme-field-language-label": "Ziman",
+	"wikibaselexeme-diffview-language": "ziman"
 }
