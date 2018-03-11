@@ -83,7 +83,8 @@ class FormsView {
 		$grammaticalFeaturesHtml = $this->templateFactory->render(
 			'wikibase-lexeme-form-grammatical-features',
 			[ implode(
-				$this->textProvider->get( 'comma-separator' ),
+				// Escape HTML without double escaping entities, {@see Message::escaped}
+				htmlspecialchars( $this->textProvider->get( 'comma-separator' ), ENT_QUOTES, 'UTF-8', false ),
 				array_map(
 					function ( ItemId $id ) {
 						return '<span>' . $this->getGrammaticalFeatureHtml( $id ) . '</span>';
