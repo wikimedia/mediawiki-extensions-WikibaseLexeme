@@ -99,6 +99,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			self::FIELD_LEMMA_LANGUAGE => [
 				'name' => self::FIELD_LEMMA_LANGUAGE,
 				'class' => HTMLContentLanguageField::class,
+				'cssclass' => 'lemma-language',
 				'id' => 'wb-newlexeme-lemma-language',
 				'label-message' => 'wikibaselexeme-newlexeme-lemma-language',
 			],
@@ -197,6 +198,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	protected function displayBeforeForm( OutputPage $output ) {
 		parent::displayBeforeForm( $output );
 		$output->addModules( 'wikibase.lexeme.special.NewLexeme' );
+		$output->addModuleStyles( 'wikibase.lexeme.special.NewLexeme.styles' );
 	}
 
 }

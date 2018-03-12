@@ -386,6 +386,11 @@
 				"wikibase.lexeme"
 			]
 		},
+		"wikibase.lexeme.special.NewLexeme.styles": {
+			"styles": [
+				"special/new-lexeme.less"
+			]
+		},
 		"wikibase.lexeme.special.NewLexeme": {
 			"scripts": [
 				"special/__namespace.js",

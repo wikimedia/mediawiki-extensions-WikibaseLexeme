@@ -19,8 +19,6 @@
 			timeout: 8000
 		};
 
-	$lemmaLanguageField.hide();
-
 	languageSelector.initialize( $.extend( {
 		changeObserver: new wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver(
 			$lemmaLanguageField,
