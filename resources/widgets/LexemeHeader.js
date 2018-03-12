@@ -19,7 +19,7 @@
 			lemmas: hydrateLemmas( wbEntity.lemmas ),
 			lexicalCategory: wbEntity.lexicalCategory,
 			language: wbEntity.language,
-			id: mw.config.get( 'wbEntityId' )
+			id: wbEntity.id
 		};
 	}
 
