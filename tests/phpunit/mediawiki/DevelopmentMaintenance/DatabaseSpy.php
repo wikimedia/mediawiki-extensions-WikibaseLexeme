@@ -270,7 +270,7 @@ class DatabaseSpy implements IDatabase {
 	}
 
 	public function estimateRowCount(
-		$table, $vars = '*', $conds = '', $fname = __METHOD__, $options = []
+		$table, $vars = '*', $conds = '', $fname = __METHOD__, $options = [], $join_conds = []
 	) {
 		throw new \RuntimeException( 'not yet implemented!' );
 	}
@@ -598,6 +598,10 @@ class DatabaseSpy implements IDatabase {
 	}
 
 	public function buildIntegerCast( $field ) {
+		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
+	}
+
+	public function setIndexAliases( array $aliases ) {
 		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
 	}
 
