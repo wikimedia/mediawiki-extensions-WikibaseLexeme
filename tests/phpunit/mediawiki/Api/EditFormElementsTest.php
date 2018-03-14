@@ -41,7 +41,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 	) {
 		$this->setContentLang( 'qqq' );
 		$params = array_merge(
-			[ 'action' => 'wblexemeeditformelements' ],
+			[ 'action' => 'wbleditformelements' ],
 			$params
 		);
 
@@ -143,7 +143,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -171,7 +171,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -199,7 +199,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -229,7 +229,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -257,7 +257,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -288,7 +288,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -313,7 +313,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -346,7 +346,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -381,7 +381,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -415,7 +415,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -450,7 +450,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -485,7 +485,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
@@ -520,7 +520,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => $this->getDataParam()
 		];
@@ -539,7 +539,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeeditformelements',
+			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [

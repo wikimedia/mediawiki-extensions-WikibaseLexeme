@@ -249,7 +249,7 @@ class EditFormElements extends \ApiBase {
 		$grammaticalFeaturesText = $this->getLanguage()->commaList( $exampleData['grammaticalFeatures'] );
 
 		$exampleMessage = new \Message(
-			'apihelp-wblexemeeditformelements-example-1',
+			'apihelp-wbleditformelements-example-1',
 			[
 				$formId,
 				$representationsText,
