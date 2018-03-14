@@ -5,7 +5,8 @@
 			"Robby",
 			"Amire80",
 			"Raymond",
-			"Metalhead64"
+			"Metalhead64",
+			"Lucas Werkmeister (WMDE)"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -18,7 +19,7 @@
 	"wikibaselexeme-newlexeme-language": "Label for field in the Lexeme creation form.",
 	"wikibaselexeme-language-lexical-category-value": "Description when both lexical category and language are present\n{{Identical|In}}",
 	"wikibaselexeme-statementsection-statements-about-form": "Heading for the list of statements giving specific information about the currently viewed Form of a Lexeme.\n\nParameters:\n* $1 - Form ID.",
-	"wikibaselexeme-header-forms": "Subheading for the Forms section on a Lexeme page.\n{{Identical|Form}}",
+	"wikibaselexeme-header-forms": "Subheading for the '''lexicographical forms''' (not forms of tables or dialogs) section on a Lexeme page.",
 	"wikibaselexeme-enter-form-representation": "Placeholder for the Lexeme Form representation input field.",
 	"wikibaselexeme-empty-form-representation": "Placeholder message displayed instead of the Lexeme Form representation in case no representation has been specified yet.",
 	"wikibaselexeme-statementsection-statements-about-sense": "Heading for the list of statements giving specific information about the currently viewed Sense of a Lexeme.\n\nParameters:\n* $1 - Sense ID.",
