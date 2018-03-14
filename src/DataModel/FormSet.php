@@ -86,4 +86,22 @@ class FormSet {
 			: null;
 	}
 
+	/**
+	 * @return self
+	 */
+	public function copy() {
+		return clone $this;
+	}
+
+	/**
+	 * @see http://php.net/manual/en/language.oop5.cloning.php
+	 */
+	public function __clone() {
+		$clonedForms = [];
+		foreach ( $this->forms as $key => $form ) {
+			$clonedForms[$key] = clone $form;
+		}
+		$this->forms = $clonedForms;
+	}
+
 }

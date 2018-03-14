@@ -106,4 +106,22 @@ class FormSetTest extends TestCase {
 		$this->assertEquals( [ $form1, $form2 ], $formSet2->toArray() );
 	}
 
+	public function testCopyClonesForms() {
+		$form1 = NewForm::havingId( 'F1' )->build();
+		$form2 = NewForm::havingId( 'F2' )->build();
+
+		$formSet = new FormSet( [ $form2, $form1 ] );
+
+		$formSetCopy = $formSet->copy();
+
+		$this->assertNotSame(
+			$formSet,
+			$formSetCopy
+		);
+		$this->assertNotSame(
+			$formSet->getById( $form1->getId() ),
+			$formSetCopy->getById( $form1->getId()
+		) );
+	}
+
 }
