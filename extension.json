@@ -474,6 +474,10 @@
 			"class": "Wikibase\\Lexeme\\Api\\AddForm",
 			"factory": "Wikibase\\Lexeme\\Api\\AddForm::newFromGlobalState"
 		},
+		"wblremoveform": {
+			"class": "Wikibase\\Lexeme\\Api\\RemoveForm",
+			"factory": "Wikibase\\Lexeme\\Api\\RemoveForm::newFromGlobalState"
+		},
 		"wbleditformelements": {
 			"class": "Wikibase\\Lexeme\\Api\\EditFormElements",
 			"factory": "Wikibase\\Lexeme\\Api\\EditFormElements::newFromGlobalState"
