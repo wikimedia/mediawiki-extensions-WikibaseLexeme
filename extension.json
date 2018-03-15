@@ -470,11 +470,11 @@
 		"NewLexeme": "Wikibase\\Lexeme\\Specials\\SpecialNewLexeme::newFromGlobalState"
 	},
 	"APIModules": {
-		"wblexemeaddform": {
+		"wbladdform": {
 			"class": "Wikibase\\Lexeme\\Api\\AddForm",
 			"factory": "Wikibase\\Lexeme\\Api\\AddForm::newFromGlobalState"
 		},
-		"wblexemeeditformelements": {
+		"wbleditformelements": {
 			"class": "Wikibase\\Lexeme\\Api\\EditFormElements",
 			"factory": "Wikibase\\Lexeme\\Api\\EditFormElements::newFromGlobalState"
 		}

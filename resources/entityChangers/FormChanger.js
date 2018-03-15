@@ -77,7 +77,7 @@
 			var self = this;
 
 			return this.api.postWithToken( 'csrf', {
-				action: 'wblexemeeditformelements',
+				action: 'wbleditformelements',
 				formId: formId,
 				data: JSON.stringify( {
 					representations: representations,
@@ -96,7 +96,7 @@
 			var self = this;
 
 			return this.api.postWithToken( 'csrf', {
-				action: 'wblexemeaddform',
+				action: 'wbladdform',
 				lexemeId: this.lexemeId,
 				data: JSON.stringify( {
 					representations: representations,

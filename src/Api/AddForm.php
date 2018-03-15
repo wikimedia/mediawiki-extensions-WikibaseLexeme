@@ -290,7 +290,7 @@ class AddForm extends ApiBase {
 		$grammaticalFeaturesText = $this->getLanguage()->commaList( $exampleData['grammaticalFeatures'] );
 
 		$exampleMessage = new \Message(
-			'apihelp-wblexemeaddform-example-1',
+			'apihelp-wbladdform-example-1',
 			[
 				$lexemeId,
 				$representationsText,

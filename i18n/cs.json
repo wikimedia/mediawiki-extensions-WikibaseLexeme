@@ -14,7 +14,7 @@
 	"wikibase-lexeme-summary-wbeditentity-update": "Změněn lexém",
 	"wikibaselexeme-add-sense": "Přidat smysl",
 	"wikibaselexeme-add-form": "Přidat formu",
-	"apihelp-wblexemeeditformelements-example-1": "Edituje formu s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>",
+	"apihelp-wbleditformelements-example-1": "Edituje formu s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>",
 	"wikibase-lexeme-summary-add-form": "Přidána nová forma $3 s {{PLURAL:$1|reprezentací|reprezentacemi}}",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Přidána reprezentace|Přidány reprezentace}} formy $3",
 	"wikibase-lexeme-summary-set-form-representations": "{{PLURAL:$1|Změněna reprezentace|Změněny reprezentace}} formy $3",

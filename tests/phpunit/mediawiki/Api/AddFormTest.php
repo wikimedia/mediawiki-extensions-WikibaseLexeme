@@ -30,7 +30,7 @@ class AddFormTest extends WikibaseApiTestCase {
 	) {
 		$this->setContentLang( 'qqq' );
 		$params = array_merge(
-			[ 'action' => 'wblexemeaddform' ],
+			[ 'action' => 'wbladdform' ],
 			$params
 		);
 
@@ -131,7 +131,7 @@ class AddFormTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeaddform',
+			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
 			'data' => $this->getDataParam()
 		];
@@ -153,7 +153,7 @@ class AddFormTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeaddform',
+			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
 			'data' => $this->getDataParam()
 		];
@@ -169,7 +169,7 @@ class AddFormTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeaddform',
+			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
 			'data' => $this->getDataParam()
 		];
@@ -191,7 +191,7 @@ class AddFormTest extends WikibaseApiTestCase {
 		$this->saveLexeme( $lexeme );
 
 		$params = [
-			'action' => 'wblexemeaddform',
+			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
 			'data' => $this->getDataParam()
 		];

@@ -35,7 +35,7 @@
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotTokenType, 'csrf', 'Token type' );
-		assert.equal( gotParameters.action, 'wblexemeaddform', 'Add form API action' );
+		assert.equal( gotParameters.action, 'wbladdform', 'Add form API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 1, 'BOT flag' );
 		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
@@ -171,7 +171,7 @@
 				return {
 					code: code,
 					data: {},
-					module: 'wblexemeaddform',
+					module: 'wbladdform',
 					'*': text
 				};
 			}
@@ -198,7 +198,7 @@
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotTokenType, 'csrf', 'Token type' );
-		assert.equal( gotParameters.action, 'wblexemeeditformelements', 'Edit form elements API action' );
+		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
 		assert.equal( gotParameters.formId, formId, 'formId parameter' );
@@ -302,7 +302,7 @@
 				return {
 					code: code,
 					data: {},
-					module: 'wblexemeeditformelements',
+					module: 'wbleditformelements',
 					'*': text
 				};
 			}
