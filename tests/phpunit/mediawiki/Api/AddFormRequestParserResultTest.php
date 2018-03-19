@@ -50,7 +50,7 @@ class AddFormRequestParserResultTest extends TestCase {
 	/**
 	 * @return ApiError
 	 */
-	public function newApiError() {
+	private function newApiError() {
 		/** @var ApiError|\Prophecy\Prophecy\ObjectProphecy $error */
 		$error = $this->prophesize( ApiError::class );
 		$error->asApiMessage()
