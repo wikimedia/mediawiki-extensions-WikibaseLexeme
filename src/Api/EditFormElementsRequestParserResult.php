@@ -64,7 +64,7 @@ class EditFormElementsRequestParserResult {
 	 */
 	public function asFatalStatus() {
 		if ( !$this->hasErrors() ) {
-			throw new \LogicException( 'Succesful result can not be converted to fatal status' );
+			throw new \LogicException( 'Successful result can not be converted to fatal status' );
 		}
 
 		$status = \Status::newGood();
