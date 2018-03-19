@@ -48,7 +48,7 @@ class EditFormElementsRequestParserResult {
 	public function getRequest() {
 		if ( $this->errors ) {
 			throw new \LogicException(
-				'There have been errors when parsing the request. Call getErrors to handle them'
+				'There have been errors when parsing the request. Call asFatalStatus to handle them'
 			);
 		}
 
