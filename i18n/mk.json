@@ -36,6 +36,7 @@
 	"apihelp-wbladdform-param-lexemeId": "назнака на лексемата, како на пр. L10",
 	"apihelp-wbladdform-param-data": "Податоци кодирани во JSON т.е. претстави на граматички можности",
 	"apihelp-wbladdform-param-bot": "Означи го уредувањево како ботовско. Оваа адресна ознака ќе се почитува само ако корисникот членува во групата „{{int:group-bot}}“.",
+	"apihelp-wbladdform-example-1": "Стави образец во лексемата со назнака <samp>$1</samp> која ги има претставите <samp>$2</samp> со јазиците <samp>$3</samp> и граматичките функции <samp>$4</samp>",
 	"wikibaselexeme-api-error-parameter-required": "Се бара параметарот „$1“",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Се очекува параметарот „$1“ да биде важечки JSON-објект, а даден е „$2“",
 	"wikibaselexeme-api-error-lexeme-not-found": "Не пронајдов лексема со назнаката „$1“.",
