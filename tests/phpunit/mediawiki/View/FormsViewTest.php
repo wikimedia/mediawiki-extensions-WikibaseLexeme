@@ -134,7 +134,7 @@ class FormsViewTest extends TestCase {
 						$3
 						$4
 					</div>',
-				'wikibase-lexeme-form-grammatical-features' => '<div>$1</div>'
+				'wikibase-lexeme-form-grammatical-features' => '<div><div>$1</div><div>$2</div></div>'
 			] ),
 			new EntityIdHtmlLinkFormatter(
 				$this->getMock( LabelDescriptionLookup::class ),

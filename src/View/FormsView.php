@@ -82,16 +82,24 @@ class FormsView {
 	private function getFormHtml( Form $form ) {
 		$grammaticalFeaturesHtml = $this->templateFactory->render(
 			'wikibase-lexeme-form-grammatical-features',
-			[ implode(
-				// Escape HTML without double escaping entities, {@see Message::escaped}
-				htmlspecialchars( $this->textProvider->get( 'comma-separator' ), ENT_QUOTES, 'UTF-8', false ),
-				array_map(
-					function ( ItemId $id ) {
-						return '<span>' . $this->getGrammaticalFeatureHtml( $id ) . '</span>';
-					},
-					$form->getGrammaticalFeatures()
+			[
+				htmlspecialchars(
+					$this->textProvider->get( 'wikibaselexeme-form-grammatical-features' ),
+					ENT_QUOTES,
+					'UTF-8',
+					false
+				),
+				implode(
+					// Escape HTML without double escaping entities, {@see Message::escaped}
+					htmlspecialchars( $this->textProvider->get( 'comma-separator' ), ENT_QUOTES, 'UTF-8', false ),
+					array_map(
+						function ( ItemId $id ) {
+							return '<span>' . $this->getGrammaticalFeatureHtml( $id ) . '</span>';
+						},
+						$form->getGrammaticalFeatures()
+					)
 				)
-			) ]
+			]
 		);
 
 		return $this->templateFactory->render( 'wikibase-lexeme-form', [

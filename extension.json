@@ -132,7 +132,8 @@
 			"messages": [
 				"wikibaselexeme-empty-form-representation",
 				"wikibaselexeme-enter-form-representation",
-				"wikibaselexeme-statementsection-statements-about-form"
+				"wikibaselexeme-statementsection-statements-about-form",
+				"wikibaselexeme-form-grammatical-features"
 			]
 		},
 		"jquery.wikibase.grammaticalfeatureview": {

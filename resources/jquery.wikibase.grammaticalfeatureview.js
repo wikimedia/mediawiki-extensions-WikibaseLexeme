@@ -81,6 +81,8 @@
 		draw: function () {
 			var self = this;
 
+			this.$header.text( mw.messages.get( 'wikibaselexeme-form-grammatical-features' ) );
+
 			if ( this.isInEditMode() ) {
 				return this._drawEdit();
 			}

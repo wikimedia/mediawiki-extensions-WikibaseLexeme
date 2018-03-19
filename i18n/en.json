@@ -71,5 +71,6 @@
 	"content-model-wikibase-lexeme": "Wikibase Lexeme",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
-	"wikibaselexeme-lexeme-link-title": "$1: $2"
+	"wikibaselexeme-lexeme-link-title": "$1: $2",
+	"wikibaselexeme-form-grammatical-features": "Grammatical features"
 }
