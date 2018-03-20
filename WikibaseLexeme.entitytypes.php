@@ -12,6 +12,7 @@
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 
+use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\SerializerFactory;
@@ -102,6 +103,12 @@ return [
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
 		'content-handler-factory-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$config = MediaWikiServices::getInstance()->getMainConfig();
+			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
+				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
+			} else {
+				$lcID = null;
+			}
 			return new LexemeHandler(
 				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
@@ -111,7 +118,11 @@ return [
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
-				new LexemeFieldDefinitions()
+				new LexemeFieldDefinitions(
+					$wikibaseRepo->getStatementProviderDefinitions(),
+					$wikibaseRepo->getEntityLookup(),
+					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
+				)
 			);
 		},
 		'entity-id-pattern' => LexemeId::PATTERN,
@@ -246,6 +257,13 @@ return [
 		},
 		'content-handler-factory-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$config = MediaWikiServices::getInstance()->getMainConfig();
+			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
+				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
+			} else {
+				$lcID = null;
+			}
+
 			return new LexemeHandler(
 				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
@@ -255,7 +273,11 @@ return [
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
-				new LexemeFieldDefinitions()
+				new LexemeFieldDefinitions(
+					$wikibaseRepo->getStatementProviderDefinitions(),
+					$wikibaseRepo->getEntityLookup(),
+					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
+				)
 			);
 		},
 	],

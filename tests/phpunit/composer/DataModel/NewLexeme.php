@@ -70,6 +70,9 @@ class NewLexeme {
 		$this->language = $this->newRandomItemId();
 	}
 
+	/**
+	 * @return Lexeme
+	 */
 	public function build() {
 		$forms = new FormSet( $this->forms );
 		$nextFormId = $forms->maxFormIdNumber() + 1;

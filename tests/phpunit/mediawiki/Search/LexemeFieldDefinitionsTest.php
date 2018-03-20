@@ -1,9 +1,12 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 
 /**
  * @covers \Wikibase\Lexeme\Search\LexemeFieldDefinitions
@@ -14,11 +17,43 @@ use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 class LexemeFieldDefinitionsTest extends TestCase {
 
 	public function testGetFields() {
-		$fieldDefinitions = new LexemeFieldDefinitions();
+		$fieldDefinitions = new LexemeFieldDefinitions(
+			new StatementProviderFieldDefinitions( [], [] ),
+			$this->getMock( EntityLookup::class ),
+			new PropertyId( 'P123' )
+		);
 
-		$expectedKeys = [ 'statement_count' ];
+		$expectedKeys = [
+				'statement_keywords',
+				'statement_count',
+				'lemma',
+				'lexeme_forms',
+				'lexeme_language',
+				'lexical_category',
+			];
 
-		$this->assertSame( $expectedKeys, array_keys( $fieldDefinitions->getFields() ) );
+		$this->assertEquals( $expectedKeys, array_keys( $fieldDefinitions->getFields() ),
+			'Fields do not match', 0, 1, true );
+	}
+
+	public function testGetFieldsNoCode() {
+		$fieldDefinitions = new LexemeFieldDefinitions(
+			new StatementProviderFieldDefinitions( [], [] ),
+			$this->getMock( EntityLookup::class ),
+			null
+		);
+
+		$expectedKeys = [
+			'statement_keywords',
+			'statement_count',
+			'lemma',
+			'lexeme_forms',
+			'lexeme_language',
+			'lexical_category',
+		];
+
+		$this->assertEquals( $expectedKeys, array_keys( $fieldDefinitions->getFields() ),
+			'Fields do not match', 0, 1, true );
 	}
 
 }
