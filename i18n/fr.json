@@ -74,5 +74,6 @@
 	"wikibaselexeme-diffview-form": "formulaire",
 	"wikibaselexeme-diffview-representation": "représentation",
 	"wikibaselexeme-diffview-grammatical-feature": "caractère grammatical",
-	"content-model-wikibase-lexeme": "Lexème de Wikibase"
+	"content-model-wikibase-lexeme": "Lexème de Wikibase",
+	"wikibaselexeme-form-grammatical-features": "Caractéristiques grammaticales"
 }

@@ -71,5 +71,6 @@
 	"wikibaselexeme-diffview-form": "forma",
 	"wikibaselexeme-diffview-representation": "representação",
 	"wikibaselexeme-diffview-grammatical-feature": "funcionalidade gramatical",
-	"content-model-wikibase-lexeme": "Lexema Wikibase"
+	"content-model-wikibase-lexeme": "Lexema Wikibase",
+	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais"
 }

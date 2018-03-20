@@ -35,5 +35,6 @@
 	"wikibaselexeme-diffview-lexical-category": "categoria lessicale",
 	"wikibaselexeme-diffview-language": "lingua",
 	"wikibaselexeme-diffview-representation": "rappresentazione",
-	"content-model-wikibase-lexeme": "Lessema Wikibase"
+	"content-model-wikibase-lexeme": "Lessema Wikibase",
+	"wikibaselexeme-form-grammatical-features": "Caratteristiche grammaticali"
 }
