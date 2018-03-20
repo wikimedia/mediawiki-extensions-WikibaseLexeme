@@ -102,10 +102,10 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 		switch ( true ) {
 			case $diffOp instanceof DiffOpAdd:
-				return new ItemId( $diffOp->getNewValue() );
+				return $diffOp->getNewValue();
 
 			case $diffOp instanceof DiffOpChange:
-				return new ItemId( $diffOp->getNewValue() );
+				return $diffOp->getNewValue();
 
 			case $diffOp instanceof DiffOpRemove:
 				return null;

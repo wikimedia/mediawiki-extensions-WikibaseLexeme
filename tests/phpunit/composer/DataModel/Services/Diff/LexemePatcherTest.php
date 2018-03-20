@@ -107,7 +107,7 @@ class LexemePatcherTest extends TestCase {
 
 		$patch = new LexemeDiff( [
 			'lexicalCategory' => new Diff( [
-				'id' => new DiffOpChange( 'Q11', 'Q22' ),
+				'id' => new DiffOpChange( $removedLexicalCategory, $addedLexicalCategory ),
 			] ),
 		] );
 
@@ -129,7 +129,7 @@ class LexemePatcherTest extends TestCase {
 
 		$patch = new LexemeDiff( [
 			'language' => new Diff( [
-				'id' => new DiffOpChange( 'Q1', 'Q2' ),
+				'id' => new DiffOpChange( $removedLanguage, $addedLanguage ),
 			] ),
 		] );
 

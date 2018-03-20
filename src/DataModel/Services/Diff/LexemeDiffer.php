@@ -9,6 +9,7 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpRemove;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
@@ -40,6 +41,10 @@ class LexemeDiffer implements EntityDifferStrategy {
 
 	public function __construct() {
 		$this->recursiveMapDiffer = new MapDiffer( true );
+		$this->itemIdDiffer = new MapDiffer();
+		$this->itemIdDiffer->setComparisonCallback( function ( ItemId $a, ItemId $b ) {
+			return $a->equals( $b );
+		} );
 		$this->statementListDiffer = new StatementListDiffer();
 		$this->formDiffer = new FormDiffer();
 	}
@@ -80,6 +85,15 @@ class LexemeDiffer implements EntityDifferStrategy {
 			$this->toDiffArray( $to )
 		);
 
+		$diffOps['lexicalCategory'] = new Diff( $this->itemIdDiffer->doDiff(
+			$this->getLexicalCategoryAsArray( $from ),
+			$this->getLexicalCategoryAsArray( $to )
+		) );
+		$diffOps['language'] = new Diff( $this->itemIdDiffer->doDiff(
+			$this->getLanguageAsArray( $from ),
+			$this->getLanguageAsArray( $to )
+		) );
+
 		$diffOps['claim'] = $this->statementListDiffer->getDiff(
 			$from->getStatements(),
 			$to->getStatements()
@@ -106,18 +120,6 @@ class LexemeDiffer implements EntityDifferStrategy {
 
 		if ( $lemmas !== null ) {
 			$array['lemmas'] = $lemmas->toTextArray();
-		}
-
-		try {
-			$array['lexicalCategory'] = [ 'id' => $lexeme->getLexicalCategory()->getSerialization() ];
-		} catch ( UnexpectedValueException $ex ) {
-			// It's fine to skip uninitialized properties in a diff
-		}
-
-		try {
-			$array['language'] = [ 'id' => $lexeme->getLanguage()->getSerialization() ];
-		} catch ( UnexpectedValueException $ex ) {
-			// It's fine to skip uninitialized properties in a diff
 		}
 
 		return $array;
@@ -206,6 +208,22 @@ class LexemeDiffer implements EntityDifferStrategy {
 		}
 
 		return new Diff( [ new DiffOpChange( $from->getNextFormId(), $to->getNextFormId() ) ] );
+	}
+
+	private function getLexicalCategoryAsArray( Lexeme $lexeme ) {
+		try {
+			return [ 'id' => $lexeme->getLexicalCategory() ];
+		} catch ( UnexpectedValueException $ex ) {
+			return []; // It's fine to skip uninitialized properties in a diff
+		}
+	}
+
+	private function getLanguageAsArray( Lexeme $lexeme ) {
+		try {
+			return [ 'id' => $lexeme->getLanguage() ];
+		} catch ( UnexpectedValueException $ex ) {
+			return []; // It's fine to skip uninitialized properties in a diff
+		}
 	}
 
 }

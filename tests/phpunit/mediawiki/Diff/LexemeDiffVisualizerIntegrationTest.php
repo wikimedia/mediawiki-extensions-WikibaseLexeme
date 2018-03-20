@@ -59,7 +59,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
 				'lexicalCategory' => new Diff(
-					[ 'id' => new DiffOpChange( 'Q2', 'Q3' ) ],
+					[ 'id' => new DiffOpChange( new ItemId( 'Q2' ), new ItemId( 'Q3' ) ) ],
 					true
 				),
 			] ),
@@ -100,7 +100,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
 				'lexicalCategory' => new Diff(
-					[ 'id' => new DiffOpChange( 'Q2', 'Q3' ) ],
+					[ 'id' => new DiffOpChange( new ItemId( 'Q2' ), new ItemId( 'Q3' ) ) ],
 					true
 				),
 			] ),
@@ -153,7 +153,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
 				'language' => new Diff(
-					[ 'id' => new DiffOpChange( 'Q321', 'Q5' ) ],
+					[ 'id' => new DiffOpChange( new ItemId( 'Q321' ), new ItemId( 'Q5' ) ) ],
 					true
 				),
 			] ),
@@ -196,7 +196,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
 				'language' => new Diff(
-					[ 'id' => new DiffOpChange( 'Q4', 'Q5' ) ],
+					[ 'id' => new DiffOpChange( new ItemId( 'Q4' ), new ItemId( 'Q5' ) ) ],
 					true
 				),
 			] ),
@@ -252,8 +252,8 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					new FormId( 'L1-F1' ),
 					new Diff( [
 						'grammaticalFeatures' => new Diff( [
-							new DiffOpRemove( 'Q345' ),
-							new DiffOpAdd( 'Q234' ),
+							new DiffOpRemove( new ItemId( 'Q345' ) ),
+							new DiffOpAdd( new ItemId( 'Q234' ) ),
 						] ),
 					] )
 				)
@@ -297,8 +297,8 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					new FormId( 'L1-F1' ),
 					new Diff( [
 						'grammaticalFeatures' => new Diff( [
-							new DiffOpRemove( 'Q321' ),
-							new DiffOpAdd( 'Q123' ),
+							new DiffOpRemove( new ItemId( 'Q321' ) ),
+							new DiffOpAdd( new ItemId( 'Q123' ) ),
 						] ),
 					] )
 				)

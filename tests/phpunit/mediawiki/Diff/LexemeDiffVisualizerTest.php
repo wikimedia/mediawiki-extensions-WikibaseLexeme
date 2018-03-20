@@ -12,6 +12,7 @@ use MessageLocalizer;
 use RawMessage;
 use Site;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataModel\FormId;
@@ -47,7 +48,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 			new FormId( 'L1-F1' ),
 			new Diff( [
 				'representations' => new Diff( [ 'en' => new DiffOpChange( 'old', 'new' ) ], true ),
-				'grammaticalFeatures' => new DiffOpChange( 'Q5', 'Q6' )
+				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) )
 			], true )
 		);
 		$lexemeDiff = new EntityContentDiff(
@@ -57,11 +58,11 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 				], true ),
 
 				'lexicalCategory' => new Diff( [
-					'id' => new DiffOpRemove( 'Q2' ),
+					'id' => new DiffOpRemove( new ItemId( 'Q2' ) ),
 				], true ),
 
 				'language' => new Diff( [
-					'id' => new DiffOpChange( 'Q3', 'Q4' ),
+					'id' => new DiffOpChange( new ItemId( 'Q3' ), new ItemId( 'Q4' ) ),
 				], true ),
 				'forms' => new Diff( [
 					'L1-F1' => $formDiff,
@@ -191,7 +192,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
 				'lexicalCategory' => new Diff(
-					[ 'id' => new DiffOpChange( 'Q2', 'Q3' ) ],
+					[ 'id' => new DiffOpChange( new ItemId( 'Q2' ), new ItemId( 'Q3' ) ) ],
 					true
 				),
 			] ),

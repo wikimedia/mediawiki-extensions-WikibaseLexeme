@@ -8,6 +8,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 
@@ -22,7 +23,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 		$diffHtml = $visualizer->visualize(
 			'header text',
 			new Diff(
-				[ 'id' => new DiffOpChange( 'Q2', 'Q3' ) ],
+				[ 'id' => new DiffOpChange( new ItemId( 'Q2' ), new ItemId( 'Q3' ) ) ],
 				true
 			)
 		);
@@ -50,7 +51,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 		$diffHtml = $visualizer->visualize(
 			'header text',
 			new Diff(
-				[ 'id' => new DiffOpAdd( 'Q2' ) ],
+				[ 'id' => new DiffOpAdd( new ItemId( 'Q2' ) ) ],
 				true
 			)
 		);
@@ -73,7 +74,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 		$diffHtml = $visualizer->visualize(
 			'header text',
 			new Diff(
-				[ 'id' => new DiffOpRemove( 'Q2' ) ],
+				[ 'id' => new DiffOpRemove( new ItemId( 'Q2' ) ) ],
 				true
 			)
 		);
@@ -96,7 +97,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 		$diffHtml = $visualizer->visualize(
 			'header text',
 			new Diff(
-				[ 'id' => new DiffOpAdd( 'Q2' ) ],
+				[ 'id' => new DiffOpAdd( new ItemId( 'Q2' ) ) ],
 				true
 			)
 		);
@@ -112,7 +113,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 		$diffHtml = $visualizer->visualize(
 			'header text',
 			new Diff(
-				[ 'id' => new DiffOpChange( 'Q2', 'Q3' ) ],
+				[ 'id' => new DiffOpChange( new ItemId( 'Q2' ), new ItemId( 'Q3' ) ) ],
 				true
 			)
 		);
@@ -128,7 +129,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 		$diffHtml = $visualizer->visualize(
 			'header text',
 			new Diff(
-				[ 'id' => new DiffOpRemove( 'Q2' ) ],
+				[ 'id' => new DiffOpRemove( new ItemId( 'Q2' ) ) ],
 				true
 			)
 		);
