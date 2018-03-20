@@ -605,4 +605,8 @@ class DatabaseSpy implements IDatabase {
 		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
 	}
 
+	public function wasConnectionLoss() {
+		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
+	}
+
 }
