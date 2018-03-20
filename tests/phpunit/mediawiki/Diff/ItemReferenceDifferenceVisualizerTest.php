@@ -59,11 +59,6 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			havingChild( allOf(
 				withTagName( 'tr' ),
 				havingChild(
-					both( tagMatchingOutline( '<td class="diff-deletedline"/>' ) )->andAlso(
-						havingChild( both( withTagName( 'del' ) )->andAlso( havingTextContents( '' ) ) )
-					)
-				),
-				havingChild(
 					both( tagMatchingOutline( '<td class="diff-addedline"/>' ) )->andAlso(
 						havingChild( both( withTagName( 'ins' ) )->andAlso( havingTextContents( 'formatted Q2' ) ) )
 					)
@@ -89,11 +84,6 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 				havingChild(
 					both( tagMatchingOutline( '<td class="diff-deletedline"/>' ) )->andAlso(
 						havingChild( both( withTagName( 'del' ) )->andAlso( havingTextContents( 'formatted Q2' ) ) )
-					)
-				),
-				havingChild(
-					both( tagMatchingOutline( '<td class="diff-addedline"/>' ) )->andAlso(
-						havingChild( both( withTagName( 'ins' ) )->andAlso( havingTextContents( '' ) ) )
 					)
 				)
 			) )

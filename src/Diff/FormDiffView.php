@@ -32,6 +32,11 @@ class FormDiffView extends BasicDiffView {
 	private $claimDiffVisualizer;
 
 	/**
+	 * @var ItemReferenceDifferenceVisualizer
+	 */
+	private $itemReferenceDifferenceVisualizer;
+
+	/**
 	 * @var MessageLocalizer
 	 */
 	private $messageLocalizer;
@@ -48,12 +53,14 @@ class FormDiffView extends BasicDiffView {
 		Diff $diff,
 		ClaimDiffer $claimDiffer,
 		ClaimDifferenceVisualizer $claimDiffVisualizer,
+		ItemReferenceDifferenceVisualizer $itemReferenceDifferenceVisualizer,
 		MessageLocalizer $messageLocalizer
 	) {
 		parent::__construct( $path, $diff );
 
 		$this->claimDiffer = $claimDiffer;
 		$this->claimDiffVisualizer = $claimDiffVisualizer;
+		$this->itemReferenceDifferenceVisualizer = $itemReferenceDifferenceVisualizer;
 		$this->messageLocalizer = $messageLocalizer;
 	}
 
@@ -92,10 +99,15 @@ class FormDiffView extends BasicDiffView {
 			$op->getRepresentationDiff()
 		);
 
-		$html .= parent::generateOpHtml(
+		$html .= ( new GrammaticalFeatureDiffVisualizer(
+			$this->itemReferenceDifferenceVisualizer
+		) )->visualize(
 			array_merge(
 				$path,
-				[ $key, $this->messageLocalizer->msg( 'wikibaselexeme-diffview-grammatical-feature' )->text() ]
+				[
+					$key,
+					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-grammatical-feature' )->text()
+				]
 			),
 			$op->getGrammaticalFeaturesDiff()
 		);

@@ -8,6 +8,7 @@ use Diff\DiffOp\Diff\Diff;
 use MessageLocalizer;
 use PHPUnit\Framework\TestCase;
 use RawMessage;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -15,6 +16,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\Diff\FormDiffView;
+use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lib\SnakFormatter;
 use Wikibase\Repo\Diff\ClaimDiffer;
@@ -110,6 +112,7 @@ class FormDiffViewTest extends TestCase {
 			),
 			$this->getMockClaimDiffer(),
 			$this->getMockClaimDiffVisualizer(),
+			$this->getItemRefDiffVisualizer(),
 			$this->getMockMessageLocalizer()
 		);
 	}
@@ -168,11 +171,11 @@ class FormDiffViewTest extends TestCase {
 		$diff = $differ->diffEntities( $form1, $form2 );
 
 		$formDiffViewHeader = 'form / L1-F1 / (wikibaselexeme-diffview-grammatical-feature) / 0';
-		$expected = '<tr><td colspan="2" class="diff-lineno">' . $formDiffViewHeader .
+		$expected = '<tr><td colspan="2" class="diff-lineno">' .
 			'</td><td colspan="2" class="diff-lineno">' . $formDiffViewHeader . '</td>' .
 			'</tr><tr><td colspan="2">&nbsp;</td><td class="diff-marker">+</td>' .
-			'<td class="diff-addedline"><div><ins class="diffchange diffchange-inline">Q2</ins>'.
-			'</div></td></tr>';
+			'<td class="diff-addedline"><div><ins class="diffchange diffchange-inline">'.
+			'<span>formatted Q2</span></ins></div></td></tr>';
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
@@ -217,9 +220,10 @@ class FormDiffViewTest extends TestCase {
 
 		$formDiffViewHeader = 'form / L1-F1 / (wikibaselexeme-diffview-grammatical-feature) / 0';
 		$expected = '<tr><td colspan="2" class="diff-lineno">' . $formDiffViewHeader . '</td>' .
-			'<td colspan="2" class="diff-lineno">' . $formDiffViewHeader .
-			'</td></tr><tr><td class="diff-marker">-</td><td class="diff-deletedline"><div>' .
-			'<del class="diffchange diffchange-inline">Q1</del></div></td></tr>';
+			'<td colspan="2" class="diff-lineno"></td>' .
+			'</tr><tr><td class="diff-marker">-</td><td class="diff-deletedline"><div>' .
+			'<del class="diffchange diffchange-inline"><span>formatted Q1</span></del></div></td>' .
+			'<td colspan="2">&nbsp;</td></tr>';
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
@@ -232,6 +236,20 @@ class FormDiffViewTest extends TestCase {
 		);
 		$statement->setGuid( $guid );
 		return $statement;
+	}
+
+	private function getItemRefDiffVisualizer() {
+		return new ItemReferenceDifferenceVisualizer( $this->getIdFormatter() );
+	}
+
+	private function getIdFormatter() {
+		$formatter = $this->getMock( EntityIdFormatter::class );
+		$formatter->method( $this->anything() )
+			->willReturnCallback( function ( EntityId $entityId ) {
+				$id = $entityId->getSerialization();
+				return 'formatted ' . $id;
+			} );
+		return $formatter;
 	}
 
 }
