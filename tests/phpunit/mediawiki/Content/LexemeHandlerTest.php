@@ -177,7 +177,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		$this->assertSame( 0, $data['statement_count'], 'statement_count' );
 	}
 
-	public function testExportTransform() {
+	public function testExportTransform( $blob = null, $expected = null ) {
 		$this->markTestSkipped( 'serialized data transformation issues are irrelevant to Lexemes' );
 	}
 
