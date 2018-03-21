@@ -11,6 +11,8 @@
 	"wikibaselexeme-gloss-field-language-label": "언어",
 	"wikibaselexeme-add-form": "양식 추가",
 	"apihelp-wbladdform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wblremoveform-param-formId": "양식의 ID (예: L10-F20)",
+	"apihelp-wblremoveform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"apihelp-wbleditformelements-param-formId": "양식의 ID (예: L10-F2)",
 	"apihelp-wbleditformelements-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"wikibaselexeme-api-error-parameter-required": "\"$1\" 변수는 필수입니다",

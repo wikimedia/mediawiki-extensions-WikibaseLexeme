@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Harriettruong3"
 		]
 	},
 	"wikibaselexeme-desc": "Thực hiện kiểu thực thể từ vị",
@@ -31,5 +32,6 @@
 	"datatypes-type-wikibase-lexeme-form": "Dạng từ vị",
 	"datatypes-type-wikibase-lexeme-sense": "Ngữ nghĩa từ vị",
 	"wikibaselexeme-add-sense": "thêm ngữ nghĩa",
-	"wikibaselexeme-add-form": "thêm dạng"
+	"wikibaselexeme-add-form": "thêm dạng",
+	"apihelp-wblremoveform-summary": "Version đã được sửa của cụm từ này"
 }

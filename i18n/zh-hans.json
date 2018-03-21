@@ -38,6 +38,10 @@
 	"apihelp-wbladdform-param-data": "用于词性的JSON编码数据，也就是表现和语法特性",
 	"apihelp-wbladdform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wbladdform-example-1": "添加词性至ID为<samp>$1</samp>的词位，其分别具有表现<samp>$2</samp>与语言<samp>$3</samp>，以及语法特征<samp>$4</samp>",
+	"apihelp-wblremoveform-summary": "从词位移除词性",
+	"apihelp-wblremoveform-param-formId": "词性ID，例如L10-F20",
+	"apihelp-wblremoveform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
+	"apihelp-wblremoveform-example-1": "从ID为<samp>$1</samp>的词位中移除词性",
 	"apihelp-wbleditformelements-summary": "编辑词性的表现和语法特征",
 	"apihelp-wbleditformelements-param-formId": "词性ID，例如L10-F2",
 	"apihelp-wbleditformelements-param-data": "JSON编码的词性和语法特征数据",
@@ -57,6 +61,7 @@
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "词性必须至少有一个表现",
 	"wikibaselexeme-api-error-representations-language-not-unique": "表现必须有唯一的语言。语言“$1”被复用",
 	"wikibase-lexeme-summary-add-form": "已添加新词性$3与{{PLURAL:$1|表现}}",
+	"wikibase-lexeme-summary-remove-form": "已移除词性$3与{{PLURAL:$1|表现}}",
 	"wikibase-lexeme-summary-add-form-representations": "已添加词性$3的{{PLURAL:$1|表现}}",
 	"wikibase-lexeme-summary-set-form-representations": "已更改词性$3的{{PLURAL:$1|表现}}",
 	"wikibase-lexeme-summary-remove-form-representations": "已移除词性$3的{{PLURAL:$1|表现}}",
@@ -71,5 +76,6 @@
 	"wikibaselexeme-diffview-form": "词性",
 	"wikibaselexeme-diffview-representation": "表现",
 	"wikibaselexeme-diffview-grammatical-feature": "语法特征",
-	"content-model-wikibase-lexeme": "Wikibase词位"
+	"content-model-wikibase-lexeme": "Wikibase词位",
+	"wikibaselexeme-form-grammatical-features": "语法特征"
 }
