@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\DevelopmentMaintenance;
 
-use RuntimeException;
 use Wikimedia\Rdbms\DBMasterPos;
 use Wikimedia\Rdbms\IDatabase;
 use Wikimedia\Rdbms\IResultWrapper;
@@ -607,6 +606,21 @@ class DatabaseSpy implements IDatabase {
 
 	public function wasConnectionLoss() {
 		throw new \RuntimeException( __METHOD__ . ' not yet implemented!' );
+	}
+
+	public function buildSelectSubquery(
+		$table,
+		$vars,
+		$conds = '',
+		$fname = __METHOD__,
+		$options = [],
+		$join_conds = []
+	) {
+		throw new \RuntimeException( 'not yet implemented!' );
+	}
+
+	public function cancelAtomic( $fname = __METHOD__ ) {
+		throw new \RuntimeException( 'not yet implemented!' );
 	}
 
 }
