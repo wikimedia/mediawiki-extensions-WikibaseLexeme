@@ -18,5 +18,6 @@
 	"wikibaselexeme-diffview-language": "ভাষা",
 	"wikibaselexeme-diffview-form": "ফরম",
 	"wikibaselexeme-diffview-grammatical-feature": "ব্যাকরণগত বৈশিষ্ট্য",
-	"content-model-wikibase-lexeme": "উইকিভিত্তিক অাভিধানিক অর্থ"
+	"content-model-wikibase-lexeme": "উইকিভিত্তিক অাভিধানিক অর্থ",
+	"wikibaselexeme-form-grammatical-features": "ব্যাকরণগত বৈশিষ্ট্য"
 }

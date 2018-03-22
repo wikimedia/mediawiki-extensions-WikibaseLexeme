@@ -2,12 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"GR",
-			"KATRINE1992"
+			"KATRINE1992",
+			"Nikosgranturismogt"
 		]
 	},
+	"apihelp-wblremoveform-summary": "Αφαιρεί φόρμες από το Lexeme",
 	"wikibaselexeme-diffview-lemma": "Λήμμα",
 	"wikibaselexeme-diffview-lexical-category": "λεκτική κατηγορία",
 	"wikibaselexeme-diffview-language": "γλώσσα",
 	"wikibaselexeme-diffview-form": "φόρμα",
-	"content-model-wikibase-lexeme": "Lexème Wikibase"
+	"content-model-wikibase-lexeme": "Lexème Wikibase",
+	"wikibaselexeme-form-grammatical-features": "Γραμματικά χαρακτηριστικά"
 }
