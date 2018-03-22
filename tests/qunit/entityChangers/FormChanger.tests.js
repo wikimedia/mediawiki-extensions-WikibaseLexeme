@@ -308,4 +308,54 @@
 			}
 		} );
 
+	QUnit.test( 'Existing Form removed - makes the expected API call', function ( assert ) {
+		var api = {
+			postWithToken: sinon.stub().returns( $.Deferred().resolve( {} ) )
+		};
+
+		var formId = 'L11-F2';
+		var changer = new FormChanger( api, {}, 'L11' );
+		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
+		var form = new Form( formId, representations, [ 'Q1', 'Q2' ] );
+
+		changer.remove( form );
+
+		assert.ok( api.postWithToken.calledOnce, 'API gets called once' );
+
+		var callArguments = api.postWithToken.firstCall.args;
+		var gotTokenType = callArguments[ 0 ];
+		var gotParameters = callArguments[ 1 ];
+
+		assert.equal( gotTokenType, 'csrf', 'Token is sent' );
+		assert.equal( gotParameters.action, 'wblremoveform', 'Picks right API action' );
+		assert.equal( gotParameters.formId, formId, 'Sends formId parameter' );
+		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
+		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
+	} );
+
+	QUnit.test( 'Existing Form removal fails - formats and passes API errors', function ( assert ) {
+		var api = {
+			postWithToken: sinon.stub().returns(
+				$.Deferred().reject( 'irrelevant', { errors: [ { code: 'bad', '*': 'foo' } ] } )
+			)
+		};
+
+		var changer = new FormChanger( api, {}, 'L11' );
+		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
+		var form = new Form( 'L11-F300', representations, [ 'Q1', 'Q2' ] );
+
+		var testPromise = $.Deferred();
+
+		changer.remove( form ).fail( function ( apiError ) {
+			assert.ok( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
+			assert.equal( apiError.code, 'bad', 'Code from API gets set' );
+			assert.equal( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
+			assert.equal( apiError.action, 'remove', 'Action that failed gets set' );
+
+			testPromise.resolve();
+		} );
+
+		return testPromise;
+	} );
+
 }( jQuery, wikibase, QUnit, sinon ) );

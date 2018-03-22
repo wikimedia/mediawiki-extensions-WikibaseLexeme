@@ -88,7 +88,7 @@
 			} ).then( function ( data ) {
 				return self.lexemeDeserializer.deserializeForm( data.form );
 			} ).catch( function ( code, response ) {
-				throw convertPlainTextErrorsToRepoApiError( response.errors );
+				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
 			} );
 		},
 
@@ -109,12 +109,29 @@
 				self.revisionStore.setFormRevision( data.lastrevid, form.getId() );
 				return form;
 			} ).catch( function ( code, response ) {
-				throw convertPlainTextErrorsToRepoApiError( response.errors );
+				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
 			} );
+		},
+
+		remove: function ( form ) {
+			var deferred = $.Deferred();
+
+			this.api.postWithToken( 'csrf', {
+				action: 'wblremoveform',
+				formId: form.getId(),
+				errorformat: 'plaintext',
+				bot: 0
+			} )
+				.then( deferred.resolve )
+				.fail( function ( code, response ) {
+					deferred.reject( convertPlainTextErrorsToRepoApiError( response.errors, 'remove' ) );
+				} );
+
+			return deferred;
 		}
 	} );
 
-	function convertPlainTextErrorsToRepoApiError( errors ) {
+	function convertPlainTextErrorsToRepoApiError( errors, action ) {
 		var $ul = $( '<ul>' );
 
 		var code = '';
@@ -127,11 +144,9 @@
 			$ul.append( $li );
 		} );
 
-		var action = 'save';
-		var detailedMessage = $ul.html();
 		return new wb.api.RepoApiError(
 			code,
-			detailedMessage,
+			$ul.html(),
 			[],
 			action
 		);
