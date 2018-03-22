@@ -121,6 +121,102 @@ class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
 		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
+	public function testChangedLanguageItemsAreDisplayedAsLinks() {
+		$this->saveItem( 'Q4', 'goat language' );
+		$this->saveItem( 'Q5', 'cat language' );
+
+		$diffVisualizer = $this->newDiffVisualizer();
+
+		$diff = new EntityContentDiff(
+			new LexemeDiff( [
+				'language' => new Diff(
+					[ 'id' => new DiffOpChange( 'Q4', 'Q5' ) ],
+					true
+				),
+			] ),
+			new Diff(),
+			'lexeme'
+		);
+
+		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
+
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				both( withTagName( 'del' ) )->andAlso(
+					havingChild( both( withTagName( 'a' ) )
+						->andAlso( havingTextContents( 'goat language' ) ) )
+				)
+			)
+		) ) );
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				both( withTagName( 'ins' ) )->andAlso(
+					havingChild( both( withTagName( 'a' ) )
+						->andAlso( havingTextContents( 'cat language' ) ) )
+				)
+			)
+		) ) );
+		$this->assertTrue( true, 'Stop the test being marked risky' );
+	}
+
+	public function testChangedLanguageItemsUseLabelsFromLanguageFallback() {
+		$this->setUserLang( 'de' );
+
+		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
+		$this->simulateLanguageTranslation( $translatedLanguageName );
+
+		$this->saveItem( 'Q4', 'goat language' );
+		$this->saveItem( 'Q5', 'cat language' );
+
+		$diffVisualizer = $this->newDiffVisualizer();
+
+		$diff = new EntityContentDiff(
+			new LexemeDiff( [
+				'language' => new Diff(
+					[ 'id' => new DiffOpChange( 'Q4', 'Q5' ) ],
+					true
+				),
+			] ),
+			new Diff(),
+			'lexeme'
+		);
+
+		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
+
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				allOf(
+					withTagName( 'del' ),
+					havingChild(
+						havingTextContents( 'goat language' )
+					),
+					havingChild( both(
+						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
+					)->andAlso(
+						havingTextContents( $translatedLanguageName )
+					) )
+				)
+			)
+		) ) );
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				allOf(
+					withTagName( 'ins' ),
+					havingChild(
+						havingTextContents( 'cat language' )
+					),
+					havingChild( both(
+						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
+					)->andAlso(
+						havingTextContents( $translatedLanguageName )
+					) )
+				)
+			)
+		) ) );
+
+		$this->assertTrue( true, 'Stop the test being marked risky' );
+	}
+
 	/**
 	 * Backs up Hook::$handlers to be reset after tearDown
 	 *
