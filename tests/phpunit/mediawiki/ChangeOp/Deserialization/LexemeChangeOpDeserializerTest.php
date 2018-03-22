@@ -11,10 +11,12 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\LabelDescriptionDuplicateDetector;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
@@ -65,7 +67,8 @@ class LexemeChangeOpDeserializerTest extends TestCase {
 			new ClaimsChangeOpDeserializer(
 				WikibaseRepo::getDefaultInstance()->getExternalFormatStatementDeserializer(),
 				WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
-			)
+			),
+			new FormChangeOpDeserializer()
 		);
 	}
 
@@ -261,6 +264,63 @@ class LexemeChangeOpDeserializerTest extends TestCase {
 		$this->assertSame( 'apple', $englishLemma );
 		$this->assertSame( 'Q1860', $language );
 		$this->assertSame( 'Q1084', $lexicalCategory );
+	}
+
+	public function testRemoveExistingForms_formsAreRemoved() {
+		$lexeme = $this->getEnglishLexeme();
+		$lexeme->addForm( new TermList( [ new Term( 'en', 'apple' ) ] ), [] );
+		$lexeme->addForm( new TermList( [ new Term( 'en', 'Maluse' ) ] ), [] );
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp( [
+			'forms' => [
+				[ 'id' => 'L500-F1', 'remove' => '' ],
+				[ 'id' => 'L500-F2', 'remove' => '' ]
+			]
+		] );
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertCount( 0, $lexeme->getForms() );
+	}
+
+	public function testRemoveOneOfTwoExistingForms_formIsRemovedOtherRemains() {
+		$lexeme = $this->getEnglishLexeme();
+		$lexeme->addForm( new TermList( [ new Term( 'en', 'apple' ) ] ), [] );
+		$persistentTerm = new Term( 'en', 'Malus' );
+		$lexeme->addForm( new TermList( [ $persistentTerm ] ), [] );
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp( [
+			'forms' => [
+				[ 'id' => 'L500-F1', 'remove' => '' ]
+			]
+		] );
+
+		$changeOp->apply( $lexeme );
+
+		$this->assertCount( 1, $lexeme->getForms() );
+		$this->assertTrue(
+			$lexeme->getForm( new FormId( 'L500-F2' ) )->getRepresentations()->hasTerm( $persistentTerm )
+		);
+	}
+
+	/**
+	 * @expectedException \Wikibase\Repo\ChangeOp\ChangeOpException
+	 * @expectedExceptionMessage Lexeme does not have Form with ID L500-F400
+	 */
+	public function testRemoveFormWithUnknownId_throwsException() {
+		$lexeme = $this->getEnglishLexeme();
+		$lexeme->addForm( new TermList( [ new Term( 'en', 'apple' ) ] ), [] );
+
+		$deserializer = $this->getChangeOpDeserializer();
+		$changeOp = $deserializer->createEntityChangeOp( [
+			'forms' => [
+				[ 'id' => 'L500-F400', 'remove' => '' ]
+			]
+		] );
+
+		$changeOp->apply( $lexeme );
 	}
 
 }

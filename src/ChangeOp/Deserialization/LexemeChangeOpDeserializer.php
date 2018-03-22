@@ -32,16 +32,23 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 
 	private $statementChangeOpDeserializer;
 
+	/**
+	 * @var FormChangeOpDeserializer
+	 */
+	private $formChangeOpDeserializer;
+
 	public function __construct(
 		LemmaChangeOpDeserializer $lemmaChangeOpDeserializer,
 		LexicalCategoryChangeOpDeserializer $lexicalCategoryChangeOpDeserializer,
 		LanguageChangeOpDeserializer $languageChangeOpDeserializer,
-		ClaimsChangeOpDeserializer $statementChangeOpDeserializer
+		ClaimsChangeOpDeserializer $statementChangeOpDeserializer,
+		FormChangeOpDeserializer $formChangeOpDeserializer
 	) {
 		$this->lemmaChangeOpDeserializer = $lemmaChangeOpDeserializer;
 		$this->lexicalCategoryChangeOpDeserializer = $lexicalCategoryChangeOpDeserializer;
 		$this->languageChangeOpDeserializer = $languageChangeOpDeserializer;
 		$this->statementChangeOpDeserializer = $statementChangeOpDeserializer;
+		$this->formChangeOpDeserializer = $formChangeOpDeserializer;
 	}
 
 	/**
@@ -70,6 +77,10 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 
 		if ( array_key_exists( 'claims', $changeRequest ) ) {
 			$changeOps->add( $this->statementChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
+		}
+
+		if ( array_key_exists( 'forms', $changeRequest ) ) {
+			$changeOps->add( $this->formChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
 		}
 
 		return $changeOps;
