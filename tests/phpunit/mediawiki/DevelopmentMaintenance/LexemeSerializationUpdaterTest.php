@@ -312,7 +312,13 @@ class LexemeSerializationUpdaterTest extends TestCase {
 			];
 		}
 
-		return new DatabaseSpy( new FakeResultWrapper( $selectReturnRows ), 1 );
+		return $this->getMockForAbstractClass(
+			DatabaseSpy::class,
+			[
+				new FakeResultWrapper( $selectReturnRows ),
+				1
+			]
+		);
 	}
 
 }
