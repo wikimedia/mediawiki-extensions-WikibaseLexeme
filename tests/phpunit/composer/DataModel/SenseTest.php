@@ -23,4 +23,12 @@ class SenseTest extends TestCase {
 		$this->assertTrue( $sense->getStatements()->isEmpty() );
 	}
 
+	public function testCopyClones() {
+		$sense = new Sense( new SenseId( 'S1' ), new TermList(), new StatementList() );
+		$copy = $sense->copy();
+
+		$this->assertNotSame( $sense->getGlosses(), $copy->getGlosses() );
+		$this->assertNotSame( $sense->getStatements(), $copy->getStatements() );
+	}
+
 }

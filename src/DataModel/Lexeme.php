@@ -195,10 +195,13 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 * @see http://php.net/manual/en/language.oop5.cloning.php
 	 */
 	public function __clone() {
+		// TermList is mutable, but Term is not. No deeper cloning necessary.
 		$this->lemmas = clone $this->lemmas;
 		$this->statements = clone $this->statements;
 		$this->forms = clone $this->forms;
-		//TODO add assertion on Senses types
+		foreach ( $this->senses as &$sense ) {
+			$sense = clone $sense;
+		}
 	}
 
 	/**
