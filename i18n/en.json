@@ -38,7 +38,7 @@
 	"apihelp-wblremoveform-summary": "Removes Form from Lexeme",
 	"apihelp-wblremoveform-param-formId": "ID of the Form e.g. L10-F20",
 	"apihelp-wblremoveform-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"{{int:group-bot}}\".",
-	"apihelp-wblremoveform-example-1": "Remove Form from the Lexeme with ID <samp>$1</samp>",	
+	"apihelp-wblremoveform-example-1": "Remove Form from the Lexeme with ID <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Edits representations and grammatical features of a Form",
 	"apihelp-wbleditformelements-param-formId": "ID of the Form, e.g. L10-F2",
 	"apihelp-wbleditformelements-param-data": "JSON encoded representation and grammatical feature data",
