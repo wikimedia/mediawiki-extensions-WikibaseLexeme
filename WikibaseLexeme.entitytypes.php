@@ -35,6 +35,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Store\FormRevisionLookup;
@@ -44,6 +45,7 @@ use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
@@ -192,11 +194,24 @@ return [
 				$entityIdFormatter
 			);
 
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$prefetchingTermLookup = $wikibaseRepo->getPrefetchingTermLookup();
+			$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
+				$prefetchingTermLookup,
+				$wikibaseRepo->getLanguageFallbackChainFactory()
+					->newFromLanguage( $wikibaseRepo->getUserLanguage() )
+			);
+			$entityIdFormatter = $wikibaseRepo->getEntityIdHtmlLinkFormatterFactory()
+				->getEntityIdFormatter( $labelDescriptionLookup );
+
 			return new LexemeDiffVisualizer(
 				$messageLocalizer,
 				$basicEntityDiffVisualizer,
 				$claimDiffer,
-				$claimDiffView
+				$claimDiffView,
+				new ItemReferenceDifferenceVisualizer(
+					$entityIdFormatter
+				)
 			);
 		}
 	],

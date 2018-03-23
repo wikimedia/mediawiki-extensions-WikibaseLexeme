@@ -38,16 +38,23 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 	 */
 	private $claimDiffVisualizer;
 
+	/**
+	 * @var ItemReferenceDifferenceVisualizer
+	 */
+	private $lexicalCategoryDifferenceVisualizer;
+
 	public function __construct(
 		MessageLocalizer $messageLocalizer,
 		EntityDiffVisualizer $basicEntityDiffVisualizer,
 		ClaimDiffer $claimDiffer,
-		ClaimDifferenceVisualizer $claimDiffView
+		ClaimDifferenceVisualizer $claimDiffView,
+		ItemReferenceDifferenceVisualizer $lexicalCategoryDifferenceVisualizer
 	) {
 		$this->messageLocalizer = $messageLocalizer;
 		$this->basicEntityDiffVisualizer = $basicEntityDiffVisualizer;
 		$this->claimDiffer = $claimDiffer;
 		$this->claimDiffVisualizer = $claimDiffView;
+		$this->lexicalCategoryDifferenceVisualizer = $lexicalCategoryDifferenceVisualizer;
 	}
 
 	/**
@@ -76,13 +83,16 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 				[
 					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lemma' )->text() =>
 						$diff->getLemmasDiff(),
-					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lexical-category' )
-						->text() => $diff->getLexicalCategoryDiff(),
 					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-language' )->text() =>
 						$diff->getLanguageDiff()
 				],
 				true
 			)
+		);
+
+		$lexicalCategoryDiff = $this->lexicalCategoryDifferenceVisualizer->visualize(
+			$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lexical-category' )->text(),
+			$diff->getLexicalCategoryDiff()
 		);
 
 		$formDiffView = new FormDiffView(
@@ -99,7 +109,7 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			$this->messageLocalizer
 		);
 
-		return $basicDiffView->getHtml() . $formDiffView->getHtml();
+		return $basicDiffView->getHtml() . $lexicalCategoryDiff . $formDiffView->getHtml();
 	}
 
 }

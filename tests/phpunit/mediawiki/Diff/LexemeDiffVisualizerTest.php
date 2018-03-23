@@ -11,19 +11,21 @@ use MediaWikiTestCase;
 use MessageLocalizer;
 use RawMessage;
 use Site;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 
 /**
- * @covers Wikibase\Lexeme\Diff\LexemeDiffVisualizer
+ * @covers \Wikibase\Lexeme\Diff\LexemeDiffVisualizer
  *
  * @group Wikibase
  *
@@ -73,8 +75,8 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 		$lexemeTags = [
 			'has <td>lemma / en</td>' => '>(wikibaselexeme-diffview-lemma) / en</td>',
 			'has <ins>O_o</ins>' => '>O_o</ins>',
-			'has <td> lexical category / id</td>' => '>(wikibaselexeme-diffview-lexical-category) / id</td>',
-			'has <del>Q2</del>' => '>Q2</del>',
+			'has <td> lexical category </td>' => '>(wikibaselexeme-diffview-lexical-category)</td>',
+			'has <del>Q2</del>' => '>formatted Q2</span></del>',
 			'has <td>language / id</td>' => '>(wikibaselexeme-diffview-language) / id</td>',
 			'has <del>Q3</del>' => '>Q3</del>',
 			'has <ins>Q4</ins>' => '>Q4</ins>',
@@ -137,6 +139,16 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 		return $mock;
 	}
 
+	private function getIdFormatter() {
+		$formatter = $this->getMock( EntityIdFormatter::class );
+		$formatter->method( $this->anything() )
+			->willReturnCallback( function ( EntityId $entityId ) {
+				$id = $entityId->getSerialization();
+				return 'formatted ' . $id;
+			} );
+		return $formatter;
+	}
+
 	/**
 	 * @return LexemeDiffVisualizer
 	 */
@@ -144,7 +156,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 		$enwiki = new Site();
 		$enwiki->setGlobalId( 'enwiki' );
 
-		$baiscVisualizer = new BasicEntityDiffVisualizer(
+		$basicVisualizer = new BasicEntityDiffVisualizer(
 			$this->getMockMessageLocalizer(),
 			$this->getMockClaimDiffer(),
 			$this->getMockClaimDiffVisualizer(),
@@ -154,13 +166,16 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 
 		return new LexemeDiffVisualizer(
 			$this->getMockMessageLocalizer(),
-			$baiscVisualizer,
+			$basicVisualizer,
 			$this->getMockClaimDiffer(),
-			$this->getMockClaimDiffVisualizer()
+			$this->getMockClaimDiffVisualizer(),
+			new ItemReferenceDifferenceVisualizer( $this->getIdFormatter() )
 		);
 	}
 
 	/**
+	 * TODO: This test should probably be redone?
+	 *
 	 * @dataProvider diffProvider
 	 */
 	public function testGenerateEntityContentDiffBody( EntityContentDiff $diff, array $matchers ) {
@@ -170,6 +185,37 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 		foreach ( $matchers as $name => $matcher ) {
 			$this->assertContains( $matcher, $html, $name );
 		}
+	}
+
+	public function testGivenLexicalCategoryChanged_diffDisplaysChangedItemsAsFormattedItems() {
+		$diff = new EntityContentDiff(
+			new LexemeDiff( [
+				'lexicalCategory' => new Diff(
+					[ 'id' => new DiffOpChange( 'Q2', 'Q3' ) ],
+					true
+				),
+			] ),
+			new Diff(),
+			'lexeme'
+		);
+
+		$diffHtml = $this->getVisualizer()->visualizeEntityContentDiff( $diff );
+
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild( allOf(
+				withTagName( 'tr' ),
+				havingChild(
+					both( tagMatchingOutline( '<td class="diff-deletedline"/>' ) )->andAlso(
+						havingChild( both( withTagName( 'del' ) )->andAlso( havingTextContents( 'formatted Q2' ) ) )
+					)
+				),
+				havingChild(
+					both( tagMatchingOutline( '<td class="diff-addedline"/>' ) )->andAlso(
+						havingChild( both( withTagName( 'ins' ) )->andAlso( havingTextContents( 'formatted Q3' ) ) )
+					)
+				)
+			) )
+		) ) );
 	}
 
 }
