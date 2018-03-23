@@ -27,6 +27,24 @@ class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
 	const LANGUAGE_TRANSLATION_HOOK_NAME = 'LanguageGetTranslatedLanguageNames';
 	private $hookHandlers = [];
 
+	/**
+	 * Backs up Hook::$handlers to be reset after tearDown
+	 *
+	 * @throws \MWException
+	 */
+	public function setUp() {
+		parent::setUp();
+
+		$this->hookHandlers = $this->getHookHandlersProperty()->getValue();
+	}
+
+	public function tearDown() {
+		parent::tearDown();
+
+		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
+		$this->clearLanguageNameCache();
+	}
+
 	public function testChangedLexicalCategoryItemsAreDisplayedAsLinks() {
 		$this->saveItem( 'Q2', 'noun' );
 		$this->saveItem( 'Q3', 'verb' );
@@ -218,27 +236,7 @@ class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
 	}
 
 	/**
-	 * Backs up Hook::$handlers to be reset after tearDown
-	 *
-	 * @throws \MWException
-	 */
-	public function setUp() {
-		parent::setUp();
-
-		$this->hookHandlers = $this->getHookHandlersProperty()->getValue();
-	}
-
-	public function tearDown() {
-		parent::tearDown();
-
-		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
-		$this->clearLanguageNameCache();
-	}
-
-	/**
 	 * Make the Language class translate "English" in a certain way, e.g. in line with setUserLang()
-	 *
-	 * @see restoreLanguageTranslation() for clean-up after test
 	 *
 	 * @param string $languageName Translation to use for the English language
 	 */
