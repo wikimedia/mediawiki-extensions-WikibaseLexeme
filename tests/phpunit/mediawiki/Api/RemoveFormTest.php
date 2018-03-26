@@ -64,26 +64,26 @@ class RemoveFormTest extends WikibaseApiTestCase {
 
 	public function provideInvalidParams() {
 		return [
-			'no formId param' => [
+			'no id param' => [
 				[],
 				[
 					'message-key' => 'apierror-missingparam',
-					'message-parameters' => [ 'formId' ],
-					'api-error-code' => 'noformId',
+					'message-parameters' => [ 'id' ], // request rejected by api core, hence no []
+					'api-error-code' => 'noid',
 					'api-error-data' => []
 				],
 			],
-			'invalid formId (random string not ID)' => [
-				[ 'formId' => 'foo' ],
+			'invalid id (random string not ID)' => [
+				[ 'id' => 'foo' ],
 				[
 					'message-key' => 'wikibaselexeme-api-error-parameter-not-form-id',
-					'message-parameters' => [ 'formId', 'foo' ],
+					'message-parameters' => [ '[id]', 'foo' ],
 					'api-error-code' => 'bad-request',
 					'api-error-data' => []
 				]
 			],
 			'Lexeme is not found' => [
-				[ 'formId' => 'L999-F1' ],
+				[ 'id' => 'L999-F1' ],
 				[
 					'message-key' => 'wikibaselexeme-api-error-lexeme-not-found',
 					'message-parameters' => [ 'L999' ],
@@ -101,10 +101,10 @@ class RemoveFormTest extends WikibaseApiTestCase {
 
 		$this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'formId' => $form->getId()->getSerialization(),
+			'id' => $form->getId()->getSerialization(),
 		] );
 
-		$this->assertSame( 0, $this->getLexeme( 'L1' )->getForms()->count() );
+		$this->assertCount( 0, $this->getLexeme( 'L1' )->getForms() );
 	}
 
 	public function testGivenValidData_responseContainsSuccessMarker() {
@@ -114,7 +114,7 @@ class RemoveFormTest extends WikibaseApiTestCase {
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'formId' => $form->getId()->getSerialization(),
+			'id' => $form->getId()->getSerialization(),
 		] );
 
 		$this->assertSame( 1, $result['success'] );
@@ -127,7 +127,7 @@ class RemoveFormTest extends WikibaseApiTestCase {
 
 		$this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'formId' => $form->getId()->getSerialization(),
+			'id' => $form->getId()->getSerialization(),
 		] );
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
@@ -149,7 +149,7 @@ class RemoveFormTest extends WikibaseApiTestCase {
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'formId' => $form->getId()->getSerialization(),
+			'id' => $form->getId()->getSerialization(),
 		] );
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );

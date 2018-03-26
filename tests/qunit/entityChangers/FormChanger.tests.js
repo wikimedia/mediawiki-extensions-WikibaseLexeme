@@ -328,7 +328,7 @@
 
 		assert.equal( gotTokenType, 'csrf', 'Token is sent' );
 		assert.equal( gotParameters.action, 'wblremoveform', 'Picks right API action' );
-		assert.equal( gotParameters.formId, formId, 'Sends formId parameter' );
+		assert.equal( gotParameters.id, formId, 'Sends form id parameter' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
 	} );

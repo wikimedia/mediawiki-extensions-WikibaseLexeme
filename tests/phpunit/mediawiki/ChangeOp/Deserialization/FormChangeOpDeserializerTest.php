@@ -90,7 +90,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 
 	/**
 	 * @expectedException \Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException
-	 * @expectedExceptionMessage Form id must be passed
+	 * @expectedExceptionMessage Parameter "[forms][0][id]" is required
 	 */
 	public function testGivenChangeRequestWithoutId_exceptionIsThrown() {
 		$lexeme = $this->getEnglishLexeme( 'L107' );
@@ -105,7 +105,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 
 	/**
 	 * @expectedException \Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException
-	 * @expectedExceptionMessage Form id must be a string
+	 * @expectedExceptionMessage Expected argument of type "string", "array" given
 	 */
 	public function testGivenChangeRequestWithOffTypeId_exceptionIsThrown() {
 		$lexeme = $this->getEnglishLexeme( 'L107' );

@@ -43,7 +43,7 @@
 	"apihelp-wbladdform-param-bot": "{{doc-apihelp-param|wbladdform|bot}}",
 	"apihelp-wbladdform-example-1": "{{doc-apihelp-example|wbladdform}}",
 	"apihelp-wblremoveform-summary": "{{doc-apihelp-summary|wblremoveform}}",
-	"apihelp-wblremoveform-param-formId": "{{doc-apihelp-param|wblremoveform|formId}}",
+	"apihelp-wblremoveform-param-id": "{{doc-apihelp-param|wblremoveform|id}}",
 	"apihelp-wblremoveform-param-bot": "{{doc-apihelp-param|wblremoveform|bot}}",
 	"apihelp-wblremoveform-example-1": "{{doc-apihelp-example|wblremoveform}}",
 	"apihelp-wbleditformelements-summary": "{{doc-apihelp-summary|wbleditformelements}}",
