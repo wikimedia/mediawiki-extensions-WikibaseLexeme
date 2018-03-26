@@ -77,9 +77,9 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 			'has <ins>O_o</ins>' => '>O_o</ins>',
 			'has <td> lexical category </td>' => '>(wikibaselexeme-diffview-lexical-category)</td>',
 			'has <del>Q2</del>' => '>formatted Q2</span></del>',
-			'has <td>language / id</td>' => '>(wikibaselexeme-diffview-language) / id</td>',
-			'has <del>Q3</del>' => '>Q3</del>',
-			'has <ins>Q4</ins>' => '>Q4</ins>',
+			'has <td>language</td>' => '>(wikibaselexeme-diffview-language)</td>',
+			'has <del>Q3</del>' => '>formatted Q3</span></del>',
+			'has <ins>Q4</ins>' => '>formatted Q4</span></ins>',
 			'has form representation' => $expectedForm . 'representation) / en<',
 			'has <del>old</del>' => '>old</del>',
 			'has <ins>new</ins>' => '>new</ins>',
@@ -216,6 +216,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 				)
 			) )
 		) ) );
+		$this->assertTrue( true, 'Don\'t mark the test as risky.' );
 	}
 
 }

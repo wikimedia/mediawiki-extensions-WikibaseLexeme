@@ -41,20 +41,20 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 	/**
 	 * @var ItemReferenceDifferenceVisualizer
 	 */
-	private $lexicalCategoryDifferenceVisualizer;
+	private $itemReferenceDifferenceVisualizer;
 
 	public function __construct(
 		MessageLocalizer $messageLocalizer,
 		EntityDiffVisualizer $basicEntityDiffVisualizer,
 		ClaimDiffer $claimDiffer,
 		ClaimDifferenceVisualizer $claimDiffView,
-		ItemReferenceDifferenceVisualizer $lexicalCategoryDifferenceVisualizer
+		ItemReferenceDifferenceVisualizer $itemReferenceDifferenceVisualizer
 	) {
 		$this->messageLocalizer = $messageLocalizer;
 		$this->basicEntityDiffVisualizer = $basicEntityDiffVisualizer;
 		$this->claimDiffer = $claimDiffer;
 		$this->claimDiffVisualizer = $claimDiffView;
-		$this->lexicalCategoryDifferenceVisualizer = $lexicalCategoryDifferenceVisualizer;
+		$this->itemReferenceDifferenceVisualizer = $itemReferenceDifferenceVisualizer;
 	}
 
 	/**
@@ -83,16 +83,19 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 				[
 					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lemma' )->text() =>
 						$diff->getLemmasDiff(),
-					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-language' )->text() =>
-						$diff->getLanguageDiff()
 				],
 				true
 			)
 		);
 
-		$lexicalCategoryDiff = $this->lexicalCategoryDifferenceVisualizer->visualize(
+		$lexicalCategoryDiff = $this->itemReferenceDifferenceVisualizer->visualize(
 			$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lexical-category' )->text(),
 			$diff->getLexicalCategoryDiff()
+		);
+
+		$languageDiff = $this->itemReferenceDifferenceVisualizer->visualize(
+			$this->messageLocalizer->msg( 'wikibaselexeme-diffview-language' )->text(),
+			$diff->getLanguageDiff()
 		);
 
 		$formDiffView = new FormDiffView(
@@ -109,7 +112,10 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			$this->messageLocalizer
 		);
 
-		return $basicDiffView->getHtml() . $lexicalCategoryDiff . $formDiffView->getHtml();
+		return $basicDiffView->getHtml() .
+			$lexicalCategoryDiff .
+			$languageDiff .
+			$formDiffView->getHtml();
 	}
 
 }
