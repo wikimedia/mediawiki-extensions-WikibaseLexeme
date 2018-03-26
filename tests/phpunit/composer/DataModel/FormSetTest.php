@@ -120,8 +120,8 @@ class FormSetTest extends TestCase {
 		);
 		$this->assertNotSame(
 			$formSet->getById( $form1->getId() ),
-			$formSetCopy->getById( $form1->getId()
-		) );
+			$formSetCopy->getById( $form1->getId() )
+		);
 	}
 
 }
