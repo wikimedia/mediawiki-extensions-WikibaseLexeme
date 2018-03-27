@@ -23,6 +23,7 @@
 	"wikibaselexeme-add-sense": "añadir sentido",
 	"wikibaselexeme-add-form": "añadir forma",
 	"apihelp-wbladdform-param-lexemeId": "Id. del lexema; p. ej., L10",
+	"apihelp-wblremoveform-param-formId": "Identificador del formulario; p. ej., L10-F20",
 	"apihelp-wbleditformelements-param-formId": "Identificador del formulario; p. ej., L10-F2",
 	"wikibaselexeme-api-error-parameter-required": "El parámetro «$1» es obligatorio",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Se esperaba un objeto JSON válido en el parámetro «$1»; se proporcionó «$2»",

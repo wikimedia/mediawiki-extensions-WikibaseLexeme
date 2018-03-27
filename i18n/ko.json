@@ -14,6 +14,7 @@
 	"wikibaselexeme-lemma-edit-placeholder": "기본형을 입력",
 	"wikibaselexeme-newlexeme-lexicalcategory": "어휘 범주",
 	"wikibaselexeme-newlexeme-language": "어휘소의 언어",
+	"wikibaselexeme-language-lexical-category-value": "$2 - $1",
 	"wikibaselexeme-statementsection-statements-about-form": "$1에 대한 서술",
 	"wikibaselexeme-header-forms": "형태",
 	"wikibaselexeme-enter-form-representation": "새로운 형태 표현을 입력",
@@ -52,6 +53,8 @@
 	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "표현 텍스트를 비운 상태로 둘 수 없습니다",
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "표현 언어를 비운 상태로 둘 수 없습니다",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "형태는 적어도 하나의 표현을 갖추고 있어야 합니다",
+	"wikibase-lexeme-summary-add-form": "$3 형태를 {{PLURAL:$1|표현}}과 함께 추가함",
+	"wikibase-lexeme-summary-remove-form": "$3 형태를 {{PLURAL:$1|표현}}과 함께 제거함",
 	"wikibase-lexeme-summary-add-form-representations": "$3 형태의 {{PLURAL:$1|표현}} 추가됨",
 	"wikibase-lexeme-summary-set-form-representations": "$3 형태의 {{PLURAL:$1|표현}} 변경됨",
 	"wikibase-lexeme-summary-remove-form-representations": "$3 형태의 {{PLURAL:$1|표현}} 제거됨",
@@ -66,5 +69,6 @@
 	"wikibaselexeme-diffview-form": "형태",
 	"wikibaselexeme-diffview-representation": "표현",
 	"wikibaselexeme-diffview-grammatical-feature": "문법적 특성",
+	"content-model-wikibase-lexeme": "Wikibase Lexeme",
 	"wikibaselexeme-form-grammatical-features": "문법적 특성"
 }
