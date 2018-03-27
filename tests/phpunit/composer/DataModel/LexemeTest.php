@@ -395,6 +395,18 @@ class LexemeTest extends TestCase {
 		$this->assertEmpty( $lexeme->getForms()->toArray() );
 	}
 
+	public function testCopy_SensesAreCopied() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense( NewSense::havingId( 'S1' ) )
+			->build();
+		$lexemeCopy = $lexeme->copy();
+
+		$initialSense = $lexeme->getSenses()[0];
+		$copySense = $lexemeCopy->getSenses()[0];
+
+		$this->assertNotSame( $initialSense, $copySense );
+	}
+
 	public function testSetLemmas() {
 		$id = new LexemeId( 'L1' );
 		$lemmas = new TermList( [ new Term( 'fa', 'Karaj' ) ] );

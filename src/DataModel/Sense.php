@@ -57,4 +57,26 @@ class Sense {
 		return $this->statementList;
 	}
 
+	/**
+	 * @see EntityDocument::copy
+	 *
+	 * @since 0.1
+	 *
+	 * @return self
+	 */
+	public function copy() {
+		return clone $this;
+	}
+
+	/**
+	 * @see http://php.net/manual/en/language.oop5.cloning.php
+	 *
+	 * @since 5.1
+	 */
+	public function __clone() {
+		// TermList is mutable, but Term is not. No deeper cloning necessary.
+		$this->glossList = clone $this->glossList;
+		$this->statementList = clone $this->statementList;
+	}
+
 }
