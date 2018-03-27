@@ -14,8 +14,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lib\Store\EntityStore;
-use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -24,7 +23,7 @@ use Wikibase\Repo\WikibaseRepo;
  *
  * @license GPL-2.0-or-later
  */
-class SetClaimTest extends WikibaseApiTestCase {
+class SetClaimTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenFormId_setClaimAddsStatementOnTheForm() {
 		$propertyId = new PropertyId( 'P1' );
@@ -216,16 +215,12 @@ class SetClaimTest extends WikibaseApiTestCase {
 	}
 
 	private function saveTestProperty( PropertyId $propertyId ) {
-		$store = $this->getStore();
-
 		$property = new Property( $propertyId, null, 'string' );
-		$store->saveEntity( $property, self::class, $this->getTestUser()->getUser() );
+		$this->entityStore->saveEntity( $property, self::class, $this->getTestUser()->getUser() );
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {
-		$store = $this->getStore();
-
-		$store->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
+		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	/**
@@ -244,17 +239,10 @@ class SetClaimTest extends WikibaseApiTestCase {
 	}
 
 	/**
-	 * @return EntityStore
-	 */
-	private function getStore() {
-		return WikibaseRepo::getDefaultInstance()->getEntityStore();
-	}
-
-	/**
 	 * @return EntityLookup
 	 */
 	private function getLookup() {
-		return WikibaseRepo::getDefaultInstance()->getEntityLookup();
+		return $this->wikibaseRepo->getEntityLookup();
 	}
 
 	private function getStatementData( $guid, PropertyId $propertyId, $value ) {
@@ -278,7 +266,7 @@ class SetClaimTest extends WikibaseApiTestCase {
 	}
 
 	private function loadPageRevision( $lexemeId ) {
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityRevisionLookup();
+		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
 		$revisionId = $lookup->getEntityRevision( $lexemeId )->getRevisionId();
 
 		return MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById( $revisionId );

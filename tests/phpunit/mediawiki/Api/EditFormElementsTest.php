@@ -11,8 +11,8 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -23,7 +23,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @group Database
  * @group medium
  */
-class EditFormElementsTest extends WikibaseApiTestCase {
+class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -566,9 +566,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
-
-		$store->saveEntity( $lexeme, self::class, $this->getMock( \User::class ) );
+		$this->entityStore->saveEntity( $lexeme, self::class, $this->getMock( \User::class ) );
 	}
 
 	/**
@@ -577,7 +575,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 	 * @return Lexeme|null
 	 */
 	private function getLexeme( $id ) {
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
+		$lookup = $this->wikibaseRepo->getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 
@@ -587,7 +585,7 @@ class EditFormElementsTest extends WikibaseApiTestCase {
 	 * @return EntityRevision|null
 	 */
 	private function getCurrentRevisionForForm( $id ) {
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityRevisionLookup();
+		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
 
 		return $lookup->getEntityRevision( new FormId( $id ) );
 	}
