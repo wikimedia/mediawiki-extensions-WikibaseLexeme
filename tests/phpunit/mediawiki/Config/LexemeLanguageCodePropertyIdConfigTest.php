@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\Config;
 
+use MediaWikiTestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit\Framework\TestCase;
 use ResourceLoaderContext;
 use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
 
@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
  *
  * @license GPL-2.0-or-later
  */
-class LexemeLanguageCodePropertyIdConfigTest extends TestCase {
+class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiTestCase {
 
 	/**
 	 * @return PHPUnit_Framework_MockObject_MockObject|ResourceLoaderContext
@@ -34,11 +34,9 @@ class LexemeLanguageCodePropertyIdConfigTest extends TestCase {
 	}
 
 	public function testEscapesConfigVariableContent() {
-		global $wgLexemeLanguageCodePropertyId;
-
 		$module = new LexemeLanguageCodePropertyIdConfig();
 		$evilConfig = '"\'';
-		$wgLexemeLanguageCodePropertyId = $evilConfig;
+		$this->setMwGlobals( 'wgLexemeLanguageCodePropertyId', $evilConfig );
 
 		$this->assertContainsString(
 			$module->getScript( $this->getContext() ),
