@@ -84,8 +84,8 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 			'has <del>old</del>' => '>old</del>',
 			'has <ins>new</ins>' => '>new</ins>',
 			'has form grammatical-feature' => $expectedForm . 'grammatical-feature)',
-			'has <del>Q5</del>' => '>Q5</del>',
-			'has <ins>Q6</ins>' => '>Q6</ins>',
+			'has <del>Q5</del>' => '>formatted Q5</span></del>',
+			'has <ins>Q6</ins>' => '>formatted Q6</span></ins>',
 		];
 
 		$redirectDiff = new EntityContentDiff(

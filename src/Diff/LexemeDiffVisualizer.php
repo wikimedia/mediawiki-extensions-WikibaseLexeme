@@ -109,6 +109,7 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			),
 			$this->claimDiffer,
 			$this->claimDiffVisualizer,
+			$this->itemReferenceDifferenceVisualizer,
 			$this->messageLocalizer
 		);
 

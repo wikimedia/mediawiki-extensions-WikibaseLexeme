@@ -3,13 +3,17 @@
 namespace Wikibase\Lexeme\Tests\Diff;
 
 use Diff\DiffOp\Diff\Diff;
+use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
+use Diff\DiffOp\DiffOpRemove;
 use Hooks;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\WikibaseRepo;
@@ -222,6 +226,109 @@ class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
 					withTagName( 'ins' ),
 					havingChild(
 						havingTextContents( 'cat language' )
+					),
+					havingChild( both(
+						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
+					)->andAlso(
+						havingTextContents( $translatedLanguageName )
+					) )
+				)
+			)
+		) ) );
+
+		$this->assertTrue( true, 'Stop the test being marked risky' );
+	}
+
+	public function testGrammaticalFeatureItemsAreDisplayedAsLinks() {
+		$this->saveItem( 'Q234', 'singular' );
+		$this->saveItem( 'Q345', 'plural' );
+
+		$diffVisualizer = $this->newDiffVisualizer();
+
+		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( new EntityContentDiff(
+			new LexemeDiff( [
+				'forms' => new ChangeFormDiffOp(
+					new FormId( 'L1-F1' ),
+					new Diff( [
+						'grammaticalFeatures' => new Diff( [
+							new DiffOpRemove( 'Q345' ),
+							new DiffOpAdd( 'Q234' ),
+						] ),
+					] )
+				)
+			] ),
+			new Diff(),
+			'lexeme'
+		) );
+
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				both( withTagName( 'del' ) )->andAlso(
+					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'plural' ) ) )
+				)
+			)
+		) ) );
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				both( withTagName( 'ins' ) )->andAlso(
+					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'singular' ) ) )
+				)
+			)
+		) ) );
+
+		$this->assertTrue( true, 'Stop the test being marked risky' );
+	}
+
+	public function testChangedGrammaticalFeatureItemsUseLabelsFromLanguageFallback() {
+		$this->setUserLang( 'de' );
+
+		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
+		$this->simulateLanguageTranslation( $translatedLanguageName );
+
+		$this->saveItem( 'Q123', 'singular' );
+		$this->saveItem( 'Q321', 'plural' );
+
+		$diffVisualizer = $this->newDiffVisualizer();
+
+		$diff = new EntityContentDiff(
+			new LexemeDiff( [
+				'forms' => new ChangeFormDiffOp(
+					new FormId( 'L1-F1' ),
+					new Diff( [
+						'grammaticalFeatures' => new Diff( [
+							new DiffOpRemove( 'Q321' ),
+							new DiffOpAdd( 'Q123' ),
+						] ),
+					] )
+				)
+			] ),
+			new Diff(),
+			'lexeme'
+		);
+
+		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
+
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				allOf(
+					withTagName( 'del' ),
+					havingChild(
+						havingTextContents( 'plural' )
+					),
+					havingChild( both(
+						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
+					)->andAlso(
+						havingTextContents( $translatedLanguageName )
+					) )
+				)
+			)
+		) ) );
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				allOf(
+					withTagName( 'ins' ),
+					havingChild(
+						havingTextContents( 'singular' )
 					),
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )

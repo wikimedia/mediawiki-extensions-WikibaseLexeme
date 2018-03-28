@@ -41,8 +41,8 @@ class ItemReferenceDifferenceVisualizer {
 			$valueFormatter = new DiffOpValueFormatter(
 				$headerText,
 				$headerText,
-				$this->idFormatter->formatEntityId( new ItemId( $diff->getOldValue() ) ),
-				$this->idFormatter->formatEntityId( new ItemId( $diff->getNewValue() ) )
+				$this->idFormatter->formatEntityId( $this->unserializeIfNeeded( $diff->getOldValue() ) ),
+				$this->idFormatter->formatEntityId( $this->unserializeIfNeeded( $diff->getNewValue() ) )
 			);
 			return $valueFormatter->generateHtml();
 		}
@@ -50,8 +50,8 @@ class ItemReferenceDifferenceVisualizer {
 			$valueFormatter = new DiffOpValueFormatter(
 				'',
 				$headerText,
-				'',
-				$this->idFormatter->formatEntityId( new ItemId( $diff->getNewValue() ) )
+				null,
+				$this->idFormatter->formatEntityId( $this->unserializeIfNeeded( $diff->getNewValue() ) )
 			);
 			return $valueFormatter->generateHtml();
 		}
@@ -59,13 +59,28 @@ class ItemReferenceDifferenceVisualizer {
 			$valueFormatter = new DiffOpValueFormatter(
 				$headerText,
 				'',
-				$this->idFormatter->formatEntityId( new ItemId( $diff->getOldValue() ) ),
-				''
+				$this->idFormatter->formatEntityId( $this->unserializeIfNeeded( $diff->getOldValue() ) ),
+				null
 			);
 			return $valueFormatter->generateHtml();
 		}
 
 		return '';
+	}
+
+	/**
+	 * FIXME: Why are ItemIds serialized for e.g. lexical category but not for grammatical features?
+	 *
+	 * @param string|ItemId $id
+	 *
+	 * @return ItemId
+	 */
+	private function unserializeIfNeeded( $id ) {
+		if ( $id instanceof ItemId ) {
+			return $id;
+		}
+
+		return new ItemId( $id );
 	}
 
 }
