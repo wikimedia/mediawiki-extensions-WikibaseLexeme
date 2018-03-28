@@ -18,6 +18,7 @@ use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
@@ -164,7 +165,8 @@ return [
 				new ClaimsChangeOpDeserializer(
 					$wikibaseRepo->getExternalFormatStatementDeserializer(),
 					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
-				)
+				),
+				new FormChangeOpDeserializer()
 			);
 		},
 		'rdf-builder-factory-callback' => function (

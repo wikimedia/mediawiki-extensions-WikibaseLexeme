@@ -8,8 +8,9 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
@@ -19,7 +20,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @group Database
  * @group medium
  */
-class LexemeGetEntitiesTest extends WikibaseApiTestCase {
+class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 
 	const LEXEME_ID = 'L1200';
 
@@ -34,6 +35,18 @@ class LexemeGetEntitiesTest extends WikibaseApiTestCase {
 		$this->assertArrayNotHasKey( 'nextFormId', $result['entities'][self::LEXEME_ID] );
 	}
 
+	public function testGivenIdOfExistingLexemeWithForm_formIsContainedInGetEntity() {
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )->withForm( NewForm::any() )->build(),
+			self::class,
+			$this->getMock( User::class )
+		);
+
+		$lexemeData = $this->loadEntity( self::LEXEME_ID );
+
+		$this->assertCount( 1, $lexemeData['forms'] );
+	}
+
 	private function saveDummyLexemeToDatabase() {
 		$lexeme = new Lexeme(
 			new LexemeId( self::LEXEME_ID ),
@@ -44,9 +57,7 @@ class LexemeGetEntitiesTest extends WikibaseApiTestCase {
 			new ItemId( 'Q808' )
 		);
 
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
-
-		$store->saveEntity( $lexeme, self::class, $this->getMock( User::class ) );
+		$this->entityStore->saveEntity( $lexeme, self::class, $this->getMock( User::class ) );
 	}
 
 }

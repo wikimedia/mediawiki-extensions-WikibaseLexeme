@@ -5,15 +5,14 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiUsageException;
 use Exception;
 use User;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
 /**
  * @covers \Wikibase\Repo\Api\EditEntity
@@ -25,13 +24,19 @@ use Wikibase\Repo\WikibaseRepo;
  * @group Database
  * @group medium
  */
-class LexemeEditEntityTest extends WikibaseApiTestCase {
+class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	const EXISTING_LEXEME_ID = 'L100';
 	const EXISTING_LEXEME_LEMMA = 'apple';
 	const EXISTING_LEXEME_LEMMA_LANGUAGE = 'en';
 	const EXISTING_LEXEME_LANGUAGE_ITEM_ID = 'Q66';
 	const EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID = 'Q55';
+	const EXISTING_LEXEME_FORM_1_ID = 'F1';
+	const EXISTING_LEXEME_FORM_1_LANGUAGE = 'en';
+	const EXISTING_LEXEME_FORM_1_TEXT = 'crabapple';
+	const EXISTING_LEXEME_FORM_2_ID = 'F2';
+	const EXISTING_LEXEME_FORM_2_LANGUAGE = 'en';
+	const EXISTING_LEXEME_FORM_2_TEXT = 'Malus';
 
 	public function testGivenNewParameterAndValidDataAreProvided_newLexemeIsCreated() {
 		$params = [
@@ -68,19 +73,49 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 		);
 	}
 
+	private function getDummyLexeme( $id = self::EXISTING_LEXEME_ID ) {
+		return NewLexeme::havingId( $id )
+			->withLemma( self::EXISTING_LEXEME_LEMMA_LANGUAGE, self::EXISTING_LEXEME_LEMMA )
+			->withLexicalCategory( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID )
+			->withLanguage( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID )
+			->withForm( new Form(
+				new FormId(
+					$this->formatFormId(
+						$id,
+						self::EXISTING_LEXEME_FORM_1_ID
+					)
+				),
+				new TermList( [
+					new Term(
+						self::EXISTING_LEXEME_FORM_1_LANGUAGE,
+						self::EXISTING_LEXEME_FORM_1_TEXT
+					)
+				] ),
+				[]
+			) )->withForm( new Form(
+				new FormId(
+					$this->formatFormId(
+						$id,
+						self::EXISTING_LEXEME_FORM_2_ID
+					)
+				),
+				new TermList( [
+					new Term(
+						self::EXISTING_LEXEME_FORM_2_LANGUAGE,
+						self::EXISTING_LEXEME_FORM_2_TEXT
+					)
+				] ),
+				[]
+			) )
+			->build();
+	}
+
 	private function saveDummyLexemeToDatabase() {
-		$lexeme = new Lexeme(
-			new LexemeId( self::EXISTING_LEXEME_ID ),
-			new TermList( [
-				new Term( self::EXISTING_LEXEME_LEMMA_LANGUAGE, self::EXISTING_LEXEME_LEMMA ),
-			] ),
-			new ItemId( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID ),
-			new ItemId( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID )
+		$this->entityStore->saveEntity(
+			$this->getDummyLexeme(),
+			self::class,
+			$this->getMock( User::class )
 		);
-
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
-
-		$store->saveEntity( $lexeme, self::class, $this->getMock( User::class ) );
 	}
 
 	public function testGivenIdOfExistingLexemeAndLemmaData_lemmaIsChanged() {
@@ -285,8 +320,7 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 		$this->saveDummyLexemeToDatabase();
 
 		$property = new Property( new PropertyId( 'P909' ), null, 'test' );
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
-		$store->saveEntity( $property, self::class, $this->getMock( User::class ) );
+		$this->entityStore->saveEntity( $property, self::class, $this->getMock( User::class ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -492,6 +526,285 @@ class LexemeEditEntityTest extends WikibaseApiTestCase {
 			$this->assertArrayHasKey( $field, $actual );
 			$this->assertSame( $expected[$field], $actual[$field] );
 		}
+	}
+
+	public function testGivenIdOfExistingLexemeAndRemoveInFormData_formIsRemoved() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+						),
+						'remove' => ''
+					]
+				],
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+
+		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
+
+		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
+
+		$this->assertCount( 1, $lexemeData['forms'] );
+		$this->assertSame(
+			$this->formatFormId(
+				self::EXISTING_LEXEME_ID,
+				self::EXISTING_LEXEME_FORM_2_ID
+			),
+			$lexemeData['forms'][0]['id']
+		);
+	}
+
+	public function testGivenIdOfExistingLexemeAndRemoveInAllFormData_allFormsAreRemoved() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+						),
+						'remove' => ''
+					],
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
+						),
+						'remove' => ''
+					]
+				],
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+
+		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
+
+		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
+		$this->assertCount( 0, $lexemeData['forms'] );
+	}
+
+	public function testGivenIdOfExistingLexemeAndFirstFormRemovalFails_noneOfTheFormsAreRemoved() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, 'malformed'
+						),
+						'remove' => ''
+					],
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
+						),
+						'remove' => ''
+					]
+				],
+			] ),
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+			$this->fail();
+		} catch ( \Wikimedia\Assert\ParameterAssertionException $e ) {
+			$this->assertRegExp(
+				'/Bad value for parameter \$serialization: Form ID must match.*/',
+				$e->getMessage()
+			);
+		}
+
+		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
+
+		$this->assertCount( 2, $lexemeData['forms'] );
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage Form id must be passed
+	 */
+	public function testGivenIdOfExistingLexemeAndRemoveUnidentifiedForm_errorReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'remove' => ''
+					]
+				]
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+	}
+
+	/**
+	 * @expectedException \Wikimedia\Assert\ParameterAssertionException
+	 * @expectedExceptionMessage Bad value for parameter $serialization: Form ID must match
+	 */
+	public function testGivenIdOfExistingLexemeAndRemoveBadFormId_errorReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, 'invalid'
+						),
+						'remove' => ''
+					]
+				]
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage Form id must be a string
+	 */
+	public function testGivenIdOfExistingLexemeAndOffTypeFormId_errorReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => [ 'justevil' ],
+						'remove' => ''
+					]
+				]
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+	}
+
+	public function testGivenIdOfMissingLexemeAndExistingButUnrelatedFormId_errorReportedFormIntact() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => 'L777',
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+						),
+						'remove' => ''
+					]
+				]
+			] ),
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+			$this->fail();
+		} catch ( ApiUsageException $e ) {
+			$this->assertSame( '⧼no-such-entity⧽', $e->getMessage() );
+		}
+
+		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
+
+		$this->assertCount( 2, $lexemeData['forms'] );
+	}
+
+	public function testGivenMismatchOfLexemeAndFormId_errorReportedAndFormIntact() {
+		$this->saveDummyLexemeToDatabase();
+
+		$secondLexemeId = 'L33';
+
+		$secondLexeme = $this->getDummyLexeme( $secondLexemeId );
+		$secondLexeme->getForms()->remove( new FormId( $this->formatFormId(
+			$secondLexemeId, self::EXISTING_LEXEME_FORM_1_ID
+		) ) );
+
+		$this->entityStore->saveEntity( $secondLexeme, self::class, $this->getMock( User::class ) );
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => $secondLexemeId,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+						),
+						'remove' => ''
+					]
+				]
+			] ),
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+			$this->fail();
+		} catch ( ApiUsageException $e ) {
+			$this->assertSame( 'Lexeme does not have Form with ID L100-F1', $e->getMessage() );
+		}
+
+		$firstLexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
+		$secondLexemeData = $this->loadEntity( $secondLexemeId );
+
+		$this->assertCount( 2, $firstLexemeData['forms'] );
+		$this->assertCount( 1, $secondLexemeData['forms'] );
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage Lexeme does not have Form with ID L100-F77
+	 */
+	public function testGivenIdOfExistingLexemeAndRemoveOfUnknownForm_errorReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, 'F77'
+						),
+						'remove' => ''
+					]
+				]
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+	}
+
+	private function formatFormId( $lexemeId, $formId ) {
+		return $lexemeId . '-' . $formId;
 	}
 
 }
