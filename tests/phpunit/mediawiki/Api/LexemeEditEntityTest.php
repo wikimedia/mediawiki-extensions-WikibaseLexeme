@@ -625,9 +625,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->doApiRequestWithToken( $params );
 			$this->fail();
-		} catch ( \Wikimedia\Assert\ParameterAssertionException $e ) {
-			$this->assertRegExp(
-				'/Bad value for parameter \$serialization: Form ID must match.*/',
+		} catch ( ApiUsageException $e ) {
+			$this->assertSame(
+				'Parameter "[forms][0][id]" expected to be a Form ID. Given: "L100-malformed"',
 				$e->getMessage()
 			);
 		}
@@ -639,7 +639,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	/**
 	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage Form id must be passed
+	 * @expectedExceptionMessage Parameter "[forms][0][id]" is required
 	 */
 	public function testGivenIdOfExistingLexemeAndRemoveUnidentifiedForm_errorReported() {
 		$this->saveDummyLexemeToDatabase();
@@ -660,8 +660,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	/**
-	 * @expectedException \Wikimedia\Assert\ParameterAssertionException
-	 * @expectedExceptionMessage Bad value for parameter $serialization: Form ID must match
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage Parameter "[forms][0][id]" expected to be a Form ID. Given: "L100-bad"
 	 */
 	public function testGivenIdOfExistingLexemeAndRemoveBadFormId_errorReported() {
 		$this->saveDummyLexemeToDatabase();
@@ -673,7 +673,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'forms' => [
 					[
 						'id' => $this->formatFormId(
-							self::EXISTING_LEXEME_ID, 'invalid'
+							self::EXISTING_LEXEME_ID, 'bad'
 						),
 						'remove' => ''
 					]
@@ -686,7 +686,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	/**
 	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage Form id must be a string
+	 * @expectedExceptionMessage Expected argument of type "string", "array" given
 	 */
 	public function testGivenIdOfExistingLexemeAndOffTypeFormId_errorReported() {
 		$this->saveDummyLexemeToDatabase();

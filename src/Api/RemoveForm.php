@@ -170,7 +170,7 @@ class RemoveForm extends ApiBase {
 		// TODO baserevid (not in addform etc currently....)
 		return array_merge(
 			[
-				'formId' => [
+				'id' => [
 					self::PARAM_TYPE => 'string',
 					self::PARAM_REQUIRED => true,
 				],
@@ -216,7 +216,7 @@ class RemoveForm extends ApiBase {
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
-			'formId' => $formId
+			'id' => $formId
 		] );
 
 		$exampleMessage = new \Message(

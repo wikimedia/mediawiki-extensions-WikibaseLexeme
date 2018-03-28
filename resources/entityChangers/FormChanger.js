@@ -118,7 +118,7 @@
 
 			this.api.postWithToken( 'csrf', {
 				action: 'wblremoveform',
-				formId: form.getId(),
+				id: form.getId(),
 				errorformat: 'plaintext',
 				bot: 0
 			} )
