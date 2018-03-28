@@ -15,6 +15,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -26,7 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @group Database
  * @group medium
  */
-class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
+class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
 	const LANGUAGE_TRANSLATION_HOOK_NAME = 'LanguageGetTranslatedLanguageNames';
 	private $hookHandlers = [];
@@ -144,7 +145,7 @@ class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
 	}
 
 	public function testChangedLanguageItemsAreDisplayedAsLinks() {
-		$this->saveItem( 'Q4', 'goat language' );
+		$this->saveItem( 'Q321', 'goat language' );
 		$this->saveItem( 'Q5', 'cat language' );
 
 		$diffVisualizer = $this->newDiffVisualizer();
@@ -152,7 +153,7 @@ class LexemeDiffVisualizerIntegrationTest extends \MediaWikiLangTestCase {
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
 				'language' => new Diff(
-					[ 'id' => new DiffOpChange( 'Q4', 'Q5' ) ],
+					[ 'id' => new DiffOpChange( 'Q321', 'Q5' ) ],
 					true
 				),
 			] ),
