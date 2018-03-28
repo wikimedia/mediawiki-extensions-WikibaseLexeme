@@ -39,7 +39,7 @@
 	"apihelp-wbladdform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wbladdform-example-1": "添加词性至ID为<samp>$1</samp>的词位，其分别具有表现<samp>$2</samp>与语言<samp>$3</samp>，以及语法特征<samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "从词位移除词性",
-	"apihelp-wblremoveform-param-formId": "词性ID，例如L10-F20",
+	"apihelp-wblremoveform-param-id": "词性ID，例如L10-F20",
 	"apihelp-wblremoveform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wblremoveform-example-1": "从ID为<samp>$1</samp>的词位中移除词性",
 	"apihelp-wbleditformelements-summary": "编辑词性的表现和语法特征",

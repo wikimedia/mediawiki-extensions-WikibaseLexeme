@@ -38,7 +38,7 @@
 	"apihelp-wbladdform-param-lexemeId": "어휘소의 ID(예: L10)",
 	"apihelp-wbladdform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"apihelp-wblremoveform-summary": "어휘소에서 형태 제거",
-	"apihelp-wblremoveform-param-formId": "형태의 ID (예: L10-F20)",
+	"apihelp-wblremoveform-param-id": "형태의 ID (예: L10-F20)",
 	"apihelp-wblremoveform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"apihelp-wblremoveform-example-1": "<samp>$1</samp> ID 어휘소에서 형태 제거",
 	"apihelp-wbleditformelements-summary": "형태의 표현이나 문법적 특징 편집하기",

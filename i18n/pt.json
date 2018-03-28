@@ -39,7 +39,7 @@
 	"apihelp-wbladdform-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wbladdform-example-1": "Adicionar forma ao lexema com o identificador <samp>$1</samp>, tendo as representações <samp>$2</samp> com as línguas <samp>$3</samp> respetivamente e as propriedades gramaticais <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Remove uma forma do lexema",
-	"apihelp-wblremoveform-param-formId": "Identificador da forma, por exemplo: L10-F20",
+	"apihelp-wblremoveform-param-id": "Identificador da forma, por exemplo: L10-F20",
 	"apihelp-wblremoveform-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wblremoveform-example-1": "Remover a forma do lexema com o identificador <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Edita as representações e funcionalidades gramaticais de uma forma",

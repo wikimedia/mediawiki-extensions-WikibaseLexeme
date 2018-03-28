@@ -42,7 +42,7 @@
 	"apihelp-wbladdform-param-bot": "Marquer cette modification comme faite par un robot. Cette marque d'URL ne sera prise en compte si l'utilisateur appartient au groupe « {{int:group-bot}} » .",
 	"apihelp-wbladdform-example-1": "Ajout de forme au lexème ayant respectivement pour ID <samp>$1</samp>, pour représentations <samp>$2</samp>, pour langues <samp>$3</samp> et pour propriétés grammaticales <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Supprime le formulaire du lexème",
-	"apihelp-wblremoveform-param-formId": "ID du formulaire, par ex. L10-F20",
+	"apihelp-wblremoveform-param-id": "ID du formulaire, par ex. L10-F20",
 	"apihelp-wblremoveform-param-bot": "Marquer cette modification comme faite par robot. Ce drapeau d’URL ne sera respecté  que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wblremoveform-example-1": "Supprimer le formulaire du lexème avec l’ID <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Modifie les représentations et les caractères grammaticaux d’un formulaire",
