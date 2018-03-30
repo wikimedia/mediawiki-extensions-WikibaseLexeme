@@ -18,5 +18,6 @@
 	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}",
 	"wikibaselexeme-field-language-label": "Språk",
 	"wikibaselexeme-diffview-language": "språk",
-	"wikibaselexeme-diffview-form": "formulär"
+	"wikibaselexeme-diffview-form": "formulär",
+	"wikibaselexeme-form-grammatical-features": "Grammatiska funktioner"
 }

@@ -36,6 +36,9 @@
 	"apihelp-wbladdform-param-data": "Dados JSON codificados para a forma, isto é, representações (representations) e propriedades gramaticais (grammaticalFeatures)",
 	"apihelp-wbladdform-param-bot": "Marcar esta edição como sendo feita por um robô. Esta etiqueta URL só será respeitado se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wbladdform-example-1": "Adicionar forma ao lexema com o identificador <samp>$1</samp>, tendo as representações <samp>$2</samp> com as línguas <samp>$3</samp> respetivamente e as propriedades gramaticais <samp>$4</samp>",
+	"apihelp-wblremoveform-summary": "Remove uma forma do lexema",
+	"apihelp-wblremoveform-param-bot": "Marcar esta edição como sendo feita por um robô. Esta etiqueta URL só será respeitado se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
+	"apihelp-wblremoveform-example-1": "Remover a forma do lexema com o identificador <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Editar representações e características gramaticais de um Formulário",
 	"apihelp-wbleditformelements-param-formId": "O identificador do formulário, por exemplo: L10-F2",
 	"apihelp-wbleditformelements-param-data": "Representação codificada JSON e dados de características gramaticais",
@@ -55,6 +58,7 @@
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "O formulário deve ter pelo menos uma representação",
 	"wikibaselexeme-api-error-representations-language-not-unique": "As representações têm de ter uma língua única. A língua \"$1\" está a ser reutilizada",
 	"wikibase-lexeme-summary-add-form": "Foi adicionada a nova forma $3 com {{PLURAL:$1|representação|representações}}",
+	"wikibase-lexeme-summary-remove-form": "Removeu a forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-add-form-representations": "Adicionou {{PLURAL:$1|representação|representações}} do formulário $3",
 	"wikibase-lexeme-summary-set-form-representations": "Alterou {{PLURAL:$1|representação|representações}} do formulário $3",
 	"wikibase-lexeme-summary-remove-form-representations": "Removeu {{PLURAL:$1|representação|representações}} do formulário $3",
@@ -69,5 +73,6 @@
 	"wikibaselexeme-diffview-form": "forma",
 	"wikibaselexeme-diffview-representation": "representação",
 	"wikibaselexeme-diffview-grammatical-feature": "funcionalidade gramatical",
-	"content-model-wikibase-lexeme": "Lexema Wikibase"
+	"content-model-wikibase-lexeme": "Lexema Wikibase",
+	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais"
 }
