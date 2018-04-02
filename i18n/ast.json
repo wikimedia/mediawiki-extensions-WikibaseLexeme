@@ -14,6 +14,7 @@
 	"wikibaselexeme-newlexeme-language": "Llingua del lexema",
 	"wikibaselexeme-language-lexical-category-value": "$1 en $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
+	"wikibaselexeme-header-forms": "Formes",
 	"wikibaselexeme-enter-form-representation": "Escribir nueva representación de forma",
 	"wikibaselexeme-empty-form-representation": "Nun se definió nenguna representación de forma",
 	"wikibaselexeme-statementsection-statements-about-sense": "Declaraciones sobre $1",
@@ -36,6 +37,10 @@
 	"apihelp-wbladdform-param-data": "Datos codificaos en JSON pa Forma, esto ye, representaciones y carauterístiques gramaticales",
 	"apihelp-wbladdform-param-bot": "Marcar esta edición como bot. Esta marca d'URL sólo se respetará si l'usuariu pertenez al grupu «{{int:group-bot}}».",
 	"apihelp-wbladdform-example-1": "Añadir Forma al Lexema con ID <samp>$1</samp> que tien les representaciones <samp>$2</samp> coles llingües <samp>$3</samp> respeutivamente, y les carauterístiques gramaticales <samp>$4</samp>",
+	"apihelp-wblremoveform-summary": "Desanicia Forma de Lexema",
+	"apihelp-wblremoveform-param-id": "Identificador de la Forma; p.ex., L10-F20",
+	"apihelp-wblremoveform-param-bot": "Marcar esta edición como bot. Esta marca d'URL sólo se respetará si l'usuariu pertenez al grupu «{{int:group-bot}}».",
+	"apihelp-wblremoveform-example-1": "Desanicia Forma del Lexema con ID <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Edita les representaciones y carauterístiques gramaticales d'una Forma",
 	"apihelp-wbleditformelements-param-formId": "Identificador de la Forma; p.ex., L10-F2",
 	"apihelp-wbleditformelements-param-data": "Representación codificada JSON y datos de la carauterística gramatical",
@@ -55,6 +60,7 @@
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "La Forma tien de tener polo menos una representación",
 	"wikibaselexeme-api-error-representations-language-not-unique": "Les representaciones tienen de tener una llingua única. La llingua «$1» reutilizóse",
 	"wikibase-lexeme-summary-add-form": "Añadióse la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
+	"wikibase-lexeme-summary-remove-form": "Desanicióse la Forma $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Amestóse representación|Amestáronse representaciones}} de la Forma $3",
 	"wikibase-lexeme-summary-set-form-representations": "{{PLURAL:$1|Cambióse representación|Cambiáronse representaciones}} de la Forma $3",
 	"wikibase-lexeme-summary-remove-form-representations": "{{PLURAL:$1|Desanicióse representación|Desaniciáronse representaciones}} de la Forma $3",
@@ -69,5 +75,6 @@
 	"wikibaselexeme-diffview-form": "forma",
 	"wikibaselexeme-diffview-representation": "representación",
 	"wikibaselexeme-diffview-grammatical-feature": "carauterística gramatical",
-	"content-model-wikibase-lexeme": "Lexema de Wikibase"
+	"content-model-wikibase-lexeme": "Lexema de Wikibase",
+	"wikibaselexeme-form-grammatical-features": "Carauterístiques gramaticales"
 }
