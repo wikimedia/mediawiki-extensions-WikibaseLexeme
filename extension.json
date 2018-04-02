@@ -30,6 +30,18 @@
 		},
 		"LexemeLanguageCodePropertyId": {
 			"value": null
+		},
+		"LexemePrefixSearchProfile": {
+			"value": "lexeme_prefix"
+		},
+		"LexemePrefixSearchProfiles": {
+			"value": []
+		},
+		"LexemeRescoreFunctions": {
+			"value": []
+		},
+		"LexemePrefixRescoreProfile": {
+			"value": "lexeme_prefix"
 		}
 	},
 	"ExtensionMessagesFiles": {
@@ -53,6 +65,9 @@
 		],
 		"ResourceLoaderTestModules": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onResourceLoaderTestModules"
+		],
+		"CirrusSearchProfileService": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCirrusSearchProfileService"
 		]
 	},
 	"MessagesDirs": {

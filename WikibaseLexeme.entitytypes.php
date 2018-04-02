@@ -226,7 +226,17 @@ return [
 					$entityIdFormatter
 				)
 			);
-		}
+		},
+		'entity-search-callback' => function ( WebRequest $request ) {
+			$repo = WikibaseRepo::getDefaultInstance();
+			return new \Wikibase\Lexeme\Search\LexemeSearchEntity(
+					$repo->getEntityIdParser(),
+					$request,
+					$repo->getUserLanguage(),
+					$repo->getLanguageFallbackChainFactory(),
+					$repo->getPrefetchingTermLookup()
+				);
+		},
 	],
 	'form' => [
 		'entity-store-factory-callback' => function (
