@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use FauxRequest;
+use PermissionsError;
 use RequestContext;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -74,6 +75,23 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEXICAL_CATEGORY );
 		$this->assertHtmlContainsInputWithName( $html, SpecialNewLexeme::FIELD_LEXEME_LANGUAGE );
 		$this->assertHtmlContainsSubmitControl( $html );
+	}
+
+	public function testRequestByUserWithoutPermission_accessIsDenied() {
+		$this->setMwGlobals( [
+			'wgGroupPermissions' => [
+				'*' => [
+					'createpage' => false
+				]
+			]
+		] );
+
+		try {
+			$this->executeSpecialPage();
+			$this->fail();
+		} catch ( PermissionsError $exception ) {
+			$this->assertSame( 'badaccess-group0', $exception->errors[0][0] );
+		}
 	}
 
 	public function provideValidEntityCreationRequests() {
