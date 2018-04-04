@@ -80,7 +80,7 @@ class LexemeDiff extends EntityDiff {
 	}
 
 	public function toArray( $valueConverter = null ) {
-		return [];
+		throw new \LogicException( 'toArray() is not implemented' );
 	}
 
 }
