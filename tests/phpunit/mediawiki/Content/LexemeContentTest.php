@@ -22,6 +22,7 @@ class LexemeContentTest extends TestCase {
 	public function testInvalidEntityType() {
 		$this->setExpectedException( InvalidArgumentException::class );
 		new LexemeContent( new EntityInstanceHolder( new Item() ) );
+		$this->assertTrue( true ); // Don't mark as risky
 	}
 
 	public function testGetEntity() {
