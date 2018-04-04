@@ -200,60 +200,95 @@ class LexemeTest extends TestCase {
 		$this->assertTrue( $lexeme->isEmpty() );
 	}
 
-	public function equalLexemesProvider() {
+	private function newLexemeWithForm( Form $form ) {
+		return new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			2,
+			new FormSet( [ $form ] )
+		);
+	}
+
+	public function provideTestEquals() {
 		$empty = new Lexeme();
 
 		$withStatement = new Lexeme();
 		$withStatement->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
-		$form = NewForm::havingId( 'F1' )
-			->andRepresentation( 'en', 'goat' )
-			->andGrammaticalFeature( 'Q1' );
+		$newForm = NewForm::havingId( 'F1' );
+		$newFormGoat = $newForm->andRepresentation( 'en', 'goat' );
+		$newFormGoatFeatureQ1 = $newFormGoat->andGrammaticalFeature( 'Q1' );
+		$newFormGoatFeatureQ2 = $newFormGoat->andGrammaticalFeature( 'Q2' );
+		$newFormGoatFeatureQ1andQ2 = $newFormGoat
+			->andGrammaticalFeature( 'Q1' )
+			->andGrammaticalFeature( 'Q2' );
 
-		$withForm1 = new Lexeme(
-			new LexemeId( 'L1' ), null, null, null, null, 2, new FormSet( [ $form->build() ] )
-		);
-		$withForm2 = new Lexeme(
-			new LexemeId( 'L1' ), null, null, null, null, 2, new FormSet( [ $form->build() ] )
-		);
+		$withForm1 = $this->newLexemeWithForm( $newFormGoatFeatureQ1->build() );
+		$withForm1Again = $this->newLexemeWithForm( $newFormGoatFeatureQ1->build() );
+		$withFormAndNoFeature = $this->newLexemeWithForm( $newFormGoat->build() );
+		$withFormAndFeatureQ1 = $this->newLexemeWithForm( $newFormGoatFeatureQ1->build() );
+		$withFormAndFeatureQ2 = $this->newLexemeWithForm( $newFormGoatFeatureQ2->build() );
+		$withFormAndFeatureQ1andQ2 = $this->newLexemeWithForm( $newFormGoatFeatureQ1andQ2->build() );
 
 		return [
-			'empty' => [
+			'true, empty' => [
+				true,
 				$empty,
 				new Lexeme()
 			],
-			'same id' => [
+			'true, same id' => [
+				true,
 				new Lexeme( new LexemeId( 'L1' ) ),
 				new Lexeme( new LexemeId( 'L1' ) )
 			],
-			'different id' => [
+			'true, different id' => [
+				true,
 				new Lexeme( new LexemeId( 'L1' ) ),
 				new Lexeme( new LexemeId( 'L2' ) )
 			],
-			'no id' => [
+			'true, no id' => [
+				true,
 				new Lexeme( new LexemeId( 'L1' ) ),
 				$empty
 			],
-			'same object' => [
+			'true, same object' => [
+				true,
 				$empty,
 				$empty
 			],
-			'same statements' => [
+			'true, same statements' => [
+				true,
 				$withStatement,
 				clone $withStatement
 			],
-			'same forms' => [
+			'true, same forms' => [
+				true,
 				$withForm1,
-				$withForm2
+				$withForm1Again
+			],
+			'false, differing form feature 1->2' => [
+				false, $withFormAndFeatureQ1, $withFormAndFeatureQ2
+			],
+			'false, differing form feature 1->1,2 ' => [
+				false, $withFormAndFeatureQ1, $withFormAndFeatureQ1andQ2
+			],
+			'false, differing form feature null->1 ' => [
+				false, $withFormAndNoFeature, $withFormAndFeatureQ1
+			],
+			'false, differing form feature 1->null ' => [
+				false, $withFormAndFeatureQ1, $withFormAndNoFeature
 			],
 		];
 	}
 
 	/**
-	 * @dataProvider equalLexemesProvider
+	 * @dataProvider provideTestEquals
 	 */
-	public function testEquals( Lexeme $a, Lexeme $b ) {
-		$this->assertTrue( $a->equals( $b ) );
+	public function testEquals( $expected, Lexeme $a, Lexeme $b ) {
+		$this->assertSame( $expected, $a->equals( $b ) );
 	}
 
 	public function testEqualLemmas() {
