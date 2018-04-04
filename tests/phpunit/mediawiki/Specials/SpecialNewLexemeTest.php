@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
+use FauxRequest;
+use RequestContext;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
@@ -43,6 +45,25 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			$wikibaseRepo->getEntityTitleLookup(),
 			$wikibaseRepo->newEditEntityFactory()
 		);
+	}
+
+	public function testRateLimitIsCheckedWhenEditing() {
+		$formData = $this->provideValidEntityCreationRequests()['everything is set'][0];
+
+		$this->setTemporaryHook(
+			'PingLimiter',
+			function ( User &$user, $action, &$result ) {
+				$this->assertSame( 'edit', $action );
+				$result = true;
+				return false;
+			} );
+
+		$formData['wpEditToken'] = RequestContext::getMain()->getUser()->getEditToken();
+		$request = new FauxRequest( $formData, true );
+
+		list( $html, ) = $this->executeSpecialPage( '', $request, 'qqx' );
+
+		$this->assertContains( '(actionthrottledtext)', $html );
 	}
 
 	public function testAllNecessaryFormFieldsArePresent_WhenRendered() {

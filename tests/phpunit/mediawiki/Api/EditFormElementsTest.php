@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiMessage;
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
+use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -29,6 +30,38 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
+	}
+
+	public function testRateLimitIsCheckedWhenEditing() {
+		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wbleditformelements',
+			'formId' => 'L1-F1',
+			'data' => json_encode( [
+				'representations' => [
+					[ 'language' => 'en', 'representation' => 'goadth' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		];
+
+		$this->setTemporaryHook(
+			'PingLimiter',
+			function ( User &$user, $action, &$result ) {
+				$this->assertSame( 'edit', $action );
+				$result = true;
+				return false;
+			} );
+
+		try {
+			$this->doApiRequestWithToken( $params );
+			$this->fail( 'No rate limit API error was raised' );
+		} catch ( ApiUsageException $e ) {
+			$this->assertEquals( 'actionthrottledtext', $e->getMessageObject()->getKey() );
+		}
 	}
 
 	/**

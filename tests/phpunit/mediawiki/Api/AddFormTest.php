@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
+use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -20,6 +21,33 @@ use Wikibase\Lib\Store\EntityRevision;
  * @group medium
  */
 class AddFormTest extends WikibaseLexemeApiTestCase {
+
+	public function testRateLimitIsCheckedWhenEditing() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam()
+		];
+
+		$this->setTemporaryHook(
+			'PingLimiter',
+			function ( User &$user, $action, &$result ) {
+				$this->assertSame( 'edit', $action );
+				$result = true;
+				return false;
+			} );
+
+		try {
+			$this->doApiRequestWithToken( $params );
+			$this->fail( 'No rate limit API error was raised' );
+		} catch ( ApiUsageException $e ) {
+			$this->assertEquals( 'actionthrottledtext', $e->getMessageObject()->getKey() );
+		}
+	}
 
 	/**
 	 * @dataProvider provideInvalidParams
