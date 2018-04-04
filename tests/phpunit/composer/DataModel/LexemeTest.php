@@ -367,22 +367,39 @@ class LexemeTest extends TestCase {
 
 	public function testCopyModification() {
 		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
+		$lexeme->setLanguage( new ItemId( 'Q1' ) );
+		$lexeme->setLexicalCategory( new ItemId( 'Q1' ) );
+		$lexeme->getLemmas()->setTextForLanguage( 'en', 'orig' );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
+		$formId = new FormId( 'L1-F' . $lexeme->getNextFormId() );
+		$lexeme->addForm( new TermList( [ new Term( 'en', 'orig-form' ) ] ), [ new ItemId( 'Q1' ) ] );
+		// Make sure we have the correct FormId for the form that we added (will throw otherwise)
+		$lexeme->getForm( $formId );
 
 		$copy = $lexeme->copy();
 
 		$copy->setId( new LexemeId( 'L2' ) );
+		$copy->setLanguage( new ItemId( 'Q2' ) );
+		$copy->setLexicalCategory( new ItemId( 'Q2' ) );
+		$copy->getLemmas()->setTextForLanguage( 'en', 'copy' );
 		$copy->getStatements()->addNewStatement( new PropertyNoValueSnak( 24 ) );
 		$copy->getStatements()->getFirstStatementWithGuid( null )->setRank(
 			Statement::RANK_DEPRECATED
 		);
+		$copy->removeForm( $formId );
+		// TODO test senses here once appropriate
 
 		$this->assertSame( 'L1', $lexeme->getId()->getSerialization() );
+		$this->assertSame( 'Q1', $lexeme->getLanguage()->getSerialization() );
+		$this->assertSame( 'Q1', $lexeme->getLexicalCategory()->getSerialization() );
+		$this->assertSame( 'orig', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
 		$this->assertCount( 1, $lexeme->getStatements() );
 		$this->assertSame(
 			Statement::RANK_NORMAL,
 			$lexeme->getStatements()->getFirstStatementWithGuid( null )->getRank()
 		);
+		$this->assertCount( 0, $copy->getForms() );
+		$this->assertCount( 1, $lexeme->getForms() );
 	}
 
 	public function testCopy_FormSetIsCopied() {
