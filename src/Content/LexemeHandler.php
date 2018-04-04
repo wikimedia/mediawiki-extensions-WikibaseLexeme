@@ -14,13 +14,13 @@ use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Actions\ViewLexemeAction;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
+use Wikibase\Repo\Search\Elastic\Fields\FieldDefinitions;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Store\EntityIdLookup;
@@ -58,7 +58,7 @@ class LexemeHandler extends EntityHandler {
 	 * @param EntityIdLookup $entityIdLookup
 	 * @param EntityLookup $entityLookup
 	 * @param LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory
-	 * @param LexemeFieldDefinitions $fieldDefinitions
+	 * @param FieldDefinitions $lexemeFieldDefinitions
 	 * @param callable|null $legacyExportFormatDetector
 	 */
 	public function __construct(
@@ -70,7 +70,7 @@ class LexemeHandler extends EntityHandler {
 		EntityIdLookup $entityIdLookup,
 		EntityLookup $entityLookup,
 		LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory,
-		LexemeFieldDefinitions $fieldDefinitions,
+		FieldDefinitions $lexemeFieldDefinitions,
 		$legacyExportFormatDetector = null
 	) {
 		parent::__construct(
@@ -80,9 +80,10 @@ class LexemeHandler extends EntityHandler {
 			$constraintProvider,
 			$errorLocalizer,
 			$entityIdParser,
-			$fieldDefinitions,
+			$lexemeFieldDefinitions,
 			$legacyExportFormatDetector
 		);
+
 		$this->entityIdLookup = $entityIdLookup;
 		$this->entityLookup = $entityLookup;
 		$this->labelLookupFactory = $labelLookupFactory;
