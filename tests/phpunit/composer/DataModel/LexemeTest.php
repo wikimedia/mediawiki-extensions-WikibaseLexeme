@@ -630,4 +630,70 @@ class LexemeTest extends TestCase {
 		$this->assertTrue( $lexeme->equals( $initialLexeme ), "Lexeme's state is changed" );
 	}
 
+	public function testLexemeWithNoIdIsNotSufficientlyInitialized() {
+		$lexeme = new Lexeme(
+			null,
+			new TermList( [ new Term( 'en', 'test' ) ] ),
+			new ItemId( 'Q2' ),
+			new ItemId( 'Q3' )
+		);
+
+		$this->assertFalse( $lexeme->isSufficientlyInitialized() );
+	}
+
+	public function testLexemeWithNoLemmaIsNotSufficientlyInitialized() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			new ItemId( 'Q2' ),
+			new ItemId( 'Q3' )
+		);
+
+		$this->assertFalse( $lexeme->isSufficientlyInitialized() );
+	}
+
+	public function testLexemeWithEmptyLemmaListIsNotSufficientlyInitialized() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			new TermList(),
+			new ItemId( 'Q2' ),
+			new ItemId( 'Q3' )
+		);
+
+		$this->assertFalse( $lexeme->isSufficientlyInitialized() );
+	}
+
+	public function testLexemeWithNoLexicalCategoryIsNotSufficientlyInitialized() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			new TermList( [ new Term( 'en', 'test' ) ] ),
+			null,
+			new ItemId( 'Q2' )
+		);
+
+		$this->assertFalse( $lexeme->isSufficientlyInitialized() );
+	}
+
+	public function testLexemeWithNoLanguageIsNotSufficientlyInitialized() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			new TermList( [ new Term( 'en', 'test' ) ] ),
+			new ItemId( 'Q2' ),
+			null
+		);
+
+		$this->assertFalse( $lexeme->isSufficientlyInitialized() );
+	}
+
+	public function testLexemeWithRequiredElementsIsSufficientlyInitialized() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			new TermList( [ new Term( 'en', 'test' ) ] ),
+			new ItemId( 'Q2' ),
+			new ItemId( 'Q3' )
+		);
+
+		$this->assertTrue( $lexeme->isSufficientlyInitialized() );
+	}
+
 }

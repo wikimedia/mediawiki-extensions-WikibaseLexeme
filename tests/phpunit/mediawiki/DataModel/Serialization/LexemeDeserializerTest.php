@@ -162,6 +162,7 @@ class LexemeDeserializerTest extends TestCase {
 				'id' => 'L1',
 				'lexicalCategory' => 'Q1',
 				'language' => 'Q2',
+				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'form' ] ],
 				'nextFormId' => 2,
 				'forms' => [
 					[
@@ -177,6 +178,7 @@ class LexemeDeserializerTest extends TestCase {
 			NewLexeme::havingId( 'L1' )
 				->withLexicalCategory( 'Q1' )
 				->withLanguage( 'Q2' )
+				->withLemma( 'en', 'form' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'form' )
@@ -190,6 +192,7 @@ class LexemeDeserializerTest extends TestCase {
 				'id' => 'L1',
 				'lexicalCategory' => 'Q1',
 				'language' => 'Q2',
+				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'form' ] ],
 				'nextFormId' => 2,
 				'forms' => [
 					[
@@ -205,6 +208,7 @@ class LexemeDeserializerTest extends TestCase {
 			NewLexeme::havingId( 'L1' )
 				->withLexicalCategory( 'Q1' )
 				->withLanguage( 'Q2' )
+				->withLemma( 'en', 'form' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'form' )

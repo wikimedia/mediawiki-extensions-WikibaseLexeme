@@ -8,6 +8,8 @@ use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -57,21 +59,16 @@ class LexemeContentTest extends TestCase {
 		$this->assertFalse( $lexemeContent->isCountable() );
 	}
 
-	/**
-	 * @dataProvider provideValidLexeme
-	 */
-	public function testIsValid( $lexeme ) {
+	public function testIsValid() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			new TermList( [ new Term( 'en', 'test' ) ] ),
+			new ItemId( 'Q120' ),
+			new ItemId( 'Q121' )
+		);
+
 		$lexemeContent = new LexemeContent( new EntityInstanceHolder( $lexeme ) );
 		$this->assertTrue( $lexemeContent->isValid() );
-	}
-
-	public function provideValidLexeme() {
-		$valid = [];
-
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q120' ), new ItemId( 'Q121' ) );
-		$valid[] = [ $lexeme ];
-
-		return $valid;
 	}
 
 	/**
@@ -83,18 +80,10 @@ class LexemeContentTest extends TestCase {
 	}
 
 	public function provideInvalidLexeme() {
-		$invalid = [];
-
-		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
-		$invalid[] = [ $lexeme ];
-
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, null, new ItemId( 'Q121' ) );
-		$invalid[] = [ $lexeme ];
-
-		$lexeme = new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q120' ) );
-		$invalid[] = [ $lexeme ];
-
-		return $invalid;
+		yield [ new Lexeme( new LexemeId( 'L1' ) ) ];
+		yield [ new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q120' ), new ItemId( 'Q121' ) ) ];
+		yield [ new Lexeme( new LexemeId( 'L1' ), null, null, new ItemId( 'Q121' ) ) ];
+		yield [ new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q120' ) ) ];
 	}
 
 }

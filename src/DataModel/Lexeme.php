@@ -277,7 +277,9 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	public function isSufficientlyInitialized() {
 		return $this->id !== null
 			&& $this->language !== null
-			&& $this->lexicalCategory !== null;
+			&& $this->lexicalCategory !== null
+			&& $this->lemmas !== null
+			&& !$this->lemmas->isEmpty();
 	}
 
 	/**

@@ -73,9 +73,22 @@ class NewLexeme {
 	public function build() {
 		$forms = new FormSet( $this->forms );
 		$nextFormId = $forms->maxFormIdNumber() + 1;
+
+		$lemmas = new TermList();
+		foreach ( $this->lemmas as $lang => $term ) {
+			$lemmas->setTextForLanguage( $lang, $term );
+		}
+
+		if ( $lemmas->isEmpty() ) {
+			$lemmas->setTextForLanguage(
+				$this->newRandomLanguageCode(),
+				$this->newRandomLemma()
+			);
+		}
+
 		$lexeme = new Lexeme(
 			$this->lexemeId,
-			null,
+			$lemmas,
 			$this->lexicalCategory,
 			$this->language,
 			null,
@@ -83,12 +96,6 @@ class NewLexeme {
 			$forms,
 			$this->senses
 		);
-
-		$lemmas = new TermList();
-		foreach ( $this->lemmas as $lang => $term ) {
-			$lemmas->setTextForLanguage( $lang, $term );
-		}
-		$lexeme->setLemmas( $lemmas );
 
 		foreach ( $this->statements as $statement ) {
 			$lexeme->getStatements()->addNewStatement( $statement );
@@ -159,6 +166,20 @@ class NewLexeme {
 
 	private function newRandomItemId() {
 		return new ItemId( 'Q' . mt_rand( 1, ItemId::MAX ) );
+	}
+
+	private function newRandomLanguageCode() {
+		return $this->newRandomString( 2 );
+	}
+
+	private function newRandomLemma() {
+		return $this->newRandomString( mt_rand( 5, 10 ) );
+	}
+
+	private function newRandomString( $length ) {
+		$characters = 'abcdefghijklmnopqrstuvwxyz';
+
+		return substr( str_shuffle( $characters ), 0, $length );
 	}
 
 	public function __clone() {
