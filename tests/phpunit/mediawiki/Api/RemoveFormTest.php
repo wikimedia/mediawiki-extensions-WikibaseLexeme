@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -10,7 +11,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\Api\RemoveForm
@@ -154,6 +154,28 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
 		$this->assertEquals( $lexemeRevision->getRevisionId(), $result['lastrevid'] );
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
+	 */
+	public function testGivenValidDataWithoutEditPermission_violationIsReported() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$this->saveLexeme( $lexeme );
+
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+			'*' => [
+				'read' => true,
+				'edit' => false
+			]
+		] );
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wblremoveform',
+			'id' => $form->getId()->getSerialization(),
+		], null, self::createTestUser()->getUser() );
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {

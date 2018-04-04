@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
 use DataValues\StringValue;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\Property;
@@ -15,7 +16,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @group Database
@@ -212,6 +212,39 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			'/* wbsetclaim-create:2||1 */ [[Property:P1]]: test, The best edit ever',
 			$revision->getComment()->text
 		);
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
+	 */
+	public function testGivenFormIdWithoutEditPermission_violationIsReported() {
+		$propertyId = new PropertyId( 'P1' );
+		$this->saveTestProperty( $propertyId );
+
+		$lexemeId = new LexemeId( 'L1' );
+		$formId = new FormId( 'L1-F1' );
+
+		$form = NewForm::havingId( $formId )->build();
+		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+			'*' => [
+				'read' => true,
+				'edit' => false
+			]
+		] );
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wbsetclaim',
+			'claim' => json_encode( $this->getStatementData(
+				$formId->getSerialization() . '$00000000-0000-0000-0000-000000000000',
+				$propertyId,
+				'test'
+			) ),
+		], null, self::createTestUser()->getUser() );
 	}
 
 	private function saveTestProperty( PropertyId $propertyId ) {

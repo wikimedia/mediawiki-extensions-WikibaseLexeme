@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -9,7 +10,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\Api\AddForm
@@ -161,6 +161,29 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
+	 */
+	public function testGivenValidDataWithoutEditPermission_violationIsReported() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+				'*' => [
+					'read' => true,
+					'edit' => false
+				]
+		] );
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam()
+		], null, self::createTestUser()->getUser() );
 	}
 
 	public function testSetsTheSummaryOfRevision() {
