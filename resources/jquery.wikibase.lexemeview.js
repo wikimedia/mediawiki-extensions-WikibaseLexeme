@@ -27,7 +27,8 @@
 		options: {
 			buildStatementGroupListView: null,
 			buildFormListView: null,
-			buildSenseListView: null
+			buildSenseListView: null,
+			buildLexemeHeader: null
 		},
 
 		/**
@@ -50,6 +51,7 @@
 
 			this.options.buildFormListView();
 			this.options.buildSenseListView();
+			this.options.buildLexemeHeader();
 		},
 
 		/**
@@ -59,7 +61,8 @@
 		_init: function () {
 			if ( !this.options.buildStatementGroupListView ||
 				!this.options.buildFormListView ||
-				!this.options.buildSenseListView
+				!this.options.buildSenseListView ||
+				!this.options.buildLexemeHeader
 			) {
 				throw new Error( 'Required option(s) missing' );
 			}

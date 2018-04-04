@@ -67,7 +67,7 @@
 				"jquery.wikibase.entityview",
 				"jquery.wikibase.lexemeformlistview",
 				"jquery.wikibase.senselistview",
-				"wikibase.lexeme.view.ControllerViewFactory",
+				"wikibase.lexeme.view.ViewFactoryFactory",
 				"lexeme-header"
 			]
 		},
@@ -179,7 +179,10 @@
 			"scripts":"vendor/es6-promise.auto.js"
 		},
 		"lexeme-header":{
-			"scripts": "widgets/LexemeHeader.js",
+			"scripts": [
+				"widgets/__namespace.js",
+				"widgets/LexemeHeader.js"
+			],
 			"dependencies": [
 				"vue",
 				"vuex",
@@ -425,6 +428,26 @@
 				"wikibase.view.ControllerViewFactory",
 				"wikibase.api.getLocationAgnosticMwApi",
 				"wikibase.api.RepoApi"
+			]
+		},
+		"wikibase.lexeme.view.ReadModeViewFactory": {
+			"scripts": [
+				"view/__namespace.js",
+				"view/ReadModeViewFactory.js"
+			],
+			"dependencies": [
+				"util.inherit",
+				"wikibase.view.ReadModeViewFactory"
+			]
+		},
+		"wikibase.lexeme.view.ViewFactoryFactory": {
+			"scripts": [
+				"view/__namespace.js",
+				"view/ViewFactoryFactory.js"
+			],
+			"dependencies": [
+				"wikibase.lexeme.view.ReadModeViewFactory",
+				"wikibase.lexeme.view.ControllerViewFactory"
 			]
 		},
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig": {

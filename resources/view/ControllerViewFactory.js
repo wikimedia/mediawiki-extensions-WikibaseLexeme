@@ -98,6 +98,7 @@
 				buildStatementGroupListView: this.getStatementGroupListView.bind( this, startEditingCallback ),
 				buildFormListView: this.getFormListView.bind( this, lexeme, startEditingCallback ),
 				buildSenseListView: this.getSenseListView.bind( this, lexeme, startEditingCallback ),
+				buildLexemeHeader: wb.lexeme.widgets.buildLexemeHeader,
 				value: lexeme
 			}
 		);

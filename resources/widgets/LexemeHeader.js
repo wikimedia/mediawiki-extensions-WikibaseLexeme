@@ -1,4 +1,4 @@
-( function ( $, mw, require, wb, Vue, Vuex ) {
+wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue, Vuex ) {
 	'use strict';
 
 	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
@@ -72,16 +72,18 @@
 		) );
 	}
 
-	$.Deferred( function ( deferred ) {
-		mw.hook( 'wikibase.entityPage.entityLoaded' ).add( function ( wbEntity ) {
-			deferred.resolve( hydrateLexeme( wbEntity ) );
-		} );
-	} )
-		.then( init )
-		.fail( function ( reason ) {
-			// FIXME: Change to lexeme-extension-specific logger once defined
-			mw.log.error( 'LexemeHeader could not be initialized from wikibase.entityPage.entityLoaded', reason );
+	return function () {
+		$.Deferred( function ( deferred ) {
+			mw.hook( 'wikibase.entityPage.entityLoaded' ).add( function ( wbEntity ) {
+				deferred.resolve( hydrateLexeme( wbEntity ) );
+			} );
 		} )
-	;
+			.then( init )
+			.fail( function ( reason ) {
+				// FIXME: Change to lexeme-extension-specific logger once defined
+				mw.log.error( 'LexemeHeader could not be initialized from wikibase.entityPage.entityLoaded', reason );
+			} )
+		;
+	};
 
 } )( jQuery, mediaWiki, require, wikibase, Vue, Vuex );
