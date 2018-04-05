@@ -71,7 +71,8 @@ class LexemeDiff extends EntityDiff {
 	public function isEmpty() {
 		//FIXME: Needs to be fixed, otherwise conflict resolution may lead to unexpected results
 		return $this->getLemmasDiff()->isEmpty()
-			   && $this->getClaimsDiff()->isEmpty();
+			&& $this->getClaimsDiff()->isEmpty()
+			&& $this->getFormsDiff()->isEmpty();
 	}
 
 	public function getNextFormIdDiff() {
