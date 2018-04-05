@@ -803,6 +803,53 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->doApiRequestWithToken( $params );
 	}
 
+	/**
+	 * @dataProvider provideDataRequiringEditPermissions
+	 *
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
+	 */
+	public function testEditOfLexemeWithoutEditPermission_violationIsReported( array $editData ) {
+		$this->saveDummyLexemeToDatabase();
+
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+			'*' => [
+				'read' => true,
+				'edit' => false
+			]
+		] );
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( $editData ),
+		], null, self::createTestUser()->getUser() );
+	}
+
+	public function provideDataRequiringEditPermissions() {
+		yield [
+			[
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, 'F77'
+						),
+						'remove' => ''
+					]
+				]
+			]
+		];
+		yield [
+			[ 'lexicalCategory' => 'Q333' ]
+		];
+		yield [
+			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ] ]
+		];
+		yield [
+			[ 'language' => 'Q303' ]
+		];
+	}
+
 	private function formatFormId( $lexemeId, $formId ) {
 		return $lexemeId . '-' . $formId;
 	}

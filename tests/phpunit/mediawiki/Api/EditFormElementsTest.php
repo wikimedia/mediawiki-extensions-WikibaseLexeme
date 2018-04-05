@@ -13,7 +13,6 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElements
@@ -563,6 +562,33 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			],
 			$result['form']
 		);
+	}
+
+	/**
+	 * @expectedException ApiUsageException
+	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
+	 */
+	public function testEditOfFormWithoutPermission_violationIsReported() {
+		$form = NewForm::havingId( 'F1' )
+			->andGrammaticalFeature( 'Q123' )
+			->andRepresentation( 'en', 'goat' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+			'*' => [
+				'read' => true,
+				'edit' => false
+			]
+		] );
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wbleditformelements',
+			'formId' => 'L1-F1',
+			'data' => $this->getDataParam()
+		], null, self::createTestUser()->getUser() );
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {
