@@ -35,6 +35,23 @@ class FormChangeOpDeserializerTest extends TestCase {
 		$this->assertSame( [ 'L107-F1' ], $summary->getCommentArgs() );
 	}
 
+	public function testGivenChangeRequestOfRemoveFormAndOtherData_formIsRemoved() {
+		$lexeme = $this->getEnglishLexeme( 'L107' );
+
+		$deserializer = new FormChangeOpDeserializer();
+		$changeOps = $deserializer->createEntityChangeOp(
+			[
+				'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ] ],
+				'unrelatedkey' => 'no harm done'
+			]
+		);
+
+		$summary = new Summary();
+		$changeOps->apply( $lexeme, $summary );
+
+		$this->assertCount( 0, $lexeme->getForms() );
+	}
+
 	public function testGivenChangeRequestWithOneOfTwoRemoveForm_requestedFormIsRemoved() {
 		$lexeme = $this->getEnglishLexeme( 'L107' );
 		$lexeme->addForm( new TermList( [ new Term( 'en', 'crabapple' ) ] ), [] );

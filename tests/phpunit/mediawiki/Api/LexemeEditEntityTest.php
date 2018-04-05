@@ -635,6 +635,31 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testGivenExistingLexemeAndFormRemoveAmongstOtherData_formIsRemoved() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'language' => self::EXISTING_LEXEME_LANGUAGE_ITEM_ID,
+				'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
+				'forms' => [
+					[
+						'id' => $this->formatFormId(
+							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+						),
+						'remove' => ''
+					]
+				],
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+	}
+
 	public function testGivenIdOfExistingLexemeAndRemoveInAllFormData_allFormsAreRemoved() {
 		$this->saveDummyLexemeToDatabase();
 
@@ -838,6 +863,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
 			'data' => json_encode( [
+				'language' => self::EXISTING_LEXEME_LANGUAGE_ITEM_ID,
+				'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
 				'forms' => [
 					[
 						'id' => $this->formatFormId(

@@ -16,9 +16,12 @@ class RemoveFormConstraint {
 	 */
 	public static function many() {
 		return new Assert\Collection( [
-			'forms' => new Assert\All( [
-				self::one()
-			] )
+			'fields' => [
+				'forms' => new Assert\All( [
+					self::one()
+				] )
+			],
+			'allowExtraFields' => true
 		] );
 	}
 
