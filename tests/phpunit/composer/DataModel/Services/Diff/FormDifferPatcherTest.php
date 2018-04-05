@@ -110,6 +110,31 @@ class FormDifferPatcherTest extends TestCase {
 		$this->assertDoentHaveGrammaticalFeature( new ItemId( 'Q1' ), $latestForm );
 	}
 
+	public function testDiffAndPatchCanRemoveGrammaticalFeatures() {
+		$differ = new FormDiffer();
+		$patcher = new FormPatcher();
+		$form1 = NewForm::havingId( 'F1' )
+			->andGrammaticalFeature( 'Q1' )
+			->andGrammaticalFeature( 'Q2' )
+			->build();
+		$form2 = NewForm::havingId( 'F1' )
+			->andGrammaticalFeature( 'Q2' )
+			->build();
+		$latestForm = NewForm::havingId( 'F1' )
+			->andGrammaticalFeature( 'Q1' )
+			->andGrammaticalFeature( 'Q2' )
+			->build();
+
+		$diff = $differ->diff( $form1, $form2 );
+		$patcher->patch( $latestForm, $diff );
+
+		$grammaticalFeaturesDiff = $diff->getGrammaticalFeaturesDiff();
+		$this->assertEquals( [ new ItemId( 'Q1' ) ], $grammaticalFeaturesDiff->getRemovedValues() );
+
+		$this->assertHasGrammaticalFeature( new ItemId( 'Q2' ), $latestForm );
+		$this->assertDoentHaveGrammaticalFeature( new ItemId( 'Q1' ), $latestForm );
+	}
+
 	public function testDiffAndPatchCanChangeStatements() {
 		$differ = new FormDiffer();
 		$patcher = new FormPatcher();
