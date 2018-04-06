@@ -564,10 +564,6 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
-	 */
 	public function testEditOfFormWithoutPermission_violationIsReported() {
 		$form = NewForm::havingId( 'F1' )
 			->andGrammaticalFeature( 'Q123' )
@@ -584,11 +580,16 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			]
 		] );
 
-		$this->doApiRequestWithToken( [
-			'action' => 'wbleditformelements',
-			'formId' => 'L1-F1',
-			'data' => $this->getDataParam()
-		], null, self::createTestUser()->getUser() );
+		try {
+			$this->doApiRequestWithToken( [
+				'action' => 'wbleditformelements',
+				'formId' => 'L1-F1',
+				'data' => $this->getDataParam()
+			], null, self::createTestUser()->getUser() );
+			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+		} catch ( ApiUsageException $exception ) {
+			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+		}
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {

@@ -214,10 +214,6 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
-	 */
 	public function testGivenFormIdWithoutEditPermission_violationIsReported() {
 		$propertyId = new PropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
@@ -237,14 +233,19 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			]
 		] );
 
-		$this->doApiRequestWithToken( [
-			'action' => 'wbsetclaim',
-			'claim' => json_encode( $this->getStatementData(
-				$formId->getSerialization() . '$00000000-0000-0000-0000-000000000000',
-				$propertyId,
-				'test'
-			) ),
-		], null, self::createTestUser()->getUser() );
+		try {
+			$this->doApiRequestWithToken( [
+				'action' => 'wbsetclaim',
+				'claim' => json_encode( $this->getStatementData(
+					$formId->getSerialization() . '$00000000-0000-0000-0000-000000000000',
+					$propertyId,
+					'test'
+				) ),
+			], null, self::createTestUser()->getUser() );
+			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+		} catch ( ApiUsageException $exception ) {
+			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+		}
 	}
 
 	private function saveTestProperty( PropertyId $propertyId ) {

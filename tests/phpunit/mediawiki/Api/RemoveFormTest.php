@@ -156,10 +156,6 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$this->assertEquals( $lexemeRevision->getRevisionId(), $result['lastrevid'] );
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
-	 */
 	public function testGivenValidDataWithoutEditPermission_violationIsReported() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
@@ -172,10 +168,15 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			]
 		] );
 
-		$this->doApiRequestWithToken( [
-			'action' => 'wblremoveform',
-			'id' => $form->getId()->getSerialization(),
-		], null, self::createTestUser()->getUser() );
+		try {
+			$this->doApiRequestWithToken( [
+				'action' => 'wblremoveform',
+				'id' => $form->getId()->getSerialization(),
+			], null, self::createTestUser()->getUser() );
+			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+		} catch ( ApiUsageException $exception ) {
+			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+		}
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {

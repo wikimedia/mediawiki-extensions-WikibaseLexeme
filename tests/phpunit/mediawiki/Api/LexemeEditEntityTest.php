@@ -805,9 +805,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	/**
 	 * @dataProvider provideDataRequiringEditPermissions
-	 *
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage You're not allowed to edit this wiki through the API.
 	 */
 	public function testEditOfLexemeWithoutEditPermission_violationIsReported( array $editData ) {
 		$this->saveDummyLexemeToDatabase();
@@ -819,11 +816,16 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			]
 		] );
 
-		$this->doApiRequestWithToken( [
-			'action' => 'wbeditentity',
-			'id' => self::EXISTING_LEXEME_ID,
-			'data' => json_encode( $editData ),
-		], null, self::createTestUser()->getUser() );
+		try {
+			$this->doApiRequestWithToken( [
+				'action' => 'wbeditentity',
+				'id' => self::EXISTING_LEXEME_ID,
+				'data' => json_encode( $editData ),
+			], null, self::createTestUser()->getUser() );
+			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+		} catch ( ApiUsageException $exception ) {
+			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+		}
 	}
 
 	public function provideDataRequiringEditPermissions() {
