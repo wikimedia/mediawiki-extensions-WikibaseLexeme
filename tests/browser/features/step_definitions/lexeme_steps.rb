@@ -4,7 +4,7 @@ Given(/^I am on a Lexeme page$/) do
 end
 
 Given(/^I have a Lexeme to test$/) do
-  lexeme_data = '{"lexicalCategory":"Q1","language":"Q1"}'
+  lexeme_data = '{"lexicalCategory":"Q1","language":"Q1","lemmas":{"en":{"language":"en", "value":"test"}}}'
   @lexeme_under_test = visit(LexemePage).create_lexeme(lexeme_data)
 end
 

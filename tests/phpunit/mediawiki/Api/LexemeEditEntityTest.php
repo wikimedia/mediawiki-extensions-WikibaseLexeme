@@ -179,13 +179,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenIdOfExistingLexemeAndRemoveInLemmaData_lemmaIsRemoved() {
-		$this->saveDummyLexemeToDatabase();
+		$this->saveDummyLexemeWithMultipleLemmaVariants();
 
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
 			'data' => json_encode( [
-				'lemmas' => [ 'en' => [ 'language' => 'en', 'remove' => '' ] ],
+				'lemmas' => [ 'en-gb' => [ 'language' => 'en-gb', 'remove' => '' ] ],
 			] ),
 		];
 
@@ -196,8 +196,29 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
 
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertArrayNotHasKey( 'lemmas', $lexemeData );
+		$this->assertEntityFieldsEqual(
+			[
+				'id' => self::EXISTING_LEXEME_ID,
+				'lemmas' => [
+					'en' => [ 'language' => 'en', 'value' => 'apple' ],
+				]
+			],
+			$lexemeData
+		);
+	}
+
+	private function saveDummyLexemeWithMultipleLemmaVariants() {
+		$lexeme = $this->getDummyLexeme();
+		$lexeme->setLemmas( new TermList( [
+			new Term( 'en', 'apple' ),
+			new Term( 'en-gb', 'appel' )
+		] ) );
+
+		$this->entityStore->saveEntity(
+			$lexeme,
+			self::class,
+			$this->getMock( User::class )
+		);
 	}
 
 	public function testGivenIdOfExistingLexemeAndLemmaDataAsNumberIndexArray_lemmaIsChanged() {
@@ -517,6 +538,56 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		/** @var ApiUsageException $exception */
 		$this->assertSame(
 			'failed-save',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
+	}
+
+	public function testGivenTryingToRemoveAllLemmas_errorIsReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'lemmas' => [ 'en' => [ 'language' => 'en', 'remove' => '' ] ],
+			] ),
+		];
+
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
+		/** @var ApiUsageException $exception */
+		$this->assertSame( 'failed-save',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
+	}
+
+	public function testGivenTryingToCreateLexemeWithNoLemmas_errorIsReported() {
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'lexeme',
+			'data' => json_encode( [
+				'lemmas' => [],
+				'language' => 'Q100',
+				'lexicalCategory' => 'Q200',
+			] ),
+		];
+
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
+		/** @var ApiUsageException $exception */
+		$this->assertSame( 'failed-save',
 			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
 		);
 	}
