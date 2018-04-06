@@ -97,4 +97,14 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 		return $this->diffOps->isEmpty();
 	}
 
+	public function getOperations() {
+		// Due to the way this DiffOp is structured the default implementation would return nothing
+		throw new \LogicException( "getOperations() is not implemented" );
+	}
+
+	public function getArrayCopy() {
+		// Due to the way this DiffOp is structured the default implementation would return nothing
+		throw new \LogicException( "getArrayCopy() is not implemented" );
+	}
+
 }
