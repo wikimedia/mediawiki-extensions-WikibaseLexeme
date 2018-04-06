@@ -3,7 +3,8 @@
 		"authors": [
 			"Elisardojm",
 			"Banjo",
-			"Athena in Wonderland"
+			"Athena in Wonderland",
+			"Navhy"
 		]
 	},
 	"wikibaselexeme-desc": "Xestionar o tipo de entidade «lexema»",
@@ -26,6 +27,7 @@
 	"wikibaselexeme-add-form": "engadir forma",
 	"apihelp-wbladdform-summary": "Engade unha forma ó lexema",
 	"apihelp-wbladdform-param-lexemeId": "Id. do lexema; p. ex., L10",
+	"apihelp-wblremoveform-summary": "Borra unha forma do lexema",
 	"wikibaselexeme-api-error-parameter-required": "O parámetro «$1» é obrigatorio",
 	"wikibaselexeme-field-language-label": "Lingua",
 	"wikibaselexeme-field-lexical-category-label": "Categoría léxica",
