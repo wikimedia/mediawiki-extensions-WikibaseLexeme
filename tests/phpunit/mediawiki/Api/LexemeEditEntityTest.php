@@ -622,25 +622,15 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		try {
-			$this->doApiRequestWithToken( $params );
-			$this->fail();
-		} catch ( ApiUsageException $e ) {
-			$this->assertSame(
-				'Parameter "[forms][0][id]" expected to be a Form ID. Given: "L100-malformed"',
-				$e->getMessage()
-			);
-		}
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'wikibaselexeme-api-error-parameter-not-form-id'
+		] );
 
 		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
 
 		$this->assertCount( 2, $lexemeData['forms'] );
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage Parameter "[forms][0][id]" is required
-	 */
 	public function testGivenIdOfExistingLexemeAndRemoveUnidentifiedForm_errorReported() {
 		$this->saveDummyLexemeToDatabase();
 
@@ -656,13 +646,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		$this->doApiRequestWithToken( $params );
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'wikibaselexeme-api-error-parameter-required'
+		] );
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage Parameter "[forms][0][id]" expected to be a Form ID. Given: "L100-bad"
-	 */
 	public function testGivenIdOfExistingLexemeAndRemoveBadFormId_errorReported() {
 		$this->saveDummyLexemeToDatabase();
 
@@ -681,13 +669,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		$this->doApiRequestWithToken( $params );
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'wikibaselexeme-api-error-parameter-not-form-id'
+		] );
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage Expected argument of type "string", "array" given
-	 */
 	public function testGivenIdOfExistingLexemeAndOffTypeFormId_errorReported() {
 		$this->saveDummyLexemeToDatabase();
 
@@ -704,7 +690,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		$this->doApiRequestWithToken( $params );
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'bad-param-type'
+		] );
 	}
 
 	public function testGivenIdOfMissingLexemeAndExistingButUnrelatedFormId_errorReportedFormIntact() {
@@ -725,12 +713,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		try {
-			$this->doApiRequestWithToken( $params );
-			$this->fail();
-		} catch ( ApiUsageException $e ) {
-			$this->assertSame( '⧼no-such-entity⧽', $e->getMessage() );
-		}
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'no-such-entity'
+		] );
 
 		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
 
@@ -764,12 +749,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		try {
-			$this->doApiRequestWithToken( $params );
-			$this->fail();
-		} catch ( ApiUsageException $e ) {
-			$this->assertSame( 'Lexeme does not have Form with ID L100-F1', $e->getMessage() );
-		}
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'modification-failed'
+		] );
 
 		$firstLexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
 		$secondLexemeData = $this->loadEntity( $secondLexemeId );
@@ -778,10 +760,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 1, $secondLexemeData['forms'] );
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 * @expectedExceptionMessage Lexeme does not have Form with ID L100-F77
-	 */
 	public function testGivenIdOfExistingLexemeAndRemoveOfUnknownForm_errorReported() {
 		$this->saveDummyLexemeToDatabase();
 
@@ -800,7 +778,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		$this->doApiRequestWithToken( $params );
+		$this->doTestQueryExceptions( $params, [
+			'code' => 'modification-failed'
+		] );
 	}
 
 	/**
