@@ -2,8 +2,10 @@
 
 namespace Wikibase\Lexeme\Search;
 
+use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Repo\Search\Elastic\Fields\FieldDefinitions;
-use Wikibase\Repo\Search\Elastic\Fields\StatementCountField;
+use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 use Wikibase\Repo\Search\Elastic\Fields\WikibaseIndexField;
 
 /**
@@ -13,12 +15,39 @@ use Wikibase\Repo\Search\Elastic\Fields\WikibaseIndexField;
 class LexemeFieldDefinitions implements FieldDefinitions {
 
 	/**
+	 * @var EntityLookup
+	 */
+	private $entityLookup;
+
+	/**
+	 * @var PropertyId|null
+	 */
+	private $lexemeLanguageCodePropertyId;
+	/**
+	 * @var StatementProviderFieldDefinitions
+	 */
+	private $statements;
+
+	public function __construct( StatementProviderFieldDefinitions $statements,
+								 EntityLookup $entityLookup,
+								 PropertyId $lexemeLanguageCodePropertyId = null ) {
+		$this->statements = $statements;
+		$this->lexemeLanguageCodePropertyId = $lexemeLanguageCodePropertyId;
+		$this->entityLookup = $entityLookup;
+	}
+
+	/**
 	 * @return WikibaseIndexField[]
 	 */
 	public function getFields() {
-		return [
-			'statement_count' => new StatementCountField()
-		];
+		$fields = $this->statements->getFields();
+
+		$fields[LemmaField::NAME] = new LemmaField();
+		$fields[FormsField::NAME] = new FormsField();
+		$fields[LexemeLanguageField::NAME] = new LexemeLanguageField( $this->entityLookup,
+			$this->lexemeLanguageCodePropertyId );
+		$fields[LexemeCategoryField::NAME] = new LexemeCategoryField();
+		return $fields;
 	}
 
 }

@@ -6,6 +6,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
@@ -19,6 +20,7 @@ use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
+use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 use Wikibase\Repo\Tests\Content\EntityHandlerTestCase;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
@@ -141,6 +143,12 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		$labelLookupFactory->method( 'newLabelDescriptionLookup' )
 			->will( $this->returnValue( $this->getMock( LabelDescriptionLookup::class ) ) );
 
+		$fieldDefinitions = new LexemeFieldDefinitions(
+			new StatementProviderFieldDefinitions( [], [] ),
+			$this->getMock( EntityLookup::class ),
+			new PropertyId( 'P123' )
+		);
+
 		return new LexemeHandler(
 			$this->getMock( TermIndex::class ),
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
@@ -150,7 +158,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			$this->getMock( EntityIdLookup::class ),
 			$this->getMock( EntityLookup::class ),
 			$labelLookupFactory,
-			new LexemeFieldDefinitions()
+			$fieldDefinitions
 		);
 	}
 
