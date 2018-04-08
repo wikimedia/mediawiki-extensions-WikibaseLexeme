@@ -30,7 +30,6 @@
 		"giorgiosironi/eris": "dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/minus-x": "0.3.1",
-		"phpunit/phpunit": "^4.8.35",
 		"wikibase/wikibase-codesniffer": "^0.3.0",
 		"davidrjonas/composer-lock-diff": "^1.3"
 	},
@@ -53,7 +52,6 @@
 		"test": [
 			"parallel-lint . --exclude vendor --exclude node_modules",
 			"phpcs -p -s",
-			"phpunit",
 			"minus-x check ."
 		],
 		"mediawiki-vendor-download": [
