@@ -39,6 +39,13 @@ class ApiRequestValidator {
 	/**
 	 * Convert the first violation into an exception
 	 *
+	 * Converting the message to string deprives us of the capability to inspect
+	 * the params later (e.g. tests) but allows for i18n based messages, in contrast
+	 * to other occurrences of ChangeOpDeserializationException.
+	 *
+	 * A violation "message" in the validator/constraint scope is a mediawiki message key, as set
+	 * in e.g. Api/Constraint/RemoveFormConstraint
+	 *
 	 * @param ConstraintViolationListInterface $violationList
 	 */
 	public function convertViolationsToException( ConstraintViolationListInterface $violationList ) {
@@ -47,8 +54,9 @@ class ApiRequestValidator {
 			 * @var $violation ConstraintViolationInterface
 			 */
 			throw new ChangeOpDeserializationException(
-				$this->violationToMessage( $violation ),
-				$violation->getCode() // TODO code?
+				$this->violationToMessage( $violation )->plain(),
+				$violation->getMessage(),
+				$this->getViolationParams( $violation )
 			);
 		}
 	}
@@ -73,10 +81,15 @@ class ApiRequestValidator {
 	}
 
 	private function violationToMessage( ConstraintViolationInterface $violation ) {
-		return \Message::newFromKey( $violation->getMessage() )->params( [
+		return \Message::newFromKey( $violation->getMessage() )
+			->params( $this->getViolationParams( $violation ) );
+	}
+
+	private function getViolationParams( ConstraintViolationInterface $violation ) {
+		return [
 			$violation->getPropertyPath(),
 			$violation->getInvalidValue()
-		] );
+		];
 	}
 
 }
