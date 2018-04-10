@@ -37,7 +37,7 @@
 		assert.equal( gotTokenType, 'csrf', 'Token type' );
 		assert.equal( gotParameters.action, 'wbladdform', 'Add form API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
-		assert.equal( gotParameters.bot, 1, 'BOT flag' );
+		assert.equal( gotParameters.bot, 0, 'BOT flag' );
 		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
 		assert.deepEqual(
 			gotData.representations,

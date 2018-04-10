@@ -103,7 +103,7 @@
 					grammaticalFeatures: grammaticalFeatures
 				} ),
 				errorformat: 'plaintext',
-				bot: 1
+				bot: 0
 			} ).then( function ( data ) {
 				var form = self.lexemeDeserializer.deserializeForm( data.form );
 				self.revisionStore.setFormRevision( data.lastrevid, form.getId() );
