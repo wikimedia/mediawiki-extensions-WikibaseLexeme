@@ -220,7 +220,7 @@ class EditFormElements extends \ApiBase {
 	}
 
 	protected function getExamplesMessages() {
-		$formId = 'L12';
+		$formId = 'L12-F1';
 		$exampleData = [
 			'representations' => [
 				[ 'representation' => 'color', 'language' => 'en-US' ],
