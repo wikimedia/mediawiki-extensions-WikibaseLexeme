@@ -123,7 +123,7 @@ module.exports = ( function () {
 						context.commit( 'updateLexicalCategory', { id: lexeme.lexicalCategory, link: formattedLexicalCategory } );
 
 						context.commit( 'finishSaving' );
-					} ).catch( function () {
+					} ).fail( function () {
 						context.commit( 'finishSaving' );
 					} );
 				}

@@ -46,6 +46,9 @@ module.exports = ( function () {
 						}
 					).then( function () {
 						this.inEditMode = false;
+					}.bind( this ) )
+					.catch( function ( code, response ) {
+						this.displayError( response.error );
 					}.bind( this ) );
 				},
 
@@ -56,7 +59,13 @@ module.exports = ( function () {
 				cancel: function () {
 					this.inEditMode = false;
 					this.lemmas = copyLemmaList( store.state.lemmas );
-				}
+				},
+
+				/**
+				 * This method is overridden in LexemeHeader.js
+				 */
+				displayError: function () {}
+
 			},
 
 			computed: {

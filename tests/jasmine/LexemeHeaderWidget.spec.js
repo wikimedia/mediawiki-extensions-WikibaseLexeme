@@ -52,6 +52,22 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		} );
 	} );
 
+	it( 'save lemma list with error', function ( done ) {
+		var lexeme = { lemmas: [ new Lemma( 'hello', 'en' ) ] },
+			store = newStore( lexeme ),
+			widget = newWidgetWithStore( store ),
+			storeSpy = sinon.stub( store, 'dispatch' ).callsFake( function () {
+				return Promise.reject();
+			} );
+
+		widget.edit();
+		widget.save().catch( function () {
+			expect( storeSpy, 'to have a call satisfying', [ 'save', lexeme ] );
+			expect( widget, 'to be in edit mode' );
+			done();
+		} );
+	} );
+
 	it( 'passes lemmas to LemmaWidget', function () {
 		var lemmas = [ new Lemma( 'hello', 'en' ) ],
 			widget = newWidget( { lemmas: lemmas } );

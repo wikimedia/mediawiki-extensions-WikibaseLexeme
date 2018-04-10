@@ -191,6 +191,7 @@
 				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore",
 				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget",
 				"wikibase.api.RepoApi",
+				"jquery.wikibase.wbtooltip",
 				"mediawiki.api",
 				"wikibase.lexeme.datamodel.Lemma"
 			],
