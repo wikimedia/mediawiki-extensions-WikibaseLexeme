@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 
 use Language;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
+use Wikibase\Lexeme\Search\FormSearchEntity;
 use Wikibase\Lexeme\Search\LexemeSearchEntity;
 
 /**
@@ -40,12 +41,32 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 		);
 	}
 
+	/**
+	 * @param Language $userLang
+	 * @return LexemeSearchEntity
+	 */
+	private function newFormSearch( Language $userLang ) {
+		$repo = \Wikibase\Repo\WikibaseRepo::getDefaultInstance();
+		return new FormSearchEntity(
+			new BasicEntityIdParser(),
+			$this->getMockRequest(),
+			$userLang,
+			$repo->getLanguageFallbackChainFactory(),
+			$repo->getPrefetchingTermLookup()
+		);
+	}
+
 	public function searchDataProvider() {
 		return [
 			"simple" => [
 				'Duck',
 				'simple'
-			]
+			],
+			"byid" => [
+				'(L2)',
+				'byid'
+			],
+
 		];
 	}
 
@@ -66,6 +87,26 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 		$encodedData = json_encode( $decodedQuery, JSON_PRETTY_PRINT );
 		$this->assertFileContains(
 			__DIR__ . "/../../data/lexemeCompletionSearch/$expected.expected",
+			$encodedData );
+	}
+
+	/**
+	 * @dataProvider searchDataProvider
+	 * @param string $term search term
+	 * @param string $expected Expected result filename
+	 */
+	public function testSearchFormElastic( $term, $expected ) {
+		$search = $this->newFormSearch( Language::factory( 'en' ) );
+		$search->setReturnResult( true );
+		$elasticQuery = $search->getRankedSearchResults(
+			$term, 'test' /* not used so far */,
+			'form', 10, false
+		);
+		$decodedQuery = json_decode( $elasticQuery, true );
+		unset( $decodedQuery['path'] );
+		$encodedData = json_encode( $decodedQuery, JSON_PRETTY_PRINT );
+		$this->assertFileContains(
+			__DIR__ . "/../../data/lexemeCompletionSearch/$expected.form.expected",
 			$encodedData );
 	}
 

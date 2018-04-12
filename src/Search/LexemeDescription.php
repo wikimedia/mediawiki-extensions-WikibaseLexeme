@@ -43,7 +43,7 @@ class LexemeDescription {
 	 * @param string $default Default value if unable to retrieve label
 	 * @return string Label or "" if does not exist.
 	 */
-	private function getLabelOrDefault(
+	public function getLabelOrDefault(
 		EntityId $id = null,
 		$default = ""
 	) {

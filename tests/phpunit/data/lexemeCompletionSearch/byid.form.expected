@@ -1,0 +1,155 @@
+{
+    "description": "wikibase_prefix search for '(L2)'",
+    "params": {
+        "timeout": "20s"
+    },
+    "query": {
+        "query": {
+            "bool": {
+                "should": [
+                    {
+                        "bool": {
+                            "filter": [
+                                {
+                                    "match": {
+                                        "lexeme_forms.representation.prefix": "(L2)"
+                                    }
+                                }
+                            ],
+                            "should": [
+                                {
+                                    "dis_max": {
+                                        "tie_breaker": 0,
+                                        "queries": [
+                                            {
+                                                "constant_score": {
+                                                    "filter": {
+                                                        "match": {
+                                                            "lexeme_forms.representation.near_match": "(L2)"
+                                                        }
+                                                    },
+                                                    "boost": 2
+                                                }
+                                            },
+                                            {
+                                                "constant_score": {
+                                                    "filter": {
+                                                        "match": {
+                                                            "lexeme_forms.representation.near_match_folded": "(L2)"
+                                                        }
+                                                    },
+                                                    "boost": 1.5
+                                                }
+                                            },
+                                            {
+                                                "constant_score": {
+                                                    "filter": {
+                                                        "match": {
+                                                            "lexeme_forms.representation.prefix": "(L2)"
+                                                        }
+                                                    },
+                                                    "boost": 1
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "term": {
+                            "lexeme_forms.id": "L2"
+                        }
+                    }
+                ],
+                "minimum_should_match": 1,
+                "filter": [
+                    {
+                        "term": {
+                            "content_model": "wikibase-lexeme"
+                        }
+                    }
+                ]
+            }
+        },
+        "_source": [
+            "namespace",
+            "title",
+            "lemma",
+            "lexeme_language",
+            "lexical_category",
+            "lexeme_forms"
+        ],
+        "stored_fields": [],
+        "highlight": {
+            "pre_tags": [
+                ""
+            ],
+            "post_tags": [
+                ""
+            ],
+            "fields": {
+                "lexeme_forms.id": {
+                    "type": "experimental",
+                    "fragmenter": "none",
+                    "number_of_fragments": 0
+                },
+                "lexeme_forms.representation": {
+                    "type": "experimental",
+                    "fragmenter": "none",
+                    "number_of_fragments": 30,
+                    "fragment_size": 1000,
+                    "matched_fields": [
+                        "lexeme_forms.representation.prefix"
+                    ],
+                    "options": {
+                        "skip_if_last_matched": true
+                    }
+                }
+            }
+        },
+        "size": 10,
+        "rescore": [
+            {
+                "window_size": 8192,
+                "query": {
+                    "query_weight": 1,
+                    "rescore_query_weight": 1,
+                    "score_mode": "total",
+                    "rescore_query": {
+                        "function_score": {
+                            "score_mode": "sum",
+                            "functions": [
+                                {
+                                    "script_score": {
+                                        "script": {
+                                            "inline": "pow(doc['incoming_links'].value , 1) \/ ( pow(doc['incoming_links'].value, 1) + pow(100,1))",
+                                            "lang": "expression"
+                                        }
+                                    },
+                                    "weight": 0.4
+                                },
+                                {
+                                    "script_score": {
+                                        "script": {
+                                            "inline": "pow(doc['statement_count'].value , 2) \/ ( pow(doc['statement_count'].value, 2) + pow(20,2))",
+                                            "lang": "expression"
+                                        }
+                                    },
+                                    "weight": 0.6
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        ],
+        "stats": [
+            "wikibase-prefix"
+        ]
+    },
+    "options": {
+        "timeout": "20s"
+    }
+}
