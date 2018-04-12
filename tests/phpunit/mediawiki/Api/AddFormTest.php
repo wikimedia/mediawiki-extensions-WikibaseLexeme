@@ -142,9 +142,9 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	private function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
-				[
+				'en' => [
 					'language' => 'en',
-					'representation' => 'goat'
+					'value' => 'goat'
 				]
 			],
 			'grammaticalFeatures' => [ 'Q17' ],

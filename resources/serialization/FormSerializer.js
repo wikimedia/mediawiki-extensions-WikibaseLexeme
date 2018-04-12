@@ -29,7 +29,7 @@
 
 				representations[ lang ] = {
 					language: lang,
-					representation: representation.getText()
+					value: representation.getText()
 				};
 			} );
 

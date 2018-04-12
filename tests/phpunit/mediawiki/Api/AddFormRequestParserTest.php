@@ -19,7 +19,7 @@ use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
+use Wikibase\Lexeme\Api\Error\RepresentationLanguageInconsistent;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\ChangeOp\ChangeOpAddForm;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -53,7 +53,7 @@ class AddFormRequestParserTest extends TestCase {
 			[ 'grammaticalFeatures' => [] ]
 		);
 		$noGrammaticalFeaturesInDataParams = json_encode(
-			[ 'representations' => [ 'language' => 'en', 'representation' => 'goat' ] ]
+			[ 'representations' => [ 'en' => [ 'language' => 'en', 'value' => 'goat' ] ] ]
 		);
 
 		return [
@@ -98,14 +98,7 @@ class AddFormRequestParserTest extends TestCase {
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam( [ 'representations' => 'foo' ] )
 				],
-				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'array', 'string' ) ]
-			],
-			'representations is an object' => [
-				[
-					'lexemeId' => 'L1',
-					'data' => $this->getDataParam( [ 'representations' => [ 'foo' => 'bar' ] ] )
-				],
-				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'array', 'object' ) ]
+				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'object', 'string' ) ]
 			],
 			'grammatical features not an array' => [
 				[
@@ -116,9 +109,9 @@ class AddFormRequestParserTest extends TestCase {
 					'data', [ 'grammaticalFeatures' ], 'array', 'string'
 				) ]
 			],
-			'empty representation list in data' => [
+			'empty representation map in data' => [
 				[ 'lexemeId' => 'L1', 'data' => $this->getDataParam(
-					[ 'representations' => [] ]
+					[ 'representations' => new \stdClass() ]
 				) ],
 				[ new FormMustHaveAtLeastOneRepresentation( 'data', [ 'representations' ] ) ]
 			],
@@ -126,54 +119,60 @@ class AddFormRequestParserTest extends TestCase {
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
-						[ 'representations' => [ [ 'representation' => '', 'language' => 'en' ] ] ]
+						[ 'representations' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
 					)
 				],
-				[ new RepresentationTextCanNotBeEmpty( 'data', [ 'representations', 0, 'representation' ] ) ]
+				[ new RepresentationTextCanNotBeEmpty( 'data', [ 'representations', 'en', 'value' ] ) ]
 			],
 			'representation list contains only representation with empty language' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
-						[ 'representations' => [ [ 'representation' => 'goat', 'language' => '' ] ] ]
+						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => '' ] ] ]
 					)
 				],
-				[ new RepresentationLanguageCanNotBeEmpty( 'data', [ 'representations', 0, 'language' ] ) ]
+				[ new RepresentationLanguageCanNotBeEmpty( 'data', [ 'representations', 'en', 'language' ] ) ]
+			],
+			'representation list contains representation with empty language key' => [
+				[
+					'lexemeId' => 'L1',
+					'data' => $this->getDataParam(
+						[ 'representations' => [ '' => [ 'value' => 'goat', 'language' => 'en' ] ] ]
+					)
+				],
+				[ new RepresentationLanguageCanNotBeEmpty( 'data', [ 'representations', 'en', 'language' ] ) ]
+			],
+			'representation list contains element with inconsistent language' => [
+				[
+					'lexemeId' => 'L1',
+					'data' => $this->getDataParam(
+						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => 'de' ] ] ]
+					)
+				],
+				[ new RepresentationLanguageInconsistent(
+					'data',
+					[ 'representations', 'en', 'language' ],
+					'en',
+					'de'
+				) ]
 			],
 			'no representation string in data' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
-						[ 'representations' => [ [ 'language' => 'en' ] ] ]
+						[ 'representations' => [ 'en' => [ 'language' => 'en' ] ] ]
 					)
 				],
-				[ new JsonFieldIsRequired( 'data', [ 'representations', 0, 'representation' ] ) ]
+				[ new JsonFieldIsRequired( 'data', [ 'representations', 'en', 'value' ] ) ]
 			],
 			'no representation language in data' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
-						[ 'representations' => [ [ 'representation' => 'foo' ] ] ]
+						[ 'representations' => [ 'en' => [ 'value' => 'foo' ] ] ]
 					)
 				],
-				[ new JsonFieldIsRequired( 'data', [ 'representations', 0, 'language' ] ) ]
-			],
-			'two representations with the same language' => [
-				[
-					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
-						[ 'representations' => [
-							[ 'representation' => 'r1',  'language' => 'en' ],
-							[ 'representation' => 'r2',  'language' => 'fr' ],
-							[ 'representation' => 'r3',  'language' => 'en' ],
-						] ]
-					)
-				],
-				[ new RepresentationsMustHaveUniqueLanguage(
-					'data',
-					[ 'representations', 2, 'language' ],
-					'en'
-				) ]
+				[ new JsonFieldIsRequired( 'data', [ 'representations', 'en', 'language' ] ) ]
 			],
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
@@ -206,9 +205,9 @@ class AddFormRequestParserTest extends TestCase {
 	public function testGivenOneRepresentationMissingText_parseReturnsRequestWithOnlyThisError() {
 		$data = [
 			'representations' => [
-				[
+				'en' => [
 					'language' => 'en',
-					'representation' => ''
+					'value' => ''
 				]
 			],
 			'grammaticalFeatures' => [],
@@ -221,7 +220,7 @@ class AddFormRequestParserTest extends TestCase {
 		$this->assertCount( 1, $errors );
 		$expectedError = new RepresentationTextCanNotBeEmpty(
 			'data',
-			[ 'representations', 0, 'representation' ]
+			[ 'representations', 'en', 'value' ]
 		);
 		$this->assertResultContainsError( $result, $expectedError );
 	}
@@ -262,9 +261,9 @@ class AddFormRequestParserTest extends TestCase {
 	private function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
-				[
+				'en' => [
 					'language' => 'en',
-					'representation' => 'goat'
+					'value' => 'goat'
 				]
 			],
 			'grammaticalFeatures' => [ 'Q17' ],
@@ -296,6 +295,10 @@ class AddFormRequestParserTest extends TestCase {
 		assertThat(
 			$errors,
 			hasItem( hasKeyValuePair( 'message', $expectedError->asApiMessage() ) )
+		);
+		$this->assertSame(
+			$expectedError->asApiMessage()->getApiData(),
+			$errors[0]['message']->getApiData()
 		);
 	}
 

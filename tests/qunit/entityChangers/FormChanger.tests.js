@@ -41,7 +41,7 @@
 		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
 		assert.deepEqual(
 			gotData.representations,
-			[ { language: 'en', representation: 'test representation' } ],
+			{ en: { language: 'en', value: 'test representation' } },
 			'Representation list'
 		);
 		assert.deepEqual(
@@ -204,7 +204,7 @@
 		assert.equal( gotParameters.formId, formId, 'formId parameter' );
 		assert.deepEqual(
 			gotData.representations,
-			[ { language: 'en', representation: 'test representation' } ],
+			{ en: { language: 'en', value: 'test representation' } },
 			'Representation list'
 		);
 		assert.deepEqual(

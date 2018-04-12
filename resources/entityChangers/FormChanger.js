@@ -59,18 +59,12 @@
 			var formSerializer = new wb.lexeme.serialization.FormSerializer();
 
 			var serializedForm = formSerializer.serialize( form );
-			var representations = [];
-			for ( var languageKey in serializedForm.representations ) {
-				if ( serializedForm.representations.hasOwnProperty( languageKey ) ) {
-					representations.push( serializedForm.representations[ languageKey ] );
-				}
-			}
 
 			if ( form.getId() ) {
-				return this.saveChangedFormData( form.getId(), representations, serializedForm.grammaticalFeatures );
+				return this.saveChangedFormData( form.getId(), serializedForm.representations, serializedForm.grammaticalFeatures );
 			}
 
-			return this.saveNewFormData( representations, serializedForm.grammaticalFeatures );
+			return this.saveNewFormData( serializedForm.representations, serializedForm.grammaticalFeatures );
 		},
 
 		saveChangedFormData: function ( formId, representations, grammaticalFeatures ) {

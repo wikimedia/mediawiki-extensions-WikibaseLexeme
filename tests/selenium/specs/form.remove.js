@@ -18,9 +18,9 @@ describe( 'Lexeme:Forms', () => {
 					return LexemeApi.addForm(
 						id,
 						{
-							representations: [
-								{ language: 'de', representation: 'lorem' }
-							],
+							representations: {
+								de: { language: 'de', value: 'lorem' }
+							},
 							grammaticalFeatures: []
 						}
 					);

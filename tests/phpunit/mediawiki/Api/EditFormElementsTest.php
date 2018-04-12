@@ -42,7 +42,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goadth' ],
+					'en' => [ 'language' => 'en', 'value' => 'goadth' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -107,9 +107,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	private function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
-				[
+				'en' => [
 					'language' => 'en',
-					'representation' => 'colour'
+					'value' => 'colour'
 				]
 			],
 			'grammaticalFeatures' => [ 'Q17' ],
@@ -179,7 +179,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goadth' ],
+					'en' => [ 'language' => 'en', 'value' => 'goadth' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -207,7 +207,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'colour' ],
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -235,8 +235,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'colour' ],
-					[ 'language' => 'en-us', 'representation' => 'color' ],
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
+					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -265,7 +265,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goat' ],
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
 				],
 				'grammaticalFeatures' => [ 'Q321' ],
 			] ),
@@ -293,7 +293,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goat' ],
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
 				],
 				'grammaticalFeatures' => [ 'Q123', 'Q678' ],
 			] ),
@@ -324,7 +324,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goat' ],
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -349,7 +349,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goadth' ],
+					'en' => [ 'language' => 'en', 'value' => 'goadth' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -382,8 +382,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'colour' ],
-					[ 'language' => 'en-us', 'representation' => 'color' ],
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
+					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -417,7 +417,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'colour' ],
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -451,7 +451,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goat' ],
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
 				],
 				'grammaticalFeatures' => [ 'Q123', 'Q678' ],
 			] ),
@@ -486,7 +486,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'goat' ],
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -521,8 +521,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'colour' ],
-					[ 'language' => 'en-us', 'representation' => 'color' ],
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
+					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [ 'Q678' ],
 			] ),
@@ -575,8 +575,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => json_encode( [
 				'representations' => [
-					[ 'language' => 'en', 'representation' => 'colour' ],
-					[ 'language' => 'en-us', 'representation' => 'color' ],
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
+					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [ 'Q321' ],
 			] ),

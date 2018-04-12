@@ -28,9 +28,9 @@
 				expected: {
 					id: null,
 					representations: {
-						'[LANG1]': { language: '[LANG1]', representation: '[TEXT1]' },
-						'[LANG2]': { language: '[LANG2]', representation: '[TEXT2]' },
-						'[LANG3]': { language: '[LANG3]', representation: '[TEXT3]' }
+						'[LANG1]': { language: '[LANG1]', value: '[TEXT1]' },
+						'[LANG2]': { language: '[LANG2]', value: '[TEXT2]' },
+						'[LANG3]': { language: '[LANG3]', value: '[TEXT3]' }
 					},
 					grammaticalFeatures: []
 				}
@@ -41,7 +41,7 @@
 			},
 			'Form with ID, representation, grammatical feature': {
 				form: new Form( '[ID]', new TermMap( { '[LANG]': new Term( '[LANG]', '[TEXT]' ) } ), '[FEATURE]' ),
-				expected: { id: '[ID]', representations: { '[LANG]': { language: '[LANG]', representation: '[TEXT]' } }, grammaticalFeatures: '[FEATURE]' }
+				expected: { id: '[ID]', representations: { '[LANG]': { language: '[LANG]', value: '[TEXT]' } }, grammaticalFeatures: '[FEATURE]' }
 			}
 		};
 

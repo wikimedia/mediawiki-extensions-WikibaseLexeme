@@ -223,8 +223,8 @@ class EditFormElements extends \ApiBase {
 		$formId = 'L12-F1';
 		$exampleData = [
 			'representations' => [
-				[ 'representation' => 'color', 'language' => 'en-US' ],
-				[ 'representation' => 'colour', 'language' => 'en-GB' ],
+				'en-US' => [ 'value' => 'color', 'language' => 'en-US' ],
+				'en-GB' => [ 'value' => 'colour', 'language' => 'en-GB' ],
 			],
 			'grammaticalFeatures' => [
 				'Q1', 'Q2'
@@ -241,7 +241,7 @@ class EditFormElements extends \ApiBase {
 			return $r['language'];
 		}, $exampleData['representations'] );
 		$representations = array_map( function ( $r ) {
-			return $r['representation'];
+			return $r['value'];
 		}, $exampleData['representations'] );
 
 		$representationsText = $this->getLanguage()->commaList( $representations );

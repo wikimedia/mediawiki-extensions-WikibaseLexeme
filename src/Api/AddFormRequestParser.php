@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\Api\Error\RepresentationLanguageInconsistent;
 use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -87,13 +88,15 @@ class AddFormRequestParser {
 
 		if ( !property_exists( $data, 'representations' ) ) {
 			$errors[] = new JsonFieldIsRequired( self::PARAM_DATA, [ 'representations' ] );
-		} elseif ( !is_array( $data->representations ) ) {
+		} elseif ( !is_object( $data->representations ) ) {
 			$errors[] = new JsonFieldHasWrongType(
 				self::PARAM_DATA,
 				[ 'representations' ],
-				'array',
+				'object', // TODO What would be a sane expected type (object w/o type is odd)
 				gettype( $data->representations )
 			);
+		} else {
+			$data->representations = (array)$data->representations;
 		}
 
 		if ( !property_exists( $data, 'grammaticalFeatures' ) ) {
@@ -146,31 +149,22 @@ class AddFormRequestParser {
 		foreach ( $givenRepresentations as $index => $el ) {
 			$incomplete = false;
 
-			if ( !property_exists( $el, 'representation' ) ) {
+			if ( !property_exists( $el, 'value' ) ) {
 				$errors[] = new JsonFieldIsRequired(
 					self::PARAM_DATA,
-					[ 'representations', $index, 'representation' ]
+					[ 'representations', $index, 'value' ]
 				);
 				$incomplete = true;
-			} elseif ( empty( $el->representation ) ) {
+			} elseif ( empty( $el->value ) ) {
 				$errors[] = new RepresentationTextCanNotBeEmpty(
 					self::PARAM_DATA,
-					[ 'representations', $index, 'representation' ]
+					[ 'representations', $index, 'value' ]
 				);
 				$incomplete = true;
 			}
 
-			if ( !property_exists( $el, 'language' ) ) {
-				$errors[] = new JsonFieldIsRequired(
-					self::PARAM_DATA,
-					[ 'representations', $index, 'language' ]
-				);
-				$incomplete = true;
-			} elseif ( empty( $el->language ) ) {
-				$errors[] = new RepresentationLanguageCanNotBeEmpty(
-					self::PARAM_DATA,
-					[ 'representations', $index, 'language' ]
-				);
+			$validLanguage = $this->validateRepresentationLanguage( $index, $el, $errors );
+			if ( !$validLanguage ) {
 				$incomplete = true;
 			}
 
@@ -186,7 +180,7 @@ class AddFormRequestParser {
 				);
 			}
 
-			$result[$el->language] = $el->representation;
+			$result[$el->language] = $el->value;
 		}
 
 		$terms = [];
@@ -235,6 +229,48 @@ class AddFormRequestParser {
 		}
 
 		return $errors;
+	}
+
+	/**
+	 * @param $index
+	 * @param $representation
+	 * @param array $errors
+	 * @return bool
+	 */
+	private function validateRepresentationLanguage( $index, $representation, array &$errors ) {
+		if ( !property_exists( $representation, 'language' ) ) {
+			$errors[] = new JsonFieldIsRequired(
+				self::PARAM_DATA,
+				[ 'representations', $index, 'language' ]
+			);
+			return false;
+		}
+		if ( empty( $representation->language ) ) {
+			$errors[] = new RepresentationLanguageCanNotBeEmpty(
+				self::PARAM_DATA,
+				[ 'representations', $index, 'language' ]
+			);
+			return false;
+		}
+		// TODO: _empty_ is pre-PHP 7.1 weirdness. Switch to array instead of object?
+		if ( $index === '_empty_' || $index === '' ) {
+			$errors[] = new RepresentationLanguageCanNotBeEmpty(
+				self::PARAM_DATA,
+				[ 'representations', $representation->language, 'language' ]
+			);
+			return false;
+		}
+		if ( $representation->language !== $index ) {
+			$errors[] = new RepresentationLanguageInconsistent(
+				self::PARAM_DATA,
+				[ 'representations', $index, 'language' ],
+				$index,
+				$representation->language
+			);
+			return false;
+		}
+
+		return true;
 	}
 
 }
