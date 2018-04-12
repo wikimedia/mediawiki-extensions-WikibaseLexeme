@@ -906,6 +906,58 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
+	public function testGivenSensesDisabled_sensesInputIsIgnored() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
+		$id = 'L23';
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( $id )->build(),
+			self::class,
+			$this->getMock( User::class )
+		);
+		$entityBeforeRequest = $this->loadEntity( $id );
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wbeditentity',
+			'id' => $id,
+			'data' => json_encode( [
+				'senses' => [
+					[
+						'glosses' => [ 'en' => 'foo' ]
+					]
+				]
+			] ),
+		], null, self::createTestUser()->getUser() );
+
+		$this->assertSame( $entityBeforeRequest, $this->loadEntity( $id ) );
+	}
+
+	public function testGivenSensesDisabled_sensesAreIgnoredButOtherInputStillHandled() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
+		$id = 'L23';
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( $id )->withLemma( 'en', 'kartoffel' )->build(),
+			self::class,
+			$this->getMock( User::class )
+		);
+		$newLemma = [ 'language' => 'en', 'value' => 'potato' ];
+
+		$this->doApiRequestWithToken( [
+			'action' => 'wbeditentity',
+			'id' => $id,
+			'data' => json_encode( [
+				'lemmas' => [ 'en' => $newLemma ],
+				'senses' => [
+					[
+						'glosses' => [ 'en' => 'foo' ]
+					]
+				]
+			] ),
+		], null, self::createTestUser()->getUser() );
+
+		$this->assertSame( $newLemma, $this->loadEntity( $id )['lemmas']['en'] );
+		$this->assertEmpty( $this->loadEntity( $id )['senses'] );
+	}
+
 	public function provideDataRequiringEditPermissions() {
 		yield [
 			[
