@@ -5,9 +5,7 @@ use CirrusSearch\Search\ResultsType;
 use CirrusSearch\Search\SearchContext;
 use Elastica\ResultSet;
 use Language;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
@@ -126,53 +124,6 @@ class LexemeTermResult implements ResultsType {
 	}
 
 	/**
-	 * Get label or return empty string.
-	 * @param LabelDescriptionLookup $lookup
-	 * @param EntityId $id
-	 * @param string $default Default value if unable to retrieve label
-	 * @return string Label or "" if does not exist.
-	 */
-	private function getLabelOrNothing(
-		LabelDescriptionLookup $lookup,
-		EntityId $id = null,
-		$default = ""
-	) {
-		if ( !$id ) {
-			return $default;
-		}
-		$label = $lookup->getLabel( $id );
-		if ( !$label ) {
-			return $default;
-		}
-		return $label->getText();
-	}
-
-	/**
-	 * Create short lexeme description, e.g.: "German noun" or "English verb"
-	 * @param LabelDescriptionLookup $termLookup Lookup service to find labels for lemma parts
-	 * @param string $language Language ID, as string
-	 * @param string $category Grammatical category ID, as string
-	 * @return string
-	 * @throws \MWException
-	 */
-	private function createDescription( LabelDescriptionLookup $termLookup, $language, $category ) {
-		$languageId = EntitySearchUtils::parseOrNull( $language, $this->idParser );
-		$categoryId = EntitySearchUtils::parseOrNull( $category, $this->idParser );
-		return wfMessage( 'wikibaselexeme-description' )
-			->inLanguage( $this->displayLanguage )
-			->params(
-				$this->getLabelOrNothing( $termLookup, $languageId,
-					wfMessage( 'wikibaselexeme-unknown-language' )
-						->inLanguage( $this->displayLanguage )
-						->text() ),
-				$this->getLabelOrNothing( $termLookup, $categoryId,
-					wfMessage( 'wikibaselexeme-unknown-category' )
-						->inLanguage( $this->displayLanguage )
-						->text() )
-			)->text();
-	}
-
-	/**
 	 * Convert search result from ElasticSearch result set to TermSearchResult.
 	 * @param SearchContext $context
 	 * @param ResultSet $result
@@ -241,8 +192,10 @@ class LexemeTermResult implements ResultsType {
 			// Create prefetched lookup
 			$termLookup = $this->termLookupFactory->newLabelDescriptionLookup( $this->displayLanguage,
 				array_filter( $entityIds ) );
+			$descriptionMaker = new LexemeDescription( $termLookup, $this->idParser,
+				$this->displayLanguage );
 			// Create full descriptons and instantiate TermSearchResult objects
-			return array_map( function ( $raw ) use ( $termLookup, $langCode ) {
+			return array_map( function ( $raw ) use ( $descriptionMaker, $langCode ) {
 				return new TermSearchResult(
 					$raw['term'],
 					$raw['type'],
@@ -250,7 +203,9 @@ class LexemeTermResult implements ResultsType {
 					new Term( $raw['langcode'], $raw['lemma'] ),
 					// We are lying somewhat here, as description might be from fallback languages,
 					// but I am not sure there's any better way here.
-					new Term( $langCode, $this->createDescription( $termLookup, $raw['lang'], $raw['category'] ) )
+					new Term( $langCode,
+						$descriptionMaker->createDescription( $raw['id'], $raw['lang'],
+							$raw['category'] ) )
 				);
 			}, $rawResults );
 		} else {
