@@ -12,6 +12,7 @@
 	"wikibaselexeme-lemma-field-language-label": "ভাষা",
 	"wikibaselexeme-form-field-language-label": "ভাষা",
 	"wikibaselexeme-gloss-field-language-label": "ভাষা",
+	"datatypes-type-wikibase-lexeme-form": "ফরম",
 	"wikibaselexeme-api-error-parameter-required": "প্যারামিটার \"$1\" আবশ্যক",
 	"wikibaselexeme-field-language-label": "ভাষা",
 	"wikibaselexeme-diffview-lexical-category": "অাভিধানিক বিষয়শ্রেণী",

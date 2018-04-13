@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Amire80"
+			"Amire80",
+			"Guycn2"
 		]
 	},
 	"wikibaselexeme-desc": "טיפול בסוג הישות יחידה מילונית (Lexeme)",
@@ -28,8 +29,8 @@
 	"wikibaselexeme-gloss-field-gloss-label": "פירוש",
 	"wikibase-lexeme-summary-wbeditentity-update": "שונתה יחידה מילונית",
 	"datatypes-type-wikibase-lexeme": "יחידה מילונית",
-	"datatypes-type-wikibase-lexeme-form": "צורת יחידה מילונית",
-	"datatypes-type-wikibase-lexeme-sense": "משמעות ילידה מילונית",
+	"datatypes-type-wikibase-lexeme-form": "צורת יחידה",
+	"datatypes-type-wikibase-lexeme-sense": "משמעות ילידה",
 	"wikibaselexeme-add-sense": "הוספת משמעות",
 	"wikibaselexeme-add-form": "הוספת צורה",
 	"apihelp-wbladdform-summary": "הוספת צורה ליחידה מילונית",

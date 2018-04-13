@@ -25,7 +25,7 @@
 	"wikibaselexeme-gloss-field-language-label": "Γλώσσα",
 	"wikibase-lexeme-summary-wbeditentity-update": "Έγινε αλλαγή ενός Lexeme",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
-	"datatypes-type-wikibase-lexeme-form": "Φόρμα Lexeme",
+	"datatypes-type-wikibase-lexeme-form": "Φόρμα",
 	"datatypes-type-wikibase-lexeme-sense": "Νόημα Lexeme",
 	"apihelp-wblremoveform-summary": "Αφαιρεί φόρμες από το Lexeme",
 	"wikibaselexeme-diffview-lemma": "Λήμμα",
