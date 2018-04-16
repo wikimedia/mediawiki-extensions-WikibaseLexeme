@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
@@ -24,6 +26,9 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class ExternalLexemeSerializerTest extends TestCase {
+
+	use HamcrestPHPUnitIntegration;
+	use PHPUnit4And6Compat;
 
 	private function newSerializer() {
 		$statementListSerializer = $this->getMock( Serializer::class );
@@ -82,7 +87,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'type', 'lexeme' ) );
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( 'type', 'lexeme' ) );
 	}
 
 	public function testLexemeWithLexicalCategory_SerializesLexicalCategory() {
@@ -92,7 +97,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'lexicalCategory', 'Q1' ) );
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( 'lexicalCategory', 'Q1' ) );
 	}
 
 	public function testLexemeWithLanguage_SerializesLanguage() {
@@ -102,7 +107,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'language', 'Q2' ) );
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( 'language', 'Q2' ) );
 	}
 
 	public function testLexemeWithId_SerializesId() {
@@ -112,7 +117,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'id', 'L1' ) );
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( 'id', 'L1' ) );
 	}
 
 	public function testLexemeWithStatements_SerializesStatements() {
@@ -122,7 +127,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'claims', 'P1' ) );
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( 'claims', 'P1' ) );
 	}
 
 	public function testLexemeWithLemmas_SerializesLemmas() {
@@ -132,7 +137,10 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'lemmas', hasKeyValuePair( 'ja', 'Tokyo' ) ) );
+		$this->assertThatHamcrest(
+			$serialization,
+			hasKeyValuePair( 'lemmas', hasKeyValuePair( 'ja', 'Tokyo' ) )
+		);
 	}
 
 	public function testLexemeWithoutForms_LexemeSerializationEmptyArrayAsForms() {
@@ -140,7 +148,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( 'forms', emptyArray() ) );
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( 'forms', emptyArray() ) );
 	}
 
 	public function testLexemeHasFormWithId_LexemeSerializationHasFormWithThatId() {
@@ -150,7 +158,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$serialization,
 			hasKeyValuePair( 'forms', hasItemInArray( hasKeyValuePair( 'id', 'L1-F1' ) ) )
 		);
@@ -164,7 +172,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$formSerialization = $serialization['forms'][0];
-		assertThat(
+		$this->assertThatHamcrest(
 			$formSerialization,
 			hasKeyValuePair(
 				'representations',
@@ -180,7 +188,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( "forms",
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( "forms",
 			hasItemInArray(
 				hasKeyValuePair( "claims", equalTo( "P2" ) ) ) ) );
 	}
@@ -192,7 +200,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( "forms",
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( "forms",
 			 hasItemInArray(
 					hasKeyValuePair( "grammaticalFeatures", equalTo( [ 'Q1' ] ) )
 			 )
@@ -207,7 +215,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( "senses",
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( "senses",
 			 hasItems(
 				 hasKeyValuePair( "id", 'S1' ),
 				 hasKeyValuePair( "id", 'S2' )
@@ -226,7 +234,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, hasKeyValuePair( "senses",
+		$this->assertThatHamcrest( $serialization, hasKeyValuePair( "senses",
 			 hasItemInArray(
 				 hasKeyValuePair( "glosses",
 					  both(
@@ -248,7 +256,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$serialization,
 			hasKeyValuePair(
 				'senses',
@@ -264,7 +272,7 @@ class ExternalLexemeSerializerTest extends TestCase {
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
-		assertThat( $serialization, not( hasKeyInArray( 'nextFormId' ) ) );
+		$this->assertThatHamcrest( $serialization, not( hasKeyInArray( 'nextFormId' ) ) );
 	}
 
 }

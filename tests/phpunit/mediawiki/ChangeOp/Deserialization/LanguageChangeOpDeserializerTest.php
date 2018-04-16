@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -19,6 +20,8 @@ use Wikibase\StringNormalizer;
  * @license GPL-2.0-or-later
  */
 class LanguageChangeOpDeserializerTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	private function newLanguageChangeOpDeserializer() {
 		$mockProvider = new ChangeOpTestMockProvider( $this );

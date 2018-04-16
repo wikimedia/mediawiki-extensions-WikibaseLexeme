@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use ValueValidators\Error;
 use ValueValidators\Result;
 use ValueValidators\ValueValidator;
@@ -23,6 +24,8 @@ use Wikibase\Repo\Validators\TermValidatorFactory;
  * @license GPL-2.0-or-later
  */
 class LexemeValidatorFactoryTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider invalidConstructorArgsProvider

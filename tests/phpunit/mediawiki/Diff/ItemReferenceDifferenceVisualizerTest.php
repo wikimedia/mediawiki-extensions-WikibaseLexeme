@@ -6,7 +6,9 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
@@ -16,6 +18,9 @@ use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
  * @covers \Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer
  */
 class ItemReferenceDifferenceVisualizerTest extends TestCase {
+
+	use HamcrestPHPUnitIntegration;
+	use PHPUnit4And6Compat;
 
 	public function testGivenItemReferenceChanged_oldAndNewItemsAreDisplayed() {
 		$visualizer = new ItemReferenceDifferenceVisualizer( $this->getIdFormatter() );
@@ -28,7 +33,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			)
 		);
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild( allOf(
 				withTagName( 'tr' ),
 				havingChild(
@@ -56,7 +61,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			)
 		);
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild( allOf(
 				withTagName( 'tr' ),
 				havingChild(
@@ -79,7 +84,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			)
 		);
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild( allOf(
 				withTagName( 'tr' ),
 				havingChild(

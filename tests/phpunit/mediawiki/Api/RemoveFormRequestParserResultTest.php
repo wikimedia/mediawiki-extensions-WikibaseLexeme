@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\Api;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Api\Error\ApiError;
 use Wikibase\Lexeme\Api\RemoveFormRequest;
 use Wikibase\Lexeme\Api\RemoveFormRequestParserResult;
@@ -13,6 +14,8 @@ use Wikibase\Lexeme\Api\RemoveFormRequestParserResult;
  * @license GPL-2.0-or-later
  */
 class RemoveFormRequestParserResultTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testGivenThereAreErrors_getRequestThrowsException() {
 		$result = RemoveFormRequestParserResult::newWithErrors( [ $this->newApiError() ] );

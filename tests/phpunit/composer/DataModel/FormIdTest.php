@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
@@ -12,6 +13,8 @@ use Wikibase\Lexeme\DataModel\FormId;
  * @license GPL-2.0-or-later
  */
 class FormIdTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testGivenValidSerialization_allGettersBehaveConsistent() {
 		$id = new FormId( ':L1-F1' );

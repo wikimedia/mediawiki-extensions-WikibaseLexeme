@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Store;
 
+use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit\Framework\TestCase;
@@ -25,6 +26,8 @@ use Wikibase\Lib\Store\EntityStore;
  * @author Thiemo Kreuz
  */
 class FormStoreTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeId
@@ -201,7 +204,7 @@ class FormStoreTest extends TestCase {
 	 */
 	private function newParentService(
 		$parentMethod,
-		PHPUnit_Framework_MockObject_Matcher_InvokedCount $expectedCalls
+		$expectedCalls
 	) {
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $expectedCalls )

@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -25,6 +26,8 @@ use Wikibase\Lexeme\DataModel\LexemePatchAccess;
  * @license GPL-2.0-or-later
  */
 class LexemeTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testConstructor() {
 		$id = new LexemeId( 'L1' );

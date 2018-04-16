@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
+use HamcrestPHPUnitIntegration;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
 use PHPUnit\Framework\TestCase;
@@ -13,6 +14,8 @@ use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
  * @license GPL-2.0-or-later
  */
 class ItemSelectorWidgetTest extends TestCase {
+
+	use HamcrestPHPUnitIntegration;
 
 	public function setUp() {
 		parent::setUp();
@@ -33,7 +36,7 @@ class ItemSelectorWidgetTest extends TestCase {
 	public function testHiddenFieldForValueIsCreated() {
 		$widget = $this->getWidget();
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='hidden' class='oo-ui-wikibase-item-selector-value'/>" )
@@ -44,7 +47,7 @@ class ItemSelectorWidgetTest extends TestCase {
 	public function testIncludesTextFild() {
 		$widget = $this->getWidget();
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' class='oo-ui-inputWidget-input'/>" )
@@ -56,7 +59,7 @@ class ItemSelectorWidgetTest extends TestCase {
 		$expectedName = 'foo';
 		$widget = $this->getWidget( [ 'name' => $expectedName ] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='hidden' name='$expectedName'/>" )
@@ -68,7 +71,7 @@ class ItemSelectorWidgetTest extends TestCase {
 		$expectedValue = 'Q123';
 		$widget = $this->getWidget( [ 'value' => $expectedValue ] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='hidden' value='$expectedValue'/>" )
@@ -81,7 +84,7 @@ class ItemSelectorWidgetTest extends TestCase {
 		$fieldName = 'bar';
 		$widget = $this->getWidget( [ 'name' => $name, 'fieldname' => $fieldName ] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='hidden' name='$name'/>" )
@@ -93,7 +96,7 @@ class ItemSelectorWidgetTest extends TestCase {
 		$expectedName = 'testLabel';
 		$widget = $this->getWidget( [ 'labelFieldName' => $expectedName ] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' name='$expectedName'/>" )
@@ -105,7 +108,7 @@ class ItemSelectorWidgetTest extends TestCase {
 		$expectedValue = 'Foo Item (Q123)';
 		$widget = $this->getWidget( [ 'labelFieldValue' => $expectedValue ] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' value='$expectedValue'/>" )
@@ -117,7 +120,7 @@ class ItemSelectorWidgetTest extends TestCase {
 		$expectedValue = 'Q123';
 		$widget = $this->getWidget( [ 'value' => $expectedValue ] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' value='$expectedValue'/>" )

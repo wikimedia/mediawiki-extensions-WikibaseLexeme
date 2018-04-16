@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 
@@ -11,6 +12,8 @@ use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
  * @license GPL-2.0-or-later
  */
 class RepresentationsMustHaveUniqueLanguageTest extends TestCase {
+
+	use HamcrestPHPUnitIntegration;
 
 	public function testApiMessageHasUnprocessableRequestCode() {
 		$apiError = new RepresentationsMustHaveUniqueLanguage( 'some-param', [], 'some-language' );
@@ -30,7 +33,7 @@ class RepresentationsMustHaveUniqueLanguageTest extends TestCase {
 
 		$apiMessage = $apiError->asApiMessage();
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$apiMessage->getApiData(),
 			hasKeyValuePair( 'fieldPath', equalTo( $fieldPath ) )
 		);
@@ -41,7 +44,7 @@ class RepresentationsMustHaveUniqueLanguageTest extends TestCase {
 
 		$apiMessage = $apiError->asApiMessage();
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$apiMessage->getApiData(),
 			hasKeyValuePair( 'parameterName', equalTo( 'some-param' ) )
 		);

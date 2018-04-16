@@ -21,6 +21,8 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
  */
 class FormRevisionLookupTest extends TestCase {
 
+	use \PHPUnit4And6Compat;
+
 	/**
 	 * @var LexemeId
 	 */

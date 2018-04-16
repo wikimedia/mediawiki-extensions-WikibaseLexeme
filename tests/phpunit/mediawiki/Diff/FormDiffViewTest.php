@@ -7,6 +7,7 @@ use Diff\Differ\OrderedListDiffer;
 use Diff\DiffOp\Diff\Diff;
 use MessageLocalizer;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use RawMessage;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -30,6 +31,8 @@ use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
  */
 class FormDiffViewTest extends TestCase {
 
+	use PHPUnit4And6Compat;
+
 	/**
 	 * @return ClaimDiffer
 	 */
@@ -47,9 +50,6 @@ class FormDiffViewTest extends TestCase {
 		$instance->expects( $this->any() )
 			->method( 'getFormat' )
 			->will( $this->returnValue( SnakFormatter::FORMAT_HTML ) );
-		$instance->expects( $this->any() )
-			->method( 'canFormatSnak' )
-			->will( $this->returnValue( true ) );
 		$instance->expects( $this->any() )
 			->method( 'formatSnak' )
 			->will( $this->returnValue( $returnValue ) );

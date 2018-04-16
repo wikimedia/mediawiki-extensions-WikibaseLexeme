@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
@@ -17,6 +18,8 @@ use Wikibase\Summary;
  * @license GPL-2.0-or-later
  */
 class ChangeOpRemoveFormTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpRemoveForm = new ChangeOpRemoveForm( new FormId( 'L1-F1' ) );

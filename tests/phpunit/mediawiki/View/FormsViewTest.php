@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Prophecy\Argument;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\Lexeme\DataModel\FormSet;
@@ -23,13 +25,16 @@ use Wikibase\View\StatementGroupListView;
  */
 class FormsViewTest extends TestCase {
 
+	use HamcrestPHPUnitIntegration;
+	use PHPUnit4And6Compat;
+
 	const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
 
 	public function testHtmlContainsTheFormsHeadline() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( new FormSet() );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'h2' ) )
@@ -45,7 +50,7 @@ class FormsViewTest extends TestCase {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( new FormSet() );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild( tagMatchingOutline(
 				'<div class="wikibase-lexeme-forms">'
@@ -61,7 +66,7 @@ class FormsViewTest extends TestCase {
 				->build()
 		] ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece(
 				both( havingChild(
@@ -84,7 +89,7 @@ class FormsViewTest extends TestCase {
 			NewForm::havingId( 'F1' )->build()
 		] ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece(
 				havingChild(
@@ -100,7 +105,7 @@ class FormsViewTest extends TestCase {
 			NewForm::havingGrammaticalFeature( 'Q1' )->build()
 		] ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild( havingTextContents( containsString( 'Q1' ) ) ) ) )
 		);
@@ -112,7 +117,7 @@ class FormsViewTest extends TestCase {
 			NewForm::any()->build()
 		] ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild( tagMatchingOutline( self::STATEMENT_LIST_HTML ) ) ) )
 		);

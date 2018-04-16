@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\Api;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Api\AddFormRequest;
 use Wikibase\Lexeme\Api\AddFormRequestParserResult;
 use Wikibase\Lexeme\Api\Error\ApiError;
@@ -13,6 +14,8 @@ use Wikibase\Lexeme\Api\Error\ApiError;
  * @license GPL-2.0-or-later
  */
 class AddFormRequestParserResultTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testGivenThereAreErrors_getRequestThrowsException() {
 		$result = AddFormRequestParserResult::newWithErrors( [ $this->newApiError() ] );

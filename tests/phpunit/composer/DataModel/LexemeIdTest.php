@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
 use RuntimeException;
@@ -13,6 +14,8 @@ use RuntimeException;
  * @license GPL-2.0-or-later
  */
 class LexemeIdTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider idSerializationProvider

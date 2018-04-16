@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\WikibaseLexemeHooks;
 
 /**
@@ -12,6 +13,8 @@ use Wikibase\Lexeme\WikibaseLexemeHooks;
  * @license GPL-2.0-or-later
  */
 class WikibaseLexemeHooksTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testOnCanonicalNamespaces_ReturnsTrue() {
 		$namespaces = [];

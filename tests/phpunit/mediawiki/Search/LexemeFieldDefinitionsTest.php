@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
@@ -15,6 +16,8 @@ use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
  * @author Katie Filbert < aude.wiki@gmail.com >
  */
 class LexemeFieldDefinitionsTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testGetFields() {
 		$fieldDefinitions = new LexemeFieldDefinitions(

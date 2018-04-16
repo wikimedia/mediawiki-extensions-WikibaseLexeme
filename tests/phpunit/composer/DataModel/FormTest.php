@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 use InvalidArgumentException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
@@ -20,6 +21,8 @@ use Wikibase\Lexeme\DataModel\FormId;
  * @license GPL-2.0-or-later
  */
 class FormTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testCreateFormWithoutRepresentations_ThrowsAnException() {
 		$this->setExpectedException( InvalidArgumentException::class );

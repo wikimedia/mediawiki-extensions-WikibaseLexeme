@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
 
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -20,6 +22,9 @@ use Wikibase\View\DummyLocalizedTextProvider;
  */
 class LexemeIdHtmlFormatterTest extends TestCase {
 
+	use HamcrestPHPUnitIntegration;
+	use PHPUnit4And6Compat;
+
 	const SINGLE_LEMMA_LEXEME_ID = 'L313';
 	const MULTIPLE_LEMMA_LEXEME_ID = 'L323';
 	const LEMMA = 'artichoke';
@@ -33,7 +38,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$formattedId,
 			is( htmlPiece( havingRootElement(
 				both( withTagName( 'a' ) )
@@ -46,7 +51,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$formattedId,
 			is( htmlPiece(
 				havingChild( tagMatchingOutline( '<span lang="en"/>' ) ) )
@@ -58,7 +63,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$formattedId,
 			is( htmlPiece( havingRootElement(
 				tagMatchingOutline( '<a href="http://url.for/Lexeme:L313"/>' )
@@ -70,7 +75,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$formattedId,
 			is( htmlPiece( havingRootElement(
 				tagMatchingOutline(
@@ -86,7 +91,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::MULTIPLE_LEMMA_LEXEME_ID ) );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$formattedId,
 			is( htmlPiece( havingRootElement(
 				both( withTagName( 'a' ) )

@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 
 use DataValues\StringValue;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -16,6 +17,8 @@ use Wikibase\Lexeme\Search\LexemeLanguageField;
  * @covers \Wikibase\Lexeme\Search\LexemeLanguageField
  */
 class LexemeLanguageFieldTest extends LexemeFieldTest {
+
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @return StatementList

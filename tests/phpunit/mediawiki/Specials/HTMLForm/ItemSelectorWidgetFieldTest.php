@@ -2,9 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
+use HamcrestPHPUnitIntegration;
 use OOUI\Theme;
 use OOUI\WikimediaUITheme;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use ReflectionClass;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -18,6 +20,9 @@ use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
  * @license GPL-2.0-or-later
  */
 class ItemSelectorWidgetFieldTest extends TestCase {
+
+	use HamcrestPHPUnitIntegration;
+	use PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();
@@ -67,7 +72,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 		$expectedLabel = 'Test Item (Q123)';
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' value='$expectedLabel'/>" )
@@ -88,7 +93,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 		$widget = $widgetField->getInputOOUI( 'Q123' );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' value='Q123'/>" )
@@ -101,7 +106,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 		$widget = $widgetField->getInputOOUI( 'Foo' );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' value='Foo'/>" )
@@ -116,13 +121,13 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 		$widget = $widgetField->getInputOOUI( '' );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' name='custom-name'/>" )
 			) ) )
 		);
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='hidden' name='test-name'/>" )
@@ -135,13 +140,13 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 		$widget = $widgetField->getInputOOUI( '' );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='text' name='test-name'/>" )
 			) ) )
 		);
-		assertThat(
+		$this->assertThatHamcrest(
 			$widget->toString(),
 			is( htmlPiece( havingChild(
 				tagMatchingOutline( "<input type='hidden' name='test-name'/>" )
