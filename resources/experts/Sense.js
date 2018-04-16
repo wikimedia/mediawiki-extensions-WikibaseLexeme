@@ -84,7 +84,7 @@ module.exports = ( function ( wb, vv ) {
 	/**
 	 * @inheritdoc
 	 */
-	SELF.TYPE = 'lexeme-sense';
+	SELF.TYPE = 'sense';
 
 	function Sense(
 		lexemeId,

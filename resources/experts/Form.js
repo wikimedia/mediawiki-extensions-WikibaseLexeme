@@ -96,7 +96,7 @@ module.exports = ( function ( wb, vv ) {
 	/**
 	 * @inheritdoc
 	 */
-	SELF.TYPE = 'lexeme-form';
+	SELF.TYPE = 'form';
 
 	function Form(
 		lexemeId,
