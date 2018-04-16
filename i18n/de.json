@@ -74,5 +74,8 @@
 	"wikibaselexeme-diffview-representation": "Darstellung",
 	"wikibaselexeme-diffview-grammatical-feature": "Grammatikalische Funktion",
 	"content-model-wikibase-lexeme": "Wikibase Lexeme",
-	"wikibaselexeme-form-grammatical-features": "Grammatikalische Funktionen"
+	"wikibaselexeme-form-grammatical-features": "Grammatikalische Funktionen",
+	"wikibaselexeme-unknown-language": "Unbekannte Sprache",
+	"wikibaselexeme-unknown-category": "Unbekannt",
+	"wikibaselexeme-rescore-profile-prefix": "Rescore-Profil für die Präfix-(Vervollständigungs-)Suche"
 }

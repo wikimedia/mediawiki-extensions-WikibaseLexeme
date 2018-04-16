@@ -21,6 +21,7 @@
 	"wikibaselexeme-gloss-field-language-label": "Sprooch",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"datatypes-type-wikibase-lexeme-form": "Formulaire",
+	"datatypes-type-wikibase-lexeme-sense": "Bedeitung",
 	"wikibaselexeme-add-form": "Formulaire dobäisetzen",
 	"apihelp-wbladdform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
 	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
