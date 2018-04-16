@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataModel\Serialization;
 
+use MediaWiki\MediaWikiServices;
 use Serializers\DispatchableSerializer;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Exceptions\UnsupportedObjectException;
@@ -58,6 +59,9 @@ class ExternalLexemeSerializer implements DispatchableSerializer {
 	private function getSerialized( Lexeme $lexeme ) {
 		$internalSerialization = $this->internalSerializer->serialize( $lexeme );
 
+		if ( !MediaWikiServices::getInstance()->getMainConfig()->get( 'LexemeEnableSenses' ) ) {
+			unset( $internalSerialization['senses'] );
+		}
 		unset( $internalSerialization['nextFormId'] );
 
 		return $internalSerialization;

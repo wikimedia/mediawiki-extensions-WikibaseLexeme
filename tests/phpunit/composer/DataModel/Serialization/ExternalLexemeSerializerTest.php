@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
+use MediaWikiTestCase;
 use HamcrestPHPUnitIntegration;
-use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
@@ -25,10 +25,15 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class ExternalLexemeSerializerTest extends TestCase {
+class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 
 	use HamcrestPHPUnitIntegration;
 	use PHPUnit4And6Compat;
+
+	public function setUp() {
+		parent::setUp();
+		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
+	}
 
 	private function newSerializer() {
 		$statementListSerializer = $this->getMock( Serializer::class );
@@ -273,6 +278,28 @@ class ExternalLexemeSerializerTest extends TestCase {
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$this->assertThatHamcrest( $serialization, not( hasKeyInArray( 'nextFormId' ) ) );
+	}
+
+	public function testSensesKeyExistsWhenEnabled() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
+		$lexeme = NewLexeme::create()
+			->withLexicalCategory( 'Q1' )
+			->build();
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		$this->assertArrayHasKey( 'senses', $serialization );
+	}
+
+	public function testSensesKeyDoesNotExistWhenDisabled() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
+		$lexeme = NewLexeme::create()
+			->withLexicalCategory( 'Q1' )
+			->build();
+
+		$serialization = $this->newSerializer()->serialize( $lexeme );
+
+		$this->assertArrayNotHasKey( 'senses', $serialization );
 	}
 
 }
