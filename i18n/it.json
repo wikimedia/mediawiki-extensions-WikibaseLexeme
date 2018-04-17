@@ -37,5 +37,7 @@
 	"wikibaselexeme-diffview-language": "lingua",
 	"wikibaselexeme-diffview-representation": "rappresentazione",
 	"content-model-wikibase-lexeme": "Lessema Wikibase",
-	"wikibaselexeme-form-grammatical-features": "Caratteristiche grammaticali"
+	"wikibaselexeme-form-grammatical-features": "Caratteristiche grammaticali",
+	"wikibaselexeme-unknown-language": "Lingua sconosciuta",
+	"wikibaselexeme-unknown-category": "Sconosciuto"
 }

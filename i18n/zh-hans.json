@@ -77,5 +77,8 @@
 	"wikibaselexeme-diffview-representation": "表现",
 	"wikibaselexeme-diffview-grammatical-feature": "语法特征",
 	"content-model-wikibase-lexeme": "Wikibase词位",
-	"wikibaselexeme-form-grammatical-features": "语法特征"
+	"wikibaselexeme-form-grammatical-features": "语法特征",
+	"wikibaselexeme-unknown-language": "未知语言",
+	"wikibaselexeme-unknown-category": "未知",
+	"wikibaselexeme-rescore-profile-prefix": "前缀（实现）搜索的重新计分详情"
 }

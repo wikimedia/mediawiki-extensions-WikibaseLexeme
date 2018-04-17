@@ -45,5 +45,7 @@
 	"wikibaselexeme-diffview-representation": "ייצוג",
 	"wikibaselexeme-diffview-grammatical-feature": "מאפיין דקדוקי",
 	"content-model-wikibase-lexeme": "יחידה מילונית של ויקיבייס",
-	"wikibaselexeme-form-grammatical-features": "מאפיינים דקדוקיים"
+	"wikibaselexeme-form-grammatical-features": "מאפיינים דקדוקיים",
+	"wikibaselexeme-unknown-language": "שפה לא ידועה",
+	"wikibaselexeme-unknown-category": "לא ידוע"
 }

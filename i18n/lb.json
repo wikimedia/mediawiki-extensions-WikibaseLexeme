@@ -35,5 +35,7 @@
 	"wikibaselexeme-diffview-language": "Sprooch",
 	"wikibaselexeme-diffview-form": "Formulaire",
 	"wikibaselexeme-diffview-representation": "Duerstellung",
-	"wikibaselexeme-diffview-grammatical-feature": "grammatesch Funktioun"
+	"wikibaselexeme-diffview-grammatical-feature": "grammatesch Funktioun",
+	"wikibaselexeme-unknown-language": "Onbekannt Sprooch",
+	"wikibaselexeme-unknown-category": "Onbekannt"
 }

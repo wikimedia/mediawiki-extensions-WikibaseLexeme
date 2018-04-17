@@ -20,6 +20,7 @@
 	"wikibaselexeme-language-lexical-category-value": "$1 en $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Declaraciones sobre $1",
+	"datatypes-type-wikibase-lexeme-sense": "Sentido",
 	"wikibaselexeme-add-sense": "añadir sentido",
 	"wikibaselexeme-add-form": "añadir forma",
 	"apihelp-wbladdform-param-lexemeId": "Id. del lexema; p. ej., L10",
@@ -43,5 +44,7 @@
 	"wikibaselexeme-diffview-language": "idioma",
 	"wikibaselexeme-diffview-form": "forma",
 	"wikibaselexeme-diffview-representation": "representación",
-	"content-model-wikibase-lexeme": "Lexema de Wikibase"
+	"content-model-wikibase-lexeme": "Lexema de Wikibase",
+	"wikibaselexeme-unknown-language": "Idioma desconocido",
+	"wikibaselexeme-unknown-category": "Desconocida"
 }

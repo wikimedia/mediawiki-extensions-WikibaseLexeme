@@ -33,5 +33,7 @@
 	"wikibaselexeme-diffview-language": "γλώσσα",
 	"wikibaselexeme-diffview-form": "φόρμα",
 	"content-model-wikibase-lexeme": "Lexème Wikibase",
-	"wikibaselexeme-form-grammatical-features": "Γραμματικά χαρακτηριστικά"
+	"wikibaselexeme-form-grammatical-features": "Γραμματικά χαρακτηριστικά",
+	"wikibaselexeme-unknown-language": "Άγνωστη γλώσσα",
+	"wikibaselexeme-unknown-category": "Άγνωστο"
 }

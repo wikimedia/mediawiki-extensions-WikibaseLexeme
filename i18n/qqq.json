@@ -88,6 +88,6 @@
 	"wikibaselexeme-form-grammatical-features": "Label for the list of a form's grammatical features",
 	"wikibaselexeme-description": "Template for generating Lexeme description: Language + Lexical Category",
 	"wikibaselexeme-unknown-language": "Message for unknown language",
-	"wikibaselexeme-unknown-category": "Message for unknown lexical category",
+	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
 	"wikibaselexeme-rescore-profile-prefix": "Rescore profile for prefix (completion) search"
 }

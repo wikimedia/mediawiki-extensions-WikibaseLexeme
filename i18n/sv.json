@@ -20,5 +20,7 @@
 	"wikibaselexeme-field-language-label": "Språk",
 	"wikibaselexeme-diffview-language": "språk",
 	"wikibaselexeme-diffview-form": "formulär",
-	"wikibaselexeme-form-grammatical-features": "Grammatiska funktioner"
+	"wikibaselexeme-form-grammatical-features": "Grammatiska funktioner",
+	"wikibaselexeme-unknown-language": "Okänt språk",
+	"wikibaselexeme-unknown-category": "Okänd"
 }
