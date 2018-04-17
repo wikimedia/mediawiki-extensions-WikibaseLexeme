@@ -22,6 +22,13 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
  */
 class LexemeTermResultTest extends \MediaWikiTestCase {
 
+	public function setUp() {
+		parent::setUp();
+		if ( !class_exists( 'CirrusSearch' ) ) {
+			$this->markTestSkipped( 'CirrusSearch not installed, skipping' );
+		}
+	}
+
 	private $labels = [
 		'Q1' => [
 			'en' => 'English',
