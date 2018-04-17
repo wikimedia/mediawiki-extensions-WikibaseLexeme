@@ -42,7 +42,7 @@ class AddFormRequestParserTest extends TestCase {
 
 		$result = $parser->parse( $params );
 
-		$this->assertTrue( $result->hasErrors(), 'Result doesnt contain errors, but should' );
+		$this->assertTrue( $result->hasErrors(), 'Result does not contain errors, but should' );
 		foreach ( $expectedErrors as $expectedError ) {
 			$this->assertResultContainsError( $result, $expectedError );
 		}
@@ -98,7 +98,7 @@ class AddFormRequestParserTest extends TestCase {
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam( [ 'representations' => 'foo' ] )
 				],
-				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'object', 'string' ) ]
+				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'array', 'string' ) ]
 			],
 			'grammatical features not an array' => [
 				[

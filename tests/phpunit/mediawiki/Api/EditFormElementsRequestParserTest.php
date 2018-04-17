@@ -46,7 +46,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 
 		$result = $parser->parse( $params );
 
-		$this->assertTrue( $result->hasErrors(), 'Result doesn not contain errors, but should' );
+		$this->assertTrue( $result->hasErrors(), 'Result does not contain errors, but should' );
 		foreach ( $expectedErrors as $expectedError ) {
 			$this->assertResultContainsError( $result, $expectedError );
 		}
@@ -106,7 +106,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataParam( [ 'representations' => 'foo' ] )
 				],
-				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'object', 'string' ) ]
+				[ new JsonFieldHasWrongType( 'data', [ 'representations' ], 'array', 'string' ) ]
 			],
 			'grammatical features not an array' => [
 				[

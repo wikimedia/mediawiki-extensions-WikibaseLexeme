@@ -56,8 +56,8 @@ class AddFormRequestParser {
 			return AddFormRequestParserResult::newWithErrors( $errors );
 		}
 
-		$data = json_decode( $params[self::PARAM_DATA] );
-		if ( !is_object( $data ) ) {
+		$data = json_decode( $params[self::PARAM_DATA], true );
+		if ( !is_array( $data ) || empty( $data ) ) {
 			return AddFormRequestParserResult::newWithErrors(
 				[
 					new ParameterIsNotAJsonObject( self::PARAM_DATA, $params[self::PARAM_DATA] )
@@ -71,8 +71,8 @@ class AddFormRequestParser {
 		}
 
 		$lexemeId = $this->parseLexemeId( $params[self::PARAM_LEXEME_ID], $errors );
-		$representations = $this->parseRepresentations( $data->representations, $errors );
-		$grammaticalFeatures = $this->parseGrammaticalFeatures( $data->grammaticalFeatures, $errors );
+		$representations = $this->parseRepresentations( $data['representations'], $errors );
+		$grammaticalFeatures = $this->parseGrammaticalFeatures( $data['grammaticalFeatures'], $errors );
 
 		if ( $errors ) {
 			return AddFormRequestParserResult::newWithErrors( $errors );
@@ -83,30 +83,28 @@ class AddFormRequestParser {
 		);
 	}
 
-	private function validateDataStructure( \stdClass $data ) {
+	private function validateDataStructure( array $data ) {
 		$errors = [];
 
-		if ( !property_exists( $data, 'representations' ) ) {
+		if ( !array_key_exists( 'representations', $data ) ) {
 			$errors[] = new JsonFieldIsRequired( self::PARAM_DATA, [ 'representations' ] );
-		} elseif ( !is_object( $data->representations ) ) {
+		} elseif ( !is_array( $data['representations'] ) ) {
 			$errors[] = new JsonFieldHasWrongType(
 				self::PARAM_DATA,
 				[ 'representations' ],
-				'object', // TODO What would be a sane expected type (object w/o type is odd)
-				gettype( $data->representations )
+				'array', // TODO What would be a sane expected type (plain array is odd)
+				gettype( $data['representations'] )
 			);
-		} else {
-			$data->representations = (array)$data->representations;
 		}
 
-		if ( !property_exists( $data, 'grammaticalFeatures' ) ) {
+		if ( !array_key_exists( 'grammaticalFeatures', $data ) ) {
 			$errors[] = new JsonFieldIsRequired( self::PARAM_DATA, [ 'grammaticalFeatures' ] );
-		} elseif ( !is_array( $data->grammaticalFeatures ) ) {
+		} elseif ( !is_array( $data['grammaticalFeatures' ] ) ) {
 			$errors[] = new JsonFieldHasWrongType(
 				self::PARAM_DATA,
 				[ 'grammaticalFeatures' ],
 				'array',
-				gettype( $data->grammaticalFeatures )
+				gettype( $data['grammaticalFeatures'] )
 			);
 		}
 
@@ -134,7 +132,7 @@ class AddFormRequestParser {
 	}
 
 	/**
-	 * @param \stdClass[] $givenRepresentations
+	 * @param array[] $givenRepresentations
 	 * @param ApiError[] $errors
 	 * @return TermList
 	 */
@@ -149,13 +147,13 @@ class AddFormRequestParser {
 		foreach ( $givenRepresentations as $index => $el ) {
 			$incomplete = false;
 
-			if ( !property_exists( $el, 'value' ) ) {
+			if ( !array_key_exists( 'value', $el ) ) {
 				$errors[] = new JsonFieldIsRequired(
 					self::PARAM_DATA,
 					[ 'representations', $index, 'value' ]
 				);
 				$incomplete = true;
-			} elseif ( empty( $el->value ) ) {
+			} elseif ( empty( $el['value'] ) ) {
 				$errors[] = new RepresentationTextCanNotBeEmpty(
 					self::PARAM_DATA,
 					[ 'representations', $index, 'value' ]
@@ -172,15 +170,15 @@ class AddFormRequestParser {
 				continue;
 			}
 
-			if ( isset( $result[$el->language] ) ) {
+			if ( isset( $result[$el['language']] ) ) {
 				$errors[] = new RepresentationsMustHaveUniqueLanguage(
 					self::PARAM_DATA,
 					[ 'representations', $index, 'language' ],
-					$el->language
+					$el['language']
 				);
 			}
 
-			$result[$el->language] = $el->value;
+			$result[$el['language']] = $el['value'];
 		}
 
 		$terms = [];
@@ -238,34 +236,26 @@ class AddFormRequestParser {
 	 * @return bool
 	 */
 	private function validateRepresentationLanguage( $index, $representation, array &$errors ) {
-		if ( !property_exists( $representation, 'language' ) ) {
+		if ( !array_key_exists( 'language', $representation ) ) {
 			$errors[] = new JsonFieldIsRequired(
 				self::PARAM_DATA,
 				[ 'representations', $index, 'language' ]
 			);
 			return false;
 		}
-		if ( empty( $representation->language ) ) {
+		if ( empty( $index ) || empty( $representation['language'] ) ) {
 			$errors[] = new RepresentationLanguageCanNotBeEmpty(
 				self::PARAM_DATA,
-				[ 'representations', $index, 'language' ]
+				[ 'representations', $index ?: $representation['language'], 'language' ]
 			);
 			return false;
 		}
-		// TODO: _empty_ is pre-PHP 7.1 weirdness. Switch to array instead of object?
-		if ( $index === '_empty_' || $index === '' ) {
-			$errors[] = new RepresentationLanguageCanNotBeEmpty(
-				self::PARAM_DATA,
-				[ 'representations', $representation->language, 'language' ]
-			);
-			return false;
-		}
-		if ( $representation->language !== $index ) {
+		if ( $representation['language'] !== $index ) {
 			$errors[] = new RepresentationLanguageInconsistent(
 				self::PARAM_DATA,
 				[ 'representations', $index, 'language' ],
 				$index,
-				$representation->language
+				$representation['language']
 			);
 			return false;
 		}
