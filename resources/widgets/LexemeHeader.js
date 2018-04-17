@@ -62,14 +62,29 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue
 			mw.messages
 		);
 
-		var app = new Vue( newLexemeHeader(
+		var header = newLexemeHeader(
 			store,
 			'#wb-lexeme-header',
 			'#lexeme-header-widget-vue-template',
 			lemmaWidget,
 			languageAndLexicalCategoryWidget,
 			mw.messages
-		) );
+		);
+
+		header.methods.displayError = function ( error ) {
+			var $saveButton = $( this.$el.querySelector( '.lemma-widget_save' ) );
+
+			$saveButton.wbtooltip( {
+				content: {
+					code: error.code,
+					message: error.info
+				},
+				permanent: true
+			} );
+			$saveButton.data( 'wbtooltip' ).show();
+		};
+
+		var app = new Vue( header );
 	}
 
 	return function () {
