@@ -108,7 +108,7 @@ class LexemeDifferTest extends TestCase {
 		$this->assertFalse( $differ->canDiffEntityType( Property::ENTITY_TYPE ) );
 	}
 
-	public function testProperty_LexemeDiffToArrayAlwaysReturnsAnEmptyArray() {
+	public function testProperty_LexemeDiffToArrayAlwaysThrowsAnException() {
 		$differ = new LexemeDiffer();
 
 		/**
@@ -118,16 +118,15 @@ class LexemeDifferTest extends TestCase {
 		 */
 
 		$this->eris()
-			->limitTo( 10 )
+			->limitTo( 2 )
 			->forAll(
 				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) ),
 				WikibaseLexemeGenerators::lexeme( new LexemeId( 'L1' ) )
 			)
 			->then( function ( Lexeme $lexeme1, Lexeme $lexeme2 ) use ( $differ ) {
 				$patch = $differ->diffEntities( $lexeme1, $lexeme2 );
-				$patchAsArray = $patch->toArray( function ( $data ) {
-					return $data;
-				} );
+				$this->setExpectedException( \LogicException::class );
+				$patchAsArray = $patch->toArray();
 
 				$this->assertEquals( [], $patchAsArray );
 			} );

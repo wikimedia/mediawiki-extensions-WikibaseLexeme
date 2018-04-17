@@ -61,9 +61,11 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 	}
 
 	public function serialize() {
+		throw new \LogicException( "serialize() is not implemented" );
 	}
 
 	public function unserialize( $serialized ) {
+		throw new \LogicException( "unserialize() is not implemented" );
 	}
 
 	public function getType() {
