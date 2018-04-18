@@ -237,6 +237,9 @@ return [
 					$repo->getPrefetchingTermLookup()
 				);
 		},
+		'sub-entity-types' => [
+			'form'
+		],
 	],
 	'form' => [
 		'entity-store-factory-callback' => function (
