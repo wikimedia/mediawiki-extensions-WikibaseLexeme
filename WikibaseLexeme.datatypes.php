@@ -62,7 +62,7 @@ return [
 		},
 		'value-type' => 'wikibase-entityid',
 	],
-	'PT:wikibase-lexeme-form' => [
+	'PT:wikibase-form' => [
 		'expert-module' => 'wikibase.experts.Form',
 		'validator-factory-callback' => function() {
 			return [];
@@ -72,7 +72,7 @@ return [
 		},
 		'value-type' => 'string',
 	],
-	'PT:wikibase-lexeme-sense' => [
+	'PT:wikibase-sense' => [
 		'expert-module' => 'wikibase.experts.Sense',
 		'validator-factory-callback' => function() {
 			return [];
