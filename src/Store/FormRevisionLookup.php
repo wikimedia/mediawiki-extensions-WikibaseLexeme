@@ -8,7 +8,6 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lib\Store\BadRevisionException;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
@@ -59,8 +58,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		try {
 			$form = $lexeme->getForm( $formId );
 		} catch ( OutOfRangeException $ex ) {
-			throw new BadRevisionException( "Revision $revisionId exists and holds $lexemeId, but "
-				. "does not contain $formId", 0, $ex );
+			return null;
 		}
 
 		return new EntityRevision( $form, $revision->getRevisionId(), $revision->getTimestamp() );
