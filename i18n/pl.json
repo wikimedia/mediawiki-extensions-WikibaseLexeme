@@ -11,7 +11,6 @@
 	"wikibaselexeme-lemma-field-language-label": "Język",
 	"wikibaselexeme-form-field-language-label": "Język",
 	"wikibaselexeme-gloss-field-language-label": "Język",
-	"datatypes-type-wikibase-lexeme-form": "Formularz",
 	"apihelp-wblremoveform-param-id": "Identyfikator formularza, np. L10-F20",
 	"wikibaselexeme-api-error-parameter-required": "Parametr „$1” jest wymagany",
 	"wikibase-lexeme-summary-remove-form": "Usunięty formularz $3 z {{PLURAL: $1|reprezentacja|reprezentacje}}",

@@ -28,8 +28,6 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Chú giải",
 	"wikibase-lexeme-summary-wbeditentity-update": "Thay đổi từ vị",
 	"datatypes-type-wikibase-lexeme": "Từ vị",
-	"datatypes-type-wikibase-lexeme-form": "Dạng từ vị",
-	"datatypes-type-wikibase-lexeme-sense": "Ngữ nghĩa từ vị",
 	"wikibaselexeme-add-sense": "thêm ngữ nghĩa",
 	"wikibaselexeme-add-form": "thêm dạng",
 	"apihelp-wblremoveform-summary": "Version đã được sửa của cụm từ này"

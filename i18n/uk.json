@@ -27,8 +27,6 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Тлумачення",
 	"wikibase-lexeme-summary-wbeditentity-update": "Змінено лексему",
 	"datatypes-type-wikibase-lexeme": "Лексема",
-	"datatypes-type-wikibase-lexeme-form": "Форма лексеми",
-	"datatypes-type-wikibase-lexeme-sense": "Смисл лексеми",
 	"wikibaselexeme-add-sense": "додати смисл",
 	"wikibaselexeme-add-form": "додати форму",
 	"apihelp-wbladdform-summary": "Додає форму до лексеми",

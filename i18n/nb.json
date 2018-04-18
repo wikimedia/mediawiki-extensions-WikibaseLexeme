@@ -27,8 +27,6 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Glose",
 	"wikibase-lexeme-summary-wbeditentity-update": "Endret et leksem",
 	"datatypes-type-wikibase-lexeme": "Leksem",
-	"datatypes-type-wikibase-lexeme-form": "Leksemform",
-	"datatypes-type-wikibase-lexeme-sense": "Leksembetydning",
 	"wikibaselexeme-add-sense": "legg til betydning",
 	"wikibaselexeme-add-form": "legg til form",
 	"apihelp-wbladdform-summary": "Legger til form til leksem",

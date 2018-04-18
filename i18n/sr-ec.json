@@ -18,8 +18,6 @@
 	"wikibaselexeme-gloss-field-language-label": "Језик",
 	"wikibase-lexeme-summary-wbeditentity-update": "Измењена лексема",
 	"datatypes-type-wikibase-lexeme": "Лексема",
-	"datatypes-type-wikibase-lexeme-form": "Облик лексеме",
-	"datatypes-type-wikibase-lexeme-sense": "Смисао лексеме",
 	"wikibaselexeme-add-sense": "додај смисао",
 	"wikibaselexeme-add-form": "додај облик"
 }

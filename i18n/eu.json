@@ -29,8 +29,6 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Glosa",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema bat aldatu da",
 	"datatypes-type-wikibase-lexeme": "Lexema",
-	"datatypes-type-wikibase-lexeme-form": "Lexema Forma",
-	"datatypes-type-wikibase-lexeme-sense": "Lexema Zentzua",
 	"wikibaselexeme-add-sense": "Zentzua eman",
 	"wikibaselexeme-add-form": "formularioa gehitu"
 }

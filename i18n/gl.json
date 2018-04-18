@@ -23,7 +23,6 @@
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
-	"datatypes-type-wikibase-lexeme-form": "Forma do lexema",
 	"wikibaselexeme-add-form": "engadir forma",
 	"apihelp-wbladdform-summary": "Engade unha forma ó lexema",
 	"apihelp-wbladdform-param-lexemeId": "Id. do lexema; p. ex., L10",

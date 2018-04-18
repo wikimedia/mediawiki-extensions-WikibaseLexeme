@@ -28,8 +28,6 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Подножје",
 	"wikibase-lexeme-summary-wbeditentity-update": "Изменета лексема",
 	"datatypes-type-wikibase-lexeme": "Лексема",
-	"datatypes-type-wikibase-lexeme-form": "Образец за Лексема",
-	"datatypes-type-wikibase-lexeme-sense": "Смисла за Лексема",
 	"wikibaselexeme-add-sense": "додај смисла",
 	"wikibaselexeme-add-form": "додај образец",
 	"apihelp-wbladdform-summary": "Додава образец во лексема",

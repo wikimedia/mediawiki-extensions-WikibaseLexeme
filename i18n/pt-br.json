@@ -27,8 +27,6 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Brilho",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
-	"datatypes-type-wikibase-lexeme-form": "Formulário",
-	"datatypes-type-wikibase-lexeme-sense": "Sentido",
 	"wikibaselexeme-add-sense": "adicionar sentido",
 	"wikibaselexeme-add-form": "adicionar forma",
 	"apihelp-wbladdform-summary": "Adiciona uma forma ao lexema",
@@ -74,5 +72,6 @@
 	"wikibaselexeme-diffview-representation": "representação",
 	"wikibaselexeme-diffview-grammatical-feature": "funcionalidade gramatical",
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
-	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais"
+	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais",
+	"wikibaselexeme-unknown-category": "Desconhecida"
 }
