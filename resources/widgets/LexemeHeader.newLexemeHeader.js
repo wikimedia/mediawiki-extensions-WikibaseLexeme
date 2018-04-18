@@ -37,6 +37,11 @@ module.exports = ( function () {
 
 			methods: {
 				save: function () {
+					if ( this.lemmas.length === 0 ) {
+						this.displayEmptyLemmasError();
+						return;
+					}
+
 					return store.dispatch(
 						'save',
 						{
@@ -64,7 +69,17 @@ module.exports = ( function () {
 				/**
 				 * This method is overridden in LexemeHeader.js
 				 */
-				displayError: function () {}
+				displayError: function () {},
+
+				/**
+				 * TODO: This should ideally be an error that comes from the API
+				 */
+				displayEmptyLemmasError: function () {
+					this.displayError( {
+						code: 'save-failed',
+						info: messages.get( 'wikibaselexeme-error-cannot-remove-last-lemma' )
+					} );
+				}
 
 			},
 

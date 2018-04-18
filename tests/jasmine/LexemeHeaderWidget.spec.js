@@ -68,6 +68,22 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		} );
 	} );
 
+	it( 'attempting to save with empty lemmas fails', function ( done ) {
+		var lexeme = { lemmas: [] },
+			store = newStore( lexeme ),
+			widget = newWidgetWithStore( store ),
+			storeSpy = sinon.stub( store, 'dispatch' );
+
+		widget.edit();
+		widget.save();
+
+		widget.$nextTick( function () {
+			expect( storeSpy.notCalled, 'to be true' );
+			expect( widget, 'to be in edit mode' );
+			done();
+		} );
+	} );
+
 	it( 'passes lemmas to LemmaWidget', function () {
 		var lemmas = [ new Lemma( 'hello', 'en' ) ],
 			widget = newWidget( { lemmas: lemmas } );

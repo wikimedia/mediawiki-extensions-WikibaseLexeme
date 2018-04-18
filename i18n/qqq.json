@@ -51,6 +51,7 @@
 	"apihelp-wbleditformelements-param-data": "{{doc-apihelp-param|wbleditformelements|data}}",
 	"apihelp-wbleditformelements-param-bot": "{{doc-apihelp-param|wbleditformelements|bot}}",
 	"apihelp-wbleditformelements-example-1": "{{doc-apihelp-example|wbleditformelements}}",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "Error message that is being reported when the last lemma is being removed.",
 	"wikibaselexeme-api-error-parameter-required": "API error message that is being reported when parameter is missing.",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "API error message that is being reported when provided data parameter is not a valid JSON",
 	"wikibaselexeme-api-error-lexeme-not-found": "API error message that is being reported when Lexeme with provided ID does not exist.\n\nParameters:\n* $1 - ID of the Lexeme",

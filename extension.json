@@ -219,7 +219,8 @@
 				"wikibaselexeme-lemma-field-lemma-label",
 				"wikibaselexeme-lemma-field-language-label",
 				"wikibaselexeme-field-language-label",
-				"wikibaselexeme-field-lexical-category-label"
+				"wikibaselexeme-field-lexical-category-label",
+				"wikibaselexeme-error-cannot-remove-last-lemma"
 			]
 		},
 		"wikibase.lexeme.widgets.RepresentationWidget": {
