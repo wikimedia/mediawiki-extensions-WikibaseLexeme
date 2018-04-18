@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Search;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Repo\Search\Elastic\Fields\FieldDefinitions;
-use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 use Wikibase\Repo\Search\Elastic\Fields\WikibaseIndexField;
 
 /**
@@ -24,11 +23,11 @@ class LexemeFieldDefinitions implements FieldDefinitions {
 	 */
 	private $lexemeLanguageCodePropertyId;
 	/**
-	 * @var StatementProviderFieldDefinitions
+	 * @var FieldDefinitions
 	 */
 	private $statements;
 
-	public function __construct( StatementProviderFieldDefinitions $statements,
+	public function __construct( FieldDefinitions $statements,
 								 EntityLookup $entityLookup,
 								 PropertyId $lexemeLanguageCodePropertyId = null ) {
 		$this->statements = $statements;
