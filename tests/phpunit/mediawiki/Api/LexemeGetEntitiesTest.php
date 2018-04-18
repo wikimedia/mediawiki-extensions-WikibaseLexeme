@@ -47,6 +47,34 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 1, $lexemeData['forms'] );
 	}
 
+	public function testSensesKeyExistsWhenEnabled() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
+
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )->build(),
+			self::class,
+			$this->getMock( User::class )
+		);
+
+		$lexemeData = $this->loadEntity( self::LEXEME_ID );
+
+		$this->assertArrayHasKey( 'senses', $lexemeData );
+	}
+
+	public function testSensesKeyDoesNotExistWhenDisabled() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
+
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )->build(),
+			self::class,
+			$this->getMock( User::class )
+		);
+
+		$lexemeData = $this->loadEntity( self::LEXEME_ID );
+
+		$this->assertArrayNotHasKey( 'senses', $lexemeData );
+	}
+
 	private function saveDummyLexemeToDatabase() {
 		$lexeme = new Lexeme(
 			new LexemeId( self::LEXEME_ID ),

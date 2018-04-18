@@ -954,8 +954,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		], null, self::createTestUser()->getUser() );
 
-		$this->assertSame( $newLemma, $this->loadEntity( $id )['lemmas']['en'] );
-		$this->assertEmpty( $this->loadEntity( $id )['senses'] );
+		$loadedEntity = $this->loadEntity( $id );
+
+		$this->assertSame( $newLemma, $loadedEntity['lemmas']['en'] );
+		$this->assertArrayNotHasKey( 'senses', $loadedEntity );
 	}
 
 	public function provideDataRequiringEditPermissions() {
