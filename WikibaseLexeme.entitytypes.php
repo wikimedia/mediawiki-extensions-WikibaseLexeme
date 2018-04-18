@@ -316,5 +316,29 @@ return [
 				)
 			);
 		},
+		'entity-search-callback' => function ( WebRequest $request ) {
+			// FIXME: this code should be split into extension for T190022
+			$repo = WikibaseRepo::getDefaultInstance();
+
+			$idSearchHelper = new Wikibase\Repo\Api\EntityIdSearchHelper(
+				$repo->getEntityLookup(),
+				$repo->getEntityIdParser(),
+				new \Wikibase\Lexeme\Store\NullLabelDescriptionLookup(),
+				$repo->getEntityTypeToRepositoryMapping()
+			);
+
+			$repoSettings = $repo->getSettings();
+			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
+			if ( $searchSettings['useCirrus'] ) {
+				return new Wikibase\Repo\Api\CombinedEntitySearchHelper(
+					[
+						$idSearchHelper,
+						// TODO: add Cirrus-based search helper here once ready T191906
+					]
+				);
+			}
+
+			return $idSearchHelper;
+		},
 	],
 ];
