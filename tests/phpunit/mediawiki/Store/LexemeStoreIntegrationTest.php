@@ -24,17 +24,15 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 	public function testGivenExistingFormId_EntityLookupHasEntityReturnsTrue() {
 		$this->saveLexemeWithForm();
 
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
+		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup( 'uncached' );
 
 		$this->assertTrue( $lookup->hasEntity( new FormId( self::FULL_FORM_ID ) ) );
 	}
 
 	public function testGivenNotExistingFormId_EntityLookupHasEntityReturnsFalse() {
-		$this->markTestSkipped( 'Currently broken!' );
-
 		$this->saveLexemeWithoutForm();
 
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup();
+		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup( 'uncached' );
 
 		$this->assertFalse( $lookup->hasEntity( new FormId( self::FULL_FORM_ID ) ) );
 	}

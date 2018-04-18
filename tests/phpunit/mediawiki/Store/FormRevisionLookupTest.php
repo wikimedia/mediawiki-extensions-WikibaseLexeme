@@ -79,10 +79,27 @@ class FormRevisionLookupTest extends TestCase {
 			->method( 'getLatestRevisionId' )
 			->with( $this->lexemeId )
 			->willReturn( 'fromParentService' );
+		$parentService->method( 'getEntityRevision' )
+			->with( $this->lexemeId )
+			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
 		$instance = new FormRevisionLookup( $parentService );
 
 		$result = $instance->getLatestRevisionId( $this->formId );
 		$this->assertSame( 'fromParentService', $result );
+	}
+
+	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsFalse() {
+		$parentService = $this->getMock( EntityRevisionLookup::class );
+		$parentService->expects( $this->once() )
+			->method( 'getLatestRevisionId' )
+			->with( $this->lexemeId )
+			->willReturn( 'fromParentService' );
+		$parentService->method( 'getEntityRevision' )
+			->with( $this->lexemeId )
+			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
+		$instance = new FormRevisionLookup( $parentService );
+
+		$this->assertFalse( $instance->getLatestRevisionId( new FormId( 'L1-F200' ) ) );
 	}
 
 	private function newLexeme() {
