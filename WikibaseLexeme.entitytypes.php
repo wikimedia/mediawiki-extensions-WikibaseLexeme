@@ -228,14 +228,37 @@ return [
 			);
 		},
 		'entity-search-callback' => function ( WebRequest $request ) {
+			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
-			return new \Wikibase\Lexeme\Search\LexemeSearchEntity(
-					$repo->getEntityIdParser(),
-					$request,
-					$repo->getUserLanguage(),
-					$repo->getLanguageFallbackChainFactory(),
-					$repo->getPrefetchingTermLookup()
+
+			$idSearchHelper = new Wikibase\Repo\Api\EntityIdSearchHelper(
+				$repo->getEntityLookup(),
+				$repo->getEntityIdParser(),
+				new Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup(
+					$repo->getTermLookup(),
+					$repo->getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
+				),
+				$repo->getEntityTypeToRepositoryMapping()
+			);
+
+			$repoSettings = $repo->getSettings();
+			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
+			if ( $searchSettings['useCirrus'] ) {
+				return new Wikibase\Repo\Api\CombinedEntitySearchHelper(
+					[
+						$idSearchHelper,
+						new \Wikibase\Lexeme\Search\LexemeSearchEntity(
+							$repo->getEntityIdParser(),
+							$request,
+							$repo->getUserLanguage(),
+							$repo->getLanguageFallbackChainFactory(),
+							$repo->getPrefetchingTermLookup()
+						)
+					]
 				);
+			}
+
+			return $idSearchHelper;
 		},
 		'sub-entity-types' => [
 			'form'
