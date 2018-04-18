@@ -74,7 +74,7 @@ class NewForm {
 			$lexeme = $lexeme->getSerialization();
 		}
 
-		$this->lexemeId = $lexeme;
+		$result->lexemeId = $lexeme;
 
 		return $result;
 	}
