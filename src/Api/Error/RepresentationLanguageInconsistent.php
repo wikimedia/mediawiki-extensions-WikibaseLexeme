@@ -10,16 +10,6 @@ class RepresentationLanguageInconsistent implements ApiError {
 	/**
 	 * @var string
 	 */
-	private $parameterName;
-
-	/**
-	 * @var string[]
-	 */
-	private $fieldPath;
-
-	/**
-	 * @var string
-	 */
 	private $expectedLanguage;
 
 	/**
@@ -28,19 +18,10 @@ class RepresentationLanguageInconsistent implements ApiError {
 	private $givenLanguage;
 
 	/**
-	 * @param string $parameterName
-	 * @param string[] $fieldPath
 	 * @param string $expectedLanguage
 	 * @param string $givenLanguage
 	 */
-	public function __construct(
-		$parameterName,
-		array $fieldPath,
-		$expectedLanguage,
-		$givenLanguage
-	) {
-		$this->parameterName = $parameterName;
-		$this->fieldPath = $fieldPath;
+	public function __construct( $expectedLanguage, $givenLanguage ) {
 		$this->expectedLanguage = $expectedLanguage;
 		$this->givenLanguage = $givenLanguage;
 	}
@@ -48,17 +29,17 @@ class RepresentationLanguageInconsistent implements ApiError {
 	/**
 	 * @see ApiError::asApiMessage()
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
 			'wikibaselexeme-api-error-representation-language-inconsistent',
-			[ $this->expectedLanguage, $this->givenLanguage ]
+			[ $parameterName, implode( '/', $path ), $this->expectedLanguage, $this->givenLanguage ]
 		);
 		return new \ApiMessage(
 			$message,
 			'unprocessable-request',
 			[
-				'parameterName' => $this->parameterName,
-				'fieldPath' => $this->fieldPath
+				'parameterName' => $parameterName,
+				'fieldPath' => $path
 			]
 		);
 	}

@@ -56,37 +56,17 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		array $params,
 		array $expectedError
 	) {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$this->saveLexeme( $lexeme );
+
 		$this->setContentLang( 'qqq' );
 		$params = array_merge(
 			[ 'action' => 'wblremoveform' ],
 			$params
 		);
 
-		try {
-			$this->doApiRequestWithToken( $params );
-			$this->fail( 'No API error was raised' );
-		} catch ( \ApiUsageException $e ) {
-			/** @var \ApiMessage $message */
-			$message = $e->getMessageObject();
-
-			$this->assertInstanceOf( \ApiMessage::class, $message );
-			$this->assertEquals( $expectedError['message-key'], $message->getKey(), 'Wrong message codes' );
-			$this->assertEquals(
-				$expectedError['message-parameters'],
-				$message->getParams(),
-				'Wrong message parameters'
-			);
-			$this->assertEquals(
-				$expectedError['api-error-code'],
-				$message->getApiCode(),
-				'Wrong api code'
-			);
-			$this->assertEquals(
-				$expectedError['api-error-data'],
-				$message->getApiData(),
-				'Wrong api data'
-			);
-		}
+		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
 	public function provideInvalidParams() {
@@ -94,28 +74,46 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			'no id param' => [
 				[],
 				[
-					'message-key' => 'apierror-missingparam',
-					'message-parameters' => [ 'id' ], // request rejected by api core, hence no []
-					'api-error-code' => 'noid',
-					'api-error-data' => []
+					'key' => 'apierror-missingparam',
+					'params' => [ 'id' ],
+					'code' => 'noid',
+					'data' => []
 				],
 			],
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
 				[
-					'message-key' => 'wikibaselexeme-api-error-parameter-not-form-id',
-					'message-parameters' => [ '[id]', 'foo' ],
-					'api-error-code' => 'bad-request',
-					'api-error-data' => []
+					'key' => 'wikibaselexeme-api-error-parameter-not-form-id',
+					'params' => [ 'id', '', '"foo"' ], // TODO Empty path questionable result of reuse
+					'code' => 'bad-request',
+					'data' => [
+						'parameterName' => 'id',
+						'fieldPath' => []
+					]
 				]
 			],
 			'Lexeme is not found' => [
 				[ 'id' => 'L999-F1' ],
 				[
-					'message-key' => 'wikibaselexeme-api-error-lexeme-not-found',
-					'message-parameters' => [ 'L999' ],
-					'api-error-code' => 'not-found',
-					'api-error-data' => []
+					'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+					'params' => [ 'id', 'L999' ],
+					'code' => 'not-found',
+					'data' => [
+						'parameterName' => 'id',
+						'fieldPath' => []
+					]
+				],
+			],
+			'Form is not found' => [
+				[ 'id' => 'L1-F4711' ],
+				[
+					'key' => 'wikibaselexeme-api-error-form-not-found',
+					'params' => [ 'id', 'L1-F4711' ],
+					'code' => 'not-found',
+					'data' => [
+						'parameterName' => 'id',
+						'fieldPath' => []
+					]
 				],
 			],
 		];

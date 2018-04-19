@@ -8,8 +8,11 @@ namespace Wikibase\Lexeme\Api\Error;
 interface ApiError {
 
 	/**
+	 * @param string $parameterName
+	 * @param array $path
+	 *
 	 * @return \ApiMessage
 	 */
-	public function asApiMessage();
+	public function asApiMessage( $parameterName, array $path );
 
 }

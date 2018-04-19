@@ -62,31 +62,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			$params
 		);
 
-		try {
-			$this->doApiRequestWithToken( $params );
-			$this->fail( 'No API error was raised' );
-		} catch ( \ApiUsageException $e ) {
-			/** @var \ApiMessage $message */
-			$message = $e->getMessageObject();
-
-			$this->assertInstanceOf( \ApiMessage::class, $message );
-			$this->assertEquals( $expectedError['message-key'], $message->getKey(), 'Wrong message codes' );
-			$this->assertEquals(
-				$expectedError['message-parameters'],
-				$message->getParams(),
-				'Wrong message parameters'
-			);
-			$this->assertEquals(
-				$expectedError['api-error-code'],
-				$message->getApiCode(),
-				'Wrong api code'
-			);
-			$this->assertEquals(
-				$expectedError['api-error-data'],
-				$message->getApiData(),
-				'Wrong api data'
-			);
-		}
+		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
 	public function provideInvalidParams() {
@@ -94,49 +70,76 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'no lexemeId param' => [
 				[ 'data' => $this->getDataParam() ],
 				[
-					'message-key' => 'apierror-missingparam',
-					'message-parameters' => [ 'lexemeId' ],
-					'api-error-code' => 'nolexemeId',
-					'api-error-data' => []
+					'key' => 'apierror-missingparam',
+					'params' => [ 'lexemeId' ],
+					'code' => 'nolexemeId',
+					'data' => []
 				],
 			],
 			'no data param' => [
 				[ 'lexemeId' => 'L1' ],
 				[
-					'message-key' => 'apierror-missingparam',
-					'message-parameters' => [ 'data' ],
-					'api-error-code' => 'nodata',
-					'api-error-data' => []
+					'key' => 'apierror-missingparam',
+					'params' => [ 'data' ],
+					'code' => 'nodata',
+					'data' => []
 				],
 			],
 			'invalid lexeme ID (random string not ID)' => [
 				[ 'lexemeId' => 'foo', 'data' => $this->getDataParam() ],
 				[
-					'message-key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
-					'message-parameters' => [ 'lexemeId', 'foo' ],
-					'api-error-code' => 'bad-request',
-					'api-error-data' => []
+					'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
+					'params' => [ 'lexemeId', '"foo"' ],
+					'code' => 'bad-request',
+					'data' => [
+						'parameterName' => 'lexemeId',
+						'fieldPath' => [] // TODO Is empty fields path for native params desired?
+					]
 				]
 			],
 			'data not a well-formed JSON object' => [
 				[ 'lexemeId' => 'L1', 'data' => '{foo' ],
 				[
-					'message-key' => 'wikibaselexeme-api-error-parameter-invalid-json-object',
-					'message-parameters' => [ 'data', '{foo' ],
-					'api-error-code' => 'bad-request',
-					'api-error-data' => []
+					'key' => 'wikibaselexeme-api-error-parameter-invalid-json-object',
+					'params' => [ 'data', '{foo' ],
+					'code' => 'bad-request',
+					'data' => [
+						'parameterName' => 'data',
+						'fieldPath' => [] // TODO Is empty fields path for native params desired?
+					]
 				],
 			],
 			'Lexeme is not found' => [
 				[ 'lexemeId' => 'L999', 'data' => $this->getDataParam() ],
 				[
-					'message-key' => 'wikibaselexeme-api-error-lexeme-not-found',
-					'message-parameters' => [ 'L999' ],
-					'api-error-code' => 'not-found',
-					'api-error-data' => []
+					'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+					'params' => [ 'lexemeId', 'L999' ],
+					'code' => 'not-found',
+					'data' => [
+						'parameterName' => 'lexemeId',
+						'fieldPath' => [] // TODO Is empty fields path for native params desired?
+					]
 				],
 			],
+
 		];
+	}
+
+	public function testGivenNoRepresentationDefined_errorIsReported() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => json_encode( [ 'representations' => [] ] )
+		];
+
+		$this->doTestQueryApiException( $params, [
+			'key' => 'wikibaselexeme-api-error-form-must-have-at-least-one-representation',
+			'code' => 'unprocessable-request',
+		] );
 	}
 
 	private function getDataParam( array $dataToUse = [] ) {

@@ -8,32 +8,24 @@ namespace Wikibase\Lexeme\Api\Error;
 class JsonFieldIsRequired implements ApiError {
 
 	/**
-	 * @var
-	 */
-	private $parameterName;
-
-	/**
 	 * @var string[]
 	 */
-	private $fieldPath;
+	private $field;
 
 	/**
-	 * JsonFieldIsRequired constructor.
-	 * @param string $parameterName
-	 * @param string[] $fieldPath
+	 * @param string $field
 	 */
-	public function __construct( $parameterName, array $fieldPath ) {
-		$this->parameterName = $parameterName;
-		$this->fieldPath = $fieldPath;
+	public function __construct( $field ) {
+		$this->field = $field;
 	}
 
 	/**
 	 * @see ApiError::asApiMessage()
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
 			'wikibaselexeme-api-error-json-field-required',
-			[ $this->parameterName, implode( '/', $this->fieldPath ) ]
+			[ $parameterName, implode( '/', $path ), $this->field ]
 		);
 		return new \ApiMessage( $message, 'bad-request' );
 	}

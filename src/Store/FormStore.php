@@ -12,6 +12,7 @@ use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
@@ -45,10 +46,14 @@ class FormStore implements EntityStore {
 	 *
 	 * @param Form $form
 	 *
-	 * @throws \DomainException always
+	 * @throws \DomainException
 	 */
 	public function assignFreshId( EntityDocument $form ) {
-		throw new \DomainException( 'Form IDs are currently assigned in Lexeme::addForm' );
+		if ( $form instanceof BlankForm ) {
+			return;
+		}
+
+		throw new \DomainException( 'Form IDs are currently assigned in Lexeme::addOrUpdateForm()' );
 	}
 
 	/**
@@ -85,6 +90,9 @@ class FormStore implements EntityStore {
 		$lexeme = $revision->getEntity();
 
 		$lexeme->addOrUpdateForm( $form );
+
+		//Unset EDIT_NEW flag if present (forms don't have their own pages, thus EDIT_NEW is never needed)
+		$flags &= ~EDIT_NEW;
 
 		return $this->store->saveEntity( $lexeme, $summary, $user, $flags, $baseRevId );
 	}

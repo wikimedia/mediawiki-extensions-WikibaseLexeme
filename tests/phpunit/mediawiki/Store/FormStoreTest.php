@@ -12,6 +12,7 @@ use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Store\FormStore;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -55,6 +56,17 @@ class FormStoreTest extends TestCase {
 		$instance->assignFreshId( $this->newLexeme() );
 	}
 
+	public function testAssignFreshIdOnBlankForm_causesNoException() {
+		$instance = new FormStore(
+			$this->newParentService( 'assignFreshId', $this->never() ),
+			$this->newEntityRevisionLookup()
+		);
+
+		$blankForm = new BlankForm();
+
+		$this->assertNull( $instance->assignFreshId( $blankForm ) );
+	}
+
 	public function testGivenLexeme_saveEntityFails() {
 		$instance = new FormStore(
 			$this->newParentService( 'saveEntity', $this->never() ),
@@ -67,16 +79,53 @@ class FormStoreTest extends TestCase {
 
 	public function testGivenFormId_saveEntityEditsFormOnLexeme() {
 		$lexeme = $this->newLexeme();
+		$user = $this->newUser();
 
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
-			->with( $lexeme )
+			->with( $lexeme, '', $user )
 			->willReturn( 'fromParentService' );
 
 		$instance = new FormStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
-		$result = $instance->saveEntity( $this->newForm(), '', $this->newUser() );
+		$result = $instance->saveEntity( $this->newForm(), '', $user );
+		$this->assertSame( 'fromParentService', $result );
+	}
+
+	public function testGivenSaveEntityWithDefaultFlag_editNewFlagNotPassedToParentService() {
+		$lexeme = $this->newLexeme();
+		$user = $this->newUser();
+
+		$parentService = $this->getMock( EntityStore::class );
+		$parentService->expects( $this->once() )
+			->method( 'saveEntity' )
+			->will( $this->returnCallback( function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId ) {
+				$this->assertSame( 0, $flags );
+				return 'fromParentService';
+			} ) );
+
+		$instance = new FormStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
+
+		$result = $instance->saveEntity( $this->newForm(), '', $user );
+		$this->assertSame( 'fromParentService', $result );
+	}
+
+	public function testGivenSaveEntityWithEditNewFlag_editNewFlagNotPassedToParentService() {
+		$lexeme = $this->newLexeme();
+		$user = $this->newUser();
+
+		$parentService = $this->getMock( EntityStore::class );
+		$parentService->expects( $this->once() )
+			->method( 'saveEntity' )
+			->will( $this->returnCallback( function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId ) {
+				$this->assertSame( 0, $flags );
+				return 'fromParentService';
+			} ) );
+
+		$instance = new FormStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
+
+		$result = $instance->saveEntity( $this->newForm(), '', $user, EDIT_NEW );
 		$this->assertSame( 'fromParentService', $result );
 	}
 

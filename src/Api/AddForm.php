@@ -4,14 +4,23 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\Repo\ChangeOp\ChangeOpException;
+use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
+use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
 /**
@@ -68,7 +77,13 @@ class AddForm extends ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			new AddFormRequestParser( $wikibaseRepo->getEntityIdParser() ),
+			new AddFormRequestParser(
+				$wikibaseRepo->getEntityIdParser(),
+				new EditFormChangeOpDeserializer(
+					new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+					new ItemIdListDeserializer( new ItemIdParser() )
+				)
+			),
 			$formSerializer,
 			$wikibaseRepo->getEntityRevisionLookup( 'uncached' ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
@@ -132,19 +147,7 @@ class AddForm extends ApiBase {
 		//TODO: Documenting response structure. Is it possible?
 
 		$params = $this->extractRequestParams();
-		$parserResult = $this->requestParser->parse( $params );
-
-		if ( $parserResult->hasErrors() ) {
-			//TODO: Increase stats counter on failure
-			// `wikibase.repo.api.errors.total` counter
-			// What does it mean? What it is used for?
-			// Comment from Grafana dashboard:
-			//     Used to spot issues with the Wikibase API.
-			//     Spikes can indicate issues with Wikibase deployments.
-			$this->dieStatus( $parserResult->asFatalStatus() );
-		}
-
-		$request = $parserResult->getRequest();
+		$request = $this->requestParser->parse( $params );
 
 		try {
 			$lexemeId = $request->getLexemeId();
@@ -156,7 +159,7 @@ class AddForm extends ApiBase {
 
 			if ( !$lexemeRevision ) {
 				$error = new LexemeNotFound( $lexemeId );
-				$this->dieWithError( $error->asApiMessage() );
+				$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
 			}
 		} catch ( StorageException $e ) {
 			//TODO Test it
@@ -168,7 +171,22 @@ class AddForm extends ApiBase {
 		}
 		/** @var Lexeme $lexeme */
 		$lexeme = $lexemeRevision->getEntity();
-		$newForm = $request->addFormTo( $lexeme );
+		$changeOp = $request->getChangeOp();
+
+		$summary = new Summary();
+		$result = $changeOp->validate( $lexeme );
+		if ( !$result->isValid() ) {
+			$this->errorReporter->dieException(
+				new ChangeOpValidationException( $result ),
+				'modification-failed'
+			);
+		}
+
+		try {
+			$changeOp->apply( $lexeme, $summary );
+		} catch ( ChangeOpException $exception ) {
+			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
+		}
 
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getUser(),
@@ -176,7 +194,7 @@ class AddForm extends ApiBase {
 			$lexemeRevision->getRevisionId()
 		);
 		$summaryString = $this->summaryFormatter->formatSummary(
-			new AddFormSummary( $lexeme->getId(), $newForm )
+			$summary
 		);
 		$flags = EDIT_UPDATE;
 		if ( isset( $params['bot'] ) && $params['bot'] && $this->getUser()->isAllowed( 'bot' ) ) {
@@ -200,6 +218,9 @@ class AddForm extends ApiBase {
 		$entityRevision = $status->getValue()['revision'];
 		$revisionId = $entityRevision->getRevisionId();
 
+		/** @var Lexeme $editedLexeme */
+		$editedLexeme = $entityRevision->getEntity();
+		$newForm = $this->getFormWithMaxId( $editedLexeme );
 		$serializedForm = $this->formSerializer->serialize( $newForm );
 
 		$apiResult = $this->getResult();
@@ -215,11 +236,11 @@ class AddForm extends ApiBase {
 	protected function getAllowedParams() {
 		return array_merge(
 			[
-				'lexemeId' => [
+				AddFormRequestParser::PARAM_LEXEME_ID => [
 					self::PARAM_TYPE => 'string',
 					self::PARAM_REQUIRED => true,
 				],
-				'data' => [
+				AddFormRequestParser::PARAM_DATA => [
 					self::PARAM_TYPE => 'text',
 					self::PARAM_REQUIRED => true,
 				],
@@ -274,8 +295,8 @@ class AddForm extends ApiBase {
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
-			'lexemeId' => $lexemeId,
-			'data' => json_encode( $exampleData )
+			AddFormRequestParser::PARAM_LEXEME_ID => $lexemeId,
+			AddFormRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
 		$languages = array_map( function ( $r ) {
@@ -302,6 +323,14 @@ class AddForm extends ApiBase {
 		return [
 			$query => $exampleMessage
 		];
+	}
+
+	private function getFormWithMaxId( Lexeme $lexeme ) {
+		// TODO: This is all rather nasty
+		$maxIdNumber = $lexeme->getForms()->maxFormIdNumber();
+		// TODO: Use some service to get the ID object!
+		$formId = new FormId( $lexeme->getId() . '-F' . $maxIdNumber );
+		return $lexeme->getForm( $formId );
 	}
 
 }

@@ -7,8 +7,12 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Api\EditFormElementsRequest;
+use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
+use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElementsRequest
@@ -28,8 +32,10 @@ class EditFormElementsRequestTest extends TestCase {
 
 		$request = new EditFormElementsRequest(
 			new FormId( 'L1-F1' ),
-			new TermList( [ $colorWithU ] ),
-			[ $featureTwo ]
+			new ChangeOpFormEdit( [
+				new ChangeOps( new ChangeOpRepresentation( $colorWithU ) ),
+				new ChangeOpGrammaticalFeatures( [ $featureTwo ] )
+			] )
 		);
 
 		$changeOp = $request->getChangeOp();

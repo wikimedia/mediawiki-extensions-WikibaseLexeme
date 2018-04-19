@@ -12,6 +12,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataTransfer\BlankForm;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme in the
@@ -329,17 +330,26 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		return $form;
 	}
 
-	public function removeForm( FormId $formId ) {
-		$this->forms->remove( $formId );
-	}
-
 	/**
 	 * Replace the form identified by $form->getId() with the given one or add it
 	 *
 	 * @param Form $form
 	 */
 	public function addOrUpdateForm( Form $form ) {
+		if ( $form instanceof BlankForm ) {
+			$form = $form->getRealForm(
+				new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ )
+			);
+
+			$this->forms->add( $form );
+			return;
+		}
+
 		$this->forms->put( $form );
+	}
+
+	public function removeForm( FormId $formId ) {
+		$this->forms->remove( $formId );
 	}
 
 	/**

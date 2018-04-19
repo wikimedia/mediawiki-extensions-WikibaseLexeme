@@ -5,13 +5,16 @@ namespace Wikibase\Lexeme\Api;
 use ApiBase;
 use ApiMain;
 use Wikibase\EditEntityFactory;
+use Wikibase\Lexeme\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
@@ -57,7 +60,11 @@ class RemoveForm extends ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			new RemoveFormRequestParser( $wikibaseRepo->getEntityIdParser() ),
+			new RemoveFormRequestParser(
+				new FormIdDeserializer(
+					$wikibaseRepo->getEntityIdParser()
+				)
+			),
 			$wikibaseRepo->getEntityRevisionLookup( 'uncached' ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			$wikibaseRepo->getSummaryFormatter(),
@@ -92,13 +99,7 @@ class RemoveForm extends ApiBase {
 	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$parserResult = $this->requestParser->parse( $params );
-
-		if ( $parserResult->hasErrors() ) {
-			$this->dieStatus( $parserResult->asFatalStatus() );
-		}
-
-		$request = $parserResult->getRequest();
+		$request = $this->requestParser->parse( $params );
 
 		try {
 			$formId = $request->getFormid();
@@ -115,7 +116,15 @@ class RemoveForm extends ApiBase {
 
 			if ( !$lexemeRevision ) {
 				$error = new LexemeNotFound( $lexemeId );
-				$this->dieWithError( $error->asApiMessage() );
+				$this->dieWithError( $error->asApiMessage( RemoveFormRequestParser::PARAM_FORM_ID, [] ) );
+			}
+
+			/** @var Lexeme $lexeme */
+			$lexeme = $lexemeRevision->getEntity();
+
+			if ( $lexeme->getForms()->getById( $formId ) === null ) {
+				$error = new FormNotFound( $formId );
+				$this->dieWithError( $error->asApiMessage( RemoveFormRequestParser::PARAM_FORM_ID, [] ) );
 			}
 		} catch ( StorageException $e ) {
 			//TODO Test it
@@ -126,10 +135,17 @@ class RemoveForm extends ApiBase {
 			}
 		}
 
-		/** @var Lexeme $lexeme */
-		$lexeme = $lexemeRevision->getEntity();
 		$summary = new Summary();
 		$changeOp = $request->getChangeOp();
+
+		$result = $changeOp->validate( $lexeme );
+		if ( !$result->isValid() ) {
+			$this->errorReporter->dieException(
+				new ChangeOpValidationException( $result ),
+				'modification-failed'
+			);
+		}
+
 		$changeOp->apply( $lexeme, $summary );
 
 		$editEntity = $this->editEntityFactory->newEditEntity(
@@ -170,7 +186,7 @@ class RemoveForm extends ApiBase {
 		// TODO baserevid (not in addform etc currently....)
 		return array_merge(
 			[
-				'id' => [
+				RemoveFormRequestParser::PARAM_FORM_ID => [
 					self::PARAM_TYPE => 'string',
 					self::PARAM_REQUIRED => true,
 				],
@@ -216,7 +232,7 @@ class RemoveForm extends ApiBase {
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
-			'id' => $formId
+			RemoveFormRequestParser::PARAM_FORM_ID => $formId
 		] );
 
 		$exampleMessage = new \Message(

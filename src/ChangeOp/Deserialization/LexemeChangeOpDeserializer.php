@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use Wikibase\Repo\ChangeOp\ChangeOp;
-use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
@@ -30,25 +30,40 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $languageChangeOpDeserializer;
 
+	/**
+	 * @var ClaimsChangeOpDeserializer
+	 */
 	private $statementChangeOpDeserializer;
 
 	/**
-	 * @var FormChangeOpDeserializer
+	 * @var FormListChangeOpDeserializer
 	 */
-	private $formChangeOpDeserializer;
+	private $formListChangeOpDeserializer;
+
+	/**
+	 * @var ValidationContext
+	 */
+	private $validationContext;
 
 	public function __construct(
 		LemmaChangeOpDeserializer $lemmaChangeOpDeserializer,
 		LexicalCategoryChangeOpDeserializer $lexicalCategoryChangeOpDeserializer,
 		LanguageChangeOpDeserializer $languageChangeOpDeserializer,
 		ClaimsChangeOpDeserializer $statementChangeOpDeserializer,
-		FormChangeOpDeserializer $formChangeOpDeserializer
+		FormListChangeOpDeserializer $formListChangeOpDeserializer
 	) {
 		$this->lemmaChangeOpDeserializer = $lemmaChangeOpDeserializer;
 		$this->lexicalCategoryChangeOpDeserializer = $lexicalCategoryChangeOpDeserializer;
 		$this->languageChangeOpDeserializer = $languageChangeOpDeserializer;
 		$this->statementChangeOpDeserializer = $statementChangeOpDeserializer;
-		$this->formChangeOpDeserializer = $formChangeOpDeserializer;
+		$this->formListChangeOpDeserializer = $formListChangeOpDeserializer;
+	}
+
+	/**
+	 * @param mixed $validationContext
+	 */
+	public function setContext( ValidationContext $validationContext ) {
+		$this->validationContext = $validationContext;
 	}
 
 	/**
@@ -80,7 +95,8 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 		}
 
 		if ( array_key_exists( 'forms', $changeRequest ) ) {
-			$changeOps->add( $this->formChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
+			$this->formListChangeOpDeserializer->setContext( $this->validationContext->at( 'forms' ) );
+			$changeOps->add( $this->formListChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
 		}
 
 		return $changeOps;

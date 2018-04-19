@@ -2,10 +2,8 @@
 
 namespace Wikibase\Lexeme\Api;
 
-use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpEditFormElements;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Repo\ChangeOp\ChangeOp;
 
 /**
  * @license GPL-2.0-or-later
@@ -18,27 +16,17 @@ class EditFormElementsRequest {
 	private $formId;
 
 	/**
-	 * @var TermList
+	 * @var ChangeOp
 	 */
-	private $representations;
+	private $changeOp;
 
-	/**
-	 * @var ItemId[]
-	 */
-	private $grammaticalFeatures;
-
-	public function __construct(
-		FormId $formId,
-		TermList $representations,
-		array $grammaticalFeatures
-	) {
+	public function __construct( FormId $formId, ChangeOp $changeOp ) {
 		$this->formId = $formId;
-		$this->representations = $representations;
-		$this->grammaticalFeatures = $grammaticalFeatures;
+		$this->changeOp = $changeOp;
 	}
 
 	public function getChangeOp() {
-		return new ChangeOpEditFormElements( $this->representations, $this->grammaticalFeatures );
+		return $this->changeOp;
 	}
 
 	public function getFormId() {

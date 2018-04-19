@@ -2,9 +2,8 @@
 
 namespace Wikibase\Lexeme\Api;
 
-use Wikibase\DataModel\Entity\EntityIdParser;
-use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\Lexeme\Api\Constraint\RemoveFormConstraint;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 
 /**
  * @license GPL-2.0-or-later
@@ -12,42 +11,29 @@ use Wikibase\Lexeme\Api\Constraint\RemoveFormConstraint;
 class RemoveFormRequestParser {
 
 	const PARAM_FORM_ID = 'id';
-	/**
-	 * @var EntityIdParser
-	 */
-	private $entityIdParser;
 
 	/**
-	 * @var ItemIdParser
+	 * @var FormIdDeserializer
 	 */
-	private $itemIdParser;
+	private $formIdDeserializer;
 
-	public function __construct( EntityIdParser $entityIdParser ) {
-		$this->entityIdParser = $entityIdParser;
-		$this->itemIdParser = new ItemIdParser();
+	public function __construct( FormIdDeserializer $formIdDeserializer ) {
+		$this->formIdDeserializer = $formIdDeserializer;
 	}
 
 	/**
 	 * @param array $params
-	 * @return RemoveFormRequestParserResult
+	 * @return RemoveFormRequest
 	 */
 	public function parse( array $params ) {
-		$errors = $this->validate( $params );
+		// missing $params[self::PARAM_FORM_ID] caught by RemoveForm::getAllowedParams()
 
-		if ( $errors ) {
-			return RemoveFormRequestParserResult::newWithErrors( $errors );
-		}
-
-		return RemoveFormRequestParserResult::newWithRequest(
-			new RemoveFormRequest( $this->entityIdParser->parse( $params[self::PARAM_FORM_ID] ) )
+		$formId = $this->formIdDeserializer->deserialize(
+			$params[self::PARAM_FORM_ID],
+			ValidationContext::create( self::PARAM_FORM_ID )
 		);
-	}
 
-	private function validate( $params ) {
-		$validator = new ApiRequestValidator();
-		return $validator->convertViolationsToApiErrors(
-			$validator->validate( $params, RemoveFormConstraint::one() )
-		);
+		return new RemoveFormRequest( $formId );
 	}
 
 }

@@ -4,27 +4,23 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Api\Error\ApiError;
-use Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
- * @covers \Wikibase\Lexeme\Api\Error\FormMustHaveAtLeastOneRepresentation
  * @covers \Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType
  * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId
  * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsRequired
  * @covers \Wikibase\Lexeme\Api\Error\LexemeNotFound
  * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject
  * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId
- * @covers \Wikibase\Lexeme\Api\Error\ParameterIsRequired
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty
  *
@@ -36,7 +32,7 @@ class ApiErrorTranslationTest extends TestCase {
 	 * @dataProvider provideApiErrors
 	 */
 	public function testApiErrorsAreTranslated( ApiError $error, array $paramValues ) {
-		$apiMessage = $error->asApiMessage();
+		$apiMessage = $error->asApiMessage( 'param-1', [ 'a', 1, 'b' ] );
 
 		$this->assertInstanceOf( \ApiMessage::class, $apiMessage );
 		$messageKey = $apiMessage->getKey();
@@ -51,35 +47,27 @@ class ApiErrorTranslationTest extends TestCase {
 				[ 'param-1', 'given-param' ]
 			],
 			JsonFieldIsRequired::class => [
-				new JsonFieldIsRequired( 'param-1', [ 'a', 1, 'b' ] ),
+				new JsonFieldIsRequired( 'id' ),
 				[ 'param-1', 'a/1/b' ]
 			],
 			JsonFieldIsNotAnItemId::class => [
-				new JsonFieldIsNotAnItemId( 'param-1', [ 'a', 1, 'b' ], 'foo' ),
+				new JsonFieldIsNotAnItemId( 'foo' ),
 				[ 'param-1', 'a/1/b', 'foo' ]
 			],
 			JsonFieldHasWrongType::class => [
-				new JsonFieldHasWrongType( 'param-1', [ 'a', 1, 'b' ], 'string', 'array' ),
+				new JsonFieldHasWrongType( 'string', 'array' ),
 				[ 'param-1', 'a/1/b', 'string', 'array' ]
 			],
 			ParameterIsNotLexemeId::class => [
-				new ParameterIsNotLexemeId( 'param-1', 'foo' ),
+				new ParameterIsNotLexemeId( 'foo' ),
 				[ 'param-1', 'foo' ]
 			],
-			ParameterIsRequired::class => [
-				new ParameterIsRequired( 'param-1' ),
-				[ 'param-1' ]
-			],
 			RepresentationTextCanNotBeEmpty::class => [
-				new RepresentationTextCanNotBeEmpty( 'param-1', [ 'a', 1, 'b' ] ),
+				new RepresentationTextCanNotBeEmpty(),
 				[]
 			],
 			RepresentationLanguageCanNotBeEmpty::class => [
-				new RepresentationLanguageCanNotBeEmpty( 'param-1', [ 'a', 1, 'b' ] ),
-				[]
-			],
-			FormMustHaveAtLeastOneRepresentation::class => [
-				new FormMustHaveAtLeastOneRepresentation( 'param-1', [ 'a', 1, 'b' ] ),
+				new RepresentationLanguageCanNotBeEmpty(),
 				[]
 			],
 			LexemeNotFound::class => [

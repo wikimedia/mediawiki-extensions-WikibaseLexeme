@@ -6,8 +6,11 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Api\AddFormRequest;
+use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
+use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
+use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
@@ -23,8 +26,10 @@ class AddFormRequestTest extends TestCase {
 	public function testReturnsChangeOpThatAddsForm() {
 		$request = new AddFormRequest(
 			new LexemeId( 'L1' ),
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			[ new ItemId( 'Q1' ) ]
+			new ChangeOpFormEdit( [
+				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
+				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] )
+			] )
 		);
 
 		$changeOp = $request->getChangeOp();
@@ -40,26 +45,16 @@ class AddFormRequestTest extends TestCase {
 		$this->assertEquals( [ new ItemId( 'Q1' ) ], $forms[0]->getGrammaticalFeatures() );
 	}
 
-	public function testGivenNonItemsAsGrammaticalFeatures_constructorThrowsException() {
-		$this->setExpectedException( \InvalidArgumentException::class );
-
-		new AddFormRequest(
-			new LexemeId( 'L1' ),
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			[ 'foo' ]
-		);
-	}
-
-	public function testGivenEmptyRepresentationList_constructorThrowsException() {
-		$this->setExpectedException( \InvalidArgumentException::class );
-
-		new AddFormRequest( new LexemeId( 'L1' ), new TermList(), [] );
-	}
-
 	public function testGetLexemeId() {
 		$lexemeId = new LexemeId( 'L1' );
 
-		$request = new AddFormRequest( $lexemeId, new TermList( [ new Term( 'en', 'goat' ) ] ), [] );
+		$request = new AddFormRequest(
+			$lexemeId,
+			new ChangeOpFormEdit( [
+				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
+				new ChangeOpGrammaticalFeatures( [] )
+			] )
+		);
 
 		$this->assertSame( $lexemeId, $request->getLexemeId() );
 	}

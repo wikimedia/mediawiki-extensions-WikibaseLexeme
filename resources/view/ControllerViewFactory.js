@@ -155,10 +155,12 @@
 					)
 				}
 			),
+			formSerializer = new wb.lexeme.serialization.FormSerializer(),
+			formData = form ? formSerializer.serialize( form ) : null,
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
 				formView,
-				new wb.lexeme.entityChangers.FormChanger( this._api, this._revisionStore, lexemeId ),
+				new wb.lexeme.entityChangers.FormChanger( this._api, this._revisionStore, lexemeId, formData ),
 				removeCallback.bind( null, formView ),
 				form,
 				startEditingCallback
