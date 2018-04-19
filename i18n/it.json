@@ -21,6 +21,7 @@
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Modificato un lessema",
 	"datatypes-type-wikibase-lexeme": "Lessema",
+	"datatypes-type-wikibase-form": "Modulo",
 	"apihelp-wblremoveform-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
 	"apihelp-wbleditformelements-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
 	"wikibaselexeme-api-error-parameter-required": "Il parametro \"$1\" è obbligatorio",

@@ -6,7 +6,8 @@
 			"Amire80",
 			"Raymond",
 			"Metalhead64",
-			"Lucas Werkmeister (WMDE)"
+			"Lucas Werkmeister (WMDE)",
+			"Hamilton Abreu"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -90,5 +91,5 @@
 	"wikibaselexeme-description": "Template for generating Lexeme description: Language + Lexical Category",
 	"wikibaselexeme-unknown-language": "Message for unknown language",
 	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
-	"wikibaselexeme-rescore-profile-prefix": "Rescore profile for prefix (completion) search"
+	"wikibaselexeme-rescore-profile-prefix": "\"Rescore\" is not a verb. So translate as \"profile of rescore\" and not as \"to rescore a profile\".\n:''([https://www.mediawiki.org/w/index.php?title=Extension:CirrusSearch/Profiles#Wikibase Reference] states: \"Added '''rescore profiles''' that are used for Wikibase entities\")''\n\n\"Prefix (completion) search\" is a search to find possible completions for the existing typed characters (the \"prefix\", one guesses).\n:''([https://www.mediawiki.org/w/index.php?title=Extension:CirrusSearch/Profiles#Context Reference] states: \"a '''rescore profile''' can be applied to regular search, '''prefix search''', Wikibase search, etc.\")''\n\nApparently related:\n* [[MediaWiki:Wikibase-rescore-profile-prefix-boost/en]]"
 }

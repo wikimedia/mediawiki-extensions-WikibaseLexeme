@@ -44,6 +44,7 @@
 	"apihelp-wbleditformelements-summary": "Bearbeitet die Darstellungen und grammatikalischen Funktionen eines Formulars",
 	"apihelp-wbleditformelements-param-formId": "Kennung des Formulars, z.&nbsp;B. L10-F2",
 	"apihelp-wbleditformelements-param-data": "JSON-kodierte Darstellung und Daten für die grammatikalische Funktion",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "Es ist ein Fehler aufgetreten: Das letzte Lemma konnte nicht entfernt werden.",
 	"wikibaselexeme-api-error-parameter-required": "Der Parameter „$1“ ist erforderlich",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Es wird erwartet, dass der Parameter „$1“ ein gültiges JSON-Objekt ist, es wurde jedoch „$2“ angegeben.",
 	"wikibaselexeme-api-error-lexeme-not-found": "Es wurde kein Lexeme mit der Kennung „$1“ gefunden.",

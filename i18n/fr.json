@@ -32,6 +32,8 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Apparence",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
 	"datatypes-type-wikibase-lexeme": "Lexème",
+	"datatypes-type-wikibase-form": "Formulaire",
+	"datatypes-type-wikibase-sense": "Sens",
 	"wikibaselexeme-add-sense": "ajouter un sens",
 	"wikibaselexeme-add-form": "ajouter une forme",
 	"apihelp-wbladdform-summary": "Ajoute une forme au lexème",
