@@ -474,6 +474,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	 * @dataProvider provideInvalidData
 	 */
 	public function testGivenInvalidData_errorIsReported( array $dataArgs, $expectedErrorCode ) {
+		$this->saveDummyLexemeToDatabase();
+
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
@@ -520,6 +522,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	 * @dataProvider provideInvalidDataWithClear
 	 */
 	public function testGivenInvalidDataInClearRequest_errorIsReported( array $dataArgs ) {
+		$this->saveDummyLexemeToDatabase();
+
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
