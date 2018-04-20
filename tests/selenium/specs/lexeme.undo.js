@@ -13,44 +13,42 @@ describe( 'Lexeme:Undoing', () => {
 		let lexemeId, featureOneId, featureTwoId;
 
 		browser.call( () => {
-			return WikibaseApi.createItem( 'feature one' )
-				.then( ( itemId ) => {
-					featureOneId = itemId;
-				} )
-				.then( () => {
-					return WikibaseApi.createItem( 'feature two' )
-						.then( ( itemId ) => {
-							featureTwoId = itemId;
-						} );
-				} )
-				.then( () => {
-					return LexemeApi.create()
-						.then( ( lexeme ) => {
-							lexemeId = lexeme.id;
-						} );
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						lexemeId,
-						{
-							representations: {
-								en: { language: 'en', value: 'garlic' }
-							},
-							grammaticalFeatures: [ featureOneId ]
-						}
-					);
-				} )
-				.then( () => {
-					return LexemeApi.editForm(
-						lexemeId + '-F1',
-						{
-							representations: {
-								en: { language: 'en', value: 'garlic' }
-							},
-							grammaticalFeatures: [ featureOneId, featureTwoId ]
-						}
-					);
-				} );
+			return Promise.all( [
+				WikibaseApi.createItem( 'feature one' )
+					.then( ( itemId ) => {
+						featureOneId = itemId;
+					} ),
+				WikibaseApi.createItem( 'feature two' )
+					.then( ( itemId ) => {
+						featureTwoId = itemId;
+					} ),
+				LexemeApi.create()
+					.then( ( lexeme ) => {
+						lexemeId = lexeme.id;
+					} )
+			] )
+			.then( () => {
+				return LexemeApi.addForm(
+					lexemeId,
+					{
+						representations: {
+							en: { language: 'en', value: 'garlic' }
+						},
+						grammaticalFeatures: [ featureOneId ]
+					}
+				);
+			} )
+			.then( () => {
+				return LexemeApi.editForm(
+					lexemeId + '-F1',
+					{
+						representations: {
+							en: { language: 'en', value: 'garlic' }
+						},
+						grammaticalFeatures: [ featureOneId, featureTwoId ]
+					}
+				);
+			} );
 		} );
 
 		HistoryPage.open( lexemeId );
