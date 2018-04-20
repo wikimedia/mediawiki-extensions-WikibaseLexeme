@@ -6,6 +6,7 @@
 	},
 	"wikibaselexeme-desc": "Bietet eine Unterstützung für den Objekttyp „Lexeme“",
 	"special-newlexeme": "Ein neues Lexeme erstellen",
+	"wikibaselexeme-deletedentity-form": "Gelöschtes Formular",
 	"wikibaselexeme-newlexeme-fieldset": "Ein neues Lexeme erstellen",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Lemmasprache",

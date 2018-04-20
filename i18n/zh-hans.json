@@ -47,6 +47,7 @@
 	"apihelp-wbleditformelements-param-data": "JSON编码的词性和语法特征数据",
 	"apihelp-wbleditformelements-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时受尊重。",
 	"apihelp-wbleditformelements-example-1": "编辑ID为<samp>$1</samp>的词性，使其在语言<samp>$3</samp>中分别拥有表现<samp>$2</samp>，以及语法特征<samp>$4</samp>。",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "发生错误：上一个引理不能移除。",
 	"wikibaselexeme-api-error-parameter-required": "需要参数“$1”",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "参数“$1”应为有效的JSON对象，提供的是“$2”",
 	"wikibaselexeme-api-error-lexeme-not-found": "没有找到ID为“$1”的词位。",

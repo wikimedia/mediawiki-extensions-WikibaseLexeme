@@ -50,6 +50,7 @@
 	"apihelp-wbleditformelements-param-data": "Représentation encodée en JSON et données à caractère grammatical",
 	"apihelp-wbleditformelements-param-bot": "Marquer cette modification comme robot. Ce drapeau d’URL sera respecté uniquement si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wbleditformelements-example-1": "Modifie le formulaire d’ID <samp>$1</samp> pour avoir des représentations <samp>$2</samp> dans les langues <samp>$3</samp> respectivement, et les caractéristiques grammaticales <samp>$4</samp>.",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "Une erreur s&est produite : Le dernier lemme n’a pas pu être supprimé.",
 	"wikibaselexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",
 	"wikibaselexeme-api-error-lexeme-not-found": "Aucune entité avec l’ID « $1 » n’a été trouvée",
