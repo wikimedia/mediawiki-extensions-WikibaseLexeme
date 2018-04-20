@@ -6,7 +6,6 @@ use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
 use PHPUnit_Framework_MockObject_MockObject;
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 use User;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\DataModel\Form;
@@ -18,6 +17,7 @@ use Wikibase\Lexeme\Store\FormStore;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\Store\FormStore
@@ -62,7 +62,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->saveEntity( $this->newLexeme(), '', $this->newUser() );
 	}
 
@@ -105,7 +105,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->deleteEntity( $this->lexemeId, '', $this->newUser() );
 	}
 
@@ -133,7 +133,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->userWasLastToEdit( $this->newUser(), $this->lexemeId, 0 );
 	}
 
@@ -153,7 +153,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->updateWatchlist( $this->newUser(), $this->lexemeId, false );
 	}
 
@@ -172,7 +172,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->isWatching( $this->newUser(), $this->lexemeId );
 	}
 

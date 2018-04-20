@@ -62,4 +62,13 @@ class FormId extends EntityId {
 		);
 	}
 
+	/**
+	 * @return LexemeId
+	 */
+	public function getLexemeId() {
+		$parts = EntityId::splitSerialization( $this->getLocalPart() );
+		$parts = explode( '-', $parts[2], 2 );
+		return new LexemeId( $parts[0] );
+	}
+
 }
