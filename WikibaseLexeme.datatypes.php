@@ -18,6 +18,7 @@
  */
 
 use ValueFormatters\FormatterOptions;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\PropertyType\FormIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
@@ -66,7 +67,8 @@ return [
 	'PT:wikibase-form' => [
 		'expert-module' => 'wikibase.experts.Form',
 		'validator-factory-callback' => function() {
-			return [];
+			$factory = WikibaseRepo::getDefaultValidatorBuilders();
+			return $factory->getEntityValidators( Form::ENTITY_TYPE );
 		},
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
