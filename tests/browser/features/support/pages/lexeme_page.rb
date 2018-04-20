@@ -146,11 +146,6 @@ class LexemePage
 
     id = resp['entity']['id']
 
-    # skip IDs taken by the fake demo lexemes
-    if id=='L13' || id=='L15' || id=='L17' || id=='L18' || id=='L19'
-      return create_lexeme(lexeme_data)
-    end
-
     url = URL.repo_url(ENV['LEXEME_NAMESPACE'] + id)
     { 'url' => url }
   end
