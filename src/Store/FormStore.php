@@ -72,8 +72,15 @@ class FormStore implements EntityStore {
 		$flags = 0,
 		$baseRevId = false
 	) {
+
+		// EntityRevisionLookup and EntityStore have different opinions on valid revId fallbacks
+		$getLexemeRevId = 0;
+		if ( is_int( $baseRevId ) ) {
+			$getLexemeRevId = $baseRevId;
+		}
+
 		$formId = $form->getId();
-		$revision = $this->getLexemeRevision( $formId, $baseRevId );
+		$revision = $this->getLexemeRevision( $formId, $getLexemeRevId );
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
 
@@ -199,6 +206,13 @@ class FormStore implements EntityStore {
 	 * @return EntityRevision guaranteed to contain a Lexeme
 	 */
 	private function getLexemeRevision( EntityId $formId, $revisionId = 0 ) {
+
+		if ( !is_int( $revisionId ) ) {
+			throw new UnexpectedValueException(
+				'EntityRevisionLookup does not accept non-int revision ids!'
+			);
+		}
+
 		$revision = $this->lookup->getEntityRevision(
 			$this->getLexemeId( $formId ),
 			$revisionId,
