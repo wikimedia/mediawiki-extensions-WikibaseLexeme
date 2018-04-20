@@ -81,7 +81,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		return Html::rawElement(
 			'a',
 			[
-				'href' => $title->isLocal() ? $title->getLocalURL() : $title->getFullURL(),
+				'href' => $title->isLocal() ? $title->getLinkURL() : $title->getFullURL(),
 			],
 			$representationString
 		);

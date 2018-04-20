@@ -28,7 +28,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	private function getTitleLookupReturningMainPage( FormId $expectedFormId ) {
 		$title = $this->getMock( 'Title' );
 		$title->method( 'isLocal' )->willReturn( true );
-		$title->method( 'getLocalURL' )->willReturn( 'LOCAL-URL' );
+		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#FORM' );
 
 		/** @var EntityTitleLookup|MockObject $titleLookup */
 		$titleLookup = $this->getMock( EntityTitleLookup::class );
@@ -122,7 +122,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 		$result = $formatter->formatEntityId( $formId );
 		$this->assertSame(
-			'<a href="LOCAL-URL">fOo</a>',
+			'<a href="LOCAL-URL#FORM">fOo</a>',
 			$result
 		);
 	}
@@ -150,7 +150,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 		$result = $formatter->formatEntityId( $formId );
 		$this->assertSame(
-			'<a href="LOCAL-URL">fOo-S-bAr</a>',
+			'<a href="LOCAL-URL#FORM">fOo-S-bAr</a>',
 			$result
 		);
 	}
