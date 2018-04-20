@@ -37,7 +37,15 @@ class FormTitleStoreLookup implements EntityTitleStoreLookup {
 			throw new UnexpectedValueException( '$formId must be a FormId' );
 		}
 
-		return $this->lookup->getTitleForId( $this->getLexemeId( $formId ) );
+		$title = $this->lookup->getTitleForId( $this->getLexemeId( $formId ) );
+
+		if ( $title === null ) {
+			return null;
+		}
+
+		$title->setFragment( '#' . $formId->getSerialization() );
+
+		return $title;
 	}
 
 	/**

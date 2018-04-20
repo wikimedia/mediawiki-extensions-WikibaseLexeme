@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\Store;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use Title;
 use UnexpectedValueException;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -20,57 +21,40 @@ class FormTitleStoreLookupTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
-	/**
-	 * @var LexemeId
-	 */
-	private $lexemeId;
-
-	/**
-	 * @var FormId
-	 */
-	private $formId;
-
-	protected function setUp() {
-		parent::setUp();
-
-		$this->lexemeId = new LexemeId( 'L1' );
-		$this->formId = new FormId( 'L1-F1' );
-	}
-
 	public function testGivenLexemeId_getTitleForIdFails() {
-		$instance = new FormTitleStoreLookup( $this->newParentService() );
+		$instance = new FormTitleStoreLookup( $this->getMock( EntityTitleStoreLookup::class ) );
 
 		$this->setExpectedException( UnexpectedValueException::class );
-		$instance->getTitleForId( $this->lexemeId );
+		$instance->getTitleForId( new LexemeId( 'L1' ) );
 	}
 
 	public function testGivenFormId_getTitleForIdCallsParentServiceWithLexemeId() {
-		$expectedId = $this->lexemeId;
-		$instance = new FormTitleStoreLookup( $this->newParentService( $expectedId ) );
+		$lexemeId = new LexemeId( 'L1' );
+		$formId = new FormId( 'L1-F1' );
 
-		$result = $instance->getTitleForId( $this->formId );
-		$this->assertSame( 'fromParentService', $result );
+		$title = $this->getMock( Title::class );
+		$title->method( 'setFragment' )
+			->with( '#' . $formId->getSerialization() );
+
+		$parentLookup = $this->getMock( EntityTitleStoreLookup::class );
+		$parentLookup->method( 'getTitleForId' )
+			->with( $lexemeId )
+			->willReturn( $title );
+
+		$instance = new FormTitleStoreLookup( $parentLookup );
+
+		$result = $instance->getTitleForId( $formId );
+		$this->assertSame( $title, $result );
 	}
 
-	/**
-	 * @param LexemeId $expectedId
-	 *
-	 * @return EntityTitleStoreLookup
-	 */
-	private function newParentService( LexemeId $expectedId = null ) {
-		$parentService = $this->getMock( EntityTitleStoreLookup::class );
+	public function testGivenNoTitleForLexeme_getTitleForIdReturnsNull() {
+		$parentLookup = $this->getMock( EntityTitleStoreLookup::class );
+		$parentLookup->method( 'getTitleForId' )
+			->willReturn( null );
 
-		if ( $expectedId ) {
-			$parentService->expects( $this->once() )
-				->method( 'getTitleForId' )
-				->with( $expectedId )
-				->willReturn( 'fromParentService' );
-		} else {
-			$parentService->expects( $this->never() )
-				->method( 'getTitleForId' );
-		}
+		$lookup = new FormTitleStoreLookup( $parentLookup );
 
-		return $parentService;
+		$this->assertNull( $lookup->getTitleForId( new FormId( 'L66-F1' ) ) );
 	}
 
 }
