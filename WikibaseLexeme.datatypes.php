@@ -19,7 +19,8 @@
 
 use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\PropertyType\FormIdFormatter;
+use Wikibase\Lexeme\PropertyType\FormIdHtmlFormatter;
+use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
 use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdFormatter;
 use Wikibase\Lib\EntityIdValueFormatter;
@@ -68,7 +69,28 @@ return [
 			return [];
 		},
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
-			return new FormIdFormatter();
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$userLanguage = $wikibaseRepo->getUserLanguage();
+			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
+			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage->getCode() );
+			if (
+				$format === SnakFormatter::FORMAT_HTML ||
+				$format === SnakFormatter::FORMAT_HTML_VERBOSE
+			) {
+				$baseFormatter = new FormIdHtmlFormatter(
+					$revisionLookup,
+					$wikibaseRepo->getEntityTitleLookup(),
+					$textProvider
+				);
+			} else {
+				$baseFormatter = new FormIdTextFormatter(
+					$revisionLookup,
+					$textProvider
+				);
+			}
+			return new EntityIdValueFormatter(
+				$baseFormatter
+			);
 		},
 		'value-type' => 'wikibase-entityid',
 	],
