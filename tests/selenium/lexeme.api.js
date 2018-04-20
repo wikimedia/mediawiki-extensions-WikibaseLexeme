@@ -3,7 +3,8 @@
 const MWBot = require( 'mwbot' ),
 	bot = new MWBot( {
 		apiUrl: browser.options.baseUrl + '/api.php'
-	} );
+	} ),
+	WikibaseApi = require( './wikibase.api' );
 
 class LexemeApi {
 
@@ -36,16 +37,12 @@ class LexemeApi {
 						resolve();
 					}
 
-					bot.request( {
-						action: 'wbeditentity',
-						'new': 'item',
-						data: JSON.stringify( {} ),
-						token: bot.editToken
-					} ).then( ( payload ) => {
-						lexeme.lexicalCategory = payload.entity.id;
+					WikibaseApi.createItem()
+						.then( ( itemId ) => {
+							lexeme.lexicalCategory = itemId;
 
-						resolve();
-					}, reject );
+							resolve();
+						} );
 				} );
 			} ).then( () => {
 				return new Promise( ( resolve, reject ) => {
@@ -53,16 +50,12 @@ class LexemeApi {
 						resolve();
 					}
 
-					bot.request( {
-						action: 'wbeditentity',
-						'new': 'item',
-						data: JSON.stringify( {} ),
-						token: bot.editToken
-					} ).then( ( payload ) => {
-						lexeme.language = payload.entity.id;
+					WikibaseApi.createItem()
+						.then( ( itemId ) => {
+							lexeme.language = itemId;
 
-						resolve();
-					}, reject );
+							resolve();
+						} );
 				} );
 			} ).then( () => {
 				return new Promise( ( resolve, reject ) => {
@@ -107,6 +100,22 @@ class LexemeApi {
 			action: 'wbladdform',
 			lexemeId: lexemeId,
 			data: JSON.stringify( form ),
+			token: bot.editToken
+		} );
+	}
+
+	/**
+	 * Changes representation and grammatical features of the form
+	 *
+	 * @param {string} formId
+	 * @param {object} formData
+	 * @return {Promise}
+	 */
+	editForm( formId, formData ) {
+		return bot.request( {
+			action: 'wbleditformelements',
+			formId: formId,
+			data: JSON.stringify( formData ),
 			token: bot.editToken
 		} );
 	}

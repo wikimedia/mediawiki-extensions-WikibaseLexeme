@@ -17,7 +17,8 @@ class LexemePage extends Page {
 			REPRESENTATION_VALUE: '.wikibase-lexeme-form-header .representation-widget_representation-value',
 			REPRESENTATION_LANGUAGE: '.wikibase-lexeme-form-header .representation-widget_representation-language',
 			EDIT_INPUT_VALUE: '.representation-widget_representation-value-input',
-			EDIT_INPUT_LANGUAGE: '.representation-widget_representation-language-input'
+			EDIT_INPUT_LANGUAGE: '.representation-widget_representation-language-input',
+			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values'
 		};
 	}
 
@@ -92,7 +93,8 @@ class LexemePage extends Page {
 
 		return {
 			value: form.$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_VALUE ).getText(),
-			language: form.$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_LANGUAGE ).getText()
+			language: form.$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_LANGUAGE ).getText(),
+			grammaticalFeatures: form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ).getText()
 		};
 	}
 
