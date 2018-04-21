@@ -10,6 +10,7 @@
 	},
 	"wikibaselexeme-desc": "어휘소 개체 유형을 처리합니다",
 	"special-newlexeme": "새 어휘소 만들기",
+	"wikibaselexeme-deletedentity-form": "삭제된 양식",
 	"wikibaselexeme-newlexeme-fieldset": "새 어휘소 만들기",
 	"wikibaselexeme-newlexeme-lemma": "기본형",
 	"wikibaselexeme-newlexeme-lemma-language": "기본형의 언어",

@@ -6,6 +6,7 @@
 	},
 	"wikibaselexeme-desc": "Работа со видот единица „лексема“",
 	"special-newlexeme": "Создај нова лексема",
+	"wikibaselexeme-deletedentity-form": "Избришан образец",
 	"wikibaselexeme-newlexeme-fieldset": "Создај нова лексема",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
 	"wikibaselexeme-newlexeme-lemma-language": "Јазик на лемата",
@@ -28,6 +29,8 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Подножје",
 	"wikibase-lexeme-summary-wbeditentity-update": "Изменета лексема",
 	"datatypes-type-wikibase-lexeme": "Лексема",
+	"datatypes-type-wikibase-form": "Образец",
+	"datatypes-type-wikibase-sense": "Смисла",
 	"wikibaselexeme-add-sense": "додај смисла",
 	"wikibaselexeme-add-form": "додај образец",
 	"apihelp-wbladdform-summary": "Додава образец во лексема",
@@ -36,6 +39,8 @@
 	"apihelp-wbladdform-param-bot": "Означи го уредувањево како ботовско. Оваа адресна ознака ќе се почитува само ако корисникот членува во групата „{{int:group-bot}}“.",
 	"apihelp-wbladdform-example-1": "Стави образец во лексемата со назнака <samp>$1</samp> која ги има претставите <samp>$2</samp> со јазиците <samp>$3</samp> и граматичките функции <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Го отстранува образецот од лексемата",
+	"apihelp-wblremoveform-param-id": "Назнака на образецот, на пр. L10-F20",
+	"apihelp-wbleditformelements-param-formId": "Назнака на образецот, на пр. L10-F2",
 	"wikibaselexeme-api-error-parameter-required": "Се бара параметарот „$1“",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Се очекува параметарот „$1“ да биде важечки JSON-објект, а даден е „$2“",
 	"wikibaselexeme-api-error-lexeme-not-found": "Не пронајдов лексема со назнаката „$1“.",
@@ -58,5 +63,8 @@
 	"wikibaselexeme-diffview-form": "образец",
 	"wikibaselexeme-diffview-representation": "претставување",
 	"wikibaselexeme-diffview-grammatical-feature": "граматичка можност",
-	"content-model-wikibase-lexeme": "Викибазна лексема"
+	"content-model-wikibase-lexeme": "Викибазна лексема",
+	"wikibaselexeme-form-grammatical-features": "Граматички можности",
+	"wikibaselexeme-unknown-language": "Непознат јазик",
+	"wikibaselexeme-unknown-category": "Непознато"
 }
