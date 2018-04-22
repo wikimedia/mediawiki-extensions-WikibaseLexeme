@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Da voli"
+			"Da voli",
+			"Artsiom91"
 		]
 	},
+	"datatypes-type-wikibase-lexeme": "Лексема",
 	"wikibaselexeme-add-form": "дадайце форму"
 }

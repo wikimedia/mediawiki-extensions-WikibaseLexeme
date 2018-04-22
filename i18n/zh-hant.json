@@ -1,13 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226"
+			"Liuxinyu970226",
+			"Mutolisp"
 		]
 	},
+	"wikibaselexeme-deletedentity-form": "刪除的表格",
 	"wikibaselexeme-header-forms": "詞性",
 	"wikibaselexeme-lemma-field-language-label": "語言",
 	"wikibaselexeme-form-field-language-label": "語言",
 	"wikibaselexeme-gloss-field-language-label": "語言",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "發生錯誤: 最後一筆詞條(Lemma)無法移除。",
 	"wikibaselexeme-field-language-label": "語言",
 	"wikibaselexeme-diffview-language": "語言"
 }
