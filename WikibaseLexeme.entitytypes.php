@@ -231,7 +231,19 @@ return [
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
 
-			$idSearchHelper = new Wikibase\Repo\Api\EntityIdSearchHelper(
+			$repoSettings = $repo->getSettings();
+			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
+			if ( $searchSettings['useCirrus'] ) {
+				return new \Wikibase\Lexeme\Search\LexemeSearchEntity(
+					$repo->getEntityIdParser(),
+					$request,
+					$repo->getUserLanguage(),
+					$repo->getLanguageFallbackChainFactory(),
+					$repo->getPrefetchingTermLookup()
+				);
+			}
+
+			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
 				$repo->getEntityIdParser(),
 				new Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup(
@@ -240,25 +252,6 @@ return [
 				),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
-
-			$repoSettings = $repo->getSettings();
-			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
-			if ( $searchSettings['useCirrus'] ) {
-				return new Wikibase\Repo\Api\CombinedEntitySearchHelper(
-					[
-						$idSearchHelper,
-						new \Wikibase\Lexeme\Search\LexemeSearchEntity(
-							$repo->getEntityIdParser(),
-							$request,
-							$repo->getUserLanguage(),
-							$repo->getLanguageFallbackChainFactory(),
-							$repo->getPrefetchingTermLookup()
-						)
-					]
-				);
-			}
-
-			return $idSearchHelper;
 		},
 		'sub-entity-types' => [
 			'form'
@@ -320,25 +313,18 @@ return [
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
 
-			$idSearchHelper = new Wikibase\Repo\Api\EntityIdSearchHelper(
+			$repoSettings = $repo->getSettings();
+			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
+			if ( $searchSettings['useCirrus'] ) {
+				// TODO: add Cirrus-based search helper here once ready T191906
+			}
+
+			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
 				$repo->getEntityIdParser(),
 				new \Wikibase\Lexeme\Store\NullLabelDescriptionLookup(),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
-
-			$repoSettings = $repo->getSettings();
-			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
-			if ( $searchSettings['useCirrus'] ) {
-				return new Wikibase\Repo\Api\CombinedEntitySearchHelper(
-					[
-						$idSearchHelper,
-						// TODO: add Cirrus-based search helper here once ready T191906
-					]
-				);
-			}
-
-			return $idSearchHelper;
 		},
 	],
 ];
