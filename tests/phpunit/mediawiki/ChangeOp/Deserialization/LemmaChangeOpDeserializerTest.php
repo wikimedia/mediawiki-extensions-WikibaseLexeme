@@ -7,6 +7,7 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
@@ -30,7 +31,9 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 		$mockProvider = new ChangeOpTestMockProvider( $this );
 		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
 		return new LemmaChangeOpDeserializer(
-			new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en' ] ) ),
+			new TermSerializationValidator(
+				new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en' ] ) )
+			),
 			$validatorFactoryMockProvider->getLexemeValidatorFactory(
 				$this,
 				10,
@@ -49,13 +52,13 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testGivenTermChangeOpSerializationFormatInvalid_exceptionIsThrown() {
-		$termChangeOpSerializationValidator = $this->getMockBuilder(
-			TermChangeOpSerializationValidator::class
+		$termSerializationValidator = $this->getMockBuilder(
+			TermSerializationValidator::class
 		)
 			->disableOriginalConstructor()
 			->getMock();
-		$termChangeOpSerializationValidator->expects( $this->atLeastOnce() )
-			->method( 'validateTermSerialization' )
+		$termSerializationValidator->expects( $this->atLeastOnce() )
+			->method( 'validate' )
 			->will(
 				$this->throwException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) )
 			);
@@ -65,7 +68,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 			->getMock();
 
 		$deserializer = new LemmaChangeOpDeserializer(
-			$termChangeOpSerializationValidator,
+			$termSerializationValidator,
 			$lexemeValidatorFactory,
 			new StringNormalizer()
 		);

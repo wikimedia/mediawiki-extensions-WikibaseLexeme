@@ -24,6 +24,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\FormId;
@@ -161,7 +162,9 @@ return [
 					// TODO: WikibaseRepo should probably provide this validator?
 					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 					// that should be allowed as "languages" of lemma terms
-					new TermChangeOpSerializationValidator( $wikibaseRepo->getTermsLanguages() ),
+					new TermSerializationValidator(
+						new TermChangeOpSerializationValidator( $wikibaseRepo->getTermsLanguages() )
+					),
 					$lexemeValidatorFactory,
 					$wikibaseRepo->getStringNormalizer()
 				),

@@ -15,6 +15,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -58,7 +59,9 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 
 		return new LexemeChangeOpDeserializer(
 			new LemmaChangeOpDeserializer(
-				new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) ),
+				new TermSerializationValidator(
+					new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
+				),
 				$lexemeValidatorFactory,
 				$stringNormalizer
 			),

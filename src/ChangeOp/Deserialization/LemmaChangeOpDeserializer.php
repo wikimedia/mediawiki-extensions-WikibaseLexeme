@@ -8,7 +8,6 @@ use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\StringNormalizer;
 
 /**
@@ -21,11 +20,6 @@ use Wikibase\StringNormalizer;
 class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var TermChangeOpSerializationValidator
-	 */
-	private $termChangeOpSerializationValidator;
-
-	/**
 	 * @var LexemeValidatorFactory
 	 */
 	private $lexemeValidatorFactory;
@@ -35,12 +29,17 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $stringNormalizer;
 
+	/**
+	 * @var TermSerializationValidator
+	 */
+	private $termSerializationValidator;
+
 	public function __construct(
-		TermChangeOpSerializationValidator $termChangeOpSerializationValidator,
+		TermSerializationValidator $termChangeOpSerializationValidator,
 		LexemeValidatorFactory $lexemeValidatorFactory,
 		StringNormalizer $stringNormalizer
 	) {
-		$this->termChangeOpSerializationValidator = $termChangeOpSerializationValidator;
+		$this->termSerializationValidator = $termChangeOpSerializationValidator;
 		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
 		$this->stringNormalizer = $stringNormalizer;
 	}
@@ -60,15 +59,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 		$changeOps = new ChangeOps();
 
 		foreach ( $changeRequest['lemmas'] as $languageCode => $serialization ) {
-			// TODO: Temporary implementation of language validation. Not tested
-			// To allow language codes like 'de-x-Q123'
-			list( $languageCode ) = explode( '-x-', $languageCode );
-			if ( is_array( $serialization ) && array_key_exists( 'language', $serialization ) ) {
-				list( $language ) = explode( '-x-', $serialization['language'] );
-				$serialization['language'] = $language;
-			}
-
-			$this->termChangeOpSerializationValidator->validateTermSerialization(
+			$this->termSerializationValidator->validate(
 				$serialization,
 				$languageCode
 			);

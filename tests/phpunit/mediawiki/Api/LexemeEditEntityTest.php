@@ -178,6 +178,36 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testGivenIdOfExistingLexemeAndNewLemmaDataWithExtendedLanguageCode_lemmaIsAdded() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'lemmas' => [ 'en-x-foo' => [ 'language' => 'en-x-foo', 'value' => 'appel' ] ],
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
+
+		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
+
+		$this->assertEntityFieldsEqual(
+			[
+				'id' => self::EXISTING_LEXEME_ID,
+				'lemmas' => [
+					'en' => [ 'language' => 'en', 'value' => 'apple' ],
+					'en-x-foo' => [ 'language' => 'en-x-foo', 'value' => 'appel' ],
+				]
+			],
+			$lexemeData
+		);
+	}
+
 	public function testGivenIdOfExistingLexemeAndRemoveInLemmaData_lemmaIsRemoved() {
 		$this->saveDummyLexemeWithMultipleLemmaVariants();
 
