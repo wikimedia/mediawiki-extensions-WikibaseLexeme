@@ -255,6 +255,35 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$this->assertEquals( $lexemeRevision->getRevisionId(), $result['lastrevid'] );
 	}
 
+	public function testResponseContainsFormData() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveLexeme( $lexeme );
+
+		$params = [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam()
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertEquals(
+			[
+				'id' => 'L1-F1',
+				'representations' => [
+					'en' => [
+						'language' => 'en',
+						'value' => 'goat'
+					]
+				],
+				'grammaticalFeatures' => [ 'Q17' ],
+				'claims' => [],
+			],
+			$result['form']
+		);
+	}
+
 	private function saveLexeme( Lexeme $lexeme ) {
 		$this->entityStore->saveEntity( $lexeme, self::class, $this->getMock( \User::class ) );
 	}
