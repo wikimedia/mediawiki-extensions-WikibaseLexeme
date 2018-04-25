@@ -316,7 +316,13 @@ return [
 			$repoSettings = $repo->getSettings();
 			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
 			if ( $searchSettings['useCirrus'] ) {
-				// TODO: add Cirrus-based search helper here once ready T191906
+				return new \Wikibase\Lexeme\Search\FormSearchEntity(
+					$repo->getEntityIdParser(),
+					$request,
+					$repo->getUserLanguage(),
+					$repo->getLanguageFallbackChainFactory(),
+					$repo->getPrefetchingTermLookup()
+				);
 			}
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(

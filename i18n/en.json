@@ -83,7 +83,9 @@
 	"wikibaselexeme-lexeme-link-title": "$1: $2",
 	"wikibaselexeme-form-grammatical-features": "Grammatical features",
 	"wikibaselexeme-description": "$1 $2",
+	"wikibaselexeme-form-description": "$1 for: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Unknown language",
 	"wikibaselexeme-unknown-category": "Unknown",
+	"wikibaselexeme-no-features": "no features",
 	"wikibaselexeme-rescore-profile-prefix": "Rescore profile for prefix (completion) search"
 }

@@ -5,29 +5,13 @@ use CirrusSearch\Search\SearchContext;
 use Elastica\Result;
 use Elastica\ResultSet;
 use Language;
-use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
-use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Entity\EntityIdParser;
-use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Services\Lookup\TermLookup;
-use Wikibase\DataModel\Services\Lookup\TermLookupException;
-use Wikibase\DataModel\Services\Term\TermBuffer;
-use Wikibase\LanguageFallbackChainFactory;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Search\LexemeTermResult;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 
 /**
  * @covers \Wikibase\Lexeme\Search\LexemeTermResult
  */
 class LexemeTermResultTest extends \MediaWikiTestCase {
-
-	public function setUp() {
-		parent::setUp();
-		if ( !class_exists( 'CirrusSearch' ) ) {
-			$this->markTestSkipped( 'CirrusSearch not installed, skipping' );
-		}
-	}
+	use LexemeDescriptionTest;
 
 	private $labels = [
 		'Q1' => [
@@ -44,56 +28,6 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 			'ru' => 'превед',
 		],
 	];
-
-	private function getMockLabel( $id, $language ) {
-		if ( !isset( $this->labels[$id] ) ) {
-			throw new TermLookupException( $id, $language );
-		}
-		if ( !isset( $this->labels[$id][$language] ) ) {
-			return null;
-		}
-		return $this->labels[$id][$language];
-	}
-
-	/**
-	 * @return TermLookup
-	 */
-	private function getMockTermLookup() {
-		$lookup = $this->getMockBuilder( TermLookup::class )->disableOriginalConstructor()->getMock();
-		$lookup->method( 'getLabel' )->willReturnCallback( function ( EntityId $id, $language ) {
-			return $this->getMockLabel( $id->getSerialization(), $language );
-		} );
-		$lookup->method( 'getLabels' )->willReturnCallback( function ( EntityId $id, array $languages ) {
-			$result = [];
-			foreach ( $languages as $language ) {
-				$result[$language] = $this->getMockLabel( $id->getSerialization(), $language );
-			}
-			return $result;
-		} );
-		return $lookup;
-	}
-
-	/**
-	 * @param $lookupIds
-	 * @return TermBuffer
-	 */
-	private function getMockTermBuffer( $lookupIds, $languages ) {
-		$fetchIds = array_combine( $lookupIds, array_map( function ( $id ) {
-			return new ItemId( $id );
-		}, $lookupIds ) );
-
-		$lookup = $this->getMockBuilder( TermBuffer::class )->disableOriginalConstructor()->getMock();
-		if ( empty( $lookupIds ) ) {
-			$lookup->expects( $this->never() )
-				->method( 'prefetchTerms' );
-			return $lookup;
-		}
-		$lookup->expects( $this->once() )
-			->method( 'prefetchTerms' )
-			->with( $fetchIds, [ 'label' ], $languages )
-			->willReturn( true );
-		return $lookup;
-	}
 
 	public function termResultsProvider() {
 		return [
@@ -256,22 +190,6 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @return EntityIdParser
-	 */
-	private function getIdParser() {
-		return new DispatchingEntityIdParser(
-			[
-				LexemeId::PATTERN => function ( $s ) {
-					return new LexemeId( $s );
-				},
-				ItemId::PATTERN => function ( $s ) {
-					return new ItemId( $s );
-				},
-			]
-		);
-	}
-
-	/**
 	 * @dataProvider termResultsProvider
 	 */
 	public function testTransformResult(
@@ -280,14 +198,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 		array $resultData,
 		array $expected
 	) {
-		$langFactory = new LanguageFallbackChainFactory();
-
-		$termLookupFactory = new LanguageFallbackLabelDescriptionLookupFactory(
-			$langFactory,
-			$this->getMockTermLookup(),
-			$this->getMockTermBuffer( $fetchIds,
-				$langFactory->newFromLanguageCode( $displayLanguage )->getFetchLanguageCodes() )
-		);
+		$termLookupFactory = $this->getTermLookupFactory( $fetchIds, $displayLanguage );
 
 		$res = new LexemeTermResult(
 			$this->getIdParser(),
