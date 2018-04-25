@@ -51,6 +51,8 @@ class NewLexeme {
 	 */
 	private $forms = [];
 
+	const DEFAULT_ID = 'L1';
+
 	public static function create() {
 		return new self();
 	}
@@ -217,7 +219,7 @@ class NewLexeme {
 		$result = clone $this;
 
 		if ( $form instanceof NewForm ) {
-			$form = $form->build();
+			$form = $form->andLexeme( $this->lexemeId ?: self::DEFAULT_ID )->build();
 		}
 
 		$result->forms[] = $form;
