@@ -5,10 +5,12 @@
 			"Bengtsson96"
 		]
 	},
+	"wikibaselexeme-deletedentity-form": "Raderat formulär",
 	"wikibaselexeme-language-lexical-category-value": "$1 på $2",
 	"wikibaselexeme-lemma-field-language-label": "Språk",
 	"wikibaselexeme-form-field-language-label": "Språk",
 	"wikibaselexeme-gloss-field-language-label": "Språk",
+	"datatypes-type-wikibase-form": "Formulär",
 	"wikibaselexeme-add-form": "lägg till formulär",
 	"apihelp-wbladdform-param-bot": "Markera denna redigering som en bot. Denna webbadressflagga kommer bara att respekteras om användare tillhör gruppen \"{{int:group-bot}}\".",
 	"wikibaselexeme-api-error-parameter-required": "Parametern \"$1\" är nödvändig",
@@ -20,6 +22,7 @@
 	"wikibaselexeme-diffview-language": "språk",
 	"wikibaselexeme-diffview-form": "formulär",
 	"wikibaselexeme-form-grammatical-features": "Grammatiska funktioner",
+	"wikibaselexeme-form-description": "$1 för: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Okänt språk",
 	"wikibaselexeme-unknown-category": "Okänd"
 }

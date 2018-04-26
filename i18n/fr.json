@@ -84,7 +84,9 @@
 	"wikibaselexeme-diffview-grammatical-feature": "caractère grammatical",
 	"content-model-wikibase-lexeme": "Lexème de Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Caractéristiques grammaticales",
+	"wikibaselexeme-form-description": "$1 pour : $2 ($3) : $4",
 	"wikibaselexeme-unknown-language": "Langue inconnue",
 	"wikibaselexeme-unknown-category": "Inconnu",
+	"wikibaselexeme-no-features": "aucune fonctionnalités",
 	"wikibaselexeme-rescore-profile-prefix": "Noter de nouveau le profil pour la recherche de préfixe (complétude)"
 }

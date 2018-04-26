@@ -38,6 +38,7 @@
 	"wikibaselexeme-diffview-representation": "rappresentazione",
 	"content-model-wikibase-lexeme": "Lessema Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Caratteristiche grammaticali",
+	"wikibaselexeme-form-description": "$1 per: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Lingua sconosciuta",
 	"wikibaselexeme-unknown-category": "Sconosciuto"
 }
