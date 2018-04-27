@@ -34,6 +34,8 @@
 	"wikibaselexeme-diffview-form": "φόρμα",
 	"content-model-wikibase-lexeme": "Lexème Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Γραμματικά χαρακτηριστικά",
+	"wikibaselexeme-form-description": "$1 για: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Άγνωστη γλώσσα",
-	"wikibaselexeme-unknown-category": "Άγνωστο"
+	"wikibaselexeme-unknown-category": "Άγνωστο",
+	"wikibaselexeme-no-features": "χωρίς χαρακτηριστικά"
 }

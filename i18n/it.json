@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Beta16",
-			"Ricordisamoa"
+			"Ricordisamoa",
+			"Sarah Bernabei"
 		]
 	},
 	"wikibaselexeme-desc": "Gestisce tipi di entità lessema",
 	"special-newlexeme": "Crea un nuovo lessema",
+	"wikibaselexeme-deletedentity-form": "Modulo eliminato",
 	"wikibaselexeme-newlexeme-fieldset": "Crea un nuovo lessema",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Lingua del lemma",
@@ -22,8 +24,10 @@
 	"wikibase-lexeme-summary-wbeditentity-update": "Modificato un lessema",
 	"datatypes-type-wikibase-lexeme": "Lessema",
 	"datatypes-type-wikibase-form": "Modulo",
+	"datatypes-type-wikibase-sense": "Senso",
 	"apihelp-wblremoveform-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
 	"apihelp-wbleditformelements-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "Si è verificato un errore: l'ultimo lemma non può essere rimosso.",
 	"wikibaselexeme-api-error-parameter-required": "Il parametro \"$1\" è obbligatorio",
 	"wikibaselexeme-api-error-lexeme-not-found": "Non è stato trovato nessun lessema avente ID $1.",
 	"wikibaselexeme-api-error-json-field-required": "Il campo \"$2\" nel parametro \"$1\" è obbligatorio",
@@ -40,5 +44,7 @@
 	"wikibaselexeme-form-grammatical-features": "Caratteristiche grammaticali",
 	"wikibaselexeme-form-description": "$1 per: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Lingua sconosciuta",
-	"wikibaselexeme-unknown-category": "Sconosciuto"
+	"wikibaselexeme-unknown-category": "Sconosciuto",
+	"wikibaselexeme-no-features": "Nessuna caratteristica",
+	"wikibaselexeme-rescore-profile-prefix": "Rielabora i profili attraverso la ricerca per prefissi (completamento)"
 }
