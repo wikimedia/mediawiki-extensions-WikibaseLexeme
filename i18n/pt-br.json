@@ -80,7 +80,9 @@
 	"wikibaselexeme-diffview-grammatical-feature": "funcionalidade gramatical",
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais",
+	"wikibaselexeme-form-description": "$1 para: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Idioma desconhecido",
 	"wikibaselexeme-unknown-category": "Desconhecida",
+	"wikibaselexeme-no-features": "sem recursos",
 	"wikibaselexeme-rescore-profile-prefix": "Perfil de reavaliação para pesquisa por prefixo (pesquisa de preenchimento)"
 }
