@@ -248,6 +248,33 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
+	public function testGivenClaimWithFormValueOnProperty_setsClaim() {
+		$propertyId = 'P321';
+		$formId = 'L123-F1';
+		$this->saveLexeme(
+			NewLexeme::havingId( 'L123' )
+				->withForm( NewForm::havingId( new FormId( $formId ) )->andLexeme( 'L123' ) )
+				->build()
+		);
+		$this->entityStore->saveEntity(
+			new Property( new PropertyId( $propertyId ), null, 'wikibase-form' ),
+			self::class,
+			$this->getTestUser()->getUser()
+		);
+
+		list( $result ) = $this->doApiRequestWithToken( [
+			'action' => 'wbsetclaim',
+			'claim' => json_encode( $this->getStatementData(
+				$propertyId . '$00000000-0000-0000-0000-000000000000',
+				new PropertyId( $propertyId ),
+				[ 'id' => $formId ],
+				'wikibase-entityid'
+			) ),
+		] );
+
+		$this->assertSame( 1, $result['success'] );
+	}
+
 	private function saveTestProperty( PropertyId $propertyId ) {
 		$property = new Property( $propertyId, null, 'string' );
 		$this->entityStore->saveEntity( $property, self::class, $this->getTestUser()->getUser() );
@@ -279,7 +306,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		return $this->wikibaseRepo->getEntityLookup();
 	}
 
-	private function getStatementData( $guid, PropertyId $propertyId, $value ) {
+	private function getStatementData( $guid, PropertyId $propertyId, $value, $type = 'string' ) {
 		return [
 			'id' => $guid,
 			'type' => 'claim',
@@ -288,7 +315,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 				'property' => $propertyId->getSerialization(),
 				'datavalue' => [
 					'value' => $value,
-					'type' => 'string'
+					'type' => $type
 				]
 			]
 		];
