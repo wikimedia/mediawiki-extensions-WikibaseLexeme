@@ -24,6 +24,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  */
 class LexemeDifferTest extends TestCase {
 
+	use \PHPUnit4And6Compat;
 	use ErisTest;
 
 	public function testGivenTwoEmptyLexemes_emptyLexemeDiffIsReturned() {
