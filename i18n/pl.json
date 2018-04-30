@@ -16,5 +16,6 @@
 	"wikibase-lexeme-summary-remove-form": "Usunięty formularz $3 z {{PLURAL: $1|reprezentacja|reprezentacje}}",
 	"wikibaselexeme-field-language-label": "Język",
 	"wikibaselexeme-diffview-lexical-category": "kategoria leksykalna",
-	"wikibaselexeme-diffview-language": "język"
+	"wikibaselexeme-diffview-language": "język",
+	"wikibaselexeme-form-description": "$1 dla: $2 ($3): $4"
 }
