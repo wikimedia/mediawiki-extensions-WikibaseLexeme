@@ -110,11 +110,15 @@ class LexemeTermResult implements ResultsType {
 			'options' => [
 				'skip_if_last_matched' => true,
 			],
+			'matched_fields' => [ 'lemma.prefix' ]
 		];
 		$config['fields']["lexeme_forms.representation"] = [
 			'type' => 'experimental',
 			'fragmenter' => "none",
 			'number_of_fragments' => 0,
+			"matched_fields" => [
+				"lexeme_forms.representation.prefix",
+			],
 			'options' => [
 				'skip_if_last_matched' => true,
 			],
