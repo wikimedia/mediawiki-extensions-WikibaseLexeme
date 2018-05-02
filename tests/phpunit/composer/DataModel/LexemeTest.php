@@ -192,6 +192,21 @@ class LexemeTest extends TestCase {
 		$this->assertFalse( $lexeme->isEmpty() );
 	}
 
+	public function testIsNotEmptyWithSenses() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			null,
+			[ NewSense::havingId( 'L1-S1' )->build() ]
+		);
+
+		$this->assertFalse( $lexeme->isEmpty() );
+	}
+
 	public function testIsNotEmptyWithLemmasAndStatement() {
 		$lemmas = new TermList( [ new Term( 'zh', 'Beijing' ) ] );
 		$lexeme = new Lexeme( new LexemeId( 'l1' ), $lemmas );
