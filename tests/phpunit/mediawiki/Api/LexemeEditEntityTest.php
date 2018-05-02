@@ -10,6 +10,8 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
@@ -999,6 +1001,34 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertSame( $newLemma, $loadedEntity['lemmas']['en'] );
 		$this->assertArrayNotHasKey( 'senses', $loadedEntity );
+	}
+
+	public function testGivenClearRequest_formIdCounterIsNotReset() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'clear' => true,
+			'data' => json_encode( [
+				'lemmas' => [ self::EXISTING_LEXEME_LEMMA_LANGUAGE => [
+					'language' => self::EXISTING_LEXEME_LEMMA_LANGUAGE,
+					'value' => self::EXISTING_LEXEME_LEMMA,
+				] ],
+				'language' => self::EXISTING_LEXEME_LANGUAGE_ITEM_ID,
+				'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+
+		/** @var Lexeme $lexeme */
+		$lexeme = $this->wikibaseRepo->getStore()->getEntityLookup()
+			->getEntity( new LexemeId( self::EXISTING_LEXEME_ID ) );
+		$this->assertEmpty( $lexeme->getForms() );
+		$this->assertEquals( 3, $lexeme->getNextFormId() );
 	}
 
 	public function provideDataRequiringEditPermissions() {
