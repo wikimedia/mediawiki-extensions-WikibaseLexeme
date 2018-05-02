@@ -106,4 +106,11 @@ class FormSet implements Countable {
 		$this->forms = $clonedForms;
 	}
 
+	/**
+	 * @return bool
+	 */
+	public function isEmpty() {
+		return empty( $this->forms );
+	}
+
 }

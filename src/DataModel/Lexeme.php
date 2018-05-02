@@ -144,7 +144,8 @@ class Lexeme implements EntityDocument, StatementListProvider {
 	 */
 	public function isEmpty() {
 		return $this->lemmas->isEmpty()
-			&& $this->statements->isEmpty();
+			&& $this->statements->isEmpty()
+			&& $this->forms->isEmpty();
 	}
 
 	/**

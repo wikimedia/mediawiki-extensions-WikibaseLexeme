@@ -44,6 +44,11 @@ class FormSetTest extends TestCase {
 		$this->assertEquals( 1, ( new FormSet( [ NewForm::any()->build() ] ) )->count() );
 	}
 
+	public function testIsEmpty() {
+		$this->assertTrue( ( new FormSet() )->isEmpty() );
+		$this->assertFalse( ( new FormSet( [ NewForm::any()->build() ] ) )->isEmpty() );
+	}
+
 	public function testMaxFormIdNumber_EmptySet_ReturnsZero() {
 		$this->assertEquals( 0, ( new FormSet() )->maxFormIdNumber() );
 	}
