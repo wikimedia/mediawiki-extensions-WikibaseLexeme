@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\DataModel;
 use InvalidArgumentException;
 use OutOfRangeException;
 use UnexpectedValueException;
+use Wikibase\DataModel\Entity\ClearableEntity;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
@@ -20,7 +21,7 @@ use Wikibase\DataModel\Term\TermList;
  *
  * @license GPL-2.0-or-later
  */
-class Lexeme implements EntityDocument, StatementListProvider {
+class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	const ENTITY_TYPE = 'lexeme';
 
@@ -396,6 +397,19 @@ class Lexeme implements EntityDocument, StatementListProvider {
 				)
 			);
 		}
+	}
+
+	/**
+	 * Clears lemmas, language, lexical category, statements, forms, and senses of the lexeme.
+	 * Note that this leaves the lexeme in an insufficiently initialized state.
+	 */
+	public function clear() {
+		$this->lemmas = new TermList();
+		$this->statements = new StatementList();
+		$this->forms = new FormSet( [] );
+		$this->senses = [];
+		$this->language = null;
+		$this->lexicalCategory = null;
 	}
 
 }

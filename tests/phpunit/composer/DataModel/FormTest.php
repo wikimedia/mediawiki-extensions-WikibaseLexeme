@@ -211,4 +211,37 @@ class FormTest extends TestCase {
 		return new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) );
 	}
 
+	/**
+	 * @dataProvider clearableProvider
+	 */
+	public function testClear( Form $form ) {
+		$clone = $form->copy();
+
+		$form->clear();
+
+		$this->assertTrue( $form->isEmpty(), 'form should be empty after clear' );
+		$this->assertEquals( $clone->getId(), $form->getId(), 'ids must be equal' );
+	}
+
+	public function clearableProvider() {
+		return [
+			'empty' => [ NewForm::havingId( 'F1' )->build() ],
+			'with representation' => [
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'foo' )
+					->build(),
+			],
+			'with grammatical feature' => [
+				NewForm::havingId( 'F3' )
+					->andGrammaticalFeature( 'Q123' )
+					->build(),
+			],
+			'with statement' => [
+				NewForm::havingId( 'F4' )
+					->andStatement( new PropertyNoValueSnak( 42 ) )
+					->build(),
+			],
+		];
+	}
+
 }

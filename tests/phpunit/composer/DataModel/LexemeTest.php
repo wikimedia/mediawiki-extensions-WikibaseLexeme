@@ -780,4 +780,72 @@ class LexemeTest extends TestCase {
 		$this->assertTrue( $lexeme->isSufficientlyInitialized() );
 	}
 
+	public function testClearDoesNotResetFormIdCounter() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$lexeme->addForm( new TermList( [ new Term( 'en', 'foo' ) ] ), [] );
+
+		$lexeme->clear();
+
+		$this->assertTrue( $lexeme->isEmpty() );
+		$this->assertSame( 2, $lexeme->getNextFormId() );
+	}
+
+	public function testClear_clearsLanguage() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$lexeme->clear();
+
+		$this->assertTrue( $lexeme->isEmpty() );
+		$this->setExpectedException( UnexpectedValueException::class );
+		$lexeme->getLanguage();
+	}
+
+	public function testClear_clearsLexicalCategory() {
+		$lexeme = NewLexeme::havingId( 'L2' )->build();
+		$lexeme->clear();
+
+		$this->assertTrue( $lexeme->isEmpty() );
+		$this->setExpectedException( UnexpectedValueException::class );
+		$lexeme->getLexicalCategory();
+	}
+
+	/**
+	 * @dataProvider clearableProvider
+	 */
+	public function testClear( Lexeme $lexeme ) {
+		$clone = $lexeme->copy();
+
+		$lexeme->clear();
+
+		$this->assertEquals( $clone->getId(), $lexeme->getId(), 'ids must be equal' );
+		$this->assertTrue( $lexeme->isEmpty(), 'lexeme must be empty after clear' );
+	}
+
+	public function clearableProvider() {
+		return [
+			'empty' => [
+				NewLexeme::havingId( 'L1' )->build(),
+			],
+			'with lemmas' => [
+				NewLexeme::havingId( 'L2' )
+					->withLemma( 'en', 'foo' )
+					->build(),
+			],
+			'with statements' => [
+				NewLexeme::havingId( 'L3' )
+					->withStatement( new PropertyNoValueSnak( 42 ) )
+					->build(),
+			],
+			'with forms' => [
+				NewLexeme::havingId( 'L4' )
+					->withForm( NewForm::any() )
+					->build(),
+			],
+			'with senses' => [
+				NewLexeme::havingId( 'L5' )
+					->withSense( NewSense::havingId( 'S1' ) )
+					->build(),
+			],
+		];
+	}
+
 }
