@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use User;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
@@ -112,7 +111,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			$this->getDummyLexeme(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 	}
 

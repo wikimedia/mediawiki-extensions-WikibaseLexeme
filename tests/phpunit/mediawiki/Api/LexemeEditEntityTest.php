@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
 use Exception;
-use User;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Term\Term;
@@ -114,7 +113,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			$this->getDummyLexeme(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 	}
 
@@ -247,7 +246,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			$lexeme,
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 	}
 
@@ -371,7 +370,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->saveDummyLexemeToDatabase();
 
 		$property = new Property( new PropertyId( 'P909' ), null, 'test' );
-		$this->entityStore->saveEntity( $property, self::class, $this->getMock( User::class ) );
+		$this->entityStore->saveEntity(
+			$property,
+			self::class,
+			$this->getTestUser()->getUser()
+		);
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -862,7 +865,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$secondLexemeId, self::EXISTING_LEXEME_FORM_1_ID
 		) ) );
 
-		$this->entityStore->saveEntity( $secondLexeme, self::class, $this->getMock( User::class ) );
+		$this->entityStore->saveEntity(
+			$secondLexeme,
+			self::class,
+			$this->getTestUser()->getUser()
+		);
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -946,7 +953,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( $id )->build(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 		$entityBeforeRequest = $this->loadEntity( $id );
 
@@ -971,7 +978,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( $id )->withLemma( 'en', 'kartoffel' )->build(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 		$newLemma = [ 'language' => 'en', 'value' => 'potato' ];
 

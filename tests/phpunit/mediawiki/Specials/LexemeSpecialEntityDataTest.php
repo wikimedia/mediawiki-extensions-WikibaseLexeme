@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 use FauxRequest;
 use FauxResponse;
 use SpecialPage;
-use User;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Specials\SpecialEntityData;
@@ -44,7 +43,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )->build(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 	}
 

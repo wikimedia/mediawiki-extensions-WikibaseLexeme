@@ -384,7 +384,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 
-		$store->saveEntity( $lexeme, self::class, $this->getMock( \User::class ) );
+		$store->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	private function newDiffVisualizer() {

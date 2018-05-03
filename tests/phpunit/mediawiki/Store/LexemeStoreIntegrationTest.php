@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\Store;
 
-use User;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -45,7 +44,11 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 				NewForm::havingId( self::FORM_ID )->build()
 			)->build();
 
-		$store->saveEntity( $lexeme, self::class, $this->getMock( User::class ) );
+		$store->saveEntity(
+			$lexeme,
+			self::class,
+			$this->getTestUser()->getUser()
+		);
 	}
 
 	private function saveLexemeWithoutForm() {
@@ -53,7 +56,11 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
 		$lexeme = NewLexeme::havingId( self::LEXEME_ID )->build();
 
-		$store->saveEntity( $lexeme, self::class, $this->getMock( User::class ) );
+		$store->saveEntity(
+			$lexeme,
+			self::class,
+			$this->getTestUser()->getUser()
+		);
 	}
 
 }

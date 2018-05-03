@@ -207,7 +207,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getMock( \User::class ) );
+		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	/**

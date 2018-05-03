@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -39,7 +38,7 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )->withForm( NewForm::any() )->build(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 
 		$lexemeData = $this->loadEntity( self::LEXEME_ID );
@@ -53,7 +52,7 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )->build(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 
 		$lexemeData = $this->loadEntity( self::LEXEME_ID );
@@ -67,7 +66,7 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )->build(),
 			self::class,
-			$this->getMock( User::class )
+			$this->getTestUser()->getUser()
 		);
 
 		$lexemeData = $this->loadEntity( self::LEXEME_ID );
@@ -85,7 +84,11 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 			new ItemId( 'Q808' )
 		);
 
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getMock( User::class ) );
+		$this->entityStore->saveEntity(
+			$lexeme,
+			self::class,
+			$this->getTestUser()->getUser()
+		);
 	}
 
 }
