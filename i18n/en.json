@@ -59,7 +59,6 @@
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Representation language cannot be empty",
 	"wikibaselexeme-api-error-representation-language-inconsistent": "Representation language was expected to be \"$1\". Given: \"$2\"",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Form must have at least one representation",
-	"wikibaselexeme-api-error-representations-language-not-unique": "Representations must have unique language. Language \"$1\" is reused",
 	"wikibase-lexeme-summary-add-form": "Added new Form $3 with {{PLURAL:$1|representation|representations}}",
 	"wikibase-lexeme-summary-remove-form": "Removed Form $3 with {{PLURAL:$1|representation|representations}}",
 	"wikibase-lexeme-summary-add-form-representations": "Added {{PLURAL:$1|representation|representations}} of Form $3",

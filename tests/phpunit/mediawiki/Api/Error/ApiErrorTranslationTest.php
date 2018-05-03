@@ -13,7 +13,6 @@ use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
@@ -27,7 +26,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
  * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId
  * @covers \Wikibase\Lexeme\Api\Error\ParameterIsRequired
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty
- * @covers \Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage
  * @covers \Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty
  *
  * @license GPL-2.0-or-later
@@ -83,14 +81,6 @@ class ApiErrorTranslationTest extends TestCase {
 			FormMustHaveAtLeastOneRepresentation::class => [
 				new FormMustHaveAtLeastOneRepresentation( 'param-1', [ 'a', 1, 'b' ] ),
 				[]
-			],
-			RepresentationsMustHaveUniqueLanguage::class => [
-				new RepresentationsMustHaveUniqueLanguage(
-					'param-1',
-					[ 'representations', 1 ],
-					'dummy-language'
-				),
-				[ 'dummy-language' ]
 			],
 			LexemeNotFound::class => [
 				new LexemeNotFound( new LexemeId( 'L1' ) ),

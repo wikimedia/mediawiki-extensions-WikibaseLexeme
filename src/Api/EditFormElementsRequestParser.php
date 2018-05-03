@@ -18,7 +18,6 @@ use Wikibase\Lexeme\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\Api\Error\ParameterIsRequired;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
 use Wikibase\Lexeme\Api\Error\RepresentationLanguageInconsistent;
-use Wikibase\Lexeme\Api\Error\RepresentationsMustHaveUniqueLanguage;
 use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
 use Wikibase\Lexeme\DataModel\FormId;
 
@@ -143,14 +142,6 @@ class EditFormElementsRequestParser {
 
 			if ( $incomplete ) {
 				continue;
-			}
-
-			if ( isset( $result[$el['language']] ) ) {
-				$errors[] = new RepresentationsMustHaveUniqueLanguage(
-					self::PARAM_DATA,
-					[ 'representations', $index, 'language' ],
-					$el['language']
-				);
 			}
 
 			$result[$el['language']] = $el['value'];
