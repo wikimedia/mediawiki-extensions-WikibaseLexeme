@@ -47,6 +47,7 @@
 	"apihelp-wbleditformelements-param-data": "Претстава и податоци за граматички особености во JSON",
 	"apihelp-wbleditformelements-param-bot": "Означи го уредувањево како ботовско. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
 	"apihelp-wbleditformelements-example-1": "Уредува образец во лексемата со назнака <samp>$1</samp> да ги има претставите <samp>$2</samp> со јазиците <samp>$3</samp> и граматичките особености <samp>$4</samp>",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "Се појави грешка: Не можам да ја отстранам последната лема.",
 	"wikibaselexeme-api-error-parameter-required": "Се бара параметарот „$1“",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Се очекува параметарот „$1“ да биде важечки JSON-објект, а даден е „$2“",
 	"wikibaselexeme-api-error-lexeme-not-found": "Не пронајдов лексема со назнаката „$1“.",
@@ -79,6 +80,9 @@
 	"wikibaselexeme-diffview-grammatical-feature": "граматичка можност",
 	"content-model-wikibase-lexeme": "Викибазна лексема",
 	"wikibaselexeme-form-grammatical-features": "Граматички можности",
+	"wikibaselexeme-form-description": "$1 за: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Непознат јазик",
-	"wikibaselexeme-unknown-category": "Непознато"
+	"wikibaselexeme-unknown-category": "Непознато",
+	"wikibaselexeme-no-features": "нема функции",
+	"wikibaselexeme-rescore-profile-prefix": "Профил за пребарување со претставката (довршување)"
 }
