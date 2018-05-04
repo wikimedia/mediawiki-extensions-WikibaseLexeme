@@ -20,7 +20,7 @@
 		"wikibase/data-model-serialization": "~2.0",
 		"wikibase/data-model-services": "~3.6",
 		"wikimedia/assert": "~0.2.2",
-		"wmde/php-vuejs-templating": "dev-master",
+		"wmde/php-vuejs-templating": "~1.0",
 		"symfony/validator": "^3.0"
 	},
 	"require-dev": {
