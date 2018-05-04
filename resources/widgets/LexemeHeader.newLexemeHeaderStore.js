@@ -13,12 +13,12 @@ module.exports = ( function () {
 			}
 		} );
 
-		var requestLemmas = [];
+		var requestLemmas = {};
 		currentLemmas.forEach( function ( lemma ) {
-			requestLemmas.push( lemma.copy() );
+			requestLemmas[ lemma.language ] = lemma.copy();
 		} );
 		removedLemmas.forEach( function ( lemma ) {
-			requestLemmas.push( { language: lemma.language, remove: '' } );
+			requestLemmas[ lemma.language ] = { language: lemma.language, remove: '' };
 		} );
 
 		return requestLemmas;
@@ -96,10 +96,8 @@ module.exports = ( function () {
 					}
 					context.commit( 'startSaving' );
 
-					var requestLemmas = getRequestLemmas( context.state.lemmas, lexeme.lemmas );
-
 					var data = {
-							lemmas: requestLemmas,
+							lemmas: getRequestLemmas( context.state.lemmas, lexeme.lemmas ),
 							language: lexeme.language,
 							lexicalCategory: lexeme.lexicalCategory
 						},

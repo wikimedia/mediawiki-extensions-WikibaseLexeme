@@ -207,7 +207,17 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 				expect( 'Link for Q234', 'to equal', state.lexicalCategoryLink );
 				expect( state.isSaving, 'not to be ok' );
 
-				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, lexemeToSave, false );
+				sinon.assert.calledWith(
+					repoApi.editEntity,
+					entityId,
+					baseRevisionId,
+					{
+						lemmas: { en: lexemeToSave.lemmas[ 0 ] },
+						language: lexemeToSave.language,
+						lexicalCategory: lexemeToSave.lexicalCategory
+					},
+					false
+				);
 				expect(
 					repoApi.formatValue.withArgs(
 						{ type: 'wikibase-entityid', value: { id: 'Q123' } },
@@ -268,7 +278,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 				lexicalCategory: 'Q234'
 			};
 			var lexemeInApiRequest = {
-				lemmas: [ { language: 'en', remove: '' } ],
+				lemmas: { en: { language: 'en', remove: '' } },
 				language: 'Q123',
 				lexicalCategory: 'Q234'
 			};
