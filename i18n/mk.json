@@ -61,7 +61,6 @@
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Јазикот на претставата не смее да стои празен",
 	"wikibaselexeme-api-error-representation-language-inconsistent": "Се очекуваше јазикот на претставата да биде „$1“. Укажано: „$2“",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Образецот мора да има барем една претстава",
-	"wikibaselexeme-api-error-representations-language-not-unique": "Претставите мора да имаат единствен јазик. Јазикот „$1“ е преупотребен",
 	"wikibase-lexeme-summary-add-form": "Ставен нов образец $3 со {{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-remove-form": "Отстранет образецот $3 со \n{{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Додадено претставување|Додадени претставувања}} од образецот $3",

@@ -61,7 +61,6 @@
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "A linguagem de representação não pode estar vazia",
 	"wikibaselexeme-api-error-representation-language-inconsistent": "Era esperado que a língua de representação fosse \"$1\". Foi fornecido: \"$2\"",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "O formulário deve ter pelo menos uma representação",
-	"wikibaselexeme-api-error-representations-language-not-unique": "As representações têm de ter uma língua única. A língua \"$1\" está a ser reutilizada",
 	"wikibase-lexeme-summary-add-form": "Foi adicionada a nova forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-remove-form": "Removeu a forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-add-form-representations": "Adicionou {{PLURAL:$1|representação|representações}} do formulário $3",

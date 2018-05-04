@@ -59,7 +59,6 @@
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Die Darstellungssprache kann nicht leer sein",
 	"wikibaselexeme-api-error-representation-language-inconsistent": "Es wird erwartet, dass die Darstellungssprache „$1“ ist. Angegeben: „$2“",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Das Formular muss mindestens eine Darstellung haben",
-	"wikibaselexeme-api-error-representations-language-not-unique": "Darstellungen müssen eine einzigartige Sprache haben. Die Sprache „$1“ wurde erneut verwendet.",
 	"wikibase-lexeme-summary-add-form": "Neues Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt",
 	"wikibase-lexeme-summary-remove-form": "Formular $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} entfernt",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Darstellung|Darstellungen}} des Formulars $3 hinzugefügt",

@@ -44,7 +44,6 @@
 	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "Текст репрезентації не може бути порожнім",
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Мова репрезентації не може бути порожньою",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Форма повинна мати принаймні одну репрезентацію",
-	"wikibaselexeme-api-error-representations-language-not-unique": "Репрезентації повинні мати унікальну мову. Мова «$1» використовується повторно",
 	"wikibase-lexeme-summary-add-form": "Додано нову форму $3 з {{PLURAL:$1|репрезентацією|репрезентаціями}}",
 	"wikibaselexeme-field-language-label": "Мова",
 	"wikibaselexeme-field-lexical-category-label": "Лексична категорія"

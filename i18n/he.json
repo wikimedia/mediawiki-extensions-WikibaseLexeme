@@ -60,7 +60,6 @@
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "שפת הייצוג לא יכולה להיות ריקה",
 	"wikibaselexeme-api-error-representation-language-inconsistent": "שפת הייצוג הייתה אמורה להיות \"$1\". השפה שניתנה במקום זאת היא: \"$2\"",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "לצורה צריך להיות לפחות ייצוג אחד",
-	"wikibaselexeme-api-error-representations-language-not-unique": "לייצוגים צריכה להיות שפה ייחודית. בשפה \"$1\" נעשה שימוש יותר מפעם אחת",
 	"wikibase-lexeme-summary-add-form": "נוספה הצורה החדשה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
 	"wikibase-lexeme-summary-remove-form": "הוסרה הצורה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|נוסף ייצוג|נוספו ייצוגים}} של הצורה $3",

@@ -44,7 +44,6 @@
 	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "Representasjonstekst kan ikke være tom",
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Representasjonsspråk kan ikke være tomt",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Formen må ha minst én representasjon",
-	"wikibaselexeme-api-error-representations-language-not-unique": "Representasjoner må ha et unikt språk. Språket «$1» er gjenbrukt",
 	"wikibase-lexeme-summary-add-form": "La til ny form $3 med {{PLURAL:$1|representasjon|representasjoner}}",
 	"wikibaselexeme-field-language-label": "Språk",
 	"wikibaselexeme-field-lexical-category-label": "Leksikalsk kategori",

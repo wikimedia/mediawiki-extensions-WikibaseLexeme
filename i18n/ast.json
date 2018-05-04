@@ -56,7 +56,6 @@
 	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "El testu representativu nun puede tar vacíu",
 	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "La llingua de representación nun puede tar vacia",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "La Forma tien de tener polo menos una representación",
-	"wikibaselexeme-api-error-representations-language-not-unique": "Les representaciones tienen de tener una llingua única. La llingua «$1» reutilizóse",
 	"wikibase-lexeme-summary-add-form": "Añadióse la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-summary-remove-form": "Desanicióse la Forma $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Amestóse representación|Amestáronse representaciones}} de la Forma $3",
