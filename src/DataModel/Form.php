@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\DataModel;
 
 use InvalidArgumentException;
 use LogicException;
+use Wikibase\DataModel\Entity\ClearableEntity;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
@@ -19,7 +20,7 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class Form implements EntityDocument, StatementListProvider {
+class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	const ENTITY_TYPE = 'form';
 
@@ -181,6 +182,16 @@ class Form implements EntityDocument, StatementListProvider {
 	public function __clone() {
 		$this->representations = clone $this->representations;
 		$this->statementList = clone $this->statementList;
+	}
+
+	/**
+	 * Clears the representations, grammatical features and statements of a form.
+	 * Note that this leaves the form in an insufficiently initialized state.
+	 */
+	public function clear() {
+		$this->representations = new TermList();
+		$this->grammaticalFeatures = [];
+		$this->statementList = new StatementList();
 	}
 
 }
