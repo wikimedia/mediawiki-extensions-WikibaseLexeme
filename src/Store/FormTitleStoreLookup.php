@@ -6,8 +6,8 @@ use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
@@ -33,11 +33,9 @@ class FormTitleStoreLookup implements EntityTitleStoreLookup {
 	 * @return Title|null
 	 */
 	public function getTitleForId( EntityId $formId ) {
-		if ( !( $formId instanceof FormId ) ) {
-			throw new UnexpectedValueException( '$formId must be a FormId' );
-		}
+		Assert::parameterType( FormId::class, $formId, '$formId' );
 
-		$title = $this->lookup->getTitleForId( $this->getLexemeId( $formId ) );
+		$title = $this->lookup->getTitleForId( $formId->getLexemeId() );
 
 		if ( $title === null ) {
 			return null;
@@ -46,19 +44,6 @@ class FormTitleStoreLookup implements EntityTitleStoreLookup {
 		$title->setFragment( '#' . $formId->getSerialization() );
 
 		return $title;
-	}
-
-	/**
-	 * TODO: Move to the Form class.
-	 *
-	 * @param FormId $formId
-	 *
-	 * @return LexemeId
-	 */
-	private function getLexemeId( FormId $formId ) {
-		$parts = EntityId::splitSerialization( $formId->getLocalPart() );
-		$parts = explode( '-', $parts[2], 2 );
-		return new LexemeId( $parts[0] );
 	}
 
 }

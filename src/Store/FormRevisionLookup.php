@@ -7,11 +7,11 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
@@ -46,8 +46,9 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		$revisionId = 0,
 		$mode = self::LATEST_FROM_REPLICA
 	) {
-		$lexemeId = $this->getLexemeId( $formId );
-		$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
+		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		$revision = $this->lookup->getEntityRevision( $formId->getLexemeId(), $revisionId, $mode );
 		if ( $revision === null ) {
 			return null;
 		}
@@ -75,7 +76,9 @@ class FormRevisionLookup implements EntityRevisionLookup {
 	 * @return int|false
 	 */
 	public function getLatestRevisionId( EntityId $formId, $mode = self::LATEST_FROM_REPLICA ) {
-		$lexemeId = $this->getLexemeId( $formId );
+		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		$lexemeId = $formId->getLexemeId();
 		$revisionId = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
 		if ( $revisionId === false ) {
@@ -93,23 +96,6 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		}
 
 		return $revisionId;
-	}
-
-	/**
-	 * TODO: Move to the Form class.
-	 *
-	 * @param FormId $formId
-	 *
-	 * @return LexemeId
-	 */
-	private function getLexemeId( EntityId $formId ) {
-		if ( !( $formId instanceof FormId ) ) {
-			throw new UnexpectedValueException( '$formId must be a FormId' );
-		}
-
-		$parts = EntityId::splitSerialization( $formId->getLocalPart() );
-		$parts = explode( '-', $parts[2], 2 );
-		return new LexemeId( $parts[0] );
 	}
 
 }

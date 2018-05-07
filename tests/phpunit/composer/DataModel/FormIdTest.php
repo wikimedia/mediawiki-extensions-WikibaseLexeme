@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\FormId
@@ -58,6 +59,25 @@ class FormIdTest extends TestCase {
 	public function testPhpSerializationRoundtrip() {
 		$id = new FormId( 'repo:L1-F1' );
 		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
+	}
+
+	/**
+	 * @dataProvider provideLexemeIdMatchingFormId
+	 */
+	public function testGetLexemeId_yieldsIdMatchingLocalPart( $expectedLexemeId, $givenFormId ) {
+		$id = new FormId( $givenFormId );
+		$lexemeId = $id->getLexemeId();
+
+		$this->assertInstanceOf( LexemeId::class, $lexemeId );
+		$this->assertSame(
+			( new LexemeId( $expectedLexemeId ) )->serialize(),
+			$lexemeId->serialize()
+		);
+	}
+
+	public function provideLexemeIdMatchingFormId() {
+		yield [ 'L1', 'repo:L1-F1' ];
+		yield [ 'L777', ':L777-F123' ];
 	}
 
 }

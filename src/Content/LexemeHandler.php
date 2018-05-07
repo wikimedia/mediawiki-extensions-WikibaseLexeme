@@ -5,9 +5,9 @@ namespace Wikibase\Lexeme\Content;
 use Article;
 use IContextSource;
 use Page;
+use UnexpectedValueException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\Content\EntityInstanceHolder;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\EditEntityAction;
@@ -132,16 +132,14 @@ class LexemeHandler extends EntityHandler {
 	 */
 	protected function newEntityContent( EntityHolder $entityHolder = null ) {
 		if ( $entityHolder !== null && $entityHolder->getEntityType() === Form::ENTITY_TYPE ) {
-			$lexemeId = $this->getLexemeId( $entityHolder->getEntityId() );
+			$formId = $entityHolder->getEntityId();
+			if ( !( $formId instanceof FormId ) ) {
+				throw new UnexpectedValueException( '$formId must be a FormId' );
+			}
+			$lexemeId = $formId->getLexemeId();
 			$entityHolder = new EntityInstanceHolder( $this->entityLookup->getEntity( $lexemeId ) );
 		}
 		return new LexemeContent( $entityHolder );
-	}
-
-	private function getLexemeId( FormId $formId ) {
-		$parts = EntityId::splitSerialization( $formId->getLocalPart() );
-		$parts = explode( '-', $parts[2], 2 );
-		return new LexemeId( $parts[0] );
 	}
 
 	/**

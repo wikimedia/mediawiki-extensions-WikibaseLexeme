@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\Store;
 
 use PHPUnit\Framework\TestCase;
-use UnexpectedValueException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\FormId;
@@ -12,6 +11,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Store\FormRevisionLookup;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\Store\FormRevisionLookup
@@ -44,7 +44,7 @@ class FormRevisionLookupTest extends TestCase {
 		$parentService = $this->getMock( EntityRevisionLookup::class );
 		$instance = new FormRevisionLookup( $parentService );
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->getEntityRevision( $this->lexemeId );
 	}
 
@@ -69,7 +69,7 @@ class FormRevisionLookupTest extends TestCase {
 		$parentService = $this->getMock( EntityRevisionLookup::class );
 		$instance = new FormRevisionLookup( $parentService );
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->setExpectedException( ParameterTypeException::class );
 		$instance->getLatestRevisionId( $this->lexemeId );
 	}
 

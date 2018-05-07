@@ -12,11 +12,11 @@ use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\StorageException;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
@@ -71,6 +71,7 @@ class FormStore implements EntityStore {
 		$flags = 0,
 		$baseRevId = false
 	) {
+		Assert::parameterType( Form::class, $form, '$form' );
 
 		// EntityRevisionLookup and EntityStore have different opinions on valid revId fallbacks
 		$getLexemeRevId = 0;
@@ -123,6 +124,7 @@ class FormStore implements EntityStore {
 	 * @throws PermissionsError
 	 */
 	public function deleteEntity( EntityId $formId, $reason, User $user ) {
+		Assert::parameterType( FormId::class, $formId, '$formId' );
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->getLexemeRevision( $formId )->getEntity();
 		$lexeme->removeForm( $formId );
@@ -140,7 +142,9 @@ class FormStore implements EntityStore {
 	 * @return bool
 	 */
 	public function userWasLastToEdit( User $user, EntityId $formId, $lastRevId ) {
-		return $this->store->userWasLastToEdit( $user, $this->getLexemeId( $formId ), $lastRevId );
+		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		return $this->store->userWasLastToEdit( $user, $formId->getLexemeId(), $lastRevId );
 	}
 
 	/**
@@ -154,7 +158,9 @@ class FormStore implements EntityStore {
 	 * @throws MWException
 	 */
 	public function updateWatchlist( User $user, EntityId $formId, $watch ) {
-		$this->store->updateWatchlist( $user, $this->getLexemeId( $formId ), $watch );
+		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		$this->store->updateWatchlist( $user, $formId->getLexemeId(), $watch );
 	}
 
 	/**
@@ -167,7 +173,9 @@ class FormStore implements EntityStore {
 	 * @return bool
 	 */
 	public function isWatching( User $user, EntityId $formId ) {
-		return $this->store->isWatching( $user, $this->getLexemeId( $formId ) );
+		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		return $this->store->isWatching( $user, $formId->getLexemeId() );
 	}
 
 	/**
@@ -182,30 +190,13 @@ class FormStore implements EntityStore {
 	}
 
 	/**
-	 * TODO: Move to the Form class.
-	 *
-	 * @param FormId $formId
-	 *
-	 * @return LexemeId
-	 */
-	private function getLexemeId( EntityId $formId ) {
-		if ( !( $formId instanceof FormId ) ) {
-			throw new UnexpectedValueException( '$formId must be a FormId' );
-		}
-
-		$parts = EntityId::splitSerialization( $formId->getLocalPart() );
-		$parts = explode( '-', $parts[2], 2 );
-		return new LexemeId( $parts[0] );
-	}
-
-	/**
 	 * @param FormId $formId
 	 * @param int $revisionId
 	 *
 	 * @throws StorageException
 	 * @return EntityRevision guaranteed to contain a Lexeme
 	 */
-	private function getLexemeRevision( EntityId $formId, $revisionId = 0 ) {
+	private function getLexemeRevision( FormId $formId, $revisionId = 0 ) {
 
 		if ( !is_int( $revisionId ) ) {
 			throw new UnexpectedValueException(
@@ -214,7 +205,7 @@ class FormStore implements EntityStore {
 		}
 
 		$revision = $this->lookup->getEntityRevision(
-			$this->getLexemeId( $formId ),
+			$formId->getLexemeId(),
 			$revisionId,
 			EntityRevisionLookup::LATEST_FROM_MASTER
 		);
