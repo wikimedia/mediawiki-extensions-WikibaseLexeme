@@ -10,7 +10,6 @@ use User;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Store\FormStore;
@@ -68,13 +67,6 @@ class FormStoreTest extends TestCase {
 
 	public function testGivenFormId_saveEntityEditsFormOnLexeme() {
 		$lexeme = $this->newLexeme();
-		// FIXME: This will change the position of the Form in the set, but shouldn't.
-		$lexeme->expects( $this->once() )
-			->method( 'removeForm' )
-			->with( $this->formId );
-		$lexeme->expects( $this->once() )
-			->method( 'getForms' )
-			->willReturn( new FormSet() );
 
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $this->once() )

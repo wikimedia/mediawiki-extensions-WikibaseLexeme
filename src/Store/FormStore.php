@@ -84,9 +84,7 @@ class FormStore implements EntityStore {
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
 
-		// FIXME: This will change the position of the Form in the set, but shouldn't.
-		$lexeme->removeForm( $formId );
-		$lexeme->getForms()->add( $form );
+		$lexeme->addOrUpdateForm( $form );
 
 		return $this->store->saveEntity( $lexeme, $summary, $user, $flags, $baseRevId );
 	}
