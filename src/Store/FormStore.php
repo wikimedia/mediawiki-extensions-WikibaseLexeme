@@ -60,7 +60,6 @@ class FormStore implements EntityStore {
 	 * @param int $flags
 	 * @param int|bool $baseRevId
 	 *
-	 * @throws UnexpectedValueException
 	 * @throws StorageException
 	 * @throws PermissionsError
 	 * @return EntityRevision
@@ -120,7 +119,8 @@ class FormStore implements EntityStore {
 	 * @param string $reason
 	 * @param User $user
 	 *
-	 * @throws UnexpectedValueException
+	 * @throws StorageException
+	 * @throws PermissionsError
 	 */
 	public function deleteEntity( EntityId $formId, $reason, User $user ) {
 		/** @var Lexeme $lexeme */
