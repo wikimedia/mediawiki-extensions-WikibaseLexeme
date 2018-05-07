@@ -35,7 +35,6 @@ class FormSet implements Countable {
 	 */
 	public function toArray() {
 		$forms = $this->forms;
-		// FIXME: Why is this specific order enforced at this point?
 		ksort( $forms );
 		return array_values( $forms );
 	}
@@ -75,6 +74,16 @@ class FormSet implements Countable {
 
 	public function remove( FormId $formId ) {
 		unset( $this->forms[$formId->getSerialization()] );
+	}
+
+	/**
+	 * Replace the form identified by $form->getId() with the given one or add it
+	 *
+	 * @param Form $form
+	 */
+	public function put( Form $form ) {
+		$this->remove( $form->getId() );
+		$this->add( $form );
 	}
 
 	/**

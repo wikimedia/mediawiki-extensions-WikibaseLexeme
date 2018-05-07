@@ -574,6 +574,17 @@ class LexemeTest extends TestCase {
 		$this->assertEquals( [], $lexeme->getForms()->toArray() );
 	}
 
+	public function testAddOrUpdateForm_updatedFormReference() {
+		$lexeme = NewLexeme::havingId( new LexemeId( 'L7' ) )
+			->withForm( NewForm::havingId( 'F1' ) )
+			->build();
+
+		$newForm = NewForm::havingId( 'F1' )->andLexeme( 'L7' )->build();
+		$lexeme->addOrUpdateForm( $newForm );
+
+		$this->assertSame( [ $newForm ], $lexeme->getForms()->toArray() );
+	}
+
 	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 

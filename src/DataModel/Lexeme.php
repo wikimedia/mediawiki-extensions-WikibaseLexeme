@@ -334,6 +334,15 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
+	 * Replace the form identified by $form->getId() with the given one or add it
+	 *
+	 * @param Form $form
+	 */
+	public function addOrUpdateForm( Form $form ) {
+		$this->forms->put( $form );
+	}
+
+	/**
 	 * @param int $number
 	 */
 	private function increaseNextFormIdTo( $number ) {

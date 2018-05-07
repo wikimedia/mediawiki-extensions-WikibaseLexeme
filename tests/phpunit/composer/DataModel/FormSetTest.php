@@ -95,6 +95,15 @@ class FormSetTest extends TestCase {
 		$this->assertEmpty( $formSet->toArray() );
 	}
 
+	public function testPut_updatedFormReference() {
+		$formSet = new FormSet( [ NewForm::havingId( 'F1' )->andLexeme( 'L81' )->build() ] );
+
+		$newForm = NewForm::havingId( 'F1' )->andLexeme( 'L81' )->build();
+		$formSet->put( $newForm );
+
+		$this->assertSame( [ $newForm ], $formSet->toArray() );
+	}
+
 	public function testIndependentlyOnFormAdditionOrder_TwoSetsAreEqualIfTheyHaveTheSameForms() {
 		$form1 = NewForm::havingId( 'F1' )->build();
 		$form2 = NewForm::havingId( 'F2' )->build();
@@ -105,6 +114,10 @@ class FormSetTest extends TestCase {
 		$this->assertEquals( $formSet1, $formSet2 );
 	}
 
+	/**
+	 * Forms can only be accessed through FormSet::toArray(), which enforces right order,
+	 * or one-by-one through id, where order is irrelevant.
+	 */
 	public function testToArray_ReturnedFormsAreSortedByTheirId() {
 		$form1 = NewForm::havingId( 'F1' )->build();
 		$form2 = NewForm::havingId( 'F2' )->build();
