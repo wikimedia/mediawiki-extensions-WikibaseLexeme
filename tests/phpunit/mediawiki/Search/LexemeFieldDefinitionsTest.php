@@ -6,7 +6,6 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 
@@ -22,52 +21,39 @@ class LexemeFieldDefinitionsTest extends TestCase {
 
 	public function testGetFields() {
 		$fieldDefinitions = new LexemeFieldDefinitions(
-			$this->newStatementProviderFieldDefinitions(),
+			$this->getMockStatementProviderFieldDefinitions(),
 			$this->getMock( EntityLookup::class ),
 			new PropertyId( 'P123' )
 		);
 
-		$expectedKeys = [
-				'statement_keywords',
-				'statement_count',
-				'lemma',
-				'lexeme_forms',
-				'lexeme_language',
-				'lexical_category',
-			];
-
-		$this->assertEquals( $expectedKeys, array_keys( $fieldDefinitions->getFields() ),
-			'Fields do not match', 0, 1, true );
+		$this->assertHasLexemeFields( $fieldDefinitions->getFields() );
 	}
 
 	public function testGetFieldsNoCode() {
 		$fieldDefinitions = new LexemeFieldDefinitions(
-			$this->newStatementProviderFieldDefinitions(),
+			$this->getMockStatementProviderFieldDefinitions(),
 			$this->getMock( EntityLookup::class ),
 			null
 		);
 
-		$expectedKeys = [
-			'statement_keywords',
-			'statement_count',
-			'lemma',
-			'lexeme_forms',
-			'lexeme_language',
-			'lexical_category',
-		];
-
-		$this->assertEquals( $expectedKeys, array_keys( $fieldDefinitions->getFields() ),
-			'Fields do not match', 0, 1, true );
+		$this->assertHasLexemeFields( $fieldDefinitions->getFields() );
 	}
 
-	private function newStatementProviderFieldDefinitions() {
-		return new StatementProviderFieldDefinitions(
-			$this->getMock( PropertyDataTypeLookup::class ),
-			[],
-			[],
-			[],
-			[]
-		);
+	private function assertHasLexemeFields( array $actualFields ) {
+		$this->assertArrayHasKey( 'lemma', $actualFields );
+		$this->assertArrayHasKey( 'lexeme_forms', $actualFields );
+		$this->assertArrayHasKey( 'lexeme_language', $actualFields );
+		$this->assertArrayHasKey( 'lexical_category', $actualFields );
+	}
+
+	private function getMockStatementProviderFieldDefinitions() {
+		$definitions = $this->getMockBuilder( StatementProviderFieldDefinitions::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$definitions
+			->method( 'getFields' )
+			->willReturn( [] );
+		return $definitions;
 	}
 
 }
