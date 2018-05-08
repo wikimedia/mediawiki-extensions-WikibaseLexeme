@@ -7,14 +7,14 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\StringNormalizer;
 
@@ -31,8 +31,8 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 		$mockProvider = new ChangeOpTestMockProvider( $this );
 		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
 		return new LemmaChangeOpDeserializer(
-			new TermSerializationValidator(
-				new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en' ] ) )
+			new LexemeTermSerializationValidator(
+				new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en' ] ) )
 			),
 			$validatorFactoryMockProvider->getLexemeValidatorFactory(
 				$this,
@@ -53,7 +53,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 
 	public function testGivenTermChangeOpSerializationFormatInvalid_exceptionIsThrown() {
 		$termSerializationValidator = $this->getMockBuilder(
-			TermSerializationValidator::class
+			LexemeTermSerializationValidator::class
 		)
 			->disableOriginalConstructor()
 			->getMock();
@@ -120,17 +120,27 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
 	}
 
-	public function testGivenEmptyTermAndLemmaInLanguageExists_changeOpRemovesLemmaInTheLanguage() {
-		$lexeme = new Lexeme( new LexemeId( 'L100' ), new TermList( [ new Term( 'en', 'rat' ) ] ) );
-
+	public function testGivenEmptyTerm_exceptionIsThrown() {
 		$deserializer = $this->newLemmaChangeOpDeserializer();
 
-		$changeOp = $deserializer->createEntityChangeOp(
-			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
-		);
+		try {
+			$deserializer->createEntityChangeOp(
+				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
+			);
+		} catch ( \ApiUsageException $ex ) {
+			$exception = $ex;
+		}
 
-		$changeOp->apply( $lexeme );
-		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
+		$message = $exception->getMessageObject();
+		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
+		$this->assertEquals(
+			'wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty',
+			$message->getKey()
+		);
+		$this->assertEquals(
+			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 'en' ] ],
+			$message->getApiData()
+		);
 	}
 
 }

@@ -13,14 +13,19 @@ use Wikibase\Lexeme\Api\AddFormRequestParser;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\Api\Error\LanguageInconsistent;
+use Wikibase\Lexeme\Api\Error\LexemeTermLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageInconsistent;
+use Wikibase\Lexeme\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lib\StaticContentLanguages;
 
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
@@ -108,7 +113,6 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 					new JsonFieldHasWrongType( 'array', 'string' )
 				]
 			],
-			/* TODO A missing feature of Wikibase\DataModel\Deserializers\TermDeserializer?!
 			'representation list contains only single empty representation' => [
 				[
 					'lexemeId' => 'L1',
@@ -118,10 +122,9 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new RepresentationTextCanNotBeEmpty()
+					new LexemeTermTextCanNotBeEmpty()
 				]
 			],
-			*/
 			'representation list contains only representation with empty language' => [
 				[
 					'lexemeId' => 'L1',
@@ -131,7 +134,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new RepresentationLanguageInconsistent( 'en', '' )
+					new LanguageInconsistent( 'en', '' )
 				]
 			],
 			'representation list contains representation with empty language key' => [
@@ -142,8 +145,8 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 					)
 				],
 				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
-					new RepresentationLanguageCanNotBeEmpty()
+					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', '' ] ],
+					new LexemeTermLanguageCanNotBeEmpty()
 				]
 			],
 			'representation list contains element with inconsistent language' => [
@@ -155,10 +158,22 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new RepresentationLanguageInconsistent(
+					new LanguageInconsistent(
 						'en',
 						'de'
 					)
+				]
+			],
+			'representation list contains element with unknown language' => [
+				[
+					'lexemeId' => 'L1',
+					'data' => $this->getDataParam(
+						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
+					)
+				],
+				[
+					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
+					new UnknownLanguage( 'foobar' )
 				]
 			],
 			'no representation string in data' => [
@@ -237,7 +252,12 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 		] );
 
 		$editFormChangeOpDeserializer = new EditFormChangeOpDeserializer(
-			new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+			new RepresentationsChangeOpDeserializer(
+				new TermDeserializer(),
+				new LexemeTermSerializationValidator(
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+				)
+			),
 			new ItemIdListDeserializer( new ItemIdParser() )
 		);
 

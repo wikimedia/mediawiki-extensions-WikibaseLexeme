@@ -11,6 +11,8 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -74,7 +76,12 @@ class EditFormElements extends \ApiBase {
 			new EditFormElementsRequestParser(
 				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
 				new EditFormChangeOpDeserializer(
-					new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+					new RepresentationsChangeOpDeserializer(
+						new TermDeserializer(),
+						new LexemeTermSerializationValidator(
+							new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+						)
+					),
 					new ItemIdListDeserializer( new ItemIdParser() )
 				)
 			),

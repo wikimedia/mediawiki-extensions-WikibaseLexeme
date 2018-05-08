@@ -19,7 +19,7 @@ describe( 'Lexeme:Forms', () => {
 						id,
 						{
 							representations: {
-								'en-us': { language: 'en-us', value: 'color' }
+								'en-ca': { language: 'en-ca', value: 'color' }
 							},
 							grammaticalFeatures: []
 						}
@@ -34,7 +34,7 @@ describe( 'Lexeme:Forms', () => {
 		browser.call( () => {
 			return LexemeApi.get( id )
 				.then( ( lexeme ) => {
-					assert.equal( 'color', lexeme.forms[ 0 ].representations[ 'en-us' ].value, 'Old representation not changed' );
+					assert.equal( 'color', lexeme.forms[ 0 ].representations[ 'en-ca' ].value, 'Old representation not changed' );
 					assert.equal( 'colour', lexeme.forms[ 0 ].representations[ 'en-gb' ].value, 'New representation added' );
 				} );
 		} );
@@ -88,7 +88,7 @@ describe( 'Lexeme:Forms', () => {
 						id,
 						{
 							representations: {
-								'en-us': { language: 'en-us', value: 'color' },
+								'en-ca': { language: 'en-ca', value: 'color' },
 								'en-gb': { language: 'en-gb', value: 'colour' }
 							},
 							grammaticalFeatures: []

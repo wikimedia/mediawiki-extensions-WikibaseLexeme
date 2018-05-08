@@ -240,7 +240,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	public function testGivenRepresentationNotThere_representationIsRemoved() {
 		$form = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'colour' )
-			->andRepresentation( 'en-us', 'color' )
+			->andRepresentation( 'en-x-Q123', 'color' )
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
@@ -251,7 +251,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => self::DEFAULT_FORM_ID,
 			'data' => json_encode( [
 				'representations' => [
-					'en-us' => [ 'language' => 'en-us', 'remove' => '' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'remove' => '' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -263,7 +263,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 		$form = $lexeme->getForms()->getById( new FormId( self::DEFAULT_FORM_ID ) );
 		$this->assertEquals( 'colour', $form->getRepresentations()->getByLanguage( 'en' )->getText() );
-		$this->assertFalse( $form->getRepresentations()->hasTermForLanguage( 'en-us' ) );
+		$this->assertFalse( $form->getRepresentations()->hasTermForLanguage( 'en-x-Q123' ) );
 	}
 
 	public function testGivenRepresentationForNewLanguage_representationIsAdded() {
@@ -280,7 +280,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -292,7 +292,10 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 		$form = $lexeme->getForms()->getById( new FormId( self::DEFAULT_FORM_ID ) );
 		$this->assertEquals( 'colour', $form->getRepresentations()->getByLanguage( 'en' )->getText() );
-		$this->assertEquals( 'color', $form->getRepresentations()->getByLanguage( 'en-us' )->getText() );
+		$this->assertEquals(
+			'color',
+			$form->getRepresentations()->getByLanguage( 'en-x-Q123' )->getText()
+		);
 	}
 
 	public function testGivenOtherGrammaticalFeatures_grammaticalFeaturesAreChanged() {
@@ -427,7 +430,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -442,7 +445,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* add-form-representations:1|en-us|L1-F1 */ en-us: color',
+			'/* add-form-representations:1|en-x-Q123|L1-F1 */ en-x-Q123: color',
 			$revision->getComment()->text
 		);
 	}
@@ -461,7 +464,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'remove' => '' ],
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -494,7 +497,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => self::DEFAULT_FORM_ID,
 			'data' => json_encode( [
 				'representations' => [
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 					'en-ca' => [ 'language' => 'en-ca', 'value' => 'maple' ],
 				],
 				'grammaticalFeatures' => [],
@@ -510,7 +513,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* add-form-representations:2||L1-F1 */ en-us: color, en-ca: maple',
+			'/* add-form-representations:2||L1-F1 */ en-x-Q123: color, en-ca: maple',
 			$revision->getComment()->text
 		);
 	}
@@ -518,7 +521,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	public function testGivenRemovedRepresentation_summarySetAccordingly() {
 		$form = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'colour' )
-			->andRepresentation( 'en-us', 'color' )
+			->andRepresentation( 'en-x-Q123', 'color' )
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
@@ -529,7 +532,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => self::DEFAULT_FORM_ID,
 			'data' => json_encode( [
 				'representations' => [
-					'en-us' => [ 'language' => 'en-us', 'remove' => '' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'remove' => '' ],
 				],
 				'grammaticalFeatures' => [],
 			] ),
@@ -544,7 +547,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* remove-form-representations:1|en-us|L1-F1 */ en-us: color',
+			'/* remove-form-representations:1|en-x-Q123|L1-F1 */ en-x-Q123: color',
 			$revision->getComment()->text
 		);
 	}
@@ -666,7 +669,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [ 'Q678' ],
 			] ),
@@ -720,7 +723,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [ 'Q321' ],
 			] ),
@@ -733,7 +736,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				'id' => self::DEFAULT_FORM_ID,
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
-					'en-us' => [ 'language' => 'en-us', 'value' => 'color' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [ 'Q321' ],
 			],

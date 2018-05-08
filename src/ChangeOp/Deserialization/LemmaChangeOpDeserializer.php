@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
@@ -30,12 +31,14 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 	private $stringNormalizer;
 
 	/**
-	 * @var TermSerializationValidator
+	 * @var LexemeTermSerializationValidator
 	 */
 	private $termSerializationValidator;
 
+	const LEMMAS_PARAM = 'lemmas';
+
 	public function __construct(
-		TermSerializationValidator $termChangeOpSerializationValidator,
+		LexemeTermSerializationValidator $termChangeOpSerializationValidator,
 		LexemeValidatorFactory $lexemeValidatorFactory,
 		StringNormalizer $stringNormalizer
 	) {
@@ -54,14 +57,18 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 	 * @return ChangeOp
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
-		$this->assertIsArray( $changeRequest['lemmas'] );
+		$this->assertIsArray( $changeRequest[self::LEMMAS_PARAM] );
 
 		$changeOps = new ChangeOps();
 
-		foreach ( $changeRequest['lemmas'] as $languageCode => $serialization ) {
+		$validationContext = ValidationContext::create( self::LEMMAS_PARAM );
+		foreach ( $changeRequest[self::LEMMAS_PARAM] as $languageCode => $serialization ) {
+			$languageContext = $validationContext->at( $languageCode );
+
 			$this->termSerializationValidator->validate(
+				$languageCode,
 				$serialization,
-				$languageCode
+				$languageContext
 			);
 
 			$lemmaTerm = array_key_exists( 'remove', $serialization ) ? '' :
