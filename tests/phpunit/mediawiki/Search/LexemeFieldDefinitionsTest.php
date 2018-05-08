@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 
@@ -21,7 +22,7 @@ class LexemeFieldDefinitionsTest extends TestCase {
 
 	public function testGetFields() {
 		$fieldDefinitions = new LexemeFieldDefinitions(
-			new StatementProviderFieldDefinitions( [], [] ),
+			$this->newStatementProviderFieldDefinitions(),
 			$this->getMock( EntityLookup::class ),
 			new PropertyId( 'P123' )
 		);
@@ -41,7 +42,7 @@ class LexemeFieldDefinitionsTest extends TestCase {
 
 	public function testGetFieldsNoCode() {
 		$fieldDefinitions = new LexemeFieldDefinitions(
-			new StatementProviderFieldDefinitions( [], [] ),
+			$this->newStatementProviderFieldDefinitions(),
 			$this->getMock( EntityLookup::class ),
 			null
 		);
@@ -57,6 +58,16 @@ class LexemeFieldDefinitionsTest extends TestCase {
 
 		$this->assertEquals( $expectedKeys, array_keys( $fieldDefinitions->getFields() ),
 			'Fields do not match', 0, 1, true );
+	}
+
+	private function newStatementProviderFieldDefinitions() {
+		return new StatementProviderFieldDefinitions(
+			$this->getMock( PropertyDataTypeLookup::class ),
+			[],
+			[],
+			[],
+			[]
+		);
 	}
 
 }
