@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
 use HamcrestPHPUnitIntegration;
+use OOUI\BlankTheme;
 use OOUI\Theme;
-use OOUI\WikimediaUITheme;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use ReflectionClass;
@@ -26,7 +26,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 	public function setUp() {
 		parent::setUp();
-		Theme::setSingleton( new WikimediaUITheme() );
+		Theme::setSingleton( new BlankTheme() );
 	}
 
 	public function tearDown() {
