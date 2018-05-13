@@ -45,6 +45,7 @@
 	"apihelp-wblremoveform-example-1": "הסרת צורה מהיחידה המילונית עם המזהה <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "עריכת ייצוגים ומאפיינים דקדוקיים של צורה",
 	"apihelp-wbleditformelements-param-formId": "מזהה הצורה, למשל L10-F2",
+	"apihelp-wbleditformelements-param-data": "נתוני ייצוג ומאפיין דקדוקי המקודדים ב־JSON",
 	"apihelp-wbleditformelements-param-bot": "סימון עריכה זו בתור עריכת בוט. דגל ה־URL הזה יכובד רק אם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
 	"apihelp-wbleditformelements-example-1": "עריכת צורה עם המזהה <samp>$1</samp>, עם הייצוגים <samp>$2</samp> בשפות <samp>$3</samp> (בהתאמה) ועם המאפיינים הדקדוקיים <samp>$4</samp>.",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "אירעה שגיאה: לא ניתן להסיר את המשפט המוגדר האחרון.",
@@ -53,6 +54,7 @@
 	"wikibaselexeme-api-error-lexeme-not-found": "לא נמצאה יחידה מילונית עם המזהה \"$1\".",
 	"wikibaselexeme-api-error-form-not-found": "לא נמצאה צורה עם המזהה \"$1\".",
 	"wikibaselexeme-api-error-json-field-required": "השדה \"$2\" בפרמטר \"$1\" נדרש",
+	"wikibaselexeme-api-error-json-field-not-item-id": "השדה \"$2\" בפרמטר \"$1\" אמור להיות מזהה של פריט. במקום זאת סופק: \"$3\"",
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "השדה \"$2\" בפרמטר \"$1\" אמור להיות מסוג \"$3\". הסוג שניתן במקום זאת: \"$4\"",
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "הפרמטר \"$1\" אמור להיות מזהה של יחידה מילונית. הערך שניתן במקום זאת: \"$2\"",
 	"wikibaselexeme-api-error-parameter-not-form-id": "הפרמטר \"$1\" אמור להיות מזהה של צורה. הערך שניתן במקום זאת: \"$2\"",
@@ -81,5 +83,6 @@
 	"wikibaselexeme-form-description": "$1 עבור: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "שפה לא ידועה",
 	"wikibaselexeme-unknown-category": "לא ידוע",
-	"wikibaselexeme-no-features": "ללא מאפיינים"
+	"wikibaselexeme-no-features": "ללא מאפיינים",
+	"wikibaselexeme-rescore-profile-prefix": "פרופיל לחיפוש תחיליות (השלמה)"
 }

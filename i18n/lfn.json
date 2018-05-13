@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robin van der Vliet"
+		]
+	},
+	"wikibaselexeme-lemma-field-language-label": "Lingua",
+	"wikibaselexeme-form-field-language-label": "Lingua",
+	"wikibaselexeme-gloss-field-language-label": "Lingua",
+	"wikibaselexeme-field-language-label": "Lingua",
+	"wikibaselexeme-diffview-language": "lingua"
+}

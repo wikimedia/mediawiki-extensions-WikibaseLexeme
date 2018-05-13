@@ -10,6 +10,8 @@
 	"wikibaselexeme-newlexeme-lemma": "লেমমা",
 	"wikibaselexeme-newlexeme-lexicalcategory": "আভিধানিক বিভাগ",
 	"wikibaselexeme-newlexeme-language": "Lexeme ভাষা",
+	"wikibaselexeme-statementsection-statements-about-form": "$1 সম্পর্কে বিবৃতি",
+	"wikibase-lexeme-gloss-empty": "কোন টীকা সংজ্ঞায়িত করা হয়নি",
 	"wikibaselexeme-lemma-field-language-label": "ভাষা",
 	"wikibaselexeme-form-field-language-label": "ভাষা",
 	"wikibaselexeme-gloss-field-language-label": "ভাষা",
@@ -20,5 +22,7 @@
 	"wikibaselexeme-diffview-form": "ফরম",
 	"wikibaselexeme-diffview-grammatical-feature": "ব্যাকরণগত বৈশিষ্ট্য",
 	"content-model-wikibase-lexeme": "উইকিভিত্তিক অাভিধানিক অর্থ",
-	"wikibaselexeme-form-grammatical-features": "ব্যাকরণগত বৈশিষ্ট্য"
+	"wikibaselexeme-form-grammatical-features": "ব্যাকরণগত বৈশিষ্ট্য",
+	"wikibaselexeme-unknown-language": "অজানা ভাষা",
+	"wikibaselexeme-unknown-category": "অজানা"
 }
