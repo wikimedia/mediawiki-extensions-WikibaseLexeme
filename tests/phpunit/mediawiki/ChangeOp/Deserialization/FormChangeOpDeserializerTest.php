@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializerTest
+ * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

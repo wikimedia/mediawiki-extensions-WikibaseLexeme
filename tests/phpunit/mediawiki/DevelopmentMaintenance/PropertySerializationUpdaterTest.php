@@ -8,7 +8,7 @@ use Wikimedia\Rdbms\FakeResultWrapper;
 use Wikimedia\Rdbms\IDatabase;
 
 /**
- * @covers Wikibase\Lexeme\DevelopmentMaintenance\PropertySerializationUpdaterTest
+ * @covers \Wikibase\Lexeme\DevelopmentMaintenance\PropertySerializationUpdater
  *
  * @see LexemeSerializationUpdaterTest
  *
