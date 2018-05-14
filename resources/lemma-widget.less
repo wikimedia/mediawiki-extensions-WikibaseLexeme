@@ -30,7 +30,7 @@
 	&_edit-area {
 		flex-grow: 1;
 		display: flex;
-		border: 3px solid #99ccff;
+		border: 3px solid #9cf;
 	}
 
 	&_controls {
@@ -43,7 +43,7 @@
 
 	.prepend-with-wikibase-oojs-icon(@image) {
 		&:before {
-			content:'';
+			content: '';
 
 			/* Copied from .wikibase-toolbar-button .wb-icon */
 			background-size: 20px 20px;
@@ -53,15 +53,15 @@
 			vertical-align: middle;
 			background-position: center;
 
-			@wikibase-root: "../../Wikibase";
-			@wb-oojs-icon-path: "view/resources/jquery/wikibase/toolbar/themes/default/images/icons/oojs-ui";
-			@icon-path: "@{wikibase-root}/@{wb-oojs-icon-path}/@{image}";
+			@wikibase-root: '../../Wikibase';
+			@wb-oojs-icon-path: 'view/resources/jquery/wikibase/toolbar/themes/default/images/icons/oojs-ui';
+			@icon-path: '@{wikibase-root}/@{wb-oojs-icon-path}/@{image}';
 			/* @embed */
-			background-image: url(@icon-path);
+			background-image: url( @icon-path );
 			/* @embed */
-			background-image: linear-gradient(transparent, transparent), url(@icon-path);
+			background-image: linear-gradient( transparent, transparent ), url( @icon-path );
 
-			opacity: .7;
+			opacity: 0.7;
 		}
 		&:hover:before {
 			opacity: 1;
@@ -70,7 +70,7 @@
 
 	.button-displayed-as-link() {
 		background: transparent;
-		border: none;
+		border: 0;
 		cursor: pointer;
 		color: #0d4c99;
 		&:hover {
@@ -127,7 +127,7 @@
 	}
 
 	&_lemma-remove {
-		border: none;
+		border: 0;
 		background: transparent;
 		color: #074c99;
 		font-size: 2em;
@@ -140,7 +140,7 @@
 
 	&_add {
 		height: 132px;
-		border: none;
+		border: 0;
 		font-size: 3em;
 		text-align: center;
 		background: #dae8fc;

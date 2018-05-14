@@ -5,6 +5,7 @@ module.exports = function ( grunt ) {
 	grunt.loadNpmTasks( 'grunt-jsonlint' );
 	grunt.loadNpmTasks( 'grunt-banana-checker' );
 	grunt.loadNpmTasks( 'grunt-jasmine-nodejs' );
+	grunt.loadNpmTasks( 'grunt-stylelint' );
 
 	require( 'module-alias/register' );
 
@@ -15,6 +16,13 @@ module.exports = function ( grunt ) {
 				'!Gruntfile.js',
 				'!node_modules/**',
 				'!resources/vendor/**',
+				'!vendor/**'
+			]
+		},
+		stylelint: {
+			all: [
+				'**/*.less',
+				'!node_modules/**',
 				'!vendor/**'
 			]
 		},
@@ -40,6 +48,6 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'jsonlint', 'banana', 'jasmine_nodejs' ] );
+	grunt.registerTask( 'test', [ 'eslint', 'jsonlint', 'banana', 'jasmine_nodejs', 'stylelint' ] );
 	grunt.registerTask( 'default', 'test' );
 };
