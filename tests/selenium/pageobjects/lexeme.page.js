@@ -18,7 +18,9 @@ class LexemePage extends Page {
 			REPRESENTATION_LANGUAGE: '.wikibase-lexeme-form-header .representation-widget_representation-language',
 			EDIT_INPUT_VALUE: '.representation-widget_representation-value-input',
 			EDIT_INPUT_LANGUAGE: '.representation-widget_representation-language-input',
-			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values'
+			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values',
+			ADD_REPRESENTATION_BUTTON: '.representation-widget_add',
+			REMOVE_REPRESENTATION_BUTTON: '.representation-widget_representation-remove'
 		};
 	}
 
@@ -96,6 +98,64 @@ class LexemePage extends Page {
 			language: form.$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_LANGUAGE ).getText(),
 			grammaticalFeatures: form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ).getText()
 		};
+	}
+
+	addRepresentationToNthForm( index, representation, language ) {
+		let form = this.forms[ index ];
+
+		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+
+		let addRepresentationButton = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_REPRESENTATION_BUTTON );
+
+		addRepresentationButton.waitForVisible();
+		addRepresentationButton.click();
+
+		let representationContainer = form.$( '.representation-widget_representation-list' );
+		let representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
+
+		let newRepresentationIndex = representations.length - 1;
+		let newRepresentation = representations[ newRepresentationIndex ];
+
+		newRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( representation );
+		newRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
+
+		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		saveButton.click();
+		saveButton.waitForExist( null, true );
+	}
+
+	editRepresentationOfNthForm( index, representation, language ) {
+		let form = this.forms[ index ];
+
+		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+
+		form.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( representation );
+		form.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
+
+		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		saveButton.click();
+		saveButton.waitForExist( null, true );
+	}
+
+	removeLastRepresentationOfNthForm( index ) {
+		let form = this.forms[ index ];
+
+		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+
+		let representationContainer = form.$( '.representation-widget_representation-list' );
+		let representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
+
+		let lastRepresentationIndex = representations.length - 1;
+		let lastRepresentation = representations[ lastRepresentationIndex ];
+
+		lastRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.REMOVE_REPRESENTATION_BUTTON ).click();
+
+		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		saveButton.click();
+		saveButton.waitForExist( null, true );
 	}
 
 }
