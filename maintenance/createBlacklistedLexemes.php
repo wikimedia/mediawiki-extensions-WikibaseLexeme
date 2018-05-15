@@ -145,7 +145,7 @@ class CreateBlacklistedLexemes extends Maintenance {
 			],
 
 			'L123' => [
-				self::LEMMA => new Term( 'zxx', 'sandbox lexeme' ),
+				self::LEMMA => new Term( 'mis-x-Q4115189', 'sandbox lexeme' ),
 				self::CATEGORY => new ItemId( 'Q4115189' ),
 				self::LANGUAGE => new ItemId( 'Q13406268' ),
 			],
