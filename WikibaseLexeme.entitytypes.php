@@ -173,7 +173,9 @@ return [
 					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 					// that should be allowed as "languages" of lemma terms
 					new LexemeTermSerializationValidator(
-						new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+						new LexemeTermLanguageValidator(
+							MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' )
+						)
 					),
 					$lexemeValidatorFactory->getLemmaTermValidator(),
 					$wikibaseRepo->getStringNormalizer()
@@ -198,7 +200,9 @@ return [
 							new RepresentationsChangeOpDeserializer(
 								new TermDeserializer(),
 								new LexemeTermSerializationValidator(
-									new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+									new LexemeTermLanguageValidator(
+										MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' )
+									)
 								)
 							),
 							new ItemIdListDeserializer( new ItemIdParser() )
@@ -371,7 +375,9 @@ return [
 					new RepresentationsChangeOpDeserializer(
 						new TermDeserializer(),
 						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+							new LexemeTermLanguageValidator(
+								MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' )
+							)
 						)
 					),
 					new ItemIdListDeserializer( new ItemIdParser() )

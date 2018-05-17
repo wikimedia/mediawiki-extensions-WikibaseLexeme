@@ -524,5 +524,8 @@
 			"factory": "Wikibase\\Lexeme\\Api\\EditFormElements::newFromGlobalState"
 		}
 	},
+	"ServiceWiringFiles": [
+		"WikibaseLexeme.mediawiki-services.php"
+	],
 	"manifest_version": 2
 }
