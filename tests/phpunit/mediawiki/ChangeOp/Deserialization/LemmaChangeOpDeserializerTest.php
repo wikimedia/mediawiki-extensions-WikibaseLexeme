@@ -13,10 +13,10 @@ use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Validators\LemmaTermValidator;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\StringNormalizer;
 
 /**
@@ -29,7 +29,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	private function newLemmaChangeOpDeserializer() {
-		$lemmaTermValidator = $this->getMockBuilder( CompositeValidator::class )
+		$lemmaTermValidator = $this->getMockBuilder( LemmaTermValidator::class )
 			->disableOriginalConstructor()
 			->getMock();
 
@@ -62,7 +62,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 				$this->throwException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) )
 			);
 
-		$lemmaTermValidator = $this->getMockBuilder( CompositeValidator::class )
+		$lemmaTermValidator = $this->getMockBuilder( LemmaTermValidator::class )
 			->disableOriginalConstructor()
 			->getMock();
 

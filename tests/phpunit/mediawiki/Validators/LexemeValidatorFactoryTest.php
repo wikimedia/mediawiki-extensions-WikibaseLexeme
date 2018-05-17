@@ -12,6 +12,7 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Validators\LemmaTermValidator;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Repo\Validators\EntityExistsValidator;
@@ -42,30 +43,15 @@ class LexemeValidatorFactoryTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider lemmaTermProvider
-	 */
-	public function testGetLemmaTermValidator( $isValid, $lemmaTerm ) {
+	public function testGetLemmaTermValidator_ReturnsLemmaTermValidator() {
 		$lemmaValidator = $this
 			->getLexemeValidatorFactory( 10 )
 			->getLemmaTermValidator();
 
-		$this->assertSame(
-			$isValid,
-			$lemmaValidator->validate( $lemmaTerm )->isValid()
+		$this->assertInstanceOf(
+			LemmaTermValidator::class,
+			$lemmaValidator
 		);
-	}
-
-	public function lemmaTermProvider() {
-		return [
-			'valid' => [ true, 'foo' ],
-			'cyrillic "х"' => [ true, 'х' ],
-			'not a string' => [ false, false ],
-			'empty' => [ false, '' ],
-			'exceeds maxLength of 10' => [ false, 'foooooooooo' ],
-			'leading whitespace' => [ false, ' foo' ],
-			'trailing whitespace' => [ false, 'foo ' ],
-		];
 	}
 
 	public function testGetLanguageValidatorValid() {
