@@ -8,7 +8,6 @@ use PHPUnit4And6Compat;
 use ValueValidators\Error;
 use ValueValidators\Result;
 use ValueValidators\ValueValidator;
-use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -41,25 +40,6 @@ class LexemeValidatorFactoryTest extends TestCase {
 			[ false ],
 			[ null ],
 		];
-	}
-
-	public function testGetLanguageCodeValidator() {
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$dupeDetector = $mockProvider->getMockLabelDescriptionDuplicateDetector();
-		$termValidatorFactory = new TermValidatorFactory(
-			100,
-			[ 'en', 'fr', 'de' ],
-			new BasicEntityIdParser(),
-			$dupeDetector
-		);
-
-		$languageCodeValidator = $this
-			->getLexemeValidatorFactory( 100, $termValidatorFactory )
-			->getLanguageCodeValidator();
-
-		$this->assertTrue( $languageCodeValidator->validate( 'en' )->isValid() );
-		$this->assertTrue( $languageCodeValidator->validate( 'fr' )->isValid() );
-		$this->assertFalse( $languageCodeValidator->validate( 'xx' )->isValid() );
 	}
 
 	/**

@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -12,8 +13,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
-use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
+use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Summary;
 
 /**
@@ -30,7 +30,7 @@ class ChangeOpLemmaTest extends TestCase {
 	 */
 	public function testGivenInvalidArguments_constructorThrowsException( $language, $lemma ) {
 		$this->setExpectedException( InvalidArgumentException::class );
-		new ChangeOpLemma( $language, $lemma, $this->getLexemeValidatorFactory() );
+		new ChangeOpLemma( $language, $lemma, $this->getLemmaTermValidator() );
 	}
 
 	public function invalidConstructorArgumentsProvider() {
@@ -47,7 +47,7 @@ class ChangeOpLemmaTest extends TestCase {
 	 */
 	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
 		$this->setExpectedException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLexemeValidatorFactory() );
+		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLemmaTermValidator() );
 		$changeOp->validate( $entity );
 	}
 
@@ -58,21 +58,18 @@ class ChangeOpLemmaTest extends TestCase {
 		];
 	}
 
-	public function testGivenInvalidLanguageCode_validateReturnsInvalidResult() {
-		$lexeme = new Lexeme();
-
-		$changeOp = new ChangeOpLemma( 'INVALID', 'duck', $this->getLexemeValidatorFactory() );
-
-		$this->assertFalse( $changeOp->validate( $lexeme )->isValid() );
-	}
-
 	/**
 	 * @dataProvider invalidLemmaTermProvider
 	 */
 	public function testGivenInvalidLemmaTerm_validateReturnsInvalidResult( $lemmaTerm ) {
 		$lexeme = new Lexeme();
 
-		$changeOp = new ChangeOpLemma( 'en', $lemmaTerm, $this->getLexemeValidatorFactory() );
+		$lemmasTermValidator = $this->getLemmaTermValidator();
+		$lemmasTermValidator
+			->expects( $this->once() )
+			->method( 'validate' )
+			->willReturn( Result::newError( [] ) );
+		$changeOp = new ChangeOpLemma( 'en', $lemmaTerm, $lemmasTermValidator );
 
 		$this->assertFalse( $changeOp->validate( $lexeme )->isValid() );
 	}
@@ -84,10 +81,16 @@ class ChangeOpLemmaTest extends TestCase {
 		];
 	}
 
-	public function testGivenValidLanguageCodeAndLemmaTerm_validateReturnsValidResult() {
+	public function testGivenValidLemmaTerm_validateReturnsValidResult() {
 		$lexeme = new Lexeme();
 
-		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLexemeValidatorFactory() );
+		$lemmasTermValidator = $this->getLemmaTermValidator();
+		$lemmasTermValidator
+			->expects( $this->once() )
+			->method( 'validate' )
+			->willReturn( Result::newSuccess() );
+
+		$changeOp = new ChangeOpLemma( 'en', 'duck', $lemmasTermValidator );
 
 		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
 	}
@@ -95,7 +98,11 @@ class ChangeOpLemmaTest extends TestCase {
 	public function testGivenLemmaTermIsNull_validateReturnsValidResult() {
 		$lexeme = new Lexeme();
 
-		$changeOp = new ChangeOpLemma( 'en', null, $this->getLexemeValidatorFactory() );
+		$lemmasTermValidator = $this->getLemmaTermValidator();
+		$lemmasTermValidator
+			->expects( $this->never() )
+			->method( 'validate' );
+		$changeOp = new ChangeOpLemma( 'en', null, $lemmasTermValidator );
 
 		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
 	}
@@ -105,7 +112,7 @@ class ChangeOpLemmaTest extends TestCase {
 	 */
 	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
 		$this->setExpectedException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLexemeValidatorFactory() );
+		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLemmaTermValidator() );
 		$changeOp->apply( $entity );
 	}
 
@@ -117,7 +124,7 @@ class ChangeOpLemmaTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemma( 'de', null, $this->getLexemeValidatorFactory() );
+		$changeOp = new ChangeOpLemma( 'de', null, $this->getLemmaTermValidator() );
 		$changeOp->apply( $lexeme, $summary );
 
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'de' ) );
@@ -136,7 +143,7 @@ class ChangeOpLemmaTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemma( 'de', 'Ente', $this->getLexemeValidatorFactory() );
+		$changeOp = new ChangeOpLemma( 'de', 'Ente', $this->getLemmaTermValidator() );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -157,7 +164,7 @@ class ChangeOpLemmaTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemma( 'en', 'bar', $this->getLexemeValidatorFactory() );
+		$changeOp = new ChangeOpLemma( 'en', 'bar', $this->getLemmaTermValidator() );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -172,21 +179,17 @@ class ChangeOpLemmaTest extends TestCase {
 		$lexeme = new Lexeme();
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemma( 'de', null, $this->getLexemeValidatorFactory() );
+		$changeOp = new ChangeOpLemma( 'de', null, $this->getLemmaTermValidator() );
 		$changeOp->apply( $lexeme, $summary );
 
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
 		$this->assertNull( $summary->getMessageKey() );
 	}
 
-	private function getLexemeValidatorFactory() {
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
-		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
-			$this,
-			10,
-			$mockProvider->getMockTermValidatorFactory()
-		);
+	private function getLemmaTermValidator() {
+		return $this->getMockBuilder( CompositeValidator::class )
+			->disableOriginalConstructor()
+			->getMock();
 	}
 
 }

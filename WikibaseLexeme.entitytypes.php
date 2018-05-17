@@ -175,7 +175,7 @@ return [
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
 					),
-					$lexemeValidatorFactory,
+					$lexemeValidatorFactory->getLemmaTermValidator(),
 					$wikibaseRepo->getStringNormalizer()
 				),
 				new LexicalCategoryChangeOpDeserializer(
