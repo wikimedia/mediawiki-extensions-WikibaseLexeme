@@ -1834,6 +1834,90 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testGivenNewFormAndInvalidLexemeId_errorIsReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'form',
+			'data' => json_encode( [
+				'lexemeId' => 'foo',
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+				],
+			] ),
+		];
+
+		$this->doTestQueryApiException(
+			$params,
+			[
+				'code' => 'bad-request',
+				'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
+				'params' => [ 'data', '"foo"' ],
+				'data' => [
+					'parameterName' => 'data',
+					'fieldPath' => [ 'lexemeId' ]
+				]
+			]
+		);
+	}
+
+	public function testGivenNewFormAndNonLexemeId_errorIsReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'form',
+			'data' => json_encode( [
+				'lexemeId' => 'Q2',
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+				],
+			] ),
+		];
+
+		$this->doTestQueryApiException(
+			$params,
+			[
+				'code' => 'bad-request',
+				'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
+				'params' => [ 'data', '"Q2"' ],
+				'data' => [
+					'parameterName' => 'data',
+					'fieldPath' => [ 'lexemeId' ]
+				]
+			]
+		);
+	}
+
+	public function testGivenNewFormAndNonExistingLexemeId_errorIsReported() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'form',
+			'data' => json_encode( [
+				'lexemeId' => 'L30000',
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+				],
+			] ),
+		];
+
+		$this->doTestQueryApiException(
+			$params,
+			[
+				'code' => 'not-found',
+				'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+				'params' => [ 'data', 'L30000' ],
+				'data' => [
+					'parameterName' => 'data',
+					'fieldPath' => [ 'lexemeId' ]
+				]
+			]
+		);
+	}
+
 	public function testGivenExistingLexemeAndFormWithRemoveKey_formIsRemoved() {
 		$this->saveDummyLexemeToDatabase();
 
