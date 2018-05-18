@@ -4,25 +4,27 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Api\Error\ApiError;
+use Wikibase\Lexeme\Api\Error\InvalidItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty;
+use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
+use Wikibase\Lexeme\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
+ * @covers \Wikibase\Lexeme\Api\Error\InvalidItemId
  * @covers \Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType
  * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId
  * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsRequired
  * @covers \Wikibase\Lexeme\Api\Error\LexemeNotFound
+ * @covers \Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty
  * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject
  * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId
- * @covers \Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty
- * @covers \Wikibase\Lexeme\Api\Error\RepresentationTextCanNotBeEmpty
+ * @covers \Wikibase\Lexeme\Api\Error\UnknownLanguage
  *
  * @license GPL-2.0-or-later
  */
@@ -62,18 +64,22 @@ class ApiErrorTranslationTest extends TestCase {
 				new ParameterIsNotLexemeId( 'foo' ),
 				[ 'param-1', 'foo' ]
 			],
-			RepresentationTextCanNotBeEmpty::class => [
-				new RepresentationTextCanNotBeEmpty(),
-				[]
-			],
-			RepresentationLanguageCanNotBeEmpty::class => [
-				new RepresentationLanguageCanNotBeEmpty(),
+			LexemeTermTextCanNotBeEmpty::class => [
+				new LexemeTermTextCanNotBeEmpty(),
 				[]
 			],
 			LexemeNotFound::class => [
 				new LexemeNotFound( new LexemeId( 'L1' ) ),
 				[ 'L1' ]
-			]
+			],
+			InvalidItemId::class => [
+				new InvalidItemId( 'Qx' ),
+				[ 'param-1', 'a/1/b', 'Qx' ]
+			],
+			UnknownLanguage::class => [
+				new UnknownLanguage( 'foo' ),
+				[ 'param-1', 'a/1/b', 'foo' ]
+			],
 		];
 	}
 

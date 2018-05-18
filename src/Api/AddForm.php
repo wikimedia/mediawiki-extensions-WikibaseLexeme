@@ -11,6 +11,8 @@ use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
@@ -80,7 +82,12 @@ class AddForm extends ApiBase {
 			new AddFormRequestParser(
 				$wikibaseRepo->getEntityIdParser(),
 				new EditFormChangeOpDeserializer(
-					new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+					new RepresentationsChangeOpDeserializer(
+						new TermDeserializer(),
+						new LexemeTermSerializationValidator(
+							new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+						)
+					),
 					new ItemIdListDeserializer( new ItemIdParser() )
 				)
 			),

@@ -2,17 +2,11 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
-use Deserializers\Exceptions\DeserializationException;
-use Deserializers\Exceptions\InvalidAttributeException;
-use Deserializers\Exceptions\MissingAttributeException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageInconsistent;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveFormRepresentation;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 
 /**
@@ -32,8 +26,17 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $validationContext;
 
-	public function __construct( TermDeserializer $representationDeserializer ) {
+	/**
+	 * @var LexemeTermSerializationValidator
+	 */
+	private $termSerializationValidator;
+
+	public function __construct(
+		TermDeserializer $representationDeserializer,
+		LexemeTermSerializationValidator $validator
+	) {
 		$this->representationDeserializer = $representationDeserializer;
+		$this->termSerializationValidator = $validator;
 	}
 
 	public function setContext( ValidationContext $context ) {
@@ -44,51 +47,15 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 		$changeOps = [];
 
 		foreach ( $representations as $language => $representation ) {
-			if ( empty( $language ) ) {
-				$this->validationContext->addViolation(
-					new RepresentationLanguageCanNotBeEmpty()
-				);
-				continue;
-			}
-
 			$languageContext = $this->validationContext->at( $language );
-
-			if ( !array_key_exists( self::PARAM_LANGUAGE, $representation ) ) {
-				$languageContext->addViolation(
-					new JsonFieldIsRequired( self::PARAM_LANGUAGE )
-				);
-				continue;
-			}
-
-			if ( $language !== $representation[self::PARAM_LANGUAGE] ) {
-				$languageContext->addViolation(
-					new RepresentationLanguageInconsistent( $language, $representation[self::PARAM_LANGUAGE] )
-				);
-				continue;
-			}
+			$this->termSerializationValidator->validate( $language, $representation, $languageContext );
 
 			if ( array_key_exists( 'remove', $representation ) ) {
 				$changeOps[] = new ChangeOpRemoveFormRepresentation( $representation[self::PARAM_LANGUAGE] );
 			} else {
-				// TODO context-aware representationDeserializer
-				try {
-					$representation = $this->representationDeserializer->deserialize( $representation );
-				} catch ( MissingAttributeException $exception ) {
-					$languageContext->addViolation(
-						new JsonFieldIsRequired( $exception->getAttributeName() )
-					);
-					continue;
-				} catch ( InvalidAttributeException $exception ) {
-					$languageContext->addViolation(
-						new JsonFieldHasWrongType( 'string', gettype( $exception->getAttributeValue() ) )
-					);
-					continue;
-				} catch ( DeserializationException $exception ) {
-					// TODO patch vs full request (compare FormMustHaveAtLeastOneRepresentation)
-					continue;
-				}
-
-				$changeOps[] = new ChangeOpRepresentation( $representation );
+				$changeOps[] = new ChangeOpRepresentation(
+					$this->representationDeserializer->deserialize( $representation )
+				);
 			}
 		}
 

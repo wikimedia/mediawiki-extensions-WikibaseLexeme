@@ -194,7 +194,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
 			'data' => json_encode( [
-				'lemmas' => [ 'en-x-foo' => [ 'language' => 'en-x-foo', 'value' => 'appel' ] ],
+				'lemmas' => [ 'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'appel' ] ],
 			] ),
 		];
 
@@ -210,7 +210,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'id' => self::EXISTING_LEXEME_ID,
 				'lemmas' => [
 					'en' => [ 'language' => 'en', 'value' => 'apple' ],
-					'en-x-foo' => [ 'language' => 'en-x-foo', 'value' => 'appel' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'appel' ],
 				]
 			],
 			$lexemeData
@@ -260,7 +260,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
-	public function testGivenIdOfExistingLexemeAndLemmaDataAsNumberIndexArray_lemmaIsChanged() {
+	public function testGivenLemmaDataAsNumberIndexedArray_errorIsReported() {
 		$this->saveDummyLexemeToDatabase();
 
 		$params = [
@@ -271,20 +271,21 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
 
-		$this->assertSame( 1, $result['success'] );
-		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
 
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertEntityFieldsEqual(
-			[
-				'id' => self::EXISTING_LEXEME_ID,
-				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
-			],
-			$lexemeData
+		$message = $exception->getMessageObject();
+		$this->assertEquals( 'bad-request', $message->getApiCode() );
+		$this->assertEquals( 'wikibaselexeme-api-error-json-field-has-wrong-type', $message->getKey() );
+		$this->assertEquals(
+			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 0 ] ],
+			$message->getApiData()
 		);
 	}
 
@@ -524,11 +525,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			],
 			'no language in lemma change request' => [
 				[ 'lemmas' => [ 'en' => [ 'value' => 'foo' ] ] ],
-				'missing-language'
+				'bad-request'
 			],
 			'no language in lemma change request (remove)' => [
 				[ 'lemmas' => [ 'en' => [ 'remove' => '' ] ] ],
-				'missing-language'
+				'bad-request'
 			],
 			'inconsistent language in lemma change request' => [
 				[ 'lemmas' => [ 'en' => [ 'language' => 'en-gb', 'value' => 'colour' ] ] ],
@@ -1550,8 +1551,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException(
 			$params,
 			[
-				'code' => 'unprocessable-request',
-				'key' => 'wikibaselexeme-api-error-representation-language-inconsistent',
+				'code' => 'inconsistent-language',
+				'key' => 'wikibaselexeme-api-error-language-inconsistent',
 				'params' => [ 'data', 'forms/0/representations/la', 'la', 'ay' ],
 				'data' => [
 					'parameterName' => 'data',

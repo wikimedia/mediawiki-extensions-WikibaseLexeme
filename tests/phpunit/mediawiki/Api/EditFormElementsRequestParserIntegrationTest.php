@@ -12,15 +12,20 @@ use Wikibase\Lexeme\Api\EditFormElementsRequestParser;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\Api\Error\LanguageInconsistent;
+use Wikibase\Lexeme\Api\Error\LexemeTermLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Api\Error\ParameterIsNotFormId;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\RepresentationLanguageInconsistent;
+use Wikibase\Lexeme\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lib\StaticContentLanguages;
 
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElementsRequestParser
@@ -126,7 +131,6 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 					new JsonFieldHasWrongType( 'array', 'string' )
 				]
 			],
-			/** TODO A missing feature of Wikibase\DataModel\Deserializers\TermDeserializer?!
 			'representation list contains only single empty representation' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
@@ -135,11 +139,10 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 					)
 				],
 				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
-					new RepresentationTextCanNotBeEmpty( 'data', [ 'representations', 'en', 'value' ] )
+					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
+					new LexemeTermTextCanNotBeEmpty()
 				]
 			],
-			*/
 			'representation list contains only representation with empty language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
@@ -149,7 +152,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new RepresentationLanguageInconsistent( 'en', '' )
+					new LanguageInconsistent( 'en', '' )
 				]
 			],
 			'representation list contains representation with empty language key' => [
@@ -160,8 +163,8 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 					)
 				],
 				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
-					new RepresentationLanguageCanNotBeEmpty()
+					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', '' ] ],
+					new LexemeTermLanguageCanNotBeEmpty()
 				]
 			],
 			'representation list contains element with inconsistent language' => [
@@ -173,10 +176,22 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new RepresentationLanguageInconsistent(
+					new LanguageInconsistent(
 						'en',
 						'de'
 					)
+				]
+			],
+			'representation list contains element with unknown language' => [
+				[
+					'formId' => self::DEFAULT_FORM_ID,
+					'data' => $this->getDataAsJson(
+						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
+					)
+				],
+				[
+					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
+					new UnknownLanguage( 'foobar' )
 				]
 			],
 			'no representation string in data' => [
@@ -259,7 +274,12 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 
 	private function newRequestParser() {
 		$editFormChangeOpDeserializer = new EditFormChangeOpDeserializer(
-			new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+			new RepresentationsChangeOpDeserializer(
+				new TermDeserializer(),
+				new LexemeTermSerializationValidator(
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+				)
+			),
 			new ItemIdListDeserializer( new ItemIdParser() )
 		);
 

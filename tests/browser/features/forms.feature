@@ -46,12 +46,12 @@ Feature: Forms of a Lexeme
   Scenario: Change multi-variant representations
     Given I have a Lexeme with a Form
     When I click on the first Form's edit button
-     And I enter "colors" as the "en-us" form representation
+     And I enter "colors" as the "en-ca" form representation
      And I click on the add representation button
      And I enter "colours" as the "en-gb" form representation
      And I save the Form
      And I reload the page
-    Then "colors" should be displayed as the "en-us" representation of the Form
+    Then "colors" should be displayed as the "en-ca" representation of the Form
      And "colours" should be displayed as the "en-gb" representation of the Form
 
   @integration

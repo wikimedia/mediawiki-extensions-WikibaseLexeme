@@ -31,8 +31,9 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\FormId;
@@ -61,7 +62,6 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
-use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
@@ -172,8 +172,8 @@ return [
 					// TODO: WikibaseRepo should probably provide this validator?
 					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 					// that should be allowed as "languages" of lemma terms
-					new TermSerializationValidator(
-						new TermChangeOpSerializationValidator( $wikibaseRepo->getTermsLanguages() )
+					new LexemeTermSerializationValidator(
+						new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
 					),
 					$lexemeValidatorFactory,
 					$wikibaseRepo->getStringNormalizer()
@@ -195,7 +195,12 @@ return [
 					new FormChangeOpDeserializer(
 						$wikibaseRepo->getEntityLookup(),
 						new EditFormChangeOpDeserializer(
-							new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+							new RepresentationsChangeOpDeserializer(
+								new TermDeserializer(),
+								new LexemeTermSerializationValidator(
+									new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+								)
+							),
 							new ItemIdListDeserializer( new ItemIdParser() )
 						)
 					)
@@ -359,10 +364,16 @@ return [
 			);
 		},
 		'changeop-deserializer-callback' => function () {
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
-				WikibaseRepo::getDefaultInstance()->getEntityLookup(),
+				$wikibaseRepo->getEntityLookup(),
 				new EditFormChangeOpDeserializer(
-					new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+					new RepresentationsChangeOpDeserializer(
+						new TermDeserializer(),
+						new LexemeTermSerializationValidator(
+							new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+						)
+					),
 					new ItemIdListDeserializer( new ItemIdParser() )
 				)
 			);

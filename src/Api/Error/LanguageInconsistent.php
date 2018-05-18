@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Api\Error;
 /**
  * @license GPL-2.0-or-later
  */
-class RepresentationLanguageInconsistent implements ApiError {
+class LanguageInconsistent implements ApiError {
 
 	/**
 	 * @var string
@@ -31,12 +31,12 @@ class RepresentationLanguageInconsistent implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
-			'wikibaselexeme-api-error-representation-language-inconsistent',
+			'wikibaselexeme-api-error-language-inconsistent',
 			[ $parameterName, implode( '/', $path ), $this->expectedLanguage, $this->givenLanguage ]
 		);
 		return new \ApiMessage(
 			$message,
-			'unprocessable-request',
+			'inconsistent-language',
 			[
 				'parameterName' => $parameterName,
 				'fieldPath' => $path

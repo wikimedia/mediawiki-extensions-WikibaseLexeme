@@ -21,8 +21,9 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -31,7 +32,6 @@ use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
-use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\StringNormalizer;
@@ -66,8 +66,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 
 		$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 			new LemmaChangeOpDeserializer(
-				new TermSerializationValidator(
-					new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
+				new LexemeTermSerializationValidator(
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
 				),
 				$lexemeValidatorFactory,
 				$stringNormalizer
@@ -83,7 +83,12 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 				new FormChangeOpDeserializer(
 					WikibaseRepo::getDefaultInstance()->getEntityLookup(),
 					new EditFormChangeOpDeserializer(
-						new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+						new RepresentationsChangeOpDeserializer(
+							new TermDeserializer(),
+							new LexemeTermSerializationValidator(
+								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+							)
+						),
 						new ItemIdListDeserializer( new ItemIdParser() )
 					)
 				)
@@ -144,17 +149,27 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
 	}
 
-	public function testGivenChangeRequestWithEmptyLemma_lemmaIsRemoved() {
-		$lexeme = $this->getEnglishLexeme();
-
+	public function testGivenChangeRequestWithEmptyLemma_exceptionIsThrown() {
 		$deserializer = $this->getChangeOpDeserializer();
-		$changeOp = $deserializer->createEntityChangeOp(
-			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
+
+		try {
+			$deserializer->createEntityChangeOp(
+				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
+			);
+		} catch ( \ApiUsageException $ex ) {
+			$exception = $ex;
+		}
+
+		$message = $exception->getMessageObject();
+		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
+		$this->assertEquals(
+			'wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty',
+			$message->getKey()
 		);
-
-		$changeOp->apply( $lexeme );
-
-		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
+		$this->assertEquals(
+			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 'en' ] ],
+			$message->getApiData()
+		);
 	}
 
 	public function testGivenChangeRequestWithLanguage_languageIsChanged() {
