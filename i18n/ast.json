@@ -53,8 +53,6 @@
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "Esperábase que'l tipu del campu «$2» del parámetru «$1» fuera de tipu «$3». Apurrióse: «$4»",
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "Esperábase que'l parámetru «$1» fuera un identificador de lexema. Apurrióse: «$2»",
 	"wikibaselexeme-api-error-parameter-not-form-id": "Esperábase que'l parámetru «$1» fuera un identificador de Forma. Dióse: «$2»",
-	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "El testu representativu nun puede tar vacíu",
-	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "La llingua de representación nun puede tar vacia",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "La Forma tien de tener polo menos una representación",
 	"wikibase-lexeme-summary-add-form": "Añadióse la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-summary-remove-form": "Desanicióse la Forma $3 con {{PLURAL:$1|representación|representaciones}}",

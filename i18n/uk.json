@@ -41,8 +41,6 @@
 	"wikibaselexeme-api-error-json-field-not-item-id": "Очікується, що поле «$2» у параметрі «$1» має бути ідентифікатором елемента. Задано: «$3»",
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "Очікується, що поле «$2» у параметрі «$1» повинно мати тип «$3». Задано: «$4»",
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "Очікується, що параметр «$1» має бути ідентифікатором лексеми. Задано: «$2»",
-	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "Текст репрезентації не може бути порожнім",
-	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Мова репрезентації не може бути порожньою",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Форма повинна мати принаймні одну репрезентацію",
 	"wikibase-lexeme-summary-add-form": "Додано нову форму $3 з {{PLURAL:$1|репрезентацією|репрезентаціями}}",
 	"wikibaselexeme-field-language-label": "Мова",
