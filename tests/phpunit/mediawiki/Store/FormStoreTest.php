@@ -129,6 +129,40 @@ class FormStoreTest extends TestCase {
 		$this->assertSame( 'fromParentService', $result );
 	}
 
+	public function testGivenSaveFormWithFalseBaseRev_saveEntityEditsFormOnLexemeLoadedWithZeroRev() {
+		$user = $this->newUser();
+		$lexeme = $this->newLexeme();
+
+		$parentService = $this->getMock( EntityStore::class );
+		$lexemeLookup = $this->getMock( EntityRevisionLookup::class );
+		$lexemeLookup->expects( $this->once() )
+			->method( 'getEntityRevision' )
+			->will( $this->returnCallback( function ( LexemeId $lexemeId, $revId, $mode ) use ( $lexeme ) {
+				$this->assertSame( 0, $revId, 'strict assertion - 0 !== false' );
+				return new EntityRevision( $lexeme );
+			} ) );
+
+		$instance = new FormStore( $parentService, $lexemeLookup );
+
+		$instance->saveEntity( $this->newForm(), '', $user, 0, false );
+	}
+
+	public function testGivenSaveFormWithNumberBaseRev_saveEntityEditsFormOnLexemeLoadedWithThatRev() {
+		$user = $this->newUser();
+		$lexeme = $this->newLexeme();
+
+		$parentService = $this->getMock( EntityStore::class );
+		$lexemeLookup = $this->getMock( EntityRevisionLookup::class );
+		$lexemeLookup->expects( $this->once() )
+			->method( 'getEntityRevision' )
+			->with( $this->lexemeId, 47, 'master' )
+			->willReturn( new EntityRevision( $lexeme ) );
+
+		$instance = new FormStore( $parentService, $lexemeLookup );
+
+		$instance->saveEntity( $this->newForm(), '', $user, 0, 47 );
+	}
+
 	public function testSaveRedirect() {
 		$redirect = new EntityRedirect( $this->formId, $this->formId );
 		$instance = new FormStore(
