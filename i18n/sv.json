@@ -15,7 +15,6 @@
 	"apihelp-wbladdform-param-bot": "Markera denna redigering som en bot. Denna webbadressflagga kommer bara att respekteras om användare tillhör gruppen \"{{int:group-bot}}\".",
 	"wikibaselexeme-api-error-parameter-required": "Parametern \"$1\" är nödvändig",
 	"wikibaselexeme-api-error-json-field-not-item-id": "Fältet \"$2\" i parametern \"$1\" förväntas vara ett objekt-ID. Angivet: \"$3\"",
-	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "Representationstexten kan inte vara tom",
 	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}",
 	"wikibaselexeme-field-language-label": "Språk",
 	"wikibaselexeme-diffview-language": "språk",

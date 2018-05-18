@@ -41,8 +41,6 @@
 	"wikibaselexeme-api-error-json-field-not-item-id": "Feltet «$2» i parameteren «$1» forventes å være en element-ID. Gitt: «$3»",
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "Feltet «$2» i parameteren «$1» forventes å være av typen «$3». Gitt: «$4»",
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "Parameteren «$1» forventes å være en leksem-ID. Gitt: «$2»",
-	"wikibaselexeme-api-error-representation-text-cannot-be-empty": "Representasjonstekst kan ikke være tom",
-	"wikibaselexeme-api-error-representation-language-cannot-be-empty": "Representasjonsspråk kan ikke være tomt",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Formen må ha minst én representasjon",
 	"wikibase-lexeme-summary-add-form": "La til ny form $3 med {{PLURAL:$1|representasjon|representasjoner}}",
 	"wikibaselexeme-field-language-label": "Språk",
