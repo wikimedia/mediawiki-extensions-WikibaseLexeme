@@ -3,6 +3,8 @@
 namespace Wikibase\Lexeme\Api\Error;
 
 /**
+ * TODO Special. Only happens in RequestParser
+ *
  * @license GPL-2.0-or-later
  */
 class ParameterIsNotAJsonObject implements ApiError {
@@ -29,7 +31,7 @@ class ParameterIsNotAJsonObject implements ApiError {
 	/**
 	 * @see ApiError::asApiMessage()
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName = null, array $path = [] ) {
 		$message = new \Message(
 			'wikibaselexeme-api-error-parameter-invalid-json-object',
 			[ $this->parameterName, $this->given ]

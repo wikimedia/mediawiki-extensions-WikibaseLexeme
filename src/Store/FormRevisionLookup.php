@@ -7,6 +7,7 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataTransfer\NullFormId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
@@ -47,6 +48,10 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		$mode = self::LATEST_FROM_REPLICA
 	) {
 		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		if ( $formId instanceof NullFormId ) {
+			return null;
+		}
 
 		$revision = $this->lookup->getEntityRevision( $formId->getLexemeId(), $revisionId, $mode );
 		if ( $revision === null ) {

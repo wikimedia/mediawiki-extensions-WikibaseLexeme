@@ -10,16 +10,20 @@
 	 * @param {mediaWiki.Api} api
 	 * @param {wikibase.lexeme.RevisionStore} revisionStore
 	 * @param {string} lexemeId
+	 * @param {Object} formData
 	 */
 	var SELF = wb.lexeme.entityChangers.FormChanger = function WbLexemeFormChanger(
 		api,
 		revisionStore,
-		lexemeId
+		lexemeId,
+		formData
 	) {
 		this.api = api;
 		this.revisionStore = revisionStore;
 		this.lexemeId = lexemeId;
+		this.formData = formData;
 		this.lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
+		this.formSerializer = new wb.lexeme.serialization.FormSerializer();
 	};
 
 	/**
@@ -46,6 +50,12 @@
 		lexemeId: null,
 
 		/**
+		 * @type {Object}
+		 * @private
+		 */
+		formData: null,
+
+		/**
 		 * @type {wikibase.lexeme.serialization.LexemeDeserializer}
 		 * @private
 		 */
@@ -70,17 +80,22 @@
 		saveChangedFormData: function ( formId, representations, grammaticalFeatures ) {
 			var self = this;
 
+			var requestRepresentations =
+				this.getRepresentationDataForApiRequest( this.formData.representations, representations );
+
 			return this.api.postWithToken( 'csrf', {
 				action: 'wbleditformelements',
 				formId: formId,
 				data: JSON.stringify( {
-					representations: representations,
+					representations: requestRepresentations,
 					grammaticalFeatures: grammaticalFeatures
 				} ),
 				errorformat: 'plaintext',
 				bot: 0
 			} ).then( function ( data ) {
-				return self.lexemeDeserializer.deserializeForm( data.form );
+				var form = self.lexemeDeserializer.deserializeForm( data.form );
+				self.formData = self.formSerializer.serialize( form );
+				return form;
 			} ).catch( function ( code, response ) {
 				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
 			} );
@@ -101,6 +116,7 @@
 			} ).then( function ( data ) {
 				var form = self.lexemeDeserializer.deserializeForm( data.form );
 				self.revisionStore.setFormRevision( data.lastrevid, form.getId() );
+				self.formData = self.formSerializer.serialize( form );
 				return form;
 			} ).catch( function ( code, response ) {
 				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
@@ -122,6 +138,33 @@
 				} );
 
 			return deferred;
+		},
+
+		getRepresentationDataForApiRequest: function ( oldRepresentations, newRepresentations ) {
+			var result = {};
+
+			for ( var language in newRepresentations ) {
+				var newRepresentation = newRepresentations[ language ].value;
+
+				if ( ( !( language in oldRepresentations ) )
+					|| ( oldRepresentations[ language ].value !== newRepresentation )
+				) {
+					result[ language ] = {
+						language: language,
+						value: newRepresentation
+					};
+				}
+			}
+			for ( language in oldRepresentations ) {
+				if ( !( language in newRepresentations ) ) {
+					result[ language ] = {
+						language: language,
+						remove: ''
+					};
+				}
+			}
+
+			return result;
 		}
 	} );
 

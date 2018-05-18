@@ -2,12 +2,12 @@
 
 namespace Wikibase\Lexeme\ChangeOp;
 
+use ValueValidators\Error;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
-use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -15,6 +15,8 @@ use Wikimedia\Assert\Assert;
  * @license GPL-2.0-or-later
  */
 class ChangeOpRemoveForm extends ChangeOpBase {
+
+	const SUMMARY_ACTION_REMOVE = 'remove-form';
 
 	/**
 	 * @var FormId
@@ -31,6 +33,18 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
+		/** @var Lexeme $entity */
+		if ( $entity->getForms()->getById( $this->formId ) === null ) {
+			return Result::newError( [
+				Error::newError(
+					'Form does not exist',
+					null,
+					'form-not-found',
+					[ $this->formId->serialize() ]
+				),
+			] );
+		}
+
 		return Result::newSuccess();
 	}
 
@@ -38,16 +52,13 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		/** @var Lexeme $entity */
-		if ( $entity->getForms()->getById( $this->formId ) === null ) {
-			throw new ChangeOpException( "Lexeme does not have Form with ID $this->formId" );
-		}
 
 		$form = $entity->getForm( $this->formId );
 		$entity->removeForm( $this->formId );
 
 		$this->updateSummary(
 			$summary,
-			'remove-form',
+			self::SUMMARY_ACTION_REMOVE,
 			'',
 			array_values( $form->getRepresentations()->toTextArray() )
 		);

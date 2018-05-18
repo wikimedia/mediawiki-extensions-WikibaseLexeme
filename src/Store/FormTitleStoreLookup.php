@@ -6,6 +6,7 @@ use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataTransfer\NullFormId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\Assert;
 
@@ -34,6 +35,10 @@ class FormTitleStoreLookup implements EntityTitleStoreLookup {
 	 */
 	public function getTitleForId( EntityId $formId ) {
 		Assert::parameterType( FormId::class, $formId, '$formId' );
+
+		if ( $formId instanceof NullFormId ) {
+			return null;
+		}
 
 		$title = $this->lookup->getTitleForId( $formId->getLexemeId() );
 

@@ -8,28 +8,9 @@ namespace Wikibase\Lexeme\Api\Error;
 class RepresentationLanguageCanNotBeEmpty implements ApiError {
 
 	/**
-	 * @var string
-	 */
-	private $parameterName;
-
-	/**
-	 * @var string[]
-	 */
-	private $fieldPath;
-
-	/**
-	 * @param string $parameterName
-	 * @param string[] $fieldPath
-	 */
-	public function __construct( $parameterName, array $fieldPath ) {
-		$this->parameterName = $parameterName;
-		$this->fieldPath = $fieldPath;
-	}
-
-	/**
 	 * @see ApiError::asApiMessage()
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
 			'wikibaselexeme-api-error-representation-language-cannot-be-empty',
 			[]
@@ -38,8 +19,8 @@ class RepresentationLanguageCanNotBeEmpty implements ApiError {
 			$message,
 			'unprocessable-request',
 			[
-				'parameterName' => $this->parameterName,
-				'fieldPath' => $this->fieldPath
+				'parameterName' => $parameterName,
+				'fieldPath' => $path
 			]
 		);
 	}

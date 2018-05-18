@@ -8,6 +8,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Summary;
@@ -28,10 +29,22 @@ class ChangeOpRemoveFormTest extends TestCase {
 		$changeOpRemoveForm->validate( NewItem::withId( 'Q1' )->build() );
 	}
 
-	public function test_validatePassesIfProvidedEntityIsALexeme() {
+	public function test_validateFailsIfProvidedEntityLacksForm() {
 		$changeOpRemoveForm = new ChangeOpRemoveForm( new FormId( 'L1-F1' ) );
 
 		$result = $changeOpRemoveForm->validate( NewLexeme::create()->build() );
+
+		$this->assertFalse( $result->isValid() );
+	}
+
+	public function test_validatePassesIfProvidedEntityIsLexemeAndHasForm() {
+		$changeOpRemoveForm = new ChangeOpRemoveForm( new FormId( 'L1-F1' ) );
+
+		$result = $changeOpRemoveForm->validate(
+			NewLexeme::create()
+				->withForm( NewForm::havingId( new FormId( 'L1-F1' ) )->build() )
+				->build()
+		);
 
 		$this->assertTrue( $result->isValid() );
 	}
@@ -51,7 +64,7 @@ class ChangeOpRemoveFormTest extends TestCase {
 		$changeOp = new ChangeOpRemoveForm( $form->getId() );
 		$changeOp->apply( $lexeme );
 
-		$this->assertSame( 0, $lexeme->getForms()->count() );
+		$this->assertCount( 0, $lexeme->getForms() );
 	}
 
 	public function test_applySetsTheSummary() {
@@ -63,7 +76,7 @@ class ChangeOpRemoveFormTest extends TestCase {
 		$summary = new Summary();
 		$changeOp->apply( $lexeme, $summary );
 
-		$this->assertSame( 0, $lexeme->getForms()->count() );
+		$this->assertCount( 0, $lexeme->getForms() );
 
 		$this->assertEquals( 'remove-form', $summary->getMessageKey() );
 		$this->assertEquals( [ 'goat' ], $summary->getAutoSummaryArgs() );

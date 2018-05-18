@@ -2,9 +2,13 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiMessage;
+use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
+use Wikibase\Lexeme\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\Api\RemoveFormRequestParser;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
@@ -23,26 +27,30 @@ class RemoveFormRequestParserTest extends TestCase {
 	) {
 		$parser = $this->newRemoveFormRequestParser();
 
-		$result = $parser->parse( $params );
+		$expectedContext = $expectedErrors[0];
+		$expectedError = $expectedErrors[1];
+		$expectedMessage = $expectedError->asApiMessage( 'data', [] );
 
-		$this->assertTrue( $result->hasErrors(), 'Result doesn\'t contain errors, but should' );
-		foreach ( $expectedErrors as $expectedError ) {
-			assertThat(
-				$result->asFatalStatus()->getErrors(),
-				hasItem( hasKeyValuePair( 'message', $expectedError ) )
-			);
+		try {
+			$result = $parser->parse( $params );
+			$this->fail( 'Expected ApiUsageException did not occur.' );
+		} catch ( ApiUsageException $exception ) {
+			/** @var ApiMessage $message */
+			$message = $exception->getMessageObject();
+
+			$this->assertInstanceOf( ApiMessage::class, $message );
+
+			$this->assertEquals( $expectedMessage->getKey(), $message->getKey() );
+			$this->assertEquals( $expectedMessage->getApiCode(), $message->getApiCode() );
+			$this->assertEquals( $expectedContext, $message->getApiData() );
 		}
 	}
 
 	public function provideInvalidParamsAndErrors() {
 		return [
-			'no id param' => [
-				[],
-				[ 'Parameter "[id]" is required' ]
-			],
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
-				[ 'Parameter "[id]" expected to be a Form ID. Given: "foo"' ]
+				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'foo' ) ]
 			],
 		];
 	}
@@ -50,8 +58,7 @@ class RemoveFormRequestParserTest extends TestCase {
 	public function testFormIdPassedToRequestObject() {
 		$parser = $this->newRemoveFormRequestParser();
 
-		$result = $parser->parse( [ 'id' => 'L1-F2' ] );
-		$request = $result->getRequest();
+		$request = $parser->parse( [ 'id' => 'L1-F2' ] );
 
 		$this->assertEquals( new FormId( 'L1-F2' ), $request->getFormId() );
 	}
@@ -63,7 +70,7 @@ class RemoveFormRequestParserTest extends TestCase {
 			}
 		] );
 
-		return new RemoveFormRequestParser( $idParser );
+		return new RemoveFormRequestParser( new FormIdDeserializer( $idParser ) );
 	}
 
 }

@@ -8,6 +8,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataTransfer\NullFormId;
 use Wikibase\Lexeme\Store\FormRevisionLookup;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -100,6 +101,17 @@ class FormRevisionLookupTest extends TestCase {
 		$instance = new FormRevisionLookup( $parentService );
 
 		$this->assertFalse( $instance->getLatestRevisionId( new FormId( 'L1-F200' ) ) );
+	}
+
+	public function testGivenNullFormId_lookupIsNotPerformedAndNullReturned() {
+		$parentService = $this->getMock( EntityRevisionLookup::class );
+		$parentService
+			->expects( $this->never() )
+			->method( 'getEntityRevision' );
+
+		$formRevisionLookup = new FormRevisionLookup( $parentService );
+
+		$this->assertNull( $formRevisionLookup->getEntityRevision( new NullFormId() ) );
 	}
 
 	private function newLexeme() {

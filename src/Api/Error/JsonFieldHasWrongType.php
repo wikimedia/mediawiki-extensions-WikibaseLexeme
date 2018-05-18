@@ -10,16 +10,6 @@ class JsonFieldHasWrongType implements ApiError {
 	/**
 	 * @var string
 	 */
-	private $parameterName;
-
-	/**
-	 * @var string[]
-	 */
-	private $fieldPath;
-
-	/**
-	 * @var string
-	 */
 	private $expectedType;
 
 	/**
@@ -28,15 +18,10 @@ class JsonFieldHasWrongType implements ApiError {
 	private $givenType;
 
 	/**
-	 * JsonFieldHasWrongType constructor.
-	 * @param string $parameterName
-	 * @param string[] $fieldPath
 	 * @param string $expectedType
 	 * @param string $givenType
 	 */
-	public function __construct( $parameterName, array $fieldPath, $expectedType, $givenType ) {
-		$this->parameterName = $parameterName;
-		$this->fieldPath = $fieldPath;
+	public function __construct( $expectedType, $givenType ) {
 		$this->expectedType = $expectedType;
 		$this->givenType = $givenType;
 	}
@@ -44,12 +29,12 @@ class JsonFieldHasWrongType implements ApiError {
 	/**
 	 * @see ApiError::asApiMessage()
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
 			'wikibaselexeme-api-error-json-field-has-wrong-type',
 			[
-				$this->parameterName,
-				implode( '/', $this->fieldPath ),
+				$parameterName,
+				implode( '/', $path ),
 				$this->expectedType,
 				$this->givenType
 			]

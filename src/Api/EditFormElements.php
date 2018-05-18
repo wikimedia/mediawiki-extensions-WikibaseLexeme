@@ -3,12 +3,21 @@
 namespace Wikibase\Lexeme\Api;
 
 use ApiMain;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\FormNotFound;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
 /**
@@ -41,8 +50,14 @@ class EditFormElements extends \ApiBase {
 	 */
 	private $formSerializer;
 
+	/**
+	 * @var ApiErrorReporter
+	 */
+	private $errorReporter;
+
 	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
 		$serializerFactory = $wikibaseRepo->getBaseDataModelSerializerFactory();
 
@@ -56,9 +71,18 @@ class EditFormElements extends \ApiBase {
 			$moduleName,
 			$wikibaseRepo->getEntityRevisionLookup( 'uncached' ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
-			new EditFormElementsRequestParser( $wikibaseRepo->getEntityIdParser() ),
+			new EditFormElementsRequestParser(
+				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+				new EditFormChangeOpDeserializer(
+					new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+					new ItemIdListDeserializer( new ItemIdParser() )
+				)
+			),
 			$wikibaseRepo->getSummaryFormatter(),
-			$formSerializer
+			$formSerializer,
+			function ( $module ) use ( $apiHelperFactory ) {
+				return $apiHelperFactory->getErrorReporter( $module );
+			}
 		);
 	}
 
@@ -69,7 +93,8 @@ class EditFormElements extends \ApiBase {
 		EditEntityFactory $editEntityFactory,
 		EditFormElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
-		FormSerializer $formSerializer
+		FormSerializer $formSerializer,
+		callable $errorReporterInstantiator
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
@@ -78,19 +103,13 @@ class EditFormElements extends \ApiBase {
 		$this->requestParser = $requestParser;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->formSerializer = $formSerializer;
+		$this->errorReporter = $errorReporterInstantiator( $this );
 	}
 
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$parserResult = $this->requestParser->parse( $params );
+		$request = $this->requestParser->parse( $params );
 
-		if ( $parserResult->hasErrors() ) {
-			//TODO: Increase stats counter on failure
-			// `wikibase.repo.api.errors.total` counter
-			$this->dieStatus( $parserResult->asFatalStatus() );
-		}
-
-		$request = $parserResult->getRequest();
 		$formId = $request->getFormId();
 
 		$latestRevision = 0;
@@ -102,14 +121,26 @@ class EditFormElements extends \ApiBase {
 
 		if ( $formRevision === null ) {
 			$error = new FormNotFound( $formId );
-			$this->dieWithError( $error->asApiMessage() );
+			$this->dieWithError( $error->asApiMessage( EditFormElementsRequestParser::PARAM_FORM_ID, [] ) );
 		}
 		$form = $formRevision->getEntity();
 
 		$changeOp = $request->getChangeOp();
-		// TODO: Uses some FormattableSummary instead of Summary
-		$summary = $changeOp->generateSummaryWhenAppliedToForm( $form );
-		$changeOp->apply( $form );
+
+		$result = $changeOp->validate( $form );
+		if ( !$result->isValid() ) {
+			$this->errorReporter->dieException(
+				new ChangeOpValidationException( $result ),
+				'modification-failed'
+			);
+		}
+
+		$summary = new Summary();
+		try {
+			$changeOp->apply( $form, $summary );
+		} catch ( ChangeOpException $exception ) {
+			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
+		}
 
 		$summaryString = $this->summaryFormatter->formatSummary( $summary );
 
@@ -175,11 +206,11 @@ class EditFormElements extends \ApiBase {
 	 */
 	protected function getAllowedParams() {
 		return [
-			'formId' => [
+			EditFormElementsRequestParser::PARAM_FORM_ID => [
 				self::PARAM_TYPE => 'string',
 				self::PARAM_REQUIRED => true,
 			],
-			'data' => [
+			EditFormElementsRequestParser::PARAM_DATA => [
 				self::PARAM_TYPE => 'text',
 				self::PARAM_REQUIRED => true,
 			],
@@ -233,8 +264,8 @@ class EditFormElements extends \ApiBase {
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
-			'formId' => $formId,
-			'data' => json_encode( $exampleData )
+			EditFormElementsRequestParser::PARAM_FORM_ID => $formId,
+			EditFormElementsRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
 		$languages = array_map( function ( $r ) {

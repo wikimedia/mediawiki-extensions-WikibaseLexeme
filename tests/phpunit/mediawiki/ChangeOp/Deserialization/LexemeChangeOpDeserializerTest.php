@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -10,12 +11,18 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\LabelDescriptionDuplicateDetector;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormListChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -57,7 +64,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$lexemeValidatorFactory = $this->getLexemeValidatorFactory();
 		$stringNormalizer = new StringNormalizer();
 
-		return new LexemeChangeOpDeserializer(
+		$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 			new LemmaChangeOpDeserializer(
 				new TermSerializationValidator(
 					new TermChangeOpSerializationValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
@@ -71,8 +78,21 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 				WikibaseRepo::getDefaultInstance()->getExternalFormatStatementDeserializer(),
 				WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 			),
-			new FormChangeOpDeserializer()
+			new FormListChangeOpDeserializer(
+				new FormIdDeserializer( WikibaseRepo::getDefaultInstance()->getEntityIdParser() ),
+				new FormChangeOpDeserializer(
+					WikibaseRepo::getDefaultInstance()->getEntityLookup(),
+					new EditFormChangeOpDeserializer(
+						new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+						new ItemIdListDeserializer( new ItemIdParser() )
+					)
+				)
+			)
 		);
+
+		$lexemeChangeOpDeserializer->setContext( ValidationContext::create( 'data' ) );
+
+		return $lexemeChangeOpDeserializer;
 	}
 
 	private function getEnglishLexeme() {
@@ -306,24 +326,6 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$this->assertTrue(
 			$lexeme->getForm( new FormId( 'L500-F2' ) )->getRepresentations()->hasTerm( $persistentTerm )
 		);
-	}
-
-	/**
-	 * @expectedException \Wikibase\Repo\ChangeOp\ChangeOpException
-	 * @expectedExceptionMessage Lexeme does not have Form with ID L500-F400
-	 */
-	public function testRemoveFormWithUnknownId_throwsException() {
-		$lexeme = $this->getEnglishLexeme();
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'apple' ) ] ), [] );
-
-		$deserializer = $this->getChangeOpDeserializer();
-		$changeOp = $deserializer->createEntityChangeOp( [
-			'forms' => [
-				[ 'id' => 'L500-F400', 'remove' => '' ]
-			]
-		] );
-
-		$changeOp->apply( $lexeme );
 	}
 
 }

@@ -7,13 +7,17 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpAddForm;
+use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
+use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
+use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
+use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpAddForm
+ * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd
  *
  * @license GPL-2.0-or-later
  */
@@ -22,14 +26,20 @@ class ChangeOpAddFormTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
-		$changeOpAddForm = new ChangeOpAddForm( new TermList(), [] );
+		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
+			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
+			new ChangeOpGrammaticalFeatures( [] )
+		] ) );
 
 		$this->setExpectedException( \InvalidArgumentException::class );
 		$changeOpAddForm->validate( NewItem::withId( 'Q1' )->build() );
 	}
 
 	public function test_validatePassesIfProvidedEntityIsALexeme() {
-		$changeOpAddForm = new ChangeOpAddForm( new TermList(), [] );
+		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
+			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
+			new ChangeOpGrammaticalFeatures( [] )
+		] ) );
 
 		$result = $changeOpAddForm->validate( NewLexeme::create()->build() );
 
@@ -37,7 +47,10 @@ class ChangeOpAddFormTest extends TestCase {
 	}
 
 	public function test_applyFailsIfProvidedEntityIsNotALexeme() {
-		$changeOpAddForm = new ChangeOpAddForm( new TermList(), [] );
+		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
+			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
+			new ChangeOpGrammaticalFeatures( [] )
+		] ) );
 
 		$this->setExpectedException( \InvalidArgumentException::class );
 		$changeOpAddForm->apply( NewItem::withId( 'Q1' )->build() );
@@ -45,7 +58,10 @@ class ChangeOpAddFormTest extends TestCase {
 
 	public function test_applyAddsFormIfGivenALexeme() {
 		$representations = new TermList( [ new Term( 'en', 'goat' ) ] );
-		$changeOp = new ChangeOpAddForm( $representations, [ new ItemId( 'Q1' ) ] );
+		$changeOp = new ChangeOpFormAdd( new ChangeOpFormEdit( [
+				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
+				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] )
+		] ) );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$changeOp->apply( $lexeme );
@@ -56,8 +72,11 @@ class ChangeOpAddFormTest extends TestCase {
 	}
 
 	public function test_applySetsTheSummary() {
-		$representations = new TermList( [ new Term( 'en', 'goat' ) ] );
-		$changeOp = new ChangeOpAddForm( $representations, [] );
+		$changeOp = new ChangeOpFormAdd( new ChangeOpFormEdit( [
+			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
+			new ChangeOpGrammaticalFeatures( [] )
+		] ) );
+
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$summary = new Summary();

@@ -3,13 +3,15 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
+use PHPUnit4And6Compat;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\Lexeme\ChangeOp\AddFormToLexemeChangeOp;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Summary;
+use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer
@@ -18,140 +20,72 @@ use Wikibase\Summary;
  */
 class FormChangeOpDeserializerTest extends TestCase {
 
-	public function testGivenChangeRequestWithRemoveForm_formIsRemoved() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
+	use PHPUnit4And6Compat;
 
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[ 'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ] ] ]
+	public function testRequestWithoutLexemeId_yieldsPureEditFormChangeOp() {
+		$request = [ 'something' ];
+
+		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$editFormChangeOp = $this->getMock( ChangeOp::class );
+
+		$repr->expects( $this->once() )
+			->method( 'createEntityChangeOp' )
+			->with( $request )
+			->willReturn( $editFormChangeOp );
+
+		$deserializer = new FormChangeOpDeserializer(
+			$this->getMock( EntityLookup::class ),
+			$repr
 		);
 
-		$summary = new Summary();
-		$changeOps->apply( $lexeme, $summary );
+		$deserializer->setContext( ValidationContext::create( 'data' ) );
 
-		$this->assertCount( 1, $changeOps->getActions() );
-		$this->assertCount( 0, $lexeme->getForms() );
-		$this->assertSame( 'remove-form', $summary->getMessageKey() );
-		$this->assertSame( [ 'L107-F1' ], $summary->getCommentArgs() );
+		$this->assertSame(
+			$editFormChangeOp,
+			$deserializer->createEntityChangeOp( $request )
+		);
 	}
 
-	public function testGivenChangeRequestOfRemoveFormAndOtherData_formIsRemoved() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
+	public function testRequestWithLexemeId_yieldsWrappedEditFormChangeOp() {
+		$request = [ 'lexemeId' => 'L4711', 'something' => 'else' ];
 
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[
-				'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ] ],
-				'unrelatedkey' => 'no harm done'
-			]
+		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$editFormChangeOp = $this->getMock( ChangeOp::class );
+
+		$repr->expects( $this->once() )
+			->method( 'createEntityChangeOp' )
+			->with( $request )
+			->willReturn( $editFormChangeOp );
+
+		$entityLookup = $this->getMock( EntityLookup::class );
+		$entityLookup
+			->expects( $this->once() )
+			->method( 'getEntity' )
+			->willReturn( NewLexeme::havingId( 'L4711' )->build() );
+
+		$deserializer = new FormChangeOpDeserializer(
+			$entityLookup,
+			$repr
 		);
 
-		$summary = new Summary();
-		$changeOps->apply( $lexeme, $summary );
+		$deserializer->setContext( ValidationContext::create( 'data' ) );
 
-		$this->assertCount( 0, $lexeme->getForms() );
-	}
+		/**
+		 * @var ChangeOps $changeOps
+		 */
+		$changeOps = $deserializer->createEntityChangeOp( $request );
+		$changeOpsArray = $changeOps->getChangeOps();
 
-	public function testGivenChangeRequestWithOneOfTwoRemoveForm_requestedFormIsRemoved() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'crabapple' ) ] ), [] );
+		// TODO Assert that correct lexeme is passed
+		$this->assertInstanceOf( AddFormToLexemeChangeOp::class, $changeOpsArray[0] );
 
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[ 'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ] ] ]
-		);
-
-		$summary = new Summary();
-		$changeOps->apply( $lexeme, $summary );
-
-		$this->assertCount( 1, $changeOps->getActions() );
-		$this->assertCount( 1, $lexeme->getForms() );
-		$this->assertInstanceOf( Form::class, $lexeme->getForms()->getById( new FormId( 'L107-F2' ) ) );
-		$this->assertSame( 'remove-form', $summary->getMessageKey() );
-		$this->assertSame( [ 'L107-F1' ], $summary->getCommentArgs() );
-	}
-
-	public function testGivenChangeRequestWithAllFormRemove_formsAreRemoved() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'crabapple' ) ] ), [] );
-
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[ 'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ], [ 'id' => 'L107-F2', 'remove' => '' ] ] ]
-		);
-
-		$summary = new Summary();
-		$changeOps->apply( $lexeme, $summary );
-
-		$this->assertCount( 1, $changeOps->getActions() );
-		$this->assertCount( 0, $lexeme->getForms() );
-		$this->assertSame( 'update', $summary->getMessageKey() );
-		$this->assertSame( [], $summary->getCommentArgs() );
-	}
-
-	public function testGivenChangeRequestWithoutRemoveForm_formStaysIntact() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[ 'forms' => [ [ 'id' => 'L107-F1' ] ] ]
-		);
-
-		$summary = new Summary();
-		$changeOps->apply( $lexeme, $summary );
-
-		$this->assertCount( 0, $changeOps->getActions() );
-		$this->assertCount( 1, $lexeme->getForms() );
-		$this->assertNull( $summary->getMessageKey() );
-	}
-
-	/**
-	 * @expectedException \Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException
-	 * @expectedExceptionMessage Parameter "[forms][0][id]" is required
-	 */
-	public function testGivenChangeRequestWithoutId_exceptionIsThrown() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[ 'forms' => [ [ 'remove' => '' ] ] ]
-		);
-
-		$changeOps->apply( $lexeme );
-	}
-
-	/**
-	 * @expectedException \Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException
-	 * @expectedExceptionMessage Expected argument of type "string", "array" given
-	 */
-	public function testGivenChangeRequestWithOffTypeId_exceptionIsThrown() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-
-		$deserializer = new FormChangeOpDeserializer();
-		$changeOps = $deserializer->createEntityChangeOp(
-			[ 'forms' => [ [ 'id' => [ 'hack' ], 'remove' => '' ] ] ]
-		);
-
-		$changeOps->apply( $lexeme );
-	}
-
-	private function getEnglishLexeme( $id ) {
-		return NewLexeme::havingId( $id )
-			->withLemma( 'en', 'apple' )
-			->withForm( new Form(
-				new FormId(
-					$this->formatFormId( $id, 'F1' )
-				),
-				new TermList( [
-					new Term( 'en', 'Malus' )
-				] ),
-				[]
-			) )
-			->build();
-	}
-
-	private function formatFormId( $lexemeId, $formId ) {
-		return $lexemeId . '-' . $formId;
+		$this->assertSame( $editFormChangeOp, $changeOpsArray[1] );
 	}
 
 }

@@ -35,7 +35,7 @@ class FormId extends EntityId {
 	 * @return string
 	 */
 	public function getEntityType() {
-		return 'form';
+		return Form::ENTITY_TYPE;
 	}
 
 	/**

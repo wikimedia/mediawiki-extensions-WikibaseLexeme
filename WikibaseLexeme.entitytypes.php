@@ -14,17 +14,25 @@
 
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\DeserializerFactory;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\FormListChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\TermSerializationValidator;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\FormId;
@@ -37,6 +45,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
@@ -50,6 +59,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Rdf\RdfVocabulary;
+use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\TermChangeOpSerializationValidator;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
@@ -157,7 +167,7 @@ return [
 				// FIXME: What does belong here?
 				[]
 			);
-			return new LexemeChangeOpDeserializer(
+			$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
 					// TODO: WikibaseRepo should probably provide this validator?
 					// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
@@ -180,8 +190,21 @@ return [
 					$wikibaseRepo->getExternalFormatStatementDeserializer(),
 					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 				),
-				new FormChangeOpDeserializer()
+				new FormListChangeOpDeserializer(
+					new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+					new FormChangeOpDeserializer(
+						$wikibaseRepo->getEntityLookup(),
+						new EditFormChangeOpDeserializer(
+							new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+							new ItemIdListDeserializer( new ItemIdParser() )
+						)
+					)
+				)
 			);
+			$lexemeChangeOpDeserializer->setContext(
+				ValidationContext::create( EditEntity::PARAM_DATA )
+			);
+			return $lexemeChangeOpDeserializer;
 		},
 		'rdf-builder-factory-callback' => function (
 			$flavorFlags,
@@ -334,6 +357,22 @@ return [
 				new \Wikibase\Lexeme\Store\NullLabelDescriptionLookup(),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
+		},
+		'changeop-deserializer-callback' => function () {
+			$formChangeOpDeserializer = new FormChangeOpDeserializer(
+				WikibaseRepo::getDefaultInstance()->getEntityLookup(),
+				new EditFormChangeOpDeserializer(
+					new RepresentationsChangeOpDeserializer( new TermDeserializer() ),
+					new ItemIdListDeserializer( new ItemIdParser() )
+				)
+			);
+			$formChangeOpDeserializer->setContext(
+				ValidationContext::create( EditEntity::PARAM_DATA )
+			);
+			return $formChangeOpDeserializer;
+		},
+		'entity-factory-callback' => function () {
+			return new BlankForm();
 		},
 	],
 ];

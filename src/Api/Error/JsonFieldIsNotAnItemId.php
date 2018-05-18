@@ -10,37 +10,27 @@ class JsonFieldIsNotAnItemId implements ApiError {
 	/**
 	 * @var string
 	 */
-	private $parameterName;
-
-	/**
-	 * @var string[]
-	 */
-	private $path;
-
-	/**
-	 * @var string
-	 */
 	private $given;
 
 	/**
-	 * @param string $parameterName
-	 * @param string[] $path
 	 * @param string $given
 	 */
-	public function __construct( $parameterName, array $path, $given ) {
-		$this->parameterName = $parameterName;
-		$this->path = $path;
+	public function __construct( $given ) {
 		$this->given = $given;
 	}
 
 	/**
 	 * @see ApiError::asApiMessage()
+	 *
+	 * @param string $parameterName
+	 * @param string[] $path
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
-			'wikibaselexeme-api-error-json-field-not-item-id',
-			[ $this->parameterName, implode( '/', $this->path ), $this->given ]
+		'wikibaselexeme-api-error-json-field-not-item-id',
+			[ $parameterName, implode( '/', $path ), json_encode( $this->given ) ]
 		);
+		// TODO: should be something more specific than bad-request
 		return new \ApiMessage( $message, 'bad-request' );
 	}
 

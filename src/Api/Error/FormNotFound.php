@@ -23,12 +23,15 @@ class FormNotFound implements ApiError {
 	/**
 	 * @return ApiMessage
 	 */
-	public function asApiMessage() {
+	public function asApiMessage( $parameterName, array $path ) {
 		$message = new Message(
 			'wikibaselexeme-api-error-form-not-found',
-			[ $this->formId->serialize() ]
+			[ $parameterName, $this->formId->serialize() ]
 		);
-		return new ApiMessage( $message, 'not-found' );
+		return new ApiMessage( $message, 'not-found', [
+			'parameterName' => $parameterName,
+			'fieldPath' => []
+		] );
 	}
 
 }
