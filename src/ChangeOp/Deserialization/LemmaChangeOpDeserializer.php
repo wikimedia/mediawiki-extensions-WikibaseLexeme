@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
+use ValueValidators\ValueValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
@@ -21,9 +21,9 @@ use Wikibase\StringNormalizer;
 class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var LexemeValidatorFactory
+	 * @var ValueValidator
 	 */
-	private $lexemeValidatorFactory;
+	private $lemmaTermValidator;
 
 	/**
 	 * @var StringNormalizer
@@ -39,11 +39,11 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	public function __construct(
 		LexemeTermSerializationValidator $termChangeOpSerializationValidator,
-		LexemeValidatorFactory $lexemeValidatorFactory,
+		ValueValidator $lemmaTermValidator,
 		StringNormalizer $stringNormalizer
 	) {
 		$this->termSerializationValidator = $termChangeOpSerializationValidator;
-		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
+		$this->lemmaTermValidator = $lemmaTermValidator;
 		$this->stringNormalizer = $stringNormalizer;
 	}
 
@@ -78,7 +78,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 				$changeOps->add( new ChangeOpLemma(
 					$serialization['language'],
 					null,
-					$this->lexemeValidatorFactory
+					$this->lemmaTermValidator
 				) );
 				continue;
 			}
@@ -87,7 +87,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 			$changeOps->add( new ChangeOpLemma(
 				$serialization['language'],
 				$lemmaTerm,
-				$this->lexemeValidatorFactory
+				$this->lemmaTermValidator
 			) );
 		}
 

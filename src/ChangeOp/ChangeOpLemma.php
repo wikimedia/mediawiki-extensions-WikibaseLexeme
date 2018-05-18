@@ -4,10 +4,10 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use InvalidArgumentException;
 use ValueValidators\Result;
+use ValueValidators\ValueValidator;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -27,24 +27,24 @@ class ChangeOpLemma extends ChangeOpBase {
 	private $lemma;
 
 	/**
-	 * @var LexemeValidatorFactory
+	 * @var ValueValidator
 	 */
-	private $lexemeValidatorFactory;
+	private $lemmaTermValidator;
 
 	/**
 	 * @param string $language
 	 * @param string|null $lemma
-	 * @param LexemeValidatorFactory $lexemeValidatorFactory
+	 * @param ValueValidator $lemmaTermValidator
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( $language, $lemma, LexemeValidatorFactory $lexemeValidatorFactory ) {
+	public function __construct( $language, $lemma, ValueValidator $lemmaTermValidator ) {
 		Assert::parameterType( 'string', $language, '$language' );
 		Assert::parameterType( 'string|null', $lemma, '$lemma' );
 
 		$this->language = $language;
 		$this->lemma = $lemma;
-		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
+		$this->lemmaTermValidator = $lemmaTermValidator;
 	}
 
 	/**
@@ -56,20 +56,12 @@ class ChangeOpLemma extends ChangeOpBase {
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		$languageValidator = $this->lexemeValidatorFactory->getLanguageCodeValidator();
-		$termValidator = $this->lexemeValidatorFactory->getLemmaTermValidator();
-
-		// TODO: Temporary implementation of language validation. Not tested
-		// To allow language codes like 'de-x-Q123'
-		list( $language ) = explode( '-x-', $this->language );
-		$result = $languageValidator->validate( $language );
-		if ( $result->isValid() && $this->lemma !== null ) {
-			$result = $termValidator->validate( $this->lemma );
+		// TODO Create dedicated ChangeOpRemoveLemma, use from LemmaChangeOpDeserializer
+		if ( $this->lemma !== null ) { // magic removal instruction from deserializer
+			return $this->lemmaTermValidator->validate( $this->lemma );
 		}
 
-		// TODO: this should probably also check that the (language, lemma) pair is unique
-
-		return $result;
+		return Result::newSuccess();
 	}
 
 	/**

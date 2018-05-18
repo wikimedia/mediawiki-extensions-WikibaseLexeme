@@ -69,7 +69,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
 				),
-				$lexemeValidatorFactory,
+				$lexemeValidatorFactory->getLemmaTermValidator(),
 				$stringNormalizer
 			),
 			new LexicalCategoryChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer ),

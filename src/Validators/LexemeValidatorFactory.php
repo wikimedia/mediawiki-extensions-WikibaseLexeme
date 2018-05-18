@@ -67,13 +67,6 @@ class LexemeValidatorFactory {
 	/**
 	 * @return ValueValidator
 	 */
-	public function getLanguageCodeValidator() {
-		return $this->termValidatorFactory->getLanguageValidator();
-	}
-
-	/**
-	 * @return ValueValidator
-	 */
 	public function getLexicalCategoryValidator() {
 		return new CompositeValidator( $this->itemValidators, true );
 	}
