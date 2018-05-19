@@ -11,5 +11,25 @@
             "value": "Colour"
         }
     },
-    "nextFormId": 1
+    "language": "Q1",
+    "lexicalCategory": "Q2",
+    "claims": [],
+    "forms": [
+        {
+            "id": "L2-F1",
+            "representations": {
+                "en-us": {
+                    "language": "en-us",
+                    "value": "Colors"
+                },
+                "en-gb": {
+                    "language": "en-gb",
+                    "value": "Colours"
+                }
+            },
+            "grammaticalFeatures": [ "Q3", "Q4" ],
+            "claims": []
+        }
+    ],
+    "nextFormId": 2
 }

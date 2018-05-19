@@ -33,6 +33,8 @@ use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
+use Wikibase\Rdf\DedupeBag;
+use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
@@ -160,13 +162,16 @@ return [
 			$flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer,
-			$mentionedEntityTracker,
-			$dedupe
+			EntityMentionListener $tracker,
+			DedupeBag $dedupe
 		) {
-			return new LexemeRdfBuilder(
+			$rdfBuilder = new LexemeRdfBuilder(
 				$vocabulary,
-				$writer
+				$writer,
+				$tracker
 			);
+			$rdfBuilder->addPrefixes();
+			return $rdfBuilder;
 		},
 		'entity-diff-visualizer-callback' => function (
 			MessageLocalizer $messageLocalizer,
@@ -313,6 +318,21 @@ return [
 		},
 		'entity-factory-callback' => function () {
 			return new BlankForm();
+		},
+		'rdf-builder-factory-callback' => function (
+			$flavorFlags,
+			RdfVocabulary $vocabulary,
+			RdfWriter $writer,
+			EntityMentionListener $tracker,
+			DedupeBag $dedupe
+		) {
+			$rdfBuilder = new LexemeRdfBuilder(
+				$vocabulary,
+				$writer,
+				$tracker
+			);
+			$rdfBuilder->addPrefixes();
+			return $rdfBuilder;
 		},
 	],
 ];

@@ -3,7 +3,13 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
+use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
+use Wikibase\Rdf\EntityMentionListener;
+use Wikibase\Rdf\NullEntityMentionListener;
 use Wikibase\Repo\Tests\Rdf\NTriplesRdfTestHelper;
 use Wikibase\Repo\Tests\Rdf\RdfBuilderTestData;
 use Wikimedia\Purtle\RdfWriter;
@@ -17,6 +23,7 @@ use Wikimedia\Purtle\RdfWriter;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemeRdfBuilderTest extends TestCase {
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @var NTriplesRdfTestHelper
@@ -52,16 +59,20 @@ class LexemeRdfBuilderTest extends TestCase {
 
 	/**
 	 * @param RdfWriter $writer
+	 * @param EntityMentionListener $entityMentionTracker
 	 *
 	 * @return LexemeRdfBuilder
 	 */
-	private function newBuilder( RdfWriter $writer ) {
+	private function newBuilder( RdfWriter $writer, EntityMentionListener $entityMentionTracker ) {
 		$vocabulary = $this->getTestData()->getVocabulary();
-
-		return new LexemeRdfBuilder(
+		$builder = new LexemeRdfBuilder(
 			$vocabulary,
-			$writer
+			$writer,
+			$entityMentionTracker
 		);
+		$builder->addPrefixes();
+		$writer->start();
+		return $builder;
 	}
 
 	private function assertOrCreateNTriples( $dataSetName, RdfWriter $writer ) {
@@ -77,58 +88,122 @@ class LexemeRdfBuilderTest extends TestCase {
 		$this->helper->assertNTriplesEquals( $expected, $actual, "Data set $dataSetName" );
 	}
 
-	public function provideAddEntity() {
+	public function provideAddLexeme() {
 		return [
 			[ 'L2', 'L2_all' ],
 		];
 	}
 
 	/**
-	 * @dataProvider provideAddEntity
+	 * @dataProvider provideAddLexeme
 	 */
-	public function testAddEntity( $entityName, $dataSetName ) {
-		$entity = $this->getTestData()->getEntity( $entityName );
+	public function testAddLexeme( $lexemeName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$this->addEntityTest( $lexeme, $dataSetName );
+	}
 
-		$writer = $this->getTestData()->getNTriplesWriter();
-		$this->newBuilder( $writer )->addEntity( $entity );
+	public function provideLexemeMentionedEntities() {
+		return [
+			[ 'L2', [ 'Q1', 'Q2', 'Q3', 'Q4' ] ],
+		];
+	}
 
+	/**
+	 * @dataProvider provideLexemeMentionedEntities
+	 */
+	public function testLexemeMentionedEntities( $lexemeName, $mentionedEntities ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$this->mentionedEntityTest( $lexeme, $mentionedEntities );
+	}
+
+	public function provideAddForm() {
+		return [
+			[ 'L2', 'L2-F1', 'L2-F1_all' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideAddForm
+	 */
+	public function testAddForm( $lexemeName, $formName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$form = $lexeme->getForm( new FormId( $formName ) );
+		$this->addEntityTest( $form, $dataSetName );
+	}
+
+	public function provideFormMentionedEntities() {
+		return [
+			[ 'L2', 'L2-F1', [ 'Q3', 'Q4' ] ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideFormMentionedEntities
+	 */
+	public function testFormMentionedEntities( $lexemeName, $formName, $mentionedEntities ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$form = $lexeme->getForm( new FormId( $formName ) );
+		$this->mentionedEntityTest( $form, $mentionedEntities );
+	}
+
+	private function addEntityTest( EntityDocument $entity, $dataSetName ) {
+		$writer = $this->getTestData()->getNTriplesWriter( false );
+		$builder = $this->newBuilder( $writer, new NullEntityMentionListener() );
+
+		$builder->addEntity( $entity );
 		$this->assertOrCreateNTriples( $dataSetName, $writer );
 	}
 
-	public function provideAddEntityStub() {
+	private function mentionedEntityTest( EntityDocument $entity, $expectedMentionedEntities ) {
+		$mentionedEntities = [];
+		$mentionTracker = $this->getMock( EntityMentionListener::class );
+		$mentionTracker->expects( $this->any() )
+			->method( 'entityReferenceMentioned' )
+			->will( $this->returnCallback( function( EntityId $id ) use ( &$mentionedEntities ) {
+				$mentionedEntities[] = $id->getSerialization();
+			} ) );
+
+		$writer = $this->getTestData()->getNTriplesWriter( false );
+		$builder = $this->newBuilder( $writer, $mentionTracker );
+
+		$builder->addEntity( $entity );
+		$this->assertEquals( $expectedMentionedEntities, $mentionedEntities );
+	}
+
+	public function provideAddLexemeStub() {
 		return [
 			[ 'L2', 'L2_stubs' ],
 		];
 	}
 
 	/**
-	 * @dataProvider provideAddEntityStub
+	 * @dataProvider provideAddLexemeStub
 	 */
-	public function testAddEntityStub( $entityName, $dataSetName ) {
-		$entity = $this->getTestData()->getEntity( $entityName );
-
-		$writer = $this->getTestData()->getNTriplesWriter();
-		$this->newBuilder( $writer )->addEntityStub( $entity );
-
-		$this->assertOrCreateNTriples( $dataSetName, $writer );
+	public function testAddLexemeStub( $lexemeName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$this->addEntityStubTest( $lexeme, $dataSetName );
 	}
 
-	public function provideAddLemmas() {
+	public function provideAddFormStub() {
 		return [
-			[ 'L2', 'L2_lemmas' ],
+			[ 'L2', 'L2-F1', 'L2-F1_stubs' ],
 		];
 	}
 
 	/**
-	 * @dataProvider provideAddLemmas
+	 * @dataProvider provideAddFormStub
 	 */
-	public function testAddLemmas( $entityName, $dataSetName ) {
-		$entity = $this->getTestData()->getEntity( $entityName );
+	public function testAddFormStub( $lexemeName, $formName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$form = $lexeme->getForm( new FormId( $formName ) );
+		$this->addEntityStubTest( $form, $dataSetName );
+	}
 
-		$writer = $this->getTestData()->getNTriplesWriter();
-		$this->newBuilder( $writer )
-			->addLemmas( $entity->getId(), $entity->getLemmas() );
+	private function addEntityStubTest( EntityDocument $entity, $dataSetName ) {
+		$writer = $this->getTestData()->getNTriplesWriter( false );
+		$builder = $this->newBuilder( $writer, new NullEntityMentionListener() );
 
+		$builder->addEntityStub( $entity );
 		$this->assertOrCreateNTriples( $dataSetName, $writer );
 	}
 
