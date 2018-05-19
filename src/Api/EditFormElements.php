@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Api;
 
 use ApiMain;
+use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
@@ -79,7 +80,9 @@ class EditFormElements extends \ApiBase {
 					new RepresentationsChangeOpDeserializer(
 						new TermDeserializer(),
 						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator( $wikibaseRepo->getTermsLanguages() )
+							new LexemeTermLanguageValidator(
+								MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' )
+							)
 						)
 					),
 					new ItemIdListDeserializer( new ItemIdParser() )

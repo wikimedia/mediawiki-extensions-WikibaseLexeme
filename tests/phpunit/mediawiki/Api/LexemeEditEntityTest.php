@@ -42,6 +42,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	const EXISTING_LEXEME_FORM_2_ID = 'F2';
 	const EXISTING_LEXEME_FORM_2_LANGUAGE = 'en';
 	const EXISTING_LEXEME_FORM_2_TEXT = 'Malus';
+	const SPECIAL_TERM_LANGUAGE = 'mis';
 
 	public function testGivenNewParameterAndValidDataAreProvided_newLexemeIsCreated() {
 		$params = [
@@ -185,6 +186,27 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			],
 			$lexemeData
 		);
+	}
+
+	public function testGivenIdOfExistingLexemeAndLemmaWithSpecialLanguage_lemmaIsAdded() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'lemmas' => [
+					self::SPECIAL_TERM_LANGUAGE => [
+						'language' => self::SPECIAL_TERM_LANGUAGE,
+						'value' => 'exotic'
+					]
+				],
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
 	}
 
 	public function testGivenIdOfExistingLexemeAndNewLemmaDataWithExtendedLanguageCode_lemmaIsAdded() {
@@ -2005,6 +2027,29 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 2, $lexemeData['forms'][1]['representations'] );
 		$this->assertSame( 'Malus', $lexemeData['forms'][1]['representations']['en']['value'] );
 		$this->assertSame( 'Malus baccata', $lexemeData['forms'][1]['representations']['la']['value'] );
+	}
+
+	public function testGivenExistingFormAndRepresentationsWithSpecialLanguage_formIsUpdated() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => $this->formatFormId(
+				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+			),
+			'data' => json_encode( [
+				'representations' => [
+					self::SPECIAL_TERM_LANGUAGE => [
+						'language' => self::SPECIAL_TERM_LANGUAGE,
+						'value' => 'pineapple'
+					],
+				]
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
 	}
 
 	public function testGivenExistingLexemeAddingOfOnlyFormMissingRepresentations_errorIsServed() {
