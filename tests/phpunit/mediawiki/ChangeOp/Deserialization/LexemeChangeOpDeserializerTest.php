@@ -82,6 +82,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 				new FormIdDeserializer( WikibaseRepo::getDefaultInstance()->getEntityIdParser() ),
 				new FormChangeOpDeserializer(
 					WikibaseRepo::getDefaultInstance()->getEntityLookup(),
+					WikibaseRepo::getDefaultInstance()->getEntityIdParser(),
 					new EditFormChangeOpDeserializer(
 						new RepresentationsChangeOpDeserializer(
 							new TermDeserializer(),

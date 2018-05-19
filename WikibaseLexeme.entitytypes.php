@@ -194,6 +194,7 @@ return [
 					new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
 					new FormChangeOpDeserializer(
 						$wikibaseRepo->getEntityLookup(),
+						$wikibaseRepo->getEntityIdParser(),
 						new EditFormChangeOpDeserializer(
 							new RepresentationsChangeOpDeserializer(
 								new TermDeserializer(),
@@ -367,6 +368,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
 				$wikibaseRepo->getEntityLookup(),
+				$wikibaseRepo->getEntityIdParser(),
 				new EditFormChangeOpDeserializer(
 					new RepresentationsChangeOpDeserializer(
 						new TermDeserializer(),
