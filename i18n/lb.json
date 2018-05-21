@@ -28,6 +28,7 @@
 	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
 	"wikibaselexeme-api-error-parameter-required": "Parameter \"$1\" ass obligatoresch",
 	"wikibaselexeme-api-error-json-field-required": "Feld \"$2\" am Parameter \"$1\" ass obligatoresch",
+	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Sprooch däerf net eidel sinn",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "De Formular muss mindestens eng Duerstellung hunn",
 	"wikibaselexeme-field-language-label": "Sprooch",
 	"wikibaselexeme-field-lexical-category-label": "Lexikalesch Kategorie",

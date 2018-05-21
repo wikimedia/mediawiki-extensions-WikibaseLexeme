@@ -62,7 +62,9 @@
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "Le champ « $2 » dans le paramètre « $1 » doit être du type « $3 ». Fourni : « $4 »",
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "Le paramètre « $1 » doit être un ID de lexème. Fourni : « $2 »",
 	"wikibaselexeme-api-error-parameter-not-form-id": "Le champ « $2 » du paramètre « $1 » est censé être un ID de formulaire. Fourni : « $3 »",
+	"wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty": "Le texte du term ne peut être vide",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "La langue ne peut pas être vide",
+	"wikibaselexeme-api-error-language-inconsistent": "La langue du champ « $1 » dans « $2 » était supposée être « $3 » . Obtenu: « $4 »",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Le formulaire doit avoir au moins une représentation",
 	"wikibaselexeme-api-error-unknown-language": "Langue inconnue « $3 » dans le champ « $1» à « $2 » .",
 	"wikibaselexeme-api-error-invalid-item-id": "Numéro invalide d'élément \"$3\" sur le champ \"$1\" dans  \"$2\".",
@@ -90,5 +92,6 @@
 	"wikibaselexeme-unknown-language": "Langue inconnue",
 	"wikibaselexeme-unknown-category": "Inconnu",
 	"wikibaselexeme-no-features": "aucune fonctionnalités",
-	"wikibaselexeme-rescore-profile-prefix": "Noter de nouveau le profil pour la recherche de préfixe (complétude)"
+	"wikibaselexeme-rescore-profile-prefix": "Noter de nouveau le profil pour la recherche de préfixe (complétude)",
+	"wikibase-validator-form-not-found": "Le lexeme n'a pas de formulaire ayant l'ID spécifié"
 }
