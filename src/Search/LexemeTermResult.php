@@ -144,11 +144,10 @@ class LexemeTermResult implements ResultsType {
 			}
 
 			if ( empty( $sourceData['lexeme_language']['code'] ) ) {
-				// FIXME: what we do here? Not sure we want to index all lemma languages
-				// Should we just fake the term language code?
-				continue;
+				$lemmaCode = 'und';
+			} else {
+				$lemmaCode = $sourceData['lexeme_language']['code'];
 			}
-			$lemmaCode = $sourceData['lexeme_language']['code'];
 			// Highlight part contains information about what has actually been matched.
 			$highlight = $r->getHighlights();
 
