@@ -21,7 +21,7 @@ use Wikibase\Summary;
  *
  * @license GPL-2.0-or-later
  */
-class ChangeOpAddFormTest extends TestCase {
+class ChangeOpFormAddTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
