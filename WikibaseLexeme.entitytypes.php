@@ -18,6 +18,7 @@ use Wikibase\DataModel\SerializerFactory;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
+use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
@@ -99,6 +100,12 @@ return [
 		},
 		'entity-patcher-strategy-builder' => function () {
 			return new FormPatcher();
+		},
+		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
+			return new FormSerializer(
+				$serializerFactory->newTermListSerializer(),
+				$serializerFactory->newStatementListSerializer()
+			);
 		},
 	],
 ];

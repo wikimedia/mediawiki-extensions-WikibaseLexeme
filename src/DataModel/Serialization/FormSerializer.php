@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\DataModel\Serialization;
 
+use Serializers\DispatchableSerializer;
+use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Form;
@@ -9,7 +11,7 @@ use Wikibase\Lexeme\DataModel\Form;
 /**
  * @license GPL-2.0-or-later
  */
-class FormSerializer {
+class FormSerializer implements DispatchableSerializer {
 
 	/**
 	 * @var Serializer
@@ -30,11 +32,29 @@ class FormSerializer {
 	}
 
 	/**
+	 * @see DispatchableSerializer::isSerializerFor
+	 *
+	 * @param mixed $object
+	 *
+	 * @return bool
+	 */
+	public function isSerializerFor( $object ) {
+		return $object instanceof Form;
+	}
+
+	/**
 	 * @param Form $form
 	 *
 	 * @return array
 	 */
-	public function serialize( Form $form ) {
+	public function serialize( $form ) {
+		if ( !( $form instanceof Form ) ) {
+			throw new UnsupportedObjectException(
+				$form,
+				'FormSerializer can only serialize Form objects.'
+			);
+		}
+
 		$serialization = [];
 
 		$serialization['id'] = $form->getId()->getSerialization();
