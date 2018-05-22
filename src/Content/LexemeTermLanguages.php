@@ -2,8 +2,10 @@
 
 namespace Wikibase\Lexeme\Content;
 
-use Language;
 use Wikibase\Lib\ContentLanguages;
+use Wikibase\Lib\MediaWikiContentLanguages;
+use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Lib\UnionContentLanguages;
 
 /**
  * @license GPL-2.0-or-later
@@ -11,27 +13,25 @@ use Wikibase\Lib\ContentLanguages;
 class LexemeTermLanguages implements ContentLanguages {
 
 	/**
-	 * @var string[] Additional language codes beyond the Mediawiki's Language ones
+	 * @var ContentLanguages
 	 */
-	private $additionalLanguageCodes;
+	private $contentLanguages;
 
 	/**
-	 * @var string[]|null Array of language codes
-	 */
-	private $languages = null;
-
-	/**
-	 * @param array $additionalLanguageCodes Codes beyond the Mediawiki's Language ones
+	 * @param string[] $additionalLanguageCodes Codes beyond the Mediawiki's Language ones
 	 */
 	public function __construct( array $additionalLanguageCodes ) {
-		$this->additionalLanguageCodes = $additionalLanguageCodes;
+		$this->contentLanguages = new UnionContentLanguages(
+			new MediaWikiContentLanguages(),
+			new StaticContentLanguages( $additionalLanguageCodes )
+		);
 	}
 
 	/**
 	 * @return string[] Array of language codes supported as content language
 	 */
 	public function getLanguages() {
-		return $this->getLanguageCodes();
+		return $this->contentLanguages->getLanguages();
 	}
 
 	/**
@@ -40,26 +40,7 @@ class LexemeTermLanguages implements ContentLanguages {
 	 * @return bool
 	 */
 	public function hasLanguage( $languageCode ) {
-		return in_array( $languageCode, $this->getLanguageCodes() );
-	}
-
-	/**
-	 * @return string[] Array of language codes
-	 */
-	private function getLanguageCodes() {
-		if ( $this->languages === null ) {
-			$this->languages = $this->buildLanguageCodes();
-		}
-
-		return $this->languages;
-	}
-
-	private function buildLanguageCodes() {
-		$defaultCodes = array_keys( Language::fetchLanguageNames() );
-		$codes = array_merge( $defaultCodes, $this->additionalLanguageCodes );
-		$codes = array_unique( $codes );
-		sort( $codes );
-		return $codes;
+		return $this->contentLanguages->hasLanguage( $languageCode );
 	}
 
 }
