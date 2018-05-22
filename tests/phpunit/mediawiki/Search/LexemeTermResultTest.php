@@ -71,6 +71,26 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 					'matchedType' => 'entityId'
 				]
 			],
+			"by id, no lang code" => [
+				'en',
+				[ 'Q1', 'Q2' ],
+				[
+					'_source' => [
+						'title' => 'L2',
+						'lexeme_language' => [ 'code' => null, 'entity' => 'Q1' ],
+						'lexical_category' => 'Q2',
+						'lemma' => [ 'duck', 'goose' ],
+					],
+					'highlight' => [ 'title' => [ 'L2' ] ],
+				],
+				[
+					'id' => 'L2',
+					'label' => [ 'und', 'duck' ],
+					'description' => [ 'en', 'English noun' ],
+					'matched' => [ 'qid', 'L2' ],
+					'matchedType' => 'entityId'
+				]
+			],
 			"by form" => [
 				'en',
 				[ 'Q1', 'Q2' ],
@@ -93,7 +113,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 			],
 			"missing language code" => [
 				'en',
-				[],
+				[ 'Q1', 'Q2' ],
 				[
 					'_source' => [
 						'title' => 'L2',
@@ -103,7 +123,13 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 					],
 					'highlight' => [ 'lemma' => [ 'duck' ] ],
 				],
-				[]
+				[
+					'id' => 'L2',
+					'label' => [ 'und', 'duck' ],
+					'description' => [ 'en', 'English noun' ],
+					'matched' => [ 'und', 'duck' ],
+					'matchedType' => 'label'
+				]
 			],
 			"in German" => [
 				'de',
