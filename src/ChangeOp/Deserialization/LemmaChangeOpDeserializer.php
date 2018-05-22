@@ -3,10 +3,11 @@
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use ValueValidators\ValueValidator;
+use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOps;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
+use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
@@ -75,16 +76,12 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 				$this->stringNormalizer->cleanupToNFC( $serialization['value'] );
 
 			if ( $lemmaTerm === '' ) {
-				$changeOps->add( new ChangeOpLemma(
-					$serialization['language'],
-					null,
-					$this->lemmaTermValidator
-				) );
+				$changeOps->add( new ChangeOpLemmaRemove( $serialization['language'] ) );
 				continue;
 			}
 
-			// TODO: maybe move creating ChangeOpLemma instance to some kind of factory?
-			$changeOps->add( new ChangeOpLemma(
+			// TODO: maybe move creating ChangeOpLemmaEdit instance to some kind of factory?
+			$changeOps->add( new ChangeOpLemmaEdit(
 				$serialization['language'],
 				$lemmaTerm,
 				$this->lemmaTermValidator

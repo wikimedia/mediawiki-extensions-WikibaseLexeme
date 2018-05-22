@@ -14,7 +14,10 @@ use Wikimedia\Assert\Assert;
 /**
  * @license GPL-2.0-or-later
  */
-class ChangeOpLemma extends ChangeOpBase {
+class ChangeOpLemmaEdit extends ChangeOpBase {
+
+	const SUMMARY_ACTION_ADD = 'add';
+	const SUMMARY_ACTION_UPDATE = 'set';
 
 	/**
 	 * @var string
@@ -22,7 +25,7 @@ class ChangeOpLemma extends ChangeOpBase {
 	private $language;
 
 	/**
-	 * @var string|null
+	 * @var string
 	 */
 	private $lemma;
 
@@ -33,14 +36,14 @@ class ChangeOpLemma extends ChangeOpBase {
 
 	/**
 	 * @param string $language
-	 * @param string|null $lemma
+	 * @param string $lemma
 	 * @param ValueValidator $lemmaTermValidator
 	 *
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct( $language, $lemma, ValueValidator $lemmaTermValidator ) {
 		Assert::parameterType( 'string', $language, '$language' );
-		Assert::parameterType( 'string|null', $lemma, '$lemma' );
+		Assert::parameterType( 'string', $lemma, '$lemma' );
 
 		$this->language = $language;
 		$this->lemma = $lemma;
@@ -56,12 +59,7 @@ class ChangeOpLemma extends ChangeOpBase {
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		// TODO Create dedicated ChangeOpRemoveLemma, use from LemmaChangeOpDeserializer
-		if ( $this->lemma !== null ) { // magic removal instruction from deserializer
-			return $this->lemmaTermValidator->validate( $this->lemma );
-		}
-
-		return Result::newSuccess();
+		return $this->lemmaTermValidator->validate( $this->lemma );
 	}
 
 	/**
@@ -71,27 +69,19 @@ class ChangeOpLemma extends ChangeOpBase {
 	 * @throws InvalidArgumentException
 	 */
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
-		// NOTE: This part is very likely to change completely once a decision
-		//       about the lemma representation has been made.
-
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		/** @var Lexeme $entity */
 		$lemmas = $entity->getLemmas();
-		$hasLemma = $lemmas->hasTermForLanguage( $this->language );
 
-		if ( $this->lemma === null ) {
-			if ( $hasLemma ) {
-				$oldLemma = $lemmas->getByLanguage( $this->language )->getText();
-				$this->updateSummary( $summary, 'remove', $this->language, $oldLemma );
-				$lemmas->removeByLanguage( $this->language );
-			}
-
-			return;
-		}
-
-		$action = $hasLemma ? 'set' : 'add';
-		$this->updateSummary( $summary, $action, $this->language, $this->lemma );
+		$this->updateSummary(
+			$summary,
+			$lemmas->hasTermForLanguage( $this->language ) ?
+				self::SUMMARY_ACTION_UPDATE :
+				self::SUMMARY_ACTION_ADD,
+			$this->language,
+			$this->lemma
+		);
 		$lemmas->setTextForLanguage( $this->language, $this->lemma );
 	}
 
