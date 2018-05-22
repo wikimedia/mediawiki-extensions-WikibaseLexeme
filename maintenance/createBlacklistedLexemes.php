@@ -150,6 +150,12 @@ class CreateBlacklistedLexemes extends Maintenance {
 				self::LANGUAGE => new ItemId( 'Q13406268' ),
 			],
 
+			'L171081' => [
+				self::LEMMA => new Term( 'eu', 'izioki' ),
+				self::CATEGORY => new ItemId( 'Q24905' ),
+				self::LANGUAGE => new ItemId( 'Q8752' ),
+			],
+
 		];
 
 		$this->output( "Starting import...\n\n" );
