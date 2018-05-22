@@ -11,17 +11,17 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemma;
+use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLemma
+ * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit
  *
  * @license GPL-2.0-or-later
  */
-class ChangeOpLemmaTest extends TestCase {
+class ChangeOpLemmaEditTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
@@ -30,7 +30,7 @@ class ChangeOpLemmaTest extends TestCase {
 	 */
 	public function testGivenInvalidArguments_constructorThrowsException( $language, $lemma ) {
 		$this->setExpectedException( InvalidArgumentException::class );
-		new ChangeOpLemma( $language, $lemma, $this->getLemmaTermValidator() );
+		new ChangeOpLemmaEdit( $language, $lemma, $this->getLemmaTermValidator() );
 	}
 
 	public function invalidConstructorArgumentsProvider() {
@@ -39,6 +39,7 @@ class ChangeOpLemmaTest extends TestCase {
 			'not a string as a language code (int)' => [ 123, 'duck' ],
 			'not a string as a lemma term (bool)' => [ 'en', true ],
 			'not a string as a lemma term (int)' => [ 'en', 123 ],
+			'not a string as a lemma term (null)' => [ 'en', null ],
 		];
 	}
 
@@ -47,7 +48,7 @@ class ChangeOpLemmaTest extends TestCase {
 	 */
 	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
 		$this->setExpectedException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $this->getLemmaTermValidator() );
 		$changeOp->validate( $entity );
 	}
 
@@ -69,7 +70,7 @@ class ChangeOpLemmaTest extends TestCase {
 			->expects( $this->once() )
 			->method( 'validate' )
 			->willReturn( Result::newError( [] ) );
-		$changeOp = new ChangeOpLemma( 'en', $lemmaTerm, $lemmasTermValidator );
+		$changeOp = new ChangeOpLemmaEdit( 'en', $lemmaTerm, $lemmasTermValidator );
 
 		$this->assertFalse( $changeOp->validate( $lexeme )->isValid() );
 	}
@@ -90,19 +91,7 @@ class ChangeOpLemmaTest extends TestCase {
 			->method( 'validate' )
 			->willReturn( Result::newSuccess() );
 
-		$changeOp = new ChangeOpLemma( 'en', 'duck', $lemmasTermValidator );
-
-		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
-	}
-
-	public function testGivenLemmaTermIsNull_validateReturnsValidResult() {
-		$lexeme = new Lexeme();
-
-		$lemmasTermValidator = $this->getLemmaTermValidator();
-		$lemmasTermValidator
-			->expects( $this->never() )
-			->method( 'validate' );
-		$changeOp = new ChangeOpLemma( 'en', null, $lemmasTermValidator );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $lemmasTermValidator );
 
 		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
 	}
@@ -112,28 +101,8 @@ class ChangeOpLemmaTest extends TestCase {
 	 */
 	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
 		$this->setExpectedException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLemma( 'en', 'duck', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $this->getLemmaTermValidator() );
 		$changeOp->apply( $entity );
-	}
-
-	public function testGivenLemmaTermIsNull_applyRemovesLemmaForGivenLanguageAndSetsTheSummary() {
-		$lemmas = new TermList( [
-			new Term( 'de', 'Ente' ),
-			new Term( 'en', 'duck' ),
-		] );
-		$lexeme = new Lexeme( null, $lemmas );
-		$summary = new Summary();
-
-		$changeOp = new ChangeOpLemma( 'de', null, $this->getLemmaTermValidator() );
-		$changeOp->apply( $lexeme, $summary );
-
-		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'de' ) );
-		$this->assertTrue( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
-		$this->assertSame( 'duck', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
-
-		$this->assertSame( 'remove', $summary->getMessageKey() );
-		$this->assertSame( 'de', $summary->getLanguageCode() );
-		$this->assertSame( [ 'Ente' ], $summary->getAutoSummaryArgs() );
 	}
 
 	public function testGivenNoLemmaInGivenLanguage_applyAddsLemmaAndSetsTheSummary() {
@@ -143,7 +112,7 @@ class ChangeOpLemmaTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemma( 'de', 'Ente', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'de', 'Ente', $this->getLemmaTermValidator() );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -164,7 +133,7 @@ class ChangeOpLemmaTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemma( 'en', 'bar', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'bar', $this->getLemmaTermValidator() );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -173,17 +142,6 @@ class ChangeOpLemmaTest extends TestCase {
 		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( 'en', $summary->getLanguageCode() );
 		$this->assertSame( [ 'bar' ], $summary->getAutoSummaryArgs() );
-	}
-
-	public function testGivenLemmaTermIsNullAndNoLemmaInGivenLanguage_applyMakesNoChange() {
-		$lexeme = new Lexeme();
-		$summary = new Summary();
-
-		$changeOp = new ChangeOpLemma( 'de', null, $this->getLemmaTermValidator() );
-		$changeOp->apply( $lexeme, $summary );
-
-		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
-		$this->assertNull( $summary->getMessageKey() );
 	}
 
 	private function getLemmaTermValidator() {

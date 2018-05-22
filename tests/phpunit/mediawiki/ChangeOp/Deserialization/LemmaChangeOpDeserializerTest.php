@@ -6,12 +6,15 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
+use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\StringNormalizer;
@@ -82,11 +85,16 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = $this->newLemmaChangeOpDeserializer();
 
-		$changeOp = $deserializer->createEntityChangeOp(
+		/**
+		 * @var ChangeOps $changeOps
+		 */
+		$changeOps = $deserializer->createEntityChangeOp(
 			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
 		);
 
-		$changeOp->apply( $lexeme );
+		$changeOps->apply( $lexeme );
+
+		$this->assertInstanceOf( ChangeOpLemmaEdit::class, $changeOps->getChangeOps()[0] );
 		$this->assertSame( 'rat', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
 	}
 
@@ -95,11 +103,16 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = $this->newLemmaChangeOpDeserializer();
 
-		$changeOp = $deserializer->createEntityChangeOp(
+		/**
+		 * @var ChangeOps $changeOps
+		 */
+		$changeOps = $deserializer->createEntityChangeOp(
 			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'rat' ] ] ]
 		);
 
-		$changeOp->apply( $lexeme );
+		$changeOps->apply( $lexeme );
+
+		$this->assertInstanceOf( ChangeOpLemmaEdit::class, $changeOps->getChangeOps()[0] );
 		$this->assertSame( 'rat', $lexeme->getLemmas()->getByLanguage( 'en' )->getText() );
 	}
 
@@ -108,11 +121,16 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = $this->newLemmaChangeOpDeserializer();
 
-		$changeOp = $deserializer->createEntityChangeOp(
+		/**
+		 * @var ChangeOps $changeOps
+		 */
+		$changeOps = $deserializer->createEntityChangeOp(
 			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'remove' => '' ] ] ]
 		);
 
-		$changeOp->apply( $lexeme );
+		$changeOps->apply( $lexeme );
+
+		$this->assertInstanceOf( ChangeOpLemmaRemove::class, $changeOps->getChangeOps()[0] );
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
 	}
 
