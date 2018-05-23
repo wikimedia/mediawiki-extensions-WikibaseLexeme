@@ -110,6 +110,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'id' => 'wb-newlexeme-lexeme-language',
 				'label-message' => 'wikibaselexeme-newlexeme-language',
 				'required' => true,
+				'autocomplete' => false,
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
@@ -118,6 +119,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibaselexeme-newlexeme-lexicalcategory',
 				'required' => true,
+				'autocomplete' => false,
 			]
 		];
 	}
