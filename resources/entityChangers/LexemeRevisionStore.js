@@ -19,7 +19,7 @@
 			var formId = this.getFormIdFromStatementId( claimGuid );
 
 			if ( formId === null ) {
-				this.baseStore.getClaimRevision( claimGuid );
+				return this.baseStore.getClaimRevision( claimGuid );
 			}
 			if ( this.formStatementRevisions.hasOwnProperty( claimGuid ) ) {
 				return this.formStatementRevisions[ claimGuid ];
