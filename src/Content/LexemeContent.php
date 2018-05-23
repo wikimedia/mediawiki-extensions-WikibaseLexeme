@@ -83,4 +83,31 @@ class LexemeContent extends EntityContent {
 			&& $this->getEntity()->isSufficientlyInitialized();
 	}
 
+	/**
+	 * @see EntityContent::getEntityPageProperties
+	 *
+	 * Records the number of statements in the 'wb-claims' key.
+	 * Counts all statements on the page, including statements of forms and senses.
+	 *
+	 * @return array A map from property names to property values.
+	 */
+	public function getEntityPageProperties() {
+		$properties = parent::getEntityPageProperties();
+		$lexeme = $this->getEntity();
+
+		$count = $lexeme->getStatements()->count();
+
+		foreach ( $lexeme->getForms()->toArray() as $form ) {
+			$count += $form->getStatements()->count();
+		}
+
+		foreach ( $lexeme->getSenses() as $sense ) {
+			$count += $sense->getStatements()->count();
+		}
+
+		$properties['wb-claims'] = $count;
+
+		return $properties;
+	}
+
 }
