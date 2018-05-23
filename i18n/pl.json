@@ -13,6 +13,7 @@
 	"wikibaselexeme-gloss-field-language-label": "Język",
 	"apihelp-wblremoveform-param-id": "Identyfikator formularza, np. L10-F20",
 	"wikibaselexeme-api-error-parameter-required": "Parametr „$1” jest wymagany",
+	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Język nie może być pusty",
 	"wikibase-lexeme-summary-remove-form": "Usunięty formularz $3 z {{PLURAL: $1|reprezentacja|reprezentacje}}",
 	"wikibaselexeme-field-language-label": "Język",
 	"wikibaselexeme-diffview-lexical-category": "kategoria leksykalna",

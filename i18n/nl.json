@@ -3,13 +3,27 @@
 		"authors": [
 			"Mainframe98",
 			"Festina90",
-			"Patio"
+			"Patio",
+			"Sjoerddebruin"
 		]
 	},
+	"special-newlexeme": "Een nieuw lexeem aanmaken",
+	"wikibaselexeme-newlexeme-fieldset": "Een nieuw lexeem aanmaken",
 	"wikibaselexeme-language-lexical-category-value": "$1 in $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Uitspraken over $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Uitspraken over $1",
+	"wikibaselexeme-form-field-language-label": "Taal",
+	"wikibaselexeme-gloss-field-language-label": "Taal",
+	"wikibase-lexeme-summary-wbeditentity-update": "Een lexeem gewijzigd",
+	"datatypes-type-wikibase-lexeme": "Lexeem",
 	"apihelp-wblremoveform-param-id": "Identificatie van het formulier bijv. L10-F20",
 	"wikibase-lexeme-summary-remove-form": "Formulier $3 met {{PLURAL:$1|representatie|representaties}} verwijderd",
-	"wikibaselexeme-form-grammatical-features": "Grammatica-eigenschappen"
+	"wikibaselexeme-field-language-label": "Taal",
+	"wikibaselexeme-field-lexical-category-label": "Lexicale categorie",
+	"wikibaselexeme-diffview-lexical-category": "lexicale categorie",
+	"wikibaselexeme-diffview-language": "taal",
+	"content-model-wikibase-lexeme": "Wikibase-lexeem",
+	"wikibaselexeme-form-grammatical-features": "Grammatica-eigenschappen",
+	"wikibaselexeme-unknown-language": "Onbekende taal",
+	"wikibaselexeme-unknown-category": "Onbekend"
 }
