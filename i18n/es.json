@@ -20,6 +20,8 @@
 	"wikibaselexeme-language-lexical-category-value": "$1 en $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Declaraciones sobre $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Declaraciones sobre $1",
+	"wikibaselexeme-lemma-field-language-label": "Grafía alternativa",
+	"wikibaselexeme-form-field-language-label": "Grafía alternativa",
 	"datatypes-type-wikibase-sense": "Sentido",
 	"wikibaselexeme-add-sense": "añadir sentido",
 	"wikibaselexeme-add-form": "añadir forma",

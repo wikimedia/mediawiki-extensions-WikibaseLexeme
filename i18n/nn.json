@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Njardarlogar"
+		]
+	},
+	"special-newlexeme": "Opprett eit nytt leksem",
+	"wikibaselexeme-newlexeme-fieldset": "Opprett eit nytt leksem",
+	"wikibaselexeme-lemma-edit-placeholder": "Skriv inn lemmaet",
+	"wikibaselexeme-newlexeme-language": "Språket til leksemet",
+	"wikibaselexeme-header-forms": "Former",
+	"wikibaselexeme-statementsection-statements-about-sense": "Utsegner om $1",
+	"wikibaselexeme-header-senses": "Tydingar",
+	"wikibase-lexeme-summary-wbeditentity-update": "Endra eit leksem",
+	"datatypes-type-wikibase-lexeme": "Leksem",
+	"datatypes-type-wikibase-sense": "Tyding",
+	"wikibaselexeme-add-sense": "legg til tyding"
+}

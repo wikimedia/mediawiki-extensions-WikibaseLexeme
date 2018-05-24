@@ -5,5 +5,6 @@
 		]
 	},
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
-	"wikibaselexeme-form-field-language-label": "Lènghe"
+	"wikibaselexeme-lemma-field-language-label": "Variande d'a lènghe",
+	"wikibaselexeme-form-field-language-label": "Variande d'a lènghe"
 }
