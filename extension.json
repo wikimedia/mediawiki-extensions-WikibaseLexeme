@@ -181,7 +181,7 @@
 			]
 		},
 		"vue": {
-			"scripts":"vendor/vue-2.3.3.js"
+			"scripts":"vendor/vue-2.3.3.min.js"
 		},
 		"vuex": {
 			"scripts":"vendor/vuex-2.3.0.js",
