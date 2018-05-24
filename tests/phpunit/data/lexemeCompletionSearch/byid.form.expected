@@ -58,7 +58,7 @@
                         }
                     },
                     {
-                        "term": {
+                        "match": {
                             "lexeme_forms.id": "L2"
                         }
                     }

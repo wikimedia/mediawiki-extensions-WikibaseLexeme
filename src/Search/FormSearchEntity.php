@@ -107,9 +107,9 @@ class FormSearchEntity extends LexemeSearchEntity {
 		$labelsQuery = new BoolQuery();
 		$labelsQuery->addFilter( $labelsFilter );
 		$labelsQuery->addShould( $dismax );
-		$titleMatch = new Term( [
-			'lexeme_forms.id' => EntitySearchUtils::normalizeId( $text, $this->idParser ),
-		] );
+		// lexeme_forms.id is a lowercase_keyword so use Match to apply the analyzer
+		$titleMatch = new Match( 'lexeme_forms.id',
+			EntitySearchUtils::normalizeId( $text, $this->idParser ) );
 
 		$query = new BoolQuery();
 		// Match either labels or exact match to title
