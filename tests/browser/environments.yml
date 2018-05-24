@@ -27,6 +27,14 @@ default:
   user_factory: true
   # lexeme_namespace: 'Lexeme:'
 
+beta:
+  language_code: en
+  browser: chrome
+  mediawiki_url: https://wikidata.beta.wmflabs.org/wiki/
+  mediawiki_user: Selenium_user
+  user_factory: true
+  # mediawiki_password: SET THIS IN THE ENVIRONMENT!
+
 integration:
   item_namespace: 'Item:'
   language_code: en
