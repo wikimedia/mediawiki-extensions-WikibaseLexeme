@@ -143,11 +143,8 @@ class LexemeTermResult implements ResultsType {
 				continue;
 			}
 
-			if ( empty( $sourceData['lexeme_language']['code'] ) ) {
-				$lemmaCode = 'und';
-			} else {
-				$lemmaCode = $sourceData['lexeme_language']['code'];
-			}
+			$lemmaCode = self::extractLanguageCode( $sourceData );
+
 			// Highlight part contains information about what has actually been matched.
 			$highlight = $r->getHighlights();
 
@@ -213,6 +210,18 @@ class LexemeTermResult implements ResultsType {
 			}, $rawResults );
 		} else {
 			return [];
+		}
+	}
+
+	/**
+	 * @param array $sourceData the source data returned by elastic
+	 * @return string the lexeme_language code if set, 'und' otherwise.
+	 */
+	public static function extractLanguageCode( array $sourceData ) {
+		if ( empty( $sourceData['lexeme_language']['code'] ) ) {
+			return 'und';
+		} else {
+			return $sourceData['lexeme_language']['code'];
 		}
 	}
 

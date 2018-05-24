@@ -281,7 +281,7 @@ class FormTermResult implements ResultsType {
 		foreach ( $result->getResults() as $r ) {
 			$sourceData = $r->getSource();
 			$entityId = EntitySearchUtils::parseOrNull( $sourceData['title'], $this->idParser );
-			if ( !$entityId || empty( $sourceData['lexeme_language']['code'] ) ) {
+			if ( !$entityId ) {
 				// Can not parse entity ID - skip it
 				// TODO: what we do here if no language code?
 				// Not sure we want to index all lemma languages.
@@ -289,7 +289,8 @@ class FormTermResult implements ResultsType {
 				continue;
 			}
 
-			$lemmaCode = $sourceData['lexeme_language']['code'];
+			$lemmaCode = LexemeTermResult::extractLanguageCode( $sourceData );
+
 			// Highlight part contains information about what has actually been matched.
 			$highlight = $r->getHighlights();
 
