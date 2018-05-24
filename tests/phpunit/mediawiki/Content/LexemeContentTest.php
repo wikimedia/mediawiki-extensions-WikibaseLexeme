@@ -9,6 +9,7 @@ use PHPUnit4And6Compat;
 use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -20,6 +21,7 @@ use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Repo\Content\EntityContentDiff;
 
 /**
@@ -166,6 +168,44 @@ class LexemeContentTest extends TestCase {
 				$this->assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ2 ) );
 			},
 		];
+	}
+
+	/**
+	 * @dataProvider provideLexemesWithStatementCount
+	 */
+	public function testGetEntityPageProperties( NewLexeme $lexeme, $expectedCount ) {
+		$content = new LexemeContent( new EntityInstanceHolder( $lexeme->build() ) );
+
+		$pageProps = $content->getEntityPageProperties();
+
+		$this->assertSame( $expectedCount, $pageProps['wb-claims'] );
+	}
+
+	public function provideLexemesWithStatementCount() {
+		yield 'empty lexeme' => [ NewLexeme::create(), 0 ];
+
+		$snak = new PropertyNoValueSnak( new PropertyId( 'P1' ) );
+		$lexeme = NewLexeme::create()->withStatement( $snak );
+		yield 'one statement' => [ $lexeme, 1 ];
+		yield 'two statements' => [ $lexeme->withStatement( $snak ), 2 ];
+
+		$form = NewForm::any();
+		yield 'empty form' => [ NewLexeme::havingForm( $form ), 0 ];
+		yield 'one statement with empty form' => [ $lexeme->withForm( $form ), 1 ];
+
+		$form = $form->andStatement( $snak );
+		yield 'one statement and one form statement' => [ $lexeme->withForm( $form ), 2 ];
+		$form = $form->andStatement( $snak );
+		yield 'one statement and two form statements' => [ $lexeme->withForm( $form ), 3 ];
+
+		$sense = NewSense::havingStatement( $snak );
+		yield 'one statement and one sense statement' => [ $lexeme->withSense( $sense ), 2 ];
+
+		$lexeme = $lexeme->withStatement( $snak )->withForm( $form )->withSense( $sense );
+		$form = $form->andStatement( $snak );
+		$sense = $sense->withStatement( $snak )->withStatement( $snak )->withStatement( $snak );
+		$lexeme = $lexeme->withForm( $form )->withSense( $sense );
+		yield '2 statements, 2+3 form statements, 1+4 sense statements' => [ $lexeme, 12 ];
 	}
 
 }
