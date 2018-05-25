@@ -3,7 +3,8 @@
 		"authors": [
 			"Ilimanaq29",
 			"Mormegil",
-			"Matěj Suchánek"
+			"Matěj Suchánek",
+			"Dvorapa"
 		]
 	},
 	"wikibaselexeme-desc": "Zpracovává typ entity Lexém",
@@ -30,7 +31,7 @@
 	"datatypes-type-wikibase-lexeme": "Lexém",
 	"datatypes-type-wikibase-form": "Tvar",
 	"datatypes-type-wikibase-sense": "Význam",
-	"wikibaselexeme-add-sense": "Přidat význam",
+	"wikibaselexeme-add-sense": "přidat význam",
 	"wikibaselexeme-add-form": "přidat tvar",
 	"apihelp-wbleditformelements-example-1": "Edituje tvar s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>",
 	"wikibase-lexeme-summary-add-form": "Přidán nový tvar $3 s {{PLURAL:$1|reprezentací|reprezentacemi}}",
