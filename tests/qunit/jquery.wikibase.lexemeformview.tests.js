@@ -12,7 +12,9 @@
 	var selector = {
 		representationTextInput: '.representation-widget_representation-value-input',
 		representationLanguageInput: '.representation-widget_representation-language-input',
-		representationText: '.representation-widget_representation-value'
+		representationText: '.representation-widget_representation-value',
+		languageRedundantWarning: '.representation-widget_redundant-language-warning',
+		representationLanguageRedundant: '.representation-widget_representation-language-input_redundant-language'
 	};
 
 	QUnit.module( 'jquery.wikibase.lexemeformview', QUnit.newMwEnvironment( {
@@ -83,6 +85,91 @@
 				view.value().getRepresentations().getItemByKey( 'en' ).getText(),
 				textInput
 			);
+		} ).catch( function ( e ) {
+			assert.notOk( e.stack );
+		} ).then( done );
+	} );
+
+	QUnit.test( 'value() creates null value when in edit mode with redundant languages', function ( assert ) {
+		var done = assert.async(),
+			form1 = newForm( 'F123', 'foo' ), // creates 'en' representation 'foo'
+			view = newFormView( {
+				value: form1
+			} );
+
+		view.startEditing().then( function () {
+			view._representationsWidget.add();
+
+			Vue.nextTick( function () {
+				changeInputValue( view.element.find( selector.representationLanguageInput ).last(), 'en' );
+				changeInputValue( view.element.find( selector.representationTextInput ).last(), 'conflicting' );
+
+				Vue.nextTick( function () {
+					assert.equal(
+						view.value(),
+						null
+					);
+				} );
+			} );
+
+		} ).catch( function ( e ) {
+			assert.notOk( e.stack );
+		} ).then( done );
+	} );
+
+	QUnit.test( 'shows warning when in edit mode with redundant languages', function ( assert ) {
+		assert.expect( 1 );
+
+		var done = assert.async(),
+			form1 = newForm( 'F123', 'foo' ), // creates 'en' representation 'foo'
+			view = newFormView( {
+				value: form1
+			} );
+
+		view.startEditing().then( function () {
+			view._representationsWidget.add();
+
+			Vue.nextTick( function () {
+				changeInputValue( view.element.find( selector.representationLanguageInput ).last(), 'en' );
+				changeInputValue( view.element.find( selector.representationTextInput ).last(), 'conflicting' );
+
+				Vue.nextTick( function () {
+					assert.equal(
+						view.element.find( selector.languageRedundantWarning ).length,
+						1
+					);
+				} );
+			} );
+
+		} ).catch( function ( e ) {
+			assert.notOk( e.stack );
+		} ).then( done );
+	} );
+
+	QUnit.test( 'marks redundant languages when in edit mode with redundant languages', function ( assert ) {
+		assert.expect( 1 );
+
+		var done = assert.async(),
+			form1 = newForm( 'F123', 'foo' ), // creates 'en' representation 'foo'
+			view = newFormView( {
+				value: form1
+			} );
+
+		view.startEditing().then( function () {
+			view._representationsWidget.add();
+
+			Vue.nextTick( function () {
+				changeInputValue( view.element.find( selector.representationLanguageInput ).last(), 'en' );
+				changeInputValue( view.element.find( selector.representationTextInput ).last(), 'conflicting' );
+
+				Vue.nextTick( function () {
+					assert.equal(
+						view.element.find( selector.representationLanguageRedundant ).length,
+						2
+					);
+				} );
+			} );
+
 		} ).catch( function ( e ) {
 			assert.notOk( e.stack );
 		} ).then( done );
@@ -164,7 +251,9 @@
 			'<input size="1" class="representation-widget_representation-value-input" \n' +
 			'v-model="representation.value">\n' +
 			'<input size="1" class="representation-widget_representation-language-input" \n' +
-			'v-model="representation.language">\n' +
+			'v-model="representation.language" \n' +
+			'v-bind:class="{ \'representation-widget_representation-language-input_redundant-language\': ' +
+			'isRedundantLanguage(representation.language) }">\n' +
 			'<button class="representation-widget_representation-remove" \n' +
 			'v-on:click="remove(representation)" \n' +
 			':title="\'wikibase-remove\'|message">\n' +
@@ -176,6 +265,9 @@
 			':title="\'wikibase-add\'|message">+</button>\n' +
 			'</li>\n' +
 			'</ul>\n' +
+			'</div>\n' +
+			'<div v-if="hasRedundantLanguage" class="representation-widget_redundant-language-warning">\n' +
+			'<p>{{\'wikibaselexeme-form-representation-redundant-language\'|message}}</p>\n' +
 			'</div>\n' +
 			'</div>\n' +
 			'</div>';

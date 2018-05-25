@@ -23,6 +23,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Spelling variant",
 	"wikibaselexeme-form-field-representation-label": "Representation",
 	"wikibaselexeme-form-field-language-label": "Spelling variant",
+	"wikibaselexeme-form-representation-redundant-language": "It is not possible to enter multiple representations with the same spelling variant.",
 	"wikibaselexeme-gloss-field-language-label": "Language",
 	"wikibaselexeme-gloss-field-gloss-label": "Gloss",
 	"wikibase-lexeme-summary-wbeditentity-update": "Changed a Lexeme",

@@ -223,16 +223,24 @@
 				"wikibaselexeme-error-cannot-remove-last-lemma"
 			]
 		},
+		"wikibase.lexeme.widgets.RedundantLanguageIndicator": {
+			"scripts": "widgets/RedundantLanguageIndicator.js",
+			"dependencies": [
+				"vue"
+			]
+		},
 		"wikibase.lexeme.widgets.RepresentationWidget": {
 			"scripts": "widgets/RepresentationWidget.js",
 			"dependencies": [
-				"vue"
+				"vue",
+				"wikibase.lexeme.widgets.RedundantLanguageIndicator"
 			],
 			"messages":[
 				"wikibase-add",
 				"wikibase-remove",
 				"wikibaselexeme-form-field-representation-label",
-				"wikibaselexeme-form-field-language-label"
+				"wikibaselexeme-form-field-language-label",
+				"wikibaselexeme-form-representation-redundant-language"
 			]
 		},
 		"wikibase.lexeme.widgets.GlossWidget": {

@@ -23,6 +23,34 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 		expect( widget.representations, 'to equal', [ SOME_REPRESENTATION ] );
 	} );
 
+	it( 'can carry redundant representations', function () {
+		var REDUNDANT_REPRESENTATION_LANGUAGE = { language: 'en', value: 'foo' };
+		var widget = newWidget( [ SOME_REPRESENTATION, REDUNDANT_REPRESENTATION_LANGUAGE ] );
+
+		widget.edit();
+
+		expect( widget.representations, 'to equal', [ SOME_REPRESENTATION, REDUNDANT_REPRESENTATION_LANGUAGE ] );
+	} );
+
+	it( 'detects redundant representation languages and can mark the individual languages', function () {
+		var REDUNDANT_REPRESENTATION_LANGUAGE = { language: 'en', value: 'foo' };
+		var widget = newWidget( [ SOME_REPRESENTATION, REDUNDANT_REPRESENTATION_LANGUAGE ] );
+
+		widget.edit();
+
+		expect( widget.isRedundantLanguage( 'en' ), 'to be true' );
+		expect( widget.isRedundantLanguage( 'fr' ), 'to be false' );
+	} );
+
+	it( 'detects redundant representation languages and marks the widget', function () {
+		var REDUNDANT_REPRESENTATION_LANGUAGE = { language: 'en', value: 'foo' };
+		var widget = newWidget( [ SOME_REPRESENTATION, REDUNDANT_REPRESENTATION_LANGUAGE ] );
+
+		widget.edit();
+
+		expect( widget.hasRedundantLanguage, 'to be true' );
+	} );
+
 	it( 'is not in edit mode after being created', function () {
 		var widget = newWidget( [] );
 
