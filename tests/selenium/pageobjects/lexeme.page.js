@@ -4,6 +4,15 @@ const Page = require( '../../../../../tests/selenium/pageobjects/page' );
 
 class LexemePage extends Page {
 
+	static get LEMMA_WIDGET_SELECTORS() {
+		return {
+			EDIT_BUTTON: '.lemma-widget_edit',
+			SAVE_BUTTON: '.lemma-widget_save',
+			EDIT_INPUT_VALUE: '.lemma-widget_lemma-value-input',
+			EDIT_INPUT_LANGUAGE: '.lemma-widget_lemma-language-input'
+		};
+	}
+
 	static get GLOSS_WIDGET_SELECTORS() {
 		return {
 			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
@@ -22,6 +31,14 @@ class LexemePage extends Page {
 			ADD_REPRESENTATION_BUTTON: '.representation-widget_add',
 			REMOVE_REPRESENTATION_BUTTON: '.representation-widget_representation-remove'
 		};
+	}
+
+	get lemmaContainer() {
+		return $( '.lemma-widget_lemma-list' );
+	}
+
+	get lemmas() {
+		return this.lemmaContainer.$$( '.lemma-widget_lemma-edit-box' );
 	}
 
 	get formsContainer() {
@@ -47,6 +64,26 @@ class LexemePage extends Page {
 	 */
 	open( lexemeId ) {
 		super.open( 'Lexeme:' + lexemeId );
+	}
+
+	/**
+	 * @param {string} lemmaText
+	 * @param {string} languageCode
+	 */
+	setFirstLemma( lemmaText, languageCode ) {
+		browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+		let editButton = $( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+		editButton.click();
+
+		let lemma = this.lemmas[ 0 ];
+
+		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( lemmaText );
+		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( languageCode );
+
+		let saveButton = $( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		saveButton.click();
+		saveButton.waitForExist( null, true );
 	}
 
 	/**

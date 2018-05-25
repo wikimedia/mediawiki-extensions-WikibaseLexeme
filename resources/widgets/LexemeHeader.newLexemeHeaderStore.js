@@ -1,6 +1,8 @@
 module.exports = ( function () {
 	'use strict';
 
+	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+
 	function getRequestLemmas( origLemmas, currentLemmas ) {
 		var removedLemmas = [];
 
@@ -69,7 +71,14 @@ module.exports = ( function () {
 			},
 			mutations: {
 				updateLemmas: function ( state, newLemmas ) {
-					state.lemmas = newLemmas;
+					// TODO: newLemmas is array of Lemma objects when coming from lexeme.lemmas
+					// but would be a generic object when passed from the API response
+					state.lemmas = newLemmas.map( function ( x ) {
+						if ( x instanceof Lemma ) {
+							return x.copy();
+						}
+						return new Lemma( x.value, x.language );
+					} );
 				},
 				updateRevisionId: function ( state, revisionId ) {
 					state.baseRevId = revisionId;

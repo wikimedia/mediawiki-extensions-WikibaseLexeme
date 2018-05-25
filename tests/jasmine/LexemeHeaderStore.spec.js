@@ -55,6 +55,15 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 		expect( state.languageLink, 'to be', '<a>verb</a>' );
 	} );
 
+	it( 'mutation updateLemmas changes lemmas to given values', function () {
+		var state = { lemmas: [ new Lemma( 'foo', 'en' ) ] };
+
+		mutations.updateLemmas( state, [ new Lemma( 'Bar', 'de' ) ] );
+
+		expect( state.lemmas[ 0 ].language, 'to equal', 'de' );
+		expect( state.lemmas[ 0 ].value, 'to equal', 'Bar' );
+	} );
+
 	function newTestAction( done ) {
 
 		// helper for testing action with expected mutations
@@ -200,7 +209,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 				mutations
 			).then( function () {
 				expect( newRevisionId, 'to equal', state.baseRevId );
-				expect( [ { value: 'lemma1', language: 'en' } ], 'to equal', state.lemmas );
+				expect( [ new Lemma( 'lemma1', 'en' ) ], 'to equal', state.lemmas );
 				expect( 'Q123', 'to equal', state.language );
 				expect( 'Link for Q123', 'to equal', state.languageLink );
 				expect( 'Q234', 'to equal', state.lexicalCategory );
