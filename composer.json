@@ -20,7 +20,7 @@
 		"wikibase/data-model-serialization": "~2.0",
 		"wikibase/data-model-services": "~3.6",
 		"wikimedia/assert": "~0.2.2",
-		"wmde/php-vuejs-templating": "~1.0"
+		"wmde/php-vuejs-templating": "^1.0.2"
 	},
 	"require-dev": {
 		"jakub-onderka/php-parallel-lint": "1.0.0",
