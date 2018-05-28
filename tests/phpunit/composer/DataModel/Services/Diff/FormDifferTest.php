@@ -8,7 +8,10 @@ use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 
 /**
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\AddFormDiff
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp
  * @covers \Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer
+ * @covers \Wikibase\Lexeme\DataModel\Services\Diff\RemoveFormDiff
  *
  * @license GPL-2.0-or-later
  */
