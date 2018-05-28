@@ -3,13 +3,16 @@
 		"authors": [
 			"Cûndûllah el-Kurdî",
 			"Ghybu",
-			"Bikarhêner"
+			"Bikarhêner",
+			"George Animal"
 		]
 	},
+	"wikibaselexeme-newlexeme-lexicalcategory": "Kategoriya peyvê",
 	"wikibaselexeme-lemma-field-language-label": "Ziman",
 	"wikibaselexeme-form-field-language-label": "Ziman",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
 	"wikibaselexeme-field-language-label": "Ziman",
 	"wikibaselexeme-diffview-language": "ziman",
+	"wikibaselexeme-unknown-language": "Zimanê nenas",
 	"wikibaselexeme-unknown-category": "Nenas"
 }

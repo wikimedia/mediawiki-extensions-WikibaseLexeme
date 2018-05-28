@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robin van der Vliet"
+		]
+	},
+	"special-newlexeme": "Krie novan leksemon",
+	"wikibaselexeme-deletedentity-form": "Forigita formo",
+	"wikibaselexeme-newlexeme-fieldset": "Krei novan leksemon",
+	"wikibaselexeme-newlexeme-lemma": "Lemo",
+	"wikibaselexeme-newlexeme-lemma-language": "Lingvo de lemo",
+	"wikibaselexeme-newlexeme-language": "Lingvo de leksemo",
+	"wikibaselexeme-language-lexical-category-value": "$1 en $2",
+	"wikibaselexeme-statementsection-statements-about-form": "Deklaroj pri $1",
+	"wikibaselexeme-header-forms": "Formoj",
+	"wikibaselexeme-statementsection-statements-about-sense": "Deklaroj pri $1",
+	"wikibaselexeme-header-senses": "Sencoj",
+	"wikibaselexeme-lemma-field-lemma-label": "Lemo",
+	"wikibaselexeme-gloss-field-language-label": "Lingvo",
+	"datatypes-type-wikibase-lexeme": "Leksemo",
+	"datatypes-type-wikibase-form": "Formo",
+	"datatypes-type-wikibase-sense": "Senco",
+	"wikibaselexeme-field-language-label": "Lingvo",
+	"wikibaselexeme-diffview-lemma": "lemo",
+	"wikibaselexeme-diffview-language": "lingvo",
+	"wikibaselexeme-diffview-form": "formo",
+	"content-model-wikibase-lexeme": "Vikibazo-leksemo",
+	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
+	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
+	"wikibaselexeme-formidformatter-separator-multiple-representation": "/",
+	"wikibaselexeme-lexeme-link-title": "$1: $2",
+	"wikibaselexeme-form-description": "$1 por: $2 ($3): $4",
+	"wikibaselexeme-unknown-language": "Nekonata lingvo",
+	"wikibaselexeme-unknown-category": "Nekonata"
+}

@@ -4,18 +4,21 @@
 			"Mainframe98",
 			"Festina90",
 			"Patio",
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"Robin van der Vliet"
 		]
 	},
 	"special-newlexeme": "Een nieuw lexeem aanmaken",
 	"wikibaselexeme-newlexeme-fieldset": "Een nieuw lexeem aanmaken",
 	"wikibaselexeme-language-lexical-category-value": "$1 in $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Uitspraken over $1",
+	"wikibaselexeme-header-forms": "Vormen",
 	"wikibaselexeme-statementsection-statements-about-sense": "Uitspraken over $1",
 	"wikibaselexeme-form-field-language-label": "Taal",
 	"wikibaselexeme-gloss-field-language-label": "Taal",
 	"wikibase-lexeme-summary-wbeditentity-update": "Een lexeem gewijzigd",
 	"datatypes-type-wikibase-lexeme": "Lexeem",
+	"datatypes-type-wikibase-form": "Vorm",
 	"apihelp-wblremoveform-param-id": "Identificatie van het formulier bijv. L10-F20",
 	"wikibase-lexeme-summary-remove-form": "Formulier $3 met {{PLURAL:$1|representatie|representaties}} verwijderd",
 	"wikibaselexeme-field-language-label": "Taal",
@@ -24,6 +27,7 @@
 	"wikibaselexeme-diffview-language": "taal",
 	"content-model-wikibase-lexeme": "Wikibase-lexeem",
 	"wikibaselexeme-form-grammatical-features": "Grammatica-eigenschappen",
+	"wikibaselexeme-form-description": "$1 voor: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Onbekende taal",
 	"wikibaselexeme-unknown-category": "Onbekend"
 }
