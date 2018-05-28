@@ -109,8 +109,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexeme-language',
 				'label-message' => 'wikibaselexeme-newlexeme-language',
-				'required' => true,
-				'autocomplete' => false,
+				'required' => true
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
@@ -118,8 +117,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 				'class' => ItemSelectorWidgetField::class,
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibaselexeme-newlexeme-lexicalcategory',
-				'required' => true,
-				'autocomplete' => false,
+				'required' => true
 			]
 		];
 	}

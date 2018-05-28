@@ -154,4 +154,15 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 		);
 	}
 
+	public function testUsingDefaultAutocompletConfig_disablesNativeBrowserAutocomplete() {
+		$widgetField = $this->getWidgetField();
+
+		$this->assertThatHamcrest(
+			$widgetField->getInputOOUI( '' )->toString(),
+			is( htmlPiece( havingChild(
+				tagMatchingOutline( "<input autocomplete='off'/>" )
+			) ) )
+		);
+	}
+
 }
