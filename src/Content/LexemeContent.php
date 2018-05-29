@@ -110,4 +110,25 @@ class LexemeContent extends EntityContent {
 		return $properties;
 	}
 
+	/**
+	 * Make text representation of the Lexeme as list of all lemmas and form representations.
+	 * @see EntityContent::getTextForSearchIndex()
+	 */
+	public function getTextForSearchIndex() {
+		if ( $this->isRedirect() ) {
+			return '';
+		}
+
+		$lexeme = $this->getEntity();
+		// Note: this assumes that only one lemma per language exists
+		$terms = array_values( $lexeme->getLemmas()->toTextArray() );
+
+		foreach ( $lexeme->getForms()->toArray() as $form ) {
+			$terms = array_merge( $terms,
+				array_values( $form->getRepresentations()->toTextArray() ) );
+		}
+
+		return implode( ' ', $terms );
+	}
+
 }
