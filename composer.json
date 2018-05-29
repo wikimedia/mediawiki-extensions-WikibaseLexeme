@@ -26,7 +26,7 @@
 		"jakub-onderka/php-parallel-lint": "1.0.0",
 		"jakub-onderka/php-console-highlighter": "0.3.2",
 		"hamcrest/hamcrest-php": "^2.0",
-		"giorgiosironi/eris": "dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
+		"giorgiosironi/eris": "0.10.0",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/minus-x": "0.3.1",
 		"wikibase/wikibase-codesniffer": "^0.3.0",
