@@ -27,6 +27,7 @@ use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
@@ -38,6 +39,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
+use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
@@ -225,6 +227,16 @@ return [
 					$repo->getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
 				),
 				$repo->getEntityTypeToRepositoryMapping()
+			);
+		},
+		'link-formatter-callback' => function ( Language $language ) {
+			$repo = WikibaseRepo::getDefaultInstance();
+
+			return new LexemeLinkFormatter(
+				$repo->getEntityLookup(),
+				new DefaultEntityLinkFormatter( $language ),
+				RequestContext::getMain(),
+				$language
 			);
 		},
 	],
