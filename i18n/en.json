@@ -91,5 +91,6 @@
 	"wikibaselexeme-unknown-category": "Unknown",
 	"wikibaselexeme-no-features": "no features",
 	"wikibaselexeme-rescore-profile-prefix": "Rescore profile for prefix (completion) search",
-	"wikibase-validator-form-not-found": "Lexeme does not have Form with given ID"
+	"wikibase-validator-form-not-found": "Lexeme does not have Form with given ID",
+	"wikibaselexeme-grammatical-features-input-placeholder": "For example: normative, comparative, past tense..."
 }

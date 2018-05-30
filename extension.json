@@ -157,6 +157,9 @@
 				"jquery.ui.EditableTemplatedWidget",
 				"wikibase.templates.lexeme",
 				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
+			],
+			"messages": [
+				"wikibaselexeme-grammatical-features-input-placeholder"
 			]
 		},
 		"jquery.wikibase.senselistview": {

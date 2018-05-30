@@ -16,10 +16,12 @@ module.exports = ( function ( $, OO ) {
 	var GrammaticalFeatureListWidget = function ( config ) {
 		var selected = config.selected;
 		config.selected = undefined;
+		this._placeHolder = config.placeholder || '';
+		config.placeholder = selected && selected.length > 0 ? '' : config.placeholder;
 
 		OO.ui.MenuTagMultiselectWidget.call( this, config );
-		OO.ui.mixin.RequestManager.call( this, config );
 
+		OO.ui.mixin.RequestManager.call( this, config );
 		config.selected = selected;
 		if ( typeof selected !== 'undefined' ) {
 			Array.prototype.push.apply( this.allowedValues, selected.map( function ( item ) {
@@ -29,8 +31,8 @@ module.exports = ( function ( $, OO ) {
 				return item.data;
 			} ) );
 			this.setValue( selected );
-		}
 
+		}
 		if ( !config.api || !config.labelFormattingService || !config.language ) {
 			throw new Error( 'api, labelFormattingService and language need to be specified.' );
 		}
@@ -61,6 +63,11 @@ module.exports = ( function ( $, OO ) {
 		 * @property {wikibase.LabelFormattingService}
 		 */
 		_labelFormattingService: null,
+
+		/**
+		 * @property {string}
+		 */
+		_placeHolder: '',
 
 		/**
 		 * @protected
@@ -123,6 +130,13 @@ module.exports = ( function ( $, OO ) {
 		},
 
 		/**
+		 * @private
+		 */
+		updateInputPlaceHolder: function () {
+			this.input.$input.attr( 'placeholder', this.getItemCount() === 0 ? this._placeHolder : '' );
+		},
+
+		/**
 		 * @protected
 		 */
 		onMenuChoose: function onMenuChoose( menuItem ) {
@@ -137,6 +151,13 @@ module.exports = ( function ( $, OO ) {
 			this.addTag( itemId, $label );
 			this.clearInput();
 			this.clearMenuItems();
+		},
+
+		/**
+		 * @protected
+		 */
+		onChangeTags: function () {
+			this.updateInputPlaceHolder();
 		},
 
 		/**

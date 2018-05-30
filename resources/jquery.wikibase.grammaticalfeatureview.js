@@ -119,6 +119,7 @@
 				api: self.options.api,
 				labelFormattingService: this._labelFormattingService,
 				language: mw.config.get( 'wgUserLanguage' ),
+				placeholder: mw.messages.get( 'wikibaselexeme-grammatical-features-input-placeholder' ),
 				selected: value.map( function ( item ) {
 					var $el = $( '<span>' ).text( item );
 					self._labelFormattingService.getHtml( item ).then( function ( html ) {
