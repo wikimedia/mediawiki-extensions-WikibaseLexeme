@@ -106,6 +106,29 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		);
 	}
 
+	public function testGivenLexicalCategoryWithoutLabel_showsItemId() {
+		$lookup = $this->getMock( LabelDescriptionLookup::class );
+		$lookup->method( $this->anything() )
+			->willReturn( null );
+		$formatter = new LexemeIdHtmlFormatter(
+			$this->newEntityLookup(),
+			$lookup,
+			$this->newTitleLookup(),
+			new DummyLocalizedTextProvider()
+		);
+
+		$this->assertThatHamcrest(
+			$formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) ),
+			is( htmlPiece( havingRootElement(
+				both( tagMatchingOutline(
+						'<a title="(wikibaselexeme-lexeme-link-title: L313, ' .
+						'(wikibaselexeme-presentation-lexeme-secondary-label: Q100, Q200)' .
+						')"/>' )
+				)->andAlso( havingTextContents( containsString( self::LEMMA ) ) )
+			) ) )
+		);
+	}
+
 	// TODO: test non-lexeme-id case
 
 	private function newFormatter() {
