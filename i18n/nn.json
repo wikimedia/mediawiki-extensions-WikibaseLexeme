@@ -16,7 +16,14 @@
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-sense": "Tyding",
 	"wikibaselexeme-add-sense": "legg til tyding",
+	"wikibase-lexeme-summary-remove-form-representations": "Fjerna {{PLURAL:$1|representasjon|representasjonar}} av forma $3",
+	"wikibase-lexeme-summary-update-form-grammatical-features": "Endra representasjonar og/eller grammatiske kategoriar av forma $3",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "La til {{PLURAL:$1|grammatisk kategori|grammatiske kategoriar}} til forma $3",
+	"wikibase-lexeme-summary-remove-form-grammatical-features": "Fjerna {{PLURAL:$1|grammatisk kategori|grammatiske kategoriar}} frå forma $3",
+	"wikibase-lexeme-summary-update-form-elements": "Endra representasjonar og/eller grammatiske kategoriar av forma $3",
+	"wikibaselexeme-field-language-label": "Språk",
+	"wikibaselexeme-diffview-language": "språk",
+	"wikibaselexeme-diffview-form": "form",
 	"wikibaselexeme-diffview-grammatical-feature": "grammatisk kategori",
 	"wikibaselexeme-form-grammatical-features": "Grammatiske kategoriar"
 }

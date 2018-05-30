@@ -28,6 +28,7 @@
 	"datatypes-type-wikibase-form": "Φόρμα",
 	"datatypes-type-wikibase-sense": "Νόημα",
 	"apihelp-wblremoveform-summary": "Αφαιρεί φόρμες από το Lexeme",
+	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Η γλώσσα δεν μπορεί να είναι άδεια",
 	"wikibaselexeme-diffview-lemma": "Λήμμα",
 	"wikibaselexeme-diffview-lexical-category": "λεκτική κατηγορία",
 	"wikibaselexeme-diffview-language": "γλώσσα",
