@@ -112,8 +112,8 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 	 * @return string Plain text
 	 */
 	private function buildLinkTitle( LexemeId $id, ItemId $languageId, ItemId $lexicalCategoryId ) {
-		$languageLabel = $this->labelDescriptionLookup->getLabel( $languageId )->getText();
-		$lexicalCategoryLabel = $this->labelDescriptionLookup->getLabel( $lexicalCategoryId )->getText();
+		$languageLabel = $this->getLabel( $languageId );
+		$lexicalCategoryLabel = $this->getLabel( $lexicalCategoryId );
 
 		$titleContent = $this->textProvider->get(
 			'wikibaselexeme-presentation-lexeme-secondary-label',
@@ -124,6 +124,16 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 			'wikibaselexeme-lexeme-link-title',
 			[ $id->getSerialization(), $titleContent ]
 		);
+	}
+
+	/**
+	 * Gets the item's label or falls back to its id serialization
+	 * @param ItemId $id
+	 * @return string
+	 */
+	private function getLabel( ItemId $id ) {
+		$label = $this->labelDescriptionLookup->getLabel( $id );
+		return $label ? $label->getText() : $id->getSerialization();
 	}
 
 }
