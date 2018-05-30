@@ -17,6 +17,8 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class ItemSelectorWidgetField extends HTMLItemReferenceField {
 
+	const NATIVE_AGENT_AUTOCOMPLETE = false;
+
 	/**
 	 * @var string|null
 	 */
@@ -37,6 +39,8 @@ class ItemSelectorWidgetField extends HTMLItemReferenceField {
 		EntityIdParser $idParser = null,
 		LabelDescriptionLookup $lookup = null
 	) {
+		$params['autocomplete'] = self::NATIVE_AGENT_AUTOCOMPLETE;
+
 		parent::__construct( $params );
 
 		$this->idParser = $idParser ?: WikibaseRepo::getDefaultInstance()->getEntityIdParser();
