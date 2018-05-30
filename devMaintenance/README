@@ -1,4 +1,0 @@
-This directory contains "maintenance" scripts which might be helpful to perform some operations
-during the development phase of the extension. None of this tools is meant to be used
-in the production environment. This directory should be removed before the extension is actually used
-in production.

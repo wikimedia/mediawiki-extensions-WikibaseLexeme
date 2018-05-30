@@ -15,8 +15,7 @@
 	"AutoloadNamespaces": {
 		"Wikibase\\Lexeme\\": "src/",
 		"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/",
-		"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/",
-		"Wikibase\\Lexeme\\DevelopmentMaintenance\\": "devMaintenance/"
+		"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/"
 	},
 	"config": {
 		"LexemeEnableSenses": {
