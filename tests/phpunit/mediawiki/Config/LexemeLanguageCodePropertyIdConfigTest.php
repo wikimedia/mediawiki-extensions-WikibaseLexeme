@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Config;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 
 use MediaWikiTestCase;
 use PHPUnit_Framework_MockObject_MockObject;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Store;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_Matcher_InvokedCount;

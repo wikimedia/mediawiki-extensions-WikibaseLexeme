@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Mediawiki\View\Template;
+namespace Wikibase\Lexeme\Tests\MediaWiki\View\Template;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;

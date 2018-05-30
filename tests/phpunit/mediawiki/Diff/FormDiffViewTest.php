@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Diff;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Diff;
 
 use Diff\Comparer\ComparableComparer;
 use Diff\Differ\OrderedListDiffer;

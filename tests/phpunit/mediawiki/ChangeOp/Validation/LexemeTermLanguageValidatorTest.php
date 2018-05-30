@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\ChangeOp\Validation;
+namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Validation;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

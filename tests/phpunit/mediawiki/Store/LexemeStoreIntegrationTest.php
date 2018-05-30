@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\Store;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
