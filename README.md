@@ -9,6 +9,99 @@ Note: Currently, this extension is only compatible with the current development 
 Install dependencies by running `composer install`.
 Add `wfLoadExtension( 'WikibaseLexeme');` to LocalSettings.php.
 
+## Development setup
+
+Recommended way of setting the development environment is with the use of [Docker containers for MediaWiki development](https://github.com/addshore/mediawiki-docker-dev).
+
+### Setting up the extension using Docker
+
+#### Set up mediawiki-docker-dev
+
+* Follow the guide available at https://github.com/addshore/mediawiki-docker-dev.
+
+* Once this is setup you can just check it all works by visiting:
+[http://default.web.mw.localhost:8080].
+
+* You should see a mediawiki installation all setup and running.
+
+#### Get Wikibase Extension
+
+* Following the setup guide from https://www.mediawiki.org/wiki/Wikibase/Installation, run:
+
+  ```
+  cd extensions
+  git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase.git
+  cd Wikibase
+  git submodule update --init --recursive # get the dependencies using submodules
+  ```
+
+* Install the dependencies with composer:
+
+  Add `composer.json` of Wikibase to `composer.local.json` at the root of your mediawiki folder, as documented in [MediaWiki's Composer documentation](https://www.mediawiki.org/wiki/Composer#Using_composer-merge-plugin)
+
+  Using a similar command to that for installing mediawiki dependencies install the dependencies using docker and composer
+
+  `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
+
+
+* Enable Extension
+
+  Add the following lines to the `LocalSettings.php` at the root of your mediawiki folder:
+
+  ```
+  $wgEnableWikibaseRepo = true;
+  $wgEnableWikibaseClient = true;
+  require_once "$IP/extensions/Wikibase/repo/Wikibase.php";
+  require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
+  require_once "$IP/extensions/Wikibase/client/WikibaseClient.php";
+  require_once "$IP/extensions/Wikibase/client/ExampleSettings.php";
+  ```
+
+* Run the Wikibase setup scripts
+
+  Run `update.php` in the default site from within the web docker container. This needs to be run with the `PWD` in the host set to the `mediawiki-docker-dev` folder.
+
+  ```
+  docker-compose exec "web" php /var/www/mediawiki/maintenance/update.php --wiki default --quick
+  docker-compose exec "web" php /var/www/mediawiki/extensions/Wikibase/lib/maintenance/populateSitesTable.php --wiki default --quick
+  ```
+
+#### Get WikibaseLexeme Extension
+
+* Clone WikibaseLexeme code
+
+  From the extensions folder in your mediawiki run:
+
+  `git clone ssh://gerrit.wikimedia.org:29418/mediawiki/extensions/WikibaseLexeme`
+
+* Add it to Config
+
+  Add this to the `LocalSettings.php` in the root of the mediawiki repo:
+
+  `wfLoadExtension( 'WikibaseLexeme' );`
+
+* Install with composer
+
+  Add `extensions/WikibaseLexeme/composer.json` to `composer.local.json` at the root of your mediawiki folder, so it looks similar to
+
+  ```
+  {
+    "extra": {
+      "merge-plugin": {
+        "include": [
+          "extensions/Wikibase/composer.json",
+          "extensions/WikibaseLexeme/composer.json"
+        ]
+      }
+    }
+  }
+  ```
+
+  From the root folder of mediawiki run again
+
+  `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
+
+
 ## Configuration
 
 By default WikibaseLexeme uses the namespace number 146 for storing lexeme pages, and namespace numer 147 for the related talk page. Namespaces can be customized by setting `$wgLexemeNamespace` and `$wgLexemeTalkNamespace` global variables accordingly.
