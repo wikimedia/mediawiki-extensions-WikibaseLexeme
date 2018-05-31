@@ -122,7 +122,10 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 	protected function getEntityTypeDefinitions() {
 		return new EntityTypeDefinitions(
-			require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.php'
+			array_merge(
+				require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.php',
+				require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.repo.php'
+			)
 		);
 	}
 

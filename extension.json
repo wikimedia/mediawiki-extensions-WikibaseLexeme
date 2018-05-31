@@ -55,13 +55,13 @@
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCanonicalNamespaces"
 		],
 		"WikibaseRepoEntityTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityTypes"
 		],
 		"WikibaseRepoDataTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseDataTypes"
 		],
 		"WikibaseClientEntityTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityTypes"
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientEntityTypes"
 		],
 		"ResourceLoaderTestModules": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onResourceLoaderTestModules"

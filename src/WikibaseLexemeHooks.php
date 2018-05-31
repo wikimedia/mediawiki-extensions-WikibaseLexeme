@@ -77,10 +77,26 @@ class WikibaseLexemeHooks {
 	 *
 	 * @param array[] $entityTypeDefinitions
 	 */
-	public static function onWikibaseEntityTypes( array &$entityTypeDefinitions ) {
+	public static function onWikibaseClientEntityTypes( array &$entityTypeDefinitions ) {
 		$entityTypeDefinitions = array_merge(
 			$entityTypeDefinitions,
 			require __DIR__ . '/../WikibaseLexeme.entitytypes.php'
+		);
+	}
+
+	/**
+	 * Adds the definition of the lexeme entity type to the definitions array Wikibase uses.
+	 *
+	 * @see WikibaseLexeme.entitytypes.php
+	 * @see WikibaseLexeme.entitytypes.repo.php
+	 *
+	 * @param array[] $entityTypeDefinitions
+	 */
+	public static function onWikibaseRepoEntityTypes( array &$entityTypeDefinitions ) {
+		$entityTypeDefinitions = array_merge_recursive(
+			$entityTypeDefinitions,
+			require __DIR__ . '/../WikibaseLexeme.entitytypes.php',
+			require __DIR__ . '/../WikibaseLexeme.entitytypes.repo.php'
 		);
 	}
 
