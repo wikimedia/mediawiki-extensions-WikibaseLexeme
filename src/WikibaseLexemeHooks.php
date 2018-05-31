@@ -194,6 +194,11 @@ class WikibaseLexemeHooks {
 	 * @param SearchProfileService $service
 	 */
 	public static function onCirrusSearchProfileService( SearchProfileService $service ) {
+		// Do not add Lexeme specific search stuff if we are not a repo
+		if ( !WikibaseSettings::isRepoEnabled() ) {
+			return;
+		}
+
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		// register base profiles available on all wikibase installs
