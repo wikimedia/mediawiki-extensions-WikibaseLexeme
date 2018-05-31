@@ -22,6 +22,7 @@ module.exports = ( function () {
 				inEditMode: false,
 				id: store.state.id,
 				lemmas: store.state.lemmas.copy(),
+				hasRedundantLemmaLanguage: false,
 				language: store.state.language,
 				lexicalCategory: store.state.lexicalCategory
 			},
@@ -71,7 +72,6 @@ module.exports = ( function () {
 						info: messages.get( 'wikibaselexeme-error-cannot-remove-last-lemma' )
 					} );
 				}
-
 			},
 
 			computed: {
@@ -83,6 +83,12 @@ module.exports = ( function () {
 					return this.language !== this.$store.state.language
 						|| this.lexicalCategory !== this.$store.state.lexicalCategory
 						|| !this.lemmas.equals( this.$store.state.lemmas );
+				},
+
+				isUnsaveable: function () {
+					return !this.hasChanges
+						|| this.isSaving
+						|| this.hasRedundantLemmaLanguage;
 				}
 			},
 

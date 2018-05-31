@@ -2,8 +2,9 @@
  * @license GPL-2.0-or-later
  */
 describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
-	var sinon = require( 'sinon' );
-	var expect = require( 'unexpected' ).clone();
+	var sinon = require( 'sinon' ),
+		expect = require( 'unexpected' ).clone(),
+		_ = require( 'lodash' );
 	expect.installPlugin( require( 'unexpected-dom' ) );
 	expect.installPlugin( require( 'unexpected-sinon' ) );
 
@@ -111,6 +112,97 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		} );
 	} );
 
+	it( 'shows save button disabled when unsaveable', function ( done ) {
+		var widget = newWidget( { lemmas: [] }, {
+			computed: {
+				isUnsaveable: function () {
+					return true;
+				}
+			}
+		} );
+		widget.edit();
+		widget.$nextTick( function () {
+			expect( widget.$el.querySelector( '.lemma-widget_save' ), 'to have attributes', { disabled: 'disabled' } );
+			done();
+		} );
+	} );
+
+	it( 'shows save button enabled when not unsaveable', function ( done ) {
+		var widget = newWidget( { lemmas: [] }, {
+			computed: {
+				isUnsaveable: function () {
+					return false;
+				}
+			}
+		} );
+		widget.edit();
+		widget.$nextTick( function () {
+			expect( widget.$el.querySelector( '.lemma-widget_save' ).getAttribute( 'disabled' ), 'to equal', null );
+			done();
+		} );
+	} );
+
+	it( 'binds to lemma-widget hasRedundantLanguage event', function () {
+		var widget = newWidget( { lemmas: [] } );
+
+		widget.$children[ 0 ].$emit( 'hasRedundantLanguage', true );
+
+		expect( widget.hasRedundantLemmaLanguage, 'to be true' );
+	} );
+
+	describe( 'isUnsaveable', function () {
+		it( 'returns false by default', function () {
+			var widget = newWidget( { lemmas: [] }, {
+				computed: {
+					hasChanges: function () {
+						return true;
+					}
+				}
+			} );
+			Vue.set( widget, 'hasRedundantLemmaLanguage', false );
+			expect( widget.isUnsaveable, 'to be false' );
+		} );
+
+		it( 'returns true when there are no changes', function () {
+			var widget = newWidget( { lemmas: [] }, {
+				computed: {
+					hasChanges: function () {
+						return false;
+					}
+				}
+			} );
+			Vue.set( widget, 'hasRedundantLemmaLanguage', false );
+			expect( widget.isUnsaveable, 'to be true' );
+		} );
+
+		it( 'returns true when there are changes but saving is ongoing', function () {
+			var widget = newWidget( { lemmas: [] }, {
+				computed: {
+					isSaving: function () {
+						return true;
+					},
+					hasChanges: function () {
+						return true;
+					}
+				}
+			} );
+			Vue.set( widget, 'hasRedundantLemmaLanguage', false );
+			expect( widget.isUnsaveable, 'to be true' );
+		} );
+
+		it( 'returns true when there are changes but also lemmas with redundant languages', function () {
+			var widget = newWidget( { lemmas: [] }, {
+				computed: {
+					hasChanges: function () {
+						return true;
+					}
+				}
+			} );
+			Vue.set( widget, 'hasRedundantLemmaLanguage', true );
+			expect( widget.isUnsaveable, 'to be true' );
+		} );
+	} );
+
 	describe( 'hasChanges', function () {
 		it( 'returns false by default', function () {
 			var widget = newWidget( { lemmas: [], language: 'Q123', lexicalCategory: 'Q321' } );
@@ -150,18 +242,27 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		expect( widget.$el, 'to contain' + no + 'elements matching', '.lemma-widget_save' );
 	} );
 
-	function newWidget( lexeme ) {
-		return newWidgetWithStore( newStore( lexeme ) );
+	/**
+	 * @param {Object} lexeme
+	 * @param {Object} mergeOptions Additional Vue options to apply to component, e.g. to mock watched properties
+	 * @return {Vue}
+	 */
+	function newWidget( lexeme, mergeOptions ) {
+		return newWidgetWithStore( newStore( lexeme ), mergeOptions );
 	}
 
 	function newStore( lexeme ) {
 		return new Vuex.Store( newLexemeHeaderStore( {}, lexeme, 0 ) );
 	}
 
-	function newWidgetWithStore( store ) {
-		var element = document.createElement( 'div' );
-
-		return new Vue( newLexemeHeader(
+	/**
+	 * @param {Vuex.Store} store
+	 * @param {Object} mergeOptions Additional Vue options to apply to component, e.g. to mock watched properties
+	 * @return {Vue}
+	 */
+	function newWidgetWithStore( store, mergeOptions ) {
+		var element = document.createElement( 'div' ),
+			options = newLexemeHeader(
 			store,
 			element,
 			getTemplate(),
@@ -172,7 +273,9 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					return key;
 				}
 			}
-		) ).$mount();
+		);
+
+		return new Vue( _.merge( options, mergeOptions ) ).$mount();
 	}
 
 	function getLemmaWidget() {
@@ -195,13 +298,17 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			+ '<h1 id="wb-lexeme-header" class="wb-lexeme-header">'
 			+ '<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->'
 			+ '<div class="wb-lexeme-header_lemma-widget">'
-			+ '<lemma-widget :lemmas="lemmas" :inEditMode="inEditMode" :isSaving="isSaving"></lemma-widget>'
+			+ '<lemma-widget '
+			+ ':lemmas="lemmas" '
+			+ ':inEditMode="inEditMode" '
+			+ ':isSaving="isSaving" '
+			+ '@hasRedundantLanguage="hasRedundantLemmaLanguage = $event"></lemma-widget>'
 			+ '</div>'
 			+ '<div class="lemma-widget_controls" v-if="isInitialized" >'
 			+ '<button type="button" class="lemma-widget_edit" v-if="!inEditMode" '
 			+ ' :disabled="isSaving" v-on:click="edit">{{\'wikibase-edit\'|message}}</button>'
 			+ '<button type="button" class="lemma-widget_save" v-if="inEditMode" '
-			+ ' :disabled="isSaving || !hasChanges" v-on:click="save">{{\'wikibase-save\'|message}}</button>'
+			+ ' :disabled="isUnsaveable" v-on:click="save">{{\'wikibase-save\'|message}}</button>'
 			+ '<button type="button" class="lemma-widget_cancel" v-if="inEditMode" '
 			+ ' :disabled="isSaving"  v-on:click="cancel">{{\'wikibase-cancel\'|message}}</button>'
 			+ '</div>'

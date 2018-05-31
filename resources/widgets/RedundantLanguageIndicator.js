@@ -63,6 +63,7 @@ module.exports = ( function () {
 		}
 
 		this.redundantLanguages = redundantLanguages;
+		this.$emit( 'hasRedundantLanguage', this.hasRedundantLanguage );
 	}
 
 } )();

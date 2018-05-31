@@ -56,4 +56,22 @@ describe( 'Lexeme:Lemma', () => {
 
 	} );
 
+	it( 'can not save lemmas with redundant languages', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+		LexemePage.startHeaderEditMode();
+
+		LexemePage.fillNthLemma( 0, 'some lemma', 'en' );
+		LexemePage.fillNthLemma( 1, 'another lemma', 'en' );
+
+		assert.equal( LexemePage.isHeaderSubmittable(), false );
+	} );
 } );

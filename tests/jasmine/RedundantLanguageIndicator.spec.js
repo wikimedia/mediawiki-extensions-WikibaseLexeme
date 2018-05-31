@@ -1,5 +1,6 @@
 describe( 'wikibase.lexeme.widgets.RedundantLanguageIndicator', function () {
-	var expect = require( 'unexpected' ).clone();
+	var expect = require( 'unexpected' ).clone(),
+		sinon = require( 'sinon' );
 
 	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
 
@@ -64,7 +65,12 @@ describe( 'wikibase.lexeme.widgets.RedundantLanguageIndicator', function () {
 	it( 'creates mixin watch handler that updates redundantLanguages with respective language values', function () {
 		var mixin = RedundantLanguageIndicator( 'myprop' ),
 			detectRedundantLanguages = mixin.watch.myprop.handler,
-			instance = {};
+			instance = {
+				get hasRedundantLanguage() {
+					return mixin.computed.hasRedundantLanguage.call( instance );
+				},
+				$emit: sinon.spy()
+			};
 
 		detectRedundantLanguages.call(
 			instance,
@@ -75,12 +81,18 @@ describe( 'wikibase.lexeme.widgets.RedundantLanguageIndicator', function () {
 			]
 		);
 		expect( instance.redundantLanguages, 'to equal', [ 'de' ] );
+		expect( instance.$emit.withArgs( 'hasRedundantLanguage', true ).calledOnce, 'to be truthy' );
 	} );
 
 	it( 'creates mixin watch handler that can find multiple redundant languages', function () {
 		var mixin = RedundantLanguageIndicator( 'myprop' ),
 			detectRedundantLanguages = mixin.watch.myprop.handler,
-			instance = {};
+			instance = {
+				get hasRedundantLanguage() {
+					return mixin.computed.hasRedundantLanguage.call( instance );
+				},
+				$emit: sinon.spy()
+			};
 
 		detectRedundantLanguages.call(
 			instance,
@@ -92,12 +104,18 @@ describe( 'wikibase.lexeme.widgets.RedundantLanguageIndicator', function () {
 			]
 		);
 		expect( instance.redundantLanguages, 'to equal', [ 'en', 'de' ] );
+		expect( instance.$emit.withArgs( 'hasRedundantLanguage', true ).calledOnce, 'to be truthy' );
 	} );
 
 	it( 'creates mixin watch handler not taking offence in repeated empty language', function () {
 		var mixin = RedundantLanguageIndicator( 'myprop' ),
 			detectRedundantLanguages = mixin.watch.myprop.handler,
-			instance = {};
+			instance = {
+				get hasRedundantLanguage() {
+					return mixin.computed.hasRedundantLanguage.call( instance );
+				},
+				$emit: sinon.spy()
+			};
 
 		detectRedundantLanguages.call(
 			instance,
@@ -108,6 +126,7 @@ describe( 'wikibase.lexeme.widgets.RedundantLanguageIndicator', function () {
 			]
 		);
 		expect( instance.redundantLanguages, 'to equal', [] );
+		expect( instance.$emit.withArgs( 'hasRedundantLanguage', false ).calledOnce, 'to be truthy' );
 	} );
 
 } );

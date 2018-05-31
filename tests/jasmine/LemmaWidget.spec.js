@@ -66,6 +66,29 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		} );
 	} );
 
+	it( 'can carry redundant lemma languages', function ( done ) {
+		var widget = newWidget( [ new Lemma( 'hello', 'en' ), new Lemma( 'world', 'en' ) ] );
+
+		widget.$nextTick( function () {
+			expect( widget.$el, 'to contain lemma', new Lemma( 'hello', 'en' ) );
+			expect( widget.$el, 'to contain lemma', new Lemma( 'world', 'en' ) );
+			done();
+		} );
+	} );
+
+	it( 'detects redundant lemma language to mark the individual languages', function () {
+		var widget = newWidget( [ new Lemma( 'hello', 'en' ), new Lemma( 'world', 'en' ) ] );
+
+		expect( widget.isRedundantLanguage( 'en' ), 'to be true' );
+		expect( widget.isRedundantLanguage( 'fr' ), 'to be false' );
+	} );
+
+	it( 'detects redundant lemma languages to mark the widget', function () {
+		var widget = newWidget( [ new Lemma( 'hello', 'en' ), new Lemma( 'world', 'en' ) ] );
+
+		expect( widget.hasRedundantLanguage, 'to be true' );
+	} );
+
 	var selector = {
 		lemma: '.lemma-widget_lemma',
 		lemmaValue: '.lemma-widget_lemma-value',
@@ -133,7 +156,12 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 			+ '{{\'wikibaselexeme-lemma-field-language-label\'|message}}'
 			+ '</span>'
 			+ '<input size="1" class="lemma-widget_lemma-language-input" '
-			+ 'v-model="lemma.language" :disabled="isSaving">'
+			+ 'v-model="lemma.language" :disabled="isSaving"'
+			+ ':class="{'
+			+ '\'lemma-widget_lemma-language-input_redundant-language\': '
+			+ 'isRedundantLanguage(lemma.language)'
+			+ '}'
+			+ ':aria-invalid="isRedundantLanguage(lemma.language)">'
 			+ '<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" '
 			+ ':disabled="isSaving" :title="\'wikibase-remove\'|message">'
 			+ '&times;'
