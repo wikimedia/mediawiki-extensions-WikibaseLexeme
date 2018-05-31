@@ -208,4 +208,39 @@ class LexemeContentTest extends TestCase {
 		yield '2 statements, 2+3 form statements, 1+4 sense statements' => [ $lexeme, 12 ];
 	}
 
+	public function testSearchIndex() {
+		$lexeme = new Lexeme(
+			new LexemeId( 'L1' ),
+			new TermList( [
+				new Term( 'en', 'test' ),
+				new Term( 'en-gb', 'moretest' ),
+				new Term( 'ru', 'тест' ),
+			] ),
+			new ItemId( 'Q120' ),
+			new ItemId( 'Q121' )
+		);
+
+		$lexeme->addForm(
+			new TermList( [
+				new Term( 'en', 'form' ),
+				new Term( 'en-gb', 'moreform' ),
+				new Term( 'ru', 'форма' ),
+			] ),
+			[]
+		);
+		$lexeme->addForm(
+			new TermList( [
+				new Term( 'en', 'form2' ),
+				new Term( 'en-gb', 'moreform2' ),
+				new Term( 'ru', 'форма2' ),
+			] ),
+			[]
+		);
+
+		$lexemeContent = new LexemeContent( new EntityInstanceHolder( $lexeme ) );
+
+		$data = $lexemeContent->getTextForSearchIndex();
+		$this->assertEquals( "test moretest тест form moreform форма form2 moreform2 форма2", $data );
+	}
+
 }
