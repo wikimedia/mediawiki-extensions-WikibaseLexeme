@@ -8,6 +8,7 @@ use MediaWiki\MediaWikiServices;
 use ResourceLoader;
 use Wikibase\Lexeme\Search\LexemeSearchEntity;
 use Wikibase\Repo\Search\Elastic\EntitySearchElastic;
+use Wikibase\WikibaseSettings;
 
 /**
  * MediaWiki hook handlers for the Wikibase Lexeme extension.
@@ -36,6 +37,11 @@ class WikibaseLexemeHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
 	 */
 	public static function onCanonicalNamespaces( array &$namespaces ) {
+		// Do not register lexeme namespaces when the repo is not enabled.
+		if ( !WikibaseSettings::isRepoEnabled() ) {
+			return;
+		}
+
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
