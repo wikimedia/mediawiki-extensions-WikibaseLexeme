@@ -99,5 +99,6 @@
 	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
 	"wikibaselexeme-no-features": "Message for form having no features",
 	"wikibaselexeme-rescore-profile-prefix": "Rescoring profile for prefix (completion) search",
-	"wikibase-validator-form-not-found": "Error message that is being reported when Form with provided ID does not exist.\n\nParameters:\n* $1 - ID of the Form"
+	"wikibase-validator-form-not-found": "Error message that is being reported when Form with provided ID does not exist.\n\nParameters:\n* $1 - ID of the Form",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field"
 }
