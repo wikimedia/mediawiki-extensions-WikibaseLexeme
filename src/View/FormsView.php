@@ -189,7 +189,8 @@ HTML;
 						:class="{ 
 							'representation-widget_representation-language-input_redundant-language': 
 								isRedundantLanguage(representation.language)
-						}">
+						}" 
+						:aria-invalid="isRedundantLanguage(representation.language)">
 					<button class="representation-widget_representation-remove" 
 						v-on:click="remove(representation)" 
 						:title="'wikibase-remove'|message">

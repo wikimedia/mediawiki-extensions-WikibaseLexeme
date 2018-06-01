@@ -252,8 +252,9 @@
 			'v-model="representation.value">\n' +
 			'<input size="1" class="representation-widget_representation-language-input" \n' +
 			'v-model="representation.language" \n' +
-			':class="{ \'representation-widget_representation-language-input_redundant-language\': ' +
-			'isRedundantLanguage(representation.language) }">\n' +
+			'v-bind:class="{ \'representation-widget_representation-language-input_redundant-language\': ' +
+			'isRedundantLanguage(representation.language) }" \n' +
+			':aria-invalid="isRedundantLanguage(representation.language)">\n' +
 			'<button class="representation-widget_representation-remove" \n' +
 			'v-on:click="remove(representation)" \n' +
 			':title="\'wikibase-remove\'|message">\n' +
