@@ -186,7 +186,7 @@ HTML;
 					</span>
 					<input size="1" class="representation-widget_representation-language-input" 
 						v-model="representation.language" 
-						v-bind:class="{ 
+						:class="{ 
 							'representation-widget_representation-language-input_redundant-language': 
 								isRedundantLanguage(representation.language)
 						}">
