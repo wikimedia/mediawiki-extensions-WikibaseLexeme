@@ -36,7 +36,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	}
 
 	public function testGetHtml() {
-		$lookup = $this->getMockEntityLookupReturningLexeme(
+		$lookup = $this->getMockEntityLookup(
 			NewLexeme::havingId( 'L2' )->withLemma( 'en', 'potato' )->build()
 		);
 		$formatter = new LexemeLinkFormatter(
@@ -53,7 +53,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	}
 
 	public function testGivenMultipleLemmas_getHtmlConcatenatesThem() {
-		$lookup = $this->getMockEntityLookupReturningLexeme(
+		$lookup = $this->getMockEntityLookup(
 			NewLexeme::havingId( 'L321' )
 				->withLemma( 'en-gb', 'colour' )
 				->withLemma( 'en-ca', 'color' )
@@ -88,7 +88,11 @@ class LexemeLinkFormatterTest extends TestCase {
 		];
 	}
 
-	public function getMockEntityLookupReturningLexeme( Lexeme $lexeme ) {
+	/**
+	 * @param Lexeme|null $lexeme
+	 * @return \PHPUnit_Framework_MockObject_MockObject|EntityLookup
+	 */
+	public function getMockEntityLookup( $lexeme ) {
 		$entityLookup = $this->getMock( EntityLookup::class );
 		$entityLookup->method( 'getEntity' )->willReturn( $lexeme );
 
@@ -102,6 +106,20 @@ class LexemeLinkFormatterTest extends TestCase {
 		$this->assertEquals(
 			'Lexeme:L123',
 			$formatter->getTitleAttribute( $title )
+		);
+	}
+
+	public function testGivenUnknownLexeme_getHtmlReturnsFormattedId() {
+		$formatter = new LexemeLinkFormatter(
+			$this->getMockEntityLookup( null ),
+			$this->getMockDefaultFormatter(),
+			$this->getMockMessageLocalizer(),
+			Language::factory( 'en' )
+		);
+
+		$this->assertEquals(
+			'L321 en: ',
+			$formatter->getHtml( new LexemeId( 'L321' ) )
 		);
 	}
 

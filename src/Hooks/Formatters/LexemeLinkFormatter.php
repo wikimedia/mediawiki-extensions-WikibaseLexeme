@@ -62,16 +62,11 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	public function getHtml( EntityId $entityId, array $labelData = null ) {
 		Assert::parameterType( LexemeId::class, $entityId, '$entityId' );
 
-		/**
-		 * @var Lexeme $lexeme
-		 */
-		$lexeme = $this->entityLookup->getEntity( $entityId );
-
 		return $this->linkFormatter->getHtml(
 			$entityId,
 			[
 				'language' => $this->language->getCode(),
-				'value' => $this->formatLemmas( $lexeme->getLemmas()->toTextArray() ),
+				'value' => $this->formatLemmas( $this->getLemmas( $entityId ) ),
 			]
 		);
 	}
@@ -94,6 +89,15 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 			)->text(),
 			$lemmas
 		);
+	}
+
+	private function getLemmas( LexemeId $entityId ) {
+		$lexeme = $this->entityLookup->getEntity( $entityId );
+		if ( $lexeme instanceof Lexeme ) {
+			return $lexeme->getLemmas()->toTextArray();
+		} else {
+			return [];
+		}
 	}
 
 }
