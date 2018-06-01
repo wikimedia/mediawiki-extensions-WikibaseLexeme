@@ -137,7 +137,7 @@ class LexemePage extends Page {
 		};
 	}
 
-	addRepresentationToNthForm( index, representation, language ) {
+	addRepresentationToNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 
 		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
@@ -156,13 +156,12 @@ class LexemePage extends Page {
 		newRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( representation );
 		newRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
 
-		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
-
-		saveButton.click();
-		saveButton.waitForExist( null, true );
+		if ( submitImmediately !== false ) {
+			this.submitNthForm( index );
+		}
 	}
 
-	editRepresentationOfNthForm( index, representation, language ) {
+	editRepresentationOfNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 
 		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
@@ -170,13 +169,12 @@ class LexemePage extends Page {
 		form.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( representation );
 		form.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
 
-		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
-
-		saveButton.click();
-		saveButton.waitForExist( null, true );
+		if ( submitImmediately !== false ) {
+			this.submitNthForm( index );
+		}
 	}
 
-	removeLastRepresentationOfNthForm( index ) {
+	removeLastRepresentationOfNthForm( index, submitImmediately ) {
 		let form = this.forms[ index ];
 
 		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
@@ -188,6 +186,21 @@ class LexemePage extends Page {
 		let lastRepresentation = representations[ lastRepresentationIndex ];
 
 		lastRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.REMOVE_REPRESENTATION_BUTTON ).click();
+
+		if ( submitImmediately !== false ) {
+			this.submitNthForm( index );
+		}
+	}
+
+	isNthFormSubmittable( index ) {
+		let form = this.forms[ index ],
+			saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
+	}
+
+	submitNthForm( index ) {
+		let form = this.forms[ index ];
 
 		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
 

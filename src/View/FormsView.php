@@ -185,7 +185,11 @@ HTML;
 						{{'wikibaselexeme-form-field-language-label'|message}}
 					</span>
 					<input size="1" class="representation-widget_representation-language-input" 
-						v-model="representation.language">
+						v-model="representation.language" 
+						v-bind:class="{ 
+							'representation-widget_representation-language-input_redundant-language': 
+								isRedundantLanguage(representation.language)
+						}">
 					<button class="representation-widget_representation-remove" 
 						v-on:click="remove(representation)" 
 						:title="'wikibase-remove'|message">
@@ -197,6 +201,9 @@ HTML;
 						:title="'wikibase-add'|message">+</button>
 				</li>
 			</ul>
+		</div>
+		<div v-if="hasRedundantLanguage" class="representation-widget_redundant-language-warning">
+			<p>{{'wikibaselexeme-form-representation-redundant-language'|message}}</p>
 		</div>
 	</div>
 </div>

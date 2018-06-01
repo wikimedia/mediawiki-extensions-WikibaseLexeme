@@ -110,4 +110,31 @@ describe( 'Lexeme:Forms', () => {
 
 	} );
 
+	it( 'can not save representations with redundant languages', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addForm(
+						id,
+						{
+							representations: {
+								en: { language: 'en', value: 'color' }
+							},
+							grammaticalFeatures: []
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addRepresentationToNthForm( 0, 'colour', 'en', false );
+
+		assert.equal( LexemePage.isNthFormSubmittable( 0 ), false );
+	} );
 } );

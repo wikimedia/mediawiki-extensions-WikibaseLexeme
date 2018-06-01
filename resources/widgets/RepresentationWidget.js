@@ -1,6 +1,8 @@
 module.exports = ( function () {
 	'use strict';
 
+	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
+
 	/**
 	 * @callback wikibase.lexeme.widgets.RepresentationWidget.newComponent
 	 *
@@ -15,6 +17,8 @@ module.exports = ( function () {
 		return {
 			el: element,
 			template: template,
+
+			mixins: [ RedundantLanguageIndicator( 'representations' ) ],
 
 			beforeUpdate: beforeUpdate,
 

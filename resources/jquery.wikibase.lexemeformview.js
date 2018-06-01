@@ -100,7 +100,7 @@
 		 * input value otherwise.
 		 *
 		 * @param {wikibase.lexeme.datamodel.Form} form
-		 * @return {wikibase.lexeme.datamodel.Form|undefined}
+		 * @return {wikibase.lexeme.datamodel.Form|undefined|null}
 		 */
 		value: function ( form ) {
 			if ( form instanceof wb.lexeme.datamodel.Form ) {
@@ -116,6 +116,10 @@
 
 			if ( !this.isInEditMode() ) {
 				return this.options.value;
+			}
+
+			if ( this._representationsWidget.hasRedundantLanguage ) {
+				return null;
 			}
 
 			return new wb.lexeme.datamodel.Form(

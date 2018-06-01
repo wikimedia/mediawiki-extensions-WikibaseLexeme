@@ -28,6 +28,7 @@
   },
   "_moduleAliases": {
     "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
+    "wikibase.lexeme.widgets.RedundantLanguageIndicator": "./resources/widgets/RedundantLanguageIndicator.js",
     "wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js",
     "wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js",
     "wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": "./resources/widgets/LemmaWidget.newLemmaWidget.js",
