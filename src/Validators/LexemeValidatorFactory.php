@@ -4,10 +4,7 @@ namespace Wikibase\Lexeme\Validators;
 
 use ValueValidators\ValueValidator;
 use Wikibase\Repo\Validators\CompositeValidator;
-use Wikibase\Repo\Validators\RegexValidator;
-use Wikibase\Repo\Validators\StringLengthValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
-use Wikibase\Repo\Validators\TypeValidator;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -50,18 +47,10 @@ class LexemeValidatorFactory {
 	}
 
 	/**
-	 * @return ValueValidator
+	 * @return LemmaTermValidator
 	 */
 	public function getLemmaTermValidator() {
-		// TODO: validate UTF8
-		return new CompositeValidator(
-			[
-				new TypeValidator( 'string' ),
-				new StringLengthValidator( 1, $this->maxTermLength, 'mb_strlen' ),
-				new RegexValidator( '/^\s|[\v\t]|\s$/u', true ),
-			],
-			true
-		);
+		return new LemmaTermValidator( $this->maxTermLength );
 	}
 
 	/**

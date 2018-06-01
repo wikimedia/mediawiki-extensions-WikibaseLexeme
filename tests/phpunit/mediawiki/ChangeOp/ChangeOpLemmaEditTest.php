@@ -13,7 +13,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Repo\Validators\CompositeValidator;
+use Wikibase\Lexeme\Validators\LemmaTermValidator;
 use Wikibase\Summary;
 
 /**
@@ -145,7 +145,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	}
 
 	private function getLemmaTermValidator() {
-		return $this->getMockBuilder( CompositeValidator::class )
+		return $this->getMockBuilder( LemmaTermValidator::class )
 			->disableOriginalConstructor()
 			->getMock();
 	}
