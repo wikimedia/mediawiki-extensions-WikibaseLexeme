@@ -26,6 +26,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Rechtschreibvariante",
 	"wikibaselexeme-form-field-representation-label": "Darstellung",
 	"wikibaselexeme-form-field-language-label": "Rechtschreibvariante",
+	"wikibaselexeme-form-representation-redundant-language": "Es ist nicht möglich, mehrere Darstellungen mit der gleichen Rechtschreibvariante einzugeben.",
 	"wikibaselexeme-gloss-field-language-label": "Sprache",
 	"wikibaselexeme-gloss-field-gloss-label": "Fußnote",
 	"wikibase-lexeme-summary-wbeditentity-update": "Änderte ein Lexeme",
@@ -87,5 +88,6 @@
 	"wikibaselexeme-unknown-category": "Unbekannt",
 	"wikibaselexeme-no-features": "keine Funktionen",
 	"wikibaselexeme-rescore-profile-prefix": "Rescore-Profil für die Präfix-(Vervollständigungs-)Suche",
-	"wikibase-validator-form-not-found": "Das Lexeme hat kein Formular mit der angegebenen Kennung"
+	"wikibase-validator-form-not-found": "Das Lexeme hat kein Formular mit der angegebenen Kennung",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Zum Beispiel: Normativ, Komparativ, Vergangenheit …"
 }

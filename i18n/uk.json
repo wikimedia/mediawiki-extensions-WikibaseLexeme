@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion"
+			"Piramidion",
+			"Movses"
 		]
 	},
 	"wikibaselexeme-desc": "Управляти типом сутності лексеми",
 	"special-newlexeme": "Створити нову лексему",
+	"wikibaselexeme-deletedentity-form": "Вилучена форма",
 	"wikibaselexeme-newlexeme-fieldset": "Створити нову лексему",
 	"wikibaselexeme-newlexeme-lemma": "Лемма",
 	"wikibaselexeme-newlexeme-lemma-language": "Мова лемми",
