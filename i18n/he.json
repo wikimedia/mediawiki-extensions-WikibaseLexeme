@@ -26,6 +26,7 @@
 	"wikibaselexeme-lemma-field-language-label": "תקן כתיב",
 	"wikibaselexeme-form-field-representation-label": "ייצוג",
 	"wikibaselexeme-form-field-language-label": "תקן כתיב",
+	"wikibaselexeme-form-representation-redundant-language": "אין אפשרות להזין ייצוגים מרובים עם אותו תקן כתיב.",
 	"wikibaselexeme-gloss-field-language-label": "שפה",
 	"wikibaselexeme-gloss-field-gloss-label": "פירוש",
 	"wikibase-lexeme-summary-wbeditentity-update": "שונתה יחידה מילונית",
@@ -89,5 +90,6 @@
 	"wikibaselexeme-unknown-category": "לא ידוע",
 	"wikibaselexeme-no-features": "ללא מאפיינים",
 	"wikibaselexeme-rescore-profile-prefix": "פרופיל לחיפוש תחיליות (השלמה)",
-	"wikibase-validator-form-not-found": "ביחידה המילונית לא קיימת צורה עם המזהה שסופק"
+	"wikibase-validator-form-not-found": "ביחידה המילונית לא קיימת צורה עם המזהה שסופק",
+	"wikibaselexeme-grammatical-features-input-placeholder": "לדוגמה: נורמטיבי, יחסי, זמן עבר..."
 }

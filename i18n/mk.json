@@ -25,6 +25,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Правописна варијанта",
 	"wikibaselexeme-form-field-representation-label": "Претставување",
 	"wikibaselexeme-form-field-language-label": "Правописна варијанта",
+	"wikibaselexeme-form-representation-redundant-language": "Не можете да внесете повеќе претстави со истата правописна варијанта.",
 	"wikibaselexeme-gloss-field-language-label": "Јазик",
 	"wikibaselexeme-gloss-field-gloss-label": "Подножје",
 	"wikibase-lexeme-summary-wbeditentity-update": "Изменета лексема",
@@ -88,5 +89,6 @@
 	"wikibaselexeme-unknown-category": "Непознато",
 	"wikibaselexeme-no-features": "нема функции",
 	"wikibaselexeme-rescore-profile-prefix": "Профил за пребарување со претставката (довршување)",
-	"wikibase-validator-form-not-found": "Лексемата нема образец со дадената назнака"
+	"wikibase-validator-form-not-found": "Лексемата нема образец со дадената назнака",
+	"wikibaselexeme-grammatical-features-input-placeholder": "На пример: норматив, компаратив, минато време..."
 }

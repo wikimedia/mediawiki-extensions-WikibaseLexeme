@@ -26,6 +26,7 @@
 	"wikibaselexeme-lemma-field-language-label": "拼写变体",
 	"wikibaselexeme-form-field-representation-label": "表现",
 	"wikibaselexeme-form-field-language-label": "拼写变体",
+	"wikibaselexeme-form-representation-redundant-language": "无法输入多个具有相同拼写变体的表现。",
 	"wikibaselexeme-gloss-field-language-label": "语言",
 	"wikibaselexeme-gloss-field-gloss-label": "释义",
 	"wikibase-lexeme-summary-wbeditentity-update": "已更改词位",
@@ -89,5 +90,6 @@
 	"wikibaselexeme-unknown-category": "未知",
 	"wikibaselexeme-no-features": "没有特性",
 	"wikibaselexeme-rescore-profile-prefix": "前缀（实现）搜索的重新计分详情",
-	"wikibase-validator-form-not-found": "词位没有指定ID的词性"
+	"wikibase-validator-form-not-found": "词位没有指定ID的词性",
+	"wikibaselexeme-grammatical-features-input-placeholder": "例如：规范、比较级、过去式..."
 }

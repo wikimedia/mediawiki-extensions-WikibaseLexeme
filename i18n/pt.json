@@ -26,6 +26,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Variante ortográfica",
 	"wikibaselexeme-form-field-representation-label": "Representação",
 	"wikibaselexeme-form-field-language-label": "Variante ortográfica",
+	"wikibaselexeme-form-representation-redundant-language": "Não é possível introduzir mais do que uma representação com a mesma variante ortográfica.",
 	"wikibaselexeme-gloss-field-language-label": "Língua",
 	"wikibaselexeme-gloss-field-gloss-label": "Glosa",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
@@ -89,5 +90,6 @@
 	"wikibaselexeme-unknown-category": "Desconhecida",
 	"wikibaselexeme-no-features": "sem funcionalidades",
 	"wikibaselexeme-rescore-profile-prefix": "Perfil de reavaliação para pesquisa por prefixo (pesquisa de preenchimento)",
-	"wikibase-validator-form-not-found": "O lexema não tem uma forma com o identificador fornecido"
+	"wikibase-validator-form-not-found": "O lexema não tem uma forma com o identificador fornecido",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado..."
 }
