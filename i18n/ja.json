@@ -56,5 +56,6 @@
 	"wikibaselexeme-unknown-language": "不明な言語",
 	"wikibaselexeme-unknown-category": "不明",
 	"wikibaselexeme-no-features": "文法的特徴がありません",
-	"wikibase-validator-form-not-found": "指定されたIDの語形がありません"
+	"wikibase-validator-form-not-found": "指定されたIDの語形がありません",
+	"wikibaselexeme-grammatical-features-input-placeholder": "例: 標準、比較級、過去時制など"
 }
