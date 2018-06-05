@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 
+use HamcrestPHPUnitIntegration;
+use HtmlArmor;
 use Language;
 use PHPUnit\Framework\TestCase;
 use Title;
@@ -24,7 +26,10 @@ use Wikimedia\Assert\ParameterTypeException;
  */
 class LexemeLinkFormatterTest extends TestCase {
 
+	use HamcrestPHPUnitIntegration;
 	use \PHPUnit4And6Compat;
+
+	const LEMMA_SEPARATOR = '/';
 
 	/**
 	 * @dataProvider notALexemeProvider
@@ -35,9 +40,17 @@ class LexemeLinkFormatterTest extends TestCase {
 		$formatter->getHtml( $id, [] );
 	}
 
+	/**
+	 * Note that the lang and dir attributes depend on the behavior of Language::getDir
+	 * and Language::getHtmlCode which is why the capitalization of the attribute values
+	 * are changed from the input
+	 *
+	 * @see Language::getHtmlCode()
+	 * @see Language::getDir()
+	 */
 	public function testGetHtml() {
 		$lookup = $this->getMockEntityLookup(
-			NewLexeme::havingId( 'L2' )->withLemma( 'en', 'potato' )->build()
+			NewLexeme::havingId( 'L2' )->withLemma( 'en-gb', 'potato' )->build()
 		);
 		$formatter = new LexemeLinkFormatter(
 			$lookup,
@@ -46,17 +59,37 @@ class LexemeLinkFormatterTest extends TestCase {
 			Language::factory( 'en' )
 		);
 
-		$this->assertEquals(
-			'L2 en: potato',
-			$formatter->getHtml( new LexemeId( 'L2' ) )
+		$this->assertThatHamcrest( $formatter->getHtml( new LexemeId( 'L2' ) ),
+			is( htmlPiece(
+				havingRootElement( allOf(
+					tagMatchingOutline( '<span lang="en"></span>' ),
+					havingTextContents( containsString( 'L2' ) ),
+					havingChild( both(
+						tagMatchingOutline( '<span lang="en-GB"></span>' ) )
+						->andAlso( havingTextContents( 'potato' ) )
+					)
+				) )
+			) )
 		);
 	}
 
+	/**
+	 * Note that the lang and dir attributes depend on the behavior of Language::getDir
+	 * and Language::getHtmlCode which is why the capitalization of the attribute values
+	 * are changed from the input
+	 *
+	 * @see Language::getHtmlCode()
+	 * @see Language::getDir()
+	 */
 	public function testGivenMultipleLemmas_getHtmlConcatenatesThem() {
+		$lexemeId = 'L2';
+		$lemma1 = 'colour';
+		$lemma2 = 'color';
+
 		$lookup = $this->getMockEntityLookup(
-			NewLexeme::havingId( 'L321' )
-				->withLemma( 'en-gb', 'colour' )
-				->withLemma( 'en-ca', 'color' )
+			NewLexeme::havingId( $lexemeId )
+				->withLemma( 'en-x-Q321', $lemma1 )
+				->withLemma( 'en-ca', $lemma2 )
 				->build()
 		);
 		$formatter = new LexemeLinkFormatter(
@@ -66,9 +99,48 @@ class LexemeLinkFormatterTest extends TestCase {
 			Language::factory( 'en' )
 		);
 
-		$this->assertEquals(
-			'L321 en: colour/color',
-			$formatter->getHtml( new LexemeId( 'L321' ) )
+		$this->assertThatHamcrest( $formatter->getHtml( new LexemeId( $lexemeId ) ),
+			is( htmlPiece(
+				havingRootElement( allOf(
+					tagMatchingOutline( '<span lang="en"></span>' ),
+					havingTextContents( containsString( $lexemeId ) ),
+					havingChild( both(
+						tagMatchingOutline( '<span lang="en-x-q321"></span>' ) )
+						->andAlso( havingTextContents( $lemma1 ) )
+					),
+					havingChild( both(
+						tagMatchingOutline( '<span lang="en-CA"></span>' ) )
+						->andAlso( havingTextContents( $lemma2 ) )
+					),
+					havingTextContents( equalToIgnoringWhiteSpace(
+						$lemma1 . self::LEMMA_SEPARATOR . $lemma2 . $lexemeId
+					) )
+				) )
+			) )
+		);
+	}
+
+	public function testGivenLemmaInRtlLanguage_getHtmlReturnValueContainsRtlDirAttribute() {
+		$lemma = 'صِفْر';
+		$lookup = $this->getMockEntityLookup(
+			NewLexeme::havingId( 'L12345' )
+				->withLemma( 'ar', $lemma )
+				->build()
+		);
+		$formatter = new LexemeLinkFormatter(
+			$lookup,
+			$this->getMockDefaultFormatter(),
+			$this->getMockMessageLocalizer(),
+			Language::factory( 'en' )
+		);
+
+		$this->assertThatHamcrest( $formatter->getHtml( new LexemeId( 'L12345' ) ),
+			is( htmlPiece(
+				havingChild( both(
+					tagMatchingOutline( '<span dir="rtl" class="mw-content-rtl"></span>' ) )
+					->andAlso( havingTextContents( $lemma ) )
+				)
+			) )
 		);
 	}
 
@@ -118,7 +190,7 @@ class LexemeLinkFormatterTest extends TestCase {
 		);
 
 		$this->assertEquals(
-			'L321 en: ',
+			'<span lang="en">L321</span>',
 			$formatter->getHtml( new LexemeId( 'L321' ) )
 		);
 	}
@@ -133,7 +205,10 @@ class LexemeLinkFormatterTest extends TestCase {
 
 		$formatter->method( 'getHtml' )
 			->willReturnCallback( function ( EntityId $entityId, array $label ) {
-				return $entityId->getSerialization() . " ${label['language']}: ${label['value']}";
+				return "<span lang=\"${label['language']}\">"
+					. HtmlArmor::getHtml( $label['value'] )
+					. $entityId->getSerialization()
+					. '</span>';
 			} );
 
 		return $formatter;
@@ -141,7 +216,7 @@ class LexemeLinkFormatterTest extends TestCase {
 
 	private function getMockMessageLocalizer() {
 		$localizer = $this->getMock( \MessageLocalizer::class );
-		$localizer->method( 'msg' )->willReturn( new \RawMessage( '/' ) );
+		$localizer->method( 'msg' )->willReturn( new \RawMessage( self::LEMMA_SEPARATOR ) );
 
 		return $localizer;
 	}
