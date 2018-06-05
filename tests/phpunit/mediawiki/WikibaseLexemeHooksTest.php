@@ -41,7 +41,7 @@ class WikibaseLexemeHooksTest extends TestCase {
 
 		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
 
-		$this->assertEquals( 'Lexeme_Talk', $namespaces[$namespaceId] );
+		$this->assertEquals( 'Lexeme_talk', $namespaces[$namespaceId] );
 	}
 
 	public function testOnCanonicalNamespaces_CalledMultipleTimes_RegistersLexemeNamespace() {

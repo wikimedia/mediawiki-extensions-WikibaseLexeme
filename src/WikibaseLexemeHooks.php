@@ -57,7 +57,7 @@ class WikibaseLexemeHooks {
 		}
 
 		$talkNamespaceId = $config->get( 'LexemeTalkNamespace' );
-		$talkNamespaceName = $lexemeNamespaceName . '_Talk';
+		$talkNamespaceName = $lexemeNamespaceName . '_talk';
 		if ( $talkNamespaceId !== false ) {
 			$namespaces = self::registerNamespace(
 				$namespaces,
