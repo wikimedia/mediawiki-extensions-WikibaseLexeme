@@ -11,7 +11,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "Ein neues Lexeme erstellen",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Lemmasprache",
-	"wikibaselexeme-lemma-edit-placeholder": "Das Lemma eingeben",
+	"wikibaselexeme-lemma-edit-placeholder": "Das Lemma ist normalerweise die kürzeste Form des Wortes",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikalische Kategorie",
 	"wikibaselexeme-newlexeme-language": "Lexeme-Sprache",
 	"wikibaselexeme-language-lexical-category-value": "$1 in $2",
