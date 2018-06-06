@@ -38,7 +38,10 @@ return [
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
-			if ( $format === SnakFormatter::FORMAT_HTML || $format === SnakFormatter::FORMAT_HTML_VERBOSE ) {
+			if ( $format === SnakFormatter::FORMAT_HTML ||
+				 $format === SnakFormatter::FORMAT_HTML_VERBOSE ||
+				 $format === SnakFormatter::FORMAT_HTML_DIFF
+			) {
 				$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 				$userLanguage = $wikibaseRepo->getUserLanguage();
 
