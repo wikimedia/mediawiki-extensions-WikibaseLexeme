@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Hooks\Formatters;
 
+use Html;
+use HtmlArmor;
 use Language;
 use MessageLocalizer;
 use Title;
@@ -83,11 +85,31 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	private function formatLemmas( array $lemmas ) {
-		return implode(
+		return new HtmlArmor( implode(
 			$this->messageLocalizer->msg(
 				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
 			)->text(),
-			$lemmas
+			array_map(
+				function ( $lemma, $language ) {
+					return $this->getLemmaHtml( $lemma, $language );
+				},
+				$lemmas,
+				array_keys( $lemmas )
+			)
+		) );
+	}
+
+	private function getLemmaHtml( $lemma, $languageCode ) {
+		$language = Language::factory( $languageCode );
+
+		return Html::element(
+			'span',
+			[
+				'class' => 'mw-content-' . $language->getDir(),
+				'dir' => $language->getDir(),
+				'lang' => $language->getHtmlCode(),
+			],
+			$lemma
 		);
 	}
 
