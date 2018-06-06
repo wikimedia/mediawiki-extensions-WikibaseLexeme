@@ -119,6 +119,7 @@
 	"wikibaselexeme-form-grammatical-features": "Label for the list of a form's grammatical features",
 	"wikibaselexeme-description": "Template for generating Lexeme description: Language + Lexical Category",
 	"wikibaselexeme-form-description": "Template for generating Form description",
+	"wikibaselexeme-search-result-stats": "Statistics display as part of search result. Parameters:\n* $1 - Statements count, \n* $2 - Forms count.",
 	"wikibaselexeme-unknown-language": "Message for unknown language",
 	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
 	"wikibaselexeme-no-features": "Message for form having no features",

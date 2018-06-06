@@ -261,6 +261,8 @@ return [
 				new FormsStatementEntityReferenceExtractor( $statementEntityReferenceExtractor ),
 			] );
 		},
+		'fulltext-search-context' =>
+			\Wikibase\Lexeme\Search\LexemeFullTextQueryBuilder::CONTEXT_LEXEME_FULLTEXT,
 	],
 	'form' => [
 		'content-handler-factory-callback' => function () {

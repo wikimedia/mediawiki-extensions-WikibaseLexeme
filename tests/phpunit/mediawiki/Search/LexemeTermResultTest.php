@@ -13,6 +13,11 @@ use Wikibase\Lexeme\Search\LexemeTermResult;
 class LexemeTermResultTest extends \MediaWikiTestCase {
 	use LexemeDescriptionTest;
 
+	/**
+	 * Labels for language & categories
+	 * Used by LexemeDescriptionTest
+	 * @var array
+	 */
 	private $labels = [
 		'Q1' => [
 			'en' => 'English',

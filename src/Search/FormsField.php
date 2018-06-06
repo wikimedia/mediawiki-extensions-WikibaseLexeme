@@ -34,10 +34,12 @@ class FormsField extends TermIndexField {
 		}
 
 		$reprConfig = $this->getUnindexedField();
+
 		$reprConfig['fields']['prefix'] =
 			$this->getSubfield( 'prefix_asciifolding', 'near_match_asciifolding' );
 		$reprConfig['fields']['near_match'] = $this->getSubfield( 'near_match' );
 		$reprConfig['fields']['near_match_folded'] = $this->getSubfield( 'near_match_asciifolding' );
+		// TODO: we don't seem to be using this, check if we need it?
 		$reprConfig['copy_to'] = 'labels_all';
 
 		$keyword = new KeywordIndexField( $this->getName(), SearchIndexField::INDEX_TYPE_KEYWORD,

@@ -81,4 +81,43 @@ class LexemeDescription {
 			)->text();
 	}
 
+	/**
+	 * Create Form descriptions, along the lines of:
+	 * singular genitive for Leiter (L1): German noun
+	 *
+	 * @param EntityId $lexemeId Main lexeme
+	 * @param EntityId[] $features Form feature IDs list
+	 * @param string $lemma Lexeme's lemma
+	 * @param string $language Language ID, as string
+	 * @param string $category Lexical category ID, as string
+	 * @return string
+	 * @throws \MWException
+	 */
+	public function createFormDescription(
+		EntityId $lexemeId, array $features, $lemma, $language, $category
+	) {
+		$lemmaDescription = $this->createDescription( $lexemeId, $language, $category );
+		// Create list of feature labels, separated by space
+		// TODO: do we need to i18n this or space-separated list is good enough?
+		$featuresString = implode( ' ', array_filter( array_map(
+			function ( EntityId $featureId ) {
+				// TODO: do we need separate string for this?
+				return $this->getLabelOrDefault( $featureId,
+					wfMessage( 'wikibaselexeme-unknown-category' )
+						->inLanguage( $this->displayLanguage ) );
+			}, $features ) ) );
+		if ( empty( $featuresString ) ) {
+			$featuresString = wfMessage( 'wikibaselexeme-no-features' )
+				->inLanguage( $this->displayLanguage );
+		}
+		return wfMessage( 'wikibaselexeme-form-description' )
+			->inLanguage( $this->displayLanguage )
+			->params(
+				$featuresString,
+				$lemma,
+				$lexemeId->getSerialization(),
+				$lemmaDescription
+			)->text();
+	}
+
 }

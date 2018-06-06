@@ -36,6 +36,7 @@ class LemmaField extends TermIndexField {
 			$this->getSubfield( 'prefix_asciifolding', 'near_match_asciifolding' );
 		$config['fields']['near_match'] = $this->getSubfield( 'near_match' );
 		$config['fields']['near_match_folded'] = $this->getSubfield( 'near_match_asciifolding' );
+		// TODO: we don't seem to be using this, check if we need it?
 		$config['copy_to'] = 'labels_all';
 
 		return $config;
