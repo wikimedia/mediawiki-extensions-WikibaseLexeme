@@ -37,9 +37,24 @@ Recommended way of setting the development environment is with the use of [Docke
 
 * Install the dependencies with composer:
 
-  Add `composer.json` of Wikibase to `composer.local.json` at the root of your mediawiki folder, as documented in [MediaWiki's Composer documentation](https://www.mediawiki.org/wiki/Composer#Using_composer-merge-plugin)
+  Add `composer.json` of Wikibase to `composer.local.json` at the root of your mediawiki folder,
+  as documented in [MediaWiki's Composer documentation](https://www.mediawiki.org/wiki/Composer#Using_composer-merge-plugin)
 
-  Using a similar command to that for installing mediawiki dependencies install the dependencies using docker and composer
+  It should now look similar to:
+  ```
+  "extra": {
+      "merge-plugin": {
+        "include": [
+          "extensions/Wikibase/composer.json"
+        ]
+      }
+    }
+  }
+  ```
+
+  Using a similar command to that for installing mediawiki dependencies install the dependencies using docker and composer.
+
+  You should run this from the root of your mediawiki installation.
 
   `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
 
@@ -59,7 +74,8 @@ Recommended way of setting the development environment is with the use of [Docke
 
 * Run the Wikibase setup scripts
 
-  Run `update.php` in the default site from within the web docker container. This needs to be run with the `PWD` in the host set to the `mediawiki-docker-dev` folder.
+  Run `update.php` in the default site from within the web docker container.
+  This needs to be run from the mediawiki-docker-dev directory; the one with `docker-compose.yml`
 
   ```
   docker-compose exec "web" php /var/www/mediawiki/maintenance/update.php --wiki default --quick
