@@ -7,12 +7,19 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Hooks;
+use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\Property;
+use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Fingerprint;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
@@ -48,6 +55,50 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
 		$this->clearLanguageNameCache();
+	}
+
+	public function testAddedStatementsWithLexmesAsTargetDisplayLemma() {
+
+		$diffVisualizer = $this->newDiffVisualizer();
+
+		$l1 = new Lexeme( new LexemeId( 'L1' ) );
+		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-lexeme' );
+
+		$l1->setLanguage( new ItemId( 'Q1' ) );
+		$l1->setLemmas( new TermList( [
+			new Term( 'en', 'foo' ) ]
+		) );
+		$l1->setLexicalCategory( new ItemId( 'Q1' ) );
+
+		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );
+		$store->saveEntity( $p1, self::class, $this->getTestUser()->getUser() );
+
+		$addedStatement = new Statement( new PropertyValueSnak( $p1->getId(),
+			new EntityIdValue( $l1->getId() ) ), null, null, 's1' );
+
+		$diff = new EntityContentDiff(
+			new LexemeDiff( [
+				'claim' => new Diff(
+					[ 's1' => new DiffOpAdd( $addedStatement ) ],
+					true
+				),
+		] ),
+			new Diff(),
+			'entity'
+		);
+
+		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
+
+		assertThat( $diffHtml, is( htmlPiece(
+			havingChild(
+				both( withTagName( 'ins' ) )->andAlso(
+					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'foo' )
+					) )
+				)
+			)
+		) ) );
+		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testChangedLexicalCategoryItemsAreDisplayedAsLinks() {
