@@ -14,6 +14,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	var newLexemeHeader = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader' );
 	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
 
 	it( 'switch to edit mode', function ( done ) {
 		var widget = newWidget( { lemmas: [] } );
@@ -88,7 +89,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		var lemmas = [ new Lemma( 'hello', 'en' ) ],
 			widget = newWidget( { lemmas: lemmas } );
 
-		expect( widget.$children[ 0 ].lemmas, 'to equal', lemmas ); // TODO: find a better way to do this
+		expect( widget.$children[ 0 ].lemmas, 'to equal', new LemmaList( lemmas ) ); // TODO: find a better way to do this
 	} );
 
 	it( 'passes language and lexical category to LanguageAndLexicalCategoryWidget', function () {

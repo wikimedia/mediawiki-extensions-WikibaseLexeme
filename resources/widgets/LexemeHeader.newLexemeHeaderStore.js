@@ -2,6 +2,7 @@ module.exports = ( function () {
 	'use strict';
 
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
 
 	function getRequestLemmas( origLemmas, currentLemmas ) {
 		var removedLemmas = [];
@@ -63,7 +64,7 @@ module.exports = ( function () {
 				isSaving: false,
 				baseRevId: baseRevId,
 				id: lexeme.id,
-				lemmas: lexeme.lemmas,
+				lemmas: new LemmaList( lexeme.lemmas ),
 				language: lexeme.language,
 				languageLink: languageLink,
 				lexicalCategory: lexeme.lexicalCategory,
@@ -73,12 +74,12 @@ module.exports = ( function () {
 				updateLemmas: function ( state, newLemmas ) {
 					// TODO: newLemmas is array of Lemma objects when coming from lexeme.lemmas
 					// but would be a generic object when passed from the API response
-					state.lemmas = newLemmas.map( function ( x ) {
+					state.lemmas = new LemmaList( newLemmas.map( function ( x ) {
 						if ( x instanceof Lemma ) {
 							return x.copy();
 						}
 						return new Lemma( x.value, x.language );
-					} );
+					} ) );
 				},
 				updateRevisionId: function ( state, revisionId ) {
 					state.baseRevId = revisionId;
@@ -106,7 +107,7 @@ module.exports = ( function () {
 					context.commit( 'startSaving' );
 
 					var data = {
-							lemmas: getRequestLemmas( context.state.lemmas, lexeme.lemmas ),
+							lemmas: getRequestLemmas( context.state.lemmas.getLemmas(), lexeme.lemmas ),
 							language: lexeme.language,
 							lexicalCategory: lexeme.lexicalCategory
 						},
@@ -127,7 +128,10 @@ module.exports = ( function () {
 						// Note: API response does not contain lemma.
 						context.commit( 'updateLemmas', response[ 0 ].entity.lemmas || lexeme.lemmas );
 						context.commit( 'updateLanguage', { id: lexeme.language, link: formattedLanguage } );
-						context.commit( 'updateLexicalCategory', { id: lexeme.lexicalCategory, link: formattedLexicalCategory } );
+						context.commit( 'updateLexicalCategory', {
+							id: lexeme.lexicalCategory,
+							link: formattedLexicalCategory
+						} );
 
 						context.commit( 'finishSaving' );
 					} ).fail( function () {

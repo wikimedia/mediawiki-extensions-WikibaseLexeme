@@ -11,6 +11,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 
 	var newLemmaWidget = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
 
 	it( 'initialize widget with one lemma', function () {
 		var widget = newWidget( [ new Lemma( 'hello', 'en' ) ] );
@@ -106,7 +107,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		} ) );
 
 		return new LemmaWidget( { propsData: {
-			lemmas: lemmas,
+			lemmas: new LemmaList( lemmas ),
 			inEditMode: false,
 			isSaving: false
 		} } ).$mount();
@@ -115,14 +116,14 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	function getTemplate() {
 		return '<div class="lemma-widget">'
 			+ '<ul v-if="!inEditMode" class="lemma-widget_lemma-list">'
-			+ '<li v-for="lemma in lemmas" class="lemma-widget_lemma">'
+			+ '<li v-for="lemma in lemmaList" class="lemma-widget_lemma">'
 			+ '<span class="lemma-widget_lemma-value">{{lemma.value}}</span>'
 			+ '<span class="lemma-widget_lemma-language">{{lemma.language}}</span>'
 			+ '</li>'
 			+ '</ul>'
 			+ '<div v-else class="lemma-widget_edit-area">'
 			+ '<ul class="lemma-widget_lemma-list">'
-			+ '<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">'
+			+ '<li v-for="lemma in lemmaList" class="lemma-widget_lemma-edit-box">'
 			+ '<span class="lemma-widget_lemma-value-label">'
 			+ '{{\'wikibaselexeme-lemma-field-lemma-label\'|message}}'
 			+ '</span>'

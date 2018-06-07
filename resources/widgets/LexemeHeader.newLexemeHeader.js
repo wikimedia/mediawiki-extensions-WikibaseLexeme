@@ -1,15 +1,6 @@
 module.exports = ( function () {
 	'use strict';
 
-	function copyLemmaList( list ) {
-		var result = [];
-		list.forEach( function ( lemma ) {
-			result.push( lemma.copy() );
-		} );
-
-		return result;
-	}
-
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent
 	 *
@@ -30,14 +21,14 @@ module.exports = ( function () {
 				isInitialized: true,
 				inEditMode: false,
 				id: store.state.id,
-				lemmas: copyLemmaList( store.state.lemmas ),
+				lemmas: store.state.lemmas.copy(),
 				language: store.state.language,
 				lexicalCategory: store.state.lexicalCategory
 			},
 
 			methods: {
 				save: function () {
-					if ( this.lemmas.length === 0 ) {
+					if ( this.lemmas.length() === 0 ) {
 						this.displayEmptyLemmasError();
 						return;
 					}
@@ -45,7 +36,7 @@ module.exports = ( function () {
 					return store.dispatch(
 						'save',
 						{
-							lemmas: this.lemmas,
+							lemmas: this.lemmas.getLemmas(),
 							lexicalCategory: this.lexicalCategory,
 							language: this.language
 						}
@@ -63,7 +54,7 @@ module.exports = ( function () {
 
 				cancel: function () {
 					this.inEditMode = false;
-					this.lemmas = copyLemmaList( store.state.lemmas );
+					this.lemmas = this.$store.state.lemmas.copy();
 				},
 
 				/**

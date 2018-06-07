@@ -205,6 +205,7 @@ return call_user_func( function() {
 		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget" => $moduleTemplate + [
 			"scripts" => "widgets/LemmaWidget.newLemmaWidget.js",
 			"dependencies" => [
+				"wikibase.lexeme.datamodel.LemmaList",
 				"wikibase.lexeme.datamodel.Lemma"
 			]
 		],
@@ -245,6 +246,9 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.datamodel.Lemma" => $moduleTemplate + [
 			"scripts" => "datamodel/Lemma.js"
+		],
+		"wikibase.lexeme.datamodel.LemmaList" => $moduleTemplate + [
+			"scripts" => "datamodel/LemmaList.js"
 		],
 		"wikibase.lexeme.datamodel.Form" => $moduleTemplate + [
 			"scripts" => [

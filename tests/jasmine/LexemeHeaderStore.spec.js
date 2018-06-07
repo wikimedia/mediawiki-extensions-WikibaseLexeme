@@ -10,6 +10,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
 	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
 
 	var mutations = newLexemeHeaderStore( {}, {}, 0, 'Some language', 'Some category' ).mutations;
 
@@ -56,12 +57,12 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 	} );
 
 	it( 'mutation updateLemmas changes lemmas to given values', function () {
-		var state = { lemmas: [ new Lemma( 'foo', 'en' ) ] };
+		var state = { lemmas: new LemmaList( [ new Lemma( 'foo', 'en' ) ] ) };
 
 		mutations.updateLemmas( state, [ new Lemma( 'Bar', 'de' ) ] );
 
-		expect( state.lemmas[ 0 ].language, 'to equal', 'de' );
-		expect( state.lemmas[ 0 ].value, 'to equal', 'Bar' );
+		expect( state.lemmas.getLemmas()[ 0 ].language, 'to equal', 'de' );
+		expect( state.lemmas.getLemmas()[ 0 ].value, 'to equal', 'Bar' );
 	} );
 
 	function newTestAction( done ) {
@@ -118,7 +119,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 	it(
 		'action save on success mutates the state to start saving, updates state and finishes saving',
 		function ( done ) {
-			var state = { isSaving: false, baseRevId: 1, lemmas: [] };
+			var state = { isSaving: false, baseRevId: 1, lemmas: new LemmaList( [] ) };
 
 			var newRevisionId = 2;
 			var response = [ {
@@ -168,7 +169,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 				id: entityId,
 				isSaving: false,
 				baseRevId: baseRevisionId,
-				lemmas: [],
+				lemmas: new LemmaList( [] ),
 				language: 'Q1',
 				languageLink: 'Some language',
 				lexicalCategory: 'Q2',
@@ -209,7 +210,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 				mutations
 			).then( function () {
 				expect( newRevisionId, 'to equal', state.baseRevId );
-				expect( [ new Lemma( 'lemma1', 'en' ) ], 'to equal', state.lemmas );
+				expect( [ new Lemma( 'lemma1', 'en' ) ], 'to equal', state.lemmas.getLemmas() );
 				expect( 'Q123', 'to equal', state.language );
 				expect( 'Link for Q123', 'to equal', state.languageLink );
 				expect( 'Q234', 'to equal', state.lexicalCategory );
@@ -258,7 +259,14 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 		function ( done ) {
 			var baseRevisionId = 1;
 			var entityId = 'L1';
-			var state = { id: entityId, isSaving: false, baseRevId: baseRevisionId, lemmas: [ new Lemma( 'a lemma', 'en' ) ], language: 'Q1', languageLink: 'Some language' };
+			var state = {
+				id: entityId,
+				isSaving: false,
+				baseRevId: baseRevisionId,
+				lemmas: new LemmaList( [ new Lemma( 'a lemma', 'en' ) ] ),
+				language: 'Q1',
+				languageLink: 'Some language'
+			};
 
 			var newRevisionId = 2;
 

@@ -303,14 +303,14 @@ HTML;
 		return <<<'HTML'
 <div class="lemma-widget">
 	<ul v-if="!inEditMode" class="lemma-widget_lemma-list">
-		<li v-for="lemma in lemmas" class="lemma-widget_lemma">
+		<li v-for="lemma in lemmaList" class="lemma-widget_lemma">
 			<span class="lemma-widget_lemma-value">{{lemma.value}}</span>
 			<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
 		</li>
 	</ul>
 	<div v-else class="lemma-widget_edit-area">
 		<ul class="lemma-widget_lemma-list">
-			<li v-for="lemma in lemmas" class="lemma-widget_lemma-edit-box">
+			<li v-for="lemma in lemmaList" class="lemma-widget_lemma-edit-box">
 				<span class="lemma-widget_lemma-value-label">
 					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
 				</span>
@@ -355,7 +355,7 @@ HTML;
 				'isInitialized' => false,
 				'inEditMode' => false,
 				'isSaving' => false,
-				'lemmas' => $lemmas
+				'lemmaList' => $lemmas
 			],
 			[
 				'message' => function ( $key ) {

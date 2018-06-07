@@ -17,17 +17,27 @@ module.exports = ( function () {
 
 			methods: {
 				add: function () {
-					this.lemmas.push( new Lemma( '', '' ) );
+					this.lemmas.add( new Lemma( '', '' ) );
 				},
 				remove: function ( lemma ) {
-					var index = this.lemmas.indexOf( lemma );
-					this.lemmas.splice( index, 1 );
+					this.lemmas.remove( lemma );
 				}
 			},
 
 			filters: {
 				message: function ( key ) {
 					return messages.get( key );
+				}
+			},
+
+			computed: {
+				/**
+				 * This only exists because the PHP template can't handle lemmas.getLemmas().
+				 *
+				 * @returns {Lemma[]}
+				 */
+				lemmaList: function () {
+					return this.lemmas.getLemmas();
 				}
 			}
 		};
