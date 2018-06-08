@@ -11,7 +11,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 
 	var newLemmaWidget = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
-	var LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
+	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	it( 'initialize widget with one lemma', function () {
 		var widget = newWidget( [ new Lemma( 'hello', 'en' ) ] );

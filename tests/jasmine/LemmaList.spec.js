@@ -1,10 +1,10 @@
 /**
  * @license GPL-2.0-or-later
  */
-describe( 'wikibase.lexeme.datamodel.LemmaList', function () {
+describe( 'wikibase.lexeme.datatransfer.LemmaList', function () {
 	var expect = require( 'unexpected' ).clone(),
 		Lemma = require( 'wikibase.lexeme.datamodel.Lemma' ),
-		LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
+		LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	it( 'getLemmas', function () {
 		var lemmas = [
@@ -60,6 +60,39 @@ describe( 'wikibase.lexeme.datamodel.LemmaList', function () {
 		list.add( new Lemma( 'en', 'cool' ) );
 
 		expect( list.length(), 'to be', 1 );
+	} );
+
+	describe( 'equals', function () {
+		it( 'returns false for objects that are not of type LemmaList', function () {
+			expect( ( new LemmaList( [] ) ).equals( null ), 'to be false' );
+		} );
+
+		it( 'returns false for LemmaList of different length', function () {
+			var list = new LemmaList( [ new Lemma( 'en', 'foo' ) ] ),
+				other = new LemmaList( [] );
+			expect( list.equals( other ), 'to be false' );
+		} );
+
+		it( 'returns false for LemmaList with different lemmas', function () {
+			var list = new LemmaList( [ new Lemma( 'en', 'foo' ) ] ),
+				other = new LemmaList( [ new Lemma( 'en', 'bar' ) ] );
+			expect( list.equals( other ), 'to be false' );
+		} );
+
+		it( 'returns true for LemmaList with same lemmas', function () {
+			var list = new LemmaList( [ new Lemma( 'en', 'foo' ) ] ),
+				other = new LemmaList( [ new Lemma( 'en', 'foo' ) ] );
+			expect( list.equals( other ), 'to be true' );
+		} );
+
+		it( 'ignores empty lemmas', function () {
+			var list = new LemmaList( [] ),
+				other = list.copy();
+
+			list.add( new Lemma( '', '' ) );
+			expect( list.equals( other ), 'to be true' );
+		} );
+
 	} );
 
 } );

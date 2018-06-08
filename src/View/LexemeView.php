@@ -248,7 +248,7 @@ HTML;
 			<button type="button" class="lemma-widget_edit" v-if="!inEditMode"
 				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
 			<button type="button" class="lemma-widget_save" v-if="inEditMode"
-				:disabled="isSaving" v-on:click="save">{{'wikibase-save'|message}}</button>
+				:disabled="isSaving || !hasChanges" v-on:click="save">{{'wikibase-save'|message}}</button>
 			<button type="button" class="lemma-widget_cancel" v-if="inEditMode"
 				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 		</div>
