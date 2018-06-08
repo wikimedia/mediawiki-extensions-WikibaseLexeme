@@ -394,6 +394,58 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
+	public function testAddedStatementsOnFormsTargettingFormsAreDisplayedAsLinks() {
+
+		$diffVisualizer = $this->newDiffVisualizer();
+
+		$l1 = new Lexeme(
+			new LexemeId( 'L1' ), new TermList( [ new Term( 'en', 'LemmaLem' ) ] ),
+			new ItemId( 'Q1' ), new ItemId( 'Q1' )
+		);
+		$p2 = new Property( new PropertyId( 'P2' ), null, 'wikibase-form' );
+
+		$f1 = $l1->addForm(
+			new TermList( [ new Term( 'de', 'baz' ) ] ),
+			[ new ItemId( 'Q1' ) ]
+		);
+
+		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );
+		$store->saveEntity( $p2, self::class, $this->getTestUser()->getUser() );
+
+		$addedStatement = new Statement( new PropertyValueSnak( $p2->getId(),
+			new EntityIdValue( $f1->getId() ) ), null, null, 's1' );
+
+		$diff = new EntityContentDiff( new LexemeDiff( [
+			'forms' => new ChangeFormDiffOp(
+				$f1->getId(),
+				new Diff( [
+					'claim' => new Diff( [ 's1' => new DiffOpAdd( $addedStatement ) ], true ),
+				], true )
+			),
+		] ), new Diff(), 'lexeme' );
+
+		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
+
+		assertThat(
+			$diffHtml,
+			is(
+				htmlPiece(
+					havingChild(
+						both( withTagName( 'ins' ) )->andAlso(
+							havingChild(
+								both( withTagName( 'a' ) )->andAlso(
+									havingTextContents( 'baz' )
+								)
+							)
+						)
+					)
+				)
+			)
+		);
+		$this->assertTrue( true, 'Stop the test being marked risky' );
+	}
+
 	/**
 	 * Make the Language class translate "English" in a certain way, e.g. in line with setUserLang()
 	 *

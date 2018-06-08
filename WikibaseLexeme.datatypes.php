@@ -80,7 +80,8 @@ return [
 			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage->getCode() );
 			if (
 				$format === SnakFormatter::FORMAT_HTML ||
-				$format === SnakFormatter::FORMAT_HTML_VERBOSE
+				$format === SnakFormatter::FORMAT_HTML_VERBOSE ||
+				$format === SnakFormatter::FORMAT_HTML_DIFF
 			) {
 				$baseFormatter = new FormIdHtmlFormatter(
 					$revisionLookup,
