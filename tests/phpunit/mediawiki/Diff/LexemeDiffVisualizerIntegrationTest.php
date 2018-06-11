@@ -103,7 +103,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'ins' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'foo' )
@@ -111,7 +111,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testChangedLexicalCategoryItemsAreDisplayedAsLinks() {
@@ -133,21 +132,20 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'del' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'noun' ) ) )
 				)
 			)
 		) ) );
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'ins' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'verb' ) ) )
 				)
 			)
 		) ) );
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testChangedLexicalCategoryItemsUseLabelsFromLanguageFallback() {
@@ -174,7 +172,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				allOf(
 					withTagName( 'del' ),
@@ -189,7 +187,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				allOf(
 					withTagName( 'ins' ),
@@ -204,8 +202,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testChangedLanguageItemsAreDisplayedAsLinks() {
@@ -227,7 +223,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'del' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )
@@ -235,7 +231,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'ins' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )
@@ -243,7 +239,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testChangedLanguageItemsUseLabelsFromLanguageFallback() {
@@ -270,7 +265,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				allOf(
 					withTagName( 'del' ),
@@ -285,7 +280,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				allOf(
 					withTagName( 'ins' ),
@@ -300,8 +295,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testGrammaticalFeatureItemsAreDisplayedAsLinks() {
@@ -326,22 +319,20 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			'lexeme'
 		) );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'del' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'plural' ) ) )
 				)
 			)
 		) ) );
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				both( withTagName( 'ins' ) )->andAlso(
 					havingChild( both( withTagName( 'a' ) )->andAlso( havingTextContents( 'singular' ) ) )
 				)
 			)
 		) ) );
-
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testChangedGrammaticalFeatureItemsUseLabelsFromLanguageFallback() {
@@ -373,7 +364,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				allOf(
 					withTagName( 'del' ),
@@ -388,7 +379,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild(
 				allOf(
 					withTagName( 'ins' ),
@@ -403,8 +394,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		) ) );
-
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	public function testAddedStatementsOnFormsTargettingFormsAreDisplayedAsLinks() {
@@ -440,7 +429,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$diffHtml = $diffVisualizer->visualizeEntityContentDiff( $diff );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$diffHtml,
 			is(
 				htmlPiece(

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
+use HamcrestPHPUnitIntegration;
 use MediaWiki\Services\ServiceContainer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store\BufferingTermLookup;
@@ -10,6 +11,8 @@ use Wikibase\Store\BufferingTermLookup;
  * @license GPL-2.0-or-later
  */
 abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase {
+
+	use HamcrestPHPUnitIntegration;
 
 	public function tearDown() {
 		parent::tearDown();
