@@ -7,11 +7,13 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Hooks;
+use ReflectionProperty;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Services\Lookup\EntityRetrievingDataTypeLookup;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Fingerprint;
@@ -23,6 +25,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
+use Wikibase\Lib\PropertyInfoDataTypeLookup;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -40,6 +43,13 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	private $hookHandlers = [];
 
 	/**
+	 * Used for resetting WikibaseRepo::propertyDataTypeLookup back to its original value
+	 *
+	 * @var PropertyInfoDataTypeLookup
+	 */
+	private $propertyDataTypeLookup;
+
+	/**
 	 * Backs up Hook::$handlers to be reset after tearDown
 	 *
 	 * @throws \MWException
@@ -47,6 +57,8 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	public function setUp() {
 		parent::setUp();
 
+		$this->propertyDataTypeLookup = WikibaseRepo::getDefaultInstance()->getPropertyDataTypeLookup();
+		$this->setPropertyDataTypeLookupOnRepoInstance( $this->newNonCachingPropertyDatatypeLookup() );
 		$this->hookHandlers = $this->getHookHandlersProperty()->getValue();
 	}
 
@@ -54,6 +66,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		parent::tearDown();
 
 		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
+		$this->setPropertyDataTypeLookupOnRepoInstance( $this->propertyDataTypeLookup );
 		$this->clearLanguageNameCache();
 	}
 
@@ -402,7 +415,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			new LexemeId( 'L1' ), new TermList( [ new Term( 'en', 'LemmaLem' ) ] ),
 			new ItemId( 'Q1' ), new ItemId( 'Q1' )
 		);
-		$p2 = new Property( new PropertyId( 'P2' ), null, 'wikibase-form' );
+		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-form' );
 
 		$f1 = $l1->addForm(
 			new TermList( [ new Term( 'de', 'baz' ) ] ),
@@ -411,9 +424,9 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );
-		$store->saveEntity( $p2, self::class, $this->getTestUser()->getUser() );
+		$store->saveEntity( $p1, self::class, $this->getTestUser()->getUser() );
 
-		$addedStatement = new Statement( new PropertyValueSnak( $p2->getId(),
+		$addedStatement = new Statement( new PropertyValueSnak( $p1->getId(),
 			new EntityIdValue( $f1->getId() ) ), null, null, 's1' );
 
 		$diff = new EntityContentDiff( new LexemeDiff( [
@@ -493,6 +506,26 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	private function newDiffVisualizer() {
 		return WikibaseRepo::getDefaultInstance()->getEntityDiffVisualizerFactory( new \RequestContext() )
 			->newEntityDiffVisualizer( 'lexeme' );
+	}
+
+	/**
+	 * Swap out PropertyDataTypeLookup against a non-caching instance to avoid incorrect results
+	 * for properties with changing data types - can not happen in production
+	 *
+	 * @param PropertyInfoDataTypeLookup $lookup
+	 */
+	private function setPropertyDataTypeLookupOnRepoInstance( PropertyInfoDataTypeLookup $lookup ) {
+		$propertyDataTypeLookup = new ReflectionProperty( WikibaseRepo::class, 'propertyDataTypeLookup' );
+		$propertyDataTypeLookup->setAccessible( true );
+		$propertyDataTypeLookup->setValue( WikibaseRepo::getDefaultInstance(), $lookup );
+	}
+
+	private function newNonCachingPropertyDatatypeLookup() {
+		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+		return new PropertyInfoDataTypeLookup(
+			$wikibaseRepo->getWikibaseServices()->getPropertyInfoLookup(),
+			new EntityRetrievingDataTypeLookup( $wikibaseRepo->getEntityLookup() )
+		);
 	}
 
 }
