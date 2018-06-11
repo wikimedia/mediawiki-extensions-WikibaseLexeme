@@ -6,6 +6,7 @@
 	},
 	"special-newlexeme": "Opprett eit nytt leksem",
 	"wikibaselexeme-newlexeme-fieldset": "Opprett eit nytt leksem",
+	"wikibaselexeme-newlexeme-lemma-language": "Språket til lemmaet",
 	"wikibaselexeme-lemma-edit-placeholder": "Skriv inn lemmaet",
 	"wikibaselexeme-newlexeme-language": "Språket til leksemet",
 	"wikibaselexeme-statementsection-statements-about-form": "Utsegner om $1",
@@ -16,6 +17,12 @@
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-sense": "Tyding",
 	"wikibaselexeme-add-sense": "legg til tyding",
+	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Ei form lyt ha minst éin representasjon",
+	"wikibase-lexeme-summary-add-form": "La til den nye forma $3 med {{PLURAL:$1|representasjon|representasjonar}}",
+	"wikibase-lexeme-summary-remove-form": "Fjerna forma $3 med {{PLURAL:$1|representasjon|representasjonar}}",
+	"wikibase-lexeme-summary-update-form-representations": "Endra representasjonar og/eller grammatiske kategoriar av forma $3",
+	"wikibase-lexeme-summary-add-form-representations": "La til {{PLURAL:$1|representasjon|representasjonar}} av forma $3",
+	"wikibase-lexeme-summary-set-form-representations": "Endra {{PLURAL:$1|representasjon|representasjonar}} av forma $3",
 	"wikibase-lexeme-summary-remove-form-representations": "Fjerna {{PLURAL:$1|representasjon|representasjonar}} av forma $3",
 	"wikibase-lexeme-summary-update-form-grammatical-features": "Endra representasjonar og/eller grammatiske kategoriar av forma $3",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "La til {{PLURAL:$1|grammatisk kategori|grammatiske kategoriar}} til forma $3",
@@ -25,5 +32,7 @@
 	"wikibaselexeme-diffview-language": "språk",
 	"wikibaselexeme-diffview-form": "form",
 	"wikibaselexeme-diffview-grammatical-feature": "grammatisk kategori",
-	"wikibaselexeme-form-grammatical-features": "Grammatiske kategoriar"
+	"wikibaselexeme-form-grammatical-features": "Grammatiske kategoriar",
+	"wikibaselexeme-unknown-language": "Ukjend språk",
+	"wikibaselexeme-unknown-category": "Ukjend"
 }

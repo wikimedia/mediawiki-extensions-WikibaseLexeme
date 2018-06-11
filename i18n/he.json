@@ -11,7 +11,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "יצירת יחידה מילונית חדשה",
 	"wikibaselexeme-newlexeme-lemma": "משפט מוגדר",
 	"wikibaselexeme-newlexeme-lemma-language": "שפת המשפט המוגדר",
-	"wikibaselexeme-lemma-edit-placeholder": "נא להזין משפט מוגדר",
+	"wikibaselexeme-lemma-edit-placeholder": "\"משפט מוגדר\" הוא בדרך־כלל צורה מקוצרת של המילה",
 	"wikibaselexeme-newlexeme-lexicalcategory": "קטגוריה מילונית",
 	"wikibaselexeme-newlexeme-language": "שפת היחידה המילונית",
 	"wikibaselexeme-language-lexical-category-value": "$1 ב$2",

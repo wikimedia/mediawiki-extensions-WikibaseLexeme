@@ -11,7 +11,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "创建新词位",
 	"wikibaselexeme-newlexeme-lemma": "引理",
 	"wikibaselexeme-newlexeme-lemma-language": "引理的语言",
-	"wikibaselexeme-lemma-edit-placeholder": "输入引理",
+	"wikibaselexeme-lemma-edit-placeholder": "引理通常是字词的最短形式",
 	"wikibaselexeme-newlexeme-lexicalcategory": "词类",
 	"wikibaselexeme-newlexeme-language": "词位的语言",
 	"wikibaselexeme-language-lexical-category-value": "$2中的$1",
