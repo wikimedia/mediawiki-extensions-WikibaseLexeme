@@ -14,7 +14,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	var newLexemeHeader = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader' );
 	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
-	var LemmaList = require( 'wikibase.lexeme.datamodel.LemmaList' );
+	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	it( 'switch to edit mode', function ( done ) {
 		var widget = newWidget( { lemmas: [] } );
@@ -101,6 +101,46 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		expect( widget.$children[ 1 ].lexicalCategory, 'to equal', lexicalCategory ); // TODO: find a better way to do this
 	} );
 
+	it( 'shows save button disabled without changes', function ( done ) {
+		var widget = newWidget( { lemmas: [] } );
+		widget.edit();
+		widget.$nextTick( function () {
+			expect( widget.$el.querySelector( '.lemma-widget_save' ), 'to have attributes', { disabled: 'disabled' } );
+			done();
+		} );
+	} );
+
+	describe( 'hasChanges', function () {
+		it( 'returns false by default', function () {
+			var widget = newWidget( { lemmas: [], language: 'Q123', lexicalCategory: 'Q321' } );
+			expect( widget.hasChanges, 'to be false' );
+		} );
+
+		it( 'returns true when language changes', function () {
+			var widget = newWidget( { lemmas: [], language: 'Q123', lexicalCategory: 'Q321' } );
+			widget.language = 'Q234';
+			expect( widget.hasChanges, 'to be true' );
+		} );
+
+		it( 'returns true when lexical category changes', function () {
+			var widget = newWidget( { lemmas: [], language: 'Q123', lexicalCategory: 'Q321' } );
+			widget.lexicalCategory = 'Q432';
+			expect( widget.hasChanges, 'to be true' );
+		} );
+
+		it( 'returns true when lemmas change', function () {
+			var widget = newWidget( { lemmas: [], language: 'Q123', lexicalCategory: 'Q321' } );
+			widget.lemmas.add( new Lemma( 'en', 'hamster' ) );
+			expect( widget.hasChanges, 'to be true' );
+		} );
+
+		it( 'ignores added empty lemmas', function () {
+			var widget = newWidget( { lemmas: [], language: 'Q123', lexicalCategory: 'Q321' } );
+			widget.lemmas.add( new Lemma( '', '' ) );
+			expect( widget.hasChanges, 'to be false' );
+		} );
+	} );
+
 	expect.addAssertion( '<object> [not] to be in edit mode', function ( expect, widget ) {
 		expect.errorMode = 'nested';
 
@@ -166,7 +206,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			+ '<button type="button" class="lemma-widget_edit" v-if="!inEditMode" '
 			+ ' :disabled="isSaving" v-on:click="edit">{{\'wikibase-edit\'|message}}</button>'
 			+ '<button type="button" class="lemma-widget_save" v-if="inEditMode" '
-			+ ' :disabled="isSaving" v-on:click="save">{{\'wikibase-save\'|message}}</button>'
+			+ ' :disabled="isSaving || !hasChanges" v-on:click="save">{{\'wikibase-save\'|message}}</button>'
 			+ '<button type="button" class="lemma-widget_cancel" v-if="inEditMode" '
 			+ ' :disabled="isSaving"  v-on:click="cancel">{{\'wikibase-cancel\'|message}}</button>'
 			+ '</div>'

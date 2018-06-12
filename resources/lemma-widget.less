@@ -1,4 +1,6 @@
 .lemma-widget {
+	@button-disabled-color: #72777d; // TODO: move me to color vars file
+
 	display: flex;
 
 	&_lemma-list {
@@ -75,6 +77,11 @@
 		color: #0d4c99;
 		&:hover {
 			text-decoration: underline;
+		}
+		&[ disabled ] {
+			text-decoration: none;
+			cursor: default;
+			color: @button-disabled-color;
 		}
 	}
 

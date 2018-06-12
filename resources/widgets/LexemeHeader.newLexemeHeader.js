@@ -77,6 +77,12 @@ module.exports = ( function () {
 			computed: {
 				isSaving: function () {
 					return store.state.isSaving;
+				},
+
+				hasChanges: function () {
+					return this.language !== this.$store.state.language
+						|| this.lexicalCategory !== this.$store.state.lexicalCategory
+						|| !this.lemmas.equals( this.$store.state.lemmas );
 				}
 			},
 
