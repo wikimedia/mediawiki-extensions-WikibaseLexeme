@@ -111,12 +111,18 @@ module.exports = ( function () {
 							language: lexeme.language,
 							lexicalCategory: lexeme.lexicalCategory
 						},
-						saveRequest = repoApi.editEntity(
-							context.state.id,
-							context.state.baseRevId,
-							data,
-							false //clear
-						);
+						saveRequest = new Promise( function ( resolve, reject ) {
+							repoApi.editEntity(
+								context.state.id,
+								context.state.baseRevId,
+								data,
+								false //clear
+							)
+								.then( resolve )
+								.catch( function ( code, response ) {
+									reject( response && response.error );
+								} );
+						} );
 
 					return $.when(
 						saveRequest,

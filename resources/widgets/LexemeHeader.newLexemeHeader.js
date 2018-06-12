@@ -43,8 +43,8 @@ module.exports = ( function () {
 					).then( function () {
 						this.inEditMode = false;
 					}.bind( this ) )
-					.catch( function ( code, response ) {
-						this.displayError( response.error );
+					.catch( function ( error ) {
+						this.displayError( error );
 					}.bind( this ) );
 				},
 

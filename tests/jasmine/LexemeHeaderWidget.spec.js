@@ -62,7 +62,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			} );
 
 		widget.edit();
-		widget.save().catch( function () {
+		widget.save();
+		widget.$nextTick( function () {
 			expect( storeSpy, 'to have a call satisfying', [ 'save', lexeme ] );
 			expect( widget, 'to be in edit mode' );
 			done();
