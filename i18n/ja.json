@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Afaz"
+			"Afaz",
+			"Omotecho"
 		]
 	},
 	"wikibaselexeme-desc": "語彙素のエンティティタイプの処理を行う",
@@ -10,7 +11,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "語彙素の新規作成",
 	"wikibaselexeme-newlexeme-lemma": "見出し語",
 	"wikibaselexeme-newlexeme-lemma-language": "見出し語の言語",
-	"wikibaselexeme-lemma-edit-placeholder": "見出し語を入力",
+	"wikibaselexeme-lemma-edit-placeholder": "Lemma には通常、単語のもっとも短い形（見出し語）を入力",
 	"wikibaselexeme-newlexeme-lexicalcategory": "語彙範疇",
 	"wikibaselexeme-newlexeme-language": "語彙素の言語",
 	"wikibaselexeme-language-lexical-category-value": "$1 - $2",

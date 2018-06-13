@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bjakupi"
+			"Bjakupi",
+			"Luanibraj"
 		]
 	},
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma eshte zakonisht forma me e shkurt e nje fjale",
-	"wikibaselexeme-form-representation-redundant-language": "Nuk eshte e mundur te kesh qasje ne reprezentime te shumefishta me te njejtin variant te germezimit.",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Per shembull:normative, krahasuese, koha e shkuar..."
+	"wikibaselexeme-form-representation-redundant-language": "Nuk është e mundur të fusni paraqitje të shumëfishta me të njëjtin variant të germëzimit.",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Për shembull: normative, krahasuese, koha e shkuar..."
 }

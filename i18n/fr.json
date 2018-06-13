@@ -30,6 +30,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Variante d’orthographe",
 	"wikibaselexeme-form-field-representation-label": "Représentation",
 	"wikibaselexeme-form-field-language-label": "Variante d’orthographe",
+	"wikibaselexeme-form-representation-redundant-language": "Il n’est pas possible de saisir plusieurs représentations avec la même variante d’écriture.",
 	"wikibaselexeme-gloss-field-language-label": "Langue",
 	"wikibaselexeme-gloss-field-gloss-label": "Apparence",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
@@ -93,5 +94,6 @@
 	"wikibaselexeme-unknown-category": "Inconnu",
 	"wikibaselexeme-no-features": "aucune fonctionnalités",
 	"wikibaselexeme-rescore-profile-prefix": "Noter de nouveau le profil pour la recherche de préfixe (complétude)",
-	"wikibase-validator-form-not-found": "Le lexeme n'a pas de formulaire ayant l'ID spécifié"
+	"wikibase-validator-form-not-found": "Le lexeme n'a pas de formulaire ayant l'ID spécifié",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Par exemple : normatif, comparatif, passé…"
 }
