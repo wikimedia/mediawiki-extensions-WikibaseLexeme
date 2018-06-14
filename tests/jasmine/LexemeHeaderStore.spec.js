@@ -65,6 +65,31 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 		expect( state.lemmas.getLemmas()[ 0 ].value, 'to equal', 'Bar' );
 	} );
 
+	it( 'failed save returns rejected promise with a single error object', function ( done ) {
+		var expectedError = { code: 'error-code', info: 'info-text' },
+			repoApi = {
+				editEntity: function () {
+					return $.Deferred( function ( defer ) {
+						defer.reject( 'error-code', { error: expectedError } );
+					} );
+				},
+				formatValue: function ( dataValue ) {
+					return Promise.resolve( { result: 'Link for ' + dataValue.value.id } );
+				}
+			},
+			store = new Vuex.Store( newLexemeHeaderStore( repoApi, { lemmas: [] }, 0, 'Q123', 'Q321' ) );
+
+		store.dispatch( 'save', {
+			lemmas: [ new Lemma( '', '' ) ],
+			language: 'Q123',
+			lexicalCategory: 'Q321'
+		} ).catch( function ( error ) {
+			expect( error, 'to equal', expectedError );
+			done();
+		} );
+
+	} );
+
 	function newTestAction( done ) {
 
 		// helper for testing action with expected mutations
