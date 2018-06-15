@@ -129,10 +129,10 @@ module.exports = ( function () {
 						formatEntityId( repoApi, lexeme.language ),
 						formatEntityId( repoApi, lexeme.lexicalCategory )
 					).then( function ( response, formattedLanguage, formattedLexicalCategory ) {
-						context.commit( 'updateRevisionId', response[ 0 ].entity.lastrevid );
+						context.commit( 'updateRevisionId', response.entity.lastrevid );
 						// TODO: Update state of lemmas, language and lexicalCategory if needed.
 						// Note: API response does not contain lemma.
-						context.commit( 'updateLemmas', response[ 0 ].entity.lemmas || lexeme.lemmas );
+						context.commit( 'updateLemmas', response.entity.lemmas || lexeme.lemmas );
 						context.commit( 'updateLanguage', { id: lexeme.language, link: formattedLanguage } );
 						context.commit( 'updateLexicalCategory', {
 							id: lexeme.lexicalCategory,

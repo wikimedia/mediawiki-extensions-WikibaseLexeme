@@ -147,12 +147,12 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 			var state = { isSaving: false, baseRevId: 1, lemmas: new LemmaList( [] ) };
 
 			var newRevisionId = 2;
-			var response = [ {
+			var response = {
 				entity: {
 					lastrevid: newRevisionId,
 					lemmas: [ { value: 'lemma1', language: 'en' } ]
 				}
-			} ];
+			};
 
 			var repoApi = {
 				editEntity: function ( id, baseRevId, data, clear ) {
@@ -203,12 +203,12 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 
 			var newRevisionId = 2;
 
-			var response = [ {
+			var response = {
 				entity: {
 					lastrevid: newRevisionId,
 					lemmas: [ { value: 'lemma1', language: 'en' } ]
 				}
-			} ];
+			};
 
 			var editEntity = function ( id, baseRevId, data, clear ) {
 				return Promise.resolve( response );
@@ -295,12 +295,12 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function 
 
 			var newRevisionId = 2;
 
-			var response = [ {
+			var response = {
 				entity: {
 					lastrevid: newRevisionId,
 					lemmas: []
 				}
-			} ];
+			};
 
 			var editEntity = function ( id, baseRevId, data, clear ) {
 				return Promise.resolve( response );
