@@ -11,7 +11,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "Criar um lexema novo",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
 	"wikibaselexeme-newlexeme-lemma-language": "Idioma do lema",
-	"wikibaselexeme-lemma-edit-placeholder": "Introduza o lema",
+	"wikibaselexeme-lemma-edit-placeholder": "O lema é geralmente a forma mais curta da palavra",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoria lexical",
 	"wikibaselexeme-newlexeme-language": "Língua do lexema",
 	"wikibaselexeme-language-lexical-category-value": "$1 em $2",
@@ -26,6 +26,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Variante ortográfica",
 	"wikibaselexeme-form-field-representation-label": "Representação",
 	"wikibaselexeme-form-field-language-label": "Variante ortográfica",
+	"wikibaselexeme-form-representation-redundant-language": "Não é possível introduzir mais do que uma representação com a mesma variante ortográfica.",
 	"wikibaselexeme-gloss-field-language-label": "Idioma",
 	"wikibaselexeme-gloss-field-gloss-label": "Brilho",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
@@ -89,5 +90,6 @@
 	"wikibaselexeme-unknown-category": "Desconhecida",
 	"wikibaselexeme-no-features": "sem recursos",
 	"wikibaselexeme-rescore-profile-prefix": "Perfil de reavaliação para pesquisa por prefixo (pesquisa de preenchimento)",
-	"wikibase-validator-form-not-found": "O lexema não tem uma Forma com o ID fornecido"
+	"wikibase-validator-form-not-found": "O lexema não tem uma Forma com o ID fornecido",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado..."
 }
