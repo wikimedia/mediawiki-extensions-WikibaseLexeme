@@ -88,7 +88,7 @@ Recommended way of setting the development environment is with the use of [Docke
 
   From the extensions folder in your mediawiki run:
 
-  `git clone ssh://gerrit.wikimedia.org:29418/mediawiki/extensions/WikibaseLexeme`
+  `git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseLexeme`
 
 * Add it to Config
 
@@ -117,6 +117,7 @@ Recommended way of setting the development environment is with the use of [Docke
 
   `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
 
+If you get `Your requirements could not be resolved to an installable set of packages` error message, delete `composer.lock` file and run the command again.
 
 ## Configuration
 
