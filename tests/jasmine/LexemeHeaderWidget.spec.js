@@ -150,14 +150,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		expect( widget.$el, 'to contain' + no + 'elements matching', '.lemma-widget_save' );
 	} );
 
-	var messages = {
-		get: function ( key ) {
-			return key;
-		}
-	};
-
 	function newWidget( lexeme ) {
-		return newWidgetWithStore( newStore( lexeme ), messages );
+		return newWidgetWithStore( newStore( lexeme ) );
 	}
 
 	function newStore( lexeme ) {
