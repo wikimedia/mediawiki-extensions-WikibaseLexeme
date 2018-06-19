@@ -64,6 +64,7 @@ class LexemePage extends Page {
 	 */
 	open( lexemeId ) {
 		super.open( 'Lexeme:' + lexemeId );
+		browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
 	}
 
 	/**
@@ -71,7 +72,6 @@ class LexemePage extends Page {
 	 * @param {string} languageCode
 	 */
 	setFirstLemma( lemmaText, languageCode ) {
-		browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
 		let editButton = $( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
 		editButton.click();
 
