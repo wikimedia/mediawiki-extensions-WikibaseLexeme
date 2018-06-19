@@ -33,7 +33,7 @@ describe( 'Special:RecentChanges', () => {
 
 		RecentChangesPage.open();
 
-		let title = RecentChangesPage.titles[ 0 ];
+		let title = RecentChangesPage.titles[ 0 ].getText();
 
 		assert( title.includes( 'entrôpi' ) );
 		assert( title.includes( 'entropy' ) );
