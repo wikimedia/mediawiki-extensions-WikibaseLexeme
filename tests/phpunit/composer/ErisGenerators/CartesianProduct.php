@@ -58,7 +58,7 @@ class CartesianProduct {
 	}
 
 	/**
-	 * @param $generatorName
+	 * @param string $generatorName
 	 *
 	 * @return GeneratedValueOptions
 	 */

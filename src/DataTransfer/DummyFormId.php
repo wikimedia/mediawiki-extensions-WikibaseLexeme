@@ -35,7 +35,7 @@ class DummyFormId extends FormId {
 	}
 
 	/**
-	 * @param $target
+	 * @param mixed $target
 	 * @return bool
 	 */
 	private function stemsFromNewlyCreatedForm( $target ) {
