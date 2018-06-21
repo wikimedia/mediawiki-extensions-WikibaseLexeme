@@ -1,6 +1,7 @@
 <?php
 namespace Wikibase\Lexeme\Search;
 
+use CirrusSearch\CirrusDebugOptions;
 use CirrusSearch\Search\ResultsType;
 use CirrusSearch\Search\SearchContext;
 use Elastica\Query\AbstractQuery;
@@ -49,18 +50,25 @@ class LexemeSearchEntity implements EntitySearchHelper {
 	 */
 	protected $lookupFactory;
 
+	/**
+	 * @var CirrusDebugOptions|null
+	 */
+	private $debugOptions;
+
 	public function __construct(
 		EntityIdParser $idParser,
 		\WebRequest $request,
 		Language $userLanguage,
 		LanguageFallbackChainFactory $languageFallbackChainFactory,
-		PrefetchingTermLookup $termLookup
+		PrefetchingTermLookup $termLookup,
+		CirrusDebugOptions $options = null
 	) {
 		$this->idParser = $idParser;
 		$this->request = $request;
 		$this->userLanguage = $userLanguage;
 		$this->lookupFactory = new LanguageFallbackLabelDescriptionLookupFactory(
 			$languageFallbackChainFactory, $termLookup, $termLookup );
+		$this->debugOptions = $options ?? CirrusDebugOptions::fromRequest( $this->request );
 	}
 
 	/**
@@ -194,7 +202,7 @@ class LexemeSearchEntity implements EntitySearchHelper {
 		$limit,
 		$strictLanguage
 	) {
-		$searcher = new WikibasePrefixSearcher( 0, $limit );
+		$searcher = new WikibasePrefixSearcher( 0, $limit, $this->debugOptions );
 		$query = $this->getElasticSearchQuery( $text, $entityType, $searcher->getSearchContext() );
 
 		$searcher->setResultsType( $this->makeResultType() );
