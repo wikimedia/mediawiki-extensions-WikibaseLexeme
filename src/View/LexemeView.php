@@ -242,13 +242,17 @@ HTML;
 	<h1 id="wb-lexeme-header-lemmas">
 		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
 		<div class="wb-lexeme-header_lemma-widget">
-			<lemma-widget :lemmas="lemmas" :inEditMode="inEditMode" :isSaving="isSaving"></lemma-widget>
+			<lemma-widget
+				:lemmas="lemmas"
+				:inEditMode="inEditMode"
+				:isSaving="isSaving"
+				@hasRedundantLanguage="hasRedundantLemmaLanguage = $event"></lemma-widget>
 		</div>
 		<div class="lemma-widget_controls" v-if="isInitialized" >
 			<button type="button" class="lemma-widget_edit" v-if="!inEditMode"
 				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
 			<button type="button" class="lemma-widget_save" v-if="inEditMode"
-				:disabled="isSaving || !hasChanges" v-on:click="save">{{'wikibase-save'|message}}</button>
+				:disabled="isUnsaveable" v-on:click="save">{{'wikibase-save'|message}}</button>
 			<button type="button" class="lemma-widget_cancel" v-if="inEditMode"
 				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 		</div>
@@ -320,7 +324,12 @@ HTML;
 					{{'wikibaselexeme-lemma-field-language-label'|message}}
 				</span>
 				<input size="1" class="lemma-widget_lemma-language-input"
-					v-model="lemma.language" :disabled="isSaving">
+					v-model="lemma.language" :disabled="isSaving"
+					:class="{ 
+						'lemma-widget_lemma-language-input_redundant-language': 
+							isRedundantLanguage(lemma.language)
+					}"
+					:aria-invalid="isRedundantLanguage(lemma.language)">
 				<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)"
 					:disabled="isSaving" :title="'wikibase-remove'|message">
 					&times;
@@ -331,6 +340,9 @@ HTML;
 					:disabled="isSaving" :title="'wikibase-add'|message">+</button>
 			</li>
 		</ul>
+		<div v-if="hasRedundantLanguage" class="lemma-widget_redundant-language-warning">
+			<p>{{'wikibaselexeme-lemma-redundant-language'|message}}</p>
+		</div>
 	</div>
 </div>
 HTML;
@@ -355,7 +367,8 @@ HTML;
 				'isInitialized' => false,
 				'inEditMode' => false,
 				'isSaving' => false,
-				'lemmaList' => $lemmas
+				'lemmaList' => $lemmas,
+				'isUnsaveable' => true
 			],
 			[
 				'message' => function ( $key ) {

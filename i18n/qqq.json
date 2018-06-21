@@ -29,6 +29,7 @@
 	"wikibase-lexeme-gloss-empty": "Placeholder message displayed instead of the gloss of the Sense in case the gloss in the display language has not been specified yet.",
 	"wikibaselexeme-lemma-field-lemma-label": "Label of the field to input the lemma of the Lexeme.\n{{Identical|Lemma}}",
 	"wikibaselexeme-lemma-field-language-label": "Label of the field to input the spelling variant code of the lemma",
+	"wikibaselexeme-lemma-redundant-language": "Error message to show if multiple lemma with same language are provided",
 	"wikibaselexeme-form-field-representation-label": "Label of the field to input the representation of the Form\n{{Identical|Representation}}",
 	"wikibaselexeme-form-field-language-label": "Label of the field to input the spelling variant code of the Form representation",
 	"wikibaselexeme-form-representation-redundant-language": "Error message to show if multiple form representations with same language are provided",

@@ -156,6 +156,7 @@ return call_user_func( function() {
 				"wikibase-remove",
 				"wikibaselexeme-lemma-field-lemma-label",
 				"wikibaselexeme-lemma-field-language-label",
+				"wikibaselexeme-lemma-redundant-language",
 				"wikibaselexeme-field-language-label",
 				"wikibaselexeme-field-lexical-category-label",
 				"wikibaselexeme-error-cannot-remove-last-lemma"
@@ -206,7 +207,8 @@ return call_user_func( function() {
 			"scripts" => "widgets/LemmaWidget.newLemmaWidget.js",
 			"dependencies" => [
 				"wikibase.lexeme.datatransfer.LemmaList",
-				"wikibase.lexeme.datamodel.Lemma"
+				"wikibase.lexeme.datamodel.Lemma",
+				"wikibase.lexeme.widgets.RedundantLanguageIndicator"
 			]
 		],
 		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader" => $moduleTemplate + [

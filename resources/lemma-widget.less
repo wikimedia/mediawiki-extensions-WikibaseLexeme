@@ -30,8 +30,6 @@
 	}
 
 	&_edit-area {
-		flex-grow: 1;
-		display: flex;
 		border: 3px solid #9cf;
 	}
 
@@ -131,6 +129,16 @@
 
 	&_lemma-language-input:active {
 		width: auto;
+	}
+
+	&_lemma-language-input_redundant-language,
+	&_redundant-language-warning {
+		background-color: @warning-background;
+		border-color: @warning-color;
+	}
+
+	&_redundant-language-warning p {
+		padding: 0.5em 0.5em;
 	}
 
 	&_lemma-remove {

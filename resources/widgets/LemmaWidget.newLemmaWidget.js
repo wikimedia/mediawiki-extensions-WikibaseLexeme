@@ -1,7 +1,8 @@
 module.exports = ( function () {
 	'use strict';
 
-	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' ),
+		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent
@@ -14,6 +15,8 @@ module.exports = ( function () {
 		return {
 			props: [ 'lemmas', 'inEditMode', 'isSaving' ],
 			template: template,
+
+			mixins: [ RedundantLanguageIndicator( 'lemmaList' ) ],
 
 			methods: {
 				add: function () {
@@ -32,8 +35,6 @@ module.exports = ( function () {
 
 			computed: {
 				/**
-				 * This only exists because the PHP template can't handle lemmas.getLemmas().
-				 *
 				 * @returns {Lemma[]}
 				 */
 				lemmaList: function () {
