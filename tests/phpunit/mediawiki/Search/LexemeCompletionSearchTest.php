@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 
+use CirrusSearch\CirrusDebugOptions;
 use Language;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\Lexeme\Search\FormSearchEntity;
@@ -30,7 +31,8 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 			new \FauxRequest(),
 			$userLang,
 			$repo->getLanguageFallbackChainFactory(),
-			$repo->getPrefetchingTermLookup()
+			$repo->getPrefetchingTermLookup(),
+			CirrusDebugOptions::forDumpingQueriesInUnitTests()
 		);
 	}
 
@@ -45,7 +47,8 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 			new \FauxRequest(),
 			$userLang,
 			$repo->getLanguageFallbackChainFactory(),
-			$repo->getPrefetchingTermLookup()
+			$repo->getPrefetchingTermLookup(),
+			CirrusDebugOptions::forDumpingQueriesInUnitTests()
 		);
 	}
 
@@ -69,7 +72,6 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 	 * @param string $expected Expected result filename
 	 */
 	public function testSearchElastic( $term, $expected ) {
-		$this->markTestSkipped( 'Transitional' );
 		$search = $this->newEntitySearch( Language::factory( 'en' ) );
 		$elasticQuery = $search->getRankedSearchResults(
 			$term, 'test' /* not used so far */,
@@ -89,7 +91,6 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 	 * @param string $expected Expected result filename
 	 */
 	public function testSearchFormElastic( $term, $expected ) {
-		$this->markTestSkipped( 'Transitional' );
 		$search = $this->newFormSearch( Language::factory( 'en' ) );
 		$elasticQuery = $search->getRankedSearchResults(
 			$term, 'test' /* not used so far */,
