@@ -41,12 +41,6 @@ class LexemeSearchEntity implements EntitySearchHelper {
 	 */
 	private $request;
 	/**
-	 * Should we return raw result?
-	 * Used for testing.
-	 * @var boolean
-	 */
-	private $returnResult;
-	/**
 	 * @var Language
 	 */
 	protected $userLanguage;
@@ -205,7 +199,6 @@ class LexemeSearchEntity implements EntitySearchHelper {
 
 		$searcher->setResultsType( $this->makeResultType() );
 
-		$searcher->setOptionsFromRequest( $this->request );
 		$searcher->getSearchContext()->setProfileContext( self::CONTEXT_LEXEME_PREFIX );
 		$result = $searcher->performSearch( $query );
 
@@ -221,17 +214,10 @@ class LexemeSearchEntity implements EntitySearchHelper {
 		}
 
 		if ( $searcher->isReturnRaw() ) {
-			$result = $searcher->processRawReturn( $result, $this->request, !$this->returnResult );
+			$result = $searcher->processRawReturn( $result, $this->request );
 		}
 
 		return $result;
-	}
-
-	/**
-	 * @param bool $returnResult
-	 */
-	public function setReturnResult( $returnResult ) {
-		$this->returnResult = $returnResult;
 	}
 
 }
