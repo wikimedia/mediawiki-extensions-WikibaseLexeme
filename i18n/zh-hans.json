@@ -24,6 +24,7 @@
 	"wikibase-lexeme-gloss-empty": "未定义注解",
 	"wikibaselexeme-lemma-field-lemma-label": "引理",
 	"wikibaselexeme-lemma-field-language-label": "拼写变体",
+	"wikibaselexeme-lemma-redundant-language": "无法输入多个相同发音变体的引理。",
 	"wikibaselexeme-form-field-representation-label": "表现",
 	"wikibaselexeme-form-field-language-label": "拼写变体",
 	"wikibaselexeme-form-representation-redundant-language": "无法输入多个具有相同拼写变体的表现。",
