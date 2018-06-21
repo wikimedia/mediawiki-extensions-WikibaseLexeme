@@ -91,7 +91,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		var lemmas = [ new Lemma( 'hello', 'en' ) ],
 			widget = newWidget( { lemmas: lemmas } );
 
-		expect( widget.$children[ 0 ].lemmas, 'to equal', new LemmaList( lemmas ) ); // TODO: find a better way to do this
+		expect( widget.$refs.lemmas.lemmas, 'to equal', new LemmaList( lemmas ) );
 	} );
 
 	it( 'passes language and lexical category to LanguageAndLexicalCategoryWidget', function () {
@@ -99,8 +99,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			lexicalCategory = 'Q234',
 			widget = newWidget( { lemmas: [], language: language, lexicalCategory: lexicalCategory } );
 
-		expect( widget.$children[ 1 ].language, 'to equal', language ); // TODO: find a better way to do this
-		expect( widget.$children[ 1 ].lexicalCategory, 'to equal', lexicalCategory ); // TODO: find a better way to do this
+		expect( widget.$refs.languageAndLexicalCategory.language, 'to equal', language );
+		expect( widget.$refs.languageAndLexicalCategory.lexicalCategory, 'to equal', lexicalCategory );
 	} );
 
 	it( 'shows save button disabled without changes', function ( done ) {
@@ -145,7 +145,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	it( 'binds to lemma-widget hasRedundantLanguage event', function () {
 		var widget = newWidget( { lemmas: [] } );
 
-		widget.$children[ 0 ].$emit( 'hasRedundantLanguage', true );
+		widget.$refs.lemmas.$emit( 'hasRedundantLanguage', true );
 
 		expect( widget.hasRedundantLemmaLanguage, 'to be true' );
 	} );
@@ -302,7 +302,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			+ ':lemmas="lemmas" '
 			+ ':inEditMode="inEditMode" '
 			+ ':isSaving="isSaving" '
-			+ '@hasRedundantLanguage="hasRedundantLemmaLanguage = $event"></lemma-widget>'
+			+ '@hasRedundantLanguage="hasRedundantLemmaLanguage = $event" '
+			+ 'ref="lemmas"></lemma-widget>'
 			+ '</div>'
 			+ '<div class="lemma-widget_controls" v-if="isInitialized" >'
 			+ '<button type="button" class="lemma-widget_edit" v-if="!inEditMode" '
@@ -317,7 +318,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			+ '	:language.sync="language"'
 			+ '	:lexicalCategory.sync="lexicalCategory"'
 			+ '	:inEditMode="inEditMode"'
-			+ '	:isSaving="isSaving">'
+			+ '	:isSaving="isSaving"'
+			+ '	ref="languageAndLexicalCategory">'
 			+ '</language-and-category-widget>'
 			+ '</div>';
 

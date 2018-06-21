@@ -246,7 +246,8 @@ HTML;
 				:lemmas="lemmas"
 				:inEditMode="inEditMode"
 				:isSaving="isSaving"
-				@hasRedundantLanguage="hasRedundantLemmaLanguage = $event"></lemma-widget>
+				@hasRedundantLanguage="hasRedundantLemmaLanguage = $event">
+				ref="lemmas"></lemma-widget>
 		</div>
 		<div class="lemma-widget_controls" v-if="isInitialized" >
 			<button type="button" class="lemma-widget_edit" v-if="!inEditMode"
@@ -261,7 +262,8 @@ HTML;
 		:language.sync="language"
 		:lexicalCategory.sync="lexicalCategory"
 		:inEditMode="inEditMode"
-		:isSaving="isSaving">
+		:isSaving="isSaving"
+		ref="languageAndLexicalCategory">
 	</language-and-category-widget>
 </div>
 HTML;
