@@ -1,6 +1,4 @@
 .lemma-widget {
-	@button-disabled-color: #72777d; // TODO: move me to color vars file
-
 	display: flex;
 
 	&_lemma-list {
@@ -53,9 +51,7 @@
 			vertical-align: middle;
 			background-position: center;
 
-			@wikibase-root: '../../Wikibase';
-			@wb-oojs-icon-path: 'view/resources/jquery/wikibase/toolbar/themes/default/images/icons/oojs-ui';
-			@icon-path: '@{wikibase-root}/@{wb-oojs-icon-path}/@{image}';
+			@icon-path: '@{wb-oojs-icon-path}/@{image}';
 			/* @embed */
 			background-image: url( @icon-path );
 			/* @embed */
