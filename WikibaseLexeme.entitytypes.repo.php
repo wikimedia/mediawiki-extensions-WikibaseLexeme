@@ -27,6 +27,7 @@ use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
@@ -333,6 +334,16 @@ return [
 			);
 			$rdfBuilder->addPrefixes();
 			return $rdfBuilder;
+		},
+		'link-formatter-callback' => function ( Language $language ) {
+			$repo = WikibaseRepo::getDefaultInstance();
+
+			return new FormLinkFormatter(
+				$repo->getEntityLookup(),
+				new DefaultEntityLinkFormatter( $language ),
+				RequestContext::getMain(),
+				$language
+			);
 		},
 	],
 ];

@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Content;
 use Article;
 use IContextSource;
 use Page;
+use Title;
 use UnexpectedValueException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\Content\EntityInstanceHolder;
@@ -163,6 +164,16 @@ class LexemeHandler extends EntityHandler {
 	 */
 	public function getSpecialPageForCreation() {
 		return 'NewLexeme';
+	}
+
+	public function getIdForTitle( Title $target ) {
+		$lexemeId = parent::getIdForTitle( $target );
+
+		if ( $target->getFragment() ) {
+			return new FormId( $target->getFragment() );
+		}
+
+		return $lexemeId;
 	}
 
 }
