@@ -315,7 +315,18 @@ return call_user_func( function() {
 			"dependencies" => [
 				"oojs-ui-core",
 				"oojs-ui-widgets",
+				"wikibase.lexeme.widgets.LabelDescriptionOptionWidget",
 				"wikibase.lexeme"
+			]
+		],
+		"wikibase.lexeme.widgets.LabelDescriptionOptionWidget" => $moduleTemplate + [
+			"scripts" => [
+				"widgets/__namespace.js",
+				"widgets/LabelDescriptionOptionWidget.js"
+			],
+			"dependencies" => [
+				"oojs-ui-core",
+				"oojs-ui-widgets"
 			]
 		],
 		"wikibase.lexeme.widgets.GrammaticalFeatureListWidget" => $moduleTemplate + [
