@@ -16,6 +16,7 @@
     "jquery": "^3.2.1",
     "jsdom": "^11.11.0",
     "jsdom-global": "^3.0.2",
+    "lodash": "^4.17.10",
     "module-alias": "^2.0.0",
     "sinon": "^3.2.1",
     "stylelint": "9.2.0",
