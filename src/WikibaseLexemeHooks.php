@@ -123,6 +123,7 @@ class WikibaseLexemeHooks {
 			'scripts' => [
 				'tests/qunit/datamodel/Form.tests.js',
 				'tests/qunit/datamodel/Sense.tests.js',
+				'tests/qunit/datamodel/Lexeme.tests.js',
 				'tests/qunit/entityChangers/FormChanger.tests.js',
 				'tests/qunit/entityChangers/LexemeRevisionStore.tests.js',
 				'tests/qunit/experts/Lexeme.tests.js',

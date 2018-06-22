@@ -17,39 +17,10 @@
 	QUnit.test( 'Can set statements and get them back', function ( assert ) {
 		var statementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'L1$1' );
 
-		var lexeme = new Lexeme( 'L1', statementGroupSet );
+		var lexeme = new Lexeme( 'L1', undefined, statementGroupSet );
 
 		assert.equal( lexeme.getStatements(), statementGroupSet );
 	} );
-
-	QUnit.test( 'Can find existing statement on the Lexeme by GUID', function ( assert ) {
-		var guid = 'L1$1';
-		var statementGroupSet = createStatementGroupWithSingleStatement( 'P1', guid );
-
-		var lexeme = new Lexeme( 'L1', statementGroupSet );
-
-		assert.ok( lexeme.findStatementByGuid( guid ) instanceof wb.datamodel.Statement );
-	} );
-
-	QUnit.test( 'Can`t find nonexistent statement - returns null', function ( assert ) {
-		var statementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'L1$existing' );
-
-		var lexeme = new Lexeme( 'L1', statementGroupSet );
-
-		assert.equal( lexeme.findStatementByGuid( 'L1$nonexistent' ), null );
-	} );
-
-	QUnit.test(
-		'Can find existing statement on Form through Lexeme by GUID',
-		function ( assert ) {
-			var lexemeStatementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'L1$1' );
-			var formStatementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'F1$1' );
-			var lexeme = new Lexeme( 'L1', lexemeStatementGroupSet );
-			lexeme.forms = [ new Form( 'F1', '', [], formStatementGroupSet ) ];
-
-			assert.ok( lexeme.findStatementByGuid( 'F1$1' ) instanceof wb.datamodel.Statement );
-		}
-	);
 
 	function createStatementGroupWithSingleStatement( propertyId, guid ) {
 		return new wb.datamodel.StatementGroupSet( [
