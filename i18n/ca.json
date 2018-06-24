@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Vriullop",
-			"Toniher"
+			"Toniher",
+			"Fitoschido"
 		]
 	},
 	"wikibaselexeme-desc": "Gestió del tipus d'entitat Lexema",
@@ -33,6 +34,9 @@
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-sense": "Accepció",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexema",
+	"wikibase-listdatatypes-wikibase-form-head": "Forma",
+	"wikibase-listdatatypes-wikibase-sense-head": "Accepció",
 	"wikibaselexeme-add-sense": "afegeix una accepció",
 	"wikibaselexeme-add-form": "afegeix una forma",
 	"apihelp-wbladdform-summary": "Afegeix una forma al lexema",
