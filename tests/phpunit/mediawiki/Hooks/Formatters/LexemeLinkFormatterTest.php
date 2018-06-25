@@ -164,7 +164,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	 * @param Lexeme|null $lexeme
 	 * @return \PHPUnit_Framework_MockObject_MockObject|EntityLookup
 	 */
-	public function getMockEntityLookup( $lexeme ) {
+	private function getMockEntityLookup( $lexeme ) {
 		$entityLookup = $this->getMock( EntityLookup::class );
 		$entityLookup->method( 'getEntity' )->willReturn( $lexeme );
 
