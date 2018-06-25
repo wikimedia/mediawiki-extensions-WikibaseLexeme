@@ -40,12 +40,14 @@
 
 			var lexeme = new wb.lexeme.datamodel.Lexeme(
 				serialization.id,
-				termMapDeserializer.deserialize( serialization.labels ),
-				statementGroupSetDeserializer.deserialize( serialization.claims )
+				termMapDeserializer.deserialize( serialization.lemmas ),
+				serialization.lexicalCategory,
+				serialization.language,
+				statementGroupSetDeserializer.deserialize( serialization.claims ),
+				deserializedForms
 			);
 
 			// TODO switch to setter/constructor
-			lexeme.forms = deserializedForms;
 			lexeme.senses = deserializedSenses;
 
 			return lexeme;

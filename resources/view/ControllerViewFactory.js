@@ -116,7 +116,7 @@
 				getListItemAdapter: this.getListItemAdapterForFormListView.bind( this, lexeme, startEditingCallback ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
 				getMessage: $.proxy( mw.messages.get, mw.messages ),
-				value: lexeme.forms
+				value: lexeme.getForms()
 			}
 		);
 	};
