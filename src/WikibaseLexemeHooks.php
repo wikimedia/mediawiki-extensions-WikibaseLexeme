@@ -118,6 +118,21 @@ class WikibaseLexemeHooks {
 		);
 	}
 
+	/**
+	 * Adds the definition of the data types related to lexeme to the definitions array
+	 * Wikibase uses.
+	 *
+	 * @see WikibaseLexeme.datatypes.client.php
+	 *
+	 * @param array[] $dataTypeDefinitions
+	 */
+	public static function onWikibaseClientDataTypes( array &$dataTypeDefinitions ) {
+		$dataTypeDefinitions = array_merge(
+			$dataTypeDefinitions,
+			require __DIR__ . '/../WikibaseLexeme.datatypes.client.php'
+		);
+	}
+
 	public static function onResourceLoaderTestModules( array &$testModules, ResourceLoader $rl ) {
 		$testModules['qunit']['WikibaseLexeme.tests'] = [
 			'scripts' => [
