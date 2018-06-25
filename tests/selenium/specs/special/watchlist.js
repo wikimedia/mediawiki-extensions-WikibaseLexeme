@@ -1,0 +1,63 @@
+'use strict';
+
+const assert = require( 'assert' ),
+	Api = require( 'wdio-mediawiki/Api' ),
+	LexemeApi = require( '../../lexeme.api' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	WatchlistPage = require( '../../../../../../tests/selenium/pageobjects/watchlist.page' ),
+	WatchablePage = require( '../../../../../../tests/selenium/pageobjects/watchable.page' );
+
+describe( 'Special:Watchlist', () => {
+
+	let username, password;
+
+	function getTestString( prefix = '' ) {
+		return prefix + Math.random().toString() + '-öäü-♠♣♥♦';
+	}
+
+	before( function () {
+		username = getTestString( 'user-' );
+		password = getTestString( 'password-' );
+
+		browser.call( function () {
+			return Api.createAccount( username, password );
+		} );
+	} );
+
+	beforeEach( function () {
+		browser.deleteCookie();
+		LoginPage.login( username, password );
+	} );
+
+	it( 'shows lemmas in title links to lexemes', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create( {
+				lemmas: {
+					en: {
+						value: 'color',
+						language: 'en'
+					},
+					'en-gb': {
+						value: 'colour',
+						language: 'en-gb'
+					}
+				}
+			} )
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		WatchablePage.watch( 'Lexeme:' + id );
+
+		WatchlistPage.open();
+		const title = WatchlistPage.titles[ 0 ].getText();
+
+		assert( title.includes( 'color' ) );
+		assert( title.includes( 'colour' ) );
+		assert( title.includes( id ) );
+	} );
+
+} );
