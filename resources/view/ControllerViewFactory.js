@@ -135,7 +135,7 @@
 	};
 
 	SELF.prototype.getFormView = function (
-		lexemeId,
+		lexeme,
 		form,
 		labelFormattingService,
 		$dom,
@@ -152,7 +152,8 @@
 					buildStatementGroupListView: this.getStatementGroupListView.bind(
 						this,
 						startEditingCallback
-					)
+					),
+					lexeme: lexeme
 				}
 			),
 			formSerializer = new wb.lexeme.serialization.FormSerializer(),
@@ -160,7 +161,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
 				formView,
-				new wb.lexeme.entityChangers.FormChanger( this._api, this._revisionStore, lexemeId, formData ),
+				new wb.lexeme.entityChangers.FormChanger( this._api, this._revisionStore, lexeme.getId(), formData ),
 				removeCallback.bind( null, formView ),
 				form,
 				startEditingCallback
@@ -281,7 +282,7 @@
 				var $element = $( element );
 
 				return self.getFormView(
-					lexeme.getId(),
+					lexeme,
 					form || null,
 					new FakeLabelFormattingService( self._api, self._getExistingGrammaticalFormattedFeatures( $element ) ),
 					$element,

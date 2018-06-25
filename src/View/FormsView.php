@@ -180,12 +180,14 @@ HTML;
 						{{'wikibaselexeme-form-field-representation-label'|message}}
 					</span>
 					<input size="1" class="representation-widget_representation-value-input" 
-						v-model="representation.value">
+						:value="representation.value"
+						@input="updateValue(representation, $event)">
 					<span class="representation-widget_representation-language-label">
 						{{'wikibaselexeme-form-field-language-label'|message}}
 					</span>
 					<input size="1" class="representation-widget_representation-language-input" 
-						v-model="representation.language" 
+						:value="representation.language"
+						@input="updateLanguage(representation, $event)" 
 						:class="{ 
 							'representation-widget_representation-language-input_redundant-language': 
 								isRedundantLanguage(representation.language)
