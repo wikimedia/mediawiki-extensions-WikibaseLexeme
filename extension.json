@@ -67,7 +67,7 @@
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientEntityTypes"
 		],
 		"WikibaseClientDataTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseDataTypes"
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientDataTypes"
 		],
 		"ResourceLoaderTestModules": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onResourceLoaderTestModules"
