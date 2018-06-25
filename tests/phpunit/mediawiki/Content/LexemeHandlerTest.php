@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
 use PHPUnit4And6Compat;
+use Title;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -14,6 +15,7 @@ use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Content\LexemeContent;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
@@ -196,6 +198,24 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 	public function testExportTransform( $blob = null, $expected = null ) {
 		$this->markTestSkipped( 'serialized data transformation issues are irrelevant to Lexemes' );
+	}
+
+	public function testGivenLexemePageGetIdForTitle_returnsLexemeId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new LexemeId( 'L1' ),
+			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1' ) )
+		);
+	}
+
+	public function testGivenLexemePageWithFormIdFragmentGetIdForTitle_returnsFormId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new FormId( 'L1-F2' ),
+			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1', 'L1-F2' ) )
+		);
 	}
 
 }
