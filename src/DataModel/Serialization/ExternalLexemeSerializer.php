@@ -11,7 +11,8 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 /**
  * Serializer of Lexeme entities to be used to serializer entities for any external output
  * (i.e. API, Special pages, dumps etc).
- * For serialization to be used in the internal Wikibase storage layer use LexemeSerializer instead.
+ * For serialization to be used in the internal Wikibase storage layer
+ * use {@link StorageLexemeSerializer} instead.
  *
  * @license GPL-2.0-or-later
  */
