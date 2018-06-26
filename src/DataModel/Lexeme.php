@@ -67,6 +67,11 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	private $nextFormId = 1;
 
 	/**
+	 * @var int
+	 */
+	private $nextSenseId = 1;
+
+	/**
 	 * Note that $lexicalCategory and $language can only be null during construction time. Their
 	 * setters can not be called with null, and their getters will throw an exception if the
 	 * corresponding field was never initialized.
@@ -78,6 +83,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * @param StatementList|null $statements
 	 * @param int $nextFormId
 	 * @param FormSet|null $forms
+	 * @param int $nextSenseId
 	 * @param Sense[] $senses
 	 */
 	public function __construct(
@@ -88,6 +94,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		StatementList $statements = null,
 		$nextFormId = 1,
 		FormSet $forms = null,
+		$nextSenseId = 1,
 		array $senses = []
 	) {
 		$this->id = $id;
@@ -101,6 +108,8 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $this->forms );
 		$this->nextFormId = $nextFormId;
+		$this->assertCorrectNextSenseIdIsGiven( $nextSenseId, $this->senses );
+		$this->nextSenseId = $nextSenseId;
 	}
 
 	/**
@@ -313,6 +322,13 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getNextSenseId() {
+		return $this->nextSenseId;
+	}
+
+	/**
 	 * @param TermList $representations
 	 * @param ItemId[] $grammaticalFeatures
 	 *
@@ -416,6 +432,29 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 				)
 			);
 		}
+	}
+
+	/**
+	 * @param int $nextSenseId
+	 * @param Sense[] $senses
+	 */
+	private function assertCorrectNextSenseIdIsGiven( $nextSenseId, array $senses ) {
+		if ( !is_int( $nextSenseId ) || $nextSenseId < 1 ) {
+			throw new InvalidArgumentException( '$nextSenseId should be a positive integer' );
+		}
+
+		if ( $nextSenseId <= count( $senses ) ) {
+			throw new \LogicException(
+				sprintf(
+					'$nextSenseId must always be greater than the number of senses. ' .
+					'$nextSenseId = `%s`, number of senses = `%s`',
+					$nextSenseId,
+					count( $senses )
+				)
+			);
+		}
+
+		// TODO check max sense ID number in $senses
 	}
 
 	/**

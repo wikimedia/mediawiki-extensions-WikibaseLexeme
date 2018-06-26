@@ -79,6 +79,8 @@ class NewLexeme {
 		$forms = new FormSet( $this->forms );
 		$nextFormId = $forms->maxFormIdNumber() + 1;
 
+		$nextSenseId = count( $this->senses ) + 1; // TODO max sense ID number + 1
+
 		$lemmas = new TermList();
 		foreach ( $this->lemmas as $lang => $term ) {
 			$lemmas->setTextForLanguage( $lang, $term );
@@ -99,6 +101,7 @@ class NewLexeme {
 			null,
 			$nextFormId,
 			$forms,
+			$nextSenseId,
 			$this->senses
 		);
 

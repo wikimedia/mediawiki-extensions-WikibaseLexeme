@@ -138,6 +138,65 @@ class LexemeTest extends TestCase {
 		);
 	}
 
+	public function testCanNotCreateWithNonIntNextSenseId() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			null,
+			1.0
+		);
+	}
+
+	public function testCanNotCreateWithNonPositiveNextSenseId() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			null,
+			0
+		);
+	}
+
+	public function testCanNotCreateWithNextSenseIdSmallerOrEqualThanNumberOfProvidedSenses() {
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			null,
+			1,
+			[ NewSense::havingId( 'L1-S1' )->build() ]
+		);
+	}
+
+	public function testCanNotCreateWithNextSenseIdSmallerOrEqualThanMaxExistingSenseId() {
+		$this->markTestSkipped( 'max sense ID number not yet checked' );
+		$this->setExpectedException( \Exception::class );
+		new Lexeme(
+			new LexemeId( 'L1' ),
+			null,
+			null,
+			null,
+			null,
+			1,
+			null,
+			2,
+			[ NewSense::havingId( 'L1-S2' )->build() ]
+		);
+	}
+
 	public function provideInvalidIds() {
 		return [
 			[ null ],
@@ -201,6 +260,7 @@ class LexemeTest extends TestCase {
 			null,
 			1,
 			null,
+			2,
 			[ NewSense::havingId( 'S1' )->build() ]
 		);
 

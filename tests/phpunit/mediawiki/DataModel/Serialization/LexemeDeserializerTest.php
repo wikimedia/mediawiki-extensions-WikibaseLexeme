@@ -220,6 +220,35 @@ class LexemeDeserializerTest extends TestCase {
 
 		];
 
+		$serializations['with empty senses list and no nextSenseId'] = [
+			[
+				'type' => 'lexeme',
+				'nextFormId' => 1,
+				'senses' => [],
+			],
+			new Lexeme()
+		];
+
+		$serializations['with empty senses list and default nextSenseId'] = [
+			[
+				'type' => 'lexeme',
+				'nextFormId' => 1,
+				'nextSenseId' => 1,
+				'senses' => [],
+			],
+			new Lexeme()
+		];
+
+		$serializations['with empty senses list and non-default nextSenseId'] = [
+			[
+				'type' => 'lexeme',
+				'nextFormId' => 1,
+				'nextSenseId' => 2,
+				'senses' => [],
+			],
+			new Lexeme( null, null, null, null, null, 1, null, 2 )
+		];
+
 		return $serializations;
 	}
 

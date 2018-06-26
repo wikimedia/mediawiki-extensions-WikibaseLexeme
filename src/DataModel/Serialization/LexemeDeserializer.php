@@ -64,7 +64,8 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$this->deserializeLanguage( $serialization ),
 			$this->deserializeStatements( $serialization ),
 			$serialization['nextFormId'],
-			$this->deserializeForms( $serialization )
+			$this->deserializeForms( $serialization ),
+			$this->deserializeNextSenseId( $serialization )
 		);
 	}
 
@@ -176,6 +177,23 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		$statements = $this->statementListDeserializer->deserialize( $serialization['claims'] );
 
 		return new Form( $id, $representations, $grammaticalFeatures, $statements );
+	}
+
+	/**
+	 * @param array $serialization
+	 * @return int
+	 */
+	private function deserializeNextSenseId( array $serialization ) {
+		if ( array_key_exists( 'nextSenseId', $serialization ) ) {
+			return $serialization['nextSenseId'];
+		} else {
+			if ( array_key_exists( 'senses', $serialization ) && $serialization['senses'] !== [] ) {
+				throw new DeserializationException(
+					'Lexeme serialization has senses but no nextSenseId'
+				);
+			}
+			return 1;
+		}
 	}
 
 }
