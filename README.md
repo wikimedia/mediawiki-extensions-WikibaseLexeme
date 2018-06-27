@@ -42,6 +42,7 @@ Recommended way of setting the development environment is with the use of [Docke
 
   It should now look similar to:
   ```
+  {
   "extra": {
       "merge-plugin": {
         "include": [
