@@ -240,7 +240,6 @@ return call_user_func( function() {
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.datamodel.Entity",
-				"wikibase.datamodel.Fingerprint",
 				"wikibase.datamodel.StatementGroupSet",
 				"wikibase.datamodel.TermMap",
 				"wikibase.lexeme"

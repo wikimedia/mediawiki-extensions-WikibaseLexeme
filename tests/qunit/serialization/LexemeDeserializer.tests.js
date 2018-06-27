@@ -26,7 +26,12 @@
 	var serialization = {
 		type: 'lexeme',
 		id: 'L1',
-		lemmas: {},
+		lemmas: {
+			de: {
+				language: 'de',
+				value: 'blah'
+			}
+		},
 		lexicalCategory: 'Q2',
 		language: 'Q2',
 		claims: claimsSerialization,
@@ -40,12 +45,14 @@
 				new wb.datamodel.PropertyNoValueSnak( 'P1' ), null, 'L1$1' ) )
 		] ) )
 	] );
-	var expectedDataModel = new wikibase.lexeme.datamodel.Lexeme(
+	var expectedDataModel = new wb.lexeme.datamodel.Lexeme(
 		'L1',
-		null,
-		expectedStatementGroupSet
+		new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'blah' ) } ),
+		'Q2',
+		'Q2',
+		expectedStatementGroupSet,
+		[]
 		);
-	expectedDataModel.forms = [];
 	expectedDataModel.senses = [];
 
 	QUnit.test( 'deserialize()', function ( assert ) {
@@ -69,6 +76,14 @@
 		var result = ds.deserialize( {
 			type: 'lexeme',
 			id: 'L1',
+			lemmas: {
+				de: {
+					language: 'de',
+					value: 'foo'
+				}
+			},
+			lexicalCategory: 'Q2',
+			language: 'Q1',
 			forms: [ {
 				id: 'F1',
 				representations: { en: { language: 'en', value: 'some representation' } },
@@ -78,9 +93,9 @@
 			senses: []
 		} );
 
-		assert.ok( result.forms, 'Deserialized data model should contain forms' );
+		assert.ok( result.getForms(), 'Deserialized data model should contain forms' );
 
-		var form = result.forms[ 0 ];
+		var form = result.getForms()[ 0 ];
 		assert.ok(
 			form instanceof wb.lexeme.datamodel.Form,
 			'Data model should contain instance of Form'
@@ -114,10 +129,18 @@
 			var result = ds.deserialize( {
 				type: 'lexeme',
 				id: 'L1',
+				lemmas: {
+					de: {
+						language: 'de',
+						value: 'foo'
+					}
+				},
+				lexicalCategory: 'Q2',
+				language: 'Q1',
 				senses: []
 			} );
 
-			assert.ok( result.forms, 'Deserialized data model should contain forms' );
+			assert.ok( result.getForms(), 'Deserialized data model should contain forms' );
 		}
 	);
 
@@ -127,6 +150,14 @@
 		var result = ds.deserialize( {
 			type: 'lexeme',
 			id: 'L1',
+			lemmas: {
+				de: {
+					language: 'de',
+					value: 'foo'
+				}
+			},
+			lexicalCategory: 'Q2',
+			language: 'Q1',
 			forms: [],
 			senses: [ {
 				id: 'S1',
@@ -164,6 +195,14 @@
 			var result = ds.deserialize( {
 				type: 'lexeme',
 				id: 'L1',
+				lemmas: {
+					de: {
+						language: 'de',
+						value: 'foo'
+					}
+				},
+				lexicalCategory: 'Q2',
+				language: 'Q1',
 				forms: []
 			} );
 
