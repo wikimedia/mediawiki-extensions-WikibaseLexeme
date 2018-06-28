@@ -5,15 +5,26 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 
 	var mediaWiki = { messages: {} };
 
+	var FIRST_ENGLISH_LEMMA = { language: 'en', value: 'color' };
+	var SECOND_ENGLISH_LEMMA = { language: 'en-GB', value: 'colour' };
 	var EMPTY_REPRESENTATION = { language: '', value: '' };
+	var EMPTY_REPRESENTATION_WITH_LEMMA_LANGUAGE = { language: 'en', value: '' };
 	var SOME_REPRESENTATION = { language: 'en', value: 'representation in english' };
 
-	it( 'adds a new empty representation when editing the widget with no representations', function () {
-		var widget = newWidget( [] );
+	it( 'adds a new empty representation when editing the widget with no representations and multiple lemmas', function () {
+		var widget = newWidget( [], [ FIRST_ENGLISH_LEMMA, SECOND_ENGLISH_LEMMA ] );
 
 		widget.edit();
 
 		expect( widget.representations, 'to equal', [ EMPTY_REPRESENTATION ] );
+	} );
+
+	it( 'adds a new representation with lemma language when editing the widget with no representations and one lemma', function () {
+		var widget = newWidget( [], [ FIRST_ENGLISH_LEMMA ] );
+
+		widget.edit();
+
+		expect( widget.representations, 'to equal', [ EMPTY_REPRESENTATION_WITH_LEMMA_LANGUAGE ] );
 	} );
 
 	it( 'shows only the representation it contains when editing the widget with some representation', function () {
@@ -97,6 +108,16 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 		expect( widget.representations, 'to equal', [] );
 	} );
 
+	it( 'adds a representation with unique lemmas language on add after delete', function () {
+		var widget = newWidget( [ SOME_REPRESENTATION ], [ FIRST_ENGLISH_LEMMA ] );
+
+		widget.edit();
+		widget.remove( SOME_REPRESENTATION );
+		widget.add();
+
+		expect( widget.representations, 'to equal', [ EMPTY_REPRESENTATION_WITH_LEMMA_LANGUAGE ] );
+	} );
+
 	it( 'cannot add representation if not in edit mode', function () {
 		var widget = newWidget( [] );
 
@@ -129,7 +150,7 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 
 	function getTestStore( lemmas, representations ) {
 		return getStore(
-			lemmas || [],
+			lemmas || [ FIRST_ENGLISH_LEMMA, SECOND_ENGLISH_LEMMA ],
 			getFormIndex(),
 			'L42-F1',
 			representations

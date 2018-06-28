@@ -24,6 +24,12 @@
 			{ language: payload.language }
 		);
 	};
+	mutations[ mutationTypes.DERIVE_REPRESENTATION_LANGUAGE_FROM_LEMMA ] = function ( state, payload ) {
+		Object.assign(
+			state.lexeme.forms[ payload.formIndex ].representations[ payload.representationIndex ],
+			{ language: state.lexeme.lemmas[ 0 ].language }
+		);
+	};
 
 	module.exports = mutations;
 

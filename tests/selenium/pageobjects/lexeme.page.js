@@ -1,6 +1,7 @@
 'use strict';
 
-const Page = require( '../../../../../tests/selenium/pageobjects/page' );
+const Page = require( '../../../../../tests/selenium/pageobjects/page' ),
+	_ = require( 'lodash' );
 
 class LexemePage extends Page {
 
@@ -76,6 +77,7 @@ class LexemePage extends Page {
 	open( lexemeId ) {
 		super.open( 'Lexeme:' + lexemeId );
 		browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+		this.addFormLink.waitForVisible(); // last button on page, probably the last
 	}
 
 	/**
@@ -116,7 +118,6 @@ class LexemePage extends Page {
 	 * @param {string} language
 	 */
 	addForm( value, language ) {
-		this.addFormLink.waitForVisible();
 		this.addFormLink.click();
 
 		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( value );
@@ -160,10 +161,33 @@ class LexemePage extends Page {
 		};
 	}
 
+	/**
+	 * Get data of the nth form on the page
+	 *
+	 * @param {int} index
+	 * @return {{value, language}}
+	 */
+	getNthFormFormValues( index ) {
+		let form = this.forms[ index ],
+			languageFields = form.$$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ),
+			representationInputs = [];
+
+		_.each( form.$$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ), function ( element, key ) {
+			representationInputs.push( {
+				value: element.getValue(),
+				language: languageFields[ key ].getValue()
+			} );
+		} );
+
+		return {
+			representations: representationInputs
+		};
+	}
+
 	addRepresentationToNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 
-		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		this.startEditingNthForm( index );
 
 		let addRepresentationButton = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_REPRESENTATION_BUTTON );
 
@@ -187,7 +211,7 @@ class LexemePage extends Page {
 	editRepresentationOfNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 
-		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		this.startEditingNthForm( index );
 
 		form.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( representation );
 		form.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
@@ -200,7 +224,7 @@ class LexemePage extends Page {
 	removeLastRepresentationOfNthForm( index, submitImmediately ) {
 		let form = this.forms[ index ];
 
-		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		this.startEditingNthForm( index );
 
 		let representationContainer = form.$( '.representation-widget_representation-list' );
 		let representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
@@ -213,6 +237,10 @@ class LexemePage extends Page {
 		if ( submitImmediately !== false ) {
 			this.submitNthForm( index );
 		}
+	}
+
+	startEditingNthForm( index ) {
+		this.forms[ index ].$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
 	}
 
 	isNthFormSubmittable( index ) {
