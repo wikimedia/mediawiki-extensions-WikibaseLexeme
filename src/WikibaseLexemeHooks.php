@@ -154,6 +154,7 @@ class WikibaseLexemeHooks {
 				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
 				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'tests/qunit/widgets/ItemSelectorWidget.tests.js',
+				'tests/qunit/widgets/LabelDescriptionOptionWidget.tests.js',
 				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
 				'tests/qunit/view/ViewFactoryFactory.tests.js',
 				'tests/qunit/i18n/Messages.tests.js'
@@ -178,6 +179,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.services.LanguageFromItemExtractor',
 				'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver',
 				'wikibase.lexeme.widgets.ItemSelectorWidget',
+				'wikibase.lexeme.widgets.LabelDescriptionOptionWidget',
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 				'wikibase.lexeme.widgets.GlossWidget',
 				'wikibase.lexeme.widgets.RepresentationWidget',

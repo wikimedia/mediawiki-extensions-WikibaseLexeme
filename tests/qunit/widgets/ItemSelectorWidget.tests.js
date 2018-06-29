@@ -6,7 +6,7 @@
 
 	var newInitializedItemSelectorWidget = function () {
 		var $hiddenField = $( '<input>' )
-			.attr( 'type', 'hidden' ),
+				.attr( 'type', 'hidden' ),
 			config = { $valueField: $hiddenField },
 			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 
@@ -45,23 +45,58 @@
 		var widget = newInitializedItemSelectorWidget(),
 			searchEntitiesResults = [ { id: 'Q123', label: 'English' }, { id: 'Q234', label: 'German' } ],
 			suggestions = widget.getLookupMenuOptionsFromData( searchEntitiesResults );
-
 		assert.equal( suggestions.length, searchEntitiesResults.length );
 		assert.equal(
-			suggestions[ 0 ].label,
-			searchEntitiesResults[ 0 ].label + ' (' + searchEntitiesResults[ 0 ].id + ')'
+			suggestions[ 0 ].getLabel().text(),
+			searchEntitiesResults[ 0 ].label
 		);
 		assert.equal( suggestions[ 0 ].id, searchEntitiesResults[ 0 ].data );
 		assert.equal(
-			suggestions[ 1 ].label,
-			searchEntitiesResults[ 1 ].label + ' (' + searchEntitiesResults[ 1 ].id + ')'
+			suggestions[ 1 ].getLabel().text(),
+			searchEntitiesResults[ 1 ].label
 		);
-		assert.equal( suggestions[ 1 ].id, searchEntitiesResults[ 1 ].data );
+		assert.equal( suggestions[ 1 ].data, searchEntitiesResults[ 1 ].id );
+	} );
+
+	QUnit.test( 'item descriptions are included in the menu option labels', function ( assert ) {
+		var widget = newInitializedItemSelectorWidget(),
+			suggestions = widget.getLookupMenuOptionsFromData( [ {
+				id: 'Q23',
+				label: 'banana',
+				description: 'fruit'
+			} ] );
+
+		assert.equal(
+			suggestions[ 0 ].getLabel().find( '.label' ).text(),
+			'banana'
+		);
+		assert.equal(
+			suggestions[ 0 ].getLabel().find( '.description' ).text(),
+			'fruit'
+		);
+	} );
+
+	QUnit.test( 'labels and descriptions are escaped in menu options', function ( assert ) {
+		var widget = newInitializedItemSelectorWidget(),
+			suggestions = widget.getLookupMenuOptionsFromData( [ {
+				id: 'Q1',
+				label: '<b>duck</b>',
+				description: '<i>aquatic bird</i>'
+			} ] );
+
+		assert.equal(
+			suggestions[ 0 ].getLabel().find( '.label' ).text(),
+			'<b>duck</b>'
+		);
+		assert.equal(
+			suggestions[ 0 ].getLabel().find( '.description' ).text(),
+			'<i>aquatic bird</i>'
+		);
 	} );
 
 	QUnit.test( 'initialize throws error when required parameters are not provided', function ( assert ) {
 		var $hiddenField = $( '<input>' )
-			.attr( 'type', 'hidden' ),
+				.attr( 'type', 'hidden' ),
 			config = { $valueField: $hiddenField },
 			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 
@@ -84,7 +119,7 @@
 
 	QUnit.test( 'getLookupRequest if the ItemSelectorWidget was not initialized', function ( assert ) {
 		var $hiddenField = $( '<input>' )
-			.attr( 'type', 'hidden' ),
+				.attr( 'type', 'hidden' ),
 			config = { $valueField: $hiddenField },
 			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 

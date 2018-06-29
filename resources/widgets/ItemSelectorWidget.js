@@ -122,9 +122,11 @@
 				i;
 
 			for ( i = 0; i < data.length; i++ ) {
-				items.push( new OO.ui.MenuOptionWidget( {
+				items.push( new wb.lexeme.widgets.LabelDescriptionOptionWidget( {
 					data: data[ i ].id,
-					label: data[ i ].label + ' (' + data[ i ].id + ')'
+					label: data[ i ].label,
+					description: data[ i ].description,
+					id: data[ i ].id
 				} ) );
 			}
 
@@ -146,7 +148,7 @@
 		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuItemChoose
 		 */
 		onLookupMenuItemChoose: function ( item ) {
-			this.setValue( item.getLabel() );
+			this.setValue( item.getInputLabel() );
 			this.$valueField.val( item.getData() );
 
 			if ( this._changeObserver ) {
