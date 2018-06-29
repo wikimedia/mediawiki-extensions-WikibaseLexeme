@@ -114,13 +114,20 @@ module.exports = ( function ( $, OO ) {
 				this.clearMenuItems();
 
 				var options = response.search.map( function ( item ) {
-					var label = $( '<a>' ).text( item.label )
-						.prop( 'href', item.url )
-						.css( 'display', 'block' )
-						.append( $( '<br/>' ).add( $( '<small>' ).text( item.description ) ) )
-						.data( 'label', item.label );
+					var textLabel = item.label || item.id,
+						label = $( '<a>' ).text( textLabel )
+							.prop( 'href', item.url )
+							.css( 'display', 'block' )
+							.data( 'label', textLabel );
 
-					return new OO.ui.MenuOptionWidget( { data: item.id, label: label } );
+					if ( item.description ) {
+						label.append(
+							$( '<br/>' ),
+							$( '<small>' ).text( item.description )
+						);
+					}
+
+					return { data: item.id, label: label };
 				} );
 
 				this.addOptions( options );
