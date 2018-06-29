@@ -59,6 +59,17 @@ Recommended way of setting the development environment is with the use of [Docke
 
   `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
 
+  It may be that you need to run this twice. The first time to get the composer-merge-plugin and most of the libraries
+  then the second time to get those which are added by the merge plugin. If update.php fails with:
+  ```
+  docker-compose exec "web" php /var/www/mediawiki/maintenance/update.php --wiki default --quick
+  [26142080ebaf7fde12c6233c] [no req]   Error from line 35 of /var/www/mediawiki/extensions/Wikibase/lib/WikibaseLib.entitytypes.php: Class 'Wikibase\DataModel\Entity\ItemId' not found
+	```
+
+	Then try running the command again.
+
+  Finally you may also have problems if your composer.lock file does not contain the extra dependencies pulled in by the merge-pulgin.
+  In this case it may be beneficial to either remove composer.lock or run `composer update` instead of `composer install`
 
 * Enable Extension
 
