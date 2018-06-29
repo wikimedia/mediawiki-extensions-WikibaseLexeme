@@ -2,7 +2,8 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' );
+	LexemePage = require( '../pageobjects/lexeme.page' ),
+	WikibaseApi = require( '../wikibase.api' );
 
 describe( 'Lexeme:Forms', () => {
 
@@ -136,5 +137,47 @@ describe( 'Lexeme:Forms', () => {
 		LexemePage.addRepresentationToNthForm( 0, 'colour', 'en', false );
 
 		assert.equal( LexemePage.isNthFormSubmittable( 0 ), false );
+	} );
+
+	it( 'can add grammatical feature', () => {
+		let id,
+			grammaticalFeatureId;
+
+		browser.call( () => {
+			return WikibaseApi.createItem()
+				.then( ( itemId ) => {
+					grammaticalFeatureId = itemId;
+				} );
+		} );
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addForm(
+						id,
+						{
+							representations: {
+								'en-ca': { language: 'en-ca', value: 'color' }
+							},
+							grammaticalFeatures: []
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addGrammaticalFeatureToNthForm( 0, grammaticalFeatureId );
+
+		browser.call( () => {
+			return LexemeApi.get( id )
+				.then( ( lexeme ) => {
+					assert.deepEqual( [ grammaticalFeatureId ], lexeme.forms[ 0 ].grammaticalFeatures );
+				} );
+		} );
+
 	} );
 } );

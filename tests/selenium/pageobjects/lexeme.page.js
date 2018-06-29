@@ -34,6 +34,12 @@ class LexemePage extends Page {
 		};
 	}
 
+	static get OOUI_OPTION_WIDGET_SELECTORS() {
+		return {
+			OPTION: '.oo-ui-optionWidget'
+		};
+	}
+
 	get lemmaContainer() {
 		return $( '.lemma-widget_lemma-list' );
 	}
@@ -223,6 +229,22 @@ class LexemePage extends Page {
 
 		saveButton.click();
 		saveButton.waitForExist( null, true );
+	}
+
+	addGrammaticalFeatureToNthForm( index, grammaticalFeatureId, submitImmediately ) {
+		let form = this.forms[ index ];
+
+		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+
+		let grammaticalFeatures = form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES );
+
+		grammaticalFeatures.$( 'input' ).setValue( grammaticalFeatureId );
+		grammaticalFeatures.waitForVisible( this.constructor.OOUI_OPTION_WIDGET_SELECTORS.OPTION );
+		grammaticalFeatures.$( this.constructor.OOUI_OPTION_WIDGET_SELECTORS.OPTION ).click();
+
+		if ( submitImmediately !== false ) {
+			this.submitNthForm( index );
+		}
 	}
 
 }
