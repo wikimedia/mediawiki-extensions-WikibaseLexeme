@@ -47,9 +47,14 @@
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Język nie może być pusty",
 	"wikibase-lexeme-summary-add-form": "Dodano nową formę $3 z {{PLURAL:$1|reprezentacją|reprezentacjami}}",
 	"wikibase-lexeme-summary-remove-form": "Usunięto formę $3 z {{PLURAL:$1|reprezentacją|reprezentacjami}}",
+	"wikibase-lexeme-summary-update-form-representations": "Zmieniono reprezentacje i/lub cechy gramatyczne formy $3",
 	"wikibase-lexeme-summary-add-form-representations": "Dodano {{PLURAL:$1|reprezentację|reprezentacje}} formy $3",
 	"wikibase-lexeme-summary-set-form-representations": "Zmieniono {{PLURAL:$1|reprezentację|reprezentacje}} formy $3",
 	"wikibase-lexeme-summary-remove-form-representations": "Usunięto {{PLURAL:$1|reprezentację|reprezentacje}} formy $3",
+	"wikibase-lexeme-summary-update-form-grammatical-features": "Zmieniono reprezentacje i/lub cechy gramatyczne formy $3",
+	"wikibase-lexeme-summary-add-form-grammatical-features": "Dodano {{PLURAL:$1|cechę gramatyczną|cechy gramatyczne}} formy $3",
+	"wikibase-lexeme-summary-remove-form-grammatical-features": "Usunięto {{PLURAL:$1|cechę gramatyczną|cechy gramatyczne}} formy $3",
+	"wikibase-lexeme-summary-update-form-elements": "Zmieniono reprezentacje i/lub cechy gramatyczne formy $3",
 	"wikibaselexeme-field-language-label": "Język",
 	"wikibaselexeme-field-lexical-category-label": "Kategoria leksykalna",
 	"wikibaselexeme-diffview-lemma": "Lemma",
@@ -57,5 +62,12 @@
 	"wikibaselexeme-diffview-language": "język",
 	"wikibaselexeme-diffview-form": "Forma",
 	"wikibaselexeme-diffview-representation": "reprezentacja",
-	"wikibaselexeme-form-description": "$1 dla: $2 ($3): $4"
+	"wikibaselexeme-diffview-grammatical-feature": "cecha gramatyczna",
+	"wikibaselexeme-form-grammatical-features": "Cechy gramatyczne",
+	"wikibaselexeme-form-description": "$1 dla: $2 ($3): $4",
+	"wikibaselexeme-unknown-language": "Nierozpoznany język",
+	"wikibaselexeme-unknown-category": "Nieznana",
+	"wikibaselexeme-no-features": "brak cech",
+	"wikibase-validator-form-not-found": "Leksem nie posiada formy z podanym ID",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Na przykład: stopień wyższy, czas przeszły..."
 }
