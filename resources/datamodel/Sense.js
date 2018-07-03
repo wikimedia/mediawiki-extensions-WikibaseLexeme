@@ -12,10 +12,11 @@
 		function ( id, glosses, statementGroupSet ) {
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 			this._id = id;
-			this._glosses = glosses;
+			this._glosses = glosses || new wb.datamodel.TermMap();
 
 			if (
-				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
+				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
+                !( glosses instanceof wb.datamodel.TermMap )
 			) {
 				throw new Error( 'Required parameter(s) missing or not defined properly' );
 			}
@@ -30,7 +31,7 @@
 			_id: null,
 
 			/**
-			 * @type {object}
+			 * @type {wikibase.datamodel.TermMap}
 			 */
 			_glosses: null,
 
@@ -47,18 +48,10 @@
 			},
 
 			/**
-			 * @return {object}
+			 * @return {wikibase.datamodel.TermMap}
 			 */
 			getGlosses: function () {
 				return this._glosses;
-			},
-
-			/**
-			 * @param language
-			 * @return {string}
-			 */
-			getGloss: function ( language ) {
-				return language in this._glosses ? this._glosses[ language ] : '';
 			},
 
 			/**
