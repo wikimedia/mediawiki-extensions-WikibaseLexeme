@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
-use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
@@ -17,6 +16,7 @@ use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\StorageException;
@@ -86,9 +86,7 @@ class AddForm extends ApiBase {
 					new RepresentationsChangeOpDeserializer(
 						new TermDeserializer(),
 						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator(
-								MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' )
-							)
+							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)
 					),
 					new ItemIdListDeserializer( new ItemIdParser() )
