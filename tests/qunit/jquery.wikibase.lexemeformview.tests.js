@@ -54,7 +54,18 @@
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {
-		assert.ok( newFormView() instanceof $.wikibase.lexemeformview );
+		var form = newForm( 'F123', 'foo' );
+
+		assert.ok( newFormView( { value: form } ) instanceof $.wikibase.lexemeformview );
+	} );
+
+	QUnit.test( 'creation without injected option.value fails', function ( assert ) {
+		try {
+			newFormView();
+			assert.notOk( true, 'Expecting construction to fail without form value to work with' );
+		} catch ( e ) {
+			assert.ok( e );
+		}
 	} );
 
 	QUnit.test( 'value can be injected as option.value', function ( assert ) {
@@ -78,16 +89,17 @@
 	} );
 
 	QUnit.test( 'value() creates value from input if it is in edit mode', function ( assert ) {
-		var done = assert.async();
-		var view = newFormView(),
+		var done = assert.async(),
+			form1 = newForm( 'F123', 'foo' ), // creates 'en' representation 'foo'
+			view = newFormView( { value: form1 } ),
 			textInput = 'foobar';
 
 		view.startEditing().then( function () {
-			changeInputValue( view.element.find( selector.representationLanguageInput ), 'en' );
+			changeInputValue( view.element.find( selector.representationLanguageInput ), 'en-gb' );
 			changeInputValue( view.element.find( selector.representationTextInput ), textInput );
 
 			assert.equal(
-				view.value().getRepresentations().getItemByKey( 'en' ).getText(),
+				view.value().getRepresentations().getItemByKey( 'en-gb' ).getText(),
 				textInput
 			);
 		} ).catch( function ( e ) {
@@ -178,10 +190,6 @@
 		} ).catch( function ( e ) {
 			assert.notOk( e.stack );
 		} ).then( done );
-	} );
-
-	QUnit.test( 'should not be in edit mode when initialized without a value', function ( assert ) {
-		assert.notOk( newFormView().isInEditMode() );
 	} );
 
 	QUnit.test( 'should not be in edit mode by default when initialized with a value', function ( assert ) {
