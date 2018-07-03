@@ -185,14 +185,14 @@
 		},
 
 		_buildRepresentations: function ( form ) {
-			var representations = form ? termMapToArray( form.getRepresentations() ) : [],
+			var representations = termMapToArray( form.getRepresentations() ),
 				lemmas = termMapToArray( this.options.lexeme.getLemmas() );
 
 			this._representationsWidget = RepresentationWidget.create(
 				getStore(
 					lemmas,
 					getFormIndex(),
-					form ? form.getId() : null, // TODO is null form a thing outside tests?
+					form.getId(),
 					representations
 				),
 				getFormIndex(),
