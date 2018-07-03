@@ -77,7 +77,8 @@ return call_user_func( function() {
 				"jquery.ui.EditableTemplatedWidget",
 				"wikibase.templates.lexeme",
 				"jquery.wikibase.grammaticalfeatureview",
-				"wikibase.lexeme.widgets.RepresentationWidget"
+				"wikibase.lexeme.widgets.RepresentationWidget",
+				"wikibase.lexeme.store"
 			],
 			"messages" => [
 				"wikibaselexeme-empty-form-representation",
@@ -172,7 +173,8 @@ return call_user_func( function() {
 			"scripts" => "widgets/RepresentationWidget.js",
 			"dependencies" => [
 				"vue",
-				"wikibase.lexeme.widgets.RedundantLanguageIndicator"
+				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
+				"wikibase.lexeme.store.mutationTypes"
 			],
 			"messages" => [
 				"wikibase-add",
@@ -250,6 +252,22 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.datatransfer.LemmaList" => $moduleTemplate + [
 			"scripts" => "datatransfer/LemmaList.js"
+		],
+		"wikibase.lexeme.store" => $moduleTemplate + [
+			"scripts" => "store/index.js",
+			"dependencies" => [
+				"vuex",
+				"wikibase.lexeme.store.mutations"
+			]
+		],
+		"wikibase.lexeme.store.mutations" => $moduleTemplate + [
+			"scripts" => "store/mutations.js",
+			"dependencies" => [
+				"wikibase.lexeme.store.mutationTypes"
+			]
+		],
+		"wikibase.lexeme.store.mutationTypes" => $moduleTemplate + [
+			"scripts" => "store/mutationTypes.js"
 		],
 		"wikibase.lexeme.datamodel.Form" => $moduleTemplate + [
 			"scripts" => [

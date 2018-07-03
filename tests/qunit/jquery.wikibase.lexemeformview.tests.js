@@ -38,6 +38,11 @@
 			}
 		};
 		options.buildStatementGroupListView = function () {};
+		options.lexeme = {
+			getLemmas: function () {
+				return new TermMap( { en: new Term( 'en', 'color' ) } );
+			}
+		};
 
 		return $node.lexemeformview( options ).data( 'lexemeformview' );
 	};
@@ -249,9 +254,11 @@
 			'<li v-for="representation in representations" \n' +
 			'class="representation-widget_representation-edit-box">\n' +
 			'<input size="1" class="representation-widget_representation-value-input" \n' +
-			'v-model="representation.value">\n' +
+			':value="representation.value" \n' +
+			'@input="updateValue(representation, $event)">\n' +
 			'<input size="1" class="representation-widget_representation-language-input" \n' +
-			'v-model="representation.language" \n' +
+			':value="representation.language" \n' +
+			'@input="updateLanguage(representation, $event)" \n' +
 			'v-bind:class="{ \'representation-widget_representation-language-input_redundant-language\': ' +
 			'isRedundantLanguage(representation.language) }" \n' +
 			':aria-invalid="isRedundantLanguage(representation.language)">\n' +

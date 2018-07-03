@@ -1,22 +1,27 @@
 module.exports = ( function () {
 	'use strict';
 
-	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
+	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
+		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.RepresentationWidget.newComponent
 	 *
-	 * @param {{language:string, value: string}[]} representations
+	 * @param {Vuex.Store} store
+	 * @param {integer} formIndex Index of the form to emit value updates on
 	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
 	 * @param {function} beforeUpdate
 	 *
 	 * @return {object} Vue component object
 	 */
-	function newComponent( representations, element, template, beforeUpdate, mw ) {
+	function newComponent( store, formIndex, element, template, beforeUpdate, mw ) {
+
 		return {
 			el: element,
 			template: template,
+
+			store: store,
 
 			mixins: [ RedundantLanguageIndicator( 'representations' ) ],
 
@@ -24,7 +29,12 @@ module.exports = ( function () {
 
 			data: {
 				inEditMode: false,
-				representations: representations
+				formIndex: formIndex
+			},
+			computed: {
+				representations: function () {
+					return this.$store.state.lexeme.forms[ this.formIndex ].representations;
+				}
 			},
 			methods: {
 				edit: function () {
@@ -33,6 +43,20 @@ module.exports = ( function () {
 						this.add();
 					}
 				},
+				updateValue: function ( representation, event ) {
+					this.$store.commit( mutationTypes.UPDATE_REPRESENTATION_VALUE, {
+						formIndex: this.formIndex,
+						representationIndex: this.representations.indexOf( representation ),
+						value: event.target.value
+					} );
+				},
+				updateLanguage: function ( representation, event ) {
+					this.$store.commit( mutationTypes.UPDATE_REPRESENTATION_LANGUAGE, {
+						formIndex: this.formIndex,
+						representationIndex: this.representations.indexOf( representation ),
+						language: event.target.value
+					} );
+				},
 				stopEditing: function () {
 					this.inEditMode = false;
 				},
@@ -40,14 +64,21 @@ module.exports = ( function () {
 					if ( !this.inEditMode ) {
 						throw new Error( 'Cannot add representation if not in edit mode' );
 					}
-					this.representations.push( { language: '', value: '' } );
+
+					this.$store.commit( mutationTypes.ADD_REPRESENTATION, {
+						formIndex: this.formIndex,
+						language: '',
+						value: ''
+					} );
 				},
 				remove: function ( representation ) {
 					if ( !this.inEditMode ) {
 						throw new Error( 'Cannot remove representation if not in edit mode' );
 					}
-					var index = this.representations.indexOf( representation );
-					this.representations.splice( index, 1 );
+					this.$store.commit( mutationTypes.REMOVE_REPRESENTATION, {
+						formIndex: this.formIndex,
+						representationIndex: this.representations.indexOf( representation )
+					} );
 				}
 			},
 			filters: {
@@ -61,15 +92,16 @@ module.exports = ( function () {
 	/**
 	 * @callback wikibase.lexeme.widgets.RepresentationWidget.create
 	 *
-	 * @param {{language: string, value: string}[]} representations
+	 * @param {Vuex.Store} store
+	 * @param {integer} formIndex Index of the form to emit value updates on
 	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
 	 * @param {function} beforeUpdate
 	 *
 	 * @return {Vue} Initialized widget
 	 */
-	function create( representations, element, template, beforeUpdate, mw ) {
-		return new Vue( newComponent( representations, element, template, beforeUpdate, mw ) );
+	function create( store, formIndex, element, template, beforeUpdate, mw ) {
+		return new Vue( newComponent( store, formIndex, element, template, beforeUpdate, mw ) );
 	}
 
 	/**

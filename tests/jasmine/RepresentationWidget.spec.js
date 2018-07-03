@@ -1,8 +1,9 @@
 describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
-	var expect = require( 'unexpected' ).clone();
-	var mediaWiki = { messages: {} };
+	var expect = require( 'unexpected' ).clone(),
+		RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
+		LexemeStore = require( 'wikibase.lexeme.store' );
 
-	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' );
+	var mediaWiki = { messages: {} };
 
 	var EMPTY_REPRESENTATION = { language: '', value: '' };
 	var SOME_REPRESENTATION = { language: 'en', value: 'representation in english' };
@@ -114,9 +115,10 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 		}, 'to throw' );
 	} );
 
-	function newWidget( representations ) {
+	function newWidget( representations, lemmas ) {
 		return RepresentationWidget.create(
-			representations,
+			getTestStore( lemmas, representations ),
+			getFormIndex(),
 			document.createElement( 'div' ),
 			'<div id="dummy-template"></div>',
 			function () {
@@ -124,4 +126,31 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 			mediaWiki
 		);
 	}
+
+	function getTestStore( lemmas, representations ) {
+		return getStore(
+			lemmas || [],
+			getFormIndex(),
+			'L42-F1',
+			representations
+		);
+	}
+
+	function getFormIndex() {
+		return 0;
+	}
+
+	/**
+	 * @see lexemeformview::getStore()
+	 */
+	function getStore( lemmas, formIndex, formId, representations ) {
+		var forms = {};
+		forms[ formIndex ] = {
+			id: formId,
+			representations: representations
+		};
+
+		return LexemeStore.create( lemmas, forms );
+	}
+
 } );

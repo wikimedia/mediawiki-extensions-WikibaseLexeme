@@ -4,7 +4,8 @@
 	var PARENT = $.ui.EditableTemplatedWidget;
 
 	/** @type {wikibase.lexeme.widgets.RepresentationWidget} */
-	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' );
+	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
+		LexemeStore = require( 'wikibase.lexeme.store' );
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
@@ -184,10 +185,17 @@
 		},
 
 		_buildRepresentations: function ( form ) {
-			var representations = form ? termMapToArray( form.getRepresentations() ) : [];
+			var representations = form ? termMapToArray( form.getRepresentations() ) : [],
+				lemmas = termMapToArray( this.options.lexeme.getLemmas() );
 
 			this._representationsWidget = RepresentationWidget.create(
-				representations,
+				getStore(
+					lemmas,
+					getFormIndex(),
+					form ? form.getId() : null, // TODO is null form a thing outside tests?
+					representations
+				),
+				getFormIndex(),
 				this.$representations[ 0 ],
 				'#representation-widget-vue-template',
 				function () {
@@ -221,10 +229,14 @@
 		}
 	} );
 
-	function arrayToTermMap( representations ) {
+	/**
+	 * @param {{language:string, value: string}[]} termArray
+	 * @return {wikibase.datamodel.TermMap}
+	 */
+	function arrayToTermMap( termArray ) {
 		var result = new wb.datamodel.TermMap();
 
-		representations.forEach( function ( representation ) {
+		termArray.forEach( function ( representation ) {
 			try {
 				result.setItem(
 					representation.language,
@@ -239,16 +251,37 @@
 	}
 
 	/**
-	 * @param {wikibase.datamodel.TermMap} representations
+	 * @param {wikibase.datamodel.TermMap} termMap
 	 * @return {Array}
 	 */
-	function termMapToArray( representations ) {
+	function termMapToArray( termMap ) {
 		var result = [];
 
-		representations.each( function ( language, term ) {
+		termMap.each( function ( language, term ) {
 			result.push( { language: term.getLanguageCode(), value: term.getText() } );
 		} );
 
 		return result;
 	}
+
+	// TODO If multiple lexemeformview shared one store:
+	// Recompute when forms are removed/added, so child components do not emit wrong formIndex!
+	function getFormIndex() {
+		return 0;
+	}
+
+	/**
+	 * Creates a separate store per form - with all resulting limitations
+	 * TODO Continue refactoring by moving store creation upstream (ControllerViewFactory)
+	 */
+	function getStore( lemmas, formIndex, formId, representations ) {
+		var forms = {};
+		forms[ formIndex ] = {
+			id: formId,
+			representations: representations
+		};
+
+		return LexemeStore.create( lemmas, forms );
+	}
+
 }( jQuery, mediaWiki, wikibase ) );
