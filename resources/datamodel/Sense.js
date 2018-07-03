@@ -10,16 +10,18 @@
 	var Sense = util.inherit(
 		'Sense',
 		function ( id, glosses, statementGroupSet ) {
-			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 			this._id = id;
-			this._glosses = glosses;
+			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
+			glosses = glosses || new wb.datamodel.TermMap();
 
 			if (
-				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet )
+				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
+				!( glosses instanceof wb.datamodel.TermMap )
 			) {
 				throw new Error( 'Required parameter(s) missing or not defined properly' );
 			}
 
+			this._glosses = glosses;
 			this._statementGroupSet = statementGroupSet;
 		},
 		{
@@ -30,7 +32,7 @@
 			_id: null,
 
 			/**
-			 * @type {object}
+			 * @type {wikibase.datamodel.TermMap}
 			 */
 			_glosses: null,
 
@@ -47,7 +49,7 @@
 			},
 
 			/**
-			 * @return {object}
+			 * @return {wikibase.datamodel.TermMap}
 			 */
 			getGlosses: function () {
 				return this._glosses;

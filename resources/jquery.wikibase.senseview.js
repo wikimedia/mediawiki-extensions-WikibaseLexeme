@@ -63,7 +63,7 @@
 
 			return new wb.lexeme.datamodel.Sense(
 				this.options.value ? this.options.value.getId() : null,
-				convertGlossWidgetModelToGlossHashMap( this.glossWidget.glosses )
+				arrayToTermMap( this.glossWidget.glosses )
 			);
 		},
 
@@ -77,7 +77,7 @@
 
 			this.glossWidget = GlossWidget.applyGlossWidget(
 				$( '.wikibase-lexeme-sense-glosses', this.element )[ 0 ],
-				convertGlossesToGlossWidgetModel( this.value().getGlosses() ),
+				termMapToArray( this.value().getGlosses() ),
 				function () {
 					this._trigger( 'change' );
 				}.bind( this ),
@@ -95,7 +95,7 @@
 		_stopEditing: function ( dropValue ) {
 			this.glossWidget.stopEditing();
 			if ( dropValue ) {
-				this.glossWidget.glosses = convertGlossesToGlossWidgetModel(
+				this.glossWidget.glosses = termMapToArray(
 					this.value().getGlosses()
 				);
 			}
@@ -104,21 +104,32 @@
 		}
 	} );
 
-	function convertGlossesToGlossWidgetModel( glosses ) {
-		var result = [];
-		for ( var language in glosses ) {
-			if ( glosses.hasOwnProperty( language ) ) {
-				result.push( { value: glosses[ language ], language: language } );
+	function arrayToTermMap( glosses ) {
+		var result = new wb.datamodel.TermMap();
+
+		glosses.forEach( function ( gloss ) {
+			try {
+				result.setItem(
+					gloss.language,
+					new wb.datamodel.Term( gloss.language, gloss.value )
+				);
+			} catch ( e ) {
+				// ignore
 			}
-		}
+		} );
+
 		return result;
 	}
 
-	function convertGlossWidgetModelToGlossHashMap( glosses ) {
-		var result = {};
+	/**
+	 * @param {wikibase.datamodel.TermMap} glosses
+	 * @return {Array}
+	 */
+	function termMapToArray( glosses ) {
+		var result = [];
 
-		glosses.forEach( function ( gloss ) {
-			result[ gloss.language ] = gloss.value;
+		glosses.each( function ( language, term ) {
+			result.push( { language: term.getLanguageCode(), value: term.getText() } );
 		} );
 
 		return result;
