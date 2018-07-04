@@ -27,6 +27,9 @@ use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\LanguageItemIdExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
 use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
@@ -43,6 +46,8 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
+use Wikibase\Repo\EntityReferenceExtractors\EntityReferenceExtractorCollection;
+use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
@@ -241,6 +246,16 @@ return [
 				RequestContext::getMain(),
 				$language
 			);
+		},
+		'entity-reference-extractor-callback' => function () {
+			return new EntityReferenceExtractorCollection( [
+				new LanguageItemIdExtractor(),
+				new LexicalCategoryItemIdExtractor(),
+				new GrammaticalFeatureItemIdsExtractor(),
+				new StatementEntityReferenceExtractor(
+					WikibaseRepo::getDefaultInstance()->getLocalItemUriParser()
+				),
+			] );
 		},
 	],
 	'form' => [
