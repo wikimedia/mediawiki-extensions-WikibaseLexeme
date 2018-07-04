@@ -3,13 +3,16 @@
 namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
+use Wikibase\Lib\ContentLanguages;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WikibaseLexemeServices {
 
-	/* @return \Wikibase\Lib\ContentLanguages */
+	/**
+	 * @return ContentLanguages
+	 */
 	public static function getTermLanguages() {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' );
 	}
