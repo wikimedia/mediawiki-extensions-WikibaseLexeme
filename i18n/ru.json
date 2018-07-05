@@ -8,7 +8,8 @@
 			"Mouse21",
 			"Laboramus",
 			"Ole Yves",
-			"Stjn"
+			"Stjn",
+			"Vlad5250"
 		]
 	},
 	"wikibaselexeme-desc": "Поддержка Лексем",
@@ -38,6 +39,8 @@
 	"datatypes-type-wikibase-lexeme": "Лексема",
 	"datatypes-type-wikibase-form": "Форма",
 	"datatypes-type-wikibase-sense": "Значение",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Лексема",
+	"wikibase-listdatatypes-wikibase-form-head": "Форма",
 	"wikibaselexeme-add-sense": "добавить Значение",
 	"wikibaselexeme-add-form": "добавить Форму",
 	"apihelp-wbladdform-summary": "Добавить Форму к Лексеме",

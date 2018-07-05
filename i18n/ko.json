@@ -17,6 +17,7 @@
 	"wikibaselexeme-lemma-edit-placeholder": "기본형을 입력",
 	"wikibaselexeme-newlexeme-lexicalcategory": "어휘 범주",
 	"wikibaselexeme-newlexeme-language": "어휘소의 언어",
+	"wikibaselexeme-newlexeme-language-placeholder": "언어를 입력하십시오 (예: English)",
 	"wikibaselexeme-language-lexical-category-value": "$2 - $1",
 	"wikibaselexeme-statementsection-statements-about-form": "$1에 대한 서술",
 	"wikibaselexeme-header-forms": "형태",

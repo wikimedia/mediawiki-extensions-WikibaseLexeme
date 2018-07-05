@@ -12,6 +12,7 @@
 	"wikibaselexeme-lemma-edit-placeholder": "De Lemma ass normalerweis déi kierzt Form vum Wuert",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikalesch Kategorie",
 	"wikibaselexeme-newlexeme-language": "Lexeme-Sprooch",
+	"wikibaselexeme-newlexeme-language-placeholder": "Sprooch aginn, z.&nbsp;B. Lëtzebuergesch",
 	"wikibaselexeme-language-lexical-category-value": "$1 op $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Deklaratiounen iwwer $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Deklaratiounen iwwer $1",
