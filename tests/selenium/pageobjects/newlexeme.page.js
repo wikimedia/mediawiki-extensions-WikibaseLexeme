@@ -1,14 +1,18 @@
 'use strict';
 
-const Page = require( '../../../../../tests/selenium/pageobjects/page' );
+const Page = require( '../../../../../tests/selenium/pageobjects/page' ),
+	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/pagesections/mixinbuilder' ),
+	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/pagesections/ComponentInteraction' );
 
-class NewLexemePage extends Page {
+class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction ) {
 
 	static get NEW_LEXEME_SELECTORS() {
 		return {
 			LEMMA: '#wb-newlexeme-lemma',
 			LANGUAGE: '#wb-newlexeme-lexeme-language',
-			LEXICAL_CATEGORY: '#wb-newlexeme-lexicalCategory'
+			LEXICAL_CATEGORY: '#wb-newlexeme-lexicalCategory',
+			LEMMA_LANGUAGE: '#wb-newlexeme-lemma-language',
+			SUBMIT_BUTTON: '#wb-newentity-submit button'
 		};
 	}
 
@@ -23,6 +27,32 @@ class NewLexemePage extends Page {
 
 		return true;
 	}
+
+	createLexeme( lemma, language, lexicalCategory, lemmaLanguage ) {
+		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
+
+		this.setValueOnLookupElement(
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
+			language
+		);
+
+		this.setValueOnLookupElement(
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
+			lexicalCategory
+		);
+
+		if ( typeof lemmaLanguage !== 'undefined' ) {
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE + ' input' ).setValue( lemmaLanguage );
+			browser.keys( 'Enter' ); // accept suggestion by form widget which filters options to close its overlay
+		} else {
+			// ensure lemma language input is not presented (logic is asynchronous)
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible( 1000, true );
+		}
+
+		browser.$( this.constructor.NEW_LEXEME_SELECTORS.SUBMIT_BUTTON ).click();
+	}
+
 }
 
 module.exports = new NewLexemePage();

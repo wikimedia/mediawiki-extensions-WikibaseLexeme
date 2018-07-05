@@ -18,7 +18,7 @@ describe( 'Lexeme:Header', () => {
 
 		LexemePage.open( id );
 
-		assert.equal( LexemePage.headerId, '(' + id + ')' );
+		assert.equal( LexemePage.headerId, id );
 	} );
 
 } );
