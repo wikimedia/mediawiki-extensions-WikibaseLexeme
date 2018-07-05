@@ -2,6 +2,7 @@
 
 const assert = require( 'assert' ),
 	Api = require( 'wdio-mediawiki/Api' ),
+	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	WatchlistPage = require( '../../../../../../tests/selenium/pageobjects/watchlist.page' ),
@@ -11,13 +12,9 @@ describe( 'Special:Watchlist', () => {
 
 	let username, password;
 
-	function getTestString( prefix = '' ) {
-		return prefix + Math.random().toString() + '-öäü-♠♣♥♦';
-	}
-
 	before( function () {
-		username = getTestString( 'user-' );
-		password = getTestString( 'password-' );
+		username = Util.getTestString( 'user-' );
+		password = Util.getTestString( 'password-' );
 
 		browser.call( function () {
 			return Api.createAccount( username, password );

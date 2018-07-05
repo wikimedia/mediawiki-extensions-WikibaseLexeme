@@ -4,13 +4,10 @@ const MWBot = require( 'mwbot' ),
 	bot = new MWBot( {
 		apiUrl: browser.options.baseUrl + '/api.php'
 	} ),
+	Util = require( 'wdio-mediawiki/Util' ),
 	WikibaseApi = require( './wikibase.api' );
 
 class LexemeApi {
-
-	static getTestString() {
-		return Math.random().toString() + '-öäü-♠♣♥♦';
-	}
 
 	/**
 	 * Create a lexeme
@@ -22,7 +19,7 @@ class LexemeApi {
 		lexeme = Object.assign( {
 			lemmas: {
 				en: {
-					value: this.constructor.getTestString(),
+					value: Util.getTestString(),
 					language: 'en'
 				}
 			},
