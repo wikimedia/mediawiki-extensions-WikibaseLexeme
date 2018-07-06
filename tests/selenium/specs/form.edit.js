@@ -3,7 +3,7 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	WikibaseApi = require( '../wikibase.api' );
+	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' );
 
 describe( 'Lexeme:Forms', () => {
 

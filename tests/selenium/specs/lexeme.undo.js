@@ -5,7 +5,7 @@ const assert = require( 'assert' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
 	HistoryPage = require( '../pageobjects/history.page' ),
 	UndoPage = require( '../pageobjects/undo.page' ),
-	WikibaseApi = require( '../wikibase.api' );
+	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' );
 
 describe( 'Lexeme:Undoing', () => {
 

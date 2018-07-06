@@ -5,7 +5,7 @@ const MWBot = require( 'mwbot' ),
 		apiUrl: browser.options.baseUrl + '/api.php'
 	} ),
 	Util = require( 'wdio-mediawiki/Util' ),
-	WikibaseApi = require( './wikibase.api' );
+	WikibaseApi = require( '../../../Wikibase/repo/tests/selenium/wikibase.api' );
 
 class LexemeApi {
 
