@@ -1,9 +1,10 @@
 'use strict';
 
 const Page = require( '../../../../../tests/selenium/pageobjects/page' ),
-	_ = require( 'lodash' );
+	_ = require( 'lodash' ),
+	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/pagesections/main.statement.section' );
 
-class LexemePage extends Page {
+class LexemePage extends MainStatementSection( Page ) {
 
 	static get LEMMA_WIDGET_SELECTORS() {
 		return {
