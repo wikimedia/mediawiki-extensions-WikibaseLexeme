@@ -13,8 +13,6 @@
 	 *
 	 * @param {string} lexemeId
 	 * @param {wikibase.datamodel.TermMap} lemmas
-	 * @param {string} lexicalCategory
-	 * @param {string} language
 	 * @param {wikibase.datamodel.StatementGroupSet|null} [statementGroupSet=new wikibase.datamodel.StatementGroupSet()]
 	 * @param {wikibase.lexeme.datamodel.Form[]} [forms=[]]
 	 *
@@ -23,7 +21,7 @@
 	var SELF = wb.lexeme.datamodel.Lexeme = util.inherit(
 		'WbDataModelLexeme',
 		PARENT,
-		function ( lexemeId, lemmas, lexicalCategory, language, statementGroupSet, forms ) {
+		function ( lexemeId, lemmas, statementGroupSet, forms ) {
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 			forms = forms || [];
 
@@ -31,8 +29,6 @@
 				typeof lexemeId !== 'string' ||
 				!( lemmas instanceof wb.datamodel.TermMap ) ||
 				( lemmas.isEmpty() ) ||
-				typeof lexicalCategory !== 'string' ||
-				typeof language !== 'string' ||
 				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
 				!( Array.isArray( forms ) )
 			) {
@@ -41,8 +37,6 @@
 
 			this._id = lexemeId;
 			this._lemmas = lemmas;
-			this._lexicalCategory = lexicalCategory;
-			this._language = language;
 			this._statementGroupSet = statementGroupSet;
 			this._forms = forms;
 		},
@@ -53,18 +47,6 @@
 			 * @private
 			 */
 			_lemmas: null,
-
-			/**
-			 * @property {string}
-			 * @private
-			 */
-			_lexicalCategory: null,
-
-			/**
-			 * @property {string}
-			 * @private
-			 */
-			_language: null,
 
 			/**
 			 * @property {wikibase.datamodel.StatementGroupSet}
@@ -86,20 +68,6 @@
 			},
 
 			/**
-			 * @return {string}
-			 */
-			getLexicalCategory: function () {
-				return this._lexicalCategory;
-			},
-
-			/**
-			 * @return {string}
-			 */
-			getLanguage: function () {
-				return this._language;
-			},
-
-			/**
 			 * @return {wikibase.datamodel.StatementGroupSet}
 			 */
 			getStatements: function () {
@@ -111,41 +79,8 @@
 			 */
 			getForms: function () {
 				return this._forms;
-			},
-
-			/**
-			 * @return {boolean}
-			 */
-			isEmpty: function () {
-				return this._lemmas.isEmpty() &&
-					this._statementGroupSet.isEmpty() &&
-					this._forms.length === 0;
-			},
-
-			/**
-			 * @param {*} lexeme
-			 * @return {boolean}
-			 */
-			equals: function ( lexeme ) {
-				if ( this._forms.length !== lexeme._forms.length ) {
-					return false;
-				}
-
-				for ( var i = 0; i < this._forms.length; i++ ) {
-					if ( !this._forms[ i ].equals( lexeme._forms[ i ] ) ) {
-						return false;
-					}
-				}
-
-				return lexeme === this ||
-					( lexeme instanceof SELF &&
-						this._id === lexeme.getId() &&
-						this._lemmas.equals( lexeme.getLemmas() ) &&
-						this._statementGroupSet.equals( lexeme.getStatements() ) &&
-						this._lexicalCategory === lexeme.getLexicalCategory() &&
-						this._language === lexeme.getLanguage()
-					);
 			}
+
 		}
 	);
 

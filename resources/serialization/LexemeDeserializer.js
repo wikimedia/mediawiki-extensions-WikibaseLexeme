@@ -41,8 +41,6 @@
 			var lexeme = new wb.lexeme.datamodel.Lexeme(
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.lemmas ),
-				serialization.lexicalCategory,
-				serialization.language,
 				statementGroupSetDeserializer.deserialize( serialization.claims ),
 				deserializedForms
 			);
