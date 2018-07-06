@@ -13,9 +13,9 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
+use Wikibase\Lexeme\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
-use Wikibase\Repo\Specials\HTMLForm\HTMLContentLanguageField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Specials\SpecialNewEntity;
 use Wikibase\Repo\WikibaseRepo;
@@ -98,7 +98,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 			],
 			self::FIELD_LEMMA_LANGUAGE => [
 				'name' => self::FIELD_LEMMA_LANGUAGE,
-				'class' => HTMLContentLanguageField::class,
+				'class' => LemmaLanguageField::class,
 				'cssclass' => 'lemma-language',
 				'id' => 'wb-newlexeme-lemma-language',
 				'label-message' => 'wikibaselexeme-newlexeme-lemma-language',

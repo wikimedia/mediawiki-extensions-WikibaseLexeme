@@ -102,5 +102,8 @@
 	"wikibaselexeme-no-features": "no features",
 	"wikibaselexeme-rescore-profile-prefix": "Rescore profile for prefix (completion) search",
 	"wikibase-validator-form-not-found": "Lexeme does not have Form with given ID",
-	"wikibaselexeme-grammatical-features-input-placeholder": "For example: normative, comparative, past tense..."
+	"wikibaselexeme-grammatical-features-input-placeholder": "For example: normative, comparative, past tense...",
+	"wikibase-lexeme-language-name-mis": "other",
+	"wikibase-lexeme-lemma-language-not-recognized": "The supplied language code was not recognized.",
+	"wikibase-lexeme-lemma-language-option": "$1 ($2)"
 }
