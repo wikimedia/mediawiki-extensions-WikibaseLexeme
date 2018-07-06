@@ -20,7 +20,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Placeholder for the \"lexical category\" field in the Lexeme creation form.",
 	"wikibaselexeme-newlexeme-language": "Label for field in the Lexeme creation form.",
-	"wikibaselexeme-newlexeme-language-placeholder": "Placeholder for the \"language\" field in the Lexeme creation form.",
+	"wikibaselexeme-newlexeme-language-placeholder": "Placeholder for the \"language\" field in the Lexeme creation form. Feel free to change \"English\" to your language name.",
 	"wikibaselexeme-language-lexical-category-value": "Description when both lexical category and language are present\n{{Identical|In}}",
 	"wikibaselexeme-statementsection-statements-about-form": "Heading for the list of statements giving specific information about the currently viewed Form of a Lexeme.\n\nParameters:\n* $1 - Form ID.",
 	"wikibaselexeme-header-forms": "Subheading for the '''lexicographical forms''' (not forms of tables or dialogs) section on a Lexeme page.",

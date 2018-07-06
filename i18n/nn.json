@@ -31,8 +31,10 @@
 	"wikibaselexeme-field-language-label": "Språk",
 	"wikibaselexeme-diffview-language": "språk",
 	"wikibaselexeme-diffview-form": "form",
+	"wikibaselexeme-diffview-representation": "representasjon",
 	"wikibaselexeme-diffview-grammatical-feature": "grammatisk kategori",
 	"wikibaselexeme-form-grammatical-features": "Grammatiske kategoriar",
 	"wikibaselexeme-unknown-language": "Ukjend språk",
-	"wikibaselexeme-unknown-category": "Ukjend"
+	"wikibaselexeme-unknown-category": "Ukjend",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Til dømes: normativ, komparativ, fortid …"
 }

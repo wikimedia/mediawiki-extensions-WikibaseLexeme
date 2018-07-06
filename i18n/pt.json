@@ -16,7 +16,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoria lexical",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Introduza a categoria lexical, por exemplo: substantivo",
 	"wikibaselexeme-newlexeme-language": "Língua do lexema",
-	"wikibaselexeme-newlexeme-language-placeholder": "Introduza o idioma, por exemplo: português",
+	"wikibaselexeme-newlexeme-language-placeholder": "Introduza a língua, por exemplo: português",
 	"wikibaselexeme-language-lexical-category-value": "$1 e $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Declarações sobre $1",
 	"wikibaselexeme-header-forms": "Formulários",
