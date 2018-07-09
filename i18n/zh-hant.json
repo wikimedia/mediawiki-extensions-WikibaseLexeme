@@ -2,15 +2,31 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"Mutolisp"
+			"Mutolisp",
+			"Kly"
 		]
 	},
+	"special-newlexeme": "建立一個新詞位",
 	"wikibaselexeme-deletedentity-form": "已刪除詞性",
+	"wikibaselexeme-newlexeme-fieldset": "建立一個新詞位",
+	"wikibaselexeme-newlexeme-language": "詞位語言",
+	"wikibaselexeme-newlexeme-language-placeholder": "輸入語言，例如中文",
+	"wikibaselexeme-language-lexical-category-value": "在$2的$1",
 	"wikibaselexeme-header-forms": "詞性",
 	"wikibaselexeme-lemma-field-language-label": "語言",
 	"wikibaselexeme-form-field-language-label": "語言",
 	"wikibaselexeme-gloss-field-language-label": "語言",
+	"datatypes-type-wikibase-lexeme": "詞位",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "詞位",
+	"apihelp-wbladdform-param-lexemeId": "詞位 ID，例如 L10",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "發生錯誤: 最後一筆詞條(Lemma)無法移除。",
+	"wikibaselexeme-api-error-parameter-required": "需要參數「$1」",
+	"wikibaselexeme-api-error-parameter-invalid-json-object": "參數「$1」應為有效的 JSON 物件，所提供的內容為「$2」",
+	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "語言不可為空",
 	"wikibaselexeme-field-language-label": "語言",
-	"wikibaselexeme-diffview-language": "語言"
+	"wikibaselexeme-field-lexical-category-label": "詞位分類",
+	"wikibaselexeme-diffview-language": "語言",
+	"content-model-wikibase-lexeme": "Wikibase Lexeme",
+	"wikibaselexeme-unknown-language": "不明語言",
+	"wikibaselexeme-unknown-category": "不明"
 }

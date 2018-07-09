@@ -3,7 +3,8 @@
 		"authors": [
 			"Beta16",
 			"Ricordisamoa",
-			"Sarah Bernabei"
+			"Sarah Bernabei",
+			"ArTrix"
 		]
 	},
 	"wikibaselexeme-desc": "Gestisce tipi di entità lessema",
@@ -19,6 +20,8 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Inserisci la lingua, ad esempio: italiano",
 	"wikibaselexeme-language-lexical-category-value": "$1 in $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Dichiarazioni su $1",
+	"wikibaselexeme-header-forms": "Forme",
+	"wikibaselexeme-enter-form-representation": "Inserisci una nuova rappresentazione della forma",
 	"wikibaselexeme-statementsection-statements-about-sense": "Dichiarazioni su $1",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-lemma-field-language-label": "Variante ortografica",
