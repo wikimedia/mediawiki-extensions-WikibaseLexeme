@@ -182,7 +182,7 @@ class StorageLexemeSerializerTest extends TestCase {
 			],
 			'senses' => [
 				[
-					'id' => 'S1',
+					'id' => 'L1-S1',
 					'glosses' => [
 						'en' => [
 							'language' => 'en',

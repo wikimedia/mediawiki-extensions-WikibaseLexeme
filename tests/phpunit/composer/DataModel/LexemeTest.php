@@ -201,7 +201,7 @@ class LexemeTest extends TestCase {
 			null,
 			1,
 			null,
-			[ NewSense::havingId( 'L1-S1' )->build() ]
+			[ NewSense::havingId( 'S1' )->build() ]
 		);
 
 		$this->assertFalse( $lexeme->isEmpty() );

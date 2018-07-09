@@ -19,7 +19,12 @@ use Wikibase\Repo\Tests\NewStatement;
 class NewSense {
 
 	/**
-	 * @var SenseId|null
+	 * @var string the ID of the lexeme to which the sense belongs (not yet modifiable)
+	 */
+	private $lexemeId = 'L1';
+
+	/**
+	 * @var string|null the sense-specific part of the sense ID, excluding the lexeme ID
 	 */
 	private $senseId = null;
 
@@ -40,7 +45,10 @@ class NewSense {
 	 */
 	public static function havingId( $senseId ) {
 		$senseBuilder = new self();
-		$senseBuilder->senseId = $senseId instanceof SenseId ? $senseId : new SenseId( $senseId );
+		if ( $senseId instanceof SenseId ) {
+			$senseId = explode( '-', $senseId->getSerialization() )[1];
+		}
+		$senseBuilder->senseId = $senseId;
 		return $senseBuilder;
 	}
 
@@ -106,14 +114,14 @@ class NewSense {
 		$senseId = $this->senseId ?: $this->newRandomSenseId();
 
 		return new Sense(
-			$senseId,
+			new SenseId( $this->lexemeId . '-' . $senseId ),
 			new TermList( $this->glosses ),
 			new StatementList( $this->statements )
 		);
 	}
 
 	private function newRandomSenseId() {
-		return new SenseId( 'S' . mt_rand( 1, mt_getrandmax() ) );
+		return 'S' . mt_rand( 1, mt_getrandmax() );
 	}
 
 }

@@ -222,8 +222,8 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 
 		$this->assertThatHamcrest( $serialization, hasKeyValuePair( "senses",
 			 hasItems(
-				 hasKeyValuePair( "id", 'S1' ),
-				 hasKeyValuePair( "id", 'S2' )
+				 hasKeyValuePair( "id", 'L1-S1' ),
+				 hasKeyValuePair( "id", 'L1-S2' )
 			 )
 		) );
 	}
