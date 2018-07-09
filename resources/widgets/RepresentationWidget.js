@@ -2,7 +2,7 @@ module.exports = ( function () {
 	'use strict';
 
 	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
-		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' );
+		actionTypes = require( 'wikibase.lexeme.store.actionTypes' );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.RepresentationWidget.newComponent
@@ -44,14 +44,14 @@ module.exports = ( function () {
 					}
 				},
 				updateValue: function ( representation, event ) {
-					this.$store.commit( mutationTypes.UPDATE_REPRESENTATION_VALUE, {
+					this.$store.dispatch( actionTypes.UPDATE_REPRESENTATION_VALUE, {
 						formIndex: this.formIndex,
 						representationIndex: this.representations.indexOf( representation ),
 						value: event.target.value
 					} );
 				},
 				updateLanguage: function ( representation, event ) {
-					this.$store.commit( mutationTypes.UPDATE_REPRESENTATION_LANGUAGE, {
+					this.$store.dispatch( actionTypes.UPDATE_REPRESENTATION_LANGUAGE, {
 						formIndex: this.formIndex,
 						representationIndex: this.representations.indexOf( representation ),
 						language: event.target.value
@@ -65,17 +65,15 @@ module.exports = ( function () {
 						throw new Error( 'Cannot add representation if not in edit mode' );
 					}
 
-					this.$store.commit( mutationTypes.ADD_REPRESENTATION, {
-						formIndex: this.formIndex,
-						language: '',
-						value: ''
+					this.$store.dispatch( actionTypes.ADD_REPRESENTATION, {
+						formIndex: this.formIndex
 					} );
 				},
 				remove: function ( representation ) {
 					if ( !this.inEditMode ) {
 						throw new Error( 'Cannot remove representation if not in edit mode' );
 					}
-					this.$store.commit( mutationTypes.REMOVE_REPRESENTATION, {
+					this.$store.dispatch( actionTypes.REMOVE_REPRESENTATION, {
 						formIndex: this.formIndex,
 						representationIndex: this.representations.indexOf( representation )
 					} );

@@ -1,7 +1,8 @@
 ( function () {
 	'use strict';
 
-	var mutations = require( 'wikibase.lexeme.store.mutations' );
+	var actions = require( 'wikibase.lexeme.store.actions' ),
+		mutations = require( 'wikibase.lexeme.store.mutations' );
 
 	function create( lemmas, forms ) {
 		return new Vuex.Store( {
@@ -12,6 +13,7 @@
 					forms: forms
 				}
 			},
+			actions: actions,
 			mutations: mutations
 		} );
 	}

@@ -42,6 +42,25 @@ describe( 'Lexeme:Forms', () => {
 
 	} );
 
+	it( 'can prefill representation language for lexeme with one lemma', () => {
+		let id,
+			formValues;
+
+		browser.call( () => {
+			return LexemeApi.create() // adds lexeme with on 'en' lemma
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addFormLink.click();
+		formValues = LexemePage.getNthFormFormValues( 0 );
+
+		assert.equal( 'en', formValues.representations[ 0 ].language, 'Representation has default language from lemma' );
+	} );
+
 	it( 'can edit representation', () => {
 		let id;
 

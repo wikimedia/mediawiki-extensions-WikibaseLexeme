@@ -174,7 +174,7 @@ return call_user_func( function() {
 			"dependencies" => [
 				"vue",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
-				"wikibase.lexeme.store.mutationTypes"
+				"wikibase.lexeme.store.actionTypes"
 			],
 			"messages" => [
 				"wikibase-add",
@@ -257,8 +257,19 @@ return call_user_func( function() {
 			"scripts" => "store/index.js",
 			"dependencies" => [
 				"vuex",
+				"wikibase.lexeme.store.actions",
 				"wikibase.lexeme.store.mutations"
 			]
+		],
+		"wikibase.lexeme.store.actions" => $moduleTemplate + [
+			"scripts" => "store/actions.js",
+			"dependencies" => [
+				"wikibase.lexeme.store.actionTypes",
+				"wikibase.lexeme.store.mutationTypes"
+			]
+		],
+		"wikibase.lexeme.store.actionTypes" => $moduleTemplate + [
+			"scripts" => "store/actionTypes.js"
 		],
 		"wikibase.lexeme.store.mutations" => $moduleTemplate + [
 			"scripts" => "store/mutations.js",

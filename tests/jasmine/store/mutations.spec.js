@@ -64,4 +64,17 @@ describe( 'wikibase.lexeme.store.mutations', function () {
 		expect( state.lexeme.forms[ 0 ].representations[ 1 ].language, 'to equal', 'nl' );
 	} );
 
+	it( 'DERIVE_REPRESENTATION_LANGUAGE_FROM_LEMMA changes representation language correctly', function () {
+		state.lexeme.forms[ 0 ].representations = [
+			{ language: '', value: '' }
+		];
+
+		mutations[ mutationTypes.DERIVE_REPRESENTATION_LANGUAGE_FROM_LEMMA ]( state, {
+			formIndex: 0,
+			representationIndex: 0
+		} );
+
+		expect( state.lexeme.forms[ 0 ].representations[ 0 ].language, 'to equal', 'en' );
+	} );
+
 } );
