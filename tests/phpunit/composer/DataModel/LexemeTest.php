@@ -19,6 +19,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
+use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\SenseSet;
 
@@ -700,6 +701,19 @@ class LexemeTest extends TestCase {
 
 		$this->setExpectedException( \OutOfRangeException::class );
 		$lexeme->getForm( new FormId( 'L1-F1' ) );
+	}
+
+	public function testGetSense_LexemeHasSenseWithThatId_ReturnsThatSense() {
+		$lexeme = NewLexeme::havingSense( NewSense::havingId( 'S1' ) )->build();
+
+		$this->assertInstanceOf( Sense::class, $lexeme->getSense( new SenseId( 'L1-S1' ) ) );
+	}
+
+	public function testGetSense_LexemeDoesntHaveSenseWithThatId_ThrowsAnException() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->setExpectedException( \OutOfRangeException::class );
+		$lexeme->getSense( new SenseId( 'L1-S1' ) );
 	}
 
 	public function testPatch_IncreaseNextFormIdTo_GivenLexemWithGreaterId_Increases() {
