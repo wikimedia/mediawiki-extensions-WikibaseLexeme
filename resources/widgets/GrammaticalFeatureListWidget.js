@@ -124,7 +124,6 @@ module.exports = ( function ( $, OO ) {
 				} );
 
 				this.addOptions( options );
-				this.menu.filterQuery = '';
 				this.menu.updateItemVisibility();
 				this.menu.toggle( true );
 			}.bind( this ) );
