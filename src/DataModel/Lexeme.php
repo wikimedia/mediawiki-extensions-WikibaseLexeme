@@ -12,6 +12,7 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
+use Wikibase\Lexeme\DataTransfer\BlankSense;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme in the
@@ -386,6 +387,24 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		}
 
 		$this->forms->put( $form );
+	}
+
+	/**
+	 * Replace the sense identified by $sense->getId() with the given one or add it.
+	 *
+	 * @param Sense $sense
+	 */
+	public function addOrUpdateSense( Sense $sense ) {
+		if ( $sense instanceof BlankSense ) {
+			$sense = $sense->getRealSense(
+				new SenseId( $this->id->getSerialization() . '-S' . $this->nextSenseId++ )
+			);
+
+			$this->senses->add( $sense );
+			return;
+		}
+
+		$this->senses->put( $sense );
 	}
 
 	public function removeForm( FormId $formId ) {
