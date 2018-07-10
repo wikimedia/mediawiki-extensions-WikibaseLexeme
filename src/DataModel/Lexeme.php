@@ -375,8 +375,31 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$this->nextFormId = $number;
 	}
 
+	/**
+	 * @param int $number
+	 */
+	private function increaseNextSenseIdTo( $number ) {
+		if ( !is_int( $number ) ) {
+			throw new \InvalidArgumentException( '$nextSenseId` must be integer' );
+		}
+
+		if ( $number < $this->nextSenseId ) {
+			throw new \LogicException(
+				"Cannot increase `nextSenseId` because given number is less than counter value " .
+				"of this Lexeme. Current=`{$this->nextSenseId}`, given=`{$number}`"
+			);
+		}
+
+		$this->nextSenseId = $number;
+	}
+
 	public function patch( callable $patcher ) {
-		$lexemePatchAccess = new LexemePatchAccess( $this->nextFormId, $this->forms );
+		$lexemePatchAccess = new LexemePatchAccess(
+			$this->nextFormId,
+			$this->forms,
+			$this->nextSenseId,
+			$this->senses
+		);
 		try {
 			$patcher( $lexemePatchAccess );
 		} finally {
@@ -384,11 +407,16 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		}
 		$newFormSet = $lexemePatchAccess->getForms();
 		$newNextFormId = $lexemePatchAccess->getNextFormId();
+		$newSenseSet = $lexemePatchAccess->getSenses();
+		$newNextSenseId = $lexemePatchAccess->getNextSenseId();
 
 		$this->assertCorrectNextFormIdIsGiven( $newNextFormId, $newFormSet );
+		$this->assertCorrectNextSenseIdIsGiven( $newNextSenseId, $newSenseSet );
 
 		$this->increaseNextFormIdTo( $newNextFormId );
 		$this->forms = $newFormSet;
+		$this->increaseNextSenseIdTo( $newNextSenseId );
+		$this->senses = $newSenseSet;
 	}
 
 	/**
