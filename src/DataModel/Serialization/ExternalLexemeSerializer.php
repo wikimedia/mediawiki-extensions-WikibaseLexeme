@@ -64,6 +64,7 @@ class ExternalLexemeSerializer implements DispatchableSerializer {
 			unset( $internalSerialization['senses'] );
 		}
 		unset( $internalSerialization['nextFormId'] );
+		unset( $internalSerialization['nextSenseId'] );
 
 		return $internalSerialization;
 	}
