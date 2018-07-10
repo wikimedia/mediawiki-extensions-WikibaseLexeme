@@ -6,9 +6,11 @@
 			"Kly"
 		]
 	},
+	"wikibaselexeme-desc": "處理詞位項目類型",
 	"special-newlexeme": "建立一個新詞位",
 	"wikibaselexeme-deletedentity-form": "已刪除詞性",
 	"wikibaselexeme-newlexeme-fieldset": "建立一個新詞位",
+	"wikibaselexeme-newlexeme-lexicalcategory": "詞類",
 	"wikibaselexeme-newlexeme-language": "詞位語言",
 	"wikibaselexeme-newlexeme-language-placeholder": "輸入語言，例如中文",
 	"wikibaselexeme-language-lexical-category-value": "在$2的$1",
@@ -16,6 +18,7 @@
 	"wikibaselexeme-lemma-field-language-label": "語言",
 	"wikibaselexeme-form-field-language-label": "語言",
 	"wikibaselexeme-gloss-field-language-label": "語言",
+	"wikibase-lexeme-summary-wbeditentity-update": "已更改詞位",
 	"datatypes-type-wikibase-lexeme": "詞位",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "詞位",
 	"apihelp-wbladdform-param-lexemeId": "詞位 ID，例如 L10",
@@ -23,10 +26,17 @@
 	"wikibaselexeme-api-error-parameter-required": "需要參數「$1」",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "參數「$1」應為有效的 JSON 物件，所提供的內容為「$2」",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "語言不可為空",
+	"wikibaselexeme-api-error-unknown-language": "在「$2」的欄位「$1」裡有未知語言「$3」。",
+	"wikibaselexeme-api-error-invalid-item-id": "在「$2」的欄位「$1」裡有無效項目 ID「$3」。",
 	"wikibaselexeme-field-language-label": "語言",
-	"wikibaselexeme-field-lexical-category-label": "詞位分類",
+	"wikibaselexeme-field-lexical-category-label": "詞類",
+	"wikibaselexeme-diffview-lexical-category": "詞類",
 	"wikibaselexeme-diffview-language": "語言",
+	"wikibaselexeme-diffview-grammatical-feature": "語法特徵",
 	"content-model-wikibase-lexeme": "Wikibase Lexeme",
+	"wikibaselexeme-form-grammatical-features": "語法特徵",
+	"wikibaselexeme-form-description": "$1 用於：$2（$3）：$4",
 	"wikibaselexeme-unknown-language": "不明語言",
-	"wikibaselexeme-unknown-category": "不明"
+	"wikibaselexeme-unknown-category": "不明",
+	"wikibaselexeme-no-features": "沒有特徵"
 }
