@@ -292,6 +292,13 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
+	 * @return int
+	 */
+	public function getNextSenseId() {
+		return $this->nextSenseId;
+	}
+
+	/**
 	 * @param FormId $formId
 	 *
 	 * @throws OutOfRangeException
@@ -308,13 +315,6 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		}
 
 		return $form;
-	}
-
-	/**
-	 * @return int
-	 */
-	public function getNextSenseId() {
-		return $this->nextSenseId;
 	}
 
 	/**
