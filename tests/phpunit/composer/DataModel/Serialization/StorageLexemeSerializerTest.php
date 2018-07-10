@@ -180,6 +180,7 @@ class StorageLexemeSerializerTest extends TestCase {
 					],
 				],
 			],
+			'nextSenseId' => 2,
 			'senses' => [
 				[
 					'id' => 'L1-S1',

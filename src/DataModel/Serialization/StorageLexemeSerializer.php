@@ -109,6 +109,7 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 		);
 
 		$serialization['nextFormId'] = $lexeme->getNextFormId();
+		$serialization['nextSenseId'] = $lexeme->getNextSenseId();
 
 		$serialization['forms'] = $this->serializeForms( $lexeme->getForms() );
 		$serialization['senses'] = $this->serializeSenses( $lexeme->getSenses() );
