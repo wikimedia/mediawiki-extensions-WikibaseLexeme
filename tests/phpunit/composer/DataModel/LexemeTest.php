@@ -19,6 +19,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\SenseSet;
 
 /**
@@ -540,15 +541,13 @@ class LexemeTest extends TestCase {
 	}
 
 	public function testCopy_SenseSetIsCopied() {
-		$lexeme = NewLexeme::havingId( 'L1' )
-			->withSense( NewSense::havingId( 'S1' ) )
-			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$lexemeCopy = $lexeme->copy();
 
-		$initialSense = $lexeme->getSenses()->toArray()[0];
-		$copySense = $lexemeCopy->getSenses()->toArray()[0];
+		$lexemeCopy->addSense( new TermList( [ new Term( 'en', 'animal' ) ] ) );
 
-		$this->assertNotSame( $initialSense, $copySense );
+		$this->assertCount( 1, $lexemeCopy->getSenses()->toArray() );
+		$this->assertEmpty( $lexeme->getSenses()->toArray() );
 	}
 
 	public function testSetLemmas() {
@@ -626,12 +625,57 @@ class LexemeTest extends TestCase {
 		$this->assertEquals( new FormId( 'L1-F2' ), $newForm2->getId() );
 	}
 
+	public function testAddSense_ReturnsANewSenseWithProvidedParameters() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$newSense = $lexeme->addSense(
+			new TermList( [ new Term( 'en', 'goat' ) ] )
+		);
+
+		$this->assertEquals(
+			new TermList( [ new Term( 'en', 'goat' ) ] ),
+			$newSense->getGlosses()
+		);
+	}
+
+	public function testAddSense_ReturnedSenseIsAddedToTheLexeme() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$newSense = $lexeme->addSense(
+			new TermList( [ new Term( 'en', 'goat' ) ] )
+		);
+
+		$this->assertEquals( new SenseSet( [ $newSense ] ), $lexeme->getSenses() );
+	}
+
+	public function testAddSenseTwoTimes_SecondSenseHasAnIdWithNextNumber() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$newSense1 = $lexeme->addSense(
+			new TermList( [ new Term( 'en', 'goat' ) ] )
+		);
+		$newSense2 = $lexeme->addSense(
+			new TermList( [ new Term( 'en', 'goat1' ) ] )
+		);
+
+		$this->assertEquals( new SenseId( 'L1-S1' ), $newSense1->getId() );
+		$this->assertEquals( new SenseId( 'L1-S2' ), $newSense2->getId() );
+	}
+
 	public function testRemoveAForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 
 		$lexeme->removeForm( new FormId( 'L1-F1' ) );
 
 		$this->assertEquals( [], $lexeme->getForms()->toArray() );
+	}
+
+	public function testRemoveASense() {
+		$lexeme = NewLexeme::havingSense( NewSense::havingId( 'S1' ) )->build();
+
+		$lexeme->removeSense( new SenseId( 'L1-S1' ) );
+
+		$this->assertEquals( [], $lexeme->getSenses()->toArray() );
 	}
 
 	public function testAddOrUpdateForm_updatedFormReference() {
@@ -818,8 +862,6 @@ class LexemeTest extends TestCase {
 	}
 
 	public function testPatch_AddASenseThatAlreadyExisted_AddsASense() {
-		$this->markTestSkipped( 'adding and removing senses not yet supported' ); // TODO
-		/*
 		$lexeme = NewLexeme::havingSense( NewSense::havingId( 'S1' ) )->build();
 		$lexeme->removeSense( new SenseId( 'L1-S1' ) );
 		$restoredSense = NewSense::havingId( 'S1' )->build();
@@ -831,7 +873,6 @@ class LexemeTest extends TestCase {
 		);
 
 		$this->assertEquals( new SenseSet( [ $restoredSense ] ), $lexeme->getSenses() );
-		*/
 	}
 
 	public function testPatch_CannotAddASenseToLexemePatchAccessAfterPatchingIsFinished() {
@@ -872,8 +913,6 @@ class LexemeTest extends TestCase {
 	}
 
 	public function testPatch_CannotAddASenseIfLexemeAlreadyHasASenseWithTheSameId() {
-		$this->markTestSkipped( 'NewLexeme::havingSense not yet implemented' ); // TODO
-		/*
 		$existingSense = NewSense::havingId( 'S1' )->build();
 		$lexeme = NewLexeme::havingSense( $existingSense )->build();
 		$newSense = NewSense::havingId( 'S1' )->build();
@@ -884,7 +923,6 @@ class LexemeTest extends TestCase {
 				$patchAccess->addSense( $newSense );
 			}
 		);
-		*/
 	}
 
 	public function testPatch_CannotAddASenseWithIdThatIsBiggerThanLexemeNextSenseIdCounter() {
@@ -992,6 +1030,16 @@ class LexemeTest extends TestCase {
 
 		$this->assertTrue( $lexeme->isEmpty() );
 		$this->assertSame( 2, $lexeme->getNextFormId() );
+	}
+
+	public function testClearDoesNotResetSenseIdCounter() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$lexeme->addSense( new TermList( [ new Term( 'en', 'foo' ) ] ) );
+
+		$lexeme->clear();
+
+		$this->assertTrue( $lexeme->isEmpty() );
+		$this->assertSame( 2, $lexeme->getNextSenseId() );
 	}
 
 	public function testClear_clearsLanguage() {

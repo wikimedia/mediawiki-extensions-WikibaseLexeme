@@ -68,6 +68,16 @@ class NewLexeme {
 		return $result->withForm( $form );
 	}
 
+	/**
+	 * @param Sense|NewSense $sense
+	 *
+	 * @return self
+	 */
+	public static function havingSense( $sense ) {
+		$result = new self();
+		return $result->withSense( $sense );
+	}
+
 	public function __construct() {
 		$this->lexicalCategory = $this->newRandomItemId();
 		$this->language = $this->newRandomItemId();
