@@ -48,8 +48,6 @@
 	var expectedDataModel = new wb.lexeme.datamodel.Lexeme(
 		'L1',
 		new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'blah' ) } ),
-		'Q2',
-		'Q2',
 		expectedStatementGroupSet,
 		[]
 		);
@@ -63,11 +61,6 @@
 				expectedDataModel,
 				'Deserialized data model should deep equal expected data model'
 				);
-
-		assert.ok(
-				ds.deserialize( serialization ).equals( expectedDataModel ),
-				'Deserialized data model should equal expected data model'
-			);
 	} );
 
 	QUnit.test( 'deserialize() deserializes forms', function ( assert ) {
