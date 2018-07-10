@@ -16,15 +16,15 @@ use Wikibase\Lexeme\DataModel\SenseId;
 class SenseTest extends TestCase {
 
 	public function testCanBeCreated() {
-		$sense = new Sense( new SenseId( 'S1' ), new TermList(), new StatementList() );
+		$sense = new Sense( new SenseId( 'L1-S1' ), new TermList(), new StatementList() );
 
-		$this->assertSame( 'S1', $sense->getId()->getSerialization() );
+		$this->assertSame( 'L1-S1', $sense->getId()->getSerialization() );
 		$this->assertTrue( $sense->getGlosses()->isEmpty() );
 		$this->assertTrue( $sense->getStatements()->isEmpty() );
 	}
 
 	public function testCopyClones() {
-		$sense = new Sense( new SenseId( 'S1' ), new TermList(), new StatementList() );
+		$sense = new Sense( new SenseId( 'L1-S1' ), new TermList(), new StatementList() );
 		$copy = $sense->copy();
 
 		$this->assertNotSame( $sense->getGlosses(), $copy->getGlosses() );

@@ -13,9 +13,9 @@ use Wikibase\Lexeme\DataModel\SenseId;
 class SenseIdTest extends TestCase {
 
 	public function testCanBeCreated() {
-		$id = new SenseId( 'S1' );
+		$id = new SenseId( 'L1-S1' );
 
-		$this->assertSame( 'S1', $id->getSerialization() );
+		$this->assertSame( 'L1-S1', $id->getSerialization() );
 	}
 
 }
