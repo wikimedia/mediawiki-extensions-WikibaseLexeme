@@ -15,6 +15,8 @@ use Wikibase\DataModel\Term\TermList;
  */
 class Sense {
 
+	const ENTITY_TYPE = 'sense';
+
 	/**
 	 * @var SenseId
 	 */
