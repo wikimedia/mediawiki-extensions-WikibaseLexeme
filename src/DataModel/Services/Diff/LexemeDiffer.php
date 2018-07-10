@@ -106,6 +106,8 @@ class LexemeDiffer implements EntityDifferStrategy {
 			$to->getForms()
 		);
 
+		// TODO diff nextSenseId and senses
+
 		return new LexemeDiff( $diffOps );
 	}
 

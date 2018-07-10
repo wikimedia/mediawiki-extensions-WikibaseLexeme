@@ -79,6 +79,8 @@ class LexemeDiff extends EntityDiff {
 		return isset( $this['nextFormId'] ) ? $this['nextFormId'] : new Diff( [], true );
 	}
 
+	// TODO add getSensesDiff and getNextSenseIdDiff
+
 	public function toArray( $valueConverter = null ) {
 		throw new \LogicException( 'toArray() is not implemented' );
 	}

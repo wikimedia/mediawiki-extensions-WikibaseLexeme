@@ -85,6 +85,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 		$this->patchNextFormId( $lexeme, $patch );
 
 		$this->patchForms( $lexeme, $patch );
+
+		// TODO patch next sense ID and senses
 	}
 
 	/**

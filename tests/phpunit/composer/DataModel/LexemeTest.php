@@ -785,6 +785,139 @@ class LexemeTest extends TestCase {
 		$this->assertTrue( $lexeme->equals( $initialLexeme ), "Lexeme's state is changed" );
 	}
 
+	public function testPatch_IncreaseNextSenseIdTo_GivenLexemeWithGreaterId_Increases() {
+		$lexemeWithoutSense = NewLexeme::create()->build();
+		$this->assertEquals( 1, $lexemeWithoutSense->getNextSenseId() );
+
+		$lexemeWithoutSense->patch(
+			function ( LexemePatchAccess $patchAccess ) {
+				$patchAccess->increaseNextSenseIdTo( 2 );
+			}
+		);
+
+		$this->assertEquals( 2, $lexemeWithoutSense->getNextSenseId() );
+	}
+
+	public function testPatch_IncreaseNextSenseIdTo_AddSenseWithTooBigId_LexemesStateIsUnchanged() {
+		$lexeme = NewLexeme::create()->build();
+		$initialLexeme = clone $lexeme;
+		$newSense = NewSense::havingId( 'S3' )->build();
+
+		try {
+			$lexeme->patch(
+				function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+					$patchAccess->increaseNextSenseIdTo( 2 );
+					$patchAccess->addSense( $newSense );
+				}
+			);
+			$this->fail( "patch() should have failed" );
+		} catch ( \Exception $e ) {
+			// ignore
+		}
+		$this->assertTrue( $lexeme->equals( $initialLexeme ), "Lexeme's state is changed" );
+	}
+
+	public function testPatch_AddASenseThatAlreadyExisted_AddsASense() {
+		$this->markTestSkipped( 'adding and removing senses not yet supported' ); // TODO
+		/*
+		$lexeme = NewLexeme::havingSense( NewSense::havingId( 'S1' ) )->build();
+		$lexeme->removeSense( new SenseId( 'L1-S1' ) );
+		$restoredSense = NewSense::havingId( 'S1' )->build();
+
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( $restoredSense ) {
+				$patchAccess->addSense( $restoredSense );
+			}
+		);
+
+		$this->assertEquals( new SenseSet( [ $restoredSense ] ), $lexeme->getSenses() );
+		*/
+	}
+
+	public function testPatch_CannotAddASenseToLexemePatchAccessAfterPatchingIsFinished() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$newSense = NewSense::havingId( 'S1' )->build();
+
+		/** @var LexemePatchAccess $patchAccessFromOutside */
+		$patchAccessFromOutside = null;
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+				$patchAccessFromOutside = $patchAccess;
+			}
+		);
+
+		$this->setExpectedException( \Exception::class );
+		$patchAccessFromOutside->addSense( $newSense );
+	}
+
+	public function testPatch_CannotAddASenseToLexemePatchAccessIfPatchingHasFailed() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$newSense = NewSense::havingId( 'S1' )->build();
+
+		/** @var LexemePatchAccess $patchAccessFromOutside */
+		$patchAccessFromOutside = null;
+		try {
+			$lexeme->patch(
+				function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+					$patchAccessFromOutside = $patchAccess;
+					throw new \Exception();
+				}
+			);
+			$this->fail( "patch() should have failed" );
+		} catch ( \Exception $e ) {
+			// ignore
+		}
+		$this->setExpectedException( \Exception::class );
+		$patchAccessFromOutside->addSense( $newSense );
+	}
+
+	public function testPatch_CannotAddASenseIfLexemeAlreadyHasASenseWithTheSameId() {
+		$this->markTestSkipped( 'NewLexeme::havingSense not yet implemented' ); // TODO
+		/*
+		$existingSense = NewSense::havingId( 'S1' )->build();
+		$lexeme = NewLexeme::havingSense( $existingSense )->build();
+		$newSense = NewSense::havingId( 'S1' )->build();
+
+		$this->setExpectedException( \Exception::class );
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+				$patchAccess->addSense( $newSense );
+			}
+		);
+		*/
+	}
+
+	public function testPatch_CannotAddASenseWithIdThatIsBiggerThanLexemeNextSenseIdCounter() {
+		$lexeme = NewLexeme::create()->build();
+		$newSense = NewSense::havingId( 'S1' )->build();
+
+		$this->assertSame( 1, $lexeme->getNextSenseId() );
+		$this->setExpectedException( \Exception::class );
+		$lexeme->patch(
+			function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+				$patchAccess->addSense( $newSense );
+			}
+		);
+	}
+
+	public function testPatch_SenseAdditionFails_LexemesStateIsUnchanged() {
+		$lexeme = NewLexeme::create()->build();
+		$initialLexeme = clone $lexeme;
+		$newSense = NewSense::havingId( 'S1' )->build();
+
+		try {
+			$lexeme->patch(
+				function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+					$patchAccess->addSense( $newSense );
+				}
+			);
+			$this->fail( "patch() should have failed" );
+		} catch ( \Exception $e ) {
+			// ignore
+		}
+		$this->assertTrue( $lexeme->equals( $initialLexeme ), "Lexeme's state is changed" );
+	}
+
 	public function testLexemeWithNoIdIsNotSufficientlyInitialized() {
 		$lexeme = new Lexeme(
 			null,
