@@ -318,6 +318,25 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
+	 * @param SenseId $senseId
+	 *
+	 * @throws OutOfRangeException if no sense by that ID exists
+	 * @return Sense
+	 */
+	public function getSense( SenseId $senseId ) {
+		$sense = $this->senses->getById( $senseId );
+
+		if ( $sense === null ) {
+			$lexemeId = $this->id->getSerialization();
+			throw new OutOfRangeException(
+				"Lexeme {$lexemeId} doesn't have sense {$senseId->getSerialization()}"
+			);
+		}
+
+		return $sense;
+	}
+
+	/**
 	 * @param TermList $representations
 	 * @param ItemId[] $grammaticalFeatures
 	 *
