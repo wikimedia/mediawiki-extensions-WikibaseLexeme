@@ -9,7 +9,6 @@ use Serializers\Serializer;
 use UnexpectedValueException;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseSet;
 
 /**
@@ -33,6 +32,11 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 	 */
 	private $formSerializer;
 
+	/**
+	 * @var Serializer
+	 */
+	private $senseSerializer;
+
 	public function __construct(
 		Serializer $termListSerializer,
 		Serializer $statementListSerializer
@@ -40,6 +44,10 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 		$this->termListSerializer = $termListSerializer;
 		$this->statementListSerializer = $statementListSerializer;
 		$this->formSerializer = new FormSerializer( $termListSerializer, $statementListSerializer );
+		$this->senseSerializer = new SenseSerializer(
+			$termListSerializer,
+			$statementListSerializer
+		);
 	}
 
 	/**
@@ -142,26 +150,8 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 		$serialization = [];
 
 		foreach ( $senses->toArray() as $sense ) {
-			$serialization[] = $this->serializeSense( $sense );
+			$serialization[] = $this->senseSerializer->serialize( $sense );
 		}
-
-		return $serialization;
-	}
-
-	/**
-	 * @param Sense $sense
-	 *
-	 * @return array
-	 */
-	private function serializeSense( Sense $sense ) {
-		$serialization = [];
-
-		$serialization['id'] = $sense->getId()->getSerialization();
-		$serialization['glosses'] = $this->termListSerializer->serialize( $sense->getGlosses() );
-
-		$serialization['claims'] = $this->statementListSerializer->serialize(
-			$sense->getStatements()
-		);
 
 		return $serialization;
 	}
