@@ -64,7 +64,7 @@ class LexemePatchAccess {
 	 */
 	public function increaseNextFormIdTo( $number ) {
 		if ( !is_int( $number ) ) {
-			throw new \InvalidArgumentException( '$nextFormId` must be integer' );
+			throw new \InvalidArgumentException( '$number` must be integer' );
 		}
 
 		if ( $number < $this->nextFormId ) {
@@ -85,7 +85,7 @@ class LexemePatchAccess {
 
 	public function increaseNextSenseIdTo( $number ) {
 		if ( !is_int( $number ) ) {
-			throw new \InvalidArgumentException( '$nextSenseId` must be integer' );
+			throw new \InvalidArgumentException( '$number` must be integer' );
 		}
 
 		if ( $number < $this->nextSenseId ) {
