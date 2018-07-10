@@ -336,6 +336,23 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
+	 * @param TermList $glossList
+	 *
+	 * @return Sense
+	 */
+	public function addSense( TermList $glossList ) {
+		if ( !$this->id ) {
+			throw new \LogicException( 'Cannot add sense to a lexeme with no ID' );
+		}
+
+		$senseId = new SenseId( $this->id->getSerialization() . '-S' . $this->nextSenseId++ );
+		$sense = new Sense( $senseId, $glossList );
+		$this->senses->add( $sense );
+
+		return $sense;
+	}
+
+	/**
 	 * Replace the form identified by $form->getId() with the given one or add it
 	 *
 	 * @param Form $form
@@ -355,6 +372,10 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	public function removeForm( FormId $formId ) {
 		$this->forms->remove( $formId );
+	}
+
+	public function removeSense( SenseId $senseId ) {
+		$this->senses->remove( $senseId );
 	}
 
 	/**
