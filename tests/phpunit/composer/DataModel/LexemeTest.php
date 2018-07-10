@@ -19,6 +19,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use InvalidArgumentException;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
+use Wikibase\Lexeme\DataModel\SenseSet;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Lexeme
@@ -182,7 +183,6 @@ class LexemeTest extends TestCase {
 	}
 
 	public function testCanNotCreateWithNextSenseIdSmallerOrEqualThanMaxExistingSenseId() {
-		$this->markTestSkipped( 'max sense ID number not yet checked' );
 		$this->setExpectedException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
@@ -261,7 +261,7 @@ class LexemeTest extends TestCase {
 			1,
 			null,
 			2,
-			[ NewSense::havingId( 'S1' )->build() ]
+			new SenseSet( [ NewSense::havingId( 'S1' )->build() ] )
 		);
 
 		$this->assertFalse( $lexeme->isEmpty() );
@@ -539,14 +539,14 @@ class LexemeTest extends TestCase {
 		$this->assertEmpty( $lexeme->getForms()->toArray() );
 	}
 
-	public function testCopy_SensesAreCopied() {
+	public function testCopy_SenseSetIsCopied() {
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withSense( NewSense::havingId( 'S1' ) )
 			->build();
 		$lexemeCopy = $lexeme->copy();
 
-		$initialSense = $lexeme->getSenses()[0];
-		$copySense = $lexemeCopy->getSenses()[0];
+		$initialSense = $lexeme->getSenses()->toArray()[0];
+		$copySense = $lexemeCopy->getSenses()->toArray()[0];
 
 		$this->assertNotSame( $initialSense, $copySense );
 	}

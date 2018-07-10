@@ -6,6 +6,7 @@ use Language;
 use Message;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseSet;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
@@ -64,11 +65,11 @@ class SensesView {
 	}
 
 	/**
-	 * @param Sense[] $senses
+	 * @param SenseSet $senses
 	 *
 	 * @return string HTML
 	 */
-	public function getHtml( array $senses ) {
+	public function getHtml( SenseSet $senses ) {
 		$html = '<div class="wikibase-lexeme-senses-section">';
 		$html .= '<h2 class="wb-section-heading section-heading">'
 			. '<span class="mw-headline" id="senses">'
@@ -77,7 +78,7 @@ class SensesView {
 			. '</h2>';
 
 		$html .= '<div class="wikibase-lexeme-senses">';
-		foreach ( $senses as $sense ) {
+		foreach ( $senses->toArray() as $sense ) {
 			$html .= $this->getSenseHtml( $sense );
 		}
 		$html .= '</div>';

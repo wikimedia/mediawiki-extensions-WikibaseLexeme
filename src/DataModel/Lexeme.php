@@ -57,7 +57,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	private $forms;
 
 	/**
-	 * @var Sense[]
+	 * @var SenseSet
 	 */
 	private $senses;
 
@@ -84,7 +84,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * @param int $nextFormId
 	 * @param FormSet|null $forms
 	 * @param int $nextSenseId
-	 * @param Sense[] $senses
+	 * @param SenseSet $senses
 	 */
 	public function __construct(
 		LexemeId $id = null,
@@ -95,7 +95,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$nextFormId = 1,
 		FormSet $forms = null,
 		$nextSenseId = 1,
-		array $senses = []
+		SenseSet $senses = null
 	) {
 		$this->id = $id;
 		$this->lemmas = $lemmas ?: new TermList();
@@ -103,8 +103,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$this->language = $language;
 		$this->statements = $statements ?: new StatementList();
 		$this->forms = $forms ?: new FormSet( [] );
-		// TODO: Add assertion on Senses types.
-		$this->senses = $senses;
+		$this->senses = $senses ?: new SenseSet( [] );
 
 		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $this->forms );
 		$this->nextFormId = $nextFormId;
@@ -157,7 +156,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		return $this->lemmas->isEmpty()
 			&& $this->statements->isEmpty()
 			&& $this->forms->isEmpty()
-			&& empty( $this->senses );
+			&& $this->senses->isEmpty();
 	}
 
 	/**
@@ -212,9 +211,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$this->lemmas = clone $this->lemmas;
 		$this->statements = clone $this->statements;
 		$this->forms = clone $this->forms;
-		foreach ( $this->senses as &$sense ) {
-			$sense = clone $sense;
-		}
+		$this->senses = clone $this->senses;
 	}
 
 	/**
@@ -270,18 +267,10 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
-	 * @return Sense[]
+	 * @return SenseSet
 	 */
 	public function getSenses() {
 		return $this->senses;
-	}
-
-	/**
-	 * @param Sense[] $senses
-	 * @deprecated Only for demonstration purposes. Do not use otherwise!
-	 */
-	public function setSenses( array $senses ) {
-		$this->senses = $senses;
 	}
 
 	/**
@@ -436,25 +425,34 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	/**
 	 * @param int $nextSenseId
-	 * @param Sense[] $senses
+	 * @param Sense[] $senseSet
 	 */
-	private function assertCorrectNextSenseIdIsGiven( $nextSenseId, array $senses ) {
+	private function assertCorrectNextSenseIdIsGiven( $nextSenseId, SenseSet $senseSet ) {
 		if ( !is_int( $nextSenseId ) || $nextSenseId < 1 ) {
 			throw new InvalidArgumentException( '$nextSenseId should be a positive integer' );
 		}
 
-		if ( $nextSenseId <= count( $senses ) ) {
+		if ( $nextSenseId <= $senseSet->count() ) {
 			throw new \LogicException(
 				sprintf(
 					'$nextSenseId must always be greater than the number of senses. ' .
 					'$nextSenseId = `%s`, number of senses = `%s`',
 					$nextSenseId,
-					count( $senses )
+					count( $senseSet )
 				)
 			);
 		}
 
-		// TODO check max sense ID number in $senses
+		if ( $nextSenseId <= $senseSet->maxSenseIdNumber() ) {
+			throw new \LogicException(
+				sprintf(
+					'$nextSenseId must always be greater than the max ID number of provided senses. ' .
+					'$nextSenseId = `%s`, max ID number of provided senses = `%s`',
+					$nextSenseId,
+					$senseSet->maxSenseIdNumber()
+				)
+			);
+		}
 	}
 
 	/**
@@ -465,7 +463,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$this->lemmas = new TermList();
 		$this->statements = new StatementList();
 		$this->forms = new FormSet( [] );
-		$this->senses = [];
+		$this->senses = new SenseSet( [] );
 		$this->language = null;
 		$this->lexicalCategory = null;
 	}

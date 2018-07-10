@@ -10,6 +10,7 @@ use UnexpectedValueException;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseSet;
 
 /**
  * @license GPL-2.0-or-later
@@ -133,14 +134,14 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 	}
 
 	/**
-	 * @param Sense[] $senses
+	 * @param SenseSet $senses
 	 *
 	 * @return array[]
 	 */
-	private function serializeSenses( array $senses ) {
+	private function serializeSenses( SenseSet $senses ) {
 		$serialization = [];
 
-		foreach ( $senses as $sense ) {
+		foreach ( $senses->toArray() as $sense ) {
 			$serialization[] = $this->serializeSense( $sense );
 		}
 

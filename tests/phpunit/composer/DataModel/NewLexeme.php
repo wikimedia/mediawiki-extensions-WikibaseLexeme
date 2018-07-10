@@ -10,6 +10,7 @@ use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseSet;
 
 /**
  * @method static NewLexeme havingId(LexemeId | string $lexemeId)
@@ -79,7 +80,8 @@ class NewLexeme {
 		$forms = new FormSet( $this->forms );
 		$nextFormId = $forms->maxFormIdNumber() + 1;
 
-		$nextSenseId = count( $this->senses ) + 1; // TODO max sense ID number + 1
+		$senses = new SenseSet( $this->senses );
+		$nextSenseId = $senses->maxSenseIdNumber() + 1;
 
 		$lemmas = new TermList();
 		foreach ( $this->lemmas as $lang => $term ) {
@@ -102,7 +104,7 @@ class NewLexeme {
 			$nextFormId,
 			$forms,
 			$nextSenseId,
-			$this->senses
+			$senses
 		);
 
 		foreach ( $this->statements as $statement ) {
