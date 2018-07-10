@@ -111,7 +111,7 @@ class NewSense {
 	 * @return Sense
 	 */
 	public function build() {
-		$senseId = $this->senseId ?: $this->newRandomSenseId();
+		$senseId = $this->senseId ?: $this->newRandomSenseIdSensePart();
 
 		return new Sense(
 			new SenseId( $this->lexemeId . '-' . $senseId ),
@@ -120,7 +120,7 @@ class NewSense {
 		);
 	}
 
-	private function newRandomSenseId() {
+	private function newRandomSenseIdSensePart() {
 		return 'S' . mt_rand( 1, mt_getrandmax() );
 	}
 
