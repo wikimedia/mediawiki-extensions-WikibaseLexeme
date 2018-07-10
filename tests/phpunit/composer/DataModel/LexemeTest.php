@@ -504,6 +504,10 @@ class LexemeTest extends TestCase {
 		$lexeme->addForm( new TermList( [ new Term( 'en', 'orig-form' ) ] ), [ new ItemId( 'Q1' ) ] );
 		// Make sure we have the correct FormId for the form that we added (will throw otherwise)
 		$lexeme->getForm( $formId );
+		$senseId = new SenseId( 'L1-S' . $lexeme->getNextSenseId() );
+		$lexeme->addSense( new TermList( [ new Term( 'en', 'orig-sense' ) ] ) );
+		// Make sure we have the correct SenseId for the form that we added
+		$lexeme->getSense( $senseId );
 
 		$copy = $lexeme->copy();
 
@@ -516,7 +520,7 @@ class LexemeTest extends TestCase {
 			Statement::RANK_DEPRECATED
 		);
 		$copy->removeForm( $formId );
-		// TODO test senses here once appropriate
+		$copy->removeSense( $senseId );
 
 		$this->assertSame( 'L1', $lexeme->getId()->getSerialization() );
 		$this->assertSame( 'Q1', $lexeme->getLanguage()->getSerialization() );
@@ -529,6 +533,8 @@ class LexemeTest extends TestCase {
 		);
 		$this->assertCount( 0, $copy->getForms() );
 		$this->assertCount( 1, $lexeme->getForms() );
+		$this->assertCount( 0, $copy->getSenses() );
+		$this->assertCount( 1, $lexeme->getSenses() );
 	}
 
 	public function testCopy_FormSetIsCopied() {
