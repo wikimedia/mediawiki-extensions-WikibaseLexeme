@@ -153,7 +153,7 @@ class NewForm {
 	 * @return Form
 	 */
 	public function build() {
-		$formId = $this->formId ?: $this->newRandomFormId();
+		$formId = $this->formId ?: $this->newRandomFormIdFormPart();
 
 		if ( empty( $this->representations ) ) {
 			$representations = new TermList( [
@@ -193,7 +193,7 @@ class NewForm {
 	/**
 	 * @return string
 	 */
-	private function newRandomFormId() {
+	private function newRandomFormIdFormPart() {
 		return 'F' . mt_rand( 1, mt_getrandmax() );
 	}
 
