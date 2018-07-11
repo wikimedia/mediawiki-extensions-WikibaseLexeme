@@ -25,12 +25,12 @@ class Sense {
 	/**
 	 * @var TermList
 	 */
-	private $glossList;
+	protected $glossList;
 
 	/**
 	 * @var StatementList
 	 */
-	private $statementList;
+	protected $statementList;
 
 	public function __construct(
 		SenseId $id,
