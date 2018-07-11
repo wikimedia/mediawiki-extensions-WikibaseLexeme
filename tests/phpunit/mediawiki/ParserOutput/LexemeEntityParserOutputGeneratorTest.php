@@ -41,6 +41,31 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->itemNamespace = $namespaceLookup->getEntityNamespace( 'item' );
 	}
 
+	public function testParserOutputContainsLinksForEntityIdsReferencedInFormStatements() {
+		$propertyId = 'P123';
+		$valueItemId = 'Q42';
+		$this->saveItem( $valueItemId );
+		$this->saveProperty( $propertyId );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm( NewForm::any()
+				->andStatement( new PropertyValueSnak(
+					new PropertyId( $propertyId ),
+					new EntityIdValue( new ItemId( $valueItemId ) )
+				) ) )
+			->build();
+
+		$output = $this->newParserOutputGenerator()->getParserOutput( $lexeme );
+
+		$this->assertArrayHasKey(
+			$propertyId,
+			$output->getLinks()[$this->propertyNamespace]
+		);
+		$this->assertArrayHasKey(
+			$valueItemId,
+			$output->getLinks()[$this->itemNamespace]
+		);
+	}
+
 	public function testParserOutputContainsLinksForEntityIdsReferencedInStatements() {
 		$propertyId = 'P123';
 		$valueItemId = 'Q42';
