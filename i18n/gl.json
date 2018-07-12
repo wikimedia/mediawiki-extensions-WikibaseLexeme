@@ -16,6 +16,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoría léxica",
 	"wikibaselexeme-newlexeme-language": "Lingua do lexema",
 	"wikibaselexeme-language-lexical-category-value": "$1 en $2",
+	"wikibaselexeme-header-forms": "Formularios",
 	"wikibaselexeme-lemma-field-lemma-label": "Lema",
 	"wikibaselexeme-lemma-field-language-label": "Lingua",
 	"wikibaselexeme-form-field-representation-label": "Representación",
@@ -23,10 +24,15 @@
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
+	"datatypes-type-wikibase-form": "Formulario",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexema",
+	"wikibase-listdatatypes-wikibase-form-head": "Formulario",
 	"wikibaselexeme-add-form": "engadir forma",
 	"apihelp-wbladdform-summary": "Engade unha forma ó lexema",
 	"apihelp-wbladdform-param-lexemeId": "Id. do lexema; p. ex., L10",
 	"apihelp-wblremoveform-summary": "Borra unha forma do lexema",
+	"apihelp-wblremoveform-param-id": "ID do Formulario, p.ex. L10-F20",
+	"apihelp-wbleditformelements-param-formId": "ID do Formulario, p.ex. L10-F2",
 	"wikibaselexeme-api-error-parameter-required": "O parámetro «$1» é obrigatorio",
 	"wikibaselexeme-field-language-label": "Lingua",
 	"wikibaselexeme-field-lexical-category-label": "Categoría léxica",
@@ -35,5 +41,7 @@
 	"wikibaselexeme-diffview-language": "lingua",
 	"wikibaselexeme-diffview-form": "forma",
 	"wikibaselexeme-diffview-representation": "representación",
-	"content-model-wikibase-lexeme": "Lexema Wikibase"
+	"content-model-wikibase-lexeme": "Lexema Wikibase",
+	"wikibaselexeme-unknown-language": "Lingua descoñecida",
+	"wikibaselexeme-unknown-category": "Descoñecida"
 }
