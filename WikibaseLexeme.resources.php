@@ -319,6 +319,20 @@ return call_user_func( function() {
 				"wikibase.serialization.Serializer"
 			]
 		],
+
+		"wikibase.lexeme.serialization.SenseSerializer" => $moduleTemplate + [
+			"scripts" => [
+				"serialization/__namespace.js",
+				"serialization/SenseSerializer.js"
+			],
+			"dependencies" => [
+				"util.inherit",
+				"wikibase.lexeme",
+				"wikibase.lexeme.datamodel.Sense",
+				"wikibase.serialization.Serializer"
+			]
+		],
+
 		"wikibase.lexeme.serialization.LexemeDeserializer" => $moduleTemplate + [
 			"scripts" => [
 				"serialization/__namespace.js",
