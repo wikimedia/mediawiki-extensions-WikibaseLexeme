@@ -2,9 +2,11 @@
 
 const Page = require( '../../../../../tests/selenium/pageobjects/page' ),
 	_ = require( 'lodash' ),
-	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/pagesections/main.statement.section' );
+	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/pagesections/mixinbuilder' ),
+	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/pagesections/main.statement.section' ),
+	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/pagesections/ComponentInteraction' );
 
-class LexemePage extends MainStatementSection( Page ) {
+class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, ComponentInteraction ) {
 
 	static get LEMMA_WIDGET_SELECTORS() {
 		return {
@@ -36,12 +38,6 @@ class LexemePage extends MainStatementSection( Page ) {
 		};
 	}
 
-	static get OOUI_OPTION_WIDGET_SELECTORS() {
-		return {
-			OPTION: '.oo-ui-optionWidget'
-		};
-	}
-
 	get lemmaContainer() {
 		return $( '.lemma-widget_lemma-list' );
 	}
@@ -59,7 +55,7 @@ class LexemePage extends MainStatementSection( Page ) {
 	}
 
 	get headerId() {
-		return $( '.wb-lexeme-header_id' ).getText();
+		return $( '.wb-lexeme-header_id' ).getText().replace( /[^L0-9]/g, '' ); // remove non-marked-up styling text "(L123)"
 	}
 
 	get addFormLink() {
@@ -265,11 +261,10 @@ class LexemePage extends MainStatementSection( Page ) {
 
 		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
 
-		let grammaticalFeatures = form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES );
-
-		grammaticalFeatures.$( 'input' ).setValue( grammaticalFeatureId );
-		grammaticalFeatures.waitForVisible( this.constructor.OOUI_OPTION_WIDGET_SELECTORS.OPTION );
-		grammaticalFeatures.$( this.constructor.OOUI_OPTION_WIDGET_SELECTORS.OPTION ).click();
+		this.setValueOnLookupElement(
+			form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ),
+			grammaticalFeatureId
+		);
 
 		if ( submitImmediately !== false ) {
 			this.submitNthForm( index );
