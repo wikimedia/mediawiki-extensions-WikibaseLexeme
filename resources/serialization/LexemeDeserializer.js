@@ -68,21 +68,12 @@
 
 		deserializeSense: function ( senseSerialization ) {
 			var statementGroupSetDeserializer = new SERIALIZER.StatementGroupSetDeserializer();
+			var termMapDeserializer = new SERIALIZER.TermMapDeserializer();
 			return new wb.lexeme.datamodel.Sense(
 				senseSerialization.id,
-				this._deserializeGlosses( senseSerialization.glosses ),
+				termMapDeserializer.deserialize( senseSerialization.glosses ),
 				statementGroupSetDeserializer.deserialize( senseSerialization.claims )
 			);
-		},
-
-		_deserializeGlosses: function ( serializedGlosses ) {
-			var glosses = {};
-
-			for ( var lang in serializedGlosses ) {
-				glosses[ serializedGlosses[ lang ][ 'language' ] ] = serializedGlosses[ lang ][ 'value' ];
-			}
-
-			return glosses;
 		}
 
 	} );
