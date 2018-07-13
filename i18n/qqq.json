@@ -77,6 +77,7 @@
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "API error message that is being reported when the language of one of provided representations or lemmas is empty",
 	"wikibaselexeme-api-error-language-inconsistent": "API error message that is being reported when language of provided representation or lemma is inconsistent.\n\nParameters:\n* $1 - Name of the parameter that is expected to be JSON object.\n* $2 - Path of the field inside of the JSON object (e.g \"array-field-name/0/other-field-name\")\n* $3 - Expected language\n* $4 - Given language",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "API error message that is being reported when no lexicographical Form representations were provided",
+	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "API error message that is reported when no glosses were provided",
 	"wikibaselexeme-api-error-unknown-language": "API error message that is being reported when the language field contains an unknown language.",
 	"wikibaselexeme-api-error-invalid-item-id": "API error message that is being reported when the language of a lexeme term contains an unknown item id.",
 	"wikibase-lexeme-summary-add-form": "{{wikibase summary messages|lexeme|Automatic edit summary generated when adding new lexicographical Form to a Lexeme.}}\n\nParameters:\n* $1 - Number of representations of the lexicographical Form added.\n* $2 - empty.\n* $3 - lexicographical Form ID.\n\n{{Related|Wikibase-lexeme-summary}}",

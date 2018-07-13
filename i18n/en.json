@@ -69,6 +69,7 @@
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Language cannot be empty",
 	"wikibaselexeme-api-error-language-inconsistent": "Language in field \"$1\" at \"$2\" was expected to be \"$3\". Given: \"$4\"",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Form must have at least one representation",
+	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "Sense must have at least one gloss",
 	"wikibaselexeme-api-error-unknown-language": "Unknown language \"$3\" in field \"$1\" at \"$2\".",
 	"wikibaselexeme-api-error-invalid-item-id": "Invalid item id \"$3\" in field \"$1\" at \"$2\".",
 	"wikibase-lexeme-summary-add-form": "Added new Form $3 with {{PLURAL:$1|representation|representations}}",
