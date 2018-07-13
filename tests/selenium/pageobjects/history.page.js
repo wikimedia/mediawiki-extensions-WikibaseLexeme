@@ -1,13 +1,13 @@
 'use strict';
 
-const Page = require( '../../../../../tests/selenium/pageobjects/page' );
+const Page = require( 'wdio-mediawiki/Page' );
 
 class HistoryPage extends Page {
 
 	get revisions() { return $( 'ul#pagehistory' ).$$( 'li' ); }
 
 	open( id ) {
-		super.open( 'Lexeme:' + id + '&action=history' );
+		super.openTitle( 'Lexeme:' + id, { action: 'history' } );
 	}
 
 	undoFirstRevision() {

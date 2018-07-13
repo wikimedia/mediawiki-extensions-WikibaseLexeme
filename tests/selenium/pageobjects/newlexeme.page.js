@@ -1,6 +1,6 @@
 'use strict';
 
-const Page = require( '../../../../../tests/selenium/pageobjects/page' ),
+const Page = require( 'wdio-mediawiki/Page' ),
 	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/pagesections/mixinbuilder' ),
 	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/pagesections/ComponentInteraction' );
 
@@ -17,7 +17,7 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	}
 
 	open() {
-		super.open( 'Special:NewLexeme' );
+		super.openTitle( 'Special:NewLexeme' );
 	}
 
 	showsForm() {

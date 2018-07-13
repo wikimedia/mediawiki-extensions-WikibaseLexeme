@@ -1,6 +1,6 @@
 'use strict';
 
-const Page = require( '../../../../../tests/selenium/pageobjects/page' ),
+const Page = require( 'wdio-mediawiki/Page' ),
 	_ = require( 'lodash' ),
 	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/pagesections/mixinbuilder' ),
 	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/pagesections/main.statement.section' ),
@@ -72,7 +72,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @param {string} lexemeId
 	 */
 	open( lexemeId ) {
-		super.open( 'Lexeme:' + lexemeId );
+		super.openTitle( 'Lexeme:' + lexemeId );
 		browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
 		this.addFormLink.waitForVisible(); // last button on page, probably the last
 	}

@@ -5,5 +5,13 @@
 	},
 	"globals": {
 		"browser": false
+	},
+	"env": {
+		"es6": true,
+		"mocha": true,
+		"node": true
+	},
+	"rules": {
+		"no-console": 0
 	}
 }

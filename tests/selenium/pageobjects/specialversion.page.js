@@ -1,6 +1,6 @@
 'use strict';
 
-const Page = require( '../../../../../tests/selenium/pageobjects/page' ); // TODO: Love it!
+const Page = require( 'wdio-mediawiki/Page' );
 
 class SpecialVersionPage extends Page {
 	get wikibaseLexemeExtensionLink() {
@@ -8,7 +8,7 @@ class SpecialVersionPage extends Page {
 	}
 
 	open() {
-		super.open( 'Special:Version' );
+		super.openTitle( 'Special:Version' );
 	}
 }
 
