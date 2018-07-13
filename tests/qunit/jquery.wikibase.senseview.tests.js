@@ -5,10 +5,6 @@
 	'use strict';
 
 	var TEST_LEXMEFORMVIEW_CLASS = 'test_senseview';
-	/** @type {wikibase.datamodel.TermMap}*/
-	var TermMap = wb.datamodel.TermMap;
-	/** @type {wikibase.datamodel.Term}*/
-	var Term = wb.datamodel.Term;
 
 	QUnit.module( 'jquery.wikibase.senseview', QUnit.newMwEnvironment( {
 		teardown: function () {
@@ -28,9 +24,7 @@
 	};
 
 	var newSense = function ( id, enGloss ) {
-		var glosses = new TermMap( { en: new Term( 'en', enGloss ) } );
-
-		return new wb.lexeme.datamodel.Sense( id, glosses );
+		return new wb.lexeme.datamodel.Sense( id, { en: enGloss } );
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {

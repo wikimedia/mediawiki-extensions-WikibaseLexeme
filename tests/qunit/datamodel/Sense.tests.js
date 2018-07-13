@@ -7,26 +7,37 @@
 	QUnit.module( 'wikibase.lexeme.datamodel.Sense' );
 
 	var Sense = wb.lexeme.datamodel.Sense;
-	var TermMap = wb.datamodel.TermMap;
-	var Term = wb.datamodel.Term;
-	var someGlosses = new TermMap( { en: new Term( 'en', 'A very important gloss' ) } );
 
 	QUnit.test( 'getId()', function ( assert ) {
 		var expectedId = 'S123',
-			sense = new Sense( expectedId, someGlosses );
+			sense = new Sense( expectedId, {} );
 
 		assert.equal( sense.getId(), expectedId );
 	} );
 
 	QUnit.test( 'getGlosses()', function ( assert ) {
-		var sense = new Sense( 'S123', someGlosses );
+		var expectedGlosses = { en: 'test gloss' },
+			sense = new Sense( 'S123', expectedGlosses );
 
-		assert.equal( sense.getGlosses(), someGlosses );
+		assert.equal( sense.getGlosses(), expectedGlosses );
+	} );
+
+	QUnit.test( 'getGloss() given gloss for language defined', function ( assert ) {
+		var expectedGloss = 'test gloss',
+			sense = new Sense( 'S123', { en: expectedGloss } );
+
+		assert.equal( sense.getGloss( 'en' ), expectedGloss );
+	} );
+
+	QUnit.test( 'getGloss() given no gloss for the language', function ( assert ) {
+		var sense = new Sense( 'S123', { en: 'test gloss' } );
+
+		assert.equal( sense.getGloss( 'de' ), '' );
 	} );
 
 	QUnit.test( 'equals()', function ( assert ) {
 		var id = 'S123',
-			glosses = someGlosses,
+			glosses = { en: 'a gloss' },
 			sense = new Sense( id, glosses ),
 			comparison = new Sense( id, glosses );
 
@@ -35,10 +46,10 @@
 
 	QUnit.test( 'not equals()', function ( assert ) {
 		var id = 'S123',
-			glosses = new TermMap( { en: new Term( 'en', 'A very important gloss' ) } ),
-			emptyGlosses = new TermMap(),
-			differentGloss = new TermMap( { en: new Term( 'en', 'another gloss' ) } ),
-			anotherLanguageGlosses = new TermMap( { de: new Term( 'de', 'ein gloss' ) } ),
+			glosses = { en: 'a gloss' },
+			emptyGlosses = {},
+			differentGloss = { en: 'another gloss' },
+			anotherLanguageGlosses = { de: 'ein Gloss' },
 			sense = new Sense( id, glosses ),
 			equalsDataProvider = [
 				{

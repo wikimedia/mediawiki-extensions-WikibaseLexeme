@@ -154,7 +154,9 @@
 			forms: [],
 			senses: [ {
 				id: 'S1',
-				glosses: { en: { language: 'en', value: 'Some English gloss' } },
+				glosses: {
+					en: { language: 'en', value: 'Some English gloss' }
+				},
 				claims: claimsSerialization
 			} ]
 		} );
@@ -167,14 +169,10 @@
 			'Data model should contain instance of Sense'
 		);
 		assert.equal( sense.getId(), 'S1', 'Data model should contain sense id' );
-		assert.ok(
-			sense.getGlosses().equals( new TermMap( {
-				en: new Term(
-					'en',
-					'Some English gloss'
-				)
-			} ) ),
-			'Data model should contain sense glosses'
+		assert.deepEqual(
+			sense.getGlosses(),
+			{ en: 'Some English gloss' },
+			'Data model should contain all glosses of a sense'
 		);
 		assert.ok(
 			sense.getStatements().equals( expectedStatementGroupSet ),
