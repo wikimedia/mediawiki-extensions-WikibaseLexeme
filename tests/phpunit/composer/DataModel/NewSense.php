@@ -53,6 +53,16 @@ class NewSense {
 	}
 
 	/**
+	 * @param string $lang
+	 * @param string $gloss
+	 *
+	 * @return self
+	 */
+	public static function havingGloss( $lang, $gloss ) {
+		return ( new self() )->withGloss( $lang, $gloss );
+	}
+
+	/**
 	 * @param Statement|Snak|PropertyId $arg
 	 *
 	 * @return self
