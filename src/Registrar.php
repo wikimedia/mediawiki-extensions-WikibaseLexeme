@@ -13,7 +13,7 @@ use Wikibase\WikibaseSettings;
 class Registrar {
 
 	public static function registerExtension() {
-		global $wgLexemeEnableRepo;
+		global $wgLexemeEnableRepo, $wgLexemeEnableSenses;
 
 		if ( !WikibaseSettings::isRepoEnabled() || !$wgLexemeEnableRepo ) {
 			return;
@@ -33,6 +33,12 @@ class Registrar {
 			'class' => 'Wikibase\Lexeme\Api\EditFormElements',
 			'factory' => 'Wikibase\Lexeme\Api\EditFormElements::newFromGlobalState'
 		];
+		if ( $wgLexemeEnableSenses || defined( 'MW_PHPUNIT_TEST' ) ) {
+			$wgAPIModules['wbladdsense'] = [
+				'class' => 'Wikibase\Lexeme\Api\AddSense',
+				'factory' => 'Wikibase\Lexeme\Api\AddSense::newFromGlobalState',
+			];
+		}
 
 		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
 
