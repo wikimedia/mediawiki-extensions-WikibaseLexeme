@@ -15,6 +15,9 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\DataModel\SenseSet;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -247,6 +250,87 @@ class LexemeDeserializerTest extends TestCase {
 				'senses' => [],
 			],
 			new Lexeme( null, null, null, null, null, 1, null, 2 )
+		];
+
+		$serializations['with minimal sense'] = [
+			[
+				'type' => 'lexeme',
+				'nextFormId' => 1,
+				'nextSenseId' => 2,
+				'senses' => [
+					[
+						'id' => 'L1-S1',
+						'glosses' => [
+							'en' => [ 'language' => 'en', 'value' => 'gloss' ],
+						],
+						'claims' => [],
+					],
+				],
+			],
+			new Lexeme( null, null, null, null, null, 1, null, 2, new SenseSet( [
+				new Sense(
+					new SenseId( 'L1-S1' ),
+					new TermList( [ new Term( 'en', 'gloss' ) ] )
+				),
+			] ) )
+		];
+
+		$serializations['with statement on a sense'] = [
+			[
+				'type' => 'lexeme',
+				'nextFormId' => 1,
+				'nextSenseId' => 2,
+				'senses' => [
+					[
+						'id' => 'L1-S1',
+						'glosses' => [
+							'en' => [ 'language' => 'en', 'value' => 'gloss' ],
+						],
+						'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
+					],
+				],
+			],
+			new Lexeme( null, null, null, null, null, 1, null, 2, new SenseSet( [
+				new Sense(
+					new SenseId( 'L1-S1' ),
+					new TermList( [ new Term( 'en', 'gloss' ) ] ),
+					new StatementList( [ NewStatement::noValueFor( 'P42' )->build() ] )
+				),
+			] ) )
+		];
+
+		$serializations['with multiple non-consecutive senses'] = [
+			[
+				'type' => 'lexeme',
+				'nextFormId' => 1,
+				'nextSenseId' => 7,
+				'senses' => [
+					[
+						'id' => 'L1-S2',
+						'glosses' => [
+							'en' => [ 'language' => 'en', 'value' => 'gloss' ],
+						],
+						'claims' => [],
+					],
+					[
+						'id' => 'L1-S5',
+						'glosses' => [
+							'de' => [ 'language' => 'de', 'value' => 'Glosse' ],
+						],
+						'claims' => [],
+					],
+				],
+			],
+			new Lexeme( null, null, null, null, null, 1, null, 7, new SenseSet( [
+				new Sense(
+					new SenseId( 'L1-S2' ),
+					new TermList( [ new Term( 'en', 'gloss' ) ] )
+				),
+				new Sense(
+					new SenseId( 'L1-S5' ),
+					new TermList( [ new Term( 'de', 'Glosse' ) ] )
+				),
+			] ) )
 		];
 
 		return $serializations;

@@ -15,6 +15,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\SenseSet;
 
 /**
  * @license GPL-2.0-or-later
@@ -37,6 +38,11 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	 */
 	private $statementListDeserializer;
 
+	/**
+	 * @var SenseDeserializer
+	 */
+	private $senseDeserializer;
+
 	public function __construct(
 		Deserializer $entityIdDeserializer,
 		Deserializer $statementListDeserializer
@@ -46,6 +52,10 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		$this->entityIdDeserializer = $entityIdDeserializer;
 		$this->termListDeserializer = new TermListDeserializer( new TermDeserializer() );
 		$this->statementListDeserializer = $statementListDeserializer;
+		$this->senseDeserializer = new SenseDeserializer(
+			$this->termListDeserializer,
+			$statementListDeserializer
+		);
 	}
 
 	/**
@@ -65,7 +75,8 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 			$this->deserializeStatements( $serialization ),
 			$serialization['nextFormId'],
 			$this->deserializeForms( $serialization ),
-			$this->deserializeNextSenseId( $serialization )
+			$this->deserializeNextSenseId( $serialization ),
+			$this->deserializeSenses( $serialization )
 		);
 	}
 
@@ -177,6 +188,18 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		$statements = $this->statementListDeserializer->deserialize( $serialization['claims'] );
 
 		return new Form( $id, $representations, $grammaticalFeatures, $statements );
+	}
+
+	private function deserializeSenses( array $serialization ) {
+		$senses = new SenseSet();
+
+		if ( array_key_exists( 'senses', $serialization ) ) {
+			foreach ( $serialization['senses'] as $senseSerialization ) {
+				$senses->add( $this->senseDeserializer->deserialize( $senseSerialization ) );
+			}
+		}
+
+		return $senses;
 	}
 
 	/**
