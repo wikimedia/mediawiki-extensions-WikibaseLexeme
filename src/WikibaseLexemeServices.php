@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
+use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lib\ContentLanguages;
 
 /**
@@ -15,6 +16,20 @@ class WikibaseLexemeServices {
 	 */
 	public static function getTermLanguages() {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' );
+	}
+
+	/**
+	 * @return LexemeLanguageNameLookup
+	 */
+	public static function getLanguageNameLookup() {
+		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeLanguageNameLookup' );
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function getAdditionalLanguages() {
+		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeAdditionalLanguages' );
 	}
 
 }

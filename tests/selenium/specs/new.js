@@ -107,48 +107,54 @@ describe( 'NewLexeme:Page', () => {
 		} );
 	} );
 
-	it( 'can create lexeme with language item not bearing language code statement and official lemma language', () => {
-		let lemma = Util.getTestString( 'lemma-' ),
-			wannabeLanguage = Util.getTestString( 'wannabeLanguage-' ),
-			lemmaLanguageCode = 'en',
-			lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-			wannabeLanguageId, lexicalCategoryId,
-			lexemeId;
+	describe( 'for different lemma languages', () => {
+		const assertions = [ 'en', 'mis' ];
 
-		NewLexemePage.open();
+		assertions.forEach( ( language ) => {
+			it( `can create lexeme with language item not bearing language code statement and ${language} lemma language`, () => {
+				let lemma = Util.getTestString( 'lemma-' ),
+					wannabeLanguage = Util.getTestString( 'wannabeLanguage-' ),
+					lemmaLanguageCode = language,
+					lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
+					wannabeLanguageId, lexicalCategoryId,
+					lexemeId;
 
-		browser.call( () => {
-			return WikibaseApi.createItem( wannabeLanguage )
-				.then( ( id ) => {
-					wannabeLanguageId = id;
+				NewLexemePage.open();
+
+				browser.call( () => {
+					return WikibaseApi.createItem( wannabeLanguage )
+						.then( ( id ) => {
+							wannabeLanguageId = id;
+						} );
 				} );
-		} );
 
-		browser.call( () => {
-			return WikibaseApi.createItem( lexicalCategory )
-				.then( ( id ) => {
-					lexicalCategoryId = id;
+				browser.call( () => {
+					return WikibaseApi.createItem( lexicalCategory )
+						.then( ( id ) => {
+							lexicalCategoryId = id;
+						} );
 				} );
-		} );
 
-		NewLexemePage.createLexeme(
-			lemma,
-			wannabeLanguageId,
-			lexicalCategoryId,
-			lemmaLanguageCode
-		);
+				NewLexemePage.createLexeme(
+					lemma,
+					wannabeLanguageId,
+					lexicalCategoryId,
+					lemmaLanguageCode
+				);
 
-		LexemePage.lemmaContainer.waitForVisible();
+				LexemePage.lemmaContainer.waitForVisible();
 
-		lexemeId = LexemePage.headerId;
+				lexemeId = LexemePage.headerId;
 
-		browser.call( () => {
-			return LexemeApi.get( lexemeId )
-				.then( ( lexeme ) => {
-					assert.equal( lemma, lexeme.lemmas[ lemmaLanguageCode ].value );
-					assert.equal( wannabeLanguageId, lexeme.language );
-					assert.equal( lexicalCategoryId, lexeme.lexicalCategory );
+				browser.call( () => {
+					return LexemeApi.get( lexemeId )
+						.then( ( lexeme ) => {
+							assert.equal( lemma, lexeme.lemmas[ lemmaLanguageCode ].value );
+							assert.equal( wannabeLanguageId, lexeme.language );
+							assert.equal( lexicalCategoryId, lexeme.lexicalCategory );
+						} );
 				} );
+			} );
 		} );
 	} );
 

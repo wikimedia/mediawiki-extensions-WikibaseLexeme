@@ -107,6 +107,14 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
 				],
 			],
+			'using special \'mis\' lemma language' => [
+				[
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'mis',
+					SpecialNewLexeme::FIELD_LEMMA => 'some lemma text',
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => $existingItemId,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => $existingItemId,
+				],
+			],
 		];
 	}
 
