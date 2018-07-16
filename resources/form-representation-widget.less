@@ -106,13 +106,20 @@
 	&_representation-remove {
 		border: 0;
 		background: transparent;
-		color: #074c99;
 		font-size: 1em;
-		cursor: pointer;
 
 		position: absolute;
 		top: -0.3em;
 		right: 0.125em;
+
+		&:enabled {
+			color: #074c99;
+			cursor: pointer;
+		}
+
+		&:disabled {
+			color: #72777d;
+		}
 	}
 
 	&_add {
