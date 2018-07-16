@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use LogicException;
+use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
 
@@ -13,7 +15,7 @@ use Wikibase\DataModel\Term\TermList;
  *
  * @license GPL-2.0-or-later
  */
-class Sense {
+class Sense implements EntityDocument {
 
 	const ENTITY_TYPE = 'sense';
 
@@ -83,6 +85,51 @@ class Sense {
 		// TermList is mutable, but Term is not. No deeper cloning necessary.
 		$this->glossList = clone $this->glossList;
 		$this->statementList = clone $this->statementList;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getType() {
+		return 'sense';
+	}
+
+	/**
+	 * @param SenseId $id
+	 *
+	 * @throws LogicException always
+	 */
+	public function setId( $id ) {
+		throw new LogicException( 'Setting the ID of a Sense is currently not implemented, and '
+			. 'might not be needed any more, except when implementing the "clear" feature of the '
+			. '"wbeditentity" API' );
+	}
+
+	/**
+	 * @see EntityDocument::isEmpty
+	 *
+	 * @return bool
+	 */
+	public function isEmpty() {
+		return $this->glossList->isEmpty()
+			&& $this->statementList->isEmpty();
+	}
+
+	/**
+	 * @see EntityDocument::equals
+	 *
+	 * @param mixed $target
+	 *
+	 * @return bool True if the sense's contents are equal. Does not consider the ID.
+	 */
+	public function equals( $target ) {
+		if ( $this === $target ) {
+			return true;
+		}
+
+		return $target instanceof self
+			&& $this->glossList->equals( $target->glossList )
+			&& $this->statementList->equals( $target->statementList );
 	}
 
 }
