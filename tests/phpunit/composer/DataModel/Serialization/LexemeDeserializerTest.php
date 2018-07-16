@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\DataModel\Serialization;
+namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use Deserializers\Exceptions\DeserializationException;
 use PHPUnit\Framework\TestCase;
