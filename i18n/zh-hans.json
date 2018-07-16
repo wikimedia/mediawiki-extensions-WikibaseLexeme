@@ -43,7 +43,7 @@
 	"wikibase-listdatatypes-wikibase-form-body": "连接至项目中的词形。当一个值被输入后，将会检索项目中的“Lexeme”名字空间来匹配这些词形。",
 	"wikibase-listdatatypes-wikibase-sense-head": "感觉",
 	"wikibase-listdatatypes-wikibase-sense-body": "连接至项目中的感觉。当一个值被输入后，将会检索项目中的“Lexeme”名字空间来匹配这些感觉。",
-	"wikibaselexeme-add-sense": "添加感觉",
+	"wikibaselexeme-add-sense": "添加义项",
 	"wikibaselexeme-add-form": "添加词形",
 	"apihelp-wbladdform-summary": "添加词形至词位",
 	"apihelp-wbladdform-param-lexemeId": "词位的ID，例如L10",

@@ -98,5 +98,7 @@
 	"wikibaselexeme-no-features": "keine Funktionen",
 	"wikibaselexeme-rescore-profile-prefix": "Rescore-Profil für die Präfix-(Vervollständigungs-)Suche",
 	"wikibase-validator-form-not-found": "Das Lexeme hat kein Formular mit der angegebenen Kennung",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Zum Beispiel: Normativ, Komparativ, Vergangenheit …"
+	"wikibaselexeme-grammatical-features-input-placeholder": "Zum Beispiel: Normativ, Komparativ, Vergangenheit …",
+	"wikibase-lexeme-language-name-mis": "andere",
+	"wikibase-lexeme-lemma-language-not-recognized": "Der angegebene Sprachcode wurde nicht erkannt."
 }
