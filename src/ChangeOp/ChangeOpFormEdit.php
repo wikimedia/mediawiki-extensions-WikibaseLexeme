@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\Api\Summary\FormSummaryAggregator;
+use Wikibase\Lexeme\Api\Summary\SummaryAggregator;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
@@ -26,7 +26,7 @@ class ChangeOpFormEdit implements ChangeOp {
 	private $changeOps;
 
 	/**
-	 * @var FormSummaryAggregator
+	 * @var SummaryAggregator
 	 */
 	private $summaryAggregator;
 
@@ -35,7 +35,7 @@ class ChangeOpFormEdit implements ChangeOp {
 	 */
 	public function __construct( array $changeOps ) {
 		$this->changeOps = $changeOps;
-		$this->summaryAggregator = new FormSummaryAggregator( self::SUMMARY_ACTION_AGGREGATE );
+		$this->summaryAggregator = new SummaryAggregator( self::SUMMARY_ACTION_AGGREGATE );
 	}
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {

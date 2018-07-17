@@ -3,18 +3,18 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Summary;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Api\Summary\FormSummaryAggregator;
+use Wikibase\Lexeme\Api\Summary\SummaryAggregator;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\Api\Summary\FormSummaryAggregator
+ * @covers \Wikibase\Lexeme\Api\Summary\SummaryAggregator
  *
  * @license GPL-2.0-or-later
  */
-class FormSummaryAggregatorTest extends TestCase {
+class SummaryAggregatorTest extends TestCase {
 
 	public function testNothingToMerge_yieldsOriginalSummary() {
-		$aggregator = new FormSummaryAggregator( 'aggr' );
+		$aggregator = new SummaryAggregator( 'aggr' );
 
 		$summary = new Summary();
 		$summary->setAction( 'something' );
@@ -37,7 +37,7 @@ class FormSummaryAggregatorTest extends TestCase {
 	}
 
 	public function testAlreadyAggregate_yieldsOriginalSummary() {
-		$aggregator = new FormSummaryAggregator( 'aggr' );
+		$aggregator = new SummaryAggregator( 'aggr' );
 
 		$summary = new Summary();
 		$summary->setAction( 'aggr' );
@@ -60,7 +60,7 @@ class FormSummaryAggregatorTest extends TestCase {
 	}
 
 	public function testOriginalSummaryBlank_bubblesSubSummary() {
-		$aggregator = new FormSummaryAggregator( 'aggr' );
+		$aggregator = new SummaryAggregator( 'aggr' );
 
 		$summary = new Summary();
 
@@ -79,7 +79,7 @@ class FormSummaryAggregatorTest extends TestCase {
 	}
 
 	public function testAggregatingTwoDifferentActions_yieldsRespectiveMergeResult() {
-		$aggregator = new FormSummaryAggregator( 'aggr' );
+		$aggregator = new SummaryAggregator( 'aggr' );
 
 		$summary = new Summary();
 		$summary->setAction( 'a' );
@@ -105,7 +105,7 @@ class FormSummaryAggregatorTest extends TestCase {
 	}
 
 	public function testAggregatingTwoIdenticalActions_yieldsRespectiveMergeResult() {
-		$aggregator = new FormSummaryAggregator( 'aggr' );
+		$aggregator = new SummaryAggregator( 'aggr' );
 
 		$summary = new Summary();
 		$summary->setAction( 'atomic' );
@@ -134,7 +134,7 @@ class FormSummaryAggregatorTest extends TestCase {
 	}
 
 	public function testOverrideSummary_changesSummaryByReferenceToAggregationResult() {
-		$aggregator = new FormSummaryAggregator( 'aggr' );
+		$aggregator = new SummaryAggregator( 'aggr' );
 
 		$summary = new Summary();
 		$summary->setAction( 'aaa' );

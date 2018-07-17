@@ -7,7 +7,7 @@ use Wikibase\Summary;
 /**
  * @license GPL-2.0-or-later
  */
-class FormSummaryAggregator {
+class SummaryAggregator {
 
 	/**
 	 * @var string
@@ -34,7 +34,6 @@ class FormSummaryAggregator {
 		$aggregateSummary = $this->aggregate( $summary, $subSummary );
 
 		$summary->setAction( $aggregateSummary->getMessageKey() );
-		// only atomic summaries of representation changes reveal language, need to be bubbled
 		$summary->setLanguage( $aggregateSummary->getLanguageCode() );
 		$summary->setAutoSummaryArgs( $aggregateSummary->getAutoSummaryArgs() );
 		$summary->setAutoCommentArgs( $aggregateSummary->getCommentArgs() );
@@ -96,15 +95,21 @@ class FormSummaryAggregator {
 				)
 			)
 		);
-		// Summary::addAutoSummaryArgs in Form context contains atomic info not to be part of aggregate
+		// discard auto summary arguments, they do not make sense with the aggregate action
 		return $newSummary;
 	}
 
 	private function createSameActionAggregation( Summary $summary, Summary $subSummary ) {
+		if ( $summary->getLanguageCode() === $subSummary->getLanguageCode() ) {
+			// TODO bubble the language into the aggregation here?
+			// $language = $summary->getLanguageCode();
+			$language = null;
+		} else {
+			$language = null;
+		}
 		$newSummary = new Summary();
 		$newSummary->setAction( $summary->getMessageKey() );
-		// only atomic summaries of representation changes reveal language, need to be bubbled
-		$newSummary->setLanguage( null );
+		$newSummary->setLanguage( $language );
 		$newSummary->setAutoSummaryArgs(
 			array_merge(
 				$summary->getAutoSummaryArgs(),
