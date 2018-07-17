@@ -27,6 +27,11 @@
 	};
 
 	/**
+	 * A service to save changes to a form.
+	 * Note that statements are not supported, only changes to the form elements.
+	 * A FormChanger should only be used for changes to the same form,
+	 * not shared between several forms.
+	 *
 	 * @class wikibase.lexeme.entityChangers.FormChanger
 	 */
 	$.extend( SELF.prototype, {
@@ -62,6 +67,9 @@
 		lexemeDeserializer: null,
 
 		/**
+		 * Save the changes for the given form.
+		 * Statements are ignored.
+		 *
 		 * @param {wikibase.lexeme.datamodel.Form} form
 		 * @return {jQuery.Promise}
 		 */

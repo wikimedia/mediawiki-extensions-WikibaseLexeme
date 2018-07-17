@@ -4,6 +4,9 @@
 	var PARENT = wb.serialization.Serializer;
 
 	/**
+	 * A serializer for senses.
+	 * Statements are currently not serialized.
+	 *
 	 * @class wikibase.lexeme.serialization.SenseSerializer
 	 * @extends wikibase.serialization.Serializer
 	 * @license GNU GPL v2+
