@@ -696,6 +696,18 @@ class LexemeTest extends TestCase {
 		$this->assertSame( [ $newForm ], $lexeme->getForms()->toArray() );
 	}
 
+	public function testAddOrUpdateSense_updatedSenseReference() {
+		// TODO use L7 once NewLexeme::withSense() correctly sets the lexeme ID part of the sense ID
+		$lexeme = NewLexeme::havingId( new LexemeId( 'L1' ) )
+			->withSense( NewSense::havingId( 'S1' ) )
+			->build();
+
+		$newSense = new Sense( new SenseId( 'L1-S1' ), new TermList() );
+		$lexeme->addOrUpdateSense( $newSense );
+
+		$this->assertSame( [ $newSense ], $lexeme->getSenses()->toArray() );
+	}
+
 	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {
 		$lexeme = NewLexeme::havingForm( NewForm::havingId( 'F1' ) )->build();
 
