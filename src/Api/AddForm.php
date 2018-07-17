@@ -23,6 +23,7 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
@@ -67,7 +68,7 @@ class AddForm extends ApiBase {
 	 * @return self
 	 */
 	public static function newFromGlobalState( \ApiMain $mainModule, $moduleName ) {
-		$wikibaseRepo = \Wikibase\Repo\WikibaseRepo::getDefaultInstance();
+		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
 		$serializerFactory = $wikibaseRepo->getBaseDataModelSerializerFactory();
