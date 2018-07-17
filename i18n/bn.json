@@ -32,5 +32,7 @@
 	"content-model-wikibase-lexeme": "উইকিভিত্তিক অাভিধানিক অর্থ",
 	"wikibaselexeme-form-grammatical-features": "ব্যাকরণগত বৈশিষ্ট্য",
 	"wikibaselexeme-unknown-language": "অজানা ভাষা",
-	"wikibaselexeme-unknown-category": "অজানা"
+	"wikibaselexeme-unknown-category": "অজানা",
+	"wikibase-lexeme-language-name-mis": "অন্যান্য",
+	"wikibase-lexeme-lemma-language-not-recognized": "সরবরাহকৃত ভাষা কোড চেনা যায়নি।"
 }

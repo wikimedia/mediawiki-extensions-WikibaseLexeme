@@ -81,5 +81,7 @@
 	"wikibaselexeme-form-grammatical-features": "문법적 특징",
 	"wikibaselexeme-unknown-language": "알 수 없는 언어",
 	"wikibaselexeme-unknown-category": "알 수 없음",
-	"wikibaselexeme-rescore-profile-prefix": "접두어 (완성) 검색의 재채점 프로필"
+	"wikibaselexeme-rescore-profile-prefix": "접두어 (완성) 검색의 재채점 프로필",
+	"wikibase-lexeme-language-name-mis": "기타",
+	"wikibase-lexeme-lemma-language-not-recognized": "지정된 언어 코드를 인식하지 못했습니다."
 }

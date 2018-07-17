@@ -99,5 +99,7 @@
 	"wikibaselexeme-no-features": "нема функции",
 	"wikibaselexeme-rescore-profile-prefix": "Профил за пребарување со претставката (довршување)",
 	"wikibase-validator-form-not-found": "Лексемата нема образец со дадената назнака",
-	"wikibaselexeme-grammatical-features-input-placeholder": "На пример: норматив, компаратив, минато време..."
+	"wikibaselexeme-grammatical-features-input-placeholder": "На пример: норматив, компаратив, минато време...",
+	"wikibase-lexeme-language-name-mis": "друг",
+	"wikibase-lexeme-lemma-language-not-recognized": "Укажаниот јазичен код не е признаен."
 }

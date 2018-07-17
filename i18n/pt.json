@@ -101,5 +101,7 @@
 	"wikibaselexeme-no-features": "sem funcionalidades",
 	"wikibaselexeme-rescore-profile-prefix": "Perfil de reavaliação para pesquisa por prefixo (pesquisa de preenchimento)",
 	"wikibase-validator-form-not-found": "O lexema não tem uma forma com o identificador fornecido",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado..."
+	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado...",
+	"wikibase-lexeme-language-name-mis": "outras",
+	"wikibase-lexeme-lemma-language-not-recognized": "O código de língua fornecido não foi reconhecido."
 }

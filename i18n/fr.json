@@ -104,5 +104,6 @@
 	"wikibaselexeme-no-features": "aucune fonctionnalités",
 	"wikibaselexeme-rescore-profile-prefix": "Noter de nouveau le profil pour la recherche de préfixe (complétude)",
 	"wikibase-validator-form-not-found": "Le lexeme n'a pas de formulaire ayant l'ID spécifié",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Par exemple : normatif, comparatif, passé…"
+	"wikibaselexeme-grammatical-features-input-placeholder": "Par exemple : normatif, comparatif, passé…",
+	"wikibase-lexeme-language-name-mis": "autre"
 }
