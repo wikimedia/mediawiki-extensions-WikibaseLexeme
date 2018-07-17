@@ -316,7 +316,8 @@ return call_user_func( function() {
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Form",
-				"wikibase.serialization.Serializer"
+				"wikibase.serialization.Serializer",
+				"wikibase.serialization.TermMapSerializer"
 			]
 		],
 
@@ -329,7 +330,8 @@ return call_user_func( function() {
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Sense",
-				"wikibase.serialization.Serializer"
+				"wikibase.serialization.Serializer",
+				"wikibase.serialization.TermMapSerializer"
 			]
 		],
 

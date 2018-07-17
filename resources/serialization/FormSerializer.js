@@ -21,24 +21,15 @@
 		 * @return {Object}
 		 */
 		serialize: function ( form ) {
-			var representations = {};
-
 			if ( !( form instanceof wb.lexeme.datamodel.Form ) ) {
 				throw new Error( 'Not an instance of wikibase.lexeme.datamodel.Form' );
 			}
 
-			form.getRepresentations().each( function ( index, representation ) {
-				var lang = representation.getLanguageCode();
-
-				representations[ lang ] = {
-					language: lang,
-					value: representation.getText()
-				};
-			} );
+			var termMapSerializer = new wb.serialization.TermMapSerializer();
 
 			return {
 				id: form.getId(),
-				representations: representations,
+				representations: termMapSerializer.serialize( form.getRepresentations() ),
 				grammaticalFeatures: form.getGrammaticalFeatures()
 				// TODO: statements: form.getStatements()
 			};
