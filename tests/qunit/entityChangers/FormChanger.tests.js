@@ -11,7 +11,7 @@
 	var TermMap = wb.datamodel.TermMap;
 	var Term = wb.datamodel.Term;
 
-	QUnit.test( 'New From - makes the expected API call', function ( assert ) {
+	QUnit.test( 'New Form - makes the expected API call', function ( assert ) {
 		var postWithToken = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
