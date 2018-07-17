@@ -176,31 +176,33 @@
 	};
 
 	SELF.prototype.getSenseView = function (
-		lexemeId,
+		lexeme,
 		sense,
 		$dom,
 		startEditingCallback,
 		removeCallback
 	) {
 		var senseView = this._getView(
-			'senseview',
-			$dom,
-			{
-				value: sense || new wb.lexeme.datamodel.Sense(),
-				buildStatementGroupListView: this.getStatementGroupListView.bind(
-					this,
-					startEditingCallback
-				)
-			}
-		);
-		var controller = this._getController(
-			this._toolbarFactory.getToolbarContainer( senseView.element ),
-			senseView,
-			fakeSenseModelCreator( lexemeId ),
-			removeCallback.bind( null, senseView ),
-			sense,
-			startEditingCallback
-		);
+				'senseview',
+				$dom,
+				{
+					value: sense || new wb.lexeme.datamodel.Sense(),
+					buildStatementGroupListView: this.getStatementGroupListView.bind(
+						this,
+						startEditingCallback
+					)
+				}
+			),
+			senseSerializer = new wb.lexeme.serialization.SenseSerializer(),
+			senseData = sense ? senseSerializer.serialize( sense ) : null,
+			controller = this._getController(
+				this._toolbarFactory.getToolbarContainer( senseView.element ),
+				senseView,
+				new wb.lexeme.entityChangers.SenseChanger( this._api, this._revisionStore, lexeme.getId(), senseData ),
+				removeCallback.bind( null, senseView ),
+				sense,
+				startEditingCallback
+			);
 
 		if ( !sense ) {
 			controller.startEditing().done( senseView.focus.bind( senseView ) );
@@ -208,19 +210,6 @@
 
 		return senseView;
 	};
-
-	function fakeSenseModelCreator( lexemeId ) {
-		return { // FIXME: replace with EntityChanger
-			save: function ( sense ) {
-				var deferred = $.Deferred();
-				if ( !sense.getId() ) {
-					sense._id = lexemeId + '-S' + Math.round( Math.random() * 100 );
-				}
-				deferred.resolve( sense );
-				return deferred.promise();
-			}
-		};
-	}
 
 	/**
 	 * @class wikibase.LabelFormattingService
@@ -312,7 +301,7 @@
 				var $element = $( element );
 
 				return self.getSenseView(
-					lexeme.getId(),
+					lexeme,
 					sense || null,
 					$element,
 					startEditingCallback,

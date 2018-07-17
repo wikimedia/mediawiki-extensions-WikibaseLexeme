@@ -45,6 +45,16 @@ return call_user_func( function() {
 			]
 		],
 
+		"wikibase.lexeme.entityChangers.SenseChanger" => $moduleTemplate + [
+				"scripts" => [
+					"entityChangers/SenseChanger.js"
+				],
+				"dependencies" => [
+					"wikibase.lexeme.entityChangers",
+					"wikibase.lexeme.serialization.SenseSerializer"
+				]
+			],
+
 		"wikibase.lexeme.entityChangers.LexemeRevisionStore" => $moduleTemplate + [
 			"scripts" => [
 				"entityChangers/LexemeRevisionStore.js"
@@ -447,6 +457,7 @@ return call_user_func( function() {
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.lexeme.entityChangers.FormChanger",
+				"wikibase.lexeme.entityChangers.SenseChanger",
 				"wikibase.lexeme.entityChangers.LexemeRevisionStore",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
