@@ -27,6 +27,7 @@ use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LanguageItemIdExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
@@ -248,13 +249,15 @@ return [
 			);
 		},
 		'entity-reference-extractor-callback' => function () {
+			$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(
+				WikibaseRepo::getDefaultInstance()->getLocalItemUriParser()
+			);
 			return new EntityReferenceExtractorCollection( [
 				new LanguageItemIdExtractor(),
 				new LexicalCategoryItemIdExtractor(),
 				new GrammaticalFeatureItemIdsExtractor(),
-				new StatementEntityReferenceExtractor(
-					WikibaseRepo::getDefaultInstance()->getLocalItemUriParser()
-				),
+				$statementEntityReferenceExtractor,
+				new FormsStatementEntityReferenceExtractor( $statementEntityReferenceExtractor ),
 			] );
 		},
 	],
