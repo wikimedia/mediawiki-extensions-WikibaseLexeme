@@ -31,6 +31,22 @@
 		assert.equal( store.getClaimRevision( 'L123-F2$some-GUID' ), 23 );
 	} );
 
+	QUnit.test( 'getClaimRevision: given a known GUID of a sense returns sense claimRevision', function ( assert ) {
+		var store = new wb.lexeme.RevisionStore( null );
+
+		store.setClaimRevision( 321, 'L123-S2$some-GUID' );
+
+		assert.equal( store.getClaimRevision( 'L123-S2$some-GUID' ), 321 );
+	} );
+
+	QUnit.test( 'getClaimRevision: given an unknown GUID of a sense returns sense revision', function ( assert ) {
+		var store = new wb.lexeme.RevisionStore( null );
+
+		store.setSenseRevision( 23, 'L123-S2' );
+
+		assert.equal( store.getClaimRevision( 'L123-S2$some-GUID' ), 23 );
+	} );
+
 	QUnit.test( 'setClaimRevision: given a GUID of a lexeme, sets claimRevision in base store', function ( assert ) {
 		var setClaimRevSpy = sinon.spy(),
 			store = new wb.lexeme.RevisionStore(
@@ -48,6 +64,14 @@
 		store.setClaimRevision( 666, 'L3-F1$some-GUID' );
 
 		assert.equal( store.getClaimRevision( 'L3-F1$some-GUID' ), 666 );
+	} );
+
+	QUnit.test( 'setClaimRevision: given a GUID of a sense sets claimRevision for sense', function ( assert ) {
+		var store = new wb.lexeme.RevisionStore( null );
+
+		store.setClaimRevision( 666, 'L3-S1$some-GUID' );
+
+		assert.equal( store.getClaimRevision( 'L3-S1$some-GUID' ), 666 );
 	} );
 
 	QUnit.test( 'getBaseRevision returns the base revision', function ( assert ) {
@@ -68,6 +92,18 @@
 		var store = new wb.lexeme.RevisionStore( null );
 		store.setFormRevision( 4321, 'L1-F1' );
 		assert.equal( store.getFormRevision( 'L1-F1' ), 4321 );
+	} );
+
+	QUnit.test( 'setSenseRevision sets the revision for a sense id', function ( assert ) {
+		var store = new wb.lexeme.RevisionStore( null );
+		store.setSenseRevision( 1234, 'L1-S1' );
+		assert.equal( store.getSenseRevision( 'L1-S1' ), 1234 );
+	} );
+
+	QUnit.test( 'getSenseRevision gets the revision of a sense', function ( assert ) {
+		var store = new wb.lexeme.RevisionStore( null );
+		store.setSenseRevision( 4321, 'L1-S1' );
+		assert.equal( store.getSenseRevision( 'L1-S1' ), 4321 );
 	} );
 
 } )( jQuery, wikibase, QUnit, sinon );

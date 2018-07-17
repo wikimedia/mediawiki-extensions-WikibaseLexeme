@@ -8,6 +8,8 @@
 		this.baseStore = baseStore;
 		this.formRevisions = {};
 		this.formStatementRevisions = {};
+		this.senseRevisions = {};
+		this.senseStatementRevisions = {};
 	};
 
 	$.extend( SELF.prototype, {
@@ -17,15 +19,25 @@
 		 */
 		getClaimRevision: function ( claimGuid ) {
 			var formId = this.getFormIdFromStatementId( claimGuid );
+			var senseId = this.getSenseIdFromStatementId( claimGuid );
 
-			if ( formId === null ) {
-				return this.baseStore.getClaimRevision( claimGuid );
-			}
-			if ( this.formStatementRevisions.hasOwnProperty( claimGuid ) ) {
-				return this.formStatementRevisions[ claimGuid ];
+			if ( formId !== null ) {
+				if ( this.formStatementRevisions.hasOwnProperty( claimGuid ) ) {
+					return this.formStatementRevisions[ claimGuid ];
+				}
+
+				return this.getFormRevision( formId );
 			}
 
-			return this.getFormRevision( formId );
+			if ( senseId !== null ) {
+				if ( this.senseStatementRevisions.hasOwnProperty( claimGuid ) ) {
+					return this.senseStatementRevisions[ claimGuid ];
+				}
+
+				return this.getSenseRevision( senseId );
+			}
+
+			return this.baseStore.getClaimRevision( claimGuid );
 		},
 
 		/**
@@ -34,9 +46,15 @@
 		 */
 		setClaimRevision: function ( rev, claimGuid ) {
 			var formId = this.getFormIdFromStatementId( claimGuid );
+			var senseId = this.getSenseIdFromStatementId( claimGuid );
 
 			if ( formId !== null ) {
 				this.formStatementRevisions[ claimGuid ] = rev;
+				return;
+			}
+
+			if ( senseId !== null ) {
+				this.senseStatementRevisions[ claimGuid ] = rev;
 				return;
 			}
 
@@ -50,6 +68,21 @@
 		 */
 		getFormIdFromStatementId: function ( statementGuid ) {
 			var matchResult = statementGuid.match( /^(L\d+-F\d+)\$/ );
+
+			if ( matchResult !== null ) {
+				return matchResult[ 1 ];
+			}
+
+			return null;
+		},
+
+		/**
+		 * @private
+		 * @param {string} statementGuid
+		 * @return {number|null}
+		 */
+		getSenseIdFromStatementId: function ( statementGuid ) {
+			var matchResult = statementGuid.match( /^(L\d+-S\d+)\$/ );
 
 			if ( matchResult !== null ) {
 				return matchResult[ 1 ];
@@ -80,6 +113,26 @@
 		getFormRevision: function ( formId ) {
 			if ( this.formRevisions.hasOwnProperty( formId ) ) {
 				return this.formRevisions[ formId ];
+			}
+
+			return this.baseStore.getBaseRevision();
+		},
+
+		/**
+		 * @param {number} revision
+		 * @param {string} senseId
+		 */
+		setSenseRevision: function ( revision, senseId ) {
+			this.senseRevisions[ senseId ] = revision;
+		},
+
+		/**
+		 * @param {string} senseId
+		 * @return {number}
+		 */
+		getSenseRevision: function ( senseId ) {
+			if ( this.senseRevisions.hasOwnProperty( senseId ) ) {
+				return this.senseRevisions[ senseId ];
 			}
 
 			return this.baseStore.getBaseRevision();
