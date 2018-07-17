@@ -24,9 +24,19 @@
 				throw new Error( 'Not an instance of wikibase.lexeme.datamodel.Sense' );
 			}
 
+			sense.getGlosses().each( function ( index, gloss ) {
+				var lang = gloss.getLanguageCode();
+
+				glosses[ lang ] = {
+					language: lang,
+					value: gloss.getText()
+				};
+			} );
+
 			return {
 				id: sense.getId(),
-				glosses: sense.getGlosses()
+				glosses: glosses
+				// TODO statements
 			};
 		}
 	} );
