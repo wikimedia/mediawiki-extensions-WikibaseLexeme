@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: pagr
- * Date: 15.05.18
- * Time: 10:19
- */
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
