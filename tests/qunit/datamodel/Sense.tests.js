@@ -22,19 +22,6 @@
 		assert.equal( sense.getGlosses(), expectedGlosses );
 	} );
 
-	QUnit.test( 'getGloss() given gloss for language defined', function ( assert ) {
-		var expectedGloss = 'test gloss',
-			sense = new Sense( 'S123', { en: expectedGloss } );
-
-		assert.equal( sense.getGloss( 'en' ), expectedGloss );
-	} );
-
-	QUnit.test( 'getGloss() given no gloss for the language', function ( assert ) {
-		var sense = new Sense( 'S123', { en: 'test gloss' } );
-
-		assert.equal( sense.getGloss( 'de' ), '' );
-	} );
-
 	QUnit.test( 'equals()', function ( assert ) {
 		var id = 'S123',
 			glosses = { en: 'a gloss' },

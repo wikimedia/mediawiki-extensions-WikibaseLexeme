@@ -54,14 +54,6 @@
 			},
 
 			/**
-			 * @param language
-			 * @return {string}
-			 */
-			getGloss: function ( language ) {
-				return language in this._glosses ? this._glosses[ language ] : '';
-			},
-
-			/**
 			 * @return {wikibase.datamodel.StatementGroupSet}
 			 */
 			getStatements: function () {
