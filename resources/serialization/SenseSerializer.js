@@ -18,24 +18,15 @@
 		 * @return {Object}
 		 */
 		serialize: function ( sense ) {
-			var glosses = {};
-
 			if ( !( sense instanceof wb.lexeme.datamodel.Sense ) ) {
 				throw new Error( 'Not an instance of wikibase.lexeme.datamodel.Sense' );
 			}
 
-			sense.getGlosses().each( function ( index, gloss ) {
-				var lang = gloss.getLanguageCode();
-
-				glosses[ lang ] = {
-					language: lang,
-					value: gloss.getText()
-				};
-			} );
+			var termMapSerializer = new wb.serialization.TermMapSerializer();
 
 			return {
 				id: sense.getId(),
-				glosses: glosses
+				glosses: termMapSerializer.serialize( sense.getGlosses() )
 				// TODO statements
 			};
 		}
