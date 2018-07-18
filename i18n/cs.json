@@ -33,6 +33,12 @@
 	"datatypes-type-wikibase-lexeme": "Lexém",
 	"datatypes-type-wikibase-form": "Tvar",
 	"datatypes-type-wikibase-sense": "Význam",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexém",
+	"wikibase-listdatatypes-wikibase-lexeme-body": "Odkaz na lexémy na tomto projektu. Když je zadána hodnota, vyhledají se odpovídající lexémy ve jmenném prostoru „Lexeme“.",
+	"wikibase-listdatatypes-wikibase-form-head": "Tvar",
+	"wikibase-listdatatypes-wikibase-form-body": "Odkaz na tvary na tomto projektu. Když je zadána hodnota, vyhledají se odpovídající tvary ve jmenném prostoru „Lexeme“.",
+	"wikibase-listdatatypes-wikibase-sense-head": "Význam",
+	"wikibase-listdatatypes-wikibase-sense-body": "Odkaz na významy na tomto projektu. Když je zadána hodnota, vyhledají se odpovídající významy ve jmenném prostoru „Lexeme“.",
 	"wikibaselexeme-add-sense": "přidat význam",
 	"wikibaselexeme-add-form": "přidat tvar",
 	"apihelp-wbleditformelements-example-1": "Edituje tvar s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>",
@@ -58,5 +64,7 @@
 	"wikibaselexeme-form-grammatical-features": "Gramatické vlastnosti",
 	"wikibaselexeme-unknown-language": "Neznámý jazyk",
 	"wikibaselexeme-unknown-category": "Neznámá",
-	"wikibaselexeme-no-features": "bez vlastností"
+	"wikibaselexeme-no-features": "bez vlastností",
+	"wikibase-lexeme-language-name-mis": "jiný",
+	"wikibase-lexeme-lemma-language-not-recognized": "Zadaný kód jazyka nebyl rozpoznán."
 }

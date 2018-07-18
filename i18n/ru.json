@@ -21,6 +21,7 @@
 	"wikibaselexeme-lemma-edit-placeholder": "Введите лемму",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексическая категория",
 	"wikibaselexeme-newlexeme-language": "Язык лексемы",
+	"wikibaselexeme-newlexeme-language-placeholder": "Введите язык, напр. русский",
 	"wikibaselexeme-language-lexical-category-value": "$1 на $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Утверждения о \"$1\"",
 	"wikibaselexeme-header-forms": "Формы",
@@ -65,5 +66,7 @@
 	"wikibaselexeme-unknown-language": "Неизвестный язык",
 	"wikibaselexeme-unknown-category": "Неизвестно",
 	"wikibaselexeme-no-features": "нет свойств",
-	"wikibase-validator-form-not-found": "У лексемы нет формы с таким ID"
+	"wikibase-validator-form-not-found": "У лексемы нет формы с таким ID",
+	"wikibase-lexeme-language-name-mis": "другие",
+	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан."
 }
