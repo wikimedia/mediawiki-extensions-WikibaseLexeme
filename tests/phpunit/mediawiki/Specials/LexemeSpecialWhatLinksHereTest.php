@@ -10,6 +10,7 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\MediaWiki\NonTempTableTestCase;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -23,6 +24,12 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 
 	use HamcrestPHPUnitIntegration;
 
+	/*
+	 * This is needed as a workaround to avoid a MySQL temporary table error on the self-join in
+	 * SpecialWhatLinksHere::showIndirectLinks()
+	 */
+	use NonTempTableTestCase;
+
 	const LEXEME_ID = 'L123';
 
 	const LANGUAGE_ID = 'Q123';
@@ -32,22 +39,11 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 	const FIRST_GRAMMATICAL_FEATURE_ID = 'Q234';
 	const SECOND_GRAMMATICAL_FEATURE_ID = 'Q432';
 
-	/** @var EntityStore */
-	private $entityStore;
-
-	public function setUp() {
-		parent::setUp();
-
-		$repo = WikibaseRepo::getDefaultInstance();
-		$this->entityStore = $repo->getEntityStore();
-	}
-
 	protected function newSpecialPage() {
 		return new SpecialWhatLinksHere();
 	}
 
 	public function testLexemeLanguage() {
-		$this->skipMysql();
 		$this->saveItem( self::LANGUAGE_ID );
 		$this->saveLexemeToDb();
 
@@ -57,7 +53,6 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 	}
 
 	public function testLexemeLexicalCategory() {
-		$this->skipMysql();
 		$this->saveItem( self::LEXICAL_CATEGORY_ID );
 		$this->saveLexemeToDb();
 
@@ -67,7 +62,6 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 	}
 
 	public function testGrammaticalFeatures() {
-		$this->skipMysql();
 		$this->saveItem( self::FIRST_GRAMMATICAL_FEATURE_ID );
 		$this->saveItem( self::SECOND_GRAMMATICAL_FEATURE_ID );
 		$this->saveLexemeToDb();
@@ -81,7 +75,7 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 	}
 
 	private function saveLexemeToDb() {
-		$this->entityStore->saveEntity(
+		$this->getEntityStore()->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )
 				->withLanguage( self::LANGUAGE_ID )
 				->withLexicalCategory( self::LEXICAL_CATEGORY_ID )
@@ -91,25 +85,23 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 					->andGrammaticalFeature( self::SECOND_GRAMMATICAL_FEATURE_ID ) )
 				->build(),
 			self::class,
-			$this->getTestUser()->getUser()
+			$this->getUser()
 		);
 	}
 
 	private function saveItem( $id ) {
-		$this->entityStore->saveEntity(
+		$this->getEntityStore()->saveEntity(
 			new Item( new ItemId( $id ) ),
 			__METHOD__,
-			$this->getTestUser()->getUser()
+			$this->getUser()
 		);
 	}
 
 	/**
-	 * https://dev.mysql.com/doc/refman/8.0/en/temporary-table-problems.html
+	 * @return EntityStore
 	 */
-	private function skipMysql() {
-		if ( $this->db->getType() === 'mysql' && $this->usesTemporaryTables() ) {
-			$this->markTestSkipped( 'MySQL doesn\'t support self-joins on temporary tables' );
-		}
+	private function getEntityStore() {
+		return WikibaseRepo::getDefaultInstance()->getEntityStore();
 	}
 
 	private function assertContainsLexemeLink( $output ) {
