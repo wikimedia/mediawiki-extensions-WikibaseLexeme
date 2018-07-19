@@ -62,6 +62,11 @@
 	"apihelp-wbleditformelements-param-data": "Représentation encodée en JSON et données à caractère grammatical",
 	"apihelp-wbleditformelements-param-bot": "Marquer cette modification comme robot. Ce drapeau d’URL sera respecté uniquement si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wbleditformelements-example-1": "Modifie le formulaire d’ID <samp>$1</samp> pour avoir des représentations <samp>$2</samp> dans les langues <samp>$3</samp> respectivement, et les caractéristiques grammaticales <samp>$4</samp>.",
+	"apihelp-wbladdsense-summary": "Ajoute un sens à un lexème",
+	"apihelp-wbladdsense-param-lexemeId": "ID du Lexème, par exemple L10",
+	"apihelp-wbladdsense-param-data": "Données encodées en JSON pour le Sens, c.-à-d. ses gloses",
+	"apihelp-wbladdsense-param-bot": "Marquer cette modification comme faite par robot. Ce marquage d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wbladdsense-example-1": "Ajouter un formulaire au lexème d’ID <samp>$1</samp> ayant les gloses <samp>$2</samp> avec les langues <samp>$3</samp> respectivement",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Une erreur s'est produite : Le dernier lemme n’a pas pu être supprimé.",
 	"wikibaselexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",
@@ -76,6 +81,7 @@
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "La langue ne peut pas être vide",
 	"wikibaselexeme-api-error-language-inconsistent": "La langue du champ « $1 » dans « $2 » était supposée être « $3 » . Obtenu: « $4 »",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Le formulaire doit avoir au moins une représentation",
+	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "Le Sens doit avoir au moins une glose",
 	"wikibaselexeme-api-error-unknown-language": "Langue inconnue « $3 » dans le champ « $1» à « $2 » .",
 	"wikibaselexeme-api-error-invalid-item-id": "Numéro invalide d'élément \"$3\" sur le champ \"$1\" dans  \"$2\".",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}",
@@ -105,5 +111,6 @@
 	"wikibaselexeme-rescore-profile-prefix": "Noter de nouveau le profil pour la recherche de préfixe (complétude)",
 	"wikibase-validator-form-not-found": "Le lexeme n'a pas de formulaire ayant l'ID spécifié",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Par exemple : normatif, comparatif, passé…",
-	"wikibase-lexeme-language-name-mis": "autre"
+	"wikibase-lexeme-language-name-mis": "autre",
+	"wikibase-lexeme-lemma-language-not-recognized": "Le code fourni pour la langue n'est pas reconnu."
 }
