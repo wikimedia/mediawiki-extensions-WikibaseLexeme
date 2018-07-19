@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Api;
 
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -41,7 +42,7 @@ class AddFormRequest {
 	 * @return ChangeOpFormAdd
 	 */
 	public function getChangeOp() {
-		return new ChangeOpFormAdd( $this->editFormchangeOp );
+		return new ChangeOpFormAdd( $this->editFormchangeOp, new GuidGenerator() );
 	}
 
 	/**
