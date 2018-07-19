@@ -4,6 +4,7 @@
 	},
 	"wikibaselexeme-desc": "Handle Lexeme entity type",
 	"special-newlexeme": "Create a new Lexeme",
+	"special-mergelexemes": "Merge two Lexemes",
 	"wikibaselexeme-deletedentity-form": "Deleted Form",
 	"wikibaselexeme-newlexeme-fieldset": "Create a new Lexeme",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
@@ -111,5 +112,9 @@
 	"wikibaselexeme-grammatical-features-input-placeholder": "For example: normative, comparative, past tense...",
 	"wikibase-lexeme-language-name-mis": "other",
 	"wikibase-lexeme-lemma-language-not-recognized": "The supplied language code was not recognized.",
-	"wikibase-lexeme-lemma-language-option": "$1 ($2)"
+	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
+	"wikibase-lexeme-mergelexemes-intro": "If you merge two Lexemes, all Lemmas, Statements, Forms and Senses will be moved from one Lexeme to the other.",
+	"wikibase-lexeme-mergelexemes-from-id": "The ID to merge from",
+	"wikibase-lexeme-mergelexemes-to-id": "The ID to merge to",
+	"wikibase-lexeme-mergelexemes-submit": "Merge Lexemes"
 }
