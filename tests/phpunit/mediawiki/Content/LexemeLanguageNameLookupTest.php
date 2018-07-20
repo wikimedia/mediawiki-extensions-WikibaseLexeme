@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
 use IContextSource;
+use Message;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lib\LanguageNameLookup;
@@ -30,11 +31,16 @@ class LexemeLanguageNameLookupTest extends TestCase {
 	}
 
 	public function testGetNameUsesMessageLocalizerToFindLanguageName() {
+		$message = $this->getMockBuilder( Message::class )->disableOriginalConstructor()->getMock();
+		$message->expects( $this->once() )
+			->method( 'plain' )
+			->willReturn( 'British 🍵' );
+
 		$messageLocalizer = $this->getMockBuilder( IContextSource::class )->getMock();
 		$messageLocalizer->expects( $this->once() )
 			->method( 'msg' )
 			->with( 'wikibase-lexeme-language-name-en' )
-			->willReturn( 'British 🍵' );
+			->willReturn( $message );
 
 		$fallbackLookup = $this->getMockBuilder( LanguageNameLookup::class )->getMock();
 		$fallbackLookup->expects( $this->never() )->method( 'getName' );

@@ -42,7 +42,9 @@ class LexemeLanguageNameLookup {
 	 */
 	public function getName( $languageCode ) {
 		if ( in_array( $languageCode, $this->additionalLanguageCodes ) ) {
-			return $this->messageLocalizer->msg( 'wikibase-lexeme-language-name-' . $languageCode );
+			return $this->messageLocalizer
+				->msg( 'wikibase-lexeme-language-name-' . $languageCode )
+				->plain();
 		}
 
 		return $this->fallbackLookup->getName( $languageCode );
