@@ -8,7 +8,7 @@ use Wikibase\Lib\LanguageNameLookup;
 /**
  * @license GPL-2.0-or-later
  */
-class LexemeLanguageNameLookup extends LanguageNameLookup {
+class LexemeLanguageNameLookup {
 
 	/**
 	 * @var MessageLocalizer
@@ -20,23 +20,32 @@ class LexemeLanguageNameLookup extends LanguageNameLookup {
 	 */
 	private $additionalLanguageCodes;
 
+	/**
+	 * @var LanguageNameLookup
+	 */
+	private $fallbackLookup;
+
 	public function __construct(
-		$inLanguage = null,
 		MessageLocalizer $messageLocalizer,
-		array $additionalLanguageCodes
+		array $additionalLanguageCodes,
+		LanguageNameLookup $fallbackLookup
 	) {
 		$this->messageLocalizer = $messageLocalizer;
 		$this->additionalLanguageCodes = $additionalLanguageCodes;
-
-		parent::__construct( $inLanguage );
+		$this->fallbackLookup = $fallbackLookup;
 	}
 
+	/**
+	 * @param string $languageCode
+	 *
+	 * @return string
+	 */
 	public function getName( $languageCode ) {
 		if ( in_array( $languageCode, $this->additionalLanguageCodes ) ) {
 			return $this->messageLocalizer->msg( 'wikibase-lexeme-language-name-' . $languageCode );
 		}
 
-		return parent::getName( $languageCode );
+		return $this->fallbackLookup->getName( $languageCode );
 	}
 
 }

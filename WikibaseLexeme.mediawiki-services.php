@@ -3,6 +3,7 @@
 use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
+use Wikibase\Repo\WikibaseRepo;
 
 // TODO Replace by framework-agnostic DI container.
 // Pimple e.g. is well known in the free world and yet part of mediawiki-vendor
@@ -19,9 +20,9 @@ return [
 	},
 	'WikibaseLexemeLanguageNameLookup' => function( MediaWikiServices $mediawikiServices ) {
 		return new LexemeLanguageNameLookup(
-			null,
 			RequestContext::getMain(),
-			$mediawikiServices->getService( 'WikibaseLexemeAdditionalLanguages' )
+			$mediawikiServices->getService( 'WikibaseLexemeAdditionalLanguages' ),
+			WikibaseRepo::getDefaultInstance()->getLanguageNameLookup()
 		);
 	}
 ];
