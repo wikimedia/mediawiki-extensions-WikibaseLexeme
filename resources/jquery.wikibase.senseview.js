@@ -26,13 +26,26 @@
 			template: 'wikibase-lexeme-sense',
 			templateParams: [
 				function () {
-					return 'ID-GOES-HERE';
+					var $container = $( '<span/>' );
+					this.deferredSenseWithId.promise().then( function ( sense ) {
+						$container.text( sense.getId() );
+					} );
+
+					return $container;
 				},
 				function () {
 					return $( '<div class="wikibase-lexeme-sense-glosses"></div>' );
 				},
 				function () {
 					return 'STATEMENTS-GO-HERE';
+				},
+				function () { // We can't mangle these directly, thus change them via DOM.
+					this.deferredSenseWithId.promise().then( function ( sense ) {
+						this.element.attr( 'id', sense.getId() );
+						this.element.data( 'sense-id', sense.getId() );
+					}.bind( this ) );
+
+					return '';
 				}
 			],
 
@@ -41,6 +54,8 @@
 			 */
 			buildStatementGroupListView: null
 		},
+
+		_inEditMode: false,
 
 		glossWidget: null,
 
@@ -54,6 +69,11 @@
 		value: function ( sense ) {
 			if ( sense instanceof wb.lexeme.datamodel.Sense ) {
 				this.option( 'value', sense );
+				if ( this.deferredSenseWithId && sense.getId() ) {
+					this.deferredSenseWithId.resolve( sense );
+					this.deferredSenseWithId = null;
+				}
+				this.draw();
 				return;
 			}
 
@@ -68,6 +88,8 @@
 		},
 
 		_create: function () {
+			this.deferredSenseWithId = $.Deferred();
+
 			PARENT.prototype._create.call( this );
 
 			this.options.buildStatementGroupListView(
@@ -87,12 +109,14 @@
 		},
 
 		_startEditing: function () {
+			this._inEditMode = true;
 			this.glossWidget.edit();
 
-			return $.Deferred().resolve().promise();
+			return this.draw();
 		},
 
 		_stopEditing: function ( dropValue ) {
+			this._inEditMode = false;
 			this.glossWidget.stopEditing();
 			if ( dropValue ) {
 				this.glossWidget.glosses = termMapToArray(
@@ -100,8 +124,33 @@
 				);
 			}
 
-			return $.Deferred().resolve().promise();
+			return this.draw();
+		},
+
+		/**
+		 * @inheritdoc
+		 */
+		draw: function () {
+			var deferred = $.Deferred(),
+				value = this.options.value;
+
+			if ( !this.isInEditMode() && !value ) {
+				// Apply lang and dir of UI language
+				// instead language of that row
+				var userLanguage = mw.config.get( 'wgUserLanguage' );
+				this.element
+					.attr( 'lang', userLanguage )
+					.attr( 'dir', $.util.getDirectionality( userLanguage ) );
+				return deferred.resolve().promise();
+			}
+
+			return deferred.resolve().promise();
+		},
+
+		isInEditMode: function () {
+			return this._inEditMode;
 		}
+
 	} );
 
 	function arrayToTermMap( glosses ) {
