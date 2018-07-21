@@ -7,7 +7,8 @@
 			"Fortega",
 			"RicardoSGZ",
 			"KATRINE1992",
-			"Adjen"
+			"Adjen",
+			"Astroemi"
 		]
 	},
 	"wikibaselexeme-desc": "Gestión del tipo de entidad Lexema",
@@ -69,5 +70,7 @@
 	"content-model-wikibase-lexeme": "Lexema de Wikibase",
 	"wikibaselexeme-unknown-language": "Idioma desconocido",
 	"wikibaselexeme-unknown-category": "Desconocida",
-	"wikibase-validator-form-not-found": "El Lexema no tiene ninguna Forma con el ID dado"
+	"wikibase-validator-form-not-found": "El Lexema no tiene ninguna Forma con el ID dado",
+	"wikibase-lexeme-language-name-mis": "otros",
+	"wikibase-lexeme-lemma-language-not-recognized": "No se reconoció el código de idioma proporcionado."
 }
