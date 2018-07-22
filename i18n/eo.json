@@ -1,10 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"KuboF"
 		]
 	},
-	"special-newlexeme": "Krie novan leksemon",
+	"special-newlexeme": "Krei novan leksemon",
 	"wikibaselexeme-deletedentity-form": "Forigita formo",
 	"wikibaselexeme-newlexeme-fieldset": "Krei novan leksemon",
 	"wikibaselexeme-newlexeme-lemma": "Lemo",

@@ -71,5 +71,6 @@
 	"wikibaselexeme-unknown-category": "Nieznana",
 	"wikibaselexeme-no-features": "brak cech",
 	"wikibase-validator-form-not-found": "Leksem nie posiada formy z podanym ID",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Na przykład: stopień wyższy, czas przeszły..."
+	"wikibaselexeme-grammatical-features-input-placeholder": "Na przykład: stopień wyższy, czas przeszły...",
+	"wikibase-lexeme-lemma-language-not-recognized": "Podany kod języka nie został rozpoznany."
 }

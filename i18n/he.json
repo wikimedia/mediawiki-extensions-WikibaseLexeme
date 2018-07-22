@@ -58,6 +58,11 @@
 	"apihelp-wbleditformelements-param-data": "נתוני ייצוג ומאפיין דקדוקי המקודדים ב־JSON",
 	"apihelp-wbleditformelements-param-bot": "סימון עריכה זו בתור עריכת בוט. דגל ה־URL הזה יכובד רק אם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
 	"apihelp-wbleditformelements-example-1": "עריכת צורה עם המזהה <samp>$1</samp>, עם הייצוגים <samp>$2</samp> בשפות <samp>$3</samp> (בהתאמה) ועם המאפיינים הדקדוקיים <samp>$4</samp>.",
+	"apihelp-wbladdsense-summary": "הוספת משמעות ליחידה מילונית",
+	"apihelp-wbladdsense-param-lexemeId": "מזהה היחידה המילונית, למשל L10",
+	"apihelp-wbladdsense-param-data": "נתונים בקידוד JSON עבור המשמעות, למשל הפירושים שלה",
+	"apihelp-wbladdsense-param-bot": "סימון עריכה זו כעריכה של בוט. תהיה השפעה לסימון ה־URL הזה רק אם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
+	"apihelp-wbladdsense-example-1": "הוספת צורה ליחידה המילונית עם המזהה <samp>$1</samp> שיש לה את הפירושים <samp>$2</samp> עם השפות <samp>$3</samp> בהתאמה",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "אירעה שגיאה: לא ניתן להסיר את המשפט המוגדר האחרון.",
 	"wikibaselexeme-api-error-parameter-required": "הפרמטר \"$1\" נדרש",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "הפרמטר \"$1\" אמור להיות אובייקט JSON תקין, ובמקום זאת ניתן \"$2\"",
@@ -72,6 +77,7 @@
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "השפה לא יכולה להיות ריקה",
 	"wikibaselexeme-api-error-language-inconsistent": "השפה בשדה \"$1\" שבתוך \"$2\" אמורה להיות \"$3\". במקום זאת סופק: \"$4\"",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "לצורה צריך להיות לפחות ייצוג אחד",
+	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "למשמעות חייב להיות לפחות פירוש אחד",
 	"wikibaselexeme-api-error-unknown-language": "שפה בלתי־ידועה \"$3\" בשדה \"$1\" שבתוך \"$2\".",
 	"wikibaselexeme-api-error-invalid-item-id": "מזהה פריט בלתי־תקין \"$3\" בשדה \"$1\" שבתוך \"$2\".",
 	"wikibase-lexeme-summary-add-form": "נוספה הצורה החדשה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
@@ -100,5 +106,7 @@
 	"wikibaselexeme-no-features": "ללא מאפיינים",
 	"wikibaselexeme-rescore-profile-prefix": "פרופיל לחיפוש תחיליות (השלמה)",
 	"wikibase-validator-form-not-found": "ביחידה המילונית לא קיימת צורה עם המזהה שסופק",
-	"wikibaselexeme-grammatical-features-input-placeholder": "לדוגמה: נורמטיבי, יחסי, זמן עבר..."
+	"wikibaselexeme-grammatical-features-input-placeholder": "לדוגמה: נורמטיבי, יחסי, זמן עבר...",
+	"wikibase-lexeme-language-name-mis": "אחר",
+	"wikibase-lexeme-lemma-language-not-recognized": "קוד השפה שסופק לא זוהה."
 }
