@@ -38,6 +38,10 @@ class Registrar {
 				'class' => 'Wikibase\Lexeme\Api\AddSense',
 				'factory' => 'Wikibase\Lexeme\Api\AddSense::newFromGlobalState',
 			];
+			$wgAPIModules['wbleditsenseelements'] = [
+				'class' => 'Wikibase\Lexeme\Api\EditSenseElements',
+				'factory' => 'Wikibase\Lexeme\Api\EditSenseElements::newFromGlobalState'
+			];
 		}
 
 		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
