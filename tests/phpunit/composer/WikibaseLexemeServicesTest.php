@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\ContentLanguages;
+use Wikibase\Lib\MediaWikiContentLanguages;
 
 /**
  * @covers \Wikibase\Lexeme\WikibaseLexemeServices
@@ -17,12 +18,13 @@ class WikibaseLexemeServicesTest extends TestCase {
 	public function testGetTermLanguages() {
 		$languages = WikibaseLexemeServices::getTermLanguages();
 		$this->assertInstanceOf( ContentLanguages::class, $languages );
-		$this->assertEmpty(
-			array_diff(
-				WikibaseLexemeServices::getAdditionalLanguages(),
-				$languages->getLanguages()
-			),
-			'additional languages correctly injected into TermLanguages'
+
+		$baseLanguages = new MediaWikiContentLanguages();
+
+		$this->assertGreaterThan(
+			count( $baseLanguages->getLanguages() ),
+			count( $languages->getLanguages() ),
+			'additional languages appended to default languages'
 		);
 	}
 
@@ -30,13 +32,6 @@ class WikibaseLexemeServicesTest extends TestCase {
 		$this->assertInstanceOf(
 			LexemeLanguageNameLookup::class,
 			WikibaseLexemeServices::getLanguageNameLookup()
-		);
-	}
-
-	public function testGetAdditionalLanguages() {
-		$this->assertInternalType(
-			'array',
-			WikibaseLexemeServices::getAdditionalLanguages()
 		);
 	}
 

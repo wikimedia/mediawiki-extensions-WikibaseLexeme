@@ -25,11 +25,4 @@ class WikibaseLexemeServices {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeLanguageNameLookup' );
 	}
 
-	/**
-	 * @return array
-	 */
-	public static function getAdditionalLanguages() {
-		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeAdditionalLanguages' );
-	}
-
 }
