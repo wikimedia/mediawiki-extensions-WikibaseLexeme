@@ -25,6 +25,7 @@ use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
+use Wikibase\Lexeme\DataTransfer\BlankSense;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -357,6 +358,37 @@ return [
 				RequestContext::getMain(),
 				$language
 			);
+		},
+	],
+	'sense' => [
+		// TODO lexemes and forms have identical content-handler-factory-callback, extract
+		'content-handler-factory-callback' => function () {
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$config = MediaWikiServices::getInstance()->getMainConfig();
+			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
+				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
+			} else {
+				$lcID = null;
+			}
+
+			return new LexemeHandler(
+				$wikibaseRepo->getStore()->getTermIndex(),
+				$wikibaseRepo->getEntityContentDataCodec(),
+				$wikibaseRepo->getEntityConstraintProvider(),
+				$wikibaseRepo->getValidatorErrorLocalizer(),
+				$wikibaseRepo->getEntityIdParser(),
+				$wikibaseRepo->getEntityIdLookup(),
+				$wikibaseRepo->getEntityLookup(),
+				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
+				new LexemeFieldDefinitions(
+					$wikibaseRepo->getStatementProviderDefinitions(),
+					$wikibaseRepo->getEntityLookup(),
+					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
+				)
+			);
+		},
+		'entity-factory-callback' => function () {
+			return new BlankSense();
 		},
 	],
 ];

@@ -17,9 +17,11 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
+use Wikibase\Lexeme\DataModel\Serialization\SenseSerializer;
 use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
@@ -108,4 +110,16 @@ return [
 			);
 		},
 	],
+	'sense' => [
+		'entity-id-pattern' => SenseId::PATTERN,
+		'entity-id-builder' => function ( $serialization ) {
+			return new SenseId( $serialization );
+		},
+		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
+			return new SenseSerializer(
+				$serializerFactory->newTermListSerializer(),
+				$serializerFactory->newStatementListSerializer()
+			);
+		}
+	]
 ];
