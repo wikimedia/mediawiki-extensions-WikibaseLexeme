@@ -31,6 +31,7 @@ use Wikibase\Lexeme\Store\FormRevisionLookup;
 use Wikibase\Lexeme\Store\FormStore;
 use Wikibase\Lexeme\Store\FormTitleStoreLookup;
 use Wikibase\Lexeme\Store\SenseRevisionLookup;
+use Wikibase\Lexeme\Store\SenseStore;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
@@ -112,6 +113,12 @@ return [
 		},
 	],
 	'sense' => [
+		'entity-store-factory-callback' => function (
+			EntityStore $defaultStore,
+			EntityRevisionLookup $lookup
+		) {
+			return new SenseStore( $defaultStore, $lookup );
+		},
 		'entity-revision-lookup-factory-callback' => function (
 			EntityRevisionLookup $defaultLookup
 		) {
