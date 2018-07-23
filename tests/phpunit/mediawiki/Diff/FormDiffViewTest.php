@@ -170,7 +170,7 @@ class FormDiffViewTest extends TestCase {
 			->build();
 		$diff = $differ->diffEntities( $form1, $form2 );
 
-		$formDiffViewHeader = 'form / L1-F1 / (wikibaselexeme-diffview-grammatical-feature) / 0';
+		$formDiffViewHeader = 'form / L1-F1 / (wikibaselexeme-diffview-grammatical-feature)';
 		$expected = '<tr><td colspan="2" class="diff-lineno">' .
 			'</td><td colspan="2" class="diff-lineno">' . $formDiffViewHeader . '</td>' .
 			'</tr><tr><td colspan="2">&nbsp;</td><td class="diff-marker">+</td>' .
@@ -218,7 +218,7 @@ class FormDiffViewTest extends TestCase {
 
 		$diff = $differ->diffEntities( $form1, $form2 );
 
-		$formDiffViewHeader = 'form / L1-F1 / (wikibaselexeme-diffview-grammatical-feature) / 0';
+		$formDiffViewHeader = 'form / L1-F1 / (wikibaselexeme-diffview-grammatical-feature)';
 		$expected = '<tr><td colspan="2" class="diff-lineno">' . $formDiffViewHeader . '</td>' .
 			'<td colspan="2" class="diff-lineno"></td>' .
 			'</tr><tr><td class="diff-marker">-</td><td class="diff-deletedline"><div>' .

@@ -28,9 +28,9 @@ class GrammaticalFeatureDiffVisualizer {
 		}
 
 		$html = '';
-		foreach ( $diff as $key => $subOp ) {
+		foreach ( $diff as $subOp ) {
 			$html .= $this->visualize(
-				array_merge( $path, [ $key ] ),
+				$path,
 				$subOp
 			);
 		}
