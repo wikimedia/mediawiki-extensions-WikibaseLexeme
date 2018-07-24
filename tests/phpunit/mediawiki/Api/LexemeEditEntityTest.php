@@ -1900,6 +1900,27 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testGivenNewFormAndExistingLexemeId_newFormIdIsReturned() {
+		$this->saveDummyLexemeToDatabase();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'form',
+			'data' => json_encode( [
+				'lexemeId' => self::EXISTING_LEXEME_ID,
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+				],
+				'grammaticalFeatures' => [ 'Q16' ],
+				'claims' => [],
+			] ),
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( self::EXISTING_LEXEME_ID . '-F3', $result['entity']['id'] );
+	}
+
 	public function testGivenNewFormAndInvalidLexemeId_errorIsReported() {
 		$this->saveDummyLexemeToDatabase();
 

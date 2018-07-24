@@ -24,7 +24,7 @@ class Sense implements EntityDocument, StatementListProvider, ClearableEntity {
 	/**
 	 * @var SenseId
 	 */
-	private $id;
+	protected $id;
 
 	/**
 	 * @var TermList

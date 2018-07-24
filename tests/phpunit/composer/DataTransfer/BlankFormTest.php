@@ -37,6 +37,16 @@ class BlankFormTest extends TestCase {
 		$this->assertSame( $lexemeId, $id->getLexemeId() );
 	}
 
+	public function testGetIdAfterGetRealForm_yieldsRealFormId() {
+		$blankform = new BlankForm();
+		$blankform->setRepresentations( new TermList( [ new Term( 'de', 'Fuchs' ) ] ) );
+		$formId = new FormId( 'L1-F4' );
+
+		$blankform->getRealForm( $formId );
+
+		$this->assertSame( $formId, $blankform->getId() );
+	}
+
 	/**
 	 * @expectedException \Wikimedia\Assert\ParameterAssertionException
 	 * @expectedExceptionMessage Form must have at least one representation

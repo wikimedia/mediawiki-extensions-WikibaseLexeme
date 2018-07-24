@@ -32,6 +32,15 @@ class BlankSenseTest extends TestCase {
 		$this->assertSame( $lexemeId, $id->getLexemeId() );
 	}
 
+	public function testGetIdAfterGetRealSense_yieldsRealSenseId() {
+		$blankSense = new BlankSense();
+		$senseId = new SenseId( 'L1-S4' );
+
+		$blankSense->getRealSense( $senseId );
+
+		$this->assertSame( $senseId, $blankSense->getId() );
+	}
+
 	/**
 	 * @expectedException \Wikimedia\Assert\ParameterAssertionException
 	 * @expectedExceptionMessage Sense must have at least one gloss
