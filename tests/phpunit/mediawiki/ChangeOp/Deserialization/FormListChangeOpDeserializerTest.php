@@ -12,6 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Summary;
@@ -24,8 +25,11 @@ use Wikibase\Summary;
 class FormListChangeOpDeserializerTest extends TestCase {
 
 	public function testGivenChangeRequestWithOneOfTwoRemoveForm_requestedFormIsRemoved() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'crabapple' ) ] ), [] );
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )
+			->withForm(
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'crabapple' )
+			)->build();
 
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ] ] ]
@@ -47,8 +51,12 @@ class FormListChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testGivenChangeRequestWithAllFormRemove_formsAreRemoved() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'crabapple' ) ] ), [] );
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )
+			->withForm(
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'crabapple' )
+			)
+			->build();
 
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => [ [ 'id' => 'L107-F1', 'remove' => '' ], [ 'id' => 'L107-F2', 'remove' => '' ] ] ]
@@ -68,7 +76,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testGivenChangeRequestWithoutRemoveForm_formStaysIntact() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
 
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => [ [ 'id' => 'L107-F1' ] ] ]
@@ -87,9 +95,6 @@ class FormListChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testGivenChangeRequestWithOneFormAdd_addOpIsUsed() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'crabapple' ) ] ), [] );
-
 		$changeOps = $this->getDeserializer()->createEntityChangeOp( [
 			'forms' => [
 				[
@@ -110,7 +115,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 	 * @expectedExceptionMessage Field "id" at "0" in parameter "data" is required
 	 */
 	public function testGivenChangeRequestWithoutId_exceptionIsThrown() {
-		$lexeme = $this->getEnglishLexeme( 'L107' );
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
 
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => [ [ 'remove' => '' ] ] ]
@@ -146,7 +151,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 		return $deserializer;
 	}
 
-	private function getEnglishLexeme( $id ) {
+	private function getEnglishNewLexeme( $id ) {
 		return NewLexeme::havingId( $id )
 			->withLemma( 'en', 'apple' )
 			->withForm( new Form(
@@ -157,8 +162,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 					new Term( 'en', 'Malus' )
 				] ),
 				[]
-			) )
-			->build();
+			) );
 	}
 
 	private function formatFormId( $lexemeId, $formId ) {

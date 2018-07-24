@@ -3,13 +3,12 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataTransfer\NullSenseId;
 use Wikibase\Lexeme\Store\SenseRevisionLookup;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikimedia\Assert\ParameterTypeException;
@@ -115,9 +114,12 @@ class SenseRevisionLookupTest extends TestCase {
 	}
 
 	private function newLexeme() {
-		$lexeme = new Lexeme( $this->lexemeId );
-		$lexeme->addSense( new TermList( [ new Term( 'en', 'gloss' ) ] ), [] );
-		return $lexeme;
+		return NewLexeme::havingId( $this->lexemeId )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'gloss' )
+			)
+			->build();
 	}
 
 }

@@ -46,9 +46,7 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 
 		$this->changeOpSense->apply( $blankSense, null );
 
-		$sense = $entity->addSense(
-			$blankSense->getGlosses()
-		);
+		$sense = $entity->addOrUpdateSense( $blankSense );
 
 		if ( $sense->getGlosses()->count() === 1 ) {
 			$array = $sense->getGlosses()->toTextArray();

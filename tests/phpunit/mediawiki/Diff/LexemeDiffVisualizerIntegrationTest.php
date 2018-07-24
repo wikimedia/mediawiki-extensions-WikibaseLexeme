@@ -27,6 +27,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
+use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
@@ -401,12 +402,12 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			new LexemeId( 'L1' ), new TermList( [ new Term( 'en', 'LemmaLem' ) ] ),
 			new ItemId( 'Q1' ), new ItemId( 'Q1' )
 		);
-		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-form' );
+		$blankForm = new BlankForm();
+		$blankForm->getRepresentations()->setTextForLanguage( 'de', 'baz' );
+		$blankForm->setGrammaticalFeatures( [ new ItemId( 'Q1' ) ] );
+		$f1 = $l1->addOrUpdateForm( $blankForm );
 
-		$f1 = $l1->addForm(
-			new TermList( [ new Term( 'de', 'baz' ) ] ),
-			[ new ItemId( 'Q1' ) ]
-		);
+		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-form' );
 
 		$store = $this->getEntityStore();
 		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );

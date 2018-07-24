@@ -46,10 +46,7 @@ class ChangeOpFormAdd extends ChangeOpBase {
 
 		$this->changeOpForm->apply( $blankForm, null );
 
-		$form = $entity->addForm(
-			$blankForm->getRepresentations(),
-			$blankForm->getGrammaticalFeatures()
-		);
+		$form = $entity->addOrUpdateForm( $blankForm );
 
 		if ( $summary !== null ) {
 			// TODO: consistently do not extend ChangeOpBase?

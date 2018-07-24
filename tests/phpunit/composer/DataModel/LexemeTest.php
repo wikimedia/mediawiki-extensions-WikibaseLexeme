@@ -22,6 +22,8 @@ use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\SenseSet;
+use Wikibase\Lexeme\DataTransfer\BlankForm;
+use Wikibase\Lexeme\DataTransfer\BlankSense;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Lexeme
@@ -500,14 +502,13 @@ class LexemeTest extends TestCase {
 		$lexeme->setLexicalCategory( new ItemId( 'Q1' ) );
 		$lexeme->getLemmas()->setTextForLanguage( 'en', 'orig' );
 		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
-		$formId = new FormId( 'L1-F' . $lexeme->getNextFormId() );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'orig-form' ) ] ), [ new ItemId( 'Q1' ) ] );
-		// Make sure we have the correct FormId for the form that we added (will throw otherwise)
-		$lexeme->getForm( $formId );
-		$senseId = new SenseId( 'L1-S' . $lexeme->getNextSenseId() );
-		$lexeme->addSense( new TermList( [ new Term( 'en', 'orig-sense' ) ] ) );
-		// Make sure we have the correct SenseId for the form that we added
-		$lexeme->getSense( $senseId );
+		$blankForm = new BlankForm();
+		$blankForm->getRepresentations()->setTextForLanguage( 'en', 'orig-form' );
+		$blankForm->setGrammaticalFeatures( [ new ItemId( 'Q1' ) ] );
+		$formId = $lexeme->addOrUpdateForm( $blankForm )->getId();
+		$blankSense = new BlankSense();
+		$blankSense->getGlosses()->setTextForLanguage( 'en', 'orig-sense' );
+		$senseId = $lexeme->addOrUpdateSense( $blankSense )->getId();
 
 		$copy = $lexeme->copy();
 
@@ -541,7 +542,9 @@ class LexemeTest extends TestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$lexemeCopy = $lexeme->copy();
 
-		$lexemeCopy->addForm( new TermList( [ new Term( 'en', 'goat' ) ] ), [] );
+		$blankForm = new BlankForm();
+		$blankForm->getRepresentations()->setTextForLanguage( 'en', 'goat' );
+		$lexemeCopy->addOrUpdateForm( $blankForm );
 
 		$this->assertCount( 1, $lexemeCopy->getForms()->toArray() );
 		$this->assertEmpty( $lexeme->getForms()->toArray() );
@@ -551,7 +554,9 @@ class LexemeTest extends TestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$lexemeCopy = $lexeme->copy();
 
-		$lexemeCopy->addSense( new TermList( [ new Term( 'en', 'animal' ) ] ) );
+		$blankSense = new BlankSense();
+		$blankSense->getGlosses()->setTextForLanguage( 'en', 'animal' );
+		$lexemeCopy->addOrUpdateSense( $blankSense );
 
 		$this->assertCount( 1, $lexemeCopy->getSenses()->toArray() );
 		$this->assertEmpty( $lexeme->getSenses()->toArray() );
@@ -587,83 +592,16 @@ class LexemeTest extends TestCase {
 		$this->assertSame( $language, $lexeme->getLanguage() );
 	}
 
-	public function testAddForm_ReturnsANewFormWithProvidedParameters() {
+	public function testAddOrUpdateSenseTwice_secondReturnedSenseHasIncrementedId() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$newForm = $lexeme->addForm(
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			[ new ItemId( 'Q1' ) ]
-		);
+		$blankSense = new BlankSense();
+		$blankSense->getGlosses()->setTextForLanguage( 'en', 'color' );
+		$newSense1 = $lexeme->addOrUpdateSense( $blankSense );
 
-		$this->assertEquals(
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			$newForm->getRepresentations()
-		);
-		$this->assertEquals(
-			[ new ItemId( 'Q1' ) ],
-			$newForm->getGrammaticalFeatures()
-		);
-	}
-
-	public function testAddForm_ReturnedFormIsAddedToTheLexeme() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-
-		$newForm = $lexeme->addForm(
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			[]
-		);
-
-		$this->assertEquals( new FormSet( [ $newForm ] ), $lexeme->getForms() );
-	}
-
-	public function testAddFormTwoTimes_SecondFormHasAnIdWithNextNumber() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-
-		$newForm1 = $lexeme->addForm(
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			[]
-		);
-		$newForm2 = $lexeme->addForm(
-			new TermList( [ new Term( 'en', 'goat1' ) ] ),
-			[]
-		);
-
-		$this->assertEquals( new FormId( 'L1-F1' ), $newForm1->getId() );
-		$this->assertEquals( new FormId( 'L1-F2' ), $newForm2->getId() );
-	}
-
-	public function testAddSense_ReturnsANewSenseWithProvidedParameters() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-
-		$newSense = $lexeme->addSense(
-			new TermList( [ new Term( 'en', 'goat' ) ] )
-		);
-
-		$this->assertEquals(
-			new TermList( [ new Term( 'en', 'goat' ) ] ),
-			$newSense->getGlosses()
-		);
-	}
-
-	public function testAddSense_ReturnedSenseIsAddedToTheLexeme() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-
-		$newSense = $lexeme->addSense(
-			new TermList( [ new Term( 'en', 'goat' ) ] )
-		);
-
-		$this->assertEquals( new SenseSet( [ $newSense ] ), $lexeme->getSenses() );
-	}
-
-	public function testAddSenseTwoTimes_SecondSenseHasAnIdWithNextNumber() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-
-		$newSense1 = $lexeme->addSense(
-			new TermList( [ new Term( 'en', 'goat' ) ] )
-		);
-		$newSense2 = $lexeme->addSense(
-			new TermList( [ new Term( 'en', 'goat1' ) ] )
-		);
+		$blankSense = new BlankSense();
+		$blankSense->getGlosses()->setTextForLanguage( 'en-gb', 'colour' );
+		$newSense2 = $lexeme->addOrUpdateSense( $blankSense );
 
 		$this->assertEquals( new SenseId( 'L1-S1' ), $newSense1->getId() );
 		$this->assertEquals( new SenseId( 'L1-S2' ), $newSense2->getId() );
@@ -685,7 +623,18 @@ class LexemeTest extends TestCase {
 		$this->assertEquals( [], $lexeme->getSenses()->toArray() );
 	}
 
-	public function testAddOrUpdateForm_updatedFormReference() {
+	/**
+	 * @expectedException \LogicException
+	 * @expectedExceptionMessage Can not add forms to a lexeme with no ID
+	 */
+	public function testAddOrUpdateFormOnLexemeWithoutId_throwsException() {
+		$lexeme = new Lexeme();
+
+		$newForm = NewForm::havingId( 'F1' )->build();
+		$lexeme->addOrUpdateForm( $newForm );
+	}
+
+	public function testAddOrUpdateForm_updatesFormReference() {
 		$lexeme = NewLexeme::havingId( new LexemeId( 'L7' ) )
 			->withForm( NewForm::havingId( 'F1' ) )
 			->build();
@@ -694,6 +643,36 @@ class LexemeTest extends TestCase {
 		$lexeme->addOrUpdateForm( $newForm );
 
 		$this->assertSame( [ $newForm ], $lexeme->getForms()->toArray() );
+	}
+
+	public function testAddOrUpdateForm_returnsForm() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$blankForm = new BlankForm();
+		$representation = new Term( 'en', 'representation' );
+		$blankForm->setRepresentations( new TermList( [ $representation ] ) );
+
+		$form = $lexeme->addOrUpdateForm( $blankForm );
+
+		$this->assertInstanceOf( Form::class, $form );
+		$this->assertNotInstanceOf( BlankForm::class, $form );
+		$this->assertSame( $representation, $form->getRepresentations()->getByLanguage( 'en' ) );
+	}
+
+	public function testAddOrUpdateFormTwice_secondReturnedFormHasIncrementedId() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$blankForm = new BlankForm();
+		$representation = new Term( 'en', 'color' );
+		$blankForm->setRepresentations( new TermList( [ $representation ] ) );
+		$newForm1 = $lexeme->addOrUpdateForm( $blankForm );
+
+		$blankForm = new BlankForm();
+		$representation = new Term( 'en-gb', 'colour' );
+		$blankForm->setRepresentations( new TermList( [ $representation ] ) );
+		$newForm2 = $lexeme->addOrUpdateForm( $blankForm );
+
+		$this->assertEquals( new FormId( 'L1-F1' ), $newForm1->getId() );
+		$this->assertEquals( new FormId( 'L1-F2' ), $newForm2->getId() );
 	}
 
 	public function testAddOrUpdateSense_updatedSenseReference() {
@@ -706,6 +685,27 @@ class LexemeTest extends TestCase {
 		$lexeme->addOrUpdateSense( $newSense );
 
 		$this->assertSame( [ $newSense ], $lexeme->getSenses()->toArray() );
+	}
+
+	/**
+	 * @expectedException \LogicException
+	 * @expectedExceptionMessage Cannot add sense to a lexeme with no ID
+	 */
+	public function testAddOrUpdateSenseOnLexemeWithoutId_throwsException() {
+		$lexeme = new Lexeme();
+
+		$newSense = NewSense::havingId( 'S1' )->build();
+		$lexeme->addOrUpdateSense( $newSense );
+	}
+
+	public function testAddOrUpdateSense_returnedSense() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$blankSense = new BlankSense();
+
+		$sense = $lexeme->addOrUpdateSense( $blankSense );
+
+		$this->assertInstanceOf( Sense::class, $sense );
+		$this->assertNotInstanceOf( BlankSense::class, $sense );
 	}
 
 	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {
@@ -1056,7 +1056,11 @@ class LexemeTest extends TestCase {
 
 	public function testClearDoesNotResetFormIdCounter() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'foo' ) ] ), [] );
+
+		$form = new BlankForm();
+		$form->getRepresentations()->setTextForLanguage( 'en', 'foo' );
+
+		$lexeme->addOrUpdateForm( $form );
 
 		$lexeme->clear();
 
@@ -1066,7 +1070,11 @@ class LexemeTest extends TestCase {
 
 	public function testClearDoesNotResetSenseIdCounter() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$lexeme->addSense( new TermList( [ new Term( 'en', 'foo' ) ] ) );
+
+		$sense = new BlankSense();
+		$sense->getGlosses()->setTextForLanguage( 'en', 'foo' );
+
+		$lexeme->addOrUpdateSense( $sense );
 
 		$lexeme->clear();
 

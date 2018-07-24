@@ -3,13 +3,13 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataTransfer\NullFormId;
 use Wikibase\Lexeme\Store\FormRevisionLookup;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikimedia\Assert\ParameterTypeException;
@@ -115,9 +115,12 @@ class FormRevisionLookupTest extends TestCase {
 	}
 
 	private function newLexeme() {
-		$lexeme = new Lexeme( $this->lexemeId );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'representation' ) ] ), [] );
-		return $lexeme;
+		return NewLexeme::havingId( $this->lexemeId )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'representation' )
+			)
+			->build();
 	}
 
 }
