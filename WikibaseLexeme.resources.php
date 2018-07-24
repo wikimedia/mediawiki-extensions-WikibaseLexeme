@@ -126,7 +126,7 @@ return call_user_func( function() {
 				"wikibase.lexeme.widgets.GlossWidget"
 			],
 			"messages" => [
-				"wikibase-statementsection-statements"
+				"wikibaselexeme-statementsection-statements-about-sense"
 			]
 		],
 		"vue" => $moduleTemplate + [

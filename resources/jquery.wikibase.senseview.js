@@ -37,7 +37,28 @@
 					return $( '<div class="wikibase-lexeme-sense-glosses"></div>' );
 				},
 				function () {
-					return 'STATEMENTS-GO-HERE';
+					var $container = $( '<div/>' );
+					this.deferredSenseWithId.promise().then( function ( sense ) {
+						var messageKey = 'wikibaselexeme-statementsection-statements-about-sense';
+						var $header = $( '<h2/>' ).applyTemplate(
+							'wb-section-heading',
+							[
+								mw.message( messageKey, sense.getId() ).escaped(),
+								'',
+								'wikibase-statements'
+							]
+						);
+						$container.append( $header );
+
+						var $statements = $( '<div/>' );
+						this.options.buildStatementGroupListView(
+							sense,
+							$statements
+						);
+						$container.append( $statements );
+					}.bind( this ) );
+
+					return $container;
 				},
 				function () { // We can't mangle these directly, thus change them via DOM.
 					this.deferredSenseWithId.promise().then( function ( sense ) {
