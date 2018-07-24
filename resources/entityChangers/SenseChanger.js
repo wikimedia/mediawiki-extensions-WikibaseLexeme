@@ -69,7 +69,35 @@
 			var senseSerializer = new wb.lexeme.serialization.SenseSerializer();
 
 			var serializedSense = senseSerializer.serialize( sense );
+
+			if ( sense.getId() ) {
+				return this.saveChangedSenseData( sense.getId(), serializedSense.glosses );
+			}
+
 			return this.saveNewSenseData( serializedSense.glosses );
+		},
+
+		saveChangedSenseData: function ( senseId, glosses ) {
+			var self = this;
+
+			var requestGlosses =
+				this.getGlossDataForApiRequest( this.senseData.glosses, glosses );
+
+			return this.api.postWithToken( 'csrf', {
+				action: 'wbleditsenseelements',
+				senseId: senseId,
+				data: JSON.stringify( {
+					glosses: requestGlosses
+				} ),
+				errorformat: 'plaintext',
+				bot: 0
+			} ).then( function ( data ) {
+				var sense = self.lexemeDeserializer.deserializeSense( data.sense );
+				self.senseData = self.senseSerializer.serialize( sense );
+				return sense;
+			} ).catch( function ( code, response ) {
+				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
+			} );
 		},
 
 		saveNewSenseData: function ( glosses ) {
@@ -89,6 +117,34 @@
 			} ).catch( function ( code, response ) {
 				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
 			} );
+		},
+
+		// TODO same as FormChanger's getRepresentationDataForApiRequest, extract somewhere
+		getGlossDataForApiRequest: function ( oldGlosses, newGlosses ) {
+			var result = {};
+
+			for ( var language in newGlosses ) {
+				var newGloss = newGlosses[ language ].value;
+
+				if ( ( !( language in oldGlosses ) )
+					|| ( oldGlosses[ language ].value !== newGloss )
+				) {
+					result[ language ] = {
+						language: language,
+						value: newGloss
+					};
+				}
+			}
+			for ( language in oldGlosses ) {
+				if ( !( language in newGlosses ) ) {
+					result[ language ] = {
+						language: language,
+						remove: ''
+					};
+				}
+			}
+
+			return result;
 		}
 	} );
 
