@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Api\Error;
 
 use ApiMessage;
+use Message;
 
 /**
  * @license GPL-2.0-or-later
@@ -28,7 +29,7 @@ class ParameterIsNotSenseId implements ApiError {
 	 * @see ApiError::asApiMessage()
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
-		$message = new \Message(
+		$message = new Message(
 			'wikibaselexeme-api-error-parameter-not-sense-id',
 			[ $parameterName, implode( '/', $path ), json_encode( $this->given ) ]
 		);
