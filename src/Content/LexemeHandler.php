@@ -15,6 +15,8 @@ use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Actions\ViewLexemeAction;
@@ -140,6 +142,14 @@ class LexemeHandler extends EntityHandler {
 			$lexemeId = $formId->getLexemeId();
 			$entityHolder = new EntityInstanceHolder( $this->entityLookup->getEntity( $lexemeId ) );
 		}
+		if ( $entityHolder !== null && $entityHolder->getEntityType() === Sense::ENTITY_TYPE ) {
+			$senseId = $entityHolder->getEntityId();
+			if ( !( $senseId instanceof SenseId ) ) {
+				throw new UnexpectedValueException( '$senseId must be a SenseId' );
+			}
+			$lexemeId = $senseId->getLexemeId();
+			$entityHolder = new EntityInstanceHolder( $this->entityLookup->getEntity( $lexemeId ) );
+		}
 		return new LexemeContent( $entityHolder );
 	}
 
@@ -167,13 +177,18 @@ class LexemeHandler extends EntityHandler {
 	}
 
 	public function getIdForTitle( Title $target ) {
-		$lexemeId = parent::getIdForTitle( $target );
-
-		if ( $target->getFragment() ) {
-			return new FormId( $target->getFragment() );
+		if ( $target->hasFragment() ) {
+			$fragment = $target->getFragment();
+			// TODO use an EntityIdParser (but parent's $this->entityIdParser is currently private)
+			if ( preg_match( FormId::PATTERN, $fragment ) ) {
+				return new FormId( $fragment );
+			}
+			if ( preg_match( SenseId::PATTERN, $fragment ) ) {
+				return new SenseId( $fragment );
+			}
 		}
 
-		return $lexemeId;
+		return parent::getIdForTitle( $target );
 	}
 
 }

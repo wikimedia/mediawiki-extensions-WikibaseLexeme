@@ -16,6 +16,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
@@ -215,6 +216,15 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		$this->assertEquals(
 			new FormId( 'L1-F2' ),
 			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1', 'L1-F2' ) )
+		);
+	}
+
+	public function testGivenLexemePageWithSenseIdFragmentGetIdForTitle_returnsSenseId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new SenseId( 'L1-S2' ),
+			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1', 'L1-S2' ) )
 		);
 	}
 
