@@ -7,6 +7,7 @@
 	},
 	"wikibaselexeme-desc": "Bietet eine Unterstützung für den Objekttyp „Lexeme“",
 	"special-newlexeme": "Ein neues Lexeme erstellen",
+	"special-mergelexemes": "Zwei Lexemes zusammenführen",
 	"wikibaselexeme-deletedentity-form": "Gelöschtes Formular",
 	"wikibaselexeme-newlexeme-fieldset": "Ein neues Lexeme erstellen",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
@@ -108,5 +109,9 @@
 	"wikibase-validator-form-not-found": "Das Lexeme hat kein Formular mit der angegebenen Kennung",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Zum Beispiel: Normativ, Komparativ, Vergangenheit …",
 	"wikibase-lexeme-language-name-mis": "andere",
-	"wikibase-lexeme-lemma-language-not-recognized": "Der angegebene Sprachcode wurde nicht erkannt."
+	"wikibase-lexeme-lemma-language-not-recognized": "Der angegebene Sprachcode wurde nicht erkannt.",
+	"wikibase-lexeme-mergelexemes-intro": "Falls du zwei Lexemes zusammenführst, werden alle Lemmata, Aussagen, Formulare und Senses von einem Lexeme zum anderen verschoben.",
+	"wikibase-lexeme-mergelexemes-from-id": "Zusammenführen von Kennung",
+	"wikibase-lexeme-mergelexemes-to-id": "Zusammenführen in Kennung",
+	"wikibase-lexeme-mergelexemes-submit": "Lexemes zusammenführen"
 }

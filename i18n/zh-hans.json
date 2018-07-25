@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"NeverBehave",
-			"Deathkon"
+			"Deathkon",
+			"Wxyveronica"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
@@ -66,11 +67,13 @@
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "参数“$1”应为有效的JSON对象，提供的是“$2”",
 	"wikibaselexeme-api-error-lexeme-not-found": "字段“$1”包含找不到的词位“$2”的ID。",
 	"wikibaselexeme-api-error-form-not-found": "字段“$1”包含找不到的词形“$2”的ID。",
+	"wikibaselexeme-api-error-sense-not-found": "字段“$1”包含某词义“$2”的ID，该词义无法找到。",
 	"wikibaselexeme-api-error-json-field-required": "在参数“$1”中，需要填写位于“$2”的字段“$3”",
 	"wikibaselexeme-api-error-json-field-not-item-id": "参数“$1”中的字段“$2”应为na项Id。提供的是：“$3”",
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "参数“$1”中的字段“$2”应为类型“$3”。提供的是：“$4”",
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "参数“$1”应为词位ID。提供的是：“$2”",
 	"wikibaselexeme-api-error-parameter-not-form-id": "参数“$1”中的字段“$2”应为词形ID。提供的是：“$3”",
+	"wikibaselexeme-api-error-parameter-not-sense-id": "参数$1中字段$2应是词义ID。给定：$3",
 	"wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty": "词汇文本不能为空",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "语言不能为空",
 	"wikibaselexeme-api-error-language-inconsistent": "在“$2”的字段“$1”中语言应为“$3”。提供的是：“$4”",
