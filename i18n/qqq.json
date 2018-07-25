@@ -12,6 +12,7 @@
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
 	"special-newlexeme": "Title of Special:NewLexeme",
+	"special-mergelexemes": "Title of Special:MergeLexemes",
 	"wikibaselexeme-deletedentity-form": "Message displayed instead of a Form's Representations if the Form has been deleted.\n\nSee also:\n* {{msg-mw|Wikibase-entity-item}}\n* {{msg-mw|Wikibase-deletedentity-property}}",
 	"wikibaselexeme-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
 	"wikibaselexeme-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
@@ -121,5 +122,9 @@
 	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",
 	"wikibase-lexeme-lemma-language-not-recognized": "Error message shown if the lemma language selected is not in the range of options.",
-	"wikibase-lexeme-lemma-language-option": "Template for generating lemma language options\n\nParameters:\n* $1 - Name of the language\n* $2 - Language code"
+	"wikibase-lexeme-lemma-language-option": "Template for generating lemma language options\n\nParameters:\n* $1 - Name of the language\n* $2 - Language code",
+	"wikibase-lexeme-mergelexemes-intro": "A short text at the top of the page that allows users to merge two lexemes, explaining the form.\n\nFollowed by the following input box labels:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}} \n\nThis supports Wikitext.",
+	"wikibase-lexeme-mergelexemes-from-id": "Label for the input field to select the ID of the entity to merge from. See also:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}}",
+	"wikibase-lexeme-mergelexemes-to-id": "Label for the input field to select the ID of the entity to merge to. See also:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}",
+	"wikibase-lexeme-mergelexemes-submit": "Label for the button that activates the action.\n\nPreceded by the following input box labels:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}}"
 }

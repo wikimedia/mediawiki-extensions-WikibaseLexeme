@@ -41,6 +41,8 @@ class Registrar {
 		}
 
 		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
+		$wgSpecialPages['MergeLexemes']
+			= 'Wikibase\Lexeme\Specials\SpecialMergeLexemes::newFromGlobalState';
 
 		$wgServiceWiringFiles[] = __DIR__ . '/../WikibaseLexeme.mediawiki-services.php';
 
