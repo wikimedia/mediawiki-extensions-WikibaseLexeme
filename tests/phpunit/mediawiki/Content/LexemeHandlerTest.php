@@ -11,7 +11,6 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Content\LexemeContent;
@@ -153,10 +152,15 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		$labelLookupFactory->method( 'newLabelDescriptionLookup' )
 			->will( $this->returnValue( $this->getMock( LabelDescriptionLookup::class ) ) );
 
+		$statementProviderFieldDefinitions = $this->getMockBuilder(
+				StatementProviderFieldDefinitions::class
+			)
+			->disableOriginalConstructor()
+			->getMock();
+		$statementProviderFieldDefinitions->method( 'getFields' )
+			->willReturn( [] );
 		$fieldDefinitions = new LexemeFieldDefinitions(
-			new StatementProviderFieldDefinitions(
-				$this->getMock( PropertyDataTypeLookup::class ), [], [], [], []
-			),
+			$statementProviderFieldDefinitions,
 			$this->getMock( EntityLookup::class ),
 			new PropertyId( 'P123' )
 		);
