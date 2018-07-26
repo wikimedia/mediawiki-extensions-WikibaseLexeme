@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ParserOutput;
 
+use Language;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -145,7 +146,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 	private function newParserOutputGenerator() {
 		return WikibaseRepo::getDefaultInstance()->getEntityParserOutputGeneratorFactory()
-			->getEntityParserOutputGenerator( 'en' );
+			->getEntityParserOutputGenerator( Language::factory( 'en' ) );
 	}
 
 	private function saveItem( $id ) {
