@@ -40,9 +40,9 @@ class GrammaticalFeatureDiffVisualizerTest extends TestCase {
 			] )
 		);
 
-		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature / 0</h1>', $diffHtml );
-		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature / 1</h1>', $diffHtml );
-		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature / 2</h1>', $diffHtml );
+		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
+		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
+		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
 
 		$this->assertContains( '<ins>Q3</ins>', $diffHtml );
 		$this->assertContains( '<ins>Q5</ins>', $diffHtml );
