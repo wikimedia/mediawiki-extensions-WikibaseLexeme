@@ -76,7 +76,8 @@ return [
 		// returning a deserializer
 		'js-deserializer-factory-function' => 'wikibase.lexeme.getDeserializer',
 		'sub-entity-types' => [
-			'form'
+			'form',
+			'sense',
 		],
 	],
 	'form' => [
