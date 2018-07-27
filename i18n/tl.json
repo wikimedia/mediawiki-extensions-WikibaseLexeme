@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Emem.calist"
+			"Emem.calist",
+			"Sky Harbor"
 		]
 	},
 	"wikibaselexeme-add-form": "Karagdagang kasulatan",
+	"apihelp-wbladdsense-param-lexemeId": "ID ng leksema, hal. L10",
 	"wikibaselexeme-diffview-lexical-category": "Kategoryang 'lexical'"
 }

@@ -102,6 +102,7 @@
 	"content-model-wikibase-lexeme": "Wikibase Lexeme",
 	"wikibaselexeme-form-grammatical-features": "Grammatikalische Funktionen",
 	"wikibaselexeme-form-description": "$1 für: $2 ($3): $4",
+	"wikibaselexeme-search-result-stats": "{{PLURAL:$1|Eine Aussage|$1 Aussagen}}, {{PLURAL:$2|ein Formular|$2 Formulare}}",
 	"wikibaselexeme-unknown-language": "Unbekannte Sprache",
 	"wikibaselexeme-unknown-category": "Unbekannt",
 	"wikibaselexeme-no-features": "keine Funktionen",

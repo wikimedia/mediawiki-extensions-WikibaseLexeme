@@ -5,6 +5,7 @@
 		]
 	},
 	"special-newlexeme": "En neie Lexerne uleeën",
+	"special-mergelexemes": "Zwee Lexemes fusionéieren",
 	"wikibaselexeme-deletedentity-form": "Geläschte Formulaire",
 	"wikibaselexeme-newlexeme-fieldset": "En neie Lexerne generéieren",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
@@ -45,5 +46,6 @@
 	"wikibaselexeme-form-description": "$1 fir: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Onbekannt Sprooch",
 	"wikibaselexeme-unknown-category": "Onbekannt",
-	"wikibaselexeme-no-features": "keng Funktiounen"
+	"wikibaselexeme-no-features": "keng Funktiounen",
+	"wikibase-lexeme-mergelexemes-submit": "Lexemes fusionéieren"
 }

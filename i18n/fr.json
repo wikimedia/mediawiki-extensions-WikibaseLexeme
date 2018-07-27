@@ -11,6 +11,7 @@
 	},
 	"wikibaselexeme-desc": "Manipuler le type d’entité Lexème",
 	"special-newlexeme": "Créer un nouveau lexème",
+	"special-mergelexemes": "Fusionner deux lexèmes",
 	"wikibaselexeme-deletedentity-form": "Supprimé de",
 	"wikibaselexeme-newlexeme-fieldset": "Créer un nouveau lexème",
 	"wikibaselexeme-newlexeme-lemma": "Lemme",
@@ -67,6 +68,11 @@
 	"apihelp-wbladdsense-param-data": "Données encodées en JSON pour le Sens, c.-à-d. ses gloses",
 	"apihelp-wbladdsense-param-bot": "Marquer cette modification comme faite par robot. Ce marquage d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wbladdsense-example-1": "Ajouter un formulaire au lexème d’ID <samp>$1</samp> ayant les gloses <samp>$2</samp> avec les langues <samp>$3</samp> respectivement",
+	"apihelp-wbleditsenseelements-summary": "Modifie les gloses d’un sens",
+	"apihelp-wbleditsenseelements-param-senseId": "ID du Sens, par ex. L10-S2",
+	"apihelp-wbleditsenseelements-param-data": "Données de la glose encodées en JSON",
+	"apihelp-wbleditsenseelements-param-bot": "Marquer cette modification comme faite par robot. Ce marquage d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wbleditsenseelements-example-1": "Modifie le sens avec l’ID <samp>$1</samp> pour qu’il ait les gloses <samp>$2</samp> dans les langues <samp>$3</samp> respectivement.",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Une erreur s'est produite : Le dernier lemme n’a pas pu être supprimé.",
 	"wikibaselexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",
@@ -114,5 +120,9 @@
 	"wikibase-validator-form-not-found": "Le lexeme n'a pas de formulaire ayant l'ID spécifié",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Par exemple : normatif, comparatif, passé…",
 	"wikibase-lexeme-language-name-mis": "autre",
-	"wikibase-lexeme-lemma-language-not-recognized": "Le code fourni pour la langue n'est pas reconnu."
+	"wikibase-lexeme-lemma-language-not-recognized": "Le code fourni pour la langue n'est pas reconnu.",
+	"wikibase-lexeme-mergelexemes-intro": "Si vous fusionnez deux lexèmes, tous les lemmes, les déclarations, les formulaires et les sens seront déplacés d’un lexème vers l’autre.",
+	"wikibase-lexeme-mergelexemes-from-id": "L’ID depuis lequel fusionner",
+	"wikibase-lexeme-mergelexemes-to-id": "L’ID à fusionner",
+	"wikibase-lexeme-mergelexemes-submit": "Fusionner les lexèmes"
 }

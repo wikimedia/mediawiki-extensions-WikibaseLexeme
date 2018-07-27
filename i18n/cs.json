@@ -9,6 +9,7 @@
 	},
 	"wikibaselexeme-desc": "Zpracovává typ entity Lexém",
 	"special-newlexeme": "Vytvořit nový lexém",
+	"special-mergelexemes": "Sloučit dva lexémy",
 	"wikibaselexeme-deletedentity-form": "Smazaný tvar",
 	"wikibaselexeme-newlexeme-fieldset": "Vytvořit nový lexém",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
@@ -66,5 +67,9 @@
 	"wikibaselexeme-unknown-category": "Neznámá",
 	"wikibaselexeme-no-features": "bez vlastností",
 	"wikibase-lexeme-language-name-mis": "jiný",
-	"wikibase-lexeme-lemma-language-not-recognized": "Zadaný kód jazyka nebyl rozpoznán."
+	"wikibase-lexeme-lemma-language-not-recognized": "Zadaný kód jazyka nebyl rozpoznán.",
+	"wikibase-lexeme-mergelexemes-intro": "Když sloučíte dva lexémy, všechna lemmata, tvrzení, tvary a významy budou přesunuty z jednoho lexému do druhého.",
+	"wikibase-lexeme-mergelexemes-from-id": "Identifikátor objektu, odkud se má slučovat",
+	"wikibase-lexeme-mergelexemes-to-id": "Identifikátor objektu, kam se má slučovat",
+	"wikibase-lexeme-mergelexemes-submit": "Sloučit lexémy"
 }
