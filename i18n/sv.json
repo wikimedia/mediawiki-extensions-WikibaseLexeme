@@ -24,6 +24,7 @@
 	"wikibaselexeme-diffview-form": "formulär",
 	"wikibaselexeme-form-grammatical-features": "Grammatiska funktioner",
 	"wikibaselexeme-form-description": "$1 för: $2 ($3): $4",
+	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|uttalande|uttalanden}}, $2 {{PLURAL:$2|formulär}}",
 	"wikibaselexeme-unknown-language": "Okänt språk",
 	"wikibaselexeme-unknown-category": "Okänd",
 	"wikibase-lexeme-mergelexemes-from-id": "ID att sammanfoga från",

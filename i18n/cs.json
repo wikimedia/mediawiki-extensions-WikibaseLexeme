@@ -63,6 +63,7 @@
 	"wikibaselexeme-diffview-grammatical-feature": "gramatická vlastnost",
 	"content-model-wikibase-lexeme": "Lexém Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Gramatické vlastnosti",
+	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|tvrzení}}, $2 {{PLURAL:$2|tvar|tvary|tvarů}}",
 	"wikibaselexeme-unknown-language": "Neznámý jazyk",
 	"wikibaselexeme-unknown-category": "Neznámá",
 	"wikibaselexeme-no-features": "bez vlastností",
