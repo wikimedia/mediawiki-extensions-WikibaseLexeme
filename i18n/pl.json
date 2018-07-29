@@ -9,6 +9,7 @@
 		]
 	},
 	"special-newlexeme": "Utwórz nowy leksem",
+	"special-mergelexemes": "Łączenie dwóch leksemów",
 	"wikibaselexeme-deletedentity-form": "Forma usunięta",
 	"wikibaselexeme-newlexeme-fieldset": "Utwórz nowy leksem",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
@@ -72,5 +73,6 @@
 	"wikibaselexeme-no-features": "brak cech",
 	"wikibase-validator-form-not-found": "Leksem nie posiada formy z podanym ID",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Na przykład: stopień wyższy, czas przeszły...",
-	"wikibase-lexeme-lemma-language-not-recognized": "Podany kod języka nie został rozpoznany."
+	"wikibase-lexeme-lemma-language-not-recognized": "Podany kod języka nie został rozpoznany.",
+	"wikibase-lexeme-mergelexemes-submit": "Połącz leksemy"
 }
