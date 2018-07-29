@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use HamcrestPHPUnitIntegration;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
@@ -33,6 +34,7 @@ use Wikimedia\Assert\ParameterTypeException;
  * @author Thiemo Kreuz
  */
 class LexemeViewTest extends \MediaWikiTestCase {
+	use HamcrestPHPUnitIntegration;
 
 	/**
 	 * @return FormsView
@@ -221,7 +223,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$html = $view->getHtml( $lexeme );
 		$this->assertInternalType( 'string', $html );
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is(
 				htmlPiece(
@@ -258,7 +260,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$html = $view->getHtml( $lexeme );
 		$this->assertInternalType( 'string', $html );
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is(
 				htmlPiece(
@@ -296,7 +298,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$html = $view->getHtml( $lexeme );
 		$this->assertInternalType( 'string', $html );
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is(
 				htmlPiece(
@@ -335,7 +337,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$html = $view->getHtml( $lexeme );
 		$this->assertInternalType( 'string', $html );
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is(
 				htmlPiece(

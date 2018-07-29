@@ -6,6 +6,7 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use HamcrestPHPUnitIntegration;
 use HashSiteStore;
 use MediaWikiTestCase;
 use MessageLocalizer;
@@ -35,6 +36,7 @@ use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
  * @author Thiemo Kreuz
  */
 class LexemeDiffVisualizerTest extends MediaWikiTestCase {
+	use HamcrestPHPUnitIntegration;
 
 	public function testVisualizingEmptyDiff() {
 		$emptyDiff = new EntityContentDiff( new EntityDiff(), new Diff(), 'lexeme' );
@@ -202,7 +204,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 
 		$diffHtml = $this->getVisualizer()->visualizeEntityContentDiff( $diff );
 
-		assertThat( $diffHtml, is( htmlPiece(
+		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
 			havingChild( allOf(
 				withTagName( 'tr' ),
 				havingChild(
@@ -217,7 +219,6 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 				)
 			) )
 		) ) );
-		$this->assertTrue( true, 'Don\'t mark the test as risky.' );
 	}
 
 }

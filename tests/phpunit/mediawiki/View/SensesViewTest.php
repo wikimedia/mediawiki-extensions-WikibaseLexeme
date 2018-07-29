@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
@@ -20,6 +21,7 @@ use Wikibase\View\StatementSectionsView;
  * @license GPL-2.0-or-later
  */
 class SensesViewTest extends TestCase {
+	use HamcrestPHPUnitIntegration;
 
 	const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
 
@@ -28,7 +30,7 @@ class SensesViewTest extends TestCase {
 		$view = $this->newSensesView();
 		$html = $view->getHtml( [] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'h2' ) )
@@ -45,7 +47,7 @@ class SensesViewTest extends TestCase {
 		$view = $this->newSensesView();
 		$html = $view->getHtml( [] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild( tagMatchingOutline(
 				'<div class="wikibase-lexeme-senses">'
@@ -64,7 +66,7 @@ class SensesViewTest extends TestCase {
 			)
 		] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
 				both( tagMatchingOutline( '<span dir="ltr" lang="en">' ) )
@@ -86,7 +88,7 @@ class SensesViewTest extends TestCase {
 			)
 		] );
 
-		assertThat(
+		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild( tagMatchingOutline( self::STATEMENT_SECTION_HTML ) ) ) )
 		);
