@@ -2,6 +2,7 @@
 namespace Wikibase\Lexeme\Search;
 
 use CirrusSearch\Search\ResultSet;
+use Elastica\ResultSet as ElasticaResultSet;
 use Language;
 
 /**
@@ -29,7 +30,7 @@ class LexemeResultSet extends ResultSet {
 	 * @param array $lexemeResults Pre-processed data from Lexeme
 	 */
 	public function __construct(
-		\Elastica\ResultSet $ESresult,
+		ElasticaResultSet $ESresult,
 		Language $displayLanguage,
 		LexemeDescription $descriptionMaker,
 		array $lexemeResults

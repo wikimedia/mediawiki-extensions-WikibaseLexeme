@@ -2,6 +2,7 @@
 namespace Wikibase\Lexeme\Search;
 
 use CirrusSearch;
+use CirrusSearch\Search\CirrusIndexField;
 use DataValues\StringValue;
 use SearchEngine;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -125,7 +126,7 @@ class LexemeLanguageField extends LexemeKeywordField {
 			// For now only Cirrus/Elastic is supported
 			return [];
 		}
-		return [ \CirrusSearch\Search\CirrusIndexField::NOOP_HINT => "equals" ];
+		return [ CirrusIndexField::NOOP_HINT => "equals" ];
 	}
 
 }

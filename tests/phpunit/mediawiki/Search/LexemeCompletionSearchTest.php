@@ -7,6 +7,7 @@ use Language;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\Lexeme\Search\FormSearchEntity;
 use Wikibase\Lexeme\Search\LexemeSearchEntity;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\Search\LexemeSearchEntity
@@ -25,7 +26,7 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 	 * @return LexemeSearchEntity
 	 */
 	private function newEntitySearch( Language $userLang ) {
-		$repo = \Wikibase\Repo\WikibaseRepo::getDefaultInstance();
+		$repo = WikibaseRepo::getDefaultInstance();
 		return new LexemeSearchEntity(
 			new BasicEntityIdParser(),
 			new \FauxRequest(),
@@ -41,7 +42,7 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 	 * @return LexemeSearchEntity
 	 */
 	private function newFormSearch( Language $userLang ) {
-		$repo = \Wikibase\Repo\WikibaseRepo::getDefaultInstance();
+		$repo = WikibaseRepo::getDefaultInstance();
 		return new FormSearchEntity(
 			new BasicEntityIdParser(),
 			new \FauxRequest(),

@@ -6,6 +6,7 @@ use Diff\DiffOp;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
+use Diff\DiffOp\DiffOpRemove;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Repo\Diff\DiffOpValueFormatter;
 
@@ -54,7 +55,7 @@ class ItemReferenceDifferenceVisualizer {
 			);
 			return $valueFormatter->generateHtml();
 		}
-		if ( $diff instanceof DiffOp\DiffOpRemove ) {
+		if ( $diff instanceof DiffOpRemove ) {
 			$valueFormatter = new DiffOpValueFormatter(
 				$headerText,
 				'',

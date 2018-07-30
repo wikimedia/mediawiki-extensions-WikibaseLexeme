@@ -215,7 +215,7 @@ class LexemeFulltextResult implements ResultsType {
 	 * @return \SearchResultSet
 	 */
 	public function transformElasticsearchResult(
-		SearchContext $context, \Elastica\ResultSet $result
+		SearchContext $context, ResultSet $result
 	) {
 		$rawResults = $entityIds = [];
 		foreach ( $result->getResults() as $r ) {
