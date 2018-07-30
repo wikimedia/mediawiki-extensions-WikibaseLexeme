@@ -318,7 +318,7 @@ class AddSense extends ApiBase {
 		);
 
 		return [
-			$query => $exampleMessage
+			urldecode( $query ) => $exampleMessage
 		];
 	}
 

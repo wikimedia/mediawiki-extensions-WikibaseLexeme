@@ -330,7 +330,7 @@ class AddForm extends ApiBase {
 		);
 
 		return [
-			$query => $exampleMessage
+			urldecode( $query ) => $exampleMessage
 		];
 	}
 

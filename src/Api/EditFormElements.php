@@ -298,7 +298,7 @@ class EditFormElements extends \ApiBase {
 		);
 
 		return [
-			$query => $exampleMessage
+			urldecode( $query ) => $exampleMessage
 		];
 	}
 

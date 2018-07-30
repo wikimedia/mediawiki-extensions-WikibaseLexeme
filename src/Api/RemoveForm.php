@@ -241,7 +241,7 @@ class RemoveForm extends ApiBase {
 		);
 
 		return [
-			$query => $exampleMessage
+			urldecode( $query ) => $exampleMessage
 		];
 	}
 
