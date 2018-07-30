@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 use Wikibase\Lexeme\Validators\LemmaTermValidator;
 
 /**
+ * @covers \Wikibase\Lexeme\Validators\LemmaTermValidator
+ *
  * @license GPL-2.0-or-later
  */
 class LemmaTermValidatorTest extends \PHPUnit_Framework_TestCase {
