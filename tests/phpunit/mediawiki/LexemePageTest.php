@@ -9,6 +9,8 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
+ * @coversNothing
+ *
  * @license GPL-2.0-or-later
  *
  * @group Database

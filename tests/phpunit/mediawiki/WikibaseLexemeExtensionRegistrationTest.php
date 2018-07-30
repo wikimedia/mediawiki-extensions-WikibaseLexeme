@@ -12,6 +12,8 @@ use ApiUsageException;
  * TODO: The repo- and client-specific code should be moved to separate extensions,
  * and then such test becomes also simpler.
  *
+ * @coversNothing
+ *
  * @group medium
  */
 class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {

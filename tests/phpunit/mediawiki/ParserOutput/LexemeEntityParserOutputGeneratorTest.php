@@ -16,6 +16,8 @@ use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
+ * @coversNothing
+ *
  * @group Database
  *
  * @license GPL-2.0-or-later

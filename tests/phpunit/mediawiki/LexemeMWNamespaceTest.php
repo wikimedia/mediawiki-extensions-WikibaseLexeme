@@ -6,6 +6,8 @@ use MWNamespace;
 use PHPUnit\Framework\TestCase;
 
 /**
+ * @coversNothing
+ *
  * @license GPL-2.0-or-later
  * @author Addshore
  */
