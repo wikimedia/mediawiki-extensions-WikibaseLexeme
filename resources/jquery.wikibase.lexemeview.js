@@ -72,6 +72,14 @@
 		},
 
 		/**
+		 * Lexemes have lemmas instead of entity terms, so this should not be initialized.
+		 *
+		 * @protected
+		 */
+		_initEntityTerms: function () {
+		},
+
+		/**
 		 * @protected
 		 */
 		_initStatements: function () {
