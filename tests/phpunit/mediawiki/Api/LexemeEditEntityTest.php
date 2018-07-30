@@ -52,6 +52,19 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
 				'language' => 'Q100',
 				'lexicalCategory' => 'Q200',
+				'forms' => [
+					[
+						'add' => '',
+						'representations' => [
+							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+						],
+						'claims' => [ [
+							'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
+							'type' => 'statement',
+							'rank' => 'normal',
+						] ]
+					]
+				]
 			] ),
 		];
 
@@ -74,6 +87,17 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
 				'language' => 'Q100',
 				'lexicalCategory' => 'Q200',
+				'forms' => [
+					[
+						'id' => $id . '-F1',
+						'representations' => [
+							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+						],
+						'grammaticalFeatures' => [],
+						// Adding of statements to new forms on new lexemes is not implemented via editentity, yet!
+						'claims' => []
+					]
+				]
 			],
 			$lexemeData
 		);
@@ -1662,6 +1686,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'grammaticalFeatures' => [ 'Q16' ],
+						'claims' => [ [
+							'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
+							'type' => 'statement',
+							'rank' => 'normal',
+						] ],
 					]
 				],
 			] ),
@@ -1677,6 +1706,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 2, $lexemeData['forms'] );
 		$this->assertCount( 1, $lexemeData['forms'][0]['grammaticalFeatures'] );
 		$this->assertSame( 'Q16', $lexemeData['forms'][0]['grammaticalFeatures'][0] );
+		$this->assertCount(
+			0,
+			$lexemeData['forms'][0]['claims'],
+			'Editing of forms to have statements is not implemented through editentity, yet!'
+		);
 	}
 
 	// TODO: edit statements (all options: add, edit, remove?) with id=L1
@@ -1833,6 +1867,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 				],
 				'grammaticalFeatures' => [ 'Q16' ],
+				'claims' => [ [
+					'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
+					'type' => 'statement',
+					'rank' => 'normal',
+				] ],
 			] ),
 		];
 
@@ -1853,6 +1892,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertEquals(
 			[ 'Q16' ],
 			$lexemeData['forms'][2]['grammaticalFeatures']
+		);
+		$this->assertCount(
+			0,
+			$lexemeData['forms'][2]['claims'],
+			'Creating of forms with statements is not implemented through editentity, yet!'
 		);
 	}
 
