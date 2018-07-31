@@ -109,6 +109,8 @@
 	"wikibaselexeme-diffview-form": "Form",
 	"wikibaselexeme-diffview-representation": "representation",
 	"wikibaselexeme-diffview-grammatical-feature": "grammatical feature",
+	"wikibaselexeme-diffview-sense": "Sense",
+	"wikibaselexeme-diffview-gloss": "gloss",
 	"content-model-wikibase-lexeme": "Wikibase Lexeme",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
