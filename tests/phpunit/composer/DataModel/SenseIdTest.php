@@ -7,6 +7,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\SenseId;
 
 /**
+ * @covers \Wikibase\Lexeme\DataModel\LexemeSubEntityId
  * @covers \Wikibase\Lexeme\DataModel\SenseId
  *
  * @license GPL-2.0-or-later

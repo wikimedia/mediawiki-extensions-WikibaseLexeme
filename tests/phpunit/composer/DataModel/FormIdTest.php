@@ -10,6 +10,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\FormId
+ * @covers \Wikibase\Lexeme\DataModel\LexemeSubEntityId
  *
  * @license GPL-2.0-or-later
  */

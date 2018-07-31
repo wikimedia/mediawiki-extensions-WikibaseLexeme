@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
-use Wikibase\DataModel\Entity\EntityId;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -13,7 +12,7 @@ use Wikimedia\Assert\Assert;
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz
  */
-class FormId extends EntityId {
+class FormId extends LexemeSubEntityId {
 
 	const PATTERN = '/^L[1-9]\d*-F[1-9]\d*\z/';
 
@@ -36,39 +35,6 @@ class FormId extends EntityId {
 	 */
 	public function getEntityType() {
 		return Form::ENTITY_TYPE;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getSerialization() {
-		return $this->serialization;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function serialize() {
-		return $this->serialization;
-	}
-
-	/**
-	 * @param string $serialized
-	 */
-	public function unserialize( $serialized ) {
-		$this->serialization = $serialized;
-		list( $this->repositoryName, $this->localPart ) = $this->extractRepositoryNameAndLocalPart(
-			$serialized
-		);
-	}
-
-	/**
-	 * @return LexemeId
-	 */
-	public function getLexemeId() {
-		$parts = EntityId::splitSerialization( $this->getLocalPart() );
-		$parts = explode( '-', $parts[2], 2 );
-		return new LexemeId( $parts[0] );
 	}
 
 }

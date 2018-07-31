@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
-use Wikibase\DataModel\Entity\EntityId;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -12,7 +11,7 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class SenseId extends EntityId {
+class SenseId extends LexemeSubEntityId {
 
 	const PATTERN = '/^L[1-9]\d*-S[1-9]\d*\z/';
 
@@ -34,30 +33,6 @@ class SenseId extends EntityId {
 	 */
 	public function getEntityType() {
 		return Sense::ENTITY_TYPE;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function serialize() {
-		return $this->serialization;
-	}
-
-	/**
-	 * @param string $serialized
-	 */
-	public function unserialize( $serialized ) {
-		$this->serialization = $serialized;
-		list( $this->repositoryName, $this->localPart ) = self::extractRepositoryNameAndLocalPart(
-			$serialized
-		);
-	}
-
-	/**
-	 * @return LexemeId
-	 */
-	public function getLexemeId() {
-		return new LexemeId( explode( '-', $this->localPart, 2 )[0] );
 	}
 
 }
