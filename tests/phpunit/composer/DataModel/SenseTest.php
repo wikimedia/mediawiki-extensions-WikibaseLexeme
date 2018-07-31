@@ -139,4 +139,32 @@ class SenseTest extends TestCase {
 		return new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) );
 	}
 
+	/**
+	 * @dataProvider clearableProvider
+	 */
+	public function testClear( Sense $sense ) {
+		$clone = $sense->copy();
+
+		$sense->clear();
+
+		$this->assertTrue( $sense->isEmpty(), 'sense should be empty after clear' );
+		$this->assertEquals( $clone->getId(), $sense->getId(), 'ids must be equal' );
+	}
+
+	public function clearableProvider() {
+		return [
+			'empty' => [ NewSense::havingId( 'S1' )->build() ],
+			'with gloss' => [
+				NewSense::havingId( 'S2' )
+					->withGloss( 'en', 'foo' )
+					->build(),
+			],
+			'with statement' => [
+				NewSense::havingId( 'S4' )
+					->withStatement( new PropertyNoValueSnak( 42 ) )
+					->build(),
+			],
+		];
+	}
+
 }

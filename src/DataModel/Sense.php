@@ -3,8 +3,10 @@
 namespace Wikibase\Lexeme\DataModel;
 
 use LogicException;
+use Wikibase\DataModel\Entity\ClearableEntity;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
 
 /**
@@ -15,7 +17,7 @@ use Wikibase\DataModel\Term\TermList;
  *
  * @license GPL-2.0-or-later
  */
-class Sense implements EntityDocument {
+class Sense implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	const ENTITY_TYPE = 'sense';
 
@@ -130,6 +132,15 @@ class Sense implements EntityDocument {
 		return $target instanceof self
 			&& $this->glossList->equals( $target->glossList )
 			&& $this->statementList->equals( $target->statementList );
+	}
+
+	/**
+	 * Clears the glosses and statements of a sense.
+	 * Note that this leaves the sense in an insufficiently initialized state.
+	 */
+	public function clear() {
+		$this->glossList = new TermList();
+		$this->statementList = new StatementList();
 	}
 
 }
