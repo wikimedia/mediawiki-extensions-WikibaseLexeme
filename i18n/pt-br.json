@@ -7,6 +7,7 @@
 	},
 	"wikibaselexeme-desc": "Tratar o tipo de entidade lexema",
 	"special-newlexeme": "Criar um lexema novo",
+	"special-mergelexemes": "Fundir dois lexemas",
 	"wikibaselexeme-deletedentity-form": "Forma eliminada",
 	"wikibaselexeme-newlexeme-fieldset": "Criar um lexema novo",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
@@ -63,6 +64,11 @@
 	"apihelp-wbladdsense-param-data": "Dados codificados JSON para o sentido, isto é, as suas glosas",
 	"apihelp-wbladdsense-param-bot": "Marcar esta edição como sendo feita por um robô. Esta etiqueta URL só será respeitado se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wbladdsense-example-1": "Adicionar uma forma ao lexema que tem o identificador <samp>$1</samp> com as glosas <samp>$2</samp> nas línguas <samp>$3</samp>, respetivamente",
+	"apihelp-wbleditsenseelements-summary": "Edita glosas de um sentido",
+	"apihelp-wbleditsenseelements-param-senseId": "Identificador do sentido, por exemplo: L10-S2",
+	"apihelp-wbleditsenseelements-param-data": "Dados codificados JSON das glosas",
+	"apihelp-wbleditsenseelements-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
+	"apihelp-wbleditsenseelements-example-1": "Edita o sentido com o identificador <samp>$1</samp> de forma a ter as glosas <samp>$2</samp> nos idiomas <samp>$3</samp>, respetivamente.",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Ocorreu um erro: o último lema não pode ser removido.",
 	"wikibaselexeme-api-error-parameter-required": "O parâmetro \"$1\" é obrigatório",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Era esperado que o parâmetro \"$1\" fosse um objeto JSON válido. Foi fornecido: \"$2\"",
@@ -103,6 +109,7 @@
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais",
 	"wikibaselexeme-form-description": "$1 para: $2 ($3): $4",
+	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|declaração|declarações}}, $2 {{PLURAL:$2|forma|formas}}",
 	"wikibaselexeme-unknown-language": "Idioma desconhecido",
 	"wikibaselexeme-unknown-category": "Desconhecida",
 	"wikibaselexeme-no-features": "sem recursos",
@@ -110,5 +117,9 @@
 	"wikibase-validator-form-not-found": "O lexema não tem uma Forma com o ID fornecido",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado...",
 	"wikibase-lexeme-language-name-mis": "outro",
-	"wikibase-lexeme-lemma-language-not-recognized": "O código de idioma fornecido não foi reconhecido."
+	"wikibase-lexeme-lemma-language-not-recognized": "O código de idioma fornecido não foi reconhecido.",
+	"wikibase-lexeme-mergelexemes-intro": "Se fundir dois lexemas, todos os lemas, declarações, formas e sentidos serão movidos de um lexema para o outro.",
+	"wikibase-lexeme-mergelexemes-from-id": "Mesclar a partir do ID",
+	"wikibase-lexeme-mergelexemes-to-id": "O identificador no qual fundir",
+	"wikibase-lexeme-mergelexemes-submit": "Fundir lexemas"
 }
