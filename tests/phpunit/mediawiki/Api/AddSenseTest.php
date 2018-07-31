@@ -235,7 +235,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			$lexemeRevision->getRevisionId()
 		);
 
-		$expectedComment = '/* add-sense:1||L1-S1 */ furry animal';
+		$expectedComment = '/* add-sense:1|en|L1-S1 */ furry animal';
 		$this->assertSame( $expectedComment, $revision->getComment()->text );
 	}
 

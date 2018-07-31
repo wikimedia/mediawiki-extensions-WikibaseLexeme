@@ -76,7 +76,23 @@ class ChangeOpSenseAddTest extends TestCase {
 		$changeOp->apply( $lexeme, $summary );
 
 		$this->assertEquals( 'add-sense', $summary->getMessageKey() );
+		$this->assertSame( 'en', $summary->getLanguageCode() );
 		$this->assertEquals( [ 'furry animal' ], $summary->getAutoSummaryArgs() );
+	}
+
+	public function test_applySetsTheSummary_noLanguageIfMultipleGlosses() {
+		$changeOp = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+			new ChangeOpGlossList( [
+				new ChangeOpGloss( new Term( 'en', 'furry animal' ) ),
+				new ChangeOpGloss( new Term( 'de', 'pelziges Tier' ) ),
+			] ),
+		] ) );
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$summary = new Summary();
+
+		$changeOp->apply( $lexeme, $summary );
+
+		$this->assertEquals( null, $summary->getLanguageCode() );
 	}
 
 }

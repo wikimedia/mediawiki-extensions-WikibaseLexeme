@@ -50,12 +50,20 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 			$blankSense->getGlosses()
 		);
 
+		if ( $sense->getGlosses()->count() === 1 ) {
+			$array = $sense->getGlosses()->toTextArray();
+			reset( $array );
+			$language = key( $array );
+		} else {
+			$language = null;
+		}
+
 		if ( $summary !== null ) {
 			// TODO: consistently do not extend ChangeOpBase?
 			$this->updateSummary(
 				$summary,
 				self::SUMMARY_ACTION_ADD,
-				null,
+				$language,
 				array_values( $sense->getGlosses()->toTextArray() )
 			);
 			// TODO: use SenseId not string?
