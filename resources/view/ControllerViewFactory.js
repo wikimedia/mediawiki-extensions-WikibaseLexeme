@@ -39,26 +39,9 @@
 				}
 			);
 
-			var fakeEntityChangersFactory = {};
-			$.extend( fakeEntityChangersFactory, changersFactory );
-			fakeEntityChangersFactory.getStatementsChanger = function () {
-				var statementsChanger = changersFactory.getStatementsChanger();
-				var fakeStatementsChanger = {};
-				$.extend( fakeStatementsChanger, statementsChanger );
-				fakeStatementsChanger.save = function fakeStatementsChangerSave( statement ) {
-					var guid = statement.getClaim().getGuid();
-					if ( /^(L\d+-)?S\d+\$/.test( guid ) ) {
-						return $.Deferred().resolve( statement ).promise();
-					} else {
-						return statementsChanger.save( statement );
-					}
-				};
-				return fakeStatementsChanger;
-			};
-
 			PARENT.apply( this, [
 				toolbarFactory,
-				fakeEntityChangersFactory,
+				changersFactory,
 				structureEditorFactory,
 				contentLanguages,
 				dataTypeStore,
@@ -178,6 +161,7 @@
 	SELF.prototype.getSenseView = function (
 		lexeme,
 		sense,
+		labelFormattingService,
 		$dom,
 		startEditingCallback,
 		removeCallback
@@ -187,10 +171,13 @@
 				$dom,
 				{
 					value: sense || new wb.lexeme.datamodel.Sense(),
+					labelFormattingService: labelFormattingService,
+					api: this._api,
 					buildStatementGroupListView: this.getStatementGroupListView.bind(
 						this,
 						startEditingCallback
-					)
+					),
+					lexeme: lexeme
 				}
 			),
 			senseSerializer = new wb.lexeme.serialization.SenseSerializer(),
@@ -303,6 +290,7 @@
 				return self.getSenseView(
 					lexeme,
 					sense || null,
+					new FakeLabelFormattingService( self._api ),
 					$element,
 					startEditingCallback,
 					removeCallback
