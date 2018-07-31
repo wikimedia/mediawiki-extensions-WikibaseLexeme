@@ -113,10 +113,25 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			$this->messageLocalizer
 		);
 
+		$senseDiffView = new SenseDiffView(
+			[],
+			new Diff(
+				[
+					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-sense' )->text() =>
+						$diff->getSensesDiff(),
+				],
+				true
+			),
+			$this->claimDiffer,
+			$this->claimDiffVisualizer,
+			$this->messageLocalizer
+		);
+
 		return $basicDiffView->getHtml() .
 			$lexicalCategoryDiff .
 			$languageDiff .
-			$formDiffView->getHtml();
+			$formDiffView->getHtml() .
+			$senseDiffView->getHtml();
 	}
 
 }

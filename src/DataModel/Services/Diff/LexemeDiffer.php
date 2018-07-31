@@ -16,6 +16,8 @@ use Wikibase\DataModel\Services\Diff\StatementListDiffer;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseSet;
 use Wikimedia\Assert\Assert;
 use InvalidArgumentException;
 
@@ -39,6 +41,11 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	private $formDiffer;
 
+	/**
+	 * @var SenseDiffer
+	 */
+	private $senseDiffer;
+
 	public function __construct() {
 		$this->recursiveMapDiffer = new MapDiffer( true );
 		$this->itemIdDiffer = new MapDiffer();
@@ -47,6 +54,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 		} );
 		$this->statementListDiffer = new StatementListDiffer();
 		$this->formDiffer = new FormDiffer();
+		$this->senseDiffer = new SenseDiffer();
 	}
 
 	/**
@@ -106,7 +114,12 @@ class LexemeDiffer implements EntityDifferStrategy {
 			$to->getForms()
 		);
 
-		// TODO diff nextSenseId and senses
+		$diffOps['senses'] = $this->getSensesDiff(
+			$from->getSenses(),
+			$to->getSenses()
+		);
+
+		$diffOps['nextSenseId'] = $this->getNextSenseIdCounterDiff( $from, $to );
 
 		return new LexemeDiff( $diffOps );
 	}
@@ -210,6 +223,65 @@ class LexemeDiffer implements EntityDifferStrategy {
 		}
 
 		return new Diff( [ new DiffOpChange( $from->getNextFormId(), $to->getNextFormId() ) ] );
+	}
+
+	/**
+	 * @param SenseSet $from
+	 * @param SenseSet $to
+	 *
+	 * @return Diff;
+	 */
+	private function getSensesDiff( SenseSet $from, SenseSet $to ) {
+		$differ = new MapDiffer();
+
+		$differ->setComparisonCallback( function ( Sense $from, Sense $to ) {
+			return $from == $to;
+		} );
+
+		$from = $this->toSensesDiffArray( $from );
+		$to = $this->toSensesDiffArray( $to );
+		$senseDiffOps = $differ->doDiff( $from, $to );
+
+		foreach ( $senseDiffOps as $index => $senseDiffOp ) {
+			if ( $senseDiffOp instanceof DiffOpChange ) {
+				/** @var DiffOpChange $senseDiffOp */
+				$senseDiffOps[$index] = $this->senseDiffer->diffEntities(
+					$senseDiffOp->getOldValue(),
+					$senseDiffOp->getNewValue()
+				);
+			}
+			if ( $senseDiffOp instanceof DiffOpAdd ) {
+				$senseDiffOps[$index] = $this->senseDiffer->getAddSenseDiff( $senseDiffOp->getNewValue() );
+			}
+			if ( $senseDiffOp instanceof DiffOpRemove ) {
+				$senseDiffOps[$index] = $this->senseDiffer->getRemoveSenseDiff( $senseDiffOp->getOldValue() );
+			}
+		}
+
+		return new Diff( $senseDiffOps, true );
+	}
+
+	/**
+	 * @param SenseSet $senses
+	 *
+	 * @return Sense[]
+	 */
+	private function toSensesDiffArray( SenseSet $senses ) {
+		$result = [];
+
+		foreach ( $senses->toArray() as $sense ) {
+			$result[$sense->getId()->getSerialization()] = $sense;
+		}
+
+		return $result;
+	}
+
+	private function getNextSenseIdCounterDiff( Lexeme $from, Lexeme $to ) {
+		if ( $to->getNextSenseId() <= $from->getNextSenseId() ) {
+			return new Diff( [] );
+		}
+
+		return new Diff( [ new DiffOpChange( $from->getNextSenseId(), $to->getNextSenseId() ) ] );
 	}
 
 	private function getLexicalCategoryAsArray( Lexeme $lexeme ) {

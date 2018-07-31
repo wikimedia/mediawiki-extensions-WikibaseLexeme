@@ -8,7 +8,9 @@ use Diff\DiffOp\DiffOpChange;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
+use Wikibase\Lexeme\DataModel\Services\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Repo\Tests\NewStatement;
 
@@ -28,6 +30,7 @@ class LexemeDiffTest extends TestCase {
 
 	public function provideIsEmpty() {
 		$f1 = new FormId( 'L1-F1' );
+		$s1 = new SenseId( 'L1-S1' );
 		$addAOp = new DiffOpAdd( 'a' );
 		$addQ1Op = new DiffOpAdd( new ItemId( 'Q1' ) );
 		$changeQ2Q3Op = new DiffOpChange( new ItemId( 'Q2' ), new ItemId( 'Q3' ) );
@@ -56,9 +59,19 @@ class LexemeDiffTest extends TestCase {
 			new LexemeDiff( [ 'forms' =>
 				new ChangeFormDiffOp( $f1, new Diff( [ 'grammaticalFeatures' => $addAOp ], true ) )
 			] ) ];
+		yield 'sense glosses change' => [
+			false,
+			new LexemeDiff( [ 'senses' =>
+				new ChangeSenseDiffOp( $s1, new Diff( [ 'glosses' => new Diff( [ $addAOp ] ) ] ) )
+			] )
+		];
 		yield 'next form ID changes' => [
 			false,
 			new LexemeDiff( [ 'nextFormId' => new Diff( [ $change12Op ] ) ] )
+		];
+		yield 'next sense ID changes' => [
+			false,
+			new LexemeDiff( [ 'nextSenseId' => new Diff( [ $change12Op ] ) ] )
 		];
 	}
 

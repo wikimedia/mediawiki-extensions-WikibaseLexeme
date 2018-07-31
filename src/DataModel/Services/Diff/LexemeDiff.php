@@ -25,7 +25,9 @@ class LexemeDiff extends EntityDiff {
 		$this->fixSubstructureDiff( $operations, 'lexicalCategory' );
 		$this->fixSubstructureDiff( $operations, 'language' );
 		$this->fixSubstructureDiff( $operations, 'forms' );
+		$this->fixSubstructureDiff( $operations, 'senses' );
 		$this->fixSubstructureDiff( $operations, 'nextFormId' );
+		$this->fixSubstructureDiff( $operations, 'nextSenseId' );
 
 		parent::__construct( $operations );
 	}
@@ -65,6 +67,13 @@ class LexemeDiff extends EntityDiff {
 	}
 
 	/**
+	 * @return Diff
+	 */
+	public function getSensesDiff() {
+		return isset( $this['senses'] ) ? $this['senses'] : new Diff( [], true );
+	}
+
+	/**
 	 * Returns if there are any changes (equivalent to: any differences between the entities).
 	 *
 	 * @return bool
@@ -76,14 +85,18 @@ class LexemeDiff extends EntityDiff {
 			&& $this->getLanguageDiff()->isEmpty()
 			&& $this->getClaimsDiff()->isEmpty()
 			&& $this->getFormsDiff()->isEmpty()
-			&& $this->getNextFormIdDiff()->isEmpty();
+			&& $this->getSensesDiff()->isEmpty()
+			&& $this->getNextFormIdDiff()->isEmpty()
+			&& $this->getNextSenseIdDiff()->isEmpty();
 	}
 
 	public function getNextFormIdDiff() {
 		return isset( $this['nextFormId'] ) ? $this['nextFormId'] : new Diff( [], true );
 	}
 
-	// TODO add getSensesDiff and getNextSenseIdDiff
+	public function getNextSenseIdDiff() {
+		return isset( $this['nextSenseId'] ) ? $this['nextSenseId'] : new Diff( [], true );
+	}
 
 	public function toArray( $valueConverter = null ) {
 		throw new \LogicException( 'toArray() is not implemented' );

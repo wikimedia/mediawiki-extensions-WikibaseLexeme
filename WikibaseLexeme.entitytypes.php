@@ -27,6 +27,8 @@ use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\FormPatcher;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiffer;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\DataModel\Services\Diff\SenseDiffer;
+use Wikibase\Lexeme\DataModel\Services\Diff\SensePatcher;
 use Wikibase\Lexeme\Store\FormRevisionLookup;
 use Wikibase\Lexeme\Store\FormStore;
 use Wikibase\Lexeme\Store\FormTitleStoreLookup;
@@ -134,6 +136,12 @@ return [
 		'entity-id-pattern' => SenseId::PATTERN,
 		'entity-id-builder' => function ( $serialization ) {
 			return new SenseId( $serialization );
+		},
+		'entity-differ-strategy-builder' => function () {
+			return new SenseDiffer();
+		},
+		'entity-patcher-strategy-builder' => function () {
+			return new SensePatcher();
 		},
 		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
 			return new SenseSerializer(

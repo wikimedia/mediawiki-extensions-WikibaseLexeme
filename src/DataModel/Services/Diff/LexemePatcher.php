@@ -40,10 +40,16 @@ class LexemePatcher implements EntityPatcherStrategy {
 	 */
 	private $formPatcher;
 
+	/**
+	 * @var SensePatcher
+	 */
+	private $sensePatcher;
+
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();
 		$this->statementListPatcher = new StatementListPatcher();
 		$this->formPatcher = new FormPatcher();
+		$this->sensePatcher = new SensePatcher();
 	}
 
 	/**
@@ -83,10 +89,10 @@ class LexemePatcher implements EntityPatcherStrategy {
 		}
 
 		$this->patchNextFormId( $lexeme, $patch );
-
 		$this->patchForms( $lexeme, $patch );
 
-		// TODO patch next sense ID and senses
+		$this->patchNextSenseId( $lexeme, $patch );
+		$this->patchSenses( $lexeme, $patch );
 	}
 
 	/**
@@ -132,6 +138,22 @@ class LexemePatcher implements EntityPatcherStrategy {
 		}
 	}
 
+	private function patchNextSenseId( Lexeme $entity, LexemeDiff $patch ) {
+		// FIXME: Same as above
+		foreach ( $patch->getNextSenseIdDiff() as $nextSenseIdDiff ) {
+			if ( !( $nextSenseIdDiff instanceof DiffOpChange ) ) {
+				throw new PatcherException( 'Invalid senses list diff' );
+			}
+
+			$newNumber = $nextSenseIdDiff->getNewValue();
+			if ( $newNumber > $entity->getNextSenseId() ) {
+				$entity->patch( function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
+					$patchAccess->increaseNextSenseIdTo( $newNumber );
+				} );
+			}
+		}
+	}
+
 	private function patchForms( Lexeme $lexeme, LexemeDiff $patch ) {
 		foreach ( $patch->getFormsDiff() as $formDiff ) {
 			switch ( true ) {
@@ -157,6 +179,35 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 				default:
 					throw new PatcherException( 'Invalid forms list diff: ' . get_class( $formDiff ) );
+			}
+		}
+	}
+
+	private function patchSenses( Lexeme $lexeme, LexemeDiff $patch ) {
+		foreach ( $patch->getSensesDiff() as $senseDiff ) {
+			switch ( true ) {
+				case $senseDiff instanceof AddSenseDiff:
+					$sense = $senseDiff->getAddedSense();
+					$lexeme->patch(
+						function ( LexemePatchAccess $patchAccess ) use ( $sense ) {
+							$patchAccess->addSense( $sense );
+						}
+					);
+					break;
+
+				case $senseDiff instanceof RemoveSenseDiff:
+					$lexeme->removeSense( $senseDiff->getRemovedSenseId() );
+					break;
+
+				case $senseDiff instanceof ChangeSenseDiffOp:
+					$sense = $lexeme->getSense( $senseDiff->getSenseId() );
+					if ( $sense !== null ) {
+						$this->sensePatcher->patchEntity( $sense, $senseDiff );
+					}
+					break;
+
+				default:
+					throw new PatcherException( 'Invalid senses list diff: ' . get_class( $senseDiff ) );
 			}
 		}
 	}
