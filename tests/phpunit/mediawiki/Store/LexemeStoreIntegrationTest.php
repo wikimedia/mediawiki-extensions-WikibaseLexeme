@@ -9,6 +9,8 @@ use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
+ * @coversNothing
+ *
  * @license GPL-2.0-or-later
  *
  * @group Database

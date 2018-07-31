@@ -31,6 +31,7 @@ use Wikibase\Repo\WikibaseRepo;
 
 /**
  * Covers entity-diff-visualizer-callback in WikibaseLexeme.entitytypes.php
+ * @coversNothing
  *
  * @license GPL-2.0-or-later
  *

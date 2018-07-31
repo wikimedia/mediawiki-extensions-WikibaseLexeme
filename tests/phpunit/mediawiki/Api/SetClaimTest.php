@@ -18,6 +18,8 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
 /**
+ * @coversNothing
+ *
  * @group Database
  * @group medium
  *
