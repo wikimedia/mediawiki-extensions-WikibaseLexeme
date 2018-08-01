@@ -69,7 +69,6 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 	}
 
 	public function getType() {
-//		return 'diff/lexeme/form';
 		return 'diff';
 	}
 
