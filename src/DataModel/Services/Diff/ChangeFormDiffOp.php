@@ -22,7 +22,7 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 
 	public function __construct( FormId $formId, Diff $diffOps ) {
 		$this->formId = $formId;
-		// FIXME: This class already extends Diff. It should note require an other Diff object.
+		// FIXME: This class already extends Diff. It should not require an other Diff object.
 		$this->diffOps = $diffOps;
 	}
 
