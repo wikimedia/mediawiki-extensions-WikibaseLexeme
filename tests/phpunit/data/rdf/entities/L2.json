@@ -31,5 +31,22 @@
             "claims": []
         }
     ],
-    "nextFormId": 2
+    "nextFormId": 2,
+    "senses": [
+        {
+            "id": "L2-S1",
+            "glosses": {
+                "en-us": {
+                    "language": "en-us",
+                    "value": "coloring"
+                },
+                "en-gb": {
+                    "language": "en-gb",
+                    "value": "colouring"
+                }
+            },
+            "claims": []
+        }
+    ],
+    "nextSenseId": 2
 }

@@ -8,6 +8,8 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseSet;
 use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\EntityRdfBuilder;
 use Wikibase\Rdf\RdfVocabulary;
@@ -71,6 +73,9 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		if ( $entity instanceof Form ) {
 			$this->addForm( $entity );
 		}
+		if ( $entity instanceof Sense ) {
+			$this->addSense( $entity );
+		}
 	}
 
 	/**
@@ -86,7 +91,9 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		$this->addLanguage( $lexemeLName, $lexeme->getLanguage() );
 		$this->addLexicalCategory( $lexemeLName, $lexeme->getLexicalCategory() );
 		$this->addFormsLink( $lexemeLName, $lexeme->getForms() );
+		$this->addSensesLink( $lexemeLName, $lexeme->getSenses() );
 		$this->addFormsContent( $lexeme->getForms() );
+		$this->addSensesContent( $lexeme->getSenses() );
 	}
 
 	/**
@@ -236,6 +243,70 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	}
 
 	/**
+	 * Adds the links to the senses of the given lexeme to the RDF graph
+	 *
+	 * @param string $lexemeLName
+	 * @param SenseSet $senses
+	 */
+	private function addSensesLink( $lexemeLName, SenseSet $senses ) {
+		foreach ( $senses->toArray() as $sense ) {
+			$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );
+			$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
+				->say( self::NS_ONTOLEX, 'sense' )
+				->is( RdfVocabulary::NS_ENTITY, $senseLName );
+		}
+	}
+
+	/**
+	 * Adds the content of the senses of the given lexeme to the RDF graph
+	 *
+	 * @param SenseSet $senses
+	 */
+	private function addSensesContent( SenseSet $senses ) {
+		foreach ( $senses->toArray() as $sense ) {
+			$this->addSense( $sense );
+		}
+	}
+
+	/**
+	 * Map a Sense to the RDF graph
+	 *
+	 * @param Sense $sense
+	 */
+	private function addSense( Sense $sense ) {
+		$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );
+
+		$this->addSenseTypes( $senseLName );
+		$this->addGlosses( $senseLName, $sense->getGlosses() );
+	}
+
+	/**
+	 * Adds the types of the given sense to the RDF graph
+	 *
+	 * @param string $senseLName
+	 */
+	private function addSenseTypes( $senseLName ) {
+		$this->writer->about( RdfVocabulary::NS_ENTITY, $senseLName )
+			->a( self::NS_ONTOLEX, 'LexicalSense' );
+	}
+
+	/**
+	 * Adds the glosses of the given sense to the RDF graph
+	 *
+	 * @param string $senseLName
+	 * @param TermList $glosses
+	 */
+	private function addGlosses( $senseLName, TermList $glosses ) {
+		foreach ( $glosses->toTextArray() as $glossCode => $glossText ) {
+			$this->writer->about( RdfVocabulary::NS_ENTITY, $senseLName )
+				->say( 'rdfs', 'label' )
+				->text( $glossText, $glossCode )
+				->say( RdfVocabulary::NS_SKOS, 'definition' )
+				->text( $glossText, $glossCode );
+		}
+	}
+
+	/**
 	 * Map some aspect of an entity to the RDF graph, as it should appear in the stub
 	 * representation of the entity.
 	 *
@@ -247,6 +318,9 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		}
 		if ( $entity instanceof Form ) {
 			$this->addFormSub( $entity );
+		}
+		if ( $entity instanceof Sense ) {
+			$this->addSenseSub( $entity );
 		}
 	}
 
@@ -264,16 +338,29 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	}
 
 	/**
-	 * Map some aspect of a Lexeme to the RDF graph, as it should appear in the stub
-	 * representation of the lexeme.
+	 * Map some aspect of a Form to the RDF graph, as it should appear in the stub
+	 * representation of the form.
 	 *
-	 * @param Lexeme $lexeme
+	 * @param Form $form
 	 */
 	private function addFormSub( Form $form ) {
 		$formLName = $this->vocabulary->getEntityLName( $form->getId() );
 
 		$this->addFormTypes( $formLName );
 		$this->addRepresentations( $formLName, $form->getRepresentations() );
+	}
+
+	/**
+	 * Map some aspect of a Sense to the RDF graph, as it should appear in the stub
+	 * representation of the sense.
+	 *
+	 * @param Sense $sense
+	 */
+	private function addSenseSub( Sense $sense ) {
+		$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );
+
+		$this->addSenseTypes( $senseLName );
+		$this->addGlosses( $senseLName, $sense->getGlosses() );
 	}
 
 }
