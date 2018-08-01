@@ -26,13 +26,6 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 	const DEFAULT_FORM_ID = 'L1-F1';
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-	}
-
 	public function testRateLimitIsCheckedWhenEditing() {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();

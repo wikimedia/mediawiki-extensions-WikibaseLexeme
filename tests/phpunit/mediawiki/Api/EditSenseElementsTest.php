@@ -25,13 +25,6 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 
 	const DEFAULT_SENSE_ID = 'L1-S1';
 
-	public function setUp() {
-		parent::setUp();
-
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-	}
-
 	public function testRateLimitIsCheckedWhenEditing() {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
