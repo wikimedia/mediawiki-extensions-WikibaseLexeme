@@ -7,13 +7,16 @@
 	},
 	"wikibaselexeme-desc": "Thực hiện kiểu thực thể từ vị",
 	"special-newlexeme": "Tạo từ vị mới",
+	"special-mergelexemes": "Hợp nhất hai từ vị",
 	"wikibaselexeme-deletedentity-form": "Đã xóa dạng",
 	"wikibaselexeme-newlexeme-fieldset": "Tạo từ vị mới",
 	"wikibaselexeme-newlexeme-lemma": "Dạng chuẩn",
 	"wikibaselexeme-newlexeme-lemma-language": "Ngôn ngữ dạng chuẩn",
 	"wikibaselexeme-lemma-edit-placeholder": "Dạng chuẩn thường là dạng đơn giản nhất của từ",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Từ loại",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Nhập từ loại, ví dụ danh từ",
 	"wikibaselexeme-newlexeme-language": "Ngôn ngữ từ vị",
+	"wikibaselexeme-newlexeme-language-placeholder": "Nhập ngôn ngữ, ví dụ tiếng Việt",
 	"wikibaselexeme-language-lexical-category-value": "$1 trong $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Tuyên bố về $1",
 	"wikibaselexeme-header-forms": "Dạng",
@@ -64,5 +67,9 @@
 	"wikibaselexeme-unknown-language": "Ngôn ngữ không rõ",
 	"wikibaselexeme-unknown-category": "Không rõ",
 	"wikibaselexeme-no-features": "không có thuộc tính",
-	"wikibase-validator-form-not-found": "Từ vị không có dạng với mã số được chỉ định"
+	"wikibase-validator-form-not-found": "Từ vị không có dạng với mã số được chỉ định",
+	"wikibase-lexeme-language-name-mis": "khác",
+	"wikibase-lexeme-mergelexemes-from-id": "ID để hợp nhất từ",
+	"wikibase-lexeme-mergelexemes-to-id": "ID để hợp nhất vào",
+	"wikibase-lexeme-mergelexemes-submit": "Hợp nhất từ vị"
 }
