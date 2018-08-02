@@ -2,30 +2,12 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' ),
-	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' );
+	LexemePage = require( '../pageobjects/lexeme.page' );
 
 describe( 'Lexeme:Forms', () => {
 
 	it( 'can be added', () => {
 		let id;
-
-		/**
-		 * This block is a hotfix for the integration issue with ContentTranslation
-		 * documented here:  https://phabricator.wikimedia.org/T200693
-		 *
-		 * Creating a dummy item and "handling" the failure is a temporary
-		 * workaround to the problem of not being able to create the first item.
-		 */
-		browser.call( () => {
-			return WikibaseApi.createItem()
-				.then( () => {
-					// do nothing
-				} )
-				.catch( () => {
-					// do nothing
-				} );
-		} );
 
 		browser.call( () => {
 			return LexemeApi.create()
