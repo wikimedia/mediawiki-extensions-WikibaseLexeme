@@ -71,7 +71,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$this->clearLanguageNameCache();
 	}
 
-	public function testAddedStatementsWithLexmesAsTargetDisplayLemma() {
+	public function testAddedStatementsWithLexemesAsTargetDisplayLemma() {
 
 		$diffVisualizer = $this->newDiffVisualizer();
 
@@ -479,7 +479,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	private function saveItem( $id, $label ) {
-		$lexeme = new Item(
+		$item = new Item(
 			new ItemId( $id ),
 			new Fingerprint(
 				new TermList( [
@@ -490,7 +490,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 		$store = $this->getEntityStore();
 
-		$store->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
+		$store->saveEntity( $item, self::class, $this->getTestUser()->getUser() );
 	}
 
 	private function newDiffVisualizer() {
