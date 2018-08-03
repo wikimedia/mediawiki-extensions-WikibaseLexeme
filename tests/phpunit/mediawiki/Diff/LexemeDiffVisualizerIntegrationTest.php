@@ -446,7 +446,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 				)
 			)
 		);
-		$this->assertTrue( true, 'Stop the test being marked risky' );
 	}
 
 	/**
