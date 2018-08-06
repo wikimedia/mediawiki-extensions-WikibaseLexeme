@@ -9,8 +9,6 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 
 	/**
-	 * FIXME Use wikibase.lexeme.datamodel.Lexeme
-	 *
 	 * @param {Object} wbEntity
 	 * @return {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}}
 	 */

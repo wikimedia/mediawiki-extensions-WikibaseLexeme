@@ -52,7 +52,8 @@ module.exports = ( function () {
 	/**
 	 * @callback wikibase.lexeme.widgets.LexemeHeader.newLemmaWidgetStore
 	 * @param {wikibase.api.RepoApi} repoApi
-	 * @param {wikibase.lexeme.datamodel.Lexeme} lexeme
+	 * @param {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
+	 *        this is NOT a wikibase.lexeme.datamodel.Lexeme!
 	 * @param {int} baseRevId
 	 * @param {string} languageLink HTML
 	 * @param {string} lexicalCategoryLink HTML
