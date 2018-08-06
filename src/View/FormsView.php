@@ -195,6 +195,7 @@ HTML;
 						:aria-invalid="isRedundantLanguage(representation.language)">
 					<button class="representation-widget_representation-remove" 
 						v-on:click="remove(representation)" 
+						:disabled="representations.length <= 1"
 						:title="'wikibase-remove'|message">
 						&times;
 					</button>
