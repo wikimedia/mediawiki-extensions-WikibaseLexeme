@@ -50,6 +50,7 @@
 	"apihelp-wblremoveform-param-id": "Identificador del formulario; p. ej., L10-F20",
 	"apihelp-wbleditformelements-param-formId": "Identificador del formulario; p. ej., L10-F2",
 	"apihelp-wbladdsense-summary": "Añade una acepción a un lexema",
+	"apihelp-wbleditsenseelements-param-senseId": "Identificador de la acepción; p. ej., L10-S2",
 	"wikibaselexeme-api-error-parameter-required": "El parámetro «$1» es obligatorio",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Se esperaba un objeto JSON válido en el parámetro «$1»; se proporcionó «$2»",
 	"wikibaselexeme-api-error-lexeme-not-found": "El campo «$1» contiene un identificador de un Lexema «$2» que no se ha podido encontrar.",
