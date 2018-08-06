@@ -61,7 +61,6 @@ class ChangeSenseDiffOp extends EntityDiff implements SenseDiff {
 	}
 
 	public function getType() {
-//		return 'diff/lexeme/sense';
 		return 'diff';
 	}
 
