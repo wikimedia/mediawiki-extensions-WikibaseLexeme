@@ -39,7 +39,7 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	private function saveLexemeWithForm() {
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store = $this->getEntityStore();
 
 		$lexeme = NewLexeme::havingId( self::LEXEME_ID )
 			->withForm(
@@ -54,7 +54,7 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	private function saveLexemeWithoutForm() {
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store = $this->getEntityStore();
 
 		$lexeme = NewLexeme::havingId( self::LEXEME_ID )->build();
 

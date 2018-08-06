@@ -42,6 +42,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 	}
 
 	private function saveLexemeToDb() {
+		$this->tablesUsed[] = 'page';
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )->build(),
 			self::class,

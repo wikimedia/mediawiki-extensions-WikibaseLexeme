@@ -103,6 +103,7 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 	 * @return EntityStore
 	 */
 	private function getEntityStore() {
+		$this->tablesUsed[] = 'page';
 		return WikibaseRepo::getDefaultInstance()->getEntityStore();
 	}
 

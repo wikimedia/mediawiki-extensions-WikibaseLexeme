@@ -248,6 +248,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$store = $wikibaseRepo->getEntityStore();
 
 		if ( !$lookup->hasEntity( $itemId ) ) {
+			$this->tablesUsed[] = 'page';
 			$store->saveEntity( $existingItem, '', new User(), EDIT_NEW, false );
 		}
 	}

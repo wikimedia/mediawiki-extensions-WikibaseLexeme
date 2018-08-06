@@ -84,7 +84,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		) );
 		$l1->setLexicalCategory( new ItemId( 'Q1' ) );
 
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store = $this->getEntityStore();
 		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );
 		$store->saveEntity( $p1, self::class, $this->getTestUser()->getUser() );
 
@@ -412,7 +412,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			[ new ItemId( 'Q1' ) ]
 		);
 
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store = $this->getEntityStore();
 		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );
 		$store->saveEntity( $p1, self::class, $this->getTestUser()->getUser() );
 
@@ -488,7 +488,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			)
 		);
 
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store = $this->getEntityStore();
 
 		$store->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}

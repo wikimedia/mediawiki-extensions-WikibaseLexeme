@@ -36,9 +36,9 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function setUp() {
 		parent::setUp();
 
-		$repo = WikibaseRepo::getDefaultInstance();
-		$this->entityStore = $repo->getEntityStore();
+		$this->entityStore = $this->getEntityStore();
 
+		$repo = WikibaseRepo::getDefaultInstance();
 		$namespaceLookup = $repo->getEntityNamespaceLookup();
 		$this->propertyNamespace = $namespaceLookup->getEntityNamespace( 'property' );
 		$this->itemNamespace = $namespaceLookup->getEntityNamespace( 'item' );
