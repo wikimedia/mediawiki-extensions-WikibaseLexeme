@@ -3,7 +3,12 @@
 use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
+use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
+use Wikibase\Lexeme\Merge\LexemeMerger;
+use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Repo\Hooks\EditFilterHookRunner;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Store;
 
 // TODO Replace by framework-agnostic DI container.
 // Pimple e.g. is well known in the free world and yet part of mediawiki-vendor
@@ -25,6 +30,43 @@ return call_user_func( function() {
 					RequestContext::getMain(),
 					$additionalLanguages,
 					WikibaseRepo::getDefaultInstance()->getLanguageNameLookup()
+				);
+			},
+		'WikibaseLexemeMergeInteractor' =>
+			function( MediaWikiServices $mediaWikiServices ) {
+				$repo = WikibaseRepo::getDefaultInstance();
+
+				$requestContext = RequestContext::getMain();
+				$user = $requestContext->getUser();
+				return new LexemeMergeInteractor(
+					new LexemeMerger(
+						$repo
+							->getChangeOpFactoryProvider()
+							->getMergeFactory()
+							->getStatementsMerger()
+					),
+					$repo->getEntityRevisionLookup(),
+					$repo->getEntityStore(),
+					$repo->getEntityPermissionChecker(),
+					$repo->getSummaryFormatter(),
+					$user,
+					new LexemeRedirectCreationInteractor(
+						$repo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+						$repo->getEntityStore(),
+						$repo->getEntityPermissionChecker(),
+						$repo->getSummaryFormatter(),
+						$user,
+						new EditFilterHookRunner(
+							$repo->getEntityNamespaceLookup(),
+							$repo->getEntityTitleLookup(),
+							$repo->getEntityContentFactory(),
+							$requestContext
+						),
+						$repo->getStore()->getEntityRedirectLookup(),
+						$repo->getEntityTitleLookup()
+					),
+					$repo->getEntityTitleLookup(),
+					$mediaWikiServices->getWatchedItemStore()
 				);
 			}
 	];

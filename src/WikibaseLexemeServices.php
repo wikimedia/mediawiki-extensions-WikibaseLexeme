@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
+use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lib\ContentLanguages;
 
 /**
@@ -23,6 +24,13 @@ class WikibaseLexemeServices {
 	 */
 	public static function getLanguageNameLookup() {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeLanguageNameLookup' );
+	}
+
+	/**
+	 * @return LexemeMergeInteractor
+	 */
+	public static function getLexemeMergeInteractor() {
+		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeMergeInteractor' );
 	}
 
 }

@@ -4,7 +4,17 @@ namespace Wikibase\Lexeme\Specials;
 
 use Html;
 use HTMLForm;
+use InvalidArgumentException;
+use Message;
+use Exception;
+use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
+use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Repo\Localizer\ExceptionLocalizer;
 use Wikibase\Repo\Specials\SpecialWikibasePage;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * Special page for merging one lexeme into another.
@@ -16,22 +26,57 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 	const FROM_ID = 'from-id';
 	const TO_ID = 'to-id';
 
-	public function __construct() {
+	/**
+	 * @var LexemeMergeInteractor
+	 */
+	private $mergeInteractor;
+
+	/**
+	 * @var EntityTitleLookup
+	 */
+	private $titleLookup;
+
+	/**
+	 * @var ExceptionLocalizer
+	 */
+	private $exceptionLocalizer;
+
+	public function __construct(
+		LexemeMergeInteractor $mergeInteractor,
+		EntityTitleLookup $titleLookup,
+		ExceptionLocalizer $exceptionLocalizer
+	) {
 		parent::__construct(
 			'MergeLexemes',
 			'item-merge',
 			false // TODO: flip/remove this once the special page does what it should
 		);
+		$this->mergeInteractor = $mergeInteractor;
+		$this->titleLookup = $titleLookup;
+		$this->exceptionLocalizer = $exceptionLocalizer;
 	}
 
 	public function execute( $subPage ) {
 		parent::execute( $subPage );
 
+		$sourceId = $this->getTextParam( self::FROM_ID );
+		$targetId = $this->getTextParam( self::TO_ID );
+
+		if ( $sourceId && $targetId ) {
+			$this->mergeLexemes( $sourceId, $targetId );
+		}
+
 		$this->showMergeForm();
 	}
 
 	public static function newFromGlobalState() {
-		return new self();
+		$repo = WikibaseRepo::getDefaultInstance();
+
+		return new self(
+			WikibaseLexemeServices::getLexemeMergeInteractor(),
+			$repo->getEntityTitleLookup(),
+			$repo->getExceptionLocalizer()
+		);
 	}
 
 	private function showMergeForm() {
@@ -77,6 +122,76 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 		}
 
 		return '';
+	}
+
+	private function mergeLexemes( $serializedSourceId, $serializedTargetId ) {
+		$sourceId = $this->getLexemeId( $serializedSourceId );
+		$targetId = $this->getLexemeId( $serializedTargetId );
+
+		if ( !$sourceId ) {
+			$this->showInvalidLexemeIdError( $serializedSourceId );
+			return;
+		}
+		if ( !$targetId ) {
+			$this->showInvalidLexemeIdError( $serializedTargetId );
+			return;
+		}
+
+		try {
+			/** @var LexemeId $sourceId */
+			/** @var LexemeId $targetId */
+			$this->mergeInteractor->mergeLexemes( $sourceId, $targetId );
+		} catch ( MergingException $e ) {
+			$this->showErrorHTML( $e->getErrorMessage() );
+			return;
+		}
+
+		$this->showSuccessMessage( $sourceId, $targetId );
+	}
+
+	private function getTextParam( $name ) {
+		$value = $this->getRequest()->getText( $name, '' );
+		return trim( $value );
+	}
+
+	/**
+	 * @param string $idSerialization
+	 *
+	 * @return LexemeId|false
+	 */
+	private function getLexemeId( $idSerialization ) {
+		try {
+			return new LexemeId( $idSerialization );
+		} catch ( InvalidArgumentException $e ) {
+			return false;
+		}
+	}
+
+	private function showSuccessMessage( LexemeId $sourceId, LexemeId $targetId ) {
+		try {
+			$sourceTitle = $this->titleLookup->getTitleForId( $sourceId );
+			$targetTitle = $this->titleLookup->getTitleForId( $targetId );
+		} catch ( Exception $e ) {
+			$this->showErrorHTML( $this->exceptionLocalizer->getExceptionMessage( $e )->text() );
+			return;
+		}
+
+		$this->getOutput()->addWikiMsg(
+			'wikibase-lexeme-mergelexemes-success',
+			Message::rawParam(
+				$this->getLinkRenderer()->makePreloadedLink( $sourceTitle )
+			),
+			Message::rawParam(
+				$this->getLinkRenderer()->makePreloadedLink( $targetTitle )
+			)
+		);
+	}
+
+	private function showInvalidLexemeIdError( $id ) {
+		$this->showErrorHTML(
+			( new Message( 'wikibase-lexeme-mergelexemes-error-invalid-id', [ $id ] ) )
+				->escaped()
+		);
 	}
 
 }
