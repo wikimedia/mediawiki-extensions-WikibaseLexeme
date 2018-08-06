@@ -24,7 +24,8 @@ class LexemeDiff extends EntityDiff {
 		$this->fixSubstructureDiff( $operations, 'lemmas' );
 		$this->fixSubstructureDiff( $operations, 'lexicalCategory' );
 		$this->fixSubstructureDiff( $operations, 'language' );
-		$this->fixSubstructureDiff( $operations, 'claim' );
+		$this->fixSubstructureDiff( $operations, 'forms' );
+		$this->fixSubstructureDiff( $operations, 'nextFormId' );
 
 		parent::__construct( $operations );
 	}
@@ -71,8 +72,11 @@ class LexemeDiff extends EntityDiff {
 	public function isEmpty() {
 		//FIXME: Needs to be fixed, otherwise conflict resolution may lead to unexpected results
 		return $this->getLemmasDiff()->isEmpty()
+			&& $this->getLexicalCategoryDiff()->isEmpty()
+			&& $this->getLanguageDiff()->isEmpty()
 			&& $this->getClaimsDiff()->isEmpty()
-			&& $this->getFormsDiff()->isEmpty();
+			&& $this->getFormsDiff()->isEmpty()
+			&& $this->getNextFormIdDiff()->isEmpty();
 	}
 
 	public function getNextFormIdDiff() {
