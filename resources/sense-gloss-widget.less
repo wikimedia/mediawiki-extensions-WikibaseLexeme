@@ -45,12 +45,18 @@
 
 .wikibase-lexeme-sense-glosses-control {
 	text-transform: capitalize;
-	color: #1f66cc;
 	background: transparent;
 	border: 0;
-	cursor: pointer;
-}
 
-.wikibase-lexeme-sense-glosses-control:hover {
-	text-decoration: underline;
+	&:enabled {
+		color: #1f66cc;
+		cursor: pointer;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+
+	&:disabled {
+		color: #72777d;
+	}
 }
