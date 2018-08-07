@@ -697,12 +697,11 @@ class LexemeTest extends TestCase {
 	}
 
 	public function testAddOrUpdateSense_updatedSenseReference() {
-		// TODO use L7 once NewLexeme::withSense() correctly sets the lexeme ID part of the sense ID
-		$lexeme = NewLexeme::havingId( new LexemeId( 'L1' ) )
+		$lexeme = NewLexeme::havingId( new LexemeId( 'L7' ) )
 			->withSense( NewSense::havingId( 'S1' ) )
 			->build();
 
-		$newSense = new Sense( new SenseId( 'L1-S1' ), new TermList() );
+		$newSense = new Sense( new SenseId( 'L7-S1' ), new TermList() );
 		$lexeme->addOrUpdateSense( $newSense );
 
 		$this->assertSame( [ $newSense ], $lexeme->getSenses()->toArray() );

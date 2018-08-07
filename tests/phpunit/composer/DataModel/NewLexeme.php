@@ -216,7 +216,7 @@ class NewLexeme {
 		$result = clone $this;
 
 		if ( $sense instanceof NewSense ) {
-			$sense = $sense->build();
+			$sense = $sense->andLexeme( $this->lexemeId ?: self::DEFAULT_ID )->build();
 		} elseif ( !$sense instanceof Sense ) {
 			throw new \InvalidArgumentException( '$sense has incorrect type' );
 		}
