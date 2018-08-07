@@ -23,6 +23,6 @@ return [
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			return new SenseIdFormatter();
 		},
-		'value-type' => 'string',
+		'value-type' => 'wikibase-entityid',
 	],
 ];
