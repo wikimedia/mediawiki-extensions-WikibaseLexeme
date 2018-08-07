@@ -111,6 +111,8 @@
 	"wikibaselexeme-diffview-form": "образец",
 	"wikibaselexeme-diffview-representation": "претставување",
 	"wikibaselexeme-diffview-grammatical-feature": "граматичка можност",
+	"wikibaselexeme-diffview-sense": "Смисла",
+	"wikibaselexeme-diffview-gloss": "прибелешка",
 	"content-model-wikibase-lexeme": "Викибазна лексема",
 	"wikibaselexeme-form-grammatical-features": "Граматички можности",
 	"wikibaselexeme-form-description": "$1 за: $2 ($3): $4",

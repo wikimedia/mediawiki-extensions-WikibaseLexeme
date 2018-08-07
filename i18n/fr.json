@@ -116,6 +116,8 @@
 	"wikibaselexeme-diffview-form": "formulaire",
 	"wikibaselexeme-diffview-representation": "représentation",
 	"wikibaselexeme-diffview-grammatical-feature": "caractère grammatical",
+	"wikibaselexeme-diffview-sense": "Sens",
+	"wikibaselexeme-diffview-gloss": "glose",
 	"content-model-wikibase-lexeme": "Lexème de Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Caractéristiques grammaticales",
 	"wikibaselexeme-form-description": "$1 pour : $2 ($3) : $4",

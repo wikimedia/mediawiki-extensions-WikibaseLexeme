@@ -36,6 +36,8 @@
 	"wikibaselexeme-diffview-lexical-category": "λεκτική κατηγορία",
 	"wikibaselexeme-diffview-language": "γλώσσα",
 	"wikibaselexeme-diffview-form": "φόρμα",
+	"wikibaselexeme-diffview-sense": "Νόημα",
+	"wikibaselexeme-diffview-gloss": "γλωσσικό",
 	"content-model-wikibase-lexeme": "Lexème Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Γραμματικά χαρακτηριστικά",
 	"wikibaselexeme-form-description": "$1 για: $2 ($3): $4",

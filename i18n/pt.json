@@ -113,6 +113,8 @@
 	"wikibaselexeme-diffview-form": "Forma",
 	"wikibaselexeme-diffview-representation": "representação",
 	"wikibaselexeme-diffview-grammatical-feature": "funcionalidade gramatical",
+	"wikibaselexeme-diffview-sense": "Sentido",
+	"wikibaselexeme-diffview-gloss": "glosa",
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
 	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais",
 	"wikibaselexeme-form-description": "$1 para: $2 ($3): $4",
