@@ -415,5 +415,20 @@ return [
 		'entity-factory-callback' => function () {
 			return new BlankSense();
 		},
+		'rdf-builder-factory-callback' => function (
+			$flavorFlags,
+			RdfVocabulary $vocabulary,
+			RdfWriter $writer,
+			EntityMentionListener $tracker,
+			DedupeBag $dedupe
+		) {
+			$rdfBuilder = new LexemeRdfBuilder(
+				$vocabulary,
+				$writer,
+				$tracker
+			);
+			$rdfBuilder->addPrefixes();
+			return $rdfBuilder;
+		},
 	],
 ];

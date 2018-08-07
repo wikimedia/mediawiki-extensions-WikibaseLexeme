@@ -7,6 +7,7 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\NullEntityMentionListener;
@@ -146,6 +147,36 @@ class LexemeRdfBuilderTest extends TestCase {
 		$this->mentionedEntityTest( $form, $mentionedEntities );
 	}
 
+	public function provideAddSense() {
+		return [
+			[ 'L2', 'L2-S1', 'L2-S1_all' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideAddSense
+	 */
+	public function testAddSense( $lexemeName, $senseName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$sense = $lexeme->getSense( new SenseId( $senseName ) );
+		$this->addEntityTest( $sense, $dataSetName );
+	}
+
+	public function provideSenseMentionedEntities() {
+		return [
+			[ 'L2', 'L2-S1', [] ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideSenseMentionedEntities
+	 */
+	public function testSenseMentionedEntities( $lexemeName, $senseName, $mentionedEntities ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$sense = $lexeme->getSense( new SenseId( $senseName ) );
+		$this->mentionedEntityTest( $sense, $mentionedEntities );
+	}
+
 	private function addEntityTest( EntityDocument $entity, $dataSetName ) {
 		$writer = $this->getTestData()->getNTriplesWriter( false );
 		$builder = $this->newBuilder( $writer, new NullEntityMentionListener() );
@@ -197,6 +228,21 @@ class LexemeRdfBuilderTest extends TestCase {
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$form = $lexeme->getForm( new FormId( $formName ) );
 		$this->addEntityStubTest( $form, $dataSetName );
+	}
+
+	public function provideAddSenseStub() {
+		return [
+			[ 'L2', 'L2-S1', 'L2-S1_stubs' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideAddSenseStub
+	 */
+	public function testAddSenseStub( $lexemeName, $senseName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$sense = $lexeme->getSense( new SenseId( $senseName ) );
+		$this->addEntityStubTest( $sense, $dataSetName );
 	}
 
 	private function addEntityStubTest( EntityDocument $entity, $dataSetName ) {
