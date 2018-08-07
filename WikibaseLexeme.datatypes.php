@@ -23,7 +23,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\PropertyType\FormIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
 use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
-use Wikibase\Lexeme\PropertyType\SenseIdFormatter;
+use Wikibase\Lexeme\PropertyType\SenseIdTextFormatter;
 use Wikibase\Lib\EntityIdValueFormatter;
 use Wikibase\Lib\SnakFormatter;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
@@ -106,7 +106,9 @@ return [
 			return [];
 		},
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
-			return new SenseIdFormatter();
+			$baseFormatter = new SenseIdTextFormatter();
+
+			return new EntityIdValueFormatter( $baseFormatter );
 		},
 		'value-type' => 'wikibase-entityid',
 	],
