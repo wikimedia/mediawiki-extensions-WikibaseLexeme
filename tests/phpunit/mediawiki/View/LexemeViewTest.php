@@ -213,6 +213,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetHtmlForLanguage() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
@@ -250,6 +251,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetHtmlForLexicalCategory() {
+		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
