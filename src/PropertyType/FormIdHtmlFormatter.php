@@ -78,7 +78,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 			$representations->toTextArray()
 		);
 
-		return Html::rawElement(
+		return Html::element(
 			'a',
 			[
 				'href' => $title->isLocal() ? $title->getLinkURL() : $title->getFullURL(),

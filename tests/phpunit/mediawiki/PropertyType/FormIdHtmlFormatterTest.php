@@ -155,4 +155,31 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
+	public function testFormatId_htmlEscapesRepresentation() {
+		$formId = new FormId( 'L999-F666' );
+
+		$formRevision = new EntityRevision( new Form( $formId, new TermList( [
+			new Term( 'pt', '<script>alert("hi")</script>' ),
+		] ), [] ) );
+
+		/** @var EntityRevisionLookup|MockObject $revisionLookup */
+		$revisionLookup = $this->getMock( EntityRevisionLookup::class );
+		$revisionLookup->method( 'getEntityRevision' )
+			->with( $this->equalTo( $formId ) )
+			->willReturn( $formRevision );
+
+		$titleLookup = $this->getTitleLookupReturningMainPage( $formId );
+
+		$formatter = new FormIdHtmlFormatter(
+			$revisionLookup,
+			$titleLookup,
+			$this->getMockTextProvider()
+		);
+		$result = $formatter->formatEntityId( $formId );
+		$this->assertSame(
+			'<a href="LOCAL-URL#FORM">&lt;script>alert("hi")&lt;/script></a>',
+			$result
+		);
+	}
+
 }
