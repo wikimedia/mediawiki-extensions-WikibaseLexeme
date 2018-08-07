@@ -170,7 +170,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 * @param FormSet $from
 	 * @param FormSet $to
 	 *
-	 * @return Diff;
+	 * @return Diff
 	 */
 	private function getFormsDiff( FormSet $from, FormSet $to ) {
 		$differ = new MapDiffer();
@@ -229,7 +229,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 * @param SenseSet $from
 	 * @param SenseSet $to
 	 *
-	 * @return Diff;
+	 * @return Diff
 	 */
 	private function getSensesDiff( SenseSet $from, SenseSet $to ) {
 		$differ = new MapDiffer();
