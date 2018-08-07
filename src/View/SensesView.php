@@ -207,6 +207,7 @@ HTML;
 					<button v-if="inEditMode"
 					class="wikibase-lexeme-sense-glosses-control
 						wikibase-lexeme-sense-glosses-remove"
+					:disabled="glosses.length <= 1"
 					v-on:click="remove(gloss)"  type="button">
 						{{'wikibase-remove'|message}}
 					</button>
