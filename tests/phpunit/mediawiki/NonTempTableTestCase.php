@@ -29,13 +29,17 @@ trait NonTempTableTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->setupNonTempTableDbAndUser();
+		if ( $this->usesTemporaryTables() ) {
+			$this->setupNonTempTableDbAndUser();
+		}
 	}
 
 	public static function tearDownAfterClass() {
 		parent::tearDownAfterClass();
 
-		self::tearDownNonTempTableDb();
+		if ( self::$clonedDb ) {
+			self::tearDownNonTempTableDb();
+		}
 	}
 
 	/**
@@ -44,15 +48,15 @@ trait NonTempTableTestCase {
 	 * Call in setUp(), left protected so you can still call it should you override that
 	 */
 	protected function setupNonTempTableDbAndUser() {
-		$className = basename( str_replace( '\\', '/', __CLASS__ ) );
-
-		$prefix = $className . '-table-';
-		$user = $className . '-user';
+		$prefix = $this->getClassName() . '-table-';
 
 		if ( $this->db->tablePrefix() !== $prefix ) {
 			$this->cloneDbWithNonTempTables( $prefix );
-			self::$user = User::createNew( $user );
 		}
+	}
+
+	private function getClassName() {
+		return basename( str_replace( '\\', '/', __CLASS__ ) );
 	}
 
 	/**
@@ -66,6 +70,10 @@ trait NonTempTableTestCase {
 	}
 
 	protected function getUser() {
+		if ( !self::$user ) {
+			self::$user = User::createNew( $this->getClassName() . '-user' );
+		}
+
 		return self::$user;
 	}
 
