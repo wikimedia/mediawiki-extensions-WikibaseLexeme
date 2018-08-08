@@ -9,10 +9,15 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
+use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Rdf\EntityMentionListener;
+use Wikibase\Rdf\HashDedupeBag;
 use Wikibase\Rdf\NullEntityMentionListener;
+use Wikibase\Rdf\RdfBuilder;
+use Wikibase\Rdf\RdfProducer;
 use Wikibase\Repo\Tests\Rdf\NTriplesRdfTestHelper;
 use Wikibase\Repo\Tests\Rdf\RdfBuilderTestData;
+use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
@@ -76,6 +81,32 @@ class LexemeRdfBuilderTest extends TestCase {
 		return $builder;
 	}
 
+	/**
+	 * @param RdfWriter $writer
+	 * @param int $produce One of the RdfProducer::PRODUCE_... constants.
+	 * @param EntityTitleLookup $entityTitleLookup
+	 *
+	 * @return RdfBuilder
+	 */
+	private function newFullBuilder(
+		RdfWriter $writer, $produce, EntityTitleLookup $entityTitleLookup
+	) {
+		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+		$builder = new RdfBuilder(
+			$this->getTestData()->getSiteLookup()->getSites(),
+			$this->getTestData()->getVocabulary(),
+			$wikibaseRepo->getValueSnakRdfBuilderFactory(),
+			$this->getTestData()->getMockRepository(),
+			$wikibaseRepo->getEntityRdfBuilderFactory(),
+			$produce,
+			$writer,
+			new HashDedupeBag(),
+			$entityTitleLookup
+		);
+		$builder->startDocument();
+		return $builder;
+	}
+
 	private function assertOrCreateNTriples( $dataSetName, RdfWriter $writer ) {
 		$actual = $writer->drain();
 		$expected = $this->getTestData()->getNTriples( $dataSetName );
@@ -103,9 +134,23 @@ class LexemeRdfBuilderTest extends TestCase {
 		$this->addEntityTest( $lexeme, $dataSetName );
 	}
 
+	public function provideLexemeSubEntities() {
+		return [
+			[ 'L2', [ 'L2-F1', 'L2-S1' ] ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideLexemeSubEntities
+	 */
+	public function testLexemeSubEntities( $lexemeName, $subEntities ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$this->subEntityTest( $lexeme, $subEntities );
+	}
+
 	public function provideLexemeMentionedEntities() {
 		return [
-			[ 'L2', [ 'Q1', 'Q2', 'Q3', 'Q4' ] ],
+			[ 'L2', [ 'Q1', 'Q2' ] ],
 		];
 	}
 
@@ -185,6 +230,22 @@ class LexemeRdfBuilderTest extends TestCase {
 		$this->assertOrCreateNTriples( $dataSetName, $writer );
 	}
 
+	private function subEntityTest( EntityDocument $entity, $expectedSubEntities ) {
+		$subEntities = [];
+		$mentionTracker = $this->getMock( EntityMentionListener::class );
+		$mentionTracker->expects( $this->any() )
+			->method( 'subEntityMentioned' )
+			->will( $this->returnCallback( function( EntityDocument $entity ) use ( &$subEntities ) {
+				$subEntities[] = $entity->getId()->getSerialization();
+			} ) );
+
+		$writer = $this->getTestData()->getNTriplesWriter( false );
+		$builder = $this->newBuilder( $writer, $mentionTracker );
+
+		$builder->addEntity( $entity );
+		$this->assertEquals( $expectedSubEntities, $subEntities );
+	}
+
 	private function mentionedEntityTest( EntityDocument $entity, $expectedMentionedEntities ) {
 		$mentionedEntities = [];
 		$mentionTracker = $this->getMock( EntityMentionListener::class );
@@ -199,6 +260,25 @@ class LexemeRdfBuilderTest extends TestCase {
 
 		$builder->addEntity( $entity );
 		$this->assertEquals( $expectedMentionedEntities, $mentionedEntities );
+	}
+
+	public function provideLexemeFullSerialization() {
+		return [
+			[ 'L2', 'L2_full' ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideLexemeFullSerialization
+	 */
+	public function testLexemeFullSerialization( $lexemeName, $dataSetName ) {
+		$lexeme = $this->getTestData()->getEntity( $lexemeName );
+		$writer = $this->getTestData()->getNTriplesWriter( false );
+		$entityTitleLookup = $this->getMock( EntityTitleLookup::class );
+
+		$builder = $this->newFullBuilder( $writer, RdfProducer::PRODUCE_ALL, $entityTitleLookup );
+		$builder->addEntity( $lexeme );
+		$this->assertOrCreateNTriples( $dataSetName, $writer );
 	}
 
 	public function provideAddLexemeStub() {

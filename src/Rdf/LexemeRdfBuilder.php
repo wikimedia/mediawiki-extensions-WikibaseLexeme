@@ -40,16 +40,16 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	/**
 	 * @var EntityMentionListener
 	 */
-	private $entityMentionTraker;
+	private $entityMentionTracker;
 
 	public function __construct(
 		RdfVocabulary $vocabulary,
 		RdfWriter $writer,
-		EntityMentionListener $entityMentionTraker
+		EntityMentionListener $entityMentionTracker
 	) {
 		$this->vocabulary = $vocabulary;
 		$this->writer = $writer;
-		$this->entityMentionTraker = $entityMentionTraker;
+		$this->entityMentionTracker = $entityMentionTracker;
 	}
 
 	/**
@@ -90,10 +90,8 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		$this->addLemmas( $lexemeLName, $lexeme->getLemmas() );
 		$this->addLanguage( $lexemeLName, $lexeme->getLanguage() );
 		$this->addLexicalCategory( $lexemeLName, $lexeme->getLexicalCategory() );
-		$this->addFormsLink( $lexemeLName, $lexeme->getForms() );
-		$this->addSensesLink( $lexemeLName, $lexeme->getSenses() );
-		$this->addFormsContent( $lexeme->getForms() );
-		$this->addSensesContent( $lexeme->getSenses() );
+		$this->addForms( $lexemeLName, $lexeme->getForms() );
+		$this->addSenses( $lexemeLName, $lexeme->getSenses() );
 	}
 
 	/**
@@ -130,7 +128,7 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	 */
 	private function addLanguage( $lexemeLName, ItemId $language ) {
 		$languageLName = $this->vocabulary->getEntityLName( $language );
-		$this->entityMentionTraker->entityReferenceMentioned( $language );
+		$this->entityMentionTracker->entityReferenceMentioned( $language );
 
 		$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
 			->say( self::NS_DUBLIN_CORE_TERM, 'language' )
@@ -145,7 +143,7 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	 */
 	private function addLexicalCategory( $lexemeLName, ItemId $lexicalCategory ) {
 		$lexicalCategoryLName = $this->vocabulary->getEntityLName( $lexicalCategory );
-		$this->entityMentionTraker->entityReferenceMentioned( $lexicalCategory );
+		$this->entityMentionTracker->entityReferenceMentioned( $lexicalCategory );
 
 		$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
 			->say( RdfVocabulary::NS_ONTOLOGY, 'lexicalCategory' )
@@ -153,13 +151,15 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	}
 
 	/**
-	 * Adds the links to the forms of the given lexeme to the RDF graph
+	 * Adds the forms of the given lexeme to the RDF graph
 	 *
 	 * @param string $lexemeLName
 	 * @param FormSet $forms
 	 */
-	private function addFormsLink( $lexemeLName, FormSet $forms ) {
+	private function addForms( $lexemeLName, FormSet $forms ) {
 		foreach ( $forms->toArray() as $form ) {
+			$this->entityMentionTracker->subEntityMentioned( $form );
+
 			$formLName = $this->vocabulary->getEntityLName( $form->getId() );
 			$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
 				->say( self::NS_ONTOLEX, 'lexicalForm' )
@@ -168,13 +168,19 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	}
 
 	/**
-	 * Adds the content of the forms of the given lexeme to the RDF graph
+	 * Adds the senses of the given lexeme to the RDF graph
 	 *
-	 * @param FormSet $forms
+	 * @param string $lexemeLName
+	 * @param SenseSet $senses
 	 */
-	private function addFormsContent( FormSet $forms ) {
-		foreach ( $forms->toArray() as $form ) {
-			$this->addForm( $form );
+	private function addSenses( $lexemeLName, SenseSet $senses ) {
+		foreach ( $senses->toArray() as $sense ) {
+			$this->entityMentionTracker->subEntityMentioned( $sense );
+
+			$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );
+			$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
+				->say( self::NS_ONTOLEX, 'sense' )
+				->is( RdfVocabulary::NS_ENTITY, $senseLName );
 		}
 	}
 
@@ -226,37 +232,11 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	private function addGrammaticalFeatures( $formLName, array $grammaticalFeatures ) {
 		foreach ( $grammaticalFeatures as $grammaticalFeature ) {
 			$grammaticalFeatureLName = $this->vocabulary->getEntityLName( $grammaticalFeature );
-			$this->entityMentionTraker->entityReferenceMentioned( $grammaticalFeature );
+			$this->entityMentionTracker->entityReferenceMentioned( $grammaticalFeature );
 
 			$this->writer->about( RdfVocabulary::NS_ENTITY, $formLName )
 				->say( RdfVocabulary::NS_ONTOLOGY, 'grammaticalFeature' )
 				->is( RdfVocabulary::NS_ENTITY, $grammaticalFeatureLName );
-		}
-	}
-
-	/**
-	 * Adds the links to the senses of the given lexeme to the RDF graph
-	 *
-	 * @param string $lexemeLName
-	 * @param SenseSet $senses
-	 */
-	private function addSensesLink( $lexemeLName, SenseSet $senses ) {
-		foreach ( $senses->toArray() as $sense ) {
-			$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );
-			$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
-				->say( self::NS_ONTOLEX, 'sense' )
-				->is( RdfVocabulary::NS_ENTITY, $senseLName );
-		}
-	}
-
-	/**
-	 * Adds the content of the senses of the given lexeme to the RDF graph
-	 *
-	 * @param SenseSet $senses
-	 */
-	private function addSensesContent( SenseSet $senses ) {
-		foreach ( $senses->toArray() as $sense ) {
-			$this->addSense( $sense );
 		}
 	}
 
