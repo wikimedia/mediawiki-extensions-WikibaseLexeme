@@ -9,6 +9,8 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Repo\Tests\NewStatement;
@@ -114,6 +116,27 @@ class NewSense {
 			$statement = new Statement( $arg );
 		}
 		$result->statements[] = clone $statement;
+		return $result;
+	}
+
+	/**
+	 * @param Lexeme|LexemeId|string $lexeme
+	 *
+	 * @return self
+	 */
+	public function andLexeme( $lexeme ) {
+		$result = clone $this;
+
+		if ( $lexeme instanceof Lexeme ) {
+			$lexeme = $lexeme->getId();
+		}
+
+		if ( $lexeme instanceof LexemeId ) {
+			$lexeme = $lexeme->getSerialization();
+		}
+
+		$result->lexemeId = $lexeme;
+
 		return $result;
 	}
 
