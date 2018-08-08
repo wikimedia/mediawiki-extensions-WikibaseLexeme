@@ -99,9 +99,9 @@ describe( 'NewLexeme:Page', () => {
 			browser.call( () => {
 				return LexemeApi.get( lexemeId )
 					.then( ( lexeme ) => {
-						assert.equal( lemma, lexeme.lemmas[ languageItemsLanguageCode ].value );
-						assert.equal( languageId, lexeme.language );
-						assert.equal( lexicalCategoryId, lexeme.lexicalCategory );
+						assert.equal( lexeme.lemmas[ languageItemsLanguageCode ].value, lemma );
+						assert.equal( lexeme.language, languageId );
+						assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
 					} );
 			} );
 		} );
@@ -149,9 +149,17 @@ describe( 'NewLexeme:Page', () => {
 				browser.call( () => {
 					return LexemeApi.get( lexemeId )
 						.then( ( lexeme ) => {
-							assert.equal( lemma, lexeme.lemmas[ lemmaLanguageCode ].value );
-							assert.equal( wannabeLanguageId, lexeme.language );
-							assert.equal( lexicalCategoryId, lexeme.lexicalCategory );
+							assert.equal(
+								JSON.stringify( lexeme.lemmas ),
+								JSON.stringify( {
+									[ lemmaLanguageCode ]: {
+										language: lemmaLanguageCode,
+										value: lemma
+									}
+								} )
+							);
+							assert.equal( lexeme.language, wannabeLanguageId );
+							assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
 						} );
 				} );
 			} );
