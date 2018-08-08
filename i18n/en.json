@@ -98,7 +98,7 @@
 	"wikibase-lexeme-summary-add-sense": "Added new Sense $3 with {{PLURAL:$1|[$2] gloss|glosses}}",
 	"wikibase-lexeme-summary-update-sense-glosses": "Changed glosses of Sense $3",
 	"wikibase-lexeme-summary-add-sense-glosses": "Added {{PLURAL:$1|[$2] gloss|glosses}} to Sense $3",
-	"wikibase-lexeme-summary-set-sense-glosses": "Set {{PLURAL:$1|[$2] gloss|glosses}} of Sense $3",
+	"wikibase-lexeme-summary-set-sense-glosses": "Changed {{PLURAL:$1|[$2] gloss|glosses}} of Sense $3",
 	"wikibase-lexeme-summary-remove-sense-glosses": "Removed {{PLURAL:$1|[$2] gloss|glosses}} of Sense $3",
 	"wikibase-lexeme-summary-update-sense-elements": "Changed glosses of Sense $3",
 	"wikibaselexeme-field-language-label": "Language",
