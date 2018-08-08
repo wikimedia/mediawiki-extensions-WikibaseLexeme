@@ -49,5 +49,7 @@
 	"wikibaselexeme-diffview-lexical-category": "leksikalsk kategori",
 	"wikibaselexeme-diffview-language": "språk",
 	"wikibaselexeme-diffview-form": "form",
+	"wikibaselexeme-diffview-sense": "Betydning",
+	"wikibaselexeme-diffview-gloss": "glose",
 	"content-model-wikibase-lexeme": "Wikibase-leksem"
 }

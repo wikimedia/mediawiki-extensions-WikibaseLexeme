@@ -5,6 +5,8 @@
 		]
 	},
 	"special-newlexeme": "Opprett eit nytt leksem",
+	"special-mergelexemes": "Flett saman to leksem",
+	"wikibaselexeme-deletedentity-form": "Sletta form",
 	"wikibaselexeme-newlexeme-fieldset": "Opprett eit nytt leksem",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Språket til lemmaet",
