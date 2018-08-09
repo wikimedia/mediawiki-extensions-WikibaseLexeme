@@ -213,7 +213,11 @@ return call_user_func( function() {
 			]
 		],
 		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore" => $moduleTemplate + [
-			"scripts" => "widgets/LexemeHeader.newLexemeHeaderStore.js"
+			"scripts" => "widgets/LexemeHeader.newLexemeHeaderStore.js",
+			"dependencies" => [
+				"wikibase.lexeme.datamodel.Lemma",
+				"wikibase.lexeme.datatransfer.LemmaList"
+			]
 		],
 		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget" => $moduleTemplate + [
 			"scripts" => "widgets/LemmaWidget.newLemmaWidget.js",
