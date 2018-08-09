@@ -5,10 +5,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use User;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
@@ -24,13 +23,17 @@ use Wikibase\Lib\Store\EntityRevision;
 class RemoveFormTest extends WikibaseLexemeApiTestCase {
 
 	public function testRateLimitIsCheckedWhenEditing() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		$params = [
 			'action' => 'wblremoveform',
-			'id' => $form->getId()->getSerialization(),
+			'id' => 'L1-F1',
 		];
 
 		$this->setTemporaryHook(
@@ -56,8 +59,12 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		array $params,
 		array $expectedError
 	) {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		$this->setContentLang( 'qqq' );
@@ -120,39 +127,51 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenValidData_removesForm() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		$this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'id' => $form->getId()->getSerialization(),
+			'id' => 'L1-F1',
 		] );
 
 		$this->assertCount( 0, $this->getLexeme( 'L1' )->getForms() );
 	}
 
 	public function testGivenValidData_responseContainsSuccessMarker() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'id' => $form->getId()->getSerialization(),
+			'id' => 'L1-F1',
 		] );
 
 		$this->assertSame( 1, $result['success'] );
 	}
 
 	public function testSetsTheSummaryOfRevision() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		$this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'id' => $form->getId()->getSerialization(),
+			'id' => 'L1-F1',
 		] );
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
@@ -162,19 +181,23 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$this->assertEquals(
-			'/* remove-form:1||' . $form->getId()->getSerialization() . ' */ goat',
+			'/* remove-form:1||L1-F1 */ goat',
 			$revision->getComment()->text
 		);
 	}
 
 	public function testResponseContainsRevisionId() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
-			'id' => $form->getId()->getSerialization(),
+			'id' => 'L1-F1',
 		] );
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
@@ -182,8 +205,12 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenValidDataWithoutEditPermission_violationIsReported() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$form = $lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$this->saveLexeme( $lexeme );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
@@ -196,7 +223,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->doApiRequestWithToken( [
 				'action' => 'wblremoveform',
-				'id' => $form->getId()->getSerialization(),
+				'id' => 'L1-F1',
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {

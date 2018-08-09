@@ -3,13 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\LabelDescriptionDuplicateDetector;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
@@ -25,8 +22,8 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Tests\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lib\StaticContentLanguages;
@@ -101,17 +98,15 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		return $lexemeChangeOpDeserializer;
 	}
 
-	private function getEnglishLexeme() {
-		return new Lexeme(
-			new LexemeId( 'L500' ),
-			new TermList( [ new Term( 'en', 'apple' ) ] ),
-			new ItemId( 'Q1084' ),
-			new ItemId( 'Q1860' )
-		);
+	private function getEnglishNewLexeme() {
+		return NewLexeme::havingId( 'L500' )
+			->withLemma( 'en', 'apple' )
+			->withLexicalCategory( 'Q1084' )
+			->withLanguage( 'Q1860' );
 	}
 
 	public function testGivenChangeRequestWithLemma_lemmaIsSet() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp(
@@ -124,7 +119,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithLemmaAndNewLanguageCode_lemmaIsAdded() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp(
@@ -138,7 +133,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithRemoveLemma_lemmaIsRemoved() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp(
@@ -174,7 +169,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithLanguage_languageIsChanged() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [ 'language' => 'Q123' ] );
@@ -185,7 +180,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithLexicalCategory_lexicalCategoryIsChanged() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [ 'lexicalCategory' => 'Q300' ] );
@@ -226,7 +221,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithManyFields_allFieldsAreUpdated() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [
@@ -243,7 +238,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithStatement_statementIsAdded() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [ 'claims' => [
@@ -264,7 +259,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testGivenChangeRequestWithStatementRemove_statementIsRemoved() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$statement = new Statement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) );
 		$statement->setGuid( 'testguid' );
@@ -287,7 +282,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testNonLexemeRelatedFieldsAreIgnored() {
-		$lexeme = $this->getEnglishLexeme();
+		$lexeme = $this->getEnglishNewLexeme()->build();
 
 		$englishLemma = $lexeme->getLemmas()->getByLanguage( 'en' )->getText();
 		$language = $lexeme->getLanguage()->getSerialization();
@@ -306,9 +301,16 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testRemoveExistingForms_formsAreRemoved() {
-		$lexeme = $this->getEnglishLexeme();
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'apple' ) ] ), [] );
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'Maluse' ) ] ), [] );
+		$lexeme = $this->getEnglishNewLexeme()
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'apple' )
+			)
+			->withForm(
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'Maluse' )
+			)
+			->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [
@@ -324,10 +326,16 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	public function testRemoveOneOfTwoExistingForms_formIsRemovedOtherRemains() {
-		$lexeme = $this->getEnglishLexeme();
-		$lexeme->addForm( new TermList( [ new Term( 'en', 'apple' ) ] ), [] );
-		$persistentTerm = new Term( 'en', 'Malus' );
-		$lexeme->addForm( new TermList( [ $persistentTerm ] ), [] );
+		$lexeme = $this->getEnglishNewLexeme()
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'apple' )
+			)
+			->withForm(
+				NewForm::havingId( 'F2' )
+					->andRepresentation( 'en', 'Malus' )
+			)
+			->build();
 
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [
@@ -340,7 +348,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 
 		$this->assertCount( 1, $lexeme->getForms() );
 		$this->assertTrue(
-			$lexeme->getForm( new FormId( 'L500-F2' ) )->getRepresentations()->hasTerm( $persistentTerm )
+			$lexeme->getForm( new FormId( 'L500-F2' ) )->getRepresentations()->hasTermForLanguage( 'en' )
 		);
 	}
 

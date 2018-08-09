@@ -4,8 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
@@ -57,8 +55,12 @@ class ChangeOpRemoveFormTest extends TestCase {
 	}
 
 	public function test_applyRemovesFormIfGivenALexeme() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$form = $lexeme->getForms()->toArray()[0];
 
 		$changeOp = new ChangeOpRemoveForm( $form->getId() );
@@ -68,8 +70,12 @@ class ChangeOpRemoveFormTest extends TestCase {
 	}
 
 	public function test_applySetsTheSummary() {
-		$lexeme = NewLexeme::havingId( 'L1' )->build();
-		$lexeme->addForm( new TermList( [ new Term( 'fr', 'goat' ) ] ), [] );
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
 		$form = $lexeme->getForms()->toArray()[0];
 
 		$changeOp = new ChangeOpRemoveForm( $form->getId() );

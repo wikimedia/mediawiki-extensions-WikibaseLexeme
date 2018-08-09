@@ -337,74 +337,53 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
-	 * @param TermList $representations
-	 * @param ItemId[] $grammaticalFeatures
+	 * Replace the form identified by $form->getId() with the given one or add it
+	 *
+	 * @param Form $form
 	 *
 	 * @return Form
 	 */
-	public function addForm( TermList $representations, array $grammaticalFeatures ) {
+	public function addOrUpdateForm( Form $form ) {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Can not add forms to a lexeme with no ID' );
 		}
 
-		$formId = new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ );
-		$form = new Form( $formId, $representations, $grammaticalFeatures );
-		$this->forms->add( $form );
-
-		return $form;
-	}
-
-	/**
-	 * @param TermList $glossList
-	 *
-	 * @return Sense
-	 */
-	public function addSense( TermList $glossList ) {
-		if ( !$this->id ) {
-			throw new \LogicException( 'Cannot add sense to a lexeme with no ID' );
-		}
-
-		$senseId = new SenseId( $this->id->getSerialization() . '-S' . $this->nextSenseId++ );
-		$sense = new Sense( $senseId, $glossList );
-		$this->senses->add( $sense );
-
-		return $sense;
-	}
-
-	/**
-	 * Replace the form identified by $form->getId() with the given one or add it
-	 *
-	 * @param Form $form
-	 */
-	public function addOrUpdateForm( Form $form ) {
 		if ( $form instanceof BlankForm ) {
 			$form = $form->getRealForm(
 				new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ )
 			);
 
 			$this->forms->add( $form );
-			return;
+		} else {
+			$this->forms->put( $form );
 		}
 
-		$this->forms->put( $form );
+		return $form;
 	}
 
 	/**
 	 * Replace the sense identified by $sense->getId() with the given one or add it.
 	 *
 	 * @param Sense $sense
+	 *
+	 * @return Sense
 	 */
 	public function addOrUpdateSense( Sense $sense ) {
+		if ( !$this->id ) {
+			throw new \LogicException( 'Cannot add sense to a lexeme with no ID' );
+		}
+
 		if ( $sense instanceof BlankSense ) {
 			$sense = $sense->getRealSense(
 				new SenseId( $this->id->getSerialization() . '-S' . $this->nextSenseId++ )
 			);
 
 			$this->senses->add( $sense );
-			return;
+		} else {
+			$this->senses->put( $sense );
 		}
 
-		$this->senses->put( $sense );
+		return $sense;
 	}
 
 	public function removeForm( FormId $formId ) {
