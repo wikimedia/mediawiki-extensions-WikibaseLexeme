@@ -85,6 +85,8 @@ class ChangeOpFormAddTest extends TestCase {
 
 		$this->assertEquals( 'add-form', $summary->getMessageKey() );
 		$this->assertEquals( [ 'goat' ], $summary->getAutoSummaryArgs() );
+		$this->assertNull( $summary->getLanguageCode() );
+		$this->assertSame( [ 'L1-F1' ], $summary->getCommentArgs() );
 	}
 
 }
