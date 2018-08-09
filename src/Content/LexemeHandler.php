@@ -10,6 +10,7 @@ use UnexpectedValueException;
 use Wikibase\Content\EntityHolder;
 use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\EditEntityAction;
 use Wikibase\HistoryEntityAction;
@@ -124,6 +125,11 @@ class LexemeHandler extends EntityHandler {
 	 */
 	public function makeEmptyEntity() {
 		return new Lexeme();
+	}
+
+	public function makeEntityRedirectContent( EntityRedirect $redirect ) {
+		$title = $this->getTitleForId( $redirect->getTargetId() );
+		return LexemeContent::newFromRedirect( $redirect, $title );
 	}
 
 	/**

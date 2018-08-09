@@ -4,9 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
 use Diff\DiffOp\Diff\Diff;
 use InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use Title;
 use Wikibase\Content\EntityInstanceHolder;
+use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -33,10 +36,36 @@ class LexemeContentTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
-	public function testInvalidEntityType() {
-		$this->setExpectedException( InvalidArgumentException::class );
-		new LexemeContent( new EntityInstanceHolder( new Item() ) );
-		$this->assertTrue( true ); // Don't mark as risky
+	/**
+	 * @dataProvider invalidConstructorArgsProvider
+	 * @expectedException InvalidArgumentException
+	 */
+	public function testGivenIncorrectConstructorArgs_throwsException(
+		$lexemeHolder,
+		$redirect,
+		$redirectTitle
+	) {
+		new LexemeContent( $lexemeHolder, $redirect, $redirectTitle );
+	}
+
+	public function invalidConstructorArgsProvider() {
+		yield 'must not contain lexeme and be a redirect at once' => [
+			new EntityInstanceHolder( new Lexeme() ),
+			new EntityRedirect( new LexemeId( 'L123' ), new LexemeId( 'L321' ) ),
+			null
+		];
+
+		yield 'EntityInstanceHolder must contain lexeme' => [
+			new EntityInstanceHolder( new Item() ),
+			null,
+			null
+		];
+
+		yield 'when it\'s a redirect, it must contain a redirect title' => [
+			null,
+			new EntityRedirect( new LexemeId( 'L123' ), new LexemeId( 'L321' ) ),
+			null
+		];
 	}
 
 	public function testGetEntity() {
@@ -44,6 +73,28 @@ class LexemeContentTest extends TestCase {
 		$lexemeContent = new LexemeContent( new EntityInstanceHolder( $lexeme ) );
 
 		$this->assertSame( $lexeme, $lexemeContent->getEntity() );
+	}
+
+	public function testGetEntityRedirect() {
+		$redirect = new EntityRedirect(
+			new LexemeId( 'L123' ),
+			new LexemeId( 'L321' )
+		);
+		$content = new LexemeContent(
+			null,
+			$redirect,
+			$this->getMockTitle()
+		);
+
+		$this->assertSame( $redirect, $content->getEntityRedirect() );
+	}
+
+	public function testGetRedirectTarget() {
+		$redirectTarget = Title::newFromText( 'Lexeme:L123' );
+		$redirect = $this->getMockRedirect();
+		$content = new LexemeContent( null, $redirect, $redirectTarget );
+
+		$this->assertSame( $redirectTarget, $content->getRedirectTarget() );
 	}
 
 	/**
@@ -81,6 +132,15 @@ class LexemeContentTest extends TestCase {
 
 		$lexemeContent = new LexemeContent( new EntityInstanceHolder( $lexeme ) );
 		$this->assertTrue( $lexemeContent->isValid() );
+	}
+
+	public function testGivenRedirect_isValidReturnsTrue() {
+		$content = new LexemeContent(
+			null,
+			$this->getMockRedirect(),
+			$this->getMockTitle()
+		);
+		$this->assertTrue( $content->isValid() );
 	}
 
 	/**
@@ -233,6 +293,22 @@ class LexemeContentTest extends TestCase {
 
 		$data = $lexemeContent->getTextForSearchIndex();
 		$this->assertEquals( "test moretest тест form moreform форма form2 moreform2 форма2", $data );
+	}
+
+	/**
+	 * @return EntityRedirect|MockObject
+	 */
+	private function getMockRedirect() {
+		return $this->getMockBuilder( EntityRedirect::class )
+			->disableOriginalConstructor()
+			->getMock();
+	}
+
+	/**
+	 * @return Title|MockObject
+	 */
+	private function getMockTitle() {
+		return $this->getMockBuilder( Title::class )->getMock();
 	}
 
 }

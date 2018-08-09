@@ -4,12 +4,16 @@ namespace Wikibase\Lexeme\Content;
 
 use InvalidArgumentException;
 use LogicException;
+use Title;
 use Wikibase\Content\EntityHolder;
+use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikimedia\Assert\Assert;
 
 /**
+ * TODO: Can this be split into two classes? (LexemeRedirectContent, LexemeContent)
+ *
  * @license GPL-2.0-or-later
  */
 class LexemeContent extends EntityContent {
@@ -22,22 +26,42 @@ class LexemeContent extends EntityContent {
 	private $lexemeHolder;
 
 	/**
+	 * @var EntityRedirect
+	 */
+	private $redirect;
+
+	/**
+	 * @var Title
+	 */
+	private $redirectTitle;
+
+	/**
 	 * @param EntityHolder|null $lexemeHolder
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( EntityHolder $lexemeHolder = null ) {
+	public function __construct(
+		EntityHolder $lexemeHolder = null,
+		EntityRedirect $redirect = null,
+		Title $redirectTitle = null
+	) {
 		parent::__construct( self::CONTENT_MODEL_ID );
 
-		if ( $lexemeHolder !== null ) {
-			Assert::parameter(
-				$lexemeHolder->getEntityType() === Lexeme::ENTITY_TYPE,
-				'$lexemeHolder',
-				'$lexemeHolder must contain a Lexeme entity'
+		if ( $lexemeHolder !== null && $redirect !== null ) {
+			throw new InvalidArgumentException(
+				'Cannot contain lexeme and be a redirect at the same time'
 			);
 		}
 
-		$this->lexemeHolder = $lexemeHolder;
+		if ( $lexemeHolder !== null ) {
+			$this->constructAsLexemeContent( $lexemeHolder );
+		} elseif ( $redirect !== null ) {
+			$this->constructAsRedirect( $redirect, $redirectTitle );
+		}
+	}
+
+	public static function newFromRedirect( $redirect, $title ) {
+		return new self( null, $redirect, $title );
 	}
 
 	/**
@@ -73,6 +97,14 @@ class LexemeContent extends EntityContent {
 		return $this->lexemeHolder;
 	}
 
+	public function getEntityRedirect() {
+		return $this->redirect;
+	}
+
+	public function getRedirectTarget() {
+		return $this->redirectTitle;
+	}
+
 	/**
 	 * @see EntityContent::isValid
 	 *
@@ -80,7 +112,8 @@ class LexemeContent extends EntityContent {
 	 */
 	public function isValid() {
 		return parent::isValid()
-			&& $this->getEntity()->isSufficientlyInitialized();
+			&& $this->getEntity()->isSufficientlyInitialized()
+			|| $this->isRedirect();
 	}
 
 	/**
@@ -129,6 +162,27 @@ class LexemeContent extends EntityContent {
 		}
 
 		return implode( ' ', $terms );
+	}
+
+	private function constructAsLexemeContent( EntityHolder $lexemeHolder ) {
+		Assert::parameter(
+			$lexemeHolder->getEntityType() === Lexeme::ENTITY_TYPE,
+			'$lexemeHolder',
+			'$lexemeHolder must contain a Lexeme entity'
+		);
+
+		$this->lexemeHolder = $lexemeHolder;
+	}
+
+	private function constructAsRedirect( EntityRedirect $redirect, Title $redirectTitle = null ) {
+		if ( $redirectTitle === null ) {
+			throw new InvalidArgumentException(
+				'$redirect and $redirectTitle must both be provided or both be empty.'
+			);
+		}
+
+		$this->redirect = $redirect;
+		$this->redirectTitle = $redirectTitle;
 	}
 
 }
