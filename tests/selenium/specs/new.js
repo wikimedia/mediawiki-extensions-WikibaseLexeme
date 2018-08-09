@@ -27,8 +27,17 @@ describe( 'NewLexeme:Page', () => {
 		before( function () {
 			NewLexemePage.open();
 
-			lexemeLanguageCodePropertyId = browser.execute( () => {
-				return window.mw.config.get( 'LexemeLanguageCodePropertyId' );
+			// TODO how to do this nicely?
+			browser.waitUntil( () => {
+				return browser.execute( () => {
+					return ( typeof window.mw.loader === 'object' && typeof window.mw.loader.using === 'function' );
+				} ).value === true;
+			} );
+
+			lexemeLanguageCodePropertyId = browser.executeAsync( ( done ) => {
+				window.mw.loader.using( [ 'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig' ], function () {
+					done( window.mw.config.get( 'LexemeLanguageCodePropertyId' ) );
+				} );
 			} ).value;
 
 			if ( lexemeLanguageCodePropertyId === null ) {
