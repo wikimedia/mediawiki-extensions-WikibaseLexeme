@@ -146,6 +146,22 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		);
 	}
 
+	public function testTitleText_Lemma() {
+		$entityParserOutputGenerator = $this->newParserOutputGenerator();
+
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withLemma( 'en', 'goat' )
+			->withLemma( 'fr', 'taog' )
+			->build();
+
+		$parserOutput = $entityParserOutputGenerator->getParserOutput( $lexeme );
+
+		$this->assertSame(
+		'goat / taog',
+		$parserOutput->getExtensionData( 'wikibase-meta-tags' )['title']
+		);
+	}
+
 	private function newParserOutputGenerator() {
 		return WikibaseRepo::getDefaultInstance()->getEntityParserOutputGeneratorFactory()
 			->getEntityParserOutputGenerator( Language::factory( 'en' ) );
