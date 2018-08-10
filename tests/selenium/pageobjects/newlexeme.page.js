@@ -43,8 +43,10 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 
 		if ( typeof lemmaLanguage !== 'undefined' ) {
 			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE + ' input' ).setValue( lemmaLanguage );
-			browser.keys( 'Enter' ); // accept suggestion by form widget which filters options to close its overlay
+			this.setValueOnComboboxElement(
+				browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
+				lemmaLanguage
+			);
 		} else {
 			// ensure lemma language input is not presented (logic is asynchronous)
 			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible( 1000, true );
