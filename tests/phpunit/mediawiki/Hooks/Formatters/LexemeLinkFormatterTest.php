@@ -20,7 +20,7 @@ use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter
+ * @covers \Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter
  *
  * @license GPL-2.0-or-later
  */

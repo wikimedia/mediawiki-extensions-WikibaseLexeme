@@ -23,7 +23,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
 
 /**
- * @covers Wikibase\Lexeme\Diff\SenseDiffView
+ * @covers \Wikibase\Lexeme\Diff\SenseDiffView
  *
  * @license GPL-2.0-or-later
  */

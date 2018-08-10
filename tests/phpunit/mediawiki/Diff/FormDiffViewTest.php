@@ -25,7 +25,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
 
 /**
- * @covers Wikibase\Lexeme\Diff\FormDiffView
+ * @covers \Wikibase\Lexeme\Diff\FormDiffView
  *
  * @license GPL-2.0-or-later
  */
