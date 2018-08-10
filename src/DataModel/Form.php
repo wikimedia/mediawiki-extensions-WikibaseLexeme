@@ -14,7 +14,7 @@ use Wikimedia\Assert\Assert;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme's form in the
- * lexiographical data model.
+ * lexicographical data model.
  *
  * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Form
  *

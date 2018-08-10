@@ -11,7 +11,7 @@ use Wikibase\DataModel\Term\TermList;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme's sense in
- * the lexiographical data model.
+ * the lexicographical data model.
  *
  * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Sense
  *

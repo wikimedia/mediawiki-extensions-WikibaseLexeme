@@ -9,7 +9,7 @@ use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * Immutable ID of a Lexeme in the lexiographical data model.
+ * Immutable ID of a Lexeme in the lexicographical data model.
  *
  * @see https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/Data_Model#Lexeme
  *
