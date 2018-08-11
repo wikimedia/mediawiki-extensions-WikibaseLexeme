@@ -42,6 +42,10 @@ class Registrar {
 				'class' => 'Wikibase\Lexeme\Api\EditSenseElements',
 				'factory' => 'Wikibase\Lexeme\Api\EditSenseElements::newFromGlobalState'
 			];
+			$wgAPIModules['wblremovesense'] = [
+				'class' => 'Wikibase\Lexeme\Api\RemoveSense',
+				'factory' => 'Wikibase\Lexeme\Api\RemoveSense::newFromGlobalState',
+			];
 		}
 
 		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
