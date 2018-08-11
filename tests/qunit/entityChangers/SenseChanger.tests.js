@@ -403,4 +403,54 @@
 			}
 		} );
 
+	QUnit.test( 'Existing Sense removed - makes the expected API call', function ( assert ) {
+		var api = {
+			postWithToken: sinon.stub().returns( $.Deferred().resolve( {} ) )
+		};
+
+		var senseId = 'L11-S2';
+		var changer = new SenseChanger( api, {}, 'L11', {} );
+		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
+		var sense = new Sense( senseId, glosses );
+
+		changer.remove( sense );
+
+		assert.ok( api.postWithToken.calledOnce, 'API gets called once' );
+
+		var callArguments = api.postWithToken.firstCall.args;
+		var gotTokenType = callArguments[ 0 ];
+		var gotParameters = callArguments[ 1 ];
+
+		assert.equal( gotTokenType, 'csrf', 'Token is sent' );
+		assert.equal( gotParameters.action, 'wblremovesense', 'Picks right API action' );
+		assert.equal( gotParameters.id, senseId, 'Sends form id parameter' );
+		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
+		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
+	} );
+
+	QUnit.test( 'Existing Sense removal fails - formats and passes API errors', function ( assert ) {
+		var api = {
+			postWithToken: sinon.stub().returns(
+				$.Deferred().reject( 'irrelevant', { errors: [ { code: 'bad', '*': 'foo' } ] } )
+			)
+		};
+
+		var changer = new SenseChanger( api, {}, 'L11', {} );
+		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
+		var sense = new Sense( 'L11-S300', glosses );
+
+		var testPromise = $.Deferred();
+
+		changer.remove( sense ).fail( function ( apiError ) {
+			assert.ok( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
+			assert.equal( apiError.code, 'bad', 'Code from API gets set' );
+			assert.equal( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
+			assert.equal( apiError.action, 'remove', 'Action that failed gets set' );
+
+			testPromise.resolve();
+		} );
+
+		return testPromise;
+	} );
+
 }( jQuery, wikibase, QUnit, sinon ) );

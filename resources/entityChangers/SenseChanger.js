@@ -119,6 +119,23 @@
 			} );
 		},
 
+		remove: function ( sense ) {
+			var deferred = $.Deferred();
+
+			this.api.postWithToken( 'csrf', {
+				action: 'wblremovesense',
+				id: sense.getId(),
+				errorformat: 'plaintext',
+				bot: 0
+			} )
+				.then( deferred.resolve )
+				.fail( function ( code, response ) {
+					deferred.reject( convertPlainTextErrorsToRepoApiError( response.errors, 'remove' ) );
+				} );
+
+			return deferred;
+		},
+
 		// TODO same as FormChanger's getRepresentationDataForApiRequest, extract somewhere
 		getGlossDataForApiRequest: function ( oldGlosses, newGlosses ) {
 			var result = {};
