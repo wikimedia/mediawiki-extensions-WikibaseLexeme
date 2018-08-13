@@ -39,6 +39,7 @@ use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Lexeme\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
@@ -313,7 +314,7 @@ return [
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
 				$repo->getEntityIdParser(),
-				new \Wikibase\Lexeme\Store\NullLabelDescriptionLookup(),
+				new NullLabelDescriptionLookup(),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
 		},
@@ -391,6 +392,17 @@ return [
 					$wikibaseRepo->getEntityLookup(),
 					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
 				)
+			);
+		},
+		'entity-search-callback' => function ( WebRequest $request ) {
+			// FIXME: this code should be split into extension for T190022
+			$repo = WikibaseRepo::getDefaultInstance();
+
+			return new Wikibase\Repo\Api\EntityIdSearchHelper(
+				$repo->getEntityLookup(),
+				$repo->getEntityIdParser(),
+				new NullLabelDescriptionLookup(),
+				$repo->getEntityTypeToRepositoryMapping()
 			);
 		},
 		'changeop-deserializer-callback' => function () {
