@@ -4,7 +4,8 @@
 			"Liuxinyu970226",
 			"NeverBehave",
 			"Deathkon",
-			"Wxyveronica"
+			"Wxyveronica",
+			"Hanyanbo98"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
@@ -114,6 +115,7 @@
 	"wikibaselexeme-diffview-form": "词形",
 	"wikibaselexeme-diffview-representation": "表现",
 	"wikibaselexeme-diffview-grammatical-feature": "语法特征",
+	"wikibaselexeme-diffview-sense": "意义",
 	"content-model-wikibase-lexeme": "Wikibase词位",
 	"wikibaselexeme-form-grammatical-features": "语法特征",
 	"wikibaselexeme-form-description": "$1用于：$2（$3）：$4",

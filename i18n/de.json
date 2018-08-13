@@ -95,7 +95,7 @@
 	"wikibase-lexeme-summary-add-sense": "Neues Sense $3 mit {{PLURAL:$1|[$2] Fußnote|Fußnoten}} hinzugefügt",
 	"wikibase-lexeme-summary-update-sense-glosses": "Fußnoten des Senses $3 geändert",
 	"wikibase-lexeme-summary-add-sense-glosses": "{{PLURAL:$1|[$2] Fußnote|Fußnoten}} zum Sense $3 hinzugefügt",
-	"wikibase-lexeme-summary-set-sense-glosses": "{{PLURAL:$1|[$2] Fußnote|Fußnoten}} des Senses $3 festgelegt",
+	"wikibase-lexeme-summary-set-sense-glosses": "{{PLURAL:$1|[$2] Fußnote|Fußnoten}} des Senses $3 geändert",
 	"wikibase-lexeme-summary-remove-sense-glosses": "{{PLURAL:$1|[$2] Fußnote|Fußnoten}} des Senses $3 entfernt",
 	"wikibase-lexeme-summary-update-sense-elements": "Fußnoten des Senses $3 geändert",
 	"wikibaselexeme-field-language-label": "Sprache",

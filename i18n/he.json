@@ -101,7 +101,7 @@
 	"wikibase-lexeme-summary-add-sense": "נוספה המשמעות החדשה $3 עם {{PLURAL:$1|פירוש [$2]|פירושים}}",
 	"wikibase-lexeme-summary-update-sense-glosses": "שונו פירושים של המשמעות $3",
 	"wikibase-lexeme-summary-add-sense-glosses": "{{PLURAL:$1|נוסף פירוש [$2]|נוספו פירושים}} למשמעות $3",
-	"wikibase-lexeme-summary-set-sense-glosses": "{{PLURAL:$1|הוגדר פירוש [$2]|הוגדרו פירושים}} של משמעות $3",
+	"wikibase-lexeme-summary-set-sense-glosses": "{{PLURAL:$1|שוּנָה פירוש [$2]|שונו פירושים}} של משמעות $3",
 	"wikibase-lexeme-summary-remove-sense-glosses": "{{PLURAL:$1|הוסר פירוש [$2]|הוסרו פירושים}} של משמעות $3",
 	"wikibase-lexeme-summary-update-sense-elements": "שונו פירושים של משמעות $3",
 	"wikibaselexeme-field-language-label": "שפה",
