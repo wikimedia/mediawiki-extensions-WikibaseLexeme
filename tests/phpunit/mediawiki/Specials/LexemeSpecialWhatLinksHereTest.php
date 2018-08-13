@@ -10,8 +10,10 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\MediaWiki\NonTempTableTestCase;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -40,6 +42,9 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 
 	const FIRST_GRAMMATICAL_FEATURE_ID = 'Q234';
 	const SECOND_GRAMMATICAL_FEATURE_ID = 'Q432';
+
+	const FIRST_STATEMENT_VALUE_ID = 'Q345';
+	const SECOND_STATEMENT_VALUE_ID = 'Q543';
 
 	protected function newSpecialPage() {
 		return new SpecialWhatLinksHere();
@@ -76,15 +81,38 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 		);
 	}
 
+	public function testFormStatements() {
+		$this->saveItem( self::FIRST_STATEMENT_VALUE_ID );
+		$this->saveLexemeToDb();
+
+		$this->assertContainsLexemeLink(
+			$this->getWhatLinksHereOutputForItem( self::FIRST_STATEMENT_VALUE_ID )
+		);
+	}
+
+	public function testSenseStatements() {
+		$this->saveItem( self::SECOND_STATEMENT_VALUE_ID );
+		$this->saveLexemeToDb();
+
+		$this->assertContainsLexemeLink(
+			$this->getWhatLinksHereOutputForItem( self::SECOND_STATEMENT_VALUE_ID )
+		);
+	}
+
 	private function saveLexemeToDb() {
 		$this->getEntityStore()->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )
 				->withLanguage( self::LANGUAGE_ID )
 				->withLexicalCategory( self::LEXICAL_CATEGORY_ID )
 				->withForm( NewForm::havingId( 'F1' )
-					->andGrammaticalFeature( self::FIRST_GRAMMATICAL_FEATURE_ID ) )
+					->andGrammaticalFeature( self::FIRST_GRAMMATICAL_FEATURE_ID )
+					->andStatement( NewStatement::forProperty( 'P1' )
+						->withValue( new ItemId( self::FIRST_STATEMENT_VALUE_ID ) ) ) )
 				->withForm( NewForm::havingId( 'F2' )
 					->andGrammaticalFeature( self::SECOND_GRAMMATICAL_FEATURE_ID ) )
+				->withSense( NewSense::havingId( 'S1' )
+					->withStatement( NewStatement::forProperty( 'P1' )
+						->withValue( new ItemId( self::SECOND_STATEMENT_VALUE_ID ) ) ) )
 				->build(),
 			self::class,
 			$this->getUser()
