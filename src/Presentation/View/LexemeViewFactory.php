@@ -52,7 +52,7 @@ class LexemeViewFactory {
 		$templateFactory = new LexemeTemplateFactory( $templates );
 
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
-		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->language->getCode() );
+		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->language );
 		$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
 			new EntityInfoTermLookup( $this->entityInfo ),
 			$this->fallbackChain
@@ -112,7 +112,7 @@ class LexemeViewFactory {
 		return new ToolbarEditSectionGenerator(
 			new RepoSpecialPageLinker(),
 			TemplateFactory::getDefaultInstance(),
-			new MediaWikiLocalizedTextProvider( $this->language->getCode() )
+			new MediaWikiLocalizedTextProvider( $this->language )
 		);
 	}
 

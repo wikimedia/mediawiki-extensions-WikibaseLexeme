@@ -61,7 +61,7 @@ return [
 						$wikibaseRepo->getEntityLookup(),
 						$labelDescriptionLookup,
 						$wikibaseRepo->getEntityTitleLookup(),
-						new MediaWikiLocalizedTextProvider( $userLanguage->getCode() )
+						new MediaWikiLocalizedTextProvider( $userLanguage )
 					)
 				);
 			}
@@ -81,7 +81,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$userLanguage = $wikibaseRepo->getUserLanguage();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
-			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage->getCode() );
+			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage );
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
@@ -113,12 +113,12 @@ return [
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
-			$languageCode = $wikibaseRepo->getUserLanguage()->getCode();
+			$language = $wikibaseRepo->getUserLanguage();
 
-			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $languageCode );
+			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );
 
 			$languageFallbackChainFactory = $wikibaseRepo->getLanguageFallbackChainFactory();
-			$fallbackChain = $languageFallbackChainFactory->newFromLanguageCode( $languageCode );
+			$fallbackChain = $languageFallbackChainFactory->newFromLanguage( $language );
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
