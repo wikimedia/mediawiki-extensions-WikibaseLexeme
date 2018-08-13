@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
+use Message;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
@@ -54,7 +55,7 @@ class RemoveForm extends ApiBase {
 	/**
 	 * @return self
 	 */
-	public static function newFromGlobalState( \ApiMain $mainModule, $moduleName ) {
+	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
@@ -103,7 +104,7 @@ class RemoveForm extends ApiBase {
 		$request = $this->requestParser->parse( $params );
 
 		try {
-			$formId = $request->getFormid();
+			$formId = $request->getFormId();
 
 			// TODO factor into some sort of LexemeIdParser or add a getter to FormId?
 			$idParts = explode( '-', $formId->getSerialization() );
@@ -236,7 +237,7 @@ class RemoveForm extends ApiBase {
 			RemoveFormRequestParser::PARAM_FORM_ID => $formId
 		] );
 
-		$exampleMessage = new \Message(
+		$exampleMessage = new Message(
 			'apihelp-wblremoveform-example-1',
 			[ $formId ]
 		);

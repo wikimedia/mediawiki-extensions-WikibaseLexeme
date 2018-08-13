@@ -32,7 +32,7 @@ class RemoveFormRequestParserTest extends TestCase {
 		$expectedMessage = $expectedError->asApiMessage( 'data', [] );
 
 		try {
-			$result = $parser->parse( $params );
+			$parser->parse( $params );
 			$this->fail( 'Expected ApiUsageException did not occur.' );
 		} catch ( ApiUsageException $exception ) {
 			/** @var ApiMessage $message */
@@ -52,6 +52,10 @@ class RemoveFormRequestParserTest extends TestCase {
 				[ 'id' => 'foo' ],
 				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'foo' ) ]
 			],
+			'invalid id (sense ID)' => [
+				[ 'id' => 'L1-S2' ],
+				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'L1-S2' ) ]
+			],
 		];
 	}
 
@@ -63,6 +67,9 @@ class RemoveFormRequestParserTest extends TestCase {
 		$this->assertEquals( new FormId( 'L1-F2' ), $request->getFormId() );
 	}
 
+	/**
+	 * @return RemoveFormRequestParser
+	 */
 	private function newRemoveFormRequestParser() {
 		$idParser = new DispatchingEntityIdParser( [
 			FormId::PATTERN => function ( $id ) {
