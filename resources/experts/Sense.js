@@ -17,6 +17,10 @@ module.exports = ( function ( wb, vv ) {
 		 */
 		_init: function () {
 			PARENT.prototype._initEntityExpert.call( this );
+
+			this.$input.val(
+				this.$input.data( 'entityselector' ).selectedEntity().id
+			);
 		}
 	} );
 
