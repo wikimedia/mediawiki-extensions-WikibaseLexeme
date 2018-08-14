@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
+use LogicException;
 use Message;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
@@ -129,7 +130,11 @@ class RemoveSense extends ApiBase {
 			if ( $e->getStatus() ) {
 				$this->dieStatus( $e->getStatus() );
 			} else {
-				//FIXME Do what???
+				throw new LogicException(
+					'StorageException caught with no status',
+					0,
+					$e
+				);
 			}
 		}
 

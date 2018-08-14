@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Api;
 
 use ApiBase;
 use ApiMain;
+use LogicException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
@@ -175,7 +176,11 @@ class AddForm extends ApiBase {
 			if ( $e->getStatus() ) {
 				$this->dieStatus( $e->getStatus() );
 			} else {
-				//FIXME Do what???
+				throw new LogicException(
+					'StorageException caught with no status',
+					0,
+					$e
+				);
 			}
 		}
 		/** @var Lexeme $lexeme */
