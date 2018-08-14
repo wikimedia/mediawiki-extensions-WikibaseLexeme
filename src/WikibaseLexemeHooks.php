@@ -137,6 +137,10 @@ class WikibaseLexemeHooks {
 		);
 	}
 
+	public static function onWikibaseContentLanguages( array &$contentLanguages ) {
+		$contentLanguages['term-lexicographical'] = WikibaseLexemeServices::getTermLanguages();
+	}
+
 	public static function onResourceLoaderTestModules( array &$testModules, ResourceLoader $rl ) {
 		$testModules['qunit']['WikibaseLexeme.tests'] = [
 			'scripts' => [
