@@ -99,6 +99,7 @@
 	"wikibase-lexeme-summary-remove-form-grammatical-features": "Removeu {{PLURAL:$1|funcionalidade gramatical|funcionalidades gramaticais}} da Forma $3",
 	"wikibase-lexeme-summary-update-form-elements": "Alterou as representações e/ou as funcionalidades gramaticais da Forma $3",
 	"wikibase-lexeme-summary-add-sense": "Adição do novo sentido $3 com {{PLURAL:$1|glosa em [$2]|glosas}}",
+	"wikibase-lexeme-summary-remove-sense": "Removido o sentido de $3 com {{PLURAL:$1|[$2] gloss|glosses}}",
 	"wikibase-lexeme-summary-update-sense-glosses": "Alteração de glosas do sentido $3",
 	"wikibase-lexeme-summary-add-sense-glosses": "Adição de {{PLURAL:$1|glosa em [$2]|glosas}} ao sentido $3",
 	"wikibase-lexeme-summary-set-sense-glosses": "Alterado de {{PLURAL:$1|glosa em [$2]|glosas}} do sentido $3",

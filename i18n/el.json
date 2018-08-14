@@ -7,6 +7,7 @@
 		]
 	},
 	"special-newlexeme": "Δημιουργία νέου Lexeme",
+	"wikibaselexeme-deletedentity-sense": "Διαγεγραμμένο νόημα",
 	"wikibaselexeme-newlexeme-fieldset": "Δημιουργία νέου Lexeme",
 	"wikibaselexeme-newlexeme-lemma": "Λήμμα",
 	"wikibaselexeme-newlexeme-lemma-language": "Γλώσσα του λήμματος",
@@ -31,6 +32,8 @@
 	"wikibase-listdatatypes-wikibase-form-head": "Φόρμα",
 	"wikibase-listdatatypes-wikibase-sense-head": "Νόημα",
 	"apihelp-wblremoveform-summary": "Αφαιρεί φόρμες από το Lexeme",
+	"apihelp-wblremovesense-summary": "Αφαιρεί νόημα από το Lexeme",
+	"apihelp-wblremovesense-param-id": "Αναγνωριστικό του νοήματος π.χ. L10-S20",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Η γλώσσα δεν μπορεί να είναι άδεια",
 	"wikibaselexeme-diffview-lemma": "Λήμμα",
 	"wikibaselexeme-diffview-lexical-category": "λεκτική κατηγορία",
