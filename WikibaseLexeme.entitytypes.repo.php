@@ -35,6 +35,7 @@ use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtra
 use Wikibase\Lexeme\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LanguageItemIdExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
@@ -263,6 +264,7 @@ return [
 				new GrammaticalFeatureItemIdsExtractor(),
 				$statementEntityReferenceExtractor,
 				new FormsStatementEntityReferenceExtractor( $statementEntityReferenceExtractor ),
+				new SensesStatementEntityReferenceExtractor( $statementEntityReferenceExtractor ),
 			] );
 		},
 		'fulltext-search-context' => 'wikibase_lexeme_fulltext',
