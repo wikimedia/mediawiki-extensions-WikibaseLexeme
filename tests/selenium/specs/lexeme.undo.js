@@ -53,6 +53,9 @@ describe( 'Lexeme:Undoing', () => {
 
 		HistoryPage.open( lexemeId );
 
+		// dismiss visual editor modal
+		// has to happen after initial open, so that local storage works
+		browser.localStorage( 'POST', { key: 've-beta-welcome-dialog', value: '1' } );
 		HistoryPage.undoFirstRevision();
 
 		UndoPage.save();
