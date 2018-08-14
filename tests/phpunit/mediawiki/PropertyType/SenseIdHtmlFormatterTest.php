@@ -43,7 +43,13 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 */
 	private function getMockTextFormatter( SenseId $expectedSenseId, $return ) {
 		/** @var SenseIdTextFormatter|MockObject $textFormatter */
-		$textFormatter = $this->getMock( SenseIdTextFormatter::class );
+		$textFormatter = $this->getMock(
+			SenseIdTextFormatter::class,
+			[],
+			[],
+			'',
+			false // do not call original constructor
+		);
 		$textFormatter->method( 'formatEntityId' )
 			->with( $expectedSenseId )
 			->willReturn( $return );

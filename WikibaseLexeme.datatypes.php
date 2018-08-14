@@ -110,8 +110,15 @@ return [
 		},
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
+			$localizedTextProvider = new MediaWikiLocalizedTextProvider(
+				$wikibaseRepo->getUserLanguage()->getCode()
+			);
 
-			$baseFormatter = new SenseIdTextFormatter();
+			$baseFormatter = new SenseIdTextFormatter(
+				$revisionLookup,
+				$localizedTextProvider
+			);
 
 			if (
 				$format === SnakFormatter::FORMAT_HTML ||
