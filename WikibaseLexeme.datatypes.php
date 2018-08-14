@@ -20,6 +20,7 @@
 use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\PropertyType\FormIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
 use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
@@ -104,7 +105,8 @@ return [
 	'PT:wikibase-sense' => [
 		'expert-module' => 'wikibase.experts.Sense',
 		'validator-factory-callback' => function() {
-			return [];
+			$factory = WikibaseRepo::getDefaultValidatorBuilders();
+			return $factory->getEntityValidators( Sense::ENTITY_TYPE );
 		},
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
