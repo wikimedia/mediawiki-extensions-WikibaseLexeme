@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
+use Wikibase\Store;
 
 /**
  * @covers \Wikibase\Lexeme\Api\EditSenseElements
@@ -511,7 +512,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 	 * @return EntityRevision|null
 	 */
 	private function getCurrentRevisionForSense( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( self::ENTITY_REVISION_LOOKUP_UNCACHED );
+		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		return $lookup->getEntityRevision( new SenseId( $id ) );
 	}

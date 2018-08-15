@@ -7,6 +7,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Repo\Tests\NewItem;
+use Wikibase\Store;
 
 /**
  * Tests undoing edits on a lexeme
@@ -56,7 +57,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 		$this->assertTrue(
 			$expected->equals(
 				$this->wikibaseRepo->getStore()
-					->getEntityLookup( self::ENTITY_REVISION_LOOKUP_UNCACHED )
+					->getEntityLookup( Store::LOOKUP_CACHING_DISABLED )
 					->getEntity( $lexeme->getId() )
 			)
 		);

@@ -17,6 +17,7 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Store;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
@@ -67,7 +68,7 @@ class RemoveSense extends ApiBase {
 					$wikibaseRepo->getEntityIdParser()
 				)
 			),
-			$wikibaseRepo->getEntityRevisionLookup( 'uncached' ),
+			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			$wikibaseRepo->getSummaryFormatter(),
 			function ( $module ) use ( $apiHelperFactory ) {

@@ -20,6 +20,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Store;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
@@ -72,7 +73,7 @@ class EditFormElements extends \ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			$wikibaseRepo->getEntityRevisionLookup( 'uncached' ),
+			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			new EditFormElementsRequestParser(
 				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),

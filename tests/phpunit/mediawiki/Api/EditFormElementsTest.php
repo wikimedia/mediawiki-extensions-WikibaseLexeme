@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
+use Wikibase\Store;
 
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElements
@@ -785,7 +786,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	 * @return EntityRevision|null
 	 */
 	private function getCurrentRevisionForForm( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( self::ENTITY_REVISION_LOOKUP_UNCACHED );
+		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		return $lookup->getEntityRevision( new FormId( $id ) );
 	}

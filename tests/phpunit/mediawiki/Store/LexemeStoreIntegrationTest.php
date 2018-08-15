@@ -7,6 +7,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Store;
 
 /**
  * @coversNothing
@@ -25,7 +26,7 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 	public function testGivenExistingFormId_EntityLookupHasEntityReturnsTrue() {
 		$this->saveLexemeWithForm();
 
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup( 'uncached' );
+		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		$this->assertTrue( $lookup->hasEntity( new FormId( self::FULL_FORM_ID ) ) );
 	}
@@ -33,7 +34,7 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 	public function testGivenNotExistingFormId_EntityLookupHasEntityReturnsFalse() {
 		$this->saveLexemeWithoutForm();
 
-		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup( 'uncached' );
+		$lookup = WikibaseRepo::getDefaultInstance()->getEntityLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		$this->assertFalse( $lookup->hasEntity( new FormId( self::FULL_FORM_ID ) ) );
 	}

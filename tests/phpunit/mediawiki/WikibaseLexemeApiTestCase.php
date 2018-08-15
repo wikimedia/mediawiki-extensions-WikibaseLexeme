@@ -11,12 +11,13 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store\BufferingTermLookup;
 
 /**
+ * todo Add a reset function to wikibase Entity(Revision)Lookup to reset caches
+ * Shared caches can lead to combinations fatal in tests but impossible in production
+ * (e.g. change of a property entity type within the same process)
+ *
  * @license GPL-2.0-or-later
  */
 abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
-
-	// TODO add reset function to wikibase EntityRevisionLookup
-	const ENTITY_REVISION_LOOKUP_UNCACHED = 'uncached';
 
 	/**
 	 * @var WikibaseRepo
