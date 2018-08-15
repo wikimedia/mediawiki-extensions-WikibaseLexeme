@@ -8,6 +8,8 @@ use SpecialPageTestBase;
 use SpecialWhatLinksHere;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\Property;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -100,18 +102,21 @@ class LexemeSpecialWhatLinksHereTest extends SpecialPageTestBase {
 	}
 
 	private function saveLexemeToDb() {
+		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-item' );
+		$this->getEntityStore()->saveEntity( $p1, self::class, $this->getUser() );
+
 		$this->getEntityStore()->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )
 				->withLanguage( self::LANGUAGE_ID )
 				->withLexicalCategory( self::LEXICAL_CATEGORY_ID )
 				->withForm( NewForm::havingId( 'F1' )
 					->andGrammaticalFeature( self::FIRST_GRAMMATICAL_FEATURE_ID )
-					->andStatement( NewStatement::forProperty( 'P1' )
+					->andStatement( NewStatement::forProperty( $p1->getId() )
 						->withValue( new ItemId( self::FIRST_STATEMENT_VALUE_ID ) ) ) )
 				->withForm( NewForm::havingId( 'F2' )
 					->andGrammaticalFeature( self::SECOND_GRAMMATICAL_FEATURE_ID ) )
 				->withSense( NewSense::havingId( 'S1' )
-					->withStatement( NewStatement::forProperty( 'P1' )
+					->withStatement( NewStatement::forProperty( $p1->getId() )
 						->withValue( new ItemId( self::SECOND_STATEMENT_VALUE_ID ) ) ) )
 				->build(),
 			self::class,
