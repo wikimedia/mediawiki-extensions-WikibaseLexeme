@@ -49,6 +49,7 @@
 	"apihelp-wbleditformelements-param-formId": "형태의 ID (예: L10-F2)",
 	"apihelp-wbleditformelements-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"apihelp-wbladdsense-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wblremovesense-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"apihelp-wbleditsenseelements-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "오류가 발생했습니다: 마지막 기본형은 삭제할 수 없습니다.",
 	"wikibaselexeme-api-error-parameter-required": "\"$1\" 변수는 필수입니다",
