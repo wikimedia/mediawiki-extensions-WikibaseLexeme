@@ -11,7 +11,6 @@ use Wikibase\Lexeme\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\StorageException;
@@ -106,10 +105,7 @@ class RemoveForm extends ApiBase {
 
 		try {
 			$formId = $request->getFormId();
-
-			// TODO factor into some sort of LexemeIdParser or add a getter to FormId?
-			$idParts = explode( '-', $formId->getSerialization() );
-			$lexemeId = new LexemeId( $idParts[0] );
+			$lexemeId = $formId->getLexemeId();
 
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
 				$lexemeId,
