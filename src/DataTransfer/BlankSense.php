@@ -23,16 +23,21 @@ class BlankSense extends Sense {
 	private $lexeme;
 
 	public function __construct() {
+		$this->id = null;
 		$this->glossList = new TermList();
 		$this->statementList = new StatementList();
 	}
 
 	public function getId() {
-		if ( $this->lexeme === null ) {
-			return new NullSenseId();
+		if ( $this->id !== null ) {
+			return $this->id;
 		}
 
-		return new DummySenseId( $this->lexeme->getId() );
+		if ( $this->lexeme !== null ) {
+			return new DummySenseId( $this->lexeme->getId() );
+		}
+
+		return new NullSenseId();
 	}
 
 	public function setLexeme( Lexeme $lexeme ) {
@@ -40,6 +45,8 @@ class BlankSense extends Sense {
 	}
 
 	public function getRealSense( SenseId $senseId ) {
+		$this->id = $senseId;
+
 		return new Sense( $senseId, $this->glossList, $this->statementList );
 	}
 

@@ -27,7 +27,7 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 	/**
 	 * @var FormId
 	 */
-	private $id;
+	protected $id;
 
 	/**
 	 * @var TermList

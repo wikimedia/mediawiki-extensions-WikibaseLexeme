@@ -19,17 +19,22 @@ class BlankForm extends Form {
 	private $lexeme;
 
 	public function __construct() {
+		$this->id = null;
 		$this->representations = new TermList();
 		$this->grammaticalFeatures = [];
 		$this->statementList = new StatementList();
 	}
 
 	public function getId() {
-		if ( $this->lexeme === null ) {
-			return new NullFormId();
+		if ( $this->id !== null ) {
+			return $this->id;
 		}
 
-		return new DummyFormId( $this->lexeme->getId() );
+		if ( $this->lexeme !== null ) {
+			return new DummyFormId( $this->lexeme->getId() );
+		}
+
+		return new NullFormId();
 	}
 
 	public function setLexeme( Lexeme $lexeme ) {
@@ -37,6 +42,8 @@ class BlankForm extends Form {
 	}
 
 	public function getRealForm( FormId $formId ) {
+		$this->id = $formId;
+
 		return new Form(
 			$formId,
 			$this->representations, $this->grammaticalFeatures, $this->statementList
