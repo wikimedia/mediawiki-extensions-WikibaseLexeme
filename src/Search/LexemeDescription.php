@@ -72,10 +72,12 @@ class LexemeDescription {
 		return wfMessage( 'wikibaselexeme-description' )
 			->inLanguage( $this->displayLanguage )
 			->params(
-				$this->getLabelOrDefault( $languageId, wfMessage( 'wikibaselexeme-unknown-language' )
+				$this->getLabelOrDefault( $languageId,
+					wfMessage( 'wikibaselexeme-unknown-language' )
 						->inLanguage( $this->displayLanguage )
 						->text() ),
-				$this->getLabelOrDefault( $categoryId, wfMessage( 'wikibaselexeme-unknown-category' )
+				$this->getLabelOrDefault( $categoryId,
+					wfMessage( 'wikibaselexeme-unknown-category' )
 						->inLanguage( $this->displayLanguage )
 						->text() )
 			)->text();
@@ -97,9 +99,9 @@ class LexemeDescription {
 		EntityId $lexemeId, array $features, $lemma, $language, $category
 	) {
 		$lemmaDescription = $this->createDescription( $lexemeId, $language, $category );
-		// Create list of feature labels, separated by space
-		// TODO: do we need to i18n this or space-separated list is good enough?
-		$featuresString = implode( ' ', array_filter( array_map(
+		// Create list of feature labels, should match what FormsView.php is doing
+		$comma = wfMessage( 'comma-separator' )->inLanguage( $this->displayLanguage );
+		$featuresString = implode( $comma, array_filter( array_map(
 			function ( EntityId $featureId ) {
 				// TODO: do we need separate string for this?
 				return $this->getLabelOrDefault( $featureId,
