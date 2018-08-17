@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use FauxRequest;
 use PermissionsError;
+use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -12,6 +13,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Specials\SpecialNewLexeme;
+use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
@@ -38,15 +40,29 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
 	}
 
+	/**
+	 * @return SummaryFormatter|MockObject
+	 */
+	private function getMockSummaryFormatter() {
+		$summaryFormatter = $this->getMockBuilder( SummaryFormatter::class )
+			->disableOriginalConstructor()
+			->getMock();
+
+		$summaryFormatter->method( 'formatSummary' )
+			->willReturnCallback( function ( FormatableSummary $summary ) {
+				return 'MOCKFORMAT: ' .
+					$summary->getMessageKey() .
+					' ' .
+					$summary->getUserSummary();
+			} );
+		return $summaryFormatter;
+	}
+
 	protected function newSpecialPage() {
 		$irrelevantNamespaceNumber = -1;
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-
-		/** @var SummaryFormatter $summaryFormatter */
-		$summaryFormatter = $this->getMockBuilder( SummaryFormatter::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$summaryFormatter = $this->getMockSummaryFormatter();
 
 		return new SpecialNewLexeme(
 			$this->copyrightView,
