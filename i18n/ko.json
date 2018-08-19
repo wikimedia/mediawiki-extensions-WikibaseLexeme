@@ -5,7 +5,8 @@
 			"Ykhwong",
 			"Garam",
 			"Nuevo Paso",
-			"Doyoon1995"
+			"Doyoon1995",
+			"Kwj2772"
 		]
 	},
 	"wikibaselexeme-desc": "어휘소 개체 유형을 처리합니다",
@@ -36,6 +37,7 @@
 	"datatypes-type-wikibase-lexeme": "어휘소",
 	"datatypes-type-wikibase-form": "형태",
 	"datatypes-type-wikibase-sense": "의미",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "어휘소",
 	"wikibaselexeme-add-sense": "의미 추가",
 	"wikibaselexeme-add-form": "형태 추가",
 	"apihelp-wbladdform-summary": "어휘소에 형태 추가",
@@ -80,7 +82,7 @@
 	"wikibaselexeme-diffview-form": "형태",
 	"wikibaselexeme-diffview-representation": "표현",
 	"wikibaselexeme-diffview-grammatical-feature": "문법적 특징",
-	"content-model-wikibase-lexeme": "Wikibase Lexeme",
+	"content-model-wikibase-lexeme": "위키베이스 어휘소",
 	"wikibaselexeme-form-grammatical-features": "문법적 특징",
 	"wikibaselexeme-unknown-language": "알 수 없는 언어",
 	"wikibaselexeme-unknown-category": "알 수 없음",
