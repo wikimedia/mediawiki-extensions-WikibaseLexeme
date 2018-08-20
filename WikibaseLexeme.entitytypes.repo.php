@@ -27,6 +27,7 @@ use Wikibase\Lexeme\Content\LexemeContent;
 use Wikibase\Lexeme\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
+use Wikibase\Lexeme\DataModel\Services\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
 use Wikibase\Lexeme\DataTransfer\BlankSense;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
@@ -56,6 +57,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\EntityReferenceExtractors\EntityReferenceExtractorCollection;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
+use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
@@ -399,11 +401,18 @@ return [
 		'entity-search-callback' => function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
+			$entityLookup = $repo->getEntityLookup();
+			$userLanguage = $repo->getUserLanguage();
+			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
+				$entityLookup,
+				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
+				new MediaWikiLocalizedTextProvider( $userLanguage->getCode() )
+			);
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
-				$repo->getEntityLookup(),
+				$entityLookup,
 				$repo->getEntityIdParser(),
-				new NullLabelDescriptionLookup(),
+				$senseLabelDescriptionLookup,
 				$repo->getEntityTypeToRepositoryMapping()
 			);
 		},
