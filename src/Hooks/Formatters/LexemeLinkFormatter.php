@@ -88,7 +88,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 		return new HtmlArmor( implode(
 			$this->messageLocalizer->msg(
 				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
-			)->text(),
+			)->escaped(),
 			array_map(
 				function ( $lemma, $language ) {
 					return $this->getLemmaHtml( $lemma, $language );

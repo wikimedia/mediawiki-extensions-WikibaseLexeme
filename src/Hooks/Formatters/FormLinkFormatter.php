@@ -68,7 +68,7 @@ class FormLinkFormatter implements EntityLinkFormatter {
 		return new HtmlArmor( implode(
 			$this->messageLocalizer->msg(
 				'wikibaselexeme-formidformatter-separator-multiple-representation'
-			)->text(),
+			)->escaped(),
 			array_map(
 				function ( $representation, $variant ) {
 					return $this->getRepresentationHtml( $representation, $variant );
