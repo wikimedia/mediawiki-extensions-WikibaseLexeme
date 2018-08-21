@@ -72,7 +72,7 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 
 	/**
 	 * @param SenseId $entityId
-	 * @return Term
+	 * @return Term|null
 	 */
 	public function getDescription( EntityId $entityId ) {
 		Assert::parameterType( SenseId::class, $entityId, '$entityId' );
@@ -85,7 +85,10 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 		$sense = $this->entityLookup->getEntity( $entityId );
 		$glosses = $sense->getGlosses()->toTextArray();
 
-		$value = $this->languageFallbackChain->extractPreferredValueOrAny( $glosses );
+		$value = $this->languageFallbackChain->extractPreferredValue( $glosses );
+		if ( $value === null ) {
+			return null;
+		}
 		return new Term( $value['language'], $value['value'] );
 	}
 

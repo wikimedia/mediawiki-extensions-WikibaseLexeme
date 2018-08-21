@@ -103,8 +103,12 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 
 		$description = $labelDescriptionLookup->getDescription( $sense->getId() );
 
-		$this->assertSame( $expectedGloss[0], $description->getLanguageCode() );
-		$this->assertSame( $expectedGloss[1], $description->getText() );
+		if ( $expectedGloss === null ) {
+			$this->assertNull( $description );
+		} else {
+			$this->assertSame( $expectedGloss[0], $description->getLanguageCode() );
+			$this->assertSame( $expectedGloss[1], $description->getText() );
+		}
 	}
 
 	public function provideGlossesAndExpectedGloss() {
@@ -124,7 +128,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 
 		yield 'other language' => [
 			[ $glossPt ],
-			$glossPt,
+			null,
 		];
 	}
 
