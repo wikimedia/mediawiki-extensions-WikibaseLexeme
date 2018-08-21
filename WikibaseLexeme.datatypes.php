@@ -27,6 +27,7 @@ use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdTextFormatter;
 use Wikibase\Lib\EntityIdValueFormatter;
+use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\SnakFormatter;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
@@ -111,14 +112,12 @@ return [
 		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
-			$localizedTextProvider = new MediaWikiLocalizedTextProvider(
-				$wikibaseRepo->getUserLanguage()->getCode()
-			);
+			$languageCode = $wikibaseRepo->getUserLanguage()->getCode();
 
-			$baseFormatter = new SenseIdTextFormatter(
-				$revisionLookup,
-				$localizedTextProvider
-			);
+			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $languageCode );
+
+			$languageFallbackChainFactory = $wikibaseRepo->getLanguageFallbackChainFactory();
+			$fallbackChain = $languageFallbackChainFactory->newFromLanguageCode( $languageCode );
 
 			if (
 				$format === SnakFormatter::FORMAT_HTML ||
@@ -127,13 +126,23 @@ return [
 			) {
 				$titleLookup = $wikibaseRepo->getEntityTitleLookup();
 
-				$baseFormatter = new SenseIdHtmlFormatter(
-					$baseFormatter,
-					$titleLookup
+				return new EntityIdValueFormatter(
+					new SenseIdHtmlFormatter(
+						$titleLookup,
+						$revisionLookup,
+						$localizedTextProvider,
+						$fallbackChain,
+						new LanguageFallbackIndicator( $wikibaseRepo->getLanguageNameLookup() )
+					)
 				);
 			}
 
-			return new EntityIdValueFormatter( $baseFormatter );
+			return new EntityIdValueFormatter(
+					new SenseIdTextFormatter(
+					$revisionLookup,
+					$localizedTextProvider
+				)
+			);
 		},
 		'value-type' => 'wikibase-entityid',
 	],
