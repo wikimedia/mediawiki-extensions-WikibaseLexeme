@@ -20,6 +20,8 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
@@ -161,6 +163,21 @@ return [
 								)
 							),
 							new ItemIdListDeserializer( new ItemIdParser() )
+						)
+					)
+				),
+				new SenseListChangeOpDeserializer(
+					new SenseIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+					new SenseChangeOpDeserializer(
+						$wikibaseRepo->getEntityLookup(),
+						$wikibaseRepo->getEntityIdParser(),
+						new EditSenseChangeOpDeserializer(
+							new GlossesChangeOpDeserializer(
+								new TermDeserializer(),
+								new LexemeTermSerializationValidator(
+									new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+								)
+							)
 						)
 					)
 				)
