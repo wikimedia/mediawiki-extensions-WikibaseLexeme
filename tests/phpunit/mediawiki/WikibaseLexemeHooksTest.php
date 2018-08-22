@@ -6,6 +6,7 @@ use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\WikibaseLexemeHooks;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 
 /**
  * @covers \Wikibase\Lexeme\WikibaseLexemeHooks
@@ -67,6 +68,15 @@ class WikibaseLexemeHooksTest extends TestCase {
 	private function assertSuccessfulHookResult( $result ) {
 		$this->assertNotFalse( $result );
 		$this->assertNotInternalType( 'string', $result );
+	}
+
+	public function testOnWikibaseContentLanguages() {
+		$contentLanguages = [];
+		$lexemeTermLanguages = WikibaseLexemeServices::getTermLanguages();
+
+		WikibaseLexemeHooks::onWikibaseContentLanguages( $contentLanguages );
+
+		$this->assertSame( $lexemeTermLanguages, $contentLanguages['term-lexicographical'] );
 	}
 
 }

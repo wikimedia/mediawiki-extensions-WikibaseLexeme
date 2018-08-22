@@ -66,6 +66,9 @@
 		"WikibaseRepoDataTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseDataTypes"
 		],
+		"WikibaseContentLanguages": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseContentLanguages"
+		],
 		"WikibaseClientEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientEntityTypes"
 		],
