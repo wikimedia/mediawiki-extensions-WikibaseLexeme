@@ -5,10 +5,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -43,6 +45,28 @@ class FormIdTextFormatterTest extends TestCase {
 			->willReturn( null );
 
 		$formatter = new FormIdTextFormatter( $mockLookup, $this->getMockTextProvider() );
+		$result = $formatter->formatEntityId( $formId );
+		$this->assertSame( 'L999-F666', $result );
+	}
+
+	public function testFormatEntityIdReturnsPlainFormIdForRedirectedLexeme() {
+		$formId = new FormId( 'L999-F666' );
+
+		/** @var EntityRevisionLookup|MockObject $mockLookup */
+		$mockLookup = $this->getMock( EntityRevisionLookup::class );
+		$mockLookup->method( 'getEntityRevision' )
+			->with( $this->equalTo( $formId ) )
+			->willThrowException(
+				new UnresolvedEntityRedirectException(
+					$formId,
+					new LexemeId( 'L1000' )
+				)
+			);
+
+		$textProvider = $this->createMock( LocalizedTextProvider::class );
+		$textProvider->expects( $this->never() )->method( 'get' );
+
+		$formatter = new FormIdTextFormatter( $mockLookup, $textProvider );
 		$result = $formatter->formatEntityId( $formId );
 		$this->assertSame( 'L999-F666', $result );
 	}

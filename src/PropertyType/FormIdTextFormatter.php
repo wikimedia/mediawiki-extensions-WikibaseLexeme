@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\PropertyType;
 
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
+use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -41,7 +42,11 @@ class FormIdTextFormatter implements EntityIdFormatter {
 	 * @return string plain text
 	 */
 	public function formatEntityId( EntityId $formId ) {
-		$formRevision = $this->revisionLookup->getEntityRevision( $formId );
+		try {
+			$formRevision = $this->revisionLookup->getEntityRevision( $formId );
+		} catch ( UnresolvedEntityRedirectException $exception ) {
+			return $formId->getSerialization();
+		}
 
 		if ( $formRevision === null ) {
 			return $formId->getSerialization();

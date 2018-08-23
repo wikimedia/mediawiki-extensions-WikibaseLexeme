@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\PropertyType;
 use Html;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
+use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lib\NonExistingEntityIdHtmlFormatter;
@@ -40,14 +41,21 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 	 */
 	private $localizedTextProvider;
 
+	/**
+	 * @var RedirectedLexemeSubEntityIdHtmlFormatter
+	 */
+	private $redirectedLexemeSubEntityIdHtmlFormatter;
+
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
 		EntityTitleLookup $titleLookup,
-		LocalizedTextProvider $localizedTextProvider
+		LocalizedTextProvider $localizedTextProvider,
+		RedirectedLexemeSubEntityIdHtmlFormatter $redirectedLexemeSubEntityIdHtmlFormatter
 	) {
 		$this->revisionLookup = $revisionLookup;
 		$this->titleLookup = $titleLookup;
 		$this->localizedTextProvider = $localizedTextProvider;
+		$this->redirectedLexemeSubEntityIdHtmlFormatter = $redirectedLexemeSubEntityIdHtmlFormatter;
 		$this->nonExistingIdFormatter = new NonExistingEntityIdHtmlFormatter(
 			'wikibaselexeme-deletedentity-'
 		);
@@ -59,8 +67,12 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 	 * @return string Html
 	 */
 	public function formatEntityId( EntityId $formId ) {
-		$formRevision = $this->revisionLookup->getEntityRevision( $formId );
-		$title = $this->titleLookup->getTitleForId( $formId );
+		try {
+			$formRevision = $this->revisionLookup->getEntityRevision( $formId );
+			$title = $this->titleLookup->getTitleForId( $formId );
+		} catch ( UnresolvedEntityRedirectException $exception ) {
+			return $this->redirectedLexemeSubEntityIdHtmlFormatter->formatEntityId( $formId );
+		}
 
 		if ( $formRevision === null || $title === null ) {
 			return $this->nonExistingIdFormatter->formatEntityId( $formId );
