@@ -73,6 +73,7 @@
 	"apihelp-wbleditsenseelements-param-data": "Податоци за прибелешките кодирани во JSON",
 	"apihelp-wbleditsenseelements-param-bot": "Означи го уредувањево како бот. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
 	"apihelp-wbleditsenseelements-example-1": "Уредува смисла со назнаката <samp>$1</samp> за зачувување на прибелешките <samp>$2</samp> на јазиците <samp>$3</samp>.",
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Поимите на лексикографска единица (лемите на лексемата, претстави на образец, или пак прибелешки на смисла).",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Се појави грешка: Не можам да ја отстранам последната лема.",
 	"wikibaselexeme-api-error-parameter-required": "Се бара параметарот „$1“",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Се очекува параметарот „$1“ да биде важечки JSON-објект, а даден е „$2“",

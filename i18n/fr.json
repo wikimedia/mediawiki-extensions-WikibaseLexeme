@@ -78,6 +78,7 @@
 	"apihelp-wbleditsenseelements-param-data": "Données de la glose encodées en JSON",
 	"apihelp-wbleditsenseelements-param-bot": "Marquer cette modification comme faite par robot. Ce marquage d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wbleditsenseelements-example-1": "Modifie le sens avec l’ID <samp>$1</samp> pour qu’il ait les gloses <samp>$2</samp> dans les langues <samp>$3</samp> respectivement.",
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Les termes d’une entité lexicographique (lemmes d’un lexème, représentations d’une forme, ou gloses d’un sens).",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Une erreur s'est produite : Le dernier lemme n’a pas pu être supprimé.",
 	"wikibaselexeme-api-error-parameter-required": "Le paramètre « $1 » est nécessaire",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Le paramètre « $1 » doit être un objet JSON valide, étant donné « $2 »",

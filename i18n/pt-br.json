@@ -74,6 +74,7 @@
 	"apihelp-wbleditsenseelements-param-data": "Dados codificados JSON das glosas",
 	"apihelp-wbleditsenseelements-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wbleditsenseelements-example-1": "Edita o sentido com o identificador <samp>$1</samp> de forma a ter as glosas <samp>$2</samp> nos idiomas <samp>$3</samp>, respetivamente.",
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Os termos de uma entidade lexicográfica (lemas de um lexema, representações de uma forma, ou glosas de um sentido).",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Ocorreu um erro: o último lema não pode ser removido.",
 	"wikibaselexeme-api-error-parameter-required": "O parâmetro \"$1\" é obrigatório",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Era esperado que o parâmetro \"$1\" fosse um objeto JSON válido. Foi fornecido: \"$2\"",
