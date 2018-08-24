@@ -15,7 +15,6 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Enter lexical category, e.g. noun",
 	"wikibaselexeme-newlexeme-language": "Language of Lexeme",
 	"wikibaselexeme-newlexeme-language-placeholder": "Enter language, e.g. English",
-	"wikibaselexeme-language-lexical-category-value": "$1 in $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Statements about $1",
 	"wikibaselexeme-header-forms": "Forms",
 	"wikibaselexeme-enter-form-representation": "Enter new Form representation",
