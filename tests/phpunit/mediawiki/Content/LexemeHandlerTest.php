@@ -232,4 +232,8 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		);
 	}
 
+	public function testSupportsRedirects() {
+		$this->assertTrue( $this->getHandler()->supportsRedirects() );
+	}
+
 }

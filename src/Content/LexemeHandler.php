@@ -133,6 +133,13 @@ class LexemeHandler extends EntityHandler {
 	}
 
 	/**
+	 * @see EntityHandler::supportsRedirects()
+	 */
+	public function supportsRedirects() {
+		return true;
+	}
+
+	/**
 	 * @see EntityHandler::newEntityContent
 	 *
 	 * @param EntityHolder|null $entityHolder
