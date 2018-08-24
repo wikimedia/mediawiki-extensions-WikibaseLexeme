@@ -210,7 +210,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 		$this->assertEquals(
 			new LexemeId( 'L1' ),
-			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1' ) )
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1' ) )
 		);
 	}
 
@@ -219,7 +219,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 		$this->assertEquals(
 			new FormId( 'L1-F2' ),
-			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1', 'L1-F2' ) )
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1', 'L1-F2' ) )
 		);
 	}
 
@@ -228,7 +228,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 		$this->assertEquals(
 			new SenseId( 'L1-S2' ),
-			$handler->getIdForTitle( Title::makeTitle( $lexemeNamespace = 5000, 'L1', 'L1-S2' ) )
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1', 'L1-S2' ) )
 		);
 	}
 
