@@ -45,6 +45,7 @@ use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\View\LexemeMetaTagsCreator;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
@@ -90,6 +91,10 @@ return [
 			);
 
 			return $factory->newLexemeView();
+		},
+		'meta-tags-creator-callback' => function () {
+			$messageLocalizer = RequestContext::getMain();
+			return new LexemeMetaTagsCreator( $messageLocalizer );
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
 		'content-handler-factory-callback' => function () {
