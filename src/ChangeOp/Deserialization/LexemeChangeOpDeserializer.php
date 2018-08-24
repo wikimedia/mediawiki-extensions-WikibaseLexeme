@@ -41,6 +41,11 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 	private $formListChangeOpDeserializer;
 
 	/**
+	 * @var SenseListChangeOpDeserializer
+	 */
+	private $senseListChangeOpDeserializer;
+
+	/**
 	 * @var ValidationContext
 	 */
 	private $validationContext;
@@ -50,13 +55,15 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 		LexicalCategoryChangeOpDeserializer $lexicalCategoryChangeOpDeserializer,
 		LanguageChangeOpDeserializer $languageChangeOpDeserializer,
 		ClaimsChangeOpDeserializer $statementChangeOpDeserializer,
-		FormListChangeOpDeserializer $formListChangeOpDeserializer
+		FormListChangeOpDeserializer $formListChangeOpDeserializer,
+		SenseListChangeOpDeserializer $senseListChangeOpDeserializer
 	) {
 		$this->lemmaChangeOpDeserializer = $lemmaChangeOpDeserializer;
 		$this->lexicalCategoryChangeOpDeserializer = $lexicalCategoryChangeOpDeserializer;
 		$this->languageChangeOpDeserializer = $languageChangeOpDeserializer;
 		$this->statementChangeOpDeserializer = $statementChangeOpDeserializer;
 		$this->formListChangeOpDeserializer = $formListChangeOpDeserializer;
+		$this->senseListChangeOpDeserializer = $senseListChangeOpDeserializer;
 	}
 
 	/**
@@ -97,6 +104,11 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 		if ( array_key_exists( 'forms', $changeRequest ) ) {
 			$this->formListChangeOpDeserializer->setContext( $this->validationContext->at( 'forms' ) );
 			$changeOps->add( $this->formListChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
+		}
+
+		if ( array_key_exists( 'senses', $changeRequest ) ) {
+			$this->senseListChangeOpDeserializer->setContext( $this->validationContext->at( 'senses' ) );
+			$changeOps->add( $this->senseListChangeOpDeserializer->createEntityChangeOp( $changeRequest ) );
 		}
 
 		return $changeOps;
