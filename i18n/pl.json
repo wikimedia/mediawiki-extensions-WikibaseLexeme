@@ -20,7 +20,6 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Wpisz kategorię leksykalną, np. rzeczownik",
 	"wikibaselexeme-newlexeme-language": "Język leksemu",
 	"wikibaselexeme-newlexeme-language-placeholder": "Wprowadź język, np. język angielski",
-	"wikibaselexeme-language-lexical-category-value": "$1 w $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Deklaracje dotyczące $1",
 	"wikibaselexeme-header-forms": "Formy",
 	"wikibaselexeme-enter-form-representation": "Wprowadź nową reprezentację formy",

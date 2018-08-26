@@ -17,7 +17,6 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "語彙範疇を入力。例：名詞",
 	"wikibaselexeme-newlexeme-language": "語彙素の言語",
 	"wikibaselexeme-newlexeme-language-placeholder": "言語を入力。例：日本語",
-	"wikibaselexeme-language-lexical-category-value": "$1 - $2",
 	"wikibaselexeme-statementsection-statements-about-form": "$1の文",
 	"wikibaselexeme-header-forms": "語形",
 	"wikibaselexeme-enter-form-representation": "語形の表現を入力",

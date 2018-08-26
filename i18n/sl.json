@@ -15,7 +15,6 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Vnesi besedno vrsto, na primer samostalnik",
 	"wikibaselexeme-newlexeme-language": "jezik leksema",
 	"wikibaselexeme-newlexeme-language-placeholder": "Vnesi jezik, na primer slovenščina",
-	"wikibaselexeme-language-lexical-category-value": "$1 v $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Izjave o $1",
 	"wikibaselexeme-header-forms": "Oblike",
 	"wikibaselexeme-enter-form-representation": "Vnesi novo obliko prikaza",

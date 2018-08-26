@@ -19,7 +19,6 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "أدخل فئة معجمية، مثل الاسم",
 	"wikibaselexeme-newlexeme-language": "لغة اللكسيم",
 	"wikibaselexeme-newlexeme-language-placeholder": "أدخل اللغة ، على سبيل المثال العربية",
-	"wikibaselexeme-language-lexical-category-value": "$1 في $2",
 	"wikibaselexeme-statementsection-statements-about-form": "بيانات عن $1",
 	"wikibaselexeme-header-forms": "نماذج",
 	"wikibaselexeme-enter-form-representation": "أدخل تمثيل النموذج الجديد",
