@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
+use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -22,7 +23,7 @@ use Wikimedia\Assert\ParameterTypeException;
  */
 class FormRevisionLookupTest extends TestCase {
 
-	use \PHPUnit4And6Compat;
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeId

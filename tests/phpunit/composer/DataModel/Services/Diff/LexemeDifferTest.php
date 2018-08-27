@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
+use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -24,7 +25,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  */
 class LexemeDifferTest extends TestCase {
 
-	use \PHPUnit4And6Compat;
+	use PHPUnit4And6Compat;
 	use ErisTest;
 
 	public function testGivenTwoEmptyLexemes_emptyLexemeDiffIsReturned() {

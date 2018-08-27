@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 use HamcrestPHPUnitIntegration;
 use HtmlArmor;
 use Language;
+use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
@@ -27,7 +28,7 @@ use Wikimedia\Assert\ParameterTypeException;
 class LexemeLinkFormatterTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use \PHPUnit4And6Compat;
+	use PHPUnit4And6Compat;
 
 	const LEMMA_SEPARATOR = '/';
 

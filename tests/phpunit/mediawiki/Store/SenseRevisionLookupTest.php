@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
+use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -21,7 +22,7 @@ use Wikimedia\Assert\ParameterTypeException;
  */
 class SenseRevisionLookupTest extends TestCase {
 
-	use \PHPUnit4And6Compat;
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeId
