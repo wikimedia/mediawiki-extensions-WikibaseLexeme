@@ -160,5 +160,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Error message that is displayed when the Lexeme cannot be saved",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Error message that is displayed when the Lexeme cannot be modified",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Error message that is displayed when the user does not have the permissions to merge the Lexemes",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Error message that is displayed when the lexemes to be merged are identical"
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Error message that is displayed when the lexemes to be merged are identical",
+	"wikibase-entity-summary-wblmergelexemes-from": "Automatic edit summary when merging lexemes. This summary is for the edit made to the lexeme being merged TO.\n\nParameters:\n* $1 - (Unused)\n* $2 - (Unused)\n* $3 - the lexeme id of the lexeme being merged from\n\nNote that some item-specific messages need to be defined with the generic wikibase-entity-summary prefix for use on client wikis.\n{{Related|Wikibase-entity-summary}}",
+	"wikibase-entity-summary-wblmergelexemes-to": "Automatic edit summary when merging lexemes. This summary is for the edit made to the lexeme being merged FROM.\n\nParameters:\n* $1 - (Unused)\n* $2 - (Unused)\n* $3 - the lexeme id of the lexeme being merged to\n\nNote that some item-specific messages need to be defined with the generic wikibase-entity-summary prefix for use on client wikis.\n{{Related|Wikibase-entity-summary}}"
 }

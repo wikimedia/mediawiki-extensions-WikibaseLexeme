@@ -152,5 +152,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Failed to save Lexeme.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Failed to merge Lexemes, please resolve any conflicts first.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permission denied.",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Cannot merge a Lexeme with itself."
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Cannot merge a Lexeme with itself.",
+	"wikibase-entity-summary-wblmergelexemes-from": "Merged lexeme from $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Merged lexeme into $3"
 }
