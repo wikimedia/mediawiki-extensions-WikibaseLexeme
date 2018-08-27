@@ -13,4 +13,8 @@ class LexemeLoadingException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-cannot-load' );
 	}
 
+	public function getApiErrorCode() {
+		return 'cant-load-entity-content';
+	}
+
 }

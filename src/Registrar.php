@@ -47,6 +47,10 @@ class Registrar {
 				'factory' => 'Wikibase\Lexeme\Api\RemoveSense::newFromGlobalState',
 			];
 		}
+		$wgAPIModules['wblmergelexemes'] = [
+			'class' => 'Wikibase\Lexeme\Api\MergeLexemes',
+			'factory' => 'Wikibase\Lexeme\Api\MergeLexemes::newFromGlobalState',
+		];
 
 		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
 		$wgSpecialPages['MergeLexemes']

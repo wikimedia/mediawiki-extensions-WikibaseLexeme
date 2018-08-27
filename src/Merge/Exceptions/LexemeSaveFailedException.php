@@ -13,4 +13,8 @@ class LexemeSaveFailedException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-failed-modify' );
 	}
 
+	public function getApiErrorCode() {
+		return 'failed-save';
+	}
+
 }
