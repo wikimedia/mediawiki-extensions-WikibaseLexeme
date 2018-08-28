@@ -16,10 +16,11 @@ module.exports = ( function ( wb, vv ) {
 		 * @inheritdoc
 		 */
 		_init: function () {
-			var entity = this.$input.data( 'entityselector' ).selectedEntity();
+			var entity = this.$input.data( 'entityselector' );
 			PARENT.prototype._initEntityExpert.call( this );
 
 			if ( entity ) {
+				entity = entity.selectedEntity();
 				this.$input.val( entity.id );
 			}
 		}
