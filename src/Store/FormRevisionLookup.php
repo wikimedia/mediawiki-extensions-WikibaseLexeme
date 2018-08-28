@@ -7,9 +7,11 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataTransfer\NullFormId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
 use Wikimedia\Assert\Assert;
@@ -78,14 +80,22 @@ class FormRevisionLookup implements EntityRevisionLookup {
 	 * @param string $mode
 	 *
 	 * @throws UnexpectedValueException
-	 * @return int|false
+	 * @return LatestRevisionIdResult|int|false
 	 */
 	public function getLatestRevisionId( EntityId $formId, $mode = self::LATEST_FROM_REPLICA ) {
 		Assert::parameterType( FormId::class, $formId, '$formId' );
 
 		$lexemeId = $formId->getLexemeId();
-		$revisionId = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
+		$revisionId = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
+		if (
+			class_exists( LatestRevisionIdResult::class )
+			&& is_object( $revisionId )
+			&& $revisionId instanceof LatestRevisionIdResult ) {
+			return $this->handleNewResult( $formId, $mode, $revisionId, $lexemeId );
+		}
+
+		//TODO Remove everything below once patch in Wikibase is merged
 		if ( $revisionId === false ) {
 			return false;
 		}
@@ -101,6 +111,43 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		}
 
 		return $revisionId;
+	}
+
+	/**
+	 * @param FormId $formId
+	 * @param string $mode
+	 * @param LatestRevisionIdResult $revisionIdResult
+	 * @param LexemeId $lexemeId
+	 * @return LatestRevisionIdResult
+	 */
+	private function handleNewResult(
+		FormId $formId,
+		$mode,
+		LatestRevisionIdResult $revisionIdResult,
+		LexemeId $lexemeId
+	) {
+		$returnNonexistentEntityResult = function () {
+			return LatestRevisionIdResult::nonexistentEntity();
+		};
+
+		return $revisionIdResult->onRedirect( $returnNonexistentEntityResult )
+			->onNonexistentEntity( $returnNonexistentEntityResult )
+			->onConcreteRevision(
+				function ( $revisionId ) use ( $lexemeId, $mode, $formId ) {
+					$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
+					/** @var Lexeme $lexeme */
+					$lexeme = $revision->getEntity();
+
+					try {
+						$lexeme->getForm( $formId );
+					} catch ( OutOfRangeException $ex ) {
+						return LatestRevisionIdResult::nonexistentEntity();
+					}
+
+					return LatestRevisionIdResult::concreteRevision( $revisionId );
+				}
+			)
+			->map();
 	}
 
 }

@@ -5,11 +5,13 @@ namespace Wikibase\Lexeme\Store;
 use OutOfRangeException;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataTransfer\NullSenseId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
 use Wikimedia\Assert\Assert;
@@ -76,7 +78,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 	 * @param string $mode
 	 *
 	 * @throws UnexpectedValueException
-	 * @return int|false
+	 * @return LatestRevisionIdResult|int|false
 	 */
 	public function getLatestRevisionId( EntityId $senseId, $mode = self::LATEST_FROM_REPLICA ) {
 		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
@@ -84,6 +86,15 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 		$lexemeId = $senseId->getLexemeId();
 		$revisionId = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
+		if (
+			class_exists( LatestRevisionIdResult::class )
+			&& is_object( $revisionId )
+			&& $revisionId instanceof LatestRevisionIdResult
+		) {
+			return $this->handleNewResult( $senseId, $mode, $revisionId, $lexemeId );
+		}
+
+		//TODO Remove everything below once patch in Wikibase is merged
 		if ( $revisionId === false ) {
 			return false;
 		}
@@ -99,6 +110,44 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 		}
 
 		return $revisionId;
+	}
+
+	/**
+	 * @param SenseId $senseId
+	 * @param string $mode
+	 * @param LatestRevisionIdResult $revisionIdResult
+	 * @param LexemeId $lexemeId
+	 * @return LatestRevisionIdResult
+	 * @throws \Exception
+	 */
+	private function handleNewResult(
+		SenseId $senseId,
+		$mode,
+		LatestRevisionIdResult $revisionIdResult,
+		LexemeId $lexemeId
+	) {
+		$returnNonexistentEntityResult = function () {
+			return LatestRevisionIdResult::nonexistentEntity();
+		};
+
+		return $revisionIdResult->onRedirect( $returnNonexistentEntityResult )
+			->onNonexistentEntity( $returnNonexistentEntityResult )
+			->onConcreteRevision(
+				function ( $revisionId ) use ( $lexemeId, $mode, $senseId ) {
+					$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
+					/** @var Lexeme $lexeme */
+					$lexeme = $revision->getEntity();
+
+					try {
+						$lexeme->getSense( $senseId );
+					} catch ( OutOfRangeException $ex ) {
+						return LatestRevisionIdResult::nonexistentEntity();
+					}
+
+					return LatestRevisionIdResult::concreteRevision( $revisionId );
+				}
+			)
+			->map();
 	}
 
 }

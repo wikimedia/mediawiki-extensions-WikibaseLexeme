@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
@@ -122,6 +123,77 @@ class FormRevisionLookupTest extends TestCase {
 					->andRepresentation( 'en', 'representation' )
 			)
 			->build();
+	}
+
+	public function testGivenFormId_getLatestRevisionIdCallsToParentServiceWithLexemeId_NEW() {
+		if ( !class_exists( LatestRevisionIdResult::class ) ) {
+			$this->markTestSkipped( 'LatestRevisionIdResult class doesn\'t exist' );
+		}
+
+		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
+
+		/** @var EntityRevisionLookup $parentService */
+		$parentService = $this->prophesize( EntityRevisionLookup::class );
+		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
+			->willReturn( LatestRevisionIdResult::concreteRevision( 123 ) );
+		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )->willReturn(
+			new EntityRevision( $this->newLexeme(), 123 )
+		);
+
+		$instance = new FormRevisionLookup( $parentService->reveal() );
+
+		$result = $this->extractConcreteRevision(
+			$instance->getLatestRevisionId( $this->formId, $defaultMode )
+		);
+		$this->assertSame( 123, $result );
+	}
+
+	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsNonexistentRevision_NEW() {
+		if ( !class_exists( LatestRevisionIdResult::class ) ) {
+			$this->markTestSkipped( 'LatestRevisionIdResult class doesn\'t exist' );
+		}
+
+		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
+
+		/** @var EntityRevisionLookup $parentService */
+		$parentService = $this->prophesize( EntityRevisionLookup::class );
+		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
+			->willReturn( LatestRevisionIdResult::concreteRevision( 123 ) );
+
+		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )
+			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
+
+		$instance = new FormRevisionLookup( $parentService->reveal() );
+
+		$this->assertNonexistentRevision(
+			$instance->getLatestRevisionId( new FormId( 'L1-F200' ) )
+		);
+	}
+
+	private function extractConcreteRevision( LatestRevisionIdResult $result ) {
+		$shouldNotBeCalled = function () {
+			$this->fail( 'Not a concrete revision given' );
+		};
+
+		return $result->onNonexistentEntity( $shouldNotBeCalled )
+			->onRedirect( $shouldNotBeCalled )
+			->onConcreteRevision( 'intval' )
+			->map();
+	}
+
+	private function assertNonexistentRevision( LatestRevisionIdResult $result ) {
+		$shouldNotBeCalled = function () {
+			$this->fail( 'Not a nonexistent revision given' );
+		};
+
+		return $result->onRedirect( $shouldNotBeCalled )
+			->onConcreteRevision( $shouldNotBeCalled )
+			->onNonexistentEntity(
+				function () {
+					$this->assertTrue( true );
+				}
+			)
+			->map();
 	}
 
 }
