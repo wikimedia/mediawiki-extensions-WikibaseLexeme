@@ -13,9 +13,7 @@ use Wikibase\WikibaseSettings;
 class Registrar {
 
 	public static function registerExtension() {
-		global $wgLexemeEnableRepo, $wgLexemeEnableSenses, $wgServiceWiringFiles;
-
-		$wgServiceWiringFiles[] = __DIR__ . '/../WikibaseLexeme.mediawiki-services.php';
+		global $wgLexemeEnableRepo, $wgLexemeEnableSenses;
 
 		if ( !WikibaseSettings::isRepoEnabled() || !$wgLexemeEnableRepo ) {
 			return;

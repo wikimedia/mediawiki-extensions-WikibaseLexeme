@@ -90,5 +90,8 @@
 			"i18n"
 		]
 	},
+	"ServiceWiringFiles": [
+		"WikibaseLexeme.mediawiki-services.php"
+	],
 	"manifest_version": 2
 }
