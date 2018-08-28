@@ -13,13 +13,15 @@ use Wikibase\WikibaseSettings;
 class Registrar {
 
 	public static function registerExtension() {
-		global $wgLexemeEnableRepo, $wgLexemeEnableSenses;
+		global $wgLexemeEnableRepo, $wgLexemeEnableSenses, $wgServiceWiringFiles;
+
+		$wgServiceWiringFiles[] = __DIR__ . '/../WikibaseLexeme.mediawiki-services.php';
 
 		if ( !WikibaseSettings::isRepoEnabled() || !$wgLexemeEnableRepo ) {
 			return;
 		}
 
-		global $wgAPIModules, $wgSpecialPages, $wgServiceWiringFiles, $wgResourceModules;
+		global $wgAPIModules, $wgSpecialPages, $wgResourceModules;
 
 		$wgAPIModules['wbladdform'] = [
 			'class' => 'Wikibase\Lexeme\Api\AddForm',
@@ -51,8 +53,6 @@ class Registrar {
 		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
 		$wgSpecialPages['MergeLexemes']
 			= 'Wikibase\Lexeme\Specials\SpecialMergeLexemes::newFromGlobalState';
-
-		$wgServiceWiringFiles[] = __DIR__ . '/../WikibaseLexeme.mediawiki-services.php';
 
 		$wgResourceModules = array_merge(
 			$wgResourceModules,
