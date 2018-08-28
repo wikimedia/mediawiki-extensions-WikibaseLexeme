@@ -76,35 +76,6 @@ class FormRevisionLookupTest extends TestCase {
 		$instance->getLatestRevisionId( $this->lexemeId );
 	}
 
-	public function testGivenFormId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
-		$parentService->expects( $this->once() )
-			->method( 'getLatestRevisionId' )
-			->with( $this->lexemeId )
-			->willReturn( 'fromParentService' );
-		$parentService->method( 'getEntityRevision' )
-			->with( $this->lexemeId )
-			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
-		$instance = new FormRevisionLookup( $parentService );
-
-		$result = $instance->getLatestRevisionId( $this->formId );
-		$this->assertSame( 'fromParentService', $result );
-	}
-
-	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsFalse() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
-		$parentService->expects( $this->once() )
-			->method( 'getLatestRevisionId' )
-			->with( $this->lexemeId )
-			->willReturn( 'fromParentService' );
-		$parentService->method( 'getEntityRevision' )
-			->with( $this->lexemeId )
-			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
-		$instance = new FormRevisionLookup( $parentService );
-
-		$this->assertFalse( $instance->getLatestRevisionId( new FormId( 'L1-F200' ) ) );
-	}
-
 	public function testGivenNullFormId_lookupIsNotPerformedAndNullReturned() {
 		$parentService = $this->getMock( EntityRevisionLookup::class );
 		$parentService
@@ -125,11 +96,7 @@ class FormRevisionLookupTest extends TestCase {
 			->build();
 	}
 
-	public function testGivenFormId_getLatestRevisionIdCallsToParentServiceWithLexemeId_NEW() {
-		if ( !class_exists( LatestRevisionIdResult::class ) ) {
-			$this->markTestSkipped( 'LatestRevisionIdResult class doesn\'t exist' );
-		}
-
+	public function testGivenFormId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
 		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
 
 		/** @var EntityRevisionLookup $parentService */
@@ -148,11 +115,7 @@ class FormRevisionLookupTest extends TestCase {
 		$this->assertSame( 123, $result );
 	}
 
-	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsNonexistentRevision_NEW() {
-		if ( !class_exists( LatestRevisionIdResult::class ) ) {
-			$this->markTestSkipped( 'LatestRevisionIdResult class doesn\'t exist' );
-		}
-
+	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsNonexistentRevision() {
 		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
 
 		/** @var EntityRevisionLookup $parentService */

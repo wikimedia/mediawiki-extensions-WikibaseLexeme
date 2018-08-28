@@ -75,35 +75,6 @@ class SenseRevisionLookupTest extends TestCase {
 		$instance->getLatestRevisionId( $this->lexemeId );
 	}
 
-	public function testGivenSenseId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
-		$parentService->expects( $this->once() )
-			->method( 'getLatestRevisionId' )
-			->with( $this->lexemeId )
-			->willReturn( 'fromParentService' );
-		$parentService->method( 'getEntityRevision' )
-			->with( $this->lexemeId )
-			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
-		$instance = new SenseRevisionLookup( $parentService );
-
-		$result = $instance->getLatestRevisionId( $this->senseId );
-		$this->assertSame( 'fromParentService', $result );
-	}
-
-	public function testGivenNotExistingSenseId_getLatestRevisionIdReturnsFalse() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
-		$parentService->expects( $this->once() )
-			->method( 'getLatestRevisionId' )
-			->with( $this->lexemeId )
-			->willReturn( 'fromParentService' );
-		$parentService->method( 'getEntityRevision' )
-			->with( $this->lexemeId )
-			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
-		$instance = new SenseRevisionLookup( $parentService );
-
-		$this->assertFalse( $instance->getLatestRevisionId( new SenseId( 'L1-S200' ) ) );
-	}
-
 	public function testGivenNullSenseId_lookupIsNotPerformedAndNullReturned() {
 		$parentService = $this->getMock( EntityRevisionLookup::class );
 		$parentService
@@ -124,11 +95,7 @@ class SenseRevisionLookupTest extends TestCase {
 			->build();
 	}
 
-	public function testGivenSenseId_getLatestRevisionIdCallsToParentServiceWithLexemeId_NEW() {
-		if ( !class_exists( LatestRevisionIdResult::class ) ) {
-			$this->markTestSkipped( 'LatestRevisionIdResult class doesn\'t exist' );
-		}
-
+	public function testGivenSenseId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
 		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
 		/** @var EntityRevisionLookup $parentService */
 		$parentService = $this->prophesize( EntityRevisionLookup::class );
@@ -146,12 +113,8 @@ class SenseRevisionLookupTest extends TestCase {
 		$this->assertSame( 123, $result );
 	}
 
-	public function testLexemeDoesNotContainTheSense_getLatestRevisionIdReturnsNonexistentEntity_NEW(
+	public function testLexemeDoesNotContainTheSense_getLatestRevisionIdReturnsNonexistentEntity(
 	) {
-		if ( !class_exists( LatestRevisionIdResult::class ) ) {
-			$this->markTestSkipped( 'LatestRevisionIdResult class doesn\'t exist' );
-		}
-
 		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
 
 		$parentService = $this->prophesize( EntityRevisionLookup::class );

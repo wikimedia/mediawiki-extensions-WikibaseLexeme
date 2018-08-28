@@ -7,7 +7,6 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataTransfer\NullFormId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -87,45 +86,8 @@ class FormRevisionLookup implements EntityRevisionLookup {
 
 		$lexemeId = $formId->getLexemeId();
 
-		$revisionId = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
-		if (
-			class_exists( LatestRevisionIdResult::class )
-			&& is_object( $revisionId )
-			&& $revisionId instanceof LatestRevisionIdResult ) {
-			return $this->handleNewResult( $formId, $mode, $revisionId, $lexemeId );
-		}
+		$revisionIdResult = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
-		//TODO Remove everything below once patch in Wikibase is merged
-		if ( $revisionId === false ) {
-			return false;
-		}
-
-		$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
-		/** @var Lexeme $lexeme */
-		$lexeme = $revision->getEntity();
-
-		try {
-			$lexeme->getForm( $formId );
-		} catch ( OutOfRangeException $ex ) {
-			return false;
-		}
-
-		return $revisionId;
-	}
-
-	/**
-	 * @param FormId $formId
-	 * @param string $mode
-	 * @param LatestRevisionIdResult $revisionIdResult
-	 * @param LexemeId $lexemeId
-	 * @return LatestRevisionIdResult
-	 */
-	private function handleNewResult(
-		FormId $formId,
-		$mode,
-		LatestRevisionIdResult $revisionIdResult,
-		LexemeId $lexemeId
-	) {
 		$returnNonexistentEntityResult = function () {
 			return LatestRevisionIdResult::nonexistentEntity();
 		};

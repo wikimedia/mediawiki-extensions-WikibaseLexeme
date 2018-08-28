@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Store;
 use OutOfRangeException;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataTransfer\NullSenseId;
@@ -84,48 +83,8 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 
 		$lexemeId = $senseId->getLexemeId();
-		$revisionId = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
+		$revisionIdResult = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
-		if (
-			class_exists( LatestRevisionIdResult::class )
-			&& is_object( $revisionId )
-			&& $revisionId instanceof LatestRevisionIdResult
-		) {
-			return $this->handleNewResult( $senseId, $mode, $revisionId, $lexemeId );
-		}
-
-		//TODO Remove everything below once patch in Wikibase is merged
-		if ( $revisionId === false ) {
-			return false;
-		}
-
-		$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
-		/** @var Lexeme $lexeme */
-		$lexeme = $revision->getEntity();
-
-		try {
-			$lexeme->getSense( $senseId );
-		} catch ( OutOfRangeException $ex ) {
-			return false;
-		}
-
-		return $revisionId;
-	}
-
-	/**
-	 * @param SenseId $senseId
-	 * @param string $mode
-	 * @param LatestRevisionIdResult $revisionIdResult
-	 * @param LexemeId $lexemeId
-	 * @return LatestRevisionIdResult
-	 * @throws \Exception
-	 */
-	private function handleNewResult(
-		SenseId $senseId,
-		$mode,
-		LatestRevisionIdResult $revisionIdResult,
-		LexemeId $lexemeId
-	) {
 		$returnNonexistentEntityResult = function () {
 			return LatestRevisionIdResult::nonexistentEntity();
 		};
