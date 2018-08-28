@@ -2,11 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Obsuser",
-			"Милан Јелисавчић"
+			"Милан Јелисавчић",
+			"Zoranzoki21"
 		]
 	},
 	"special-newlexeme": "Нова лексема",
 	"wikibaselexeme-deletedentity-form": "Обрисана форма",
+	"wikibaselexeme-deletedentity-sense": "Избрисан смисао",
 	"wikibaselexeme-newlexeme-fieldset": "Нова лексема",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
 	"wikibaselexeme-newlexeme-lemma-language": "Језик леме",

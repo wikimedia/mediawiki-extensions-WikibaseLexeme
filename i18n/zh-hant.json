@@ -74,6 +74,7 @@
 	"apihelp-wbleditsenseelements-param-data": "JSON 編碼的註解資料",
 	"apihelp-wbleditsenseelements-param-bot": "標註此為機器人編輯。該 URL 標記僅會在使用者隸屬「{{int:group-bot}}」群組時採用。",
 	"apihelp-wbleditsenseelements-example-1": "編輯 ID 為 <samp>$1</samp> 的含意，以在語言 <samp>$3</samp> 中各別含有註釋 <samp>$2</samp>。",
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "字典項目詞彙（詞位主題、詞性表述、或是含義註解）。",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "發生錯誤：最後一筆主題無法移除。",
 	"wikibaselexeme-api-error-parameter-required": "需要參數「$1」",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "參數「$1」應為有效的 JSON 物件，所提供的內容為「$2」",
