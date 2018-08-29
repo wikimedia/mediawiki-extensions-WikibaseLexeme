@@ -24,6 +24,7 @@ use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\PropertyType\FormIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
 use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
+use Wikibase\Lexeme\PropertyType\RedirectedLexemeSubEntityIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\PropertyType\SenseIdTextFormatter;
 use Wikibase\Lib\EntityIdValueFormatter;
@@ -86,10 +87,12 @@ return [
 				$format === SnakFormatter::FORMAT_HTML_VERBOSE ||
 				$format === SnakFormatter::FORMAT_HTML_DIFF
 			) {
+				$titleLookup = $wikibaseRepo->getEntityTitleLookup();
 				$baseFormatter = new FormIdHtmlFormatter(
 					$revisionLookup,
-					$wikibaseRepo->getEntityTitleLookup(),
-					$textProvider
+					$titleLookup,
+					$textProvider,
+					new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
 				);
 			} else {
 				$baseFormatter = new FormIdTextFormatter(
