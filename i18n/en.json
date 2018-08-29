@@ -142,5 +142,17 @@
 	"wikibase-lexeme-mergelexemes-intro": "If you merge two Lexemes, all Lemmas, Statements, Forms and Senses will be moved from one Lexeme to the other.",
 	"wikibase-lexeme-mergelexemes-from-id": "The ID to merge from",
 	"wikibase-lexeme-mergelexemes-to-id": "The ID to merge to",
-	"wikibase-lexeme-mergelexemes-submit": "Merge Lexemes"
+	"wikibase-lexeme-mergelexemes-submit": "Merge Lexemes",
+	"wikibase-lexeme-mergelexemes-success": "$1 was merged into $2 and redirected.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' is not a valid Lexeme id",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' not found",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes have different Lemmas for the same spelling variant.",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes link to each other in a statement.",
+	"wikibase-lexeme-mergelexemes-error-same-language": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes have different languages.",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes have different lexical categories.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Failed to load Lexeme.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Failed to save Lexeme.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Failed to merge Lexemes, please resolve any conflicts first.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permission denied.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Cannot merge a Lexeme with itself."
 }

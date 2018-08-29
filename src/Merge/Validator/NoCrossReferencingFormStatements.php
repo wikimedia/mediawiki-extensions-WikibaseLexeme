@@ -28,7 +28,6 @@ class NoCrossReferencingFormStatements {
 		$targetForms = $target->getForms()->toArray();
 
 		foreach ( $sourceForms as $sourceForm ) {
-
 			foreach ( $targetForms as $targetForm ) {
 				$verdicts[] = $this->upstreamValidator->validate( $sourceForm, $targetForm );
 			}
