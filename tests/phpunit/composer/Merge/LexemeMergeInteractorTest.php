@@ -38,47 +38,47 @@ class LexemeMergeInteractorTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	/**
-	 * @var LexemeMerger
+	 * @var LexemeMerger|MockObject
 	 */
 	private $lexemeMerger;
 
 	/**
-	 * @var EntityRevisionLookup
+	 * @var EntityRevisionLookup|MockObject
 	 */
 	private $entityRevisionLookup;
 
 	/**
-	 * @var EntityStore
+	 * @var EntityStore|MockObject
 	 */
 	private $entityStore;
 
 	/**
-	 * @var EntityPermissionChecker
+	 * @var EntityPermissionChecker|MockObject
 	 */
 	private $permissionChecker;
 
 	/**
-	 * @var SummaryFormatter
+	 * @var SummaryFormatter|MockObject
 	 */
 	private $summaryFormatter;
 
 	/**
-	 * @var User
+	 * @var User|MockObject
 	 */
 	private $user;
 
 	/**
-	 * @var LexemeRedirectCreationInteractor
+	 * @var LexemeRedirectCreationInteractor|MockObject
 	 */
 	private $redirectInteractor;
 
 	/**
-	 * @var EntityTitleLookup
+	 * @var EntityTitleLookup|MockObject
 	 */
 	private $entityTitleLookup;
 
 	/**
-	 * @var WatchedItemStoreInterface
+	 * @var WatchedItemStoreInterface|MockObject
 	 */
 	private $watchedItemStore;
 
@@ -98,7 +98,7 @@ class LexemeMergeInteractorTest extends TestCase {
 		$this->lexemeMerger = $this->newMockLexemeMerger();
 		$this->entityRevisionLookup = $this->newMockEntityRevisionLookup();
 		$this->entityStore = $this->newMockEntityStore();
-		$this->permissionChecker = $this->newMockEntityPermissionChecker();
+		$this->permissionChecker = $this->newAllowingMockEntityPermissionChecker();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
 		$this->user = $this->newMockUser();
 		$this->redirectInteractor = $this->newMockRedirectCreationInteractor();
@@ -120,7 +120,6 @@ class LexemeMergeInteractorTest extends TestCase {
 			->withLemma( 'en-gb', 'sand box' )
 			->build();
 
-		$this->redirectInteractor = $this->newMockRedirectCreationInteractor();
 		$this->redirectInteractor->expects( $this->once() )
 			->method( 'createRedirect' )
 			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), false );
@@ -137,7 +136,6 @@ class LexemeMergeInteractorTest extends TestCase {
 	}
 
 	public function testGivenSuccessfulMerge_watchlistIsUpdated() {
-		$this->watchedItemStore = $this->newMockWatchedItemStore();
 		$this->watchedItemStore->expects( $this->once() )
 			->method( 'duplicateAllAssociatedEntries' )
 			->with(
@@ -163,10 +161,9 @@ class LexemeMergeInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\MergingException
 	 */
 	public function testGivenLexemeMergerThrowsException_exceptionBubblesUp() {
-		$this->lexemeMerger = $this->newMockLexemeMerger();
 		$this->lexemeMerger->expects( $this->once() )
 			->method( 'merge' )
-			->willThrowException( $this->createMock( MergingException::class ) );
+			->willThrowException( $this->getMockForAbstractClass( MergingException::class ) );
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
@@ -176,9 +173,7 @@ class LexemeMergeInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\PermissionDeniedException
 	 */
 	public function testGivenUserDoesNotHavePermission_throwsException() {
-		$this->permissionChecker = $this->createMock( EntityPermissionChecker::class );
-		$this->permissionChecker->method( 'getPermissionStatusForEntityId' )
-			->willReturn( Status::newFatal( 'permission denied :(' ) );
+		$this->permissionChecker = $this->newForbiddingMockEntityPermissionChecker();
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
@@ -188,7 +183,6 @@ class LexemeMergeInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeNotFoundException
 	 */
 	public function testGivenSourceNotFound_throwsException() {
-		$this->entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
 		$this->entityRevisionLookup->method( 'getEntityRevision' )
 			->withConsecutive( $this->sourceLexeme->getId(), $this->targetLexeme->getId() )
 			->willReturnOnConsecutiveCalls( null, new EntityRevision( $this->targetLexeme ) );
@@ -201,7 +195,6 @@ class LexemeMergeInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeNotFoundException
 	 */
 	public function testGivenTargetNotFound_throwsException() {
-		$this->entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
 		$this->entityRevisionLookup->method( 'getEntityRevision' )
 			->withConsecutive( $this->sourceLexeme, $this->targetLexeme )
 			->willReturnOnConsecutiveCalls( new EntityRevision( $this->sourceLexeme ), null );
@@ -216,7 +209,6 @@ class LexemeMergeInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeLoadingException
 	 */
 	public function testGivenExceptionInLoadEntity_throwsAppropriateException( $exception ) {
-		$this->entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
 		$this->entityRevisionLookup->method( 'getEntityRevision' )
 			->willThrowException( $exception );
 
@@ -224,11 +216,20 @@ class LexemeMergeInteractorTest extends TestCase {
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
+	public function loadEntityExceptionProvider() {
+		return [
+			[ new StorageException() ],
+			[ new RevisionedUnresolvedRedirectException(
+				new LexemeId( 'L123' ),
+				new LexemeId( 'L321' )
+			) ]
+		];
+	}
+
 	/**
 	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeSaveFailedException
 	 */
 	public function testGivenEntitySaveFails_throwsException() {
-		$this->entityStore = $this->newMockEntityStore();
 		$this->entityStore->method( 'saveEntity' )
 			->willThrowException( new StorageException() );
 
@@ -256,23 +257,14 @@ class LexemeMergeInteractorTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @return LexemeMerger|MockObject
-	 */
 	private function newMockLexemeMerger() {
 		return $this->createMock( LexemeMerger::class );
 	}
 
-	/**
-	 * @return EntityRevisionLookup|MockObject
-	 */
 	private function newMockEntityRevisionLookup() {
 		return $this->createMock( EntityRevisionLookup::class );
 	}
 
-	/**
-	 * @return EntityStore|MockObject
-	 */
 	private function newMockEntityStore() {
 		$store = $this->createMock( EntityStore::class );
 		$store->method( 'saveEntity' )
@@ -281,11 +273,12 @@ class LexemeMergeInteractorTest extends TestCase {
 		return $store;
 	}
 
-	/**
-	 * @return EntityPermissionChecker|MockObject
-	 */
 	private function newMockEntityPermissionChecker() {
-		$permissionChecker = $this->createMock( EntityPermissionChecker::class );
+		return $this->createMock( EntityPermissionChecker::class );
+	}
+
+	private function newAllowingMockEntityPermissionChecker() {
+		$permissionChecker = $this->newMockEntityPermissionChecker();
 
 		$permissionChecker->method( 'getPermissionStatusForEntityId' )
 			->willReturn( new \Status() );
@@ -293,30 +286,27 @@ class LexemeMergeInteractorTest extends TestCase {
 		return $permissionChecker;
 	}
 
-	/**
-	 * @return SummaryFormatter|MockObject
-	 */
+	private function newForbiddingMockEntityPermissionChecker() {
+		$permissionChecker = $this->newMockEntityPermissionChecker();
+
+		$permissionChecker->method( 'getPermissionStatusForEntityId' )
+			->willReturn( Status::newFatal( 'permission denied :(' ) );
+
+		return $permissionChecker;
+	}
+
 	private function newMockSummaryFormatter() {
 		return $this->createMock( SummaryFormatter::class );
 	}
 
-	/**
-	 * @return User|MockObject
-	 */
 	private function newMockUser() {
 		return $this->createMock( \User::class );
 	}
 
-	/**
-	 * @return LexemeRedirectCreationInteractor|MockObject
-	 */
 	private function newMockRedirectCreationInteractor() {
 		return $this->createMock( LexemeRedirectCreationInteractor::class );
 	}
 
-	/**
-	 * @return EntityTitleStoreLookup|MockObject
-	 */
 	private function newMockTitleLookup() {
 		$lookup = $this->createMock( EntityTitleStoreLookup::class );
 
@@ -328,19 +318,6 @@ class LexemeMergeInteractorTest extends TestCase {
 		return $lookup;
 	}
 
-	public function loadEntityExceptionProvider() {
-		return [
-			[ new StorageException() ],
-			[ new RevisionedUnresolvedRedirectException(
-				new LexemeId( 'L123' ),
-				new LexemeId( 'L321' )
-			) ]
-		];
-	}
-
-	/**
-	 * @return WatchedItemStoreInterface|MockObject
-	 */
 	private function newMockWatchedItemStore() {
 		return $this->createMock( WatchedItemStoreInterface::class );
 	}
