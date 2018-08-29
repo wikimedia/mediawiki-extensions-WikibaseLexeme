@@ -45,5 +45,8 @@
 	"wikibaselexeme-form-description": "$1 για: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Άγνωστη γλώσσα",
 	"wikibaselexeme-unknown-category": "Άγνωστο",
-	"wikibaselexeme-no-features": "χωρίς χαρακτηριστικά"
+	"wikibaselexeme-no-features": "χωρίς χαρακτηριστικά",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' δεν βρέθηκε",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Αποτυχία φόρτωσης του Lexeme.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Αποτυχία αποθήκευσης του Lexeme."
 }

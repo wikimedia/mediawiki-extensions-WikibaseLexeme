@@ -3,7 +3,8 @@
 		"authors": [
 			"Obsuser",
 			"Милан Јелисавчић",
-			"Zoranzoki21"
+			"Zoranzoki21",
+			"BadDog"
 		]
 	},
 	"special-newlexeme": "Нова лексема",
@@ -28,6 +29,9 @@
 	"datatypes-type-wikibase-sense": "Смисао",
 	"wikibaselexeme-add-sense": "додај смисао",
 	"wikibaselexeme-add-form": "додај облик",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Направљена нова лексема",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Додат нови образац",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "Додат нови смисао",
 	"wikibaselexeme-field-language-label": "Језик",
 	"wikibaselexeme-field-lexical-category-label": "Лексичка категорија",
 	"wikibaselexeme-diffview-lexical-category": "лексичка категорија",
