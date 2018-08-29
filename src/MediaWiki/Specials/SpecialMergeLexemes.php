@@ -46,11 +46,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		EntityTitleLookup $titleLookup,
 		ExceptionLocalizer $exceptionLocalizer
 	) {
-		parent::__construct(
-			'MergeLexemes',
-			'item-merge',
-			false // TODO: flip/remove this once the special page does what it should
-		);
+		parent::__construct( 'MergeLexemes', 'item-merge' );
 		$this->mergeInteractor = $mergeInteractor;
 		$this->titleLookup = $titleLookup;
 		$this->exceptionLocalizer = $exceptionLocalizer;
