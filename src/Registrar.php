@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme;
 
+use Wikibase\Lexeme\Specials\SpecialNewLexeme;
 use Wikibase\WikibaseSettings;
 
 /**
@@ -48,7 +49,8 @@ class Registrar {
 			];
 		}
 
-		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
+		$wgSpecialPages[SpecialNewLexeme::PAGE_NAME]
+			= 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
 		$wgSpecialPages['MergeLexemes']
 			= 'Wikibase\Lexeme\Specials\SpecialMergeLexemes::newFromGlobalState';
 
