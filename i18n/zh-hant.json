@@ -111,6 +111,9 @@
 	"wikibase-lexeme-summary-set-sense-glosses": "已更改含意 $3 裡的{{PLURAL:$1|[$2]註解|註解}}",
 	"wikibase-lexeme-summary-remove-sense-glosses": "已移除含意 $3 裡的{{PLURAL:$1|[$2]註解|註解}}",
 	"wikibase-lexeme-summary-update-sense-elements": "更改含意 $3 的註解",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "建立一個新詞位",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "添加一個新詞性",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "添加一個新含意",
 	"wikibaselexeme-field-language-label": "語言",
 	"wikibaselexeme-field-lexical-category-label": "詞類",
 	"wikibaselexeme-diffview-lemma": "主題",
@@ -136,5 +139,17 @@
 	"wikibase-lexeme-mergelexemes-intro": "當您合併兩個詞位時，所有的主題、陳述、詞性，以及含意都會從一個詞位移動至另一個。",
 	"wikibase-lexeme-mergelexemes-from-id": "要合併的來源 ID",
 	"wikibase-lexeme-mergelexemes-to-id": "要合併的目標 ID",
-	"wikibase-lexeme-mergelexemes-submit": "合併詞位"
+	"wikibase-lexeme-mergelexemes-submit": "合併詞位",
+	"wikibase-lexeme-mergelexemes-success": "已合併 $1 至 $2 並重新導向。",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "「$1」不是一個有效的詞位 ID",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "找不到「$1」",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "合併詞位失敗，請先解決衝突。錯誤：詞位含有用於同一拼寫變體的不同主題。",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "合併詞位失敗，請先解決衝突。錯誤：在陳述裡詞位彼此連結。",
+	"wikibase-lexeme-mergelexemes-error-same-language": "合併詞位失敗，請先解決衝突。錯誤：詞位含有不同語言。",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "合併詞位失敗，請先解決衝突。錯誤：詞位含有不同詞類。",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "載入詞位失敗。",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "儲存詞位失敗。",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "合併詞位失敗，請先解決衝突。",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "權限不足。",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "無法合併詞位至自己本身。"
 }

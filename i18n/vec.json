@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Cusolotto"
+			"Cusolotto",
+			"Candalua"
 		]
 	},
 	"wikibaselexeme-unknown-language": "Łengua sconosua.",
-	"wikibaselexeme-unknown-category": "Sconosùo"
+	"wikibaselexeme-unknown-category": "Sconosùo",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' mia catà",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Parmesso negà."
 }

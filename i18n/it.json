@@ -45,6 +45,7 @@
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "Il parametro \"$1\" dovrebbe essere un ID lessema. Fornito: \"$2\"",
 	"wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty": "Il testo del termine non può essere vuoto",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "La lingua non può essere vuota",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Creato un nuovo lessema",
 	"wikibaselexeme-field-language-label": "Lingua",
 	"wikibaselexeme-field-lexical-category-label": "Categoria lessicale",
 	"wikibaselexeme-diffview-lemma": "Lemma",
@@ -57,5 +58,15 @@
 	"wikibaselexeme-unknown-language": "Lingua sconosciuta",
 	"wikibaselexeme-unknown-category": "Sconosciuto",
 	"wikibaselexeme-no-features": "Nessuna caratteristica",
-	"wikibaselexeme-rescore-profile-prefix": "Rielabora i profili attraverso la ricerca per prefissi (completamento)"
+	"wikibaselexeme-rescore-profile-prefix": "Rielabora i profili attraverso la ricerca per prefissi (completamento)",
+	"wikibase-lexeme-mergelexemes-success": "$1 è stato unito a $2 e reindirizzato.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' non è in ID lessema valido",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' non trovato",
+	"wikibase-lexeme-mergelexemes-error-same-language": "Impossibile unire i lessemi, risolvi tutti i conflitti prima. Errore: i lessemi hanno lingue differenti.",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Impossibile unire i lessemi, risolvi tutti i conflitti prima. Errore: i lessemi hanno categorie lessicali differenti.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Errore durante il caricamento del lessema.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Errore durante il salvataggio del lessema.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Impossibile unire i lessemi, risolvi tutti i conflitti prima.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permesso negato.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Impossibile unire un lessema con se stesso."
 }

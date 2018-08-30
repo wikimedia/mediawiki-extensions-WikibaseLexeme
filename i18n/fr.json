@@ -142,5 +142,17 @@
 	"wikibase-lexeme-mergelexemes-intro": "Si vous fusionnez deux lexèmes, tous les lemmes, les déclarations, les formulaires et les sens seront déplacés d’un lexème vers l’autre.",
 	"wikibase-lexeme-mergelexemes-from-id": "L’ID depuis lequel fusionner",
 	"wikibase-lexeme-mergelexemes-to-id": "L’ID à fusionner",
-	"wikibase-lexeme-mergelexemes-submit": "Fusionner les lexèmes"
+	"wikibase-lexeme-mergelexemes-submit": "Fusionner les lexèmes",
+	"wikibase-lexeme-mergelexemes-success": "$1 a été fusionné avec $2 et redirigé.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' n’est pas un id de lexème valide",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' non trouvé",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes ont des lemmes différents pour la même variante orthographique.",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes sont liés mutuellement dans une déclaration.",
+	"wikibase-lexeme-mergelexemes-error-same-language": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes ont des langues différentes.",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes ont des catégories lexicales différentes.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Échec de chargement du lexème.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Échec d’enregistrement du lexème.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Échec de fusion des lexèmes, veuillez résoudre d’abord tout conflit.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Autorisation refusée.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Impossible de fusionner un lexème avec lui-même."
 }

@@ -52,6 +52,8 @@
 	"wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty": "Текст не может быть пустым",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Язык не может быть пустым",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "У формы должен быть как минимум один текст",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Создана новая лексема",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Добавлена новая форма",
 	"wikibaselexeme-field-language-label": "Язык",
 	"wikibaselexeme-field-lexical-category-label": "Лексическая категория",
 	"wikibaselexeme-diffview-lemma": "Лемма",
@@ -67,5 +69,11 @@
 	"wikibaselexeme-no-features": "нет свойств",
 	"wikibase-validator-form-not-found": "У лексемы нет формы с таким ID",
 	"wikibase-lexeme-language-name-mis": "другие",
-	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан."
+	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан.",
+	"wikibase-lexeme-mergelexemes-success": "«$1» был влит в «$2» с последующей установкой перенаправления.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Элемент '$1' не найден",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не удалось загрузить лексему.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Не удалось сохранить лексему.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Не удалось объединить лексемы. Пожалуйста, устраните конфликты.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Доступ запрещён."
 }

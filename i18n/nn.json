@@ -43,8 +43,11 @@
 	"wikibase-lexeme-summary-remove-form-grammatical-features": "Fjerna {{PLURAL:$1|grammatisk kategori|grammatiske kategoriar}} frå forma $3",
 	"wikibase-lexeme-summary-update-form-elements": "Endra representasjonar og/eller grammatiske kategoriar av forma $3",
 	"wikibase-lexeme-summary-add-sense": "La til den nye tydinga $3 med {{PLURAL:$1|definisjon på [$2]|definisjonar}}",
+	"wikibase-lexeme-summary-remove-sense": "Fjerna tydinga $3 med {{PLURAL:$1|definisjon på [$2]|definisjonar}}",
 	"wikibase-lexeme-summary-update-sense-glosses": "Endra definisjonen til tydinga $3",
-	"wikibase-lexeme-summary-add-sense-glosses": "La til {{PLURAL:$1|definisjon på [$2]|definisjon}} til tydinga $3",
+	"wikibase-lexeme-summary-add-sense-glosses": "La til {{PLURAL:$1|definisjon på [$2]|definisjonar}} til tydinga $3",
+	"wikibase-lexeme-summary-set-sense-glosses": "Endra {{PLURAL:$1|definisjonen på [$2]|definisjonar}} av tydinga $3",
+	"wikibase-lexeme-summary-update-sense-elements": "Endra definisjonar av tydinga $3",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "La til ny form",
 	"wikibaselexeme-field-language-label": "Språk",
 	"wikibaselexeme-diffview-language": "språk",
@@ -54,5 +57,13 @@
 	"wikibaselexeme-form-grammatical-features": "Grammatiske kategoriar",
 	"wikibaselexeme-unknown-language": "Ukjend språk",
 	"wikibaselexeme-unknown-category": "Ukjend",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Til dømes: normativ, komparativ, fortid …"
+	"wikibaselexeme-grammatical-features-input-placeholder": "Til dømes: normativ, komparativ, fortid …",
+	"wikibase-lexeme-mergelexemes-intro": "Flettar du saman to leksem vil alle lemma, utsegner, former og tydingar verta flytta frå det eine leksemet til det andre.",
+	"wikibase-lexeme-mergelexemes-from-id": "ID-en det vert fletta frå",
+	"wikibase-lexeme-mergelexemes-to-id": "ID-en det vert fletta til",
+	"wikibase-lexeme-mergelexemes-success": "$1 vart fletta inn i $2 og omdirigert.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» er ikkje ein gild leksem-ID",
+	"wikibase-lexeme-mergelexemes-error-same-language": "Greidde ikkje å fletta saman dei to leksema, du lyt fyrst løysa konfliktar. Feil: leksema har ulike språk.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Greidde ikkje å fletta saman dei to leksema, du lyt fyrst løysa konfliktar.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Kan ikkje fletta saman eit leksem med seg sjølv."
 }
