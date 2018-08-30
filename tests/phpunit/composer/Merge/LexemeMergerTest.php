@@ -51,10 +51,10 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	public function testLemmasThatExistBothOnTheTargetAndTheSourceAreKeptOnTheTarget() {
-		$source = $this->newMinimumValidLexeme( 'L1' )
+		$source = $this->newLexeme( 'L1' )
 			->withLemma( 'en', 'color' )
 			->build();
-		$target = $this->newMinimumValidLexeme( 'L2' )
+		$target = $this->newLexeme( 'L2' )
 			->withLemma( 'en', 'color' )
 			->build();
 
@@ -64,10 +64,10 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	public function testLemmasThatExistOnlyOnTheSourceAreAddedToTheTarget() {
-		$source = $this->newMinimumValidLexeme( 'L1' )
+		$source = $this->newLexeme( 'L1' )
 			->withLemma( 'en', 'color' )
 			->build();
-		$target = $this->newMinimumValidLexeme( 'L2' )
+		$target = $this->newLexeme( 'L2' )
 			->withLemma( 'en-gb', 'colour' )
 			->build();
 
@@ -85,12 +85,12 @@ class LexemeMergerTest extends TestCase {
 		array $sourceLemmas,
 		array $targetLemmas
 	) {
-		$source = $this->newMinimumValidLexeme( 'L1' );
+		$source = $this->newLexeme( 'L1' );
 		foreach ( $sourceLemmas as $lemma ) {
 			$source = $source->withLemma( $lemma[0], $lemma[1] );
 		}
 		$source = $source->build();
-		$target = $this->newMinimumValidLexeme( 'L2' );
+		$target = $this->newLexeme( 'L2' );
 		foreach ( $targetLemmas as $lemma ) {
 			$target = $target->withLemma( $lemma[0], $lemma[1] );
 		}
@@ -573,13 +573,26 @@ class LexemeMergerTest extends TestCase {
 	 */
 
 	/**
+	 * Use this method if you want to manually add lemmas later
+	 *
 	 * @param string $id Lexeme id
-	 * @return NewLexeme
+	 * @return NewLexeme Add lemmas to avoid randomness and possible collisions
 	 */
-	private function newMinimumValidLexeme( $id ) : NewLexeme {
+	private function newLexeme( $id ) : NewLexeme {
 		return NewLexeme::havingId( $id )
 			->withLanguage( 'Q7' )
 			->withLexicalCategory( 'Q55' );
+	}
+
+	/**
+	 * Use this method if you do not plan to manually add lemmas later
+	 *
+	 * @param string $id Lexeme id
+	 * @return NewLexeme With a stable lemma so randomness and possible collisions are avoided
+	 */
+	private function newMinimumValidLexeme( $id ) : NewLexeme {
+		return $this->newLexeme( $id )
+			->withLemma( 'en', 'mergeme' );
 	}
 
 	private function newLexemeMerger() : LexemeMerger {
