@@ -99,6 +99,46 @@ class LexemeMergeInteractor {
 	}
 
 	/**
+	 * @param LexemeId $sourceId
+	 * @param LexemeId $targetId
+	 * @param string|null $summary - only relevant when called through the API
+	 * @param bool $isBotEdit - only relevant when called through the API
+	 *
+	 * @return array A list of exactly two EntityRevision objects. The first
+	 * EntityRevision object represents the modified source lexeme, the second one represents
+	 * the modified target lexeme.
+	 *
+	 * @throws MergingException
+	 */
+	public function mergeLexemes(
+		LexemeId $sourceId,
+		LexemeId $targetId,
+		$summary = null,
+		$isBotEdit = false
+	) {
+		$this->checkPermissions( $sourceId );
+		$this->checkPermissions( $targetId );
+
+		/**
+		 * @var Lexeme $source
+		 * @var Lexeme $target
+		 */
+		$source = $this->loadEntity( $sourceId );
+		$target = $this->loadEntity( $targetId );
+
+		$this->validateEntities( $source, $target );
+
+		$this->lexemeMerger->merge( $source, $target );
+
+		$result = $this->attemptSaveMerge( $source, $target, $summary, $isBotEdit );
+		$this->updateWatchlistEntries( $sourceId, $targetId );
+
+		$this->redirectInteractor->createRedirect( $sourceId, $targetId, $isBotEdit );
+
+		return $result;
+	}
+
+	/**
 	 * Check user's permissions for the given entity ID.
 	 *
 	 * @param EntityId $entityId
@@ -115,46 +155,6 @@ class LexemeMergeInteractor {
 		if ( !$status->isOK() ) {
 			throw new PermissionDeniedException();
 		}
-	}
-
-	/**
-	 * @param LexemeId $sourceId
-	 * @param LexemeId $targetId
-	 * @param string|null $summary
-	 * @param bool $bot Mark the edit as bot edit
-	 *
-	 * @return array A list of exactly two EntityRevision objects. The first
-	 * EntityRevision object represents the modified source lexeme, the second one represents
-	 * the modified target lexeme.
-	 *
-	 * @throws MergingException
-	 */
-	public function mergeLexemes(
-		LexemeId $sourceId,
-		LexemeId $targetId,
-		$summary = null,
-		$bot = false
-	) {
-		$this->checkPermissions( $sourceId );
-		$this->checkPermissions( $targetId );
-
-		/**
-		 * @var Lexeme $source
-		 * @var Lexeme $target
-		 */
-		$source = $this->loadEntity( $sourceId );
-		$target = $this->loadEntity( $targetId );
-
-		$this->validateEntities( $source, $target );
-
-		$this->lexemeMerger->merge( $source, $target );
-
-		$result = $this->attemptSaveMerge( $source, $target, $summary, $bot );
-		$this->updateWatchlistEntries( $sourceId, $targetId );
-
-		$this->redirectInteractor->createRedirect( $sourceId, $targetId, $bot );
-
-		return $result;
 	}
 
 	/**
@@ -232,10 +232,6 @@ class LexemeMergeInteractor {
 	}
 
 	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ): EntityRevision {
-		// Given we already check all constraints in ChangeOpsMerge, it's
-		// fine to ignore them here. This is also needed to not run into
-		// the constraints we're supposed to ignore (see ChangeOpsMerge::removeConflictsWithEntity
-		// for reference)
 		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
 		if ( $bot && $this->user->isAllowed( 'bot' ) ) {
 			$flags |= EDIT_FORCE_BOT;
