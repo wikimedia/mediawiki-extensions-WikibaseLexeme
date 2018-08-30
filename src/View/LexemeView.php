@@ -101,29 +101,7 @@ class LexemeView extends EntityView {
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		$id = '';
-		if ( $entity->getId() ) {
-			$id = htmlspecialchars(
-				$this->getLocalizedMessage( 'parentheses', [ $entity->getId()->getSerialization() ] )
-			);
-		}
-
-		$lemmaWidget = $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate();
-		$languageAndCategory = $this->renderLanguageAndLexicalCategoryWidget( $entity );
-
-		$lexemeHeader = <<<HTML
-			<div id="wb-lexeme-header" class="wb-lexeme-header">
-				<h1 id="wb-lexeme-header-lemmas">
-					<div class="wb-lexeme-header_id">$id</div>
-					<div class="wb-lexeme-header_lemma-widget">
-						$lemmaWidget
-					</div>
-				</h1>
-				$languageAndCategory
-			</div>
-HTML;
-
-		$html = $lexemeHeader
+		$html = $this->getLexemeHeader( $entity )
 			. $this->getLexemeHeaderVueTemplate()
 			. $this->getLanguageAndLexicalCategoryVueTemplate()
 			. $this->templateFactory->render( 'wikibase-toc' )
@@ -135,6 +113,34 @@ HTML;
 		}
 
 		return $html;
+	}
+
+	/**
+	 * @param Lexeme $entity
+	 * @return string HTML
+	 */
+	private function getLexemeHeader( Lexeme $entity ) {
+		$id = '';
+		if ( $entity->getId() ) {
+			$id = htmlspecialchars(
+				$this->getLocalizedMessage( 'parentheses', [ $entity->getId()->getSerialization() ] )
+			);
+		}
+
+		$lemmaWidget = $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate();
+		$languageAndCategory = $this->renderLanguageAndLexicalCategoryWidget( $entity );
+
+		return <<<HTML
+			<div id="wb-lexeme-header" class="wb-lexeme-header">
+				<h1 id="wb-lexeme-header-lemmas">
+					<div class="wb-lexeme-header_id">$id</div>
+					<div class="wb-lexeme-header_lemma-widget">
+						$lemmaWidget
+					</div>
+				</h1>
+				$languageAndCategory
+			</div>
+HTML;
 	}
 
 	/**
@@ -353,7 +359,7 @@ HTML;
 	/**
 	 * @return string
 	 */
-	protected function renderLemmaWidget( Lexeme $lexeme ) {
+	private function renderLemmaWidget( Lexeme $lexeme ) {
 		$templating = new Templating();
 
 		$lemmas = array_map(
@@ -388,7 +394,7 @@ HTML;
 	 * @param Lexeme $lexeme
 	 * @return string
 	 */
-	protected function renderLanguageAndLexicalCategoryWidget( Lexeme $lexeme ) {
+	private function renderLanguageAndLexicalCategoryWidget( Lexeme $lexeme ) {
 		$templating = new Templating();
 
 		$languageId = $lexeme->getLanguage();
