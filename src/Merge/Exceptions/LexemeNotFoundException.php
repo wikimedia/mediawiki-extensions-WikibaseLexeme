@@ -10,7 +10,7 @@ use Message;
 class LexemeNotFoundException extends MergingException {
 
 	public function getErrorMessage(): Message {
-		return new Message( 'wikibase-lexeme-mergelexemes-error-failed-save' );
+		return new Message( 'wikibase-lexeme-mergelexemes-error-lexeme-not-found' );
 	}
 
 }
