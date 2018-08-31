@@ -82,6 +82,8 @@ class LexemeViewFactory {
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
 
+		$language = Language::factory( $this->languageCode );
+
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 		// TODO: $this->labelDescriptionLookup is an EntityInfo based lookup that only knows
@@ -90,7 +92,7 @@ class LexemeViewFactory {
 		// and language.
 		$retrievingLabelDescriptionLookup = $wikibaseRepo
 			->getLanguageFallbackLabelDescriptionLookupFactory()
-			->newLabelDescriptionLookup( Language::factory( $this->languageCode ) );
+			->newLabelDescriptionLookup( $language );
 
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->languageCode,
@@ -106,8 +108,7 @@ class LexemeViewFactory {
 			$this->editSectionGenerator
 		);
 
-		$idLinkFormatter = $this->entityIdFormatterFactory
-			->getEntityIdFormatter( $retrievingLabelDescriptionLookup );
+		$idLinkFormatter = $this->entityIdFormatterFactory->getEntityIdFormatter( $language );
 
 		$formsView = new FormsView(
 			$localizedTextProvider,
