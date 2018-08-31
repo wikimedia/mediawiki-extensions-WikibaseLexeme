@@ -154,5 +154,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Échec d’enregistrement du lexème.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Échec de fusion des lexèmes, veuillez résoudre d’abord tout conflit.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Autorisation refusée.",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Impossible de fusionner un lexème avec lui-même."
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Impossible de fusionner un lexème avec lui-même.",
+	"wikibase-entity-summary-wblmergelexemes-from": "Fusionner le lexème de $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Lexème fusionné dans $3"
 }

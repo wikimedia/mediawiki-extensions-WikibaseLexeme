@@ -56,7 +56,7 @@
 	"wikibase-lexeme-summary-add-sense": "Lisatud uus tähendus $3 {{PLURAL:$1|[$2]-seletusega|seletustega}}",
 	"wikibase-lexeme-summary-update-sense-glosses": "Muudetud tähenduse $3 seletusi",
 	"wikibase-lexeme-summary-add-sense-glosses": "Lisatud tähendusele $3 {{PLURAL:$1|[$2]-seletus|seletused}}",
-	"wikibase-lexeme-summary-set-sense-glosses": "Määratud tähenduse $3 {{PLURAL:$1|[$2]-seletus|seletused}}",
+	"wikibase-lexeme-summary-set-sense-glosses": "Muudetud tähenduse $3 {{PLURAL:$1|[$2]-seletus|seletused}}",
 	"wikibase-lexeme-summary-remove-sense-glosses": "Eemaldatud tähenduse $3 {{PLURAL:$1|[$2]-seletus|seletused}}",
 	"wikibase-lexeme-summary-update-sense-elements": "Muudetud tähenduse $3 seletusi",
 	"wikibaselexeme-field-language-label": "Keel",

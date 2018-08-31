@@ -93,5 +93,6 @@
 	"wikibase-lexeme-mergelexemes-intro": "Jeśli łączysz dwa Leksemy, wszystkie Lemmy, Deklaracje, Formy i Znaczenia będą przeniesione z jednego Leksemu do drugiego.",
 	"wikibase-lexeme-mergelexemes-from-id": "Łączenie z ID",
 	"wikibase-lexeme-mergelexemes-to-id": "Łączenie do ID",
-	"wikibase-lexeme-mergelexemes-submit": "Połącz leksemy"
+	"wikibase-lexeme-mergelexemes-submit": "Połącz leksemy",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Brak dostępu."
 }

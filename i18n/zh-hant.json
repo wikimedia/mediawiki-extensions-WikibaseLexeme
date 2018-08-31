@@ -151,5 +151,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "儲存詞位失敗。",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "合併詞位失敗，請先解決衝突。",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "權限不足。",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "無法合併詞位至自己本身。"
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "無法合併詞位至自己本身。",
+	"wikibase-entity-summary-wblmergelexemes-from": "已從 $3 合併詞位",
+	"wikibase-entity-summary-wblmergelexemes-to": "已合併詞位至 $3"
 }
