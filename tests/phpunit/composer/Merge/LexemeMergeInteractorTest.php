@@ -10,12 +10,15 @@ use Title;
 use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -124,9 +127,16 @@ class LexemeMergeInteractorTest extends TestCase {
 			->method( 'createRedirect' )
 			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), false );
 
+		$statementsMerger = WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()
+			->getMergeFactory()->getStatementsMerger();
 		$this->lexemeMerger = new LexemeMerger(
-			WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()
-				->getMergeFactory()->getStatementsMerger()
+			new TermListMerger(),
+			$statementsMerger,
+			new LexemeFormsMerger(
+				$statementsMerger,
+				new TermListMerger(),
+				new GuidGenerator()
+			)
 		);
 
 		$this->newMergeInteractor()

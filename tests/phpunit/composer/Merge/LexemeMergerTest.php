@@ -2,12 +2,21 @@
 
 namespace Wikibase\Lexeme\Tests\Merge;
 
+use Exception;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
+use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMerger;
+use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Repo\ChangeOp\ChangeOpException;
+use Wikibase\Repo\Merge\StatementsMerger;
 use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -17,6 +26,8 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  */
 class LexemeMergerTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeMerger
@@ -567,6 +578,62 @@ class LexemeMergerTest extends TestCase {
 		}
 	}
 
+	public function testGivenMergingExceptionWhileMerging_exceptionBubblesUp() {
+		$expectedException = $this->createMock( MergingException::class );
+		$throwingFormsMerger = $this->createMock( LexemeFormsMerger::class );
+		$throwingFormsMerger->expects( $this->once() )
+			->method( 'merge' )
+			->willThrowException( $expectedException );
+
+		$merger = new LexemeMerger(
+			$this->createMock( TermListMerger::class ),
+			$this->createMock( StatementsMerger::class ),
+			$throwingFormsMerger
+		);
+
+		try {
+			$merger->merge(
+				$this->newMinimumValidLexeme( 'L1' )->build(),
+				$this->newMinimumValidLexeme( 'L2' )->build()
+			);
+			$this->fail( 'Expected exception did not happen' );
+		} catch ( Exception $e ) {
+			$this->assertSame(
+				$expectedException,
+				$e
+			);
+		}
+	}
+
+	public function testGivenOtherException_exceptionIsConvertedToModificationFailedException() {
+		$expectedException = $this->createMock( ChangeOpException::class );
+		$throwingStatementsMerger = $this->createMock( StatementsMerger::class );
+		$throwingStatementsMerger->expects( $this->once() )
+			->method( 'merge' )
+			->willThrowException( $expectedException );
+
+		$merger = new LexemeMerger(
+			$this->createMock( TermListMerger::class ),
+			$throwingStatementsMerger,
+			$this->createMock( LexemeFormsMerger::class )
+		);
+
+		try {
+			$merger->merge(
+				$this->newMinimumValidLexeme( 'L1' )->build(),
+				$this->newMinimumValidLexeme( 'L2' )->build()
+			);
+			$this->fail( 'Expected exception did not happen' );
+		} catch ( ModificationFailedException $e ) {
+			$this->assertSame(
+				$expectedException,
+				$e->getPrevious()
+			);
+		} catch ( Exception $e ) {
+			$this->fail( 'unexpected exception type thrown' );
+		}
+	}
+
 	/**
 	 * senses
 	 * TODO https://phabricator.wikimedia.org/T199896
@@ -601,7 +668,15 @@ class LexemeMergerTest extends TestCase {
 			->getMergeFactory()
 			->getStatementsMerger();
 
-		return new LexemeMerger( $statementsMerger );
+		return new LexemeMerger(
+			new TermListMerger(),
+			$statementsMerger,
+			new LexemeFormsMerger(
+				$statementsMerger,
+				new TermListMerger(),
+				new GuidGenerator()
+			)
+		);
 	}
 
 }

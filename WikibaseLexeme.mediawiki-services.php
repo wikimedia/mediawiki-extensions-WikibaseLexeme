@@ -1,11 +1,14 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
+use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Repo\Hooks\EditFilterHookRunner;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
@@ -38,12 +41,19 @@ return call_user_func( function() {
 
 				$requestContext = RequestContext::getMain();
 				$user = $requestContext->getUser();
+				$statementsMerger = $repo
+					->getChangeOpFactoryProvider()
+					->getMergeFactory()
+					->getStatementsMerger();
 				return new LexemeMergeInteractor(
 					new LexemeMerger(
-						$repo
-							->getChangeOpFactoryProvider()
-							->getMergeFactory()
-							->getStatementsMerger()
+						new TermListMerger(),
+						$statementsMerger,
+						new LexemeFormsMerger(
+							$statementsMerger,
+							new TermListMerger(),
+							new GuidGenerator()
+						)
 					),
 					$repo->getEntityRevisionLookup(),
 					$repo->getEntityStore(),

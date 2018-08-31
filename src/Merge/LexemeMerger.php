@@ -2,12 +2,14 @@
 
 namespace Wikibase\Lexeme\Merge;
 
-use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Exception;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Merge\Exceptions\ConflictingLemmaValueException;
 use Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException;
 use Wikibase\Lexeme\Merge\Exceptions\DifferentLanguagesException;
 use Wikibase\Lexeme\Merge\Exceptions\DifferentLexicalCategoriesException;
+use Wikibase\Lexeme\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
 use Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Merge\Validator\NoConflictingTermListValues;
 use Wikibase\Repo\Merge\StatementsMerger;
@@ -33,14 +35,14 @@ class LexemeMerger {
 	 */
 	private $termListMerger;
 
-	public function __construct( StatementsMerger $statementsMerger ) {
+	public function __construct(
+		TermListMerger $termListMerger,
+		StatementsMerger $statementsMerger,
+		LexemeFormsMerger $formsMerger
+	) {
+		$this->termListMerger = $termListMerger;
 		$this->statementsMerger = $statementsMerger;
-		$this->termListMerger = new TermListMerger();
-		$this->formsMerger = new LexemeFormsMerger(
-			$this->statementsMerger,
-			$this->termListMerger,
-			new GuidGenerator()
-		);
+		$this->formsMerger = $formsMerger;
 	}
 
 	/**
@@ -50,9 +52,15 @@ class LexemeMerger {
 	public function merge( Lexeme $source, Lexeme $target ) {
 		$this->validate( $source, $target );
 
-		$this->termListMerger->merge( $source->getLemmas(), $target->getLemmas() );
-		$this->formsMerger->merge( $source, $target );
-		$this->statementsMerger->merge( $source, $target );
+		try {
+			$this->termListMerger->merge( $source->getLemmas(), $target->getLemmas() );
+			$this->formsMerger->merge( $source, $target );
+			$this->statementsMerger->merge( $source, $target );
+		} catch ( MergingException $e ) {
+			throw $e;
+		} catch ( Exception $e ) {
+			throw new ModificationFailedException( '', 0, $e );
+		}
 	}
 
 	private function validate( Lexeme $source, Lexeme $target ) {
