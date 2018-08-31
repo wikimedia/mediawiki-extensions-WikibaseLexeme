@@ -132,12 +132,12 @@ class LexemeView extends EntityView {
 
 		return <<<HTML
 			<div id="wb-lexeme-header" class="wb-lexeme-header">
-				<h1 id="wb-lexeme-header-lemmas">
+				<div id="wb-lexeme-header-lemmas">
 					<div class="wb-lexeme-header_id">$id</div>
 					<div class="wb-lexeme-header_lemma-widget">
 						$lemmaWidget
 					</div>
-				</h1>
+				</div>
 				$languageAndCategory
 			</div>
 HTML;
@@ -245,7 +245,7 @@ HTML;
 	private function getRawLexemeHeaderVueTemplate() {
 		return <<<'HTML'
 <div id="wb-lexeme-header" class="wb-lexeme-header">
-	<h1 id="wb-lexeme-header-lemmas">
+	<div id="wb-lexeme-header-lemmas">
 		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
 		<div class="wb-lexeme-header_lemma-widget">
 			<lemma-widget
@@ -263,7 +263,7 @@ HTML;
 			<button type="button" class="lemma-widget_cancel" v-if="inEditMode"
 				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 		</div>
-	</h1>
+	</div>
 	<language-and-category-widget
 		:language.sync="language"
 		:lexicalCategory.sync="lexicalCategory"
