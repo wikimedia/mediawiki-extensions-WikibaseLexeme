@@ -137,5 +137,15 @@
 	"wikibase-lexeme-mergelexemes-intro": "Ако споите две лексеми, сите леми, искази, обрасци и смисли ќе се преместат од една лексема на друга.",
 	"wikibase-lexeme-mergelexemes-from-id": "Назнака од која се спојува",
 	"wikibase-lexeme-mergelexemes-to-id": "Назнака во која се спојува",
-	"wikibase-lexeme-mergelexemes-submit": "Спој лексеми"
+	"wikibase-lexeme-mergelexemes-submit": "Спој лексеми",
+	"wikibase-lexeme-mergelexemes-success": "$1 е споена со $2 и пренасочена.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "„$1“ не е важечка назнака на лексема",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Не го пронајдов „$1“",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не успав да ја вчитам лексемата.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Не успав да ја зачувам лексемата.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Не успав да ги спојам лексемите, најпрвин разрешете ги спротиставеностите.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Дозволата е одбиена.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Не можете да споите лексема сама со себе.",
+	"wikibase-entity-summary-wblmergelexemes-from": "Споена лексема од „$3“",
+	"wikibase-entity-summary-wblmergelexemes-to": "Споена лексема во „$3“"
 }

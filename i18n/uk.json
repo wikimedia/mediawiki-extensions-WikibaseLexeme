@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Piramidion",
-			"Movses"
+			"Movses",
+			"Vlad5250"
 		]
 	},
 	"wikibaselexeme-desc": "Управляти типом сутності лексеми",
@@ -45,5 +46,6 @@
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Форма повинна мати принаймні одну репрезентацію",
 	"wikibase-lexeme-summary-add-form": "Додано нову форму $3 з {{PLURAL:$1|репрезентацією|репрезентаціями}}",
 	"wikibaselexeme-field-language-label": "Мова",
-	"wikibaselexeme-field-lexical-category-label": "Лексична категорія"
+	"wikibaselexeme-field-lexical-category-label": "Лексична категорія",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Доступ заборонено."
 }

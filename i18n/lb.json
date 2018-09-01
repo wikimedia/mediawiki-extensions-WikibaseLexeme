@@ -47,5 +47,7 @@
 	"wikibaselexeme-unknown-category": "Onbekannt",
 	"wikibaselexeme-no-features": "keng Funktiounen",
 	"wikibase-lexeme-language-name-mis": "anerer",
-	"wikibase-lexeme-mergelexemes-submit": "Lexemes fusionéieren"
+	"wikibase-lexeme-mergelexemes-submit": "Lexemes fusionéieren",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' net fonnt",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Autorisatioun refuséiert."
 }
