@@ -51,7 +51,7 @@ class ChangeOpRepresentationList implements ChangeOp {
 
 	public function validate( EntityDocument $entity ) {
 		// TODO: should rather combine the validation results from individual change ops
-		// OR: return error on first validation error occured
+		// OR: return error on first validation error occurred
 		Assert::parameterType( Form::class, $entity, '$entity' );
 
 		return Result::newSuccess();
