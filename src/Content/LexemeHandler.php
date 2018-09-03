@@ -18,6 +18,7 @@ use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Specials\SpecialNewLexeme;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\Actions\ViewLexemeAction;
@@ -186,7 +187,7 @@ class LexemeHandler extends EntityHandler {
 	 * @return string
 	 */
 	public function getSpecialPageForCreation() {
-		return 'NewLexeme';
+		return SpecialNewLexeme::PAGE_NAME;
 	}
 
 	public function getIdForTitle( Title $target ) {

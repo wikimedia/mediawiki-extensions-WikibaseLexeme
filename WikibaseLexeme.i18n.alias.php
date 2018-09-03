@@ -5,9 +5,12 @@
  * @file
  * @ingroup Extensions
  */
+
+use Wikibase\Lexeme\Specials\SpecialNewLexeme;
+
 $specialPageAliases = [];
 /** English (English) */
 $specialPageAliases['en'] = [
-	'NewLexeme' => [ 'NewLexeme' ],
+	SpecialNewLexeme::PAGE_NAME => [ 'NewLexeme' ],
 	'MergeLexemes' => [ 'MergeLexemes' ],
 ];
