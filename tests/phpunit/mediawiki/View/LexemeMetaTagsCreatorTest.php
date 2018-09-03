@@ -3,6 +3,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use RawMessage;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -17,11 +18,7 @@ use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 
 	public function provideTestGetMetaTags() {
-		$mockLocalizer = $this->createMock( 'MessageLocalizer' );
-		$mockLocalizer->method( 'msg' )
-			->will( $this->returnValue( '/' ) );
-
-		$lexemeMetaTags = new LexemeMetaTagsCreator( $mockLocalizer );
+		$lexemeMetaTags = new LexemeMetaTagsCreator( '/' );
 
 		return [
 			[
@@ -34,9 +31,23 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 				new Lexeme(
 					new LexemeId( 'L84389' ),
 					new TermList( [ new Term( 'en', 'goat' ), new Term( 'fr', 'taog' ) ] ) ),
-				[ 'title' => 'goat / taog' ]
+				[ 'title' => 'goat/taog' ]
 			]
 		];
+	}
+
+	/**
+	 * @dataProvider nonStringProvider
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testGivenNotAString_constructorThrowsException( $input ) {
+		new LexemeMetaTagsCreator( $input );
+	}
+
+	public function nonStringProvider() {
+		yield [ false ];
+		yield [ 123 ];
+		yield [ new RawMessage( 'potato' ) ];
 	}
 
 }

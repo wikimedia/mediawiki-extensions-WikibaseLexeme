@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ParserOutput;
 
 use Language;
+use Message;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -155,10 +156,15 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 			->build();
 
 		$parserOutput = $entityParserOutputGenerator->getParserOutput( $lexeme );
+		$title = $parserOutput->getExtensionData( 'wikibase-meta-tags' )['title'];
 
-		$this->assertSame(
-		'goat / taog',
-		$parserOutput->getExtensionData( 'wikibase-meta-tags' )['title']
+		$this->assertContains( 'goat', $title );
+		$this->assertContains( 'taog', $title );
+		$this->assertContains(
+			( new Message(
+				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+			)->escaped(),
+			$title
 		);
 	}
 
