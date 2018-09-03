@@ -31,8 +31,6 @@ use Wikimedia\Assert\Assert;
  */
 class SpecialNewLexeme extends SpecialNewEntity {
 
-	/** public */ const PAGE_NAME = 'NewLexeme';
-
 	const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
 	const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
 	const FIELD_LEMMA = 'lemma';
@@ -68,7 +66,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		EditEntityFactory $editEntityFactory
 	) {
 		parent::__construct(
-			self::PAGE_NAME,
+			'NewLexeme',
 			'createpage',
 			$copyrightView,
 			$entityNamespaceLookup,
