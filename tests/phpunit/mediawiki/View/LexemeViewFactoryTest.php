@@ -5,11 +5,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Prophecy\Argument;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\Lexeme\View\LexemeViewFactory;
-use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
@@ -27,7 +27,7 @@ class LexemeViewFactoryTest extends TestCase {
 	public function testNewLexemeView() {
 		/** @var EntityIdHtmlLinkFormatterFactory $formatterFactory */
 		$formatterFactory = $this->prophesize( EntityIdHtmlLinkFormatterFactory::class );
-		$formatter = $this->prophesize( EntityIdHtmlLinkFormatter::class );
+		$formatter = $this->prophesize( EntityIdFormatter::class );
 		$formatterFactory->getEntityIdFormatter( Argument::any() )->willReturn( $formatter );
 
 		$factory = new LexemeViewFactory(

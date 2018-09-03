@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
@@ -16,7 +17,6 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;
-use Wikibase\Lib\EntityIdHtmlLinkFormatter;
 use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\View\EntityTermsView;
@@ -116,7 +116,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 			new LanguageNameLookup( 'en' )
 		);
 
-		$linkFormatter = $this->getMockBuilder( EntityIdHtmlLinkFormatter::class )
+		$linkFormatter = $this->getMockBuilder( EntityIdFormatter::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$linkFormatter->method( 'formatEntityId' )
