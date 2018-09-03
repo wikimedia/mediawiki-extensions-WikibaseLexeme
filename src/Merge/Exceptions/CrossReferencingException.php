@@ -13,4 +13,8 @@ class CrossReferencingException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-cross-referencing-statement' );
 	}
 
+	public function getApiErrorCode() {
+		return 'failed-modify';
+	}
+
 }

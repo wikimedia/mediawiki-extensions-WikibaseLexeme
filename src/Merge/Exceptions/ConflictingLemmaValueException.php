@@ -13,4 +13,8 @@ class ConflictingLemmaValueException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-conflicting-lemma' );
 	}
 
+	public function getApiErrorCode() {
+		return 'failed-modify';
+	}
+
 }

@@ -12,4 +12,9 @@ abstract class MergingException extends RuntimeException {
 
 	abstract public function getErrorMessage(): Message;
 
+	/**
+	 * @return string
+	 */
+	abstract public function getApiErrorCode();
+
 }

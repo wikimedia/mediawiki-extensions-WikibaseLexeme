@@ -13,4 +13,8 @@ class DifferentLanguagesException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-same-language' );
 	}
 
+	public function getApiErrorCode() {
+		return 'failed-modify';
+	}
+
 }

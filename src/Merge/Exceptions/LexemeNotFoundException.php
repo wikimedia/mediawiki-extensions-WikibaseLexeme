@@ -13,4 +13,8 @@ class LexemeNotFoundException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-lexeme-not-found' );
 	}
 
+	public function getApiErrorCode() {
+		return 'no-such-entity';
+	}
+
 }
