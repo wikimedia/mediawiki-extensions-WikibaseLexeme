@@ -11,6 +11,8 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\View\FormsView;
@@ -210,6 +212,43 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$entity = $this->getMock( EntityDocument::class );
 		$this->setExpectedException( ParameterTypeException::class );
 		$view->getTitleHtml( $entity );
+	}
+
+	public function testGetHtml_containsHeaderWithLemmasAndTheirLanguages() {
+		$lexemeId = new LexemeId( 'L1' );
+		$language = new ItemId( 'Q2' );
+		$lexicalCategory = new ItemId( 'Q3' );
+		$lemmas = new TermList( [ new Term( 'en', 'foo' ), new Term( 'en-GB', 'bar' ) ] );
+		$lexeme = new Lexeme( $lexemeId, $lemmas, $lexicalCategory, $language );
+
+		$view = $this->newLexemeView( $lexeme->getStatements() );
+		$html = $view->getHtml( $lexeme );
+
+		$this->assertInternalType( 'string', $html );
+		$this->assertThatHamcrest(
+			$html,
+			is(
+				htmlPiece(
+					havingChild(
+						both( withClass( 'lemma-widget_lemma-list' ) )
+							->andAlso( havingChild(
+								both(
+									tagMatchingOutline( '<span class="lemma-widget_lemma-value" lang="en"/>' )
+								)->andAlso(
+									havingTextContents( containsString( 'foo' ) )
+								)
+							) )
+							->andAlso( havingChild(
+								both(
+									tagMatchingOutline( '<span class="lemma-widget_lemma-value" lang="en-GB"/>' )
+								)->andAlso(
+									havingTextContents( containsString( 'bar' ) )
+								)
+							) )
+					)
+				)
+			)
+		);
 	}
 
 	public function testGetHtmlForLanguage() {

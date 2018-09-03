@@ -316,7 +316,7 @@ HTML;
 <div class="lemma-widget">
 	<ul v-if="!inEditMode" class="lemma-widget_lemma-list">
 		<li v-for="lemma in lemmaList" class="lemma-widget_lemma">
-			<span class="lemma-widget_lemma-value">{{lemma.value}}</span>
+			<span class="lemma-widget_lemma-value" :lang="lemma.language">{{lemma.value}}</span>
 			<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
 		</li>
 	</ul>
