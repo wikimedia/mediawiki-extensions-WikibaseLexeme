@@ -93,8 +93,11 @@ return [
 			return $factory->newLexemeView();
 		},
 		'meta-tags-creator-callback' => function () {
-			$messageLocalizer = RequestContext::getMain();
-			return new LexemeMetaTagsCreator( $messageLocalizer );
+			return new LexemeMetaTagsCreator(
+				RequestContext::getMain()
+					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+					->escaped()
+			);
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
 		'content-handler-factory-callback' => function () {

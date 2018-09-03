@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\View;
 
-use MessageLocalizer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\View\EntityMetaTagsCreator;
@@ -14,15 +13,15 @@ use Wikimedia\Assert\Assert;
  */
 class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 
-	/*
-	 * @var string
-	 */
-	private $localizedLemmaSeparator;
+	private $lemmaSeparator;
 
-	public function __construct( MessageLocalizer $messageLocalizer ) {
-		$this->localizedLemmaSeparator = $messageLocalizer->msg(
-			'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
-		);
+	/**
+	 * @param string $lemmaSeparator
+	 */
+	public function __construct( $lemmaSeparator ) {
+		Assert::parameterType( 'string', $lemmaSeparator, '$lemmaSeparator' );
+
+		$this->lemmaSeparator = $lemmaSeparator;
 	}
 
 	/**
@@ -51,7 +50,7 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 		if ( empty( $lemmas ) ) {
 			return $entity->getId()->getSerialization();
 		}
-		return implode( ' / ', $lemmas );
+		return implode( $this->lemmaSeparator, $lemmas );
 	}
 
 }
