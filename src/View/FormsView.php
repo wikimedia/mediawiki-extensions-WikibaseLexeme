@@ -165,7 +165,8 @@ HTML;
 <div class="representation-widget">
 	<ul v-if="!inEditMode" class="representation-widget_representation-list">
 		<li v-for="representation in representations" class="representation-widget_representation">
-			<span class="representation-widget_representation-value">{{representation.value}}</span>
+			<span class="representation-widget_representation-value" 
+				:lang="representation.language">{{representation.value}}</span>
 			<span class="representation-widget_representation-language">
 				{{representation.language}}
 			</span>

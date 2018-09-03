@@ -71,7 +71,9 @@ class FormsViewTest extends TestCase {
 			is( htmlPiece(
 				both( havingChild(
 					allOf(
-						withClass( 'representation-widget_representation-value' ),
+						tagMatchingOutline(
+							'<span class="representation-widget_representation-value" lang="en"/>'
+						),
 						havingTextContents( containsString( 'FORM_REPRESENTATION' ) )
 					) ) )
 				->andAlso( havingChild(
