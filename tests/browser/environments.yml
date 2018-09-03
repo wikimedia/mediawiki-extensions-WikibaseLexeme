@@ -38,5 +38,5 @@ beta:
 integration:
   item_namespace: 'Item:'
   language_code: en
-  browser: firefox
+  browser: chrome
   user_factory: true
