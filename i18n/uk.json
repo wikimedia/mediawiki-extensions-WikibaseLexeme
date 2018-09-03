@@ -45,6 +45,9 @@
 	"wikibaselexeme-api-error-parameter-not-lexeme-id": "Очікується, що параметр «$1» має бути ідентифікатором лексеми. Задано: «$2»",
 	"wikibaselexeme-api-error-form-must-have-at-least-one-representation": "Форма повинна мати принаймні одну репрезентацію",
 	"wikibase-lexeme-summary-add-form": "Додано нову форму $3 з {{PLURAL:$1|репрезентацією|репрезентаціями}}",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Створена нова лексема",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Додано нову форму",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "Додано новий сенс",
 	"wikibaselexeme-field-language-label": "Мова",
 	"wikibaselexeme-field-lexical-category-label": "Лексична категорія",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Доступ заборонено."

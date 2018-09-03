@@ -77,5 +77,6 @@
 	"wikibase-lexeme-mergelexemes-intro": "Když sloučíte dva lexémy, všechna lemmata, tvrzení, tvary a významy budou přesunuty z jednoho lexému do druhého.",
 	"wikibase-lexeme-mergelexemes-from-id": "Identifikátor objektu, odkud se má slučovat",
 	"wikibase-lexeme-mergelexemes-to-id": "Identifikátor objektu, kam se má slučovat",
-	"wikibase-lexeme-mergelexemes-submit": "Sloučit lexémy"
+	"wikibase-lexeme-mergelexemes-submit": "Sloučit lexémy",
+	"wikibase-lexeme-mergelexemes-success": "$1 byl sloučen do $2 a přesměrován."
 }

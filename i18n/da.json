@@ -10,5 +10,6 @@
 	"wikibaselexeme-diffview-language": "sprog",
 	"wikibaselexeme-unknown-language": "Ukendt sprog",
 	"wikibaselexeme-unknown-category": "Ukendt",
-	"wikibase-lexeme-language-name-mis": "andet"
+	"wikibase-lexeme-language-name-mis": "andet",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' ikke fundet"
 }

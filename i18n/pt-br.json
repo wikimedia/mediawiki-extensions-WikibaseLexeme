@@ -110,6 +110,8 @@
 	"wikibase-lexeme-summary-set-sense-glosses": "Alterado de {{PLURAL:$1|glosa em [$2]|glosas}} do sentido $3",
 	"wikibase-lexeme-summary-remove-sense-glosses": "Remoção de {{PLURAL:$1|glosa em [$2]|glosas}} do sentido $3",
 	"wikibase-lexeme-summary-update-sense-elements": "Alteração de glosas do sentido $3",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Criou um novo Lexeme",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Adicionado um novo formulário",
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "Adicionado um novo sentido",
 	"wikibaselexeme-field-language-label": "Idioma",
 	"wikibaselexeme-field-lexical-category-label": "Categoria lexical",
@@ -137,6 +139,18 @@
 	"wikibase-lexeme-mergelexemes-from-id": "Mesclar a partir do ID",
 	"wikibase-lexeme-mergelexemes-to-id": "O identificador no qual fundir",
 	"wikibase-lexeme-mergelexemes-submit": "Fundir lexemas",
+	"wikibase-lexeme-mergelexemes-success": "$1 foi mesclado em $2 e redirecionado.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' não é um ID de Lexema válido",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' não encontrado",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes possuem diferentes Lemmas para a mesma variante ortográfica.",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes se conectam em uma instrução.",
+	"wikibase-lexeme-mergelexemes-error-same-language": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes possuem idiomas diferentes.",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes possuem diferentes categorias lexicais.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Falha ao carregar o Lexeme.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Falha ao salvar Lexeme.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Falha ao mesclar Lexemes, resolva os conflitos primeiro.",
-	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permissão negada."
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permissão negada.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Não é possível mesclar um Lexeme com ele mesmo.",
+	"wikibase-entity-summary-wblmergelexemes-from": "Lexeme mesclado de $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Mesclado do lexema em $3"
 }
