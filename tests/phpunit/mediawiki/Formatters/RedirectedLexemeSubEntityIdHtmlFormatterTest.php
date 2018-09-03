@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -10,12 +10,12 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\LexemeSubEntityId;
 use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\PropertyType\RedirectedLexemeSubEntityIdHtmlFormatter;
+use Wikibase\Lexeme\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lib\Store\EntityTitleLookup;
 
 /**
- * @covers \Wikibase\Lexeme\PropertyType\RedirectedLexemeSubEntityIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */

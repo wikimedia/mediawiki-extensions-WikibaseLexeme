@@ -1,22 +1,19 @@
 <?php
 
-namespace Wikibase\Lexeme\PropertyType;
+namespace Wikibase\Lexeme\Formatters;
 
-use Html;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lib\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\Store\EntityRevisionLookup;
-use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
  * @license GPL-2.0-or-later
  */
-class FormIdHtmlFormatter implements EntityIdFormatter {
+class FormIdTextFormatter implements EntityIdFormatter {
 
 	const REPRESENTATION_SEPARATOR_I18N =
 		'wikibaselexeme-formidformatter-separator-multiple-representation';
@@ -27,55 +24,32 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 	private $revisionLookup;
 
 	/**
-	 * @var EntityTitleLookup
-	 */
-	private $titleLookup;
-
-	/**
-	 * @var NonExistingEntityIdHtmlFormatter
-	 */
-	private $nonExistingIdFormatter;
-
-	/**
 	 * @var LocalizedTextProvider
 	 */
 	private $localizedTextProvider;
 
-	/**
-	 * @var RedirectedLexemeSubEntityIdHtmlFormatter
-	 */
-	private $redirectedLexemeSubEntityIdHtmlFormatter;
-
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
-		EntityTitleLookup $titleLookup,
-		LocalizedTextProvider $localizedTextProvider,
-		RedirectedLexemeSubEntityIdHtmlFormatter $redirectedLexemeSubEntityIdHtmlFormatter
+		LocalizedTextProvider $localizedTextProvider
 	) {
 		$this->revisionLookup = $revisionLookup;
-		$this->titleLookup = $titleLookup;
 		$this->localizedTextProvider = $localizedTextProvider;
-		$this->redirectedLexemeSubEntityIdHtmlFormatter = $redirectedLexemeSubEntityIdHtmlFormatter;
-		$this->nonExistingIdFormatter = new NonExistingEntityIdHtmlFormatter(
-			'wikibaselexeme-deletedentity-'
-		);
 	}
 
 	/**
 	 * @param EntityId|FormId $value
 	 *
-	 * @return string Html
+	 * @return string plain text
 	 */
 	public function formatEntityId( EntityId $formId ) {
 		try {
 			$formRevision = $this->revisionLookup->getEntityRevision( $formId );
-			$title = $this->titleLookup->getTitleForId( $formId );
 		} catch ( UnresolvedEntityRedirectException $exception ) {
-			return $this->redirectedLexemeSubEntityIdHtmlFormatter->formatEntityId( $formId );
+			return $formId->getSerialization();
 		}
 
-		if ( $formRevision === null || $title === null ) {
-			return $this->nonExistingIdFormatter->formatEntityId( $formId );
+		if ( $formRevision === null ) {
+			return $formId->getSerialization();
 		}
 
 		/** @var Form $form */
@@ -90,13 +64,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 			$representations->toTextArray()
 		);
 
-		return Html::element(
-			'a',
-			[
-				'href' => $title->isLocal() ? $title->getLinkURL() : $title->getFullURL(),
-			],
-			$representationString
-		);
+		return $representationString;
 	}
 
 }

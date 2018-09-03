@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -11,13 +11,13 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\PropertyType\FormIdTextFormatter;
+use Wikibase\Lexeme\Formatters\FormIdTextFormatter;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\PropertyType\FormIdTextFormatter
+ * @covers \Wikibase\Lexeme\Formatters\FormIdTextFormatter
  *
  * @license GPL-2.0-or-later
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
@@ -10,13 +10,13 @@ use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter;
+use Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\PropertyType\LexemeIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */

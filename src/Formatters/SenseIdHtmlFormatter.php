@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\PropertyType;
+namespace Wikibase\Lexeme\Formatters;
 
 use Html;
 use OutOfRangeException;

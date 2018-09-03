@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -9,7 +9,7 @@ use Wikibase\LanguageFallbackChain;
 use Wikibase\LanguageWithConversion;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\PropertyType\SenseIdHtmlFormatter;
+use Wikibase\Lexeme\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\LanguageFallbackIndicator;
@@ -19,7 +19,7 @@ use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\PropertyType\SenseIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Formatters\SenseIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */

@@ -1,11 +1,11 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\PropertyType;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\PropertyType\SenseIdTextFormatter;
+use Wikibase\Lexeme\Formatters\SenseIdTextFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
@@ -13,7 +13,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\PropertyType\SenseIdTextFormatter
+ * @covers \Wikibase\Lexeme\Formatters\SenseIdTextFormatter
  *
  * @license GPL-2.0-or-later
  */
