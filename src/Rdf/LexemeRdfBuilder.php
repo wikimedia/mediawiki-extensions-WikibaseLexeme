@@ -117,10 +117,6 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 			$this->writer->about( RdfVocabulary::NS_ENTITY, $lexemeLName )
 				->say( 'rdfs', 'label' )
 				->text( $lemmaText, $lemmaCode )
-				->say( RdfVocabulary::NS_SKOS, 'prefLabel' )
-				->text( $lemmaText, $lemmaCode )
-				->say( RdfVocabulary::NS_SCHEMA_ORG, 'name' )
-				->text( $lemmaText, $lemmaCode )
 				->say( RdfVocabulary::NS_ONTOLOGY, 'lemma' )
 				->text( $lemmaText, $lemmaCode );
 		}
@@ -215,10 +211,6 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		foreach ( $representations->toTextArray() as $representationCode => $representationText ) {
 			$this->writer->about( RdfVocabulary::NS_ENTITY, $formLName )
 				->say( 'rdfs', 'label' )
-				->text( $representationText, $representationCode )
-				->say( RdfVocabulary::NS_SKOS, 'prefLabel' )
-				->text( $representationText, $representationCode )
-				->say( RdfVocabulary::NS_SCHEMA_ORG, 'name' )
 				->text( $representationText, $representationCode )
 				->say( self::NS_ONTOLEX, 'representation' )
 				->text( $representationText, $representationCode );
