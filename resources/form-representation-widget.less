@@ -1,6 +1,9 @@
+@import 'mediawiki.mixins';
+
 .representation-widget {
 	display: flex;
 	margin-right: 18em; /* compensate absolutely positioned toolbar (.wikibase-entityview .wikibase-toolbar-container) */
+	min-width: 0;
 
 	&_representation-list {
 		margin: 0 !important;
@@ -9,6 +12,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		flex-grow: 1;
+		min-width: 0;
 	}
 
 	&_representation {
@@ -17,10 +21,12 @@
 		border-left: 6px solid #ededed;
 		padding: 0 9px;
 		margin: 0.785em 0;
+		min-width: 0;
 	}
 
 	&_representation-value {
 		font-size: 1em;
+		.hyphens( auto );
 	}
 
 	&_representation-language {
