@@ -10,6 +10,7 @@ use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
@@ -17,9 +18,11 @@ use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
 use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMerger;
+use Wikibase\Lexeme\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
@@ -585,12 +588,13 @@ class LexemeMergerTest extends TestCase {
 		}
 	}
 
-	public function testGivenMergingExceptionWhileMerging_exceptionBubblesUp() {
+	public function testGivenMergingExceptionWhileMergingForms_exceptionBubblesUp() {
 		$expectedException = $this->createMock( MergingException::class );
 		$throwingFormsMerger = $this->createMock( LexemeFormsMerger::class );
 		$throwingFormsMerger->expects( $this->once() )
 			->method( 'merge' )
 			->willThrowException( $expectedException );
+		$sensesMerger = new LexemeSensesMerger();
 
 		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
 		$crossRefValidator
@@ -603,6 +607,7 @@ class LexemeMergerTest extends TestCase {
 			$this->createMock( TermListMerger::class ),
 			$this->createMock( StatementsMerger::class ),
 			$throwingFormsMerger,
+			$sensesMerger,
 			$crossRefValidator
 		);
 
@@ -638,6 +643,7 @@ class LexemeMergerTest extends TestCase {
 			$this->createMock( TermListMerger::class ),
 			$throwingStatementsMerger,
 			$this->createMock( LexemeFormsMerger::class ),
+			$this->createMock( LexemeSensesMerger::class ),
 			$crossRefValidator
 		);
 
@@ -657,10 +663,243 @@ class LexemeMergerTest extends TestCase {
 		}
 	}
 
+	public function testGivenSourceWithMultipleRedundantSensesTheyAreIndividuallyAddedToTarget() {
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( 'en', 'colors' ) )
+			->withSense( NewSense::havingId( 'S2' )->withGloss( 'en', 'colors' ) )
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( 'en-gb', 'colours' ) )
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+
+		$this->assertCount( 3, $target->getSenses() );
+		$s1Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S1' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s1Glosses );
+		$this->assertSame(
+			'colours',
+			$s1Glosses->getByLanguage( 'en-gb' )->getText()
+		);
+		$s2Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S2' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s2Glosses );
+		$this->assertSame(
+			'colors',
+			$s2Glosses->getByLanguage( 'en' )->getText()
+		);
+		$s3Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S3' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s3Glosses );
+		$this->assertSame(
+			'colors',
+			$s3Glosses->getByLanguage( 'en' )->getText()
+		);
+	}
+
+	public function testGivenTargetWithMultipleMatchingSensesAllTheseSensesRemain() {
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( 'en-gb', 'colours' ) )
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( 'en', 'colors' ) )
+			->withSense( NewSense::havingId( 'S2' )->withGloss( 'en', 'colors' ) )
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+
+		$this->assertCount( 3, $target->getSenses() );
+		$s1Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S1' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s1Glosses );
+		$this->assertSame(
+			'colors',
+			$s1Glosses->getByLanguage( 'en' )->getText()
+		);
+		$s2Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S2' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s2Glosses );
+		$this->assertSame(
+			'colors',
+			$s2Glosses->getByLanguage( 'en' )->getText()
+		);
+		$s3Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S3' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s3Glosses );
+		$this->assertSame(
+			'colours',
+			$s3Glosses->getByLanguage( 'en-gb' )->getText()
+		);
+	}
+
+	public function testGivenLexemesWithNonMatchingSensesSourceSensesAreAddedToTarget() {
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( 'en', 'colors' ) )
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( 'en-gb', 'colours' ) )
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+
+		$this->assertCount( 2, $target->getSenses() );
+		$s1Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S1' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s1Glosses );
+		$this->assertSame(
+			'colours',
+			$s1Glosses->getByLanguage( 'en-gb' )->getText()
+		);
+		$s2Glosses = $target->getSenses()
+			->getById( new SenseId( 'L2-S2' ) )
+			->getGlosses();
+		$this->assertCount( 1, $s2Glosses );
+		$this->assertSame(
+			'colors',
+			$s2Glosses->getByLanguage( 'en' )->getText()
+		);
+	}
+
 	/**
-	 * senses
-	 * TODO https://phabricator.wikimedia.org/T199896
+	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
 	 */
+	public function testGivenSourceLexemeWithSenseStatementReferencingTargetLexemeExceptionIsThrown() {
+		$statement = NewStatement::forProperty( 'P42' )
+			->withValue( new LexemeId( 'L2' ) )
+			->withGuid( 'L1-S1$6fbs3e32-aa9a-418e-9fea-665s9fee0e56' )
+			->build();
+
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en-gb', 'colours' )
+					->withStatement( $statement )
+			)
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+	}
+
+	/**
+	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 */
+	public function testGivenTargetLexemeWithSenseStatementReferencingSourceLexemeExceptionIsThrown() {
+		$statement = NewStatement::forProperty( 'P42' )
+			->withValue( new LexemeId( 'L1' ) )
+			->withGuid( 'L2-S1$6fbs3e32-aa9a-418e-9fea-665s9fee0e56' )
+			->build();
+
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en-gb', 'colours' )
+					->withStatement( $statement )
+			)
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+	}
+
+	/**
+	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 */
+	public function testGivenSourceLexemeWithSenseStatementReferencingTargetsSenseExceptionIsThrown() {
+		$statement = NewStatement::forProperty( 'P42' )
+			->withValue( new SenseId( 'L2-S1' ) )
+			->withGuid( 'L1-S1$6fbs3e32-aa9a-418e-9fea-665s9fee0e56' )
+			->build();
+
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en-gb', 'colours' )
+					->withStatement( $statement )
+			)
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'colors' )
+			)
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+	}
+
+	/**
+	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 */
+	public function testGivenTargetLexemeWithSenseStatementReferencingSourcesSenseExceptionIsThrown() {
+		$statement = NewStatement::forProperty( 'P42' )
+			->withValue( new SenseId( 'L1-S1' ) )
+			->withGuid( 'L2-S1$6fbs3e32-aa9a-418e-9fea-665s9fee0e56' )
+			->build();
+
+		$source = $this->newMinimumValidLexeme( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en-gb', 'colours' )
+			)
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'colors' )
+					->withStatement( $statement )
+			)
+			->build();
+
+		$this->lexemeMerger->merge( $source, $target );
+	}
+
+	public function testGivenMergingExceptionWhileMergingSenses_exceptionBubblesUp() {
+		$expectedException = $this->createMock( MergingException::class );
+		$formMerger = $this->createMock( LexemeFormsMerger::class );
+		$throwingSensesMerger = $this->createMock( LexemeSensesMerger::class );
+		$throwingSensesMerger->expects( $this->once() )
+			->method( 'merge' )
+			->willThrowException( $expectedException );
+
+		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator
+			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
+			->willReturn( true );
+		$crossRefValidator = $crossRefValidator->reveal();
+		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
+
+		$merger = new LexemeMerger(
+			$this->createMock( TermListMerger::class ),
+			$this->createMock( StatementsMerger::class ),
+			$formMerger,
+			$throwingSensesMerger,
+			$crossRefValidator
+		);
+
+		try {
+			$merger->merge(
+				$this->newMinimumValidLexeme( 'L1' )->build(),
+				$this->newMinimumValidLexeme( 'L2' )->build()
+			);
+			$this->fail( 'Expected exception did not happen' );
+		} catch ( Exception $e ) {
+			$this->assertSame(
+				$expectedException,
+				$e
+			);
+		}
+	}
 
 	/**
 	 * Use this method if you want to manually add lemmas later
@@ -711,6 +950,7 @@ class LexemeMergerTest extends TestCase {
 				new TermListMerger(),
 				new GuidGenerator()
 			),
+			new LexemeSensesMerger(),
 			$noCrossReferencingStatementsValidator
 		);
 	}

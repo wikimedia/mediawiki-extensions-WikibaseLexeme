@@ -36,6 +36,11 @@ class LexemeMerger {
 	private $termListMerger;
 
 	/**
+	 * @var LexemeSensesMerger
+	 */
+	private $sensesMerger;
+
+	/*
 	 * @var NoCrossReferencingLexemeStatements
 	 */
 	private $noCrossReferencingLexemeStatementsValidator;
@@ -44,11 +49,13 @@ class LexemeMerger {
 		TermListMerger $termListMerger,
 		StatementsMerger $statementsMerger,
 		LexemeFormsMerger $formsMerger,
+		LexemeSensesMerger $sensesMerger,
 		NoCrossReferencingLexemeStatements $noCrossReferencingLexemeStatementsValidator
 	) {
 		$this->termListMerger = $termListMerger;
 		$this->statementsMerger = $statementsMerger;
 		$this->formsMerger = $formsMerger;
+		$this->sensesMerger = $sensesMerger;
 		$this->noCrossReferencingLexemeStatementsValidator = $noCrossReferencingLexemeStatementsValidator;
 	}
 
@@ -62,6 +69,7 @@ class LexemeMerger {
 		try {
 			$this->termListMerger->merge( $source->getLemmas(), $target->getLemmas() );
 			$this->formsMerger->merge( $source, $target );
+			$this->sensesMerger->merge( $source, $target );
 			$this->statementsMerger->merge( $source, $target );
 		} catch ( MergingException $e ) {
 			throw $e;
