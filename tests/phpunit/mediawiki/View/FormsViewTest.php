@@ -6,14 +6,12 @@ use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Prophecy\Argument;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
-use Wikibase\Lib\EntityIdHtmlLinkFormatter;
-use Wikibase\Lib\LanguageNameLookup;
-use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 
@@ -127,6 +125,12 @@ class FormsViewTest extends TestCase {
 		$statementSectionView = $this->prophesize( StatementGroupListView::class );
 		$statementSectionView->getHtml( Argument::any() )->willReturn( self::STATEMENT_LIST_HTML );
 
+		$idFormatter = $this->createMock( EntityIdFormatter::class );
+		$idFormatter->method( 'formatEntityId' )
+			->willReturnCallback( function ( EntityId $entityId ) {
+				return $entityId->serialize();
+			} );
+
 		return new FormsView(
 			new DummyLocalizedTextProvider(),
 			new LexemeTemplateFactory( [
@@ -141,11 +145,7 @@ class FormsViewTest extends TestCase {
 					</div>',
 				'wikibase-lexeme-form-grammatical-features' => '<div><div>$1</div><div>$2</div></div>'
 			] ),
-			new EntityIdHtmlLinkFormatter(
-				$this->getMock( LabelDescriptionLookup::class ),
-				$this->getMock( EntityTitleLookup::class ),
-				$this->getMock( LanguageNameLookup::class )
-			),
+			$idFormatter,
 			$statementSectionView->reveal()
 		);
 	}
