@@ -3,7 +3,11 @@
 namespace Wikibase\Lexeme\Tests\DataTransfer;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataTransfer\BlankSense;
 use Wikibase\Lexeme\DataTransfer\DummySenseId;
@@ -52,19 +56,16 @@ class BlankSenseTest extends TestCase {
 	}
 
 	public function testGetRealSenseOnMinimalData_yieldsSenseWithData() {
-		$this->markTestSkipped( 'Sense::setGlossList() does not exist yet' ); // TODO
-		/*
 		$glossList = new TermList( [ new Term( 'de', 'Tier' ) ] );
 
 		$blankSense = new BlankSense();
-		$blankSense->setGlossList( $glossList );
+		$blankSense->setGlosses( $glossList );
 
-		$sense = $blankSense->getRealSense( new SenseId( 'L1-F4' ) );
+		$sense = $blankSense->getRealSense( new SenseId( 'L1-S4' ) );
 
 		$this->assertInstanceOf( Sense::class, $sense );
 		$this->assertSame( $glossList, $sense->getGlosses() );
 		$this->assertEquals( new StatementList(), $sense->getStatements() );
-		*/
 	}
 
 }
