@@ -44,6 +44,10 @@ class BlankSense extends Sense {
 		$this->lexeme = $lexeme;
 	}
 
+	public function setGlosses( TermList $glosses ) {
+		$this->glossList = $glosses;
+	}
+
 	public function getRealSense( SenseId $senseId ) {
 		$this->id = $senseId;
 
