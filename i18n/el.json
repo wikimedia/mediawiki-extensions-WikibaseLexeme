@@ -33,6 +33,8 @@
 	"apihelp-wblremoveform-summary": "Αφαιρεί φόρμες από το Lexeme",
 	"apihelp-wblremovesense-summary": "Αφαιρεί νόημα από το Lexeme",
 	"apihelp-wblremovesense-param-id": "Αναγνωριστικό του νοήματος π.χ. L10-S20",
+	"apihelp-wblmergelexemes-description": "Συγχωνεύει δύο Lexeme.",
+	"apihelp-wblmergelexemes-param-source": "Το αναγνωριστικό για συγχώνευση από",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Η γλώσσα δεν μπορεί να είναι άδεια",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Δημιουργήθηκε νέο Lexeme",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "Προστέθηκε νέα φόρμα",
