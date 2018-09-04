@@ -1,3 +1,5 @@
+@import 'mediawiki.mixins';
+
 .lemma-widget {
 	display: flex;
 
@@ -8,6 +10,7 @@
 		display: flex;
 		flex-wrap: wrap;
 		flex-grow: 1;
+		min-width: 0;
 	}
 
 	&_lemma {
@@ -16,10 +19,12 @@
 		border-left: 6px solid #ededed;
 		padding: 0 9px;
 		margin: 11px;
+		min-width: 0;
 	}
 
 	&_lemma-value {
 		font-size: 3em;
+		.hyphens( auto );
 	}
 
 	&_lemma-language {
@@ -77,6 +82,7 @@
 			cursor: default;
 			color: @button-disabled-color;
 		}
+		white-space: nowrap;
 	}
 
 	&_edit {

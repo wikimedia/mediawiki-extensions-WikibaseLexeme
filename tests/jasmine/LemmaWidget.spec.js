@@ -13,6 +13,12 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
+	var selector = {
+		lemma: '.lemma-widget_lemma',
+		lemmaValue: '.lemma-widget_lemma-value',
+		lemmaLanguage: '.lemma-widget_lemma-language'
+	};
+
 	it( 'initialize widget with one lemma', function () {
 		var widget = newWidget( [ new Lemma( 'hello', 'en' ) ] );
 
@@ -89,11 +95,14 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		expect( widget.hasRedundantLanguage, 'to be true' );
 	} );
 
-	var selector = {
-		lemma: '.lemma-widget_lemma',
-		lemmaValue: '.lemma-widget_lemma-value',
-		lemmaLanguage: '.lemma-widget_lemma-language'
-	};
+	it( 'marks-up the lemma term with the lemma language', function ( done ) {
+		var widget = newWidget( [ new Lemma( 'colour', 'en-GB' ) ] );
+
+		widget.$nextTick( function () {
+			expect( widget.$el.querySelector( selector.lemmaValue ), 'to have attributes', { lang: 'en-GB' } );
+			done();
+		} );
+	} );
 
 	expect.addAssertion( '<DOMElement> to contain lemma <object>', function ( expect, element, lemma ) {
 		var language = lemma.language;
@@ -140,7 +149,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		return '<div class="lemma-widget">'
 			+ '<ul v-if="!inEditMode" class="lemma-widget_lemma-list">'
 			+ '<li v-for="lemma in lemmaList" class="lemma-widget_lemma">'
-			+ '<span class="lemma-widget_lemma-value">{{lemma.value}}</span>'
+			+ '<span class="lemma-widget_lemma-value" :lang="lemma.language">{{lemma.value}}</span>'
 			+ '<span class="lemma-widget_lemma-language">{{lemma.language}}</span>'
 			+ '</li>'
 			+ '</ul>'
