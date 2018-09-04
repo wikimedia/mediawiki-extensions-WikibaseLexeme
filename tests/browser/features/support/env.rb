@@ -35,7 +35,7 @@ After do |scenario|
 
   errors = log_entries
                .select do |e|
-                    e.level == "SEVERE" && e.message.present?
+                    e.level == "SEVERE" && e.message.present?  && !e.message =~ /favicon.ico .*404/
                   end
                .map(&:message)
                .to_a
