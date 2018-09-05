@@ -6,7 +6,6 @@ use ApiMain;
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Api\MergeLexemes;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
@@ -171,10 +170,6 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		list( $response ) = $this->doApiRequestWithToken( $params );
 
 		return $response;
-	}
-
-	private function saveEntity( EntityDocument $entity ) {
-		$this->entityStore->saveEntity( $entity, self::class, $this->getTestUser()->getUser() );
 	}
 
 	private function saveLexemes( ...$lexemes ) {

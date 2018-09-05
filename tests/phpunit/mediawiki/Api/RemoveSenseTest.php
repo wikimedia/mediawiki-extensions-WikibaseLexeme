@@ -29,7 +29,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wblremovesense',
@@ -65,7 +65,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->setContentLang( 'qqq' );
 		$params = array_merge(
@@ -133,7 +133,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->doApiRequestWithToken( [
 			'action' => 'wblremovesense',
@@ -150,7 +150,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wblremovesense',
@@ -167,7 +167,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->doApiRequestWithToken( [
 			'action' => 'wblremovesense',
@@ -193,7 +193,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wblremovesense',
@@ -211,7 +211,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					->withGloss( 'fr', 'goat' )
 			)
 			->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
@@ -229,10 +229,6 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 		} catch ( ApiUsageException $exception ) {
 			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
 		}
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	/**

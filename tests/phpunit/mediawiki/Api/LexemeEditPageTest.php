@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
@@ -60,14 +59,6 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 					->getEntityLookup( Store::LOOKUP_CACHING_DISABLED )
 					->getEntity( $lexeme->getId() )
 			)
-		);
-	}
-
-	private function saveEntity( EntityDocument $entity ) {
-		$this->entityStore->saveEntity(
-			$entity,
-			__CLASS__,
-			$this->getTestUser()->getUser()
 		);
 	}
 

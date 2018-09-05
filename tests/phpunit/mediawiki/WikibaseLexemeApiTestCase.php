@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 use ApiMessage;
 use ApiUsageException;
 use MediaWiki\Services\ServiceContainer;
+use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
@@ -95,6 +96,14 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 				);
 			}
 		}
+	}
+
+	public function saveEntity( EntityDocument $entity ) {
+		$this->entityStore->saveEntity(
+			$entity,
+			static::class,
+			$this->getTestUser()->getUser()
+		);
 	}
 
 	private function resetTermBuffer() {

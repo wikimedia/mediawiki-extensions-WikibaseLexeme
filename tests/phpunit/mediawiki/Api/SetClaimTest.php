@@ -37,7 +37,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( $formId )->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$guid = $formId->getSerialization() . '$00000000-0000-0000-0000-000000000000';
 		$value = 'test';
@@ -72,7 +72,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( $formId )->andStatement( $statement )->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbsetclaim',
@@ -109,7 +109,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbsetclaim',
@@ -138,7 +138,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( $formId )->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$guid = $formId->getSerialization() . '$00000000-0000-0000-0000-000000000000';
 		$value = 'test';
@@ -165,7 +165,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( $formId )->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$guid = $formId->getSerialization() . '$00000000-0000-0000-0000-000000000000';
 		$value = 'test';
@@ -195,7 +195,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( $formId )->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$guid = $formId->getSerialization() . '$00000000-0000-0000-0000-000000000000';
 		$value = 'test';
@@ -226,7 +226,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( $formId )->build();
 		$lexeme = NewLexeme::havingId( $lexemeId )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
@@ -253,7 +253,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	public function testGivenClaimWithFormValueOnProperty_setsClaim() {
 		$propertyId = 'P321';
 		$formId = 'L123-F1';
-		$this->saveLexeme(
+		$this->saveEntity(
 			NewLexeme::havingId( 'L123' )
 				->withForm( NewForm::havingId( new FormId( $formId ) )->andLexeme( 'L123' ) )
 				->build()
@@ -278,12 +278,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function saveTestProperty( PropertyId $propertyId ) {
-		$property = new Property( $propertyId, null, 'string' );
-		$this->entityStore->saveEntity( $property, self::class, $this->getTestUser()->getUser() );
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
+		$this->saveEntity( new Property( $propertyId, null, 'string' ) );
 	}
 
 	/**

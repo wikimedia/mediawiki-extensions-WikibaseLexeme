@@ -142,15 +142,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function saveDummyLexemeToDatabase() {
-		$this->saveLexeme( $this->getDummyLexeme() );
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity(
-			$lexeme,
-			self::class,
-			$this->getTestUser()->getUser()
-		);
+		$this->saveEntity( $this->getDummyLexeme() );
 	}
 
 	public function testGivenIdOfExistingLexemeAndLemmaData_lemmaIsChanged() {
@@ -2240,7 +2232,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$lexeme->removeForm( new FormId( $this->formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 		) ) );
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		return $lexeme;
 	}

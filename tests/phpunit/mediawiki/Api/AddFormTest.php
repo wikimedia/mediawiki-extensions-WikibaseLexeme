@@ -25,7 +25,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testRateLimitIsCheckedWhenEditing() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -128,7 +128,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testGivenNoRepresentationDefined_errorIsReported() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -159,7 +159,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testGivenValidData_addsForm() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -181,7 +181,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testGivenValidData_responseContainsSuccessMarker() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -197,7 +197,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testGivenValidDataWithoutEditPermission_violationIsReported() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 				'*' => [
@@ -221,7 +221,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testSetsTheSummaryOfRevision() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -243,7 +243,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testResponseContainsRevisionId() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -261,7 +261,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	public function testResponseContainsFormData() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -285,10 +285,6 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			],
 			$result['form']
 		);
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	/**

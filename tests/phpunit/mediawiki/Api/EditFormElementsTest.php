@@ -30,7 +30,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	public function testRateLimitIsCheckedWhenEditing() {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -188,7 +188,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -213,7 +213,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -238,7 +238,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -266,7 +266,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -299,7 +299,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -327,7 +327,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -358,7 +358,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -383,7 +383,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -416,7 +416,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -450,7 +450,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -484,7 +484,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -519,7 +519,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -553,7 +553,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -588,7 +588,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -624,7 +624,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -655,7 +655,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -690,7 +690,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -709,7 +709,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -745,7 +745,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
@@ -764,10 +764,6 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		} catch ( ApiUsageException $exception ) {
 			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
 		}
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	/**

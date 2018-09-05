@@ -29,7 +29,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 	public function testRateLimitIsCheckedWhenEditing() {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -150,7 +150,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -174,7 +174,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -199,7 +199,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -226,7 +226,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -255,7 +255,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -287,7 +287,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -320,7 +320,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -353,7 +353,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -387,7 +387,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -419,7 +419,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -438,7 +438,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$params = [
 			'action' => 'wbleditsenseelements',
@@ -471,7 +471,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 
-		$this->saveLexeme( $lexeme );
+		$this->saveEntity( $lexeme );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
@@ -490,10 +490,6 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		} catch ( ApiUsageException $exception ) {
 			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
 		}
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
 	}
 
 	/**
