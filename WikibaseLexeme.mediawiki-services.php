@@ -4,11 +4,16 @@ use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
+use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Merge\TermListMerger;
+use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
+use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\EditFilterHookRunner;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
@@ -45,6 +50,16 @@ return call_user_func( function() {
 					->getChangeOpFactoryProvider()
 					->getMergeFactory()
 					->getStatementsMerger();
+
+				$baseExtractor = new StatementEntityReferenceExtractor( $repo->getLocalItemUriParser() );
+				$noCrossReferencingStatementsValidator = new NoCrossReferencingLexemeStatements(
+					new LexemeStatementEntityReferenceExtractor(
+						$baseExtractor,
+						new FormsStatementEntityReferenceExtractor( $baseExtractor ),
+						new SensesStatementEntityReferenceExtractor( $baseExtractor )
+					)
+				);
+
 				return new LexemeMergeInteractor(
 					new LexemeMerger(
 						new TermListMerger(),
@@ -53,7 +68,8 @@ return call_user_func( function() {
 							$statementsMerger,
 							new TermListMerger(),
 							new GuidGenerator()
-						)
+						),
+						$noCrossReferencingStatementsValidator
 					),
 					$repo->getEntityRevisionLookup(),
 					$repo->getEntityStore(),

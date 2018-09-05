@@ -20,6 +20,7 @@ use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
@@ -129,6 +130,14 @@ class LexemeMergeInteractorTest extends TestCase {
 
 		$statementsMerger = WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()
 			->getMergeFactory()->getStatementsMerger();
+
+		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator
+			->validate( $this->sourceLexeme, $this->targetLexeme )
+			->willReturn( true );
+		$crossRefValidator = $crossRefValidator->reveal();
+		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
+
 		$this->lexemeMerger = new LexemeMerger(
 			new TermListMerger(),
 			$statementsMerger,
@@ -136,7 +145,8 @@ class LexemeMergeInteractorTest extends TestCase {
 				$statementsMerger,
 				new TermListMerger(),
 				new GuidGenerator()
-			)
+			),
+			$crossRefValidator
 		);
 
 		$this->newMergeInteractor()
