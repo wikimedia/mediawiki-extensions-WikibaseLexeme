@@ -295,7 +295,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	// FIXME: duplicated from LexemeView.php until it's reusable
 	function getTemplate() {
 		return '<div>'
-			+ '<h1 id="wb-lexeme-header" class="wb-lexeme-header">'
+			+ '<div id="wb-lexeme-header" class="wb-lexeme-header">'
 			+ '<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->'
 			+ '<div class="wb-lexeme-header_lemma-widget">'
 			+ '<lemma-widget '
@@ -313,7 +313,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			+ '<button type="button" class="lemma-widget_cancel" v-if="inEditMode" '
 			+ ' :disabled="isSaving"  v-on:click="cancel">{{\'wikibase-cancel\'|message}}</button>'
 			+ '</div>'
-			+ '</h1>'
+			+ '</div>'
 			+ '<language-and-category-widget '
 			+ '	:language.sync="language"'
 			+ '	:lexicalCategory.sync="lexicalCategory"'
