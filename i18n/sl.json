@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Janezdrilc"
+			"Janezdrilc",
+			"Dbc334"
 		]
 	},
 	"wikibaselexeme-desc": "Obravnavaj vrsto leksema",
@@ -9,7 +10,7 @@
 	"wikibaselexeme-deletedentity-form": "Izbrisana oblika",
 	"wikibaselexeme-newlexeme-fieldset": "Ustvari nov leksem",
 	"wikibaselexeme-newlexeme-lemma": "lema",
-	"wikibaselexeme-newlexeme-lemma-language": "Jezik leme",
+	"wikibaselexeme-newlexeme-lemma-language": "Pravopisna različica Lemme",
 	"wikibaselexeme-lemma-edit-placeholder": "Lema je običajno najkrajša oblika besede",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Besedna vrsta",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Vnesi besedno vrsto, na primer samostalnik",

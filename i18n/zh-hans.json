@@ -5,7 +5,8 @@
 			"NeverBehave",
 			"Deathkon",
 			"Wxyveronica",
-			"Hanyanbo98"
+			"Hanyanbo98",
+			"夢蝶葬花"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
@@ -106,6 +107,7 @@
 	"wikibase-lexeme-summary-set-sense-glosses": "已设置意义$3的{{PLURAL:$1|[$2]注解|注解}}",
 	"wikibase-lexeme-summary-remove-sense-glosses": "已移除意义$3的{{PLURAL:$1|[$2]注解|注解}}",
 	"wikibase-lexeme-summary-update-sense-elements": "已更改意义$3的注解",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "加入一个新表单",
 	"wikibaselexeme-field-language-label": "语言",
 	"wikibaselexeme-field-lexical-category-label": "词类",
 	"wikibaselexeme-diffview-lemma": "引理",
@@ -115,6 +117,7 @@
 	"wikibaselexeme-diffview-representation": "表现",
 	"wikibaselexeme-diffview-grammatical-feature": "语法特征",
 	"wikibaselexeme-diffview-sense": "意义",
+	"wikibaselexeme-diffview-gloss": "类",
 	"content-model-wikibase-lexeme": "Wikibase词位",
 	"wikibaselexeme-form-grammatical-features": "语法特征",
 	"wikibaselexeme-form-description": "$1用于：$2（$3）：$4",
@@ -130,5 +133,8 @@
 	"wikibase-lexeme-mergelexemes-intro": "如果您合并两个词位，所有引理、声明、词形和意义将从其中一个词位移动至另一个。",
 	"wikibase-lexeme-mergelexemes-from-id": "要合并自的ID",
 	"wikibase-lexeme-mergelexemes-to-id": "要合并到的ID",
-	"wikibase-lexeme-mergelexemes-submit": "合并词位"
+	"wikibase-lexeme-mergelexemes-submit": "合并词位",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "权限被拒绝。",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "不能将数据项合并到它本身。",
+	"wikibase-entity-summary-wblmergelexemes-from": "已合并项自$3"
 }
