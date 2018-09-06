@@ -596,19 +596,12 @@ class LexemeMergerTest extends TestCase {
 			->willThrowException( $expectedException );
 		$sensesMerger = new LexemeSensesMerger();
 
-		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
-		$crossRefValidator
-			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
-			->willReturn( true );
-		$crossRefValidator = $crossRefValidator->reveal();
-		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
-
 		$merger = new LexemeMerger(
 			$this->createMock( TermListMerger::class ),
 			$this->createMock( StatementsMerger::class ),
 			$throwingFormsMerger,
 			$sensesMerger,
-			$crossRefValidator
+			$this->newValidNoCrossReferencingLexemeStatementsValidator()
 		);
 
 		try {
@@ -632,19 +625,12 @@ class LexemeMergerTest extends TestCase {
 			->method( 'merge' )
 			->willThrowException( $expectedException );
 
-		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
-		$crossRefValidator
-			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
-			->willReturn( true );
-		$crossRefValidator = $crossRefValidator->reveal();
-		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
-
 		$merger = new LexemeMerger(
 			$this->createMock( TermListMerger::class ),
 			$throwingStatementsMerger,
 			$this->createMock( LexemeFormsMerger::class ),
 			$this->createMock( LexemeSensesMerger::class ),
-			$crossRefValidator
+			$this->newValidNoCrossReferencingLexemeStatementsValidator()
 		);
 
 		try {
@@ -872,19 +858,12 @@ class LexemeMergerTest extends TestCase {
 			->method( 'merge' )
 			->willThrowException( $expectedException );
 
-		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
-		$crossRefValidator
-			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
-			->willReturn( true );
-		$crossRefValidator = $crossRefValidator->reveal();
-		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
-
 		$merger = new LexemeMerger(
 			$this->createMock( TermListMerger::class ),
 			$this->createMock( StatementsMerger::class ),
 			$formMerger,
 			$throwingSensesMerger,
-			$crossRefValidator
+			$this->newValidNoCrossReferencingLexemeStatementsValidator()
 		);
 
 		try {
@@ -953,6 +932,17 @@ class LexemeMergerTest extends TestCase {
 			new LexemeSensesMerger(),
 			$noCrossReferencingStatementsValidator
 		);
+	}
+
+	/**
+	 * @return NoCrossReferencingLexemeStatements
+	 */
+	private function newValidNoCrossReferencingLexemeStatementsValidator() {
+		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator
+			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
+			->willReturn( true );
+		return $crossRefValidator->reveal();
 	}
 
 }
