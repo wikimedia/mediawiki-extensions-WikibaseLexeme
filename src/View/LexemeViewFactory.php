@@ -5,11 +5,10 @@ namespace Wikibase\Lexeme\View;
 use Language;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
-use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
-use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityIdFormatterFactory;
@@ -107,11 +106,6 @@ class LexemeViewFactory {
 			$this->editSectionGenerator
 		);
 
-		$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
-			$languageDirectionalityLookup,
-			new LanguageNameLookup( $this->languageCode )
-		);
-
 		$idLinkFormatter = $this->entityIdFormatterFactory
 			->getEntityIdFormatter( $retrievingLabelDescriptionLookup );
 
@@ -138,7 +132,10 @@ class LexemeViewFactory {
 			$formsView,
 			$sensesView,
 			$statementSectionsView,
-			$htmlTermRenderer,
+			new LexemeTermFormatter(
+				$localizedTextProvider
+					->get( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+			),
 			$idLinkFormatter
 		);
 	}

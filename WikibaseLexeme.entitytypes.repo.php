@@ -39,6 +39,7 @@ use Wikibase\Lexeme\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor
 use Wikibase\Lexeme\EntityReferenceExtractors\LanguageItemIdExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
@@ -273,11 +274,16 @@ return [
 		},
 		'link-formatter-callback' => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
+			$requestContext = RequestContext::getMain();
 
 			return new LexemeLinkFormatter(
 				$repo->getEntityLookup(),
 				new DefaultEntityLinkFormatter( $language ),
-				RequestContext::getMain(),
+				new LexemeTermFormatter(
+					$requestContext
+						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+						->escaped()
+				),
 				$language
 			);
 		},

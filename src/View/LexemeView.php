@@ -8,11 +8,10 @@ use Message;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
-use Wikibase\View\HtmlTermRenderer;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
 use Wikibase\View\Template\TemplateFactory;
@@ -43,14 +42,14 @@ class LexemeView extends EntityView {
 	private $statementSectionsView;
 
 	/**
-	 * @var HtmlTermRenderer
-	 */
-	private $htmlTermRenderer;
-
-	/**
 	 * @var EntityIdFormatter
 	 */
 	private $idFormatter;
+
+	/**
+	 * @var LexemeTermFormatter
+	 */
+	private $lemmaFormatter;
 
 	/**
 	 * @param TemplateFactory $templateFactory
@@ -60,7 +59,7 @@ class LexemeView extends EntityView {
 	 * @param FormsView $formsView
 	 * @param SensesView $sensesView
 	 * @param StatementSectionsView $statementSectionsView
-	 * @param HtmlTermRenderer $htmlTermRenderer
+	 * @param LexemeTermFormatter $lemmaFormatter
 	 * @param EntityIdFormatter $idFormatter
 	 */
 	public function __construct(
@@ -71,7 +70,7 @@ class LexemeView extends EntityView {
 		FormsView $formsView,
 		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
-		HtmlTermRenderer $htmlTermRenderer,
+		LexemeTermFormatter $lemmaFormatter,
 		EntityIdFormatter $idFormatter
 	) {
 		parent::__construct(
@@ -84,8 +83,8 @@ class LexemeView extends EntityView {
 		$this->formsView = $formsView;
 		$this->sensesView = $sensesView;
 		$this->statementSectionsView = $statementSectionsView;
-		$this->htmlTermRenderer = $htmlTermRenderer;
 		$this->idFormatter = $idFormatter;
+		$this->lemmaFormatter = $lemmaFormatter;
 	}
 
 	/**
@@ -168,15 +167,12 @@ HTML;
 
 		if ( $entity->getId() !== null ) {
 			$id = $entity->getId()->getSerialization();
+			$isEmpty = false;
 			$idInParenthesesHtml = htmlspecialchars(
 				$this->getLocalizedMessage( 'parentheses', [ $id ] )
 			);
 
-			$label = $this->getMainTerm( $entity->getLemmas() );
-			if ( $label !== null ) {
-				$labelHtml = $this->htmlTermRenderer->renderTerm( $label );
-				$isEmpty = false;
-			}
+			$labelHtml = $this->lemmaFormatter->format( $entity->getLemmas() );
 		}
 
 		$title = $isEmpty ? htmlspecialchars(
@@ -188,24 +184,6 @@ HTML;
 			$title,
 			$idInParenthesesHtml
 		);
-	}
-
-	/**
-	 * @param TermList|null $lemmas
-	 *
-	 * @return Term|null
-	 */
-	private function getMainTerm( TermList $lemmas = null ) {
-		if ( $lemmas === null || $lemmas->isEmpty() ) {
-			return null;
-		}
-
-		// Return the first term, until we build a proper UI
-		foreach ( $lemmas->getIterator() as $term ) {
-			return $term;
-		}
-
-		return null;
 	}
 
 	/**
