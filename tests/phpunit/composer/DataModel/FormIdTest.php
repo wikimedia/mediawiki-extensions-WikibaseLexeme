@@ -81,4 +81,19 @@ class FormIdTest extends TestCase {
 		yield [ 'L777', ':L777-F123' ];
 	}
 
+	/**
+	 * @dataProvider idSuffixProvider
+	 */
+	public function testGetIdSuffix( $expected, $formIdSerialization ) {
+		$this->assertSame(
+			$expected,
+			( new FormId( $formIdSerialization ) )->getIdSuffix()
+		);
+	}
+
+	public function idSuffixProvider() {
+		yield [ 'F1', 'L1-F1' ];
+		yield [ 'F123', 'foreign:L321-F123' ];
+	}
+
 }

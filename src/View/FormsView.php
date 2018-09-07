@@ -108,7 +108,7 @@ class FormsView {
 			$grammaticalFeaturesHtml,
 			$this->getStatementSectionHtml( $form ),
 			//Anchor separated from ID to avoid issue with front-end rendering
-			htmlspecialchars( $form->getId()->getSerialization() )
+			htmlspecialchars( $form->getId()->getIdSuffix() )
 		] );
 	}
 

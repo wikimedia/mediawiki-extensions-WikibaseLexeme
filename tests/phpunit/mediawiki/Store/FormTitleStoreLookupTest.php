@@ -34,7 +34,7 @@ class FormTitleStoreLookupTest extends TestCase {
 
 		$title = $this->getMock( Title::class );
 		$title->method( 'setFragment' )
-			->with( '#' . $formId->getSerialization() );
+			->with( '#' . $formId->getIdSuffix() );
 
 		$parentLookup = $this->getMock( EntityTitleStoreLookup::class );
 		$parentLookup->method( 'getTitleForId' )
