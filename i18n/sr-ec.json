@@ -15,6 +15,7 @@
 	"wikibaselexeme-newlexeme-lemma-language": "Варијанта правописа леме",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексичка категорија",
 	"wikibaselexeme-newlexeme-language": "Језик лексеме",
+	"wikibaselexeme-header-forms": "Облици",
 	"wikibaselexeme-enter-form-representation": "Унесите нову форму репрезентације",
 	"wikibaselexeme-empty-form-representation": "Није дефинисана форма репрезентације",
 	"wikibaselexeme-header-senses": "Чула",
@@ -27,6 +28,7 @@
 	"datatypes-type-wikibase-lexeme": "лексема",
 	"datatypes-type-wikibase-form": "облик",
 	"datatypes-type-wikibase-sense": "Смисао",
+	"wikibase-listdatatypes-wikibase-form-body": "Веза до облика на пројекту. Када се унесе вредност, именски простор \"Лекеме\" на пројекту ће се претраживати за одговарајуће облике.",
 	"wikibaselexeme-add-sense": "додај смисао",
 	"wikibaselexeme-add-form": "додај облик",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Направљена нова лексема",
@@ -41,7 +43,9 @@
 	"wikibaselexeme-diffview-grammatical-feature": "граматичка особина",
 	"wikibaselexeme-form-grammatical-features": "Граматичке особине",
 	"wikibaselexeme-form-description": "$1 за: $2 ($3): $4",
+	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|изјава}}, $2 {{PLURAL:$2|облик|облика}}",
 	"wikibaselexeme-unknown-language": "Непознат језик",
 	"wikibaselexeme-unknown-category": "Непознато",
-	"wikibaselexeme-no-features": "без особина"
+	"wikibaselexeme-no-features": "без особина",
+	"wikibase-lexeme-mergelexemes-intro": "Ако спојите две лексеме, све леме, изјаве, облици и значења биће премештени из једне лексеме у другу."
 }
