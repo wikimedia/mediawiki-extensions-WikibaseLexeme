@@ -28,7 +28,7 @@
 	"datatypes-type-wikibase-lexeme": "лексема",
 	"datatypes-type-wikibase-form": "облик",
 	"datatypes-type-wikibase-sense": "Смисао",
-	"wikibase-listdatatypes-wikibase-form-body": "Веза до облика на пројекту. Када се унесе вредност, именски простор \"Лекеме\" на пројекту ће се претраживати за одговарајуће облике.",
+	"wikibase-listdatatypes-wikibase-form-body": "Веза до облика на пројекту. Када се унесе вредност, именски простор „Лексем” пројекта ће се претраживати за одговарајуће облике.",
 	"wikibaselexeme-add-sense": "додај смисао",
 	"wikibaselexeme-add-form": "додај облик",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Направљена нова лексема",
