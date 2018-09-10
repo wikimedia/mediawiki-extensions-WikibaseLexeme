@@ -6,15 +6,15 @@ use HamcrestPHPUnitIntegration;
 use HtmlArmor;
 use InvalidArgumentException;
 use Language;
-use MessageLocalizer;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit4And6Compat;
-use RawMessage;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
@@ -29,156 +29,42 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 	use HamcrestPHPUnitIntegration;
 	use PHPUnit4And6Compat;
 
-	const REPRESENTATION_SEPARATOR = '/';
+	/** @var MockObject|EntityLookup */
+	private $entityLookup;
 
-	public function testGetHtmlIncludesFormId() {
-		$lookup = $this->newEntityLookup(
-			NewForm::havingLexeme( 'L1' )->andId( 'F1' )->build()
-		);
+	/** @var MockObject|LexemeTermFormatter */
+	private $lemmaFormatter;
 
-		$formatter = new FormLinkFormatter(
-			$lookup,
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
+	public function setUp() {
+		parent::setUp();
 
-		$formId = 'L1-F1';
-		$this->assertThatHamcrest(
-			$formatter->getHtml( new FormId( $formId ) ),
-			is( htmlPiece( havingRootElement(
-					havingTextContents( containsString( $formId ) )
-			) ) )
-		);
+		$this->lemmaFormatter = $this->createMock( LexemeTermFormatter::class );
+		$this->entityLookup = $this->createMock( EntityLookup::class );
 	}
 
-	public function testGetHtmlUsesRepresentationAsLinkText() {
-		$representation = 'color';
-		$lookup = $this->newEntityLookup(
-			NewForm::havingLexeme( 'L1' )
-				->andId( 'F1' )
-				->andRepresentation( 'en-gb', $representation )
-				->build()
-		);
+	public function testGetHtml() {
+		$form = NewForm::havingId( new FormId( 'L111-F222' ) )
+			->andRepresentation( 'en-gb', 'potato' )
+			->build();
+		$this->entityLookup = $this->newEntityLookup( $form );
+		$representationHtml = '[REPRESENTATION_HTML]';
+		$this->lemmaFormatter
+			->expects( $this->once() )
+			->method( 'format' )
+			->with( $form->getRepresentations() )
+			->willReturn( $representationHtml );
 
-		$formatter = new FormLinkFormatter(
-			$lookup,
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
+		$formatter = $this->newFormatter();
 
-		$this->assertThatHamcrest(
-			$formatter->getHtml( new FormId( 'L1-F1' ) ),
-			is( htmlPiece( havingChild(
-				both(
-					tagMatchingOutline( '<span lang="en-GB"/>' )
-				)->andAlso(
-					havingTextContents( $representation )
+		$this->assertThatHamcrest( $formatter->getHtml( $form->getId() ),
+			is( htmlPiece(
+				havingRootElement(
+					both( tagMatchingOutline( '<span lang="en"></span>' ) )
+						->andAlso( havingTextContents( equalToIgnoringWhiteSpace(
+							$representationHtml . $form->getId()->getSerialization()
+						) ) )
 				)
-			) ) )
-		);
-	}
-
-	public function testGivenMultipleRepresentations_getHtmlRendersAllOfThem() {
-		$representationGb = 'colour';
-		$representationOther = 'kolorr';
-		$formId = 'L1-F1';
-
-		$lookup = $this->newEntityLookup(
-			NewForm::havingLexeme( 'L1' )
-				->andId( 'F1' )
-				->andRepresentation( 'en-gb', $representationGb )
-				->andRepresentation( 'en-x-Q1234', $representationOther )
-				->build()
-		);
-
-		$formatter = new FormLinkFormatter(
-			$lookup,
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
-
-		$this->assertThatHamcrest(
-			$formatter->getHtml( new FormId( $formId ) ),
-			is( htmlPiece( havingRootElement( allOf(
-				havingChild(
-					both(
-						tagMatchingOutline( '<span lang="en-GB"/>' )
-					)->andAlso(
-						havingTextContents( 'colour' )
-					)
-				),
-				havingChild(
-					both(
-						tagMatchingOutline( '<span lang="en-x-q1234"/>' )
-					)->andAlso(
-						havingTextContents( 'kolorr' )
-					)
-				),
-				havingTextContents( equalToIgnoringWhiteSpace(
-					$representationGb . self::REPRESENTATION_SEPARATOR . $representationOther . $formId
-				) )
-			) ) ) )
-		);
-	}
-
-	public function testGetHtmlConsidersDirectionalityOfRepresentation() {
-		$representation = 'رنگ';
-
-		$lookup = $this->newEntityLookup(
-			NewForm::havingLexeme( 'L1' )->andId( 'F1' )->andRepresentation( 'fa', $representation )->build()
-		);
-
-		$formatter = new FormLinkFormatter(
-			$lookup,
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
-
-		$this->assertThatHamcrest(
-			$formatter->getHtml( new FormId( 'L1-F1' ) ),
-			is( htmlPiece( havingChild(
-				both(
-					tagMatchingOutline( '<span dir="rtl" class="mw-content-rtl"></span>' )
-				)->andAlso(
-					havingTextContents( $representation )
-				)
-			) ) )
-		);
-	}
-
-	public function testGivenNotExistingForm_getHtmlRendersId() {
-		$lookup = $this->newEntityLookup( null );
-
-		$formatter = new FormLinkFormatter(
-			$lookup,
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
-
-		$this->assertEquals(
-			'<span lang="en">L1-F100</span>',
-			$formatter->getHtml( new FormId( 'L1-F100' ) )
-		);
-	}
-
-	public function testGetHtmlWrapsFormDataInSpanWithUserLanguage() {
-		$formatter = new FormLinkFormatter(
-			$this->createMock( EntityLookup::class ),
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
-
-		$this->assertThatHamcrest(
-			$formatter->getHtml( new FormId( 'L1-F1' ) ),
-			is( htmlPiece( havingRootElement(
-					tagMatchingOutline( '<span lang="en"/>' )
-			) ) )
+			) )
 		);
 	}
 
@@ -186,12 +72,7 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenNonFormId_getHtmlThrowsException() {
-		$formatter = new FormLinkFormatter(
-			$this->createMock( EntityLookup::class ),
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
+		$formatter = $this->newFormatter();
 
 		$formatter->getHtml( new LexemeId( 'L1' ) );
 	}
@@ -200,12 +81,7 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 		$title = $this->createMock( Title::class );
 		$title->method( 'getFragment' )->willReturn( 'L2-F3' );
 
-		$formatter = new FormLinkFormatter(
-			$this->createMock( EntityLookup::class ),
-			$this->newDefaultFormatter(),
-			$this->newMessageLocalizer(),
-			Language::factory( 'en' )
-		);
+		$formatter = $this->newFormatter();
 
 		$this->assertEquals( 'L2-F3', $formatter->getTitleAttribute( $title ) );
 	}
@@ -230,17 +106,6 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * @return MessageLocalizer
-	 */
-	private function newMessageLocalizer() {
-		$localizer = $this->createMock( MessageLocalizer::class );
-		$localizer->method( 'msg' )
-			->willReturn( new RawMessage( self::REPRESENTATION_SEPARATOR ) );
-
-		return $localizer;
-	}
-
-	/**
 	 * @param Form|null $returnValue
 	 * @return EntityLookup
 	 */
@@ -249,6 +114,15 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 		$lookup->method( 'getEntity' )
 			->willReturn( $returnValue );
 		return $lookup;
+	}
+
+	private function newFormatter() : FormLinkFormatter {
+		return new FormLinkFormatter(
+			$this->entityLookup,
+			$this->newDefaultFormatter(),
+			$this->lemmaFormatter,
+			Language::factory( 'en' )
+		);
 	}
 
 }

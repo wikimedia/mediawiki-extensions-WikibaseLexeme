@@ -2,15 +2,14 @@
 
 namespace Wikibase\Lexeme\Hooks\Formatters;
 
-use Html;
-use HtmlArmor;
 use Language;
-use MessageLocalizer;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\Assert;
@@ -31,9 +30,9 @@ class FormLinkFormatter implements EntityLinkFormatter {
 	private $linkFormatter;
 
 	/**
-	 * @var MessageLocalizer
+	 * @var LexemeTermFormatter
 	 */
-	private $messageLocalizer;
+	private $representationsFormatter;
 
 	/**
 	 * @var Language
@@ -43,13 +42,13 @@ class FormLinkFormatter implements EntityLinkFormatter {
 	public function __construct(
 		EntityLookup $entityLookup,
 		DefaultEntityLinkFormatter $linkFormatter,
-		MessageLocalizer $messageLocalizer,
+		LexemeTermFormatter $representationsFormatter,
 		Language $language
 	) {
 		$this->entityLookup = $entityLookup;
 		$this->linkFormatter = $linkFormatter;
-		$this->messageLocalizer = $messageLocalizer;
 		$this->language = $language;
+		$this->representationsFormatter = $representationsFormatter;
 	}
 
 	public function getHtml( EntityId $entityId, array $labelData = null ) {
@@ -59,47 +58,16 @@ class FormLinkFormatter implements EntityLinkFormatter {
 			$entityId,
 			[
 				'language' => $this->language->getCode(),
-				'value' => $this->formatRepresentations( $this->getRepresentations( $entityId ) ),
+				'value' => $this->representationsFormatter->format( $this->getRepresentations( $entityId ) ),
 			]
 		);
 	}
 
-	private function formatRepresentations( array $representations ) {
-		return new HtmlArmor( implode(
-			$this->messageLocalizer->msg(
-				'wikibaselexeme-formidformatter-separator-multiple-representation'
-			)->escaped(),
-			array_map(
-				function ( $representation, $variant ) {
-					return $this->getRepresentationHtml( $representation, $variant );
-				},
-				$representations,
-				array_keys( $representations )
-			)
-		) );
-	}
-
-	private function getRepresentationHtml( $representation, $variant ) {
-		$language = Language::factory( $variant );
-
-		return Html::element(
-			'span',
-			[
-				'class' => 'mw-content-' . $language->getDir(),
-				'dir' => $language->getDir(),
-				'lang' => $language->getHtmlCode(),
-			],
-			$representation
-		);
-	}
-
-	private function getRepresentations( FormId $formId ) {
+	private function getRepresentations( FormId $formId ) : TermList {
 		$form = $this->entityLookup->getEntity( $formId );
-		if ( $form instanceof Form ) {
-			return $form->getRepresentations()->toTextArray();
-		} else {
-			return [];
-		}
+
+		/** @var Form $form */
+		return $form->getRepresentations();
 	}
 
 	public function getTitleAttribute(
