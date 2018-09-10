@@ -102,6 +102,22 @@ class LexemeApi {
 	}
 
 	/**
+	 * Add a new sense to a lexeme
+	 *
+	 * @param {string} lexemeId
+	 * @param {object} sense
+	 * @return {Promise}
+	 */
+	addSense( lexemeId, sense ) {
+		return bot.request( {
+			action: 'wbladdsense',
+			lexemeId: lexemeId,
+			data: JSON.stringify( sense ),
+			token: bot.editToken
+		} );
+	}
+
+	/**
 	 * Changes representation and grammatical features of the form
 	 *
 	 * @param {string} formId

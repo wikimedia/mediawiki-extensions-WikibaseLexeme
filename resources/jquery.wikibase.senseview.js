@@ -102,6 +102,10 @@
 				return this.options.value;
 			}
 
+			if ( this.glossWidget.hasRedundantLanguage ) {
+				return null;
+			}
+
 			return new wb.lexeme.datamodel.Sense(
 				this.options.value ? this.options.value.getId() : null,
 				arrayToTermMap( this.glossWidget.glosses )

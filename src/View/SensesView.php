@@ -109,7 +109,8 @@ class SensesView {
 				'senseId' => $sense->getId()->getSerialization(),
 				'inEditMode' => false,
 				'isSaving' => false,
-				'glosses' => $glosses
+				'glosses' => $glosses,
+				'isUnsaveable' => true
 			],
 			[
 				'message' => function ( $key ) {
@@ -193,6 +194,10 @@ HTML;
 				<td class="wikibase-lexeme-sense-gloss-language">
 					<span v-if="!inEditMode">{{gloss.language}}</span>
 					<input v-else class="wikibase-lexeme-sense-gloss-language-input"
+						:class="{
+							'wikibase-lexeme-sense-gloss-language-input_redundant-language':
+								isRedundantLanguage(gloss.language)
+						}"
 						v-model="gloss.language" >
 				</td>
 				<td class="wikibase-lexeme-sense-gloss-value-cell">
@@ -215,6 +220,16 @@ HTML;
 			</tr>
 		</tbody>
 		<tfoot v-if="inEditMode">
+			<tr>
+				<td colspan="3" >
+					<div
+					v-if="hasRedundantLanguage"
+					class="wikibase-lexeme-sense-gloss_redundant-language-warning"
+					>
+						<p>{{'wikibaselexeme-sense-gloss-redundant-language'|message}}</p>
+					</div>
+				</td>
+			</tr>
 			<tr>
 				<td>
 				</td>

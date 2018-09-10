@@ -22,7 +22,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return {
 			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
 			REMOVE_BUTTON: '.wikibase-toolbar-button-remove',
-			SAVE_BUTTON: '.wikibase-toolbar-button-save'
+			SAVE_BUTTON: '.wikibase-toolbar-button-save',
+			ADD_GLOSS_BUTTON: '.wikibase-lexeme-sense-glosses-add',
+			EDIT_INPUT_VALUE: '.wikibase-lexeme-sense-gloss-value-input',
+			EDIT_INPUT_LANGUAGE: '.wikibase-lexeme-sense-gloss-language-input'
 		};
 	}
 
@@ -50,8 +53,16 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return $( '.wikibase-lexeme-forms' );
 	}
 
+	get sensesContainer() {
+		return $( '.wikibase-lexeme-senses' );
+	}
+
 	get forms() {
 		return this.formsContainer.$$( '.wikibase-lexeme-form' );
+	}
+
+	get senses() {
+		return this.sensesContainer.$$( '.wikibase-lexeme-sense' );
 	}
 
 	get headerId() {
@@ -205,6 +216,30 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		}
 	}
 
+	addGlossToNthSense( index, gloss, language, submitImmediately ) {
+		let sense = this.senses[ index ];
+
+		this.startEditingNthSense( index );
+
+		let addGlossButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.ADD_GLOSS_BUTTON );
+
+		addGlossButton.waitForVisible();
+		addGlossButton.click();
+
+		let glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
+		let glosses = glossContainer.$$( '.wikibase-lexeme-sense-gloss' );
+
+		let newGlossIndex = glosses.length - 1;
+		let newGloss = glosses[ newGlossIndex ];
+
+		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( gloss );
+		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
+
+		if ( submitImmediately !== false ) {
+			this.submitNthSense( index );
+		}
+	}
+
 	editRepresentationOfNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 
@@ -240,9 +275,20 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		this.forms[ index ].$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
 	}
 
+	startEditingNthSense( index ) {
+		this.senses[ index ].$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+	}
+
 	isNthFormSubmittable( index ) {
 		let form = this.forms[ index ],
 			saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
+	}
+
+	isNthSenseSubmittable( index ) {
+		let sense = this.senses[ index ],
+			saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
 
 		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
 	}
@@ -251,6 +297,15 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		let form = this.forms[ index ];
 
 		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+
+		saveButton.click();
+		saveButton.waitForExist( null, true );
+	}
+
+	submitNthSense( index ) {
+		let sense = this.senses[ index ];
+
+		let saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
 
 		saveButton.click();
 		saveButton.waitForExist( null, true );

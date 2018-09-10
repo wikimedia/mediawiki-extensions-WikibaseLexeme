@@ -38,6 +38,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Error message to show if multiple form representations with same language are provided",
 	"wikibaselexeme-gloss-field-language-label": "Label of the field to input the language code of the language the gloss of the Sense is defined in\n{{Identical|Language}}",
 	"wikibaselexeme-gloss-field-gloss-label": "Label of the field to input the gloss of the Sense\n{{Identical|Gloss}}",
+	"wikibaselexeme-sense-gloss-redundant-language": "Error message to show if multiple glosses with the same language are provided.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Auto-generated edit summary when editing a Lexeme",
 	"datatypes-type-wikibase-lexeme": "The name of a data type for Lexemes in Wikibase.\n{{related|Datatypes-type}}\n{{Identical|Lexeme}}",
 	"datatypes-type-wikibase-form": "The name of a data type for lexicographical Forms in Wikibase.\n{{related|Datatypes-type}}",
