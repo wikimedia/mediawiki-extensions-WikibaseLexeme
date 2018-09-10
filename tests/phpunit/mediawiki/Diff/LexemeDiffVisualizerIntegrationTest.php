@@ -9,6 +9,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\OrderedListDiffer;
 use Hooks;
+use Language;
 use ValueFormatters\FormatterOptions;
 use ValueFormatters\ValueFormatter;
 use Wikibase\DataModel\Entity\EntityIdValue;
@@ -504,9 +505,9 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			new LanguageNameLookup( $language )
 		);
 		$entityIdFormatter = $htmlFormatterFactory->getEntityIdFormatter(
-			$repo->getLanguageFallbackLabelDescriptionLookupFactory()
-				->newLabelDescriptionLookup( \Language::factory( $language ) )
+			Language::factory( $language )
 		);
+
 		$options = new FormatterOptions( [ ValueFormatter::OPT_LANG => $language ] );
 		$dataTypeLookup = $this->newNonCachingPropertyDatatypeLookup();
 

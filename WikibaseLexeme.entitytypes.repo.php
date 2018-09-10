@@ -42,6 +42,9 @@ use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtr
 use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
+use Wikibase\Lexeme\Formatters\FormIdHtmlFormatter;
+use Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter;
+use Wikibase\Lexeme\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
 use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Store\NullLabelDescriptionLookup;
@@ -287,6 +290,17 @@ return [
 				$language
 			);
 		},
+		'entity-id-html-link-formatter-callback' => function( Language $language ) {
+			$repo = WikibaseRepo::getDefaultInstance();
+			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
+			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
+			return new LexemeIdHtmlFormatter(
+				$repo->getEntityLookup(),
+				$languageLabelLookup,
+				$repo->getEntityTitleLookup(),
+				new MediaWikiLocalizedTextProvider( $language->getCode() )
+			);
+		},
 		'entity-reference-extractor-callback' => function () {
 			$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(
 				WikibaseRepo::getDefaultInstance()->getLocalItemUriParser()
@@ -399,6 +413,16 @@ return [
 				new DefaultEntityLinkFormatter( $language ),
 				RequestContext::getMain(),
 				$language
+			);
+		},
+		'entity-id-html-link-formatter-callback' => function( Language $language ) {
+			$repo = WikibaseRepo::getDefaultInstance();
+			$titleLookup = $repo->getEntityTitleLookup();
+			return new FormIdHtmlFormatter(
+				$repo->getEntityRevisionLookup(),
+				$titleLookup,
+				new MediaWikiLocalizedTextProvider( $language->getCode() ),
+				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
 			);
 		},
 	],

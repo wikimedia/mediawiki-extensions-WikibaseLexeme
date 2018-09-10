@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use HamcrestPHPUnitIntegration;
 use InvalidArgumentException;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
@@ -36,6 +37,7 @@ use Wikimedia\Assert\ParameterTypeException;
  */
 class LexemeViewTest extends \MediaWikiTestCase {
 	use HamcrestPHPUnitIntegration;
+	use PHPUnit4And6Compat;
 
 	/**
 	 * @return FormsView
@@ -114,9 +116,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$lemmaFormatter = new LexemeTermFormatter( '/' );
 
-		$linkFormatter = $this->getMockBuilder( EntityIdFormatter::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$linkFormatter = $this->createMock( EntityIdFormatter::class );
 		$linkFormatter->method( 'formatEntityId' )
 			->willReturnCallback( function( EntityId $entityId ) {
 				$id = $entityId->getSerialization();
