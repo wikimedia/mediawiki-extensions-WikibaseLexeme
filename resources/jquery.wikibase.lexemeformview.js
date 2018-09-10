@@ -5,7 +5,8 @@
 
 	/** @type {wikibase.lexeme.widgets.RepresentationWidget} */
 	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
-		LexemeStore = require( 'wikibase.lexeme.store' );
+		LexemeStore = require( 'wikibase.lexeme.store' ),
+		LexemeSubEntityId = require( 'wikibase.lexeme.datamodel.LexemeSubEntityId' );
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
@@ -70,7 +71,7 @@
 				},
 				function () { //Anchor
 					this.deferredFormWithId.promise().then( function ( form ) {
-						this.element.attr( 'id', form.getId() );
+						this.element.attr( 'id', LexemeSubEntityId.getIdSuffix( form.getId() ) );
 					}.bind( this ) );
 
 					return '';

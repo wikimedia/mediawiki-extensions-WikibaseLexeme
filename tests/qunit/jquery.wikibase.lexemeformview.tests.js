@@ -234,6 +234,25 @@
 		} ).then( done );
 	} );
 
+	QUnit.test( 'sets id after form save', function ( assert ) {
+		var emptyForm = new wikibase.lexeme.datamodel.Form(
+				'',
+				new TermMap()
+			),
+			view = newFormView( { value: emptyForm } ),
+			done = assert.async();
+
+		view.deferredFormWithId.resolve( newForm( 'L321-F123', 'meow' ) );
+
+		view.deferredFormWithId.promise().then( function () {
+			assert.equal(
+				view.element.attr( 'id' ),
+				'F123'
+			);
+			done();
+		} );
+	} );
+
 	/**
 	 * Sets input value and triggers 'input'
 	 * @param {jQuery}$element
