@@ -75,4 +75,19 @@ class SenseIdTest extends TestCase {
 		yield [ 'L777', ':L777-S123' ];
 	}
 
+	/**
+	 * @dataProvider idSuffixProvider
+	 */
+	public function testGetIdSuffix( $expected, $senseIdSerialization ) {
+		$this->assertSame(
+			$expected,
+			( new SenseId( $senseIdSerialization ) )->getIdSuffix()
+		);
+	}
+
+	public function idSuffixProvider() {
+		yield [ 'S1', 'L1-S1' ];
+		yield [ 'S123', 'foreign:L321-S123' ];
+	}
+
 }

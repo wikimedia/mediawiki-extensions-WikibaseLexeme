@@ -61,4 +61,11 @@ class DummySenseIdTest extends TestCase {
 		$this->assertFalse( $dummySenseId->equals( $otherDummySenseId ) );
 	}
 
+	public function testGetIdSuffixReturnsEmptyString() {
+		$this->assertSame(
+			( new DummySenseId( new LexemeId( 'L123' ) ) )->getIdSuffix(),
+			''
+		);
+	}
+
 }

@@ -46,7 +46,7 @@ class FormTitleStoreLookup implements EntityTitleStoreLookup {
 			return null;
 		}
 
-		$title->setFragment( '#' . $formId->getSerialization() );
+		$title->setFragment( '#' . $formId->getIdSuffix() );
 
 		return $title;
 	}
