@@ -7,12 +7,9 @@ use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormClone;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException;
 use Wikibase\Lexeme\Merge\Validator\FormMergeability;
-use Wikibase\Lexeme\Merge\Validator\NoCrossReferencingFormStatements;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\Merge\StatementsMerger;
-use Wikibase\Repo\Merge\Validator\NoCrossReferencingStatements;
 
 /**
  * @license GPL-2.0-or-later
@@ -51,8 +48,6 @@ class LexemeFormsMerger {
 	 * @param Lexeme $target Will be modified by reference
 	 */
 	public function merge( Lexeme $source, Lexeme $target ) {
-		$this->validate( $source, $target );
-
 		$formMergeability = new FormMergeability();
 
 		$changeOps = new ChangeOps();
@@ -81,16 +76,6 @@ class LexemeFormsMerger {
 	private function mergeForms( Form $source, Form $target ) {
 		$this->termListMerger->merge( $source->getRepresentations(), $target->getRepresentations() );
 		$this->statementsMerger->merge( $source, $target );
-	}
-
-	private function validate( Lexeme $source, Lexeme $target ) {
-		$noCrossReferencingFormStatements = new NoCrossReferencingFormStatements(
-			new NoCrossReferencingStatements()
-		);
-
-		if ( !$noCrossReferencingFormStatements->validate( $source, $target ) ) {
-			throw new CrossReferencingException();
-		}
 	}
 
 }

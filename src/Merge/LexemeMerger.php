@@ -12,8 +12,8 @@ use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
 use Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Merge\Validator\NoConflictingTermListValues;
+use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Repo\Merge\StatementsMerger;
-use Wikibase\Repo\Merge\Validator\NoCrossReferencingStatements;
 
 /**
  * @license GPL-2.0-or-later
@@ -35,14 +35,21 @@ class LexemeMerger {
 	 */
 	private $termListMerger;
 
+	/**
+	 * @var NoCrossReferencingLexemeStatements
+	 */
+	private $noCrossReferencingLexemeStatementsValidator;
+
 	public function __construct(
 		TermListMerger $termListMerger,
 		StatementsMerger $statementsMerger,
-		LexemeFormsMerger $formsMerger
+		LexemeFormsMerger $formsMerger,
+		NoCrossReferencingLexemeStatements $noCrossReferencingLexemeStatementsValidator
 	) {
 		$this->termListMerger = $termListMerger;
 		$this->statementsMerger = $statementsMerger;
 		$this->formsMerger = $formsMerger;
+		$this->noCrossReferencingLexemeStatementsValidator = $noCrossReferencingLexemeStatementsValidator;
 	}
 
 	/**
@@ -81,8 +88,7 @@ class LexemeMerger {
 			throw new ConflictingLemmaValueException();
 		}
 
-		$crossReferencingStatements = new NoCrossReferencingStatements();
-		if ( !$crossReferencingStatements->validate( $source, $target ) ) {
+		if ( !$this->noCrossReferencingLexemeStatementsValidator->validate( $source, $target ) ) {
 			throw new CrossReferencingException();
 		}
 	}

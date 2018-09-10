@@ -5,9 +5,14 @@ namespace Wikibase\Lexeme\Tests\Merge;
 use Exception;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use Prophecy\Argument;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
 use Wikibase\Lexeme\Merge\LexemeFormsMerger;
@@ -15,7 +20,9 @@ use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
+use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Merge\StatementsMerger;
 use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Repo\WikibaseRepo;
@@ -585,10 +592,18 @@ class LexemeMergerTest extends TestCase {
 			->method( 'merge' )
 			->willThrowException( $expectedException );
 
+		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator
+			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
+			->willReturn( true );
+		$crossRefValidator = $crossRefValidator->reveal();
+		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
+
 		$merger = new LexemeMerger(
 			$this->createMock( TermListMerger::class ),
 			$this->createMock( StatementsMerger::class ),
-			$throwingFormsMerger
+			$throwingFormsMerger,
+			$crossRefValidator
 		);
 
 		try {
@@ -612,10 +627,18 @@ class LexemeMergerTest extends TestCase {
 			->method( 'merge' )
 			->willThrowException( $expectedException );
 
+		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator
+			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
+			->willReturn( true );
+		$crossRefValidator = $crossRefValidator->reveal();
+		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
+
 		$merger = new LexemeMerger(
 			$this->createMock( TermListMerger::class ),
 			$throwingStatementsMerger,
-			$this->createMock( LexemeFormsMerger::class )
+			$this->createMock( LexemeFormsMerger::class ),
+			$crossRefValidator
 		);
 
 		try {
@@ -663,10 +686,22 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	private function newLexemeMerger() : LexemeMerger {
-		$statementsMerger = WikibaseRepo::getDefaultInstance()
+		$repo = WikibaseRepo::getDefaultInstance();
+
+		$statementsMerger = $repo
 			->getChangeOpFactoryProvider()
 			->getMergeFactory()
 			->getStatementsMerger();
+
+		// Tests depend on correct behaviour, so don't mock NoCrossReferencingLexemeStatements
+		$baseExtractor = new StatementEntityReferenceExtractor( $repo->getLocalItemUriParser() );
+		$noCrossReferencingStatementsValidator = new NoCrossReferencingLexemeStatements(
+			new LexemeStatementEntityReferenceExtractor(
+				$baseExtractor,
+				new FormsStatementEntityReferenceExtractor( $baseExtractor ),
+				new SensesStatementEntityReferenceExtractor( $baseExtractor )
+			)
+		);
 
 		return new LexemeMerger(
 			new TermListMerger(),
@@ -675,7 +710,8 @@ class LexemeMergerTest extends TestCase {
 				$statementsMerger,
 				new TermListMerger(),
 				new GuidGenerator()
-			)
+			),
+			$noCrossReferencingStatementsValidator
 		);
 	}
 
