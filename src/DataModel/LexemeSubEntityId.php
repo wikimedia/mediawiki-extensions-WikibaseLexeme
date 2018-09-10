@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use LogicException;
 use Wikibase\DataModel\Entity\EntityId;
 
 /**
@@ -12,6 +13,8 @@ use Wikibase\DataModel\Entity\EntityId;
  * @license GPL-2.0-or-later
  */
 abstract class LexemeSubEntityId extends EntityId {
+
+	const SUBENTITY_ID_SEPARATOR = '-';
 
 	/**
 	 * @return string
@@ -41,7 +44,7 @@ abstract class LexemeSubEntityId extends EntityId {
 	 * @return LexemeId
 	 */
 	public function getLexemeId() {
-		return new LexemeId( explode( '-', $this->localPart, 2 )[0] );
+		return new LexemeId( $this->extractLexemeIdAndSubEntityId()[0] );
 	}
 
 	/**
@@ -52,12 +55,26 @@ abstract class LexemeSubEntityId extends EntityId {
 	 */
 	public function getIdSuffix() {
 		if ( $this->localPart !== null ) {
-			$parts = explode( '-', $this->localPart, 2 );
-
-			return count( $parts ) === 2 ? $parts[1] : '';
+			return $this->extractLexemeIdAndSubEntityId()[1];
 		}
 
 		return '';
+	}
+
+	/**
+	 * This method should not be used for code that is expected to work with dummy ids.
+	 *
+	 * @return string[] two strings containing the lexeme id serialization and the sub-entity suffix,
+	 *                  e.g. ['L1', 'F1'] for form id L1-F1.
+	 */
+	private function extractLexemeIdAndSubEntityId() {
+		$parts = explode( self::SUBENTITY_ID_SEPARATOR, $this->localPart, 2 );
+
+		if ( count( $parts ) !== 2 ) {
+			throw new LogicException( 'Malformed sub-entity id' );
+		}
+
+		return $parts;
 	}
 
 }
