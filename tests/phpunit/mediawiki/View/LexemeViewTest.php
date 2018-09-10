@@ -16,11 +16,10 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;
-use Wikibase\Lib\LanguageNameLookup;
-use Wikibase\Repo\ParserOutput\FallbackHintHtmlTermRenderer;
 use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
@@ -113,10 +112,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	private function newLexemeView( StatementList $expectedStatements = null ) {
 		$languageDirectionalityLookup = $this->newLanguageDirectionalityLookupMock();
 
-		$htmlTermRenderer = new FallbackHintHtmlTermRenderer(
-			$languageDirectionalityLookup,
-			new LanguageNameLookup( 'en' )
-		);
+		$lemmaFormatter = new LexemeTermFormatter( '/' );
 
 		$linkFormatter = $this->getMockBuilder( EntityIdFormatter::class )
 			->disableOriginalConstructor()
@@ -136,7 +132,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 			$this->newFormsViewMock(),
 			$this->newSensesViewMock(),
 			$this->newStatementSectionsViewMock( $expectedStatements ),
-			$htmlTermRenderer,
+			$lemmaFormatter,
 			$linkFormatter
 		);
 	}
