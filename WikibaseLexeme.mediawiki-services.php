@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
@@ -69,6 +70,7 @@ return call_user_func( function() {
 							new TermListMerger(),
 							new GuidGenerator()
 						),
+						new LexemeSensesMerger(),
 						$noCrossReferencingStatementsValidator
 					),
 					$repo->getEntityRevisionLookup(),

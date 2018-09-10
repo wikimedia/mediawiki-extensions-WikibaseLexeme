@@ -18,6 +18,7 @@ use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
@@ -146,6 +147,7 @@ class LexemeMergeInteractorTest extends TestCase {
 				new TermListMerger(),
 				new GuidGenerator()
 			),
+			new LexemeSensesMerger(),
 			$crossRefValidator
 		);
 
