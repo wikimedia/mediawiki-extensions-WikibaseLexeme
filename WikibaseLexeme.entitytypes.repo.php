@@ -402,11 +402,16 @@ return [
 		},
 		'link-formatter-callback' => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
+			$requestContext = RequestContext::getMain();
 
 			return new FormLinkFormatter(
 				$repo->getEntityLookup(),
 				new DefaultEntityLinkFormatter( $language ),
-				RequestContext::getMain(),
+				new LexemeTermFormatter(
+					$requestContext
+						->msg( 'wikibaselexeme-formidformatter-separator-multiple-representation' )
+						->escaped()
+				),
 				$language
 			);
 		},
