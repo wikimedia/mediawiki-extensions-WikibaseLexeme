@@ -103,7 +103,7 @@
 				return this.options.value;
 			}
 
-			if ( this.glossWidget.hasRedundantLanguage ) {
+			if ( this.glossWidget.hasInvalidLanguage || this.glossWidget.hasRedundantLanguage ) {
 				return null;
 			}
 

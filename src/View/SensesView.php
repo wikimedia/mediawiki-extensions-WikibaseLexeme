@@ -197,7 +197,9 @@ HTML;
 					<input v-else class="wikibase-lexeme-sense-gloss-language-input"
 						:class="{
 							'wikibase-lexeme-sense-gloss-language-input_redundant-language':
-								isRedundantLanguage(gloss.language)
+								isRedundantLanguage(gloss.language),
+							'wikibase-lexeme-sense-gloss-language-input_invalid-language':
+								isInvalidLanguage(gloss.language)
 						}"
 						v-model="gloss.language" >
 				</td>
@@ -228,6 +230,12 @@ HTML;
 					class="wikibase-lexeme-sense-gloss_redundant-language-warning"
 					>
 						<p>{{'wikibaselexeme-sense-gloss-redundant-language'|message}}</p>
+					</div>
+					<div
+					v-if="hasInvalidLanguage"
+					class="wikibase-lexeme-sense-gloss_invalid-language-warning"
+					>
+						<p>{{'wikibaselexeme-sense-gloss-invalid-language'|message}}</p>
 					</div>
 				</td>
 			</tr>

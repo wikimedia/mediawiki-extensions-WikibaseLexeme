@@ -28,6 +28,7 @@
 	"wikibaselexeme-form-field-representation-label": "Representation",
 	"wikibaselexeme-form-field-language-label": "Spelling variant",
 	"wikibaselexeme-form-representation-redundant-language": "It is not possible to enter multiple representations with the same spelling variant.",
+	"wikibaselexeme-sense-gloss-invalid-language": "Gloss language codes must be valid",
 	"wikibaselexeme-gloss-field-language-label": "Language",
 	"wikibaselexeme-gloss-field-gloss-label": "Gloss",
 	"wikibaselexeme-sense-gloss-redundant-language": "It is not possible to enter multiple glosses with the same language.",

@@ -180,6 +180,12 @@ return call_user_func( function() {
 				"vue"
 			]
 		],
+		"wikibase.lexeme.widgets.InvalidLanguageIndicator" => $moduleTemplate + [
+			"scripts" => "widgets/InvalidLanguageIndicator.js",
+			"dependencies" => [
+				"vue"
+			]
+		],
 		"wikibase.lexeme.widgets.RepresentationWidget" => $moduleTemplate + [
 			"scripts" => "widgets/RepresentationWidget.js",
 			"dependencies" => [
@@ -202,7 +208,8 @@ return call_user_func( function() {
 				"vuex",
 				"jquery.util.getDirectionality",
 				"wikibase.lexeme.i18n.Messages",
-				"wikibase.lexeme.widgets.RedundantLanguageIndicator"
+				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
+				"wikibase.lexeme.widgets.InvalidLanguageIndicator",
 			],
 			"messages" => [
 				"wikibase-edit",
@@ -213,6 +220,7 @@ return call_user_func( function() {
 				"wikibaselexeme-gloss-field-language-label",
 				"wikibaselexeme-gloss-field-gloss-label",
 				"wikibaselexeme-sense-gloss-redundant-language",
+				"wikibaselexeme-sense-gloss-invalid-language"
 			]
 		],
 		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore" => $moduleTemplate + [

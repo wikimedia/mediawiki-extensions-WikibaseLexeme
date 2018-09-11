@@ -1,6 +1,23 @@
 describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 	require( 'jsdom-global' )();
 
+	global.jQuery = require( 'jquery' ); // eslint-disable-line no-restricted-globals
+	global.mediaWiki = { // eslint-disable-line no-restricted-globals
+		config: {
+			get: function ( key ) {
+				switch ( key ) {
+				case 'wbRepo':
+					return {
+						url: 'http://localhost',
+						scriptPath: 'w/'
+					};
+				default:
+					throw new Error( 'unknown config key: ' + key );
+				}
+			}
+		}
+	};
+
 	var getDirectionality = function ( languageCode ) {
 		'use strict';
 		return languageCode + '-dir';

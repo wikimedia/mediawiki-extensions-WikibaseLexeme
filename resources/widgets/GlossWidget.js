@@ -1,7 +1,8 @@
 module.exports = ( function ( require, Vue ) {
 	'use strict';
 
-	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
+	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
+		InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' );
 
 	function deepClone( object ) {
 		return JSON.parse( JSON.stringify( object ) );
@@ -25,11 +26,12 @@ module.exports = ( function ( require, Vue ) {
 	 * @return {object}
 	 */
 	function newGlossWidget( messages, widgetElement, template, glosses, beforeUpdate, getDirectionality ) {
+		var invalidLanguageIndicator = InvalidLanguageIndicator( 'glosses' );
 		return {
 			el: widgetElement,
 			template: template,
 
-			mixins: [ RedundantLanguageIndicator( 'glosses' ) ],
+			mixins: [ RedundantLanguageIndicator( 'glosses' ), invalidLanguageIndicator ],
 
 			beforeUpdate: beforeUpdate,
 
@@ -46,6 +48,7 @@ module.exports = ( function ( require, Vue ) {
 					this.glosses.splice( index, 1 );
 				},
 				edit: function () {
+					invalidLanguageIndicator.methods.getValidLanguagesPromise();
 					this.inEditMode = true;
 					if ( this.glosses.length === 0 ) {
 						this.add();
