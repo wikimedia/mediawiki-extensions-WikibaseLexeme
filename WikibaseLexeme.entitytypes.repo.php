@@ -230,14 +230,9 @@ return [
 			);
 
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$prefetchingTermLookup = $wikibaseRepo->getPrefetchingTermLookup();
-			$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
-				$prefetchingTermLookup,
-				$wikibaseRepo->getLanguageFallbackChainFactory()
-					->newFromLanguage( $wikibaseRepo->getUserLanguage() )
-			);
+
 			$entityIdFormatter = $wikibaseRepo->getEntityIdHtmlLinkFormatterFactory()
-				->getEntityIdFormatter( $labelDescriptionLookup );
+				->getEntityIdFormatter( $wikibaseRepo->getUserLanguage() );
 
 			return new LexemeDiffVisualizer(
 				$messageLocalizer,

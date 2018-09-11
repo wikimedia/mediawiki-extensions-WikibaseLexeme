@@ -2,22 +2,16 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Diff;
 
-use Diff\Comparer\ComparableComparer;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
-use Diff\OrderedListDiffer;
 use Hooks;
-use Language;
-use ValueFormatters\FormatterOptions;
-use ValueFormatters\ValueFormatter;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\DataModel\Services\Lookup\EntityRetrievingDataTypeLookup;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Fingerprint;
@@ -29,19 +23,8 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\DataTransfer\BlankForm;
-use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
-use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
-use Wikibase\Lib\LanguageNameLookup;
-use Wikibase\Lib\PropertyInfoDataTypeLookup;
-use Wikibase\Lib\PropertyValueSnakFormatter;
-use Wikibase\Lib\SnakFormatter;
 use Wikibase\Repo\Content\EntityContentDiff;
-use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
-use Wikibase\Repo\Diff\ClaimDiffer;
-use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
-use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
-use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -155,13 +138,15 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedLexicalCategoryItemsUseLabelsFromLanguageFallback() {
+		$this->setUserLang( 'de' );
+
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
 		$this->simulateLanguageTranslation( $translatedLanguageName );
 
 		$this->saveItem( 'Q2', 'noun' );
 		$this->saveItem( 'Q3', 'verb' );
 
-		$diffVisualizer = $this->newDiffVisualizer( 'de' );
+		$diffVisualizer = $this->newDiffVisualizer();
 
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
@@ -246,13 +231,15 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedLanguageItemsUseLabelsFromLanguageFallback() {
+		$this->setUserLang( 'de' );
+
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
 		$this->simulateLanguageTranslation( $translatedLanguageName );
 
 		$this->saveItem( 'Q4', 'goat language' );
 		$this->saveItem( 'Q5', 'cat language' );
 
-		$diffVisualizer = $this->newDiffVisualizer( 'de' );
+		$diffVisualizer = $this->newDiffVisualizer();
 
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
@@ -338,13 +325,15 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedGrammaticalFeatureItemsUseLabelsFromLanguageFallback() {
+		$this->setUserLang( 'de' );
+
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
 		$this->simulateLanguageTranslation( $translatedLanguageName );
 
 		$this->saveItem( 'Q123', 'singular' );
 		$this->saveItem( 'Q321', 'plural' );
 
-		$diffVisualizer = $this->newDiffVisualizer( 'de' );
+		$diffVisualizer = $this->newDiffVisualizer();
 
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [
@@ -490,70 +479,9 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$store->saveEntity( $item, self::class, $this->getTestUser()->getUser() );
 	}
 
-	/**
-	 * This needes to be created without the WikibaseRepo factory to avoid caching
-	 *
-	 * @param string $language
-	 *
-	 * @return LexemeDiffVisualizer
-	 */
-	private function newDiffVisualizer( $language = 'en' ) {
-		$messageLocalizer = new \MockMessageLocalizer();
-		$repo = WikibaseRepo::getDefaultInstance();
-		$htmlFormatterFactory = new EntityIdHtmlLinkFormatterFactory(
-			$repo->getEntityTitleLookup(),
-			new LanguageNameLookup( $language )
-		);
-		$entityIdFormatter = $htmlFormatterFactory->getEntityIdFormatter(
-			Language::factory( $language )
-		);
-
-		$options = new FormatterOptions( [ ValueFormatter::OPT_LANG => $language ] );
-		$dataTypeLookup = $this->newNonCachingPropertyDatatypeLookup();
-
-		$claimDiffer = new ClaimDiffer( new OrderedListDiffer( new ComparableComparer() ) );
-		$claimDifferenceVisualizer = new ClaimDifferenceVisualizer(
-			new DifferencesSnakVisualizer(
-				$entityIdFormatter,
-				new PropertyValueSnakFormatter(
-					SnakFormatter::FORMAT_HTML_DIFF,
-					$repo->getValueFormatterFactory()
-						->getValueFormatter( SnakFormatter::FORMAT_HTML_DIFF, $options ),
-					$dataTypeLookup,
-					$repo->getDataTypeFactory()
-				),
-				new PropertyValueSnakFormatter(
-					SnakFormatter::FORMAT_HTML,
-					$repo->getValueFormatterFactory()
-						->getValueFormatter( SnakFormatter::FORMAT_HTML, $options ),
-					$dataTypeLookup,
-					$repo->getDataTypeFactory()
-				),
-				$language
-			),
-			$language
-		);
-		return new LexemeDiffVisualizer(
-			$messageLocalizer,
-			new BasicEntityDiffVisualizer(
-				$messageLocalizer,
-				$claimDiffer,
-				$claimDifferenceVisualizer,
-				$this->getMock( \SiteLookup::class ),
-				$entityIdFormatter
-			),
-			$claimDiffer,
-			$claimDifferenceVisualizer,
-			new ItemReferenceDifferenceVisualizer( $entityIdFormatter )
-		);
-	}
-
-	private function newNonCachingPropertyDatatypeLookup() {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		return new PropertyInfoDataTypeLookup(
-			$wikibaseRepo->getWikibaseServices()->getPropertyInfoLookup(),
-			new EntityRetrievingDataTypeLookup( $wikibaseRepo->getEntityLookup() )
-		);
+	private function newDiffVisualizer() {
+		return WikibaseRepo::getDefaultInstance()->getEntityDiffVisualizerFactory( new \RequestContext() )
+			->newEntityDiffVisualizer( 'lexeme' );
 	}
 
 }
