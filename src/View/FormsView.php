@@ -235,7 +235,7 @@ HTML;
 HTML;
 
 		$statementSection = $this->statementGroupListView->getHtml(
-			$form->getStatements()->toArray()
+			$form->getStatements()->toArray(), $form->getId()->getSerialization()
 		);
 		return $statementHeader . $statementSection;
 	}

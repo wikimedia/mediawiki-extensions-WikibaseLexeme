@@ -8,6 +8,7 @@ use PHPUnit4And6Compat;
 use Prophecy\Argument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\View\FormsView;
@@ -123,9 +124,30 @@ class FormsViewTest extends TestCase {
 		);
 	}
 
-	private function newFormsView() {
+	public function testStatementGroupsHaveFormIdPrefix() {
+		$statementGroupListView = $this->createMock( StatementGroupListView::class );
+		$formsView = new FormsView(
+			new DummyLocalizedTextProvider(),
+			$this->newTemplateFactory(),
+			$this->createMock( EntityIdFormatter::class ),
+			$statementGroupListView
+		);
+
+		$formId = 'L2-F3';
+		$form = NewForm::havingId( new FormId( $formId ) )
+			->andLexeme( 'L2' )
+			->build();
+		$statementGroupListView->expects( $this->once() )
+			->method( 'getHtml' )
+			->with( [], $formId );
+
+		$formsView->getHtml( new FormSet( [ $form ] ) );
+	}
+
+	private function newFormsView() : FormsView {
 		$statementSectionView = $this->prophesize( StatementGroupListView::class );
-		$statementSectionView->getHtml( Argument::any() )->willReturn( self::STATEMENT_LIST_HTML );
+		$statementSectionView->getHtml( Argument::any(), Argument::any() )
+			->willReturn( self::STATEMENT_LIST_HTML );
 
 		$idFormatter = $this->createMock( EntityIdFormatter::class );
 		$idFormatter->method( 'formatEntityId' )
@@ -135,8 +157,15 @@ class FormsViewTest extends TestCase {
 
 		return new FormsView(
 			new DummyLocalizedTextProvider(),
-			new LexemeTemplateFactory( [
-				'wikibase-lexeme-form' => '
+			$this->newTemplateFactory(),
+			$idFormatter,
+			$statementSectionView->reveal()
+		);
+	}
+
+	private function newTemplateFactory() : LexemeTemplateFactory {
+		return new LexemeTemplateFactory( [
+			'wikibase-lexeme-form' => '
 					<div class="wikibase-lexeme-form">
 						<div class="wikibase-lexeme-form-header">
 							<div class="wikibase-lexeme-form-id">$1</div>
@@ -145,11 +174,8 @@ class FormsViewTest extends TestCase {
 						$3
 						$4
 					</div>',
-				'wikibase-lexeme-form-grammatical-features' => '<div><div>$1</div><div>$2</div></div>'
-			] ),
-			$idFormatter,
-			$statementSectionView->reveal()
-		);
+			'wikibase-lexeme-form-grammatical-features' => '<div><div>$1</div><div>$2</div></div>'
+		] );
 	}
 
 }
