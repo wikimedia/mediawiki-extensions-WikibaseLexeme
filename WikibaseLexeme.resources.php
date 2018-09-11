@@ -88,6 +88,7 @@ return call_user_func( function() {
 				"wikibase.templates.lexeme",
 				"jquery.wikibase.grammaticalfeatureview",
 				"wikibase.lexeme.widgets.RepresentationWidget",
+				"wikibase.lexeme.datamodel.LexemeSubEntityId",
 				"wikibase.lexeme.store"
 			],
 			"messages" => [
@@ -312,6 +313,15 @@ return call_user_func( function() {
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme"
+			]
+		],
+		"wikibase.lexeme.datamodel.LexemeSubEntityId" => $moduleTemplate + [
+			"scripts" => [
+				"datamodel/__namespace.js",
+				"datamodel/LexemeSubEntityId.js"
+			],
+			"dependencies" => [
+				"wikibase.lexeme",
 			]
 		],
 		"wikibase.lexeme.getDeserializer" => $moduleTemplate + [
