@@ -9,6 +9,7 @@ use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -40,7 +41,11 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 	 * @return string plain text
 	 */
 	public function formatEntityId( EntityId $value ) {
-		$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
+		try {
+			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
+		} catch ( RevisionedUnresolvedRedirectException $e ) {
+			$lexemeRevision = null; // see fallback below
+		}
 
 		if ( $lexemeRevision === null ) {
 			return $value->getSerialization();
