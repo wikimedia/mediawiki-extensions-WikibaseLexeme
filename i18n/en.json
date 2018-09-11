@@ -24,7 +24,7 @@
 	"wikibase-lexeme-gloss-empty": "No gloss defined",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-lemma-field-language-label": "Spelling variant",
-	"wikibaselexeme-lemma-redundant-language": "It is not possible to enter multiple lemma with the same spelling variant.",
+	"wikibaselexeme-lemma-redundant-language": "It is not possible to enter multiple lemmas with the same spelling variant.",
 	"wikibaselexeme-form-field-representation-label": "Representation",
 	"wikibaselexeme-form-field-language-label": "Spelling variant",
 	"wikibaselexeme-form-representation-redundant-language": "It is not possible to enter multiple representations with the same spelling variant.",
