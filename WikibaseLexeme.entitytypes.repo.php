@@ -40,6 +40,7 @@ use Wikibase\Lexeme\EntityReferenceExtractors\LanguageItemIdExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
 use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Formatters\FormIdHtmlFormatter;
@@ -52,6 +53,7 @@ use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Lexeme\View\LexemeMetaTagsCreator;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Rdf\DedupeBag;
 use Wikibase\Rdf\EntityMentionListener;
@@ -507,6 +509,17 @@ return [
 			);
 			$rdfBuilder->addPrefixes();
 			return $rdfBuilder;
+		},
+		'entity-id-html-link-formatter-callback' => function( Language $language ) {
+			$repo = WikibaseRepo::getDefaultInstance();
+
+			return new SenseIdHtmlFormatter(
+				$repo->getEntityTitleLookup(),
+				$repo->getEntityRevisionLookup(),
+				new MediaWikiLocalizedTextProvider( $language->getCode() ),
+				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $language ),
+				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() )
+			);
 		},
 	],
 ];
