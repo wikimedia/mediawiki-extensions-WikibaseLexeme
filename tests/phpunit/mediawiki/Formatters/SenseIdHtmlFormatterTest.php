@@ -16,6 +16,7 @@ use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
@@ -84,6 +85,19 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$lookup = $this->getMockRevisionLookup();
 		$lookup->method( 'getEntityRevision' )
 			->willReturn( null );
+		$formatter = $this->getFormatter( $senseId, $lookup );
+
+		$result = $formatter->formatEntityId( $senseId );
+
+		$this->assertSame( '<a href="LOCAL-URL#FORM">L10-S20</a>', $result );
+	}
+
+	public function testFormatId_redirectedEntity() {
+		$senseId = new SenseId( 'L10-S20' );
+		$exception = $this->createMock( RevisionedUnresolvedRedirectException::class );
+		$lookup = $this->getMockRevisionLookup();
+		$lookup->method( 'getEntityRevision' )
+			->willThrowException( $exception );
 		$formatter = $this->getFormatter( $senseId, $lookup );
 
 		$result = $formatter->formatEntityId( $senseId );

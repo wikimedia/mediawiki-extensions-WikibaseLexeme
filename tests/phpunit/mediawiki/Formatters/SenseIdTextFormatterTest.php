@@ -10,6 +10,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
@@ -26,6 +27,19 @@ class SenseIdTextFormatterTest extends TestCase {
 		$lookup = $this->getMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturn( null );
+		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
+
+		$result = $formatter->formatEntityId( $senseId );
+
+		$this->assertSame( 'L10-S20', $result );
+	}
+
+	public function testFormatId_redirected() {
+		$senseId = new SenseId( 'L10-S20' );
+		$exception = $this->createMock( RevisionedUnresolvedRedirectException::class );
+		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup->method( 'getEntityRevision' )
+			->willThrowException( $exception );
 		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
 
 		$result = $formatter->formatEntityId( $senseId );

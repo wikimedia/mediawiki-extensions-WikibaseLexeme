@@ -14,6 +14,7 @@ use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -68,7 +69,11 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 	public function formatEntityId( EntityId $value ) {
 		$title = $this->titleLookup->getTitleForId( $value );
 
-		$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
+		try {
+			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
+		} catch ( RevisionedUnresolvedRedirectException $e ) {
+			$lexemeRevision = null; // see fallback below
+		}
 
 		if ( $lexemeRevision === null ) {
 			return $this->getTextWrappedInLink( $value->getSerialization(), $title );
