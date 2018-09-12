@@ -15,6 +15,8 @@ use ApiUsageException;
  * @coversNothing
  *
  * @group medium
+ * In the Database group because it extends the ApiTestCase that in setUp creates users
+ * @group Database
  */
 class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 
