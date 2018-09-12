@@ -96,8 +96,25 @@
 			 */
 			getSenses: function () {
 				return this._senses;
-			}
+			},
 
+			/**
+			 * Get the ids of persisted (i.e. having an id) sub entities
+			 *
+			 * @return {string[]}
+			 */
+			getSubEntityIds: function () {
+				return [].concat(
+					this.getForms().map( function ( form ) {
+						return form.getId();
+					} ),
+					this.getSenses().map( function ( sense ) {
+						return sense.getId();
+					} )
+				).filter( function ( value ) {
+					return typeof value === 'string';
+				} );
+			}
 		}
 	);
 

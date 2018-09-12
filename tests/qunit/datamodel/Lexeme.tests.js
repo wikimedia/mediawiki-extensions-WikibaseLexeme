@@ -51,6 +51,30 @@
 		assert.equal( lexeme.getSenses(), senses );
 	} );
 
+	QUnit.test( 'getSubEntityIds returns all respective ids', function ( assert ) {
+		var lexeme = new Lexeme(
+			'L1',
+			createTermMapWithTerm(),
+			null,
+			[ new Form( 'L1-F123' ), new Form( 'L1-F124' ) ],
+			[ new Sense( 'L1-S3' ), new Sense( 'L1-S4' ) ]
+		);
+
+		assert.deepEqual( lexeme.getSubEntityIds(), [ 'L1-F123', 'L1-F124', 'L1-S3', 'L1-S4' ] );
+	} );
+
+	QUnit.test( 'getSubEntityIds omits unsaved sub entities with undefined ids', function ( assert ) {
+		var lexeme = new Lexeme(
+			'L1',
+			createTermMapWithTerm(),
+			null,
+			[ new Form( 'L1-F123' ), new Form() ],
+			[ new Sense( 'L1-S3' ), new Sense( 'L1-S4' ) ]
+		);
+
+		assert.deepEqual( lexeme.getSubEntityIds(), [ 'L1-F123', 'L1-S3', 'L1-S4' ] );
+	} );
+
 	function createStatementGroupWithSingleStatement( propertyId, guid ) {
 		return new wb.datamodel.StatementGroupSet( [
 			new wb.datamodel.StatementGroup( propertyId, new wb.datamodel.StatementList( [
