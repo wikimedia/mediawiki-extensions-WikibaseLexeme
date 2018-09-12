@@ -11,20 +11,9 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class AddSenseRequest {
 
-	/**
-	 * @var LexemeId
-	 */
 	private $lexemeId;
-
-	/**
-	 * @var ChangeOp
-	 */
 	private $editSenseChangeOp;
 
-	/**
-	 * @param LexemeId $lexemeId
-	 * @param ChangeOp $editSenseChangeOp
-	 */
 	public function __construct(
 		LexemeId $lexemeId,
 		ChangeOp $editSenseChangeOp
@@ -33,17 +22,11 @@ class AddSenseRequest {
 		$this->editSenseChangeOp = $editSenseChangeOp;
 	}
 
-	/**
-	 * @return ChangeOpSenseAdd
-	 */
-	public function getChangeOp() {
+	public function getChangeOp(): ChangeOpSenseAdd {
 		return new ChangeOpSenseAdd( $this->editSenseChangeOp );
 	}
 
-	/**
-	 * @return LexemeId
-	 */
-	public function getLexemeId() {
+	public function getLexemeId(): LexemeId {
 		return $this->lexemeId;
 	}
 

@@ -10,14 +10,7 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class EditFormElementsRequest {
 
-	/**
-	 * @var FormId
-	 */
 	private $formId;
-
-	/**
-	 * @var ChangeOp
-	 */
 	private $changeOp;
 
 	public function __construct( FormId $formId, ChangeOp $changeOp ) {
@@ -25,11 +18,11 @@ class EditFormElementsRequest {
 		$this->changeOp = $changeOp;
 	}
 
-	public function getChangeOp() {
+	public function getChangeOp(): ChangeOp {
 		return $this->changeOp;
 	}
 
-	public function getFormId() {
+	public function getFormId(): FormId {
 		return $this->formId;
 	}
 
