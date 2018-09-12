@@ -46,6 +46,11 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	private $senseDiffer;
 
+	/**
+	 * @var MapDiffer
+	 */
+	private $itemIdDiffer;
+
 	public function __construct() {
 		$this->recursiveMapDiffer = new MapDiffer( true );
 		$this->itemIdDiffer = new MapDiffer();
