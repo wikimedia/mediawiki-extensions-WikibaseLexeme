@@ -4,9 +4,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 
@@ -85,27 +84,12 @@ class EditSenseChangeOpDeserializerTest extends TestCase {
 			->getMock();
 	}
 
-	private function getItemIdListDeserializer() {
-		return $this->getMockBuilder( ItemIdListDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	private function getDeserializer(
-		$glossesChangeOpDeserializer = null,
-		$itemIdListDeserializer = null
-	) {
+	private function getDeserializer( $glossesChangeOpDeserializer = null ) {
 		if ( $glossesChangeOpDeserializer === null ) {
 			$glossesChangeOpDeserializer = $this->getGlossesChangeOpDeserializer();
 		}
-		if ( $itemIdListDeserializer === null ) {
-			$itemIdListDeserializer = $this->getItemIdListDeserializer();
-		}
 
-		return new EditSenseChangeOpDeserializer(
-			$glossesChangeOpDeserializer,
-			$itemIdListDeserializer
-		);
+		return new EditSenseChangeOpDeserializer( $glossesChangeOpDeserializer );
 	}
 
 }
