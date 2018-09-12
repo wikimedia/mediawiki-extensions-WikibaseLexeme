@@ -5,7 +5,6 @@ use CirrusSearch\Search\ResultsType;
 use CirrusSearch\Search\SearchContext;
 use Elastica\ResultSet;
 use Language;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lib\Interactors\TermSearchResult;
@@ -128,29 +127,6 @@ class FormTermResult implements ResultsType {
 		];
 
 		return $config;
-	}
-
-	/**
-	 * Get lexeme description from cache or create it.
-	 * @param EntityId $lexemeId
-	 * @param LexemeDescription $descriptionMaker
-	 * @param string $language Language object for lemma
-	 * @param string $category Grammatical category for lemma
-	 * @return string Lexeme description string
-	 * @throws \MWException
-	 */
-	private function getLexemeDescription(
-		EntityId $lexemeId,
-		LexemeDescription $descriptionMaker,
-		$language,
-		$category
-	) {
-		$id = $lexemeId->getSerialization();
-		if ( !array_key_exists( $id, $this->lexemeDescriptions ) ) {
-			$this->lexemeDescriptions[$id] = $descriptionMaker->createDescription( $lexemeId,
-				$language, $category );
-		}
-		return $this->lexemeDescriptions[$id];
 	}
 
 	/**
