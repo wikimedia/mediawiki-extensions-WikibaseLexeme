@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
-use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\ChangeOp\AddFormToLexemeChangeOp;
-use Wikibase\Lexeme\DataTransfer\BlankForm;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 

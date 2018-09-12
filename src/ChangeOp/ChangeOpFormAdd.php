@@ -6,7 +6,7 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataTransfer\BlankForm;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;

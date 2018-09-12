@@ -2,13 +2,13 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
-use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\ChangeOp\AddSenseToLexemeChangeOp;
-use Wikibase\Lexeme\DataTransfer\BlankSense;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\AddSenseToLexemeChangeOp

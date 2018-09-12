@@ -2,17 +2,17 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
+use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
 use PHPUnit_Framework_MockObject_MockObject;
-use PHPUnit\Framework\TestCase;
 use User;
 use Wikibase\DataModel\Entity\EntityRedirect;
-use Wikibase\Lexeme\DataModel\Sense;
-use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataTransfer\BlankSense;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Store\SenseStore;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;

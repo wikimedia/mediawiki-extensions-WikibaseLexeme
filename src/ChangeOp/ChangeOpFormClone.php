@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataTransfer\BlankForm;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;

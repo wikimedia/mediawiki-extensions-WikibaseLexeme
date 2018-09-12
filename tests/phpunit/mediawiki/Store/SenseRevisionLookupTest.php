@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
-use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataModel\SenseId;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataTransfer\NullSenseId;
+use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\DummyObjects\NullSenseId;
 use Wikibase\Lexeme\Store\SenseRevisionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;

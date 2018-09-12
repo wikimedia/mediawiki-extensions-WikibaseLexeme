@@ -3,16 +3,16 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
+use ValueValidators\Result;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
-use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataTransfer\BlankSense;
-use Wikibase\Lexeme\DataTransfer\DummySenseId;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\DummyObjects\BlankSense;
+use Wikibase\Lexeme\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Tests\NewStatement;
-use ValueValidators\Result;
 
 /**
  * @coversDefaultClass \Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone

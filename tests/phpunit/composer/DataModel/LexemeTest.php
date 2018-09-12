@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use UnexpectedValueException;
@@ -17,13 +18,12 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use InvalidArgumentException;
 use Wikibase\Lexeme\DataModel\LexemePatchAccess;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\SenseSet;
-use Wikibase\Lexeme\DataTransfer\BlankForm;
-use Wikibase\Lexeme\DataTransfer\BlankSense;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\DummyObjects\BlankSense;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Lexeme
