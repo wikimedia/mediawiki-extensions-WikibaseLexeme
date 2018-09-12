@@ -12,20 +12,9 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class AddFormRequest {
 
-	/**
-	 * @var LexemeId
-	 */
 	private $lexemeId;
-
-	/**
-	 * @var ChangeOp
-	 */
 	private $editFormchangeOp;
 
-	/**
-	 * @param LexemeId $lexemeId
-	 * @param ChangeOp $editFormchangeOp
-	 */
 	public function __construct(
 		LexemeId $lexemeId,
 		ChangeOp $editFormchangeOp
@@ -38,17 +27,11 @@ class AddFormRequest {
 		$this->editFormchangeOp = $editFormchangeOp;
 	}
 
-	/**
-	 * @return ChangeOpFormAdd
-	 */
-	public function getChangeOp() {
+	public function getChangeOp(): ChangeOpFormAdd {
 		return new ChangeOpFormAdd( $this->editFormchangeOp, new GuidGenerator() );
 	}
 
-	/**
-	 * @return LexemeId
-	 */
-	public function getLexemeId() {
+	public function getLexemeId(): LexemeId {
 		return $this->lexemeId;
 	}
 
