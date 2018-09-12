@@ -10,6 +10,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
+use Wikibase\Lib\Store\StorageException;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -44,6 +45,8 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 		try {
 			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
 		} catch ( RevisionedUnresolvedRedirectException $e ) {
+			$lexemeRevision = null; // see fallback below
+		} catch ( StorageException $e ) {
 			$lexemeRevision = null; // see fallback below
 		}
 
