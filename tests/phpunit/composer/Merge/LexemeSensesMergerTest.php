@@ -3,20 +3,13 @@
 namespace Wikibase\Lexeme\Tests\Merge;
 
 use PHPUnit4And6Compat;
-use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Merge\LexemeSensesMerger;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Repo\ChangeOp\StatementChangeOpFactory;
-use Wikibase\Repo\Merge\StatementsMerger;
-use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Repo\Tests\NewStatement;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\Merge\LexemeSensesMerger
@@ -24,7 +17,6 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  */
 class LexemeSensesMergerTest extends TestCase {
-
 	use PHPUnit4And6Compat;
 
 	/**
@@ -214,8 +206,7 @@ class LexemeSensesMergerTest extends TestCase {
 		$source = $this->newMinimumValidLexeme( 'L1' )->build();
 		$target = $this->newMinimumValidLexeme( 'L2' )->build();
 
-		$merger = $this->newLexemeSensesMerger();
-		$merger->merge( $source, $target );
+		$this->newLexemeSensesMerger()->merge( $source, $target );
 
 		$this->assertSame( 'L2', $target->getId()->serialize() );
 		$this->assertSame( 'Q7', $target->getLanguage()->serialize() );
@@ -224,26 +215,7 @@ class LexemeSensesMergerTest extends TestCase {
 	}
 
 	private function newLexemeSensesMerger() : LexemeSensesMerger {
-		$guidGenerator = $this->createMock( GuidGenerator::class );
-		$guidGenerator->method( 'newGuid' )
-			->willReturnCallback( function( EntityId $entityId ) {
-				return $entityId->getSerialization() . '$00000000-0000-0000-0000-000000000000';
-			} );
-
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-
-		$statementChangeOpFactory = new StatementChangeOpFactory(
-			$guidGenerator,
-			$mockProvider->getMockGuidValidator(),
-			WikibaseRepo::getDefaultInstance()->getStatementGuidParser(),
-			$mockProvider->getMockSnakValidator(),
-			$mockProvider->getMockSnakValidator()
-		);
-
-		return new LexemeSensesMerger(
-			new StatementsMerger( $statementChangeOpFactory ),
-			new TermListMerger()
-		);
+		return new LexemeSensesMerger();
 	}
 
 	/**
