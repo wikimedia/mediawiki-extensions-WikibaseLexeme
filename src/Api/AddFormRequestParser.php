@@ -35,11 +35,7 @@ class AddFormRequestParser {
 		$this->editFormChangeOpDeserializer = $editFormChangeOpDeserializer;
 	}
 
-	/**
-	 * @param array $params
-	 * @return AddFormRequest
-	 */
-	public function parse( array $params ) {
+	public function parse( array $params ): AddFormRequest {
 		// guarded against missing fields by AddForm::getAllowedParams()
 
 		//TODO: validate language. How?
