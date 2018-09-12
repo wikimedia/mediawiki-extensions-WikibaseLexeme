@@ -10,14 +10,7 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class EditSenseElementsRequest {
 
-	/**
-	 * @var SenseId
-	 */
 	private $senseId;
-
-	/**
-	 * @var ChangeOp
-	 */
 	private $changeOp;
 
 	public function __construct( SenseId $senseId, ChangeOp $changeOp ) {
@@ -25,11 +18,11 @@ class EditSenseElementsRequest {
 		$this->changeOp = $changeOp;
 	}
 
-	public function getChangeOp() {
+	public function getChangeOp(): ChangeOp {
 		return $this->changeOp;
 	}
 
-	public function getSenseId() {
+	public function getSenseId(): SenseId {
 		return $this->senseId;
 	}
 

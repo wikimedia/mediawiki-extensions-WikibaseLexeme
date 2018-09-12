@@ -10,26 +10,17 @@ use Wikibase\Lexeme\DataModel\SenseId;
  */
 class RemoveSenseRequest {
 
-	/**
-	 * @var SenseId
-	 */
 	private $senseId;
 
 	public function __construct( SenseId $senseId ) {
 		$this->senseId = $senseId;
 	}
 
-	/**
-	 * @return ChangeOpRemoveSense
-	 */
-	public function getChangeOp() {
+	public function getChangeOp(): ChangeOpRemoveSense {
 		return new ChangeOpRemoveSense( $this->senseId );
 	}
 
-	/**
-	 * @return SenseId
-	 */
-	public function getSenseId() {
+	public function getSenseId(): SenseId {
 		return $this->senseId;
 	}
 

@@ -10,26 +10,17 @@ use Wikibase\Lexeme\DataModel\FormId;
  */
 class RemoveFormRequest {
 
-	/**
-	 * @var FormId
-	 */
 	private $formId;
 
 	public function __construct( FormId $formId ) {
 		$this->formId = $formId;
 	}
 
-	/**
-	 * @return ChangeOpRemoveForm
-	 */
-	public function getChangeOp() {
+	public function getChangeOp(): ChangeOpRemoveForm {
 		return new ChangeOpRemoveForm( $this->formId );
 	}
 
-	/**
-	 * @return FormId
-	 */
-	public function getFormId() {
+	public function getFormId(): FormId {
 		return $this->formId;
 	}
 
