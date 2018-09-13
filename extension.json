@@ -23,7 +23,7 @@
 			"value": true
 		},
 		"LexemeEnableSenses": {
-			"value": false
+			"value": true
 		},
 		"LexemeNamespace": {
 			"value": 146
