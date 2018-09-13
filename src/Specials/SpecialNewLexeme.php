@@ -31,10 +31,10 @@ use Wikimedia\Assert\Assert;
  */
 class SpecialNewLexeme extends SpecialNewEntity {
 
-	const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
-	const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
-	const FIELD_LEMMA = 'lemma';
-	const FIELD_LEMMA_LANGUAGE = 'lemma-language';
+	/* public */ const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
+	/* public */ const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
+	/* public */ const FIELD_LEMMA = 'lemma';
+	/* public */ const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
 	public static function newFromGlobalState(): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
