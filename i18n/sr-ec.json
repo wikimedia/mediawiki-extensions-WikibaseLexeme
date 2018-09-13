@@ -21,6 +21,7 @@
 	"wikibaselexeme-header-senses": "Чула",
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
 	"wikibaselexeme-lemma-field-language-label": "Начин записивања",
+	"wikibaselexeme-lemma-redundant-language": "Није могуће да унесете више лема са истим варијантама правописа.",
 	"wikibaselexeme-form-field-representation-label": "Представљање",
 	"wikibaselexeme-form-field-language-label": "Начин записивања",
 	"wikibaselexeme-gloss-field-language-label": "Језик",
