@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\DataTransfer;
+namespace Wikibase\Lexeme\DummyObjects;
 
 use LogicException;
 use Wikibase\Lexeme\DataModel\LexemeId;

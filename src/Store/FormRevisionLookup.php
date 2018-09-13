@@ -7,7 +7,7 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataTransfer\NullFormId;
+use Wikibase\Lexeme\DummyObjects\NullFormId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;

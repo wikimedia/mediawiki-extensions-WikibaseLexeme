@@ -1,14 +1,14 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\DataTransfer;
+namespace Wikibase\Lexeme\Tests\DummyObjects;
 
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataTransfer\DummyFormId;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataTransfer\NullFormId;
+use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\DummyObjects\NullFormId;
 
 /**
- * @covers \Wikibase\Lexeme\DataTransfer\DummyFormId
+ * @covers \Wikibase\Lexeme\DummyObjects\DummyFormId
  *
  * @license GPL-2.0-or-later
  */

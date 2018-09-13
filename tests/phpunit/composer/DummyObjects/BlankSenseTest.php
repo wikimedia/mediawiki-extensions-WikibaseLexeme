@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\DataTransfer;
+namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Statement\StatementList;
@@ -9,13 +9,13 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataTransfer\BlankSense;
-use Wikibase\Lexeme\DataTransfer\DummySenseId;
-use Wikibase\Lexeme\DataTransfer\NullSenseId;
+use Wikibase\Lexeme\DummyObjects\BlankSense;
+use Wikibase\Lexeme\DummyObjects\DummySenseId;
+use Wikibase\Lexeme\DummyObjects\NullSenseId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\DataTransfer\BlankSense
+ * @covers \Wikibase\Lexeme\DummyObjects\BlankSense
  *
  * @license GPL-2.0-or-later
  */

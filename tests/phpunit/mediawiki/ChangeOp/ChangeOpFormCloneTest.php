@@ -3,17 +3,17 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
+use ValueValidators\Result;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormClone;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataTransfer\BlankForm;
-use Wikibase\Lexeme\DataTransfer\DummyFormId;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\DummyObjects\DummyFormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Tests\NewStatement;
-use ValueValidators\Result;
 
 /**
  * @coversDefaultClass \Wikibase\Lexeme\ChangeOp\ChangeOpFormClone

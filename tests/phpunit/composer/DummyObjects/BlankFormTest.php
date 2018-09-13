@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\DataTransfer;
+namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
@@ -10,13 +10,13 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataTransfer\BlankForm;
-use Wikibase\Lexeme\DataTransfer\DummyFormId;
-use Wikibase\Lexeme\DataTransfer\NullFormId;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\DummyObjects\NullFormId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\DataTransfer\BlankForm
+ * @covers \Wikibase\Lexeme\DummyObjects\BlankForm
  *
  * @license GPL-2.0-or-later
  */

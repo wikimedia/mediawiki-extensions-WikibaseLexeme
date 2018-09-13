@@ -6,7 +6,7 @@ use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataTransfer\NullSenseId;
+use Wikibase\Lexeme\DummyObjects\NullSenseId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\Assert;
 

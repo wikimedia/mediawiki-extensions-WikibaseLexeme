@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\DataTransfer;
+namespace Wikibase\Lexeme\DummyObjects;
 
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
