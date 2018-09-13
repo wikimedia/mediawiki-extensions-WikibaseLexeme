@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Specials;
 
+use Html;
+use HTMLForm;
 use Iterator;
 use OutputPage;
 use Status;
@@ -17,7 +19,7 @@ use Wikibase\Lexeme\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
-use Wikibase\Repo\Specials\SpecialNewEntity;
+use Wikibase\Repo\Specials\SpecialWikibaseRepoPage;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Summary;
@@ -29,12 +31,36 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class SpecialNewLexeme extends SpecialNewEntity {
+class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 
 	/* public */ const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
 	/* public */ const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
 	/* public */ const FIELD_LEMMA = 'lemma';
 	/* public */ const FIELD_LEMMA_LANGUAGE = 'lemma-language';
+
+	/**
+	 * @var EntityNamespaceLookup
+	 */
+	protected $entityNamespaceLookup;
+
+	public function __construct(
+		SpecialPageCopyrightView $copyrightView,
+		EntityNamespaceLookup $entityNamespaceLookup,
+		SummaryFormatter $summaryFormatter,
+		EntityTitleLookup $entityTitleLookup,
+		EditEntityFactory $editEntityFactory
+	) {
+		parent::__construct(
+			'NewLexeme',
+			'createpage',
+			$copyrightView,
+			$summaryFormatter,
+			$entityTitleLookup,
+			$editEntityFactory
+		);
+
+		$this->entityNamespaceLookup = $entityNamespaceLookup;
+	}
 
 	public static function newFromGlobalState(): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
@@ -55,29 +81,74 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		);
 	}
 
-	public function __construct(
-		SpecialPageCopyrightView $copyrightView,
-		EntityNamespaceLookup $entityNamespaceLookup,
-		SummaryFormatter $summaryFormatter,
-		EntityTitleLookup $entityTitleLookup,
-		EditEntityFactory $editEntityFactory
-	) {
-		parent::__construct(
-			'NewLexeme',
-			'createpage',
-			$copyrightView,
-			$entityNamespaceLookup,
-			$summaryFormatter,
-			$entityTitleLookup,
-			$editEntityFactory
-		);
+	/**
+	 * @see SpecialWikibasePage::execute
+	 *
+	 * @param string|null $subPage
+	 */
+	public function execute( $subPage ) {
+		parent::execute( $subPage );
+
+		$this->checkPermissions();
+		$this->checkBlocked();
+		$this->checkReadOnly();
+
+		$form = $this->createForm();
+
+		$form->prepareForm();
+
+		/** @var Status|false $submitStatus `false` if form was not submitted */
+		$submitStatus = $form->tryAuthorizedSubmit();
+
+		if ( $submitStatus && $submitStatus->isGood() ) {
+			$this->redirectToEntityPage( $submitStatus->getValue() );
+
+			return;
+		}
+
+		$out = $this->getOutput();
+
+		$this->displayBeforeForm( $out );
+
+		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
 	/**
-	 * @see SpecialNewEntity::getEntityType
+	 * @return HTMLForm
 	 */
-	protected function getEntityType() {
-		return Lexeme::ENTITY_TYPE;
+	private function createForm() {
+		return HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
+			->setId( 'mw-newentity-form1' )
+			->setSubmitID( 'wb-newentity-submit' )
+			->setSubmitName( 'submit' )
+			->setSubmitTextMsg( 'wikibase-newentity-submit' )
+			->setWrapperLegendMsg( $this->getLegend() )
+			->setSubmitCallback(
+				function ( $data, HTMLForm $form ) {
+					$validationStatus = $this->validateFormData( $data );
+					if ( !$validationStatus->isGood() ) {
+						return $validationStatus;
+					}
+
+					$entity = $this->createEntityFromFormData( $data );
+
+					$summary = $this->createSummary( $entity );
+
+					$this->prepareEditEntity();
+					$saveStatus = $this->saveEntity(
+						$entity,
+						$summary,
+						$form->getRequest()->getVal( 'wpEditToken' ),
+						EDIT_NEW
+					);
+
+					if ( !$saveStatus->isGood() ) {
+						return $saveStatus;
+					}
+
+					return Status::newGood( $entity );
+				}
+			);
 	}
 
 	/**
@@ -121,7 +192,12 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		];
 	}
 
+	protected function getLegend() {
+		return $this->msg( 'wikibaselexeme-newlexeme-fieldset' );
+	}
+
 	protected function validateFormData( array $formData ): Status {
+		// TODO: no form data validation??
 		return Status::newGood();
 	}
 
@@ -167,8 +243,32 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		return $summary;
 	}
 
-	protected function getLegend() {
-		return $this->msg( 'wikibaselexeme-newlexeme-fieldset' );
+	private function redirectToEntityPage( EntityDocument $entity ) {
+		$title = $this->getEntityTitle( $entity->getId() );
+		$entityUrl = $title->getFullURL();
+		$this->getOutput()->redirect( $entityUrl );
+	}
+
+	protected function displayBeforeForm( OutputPage $output ) {
+		$output->addModules( 'wikibase.special.newEntity' );
+
+		$output->addHTML( $this->getCopyrightHTML() );
+
+		foreach ( $this->getWarnings() as $warning ) {
+			$output->addHTML( Html::element( 'div', [ 'class' => 'warning' ], $warning ) );
+		}
+
+		$output->addModules( 'wikibase.lexeme.special.NewLexeme' );
+		$output->addModuleStyles( 'wikibase.lexeme.special.NewLexeme.styles' );
+	}
+
+	/**
+	 * @param string|null $messageKey ignored here
+	 *
+	 * @return string HTML
+	 */
+	protected function getCopyrightHTML( $messageKey = null ) {
+		return parent::getCopyrightHTML( 'wikibase-newentity-submit' );
 	}
 
 	protected function getWarnings(): array {
@@ -184,10 +284,20 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		return [];
 	}
 
-	protected function displayBeforeForm( OutputPage $output ) {
-		parent::displayBeforeForm( $output );
-		$output->addModules( 'wikibase.lexeme.special.NewLexeme' );
-		$output->addModuleStyles( 'wikibase.lexeme.special.NewLexeme.styles' );
+	/**
+	 * @see SpecialPage::doesWrites
+	 *
+	 * @return bool
+	 */
+	public function doesWrites() {
+		return true;
+	}
+
+	/**
+	 * @see SpecialPage::isListed()
+	 */
+	public function isListed() {
+		return $this->entityNamespaceLookup->getEntityNamespace( Lexeme::ENTITY_TYPE ) !== null;
 	}
 
 }
