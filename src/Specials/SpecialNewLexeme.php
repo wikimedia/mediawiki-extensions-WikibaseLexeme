@@ -36,10 +36,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	const FIELD_LEMMA = 'lemma';
 	const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
-	/**
-	 * @return self
-	 */
-	public static function newFromGlobalState() {
+	public static function newFromGlobalState(): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 		$settings = $wikibaseRepo->getSettings();
@@ -124,21 +121,11 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		];
 	}
 
-	/**
-	 * @param array $formData
-	 *
-	 * @return Status
-	 */
-	protected function validateFormData( array $formData ) {
+	protected function validateFormData( array $formData ): Status {
 		return Status::newGood();
 	}
 
-	/**
-	 * @param array $formData
-	 *
-	 * @return EntityDocument
-	 */
-	protected function createEntityFromFormData( array $formData ) {
+	protected function createEntityFromFormData( array $formData ): Lexeme {
 		$entity = new Lexeme();
 		$lemmaLanguage = $formData[ self::FIELD_LEMMA_LANGUAGE ];
 
@@ -161,7 +148,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 	 *
 	 * @return Summary
 	 */
-	protected function createSummary( EntityDocument $lexeme ) {
+	protected function createSummary( EntityDocument $lexeme ): Summary {
 		$uiLanguageCode = $this->getLanguage()->getCode();
 
 		$summary = new Summary( 'wbeditentity', 'create' );
@@ -184,7 +171,7 @@ class SpecialNewLexeme extends SpecialNewEntity {
 		return $this->msg( 'wikibaselexeme-newlexeme-fieldset' );
 	}
 
-	protected function getWarnings() {
+	protected function getWarnings(): array {
 		if ( $this->getUser()->isAnon() ) {
 			return [
 				$this->msg(
