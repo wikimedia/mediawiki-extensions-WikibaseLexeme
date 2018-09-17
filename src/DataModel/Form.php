@@ -10,6 +10,7 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DummyObjects\NullFormId;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -53,7 +54,7 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
-		FormId $id,
+		$id,
 		TermList $representations,
 		array $grammaticalFeatures,
 		StatementList $statementList = null
@@ -80,13 +81,15 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	/**
 	 * @param FormId $id
-	 *
-	 * @throws LogicException always
 	 */
 	public function setId( $id ) {
-		throw new LogicException( 'Setting the ID of a Form is currently not implemented, and '
-			. 'might not be needed any more, except when implementing the "clear" feature of the '
-			. '"wbeditentity" API' );
+		Assert::parameterType( FormId::class, $id, '$id' );
+
+		if ( !( $this->id instanceof NullFormId ) ) {
+			throw new LogicException( 'Cannot override a real FormId' );
+		}
+
+		$this->id = $id;
 	}
 
 	/**

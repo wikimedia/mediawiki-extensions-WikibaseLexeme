@@ -3,12 +3,14 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer
@@ -16,6 +18,8 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
  * @license GPL-2.0-or-later
  */
 class EditFormChangeOpDeserializerTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testCreateEntityChangeOp_yieldsChangeOpFormEdit() {
 		$deserializer = $this->getDeserializer();
@@ -134,6 +138,23 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 		$this->assertCount( 1, $changeOps->getChangeOps() );
 	}
 
+	public function testGivenChangeRequestContainsClaims_callsDownstreamDeserializer() {
+		$changeRequest = [ 'claims' => [] ];
+		$mockClaimsChangeOpDeserializer = $this->createMock( ClaimsChangeOpDeserializer::class );
+		$mockClaimsChangeOpDeserializer->expects( $this->once() )
+			->method( 'createEntityChangeOp' )
+			->with( $changeRequest );
+
+		$deserializer = $this->getDeserializer(
+			null,
+			null,
+			$mockClaimsChangeOpDeserializer
+		);
+		$deserializer->setContext( $this->createMock( ValidationContext::class ) );
+
+		$deserializer->createEntityChangeOp( $changeRequest );
+	}
+
 	private function getRepresentationsChangeOpDeserializer() {
 		return $this->getMockBuilder( RepresentationsChangeOpDeserializer::class )
 			->disableOriginalConstructor()
@@ -148,7 +169,8 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 
 	private function getDeserializer(
 		$representationsChangeOpDeserializer = null,
-		$itemIdListDeserializer = null
+		$itemIdListDeserializer = null,
+		$claimsChangeOpDeserializer = null
 	) {
 		if ( $representationsChangeOpDeserializer === null ) {
 			$representationsChangeOpDeserializer = $this->getRepresentationsChangeOpDeserializer();
@@ -156,10 +178,14 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 		if ( $itemIdListDeserializer === null ) {
 			$itemIdListDeserializer = $this->getItemIdListDeserializer();
 		}
+		if ( $claimsChangeOpDeserializer === null ) {
+			$claimsChangeOpDeserializer = $this->createMock( ClaimsChangeOpDeserializer::class );
+		}
 
 		return new EditFormChangeOpDeserializer(
 			$representationsChangeOpDeserializer,
-			$itemIdListDeserializer
+			$itemIdListDeserializer,
+			$claimsChangeOpDeserializer
 		);
 	}
 

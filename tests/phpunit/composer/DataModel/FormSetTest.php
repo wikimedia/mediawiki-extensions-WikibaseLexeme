@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\FormSet
@@ -180,6 +181,15 @@ class FormSetTest extends TestCase {
 		yield 'different order of Forms' => [
 			new FormSet( [ $form, $form2 ] ),
 			new FormSet( [ $form2, $form ] ),
+			true
+		];
+
+		$blankForm = new BlankForm();
+		$blankForm->setId( $form->getId() );
+		$blankForm->setRepresentations( $form->getRepresentations() );
+		yield 'Form and equivalent BlankForm' => [
+			new FormSet( [ $form ] ),
+			new FormSet( [ $blankForm ] ),
 			true
 		];
 
