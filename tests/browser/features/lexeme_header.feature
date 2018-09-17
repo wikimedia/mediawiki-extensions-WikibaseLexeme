@@ -12,7 +12,7 @@ Background:
     When I click the lexeme header edit button
      And I enter the test item id into the lexeme language field
      And I click the lexeme header save button
-     And I reload the page
+     And I reload the lexeme page
     Then I should see the item in the lexeme language field
 
   @integration
@@ -21,5 +21,5 @@ Background:
     When I click the lexeme header edit button
      And I enter the test item id into the lexical category field
      And I click the lexeme header save button
-     And I reload the page
+     And I reload the lexeme page
     Then I should see the item in the lexical category field

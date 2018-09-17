@@ -29,7 +29,7 @@ Feature: Forms of a Lexeme
     When I click on the first Form's edit button
      And I select the test item as the grammatical feature
      And I save the Form
-     And I reload the page
+     And I reload the lexeme page
     Then I should see the item's label in the list of grammatical features of the first Form
 
   @integration
@@ -39,7 +39,7 @@ Feature: Forms of a Lexeme
     When I click on the first Form's edit button
      And I remove the first grammatical feature of the first Form
      And I save the Form
-     And I reload the page
+     And I reload the lexeme page
     Then the first Form should no longer have the removed grammatical feature
 
   @integration
@@ -50,7 +50,7 @@ Feature: Forms of a Lexeme
      And I click on the add representation button
      And I enter "colours" as the "en-gb" form representation
      And I save the Form
-     And I reload the page
+     And I reload the lexeme page
     Then "colors" should be displayed as the "en-ca" representation of the Form
      And "colours" should be displayed as the "en-gb" representation of the Form
 
@@ -59,7 +59,7 @@ Feature: Forms of a Lexeme
     When I click the Forms list add button
      And I enter "whatever" as the "en" form representation
      And I save the Form
-     And I reload the page
+     And I reload the lexeme page
     Then "whatever" should be displayed as the "en" representation of the Form
 
 
