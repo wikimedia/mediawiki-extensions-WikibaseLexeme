@@ -201,7 +201,8 @@ return call_user_func( function() {
 				"vue",
 				"vuex",
 				"jquery.util.getDirectionality",
-				"wikibase.lexeme.i18n.Messages"
+				"wikibase.lexeme.i18n.Messages",
+				"wikibase.lexeme.widgets.RedundantLanguageIndicator"
 			],
 			"messages" => [
 				"wikibase-edit",
@@ -210,7 +211,8 @@ return call_user_func( function() {
 				"wikibase-add",
 				"wikibase-remove",
 				"wikibaselexeme-gloss-field-language-label",
-				"wikibaselexeme-gloss-field-gloss-label"
+				"wikibaselexeme-gloss-field-gloss-label",
+				"wikibaselexeme-sense-gloss-redundant-language",
 			]
 		],
 		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore" => $moduleTemplate + [

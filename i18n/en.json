@@ -30,6 +30,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "It is not possible to enter multiple representations with the same spelling variant.",
 	"wikibaselexeme-gloss-field-language-label": "Language",
 	"wikibaselexeme-gloss-field-gloss-label": "Gloss",
+	"wikibaselexeme-sense-gloss-redundant-language": "It is not possible to enter multiple glosses with the same language.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Changed a Lexeme",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"datatypes-type-wikibase-form": "Form",

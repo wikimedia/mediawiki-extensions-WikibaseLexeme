@@ -1,6 +1,8 @@
 module.exports = ( function ( require, Vue ) {
 	'use strict';
 
+	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
+
 	function deepClone( object ) {
 		return JSON.parse( JSON.stringify( object ) );
 	}
@@ -26,6 +28,8 @@ module.exports = ( function ( require, Vue ) {
 		return {
 			el: widgetElement,
 			template: template,
+
+			mixins: [ RedundantLanguageIndicator( 'glosses' ) ],
 
 			beforeUpdate: beforeUpdate,
 
