@@ -148,5 +148,16 @@
 	"wikibase-lexeme-mergelexemes-submit": "מיזוג יחידות מילוניות",
 	"wikibase-lexeme-mergelexemes-success": "היחידה $1 מוזגה אל $2 ונוצרה ממנה הפניה.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "\"$1\" הוא לא מזהה יחידה מילונית תקין",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "\"$1\" לא נמצא"
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "\"$1\" לא נמצא",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: ליחידות יש פירושים שונים עבור אותו הגוון כתיב.",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: יחידות מילוניות מקשרות אחת לשנייה בקביעה.",
+	"wikibase-lexeme-mergelexemes-error-same-language": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: היחידות מילוניות שייכות לשפות שונות.",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: ליחידות מילוניות יש קטגוריות מילוניות שונות.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "טעינת יחידה מילונית נכשלה.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "שמירת יחידה מילונית נכשלה.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "ההרשאה נדחתה.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "לא ניתן למזג יחידה מילונית עם עצמה.",
+	"wikibase-entity-summary-wblmergelexemes-from": "מוזגה יחידה מילוניות מ־$3.",
+	"wikibase-entity-summary-wblmergelexemes-to": "מוזגה יחידה מילוניות ל־$3."
 }
