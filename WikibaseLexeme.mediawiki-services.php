@@ -1,7 +1,14 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -14,6 +21,8 @@ use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Merge\TermListMerger;
 use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
+use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\EditFilterHookRunner;
 use Wikibase\Repo\WikibaseRepo;
@@ -96,6 +105,25 @@ return call_user_func( function() {
 					$repo->getEntityTitleLookup(),
 					$mediaWikiServices->getWatchedItemStore()
 				);
-			}
+			},
+		'WikibaseLexemeEditFormChangeOpDeserializer' => function (
+			MediaWikiServices $mediaWikiServices
+		) {
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+
+			return new EditFormChangeOpDeserializer(
+				new RepresentationsChangeOpDeserializer(
+					new TermDeserializer(),
+					new LexemeTermSerializationValidator(
+						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+					)
+				),
+				new ItemIdListDeserializer( new ItemIdParser() ),
+				new ClaimsChangeOpDeserializer(
+					$wikibaseRepo->getExternalFormatStatementDeserializer(),
+					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+				)
+			);
+		},
 	];
 } );

@@ -6,6 +6,9 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\FormSet;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\DummyObjects\NullFormId;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\FormSet
@@ -183,6 +186,15 @@ class FormSetTest extends TestCase {
 			true
 		];
 
+		$blankForm = new BlankForm();
+		$blankForm->setId( $form->getId() );
+		$blankForm->setRepresentations( $form->getRepresentations() );
+		yield 'Form and equivalent BlankForm' => [
+			new FormSet( [ $form ] ),
+			new FormSet( [ $blankForm ] ),
+			true
+		];
+
 		$form3 = NewForm::havingId( new FormId( 'L12-F3' ) )
 			->andRepresentation( 'ru', 'карто́фель' )
 			->build();
@@ -190,6 +202,46 @@ class FormSetTest extends TestCase {
 			new FormSet( [ $form, $form2 ] ),
 			new FormSet( [ $form, $form3 ] ),
 			false
+		];
+	}
+
+	/**
+	 * @dataProvider provideFormSetAndContainedFormId
+	 */
+	public function testHasFormWithId_detectsContainedForms( FormSet $formSet, FormId $formId ) {
+		$this->assertTrue( $formSet->hasFormWithId( $formId ) );
+	}
+
+	public function provideFormSetAndContainedFormId() {
+		yield 'FormId already contained in set' => [
+			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
+			new FormId( 'L42-F1' )
+		];
+		yield 'DummyFormId already contained in set' => [
+			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
+			new DummyFormId( 'L42-F1' )
+		];
+	}
+
+	/**
+	 * @dataProvider provideFormSetAndUnaccountedFormId
+	 */
+	public function testHasFormWithId_detectsUnaccountedForms( FormSet $formSet, FormId $formId ) {
+		$this->assertFalse( $formSet->hasFormWithId( $formId ) );
+	}
+
+	public function provideFormSetAndUnaccountedFormId() {
+		yield 'form not added to this set (yet)' => [
+			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
+			new FormId( 'L42-F17' )
+		];
+		yield 'unrelated lexeme' => [
+			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
+			new FormId( 'L4711-F1' )
+		];
+		yield 'form with a NullFormId' => [
+			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
+			new NullFormId()
 		];
 	}
 

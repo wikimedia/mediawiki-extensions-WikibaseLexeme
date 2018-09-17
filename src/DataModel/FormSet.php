@@ -139,6 +139,14 @@ class FormSet implements Countable, Comparable {
 	}
 
 	/**
+	 * @param FormId $formId
+	 * @return bool
+	 */
+	public function hasFormWithId( FormId $formId ) {
+		return $this->getById( $formId ) !== null;
+	}
+
+	/**
 	 * @param Form[]
 	 *
 	 * @return bool

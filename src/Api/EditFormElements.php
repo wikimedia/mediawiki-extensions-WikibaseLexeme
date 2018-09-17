@@ -3,16 +3,9 @@
 namespace Wikibase\Lexeme\Api;
 
 use ApiMain;
-use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\FormNotFound;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
@@ -77,15 +70,7 @@ class EditFormElements extends \ApiBase {
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			new EditFormElementsRequestParser(
 				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
-				new EditFormChangeOpDeserializer(
-					new RepresentationsChangeOpDeserializer(
-						new TermDeserializer(),
-						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
-						)
-					),
-					new ItemIdListDeserializer( new ItemIdParser() )
-				)
+				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			),
 			$wikibaseRepo->getSummaryFormatter(),
 			$formSerializer,
@@ -203,7 +188,6 @@ class EditFormElements extends \ApiBase {
 		$apiResult = $this->getResult();
 
 		$serializedForm = $this->formSerializer->serialize( $form );
-		unset( $serializedForm['claims'] );
 
 		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );

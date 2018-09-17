@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiMessage;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemIdParser;
@@ -26,6 +27,7 @@ use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * @covers \Wikibase\Lexeme\Api\EditFormElementsRequestParser
@@ -33,6 +35,8 @@ use Wikibase\Lib\StaticContentLanguages;
  * @license GPL-2.0-or-later
  */
 class EditFormElementsRequestParserIntegrationTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	const DEFAULT_REPRESENTATION = 'colour';
 	const DEFAULT_REPRESENTATION_LANGUAGE = 'en';
@@ -280,7 +284,8 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)
 			),
-			new ItemIdListDeserializer( new ItemIdParser() )
+			new ItemIdListDeserializer( new ItemIdParser() ),
+			$this->createMock( ClaimsChangeOpDeserializer::class )
 		);
 
 		return new EditFormElementsRequestParser(

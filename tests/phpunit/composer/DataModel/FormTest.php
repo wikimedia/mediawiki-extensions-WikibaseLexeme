@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use InvalidArgumentException;
-use LogicException;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
@@ -14,6 +13,9 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\DummyObjects\NullFormId;
 
 /**
  * @covers \Wikibase\Lexeme\DataModel\Form
@@ -72,12 +74,6 @@ class FormTest extends TestCase {
 
 		$this->setExpectedException( \InvalidArgumentException::class );
 		$form->setGrammaticalFeatures( [ "Q1" ] );
-	}
-
-	public function testFormIdCanNotBeChanged() {
-		$form = NewForm::havingId( 'F1' )->build();
-		$this->setExpectedException( LogicException::class );
-		$form->setId( new FormId( 'L1-F2' ) );
 	}
 
 	public function testGivenFormWithInitiallyRequiredRepresentation_isNotEmpty() {
@@ -222,6 +218,53 @@ class FormTest extends TestCase {
 
 		$this->assertTrue( $form->isEmpty(), 'form should be empty after clear' );
 		$this->assertEquals( $clone->getId(), $form->getId(), 'ids must be equal' );
+	}
+
+	public function testSetIdCanSetFormId() {
+		$id = new FormId( 'L1-F123' );
+		$form = new Form( new NullFormId(), new TermList(), [] );
+		$form->setId( $id );
+
+		$this->assertSame( $id, $form->getId() );
+	}
+
+	public function testSetIdCanSetDummyFormId() {
+		$id = new DummyFormId( 'L1-F123' );
+		$form = new Form( new NullFormId(), new TermList(), [] );
+		$form->setId( $id );
+
+		$this->assertSame( $id, $form->getId() );
+	}
+
+	public function testSetIdCanSetFormIdReplacingDummyFormId() {
+		$id = new FormId( 'L1-F123' );
+		$form = new Form( new DummyFormId( 'L1-F123' ), new TermList(), [] );
+		$form->setId( $id );
+
+		$this->assertSame( $id, $form->getId() );
+	}
+
+	/**
+	 * @expectedException \LogicException
+	 */
+	public function testGivenFormAlreadyHasRealId_setIdThrowsException() {
+		$form = NewForm::havingId( new FormId( 'L1-F1' ) )->build();
+		$form->setId( new FormId( 'L2-F2' ) );
+	}
+
+	/**
+	 * @dataProvider nonFormIdProvider
+	 * @expectedException \InvalidArgumentException
+	 */
+	public function testGivenNotAFormId_setIdThrowsException( $id ) {
+		NewForm::any()->build()->setId( $id );
+	}
+
+	public function nonFormIdProvider() {
+		yield [ 'L1-F1' ];
+		yield [ null ];
+		yield [ new ItemId( 'Q1' ) ];
+		yield [ new LexemeId( 'L1' ) ];
 	}
 
 	public function clearableProvider() {

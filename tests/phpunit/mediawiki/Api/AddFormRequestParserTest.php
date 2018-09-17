@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
@@ -23,6 +24,7 @@ use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
@@ -30,6 +32,8 @@ use Wikibase\Lib\StaticContentLanguages;
  * @license GPL-2.0-or-later
  */
 class AddFormRequestParserTest extends TestCase {
+
+	use PHPUnit4And6Compat;
 
 	public function testGivenValidData_parseReturnsRequest() {
 		$parser = $this->newAddFormRequestParser();
@@ -95,7 +99,8 @@ class AddFormRequestParserTest extends TestCase {
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)
 			),
-			new ItemIdListDeserializer( new ItemIdParser() )
+			new ItemIdListDeserializer( new ItemIdParser() ),
+			$this->createMock( ClaimsChangeOpDeserializer::class )
 		);
 
 		return new AddFormRequestParser(

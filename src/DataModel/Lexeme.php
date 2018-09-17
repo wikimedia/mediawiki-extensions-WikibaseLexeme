@@ -337,28 +337,26 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
-	 * Replace the form identified by $form->getId() with the given one or add it
+	 * Replace the form identified by $form->getId() with the given one or add it.
+	 *
+	 * New form ids are generated for forms with a NullFormId or an unknown DummyFormId.
 	 *
 	 * @param Form $form
-	 *
-	 * @return Form
 	 */
 	public function addOrUpdateForm( Form $form ) {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Can not add forms to a lexeme with no ID' );
 		}
 
-		if ( $form instanceof BlankForm ) {
-			$form = $form->getRealForm(
+		if ( $form instanceof BlankForm && !$this->forms->hasFormWithId( $form->getId() ) ) {
+			$form->setId(
 				new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ )
 			);
-
-			$this->forms->add( $form );
-		} else {
-			$this->forms->put( $form );
 		}
 
-		return $form;
+		$this->forms->put( $form );
+
+		$this->assertCorrectNextFormIdIsGiven( $this->getNextFormId(), $this->getForms() );
 	}
 
 	/**
