@@ -149,4 +149,8 @@ class LexemePage
     url = URL.repo_url(ENV['LEXEME_NAMESPACE'] + id)
     { 'url' => url }
   end
+
+  def wait_for_load
+    Watir::Wait.until { add_lexeme_form_element.visible? }
+  end
 end

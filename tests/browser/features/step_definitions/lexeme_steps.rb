@@ -11,3 +11,8 @@ end
 Given(/^I am on the page of the Lexeme to test$/) do
   on(LexemePage).navigate_to_entity @lexeme_under_test['url']
 end
+
+When(/^I reload the lexeme page$/) do
+  browser.refresh
+  on(LexemePage).wait_for_load
+end
