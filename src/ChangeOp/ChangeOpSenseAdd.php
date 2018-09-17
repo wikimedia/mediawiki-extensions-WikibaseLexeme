@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DummyObjects\BlankSense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -24,10 +25,16 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 	private $changeOpSense;
 
 	/**
+	 * @var GuidGenerator
+	 */
+	private $guidGenerator;
+
+	/**
 	 * @param ChangeOp $changeOpSense
 	 */
-	public function __construct( ChangeOp $changeOpSense ) {
+	public function __construct( ChangeOp $changeOpSense, GuidGenerator $guidGenerator ) {
 		$this->changeOpSense = $changeOpSense;
+		$this->guidGenerator = $guidGenerator;
 	}
 
 	public function validate( EntityDocument $entity ) {
@@ -47,6 +54,12 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 		$this->changeOpSense->apply( $blankSense, null );
 
 		$sense = $entity->addOrUpdateSense( $blankSense );
+
+		// update statements to have a suitable guid now that the new sense id is known
+		// fixme This should find a new home in a more central place, maybe StatementList
+		foreach ( $sense->getStatements() as $statement ) {
+			$statement->setGuid( $this->guidGenerator->newGuid( $sense->getId() ) );
+		}
 
 		if ( $sense->getGlosses()->count() === 1 ) {
 			$array = $sense->getGlosses()->toTextArray();

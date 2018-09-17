@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Api\AddSenseRequest;
 use Wikibase\Lexeme\Api\AddSenseRequestParser;
@@ -48,9 +49,12 @@ class AddSenseRequestParserTest extends TestCase {
 		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
 
 		$this->assertEquals(
-			new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
-				new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
-			] ) ),
+			new ChangeOpSenseAdd(
+				new ChangeOpSenseEdit( [
+					new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
+				] ),
+				new GuidGenerator()
+			),
 			$request->getChangeOp()
 		);
 	}
