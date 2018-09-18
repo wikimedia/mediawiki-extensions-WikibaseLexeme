@@ -55,4 +55,22 @@
 		assert.equal( view.value(), sense2 );
 	} );
 
+	QUnit.test( 'sets id after saving sense', function ( assert ) {
+		var emptySense = new wikibase.lexeme.datamodel.Sense(
+			''
+			),
+			view = newSenseView( { value: emptySense } ),
+			done = assert.async();
+
+		view.deferredSenseWithId.resolve( newSense( 'L321-S123', 'meow' ) );
+
+		view.deferredSenseWithId.promise().then( function () {
+			assert.equal(
+				view.element.attr( 'id' ),
+				'S123'
+			);
+			done();
+		} );
+	} );
+
 }( jQuery, wikibase, QUnit ) );
