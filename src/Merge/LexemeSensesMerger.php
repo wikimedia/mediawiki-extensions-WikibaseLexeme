@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Merge;
 
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
 use Wikibase\Lexeme\DataModel\Lexeme;
@@ -18,9 +19,13 @@ class LexemeSensesMerger {
 	 */
 	public function merge( Lexeme $source, Lexeme $target ) {
 		$changeOps = new ChangeOps();
+		$guidGenerator = new GuidGenerator();
 
 		foreach ( $source->getSenses()->toArray() as $sourceSense ) {
-			$changeOps->add( new ChangeOpSenseAdd( new ChangeOpSenseClone( $sourceSense ) ) );
+			$changeOps->add( new ChangeOpSenseAdd(
+				new ChangeOpSenseClone( $sourceSense ),
+				$guidGenerator
+			) );
 		}
 
 		$changeOps->apply( $target );

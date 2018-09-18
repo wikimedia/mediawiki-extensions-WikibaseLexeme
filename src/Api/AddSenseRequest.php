@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Api;
 
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -23,7 +24,7 @@ class AddSenseRequest {
 	}
 
 	public function getChangeOp(): ChangeOpSenseAdd {
-		return new ChangeOpSenseAdd( $this->editSenseChangeOp );
+		return new ChangeOpSenseAdd( $this->editSenseChangeOp, new GuidGenerator() );
 	}
 
 	public function getLexemeId(): LexemeId {

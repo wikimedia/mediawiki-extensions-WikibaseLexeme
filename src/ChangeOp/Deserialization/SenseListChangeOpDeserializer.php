@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSense;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
@@ -81,7 +82,8 @@ class SenseListChangeOpDeserializer implements ChangeOpDeserializer {
 				$lexemeChangeOps->add( new ChangeOpRemoveSense( $senseId ) );
 			} elseif ( array_key_exists( 'add', $serializedSense ) ) {
 				$lexemeChangeOps->add( new ChangeOpSenseAdd(
-					$this->senseChangeOpDeserializer->createEntityChangeOp( $serializedSense )
+					$this->senseChangeOpDeserializer->createEntityChangeOp( $serializedSense ),
+					new GuidGenerator()
 				) );
 			} elseif ( array_key_exists( self::PARAM_SENSE_ID, $serializedSense ) ) {
 				$changeOpsForSense[$serializedSense[self::PARAM_SENSE_ID]] =

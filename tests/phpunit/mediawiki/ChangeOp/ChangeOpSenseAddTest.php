@@ -4,14 +4,19 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
+use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Tests\NewItem;
+use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Summary;
 
 /**
@@ -24,7 +29,7 @@ class ChangeOpSenseAddTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
-		$changeOpAddSense = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+		$changeOpAddSense = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 			new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'foo' ) ) ] ),
 		] ) );
 
@@ -33,7 +38,7 @@ class ChangeOpSenseAddTest extends TestCase {
 	}
 
 	public function test_validatePassesIfProvidedEntityIsALexeme() {
-		$changeOpAddSense = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+		$changeOpAddSense = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 			new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'foo' ) ) ] ),
 		] ) );
 
@@ -43,7 +48,7 @@ class ChangeOpSenseAddTest extends TestCase {
 	}
 
 	public function test_applyFailsIfProvidedEntityIsNotALexeme() {
-		$changeOpAddSense = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+		$changeOpAddSense = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 			new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'foo' ) ) ] ),
 		] ) );
 
@@ -53,7 +58,7 @@ class ChangeOpSenseAddTest extends TestCase {
 
 	public function test_applyAddsSenseIfGivenALexeme() {
 		$glosses = new TermList( [ new Term( 'en', 'furry animal' ) ] );
-		$changeOp = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+		$changeOp = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 				new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
 		] ) );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
@@ -64,8 +69,24 @@ class ChangeOpSenseAddTest extends TestCase {
 		$this->assertEquals( $glosses, $sense->getGlosses() );
 	}
 
+	public function test_applySetsStatementId() {
+		$changeOp = $this->newChangeOpSenseAdd( new ChangeOpSenseClone(
+			NewSense::havingId( 'S3' )
+				->withGloss( 'en', 'furry animal' )
+				->withStatement( NewStatement::noValueFor( 'P5' ) )
+				->build()
+		) );
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$changeOp->apply( $lexeme );
+
+		$sense = $lexeme->getSenses()->toArray()[0];
+		$statement = $sense->getStatements()->toArray()[0];
+		$this->assertStringStartsWith( 'L1-S1$', $statement->getGuid() );
+	}
+
 	public function test_applySetsTheSummary() {
-		$changeOp = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+		$changeOp = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 			new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
 		] ) );
 
@@ -81,7 +102,7 @@ class ChangeOpSenseAddTest extends TestCase {
 	}
 
 	public function test_applySetsTheSummary_noLanguageIfMultipleGlosses() {
-		$changeOp = new ChangeOpSenseAdd( new ChangeOpSenseEdit( [
+		$changeOp = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 			new ChangeOpGlossList( [
 				new ChangeOpGloss( new Term( 'en', 'furry animal' ) ),
 				new ChangeOpGloss( new Term( 'de', 'pelziges Tier' ) ),
@@ -93,6 +114,13 @@ class ChangeOpSenseAddTest extends TestCase {
 		$changeOp->apply( $lexeme, $summary );
 
 		$this->assertEquals( null, $summary->getLanguageCode() );
+	}
+
+	private function newChangeOpSenseAdd( ChangeOp $childChangeOp ) {
+		return new ChangeOpSenseAdd(
+			$childChangeOp,
+			new GuidGenerator()
+		);
 	}
 
 }
