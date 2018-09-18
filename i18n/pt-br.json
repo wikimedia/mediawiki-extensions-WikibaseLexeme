@@ -33,6 +33,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Não é possível introduzir mais do que uma representação com a mesma variante ortográfica.",
 	"wikibaselexeme-gloss-field-language-label": "Idioma",
 	"wikibaselexeme-gloss-field-gloss-label": "Brilho",
+	"wikibaselexeme-sense-gloss-redundant-language": "Não é possível inserir vários glosses com o mesmo idioma.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-form": "Forma",

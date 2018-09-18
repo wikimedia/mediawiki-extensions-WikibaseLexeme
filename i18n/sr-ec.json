@@ -35,6 +35,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Није могуће уношење више представљања са истим језиком писања.",
 	"wikibaselexeme-gloss-field-language-label": "Језик",
 	"wikibaselexeme-gloss-field-gloss-label": "Глоса",
+	"wikibaselexeme-sense-gloss-redundant-language": "Није могуће унети више глоса са истим језиком.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Промењена лексема",
 	"datatypes-type-wikibase-lexeme": "лексема",
 	"datatypes-type-wikibase-form": "облик",

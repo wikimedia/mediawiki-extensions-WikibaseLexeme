@@ -34,6 +34,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Es ist nicht möglich, mehrere Darstellungen mit der gleichen Rechtschreibvariante einzugeben.",
 	"wikibaselexeme-gloss-field-language-label": "Sprache",
 	"wikibaselexeme-gloss-field-gloss-label": "Fußnote",
+	"wikibaselexeme-sense-gloss-redundant-language": "Es ist nicht möglich, mehrere Fußnoten mit der gleichen Sprache einzugeben.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Änderte ein Lexeme",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"datatypes-type-wikibase-form": "Form",
