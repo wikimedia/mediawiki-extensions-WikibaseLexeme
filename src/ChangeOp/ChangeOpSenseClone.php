@@ -24,7 +24,7 @@ class ChangeOpSenseClone implements ChangeOp {
 	 * @param Sense $sourceSense
 	 */
 	public function __construct( Sense $sourceSense ) {
-		$this->sourceSense = $sourceSense;
+		$this->sourceSense = $sourceSense->copy();
 	}
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {

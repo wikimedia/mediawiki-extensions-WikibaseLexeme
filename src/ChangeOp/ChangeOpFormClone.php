@@ -24,7 +24,7 @@ class ChangeOpFormClone implements ChangeOp {
 	 * @param Form $sourceForm
 	 */
 	public function __construct( Form $sourceForm ) {
-		$this->sourceForm = $sourceForm;
+		$this->sourceForm = $sourceForm->copy();
 	}
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {

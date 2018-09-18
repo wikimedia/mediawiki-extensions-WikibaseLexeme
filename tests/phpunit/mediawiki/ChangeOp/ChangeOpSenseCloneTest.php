@@ -77,6 +77,29 @@ class ChangeOpSenseCloneTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::__construct
+	 * @covers ::apply
+	 */
+	public function testApply_doesNotModifySourceForm() {
+		$originalSourceSense = NewSense::havingId( 'S71' )
+			->andLexeme( new LexemeId( 'L42' ) )
+			->withGloss( 'en-us', 'colorful' )
+			->withStatement(
+				NewStatement::forProperty( 'P4711' )
+					->withSomeGuid()->withValue( new LexemeId( 'L123' ) )
+			)
+			->build();
+		$sourceSense = $originalSourceSense->copy();
+		$changeOp = new ChangeOpSenseClone( $sourceSense );
+
+		$targetSense = new BlankSense();
+		$targetSense->setLexeme( NewLexeme::havingId( 'L34' )->build() );
+		$changeOp->apply( $targetSense );
+
+		$this->assertEquals( $originalSourceSense, $sourceSense );
+	}
+
+	/**
 	 * @covers ::getActions
 	 */
 	public function testGetActions() {

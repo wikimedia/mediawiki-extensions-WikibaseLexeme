@@ -84,6 +84,29 @@ class ChangeOpFormCloneTest extends TestCase {
 	}
 
 	/**
+	 * @covers ::__construct
+	 * @covers ::apply
+	 */
+	public function testApply_doesNotModifySourceForm() {
+		$originalSourceForm = NewForm::havingId( 'F71' )
+			->andLexeme( new LexemeId( 'L42' ) )
+			->andRepresentation( 'en-us', 'colorful' )
+			->andStatement(
+				NewStatement::forProperty( 'P4711' )
+					->withSomeGuid()->withValue( new LexemeId( 'L123' ) )
+			)
+			->build();
+		$sourceForm = $originalSourceForm->copy();
+		$changeOp = new ChangeOpFormClone( $sourceForm );
+
+		$targetForm = new BlankForm();
+		$targetForm->setLexeme( NewLexeme::havingId( 'L34' )->build() );
+		$changeOp->apply( $targetForm );
+
+		$this->assertEquals( $originalSourceForm, $sourceForm );
+	}
+
+	/**
 	 * @covers ::getActions
 	 */
 	public function testGetActions() {
