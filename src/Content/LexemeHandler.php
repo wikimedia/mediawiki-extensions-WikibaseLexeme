@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Content;
 
-use Article;
 use IContextSource;
 use Page;
 use Title;
@@ -30,7 +29,6 @@ use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Store\EntityIdLookup;
 use Wikibase\SubmitEntityAction;
 use Wikibase\TermIndex;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
@@ -100,15 +98,9 @@ class LexemeHandler extends EntityHandler {
 	 */
 	public function getActionOverrides() {
 		return [
-			'history' => function( Page $article, IContextSource $context ) {
-				// NOTE: for now, the callback must work with a WikiPage as well as an Article
-				// object. Once I0335100b2 is merged, this is no longer needed.
-				if ( $article instanceof WikiPage ) {
-					$article = Article::newFromWikiPage( $article, $context );
-				}
-
+			'history' => function( Page $page, IContextSource $context ) {
 				return new HistoryEntityAction(
-					$article,
+					$page,
 					$context,
 					$this->entityIdLookup,
 					$this->labelLookupFactory->newLabelDescriptionLookup( $context->getLanguage() )
