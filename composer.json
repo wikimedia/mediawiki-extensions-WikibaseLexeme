@@ -17,8 +17,8 @@
 		"php": ">=5.6.99",
 		"serialization/serialization": "~3.2|~4.0",
 		"wikibase/data-model": "^8.0|^7.5.0",
-		"wikibase/data-model-serialization": "~2.0",
-		"wikibase/data-model-services": "~3.6",
+		"wikibase/data-model-serialization": "~2.8",
+		"wikibase/data-model-services": "~3.11",
 		"wikimedia/assert": "~0.2.2",
 		"wmde/php-vuejs-templating": "^1.0.2"
 	},
