@@ -58,6 +58,8 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->tablesUsed[] = 'page';
+
 		$this->mergeInteractor = $this->newMockMergeInteractor();
 		$this->repo = WikibaseRepo::getDefaultInstance();
 		$this->entityStore = $this->repo->getEntityStore();
