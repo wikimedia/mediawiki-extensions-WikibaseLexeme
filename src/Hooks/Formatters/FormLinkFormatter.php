@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Hooks\Formatters;
 
+use HtmlArmor;
 use Language;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
@@ -58,7 +59,9 @@ class FormLinkFormatter implements EntityLinkFormatter {
 			$entityId,
 			[
 				'language' => $this->language->getCode(),
-				'value' => $this->representationsFormatter->format( $this->getRepresentations( $entityId ) ),
+				'value' => new HtmlArmor(
+					$this->representationsFormatter->format( $this->getRepresentations( $entityId ) )
+				),
 			]
 		);
 	}

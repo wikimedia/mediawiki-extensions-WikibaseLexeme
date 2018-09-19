@@ -33,12 +33,12 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 	private $entityLookup;
 
 	/** @var MockObject|LexemeTermFormatter */
-	private $lemmaFormatter;
+	private $representationsFormatter;
 
 	public function setUp() {
 		parent::setUp();
 
-		$this->lemmaFormatter = $this->createMock( LexemeTermFormatter::class );
+		$this->representationsFormatter = $this->createMock( LexemeTermFormatter::class );
 		$this->entityLookup = $this->createMock( EntityLookup::class );
 	}
 
@@ -47,8 +47,9 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 			->andRepresentation( 'en-gb', 'potato' )
 			->build();
 		$this->entityLookup = $this->newEntityLookup( $form );
-		$representationHtml = '[REPRESENTATION_HTML]';
-		$this->lemmaFormatter
+		$representationText = '[REPRESENTATION_TEXT]';
+		$representationHtml = "<span id=\"representationText\">$representationText</span>";
+		$this->representationsFormatter
 			->expects( $this->once() )
 			->method( 'format' )
 			->with( $form->getRepresentations() )
@@ -56,14 +57,17 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 
 		$formatter = $this->newFormatter();
 
-		$this->assertThatHamcrest( $formatter->getHtml( $form->getId() ),
+		$this->assertThatHamcrest(
+			$formatter->getHtml( $form->getId() ),
 			is( htmlPiece(
-				havingRootElement(
-					both( tagMatchingOutline( '<span lang="en"></span>' ) )
-						->andAlso( havingTextContents( equalToIgnoringWhiteSpace(
-							$representationHtml . $form->getId()->getSerialization()
-						) ) )
-				)
+				havingRootElement( allOf(
+					tagMatchingOutline( '<span lang="en"></span>' ),
+					havingChild( both( tagMatchingOutline( '<span id="representationText">' ) )
+						->andAlso( havingTextContents( $representationText ) ) ),
+					havingTextContents( equalToIgnoringWhiteSpace(
+						$representationText . $form->getId()->getSerialization()
+					) )
+				) )
 			) )
 		);
 	}
@@ -120,7 +124,7 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 		return new FormLinkFormatter(
 			$this->entityLookup,
 			$this->newDefaultFormatter(),
-			$this->lemmaFormatter,
+			$this->representationsFormatter,
 			Language::factory( 'en' )
 		);
 	}
