@@ -129,6 +129,7 @@ class SensesView {
 				htmlspecialchars( $sense->getId()->getSerialization() ),
 				$glossWidget,
 				$this->getStatementSectionHtml( $sense ),
+				htmlspecialchars( $sense->getId()->getIdSuffix() ),
 				htmlspecialchars( $sense->getId()->getSerialization() )
 			]
 		);

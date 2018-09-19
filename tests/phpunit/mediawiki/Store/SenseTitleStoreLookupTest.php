@@ -34,7 +34,7 @@ class SenseTitleStoreLookupTest extends TestCase {
 
 		$title = $this->getMock( Title::class );
 		$title->method( 'setFragment' )
-			->with( '#' . $senseId->getSerialization() );
+			->with( '#' . $senseId->getIdSuffix() );
 
 		$parentLookup = $this->getMock( EntityTitleStoreLookup::class );
 		$parentLookup->method( 'getTitleForId' )

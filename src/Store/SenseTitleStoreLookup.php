@@ -45,7 +45,7 @@ class SenseTitleStoreLookup implements EntityTitleStoreLookup {
 			return null;
 		}
 
-		$title->setFragment( '#' . $senseId->getSerialization() );
+		$title->setFragment( '#' . $senseId->getIdSuffix() );
 
 		return $title;
 	}

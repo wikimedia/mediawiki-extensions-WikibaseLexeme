@@ -3,7 +3,8 @@
 
 	var PARENT = $.ui.EditableTemplatedWidget;
 
-	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
+	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' ),
+		LexemeSubEntityId = require( 'wikibase.lexeme.datamodel.LexemeSubEntityId' );
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
@@ -62,7 +63,7 @@
 				},
 				function () { // We can't mangle these directly, thus change them via DOM.
 					this.deferredSenseWithId.promise().then( function ( sense ) {
-						this.element.attr( 'id', sense.getId() );
+						this.element.attr( 'id', LexemeSubEntityId.getIdSuffix( sense.getId() ) );
 						this.element.data( 'sense-id', sense.getId() );
 					}.bind( this ) );
 
