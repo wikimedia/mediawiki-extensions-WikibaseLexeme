@@ -108,11 +108,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function saveLexeme() {
-		$this->entityStore->saveEntity(
-			$this->getDummyLexeme(),
-			self::class,
-			$this->getTestUser()->getUser()
-		);
+		$this->saveEntity( $this->getDummyLexeme() );
 	}
 
 	private function getDummyLexeme() {
