@@ -22,7 +22,7 @@ use Wikimedia\Assert\Assert;
  */
 class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 
-	const ENTITY_TYPE = 'form';
+	/* public */ const ENTITY_TYPE = 'form';
 
 	/**
 	 * @var FormId
@@ -74,7 +74,7 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * @return string
 	 */
 	public function getType() {
-		return 'form';
+		return self::ENTITY_TYPE;
 	}
 
 	/**

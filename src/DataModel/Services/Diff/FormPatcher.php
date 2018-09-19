@@ -34,7 +34,7 @@ class FormPatcher implements EntityPatcherStrategy {
 	 * @return boolean
 	 */
 	public function canPatchEntityType( $entityType ) {
-		return $entityType === 'form';
+		return $entityType === Form::ENTITY_TYPE;
 	}
 
 	/**

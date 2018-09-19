@@ -44,6 +44,7 @@ class FormSearchEntity extends LexemeSearchEntity {
 		SearchContext $context
 	) {
 		$context->setOriginalSearchTerm( $text );
+		// TODO consider using Form::ENTITY_TYPE
 		if ( $entityType !== 'form' ) {
 			$context->setResultsPossible( false );
 			$context->addWarning( 'wikibase-search-bad-entity-type', $entityType );

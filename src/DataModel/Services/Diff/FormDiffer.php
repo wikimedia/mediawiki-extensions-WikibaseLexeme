@@ -39,7 +39,7 @@ class FormDiffer implements EntityDifferStrategy {
 	 * @return bool
 	 */
 	public function canDiffEntityType( $entityType ) {
-		return $entityType === 'form';
+		return $entityType === Form::ENTITY_TYPE;
 	}
 
 	/**
