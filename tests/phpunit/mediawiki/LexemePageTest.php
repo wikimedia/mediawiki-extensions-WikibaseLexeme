@@ -45,8 +45,7 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 
 	private function createTestLexeme( $id ) {
 		$lexeme = NewLexeme::havingId( $id )->build();
-		$this->getEntityStore()
-			->saveEntity( $lexeme, self::class, $this->getTestUser()->getUser() );
+		$this->saveEntity( $lexeme );
 		return $lexeme;
 	}
 

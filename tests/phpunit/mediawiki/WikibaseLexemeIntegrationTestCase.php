@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Services\ServiceContainer;
+use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store\BufferingTermLookup;
 
@@ -35,6 +36,14 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 		// When we request an EntityStore via this method assume we will be inserting something.
 		$this->tablesUsed[] = 'page';
 		return WikibaseRepo::getDefaultInstance()->getEntityStore();
+	}
+
+	protected function saveEntity( EntityDocument $entity ) {
+		$this->getEntityStore()->saveEntity(
+			$entity,
+			static::class,
+			$this->getTestUser()->getUser()
+		);
 	}
 
 }

@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ParserOutput;
 use Language;
 use Message;
 use Wikibase\DataModel\Entity\EntityIdValue;
-use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -14,6 +13,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -48,8 +48,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function testParserOutputContainsLinksForEntityIdsReferencedInFormStatements() {
 		$propertyId = 'P123';
 		$valueItemId = 'Q42';
-		$this->saveItem( $valueItemId );
-		$this->saveProperty( $propertyId );
+		$this->saveEntity( NewItem::withId( $valueItemId )->build() );
+		$this->saveEntity( new Property( new PropertyId( $propertyId ), null, 'wikibase-item' ) );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withForm( NewForm::any()
 				->andStatement( new PropertyValueSnak(
@@ -73,8 +73,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function testParserOutputContainsLinksForEntityIdsReferencedInStatements() {
 		$propertyId = 'P123';
 		$valueItemId = 'Q42';
-		$this->saveItem( $valueItemId );
-		$this->saveProperty( $propertyId );
+		$this->saveEntity( NewItem::withId( $valueItemId )->build() );
+		$this->saveEntity( new Property( new PropertyId( $propertyId ), null, 'wikibase-item' ) );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withStatement( new PropertyValueSnak(
 				new PropertyId( $propertyId ),
@@ -96,7 +96,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 	public function testParserOutputContainsLanguageItemIdLink() {
 		$languageItemId = 'Q123';
-		$this->saveItem( $languageItemId );
+		$this->saveEntity( NewItem::withId( $languageItemId )->build() );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withLanguage( $languageItemId )
 			->build();
@@ -111,7 +111,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 	public function testParserOutputContainsLexicalCategoryItemIdLink() {
 		$lexicalCategoryItemId = 'Q321';
-		$this->saveItem( $lexicalCategoryItemId );
+		$this->saveEntity( NewItem::withId( $lexicalCategoryItemId )->build() );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withLexicalCategory( $lexicalCategoryItemId )
 			->build();
@@ -127,8 +127,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function testParserOutputContainsGrammaticalFeatureItemIdLinks() {
 		$grammaticalFeatureItemId1 = 'Q234';
 		$grammaticalFeatureItemId2 = 'Q432';
-		$this->saveItem( $grammaticalFeatureItemId1 );
-		$this->saveItem( $grammaticalFeatureItemId2 );
+		$this->saveEntity( NewItem::withId( $grammaticalFeatureItemId1 )->build() );
+		$this->saveEntity( NewItem::withId( $grammaticalFeatureItemId2 )->build() );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withForm( NewForm::havingId( 'F1' )
 				->andGrammaticalFeature( $grammaticalFeatureItemId1 )
@@ -171,22 +171,6 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	private function newParserOutputGenerator() {
 		return WikibaseRepo::getDefaultInstance()->getEntityParserOutputGeneratorFactory()
 			->getEntityParserOutputGenerator( Language::factory( 'en' ) );
-	}
-
-	private function saveItem( $id ) {
-		$this->entityStore->saveEntity(
-			new Item( new ItemId( $id ) ),
-			__METHOD__,
-			$this->getTestUser()->getUser()
-		);
-	}
-
-	private function saveProperty( $id ) {
-		$this->entityStore->saveEntity(
-			new Property( new PropertyId( $id ), null, 'wikibase-item' ),
-			__METHOD__,
-			$this->getTestUser()->getUser()
-		);
 	}
 
 }

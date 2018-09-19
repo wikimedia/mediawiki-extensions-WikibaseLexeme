@@ -51,8 +51,8 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 			->build();
 		$target = NewLexeme::havingId( 'L321' )
 			->build();
-		$this->saveLexeme( $source );
-		$this->saveLexeme( $target );
+		$this->saveEntity( $source );
+		$this->saveEntity( $target );
 
 		$interactor = $this->newInteractor();
 
@@ -134,14 +134,6 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 			->willReturn( Status::newGood() );
 
 		return $hookRunner;
-	}
-
-	private function saveLexeme( Lexeme $lexeme ) {
-		$this->entityStore->saveEntity(
-			$lexeme,
-			__CLASS__,
-			$this->getTestUser()->getUser()
-		);
 	}
 
 }

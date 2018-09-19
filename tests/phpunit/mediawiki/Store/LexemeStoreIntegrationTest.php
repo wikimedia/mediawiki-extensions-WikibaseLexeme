@@ -40,29 +40,17 @@ class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 	}
 
 	private function saveLexemeWithForm() {
-		$store = $this->getEntityStore();
-
-		$lexeme = NewLexeme::havingId( self::LEXEME_ID )
-			->withForm(
-				NewForm::havingId( self::FORM_ID )->build()
-			)->build();
-
-		$store->saveEntity(
-			$lexeme,
-			self::class,
-			$this->getTestUser()->getUser()
+		$this->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )
+				->withForm(
+					NewForm::havingId( self::FORM_ID )->build()
+				)->build()
 		);
 	}
 
 	private function saveLexemeWithoutForm() {
-		$store = $this->getEntityStore();
-
-		$lexeme = NewLexeme::havingId( self::LEXEME_ID )->build();
-
-		$store->saveEntity(
-			$lexeme,
-			self::class,
-			$this->getTestUser()->getUser()
+		$this->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )->build()
 		);
 	}
 
