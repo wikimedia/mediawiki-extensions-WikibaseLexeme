@@ -8,13 +8,12 @@ use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Entity\Item;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Specials\SpecialNewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
+use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
@@ -37,6 +36,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->tablesUsed[] = 'page';
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
 	}
 
@@ -254,20 +254,18 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	}
 
 	/**
-	 * @param string $itemIdString
+	 * @param string $id
 	 */
-	private function givenItemExists( $itemIdString ) {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		$itemId = new ItemId( $itemIdString );
-		$existingItem = new Item( $itemId );
-
-		$lookup = $wikibaseRepo->getEntityLookup();
-		$store = $wikibaseRepo->getEntityStore();
-
-		if ( !$lookup->hasEntity( $itemId ) ) {
-			$this->tablesUsed[] = 'page';
-			$store->saveEntity( $existingItem, '', new User(), EDIT_NEW, false );
-		}
+	private function givenItemExists( $id ) {
+		WikibaseRepo::getDefaultInstance()
+			->getEntityStore()
+			->saveEntity(
+				NewItem::withId( $id )->build(),
+				'',
+				$this->getTestUser()->getUser(),
+				EDIT_NEW,
+				false
+			);
 	}
 
 }
