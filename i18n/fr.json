@@ -37,6 +37,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Il n’est pas possible de saisir plusieurs représentations avec la même variante d’écriture.",
 	"wikibaselexeme-gloss-field-language-label": "Langue",
 	"wikibaselexeme-gloss-field-gloss-label": "Apparence",
+	"wikibaselexeme-sense-gloss-redundant-language": "Il n’est pas possible de saisir plusieurs gloses avec la même langue.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
 	"datatypes-type-wikibase-lexeme": "Lexème",
 	"datatypes-type-wikibase-form": "Formulaire",

@@ -33,6 +33,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "אין אפשרות להזין ייצוגים מרובים עם אותו תקן כתיב.",
 	"wikibaselexeme-gloss-field-language-label": "שפה",
 	"wikibaselexeme-gloss-field-gloss-label": "פירוש",
+	"wikibaselexeme-sense-gloss-redundant-language": "אי־אפשר להזין פירושים מרובים באותה השפה.",
 	"wikibase-lexeme-summary-wbeditentity-update": "שונתה יחידה מילונית",
 	"datatypes-type-wikibase-lexeme": "יחידה מילונית",
 	"datatypes-type-wikibase-form": "צורה",
