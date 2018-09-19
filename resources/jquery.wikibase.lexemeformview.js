@@ -139,7 +139,8 @@
 			this._grammaticalFeatureView = this._buildGrammaticalFeatureView();
 			this.options.buildStatementGroupListView(
 				this.value(),
-				$( '.wikibase-statementgrouplistview', this.element )
+				$( '.wikibase-statementgrouplistview', this.element ),
+				this.value().getId()
 			);
 
 			this._buildRepresentations( this.value() );

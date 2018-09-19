@@ -37,7 +37,7 @@
 				return $.Deferred().resolve( id ).promise();
 			}
 		};
-		options.buildStatementGroupListView = function () {};
+		options.buildStatementGroupListView = options.buildStatementGroupListView || function () {};
 		options.lexeme = {
 			getLemmas: function () {
 				return new TermMap( { en: new Term( 'en', 'color' ) } );
@@ -232,6 +232,23 @@
 		} ).catch( function ( e ) {
 			assert.notOk( e.stack );
 		} ).then( done );
+	} );
+
+	QUnit.test( 'Given a value, creates StatementGroupListView with Form id prefix', function ( assert ) {
+		var formId = 'L1-F123',
+			form = newForm( formId, 'potatoes' ),
+			statementGroupListViewSpy = sinon.spy();
+
+		newFormView( {
+			value: form,
+			buildStatementGroupListView: statementGroupListViewSpy
+		} );
+
+		assert.ok( statementGroupListViewSpy.calledWith(
+			form,
+			sinon.match.any,
+			formId
+		) );
 	} );
 
 	QUnit.test( 'sets id after form save', function ( assert ) {
