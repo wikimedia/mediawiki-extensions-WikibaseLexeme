@@ -41,7 +41,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	/**
 	 * @var EntityNamespaceLookup
 	 */
-	protected $entityNamespaceLookup;
+	private $entityNamespaceLookup;
 
 	public function __construct(
 		SpecialPageCopyrightView $copyrightView,
@@ -125,10 +125,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 			->setWrapperLegendMsg( $this->getLegend() )
 			->setSubmitCallback(
 				function ( $data, HTMLForm $form ) {
-					$validationStatus = $this->validateFormData( $data );
-					if ( !$validationStatus->isGood() ) {
-						return $validationStatus;
-					}
+					// TODO: no form data validation??
 
 					$entity = $this->createEntityFromFormData( $data );
 
@@ -151,10 +148,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 			);
 	}
 
-	/**
-	 * @return array[]
-	 */
-	protected function getFormFields() {
+	private function getFormFields(): array {
 		return [
 			self::FIELD_LEMMA => [
 				'name' => self::FIELD_LEMMA,
@@ -192,16 +186,11 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		];
 	}
 
-	protected function getLegend() {
+	private function getLegend() {
 		return $this->msg( 'wikibaselexeme-newlexeme-fieldset' );
 	}
 
-	protected function validateFormData( array $formData ): Status {
-		// TODO: no form data validation??
-		return Status::newGood();
-	}
-
-	protected function createEntityFromFormData( array $formData ): Lexeme {
+	private function createEntityFromFormData( array $formData ): Lexeme {
 		$entity = new Lexeme();
 		$lemmaLanguage = $formData[ self::FIELD_LEMMA_LANGUAGE ];
 
@@ -224,7 +213,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	 *
 	 * @return Summary
 	 */
-	protected function createSummary( EntityDocument $lexeme ): Summary {
+	private function createSummary( EntityDocument $lexeme ): Summary {
 		$uiLanguageCode = $this->getLanguage()->getCode();
 
 		$summary = new Summary( 'wbeditentity', 'create' );
@@ -249,7 +238,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		$this->getOutput()->redirect( $entityUrl );
 	}
 
-	protected function displayBeforeForm( OutputPage $output ) {
+	private function displayBeforeForm( OutputPage $output ) {
 		$output->addModules( 'wikibase.special.newEntity' );
 
 		$output->addHTML( $this->getCopyrightHTML() );
@@ -271,7 +260,7 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 		return parent::getCopyrightHTML( 'wikibase-newentity-submit' );
 	}
 
-	protected function getWarnings(): array {
+	private function getWarnings(): array {
 		if ( $this->getUser()->isAnon() ) {
 			return [
 				$this->msg(
