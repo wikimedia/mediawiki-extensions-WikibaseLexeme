@@ -47,13 +47,11 @@ class BlankFormTest extends TestCase {
 		$this->assertSame( $formId, $blankform->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterAssertionException
-	 * @expectedExceptionMessage Form must have at least one representation
-	 */
-	public function testGetRealFormOnIncompleteData_throwsFormConstructionExceptions() {
+	public function testGetRealFormWithoutRepresentations_createsFormWithEmptyRepresentations() {
 		$blankform = new BlankForm();
-		$blankform->getRealForm( new FormId( 'L1-F4' ) );
+		$form = $blankform->getRealForm( new FormId( 'L1-F4' ) );
+
+		$this->assertTrue( $form->getRepresentations()->isEmpty() );
 	}
 
 	public function testGetRealFormOnMinimalData_yieldsFormWithData() {

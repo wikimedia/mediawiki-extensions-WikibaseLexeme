@@ -24,9 +24,10 @@ class FormTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
-	public function testCreateFormWithoutRepresentations_ThrowsAnException() {
-		$this->setExpectedException( InvalidArgumentException::class );
-		new Form( new FormId( 'L1-F1' ), new TermList(), [] );
+	public function testCreateFormWithoutRepresentations_resultsInEmptyRepresentationList() {
+		$form = new Form( new FormId( 'L1-F1' ), new TermList(), [] );
+
+		$this->assertTrue( $form->getRepresentations()->isEmpty() );
 	}
 
 	public function testCreateFormWithOneRepresentation_CreatesIt() {
