@@ -5,6 +5,7 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
+use Wikibase\DataModel\Services\Lookup\InProcessCachingDataTypeLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
@@ -66,7 +67,9 @@ use Wikibase\Repo\EntityReferenceExtractors\EntityReferenceExtractorCollection;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
+use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\SettingsArray;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityTermsView;
 use Wikimedia\Purtle\RdfWriter;
@@ -105,14 +108,26 @@ return [
 			);
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
-		'content-handler-factory-callback' => function () {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+		'search-field-definitions' => function ( array $languageCodes, SettingsArray $searchSettings ) {
+			$repo = WikibaseRepo::getDefaultInstance();
 			$config = MediaWikiServices::getInstance()->getMainConfig();
 			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
 				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
 			} else {
 				$lcID = null;
 			}
+			return new LexemeFieldDefinitions(
+				StatementProviderFieldDefinitions::newFromSettings(
+					new InProcessCachingDataTypeLookup( $repo->getPropertyDataTypeLookup() ),
+					$repo->getDataTypeDefinitions()->getSearchIndexDataFormatterCallbacks(),
+					$searchSettings
+				),
+				$repo->getEntityLookup(),
+				$lcID ? $repo->getEntityIdParser()->parse( $lcID ) : null
+			);
+		},
+		'content-handler-factory-callback' => function () {
+			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
 				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
@@ -122,11 +137,7 @@ return [
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
-				new LexemeFieldDefinitions(
-					$wikibaseRepo->getStatementProviderDefinitions(),
-					$wikibaseRepo->getEntityLookup(),
-					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
-				)
+				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
 		'entity-factory-callback' => function () {
