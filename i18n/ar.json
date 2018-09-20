@@ -34,6 +34,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "ليس من الممكن إدخال تمثيلات متعددة بنفس اختلاف التهجئة.",
 	"wikibaselexeme-gloss-field-language-label": "اللغة",
 	"wikibaselexeme-gloss-field-gloss-label": "الحاشية",
+	"wikibaselexeme-sense-gloss-redundant-language": "من غير الممكن إدخال حواشي مختصرة متعددة بنفس اللغة.",
 	"wikibase-lexeme-summary-wbeditentity-update": "تم تغيير لكسيم",
 	"datatypes-type-wikibase-lexeme": "لكسيم",
 	"datatypes-type-wikibase-form": "نموذج",
