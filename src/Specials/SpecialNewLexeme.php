@@ -6,7 +6,9 @@ use Html;
 use HTMLForm;
 use Iterator;
 use OutputPage;
+use SpecialPage;
 use Status;
+use UserBlockedError;
 use Wikibase\CopyrightMessageBuilder;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
@@ -21,7 +23,6 @@ use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
-use Wikibase\Repo\Specials\SpecialWikibasePage;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Summary;
@@ -33,7 +34,7 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class SpecialNewLexeme extends SpecialWikibasePage {
+class SpecialNewLexeme extends SpecialPage {
 
 	/* public */ const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
 	/* public */ const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
@@ -92,7 +93,6 @@ class SpecialNewLexeme extends SpecialWikibasePage {
 	public function execute( $subPage ) {
 		parent::execute( $subPage );
 
-		$this->checkPermissions();
 		$this->checkBlocked();
 		$this->checkReadOnly();
 
@@ -113,6 +113,12 @@ class SpecialNewLexeme extends SpecialWikibasePage {
 		$this->displayBeforeForm( $out );
 
 		$form->displayForm( $submitStatus ?: Status::newGood() );
+	}
+
+	private function checkBlocked() {
+		if ( $this->getUser()->isBlocked() ) {
+			throw new UserBlockedError( $this->getUser()->getBlock() );
+		}
 	}
 
 	/**
@@ -280,7 +286,7 @@ class SpecialNewLexeme extends SpecialWikibasePage {
 		$output->addHTML( $this->getCopyrightHTML() );
 
 		foreach ( $this->getWarnings() as $warning ) {
-			$output->addHTML( Html::element( 'div', [ 'class' => 'warning' ], $warning ) );
+			$output->addHTML( Html::rawElement( 'div', [ 'class' => 'warning' ], $warning ) );
 		}
 
 		$output->addModules( 'wikibase.lexeme.special.NewLexeme' );
@@ -324,6 +330,24 @@ class SpecialNewLexeme extends SpecialWikibasePage {
 	 */
 	public function isListed() {
 		return $this->entityNamespaceLookup->getEntityNamespace( Lexeme::ENTITY_TYPE ) !== null;
+	}
+
+	protected function getGroupName() {
+		return 'wikibase';
+	}
+
+	public function getDescription() {
+		return $this->msg( 'special-newlexeme' )->text();
+	}
+
+	public function setHeaders() {
+		$out = $this->getOutput();
+		$out->setArticleRelated( false );
+		$out->setPageTitle( $this->getDescription() );
+	}
+
+	public function outputHeader( $summaryMessageKey = '' ) {
+		parent::outputHeader( 'wikibase-newlexeme-summary' );
 	}
 
 }
