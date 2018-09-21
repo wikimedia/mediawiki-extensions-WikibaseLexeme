@@ -9,6 +9,6 @@ if ( function_exists( 'wfLoadExtension' ) ) {
 		'instead, see https://www.mediawiki.org/wiki/Extension_registration for more details.'
 	);
 	return true;
-} else {
-	die( 'This version of the WikibaseLexeme extension requires MediaWiki 1.25+' );
 }
+
+die( 'This version of the WikibaseLexeme extension requires MediaWiki 1.25+' );
