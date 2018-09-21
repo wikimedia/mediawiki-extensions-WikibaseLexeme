@@ -32,6 +32,7 @@
 	"wikibaselexeme-form-field-representation-label": "Darstellung",
 	"wikibaselexeme-form-field-language-label": "Rechtschreibvariante",
 	"wikibaselexeme-form-representation-redundant-language": "Es ist nicht möglich, mehrere Darstellungen mit der gleichen Rechtschreibvariante einzugeben.",
+	"wikibaselexeme-sense-gloss-invalid-language": "Die Sprachcodes der Fußnoten müssen gültig sein",
 	"wikibaselexeme-gloss-field-language-label": "Sprache",
 	"wikibaselexeme-gloss-field-gloss-label": "Fußnote",
 	"wikibaselexeme-sense-gloss-redundant-language": "Es ist nicht möglich, mehrere Fußnoten mit der gleichen Sprache einzugeben.",
