@@ -12,14 +12,16 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\EditEntity;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
 use Wikibase\Lexeme\Specials\HTMLForm\LemmaLanguageField;
+use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
-use Wikibase\Repo\Specials\SpecialWikibaseRepoPage;
+use Wikibase\Repo\Specials\SpecialWikibasePage;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Summary;
@@ -31,17 +33,18 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class SpecialNewLexeme extends SpecialWikibaseRepoPage {
+class SpecialNewLexeme extends SpecialWikibasePage {
 
 	/* public */ const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
 	/* public */ const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
 	/* public */ const FIELD_LEMMA = 'lemma';
 	/* public */ const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
-	/**
-	 * @var EntityNamespaceLookup
-	 */
+	private $copyrightView;
 	private $entityNamespaceLookup;
+	private $summaryFormatter;
+	private $entityTitleLookup;
+	private $editEntityFactory;
 
 	public function __construct(
 		SpecialPageCopyrightView $copyrightView,
@@ -52,14 +55,14 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	) {
 		parent::__construct(
 			'NewLexeme',
-			'createpage',
-			$copyrightView,
-			$summaryFormatter,
-			$entityTitleLookup,
-			$editEntityFactory
+			'createpage'
 		);
 
+		$this->copyrightView = $copyrightView;
 		$this->entityNamespaceLookup = $entityNamespaceLookup;
+		$this->summaryFormatter = $summaryFormatter;
+		$this->entityTitleLookup = $entityTitleLookup;
+		$this->editEntityFactory = $editEntityFactory;
 	}
 
 	public static function newFromGlobalState(): self {
@@ -102,7 +105,6 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 
 		if ( $submitStatus && $submitStatus->isGood() ) {
 			$this->redirectToEntityPage( $submitStatus->getValue() );
-
 			return;
 		}
 
@@ -131,7 +133,6 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 
 					$summary = $this->createSummary( $entity );
 
-					$this->prepareEditEntity();
 					$saveStatus = $this->saveEntity(
 						$entity,
 						$summary,
@@ -146,6 +147,41 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 					return Status::newGood( $entity );
 				}
 			);
+	}
+
+	private function newEditEntity(): EditEntity {
+		return $this->editEntityFactory->newEditEntity(
+			$this->getUser(),
+			null,
+			0,
+			$this->getRequest()->wasPosted()
+		);
+	}
+
+	/**
+	 * Saves the entity using the given summary.
+	 *
+	 * @note Call prepareEditEntity() first.
+	 *
+	 * @param EntityDocument $entity
+	 * @param FormatableSummary $summary
+	 * @param string $token
+	 * @param int $flags The edit flags (see WikiPage::doEditContent)
+	 *
+	 * @return Status
+	 */
+	private function saveEntity(
+		EntityDocument $entity,
+		FormatableSummary $summary,
+		$token,
+		$flags
+	): Status {
+		return $this->newEditEntity()->attemptSave(
+			$entity,
+			$this->summaryFormatter->formatSummary( $summary ),
+			$flags,
+			$token
+		);
 	}
 
 	private function getFormFields(): array {
@@ -233,9 +269,9 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	}
 
 	private function redirectToEntityPage( EntityDocument $entity ) {
-		$title = $this->getEntityTitle( $entity->getId() );
-		$entityUrl = $title->getFullURL();
-		$this->getOutput()->redirect( $entityUrl );
+		$this->getOutput()->redirect(
+			$this->entityTitleLookup->getTitleForId( $entity->getId() )->getFullURL()
+		);
 	}
 
 	private function displayBeforeForm( OutputPage $output ) {
@@ -252,12 +288,13 @@ class SpecialNewLexeme extends SpecialWikibaseRepoPage {
 	}
 
 	/**
-	 * @param string|null $messageKey ignored here
-	 *
 	 * @return string HTML
 	 */
-	protected function getCopyrightHTML( $messageKey = null ) {
-		return parent::getCopyrightHTML( 'wikibase-newentity-submit' );
+	private function getCopyrightHTML() {
+		return $this->copyrightView->getHtml(
+			$this->getLanguage(),
+			'wikibase-newentity-submit'
+		);
 	}
 
 	private function getWarnings(): array {
