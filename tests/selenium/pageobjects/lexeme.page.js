@@ -20,9 +20,6 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	static get GLOSS_WIDGET_SELECTORS() {
 		return {
-			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
-			REMOVE_BUTTON: '.wikibase-toolbar-button-remove',
-			SAVE_BUTTON: '.wikibase-toolbar-button-save',
 			ADD_GLOSS_BUTTON: '.wikibase-lexeme-sense-glosses-add',
 			EDIT_INPUT_VALUE: '.wikibase-lexeme-sense-gloss-value-input',
 			EDIT_INPUT_LANGUAGE: '.wikibase-lexeme-sense-gloss-language-input'
@@ -38,6 +35,14 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values',
 			ADD_REPRESENTATION_BUTTON: '.representation-widget_add',
 			REMOVE_REPRESENTATION_BUTTON: '.representation-widget_representation-remove'
+		};
+	}
+
+	static get GENERIC_TOOLBAR_SELECTORS() {
+		return {
+			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
+			REMOVE_BUTTON: '.wikibase-toolbar-button-remove',
+			SAVE_BUTTON: '.wikibase-toolbar-button-save'
 		};
 	}
 
@@ -131,7 +136,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( value );
 		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
 
-		this.formsContainer.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON ).click();
+		this.formsContainer.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON ).click();
 
 		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).waitForExist( null, true );
 	}
@@ -144,9 +149,9 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	removeNthForm( index ) {
 		let form = this.forms[ index ];
 
-		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 
-		let removeButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.REMOVE_BUTTON );
+		let removeButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.REMOVE_BUTTON );
 
 		removeButton.waitForVisible();
 		removeButton.click();
@@ -272,23 +277,23 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	startEditingNthForm( index ) {
-		this.forms[ index ].$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		this.forms[ index ].$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 	}
 
 	startEditingNthSense( index ) {
-		this.senses[ index ].$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		this.senses[ index ].$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 	}
 
 	isNthFormSubmittable( index ) {
 		let form = this.forms[ index ],
-			saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+			saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
 	}
 
 	isNthSenseSubmittable( index ) {
 		let sense = this.senses[ index ],
-			saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+			saveButton = sense.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
 	}
@@ -296,7 +301,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	submitNthForm( index ) {
 		let form = this.forms[ index ];
 
-		let saveButton = form.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+		let saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		saveButton.click();
 		saveButton.waitForExist( null, true );
@@ -305,7 +310,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	submitNthSense( index ) {
 		let sense = this.senses[ index ];
 
-		let saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+		let saveButton = sense.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		saveButton.click();
 		saveButton.waitForExist( null, true );
@@ -314,7 +319,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	addGrammaticalFeatureToNthForm( index, grammaticalFeatureId, submitImmediately ) {
 		let form = this.forms[ index ];
 
-		form.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 
 		this.setValueOnLookupElement(
 			form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ),
