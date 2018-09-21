@@ -161,8 +161,18 @@ JavaScript tests for components independent from MediaWiki could be run using `g
 
 ### Browser tests
 
+There exist two separate suites of browser tests, written in ruby and node respectively.
+
+Rule of thumb for the time being is that we will gradually phase out the ruby tests, and expand the node tests.
+
+#### ruby
+
 Browser tests are located in tests/browser, and can be run using `bundle exec cucumber`.
 You might want to add/change environment settings in `environments.yml`, and adjusting the `MEDIAWIKI_ENVIRONMENT` environment variable.
+
+#### node
+
+Please see its [README](./tests/selenium/README.md).
 
 ### Other
 
