@@ -32,6 +32,7 @@
 	"wikibaselexeme-form-field-representation-label": "Representação",
 	"wikibaselexeme-form-field-language-label": "Variante ortográfica",
 	"wikibaselexeme-form-representation-redundant-language": "Não é possível introduzir mais do que uma representação com a mesma variante ortográfica.",
+	"wikibaselexeme-sense-gloss-invalid-language": "Os códigos de língua das glosas têm de ser válidos",
 	"wikibaselexeme-gloss-field-language-label": "Língua",
 	"wikibaselexeme-gloss-field-gloss-label": "Glosa",
 	"wikibaselexeme-sense-gloss-redundant-language": "Não é possível introduzir mais do que uma glosa com a mesma língua.",

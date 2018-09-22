@@ -33,6 +33,7 @@
 	"wikibaselexeme-form-field-representation-label": "Представљање",
 	"wikibaselexeme-form-field-language-label": "Језик писања",
 	"wikibaselexeme-form-representation-redundant-language": "Није могуће уношење више представљања са истим језиком писања.",
+	"wikibaselexeme-sense-gloss-invalid-language": "Кодови језика глоса морају да буду важећи",
 	"wikibaselexeme-gloss-field-language-label": "Језик",
 	"wikibaselexeme-gloss-field-gloss-label": "Глоса",
 	"wikibaselexeme-sense-gloss-redundant-language": "Није могуће унети више глоса са истим језиком.",

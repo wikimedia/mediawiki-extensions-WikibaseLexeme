@@ -32,6 +32,7 @@
 	"wikibaselexeme-form-field-representation-label": "التمثيل",
 	"wikibaselexeme-form-field-language-label": "اختلاف التهجئة",
 	"wikibaselexeme-form-representation-redundant-language": "ليس من الممكن إدخال تمثيلات متعددة بنفس اختلاف التهجئة.",
+	"wikibaselexeme-sense-gloss-invalid-language": "يجب أن تكون رموز لغات الحواشي صالحة",
 	"wikibaselexeme-gloss-field-language-label": "اللغة",
 	"wikibaselexeme-gloss-field-gloss-label": "الحاشية",
 	"wikibaselexeme-sense-gloss-redundant-language": "من غير الممكن إدخال حواشي مختصرة متعددة بنفس اللغة.",
