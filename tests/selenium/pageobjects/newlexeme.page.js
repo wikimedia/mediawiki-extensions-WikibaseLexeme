@@ -29,30 +29,54 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	}
 
 	createLexeme( lemma, language, lexicalCategory, lemmaLanguage ) {
-		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
+		this.setLemma( lemma );
 
-		this.setValueOnLookupElement(
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
-			language
-		);
-
-		this.setValueOnLookupElement(
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
-			lexicalCategory
-		);
+		this.setLexemeLanguage( language );
+		this.setLexicalCategory( lexicalCategory );
 
 		if ( typeof lemmaLanguage !== 'undefined' ) {
 			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
-			this.setValueOnComboboxElement(
-				browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
-				lemmaLanguage
-			);
+			this.setLemmaLanguage( lemmaLanguage );
 		} else {
 			// ensure lemma language input is not presented (logic is asynchronous)
 			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible( 1000, true );
 		}
 
+		this.clickSubmit();
+	}
+
+	setLemma( lemma ) {
+		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
+	}
+
+	setLexemeLanguage( language ) {
+		this.setValueOnLookupElement(
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
+			language
+		);
+	}
+
+	setLexicalCategory( lexicalCategory ) {
+		this.setValueOnLookupElement(
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
+			lexicalCategory
+		);
+	}
+
+	setLemmaLanguage( lemmaLanguage ) {
+		this.setValueOnComboboxElement(
+			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
+			lemmaLanguage
+		);
+	}
+
+	clickSubmit() {
 		browser.$( this.constructor.NEW_LEXEME_SELECTORS.SUBMIT_BUTTON ).click();
+	}
+
+	showsLemmaLanguageField() {
+		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
+		return true;
 	}
 
 }

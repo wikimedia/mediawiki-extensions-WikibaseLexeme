@@ -1,11 +1,11 @@
 'use strict';
 
 const assert = require( 'assert' ),
-	NewLexemePage = require( '../pageobjects/newlexeme.page' ),
-	LexemePage = require( '../pageobjects/lexeme.page' ),
+	NewLexemePage = require( '../../pageobjects/newlexeme.page' ),
+	LexemePage = require( '../../pageobjects/lexeme.page' ),
 	Util = require( 'wdio-mediawiki/Util' ),
-	LexemeApi = require( '../lexeme.api' ),
-	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' );
+	LexemeApi = require( '../../lexeme.api' ),
+	WikibaseApi = require( '../../../../../Wikibase/repo/tests/selenium/wikibase.api' );
 
 describe( 'NewLexeme:Page', () => {
 
@@ -172,6 +172,38 @@ describe( 'NewLexeme:Page', () => {
 						} );
 				} );
 			} );
+		} );
+	} );
+
+	describe( 'with language item not bearing language code statement set on form submission and failure to validate', () => {
+		it( 'is possible to immediately see lemmaLanguageCode field', () => {
+			let lemma = Util.getTestString( 'lemma-' ),
+				languageItem = Util.getTestString( 'wannabeLanguage-' ),
+				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
+				languageItemId,
+				lexicalCategoryId;
+
+			NewLexemePage.open();
+
+			browser.call( () => {
+				return Promise.all( [
+					WikibaseApi.createItem( languageItem ),
+					WikibaseApi.createItem( lexicalCategory )
+				] ).then( ( ids ) => {
+					languageItemId = ids[ 0 ];
+					lexicalCategoryId = ids[ 1 ];
+				} );
+			} );
+
+			NewLexemePage.setLemma( lemma );
+			NewLexemePage.setLexemeLanguage( languageItemId );
+			NewLexemePage.setLexicalCategory( lexicalCategoryId );
+
+			assert.ok( NewLexemePage.showsLemmaLanguageField() );
+
+			NewLexemePage.clickSubmit();
+
+			assert.ok( NewLexemePage.showsLemmaLanguageField() );
 		} );
 	} );
 
