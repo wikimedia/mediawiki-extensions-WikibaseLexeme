@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataModel;
 
+use Comparable;
 use Countable;
 
 /**
@@ -10,7 +11,7 @@ use Countable;
  *
  * @license GPL-2.0-or-later
  */
-class FormSet implements Countable {
+class FormSet implements Countable, Comparable {
 
 	/**
 	 * @var Form[] indexed by serialization of FormId
@@ -54,7 +55,7 @@ class FormSet implements Countable {
 			return 0;
 		}
 
-		$numbers = array_map( function ( $formId ){
+		$numbers = array_map( function ( $formId ) {
 			list( , $formId ) = explode( '-', $formId );
 			return (int)substr( $formId, 1 );
 		}, array_keys( $this->forms ) );
@@ -120,6 +121,40 @@ class FormSet implements Countable {
 	 */
 	public function isEmpty() {
 		return empty( $this->forms );
+	}
+
+	/**
+	 * @see Comparable::equals()
+	 */
+	public function equals( $other ) {
+		if ( $this === $other ) {
+			return true;
+		}
+
+		if ( !( $other instanceof self ) ) {
+			return false;
+		}
+
+		return $this->sameForms( $other );
+	}
+
+	/**
+	 * @param Form[]
+	 *
+	 * @return bool
+	 */
+	private function sameForms( FormSet $other ) {
+		if ( $this->count() !== $other->count() ) {
+			return false;
+		}
+
+		foreach ( $this->forms as $form ) {
+			if ( !$form->equals( $other->getById( $form->getId() ) ) ) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 
 }

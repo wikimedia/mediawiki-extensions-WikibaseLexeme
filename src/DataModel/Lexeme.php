@@ -184,7 +184,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 				&& $this->language->equals( $target->language ) );
 
 		$sameFormIdCounter = $this->nextFormId === $target->nextFormId;
-		$sameForms = $this->forms == $target->forms;
+		$sameForms = $this->forms->equals( $target->forms );
 
 		return $this->lemmas->equals( $target->lemmas )
 			&& $sameLexicalCategory
