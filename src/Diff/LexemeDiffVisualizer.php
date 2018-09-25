@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use MessageLocalizer;
-use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\Diff\BasicDiffView;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
@@ -67,43 +66,45 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			return '';
 		}
 
-		return $this->basicEntityDiffVisualizer->visualizeEntityContentDiff( $diff )
-			. $this->visualizeEntityDiff( $diff->getEntityDiff() );
+		return $this->visualizeEntityDiff( $diff );
 	}
 
 	/**
-	 * @param LexemeDiff $diff
-	 *
 	 * @return string HTML
 	 */
-	private function visualizeEntityDiff( LexemeDiff $diff ) {
-		$basicDiffView = new BasicDiffView(
+	private function visualizeEntityDiff( EntityContentDiff $entityContentDiff ) {
+		$lexemeDiff = $entityContentDiff->getEntityDiff();
+
+		$lemmaDiffView = new BasicDiffView(
 			[],
 			new Diff(
 				[
 					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lemma' )->text() =>
-						$diff->getLemmasDiff(),
+						$lexemeDiff->getLemmasDiff(),
 				],
 				true
 			)
 		);
 
-		$lexicalCategoryDiff = $this->itemReferenceDifferenceVisualizer->visualize(
+		$lexicalCategoryDiffHTML = $this->itemReferenceDifferenceVisualizer->visualize(
 			$this->messageLocalizer->msg( 'wikibaselexeme-diffview-lexical-category' )->text(),
-			$diff->getLexicalCategoryDiff()
+			$lexemeDiff->getLexicalCategoryDiff()
 		);
 
-		$languageDiff = $this->itemReferenceDifferenceVisualizer->visualize(
+		$languageDiffHTML = $this->itemReferenceDifferenceVisualizer->visualize(
 			$this->messageLocalizer->msg( 'wikibaselexeme-diffview-language' )->text(),
-			$diff->getLanguageDiff()
+			$lexemeDiff->getLanguageDiff()
 		);
+
+		$lexemeStatementDiffHTML = $this->basicEntityDiffVisualizer
+			->visualizeEntityContentDiff( $entityContentDiff );
 
 		$formDiffView = new FormDiffView(
 			[],
 			new Diff(
 				[
 					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-form' )->text() =>
-						$diff->getFormsDiff(),
+						$lexemeDiff->getFormsDiff(),
 				],
 				true
 			),
@@ -118,7 +119,7 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			new Diff(
 				[
 					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-sense' )->text() =>
-						$diff->getSensesDiff(),
+						$lexemeDiff->getSensesDiff(),
 				],
 				true
 			),
@@ -127,9 +128,10 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			$this->messageLocalizer
 		);
 
-		return $basicDiffView->getHtml() .
-			$lexicalCategoryDiff .
-			$languageDiff .
+		return $lemmaDiffView->getHtml() .
+			$lexicalCategoryDiffHTML .
+			$languageDiffHTML .
+			$lexemeStatementDiffHTML .
 			$formDiffView->getHtml() .
 			$senseDiffView->getHtml();
 	}

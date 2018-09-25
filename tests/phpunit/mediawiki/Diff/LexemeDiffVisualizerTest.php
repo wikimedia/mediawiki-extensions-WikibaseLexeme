@@ -17,7 +17,9 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp;
+use Wikibase\Lexeme\DataModel\Services\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
 use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
@@ -25,6 +27,7 @@ use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
+use Wikibase\Repo\Tests\NewStatement;
 
 /**
  * @covers \Wikibase\Lexeme\Diff\LexemeDiffVisualizer
@@ -46,33 +49,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 	}
 
 	public function diffProvider() {
-		$formDiff = new ChangeFormDiffOp(
-			new FormId( 'L1-F1' ),
-			new Diff( [
-				'representations' => new Diff( [ 'en' => new DiffOpChange( 'old', 'new' ) ], true ),
-				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) )
-			], true )
-		);
-		$lexemeDiff = new EntityContentDiff(
-			new LexemeDiff( [
-				'lemmas' => new Diff( [
-					'en' => new DiffOpAdd( 'O_o' ),
-				], true ),
-
-				'lexicalCategory' => new Diff( [
-					'id' => new DiffOpRemove( new ItemId( 'Q2' ) ),
-				], true ),
-
-				'language' => new Diff( [
-					'id' => new DiffOpChange( new ItemId( 'Q3' ), new ItemId( 'Q4' ) ),
-				], true ),
-				'forms' => new Diff( [
-					'L1-F1' => $formDiff,
-				], true ),
-			] ),
-			new Diff(),
-			'lexeme'
-		);
+		$lexemeDiff = $this->getLexemeDiff();
 
 		$expectedForm = '(wikibaselexeme-diffview-form) / L1-F1 / (wikibaselexeme-diffview-';
 		$lexemeTags = [
@@ -84,8 +61,8 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 			'has <del>Q3</del>' => '>formatted Q3</span></del>',
 			'has <ins>Q4</ins>' => '>formatted Q4</span></ins>',
 			'has form representation' => $expectedForm . 'representation) / en<',
-			'has <del>old</del>' => '>old</del>',
-			'has <ins>new</ins>' => '>new</ins>',
+			'has <del>old</del>' => '>oldFormRepresentation</del>',
+			'has <ins>new</ins>' => '>newFormRepresentation</ins>',
 			'has form grammatical-feature' => $expectedForm . 'grammatical-feature)',
 			'has <del>Q5</del>' => '>formatted Q5</span></del>',
 			'has <ins>Q6</ins>' => '>formatted Q6</span></ins>',
@@ -106,6 +83,60 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 			'lexeme changed' => [ $lexemeDiff, $lexemeTags ],
 			'redirect changed' => [ $redirectDiff, $redirectTags ],
 		];
+	}
+
+	private function getLexemeDiff() {
+		return new EntityContentDiff(
+			new LexemeDiff( [
+				'lemmas' => new Diff( [
+					'en' => new DiffOpAdd( 'O_o' ),
+				], true ),
+
+				'lexicalCategory' => new Diff( [
+					'id' => new DiffOpRemove( new ItemId( 'Q2' ) ),
+				], true ),
+
+				'language' => new Diff( [
+					'id' => new DiffOpChange( new ItemId( 'Q3' ), new ItemId( 'Q4' ) ),
+				], true ),
+
+				'claim' => new Diff( [
+					new DiffOpAdd(
+						NewStatement::forProperty( 'P1' )->withValue( 'foo' )->build()
+					) ] ),
+
+				'forms' => new Diff( [
+					'L1-F1' => $this->getFormDiff(),
+				], true ),
+
+				'senses' => new Diff( [
+					'L1-S1' => $this->getSensesDiff(),
+					], true )
+			] ),
+			new Diff(),
+			'lexeme'
+		);
+	}
+
+	private function getFormDiff() {
+		return new ChangeFormDiffOp(
+			new FormId( 'L1-F1' ),
+			new Diff( [
+				'representations' => new Diff( [
+					'en' => new DiffOpChange( 'oldFormRepresentation', 'newFormRepresentation' )
+				], true ),
+				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) )
+			], true )
+		);
+	}
+
+	private function getSensesDiff() {
+		return new ChangeSenseDiffOp(
+			new SenseId( 'L1-S1' ),
+			new Diff( [
+				'glosses' => new Diff( [ 'en' => new DiffOpChange( 'oldGloss', 'newGloss' ) ], true ),
+			], true )
+		);
 	}
 
 	/**
@@ -136,9 +167,10 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 	 * @return ClaimDifferenceVisualizer
 	 */
 	private function getMockClaimDiffVisualizer() {
-		$mock = $this->getMockBuilder( ClaimDifferenceVisualizer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mockNewClaimHTML = '<tr>SOME_CLAIM_DIFF_ROW</tr>';
+		$mock = $this->createMock( ClaimDifferenceVisualizer::class );
+		$mock->method( 'visualizeNewClaim' )
+			->will( $this->returnValue( $mockNewClaimHTML ) );
 		return $mock;
 	}
 
@@ -176,18 +208,161 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 		);
 	}
 
-	/**
-	 * TODO: This test should probably be redone?
-	 *
-	 * @dataProvider diffProvider
-	 */
-	public function testGenerateEntityContentDiffBody( EntityContentDiff $diff, array $matchers ) {
-		$html = $this->getVisualizer()->visualizeEntityContentDiff( $diff );
+	public function testGeneratesLemmaHtml() {
+		$lexemeDiff = new LexemeDiff(
+			[
+				'lemmas' => new Diff(
+					[
+						'en' => new DiffOpAdd( 'NewLemma' ),
+					], true
+				)
+			]
+		);
+		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest(
+			$html,
+			$this->getAddRowHamcrestMatcher( 'NewLemma' )
+		);
+	}
 
-		$this->assertInternalType( 'string', $html );
-		foreach ( $matchers as $name => $matcher ) {
-			$this->assertContains( $matcher, $html, $name );
-		}
+	private function getAddRowHamcrestMatcher( $textContents ) {
+		return htmlPiece( havingChild( allOf(
+				withTagName( 'tr' ),
+				havingChild(
+					both( tagMatchingOutline( '<td class="diff-addedline"/>' ) )->andAlso(
+						havingChild(
+							both( withTagName( 'ins' ) )->andAlso( havingTextContents( $textContents ) )
+						)
+					)
+				)
+			) ) );
+	}
+
+	public function testGeneratesLexicalCatHtml() {
+		$lexemeDiff = new LexemeDiff(
+			[
+				'lexicalCategory' => new Diff(
+					[
+						'id' => new DiffOpRemove( new ItemId( 'Q2' ) ),
+					], true
+				) ]
+		);
+		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest(
+			$html,
+			$this->getDeleteRowHamcrestMatcher( 'formatted Q2' )
+		);
+	}
+
+	private function getDeleteRowHamcrestMatcher( $textContents ) {
+		return htmlPiece( havingChild( allOf(
+				withTagName( 'tr' ),
+				havingChild(
+					both( tagMatchingOutline( '<td class="diff-deletedline"/>' ) )->andAlso(
+						havingChild(
+							both( withTagName( 'del' ) )->andAlso( havingTextContents( $textContents ) )
+						)
+					)
+				)
+			) ) );
+	}
+
+	public function testGeneratesLanguageHtml() {
+		$lexemeDiff = new LexemeDiff(
+			[
+				'language' => new Diff( [
+					'id' => new DiffOpChange( new ItemId( 'Q3' ), new ItemId( 'Q4' ) ),
+				], true )
+			]
+		);
+		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest(
+			$html,
+			$this->getDeleteRowHamcrestMatcher( 'formatted Q3' )
+		);
+		$this->assertThatHamcrest(
+			$html,
+			$this->getAddRowHamcrestMatcher( 'formatted Q4' )
+		);
+	}
+
+	public function testGeneratesClaimHtml() {
+		$lexemeDiff = new LexemeDiff( [
+			'claim' => new Diff( [
+				new DiffOpAdd( NewStatement::forProperty( 'P1' )->withValue( 'foo' )->build() )
+			] ) ] );
+		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest(
+			$html,
+			is( htmlPiece( havingChild(
+				both( withTagName( 'tr' ) )->andAlso(
+					havingTextContents( 'SOME_CLAIM_DIFF_ROW' )
+				) ) ) )
+			);
+	}
+
+	public function testGeneratesFormRepresentationHtml() {
+		$formDiff = new ChangeFormDiffOp(
+			new FormId( 'L1-F3141' ),
+			new Diff( [
+				'representations' => new Diff( [
+					'en' => new DiffOpChange( 'oldFormRepresentation', 'newFormRepresentation' )
+				], true )
+			] )
+		);
+		$lexemeDiff = new LexemeDiff(
+			[
+				'forms' => new Diff( [
+					'L1-F3141' => $formDiff,
+				], true )
+			]
+		);
+		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest( $html, $this->getDeleteRowHamcrestMatcher( 'oldFormRepresentation' ) );
+		$this->assertThatHamcrest( $html, $this->getAddRowHamcrestMatcher( 'newFormRepresentation' ) );
+	}
+
+	public function testGeneratesFormGramFeatHtml() {
+		$formDiff = new ChangeFormDiffOp(
+			new FormId( 'L1-F2718' ),
+			new Diff( [
+				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) )
+			] )
+		);
+		$lexemeDiff = new LexemeDiff(
+			[
+				'forms' => new Diff( [
+					'L1-F2718' => $formDiff,
+				], true )
+			]
+		);
+		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest( $html, $this->getDeleteRowHamcrestMatcher( 'formatted Q5' ) );
+		$this->assertThatHamcrest( $html, $this->getAddRowHamcrestMatcher( 'formatted Q6' ) );
+	}
+
+	public function testGeneratesRedirectHtml() {
+		$entityContentDiff = new EntityContentDiff(
+			new LexemeDiff(), new Diff( [ 'redirect' => new DiffOpAdd( 'L6427' ) ] ), 'lexeme'
+		);
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
+		$this->assertThatHamcrest(
+			$html,
+			is( htmlPiece( havingChild( both(
+				withTagName( 'td' ) )->andAlso(
+					havingTextContents( 'redirect' )
+			) ) ) )
+		);
+		$this->assertThatHamcrest(
+			$html,
+			$this->getAddRowHamcrestMatcher( 'L6427' )
+		);
 	}
 
 	public function testGivenLexicalCategoryChanged_diffDisplaysChangedItemsAsFormattedItems() {
@@ -204,21 +379,26 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 
 		$diffHtml = $this->getVisualizer()->visualizeEntityContentDiff( $diff );
 
-		$this->assertThatHamcrest( $diffHtml, is( htmlPiece(
-			havingChild( allOf(
-				withTagName( 'tr' ),
-				havingChild(
-					both( tagMatchingOutline( '<td class="diff-deletedline"/>' ) )->andAlso(
-						havingChild( both( withTagName( 'del' ) )->andAlso( havingTextContents( 'formatted Q2' ) ) )
-					)
-				),
-				havingChild(
-					both( tagMatchingOutline( '<td class="diff-addedline"/>' ) )->andAlso(
-						havingChild( both( withTagName( 'ins' ) )->andAlso( havingTextContents( 'formatted Q3' ) ) )
-					)
-				)
-			) )
-		) ) );
+		$this->assertThatHamcrest( $diffHtml,  $this->getAddRowHamcrestMatcher( 'formatted Q3' ) );
+		$this->assertThatHamcrest( $diffHtml,  $this->getDeleteRowHamcrestMatcher( 'formatted Q2' ) );
+	}
+
+	public function testGenerateEntityContentDiffOrder() {
+		$lexemeEntityContentDiff = $this->getLexemeDiff();
+		$html = $this->getVisualizer()->visualizeEntityContentDiff( $lexemeEntityContentDiff );
+		$this->assertThatHamcrest( $html, stringContainsInOrder(
+			[
+				'(wikibaselexeme-diffview-lemma)',
+				'(wikibaselexeme-diffview-lexical-category)',
+				'(wikibaselexeme-diffview-language)',
+				'SOME_CLAIM_DIFF_ROW',
+				'(wikibaselexeme-diffview-form)',
+				'(wikibaselexeme-diffview-representation)',
+				'(wikibaselexeme-diffview-grammatical-feature)',
+				'(wikibaselexeme-diffview-sense)',
+				'(wikibaselexeme-diffview-gloss)'
+			]
+		) );
 	}
 
 }
