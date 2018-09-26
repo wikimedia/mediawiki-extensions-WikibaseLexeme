@@ -139,7 +139,7 @@ class FormsViewTest extends TestCase {
 			->build();
 		$statementGroupListView->expects( $this->once() )
 			->method( 'getHtml' )
-			->with( [], $formId );
+			->with( [], 'F3' );
 
 		$formsView->getHtml( new FormSet( [ $form ] ) );
 	}
