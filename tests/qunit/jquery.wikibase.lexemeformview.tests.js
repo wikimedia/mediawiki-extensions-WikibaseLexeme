@@ -247,7 +247,23 @@
 		assert.ok( statementGroupListViewSpy.calledWith(
 			form,
 			sinon.match.any,
-			formId
+			'F123'
+		) );
+	} );
+
+	QUnit.test( 'Given a new form, creates StatementGroupListView with empty prefix', function ( assert ) {
+		var form = new wb.lexeme.datamodel.Form(), // i.e. default 'undefined' id
+			statementGroupListViewSpy = sinon.spy();
+
+		newFormView( {
+			value: form,
+			buildStatementGroupListView: statementGroupListViewSpy
+		} );
+
+		assert.ok( statementGroupListViewSpy.calledWith(
+			form,
+			sinon.match.any,
+			''
 		) );
 	} );
 
@@ -256,7 +272,11 @@
 				'',
 				new TermMap()
 			),
-			view = newFormView( { value: emptyForm } ),
+			statementGroupListViewSpy = sinon.spy(),
+			view = newFormView( {
+				value: emptyForm,
+				buildStatementGroupListView: statementGroupListViewSpy
+			} ),
 			done = assert.async();
 
 		view.deferredFormWithId.resolve( newForm( 'L321-F123', 'meow' ) );
@@ -266,6 +286,11 @@
 				view.element.attr( 'id' ),
 				'F123'
 			);
+			assert.ok( statementGroupListViewSpy.calledWith(
+				sinon.match.any,
+				sinon.match.any,
+				'F123'
+			) );
 			done();
 		} );
 	} );
