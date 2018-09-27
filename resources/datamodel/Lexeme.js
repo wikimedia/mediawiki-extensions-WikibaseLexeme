@@ -15,22 +15,25 @@
 	 * @param {wikibase.datamodel.TermMap} lemmas
 	 * @param {wikibase.datamodel.StatementGroupSet|null} [statementGroupSet=new wikibase.datamodel.StatementGroupSet()]
 	 * @param {wikibase.lexeme.datamodel.Form[]} [forms=[]]
+	 * @param {wikibase.lexeme.datamodel.Sense[]} [senses=[]]
 	 *
 	 * @throws {Error} if a required parameter is not specified properly.
 	 */
 	var SELF = wb.lexeme.datamodel.Lexeme = util.inherit(
 		'WbDataModelLexeme',
 		PARENT,
-		function ( lexemeId, lemmas, statementGroupSet, forms ) {
+		function ( lexemeId, lemmas, statementGroupSet, forms, senses ) {
 			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
 			forms = forms || [];
+			senses = senses || [];
 
 			if (
 				typeof lexemeId !== 'string' ||
 				!( lemmas instanceof wb.datamodel.TermMap ) ||
 				( lemmas.isEmpty() ) ||
 				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
-				!( Array.isArray( forms ) )
+				!( Array.isArray( forms ) ) ||
+				!( Array.isArray( senses ) )
 			) {
 				throw new Error( 'Required parameter(s) missing or not defined properly' );
 			}
@@ -39,6 +42,7 @@
 			this._lemmas = lemmas;
 			this._statementGroupSet = statementGroupSet;
 			this._forms = forms;
+			this._senses = senses;
 		},
 		{
 
@@ -61,6 +65,12 @@
 			_forms: null,
 
 			/**
+			 * @property {wikibase.datamodel.Sense[]}
+			 * @private
+			 */
+			_senses: null,
+
+			/**
 			 * @return {wikibase.datamodel.TermMap}
 			 */
 			getLemmas: function () {
@@ -79,6 +89,13 @@
 			 */
 			getForms: function () {
 				return this._forms;
+			},
+
+			/**
+			 * @return {wikibase.lexeme.datamodel.Sense[]}
+			 */
+			getSenses: function () {
+				return this._senses;
 			}
 
 		}

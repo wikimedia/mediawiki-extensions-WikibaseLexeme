@@ -112,7 +112,7 @@
 				getListItemAdapter: this.getListItemAdapterForSenseListView.bind( this, lexeme, startEditingCallback ),
 				getMessage: $.proxy( mw.messages.get, mw.messages ),
 				getAdder: this._getAdderWithStartEditing( startEditingCallback ),
-				value: lexeme.senses
+				value: lexeme.getSenses()
 			}
 		);
 	};

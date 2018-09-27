@@ -49,9 +49,9 @@
 		'L1',
 		new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'blah' ) } ),
 		expectedStatementGroupSet,
+		[],
 		[]
-		);
-	expectedDataModel.senses = [];
+	);
 
 	QUnit.test( 'deserialize()', function ( assert ) {
 		var ds = new wb.lexeme.serialization.LexemeDeserializer();
@@ -153,20 +153,20 @@
 			language: 'Q1',
 			forms: [],
 			senses: [ {
-				id: 'S1',
+				id: 'L1-S1',
 				glosses: { en: { language: 'en', value: 'Some English gloss' } },
 				claims: claimsSerialization
 			} ]
 		} );
 
-		assert.ok( result.senses, 'Deserialized data model should contain senses' );
+		assert.ok( result.getSenses(), 'Deserialized data model should contain senses' );
 
-		var sense = result.senses[ 0 ];
+		var sense = result.getSenses()[ 0 ];
 		assert.ok(
 			sense instanceof wb.lexeme.datamodel.Sense,
 			'Data model should contain instance of Sense'
 		);
-		assert.equal( sense.getId(), 'S1', 'Data model should contain sense id' );
+		assert.equal( sense.getId(), 'L1-S1', 'Data model should contain sense id' );
 		assert.ok(
 			sense.getGlosses().equals( new TermMap( {
 				en: new Term(
@@ -201,7 +201,7 @@
 				forms: []
 			} );
 
-			assert.ok( result.senses, 'Deserialized data model should contain senses' );
+			assert.ok( result.getSenses(), 'Deserialized data model should contain senses' );
 		}
 	);
 

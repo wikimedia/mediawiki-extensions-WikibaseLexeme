@@ -7,6 +7,8 @@
 	var Lexeme = wb.lexeme.datamodel.Lexeme;
 	/** @type {wikibase.lexeme.datamodel.Form} */
 	var Form = wb.lexeme.datamodel.Form;
+	/** @type {wikibase.lexeme.datamodel.Sense} */
+	var Sense = wb.lexeme.datamodel.Sense;
 
 	QUnit.test( 'Can create with ID and get it', function ( assert ) {
 		var lemmas = createTermMapWithTerm();
@@ -40,6 +42,13 @@
 		var lexeme = new Lexeme( 'L1', lemmas, statements, forms );
 
 		assert.equal( lexeme.getForms(), forms );
+	} );
+
+	QUnit.test( 'Can set senses and get them back', function ( assert ) {
+		var senses = [ new Sense( 'L1-S1' ), new Sense( 'L1-S2' ) ];
+		var lexeme = new Lexeme( 'L1', createTermMapWithTerm(), null, [], senses );
+
+		assert.equal( lexeme.getSenses(), senses );
 	} );
 
 	function createStatementGroupWithSingleStatement( propertyId, guid ) {

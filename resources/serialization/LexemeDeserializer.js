@@ -42,11 +42,9 @@
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.lemmas ),
 				statementGroupSetDeserializer.deserialize( serialization.claims ),
-				deserializedForms
+				deserializedForms,
+				deserializedSenses
 			);
-
-			// TODO switch to setter/constructor
-			lexeme.senses = deserializedSenses;
 
 			return lexeme;
 		},
