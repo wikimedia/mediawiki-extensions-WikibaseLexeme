@@ -15,7 +15,7 @@
 	},
 	"require": {
 		"php": ">=5.6.99",
-		"serialization/serialization": "~3.2",
+		"serialization/serialization": "~3.2|~4.0",
 		"wikibase/data-model": "^8.0|^7.5.0",
 		"wikibase/data-model-serialization": "~2.0",
 		"wikibase/data-model-services": "~3.6",
