@@ -2243,7 +2243,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$claim = $entity['claims'][$property][0];
 		$this->assertSame( $expected['mainsnak']['snaktype'], $claim['mainsnak']['snaktype'] );
-		$this->assertStringStartsWith( $entity['id'], $claim['id'] );
+		$this->assertStatementGuidHasEntityId( $entity['id'], $claim['id'] );
 	}
 
 }
