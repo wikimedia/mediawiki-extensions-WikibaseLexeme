@@ -54,7 +54,7 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
-		$id,
+		FormId $id,
 		TermList $representations,
 		array $grammaticalFeatures,
 		StatementList $statementList = null
