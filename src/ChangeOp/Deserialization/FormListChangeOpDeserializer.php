@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
-use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
@@ -83,8 +82,7 @@ class FormListChangeOpDeserializer implements ChangeOpDeserializer {
 			} elseif ( array_key_exists( 'add', $serializedForm ) ) {
 				$lexemeChangeOps->add(
 					new ChangeOpFormAdd(
-						$this->formChangeOpDeserializer->createEntityChangeOp( $serializedForm ),
-						new GuidGenerator()
+						$this->formChangeOpDeserializer->createEntityChangeOp( $serializedForm )
 					)
 				);
 			} elseif ( array_key_exists( self::PARAM_FORM_ID, $serializedForm ) ) {

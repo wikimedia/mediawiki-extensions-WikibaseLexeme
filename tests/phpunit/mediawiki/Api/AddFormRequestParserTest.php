@@ -8,7 +8,6 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Api\AddFormRequest;
 use Wikibase\Lexeme\Api\AddFormRequestParser;
@@ -61,8 +60,7 @@ class AddFormRequestParserTest extends TestCase {
 				new ChangeOpFormEdit( [
 					new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
 					new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q17' ) ] )
-				] ),
-				new GuidGenerator()
+				] )
 			),
 			$request->getChangeOp()
 		);
