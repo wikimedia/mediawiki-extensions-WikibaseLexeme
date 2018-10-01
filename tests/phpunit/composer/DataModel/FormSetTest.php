@@ -145,4 +145,52 @@ class FormSetTest extends TestCase {
 		);
 	}
 
+	/**
+	 * @dataProvider equalsProvider
+	 */
+	public function testEquals( FormSet $set1, $set2, $isEqual ) {
+		$this->assertSame( $isEqual, $set1->equals( $set2 ) );
+	}
+
+	public function equalsProvider() {
+		yield 'empty sets' => [
+			new FormSet(),
+			new FormSet(),
+			true
+		];
+
+		yield 'not a FormSet - not equal' => [
+			new FormSet(),
+			[],
+			false
+		];
+
+		$form = NewForm::havingId( new FormId( 'L1-F1' ) )
+			->andRepresentation( 'en', 'potato' )
+			->build();
+		yield 'same Form' => [
+			new FormSet( [ $form ] ),
+			new FormSet( [ $form->copy() ] ),
+			true
+		];
+
+		$form2 = NewForm::havingId( new FormId( 'L12-F2' ) )
+			->andRepresentation( 'de', 'Kartoffel' )
+			->build();
+		yield 'different order of Forms' => [
+			new FormSet( [ $form, $form2 ] ),
+			new FormSet( [ $form2, $form ] ),
+			true
+		];
+
+		$form3 = NewForm::havingId( new FormId( 'L12-F3' ) )
+			->andRepresentation( 'ru', 'карто́фель' )
+			->build();
+		yield 'one replaced Form but same length' => [
+			new FormSet( [ $form, $form2 ] ),
+			new FormSet( [ $form, $form3 ] ),
+			false
+		];
+	}
+
 }
