@@ -58,12 +58,6 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 		array $grammaticalFeatures,
 		StatementList $statementList = null
 	) {
-		Assert::parameter(
-			!$representations->isEmpty(),
-			'$representations',
-			'Form must have at least one representation'
-		);
-
 		$this->id = $id;
 		$this->representations = $representations;
 		$this->setGrammaticalFeatures( $grammaticalFeatures );
