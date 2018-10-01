@@ -2,9 +2,12 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormClone;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -22,13 +25,24 @@ use Wikibase\Repo\Tests\NewStatement;
  */
 class ChangeOpFormCloneTest extends TestCase {
 
+	use PHPUnit4And6Compat;
+
+	/**
+	 * @var GuidGenerator|MockObject
+	 */
+	private $guidGenerator;
+
+	public function setUp() {
+		$this->guidGenerator = $this->createMock( GuidGenerator::class );
+	}
+
 	/**
 	 * @covers ::validate
 	 * @expectedException \Wikimedia\Assert\ParameterTypeException
 	 * @expectedExceptionMessage Bad value for parameter $entity
 	 */
 	public function testValidateNonForm_yieldsAssertionProblem() {
-		$changeOp = new ChangeOpFormClone( NewForm::any()->build() );
+		$changeOp = $this->newChangeOpFormClone( NewForm::any()->build() );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 
@@ -36,7 +50,7 @@ class ChangeOpFormCloneTest extends TestCase {
 	 * @covers ::validate
 	 */
 	public function testValidateAnyForm_yieldsSuccess() {
-		$changeOp = new ChangeOpFormClone( NewForm::any()->build() );
+		$changeOp = $this->newChangeOpFormClone( NewForm::any()->build() );
 		$result = $changeOp->validate( new BlankForm() );
 
 		$this->assertInstanceOf( Result::class, $result );
@@ -57,7 +71,14 @@ class ChangeOpFormCloneTest extends TestCase {
 					->withSomeGuid()->withValue( new LexemeId( 'L123' ) )
 			)
 			->build();
-		$changeOp = new ChangeOpFormClone( $sourceForm );
+
+		$this->guidGenerator
+			->expects( $this->once() )
+			->method( 'newGuid' )
+			->with( 'L34-F1' )
+			->willReturn( 'L34-F1$00000000-0000-0000-0000-000000000000' );
+
+		$changeOp = $this->newChangeOpFormClone( $sourceForm );
 
 		$targetForm = new BlankForm();
 		$lexeme = NewLexeme::havingId( 'L34' )->build();
@@ -78,7 +99,7 @@ class ChangeOpFormCloneTest extends TestCase {
 		$statements = $targetForm->getStatements();
 		$this->assertCount( 1, $statements );
 		$statement = $statements->toArray()[0];
-		$this->assertNull( $statement->getGuid() );
+		$this->assertSame( 'L34-F1$00000000-0000-0000-0000-000000000000', $statement->getGuid() );
 		$snak = $statement->getMainSnak();
 		$this->assertSame( 'P4711', $snak->getPropertyId()->serialize() );
 		$this->assertSame( 'value', $snak->getType() );
@@ -99,7 +120,7 @@ class ChangeOpFormCloneTest extends TestCase {
 			)
 			->build();
 		$sourceForm = $originalSourceForm->copy();
-		$changeOp = new ChangeOpFormClone( $sourceForm );
+		$changeOp = $this->newChangeOpFormClone( $sourceForm );
 
 		$targetForm = new BlankForm();
 		$lexeme = NewLexeme::havingId( 'L34' )->build();
@@ -116,9 +137,13 @@ class ChangeOpFormCloneTest extends TestCase {
 		$sourceForm = $this->getMockBuilder( Form::class )
 			->disableOriginalConstructor()
 			->getMock();
-		$changeOp = new ChangeOpFormClone( $sourceForm );
+		$changeOp = $this->newChangeOpFormClone( $sourceForm );
 
 		$this->assertSame( [ EntityPermissionChecker::ACTION_EDIT ], $changeOp->getActions() );
+	}
+
+	private function newChangeOpFormClone( Form $sourceForm ) : ChangeOpFormClone {
+		return new ChangeOpFormClone( $sourceForm, $this->guidGenerator );
 	}
 
 }
