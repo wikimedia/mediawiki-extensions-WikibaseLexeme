@@ -64,8 +64,7 @@ class LexemeFormsMerger {
 
 			$changeOps->add(
 				new ChangeOpFormAdd(
-					new ChangeOpFormClone( $sourceForm ),
-					$this->guidGenerator
+					new ChangeOpFormClone( $sourceForm, $this->guidGenerator )
 				)
 			);
 		}
