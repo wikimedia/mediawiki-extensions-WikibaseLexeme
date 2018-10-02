@@ -6,7 +6,6 @@ use ApiMessage;
 use ApiUsageException;
 use MediaWiki\Services\ServiceContainer;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
@@ -104,17 +103,6 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$entity,
 			static::class,
 			$this->getTestUser()->getUser()
-		);
-	}
-
-	/**
-	 * @param string $serializedEntityId
-	 * @param string $guid GUID of a statement
-	 */
-	protected function assertStatementGuidHasEntityId( $serializedEntityId, $guid ) {
-		$this->assertStringStartsWith(
-			$serializedEntityId . StatementGuid::SEPARATOR,
-			$guid
 		);
 	}
 
