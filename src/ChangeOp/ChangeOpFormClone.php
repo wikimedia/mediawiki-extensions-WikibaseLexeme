@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Store\EntityPermissionChecker;
@@ -18,22 +17,13 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpFormClone implements ChangeOp {
 
-	/**
-	 * @var Form
-	 */
 	private $sourceForm;
-
-	/**
-	 * @var GuidGenerator
-	 */
-	private $guidGenerator;
 
 	/**
 	 * @param Form $sourceForm
 	 */
-	public function __construct( Form $sourceForm, GuidGenerator $guidGenerator ) {
+	public function __construct( Form $sourceForm ) {
 		$this->sourceForm = $sourceForm->copy();
-		$this->guidGenerator = $guidGenerator;
 	}
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
@@ -43,11 +33,10 @@ class ChangeOpFormClone implements ChangeOp {
 		$entity->setRepresentations( $this->sourceForm->getRepresentations() );
 		$entity->setGrammaticalFeatures( $this->sourceForm->getGrammaticalFeatures() );
 
+		// Resets statement GUIDs so they do not mention the former (form) entity
+		// ChangeOpFormAdd::apply() ensures a new - suitable - GUID is applied once new form id known
 		foreach ( $this->sourceForm->getStatements() as $index => $statement ) {
-			// update statements to have a suitable GUID based on the form id
-			// fixme Maybe this can find a new home in a more central place, e.g. StatementList
-			$statement->setGuid( $this->guidGenerator->newGuid( $entity->getId() ) );
-
+			$statement->setGuid( null );
 			$entity->getStatements()->addStatement( $statement, $index );
 		}
 
