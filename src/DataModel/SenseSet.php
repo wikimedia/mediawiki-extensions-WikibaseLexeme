@@ -35,9 +35,24 @@ class SenseSet implements Countable {
 	 * @return Sense[]
 	 */
 	public function toArray() {
-		$senses = $this->senses;
-		ksort( $senses );
+		$senses = $this->sortSenses( $this->senses );
 		return array_values( $senses );
+	}
+
+	/**
+	 * @param Sense[] $senses
+	 * @return array sorted array mapping numeric id to the sense
+	 */
+	private function sortSenses( array $senses ) {
+		$sortedSenses = [];
+		foreach ( $senses as $sense ) {
+			$senseIdPart = explode( '-', $sense->getId()->getSerialization() )[1];
+			$senseIdNumber = (int)substr( $senseIdPart, 1 );
+			$sortedSenses[$senseIdNumber] = $sense;
+		}
+		ksort( $sortedSenses );
+
+		return $sortedSenses;
 	}
 
 	/**
