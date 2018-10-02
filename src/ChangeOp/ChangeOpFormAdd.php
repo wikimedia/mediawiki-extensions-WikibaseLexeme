@@ -41,10 +41,12 @@ class ChangeOpFormAdd extends ChangeOpBase {
 
 		/** @var Lexeme $entity */
 
-		$form = new BlankForm();
+		$blankForm = new BlankForm();
+		$blankForm->setLexeme( $entity );
 
-		$entity->addOrUpdateForm( $form );
-		$this->changeOpForm->apply( $form, null );
+		$this->changeOpForm->apply( $blankForm, null );
+
+		$form = $entity->addOrUpdateForm( $blankForm );
 
 		if ( $summary !== null ) {
 			// TODO: consistently do not extend ChangeOpBase?

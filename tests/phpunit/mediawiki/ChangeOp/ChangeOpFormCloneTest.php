@@ -81,9 +81,7 @@ class ChangeOpFormCloneTest extends TestCase {
 		$changeOp = $this->newChangeOpFormClone( $sourceForm );
 
 		$targetForm = new BlankForm();
-		$lexeme = NewLexeme::havingId( 'L34' )->build();
-		$lexeme->addOrUpdateForm( $targetForm );
-
+		$targetForm->setLexeme( NewLexeme::havingId( 'L34' )->build() );
 		$changeOp->apply( $targetForm );
 
 		$this->assertInstanceOf( DummyFormId::class, $targetForm->getId() );
@@ -123,8 +121,7 @@ class ChangeOpFormCloneTest extends TestCase {
 		$changeOp = $this->newChangeOpFormClone( $sourceForm );
 
 		$targetForm = new BlankForm();
-		$lexeme = NewLexeme::havingId( 'L34' )->build();
-		$lexeme->addOrUpdateForm( $targetForm );
+		$targetForm->setLexeme( NewLexeme::havingId( 'L34' )->build() );
 		$changeOp->apply( $targetForm );
 
 		$this->assertEquals( $originalSourceForm, $sourceForm );
