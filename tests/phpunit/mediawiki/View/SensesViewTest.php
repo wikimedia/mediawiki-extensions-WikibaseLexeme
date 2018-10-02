@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Prophecy\Argument;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -121,16 +120,46 @@ class SensesViewTest extends TestCase {
 		$senseView->getHtml( new SenseSet( [ $sense ] ) );
 	}
 
-	private function newSensesView() : SensesView {
-		$statementSectionView = $this->prophesize( StatementGroupListView::class );
-		$statementSectionView->getHtml( Argument::any(), Argument::any() )
-			->willReturn( self::STATEMENT_SECTION_HTML );
+	public function testGlossesOrder() {
+		$sensesView = $this->newSensesView();
+
+		$senseId = 'L2-S3';
+		$sense = NewSense::havingId( new SenseId( $senseId ) )
+			->andLexeme( 'L2' )
+			->withGloss( 'en', 'Foo' )
+			->withGloss( 'fa', 'Bar' )
+			->build();
+
+		$html = $sensesView->getHtml( new SenseSet( [ $sense ] ) );
+		$this->assertThatHamcrest(
+			$html,
+			is( htmlPiece( havingChild(
+				both( tagMatchingOutline(
+					'<span class="wikibase-lexeme-sense-gloss-value" dir="ltr" lang="en">'
+				) )
+					->andAlso( havingTextContents(
+						containsString( 'Foo' ) ) )
+			) ) )
+		);
+
+		$this->assertContains(
+			'<span class="wikibase-lexeme-sense-gloss-value" dir="rtl" lang="fa">',
+			explode( '<tr class="wikibase-lexeme-sense-gloss">', $html )[2]
+		);
+	}
+
+	private function newSensesView()  : SensesView {
+		$statementGroupListView = $this->getMockBuilder( StatementGroupListView::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$statementGroupListView->method( 'getHtml' )
+			->will( $this->returnValue( self::STATEMENT_SECTION_HTML ) );
 
 		return new SensesView(
 			new DummyLocalizedTextProvider(),
 			new MediaWikiLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
-			$statementSectionView->reveal(),
+			$statementGroupListView,
 			'en'
 		);
 	}

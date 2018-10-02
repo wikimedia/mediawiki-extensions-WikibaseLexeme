@@ -5,7 +5,9 @@ module.exports = ( function ( require, Vue ) {
 		InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' );
 
 	function deepClone( object ) {
-		return JSON.parse( JSON.stringify( object ) );
+		return JSON.parse( JSON.stringify( object ) ).sort( function ( a, b ) {
+			return a.language > b.language;
+		} );
 	}
 
 	function applyGlossWidget( widgetElement, glosses, beforeUpdate, mw, getDirectionality ) {

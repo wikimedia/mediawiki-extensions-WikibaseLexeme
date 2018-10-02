@@ -102,6 +102,7 @@ class SensesView {
 			},
 			iterator_to_array( $sense->getGlosses() )
 		);
+		ksort( $glosses );
 
 		$glossWidget = $templating->render(
 			$this->getRawGlossWidgetTemplate(),
