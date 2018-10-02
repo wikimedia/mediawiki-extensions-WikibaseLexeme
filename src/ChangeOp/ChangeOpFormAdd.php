@@ -46,10 +46,12 @@ class ChangeOpFormAdd extends ChangeOpBase {
 
 		/** @var Lexeme $entity */
 
-		$form = new BlankForm();
+		$blankForm = new BlankForm();
+		$blankForm->setLexeme( $entity );
 
-		$entity->addOrUpdateForm( $form );
-		$this->changeOpForm->apply( $form, null );
+		$this->changeOpForm->apply( $blankForm, null );
+
+		$form = $entity->addOrUpdateForm( $blankForm );
 
 		// update statements to have a suitable guid now that the new form id is known
 		// fixme This should find a new home in a more central place, maybe StatementList

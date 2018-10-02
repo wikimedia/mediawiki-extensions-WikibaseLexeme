@@ -18,6 +18,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\NullChangeOp;
 
 /**
@@ -57,7 +58,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 		);
 	}
 
-	public function testRequestWithLexemeId_yieldsAddFormToLexemeChangeOp() {
+	public function testRequestWithLexemeId_yieldsWrappedEditFormChangeOp() {
 		$request = [ 'lexemeId' => 'L4711', 'something' => 'else' ];
 
 		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
@@ -92,10 +93,16 @@ class FormChangeOpDeserializerTest extends TestCase {
 
 		$deserializer->setContext( ValidationContext::create( 'data' ) );
 
-		$addFormChangeOp = $deserializer->createEntityChangeOp( $request );
+		/**
+		 * @var ChangeOps $changeOps
+		 */
+		$changeOps = $deserializer->createEntityChangeOp( $request );
+		$changeOpsArray = $changeOps->getChangeOps();
 
 		// TODO Assert that correct lexeme is passed
-		$this->assertInstanceOf( AddFormToLexemeChangeOp::class, $addFormChangeOp );
+		$this->assertInstanceOf( AddFormToLexemeChangeOp::class, $changeOpsArray[0] );
+
+		$this->assertSame( $editFormChangeOp, $changeOpsArray[1] );
 	}
 
 	public function testRequestWithInvalidLexemeId_addsViolation() {

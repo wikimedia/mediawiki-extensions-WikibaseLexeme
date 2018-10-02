@@ -67,10 +67,6 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$stringNormalizer = new StringNormalizer();
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
-		$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
-			$wikibaseRepo->getExternalFormatStatementDeserializer(),
-			$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
-		);
 		$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 			new LemmaChangeOpDeserializer(
 				new LexemeTermSerializationValidator(
@@ -81,7 +77,10 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			),
 			new LexicalCategoryChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer ),
 			new LanguageChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer ),
-			$statementChangeOpDeserializer,
+			new ClaimsChangeOpDeserializer(
+				$wikibaseRepo->getExternalFormatStatementDeserializer(),
+				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+			),
 			new FormListChangeOpDeserializer(
 				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
 				new FormChangeOpDeserializer(
@@ -94,8 +93,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 							)
 						),
-						new ItemIdListDeserializer( new ItemIdParser() ),
-						$statementChangeOpDeserializer
+						new ItemIdListDeserializer( new ItemIdParser() )
 					)
 				)
 			),

@@ -2,14 +2,12 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
-use Wikibase\Lexeme\Api\Error\InvalidFormClaims;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * Deserialize a change request on a single form
@@ -21,8 +19,6 @@ class EditFormChangeOpDeserializer implements ChangeOpDeserializer {
 	const PARAM_REPRESENTATIONS = 'representations';
 
 	const PARAM_GRAMM_FEAT = 'grammaticalFeatures';
-
-	const PARAM_STATEMENTS = 'claims';
 
 	/**
 	 * @var RepresentationsChangeOpDeserializer
@@ -39,19 +35,12 @@ class EditFormChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $validationContext;
 
-	/**
-	 * @var ClaimsChangeOpDeserializer
-	 */
-	private $statementsChangeOpDeserializer;
-
 	public function __construct(
 		RepresentationsChangeOpDeserializer $representationsChangeOpDeserializer,
-		ItemIdListDeserializer $itemIdListDeserializer,
-		ClaimsChangeOpDeserializer $statementsChangeOpDeserializer
+		ItemIdListDeserializer $itemIdListDeserializer
 	) {
 		$this->representationsChangeOpDeserializer = $representationsChangeOpDeserializer;
 		$this->itemIdListDeserializer = $itemIdListDeserializer;
-		$this->statementsChangeOpDeserializer = $statementsChangeOpDeserializer;
 	}
 
 	public function setContext( ValidationContext $context ) {
@@ -98,23 +87,6 @@ class EditFormChangeOpDeserializer implements ChangeOpDeserializer {
 				$changeOps[] = new ChangeOpGrammaticalFeatures(
 					$this->itemIdListDeserializer->deserialize( $grammaticalFeatures, $grammaticalFeatureContext )
 				);
-			}
-		}
-
-		if ( array_key_exists( self::PARAM_STATEMENTS, $changeRequest ) ) {
-			$statementsContext = $this->validationContext->at( self::PARAM_STATEMENTS );
-			$statementsRequest = $changeRequest[self::PARAM_STATEMENTS];
-
-			if ( !is_array( $statementsRequest ) ) {
-				$statementsContext->addViolation(
-					new JsonFieldHasWrongType( 'array', gettype( $statementsRequest ) )
-				);
-			} else {
-				try {
-					$changeOps[] = $this->statementsChangeOpDeserializer->createEntityChangeOp( $changeRequest );
-				} catch ( ChangeOpDeserializationException $exception ) {
-					$statementsContext->addViolation( new InvalidFormClaims() );
-				}
 			}
 		}
 

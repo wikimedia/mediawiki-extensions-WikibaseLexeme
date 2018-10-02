@@ -107,7 +107,6 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "API error message that is reported when no glosses were provided",
 	"wikibaselexeme-api-error-unknown-language": "API error message that is being reported when the language field contains an unknown language.",
 	"wikibaselexeme-api-error-invalid-item-id": "API error message that is being reported when the language of a lexeme term contains an unknown item id.",
-	"wikibaselexeme-api-error-invalid-form-claims": "API error message that is being reported when a Lexeme's Form's claims field is invalid. \n\nParameters:\n* $1 - Name of the parameter that is expected to be a list of serialized claims.\n* $2 - Path of the field inside of the JSON object (e.g \"array-field-name/0/other-field-name\")",
 	"wikibase-lexeme-summary-add-form": "{{wikibase summary messages|lexeme|Automatic edit summary generated when adding new lexicographical Form to a Lexeme.}}\n\nParameters:\n* $1 - Number of representations of the lexicographical Form added.\n* $2 - empty.\n* $3 - lexicographical Form ID.\n\n{{Related|Wikibase-lexeme-summary}}",
 	"wikibase-lexeme-summary-remove-form": "{{wikibase summary messages|lexeme|Automatic edit summary generated when removing a lexicographical Form from a Lexeme.}}\n\nParameters:\n* $1 - Number of representations of the lexicographical Form removed.\n* $2 - empty.\n* $3 - lexicographical Form ID.\n\n{{Related|Wikibase-lexeme-summary}}",
 	"wikibase-lexeme-summary-update-form-representations": "{{Identical|wikibase-lexeme-summary-update-form-elements}}",

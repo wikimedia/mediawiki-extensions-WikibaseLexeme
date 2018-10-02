@@ -11,8 +11,8 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Lexeme\DummyObjects\BlankSense;
-use Wikibase\Lexeme\DummyObjects\NullFormId;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme in the
@@ -340,14 +340,16 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * Replace the form identified by $form->getId() with the given one or add it
 	 *
 	 * @param Form $form
+	 *
+	 * @return Form
 	 */
 	public function addOrUpdateForm( Form $form ) {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Can not add forms to a lexeme with no ID' );
 		}
 
-		if ( $form->getId() instanceof NullFormId ) {
-			$form->setId(
+		if ( $form instanceof BlankForm ) {
+			$form = $form->getRealForm(
 				new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ )
 			);
 
@@ -355,6 +357,8 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		} else {
 			$this->forms->put( $form );
 		}
+
+		return $form;
 	}
 
 	/**

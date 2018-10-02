@@ -2,20 +2,24 @@
 
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\InProcessCachingDataTypeLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormListChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
@@ -147,10 +151,6 @@ return [
 				// FIXME: What does belong here?
 				[]
 			);
-			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
-				$wikibaseRepo->getExternalFormatStatementDeserializer(),
-				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
-			);
 			$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
 				// TODO: WikibaseRepo should probably provide this validator?
@@ -170,13 +170,24 @@ return [
 					$lexemeValidatorFactory,
 					$wikibaseRepo->getStringNormalizer()
 				),
-				$statementChangeOpDeserializer,
+				new ClaimsChangeOpDeserializer(
+					$wikibaseRepo->getExternalFormatStatementDeserializer(),
+					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+				),
 				new FormListChangeOpDeserializer(
 					new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
 					new FormChangeOpDeserializer(
 						$wikibaseRepo->getEntityLookup(),
 						$wikibaseRepo->getEntityIdParser(),
-						WikibaseLexemeServices::getEditFormChangeOpDeserializer()
+						new EditFormChangeOpDeserializer(
+							new RepresentationsChangeOpDeserializer(
+								new TermDeserializer(),
+								new LexemeTermSerializationValidator(
+									new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+								)
+							),
+							new ItemIdListDeserializer( new ItemIdParser() )
+						)
 					)
 				),
 				new SenseListChangeOpDeserializer(
@@ -368,7 +379,15 @@ return [
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getEntityIdParser(),
-				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
+				new EditFormChangeOpDeserializer(
+					new RepresentationsChangeOpDeserializer(
+						new TermDeserializer(),
+						new LexemeTermSerializationValidator(
+							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+						)
+					),
+					new ItemIdListDeserializer( new ItemIdParser() )
+				)
 			);
 			$formChangeOpDeserializer->setContext(
 				ValidationContext::create( EditEntity::PARAM_DATA )

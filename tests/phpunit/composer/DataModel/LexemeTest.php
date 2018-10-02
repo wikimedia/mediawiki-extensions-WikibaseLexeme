@@ -505,8 +505,7 @@ class LexemeTest extends TestCase {
 		$blankForm = new BlankForm();
 		$blankForm->getRepresentations()->setTextForLanguage( 'en', 'orig-form' );
 		$blankForm->setGrammaticalFeatures( [ new ItemId( 'Q1' ) ] );
-		$lexeme->addOrUpdateForm( $blankForm );
-		$formId = $blankForm->getId();
+		$formId = $lexeme->addOrUpdateForm( $blankForm )->getId();
 		$blankSense = new BlankSense();
 		$blankSense->getGlosses()->setTextForLanguage( 'en', 'orig-sense' );
 		$senseId = $lexeme->addOrUpdateSense( $blankSense )->getId();
@@ -646,33 +645,34 @@ class LexemeTest extends TestCase {
 		$this->assertSame( [ $newForm ], $lexeme->getForms()->toArray() );
 	}
 
-	public function testAddOrUpdateForm_addsForm() {
+	public function testAddOrUpdateForm_returnsForm() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$blankForm = new BlankForm();
 		$representation = new Term( 'en', 'representation' );
 		$blankForm->setRepresentations( new TermList( [ $representation ] ) );
 
-		$lexeme->addOrUpdateForm( $blankForm );
+		$form = $lexeme->addOrUpdateForm( $blankForm );
 
-		$this->assertSame( 'L1-F1', $blankForm->getId()->getSerialization() );
-		$this->assertSame( $representation, $blankForm->getRepresentations()->getByLanguage( 'en' ) );
+		$this->assertInstanceOf( Form::class, $form );
+		$this->assertNotInstanceOf( BlankForm::class, $form );
+		$this->assertSame( $representation, $form->getRepresentations()->getByLanguage( 'en' ) );
 	}
 
-	public function testAddOrUpdateFormTwice_secondFormHasIncrementedId() {
+	public function testAddOrUpdateFormTwice_secondReturnedFormHasIncrementedId() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$blankForm1 = new BlankForm();
+		$blankForm = new BlankForm();
 		$representation = new Term( 'en', 'color' );
-		$blankForm1->setRepresentations( new TermList( [ $representation ] ) );
-		$lexeme->addOrUpdateForm( $blankForm1 );
+		$blankForm->setRepresentations( new TermList( [ $representation ] ) );
+		$newForm1 = $lexeme->addOrUpdateForm( $blankForm );
 
-		$blankForm2 = new BlankForm();
+		$blankForm = new BlankForm();
 		$representation = new Term( 'en-gb', 'colour' );
-		$blankForm2->setRepresentations( new TermList( [ $representation ] ) );
-		$lexeme->addOrUpdateForm( $blankForm2 );
+		$blankForm->setRepresentations( new TermList( [ $representation ] ) );
+		$newForm2 = $lexeme->addOrUpdateForm( $blankForm );
 
-		$this->assertEquals( 'L1-F1', $blankForm1->getId()->getSerialization() );
-		$this->assertEquals( 'L1-F2', $blankForm2->getId()->getSerialization() );
+		$this->assertEquals( new FormId( 'L1-F1' ), $newForm1->getId() );
+		$this->assertEquals( new FormId( 'L1-F2' ), $newForm2->getId() );
 	}
 
 	public function testAddOrUpdateSense_updatedSenseReference() {

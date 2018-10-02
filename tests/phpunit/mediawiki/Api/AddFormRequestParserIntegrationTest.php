@@ -5,13 +5,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiMessage;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\Lexeme\Api\AddFormRequestParser;
-use Wikibase\Lexeme\Api\Error\InvalidFormClaims;
 use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
@@ -28,8 +26,6 @@ use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
-use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
@@ -37,8 +33,6 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  */
 class AddFormRequestParserIntegrationTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider provideInvalidParamsAndErrors
@@ -230,45 +224,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 					new JsonFieldIsNotAnItemId( 'L2' )
 				]
 			],
-			'invalid form claims request (not an array)' => [
-				[
-					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
-						[ 'claims' => 'not an array' ]
-					)
-				] ,
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
-			],
-			'invalid form claims request (invalid serialization)' => [
-				[
-					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
-						[ 'claims' => [ [ 'invalid' ] ] ]
-					)
-				] ,
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
-					new InvalidFormClaims()
-				]
-			],
 		];
-	}
-
-	/**
-	 * @expectedException ApiUsageException
-	 */
-	public function testGivenInvalidClaimsRequest_throwException() {
-		$parser = $this->newAddFormRequestParser();
-
-		$parser->parse( [
-			'lexemeId' => 'L1',
-			'data' => $this->getDataParam( [
-				'claims' => 'not an array',
-			] ),
-		] );
 	}
 
 	private function getDataParam( array $dataToUse = [] ) {
@@ -302,22 +258,12 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)
 			),
-			new ItemIdListDeserializer( new ItemIdParser() ),
-			$this->newClaimsChangeOpDeserializer()
+			new ItemIdListDeserializer( new ItemIdParser() )
 		);
 
 		return new AddFormRequestParser(
 			$idParser,
 			$editFormChangeOpDeserializer
-		);
-	}
-
-	private function newClaimsChangeOpDeserializer() {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-
-		return new ClaimsChangeOpDeserializer(
-			$wikibaseRepo->getExternalFormatStatementDeserializer(),
-			$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 		);
 	}
 

@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DummyObjects\DummyFormId;
 use Wikibase\Lexeme\DummyObjects\NullFormId;
 
@@ -46,7 +47,7 @@ class NullFormIdTest extends TestCase {
 
 		$this->assertTrue( $nullFormId->equals( new NullFormId() ) );
 		$this->assertTrue( $nullFormId->equals( new FormId( 'L1-F7' ) ) );
-		$this->assertTrue( $nullFormId->equals( new DummyFormId( 'L1-F1' ) ) );
+		$this->assertTrue( $nullFormId->equals( new DummyFormId( new LexemeId( 'L9' ) ) ) );
 		$this->assertTrue( $nullFormId->equals( 'gg' ) );
 	}
 

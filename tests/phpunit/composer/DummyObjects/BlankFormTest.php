@@ -3,10 +3,17 @@
 namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Lexeme\DummyObjects\DummyFormId;
 use Wikibase\Lexeme\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
  * @covers \Wikibase\Lexeme\DummyObjects\BlankForm
@@ -15,17 +22,53 @@ use Wikibase\Lexeme\DummyObjects\NullFormId;
  */
 class BlankFormTest extends TestCase {
 
-	public function testConstructedWithNullFormId() {
-		$this->assertInstanceOf( NullFormId::class, ( new BlankForm() )->getId() );
+	public function testGetIdWithoutConnectedLexeme_yieldsNullFormId() {
+		$blankform = new BlankForm();
+		$this->assertInstanceOf( NullFormId::class, $blankform->getId() );
 	}
 
-	public function testSetsDummyIdFromFormId() {
-		$blankForm = new BlankForm();
-		$formId = new FormId( 'L1-F2' );
-		$blankForm->setId( $formId );
+	public function testGetIdWithConnectedLexeme_yieldsDummyFormId() {
+		$lexemeId = new LexemeId( 'L7' );
+		$blankform = new BlankForm();
+		$blankform->setLexeme( NewLexeme::havingId( $lexemeId )->build() );
 
-		$this->assertInstanceOf( DummyFormId::class, $blankForm->getId() );
-		$this->assertSame( $formId->getSerialization(), $blankForm->getId()->getSerialization() );
+		$id = $blankform->getId();
+		$this->assertInstanceOf( DummyFormId::class, $id );
+		$this->assertSame( $lexemeId, $id->getLexemeId() );
+	}
+
+	public function testGetIdAfterGetRealForm_yieldsRealFormId() {
+		$blankform = new BlankForm();
+		$blankform->setRepresentations( new TermList( [ new Term( 'de', 'Fuchs' ) ] ) );
+		$formId = new FormId( 'L1-F4' );
+
+		$blankform->getRealForm( $formId );
+
+		$this->assertSame( $formId, $blankform->getId() );
+	}
+
+	public function testGetRealFormWithoutRepresentations_createsFormWithEmptyRepresentations() {
+		$blankform = new BlankForm();
+		$form = $blankform->getRealForm( new FormId( 'L1-F4' ) );
+
+		$this->assertTrue( $form->getRepresentations()->isEmpty() );
+	}
+
+	public function testGetRealFormOnMinimalData_yieldsFormWithData() {
+		$formId = new FormId( 'L1-F4' );
+		$representations = new TermList( [ new Term( 'de', 'Fuchs' ) ] );
+		$grammaticalFeatures = [ new ItemId( 'Q43' ) ];
+
+		$blankform = new BlankForm();
+		$blankform->setRepresentations( $representations );
+		$blankform->setGrammaticalFeatures( $grammaticalFeatures );
+
+		$form = $blankform->getRealForm( $formId );
+
+		$this->assertInstanceOf( Form::class, $form );
+		$this->assertSame( $representations, $form->getRepresentations() );
+		$this->assertSame( $grammaticalFeatures, $form->getGrammaticalFeatures() );
+		$this->assertEquals( new StatementList(), $form->getStatements() );
 	}
 
 }
