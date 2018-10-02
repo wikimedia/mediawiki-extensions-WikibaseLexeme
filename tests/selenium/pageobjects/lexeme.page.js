@@ -237,8 +237,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		let newGlossIndex = glosses.length - 1;
 		let newGloss = glosses[ newGlossIndex ];
 
-		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( gloss );
 		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
+		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( gloss );
 
 		if ( submitImmediately !== false ) {
 			this.submitNthSense( index );
