@@ -791,7 +791,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->assertArrayHasKey( $property, $result['form']['claims'] );
 		$resultClaim = $result['form']['claims'][$property][0];
 		$this->assertSame( $claim['mainsnak']['snaktype'], $resultClaim['mainsnak']['snaktype'] );
-		$this->assertStringStartsWith( $result['form']['id'], $resultClaim['id'] );
+		$this->assertStatementGuidHasEntityId( $result['form']['id'], $resultClaim['id'] );
 	}
 
 	/**
