@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -21,21 +22,30 @@ class AddFormToLexemeChangeOp implements ChangeOp {
 	 */
 	private $lexeme;
 
-	public function __construct( Lexeme $lexeme ) {
+	/**
+	 * @var ChangeOp
+	 */
+	private $changeOpFormEdit;
+
+	public function __construct( Lexeme $lexeme, ChangeOp $changeOpFormEdit ) {
 		$this->lexeme = $lexeme;
+		$this->changeOpFormEdit = $changeOpFormEdit;
 	}
 
-	public function validate( EntityDocument $entity ) {
-		Assert::parameterType( BlankForm::class, $entity, '$entity' );
+	public function validate( EntityDocument $form ) {
+		Assert::parameterType( BlankForm::class, $form, '$form' );
+
+		$this->changeOpFormEdit->validate( $form );
 
 		return Result::newSuccess();
 	}
 
-	public function apply( EntityDocument $entity, Summary $summary = null ) {
-		Assert::parameterType( BlankForm::class, $entity, '$entity' );
+	public function apply( EntityDocument $form, Summary $summary = null ) {
+		Assert::parameterType( BlankForm::class, $form, '$form' );
 
-		/** @var BlankForm $entity */
-		$entity->setLexeme( $this->lexeme );
+		/** @var BlankForm $form */
+		$this->lexeme->addOrUpdateForm( $form );
+		$this->changeOpFormEdit->apply( $form );
 	}
 
 	public function getActions() {

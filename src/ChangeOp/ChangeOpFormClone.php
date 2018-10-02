@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\ChangeOp;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
@@ -28,9 +27,8 @@ class ChangeOpFormClone implements ChangeOp {
 	}
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
-		Assert::parameterType( BlankForm::class, $entity, '$entity' );
-
-		/** @var BlankForm $entity */
+		Assert::parameterType( Form::class, $entity, '$entity' );
+		/** @var Form $entity */
 
 		$entity->setRepresentations( $this->sourceForm->getRepresentations() );
 		$entity->setGrammaticalFeatures( $this->sourceForm->getGrammaticalFeatures() );
@@ -48,7 +46,7 @@ class ChangeOpFormClone implements ChangeOp {
 	}
 
 	public function validate( EntityDocument $entity ): Result {
-		Assert::parameterType( BlankForm::class, $entity, '$entity' );
+		Assert::parameterType( Form::class, $entity, '$entity' );
 
 		return Result::newSuccess();
 	}

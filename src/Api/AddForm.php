@@ -5,15 +5,8 @@ namespace Wikibase\Lexeme\Api;
 use ApiBase;
 use ApiMain;
 use LogicException;
-use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\Api\Error\LexemeNotFound;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
@@ -85,15 +78,7 @@ class AddForm extends ApiBase {
 			$moduleName,
 			new AddFormRequestParser(
 				$wikibaseRepo->getEntityIdParser(),
-				new EditFormChangeOpDeserializer(
-					new RepresentationsChangeOpDeserializer(
-						new TermDeserializer(),
-						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
-						)
-					),
-					new ItemIdListDeserializer( new ItemIdParser() )
-				)
+				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			),
 			$formSerializer,
 			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
