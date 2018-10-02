@@ -54,7 +54,8 @@
 						var $statements = $( '<div/>' );
 						this.options.buildStatementGroupListView(
 							sense,
-							$statements
+							$statements,
+							LexemeSubEntityId.getIdSuffix( sense.getId() )
 						);
 						$container.append( $statements );
 					}.bind( this ) );
@@ -120,7 +121,8 @@
 
 			this.options.buildStatementGroupListView(
 				this.value(),
-				$( '.wikibase-statementgrouplistview', this.element )
+				$( '.wikibase-statementgrouplistview', this.element ),
+				this.value().getId() === undefined ? '' : LexemeSubEntityId.getIdSuffix( this.value().getId() )
 			);
 
 			this.glossWidget = GlossWidget.applyGlossWidget(

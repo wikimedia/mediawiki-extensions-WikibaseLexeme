@@ -22,7 +22,7 @@
 
 		$node.addClass( TEST_LEXMEFORMVIEW_CLASS );
 
-		options.buildStatementGroupListView = function () {};
+		options.buildStatementGroupListView = options.buildStatementGroupListView || function () {};
 
 		return $node.senseview( options || {} ).data( 'senseview' );
 	};
@@ -55,11 +55,48 @@
 		assert.equal( view.value(), sense2 );
 	} );
 
+	QUnit.test( 'Given a value, creates StatementGroupListView with Sense id prefix', function ( assert ) {
+		var senseId = 'L1-S123',
+			sense = newSense( senseId, 'potatoes' ),
+			statementGroupListViewSpy = sinon.spy();
+
+		newSenseView( {
+			value: sense,
+			buildStatementGroupListView: statementGroupListViewSpy
+		} );
+
+		assert.ok( statementGroupListViewSpy.calledWith(
+			sense,
+			sinon.match.any,
+			'S123'
+		) );
+	} );
+
+	QUnit.test( 'Given a new sense, creates StatementGroupListView with empty prefix', function ( assert ) {
+		var sense = new wb.lexeme.datamodel.Sense(), // i.e. default 'undefined' id
+			statementGroupListViewSpy = sinon.spy();
+
+		newSenseView( {
+			value: sense,
+			buildStatementGroupListView: statementGroupListViewSpy
+		} );
+
+		assert.ok( statementGroupListViewSpy.calledWith(
+			sense,
+			sinon.match.any,
+			''
+		) );
+	} );
+
 	QUnit.test( 'sets id after saving sense', function ( assert ) {
 		var emptySense = new wikibase.lexeme.datamodel.Sense(
 			''
 			),
-			view = newSenseView( { value: emptySense } ),
+			statementGroupListViewSpy = sinon.spy(),
+			view = newSenseView( {
+				value: emptySense,
+				buildStatementGroupListView: statementGroupListViewSpy
+			} ),
 			done = assert.async();
 
 		view.deferredSenseWithId.resolve( newSense( 'L321-S123', 'meow' ) );
@@ -69,6 +106,11 @@
 				view.element.attr( 'id' ),
 				'S123'
 			);
+			assert.ok( statementGroupListViewSpy.calledWith(
+				sinon.match.any,
+				sinon.match.any,
+				'S123'
+			) );
 			done();
 		} );
 	} );
