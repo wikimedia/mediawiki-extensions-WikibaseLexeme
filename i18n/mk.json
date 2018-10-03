@@ -30,6 +30,7 @@
 	"wikibaselexeme-form-field-representation-label": "Претставување",
 	"wikibaselexeme-form-field-language-label": "Правописна варијанта",
 	"wikibaselexeme-form-representation-redundant-language": "Не можете да внесете повеќе претстави со истата правописна варијанта.",
+	"wikibaselexeme-sense-gloss-invalid-language": "Јазичните кодови на прибелешките мора да бидат важечки",
 	"wikibaselexeme-gloss-field-language-label": "Јазик",
 	"wikibaselexeme-gloss-field-gloss-label": "Подножје",
 	"wikibaselexeme-sense-gloss-redundant-language": "Не можете да внесете повеќе прибелешки на истиот јазик.",

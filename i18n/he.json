@@ -31,6 +31,7 @@
 	"wikibaselexeme-form-field-representation-label": "ייצוג",
 	"wikibaselexeme-form-field-language-label": "תקן כתיב",
 	"wikibaselexeme-form-representation-redundant-language": "אין אפשרות להזין ייצוגים מרובים עם אותו תקן כתיב.",
+	"wikibaselexeme-sense-gloss-invalid-language": "שפת הפירוש צריכה להיות תקינה",
 	"wikibaselexeme-gloss-field-language-label": "שפה",
 	"wikibaselexeme-gloss-field-gloss-label": "פירוש",
 	"wikibaselexeme-sense-gloss-redundant-language": "אי־אפשר להזין פירושים מרובים באותה השפה.",

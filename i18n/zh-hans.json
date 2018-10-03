@@ -6,13 +6,15 @@
 			"Deathkon",
 			"Wxyveronica",
 			"Hanyanbo98",
-			"夢蝶葬花"
+			"夢蝶葬花",
+			"A Chinese Wikipedian"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
 	"special-newlexeme": "创建新词位",
 	"special-mergelexemes": "合并两个词位",
 	"wikibaselexeme-deletedentity-form": "已删除词形",
+	"wikibaselexeme-deletedentity-sense": "删除Sence",
 	"wikibaselexeme-newlexeme-fieldset": "创建新词位",
 	"wikibaselexeme-newlexeme-lemma": "引理",
 	"wikibaselexeme-newlexeme-lemma-language": "引理的拼写变体",
@@ -34,6 +36,7 @@
 	"wikibaselexeme-form-field-representation-label": "表现形式",
 	"wikibaselexeme-form-field-language-label": "发音变体",
 	"wikibaselexeme-form-representation-redundant-language": "无法输入拥有相同发音变体的多个表现形式。",
+	"wikibaselexeme-sense-gloss-invalid-language": "光泽语言代码必须有效",
 	"wikibaselexeme-gloss-field-language-label": "语言",
 	"wikibaselexeme-gloss-field-gloss-label": "释义",
 	"wikibaselexeme-sense-gloss-redundant-language": "不可能使用相同的语言输入多个glos。",
@@ -109,6 +112,7 @@
 	"wikibase-lexeme-summary-remove-sense-glosses": "已移除意义$3的{{PLURAL:$1|[$2]注解|注解}}",
 	"wikibase-lexeme-summary-update-sense-elements": "已更改意义$3的注解",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "加入一个新表单",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "加入新Sense",
 	"wikibaselexeme-field-language-label": "语言",
 	"wikibaselexeme-field-lexical-category-label": "词类",
 	"wikibaselexeme-diffview-lemma": "引理",
@@ -137,6 +141,8 @@
 	"wikibase-lexeme-mergelexemes-submit": "合并词位",
 	"wikibase-lexeme-mergelexemes-success": "$1已合并至$2并已创建重定向。",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "未找到$1",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "加载Lexeme失败。",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "提交Lexeme失败。",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "权限被拒绝。",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "不能将数据项合并到它本身。",
 	"wikibase-entity-summary-wblmergelexemes-from": "已合并项自$3"
