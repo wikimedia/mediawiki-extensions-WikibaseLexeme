@@ -201,7 +201,7 @@ HTML;
 							'wikibase-lexeme-sense-gloss-language-input_invalid-language':
 								isInvalidLanguage(gloss.language)
 						}"
-						v-model="gloss.language" >
+						v-model.lazy="gloss.language" >
 				</td>
 				<td class="wikibase-lexeme-sense-gloss-value-cell">
 					<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"
