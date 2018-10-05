@@ -62,6 +62,21 @@ abstract class LexemeSubEntityId extends EntityId {
 	}
 
 	/**
+	 * Format a serialization of a sub entity id, e.g. 'L1-F3'
+	 *
+	 * @param EntityId  $containerEntityId Id of the entity in which the sub entity resides, e.g. L1
+	 * @param string    $idPrefix          The prefix of the sub entity, e.g. 'F'
+	 * @param string    $id                The (numeric) id of the sub entity, e.g. '3'
+	 *
+	 * @return string
+	 */
+	public static function formatSerialization( EntityId $containerEntityId, $idPrefix, $id ) {
+		return $containerEntityId->getSerialization() .
+			self::SUBENTITY_ID_SEPARATOR .
+			$idPrefix . $id;
+	}
+
+	/**
 	 * This method should not be used for code that is expected to work with dummy ids.
 	 *
 	 * @return string[] two strings containing the lexeme id serialization and the sub-entity suffix,

@@ -350,7 +350,9 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 		if ( $form instanceof BlankForm && !$this->forms->hasFormWithId( $form->getId() ) ) {
 			$form->setId(
-				new FormId( $this->id->getSerialization() . '-F' . $this->nextFormId++ )
+				new FormId(
+					LexemeSubEntityId::formatSerialization( $this->id, 'F', $this->nextFormId++ )
+				)
 			);
 		}
 
@@ -373,7 +375,9 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 		if ( $sense instanceof BlankSense ) {
 			$sense = $sense->getRealSense(
-				new SenseId( $this->id->getSerialization() . '-S' . $this->nextSenseId++ )
+				new SenseId(
+					LexemeSubEntityId::formatSerialization( $this->id, 'S', $this->nextSenseId++ )
+				)
 			);
 
 			$this->senses->add( $sense );
