@@ -32,9 +32,8 @@ class SensesViewTest extends TestCase {
 	const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
 
 	public function testHtmlContainsTheSensesHeadline() {
-		$this->markTestSkipped( 'Skipped until we remove VUE template from HTML' );
 		$view = $this->newSensesView();
-		$html = $view->getHtml( [] );
+		$html = $view->getHtml( new SenseSet( [] ) );
 
 		$this->assertThatHamcrest(
 			$html,
@@ -49,9 +48,8 @@ class SensesViewTest extends TestCase {
 	}
 
 	public function testHtmlContainsSensesContainer() {
-		$this->markTestSkipped( 'Skipped until we remove VUE template from HTML' );
 		$view = $this->newSensesView();
-		$html = $view->getHtml( [] );
+		$html = $view->getHtml( new SenseSet( [] ) );
 
 		$this->assertThatHamcrest(
 			$html,
@@ -62,37 +60,44 @@ class SensesViewTest extends TestCase {
 	}
 
 	public function testHtmlContainsGlossWithId() {
-		$this->markTestSkipped( 'Skipped until we remove VUE template from HTML' );
 		$view = $this->newSensesView();
-		$html = $view->getHtml( [
+		$html = $view->getHtml( new SenseSet( [
 			new Sense(
-				new SenseId( 'S1' ),
+				new SenseId( 'L1-S1' ),
 				new TermList( [ new Term( 'en', 'test gloss' ) ] ),
 				new StatementList()
 			)
-		] );
+		] ) );
 
 		$this->assertThatHamcrest(
 			$html,
-			is( htmlPiece( havingChild(
-				both( tagMatchingOutline( '<span dir="ltr" lang="en">' ) )
-					->andAlso( havingTextContents(
-						both( containsString( 'test gloss' ) )
-							->andAlso( containsString( 'S1' ) ) ) )
-				) ) )
+			is( htmlPiece(
+				havingChild( allOf(
+					tagMatchingOutline( '<div class="wikibase-lexeme-sense">' ),
+					havingChild(
+						both( tagMatchingOutline( '<span dir="ltr" lang="en">' ) )
+							->andAlso( havingTextContents(
+									equalToIgnoringWhiteSpace( 'test gloss' ) )
+							)
+					),
+					havingChild(
+						both( tagMatchingOutline( '<div class="wikibase-lexeme-sense-id">' ) )
+							->andAlso( havingTextContents( 'L1-S1' ) )
+					)
+				) )
+			) )
 		);
 	}
 
 	public function testHtmlContainsStatementSection() {
-		$this->markTestSkipped( 'Skipped until we remove VUE template from HTML' );
 		$view = $this->newSensesView();
-		$html = $view->getHtml( [
+		$html = $view->getHtml( new SenseSet( [
 			new Sense(
-				new SenseId( 'S1' ),
+				new SenseId( 'L1-S1' ),
 				new TermList( [ new Term( 'en', 'test gloss' ) ] ),
 				new StatementList()
 			)
-		] );
+		] ) );
 
 		$this->assertThatHamcrest(
 			$html,
