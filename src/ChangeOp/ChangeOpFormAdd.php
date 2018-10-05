@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -24,15 +23,11 @@ class ChangeOpFormAdd extends ChangeOpBase {
 	 */
 	private $changeOpForm;
 
-	private $guidGenerator;
-
 	/**
 	 * @param ChangeOp $changeOpForm
-	 * @param GuidGenerator $guidGenerator
 	 */
-	public function __construct( ChangeOp $changeOpForm, GuidGenerator $guidGenerator ) {
+	public function __construct( ChangeOp $changeOpForm ) {
 		$this->changeOpForm = $changeOpForm;
-		$this->guidGenerator = $guidGenerator;
 	}
 
 	public function validate( EntityDocument $entity ) : Result {
@@ -50,12 +45,6 @@ class ChangeOpFormAdd extends ChangeOpBase {
 
 		$entity->addOrUpdateForm( $form );
 		$this->changeOpForm->apply( $form, null );
-
-		// update statements to have a suitable guid now that the new form id is known
-		// fixme This should find a new home in a more central place, maybe StatementList
-		foreach ( $form->getStatements() as $statement ) {
-			$statement->setGuid( $this->guidGenerator->newGuid( $form->getId() ) );
-		}
 
 		if ( $summary !== null ) {
 			// TODO: consistently do not extend ChangeOpBase?
