@@ -103,6 +103,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "含意必須至少要有一個註解",
 	"wikibaselexeme-api-error-unknown-language": "在「$2」的欄位「$1」裡有未知語言「$3」。",
 	"wikibaselexeme-api-error-invalid-item-id": "在「$2」的欄位「$1」裡有無效項目 ID「$3」。",
+	"wikibaselexeme-api-error-invalid-form-claims": "在「$2」的欄位「$1」裡有無效聲稱內容。",
 	"wikibase-lexeme-summary-add-form": "已添加具{{PLURAL:$1|表述|表述}}的新詞性 $3",
 	"wikibase-lexeme-summary-remove-form": "已移除具{{PLURAL:$1|表述|表述}}的詞性 $3",
 	"wikibase-lexeme-summary-update-form-representations": "已更改詞性 $3 的表述和/或語法特徵",

@@ -98,6 +98,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "Das Sense muss mindestens eine Fußnote haben",
 	"wikibaselexeme-api-error-unknown-language": "Unbekannte Sprache „$3“ in Feld „$1“ bei „$2“.",
 	"wikibaselexeme-api-error-invalid-item-id": "Ungültige Objektkennung „$3“ im Feld „$1“ bei „$2“.",
+	"wikibaselexeme-api-error-invalid-form-claims": "Ungültige Behauptungen im Feld „$1“ bei „$2“.",
 	"wikibase-lexeme-summary-add-form": "Neue Form $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt",
 	"wikibase-lexeme-summary-remove-form": "Form $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} entfernt",
 	"wikibase-lexeme-summary-update-form-representations": "Darstellungen und/oder grammatikalische Funktionen der Form $3 geändert",

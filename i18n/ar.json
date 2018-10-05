@@ -103,6 +103,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "يجب أن يكون لديك لمعان واحد على الأقل",
 	"wikibaselexeme-api-error-unknown-language": "لغة غير معروفة \"$3\" في الحقل \"$1\" في \"$2\".",
 	"wikibaselexeme-api-error-invalid-item-id": "معرف عنصر غير صالح \"$3\" في الحقل \"$1\" في \"$2\".",
+	"wikibaselexeme-api-error-invalid-form-claims": "ادعاءات غير صالحة في الحقل \"$1\" في \"$2\".",
 	"wikibase-lexeme-summary-add-form": "تمت إضافة النموذج الجديد $3 مع {{PLURAL:$1|تمثيل|تمثيلات}}",
 	"wikibase-lexeme-summary-remove-form": "تمت إزالة النموذج الجديد $3 مع {{PLURAL:$1|تمثيل|تمثيلات}}",
 	"wikibase-lexeme-summary-update-form-representations": "تم تغيير التمثيل و/أو الميزات النحوية للنموذج $3",

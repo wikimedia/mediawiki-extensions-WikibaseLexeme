@@ -106,6 +106,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "Le Sens doit avoir au moins une glose",
 	"wikibaselexeme-api-error-unknown-language": "Langue inconnue « $3 » dans le champ « $1» à « $2 » .",
 	"wikibaselexeme-api-error-invalid-item-id": "Numéro invalide d'élément \"$3\" sur le champ \"$1\" dans  \"$2\".",
+	"wikibaselexeme-api-error-invalid-form-claims": "Déclarations non valides dans le champ « $1 » en « $2 ».",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}",
 	"wikibase-lexeme-summary-remove-form": "Formulaire $3 supprimé avec {{PLURAL:$1|sa représentation|ses représentations}}",
 	"wikibase-lexeme-summary-update-form-representations": "Modification des représentations et/ou des fonctionalités grammaticales du formulaire $3",

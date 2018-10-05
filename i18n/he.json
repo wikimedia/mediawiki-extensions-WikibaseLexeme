@@ -102,6 +102,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "למשמעות חייב להיות לפחות פירוש אחד",
 	"wikibaselexeme-api-error-unknown-language": "שפה בלתי־ידועה \"$3\" בשדה \"$1\" שבתוך \"$2\".",
 	"wikibaselexeme-api-error-invalid-item-id": "מזהה פריט בלתי־תקין \"$3\" בשדה \"$1\" שבתוך \"$2\".",
+	"wikibaselexeme-api-error-invalid-form-claims": "טענות בלתי־תקינות בשדה \"$1\" ב־\"$2\".",
 	"wikibase-lexeme-summary-add-form": "נוספה הצורה החדשה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
 	"wikibase-lexeme-summary-remove-form": "הוסרה הצורה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
 	"wikibase-lexeme-summary-update-form-representations": "שונו ייצוגים ו/או מאפיינים דקדוקיים של הצורה $3",
