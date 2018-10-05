@@ -8,6 +8,7 @@ use Exception;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataModel\Form;
@@ -46,24 +47,31 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	const SPECIAL_TERM_LANGUAGE = 'mis';
 
 	public function testGivenNewParameterAndValidDataAreProvided_newLexemeIsCreated() {
+		$lemma = 'worm';
+		$lemmaLang = 'en';
+		$lexemeLang = 'Q100';
+		$lexCat = 'Q200';
+		$representation = 'Chinese crab';
+		$representationLang = 'en';
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
+			'type' => 'claim',
+			'rank' => 'normal',
+		];
 		$params = [
 			'action' => 'wbeditentity',
 			'new' => 'lexeme',
 			'data' => json_encode( [
-				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
-				'language' => 'Q100',
-				'lexicalCategory' => 'Q200',
+				'lemmas' => [ $lemmaLang => [ 'language' => $lemmaLang, 'value' => $lemma ] ],
+				'language' => $lexemeLang,
+				'lexicalCategory' => $lexCat,
 				'forms' => [
 					[
 						'add' => '',
 						'representations' => [
-							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
+							$representationLang => [ 'language' => $representationLang, 'value' => $representation ],
 						],
-						'claims' => [ [
-							'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
-							'type' => 'statement',
-							'rank' => 'normal',
-						] ]
+						'claims' => [ $claim ]
 					]
 				]
 			] ),
@@ -80,28 +88,24 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$lexemeData = $this->loadEntity( $id );
 
-		$this->assertEntityFieldsEqual(
-			[
-				'type' => 'lexeme',
-				'id' => $id,
-				'claims' => [],
-				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
-				'language' => 'Q100',
-				'lexicalCategory' => 'Q200',
-				'forms' => [
-					[
-						'id' => $id . '-F1',
-						'representations' => [
-							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
-						],
-						'grammaticalFeatures' => [],
-						// Adding of statements to new forms on new lexemes is not implemented via editentity, yet!
-						'claims' => []
-					]
-				]
-			],
-			$lexemeData
+		$this->assertSame(
+			[ $lemmaLang => [ 'language' => $lemmaLang, 'value' => $lemma ] ],
+			$lexemeData['lemmas']
 		);
+		$this->assertSame( $lexemeLang, $lexemeData['language'] );
+		$this->assertSame( $lexCat, $lexemeData['lexicalCategory'] );
+		$this->assertCount( 1, $lexemeData['forms'] );
+
+		$form = $lexemeData['forms'][0];
+		$formId = "$id-F1";
+		$this->assertSame( $formId, $form['id'] );
+		$this->assertSame(
+			[ $representationLang => [ 'language' => $representationLang, 'value' => $representation ] ],
+			$form['representations']
+		);
+		$this->assertEmpty( $form['grammaticalFeatures'] );
+		$this->assertCount( 1, $form['claims'] );
+		$this->assertHasStatement( $claim, $form );
 	}
 
 	private function getDummyLexeme( $id = self::EXISTING_LEXEME_ID ) {
@@ -426,15 +430,16 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$this->getTestUser()->getUser()
 		);
 
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
+			'type' => 'statement',
+			'rank' => 'normal',
+		];
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
 			'data' => json_encode( [
-				'claims' => [ [
-					'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
-					'type' => 'statement',
-					'rank' => 'normal',
-				] ],
+				'claims' => [ $claim ],
 			] ),
 		];
 
@@ -447,8 +452,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
 
 		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertSame( 'P909', $lexemeData['claims']['P909'][0]['mainsnak']['property'] );
-		$this->assertSame( 'normal', $lexemeData['claims']['P909'][0]['rank'] );
+		$this->assertHasStatement( $claim, $lexemeData );
 	}
 
 	public function testGivenClearAndExisitingLexemeIdAndLemma_lemmaDataIsChanged() {
@@ -1355,8 +1359,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( 1, $result['success'] );
 
 		/** @var Lexeme $lexeme */
-		$lexeme = $this->wikibaseRepo->getStore()->getEntityLookup()
-			->getEntity( new LexemeId( self::EXISTING_LEXEME_ID ) );
+		$lexeme = $this->getEntityLookup()->getEntity( new LexemeId( self::EXISTING_LEXEME_ID ) );
 		$this->assertEmpty( $lexeme->getForms() );
 		$this->assertEquals( 3, $lexeme->getNextFormId() );
 	}
@@ -1669,21 +1672,25 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenExistingLexemeAndChangeInFormFeatures_formPropertyIsUpdated() {
 		$this->saveDummyLexemeToDatabase();
 
+		$property = 'P909';
+		$snakType = 'novalue';
+		$formId = $this->formatFormId(
+			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+		);
+		$claim = [
+			'mainsnak' => [ 'snaktype' => $snakType, 'property' => $property ],
+			'type' => 'statement',
+			'rank' => 'normal',
+		];
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
-							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
-						),
+						'id' => $formId,
 						'grammaticalFeatures' => [ 'Q16' ],
-						'claims' => [ [
-							'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
-							'type' => 'statement',
-							'rank' => 'normal',
-						] ],
+						'claims' => [ $claim ],
 					]
 				],
 			] ),
@@ -1699,11 +1706,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 2, $lexemeData['forms'] );
 		$this->assertCount( 1, $lexemeData['forms'][0]['grammaticalFeatures'] );
 		$this->assertSame( 'Q16', $lexemeData['forms'][0]['grammaticalFeatures'][0] );
-		$this->assertCount(
-			0,
-			$lexemeData['forms'][0]['claims'],
-			'Editing of forms to have statements is not implemented through editentity, yet!'
-		);
+
+		$this->assertHasStatement( $claim, $lexemeData['forms'][0] );
 	}
 
 	// TODO: edit statements (all options: add, edit, remove?) with id=L1
@@ -1793,6 +1797,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			[ 'Q16' ],
 			$lexemeData['forms'][2]['grammaticalFeatures']
 		);
+
+		/** @var Lexeme $lexeme */
+		$lexeme = $this->getEntityLookup()->getEntity( new LexemeId( self::EXISTING_LEXEME_ID ) );
+		$this->assertSame( 4, $lexeme->getNextFormId() );
 	}
 
 	public function testGivenExistingLexemeAndTwoFormChangeOps_formsAreProperlyUpdated() {
@@ -1886,11 +1894,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			[ 'Q16' ],
 			$lexemeData['forms'][2]['grammaticalFeatures']
 		);
-		$this->assertCount(
-			0,
-			$lexemeData['forms'][2]['claims'],
-			'Creating of forms with statements is not implemented through editentity, yet!'
-		);
+
+		/** @var Lexeme $lexeme */
+		$lexeme = $this->getEntityLookup()->getEntity( new LexemeId( self::EXISTING_LEXEME_ID ) );
+		$this->assertSame( 4, $lexeme->getNextFormId() );
 	}
 
 	public function testGivenNewFormAndExistingLexemeId_newFormIdIsReturned() {
@@ -2235,6 +2242,20 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->saveEntity( $lexeme );
 
 		return $lexeme;
+	}
+
+	private function assertHasStatement( array $expected, array $entity ) {
+		$property = $expected['mainsnak']['property'];
+		$this->assertArrayHasKey( $property, $entity['claims'] );
+		$this->assertCount( 1, $entity['claims'][$property] );
+
+		$claim = $entity['claims'][$property][0];
+		$this->assertSame( $expected['mainsnak']['snaktype'], $claim['mainsnak']['snaktype'] );
+		$this->assertStatementGuidHasEntityId( $entity['id'], $claim['id'] );
+	}
+
+	private function getEntityLookup() : EntityLookup {
+		return $this->wikibaseRepo->getStore()->getEntityLookup( Store::LOOKUP_CACHING_DISABLED );
 	}
 
 }

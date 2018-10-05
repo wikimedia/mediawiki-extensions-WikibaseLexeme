@@ -12,7 +12,6 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
-use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\Repo\ChangeOp\NullChangeOp;
 
@@ -95,10 +94,10 @@ class FormChangeOpDeserializer implements ChangeOpDeserializer {
 				return new NullChangeOp();
 			}
 			// TODO Use ChangeOp that sets summary
-			return new ChangeOps( [
-				new AddFormToLexemeChangeOp( $lexeme ),
+			return new AddFormToLexemeChangeOp(
+				$lexeme,
 				$editFormChangeOp
-			] );
+			);
 		}
 
 		return $editFormChangeOp;

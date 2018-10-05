@@ -392,10 +392,10 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 			new LexemeId( 'L1' ), new TermList( [ new Term( 'en', 'LemmaLem' ) ] ),
 			new ItemId( 'Q1' ), new ItemId( 'Q1' )
 		);
-		$blankForm = new BlankForm();
-		$blankForm->getRepresentations()->setTextForLanguage( 'de', 'baz' );
-		$blankForm->setGrammaticalFeatures( [ new ItemId( 'Q1' ) ] );
-		$f1 = $l1->addOrUpdateForm( $blankForm );
+		$f1 = new BlankForm();
+		$f1->getRepresentations()->setTextForLanguage( 'de', 'baz' );
+		$f1->setGrammaticalFeatures( [ new ItemId( 'Q1' ) ] );
+		$l1->addOrUpdateForm( $f1 );
 
 		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-form' );
 

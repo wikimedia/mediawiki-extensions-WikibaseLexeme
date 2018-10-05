@@ -3,34 +3,32 @@
 namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
+use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
+use Wikibase\Lexeme\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
-use Wikibase\Lib\ContentLanguages;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WikibaseLexemeServices {
 
-	/**
-	 * @return ContentLanguages
-	 */
-	public static function getTermLanguages() {
+	public static function getTermLanguages() : LexemeTermLanguages {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' );
 	}
 
-	/**
-	 * @return LexemeLanguageNameLookup
-	 */
-	public static function getLanguageNameLookup() {
+	public static function getLanguageNameLookup() : LexemeLanguageNameLookup {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeLanguageNameLookup' );
 	}
 
-	/**
-	 * @return LexemeMergeInteractor
-	 */
-	public static function getLexemeMergeInteractor() {
+	public static function getLexemeMergeInteractor() : LexemeMergeInteractor {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeMergeInteractor' );
+	}
+
+	public static function getEditFormChangeOpDeserializer() : EditFormChangeOpDeserializer {
+		return MediaWikiServices::getInstance()->getService(
+			'WikibaseLexemeEditFormChangeOpDeserializer'
+		);
 	}
 
 }

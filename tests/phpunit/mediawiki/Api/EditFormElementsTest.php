@@ -733,6 +733,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
 				'grammaticalFeatures' => [ 'Q321' ],
+				'claims' => [],
 			],
 			$result['form']
 		);
@@ -764,6 +765,33 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		} catch ( ApiUsageException $exception ) {
 			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
 		}
+	}
+
+	public function testCanAddStatementToForm() {
+		$this->saveEntity( NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+			)->build() );
+
+		$property = 'P909';
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => $property ],
+			'type' => 'claim',
+			'rank' => 'normal',
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( [
+			'action' => 'wbleditformelements',
+			'formId' => 'L1-F1',
+			'data' => $this->getDataParam( [
+				'claims' => [ $claim ],
+			] )
+		] );
+
+		$this->assertArrayHasKey( $property, $result['form']['claims'] );
+		$resultClaim = $result['form']['claims'][$property][0];
+		$this->assertSame( $claim['mainsnak']['snaktype'], $resultClaim['mainsnak']['snaktype'] );
+		$this->assertStatementGuidHasEntityId( $result['form']['id'], $resultClaim['id'] );
 	}
 
 	/**

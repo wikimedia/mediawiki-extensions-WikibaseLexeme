@@ -287,6 +287,30 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testCanAddFormWithStatement() {
+		$this->saveEntity( NewLexeme::havingId( 'L1' )->build() );
+
+		$property = 'P909';
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => $property ],
+			'type' => 'claim',
+			'rank' => 'normal',
+		];
+
+		list( $result, ) = $this->doApiRequestWithToken( [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam( [
+				'claims' => [ $claim ],
+			] )
+		] );
+
+		$this->assertArrayHasKey( $property, $result['form']['claims'] );
+		$resultClaim = $result['form']['claims'][$property][0];
+		$this->assertSame( $claim['mainsnak']['snaktype'], $resultClaim['mainsnak']['snaktype'] );
+		$this->assertStatementGuidHasEntityId( $result['form']['id'], $resultClaim['id'] );
+	}
+
 	/**
 	 * @param string $id
 	 *
