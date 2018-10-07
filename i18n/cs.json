@@ -15,7 +15,7 @@
 	"wikibaselexeme-deletedentity-sense": "Smazaný význam",
 	"wikibaselexeme-newlexeme-fieldset": "Vytvořit nový lexém",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
-	"wikibaselexeme-newlexeme-lemma-language": "Varianta výslovnosti lemmatu",
+	"wikibaselexeme-newlexeme-lemma-language": "Varianta zápisu lemmatu",
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma je zpravidla nejkratší tvar slova",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Mluvnická kategorie",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Vložte mluvnickou kategorii, např. podstatné jméno",
@@ -28,7 +28,7 @@
 	"wikibaselexeme-statementsection-statements-about-sense": "Tvrzení o $1",
 	"wikibaselexeme-header-senses": "Významy",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
-	"wikibaselexeme-lemma-field-language-label": "Varianta výslovnosti",
+	"wikibaselexeme-lemma-field-language-label": "Varianta zápisu",
 	"wikibaselexeme-form-field-representation-label": "Reprezentace",
 	"wikibaselexeme-form-field-language-label": "Varianta zápisu",
 	"wikibaselexeme-gloss-field-language-label": "Jazyk",
@@ -62,7 +62,7 @@
 	"wikibase-lexeme-summary-update-form-grammatical-features": "Změněny reprezentace a/nebo gramatické vlastnosti tvaru $3",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Přidána gramatická vlastnost|Přidány gramatické vlastnosti}} tvaru $3",
 	"wikibase-lexeme-summary-remove-form-grammatical-features": "{{PLURAL:$1|Odebrána gramatická vlastnost|Odebrány gramatické vlastnosti}} tvaru $3",
-	"wikibase-lexeme-summary-update-form-elements": "Změněny reprezentace a/nebo gramatické funkce tvaru $3",
+	"wikibase-lexeme-summary-update-form-elements": "Změněny reprezentace a/nebo gramatické vlastnosti tvaru $3",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Vytvořen nový lexém",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "Vytvořen nový tvar",
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "Vytvořen nový význam",
@@ -87,5 +87,9 @@
 	"wikibase-lexeme-mergelexemes-from-id": "Identifikátor objektu, odkud se má slučovat",
 	"wikibase-lexeme-mergelexemes-to-id": "Identifikátor objektu, kam se má slučovat",
 	"wikibase-lexeme-mergelexemes-submit": "Sloučit lexémy",
-	"wikibase-lexeme-mergelexemes-success": "$1 byl sloučen do $2 a přesměrován."
+	"wikibase-lexeme-mergelexemes-success": "$1 byl sloučen do $2 a přesměrován.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Nepodařilo se sloučit lexéme, nejprve prosím vyřešte všechny konflikty.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Lexém nelze sloučit sám se sebou.",
+	"wikibase-entity-summary-wblmergelexemes-from": "Sloučeno z lexému $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Sloučeno do lexému $3"
 }
