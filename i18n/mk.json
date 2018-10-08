@@ -101,6 +101,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "Смислата мора да има барем една прибелешка",
 	"wikibaselexeme-api-error-unknown-language": "Непознат јазик „$3“ во полето „$1“ на „$2“.",
 	"wikibaselexeme-api-error-invalid-item-id": "Неважечка назнака на предметот „$3“ во полето „$1“ на „$2“.",
+	"wikibaselexeme-api-error-invalid-form-claims": "Неважечки тврдења во полето „$1“ на „$2“.",
 	"wikibase-lexeme-summary-add-form": "Ставен нов образец $3 со {{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-remove-form": "Отстранет образецот $3 со \n{{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-update-form-representations": "Изменети претставите и/или граматичките можности на Образецот $3",
