@@ -80,8 +80,6 @@ class FormDiffer implements EntityDifferStrategy {
 	}
 
 	/**
-	 * @deprecated use self::diffEntities instead
-	 *
 	 * @param Form $old
 	 * @param Form $new
 	 *
