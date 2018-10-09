@@ -7,13 +7,13 @@ use HTMLForm;
 use InvalidArgumentException;
 use Message;
 use Exception;
+use SpecialPage;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
-use Wikibase\Repo\Specials\SpecialWikibasePage;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -21,7 +21,7 @@ use Wikibase\Repo\WikibaseRepo;
  *
  * @license GPL-2.0-or-later
  */
-class SpecialMergeLexemes extends SpecialWikibasePage {
+class SpecialMergeLexemes extends SpecialPage {
 
 	const FROM_ID = 'from-id';
 	const TO_ID = 'to-id';
@@ -57,7 +57,12 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 	}
 
 	public function execute( $subPage ) {
-		parent::execute( $subPage );
+		$this->setHeaders();
+		$this->outputHeader( 'wikibase-mergelexemes-summary' );
+
+		if ( !$this->userCanExecute( $this->getUser() ) ) {
+			$this->displayRestrictionError();
+		}
 
 		$sourceId = $this->getTextParam( self::FROM_ID );
 		$targetId = $this->getTextParam( self::TO_ID );
@@ -67,6 +72,12 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 		}
 
 		$this->showMergeForm();
+	}
+
+	public function setHeaders() {
+		$out = $this->getOutput();
+		$out->setArticleRelated( false );
+		$out->setPageTitle( $this->getDescription() );
 	}
 
 	public static function newFromGlobalState() {
@@ -117,7 +128,7 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 			return Html::rawElement(
 				'p',
 				[ 'class' => 'warning' ],
-				$this->msg( 'wikibase-anonymouseditwarning' )->text()
+				$this->msg( 'wikibase-anonymouseditwarning' )->escaped()
 			);
 		}
 
@@ -142,7 +153,7 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 			/** @var LexemeId $targetId */
 			$this->mergeInteractor->mergeLexemes( $sourceId, $targetId );
 		} catch ( MergingException $e ) {
-			$this->showErrorHTML( $e->getErrorMessage() );
+			$this->showErrorHTML( $e->getErrorMessage()->escaped() );
 			return;
 		}
 
@@ -172,7 +183,7 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 			$sourceTitle = $this->titleLookup->getTitleForId( $sourceId );
 			$targetTitle = $this->titleLookup->getTitleForId( $targetId );
 		} catch ( Exception $e ) {
-			$this->showErrorHTML( $this->exceptionLocalizer->getExceptionMessage( $e )->text() );
+			$this->showErrorHTML( $this->exceptionLocalizer->getExceptionMessage( $e )->escaped() );
 			return;
 		}
 
@@ -192,6 +203,18 @@ class SpecialMergeLexemes extends SpecialWikibasePage {
 			( new Message( 'wikibase-lexeme-mergelexemes-error-invalid-id', [ $id ] ) )
 				->escaped()
 		);
+	}
+
+	protected function getGroupName() {
+		return 'wikibase';
+	}
+
+	protected function showErrorHTML( $error ) {
+		$this->getOutput()->addHTML( '<p class="error">' . $error . '</p>' );
+	}
+
+	public function getDescription() {
+		return $this->msg( 'special-mergelexemes' )->text();
 	}
 
 }
