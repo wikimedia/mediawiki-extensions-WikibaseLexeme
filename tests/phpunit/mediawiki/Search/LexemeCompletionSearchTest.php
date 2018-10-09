@@ -63,7 +63,12 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 		);
 		$decodedQuery = json_decode( $elasticQuery, true );
 		unset( $decodedQuery['path'] );
+		// T206100
+		$serializePrecision = ini_get( 'serialize_precision' );
+		ini_set( 'serialize_precision', -1 );
 		$encodedData = json_encode( $decodedQuery, JSON_PRETTY_PRINT );
+		ini_set( 'serialize_precision', $serializePrecision );
+
 		$this->assertFileContains(
 			__DIR__ . "/../../data/lexemeCompletionSearch/$expected.expected",
 			$encodedData );
