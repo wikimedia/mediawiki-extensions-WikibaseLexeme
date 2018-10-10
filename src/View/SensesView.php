@@ -155,7 +155,7 @@ class SensesView {
 HTML;
 
 		$statementSection = $this->statementGroupListView->getHtml(
-			$sense->getStatements()->toArray()
+			$sense->getStatements()->toArray(), $sense->getId()->getIdSuffix()
 		);
 		return $statementHeader . $statementSection;
 	}
