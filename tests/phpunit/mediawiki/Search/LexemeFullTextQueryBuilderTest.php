@@ -88,12 +88,18 @@ class LexemeFullTextQueryBuilderTest extends MediaWikiTestCase {
 		$builder->build( $context, $searchString );
 		$query = $context->getQuery();
 		$rescore = $context->getRescore();
+
+		// T206100
+		$serializePrecision = ini_get( 'serialize_precision' );
+		ini_set( 'serialize_precision', -1 );
 		$encoded = json_encode( [
 				'query' => $query->toArray(),
 				'rescore_query' => $rescore,
 				'highlight' => $context->getHighlight( $context->getResultsType() )
 			],
 			JSON_PRETTY_PRINT );
+		ini_set( 'serialize_precision', $serializePrecision );
+
 		$this->assertFileContains( $expected, $encoded );
 		$this->assertEquals( [], $context->getSuggest() );
 	}
