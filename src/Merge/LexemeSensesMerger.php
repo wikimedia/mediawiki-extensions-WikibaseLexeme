@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Merge;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

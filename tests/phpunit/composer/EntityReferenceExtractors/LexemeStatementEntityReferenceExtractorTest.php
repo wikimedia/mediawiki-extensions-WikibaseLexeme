@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\EntityReferenceExtractors;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;

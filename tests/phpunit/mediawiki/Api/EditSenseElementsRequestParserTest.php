@@ -8,7 +8,7 @@ use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequest;
 use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 
 /**

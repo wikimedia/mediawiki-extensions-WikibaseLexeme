@@ -7,7 +7,7 @@ use SearchEngine;
 use SearchIndexField;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Repo\Search\Elastic\Fields\TermIndexField;
 
 /**

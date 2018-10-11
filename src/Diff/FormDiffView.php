@@ -9,7 +9,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use MessageLocalizer;
 use MWException;
-use Wikibase\Lexeme\DataModel\Services\Diff\FormDiff;
+use Wikibase\Lexeme\Domain\DataModel\Services\Diff\FormDiff;
 use Wikibase\Repo\Diff\BasicDiffView;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;

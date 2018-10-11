@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Serializers\Serializer;
-use Wikibase\Lexeme\DataModel\Serialization\SenseSerializer;
+use Wikibase\Lexeme\Domain\DataModel\Serialization\SenseSerializer;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Serialization\SenseSerializer
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\SenseSerializer
  *
  * @license GPL-2.0-or-later
  */

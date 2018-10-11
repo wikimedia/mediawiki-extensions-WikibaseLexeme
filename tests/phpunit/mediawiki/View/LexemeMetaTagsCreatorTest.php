@@ -6,8 +6,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use RawMessage;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Lexeme\View\LexemeMetaTagsCreator;
 use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 

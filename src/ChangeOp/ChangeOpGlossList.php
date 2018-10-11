@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
-use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\Domain\DataModel\Sense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;

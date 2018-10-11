@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 use Eris\Generator;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormSet;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\FormSet;
 
 /**
  * @license GPL-2.0-or-later

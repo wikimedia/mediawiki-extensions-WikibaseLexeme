@@ -7,7 +7,7 @@ use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;

@@ -8,7 +8,7 @@ use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

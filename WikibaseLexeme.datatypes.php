@@ -18,9 +18,9 @@
  */
 
 use ValueFormatters\FormatterOptions;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Sense;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Sense;
 use Wikibase\Lexeme\Formatters\FormIdHtmlFormatter;
 use Wikibase\Lexeme\Formatters\FormIdTextFormatter;
 use Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter;

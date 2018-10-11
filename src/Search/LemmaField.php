@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Search;
 use CirrusSearch;
 use SearchEngine;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Repo\Search\Elastic\Fields\TermIndexField;
 
 /**

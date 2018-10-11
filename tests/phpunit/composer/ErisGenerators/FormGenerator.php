@@ -7,8 +7,8 @@ use Eris\Generator\ConstantGenerator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
 use Eris\Generator\SetGenerator;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 
 /**
  * @license GPL-2.0-or-later

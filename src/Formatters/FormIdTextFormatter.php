@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\Formatters;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\View\LocalizedTextProvider;
 

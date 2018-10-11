@@ -15,12 +15,12 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Services\Diff\LexemeDiff;
-use Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiff;
+use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemePatcher;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\LexemePatcher
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemePatcher
  *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>

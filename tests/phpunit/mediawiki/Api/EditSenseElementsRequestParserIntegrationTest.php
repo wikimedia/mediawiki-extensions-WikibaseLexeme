@@ -21,7 +21,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 use Wikibase\Lib\StaticContentLanguages;
 
 /**

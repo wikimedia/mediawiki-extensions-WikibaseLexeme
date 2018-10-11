@@ -4,14 +4,14 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\FormSet;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormSet;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Lexeme\DummyObjects\DummyFormId;
 use Wikibase\Lexeme\DummyObjects\NullFormId;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\FormSet
+ * @covers \Wikibase\Lexeme\Domain\DataModel\FormSet
  *
  * @license GPL-2.0-or-later
  */

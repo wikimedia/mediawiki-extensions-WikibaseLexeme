@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Serializers\Serializer;
-use Wikibase\Lexeme\DataModel\Serialization\FormSerializer;
+use Wikibase\Lexeme\Domain\DataModel\Serialization\FormSerializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Serialization\FormSerializer
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\FormSerializer
  *
  * @license GPL-2.0-or-later
  */
