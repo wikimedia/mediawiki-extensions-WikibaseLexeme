@@ -16,7 +16,7 @@ use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Store;
 
 /**
- * @covers \Wikibase\Lexeme\Api\EditFormElements
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\EditFormElements
  *
  * @license GPL-2.0-or-later
  *

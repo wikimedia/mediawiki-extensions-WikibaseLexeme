@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
 
 /**
- * @covers \Wikibase\Lexeme\Api\AddSense
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\AddSense
  *
  * @license GPL-2.0-or-later
  *

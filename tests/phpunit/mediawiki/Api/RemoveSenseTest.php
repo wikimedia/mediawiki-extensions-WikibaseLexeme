@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lib\Store\EntityRevision;
 
 /**
- * @covers \Wikibase\Lexeme\Api\RemoveSense
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveSense
  *
  * @license GPL-2.0-or-later
  *

@@ -11,11 +11,11 @@ use ReflectionClass;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
-use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField;
+use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidget;
+use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidgetField;
 
 /**
- * @covers \Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidgetField
+ * @covers \Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidgetField
  *
  * @license GPL-2.0-or-later
  */

@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsNotAnItemId;
 
 /**
  * @license GPL-2.0-or-later

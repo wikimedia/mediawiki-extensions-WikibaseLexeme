@@ -3,30 +3,30 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Api\Error\ApiError;
-use Wikibase\Lexeme\Api\Error\InvalidFormClaims;
-use Wikibase\Lexeme\Api\Error\InvalidItemId;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
-use Wikibase\Lexeme\Api\Error\LexemeNotFound;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\UnknownLanguage;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsNotAnItemId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\DataModel\LexemeId;
 
 /**
- * @covers \Wikibase\Lexeme\Api\Error\InvalidFormClaims
- * @covers \Wikibase\Lexeme\Api\Error\InvalidItemId
- * @covers \Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType
- * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId
- * @covers \Wikibase\Lexeme\Api\Error\JsonFieldIsRequired
- * @covers \Wikibase\Lexeme\Api\Error\LexemeNotFound
- * @covers \Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty
- * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject
- * @covers \Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId
- * @covers \Wikibase\Lexeme\Api\Error\UnknownLanguage
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsNotAnItemId
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage
  *
  * @license GPL-2.0-or-later
  */

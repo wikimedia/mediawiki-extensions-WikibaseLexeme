@@ -3,11 +3,11 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Summary;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Api\Summary\SummaryAggregator;
+use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\Api\Summary\SummaryAggregator
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator
  *
  * @license GPL-2.0-or-later
  */

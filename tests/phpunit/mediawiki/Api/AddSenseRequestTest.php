@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Api\AddSenseRequest;
+use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
@@ -13,7 +13,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\Api\AddSenseRequest
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest
  *
  * @license GPL-2.0-or-later
  */

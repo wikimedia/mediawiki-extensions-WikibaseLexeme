@@ -4,11 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
 use Message;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Specials\HTMLForm\LemmaLanguageField;
+use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 
 /**
- * @covers \Wikibase\Lexeme\Specials\HTMLForm\LemmaLanguageField
+ * @covers \Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField
  *
  * @license GPL-2.0-or-later
  */

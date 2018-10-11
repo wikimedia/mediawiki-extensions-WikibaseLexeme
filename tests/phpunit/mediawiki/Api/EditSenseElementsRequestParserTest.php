@@ -4,15 +4,15 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
-use Wikibase\Lexeme\Api\EditSenseElementsRequest;
-use Wikibase\Lexeme\Api\EditSenseElementsRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequest;
+use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**
- * @covers \Wikibase\Lexeme\Api\EditSenseElementsRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser
  *
  * @license GPL-2.0-or-later
  */

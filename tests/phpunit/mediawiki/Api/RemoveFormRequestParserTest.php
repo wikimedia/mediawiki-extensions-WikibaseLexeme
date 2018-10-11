@@ -6,13 +6,13 @@ use ApiMessage;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotFormId;
-use Wikibase\Lexeme\Api\RemoveFormRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
+use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequestParser;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
- * @covers \Wikibase\Lexeme\Api\RemoveFormRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequestParser
  *
  * @license GPL-2.0-or-later
  */

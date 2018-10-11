@@ -15,7 +15,7 @@ use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Store;
 
 /**
- * @covers \Wikibase\Lexeme\Api\EditSenseElements
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElements
  *
  * @license GPL-2.0-or-later
  *

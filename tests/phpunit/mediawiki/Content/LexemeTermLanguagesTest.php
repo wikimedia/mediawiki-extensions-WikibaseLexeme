@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
-use Wikibase\Lexeme\Content\LexemeTermLanguages;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Wikibase\Lexeme\Content\LexemeTermLanguages
+ * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages
  *
  * @license GPL-2.0-or-later
  */

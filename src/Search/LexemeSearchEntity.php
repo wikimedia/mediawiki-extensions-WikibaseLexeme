@@ -13,7 +13,7 @@ use Elastica\Query\Term;
 use Language;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\LanguageFallbackChainFactory;
-use Wikibase\Lexeme\Content\LexemeContent;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Store\PrefetchingTermLookup;

@@ -3,12 +3,12 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Api\RemoveFormRequest;
+use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\DataModel\FormId;
 
 /**
- * @covers \Wikibase\Lexeme\Api\RemoveFormRequest
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequest
  *
  * @license GPL-2.0-or-later
  */

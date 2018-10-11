@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Api\AddFormRequest;
+use Wikibase\Lexeme\MediaWiki\Api\AddFormRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
@@ -15,7 +15,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\Api\AddFormRequest
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\AddFormRequest
  *
  * @license GPL-2.0-or-later
  */

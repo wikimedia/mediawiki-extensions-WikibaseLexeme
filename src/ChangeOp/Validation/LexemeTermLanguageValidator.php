@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\ChangeOp\Validation;
 
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Api\Error\InvalidItemId;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\Api\Error\LexemeTermLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\UnknownLanguage;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lib\ContentLanguages;
 

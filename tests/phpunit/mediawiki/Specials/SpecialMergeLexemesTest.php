@@ -14,7 +14,7 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Specials\SpecialMergeLexemes;
+use Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityStore;
@@ -24,7 +24,7 @@ use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Specials\SpecialMergeLexemes
+ * @covers \Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes
  *
  * @group Database
  *

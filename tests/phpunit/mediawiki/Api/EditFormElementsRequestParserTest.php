@@ -4,15 +4,15 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
-use Wikibase\Lexeme\Api\EditFormElementsRequest;
-use Wikibase\Lexeme\Api\EditFormElementsRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
+use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**
- * @covers \Wikibase\Lexeme\Api\EditFormElementsRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser
  *
  * @license GPL-2.0-or-later
  */

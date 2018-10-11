@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\ChangeOp\ChangeOpsFormsEdit;

@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSense;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpsSensesEdit;

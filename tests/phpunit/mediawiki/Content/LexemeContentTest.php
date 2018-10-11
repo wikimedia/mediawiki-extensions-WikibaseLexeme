@@ -16,7 +16,7 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Content\LexemeContent;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
@@ -28,7 +28,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Repo\Content\EntityContentDiff;
 
 /**
- * @covers \Wikibase\Lexeme\Content\LexemeContent
+ * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeContent
  *
  * @license GPL-2.0-or-later
  */

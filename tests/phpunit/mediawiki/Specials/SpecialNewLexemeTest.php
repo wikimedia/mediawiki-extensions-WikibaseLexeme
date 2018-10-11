@@ -10,7 +10,7 @@ use User;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\Specials\SpecialNewLexeme;
+use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\Tests\NewItem;
@@ -19,7 +19,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Specials\SpecialNewLexeme
+ * @covers \Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme
  *
  * @group SpecialPage
  * @group WikibaseSpecialPage

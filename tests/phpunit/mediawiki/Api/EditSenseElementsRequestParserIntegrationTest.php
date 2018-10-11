@@ -7,15 +7,15 @@ use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
-use Wikibase\Lexeme\Api\EditSenseElementsRequestParser;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
-use Wikibase\Lexeme\Api\Error\LanguageInconsistent;
-use Wikibase\Lexeme\Api\Error\LexemeTermLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotSenseId;
-use Wikibase\Lexeme\Api\Error\UnknownLanguage;
+use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LanguageInconsistent;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
@@ -25,7 +25,7 @@ use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lib\StaticContentLanguages;
 
 /**
- * @covers \Wikibase\Lexeme\Api\EditSenseElementsRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser
  *
  * @license GPL-2.0-or-later
  */
