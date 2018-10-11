@@ -122,8 +122,8 @@ class FormSetTest extends TestCase {
 	 * or one-by-one through id, where order is irrelevant.
 	 */
 	public function testToArray_ReturnedFormsAreSortedByTheirId() {
-		$form1 = NewForm::havingId( 'F1' )->build();
-		$form2 = NewForm::havingId( 'F2' )->build();
+		$form1 = NewForm::havingId( 'F2' )->build();
+		$form2 = NewForm::havingId( 'F12' )->build();
 
 		$formSet2 = new FormSet( [ $form2, $form1 ] );
 

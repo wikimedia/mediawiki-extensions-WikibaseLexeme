@@ -35,9 +35,24 @@ class FormSet implements Countable, Comparable {
 	 * @return Form[]
 	 */
 	public function toArray() {
-		$forms = $this->forms;
-		ksort( $forms );
+		$forms = $this->sortForms( $this->forms );
 		return array_values( $forms );
+	}
+
+	/**
+	 * @param Form[] $forms
+	 * @return array sorted array mapping numeric id to the form
+	 */
+	private function sortForms( array $forms ) {
+		$sortedForms = [];
+		foreach ( $forms as $form ) {
+			$formIdPart = explode( '-', $form->getId()->getSerialization() )[1];
+			$formIdNumber = (int)substr( $formIdPart, 1 );
+			$sortedForms[$formIdNumber] = $form;
+		}
+		ksort( $sortedForms );
+
+		return $sortedForms;
 	}
 
 	/**
