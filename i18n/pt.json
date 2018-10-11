@@ -103,6 +103,7 @@
 	"wikibaselexeme-api-error-sense-must-have-at-least-one-gloss": "O sentido tem de ter pelo menos uma glosa",
 	"wikibaselexeme-api-error-unknown-language": "A língua \"$3\" no campo \"$1\" em \"$2\" é desconhecida.",
 	"wikibaselexeme-api-error-invalid-item-id": "O identificador de elemento \"$3\" no campo \"$1\" em \"$2\" é inválido.",
+	"wikibaselexeme-api-error-invalid-form-claims": "Há alegações inválidas no campo \"$1\" em \"$2\".",
 	"wikibase-lexeme-summary-add-form": "Adição da nova forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-remove-form": "Remoção da forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-update-form-representations": "Alteração das representações ou funcionalidades gramaticais da forma $3",
