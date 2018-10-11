@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\EntityReferenceExtractors;
+namespace Wikibase\Lexeme\Domain\EntityReferenceExtractors;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
@@ -10,11 +10,11 @@ use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikimedia\Assert\Assert;
 
 /**
- * Extracts the referenced entity ids of each lexeme's forms' statements
+ * Extracts the referenced entity ids of each lexeme's senses' statements
  *
  * @license GPL-2.0-or-later
  */
-class FormsStatementEntityReferenceExtractor implements EntityReferenceExtractor {
+class SensesStatementEntityReferenceExtractor implements EntityReferenceExtractor {
 
 	/**
 	 * @var StatementEntityReferenceExtractor
@@ -37,10 +37,10 @@ class FormsStatementEntityReferenceExtractor implements EntityReferenceExtractor
 		$ids = [];
 
 		/** @var Lexeme $lexeme */
-		foreach ( $lexeme->getForms()->toArray() as $form ) {
+		foreach ( $lexeme->getSenses()->toArray() as $sense ) {
 			$ids = array_merge(
 				$ids,
-				$this->statementEntityReferenceExtractor->extractEntityIds( $form )
+				$this->statementEntityReferenceExtractor->extractEntityIds( $sense )
 			);
 		}
 

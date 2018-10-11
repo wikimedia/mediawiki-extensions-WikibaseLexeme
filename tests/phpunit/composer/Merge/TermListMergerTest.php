@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\Tests\Merge;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Merge\TermListMerger;
+use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\TermListMerger
+ * @covers \Wikibase\Lexeme\Domain\Merge\TermListMerger
  *
  * @license GPL-2.0-or-later
  */

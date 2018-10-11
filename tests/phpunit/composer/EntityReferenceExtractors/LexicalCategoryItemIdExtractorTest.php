@@ -7,11 +7,11 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\EntityReferenceExtractors\LexicalCategoryItemIdExtractor
+ * @covers \Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexicalCategoryItemIdExtractor
  *
  * @license GPL-2.0-or-later
  */

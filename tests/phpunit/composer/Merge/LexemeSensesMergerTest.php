@@ -5,14 +5,14 @@ namespace Wikibase\Lexeme\Tests\Merge;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Merge\LexemeSensesMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\LexemeSensesMerger
+ * @covers \Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger
  *
  * @license GPL-2.0-or-later
  */

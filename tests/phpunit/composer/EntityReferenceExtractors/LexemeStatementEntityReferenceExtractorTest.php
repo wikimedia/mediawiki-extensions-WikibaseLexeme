@@ -5,14 +5,14 @@ namespace Wikibase\Lexeme\Tests\EntityReferenceExtractors;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 
 /**
- * @covers \Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor
+ * @covers \Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor
  *
  * @license GPL-2.0-or-later
  */

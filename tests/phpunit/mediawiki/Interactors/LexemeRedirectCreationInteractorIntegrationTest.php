@@ -7,7 +7,7 @@ use Status;
 use Title;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\FormatableSummary;
@@ -19,7 +19,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor
+ * @covers \Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor
  *
  * @group Database
  *

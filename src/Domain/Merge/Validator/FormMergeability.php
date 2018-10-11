@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Merge\Validator;
+namespace Wikibase\Lexeme\Domain\Merge\Validator;
 
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Form;

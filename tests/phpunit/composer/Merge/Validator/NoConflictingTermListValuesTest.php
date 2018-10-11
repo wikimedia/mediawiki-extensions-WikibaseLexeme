@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\Tests\Merge\Validator;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Merge\Validator\NoConflictingTermListValues;
+use Wikibase\Lexeme\Domain\Merge\Validator\NoConflictingTermListValues;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\Validator\NoConflictingTermListValues
+ * @covers \Wikibase\Lexeme\Domain\Merge\Validator\NoConflictingTermListValues
  *
  * @license GPL-2.0-or-later
  */

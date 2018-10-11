@@ -10,13 +10,13 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 
 /**
- * @covers \Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor
+ * @covers \Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor
  *
  * @license GPL-2.0-or-later
  */

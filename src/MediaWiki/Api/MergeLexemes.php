@@ -9,7 +9,7 @@ use Exception;
 use InvalidArgumentException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
-use Wikibase\Lexeme\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\WikibaseRepo;

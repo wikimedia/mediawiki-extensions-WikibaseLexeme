@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\EntityReferenceExtractors;
+namespace Wikibase\Lexeme\Domain\EntityReferenceExtractors;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;

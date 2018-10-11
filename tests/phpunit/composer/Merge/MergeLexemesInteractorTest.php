@@ -13,12 +13,12 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Merge\LexemeFormsMerger;
-use Wikibase\Lexeme\Merge\LexemeMerger;
-use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
-use Wikibase\Lexeme\Merge\LexemeSensesMerger;
-use Wikibase\Lexeme\Merge\TermListMerger;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
+use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Lib\Store\EntityRevision;
@@ -169,7 +169,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException
 	 */
 	public function testGivenIdenticalLexemeIds_throwsException() {
 		$this->targetLexeme = $this->sourceLexeme->copy();
@@ -179,7 +179,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\MergingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException
 	 */
 	public function testGivenLexemeMergerThrowsException_exceptionBubblesUp() {
 		$this->lexemeMerger->expects( $this->once() )
@@ -191,7 +191,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\PermissionDeniedException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\PermissionDeniedException
 	 */
 	public function testGivenUserDoesNotHavePermission_throwsException() {
 		$this->permissionChecker = $this->newForbiddingMockEntityPermissionChecker();
@@ -201,7 +201,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeNotFoundException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException
 	 */
 	public function testGivenSourceNotFound_throwsException() {
 		$this->entityRevisionLookup->method( 'getEntityRevision' )
@@ -213,7 +213,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeNotFoundException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException
 	 */
 	public function testGivenTargetNotFound_throwsException() {
 		$this->entityRevisionLookup->method( 'getEntityRevision' )
@@ -227,7 +227,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	/**
 	 * @dataProvider loadEntityExceptionProvider
 	 *
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeLoadingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException
 	 */
 	public function testGivenExceptionInLoadEntity_throwsAppropriateException( $exception ) {
 		$this->entityRevisionLookup->method( 'getEntityRevision' )
@@ -248,7 +248,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\LexemeSaveFailedException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException
 	 */
 	public function testGivenEntitySaveFails_throwsException() {
 		$this->entityStore->method( 'saveEntity' )
