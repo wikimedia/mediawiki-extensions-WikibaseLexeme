@@ -15,12 +15,12 @@ use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
-use Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter;
+use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter
+ * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter
  *
  * @license GPL-2.0-or-later
  */

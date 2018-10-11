@@ -16,14 +16,14 @@ use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
-use Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter;
+use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter
+ * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter
  *
  * @license GPL-2.0-or-later
  */
