@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Formatters\LexemeTermFormatter
+ * @covers \Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter
  * @license GPL-2.0-or-later
  */
 class LexemeTermFormatterTest extends TestCase {

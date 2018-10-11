@@ -9,7 +9,7 @@ use Wikibase\LanguageFallbackChain;
 use Wikibase\LanguageWithConversion;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Formatters\SenseIdHtmlFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\LanguageFallbackIndicator;
@@ -20,7 +20,7 @@ use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\Formatters\SenseIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */

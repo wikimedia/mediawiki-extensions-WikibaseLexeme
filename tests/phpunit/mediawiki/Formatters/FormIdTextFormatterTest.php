@@ -11,13 +11,13 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Formatters\FormIdTextFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\FormIdTextFormatter;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\Formatters\FormIdTextFormatter
+ * @covers \Wikibase\Lexeme\Presentation\Formatters\FormIdTextFormatter
  *
  * @license GPL-2.0-or-later
  */

@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Formatters;
+namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;

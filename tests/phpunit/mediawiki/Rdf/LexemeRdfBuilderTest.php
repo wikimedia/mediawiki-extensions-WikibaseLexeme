@@ -8,7 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Rdf\LexemeRdfBuilder;
+use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\HashDedupeBag;
@@ -21,7 +21,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
- * @covers \Wikibase\Lexeme\Rdf\LexemeRdfBuilder
+ * @covers \Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder
  *
  * @group WikibaseRdf
  *
@@ -71,7 +71,7 @@ class LexemeRdfBuilderTest extends TestCase {
 	 */
 	private function newBuilder( RdfWriter $writer, EntityMentionListener $entityMentionTracker ) {
 		$vocabulary = $this->getTestData()->getVocabulary();
-		$builder = new LexemeRdfBuilder(
+		$builder = new \Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder(
 			$vocabulary,
 			$writer,
 			$entityMentionTracker

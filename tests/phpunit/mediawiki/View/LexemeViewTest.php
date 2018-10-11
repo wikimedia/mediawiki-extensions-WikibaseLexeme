@@ -17,7 +17,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;

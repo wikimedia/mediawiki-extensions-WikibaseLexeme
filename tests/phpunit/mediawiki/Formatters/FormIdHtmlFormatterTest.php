@@ -12,15 +12,15 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Formatters\FormIdHtmlFormatter;
-use Wikibase\Lexeme\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\FormIdHtmlFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\Formatters\FormIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Presentation\Formatters\FormIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */

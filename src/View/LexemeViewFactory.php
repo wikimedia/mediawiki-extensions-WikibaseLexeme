@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\View;
 use Language;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
-use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;

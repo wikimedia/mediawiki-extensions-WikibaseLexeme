@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Rdf;
+namespace Wikibase\Lexeme\Presentation\Rdf;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;

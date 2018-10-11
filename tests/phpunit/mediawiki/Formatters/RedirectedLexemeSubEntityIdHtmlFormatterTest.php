@@ -10,12 +10,12 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lib\Store\EntityTitleLookup;
 
 /**
- * @covers \Wikibase\Lexeme\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */

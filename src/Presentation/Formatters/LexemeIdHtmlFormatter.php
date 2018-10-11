@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Formatters;
+namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Html;
 use InvalidArgumentException;

@@ -14,7 +14,7 @@ use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;

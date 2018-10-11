@@ -10,13 +10,13 @@ use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers \Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter
+ * @covers \Wikibase\Lexeme\Presentation\Formatters\LexemeIdHtmlFormatter
  *
  * @license GPL-2.0-or-later
  */
