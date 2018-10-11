@@ -510,7 +510,7 @@ return call_user_func( function() {
 			]
 		],
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig" => $moduleTemplate + [
-			"class" => "Wikibase\\Lexeme\\Config\\LexemeLanguageCodePropertyIdConfig"
+			"class" => "Wikibase\\Lexeme\\MediaWiki\\Config\\LexemeLanguageCodePropertyIdConfig"
 		],
 		"wikibase.experts.Lexeme" => $moduleTemplate + [
 			"scripts" => [

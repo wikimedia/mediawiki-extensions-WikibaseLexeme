@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Config;
+namespace Wikibase\Lexeme\MediaWiki\Config;
 
 use MediaWiki\MediaWikiServices;
 use ResourceLoaderContext;
