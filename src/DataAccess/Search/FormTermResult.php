@@ -1,22 +1,23 @@
 <?php
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
-use CirrusSearch\Search\EmptyResultSet;
 use CirrusSearch\Search\ResultsType;
 use CirrusSearch\Search\SearchContext;
 use Elastica\ResultSet;
 use Language;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\Search\Elastic\EntitySearchUtils;
 
 /**
- * This result type implements the result for searching a Lexeme for fulltext search.
+ * This result type implements the result for searching a Wikibase Form.
  *
  * @license GPL-2.0-or-later
  * @author Stas Malyshev
  */
-class LexemeFulltextResult implements ResultsType {
+class FormTermResult implements ResultsType {
 
 	/**
 	 * @var EntityIdParser
@@ -32,21 +33,34 @@ class LexemeFulltextResult implements ResultsType {
 	 * @var LanguageFallbackLabelDescriptionLookupFactory
 	 */
 	private $termLookupFactory;
+	/**
+	 * Cache for Lexeme descriptions
+	 * @var string[]
+	 */
+	private $lexemeDescriptions = [];
+	/**
+	 * Limit how many results to produce
+	 * @var int
+	 */
+	private $limit;
 
 	/**
 	 * @param EntityIdParser $idParser
 	 * @param Language $displayLanguage User display language
 	 * @param LanguageFallbackLabelDescriptionLookupFactory $termLookupFactory
 	 *        Lookup factory for assembling descriptions
+	 * @param int $limit How many results to produce
 	 */
 	public function __construct(
 		EntityIdParser $idParser,
 		Language $displayLanguage,
-		LanguageFallbackLabelDescriptionLookupFactory $termLookupFactory
+		LanguageFallbackLabelDescriptionLookupFactory $termLookupFactory,
+		$limit
 	) {
 		$this->idParser = $idParser;
 		$this->termLookupFactory = $termLookupFactory;
 		$this->displayLanguage = $displayLanguage;
+		$this->limit = $limit;
 	}
 
 	/**
@@ -61,8 +75,7 @@ class LexemeFulltextResult implements ResultsType {
 				LemmaField::NAME,
 				LexemeLanguageField::NAME,
 				LexemeCategoryField::NAME,
-				FormsField::NAME,
-				'statement_count',
+				FormsField::NAME
 		];
 	}
 
@@ -97,33 +110,17 @@ class LexemeFulltextResult implements ResultsType {
 			'post_tags' => [ '' ],
 			'fields' => [],
 		];
-		$config['fields']['title'] = [
-			'type' => 'experimental',
-			'fragmenter' => "none",
-			'number_of_fragments' => 0,
-			'matched_fields' => [ 'title.keyword' ]
-		];
 		$config['fields']['lexeme_forms.id'] = [
 			'type' => 'experimental',
 			'fragmenter' => "none",
 			'number_of_fragments' => 0,
-			'options' => [
-				'skip_if_last_matched' => true,
-			],
-		];
-		$config['fields']["lemma"] = [
-			'type' => 'experimental',
-			'fragmenter' => "none",
-			'number_of_fragments' => 0,
-			'options' => [
-				'skip_if_last_matched' => true,
-			],
 		];
 		$config['fields']["lexeme_forms.representation"] = [
 			'type' => 'experimental',
 			'fragmenter' => "none",
 			'number_of_fragments' => 30,
 			'fragment_size' => 1000, // Hopefully this is enough
+			'matched_fields' => [ 'lexeme_forms.representation.prefix' ],
 			'options' => [
 				'skip_if_last_matched' => true,
 			],
@@ -133,12 +130,12 @@ class LexemeFulltextResult implements ResultsType {
 	}
 
 	/**
-	 * Produce raw result for Form ID match.
+	 * Produce raw result for ID-type match.
 	 * @param string[][] $highlight Highlighter data
 	 * @param array $sourceData Lexeme source data
 	 * @return array|null Null if match is bad
 	 */
-	private function getFormIdResult( $highlight, $sourceData ) {
+	private function getIdResult( $highlight, $sourceData ) {
 		$formId = $highlight['lexeme_forms.id'][0];
 		$formIdParsed = EntitySearchUtils::parseOrNull( $formId, $this->idParser );
 		if ( !$formIdParsed ) {
@@ -164,59 +161,56 @@ class LexemeFulltextResult implements ResultsType {
 		}
 
 		return [
-			'formId' => $formId,
+			'id' => $formIdParsed,
 			'representation' => $repr,
 			'features' => $features,
+			'term' => new Term( 'qid', $formId ),
+			'type' => 'entityId',
 		];
 	}
 
 	/**
-	 * Get data for specific form match from source data
-	 * @param array[] $sourceForms 'forms' field of the source data
-	 * @param string[] $highlight Highlighter data about match
+	 * Get data for specific form
+	 * @param string[][] $highlight  Highlighter data
+	 * @param array $form Form source data
+	 * @param string $lemmaCode Language code for main lemma
 	 * @return array|null Null if match is bad
 	 */
-	private function getFormRepresentationResult( $sourceForms, $highlight ) {
-		foreach ( $sourceForms as $form ) {
-			$reprMatches = array_intersect( $form['representation'],
-				$highlight );
-			if ( !$reprMatches ) {
-				continue;
-			}
-			// matches the data
-			$formIdParsed = EntitySearchUtils::parseOrNull( $form['id'], $this->idParser );
-			if ( !$formIdParsed ) {
-				// Got some bad id?? Weird.
-				continue;
-			}
-			// Convert features to EntityId's
-			$featureIds = array_filter( array_map( function ( $featureId ) {
-				return EntitySearchUtils::parseOrNull( $featureId, $this->idParser );
-			}, $form['features'] ) );
-
-			return [
-				'formId' => $formIdParsed,
-				'representation' => reset( $reprMatches ),
-				'features' => $featureIds,
-			];
+	private function getRepresentationResult( $highlight, $form, $lemmaCode ) {
+		$reprMatches = array_intersect( $form['representation'],
+			$highlight['lexeme_forms.representation'] );
+		if ( !$reprMatches ) {
+			return null;
 		}
-		// Didn't find anything
-		return null;
+		// matches the data
+		$formIdParsed = EntitySearchUtils::parseOrNull( $form['id'], $this->idParser );
+		if ( !$formIdParsed ) {
+			// Got some bad id?? Weird.
+			return null;
+		}
+		// Convert features to EntityId's
+		$featureIds = array_filter( array_map( function ( $featureId ) {
+			return EntitySearchUtils::parseOrNull( $featureId, $this->idParser );
+		}, $form['features'] ) );
+		return [
+			'id' => $formIdParsed,
+			// TODO: how we choose the best one of many?
+			'representation' => reset( $form['representation'] ),
+			'features' => $featureIds,
+			// TODO: This may not be true, since matched representation can be
+			// from another language...Not sure what to do about it.
+			'term' => new Term( $lemmaCode, reset( $reprMatches ) ),
+			'type' => 'label',
+		];
 	}
 
 	/**
-	 * Convert search result from ElasticSearch result set to LexemeResultSet.
-	 *
-	 * The data inside the set are not rendered yet, but the set is configured with
-	 * the label lookup that has necessary item labels already loaded.
-	 *
+	 * Convert search result from ElasticSearch result set to TermSearchResult.
 	 * @param SearchContext $context
-	 * @param ResultSet $result ElasticSearch results
-	 * @return \SearchResultSet
+	 * @param ResultSet $result
+	 * @return TermSearchResult[] Set of search results, the types of which vary by implementation.
 	 */
-	public function transformElasticsearchResult(
-		SearchContext $context, ResultSet $result
-	) {
+	public function transformElasticsearchResult( SearchContext $context, ResultSet $result ) {
 		$rawResults = $entityIds = [];
 		foreach ( $result->getResults() as $r ) {
 			$sourceData = $r->getSource();
@@ -240,40 +234,39 @@ class LexemeFulltextResult implements ResultsType {
 			$features = [];
 			$lexemeData = [
 				'lexemeId' => $entityId,
-				// Having empty lemma is unusual, but in theory possible
-				'lemma' => empty( $sourceData['lemma'] ) ? '' : $sourceData['lemma'][0],
+				'lemma' => $sourceData['lemma'][0],
 				'lang' => $lang,
 				'langcode' => $lemmaCode,
-				'category' => $category,
-				'elasticResult' => $r
+				'category' => $category
 			];
-
+			// Doing two-stage resolution here since we want to prefetch all labels for
+			// auxiliary entities before using them to construct descriptions.
 			if ( !empty( $highlight['lexeme_forms.id'] ) ) {
 				// If we matched Form ID, this means it's a match by ID
-
-				$idResult = $this->getFormIdResult( $highlight, $sourceData );
+				$idResult = $this->getIdResult( $highlight, $sourceData );
 				if ( !$idResult ) {
 					continue;
 				}
 
-				$lexemeData = $idResult + $lexemeData;
+				$rawResults[$highlight['lexeme_forms.id'][0]] = $idResult + $lexemeData;
 				$features = array_merge( $features, $idResult['features'] );
-			} elseif ( !empty( $highlight['lemma'] ) ) {
-				// TODO: make result display highlight this
-				$lexemeData['matchedLemma'] = $highlight['lemma'][0];
-			} elseif ( !empty( $highlight["lexeme_forms.representation"] ) ) {
-				// For now, find the first form that matches
-				$formResult = $this->getFormRepresentationResult( $sourceData['lexeme_forms'],
-						$highlight['lexeme_forms.representation'] );
-				if ( $formResult ) {
-					$lexemeData = $formResult + $lexemeData;
+			} elseif ( !empty( $highlight['lexeme_forms.representation'] ) ) {
+				// We matched form representation, let's see which ones we've got
+				// Find all forms whose representations match what we have found.
+				// Note this can be more than one.
+				foreach ( $sourceData['lexeme_forms'] as $form ) {
+					$formResult = $this->getRepresentationResult( $highlight, $form, $lemmaCode );
+					if ( !$formResult ) {
+						continue;
+					}
+					$rawResults[$form['id']] = $formResult + $lexemeData;
 					$features = array_merge( $features, $formResult['features'] );
 				}
+			} else {
+				// TODO: No data to match, skip it. Should we report something?
+				continue;
 			}
 
-			// Doing two-stage resolution here since we want to prefetch all labels for
-			// auxiliary entities before using them to construct descriptions.
-			$rawResults[$entityId->getSerialization()] = $lexemeData;
 			$entityIds[$lang] = EntitySearchUtils::parseOrNull( $lang, $this->idParser );
 			$entityIds[$category] = EntitySearchUtils::parseOrNull( $category, $this->idParser );
 			foreach ( $features as $feature ) {
@@ -281,20 +274,54 @@ class LexemeFulltextResult implements ResultsType {
 			}
 		}
 
+		$langCode = $this->displayLanguage->getCode();
 		if ( empty( $rawResults ) ) {
-			return new EmptyResultSet();
+			return [];
 		}
 		// Create prefetched lookup
 		$termLookup = $this->termLookupFactory->newLabelDescriptionLookup( $this->displayLanguage,
 			array_filter( $entityIds ) );
 		$descriptionMaker = new LexemeDescription( $termLookup, $this->idParser,
 			$this->displayLanguage );
-
-		return new LexemeResultSet( $result, $this->displayLanguage, $descriptionMaker, $rawResults );
+		// Create full descriptions and instantiate TermSearchResult objects
+		return array_map(
+			function ( $raw ) use ( $descriptionMaker, $langCode ) {
+				return $this->produceTermResult( $descriptionMaker, $langCode, $raw );
+			},
+			array_slice( $rawResults, 0, $this->limit )
+		);
 	}
 
 	/**
-	 * @return array Empty set of search results
+	 * Produce TermSearchResult from raw result data.
+	 * @param LexemeDescription $descriptionMaker
+	 * @param string $langCode
+	 * @param array $raw
+	 * @return TermSearchResult
+	 * @throws \MWException
+	 */
+	private function produceTermResult(
+		LexemeDescription $descriptionMaker,
+		$langCode,
+		array $raw
+	) {
+		return new TermSearchResult(
+			$raw['term'],
+			$raw['type'],
+			$raw['id'],
+			// We are lying somewhat here, as description might be from fallback languages,
+			// but I am not sure there's any better way here.
+			new Term( $raw['langcode'], $raw['representation'] ),
+			new Term( $langCode,
+				$descriptionMaker->createFormDescription(
+					$raw['lexemeId'], $raw['features'], $raw['lemma'], $raw['lang'],
+					$raw['category']
+				) )
+		);
+	}
+
+	/**
+	 * @return TermSearchResult[] Empty set of search results
 	 */
 	public function createEmptyResult() {
 		return [];

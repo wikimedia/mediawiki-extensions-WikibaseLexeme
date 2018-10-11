@@ -7,7 +7,7 @@ use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\DummyObjects\NullSenseId;
-use Wikibase\Lexeme\Store\SenseRevisionLookup;
+use Wikibase\Lexeme\DataAccess\Store\SenseRevisionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
@@ -16,7 +16,7 @@ use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Store\SenseRevisionLookup
+ * @covers \Wikibase\Lexeme\DataAccess\Store\SenseRevisionLookup
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

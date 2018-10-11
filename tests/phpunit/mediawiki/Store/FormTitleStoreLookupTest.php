@@ -7,12 +7,12 @@ use PHPUnit4And6Compat;
 use Title;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Store\FormTitleStoreLookup;
+use Wikibase\Lexeme\DataAccess\Store\FormTitleStoreLookup;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Store\FormTitleStoreLookup
+ * @covers \Wikibase\Lexeme\DataAccess\Store\FormTitleStoreLookup
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

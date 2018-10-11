@@ -1,5 +1,5 @@
 <?php
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;

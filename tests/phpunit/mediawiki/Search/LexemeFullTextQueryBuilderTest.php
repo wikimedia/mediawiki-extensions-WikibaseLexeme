@@ -9,10 +9,10 @@ use CirrusSearch\SearchConfig;
 use Language;
 use MediaWikiTestCase;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\Lexeme\Search\LexemeFullTextQueryBuilder;
+use Wikibase\Lexeme\DataAccess\Search\LexemeFullTextQueryBuilder;
 
 /**
- * @covers \Wikibase\Lexeme\Search\LexemeFullTextQueryBuilder
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeFullTextQueryBuilder
  */
 class LexemeFullTextQueryBuilderTest extends MediaWikiTestCase {
 	use LexemeDescriptionTest;

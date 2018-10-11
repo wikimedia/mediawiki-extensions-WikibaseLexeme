@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Store;
+namespace Wikibase\Lexeme\DataAccess\Store;
 
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;

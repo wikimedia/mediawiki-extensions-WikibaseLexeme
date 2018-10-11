@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 use CirrusSearch\CirrusDebugOptions;
 use Language;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
-use Wikibase\Lexeme\Search\FormSearchEntity;
-use Wikibase\Lexeme\Search\LexemeSearchEntity;
+use Wikibase\Lexeme\DataAccess\Search\FormSearchEntity;
+use Wikibase\Lexeme\DataAccess\Search\LexemeSearchEntity;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Search\LexemeSearchEntity
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeSearchEntity
  */
 class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 

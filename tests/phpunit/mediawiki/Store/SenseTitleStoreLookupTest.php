@@ -7,12 +7,12 @@ use PHPUnit4And6Compat;
 use Title;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Store\SenseTitleStoreLookup;
+use Wikibase\Lexeme\DataAccess\Store\SenseTitleStoreLookup;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Store\SenseTitleStoreLookup
+ * @covers \Wikibase\Lexeme\DataAccess\Store\SenseTitleStoreLookup
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

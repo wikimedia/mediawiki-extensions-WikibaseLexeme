@@ -46,9 +46,9 @@ use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
-use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
-use Wikibase\Lexeme\Store\NullLabelDescriptionLookup;
+use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Rdf\DedupeBag;
@@ -251,7 +251,7 @@ return [
 			$repoSettings = $repo->getSettings();
 			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
 			if ( $searchSettings['useCirrus'] ) {
-				return new \Wikibase\Lexeme\Search\LexemeSearchEntity(
+				return new \Wikibase\Lexeme\DataAccess\Search\LexemeSearchEntity(
 					$repo->getEntityIdParser(),
 					$request,
 					$repo->getUserLanguage(),
@@ -346,7 +346,7 @@ return [
 			$repoSettings = $repo->getSettings();
 			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
 			if ( $searchSettings['useCirrus'] ) {
-				return new \Wikibase\Lexeme\Search\FormSearchEntity(
+				return new \Wikibase\Lexeme\DataAccess\Search\FormSearchEntity(
 					$repo->getEntityIdParser(),
 					$request,
 					$repo->getUserLanguage(),

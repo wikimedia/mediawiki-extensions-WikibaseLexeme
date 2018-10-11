@@ -16,7 +16,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;

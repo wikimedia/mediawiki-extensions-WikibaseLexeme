@@ -5,10 +5,10 @@ use CirrusSearch\Search\SearchContext;
 use Elastica\Result;
 use Elastica\ResultSet;
 use Language;
-use Wikibase\Lexeme\Search\LexemeTermResult;
+use Wikibase\Lexeme\DataAccess\Search\LexemeTermResult;
 
 /**
- * @covers \Wikibase\Lexeme\Search\LexemeTermResult
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeTermResult
  */
 class LexemeTermResultTest extends \MediaWikiTestCase {
 	use LexemeDescriptionTest;

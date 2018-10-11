@@ -7,17 +7,17 @@ use Elastica\Result;
 use Elastica\ResultSet;
 use Language;
 use MediaWikiTestCase;
-use Wikibase\Lexeme\Search\LexemeFulltextResult;
-use Wikibase\Lexeme\Search\LexemeResult;
-use Wikibase\Lexeme\Search\LexemeResultSet;
+use Wikibase\Lexeme\DataAccess\Search\LexemeFulltextResult;
+use Wikibase\Lexeme\DataAccess\Search\LexemeResult;
+use Wikibase\Lexeme\DataAccess\Search\LexemeResultSet;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 // phpcs:disable Generic.Files.LineLength.MaxExceeded
 // We need long template strings here...
 /**
- * @covers \Wikibase\Lexeme\Search\LexemeFulltextResult
- * @covers \Wikibase\Lexeme\Search\LexemeResult
- * @covers \Wikibase\Lexeme\Search\LexemeResultSet
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeFulltextResult
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeResult
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeResultSet
  */
 class LexemeFulltextResultTest extends MediaWikiTestCase {
 	use LexemeDescriptionTest;

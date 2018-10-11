@@ -11,10 +11,10 @@ use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\Lexeme\Search\LexemeLanguageField;
+use Wikibase\Lexeme\DataAccess\Search\LexemeLanguageField;
 
 /**
- * @covers \Wikibase\Lexeme\Search\LexemeLanguageField
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeLanguageField
  */
 class LexemeLanguageFieldTest extends LexemeFieldTest {
 

@@ -1,6 +1,7 @@
 <?php
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
+use CirrusSearch\CirrusDebugOptions;
 use CirrusSearch\Search\ResultsType;
 use CirrusSearch\Search\SearchContext;
 use Elastica\Query\AbstractQuery;
@@ -9,28 +10,69 @@ use Elastica\Query\DisMax;
 use Elastica\Query\Match;
 use Elastica\Query\MatchNone;
 use Elastica\Query\Term;
+use Language;
+use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\LanguageFallbackChainFactory;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lib\Interactors\TermSearchResult;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\PrefetchingTermLookup;
+use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\Search\Elastic\EntitySearchElastic;
 use Wikibase\Repo\Search\Elastic\EntitySearchUtils;
+use Wikibase\Repo\Search\Elastic\WikibasePrefixSearcher;
 
 /**
- * Search for entity of type form.
+ * Implementation of ElasticSearch prefix/completion search for Lexemes
  *
  * @license GPL-2.0-or-later
  * @author Stas Malyshev
  */
-class FormSearchEntity extends LexemeSearchEntity {
+class LexemeSearchEntity implements EntitySearchHelper {
+	const CONTEXT_LEXEME_PREFIX = 'lexeme_prefix';
+
 	/**
-	 * Search limit.
-	 * @var int
+	 * @var EntityIdParser
 	 */
-	private $limit;
+	protected $idParser;
+	/**
+	 * Web request context.
+	 * Used for implementing debug features such as cirrusDumpQuery.
+	 * @var \WebRequest
+	 */
+	private $request;
+	/**
+	 * @var Language
+	 */
+	protected $userLanguage;
+	/**
+	 * @var LanguageFallbackLabelDescriptionLookupFactory
+	 */
+	protected $lookupFactory;
+
+	/**
+	 * @var CirrusDebugOptions|null
+	 */
+	private $debugOptions;
+
+	public function __construct(
+		EntityIdParser $idParser,
+		\WebRequest $request,
+		Language $userLanguage,
+		LanguageFallbackChainFactory $languageFallbackChainFactory,
+		PrefetchingTermLookup $termLookup,
+		CirrusDebugOptions $options = null
+	) {
+		$this->idParser = $idParser;
+		$this->request = $request;
+		$this->userLanguage = $userLanguage;
+		$this->lookupFactory = new LanguageFallbackLabelDescriptionLookupFactory(
+			$languageFallbackChainFactory, $termLookup, $termLookup );
+		$this->debugOptions = $options ?? CirrusDebugOptions::fromRequest( $this->request );
+	}
 
 	/**
 	 * Produce ES query that matches the arguments.
-	 * This is search for forms - matches only form representations
-	 * but not lexemes.
 	 *
 	 * @param string $text
 	 * @param string $entityType
@@ -44,8 +86,7 @@ class FormSearchEntity extends LexemeSearchEntity {
 		SearchContext $context
 	) {
 		$context->setOriginalSearchTerm( $text );
-		// TODO consider using Form::ENTITY_TYPE
-		if ( $entityType !== 'form' ) {
+		if ( $entityType !== 'lexeme' ) {
 			$context->setResultsPossible( false );
 			$context->addWarning( 'wikibase-search-bad-entity-type', $entityType );
 			return new MatchNone();
@@ -54,7 +95,7 @@ class FormSearchEntity extends LexemeSearchEntity {
 		$textExact = ltrim( $text );
 		$text = trim( $text );
 
-		$labelsFilter = new Match( 'lexeme_forms.representation.prefix', $text );
+		$labelsFilter = new Match( 'labels_all.prefix', $text );
 
 		$profile = $context->getConfig()
 			->getProfileService()
@@ -65,6 +106,8 @@ class FormSearchEntity extends LexemeSearchEntity {
 		$dismax->setTieBreaker( 0 );
 
 		$fields = [
+			[ "lemma.near_match", $profile['exact'] ],
+			[ "lemma.near_match_folded", $profile['folded'] ],
 			[
 				"lexeme_forms.representation.near_match",
 				$profile['exact'] * $profile['form-discount'],
@@ -79,15 +122,22 @@ class FormSearchEntity extends LexemeSearchEntity {
 		if ( $textExact !== $text ) {
 			$fields[] =
 				[
+					"lemma.prefix",
+					$profile['prefix'] * $profile['space-discount'],
+				];
+			$fields[] =
+				[
 					"lexeme_forms.representation.prefix",
 					$profile['prefix'] * $profile['space-discount'] * $profile['form-discount'],
 				];
+			$fieldsExact[] = [ "lemma.prefix", $profile['prefix'] ];
 			$fieldsExact[] =
 				[
 					"lexeme_forms.representation.prefix",
 					$profile['prefix'] * $profile['form-discount'],
 				];
 		} else {
+			$fields[] = [ "lemma.prefix", $profile['prefix'] ];
 			$fields[] =
 				[
 					"lexeme_forms.representation.prefix",
@@ -96,21 +146,19 @@ class FormSearchEntity extends LexemeSearchEntity {
 		}
 
 		foreach ( $fields as $field ) {
-			$dismax->addQuery( EntitySearchUtils::makeConstScoreQuery( $field[0], $field[1],
-				$text ) );
+			$dismax->addQuery( EntitySearchUtils::makeConstScoreQuery( $field[0], $field[1], $text ) );
 		}
 
 		foreach ( $fieldsExact as $field ) {
-			$dismax->addQuery( EntitySearchUtils::makeConstScoreQuery( $field[0], $field[1],
-				$textExact ) );
+			$dismax->addQuery( EntitySearchUtils::makeConstScoreQuery( $field[0], $field[1], $textExact ) );
 		}
 
 		$labelsQuery = new BoolQuery();
 		$labelsQuery->addFilter( $labelsFilter );
 		$labelsQuery->addShould( $dismax );
-		// lexeme_forms.id is a lowercase_keyword so use Match to apply the analyzer
-		$titleMatch = new Match( 'lexeme_forms.id',
-			EntitySearchUtils::normalizeId( $text, $this->idParser ) );
+		$titleMatch = new Term( [
+				'title.keyword' => EntitySearchUtils::normalizeId( $text, $this->idParser ),
+			] );
 
 		$query = new BoolQuery();
 		// Match either labels or exact match to title
@@ -129,11 +177,10 @@ class FormSearchEntity extends LexemeSearchEntity {
 	 * @return ResultsType
 	 */
 	protected function makeResultType() {
-		return new FormTermResult(
+		return new LexemeTermResult(
 			$this->idParser,
 			$this->userLanguage,
-			$this->lookupFactory,
-			$this->limit
+			$this->lookupFactory
 		);
 	}
 
@@ -155,10 +202,30 @@ class FormSearchEntity extends LexemeSearchEntity {
 		$limit,
 		$strictLanguage
 	) {
-		// We need to keep the limit since one document can produce several matches.
-		$this->limit = $limit;
-		return parent::getRankedSearchResults( $text, $languageCode, $entityType, $limit,
-			$strictLanguage );
+		$searcher = new WikibasePrefixSearcher( 0, $limit, $this->debugOptions );
+		$query = $this->getElasticSearchQuery( $text, $entityType, $searcher->getSearchContext() );
+
+		$searcher->setResultsType( $this->makeResultType() );
+
+		$searcher->getSearchContext()->setProfileContext( self::CONTEXT_LEXEME_PREFIX );
+		$result = $searcher->performSearch( $query );
+
+		// TODO: this is a hack, we need to return Status upstream instead
+		foreach ( $result->getErrors() as $error ) {
+			wfLogWarning( json_encode( $error ) );
+		}
+
+		if ( $result->isOK() ) {
+			$result = $result->getValue();
+		} else {
+			$result = [];
+		}
+
+		if ( $searcher->isReturnRaw() ) {
+			$result = $searcher->processRawReturn( $result, $this->request );
+		}
+
+		return $result;
 	}
 
 }

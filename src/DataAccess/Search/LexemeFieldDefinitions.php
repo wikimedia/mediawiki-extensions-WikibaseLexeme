@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;

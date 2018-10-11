@@ -13,14 +13,14 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
-use Wikibase\Lexeme\Store\FormStore;
+use Wikibase\Lexeme\DataAccess\Store\FormStore;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Store\FormStore
+ * @covers \Wikibase\Lexeme\DataAccess\Store\FormStore
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

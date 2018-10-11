@@ -5,12 +5,12 @@ use CirrusSearch\Search\SearchContext;
 use Elastica\Result;
 use Elastica\ResultSet;
 use Language;
-use Wikibase\Lexeme\Search\FormTermResult;
+use Wikibase\Lexeme\DataAccess\Search\FormTermResult;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 // We need long template strings here...
 /**
- * @covers \Wikibase\Lexeme\Search\FormTermResult
+ * @covers \Wikibase\Lexeme\DataAccess\Search\FormTermResult
  */
 class FormTermResultTest extends \PHPUnit_Framework_TestCase {
 	use LexemeDescriptionTest;

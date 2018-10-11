@@ -1,5 +1,5 @@
 <?php
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
 use CirrusSearch;
 use CirrusSearch\Search\CirrusIndexField;

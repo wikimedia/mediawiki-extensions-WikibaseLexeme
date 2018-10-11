@@ -7,7 +7,7 @@ use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\DummyObjects\NullFormId;
-use Wikibase\Lexeme\Store\FormRevisionLookup;
+use Wikibase\Lexeme\DataAccess\Store\FormRevisionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
@@ -16,7 +16,7 @@ use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Store\FormRevisionLookup
+ * @covers \Wikibase\Lexeme\DataAccess\Store\FormRevisionLookup
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

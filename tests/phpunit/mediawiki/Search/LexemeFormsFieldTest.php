@@ -2,10 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 
-use Wikibase\Lexeme\Search\FormsField;
+use Wikibase\Lexeme\DataAccess\Search\FormsField;
 
 /**
- * @covers \Wikibase\Lexeme\Search\FormsField
+ * @covers \Wikibase\Lexeme\DataAccess\Search\FormsField
  */
 class LexemeFormsFieldTest extends LexemeFieldTest {
 

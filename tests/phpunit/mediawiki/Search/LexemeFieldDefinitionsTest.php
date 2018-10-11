@@ -6,11 +6,11 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
+use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
 use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 
 /**
- * @covers \Wikibase\Lexeme\Search\LexemeFieldDefinitions
+ * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions
  *
  * @license GPL-2.0-or-later
  * @author Katie Filbert < aude.wiki@gmail.com >

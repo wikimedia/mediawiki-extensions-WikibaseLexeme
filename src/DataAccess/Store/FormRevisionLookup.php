@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Store;
+namespace Wikibase\Lexeme\DataAccess\Store;
 
 use OutOfRangeException;
 use UnexpectedValueException;

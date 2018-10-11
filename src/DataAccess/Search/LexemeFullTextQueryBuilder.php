@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
 use CirrusSearch\Query\FullTextQueryBuilder;
 use CirrusSearch\Search\SearchContext;

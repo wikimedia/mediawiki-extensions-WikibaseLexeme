@@ -13,14 +13,14 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\DummyObjects\BlankSense;
-use Wikibase\Lexeme\Store\SenseStore;
+use Wikibase\Lexeme\DataAccess\Store\SenseStore;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\Store\SenseStore
+ * @covers \Wikibase\Lexeme\DataAccess\Store\SenseStore
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

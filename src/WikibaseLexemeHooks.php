@@ -8,9 +8,9 @@ use MediaWiki\MediaWikiServices;
 use ResourceLoader;
 use SearchResult;
 use SpecialSearch;
-use Wikibase\Lexeme\Search\LexemeFullTextQueryBuilder;
-use Wikibase\Lexeme\Search\LexemeResult;
-use Wikibase\Lexeme\Search\LexemeSearchEntity;
+use Wikibase\Lexeme\DataAccess\Search\LexemeFullTextQueryBuilder;
+use Wikibase\Lexeme\DataAccess\Search\LexemeResult;
+use Wikibase\Lexeme\DataAccess\Search\LexemeSearchEntity;
 use Wikibase\Repo\Search\Elastic\EntitySearchElastic;
 use Wikibase\WikibaseSettings;
 
@@ -251,13 +251,13 @@ class WikibaseLexemeHooks {
 
 		// register base profiles available on all wikibase installs
 		$service->registerFileRepository( EntitySearchElastic::WIKIBASE_PREFIX_QUERY_BUILDER,
-			'lexeme_base', __DIR__ . '/Search/LexemePrefixSearchProfiles.php' );
+			'lexeme_base', __DIR__ . '/DataAccess/Search/LexemePrefixSearchProfiles.php' );
 		$service->registerFileRepository( SearchProfileService::RESCORE_FUNCTION_CHAINS,
-			'lexeme_base', __DIR__ . '/Search/LexemeRescoreFunctions.php' );
+			'lexeme_base', __DIR__ . '/DataAccess/Search/LexemeRescoreFunctions.php' );
 		$service->registerFileRepository( SearchProfileService::RESCORE,
-			'lexeme_base', __DIR__ . '/Search/LexemeRescoreProfiles.php' );
+			'lexeme_base', __DIR__ . '/DataAccess/Search/LexemeRescoreProfiles.php' );
 		$service->registerFileRepository( SearchProfileService::FT_QUERY_BUILDER,
-			'lexeme_base', __DIR__ . '/Search/LexemeSearchProfiles.php' );
+			'lexeme_base', __DIR__ . '/DataAccess/Search/LexemeSearchProfiles.php' );
 
 		// register custom profiles provided in the WikibaseLexeme config settings
 		$service->registerRepository(

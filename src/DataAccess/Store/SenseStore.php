@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Store;
+namespace Wikibase\Lexeme\DataAccess\Store;
 
 use MWException;
 use PermissionsError;
@@ -9,10 +9,10 @@ use User;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityRedirect;
-use Wikibase\Lexeme\Domain\Model\Form;
-use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\DummyObjects\BlankSense;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
@@ -21,10 +21,8 @@ use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
- * @author Daniel Kinzler
- * @author Thiemo Kreuz
  */
-class FormStore implements EntityStore {
+class SenseStore implements EntityStore {
 
 	/**
 	 * @var EntityStore
@@ -44,22 +42,22 @@ class FormStore implements EntityStore {
 	/**
 	 * @see EntityStore::assignFreshId
 	 *
-	 * @param Form $form
+	 * @param Sense $sense
 	 *
 	 * @throws \DomainException
 	 */
-	public function assignFreshId( EntityDocument $form ) {
-		if ( $form instanceof BlankForm ) {
+	public function assignFreshId( EntityDocument $sense ) {
+		if ( $sense instanceof BlankSense ) {
 			return;
 		}
 
-		throw new \DomainException( 'Form IDs are currently assigned in Lexeme::addOrUpdateForm()' );
+		throw new \DomainException( 'Sense IDs are currently assigned in Lexeme::addOrUpdateSense()' );
 	}
 
 	/**
 	 * @see EntityStore::saveEntity
 	 *
-	 * @param Form $form
+	 * @param Sense $sense
 	 * @param string $summary
 	 * @param User $user
 	 * @param int $flags
@@ -70,13 +68,13 @@ class FormStore implements EntityStore {
 	 * @return EntityRevision
 	 */
 	public function saveEntity(
-		EntityDocument $form,
+		EntityDocument $sense,
 		$summary,
 		User $user,
 		$flags = 0,
 		$baseRevId = false
 	) {
-		Assert::parameterType( Form::class, $form, '$form' );
+		Assert::parameterType( Sense::class, $sense, '$sense' );
 
 		// EntityRevisionLookup and EntityStore have different opinions on valid revId fallbacks
 		$getLexemeRevId = 0;
@@ -84,14 +82,14 @@ class FormStore implements EntityStore {
 			$getLexemeRevId = $baseRevId;
 		}
 
-		$formId = $form->getId();
-		$revision = $this->getLexemeRevision( $formId, $getLexemeRevId );
+		$senseId = $sense->getId();
+		$revision = $this->getLexemeRevision( $senseId, $getLexemeRevId );
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
 
-		$lexeme->addOrUpdateForm( $form );
+		$lexeme->addOrUpdateSense( $sense );
 
-		//Unset EDIT_NEW flag if present (forms don't have their own pages, thus EDIT_NEW is never needed)
+		// Unset EDIT_NEW flag if present (senses don't have own pages, thus EDIT_NEW is never needed)
 		$flags &= ~EDIT_NEW;
 
 		return $this->store->saveEntity( $lexeme, $summary, $user, $flags, $baseRevId );
@@ -116,24 +114,24 @@ class FormStore implements EntityStore {
 		$flags = 0,
 		$baseRevId = false
 	) {
-		throw new \DomainException( 'Forms currently don\'t support redirects' );
+		throw new \DomainException( 'Senses currently don\'t support redirects' );
 	}
 
 	/**
 	 * @see EntityStore::deleteEntity
 	 *
-	 * @param FormId $formId
+	 * @param SenseId $senseId
 	 * @param string $reason
 	 * @param User $user
 	 *
 	 * @throws StorageException
 	 * @throws PermissionsError
 	 */
-	public function deleteEntity( EntityId $formId, $reason, User $user ) {
-		Assert::parameterType( FormId::class, $formId, '$formId' );
+	public function deleteEntity( EntityId $senseId, $reason, User $user ) {
+		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 		/** @var Lexeme $lexeme */
-		$lexeme = $this->getLexemeRevision( $formId )->getEntity();
-		$lexeme->removeForm( $formId );
+		$lexeme = $this->getLexemeRevision( $senseId )->getEntity();
+		$lexeme->removeSense( $senseId );
 		$this->store->saveEntity( $lexeme, $reason, $user, EDIT_UPDATE );
 	}
 
@@ -141,68 +139,68 @@ class FormStore implements EntityStore {
 	 * @see EntityStore::userWasLastToEdit
 	 *
 	 * @param User $user
-	 * @param FormId $formId
+	 * @param SenseId $senseId
 	 * @param int $lastRevId
 	 *
 	 * @throws UnexpectedValueException
 	 * @return bool
 	 */
-	public function userWasLastToEdit( User $user, EntityId $formId, $lastRevId ) {
-		Assert::parameterType( FormId::class, $formId, '$formId' );
+	public function userWasLastToEdit( User $user, EntityId $senseId, $lastRevId ) {
+		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 
-		return $this->store->userWasLastToEdit( $user, $formId->getLexemeId(), $lastRevId );
+		return $this->store->userWasLastToEdit( $user, $senseId->getLexemeId(), $lastRevId );
 	}
 
 	/**
 	 * @see EntityStore::updateWatchlist
 	 *
 	 * @param User $user
-	 * @param FormId $formId
+	 * @param SenseId $senseId
 	 * @param bool $watch
 	 *
 	 * @throws UnexpectedValueException
 	 * @throws MWException
 	 */
-	public function updateWatchlist( User $user, EntityId $formId, $watch ) {
-		Assert::parameterType( FormId::class, $formId, '$formId' );
+	public function updateWatchlist( User $user, EntityId $senseId, $watch ) {
+		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 
-		$this->store->updateWatchlist( $user, $formId->getLexemeId(), $watch );
+		$this->store->updateWatchlist( $user, $senseId->getLexemeId(), $watch );
 	}
 
 	/**
 	 * @see EntityStore::isWatching
 	 *
 	 * @param User $user
-	 * @param FormId $formId
+	 * @param SenseId $senseId
 	 *
 	 * @throws UnexpectedValueException
 	 * @return bool
 	 */
-	public function isWatching( User $user, EntityId $formId ) {
-		Assert::parameterType( FormId::class, $formId, '$formId' );
+	public function isWatching( User $user, EntityId $senseId ) {
+		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 
-		return $this->store->isWatching( $user, $formId->getLexemeId() );
+		return $this->store->isWatching( $user, $senseId->getLexemeId() );
 	}
 
 	/**
 	 * @see EntityStore::canCreateWithCustomId
 	 *
-	 * @param FormId $formId
+	 * @param SenseId $senseId
 	 *
 	 * @return bool
 	 */
-	public function canCreateWithCustomId( EntityId $formId ) {
+	public function canCreateWithCustomId( EntityId $senseId ) {
 		return false;
 	}
 
 	/**
-	 * @param FormId $formId
+	 * @param SenseId $senseId
 	 * @param int $revisionId
 	 *
 	 * @throws StorageException
 	 * @return EntityRevision guaranteed to contain a Lexeme
 	 */
-	private function getLexemeRevision( FormId $formId, $revisionId = 0 ) {
+	private function getLexemeRevision( SenseId $senseId, $revisionId = 0 ) {
 
 		if ( !is_int( $revisionId ) ) {
 			throw new UnexpectedValueException(
@@ -211,13 +209,13 @@ class FormStore implements EntityStore {
 		}
 
 		$revision = $this->lookup->getEntityRevision(
-			$formId->getLexemeId(),
+			$senseId->getLexemeId(),
 			$revisionId,
 			EntityRevisionLookup::LATEST_FROM_MASTER
 		);
 
 		if ( !$revision || !( $revision->getEntity() instanceof Lexeme ) ) {
-			throw new StorageException( 'Cannot resolve ' . $formId->getSerialization() );
+			throw new StorageException( 'Cannot resolve ' . $senseId->getSerialization() );
 		}
 
 		return $revision;

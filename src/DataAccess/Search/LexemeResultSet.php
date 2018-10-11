@@ -1,5 +1,5 @@
 <?php
-namespace Wikibase\Lexeme\Search;
+namespace Wikibase\Lexeme\DataAccess\Search;
 
 use CirrusSearch\Search\ResultSet;
 use Elastica\ResultSet as ElasticaResultSet;
