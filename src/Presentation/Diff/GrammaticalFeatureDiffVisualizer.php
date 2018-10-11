@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Diff;
+namespace Wikibase\Lexeme\Presentation\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOp;

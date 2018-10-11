@@ -16,8 +16,8 @@ use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\Domain\Diff\FormDiffer;
-use Wikibase\Lexeme\Diff\FormDiffView;
-use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\FormDiffView;
+use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lib\SnakFormatter;
 use Wikibase\Repo\Diff\ClaimDiffer;
@@ -25,7 +25,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
 
 /**
- * @covers \Wikibase\Lexeme\Diff\FormDiffView
+ * @covers \Wikibase\Lexeme\Presentation\Diff\FormDiffView
  *
  * @license GPL-2.0-or-later
  */

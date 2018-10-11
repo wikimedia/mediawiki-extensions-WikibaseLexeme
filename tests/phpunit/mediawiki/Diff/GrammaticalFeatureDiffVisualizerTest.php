@@ -7,11 +7,11 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Diff\GrammaticalFeatureDiffVisualizer;
-use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\GrammaticalFeatureDiffVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 
 /**
- * @covers \Wikibase\Lexeme\Diff\GrammaticalFeatureDiffVisualizer
+ * @covers \Wikibase\Lexeme\Presentation\Diff\GrammaticalFeatureDiffVisualizer
  */
 class GrammaticalFeatureDiffVisualizerTest extends TestCase {
 

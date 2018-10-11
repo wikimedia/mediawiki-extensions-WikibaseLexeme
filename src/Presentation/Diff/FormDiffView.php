@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Diff;
+namespace Wikibase\Lexeme\Presentation\Diff;
 
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOp;
@@ -9,17 +9,17 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use MessageLocalizer;
 use MWException;
-use Wikibase\Lexeme\Domain\Diff\SenseDiff;
+use Wikibase\Lexeme\Domain\Diff\FormDiff;
 use Wikibase\Repo\Diff\BasicDiffView;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 
 /**
- * Class for generating views of DiffOp objects of senses.
+ * Class for generating views of DiffOp objects of forms.
  *
  * @license GPL-2.0-or-later
  */
-class SenseDiffView extends BasicDiffView {
+class FormDiffView extends BasicDiffView {
 
 	/**
 	 * @var ClaimDiffer
@@ -30,6 +30,11 @@ class SenseDiffView extends BasicDiffView {
 	 * @var ClaimDifferenceVisualizer
 	 */
 	private $claimDiffVisualizer;
+
+	/**
+	 * @var ItemReferenceDifferenceVisualizer
+	 */
+	private $itemReferenceDifferenceVisualizer;
 
 	/**
 	 * @var MessageLocalizer
@@ -48,12 +53,14 @@ class SenseDiffView extends BasicDiffView {
 		Diff $diff,
 		ClaimDiffer $claimDiffer,
 		ClaimDifferenceVisualizer $claimDiffVisualizer,
+		ItemReferenceDifferenceVisualizer $itemReferenceDifferenceVisualizer,
 		MessageLocalizer $messageLocalizer
 	) {
 		parent::__construct( $path, $diff );
 
 		$this->claimDiffer = $claimDiffer;
 		$this->claimDiffVisualizer = $claimDiffVisualizer;
+		$this->itemReferenceDifferenceVisualizer = $itemReferenceDifferenceVisualizer;
 		$this->messageLocalizer = $messageLocalizer;
 	}
 
@@ -71,8 +78,8 @@ class SenseDiffView extends BasicDiffView {
 		$html = '';
 
 		foreach ( $op as $key => $subOp ) {
-			if ( $subOp instanceof SenseDiff ) {
-				$html .= $this->generateSenseOpHtml( $path, $subOp, $key );
+			if ( $subOp instanceof FormDiff ) {
+				$html .= $this->generateFormOpHtml( $path, $subOp, $key );
 			} else {
 				$html .= $this->generateOpHtml( array_merge( $path, [ $key ] ), $subOp );
 			}
@@ -81,15 +88,28 @@ class SenseDiffView extends BasicDiffView {
 		return $html;
 	}
 
-	private function generateSenseOpHtml( array $path, SenseDiff $op, $key ) {
+	private function generateFormOpHtml( array $path, FormDiff $op, $key ) {
 		$html = '';
 
 		$html .= parent::generateOpHtml(
 			array_merge(
 				$path,
-				[ $key, $this->messageLocalizer->msg( 'wikibaselexeme-diffview-gloss' )->text() ]
+				[ $key, $this->messageLocalizer->msg( 'wikibaselexeme-diffview-representation' )->text() ]
 			),
-			$op->getGlossesDiff()
+			$op->getRepresentationDiff()
+		);
+
+		$html .= ( new GrammaticalFeatureDiffVisualizer(
+			$this->itemReferenceDifferenceVisualizer
+		) )->visualize(
+			array_merge(
+				$path,
+				[
+					$key,
+					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-grammatical-feature' )->text()
+				]
+			),
+			$op->getGrammaticalFeaturesDiff()
 		);
 
 		foreach ( $op->getStatementsDiff() as $claimDiffOp ) {

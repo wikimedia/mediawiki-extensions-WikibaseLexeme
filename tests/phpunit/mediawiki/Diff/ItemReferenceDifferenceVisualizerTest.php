@@ -12,10 +12,10 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
-use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 
 /**
- * @covers \Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer
+ * @covers \Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer
  */
 class ItemReferenceDifferenceVisualizerTest extends TestCase {
 

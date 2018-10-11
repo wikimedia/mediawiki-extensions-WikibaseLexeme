@@ -21,8 +21,8 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
-use Wikibase\Lexeme\Diff\LexemeDiffVisualizer;
-use Wikibase\Lexeme\Diff\ItemReferenceDifferenceVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
@@ -30,7 +30,7 @@ use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @covers \Wikibase\Lexeme\Diff\LexemeDiffVisualizer
+ * @covers \Wikibase\Lexeme\Presentation\Diff\LexemeDiffVisualizer
  *
  * @group Wikibase
  *

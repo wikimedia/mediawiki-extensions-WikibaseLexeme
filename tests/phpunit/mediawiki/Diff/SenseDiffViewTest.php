@@ -15,7 +15,7 @@ use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
-use Wikibase\Lexeme\Diff\SenseDiffView;
+use Wikibase\Lexeme\Presentation\Diff\SenseDiffView;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lib\SnakFormatter;
 use Wikibase\Repo\Diff\ClaimDiffer;
@@ -23,7 +23,7 @@ use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
 
 /**
- * @covers \Wikibase\Lexeme\Diff\SenseDiffView
+ * @covers \Wikibase\Lexeme\Presentation\Diff\SenseDiffView
  *
  * @license GPL-2.0-or-later
  */
