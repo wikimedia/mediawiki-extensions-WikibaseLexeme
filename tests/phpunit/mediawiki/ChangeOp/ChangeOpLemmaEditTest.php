@@ -12,7 +12,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
-use Wikibase\Lexeme\Domain\LemmaTermValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Summary;
 

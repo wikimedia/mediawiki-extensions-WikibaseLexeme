@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Domain;
+namespace Wikibase\Lexeme\ChangeOp\Validation;
 
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\Validators\RegexValidator;

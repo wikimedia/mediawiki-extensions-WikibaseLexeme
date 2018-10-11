@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove;
+use Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\Domain\LemmaTermValidator;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\ChangeOps;
@@ -22,7 +22,7 @@ use Wikibase\StringNormalizer;
 class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var LemmaTermValidator
+	 * @var \Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator
 	 */
 	private $lemmaTermValidator;
 

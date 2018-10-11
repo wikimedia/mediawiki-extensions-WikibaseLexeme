@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 use InvalidArgumentException;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\Domain\LemmaTermValidator;
+use Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;
