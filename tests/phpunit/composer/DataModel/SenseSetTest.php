@@ -126,8 +126,8 @@ class SenseSetTest extends TestCase {
 	 * or one-by-one through id, where order is irrelevant.
 	 */
 	public function testToArray_ReturnedSensesAreSortedByTheirId() {
-		$sense1 = NewSense::havingId( 'S1' )->build();
-		$sense2 = NewSense::havingId( 'S2' )->build();
+		$sense1 = NewSense::havingId( 'S2' )->build();
+		$sense2 = NewSense::havingId( 'S12' )->build();
 
 		$senseSet = new SenseSet( [ $sense2, $sense1 ] );
 
