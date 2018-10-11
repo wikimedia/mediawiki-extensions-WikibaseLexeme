@@ -10,8 +10,8 @@ use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
-use Wikibase\Lexeme\Domain\DataModel\Form;
-use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

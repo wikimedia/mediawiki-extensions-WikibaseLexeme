@@ -6,8 +6,8 @@ use Eris\Generator;
 use Eris\Generator\ConstantGenerator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
-use Wikibase\Lexeme\Domain\DataModel\Sense;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @license GPL-2.0-or-later

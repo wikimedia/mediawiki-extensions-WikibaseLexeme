@@ -9,7 +9,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLanguage;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;

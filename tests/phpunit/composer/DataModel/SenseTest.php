@@ -10,11 +10,11 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\DataModel\Sense;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Sense
+ * @covers \Wikibase\Lexeme\Domain\Model\Sense
  *
  * @license GPL-2.0-or-later
  */

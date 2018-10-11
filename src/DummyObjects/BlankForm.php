@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\DummyObjects;
 
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\Model\Form;
 
 /**
  * @license GPL-2.0-or-later

@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\View;
 
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\View\EntityMetaTagsCreator;
 use Wikimedia\Assert\Assert;
 

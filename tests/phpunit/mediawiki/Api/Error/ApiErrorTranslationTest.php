@@ -14,7 +14,7 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims

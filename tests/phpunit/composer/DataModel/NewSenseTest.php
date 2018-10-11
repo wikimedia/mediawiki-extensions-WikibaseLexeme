@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\Tests\DataModel\NewSense

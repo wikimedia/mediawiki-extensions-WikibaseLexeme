@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Snak\Snak;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\DataModel\Form;
-use Wikibase\Lexeme\Domain\DataModel\FormSet;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
-use Wikibase\Lexeme\Domain\DataModel\Sense;
-use Wikibase\Lexeme\Domain\DataModel\SenseSet;
+use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\FormSet;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseSet;
 
 /**
  * @method static NewLexeme havingId(LexemeId | string $lexemeId)

@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Merge\Validator;
 
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\Model\Form;
 
 /**
  * @license GPL-2.0-or-later

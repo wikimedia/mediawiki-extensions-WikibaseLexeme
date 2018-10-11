@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Store;
 use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\DummyObjects\NullSenseId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\Assert;

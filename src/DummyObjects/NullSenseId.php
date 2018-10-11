@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\DummyObjects;
 
 use LogicException;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * An ID for a BlankSense which has not yet been associated with any lexeme.

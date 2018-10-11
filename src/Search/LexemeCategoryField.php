@@ -2,7 +2,7 @@
 namespace Wikibase\Lexeme\Search;
 
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 
 /**
  * Lexeme lexical category field - this contains Q-id of lexeme category.

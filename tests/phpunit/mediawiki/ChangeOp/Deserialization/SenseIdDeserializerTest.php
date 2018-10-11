@@ -9,7 +9,7 @@ use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer

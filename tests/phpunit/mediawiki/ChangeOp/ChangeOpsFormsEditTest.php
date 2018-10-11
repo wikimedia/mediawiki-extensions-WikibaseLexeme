@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpsFormsEdit;
-use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Summary;

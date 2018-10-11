@@ -9,7 +9,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Formatters\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityTitleLookup;

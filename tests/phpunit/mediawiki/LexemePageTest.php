@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use Article;
 use User;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\WikibaseRepo;
 

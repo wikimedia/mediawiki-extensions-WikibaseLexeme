@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\Domain\DataModel\FormId;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\DummyObjects\NullFormId;
 use Wikibase\Lexeme\Store\FormRevisionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;

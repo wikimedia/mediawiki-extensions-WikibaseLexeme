@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
