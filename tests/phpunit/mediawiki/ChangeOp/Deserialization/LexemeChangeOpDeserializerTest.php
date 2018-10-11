@@ -8,24 +8,24 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\LabelDescriptionDuplicateDetector;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\FormChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\FormListChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormListChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
@@ -39,7 +39,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\StringNormalizer;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LexemeChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LexemeChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

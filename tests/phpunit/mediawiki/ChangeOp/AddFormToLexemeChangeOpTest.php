@@ -6,15 +6,15 @@ use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use ValueValidators\Result;
-use Wikibase\Lexeme\ChangeOp\AddFormToLexemeChangeOp;
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\AddFormToLexemeChangeOp
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp
  *
  * @license GPL-2.0-or-later
  */

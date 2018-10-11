@@ -10,10 +10,10 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\ChangeOp\AddSenseToLexemeChangeOp;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\AddSenseToLexemeChangeOp;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -21,7 +21,7 @@ use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\NullChangeOp;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\SenseChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

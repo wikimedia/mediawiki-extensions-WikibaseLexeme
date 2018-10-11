@@ -11,13 +11,13 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
-use Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit
  *
  * @license GPL-2.0-or-later
  */

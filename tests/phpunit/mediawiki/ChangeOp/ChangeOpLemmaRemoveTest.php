@@ -11,12 +11,12 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove
  *
  * @license GPL-2.0-or-later
  */

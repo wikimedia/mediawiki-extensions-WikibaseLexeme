@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**

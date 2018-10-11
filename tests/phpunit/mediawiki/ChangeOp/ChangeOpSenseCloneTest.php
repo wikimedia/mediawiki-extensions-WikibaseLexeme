@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseClone;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
@@ -15,7 +15,7 @@ use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @coversDefaultClass \Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone
+ * @coversDefaultClass \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseClone
  *
  * @license GPL-2.0-or-later
  */

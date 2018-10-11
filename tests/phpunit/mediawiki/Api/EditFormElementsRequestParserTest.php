@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 

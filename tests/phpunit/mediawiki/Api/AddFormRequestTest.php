@@ -7,10 +7,10 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\MediaWiki\Api\AddFormRequest;
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 

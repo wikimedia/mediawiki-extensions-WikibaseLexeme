@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 

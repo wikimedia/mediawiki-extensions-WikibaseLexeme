@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -12,7 +12,7 @@ use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveForm
  *
  * @license GPL-2.0-or-later
  */

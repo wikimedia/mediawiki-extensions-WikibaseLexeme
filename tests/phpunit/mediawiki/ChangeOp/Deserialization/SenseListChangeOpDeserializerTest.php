@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -18,7 +18,7 @@ use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\SenseListChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseListChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

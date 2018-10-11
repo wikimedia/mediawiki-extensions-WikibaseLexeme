@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
-use Wikibase\Lexeme\ChangeOp\ChangeOpsSensesEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsSensesEdit;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -13,7 +13,7 @@ use Wikibase\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpsSensesEdit
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsSensesEdit
  *
  * @license GPL-2.0-or-later
  */

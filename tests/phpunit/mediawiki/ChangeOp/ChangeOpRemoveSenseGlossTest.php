@@ -4,14 +4,14 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit4And6Compat;
 use ValueValidators\Result;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSenseGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSenseGloss
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss
  *
  * @license GPL-2.0-or-later
  */

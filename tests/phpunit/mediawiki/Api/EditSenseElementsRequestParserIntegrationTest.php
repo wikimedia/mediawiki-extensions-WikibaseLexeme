@@ -16,11 +16,11 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lib\StaticContentLanguages;
 

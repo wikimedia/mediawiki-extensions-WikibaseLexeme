@@ -7,11 +7,11 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ItemIdListDeserializer
  *
  * @license GPL-2.0-or-later
  */

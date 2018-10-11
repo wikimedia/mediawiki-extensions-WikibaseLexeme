@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit4And6Compat;
 use ValueValidators\Result;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveFormRepresentation;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveFormRepresentation;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpRemoveFormRepresentation
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveFormRepresentation
  *
  * @license GPL-2.0-or-later
  */

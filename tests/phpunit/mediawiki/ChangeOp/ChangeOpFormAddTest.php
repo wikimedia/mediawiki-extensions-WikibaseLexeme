@@ -7,18 +7,18 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormAdd;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormAdd
  *
  * @license GPL-2.0-or-later
  */

@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use ValueValidators\Result;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSenseGloss;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -14,7 +14,7 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit
  *
  * @license GPL-2.0-or-later
  */

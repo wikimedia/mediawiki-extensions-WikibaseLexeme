@@ -8,13 +8,13 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermLanguageCanNotBeEmpty;
 use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\StaticContentLanguages;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator
  *
  * @license GPL-2.0-or-later
  */

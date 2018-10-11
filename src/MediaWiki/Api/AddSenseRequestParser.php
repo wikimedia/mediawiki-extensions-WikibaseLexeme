@@ -6,8 +6,8 @@ use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**

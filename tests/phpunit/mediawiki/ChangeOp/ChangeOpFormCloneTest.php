@@ -8,7 +8,7 @@ use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormClone;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormClone;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
@@ -19,7 +19,7 @@ use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @coversDefaultClass \Wikibase\Lexeme\ChangeOp\ChangeOpFormClone
+ * @coversDefaultClass \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormClone
  *
  * @license GPL-2.0-or-later
  */

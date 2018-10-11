@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme;
 
 use ValueValidators\ValueValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
 use Wikimedia\Assert\Assert;
@@ -48,7 +48,7 @@ class LexemeValidatorFactory {
 	}
 
 	/**
-	 * @return \Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator
+	 * @return \Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator
 	 */
 	public function getLemmaTermValidator() {
 		return new LemmaTermValidator( $this->maxTermLength );

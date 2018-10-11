@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 

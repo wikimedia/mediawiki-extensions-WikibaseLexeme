@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
-use Wikibase\Lexeme\ChangeOp\ChangeOpsFormsEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsFormsEdit;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -13,7 +13,7 @@ use Wikibase\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpsFormsEdit
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsFormsEdit
  *
  * @license GPL-2.0-or-later
  */

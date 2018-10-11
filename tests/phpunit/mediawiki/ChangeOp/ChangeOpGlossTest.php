@@ -5,14 +5,14 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpGloss
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss
  *
  * @license GPL-2.0-or-later
  */

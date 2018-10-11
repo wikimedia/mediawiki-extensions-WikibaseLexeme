@@ -8,14 +8,14 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLanguage;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpLanguage
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage
  *
  * @license GPL-2.0-or-later
  */

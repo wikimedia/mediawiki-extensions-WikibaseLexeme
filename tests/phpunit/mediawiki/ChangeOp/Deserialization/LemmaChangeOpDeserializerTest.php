@@ -6,12 +6,12 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove;
-use Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Validation\LemmaTermValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
@@ -20,7 +20,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\LemmaChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LemmaChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

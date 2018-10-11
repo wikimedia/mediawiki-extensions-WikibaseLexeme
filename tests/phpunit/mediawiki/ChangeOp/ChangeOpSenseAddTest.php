@@ -7,11 +7,11 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseClone;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
@@ -20,7 +20,7 @@ use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd
  *
  * @license GPL-2.0-or-later
  */

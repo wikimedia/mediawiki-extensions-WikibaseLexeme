@@ -8,15 +8,15 @@ use PHPUnit\Framework\TestCase;
 use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSenseGloss;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
-use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
-use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 
 /**
- * @covers \Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\GlossesChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

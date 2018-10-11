@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
 
 /**
  * @license GPL-2.0-or-later

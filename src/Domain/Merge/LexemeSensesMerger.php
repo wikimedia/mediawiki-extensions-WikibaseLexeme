@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Domain\Merge;
 
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
-use Wikibase\Lexeme\ChangeOp\ChangeOpSenseClone;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseClone;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
