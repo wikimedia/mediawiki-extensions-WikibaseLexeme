@@ -31,7 +31,7 @@ use Wikibase\SummaryFormatter;
 /**
  * @license GPL-2.0-or-later
  */
-class LexemeMergeInteractor {
+class MergeLexemesInteractor {
 
 	/**
 	 * @var EntityRevisionLookup

@@ -14,7 +14,7 @@ use Wikibase\Lexeme\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
@@ -70,7 +70,7 @@ return call_user_func( function() {
 					)
 				);
 
-				return new LexemeMergeInteractor(
+				return new MergeLexemesInteractor(
 					new LexemeMerger(
 						new TermListMerger(),
 						$statementsMerger,

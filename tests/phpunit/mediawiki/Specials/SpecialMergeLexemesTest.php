@@ -12,7 +12,7 @@ use SpecialPageTestBase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Specials\SpecialMergeLexemes;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -43,7 +43,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	/** @var EntityStore */
 	private $entityStore;
 
-	/** @var \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor */
+	/** @var \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor */
 	private $mergeInteractor;
 
 	/** @var EntityTitleLookup */
@@ -211,7 +211,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	}
 
 	private function newMockMergeInteractor() {
-		return $this->createMock( LexemeMergeInteractor::class );
+		return $this->createMock( MergeLexemesInteractor::class );
 	}
 
 	private function assertShowsErrorWithMessage( $output, $string ) {
