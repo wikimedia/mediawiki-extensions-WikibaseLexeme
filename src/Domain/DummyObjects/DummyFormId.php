@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\DummyObjects;
+namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use Wikibase\Lexeme\Domain\Model\FormId;
 

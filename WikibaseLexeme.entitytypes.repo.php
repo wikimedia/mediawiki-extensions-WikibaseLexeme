@@ -31,8 +31,8 @@ use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexicalCategoryItemIdExtrac
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\Lookups\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
-use Wikibase\Lexeme\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;

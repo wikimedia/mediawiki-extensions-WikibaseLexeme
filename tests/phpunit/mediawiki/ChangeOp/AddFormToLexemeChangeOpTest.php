@@ -9,7 +9,7 @@ use ValueValidators\Result;
 use Wikibase\Lexeme\ChangeOp\AddFormToLexemeChangeOp;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 

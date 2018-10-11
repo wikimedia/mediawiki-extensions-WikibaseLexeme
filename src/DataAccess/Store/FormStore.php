@@ -12,7 +12,7 @@ use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;

@@ -6,7 +6,7 @@ use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\Assert;
 

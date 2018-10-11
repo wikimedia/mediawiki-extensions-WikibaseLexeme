@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
-use Wikibase\Lexeme\DummyObjects\DummyFormId;
-use Wikibase\Lexeme\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 
 /**
- * @covers \Wikibase\Lexeme\DummyObjects\BlankForm
+ * @covers \Wikibase\Lexeme\Domain\DummyObjects\BlankForm
  *
  * @license GPL-2.0-or-later
  */

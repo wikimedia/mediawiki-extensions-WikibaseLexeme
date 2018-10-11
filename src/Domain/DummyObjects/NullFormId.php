@@ -1,16 +1,14 @@
 <?php
 
-namespace Wikibase\Lexeme\DummyObjects;
+namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use LogicException;
-use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**
- * An ID for a BlankSense which has not yet been associated with any lexeme.
- *
  * @license GPL-2.0-or-later
  */
-class NullSenseId extends SenseId {
+class NullFormId extends FormId {
 
 	public function __construct() {
 		$this->serialization = '';

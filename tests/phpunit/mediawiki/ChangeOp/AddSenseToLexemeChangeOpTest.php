@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\ChangeOp\AddSenseToLexemeChangeOp;
-use Wikibase\Lexeme\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 

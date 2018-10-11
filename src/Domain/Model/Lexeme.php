@@ -11,8 +11,8 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
-use Wikibase\Lexeme\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme in the

@@ -10,8 +10,8 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DummyObjects\DummyFormId;
-use Wikibase\Lexeme\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 use Wikimedia\Assert\Assert;
 
 /**

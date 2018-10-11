@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\DummyObjects\NullSenseId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
 use Wikibase\Lexeme\DataAccess\Store\SenseRevisionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;

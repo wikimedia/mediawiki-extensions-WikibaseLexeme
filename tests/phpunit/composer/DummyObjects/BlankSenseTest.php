@@ -9,13 +9,13 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\DummyObjects\BlankSense;
-use Wikibase\Lexeme\DummyObjects\DummySenseId;
-use Wikibase\Lexeme\DummyObjects\NullSenseId;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\DummyObjects\BlankSense
+ * @covers \Wikibase\Lexeme\Domain\DummyObjects\BlankSense
  *
  * @license GPL-2.0-or-later
  */

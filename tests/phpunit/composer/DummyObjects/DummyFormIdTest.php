@@ -3,11 +3,11 @@
 namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DummyObjects\DummyFormId;
-use Wikibase\Lexeme\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 
 /**
- * @covers \Wikibase\Lexeme\DummyObjects\DummyFormId
+ * @covers \Wikibase\Lexeme\Domain\DummyObjects\DummyFormId
  *
  * @license GPL-2.0-or-later
  */

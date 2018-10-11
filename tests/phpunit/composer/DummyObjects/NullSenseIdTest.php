@@ -5,11 +5,11 @@ namespace Wikibase\Lexeme\Tests\DummyObjects;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\DummyObjects\DummySenseId;
-use Wikibase\Lexeme\DummyObjects\NullSenseId;
+use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
 
 /**
- * @covers \Wikibase\Lexeme\DummyObjects\NullSenseId
+ * @covers \Wikibase\Lexeme\Domain\DummyObjects\NullSenseId
  *
  * @license GPL-2.0-or-later
  */

@@ -22,7 +22,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\WikibaseRepo;

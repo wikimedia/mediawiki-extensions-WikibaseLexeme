@@ -6,9 +6,9 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\FormSet;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
-use Wikibase\Lexeme\DummyObjects\DummyFormId;
-use Wikibase\Lexeme\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\FormSet

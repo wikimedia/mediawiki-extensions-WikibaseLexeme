@@ -22,8 +22,8 @@ use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
-use Wikibase\Lexeme\DummyObjects\BlankForm;
-use Wikibase\Lexeme\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\Lexeme
