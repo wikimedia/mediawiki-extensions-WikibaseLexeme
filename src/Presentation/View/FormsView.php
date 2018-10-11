@@ -1,13 +1,13 @@
 <?php
 
-namespace Wikibase\Lexeme\View;
+namespace Wikibase\Lexeme\Presentation\View;
 
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormSet;
-use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 use WMDE\VueJsTemplating\Templating;

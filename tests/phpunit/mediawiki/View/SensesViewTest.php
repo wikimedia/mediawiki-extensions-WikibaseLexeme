@@ -12,14 +12,14 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
-use Wikibase\Lexeme\View\SensesView;
-use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\SensesView;
+use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 
 /**
- * @covers \Wikibase\Lexeme\View\SensesView
+ * @covers \Wikibase\Lexeme\Presentation\View\SensesView
  *
  * @license GPL-2.0-or-later
  */

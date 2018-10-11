@@ -8,13 +8,13 @@ use Prophecy\Argument;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
-use Wikibase\Lexeme\View\LexemeView;
-use Wikibase\Lexeme\View\LexemeViewFactory;
+use Wikibase\Lexeme\Presentation\View\LexemeView;
+use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
 use Wikibase\View\EditSectionGenerator;
 
 /**
- * @covers \Wikibase\Lexeme\View\LexemeViewFactory
+ * @covers \Wikibase\Lexeme\Presentation\View\LexemeViewFactory
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

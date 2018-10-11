@@ -1,13 +1,13 @@
 <?php
 
-namespace Wikibase\Lexeme\View;
+namespace Wikibase\Lexeme\Presentation\View;
 
 use Language;
 use Message;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
-use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;

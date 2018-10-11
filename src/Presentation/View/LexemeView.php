@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\View;
+namespace Wikibase\Lexeme\Presentation\View;
 
 use InvalidArgumentException;
 use Language;

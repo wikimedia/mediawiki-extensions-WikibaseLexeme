@@ -11,13 +11,13 @@ use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\View\FormsView;
-use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\FormsView;
+use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 
 /**
- * @covers \Wikibase\Lexeme\View\FormsView
+ * @covers \Wikibase\Lexeme\Presentation\View\FormsView
  *
  * @license GPL-2.0-or-later
  * @author Thiemo Kreuz

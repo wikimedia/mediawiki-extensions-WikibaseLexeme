@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\View;
+namespace Wikibase\Lexeme\Presentation\View;
 
 use FormatJson;
 use ResourceLoaderContext;
@@ -22,7 +22,7 @@ class TemplateModule extends ResourceLoaderFileModule {
 	 * @return string
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
-		$templates = include __DIR__ . '/../../resources/templates.php';
+		$templates = include __DIR__ . '/../../../resources/templates.php';
 		$templateRegistry = new TemplateRegistry( $templates );
 
 		$templatesJson = FormatJson::encode( $templateRegistry->getTemplates() );
@@ -58,7 +58,7 @@ JS;
 	 */
 	public function getDefinitionSummary( ResourceLoaderContext $context ) {
 		$summary = parent::getDefinitionSummary( $context );
-		$summary['mtime'] = (string)filemtime( __DIR__ . '/../../resources/templates.php' );
+		$summary['mtime'] = (string)filemtime( __DIR__ . '/../../../resources/templates.php' );
 
 		return $summary;
 	}

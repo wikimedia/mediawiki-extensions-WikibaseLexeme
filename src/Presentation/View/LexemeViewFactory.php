@@ -1,12 +1,12 @@
 <?php
 
-namespace Wikibase\Lexeme\View;
+namespace Wikibase\Lexeme\Presentation\View;
 
 use Language;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
-use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\WikibaseRepo;
@@ -67,7 +67,7 @@ class LexemeViewFactory {
 	}
 
 	public function newLexemeView() {
-		$templates = include __DIR__ . '/../../resources/templates.php';
+		$templates = include __DIR__ . '/../../../resources/templates.php';
 		$templateFactory = new LexemeTemplateFactory( $templates );
 
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();

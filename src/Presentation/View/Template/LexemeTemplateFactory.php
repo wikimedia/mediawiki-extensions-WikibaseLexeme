@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\View\Template;
+namespace Wikibase\Lexeme\Presentation\View\Template;
 
 use Wikibase\View\Template\Template;
 use Wikibase\View\Template\TemplateRegistry;

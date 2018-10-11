@@ -8,12 +8,12 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\View\LexemeMetaTagsCreator;
+use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 
 /**
  * @license GPL-2.0-or-later
- * @covers \Wikibase\Lexeme\View\LexemeMetaTagsCreator
+ * @covers \Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator
  */
 class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 

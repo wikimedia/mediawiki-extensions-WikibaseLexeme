@@ -254,7 +254,7 @@ return call_user_func( function() {
 			"scripts" => "i18n/Messages.js"
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
-			"class" => "\\Wikibase\\Lexeme\\View\\TemplateModule",
+			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
 			"dependencies" => [
 				"wikibase.templates"
 			]

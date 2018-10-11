@@ -4,10 +4,10 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use PHPUnit\Framework\TestCase;
 use ResourceLoaderContext;
-use Wikibase\Lexeme\View\TemplateModule;
+use Wikibase\Lexeme\Presentation\View\TemplateModule;
 
 /**
- * @covers \Wikibase\Lexeme\View\TemplateModule
+ * @covers \Wikibase\Lexeme\Presentation\View\TemplateModule
  *
  * @license GPL-2.0-or-later
  */

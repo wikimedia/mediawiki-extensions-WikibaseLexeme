@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View\Template;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 
 /**
- * @covers \Wikibase\Lexeme\View\Template\LexemeTemplateFactory
+ * @covers \Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory
  *
  * @group WikibaseView
  *

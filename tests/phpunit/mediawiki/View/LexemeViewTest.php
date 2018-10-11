@@ -18,9 +18,9 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
-use Wikibase\Lexeme\View\FormsView;
-use Wikibase\Lexeme\View\SensesView;
-use Wikibase\Lexeme\View\LexemeView;
+use Wikibase\Lexeme\Presentation\View\FormsView;
+use Wikibase\Lexeme\Presentation\View\SensesView;
+use Wikibase\Lexeme\Presentation\View\LexemeView;
 use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
@@ -28,7 +28,7 @@ use Wikibase\View\Template\TemplateFactory;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
- * @covers \Wikibase\Lexeme\View\LexemeView
+ * @covers \Wikibase\Lexeme\Presentation\View\LexemeView
  *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
