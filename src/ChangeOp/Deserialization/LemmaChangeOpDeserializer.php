@@ -2,13 +2,13 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
+use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaRemove;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\Validators\LemmaTermValidator;
+use Wikibase\Lexeme\Domain\LemmaTermValidator;
 use Wikibase\Repo\ChangeOp\ChangeOp;
-use Wikibase\Repo\ChangeOp\ChangeOps;
-use Wikibase\Lexeme\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
+use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
 

@@ -2,10 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 
-use Wikibase\Lexeme\Validators\LemmaTermValidator;
+use Wikibase\Lexeme\Domain\LemmaTermValidator;
 
 /**
- * @covers \Wikibase\Lexeme\Validators\LemmaTermValidator
+ * @covers \Wikibase\Lexeme\Domain\LemmaTermValidator
  *
  * @license GPL-2.0-or-later
  */

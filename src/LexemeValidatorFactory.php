@@ -1,8 +1,9 @@
 <?php
 
-namespace Wikibase\Lexeme\Validators;
+namespace Wikibase\Lexeme;
 
 use ValueValidators\ValueValidator;
+use Wikibase\Lexeme\Domain\LemmaTermValidator;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
 use Wikimedia\Assert\Assert;

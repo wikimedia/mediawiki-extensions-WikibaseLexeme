@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use InvalidArgumentException;
-use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\ChangeOp\ChangeOpLexicalCategory;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\LexemeValidatorFactory;
+use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
@@ -21,7 +21,7 @@ use Wikibase\StringNormalizer;
 class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var LexemeValidatorFactory
+	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
 	 */
 	private $lexemeValidatorFactory;
 

@@ -11,16 +11,16 @@ use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
+use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Merge\TermListMerger;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
@@ -136,7 +136,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			->validate( $this->sourceLexeme, $this->targetLexeme )
 			->willReturn( true );
 		$crossRefValidator = $crossRefValidator->reveal();
-		/** @var NoCrossReferencingLexemeStatements $crossRefValidator */
+		/** @var \Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements $crossRefValidator */
 
 		$this->lexemeMerger = new LexemeMerger(
 			new TermListMerger(),

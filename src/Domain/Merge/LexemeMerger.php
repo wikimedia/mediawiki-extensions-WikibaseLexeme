@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Domain\Merge;
 
 use Exception;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\ConflictingLemmaValueException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\DifferentLanguagesException;
@@ -12,7 +11,7 @@ use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\ModificationFailedException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Domain\Merge\Validator\NoConflictingTermListValues;
-use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\Merge\StatementsMerger;
 
 /**

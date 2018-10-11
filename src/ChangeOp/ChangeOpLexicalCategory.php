@@ -4,11 +4,11 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use InvalidArgumentException;
 use ValueValidators\Result;
-use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\LexemeValidatorFactory;
+use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -23,13 +23,13 @@ class ChangeOpLexicalCategory extends ChangeOpBase {
 	private $lexicalCategory;
 
 	/**
-	 * @var LexemeValidatorFactory
+	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
 	 */
 	private $lexemeValidatorFactory;
 
 	/**
 	 * @param ItemId $lexicalCategory
-	 * @param LexemeValidatorFactory $lexemeValidatorFactory
+	 * @param \Wikibase\Lexeme\LexemeValidatorFactory $lexemeValidatorFactory
 	 *
 	 * @throws InvalidArgumentException
 	 */

@@ -9,7 +9,7 @@ use ValueValidators\Result;
 use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
@@ -93,7 +93,7 @@ class LexemeValidatorFactoryTestMockProvider {
 	 * @param TermValidatorFactory|null $termValidatorFactory
 	 * @param string[] $existingItemIds
 	 *
-	 * @return LexemeValidatorFactory
+	 * @return \Wikibase\Lexeme\LexemeValidatorFactory
 	 */
 	public function getLexemeValidatorFactory(
 		TestCase $testCase,
@@ -101,7 +101,7 @@ class LexemeValidatorFactoryTestMockProvider {
 		TermValidatorFactory $termValidatorFactory = null,
 		array $existingItemIds = []
 	) {
-		return new LexemeValidatorFactory(
+		return new \Wikibase\Lexeme\LexemeValidatorFactory(
 			$maxLength,
 			$termValidatorFactory === null ? $this->getTermValidatorFactory( $testCase ) :
 				$termValidatorFactory,

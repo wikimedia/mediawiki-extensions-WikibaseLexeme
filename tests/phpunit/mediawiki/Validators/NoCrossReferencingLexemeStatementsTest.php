@@ -7,22 +7,21 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
-use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements
+ * @covers \Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements
  *
  * @license GPL-2.0-or-later
  */
@@ -91,7 +90,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 	 * @param Lexeme $target
 	 */
 	public function testValidMerges( Lexeme $source, Lexeme $target ) {
-		$validator = new NoCrossReferencingLexemeStatements(
+		$validator = new \Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements(
 			$this->getLexemeStatementEntityReferenceExtractor()
 		);
 		$this->assertTrue( $validator->validate( $source, $target ) );
@@ -197,7 +196,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 	 * @param array[] $expectedViolations
 	 */
 	public function testInvalidMerges( Lexeme $source, Lexeme $target, $expectedViolations ) {
-		$validator = new NoCrossReferencingLexemeStatements(
+		$validator = new \Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements(
 			$this->getLexemeStatementEntityReferenceExtractor()
 		);
 		$this->assertFalse( $validator->validate( $source, $target ) );

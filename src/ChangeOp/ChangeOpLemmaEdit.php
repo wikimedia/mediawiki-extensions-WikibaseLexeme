@@ -4,10 +4,10 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use InvalidArgumentException;
 use ValueValidators\Result;
-use Wikibase\Lexeme\Validators\LemmaTermValidator;
-use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\Lexeme\Domain\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 

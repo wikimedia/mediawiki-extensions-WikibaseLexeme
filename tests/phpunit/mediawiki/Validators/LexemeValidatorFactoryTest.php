@@ -11,15 +11,15 @@ use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\Lexeme\Domain\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Validators\LemmaTermValidator;
-use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
+use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\Validators\TermValidatorFactory;
 
 /**
- * @covers \Wikibase\Lexeme\Validators\LexemeValidatorFactory
+ * @covers \Wikibase\Lexeme\LexemeValidatorFactory
  *
  * @license GPL-2.0-or-later
  */
