@@ -8,7 +8,7 @@ use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\Lexeme\Api\MergeLexemes;
 use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
+use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Repo\Api\ApiErrorReporter;

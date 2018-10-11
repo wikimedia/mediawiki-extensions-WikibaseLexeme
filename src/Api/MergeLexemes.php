@@ -5,11 +5,11 @@ namespace Wikibase\Lexeme\Api;
 use ApiBase;
 use ApiMain;
 use ApiUsageException;
+use Exception;
 use InvalidArgumentException;
-use \Exception;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\WikibaseRepo;
@@ -27,7 +27,7 @@ class MergeLexemes extends ApiBase {
 	const BOT_PARAM = 'bot';
 
 	/**
-	 * @var LexemeMergeInteractor
+	 * @var \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor
 	 */
 	private $mergeInteractor;
 

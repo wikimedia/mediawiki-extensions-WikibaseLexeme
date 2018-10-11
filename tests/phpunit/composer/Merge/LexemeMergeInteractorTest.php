@@ -15,7 +15,6 @@ use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Merge\LexemeFormsMerger;
-use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\LexemeMerger;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Merge\LexemeSensesMerger;
@@ -34,7 +33,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\LexemeMergeInteractor
+ * @covers \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor
  *
  * @license GPL-2.0-or-later
  */
@@ -266,7 +265,7 @@ class LexemeMergeInteractorTest extends TestCase {
 				new EntityRevision( $this->targetLexeme )
 			);
 
-		return new LexemeMergeInteractor(
+		return new \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor(
 			$this->lexemeMerger,
 			$this->entityRevisionLookup,
 			$this->entityStore,

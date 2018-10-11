@@ -1,9 +1,12 @@
 <?php
 
-namespace Wikibase\Lexeme\Merge;
+namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
 use User;
 use WatchedItemStoreInterface;
+use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\EntityContent;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lexeme\Merge\Exceptions\LexemeLoadingException;
@@ -12,9 +15,9 @@ use Wikibase\Lexeme\Merge\Exceptions\LexemeSaveFailedException;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Merge\Exceptions\PermissionDeniedException;
 use Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException;
-use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\EntityContent;
+use Wikibase\Lexeme\Merge\LexemeMerger;
+use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
@@ -23,7 +26,6 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Summary;
-use Wikibase\Lib\FormatableSummary;
 use Wikibase\SummaryFormatter;
 
 /**

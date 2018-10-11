@@ -12,8 +12,8 @@ use SpecialPageTestBase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\Specials\SpecialMergeLexemes;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\WikibaseLexemeServices;
@@ -43,7 +43,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	/** @var EntityStore */
 	private $entityStore;
 
-	/** @var LexemeMergeInteractor */
+	/** @var \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor */
 	private $mergeInteractor;
 
 	/** @var EntityTitleLookup */

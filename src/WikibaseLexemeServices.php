@@ -6,7 +6,7 @@ use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
-use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
+use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
 
 /**
  * @license GPL-2.0-or-later
