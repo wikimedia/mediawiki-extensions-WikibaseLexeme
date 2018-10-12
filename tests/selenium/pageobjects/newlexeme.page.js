@@ -10,14 +10,17 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		return {
 			LEMMA: '#wb-newlexeme-lemma',
 			LANGUAGE: '#wb-newlexeme-lexeme-language',
+			LANGUAGE_SELECTOR_VALUE: '#wb-newlexeme-lexeme-language input.oo-ui-wikibase-item-selector-value',
 			LEXICAL_CATEGORY: '#wb-newlexeme-lexicalCategory',
+			LEXICAL_CATEGORY_SELECTOR_VALUE: '#wb-newlexeme-lexicalCategory input.oo-ui-wikibase-item-selector-value',
 			LEMMA_LANGUAGE: '#wb-newlexeme-lemma-language',
+
 			SUBMIT_BUTTON: '#wb-newentity-submit button'
 		};
 	}
 
-	open() {
-		super.openTitle( 'Special:NewLexeme' );
+	open( query ) {
+		super.openTitle( 'Special:NewLexeme', query );
 	}
 
 	showsForm() {
@@ -49,11 +52,19 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
 	}
 
+	getLemma() {
+		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).getValue();
+	}
+
 	setLexemeLanguage( language ) {
 		this.setValueOnLookupElement(
 			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
 			language
 		);
+	}
+
+	getLexemeLanguage() {
+		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE_SELECTOR_VALUE ).getValue();
 	}
 
 	setLexicalCategory( lexicalCategory ) {
@@ -63,11 +74,19 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		);
 	}
 
+	getLexicalCategory() {
+		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY_SELECTOR_VALUE ).getValue();
+	}
+
 	setLemmaLanguage( lemmaLanguage ) {
 		this.setValueOnComboboxElement(
 			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
 			lemmaLanguage
 		);
+	}
+
+	getLemmaLanguage() {
+		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE + ' input' ).getValue();
 	}
 
 	clickSubmit() {
