@@ -65,7 +65,7 @@ class LexemeCompletionSearchTest extends \MediaWikiTestCase {
 		unset( $decodedQuery['path'] );
 		// T206100
 		$serializePrecision = ini_get( 'serialize_precision' );
-		ini_set( 'serialize_precision', -1 );
+		ini_set( 'serialize_precision', 10 );
 		$encodedData = json_encode( $decodedQuery, JSON_PRETTY_PRINT );
 		ini_set( 'serialize_precision', $serializePrecision );
 
