@@ -10,7 +10,6 @@ use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
-use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
@@ -53,7 +52,6 @@ class LexemeView extends EntityView {
 
 	/**
 	 * @param TemplateFactory $templateFactory
-	 * @param EntityTermsView $entityTermsView
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param string $languageCode
 	 * @param FormsView $formsView
@@ -64,7 +62,6 @@ class LexemeView extends EntityView {
 	 */
 	public function __construct(
 		TemplateFactory $templateFactory,
-		EntityTermsView $entityTermsView,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		$languageCode,
 		FormsView $formsView,
@@ -75,7 +72,6 @@ class LexemeView extends EntityView {
 	) {
 		parent::__construct(
 			$templateFactory,
-			$entityTermsView,
 			$languageDirectionalityLookup,
 			$languageCode
 		);

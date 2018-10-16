@@ -90,7 +90,6 @@ return [
 				$labelDescriptionLookup,
 				$fallbackChain,
 				$editSectionGenerator,
-				$entityTermsView,
 				WikibaseRepo::getDefaultInstance()->getEntityIdHtmlLinkFormatterFactory()
 			);
 

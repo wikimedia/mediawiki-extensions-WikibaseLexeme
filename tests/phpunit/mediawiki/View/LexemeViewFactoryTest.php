@@ -12,7 +12,6 @@ use Wikibase\Lexeme\View\LexemeView;
 use Wikibase\Lexeme\View\LexemeViewFactory;
 use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
 use Wikibase\View\EditSectionGenerator;
-use Wikibase\View\EntityTermsView;
 
 /**
  * @covers \Wikibase\Lexeme\View\LexemeViewFactory
@@ -35,7 +34,6 @@ class LexemeViewFactoryTest extends TestCase {
 			$this->getMock( LabelDescriptionLookup::class ),
 			new LanguageFallbackChain( [] ),
 			$this->getMock( EditSectionGenerator::class ),
-			$this->getMock( EntityTermsView::class ),
 			$formatterFactory->reveal()
 		);
 		$view = $factory->newLexemeView();

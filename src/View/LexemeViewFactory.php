@@ -12,7 +12,6 @@ use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\EditSectionGenerator;
 use Wikibase\View\EntityIdFormatterFactory;
-use Wikibase\View\EntityTermsView;
 use Wikibase\View\Template\TemplateFactory;
 
 /**
@@ -42,11 +41,6 @@ class LexemeViewFactory {
 	private $editSectionGenerator;
 
 	/**
-	 * @var EntityTermsView
-	 */
-	private $entityTermsView;
-
-	/**
 	 * @var EntityIdFormatterFactory
 	 */
 	private $entityIdFormatterFactory;
@@ -56,7 +50,6 @@ class LexemeViewFactory {
 	 * @param LabelDescriptionLookup $labelDescriptionLookup
 	 * @param LanguageFallbackChain $fallbackChain
 	 * @param EditSectionGenerator $editSectionGenerator
-	 * @param EntityTermsView $entityTermsView
 	 * @param EntityIdFormatterFactory $entityIdFormatterFactory
 	 */
 	public function __construct(
@@ -64,14 +57,12 @@ class LexemeViewFactory {
 		LabelDescriptionLookup $labelDescriptionLookup,
 		LanguageFallbackChain $fallbackChain,
 		EditSectionGenerator $editSectionGenerator,
-		EntityTermsView $entityTermsView,
 		EntityIdFormatterFactory $entityIdFormatterFactory
 	) {
 		$this->languageCode = $languageCode;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
 		$this->fallbackChain = $fallbackChain;
 		$this->editSectionGenerator = $editSectionGenerator;
-		$this->entityTermsView = $entityTermsView;
 		$this->entityIdFormatterFactory = $entityIdFormatterFactory;
 	}
 
@@ -127,7 +118,6 @@ class LexemeViewFactory {
 
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),
-			$this->entityTermsView,
 			$languageDirectionalityLookup,
 			$this->languageCode,
 			$formsView,

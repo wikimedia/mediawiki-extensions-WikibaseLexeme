@@ -21,7 +21,6 @@ use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\View\FormsView;
 use Wikibase\Lexeme\View\SensesView;
 use Wikibase\Lexeme\View\LexemeView;
-use Wikibase\View\EntityTermsView;
 use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
@@ -86,21 +85,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @return EntityTermsView
-	 */
-	private function newEntityTermsViewMock() {
-		$entityTermsView = $this->getMock( EntityTermsView::class );
-
-		$entityTermsView->expects( $this->never() )
-			->method( 'getHtml' );
-
-		$entityTermsView->expects( $this->never() )
-			->method( 'getTitleHtml' );
-
-		return $entityTermsView;
-	}
-
-	/**
 	 * @return LanguageDirectionalityLookup
 	 */
 	private function newLanguageDirectionalityLookupMock() {
@@ -126,7 +110,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),
-			$this->newEntityTermsViewMock(),
 			$languageDirectionalityLookup,
 			'en',
 			$this->newFormsViewMock(),
