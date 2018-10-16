@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Hooks\Formatters;
+namespace Wikibase\Lexeme\MediaWiki\EntityLinkFormatters;
 
 use HtmlArmor;
 use Language;
@@ -8,17 +8,17 @@ use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\DataModel\Form;
+use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\Formatters\LexemeTermFormatter;
-use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
+use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
  */
-class LexemeLinkFormatter implements EntityLinkFormatter {
+class FormLinkFormatter implements EntityLinkFormatter {
 
 	/**
 	 * @var EntityLookup
@@ -31,66 +31,55 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	private $linkFormatter;
 
 	/**
+	 * @var LexemeTermFormatter
+	 */
+	private $representationsFormatter;
+
+	/**
 	 * @var Language
 	 */
 	private $language;
 
-	/**
-	 * @var LexemeTermFormatter
-	 */
-	private $lemmaFormatter;
-
-	/**
-	 * @param EntityLookup $entityLookup
-	 * @param DefaultEntityLinkFormatter $linkFormatter
-	 * @param LexemeTermFormatter $lemmaFormatter
-	 * @param Language $language
-	 */
 	public function __construct(
 		EntityLookup $entityLookup,
 		DefaultEntityLinkFormatter $linkFormatter,
-		LexemeTermFormatter $lemmaFormatter,
+		LexemeTermFormatter $representationsFormatter,
 		Language $language
 	) {
 		$this->entityLookup = $entityLookup;
 		$this->linkFormatter = $linkFormatter;
-		$this->lemmaFormatter = $lemmaFormatter;
 		$this->language = $language;
+		$this->representationsFormatter = $representationsFormatter;
 	}
 
-	/**
-	 * @see EntityLinkFormatter::getHtml()
-	 */
 	public function getHtml( EntityId $entityId, array $labelData = null ) {
-		Assert::parameterType( LexemeId::class, $entityId, '$entityId' );
+		Assert::parameterType( FormId::class, $entityId, '$entityId' );
 
 		return $this->linkFormatter->getHtml(
 			$entityId,
 			[
 				'language' => $this->language->getCode(),
 				'value' => new HtmlArmor(
-					$this->lemmaFormatter->format( $this->getLemmas( $entityId ) )
+					$this->representationsFormatter->format( $this->getRepresentations( $entityId ) )
 				),
 			]
 		);
 	}
 
-	/**
-	 * @see EntityLinkFormatter::getTitleAttribute()
-	 */
+	private function getRepresentations( FormId $formId ) : TermList {
+		$form = $this->entityLookup->getEntity( $formId );
+
+		/** @var Form $form */
+		return $form->getRepresentations();
+	}
+
 	public function getTitleAttribute(
 		Title $title,
 		array $labelData = null,
 		array $descriptionData = null
 	) {
-		return $title->getPrefixedText();
-	}
-
-	private function getLemmas( LexemeId $entityId ) : TermList {
-		$lexeme = $this->entityLookup->getEntity( $entityId );
-
-		/** @var Lexeme $lexeme */
-		return $lexeme->getLemmas();
+		// TODO: return the right thing here once defined and technically possible
+		return $title->getFragment();
 	}
 
 }

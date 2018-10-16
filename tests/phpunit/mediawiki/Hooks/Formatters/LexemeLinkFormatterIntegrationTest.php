@@ -9,7 +9,7 @@ use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Hooks\Formatters\LexemeLinkFormatter
+ * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter
  *
  * @license GPL-2.0-or-later
  */

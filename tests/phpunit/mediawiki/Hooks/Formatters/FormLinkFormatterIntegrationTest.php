@@ -11,7 +11,7 @@ use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Hooks\Formatters\FormLinkFormatter
+ * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter
  *
  * @license GPL-2.0-or-later
  */
