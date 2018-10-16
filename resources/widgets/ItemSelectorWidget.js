@@ -73,7 +73,7 @@
 
 			// Notify changeObserver in case field is set from the PreInfuseDOM e.g. after reload
 			if ( this._changeObserver ) {
-				this._changeObserver.notify( this.$valueField.val() );
+				this._changeObserver.notify( this.$valueField.val(), false );
 			}
 		},
 

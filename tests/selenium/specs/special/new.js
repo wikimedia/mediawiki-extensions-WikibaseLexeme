@@ -207,4 +207,39 @@ describe( 'NewLexeme:Page', () => {
 		} );
 	} );
 
+	describe( 'with form parameters included in query string and language item not bearing language code statement', () => {
+		it( 'all forms are visible in UI with query parameters', () => {
+			let lemma = Util.getTestString( 'lemma-' ),
+				languageItem = Util.getTestString( 'wannabeLanguage-' ),
+				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
+				lemmaLanguage = 'fooLanguageCode',
+				languageItemId,
+				lexicalCategoryId;
+
+			browser.call( () => {
+				return Promise.all( [
+					WikibaseApi.createItem( languageItem ),
+					WikibaseApi.createItem( lexicalCategory )
+				] ).then( ( ids ) => {
+					languageItemId = ids[ 0 ];
+					lexicalCategoryId = ids[ 1 ];
+				} );
+			} );
+
+			NewLexemePage.open( {
+				'lexeme-language': languageItemId,
+				'lemma-language': lemmaLanguage,
+				lexicalcategory: lexicalCategoryId,
+				lemma: lemma
+			} );
+
+			assert.ok( NewLexemePage.showsLemmaLanguageField() );
+
+			assert.equal( NewLexemePage.getLemma(), lemma );
+			assert.equal( NewLexemePage.getLexemeLanguage(), languageItemId );
+			assert.equal( NewLexemePage.getLexicalCategory(), lexicalCategoryId );
+			assert.equal( NewLexemePage.getLemmaLanguage(), lemmaLanguage );
+		} );
+	} );
+
 } );

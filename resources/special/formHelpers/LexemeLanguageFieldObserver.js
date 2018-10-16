@@ -35,8 +35,12 @@
 
 		/**
 		 * @param {string} languageItemId
+		 * @param {boolean} clearLemmaLanguageField
 		 */
-		notify: function ( languageItemId ) {
+		notify: function ( languageItemId, clearLemmaLanguageField ) {
+			if ( !( clearLemmaLanguageField === false ) ) {
+				clearLemmaLanguageField = true;
+			}
 			var self = this;
 
 			this._itemLookup
@@ -47,8 +51,10 @@
 						self._$lemmaLanguageField.hide();
 						self._$lemmaLanguageField.find( 'input' ).val( language );
 					} else {
-						self._$lemmaLanguageField.find( 'input' ).val( '' );
 						self._$lemmaLanguageField.show();
+						if ( clearLemmaLanguageField === true ) {
+							self._$lemmaLanguageField.find( 'input' ).val( '' );
+						}
 					}
 				} )
 				.fail( function () {
