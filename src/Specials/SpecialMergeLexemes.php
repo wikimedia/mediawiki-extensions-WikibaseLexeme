@@ -2,15 +2,15 @@
 
 namespace Wikibase\Lexeme\Specials;
 
+use Exception;
 use Html;
 use HTMLForm;
 use InvalidArgumentException;
 use Message;
-use Exception;
 use SpecialPage;
 use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Merge\LexemeMergeInteractor;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
