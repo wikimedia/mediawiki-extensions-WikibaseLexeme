@@ -4,7 +4,12 @@
 			"Joetaras"
 		]
 	},
+	"wikibaselexeme-desc": "Gestisce 'u tipe de l'entità d'u lesseme",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-lemma-field-language-label": "Variande d'a lènghe",
-	"wikibaselexeme-form-field-language-label": "Variande d'a lènghe"
+	"wikibaselexeme-form-field-language-label": "Variande d'a lènghe",
+	"apihelp-wbladdform-summary": "Aggiung 'nu module a 'u lesseme",
+	"apihelp-wblremoveform-param-id": "ID d'u module, e.g. L10-F20",
+	"apihelp-wblmergelexemes-description": "Squagghie doje lesseme.",
+	"wikibase-lexeme-mergelexemes-submit": "Squagghie le lesseme"
 }

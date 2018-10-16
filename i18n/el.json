@@ -30,6 +30,7 @@
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeme",
 	"wikibase-listdatatypes-wikibase-form-head": "Φόρμα",
 	"wikibase-listdatatypes-wikibase-sense-head": "Νόημα",
+	"wikibaselexeme-add-form": "προσθήκη μορφής",
 	"apihelp-wblremoveform-summary": "Αφαιρεί φόρμες από το Lexeme",
 	"apihelp-wblremovesense-summary": "Αφαιρεί νόημα από το Lexeme",
 	"apihelp-wblremovesense-param-id": "Αναγνωριστικό του νοήματος π.χ. L10-S20",
@@ -51,6 +52,7 @@
 	"wikibaselexeme-unknown-language": "Άγνωστη γλώσσα",
 	"wikibaselexeme-unknown-category": "Άγνωστο",
 	"wikibaselexeme-no-features": "χωρίς χαρακτηριστικά",
+	"wikibase-lexeme-mergelexemes-submit": "Συγχώνευση lexeme",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' δεν βρέθηκε",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Αποτυχία φόρτωσης του Lexeme.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Αποτυχία αποθήκευσης του Lexeme."
