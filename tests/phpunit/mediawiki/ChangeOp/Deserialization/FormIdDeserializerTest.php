@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotFormId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataModel\FormId;

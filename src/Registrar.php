@@ -22,39 +22,40 @@ class Registrar {
 		global $wgAPIModules, $wgSpecialPages, $wgResourceModules;
 
 		$wgAPIModules['wbladdform'] = [
-			'class' => 'Wikibase\Lexeme\Api\AddForm',
-			'factory' => 'Wikibase\Lexeme\Api\AddForm::newFromGlobalState',
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm::newFromGlobalState',
 		];
 		$wgAPIModules['wblremoveform'] = [
-			'class' => 'Wikibase\Lexeme\Api\RemoveForm',
-			'factory' => 'Wikibase\Lexeme\Api\RemoveForm::newFromGlobalState',
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm::newFromGlobalState',
 		];
 		$wgAPIModules['wbleditformelements'] = [
-			'class' => 'Wikibase\Lexeme\Api\EditFormElements',
-			'factory' => 'Wikibase\Lexeme\Api\EditFormElements::newFromGlobalState'
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::newFromGlobalState'
 		];
 		if ( $wgLexemeEnableSenses || defined( 'MW_PHPUNIT_TEST' ) ) {
 			$wgAPIModules['wbladdsense'] = [
-				'class' => 'Wikibase\Lexeme\Api\AddSense',
-				'factory' => 'Wikibase\Lexeme\Api\AddSense::newFromGlobalState',
+				'class' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense',
+				'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::newFromGlobalState',
 			];
 			$wgAPIModules['wbleditsenseelements'] = [
-				'class' => 'Wikibase\Lexeme\Api\EditSenseElements',
-				'factory' => 'Wikibase\Lexeme\Api\EditSenseElements::newFromGlobalState'
+				'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements',
+				'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::newFromGlobalState'
 			];
 			$wgAPIModules['wblremovesense'] = [
-				'class' => 'Wikibase\Lexeme\Api\RemoveSense',
-				'factory' => 'Wikibase\Lexeme\Api\RemoveSense::newFromGlobalState',
+				'class' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense',
+				'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::newFromGlobalState',
 			];
 		}
 		$wgAPIModules['wblmergelexemes'] = [
-			'class' => 'Wikibase\Lexeme\Api\MergeLexemes',
-			'factory' => 'Wikibase\Lexeme\Api\MergeLexemes::newFromGlobalState',
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::newFromGlobalState',
 		];
 
-		$wgSpecialPages['NewLexeme'] = 'Wikibase\Lexeme\Specials\SpecialNewLexeme::newFromGlobalState';
+		$wgSpecialPages['NewLexeme']
+			= 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::newFromGlobalState';
 		$wgSpecialPages['MergeLexemes']
-			= 'Wikibase\Lexeme\Specials\SpecialMergeLexemes::newFromGlobalState';
+			= 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::newFromGlobalState';
 
 		$wgResourceModules = array_merge(
 			$wgResourceModules,

@@ -6,7 +6,7 @@ use ApiMain;
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
-use Wikibase\Lexeme\Api\MergeLexemes;
+use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -17,7 +17,7 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
 
 /**
- * @covers \Wikibase\Lexeme\Api\MergeLexemes
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\MergeLexemes
  *
  * @license GPL-2.0-or-later
  *

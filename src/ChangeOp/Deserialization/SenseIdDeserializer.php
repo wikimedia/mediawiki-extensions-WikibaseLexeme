@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotSenseId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\DataModel\Sense;
 use Wikibase\Lexeme\DataModel\SenseId;
 

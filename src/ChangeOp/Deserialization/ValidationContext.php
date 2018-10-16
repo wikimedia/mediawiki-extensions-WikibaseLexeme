@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
 use ApiUsageException;
 use Status;
-use Wikibase\Lexeme\Api\Error\ApiError;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 
 /**
  * @license GPL-2.0-or-later

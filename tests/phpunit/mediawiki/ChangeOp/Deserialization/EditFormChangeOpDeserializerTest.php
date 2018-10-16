@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;

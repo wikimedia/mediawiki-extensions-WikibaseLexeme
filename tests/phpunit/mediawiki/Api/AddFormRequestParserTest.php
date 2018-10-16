@@ -9,8 +9,8 @@ use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Api\AddFormRequest;
-use Wikibase\Lexeme\Api\AddFormRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\AddFormRequest;
+use Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
@@ -26,7 +26,7 @@ use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
- * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser
  *
  * @license GPL-2.0-or-later
  */

@@ -10,17 +10,17 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\Lexeme\Api\AddFormRequestParser;
-use Wikibase\Lexeme\Api\Error\InvalidFormClaims;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsNotAnItemId;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
-use Wikibase\Lexeme\Api\Error\LanguageInconsistent;
-use Wikibase\Lexeme\Api\Error\LexemeTermLanguageCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotAJsonObject;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\Api\Error\UnknownLanguage;
+use Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsNotAnItemId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LanguageInconsistent;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermLanguageCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
@@ -32,7 +32,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Api\AddFormRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser
  *
  * @license GPL-2.0-or-later
  */

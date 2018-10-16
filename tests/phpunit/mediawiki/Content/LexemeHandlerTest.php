@@ -13,14 +13,14 @@ use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Content\LexemeContent;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\DataModel\FormId;
 use Wikibase\Lexeme\DataModel\SenseId;
 use Wikibase\Lexeme\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
-use Wikibase\Lexeme\Content\LexemeHandler;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lexeme\DataModel\Lexeme;
 use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
@@ -34,7 +34,7 @@ use Wikibase\Store\EntityIdLookup;
 use Wikibase\TermIndex;
 
 /**
- * @covers \Wikibase\Lexeme\Content\LexemeHandler
+ * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeHandler
  *
  * @license GPL-2.0-or-later
  * @author Bene* < benestar.wikimedia@gmail.com >

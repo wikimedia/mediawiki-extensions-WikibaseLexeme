@@ -3,12 +3,12 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Api\RemoveSenseRequest;
+use Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSense;
 use Wikibase\Lexeme\DataModel\SenseId;
 
 /**
- * @covers \Wikibase\Lexeme\Api\RemoveSenseRequest
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequest
  *
  * @license GPL-2.0-or-later
  */

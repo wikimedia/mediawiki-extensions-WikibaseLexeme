@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\Lexeme\Api\Error\ParameterIsNotSenseId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataModel\SenseId;

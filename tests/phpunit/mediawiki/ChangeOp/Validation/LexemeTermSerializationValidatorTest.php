@@ -4,11 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Validation;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Api\Error\ApiError;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\Api\Error\JsonFieldIsRequired;
-use Wikibase\Lexeme\Api\Error\LanguageInconsistent;
-use Wikibase\Lexeme\Api\Error\LexemeTermTextCanNotBeEmpty;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LanguageInconsistent;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;

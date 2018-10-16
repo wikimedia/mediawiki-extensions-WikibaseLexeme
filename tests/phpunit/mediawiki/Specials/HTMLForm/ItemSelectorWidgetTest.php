@@ -6,10 +6,10 @@ use HamcrestPHPUnitIntegration;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget;
+use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidget;
 
 /**
- * @covers \Wikibase\Lexeme\Specials\HTMLForm\ItemSelectorWidget
+ * @covers \Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidget
  *
  * @license GPL-2.0-or-later
  */

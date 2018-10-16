@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
 use IContextSource;
 use Message;
-use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lib\LanguageNameLookup;
 
 /**
- * @covers \Wikibase\Lexeme\Content\LexemeLanguageNameLookup
+ * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup
  *
  * @license GPL-2.0-or-later
  */

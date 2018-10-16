@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\ChangeOp\Deserialization;
 
-use Wikibase\Lexeme\Api\Error\InvalidFormClaims;
-use Wikibase\Lexeme\Api\Error\JsonFieldHasWrongType;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Repo\ChangeOp\ChangeOp;

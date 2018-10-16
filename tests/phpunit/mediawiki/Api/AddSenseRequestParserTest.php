@@ -7,8 +7,8 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\Api\AddSenseRequest;
-use Wikibase\Lexeme\Api\AddSenseRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
+use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequestParser;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseAdd;
@@ -21,7 +21,7 @@ use Wikibase\Lexeme\DataModel\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
 
 /**
- * @covers \Wikibase\Lexeme\Api\AddSenseRequestParser
+ * @covers \Wikibase\Lexeme\MediaWiki\Api\AddSenseRequestParser
  *
  * @license GPL-2.0-or-later
  */

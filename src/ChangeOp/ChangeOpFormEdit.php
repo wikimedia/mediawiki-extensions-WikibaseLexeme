@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\Api\Summary\SummaryAggregator;
+use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Lexeme\DataModel\Form;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpApplyException;

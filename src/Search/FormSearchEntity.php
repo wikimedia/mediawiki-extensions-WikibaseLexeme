@@ -9,7 +9,7 @@ use Elastica\Query\DisMax;
 use Elastica\Query\Match;
 use Elastica\Query\MatchNone;
 use Elastica\Query\Term;
-use Wikibase\Lexeme\Content\LexemeContent;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Repo\Search\Elastic\EntitySearchElastic;
 use Wikibase\Repo\Search\Elastic\EntitySearchUtils;
