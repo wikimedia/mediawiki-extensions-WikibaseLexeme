@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 use MediaWikiTestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use ResourceLoaderContext;
-use Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig;
+use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
 
 /**
- * @covers \Wikibase\Lexeme\Config\LexemeLanguageCodePropertyIdConfig
+ * @covers \Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig
  *
  * @license GPL-2.0-or-later
  */
