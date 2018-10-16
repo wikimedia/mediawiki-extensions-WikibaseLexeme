@@ -9,7 +9,7 @@ use InvalidArgumentException;
 use Message;
 use SpecialPage;
 use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityTitleLookup;
@@ -27,7 +27,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	const TO_ID = 'to-id';
 
 	/**
-	 * @var LexemeMergeInteractor
+	 * @var MergeLexemesInteractor
 	 */
 	private $mergeInteractor;
 
@@ -42,7 +42,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	private $exceptionLocalizer;
 
 	public function __construct(
-		LexemeMergeInteractor $mergeInteractor,
+		MergeLexemesInteractor $mergeInteractor,
 		EntityTitleLookup $titleLookup,
 		ExceptionLocalizer $exceptionLocalizer
 	) {

@@ -6,7 +6,7 @@ use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Content\LexemeTermLanguages;
-use Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 
 /**
  * @license GPL-2.0-or-later
@@ -21,7 +21,7 @@ class WikibaseLexemeServices {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeLanguageNameLookup' );
 	}
 
-	public static function getLexemeMergeInteractor() : LexemeMergeInteractor {
+	public static function getLexemeMergeInteractor() : MergeLexemesInteractor {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeMergeInteractor' );
 	}
 

@@ -33,11 +33,11 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor
+ * @covers \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor
  *
  * @license GPL-2.0-or-later
  */
-class LexemeMergeInteractorTest extends TestCase {
+class MergeLexemesInteractorTest extends TestCase {
 
 	use PHPUnit4And6Compat;
 
@@ -265,7 +265,7 @@ class LexemeMergeInteractorTest extends TestCase {
 				new EntityRevision( $this->targetLexeme )
 			);
 
-		return new \Wikibase\Lexeme\Interactors\MergeLexemes\LexemeMergeInteractor(
+		return new \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor(
 			$this->lexemeMerger,
 			$this->entityRevisionLookup,
 			$this->entityStore,
