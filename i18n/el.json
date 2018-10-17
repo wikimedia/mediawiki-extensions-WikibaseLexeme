@@ -40,6 +40,7 @@
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Δημιουργήθηκε νέο Lexeme",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "Προστέθηκε νέα φόρμα",
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "Προστέθηκε νέο νόημα",
+	"wikibaselexeme-field-lexical-category-label": "λεκτική κατηγορία",
 	"wikibaselexeme-diffview-lemma": "Λήμμα",
 	"wikibaselexeme-diffview-lexical-category": "λεκτική κατηγορία",
 	"wikibaselexeme-diffview-language": "γλώσσα",

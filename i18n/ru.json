@@ -93,6 +93,7 @@
 	"wikibase-validator-form-not-found": "У лексемы нет формы с таким ID",
 	"wikibase-lexeme-language-name-mis": "другие",
 	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан.",
+	"wikibase-lexeme-mergelexemes-submit": "Объединить лексемы",
 	"wikibase-lexeme-mergelexemes-success": "«$1» был влит в «$2» с последующей установкой перенаправления.",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Элемент '$1' не найден",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не удалось загрузить лексему.",

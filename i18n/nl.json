@@ -6,7 +6,8 @@
 			"Patio",
 			"Sjoerddebruin",
 			"Robin van der Vliet",
-			"KlaasZ4usV"
+			"KlaasZ4usV",
+			"Ndecouck"
 		]
 	},
 	"wikibaselexeme-desc": "Verzorgt het lexeem-entiteitstype",
@@ -48,7 +49,9 @@
 	"apihelp-wbladdform-summary": "Voegt vorm aan lexeem toe",
 	"apihelp-wbladdform-param-lexemeId": "ID van het lexeem, bijv. L10",
 	"apihelp-wblremoveform-param-id": "Identificatie van het formulier bijv. L10-F20",
+	"apihelp-wblmergelexemes-summary": "Twee lexemen samenvoegen.",
 	"wikibase-lexeme-summary-remove-form": "Formulier $3 met {{PLURAL:$1|representatie|representaties}} verwijderd",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Creëer een nieuw lexeme.",
 	"wikibaselexeme-field-language-label": "Taal",
 	"wikibaselexeme-field-lexical-category-label": "Lexicale categorie",
 	"wikibaselexeme-diffview-lemma": "Lemma",
@@ -62,5 +65,8 @@
 	"wikibaselexeme-unknown-language": "Onbekende taal",
 	"wikibaselexeme-unknown-category": "Onbekend",
 	"wikibase-lexeme-language-name-mis": "overige",
-	"wikibase-lexeme-lemma-language-not-recognized": "De opgegeven taalcode kon niet worden herkend."
+	"wikibase-lexeme-lemma-language-not-recognized": "De opgegeven taalcode kon niet worden herkend.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lexeem laden mislukt.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Lexemen samenvoegen mislukt, los eerst bestaande conflicten op.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Een lexeme kan niet samengevoegd worden met zichzelf."
 }
