@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bjankuloski06"
+			"Bjankuloski06",
+			"Vlad5250"
 		]
 	},
 	"wikibaselexeme-desc": "Работа со видот единица „лексема“",
@@ -103,7 +104,7 @@
 	"wikibaselexeme-api-error-invalid-item-id": "Неважечка назнака на предметот „$3“ во полето „$1“ на „$2“.",
 	"wikibaselexeme-api-error-invalid-form-claims": "Неважечки тврдења во полето „$1“ на „$2“.",
 	"wikibase-lexeme-summary-add-form": "Ставен нов образец $3 со {{PLURAL:$1|претстава|претстави}}",
-	"wikibase-lexeme-summary-remove-form": "Отстранет образецот $3 со \n{{PLURAL:$1|претстава|претстави}}",
+	"wikibase-lexeme-summary-remove-form": "Отстранет образецот $3 со {{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-update-form-representations": "Изменети претставите и/или граматичките можности на Образецот $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Додадено претставување|Додадени претставувања}} од образецот $3",
 	"wikibase-lexeme-summary-set-form-representations": "{{PLURAL:$1|Сменето претставување|Сменети претставувања}} од образецот $3",
