@@ -1,5 +1,5 @@
 <http://acme.test/L2> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/lemon/ontolex#LexicalEntry> .
 <http://acme.test/L2> <http://www.w3.org/2000/01/rdf-schema#label> "Color"@en-us .
 <http://acme.test/L2> <http://www.w3.org/2000/01/rdf-schema#label> "Colour"@en-gb .
-<http://acme.test/L2> <http://wikiba.se/ontology-beta#lemma> "Color"@en-us .
-<http://acme.test/L2> <http://wikiba.se/ontology-beta#lemma> "Colour"@en-gb .
+<http://acme.test/L2> <http://wikiba.se/ontology#lemma> "Color"@en-us .
+<http://acme.test/L2> <http://wikiba.se/ontology#lemma> "Colour"@en-gb .
