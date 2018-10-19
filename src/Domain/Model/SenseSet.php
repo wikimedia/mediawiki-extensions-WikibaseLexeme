@@ -46,7 +46,7 @@ class SenseSet implements Countable {
 	private function sortSenses( array $senses ) {
 		$sortedSenses = [];
 		foreach ( $senses as $sense ) {
-			$senseIdPart = explode( '-', $sense->getId()->getSerialization() )[1];
+			$senseIdPart = explode( '-', $sense->getId()->getSerialization(), 2 )[1];
 			$senseIdNumber = (int)substr( $senseIdPart, 1 );
 			$sortedSenses[$senseIdNumber] = $sense;
 		}
@@ -69,7 +69,7 @@ class SenseSet implements Countable {
 		$max = 0;
 
 		foreach ( $this->senses as $senseId => $sense ) {
-			$senseIdPart = explode( '-', $senseId )[1];
+			$senseIdPart = explode( '-', $senseId, 2 )[1];
 			$senseIdNumber = (int)substr( $senseIdPart, 1 );
 			if ( $senseIdNumber > $max ) {
 				$max = $senseIdNumber;

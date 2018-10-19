@@ -46,7 +46,7 @@ class FormSet implements Countable, Comparable {
 	private function sortForms( array $forms ) {
 		$sortedForms = [];
 		foreach ( $forms as $form ) {
-			$formIdPart = explode( '-', $form->getId()->getSerialization() )[1];
+			$formIdPart = explode( '-', $form->getId()->getSerialization(), 2 )[1];
 			$formIdNumber = (int)substr( $formIdPart, 1 );
 			$sortedForms[$formIdNumber] = $form;
 		}
@@ -71,7 +71,7 @@ class FormSet implements Countable, Comparable {
 		}
 
 		$numbers = array_map( function ( $formId ) {
-			list( , $formId ) = explode( '-', $formId );
+			list( , $formId ) = explode( '-', $formId, 2 );
 			return (int)substr( $formId, 1 );
 		}, array_keys( $this->forms ) );
 		return max( $numbers );

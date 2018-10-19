@@ -48,7 +48,7 @@ class NewSense {
 	public static function havingId( $senseId ) {
 		$senseBuilder = new self();
 		if ( $senseId instanceof SenseId ) {
-			$senseId = explode( '-', $senseId->getSerialization() )[1];
+			$senseId = explode( '-', $senseId->getSerialization(), 2 )[1];
 		}
 		$senseBuilder->senseId = $senseId;
 		return $senseBuilder;

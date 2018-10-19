@@ -149,7 +149,7 @@ class SensesViewTest extends TestCase {
 
 		$this->assertContains(
 			'<span class="wikibase-lexeme-sense-gloss-value" dir="rtl" lang="fa">',
-			explode( '<tr class="wikibase-lexeme-sense-gloss">', $html )[2]
+			explode( '<tr class="wikibase-lexeme-sense-gloss">', $html, 3 )[2]
 		);
 	}
 
