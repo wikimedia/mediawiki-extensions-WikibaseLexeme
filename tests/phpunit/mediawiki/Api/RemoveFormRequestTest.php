@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveForm;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequest

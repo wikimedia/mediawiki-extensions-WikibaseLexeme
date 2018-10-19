@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Validators;
 
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataModel\LexemeSubEntityId;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeSubEntityId;
 use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 
 /**

@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSense;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 
 /**
  * @license GPL-2.0-or-later

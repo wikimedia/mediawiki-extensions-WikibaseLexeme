@@ -7,7 +7,7 @@ use ValueValidators\Result;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Lexeme\Validators\LexemeValidatorFactory;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;

@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\DummyObjects;
 
 use LogicException;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 
 /**
  * An ID for a BlankSense which has already been associated with a particular lexeme.

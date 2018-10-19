@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use InvalidArgumentException;
 use RuntimeException;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\LexemeId
+ * @covers \Wikibase\Lexeme\Domain\DataModel\LexemeId
  *
  * @license GPL-2.0-or-later
  */

@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\DataModel\FormSet;
-use Wikibase\Lexeme\DataModel\LexemePatchAccess;
-use Wikibase\Lexeme\DataModel\SenseSet;
+use Wikibase\Lexeme\Domain\DataModel\FormSet;
+use Wikibase\Lexeme\Domain\DataModel\LexemePatchAccess;
+use Wikibase\Lexeme\Domain\DataModel\SenseSet;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\LexemePatchAccess
+ * @covers \Wikibase\Lexeme\Domain\DataModel\LexemePatchAccess
  *
  * @license GPL-2.0-or-later
  */

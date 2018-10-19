@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\DummyObjects;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 use Wikibase\Lexeme\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\DummyObjects\NullSenseId;
 

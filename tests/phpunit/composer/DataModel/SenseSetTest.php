@@ -3,11 +3,11 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataModel\SenseSet;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseSet;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\SenseSet
+ * @covers \Wikibase\Lexeme\Domain\DataModel\SenseSet
  *
  * @license GPL-2.0-or-later
  */

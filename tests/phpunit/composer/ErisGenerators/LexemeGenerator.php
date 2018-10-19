@@ -8,9 +8,9 @@ use Eris\Generator\GeneratedValueSingle;
 use Wikibase\DataModel\Entity\Int32EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\FormSet;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\FormSet;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 
 /**
  * @license GPL-2.0-or-later

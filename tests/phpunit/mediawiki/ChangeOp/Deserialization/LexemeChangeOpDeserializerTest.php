@@ -26,7 +26,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;

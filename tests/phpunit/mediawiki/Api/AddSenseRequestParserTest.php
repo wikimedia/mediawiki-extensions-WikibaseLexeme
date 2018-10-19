@@ -17,7 +17,7 @@ use Wikibase\Lexeme\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
 
 /**

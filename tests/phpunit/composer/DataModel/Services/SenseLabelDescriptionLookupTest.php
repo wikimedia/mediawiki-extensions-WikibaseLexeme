@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\LanguageWithConversion;
-use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataModel\Services\SenseLabelDescriptionLookup;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\Services\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers Wikibase\Lexeme\DataModel\Services\SenseLabelDescriptionLookup
+ * @covers Wikibase\Lexeme\Domain\DataModel\Services\SenseLabelDescriptionLookup
  *
  * @license GPL-2.0-or-later
  */

@@ -6,17 +6,17 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\Lexeme\DataModel\Sense;
-use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataModel\Services\Diff\SenseDiffer;
-use Wikibase\Lexeme\DataModel\Services\Diff\SensePatcher;
+use Wikibase\Lexeme\Domain\DataModel\Sense;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\Services\Diff\SenseDiffer;
+use Wikibase\Lexeme\Domain\DataModel\Services\Diff\SensePatcher;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\SenseDiffer
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\SensePatcher
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\SenseDiffer
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\SensePatcher
  *
  * @license GPL-2.0-or-later
  */

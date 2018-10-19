@@ -8,7 +8,7 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 
 /**
  * @license GPL-2.0-or-later

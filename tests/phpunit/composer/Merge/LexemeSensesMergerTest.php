@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\Merge;
 
 use PHPUnit4And6Compat;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Lexeme\Merge\LexemeSensesMerger;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;

@@ -8,10 +8,10 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**

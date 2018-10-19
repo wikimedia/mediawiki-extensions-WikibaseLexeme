@@ -11,7 +11,7 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\StatementListProvider;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 
 /**
  * Lexeme language field - this contains Q-id of lexeme language.

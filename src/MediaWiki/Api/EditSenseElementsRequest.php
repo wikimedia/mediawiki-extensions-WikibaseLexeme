@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 
 /**

@@ -4,14 +4,14 @@ namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer;
+use Wikibase\Lexeme\Domain\DataModel\Services\Diff\FormDiffer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\AddFormDiff
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\ChangeFormDiffOp
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\FormDiffer
- * @covers \Wikibase\Lexeme\DataModel\Services\Diff\RemoveFormDiff
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\AddFormDiff
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\ChangeFormDiffOp
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\FormDiffer
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\RemoveFormDiff
  *
  * @license GPL-2.0-or-later
  */

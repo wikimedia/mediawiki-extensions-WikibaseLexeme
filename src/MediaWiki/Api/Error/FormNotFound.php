@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
 use ApiMessage;
 use Message;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 
 /**
  * @license GPL-2.0-or-later

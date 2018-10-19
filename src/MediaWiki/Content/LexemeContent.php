@@ -8,7 +8,7 @@ use Title;
 use Wikibase\Content\EntityHolder;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\EntityContent;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikimedia\Assert\Assert;
 
 /**

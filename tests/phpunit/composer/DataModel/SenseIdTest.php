@@ -3,12 +3,12 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\LexemeSubEntityId
- * @covers \Wikibase\Lexeme\DataModel\SenseId
+ * @covers \Wikibase\Lexeme\Domain\DataModel\LexemeSubEntityId
+ * @covers \Wikibase\Lexeme\Domain\DataModel\SenseId
  *
  * @license GPL-2.0-or-later
  */

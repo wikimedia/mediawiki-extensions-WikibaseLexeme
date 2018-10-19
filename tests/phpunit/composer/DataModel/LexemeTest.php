@@ -13,20 +13,20 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\FormId;
-use Wikibase\Lexeme\DataModel\FormSet;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataModel\LexemePatchAccess;
-use Wikibase\Lexeme\DataModel\Sense;
-use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataModel\SenseSet;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormSet;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemePatchAccess;
+use Wikibase\Lexeme\Domain\DataModel\Sense;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseSet;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Lexeme\DummyObjects\BlankSense;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Lexeme
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Lexeme
  *
  * @license GPL-2.0-or-later
  */

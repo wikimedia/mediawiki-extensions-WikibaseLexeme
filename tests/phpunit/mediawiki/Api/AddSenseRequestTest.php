@@ -9,7 +9,7 @@ use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**

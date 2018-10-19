@@ -12,15 +12,15 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer;
-use Wikibase\Lexeme\DataModel\Serialization\StorageLexemeSerializer;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Serialization\ExternalLexemeSerializer;
+use Wikibase\Lexeme\Domain\DataModel\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Serialization\ExternalLexemeSerializer
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\ExternalLexemeSerializer
  *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>

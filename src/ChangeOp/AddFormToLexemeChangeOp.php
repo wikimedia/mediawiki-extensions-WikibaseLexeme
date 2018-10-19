@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\DataModel\Form;
-use Wikibase\Lexeme\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
 use Wikibase\Lexeme\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Store\EntityPermissionChecker;

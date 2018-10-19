@@ -8,7 +8,7 @@ use HTMLForm;
 use InvalidArgumentException;
 use Message;
 use SpecialPage;
-use Wikibase\Lexeme\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\WikibaseLexemeServices;

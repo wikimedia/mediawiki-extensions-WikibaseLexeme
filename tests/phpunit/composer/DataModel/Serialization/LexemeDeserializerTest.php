@@ -13,18 +13,18 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataModel\Lexeme;
-use Wikibase\Lexeme\DataModel\LexemeId;
-use Wikibase\Lexeme\DataModel\Sense;
-use Wikibase\Lexeme\DataModel\SenseId;
-use Wikibase\Lexeme\DataModel\SenseSet;
-use Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer;
+use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\DataModel\Sense;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseSet;
+use Wikibase\Lexeme\Domain\DataModel\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @covers \Wikibase\Lexeme\DataModel\Serialization\LexemeDeserializer
+ * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\LexemeDeserializer
  *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>

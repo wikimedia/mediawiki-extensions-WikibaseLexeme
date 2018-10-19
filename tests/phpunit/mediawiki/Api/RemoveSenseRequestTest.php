@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveSense;
-use Wikibase\Lexeme\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\DataModel\SenseId;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequest

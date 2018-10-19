@@ -7,7 +7,7 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataModel\FormId;
+use Wikibase\Lexeme\Domain\DataModel\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Summary;
