@@ -3,16 +3,18 @@
 namespace Wikibase\Lexeme\Presentation\View;
 
 use Language;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
+use Wikibase\Lib\Store\EntityInfo;
+use Wikibase\Lib\Store\EntityInfoTermLookup;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
+use Wikibase\Repo\View\RepoSpecialPageLinker;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\View\EditSectionGenerator;
-use Wikibase\View\EntityIdFormatterFactory;
 use Wikibase\View\Template\TemplateFactory;
+use Wikibase\View\ToolbarEditSectionGenerator;
 
 /**
  * @license GPL-2.0-or-later
@@ -21,49 +23,28 @@ use Wikibase\View\Template\TemplateFactory;
 class LexemeViewFactory {
 
 	/**
-	 * @var string
-	 */
-	private $languageCode;
-
-	/**
-	 * @var LabelDescriptionLookup
-	 */
-	private $labelDescriptionLookup;
-
-	/**
 	 * @var LanguageFallbackChain
 	 */
 	private $fallbackChain;
 
 	/**
-	 * @var EditSectionGenerator
+	 * @var Language
 	 */
-	private $editSectionGenerator;
+	private $language;
 
 	/**
-	 * @var EntityIdFormatterFactory
+	 * @var EntityInfo
 	 */
-	private $entityIdFormatterFactory;
+	private $entityInfo;
 
-	/**
-	 * @param string $languageCode
-	 * @param LabelDescriptionLookup $labelDescriptionLookup
-	 * @param LanguageFallbackChain $fallbackChain
-	 * @param EditSectionGenerator $editSectionGenerator
-	 * @param EntityIdFormatterFactory $entityIdFormatterFactory
-	 */
 	public function __construct(
-		$languageCode,
-		LabelDescriptionLookup $labelDescriptionLookup,
+		Language $language,
 		LanguageFallbackChain $fallbackChain,
-		EditSectionGenerator $editSectionGenerator,
-		EntityIdFormatterFactory $entityIdFormatterFactory
+		EntityInfo $entityInfo
 	) {
-		$this->languageCode = $languageCode;
-		$this->labelDescriptionLookup = $labelDescriptionLookup;
 		$this->fallbackChain = $fallbackChain;
-		$this->editSectionGenerator = $editSectionGenerator;
-		$this->entityIdFormatterFactory = $entityIdFormatterFactory;
+		$this->language = $language;
+		$this->entityInfo = $entityInfo;
 	}
 
 	public function newLexemeView() {
@@ -71,35 +52,32 @@ class LexemeViewFactory {
 		$templateFactory = new LexemeTemplateFactory( $templates );
 
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
-		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->languageCode );
-
-		$language = Language::factory( $this->languageCode );
+		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->language->getCode() );
+		$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
+			new EntityInfoTermLookup( $this->entityInfo ),
+			$this->fallbackChain
+		);
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
-		// TODO: $this->labelDescriptionLookup is an EntityInfo based lookup that only knows
-		// entities processed via EntityParserOutputDataUpdater first, which processes statements
-		// and sitelinks only and does not know about Lexeme-specific concepts like lexical category
-		// and language.
-		$retrievingLabelDescriptionLookup = $wikibaseRepo
-			->getLanguageFallbackLabelDescriptionLookupFactory()
-			->newLabelDescriptionLookup( $language );
+		$editSectionGenerator = $this->newToolbarEditSectionGenerator();
 
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
-			$this->languageCode,
-			$this->labelDescriptionLookup,
+			$this->language->getCode(),
+			$labelDescriptionLookup,
 			$this->fallbackChain,
-			$this->editSectionGenerator
+			$editSectionGenerator
 		);
 
 		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
-			$this->languageCode,
-			$retrievingLabelDescriptionLookup,
+			$this->language->getCode(),
+			$labelDescriptionLookup,
 			$this->fallbackChain,
-			$this->editSectionGenerator
+			$editSectionGenerator
 		);
 
-		$idLinkFormatter = $this->entityIdFormatterFactory->getEntityIdFormatter( $language );
+		$idLinkFormatter = $wikibaseRepo->getEntityIdHtmlLinkFormatterFactory()
+			->getEntityIdFormatter( $this->language );
 
 		$formsView = new FormsView(
 			$localizedTextProvider,
@@ -113,13 +91,13 @@ class LexemeViewFactory {
 			$languageDirectionalityLookup,
 			$templateFactory,
 			$statementGroupListView,
-			$this->languageCode
+			$this->language->getCode()
 		);
 
 		return new LexemeView(
 			TemplateFactory::getDefaultInstance(),
 			$languageDirectionalityLookup,
-			$this->languageCode,
+			$this->language->getCode(),
 			$formsView,
 			$sensesView,
 			$statementSectionsView,
@@ -128,6 +106,14 @@ class LexemeViewFactory {
 					->get( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
 			),
 			$idLinkFormatter
+		);
+	}
+
+	private function newToolbarEditSectionGenerator() {
+		return new ToolbarEditSectionGenerator(
+			new RepoSpecialPageLinker(),
+			TemplateFactory::getDefaultInstance(),
+			new MediaWikiLocalizedTextProvider( $this->language->getCode() )
 		);
 	}
 
