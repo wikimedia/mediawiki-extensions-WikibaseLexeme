@@ -4,5 +4,7 @@
 			"Rul1902"
 		]
 	},
-	"wikibase-lexeme-summary-remove-sense": "မာထိုလောင်ဝိုက် $3ဏှ် လ်ုဏ်ုဍးလ်ုမိင်မိင်ဏှ် လ်ု{{PLURAL:$1|[$2] gloss|glosses}}"
+	"wikibaselexeme-add-form": "ဆူ့ဍုဂ်လိက်ပ္တိင့်",
+	"wikibase-lexeme-summary-remove-sense": "မာထိုလောင်ဝိုက် $3ဏှ် လ်ုဏ်ုဍးလ်ုမိင်မိင်ဏှ် လ်ု{{PLURAL:$1|[$2] gloss|glosses}}",
+	"wikibaselexeme-diffview-form": "လိက်ပ္တိင့်"
 }
