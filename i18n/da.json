@@ -5,6 +5,7 @@
 		]
 	},
 	"wikibaselexeme-gloss-field-language-label": "Sprog",
+	"wikibase-lexeme-summary-wbeditentity-update": "Ændrede et leksem",
 	"wikibaselexeme-api-error-parameter-required": "Parameteren «$1» er påkrævet.",
 	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Sproget kan ikke være tomt",
 	"wikibaselexeme-field-language-label": "Sprog",
@@ -12,5 +13,6 @@
 	"wikibaselexeme-unknown-language": "Ukendt sprog",
 	"wikibaselexeme-unknown-category": "Ukendt",
 	"wikibase-lexeme-language-name-mis": "andet",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' er ikke et gyldigt lekseme-ID",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' ikke fundet"
 }
