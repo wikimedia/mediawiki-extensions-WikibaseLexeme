@@ -11,7 +11,7 @@ use Wikibase\Lexeme\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**

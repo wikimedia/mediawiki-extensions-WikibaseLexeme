@@ -17,10 +17,10 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
-use Wikibase\Lexeme\Domain\DataModel\Serialization\LexemeDeserializer;
-use Wikibase\Lexeme\Domain\DataModel\Serialization\StorageLexemeSerializer;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Serialization\LexemeDeserializer;
+use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -28,7 +28,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\StorageLexemeSerializer
+ * @covers \Wikibase\Lexeme\Serialization\StorageLexemeSerializer
  *
  * @license GPL-2.0-or-later
  */

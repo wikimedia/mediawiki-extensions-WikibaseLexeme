@@ -3,14 +3,14 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\SenseDiffer;
+use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\AddSenseDiff
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\ChangeSenseDiffOp
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\SenseDiffer
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\RemoveSenseDiff
+ * @covers \Wikibase\Lexeme\Domain\Diff\AddSenseDiff
+ * @covers \Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp
+ * @covers \Wikibase\Lexeme\Domain\Diff\SenseDiffer
+ * @covers \Wikibase\Lexeme\Domain\Diff\RemoveSenseDiff
  *
  * @license GPL-2.0-or-later
  */

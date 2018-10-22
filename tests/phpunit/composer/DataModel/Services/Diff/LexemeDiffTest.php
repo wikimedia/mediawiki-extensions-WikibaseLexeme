@@ -7,15 +7,15 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Domain\DataModel\FormId;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\ChangeFormDiffOp;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\ChangeSenseDiffOp;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiff;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Domain\Diff\ChangeFormDiffOp;
+use Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp;
+use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiff
+ * @covers \Wikibase\Lexeme\Domain\Diff\LexemeDiff
  *
  * @license GPL-2.0-or-later
  */

@@ -8,8 +8,8 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequest;
 use Wikibase\Lexeme\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\ChangeOp\ChangeOpSenseEdit;
-use Wikibase\Lexeme\Domain\DataModel\Sense;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

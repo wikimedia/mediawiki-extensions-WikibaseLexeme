@@ -9,7 +9,7 @@ use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequestParser;
 use Wikibase\Lexeme\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequestParser

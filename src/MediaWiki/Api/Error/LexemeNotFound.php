@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @license GPL-2.0-or-later

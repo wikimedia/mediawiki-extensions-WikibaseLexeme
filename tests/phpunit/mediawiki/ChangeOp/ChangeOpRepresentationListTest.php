@@ -7,7 +7,7 @@ use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRemoveFormRepresentation;
 use Wikibase\Lexeme\ChangeOp\ChangeOpRepresentationList;
-use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;

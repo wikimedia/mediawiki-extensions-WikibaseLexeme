@@ -23,13 +23,13 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\DataModel\Sense;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
-use Wikibase\Lexeme\Domain\DataModel\Serialization\SenseDeserializer;
-use Wikibase\Lexeme\Domain\DataModel\Serialization\SenseSerializer;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Serialization\SenseDeserializer;
+use Wikibase\Lexeme\Serialization\SenseSerializer;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\SenseDeserializer
+ * @covers \Wikibase\Lexeme\Serialization\SenseDeserializer
  *
  * @license GPL-2.0-or-later
  */

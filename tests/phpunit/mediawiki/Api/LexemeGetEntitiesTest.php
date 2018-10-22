@@ -5,14 +5,14 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Serialization\ExternalLexemeSerializer
+ * @covers \Wikibase\Lexeme\Serialization\ExternalLexemeSerializer
  *
  * @license GPL-2.0-or-later
  *

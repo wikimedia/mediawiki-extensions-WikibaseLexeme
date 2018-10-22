@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Merge;
 
 use Exception;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Merge\Exceptions\ConflictingLemmaValueException;
 use Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException;
 use Wikibase\Lexeme\Merge\Exceptions\DifferentLanguagesException;

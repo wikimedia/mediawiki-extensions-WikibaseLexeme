@@ -11,15 +11,15 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiff;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiffer;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
+use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiffer
+ * @covers \Wikibase\Lexeme\Domain\Diff\LexemeDiffer
  *
  * @license GPL-2.0-or-later
  */

@@ -2,12 +2,12 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel;
 
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
-use Wikibase\Lexeme\Domain\DataModel\LexemeSubEntityId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\LexemeSubEntityId
+ * @covers \Wikibase\Lexeme\Domain\Model\LexemeSubEntityId
  *
  * @license GPL-2.0-or-later
  */

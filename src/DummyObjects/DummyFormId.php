@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\DummyObjects;
 
-use Wikibase\Lexeme\Domain\DataModel\FormId;
+use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**
  * @license GPL-2.0-or-later

@@ -6,7 +6,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use Status;
 use Title;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;

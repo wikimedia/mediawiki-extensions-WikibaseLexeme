@@ -7,7 +7,7 @@ use ApiMain;
 use ApiUsageException;
 use Exception;
 use InvalidArgumentException;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\WikibaseLexemeServices;

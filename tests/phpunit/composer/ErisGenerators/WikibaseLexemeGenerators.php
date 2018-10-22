@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
-use Wikibase\Lexeme\Domain\DataModel\FormId;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
-use Wikibase\Lexeme\Domain\DataModel\SenseId;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @license GPL-2.0-or-later

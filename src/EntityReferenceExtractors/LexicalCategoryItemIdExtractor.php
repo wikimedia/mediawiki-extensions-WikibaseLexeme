@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\EntityReferenceExtractors;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\EntityReferenceExtractors\EntityReferenceExtractor;
 use Wikimedia\Assert\Assert;
 

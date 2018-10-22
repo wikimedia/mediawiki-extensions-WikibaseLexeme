@@ -3,19 +3,19 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Domain\DataModel\FormId;
-use Wikibase\Lexeme\Domain\DataModel\Lexeme;
-use Wikibase\Lexeme\Domain\DataModel\LexemeId;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiffer;
-use Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemePatcher;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
+use Wikibase\Lexeme\Domain\Diff\LexemePatcher;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemeDiffer
- * @covers \Wikibase\Lexeme\Domain\DataModel\Services\Diff\LexemePatcher
+ * @covers \Wikibase\Lexeme\Domain\Diff\LexemeDiffer
+ * @covers \Wikibase\Lexeme\Domain\Diff\LexemePatcher
  *
  * @license GPL-2.0-or-later
  */

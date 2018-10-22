@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\Merge\Validator;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Domain\DataModel\Form;
+use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Merge\Validator\FormMergeability;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 

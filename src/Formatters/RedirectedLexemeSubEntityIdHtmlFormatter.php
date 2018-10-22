@@ -6,7 +6,7 @@ use Html;
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
-use Wikibase\Lexeme\Domain\DataModel\LexemeSubEntityId;
+use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use Wikibase\Lib\Store\EntityTitleLookup;
 
 /**
