@@ -10,7 +10,8 @@
 			"Ole Yves",
 			"Stjn",
 			"Vlad5250",
-			"Infovarius"
+			"Infovarius",
+			"Putnik"
 		]
 	},
 	"wikibaselexeme-desc": "Работа с видом единицы «лексема»",
@@ -30,7 +31,7 @@
 	"wikibaselexeme-header-forms": "Формы",
 	"wikibaselexeme-enter-form-representation": "Введите новую словоформу",
 	"wikibaselexeme-empty-form-representation": "Нет текста словоформы",
-	"wikibaselexeme-statementsection-statements-about-sense": "Утверждения о \"$1\"",
+	"wikibaselexeme-statementsection-statements-about-sense": "Утверждения о «$1»",
 	"wikibaselexeme-header-senses": "Значения",
 	"wikibase-lexeme-gloss-empty": "Глоссa не указанa",
 	"wikibaselexeme-lemma-field-lemma-label": "Лемма",
@@ -53,7 +54,7 @@
 	"wikibase-listdatatypes-wikibase-form-body": "Ссылка на другие формы в проекте. При вводе значения будет производиться поиск подходящих форм в пространстве имён «Лексема».",
 	"wikibase-listdatatypes-wikibase-sense-head": "Значение",
 	"wikibase-listdatatypes-wikibase-sense-body": "Ссылка на другие значения в проекте. При вводе значения будет производиться поиск подходящих значений в пространстве имён «Лексема».",
-	"wikibaselexeme-add-sense": "добавить Значение",
+	"wikibaselexeme-add-sense": "добавить значение",
 	"wikibaselexeme-add-form": "добавить форму",
 	"apihelp-wbladdform-summary": "Добавить форму к лексеме",
 	"apihelp-wbladdform-param-lexemeId": "ID лексемы, например: L10",
