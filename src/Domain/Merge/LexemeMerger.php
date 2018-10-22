@@ -1,17 +1,17 @@
 <?php
 
-namespace Wikibase\Lexeme\Merge;
+namespace Wikibase\Lexeme\Domain\Merge;
 
 use Exception;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Merge\Exceptions\ConflictingLemmaValueException;
-use Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException;
-use Wikibase\Lexeme\Merge\Exceptions\DifferentLanguagesException;
-use Wikibase\Lexeme\Merge\Exceptions\DifferentLexicalCategoriesException;
-use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
-use Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException;
-use Wikibase\Lexeme\Merge\Validator\NoConflictingTermListValues;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\ConflictingLemmaValueException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\DifferentLanguagesException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\DifferentLexicalCategoriesException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\ModificationFailedException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException;
+use Wikibase\Lexeme\Domain\Merge\Validator\NoConflictingTermListValues;
 use Wikibase\Lexeme\Validators\NoCrossReferencingLexemeStatements;
 use Wikibase\Repo\Merge\StatementsMerger;
 

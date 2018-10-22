@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Merge\Exceptions;
+namespace Wikibase\Lexeme\Domain\Merge\Exceptions;
 
 use Message;
 use RuntimeException;

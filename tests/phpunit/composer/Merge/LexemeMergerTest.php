@@ -11,15 +11,15 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\Merge\Exceptions\MergingException;
-use Wikibase\Lexeme\Merge\Exceptions\ModificationFailedException;
-use Wikibase\Lexeme\Merge\LexemeFormsMerger;
-use Wikibase\Lexeme\Merge\LexemeMerger;
-use Wikibase\Lexeme\Merge\LexemeSensesMerger;
-use Wikibase\Lexeme\Merge\TermListMerger;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\ModificationFailedException;
+use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
+use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
@@ -31,7 +31,7 @@ use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\LexemeMerger
+ * @covers \Wikibase\Lexeme\Domain\Merge\LexemeMerger
  *
  * @license GPL-2.0-or-later
  */
@@ -51,7 +51,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException
 	 */
 	public function testLexemesReferenceTheSameObjectCausesException() {
 		$lexeme = $this->newMinimumValidLexeme( 'L36' )
@@ -61,7 +61,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\ReferenceSameLexemeException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException
 	 */
 	public function testLexemesAreTheSameCausesException() {
 		$source = $this->newMinimumValidLexeme( 'L37' )
@@ -100,7 +100,7 @@ class LexemeMergerTest extends TestCase {
 
 	/**
 	 * @dataProvider provideConflictingLemmas
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\ConflictingLemmaValueException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\ConflictingLemmaValueException
 	 */
 	public function testLexemesHaveLemmasWithSameLanguageButDifferentValueCausesException(
 		array $sourceLemmas,
@@ -127,7 +127,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\DifferentLanguagesException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\DifferentLanguagesException
 	 */
 	public function testLexemesHaveDifferentLanguageCausesException() {
 		$source = NewLexeme::havingId( 'L1' )
@@ -143,7 +143,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\DifferentLexicalCategoriesException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\DifferentLexicalCategoriesException
 	 */
 	public function testLexemesHaveDifferentLexicalCategoriesCausesException() {
 		$source = NewLexeme::havingId( 'L1' )
@@ -179,7 +179,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenSourceLexemeWithStatementReferencingTargetLexemeExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -368,7 +368,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenSourceLexemeWithFormStatementReferencingTargetLexemeExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -390,7 +390,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenTargetLexemeWithFormStatementReferencingSourceLexemeExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -412,7 +412,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenSourceLexemeWithFormStatementReferencingTargetsFormExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -438,7 +438,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenTargetLexemeWithFormStatementReferencingSourcesFormExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -755,7 +755,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenSourceLexemeWithSenseStatementReferencingTargetLexemeExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -777,7 +777,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenTargetLexemeWithSenseStatementReferencingSourceLexemeExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -799,7 +799,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenSourceLexemeWithSenseStatementReferencingTargetsSenseExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )
@@ -825,7 +825,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	/**
-	 * @expectedException \Wikibase\Lexeme\Merge\Exceptions\CrossReferencingException
+	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\CrossReferencingException
 	 */
 	public function testGivenTargetLexemeWithSenseStatementReferencingSourcesSenseExceptionIsThrown() {
 		$statement = NewStatement::forProperty( 'P42' )

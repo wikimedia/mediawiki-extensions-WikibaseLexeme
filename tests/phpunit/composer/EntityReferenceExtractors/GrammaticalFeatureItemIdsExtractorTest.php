@@ -8,12 +8,12 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 
 /**
- * @covers \Wikibase\Lexeme\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor
+ * @covers \Wikibase\Lexeme\Domain\EntityReferenceExtractors\GrammaticalFeatureItemIdsExtractor
  *
  * @license GPL-2.0-or-later
  */

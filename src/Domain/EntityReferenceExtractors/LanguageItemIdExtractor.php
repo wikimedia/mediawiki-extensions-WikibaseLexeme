@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\EntityReferenceExtractors;
+namespace Wikibase\Lexeme\Domain\EntityReferenceExtractors;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
@@ -9,11 +9,11 @@ use Wikibase\Repo\EntityReferenceExtractors\EntityReferenceExtractor;
 use Wikimedia\Assert\Assert;
 
 /**
- * Extracts the item id of the lexical category of a lexeme
+ * Extracts the item id of the language of a lexeme
  *
  * @license GPL-2.0-or-later
  */
-class LexicalCategoryItemIdExtractor implements EntityReferenceExtractor {
+class LanguageItemIdExtractor implements EntityReferenceExtractor {
 
 	/**
 	 * @param EntityDocument $lexeme
@@ -23,7 +23,7 @@ class LexicalCategoryItemIdExtractor implements EntityReferenceExtractor {
 		Assert::parameterType( Lexeme::class, $lexeme, '$entity' );
 
 		/** @var Lexeme $lexeme */
-		return [ $lexeme->getLexicalCategory() ];
+		return [ $lexeme->getLanguage() ];
 	}
 
 }

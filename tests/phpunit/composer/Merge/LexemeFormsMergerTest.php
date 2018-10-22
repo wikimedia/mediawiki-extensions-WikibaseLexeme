@@ -7,9 +7,9 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Merge\LexemeFormsMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Merge\TermListMerger;
+use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\StatementChangeOpFactory;
@@ -19,7 +19,7 @@ use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
- * @covers \Wikibase\Lexeme\Merge\LexemeFormsMerger
+ * @covers \Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger
  *
  * @license GPL-2.0-or-later
  */

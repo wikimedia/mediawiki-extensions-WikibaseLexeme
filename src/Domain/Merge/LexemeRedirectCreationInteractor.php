@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Merge;
+namespace Wikibase\Lexeme\Domain\Merge;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Repo\Interactors\EntityRedirectCreationInteractor;
