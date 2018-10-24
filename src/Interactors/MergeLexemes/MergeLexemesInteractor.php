@@ -6,9 +6,7 @@ use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\EntityContent;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -17,8 +15,10 @@ use Wikibase\Lexeme\Domain\Merge\Exceptions\PermissionDeniedException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
-use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
@@ -228,23 +228,17 @@ class MergeLexemesInteractor {
 		);
 	}
 
-	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ): EntityRevision {
-		// TODO: the EntityContent::EDIT_IGNORE_CONSTRAINTS flag does not seem to be used by Lexeme
-		// (LexemeHandler has no onSaveValidators)
-		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
-		if ( $bot && $this->user->isAllowed( 'bot' ) ) {
-			$flags |= EDIT_FORCE_BOT;
-		}
+	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ) {
+		// TODO: inject
+		$repo = new MediaWikiLexemeRepository( $this->user, $this->entityStore, $bot );
 
 		try {
-			return $this->entityStore->saveEntity(
+			$repo->updateLexeme(
 				$lexeme,
-				$this->summaryFormatter->formatSummary( $summary ),
-				$this->user,
-				$flags
+				$this->summaryFormatter->formatSummary( $summary )
 			);
-		} catch ( StorageException $ex ) {
-			throw new LexemeSaveFailedException();
+		} catch ( UpdateLexemeException $ex ) {
+			throw new LexemeSaveFailedException( $ex->getMessage(), $ex->getCode(), $ex );
 		}
 	}
 

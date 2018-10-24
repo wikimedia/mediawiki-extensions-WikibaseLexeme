@@ -13,6 +13,8 @@ abstract class MergingException extends RuntimeException {
 	abstract public function getErrorMessage(): Message;
 
 	/**
+	 * FIXME: presentation concept in Domain layer
+	 *
 	 * @return string
 	 */
 	abstract public function getApiErrorCode();
