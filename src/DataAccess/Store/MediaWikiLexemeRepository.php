@@ -30,23 +30,28 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	}
 
 	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary ) {
-		// TODO: the EntityContent::EDIT_IGNORE_CONSTRAINTS flag does not seem to be used by Lexeme
-		// (LexemeHandler has no onSaveValidators)
-		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
-		if ( $this->userIsBot && $this->user->isAllowed( 'bot' ) ) {
-			$flags |= EDIT_FORCE_BOT;
-		}
-
 		try {
 			return $this->entityStore->saveEntity(
 				$lexeme,
 				$editSummary,
 				$this->user,
-				$flags
+				$this->getSaveFlags()
 			);
 		} catch ( StorageException $ex ) {
 			throw new UpdateLexemeException( $ex );
 		}
+	}
+
+	private function getSaveFlags() {
+		// TODO: the EntityContent::EDIT_IGNORE_CONSTRAINTS flag does not seem to be used by Lexeme
+		// (LexemeHandler has no onSaveValidators)
+		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
+
+		if ( $this->userIsBot && $this->user->isAllowed( 'bot' ) ) {
+			$flags |= EDIT_FORCE_BOT;
+		}
+
+		return $flags;
 	}
 
 }
