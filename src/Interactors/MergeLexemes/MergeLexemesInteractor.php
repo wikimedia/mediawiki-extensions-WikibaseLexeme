@@ -106,10 +106,6 @@ class MergeLexemesInteractor {
 	 * @param string|null $summary - only relevant when called through the API
 	 * @param bool $isBotEdit - only relevant when called through the API
 	 *
-	 * @return array A list of exactly two EntityRevision objects. The first
-	 * EntityRevision object represents the modified source lexeme, the second one represents
-	 * the modified target lexeme.
-	 *
 	 * @throws MergingException
 	 */
 	public function mergeLexemes(
@@ -132,12 +128,10 @@ class MergeLexemesInteractor {
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$result = $this->attemptSaveMerge( $source, $target, $summary, $isBotEdit );
+		$this->attemptSaveMerge( $source, $target, $summary, $isBotEdit );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
 		$this->redirectInteractor->createRedirect( $sourceId, $targetId, $isBotEdit );
-
-		return $result;
 	}
 
 	/**
@@ -219,18 +213,13 @@ class MergeLexemesInteractor {
 	 * @param Lexeme $target
 	 * @param string|null $summary
 	 * @param bool $bot
-	 *
-	 * @return array A list of exactly two EntityRevision objects. The first one represents the
-	 *  modified source lexeme, the second one represents the modified target lexeme.
 	 */
 	private function attemptSaveMerge( Lexeme $source, Lexeme $target, $summary, $bot ) {
 		$toSummary = $this->getSummary( 'to', $target->getId(), $summary );
-		$fromRev = $this->saveLexeme( $source, $toSummary, $bot );
+		$this->saveLexeme( $source, $toSummary, $bot );
 
 		$fromSummary = $this->getSummary( 'from', $source->getId(), $summary );
-		$toRev = $this->saveLexeme( $target, $fromSummary, $bot );
-
-		return [ $fromRev, $toRev ];
+		$this->saveLexeme( $target, $fromSummary, $bot );
 	}
 
 	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ): EntityRevision {
