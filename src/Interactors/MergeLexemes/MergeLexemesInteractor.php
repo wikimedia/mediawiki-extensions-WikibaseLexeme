@@ -229,6 +229,8 @@ class MergeLexemesInteractor {
 	}
 
 	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ): EntityRevision {
+		// TODO: the EntityContent::EDIT_IGNORE_CONSTRAINTS flag does not seem to be used by Lexeme
+		// (LexemeHandler has no onSaveValidators)
 		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
 		if ( $bot && $this->user->isAllowed( 'bot' ) ) {
 			$flags |= EDIT_FORCE_BOT;
