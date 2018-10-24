@@ -15,19 +15,8 @@ use Wikimedia\Assert\Assert;
  */
 class LexemeValidatorFactory {
 
-	/**
-	 * @var int
-	 */
 	private $maxTermLength;
-
-	/**
-	 * @var TermValidatorFactory
-	 */
 	private $termValidatorFactory;
-
-	/**
-	 * @var ValueValidator[]
-	 */
 	private $itemValidators;
 
 	/**
@@ -47,24 +36,15 @@ class LexemeValidatorFactory {
 		$this->itemValidators = $itemValidators;
 	}
 
-	/**
-	 * @return \Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator
-	 */
-	public function getLemmaTermValidator() {
+	public function getLemmaTermValidator(): LemmaTermValidator {
 		return new LemmaTermValidator( $this->maxTermLength );
 	}
 
-	/**
-	 * @return ValueValidator
-	 */
-	public function getLexicalCategoryValidator() {
+	public function getLexicalCategoryValidator(): ValueValidator {
 		return new CompositeValidator( $this->itemValidators, true );
 	}
 
-	/**
-	 * @return ValueValidator
-	 */
-	public function getLanguageValidator() {
+	public function getLanguageValidator(): ValueValidator {
 		return new CompositeValidator( $this->itemValidators, true );
 	}
 
