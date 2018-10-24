@@ -21,7 +21,7 @@ use Wikibase\StringNormalizer;
 class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
+	 * @var LexemeValidatorFactory
 	 */
 	private $lexemeValidatorFactory;
 
@@ -58,8 +58,10 @@ class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 
 		$value = $this->stringNormalizer->cleanupToNFC( $changeRequest['lexicalCategory'] );
 
-		$itemId = $this->validateItemId( $value );
-		return new ChangeOpLexicalCategory( $itemId, $this->lexemeValidatorFactory );
+		return new ChangeOpLexicalCategory(
+			$this->validateItemId( $value ),
+			$this->lexemeValidatorFactory->getLexicalCategoryValidator()
+		);
 	}
 
 	/**
