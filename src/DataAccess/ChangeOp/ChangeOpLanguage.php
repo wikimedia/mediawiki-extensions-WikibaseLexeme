@@ -4,10 +4,10 @@ namespace Wikibase\Lexeme\DataAccess\ChangeOp;
 
 use InvalidArgumentException;
 use ValueValidators\Result;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -17,28 +17,15 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpLanguage extends ChangeOpBase {
 
-	/**
-	 * @var ItemId
-	 */
 	private $language;
+	private $languageValidator;
 
-	/**
-	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
-	 */
-	private $lexemeValidatorFactory;
-
-	/**
-	 * @param ItemId $language
-	 * @param \Wikibase\Lexeme\LexemeValidatorFactory $lexemeValidatorFactory
-	 *
-	 * @throws InvalidArgumentException
-	 */
 	public function __construct(
 		ItemId $language,
-		LexemeValidatorFactory $lexemeValidatorFactory
+		ValueValidator $lexemeValidatorFactory
 	) {
 		$this->language = $language;
-		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
+		$this->languageValidator = $lexemeValidatorFactory;
 	}
 
 	/**
@@ -50,9 +37,7 @@ class ChangeOpLanguage extends ChangeOpBase {
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		$languageValidator = $this->lexemeValidatorFactory->getLanguageValidator();
-
-		return $languageValidator->validate( $this->language );
+		return $this->languageValidator->validate( $this->language );
 	}
 
 	/**

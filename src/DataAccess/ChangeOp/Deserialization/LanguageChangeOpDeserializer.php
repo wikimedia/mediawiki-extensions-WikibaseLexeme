@@ -60,7 +60,7 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 
 		$itemId = $this->validateItemId( $value );
 		// TODO: maybe move creating ChangeOpLanguage instance to some kind of factory?
-		return new ChangeOpLanguage( $itemId, $this->lexemeValidatorFactory );
+		return new ChangeOpLanguage( $itemId, $this->lexemeValidatorFactory->getLanguageValidator() );
 	}
 
 	/**
