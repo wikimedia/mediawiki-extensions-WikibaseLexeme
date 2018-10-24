@@ -249,10 +249,10 @@ class MergeLexemesInteractor {
 	}
 
 	private function updateWatchlistEntries( LexemeId $fromId, LexemeId $toId ) {
-		$fromTitle = $this->entityTitleLookup->getTitleForId( $fromId );
-		$toTitle = $this->entityTitleLookup->getTitleForId( $toId );
-
-		$this->watchedItemStore->duplicateAllAssociatedEntries( $fromTitle, $toTitle );
+		$this->watchedItemStore->duplicateAllAssociatedEntries(
+			$this->entityTitleLookup->getTitleForId( $fromId ),
+			$this->entityTitleLookup->getTitleForId( $toId )
+		);
 	}
 
 }
