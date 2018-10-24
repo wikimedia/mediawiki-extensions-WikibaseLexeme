@@ -215,11 +215,17 @@ class MergeLexemesInteractor {
 	 * @param bool $bot
 	 */
 	private function attemptSaveMerge( Lexeme $source, Lexeme $target, $summary, $bot ) {
-		$toSummary = $this->getSummary( 'to', $target->getId(), $summary );
-		$this->saveLexeme( $source, $toSummary, $bot );
+		$this->saveLexeme(
+			$source,
+			$this->getSummary( 'to', $target->getId(), $summary ),
+			$bot
+		);
 
-		$fromSummary = $this->getSummary( 'from', $source->getId(), $summary );
-		$this->saveLexeme( $target, $fromSummary, $bot );
+		$this->saveLexeme(
+			$target,
+			$this->getSummary( 'from', $source->getId(), $summary ),
+			$bot
+		);
 	}
 
 	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ): EntityRevision {
