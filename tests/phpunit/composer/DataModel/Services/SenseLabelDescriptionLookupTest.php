@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\LanguageWithConversion;
-use Wikibase\Lexeme\Domain\Lookups\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
- * @covers Wikibase\Lexeme\Domain\Model\Services\SenseLabelDescriptionLookup
+ * @covers \Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup
  *
  * @license GPL-2.0-or-later
  */
@@ -85,7 +85,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 	 */
 	public function testGetDescription( $glosses, $expectedGloss ) {
 		$entityLookup = new InMemoryEntityLookup();
-		$labelDescriptionLookup = new \Wikibase\Lexeme\Domain\Lookups\SenseLabelDescriptionLookup(
+		$labelDescriptionLookup = new \Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup(
 			$entityLookup,
 			new LanguageFallbackChain( [
 				LanguageWithConversion::factory( 'de' ),

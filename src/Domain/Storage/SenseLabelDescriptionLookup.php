@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\Domain\Lookups;
+namespace Wikibase\Lexeme\Domain\Storage;
 
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
