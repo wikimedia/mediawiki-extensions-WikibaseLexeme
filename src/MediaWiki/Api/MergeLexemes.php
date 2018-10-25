@@ -58,17 +58,21 @@ class MergeLexemes extends ApiBase {
 	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$source = $this->getLexemeIdFromParam( $params[self::SOURCE_ID_PARAM] );
-		$target = $this->getLexemeIdFromParam( $params[self::TARGET_ID_PARAM] );
+		$services = WikibaseLexemeServices::globalInstance();
 
-		$interactor = WikibaseLexemeServices::globalInstance()->newMergeLexemesInteractor( $params[self::BOT_PARAM] );
+		if ( $params[self::BOT_PARAM] ) {
+			$services->markUserAsBot();
+		}
+
+		$sourceId = $this->getLexemeIdFromParamOrDie( $params[self::SOURCE_ID_PARAM] );
+		$targetId = $this->getLexemeIdFromParamOrDie( $params[self::TARGET_ID_PARAM] );
 
 		try {
-			$interactor->mergeLexemes(
-				$source,
-				$target,
+			$services->newMergeLexemesInteractor()->mergeLexemes(
+				$sourceId,
+				$targetId,
 				$params[self::SUMMARY_PARAM],
-				$params[self::BOT_PARAM] // TODO: remove
+				$params[self::BOT_PARAM]
 			);
 		} catch ( MergingException $e ) {
 			$this->errorReporter->dieException(
@@ -83,6 +87,14 @@ class MergeLexemes extends ApiBase {
 		}
 
 		$this->showSuccessMessage();
+	}
+
+	private function getLexemeIdFromParamOrDie( $serialization ): LexemeId {
+		try {
+			return new LexemeId( $serialization );
+		} catch ( InvalidArgumentException $e ) {
+			$this->errorReporter->dieException( $e, 'invalid-entity-id' );
+		}
 	}
 
 	/**
@@ -130,14 +142,6 @@ class MergeLexemes extends ApiBase {
 	 */
 	public function isWriteMode() {
 		return true;
-	}
-
-	private function getLexemeIdFromParam( $serialization ): LexemeId {
-		try {
-			return new LexemeId( $serialization );
-		} catch ( InvalidArgumentException $e ) {
-			$this->errorReporter->dieException( $e, 'invalid-entity-id' );
-		}
 	}
 
 	/**

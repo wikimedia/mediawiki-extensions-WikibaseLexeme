@@ -84,7 +84,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		$repo = WikibaseRepo::getDefaultInstance();
 
 		return new self(
-			WikibaseLexemeServices::globalInstance()->newMergeLexemesInteractor( false ),
+			WikibaseLexemeServices::globalInstance()->newMergeLexemesInteractor(),
 			$repo->getEntityTitleLookup(),
 			$repo->getExceptionLocalizer()
 		);

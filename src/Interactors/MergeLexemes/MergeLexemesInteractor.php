@@ -119,7 +119,7 @@ class MergeLexemesInteractor {
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$this->attemptSaveMerge( $source, $target, $summary, $isBotEdit );
+		$this->attemptSaveMerge( $source, $target, $summary );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
 		$this->redirectInteractor->createRedirect( $sourceId, $targetId, $isBotEdit );
@@ -184,23 +184,20 @@ class MergeLexemesInteractor {
 	 * @param Lexeme $source
 	 * @param Lexeme $target
 	 * @param string|null $summary
-	 * @param bool $bot
 	 */
-	private function attemptSaveMerge( Lexeme $source, Lexeme $target, $summary, $bot ) {
+	private function attemptSaveMerge( Lexeme $source, Lexeme $target, $summary ) {
 		$this->saveLexeme(
 			$source,
-			$this->getSummary( 'to', $target->getId(), $summary ),
-			$bot
+			$this->getSummary( 'to', $target->getId(), $summary )
 		);
 
 		$this->saveLexeme(
 			$target,
-			$this->getSummary( 'from', $source->getId(), $summary ),
-			$bot
+			$this->getSummary( 'from', $source->getId(), $summary )
 		);
 	}
 
-	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ) {
+	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary ) {
 
 		try {
 			$this->repo->updateLexeme(

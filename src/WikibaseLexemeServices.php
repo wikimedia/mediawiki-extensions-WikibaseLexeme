@@ -18,6 +18,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Merge\TermListMerger;
+use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
@@ -31,40 +32,60 @@ use Wikibase\Store;
  */
 class WikibaseLexemeServices {
 
-	public static function globalInstance() {
+	public static function globalInstance(): self {
 		static $instance = null;
 
 		if ( $instance === null ) {
-			$instance = new self();
+			$instance = self::newInstance();
 		}
 
 		return $instance;
 	}
 
+	public static function newInstance(): self {
+		return new self();
+	}
+
+	private $container = [];
+	private $isBot = false;
+
 	private function __construct() {
 	}
 
-	// TODO: $isBot might better be field (depends on user stability)
-	public function newMergeLexemesInteractor( /* bool */ $isBot ): MergeLexemesInteractor {
+	/**
+	 * @return mixed
+	 */
+	private function getSharedService( /* string */ $serviceName, callable $constructionFunction ) {
+		if ( !array_key_exists( $serviceName, $this->container ) ) {
+			$this->container[$serviceName] = $constructionFunction();
+		}
+
+		return $this->container[$serviceName];
+	}
+
+	public function newMergeLexemesInteractor(): MergeLexemesInteractor {
 		return new MergeLexemesInteractor(
 			$this->newLexemeMerger(),
 			$this->getWikibaseRepo()->getEntityRevisionLookup(),
-			$this->newLexemeAuthorizer(),
+			$this->getLexemeAuthorizer(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			$this->newLexemeRedirectCreationInteractor(),
 			$this->getWikibaseRepo()->getEntityTitleLookup(),
 			MediaWikiServices::getInstance()->getWatchedItemStore(),
-			$this->newLexemeRepository( $isBot )
+			$this->getLexemeRepository()
 		);
 	}
 
-	// TODO: $isBot might better be field (depends on user stability)
-	// TODO: shared service? (depends on user stability)
-	private function newLexemeRepository( /* bool */ $isBot ) {
-		return new MediaWikiLexemeRepository(
-			RequestContext::getMain()->getUser(),
-			$this->getWikibaseRepo()->getEntityStore(),
-			$isBot
+	private function getLexemeRepository(): LexemeRepository {
+		return $this->getSharedService(
+			LexemeRepository::class,
+			function() {
+				return new MediaWikiLexemeRepository(
+					RequestContext::getMain()->getUser(),
+					$this->getWikibaseRepo()->getEntityStore(),
+					$this->isBot
+				);
+			}
 		);
 	}
 
@@ -101,11 +122,15 @@ class WikibaseLexemeServices {
 		);
 	}
 
-	// TODO: shared service? (depends on user stability)
-	private function newLexemeAuthorizer(): LexemeAuthorizer {
-		return new MediaWikiLexemeAuthorizer(
-			RequestContext::getMain()->getUser(),
-			$this->getWikibaseRepo()->getEntityPermissionChecker()
+	private function getLexemeAuthorizer(): LexemeAuthorizer {
+		return $this->getSharedService(
+			LexemeAuthorizer::class,
+			function() {
+				return new MediaWikiLexemeAuthorizer(
+					RequestContext::getMain()->getUser(),
+					$this->getWikibaseRepo()->getEntityPermissionChecker()
+				);
+			}
 		);
 	}
 
@@ -143,6 +168,10 @@ class WikibaseLexemeServices {
 		return MediaWikiServices::getInstance()->getService(
 			'WikibaseLexemeEditFormChangeOpDeserializer'
 		);
+	}
+
+	public function markUserAsBot() {
+		$this->isBot = true;
 	}
 
 }
