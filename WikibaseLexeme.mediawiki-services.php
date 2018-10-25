@@ -51,62 +51,6 @@ return call_user_func( function() {
 					WikibaseRepo::getDefaultInstance()->getLanguageNameLookup()
 				);
 			},
-		'WikibaseLexemeMergeInteractor' =>
-			function( MediaWikiServices $mediaWikiServices ) {
-				$repo = WikibaseRepo::getDefaultInstance();
-
-				$requestContext = RequestContext::getMain();
-				$user = $requestContext->getUser();
-				$statementsMerger = $repo
-					->getChangeOpFactoryProvider()
-					->getMergeFactory()
-					->getStatementsMerger();
-
-				$baseExtractor = new StatementEntityReferenceExtractor( $repo->getLocalItemUriParser() );
-				$noCrossReferencingStatementsValidator = new NoCrossReferencingLexemeStatements(
-					new LexemeStatementEntityReferenceExtractor(
-						$baseExtractor,
-						new FormsStatementEntityReferenceExtractor( $baseExtractor ),
-						new SensesStatementEntityReferenceExtractor( $baseExtractor )
-					)
-				);
-
-				return new MergeLexemesInteractor(
-					new LexemeMerger(
-						new TermListMerger(),
-						$statementsMerger,
-						new LexemeFormsMerger(
-							$statementsMerger,
-							new TermListMerger(),
-							new GuidGenerator()
-						),
-						new LexemeSensesMerger(),
-						$noCrossReferencingStatementsValidator
-					),
-					$repo->getEntityRevisionLookup(),
-					$repo->getEntityStore(),
-					new MediaWikiLexemeAuthorizer( $user, $repo->getEntityPermissionChecker() ),
-					$repo->getSummaryFormatter(),
-					$user,
-					new LexemeRedirectCreationInteractor(
-						$repo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-						$repo->getEntityStore(),
-						$repo->getEntityPermissionChecker(),
-						$repo->getSummaryFormatter(),
-						$user,
-						new EditFilterHookRunner(
-							$repo->getEntityNamespaceLookup(),
-							$repo->getEntityTitleLookup(),
-							$repo->getEntityContentFactory(),
-							$requestContext
-						),
-						$repo->getStore()->getEntityRedirectLookup(),
-						$repo->getEntityTitleLookup()
-					),
-					$repo->getEntityTitleLookup(),
-					$mediaWikiServices->getWatchedItemStore()
-				);
-			},
 		'WikibaseLexemeEditFormChangeOpDeserializer' => function (
 			MediaWikiServices $mediaWikiServices
 		) {

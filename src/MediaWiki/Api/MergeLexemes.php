@@ -53,7 +53,7 @@ class MergeLexemes extends ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			WikibaseLexemeServices::getLexemeMergeInteractor(),
+			WikibaseLexemeServices::globalInstance()->newMergeLexemesInteractor(),
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}
