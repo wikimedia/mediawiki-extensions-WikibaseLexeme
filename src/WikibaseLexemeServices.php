@@ -7,6 +7,7 @@ use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
+use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
@@ -39,60 +40,84 @@ class WikibaseLexemeServices {
 		return $instance;
 	}
 
-	public function newMergeLexemesInteractor(): MergeLexemesInteractor {
-		$repo = WikibaseRepo::getDefaultInstance();
+	private function __construct() {
+	}
 
-		$requestContext = RequestContext::getMain();
-		$user = $requestContext->getUser();
-		$statementsMerger = $repo
+	public function newMergeLexemesInteractor(): MergeLexemesInteractor {
+		return new MergeLexemesInteractor(
+			$this->newLexemeMerger(),
+			$this->getWikibaseRepo()->getEntityRevisionLookup(),
+			$this->getWikibaseRepo()->getEntityStore(),
+			$this->newLexemeAuthorizer(),
+			$this->getWikibaseRepo()->getSummaryFormatter(),
+			RequestContext::getMain()->getUser(),
+			$this->newLexemeRedirectCreationInteractor(),
+			$this->getWikibaseRepo()->getEntityTitleLookup(),
+			MediaWikiServices::getInstance()->getWatchedItemStore()
+		);
+	}
+
+	private function newLexemeMerger(): LexemeMerger {
+		$statementsMerger = $this->getWikibaseRepo()
 			->getChangeOpFactoryProvider()
 			->getMergeFactory()
 			->getStatementsMerger();
 
-		$baseExtractor = new StatementEntityReferenceExtractor( $repo->getLocalItemUriParser() );
-		$noCrossReferencingStatementsValidator = new NoCrossReferencingLexemeStatements(
+		return new LexemeMerger(
+			new TermListMerger(),
+			$statementsMerger,
+			new LexemeFormsMerger(
+				$statementsMerger,
+				new TermListMerger(),
+				new GuidGenerator()
+			),
+			new LexemeSensesMerger(),
+			$this->newNoCrossReferencingLexemeStatements()
+		);
+	}
+
+	private function newNoCrossReferencingLexemeStatements(): NoCrossReferencingLexemeStatements {
+		$baseExtractor = new StatementEntityReferenceExtractor(
+			$this->getWikibaseRepo()->getLocalItemUriParser()
+		);
+
+		return new NoCrossReferencingLexemeStatements(
 			new LexemeStatementEntityReferenceExtractor(
 				$baseExtractor,
 				new FormsStatementEntityReferenceExtractor( $baseExtractor ),
 				new SensesStatementEntityReferenceExtractor( $baseExtractor )
 			)
 		);
+	}
 
-		return new MergeLexemesInteractor(
-			new LexemeMerger(
-				new TermListMerger(),
-				$statementsMerger,
-				new LexemeFormsMerger(
-					$statementsMerger,
-					new TermListMerger(),
-					new GuidGenerator()
-				),
-				new LexemeSensesMerger(),
-				$noCrossReferencingStatementsValidator
-			),
-			$repo->getEntityRevisionLookup(),
-			$repo->getEntityStore(),
-			new MediaWikiLexemeAuthorizer( $user, $repo->getEntityPermissionChecker() ),
-			$repo->getSummaryFormatter(),
-			$user,
-			new LexemeRedirectCreationInteractor(
-				$repo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-				$repo->getEntityStore(),
-				$repo->getEntityPermissionChecker(),
-				$repo->getSummaryFormatter(),
-				$user,
-				new EditFilterHookRunner(
-					$repo->getEntityNamespaceLookup(),
-					$repo->getEntityTitleLookup(),
-					$repo->getEntityContentFactory(),
-					$requestContext
-				),
-				$repo->getStore()->getEntityRedirectLookup(),
-				$repo->getEntityTitleLookup()
-			),
-			$repo->getEntityTitleLookup(),
-			MediaWikiServices::getInstance()->getWatchedItemStore()
+	// TODO: shared service? (depends on user stability)
+	private function newLexemeAuthorizer(): LexemeAuthorizer {
+		return new MediaWikiLexemeAuthorizer(
+			RequestContext::getMain()->getUser(),
+			$this->getWikibaseRepo()->getEntityPermissionChecker()
 		);
+	}
+
+	private function newLexemeRedirectCreationInteractor(): LexemeRedirectCreationInteractor {
+		return new LexemeRedirectCreationInteractor(
+			$this->getWikibaseRepo()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+			$this->getWikibaseRepo()->getEntityStore(),
+			$this->getWikibaseRepo()->getEntityPermissionChecker(),
+			$this->getWikibaseRepo()->getSummaryFormatter(),
+			RequestContext::getMain()->getUser(),
+			new EditFilterHookRunner(
+				$this->getWikibaseRepo()->getEntityNamespaceLookup(),
+				$this->getWikibaseRepo()->getEntityTitleLookup(),
+				$this->getWikibaseRepo()->getEntityContentFactory(),
+				RequestContext::getMain()
+			),
+			$this->getWikibaseRepo()->getStore()->getEntityRedirectLookup(),
+			$this->getWikibaseRepo()->getEntityTitleLookup()
+		);
+	}
+
+	private function getWikibaseRepo(): WikibaseRepo {
+		return WikibaseRepo::getDefaultInstance();
 	}
 
 	public static function getTermLanguages() : LexemeTermLanguages {
