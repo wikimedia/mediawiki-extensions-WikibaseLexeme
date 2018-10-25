@@ -26,7 +26,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	public function __construct( \User $user, EntityStore $entityStore, $userIsBot ) {
 		$this->user = $user;
 		$this->entityStore = $entityStore;
-		$this->userIsBot = $userIsBot; // TODO: can we not just do $this->user->isBot() ?
+		$this->userIsBot = $userIsBot;
 	}
 
 	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary ) {

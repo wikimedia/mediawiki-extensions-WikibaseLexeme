@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
+use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -23,7 +23,6 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
-use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
@@ -44,9 +43,9 @@ class MergeLexemesInteractor {
 	private $entityStore;
 
 	/**
-	 * @var EntityPermissionChecker
+	 * @var LexemeAuthorizer
 	 */
-	private $permissionChecker;
+	private $authorizer;
 
 	/**
 	 * @var SummaryFormatter
@@ -82,7 +81,7 @@ class MergeLexemesInteractor {
 		LexemeMerger $lexemeMerger,
 		EntityRevisionLookup $entityRevisionLookup,
 		EntityStore $entityStore,
-		EntityPermissionChecker $permissionChecker,
+		LexemeAuthorizer $authorizer,
 		SummaryFormatter $summaryFormatter,
 		User $user,
 		LexemeRedirectCreationInteractor $redirectInteractor,
@@ -92,7 +91,7 @@ class MergeLexemesInteractor {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->entityRevisionLookup = $entityRevisionLookup;
 		$this->entityStore = $entityStore;
-		$this->permissionChecker = $permissionChecker;
+		$this->authorizer = $authorizer;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->user = $user;
 		$this->redirectInteractor = $redirectInteractor;
@@ -114,8 +113,9 @@ class MergeLexemesInteractor {
 		$summary = null,
 		$isBotEdit = false
 	) {
-		$this->checkPermissions( $sourceId );
-		$this->checkPermissions( $targetId );
+		if ( !$this->authorizer->canMerge( $sourceId, $targetId ) ) {
+			throw new PermissionDeniedException();
+		}
 
 		/**
 		 * @var Lexeme $source
@@ -132,25 +132,6 @@ class MergeLexemesInteractor {
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
 		$this->redirectInteractor->createRedirect( $sourceId, $targetId, $isBotEdit );
-	}
-
-	/**
-	 * Check user's permissions for the given entity ID.
-	 *
-	 * @param EntityId $entityId
-	 *
-	 * @throws MergingException if the permission check fails
-	 */
-	private function checkPermissions( EntityId $entityId ) {
-		$status = $this->permissionChecker->getPermissionStatusForEntityId(
-			$this->user,
-			EntityPermissionChecker::ACTION_MERGE,
-			$entityId
-		);
-
-		if ( !$status->isOK() ) {
-			throw new PermissionDeniedException();
-		}
 	}
 
 	/**
