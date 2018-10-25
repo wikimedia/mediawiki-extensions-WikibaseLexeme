@@ -202,7 +202,6 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		return new MergeLexemes(
 			$mainModule,
 			self::API_ACTION,
-			$this->createMock( MergeLexemesInteractor::class ),
 			function () {
 				return $this->createMock( ApiErrorReporter::class );
 			}

@@ -7,9 +7,8 @@ use ApiMain;
 use ApiUsageException;
 use Exception;
 use InvalidArgumentException;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\WikibaseRepo;
@@ -27,11 +26,6 @@ class MergeLexemes extends ApiBase {
 	const BOT_PARAM = 'bot';
 
 	/**
-	 * @var \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor
-	 */
-	private $mergeInteractor;
-
-	/**
 	 * @var ApiErrorReporter
 	 */
 	private $errorReporter;
@@ -39,11 +33,9 @@ class MergeLexemes extends ApiBase {
 	public function __construct(
 		ApiMain $mainModule,
 		$moduleName,
-		MergeLexemesInteractor $mergeInteractor,
 		callable $errorReporterCallback
 	) {
 		parent::__construct( $mainModule, $moduleName );
-		$this->mergeInteractor = $mergeInteractor;
 		$this->errorReporter = $errorReporterCallback( $this );
 	}
 
@@ -53,7 +45,6 @@ class MergeLexemes extends ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			WikibaseLexemeServices::globalInstance()->newMergeLexemesInteractor(),
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}
@@ -70,12 +61,14 @@ class MergeLexemes extends ApiBase {
 		$source = $this->getLexemeIdFromParam( $params[self::SOURCE_ID_PARAM] );
 		$target = $this->getLexemeIdFromParam( $params[self::TARGET_ID_PARAM] );
 
+		$interactor = WikibaseLexemeServices::globalInstance()->newMergeLexemesInteractor( $params[self::BOT_PARAM] );
+
 		try {
-			$this->mergeInteractor->mergeLexemes(
+			$interactor->mergeLexemes(
 				$source,
 				$target,
 				$params[self::SUMMARY_PARAM],
-				$params[self::BOT_PARAM]
+				$params[self::BOT_PARAM] // TODO: remove
 			);
 		} catch ( MergingException $e ) {
 			$this->errorReporter->dieException(

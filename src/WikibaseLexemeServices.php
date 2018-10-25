@@ -7,6 +7,7 @@ use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
@@ -17,9 +18,9 @@ use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Merge\TermListMerger;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
-use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\EditFilterHookRunner;
 use Wikibase\Repo\WikibaseRepo;
@@ -43,17 +44,27 @@ class WikibaseLexemeServices {
 	private function __construct() {
 	}
 
-	public function newMergeLexemesInteractor(): MergeLexemesInteractor {
+	// TODO: $isBot might better be field (depends on user stability)
+	public function newMergeLexemesInteractor( /* bool */ $isBot ): MergeLexemesInteractor {
 		return new MergeLexemesInteractor(
 			$this->newLexemeMerger(),
 			$this->getWikibaseRepo()->getEntityRevisionLookup(),
-			$this->getWikibaseRepo()->getEntityStore(),
 			$this->newLexemeAuthorizer(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
-			RequestContext::getMain()->getUser(),
 			$this->newLexemeRedirectCreationInteractor(),
 			$this->getWikibaseRepo()->getEntityTitleLookup(),
-			MediaWikiServices::getInstance()->getWatchedItemStore()
+			MediaWikiServices::getInstance()->getWatchedItemStore(),
+			$this->newLexemeRepository( $isBot )
+		);
+	}
+
+	// TODO: $isBot might better be field (depends on user stability)
+	// TODO: shared service? (depends on user stability)
+	private function newLexemeRepository( /* bool */ $isBot ) {
+		return new MediaWikiLexemeRepository(
+			RequestContext::getMain()->getUser(),
+			$this->getWikibaseRepo()->getEntityStore(),
+			$isBot
 		);
 	}
 
@@ -120,19 +131,15 @@ class WikibaseLexemeServices {
 		return WikibaseRepo::getDefaultInstance();
 	}
 
-	public static function getTermLanguages() : LexemeTermLanguages {
+	public static function getTermLanguages(): LexemeTermLanguages {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' );
 	}
 
-	public static function getLanguageNameLookup() : LexemeLanguageNameLookup {
+	public static function getLanguageNameLookup(): LexemeLanguageNameLookup {
 		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeLanguageNameLookup' );
 	}
 
-	public static function getLexemeMergeInteractor() : MergeLexemesInteractor {
-		return self::globalInstance()->newMergeLexemesInteractor();
-	}
-
-	public static function getEditFormChangeOpDeserializer() : EditFormChangeOpDeserializer {
+	public static function getEditFormChangeOpDeserializer(): EditFormChangeOpDeserializer {
 		return MediaWikiServices::getInstance()->getService(
 			'WikibaseLexemeEditFormChangeOpDeserializer'
 		);

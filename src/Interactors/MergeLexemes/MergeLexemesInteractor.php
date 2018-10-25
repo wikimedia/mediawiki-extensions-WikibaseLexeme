@@ -2,10 +2,8 @@
 
 namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
-use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
@@ -17,10 +15,10 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityRevisionLookup;
-use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
@@ -38,11 +36,6 @@ class MergeLexemesInteractor {
 	private $entityRevisionLookup;
 
 	/**
-	 * @var EntityStore
-	 */
-	private $entityStore;
-
-	/**
 	 * @var LexemeAuthorizer
 	 */
 	private $authorizer;
@@ -53,9 +46,9 @@ class MergeLexemesInteractor {
 	private $summaryFormatter;
 
 	/**
-	 * @var User
+	 * @var LexemeRepository
 	 */
-	private $user;
+	private $repo;
 
 	/**
 	 * @var LexemeRedirectCreationInteractor
@@ -80,23 +73,21 @@ class MergeLexemesInteractor {
 	public function __construct(
 		LexemeMerger $lexemeMerger,
 		EntityRevisionLookup $entityRevisionLookup,
-		EntityStore $entityStore,
 		LexemeAuthorizer $authorizer,
 		SummaryFormatter $summaryFormatter,
-		User $user,
 		LexemeRedirectCreationInteractor $redirectInteractor,
 		EntityTitleStoreLookup $entityTitleLookup,
-		WatchedItemStoreInterface $watchedItemStore
+		WatchedItemStoreInterface $watchedItemStore,
+		LexemeRepository $repo
 	) {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->entityRevisionLookup = $entityRevisionLookup;
-		$this->entityStore = $entityStore;
 		$this->authorizer = $authorizer;
 		$this->summaryFormatter = $summaryFormatter;
-		$this->user = $user;
 		$this->redirectInteractor = $redirectInteractor;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
+		$this->repo = $repo;
 	}
 
 	/**
@@ -210,11 +201,9 @@ class MergeLexemesInteractor {
 	}
 
 	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, $bot ) {
-		// TODO: inject
-		$repo = new MediaWikiLexemeRepository( $this->user, $this->entityStore, $bot );
 
 		try {
-			$repo->updateLexeme(
+			$this->repo->updateLexeme(
 				$lexeme,
 				$this->summaryFormatter->formatSummary( $summary )
 			);
