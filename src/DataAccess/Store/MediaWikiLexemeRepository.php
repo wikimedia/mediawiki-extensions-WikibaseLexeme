@@ -4,9 +4,13 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
 use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
+use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
 
 /**
@@ -17,19 +21,26 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	private $user;
 	private $entityStore;
 	private $userIsBot;
+	private $entityRevisionLookup;
 
 	/**
 	 * @param \User $user
-	 * @param EntityStore $entityStore Needs to be able to save Lexeme entities
 	 * @param bool $userIsBot
+	 * @param EntityStore $entityStore Needs to be able to save Lexeme entities
+	 * @param EntityRevisionLookup $entityRevisionLookup Needs to be able to retrieve Lexeme entities
 	 */
-	public function __construct( \User $user, EntityStore $entityStore, $userIsBot ) {
+	public function __construct( \User $user, $userIsBot, EntityStore $entityStore,
+		EntityRevisionLookup $entityRevisionLookup ) {
+
 		$this->user = $user;
-		$this->entityStore = $entityStore;
 		$this->userIsBot = $userIsBot;
+		$this->entityStore = $entityStore;
+		$this->entityRevisionLookup = $entityRevisionLookup;
 	}
 
 	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary ) {
+		// TODO: assert id not null
+
 		try {
 			return $this->entityStore->saveEntity(
 				$lexeme,
@@ -52,6 +63,32 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 		}
 
 		return $flags;
+	}
+
+	/**
+	 * @param LexemeId $id
+	 *
+	 * @return Lexeme|null
+	 * @throws GetLexemeException
+	 */
+	public function getLexemeById( LexemeId $id ) {
+		try {
+			$revision = $this->entityRevisionLookup->getEntityRevision(
+				$id,
+				0,
+				EntityRevisionLookup::LATEST_FROM_MASTER
+			);
+
+			if ( $revision ) {
+				return $revision->getEntity();
+			}
+
+			return null;
+		} catch ( StorageException $ex ) {
+			throw new GetLexemeException( $ex );
+		} catch ( RevisionedUnresolvedRedirectException $ex ) {
+			throw new GetLexemeException( $ex );
+		}
 	}
 
 }

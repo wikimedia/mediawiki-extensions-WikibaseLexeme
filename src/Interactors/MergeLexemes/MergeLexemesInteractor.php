@@ -15,12 +15,10 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
 use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
-use Wikibase\Lib\Store\EntityRevisionLookup;
-use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
-use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
@@ -29,11 +27,6 @@ use Wikibase\SummaryFormatter;
  * @license GPL-2.0-or-later
  */
 class MergeLexemesInteractor {
-
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
 
 	/**
 	 * @var LexemeAuthorizer
@@ -72,7 +65,6 @@ class MergeLexemesInteractor {
 
 	public function __construct(
 		LexemeMerger $lexemeMerger,
-		EntityRevisionLookup $entityRevisionLookup,
 		LexemeAuthorizer $authorizer,
 		SummaryFormatter $summaryFormatter,
 		LexemeRedirectCreationInteractor $redirectInteractor,
@@ -81,7 +73,6 @@ class MergeLexemesInteractor {
 		LexemeRepository $repo
 	) {
 		$this->lexemeMerger = $lexemeMerger;
-		$this->entityRevisionLookup = $entityRevisionLookup;
 		$this->authorizer = $authorizer;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->redirectInteractor = $redirectInteractor;
@@ -108,12 +99,8 @@ class MergeLexemesInteractor {
 			throw new PermissionDeniedException();
 		}
 
-		/**
-		 * @var Lexeme $source
-		 * @var Lexeme $target
-		 */
-		$source = $this->loadEntity( $sourceId );
-		$target = $this->loadEntity( $targetId );
+		$source = $this->getLexeme( $sourceId );
+		$target = $this->getLexeme( $targetId );
 
 		$this->validateEntities( $source, $target );
 
@@ -126,32 +113,20 @@ class MergeLexemesInteractor {
 	}
 
 	/**
-	 * Either throws an exception or returns an EntityDocument object.
-	 *
-	 * @param LexemeId $lexemeId
-	 *
-	 * @return EntityDocument
-	 *
 	 * @throws MergingException
 	 */
-	private function loadEntity( LexemeId $lexemeId ): EntityDocument {
+	private function getLexeme( LexemeId $lexemeId ): Lexeme {
 		try {
-			$revision = $this->entityRevisionLookup->getEntityRevision(
-				$lexemeId,
-				0,
-				EntityRevisionLookup::LATEST_FROM_MASTER
-			);
-
-			if ( !$revision ) {
-				throw new LexemeNotFoundException();
-			}
-
-			return $revision->getEntity();
-		} catch ( StorageException $ex ) {
-			throw new LexemeLoadingException();
-		} catch ( RevisionedUnresolvedRedirectException $ex ) {
+			$lexeme = $this->repo->getLexemeById( $lexemeId );
+		} catch ( GetLexemeException $ex ) {
 			throw new LexemeLoadingException();
 		}
+
+		if ( $lexeme === null ) {
+			throw new LexemeNotFoundException();
+		}
+
+		return $lexeme;
 	}
 
 	/**

@@ -66,7 +66,6 @@ class WikibaseLexemeServices {
 	public function newMergeLexemesInteractor(): MergeLexemesInteractor {
 		return new MergeLexemesInteractor(
 			$this->newLexemeMerger(),
-			$this->getWikibaseRepo()->getEntityRevisionLookup(),
 			$this->getLexemeAuthorizer(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			$this->newLexemeRedirectCreationInteractor(),
@@ -82,8 +81,9 @@ class WikibaseLexemeServices {
 			function() {
 				return new MediaWikiLexemeRepository(
 					RequestContext::getMain()->getUser(),
+					$this->isBot,
 					$this->getWikibaseRepo()->getEntityStore(),
-					$this->isBot
+					$this->getWikibaseRepo()->getEntityRevisionLookup()
 				);
 			}
 		);

@@ -19,17 +19,11 @@ use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\TestDoubles\FailingLexemeAuthorizer;
+use Wikibase\Lexeme\Tests\TestDoubles\FakeLexemeRepository;
 use Wikibase\Lexeme\Tests\TestDoubles\SucceedingLexemeAuthorizer;
-use Wikibase\Lexeme\Tests\TestDoubles\ThrowingLexemeRepository;
-use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
-use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
-use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
@@ -47,11 +41,6 @@ class MergeLexemesInteractorTest extends TestCase {
 	 * @var LexemeMerger|MockObject
 	 */
 	private $lexemeMerger;
-
-	/**
-	 * @var EntityRevisionLookup|MockObject
-	 */
-	private $entityRevisionLookup;
 
 	/**
 	 * @var EntityStore|MockObject
@@ -89,7 +78,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	private $watchedItemStore;
 
 	/**
-	 * @var LexemeRepository
+	 * @var FakeLexemeRepository
 	 */
 	private $lexemeRepository;
 
@@ -106,16 +95,16 @@ class MergeLexemesInteractorTest extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		$this->sourceLexeme = NewLexeme::havingId( 'L123' )->build();
+		$this->targetLexeme = NewLexeme::havingId( 'L321' )->build();
+
+		$this->lexemeRepository = new FakeLexemeRepository( $this->sourceLexeme, $this->targetLexeme );
 		$this->lexemeMerger = $this->newMockLexemeMerger();
-		$this->entityRevisionLookup = $this->newMockEntityRevisionLookup();
 		$this->authorizer = new SucceedingLexemeAuthorizer();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
 		$this->redirectInteractor = $this->newMockRedirectCreationInteractor();
 		$this->entityTitleLookup = $this->newMockTitleLookup();
 		$this->watchedItemStore = $this->newMockWatchedItemStore();
-		$this->lexemeRepository = $this->newMockLexemeRepository();
-		$this->sourceLexeme = NewLexeme::havingId( 'L123' )->build();
-		$this->targetLexeme = NewLexeme::havingId( 'L321' )->build();
 	}
 
 	public function testGivenMergeSucceeds_targetIsChangedCorrectly() {
@@ -129,6 +118,8 @@ class MergeLexemesInteractorTest extends TestCase {
 			->withLexicalCategory( 'Q1084' )
 			->withLemma( 'en-gb', 'sand box' )
 			->build();
+
+		$this->lexemeRepository = new FakeLexemeRepository( $this->sourceLexeme, $this->targetLexeme );
 
 		$this->redirectInteractor->expects( $this->once() )
 			->method( 'createRedirect' )
@@ -210,9 +201,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException
 	 */
 	public function testGivenSourceNotFound_throwsException() {
-		$this->entityRevisionLookup->method( 'getEntityRevision' )
-			->withConsecutive( $this->sourceLexeme->getId(), $this->targetLexeme->getId() )
-			->willReturnOnConsecutiveCalls( null, new EntityRevision( $this->targetLexeme ) );
+		$this->lexemeRepository = new FakeLexemeRepository( $this->targetLexeme );
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
@@ -222,57 +211,35 @@ class MergeLexemesInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException
 	 */
 	public function testGivenTargetNotFound_throwsException() {
-		$this->entityRevisionLookup->method( 'getEntityRevision' )
-			->withConsecutive( $this->sourceLexeme, $this->targetLexeme )
-			->willReturnOnConsecutiveCalls( new EntityRevision( $this->sourceLexeme ), null );
+		$this->lexemeRepository = new FakeLexemeRepository( $this->sourceLexeme );
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
 	/**
-	 * @dataProvider loadEntityExceptionProvider
-	 *
 	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException
 	 */
-	public function testGivenExceptionInLoadEntity_throwsAppropriateException( $exception ) {
-		$this->entityRevisionLookup->method( 'getEntityRevision' )
-			->willThrowException( $exception );
+	public function testGivenExceptionInLoadEntity_throwsAppropriateException() {
+		$this->lexemeRepository->throwOnRead();
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
-	}
-
-	public function loadEntityExceptionProvider() {
-		return [
-			[ new StorageException() ],
-			[ new RevisionedUnresolvedRedirectException(
-				new LexemeId( 'L123' ),
-				new LexemeId( 'L321' )
-			) ]
-		];
 	}
 
 	/**
 	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException
 	 */
 	public function testGivenEntitySaveFails_throwsException() {
-		$this->lexemeRepository = new ThrowingLexemeRepository();
+		$this->lexemeRepository->throwOnWrite();
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
 	private function newMergeInteractor() {
-		$this->entityRevisionLookup->method( 'getEntityRevision' )
-			->willReturnOnConsecutiveCalls(
-				new EntityRevision( $this->sourceLexeme ),
-				new EntityRevision( $this->targetLexeme )
-			);
-
 		return new \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor(
 			$this->lexemeMerger,
-			$this->entityRevisionLookup,
 			$this->authorizer,
 			$this->summaryFormatter,
 			$this->redirectInteractor,
@@ -284,14 +251,6 @@ class MergeLexemesInteractorTest extends TestCase {
 
 	private function newMockLexemeMerger() {
 		return $this->createMock( LexemeMerger::class );
-	}
-
-	private function newMockEntityRevisionLookup() {
-		return $this->createMock( EntityRevisionLookup::class );
-	}
-
-	private function newMockLexemeRepository() {
-		return $this->createMock( LexemeRepository::class );
 	}
 
 	private function newMockSummaryFormatter() {
