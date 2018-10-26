@@ -11,9 +11,9 @@ specific to a single Interactor/UseCase.
 
 * Model: Domain Model (Entities (DDD), Value Objects, Aggregates, Events, etc)
 * Diff: diffing and patching of domain objects
-* DummyObjects:
+* DummyObjects: null objects
 * EntityReferenceExtractors: 
-* Lookups: 
+* Storage: interfaces for persistence services and non-mechanism-bound implementations
 * Merge:
 
 ## src/Interactors
@@ -37,7 +37,7 @@ It likely makes sense to treat MediaWiki pages, revisions, etc, as persistence m
 
 * ChangeOp: 
 * Search: 
-* Store: 
+* Store: implementations of persistence services
 
 ## src/Presentation
 
