@@ -4,10 +4,10 @@ namespace Wikibase\Lexeme\DataAccess\ChangeOp;
 
 use InvalidArgumentException;
 use ValueValidators\Result;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -17,28 +17,15 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpLexicalCategory extends ChangeOpBase {
 
-	/**
-	 * @var ItemId
-	 */
 	private $lexicalCategory;
+	private $lexicalCategoryValidator;
 
-	/**
-	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
-	 */
-	private $lexemeValidatorFactory;
-
-	/**
-	 * @param ItemId $lexicalCategory
-	 * @param \Wikibase\Lexeme\LexemeValidatorFactory $lexemeValidatorFactory
-	 *
-	 * @throws InvalidArgumentException
-	 */
 	public function __construct(
 		ItemId $lexicalCategory,
-		LexemeValidatorFactory $lexemeValidatorFactory
+		ValueValidator $lexicalCategoryValidator
 	) {
 		$this->lexicalCategory = $lexicalCategory;
-		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
+		$this->lexicalCategoryValidator = $lexicalCategoryValidator;
 	}
 
 	/**
@@ -50,9 +37,7 @@ class ChangeOpLexicalCategory extends ChangeOpBase {
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		$lexicalCategoryValidator = $this->lexemeValidatorFactory->getLexicalCategoryValidator();
-
-		return $lexicalCategoryValidator->validate( $this->lexicalCategory );
+		return $this->lexicalCategoryValidator->validate( $this->lexicalCategory );
 	}
 
 	/**
