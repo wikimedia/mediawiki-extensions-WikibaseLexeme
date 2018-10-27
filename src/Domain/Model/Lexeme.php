@@ -492,7 +492,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	/**
 	 * @param int $nextSenseId
-	 * @param Sense[] $senseSet
+	 * @param SenseSet $senseSet
 	 */
 	private function assertCorrectNextSenseIdIsGiven( $nextSenseId, SenseSet $senseSet ) {
 		if ( !is_int( $nextSenseId ) || $nextSenseId < 1 ) {
