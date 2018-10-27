@@ -29,35 +29,48 @@ class ChangeOpLanguageTest extends TestCase {
 	public function testGivenNotALanguageProvider_validateThrowsException(
 		EntityDocument $entity
 	) {
-		$changeOp = new ChangeOpLanguage( new ItemId( 'Q2' ), $this->getLexemeValidatorFactory() );
+		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q2' ) );
 		$this->setExpectedException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 
 	public function invalidEntityProvider() {
-		return [
-			[ $this->getMock( EntityDocument::class ) ],
-			[ new Item( new ItemId( 'Q123' ) ) ],
-		];
+		yield [ $this->getMock( EntityDocument::class ) ];
+		yield [ new Item( new ItemId( 'Q123' ) ) ];
+	}
+
+	private function newChangeOpLanguage( ItemId $id ) {
+		return new ChangeOpLanguage(
+			$id,
+			$this->getLexemeValidatorFactory()->getLanguageValidator()
+		);
+	}
+
+	private function getLexemeValidatorFactory() {
+		// TODO: this can be simplified since we only need a languageValidator
+		$mockProvider = new ChangeOpTestMockProvider( $this );
+		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
+		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
+			$this,
+			10,
+			$mockProvider->getMockTermValidatorFactory(),
+			[ 'Q123', 'Q321' ]
+		);
 	}
 
 	public function testGivenValidLanguage_validateReturnsValidResult() {
-		$lexeme = new Lexeme();
+		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q123' ) );
 
-		$changeOp = new ChangeOpLanguage( new ItemId( 'Q123' ), $this->getLexemeValidatorFactory() );
-
-		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
+		$this->assertTrue( $changeOp->validate( new Lexeme() )->isValid() );
 	}
 
 	/**
 	 * @dataProvider invalidEntityProvider
 	 */
 	public function testGivenNotALanguageProvider_applyThrowsException( EntityDocument $entity ) {
+		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q123' ) );
+
 		$this->setExpectedException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLanguage(
-			new ItemId( 'Q123' ),
-			$this->getLexemeValidatorFactory()
-		);
 		$changeOp->apply( $entity );
 	}
 
@@ -66,9 +79,7 @@ class ChangeOpLanguageTest extends TestCase {
 		$lexeme = new Lexeme( null, null, null, $language );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLanguage( new ItemId( 'Q321' ), $this->getLexemeValidatorFactory() );
-
-		$changeOp->apply( $lexeme, $summary );
+		$this->newChangeOpLanguage( new ItemId( 'Q321' ) )->apply( $lexeme, $summary );
 
 		$this->assertSame( 'Q321', $lexeme->getLanguage()->getSerialization() );
 
@@ -80,28 +91,12 @@ class ChangeOpLanguageTest extends TestCase {
 		$lexeme = new Lexeme();
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLanguage(
-			new ItemId( 'Q123' ),
-			$this->getLexemeValidatorFactory()
-		);
-
-		$changeOp->apply( $lexeme, $summary );
+		$this->newChangeOpLanguage( new ItemId( 'Q123' ) )->apply( $lexeme, $summary );
 
 		$this->assertSame( 'Q123', $lexeme->getLanguage()->getSerialization() );
 
 		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( [ 'Q123' ], $summary->getAutoSummaryArgs() );
-	}
-
-	private function getLexemeValidatorFactory() {
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
-		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
-			$this,
-			10,
-			$mockProvider->getMockTermValidatorFactory(),
-			[ 'Q123', 'Q321' ]
-		);
 	}
 
 }
