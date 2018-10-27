@@ -125,10 +125,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		return self::ENTITY_TYPE;
 	}
 
-	/**
-	 * @return StatementList
-	 */
-	public function getStatements() {
+	public function getStatements(): StatementList {
 		return $this->statements;
 	}
 
@@ -214,10 +211,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$this->senses = clone $this->senses;
 	}
 
-	/**
-	 * @return TermList
-	 */
-	public function getLemmas() {
+	public function getLemmas(): TermList {
 		return $this->lemmas;
 	}
 
@@ -245,9 +239,8 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	/**
 	 * @throws UnexpectedValueException when the object was constructed with $language set to null,
 	 * and the field was never initialized since then.
-	 * @return ItemId
 	 */
-	public function getLanguage() {
+	public function getLanguage(): ItemId {
 		if ( !$this->language ) {
 			throw new UnexpectedValueException( 'Can not access uninitialized field' );
 		}
@@ -259,17 +252,11 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 		$this->language = $language;
 	}
 
-	/**
-	 * @return FormSet
-	 */
-	public function getForms() {
+	public function getForms(): FormSet {
 		return $this->forms;
 	}
 
-	/**
-	 * @return SenseSet
-	 */
-	public function getSenses() {
+	public function getSenses(): SenseSet {
 		return $this->senses;
 	}
 
@@ -299,12 +286,9 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
-	 * @param FormId $formId
-	 *
 	 * @throws OutOfRangeException
-	 * @return Form
 	 */
-	public function getForm( FormId $formId ) {
+	public function getForm( FormId $formId ): Form {
 		$form = $this->forms->getById( $formId );
 
 		if ( $form === null ) {
@@ -318,12 +302,9 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
-	 * @param SenseId $senseId
-	 *
 	 * @throws OutOfRangeException if no sense by that ID exists
-	 * @return Sense
 	 */
-	public function getSense( SenseId $senseId ) {
+	public function getSense( SenseId $senseId ): Sense {
 		$sense = $this->senses->getById( $senseId );
 
 		if ( $sense === null ) {
@@ -363,12 +344,8 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 
 	/**
 	 * Replace the sense identified by $sense->getId() with the given one or add it.
-	 *
-	 * @param Sense $sense
-	 *
-	 * @return Sense
 	 */
-	public function addOrUpdateSense( Sense $sense ) {
+	public function addOrUpdateSense( Sense $sense ): Sense {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Cannot add sense to a lexeme with no ID' );
 		}
