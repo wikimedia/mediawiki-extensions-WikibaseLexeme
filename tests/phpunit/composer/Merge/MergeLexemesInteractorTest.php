@@ -150,7 +150,10 @@ class MergeLexemesInteractorTest extends TestCase {
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 
-		$this->assertCount( 2, $this->targetLexeme->getLemmas() );
+		$this->assertCount(
+			2,
+			$this->lexemeRepository->getLexemeById( $this->targetLexeme->getId() )->getLemmas()
+		);
 	}
 
 	public function testGivenSuccessfulMerge_watchlistIsUpdated() {

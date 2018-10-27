@@ -28,7 +28,7 @@ class FakeLexemeRepository implements LexemeRepository {
 			throw new UpdateLexemeException();
 		}
 
-		$this->lexemes[$lexeme->getId()->serialize()] = $lexeme;
+		$this->lexemes[$lexeme->getId()->serialize()] = clone $lexeme;
 	}
 
 	public function getLexemeById( LexemeId $id ) {
