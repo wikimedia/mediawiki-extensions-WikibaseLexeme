@@ -3,7 +3,8 @@
 		"authors": [
 			"Piramidion",
 			"Movses",
-			"Vlad5250"
+			"Vlad5250",
+			"Renamerr"
 		]
 	},
 	"wikibaselexeme-desc": "Управляти типом сутності лексеми",
@@ -12,7 +13,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "Створити нову лексему",
 	"wikibaselexeme-newlexeme-lemma": "Лемма",
 	"wikibaselexeme-newlexeme-lemma-language": "Мова лемми",
-	"wikibaselexeme-lemma-edit-placeholder": "Введіть лемму",
+	"wikibaselexeme-lemma-edit-placeholder": "Лема — зазвичай початкова (або найкоротша) форма слова",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексична категорія",
 	"wikibaselexeme-newlexeme-language": "Мова лексеми",
 	"wikibaselexeme-statementsection-statements-about-form": "Твердження про $1",
@@ -22,9 +23,9 @@
 	"wikibaselexeme-header-senses": "Смисли",
 	"wikibase-lexeme-gloss-empty": "Тлумачення не визначено",
 	"wikibaselexeme-lemma-field-lemma-label": "Лемма",
-	"wikibaselexeme-lemma-field-language-label": "Мова",
+	"wikibaselexeme-lemma-field-language-label": "Варіант написання",
 	"wikibaselexeme-form-field-representation-label": "Репрезентація",
-	"wikibaselexeme-form-field-language-label": "Мова",
+	"wikibaselexeme-form-field-language-label": "Варіант написання",
 	"wikibaselexeme-gloss-field-language-label": "Мова",
 	"wikibaselexeme-gloss-field-gloss-label": "Тлумачення",
 	"wikibase-lexeme-summary-wbeditentity-update": "Змінено лексему",
@@ -38,7 +39,7 @@
 	"apihelp-wbladdform-example-1": "Додати форму до лексеми з ідентифікатором <samp>$1</samp>, маючи репрезентації <samp>$2</samp> з мовами <samp>$3</samp>, відповідно, а також граматичні функції <samp>$4</samp>",
 	"wikibaselexeme-api-error-parameter-required": "Параметр «$1» є обов'язковим",
 	"wikibaselexeme-api-error-parameter-invalid-json-object": "Очікується, що параметр «$1» має бути валідним об'єктом JSON, тоді як задано «$2»",
-	"wikibaselexeme-api-error-lexeme-not-found": "Лексеми з ідентифікатором «$1» не знайдено.",
+	"wikibaselexeme-api-error-lexeme-not-found": "Поле \"$1\" містить ідентифікатор лексеми \"$2\", яку неможливо знайти.",
 	"wikibaselexeme-api-error-json-field-required": "Поле «$2» у параметрі «$1» є обов'язковим",
 	"wikibaselexeme-api-error-json-field-not-item-id": "Очікується, що поле «$2» у параметрі «$1» має бути ідентифікатором елемента. Задано: «$3»",
 	"wikibaselexeme-api-error-json-field-has-wrong-type": "Очікується, що поле «$2» у параметрі «$1» повинно мати тип «$3». Задано: «$4»",
