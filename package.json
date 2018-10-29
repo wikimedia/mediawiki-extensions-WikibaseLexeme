@@ -24,7 +24,7 @@
     "stylelint": "9.2.0",
     "stylelint-config-wikimedia": "0.4.3",
     "unexpected": "^10.32.1",
-    "unexpected-dom": "^4.0.0",
+    "unexpected-dom": "~4.8.0",
     "unexpected-sinon": "^10.8.2",
     "vue": "2.3.3",
     "vuex": "^2.3.1",
