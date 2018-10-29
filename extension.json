@@ -54,8 +54,11 @@
 		"WikibaseLexemeAlias": "WikibaseLexeme.i18n.alias.php"
 	},
 	"Hooks": {
+		"WikibaseRepoEntityNamespaces": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
+		],
 		"WikibaseEntityNamespaces": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityNamespaces"
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
 		],
 		"CanonicalNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCanonicalNamespaces"
