@@ -27,9 +27,13 @@ class WikibaseLexemeHooks {
 	 *
 	 * @param int[] $entityNamespacesSetting
 	 */
-	public static function onWikibaseEntityNamespaces( array &$entityNamespacesSetting ) {
+	public static function onWikibaseRepoEntityNamespaces( array &$entityNamespacesSetting ) {
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
 		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		if ( !$config->get( 'LexemeEnableRepo' ) ) {
+			return;
+		}
 
 		// Setting the namespace to false disabled automatic registration.
 		$entityNamespacesSetting['lexeme'] = $config->get( 'LexemeNamespace' );
