@@ -23,6 +23,19 @@ use Wikibase\WikibaseSettings;
 class WikibaseLexemeHooks {
 
 	/**
+	 * Hook to register the lexeme and other entity namespaces for EntityNamespaceLookup.
+	 *
+	 * @param int[] $entityNamespacesSetting
+	 */
+	public static function onWikibaseEntityNamespaces( array &$entityNamespacesSetting ) {
+		// XXX: ExtensionProcessor should define an extra config object for every extension.
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		// Setting the namespace to false disabled automatic registration.
+		$entityNamespacesSetting['lexeme'] = $config->get( 'LexemeNamespace' );
+	}
+
+	/**
 	 * Hook to register the default namespace names.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces

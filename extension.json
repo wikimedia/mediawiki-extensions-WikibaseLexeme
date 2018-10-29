@@ -31,14 +31,6 @@
 		"LexemeTalkNamespace": {
 			"value": 147
 		},
-		"WBRepoSettings": {
-			"value": {
-				"entityNamespaces": {
-					"lexeme": 146
-				}
-			},
-			"merge_strategy": "array_plus_2d"
-		},
 		"LexemeLanguageCodePropertyId": {
 			"value": null
 		},
@@ -62,6 +54,9 @@
 		"WikibaseLexemeAlias": "WikibaseLexeme.i18n.alias.php"
 	},
 	"Hooks": {
+		"WikibaseEntityNamespaces": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseEntityNamespaces"
+		],
 		"CanonicalNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCanonicalNamespaces"
 		],
