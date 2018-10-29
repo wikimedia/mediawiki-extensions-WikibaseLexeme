@@ -57,9 +57,6 @@
 		"WikibaseRepoEntityNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
 		],
-		"WikibaseEntityNamespaces": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
-		],
 		"CanonicalNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCanonicalNamespaces"
 		],
