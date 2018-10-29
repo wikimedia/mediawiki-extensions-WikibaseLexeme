@@ -8,10 +8,6 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	expect.installPlugin( require( 'unexpected-dom' ) );
 	expect.installPlugin( require( 'unexpected-sinon' ) );
 
-	var Vue = global.Vue = require( 'vue/dist/vue.js' ); // eslint-disable-line no-restricted-globals
-	var Vuex = global.Vuex = require( 'vuex/dist/vuex.js' ); // eslint-disable-line no-restricted-globals
-	Vue.use( Vuex );
-
 	var newLexemeHeader = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader' );
 	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );

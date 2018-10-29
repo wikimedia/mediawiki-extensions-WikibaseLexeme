@@ -43,6 +43,9 @@ module.exports = function ( grunt ) {
 				},
 				specs: [
 					'tests/jasmine/**/*.spec.js'
+				],
+				helpers: [
+					'tests/jasmine/helpers/*.js'
 				]
 			}
 		}

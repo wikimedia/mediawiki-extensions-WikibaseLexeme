@@ -5,10 +5,6 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 
-	var Vue = global.Vue = require( 'vue/dist/vue.js' ); // eslint-disable-line no-restricted-globals
-	var Vuex = global.Vuex = require( 'vuex/dist/vuex.js' ); // eslint-disable-line no-restricted-globals
-	Vue.use( Vuex );
-
 	var newLemmaWidget = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
