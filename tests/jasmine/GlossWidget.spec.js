@@ -1,6 +1,4 @@
 describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
-	require( 'jsdom-global' )();
-
 	global.jQuery = require( 'jquery' ); // eslint-disable-line no-restricted-globals
 	global.mediaWiki = { // eslint-disable-line no-restricted-globals
 		config: {
