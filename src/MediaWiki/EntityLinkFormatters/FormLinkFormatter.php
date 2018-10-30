@@ -8,7 +8,6 @@ use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
@@ -69,7 +68,10 @@ class FormLinkFormatter implements EntityLinkFormatter {
 	private function getRepresentations( FormId $formId ) : TermList {
 		$form = $this->entityLookup->getEntity( $formId );
 
-		/** @var Form $form */
+		if ( $form === null ) {
+			return new TermList();
+
+		}
 		return $form->getRepresentations();
 	}
 
