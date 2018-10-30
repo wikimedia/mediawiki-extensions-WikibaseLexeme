@@ -14,6 +14,7 @@ use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
 use Wikibase\View\Template\TemplateFactory;
+use Wikibase\View\ViewContent;
 use Wikimedia\Assert\Assert;
 use WMDE\VueJsTemplating\Templating;
 
@@ -81,6 +82,19 @@ class LexemeView extends EntityView {
 		$this->statementSectionsView = $statementSectionsView;
 		$this->idFormatter = $idFormatter;
 		$this->lemmaFormatter = $lemmaFormatter;
+	}
+
+	/**
+	 * Builds and returns the main content representing a whole Lexeme
+	 *
+	 * @param EntityDocument $entity the entity to render
+	 *
+	 * @return ViewContent
+	 */
+	public function getContent( EntityDocument $entity ): ViewContent {
+		return new ViewContent(
+			$this->renderEntityView( $entity )
+		);
 	}
 
 	/**

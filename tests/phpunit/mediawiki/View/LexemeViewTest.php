@@ -126,23 +126,23 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$this->assertInstanceOf( EntityView::class, $view );
 	}
 
-	public function testGetHtml_invalidEntityType() {
+	public function testGetContent_invalidEntityType() {
 		$view = $this->newLexemeView();
 
 		/** @var EntityDocument $entity */
 		$entity = $this->getMock( EntityDocument::class );
 
 		$this->setExpectedException( InvalidArgumentException::class );
-		$view->getHtml( $entity );
+		$view->getContent( $entity );
 	}
 
 	/**
-	 * @dataProvider provideTestGetHtml
+	 * @dataProvider provideTestGetContent
 	 */
-	public function testGetHtml( Lexeme $lexeme ) {
+	public function testGetContent( Lexeme $lexeme ) {
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertInternalType( 'string', $html );
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
@@ -151,13 +151,13 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	/**
-	 * @dataProvider provideTestGetHtml
+	 * @dataProvider provideTestGetContent
 	 */
-	public function testGetHtmlSensesIncluded( Lexeme $lexeme ) {
+	public function testGetContentSensesIncluded( Lexeme $lexeme ) {
 		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertInternalType( 'string', $html );
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
@@ -166,7 +166,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$this->assertContains( 'StatementSectionsView::getHtml', $html );
 	}
 
-	public function provideTestGetHtml() {
+	public function provideTestGetContent() {
 		$lexemeId = new LexemeId( 'L1' );
 		$lexicalCategory = new ItemId( 'Q32' );
 		$language = new ItemId( 'Q11' );
@@ -193,7 +193,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view->getTitleHtml( $entity );
 	}
 
-	public function testGetHtml_containsHeaderWithLemmasAndTheirLanguages() {
+	public function testGetContent_containsHeaderWithLemmasAndTheirLanguages() {
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
@@ -201,7 +201,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$lexeme = new Lexeme( $lexemeId, $lemmas, $lexicalCategory, $language );
 
 		$view = $this->newLexemeView( $lexeme->getStatements() );
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 
 		$this->assertInternalType( 'string', $html );
 		$this->assertThatHamcrest(
@@ -230,7 +230,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		);
 	}
 
-	public function testGetHtmlForLanguage() {
+	public function testGetContentForLanguage() {
 		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
@@ -240,7 +240,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertInternalType( 'string', $html );
 		$this->assertThatHamcrest(
 			$html,
@@ -268,7 +268,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		);
 	}
 
-	public function testGetHtmlForLexicalCategory() {
+	public function testGetContentForLexicalCategory() {
 		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
@@ -278,7 +278,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertInternalType( 'string', $html );
 		$this->assertThatHamcrest(
 			$html,
@@ -306,7 +306,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		);
 	}
 
-	public function testGetHtmlForLanguageSensesIncluded() {
+	public function testGetContentForLanguageSensesIncluded() {
 		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
@@ -316,7 +316,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertInternalType( 'string', $html );
 		$this->assertThatHamcrest(
 			$html,
@@ -345,7 +345,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		);
 	}
 
-	public function testGetHtmlForLexicalCategorySensesIncluded() {
+	public function testGetContentForLexicalCategorySensesIncluded() {
 		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
@@ -355,7 +355,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
-		$html = $view->getHtml( $lexeme );
+		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertInternalType( 'string', $html );
 		$this->assertThatHamcrest(
 			$html,
