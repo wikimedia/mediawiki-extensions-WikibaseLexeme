@@ -20,6 +20,8 @@ use Wikibase\Lib\Store\StorageException;
 use Wikimedia\Assert\Assert;
 
 /**
+ * FIXME: Liskov Substitution violation
+ *
  * @license GPL-2.0-or-later
  */
 class SenseStore implements EntityStore {
