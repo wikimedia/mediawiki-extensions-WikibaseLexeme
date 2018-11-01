@@ -12,6 +12,7 @@ use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -81,6 +82,20 @@ class LexemeLinkFormatterTest extends TestCase {
 				)
 			) )
 		);
+	}
+
+	public function testGivenLexemeDoesNotExist_formatsWithoutLemmas() {
+		$this->entityLookup = $this->getMockEntityLookup( null );
+		$formatterOutput = '[FORMATTER_OUTPUT]';
+		$this->lemmaFormatter
+			->expects( $this->once() )
+			->method( 'format' )
+			->with( new TermList() )
+			->willReturn( $formatterOutput );
+
+		$formatter = $this->newFormatter();
+
+		$this->assertContains( $formatterOutput, $formatter->getHtml( new LexemeId( 'L1' ) ) );
 	}
 
 	private function newFormatter() {

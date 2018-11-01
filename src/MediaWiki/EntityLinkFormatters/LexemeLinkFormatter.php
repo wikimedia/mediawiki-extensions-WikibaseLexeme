@@ -89,6 +89,10 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	private function getLemmas( LexemeId $entityId ) : TermList {
 		$lexeme = $this->entityLookup->getEntity( $entityId );
 
+		if ( $lexeme === null ) {
+			return new TermList();
+		}
+
 		/** @var Lexeme $lexeme */
 		return $lexeme->getLemmas();
 	}
