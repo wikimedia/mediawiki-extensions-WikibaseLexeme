@@ -9,6 +9,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
@@ -84,7 +85,7 @@ return call_user_func( function() {
 					),
 					$repo->getEntityRevisionLookup(),
 					$repo->getEntityStore(),
-					$repo->getEntityPermissionChecker(),
+					new MediaWikiLexemeAuthorizer( $user, $repo->getEntityPermissionChecker() ),
 					$repo->getSummaryFormatter(),
 					$user,
 					new LexemeRedirectCreationInteractor(

@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Tests\Merge;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
-use Status;
 use Title;
 use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
@@ -21,6 +21,8 @@ use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\TestDoubles\FailingLexemeAuthorizer;
+use Wikibase\Lexeme\Tests\TestDoubles\SucceedingLexemeAuthorizer;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
@@ -57,9 +59,9 @@ class MergeLexemesInteractorTest extends TestCase {
 	private $entityStore;
 
 	/**
-	 * @var EntityPermissionChecker|MockObject
+	 * @var LexemeAuthorizer
 	 */
-	private $permissionChecker;
+	private $authorizer;
 
 	/**
 	 * @var SummaryFormatter|MockObject
@@ -102,7 +104,7 @@ class MergeLexemesInteractorTest extends TestCase {
 		$this->lexemeMerger = $this->newMockLexemeMerger();
 		$this->entityRevisionLookup = $this->newMockEntityRevisionLookup();
 		$this->entityStore = $this->newMockEntityStore();
-		$this->permissionChecker = $this->newAllowingMockEntityPermissionChecker();
+		$this->authorizer = new SucceedingLexemeAuthorizer();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
 		$this->user = $this->newMockUser();
 		$this->redirectInteractor = $this->newMockRedirectCreationInteractor();
@@ -194,7 +196,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\PermissionDeniedException
 	 */
 	public function testGivenUserDoesNotHavePermission_throwsException() {
-		$this->permissionChecker = $this->newForbiddingMockEntityPermissionChecker();
+		$this->authorizer = new FailingLexemeAuthorizer();
 
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
@@ -269,7 +271,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			$this->lexemeMerger,
 			$this->entityRevisionLookup,
 			$this->entityStore,
-			$this->permissionChecker,
+			$this->authorizer,
 			$this->summaryFormatter,
 			$this->user,
 			$this->redirectInteractor,
@@ -296,24 +298,6 @@ class MergeLexemesInteractorTest extends TestCase {
 
 	private function newMockEntityPermissionChecker() {
 		return $this->createMock( EntityPermissionChecker::class );
-	}
-
-	private function newAllowingMockEntityPermissionChecker() {
-		$permissionChecker = $this->newMockEntityPermissionChecker();
-
-		$permissionChecker->method( 'getPermissionStatusForEntityId' )
-			->willReturn( new \Status() );
-
-		return $permissionChecker;
-	}
-
-	private function newForbiddingMockEntityPermissionChecker() {
-		$permissionChecker = $this->newMockEntityPermissionChecker();
-
-		$permissionChecker->method( 'getPermissionStatusForEntityId' )
-			->willReturn( Status::newFatal( 'permission denied :(' ) );
-
-		return $permissionChecker;
 	}
 
 	private function newMockSummaryFormatter() {
