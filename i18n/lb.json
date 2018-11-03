@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Les Meloures"
 		]
 	},
-	"special-newlexeme": "En neie Lexerne uleeën",
+	"special-newlexeme": "En neie Lexeem uleeën",
 	"special-mergelexemes": "Zwee Lexemes fusionéieren",
 	"wikibaselexeme-deletedentity-form": "Geläschte Formulaire",
-	"wikibaselexeme-newlexeme-fieldset": "En neie Lexerne generéieren",
+	"wikibaselexeme-newlexeme-fieldset": "En neie Lexeem generéieren",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Sprooch vum Lemma",
 	"wikibaselexeme-lemma-edit-placeholder": "De Lemma ass normalerweis déi kierzt Form vum Wuert",
