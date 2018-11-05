@@ -58,11 +58,7 @@ class MergeLexemes extends ApiBase {
 	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$services = WikibaseLexemeServices::globalInstance();
-
-		if ( $params[self::BOT_PARAM] ) {
-			$services->markUserAsBot();
-		}
+		$services = WikibaseLexemeServices::createGlobalInstance( $params[self::BOT_PARAM] );
 
 		$sourceId = $this->getLexemeIdFromParamOrDie( $params[self::SOURCE_ID_PARAM] );
 		$targetId = $this->getLexemeIdFromParamOrDie( $params[self::TARGET_ID_PARAM] );

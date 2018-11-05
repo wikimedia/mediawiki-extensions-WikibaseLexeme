@@ -32,24 +32,37 @@ use Wikibase\Store;
  */
 class WikibaseLexemeServices {
 
-	public static function globalInstance(): self {
-		static $instance = null;
+	private static $globalInstance;
 
-		if ( $instance === null ) {
-			$instance = self::newInstance();
+	public static function createGlobalInstance( /* bool */ $isBot ): self {
+		self::$globalInstance = new self(
+			RequestContext::getMain(),
+			$isBot
+		);
+
+		return self::$globalInstance;
+	}
+
+	public static function globalInstance(): self {
+		if ( self::$globalInstance === null ) {
+			throw new \RuntimeException( 'Cannot get global instance without first initializing it' );
 		}
 
-		return $instance;
+		return self::$globalInstance;
 	}
 
 	public static function newInstance(): self {
-		return new self();
+		return new self( RequestContext::getMain(), false );
 	}
 
 	private $container = [];
+
+	private $mediaWikiContext;
 	private $isBot = false;
 
-	private function __construct() {
+	private function __construct( RequestContext $mediaWikiContext, /* bool */ $isBot ) {
+		$this->mediaWikiContext = $mediaWikiContext;
+		$this->isBot = $isBot;
 	}
 
 	/**

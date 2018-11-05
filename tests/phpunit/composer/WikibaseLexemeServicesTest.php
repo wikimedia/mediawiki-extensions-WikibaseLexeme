@@ -44,6 +44,8 @@ class WikibaseLexemeServicesTest extends TestCase {
 	}
 
 	public function testSuccessiveCallsToGlobalInstanceReturnSameInstance() {
+		WikibaseLexemeServices::createGlobalInstance( false );
+
 		$this->assertSame(
 			WikibaseLexemeServices::globalInstance(),
 			WikibaseLexemeServices::globalInstance()
