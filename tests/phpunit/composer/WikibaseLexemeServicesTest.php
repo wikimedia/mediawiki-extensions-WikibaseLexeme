@@ -54,8 +54,8 @@ class WikibaseLexemeServicesTest extends TestCase {
 
 	public function testSuccessiveCallsToNewInstanceReturnDifferentInstances() {
 		$this->assertNotSame(
-			WikibaseLexemeServices::newInstance(),
-			WikibaseLexemeServices::newInstance()
+			WikibaseLexemeServices::newTestInstance(),
+			WikibaseLexemeServices::newTestInstance()
 		);
 	}
 

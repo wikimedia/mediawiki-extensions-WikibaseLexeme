@@ -51,7 +51,12 @@ class WikibaseLexemeServices {
 		return self::$globalInstance;
 	}
 
-	public static function newInstance(): self {
+	public static function newTestInstance(): self {
+		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
+			throw new \Exception(
+				'Cannot get newTestInstance during regular operation.'
+			);
+		}
 		return new self( RequestContext::getMain(), false );
 	}
 
