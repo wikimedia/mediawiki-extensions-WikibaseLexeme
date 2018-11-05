@@ -8,7 +8,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
@@ -20,7 +20,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LemmaChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LemmaChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

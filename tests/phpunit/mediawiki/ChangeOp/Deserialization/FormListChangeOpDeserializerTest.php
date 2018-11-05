@@ -5,11 +5,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormAdd;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormListChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormListChangeOpDeserializer;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
@@ -18,7 +18,7 @@ use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Summary;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormListChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormListChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

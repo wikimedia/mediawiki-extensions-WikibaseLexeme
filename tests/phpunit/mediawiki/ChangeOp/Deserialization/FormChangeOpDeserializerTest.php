@@ -11,9 +11,9 @@ use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
@@ -21,7 +21,7 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\NullChangeOp;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

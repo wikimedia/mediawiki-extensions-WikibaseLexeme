@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;

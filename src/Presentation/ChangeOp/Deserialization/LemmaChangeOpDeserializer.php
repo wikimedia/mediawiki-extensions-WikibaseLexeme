@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization;
+namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;

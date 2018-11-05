@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiMain;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Serialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;

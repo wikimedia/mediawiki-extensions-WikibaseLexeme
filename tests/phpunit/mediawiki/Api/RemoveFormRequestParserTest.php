@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequestParser;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**

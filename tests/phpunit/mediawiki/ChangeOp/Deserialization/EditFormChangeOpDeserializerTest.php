@@ -5,15 +5,15 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ItemIdListDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

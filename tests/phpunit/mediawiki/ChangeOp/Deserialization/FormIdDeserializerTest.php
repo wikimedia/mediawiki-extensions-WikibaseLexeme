@@ -7,12 +7,12 @@ use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer
  *
  * @license GPL-2.0-or-later
  */
