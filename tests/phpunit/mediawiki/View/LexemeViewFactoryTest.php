@@ -2,13 +2,16 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
-use Language;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use Prophecy\Argument;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\View\LexemeView;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
-use Wikibase\Lib\Store\EntityInfo;
+use Wikibase\Repo\EntityIdHtmlLinkFormatterFactory;
+use Wikibase\View\EditSectionGenerator;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\View\LexemeViewFactory
@@ -21,10 +24,17 @@ class LexemeViewFactoryTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	public function testNewLexemeView() {
+		/** @var EntityIdHtmlLinkFormatterFactory $formatterFactory */
+		$formatterFactory = $this->prophesize( EntityIdHtmlLinkFormatterFactory::class );
+		$formatter = $this->prophesize( EntityIdFormatter::class );
+		$formatterFactory->getEntityIdFormatter( Argument::any() )->willReturn( $formatter );
+
 		$factory = new LexemeViewFactory(
-			Language::factory( 'en' ),
+			'en',
+			$this->getMock( LabelDescriptionLookup::class ),
 			new LanguageFallbackChain( [] ),
-			new EntityInfo( [] )
+			$this->getMock( EditSectionGenerator::class ),
+			$formatterFactory->reveal()
 		);
 		$view = $factory->newLexemeView();
 		$this->assertInstanceOf( LexemeView::class, $view );

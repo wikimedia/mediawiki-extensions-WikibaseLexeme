@@ -2,10 +2,10 @@
 
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\InProcessCachingDataTypeLookup;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer;
@@ -51,7 +51,6 @@ use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\LanguageFallbackIndicator;
-use Wikibase\Lib\Store\EntityInfo;
 use Wikibase\Rdf\DedupeBag;
 use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\RdfVocabulary;
@@ -67,6 +66,8 @@ use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SettingsArray;
+use Wikibase\View\EditSectionGenerator;
+use Wikibase\View\EntityTermsView;
 use Wikimedia\Purtle\RdfWriter;
 
 return [
@@ -78,15 +79,18 @@ return [
 			);
 		},
 		'view-factory-callback' => function (
-			Language $language,
+			$languageCode,
+			LabelDescriptionLookup $labelDescriptionLookup,
 			LanguageFallbackChain $fallbackChain,
-			EntityDocument $entity,
-			EntityInfo $entityInfo
+			EditSectionGenerator $editSectionGenerator,
+			EntityTermsView $entityTermsView
 		) {
 			$factory = new LexemeViewFactory(
-				$language,
+				$languageCode,
+				$labelDescriptionLookup,
 				$fallbackChain,
-				$entityInfo
+				$editSectionGenerator,
+				WikibaseRepo::getDefaultInstance()->getEntityIdHtmlLinkFormatterFactory()
 			);
 
 			return $factory->newLexemeView();
