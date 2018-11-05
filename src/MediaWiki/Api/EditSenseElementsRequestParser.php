@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 
 /**
  * @license GPL-2.0-or-later

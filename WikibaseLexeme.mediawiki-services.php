@@ -3,9 +3,9 @@
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ItemIdListDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;

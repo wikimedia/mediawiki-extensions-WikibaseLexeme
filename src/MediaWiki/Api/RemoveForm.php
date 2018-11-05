@@ -9,7 +9,7 @@ use Message;
 use Wikibase\EditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;

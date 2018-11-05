@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequestParser;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**

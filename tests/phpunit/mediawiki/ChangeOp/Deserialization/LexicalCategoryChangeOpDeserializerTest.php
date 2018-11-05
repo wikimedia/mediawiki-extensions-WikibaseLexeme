@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\LexemeValidatorFactory;
@@ -15,7 +15,7 @@ use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\StringNormalizer;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

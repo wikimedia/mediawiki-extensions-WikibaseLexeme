@@ -11,12 +11,12 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveFormRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 
 /**
- * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer
+ * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer
  *
  * @license GPL-2.0-or-later
  */

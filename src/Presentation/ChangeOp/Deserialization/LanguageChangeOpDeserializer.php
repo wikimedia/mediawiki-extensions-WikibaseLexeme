@@ -1,10 +1,10 @@
 <?php
 
-namespace Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization;
+namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use InvalidArgumentException;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLexicalCategory;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
@@ -12,16 +12,16 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\StringNormalizer;
 
 /**
- * Deserializer for lexical category change request data.
+ * Deserializer for language change request data.
  *
  * @see docs/change-op-serialization.wiki for a description of the serialization format.
  *
  * @license GPL-2.0-or-later
  */
-class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
+class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var LexemeValidatorFactory
+	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
 	 */
 	private $lexemeValidatorFactory;
 
@@ -47,21 +47,20 @@ class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 	 * @return ChangeOp
 	 */
 	public function createEntityChangeOp( array $changeRequest ) {
-		if ( !array_key_exists( 'lexicalCategory', $changeRequest )
-			|| !is_string( $changeRequest['lexicalCategory'] )
+		if ( !array_key_exists( 'language', $changeRequest )
+			|| !is_string( $changeRequest['language'] )
 		) {
 			throw new ChangeOpDeserializationException(
-				'lexicalCategory must be a string',
-				'invalid-lexical-category'
+				'language must be a string',
+				'invalid-language'
 			);
 		}
 
-		$value = $this->stringNormalizer->cleanupToNFC( $changeRequest['lexicalCategory'] );
+		$value = $this->stringNormalizer->cleanupToNFC( $changeRequest['language'] );
 
-		return new ChangeOpLexicalCategory(
-			$this->validateItemId( $value ),
-			$this->lexemeValidatorFactory->getLexicalCategoryValidator()
-		);
+		$itemId = $this->validateItemId( $value );
+		// TODO: maybe move creating ChangeOpLanguage instance to some kind of factory?
+		return new ChangeOpLanguage( $itemId, $this->lexemeValidatorFactory->getLanguageValidator() );
 	}
 
 	/**

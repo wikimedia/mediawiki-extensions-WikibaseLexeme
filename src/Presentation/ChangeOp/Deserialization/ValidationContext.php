@@ -1,6 +1,6 @@
 <?php
 
-namespace Wikibase\Lexeme\DataAccess\ChangeOp\Deserialization;
+namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use ApiUsageException;
 use Status;
