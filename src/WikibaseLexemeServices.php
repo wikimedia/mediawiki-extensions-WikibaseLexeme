@@ -183,8 +183,4 @@ class WikibaseLexemeServices {
 		);
 	}
 
-	public function markUserAsBot() {
-		$this->isBot = true;
-	}
-
 }
