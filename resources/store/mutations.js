@@ -1,4 +1,4 @@
-( function () {
+( function ( $ ) {
 	'use strict';
 
 	var mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
@@ -13,19 +13,19 @@
 			.splice( payload.representationIndex, 1 );
 	};
 	mutations[ mutationTypes.UPDATE_REPRESENTATION_VALUE ] = function ( state, payload ) {
-		Object.assign(
+		$.extend(
 			state.lexeme.forms[ payload.formIndex ].representations[ payload.representationIndex ],
 			{ value: payload.value }
 		);
 	};
 	mutations[ mutationTypes.UPDATE_REPRESENTATION_LANGUAGE ] = function ( state, payload ) {
-		Object.assign(
+		$.extend(
 			state.lexeme.forms[ payload.formIndex ].representations[ payload.representationIndex ],
 			{ language: payload.language }
 		);
 	};
 	mutations[ mutationTypes.DERIVE_REPRESENTATION_LANGUAGE_FROM_LEMMA ] = function ( state, payload ) {
-		Object.assign(
+		$.extend(
 			state.lexeme.forms[ payload.formIndex ].representations[ payload.representationIndex ],
 			{ language: state.lexeme.lemmas[ 0 ].language }
 		);
@@ -33,4 +33,4 @@
 
 	module.exports = mutations;
 
-} )();
+} )( jQuery );
