@@ -50,8 +50,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 		);
 	}
 
-	public function testSensesKeyExistsInJsonWhenEnabled() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
+	public function testSensesKeyExistsInJson() {
 		$this->saveLexemeToDb();
 
 		/** @var FauxResponse $response */
@@ -62,20 +61,6 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 
 		$resultArray = json_decode( $output, true );
 		$this->assertArrayHasKey( 'senses', $resultArray['entities'][self::LEXEME_ID] );
-	}
-
-	public function testSensesKeyDoesntExistInJsonWhenDisabled() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
-		$this->saveLexemeToDb();
-
-		/** @var FauxResponse $response */
-		list( $output, $response ) = $this->executeSpecialPage(
-			'',
-			new FauxRequest( [ 'id' => self::LEXEME_ID, 'format' => 'json' ] )
-		);
-
-		$resultArray = json_decode( $output, true );
-		$this->assertArrayNotHasKey( 'senses', $resultArray['entities'][self::LEXEME_ID] );
 	}
 
 }
