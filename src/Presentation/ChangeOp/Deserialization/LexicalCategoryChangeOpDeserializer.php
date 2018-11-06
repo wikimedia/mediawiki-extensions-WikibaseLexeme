@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use InvalidArgumentException;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLexicalCategory;
-use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
@@ -20,21 +20,14 @@ use Wikibase\StringNormalizer;
  */
 class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 
-	/**
-	 * @var LexemeValidatorFactory
-	 */
-	private $lexemeValidatorFactory;
-
-	/**
-	 * @var StringNormalizer
-	 */
+	private $lexicalCategoryValidator;
 	private $stringNormalizer;
 
 	public function __construct(
-		LexemeValidatorFactory $lexemeValidatorFactory,
+		ValueValidator $lexicalCategoryValidator,
 		StringNormalizer $stringNormalizer
 	) {
-		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
+		$this->lexicalCategoryValidator = $lexicalCategoryValidator;
 		$this->stringNormalizer = $stringNormalizer;
 	}
 
@@ -60,7 +53,7 @@ class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 
 		return new ChangeOpLexicalCategory(
 			$this->validateItemId( $value ),
-			$this->lexemeValidatorFactory->getLexicalCategoryValidator()
+			$this->lexicalCategoryValidator
 		);
 	}
 

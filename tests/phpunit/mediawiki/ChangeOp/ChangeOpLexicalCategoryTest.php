@@ -10,8 +10,7 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLexicalCategory;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
-use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
+use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Summary;
 
 /**
@@ -45,19 +44,7 @@ class ChangeOpLexicalCategoryTest extends TestCase {
 	private function newChangeOpLexicalCategory( ItemId $id ) {
 		return new ChangeOpLexicalCategory(
 			$id,
-			$this->getLexemeValidatorFactory()->getLexicalCategoryValidator()
-		);
-	}
-
-	private function getLexemeValidatorFactory() {
-		// TODO: this can be simplified since we only need a lexicalCategoryValidator
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
-		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
-			$this,
-			10,
-			$mockProvider->getMockTermValidatorFactory(),
-			[ 'Q234', 'Q432' ]
+			new CompositeValidator( [] )
 		);
 	}
 

@@ -7,19 +7,7 @@ use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\InProcessCachingDataTypeLookup;
 use Wikibase\LanguageFallbackChain;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormListChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
@@ -33,11 +21,23 @@ use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexicalCategoryItemIdExtrac
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
-use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter;
 use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormListChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexemeChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Presentation\Diff\LexemeDiffVisualizer;
 use Wikibase\Lexeme\Presentation\Formatters\FormIdHtmlFormatter;
@@ -65,6 +65,7 @@ use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
+use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SettingsArray;
 use Wikimedia\Purtle\RdfWriter;
@@ -136,12 +137,6 @@ return [
 		},
 		'changeop-deserializer-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$lexemeValidatorFactory = new LexemeValidatorFactory(
-				1000, // TODO: move to setting, at least change to some reasonable hard-coded value
-				$wikibaseRepo->getTermValidatorFactory(),
-				// FIXME: What does belong here?
-				[]
-			);
 			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
 				$wikibaseRepo->getExternalFormatStatementDeserializer(),
 				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
@@ -154,15 +149,16 @@ return [
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 					),
-					$lexemeValidatorFactory->getLemmaTermValidator(),
+					// TODO: move to setting, at least change to some reasonable hard-coded value
+					new LemmaTermValidator( 1000 ),
 					$wikibaseRepo->getStringNormalizer()
 				),
 				new LexicalCategoryChangeOpDeserializer(
-					$lexemeValidatorFactory,
+					new CompositeValidator( [] ), // FIXME: What does belong here?
 					$wikibaseRepo->getStringNormalizer()
 				),
 				new LanguageChangeOpDeserializer(
-					$lexemeValidatorFactory,
+					new CompositeValidator( [] ), // FIXME: What does belong here?
 					$wikibaseRepo->getStringNormalizer()
 				),
 				$statementChangeOpDeserializer,

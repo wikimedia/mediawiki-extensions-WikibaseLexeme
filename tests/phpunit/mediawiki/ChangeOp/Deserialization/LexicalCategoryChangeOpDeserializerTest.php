@@ -4,14 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\LexemeValidatorFactory;
-use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexicalCategoryChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\StringNormalizer;
 
 /**
@@ -22,19 +20,6 @@ use Wikibase\StringNormalizer;
 class LexicalCategoryChangeOpDeserializerTest extends TestCase {
 
 	use PHPUnit4And6Compat;
-
-	private function newLexicalCategoryChangeOpDeserializer() {
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
-		return new LexicalCategoryChangeOpDeserializer(
-			$validatorFactoryMockProvider->getLexemeValidatorFactory(
-				$this,
-				10,
-				$mockProvider->getMockTermValidatorFactory()
-			),
-			new StringNormalizer()
-		);
-	}
 
 	public function provideInvalidSerialization() {
 		return [
@@ -57,13 +42,16 @@ class LexicalCategoryChangeOpDeserializerTest extends TestCase {
 		$deserializer->createEntityChangeOp( [ 'lexicalCategory' => $serialization ] );
 	}
 
-	public function testGivenLexicalCategorySerializationIsInvalid_exceptionIsThrown() {
-		$lexemeValidatorFactory = $this->getMockBuilder( LexemeValidatorFactory::class )
-			->disableOriginalConstructor()
-			->getMock();
+	private function newLexicalCategoryChangeOpDeserializer() {
+		return new LexicalCategoryChangeOpDeserializer(
+			$this->createMock( ValueValidator::class ),
+			new StringNormalizer()
+		);
+	}
 
+	public function testGivenLexicalCategorySerializationIsInvalid_exceptionIsThrown() {
 		$deserializer = new LexicalCategoryChangeOpDeserializer(
-			$lexemeValidatorFactory,
+			$this->createMock( ValueValidator::class ),
 			new StringNormalizer()
 		);
 

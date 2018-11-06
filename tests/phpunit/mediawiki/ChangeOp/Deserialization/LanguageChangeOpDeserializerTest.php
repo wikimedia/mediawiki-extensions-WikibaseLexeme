@@ -4,14 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\LexemeValidatorFactory;
-use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LanguageChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
 use Wikibase\StringNormalizer;
 
 /**
@@ -22,19 +20,6 @@ use Wikibase\StringNormalizer;
 class LanguageChangeOpDeserializerTest extends TestCase {
 
 	use PHPUnit4And6Compat;
-
-	private function newLanguageChangeOpDeserializer() {
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
-		return new LanguageChangeOpDeserializer(
-			$validatorFactoryMockProvider->getLexemeValidatorFactory(
-				$this,
-				10,
-				$mockProvider->getMockTermValidatorFactory()
-			),
-			new StringNormalizer()
-		);
-	}
 
 	public function provideInvalidSerialization() {
 		return [
@@ -57,13 +42,16 @@ class LanguageChangeOpDeserializerTest extends TestCase {
 		$deserializer->createEntityChangeOp( [ 'language' => $serialization ] );
 	}
 
-	public function testGivenLanguageSerializationIsInvalid_exceptionIsThrown() {
-		$lexemeValidatorFactory = $this->getMockBuilder( LexemeValidatorFactory::class )
-			->disableOriginalConstructor()
-			->getMock();
+	private function newLanguageChangeOpDeserializer() {
+		return new LanguageChangeOpDeserializer(
+			$this->createMock( ValueValidator::class ),
+			new StringNormalizer()
+		);
+	}
 
+	public function testGivenLanguageSerializationIsInvalid_exceptionIsThrown() {
 		$deserializer = new LanguageChangeOpDeserializer(
-			$lexemeValidatorFactory,
+			$this->createMock( ValueValidator::class ),
 			new StringNormalizer()
 		);
 

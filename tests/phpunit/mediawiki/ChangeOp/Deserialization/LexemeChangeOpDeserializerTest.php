@@ -7,7 +7,10 @@ use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\LabelDescriptionDuplicateDetector;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormChangeOpDeserializer;
@@ -24,17 +27,13 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseChangeOpDeseriali
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
-use Wikibase\Repo\Validators\TermValidatorFactory;
+use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\StringNormalizer;
 
@@ -45,25 +44,7 @@ use Wikibase\StringNormalizer;
  */
 class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 
-	private function getLexemeValidatorFactory() {
-		$duplicateDetector = $this->getMockBuilder( LabelDescriptionDuplicateDetector::class )
-			->disableOriginalConstructor()
-			->getMock();
-
-		return new LexemeValidatorFactory(
-			100,
-			new TermValidatorFactory(
-				100,
-				[ 'en', 'enm' ],
-				new ItemIdParser(),
-				$duplicateDetector
-			),
-			[]
-		);
-	}
-
 	private function getChangeOpDeserializer() {
-		$lexemeValidatorFactory = $this->getLexemeValidatorFactory();
 		$stringNormalizer = new StringNormalizer();
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
@@ -76,11 +57,11 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
 				),
-				$lexemeValidatorFactory->getLemmaTermValidator(),
+				new LemmaTermValidator( 100 ),
 				$stringNormalizer
 			),
-			new LexicalCategoryChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer ),
-			new LanguageChangeOpDeserializer( $lexemeValidatorFactory, $stringNormalizer ),
+			new LexicalCategoryChangeOpDeserializer( new CompositeValidator( [] ), $stringNormalizer ),
+			new LanguageChangeOpDeserializer( new CompositeValidator( [] ), $stringNormalizer ),
 			$statementChangeOpDeserializer,
 			new FormListChangeOpDeserializer(
 				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
