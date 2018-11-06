@@ -338,8 +338,8 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$this->assertContains(
 			'<div id="toc"></div>'
 			. "StatementSectionsView::getHtml\n"
-			. "FormsView::getHtml\n"
 			. "SensesView::getHtml\n"
+			. "FormsView::getHtml\n"
 			. '</div>',
 			$html
 		);
@@ -377,8 +377,8 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$this->assertContains(
 			'<div id="toc"></div>'
 			. "StatementSectionsView::getHtml\n"
-			. "FormsView::getHtml\n"
 			. "SensesView::getHtml\n"
+			. "FormsView::getHtml\n"
 			. '</div>',
 			$html
 		);

@@ -132,8 +132,8 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 			$lexicalCategoryDiffHTML .
 			$languageDiffHTML .
 			$lexemeStatementDiffHTML .
-			$formDiffView->getHtml() .
-			$senseDiffView->getHtml();
+			$senseDiffView->getHtml() .
+			$formDiffView->getHtml();
 	}
 
 }
