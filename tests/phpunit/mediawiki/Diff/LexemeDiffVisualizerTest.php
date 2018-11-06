@@ -392,11 +392,11 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 				'(wikibaselexeme-diffview-lexical-category)',
 				'(wikibaselexeme-diffview-language)',
 				'SOME_CLAIM_DIFF_ROW',
+				'(wikibaselexeme-diffview-sense)',
+				'(wikibaselexeme-diffview-gloss)',
 				'(wikibaselexeme-diffview-form)',
 				'(wikibaselexeme-diffview-representation)',
 				'(wikibaselexeme-diffview-grammatical-feature)',
-				'(wikibaselexeme-diffview-sense)',
-				'(wikibaselexeme-diffview-gloss)'
 			]
 		) );
 	}

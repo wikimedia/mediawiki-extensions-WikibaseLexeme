@@ -100,12 +100,13 @@ class LexemeView extends EntityView {
 			. $this->getLexemeHeaderVueTemplate()
 			. $this->getLanguageAndLexicalCategoryVueTemplate()
 			. $this->templateFactory->render( 'wikibase-toc' )
-			. $this->statementSectionsView->getHtml( $entity->getStatements() )
-			. $this->formsView->getHtml( $entity->getForms() );
+			. $this->statementSectionsView->getHtml( $entity->getStatements() );
 
 		if ( $wgLexemeEnableSenses ) {
 			$html .= $this->sensesView->getHtml( $entity->getSenses() );
 		}
+
+		$html .= $this->formsView->getHtml( $entity->getForms() );
 
 		return $html;
 	}
