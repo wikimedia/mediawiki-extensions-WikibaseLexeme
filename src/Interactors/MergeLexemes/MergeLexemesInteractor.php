@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
+use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -12,7 +13,6 @@ use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\PermissionDeniedException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
-use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
@@ -44,9 +44,9 @@ class MergeLexemesInteractor {
 	private $repo;
 
 	/**
-	 * @var LexemeRedirectCreationInteractor
+	 * @var LexemeRedirector
 	 */
-	private $redirectInteractor;
+	private $lexemeRedirector;
 
 	/**
 	 * @var EntityTitleStoreLookup
@@ -67,7 +67,7 @@ class MergeLexemesInteractor {
 		LexemeMerger $lexemeMerger,
 		LexemeAuthorizer $authorizer,
 		SummaryFormatter $summaryFormatter,
-		LexemeRedirectCreationInteractor $redirectInteractor,
+		LexemeRedirector $lexemeRedirector,
 		EntityTitleStoreLookup $entityTitleLookup,
 		WatchedItemStoreInterface $watchedItemStore,
 		LexemeRepository $repo
@@ -75,7 +75,7 @@ class MergeLexemesInteractor {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->authorizer = $authorizer;
 		$this->summaryFormatter = $summaryFormatter;
-		$this->redirectInteractor = $redirectInteractor;
+		$this->lexemeRedirector = $lexemeRedirector;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
 		$this->repo = $repo;
@@ -85,15 +85,13 @@ class MergeLexemesInteractor {
 	 * @param LexemeId $sourceId
 	 * @param LexemeId $targetId
 	 * @param string|null $summary - only relevant when called through the API
-	 * @param bool $isBotEdit - only relevant when called through the API
 	 *
 	 * @throws MergingException
 	 */
 	public function mergeLexemes(
 		LexemeId $sourceId,
 		LexemeId $targetId,
-		$summary = null,
-		$isBotEdit = false
+		$summary = null
 	) {
 		if ( !$this->authorizer->canMerge( $sourceId, $targetId ) ) {
 			throw new PermissionDeniedException();
@@ -109,7 +107,7 @@ class MergeLexemesInteractor {
 		$this->attemptSaveMerge( $source, $target, $summary );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
-		$this->redirectInteractor->createRedirect( $sourceId, $targetId, $isBotEdit );
+		$this->lexemeRedirector->redirect( $sourceId, $targetId );
 	}
 
 	/**

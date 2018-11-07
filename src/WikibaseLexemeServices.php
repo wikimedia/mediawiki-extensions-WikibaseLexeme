@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
+use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
@@ -89,7 +91,7 @@ class WikibaseLexemeServices {
 			$this->newLexemeMerger(),
 			$this->getLexemeAuthorizer(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
-			$this->newLexemeRedirectCreationInteractor(),
+			$this->newLexemeRedirector(),
 			$this->getWikibaseRepo()->getEntityTitleLookup(),
 			MediaWikiServices::getInstance()->getWatchedItemStore(),
 			$this->getLexemeRepository()
@@ -150,6 +152,13 @@ class WikibaseLexemeServices {
 					$this->getWikibaseRepo()->getEntityPermissionChecker()
 				);
 			}
+		);
+	}
+
+	private function newLexemeRedirector(): LexemeRedirector {
+		return new MediaWikiLexemeRedirector(
+			$this->newLexemeRedirectCreationInteractor(),
+			$this->botEditRequested
 		);
 	}
 
