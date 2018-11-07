@@ -22,9 +22,6 @@
 		"LexemeEnableRepo": {
 			"value": true
 		},
-		"LexemeEnableSenses": {
-			"value": true
-		},
 		"LexemeNamespace": {
 			"value": 146
 		},

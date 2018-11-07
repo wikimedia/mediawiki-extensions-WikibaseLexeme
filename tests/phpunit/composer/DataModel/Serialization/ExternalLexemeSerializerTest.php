@@ -32,7 +32,6 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 	}
 
 	private function newSerializer() {
@@ -280,8 +279,7 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 		$this->assertThatHamcrest( $serialization, not( hasKeyInArray( 'nextFormId' ) ) );
 	}
 
-	public function testSensesKeyExistsWhenEnabled() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
+	public function testSensesKeyExists() {
 		$lexeme = NewLexeme::create()
 			->withLexicalCategory( 'Q1' )
 			->build();
@@ -289,17 +287,6 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 		$serialization = $this->newSerializer()->serialize( $lexeme );
 
 		$this->assertArrayHasKey( 'senses', $serialization );
-	}
-
-	public function testSensesKeyDoesNotExistWhenDisabled() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
-		$lexeme = NewLexeme::create()
-			->withLexicalCategory( 'Q1' )
-			->build();
-
-		$serialization = $this->newSerializer()->serialize( $lexeme );
-
-		$this->assertArrayNotHasKey( 'senses', $serialization );
 	}
 
 }

@@ -147,21 +147,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
 		$this->assertContains( 'FormsView::getHtml', $html );
-		$this->assertContains( 'StatementSectionsView::getHtml', $html );
-	}
-
-	/**
-	 * @dataProvider provideTestGetContent
-	 */
-	public function testGetContentSensesIncluded( Lexeme $lexeme ) {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
-		$view = $this->newLexemeView( $lexeme->getStatements() );
-
-		$html = $view->getContent( $lexeme )->getHtml();
-		$this->assertInternalType( 'string', $html );
-		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
-		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
-		$this->assertContains( 'FormsView::getHtml', $html );
 		$this->assertContains( 'SensesView::getHtml', $html );
 		$this->assertContains( 'StatementSectionsView::getHtml', $html );
 	}
@@ -231,83 +216,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	}
 
 	public function testGetContentForLanguage() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
-		$lexemeId = new LexemeId( 'L1' );
-		$language = new ItemId( 'Q2' );
-		$lexicalCategory = new ItemId( 'Q3' );
-
-		$lexeme = new Lexeme( $lexemeId, null, $lexicalCategory, $language );
-
-		$view = $this->newLexemeView( $lexeme->getStatements() );
-
-		$html = $view->getContent( $lexeme )->getHtml();
-		$this->assertInternalType( 'string', $html );
-		$this->assertThatHamcrest(
-			$html,
-			is(
-				htmlPiece(
-					havingChild(
-						both( withClass( 'language-lexical-category-widget_language' ) )
-							->andAlso( havingChild(
-								both(
-									tagMatchingOutline( '<a href="foobar/Q2"/>' )
-								)->andAlso(
-									havingTextContents( containsString( 'LABEL OF Q2' ) )
-								)
-							) )
-					)
-				)
-			)
-		);
-		$this->assertContains(
-			'<div id="toc"></div>'
-			. "StatementSectionsView::getHtml\n"
-			. "FormsView::getHtml\n"
-			. '</div>',
-			$html
-		);
-	}
-
-	public function testGetContentForLexicalCategory() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', false );
-		$lexemeId = new LexemeId( 'L1' );
-		$language = new ItemId( 'Q2' );
-		$lexicalCategory = new ItemId( 'Q3' );
-
-		$lexeme = new Lexeme( $lexemeId, null, $lexicalCategory, $language );
-
-		$view = $this->newLexemeView( $lexeme->getStatements() );
-
-		$html = $view->getContent( $lexeme )->getHtml();
-		$this->assertInternalType( 'string', $html );
-		$this->assertThatHamcrest(
-			$html,
-			is(
-				htmlPiece(
-					havingChild(
-						both( withClass( 'language-lexical-category-widget_lexical-category' ) )
-							->andAlso( havingChild(
-								both(
-									tagMatchingOutline( '<a href="foobar/Q3"/>' )
-								)->andAlso(
-									havingTextContents( containsString( 'LABEL OF Q3' ) )
-								)
-							) )
-					)
-				)
-			)
-		);
-		$this->assertContains(
-			'<div id="toc"></div>'
-			. "StatementSectionsView::getHtml\n"
-			. "FormsView::getHtml\n"
-			. '</div>',
-			$html
-		);
-	}
-
-	public function testGetContentForLanguageSensesIncluded() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );
@@ -345,8 +253,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		);
 	}
 
-	public function testGetContentForLexicalCategorySensesIncluded() {
-		$this->setMwGlobals( 'wgLexemeEnableSenses', true );
+	public function testGetContentForLexicalCategory() {
 		$lexemeId = new LexemeId( 'L1' );
 		$language = new ItemId( 'Q2' );
 		$lexicalCategory = new ItemId( 'Q3' );

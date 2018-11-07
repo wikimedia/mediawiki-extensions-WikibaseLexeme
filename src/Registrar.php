@@ -13,7 +13,7 @@ use Wikibase\WikibaseSettings;
 class Registrar {
 
 	public static function registerExtension() {
-		global $wgLexemeEnableRepo, $wgLexemeEnableSenses;
+		global $wgLexemeEnableRepo;
 
 		if ( !WikibaseSettings::isRepoEnabled() || !$wgLexemeEnableRepo ) {
 			return;
@@ -33,20 +33,18 @@ class Registrar {
 			'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements',
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::newFromGlobalState'
 		];
-		if ( $wgLexemeEnableSenses || defined( 'MW_PHPUNIT_TEST' ) ) {
-			$wgAPIModules['wbladdsense'] = [
-				'class' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense',
-				'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::newFromGlobalState',
-			];
-			$wgAPIModules['wbleditsenseelements'] = [
-				'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements',
-				'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::newFromGlobalState'
-			];
-			$wgAPIModules['wblremovesense'] = [
-				'class' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense',
-				'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::newFromGlobalState',
-			];
-		}
+		$wgAPIModules['wbladdsense'] = [
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::newFromGlobalState',
+		];
+		$wgAPIModules['wbleditsenseelements'] = [
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::newFromGlobalState'
+		];
+		$wgAPIModules['wblremovesense'] = [
+			'class' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::newFromGlobalState',
+		];
 		$wgAPIModules['wblmergelexemes'] = [
 			'class' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes',
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::newFromGlobalState',
