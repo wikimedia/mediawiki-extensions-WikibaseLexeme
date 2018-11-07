@@ -1,9 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Kareyac"
+			"Kareyac",
+			"Դավիթ Սարոյան"
 		]
 	},
 	"wikibaselexeme-field-language-label": "Լեզու",
-	"wikibaselexeme-diffview-language": "լեզու"
+	"wikibaselexeme-field-lexical-category-label": "Բառային կարգ",
+	"wikibaselexeme-diffview-language": "լեզու",
+	"wikibaselexeme-form-grammatical-features": "Քերականական հատկանիշներ"
 }
