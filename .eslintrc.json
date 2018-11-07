@@ -17,9 +17,11 @@
 		"global": false
 	},
 	"plugins": [
-		"promise"
+		"promise",
+		"compat"
 	],
 	"rules": {
+		"compat/compat": "error",
 		"indent": [ "error", "tab", { "CallExpression": { "arguments": "first" } } ],
 		"no-underscore-dangle": "off",
 		"no-use-before-define": [ "error", "nofunc" ],

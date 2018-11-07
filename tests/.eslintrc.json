@@ -2,6 +2,7 @@
 	"extends": "../.eslintrc.json",
 	"rules": {
 		"no-unused-vars": "off",
-		"promise/no-native": "off"
+		"promise/no-native": "off",
+		"compat/compat": "off"
 	}
 }
