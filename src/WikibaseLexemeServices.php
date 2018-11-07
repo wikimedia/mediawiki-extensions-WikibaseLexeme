@@ -16,7 +16,6 @@ use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityRefere
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
-use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
@@ -157,13 +156,6 @@ class WikibaseLexemeServices {
 
 	private function newLexemeRedirector(): LexemeRedirector {
 		return new MediaWikiLexemeRedirector(
-			$this->newLexemeRedirectCreationInteractor(),
-			$this->botEditRequested
-		);
-	}
-
-	private function newLexemeRedirectCreationInteractor(): LexemeRedirectCreationInteractor {
-		return new LexemeRedirectCreationInteractor(
 			$this->getWikibaseRepo()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$this->getWikibaseRepo()->getEntityStore(),
 			$this->getWikibaseRepo()->getEntityPermissionChecker(),
@@ -176,7 +168,8 @@ class WikibaseLexemeServices {
 				RequestContext::getMain()
 			),
 			$this->getWikibaseRepo()->getStore()->getEntityRedirectLookup(),
-			$this->getWikibaseRepo()->getEntityTitleLookup()
+			$this->getWikibaseRepo()->getEntityTitleLookup(),
+			$this->botEditRequested
 		);
 	}
 

@@ -15,7 +15,6 @@ use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
-use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -63,7 +62,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	private $user;
 
 	/**
-	 * @var LexemeRedirectCreationInteractor|MockObject
+	 * @var LexemeRedirector|MockObject
 	 */
 	private $redirector;
 

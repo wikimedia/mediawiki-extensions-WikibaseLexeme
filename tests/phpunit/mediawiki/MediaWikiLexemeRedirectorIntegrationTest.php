@@ -1,15 +1,13 @@
 <?php
 
-namespace Wikibase\Lexeme\Tests\MediaWiki\Interactors;
+namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use Status;
 use Title;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\EditEntity\EditFilterHookRunner;
@@ -20,13 +18,13 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SummaryFormatter;
 
 /**
- * @covers \Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor
+ * @covers \Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector
  *
  * @group Database
  *
  * @license GPL-2.0-or-later
  */
-class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeIntegrationTestCase {
+class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
 	/** @var EntityStore */
 	private $entityStore;
@@ -55,9 +53,9 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 		$this->saveEntity( $source );
 		$this->saveEntity( $target );
 
-		$interactor = $this->newInteractor();
+		$interactor = $this->newRedirector();
 
-		$interactor->createRedirect( $source->getId(), $target->getId(), false );
+		$interactor->redirect( $source->getId(), $target->getId() );
 
 		$this->assertEquals(
 			$target->getId(),
@@ -66,8 +64,8 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 		);
 	}
 
-	private function newInteractor() {
-		return new LexemeRedirectCreationInteractor(
+	private function newRedirector() {
+		return new MediaWikiLexemeRedirector(
 			$this->repo->getEntityRevisionLookup(),
 			$this->repo->getEntityStore(),
 			$this->getMockEntityPermissionChecker(),
@@ -75,7 +73,8 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 			$this->getTestUser()->getUser(),
 			$this->getMockEditFilterHookRunner(),
 			$this->repo->getStore()->getEntityRedirectLookup(),
-			$this->getMockEntityTitleLookup()
+			$this->getMockEntityTitleLookup(),
+			false
 		);
 	}
 
@@ -124,8 +123,7 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|EditFilterHookRunner
-	 * @throws \Exception
+	 * @return EditFilterHookRunner|MockObject
 	 */
 	private function getMockEditFilterHookRunner() {
 		$hookRunner = $this->getMockBuilder( MediawikiEditFilterHookRunner::class )
