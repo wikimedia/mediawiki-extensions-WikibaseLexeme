@@ -66,7 +66,9 @@
 	"wikibaselexeme-unknown-category": "Onbekend",
 	"wikibase-lexeme-language-name-mis": "overige",
 	"wikibase-lexeme-lemma-language-not-recognized": "De opgegeven taalcode kon niet worden herkend.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' kon niet worden gevonden",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lexeem laden mislukt.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Lexemen samenvoegen mislukt, los eerst bestaande conflicten op.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Geen toestemming.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Een lexeme kan niet samengevoegd worden met zichzelf."
 }
