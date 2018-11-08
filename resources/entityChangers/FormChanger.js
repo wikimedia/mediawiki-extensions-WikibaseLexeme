@@ -7,7 +7,7 @@
 	/**
 	 * @constructor
 	 *
-	 * @param {mediaWiki.Api} api
+	 * @param {wikibase.api.RepoApi} api
 	 * @param {wikibase.lexeme.RevisionStore} revisionStore
 	 * @param {string} lexemeId
 	 * @param {Object} formData
@@ -37,7 +37,7 @@
 	$.extend( SELF.prototype, {
 
 		/**
-		 * @type {mediaWiki.Api}
+		 * @type {wikibase.api.RepoApi}
 		 * @private
 		 */
 		api: null,
@@ -91,7 +91,7 @@
 			var requestRepresentations =
 				this.getRepresentationDataForApiRequest( this.formData.representations, representations );
 
-			return this.api.postWithToken( 'csrf', {
+			return this.api.post( {
 				action: 'wbleditformelements',
 				formId: formId,
 				data: JSON.stringify( {
@@ -112,7 +112,7 @@
 		saveNewFormData: function ( representations, grammaticalFeatures ) {
 			var self = this;
 
-			return this.api.postWithToken( 'csrf', {
+			return this.api.post( {
 				action: 'wbladdform',
 				lexemeId: this.lexemeId,
 				data: JSON.stringify( {
@@ -134,7 +134,7 @@
 		remove: function ( form ) {
 			var deferred = $.Deferred();
 
-			this.api.postWithToken( 'csrf', {
+			this.api.post( {
 				action: 'wblremoveform',
 				id: form.getId(),
 				errorformat: 'plaintext',

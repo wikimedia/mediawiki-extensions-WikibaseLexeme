@@ -144,7 +144,12 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
 				formView,
-				new wb.lexeme.entityChangers.FormChanger( this._api, this._revisionStore, lexeme.getId(), formData ),
+				new wb.lexeme.entityChangers.FormChanger(
+					new wb.api.RepoApi( this._api ),
+					this._revisionStore,
+					lexeme.getId(),
+					formData
+				),
 				removeCallback.bind( null, formView ),
 				form,
 				startEditingCallback
@@ -185,7 +190,12 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( senseView.element ),
 				senseView,
-				new wb.lexeme.entityChangers.SenseChanger( this._api, this._revisionStore, lexeme.getId(), senseData ),
+				new wb.lexeme.entityChangers.SenseChanger(
+					new wb.api.RepoApi( this._api ),
+					this._revisionStore,
+					lexeme.getId(),
+					senseData
+				),
 				removeCallback.bind( null, senseView ),
 				sense,
 				startEditingCallback

@@ -12,11 +12,11 @@
 	var Term = wb.datamodel.Term;
 
 	QUnit.test( 'New Form - makes the expected API call', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 		var revisionStore = {
 			setFormRevision: function () {}
@@ -29,12 +29,10 @@
 
 		changer.save( form );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotTokenType = callArguments[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotTokenType, 'csrf', 'Token type' );
 		assert.equal( gotParameters.action, 'wbladdform', 'Add form API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
@@ -55,7 +53,7 @@
 		var done = assert.async();
 
 		var api = {
-			postWithToken: function () {
+			post: function () {
 				return $.Deferred().resolve( {
 					form: {
 						id: 'L1-F100',
@@ -98,7 +96,7 @@
 		var done = assert.async();
 
 		var api = {
-			postWithToken: function () {
+			post: function () {
 				return $.Deferred().resolve( {
 					form: { id: 'L1-F100' },
 					lastrevid: 303
@@ -133,7 +131,7 @@
 			var done = assert.async();
 
 			var api = {
-				postWithToken: function () {
+				post: function () {
 					return $.Deferred().reject(
 						'some-generic-error-code',
 						{
@@ -178,11 +176,11 @@
 		} );
 
 	QUnit.test( 'Existing Form data changed - makes the expected API call', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var formId = 'L11-F2';
@@ -199,12 +197,10 @@
 
 		changer.save( form );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotTokenType = callArguments[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotTokenType, 'csrf', 'Token type' );
 		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
@@ -222,11 +218,11 @@
 	} );
 
 	QUnit.test( 'Representation added - only new representation passed to API', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var formId = 'L11-F2';
@@ -246,8 +242,8 @@
 
 		changer.save( form );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
@@ -259,11 +255,11 @@
 	} );
 
 	QUnit.test( 'One of many representations changed - only changed representation passed to API', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var formId = 'L11-F2';
@@ -284,8 +280,8 @@
 
 		changer.save( form );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
@@ -297,11 +293,11 @@
 	} );
 
 	QUnit.test( 'Representation removed - remove request passed to API', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var formId = 'L11-F2';
@@ -319,8 +315,8 @@
 
 		changer.save( form );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
@@ -345,7 +341,7 @@
 		var grammaticalFeatures = [ 'Q1', 'Q2' ];
 
 		var api = {
-			postWithToken: function () {
+			post: function () {
 				return $.Deferred().resolve( {
 					form: {
 						id: formId,
@@ -387,7 +383,7 @@
 			var done = assert.async();
 
 			var api = {
-				postWithToken: function () {
+				post: function () {
 					return $.Deferred().reject(
 						'some-generic-error-code',
 						{
@@ -433,7 +429,7 @@
 
 	QUnit.test( 'Existing Form removed - makes the expected API call', function ( assert ) {
 		var api = {
-			postWithToken: sinon.stub().returns( $.Deferred().resolve( {} ) )
+			post: sinon.stub().returns( $.Deferred().resolve( {} ) )
 		};
 
 		var formId = 'L11-F2';
@@ -443,13 +439,11 @@
 
 		changer.remove( form );
 
-		assert.ok( api.postWithToken.calledOnce, 'API gets called once' );
+		assert.ok( api.post.calledOnce, 'API gets called once' );
 
-		var callArguments = api.postWithToken.firstCall.args;
-		var gotTokenType = callArguments[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = api.post.firstCall.args;
+		var gotParameters = callArguments[ 0 ];
 
-		assert.equal( gotTokenType, 'csrf', 'Token is sent' );
 		assert.equal( gotParameters.action, 'wblremoveform', 'Picks right API action' );
 		assert.equal( gotParameters.id, formId, 'Sends form id parameter' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
@@ -458,7 +452,7 @@
 
 	QUnit.test( 'Existing Form removal fails - formats and passes API errors', function ( assert ) {
 		var api = {
-			postWithToken: sinon.stub().returns(
+			post: sinon.stub().returns(
 				$.Deferred().reject( 'irrelevant', { errors: [ { code: 'bad', '*': 'foo' } ] } )
 			)
 		};
