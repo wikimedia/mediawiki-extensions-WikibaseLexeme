@@ -20,20 +20,21 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 
 	private $user;
 	private $entityStore;
-	private $userIsBot;
+	private $botEditRequested;
 	private $entityRevisionLookup;
 
 	/**
 	 * @param \User $user
-	 * @param bool $userIsBot
+	 * @param bool $botEditRequested Whether the user has requested that edits be marked as bot edits.
+	 * Ignored if the user does not have the 'bot' right.
 	 * @param EntityStore $entityStore Needs to be able to save Lexeme entities
 	 * @param EntityRevisionLookup $entityRevisionLookup Needs to be able to retrieve Lexeme entities
 	 */
-	public function __construct( \User $user, $userIsBot, EntityStore $entityStore,
+	public function __construct( \User $user, $botEditRequested, EntityStore $entityStore,
 		EntityRevisionLookup $entityRevisionLookup ) {
 
 		$this->user = $user;
-		$this->userIsBot = $userIsBot;
+		$this->botEditRequested = $botEditRequested;
 		$this->entityStore = $entityStore;
 		$this->entityRevisionLookup = $entityRevisionLookup;
 	}
@@ -58,7 +59,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 		// (LexemeHandler has no onSaveValidators)
 		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
 
-		if ( $this->userIsBot && $this->user->isAllowed( 'bot' ) ) {
+		if ( $this->botEditRequested && $this->user->isAllowed( 'bot' ) ) {
 			$flags |= EDIT_FORCE_BOT;
 		}
 
