@@ -15,6 +15,12 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			}
 		}
 	};
+	global.wikibase = { // eslint-disable-line no-restricted-globals
+		getLanguageNameByCode: function () {
+			// this is tested in Wikibase/view/tests/qunit/wikibase/wikibase.getLanguageNameByCode.tests.js
+			return 'English';
+		}
+	};
 
 	var getDirectionality = function ( languageCode ) {
 		'use strict';
@@ -57,7 +63,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 
 		assertWidget( widget ).when( 'created' ).dom.containsGloss(
 			'gloss in english',
-			'en'
+			'English'
 		);
 	} );
 
@@ -80,7 +86,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 
 		assertWidget( widget ).when( 'created' ).dom.containsGloss(
 			'gloss in english',
-			'en'
+			'English'
 		);
 		widget.edit();
 		widget.add();
@@ -218,7 +224,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			'<tbody>\n' +
 			'<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">\n' +
 			'<td class="wikibase-lexeme-sense-gloss-language">\n' +
-			'<span v-if="!inEditMode">{{gloss.language}}</span>\n' +
+			'<span v-if="!inEditMode">{{gloss.language|languageName}}</span>\n' +
 			'<input v-else class="wikibase-lexeme-sense-gloss-language-input"\n' +
 			'v-model="gloss.language" >\n' +
 			'</td>\n' +

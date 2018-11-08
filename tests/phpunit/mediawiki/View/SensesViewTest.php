@@ -11,6 +11,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Presentation\View\SensesView;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
@@ -80,6 +81,10 @@ class SensesViewTest extends TestCase {
 							)
 					),
 					havingChild(
+						both( tagMatchingOutline( '<span>' ) )
+						->andAlso( havingTextContents( 'English' ) )
+					),
+					havingChild(
 						both( tagMatchingOutline( '<div class="wikibase-lexeme-sense-id">' ) )
 							->andAlso( havingTextContents( 'L1-S1' ) )
 					)
@@ -110,7 +115,8 @@ class SensesViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			new MediaWikiLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
-			$statementGroupListView
+			$statementGroupListView,
+			$this->getLanguageNameMock()
 		);
 
 		$senseId = 'L2-S3';
@@ -163,7 +169,8 @@ class SensesViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			new MediaWikiLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
-			$statementGroupListView
+			$statementGroupListView,
+			$this->getLanguageNameMock()
 		);
 	}
 
@@ -179,6 +186,14 @@ class SensesViewTest extends TestCase {
 						$4
 					</div>'
 		] );
+	}
+
+	private function getLanguageNameMock(): LexemeLanguageNameLookup {
+		$languageNameMock = $this->createMock(
+			LexemeLanguageNameLookup::class
+		);
+		$languageNameMock->method( 'getName' )->willReturn( 'English' );
+		return $languageNameMock;
 	}
 
 }

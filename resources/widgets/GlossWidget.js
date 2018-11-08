@@ -1,4 +1,4 @@
-module.exports = ( function ( require, Vue ) {
+module.exports = ( function ( require, Vue, wb ) {
 	'use strict';
 
 	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
@@ -69,6 +69,9 @@ module.exports = ( function ( require, Vue ) {
 				},
 				directionality: function ( languageCode ) {
 					return getDirectionality( languageCode );
+				},
+				languageName: function ( languageCode ) {
+					return wb.getLanguageNameByCode( languageCode );
 				}
 			}
 		};
@@ -79,4 +82,4 @@ module.exports = ( function ( require, Vue ) {
 		newGlossWidget: newGlossWidget
 	};
 
-} )( require, Vue );
+} )( require, Vue, wikibase );
