@@ -65,7 +65,7 @@
 			return this.draw();
 		},
 
-		_stopEditing: function ( dropValue ) {
+		_stopEditing: function ( /* dropValue */ ) {
 			this._inEditMode = false;
 
 			return this.draw();

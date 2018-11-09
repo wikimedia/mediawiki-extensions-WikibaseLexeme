@@ -24,6 +24,7 @@ describe( 'Lexeme:Lemma', () => {
 			return LexemeApi.get( id )
 				.then( ( lexeme ) => {
 					assert.equal( 1, Object.keys( lexeme.lemmas ).length, 'No lemma added' );
+					// eslint-disable-next-line dot-notation
 					assert.equal( 'test lemma', lexeme.lemmas[ 'en' ].value, 'Lemma changed' );
 				} );
 		} );

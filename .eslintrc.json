@@ -21,16 +21,12 @@
 		"promise"
 	],
 	"rules": {
-		"dot-notation": "off",
 		"indent": [ "error", "tab", { "CallExpression": { "arguments": "first" } } ],
-		"new-cap": "off",
-		"no-unused-vars": "off",
 		"no-underscore-dangle": "off",
 		"no-use-before-define": [ "error", "nofunc" ],
 		"max-len": "off",
 		"one-var": "off",
 		"operator-linebreak": "off",
-		"spaced-comment": "off",
 		"valid-jsdoc": "off",
 		"vars-on-top": "off",
 		"wrap-iife": "off"
