@@ -2,8 +2,6 @@
 
 namespace Wikibase\Lexeme\Presentation\View;
 
-use Language;
-use Message;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
@@ -34,11 +32,6 @@ class SensesView {
 	private $templateFactory;
 
 	/**
-	 * @var string
-	 */
-	private $languageCode;
-
-	/**
 	 * @var StatementGroupListView
 	 */
 	private $statementGroupListView;
@@ -48,20 +41,17 @@ class SensesView {
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param LexemeTemplateFactory $templateFactory
 	 * @param StatementGroupListView $statementGroupListView
-	 * @param string $languageCode
 	 */
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		LexemeTemplateFactory $templateFactory,
-		StatementGroupListView $statementGroupListView,
-		$languageCode
+		StatementGroupListView $statementGroupListView
 	) {
 		$this->textProvider = $textProvider;
 		$this->languageDirectionalityLookup = $languageDirectionalityLookup;
 		$this->templateFactory = $templateFactory;
 		$this->statementGroupListView = $statementGroupListView;
-		$this->languageCode = $languageCode;
 	}
 
 	/**
@@ -115,7 +105,7 @@ class SensesView {
 			],
 			[
 				'message' => function ( $key ) {
-					return $this->getLocalizedMessage( $key );
+					return $this->textProvider->get( $key );
 				},
 				'directionality' => function ( $languageCode ) {
 					return $this->languageDirectionalityLookup->getDirectionality( $languageCode );
@@ -159,15 +149,6 @@ HTML;
 			$sense->getStatements()->toArray(), $sense->getId()->getIdSuffix()
 		);
 		return $statementHeader . $statementSection;
-	}
-
-	/**
-	 * @param string $key
-	 *
-	 * @return string Plain text
-	 */
-	private function getLocalizedMessage( $key ) {
-		return ( new Message( $key, [], Language::factory( $this->languageCode ) ) )->text();
 	}
 
 	private function getGlossWidgetVueTemplate() {

@@ -90,8 +90,7 @@ class LexemeViewFactory {
 			$localizedTextProvider,
 			$languageDirectionalityLookup,
 			$templateFactory,
-			$statementGroupListView,
-			$this->language->getCode()
+			$statementGroupListView
 		);
 
 		return new LexemeView(
