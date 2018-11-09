@@ -19,12 +19,13 @@
 				form: new Form( '[ID]' ),
 				expected: { id: '[ID]', representations: {}, grammaticalFeatures: [] } },
 			'Form with representations': {
-				form: new Form( null,
-						new TermMap( {
-							'[LANG1]': new Term( '[LANG1]', '[TEXT1]' ),
-							'[LANG2]': new Term( '[LANG2]', '[TEXT2]' ),
-							'[LANG3]': new Term( '[LANG3]', '[TEXT3]' )
-						} ) ),
+				form: new Form(
+					null,
+					new TermMap( {
+						'[LANG1]': new Term( '[LANG1]', '[TEXT1]' ),
+						'[LANG2]': new Term( '[LANG2]', '[TEXT2]' ),
+						'[LANG3]': new Term( '[LANG3]', '[TEXT3]' )
+					} ) ),
 				expected: {
 					id: null,
 					representations: {

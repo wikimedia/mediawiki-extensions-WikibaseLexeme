@@ -259,17 +259,17 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	function newWidgetWithStore( store, mergeOptions ) {
 		var element = document.createElement( 'div' ),
 			options = newLexemeHeader(
-			store,
-			element,
-			getTemplate(),
-			getLemmaWidget(),
-			getLanguageAndLexicalCategoryWidget(),
-			{
-				get: function ( key ) {
-					return key;
+				store,
+				element,
+				getTemplate(),
+				getLemmaWidget(),
+				getLanguageAndLexicalCategoryWidget(),
+				{
+					get: function ( key ) {
+						return key;
+					}
 				}
-			}
-		);
+			);
 
 		return new Vue( _.merge( options, mergeOptions ) ).$mount();
 	}

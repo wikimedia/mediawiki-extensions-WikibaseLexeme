@@ -22,7 +22,7 @@
 			var senseId = this.getSenseIdFromStatementId( claimGuid );
 
 			if ( formId !== null ) {
-				if ( this.formStatementRevisions.hasOwnProperty( claimGuid ) ) {
+				if ( Object.prototype.hasOwnProperty.call( this.formStatementRevisions, claimGuid ) ) {
 					return this.formStatementRevisions[ claimGuid ];
 				}
 
@@ -30,7 +30,7 @@
 			}
 
 			if ( senseId !== null ) {
-				if ( this.senseStatementRevisions.hasOwnProperty( claimGuid ) ) {
+				if ( Object.prototype.hasOwnProperty.call( this.senseStatementRevisions, claimGuid ) ) {
 					return this.senseStatementRevisions[ claimGuid ];
 				}
 
@@ -111,7 +111,7 @@
 		 * @return {number}
 		 */
 		getFormRevision: function ( formId ) {
-			if ( this.formRevisions.hasOwnProperty( formId ) ) {
+			if ( Object.prototype.hasOwnProperty.call( this.formRevisions, formId ) ) {
 				return this.formRevisions[ formId ];
 			}
 
@@ -131,7 +131,7 @@
 		 * @return {number}
 		 */
 		getSenseRevision: function ( senseId ) {
-			if ( this.senseRevisions.hasOwnProperty( senseId ) ) {
+			if ( Object.prototype.hasOwnProperty.call( this.senseRevisions, senseId ) ) {
 				return this.senseRevisions[ senseId ];
 			}
 

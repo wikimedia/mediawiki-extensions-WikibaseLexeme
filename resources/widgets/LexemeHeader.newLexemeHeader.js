@@ -43,10 +43,11 @@ module.exports = ( function () {
 						}
 					).then( function () {
 						this.inEditMode = false;
-					}.bind( this ) )
-					.catch( function ( error ) {
-						this.displayError( error );
-					}.bind( this ) );
+					}
+						.bind( this ) )
+						.catch( function ( error ) {
+							this.displayError( error );
+						}.bind( this ) );
 				},
 
 				edit: function () {

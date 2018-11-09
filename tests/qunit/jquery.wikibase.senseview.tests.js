@@ -89,9 +89,7 @@
 	} );
 
 	QUnit.test( 'sets id after saving sense', function ( assert ) {
-		var emptySense = new wikibase.lexeme.datamodel.Sense(
-			''
-			),
+		var emptySense = new wikibase.lexeme.datamodel.Sense( '' ),
 			statementGroupListViewSpy = sinon.spy(),
 			view = newSenseView( {
 				value: emptySense,
