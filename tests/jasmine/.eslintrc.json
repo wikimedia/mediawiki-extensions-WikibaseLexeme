@@ -4,7 +4,8 @@
 		"jasmine": true
 	},
 	"globals": {
-		"beforeEach": false
+		"beforeEach": false,
+		"Promise": false
 	},
 	"rules": {
 		"no-global-assign": 2,

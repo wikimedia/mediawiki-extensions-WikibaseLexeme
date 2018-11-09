@@ -112,16 +112,18 @@ module.exports = ( function () {
 							language: lexeme.language,
 							lexicalCategory: lexeme.lexicalCategory
 						},
-						saveRequest = new Promise( function ( resolve, reject ) {
+						saveRequest = $.Deferred( function ( deferred ) {
 							repoApi.editEntity(
 								context.state.id,
 								context.state.baseRevId,
 								data,
 								false // clear
 							)
-								.then( resolve )
+								.then( function ( response /* , request */ ) {
+									deferred.resolve( response );
+								} )
 								.catch( function ( code, response ) {
-									reject( response && response.error );
+									deferred.reject( response && response.error );
 								} );
 						} );
 
