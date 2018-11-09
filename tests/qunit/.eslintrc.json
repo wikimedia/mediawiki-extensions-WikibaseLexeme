@@ -1,12 +1,14 @@
 {
-	"extends": "../../.eslintrc.json",
-	"env": {
-		"qunit": true
-	},
+	"extends": [
+		"wikimedia/qunit",
+		"../.eslintrc.json"
+	],
 	"globals": {
 		"sinon": false
 	},
 	"rules": {
-		"no-new": "off"
+		"no-new": "off",
+		"qunit/no-assert-equal": "off",
+		"qunit/resolve-async": "off"
 	}
 }

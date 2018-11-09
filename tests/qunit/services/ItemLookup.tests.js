@@ -33,8 +33,6 @@
 	} );
 
 	QUnit.test( 'returns the entity from the API response', function ( assert ) {
-		assert.expect( 1 );
-
 		var responseItem = { id: 'Q123' },
 			lookup = newLookupWithApi( getMockApiWithResponse( {
 				entities: {
@@ -48,8 +46,6 @@
 	} );
 
 	QUnit.test( 'fails for failing API', function ( assert ) {
-		assert.expect( 1 );
-
 		var lookup = newLookupWithApi( getFailingMockApi() );
 
 		lookup.fetchEntity( 'Q123' ).fail( function () {
@@ -58,8 +54,6 @@
 	} );
 
 	QUnit.test( 'fails for unexpected API response', function ( assert ) {
-		assert.expect( 1 );
-
 		var lookup = newLookupWithApi( getMockApiWithResponse( { foo: 'bar' } ) );
 
 		lookup.fetchEntity( 'Q123' ).fail( function () {
