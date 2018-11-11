@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"ShockD"
+		]
+	},
+	"special-newlexeme": "Създаване на нова лексема",
+	"wikibaselexeme-newlexeme-fieldset": "Създаване на нова лексема",
+	"wikibaselexeme-newlexeme-lemma": "Лема",
+	"wikibaselexeme-lemma-edit-placeholder": "Лема е обикновено най-кратката форма на думата",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Въведете лексикалната категория, например съществително",
+	"wikibaselexeme-newlexeme-language": "Език на лексемата",
+	"wikibaselexeme-newlexeme-language-placeholder": "Въведете език, например български",
+	"wikibaselexeme-lemma-field-lemma-label": "Лема",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Създаване на нова лексема",
+	"wikibaselexeme-diffview-lexical-category": "лексикална категория"
+}
