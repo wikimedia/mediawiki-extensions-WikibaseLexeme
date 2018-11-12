@@ -34,10 +34,14 @@ class WikibaseLexemeServices {
 
 	private static $globalInstance;
 
-	public static function createGlobalInstance( /* bool */ $isBot ): self {
+	/**
+	 * @param bool $botEditRequested Whether the user has requested that edits be marked as bot edits.
+	 * @return WikibaseLexemeServices
+	 */
+	public static function createGlobalInstance( $botEditRequested ): self {
 		self::$globalInstance = new self(
 			RequestContext::getMain(),
-			$isBot
+			$botEditRequested
 		);
 
 		return self::$globalInstance;
@@ -63,11 +67,11 @@ class WikibaseLexemeServices {
 	private $container = [];
 
 	private $mediaWikiContext;
-	private $isBot = false;
+	private $botEditRequested = false;
 
-	private function __construct( RequestContext $mediaWikiContext, /* bool */ $isBot ) {
+	private function __construct( RequestContext $mediaWikiContext, /* bool */$botEditRequested ) {
 		$this->mediaWikiContext = $mediaWikiContext;
-		$this->isBot = $isBot;
+		$this->botEditRequested = $botEditRequested;
 	}
 
 	/**
@@ -99,7 +103,7 @@ class WikibaseLexemeServices {
 			function() {
 				return new MediaWikiLexemeRepository(
 					RequestContext::getMain()->getUser(),
-					$this->isBot,
+					$this->botEditRequested,
 					$this->getWikibaseRepo()->getEntityStore(),
 					$this->getWikibaseRepo()->getEntityRevisionLookup()
 				);
