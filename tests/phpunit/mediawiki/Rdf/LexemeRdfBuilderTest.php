@@ -43,7 +43,6 @@ class LexemeRdfBuilderTest extends TestCase {
 
 	protected function setUp() {
 		parent::setUp();
-		$this->markTestSkipped( "T112127: Temporarily skip the test to avoid circular dependency" );
 		$this->helper = new NTriplesRdfTestHelper();
 	}
 

@@ -3,5 +3,5 @@
 <http://acme.test/L2-F1> <http://www.w3.org/2000/01/rdf-schema#label> "Colours"@en-gb .
 <http://acme.test/L2-F1> <http://www.w3.org/ns/lemon/ontolex#representation> "Colors"@en-us .
 <http://acme.test/L2-F1> <http://www.w3.org/ns/lemon/ontolex#representation> "Colours"@en-gb .
-<http://acme.test/L2-F1> <http://wikiba.se/ontology-beta#grammaticalFeature> <http://acme.test/Q3> .
-<http://acme.test/L2-F1> <http://wikiba.se/ontology-beta#grammaticalFeature> <http://acme.test/Q4> .
+<http://acme.test/L2-F1> <http://wikiba.se/ontology#grammaticalFeature> <http://acme.test/Q3> .
+<http://acme.test/L2-F1> <http://wikiba.se/ontology#grammaticalFeature> <http://acme.test/Q4> .
