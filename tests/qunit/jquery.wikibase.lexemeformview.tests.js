@@ -135,8 +135,6 @@
 	} );
 
 	QUnit.test( 'shows warning when in edit mode with redundant languages', function ( assert ) {
-		assert.expect( 1 );
-
 		var done = assert.async(),
 			form1 = newForm( 'F123', 'foo' ), // creates 'en' representation 'foo'
 			view = newFormView( {
@@ -164,7 +162,6 @@
 	} );
 
 	QUnit.test( 'marks redundant languages when in edit mode with redundant languages', function ( assert ) {
-		assert.expect( 1 );
 
 		var done = assert.async(),
 			form1 = newForm( 'F123', 'foo' ), // creates 'en' representation 'foo'
