@@ -20,7 +20,7 @@ describe( 'Lexeme:Statements', () => {
 		} );
 
 		browser.call( () => {
-			return WikibaseApi.createProperty( 'string' )
+			return WikibaseApi.getProperty( 'string' )
 				.then( ( property ) => {
 					propertyId = property;
 				} );
