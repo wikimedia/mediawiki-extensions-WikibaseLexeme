@@ -18,7 +18,8 @@
 				sense: new Sense( '[ID]' ),
 				expected: { id: '[ID]', glosses: {} } },
 			'Sense with glosses': {
-				sense: new Sense( null,
+				sense: new Sense(
+					null,
 					new TermMap( {
 						'[LANG1]': new Term( '[LANG1]', '[TEXT1]' ),
 						'[LANG2]': new Term( '[LANG2]', '[TEXT2]' ),

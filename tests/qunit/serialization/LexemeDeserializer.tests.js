@@ -57,10 +57,10 @@
 		var ds = new wb.lexeme.serialization.LexemeDeserializer();
 
 		assert.deepEqual(
-				ds.deserialize( serialization ),
-				expectedDataModel,
-				'Deserialized data model should deep equal expected data model'
-				);
+			ds.deserialize( serialization ),
+			expectedDataModel,
+			'Deserialized data model should deep equal expected data model'
+		);
 	} );
 
 	QUnit.test( 'deserialize() deserializes forms', function ( assert ) {

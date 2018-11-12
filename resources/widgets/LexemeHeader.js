@@ -95,8 +95,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue
 			.fail( function ( reason ) {
 				// FIXME: Change to lexeme-extension-specific logger once defined
 				mw.log.error( 'LexemeHeader could not be initialized from wikibase.entityPage.entityLoaded', reason );
-			} )
-		;
+			} );
 	};
 
 } )( jQuery, mediaWiki, require, wikibase, Vue, Vuex );

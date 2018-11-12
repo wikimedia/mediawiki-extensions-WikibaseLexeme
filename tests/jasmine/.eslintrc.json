@@ -1,5 +1,8 @@
 {
-	"environment": ["shared-node-browser", "jasmine"],
+	"env": {
+		"shared-node-browser": true,
+		"jasmine": true
+	},
 	"globals": {
 		"beforeEach": false
 	},

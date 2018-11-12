@@ -87,9 +87,9 @@
 
 			// This is here to be sure there is never a duplicate id:
 			$( '.wikibase-statementgrouplistview' )
-			.prev( '.wb-section-heading' )
-			.first()
-			.attr( 'id', 'claims' );
+				.prev( '.wb-section-heading' )
+				.first()
+				.attr( 'id', 'claims' );
 		},
 
 		/**
@@ -107,12 +107,12 @@
 			];
 
 			this.element
-			.on(
-				startEditingEvents.join( ' ' ),
-				function () {
-					self._trigger( 'afterstartediting' );
-				}
-			);
+				.on(
+					startEditingEvents.join( ' ' ),
+					function () {
+						self._trigger( 'afterstartediting' );
+					}
+				);
 
 			var stopEditingEvents = [
 				'statementlistviewafterremove.' + this.widgetName,
@@ -122,12 +122,12 @@
 			];
 
 			this.element
-			.on(
-				stopEditingEvents.join( ' ' ),
-				function ( event, dropValue ) {
-					self._trigger( 'afterstopediting', null, [ dropValue ] );
-				}
-			);
+				.on(
+					stopEditingEvents.join( ' ' ),
+					function ( event, dropValue ) {
+						self._trigger( 'afterstopediting', null, [ dropValue ] );
+					}
+				);
 		},
 
 		/**
