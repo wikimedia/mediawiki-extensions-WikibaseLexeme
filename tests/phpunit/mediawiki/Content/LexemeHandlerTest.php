@@ -232,6 +232,24 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		);
 	}
 
+	public function testGivenLexemePageWithFormFragmentGetIdForTitle_returnsFormId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new FormId( 'L1-F3' ),
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1', 'F3' ) )
+		);
+	}
+
+	public function testGivenLexemePageWithSenseFragmentGetIdForTitle_returnsSenseId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new SenseId( 'L1-S3' ),
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1', 'S3' ) )
+		);
+	}
+
 	public function testSupportsRedirects() {
 		$this->assertTrue( $this->getHandler()->supportsRedirects() );
 	}

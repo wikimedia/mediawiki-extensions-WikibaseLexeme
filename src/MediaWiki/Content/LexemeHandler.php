@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
@@ -183,17 +184,25 @@ class LexemeHandler extends EntityHandler {
 
 	public function getIdForTitle( Title $target ) {
 		if ( $target->hasFragment() ) {
-			$fragment = $target->getFragment();
+			$id = $this->normalizeFragmentToId( $target );
 			// TODO use an EntityIdParser (but parent's $this->entityIdParser is currently private)
-			if ( preg_match( FormId::PATTERN, $fragment ) ) {
-				return new FormId( $fragment );
+			if ( preg_match( FormId::PATTERN, $id ) ) {
+				return new FormId( $id );
 			}
-			if ( preg_match( SenseId::PATTERN, $fragment ) ) {
-				return new SenseId( $fragment );
+			if ( preg_match( SenseId::PATTERN, $id ) ) {
+				return new SenseId( $id );
 			}
 		}
 
 		return parent::getIdForTitle( $target );
+	}
+
+	private function normalizeFragmentToId( Title $target ) {
+		$fragment = $target->getFragment();
+		if ( strpos( $fragment, LexemeSubEntityId::SUBENTITY_ID_SEPARATOR ) === false ) {
+			$fragment = $target->getText() . LexemeSubEntityId::SUBENTITY_ID_SEPARATOR . $fragment;
+		}
+		return $fragment;
 	}
 
 }
