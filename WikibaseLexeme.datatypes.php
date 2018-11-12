@@ -29,6 +29,7 @@ use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
 use Wikibase\Lib\EntityIdValueFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
+use Wikibase\Lib\SnakFormat;
 use Wikibase\Lib\SnakFormatter;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
@@ -42,10 +43,9 @@ return [
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
-			if ( $format === SnakFormatter::FORMAT_HTML ||
-				 $format === SnakFormatter::FORMAT_HTML_VERBOSE ||
-				 $format === SnakFormatter::FORMAT_HTML_DIFF
-			) {
+			$snakFormat = new SnakFormat();
+
+			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 				$userLanguage = $wikibaseRepo->getUserLanguage();
 
@@ -82,11 +82,9 @@ return [
 			$userLanguage = $wikibaseRepo->getUserLanguage();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
 			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage->getCode() );
-			if (
-				$format === SnakFormatter::FORMAT_HTML ||
-				$format === SnakFormatter::FORMAT_HTML_VERBOSE ||
-				$format === SnakFormatter::FORMAT_HTML_DIFF
-			) {
+			$snakFormat = new SnakFormat();
+
+			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$titleLookup = $wikibaseRepo->getEntityTitleLookup();
 				$baseFormatter = new FormIdHtmlFormatter(
 					$revisionLookup,
@@ -121,12 +119,9 @@ return [
 
 			$languageFallbackChainFactory = $wikibaseRepo->getLanguageFallbackChainFactory();
 			$fallbackChain = $languageFallbackChainFactory->newFromLanguageCode( $languageCode );
+			$snakFormat = new SnakFormat();
 
-			if (
-				$format === SnakFormatter::FORMAT_HTML ||
-				$format === SnakFormatter::FORMAT_HTML_VERBOSE ||
-				$format === SnakFormatter::FORMAT_HTML_DIFF
-			) {
+			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$titleLookup = $wikibaseRepo->getEntityTitleLookup();
 
 				return new EntityIdValueFormatter(
