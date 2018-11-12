@@ -110,8 +110,7 @@ class SensesViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			new MediaWikiLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
-			$statementGroupListView,
-			'en'
+			$statementGroupListView
 		);
 
 		$senseId = 'L2-S3';
@@ -164,8 +163,7 @@ class SensesViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			new MediaWikiLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
-			$statementGroupListView,
-			'en'
+			$statementGroupListView
 		);
 	}
 
