@@ -43,7 +43,7 @@ module.exports = ( function ( mw ) {
 						selectOnAutocomplete: true
 					} );
 
-					$input.on( 'entityselectorselected', function ( e ) {
+					$input.on( 'entityselectorselected', function ( /* e */ ) {
 						var entitySelector = $( vm.$el ).data( 'entityselector' ),
 							selectedEntity = entitySelector.selectedEntity();
 

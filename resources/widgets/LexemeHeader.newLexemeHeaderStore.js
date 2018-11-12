@@ -117,7 +117,7 @@ module.exports = ( function () {
 								context.state.id,
 								context.state.baseRevId,
 								data,
-								false //clear
+								false // clear
 							)
 								.then( resolve )
 								.catch( function ( code, response ) {

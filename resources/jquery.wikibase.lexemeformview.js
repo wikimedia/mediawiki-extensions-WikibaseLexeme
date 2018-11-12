@@ -70,7 +70,7 @@
 
 					return $container;
 				},
-				function () { //Anchor
+				function () { // Anchor
 					this.deferredFormWithId.promise().then( function ( form ) {
 						this.element.attr( 'id', LexemeSubEntityId.getIdSuffix( form.getId() ) );
 					}.bind( this ) );

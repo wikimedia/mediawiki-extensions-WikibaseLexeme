@@ -82,6 +82,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue
 			$saveButton.data( 'wbtooltip' ).show();
 		};
 
+		// eslint-disable-next-line no-unused-vars
 		var app = new Vue( header );
 	}
 

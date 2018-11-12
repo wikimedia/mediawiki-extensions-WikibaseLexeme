@@ -1,6 +1,7 @@
 {
 	"extends": "../.eslintrc.json",
 	"rules": {
+		"no-unused-vars": "off",
 		"promise/no-native": "off"
 	}
 }

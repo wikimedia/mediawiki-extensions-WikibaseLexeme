@@ -64,6 +64,7 @@
 		 * @private
 		 */
 		_createListView: function () {
+			// eslint-disable-next-line new-cap
 			return new $.wikibase.listview( {
 				listItemAdapter: this.options.getListItemAdapter( this._removeItem.bind( this ) ),
 				listItemNodeName: 'div',
