@@ -91,6 +91,26 @@ class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	/**
+	 * @dataProvider provideFragments
+	 */
+	public function testGetFragment( FormId $formId, $fragment, $expected ) {
+		$formatter = $this->newFormatter();
+
+		$actual = $formatter->getFragment( $formId, $fragment );
+
+		$this->assertSame( $expected, $actual );
+	}
+
+	public function provideFragments() {
+		$f1 = new FormId( 'L1-F1' );
+		return [
+			'old-style' => [ $f1, 'L1-F1', 'F1' ],
+			'new-style' => [ $f1, 'F1', 'F1' ],
+			'old-style, wrong lexeme' => [ $f1, 'L2-F1', 'L2-F1' ],
+		];
+	}
+
+	/**
 	 * @return DefaultEntityLinkFormatter
 	 */
 	private function newDefaultFormatter() {

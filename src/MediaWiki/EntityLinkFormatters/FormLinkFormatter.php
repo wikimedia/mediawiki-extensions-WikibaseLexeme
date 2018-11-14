@@ -84,4 +84,19 @@ class FormLinkFormatter implements EntityLinkFormatter {
 		return $title->getFragment();
 	}
 
+	/**
+	 * @param FormId $entityId
+	 * @param string $fragment
+	 * @return string
+	 */
+	public function getFragment( EntityId $entityId, $fragment ) {
+		Assert::parameterType( FormId::class, $entityId, '$entityId' );
+
+		if ( $fragment === $entityId->getSerialization() ) {
+			return $entityId->getIdSuffix();
+		} else {
+			return $fragment;
+		}
+	}
+
 }

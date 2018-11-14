@@ -97,4 +97,8 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 		return $lexeme->getLemmas();
 	}
 
+	public function getFragment( EntityId $entityId, $fragment ) {
+		return $fragment;
+	}
+
 }
