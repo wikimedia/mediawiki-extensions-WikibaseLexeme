@@ -6,6 +6,7 @@ use Language;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityInfo;
 use Wikibase\Lib\Store\EntityInfoTermLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
@@ -62,6 +63,8 @@ class LexemeViewFactory {
 
 		$editSectionGenerator = $this->newToolbarEditSectionGenerator();
 
+		$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookup();
+
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->language->getCode(),
 			$labelDescriptionLookup,
@@ -90,7 +93,8 @@ class LexemeViewFactory {
 			$localizedTextProvider,
 			$languageDirectionalityLookup,
 			$templateFactory,
-			$statementGroupListView
+			$statementGroupListView,
+			$languageNameLookup
 		);
 
 		return new LexemeView(

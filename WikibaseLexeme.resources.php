@@ -210,6 +210,7 @@ return call_user_func( function() {
 				"wikibase.lexeme.i18n.Messages",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
 				"wikibase.lexeme.widgets.InvalidLanguageIndicator",
+				"wikibase.getLanguageNameByCode",
 			],
 			"messages" => [
 				"wikibase-edit",

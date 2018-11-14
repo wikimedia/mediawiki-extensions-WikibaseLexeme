@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Presentation\View;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
@@ -37,21 +38,29 @@ class SensesView {
 	private $statementGroupListView;
 
 	/**
+	 * @var LexemeLanguageNameLookup
+	 */
+	private $languageNameLookup;
+
+	/**
 	 * @param LocalizedTextProvider $textProvider
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param LexemeTemplateFactory $templateFactory
 	 * @param StatementGroupListView $statementGroupListView
+	 * @param LexemeLanguageNameLookup $languageNameLookup
 	 */
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		LexemeTemplateFactory $templateFactory,
-		StatementGroupListView $statementGroupListView
+		StatementGroupListView $statementGroupListView,
+		LexemeLanguageNameLookup $languageNameLookup
 	) {
 		$this->textProvider = $textProvider;
 		$this->languageDirectionalityLookup = $languageDirectionalityLookup;
 		$this->templateFactory = $templateFactory;
 		$this->statementGroupListView = $statementGroupListView;
+		$this->languageNameLookup = $languageNameLookup;
 	}
 
 	/**
@@ -109,6 +118,9 @@ class SensesView {
 				},
 				'directionality' => function ( $languageCode ) {
 					return $this->languageDirectionalityLookup->getDirectionality( $languageCode );
+				},
+				'languageName' => function ( $languageCode ) {
+					return $this->languageNameLookup->getName( $languageCode );
 				}
 
 			]
@@ -175,7 +187,7 @@ HTML;
 		<tbody>
 			<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
 				<td class="wikibase-lexeme-sense-gloss-language">
-					<span v-if="!inEditMode">{{gloss.language}}</span>
+					<span v-if="!inEditMode">{{gloss.language|languageName}}</span>
 					<input v-else class="wikibase-lexeme-sense-gloss-language-input"
 						:class="{
 							'wikibase-lexeme-sense-gloss-language-input_redundant-language':
