@@ -12,11 +12,11 @@
 	var Term = wb.datamodel.Term;
 
 	QUnit.test( 'New Sense - makes the expected API call', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 		var revisionStore = {
 			setSenseRevision: function () {}
@@ -29,12 +29,10 @@
 
 		changer.save( sense );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotTokenType = callArguments[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotTokenType, 'csrf', 'Token type' );
 		assert.equal( gotParameters.action, 'wbladdsense', 'Add sense API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
@@ -50,7 +48,7 @@
 		var done = assert.async();
 
 		var api = {
-			postWithToken: function () {
+			post: function () {
 				return $.Deferred().resolve( {
 					sense: {
 						id: 'L1-S100',
@@ -87,7 +85,7 @@
 		var done = assert.async();
 
 		var api = {
-			postWithToken: function () {
+			post: function () {
 				return $.Deferred().resolve( {
 					sense: { id: 'L1-S100' },
 					lastrevid: 303
@@ -122,7 +120,7 @@
 			var done = assert.async();
 
 			var api = {
-				postWithToken: function () {
+				post: function () {
 					return $.Deferred().reject(
 						'some-generic-error-code',
 						{
@@ -167,11 +165,11 @@
 		} );
 
 	QUnit.test( 'Existing Sense data changed - makes the expected API call', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var senseId = 'L11-S2';
@@ -187,12 +185,10 @@
 
 		changer.save( sense );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotTokenType = callArguments[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotTokenType, 'csrf', 'Token type' );
 		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
@@ -205,11 +201,11 @@
 	} );
 
 	QUnit.test( 'Gloss added - only new gloss passed to API', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var senseId = 'L11-S2';
@@ -228,8 +224,8 @@
 
 		changer.save( sense );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
@@ -241,11 +237,11 @@
 	} );
 
 	QUnit.test( 'One of many glosses changed - only changed gloss passed to API', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var senseId = 'L11-S2';
@@ -265,8 +261,8 @@
 
 		changer.save( sense );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
@@ -278,11 +274,11 @@
 	} );
 
 	QUnit.test( 'Gloss removed - remove request passed to API', function ( assert ) {
-		var postWithToken = sinon.spy( function () {
+		var post = sinon.spy( function () {
 			return $.Deferred().resolve( {} ).promise();
 		} );
 		var api = {
-			postWithToken: postWithToken
+			post: post
 		};
 
 		var senseId = 'L11-S2';
@@ -299,8 +295,8 @@
 
 		changer.save( sense );
 
-		var callArguments = postWithToken.args[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = post.args[ 0 ];
+		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
 		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
@@ -323,7 +319,7 @@
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 
 		var api = {
-			postWithToken: function () {
+			post: function () {
 				return $.Deferred().resolve( {
 					sense: {
 						id: senseId,
@@ -359,7 +355,7 @@
 			var done = assert.async();
 
 			var api = {
-				postWithToken: function () {
+				post: function () {
 					return $.Deferred().reject(
 						'some-generic-error-code',
 						{
@@ -405,7 +401,7 @@
 
 	QUnit.test( 'Existing Sense removed - makes the expected API call', function ( assert ) {
 		var api = {
-			postWithToken: sinon.stub().returns( $.Deferred().resolve( {} ) )
+			post: sinon.stub().returns( $.Deferred().resolve( {} ) )
 		};
 
 		var senseId = 'L11-S2';
@@ -415,13 +411,11 @@
 
 		changer.remove( sense );
 
-		assert.ok( api.postWithToken.calledOnce, 'API gets called once' );
+		assert.ok( api.post.calledOnce, 'API gets called once' );
 
-		var callArguments = api.postWithToken.firstCall.args;
-		var gotTokenType = callArguments[ 0 ];
-		var gotParameters = callArguments[ 1 ];
+		var callArguments = api.post.firstCall.args;
+		var gotParameters = callArguments[ 0 ];
 
-		assert.equal( gotTokenType, 'csrf', 'Token is sent' );
 		assert.equal( gotParameters.action, 'wblremovesense', 'Picks right API action' );
 		assert.equal( gotParameters.id, senseId, 'Sends form id parameter' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
@@ -430,7 +424,7 @@
 
 	QUnit.test( 'Existing Sense removal fails - formats and passes API errors', function ( assert ) {
 		var api = {
-			postWithToken: sinon.stub().returns(
+			post: sinon.stub().returns(
 				$.Deferred().reject( 'irrelevant', { errors: [ { code: 'bad', '*': 'foo' } ] } )
 			)
 		};

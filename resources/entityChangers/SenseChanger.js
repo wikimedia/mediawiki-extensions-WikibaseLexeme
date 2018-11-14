@@ -7,7 +7,7 @@
 	/**
 	 * @constructor
 	 *
-	 * @param {mediaWiki.Api} api
+	 * @param {wikibase.api.RepoApi} api
 	 * @param {wikibase.lexeme.RevisionStore} revisionStore
 	 * @param {string} lexemeId
 	 * @param {Object} senseData
@@ -32,7 +32,7 @@
 	$.extend( SELF.prototype, {
 
 		/**
-		 * @type {mediaWiki.Api}
+		 * @type {wikibase.api.RepoApi}
 		 * @private
 		 */
 		api: null,
@@ -83,7 +83,7 @@
 			var requestGlosses =
 				this.getGlossDataForApiRequest( this.senseData.glosses, glosses );
 
-			return this.api.postWithToken( 'csrf', {
+			return this.api.post( {
 				action: 'wbleditsenseelements',
 				senseId: senseId,
 				data: JSON.stringify( {
@@ -103,7 +103,7 @@
 		saveNewSenseData: function ( glosses ) {
 			var self = this;
 
-			return this.api.postWithToken( 'csrf', {
+			return this.api.post( {
 				action: 'wbladdsense',
 				lexemeId: this.lexemeId,
 				data: JSON.stringify( { glosses: glosses } ),
@@ -122,7 +122,7 @@
 		remove: function ( sense ) {
 			var deferred = $.Deferred();
 
-			this.api.postWithToken( 'csrf', {
+			this.api.post( {
 				action: 'wblremovesense',
 				id: sense.getId(),
 				errorformat: 'plaintext',
