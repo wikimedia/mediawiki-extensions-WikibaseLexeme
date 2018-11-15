@@ -10,8 +10,7 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Tests\MediaWiki\Validators\LexemeValidatorFactoryTestMockProvider;
-use Wikibase\Repo\Tests\ChangeOp\ChangeOpTestMockProvider;
+use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Summary;
 
 /**
@@ -42,19 +41,7 @@ class ChangeOpLanguageTest extends TestCase {
 	private function newChangeOpLanguage( ItemId $id ) {
 		return new ChangeOpLanguage(
 			$id,
-			$this->getLexemeValidatorFactory()->getLanguageValidator()
-		);
-	}
-
-	private function getLexemeValidatorFactory() {
-		// TODO: this can be simplified since we only need a languageValidator
-		$mockProvider = new ChangeOpTestMockProvider( $this );
-		$validatorFactoryMockProvider = new LexemeValidatorFactoryTestMockProvider();
-		return $validatorFactoryMockProvider->getLexemeValidatorFactory(
-			$this,
-			10,
-			$mockProvider->getMockTermValidatorFactory(),
-			[ 'Q123', 'Q321' ]
+			new CompositeValidator( [] )
 		);
 	}
 

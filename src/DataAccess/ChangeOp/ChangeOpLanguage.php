@@ -20,12 +20,9 @@ class ChangeOpLanguage extends ChangeOpBase {
 	private $language;
 	private $languageValidator;
 
-	public function __construct(
-		ItemId $language,
-		ValueValidator $lexemeValidatorFactory
-	) {
+	public function __construct( ItemId $language, ValueValidator $languageValidator ) {
 		$this->language = $language;
-		$this->languageValidator = $lexemeValidatorFactory;
+		$this->languageValidator = $languageValidator;
 	}
 
 	/**

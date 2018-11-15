@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use InvalidArgumentException;
+use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage;
-use Wikibase\Lexeme\LexemeValidatorFactory;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
@@ -20,21 +20,14 @@ use Wikibase\StringNormalizer;
  */
 class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 
-	/**
-	 * @var \Wikibase\Lexeme\LexemeValidatorFactory
-	 */
-	private $lexemeValidatorFactory;
-
-	/**
-	 * @var StringNormalizer
-	 */
+	private $languageValidator;
 	private $stringNormalizer;
 
 	public function __construct(
-		LexemeValidatorFactory $lexemeValidatorFactory,
+		ValueValidator $languageValidator,
 		StringNormalizer $stringNormalizer
 	) {
-		$this->lexemeValidatorFactory = $lexemeValidatorFactory;
+		$this->languageValidator = $languageValidator;
 		$this->stringNormalizer = $stringNormalizer;
 	}
 
@@ -60,7 +53,7 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 
 		$itemId = $this->validateItemId( $value );
 		// TODO: maybe move creating ChangeOpLanguage instance to some kind of factory?
-		return new ChangeOpLanguage( $itemId, $this->lexemeValidatorFactory->getLanguageValidator() );
+		return new ChangeOpLanguage( $itemId, $this->languageValidator );
 	}
 
 	/**
