@@ -289,7 +289,7 @@ return [
 				$repo->getEntityLookup(),
 				$languageLabelLookup,
 				$repo->getEntityTitleLookup(),
-				new MediaWikiLocalizedTextProvider( $language->getCode() )
+				new MediaWikiLocalizedTextProvider( $language )
 			);
 		},
 		'entity-reference-extractor-callback' => function () {
@@ -409,7 +409,7 @@ return [
 			return new FormIdHtmlFormatter(
 				$repo->getEntityRevisionLookup(),
 				$titleLookup,
-				new MediaWikiLocalizedTextProvider( $language->getCode() ),
+				new MediaWikiLocalizedTextProvider( $language ),
 				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
 			);
 		},
@@ -449,7 +449,7 @@ return [
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
 				$entityLookup,
 				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
-				new MediaWikiLocalizedTextProvider( $userLanguage->getCode() )
+				new MediaWikiLocalizedTextProvider( $userLanguage )
 			);
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
@@ -502,7 +502,7 @@ return [
 			return new SenseIdHtmlFormatter(
 				$repo->getEntityTitleLookup(),
 				$repo->getEntityRevisionLookup(),
-				new MediaWikiLocalizedTextProvider( $language->getCode() ),
+				new MediaWikiLocalizedTextProvider( $language ),
 				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $language ),
 				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() )
 			);
