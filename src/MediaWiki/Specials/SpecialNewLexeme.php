@@ -14,8 +14,8 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\EditEntity;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\EditEntity;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidgetField;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
@@ -52,7 +52,7 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityNamespaceLookup $entityNamespaceLookup,
 		SummaryFormatter $summaryFormatter,
 		EntityTitleLookup $entityTitleLookup,
-		EditEntityFactory $editEntityFactory
+		MediawikiEditEntityFactory $editEntityFactory
 	) {
 		parent::__construct(
 			'NewLexeme',

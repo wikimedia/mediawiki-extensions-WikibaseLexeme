@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\Form;
@@ -28,7 +28,7 @@ class EditFormElements extends \ApiBase {
 	private $entityRevisionLookup;
 
 	/**
-	 * @var EditEntityFactory
+	 * @var MediawikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -84,7 +84,7 @@ class EditFormElements extends \ApiBase {
 		ApiMain $mainModule,
 		$moduleName,
 		EntityRevisionLookup $entityRevisionLookup,
-		EditEntityFactory $editEntityFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EditFormElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		FormSerializer $formSerializer,

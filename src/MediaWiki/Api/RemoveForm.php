@@ -6,7 +6,7 @@ use ApiBase;
 use ApiMain;
 use LogicException;
 use Message;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
@@ -39,7 +39,7 @@ class RemoveForm extends ApiBase {
 	private $errorReporter;
 
 	/**
-	 * @var EditEntityFactory
+	 * @var MediawikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -82,7 +82,7 @@ class RemoveForm extends ApiBase {
 		$moduleName,
 		RemoveFormRequestParser $requestParser,
 		EntityRevisionLookup $entityRevisionLookup,
-		EditEntityFactory $editEntityFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
 		callable $errorReporterInstantiator
 	) {

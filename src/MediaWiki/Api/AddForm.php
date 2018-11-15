@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiBase;
 use ApiMain;
 use LogicException;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -45,7 +45,7 @@ class AddForm extends ApiBase {
 	private $formSerializer;
 
 	/**
-	 * @var EditEntityFactory
+	 * @var MediawikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -96,7 +96,7 @@ class AddForm extends ApiBase {
 		AddFormRequestParser $requestParser,
 		FormSerializer $formSerializer,
 		EntityRevisionLookup $entityRevisionLookup,
-		EditEntityFactory $editEntityFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
 		callable $errorReporterInstantiator
 	) {

@@ -6,7 +6,7 @@ use ApiBase;
 use ApiMain;
 use LogicException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
@@ -50,7 +50,7 @@ class AddSense extends ApiBase {
 	private $senseSerializer;
 
 	/**
-	 * @var EditEntityFactory
+	 * @var MediawikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -108,7 +108,7 @@ class AddSense extends ApiBase {
 		AddSenseRequestParser $requestParser,
 		SenseSerializer $senseSerializer,
 		EntityRevisionLookup $entityRevisionLookup,
-		EditEntityFactory $editEntityFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
 		callable $errorReporterInstantiator
 	) {
