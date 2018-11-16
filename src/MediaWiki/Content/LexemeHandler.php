@@ -183,18 +183,27 @@ class LexemeHandler extends EntityHandler {
 	}
 
 	public function getIdForTitle( Title $target ) {
+		$lexemeId = parent::getIdForTitle( $target );
+
 		if ( $target->hasFragment() ) {
 			$id = $this->normalizeFragmentToId( $target );
 			// TODO use an EntityIdParser (but parent's $this->entityIdParser is currently private)
 			if ( preg_match( FormId::PATTERN, $id ) ) {
-				return new FormId( $id );
+				$lexemeSubEntityId = new FormId( $id );
 			}
 			if ( preg_match( SenseId::PATTERN, $id ) ) {
-				return new SenseId( $id );
+				$lexemeSubEntityId = new SenseId( $id );
+			}
+
+			if (
+				isset( $lexemeSubEntityId ) &&
+				$lexemeSubEntityId->getLexemeId()->equals( $lexemeId )
+			) {
+				return $lexemeSubEntityId;
 			}
 		}
 
-		return parent::getIdForTitle( $target );
+		return $lexemeId;
 	}
 
 	private function normalizeFragmentToId( Title $target ) {

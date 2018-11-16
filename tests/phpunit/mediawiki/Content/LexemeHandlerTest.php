@@ -250,6 +250,24 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		);
 	}
 
+	public function testGivenLexemePageWithOtherFormIdFragmentGetForTitle_returnsLexemeId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new LexemeId( 'L1' ),
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1', 'L2-F2' ) )
+		);
+	}
+
+	public function testGivenLexemePageWithOtherSenseIdFragmentGetForTitle_returnsLexemeId() {
+		$handler = $this->getHandler();
+
+		$this->assertEquals(
+			new LexemeId( 'L1' ),
+			$handler->getIdForTitle( Title::makeTitle( 5000, 'L1', 'L2-S2' ) )
+		);
+	}
+
 	public function testSupportsRedirects() {
 		$this->assertTrue( $this->getHandler()->supportsRedirects() );
 	}
