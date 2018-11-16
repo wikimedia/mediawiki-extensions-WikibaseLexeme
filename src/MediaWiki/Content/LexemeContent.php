@@ -64,6 +64,18 @@ class LexemeContent extends EntityContent {
 		return new self( null, $redirect, $title );
 	}
 
+	protected function getIgnoreKeysForFilters() {
+		// FIXME: This was the default list of keys as extracted form EntityContent
+		// Lexemes should probably have different keys set here but we need to know what
+		// is already being used in AbuseFilter on wikidata.org
+		// https://phabricator.wikimedia.org/T205254
+		return [
+			'language',
+			'site',
+			'type',
+		];
+	}
+
 	/**
 	 * @see EntityContent::getEntity
 	 *
