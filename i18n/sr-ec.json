@@ -101,9 +101,9 @@
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "„$1” није пронађено",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Неуспело учитавање лексеме.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Неуспело чување лексеме.",
-	"wikibase-lexeme-mergelexemes-error-failed-modify": "Неуспело спајање лексема, прво решите све сукобе.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Спајање лексема није успело. Прво решите све сукобе.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Дозвола је одбијена.",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Не могу да спојим лексему са њом самом.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Не могуће спојити лексему са њом самом.",
 	"wikibase-entity-summary-wblmergelexemes-from": "Спојена лексема са $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Спојена лексема у $3"
 }

@@ -7,6 +7,7 @@
 		]
 	},
 	"special-newlexeme": "Δημιουργία νέου Lexeme",
+	"special-mergelexemes": "Συγχώνευση δύο Lexeme",
 	"wikibaselexeme-deletedentity-sense": "Διαγεγραμμένο νόημα",
 	"wikibaselexeme-newlexeme-fieldset": "Δημιουργία νέου Lexeme",
 	"wikibaselexeme-newlexeme-lemma": "Λήμμα",
