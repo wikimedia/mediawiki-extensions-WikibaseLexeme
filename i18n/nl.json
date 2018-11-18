@@ -7,7 +7,8 @@
 			"Sjoerddebruin",
 			"Robin van der Vliet",
 			"KlaasZ4usV",
-			"Ndecouck"
+			"Ndecouck",
+			"Elroy"
 		]
 	},
 	"wikibaselexeme-desc": "Verzorgt het lexeem-entiteitstype",
@@ -50,6 +51,7 @@
 	"apihelp-wbladdform-param-lexemeId": "ID van het lexeem, bijv. L10",
 	"apihelp-wblremoveform-param-id": "Identificatie van het formulier bijv. L10-F20",
 	"apihelp-wblmergelexemes-summary": "Twee lexemen samenvoegen.",
+	"wikibaselexeme-api-error-sense-not-found": "Het veld $1 bevat een nummer van betekenis $2 dat niet kan worden gevonden.",
 	"wikibase-lexeme-summary-remove-form": "Formulier $3 met {{PLURAL:$1|representatie|representaties}} verwijderd",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Creëer een nieuw lexeme.",
 	"wikibaselexeme-field-language-label": "Taal",
@@ -59,6 +61,7 @@
 	"wikibaselexeme-diffview-language": "taal",
 	"wikibaselexeme-diffview-form": "Vorm",
 	"wikibaselexeme-diffview-representation": "representatie",
+	"wikibaselexeme-diffview-sense": "Betekenis",
 	"content-model-wikibase-lexeme": "Wikibase-lexeem",
 	"wikibaselexeme-form-grammatical-features": "Grammatica-eigenschappen",
 	"wikibaselexeme-form-description": "$1 voor: $2 ($3): $4",
