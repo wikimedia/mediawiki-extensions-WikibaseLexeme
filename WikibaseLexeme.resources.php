@@ -65,8 +65,12 @@ return call_user_func( function() {
 			]
 		],
 
+		"wikibase.lexeme.lexemeview.viewhook" => $moduleTemplate + [
+			"scripts" => "hooks/lexeme.viewhook.js"
+		],
 		"wikibase.lexeme.lexemeview" => $moduleTemplate + [
 			"dependencies" => [
+				"wikibase.lexeme.lexemeview.viewhook",
 				"jquery.wikibase.lexemeview",
 				"wikibase.lexeme.getDeserializer"
 			]

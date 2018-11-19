@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function ( $, mw ) {
 	'use strict';
 
 	var PARENT = $.wikibase.entityview;
@@ -141,4 +141,6 @@
 		}
 	} );
 
-}( jQuery ) );
+	mw.hook( 'wikibase.lexemeview.ready' ).fire();
+
+}( jQuery, mediaWiki ) );
