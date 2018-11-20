@@ -268,6 +268,39 @@ class LexemeContentTest extends TestCase {
 		yield '2 statements, 2+3 form statements, 1+4 sense statements' => [ $lexeme, 12 ];
 	}
 
+	/**
+	 * @dataProvider provideLexemesWithSensesAndForms
+	 */
+	public function testGetEntityPagePropertiesSensesAndForms(
+		NewLexeme $lexeme,
+		$expectedSensesCount,
+		$expectedFormsCount
+	) {
+		$content = new LexemeContent( new EntityInstanceHolder( $lexeme->build() ) );
+
+		$pageProps = $content->getEntityPageProperties();
+
+		$this->assertSame( $expectedSensesCount, $pageProps['wbl-senses'] );
+		$this->assertSame( $expectedFormsCount, $pageProps['wbl-forms'] );
+	}
+
+	public function provideLexemesWithSensesAndForms() {
+		yield 'empty lexeme' => [ NewLexeme::create(), 0, 0 ];
+
+		$lexeme = NewLexeme::create();
+		$form = NewForm::any();
+		yield 'one form' => [ $lexeme->withForm( $form ), 0, 1 ];
+
+		$sense = NewSense::havingId( 'S1' );
+		yield 'one sense' => [ $lexeme->withSense( $sense ), 1, 0 ];
+
+		$lexeme = NewLexeme::create()
+			->withForm( $form )
+			->withSense( $sense )
+			->withSense( NewSense::havingId( 'S2' ) );
+		yield 'two senses, one form' => [ $lexeme, 2, 1 ];
+	}
+
 	public function testSearchIndex() {
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withLemma( 'en', 'test' )
