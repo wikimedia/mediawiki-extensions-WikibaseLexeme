@@ -52,6 +52,11 @@ class LexemeView extends EntityView {
 	private $lemmaFormatter;
 
 	/**
+	 * @var string
+	 */
+	private $saveMessageKey;
+
+	/**
 	 * @param TemplateFactory $templateFactory
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param string $languageCode
@@ -60,6 +65,7 @@ class LexemeView extends EntityView {
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param LexemeTermFormatter $lemmaFormatter
 	 * @param EntityIdFormatter $idFormatter
+	 * @param string $saveMessageKey
 	 */
 	public function __construct(
 		TemplateFactory $templateFactory,
@@ -69,7 +75,8 @@ class LexemeView extends EntityView {
 		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
 		LexemeTermFormatter $lemmaFormatter,
-		EntityIdFormatter $idFormatter
+		EntityIdFormatter $idFormatter,
+		$saveMessageKey = 'wikibase-save'
 	) {
 		parent::__construct(
 			$templateFactory,
@@ -82,6 +89,7 @@ class LexemeView extends EntityView {
 		$this->statementSectionsView = $statementSectionsView;
 		$this->idFormatter = $idFormatter;
 		$this->lemmaFormatter = $lemmaFormatter;
+		$this->saveMessageKey = $saveMessageKey;
 	}
 
 	/**
@@ -227,7 +235,7 @@ HTML;
 	}
 
 	private function getRawLexemeHeaderVueTemplate() {
-		return <<<'HTML'
+		return <<<HTML
 <div id="wb-lexeme-header" class="wb-lexeme-header">
 	<div id="wb-lexeme-header-lemmas">
 		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
@@ -236,14 +244,14 @@ HTML;
 				:lemmas="lemmas"
 				:inEditMode="inEditMode"
 				:isSaving="isSaving"
-				@hasRedundantLanguage="hasRedundantLemmaLanguage = $event">
+				@hasRedundantLanguage="hasRedundantLemmaLanguage = \$event">
 				ref="lemmas"></lemma-widget>
 		</div>
 		<div class="lemma-widget_controls" v-if="isInitialized" >
 			<button type="button" class="lemma-widget_edit" v-if="!inEditMode"
 				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
 			<button type="button" class="lemma-widget_save" v-if="inEditMode"
-				:disabled="isUnsaveable" v-on:click="save">{{'wikibase-save'|message}}</button>
+				:disabled="isUnsaveable" v-on:click="save">{{'{$this->saveMessageKey}'|message}}</button>
 			<button type="button" class="lemma-widget_cancel" v-if="inEditMode"
 				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
 		</div>

@@ -84,10 +84,15 @@ return [
 			EntityDocument $entity,
 			EntityInfo $entityInfo
 		) {
+			$saveMessageKey =
+				( MediaWikiServices::getInstance()->getMainConfig()->get( 'EditSubmitButtonLabelPublish' ) )
+					? 'wikibase-publish' : 'wikibase-save';
+
 			$factory = new LexemeViewFactory(
 				$language,
 				$fallbackChain,
-				$entityInfo
+				$entityInfo,
+				$saveMessageKey
 			);
 
 			return $factory->newLexemeView();

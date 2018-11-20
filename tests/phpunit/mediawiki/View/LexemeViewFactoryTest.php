@@ -24,7 +24,8 @@ class LexemeViewFactoryTest extends TestCase {
 		$factory = new LexemeViewFactory(
 			Language::factory( 'en' ),
 			new LanguageFallbackChain( [] ),
-			new EntityInfo( [] )
+			new EntityInfo( [] ),
+			'wikibase-save'
 		);
 		$view = $factory->newLexemeView();
 		$this->assertInstanceOf( LexemeView::class, $view );
