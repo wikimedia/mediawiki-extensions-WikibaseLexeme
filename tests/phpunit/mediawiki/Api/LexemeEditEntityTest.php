@@ -6,6 +6,8 @@ use ApiMessage;
 use ApiUsageException;
 use Exception;
 use MediaWiki\MediaWikiServices;
+use Wikibase\DataModel\Entity\Item;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -36,6 +38,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	const EXISTING_LEXEME_LEMMA_LANGUAGE = 'en';
 	const EXISTING_LEXEME_LANGUAGE_ITEM_ID = 'Q66';
 	const EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID = 'Q55';
+	const EXISTING_GRAMMATICAL_FEATURE_ITEM_ID = 'Q16';
 	const EXISTING_LEXEME_FORM_1_ID = 'F1';
 	const EXISTING_LEXEME_FORM_1_LANGUAGE = 'en';
 	const EXISTING_LEXEME_FORM_1_TEXT = 'crabapple';
@@ -1617,6 +1620,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenExistingLexemeAndChangeInFormFeatures_formPropertyIsUpdated() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$property = 'P909';
 		$snakType = 'novalue';
@@ -1635,7 +1639,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'forms' => [
 					[
 						'id' => $formId,
-						'grammaticalFeatures' => [ 'Q16' ],
+						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 						'claims' => [ $claim ],
 					]
 				],
@@ -1651,7 +1655,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
 		$this->assertCount( 2, $lexemeData['forms'] );
 		$this->assertCount( 1, $lexemeData['forms'][0]['grammaticalFeatures'] );
-		$this->assertSame( 'Q16', $lexemeData['forms'][0]['grammaticalFeatures'][0] );
+		$this->assertSame(
+			self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID,
+			$lexemeData['forms'][0]['grammaticalFeatures'][0]
+		);
 
 		$this->assertHasStatement( $claim, $lexemeData['forms'][0] );
 	}
@@ -1660,6 +1667,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenExistingLexemeAndFormChangeAndAdd_formsAreProperlyUpdatedAndAdded() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q18' ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q19' ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -1670,7 +1680,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'grammaticalFeatures' => [ 'Q16' ],
+						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 					],
 					[
 						'add' => '',
@@ -1692,7 +1702,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
 		$this->assertCount( 3, $lexemeData['forms'] );
 
-		$this->assertSame( [ 'Q16' ], $lexemeData['forms'][0]['grammaticalFeatures'] );
+		$this->assertSame(
+			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
+			$lexemeData['forms'][0]['grammaticalFeatures']
+		);
 
 		$this->assertSame(
 			$this->formatFormId(
@@ -1708,6 +1721,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenExistingLexemeAndFormDataWithAddKey_formIsAdded() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -1719,7 +1733,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'representations' => [
 							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 						],
-						'grammaticalFeatures' => [ 'Q16' ],
+						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 					]
 				],
 			] ),
@@ -1740,7 +1754,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$lexemeData['forms'][2]['representations']
 		);
 		$this->assertEquals(
-			[ 'Q16' ],
+			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 			$lexemeData['forms'][2]['grammaticalFeatures']
 		);
 
@@ -1751,6 +1765,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenExistingLexemeAndTwoFormChangeOps_formsAreProperlyUpdated() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q18' ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q19' ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -1761,7 +1778,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'grammaticalFeatures' => [ 'Q16' ],
+						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 					],
 					[
 						'id' => $this->formatFormId(
@@ -1785,7 +1802,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
 		$this->assertCount( 2, $lexemeData['forms'] );
 
-		$this->assertSame( [ 'Q16' ], $lexemeData['forms'][0]['grammaticalFeatures'] );
+		$this->assertSame(
+			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
+			$lexemeData['forms'][0]['grammaticalFeatures']
+		);
 
 		$this->assertSame( [ 'Q18', 'Q19' ], $lexemeData['forms'][1]['grammaticalFeatures'] );
 
@@ -1804,6 +1824,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenNewFormAndExistingLexemeId_formIsAddedToLexeme() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -1813,7 +1834,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 				],
-				'grammaticalFeatures' => [ 'Q16' ],
+				'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 				'claims' => [ [
 					'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P909' ],
 					'type' => 'statement',
@@ -1837,7 +1858,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$lexemeData['forms'][2]['representations']
 		);
 		$this->assertEquals(
-			[ 'Q16' ],
+			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 			$lexemeData['forms'][2]['grammaticalFeatures']
 		);
 
@@ -1848,6 +1869,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenNewFormAndExistingLexemeId_newFormIdIsReturned() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -1857,7 +1879,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 				],
-				'grammaticalFeatures' => [ 'Q16' ],
+				'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 				'claims' => [],
 			] ),
 		];
@@ -2065,6 +2087,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenExistingLexemeAddingOfOnlyFormMissingRepresentations_errorIsServed() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -2085,7 +2108,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					],
 					[
 						'add' => '',
-						'grammaticalFeatures' => [ 'Q16' ],
+						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 					]
 				],
 			] ),
@@ -2116,6 +2139,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenExistingFormAndChangeInFormFeatures_formPropertyIsUpdated() {
 		$this->saveDummyLexemeToDatabase();
+		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbeditentity',
@@ -2123,7 +2147,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 			),
 			'data' => json_encode( [
-				'grammaticalFeatures' => [ 'Q16' ],
+				'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 			] ),
 		];
 
@@ -2136,7 +2160,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
 		$this->assertCount( 2, $lexemeData['forms'] );
 		$this->assertCount( 1, $lexemeData['forms'][0]['grammaticalFeatures'] );
-		$this->assertSame( 'Q16', $lexemeData['forms'][0]['grammaticalFeatures'][0] );
+		$this->assertSame(
+			self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID,
+			$lexemeData['forms'][0]['grammaticalFeatures'][0]
+		);
 	}
 
 	public function testEditSummary_isGenericCommentNoMatterTheChange() {

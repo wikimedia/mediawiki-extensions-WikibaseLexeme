@@ -76,7 +76,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 							)
 						),
 						new ItemIdListDeserializer( new ItemIdParser() ),
-						$statementChangeOpDeserializer
+						$statementChangeOpDeserializer,
+						new CompositeValidator( [] )
 					)
 				)
 			),

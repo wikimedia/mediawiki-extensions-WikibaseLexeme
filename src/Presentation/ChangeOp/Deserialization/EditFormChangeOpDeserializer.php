@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
+use ValueValidators\ValueValidator;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
@@ -44,14 +46,21 @@ class EditFormChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $statementsChangeOpDeserializer;
 
+	/**
+	 * @var ValueValidator
+	 */
+	private $entityExistsValidator;
+
 	public function __construct(
 		RepresentationsChangeOpDeserializer $representationsChangeOpDeserializer,
 		ItemIdListDeserializer $itemIdListDeserializer,
-		ClaimsChangeOpDeserializer $statementsChangeOpDeserializer
+		ClaimsChangeOpDeserializer $statementsChangeOpDeserializer,
+		ValueValidator $entityExistsValidator
 	) {
 		$this->representationsChangeOpDeserializer = $representationsChangeOpDeserializer;
 		$this->itemIdListDeserializer = $itemIdListDeserializer;
 		$this->statementsChangeOpDeserializer = $statementsChangeOpDeserializer;
+		$this->entityExistsValidator = $entityExistsValidator;
 	}
 
 	public function setContext( ValidationContext $context ) {
@@ -95,9 +104,20 @@ class EditFormChangeOpDeserializer implements ChangeOpDeserializer {
 					new JsonFieldHasWrongType( 'array', gettype( $grammaticalFeatures ) )
 				);
 			} else {
-				$changeOps[] = new ChangeOpGrammaticalFeatures(
-					$this->itemIdListDeserializer->deserialize( $grammaticalFeatures, $grammaticalFeatureContext )
+				$itemIds = $this->itemIdListDeserializer->deserialize(
+					$grammaticalFeatures,
+					$grammaticalFeatureContext
 				);
+
+				foreach ( $itemIds as $itemId ) {
+					if ( $this->entityExistsValidator->validate( $itemId )->getErrors() ) {
+						$grammaticalFeatureContext->addViolation(
+							new InvalidItemId( $itemId->getSerialization() )
+						);
+					}
+				}
+
+				$changeOps[] = new ChangeOpGrammaticalFeatures( $itemIds );
 			}
 		}
 

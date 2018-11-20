@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use User;
+use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -22,10 +23,13 @@ use Wikibase\Lib\Store\EntityRevision;
  */
 class AddFormTest extends WikibaseLexemeApiTestCase {
 
+	const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
+
 	public function testRateLimitIsCheckedWhenEditing() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -66,6 +70,15 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function provideInvalidParams() {
+		$basicData = [
+			'representations' => [
+				'en' => [
+					'language' => 'en',
+					'value' => 'goat'
+				]
+			],
+			'grammaticalFeatures' => [],
+		];
 		return [
 			'no lexemeId param' => [
 				[ 'data' => $this->getDataParam() ],
@@ -86,7 +99,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'invalid lexeme ID (random string not ID)' => [
-				[ 'lexemeId' => 'foo', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'foo', 'data' => json_encode( $basicData ) ],
 				[
 					'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
 					'params' => [ 'lexemeId', '"foo"' ],
@@ -110,7 +123,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'Lexeme is not found' => [
-				[ 'lexemeId' => 'L999', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'L999', 'data' => json_encode( $basicData ) ],
 				[
 					'key' => 'wikibaselexeme-api-error-lexeme-not-found',
 					'params' => [ 'lexemeId', 'L999' ],
@@ -118,6 +131,18 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 					'data' => [
 						'parameterName' => 'lexemeId',
 						'fieldPath' => [] // TODO Is empty fields path for native params desired?
+					]
+				],
+			],
+			'grammatical features is not found' => [
+				[ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ],
+				[
+					'key' => 'wikibaselexeme-api-error-invalid-item-id',
+					'params' => [ 'data', 'grammaticalFeatures', self::GRAMMATICAL_FEATURE_ITEM_ID ],
+					'code' => 'bad-request',
+					'data' => [
+						'parameterName' => 'data',
+						'fieldPath' => [ 'grammaticalFeatures' ]
 					]
 				],
 			],
@@ -129,6 +154,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -150,7 +176,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 					'value' => 'goat'
 				]
 			],
-			'grammaticalFeatures' => [ 'Q17' ],
+			'grammaticalFeatures' => [ self::GRAMMATICAL_FEATURE_ITEM_ID ],
 		];
 
 		return json_encode( array_merge( $simpleData, $dataToUse ) );
@@ -160,6 +186,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -175,13 +202,17 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertCount( 1, $forms );
 		$this->assertEquals( 'goat', $forms[0]->getRepresentations()->getByLanguage( 'en' )->getText() );
-		$this->assertEquals( [ new ItemId( 'Q17' ) ], $forms[0]->getGrammaticalFeatures() );
+		$this->assertEquals(
+			[ new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ],
+			$forms[0]->getGrammaticalFeatures()
+		);
 	}
 
 	public function testGivenValidData_responseContainsSuccessMarker() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -198,6 +229,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 				'*' => [
@@ -222,6 +254,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -244,6 +277,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -262,6 +296,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbladdform',
@@ -289,6 +324,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 
 	public function testCanAddFormWithStatement() {
 		$this->saveEntity( NewLexeme::havingId( 'L1' )->build() );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$property = 'P909';
 		$claim = [
