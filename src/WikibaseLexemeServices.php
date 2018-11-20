@@ -22,8 +22,8 @@ use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
+use Wikibase\Repo\EditEntity\MediawikiEditFilterHookRunner;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
-use Wikibase\Repo\Hooks\EditFilterHookRunner;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
 
@@ -163,7 +163,7 @@ class WikibaseLexemeServices {
 			$this->getWikibaseRepo()->getEntityPermissionChecker(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			RequestContext::getMain()->getUser(),
-			new EditFilterHookRunner(
+			new MediawikiEditFilterHookRunner(
 				$this->getWikibaseRepo()->getEntityNamespaceLookup(),
 				$this->getWikibaseRepo()->getEntityTitleLookup(),
 				$this->getWikibaseRepo()->getEntityContentFactory(),

@@ -12,7 +12,8 @@ use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityStore;
-use Wikibase\Repo\Hooks\EditFilterHookRunner;
+use Wikibase\Repo\EditEntity\EditFilterHookRunner;
+use Wikibase\Repo\EditEntity\MediawikiEditFilterHookRunner;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\WikibaseRepo;
@@ -123,11 +124,11 @@ class LexemeRedirectCreationInteractorIntegrationTest extends WikibaseLexemeInte
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject
+	 * @return \PHPUnit_Framework_MockObject_MockObject|EditFilterHookRunner
 	 * @throws \Exception
 	 */
 	private function getMockEditFilterHookRunner() {
-		$hookRunner = $this->getMockBuilder( EditFilterHookRunner::class )
+		$hookRunner = $this->getMockBuilder( MediawikiEditFilterHookRunner::class )
 			->disableOriginalConstructor()
 			->getMock();
 		$hookRunner->method( 'run' )
