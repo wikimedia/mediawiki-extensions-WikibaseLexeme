@@ -6,7 +6,7 @@ use ApiBase;
 use ApiMain;
 use LogicException;
 use Message;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\SenseNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
@@ -39,7 +39,7 @@ class RemoveSense extends ApiBase {
 	private $errorReporter;
 
 	/**
-	 * @var EditEntityFactory
+	 * @var MediawikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -82,7 +82,7 @@ class RemoveSense extends ApiBase {
 		$moduleName,
 		RemoveSenseRequestParser $requestParser,
 		EntityRevisionLookup $entityRevisionLookup,
-		EditEntityFactory $editEntityFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
 		callable $errorReporterInstantiator
 	) {

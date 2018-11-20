@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
-use Wikibase\EditEntityFactory;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\SenseNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
@@ -33,7 +33,7 @@ class EditSenseElements extends \ApiBase {
 	private $entityRevisionLookup;
 
 	/**
-	 * @var EditEntityFactory
+	 * @var MediawikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -96,7 +96,7 @@ class EditSenseElements extends \ApiBase {
 		ApiMain $mainModule,
 		$moduleName,
 		EntityRevisionLookup $entityRevisionLookup,
-		EditEntityFactory $editEntityFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EditSenseElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		SenseSerializer $senseSerializer,
