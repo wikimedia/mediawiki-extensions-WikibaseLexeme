@@ -4,7 +4,8 @@ Given(/^I am on a Lexeme page$/) do
 end
 
 Given(/^I have a Lexeme to test$/) do
-  lexeme_data = '{"lexicalCategory":"Q1","language":"Q1","lemmas":{"en":{"language":"en", "value":"test"}}}'
+  step 'I have an item to test'
+  lexeme_data = '{"lexicalCategory":"' + @item_under_test['id'] + '","language":"' + @item_under_test['id'] + '","lemmas":{"en":{"language":"en", "value":"test"}}}'
   @lexeme_under_test = visit(LexemePage).create_lexeme(lexeme_data)
 end
 
