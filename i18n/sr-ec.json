@@ -97,7 +97,7 @@
 	"wikibase-lexeme-language-name-mis": "друго",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
 	"wikibase-lexeme-mergelexemes-intro": "Ако спојите две лексеме, све леме, изјаве, облици и значења биће премештени из једне лексеме у другу.",
-	"wikibase-lexeme-mergelexemes-submit": "Споји лексеме",
+	"wikibase-lexeme-mergelexemes-submit": "Обједини лексеме",
 	"wikibase-lexeme-mergelexemes-success": "Лексема $1 је спојена у $2 и преусмерена.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "„$1” није важећи ID лексеме",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "„$1” није пронађено",
