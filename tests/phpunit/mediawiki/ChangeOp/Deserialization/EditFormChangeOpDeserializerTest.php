@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Validators\CompositeValidator;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer
@@ -185,7 +186,8 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 		return new EditFormChangeOpDeserializer(
 			$representationsChangeOpDeserializer,
 			$itemIdListDeserializer,
-			$claimsChangeOpDeserializer
+			$claimsChangeOpDeserializer,
+			new CompositeValidator( [] )
 		);
 	}
 

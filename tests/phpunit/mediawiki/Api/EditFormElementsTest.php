@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use User;
+use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -26,6 +27,7 @@ use Wikibase\Store;
 class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 	const DEFAULT_FORM_ID = 'L1-F1';
+	const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
 
 	public function testRateLimitIsCheckedWhenEditing() {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
@@ -83,13 +85,22 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'value' => 'colour'
 				]
 			],
-			'grammaticalFeatures' => [ 'Q17' ],
+			'grammaticalFeatures' => [ self::GRAMMATICAL_FEATURE_ITEM_ID ],
 		];
 
 		return json_encode( array_merge( $simpleData, $dataToUse ) );
 	}
 
 	public function provideInvalidParams() {
+		$basicData = [
+			'representations' => [
+				'en' => [
+					'language' => 'en',
+					'value' => 'goat'
+				]
+			],
+			'grammaticalFeatures' => [],
+		];
 		return [
 			'no formId param' => [
 				[ 'data' => $this->getDataParam() ],
@@ -135,7 +146,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'Form is not found' => [
-				[ 'formId' => 'L999-F1', 'data' => $this->getDataParam() ],
+				[ 'formId' => 'L999-F1', 'data' => json_encode( $basicData ) ],
 				[
 					'key' => 'wikibaselexeme-api-error-form-not-found',
 					'params' => [ 'formId', 'L999-F1' ],
@@ -181,6 +192,23 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					]
 				]
 			],
+			'invalid Item ID as grammatical feature (Item ID not found)' => [
+				[
+					'formId' => self::DEFAULT_FORM_ID,
+					'data' => $this->getDataParam(
+						[ 'grammaticalFeatures' => [ 'Q2' ] ]
+					)
+				] ,
+				[
+					'key' => 'wikibaselexeme-api-error-invalid-item-id',
+					'params' => [ 'data', 'grammaticalFeatures', 'Q2' ],
+					'code' => 'bad-request',
+					'data' => [
+						'parameterName' => 'data',
+						'fieldPath' => [ 'grammaticalFeatures' ]
+					]
+				]
+			],
 		];
 	}
 
@@ -189,6 +217,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -308,16 +337,21 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'goat' ],
 				],
-				'grammaticalFeatures' => [ 'Q321' ],
+				'grammaticalFeatures' => [ self::GRAMMATICAL_FEATURE_ITEM_ID ],
 			] ),
 		];
+
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$this->doApiRequestWithToken( $params );
 
 		$lexeme = $this->getLexeme( 'L1' );
 
 		$form = $lexeme->getForms()->getById( new FormId( self::DEFAULT_FORM_ID ) );
-		$this->assertEquals( [ new ItemId( 'Q321' ) ], $form->getGrammaticalFeatures() );
+		$this->assertEquals(
+			[ new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ],
+			$form->getGrammaticalFeatures()
+		);
 	}
 
 	public function testGivenNewGrammaticalFeature_grammaticalFeatureIsAdded() {
@@ -339,6 +373,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				'grammaticalFeatures' => [ 'Q123', 'Q678' ],
 			] ),
 		];
+
+		$this->saveEntity( new Item( new ItemId( 'Q123' ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q678' ) ) );
 
 		$this->doApiRequestWithToken( $params );
 
@@ -566,6 +603,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
+		$this->saveEntity( new Item( new ItemId( 'Q123' ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q678' ) ) );
+
 		$this->doApiRequestWithToken( $params );
 
 		$formRevision = $this->getCurrentRevisionForForm( self::DEFAULT_FORM_ID );
@@ -634,6 +674,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
+		$this->saveEntity( new Item( new ItemId( 'Q123' ) ) );
+		$this->saveEntity( new Item( new ItemId( 'Q678' ) ) );
+
 		$this->doApiRequestWithToken( $params );
 
 		$formRevision = $this->getCurrentRevisionForForm( self::DEFAULT_FORM_ID );
@@ -669,6 +712,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
+		$this->saveEntity( new Item( new ItemId( 'Q678' ) ) );
+
 		$this->doApiRequestWithToken( $params );
 
 		$formRevision = $this->getCurrentRevisionForForm( self::DEFAULT_FORM_ID );
@@ -691,6 +736,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -719,9 +765,11 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
 					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
-				'grammaticalFeatures' => [ 'Q321' ],
+				'grammaticalFeatures' => [ self::GRAMMATICAL_FEATURE_ITEM_ID ],
 			] ),
 		];
+
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
@@ -732,7 +780,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'en' => [ 'language' => 'en', 'value' => 'colour' ],
 					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'color' ],
 				],
-				'grammaticalFeatures' => [ 'Q321' ],
+				'grammaticalFeatures' => [ self::GRAMMATICAL_FEATURE_ITEM_ID ],
 				'claims' => [],
 			],
 			$result['form']
@@ -772,6 +820,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			->withForm(
 				NewForm::havingId( 'F1' )
 			)->build() );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$property = 'P909';
 		$claim = [

@@ -29,6 +29,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValida
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -303,7 +304,8 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 				)
 			),
 			new ItemIdListDeserializer( new ItemIdParser() ),
-			$this->newClaimsChangeOpDeserializer()
+			$this->newClaimsChangeOpDeserializer(),
+			new CompositeValidator( [] )
 		);
 
 		return new AddFormRequestParser(

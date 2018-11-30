@@ -12,6 +12,7 @@ use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
 
 // TODO Replace by framework-agnostic DI container.
@@ -52,7 +53,8 @@ return call_user_func( function() {
 				new ClaimsChangeOpDeserializer(
 					$wikibaseRepo->getExternalFormatStatementDeserializer(),
 					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
-				)
+				),
+				new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' )
 			);
 		},
 	];

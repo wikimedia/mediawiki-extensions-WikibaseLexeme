@@ -24,6 +24,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValida
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Validators\CompositeValidator;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser
@@ -98,7 +99,8 @@ class AddFormRequestParserTest extends TestCase {
 				)
 			),
 			new ItemIdListDeserializer( new ItemIdParser() ),
-			$this->createMock( ClaimsChangeOpDeserializer::class )
+			$this->createMock( ClaimsChangeOpDeserializer::class ),
+			new CompositeValidator( [] )
 		);
 
 		return new AddFormRequestParser(
