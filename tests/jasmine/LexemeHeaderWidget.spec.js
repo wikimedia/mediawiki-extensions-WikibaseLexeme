@@ -289,6 +289,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	}
 
 	// FIXME: duplicated from LexemeView.php until it's reusable
+	/* eslint-disable no-tabs */
 	function getTemplate() {
 		return '<div>'
 			+ '<div id="wb-lexeme-header" class="wb-lexeme-header">'
@@ -320,5 +321,6 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			+ '</div>';
 
 	}
+	/* eslint-enable */
 
 } );
