@@ -29,7 +29,7 @@
 		"giorgiosironi/eris": "0.10.0",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/minus-x": "0.3.1",
-		"wikibase/wikibase-codesniffer": "^0.5.0",
+		"wikibase/wikibase-codesniffer": "^0.5.1",
 		"davidrjonas/composer-lock-diff": "^1.4"
 	},
 	"autoload": {
