@@ -16,7 +16,6 @@ use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
-use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -597,7 +596,6 @@ class LexemeMergerTest extends TestCase {
 		$sensesMerger = new LexemeSensesMerger();
 
 		$merger = new LexemeMerger(
-			$this->createMock( TermListMerger::class ),
 			$this->createMock( StatementsMerger::class ),
 			$throwingFormsMerger,
 			$sensesMerger,
@@ -626,7 +624,6 @@ class LexemeMergerTest extends TestCase {
 			->willThrowException( $expectedException );
 
 		$merger = new LexemeMerger(
-			$this->createMock( TermListMerger::class ),
 			$throwingStatementsMerger,
 			$this->createMock( LexemeFormsMerger::class ),
 			$this->createMock( LexemeSensesMerger::class ),
@@ -859,7 +856,6 @@ class LexemeMergerTest extends TestCase {
 			->willThrowException( $expectedException );
 
 		$merger = new LexemeMerger(
-			$this->createMock( TermListMerger::class ),
 			$this->createMock( StatementsMerger::class ),
 			$formMerger,
 			$throwingSensesMerger,
@@ -922,11 +918,9 @@ class LexemeMergerTest extends TestCase {
 		);
 
 		return new LexemeMerger(
-			new TermListMerger(),
 			$statementsMerger,
 			new LexemeFormsMerger(
 				$statementsMerger,
-				new TermListMerger(),
 				new GuidGenerator()
 			),
 			new LexemeSensesMerger(),

@@ -17,7 +17,6 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeRedirectCreationInteractor;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
-use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
@@ -118,11 +117,9 @@ class WikibaseLexemeServices {
 			->getStatementsMerger();
 
 		return new LexemeMerger(
-			new TermListMerger(),
 			$statementsMerger,
 			new LexemeFormsMerger(
 				$statementsMerger,
-				new TermListMerger(),
 				new GuidGenerator()
 			),
 			new LexemeSensesMerger(),

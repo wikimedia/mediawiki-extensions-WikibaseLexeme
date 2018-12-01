@@ -9,7 +9,6 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Domain\Merge\TermListMerger;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\StatementChangeOpFactory;
@@ -281,7 +280,6 @@ class LexemeFormsMergerTest extends TestCase {
 
 		return new LexemeFormsMerger(
 			new StatementsMerger( $statementChangeOpFactory ),
-			new TermListMerger(),
 			$guidGenerator
 		);
 	}
