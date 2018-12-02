@@ -33,6 +33,7 @@ class NewLexeme {
 	private $lexemeId;
 
 	/**
+	 * FIXME: deceptive name
 	 * @var Snak[]
 	 */
 	private $statements = [];
@@ -166,9 +167,10 @@ class NewLexeme {
 		return $result;
 	}
 
-	public function withStatement( Snak $statement ) {
+	// FIXME: deceptive name
+	public function withStatement( Snak $mainSnak ) {
 		$result = clone $this;
-		$result->statements[] = clone $statement;
+		$result->statements[] = clone $mainSnak;
 		return $result;
 	}
 

@@ -11,6 +11,8 @@ use SpecialSearch;
 use Wikibase\Lexeme\DataAccess\Search\LexemeFullTextQueryBuilder;
 use Wikibase\Lexeme\DataAccess\Search\LexemeResult;
 use Wikibase\Lexeme\DataAccess\Search\LexemeSearchEntity;
+use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
+use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 use Wikibase\Repo\Search\Elastic\EntitySearchElastic;
 use Wikibase\WikibaseSettings;
 
@@ -341,6 +343,12 @@ class WikibaseLexemeHooks {
 			$result->getStatementCount(),
 			$result->getFormCount()
 		)->escaped();
+	}
+
+	public static function onParserOutputUpdaterConstruction(
+		CompositeStatementDataUpdater $statementUpdater, array &$entityUpdaters
+	) {
+		$entityUpdaters[] = new LexemeParserOutputUpdater( $statementUpdater );
 	}
 
 }
