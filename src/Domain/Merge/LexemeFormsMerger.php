@@ -22,22 +22,15 @@ class LexemeFormsMerger {
 	private $statementsMerger;
 
 	/**
-	 * @var TermListMerger
-	 */
-	private $termListMerger;
-
-	/**
 	 * @var GuidGenerator
 	 */
 	private $guidGenerator;
 
 	public function __construct(
 		StatementsMerger $statementsMerger,
-		TermListMerger $termListMerger,
 		GuidGenerator $guidGenerator
 	) {
 		$this->statementsMerger = $statementsMerger;
-		$this->termListMerger = $termListMerger;
 		$this->guidGenerator = $guidGenerator;
 	}
 
@@ -73,7 +66,7 @@ class LexemeFormsMerger {
 	}
 
 	private function mergeForms( Form $source, Form $target ) {
-		$this->termListMerger->merge( $source->getRepresentations(), $target->getRepresentations() );
+		$target->getRepresentations()->addAll( $source->getRepresentations() );
 		$this->statementsMerger->merge( $source, $target );
 	}
 

@@ -30,11 +30,6 @@ class LexemeMerger {
 	private $formsMerger;
 
 	/**
-	 * @var TermListMerger
-	 */
-	private $termListMerger;
-
-	/**
 	 * @var LexemeSensesMerger
 	 */
 	private $sensesMerger;
@@ -45,13 +40,11 @@ class LexemeMerger {
 	private $noCrossReferencingLexemeStatementsValidator;
 
 	public function __construct(
-		TermListMerger $termListMerger,
 		StatementsMerger $statementsMerger,
 		LexemeFormsMerger $formsMerger,
 		LexemeSensesMerger $sensesMerger,
 		NoCrossReferencingLexemeStatements $noCrossReferencingLexemeStatementsValidator
 	) {
-		$this->termListMerger = $termListMerger;
 		$this->statementsMerger = $statementsMerger;
 		$this->formsMerger = $formsMerger;
 		$this->sensesMerger = $sensesMerger;
@@ -65,8 +58,9 @@ class LexemeMerger {
 	public function merge( Lexeme $source, Lexeme $target ) {
 		$this->validate( $source, $target );
 
+		$target->getLemmas()->addAll( $source->getLemmas() );
+
 		try {
-			$this->termListMerger->merge( $source->getLemmas(), $target->getLemmas() );
 			$this->formsMerger->merge( $source, $target );
 			$this->sensesMerger->merge( $source, $target );
 			$this->statementsMerger->merge( $source, $target );
