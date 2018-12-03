@@ -68,16 +68,18 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 			),
 			$lexeme->getLemmas()->toTextArray()
 		);
+
+		$messageKey = 'wikibaselexeme-senseidformatter-layout';
+		$languageCode = $this->localizedTextProvider->getLanguageOf( $messageKey );
 		try {
-			$gloss = $sense->getGlosses()->getByLanguage(
-				$this->localizedTextProvider->getLanguageOf( 'wikibaselexeme-senseidformatter-layout' )
-			)->getText(); // TODO language fallbacks (T200983)
+			// TODO language fallbacks (T200983)
+			$gloss = $sense->getGlosses()->getByLanguage( $languageCode )->getText();
 		} catch ( OutOfBoundsException $e ) {
-			$gloss = 'TODO';
+			return $value->getSerialization();
 		}
 
 		return $this->localizedTextProvider->get(
-			'wikibaselexeme-senseidformatter-layout',
+			$messageKey,
 			[ $lemmas, $gloss ]
 		);
 	}

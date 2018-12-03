@@ -114,7 +114,7 @@ class SenseIdTextFormatterTest extends TestCase {
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$expected = '(wikibaselexeme-senseidformatter-layout: lemma, TODO)';
+		$expected = 'L10-S20';
 		$this->assertSame( $expected, $result );
 	}
 
