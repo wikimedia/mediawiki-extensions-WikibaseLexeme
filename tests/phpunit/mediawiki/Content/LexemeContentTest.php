@@ -2,6 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
+use DataValues\Geo\Values\GlobeCoordinateValue;
+use DataValues\Geo\Values\LatLongValue;
+use DataValues\StringValue;
+use DataValues\TimeValue;
 use Diff\DiffOp\Diff\Diff;
 use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -13,9 +17,21 @@ use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Reference;
+use Wikibase\DataModel\ReferenceList;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Snak\PropertySomeValueSnak;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
+use Wikibase\DataModel\Snak\SnakList;
+use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\FormSet;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -342,6 +358,75 @@ class LexemeContentTest extends TestCase {
 	 */
 	private function getMockTitle() {
 		return $this->getMockBuilder( Title::class )->getMock();
+	}
+
+	public function testGetTextForFilters() {
+		$entity = new Lexeme(
+			new LexemeId( 'L123' ),
+			new TermList( [ new Term( 'en', 'lemma1' ), new Term( 'de', 'lemma2' ) ] ),
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
+			new StatementList(
+				new Statement(
+					new PropertyValueSnak(
+						new PropertyId( 'P6654' ), new StringValue( 'stringvalue' )
+					),
+					new SnakList(
+						[
+							new PropertyValueSnak(
+								new PropertyId( 'P6654' ),
+								new GlobeCoordinateValue( new LatLongValue( 1, 2 ), 1 )
+							),
+							new PropertyValueSnak(
+								new PropertyId( 'P6654' ),
+								new TimeValue(
+									'+2015-11-11T00:00:00Z',
+									0,
+									0,
+									0,
+									TimeValue::PRECISION_DAY,
+									TimeValue::CALENDAR_GREGORIAN
+								)
+							),
+						]
+					),
+					new ReferenceList(
+						[
+							new Reference(
+								[
+									new PropertySomeValueSnak( new PropertyId( 'P987' ) ),
+									new PropertyNoValueSnak( new PropertyId( 'P986' ) )
+								]
+							)
+						]
+					),
+					'imaguid'
+				)
+			),
+			6661,
+			new FormSet( [
+				new Form(
+					new FormId( 'L123-F123' ),
+					new TermList( [ new Term( 'en', 'rep1' ), new Term( 'de', 'rep2' ) ] ),
+					[ new ItemId( 'Q553' ), new ItemId( 'Q554' ) ]
+				)
+			] ),
+			6662,
+			new SenseSet( [
+				new Sense(
+					new SenseId( 'L123-S123' ),
+					new TermList( [ new Term( 'en', 'gloss1' ), new Term( 'de', 'gloss2' ) ] )
+				)
+			] )
+		);
+
+		$content = new LexemeContent( new EntityInstanceHolder( $entity ) );
+		$output = $content->getTextForFilters();
+
+		$this->assertSame(
+			trim( file_get_contents( __DIR__ . '/textForFilters.txt' ) ),
+			$output
+		);
 	}
 
 }
