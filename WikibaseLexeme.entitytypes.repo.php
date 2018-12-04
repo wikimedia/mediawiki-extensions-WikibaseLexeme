@@ -65,7 +65,7 @@ use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
-use Wikibase\Repo\Validators\CompositeValidator;
+use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SettingsArray;
 use Wikimedia\Purtle\RdfWriter;
@@ -146,6 +146,7 @@ return [
 				$wikibaseRepo->getExternalFormatStatementDeserializer(),
 				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 			);
+			$itemValidator = new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' );
 			$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
 				// TODO: WikibaseRepo should probably provide this validator?
@@ -159,11 +160,11 @@ return [
 					$wikibaseRepo->getStringNormalizer()
 				),
 				new LexicalCategoryChangeOpDeserializer(
-					new CompositeValidator( [] ), // FIXME: What does belong here?
+					$itemValidator,
 					$wikibaseRepo->getStringNormalizer()
 				),
 				new LanguageChangeOpDeserializer(
-					new CompositeValidator( [] ), // FIXME: What does belong here?
+					$itemValidator,
 					$wikibaseRepo->getStringNormalizer()
 				),
 				$statementChangeOpDeserializer,

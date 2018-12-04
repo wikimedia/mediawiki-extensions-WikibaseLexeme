@@ -80,6 +80,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
+		$this->saveDummyItemToDatabase( $lexemeLang );
+		$this->saveDummyItemToDatabase( $lexCat );
+
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
@@ -150,6 +153,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	private function saveDummyLexemeToDatabase() {
 		$this->saveEntity( $this->getDummyLexeme() );
+	}
+
+	private function saveDummyItemToDatabase( $qid ) {
+		$this->saveEntity( new Item( new ItemId( $qid ) ) );
 	}
 
 	public function testGivenIdOfExistingLexemeAndLemmaData_lemmaIsChanged() {
@@ -346,6 +353,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
+		$this->saveDummyItemToDatabase( 'Q333' );
+
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
@@ -373,6 +382,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lexicalCategory' => 'Q333',
 			] ),
 		];
+
+		$this->saveDummyItemToDatabase( 'Q333' );
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
@@ -403,6 +414,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
 			] ),
 		];
+
+		$this->saveDummyItemToDatabase( 'Q303' );
+		$this->saveDummyItemToDatabase( 'Q606' );
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
@@ -471,6 +485,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [ 'en-gb' => [ 'language' => 'en-gb', 'value' => 'appel' ] ],
 			] ),
 		];
+
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
@@ -666,6 +683,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( $dataArgs ),
 		];
 
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
+
 		$exception = null;
 		try {
 			$this->doApiRequestWithToken( $params );
@@ -701,6 +721,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				]
 			] ),
 		];
+
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
 
 		$exception = null;
 		try {
@@ -764,6 +787,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'clear' => true,
 			'data' => json_encode( $dataArgs ),
 		];
+
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
 
 		$exception = null;
 		try {
@@ -863,6 +889,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
+		$this->saveDummyItemToDatabase( 'Q100' );
+		$this->saveDummyItemToDatabase( 'Q200' );
+
 		$exception = null;
 		try {
 			$this->doApiRequestWithToken( $params );
@@ -874,6 +903,66 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		/** @var ApiUsageException $exception */
 		$this->assertSame( 'failed-save',
 			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
+	}
+
+	public function testGivenTryingToCreateLexemeWithNonExistingLanguage_errorIsReported() {
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'lexeme',
+			'data' => json_encode( [
+				'lemmas' => [],
+				'language' => 'Q100',
+				'lexicalCategory' => 'Q200',
+			] ),
+		];
+
+		$this->saveDummyItemToDatabase( 'Q200' );
+
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
+		/** @var ApiUsageException $exception */
+		$this->assertSame( 'modification-failed',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
+		$this->assertSame( 'wikibase-validator-no-such-entity',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiData()['messages'][0]['name']
+		);
+	}
+
+	public function testGivenTryingToCreateLexemeWithNonExistingLexicalCategory_errorIsReported() {
+		$params = [
+			'action' => 'wbeditentity',
+			'new' => 'lexeme',
+			'data' => json_encode( [
+				'lemmas' => [],
+				'language' => 'Q100',
+				'lexicalCategory' => 'Q200',
+			] ),
+		];
+
+		$this->saveDummyItemToDatabase( 'Q100' );
+
+		$exception = null;
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( Exception $e ) {
+			$exception = $e;
+		}
+
+		$this->assertInstanceOf( ApiUsageException::class, $exception );
+		/** @var ApiUsageException $exception */
+		$this->assertSame( 'modification-failed',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiCode()
+		);
+		$this->assertSame( 'wikibase-validator-no-such-entity',
+			$exception->getStatusValue()->getErrors()[0]['message']->getApiData()['messages'][0]['name']
 		);
 	}
 
@@ -940,6 +1029,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				],
 			] ),
 		];
+
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
@@ -1302,6 +1394,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
 			] ),
 		];
+
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
+		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
