@@ -80,6 +80,9 @@
 		],
 		"ShowSearchHit": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onShowSearchHit"
+		],
+		"WikibaseRepoOnParserOutputUpdaterConstruction": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onParserOutputUpdaterConstruction"
 		]
 	},
 	"MessagesDirs": {
