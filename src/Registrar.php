@@ -2,6 +2,13 @@
 
 namespace Wikibase\Lexeme;
 
+use Wikibase\Lexeme\MediaWiki\Api\AddForm;
+use Wikibase\Lexeme\MediaWiki\Api\AddSense;
+use Wikibase\Lexeme\MediaWiki\Api\EditFormElements;
+use Wikibase\Lexeme\MediaWiki\Api\EditSenseElements;
+use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
+use Wikibase\Lexeme\MediaWiki\Api\RemoveForm;
+use Wikibase\Lexeme\MediaWiki\Api\RemoveSense;
 use Wikibase\WikibaseSettings;
 
 /**
@@ -22,31 +29,31 @@ class Registrar {
 		global $wgAPIModules, $wgSpecialPages, $wgResourceModules;
 
 		$wgAPIModules['wbladdform'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm',
+			'class' => AddForm::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm::newFromGlobalState',
 		];
 		$wgAPIModules['wblremoveform'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm',
+			'class' => RemoveForm::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm::newFromGlobalState',
 		];
 		$wgAPIModules['wbleditformelements'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements',
+			'class' => EditFormElements::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::newFromGlobalState'
 		];
 		$wgAPIModules['wbladdsense'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense',
+			'class' => AddSense::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::newFromGlobalState',
 		];
 		$wgAPIModules['wbleditsenseelements'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements',
+			'class' => EditSenseElements::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::newFromGlobalState'
 		];
 		$wgAPIModules['wblremovesense'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense',
+			'class' => RemoveSense::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::newFromGlobalState',
 		];
 		$wgAPIModules['wblmergelexemes'] = [
-			'class' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes',
+			'class' => MergeLexemes::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::newFromGlobalState',
 		];
 
