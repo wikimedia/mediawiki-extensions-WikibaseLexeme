@@ -147,6 +147,7 @@
 	"wikibase-validator-form-not-found": "Lexeme does not have Form with given ID",
 	"wikibaselexeme-grammatical-features-input-placeholder": "For example: normative, comparative, past tense...",
 	"wikibase-lexeme-language-name-mis": "other",
+	"wikibase-lexeme-language-selector-label": "$1 ($2)",
 	"wikibase-lexeme-lemma-language-not-recognized": "The supplied language code was not recognized.",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
 	"wikibase-lexeme-mergelexemes-intro": "If you merge two Lexemes, all Lemmas, Statements, Forms and Senses will be moved from one Lexeme to the other.",

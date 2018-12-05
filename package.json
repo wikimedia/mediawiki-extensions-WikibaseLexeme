@@ -44,6 +44,7 @@
     "wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": "./resources/widgets/LemmaWidget.newLemmaWidget.js",
     "wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore": "./resources/widgets/LexemeHeader.newLexemeHeaderStore.js",
     "wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget": "./resources/widgets/LanguageAndLexicalCategoryWidget.js",
+    "wikibase.lexeme.widgets.LanguageSelectorWrapper": "./resources/widgets/LanguageSelectorWrapper.js",
     "wikibase.lexeme.widgets.ItemSelectorWrapper": "./resources/widgets/ItemSelectorWrapper.js",
     "wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader": "./resources/widgets/LexemeHeader.newLexemeHeader.js",
     "wikibase.lexeme.datatransfer.LemmaList": "./resources/datatransfer/LemmaList.js",

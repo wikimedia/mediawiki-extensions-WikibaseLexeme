@@ -211,9 +211,11 @@ return call_user_func( function() {
 				"vue",
 				"vuex",
 				"jquery.util.getDirectionality",
+				"wikibase.lexeme.widgets.LanguageSelectorWrapper",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
 				"wikibase.lexeme.widgets.InvalidLanguageIndicator",
 				"wikibase.getLanguageNameByCode",
+				"wikibase.WikibaseContentLanguages"
 			],
 			"messages" => [
 				"wikibase-edit",
@@ -253,6 +255,16 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.widgets.ItemSelectorWrapper" => $moduleTemplate + [
 			"scripts" => "widgets/ItemSelectorWrapper.js"
+		],
+		"wikibase.lexeme.widgets.LanguageSelectorWrapper" => $moduleTemplate + [
+				"scripts" => "widgets/LanguageSelectorWrapper.js",
+				"dependencies" => [
+					"jquery.ui.languagesuggester",
+					"wikibase.getLanguageNameByCode"
+				],
+				"messages" => [
+					"wikibase-lexeme-language-selector-label"
+				]
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",

@@ -13,13 +13,26 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 					throw new Error( 'unknown config key: ' + key );
 				}
 			}
+		},
+		message: function ( key ) {
+			return key;
 		}
 	};
+
+	function WikibaseContentLanguages() {}
+	WikibaseContentLanguages.prototype.getAll = function () {
+		return [ 'en' ];
+	};
+	WikibaseContentLanguages.prototype.getName = function () {
+		return 'English';
+	};
+
 	global.wikibase = { // eslint-disable-line no-restricted-globals
 		getLanguageNameByCode: function () {
 			// this is tested in Wikibase/view/tests/qunit/wikibase/wikibase.getLanguageNameByCode.tests.js
 			return 'English';
-		}
+		},
+		WikibaseContentLanguages: WikibaseContentLanguages
 	};
 
 	var getDirectionality = function ( languageCode ) {
@@ -217,7 +230,10 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 		) );
 	}
 
-	// FIXME: duplicated from SensesView.php until it's reusable
+	/* FIXME: duplicated from SensesView.php but out of date because bringing up-to-date breaks the tests
+	* i.e. if we actually include the components rather than just using input.
+	* For now this is only properly covered by the browser tests
+	*/
 	function getTemplate() {
 		return '<div class="wikibase-lexeme-sense-glosses">\n' +
 			'<table class="wikibase-lexeme-sense-glosses-table">\n' +

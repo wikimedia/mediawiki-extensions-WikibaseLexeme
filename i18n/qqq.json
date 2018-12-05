@@ -155,6 +155,7 @@
 	"wikibase-validator-form-not-found": "Error message that is being reported when Form with provided ID does not exist.\n\nParameters:\n* $1 - ID of the Form",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",
+	"wikibase-lexeme-language-selector-label": "Template for generating LanguageSelector options\n\n Parameters:\n* $1 the Language Name\n* $2 the Language code",
 	"wikibase-lexeme-lemma-language-not-recognized": "Error message shown if the lemma language selected is not in the range of options.",
 	"wikibase-lexeme-lemma-language-option": "Template for generating lemma language options\n\nParameters:\n* $1 - Name of the language\n* $2 - Language code",
 	"wikibase-lexeme-mergelexemes-intro": "A short text at the top of the page that allows users to merge two lexemes, explaining the form.\n\nFollowed by the following input box labels:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}} \n\nThis supports Wikitext.",
