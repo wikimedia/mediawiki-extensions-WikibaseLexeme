@@ -11,6 +11,7 @@ use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
+use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
@@ -64,7 +65,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	/**
 	 * @var LexemeRedirectCreationInteractor|MockObject
 	 */
-	private $redirectInteractor;
+	private $redirector;
 
 	/**
 	 * @var EntityTitleStoreLookup|MockObject
@@ -101,7 +102,7 @@ class MergeLexemesInteractorTest extends TestCase {
 		$this->lexemeMerger = $this->newMockLexemeMerger();
 		$this->authorizer = new SucceedingLexemeAuthorizer();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
-		$this->redirectInteractor = $this->newMockRedirectCreationInteractor();
+		$this->redirector = $this->newMockRedirector();
 		$this->entityTitleLookup = $this->newMockTitleLookup();
 		$this->watchedItemStore = $this->newMockWatchedItemStore();
 	}
@@ -120,9 +121,9 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->lexemeRepository = new FakeLexemeRepository( $this->sourceLexeme, $this->targetLexeme );
 
-		$this->redirectInteractor->expects( $this->once() )
-			->method( 'createRedirect' )
-			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), false );
+		$this->redirector->expects( $this->once() )
+			->method( 'redirect' )
+			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 
 		$statementsMerger = WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()
 			->getMergeFactory()->getStatementsMerger();
@@ -242,7 +243,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			$this->lexemeMerger,
 			$this->authorizer,
 			$this->summaryFormatter,
-			$this->redirectInteractor,
+			$this->redirector,
 			$this->entityTitleLookup,
 			$this->watchedItemStore,
 			$this->lexemeRepository
@@ -257,8 +258,8 @@ class MergeLexemesInteractorTest extends TestCase {
 		return $this->createMock( SummaryFormatter::class );
 	}
 
-	private function newMockRedirectCreationInteractor() {
-		return $this->createMock( LexemeRedirectCreationInteractor::class );
+	private function newMockRedirector() {
+		return $this->createMock( LexemeRedirector::class );
 	}
 
 	private function newMockTitleLookup() {

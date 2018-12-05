@@ -67,8 +67,7 @@ class MergeLexemes extends ApiBase {
 			$services->newMergeLexemesInteractor()->mergeLexemes(
 				$sourceId,
 				$targetId,
-				$params[self::SUMMARY_PARAM],
-				$params[self::BOT_PARAM]
+				$params[self::SUMMARY_PARAM]
 			);
 		} catch ( MergingException $e ) {
 			$this->errorReporter->dieException(
