@@ -201,7 +201,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 	function newWidget( glosses ) {
 		'use strict';
 		var messages = {
-			getUnparameterizedTranslation: function ( key ) {
+			get: function ( key ) {
 				return key;
 			}
 		};

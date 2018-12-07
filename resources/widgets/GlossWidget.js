@@ -12,14 +12,14 @@ module.exports = ( function ( require, Vue, wb ) {
 
 	function applyGlossWidget( widgetElement, glosses, beforeUpdate, mw, getDirectionality ) {
 		var template = '#gloss-widget-vue-template';
-		var messages = require( 'wikibase.lexeme.i18n.Messages' );
+		var messages = mw.messages;
 
 		return new Vue( newGlossWidget( messages, widgetElement, template, glosses, beforeUpdate, getDirectionality ) );
 	}
 
 	/**
 	 *
-	 * @param {wikibase.lexeme.i18n.Messages} messages
+	 * @param {mw.messages} messages
 	 * @param {string|HTMLElement} widgetElement
 	 * @param {string} template
 	 * @param {[{ value: string, language: string }]} glosses
@@ -65,7 +65,7 @@ module.exports = ( function ( require, Vue, wb ) {
 			},
 			filters: {
 				message: function ( key ) {
-					return messages.getUnparameterizedTranslation( key );
+					return messages.get( key );
 				},
 				directionality: function ( languageCode ) {
 					return getDirectionality( languageCode );
