@@ -4,8 +4,11 @@
 			"Rul1902"
 		]
 	},
+	"special-newlexeme": "မ်ုပ္တံင် Lexeme သင့်",
+	"wikibaselexeme-newlexeme-fieldset": "မ်ုပ္တံင် Lexeme သင့်",
 	"wikibaselexeme-add-form": "ဆူ့ဍုဂ်လိက်ပ္တိင့်",
 	"wikibase-lexeme-summary-remove-sense": "မာထိုလောင်ဝိုက် $3ဏှ် လ်ုဏ်ုဍးလ်ုမိင်မိင်ဏှ် လ်ု{{PLURAL:$1|[$2] gloss|glosses}}",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "မ်ုပ္တံင် Lexeme သင့်",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "ဆူ့ဍုဂ်ခိုက် လိက်ပ္တိင်သင့်လ်ုၜိင်း",
 	"wikibaselexeme-diffview-form": "လိက်ပ္တိင့်"
 }
