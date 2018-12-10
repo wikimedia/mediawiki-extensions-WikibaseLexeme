@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit ) {
+( function ( wb ) {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.datamodel.Form' );
@@ -102,4 +102,4 @@
 		} );
 	} );
 
-}( jQuery, wikibase, QUnit ) );
+}( wikibase ) );

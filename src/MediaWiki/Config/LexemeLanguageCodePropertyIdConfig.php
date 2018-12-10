@@ -23,7 +23,7 @@ class LexemeLanguageCodePropertyIdConfig extends ResourceLoaderModule {
 	public function getScript( ResourceLoaderContext $context ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
-		return 'mediaWiki.config.set( "LexemeLanguageCodePropertyId", '
+		return 'mw.config.set( "LexemeLanguageCodePropertyId", '
 			. json_encode( $config->get( 'LexemeLanguageCodePropertyId' ) )
 			. ' );';
 	}

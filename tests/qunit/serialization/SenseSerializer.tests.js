@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit ) {
+( function ( wb ) {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.serialization.SenseSerializer' );
@@ -72,4 +72,4 @@
 
 	} );
 
-}( jQuery, wikibase, QUnit ) );
+}( wikibase ) );

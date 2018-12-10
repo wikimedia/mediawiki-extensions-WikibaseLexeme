@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $, QUnit, sinon ) {
+( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.widgets.ItemSelectorWidget' );
 
 	var newInitializedItemSelectorWidget = function () {
@@ -20,7 +20,7 @@
 	};
 
 	var executeWithWbsearchentitiesResponseStub = function ( response, assertionCallback ) {
-		var ajaxStub = sinon.stub( jQuery, 'ajax' );
+		var ajaxStub = sinon.stub( $, 'ajax' );
 
 		ajaxStub.returns( $.Deferred().resolve( response ).promise() );
 		assertionCallback();
@@ -133,4 +133,4 @@
 		);
 	} );
 
-}( wikibase, jQuery, QUnit, sinon ) );
+}( wikibase ) );

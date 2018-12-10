@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $, QUnit ) {
+( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver' );
 
 	var getMockItemLookup = function () {
@@ -65,4 +65,4 @@
 		assert.equal( $field.find( 'input' ).val(), 'en' );
 	} );
 
-}( wikibase, jQuery, QUnit ) );
+}( wikibase ) );

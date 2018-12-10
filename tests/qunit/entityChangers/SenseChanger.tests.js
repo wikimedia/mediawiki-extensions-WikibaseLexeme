@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit, sinon ) {
+( function ( wb ) {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.entityChangers.SenseChanger' );
@@ -447,4 +447,4 @@
 		return testPromise;
 	} );
 
-}( jQuery, wikibase, QUnit, sinon ) );
+}( wikibase ) );

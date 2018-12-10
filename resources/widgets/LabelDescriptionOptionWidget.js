@@ -1,4 +1,4 @@
-( function ( $, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	/**
@@ -41,4 +41,4 @@
 
 	wb.lexeme.widgets.LabelDescriptionOptionWidget = LabelDescriptionOptionWidget;
 
-} )( jQuery, wikibase );
+}( wikibase ) );

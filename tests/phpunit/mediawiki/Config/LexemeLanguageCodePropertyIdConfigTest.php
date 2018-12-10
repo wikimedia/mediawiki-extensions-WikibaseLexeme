@@ -27,7 +27,7 @@ class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiTestCase {
 		$module = new LexemeLanguageCodePropertyIdConfig();
 		$script = $module->getScript( $this->getContext() );
 		$this->assertStringStartsWith(
-			'mediaWiki.config.set( "LexemeLanguageCodePropertyId", ',
+			'mw.config.set( "LexemeLanguageCodePropertyId", ',
 			$script
 		);
 		$this->assertStringEndsWith( ' );', $script );

@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit, sinon ) {
+( function ( wb ) {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.entityChangers.LexemeRevisionStore' );
@@ -106,4 +106,4 @@
 		assert.equal( store.getSenseRevision( 'L1-S1' ), 4321 );
 	} );
 
-} )( jQuery, wikibase, QUnit, sinon );
+}( wikibase ) );

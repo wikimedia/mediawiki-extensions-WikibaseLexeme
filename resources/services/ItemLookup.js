@@ -1,4 +1,4 @@
-( function ( $, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	/**
@@ -42,4 +42,4 @@
 
 	wb.lexeme.services.ItemLookup = ItemLookup;
 
-} )( jQuery, wikibase );
+}( wikibase ) );

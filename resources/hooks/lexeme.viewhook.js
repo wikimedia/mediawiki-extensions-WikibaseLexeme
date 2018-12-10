@@ -1,4 +1,4 @@
-( function ( $, mw ) {
+( function () {
 	mw.hook( 'wikibase.entityPage.entityView.viewFactoryFactory.required' ).add( function ( entityNamespace, addPromise ) {
 		if ( entityNamespace !== 'lexeme' ) {
 			// not our view
@@ -17,4 +17,4 @@
 			} )
 		);
 	} );
-}( jQuery, mediaWiki ) );
+}() );

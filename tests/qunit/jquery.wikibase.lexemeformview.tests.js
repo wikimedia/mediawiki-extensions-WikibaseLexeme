@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit ) {
+( function ( wb ) {
 	'use strict';
 
 	/** @type {wikibase.datamodel.TermMap}*/
@@ -294,7 +294,7 @@
 
 	/**
 	 * Sets input value and triggers 'input'
-	 * @param {jQuery}$element
+	 * @param {jQuery} $element
 	 * @param {string} newValue
 	 */
 	function changeInputValue( $element, newValue ) {
@@ -347,4 +347,4 @@
 			'</div>';
 	}
 
-}( jQuery, wikibase, QUnit ) );
+}( wikibase ) );

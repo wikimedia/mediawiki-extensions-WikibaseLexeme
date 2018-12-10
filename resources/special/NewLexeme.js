@@ -1,4 +1,4 @@
-( function ( $, mw, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	var repoConfig = mw.config.get( 'wbRepo' ),
@@ -29,8 +29,4 @@
 
 	lexicalCategorySelector.initialize( itemSelectorConfig );
 
-}(
-	jQuery,
-	mediaWiki,
-	wikibase
-) );
+}( wikibase ) );

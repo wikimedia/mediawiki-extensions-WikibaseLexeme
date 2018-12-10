@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $ ) {
+( function ( wb ) {
 	'use strict';
 
 	var SELF = wb.lexeme.RevisionStore = function WbLexemeRevisionStore( baseStore ) {
@@ -140,4 +140,4 @@
 
 	} );
 
-}( wikibase, jQuery ) );
+}( wikibase ) );

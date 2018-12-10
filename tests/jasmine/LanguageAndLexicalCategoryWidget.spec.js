@@ -2,7 +2,7 @@
  * @license GPL-2.0-or-later
  */
 describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function () {
-	global.mediaWiki = { // eslint-disable-line no-restricted-globals
+	global.mw = { // eslint-disable-line no-restricted-globals
 		config: {
 			get: function () {
 				return '';

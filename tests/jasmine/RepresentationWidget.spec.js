@@ -3,7 +3,7 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 		RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
 		LexemeStore = require( 'wikibase.lexeme.store' );
 
-	var mediaWiki = { messages: {} };
+	var mw = { messages: {} };
 
 	var FIRST_ENGLISH_LEMMA = { language: 'en', value: 'color' };
 	var SECOND_ENGLISH_LEMMA = { language: 'en-GB', value: 'colour' };
@@ -144,7 +144,7 @@ describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 			'<div id="dummy-template"></div>',
 			function () {
 			},
-			mediaWiki
+			mw
 		);
 	}
 

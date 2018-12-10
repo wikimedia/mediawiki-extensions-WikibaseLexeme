@@ -1,4 +1,4 @@
-( function ( $, mw, require ) {
+( function () {
 	'use strict';
 
 	var PARENT = $.ui.EditableTemplatedWidget;
@@ -16,7 +16,7 @@
 	 * @param {Object} options
 	 * @param {string[]} options.value
 	 * @param {wikibase.LabelFormattingService} options.labelFormattingService
-	 * @param {mediaWiki.Api} options.api
+	 * @param {mw.Api} options.api
 	 */
 	$.widget( 'wikibase.grammaticalfeatureview', PARENT, {
 		options: {
@@ -140,4 +140,4 @@
 			return deferred.resolve().promise();
 		}
 	} );
-}( jQuery, mediaWiki, require ) );
+}() );

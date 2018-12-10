@@ -1,4 +1,4 @@
-( function ( wb, QUnit ) {
+( function ( wb ) {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.datamodel.Lexeme' );
@@ -89,4 +89,4 @@
 		return new wb.datamodel.TermMap( { en: new wb.datamodel.Term( 'en', 'foo' ) } );
 	}
 
-}( wikibase, QUnit ) );
+}( wikibase ) );

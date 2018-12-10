@@ -1,4 +1,4 @@
-( function ( $, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	/**
@@ -179,4 +179,4 @@
 
 	wb.lexeme.widgets.ItemSelectorWidget = ItemSelectorWidget;
 
-} )( jQuery, wikibase );
+}( wikibase ) );

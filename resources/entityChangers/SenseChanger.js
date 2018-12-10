@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( mw, wb, $ ) {
+( function ( wb ) {
 	'use strict';
 
 	/**
@@ -186,4 +186,4 @@
 		);
 	}
 
-}( mediaWiki, wikibase, jQuery ) );
+}( wikibase ) );

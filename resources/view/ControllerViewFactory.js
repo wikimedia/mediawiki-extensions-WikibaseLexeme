@@ -1,4 +1,4 @@
-( function ( mw, wb, $ ) {
+( function ( wb ) {
 	'use strict';
 
 	var PARENT = wb.view.ControllerViewFactory;
@@ -60,7 +60,7 @@
 	);
 
 	/**
-	 * @type {mediaWiki.Api}
+	 * @type {mw.Api}
 	 * @private
 	 */
 	SELF.prototype._api = null;
@@ -210,7 +210,7 @@
 
 	/**
 	 * @class wikibase.LabelFormattingService
-	 * @param {mediaWiki.Api} api
+	 * @param {mw.Api} api
 	 * @param {Object} cachedData
 	 * @constructor
 	 */
@@ -220,7 +220,7 @@
 	};
 
 	/**
-	 * @type {mediaWiki.Api}
+	 * @type {mw.Api}
 	 * @private
 	 */
 	FakeLabelFormattingService.prototype._api = null;
@@ -311,4 +311,4 @@
 
 	wb.lexeme.view.ControllerViewFactory = SELF;
 
-}( mediaWiki, wikibase, jQuery ) );
+}( wikibase ) );
