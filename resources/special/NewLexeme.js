@@ -4,14 +4,14 @@
 	var repoConfig = mw.config.get( 'wbRepo' ),
 		repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
 		languageSelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
-			'wb-newlexeme-lexeme-language'
+			$( '#wb-newlexeme-lexeme-language' )
 		),
 		lexicalCategorySelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
-			'wb-newlexeme-lexicalCategory'
+			$( '#wb-newlexeme-lexicalCategory' )
 		),
 		mwApi = wb.api.getLocationAgnosticMwApi( repoApiUrl ),
 		$lemmaLanguageField = OO.ui.infuse(
-			OO.ui.infuse( 'wb-newlexeme-lemma-language' ).$element.parents( '.mw-htmlform-field-autoinfuse' )
+			OO.ui.infuse( $( '#wb-newlexeme-lemma-language' ) ).$element.parents( '.mw-htmlform-field-autoinfuse' )
 		).$element,
 		itemSelectorConfig = {
 			apiUrl: repoApiUrl,
