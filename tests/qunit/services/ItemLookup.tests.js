@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $, QUnit ) {
+( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.services.ItemLookup' );
 
 	var getMockApiWithResponse = function ( response ) {
@@ -61,4 +61,4 @@
 		} );
 	} );
 
-}( wikibase, jQuery, QUnit ) );
+}( wikibase ) );

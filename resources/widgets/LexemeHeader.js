@@ -1,4 +1,4 @@
-wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue, Vuex ) {
+wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb ) {
 	'use strict';
 
 	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
@@ -99,4 +99,4 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( $, mw, require, wb, Vue
 			} );
 	};
 
-} )( jQuery, mediaWiki, require, wikibase, Vue, Vuex );
+} )( wikibase );

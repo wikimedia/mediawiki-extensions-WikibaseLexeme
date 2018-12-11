@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit ) {
+( function ( wb ) {
 	'use strict';
 
 	var TEST_LEXMEFORMVIEW_CLASS = 'test_senseview';
@@ -113,4 +113,4 @@
 		} );
 	} );
 
-}( jQuery, wikibase, QUnit ) );
+}( wikibase ) );

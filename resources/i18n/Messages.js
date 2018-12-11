@@ -1,4 +1,4 @@
-module.exports = ( function ( mw ) {
+module.exports = ( function () {
 	'use strict';
 
 	/**
@@ -35,4 +35,4 @@ module.exports = ( function ( mw ) {
 	return {
 		getUnparameterizedTranslation: getUnparameterizedTranslation
 	};
-} )( mediaWiki );
+} )();

@@ -29,12 +29,12 @@ class TemplateModule extends ResourceLoaderFileModule {
 
 		// template store JavaScript initialisation
 		$script = <<<JS
-( function( mw ) {
+( function () {
 	'use strict';
 
 	mw.wbTemplates.store.set( $.extend( $templatesJson, mw.wbTemplates.store.values ) );
 
-}( mediaWiki ) );
+}() );
 JS;
 
 		return $script . "\n" . parent::getScript( $context );

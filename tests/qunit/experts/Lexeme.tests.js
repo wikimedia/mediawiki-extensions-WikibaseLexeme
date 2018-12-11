@@ -1,4 +1,4 @@
-( function ( QUnit, valueview, wb ) {
+( function ( QUnit, valueview ) {
 	'use strict';
 
 	var testExpert = valueview.tests.testExpert;
@@ -9,4 +9,4 @@
 		expertConstructor: require( 'wikibase.experts.Lexeme' )
 	} );
 
-}( QUnit, jQuery.valueview, wikibase ) );
+}( QUnit, $.valueview ) );

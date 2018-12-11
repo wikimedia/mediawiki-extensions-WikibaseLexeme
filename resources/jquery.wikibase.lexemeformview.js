@@ -1,4 +1,4 @@
-( function ( $, mw, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	var PARENT = $.ui.EditableTemplatedWidget;
@@ -26,7 +26,7 @@
 	 * @param {wikibase.lexeme.datamodel.Form} options.value
 	 * @param {Function} options.buildStatementGroupListView
 	 * @param {wikibase.LabelFormattingService} options.labelFormattingService
-	 * @param {mediaWiki.Api} options.api
+	 * @param {mw.Api} options.api
 	 * @param {string} options.inputNodeName
 	 */
 	$.widget( 'wikibase.lexemeformview', PARENT, {
@@ -287,4 +287,4 @@
 		return LexemeStore.create( lemmas, forms );
 	}
 
-}( jQuery, mediaWiki, wikibase ) );
+}( wikibase ) );

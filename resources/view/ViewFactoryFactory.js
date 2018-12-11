@@ -1,4 +1,4 @@
-wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb, $ ) {
+wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
 	'use strict';
 
 	var ViewFactoryFactory = function () {};
@@ -50,4 +50,4 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb, $ ) {
 	} );
 
 	return ViewFactoryFactory;
-}( wikibase, jQuery ) );
+}( wikibase ) );

@@ -1,4 +1,4 @@
-module.exports = ( function ( $, OO ) {
+module.exports = ( function () {
 	'use strict';
 
 	/**
@@ -7,7 +7,7 @@ module.exports = ( function ( $, OO ) {
 	 * @mixins OO.ui.mixin.RequestManager
 	 *
 	 * @param {Object} config Configuration object
-	 * @cfg {mediaWiki.Api} api Api object to access 'wbsearchentities' action
+	 * @cfg {mw.Api} api Api object to access 'wbsearchentities' action
 	 * @cfg {string} language
 	 * @cfg {wikibase.LabelFormattingService} labelFormattingService
 	 *
@@ -186,4 +186,4 @@ module.exports = ( function ( $, OO ) {
 	} );
 
 	return GrammaticalFeatureListWidget;
-} )( jQuery, OO );
+} )();

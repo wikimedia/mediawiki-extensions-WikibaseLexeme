@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit ) {
+( function ( wb ) {
 	'use strict';
 
 	var TEST_ELEMENT_CLASS = 'test_grammaticalfeatureview';
@@ -125,4 +125,4 @@
 		} );
 	} );
 
-}( jQuery, wikibase, QUnit ) );
+}( wikibase ) );

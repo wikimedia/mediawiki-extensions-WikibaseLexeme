@@ -2,8 +2,8 @@ describe( 'wikibase.lexeme.widgets.InvalidLanguageIndicator', function () {
 	var expect = require( 'unexpected' ).clone(),
 		sinon = require( 'sinon' );
 
-	var $ = global.jQuery = require( 'jquery' ); // eslint-disable-line no-restricted-globals
-	global.mediaWiki = { // eslint-disable-line no-restricted-globals
+	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
+	global.mw = { // eslint-disable-line no-restricted-globals
 		config: {
 			get: function ( key ) {
 				switch ( key ) {

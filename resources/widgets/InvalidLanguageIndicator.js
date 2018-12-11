@@ -1,4 +1,4 @@
-module.exports = ( function ( $, mw ) {
+module.exports = ( function () {
 	'use strict';
 
 	var ValidLanguages = null,
@@ -120,4 +120,4 @@ module.exports = ( function ( $, mw ) {
 		} ).bind( this ) );
 	}
 
-} )( jQuery, mediaWiki );
+}() );

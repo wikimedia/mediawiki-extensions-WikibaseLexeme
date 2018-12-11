@@ -1,4 +1,4 @@
-( function ( $, sinon, QUnit, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	var ControllerViewFactory = wb.lexeme.view.ControllerViewFactory;
@@ -54,4 +54,4 @@
 			}
 		);
 	} );
-}( jQuery, sinon, QUnit, wikibase ) );
+}( wikibase ) );

@@ -1,4 +1,4 @@
-( function ( $ ) {
+( function () {
 	'use strict';
 
 	var mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
@@ -33,4 +33,4 @@
 
 	module.exports = mutations;
 
-} )( jQuery );
+} )();

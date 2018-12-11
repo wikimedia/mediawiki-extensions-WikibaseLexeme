@@ -1,4 +1,4 @@
-( function ( $, mw, wb ) {
+( function ( wb ) {
 	'use strict';
 
 	/**
@@ -66,4 +66,4 @@
 
 	wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver = LexemeLanguageFieldObserver;
 
-} )( jQuery, mediaWiki, wikibase );
+}( wikibase ) );

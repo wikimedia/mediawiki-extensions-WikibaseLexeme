@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit, sinon ) {
+( function ( wb ) {
 	'use strict';
 
 	var formViewListItemAdapter = wb.tests.getMockListItemAdapter(
@@ -74,4 +74,4 @@
 		assert.notOk( getViewFromElement( $view ) );
 	} );
 
-}( jQuery, wikibase, QUnit, sinon ) );
+}( wikibase ) );

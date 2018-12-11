@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $, QUnit, Vue, Vuex ) {
+( function ( wb ) {
 	'use strict';
 	/** @type {wikibase.lexeme.i18n.Messages} */
 	var messages = require( 'wikibase.lexeme.i18n.Messages' );
@@ -12,10 +12,10 @@
 
 		QUnit.module( 'getUnparameterizedTranslation', {
 			beforeEach: function () {
-				mediaWiki.messages.set( EXISTING_MESSAGE_KEY, EXISTING_TRANSLATION );
+				mw.messages.set( EXISTING_MESSAGE_KEY, EXISTING_TRANSLATION );
 			},
 			afterEach: function () {
-				delete mediaWiki.messages.values[ EXISTING_MESSAGE_KEY ];
+				delete mw.messages.values[ EXISTING_MESSAGE_KEY ];
 			}
 		}, function () {
 
@@ -55,4 +55,4 @@
 		} );
 	} );
 
-}( wikibase, jQuery, QUnit, Vue, Vuex ) );
+}( wikibase ) );

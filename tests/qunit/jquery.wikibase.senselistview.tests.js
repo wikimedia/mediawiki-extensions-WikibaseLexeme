@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( $, wb, QUnit, sinon ) {
+( function ( wb ) {
 	'use strict';
 
 	var senseviewListItemAdapter = wb.tests.getMockListItemAdapter(
@@ -61,4 +61,4 @@
 		assert.equal( $view.find( '.wikibase-toolbar-button-add' ).text(), translatedMessage );
 	} );
 
-}( jQuery, wikibase, QUnit, sinon ) );
+}( wikibase ) );

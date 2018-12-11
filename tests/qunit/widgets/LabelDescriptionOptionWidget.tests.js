@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $, QUnit ) {
+( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.widgets.LabelDescriptionOptionWidget' );
 
 	QUnit.test( 'getInputLabel: given a label, returns the label', function ( assert ) {
@@ -56,4 +56,4 @@
 		return new wb.lexeme.widgets.LabelDescriptionOptionWidget( options );
 	}
 
-}( wikibase, jQuery, QUnit ) );
+}( wikibase ) );

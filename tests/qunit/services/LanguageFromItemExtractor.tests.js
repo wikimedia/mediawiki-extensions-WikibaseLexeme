@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb, $, QUnit ) {
+( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.services.LanguageFromItemExtractor' );
 
 	var newLanguageExtractor = function ( propertyId ) {
@@ -80,4 +80,4 @@
 		assert.equal( languageExtractor.getLanguageFromItem( itemSerialization ), false );
 	} );
 
-}( wikibase, jQuery, QUnit ) );
+}( wikibase ) );
