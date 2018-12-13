@@ -1,7 +1,7 @@
 'use strict';
 
-const assert = require( 'assert' );
-const SpecialVersionPage = require( '../pageobjects/specialversion.page' );
+const assert = require( 'assert' ),
+	SpecialVersionPage = require( '../pageobjects/specialversion.page' );
 
 describe( 'Special:Version', function () {
 
