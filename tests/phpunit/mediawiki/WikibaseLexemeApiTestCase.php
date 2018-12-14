@@ -4,13 +4,13 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiMessage;
 use ApiUsageException;
-use MediaWiki\Services\ServiceContainer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store\BufferingTermLookup;
+use Wikimedia\Services\ServiceContainer;
 
 /**
  * todo Add a reset function to wikibase Entity(Revision)Lookup to reset caches

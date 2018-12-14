@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use HamcrestPHPUnitIntegration;
-use MediaWiki\Services\ServiceContainer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store\BufferingTermLookup;
+use Wikimedia\Services\ServiceContainer;
 
 /**
  * @license GPL-2.0-or-later
