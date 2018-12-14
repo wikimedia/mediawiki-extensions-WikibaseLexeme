@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Botansahin",
-			"Sayginer"
+			"Sayginer",
+			"Sucsuzz"
 		]
 	},
 	"wikibaselexeme-newlexeme-language-placeholder": "Dil girin, ör. Türkçe",
@@ -12,5 +13,6 @@
 	"wikibaselexeme-form-field-language-label": "Dil",
 	"wikibaselexeme-gloss-field-language-label": "Dil",
 	"wikibaselexeme-gloss-field-gloss-label": "Örtbas",
-	"wikibaselexeme-field-language-label": "Dil"
+	"wikibaselexeme-field-language-label": "Dil",
+	"wikibaselexeme-diffview-form": "Form"
 }
