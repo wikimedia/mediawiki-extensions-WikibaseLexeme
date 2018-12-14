@@ -174,7 +174,6 @@ class WikibaseLexemeHooks {
 				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
 				'tests/qunit/view/ViewFactoryFactory.tests.js',
 				'tests/qunit/view/ControllerViewFactory.tests.js',
-				'tests/qunit/i18n/Messages.tests.js'
 			],
 			'dependencies' => [
 				'jquery.valueview.tests.testExpert',
@@ -202,7 +201,6 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 				'wikibase.lexeme.widgets.GlossWidget',
 				'wikibase.lexeme.widgets.RepresentationWidget',
-				'wikibase.lexeme.i18n.Messages',
 				'wikibase.lexeme.view.ControllerViewFactory',
 				'wikibase.lexeme.view.ViewFactoryFactory',
 				'wikibase.tests.qunit.testrunner',
