@@ -12,10 +12,7 @@ use Wikibase\Lexeme\MediaWiki\Api\RemoveSense;
 use Wikibase\WikibaseSettings;
 
 /**
- * TODO: Only exists until repo- and client-specific functionality is not split out to individual
- * extensions.
- * API modules, ResourceLoader modules, and SpecialPages are not used on client, and hence should
- * not be loaded/registered in client-only environment.
+ * @license GPL-2.0-or-later
  */
 class Registrar {
 
