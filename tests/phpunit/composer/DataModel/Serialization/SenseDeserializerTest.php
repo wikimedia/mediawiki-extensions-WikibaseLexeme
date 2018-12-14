@@ -7,11 +7,12 @@ use Deserializers\Deserializer;
 use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Serializers\Serializer;
-use Wikibase\DataModel\Deserializers\SnakDeserializer;
+use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Deserializers\StatementDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Deserializers\TermListDeserializer;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Serializers\SnakSerializer;
 use Wikibase\DataModel\Serializers\StatementListSerializer;
@@ -85,11 +86,7 @@ class SenseDeserializerTest extends TestCase {
 	public function testDeserialize( array $serialization, Sense $expected ) {
 		$deserializer = new SenseDeserializer(
 			new TermListDeserializer( new TermDeserializer() ),
-			new StatementListDeserializer( new StatementDeserializer(
-				new SnakDeserializer( $this->createMock( Deserializer::class ) ),
-				$this->createMock( Deserializer::class ),
-				$this->createMock( Deserializer::class )
-			) )
+			$this->newStatementListDeserializer()
 		);
 
 		$actual = $deserializer->deserialize( $serialization );
@@ -104,11 +101,7 @@ class SenseDeserializerTest extends TestCase {
 		}
 		$deserializer = new SenseDeserializer(
 			new TermListDeserializer( new TermDeserializer() ),
-			new StatementListDeserializer( new StatementDeserializer(
-				new SnakDeserializer( $this->createMock( Deserializer::class ) ),
-				$this->createMock( Deserializer::class ),
-				$this->createMock( Deserializer::class )
-			) )
+			$this->newStatementListDeserializer()
 		);
 		$serializer = new SenseSerializer(
 			new TermListSerializer( new TermSerializer(), false ),
@@ -126,6 +119,19 @@ class SenseDeserializerTest extends TestCase {
 		$serialization = $serializer->serialize( $sense );
 
 		$this->assertSame( $lastSerialization, $serialization );
+	}
+
+	private function newStatementListDeserializer() {
+		$deserializerFactory = new DeserializerFactory(
+			$this->createMock( Deserializer::class ),
+			new BasicEntityIdParser()
+		);
+
+		return new StatementListDeserializer( new StatementDeserializer(
+			$deserializerFactory->newSnakDeserializer(),
+			$this->createMock( Deserializer::class ),
+			$this->createMock( Deserializer::class )
+		) );
 	}
 
 }
