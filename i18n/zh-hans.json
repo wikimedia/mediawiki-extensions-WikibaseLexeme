@@ -126,7 +126,7 @@
 	"content-model-wikibase-lexeme": "Wikibase词位",
 	"wikibaselexeme-form-grammatical-features": "语法特征",
 	"wikibaselexeme-form-description": "$1用于：$2（$3）：$4",
-	"wikibaselexeme-search-result-stats": "$1个{{PLURAL:$1|声明}}，$2个{{PLURAL:$2|词形}}",
+	"wikibaselexeme-search-result-stats": "$1个{{PLURAL:$1|陈述}}，$2个{{PLURAL:$2|词形}}",
 	"wikibaselexeme-unknown-language": "未知语言",
 	"wikibaselexeme-unknown-category": "未知",
 	"wikibaselexeme-no-features": "没有特性",
