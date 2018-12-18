@@ -95,7 +95,7 @@
 	"wikibaselexeme-diffview-grammatical-feature": "граматичка особина",
 	"wikibaselexeme-diffview-sense": "значење",
 	"wikibaselexeme-diffview-gloss": "тумачење",
-	"content-model-wikibase-lexeme": "Лексема Викибазе",
+	"content-model-wikibase-lexeme": "Wikibase лексема",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
 	"wikibaselexeme-formidformatter-separator-multiple-representation": "/",
