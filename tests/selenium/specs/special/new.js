@@ -4,7 +4,9 @@ const assert = require( 'assert' ),
 	NewLexemePage = require( '../../pageobjects/newlexeme.page' ),
 	LexemePage = require( '../../pageobjects/lexeme.page' ),
 	Util = require( 'wdio-mediawiki/Util' ),
-	LexemeApi = require( '../../lexeme.api' );
+	LexemeApi = require( '../../lexeme.api' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	MWApi = require( 'wdio-mediawiki/Api' );
 
 let WikibaseApi;
 try {
@@ -245,6 +247,30 @@ describe( 'NewLexeme:Page', () => {
 			assert.equal( NewLexemePage.getLexemeLanguage(), languageItemId );
 			assert.equal( NewLexemePage.getLexicalCategory(), lexicalCategoryId );
 			assert.equal( NewLexemePage.getLemmaLanguage(), lemmaLanguage );
+		} );
+	} );
+
+	describe( 'when blocked', () => {
+		beforeEach( () => {
+			return browser.call( () => {
+				return MWApi.blockUser();
+			} );
+
+		} );
+
+		afterEach( () => {
+			return browser.call( () => {
+				return MWApi.unblockUser();
+			} );
+		} );
+
+		it( 'is not possible to edit', () => {
+			LoginPage.loginAdmin();
+
+			NewLexemePage.open();
+
+			assert.strictEqual( NewLexemePage.formCurrentlyVisible(), false );
+			assert.ok( NewLexemePage.isUserBlockedErrorVisible() );
 		} );
 	} );
 
