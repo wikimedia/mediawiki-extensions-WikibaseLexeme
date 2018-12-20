@@ -110,7 +110,7 @@ module.exports = ( function () {
 					continue; // don't validate blank values
 				}
 
-				if ( validLanguages !== null && $.inArray( language, validLanguages ) === -1 ) {
+				if ( validLanguages !== null && validLanguages.indexOf( language ) === -1 ) {
 					InvalidLanguages.push( language );
 				}
 			}
