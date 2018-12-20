@@ -63,6 +63,7 @@
 
 	} );
 
+	// eslint-disable-next-line jquery/no-each-util
 	$.each( testCases, function ( testCase, data ) {
 		QUnit.test( 'Serializing  "' + testCase + '" sense object', function ( assert ) {
 			var s = serialize( data.sense );
