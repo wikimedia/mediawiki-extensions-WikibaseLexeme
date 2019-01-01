@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nike"
+			"Nike",
+			"Pyscowicz"
 		]
 	},
-	"apihelp-wbladdform-param-lexemeId": "Lekseemin ID, esim. L10"
+	"apihelp-wbladdform-param-lexemeId": "Lekseemin ID, esim. L10",
+	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä"
 }
