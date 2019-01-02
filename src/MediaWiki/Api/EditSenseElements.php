@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\SenseNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
