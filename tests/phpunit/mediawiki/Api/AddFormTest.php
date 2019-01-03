@@ -101,7 +101,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'invalid lexeme ID (random string not ID)' => [
 				[ 'lexemeId' => 'foo', 'data' => json_encode( $basicData ) ],
 				[
-					'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
+					'key' => 'apierror-wikibaselexeme-parameter-not-lexeme-id',
 					'params' => [ 'lexemeId', '"foo"' ],
 					'code' => 'bad-request',
 					'data' => [
@@ -113,7 +113,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'data not a well-formed JSON object' => [
 				[ 'lexemeId' => 'L1', 'data' => '{foo' ],
 				[
-					'key' => 'wikibaselexeme-api-error-parameter-invalid-json-object',
+					'key' => 'apierror-wikibaselexeme-parameter-invalid-json-object',
 					'params' => [ 'data', '{foo' ],
 					'code' => 'bad-request',
 					'data' => [
@@ -125,7 +125,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'Lexeme is not found' => [
 				[ 'lexemeId' => 'L999', 'data' => json_encode( $basicData ) ],
 				[
-					'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+					'key' => 'apierror-wikibaselexeme-lexeme-not-found',
 					'params' => [ 'lexemeId', 'L999' ],
 					'code' => 'not-found',
 					'data' => [
@@ -137,7 +137,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'grammatical features is not found' => [
 				[ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ],
 				[
-					'key' => 'wikibaselexeme-api-error-invalid-item-id',
+					'key' => 'apierror-wikibaselexeme-invalid-item-id',
 					'params' => [ 'data', 'grammaticalFeatures', self::GRAMMATICAL_FEATURE_ITEM_ID ],
 					'code' => 'bad-request',
 					'data' => [
@@ -163,7 +163,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		];
 
 		$this->doTestQueryApiException( $params, [
-			'key' => 'wikibaselexeme-api-error-form-must-have-at-least-one-representation',
+			'key' => 'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
 			'code' => 'unprocessable-request',
 		] );
 	}

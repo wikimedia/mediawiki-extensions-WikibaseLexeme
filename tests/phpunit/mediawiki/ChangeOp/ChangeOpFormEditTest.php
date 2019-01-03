@@ -162,7 +162,7 @@ class ChangeOpFormEditTest extends TestCase {
 
 	/**
 	 * @expectedException \Wikibase\Repo\ChangeOp\ChangeOpApplyException
-	 * @expectedExceptionMessage wikibaselexeme-api-error-form-must-have-at-least-one-representation
+	 * @expectedExceptionMessage apierror-wikibaselexeme-form-must-have-at-least-one-representation
 	 */
 	public function testApplyRemovingOnlyRepresentations_throwsException() {
 		$form = NewForm::havingRepresentation( 'en', 'goat' )

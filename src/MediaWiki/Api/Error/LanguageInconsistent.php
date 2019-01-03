@@ -31,7 +31,7 @@ class LanguageInconsistent implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
-			'wikibaselexeme-api-error-language-inconsistent',
+			'apierror-wikibaselexeme-language-inconsistent',
 			[ $parameterName, implode( '/', $path ), $this->expectedLanguage, $this->givenLanguage ]
 		);
 		return new \ApiMessage(

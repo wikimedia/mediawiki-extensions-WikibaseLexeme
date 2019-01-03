@@ -54,7 +54,7 @@ class ChangeOpFormEdit implements ChangeOp {
 
 		if ( $entity->getRepresentations()->isEmpty() ) {
 			throw new ChangeOpApplyException(
-				'wikibaselexeme-api-error-form-must-have-at-least-one-representation'
+				'apierror-wikibaselexeme-form-must-have-at-least-one-representation'
 			);
 		}
 	}

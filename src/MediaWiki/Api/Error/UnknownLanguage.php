@@ -22,7 +22,7 @@ class UnknownLanguage implements ApiError {
 
 	public function asApiMessage( $parameterName, array $path ) {
 		return new \ApiMessage( new Message(
-			'wikibaselexeme-api-error-unknown-language',
+			'apierror-wikibaselexeme-unknown-language',
 			[ $parameterName, implode( '/', $path ), $this->given ]
 		), 'not-recognized-language' );
 	}

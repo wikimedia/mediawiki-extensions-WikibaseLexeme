@@ -23,7 +23,7 @@ class LexemeNotFound implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
-			'wikibaselexeme-api-error-lexeme-not-found',
+			'apierror-wikibaselexeme-lexeme-not-found',
 			[ $parameterName, $this->lexemeId->serialize() ]
 		);
 		return new \ApiMessage( $message, 'not-found', [

@@ -54,7 +54,7 @@ class ChangeOpSenseEdit implements ChangeOp {
 
 		if ( $entity->getGlosses()->isEmpty() ) {
 			throw new ChangeOpApplyException(
-				'wikibaselexeme-api-error-sense-must-have-at-least-one-gloss'
+				'apierror-wikibaselexeme-sense-must-have-at-least-one-gloss'
 			);
 		}
 	}

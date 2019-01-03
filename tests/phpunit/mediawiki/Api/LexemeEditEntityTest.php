@@ -335,7 +335,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$message = $exception->getMessageObject();
 		$this->assertEquals( 'bad-request', $message->getApiCode() );
-		$this->assertEquals( 'wikibaselexeme-api-error-json-field-has-wrong-type', $message->getKey() );
+		$this->assertEquals( 'apierror-wikibaselexeme-json-field-has-wrong-type', $message->getKey() );
 		$this->assertEquals(
 			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 0 ] ],
 			$message->getApiData()
@@ -799,7 +799,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$message = $e->getMessageObject();
 			$this->assertInstanceOf( ApiMessage::class, $message );
 			$this->assertEquals(
-				'wikibaselexeme-api-error-form-must-have-at-least-one-representation',
+				'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
 				$message->getKey(),
 				'Wrong message codes'
 			);
@@ -1100,7 +1100,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-parameter-not-form-id',
+				'key' => 'apierror-wikibaselexeme-parameter-not-form-id',
 				'params' => [ 'data', 'forms/0/id', '"L100-malformed"' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -1133,7 +1133,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-json-field-required',
+				'key' => 'apierror-wikibaselexeme-json-field-required',
 				'params' => [ 'data', 'forms/0', 'id' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -1165,7 +1165,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-parameter-not-form-id',
+				'key' => 'apierror-wikibaselexeme-parameter-not-form-id',
 				'params' => [ 'data', 'forms/0/id', '"L100-bad"' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -1202,7 +1202,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 			$this->assertInstanceOf( ApiMessage::class, $message );
 			$this->assertEquals(
-				'wikibaselexeme-api-error-json-field-not-item-id',
+				'apierror-wikibaselexeme-json-field-not-item-id',
 				$message->getKey(),
 				'Wrong message codes'
 			);
@@ -1247,7 +1247,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-parameter-not-form-id',
+				'key' => 'apierror-wikibaselexeme-parameter-not-form-id',
 				'params' => [ 'data', 'forms/0/id', '["justevil"]' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -1567,7 +1567,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-json-field-required',
+				'key' => 'apierror-wikibaselexeme-json-field-required',
 				'params' => [ 'data', 'forms/0/representations/la', 'value' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -1601,7 +1601,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-json-field-required',
+				'key' => 'apierror-wikibaselexeme-json-field-required',
 				'params' => [ 'data', 'representations/la', 'value' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -1638,7 +1638,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'inconsistent-language',
-				'key' => 'wikibaselexeme-api-error-language-inconsistent',
+				'key' => 'apierror-wikibaselexeme-language-inconsistent',
 				'params' => [ 'data', 'forms/0/representations/la', 'la', 'ay' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -2002,7 +2002,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
+				'key' => 'apierror-wikibaselexeme-parameter-not-lexeme-id',
 				'params' => [ 'data', '"foo"' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -2030,7 +2030,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'bad-request',
-				'key' => 'wikibaselexeme-api-error-parameter-not-lexeme-id',
+				'key' => 'apierror-wikibaselexeme-parameter-not-lexeme-id',
 				'params' => [ 'data', '"Q2"' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -2058,7 +2058,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$params,
 			[
 				'code' => 'not-found',
-				'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+				'key' => 'apierror-wikibaselexeme-lexeme-not-found',
 				'params' => [ 'data', 'L30000' ],
 				'data' => [
 					'parameterName' => 'data',
@@ -2220,7 +2220,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 			$this->assertSame( 'modification-failed', $message->getApiCode() );
 			$this->assertSame(
-				'wikibaselexeme-api-error-form-must-have-at-least-one-representation',
+				'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
 				$message->getKey()
 			);
 			$this->assertSame( [], $message->getParams() );

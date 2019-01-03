@@ -169,7 +169,7 @@ class ChangeOpSenseEditTest extends TestCase {
 
 	/**
 	 * @expectedException \Wikibase\Repo\ChangeOp\ChangeOpApplyException
-	 * @expectedExceptionMessage wikibaselexeme-api-error-sense-must-have-at-least-one-gloss
+	 * @expectedExceptionMessage apierror-wikibaselexeme-sense-must-have-at-least-one-gloss
 	 */
 	public function testApplyRemovingOnlyGlosses_throwsException() {
 		$sense = NewSense::havingId( 'S3' )

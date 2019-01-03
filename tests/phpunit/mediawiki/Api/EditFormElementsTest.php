@@ -123,7 +123,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'invalid form ID (random string not ID)' => [
 				[ 'formId' => 'foo', 'data' => $this->getDataParam() ],
 				[
-					'key' => 'wikibaselexeme-api-error-parameter-not-form-id',
+					'key' => 'apierror-wikibaselexeme-parameter-not-form-id',
 					// TODO Empty path questionable result of Error reuse (w/ and w/o path)
 					'params' => [ 'formId', '', '"foo"' ],
 					'code' => 'bad-request',
@@ -136,7 +136,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data not a well-formed JSON object' => [
 				[ 'formId' => self::DEFAULT_FORM_ID, 'data' => '{foo' ],
 				[
-					'key' => 'wikibaselexeme-api-error-parameter-invalid-json-object',
+					'key' => 'apierror-wikibaselexeme-parameter-invalid-json-object',
 					'params' => [ 'data', '{foo' ],
 					'code' => 'bad-request',
 					'data' => [
@@ -148,7 +148,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'Form is not found' => [
 				[ 'formId' => 'L999-F1', 'data' => json_encode( $basicData ) ],
 				[
-					'key' => 'wikibaselexeme-api-error-form-not-found',
+					'key' => 'apierror-wikibaselexeme-form-not-found',
 					'params' => [ 'formId', 'L999-F1' ],
 					'code' => 'not-found',
 					'data' => [
@@ -166,7 +166,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					)
 				],
 				[
-					'key' => 'wikibaselexeme-api-error-json-field-not-item-id',
+					'key' => 'apierror-wikibaselexeme-json-field-not-item-id',
 					'params' => [ 'data', 'grammaticalFeatures/0', '"foo"' ],
 					'code' => 'bad-request', // TODO: was not-found, why?
 					'data' => [
@@ -183,7 +183,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					)
 				] ,
 				[
-					'key' => 'wikibaselexeme-api-error-json-field-not-item-id',
+					'key' => 'apierror-wikibaselexeme-json-field-not-item-id',
 					'params' => [ 'data', 'grammaticalFeatures/0', '"L2"' ],
 					'code' => 'bad-request', // TODO: was not-found, why?
 					'data' => [
@@ -200,7 +200,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					)
 				] ,
 				[
-					'key' => 'wikibaselexeme-api-error-invalid-item-id',
+					'key' => 'apierror-wikibaselexeme-invalid-item-id',
 					'params' => [ 'data', 'grammaticalFeatures', 'Q2' ],
 					'code' => 'bad-request',
 					'data' => [
@@ -255,7 +255,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		];
 
 		$this->doTestQueryApiException( $params, [
-			'key' => 'wikibaselexeme-api-error-form-must-have-at-least-one-representation',
+			'key' => 'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
 			'code' => 'unprocessable-request',
 		] );
 	}
