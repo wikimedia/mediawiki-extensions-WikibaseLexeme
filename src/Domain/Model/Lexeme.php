@@ -84,7 +84,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	 * @param int $nextFormId
 	 * @param FormSet|null $forms
 	 * @param int $nextSenseId
-	 * @param SenseSet $senses
+	 * @param SenseSet|null $senses
 	 */
 	public function __construct(
 		LexemeId $id = null,

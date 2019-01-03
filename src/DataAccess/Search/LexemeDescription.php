@@ -39,7 +39,7 @@ class LexemeDescription {
 
 	/**
 	 * Get label or return empty string.
-	 * @param EntityId $id
+	 * @param EntityId|null $id
 	 * @param string $default Default value if unable to retrieve label
 	 * @return string Label or "" if does not exist.
 	 */
