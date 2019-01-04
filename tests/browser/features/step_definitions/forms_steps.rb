@@ -50,11 +50,11 @@ end
 
 When(/^I click the Forms list add button$/) do
   on(LexemePage).add_lexeme_form_element.when_visible.click
-  @form_I_am_currently_editing = on(LexemePage).forms[-1]
+  @form_i_am_currently_editing = on(LexemePage).forms[-1]
 end
 
 When(/^I enter "(.*?)" as the "(.*?)" form representation$/) do |representation, language|
-  last_representation = @form_I_am_currently_editing.representations[-1]
+  last_representation = @form_i_am_currently_editing.representations[-1]
 
   last_representation.value_input = representation
   last_representation.language_input = language
@@ -62,10 +62,10 @@ end
 
 When(/^I save the Form$/) do
   # TODO: Had some problems here with element clickability, but failed to reproduce. Fix is probably needed
-  @form_I_am_currently_editing.save_element.when_visible.click
+  @form_i_am_currently_editing.save_element.when_visible.click
 
   # Wait till the form is saved
-  @form_I_am_currently_editing.edit_element.when_visible
+  @form_i_am_currently_editing.edit_element.when_visible
 end
 
 Then(/^"(.*?)" should be displayed as the "(.*?)" representation of the Form$/) do |value, language|
@@ -78,7 +78,7 @@ Then(/^"(.*?)" should be displayed as the "(.*?)" representation of the Form$/) 
 end
 
 When(/^I click on the add representation button$/) do
-  @form_I_am_currently_editing.add_representation_element.when_visible.click
+  @form_i_am_currently_editing.add_representation_element.when_visible.click
 end
 
 Given(/^I have a Lexeme with a Form$/) do
@@ -91,13 +91,13 @@ Given(/^I have a Lexeme with a Form$/) do
 end
 
 When(/^I click on the first Form's edit button$/) do
-  @form_I_am_currently_editing = on(LexemePage).forms[0]
-  @form_I_am_currently_editing.edit_element.when_visible.click
+  @form_i_am_currently_editing = on(LexemePage).forms[0]
+  @form_i_am_currently_editing.edit_element.when_visible.click
 end
 
 When(/^I select the test item as the grammatical feature$/) do
-  @form_I_am_currently_editing.grammatical_features_input_element.send_keys(@item_under_test['label'])
-  @form_I_am_currently_editing.grammatical_feature_selection_first_option_element.when_visible.click
+  @form_i_am_currently_editing.grammatical_features_input_element.send_keys(@item_under_test['label'])
+  @form_i_am_currently_editing.grammatical_feature_selection_first_option_element.when_visible.click
 end
 
 Then(/^I should see the item's label in the list of grammatical features of the first Form$/) do
@@ -108,30 +108,30 @@ Then(/^I should see the item's label in the list of grammatical features of the 
 end
 
 When(/^I cancel the editing of the Form$/) do
-  @form_I_am_currently_editing.cancel_element.when_visible.click
+  @form_i_am_currently_editing.cancel_element.when_visible.click
 end
 
 Then(/^I don't see the Form$/) do
-  expect(@form_I_am_currently_editing.exists?).to be false
+  expect(@form_i_am_currently_editing.exists?).to be false
 end
 
 When(/^I click add statement on the Form$/) do
-  @form_I_am_currently_editing.statement_group.add_statement_element.when_visible.click
-  @statement_I_am_currently_editing = @form_I_am_currently_editing.statement_group.statements[-1]
+  @form_i_am_currently_editing.statement_group.add_statement_element.when_visible.click
+  @statement_i_am_currently_editing = @form_i_am_currently_editing.statement_group.statements[-1]
 end
 
 When(/^I save the statement$/) do
-  @statement_I_am_currently_editing.save_element.when_visible.click
+  @statement_i_am_currently_editing.save_element.when_visible.click
   on(LexemePage).ajax_wait
 end
 
 Then(/^I see (.+?)=(.+?) statement in the Form statement list$/) do |handle, property_value|
   property_label = @properties[handle]['label']
   Watir::Wait.until(timeout = 5) do
-    @form_I_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)
+    @form_i_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)
   end
 
-  expect(@form_I_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)).to be true
+  expect(@form_i_am_currently_editing.statement_group.statement_with_value?(property_label, property_value)).to be true
 end
 
 Given(/^a grammatical feature exists for the first Form of the Lexeme$/) do
