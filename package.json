@@ -34,6 +34,9 @@
     "wdio-spec-reporter": "0.1.4",
     "webdriverio": "4.13.1"
   },
+  "optionalDependecies": {
+    "wdio-wikibase": "file:../Wikibase/repo/tests/selenium/wdio-wikibase"
+  },
   "_moduleAliases": {
     "wikibase.lexeme.widgets.InvalidLanguageIndicator": "./resources/widgets/InvalidLanguageIndicator.js",
     "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
@@ -54,5 +57,7 @@
     "wikibase.lexeme.store.mutations": "./resources/store/mutations.js",
     "wikibase.lexeme.store.mutationTypes": "./resources/store/mutationTypes.js"
   },
-  "browserslist": ["ie 11"]
+  "browserslist": [
+    "ie 11"
+  ]
 }

@@ -4,8 +4,17 @@ const MWBot = require( 'mwbot' ),
 	bot = new MWBot( {
 		apiUrl: browser.options.baseUrl + '/api.php'
 	} ),
-	Util = require( 'wdio-mediawiki/Util' ),
+	Util = require( 'wdio-mediawiki/Util' );
+let WikibaseApi;
+try {
 	WikibaseApi = require( '../../../Wikibase/repo/tests/selenium/wikibase.api' );
+} catch ( e ) {
+	try {
+		WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
+	} catch ( e2 ) {
+		WikibaseApi = require( '../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
+	}
+}
 
 class LexemeApi {
 

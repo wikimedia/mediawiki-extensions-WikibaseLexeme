@@ -2,9 +2,19 @@
 
 const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
-	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' );
+
+let WikibaseApi;
+try {
+	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' );
+} catch ( e ) {
+	try {
+		WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
+	} catch ( e2 ) {
+		WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
+	}
+}
 
 describe( 'Lexeme:Statements', () => {
 
