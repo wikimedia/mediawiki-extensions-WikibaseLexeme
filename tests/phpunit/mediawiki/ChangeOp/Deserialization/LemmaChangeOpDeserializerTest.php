@@ -148,7 +148,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 		$message = $exception->getMessageObject();
 		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
 		$this->assertEquals(
-			'wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty',
+			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',
 			$message->getKey()
 		);
 		$this->assertEquals(

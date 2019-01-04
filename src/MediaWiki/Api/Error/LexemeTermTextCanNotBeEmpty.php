@@ -12,7 +12,7 @@ class LexemeTermTextCanNotBeEmpty implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
-			'wikibaselexeme-api-error-lexeme-term-text-cannot-be-empty',
+			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',
 			[]
 		);
 		return new \ApiMessage(

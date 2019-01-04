@@ -90,7 +90,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
 				[
-					'key' => 'wikibaselexeme-api-error-parameter-not-sense-id',
+					'key' => 'apierror-wikibaselexeme-parameter-not-sense-id',
 					'params' => [ 'id', '', '"foo"' ], // TODO Empty path questionable result of reuse
 					'code' => 'bad-request',
 					'data' => [
@@ -102,7 +102,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			'Lexeme is not found' => [
 				[ 'id' => 'L999-S1' ],
 				[
-					'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+					'key' => 'apierror-wikibaselexeme-lexeme-not-found',
 					'params' => [ 'id', 'L999' ],
 					'code' => 'not-found',
 					'data' => [
@@ -114,7 +114,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			'Sense is not found' => [
 				[ 'id' => 'L1-S4711' ],
 				[
-					'key' => 'wikibaselexeme-api-error-sense-not-found',
+					'key' => 'apierror-wikibaselexeme-sense-not-found',
 					'params' => [ 'id', 'L1-S4711' ],
 					'code' => 'not-found',
 					'data' => [

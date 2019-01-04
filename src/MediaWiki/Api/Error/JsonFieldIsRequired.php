@@ -24,7 +24,7 @@ class JsonFieldIsRequired implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
-			'wikibaselexeme-api-error-json-field-required',
+			'apierror-wikibaselexeme-json-field-required',
 			[ $parameterName, implode( '/', $path ), $this->field ]
 		);
 		return new \ApiMessage( $message, 'bad-request' );

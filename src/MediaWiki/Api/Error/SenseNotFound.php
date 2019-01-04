@@ -25,7 +25,7 @@ class SenseNotFound implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new Message(
-			'wikibaselexeme-api-error-sense-not-found',
+			'apierror-wikibaselexeme-sense-not-found',
 			[ $parameterName, $this->senseId->serialize() ]
 		);
 		return new ApiMessage( $message, 'not-found', [

@@ -30,7 +30,7 @@ class ParameterIsNotSenseId implements ApiError {
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new Message(
-			'wikibaselexeme-api-error-parameter-not-sense-id',
+			'apierror-wikibaselexeme-parameter-not-sense-id',
 			[ $parameterName, implode( '/', $path ), json_encode( $this->given ) ]
 		);
 		return new ApiMessage( $message, 'bad-request' );

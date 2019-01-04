@@ -90,7 +90,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
 				[
-					'key' => 'wikibaselexeme-api-error-parameter-not-form-id',
+					'key' => 'apierror-wikibaselexeme-parameter-not-form-id',
 					'params' => [ 'id', '', '"foo"' ], // TODO Empty path questionable result of reuse
 					'code' => 'bad-request',
 					'data' => [
@@ -102,7 +102,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			'Lexeme is not found' => [
 				[ 'id' => 'L999-F1' ],
 				[
-					'key' => 'wikibaselexeme-api-error-lexeme-not-found',
+					'key' => 'apierror-wikibaselexeme-lexeme-not-found',
 					'params' => [ 'id', 'L999' ],
 					'code' => 'not-found',
 					'data' => [
@@ -114,7 +114,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			'Form is not found' => [
 				[ 'id' => 'L1-F4711' ],
 				[
-					'key' => 'wikibaselexeme-api-error-form-not-found',
+					'key' => 'apierror-wikibaselexeme-form-not-found',
 					'params' => [ 'id', 'L1-F4711' ],
 					'code' => 'not-found',
 					'data' => [

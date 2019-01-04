@@ -11,7 +11,7 @@ class InvalidFormClaims implements ApiError {
 
 	public function asApiMessage( $parameterName, array $path ) {
 		return new \ApiMessage( new Message(
-			'wikibaselexeme-api-error-invalid-form-claims',
+			'apierror-wikibaselexeme-invalid-form-claims',
 			[ $parameterName, implode( '/', $path ) ]
 		), 'bad-request' );
 	}
