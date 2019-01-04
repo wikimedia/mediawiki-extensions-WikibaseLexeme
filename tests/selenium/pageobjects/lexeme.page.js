@@ -5,19 +5,13 @@ const Page = require( 'wdio-mediawiki/Page' ),
 
 let MixinBuilder, MainStatementSection, ComponentInteraction;
 try {
-	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/pagesections/mixinbuilder' );
-	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/pagesections/main.statement.section' );
-	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/pagesections/ComponentInteraction' );
+	MixinBuilder = require( 'wdio-wikibase/pagesections/mixinbuilder' );
+	MainStatementSection = require( 'wdio-wikibase/pagesections/main.statement.section' );
+	ComponentInteraction = require( 'wdio-wikibase/pagesections/ComponentInteraction' );
 } catch ( e ) {
-	try {
-		MixinBuilder = require( 'wdio-wikibase/pagesections/mixinbuilder' );
-		MainStatementSection = require( 'wdio-wikibase/pagesections/main.statement.section' );
-		ComponentInteraction = require( 'wdio-wikibase/pagesections/ComponentInteraction' );
-	} catch ( e2 ) {
-		MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/mixinbuilder' );
-		MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/main.statement.section' );
-		ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/ComponentInteraction' );
-	}
+	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/mixinbuilder' );
+	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/main.statement.section' );
+	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/ComponentInteraction' );
 }
 
 class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, ComponentInteraction ) {

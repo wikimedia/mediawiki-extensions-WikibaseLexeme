@@ -7,13 +7,9 @@ const assert = require( 'assert' ),
 
 let WikibaseApi;
 try {
-	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wikibase.api' );
+	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 } catch ( e ) {
-	try {
-		WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
-	} catch ( e2 ) {
-		WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
-	}
+	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
 }
 
 describe( 'Lexeme:Statements', () => {
