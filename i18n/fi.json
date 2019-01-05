@@ -6,5 +6,5 @@
 		]
 	},
 	"apihelp-wbladdform-param-lexemeId": "Lekseemin ID, esim. L10",
-	"wikibaselexeme-api-error-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä"
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä"
 }

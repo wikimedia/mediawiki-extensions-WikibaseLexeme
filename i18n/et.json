@@ -45,7 +45,7 @@
 	"wikibaselexeme-add-sense": "lisa tähendus",
 	"wikibaselexeme-add-form": "lisa vorm",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Esines tõrge: Viimast lemmat ei saa eemaldada.",
-	"wikibaselexeme-api-error-parameter-required": "Parameeter \"$1\" on nõutav",
+	"apierror-wikibaselexeme-parameter-required": "Parameeter \"$1\" on nõutav",
 	"wikibase-lexeme-summary-add-form": "Lisatud uus {{PLURAL:$1|kirjakujuga|kirjakujudega}} vorm $3",
 	"wikibase-lexeme-summary-remove-form": "Eemaldatud {{PLURAL:$1|kirjakujuga|kirjakujudega}} vorm $3",
 	"wikibase-lexeme-summary-update-form-representations": "Muudetud vormi $3 kirjakujusid ja/või grammatilisi tähendusi",

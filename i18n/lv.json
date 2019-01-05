@@ -6,6 +6,6 @@
 		]
 	},
 	"datatypes-type-wikibase-form": "Forma",
-	"wikibaselexeme-api-error-parameter-required": "Parametrs \"$1\" ir obligāts",
+	"apierror-wikibaselexeme-parameter-required": "Parametrs \"$1\" ir obligāts",
 	"wikibaselexeme-field-language-label": "Valoda"
 }
