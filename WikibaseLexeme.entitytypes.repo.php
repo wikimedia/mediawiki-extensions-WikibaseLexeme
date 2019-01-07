@@ -11,6 +11,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
@@ -52,6 +53,7 @@ use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\EntityInfo;
+use Wikibase\Lib\Store\Sql\EntityIdLocalPartPageTableEntityQuery;
 use Wikibase\Rdf\DedupeBag;
 use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\RdfVocabulary;
@@ -415,6 +417,16 @@ return [
 				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
 			);
 		},
+		'entity-metadata-accessor-callback' => function ( $dbName, $repoName ) {
+			$entityNamespaceLookup = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
+			$entityQuery = new EntityIdLocalPartPageTableEntityQuery(
+				$entityNamespaceLookup,
+				MediaWikiServices::getInstance()->getSlotRoleStore()
+			);
+			return new MediaWikiPageSubEntityMetaDataAccessor(
+				WikibaseRepo::getDefaultInstance()->getLocalRepoWikiPageMetaDataAccessor()
+			);
+		},
 	],
 	'sense' => [
 		// TODO lexemes and forms have identical content-handler-factory-callback, extract
@@ -507,6 +519,16 @@ return [
 				new MediaWikiLocalizedTextProvider( $language ),
 				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $language ),
 				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() )
+			);
+		},
+		'entity-metadata-accessor-callback' => function ( $dbName, $repoName ) {
+			$entityNamespaceLookup = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
+			$entityQuery = new EntityIdLocalPartPageTableEntityQuery(
+				$entityNamespaceLookup,
+				MediaWikiServices::getInstance()->getSlotRoleStore()
+			);
+			return new MediaWikiPageSubEntityMetaDataAccessor(
+				WikibaseRepo::getDefaultInstance()->getLocalRepoWikiPageMetaDataAccessor()
 			);
 		},
 	],
