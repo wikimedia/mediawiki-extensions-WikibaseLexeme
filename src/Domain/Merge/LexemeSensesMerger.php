@@ -14,17 +14,27 @@ use Wikibase\Repo\ChangeOp\ChangeOps;
 class LexemeSensesMerger {
 
 	/**
+	 * @var GuidGenerator
+	 */
+	private $guidGenerator;
+
+	public function __construct(
+		GuidGenerator $guidGenerator
+	) {
+		$this->guidGenerator = $guidGenerator;
+	}
+
+	/**
 	 * @param Lexeme $source
 	 * @param Lexeme $target Will be modified by reference
 	 */
 	public function merge( Lexeme $source, Lexeme $target ) {
 		$changeOps = new ChangeOps();
-		$guidGenerator = new GuidGenerator();
 
 		foreach ( $source->getSenses()->toArray() as $sourceSense ) {
 			$changeOps->add( new ChangeOpSenseAdd(
 				new ChangeOpSenseClone( $sourceSense ),
-				$guidGenerator
+				$this->guidGenerator
 			) );
 		}
 

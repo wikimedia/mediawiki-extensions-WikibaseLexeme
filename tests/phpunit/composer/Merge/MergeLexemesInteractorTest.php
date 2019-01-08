@@ -140,7 +140,9 @@ class MergeLexemesInteractorTest extends TestCase {
 				$statementsMerger,
 				new GuidGenerator()
 			),
-			new LexemeSensesMerger(),
+			new LexemeSensesMerger(
+				new GuidGenerator()
+			),
 			$crossRefValidator
 		);
 

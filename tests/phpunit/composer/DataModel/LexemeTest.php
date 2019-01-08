@@ -326,6 +326,20 @@ class LexemeTest extends TestCase {
 		$withFormAndFeatureQ2 = $this->newLexemeWithForm( $newFormGoatFeatureQ2->build() );
 		$withFormAndFeatureQ1andQ2 = $this->newLexemeWithForm( $newFormGoatFeatureQ1andQ2->build() );
 
+		$goatSense = NewSense::havingId( 'S1' );
+		$goatSense->withGloss( 'en', 'goat' );
+		$withSense = NewLexeme::havingId( 'L1' )
+			->withSense( $goatSense->build() )
+			->build();
+
+		$catSense = NewSense::havingId( 'S2' );
+		$catSense->withGloss( 'en', 'cat' );
+		$withSenseButDifferentCounter = NewLexeme::havingId( 'L1' )
+			->withSense( $goatSense->build() )
+			->withSense( $catSense->build() )
+			->build();
+		$withSenseButDifferentCounter->removeSense( new SenseId( 'L1-S2' ) );
+
 		return [
 			'true, empty' => [
 				true,
@@ -362,6 +376,11 @@ class LexemeTest extends TestCase {
 				$withForm1,
 				$withForm1Again
 			],
+			'true, same senses' => [
+				true,
+				$withSense,
+				clone $withSense
+			],
 			'false, differing form feature 1->2' => [
 				false, $withFormAndFeatureQ1, $withFormAndFeatureQ2
 			],
@@ -373,6 +392,12 @@ class LexemeTest extends TestCase {
 			],
 			'false, differing form feature 1->null ' => [
 				false, $withFormAndFeatureQ1, $withFormAndNoFeature
+			],
+			'false, differing sense' => [
+				false, $withSense, $empty
+			],
+			'false, differing sense counter' => [
+				false, $withSense, $withSenseButDifferentCounter
 			],
 		];
 	}
