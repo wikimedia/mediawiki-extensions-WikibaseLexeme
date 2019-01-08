@@ -62,4 +62,40 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testSenseAdditionUndo() {
+		$emptyLexeme = NewLexeme::havingId( 'L123' )->build();
+		$expected = $emptyLexeme->copy();
+
+		$this->saveEntity( $emptyLexeme );
+
+		list( $result, ) = $this->doApiRequestWithToken( [
+			'action' => 'wbladdsense',
+			'lexemeId' => 'L123',
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [
+						'language' => 'en',
+						'value' => 'goatGloss',
+					],
+				],
+			] ),
+		] );
+		$this->assertEquals( 1, $result['success'] );
+
+		list( $result, ) = $this->doApiRequestWithToken( [
+			'action' => 'edit',
+			'title' => 'Lexeme:L123',
+			'undo' => $result['lastrevid'],
+		] );
+		$this->assertEquals( 'Success', $result['edit']['result'] );
+
+		$this->assertTrue(
+			$expected->equals(
+				$this->wikibaseRepo->getStore()
+					->getEntityLookup( Store::LOOKUP_CACHING_DISABLED )
+					->getEntity( $expected->getId() )
+			)
+		);
+	}
+
 }
