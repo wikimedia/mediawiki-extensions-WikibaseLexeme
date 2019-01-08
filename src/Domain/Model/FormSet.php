@@ -162,8 +162,6 @@ class FormSet implements Countable, Comparable {
 	}
 
 	/**
-	 * @param Form[]
-	 *
 	 * @return bool
 	 */
 	private function sameForms( FormSet $other ) {
