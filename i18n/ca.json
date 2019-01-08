@@ -105,6 +105,7 @@
 	"wikibase-lexeme-mergelexemes-from-id": "L'ID del qual fusionar",
 	"wikibase-lexeme-mergelexemes-to-id": "L'ID al qual fusionar",
 	"wikibase-lexeme-mergelexemes-submit": "Fusiona els lexemes",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» no és un identificador de lexema vàlid",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "no s'ha trobat '$1'",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "No s'ha pogut carregar el lexema.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "No s'ha pogut desar el lexema.",
