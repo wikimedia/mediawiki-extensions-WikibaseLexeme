@@ -41,8 +41,6 @@
 		"promise/no-native": "error",
 		"valid-jsdoc": "off",
 		"vars-on-top": "off",
-		"wrap-iife": "off",
-		"no-restricted-properties": "off",
-		"no-restricted-syntax": "off"
+		"wrap-iife": "off"
 	}
 }
