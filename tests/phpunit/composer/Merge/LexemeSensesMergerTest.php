@@ -71,7 +71,7 @@ class LexemeSensesMergerTest extends TestCase {
 						->withGloss( 'en-gb', 'colour' )
 				)->build()
 		];
-		yield 'sense glosses get merged (TODO FIXME, Lexeme::equals was broken)' => [
+		yield 'sense with same gloss gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
 				->withSense(
 					NewSense::havingId( 'S1' )
@@ -96,28 +96,7 @@ class LexemeSensesMergerTest extends TestCase {
 				)
 				->build()
 		];
-//		yield 'sense glosses get merged' => [
-//			$this->newMinimumValidLexeme( 'L2' )
-//				->withSense(
-//					NewSense::havingId( 'S1' )
-//						->withGloss( 'en', 'color' )
-//				)
-//				->build(),
-//			$this->newMinimumValidLexeme( 'L1' )
-//				->withSense(
-//					NewSense::havingId( 'S1' )
-//						->withGloss( 'en', 'color' )
-//						->withGloss( 'en-gb', 'colour' )
-//				)
-//				->build(),
-//			$this->newMinimumValidLexeme( 'L2' )
-//				->withSense(
-//					NewSense::havingId( 'S1' )
-//						->withGloss( 'en', 'color' )
-//				)
-//				->build()
-//		];
-		yield 'sense statement gets copied  (TODO FIXME, Lexeme::equals was broken)' => [
+		yield 'sense with same gloss and statement gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
 				->withSense(
 					NewSense::havingId( 'S1' )
@@ -149,36 +128,7 @@ class LexemeSensesMergerTest extends TestCase {
 						->withGloss( 'en', 'color' )
 				)->build()
 		];
-//		yield 'sense statement gets copied' => [
-//			$this->newMinimumValidLexeme( 'L2' )
-//				->withSense(
-//					NewSense::havingId( 'S1' )
-//						->withGloss( 'en', 'color' )
-//						->withStatement(
-//							NewStatement::forProperty( 'P4711' )
-//								->withGuid( 'L2-S1$00000000-0000-0000-0000-000000000000' )
-//								->withValue( new LexemeId( 'L42' ) )
-//								->build()
-//						)
-//				)->build(),
-//			$this->newMinimumValidLexeme( 'L1' )
-//				->withSense(
-//					NewSense::havingId( 'S1' )
-//						->withGloss( 'en', 'color' )
-//						->withStatement(
-//							NewStatement::forProperty( 'P4711' )
-//								->withGuid( 'L1-S1$00000000-0000-0000-0000-000000000000' )
-//								->withValue( new LexemeId( 'L42' ) )
-//								->build()
-//						)
-//				)->build(),
-//			$this->newMinimumValidLexeme( 'L2' )
-//				->withSense(
-//					NewSense::havingId( 'S1' )
-//						->withGloss( 'en', 'color' )
-//				)->build()
-//		];
-		yield 'sense with statement gets copied' => [
+		yield 'sense with different gloss and statement gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
 				->withSense(
 					NewSense::havingId( 'S1' )
