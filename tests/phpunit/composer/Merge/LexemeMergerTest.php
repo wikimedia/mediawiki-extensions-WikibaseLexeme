@@ -593,7 +593,9 @@ class LexemeMergerTest extends TestCase {
 		$throwingFormsMerger->expects( $this->once() )
 			->method( 'merge' )
 			->willThrowException( $expectedException );
-		$sensesMerger = new LexemeSensesMerger();
+		$sensesMerger = new LexemeSensesMerger(
+			new GuidGenerator()
+		);
 
 		$merger = new LexemeMerger(
 			$this->createMock( StatementsMerger::class ),
@@ -923,7 +925,9 @@ class LexemeMergerTest extends TestCase {
 				$statementsMerger,
 				new GuidGenerator()
 			),
-			new LexemeSensesMerger(),
+			new LexemeSensesMerger(
+				new GuidGenerator()
+			),
 			$noCrossReferencingStatementsValidator
 		);
 	}

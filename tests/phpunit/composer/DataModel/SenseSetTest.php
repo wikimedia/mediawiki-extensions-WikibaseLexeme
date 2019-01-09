@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 
@@ -149,6 +150,62 @@ class SenseSetTest extends TestCase {
 			$senseSet->getById( $sense1->getId() ),
 			$senseSetCopy->getById( $sense1->getId() )
 		);
+	}
+
+	/**
+	 * @dataProvider equalsProvider
+	 */
+	public function testEquals( SenseSet $set1, $set2, $isEqual ) {
+		$this->assertSame( $isEqual, $set1->equals( $set2 ) );
+	}
+
+	public function equalsProvider() {
+		yield 'empty sets' => [
+			new SenseSet(),
+			new SenseSet(),
+			true
+		];
+
+		yield 'not a SenseSet - not equal' => [
+			new SenseSet(),
+			[],
+			false
+		];
+
+		$sense = NewSense::havingId( new SenseId( 'L1-S1' ) )
+			->withGloss( 'en', 'potato' )
+			->build();
+		yield 'same Sense' => [
+			new SenseSet( [ $sense ] ),
+			new SenseSet( [ $sense->copy() ] ),
+			true
+		];
+
+		$sense2 = NewSense::havingId( new SenseId( 'L12-S2' ) )
+			->withGloss( 'de', 'Kartoffel' )
+			->build();
+		yield 'different order of Senses' => [
+			new SenseSet( [ $sense, $sense2 ] ),
+			new SenseSet( [ $sense2, $sense ] ),
+			true
+		];
+
+		$blankSense = new BlankSense();
+		$blankSense->setGlosses( $sense->getGlosses() );
+		yield 'Sense and equivalent BlankSense' => [
+			new SenseSet( [ $sense ] ),
+			new SenseSet( [ $blankSense->getRealSense( $sense->getId() ) ] ),
+			true
+		];
+
+		$sense3 = NewSense::havingId( new SenseId( 'L12-S3' ) )
+			->withGloss( 'ru', 'карто́фель' )
+			->build();
+		yield 'one replaced Sense but same length' => [
+			new SenseSet( [ $sense, $sense2 ] ),
+			new SenseSet( [ $sense, $sense3 ] ),
+			false
+		];
 	}
 
 }

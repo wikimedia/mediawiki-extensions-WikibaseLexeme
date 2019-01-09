@@ -117,13 +117,17 @@ class WikibaseLexemeServices {
 			->getMergeFactory()
 			->getStatementsMerger();
 
+		$guidGenerator = new GuidGenerator();
+
 		return new LexemeMerger(
 			$statementsMerger,
 			new LexemeFormsMerger(
 				$statementsMerger,
-				new GuidGenerator()
+				$guidGenerator
 			),
-			new LexemeSensesMerger(),
+			new LexemeSensesMerger(
+				$guidGenerator
+			),
 			$this->newNoCrossReferencingLexemeStatements()
 		);
 	}
