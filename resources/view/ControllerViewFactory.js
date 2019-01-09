@@ -282,7 +282,7 @@
 	SELF.prototype._getExistingGrammaticalFormattedFeatures = function ( $element ) {
 		var features = {};
 
-		$.each( $element.find( '.wikibase-lexeme-form-grammatical-features-values > a' ), function ( i, el ) {
+		$element.find( '.wikibase-lexeme-form-grammatical-features-values > a' ).each( function ( i, el ) {
 			features[ el.title.replace( 'Item:', '' ) ] = el.outerHTML; // TODO Find proper way to get Item ID here
 		} );
 

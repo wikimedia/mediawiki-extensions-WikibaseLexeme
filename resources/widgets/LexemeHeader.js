@@ -29,6 +29,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb ) {
 	 */
 	function hydrateLemmas( lemmaInfo ) {
 		var lemmas = [];
+		// eslint-disable-next-line jquery/no-each-util
 		$.each( lemmaInfo, function ( index, lemma ) {
 			lemmas.push( new Lemma( lemma.value, lemma.language ) );
 		} );
