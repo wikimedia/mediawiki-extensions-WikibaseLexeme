@@ -42,7 +42,6 @@
 		"valid-jsdoc": "off",
 		"vars-on-top": "off",
 		"wrap-iife": "off",
-		"jquery/no-in-array": "off",
 		"max-statements-per-line": "off",
 		"no-restricted-properties": "off",
 		"no-restricted-syntax": "off"
