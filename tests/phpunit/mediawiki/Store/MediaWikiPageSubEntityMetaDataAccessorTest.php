@@ -72,15 +72,15 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_Test
 		$expectedEntityIds = [],
 		$mockedRevIds = []
 	) {
-		$latestRevisonIDs = [];
+		$latestRevisionIDs = [];
 		foreach ( $expectedEntityIds as $key => $expectedEntityId ) {
-			$latestRevisonIDs[ $expectedEntityId->getSerialization() ] = $mockedRevIds[ $key ];
+			$latestRevisionIDs[ $expectedEntityId->getSerialization() ] = $mockedRevIds[ $key ];
 		}
 		$mockAccessorInternal = $this->createMock( WikiPageEntityMetaDataAccessor::class );
 		$mockAccessorInternal->expects( $this->once() )
 			->method( 'loadLatestRevisionIds' )
 			->with( $expectedEntityIds )
-			->willReturn( $latestRevisonIDs );
+			->willReturn( $latestRevisionIDs );
 		return new MediaWikiPageSubEntityMetaDataAccessor(
 			$mockAccessorInternal
 		);
