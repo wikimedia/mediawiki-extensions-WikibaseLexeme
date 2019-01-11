@@ -17,7 +17,19 @@ module.exports = function ( grunt ) {
 				'!node_modules/**',
 				'!resources/vendor/**',
 				'!vendor/**'
-			]
+			],
+			fix: {
+				options: {
+					fix: true
+				},
+				src: [
+					'**/*.js',
+					'!Gruntfile.js',
+					'!node_modules/**',
+					'!resources/vendor/**',
+					'!vendor/**'
+				]
+			}
 		},
 		stylelint: {
 			all: [
@@ -51,6 +63,7 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint', 'jsonlint', 'banana', 'jasmine_nodejs', 'stylelint' ] );
+	grunt.registerTask( 'test', [ 'eslint:all', 'jsonlint', 'banana', 'jasmine_nodejs', 'stylelint' ] );
+	grunt.registerTask( 'fix', 'eslint:fix' );
 	grunt.registerTask( 'default', 'test' );
 };
