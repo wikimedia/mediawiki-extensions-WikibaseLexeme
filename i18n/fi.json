@@ -5,6 +5,20 @@
 			"Pyscowicz"
 		]
 	},
+	"special-newlexeme": "Luo uusi lekseemi",
+	"special-mergelexemes": "Yhdistä kaksi lekseemiä",
+	"wikibaselexeme-newlexeme-fieldset": "Luo uusi lekseemi",
+	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"wikibaselexeme-lemma-edit-placeholder": "Lemma on yleensä sanan lyhin muoto",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Leksikaalinen luokka",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Syötä leksikaalinen luokka, esim. substantiivi",
+	"wikibaselexeme-newlexeme-language": "Lekseemin kieli",
+	"wikibaselexeme-newlexeme-language-placeholder": "Syötä kieli, esim. suomi",
+	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseemi",
 	"apihelp-wbladdform-param-lexemeId": "Lekseemin ID, esim. L10",
-	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä"
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä",
+	"wikibaselexeme-field-lexical-category-label": "Leksikaalinen luokka",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"content-model-wikibase-lexeme": "Wikibase lekseemi"
 }
