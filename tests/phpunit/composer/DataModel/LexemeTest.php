@@ -608,6 +608,16 @@ class LexemeTest extends TestCase {
 		$this->assertSame( $lexicalCategory, $lexeme->getLexicalCategory() );
 	}
 
+	public function testSetLexicalCategoryNull() {
+		$id = new LexemeId( 'L1' );
+
+		$lexeme = new Lexeme( $id );
+		$lexeme->setLexicalCategory( null );
+
+		$this->setExpectedException( UnexpectedValueException::class );
+		$lexeme->getLexicalCategory();
+	}
+
 	public function testSetLanguage() {
 		$id = new LexemeId( 'L2' );
 		$language = new ItemId( 'Q44' );
@@ -616,6 +626,16 @@ class LexemeTest extends TestCase {
 		$lexeme->setLanguage( $language );
 
 		$this->assertSame( $language, $lexeme->getLanguage() );
+	}
+
+	public function testSetLanguageNull() {
+		$id = new LexemeId( 'L1' );
+
+		$lexeme = new Lexeme( $id );
+		$lexeme->setLanguage( null );
+
+		$this->setExpectedException( UnexpectedValueException::class );
+		$lexeme->getLanguage();
 	}
 
 	public function testAddOrUpdateSenseTwice_secondReturnedSenseHasIncrementedId() {
