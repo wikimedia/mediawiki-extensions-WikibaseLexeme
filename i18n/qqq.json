@@ -146,7 +146,7 @@
 	"wikibaselexeme-lexeme-link-title": "{{optional}}\n\nValue of the \"title\" attribute of a link to lexeme page when the lexeme is displayed as HTML.\n\nParameters:\n* $1 - Lexeme ID\n* $2 - Lexeme's \"secondary label\" (language and lexical category).",
 	"wikibaselexeme-form-grammatical-features": "Label for the list of a form's grammatical features",
 	"wikibaselexeme-description": "Template for generating Lexeme description: Language + Lexical Category",
-	"wikibaselexeme-form-description": "Template for generating Form description",
+	"wikibaselexeme-form-description": "Template for generating a description of a Form, used when displaying search results. Parameters:\n* $1 - grammatical features\n* $2 - Lemma\n* $3 - Lexeme ID\n* $4 - computed Lemma description\n\nExample: [https://www.wikidata.org/w/index.php?search=%22fires%22&title=Special%3ASearch&profile=advanced&fulltext=1&advancedSearch-current=%7B%22namespaces%22%3A%5B146%5D%7D&ns146=1 Search for \"fires\" on wikidata]",
 	"wikibaselexeme-search-result-stats": "Statistics display as part of search result. Parameters:\n* $1 - Statements count, \n* $2 - Forms count.",
 	"wikibaselexeme-unknown-language": "Message for unknown language",
 	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
