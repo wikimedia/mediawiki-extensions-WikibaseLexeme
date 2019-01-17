@@ -39,17 +39,19 @@ class LexemeApi {
 			let bot = new MWBot( {
 				apiUrl: browser.options.baseUrl + '/api.php'
 			} );
-			return bot.getEditToken()
-				.then( () => {
-					return bot.request( {
-						action: 'wbeditentity',
-						'new': 'lexeme',
-						data: JSON.stringify( lexeme ),
-						token: bot.editToken
-					} ).then( ( payload ) => {
-						return payload.entity;
-					} );
+			return bot.loginGetEditToken( {
+				username: browser.options.username,
+				password: browser.options.password
+			} ).then( () => {
+				return bot.request( {
+					action: 'wbeditentity',
+					'new': 'lexeme',
+					data: JSON.stringify( lexeme ),
+					token: bot.editToken
+				} ).then( ( payload ) => {
+					return payload.entity;
 				} );
+			} );
 		} );
 	}
 
