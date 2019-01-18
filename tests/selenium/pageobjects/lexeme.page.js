@@ -205,6 +205,23 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		};
 	}
 
+	getNthSenseFormValues( index ) {
+		let sense = this.senses[ index ],
+			languageFields = sense.$$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ),
+			glossInputs = [];
+
+		_.each( sense.$$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE ), function ( element, key ) {
+			glossInputs.push( {
+				value: element.getValue(),
+				language: languageFields[ key ].getValue()
+			} );
+		} );
+
+		return {
+			glosses: glossInputs
+		};
+	}
+
 	addRepresentationToNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 

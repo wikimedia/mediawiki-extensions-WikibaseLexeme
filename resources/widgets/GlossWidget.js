@@ -2,7 +2,8 @@ module.exports = ( function ( require, Vue, wb ) {
 	'use strict';
 
 	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
-		InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' );
+		InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' ),
+		LanguageSelectorWrapper = require( 'wikibase.lexeme.widgets.LanguageSelectorWrapper' );
 
 	function deepClone( object ) {
 		return JSON.parse( JSON.stringify( object ) ).sort( function ( a, b ) {
@@ -34,6 +35,10 @@ module.exports = ( function ( require, Vue, wb ) {
 			template: template,
 
 			mixins: [ RedundantLanguageIndicator( 'glosses' ), invalidLanguageIndicator ],
+
+			components: {
+				'language-selector': LanguageSelectorWrapper( new wikibase.WikibaseContentLanguages() )
+			},
 
 			beforeUpdate: beforeUpdate,
 

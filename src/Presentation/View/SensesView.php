@@ -188,14 +188,16 @@ HTML;
 			<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
 				<td class="wikibase-lexeme-sense-gloss-language">
 					<span v-if="!inEditMode">{{gloss.language|languageName}}</span>
-					<input v-else class="wikibase-lexeme-sense-gloss-language-input"
-						:class="{
-							'wikibase-lexeme-sense-gloss-language-input_redundant-language':
-								isRedundantLanguage(gloss.language),
-							'wikibase-lexeme-sense-gloss-language-input_invalid-language':
-								isInvalidLanguage(gloss.language)
-						}"
-						v-model.lazy="gloss.language" >
+					<language-selector v-else class="wikibase-lexeme-sense-gloss-language-input"
+					:class="{
+						'wikibase-lexeme-sense-gloss-language-input_redundant-language':
+							isRedundantLanguage(gloss.language),
+						'wikibase-lexeme-sense-gloss-language-input_invalid-language':
+							isInvalidLanguage(gloss.language)
+				   }"
+				   v-model="gloss.language"
+				   :initialCode="gloss.language"
+				></language-selector>
 				</td>
 				<td class="wikibase-lexeme-sense-gloss-value-cell">
 					<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"
