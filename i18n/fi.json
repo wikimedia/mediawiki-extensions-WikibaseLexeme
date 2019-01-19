@@ -19,12 +19,14 @@
 	"datatypes-type-wikibase-lexeme": "Lekseemi",
 	"datatypes-type-wikibase-sense": "Merkitys",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseemi",
+	"wikibase-listdatatypes-wikibase-form-head": "Muoto",
 	"wikibase-listdatatypes-wikibase-sense-head": "Merkitys",
 	"apihelp-wbladdform-param-lexemeId": "Lekseemin ID, esim. L10",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Loi uuden lekseemin",
 	"wikibaselexeme-field-lexical-category-label": "Leksikaalinen luokka",
 	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-form": "Muoto",
 	"content-model-wikibase-lexeme": "Wikibase lekseemi",
 	"wikibaselexeme-form-grammatical-features": "Kieliopilliset ominaisuudet"
 }
