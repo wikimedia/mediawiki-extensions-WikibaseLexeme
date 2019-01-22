@@ -121,7 +121,7 @@ class MergeLexemesInteractor {
 		}
 
 		if ( $lexeme === null ) {
-			throw new LexemeNotFoundException();
+			throw new LexemeNotFoundException( $lexemeId );
 		}
 
 		return $lexeme;

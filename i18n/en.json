@@ -156,7 +156,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Merge Lexemes",
 	"wikibase-lexeme-mergelexemes-success": "$1 was merged into $2 and redirected.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' is not a valid Lexeme ID",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' not found",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' could not be found.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes have different Lemmas for the same spelling variant.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes link to each other in a statement.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Failed to merge Lexemes, please resolve any conflicts first. Error: Lexemes have different languages.",
