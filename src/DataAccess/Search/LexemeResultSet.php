@@ -35,7 +35,7 @@ class LexemeResultSet extends ResultSet {
 		LexemeDescription $descriptionMaker,
 		array $lexemeResults
 	) {
-		parent::__construct( [], [], $ESresult, false );
+		parent::__construct( false, $ESresult );
 		$this->displayLanguage = $displayLanguage;
 		$this->descriptionMaker = $descriptionMaker;
 		$this->rawResults = $lexemeResults;

@@ -83,7 +83,6 @@ class LexemeFullTextQueryBuilderTest extends MediaWikiTestCase {
 		$defaultBuilder->build( $context, $searchString );
 		// Dispatcher does this cleanup, so do it here
 		$context->setHighlightQuery( null );
-		$context->setSuggest( [] );
 		// do the job
 		$builder->build( $context, $searchString );
 		$query = $context->getQuery();
@@ -101,7 +100,6 @@ class LexemeFullTextQueryBuilderTest extends MediaWikiTestCase {
 		ini_set( 'serialize_precision', $serializePrecision );
 
 		$this->assertFileContains( $expected, $encoded );
-		$this->assertEquals( [], $context->getSuggest() );
 	}
 
 }
