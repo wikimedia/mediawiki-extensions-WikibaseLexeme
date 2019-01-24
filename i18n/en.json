@@ -95,7 +95,7 @@
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Term text cannot be empty",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Language cannot be empty",
 	"apierror-wikibaselexeme-language-inconsistent": "Language in field \"$1\" at \"$2\" was expected to be \"$3\". Given: \"$4\"",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Form must have at least one representation",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Form must have at least one representation and spelling variant",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Sense must have at least one gloss",
 	"apierror-wikibaselexeme-unknown-language": "Unknown language \"$3\" in field \"$1\" at \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "Invalid Item ID \"$3\" in field \"$1\" at \"$2\".",
