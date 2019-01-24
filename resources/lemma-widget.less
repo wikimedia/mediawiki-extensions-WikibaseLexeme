@@ -62,9 +62,9 @@
 			background-image: url( @icon-path );
 			/* @embed */
 			background-image: linear-gradient( transparent, transparent ), url( @icon-path );
-
 			opacity: 0.7;
 		}
+
 		&:hover:before {
 			opacity: 1;
 		}
@@ -75,25 +75,29 @@
 		border: 0;
 		cursor: pointer;
 		color: @colorProgressiveActive;
+		white-space: nowrap;
+
 		&:hover {
 			text-decoration: underline;
 		}
+
 		&[ disabled ] {
 			text-decoration: none;
 			cursor: default;
 			color: @button-disabled-color;
 		}
-		white-space: nowrap;
 	}
 
 	&_edit {
 		.button-displayed-as-link;
 		.prepend-with-wikibase-ooui-icon( 'edit.png' );
 	}
+
 	&_save {
 		.button-displayed-as-link;
 		.prepend-with-wikibase-ooui-icon( 'check.png' );
 	}
+
 	&_cancel {
 		.button-displayed-as-link;
 		.prepend-with-wikibase-ooui-icon( 'close.png' );
@@ -107,7 +111,6 @@
 		border-left: 6px solid #eaf3ff;
 		padding: 0 45px 0 9px;
 		margin: 0;
-
 		height: 132px;
 	}
 
@@ -115,7 +118,6 @@
 		resize: horizontal;
 		min-width: 120px;
 		padding-right: 20px;
-
 		font-size: 3em;
 	}
 
@@ -150,7 +152,6 @@
 		color: #074c99;
 		font-size: 2em;
 		cursor: pointer;
-
 		position: absolute;
 		top: -5px;
 		right: 23px;

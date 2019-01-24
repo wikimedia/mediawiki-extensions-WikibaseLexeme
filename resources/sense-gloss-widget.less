@@ -57,15 +57,15 @@
 	&:enabled {
 		color: @colorProgressive;
 		cursor: pointer;
+
 		&:hover {
 			text-decoration: underline;
 		}
 	}
 
-	&:disabled {
+	&:disabled { // stylelint-disable-line no-descending-specificity
 		color: @colorGray7;
 	}
-
 }
 
 .wikibase-lexeme-sense-gloss-language-input_invalid-language,
@@ -83,6 +83,7 @@
 	background-color: @warning-background;
 	border-color: @warning-color;
 }
+
 .wikibase-lexeme-sense-gloss_redundant-language-warning p {
 	padding: 0.5em 0.5em;
 }
