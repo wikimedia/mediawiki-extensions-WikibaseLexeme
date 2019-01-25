@@ -30,12 +30,26 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		super.openTitle( 'Special:NewLexeme', query );
 	}
 
+	/*
+	* Waits to see if eventually the form is shown
+	*/
 	showsForm() {
 		browser.waitForVisible( this.constructor.NEW_LEXEME_SELECTORS.LEMMA );
 		browser.waitForVisible( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE );
 		browser.waitForVisible( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY );
 
 		return true;
+	}
+
+	/*
+	* Checks if any elements of the form are currently visible
+	*/
+	formCurrentlyVisible() {
+		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).isVisible() ||
+			$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).isVisible() ||
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).isVisible() ||
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).isVisible();
+
 	}
 
 	createLexeme( lemma, language, lexicalCategory, lemmaLanguage ) {
@@ -103,6 +117,11 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	showsLemmaLanguageField() {
 		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
 		return true;
+	}
+
+	isUserBlockedErrorVisible() {
+		$( '#mw-returnto' ).waitForVisible();
+		return ( $( '#firstHeading' ).getText() === 'User is blocked' );
 	}
 
 }

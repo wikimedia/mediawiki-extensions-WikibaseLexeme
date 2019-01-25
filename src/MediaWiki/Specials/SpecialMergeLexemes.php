@@ -8,6 +8,7 @@ use HTMLForm;
 use InvalidArgumentException;
 use Message;
 use SpecialPage;
+use UserBlockedError;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
@@ -52,6 +53,9 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->exceptionLocalizer = $exceptionLocalizer;
 	}
 
+	/**
+	 * @see SpecialWikibasePage::execute
+	 **/
 	public function execute( $subPage ) {
 		$this->setHeaders();
 		$this->outputHeader( 'wikibase-mergelexemes-summary' );
@@ -59,6 +63,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		if ( !$this->userCanExecute( $this->getUser() ) ) {
 			$this->displayRestrictionError();
 		}
+		$this->checkBlocked();
 
 		$sourceId = $this->getTextParam( self::FROM_ID );
 		$targetId = $this->getTextParam( self::TO_ID );
@@ -74,6 +79,12 @@ class SpecialMergeLexemes extends SpecialPage {
 		$out = $this->getOutput();
 		$out->setArticleRelated( false );
 		$out->setPageTitle( $this->getDescription() );
+	}
+
+	private function checkBlocked() {
+		if ( $this->getUser()->isBlockedFrom( $this->getFullTitle() ) ) {
+			throw new UserBlockedError( $this->getUser()->getBlock() );
+		}
 	}
 
 	public static function newFromGlobalState() {
