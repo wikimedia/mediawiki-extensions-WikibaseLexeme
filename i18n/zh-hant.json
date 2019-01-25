@@ -152,7 +152,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "合併詞位",
 	"wikibase-lexeme-mergelexemes-success": "已合併 $1 至 $2 並重新導向。",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "「$1」不是一個有效的詞位 ID",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "找不到「$1」",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "找不到詞位「$1」。",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "合併詞位失敗，請先解決衝突。錯誤：詞位含有用於同一拼寫變體的不同主題。",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "合併詞位失敗，請先解決衝突。錯誤：在陳述裡詞位彼此連結。",
 	"wikibase-lexeme-mergelexemes-error-same-language": "合併詞位失敗，請先解決衝突。錯誤：詞位含有不同語言。",

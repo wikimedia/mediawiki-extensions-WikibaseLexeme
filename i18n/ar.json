@@ -152,7 +152,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "دمج اثنين من اللكسيم",
 	"wikibase-lexeme-mergelexemes-success": "تم دمج وتحويل $1 إلى $2.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "\"$1\" ليس معرفا صالحًا للكسيم",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "لم يتم العثور على \"$1\"",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "لا يمكن العثور على اللكسيم \"$1\".",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "فشل دمج اللكسيم; يُرجَى حل أية تعارضات أولاً، الخطأ: لكسيم لها ليمات مختلفة لنفس المتغير الإملائي.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "فشل دمج اللكسيم; يُرجَى حل أية تعارضات أولاً، الخطأ: ربط لكسيم ببعضها البعض في بيان.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "فشل دمج اللكسيم; يُرجَى حل أية تعارضات أولاً، الخطأ: اللكسيم لها لغات مختلفة.",

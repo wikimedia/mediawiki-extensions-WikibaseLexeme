@@ -70,7 +70,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Unisci lessemi",
 	"wikibase-lexeme-mergelexemes-success": "$1 è stato unito a $2 e reindirizzato.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' non è in ID lessema valido",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' non trovato",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Il lessema '$1' non può essere trovato.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Impossibile unire i lessemi, risolvi tutti i conflitti prima. Errore: i lessemi hanno lingue differenti.",
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Impossibile unire i lessemi, risolvi tutti i conflitti prima. Errore: i lessemi hanno categorie lessicali differenti.",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Errore durante il caricamento del lessema.",

@@ -151,7 +151,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Fundir lexemas",
 	"wikibase-lexeme-mergelexemes-success": "$1 foi mesclado em $2 e redirecionado.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' não é um ID de Lexema válido",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' não encontrado",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' não foi encontrado.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes possuem diferentes Lemmas para a mesma variante ortográfica.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes se conectam em uma instrução.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes possuem idiomas diferentes.",

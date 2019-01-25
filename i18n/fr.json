@@ -155,7 +155,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Fusionner les lexèmes",
 	"wikibase-lexeme-mergelexemes-success": "$1 a été fusionné avec $2 et redirigé.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' n’est pas un id de lexème valide",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' non trouvé",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Le lexème '$1' est introuvable.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes ont des lemmes différents pour la même variante orthographique.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes sont liés mutuellement dans une déclaration.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Échec de fusion des lexèmes, veuillez résoudre d’abord les conflits. Erreur : Les lexèmes ont des langues différentes.",

@@ -151,7 +151,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "מיזוג יחידות מילוניות",
 	"wikibase-lexeme-mergelexemes-success": "היחידה $1 מוזגה אל $2 ונוצרה ממנה הפניה.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "\"$1\" הוא לא מזהה יחידה מילונית תקין",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "\"$1\" לא נמצא",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "לא היה אפשר למצוא את היחידה המילונית \"$1\".",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: ליחידות יש פירושים שונים עבור אותו הגוון כתיב.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: יחידות מילוניות מקשרות אחת לשנייה בקביעה.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "מיזוג היחידות המילוניות לא עבד, נא לפתור התנגשויות קודם. שגיאה: היחידות מילוניות שייכות לשפות שונות.",
