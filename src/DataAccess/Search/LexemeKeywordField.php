@@ -6,7 +6,7 @@ use CirrusSearch\Search\KeywordIndexField;
 use SearchEngine;
 use SearchIndexField;
 use SearchIndexFieldDefinition;
-use Wikibase\Repo\Search\Elastic\Fields\WikibaseIndexField;
+use Wikibase\Repo\Search\Fields\WikibaseIndexField;
 
 /**
  * Keyword field for lexeme implementation
