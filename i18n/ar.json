@@ -99,7 +99,7 @@
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "لا يمكن أن يكون نص المصطلح فارغا",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "لا يمكن أن تكون اللغة فارغة",
 	"apierror-wikibaselexeme-language-inconsistent": "كان من المتوقع أن تكون اللغة في الحقل \"$1\" في \"$2\" هي \"$3\"، المعطاة: \"$4\"",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "يجب أن يكون للنموذج تمثيل واحد على الأقل",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "يجب أن يحتوي النموذج على تمثيل وبديل إملائي واحد على الأقل",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "يجب أن يكون لديك لمعان واحد على الأقل",
 	"apierror-wikibaselexeme-unknown-language": "لغة غير معروفة \"$3\" في الحقل \"$1\" في \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "معرف عنصر غير صالح \"$3\" في الحقل \"$1\" في \"$2\".",

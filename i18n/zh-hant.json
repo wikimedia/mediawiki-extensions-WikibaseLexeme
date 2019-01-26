@@ -99,7 +99,7 @@
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "詞彙文字不可為空",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "語言不可為空",
 	"apierror-wikibaselexeme-language-inconsistent": "於「$2」的欄位「$1」裡的語言應為「$3」。所提供的內容為「$4」",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "詞性必須至少要有一個表述",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "詞性必須至少要有一個表述以及拼寫變體",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "含意必須至少要有一個註解",
 	"apierror-wikibaselexeme-unknown-language": "在「$2」的欄位「$1」裡有未知語言「$3」。",
 	"apierror-wikibaselexeme-invalid-item-id": "在「$2」的欄位「$1」裡有無效項目 ID「$3」。",
