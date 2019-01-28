@@ -2,7 +2,7 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../../lexeme.api' ),
-	RecentChangesPage = require( '../../../../../../tests/selenium/pageobjects/recentchanges.page' ),
+	RecentChangesPage = require( '../../../../pageobjects/recentchanges.page' ),
 	RunJobs = require( 'wdio-mediawiki/RunJobs' );
 
 describe( 'Special:RecentChanges', () => {

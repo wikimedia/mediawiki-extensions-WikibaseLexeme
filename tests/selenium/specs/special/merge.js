@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require( 'assert' ),
-	MergeLexemesPage = require( '../../../../tests/selenium/pageobjects/specialmergelexemes.page' ),
+	MergeLexemesPage = require( '../../pageobjects/specialmergelexemes.page' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	MWApi = require( 'wdio-mediawiki/Api' );
 
