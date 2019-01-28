@@ -56,7 +56,7 @@
 	"apierror-wikibaselexeme-lexeme-not-found": "Polje \"$1\" vsebuje ID leksema \"$2\", ki ga ni mogoče najti.",
 	"apierror-wikibaselexeme-form-not-found": "Polje \"$1\" vsebuje ID oblike \"$2\", ki je ni mogoče najti.",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Jezik mora biti izpolnjen",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Oblika mora imeti vsaj en prikaz",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Oblika mora imeti vsaj eno upodobitev in različico črkovanja",
 	"wikibase-lexeme-summary-add-form": "Dodana nova oblika $3 s {{PLURAL:$1|prikazom|prikazoma|prikazi}}",
 	"wikibase-lexeme-summary-remove-form": "Odstranjena oblika $3 s {{PLURAL:$1|prikazom|prikazoma|prikazi}}",
 	"wikibase-lexeme-summary-update-form-representations": "Spremenjeni prikazi in/ali slovnične funkcije oblike $3",

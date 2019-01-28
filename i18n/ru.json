@@ -11,7 +11,8 @@
 			"Stjn",
 			"Vlad5250",
 			"Infovarius",
-			"Putnik"
+			"Putnik",
+			"Alexandr Efremov"
 		]
 	},
 	"wikibaselexeme-desc": "Работа с видом единицы «лексема»",
@@ -88,7 +89,7 @@
 	"apierror-wikibaselexeme-sense-not-found": "Поле «$1» содержит идентификатор «$2» для значения, которое не может быть найдено.",
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Текст не может быть пустым",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Язык не может быть пустым",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "У формы должен быть как минимум один текст",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Форма должна иметь хотя бы одно представление и орфографический вариант",
 	"wikibase-lexeme-summary-add-form": "Добавлена новая форма $3 с {{PLURAL:$1|1=представлением|представлениями}}",
 	"wikibase-lexeme-summary-remove-form": "Удалена форма $3 с {{PLURAL:$1|1=представлением|представлениями}}",
 	"wikibase-lexeme-summary-update-form-representations": "Изменены представления и/или грамматические возможности из формы $3",
