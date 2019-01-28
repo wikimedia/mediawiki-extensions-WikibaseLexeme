@@ -95,6 +95,11 @@ class Form implements EntityDocument, StatementListProvider, ClearableEntity {
 	}
 
 	/**
+	 * The representations of the Form as list of terms.
+	 *
+	 * Note that in some places "representation" means just the text of a representation and the
+	 * language code is called "spelling variant".
+	 *
 	 * @return TermList
 	 */
 	public function getRepresentations() {
