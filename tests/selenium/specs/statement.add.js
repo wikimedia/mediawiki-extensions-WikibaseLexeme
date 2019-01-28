@@ -4,14 +4,8 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' );
-
-let WikibaseApi;
-try {
+	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
-} catch ( e ) {
-	WikibaseApi = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
-}
 
 describe( 'Lexeme:Statements', () => {
 

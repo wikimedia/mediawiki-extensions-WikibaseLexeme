@@ -1,13 +1,8 @@
 'use strict';
 
 const MWBot = require( 'mwbot' ),
-	Util = require( 'wdio-mediawiki/Util' );
-let WikibaseApi;
-try {
+	Util = require( 'wdio-mediawiki/Util' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
-} catch ( e ) {
-	WikibaseApi = require( '../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
-}
 
 class LexemeApi {
 

@@ -1,15 +1,8 @@
 'use strict';
 
-const Page = require( 'wdio-mediawiki/Page' );
-
-let MixinBuilder, ComponentInteraction;
-try {
-	MixinBuilder = require( 'wdio-wikibase/pagesections/mixinbuilder' );
+const Page = require( 'wdio-mediawiki/Page' ),
+	MixinBuilder = require( 'wdio-wikibase/pagesections/mixinbuilder' ),
 	ComponentInteraction = require( 'wdio-wikibase/pagesections/ComponentInteraction' );
-} catch ( e ) {
-	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/mixinbuilder' );
-	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/ComponentInteraction' );
-}
 
 class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction ) {
 
