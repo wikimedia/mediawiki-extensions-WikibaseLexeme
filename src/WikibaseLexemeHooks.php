@@ -47,13 +47,13 @@ class WikibaseLexemeHooks {
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
 	 */
 	public static function onCanonicalNamespaces( array &$namespaces ) {
-		// Do not register lexeme namespaces when the repo is not enabled.
-		if ( !WikibaseSettings::isRepoEnabled() ) {
-			return;
-		}
-
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
 		$config = MediaWikiServices::getInstance()->getMainConfig();
+
+		// Do not register lexeme namespaces when the repo is not enabled.
+		if ( !WikibaseSettings::isRepoEnabled() || !$config->get( 'LexemeEnableRepo' ) ) {
+			return;
+		}
 
 		// Setting the namespace to false disabled automatic registration.
 		$lexemeNamespaceId = $config->get( 'LexemeNamespace' );
@@ -246,12 +246,12 @@ class WikibaseLexemeHooks {
 	 * @param SearchProfileService $service
 	 */
 	public static function onCirrusSearchProfileService( SearchProfileService $service ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+
 		// Do not add Lexeme specific search stuff if we are not a repo
-		if ( !WikibaseSettings::isRepoEnabled() ) {
+		if ( !WikibaseSettings::isRepoEnabled() || !$config->get( 'LexemeEnableRepo' ) ) {
 			return;
 		}
-
-		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		// register base profiles available on all wikibase installs
 		$service->registerFileRepository( EntitySearchElastic::WIKIBASE_PREFIX_QUERY_BUILDER,
