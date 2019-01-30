@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Dbc334",
+			"Janezdrilc"
+		]
+	},
+	"apihelp-wbladdform-summary": "Doda leksemu obliko",
+	"apihelp-wbladdform-param-lexemeId": "Leksemov ID, naprimer L10",
+	"apihelp-wbladdform-param-data": "Podatki zakodiranega JSON-a, to je prikazov in slovničnih funkcij",
+	"apihelp-wblremoveform-summary": "Odstrani leksemu obliko",
+	"apihelp-wblremoveform-param-id": "ID oblike, na primer L10-F20",
+	"apihelp-wblremoveform-example-1": "Odstrani leksemu obliko z ID-jem <samp>$1</samp>",
+	"apihelp-wbleditformelements-summary": "Uredi prikaze in slovnične funkcije oblike",
+	"apihelp-wbleditformelements-param-formId": "ID oblike, na primer L10-F20",
+	"apierror-wikibaselexeme-parameter-required": "Zahtevan je parameter \"$1\"",
+	"apierror-wikibaselexeme-lexeme-not-found": "Polje \"$1\" vsebuje ID leksema \"$2\", ki ga ni mogoče najti.",
+	"apierror-wikibaselexeme-form-not-found": "Polje \"$1\" vsebuje ID oblike \"$2\", ki je ni mogoče najti.",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Jezik mora biti izpolnjen",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Oblika mora imeti vsaj eno upodobitev in različico črkovanja"
+}

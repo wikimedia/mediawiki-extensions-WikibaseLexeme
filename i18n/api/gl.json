@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Banjo",
+			"Navhy"
+		]
+	},
+	"apihelp-wbladdform-summary": "Engade unha forma ó lexema",
+	"apihelp-wbladdform-param-lexemeId": "Id. do lexema; p. ex., L10",
+	"apihelp-wblremoveform-summary": "Borra unha forma do lexema",
+	"apihelp-wblremoveform-param-id": "ID do Formulario, p.ex. L10-F20",
+	"apihelp-wbleditformelements-param-formId": "ID do Formulario, p.ex. L10-F2",
+	"apierror-wikibaselexeme-parameter-required": "O parámetro «$1» é obrigatorio"
+}

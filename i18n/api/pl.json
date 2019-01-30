@@ -1,0 +1,12 @@
+{
+	"@metadata": {
+		"authors": [
+			"Woytecr"
+		]
+	},
+	"apihelp-wbladdform-param-data": "Zakodowane w JSON dane o formie, czyli reprezentacje i grammaticalFeatures",
+	"apihelp-wblremoveform-param-id": "Identyfikator formy, np. L10-F20",
+	"apihelp-wbleditformelements-param-formId": "ID formy, np. L10-F2",
+	"apierror-wikibaselexeme-parameter-required": "Parametr „$1” jest wymagany",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Język nie może być pusty"
+}

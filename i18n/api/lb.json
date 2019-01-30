@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby"
+		]
+	},
+	"apihelp-wbladdform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
+	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
+	"apihelp-wblmergelexemes-description": "Fusionnéiert 2 Lexemen:",
+	"apierror-wikibaselexeme-parameter-required": "Parameter \"$1\" ass obligatoresch",
+	"apierror-wikibaselexeme-json-field-required": "Feld \"$2\" am Parameter \"$1\" ass obligatoresch",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Sprooch däerf net eidel sinn",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "De Formular muss mindestens eng Duerstellung hunn"
+}

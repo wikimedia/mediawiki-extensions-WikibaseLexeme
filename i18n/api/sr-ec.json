@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"BadDog",
+			"Милан Јелисавчић"
+		]
+	},
+	"apihelp-wbladdform-summary": "Додаје облик на лексему",
+	"apihelp-wbladdform-param-lexemeId": "ID лексеме, нпр. L10",
+	"apihelp-wblremoveform-summary": "Уклања облик са лексеме",
+	"apihelp-wblremoveform-param-id": "ID облика, нпр. L10-F20",
+	"apihelp-wbleditformelements-param-formId": "ID облика, нпр. L10-F2",
+	"apihelp-wbladdsense-summary": "Додаје значење лексеми",
+	"apihelp-wbladdsense-param-lexemeId": "ID лексеме, нпр. L10",
+	"apihelp-wblremovesense-summary": "Уклања значење са лексеме",
+	"apihelp-wblremovesense-param-id": "ID значења, нпр. L10-S20",
+	"apihelp-wbleditsenseelements-summary": "Уређује тумачења значења",
+	"apihelp-wbleditsenseelements-param-senseId": "ID значења, нпр. L10-S2",
+	"apihelp-wblmergelexemes-description": "Обједињава две лексеме.",
+	"apihelp-wblmergelexemes-summary": "Обједињава две лексеме.",
+	"apihelp-wblmergelexemes-param-source": "ID за обједињавање са",
+	"apihelp-wblmergelexemes-param-target": "ID за обједињавање у",
+	"apierror-wikibaselexeme-parameter-required": "Неопходан је параметар „$1”",
+	"apierror-wikibaselexeme-form-not-found": "Поље „$1” садржи ID облика „$2” који се не може пронаћи.",
+	"apierror-wikibaselexeme-sense-not-found": "Поље „$1” садржи ID значења „$2” који се не може пронаћи.",
+	"apierror-wikibaselexeme-json-field-not-item-id": "Поље „$2” у параметру „$1” очекивало се да буде ID ставке. Задато: „$3”",
+	"apierror-wikibaselexeme-parameter-not-sense-id": "Поље „$2” у параметру „$1” очекује се да буде ID значења. Задато: „$3”",
+	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Текст термина не може да буде празан",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Језик не може да буде празан"
+}

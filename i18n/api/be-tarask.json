@@ -1,0 +1,27 @@
+{
+	"@metadata": {
+		"authors": [
+			"Renessaince"
+		]
+	},
+	"apihelp-wbladdform-summary": "дадаць форму да лексэмы",
+	"apihelp-wbladdform-param-lexemeId": "ідэнтыфікатар лексэмы, напр. L10",
+	"apihelp-wbladdform-param-data": "Закадаваныя ў JSON зьвесткі для формы, напрыклад, прадстаўленьні і граматычныя асаблівасьці",
+	"apihelp-wbladdform-param-bot": "Пазначыць гэтую праўку як зробленую робатам. Гэты URL-сьцяг будзе ўлічвацца, толькі калі ўдзельнік належыць да групы «{{int:group-bot}}».",
+	"apihelp-wbladdform-example-1": "Дадаць форму да лексэмы з ідэнтыфікатарам <samp>$1</samp>, якая мае прадстаўленьні <samp>$2</samp> з мовамі <samp>$3</samp> адпаведна, і граматычныя асаблівасьці <samp>$4</samp>",
+	"apihelp-wblremoveform-summary": "Выдаляе форму зь лексэмы",
+	"apihelp-wblremoveform-param-id": "ідэнтыфікатар формы, напрыклад L10-F20",
+	"apihelp-wblremoveform-param-bot": "Пазначыць гэтую праўку як зробленую робатам. Гэты URL-сьцяг будзе ўлічвацца, толькі калі ўдзельнік належыць да групы «{{int:group-bot}}».",
+	"apihelp-wblremoveform-example-1": "Выдаліць форму зь лексэмы з ідэнтыфікатарам <samp>$1</samp>",
+	"apihelp-wbleditformelements-summary": "Рэдагуе прадстаўленьні і граматычныя асаблівасьці формы",
+	"apihelp-wbleditformelements-param-formId": "ідэнтыфікатар формы, напрыклад L10-F2",
+	"apihelp-wbleditformelements-param-data": "закадаваныя зьвесткі JSON для прадстаўленьняў і граматычных катэгорыяў",
+	"apihelp-wbleditformelements-param-bot": "Пазначыць гэтую праўку як зробленую робатам. Гэты URL-сьцяг будзе ўлічвацца, толькі калі ўдзельнік належыць да групы «{{int:group-bot}}».",
+	"apihelp-wbleditformelements-example-1": "Рэдагуе форму з ідэнтыфікатарам <samp>$1</samp>, каб мець прадстаўленьні <samp>$2</samp> з мовамі <samp>$3</samp> адпаведна, і граматычныя асаблівасьці <samp>$4</samp>.",
+	"apihelp-wbladdsense-summary": "Дадае значэньне да лексэмы",
+	"apihelp-wbladdsense-param-lexemeId": "ідэнтыфікатар лексэмы, напр. L10",
+	"apihelp-wbladdsense-param-data": "закадаваныя зьвесткі JSON для значэньня, напрыклад, ягоныя глёсы",
+	"apihelp-wbladdsense-param-bot": "Пазначыць гэтую праўку як зробленую робатам. Гэты URL-сьцяг будзе ўлічвацца, толькі калі ўдзельнік належыць да групы «{{int:group-bot}}».",
+	"apihelp-wbladdsense-example-1": "Дадаць форму да лексэмы з ідэнтыфікатарам <samp>$1</samp>, які мае глёсы <samp>$2</samp> з мовамі <samp>$3</samp> адпаведна",
+	"apihelp-wblremovesense-summary": "Выдаляе значэньне зь лексэмы"
+}

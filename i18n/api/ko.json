@@ -1,0 +1,37 @@
+{
+	"@metadata": {
+		"authors": [
+			"Garam",
+			"Nuevo Paso",
+			"Ykhwong"
+		]
+	},
+	"apihelp-wbladdform-summary": "어휘소에 형태 추가",
+	"apihelp-wbladdform-param-lexemeId": "어휘소의 ID(예: L10)",
+	"apihelp-wbladdform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wblremoveform-summary": "어휘소에서 형태 제거",
+	"apihelp-wblremoveform-param-id": "형태의 ID (예: L10-F20)",
+	"apihelp-wblremoveform-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wblremoveform-example-1": "<samp>$1</samp> ID 어휘소에서 형태 제거",
+	"apihelp-wbleditformelements-summary": "형태의 표현이나 문법적 특징 편집하기",
+	"apihelp-wbleditformelements-param-formId": "형태의 ID (예: L10-F2)",
+	"apihelp-wbleditformelements-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wbladdsense-param-lexemeId": "어휘소의 ID(예: L10)",
+	"apihelp-wbladdsense-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wblremovesense-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wbleditsenseelements-param-bot": "이 편집을 봇으로 표시합니다. 이 URL 플래그는 사용자가 그룹 \"{{int:group-bot}}\"에 속해 있을 경우에만 준수합니다.",
+	"apihelp-wblmergelexemes-description": "2개의 어휘소를 병합합니다.",
+	"apihelp-wblmergelexemes-summary": "2개의 어휘소를 병합합니다.",
+	"apierror-wikibaselexeme-parameter-required": "\"$1\" 변수는 필수입니다",
+	"apierror-wikibaselexeme-parameter-invalid-json-object": "\"$1\" 변수에 유효한 JSON 객체를 예측했지만 지정된 값은 \"$2\"입니다",
+	"apierror-wikibaselexeme-lexeme-not-found": "\"$1\" 필드는 찾을 수 없는 어휘소 \"$2\"의 ID를 포함합니다.",
+	"apierror-wikibaselexeme-form-not-found": "\"$1\" ID의 형태를 찾을 수 없습니다.",
+	"apierror-wikibaselexeme-json-field-required": "\"$1\" 변수에 \"$2\"의 \"$3\" 필드는 필수입니다",
+	"apierror-wikibaselexeme-json-field-not-item-id": "변수 '$1'의 필드 '$2'에는 항목 ID가 들어가야 합니다. 다음이 주어짐: '$3'",
+	"apierror-wikibaselexeme-json-field-has-wrong-type": "\"$1\" 변수의 \"$2\" 필드에 \"$3\" 유형을 예측했습니다. 지정된 값: \"$4\"",
+	"apierror-wikibaselexeme-parameter-not-lexeme-id": "변수 '$1'는 어휘소 ID이어야 합니다. 다음이 주어짐: '$2'",
+	"apierror-wikibaselexeme-parameter-not-form-id": "변수 \"$1\"의 \"$2\" 필드는 형태 ID여야 합니다. 지정된 값: \"$3\"",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "언어는 비워둘 수 없습니다",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "형태는 적어도 하나의 표현을 갖추고 있어야 합니다",
+	"apierror-wikibaselexeme-unknown-language": "\"$2\"의 \"$1\" 필드의 알 수 없는 언어 \"$3\"."
+}

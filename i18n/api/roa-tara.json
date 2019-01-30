@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Joetaras"
+		]
+	},
+	"apihelp-wbladdform-summary": "Aggiung 'nu module a 'u lesseme",
+	"apihelp-wblremoveform-param-id": "ID d'u module, e.g. L10-F20",
+	"apihelp-wblmergelexemes-description": "Squagghie doje lesseme."
+}

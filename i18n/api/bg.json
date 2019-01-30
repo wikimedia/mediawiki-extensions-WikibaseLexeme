@@ -1,0 +1,8 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Формулярът трябва да има поне една представа"
+}

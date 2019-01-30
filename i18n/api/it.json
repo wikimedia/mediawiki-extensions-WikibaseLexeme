@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Beta16"
+		]
+	},
+	"apihelp-wbladdform-param-lexemeId": "ID del lessema, ad esempio: L10",
+	"apihelp-wblremoveform-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
+	"apihelp-wbleditformelements-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"{{int:group-bot}}\".",
+	"apihelp-wblmergelexemes-description": "Unisce due lessemi",
+	"apihelp-wblmergelexemes-summary": "Unisce due lessemi",
+	"apihelp-wblmergelexemes-param-source": "L'ID da cui unire",
+	"apihelp-wblmergelexemes-param-target": "L'ID dove unire",
+	"apihelp-wblmergelexemes-param-summary": "Riepilogo per la modifica.\nSarà preceduto da un commento generato automaticamente. Il limite di lunghezza del commento automatico, insieme con il riassunto, è di 260 caratteri. Siate consapevoli del fatto che tutto ciò che supera tale limite verrà tagliato.",
+	"apihelp-wblmergelexemes-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"bot\".",
+	"apihelp-wblmergelexemes-example-1": "Unisce dati da <samp>L123</samp> in <samp>L321</samp>",
+	"apierror-wikibaselexeme-parameter-required": "Il parametro \"$1\" è obbligatorio",
+	"apierror-wikibaselexeme-lexeme-not-found": "Il campo \"$1\" contiene un ID lessema \"$2\" che non è stato trovato.",
+	"apierror-wikibaselexeme-json-field-required": "Il campo \"$3\" in \"$2\" nel parametro \"$1\" è obbligatorio",
+	"apierror-wikibaselexeme-json-field-not-item-id": "Il campo \"$2\" nel parametro \"$1\" dovrebbe essere un ID elemento. Fornito: \"$3\"",
+	"apierror-wikibaselexeme-json-field-has-wrong-type": "Il campo \"$2\" nel parametro \"$1\" dovrebbe essere di tipo \"$3\". Fornito: \"$4\"",
+	"apierror-wikibaselexeme-parameter-not-lexeme-id": "Il parametro \"$1\" dovrebbe essere un ID lessema. Fornito: \"$2\"",
+	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Il testo del termine non può essere vuoto",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "La lingua non può essere vuota"
+}

@@ -1,0 +1,5 @@
+{
+	"@metadata": [],
+	"apierror-wikibaselexeme-parameter-required": "প্যারামিটার \"$1\" আবশ্যক",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "ভাষা খালি হতে পারে না"
+}

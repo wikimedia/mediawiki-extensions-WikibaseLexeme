@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Le terminos de un entitate lexicographic (lemmas de un lexema, representationes de un forma, o glossas de un senso).",
+	"apihelp-wblmergelexemes-description": "Fusiona duo lexemas."
+}
