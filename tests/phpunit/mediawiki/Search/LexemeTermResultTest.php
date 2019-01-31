@@ -51,7 +51,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L1',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'en', 'English noun' ],
+					'description' => [ 'en', 'English, noun' ],
 					'matched' => [ 'en', 'duck' ],
 					'matchedType' => 'label'
 				]
@@ -71,7 +71,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L2',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'en', 'English noun' ],
+					'description' => [ 'en', 'English, noun' ],
 					'matched' => [ 'qid', 'L2' ],
 					'matchedType' => 'entityId'
 				]
@@ -91,7 +91,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L2',
 					'label' => [ 'und', 'duck' ],
-					'description' => [ 'en', 'English noun' ],
+					'description' => [ 'en', 'English, noun' ],
 					'matched' => [ 'qid', 'L2' ],
 					'matchedType' => 'entityId'
 				]
@@ -111,7 +111,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L2',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'en', 'English noun' ],
+					'description' => [ 'en', 'English, noun' ],
 					'matched' => [ 'en', 'geese' ],
 					'matchedType' => 'alias'
 				]
@@ -131,7 +131,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L2',
 					'label' => [ 'und', 'duck' ],
-					'description' => [ 'en', 'English noun' ],
+					'description' => [ 'en', 'English, noun' ],
 					'matched' => [ 'und', 'duck' ],
 					'matchedType' => 'label'
 				]
@@ -151,7 +151,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L1',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'de', 'Englische Substantiv' ],
+					'description' => [ 'de', 'Englische, Substantiv' ],
 					'matched' => [ 'en', 'duck' ],
 					'matchedType' => 'label'
 				]
@@ -171,7 +171,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L1',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'de-ch', 'Englische Substantiv' ],
+					'description' => [ 'de-ch', 'Englische, Substantiv' ],
 					'matched' => [ 'en', 'duck' ],
 					'matchedType' => 'label'
 				]
@@ -191,7 +191,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L1',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'en', 'English Unknown' ],
+					'description' => [ 'en', 'English, Unknown' ],
 					'matched' => [ 'en', 'duck' ],
 					'matchedType' => 'label'
 				]
@@ -211,7 +211,7 @@ class LexemeTermResultTest extends \MediaWikiTestCase {
 				[
 					'id' => 'L1',
 					'label' => [ 'en', 'duck' ],
-					'description' => [ 'en', 'Unknown language noun' ],
+					'description' => [ 'en', 'Unknown language, noun' ],
 					'matched' => [ 'en', 'duck' ],
 					'matchedType' => 'label'
 				]

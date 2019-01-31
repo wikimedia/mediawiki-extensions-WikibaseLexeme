@@ -137,7 +137,7 @@
 	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-lexeme-link-title": "$1: $2",
 	"wikibaselexeme-form-grammatical-features": "Grammatical features",
-	"wikibaselexeme-description": "$1 $2",
+	"wikibaselexeme-description": "$1, $2",
 	"wikibaselexeme-form-description": "$1 for: $2 ($3): $4",
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|statement|statements}}, $2 {{PLURAL:$2|form|forms}}",
 	"wikibaselexeme-unknown-language": "Unknown language",

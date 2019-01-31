@@ -64,7 +64,7 @@ class FormTermResultTest extends \PHPUnit_Framework_TestCase {
 					'L1-F1' => [
 						'id' => 'L1-F1',
 						'label' => [ 'en', 'duck' ],
-						'description' => [ 'en', 'singular for: duck (L1): English noun' ],
+						'description' => [ 'en', 'singular for: duck (L1): English, noun' ],
 						'matched' => [ 'en', 'duck' ],
 						'matchedType' => 'label'
 					],
@@ -103,14 +103,14 @@ class FormTermResultTest extends \PHPUnit_Framework_TestCase {
 					'L1-F1' => [
 						'id' => 'L1-F1',
 						'label' => [ 'en', 'duck' ],
-						'description' => [ 'en', 'singular for: duck (L1): English noun' ],
+						'description' => [ 'en', 'singular for: duck (L1): English, noun' ],
 						'matched' => [ 'en', 'duck' ],
 						'matchedType' => 'label'
 					],
 					'L1-F2' => [
 						'id' => 'L1-F2',
 						'label' => [ 'en', 'ducks' ],
-						'description' => [ 'en', 'plural for: duck (L1): English noun' ],
+						'description' => [ 'en', 'plural for: duck (L1): English, noun' ],
 						'matched' => [ 'en', 'ducks' ],
 						'matchedType' => 'label'
 					],
@@ -140,7 +140,7 @@ class FormTermResultTest extends \PHPUnit_Framework_TestCase {
 					'L3-F1' => [
 						'id' => 'L3-F1',
 						'label' => [ 'en', 'duck' ],
-						'description' => [ 'en', 'singular, nominative for: duck (L3): English noun' ],
+						'description' => [ 'en', 'singular, nominative for: duck (L3): English, noun' ],
 						'matched' => [ 'en', 'duck' ],
 						'matchedType' => 'label'
 					],
@@ -176,7 +176,7 @@ class FormTermResultTest extends \PHPUnit_Framework_TestCase {
 					'L1-F2' => [
 						'id' => 'L1-F2',
 						'label' => [ 'en', 'ducks' ],
-						'description' => [ 'en', 'plural for: duck (L1): English noun' ],
+						'description' => [ 'en', 'plural for: duck (L1): English, noun' ],
 						'matched' => [ 'qid', 'L1-F2' ],
 						'matchedType' => 'entityId'
 					],
@@ -241,7 +241,7 @@ class FormTermResultTest extends \PHPUnit_Framework_TestCase {
 					'L1-F1' => [
 						'id' => 'L1-F1',
 						'label' => [ 'en', 'duck' ],
-						'description' => [ 'en', 'no features for: duck (L1): English noun' ],
+						'description' => [ 'en', 'no features for: duck (L1): English, noun' ],
 						'matched' => [ 'en', 'duck' ],
 						'matchedType' => 'label'
 					],
