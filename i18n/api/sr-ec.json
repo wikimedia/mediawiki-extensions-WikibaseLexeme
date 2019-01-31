@@ -26,5 +26,6 @@
 	"apierror-wikibaselexeme-json-field-not-item-id": "Поље „$2” у параметру „$1” очекивало се да буде ID ставке. Задато: „$3”",
 	"apierror-wikibaselexeme-parameter-not-sense-id": "Поље „$2” у параметру „$1” очекује се да буде ID значења. Задато: „$3”",
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Текст термина не може да буде празан",
-	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Језик не може да буде празан"
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Језик не може да буде празан",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Облици морају имати бар једно представљање"
 }
