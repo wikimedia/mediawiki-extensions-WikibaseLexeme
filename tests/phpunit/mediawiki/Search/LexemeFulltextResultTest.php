@@ -74,7 +74,7 @@ class LexemeFulltextResultTest extends MediaWikiTestCase {
 					'langcode' => 'en',
 					'category' => 'Q2',
 					'title' => 'duck',
-					'description' => '<span class="wb-itemlink-description">English noun</span>'
+					'description' => '<span class="wb-itemlink-description">English, noun</span>'
 				]
 			],
 			"by lemma de" => [
@@ -96,7 +96,7 @@ class LexemeFulltextResultTest extends MediaWikiTestCase {
 					'langcode' => 'en',
 					'category' => 'Q2',
 					'title' => 'duck',
-					'description' => '<span class="wb-itemlink-description">Englische Substantiv</span>'
+					'description' => '<span class="wb-itemlink-description">Englische, Substantiv</span>'
 				]
 			],
 			'by id' => [
@@ -118,7 +118,7 @@ class LexemeFulltextResultTest extends MediaWikiTestCase {
 					'langcode' => 'en',
 					'category' => 'Q2',
 					'title' => 'duck',
-					'description' => '<span class="wb-itemlink-description">English noun</span>'
+					'description' => '<span class="wb-itemlink-description">English, noun</span>'
 				]
 
 			],
