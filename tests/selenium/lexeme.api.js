@@ -1,9 +1,6 @@
 'use strict';
 
 const MWBot = require( 'mwbot' ),
-	bot = new MWBot( {
-		apiUrl: browser.options.baseUrl + '/api.php'
-	} ),
 	Util = require( 'wdio-mediawiki/Util' );
 let WikibaseApi;
 try {
@@ -31,46 +28,29 @@ class LexemeApi {
 			lexicalCategory: null, // if null a new lexicalCategory is created and used for the lexeme
 			language: null // if null a new language is created and used for the lexeme
 		}, lexeme );
-
-		return bot.getEditToken()
-			.then( () => {
-				return new Promise( ( resolve, reject ) => {
-					if ( lexeme.lexicalCategory !== null ) { // optionally skip creation
-						resolve();
-					}
-
-					WikibaseApi.createItem()
-						.then( ( itemId ) => {
-							lexeme.lexicalCategory = itemId;
-
-							resolve();
-						} );
-				} );
-			} ).then( () => {
-				return new Promise( ( resolve, reject ) => {
-					if ( lexeme.language !== null ) { // optionally skip creation
-						resolve();
-					}
-
-					WikibaseApi.createItem()
-						.then( ( itemId ) => {
-							lexeme.language = itemId;
-
-							resolve();
-						} );
-				} );
-			} ).then( () => {
-				return new Promise( ( resolve, reject ) => {
-					bot.request( {
+		// Avoid an ID acquisition race condition by executing one after another.
+		return (
+			lexeme.lexicalCategory === null ? WikibaseApi.createItem() : Promise.resolve( lexeme.lexicalCategory )
+		).then( ( categoryValue ) => {
+			lexeme.lexicalCategory = categoryValue;
+			return ( lexeme.language === null ? WikibaseApi.createItem() : Promise.resolve( lexeme.language ) );
+		} ).then( ( languageValue ) => {
+			lexeme.language = languageValue;
+			let bot = new MWBot( {
+				apiUrl: browser.options.baseUrl + '/api.php'
+			} );
+			return bot.getEditToken()
+				.then( () => {
+					return bot.request( {
 						action: 'wbeditentity',
 						'new': 'lexeme',
 						data: JSON.stringify( lexeme ),
 						token: bot.editToken
 					} ).then( ( payload ) => {
-						resolve( payload.entity );
-					}, reject );
+						return payload.entity;
+					} );
 				} );
-			} );
+		} );
 	}
 
 	/**
@@ -80,13 +60,14 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	get( lexemeId ) {
-		return new Promise( ( resolve, reject ) => {
-			bot.request( {
-				action: 'wbgetentities',
-				ids: lexemeId
-			} ).then( ( response ) => {
-				resolve( response.entities[ lexemeId ] );
-			}, reject );
+		let bot = new MWBot( {
+			apiUrl: browser.options.baseUrl + '/api.php'
+		} );
+		return bot.request( {
+			action: 'wbgetentities',
+			ids: lexemeId
+		} ).then( ( response ) => {
+			return Promise.resolve( response.entities[ lexemeId ] );
 		} );
 	}
 
@@ -98,11 +79,17 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	addForm( lexemeId, form ) {
-		return bot.request( {
-			action: 'wbladdform',
-			lexemeId: lexemeId,
-			data: JSON.stringify( form ),
-			token: bot.editToken
+		let bot = new MWBot( {
+			apiUrl: browser.options.baseUrl + '/api.php'
+		} );
+
+		return bot.getEditToken().then( () => {
+			return bot.request( {
+				action: 'wbladdform',
+				lexemeId: lexemeId,
+				data: JSON.stringify( form ),
+				token: bot.editToken
+			} );
 		} );
 	}
 
@@ -114,11 +101,17 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	addSense( lexemeId, sense ) {
-		return bot.request( {
-			action: 'wbladdsense',
-			lexemeId: lexemeId,
-			data: JSON.stringify( sense ),
-			token: bot.editToken
+		let bot = new MWBot( {
+			apiUrl: browser.options.baseUrl + '/api.php'
+		} );
+
+		return bot.getEditToken().then( () => {
+			return bot.request( {
+				action: 'wbladdsense',
+				lexemeId: lexemeId,
+				data: JSON.stringify( sense ),
+				token: bot.editToken
+			} );
 		} );
 	}
 
@@ -130,11 +123,17 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	editForm( formId, formData ) {
-		return bot.request( {
-			action: 'wbleditformelements',
-			formId: formId,
-			data: JSON.stringify( formData ),
-			token: bot.editToken
+		let bot = new MWBot( {
+			apiUrl: browser.options.baseUrl + '/api.php'
+		} );
+
+		return bot.getEditToken().then( () => {
+			return bot.request( {
+				action: 'wbleditformelements',
+				formId: formId,
+				data: JSON.stringify( formData ),
+				token: bot.editToken
+			} );
 		} );
 	}
 
