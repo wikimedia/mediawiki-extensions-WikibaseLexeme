@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dgstranz",
-			"Fitoschido"
+			"Fitoschido",
+			"Carlosmg.dg"
 		]
 	},
 	"apihelp-wbladdform-summary": "Añade una Forma al Lexema",
@@ -27,5 +28,5 @@
 	"apierror-wikibaselexeme-json-field-has-wrong-type": "Se esperaba que el tipo del campo «$2» en el parámetro «$1» fuese del tipo «$3». Se proporcionó: «$4»",
 	"apierror-wikibaselexeme-parameter-not-lexeme-id": "Se esperaba que el parámetro «$1» fuese un identificador de lexema. Se proporcionó: «$2»",
 	"apierror-wikibaselexeme-parameter-not-form-id": "Se esperaba que el campo «$2» del parámetro «$1» fuera un identificador de Forma. Se proporcionó «$3»",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "La Forma debe tener al menos una representación"
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "La forma debe tener al menos una representación"
 }
