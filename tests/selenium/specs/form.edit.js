@@ -2,7 +2,8 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' );
+	LexemePage = require( '../pageobjects/lexeme.page' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' );
 
 let WikibaseApi;
 try {
@@ -12,6 +13,13 @@ try {
 }
 
 describe( 'Lexeme:Forms', () => {
+
+	beforeEach( 'check logged in', () => {
+		LoginPage.open();
+		if ( !LexemePage.isUserLoggedIn() ) {
+			LoginPage.loginAdmin();
+		}
+	} );
 
 	it( 'can add representation', () => {
 		let id;

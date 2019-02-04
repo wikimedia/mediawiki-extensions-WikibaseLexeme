@@ -54,6 +54,13 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		};
 	}
 
+	static get PERSONAL_BAR() {
+		return {
+			USER_NOT_LOGIN_ICON: '#pt-anonuserpage',
+			USER_TOOLBAR: '#p-personal'
+		};
+	}
+
 	get lemmaContainer() {
 		return $( '.lemma-widget_lemma-list' );
 	}
@@ -354,6 +361,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		if ( submitImmediately !== false ) {
 			this.submitNthForm( index );
 		}
+	}
+	isUserLoggedIn() {
+		$( this.constructor.PERSONAL_BAR.USER_TOOLBAR ).waitForExist( null, false );
+		return !$( this.constructor.PERSONAL_BAR.USER_NOT_LOGIN_ICON ).isExisting();
 	}
 
 }

@@ -3,7 +3,8 @@
 const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' );
+	LexemePage = require( '../pageobjects/lexeme.page' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' );
 
 let WikibaseApi;
 try {
@@ -13,6 +14,13 @@ try {
 }
 
 describe( 'Lexeme:Statements', () => {
+
+	beforeEach( 'check logged in', () => {
+		LoginPage.open();
+		if ( !LexemePage.isUserLoggedIn() ) {
+			LoginPage.loginAdmin();
+		}
+	} );
 
 	it( 'can be added', () => {
 		let lexemeId,

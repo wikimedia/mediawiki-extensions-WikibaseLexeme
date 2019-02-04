@@ -2,9 +2,17 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' );
+	LexemePage = require( '../pageobjects/lexeme.page' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' );
 
 describe( 'Lexeme:Senses', () => {
+
+	beforeEach( 'check logged in', () => {
+		LoginPage.open();
+		if ( !LexemePage.isUserLoggedIn() ) {
+			LoginPage.loginAdmin();
+		}
+	} );
 
 	it( 'can not save senses with redundant languages', () => {
 		let id;
@@ -25,7 +33,6 @@ describe( 'Lexeme:Senses', () => {
 					);
 				} );
 		} );
-
 		LexemePage.open( id );
 
 		LexemePage.addGlossToNthSense( 0, 'two', 'en', false );
