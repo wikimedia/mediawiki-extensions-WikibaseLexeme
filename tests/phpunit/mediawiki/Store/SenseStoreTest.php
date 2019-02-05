@@ -37,13 +37,19 @@ class SenseStoreTest extends TestCase {
 	/**
 	 * @var SenseId
 	 */
-	private $senseId;
+	private $senseIdOne;
+
+	/**
+	 * @var SenseId
+	 */
+	private $senseIdTwo;
 
 	protected function setUp() {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );
-		$this->senseId = new SenseId( 'L1-S1' );
+		$this->senseIdOne = new SenseId( 'L1-S1' );
+		$this->senseIdTwo = new SenseId( 'L2-S1' );
 	}
 
 	public function testAssignFreshId() {
@@ -164,7 +170,7 @@ class SenseStoreTest extends TestCase {
 	}
 
 	public function testSaveRedirect() {
-		$redirect = new EntityRedirect( $this->senseId, $this->senseId );
+		$redirect = new EntityRedirect( $this->senseIdOne, $this->senseIdTwo );
 		$instance = new SenseStore(
 			$this->newParentService( 'saveRedirect', $this->never() ),
 			$this->newEntityRevisionLookup()
@@ -188,7 +194,7 @@ class SenseStoreTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$lexeme->expects( $this->once() )
 			->method( 'removeSense' )
-			->with( $this->senseId );
+			->with( $this->senseIdOne );
 
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $this->never() )
@@ -199,7 +205,7 @@ class SenseStoreTest extends TestCase {
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
-		$instance->deleteEntity( $this->senseId, '', $this->newUser() );
+		$instance->deleteEntity( $this->senseIdOne, '', $this->newUser() );
 	}
 
 	public function testGivenLexemeId_userWasLastToEditFails() {
@@ -218,7 +224,7 @@ class SenseStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->userWasLastToEdit( $this->newUser(), $this->senseId, 0 );
+		$result = $instance->userWasLastToEdit( $this->newUser(), $this->senseIdOne, 0 );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -238,7 +244,7 @@ class SenseStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$instance->updateWatchlist( $this->newUser(), $this->senseId, false );
+		$instance->updateWatchlist( $this->newUser(), $this->senseIdOne, false );
 	}
 
 	public function testGivenLexemeId_isWatchingFails() {
@@ -257,7 +263,7 @@ class SenseStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->isWatching( $this->newUser(), $this->senseId );
+		$result = $instance->isWatching( $this->newUser(), $this->senseIdOne );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -339,7 +345,7 @@ class SenseStoreTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$mock->method( 'getId' )
-			->willReturn( $this->senseId );
+			->willReturn( $this->senseIdOne );
 		return $mock;
 	}
 

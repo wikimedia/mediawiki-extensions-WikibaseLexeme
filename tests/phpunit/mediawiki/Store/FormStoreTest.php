@@ -37,13 +37,18 @@ class FormStoreTest extends TestCase {
 	/**
 	 * @var FormId
 	 */
-	private $formId;
+	private $formIdOne;
+	/**
+	 * @var FormId
+	 */
+	private $formIdTwo;
 
 	protected function setUp() {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );
-		$this->formId = new FormId( 'L1-F1' );
+		$this->formIdOne = new FormId( 'L1-F1' );
+		$this->formIdTwo = new FormId( 'L2-F1' );
 	}
 
 	public function testAssignFreshId() {
@@ -164,7 +169,7 @@ class FormStoreTest extends TestCase {
 	}
 
 	public function testSaveRedirect() {
-		$redirect = new EntityRedirect( $this->formId, $this->formId );
+		$redirect = new EntityRedirect( $this->formIdOne, $this->formIdTwo );
 		$instance = new FormStore(
 			$this->newParentService( 'saveRedirect', $this->never() ),
 			$this->newEntityRevisionLookup()
@@ -188,7 +193,7 @@ class FormStoreTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$lexeme->expects( $this->once() )
 			->method( 'removeForm' )
-			->with( $this->formId );
+			->with( $this->formIdOne );
 
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $this->never() )
@@ -199,7 +204,7 @@ class FormStoreTest extends TestCase {
 
 		$instance = new FormStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
-		$instance->deleteEntity( $this->formId, '', $this->newUser() );
+		$instance->deleteEntity( $this->formIdOne, '', $this->newUser() );
 	}
 
 	public function testGivenLexemeId_userWasLastToEditFails() {
@@ -218,7 +223,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->userWasLastToEdit( $this->newUser(), $this->formId, 0 );
+		$result = $instance->userWasLastToEdit( $this->newUser(), $this->formIdOne, 0 );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -238,7 +243,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$instance->updateWatchlist( $this->newUser(), $this->formId, false );
+		$instance->updateWatchlist( $this->newUser(), $this->formIdOne, false );
 	}
 
 	public function testGivenLexemeId_isWatchingFails() {
@@ -257,7 +262,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->isWatching( $this->newUser(), $this->formId );
+		$result = $instance->isWatching( $this->newUser(), $this->formIdOne );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -339,7 +344,7 @@ class FormStoreTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$mock->method( 'getId' )
-			->willReturn( $this->formId );
+			->willReturn( $this->formIdOne );
 		return $mock;
 	}
 
