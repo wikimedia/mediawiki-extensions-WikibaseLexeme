@@ -14,6 +14,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer
@@ -30,6 +31,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
 			$representationDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 		$changeOps = $deserializer->createEntityChangeOp( [] );
@@ -50,6 +52,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
 			$representationDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 
@@ -70,12 +73,46 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 		$this->assertInstanceOf( ChangeOpRepresentation::class, $changeOps->getChangeOps()[0] );
 	}
 
+	public function testCreateEntityChangeOpWithValidTerm_trimsRepresentationsValuesToNFC() {
+		$representationDeserializer = $this->getMock( TermDeserializer::class );
+		$validator = $this->newDummyValidator();
+
+		$representationDeserializer
+			->expects( $this->once() )
+			->method( 'deserialize' )
+			->with( [ 'language' => 'en', 'value' => 'smth' ] )
+			->willReturn( new Term( 'en', 'smth' ) );
+
+		$deserializer = new RepresentationsChangeOpDeserializer(
+			$representationDeserializer,
+			new StringNormalizer(),
+			$validator
+		);
+
+		$languageContext = $this->getContextSpy();
+		$representationContext = $this->getContextSpy();
+		$representationContext
+			->method( 'at' )
+			->with( 'en' )
+			->willReturn( $languageContext );
+		$deserializer->setContext( $representationContext );
+
+		$changeOps = $deserializer->createEntityChangeOp( [
+			'en' => [ 'language' => 'en', 'value' => " \t smth \v\n " ]
+		] );
+
+		$this->assertInstanceOf( ChangeOpRepresentationList::class, $changeOps );
+		$this->assertCount( 1, $changeOps->getChangeOps() );
+		$this->assertInstanceOf( ChangeOpRepresentation::class, $changeOps->getChangeOps()[0] );
+	}
+
 	public function testCreateEntityChangeOpWithRemoval_yieldsChangeOpRepresentationList() {
 		$representationDeserializer = $this->getMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
 			$representationDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 
@@ -109,6 +146,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
 			$representationDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 

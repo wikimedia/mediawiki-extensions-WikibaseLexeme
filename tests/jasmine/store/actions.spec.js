@@ -99,7 +99,7 @@ describe( 'wikibase.lexeme.store.actions', function () {
 		var store = {
 				commit: sinon.stub()
 			},
-			payload = { a: 'b' };
+			payload = { value: 'b' };
 
 		actions[ actionTypes.REMOVE_REPRESENTATION ]( store, payload );
 
@@ -110,11 +110,22 @@ describe( 'wikibase.lexeme.store.actions', function () {
 		var store = {
 				commit: sinon.stub()
 			},
-			payload = { a: 'b' };
+			payload = { value: 'b' };
 
 		actions[ actionTypes.UPDATE_REPRESENTATION_VALUE ]( store, payload );
 
 		expect( store.commit.withArgs( mutationTypes.UPDATE_REPRESENTATION_VALUE, payload ).calledOnce, 'to be true' );
+	} );
+
+	it( 'UPDATE_REPRESENTATION_VALUE trims the value', function () {
+		var store = {
+				commit: sinon.stub()
+			},
+			payload = { value: ' \v\t b \n ' };
+
+		actions[ actionTypes.UPDATE_REPRESENTATION_VALUE ]( store, payload );
+
+		expect( store.commit.withArgs( mutationTypes.UPDATE_REPRESENTATION_VALUE, { value: 'b' } ).calledOnce, 'to be true' );
 	} );
 
 	it( 'UPDATE_REPRESENTATION_LANGUAGE delegates to mutation', function () {

@@ -14,6 +14,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer
@@ -30,6 +31,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = new GlossesChangeOpDeserializer(
 			$glossDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 		$changeOps = $deserializer->createEntityChangeOp( [] );
@@ -50,6 +52,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = new GlossesChangeOpDeserializer(
 			$glossDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 
@@ -70,12 +73,46 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 		$this->assertInstanceOf( ChangeOpGloss::class, $changeOps->getChangeOps()[0] );
 	}
 
+	public function testCreateEntityChangeOpWithValidTerm_trimsGlossValuesToNFC() {
+		$glossDeserializer = $this->getMock( TermDeserializer::class );
+		$validator = $this->newDummyValidator();
+
+		$glossDeserializer
+			->expects( $this->once() )
+			->method( 'deserialize' )
+			->with( [ 'language' => 'en', 'value' => 'smth' ] )
+			->willReturn( new Term( 'en', 'smth' ) );
+
+		$deserializer = new GlossesChangeOpDeserializer(
+			$glossDeserializer,
+			new StringNormalizer(),
+			$validator
+		);
+
+		$languageContext = $this->getContextSpy();
+		$glossContext = $this->getContextSpy();
+		$glossContext
+			->method( 'at' )
+			->with( 'en' )
+			->willReturn( $languageContext );
+		$deserializer->setContext( $glossContext );
+
+		$changeOps = $deserializer->createEntityChangeOp( [
+			'en' => [ 'language' => 'en', 'value' => " \t smth \v\n " ]
+		] );
+
+		$this->assertInstanceOf( ChangeOpGlossList::class, $changeOps );
+		$this->assertCount( 1, $changeOps->getChangeOps() );
+		$this->assertInstanceOf( ChangeOpGloss::class, $changeOps->getChangeOps()[0] );
+	}
+
 	public function testCreateEntityChangeOpWithRemoval_yieldsChangeOpGlossList() {
 		$glossDeserializer = $this->getMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$deserializer = new GlossesChangeOpDeserializer(
 			$glossDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 
@@ -109,6 +146,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 		$deserializer = new GlossesChangeOpDeserializer(
 			$glossDeserializer,
+			new StringNormalizer(),
 			$validator
 		);
 

@@ -86,6 +86,7 @@ class AddSense extends ApiBase {
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),
+						$wikibaseRepo->getStringNormalizer(),
 						new LexemeTermSerializationValidator(
 							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)

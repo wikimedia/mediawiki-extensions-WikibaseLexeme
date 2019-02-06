@@ -45,6 +45,7 @@ return call_user_func( function() {
 			return new EditFormChangeOpDeserializer(
 				new RepresentationsChangeOpDeserializer(
 					new TermDeserializer(),
+					$wikibaseRepo->getStringNormalizer(),
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 					)

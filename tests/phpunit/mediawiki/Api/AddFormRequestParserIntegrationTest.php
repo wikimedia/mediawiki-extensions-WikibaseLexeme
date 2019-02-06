@@ -31,6 +31,7 @@ use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser
@@ -299,6 +300,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 		$editFormChangeOpDeserializer = new EditFormChangeOpDeserializer(
 			new RepresentationsChangeOpDeserializer(
 				new TermDeserializer(),
+				new StringNormalizer(),
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)

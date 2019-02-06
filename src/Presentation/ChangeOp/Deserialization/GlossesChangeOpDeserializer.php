@@ -8,6 +8,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
+use Wikibase\StringNormalizer;
 
 /**
  * @license GPL-2.0-or-later
@@ -15,11 +16,17 @@ use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 
 	const PARAM_LANGUAGE = 'language';
+	const PARAM_VALUE = 'value';
 
 	/**
 	 * @var TermDeserializer
 	 */
 	private $glossDeserializer;
+
+	/**
+	 * @var StringNormalizer
+	 */
+	private $stringNormalizer;
 
 	/**
 	 * @var ValidationContext
@@ -33,9 +40,11 @@ class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 
 	public function __construct(
 		TermDeserializer $glossDeserializer,
+		StringNormalizer $stringNormalizer,
 		LexemeTermSerializationValidator $validator
 	) {
 		$this->glossDeserializer = $glossDeserializer;
+		$this->stringNormalizer = $stringNormalizer;
 		$this->termSerializationValidator = $validator;
 	}
 
@@ -53,8 +62,13 @@ class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 			if ( array_key_exists( 'remove', $gloss ) ) {
 				$changeOps[] = new ChangeOpRemoveSenseGloss( $gloss[self::PARAM_LANGUAGE] );
 			} else {
+				$trimmedGloss = [
+					self::PARAM_LANGUAGE => $gloss[self::PARAM_LANGUAGE],
+					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $gloss[self::PARAM_VALUE] )
+				];
+
 				$changeOps[] = new ChangeOpGloss(
-					$this->glossDeserializer->deserialize( $gloss )
+					$this->glossDeserializer->deserialize( $trimmedGloss )
 				);
 			}
 		}

@@ -19,6 +19,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\AddSenseRequestParser
@@ -82,6 +83,7 @@ class AddSenseRequestParserTest extends TestCase {
 		$editSenseChangeOpDeserializer = new EditSenseChangeOpDeserializer(
 			new GlossesChangeOpDeserializer(
 				new TermDeserializer(),
+				new StringNormalizer(),
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)

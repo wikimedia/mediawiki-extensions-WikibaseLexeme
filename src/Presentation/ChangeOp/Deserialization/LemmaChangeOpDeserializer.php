@@ -73,7 +73,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 			);
 
 			$lemmaTerm = array_key_exists( 'remove', $serialization ) ? '' :
-				$this->stringNormalizer->cleanupToNFC( $serialization['value'] );
+				$this->stringNormalizer->trimToNFC( $serialization['value'] );
 
 			if ( $lemmaTerm === '' ) {
 				$changeOps->add( new ChangeOpLemmaRemove( $serialization['language'] ) );

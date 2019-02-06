@@ -12,6 +12,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	var selector = {
 		lemma: '.lemma-widget_lemma',
 		lemmaValue: '.lemma-widget_lemma-value',
+		lemmaValueInput: '.lemma-widget_lemma-value-input',
 		lemmaLanguage: '.lemma-widget_lemma-language'
 	};
 
@@ -100,6 +101,20 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		} );
 	} );
 
+	it( 'trims user input in lemma value', function ( done ) {
+		var lemma = new Lemma( 'hello', 'en' ),
+			widget = newWidget( [ lemma ] );
+
+		widget.inEditMode = true;
+		widget.$nextTick( function () {
+			setLemmaValue( widget, ' \v\t hello \n ' );
+			widget.$nextTick( function () {
+				expect( lemma.value, 'to equal', 'hello' );
+				done();
+			} );
+		} );
+	} );
+
 	expect.addAssertion( '<DOMElement> to contain lemma <object>', function ( expect, element, lemma ) {
 		var language = lemma.language;
 		var value = lemma.value;
@@ -141,6 +156,13 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		} } ).$mount();
 	}
 
+	function setLemmaValue( widget, value ) {
+		var inputElm = widget.$el.querySelector( selector.lemmaValueInput );
+
+		inputElm.value = value;
+		inputElm.dispatchEvent( new Event( 'input' ) );
+	}
+
 	function getTemplate() {
 		return '<div class="lemma-widget">'
 			+ '<ul v-if="!inEditMode" class="lemma-widget_lemma-list">'
@@ -156,7 +178,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 			+ '{{\'wikibaselexeme-lemma-field-lemma-label\'|message}}'
 			+ '</span>'
 			+ '<input size="1" class="lemma-widget_lemma-value-input" '
-			+ 'v-model="lemma.value" :disabled="isSaving">'
+			+ ':value="lemma.value" @input="lemma.value = $event.target.value.trim()" :disabled="isSaving">'
 			+ '<span class="lemma-widget_lemma-language-label">'
 			+ '{{\'wikibaselexeme-lemma-field-language-label\'|message}}'
 			+ '</span>'

@@ -8,6 +8,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
+use Wikibase\StringNormalizer;
 
 /**
  * @license GPL-2.0-or-later
@@ -15,11 +16,17 @@ use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 
 	const PARAM_LANGUAGE = 'language';
+	const PARAM_VALUE = 'value';
 
 	/**
 	 * @var TermDeserializer
 	 */
 	private $representationDeserializer;
+
+	/**
+	 * @var StringNormalizer
+	 */
+	private $stringNormalizer;
 
 	/**
 	 * @var ValidationContext
@@ -33,9 +40,11 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 
 	public function __construct(
 		TermDeserializer $representationDeserializer,
+		StringNormalizer $stringNormalizer,
 		LexemeTermSerializationValidator $validator
 	) {
 		$this->representationDeserializer = $representationDeserializer;
+		$this->stringNormalizer = $stringNormalizer;
 		$this->termSerializationValidator = $validator;
 	}
 
@@ -53,8 +62,13 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 			if ( array_key_exists( 'remove', $representation ) ) {
 				$changeOps[] = new ChangeOpRemoveFormRepresentation( $representation[self::PARAM_LANGUAGE] );
 			} else {
+				$trimmedRepresentation = [
+					self::PARAM_LANGUAGE => $representation[self::PARAM_LANGUAGE],
+					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $representation[self::PARAM_VALUE] )
+				];
+
 				$changeOps[] = new ChangeOpRepresentation(
-					$this->representationDeserializer->deserialize( $representation )
+					$this->representationDeserializer->deserialize( $trimmedRepresentation )
 				);
 			}
 		}

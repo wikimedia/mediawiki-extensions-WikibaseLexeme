@@ -205,7 +205,9 @@ HTML;
 						{{gloss.value}}
 					</span>
 					<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
-						v-model="gloss.value" >
+						:value="gloss.value"
+						@input="gloss.value = $event.target.value.trim()"
+					>
 				</td>
 				<td class="wikibase-lexeme-sense-gloss-actions-cell">
 					<button v-if="inEditMode"

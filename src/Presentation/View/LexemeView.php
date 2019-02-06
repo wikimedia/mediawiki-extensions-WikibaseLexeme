@@ -318,15 +318,24 @@ HTML;
 				<span class="lemma-widget_lemma-value-label">
 					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
 				</span>
+                <!--
+					 In this input, we reverted back to using custom two-way binding
+					 instead of using v-model.trim. The reason was that wdio's
+					 $(selector).setValue(value) was conflicting with vue's trimming
+					 behavior, causing setValue() to append instead of replace text
+					 in the input field, causing some false-negatives in browser tests.
+                -->
 				<input size="1" class="lemma-widget_lemma-value-input"
-					v-model="lemma.value" :disabled="isSaving">
+					:value="lemma.value" :disabled="isSaving"
+					@input="lemma.value = $event.target.value.trim()"
+				>
 				<span class="lemma-widget_lemma-language-label">
 					{{'wikibaselexeme-lemma-field-language-label'|message}}
 				</span>
 				<input size="1" class="lemma-widget_lemma-language-input"
 					v-model="lemma.language" :disabled="isSaving"
-					:class="{ 
-						'lemma-widget_lemma-language-input_redundant-language': 
+					:class="{
+						'lemma-widget_lemma-language-input_redundant-language':
 							isRedundantLanguage(lemma.language)
 					}"
 					:aria-invalid="isRedundantLanguage(lemma.language)">

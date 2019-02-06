@@ -72,7 +72,7 @@
 				}
 
 				// TODO: should this also check statements?
-				return this.getId() === other.getId() && this.getGlosses() === other.getGlosses();
+				return this.getId() === other.getId() && this.getGlosses().equals( other.getGlosses() );
 			}
 		}
 	);

@@ -19,6 +19,13 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 		}
 	};
 
+	var selector = {
+		gloss: '.wikibase-lexeme-sense-gloss',
+		glossValueCell: '.wikibase-lexeme-sense-gloss-value-cell',
+		glossValue: '.wikibase-lexeme-sense-gloss-value',
+		glossLanguage: '.wikibase-lexeme-sense-gloss-language'
+	};
+
 	function WikibaseContentLanguages() {}
 	WikibaseContentLanguages.prototype.getAll = function () {
 		return [ 'en' ];
@@ -136,16 +143,31 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 		expect( widget.glosses.length, 'to equal', 1 );
 	} );
 
+	it( 'trims user input in gloss value', function ( done ) {
+		var gloss = { language: 'en', value: 'hello' },
+			widget = newWidget( [ gloss ] );
+
+		widget.edit();
+		widget.$nextTick( function () {
+			setGlossValue( widget, ' \v\t hello \n ' );
+			widget.$nextTick( function () {
+				expect( widget.glosses[ 0 ].value, 'to equal', 'hello' );
+				done();
+			} );
+		} );
+	} );
+
+	function setGlossValue( widget, value ) {
+		var inputElm = widget.$el.querySelector( selector.glossValueCell + ' input' );
+
+		inputElm.value = value;
+		inputElm.dispatchEvent( new Event( 'input' ) );
+	}
+
 	function assertWidget( widget ) {
 		'use strict';
 
-		var when = '',
-			selector = {
-				gloss: '.wikibase-lexeme-sense-gloss',
-				glossValueCell: '.wikibase-lexeme-sense-gloss-value-cell',
-				glossValue: '.wikibase-lexeme-sense-gloss-value',
-				glossLanguage: '.wikibase-lexeme-sense-gloss-language'
-			};
+		var when = '';
 
 		expect.addAssertion( '<DOMElement> to have trimmed text <string>', function ( expect, subject, value ) {
 			expect( subject.textContent.trim(), 'to equal', value );
@@ -250,7 +272,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 			'{{gloss.value}}\n' +
 			'</span>\n' +
 			'<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"\n' +
-			'v-model="gloss.value" >\n' +
+			':value="gloss.value" @input="gloss.value = $event.target.value.trim()">\n' +
 			'</td>\n' +
 			'<td>\n' +
 			'<button v-if="inEditMode"\n' +

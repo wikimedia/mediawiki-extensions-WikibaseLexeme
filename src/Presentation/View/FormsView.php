@@ -165,7 +165,7 @@ HTML;
 <div class="representation-widget">
 	<ul v-if="!inEditMode" class="representation-widget_representation-list">
 		<li v-for="representation in representations" class="representation-widget_representation">
-			<span class="representation-widget_representation-value" 
+			<span class="representation-widget_representation-value"
 				:lang="representation.language">{{representation.value}}</span>
 			<span class="representation-widget_representation-language">
 				{{representation.language}}
@@ -175,34 +175,34 @@ HTML;
 	<div v-else>
 		<div class="representation-widget_edit-area">
 			<ul class="representation-widget_representation-list">
-				<li v-for="representation in representations" 
+				<li v-for="representation in representations"
 					class="representation-widget_representation-edit-box">
 					<span class="representation-widget_representation-value-label">
 						{{'wikibaselexeme-form-field-representation-label'|message}}
 					</span>
-					<input size="1" class="representation-widget_representation-value-input" 
+					<input size="1" class="representation-widget_representation-value-input"
 						:value="representation.value"
 						@input="updateValue(representation, $event)">
 					<span class="representation-widget_representation-language-label">
 						{{'wikibaselexeme-form-field-language-label'|message}}
 					</span>
-					<input size="1" class="representation-widget_representation-language-input" 
+					<input size="1" class="representation-widget_representation-language-input"
 						:value="representation.language"
-						@input="updateLanguage(representation, $event)" 
-						:class="{ 
-							'representation-widget_representation-language-input_redundant-language': 
+						@input="updateLanguage(representation, $event)"
+						:class="{
+							'representation-widget_representation-language-input_redundant-language':
 								isRedundantLanguage(representation.language)
-						}" 
+						}"
 						:aria-invalid="isRedundantLanguage(representation.language)">
-					<button class="representation-widget_representation-remove" 
-						v-on:click="remove(representation)" 
+					<button class="representation-widget_representation-remove"
+						v-on:click="remove(representation)"
 						:disabled="representations.length <= 1"
 						:title="'wikibase-remove'|message">
 						&times;
 					</button>
 				</li>
 				<li class="representation-widget_edit-area-controls">
-					<button type="button" class="representation-widget_add" v-on:click="add" 
+					<button type="button" class="representation-widget_add" v-on:click="add"
 						:title="'wikibase-add'|message">+</button>
 				</li>
 			</ul>

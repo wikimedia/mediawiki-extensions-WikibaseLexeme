@@ -71,6 +71,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 					new EditFormChangeOpDeserializer(
 						new RepresentationsChangeOpDeserializer(
 							new TermDeserializer(),
+							$stringNormalizer,
 							new LexemeTermSerializationValidator(
 								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 							)
@@ -89,6 +90,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 					new EditSenseChangeOpDeserializer(
 						new GlossesChangeOpDeserializer(
 							new TermDeserializer(),
+							$stringNormalizer,
 							new LexemeTermSerializationValidator(
 								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 							)
