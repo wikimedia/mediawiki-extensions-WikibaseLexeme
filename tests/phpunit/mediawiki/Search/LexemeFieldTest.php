@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Repo\Search\Elastic\Fields\WikibaseIndexField;
+use Wikibase\Repo\Search\Fields\WikibaseIndexField;
 
 /**
  * Lemma field test.
