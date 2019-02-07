@@ -28,6 +28,11 @@ module.exports = ( function () {
 			},
 
 			methods: {
+				handleEnter: function () {
+					if ( this.inEditMode && !this.isUnsaveable ) {
+						this.save();
+					}
+				},
 				save: function () {
 					if ( this.lemmas.length() === 0 ) {
 						this.displayEmptyLemmasError();
