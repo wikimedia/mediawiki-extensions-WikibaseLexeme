@@ -1,7 +1,6 @@
 <?php
 namespace Wikibase\Lexeme\DataAccess\Search;
 
-use CirrusSearch\Search\EmptyResultSet;
 use CirrusSearch\Search\ResultsType;
 use CirrusSearch\Search\SearchContext;
 use Elastica\ResultSet;
@@ -282,7 +281,7 @@ class LexemeFulltextResult implements ResultsType {
 		}
 
 		if ( empty( $rawResults ) ) {
-			return new EmptyResultSet();
+			return new \CirrusSearch\Search\ResultSet();
 		}
 		// Create prefetched lookup
 		$termLookup = $this->termLookupFactory->newLabelDescriptionLookup( $this->displayLanguage,
