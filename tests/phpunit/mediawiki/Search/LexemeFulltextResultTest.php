@@ -232,6 +232,12 @@ class LexemeFulltextResultTest extends MediaWikiTestCase {
 						'<span class="wb-itemlink-description">(wikibaselexeme-form-description: singulier, duck, L1, (wikibaselexeme-description: Anglais, nom))</span>'
 				]
 			],
+			'empty results' => [
+				'qqx',
+				[],
+				null,
+				[]
+			],
 		];
 	}
 
@@ -241,7 +247,7 @@ class LexemeFulltextResultTest extends MediaWikiTestCase {
 	public function testTransformResult(
 		$displayLanguage,
 		array $fetchIds,
-		array $resultData,
+		$resultData,
 		array $expected
 	) {
 		$termLookupFactory = $this->getTermLookupFactory( $fetchIds, $displayLanguage );
@@ -255,10 +261,14 @@ class LexemeFulltextResultTest extends MediaWikiTestCase {
 		$context = $this->getMockBuilder( SearchContext::class )
 			->disableOriginalConstructor()->getMock();
 
-		$result = new Result( $resultData );
 		$resultSet = $this->getMockBuilder( ResultSet::class )
 			->disableOriginalConstructor()->getMock();
-		$resultSet->expects( $this->any() )->method( 'getResults' )->willReturn( [ $result ] );
+		if ( is_null( $resultData ) ) {
+			$resultSet->expects( $this->any() )->method( 'getResults' )->willReturn( [] );
+		} else {
+			$result = new Result( $resultData );
+			$resultSet->expects( $this->any() )->method( 'getResults' )->willReturn( [ $result ] );
+		}
 		$resultSet->expects( $this->any() )
 			->method( 'getResponse' )
 			->willReturn( new Response( '{}', 200 ) );
