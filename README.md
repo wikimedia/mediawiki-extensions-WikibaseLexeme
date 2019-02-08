@@ -1,8 +1,12 @@
 This extension allows storing and modifying the structured lexicographic data in the Wikibase instance.
 
-## Installation
+## Prerequisites
 
-WikibaseLexeme requires Wikibase to be installed (the Repo component). You can find Wikibase installation instructions at https://www.mediawiki.org/wiki/Wikibase/Installation.
+WikibaseLexeme requires the following extensions to be installed and configured on MediaWiki instance:
+* Wikibase (the Repo component). You can find Wikibase installation instructions at https://www.mediawiki.org/wiki/Wikibase/Installation.
+* ULS and CLDR (used in Senses for Language fields). You can find installation instructions of these two extensions at https://www.mediawiki.org/wiki/Extension:UniversalLanguageSelector and https://www.mediawiki.org/wiki/Extension:CLDR, respectively.
+
+## Installation
 
 Note: Currently, this extension is only compatible with the current development version of Wikibase, i.e. it might not work correctly if you use older Wikibase version.
 
