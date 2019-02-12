@@ -236,7 +236,7 @@ HTML;
 
 	private function getRawLexemeHeaderVueTemplate() {
 		return <<<HTML
-<div id="wb-lexeme-header" class="wb-lexeme-header">
+<div id="wb-lexeme-header" class="wb-lexeme-header" v-on:keyup.enter="handleEnter">
 	<div id="wb-lexeme-header-lemmas">
 		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
 		<div class="wb-lexeme-header_lemma-widget">
