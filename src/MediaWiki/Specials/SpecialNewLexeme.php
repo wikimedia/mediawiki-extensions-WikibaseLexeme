@@ -309,7 +309,7 @@ class SpecialNewLexeme extends SpecialPage {
 				$this->msg(
 					'wikibase-anonymouseditwarning',
 					$this->msg( 'wikibase-entity-lexeme' )
-				),
+				)->parse(),
 			];
 		}
 
