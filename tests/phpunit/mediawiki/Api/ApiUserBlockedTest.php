@@ -63,7 +63,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 					],
 				] ),
 			],
-			[ 'blockedtext', 'no-permission' ],
+			[ 'apierror-blocked', 'no-permission' ],
 		];
 
 		yield [
@@ -72,7 +72,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'lexemeId' => 'L1',
 				'data' => '{"glosses":{"en":{"value":"Some text value","language":"en"}}}',
 			],
-			[ 'blockedtext', 'no-permission' ],
+			[ 'apierror-blocked', 'no-permission' ],
 		];
 
 		yield [
@@ -81,7 +81,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'formId' => 'L1-F1',
 				'data' => '{"a": "b"}',
 			],
-			[ 'blockedtext', 'no-permission' ],
+			[ 'apierror-blocked', 'no-permission' ],
 		];
 
 		yield [
@@ -90,7 +90,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'senseId' => 'L1-S1',
 				'data' => '{"a": "b"}',
 			],
-			[ 'blockedtext', 'no-permission' ],
+			[ 'apierror-blocked', 'no-permission' ],
 		];
 
 		yield [
@@ -107,7 +107,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			[
 				'id' => 'L1-F1',
 			],
-			[ 'blockedtext', 'no-permission' ],
+			[ 'apierror-blocked', 'no-permission' ],
 		];
 
 		yield [
@@ -115,7 +115,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			[
 				'id' => 'L1-S1',
 			],
-			[ 'blockedtext', 'no-permission' ],
+			[ 'apierror-blocked', 'no-permission' ],
 		];
 	}
 
