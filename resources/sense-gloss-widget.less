@@ -1,4 +1,5 @@
 @import 'mediawiki.mixins';
+@import 'mediawiki.ui/variables';
 
 .wikibase-lexeme-sense-glosses {
 	margin-right: 252px;
@@ -6,12 +7,12 @@
 
 .wikibase-lexeme-sense-glosses-table {
 	max-width: 65rem;
-	border-left: 6px solid #ededed;
+	border-left: 5px solid @colorGray12;
 	padding-left: 9px;
 }
 
 .wikibase-lexeme-sense-gloss-table-header {
-	color: #222;
+	color: @colorGray2;
 }
 
 .wikibase-lexeme-sense-glosses-table td {
@@ -54,7 +55,7 @@
 	border: 0;
 
 	&:enabled {
-		color: #1f66cc;
+		color: @colorProgressive;
 		cursor: pointer;
 		&:hover {
 			text-decoration: underline;
@@ -62,7 +63,7 @@
 	}
 
 	&:disabled {
-		color: #72777d;
+		color: @colorGray7;
 	}
 
 }

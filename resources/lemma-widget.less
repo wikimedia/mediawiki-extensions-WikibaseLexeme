@@ -1,4 +1,5 @@
 @import 'mediawiki.mixins';
+@import 'mediawiki.ui/variables';
 
 .lemma-widget {
 	display: flex;
@@ -16,7 +17,7 @@
 	&_lemma {
 		display: flex;
 		flex-direction: column;
-		border-left: 6px solid #ededed;
+		border-left: 5px solid @colorGray12;
 		padding: 0 9px;
 		margin: 11px;
 		min-width: 0;
@@ -33,7 +34,7 @@
 	}
 
 	&_edit-area {
-		border: 3px solid #9cf;
+		border: 3px solid #eaf3ff;
 	}
 
 	&_controls {
@@ -73,7 +74,7 @@
 		background: transparent;
 		border: 0;
 		cursor: pointer;
-		color: #0d4c99;
+		color: @colorProgressiveActive;
 		&:hover {
 			text-decoration: underline;
 		}
@@ -103,7 +104,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		border-left: 6px solid #dae8fc;
+		border-left: 6px solid #eaf3ff;
 		padding: 0 45px 0 9px;
 		margin: 0;
 
@@ -160,7 +161,7 @@
 		border: 0;
 		font-size: 3em;
 		text-align: center;
-		background: #dae8fc;
+		background: #eaf3ff;
 		cursor: pointer;
 	}
 }
