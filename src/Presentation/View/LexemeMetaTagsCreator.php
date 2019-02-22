@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Presentation\View;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\View\EntityMetaTagsCreator;
 use Wikimedia\Assert\Assert;
 
@@ -14,14 +15,20 @@ use Wikimedia\Assert\Assert;
 class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 
 	private $lemmaSeparator;
+	private $labelDescriptionLookup;
 
 	/**
 	 * @param string $lemmaSeparator
+	 * @param LanguageFallbackLabelDescriptionLookup $labelDescriptionLookup
 	 */
-	public function __construct( $lemmaSeparator ) {
+	public function __construct(
+		$lemmaSeparator,
+		LanguageFallbackLabelDescriptionLookup $labelDescriptionLookup
+	) {
 		Assert::parameterType( 'string', $lemmaSeparator, '$lemmaSeparator' );
 
 		$this->lemmaSeparator = $lemmaSeparator;
+		$this->labelDescriptionLookup = $labelDescriptionLookup;
 	}
 
 	/**
@@ -35,7 +42,16 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 		/** @var Lexeme $entity */
 		$metaTags = [
 			'title' => $this->getTitleText( $entity ),
+			'og:title' => $this->getTitleText( $entity ),
+			'twitter:card' => 'summary'
 		];
+
+		$description = $this->getDescriptionText( $entity );
+		if ( !empty( $description ) ) {
+			$metaTags [ 'description' ] = $description;
+			$metaTags [ 'og:description' ] = $description;
+
+		}
 
 		return $metaTags;
 	}
@@ -51,6 +67,21 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 			return $entity->getId()->getSerialization();
 		}
 		return implode( $this->lemmaSeparator, $lemmas );
+	}
+
+	private function getDescriptionText( Lexeme $entity ) {
+		if ( !$entity->getLanguage() || !$entity->getLexicalCategory() ) {
+			return '';
+		}
+
+		$langauge = $this->labelDescriptionLookup->getLabel( $entity->getLanguage() );
+		$category = $this->labelDescriptionLookup->getLabel( $entity->getLexicalCategory() );
+
+		if ( !$langauge || !$category ) {
+			return '';
+		}
+
+		return $langauge->getText() . ' ' . $category->getText();
 	}
 
 }
