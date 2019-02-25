@@ -141,7 +141,7 @@
                             {
                                 "script_score": {
                                     "script": {
-                                        "inline": "pow(doc['incoming_links'].value , 1) \/ ( pow(doc['incoming_links'].value, 1) + pow(100,1))",
+                                        "source": "pow(doc['incoming_links'].value , 1) \/ ( pow(doc['incoming_links'].value, 1) + pow(100,1))",
                                         "lang": "expression"
                                     }
                                 },
@@ -150,7 +150,7 @@
                             {
                                 "script_score": {
                                     "script": {
-                                        "inline": "pow(doc['statement_count'].value , 2) \/ ( pow(doc['statement_count'].value, 2) + pow(20,2))",
+                                        "source": "pow(doc['statement_count'].value , 2) \/ ( pow(doc['statement_count'].value, 2) + pow(20,2))",
                                         "lang": "expression"
                                     }
                                 },
