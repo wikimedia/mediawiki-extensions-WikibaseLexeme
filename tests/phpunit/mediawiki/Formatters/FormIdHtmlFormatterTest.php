@@ -6,7 +6,9 @@ use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit4And6Compat;
 use Title;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
+use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Form;
@@ -52,6 +54,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		parent::setUp();
 
 		$this->revisionLookup = $this->createMock( EntityRevisionLookup::class );
+		$this->labelLookup = $this->createMock( LabelDescriptionLookup::class );
 		$this->titleLookup = $this->createMock( EntityTitleLookup::class );
 		$this->textProvider = $this->getMockTextProvider();
 		$this->redirectedLexemeSubEntityIdHtmlFormatter =
@@ -77,8 +80,20 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 */
 	private function getMockTextProvider() {
 		$mock = $this->createMock( LocalizedTextProvider::class );
+
+		$getMethodValuesMap = [
+			[ 'wikibaselexeme-formidformatter-separator-multiple-representation', [], '-S-' ],
+			[ 'wikibaselexeme-formidformatter-separator-grammatical-features', [], ', ' ],
+			[
+				'wikibaselexeme-formidformatter-link-title',
+				[ 'L999-F666', 'noun, verb' ],
+				'L999-F666: noun, verb'
+			]
+		];
 		$mock->method( 'get' )
-			->willReturn( '-S-' );
+			->will(
+				$this->returnValueMap( $getMethodValuesMap )
+			);
 		return $mock;
 	}
 
@@ -163,7 +178,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
 		$this->assertSame(
-			'<a href="LOCAL-URL#FORM">fOo</a>',
+			'<a href="LOCAL-URL#FORM" title="L999-F666">fOo</a>',
 			$result
 		);
 	}
@@ -185,7 +200,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
 		$this->assertSame(
-			'<a href="LOCAL-URL#FORM">fOo-S-bAr</a>',
+			'<a href="LOCAL-URL#FORM" title="L999-F666">fOo-S-bAr</a>',
 			$result
 		);
 	}
@@ -206,7 +221,38 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
 		$this->assertSame(
-			'<a href="LOCAL-URL#FORM">&lt;script>alert("hi")&lt;/script></a>',
+			'<a href="LOCAL-URL#FORM" title="L999-F666">&lt;script>alert("hi")&lt;/script></a>',
+			$result
+		);
+	}
+
+	public function testFormatId_addsIdAndGramaticalFeaturesToTitleAttribute() {
+		$formId = new FormId( 'L999-F666' );
+
+		$grammaticalFeature1 = new ItemId( 'Q123' );
+		$grammaticalFeature2 = new ItemId( 'Q321' );
+
+		$formRevision = new EntityRevision( new Form( $formId, new TermList( [
+			new Term( 'pt', '<script>alert("hi")</script>' ),
+		] ), [ $grammaticalFeature1, $grammaticalFeature2 ] ) );
+
+		$this->revisionLookup->method( 'getEntityRevision' )
+			->with( $this->equalTo( $formId ) )
+			->willReturn( $formRevision );
+
+		$this->labelLookup->method( 'getLabel' )->will(
+			$this->returnValueMap( [
+				[ $grammaticalFeature1, new Term( 'en', 'noun' ) ],
+				[ $grammaticalFeature2, new Term( 'en', 'verb' ) ]
+			] )
+		);
+
+		$this->makeTitleLookupReturnMainPage( $formId );
+
+		$formatter = $this->newFormIdHtmlFormatter();
+		$result = $formatter->formatEntityId( $formId );
+		$this->assertSame(
+			'<a href="LOCAL-URL#FORM" title="L999-F666: noun, verb">&lt;script>alert("hi")&lt;/script></a>',
 			$result
 		);
 	}
@@ -214,6 +260,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	private function newFormIdHtmlFormatter() : FormIdHtmlFormatter {
 		return new FormIdHtmlFormatter(
 			$this->revisionLookup,
+			$this->labelLookup,
 			$this->titleLookup,
 			$this->textProvider,
 			$this->redirectedLexemeSubEntityIdHtmlFormatter

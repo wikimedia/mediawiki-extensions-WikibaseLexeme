@@ -414,8 +414,11 @@ return [
 		'entity-id-html-link-formatter-callback' => function( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$titleLookup = $repo->getEntityTitleLookup();
+			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
+			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new FormIdHtmlFormatter(
 				$repo->getEntityRevisionLookup(),
+				$languageLabelLookup,
 				$titleLookup,
 				new MediaWikiLocalizedTextProvider( $language ),
 				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
