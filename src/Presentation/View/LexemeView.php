@@ -96,10 +96,11 @@ class LexemeView extends EntityView {
 	 * Builds and returns the main content representing a whole Lexeme
 	 *
 	 * @param EntityDocument $entity the entity to render
+	 * @param int $revision the revision of the entity to render
 	 *
 	 * @return ViewContent
 	 */
-	public function getContent( EntityDocument $entity ): ViewContent {
+	public function getContent( EntityDocument $entity, $revision = null ): ViewContent {
 		return new ViewContent(
 			$this->renderEntityView( $entity )
 		);
