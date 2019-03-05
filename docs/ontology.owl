@@ -40,6 +40,12 @@
       <rdfs:subClassOf rdf:resource="&wikibase;Entity"/>
   </owl:Class>
 
+  <owl:Class rdf:about="&wikibase;Sense">
+      <rdfs:label>Sense</rdfs:label>
+      <rdfs:comment>Wikibase sense.</rdfs:comment>
+      <rdfs:subClassOf rdf:resource="&wikibase;Entity"/>
+  </owl:Class>
+
   <!--
   ///////////////////////////////////////////////////////////////////////////////////////
   //
