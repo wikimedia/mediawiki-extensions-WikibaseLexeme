@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE rdf:RDF [
+  <!ENTITY cc "http://creativecommons.org/ns#">
   <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
   <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
   <!ENTITY owl "http://www.w3.org/2002/07/owl#">
@@ -11,6 +12,7 @@
   xmlns:rdf="&rdf;"
   xmlns:rdfs="&rdfs;"
   xmlns:owl="&owl;"
+  xmlns:cc="&cc;"
 >
 
   <owl:Ontology rdf:about="http://wikiba.se/lexeme/ontology#">
@@ -18,6 +20,7 @@
     <rdfs:comment>The system ontology of Wikibase Lexeme extension</rdfs:comment>
     <rdfs:seeAlso rdf:resource="https://www.mediawiki.org/wiki/Extension:WikibaseLexeme/RDF_mapping" />
     <owl:imports rdf:resource="http://wikiba.se/ontology#" />
+    <cc:licence rdf:resource="http://creativecommons.org/publicdomain/zero/1.0/" />
   </owl:Ontology>
 
   <!--
