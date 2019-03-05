@@ -187,6 +187,7 @@ return call_user_func( function() {
 		"wikibase.lexeme.widgets.InvalidLanguageIndicator" => $moduleTemplate + [
 			"scripts" => "widgets/InvalidLanguageIndicator.js",
 			"dependencies" => [
+				"mw.config.values.wbRepo",
 				"vue"
 			]
 		],
