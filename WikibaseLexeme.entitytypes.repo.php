@@ -103,7 +103,10 @@ return [
 			return new LexemeMetaTagsCreator(
 				RequestContext::getMain()
 					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
-					->escaped()
+					->escaped(),
+				WikibaseRepo::getDefaultInstance()
+					->getLanguageFallbackLabelDescriptionLookupFactory()
+					->newLabelDescriptionLookup( \Language::factory( 'en' ) )
 			);
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
