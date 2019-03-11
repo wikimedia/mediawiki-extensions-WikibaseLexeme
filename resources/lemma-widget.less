@@ -45,7 +45,7 @@
 		align-items: flex-start;
 	}
 
-	.prepend-with-wikibase-oojs-icon(@image) {
+	.prepend-with-wikibase-ooui-icon(@image) {
 		&:before {
 			content: '';
 
@@ -57,7 +57,7 @@
 			vertical-align: middle;
 			background-position: center;
 
-			@icon-path: '@{wb-oojs-icon-path}/@{image}';
+			@icon-path: '@{wb-ooui-icon-path}/@{image}';
 			/* @embed */
 			background-image: url( @icon-path );
 			/* @embed */
@@ -88,15 +88,15 @@
 
 	&_edit {
 		.button-displayed-as-link;
-		.prepend-with-wikibase-oojs-icon('edit-ltr.png');
+		.prepend-with-wikibase-ooui-icon( 'edit.png' );
 	}
 	&_save {
 		.button-displayed-as-link;
-		.prepend-with-wikibase-oojs-icon('check.png');
+		.prepend-with-wikibase-ooui-icon( 'check.png' );
 	}
 	&_cancel {
 		.button-displayed-as-link;
-		.prepend-with-wikibase-oojs-icon('close-ltr.png');
+		.prepend-with-wikibase-ooui-icon( 'close.png' );
 	}
 
 	&_lemma-edit-box {
