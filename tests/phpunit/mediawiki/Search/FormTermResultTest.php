@@ -6,6 +6,7 @@ use Elastica\Result;
 use Elastica\ResultSet;
 use Language;
 use Wikibase\Lexeme\DataAccess\Search\FormTermResult;
+use Wikibase\Lexeme\Tests\MediaWiki\LexemeDescriptionTestCase;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 // We need long template strings here...
@@ -13,7 +14,7 @@ use Wikibase\Lexeme\DataAccess\Search\FormTermResult;
  * @covers \Wikibase\Lexeme\DataAccess\Search\FormTermResult
  */
 class FormTermResultTest extends \PHPUnit_Framework_TestCase {
-	use LexemeDescriptionTest;
+	use LexemeDescriptionTestCase;
 
 	private $labels = [
 		'Q1' => [

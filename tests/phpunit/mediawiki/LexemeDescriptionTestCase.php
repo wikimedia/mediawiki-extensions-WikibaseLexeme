@@ -1,5 +1,5 @@
 <?php
-namespace Wikibase\Lexeme\Tests\MediaWiki\Search;
+namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\EntityId;
@@ -16,11 +16,12 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 /**
  * Trait for producing mockups for tests dealing with Lemma descriptions
  */
-trait LexemeDescriptionTest {
+trait LexemeDescriptionTestCase {
 
 	public function setUp() {
 		parent::setUp();
 		if ( !class_exists( 'CirrusSearch' ) ) {
+			// FIXME: this will be removed after T216206 is done
 			$this->markTestSkipped( 'CirrusSearch not installed, skipping' );
 		}
 	}

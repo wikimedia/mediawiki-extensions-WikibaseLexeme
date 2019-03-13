@@ -6,12 +6,13 @@ use Elastica\Result;
 use Elastica\ResultSet;
 use Language;
 use Wikibase\Lexeme\DataAccess\Search\LexemeTermResult;
+use Wikibase\Lexeme\Tests\MediaWiki\LexemeDescriptionTestCase;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeTermResult
  */
 class LexemeTermResultTest extends \MediaWikiTestCase {
-	use LexemeDescriptionTest;
+	use LexemeDescriptionTestCase;
 
 	/**
 	 * Labels for language & categories

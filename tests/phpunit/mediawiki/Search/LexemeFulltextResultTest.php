@@ -10,6 +10,7 @@ use MediaWikiTestCase;
 use Wikibase\Lexeme\DataAccess\Search\LexemeFulltextResult;
 use Wikibase\Lexeme\DataAccess\Search\LexemeResult;
 use Wikibase\Lexeme\DataAccess\Search\LexemeResultSet;
+use Wikibase\Lexeme\Tests\MediaWiki\LexemeDescriptionTestCase;
 
 // phpcs:disable Generic.Files.LineLength.TooLong
 // phpcs:disable Generic.Files.LineLength.MaxExceeded
@@ -20,7 +21,7 @@ use Wikibase\Lexeme\DataAccess\Search\LexemeResultSet;
  * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeResultSet
  */
 class LexemeFulltextResultTest extends MediaWikiTestCase {
-	use LexemeDescriptionTest;
+	use LexemeDescriptionTestCase;
 
 	/**
 	 * Labels for language & categories

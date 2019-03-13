@@ -10,12 +10,13 @@ use Language;
 use MediaWikiTestCase;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\Lexeme\DataAccess\Search\LexemeFullTextQueryBuilder;
+use Wikibase\Lexeme\Tests\MediaWiki\LexemeDescriptionTestCase;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\Search\LexemeFullTextQueryBuilder
  */
 class LexemeFullTextQueryBuilderTest extends MediaWikiTestCase {
-	use LexemeDescriptionTest;
+	use LexemeDescriptionTestCase;
 	/**
 	 * @var array search settings for the test
 	 */

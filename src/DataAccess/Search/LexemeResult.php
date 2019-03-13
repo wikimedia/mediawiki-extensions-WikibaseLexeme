@@ -5,6 +5,7 @@ use CirrusSearch\Search\Result;
 use Html;
 use HtmlArmor;
 use Language;
+use Wikibase\Lexeme\DataAccess\LexemeDescription;
 
 /**
  * Single CirrusSearch result for Lexeme fulltext search.

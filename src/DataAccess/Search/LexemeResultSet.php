@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\DataAccess\Search;
 use CirrusSearch\Search\ResultSet;
 use Elastica\ResultSet as ElasticaResultSet;
 use Language;
+use Wikibase\Lexeme\DataAccess\LexemeDescription;
 
 /**
  * Result set for Lexeme fulltext search
@@ -25,6 +26,7 @@ class LexemeResultSet extends ResultSet {
 	private $rawResults;
 
 	/**
+	 * @param ElasticaResultSet $ESresult
 	 * @param Language $displayLanguage
 	 * @param LexemeDescription $descriptionMaker
 	 * @param array $lexemeResults Pre-processed data from Lexeme

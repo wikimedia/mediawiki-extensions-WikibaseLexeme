@@ -1,12 +1,12 @@
 <?php
 
-namespace Wikibase\Lexeme\DataAccess\Search;
+namespace Wikibase\Lexeme\DataAccess;
 
 use Language;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\Repo\Search\Elastic\EntitySearchUtils;
 
 /**
  * Class for generating Lexeme description strings
@@ -67,8 +67,8 @@ class LexemeDescription {
 	 * @throws \MWException
 	 */
 	public function createDescription( EntityId $id, $language, $category ) {
-		$languageId = EntitySearchUtils::parseOrNull( $language, $this->idParser );
-		$categoryId = EntitySearchUtils::parseOrNull( $category, $this->idParser );
+		$languageId = self::parseOrNull( $language, $this->idParser );
+		$categoryId = self::parseOrNull( $category, $this->idParser );
 		return wfMessage( 'wikibaselexeme-description' )
 			->inLanguage( $this->displayLanguage )
 			->params(
@@ -120,6 +120,21 @@ class LexemeDescription {
 				$lexemeId->getSerialization(),
 				$lemmaDescription
 			)->text();
+	}
+
+	/**
+	 * Parse entity ID or return null
+	 * @param string $text
+	 * @param EntityIdParser $idParser
+	 * @return null|EntityId
+	 */
+	public static function parseOrNull( $text, EntityIdParser $idParser ) {
+		try {
+			$id = $idParser->parse( $text );
+		} catch ( EntityIdParsingException $ex ) {
+			return null;
+		}
+		return $id;
 	}
 
 }

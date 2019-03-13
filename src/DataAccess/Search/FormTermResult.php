@@ -7,6 +7,7 @@ use Elastica\ResultSet;
 use Language;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Term\Term;
+use Wikibase\Lexeme\DataAccess\LexemeDescription;
 use Wikibase\Lib\Interactors\TermSearchResult;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\Search\Elastic\EntitySearchUtils;
