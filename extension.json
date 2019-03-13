@@ -21,6 +21,9 @@
 		"LexemeEnableRepo": {
 			"value": true
 		},
+		"LexemeDisableCirrus": {
+			"value": false
+		},
 		"LexemeNamespace": {
 			"value": 146
 		},

@@ -249,7 +249,8 @@ class WikibaseLexemeHooks {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
 		// Do not add Lexeme specific search stuff if we are not a repo
-		if ( !WikibaseSettings::isRepoEnabled() || !$config->get( 'LexemeEnableRepo' ) ) {
+		if ( !WikibaseSettings::isRepoEnabled() || !$config->get( 'LexemeEnableRepo' ) ||
+			$config->get( 'LexemeDisableCirrus' ) ) {
 			return;
 		}
 
