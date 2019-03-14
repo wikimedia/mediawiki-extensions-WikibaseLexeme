@@ -204,6 +204,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.view.ControllerViewFactory',
 				'wikibase.lexeme.view.ViewFactoryFactory',
 				'wikibase.tests.qunit.testrunner',
+				'wikibase.view.tests.getMockListItemAdapter',
 				'vue',
 				'vuex',
 			],
