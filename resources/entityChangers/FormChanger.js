@@ -94,6 +94,7 @@
 			return this.api.post( {
 				action: 'wbleditformelements',
 				formId: formId,
+				baserevid: this.revisionStore.getBaseRevision(),
 				data: JSON.stringify( {
 					representations: requestRepresentations,
 					grammaticalFeatures: grammaticalFeatures
@@ -136,6 +137,7 @@
 
 			this.api.post( {
 				action: 'wblremoveform',
+				baserevid: this.revisionStore.getBaseRevision(),
 				id: form.getId(),
 				errorformat: 'plaintext',
 				bot: 0

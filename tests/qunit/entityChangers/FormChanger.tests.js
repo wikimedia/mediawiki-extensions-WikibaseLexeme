@@ -10,6 +10,12 @@
 	var Form = wb.lexeme.datamodel.Form;
 	var TermMap = wb.datamodel.TermMap;
 	var Term = wb.datamodel.Term;
+	var revisionStore = {
+		setFormRevision: function () {},
+		getBaseRevision: function () {
+			return 123;
+		}
+	};
 
 	QUnit.test( 'New Form - makes the expected API call', function ( assert ) {
 		var post = sinon.spy( function () {
@@ -17,9 +23,6 @@
 		} );
 		var api = {
 			post: post
-		};
-		var revisionStore = {
-			setFormRevision: function () {}
 		};
 
 		var lexemeId = 'L11';
@@ -36,6 +39,7 @@
 		assert.equal( gotParameters.action, 'wbladdform', 'Add form API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
+		assert.equal( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
 		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
 		assert.deepEqual(
 			gotData.representations,
@@ -67,9 +71,6 @@
 					}
 				} ).promise();
 			}
-		};
-		var revisionStore = {
-			setFormRevision: function () {}
 		};
 
 		var changer = new FormChanger( api, revisionStore, 'L1', {} );
@@ -112,6 +113,9 @@
 			setFormRevision: function ( revision, formId ) {
 				this.formBaseRevisions[ formId ] = revision;
 
+			},
+			getBaseRevision: function () {
+				return 123;
 			}
 		};
 
@@ -145,7 +149,7 @@
 				}
 			};
 
-			var changer = new FormChanger( api, {}, 'L1', {} );
+			var changer = new FormChanger( api, revisionStore, 'L1', {} );
 
 			var form = new Form( null, null, [] );
 
@@ -191,7 +195,7 @@
 			grammaticalFeatures: [ 'Q1' ]
 		};
 
-		var changer = new FormChanger( api, {}, 'L11', oldFormData );
+		var changer = new FormChanger( api, revisionStore, 'L11', oldFormData );
 		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
 		var form = new Form( formId, representations, [ 'Q1', 'Q2' ] );
 
@@ -204,6 +208,7 @@
 		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
+		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
 		assert.equal( gotParameters.formId, formId, 'formId parameter' );
 		assert.deepEqual(
 			gotData.representations,
@@ -233,7 +238,7 @@
 			grammaticalFeatures: [ 'Q1' ]
 		};
 
-		var changer = new FormChanger( api, {}, 'L11', oldFormData );
+		var changer = new FormChanger( api, revisionStore, 'L11', oldFormData );
 		var representations = new TermMap( {
 			en: new Term( 'en', 'test representation' ),
 			'en-gb': new Term( 'en-gb', 'test representation gb' )
@@ -271,7 +276,7 @@
 			grammaticalFeatures: [ 'Q1' ]
 		};
 
-		var changer = new FormChanger( api, {}, 'L11', oldFormData );
+		var changer = new FormChanger( api, revisionStore, 'L11', oldFormData );
 		var representations = new TermMap( {
 			en: new Term( 'en', 'new representation' ),
 			'en-gb': new Term( 'en-gb', 'old representation gb' )
@@ -309,7 +314,7 @@
 			grammaticalFeatures: [ 'Q1' ]
 		};
 
-		var changer = new FormChanger( api, {}, 'L11', oldFormData );
+		var changer = new FormChanger( api, revisionStore, 'L11', oldFormData );
 		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
 		var form = new Form( formId, representations, [ 'Q1' ] );
 
@@ -359,7 +364,7 @@
 
 		var form = new Form( formId, representations, grammaticalFeatures );
 
-		var changer = new FormChanger( api, {}, 'L1', oldFormData );
+		var changer = new FormChanger( api, revisionStore, 'L1', oldFormData );
 
 		changer.save( form ).then( function ( form ) {
 			assert.equal( form.getId(), 'L1-F100', 'Saved Form ID' );
@@ -397,7 +402,7 @@
 				}
 			};
 
-			var changer = new FormChanger( api, {}, 'L1', {} );
+			var changer = new FormChanger( api, revisionStore, 'L1', {} );
 
 			var form = new Form( 'L1-F1', null, [] );
 
@@ -433,7 +438,7 @@
 		};
 
 		var formId = 'L11-F2';
-		var changer = new FormChanger( api, {}, 'L11', {} );
+		var changer = new FormChanger( api, revisionStore, 'L11', {} );
 		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
 		var form = new Form( formId, representations, [ 'Q1', 'Q2' ] );
 
@@ -447,6 +452,7 @@
 		assert.equal( gotParameters.action, 'wblremoveform', 'Picks right API action' );
 		assert.equal( gotParameters.id, formId, 'Sends form id parameter' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
+		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
 		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
 	} );
 
@@ -457,7 +463,7 @@
 			)
 		};
 
-		var changer = new FormChanger( api, {}, 'L11', {} );
+		var changer = new FormChanger( api, revisionStore, 'L11', {} );
 		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
 		var form = new Form( 'L11-F300', representations, [ 'Q1', 'Q2' ] );
 
