@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
+use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\ParserOutput\EntityParserOutputGenerator;
 use Wikibase\Repo\Tests\NewItem;
@@ -55,15 +56,15 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$valueItemId = 'Q42';
 		$this->saveEntity( NewItem::withId( $valueItemId )->build() );
 		$this->saveEntity( new Property( new PropertyId( $propertyId ), null, 'wikibase-item' ) );
-		$lexeme = NewLexeme::havingId( 'L1' )
+		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withForm( NewForm::any()
 				->andStatement( new PropertyValueSnak(
 					new PropertyId( $propertyId ),
 					new EntityIdValue( new ItemId( $valueItemId ) )
 				) ) )
-			->build();
+			->build() );
 
-		$output = $this->newParserOutputGenerator()->getParserOutput( $lexeme );
+		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
 		$this->assertArrayHasKey(
 			$propertyId,
@@ -80,14 +81,14 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$valueItemId = 'Q42';
 		$this->saveEntity( NewItem::withId( $valueItemId )->build() );
 		$this->saveEntity( new Property( new PropertyId( $propertyId ), null, 'wikibase-item' ) );
-		$lexeme = NewLexeme::havingId( 'L1' )
+		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withStatement( new PropertyValueSnak(
 				new PropertyId( $propertyId ),
 				new EntityIdValue( new ItemId( $valueItemId ) )
 			) )
-			->build();
+			->build() );
 
-		$output = $this->newParserOutputGenerator()->getParserOutput( $lexeme );
+		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
 		$this->assertArrayHasKey(
 			$propertyId,
@@ -102,11 +103,11 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function testParserOutputContainsLanguageItemIdLink() {
 		$languageItemId = 'Q123';
 		$this->saveEntity( NewItem::withId( $languageItemId )->build() );
-		$lexeme = NewLexeme::havingId( 'L1' )
+		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withLanguage( $languageItemId )
-			->build();
+			->build() );
 
-		$output = $this->newParserOutputGenerator()->getParserOutput( $lexeme );
+		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
 		$this->assertArrayHasKey(
 			$languageItemId,
@@ -117,11 +118,11 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function testParserOutputContainsLexicalCategoryItemIdLink() {
 		$lexicalCategoryItemId = 'Q321';
 		$this->saveEntity( NewItem::withId( $lexicalCategoryItemId )->build() );
-		$lexeme = NewLexeme::havingId( 'L1' )
+		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withLexicalCategory( $lexicalCategoryItemId )
-			->build();
+			->build() );
 
-		$output = $this->newParserOutputGenerator()->getParserOutput( $lexeme );
+		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
 		$this->assertArrayHasKey(
 			$lexicalCategoryItemId,
@@ -134,13 +135,13 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$grammaticalFeatureItemId2 = 'Q432';
 		$this->saveEntity( NewItem::withId( $grammaticalFeatureItemId1 )->build() );
 		$this->saveEntity( NewItem::withId( $grammaticalFeatureItemId2 )->build() );
-		$lexeme = NewLexeme::havingId( 'L1' )
+		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withForm( NewForm::havingId( 'F1' )
 				->andGrammaticalFeature( $grammaticalFeatureItemId1 )
 				->andGrammaticalFeature( $grammaticalFeatureItemId2 ) )
-			->build();
+			->build() );
 
-		$output = $this->newParserOutputGenerator()->getParserOutput( $lexeme );
+		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
 		$this->assertArrayHasKey(
 			$grammaticalFeatureItemId1,
@@ -155,12 +156,12 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	public function testTitleText_Lemma() {
 		$entityParserOutputGenerator = $this->newParserOutputGenerator();
 
-		$lexeme = NewLexeme::havingId( 'L1' )
+		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withLemma( 'en', 'goat' )
 			->withLemma( 'fr', 'taog' )
-			->build();
+			->build() );
 
-		$parserOutput = $entityParserOutputGenerator->getParserOutput( $lexeme );
+		$parserOutput = $entityParserOutputGenerator->getParserOutput( $entityRevision );
 		$title = $parserOutput->getExtensionData( 'wikibase-meta-tags' )['title'];
 
 		$this->assertContains( 'goat', $title );
@@ -185,7 +186,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->assertParserOutputContainsUrl(
 			'http://example.com',
 			$this->newParserOutputGenerator()->getParserOutput(
-				$this->newLexemeWithUrlInStatement( 'http://example.com' )
+				new EntityRevision( $this->newLexemeWithUrlInStatement( 'http://example.com' ) )
 			)
 		);
 	}
@@ -223,7 +224,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->assertParserOutputContainsUrl(
 			'http://example.com',
 			$this->newParserOutputGenerator()->getParserOutput(
-				$this->newLexemeWithUrlInFormStatement( 'http://example.com' )
+				new EntityRevision( $this->newLexemeWithUrlInFormStatement( 'http://example.com' ) )
 			)
 		);
 	}
@@ -242,7 +243,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->assertParserOutputContainsUrl(
 			'http://example.com',
 			$this->newParserOutputGenerator()->getParserOutput(
-				$this->newLexemeWithUrlInSenseStatement( 'http://example.com' )
+				new EntityRevision( $this->newLexemeWithUrlInSenseStatement( 'http://example.com' ) )
 			)
 		);
 	}
