@@ -120,7 +120,7 @@
 				labelFormattingService: this._labelFormattingService,
 				language: mw.config.get( 'wgUserLanguage' ),
 				placeholder: mw.messages.get( 'wikibaselexeme-grammatical-features-input-placeholder' ),
-				selected: value.map( function ( item ) {
+				options: value.map( function ( item ) {
 					var $el = $( '<span>' ).text( item );
 					self._labelFormattingService.getHtml( item ).then( function ( html ) {
 						$el.empty().append( html );
@@ -129,7 +129,8 @@
 						data: item,
 						label: $el
 					};
-				} )
+				} ),
+				selected: value
 			} );
 
 			this._grammaticalFeatureListWidget.on( 'change', function () {

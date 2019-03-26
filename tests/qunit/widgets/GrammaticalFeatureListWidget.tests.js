@@ -128,7 +128,8 @@
 			labelFormattingService: {},
 			language: 'en',
 			debounceInterval: 0,
-			selected: [ 'Q1' ]
+			selected: [ 'Q1' ],
+			options: [ { data: 'Q1' } ]
 		} );
 
 		assert.deepEqual( widget.getValue(), [ 'Q1' ] );
@@ -140,7 +141,8 @@
 			labelFormattingService: dummyLabelFormattingService,
 			language: 'en',
 			debounceInterval: 0,
-			selected: [ { data: 'Q1', label: 'Q1-label' } ]
+			options: [ { data: 'Q1', label: 'Q1-label' } ],
+			selected: [ 'Q1' ]
 		} );
 
 		assert.deepEqual( widget.getValue(), [ 'Q1' ] );
