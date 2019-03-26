@@ -42,6 +42,7 @@ module.exports = ( function () {
 
 		var debounceInterval = typeof config.debounceInterval === 'number' ? config.debounceInterval : 250;
 		this.input.on( 'change', OO.ui.debounce( this.updateMenu.bind( this ), debounceInterval ) );
+		this.clearMenuItems();
 	};
 
 	OO.inheritClass( GrammaticalFeatureListWidget, OO.ui.MenuTagMultiselectWidget );
