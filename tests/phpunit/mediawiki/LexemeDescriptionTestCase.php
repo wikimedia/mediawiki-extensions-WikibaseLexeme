@@ -18,14 +18,6 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
  */
 trait LexemeDescriptionTestCase {
 
-	public function setUp() {
-		parent::setUp();
-		if ( !class_exists( 'CirrusSearch' ) ) {
-			// FIXME: this will be removed after T216206 is done
-			$this->markTestSkipped( 'CirrusSearch not installed, skipping' );
-		}
-	}
-
 	private function getMockLabel( $id, $language ) {
 		if ( !isset( $this->labels[$id] ) ) {
 			throw new TermLookupException( $id, $language );

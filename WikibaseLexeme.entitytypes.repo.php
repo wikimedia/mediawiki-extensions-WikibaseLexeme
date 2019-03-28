@@ -5,12 +5,10 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
-use Wikibase\DataModel\Services\Lookup\InProcessCachingDataTypeLookup;
 use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
@@ -66,10 +64,8 @@ use Wikibase\Repo\EntityReferenceExtractors\EntityReferenceExtractorCollection;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
-use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\SettingsArray;
 use Wikimedia\Purtle\RdfWriter;
 
 return [
@@ -110,24 +106,6 @@ return [
 			);
 		},
 		'content-model-id' => LexemeContent::CONTENT_MODEL_ID,
-		'search-field-definitions' => function ( array $languageCodes, SettingsArray $searchSettings ) {
-			$repo = WikibaseRepo::getDefaultInstance();
-			$config = MediaWikiServices::getInstance()->getMainConfig();
-			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
-				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
-			} else {
-				$lcID = null;
-			}
-			return new LexemeFieldDefinitions(
-				StatementProviderFieldDefinitions::newFromSettings(
-					new InProcessCachingDataTypeLookup( $repo->getPropertyDataTypeLookup() ),
-					$repo->getDataTypeDefinitions()->getSearchIndexDataFormatterCallbacks(),
-					$searchSettings
-				),
-				$repo->getEntityLookup(),
-				$lcID ? $repo->getEntityIdParser()->parse( $lcID ) : null
-			);
-		},
 		'content-handler-factory-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
@@ -249,20 +227,7 @@ return [
 			);
 		},
 		'entity-search-callback' => function ( WebRequest $request ) {
-			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
-
-			$repoSettings = $repo->getSettings();
-			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
-			if ( $searchSettings['useCirrus'] ) {
-				return new \Wikibase\Lexeme\DataAccess\Search\LexemeSearchEntity(
-					$repo->getEntityIdParser(),
-					$request,
-					$repo->getUserLanguage(),
-					$repo->getLanguageFallbackChainFactory(),
-					$repo->getPrefetchingTermLookup()
-				);
-			}
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
@@ -313,9 +278,6 @@ return [
 				new SensesStatementEntityReferenceExtractor( $statementEntityReferenceExtractor ),
 			] );
 		},
-		'fulltext-search-context' => 'wikibase_lexeme_fulltext',
-			// TODO: use LexemeFullTextQueryBuilder::CONTEXT_LEXEME_FULLTEXT
-			//when possible to not crash on non-Cirrus setup
 	],
 	'form' => [
 		'content-handler-factory-callback' => function () {
@@ -336,28 +298,12 @@ return [
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
-				new LexemeFieldDefinitions(
-					$wikibaseRepo->getStatementProviderDefinitions(),
-					$wikibaseRepo->getEntityLookup(),
-					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
-				)
+				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
 		'entity-search-callback' => function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
-
-			$repoSettings = $repo->getSettings();
-			$searchSettings = $repoSettings->getSetting( 'entitySearch' );
-			if ( $searchSettings['useCirrus'] ) {
-				return new \Wikibase\Lexeme\DataAccess\Search\FormSearchEntity(
-					$repo->getEntityIdParser(),
-					$request,
-					$repo->getUserLanguage(),
-					$repo->getLanguageFallbackChainFactory(),
-					$repo->getPrefetchingTermLookup()
-				);
-			}
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
@@ -455,11 +401,7 @@ return [
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
-				new LexemeFieldDefinitions(
-					$wikibaseRepo->getStatementProviderDefinitions(),
-					$wikibaseRepo->getEntityLookup(),
-					$lcID ? $wikibaseRepo->getEntityIdParser()->parse( $lcID ) : null
-				)
+				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
 		'entity-search-callback' => function ( WebRequest $request ) {

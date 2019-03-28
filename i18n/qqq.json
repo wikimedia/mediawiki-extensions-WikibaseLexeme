@@ -99,7 +99,6 @@
 	"wikibaselexeme-unknown-language": "Message for unknown language",
 	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
 	"wikibaselexeme-no-features": "Message for form having no features",
-	"wikibaselexeme-rescore-profile-prefix": "Rescoring profile for prefix (completion) search",
 	"wikibase-validator-form-not-found": "Error message that is being reported when Form with provided ID does not exist.\n\nParameters:\n* $1 - ID of the Form",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",

@@ -58,8 +58,6 @@ return [
 			'maintenance',
 			'src',
 			'../Wikibase',
-			'../WikibaseCirrusSearch',
-			'../CirrusSearch',
 			'../../includes',
 			'../../languages',
 			'../../maintenance',
@@ -90,8 +88,6 @@ return [
 			'../../maintenance',
 			'../../vendor',
 			'../Wikibase/',
-			'../WikibaseCirrusSearch',
-			'../CirrusSearch',
 		],
 		// "Local" vendor dir not needed when all dependencies are merged in core's vendor dir.
 		is_dir( 'vendor' ) ? [ 'vendor' ] : []

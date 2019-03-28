@@ -21,9 +21,6 @@
 		"LexemeEnableRepo": {
 			"value": true
 		},
-		"LexemeDisableCirrus": {
-			"value": false
-		},
 		"LexemeNamespace": {
 			"value": 146
 		},
@@ -32,21 +29,6 @@
 		},
 		"LexemeLanguageCodePropertyId": {
 			"value": null
-		},
-		"LexemePrefixSearchProfile": {
-			"value": "lexeme_prefix"
-		},
-		"LexemePrefixSearchProfiles": {
-			"value": []
-		},
-		"LexemeRescoreFunctions": {
-			"value": []
-		},
-		"LexemePrefixRescoreProfile": {
-			"value": "lexeme_prefix"
-		},
-		"LexemeFulltextRescoreProfile": {
-			"value": "lexeme_fulltext"
 		}
 	},
 	"ExtensionMessagesFiles": {
@@ -76,12 +58,6 @@
 		],
 		"ResourceLoaderTestModules": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onResourceLoaderTestModules"
-		],
-		"CirrusSearchProfileService": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCirrusSearchProfileService"
-		],
-		"ShowSearchHit": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onShowSearchHit"
 		],
 		"WikibaseRepoOnParserOutputUpdaterConstruction": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onParserOutputUpdaterConstruction"

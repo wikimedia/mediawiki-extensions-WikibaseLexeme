@@ -8,7 +8,6 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
@@ -16,7 +15,6 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\DataAccess\Search\LexemeFieldDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
@@ -24,7 +22,7 @@ use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Repo\Content\EntityHandler;
-use Wikibase\Repo\Search\Elastic\Fields\StatementProviderFieldDefinitions;
+use Wikibase\Repo\Search\Fields\NoFieldDefinitions;
 use Wikibase\Repo\Tests\Content\EntityHandlerTestCase;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
@@ -112,7 +110,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	 * @return array
 	 */
 	protected function getExpectedSearchIndexFields() {
-		return [ 'statement_count' ];
+		return [];
 	}
 
 	/**
@@ -124,7 +122,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 	protected function getEntityTypeDefinitions() {
 		return new EntityTypeDefinitions(
-			array_merge(
+			array_merge_recursive(
 				require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.php',
 				require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.repo.php'
 			)
@@ -152,19 +150,6 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		$labelLookupFactory->method( 'newLabelDescriptionLookup' )
 			->will( $this->returnValue( $this->getMock( LabelDescriptionLookup::class ) ) );
 
-		$statementProviderFieldDefinitions = $this->getMockBuilder(
-				StatementProviderFieldDefinitions::class
-			)
-			->disableOriginalConstructor()
-			->getMock();
-		$statementProviderFieldDefinitions->method( 'getFields' )
-			->willReturn( [] );
-		$fieldDefinitions = new LexemeFieldDefinitions(
-			$statementProviderFieldDefinitions,
-			$this->getMock( EntityLookup::class ),
-			new PropertyId( 'P123' )
-		);
-
 		return new LexemeHandler(
 			$this->getMock( TermIndex::class ),
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
@@ -174,7 +159,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			$this->getMock( EntityIdLookup::class ),
 			$this->getMock( EntityLookup::class ),
 			$labelLookupFactory,
-			$fieldDefinitions
+			new NoFieldDefinitions()
 		);
 	}
 
@@ -196,9 +181,8 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 		$page = $this->getMockWikiPage( $handler );
 
-		// TODO: test with statements!
 		$data = $handler->getDataForSearchIndex( $page, new \ParserOutput(), $engine );
-		$this->assertSame( 0, $data['statement_count'], 'statement_count' );
+		$this->assertSame( LexemeContent::CONTENT_MODEL_ID, $data['content_model'], 'content_model' );
 	}
 
 	public function testExportTransform( $blob = null, $expected = null ) {
