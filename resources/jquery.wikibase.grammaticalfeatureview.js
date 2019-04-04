@@ -125,6 +125,13 @@
 					self._labelFormattingService.getHtml( item ).then( function ( html ) {
 						$el.empty().append( html );
 					} );
+					// TODO: important! find a way around label rendering without sending a jQuery element in label
+					// we are passing a jQuery element to label when it expects a string, thus
+					// we need to override toString to return that jQuery's element text
+					// for backspace functionality to work properly T219318 as per current OOUI implementation
+					$el.toString = function () {
+						return $el.text();
+					};
 					return {
 						data: item,
 						label: $el
