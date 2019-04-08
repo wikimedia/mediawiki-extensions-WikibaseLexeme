@@ -20,7 +20,17 @@ use Wikibase\Repo\WikibaseRepo;
 // Challenge: Dedicated API endpoints (e.g. AddForm) need to have it passed w/o singletons/globals
 return call_user_func( function() {
 	// TODO Problem when removing a code after such an item exists in DB
-	$additionalLanguages = [ 'mis' ];
+	$additionalLanguages = [
+		'mis',
+
+		// T210293
+		'rm-rumgr',
+		'rm-surmiran',
+		'rm-sutsilv',
+		'rm-sursilv',
+		'rm-vallader',
+		'rm-puter',
+	];
 
 	return [
 		'WikibaseLexemeTermLanguages' =>
