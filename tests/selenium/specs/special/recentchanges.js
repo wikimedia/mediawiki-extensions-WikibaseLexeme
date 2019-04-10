@@ -2,11 +2,12 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../../lexeme.api' ),
-	RecentChangesPage = require( '../../../../../../tests/selenium/pageobjects/recentchanges.page' );
+	RecentChangesPage = require( '../../../../../../tests/selenium/pageobjects/recentchanges.page' ),
+	RunJobs = require( 'wdio-mediawiki/RunJobs' );
 
 describe( 'Special:RecentChanges', () => {
 
-	it.skip( 'shows lemmas in title links to lexemes', () => {
+	it( 'shows lemmas in title links to lexemes', () => {
 		let id;
 
 		browser.call( () => {
@@ -30,6 +31,7 @@ describe( 'Special:RecentChanges', () => {
 					id = lexeme.id;
 				} );
 		} );
+		RunJobs.run();
 
 		RecentChangesPage.open();
 
