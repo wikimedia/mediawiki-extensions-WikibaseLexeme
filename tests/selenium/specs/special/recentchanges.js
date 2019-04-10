@@ -6,7 +6,7 @@ const assert = require( 'assert' ),
 
 describe( 'Special:RecentChanges', () => {
 
-	it( 'shows lemmas in title links to lexemes', () => {
+	it.skip( 'shows lemmas in title links to lexemes', () => {
 		let id;
 
 		browser.call( () => {
