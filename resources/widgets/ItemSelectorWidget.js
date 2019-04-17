@@ -13,6 +13,10 @@
 			throw new Error( '$valueField must be specified' );
 		}
 
+		if ( typeof config.$overlay === 'undefined' ) {
+			config.$overlay = true;
+		}
+
 		OO.ui.TextInputWidget.call( this, config );
 		OO.ui.mixin.LookupElement.call( this, config );
 
