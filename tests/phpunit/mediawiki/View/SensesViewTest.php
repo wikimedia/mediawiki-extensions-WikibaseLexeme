@@ -75,10 +75,14 @@ class SensesViewTest extends TestCase {
 				havingChild( allOf(
 					tagMatchingOutline( '<div class="wikibase-lexeme-sense">' ),
 					havingChild(
-						both( tagMatchingOutline( '<span dir="ltr" lang="en">' ) )
-							->andAlso( havingTextContents(
-									equalToIgnoringWhiteSpace( 'test gloss' ) )
-							)
+						both( tagMatchingOutline( '<td class="wikibase-lexeme-sense-gloss-value-cell"
+							dir="ltr" lang="en">' ) )
+						->andAlso( havingChild(
+								both( tagMatchingOutline( '<span>' ) )
+									->andAlso( havingTextContents(
+										equalToIgnoringWhiteSpace( 'test gloss' )
+									) )
+						) )
 					),
 					havingChild(
 						both( tagMatchingOutline( '<span>' ) )
@@ -144,16 +148,18 @@ class SensesViewTest extends TestCase {
 		$this->assertThatHamcrest(
 			$html,
 			is( htmlPiece( havingChild(
-				both( tagMatchingOutline(
-					'<span class="wikibase-lexeme-sense-gloss-value" dir="ltr" lang="en">'
-				) )
-					->andAlso( havingTextContents(
-						containsString( 'Foo' ) ) )
+					both( tagMatchingOutline( '<td class="wikibase-lexeme-sense-gloss-value-cell"
+							dir="ltr" lang="en">' ) )
+						->andAlso( havingChild(
+							both( tagMatchingOutline( '<span class="wikibase-lexeme-sense-gloss-value">'
+							) )
+								->andAlso( havingTextContents( containsString( 'Foo' ) ) )
+						) )
 			) ) )
 		);
 
 		$this->assertContains(
-			'<span class="wikibase-lexeme-sense-gloss-value" dir="rtl" lang="fa">',
+			'<td class="wikibase-lexeme-sense-gloss-value-cell" dir="rtl" lang="fa">',
 			explode( '<tr class="wikibase-lexeme-sense-gloss">', $html, 3 )[2]
 		);
 	}
