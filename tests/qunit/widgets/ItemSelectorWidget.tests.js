@@ -47,15 +47,21 @@
 			suggestions = widget.getLookupMenuOptionsFromData( searchEntitiesResults );
 		assert.equal( suggestions.length, searchEntitiesResults.length );
 		assert.equal(
-			suggestions[ 0 ].getLabel().text(),
+			suggestions[ 0 ].getLabel(),
 			searchEntitiesResults[ 0 ].label
 		);
-		assert.equal( suggestions[ 0 ].id, searchEntitiesResults[ 0 ].data );
 		assert.equal(
-			suggestions[ 1 ].getLabel().text(),
+			suggestions[ 0 ].getData(),
+			searchEntitiesResults[ 0 ].id
+		);
+		assert.equal(
+			suggestions[ 1 ].getLabel(),
 			searchEntitiesResults[ 1 ].label
 		);
-		assert.equal( suggestions[ 1 ].data, searchEntitiesResults[ 1 ].id );
+		assert.equal(
+			suggestions[ 1 ].getData(),
+			searchEntitiesResults[ 1 ].id
+		);
 	} );
 
 	QUnit.test( 'item descriptions are included in the menu option labels', function ( assert ) {
@@ -67,11 +73,11 @@
 			} ] );
 
 		assert.equal(
-			suggestions[ 0 ].getLabel().find( '.label' ).text(),
+			suggestions[ 0 ].$element.find( '.oo-ui-labelElement-label' ).text(),
 			'banana'
 		);
 		assert.equal(
-			suggestions[ 0 ].getLabel().find( '.description' ).text(),
+			suggestions[ 0 ].$element.find( '.mw-widget-titleOptionWidget-description' ).text(),
 			'fruit'
 		);
 	} );
@@ -85,11 +91,11 @@
 			} ] );
 
 		assert.equal(
-			suggestions[ 0 ].getLabel().find( '.label' ).text(),
+			suggestions[ 0 ].$element.find( '.oo-ui-labelElement-label' ).text(),
 			'<b>duck</b>'
 		);
 		assert.equal(
-			suggestions[ 0 ].getLabel().find( '.description' ).text(),
+			suggestions[ 0 ].$element.find( '.mw-widget-titleOptionWidget-description' ).text(),
 			'<i>aquatic bird</i>'
 		);
 	} );
