@@ -199,9 +199,9 @@ HTML;
 				   :initialCode="gloss.language"
 				></language-selector>
 				</td>
-				<td class="wikibase-lexeme-sense-gloss-value-cell">
-					<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"
-						:dir="gloss.language|directionality" :lang="gloss.language">
+				<td class="wikibase-lexeme-sense-gloss-value-cell"
+					:dir="gloss.language|directionality" :lang="gloss.language">
+					<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value">
 						{{gloss.value}}
 					</span>
 					<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
