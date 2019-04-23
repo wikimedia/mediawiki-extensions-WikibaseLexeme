@@ -353,7 +353,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 
-		this.setValueOnLookupElement(
+		this.setSingleValueOnMultiselectElement(
 			form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ),
 			grammaticalFeatureId
 		);
