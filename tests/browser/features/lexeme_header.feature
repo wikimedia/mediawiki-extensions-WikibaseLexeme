@@ -7,15 +7,6 @@ Background:
     And Anonymous edit warnings are disabled
 
   @integration
-  Scenario: Update lexeme language
-    Given I have an item to test
-    When I click the lexeme header edit button
-     And I enter the test item id into the lexeme language field
-     And I click the lexeme header save button
-     And I reload the lexeme page
-    Then I should see the item in the lexeme language field
-
-  @integration
   Scenario: Update lexical category
     Given I have an item to test
     When I click the lexeme header edit button
