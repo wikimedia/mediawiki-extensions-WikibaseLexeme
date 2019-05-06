@@ -21,7 +21,7 @@ describe( 'Lexeme:Lemma', () => {
 			return LexemeApi.create()
 				.then( ( lexeme ) => {
 					id = lexeme.id;
-				} );
+				} ).catch( assert.fail );
 		} );
 
 		LexemePage.open( id );
@@ -34,7 +34,7 @@ describe( 'Lexeme:Lemma', () => {
 					assert.equal( 1, Object.keys( lexeme.lemmas ).length, 'No lemma added' );
 					// eslint-disable-next-line dot-notation
 					assert.equal( 'test lemma', lexeme.lemmas[ 'en' ].value, 'Lemma changed' );
-				} );
+				} ).catch( assert.fail );
 		} );
 
 	} );
