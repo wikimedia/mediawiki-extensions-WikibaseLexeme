@@ -22,7 +22,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			SAVE_BUTTON: '.lemma-widget_save',
 			ADD_BUTTON: '.lemma-widget_add',
 			EDIT_INPUT_VALUE: '.lemma-widget_lemma-value-input',
-			EDIT_INPUT_LANGUAGE: '.lemma-widget_lemma-language-input'
+			EDIT_INPUT_LANGUAGE: '.lemma-widget_lemma-language-input',
+			EDIT_INPUT_LEXEME_LANGUAGE: '#lexeme-language'
 		};
 	}
 
@@ -97,6 +98,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return $( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON );
 	}
 
+	get lexemeLanguageInput() {
+		return $( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LANGUAGE );
+	}
+
 	/**
 	 * Open the given Lexeme page
 	 *
@@ -133,6 +138,17 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		let lemma = this.lemmas[ position ];
 		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( lemmaText );
 		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( languageCode );
+	}
+
+	setLexemeLanguageItem( item ) {
+		this.lexemeLanguageInput.setValue( item );
+
+		browser.waitUntil( () => {
+			return this.isHeaderSubmittable();
+		} );
+
+		this.headerSaveButton.click();
+		this.headerSaveButton.waitForExist( null, true );
 	}
 
 	isHeaderSubmittable() {
