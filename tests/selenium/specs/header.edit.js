@@ -23,9 +23,6 @@ describe( 'Lexeme:Header', () => {
 				} ).catch( assert.fail );
 		} );
 
-		LexemePage.open( id );
-		LexemePage.startHeaderEditMode();
-
 		let languageItem;
 		browser.call( () => {
 			return WikibaseApi.createItem()
@@ -33,6 +30,9 @@ describe( 'Lexeme:Header', () => {
 					languageItem = item;
 				} ).catch( assert.fail );
 		} );
+
+		LexemePage.open( id );
+		LexemePage.startHeaderEditMode();
 
 		LexemePage.setLexemeLanguageItem( languageItem );
 
@@ -55,9 +55,6 @@ describe( 'Lexeme:Header', () => {
 				} ).catch( assert.fail );
 		} );
 
-		LexemePage.open( id );
-		LexemePage.startHeaderEditMode();
-
 		let categoryItem;
 		browser.call( () => {
 			return WikibaseApi.createItem()
@@ -65,6 +62,9 @@ describe( 'Lexeme:Header', () => {
 					categoryItem = item;
 				} ).catch( assert.fail );
 		} );
+
+		LexemePage.open( id );
+		LexemePage.startHeaderEditMode();
 
 		LexemePage.setLexicalCategoryItem( categoryItem );
 

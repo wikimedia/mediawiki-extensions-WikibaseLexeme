@@ -133,6 +133,9 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	startHeaderEditMode() {
 		$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		browser.waitUntil( () => {
+			return this.lexemeLanguageInput.getValue();
+		} );
 	}
 
 	fillNthLemma( position, lemmaText, languageCode ) {
