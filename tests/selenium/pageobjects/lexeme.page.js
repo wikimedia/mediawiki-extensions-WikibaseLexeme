@@ -23,7 +23,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			ADD_BUTTON: '.lemma-widget_add',
 			EDIT_INPUT_VALUE: '.lemma-widget_lemma-value-input',
 			EDIT_INPUT_LANGUAGE: '.lemma-widget_lemma-language-input',
-			EDIT_INPUT_LEXEME_LANGUAGE: '#lexeme-language'
+			EDIT_INPUT_LEXEME_LANGUAGE: '#lexeme-language',
+			EDIT_INPUT_LEXEME_LEXICAL_CATEGORY: '#lexeme-lexical-category'
 		};
 	}
 
@@ -102,6 +103,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return $( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LANGUAGE );
 	}
 
+	get lexemeLexicalCategoryInput() {
+		return $( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LEXICAL_CATEGORY );
+	}
+
 	/**
 	 * Open the given Lexeme page
 	 *
@@ -142,6 +147,17 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	setLexemeLanguageItem( item ) {
 		this.lexemeLanguageInput.setValue( item );
+
+		browser.waitUntil( () => {
+			return this.isHeaderSubmittable();
+		} );
+
+		this.headerSaveButton.click();
+		this.headerSaveButton.waitForExist( null, true );
+	}
+
+	setLexicalCategoryItem( item ) {
+		this.lexemeLexicalCategoryInput.setValue( item );
 
 		browser.waitUntil( () => {
 			return this.isHeaderSubmittable();

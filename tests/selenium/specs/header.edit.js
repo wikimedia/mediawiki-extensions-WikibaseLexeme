@@ -45,4 +45,35 @@ describe( 'Lexeme:Header', () => {
 
 	} );
 
+	it( 'can edit the lexical category of a Lexeme', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} ).catch( assert.fail );
+		} );
+
+		LexemePage.open( id );
+		LexemePage.startHeaderEditMode();
+
+		let categoryItem;
+		browser.call( () => {
+			return WikibaseApi.createItem()
+				.then( ( item ) => {
+					categoryItem = item;
+				} ).catch( assert.fail );
+		} );
+
+		LexemePage.setLexicalCategoryItem( categoryItem );
+
+		browser.call( () => {
+			return LexemeApi.get( id )
+				.then( ( lexeme ) => {
+					assert.equal( categoryItem, lexeme.lexicalCategory, 'Unexpected lexical category value' );
+				} ).catch( assert.fail );
+		} );
+
+	} );
 } );
