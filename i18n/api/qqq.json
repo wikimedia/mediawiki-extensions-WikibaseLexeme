@@ -14,6 +14,7 @@
 	"apihelp-wbladdform-summary": "{{doc-apihelp-summary|wbladdform}}",
 	"apihelp-wbladdform-param-lexemeId": "{{doc-apihelp-param|wbladdform|lexemeId}}",
 	"apihelp-wbladdform-param-data": "{{doc-apihelp-param|wbladdform|data}}",
+	"apihelp-wbladdform-param-baserevid": "{{doc-apihelp-param|wbladdform|baserevid}}",
 	"apihelp-wbladdform-param-bot": "{{doc-apihelp-param|wbladdform|bot}}",
 	"apihelp-wbladdform-example-1": "{{doc-apihelp-example|wbladdform}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wblremoveform-summary": "{{doc-apihelp-summary|wblremoveform}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",

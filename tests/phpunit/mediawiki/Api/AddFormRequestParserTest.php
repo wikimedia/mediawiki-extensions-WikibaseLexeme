@@ -68,6 +68,16 @@ class AddFormRequestParserTest extends TestCase {
 		);
 	}
 
+	public function testBaseRevIdPassedToRequestObject() {
+		$parser = $this->newAddFormRequestParser();
+
+		$request = $parser->parse(
+			[ 'lexemeId' => 'L1', 'data' => $this->getDataParam(), 'baserevid' => 1 ]
+		);
+
+		$this->assertEquals( 1, $request->getBaseRevId() );
+	}
+
 	private function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [

@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use ApiMessage;
 use ApiUsageException;
+use IApiMessage;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
@@ -60,10 +60,10 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			/** @var ApiMessage $message */
+			/** @var IApiMessage $message */
 			$message = $e->getMessageObject();
 
-			$this->assertInstanceOf( ApiMessage::class, $message );
+			$this->assertInstanceOf( IApiMessage::class, $message );
 
 			if ( array_key_exists( 'key', $exception ) ) {
 				$this->assertSame(

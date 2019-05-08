@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiBase;
 use ApiMain;
 use LogicException;
+use RuntimeException;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -188,10 +190,16 @@ class AddForm extends ApiBase {
 			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
 		}
 
+		if ( $request->getBaseRevId() ) {
+			$baseRevId = $request->getBaseRevId();
+		} else {
+			$baseRevId = $lexemeRevision->getRevisionId();
+		}
+
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getUser(),
 			$request->getLexemeId(),
-			$lexemeRevision->getRevisionId()
+			$baseRevId
 		);
 		$summaryString = $this->summaryFormatter->formatSummary(
 			$summary
@@ -203,12 +211,16 @@ class AddForm extends ApiBase {
 
 		$tokenThatDoesNotNeedChecking = false;
 		//FIXME: Handle failure
-		$status = $editEntity->attemptSave(
-			$lexeme,
-			$summaryString,
-			$flags,
-			$tokenThatDoesNotNeedChecking
-		);
+		try {
+			$status = $editEntity->attemptSave(
+				$lexeme,
+				$summaryString,
+				$flags,
+				$tokenThatDoesNotNeedChecking
+			);
+		} catch ( ConflictException $exception ) {
+			$this->dieWithException( new RuntimeException( 'Edit conflict: ' . $exception->getMessage() ) );
+		}
 
 		if ( !$status->isGood() ) {
 			$this->dieStatus( $status ); //Seems like it is good enough
@@ -243,6 +255,9 @@ class AddForm extends ApiBase {
 				AddFormRequestParser::PARAM_DATA => [
 					self::PARAM_TYPE => 'text',
 					self::PARAM_REQUIRED => true,
+				],
+				AddFormRequestParser::PARAM_BASEREVID => [
+					self::PARAM_TYPE => 'integer',
 				],
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',

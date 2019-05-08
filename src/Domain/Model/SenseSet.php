@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Domain\Model;
 use Comparable;
 use Countable;
 use InvalidArgumentException;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 
 /**
  * Set of Senses in which uniqueness of a Sense is controlled by its ID.
@@ -83,7 +84,7 @@ class SenseSet implements Countable, Comparable {
 	public function add( Sense $sense ) {
 		$senseId = $sense->getId()->getSerialization();
 		if ( array_key_exists( $senseId, $this->senses ) ) {
-			throw new InvalidArgumentException(
+			throw new ConflictException(
 				'At least two senses with the same ID were provided: `' . $senseId . '`'
 			);
 		}

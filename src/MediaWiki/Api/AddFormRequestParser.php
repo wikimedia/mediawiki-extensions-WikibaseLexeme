@@ -17,6 +17,8 @@ class AddFormRequestParser {
 
 	const PARAM_DATA = 'data';
 	const PARAM_LEXEME_ID = 'lexemeId';
+	const PARAM_BASEREVID = 'baserevid';
+
 	/**
 	 * @var EntityIdParser
 	 */
@@ -55,11 +57,17 @@ class AddFormRequestParser {
 			ValidationContext::create( self::PARAM_LEXEME_ID )
 		);
 
+		$baseRevId = null;
+		if ( isset( $params[ self::PARAM_BASEREVID ] ) ) {
+			$baseRevId = (int)$params[self::PARAM_BASEREVID];
+		}
+
 		$this->editFormChangeOpDeserializer->setContext( $dataValidation );
 
 		return new AddFormRequest(
 			$lexemeId,
-			$this->editFormChangeOpDeserializer->createEntityChangeOp( $data )
+			$this->editFormChangeOpDeserializer->createEntityChangeOp( $data ),
+			$baseRevId
 		);
 	}
 

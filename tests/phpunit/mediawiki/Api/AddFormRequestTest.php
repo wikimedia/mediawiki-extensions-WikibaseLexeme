@@ -29,7 +29,8 @@ class AddFormRequestTest extends TestCase {
 			new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
 				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] )
-			] )
+			] ),
+			1
 		);
 
 		$changeOp = $request->getChangeOp();
@@ -53,10 +54,24 @@ class AddFormRequestTest extends TestCase {
 			new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
 				new ChangeOpGrammaticalFeatures( [] )
-			] )
+			] ),
+			1
 		);
 
 		$this->assertSame( $lexemeId, $request->getLexemeId() );
+	}
+
+	public function testGetBaseRevId() {
+		$request = new AddFormRequest(
+			new LexemeId( 'L1' ),
+			new ChangeOpFormEdit( [
+				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
+				new ChangeOpGrammaticalFeatures( [] )
+			] ),
+			1
+		);
+
+		$this->assertEquals( 1, $request->getBaseRevId() );
 	}
 
 }

@@ -168,6 +168,72 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
+	public function testFailsOnEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
+
+		$params = [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam()
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$params['baserevid'] = $baseRevId;
+
+		$this->doTestQueryApiException( $params, [
+			'params' => [ 'Edit conflict: At least two forms with the same ID were provided: `L1-F1`' ],
+		] );
+	}
+
+	public function testWorksOnUnrelatedEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => 'L1',
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$params = [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam(),
+			'baserevid' => $baseRevId
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( ApiUsageException $e ) {
+			$this->assertEquals(
+				'wikibase-self-conflict-patched',
+				$e->getMessageObject()->getKey()
+			);
+		}
+
+		$lexeme = $this->getLexeme( 'L1' );
+
+		$lemmas = $lexeme->getLemmas()->toTextArray();
+		$this->assertEquals( 'Hello', $lemmas['en'] );
+
+		$forms = $lexeme->getForms()->toArray();
+
+		$this->assertCount( 1, $forms );
+		$this->assertEquals( 'goat', $forms[0]->getRepresentations()->getByLanguage( 'en' )->getText() );
+		$this->assertEquals(
+			[ new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ],
+			$forms[0]->getGrammaticalFeatures()
+		);
+	}
+
 	private function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
