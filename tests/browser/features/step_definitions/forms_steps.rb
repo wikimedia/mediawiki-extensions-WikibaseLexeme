@@ -1,10 +1,3 @@
-Then(/^Forms header should be there$/) do
-  expect(on(LexemePage).forms_header?).to be true
-end
-
-Then(/^Forms container should be there$/) do
-  expect(on(LexemePage).forms_container?).to be true
-end
 
 Then(/^I see at least one Form$/) do
   expect(on(LexemePage).forms.count).to be > 0
@@ -19,32 +12,10 @@ Given(/^for each Form there is an anchor equal to its ID$/) do
   end
 end
 
-
-Then(/^for each Form there is a representation and an ID$/) do
-  on(LexemePage).forms.each do |form|
-    expect(form.representations.count).to be > 0
-    expect(form.id?).to be true
-  end
-end
-
 Then(/^for each Form there is a statement list$/) do
   on(LexemePage).forms.each do |form|
     form.statements_element.when_visible
     expect(form.statements?).to be true
-  end
-end
-
-Then(/^each representation has a language$/) do
-  on(LexemePage).forms.each do |form|
-    form.representations.each do |representation|
-      expect(representation.language?).to be true
-    end
-  end
-end
-
-Given(/^for each Form there is a grammatical feature list$/) do
-  on(LexemePage).forms.each do |form|
-    expect(form.grammatical_feature_list?).to be true
   end
 end
 
