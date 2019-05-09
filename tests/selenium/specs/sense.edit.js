@@ -3,7 +3,8 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' );
+	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	SensePage = require( '../pageobjects/sense.page' );
 
 describe( 'Lexeme:Senses', () => {
 
@@ -12,6 +13,48 @@ describe( 'Lexeme:Senses', () => {
 		if ( !LexemePage.isUserLoggedIn() ) {
 			LoginPage.loginAdmin();
 		}
+	} );
+
+	it( 'Sense header and container exist', () => {
+		let id,
+			header = 'Senses';
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		assert.strictEqual( SensePage.sensesHeader, header );
+		assert( SensePage.sensesContainer.isExisting() );
+	} );
+
+	it( 'can edit sense and save successfully', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addSense(
+						id,
+						{
+							glosses: {
+								en: { language: 'en', value: 'cats' }
+							}
+						}
+					);
+				} );
+		} );
+		LexemePage.open( id );
+		SensePage.editSensValueAndSubmit( 0, 'goats' );
+
+		assert.strictEqual( 'goats', SensePage.getNthSenseData( 0 ).value );
 	} );
 
 	it( 'can not save senses with redundant languages', () => {
@@ -35,12 +78,12 @@ describe( 'Lexeme:Senses', () => {
 		} );
 		LexemePage.open( id );
 
-		LexemePage.addGlossToNthSense( 0, 'two', 'en', false );
+		SensePage.addGlossToNthSense( 0, 'two', 'en', false );
 
-		assert.equal( LexemePage.isNthSenseSubmittable( 0 ), false );
+		assert.equal( SensePage.isNthSenseSubmittable( 0 ), false );
 	} );
 
-	it( 'shows the language and language code in edit mode', () => {
+	it( 'shows the language and value in edit mode', () => {
 		let id;
 
 		browser.call( () => {
@@ -61,8 +104,95 @@ describe( 'Lexeme:Senses', () => {
 		} );
 
 		LexemePage.open( id );
-		LexemePage.startEditingNthSense( 0 );
-		var senseValues = LexemePage.getNthSenseFormValues( 0 );
-		assert.equal( senseValues.glosses[ 0 ].language, 'English (en)' );
+		SensePage.startEditingNthSense( 0 );
+		var senseValues = SensePage.getNthSenseFormValues( 0 );
+		assert.strictEqual( 'English (en)', senseValues.glosses[ 0 ].language );
+		assert.strictEqual( 'goat', senseValues.glosses[ 0 ].value );
 	} );
+
+	it( 'removes sense when clicked on remove', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addSense(
+						id,
+						{
+							glosses: {
+								en: { language: 'en', value: 'goat' }
+							}
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+		SensePage.startEditingNthSense( 0 );
+		SensePage.removeSense( 0 );
+		SensePage.waitUntilStateChangeIsDone();
+
+		assert.equal( false, SensePage.doesSenseExist() );
+	} );
+
+	it( 'Gloss value unchanged after editing was cancelled', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addSense(
+						id,
+						{
+							glosses: {
+								en: { language: 'en', value: 'goat' }
+							}
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+		SensePage.editSenseNoSubmit( 0, 'goats' );
+		SensePage.cancelSenseEditing( 0 );
+		let data = SensePage.getNthSenseData( 0 );
+
+		assert.equal( 'goat', data.value );
+	} );
+
+	it( 'Removes Gloss', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addSense(
+						id,
+						{
+							glosses: {
+								en: { language: 'en', value: 'goat' }
+							}
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+		SensePage.addGlossToNthSense( 0, 'test', 'de', true );
+		SensePage.startEditingNthSense( 0 );
+		let glossCountBefore = SensePage.getNthSenseFormValues( 0 ).glosses.length;
+		SensePage.removeGloss( 0, true );
+		let glossCountAfter = SensePage.getNthSenseFormValues( 0 ).glosses.length;
+		assert.notEqual( glossCountBefore, glossCountAfter );
+	} );
+
 } );
