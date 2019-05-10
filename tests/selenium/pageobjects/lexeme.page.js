@@ -148,26 +148,87 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( languageCode );
 	}
 
+	/**
+	 * Set the language for the lexeme
+	 *
+	 * This will retry entering the id if it isn't found immeadietly, because cirrus and database replicas might be slow
+	 * to update.
+	 *
+	 * @param {string} item Item ID to enter into the field
+	 */
 	setLexemeLanguageItem( item ) {
 		this.lexemeLanguageInput.setValue( item );
 
 		browser.waitUntil( () => {
-			return this.isHeaderSubmittable();
+			if ( this.waitTillHeaderIsSaveableOrError() ) {
+				return true;
+			}
+			this._waitAndRetryInput( this.lexemeLanguageInput, item );
+			return false;
 		} );
 
 		this.headerSaveButton.click();
 		this.headerSaveButton.waitForExist( null, true );
 	}
 
+	/**
+	 * Set the lexical category for the lexeme
+	 *
+	 * This will retry entering the id if it isn't found immeadietly, because cirrus and database replicas might be slow
+	 * to update.
+	 *
+	 * @param {string} item Item ID to enter into the field
+	 */
 	setLexicalCategoryItem( item ) {
 		this.lexemeLexicalCategoryInput.setValue( item );
 
 		browser.waitUntil( () => {
-			return this.isHeaderSubmittable();
+			if ( this.waitTillHeaderIsSaveableOrError() ) {
+				return true;
+			}
+			this._waitAndRetryInput( this.lexemeLexicalCategoryInput, item );
+			return false;
 		} );
 
 		this.headerSaveButton.click();
 		this.headerSaveButton.waitForExist( null, true );
+	}
+
+	/**
+	 * Wait for a period of time and then enter a value into an input
+	 *
+	 * @param input the wdio input element into which to enter the value
+	 * @param value value to be entered into the element
+	 * @param {int} [timeoutMS] duration to wait in ms, default 1000 ms
+	 * @private
+	 */
+	_waitAndRetryInput( input, value, timeoutMS ) {
+		browser.call( () => {
+			return new Promise( ( resolve ) => {
+				setTimeout( resolve, timeoutMS || 1000 );
+			} ).then( () => {
+				input.setValue( value );
+			} );
+		} );
+	}
+
+	/**
+	 * Wait until the Lexeme header is saveable or there is an error message
+	 *
+	 * @returns {boolean} true if saveable, false if there is an error message
+	 * @private
+	 */
+	waitTillHeaderIsSaveableOrError() {
+		let isSaveable = false;
+		browser.waitUntil( () => {
+			if ( this.isHeaderSubmittable() ) {
+				isSaveable = true;
+				return true;
+			}
+			const errorMsg = $( 'body > ul.ui-entityselector-list > .ui-entityselector-notfound' );
+			return errorMsg.isVisible();
+		} );
+		return isSaveable;
 	}
 
 	isHeaderSubmittable() {
