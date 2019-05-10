@@ -52,7 +52,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return {
 			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
 			REMOVE_BUTTON: '.wikibase-toolbar-button-remove',
-			SAVE_BUTTON: '.wikibase-toolbar-button-save'
+			SAVE_BUTTON: '.wikibase-toolbar-button-save',
+			CANCEL_BUTTON: '.wikibase-toolbar-button-cancel'
 		};
 	}
 
@@ -83,6 +84,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return this.formsContainer.$$( '.wikibase-lexeme-form' );
 	}
 
+	get addFormCancelLink() {
+		return $( this.constructor.GENERIC_TOOLBAR_SELECTORS.CANCEL_BUTTON );
+	}
+
 	get senses() {
 		return this.sensesContainer.$$( '.wikibase-lexeme-sense' );
 	}
@@ -91,8 +96,24 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return $( '.wb-lexeme-header_id' ).getText().replace( /[^L0-9]/g, '' ); // remove non-marked-up styling text "(L123)"
 	}
 
+	get formId() {
+		return $( '.wikibase-lexeme-form-header > .wikibase-lexeme-form-id' );
+	}
+
+	get hasFormHeader() {
+		return $( '.wikibase-lexeme-forms-section h2 > #forms' ).isExisting();
+	}
+
 	get addFormLink() {
 		return $( '.wikibase-lexeme-forms-section > .wikibase-addtoolbar .wikibase-toolbar-button-add a' );
+	}
+
+	get hasGramaticalFeatureList() {
+		return $( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ).isExisting();
+	}
+
+	get hasRepresentation() {
+		return $( '.wikibase-lexeme-form-header > .representation-widget' ).isExisting();
 	}
 
 	get headerSaveButton() {

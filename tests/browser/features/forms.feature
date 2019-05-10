@@ -8,17 +8,6 @@ Feature: Forms of a Lexeme
       And VisualEditor welcome message is disabled
 
   @integration
-  Scenario: Basic Forms section
-    Then Forms header should be there
-     And Forms container should be there
-     And for each Form there is a representation and an ID
-     And each representation has a language
-
-  @integration
-  Scenario: View Forms grammatical features
-    And for each Form there is a grammatical feature list
-
-  @integration
   Scenario: Link to Form
     And for each Form there is an anchor equal to its ID
 
