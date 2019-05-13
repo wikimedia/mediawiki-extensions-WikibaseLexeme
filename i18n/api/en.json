@@ -5,6 +5,7 @@
 	"apihelp-wbladdform-summary": "Adds Form to Lexeme",
 	"apihelp-wbladdform-param-lexemeId": "ID of the Lexeme, e.g. L10",
 	"apihelp-wbladdform-param-data": "JSON encoded data for Form i.e. representations and grammatical features",
+	"apihelp-wbladdform-param-baserevid": "Base Revision ID of the Lexeme, if edit conflict check is wanted.",
 	"apihelp-wbladdform-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"{{int:group-bot}}\".",
 	"apihelp-wbladdform-example-1": "Add Form to the Lexeme with ID <samp>$1</samp> having representations <samp>$2</samp> with languages <samp>$3</samp> respectively and grammatical features <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Removes Form from Lexeme",
