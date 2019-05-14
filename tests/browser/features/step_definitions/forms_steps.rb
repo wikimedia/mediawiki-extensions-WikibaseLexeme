@@ -12,12 +12,6 @@ Given(/^for each Form there is an anchor equal to its ID$/) do
   end
 end
 
-Then(/^for each Form there is a statement list$/) do
-  on(LexemePage).forms.each do |form|
-    form.statements_element.when_visible
-    expect(form.statements?).to be true
-  end
-end
 
 When(/^I click the Forms list add button$/) do
   on(LexemePage).add_lexeme_form_element.when_visible.click
@@ -64,26 +58,6 @@ end
 When(/^I click on the first Form's edit button$/) do
   @form_i_am_currently_editing = on(LexemePage).forms[0]
   @form_i_am_currently_editing.edit_element.when_visible.click
-end
-
-When(/^I select the test item as the grammatical feature$/) do
-  @form_i_am_currently_editing.grammatical_features_input_element.send_keys(@item_under_test['label'])
-  @form_i_am_currently_editing.grammatical_feature_selection_first_option_element.when_visible.click
-end
-
-Then(/^I should see the item's label in the list of grammatical features of the first Form$/) do
-  @first_form = on(LexemePage).forms[0]
-  Watir::Wait.until { @first_form.grammatical_feature?(@item_under_test['label']) }
-
-  expect(@first_form.grammatical_feature?(@item_under_test['label'])).to be true
-end
-
-When(/^I cancel the editing of the Form$/) do
-  @form_i_am_currently_editing.cancel_element.when_visible.click
-end
-
-Then(/^I don't see the Form$/) do
-  expect(@form_i_am_currently_editing.exists?).to be false
 end
 
 When(/^I click add statement on the Form$/) do
@@ -137,15 +111,6 @@ Then(/^I go to the history page$/) do
   on(LexemePage).view_history
 end
 
-
-Then(/^I undo the latest change$/) do
-  # pick the latest revision and click "undo" link
-  on(EntityHistoryPage).revisions[0].undo
-  # confirm "undo"
-  on(UndoPage).save_page
-  # got back to the initial Lexeme page
-end
-
 Then(/^I restore the previous revision$/) do
   # pick the previous revision and click "restore" link
   on(EntityHistoryPage).revisions[1].restore
@@ -159,4 +124,3 @@ Then(/^the new Form has the ID greater than the previous one$/) do
 
   expect(last_form_id).to be > @last_form_id_before_undo
 end
-

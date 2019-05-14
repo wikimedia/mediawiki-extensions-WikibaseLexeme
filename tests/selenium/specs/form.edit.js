@@ -213,4 +213,124 @@ describe( 'Lexeme:Forms', () => {
 		} );
 
 	} );
+
+	it( 'can remove first grammatical feature', () => {
+		let id,
+			grammaticalFeatureId;
+
+		browser.call( () => {
+			return WikibaseApi.createItem()
+				.then( ( itemId ) => {
+					grammaticalFeatureId = itemId;
+				} );
+		} );
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addForm(
+						id,
+						{
+							representations: {
+								de: { language: 'de', value: 'lorem' }
+							},
+							grammaticalFeatures: []
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addGrammaticalFeatureToNthForm( 0, grammaticalFeatureId );
+
+		LexemePage.removeGrammaticalFeatureFromNthForm( 0 );
+
+		browser.call( () => {
+			return LexemeApi.get( id )
+				.then( ( lexeme ) => {
+					assert.equal( grammaticalFeatureId === lexeme.forms[ 0 ].grammaticalFeatures[ 0 ], false, 'grammatical feature removed'
+					);
+				} );
+		} );
+
+	} );
+
+	it( 'can cancel form addition', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addFormLink.click();
+
+		LexemePage.addFormCancelLink.click();
+
+		assert.equal( LexemePage.formId.isExisting(), false, 'No form added' );
+
+	} );
+
+	it( 'has statement list', () => {
+		let id;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addForm(
+						id,
+						{
+							representations: {
+								en: { language: 'en', value: 'color' }
+							},
+							grammaticalFeatures: []
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		assert.equal( LexemePage.formStatementList.isExisting(), true );
+	} );
+
+	it( 'FormId counter is not decremented when addForm is undone', () => {
+		let id,
+			oldFormID,
+			newFormID,
+			isNotDecremented;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addForm( 'Foo', 'en' );
+		oldFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+
+		LexemePage.undoLatestRevision();
+
+		LexemePage.addForm( 'Yacht', 'de' );
+		newFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+
+		isNotDecremented = ( newFormID > oldFormID );
+
+		assert.equal( isNotDecremented, true, 'FormId counter is not decremented' );
+
+	} );
+
 } );

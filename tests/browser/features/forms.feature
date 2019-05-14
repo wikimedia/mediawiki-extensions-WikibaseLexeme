@@ -12,16 +12,6 @@ Feature: Forms of a Lexeme
     And for each Form there is an anchor equal to its ID
 
   @integration
-  Scenario: Add grammatical feature
-    Given I have a Lexeme with a Form
-     And I have an item to test
-    When I click on the first Form's edit button
-     And I select the test item as the grammatical feature
-     And I save the Form
-     And I reload the lexeme page
-    Then I should see the item's label in the list of grammatical features of the first Form
-
-  @integration
   Scenario: Remove grammatical feature
     Given I have a Lexeme with a Form
      And a grammatical feature exists for the first Form of the Lexeme
@@ -44,21 +34,6 @@ Feature: Forms of a Lexeme
      And "colours" should be displayed as the "en-gb" representation of the Form
 
   @integration
-  Scenario: Add Form
-    When I click the Forms list add button
-     And I enter "whatever" as the "en" form representation
-     And I save the Form
-     And I reload the lexeme page
-    Then "whatever" should be displayed as the "en" representation of the Form
-
-
-  @integration
-  Scenario: Cancel Form addition
-    Given I click the Forms list add button
-     When I cancel the editing of the Form
-     Then I don't see the Form
-
-  @integration
   Scenario: Edit statements on new Form
     Given I have the following properties with datatype:
       | stringprop | string |
@@ -70,21 +45,6 @@ Feature: Forms of a Lexeme
       And I enter somestring in the claim value input field
       And I save the statement
      Then I see stringprop=somestring statement in the Form statement list
-
-
-  @integration
-  Scenario: I can see each Form's statements
-    Given I have a Lexeme with a Form
-    Then for each Form there is a statement list
-
-  @integration
-  Scenario: FormId counter is not decremented when change is undone
-    Given I am on a Lexeme page
-     Then I add a Form
-     Then I go to the history page
-      And I undo the latest change
-     When I add a Form
-     Then the new Form has the ID greater than the previous one
 
   @integration
   Scenario: FormId counter is not decremented when old revision is restored
