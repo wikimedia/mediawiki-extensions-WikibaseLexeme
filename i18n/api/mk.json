@@ -8,6 +8,7 @@
 	"apihelp-wbladdform-summary": "Додава образец во лексема",
 	"apihelp-wbladdform-param-lexemeId": "назнака на лексемата, како на пр. L10",
 	"apihelp-wbladdform-param-data": "Податоци кодирани во JSON т.е. претстави на граматички можности",
+	"apihelp-wbladdform-param-baserevid": "Основна преработна назнака на лексемата, ако се бара проверка на спротиставеност во уредувањата.",
 	"apihelp-wbladdform-param-bot": "Означи го уредувањето како ботовско. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
 	"apihelp-wbladdform-example-1": "Стави образец во лексемата со назнака <samp>$1</samp> која ги има претставите <samp>$2</samp> со јазиците <samp>$3</samp> и граматичките особености <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Го отстранува образецот од лексемата",

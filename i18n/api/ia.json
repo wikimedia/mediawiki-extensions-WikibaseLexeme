@@ -4,6 +4,7 @@
 			"McDutchie"
 		]
 	},
+	"apihelp-wbladdform-param-baserevid": "ID de version de base del lexema, si es desirate un verification contra conflictos de modification.",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Le terminos de un entitate lexicographic (lemmas de un lexema, representationes de un forma, o glossas de un senso).",
 	"apihelp-wblmergelexemes-description": "Fusiona duo lexemas."
 }

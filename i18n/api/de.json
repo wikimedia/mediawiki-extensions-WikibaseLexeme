@@ -8,6 +8,7 @@
 	"apihelp-wbladdform-summary": "Ergänzt Form zu Lexeme",
 	"apihelp-wbladdform-param-lexemeId": "Kennung des Lexemes, z.&nbsp;B. L10",
 	"apihelp-wbladdform-param-data": "JSON-kodierte Daten für Form, z.&nbsp;B. representations und grammaticalFeatures",
+	"apihelp-wbladdform-param-baserevid": "Basis-Versionskennung des Lexems, falls die Prüfung auf Bearbeitungskonflikte gewünscht ist.",
 	"apihelp-wbladdform-param-bot": "Markiert diese Bearbeitung als Bot. Dieses URL-Flag wird nur berücksichtigt, falls der Benutzer zur Gruppe der „{{int:group-bot}}“ gehört.",
 	"apihelp-wbladdform-example-1": "Fügt die Form zum Lexeme mit der Kennung <samp>$1</samp> hinzu, das Darstellungen <samp>$2</samp> jeweils mit den Sprachen <samp>$3</samp> und den grammatikalischen Funktionen <samp>$4</samp> hat",
 	"apihelp-wblremoveform-summary": "Entfernt die Form vom Lexeme",

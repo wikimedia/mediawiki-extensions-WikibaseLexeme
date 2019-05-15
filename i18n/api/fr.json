@@ -8,6 +8,7 @@
 	"apihelp-wbladdform-summary": "Ajoute une forme au lexème",
 	"apihelp-wbladdform-param-lexemeId": "ID du lexème (par exemple L10)",
 	"apihelp-wbladdform-param-data": "Données encodées au format JSON pour la forme ; par exemple les représentations et les propriétés grammaticales",
+	"apihelp-wbladdform-param-baserevid": "ID de révision de base du lexème, si la vérification du conflit de modification est souhaitée.",
 	"apihelp-wbladdform-param-bot": "Marquer cette modification comme faite par un robot. Cette marque d'URL ne sera prise en compte si l'utilisateur appartient au groupe « {{int:group-bot}} » .",
 	"apihelp-wbladdform-example-1": "Ajout de forme au lexème ayant respectivement pour ID <samp>$1</samp>, pour représentations <samp>$2</samp>, pour langues <samp>$3</samp> et pour propriétés grammaticales <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Supprime le formulaire du lexème",

@@ -8,6 +8,7 @@
 	"apihelp-wbladdform-summary": "يضيف نموذجا إلى Lexeme",
 	"apihelp-wbladdform-param-lexemeId": "معرف Lexeme على سبيل المثال L10",
 	"apihelp-wbladdform-param-data": "بيانات JSON مشفرة للنماذج أي تمثيل وميزات نحوية",
+	"apihelp-wbladdform-param-baserevid": "معرف مراجعة الأساس للكسيم، إذا كان التحقق من تعارض التحرير مطلوبا.",
 	"apihelp-wbladdform-param-bot": "علم على هذا التعديل كروبوت، علم المسار هذا سيتم احترامه فقط إذا ما كان المستخدم ينتمي للمجموعة \"{{int:group-bot}}\".",
 	"apihelp-wbladdform-example-1": "إضافة نموذج إلى Lexeme بمعرف <samp>$1</samp> يحتوي على تمثيلات <samp>$2</samp> باللغات <samp>$3</samp> على التوالي والميزات النحوية <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "يزيل نموذجا من Lexeme",
