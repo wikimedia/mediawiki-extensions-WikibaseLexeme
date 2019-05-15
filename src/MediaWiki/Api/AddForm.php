@@ -6,7 +6,10 @@ use ApiBase;
 use ApiMain;
 use LogicException;
 use RuntimeException;
+use Status;
+use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
+use Wikibase\Lib\FormatableSummary;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -18,7 +21,6 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
-use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
 use Wikibase\Summary;
@@ -147,43 +149,12 @@ class AddForm extends ApiBase {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
 
-		try {
-			$lexemeId = $request->getLexemeId();
-			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
-				$lexemeId,
-				self::LATEST_REVISION,
-				EntityRevisionLookup::LATEST_FROM_MASTER
-			);
-
-			if ( !$lexemeRevision ) {
-				$error = new LexemeNotFound( $lexemeId );
-				$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
-			}
-		} catch ( StorageException $e ) {
-			//TODO Test it
-			if ( $e->getStatus() ) {
-				$this->dieStatus( $e->getStatus() );
-			} else {
-				throw new LogicException(
-					'StorageException caught with no status',
-					0,
-					$e
-				);
-			}
-		}
+		$lexemeRevision = $this->getBaseLexemeRevisionFromRequest( $request );
 		/** @var Lexeme $lexeme */
 		$lexeme = $lexemeRevision->getEntity();
 		$changeOp = $request->getChangeOp();
 
 		$summary = new Summary();
-		$result = $changeOp->validate( $lexeme );
-		if ( !$result->isValid() ) {
-			$this->errorReporter->dieException(
-				new ChangeOpValidationException( $result ),
-				'modification-failed'
-			);
-		}
-
 		try {
 			$changeOp->apply( $lexeme, $summary );
 		} catch ( ChangeOpException $exception ) {
@@ -196,50 +167,14 @@ class AddForm extends ApiBase {
 			$baseRevId = $lexemeRevision->getRevisionId();
 		}
 
-		$editEntity = $this->editEntityFactory->newEditEntity(
-			$this->getUser(),
-			$request->getLexemeId(),
-			$baseRevId
-		);
-		$summaryString = $this->summaryFormatter->formatSummary(
-			$summary
-		);
-		$flags = EDIT_UPDATE;
-		if ( isset( $params['bot'] ) && $params['bot'] && $this->getUser()->isAllowed( 'bot' ) ) {
-			$flags |= EDIT_FORCE_BOT;
-		}
-
-		$tokenThatDoesNotNeedChecking = false;
-		//FIXME: Handle failure
-		try {
-			$status = $editEntity->attemptSave(
-				$lexeme,
-				$summaryString,
-				$flags,
-				$tokenThatDoesNotNeedChecking
-			);
-		} catch ( ConflictException $exception ) {
-			$this->dieWithException( new RuntimeException( 'Edit conflict: ' . $exception->getMessage() ) );
-		}
+		$flags = $this->buildSaveFlags( $params );
+		$status = $this->saveNewLexemeRevision( $lexeme, $baseRevId, $summary, $flags );
 
 		if ( !$status->isGood() ) {
 			$this->dieStatus( $status ); //Seems like it is good enough
 		}
 
-		/** @var EntityRevision $entityRevision */
-		$entityRevision = $status->getValue()['revision'];
-		$revisionId = $entityRevision->getRevisionId();
-
-		/** @var Lexeme $editedLexeme */
-		$editedLexeme = $entityRevision->getEntity();
-		$newForm = $this->getFormWithMaxId( $editedLexeme );
-		$serializedForm = $this->formSerializer->serialize( $newForm );
-
-		$apiResult = $this->getResult();
-		$apiResult->addValue( null, 'lastrevid', $revisionId );
-		// TODO: Do we really need `success` property in response?
-		$apiResult->addValue( null, 'success', 1 );
-		$apiResult->addValue( null, 'form', $serializedForm );
+		$this->fillApiResultFromStatus( $status );
 	}
 
 	/**
@@ -346,6 +281,97 @@ class AddForm extends ApiBase {
 		// TODO: Use some service to get the ID object!
 		$formId = new FormId( $lexeme->getId() . '-F' . $maxIdNumber );
 		return $lexeme->getForm( $formId );
+	}
+
+	/**
+	 * @throws \ApiUsageException
+	 */
+	private function getBaseLexemeRevisionFromRequest( AddFormRequest $request ): EntityRevision {
+		$lexemeId = $request->getLexemeId();
+		try {
+			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
+				$lexemeId,
+				self::LATEST_REVISION,
+				EntityRevisionLookup::LATEST_FROM_MASTER
+			);
+
+			if ( !$lexemeRevision ) {
+				$error = new LexemeNotFound( $lexemeId );
+				$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
+			}
+		} catch ( StorageException $e ) {
+			//TODO Test it
+			if ( $e->getStatus() ) {
+				$this->dieStatus( $e->getStatus() );
+			} else {
+				throw new LogicException(
+					'StorageException caught with no status',
+					0,
+					$e
+				);
+			}
+		}
+		return $lexemeRevision;
+	}
+
+	/**
+	 * @return int
+	 */
+	private function buildSaveFlags( array $params ) {
+		$flags = EDIT_UPDATE;
+		if ( isset( $params['bot'] ) && $params['bot'] && $this->getUser()->isAllowed( 'bot' ) ) {
+			$flags |= EDIT_FORCE_BOT;
+		}
+		return $flags;
+	}
+
+	private function saveNewLexemeRevision(
+		EntityDocument $lexeme,
+		$baseRevId,
+		FormatableSummary $summary,
+		$flags
+	): Status {
+		$editEntity = $this->editEntityFactory->newEditEntity(
+			$this->getUser(),
+			$lexeme->getId(),
+			$baseRevId
+		);
+		$summaryString = $this->summaryFormatter->formatSummary(
+			$summary
+		);
+
+		$tokenThatDoesNotNeedChecking = false;
+		//FIXME: Handle failure
+		try {
+			$status = $editEntity->attemptSave(
+				$lexeme,
+				$summaryString,
+				$flags,
+				$tokenThatDoesNotNeedChecking
+			);
+		} catch ( ConflictException $exception ) {
+			$this->dieWithException( new RuntimeException( 'Edit conflict: ' . $exception->getMessage() ) );
+		}
+
+		return $status;
+	}
+
+	private function fillApiResultFromStatus( Status $status ) {
+
+		/** @var EntityRevision $entityRevision */
+		$entityRevision = $status->getValue()['revision'];
+		$revisionId = $entityRevision->getRevisionId();
+
+		/** @var Lexeme $editedLexeme */
+		$editedLexeme = $entityRevision->getEntity();
+		$newForm = $this->getFormWithMaxId( $editedLexeme );
+		$serializedForm = $this->formSerializer->serialize( $newForm );
+
+		$apiResult = $this->getResult();
+		$apiResult->addValue( null, 'lastrevid', $revisionId );
+		// TODO: Do we really need `success` property in response?
+		$apiResult->addValue( null, 'success', 1 );
+		$apiResult->addValue( null, 'form', $serializedForm );
 	}
 
 }
