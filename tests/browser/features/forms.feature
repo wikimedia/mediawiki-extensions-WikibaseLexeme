@@ -12,16 +12,6 @@ Feature: Forms of a Lexeme
     And for each Form there is an anchor equal to its ID
 
   @integration
-  Scenario: Add grammatical feature
-    Given I have a Lexeme with a Form
-     And I have an item to test
-    When I click on the first Form's edit button
-     And I select the test item as the grammatical feature
-     And I save the Form
-     And I reload the lexeme page
-    Then I should see the item's label in the list of grammatical features of the first Form
-
-  @integration
   Scenario: Remove grammatical feature
     Given I have a Lexeme with a Form
      And a grammatical feature exists for the first Form of the Lexeme
