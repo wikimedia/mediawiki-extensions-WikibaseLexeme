@@ -7,6 +7,7 @@
 	"apihelp-wbladdform-summary": "添加詞性至詞位",
 	"apihelp-wbladdform-param-lexemeId": "詞位 ID，例如：L10",
 	"apihelp-wbladdform-param-data": "用於詞性的 JSON 編碼資料，例如：表述和語法特徵",
+	"apihelp-wbladdform-param-baserevid": "詞位的基本修訂 ID，若需要檢查編輯衝突的時候。",
 	"apihelp-wbladdform-param-bot": "標註此為機器人編輯。該 URL 標記僅會在使用者隸屬「{{int:group-bot}}」群組時採用。",
 	"apihelp-wbladdform-example-1": "添加詞性至 ID 為 <samp>$1</samp>，在語言 <samp>$3</samp> 中各有表述 <samp>$2</samp> 以及語法特徵為 <samp>$4</samp> 的詞位。",
 	"apihelp-wblremoveform-summary": "從詞位移除詞性",
