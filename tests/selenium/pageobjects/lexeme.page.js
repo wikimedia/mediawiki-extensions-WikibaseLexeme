@@ -44,7 +44,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			EDIT_INPUT_LANGUAGE: '.representation-widget_representation-language-input',
 			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values',
 			ADD_REPRESENTATION_BUTTON: '.representation-widget_add',
-			REMOVE_REPRESENTATION_BUTTON: '.representation-widget_representation-remove'
+			REMOVE_REPRESENTATION_BUTTON: '.representation-widget_representation-remove',
+			FORM_STATEMENT_LIST: '.wikibase-lexeme-form-body .wikibase-statementgrouplistview .wikibase-listview'
 		};
 	}
 
@@ -84,6 +85,18 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return this.formsContainer.$$( '.wikibase-lexeme-form' );
 	}
 
+	get viewHistoryLink() {
+		return $( '#right-navigation #p-views #ca-history a' );
+	}
+
+	get undoRevisionLink() {
+		return $( '#mw-content-text #pagehistory li .mw-history-undo a' );
+	}
+
+	get linkToSaveUndo() {
+		return $( '#bodyContent #mw-content-text .editOptions .editButtons button' ); // submit undo on the Undoing edit page
+	}
+
 	get addFormCancelLink() {
 		return $( this.constructor.GENERIC_TOOLBAR_SELECTORS.CANCEL_BUTTON );
 	}
@@ -114,6 +127,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	get hasRepresentation() {
 		return $( '.wikibase-lexeme-form-header > .representation-widget' ).isExisting();
+	}
+
+	get formStatementList() {
+		return $( this.constructor.FORM_WIDGET_SELECTORS.FORM_STATEMENT_LIST );
 	}
 
 	get headerSaveButton() {
@@ -370,6 +387,13 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		}
 	}
 
+	undoLatestRevision() {
+		this.viewHistoryLink.click();
+		this.undoRevisionLink.click();
+		this.linkToSaveUndo.click();
+		this.addFormLink.waitForVisible();
+	}
+
 	addGlossToNthSense( index, gloss, language, submitImmediately ) {
 		let sense = this.senses[ index ];
 
@@ -479,6 +503,22 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			this.submitNthForm( index );
 		}
 	}
+
+	removeGrammaticalFeatureFromNthForm( index, submitImmediately ) {
+		let form = this.forms[ index ];
+
+		this.startEditingNthForm( index );
+		let gramFeaturesValues = form.$( '.wikibase-lexeme-form-grammatical-features-values' );
+		let gramFeatureToDelete = gramFeaturesValues.$$( '.oo-ui-tagItemWidget' );
+		let gramFeatureRemove = gramFeatureToDelete[ 0 ].$( '.oo-ui-buttonElement-button' );
+
+		gramFeatureRemove.click();
+
+		if ( submitImmediately !== false ) {
+			this.submitNthForm( index );
+		}
+	}
+
 	isUserLoggedIn() {
 		$( this.constructor.PERSONAL_BAR.USER_TOOLBAR ).waitForExist( null, false );
 		return !$( this.constructor.PERSONAL_BAR.USER_NOT_LOGIN_ICON ).isExisting();
