@@ -30,12 +30,14 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	static get FORM_WIDGET_SELECTORS() {
 		return {
+			REPRESENTATIONS: '.wikibase-lexeme-form-header .representation-widget .representation-widget_representation-list li',
 			REPRESENTATION_VALUE: '.wikibase-lexeme-form-header .representation-widget_representation-value',
 			REPRESENTATION_LANGUAGE: '.wikibase-lexeme-form-header .representation-widget_representation-language',
 			EDIT_INPUT_VALUE: '.representation-widget_representation-value-input',
 			EDIT_INPUT_LANGUAGE: '.representation-widget_representation-language-input',
 			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values',
 			ADD_REPRESENTATION_BUTTON: '.representation-widget_add',
+			ADD_STATEMENT_TO_FORM: '.wikibase-statementgrouplistview .wikibase-toolbar-button-add a',
 			REMOVE_REPRESENTATION_BUTTON: '.representation-widget_representation-remove',
 			FORM_STATEMENT_LIST: '.wikibase-lexeme-form-body .wikibase-statementgrouplistview .wikibase-listview'
 		};
@@ -73,15 +75,27 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		return this.formsContainer.$$( '.wikibase-lexeme-form' );
 	}
 
+	get formClaimValueInputField() {
+
+		return $( '.wikibase-listview #new .wikibase-snakview-value-container .valueview-value .valueview-input' );
+
+	}
+
 	get viewHistoryLink() {
 		return $( '#right-navigation #p-views #ca-history a' );
+	}
+
+	get restoreRevisionLink() {
+		let element = browser.element( 'a[href*=restore]' ); // This link doesn't have any css identifier
+
+		return element;
 	}
 
 	get undoRevisionLink() {
 		return $( '#mw-content-text #pagehistory li .mw-history-undo a' );
 	}
 
-	get linkToSaveUndo() {
+	get undoOrRestoreSavePageButton() {
 		return $( '#bodyContent #mw-content-text .editOptions .editButtons button' ); // submit undo on the Undoing edit page
 	}
 
@@ -330,6 +344,66 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		};
 	}
 
+	getNthFormFormValuesAfterSave( index ) {
+		let form = this.forms[ index ],
+			languageFields = form.$$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATIONS ),
+			representationValues = [];
+
+		_.each( languageFields, function ( element, key ) {
+			representationValues.push( {
+				value: languageFields[ key ].$( '.representation-widget_representation-value' ).getText(),
+				language: languageFields[ key ].$( '.representation-widget_representation-language' ).getText()
+			} );
+		} );
+
+		return {
+			representations: representationValues
+		};
+	}
+
+	getNthFormStatement( index ) {
+		let form = this.forms[ index ];
+
+		form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' ).waitForVisible();
+		form.$( '.wikibase-statementgroupview-property-label a' ).waitForVisible();
+
+		let property = form.$( '.wikibase-statementgroupview' ),
+			value = form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' );
+
+		return {
+			propertyId: property.getAttribute( 'id' ).split( '-' ), value: value.getText()
+		};
+	}
+
+	addStatementToNthForm( index, statementPropertyId, statementValue, submitImmediately ) {
+		let form = this.forms[ index ],
+			addStatementLink = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_STATEMENT_TO_FORM );
+
+		addStatementLink.click();
+
+		let propertyInputfield = form.$( '.wikibase-statementgroupview .wikibase-snakview-property input' );
+
+		propertyInputfield.setValue( statementPropertyId );
+		this.formClaimValueInputField.waitForVisible();
+		this.formClaimValueInputField.setValue( statementValue );
+
+		if ( submitImmediately !== false ) {
+			this.submitNthFormStatement( index );
+		}
+	}
+
+	submitNthFormStatement( index ) {
+		let form = this.forms[ index ],
+			saveLink = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
+
+		browser.waitUntil( () => {
+			return saveLink.getAttribute( 'aria-disabled' ) === 'false';
+		} );
+
+		saveLink.click();
+		saveLink.waitForExist( null, true );
+	}
+
 	addRepresentationToNthForm( index, representation, language, submitImmediately ) {
 		let form = this.forms[ index ];
 
@@ -354,10 +428,17 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		}
 	}
 
+	restorePreviousRevision() {
+		this.viewHistoryLink.click();
+		this.restoreRevisionLink.click();
+		this.undoOrRestoreSavePageButton.click();
+		this.addFormLink.waitForVisible();
+	}
+
 	undoLatestRevision() {
 		this.viewHistoryLink.click();
 		this.undoRevisionLink.click();
-		this.linkToSaveUndo.click();
+		this.undoOrRestoreSavePageButton.click();
 		this.addFormLink.waitForVisible();
 	}
 
@@ -442,6 +523,12 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		if ( submitImmediately !== false ) {
 			this.submitNthForm( index );
 		}
+	}
+
+	getFormAnchor( index ) {
+		let form = this.forms[ index ];
+
+		return form.getAttribute( 'id' );
 	}
 
 	isUserLoggedIn() {
