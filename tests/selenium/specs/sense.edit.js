@@ -8,28 +8,11 @@ const assert = require( 'assert' ),
 
 describe( 'Lexeme:Senses', () => {
 
-	beforeEach( 'check logged in', () => {
+	before( 'check logged in', () => {
 		LoginPage.open();
 		if ( !LexemePage.isUserLoggedIn() ) {
 			LoginPage.loginAdmin();
 		}
-	} );
-
-	it( 'Sense header and container exist', () => {
-		let id,
-			header = 'Senses';
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
-		} );
-
-		LexemePage.open( id );
-
-		assert.strictEqual( SensePage.sensesHeader, header );
-		assert( SensePage.sensesContainer.isExisting() );
 	} );
 
 	it( 'can edit sense and save successfully', () => {

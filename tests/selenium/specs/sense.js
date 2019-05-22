@@ -34,6 +34,13 @@ describe( 'Lexeme:Senses', () => {
 		assert( sense.senseIdElement.isExisting() );
 	} );
 
+	it( 'Sense header and container exist', () => {
+		let header = 'Senses';
+
+		assert.strictEqual( SensePage.sensesHeader, header );
+		assert( SensePage.sensesContainer.isExisting() );
+	} );
+
 	it( 'Added Sense has statement', () => {
 		let senseStatements = SensePage.senseStatements;
 		let senseId = SensePage.senseId;
