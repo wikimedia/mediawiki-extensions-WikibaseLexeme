@@ -88,6 +88,8 @@ class SensePage extends Page {
 	getNthSenseData( index ) {
 		let sense = this.senses[ index ];
 
+		sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_VALUE ).waitForExist();
+
 		return {
 			value: sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_VALUE ).getText(),
 			language: sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_LANGUAGE ).getText(),
