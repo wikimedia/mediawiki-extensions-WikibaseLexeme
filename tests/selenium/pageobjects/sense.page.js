@@ -146,10 +146,12 @@ class SensePage extends Page {
 	}
 
 	submitNthSense( index ) {
+		browser.waitUntil( () => {
+			return this.isNthSenseSubmittable( index );
+		} );
+
 		let sense = this.senses[ index ];
-
 		let saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
-
 		saveButton.click();
 		saveButton.waitForExist( null, true );
 	}
