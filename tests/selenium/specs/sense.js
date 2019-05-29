@@ -26,7 +26,8 @@ describe( 'Lexeme:Senses', () => {
 		SensePage.addSense( 'en', 'Yacht' );
 	} );
 
-	it( 'Adding Sense', () => {
+	// T224546
+	it.skip( 'Adding Sense', () => {
 		let sense = SensePage.getNthSenseData( 0 );
 
 		assert.strictEqual( 'English', sense.language, 'Sense added to GUI shows language' );
@@ -41,14 +42,16 @@ describe( 'Lexeme:Senses', () => {
 		assert( SensePage.sensesContainer.isExisting() );
 	} );
 
-	it( 'Added Sense has statement', () => {
+	// T224546
+	it.skip( 'Added Sense has statement', () => {
 		let senseStatements = SensePage.senseStatements;
 		let senseId = SensePage.senseId;
 
 		assert.strictEqual( senseStatements, 'Statements about ' + senseId );
 	} );
 
-	it( 'Anchor exists and is equal to Sense ID', () => {
+	// T224546
+	it.skip( 'Anchor exists and is equal to Sense ID', () => {
 		let senseId = SensePage.senseId.split( '-' )[ 1 ];
 		let anchorId = SensePage.getSenseAnchor( 0 );
 
