@@ -219,6 +219,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 				'edit' => false
 			]
 		] );
+		$this->resetServices();
 
 		try {
 			$this->doApiRequestWithToken( [

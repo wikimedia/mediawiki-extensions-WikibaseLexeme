@@ -303,7 +303,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 					'edit' => false
 				]
 		] );
-
+		$this->resetServices();
 		try {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbladdform',

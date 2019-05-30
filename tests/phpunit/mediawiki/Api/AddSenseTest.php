@@ -203,7 +203,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 					'edit' => false
 				]
 		] );
-
+		$this->resetServices();
 		try {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbladdsense',

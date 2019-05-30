@@ -219,7 +219,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 				'edit' => false
 			]
 		] );
-
+		$this->resetServices();
 		try {
 			$this->doApiRequestWithToken( [
 				'action' => 'wblremovesense',

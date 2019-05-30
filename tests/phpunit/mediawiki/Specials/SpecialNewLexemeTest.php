@@ -110,6 +110,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 				]
 			]
 		] );
+		$this->resetServices();
 
 		try {
 			$this->executeSpecialPage();
