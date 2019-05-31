@@ -7,7 +7,7 @@ const assert = require( 'assert' ),
 
 describe( 'Lexeme:Forms', () => {
 
-	beforeEach( 'check logged in', () => {
+	before( 'check logged in', () => {
 		LoginPage.open();
 		if ( !LexemePage.isUserLoggedIn() ) {
 			LoginPage.loginAdmin();

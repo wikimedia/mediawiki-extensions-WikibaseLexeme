@@ -14,7 +14,7 @@ try {
 
 describe( 'Lexeme:Forms', () => {
 
-	beforeEach( 'check logged in', () => {
+	before( 'check logged in', () => {
 		LoginPage.open();
 		if ( !LexemePage.isUserLoggedIn() ) {
 			LoginPage.loginAdmin();
@@ -329,7 +329,105 @@ describe( 'Lexeme:Forms', () => {
 
 		isNotDecremented = ( newFormID > oldFormID );
 
-		assert.equal( isNotDecremented, true, 'FormId counter is not decremented' );
+		assert.ok( isNotDecremented, 'FormId counter is not decremented' );
+
+	} );
+
+	it( 'FormId counter is not decremented when old revision is restored', () => {
+		let id,
+			oldFormID,
+			newFormID,
+			isNotDecremented;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addForm( 'Foo', 'en' );
+		oldFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+
+		LexemePage.restorePreviousRevision();
+
+		LexemePage.addForm( 'Yacht', 'de' );
+		newFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+
+		isNotDecremented = ( newFormID > oldFormID );
+
+		assert.ok( isNotDecremented, 'FormId counter is not decremented' );
+
+	} );
+
+	it( 'change multi-variant representations', () => {
+		let id,
+			formRepresentation;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addForm( 'colors', 'en-ca' );
+
+		LexemePage.addRepresentationToNthForm( 0, 'colours', 'en-gb' );
+
+		browser.refresh();
+
+		LexemePage.addFormLink.waitForVisible();// just to make sure the page loaded completely
+
+		formRepresentation = LexemePage.getNthFormFormValuesAfterSave( 0 );
+
+		assert.equal( 'colors', formRepresentation.representations[ 0 ].value );
+		assert.equal( 'en-ca', formRepresentation.representations[ 0 ].language );
+		assert.equal( 'colours', formRepresentation.representations[ 1 ].value );
+		assert.equal( 'en-gb', formRepresentation.representations[ 1 ].language );
+
+	} );
+
+	it( 'can edit statements on a new Form', () => {
+		let id,
+			statementObj,
+			statementProperty,
+			statementPropertyId,
+			statementValue = 'Some string';
+
+		browser.call( () => {
+			return WikibaseApi.getProperty( 'string' )
+				.then( ( propertyId ) => {
+					statementPropertyId = propertyId;
+				} )
+				.then( () => {
+					return WikibaseApi.getEntity( statementPropertyId )
+						.then( ( entityObj ) => {
+							statementProperty = entityObj;
+						} );
+				} );
+		} );
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		LexemePage.addForm( 'newForm', 'en' );
+
+		LexemePage.addStatementToNthForm( 0, statementPropertyId, statementValue );
+
+		statementObj = LexemePage.getNthFormStatement( 0 );
+
+		assert.equal( statementPropertyId, statementObj.propertyId[ 1 ] );
+		assert.equal( statementValue, statementObj.value );
 
 	} );
 

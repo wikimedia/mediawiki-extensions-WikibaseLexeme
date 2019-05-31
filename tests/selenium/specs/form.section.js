@@ -7,7 +7,7 @@ const assert = require( 'assert' ),
 
 describe( 'Form:Header', () => {
 
-	beforeEach( 'check logged in', () => {
+	before( 'check logged in', () => {
 		LoginPage.open();
 		if ( !LexemePage.isUserLoggedIn() ) {
 			LoginPage.loginAdmin();
@@ -149,6 +149,37 @@ describe( 'Form:Header', () => {
 		LexemePage.addFormLink.click();
 
 		assert( LexemePage.hasGramaticalFeatureList );
+	} );
+
+	it( 'has link to Form', () => {
+		let id,
+			formId,
+			anchorId;
+
+		browser.call( () => {
+			return LexemeApi.create()
+				.then( ( lexeme ) => {
+					id = lexeme.id;
+				} )
+				.then( () => {
+					return LexemeApi.addForm(
+						id,
+						{
+							representations: {
+								en: { language: 'en', value: 'color' }
+							},
+							grammaticalFeatures: []
+						}
+					);
+				} );
+		} );
+
+		LexemePage.open( id );
+
+		formId = ( LexemePage.formId.getText() ).split( '-' )[ 1 ];
+		anchorId = LexemePage.getFormAnchor( 0 );
+
+		assert.strictEqual( formId, anchorId );
 	} );
 
 } );
