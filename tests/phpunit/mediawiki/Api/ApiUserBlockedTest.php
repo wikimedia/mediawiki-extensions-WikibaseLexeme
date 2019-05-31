@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
-use Block;
+use MediaWiki\Block\DatabaseBlock;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
@@ -23,7 +23,7 @@ use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
  */
 class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 
-	/** @var Block */
+	/** @var DatabaseBlock */
 	private $block;
 
 	const GRAMMATICAL_FEATURE_ITEM_ID = 'Q1';
@@ -32,7 +32,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 		parent::setUp();
 
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new Block( [
+		$this->block = new DatabaseBlock( [
 			'address' => $testuser,
 			'reason' => 'testing in ' . __CLASS__,
 			'by' => $testuser->getId(),
