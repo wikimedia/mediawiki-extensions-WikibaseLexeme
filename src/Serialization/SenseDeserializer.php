@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wikibase\Lexeme\Serialization;
 
 use Deserializers\Deserializer;

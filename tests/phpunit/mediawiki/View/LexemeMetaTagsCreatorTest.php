@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use RawMessage;

@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use MediaWikiTestCase;
 use HamcrestPHPUnitIntegration;
-use PHPUnit4And6Compat;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
@@ -26,9 +25,7 @@ use Wikibase\Lexeme\Tests\DataModel\NewSense;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class ExternalLexemeSerializerTest extends MediaWikiTestCase {
-
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();

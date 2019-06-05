@@ -1,4 +1,5 @@
 <?php
+
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;

@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use Deserializers\Deserializer;
