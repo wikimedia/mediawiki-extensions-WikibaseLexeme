@@ -92,7 +92,7 @@
 		}, INTERNAL_DEBOUNCE_TIMEOUT );
 	} );
 
-	QUnit.test( 'I select item in menu - the item is added to the widget', function ( assert ) {
+	QUnit.skip( 'I select item in menu - the item is added to the widget', function ( assert ) {
 		var done = assert.async();
 		var api = {
 			get: function () {
