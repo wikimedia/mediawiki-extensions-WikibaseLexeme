@@ -8,7 +8,8 @@
 			"Metalhead64",
 			"Lucas Werkmeister (WMDE)",
 			"Hamilton Abreu",
-			"Umherirrender"
+			"Umherirrender",
+			"Omotecho"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -90,7 +91,7 @@
 	"wikibaselexeme-formidformatter-separator-multiple-representation": "{{optional}}\n\nDelimiter used to separate multiple representations of the form when the Form ID is being displayed as text/HTML.",
 	"wikibaselexeme-senseidformatter-layout": "{{optional}}\n\nFormat used when showing a sense ID. $1 is the lemma(s) of the associated lexeme, $2 is the gloss in the user's language.",
 	"wikibaselexeme-lexeme-link-title": "{{optional}}\n\nValue of the \"title\" attribute of a link to lexeme page when the lexeme is displayed as HTML.\n\nParameters:\n* $1 - Lexeme ID\n* $2 - Lexeme's \"secondary label\" (language and lexical category).",
-	"wikibaselexeme-formidformatter-link-title":  "{{optional}}\n\nValue of the \"title\" attribute of a link to form page when the form is displayed as HTML.\n\nParameters:\n* $1 - Form ID\n* $2 - Form's \"secondary label\" (grammatical features).",
+	"wikibaselexeme-formidformatter-link-title": "{{optional}}\n\nValue of the \"title\" attribute of a link to form page when the form is displayed as HTML.\n\nParameters:\n* $1 - Form ID\n* $2 - Form's \"secondary label\" (grammatical features).",
 	"wikibaselexeme-form-grammatical-features": "Label for the list of a form's grammatical features",
 	"wikibaselexeme-formidformatter-separator-grammatical-features": "{{optional}}\n\nDelimiter used to separate grammatical features of a lexeme form when the Form ID is being displayed as text/HTML.",
 	"wikibaselexeme-description": "Template for generating Lexeme description: Language + Lexical Category",
@@ -103,7 +104,7 @@
 	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",
 	"wikibase-lexeme-language-name-rm-rumgr": "Name for language code for Grischun dialect of Rumantsch",
-	"wikibase-lexeme-language-name-rm-surmiran": "Name for language code for Surmiran dialect of Rumantsch",
+	"wikibase-lexeme-language-name-rm-surmiran": "Name for language code for [https://m.wikidata.org/wiki/Q690216 Surmiran] dialect of Rumantsch",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Name for language code for Sutsilvan dialect of Rumantsch",
 	"wikibase-lexeme-language-name-rm-sursilv": "Name for language code for Sursilvan dialect of Rumantsch",
 	"wikibase-lexeme-language-name-rm-vallader": "Name for language code for Vallader dialect of Rumantsch",

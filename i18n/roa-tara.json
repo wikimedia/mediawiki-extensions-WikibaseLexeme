@@ -10,12 +10,14 @@
 	"wikibaselexeme-form-field-language-label": "Variande d'a lènghe",
 	"wikibase-lexeme-summary-wbeditentity-update": "Cangiate 'nu lesseme",
 	"wikibaselexeme-add-form": "aggiunge 'nu Module",
-	"apihelp-wbladdform-summary": "Aggiung 'nu module a 'u lesseme",
-	"apihelp-wblremoveform-param-id": "ID d'u module, e.g. L10-F20",
-	"apihelp-wblmergelexemes-description": "Squagghie doje lesseme.",
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "Aggiunde 'nu module nuève",
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-form": "Module",
 	"content-model-wikibase-lexeme": "Lesseme Uicchibase",
+	"wikibase-lexeme-language-name-rm-surmiran": "Surmirane",
+	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvane",
+	"wikibase-lexeme-language-name-rm-sursilv": "Sursilvane",
+	"wikibase-lexeme-language-name-rm-vallader": "Vallader",
+	"wikibase-lexeme-language-name-rm-puter": "Puter",
 	"wikibase-lexeme-mergelexemes-submit": "Squagghie le lesseme"
 }
