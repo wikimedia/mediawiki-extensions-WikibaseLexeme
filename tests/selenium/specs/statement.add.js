@@ -44,7 +44,11 @@ describe( 'Lexeme:Statements', () => {
 		LexemePage.open( lexemeId );
 		LexemePage.addMainStatement( propertyId, testStringValue );
 
-		let statementFromGui = LexemePage.getNthStatementDataFromMainStatementGroup( 0, propertyId );
+		let statementFromGui;
+		browser.waitUntil( () => {
+			statementFromGui = LexemePage.getNthStatementDataFromMainStatementGroup( 0, propertyId );
+			return statementFromGui.value !== '';
+		} );
 
 		assert.equal( testStringValue, statementFromGui.value, 'Statement value added to GUI shows value' );
 
