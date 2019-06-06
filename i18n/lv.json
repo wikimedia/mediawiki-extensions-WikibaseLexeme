@@ -5,7 +5,9 @@
 			"Nixiéoffset"
 		]
 	},
+	"wikibaselexeme-newlexeme-fieldset": "Izveidot jaunu leksēmu",
+	"datatypes-type-wikibase-lexeme": "Leksēma",
 	"datatypes-type-wikibase-form": "Forma",
-	"apierror-wikibaselexeme-parameter-required": "Parametrs \"$1\" ir obligāts",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Leksēma",
 	"wikibaselexeme-field-language-label": "Valoda"
 }
