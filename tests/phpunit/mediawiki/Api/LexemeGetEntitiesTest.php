@@ -9,6 +9,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
 /**
@@ -73,6 +74,24 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 			self::class,
 			$this->getTestUser()->getUser()
 		);
+	}
+
+	public function testGettingSense() {
+		// regression, see https://phabricator.wikimedia.org/T223995
+		$this->markTestSkipped( 'Currently not working correctly' );
+
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )
+				->withSense( NewSense::havingId( 'S1' )->withGloss( 'en', 'foo' ) )
+				->build(),
+			self::class,
+			$this->getTestUser()->getUser()
+		);
+
+		$senseData = $this->loadEntity( self::LEXEME_ID . '-S1' );
+
+		$this->assertEquals( self::LEXEME_ID . '-S1', $senseData['id'] );
+		$this->assertEquals( [ 'language' => 'en', 'value' => 'foo' ], $senseData['glosses']['en'] );
 	}
 
 }

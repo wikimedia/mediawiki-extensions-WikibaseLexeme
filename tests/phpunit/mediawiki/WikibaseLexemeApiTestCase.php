@@ -123,10 +123,22 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		 * @var ServiceContainer $services
 		 */
 		$services = $this->wikibaseRepo->getWikibaseServices();
-		$services->disableService( 'TermBuffer' );
-		$services->redefineService( 'TermBuffer', function () {
-			return new BufferingTermLookup( $this->wikibaseRepo->getStore()->getTermIndex(), 1000 );
-		} );
+		if ( $services->hasService( 'TermBuffer' ) ) {
+			$services->disableService( 'TermBuffer' );
+			$services->redefineService( 'TermBuffer', function () {
+				return new BufferingTermLookup(
+					$this->wikibaseRepo->getStore()->getTermIndex(),
+					1000
+				);
+			} );
+		} else {
+			$services->defineService( 'TermBuffer', function () {
+				return new BufferingTermLookup(
+					$this->wikibaseRepo->getStore()->getTermIndex(),
+					1000
+				);
+			} );
+		}
 	}
 
 }
