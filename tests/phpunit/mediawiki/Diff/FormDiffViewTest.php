@@ -19,7 +19,7 @@ use Wikibase\Lexeme\Domain\Diff\FormDiffer;
 use Wikibase\Lexeme\Presentation\Diff\FormDiffView;
 use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lib\SnakFormatter;
+use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
 use Wikibase\Repo\Diff\DifferencesSnakVisualizer;
