@@ -9,6 +9,7 @@
 	"special-newlexeme": "語彙素の新規作成",
 	"special-mergelexemes": "2つの語彙素を統合",
 	"wikibaselexeme-deletedentity-form": "削除された語形",
+	"wikibaselexeme-deletedentity-sense": "削除された語義",
 	"wikibaselexeme-newlexeme-fieldset": "語彙素の新規作成",
 	"wikibaselexeme-newlexeme-lemma": "見出し語",
 	"wikibaselexeme-newlexeme-lemma-language": "見出し語のつづりの変形",

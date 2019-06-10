@@ -4,7 +4,8 @@
 			"Piramidion",
 			"Movses",
 			"Vlad5250",
-			"Renamerr"
+			"Renamerr",
+			"Bjankuloski06"
 		]
 	},
 	"wikibaselexeme-desc": "Робота з типом сутності Лексеми",
@@ -25,7 +26,7 @@
 	"wikibaselexeme-enter-form-representation": "Введіть нову репрезентацію Форми",
 	"wikibaselexeme-empty-form-representation": "Не визначено жодної репрезентації Форми",
 	"wikibaselexeme-statementsection-statements-about-sense": "Твердження про $1",
-	"wikibaselexeme-header-senses": "Смисли",
+	"wikibaselexeme-header-senses": "Значења",
 	"wikibase-lexeme-gloss-empty": "Жодну глосу не визначено",
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
 	"wikibaselexeme-lemma-field-language-label": "Варіант написання",
