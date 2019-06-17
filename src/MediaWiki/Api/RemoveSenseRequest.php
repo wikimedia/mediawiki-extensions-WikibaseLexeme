@@ -12,8 +12,18 @@ class RemoveSenseRequest {
 
 	private $senseId;
 
-	public function __construct( SenseId $senseId ) {
+	/**
+	 * @var int|null
+	 */
+	private $baseRevId;
+
+	/**
+	 * @param SenseId $senseId
+	 * @param int|null $baseRevId
+	 */
+	public function __construct( SenseId $senseId, $baseRevId ) {
 		$this->senseId = $senseId;
+		$this->baseRevId = $baseRevId;
 	}
 
 	public function getChangeOp(): ChangeOpRemoveSense {
@@ -22,6 +32,13 @@ class RemoveSenseRequest {
 
 	public function getSenseId(): SenseId {
 		return $this->senseId;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getBaseRevId() {
+		return $this->baseRevId;
 	}
 
 }

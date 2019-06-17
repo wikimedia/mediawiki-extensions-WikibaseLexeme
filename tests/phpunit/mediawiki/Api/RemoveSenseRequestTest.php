@@ -15,16 +15,22 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 class RemoveSenseRequestTest extends TestCase {
 
 	public function testReturnsCorrectChangeOp() {
-		$request = new RemoveSenseRequest( new SenseId( 'L1-S1' ) );
+		$request = new RemoveSenseRequest( new SenseId( 'L1-S1' ), 3 );
 
 		$changeOp = $request->getChangeOp();
 		$this->assertTrue( $changeOp instanceof ChangeOpRemoveSense );
 	}
 
 	public function testGetLexemeId() {
-		$request = new RemoveSenseRequest( new SenseId( 'L1-S1' ) );
+		$request = new RemoveSenseRequest( new SenseId( 'L1-S1' ), 2 );
 
 		$this->assertSame( 'L1-S1', $request->getSenseId()->getSerialization() );
+	}
+
+	public function testGetBaseRevId() {
+		$request = new RemoveSenseRequest( new SenseId( 'L1-S1' ), 2 );
+
+		$this->assertEquals( 2, $request->getBaseRevId() );
 	}
 
 }

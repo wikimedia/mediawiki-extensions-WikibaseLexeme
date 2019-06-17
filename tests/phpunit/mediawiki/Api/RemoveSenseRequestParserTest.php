@@ -80,4 +80,12 @@ class RemoveSenseRequestParserTest extends TestCase {
 		return new RemoveSenseRequestParser( new SenseIdDeserializer( $idParser ) );
 	}
 
+	public function testBaseRevIdPassedToRequestObject() {
+		$parser = $this->newRemoveSenseRequestParser();
+		$request = $parser->parse(
+			[ 'id' => 'L1-S2', 'baserevid' => 12345 ]
+		);
+		$this->assertEquals( 12345, $request->getBaseRevId() );
+	}
+
 }
