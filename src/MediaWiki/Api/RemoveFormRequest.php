@@ -12,8 +12,18 @@ class RemoveFormRequest {
 
 	private $formId;
 
-	public function __construct( FormId $formId ) {
+	/**
+	 * @var int|null
+	 */
+	private $baseRevId;
+
+	/**
+	 * @param FormId $formId
+	 * @param int|null $baseRevId
+	 */
+	public function __construct( FormId $formId, $baseRevId ) {
 		$this->formId = $formId;
+		$this->baseRevId = $baseRevId;
 	}
 
 	public function getChangeOp(): ChangeOpRemoveForm {
@@ -22,6 +32,13 @@ class RemoveFormRequest {
 
 	public function getFormId(): FormId {
 		return $this->formId;
+	}
+
+	/**
+	 * @return int|null
+	 */
+	public function getBaseRevId() {
+		return $this->baseRevId;
 	}
 
 }

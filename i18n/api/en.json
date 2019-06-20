@@ -13,6 +13,7 @@
 	"apihelp-wblremoveform-param-id": "ID of the Form, e.g. L10-F20",
 	"apihelp-wblremoveform-param-tags": "Change tags to apply to the revision.",
 	"apihelp-wblremoveform-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"{{int:group-bot}}\".",
+	"apihelp-wblremoveform-param-baserevid": "Base Revision ID of the Lexeme, if edit conflict check is wanted.",
 	"apihelp-wblremoveform-example-1": "Remove Form from the Lexeme with ID <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Edits representations and grammatical features of a Form",
 	"apihelp-wbleditformelements-param-formId": "ID of the Form, e.g. L10-F2",

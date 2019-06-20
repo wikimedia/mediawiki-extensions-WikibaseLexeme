@@ -105,6 +105,11 @@ class RemoveForm extends ApiBase {
 	public function execute() {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
+		if ( $request->getBaseRevId() ) {
+			$baseRevId = $request->getBaseRevId();
+		} else {
+			$baseRevId = self::LATEST_REVISION;
+		}
 
 		try {
 			$formId = $request->getFormId();
@@ -112,7 +117,7 @@ class RemoveForm extends ApiBase {
 
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
 				$lexemeId,
-				self::LATEST_REVISION,
+				$baseRevId,
 				LookupConstants::LATEST_FROM_MASTER
 			);
 
@@ -121,6 +126,7 @@ class RemoveForm extends ApiBase {
 				$this->dieWithError( $error->asApiMessage( RemoveFormRequestParser::PARAM_FORM_ID, [] ) );
 			}
 
+			$baseRevId = $lexemeRevision->getRevisionId();
 			/** @var Lexeme $lexeme */
 			$lexeme = $lexemeRevision->getEntity();
 			'@phan-var Lexeme $lexeme';
@@ -158,7 +164,7 @@ class RemoveForm extends ApiBase {
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
 			$lexemeId,
-			$lexemeRevision->getRevisionId()
+			$baseRevId
 		);
 		$flags = EDIT_UPDATE;
 		if ( isset( $params['bot'] ) && $params['bot'] &&
@@ -178,7 +184,7 @@ class RemoveForm extends ApiBase {
 			$params['tags'] ?: []
 		);
 
-		if ( !$status->isGood() ) {
+		if ( !$status->isOK() ) {
 			$this->dieStatus( $status );
 		}
 
@@ -206,7 +212,10 @@ class RemoveForm extends ApiBase {
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',
 					self::PARAM_DFLT => false,
-				]
+				],
+				RemoveFormRequestParser::PARAM_BASEREVID => [
+					self::PARAM_TYPE => 'integer',
+				],
 			]
 		);
 	}

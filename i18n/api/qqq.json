@@ -22,6 +22,7 @@
 	"apihelp-wblremoveform-param-id": "{{doc-apihelp-param|wblremoveform|id}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wblremoveform-param-tags": "{{doc-apihelp-param|wblremoveform|tags}}",
 	"apihelp-wblremoveform-param-bot": "{{doc-apihelp-param|wblremoveform|bot}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
+	"apihelp-wblremoveform-param-baserevid": "{{doc-apihelp-param|wblremoveform|baserevid}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wblremoveform-example-1": "{{doc-apihelp-example|wblremoveform}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wbleditformelements-summary": "{{doc-apihelp-summary|wbleditformelements}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wbleditformelements-param-formId": "{{doc-apihelp-param|wbleditformelements|formId}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",

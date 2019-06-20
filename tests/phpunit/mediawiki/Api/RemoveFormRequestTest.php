@@ -15,16 +15,22 @@ use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequest;
 class RemoveFormRequestTest extends TestCase {
 
 	public function testReturnsCorrectChangeOp() {
-		$request = new RemoveFormRequest( new FormId( 'L1-F1' ) );
+		$request = new RemoveFormRequest( new FormId( 'L1-F1' ), 3 );
 
 		$changeOp = $request->getChangeOp();
 		$this->assertTrue( $changeOp instanceof ChangeOpRemoveForm );
 	}
 
 	public function testGetLexemeId() {
-		$request = new RemoveFormRequest( new FormId( 'L1-F1' ) );
+		$request = new RemoveFormRequest( new FormId( 'L1-F1' ), 3 );
 
 		$this->assertSame( 'L1-F1', $request->getFormId()->getSerialization() );
+	}
+
+	public function testGetBaseRevId() {
+		$request = new RemoveFormRequest( new FormId( 'L1-F1' ), 3 );
+
+		$this->assertSame( 3, $request->getBaseRevId() );
 	}
 
 }

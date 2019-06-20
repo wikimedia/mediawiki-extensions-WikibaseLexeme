@@ -80,4 +80,14 @@ class RemoveFormRequestParserTest extends TestCase {
 		return new RemoveFormRequestParser( new FormIdDeserializer( $idParser ) );
 	}
 
+	public function testBaseRevIdPassedToRequestObject() {
+		$parser = $this->newRemoveFormRequestParser();
+
+		$request = $parser->parse(
+			[ 'id' => 'L1-F2', 'baserevid' => 12345 ]
+		);
+
+		$this->assertSame( 12345, $request->getBaseRevId() );
+	}
+
 }
