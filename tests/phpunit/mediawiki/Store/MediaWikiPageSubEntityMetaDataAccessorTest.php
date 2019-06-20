@@ -3,11 +3,14 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use BadMethodCallException;
+use LogicException;
 use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\Sql\WikiPageEntityMetaDataAccessor;
 
@@ -20,20 +23,50 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_Test
 
 	use PHPUnit4And6Compat;
 
-	public function testloadRevisionInformation_notImplemented() {
-		$accessor = new MediaWikiPageSubEntityMetaDataAccessor(
-			$this->createMock( WikiPageEntityMetaDataAccessor::class )
-		);
-		$this->setExpectedException( BadMethodCallException::class );
-		$accessor->loadRevisionInformation( [], EntityRevisionLookup::LATEST_FROM_MASTER );
-	}
-
 	public function testloadRevisionInformationByRevisionId_notImplemented() {
 		$accessor = new MediaWikiPageSubEntityMetaDataAccessor(
 			$this->createMock( WikiPageEntityMetaDataAccessor::class )
 		);
 		$this->setExpectedException( BadMethodCallException::class );
 		$accessor->loadRevisionInformationByRevisionId( $this->createMock( EntityId::class ), 1 );
+	}
+
+	public function testLoadRevisionInformation() {
+		$entityIds = [ new SenseId( 'L1-S1' ), new FormId( 'L2-F2' ) ];
+		$mockedRevisionInformation = [ 'L1' => true, 'L2' => true ]; // using true as a dummy value
+		$expectedReturn = [ 'L1-S1' => true, 'L2-F2' => true ]; // using true as a dummy value
+		$entityDataAccessor = $this->getMediaWikiPageSubEntityMetaDataAccessor_mockAccessor(
+			$entityIds,
+			array_fill( 0, count( $entityIds ), '1' ), // dummy revision ids, irrelevant for this test
+			$mockedRevisionInformation
+		);
+
+		$actualReturn = $entityDataAccessor->loadRevisionInformation(
+			$entityIds, EntityRevisionLookup::LATEST_FROM_MASTER );
+
+		$this->assertEquals( $expectedReturn, $actualReturn );
+	}
+
+	public function testLoadRevisionInformation_throwsWhenGivenInvalidIdType() {
+		$senseId = new SenseId( 'L1-S1' );
+		$lexemeId = new LexemeId( 'L1' );
+		$entityIds = [
+			$senseId,
+			$lexemeId // invalid id type
+		];
+
+		$this->setExpectedException( LogicException::class );
+
+		$entityDataAccessor = $this->getMediaWikiPageSubEntityMetaDataAccessor_mockAccessor(
+			[ $senseId, $lexemeId ],
+			[ 1, 1 ],
+			[ 1, 1 ]
+		);
+
+		$entityDataAccessor->loadRevisionInformation(
+			$entityIds,
+			EntityRevisionLookup::LATEST_FROM_MASTER
+		);
 	}
 
 	public function testLoadLatestRevisionIds_returnsExpectedResponse() {
@@ -43,8 +76,9 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_Test
 			$this->getMockSubEntityId( $subIdString, $lexemeIdString )
 		];
 		$mockedRevIds = [ 1 ];
-		$expectedEntityIds = array_map( function( $entityId ){ return $entityId->getLexemeId();
-  }, $entityIds );
+		$expectedEntityIds = array_map( function ( $entityId ) {
+			return $entityId->getLexemeId();
+		}, $entityIds );
 		$entityDataAccessor = $this->getMediaWikiPageSubEntityMetaDataAccessor_mockAccessor(
 			$expectedEntityIds,
 			$mockedRevIds
@@ -70,17 +104,18 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_Test
 
 	private function getMediaWikiPageSubEntityMetaDataAccessor_mockAccessor(
 		$expectedEntityIds = [],
-		$mockedRevIds = []
+		$mockedRevIds = [],
+		$mockedRevisions = []
 	) {
 		$latestRevisionIDs = [];
 		foreach ( $expectedEntityIds as $key => $expectedEntityId ) {
 			$latestRevisionIDs[ $expectedEntityId->getSerialization() ] = $mockedRevIds[ $key ];
 		}
 		$mockAccessorInternal = $this->createMock( WikiPageEntityMetaDataAccessor::class );
-		$mockAccessorInternal->expects( $this->once() )
-			->method( 'loadLatestRevisionIds' )
-			->with( $expectedEntityIds )
+		$mockAccessorInternal->method( 'loadLatestRevisionIds' )
 			->willReturn( $latestRevisionIDs );
+		$mockAccessorInternal->method( 'loadRevisionInformation' )
+			->willReturn( $mockedRevisions );
 		return new MediaWikiPageSubEntityMetaDataAccessor(
 			$mockAccessorInternal
 		);

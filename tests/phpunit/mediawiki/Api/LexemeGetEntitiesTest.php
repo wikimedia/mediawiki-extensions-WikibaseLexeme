@@ -77,9 +77,6 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGettingSense() {
-		// regression, see https://phabricator.wikimedia.org/T223995
-		$this->markTestSkipped( 'Currently not working correctly' );
-
 		$this->entityStore->saveEntity(
 			NewLexeme::havingId( self::LEXEME_ID )
 				->withSense( NewSense::havingId( 'S1' )->withGloss( 'en', 'foo' ) )

@@ -12,7 +12,8 @@ use Wikibase\Lib\Store\Sql\WikiPageEntityMetaDataAccessor;
 
 /**
  * An Accessor for SubEntities that uses the supplied Accessor to look up
- * the Lexeme's MetaData. Only loadLatestRevisionIds is currently implemented
+ * the Lexeme's MetaData. Only loadLatestRevisionIds and loadRevisionInformation
+ * are currently implemented
  *
  * @license GPL-2.0-or-later
  */
@@ -25,9 +26,10 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	}
 
 	/**
-	 * Not Implemented
+	 * Loads revision information of entities that given ids of sub-entities (forms or senses)
+	 * belong.
 	 *
-	 * @param EntityId[] $entityIds
+	 * @param EntityId[] $entityIds values must be instances of {@link LexemeSubEntityId}
 	 * @param string $mode (EntityRevisionLookup::LATEST_FROM_REPLICA,
 	 *     EntityRevisionLookup::LATEST_FROM_REPLICA_WITH_FALLBACK or
 	 *     EntityRevisionLookup::LATEST_FROM_MASTER)
@@ -35,10 +37,35 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 * @return (stdClass|bool)[] Array mapping entity ID serializations to either objects
 	 * or false if an entity could not be found.
 	 *
-	 * @throws BadMethodCallException
+	 * @throws LogicException if some entity id in $entityIds is not instance of
+	 * {@link LexemeSubEntityId}
 	 */
 	public function loadRevisionInformation( array $entityIds, $mode ) {
-		throw new BadMethodCallException( 'Not Implemented' );
+		$subEntityIds = [];
+		foreach ( $entityIds as $key => $entityId ) {
+			if ( $entityId instanceof LexemeSubEntityId ) {
+				$subEntityIds[] = $entityId;
+				$entityIds[$key] = $entityId->getLexemeId();
+			} else {
+				throw new LogicException(
+					$entityId->getSerialization() . ' is not instance of ' . LexemeSubEntityId::class );
+			}
+		}
+
+		$entitiesRevisionInfo = $this->wikiPageEntityMetaDataLookup->loadRevisionInformation(
+			$entityIds,
+			$mode
+		);
+
+		$subEntitiesRevisionInformation = [];
+		/** @var LexemeSubEntityId $subEntityId */
+		foreach ( $subEntityIds as $subEntityId ) {
+			$subEntityIdString = $subEntityId->getSerialization();
+			$lexemeIdString = $subEntityId->getLexemeId()->getSerialization();
+			$subEntitiesRevisionInformation[ $subEntityIdString ] = $entitiesRevisionInfo[ $lexemeIdString ];
+		}
+
+		return $subEntitiesRevisionInformation;
 	}
 
 	/**
@@ -95,11 +122,11 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 			$lexemeString = $subEntityId->getLexemeId()->getSerialization();
 			$lookup[ $subEntityString ] = $lookup[ $lexemeString ];
 		}
-		$filteredLookup = $this->filterOutUnrequestedEntitys( $subEntityIds, $lookup );
+		$filteredLookup = $this->filterOutUnrequestedEntities( $subEntityIds, $lookup );
 		return $filteredLookup;
 	}
 
-	private function filterOutUnrequestedEntitys( $requestedEntityIds, $lookup ) {
+	private function filterOutUnrequestedEntities( $requestedEntityIds, $lookup ) {
 		$serializedRequestedEntityIds = array_map(
 			function ( $id ) {
 				return $id->getSerialization();
