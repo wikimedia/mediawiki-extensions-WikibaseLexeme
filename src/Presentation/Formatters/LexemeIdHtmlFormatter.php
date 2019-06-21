@@ -60,6 +60,7 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->entityLookup->getEntity( $id );
+		'@phan-var Lexeme $lexeme';
 
 		$lemmas = $lexeme->getLemmas();
 

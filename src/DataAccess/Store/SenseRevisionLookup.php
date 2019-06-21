@@ -59,6 +59,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
+		'@phan-var Lexeme $lexeme';
 
 		try {
 			// TODO use hasSense on Lexeme or SenseSet when it exists
@@ -96,6 +97,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 					$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
 					/** @var Lexeme $lexeme */
 					$lexeme = $revision->getEntity();
+					'@phan-var Lexeme $lexeme';
 
 					try {
 						$lexeme->getSense( $senseId );

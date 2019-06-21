@@ -71,6 +71,7 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 
 	/**
 	 * @return string HTML
+	 * @suppress PhanUndeclaredMethod
 	 */
 	private function visualizeEntityDiff( EntityContentDiff $entityContentDiff ) {
 		$lexemeDiff = $entityContentDiff->getEntityDiff();

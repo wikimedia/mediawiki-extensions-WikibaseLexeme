@@ -6,7 +6,6 @@ use Language;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
-use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -30,7 +29,7 @@ class ItemSelectorWidgetField extends HTMLItemReferenceField {
 	private $idParser = null;
 
 	/**
-	 * @var EntityTitleLookup|null
+	 * @var LabelDescriptionLookup|null
 	 */
 	private $labelLookup = null;
 

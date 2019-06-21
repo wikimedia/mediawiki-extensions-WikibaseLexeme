@@ -31,6 +31,7 @@ class ItemReferenceDifferenceVisualizer {
 	private function visualizeDifference( $headerText, DiffOp $diff ) {
 		if ( !$diff->isAtomic() ) {
 			$html = '';
+			// @phan-suppress-next-line PhanTypeNoPropertiesForeach
 			foreach ( $diff as $op ) {
 				$html .= $this->visualizeDifference( $headerText, $op );
 			}

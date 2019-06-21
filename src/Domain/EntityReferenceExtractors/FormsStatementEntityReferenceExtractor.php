@@ -33,6 +33,7 @@ class FormsStatementEntityReferenceExtractor implements EntityReferenceExtractor
 	 */
 	public function extractEntityIds( EntityDocument $lexeme ) {
 		Assert::parameterType( Lexeme::class, $lexeme, '$lexeme' );
+		'@phan-var Lexeme $lexeme';
 
 		$ids = [];
 

@@ -41,6 +41,7 @@ class ChangeOpFormEdit implements ChangeOp {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Form::class, $entity, '$entity' );
+		'@phan-var Form $entity';
 
 		/** @var Form $entity */
 

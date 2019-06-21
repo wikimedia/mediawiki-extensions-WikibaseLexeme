@@ -89,6 +89,7 @@ class FormChangeOpDeserializer implements ChangeOpDeserializer {
 			}
 			/** @var Lexeme $lexeme */
 			$lexeme = $this->entityLookup->getEntity( $lexemeId );
+			'@phan-var Lexeme $lexeme';
 			if ( $lexeme === null ) {
 				$idContext->addViolation( new LexemeNotFound( $lexemeId ) );
 				return new NullChangeOp();
@@ -104,7 +105,7 @@ class FormChangeOpDeserializer implements ChangeOpDeserializer {
 	}
 
 	/**
-	 * @param string $changeRequest
+	 * @param string $id
 	 * @return LexemeId|null
 	 */
 	private function getLexemeId( $id ) {

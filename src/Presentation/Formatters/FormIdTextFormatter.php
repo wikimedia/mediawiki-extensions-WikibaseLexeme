@@ -37,7 +37,7 @@ class FormIdTextFormatter implements EntityIdFormatter {
 	}
 
 	/**
-	 * @param EntityId|FormId $value
+	 * @param EntityId $formId
 	 *
 	 * @return string plain text
 	 */
@@ -54,6 +54,7 @@ class FormIdTextFormatter implements EntityIdFormatter {
 
 		/** @var Form $form */
 		$form = $formRevision->getEntity();
+		'@phan-var Form $form';
 		$representations = $form->getRepresentations();
 		$representationSeparator = $this->localizedTextProvider->get(
 			self::REPRESENTATION_SEPARATOR_I18N

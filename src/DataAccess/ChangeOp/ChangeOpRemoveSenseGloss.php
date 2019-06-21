@@ -40,13 +40,14 @@ class ChangeOpRemoveSenseGloss implements ChangeOp {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
+		'@phan-var Sense $entity';
 
 		/** @var Sense $entity */
 
 		$glosses = $entity->getGlosses();
 
 		if ( !$glosses->hasTermForLanguage( $this->language ) ) {
-			return;
+			return new DummyChangeOpResult();
 		}
 
 		$this->updateSummary( $entity, $summary );

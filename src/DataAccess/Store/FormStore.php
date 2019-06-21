@@ -88,6 +88,7 @@ class FormStore implements EntityStore {
 		$revision = $this->getLexemeRevision( $formId, $getLexemeRevId );
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
+		'@phan-var Lexeme $lexeme';
 
 		$lexeme->addOrUpdateForm( $form );
 
@@ -133,6 +134,7 @@ class FormStore implements EntityStore {
 		Assert::parameterType( FormId::class, $formId, '$formId' );
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->getLexemeRevision( $formId )->getEntity();
+		'@phan-var Lexeme $lexeme';
 		$lexeme->removeForm( $formId );
 		$this->store->saveEntity( $lexeme, $reason, $user, EDIT_UPDATE );
 	}

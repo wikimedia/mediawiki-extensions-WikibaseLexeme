@@ -31,7 +31,7 @@ class FormPatcher implements EntityPatcherStrategy {
 	/**
 	 * @param string $entityType
 	 *
-	 * @return boolean
+	 * @return bool
 	 */
 	public function canPatchEntityType( $entityType ) {
 		return $entityType === Form::ENTITY_TYPE;
@@ -48,6 +48,7 @@ class FormPatcher implements EntityPatcherStrategy {
 			throw new InvalidArgumentException( 'Can only patch Forms' );
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchArgument
 		return $this->patch( $entity, $patch );
 	}
 

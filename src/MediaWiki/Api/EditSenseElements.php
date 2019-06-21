@@ -126,6 +126,10 @@ class EditSenseElements extends \ApiBase {
 		$this->entityStore = $entityStore;
 	}
 
+	/**
+	 * @inheritDoc
+	 * @suppress PhanTypeMismatchArgument
+	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );

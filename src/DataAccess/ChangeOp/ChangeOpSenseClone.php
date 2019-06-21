@@ -30,6 +30,7 @@ class ChangeOpSenseClone implements ChangeOp {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( BlankSense::class, $entity, '$entity' );
+		'@phan-var BlankSense $entity';
 
 		/** @var BlankSense $entity */
 

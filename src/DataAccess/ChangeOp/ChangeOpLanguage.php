@@ -46,6 +46,7 @@ class ChangeOpLanguage extends ChangeOpBase {
 	 */
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		/** @var Lexeme $entity */
 		$this->updateSummary( $summary, 'set', '', $this->language->getSerialization() );

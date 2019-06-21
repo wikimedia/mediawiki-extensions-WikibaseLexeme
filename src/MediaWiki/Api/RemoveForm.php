@@ -121,6 +121,7 @@ class RemoveForm extends ApiBase {
 
 			/** @var Lexeme $lexeme */
 			$lexeme = $lexemeRevision->getEntity();
+			'@phan-var Lexeme $lexeme';
 
 			if ( $lexeme->getForms()->getById( $formId ) === null ) {
 				$error = new FormNotFound( $formId );

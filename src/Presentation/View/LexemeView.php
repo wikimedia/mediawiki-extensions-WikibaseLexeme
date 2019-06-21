@@ -117,6 +117,7 @@ class LexemeView extends EntityView {
 	protected function getMainHtml( EntityDocument $entity ) {
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		$html = $this->getLexemeHeader( $entity )
 			. $this->getLexemeHeaderVueTemplate()
@@ -176,6 +177,7 @@ HTML;
 	public function getTitleHtml( EntityDocument $entity ) {
 		/** @var Lexeme $entity */
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 		$isEmpty = true;
 		$idInParenthesesHtml = '';
 		$labelHtml = '';

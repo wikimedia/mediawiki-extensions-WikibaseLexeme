@@ -127,6 +127,7 @@ class RemoveSense extends ApiBase {
 			$baseRevId = $lexemeRevision->getRevisionId();
 			/** @var Lexeme $lexeme */
 			$lexeme = $lexemeRevision->getEntity();
+			'@phan-var Lexeme $lexeme';
 
 			if ( $lexeme->getSenses()->getById( $senseId ) === null ) {
 				$error = new SenseNotFound( $senseId );

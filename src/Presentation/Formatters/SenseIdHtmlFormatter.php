@@ -81,6 +81,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $lexemeRevision->getEntity();
+		'@phan-var Lexeme $lexeme';
 		try {
 			$sense = $lexeme->getSense( $value );
 		} catch ( OutOfRangeException $e ) {

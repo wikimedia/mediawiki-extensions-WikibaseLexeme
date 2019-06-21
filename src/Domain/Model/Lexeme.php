@@ -241,7 +241,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	 */
 	public function setLexicalCategory( $lexicalCategory ) {
 		if ( !$lexicalCategory instanceof ItemId && $lexicalCategory !== null ) {
-			InvalidArgumentException( '$lexicalCategory must be an ItemId or null' );
+			throw new InvalidArgumentException( '$lexicalCategory must be an ItemId or null' );
 		}
 		$this->lexicalCategory = $lexicalCategory;
 	}
@@ -263,7 +263,7 @@ class Lexeme implements EntityDocument, StatementListProvider, ClearableEntity {
 	 */
 	public function setLanguage( $language ) {
 		if ( !$language instanceof ItemId && $language !== null ) {
-			InvalidArgumentException( '$language must be an ItemId or null' );
+			throw new InvalidArgumentException( '$language must be an ItemId or null' );
 		}
 		$this->language = $language;
 	}

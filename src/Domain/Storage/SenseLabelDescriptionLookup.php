@@ -61,6 +61,7 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->entityLookup->getEntity( $lexemeId );
+		'@phan-var Lexeme $lexeme';
 		$lemmas = $lexeme->getLemmas()->toTextArray();
 		$separator = $this->localizedTextProvider->get(
 			'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
@@ -83,6 +84,7 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 
 		/** @var Sense $sense */
 		$sense = $this->entityLookup->getEntity( $entityId );
+		'@phan-var Sense $sense';
 		$glosses = $sense->getGlosses()->toTextArray();
 
 		$value = $this->languageFallbackChain->extractPreferredValue( $glosses );

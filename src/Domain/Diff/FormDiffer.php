@@ -129,7 +129,7 @@ class FormDiffer implements EntityDifferStrategy {
 	/**
 	 * @param Form $form
 	 *
-	 * @return string[]
+	 * @return array
 	 */
 	private function toFormDiffArray( Form $form ) {
 		$result = [];

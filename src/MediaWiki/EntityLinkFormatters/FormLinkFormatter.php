@@ -53,6 +53,7 @@ class FormLinkFormatter implements EntityLinkFormatter {
 
 	public function getHtml( EntityId $entityId, array $labelData = null ) {
 		Assert::parameterType( FormId::class, $entityId, '$entityId' );
+		'@phan-var FormId $entityId';
 
 		return $this->linkFormatter->getHtml(
 			$entityId,
@@ -65,6 +66,11 @@ class FormLinkFormatter implements EntityLinkFormatter {
 		);
 	}
 
+	/**
+	 * @param FormId $formId
+	 * @return TermList
+	 * @suppress PhanUndeclaredMethod
+	 */
 	private function getRepresentations( FormId $formId ) : TermList {
 		$form = $this->entityLookup->getEntity( $formId );
 

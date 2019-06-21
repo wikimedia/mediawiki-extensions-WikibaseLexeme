@@ -3,6 +3,7 @@
 if ( function_exists( 'wfLoadExtension' ) ) {
 	wfLoadExtension( 'WikibaseLexeme' );
 	// Keep i18n globals so mergeMessageFileList.php doesn't break
+	// @phan-suppress-next-line PhanUndeclaredVariableDim
 	$wgMessagesDirs['WikibaseLexeme'] = __DIR__ . '/i18n';
 	wfWarn(
 		'Deprecated PHP entry point used for WikibaseLexeme extension. Please use wfLoadExtension ' .

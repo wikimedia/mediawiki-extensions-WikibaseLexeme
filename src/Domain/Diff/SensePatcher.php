@@ -44,6 +44,7 @@ class SensePatcher implements EntityPatcherStrategy {
 			throw new InvalidArgumentException( 'Can only patch Senses' );
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchArgument
 		return $this->patch( $entity, $patch );
 	}
 

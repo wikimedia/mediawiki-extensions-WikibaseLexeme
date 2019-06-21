@@ -49,12 +49,13 @@ class ChangeOpLemmaRemove extends ChangeOpBase {
 	 */
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		/** @var Lexeme $entity */
 		$lemmas = $entity->getLemmas();
 
 		if ( !$lemmas->hasTermForLanguage( $this->language ) ) {
-			return;
+			return new DummyChangeOpResult();
 		}
 
 		$this->updateSummary(

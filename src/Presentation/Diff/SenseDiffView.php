@@ -70,6 +70,7 @@ class SenseDiffView extends BasicDiffView {
 
 		$html = '';
 
+		// @phan-suppress-next-line PhanTypeNoPropertiesForeach
 		foreach ( $op as $key => $subOp ) {
 			if ( $subOp instanceof SenseDiff ) {
 				$html .= $this->generateSenseOpHtml( $path, $subOp, $key );
@@ -107,6 +108,7 @@ class SenseDiffView extends BasicDiffView {
 	 *
 	 * @return string HTML
 	 * @throws MWException
+	 * @suppress PhanUndeclaredMethod
 	 */
 	private function getClaimDiffHtml( DiffOp $diffOp, array $path ) {
 		switch ( true ) {

@@ -61,6 +61,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
+		'@phan-var Lexeme $lexeme';
 
 		try {
 			// TODO use hasForm on Lexeme or FormSet when it exists
@@ -99,6 +100,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 					$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
 					/** @var Lexeme $lexeme */
 					$lexeme = $revision->getEntity();
+					'@phan-var Lexeme $lexeme';
 
 					try {
 						$lexeme->getForm( $formId );

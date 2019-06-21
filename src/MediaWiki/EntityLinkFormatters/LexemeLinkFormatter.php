@@ -60,10 +60,11 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	/**
-	 * @see EntityLinkFormatter::getHtml()
+	 * @inheritDoc
 	 */
 	public function getHtml( EntityId $entityId, array $labelData = null ) {
 		Assert::parameterType( LexemeId::class, $entityId, '$entityId' );
+		'@phan-var LexemeId $entityId';
 
 		return $this->linkFormatter->getHtml(
 			$entityId,
@@ -77,7 +78,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	/**
-	 * @see EntityLinkFormatter::getTitleAttribute()
+	 * @inheritDoc
 	 */
 	public function getTitleAttribute(
 		Title $title,
@@ -87,6 +88,11 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 		return $title->getPrefixedText();
 	}
 
+	/**
+	 * @param LexemeId $entityId
+	 * @return TermList
+	 * @suppress PhanUndeclaredMethod
+	 */
 	private function getLemmas( LexemeId $entityId ) : TermList {
 		try {
 			$lexeme = $this->entityLookup->getEntity( $entityId );

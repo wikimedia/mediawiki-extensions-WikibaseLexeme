@@ -54,6 +54,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		$this->statementListDeserializer = $statementListDeserializer;
 		$this->senseDeserializer = new SenseDeserializer(
 			$this->termListDeserializer,
+			// @phan-suppress-next-line PhanTypeMismatchArgument
 			$statementListDeserializer
 		);
 	}

@@ -34,11 +34,12 @@ class LexemeStatementEntityReferenceExtractor implements EntityReferenceExtracto
 	}
 
 	/**
-	 * @param EntityDocument $entity
+	 * @param EntityDocument $lexeme
 	 * @return EntityId[]
 	 */
 	public function extractEntityIds( EntityDocument $lexeme ) {
 		Assert::parameterType( Lexeme::class, $lexeme, '$lexeme' );
+		'@phan-var Lexeme $lexeme';
 
 		return array_merge(
 			$this->statementRefExtractor->extractEntityIds( $lexeme ),

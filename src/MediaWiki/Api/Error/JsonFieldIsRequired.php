@@ -8,7 +8,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 class JsonFieldIsRequired implements ApiError {
 
 	/**
-	 * @var string[]
+	 * @var string
 	 */
 	private $field;
 
@@ -20,7 +20,7 @@ class JsonFieldIsRequired implements ApiError {
 	}
 
 	/**
-	 * @see ApiError::asApiMessage()
+	 * @inheritDoc
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(

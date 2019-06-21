@@ -28,6 +28,7 @@ class GrammaticalFeatureDiffVisualizer {
 		}
 
 		$html = '';
+		// @phan-suppress-next-line PhanTypeNoPropertiesForeach
 		foreach ( $diff as $subOp ) {
 			$html .= $this->visualize(
 				$path,

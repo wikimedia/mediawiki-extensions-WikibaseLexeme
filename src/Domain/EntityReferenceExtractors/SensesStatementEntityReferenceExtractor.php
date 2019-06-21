@@ -33,6 +33,7 @@ class SensesStatementEntityReferenceExtractor implements EntityReferenceExtracto
 	 */
 	public function extractEntityIds( EntityDocument $lexeme ) {
 		Assert::parameterType( Lexeme::class, $lexeme, '$lexeme' );
+		'@phan-var Lexeme $lexeme';
 
 		$ids = [];
 

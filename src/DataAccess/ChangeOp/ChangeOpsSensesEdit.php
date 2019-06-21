@@ -35,6 +35,7 @@ class ChangeOpsSensesEdit implements ChangeOp {
 
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		/** @var Lexeme $entity */
 
@@ -56,6 +57,7 @@ class ChangeOpsSensesEdit implements ChangeOp {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 		/** @var Lexeme $entity */
 
 		foreach ( $this->changeOpForSense as $senseId => $changeOp ) {

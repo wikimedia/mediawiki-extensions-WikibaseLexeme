@@ -37,6 +37,7 @@ class ChangeOpGloss implements ChangeOp {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
+		'@phan-var Sense $entity';
 
 		/** @var Sense $entity */
 

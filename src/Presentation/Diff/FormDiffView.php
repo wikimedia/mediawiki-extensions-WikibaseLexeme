@@ -77,6 +77,7 @@ class FormDiffView extends BasicDiffView {
 
 		$html = '';
 
+		// @phan-suppress-next-line PhanTypeNoPropertiesForeach
 		foreach ( $op as $key => $subOp ) {
 			if ( $subOp instanceof FormDiff ) {
 				$html .= $this->generateFormOpHtml( $path, $subOp, $key );
@@ -127,6 +128,7 @@ class FormDiffView extends BasicDiffView {
 	 *
 	 * @return string HTML
 	 * @throws MWException
+	 * @suppress PhanUndeclaredMethod
 	 */
 	private function getClaimDiffHtml( DiffOp $diffOp, array $path ) {
 		switch ( true ) {

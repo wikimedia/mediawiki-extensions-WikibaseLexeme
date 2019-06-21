@@ -129,7 +129,7 @@ class SenseDiffer implements EntityDifferStrategy {
 	/**
 	 * @param Sense $sense
 	 *
-	 * @return string[]
+	 * @return string[][]
 	 */
 	private function toSenseDiffArray( Sense $sense ) {
 		$result = [];

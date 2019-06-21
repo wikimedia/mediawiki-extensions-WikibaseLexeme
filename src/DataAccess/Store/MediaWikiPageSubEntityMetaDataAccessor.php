@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use BadMethodCallException;
-use NotImplementedException;
 use LogicException;
 use stdClass;
 use Wikibase\DataModel\Entity\EntityId;
@@ -36,7 +35,7 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 * @return (stdClass|bool)[] Array mapping entity ID serializations to either objects
 	 * or false if an entity could not be found.
 	 *
-	 * @throws NotImplementedException
+	 * @throws BadMethodCallException
 	 */
 	public function loadRevisionInformation( array $entityIds, $mode ) {
 		throw new BadMethodCallException( 'Not Implemented' );
@@ -53,7 +52,7 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 *
 	 * @return stdClass|bool false if no such entity exists
 	 *
-	 * @throws NotImplementedException
+	 * @throws BadMethodCallException
 	 */
 	public function loadRevisionInformationByRevisionId( EntityId $entityId,
 		$revisionId,

@@ -38,6 +38,7 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 	 */
 	public function getMetaTags( EntityDocument $entity ) : array {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		/** @var Lexeme $entity */
 		$metaTags = [

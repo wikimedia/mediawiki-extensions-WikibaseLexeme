@@ -86,6 +86,7 @@ class SenseStore implements EntityStore {
 		$revision = $this->getLexemeRevision( $senseId, $getLexemeRevId );
 		/** @var Lexeme $lexeme */
 		$lexeme = $revision->getEntity();
+		'@phan-var Lexeme $lexeme';
 
 		$lexeme->addOrUpdateSense( $sense );
 
@@ -131,6 +132,7 @@ class SenseStore implements EntityStore {
 		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->getLexemeRevision( $senseId )->getEntity();
+		'@phan-var Lexeme $lexeme';
 		$lexeme->removeSense( $senseId );
 		$this->store->saveEntity( $lexeme, $reason, $user, EDIT_UPDATE );
 	}

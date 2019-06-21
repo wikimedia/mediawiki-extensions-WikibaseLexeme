@@ -33,6 +33,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		/** @var Lexeme $entity */
 		if ( $entity->getForms()->getById( $this->formId ) === null ) {
@@ -51,6 +52,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		/** @var Lexeme $entity */
 

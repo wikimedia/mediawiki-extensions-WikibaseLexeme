@@ -154,6 +154,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	public function getConstructionDiff( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		return $this->diffEntities( new Lexeme(), $entity );
 	}
@@ -167,6 +168,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 */
 	public function getDestructionDiff( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
+		'@phan-var Lexeme $entity';
 
 		return $this->diffEntities( $entity, new Lexeme() );
 	}

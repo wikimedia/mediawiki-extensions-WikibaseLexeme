@@ -21,7 +21,8 @@ class GrammaticalFeatureItemIdsExtractor implements EntityReferenceExtractor {
 	 * @return ItemId[]
 	 */
 	public function extractEntityIds( EntityDocument $lexeme ) {
-		Assert::parameterType( Lexeme::class, $lexeme, '$entity' );
+		Assert::parameterType( Lexeme::class, $lexeme, '$lexeme' );
+		'@phan-var Lexeme $lexeme';
 
 		/** @var Lexeme $lexeme */
 		return $this->extractGrammaticalFeatureIds( $lexeme->getForms() );
