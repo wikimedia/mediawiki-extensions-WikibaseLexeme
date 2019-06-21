@@ -320,6 +320,19 @@ return [
 		"PhanUndeclaredVariable",
 		// approximate error count: 1
 		"PhanTypeArraySuspicious",
+
+		// Temporary due to T226244.
+		// Must be followed by task to fix (some of) them and unsuppress
+		"PhanParamTooFew",
+		"PhanUndeclaredVariableDim",
+		"PhanUnreferencedUseNormal",
+		"PhanUndeclaredTypeThrowsType",
+		"PhanRedefinedInheritedInterface",
+		"PhanRedefinedExtendedClass",
+		"PhanCommentParamWithoutRealParam",
+		"PhanUndeclaredFunction",
+		"PhanTypeMismatchDeclaredParam",
+		"PhanTypeNoPropertiesForeach",
 	],
 
 	/**
