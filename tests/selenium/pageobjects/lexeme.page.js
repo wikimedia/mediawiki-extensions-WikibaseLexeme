@@ -307,9 +307,10 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	/**
 	 * Get data of the nth form on the page
+	 * Gets only the first form representation value
 	 *
 	 * @param {int} index
-	 * @return {{value, language}}
+	 * @return {value, language}
 	 */
 	getNthFormData( index ) {
 		let form = this.forms[ index ];
