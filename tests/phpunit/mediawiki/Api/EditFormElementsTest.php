@@ -802,6 +802,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				'edit' => false
 			]
 		] );
+		$this->resetServices();
 
 		try {
 			$this->doApiRequestWithToken( [

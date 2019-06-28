@@ -234,6 +234,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 				'edit' => false
 			]
 		] );
+		$this->resetServices();
 
 		try {
 			$this->doApiRequestWithToken( [

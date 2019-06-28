@@ -104,6 +104,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 				]
 			]
 		] );
+		$this->resetServices();
 
 		try {
 			$this->executeApiWithIds( 'L123', 'L321' );

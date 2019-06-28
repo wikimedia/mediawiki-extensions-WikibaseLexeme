@@ -1365,6 +1365,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'edit' => false
 			]
 		] );
+		$this->resetServices();
 
 		try {
 			$this->doApiRequestWithToken( [
