@@ -7,7 +7,8 @@
 			"Wxyveronica",
 			"Hanyanbo98",
 			"夢蝶葬花",
-			"A Chinese Wikipedian"
+			"A Chinese Wikipedian",
+			"神樂坂秀吉"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
@@ -69,6 +70,7 @@
 	"wikibase-lexeme-summary-set-sense-glosses": "已设置意义$3的{{PLURAL:$1|[$2]注解|注解}}",
 	"wikibase-lexeme-summary-remove-sense-glosses": "已移除意义$3的{{PLURAL:$1|[$2]注解|注解}}",
 	"wikibase-lexeme-summary-update-sense-elements": "已更改意义$3的注解",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "创建新词位",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "加入一个新表单",
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "加入新Sense",
 	"wikibaselexeme-field-language-label": "语言",
