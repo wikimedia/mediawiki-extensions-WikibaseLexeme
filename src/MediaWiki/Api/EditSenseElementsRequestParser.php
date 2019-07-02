@@ -15,6 +15,7 @@ class EditSenseElementsRequestParser {
 	const PARAM_DATA = 'data';
 
 	const PARAM_SENSE_ID = 'senseId';
+	const PARAM_BASEREVID = 'baserevid';
 
 	/**
 	 * @var SenseIdDeserializer
@@ -61,9 +62,15 @@ class EditSenseElementsRequestParser {
 			$dataValidation
 		);
 
+		$baseRevId = null;
+		if ( isset( $params[ self::PARAM_BASEREVID ] ) ) {
+			$baseRevId = (int)$params[self::PARAM_BASEREVID];
+		}
+
 		return new EditSenseElementsRequest(
 			$senseId,
-			$this->editSenseChangeOpDeserializer->createEntityChangeOp( $data )
+			$this->editSenseChangeOpDeserializer->createEntityChangeOp( $data ),
+			$baseRevId
 		);
 	}
 

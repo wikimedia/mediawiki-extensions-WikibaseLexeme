@@ -12,10 +12,12 @@ class EditSenseElementsRequest {
 
 	private $senseId;
 	private $changeOp;
+	private $baseRevId;
 
-	public function __construct( SenseId $senseId, ChangeOp $changeOp ) {
+	public function __construct( SenseId $senseId, ChangeOp $changeOp, $baseRevId ) {
 		$this->senseId = $senseId;
 		$this->changeOp = $changeOp;
+		$this->baseRevId = $baseRevId;
 	}
 
 	public function getChangeOp(): ChangeOp {
@@ -24,6 +26,10 @@ class EditSenseElementsRequest {
 
 	public function getSenseId(): SenseId {
 		return $this->senseId;
+	}
+
+	public function getBaseRevId() {
+		return $this->baseRevId;
 	}
 
 }

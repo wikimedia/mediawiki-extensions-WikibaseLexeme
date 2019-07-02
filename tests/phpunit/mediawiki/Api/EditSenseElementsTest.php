@@ -514,4 +514,97 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		return $lookup->getEntityRevision( new SenseId( $id ) );
 	}
 
+	/**
+	 * @param string $id
+	 *
+	 * @return EntityRevision|null
+	 */
+	private function getCurrentRevisionForLexeme( $id ) {
+		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
+
+		return $lookup->getEntityRevision( new LexemeId( $id ) );
+	}
+
+	public function testFailsOnEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'fr', 'animal' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+
+		$params = [
+			'senseId' => self::DEFAULT_SENSE_ID,
+			'action' => 'wbleditsenseelements',
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [ 'language' => 'en', 'value' => 'furry animal' ],
+				],
+			] ),
+		];
+		// Do the mid edit using another user to avoid wikibase ignoring edit as "self-conflict"
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+
+		$params = [
+			'action' => 'wbleditsenseelements',
+			'senseId' => self::DEFAULT_SENSE_ID,
+			'baserevid' => $baseRevId,
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
+				],
+			] ),
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( ApiUsageException $e ) {
+			$this->assertEquals(
+				'edit-conflict',
+				$e->getMessageObject()->getKey()
+			);
+			return;
+		}
+		$this->fail( 'Failed to detect the edit conflict' );
+	}
+
+	public function testWorksOnUnrelatedEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'fr', 'goat' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => 'L1',
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+		];
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+		$params = [
+			'action' => 'wbleditsenseelements',
+			'senseId' => 'L1-S1',
+			'baserevid' => $baseRevId,
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
+				],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$lexeme = $this->getLexeme( 'L1' );
+		$lemmas = $lexeme->getLemmas()->toTextArray();
+		$this->assertEquals( 'Hello', $lemmas['en'] );
+		$senses = $lexeme->getSenses()->toArray();
+		$this->assertCount( 1, $senses );
+	}
+
 }

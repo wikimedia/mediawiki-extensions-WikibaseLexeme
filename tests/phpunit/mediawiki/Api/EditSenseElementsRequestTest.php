@@ -30,7 +30,8 @@ class EditSenseElementsRequestTest extends TestCase {
 			new SenseId( 'L1-S1' ),
 			new ChangeOpSenseEdit( [
 				new ChangeOps( new ChangeOpGloss( $newGloss ) ),
-			] )
+			] ),
+			1234
 		);
 
 		$changeOp = $request->getChangeOp();
@@ -38,6 +39,19 @@ class EditSenseElementsRequestTest extends TestCase {
 		$changeOp->apply( $sense );
 
 		$this->assertEquals( $newGloss, $sense->getGlosses()->getByLanguage( 'en' ) );
+	}
+
+	public function testGetBaseRevId() {
+		$gloss = new Term( 'en', 'a furry animal' );
+		$request = new EditSenseElementsRequest(
+			new SenseId( 'L1-S1' ),
+			new ChangeOpSenseEdit( [
+				new ChangeOps( new ChangeOpGloss( $gloss ) ),
+			] ),
+			1234
+		);
+
+		$this->assertSame( 1234, $request->getBaseRevId() );
 	}
 
 }

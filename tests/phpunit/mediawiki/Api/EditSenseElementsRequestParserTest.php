@@ -3,13 +3,19 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequest;
 use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Repo\ChangeOp\ChangeOps;
+use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser
@@ -70,6 +76,28 @@ class EditSenseElementsRequestParserTest extends TestCase {
 			}
 		] );
 		return new SenseIdDeserializer( $idParser );
+	}
+
+	public function testBaseRevIdPassedToRequestObject() {
+		$editSenseChangeOpDeserializer = new EditSenseChangeOpDeserializer(
+			new GlossesChangeOpDeserializer(
+				new TermDeserializer(),
+				new StringNormalizer(),
+				new LexemeTermSerializationValidator(
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+				)
+			)
+		);
+		$parser = new EditSenseElementsRequestParser(
+			$this->newSenseIdDeserializer(),
+			$editSenseChangeOpDeserializer
+		);
+
+		$request = $parser->parse(
+			[ 'senseId' => 'L1-S1', 'baserevid' => 12345, 'data' => $this->getDataAsJson() ]
+		);
+
+		$this->assertSame( 12345, $request->getBaseRevId() );
 	}
 
 }
