@@ -94,6 +94,7 @@ class SpecialNewLexeme extends SpecialPage {
 		parent::execute( $subPage );
 
 		$this->checkBlocked();
+		$this->checkBlockedOnNamespace();
 		$this->checkReadOnly();
 
 		$form = $this->createForm();
@@ -348,6 +349,17 @@ class SpecialNewLexeme extends SpecialPage {
 
 	public function outputHeader( $summaryMessageKey = '' ) {
 		parent::outputHeader( 'wikibase-newlexeme-summary' );
+	}
+
+	/**
+	 * @throws UserBlockedError
+	 */
+	private function checkBlockedOnNamespace() {
+		$namespace = $this->entityNamespaceLookup->getEntityNamespace( Lexeme::ENTITY_TYPE );
+		$block = $this->getUser()->getBlock();
+		if ( $block && $block->appliesToNamespace( $namespace ) ) {
+			throw new UserBlockedError( $block );
+		}
 	}
 
 }
