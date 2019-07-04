@@ -3,6 +3,8 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
@@ -22,6 +24,8 @@ use Wikibase\SummaryFormatter;
  * @license GPL-2.0-or-later
  */
 class EditFormElements extends \ApiBase {
+
+	const LATEST_REVISION = 0;
 
 	/**
 	 * @var EntityRevisionLookup
@@ -53,6 +57,11 @@ class EditFormElements extends \ApiBase {
 	 */
 	private $errorReporter;
 
+	/**
+	 * @var EntityStore
+	 */
+	private $entityStore;
+
 	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -77,7 +86,8 @@ class EditFormElements extends \ApiBase {
 			$formSerializer,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
-			}
+			},
+			$wikibaseRepo->getEntityStore()
 		);
 	}
 
@@ -89,7 +99,8 @@ class EditFormElements extends \ApiBase {
 		EditFormElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		FormSerializer $formSerializer,
-		callable $errorReporterInstantiator
+		callable $errorReporterInstantiator,
+		EntityStore $entityStore
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
@@ -99,18 +110,23 @@ class EditFormElements extends \ApiBase {
 		$this->summaryFormatter = $summaryFormatter;
 		$this->formSerializer = $formSerializer;
 		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->entityStore = $entityStore;
 	}
 
 	public function execute() {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
+		if ( $request->getBaseRevId() ) {
+			$baseRevId = $request->getBaseRevId();
+		} else {
+			$baseRevId = self::LATEST_REVISION;
+		}
 
 		$formId = $request->getFormId();
 
-		$latestRevision = 0;
 		$formRevision = $this->entityRevisionLookup->getEntityRevision(
 			$formId,
-			$latestRevision,
+			self::LATEST_REVISION,
 			EntityRevisionLookup::LATEST_FROM_MASTER
 		);
 
@@ -118,6 +134,13 @@ class EditFormElements extends \ApiBase {
 			$error = new FormNotFound( $formId );
 			$this->dieWithError( $error->asApiMessage( EditFormElementsRequestParser::PARAM_FORM_ID, [] ) );
 		}
+
+		$baseRevId = $this->updateBaseRevIdWhenUserStaysTheSame(
+			$formRevision->getRevisionId(),
+			$baseRevId,
+			$formId->getLexemeId()
+		);
+
 		$form = $formRevision->getEntity();
 
 		$changeOp = $request->getChangeOp();
@@ -139,9 +162,9 @@ class EditFormElements extends \ApiBase {
 
 		$summaryString = $this->summaryFormatter->formatSummary( $summary );
 
-		$status = $this->saveForm( $form, $summaryString, $formRevision->getRevisionId(), $params );
+		$status = $this->saveForm( $form, $summaryString, $baseRevId, $params );
 
-		if ( !$status->isGood() ) {
+		if ( !$status->isOK() ) {
 			$this->dieStatus( $status );
 		}
 
@@ -211,6 +234,9 @@ class EditFormElements extends \ApiBase {
 			'bot' => [
 				self::PARAM_TYPE => 'boolean',
 				self::PARAM_DFLT => false,
+			],
+			EditFormElementsRequestParser::PARAM_BASEREVID => [
+				self::PARAM_TYPE => 'integer',
 			]
 		];
 	}
@@ -286,6 +312,36 @@ class EditFormElements extends \ApiBase {
 		return [
 			urldecode( $query ) => $exampleMessage
 		];
+	}
+
+	/**
+	 * Update base revision id if all of edits between baserevid and latest revision is done
+	 * by the same user
+	 *
+	 * @param int $latestRevisionId
+	 * @param int $baseRevId
+	 * @param EntityId $entityId
+	 * @return int
+	 */
+	private function updateBaseRevIdWhenUserStaysTheSame(
+		$latestRevisionId,
+		$baseRevId,
+		EntityId $entityId
+	) {
+		if ( $baseRevId === self::LATEST_REVISION || $latestRevisionId === $baseRevId ) {
+			return $latestRevisionId;
+		}
+
+		$userWasLastToEdit = $this->entityStore->userWasLastToEdit(
+			$this->getUser(),
+			$entityId,
+			$baseRevId
+		);
+		if ( $userWasLastToEdit ) {
+			return $latestRevisionId;
+		}
+
+		return $baseRevId;
 	}
 
 }
