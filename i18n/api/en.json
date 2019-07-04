@@ -30,6 +30,7 @@
 	"apihelp-wbleditsenseelements-param-senseId": "ID of the Sense, e.g. L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "JSON-encoded gloss data",
 	"apihelp-wbleditsenseelements-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"{{int:group-bot}}\".",
+	"apihelp-wbleditsenseelements-param-baserevid": "Base Revision ID of the Lexeme, if sense elements edit conflict check is wanted.",
 	"apihelp-wbleditsenseelements-example-1": "Edits Sense with the ID <samp>$1</samp> to have glosses <samp>$2</samp> in languages <samp>$3</samp> respectively.",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "The terms of a lexicographical entity (lemmas of a lexeme, representations of a form, or glosses of a sense).",
 	"apihelp-wblmergelexemes-description": "Merges two Lexemes.",

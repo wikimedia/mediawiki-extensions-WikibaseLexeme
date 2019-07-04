@@ -28,6 +28,8 @@ use Wikibase\SummaryFormatter;
  */
 class EditSenseElements extends \ApiBase {
 
+	const LATEST_REVISION = 0;
+
 	/**
 	 * @var EntityRevisionLookup
 	 */
@@ -117,13 +119,16 @@ class EditSenseElements extends \ApiBase {
 	public function execute() {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
+		if ( $request->getBaseRevId() ) {
+			$baseRevId = $request->getBaseRevId();
+		} else {
+			$baseRevId = self::LATEST_REVISION;
+		}
 
 		$senseId = $request->getSenseId();
-
-		$latestRevision = 0;
 		$senseRevision = $this->entityRevisionLookup->getEntityRevision(
 			$senseId,
-			$latestRevision,
+			$baseRevId,
 			EntityRevisionLookup::LATEST_FROM_MASTER
 		);
 
@@ -153,10 +158,11 @@ class EditSenseElements extends \ApiBase {
 		}
 
 		$summaryString = $this->summaryFormatter->formatSummary( $summary );
+		$baseRevId = $senseRevision->getRevisionId();
 
-		$status = $this->saveSense( $sense, $summaryString, $senseRevision->getRevisionId(), $params );
+		$status = $this->saveSense( $sense, $summaryString, $baseRevId, $params );
 
-		if ( !$status->isGood() ) {
+		if ( !$status->isOK() ) {
 			$this->dieStatus( $status );
 		}
 
@@ -227,6 +233,9 @@ class EditSenseElements extends \ApiBase {
 			'bot' => [
 				self::PARAM_TYPE => 'boolean',
 				self::PARAM_DFLT => false,
+			],
+			EditSenseElementsRequestParser::PARAM_BASEREVID => [
+				self::PARAM_TYPE => 'integer',
 			]
 		];
 	}
