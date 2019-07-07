@@ -91,7 +91,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Liida lekseemid",
 	"wikibase-lexeme-mergelexemes-success": "$1 on liidetud lekseemiga $2 ja ümber suunatud.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' ei ole kehtiv lekseemi identifikaator.",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lekseemi '$1' ei leitud",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lekseemi '$1' ei leitud.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Lekseeme ei õnnestunud liita, palun lahenda kõigepealt võimalikud konfliktid. Tõrge: lekseemidel on sama kirjaviisi puhul sama lemma.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Lekseeme ei õnnestunud liita, palun lahenda kõigepealt võimalikud konfliktid. Tõrge: lekseemid viitavad avalduses üksteisele.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Lekseeme ei õnnestunud liita, palun lahenda kõigepealt võimalikud konfliktid. Tõrge: lekseemid on erinevates keeltes.",

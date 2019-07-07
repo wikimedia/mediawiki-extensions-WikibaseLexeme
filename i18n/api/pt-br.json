@@ -33,6 +33,7 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Identificador do sentido, por exemplo: L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "Dados codificados JSON das glosas",
 	"apihelp-wbleditsenseelements-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
+	"apihelp-wbleditsenseelements-param-baserevid": "ID de revisão base do Lexeme, se a seleção de conflito de edição dos elementos de sentido for desejada.",
 	"apihelp-wbleditsenseelements-example-1": "Edita o sentido com o identificador <samp>$1</samp> de forma a ter as glosas <samp>$2</samp> nos idiomas <samp>$3</samp>, respetivamente.",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Os termos de uma entidade lexicográfica (lemas de um lexema, representações de uma forma, ou glosas de um sentido).",
 	"apihelp-wblmergelexemes-description": "Funde dois lexemas.",

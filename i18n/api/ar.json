@@ -33,6 +33,7 @@
 	"apihelp-wbleditsenseelements-param-senseId": "معرف المعنى، مثل L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "تشفير بيانات JSON اللامعة",
 	"apihelp-wbleditsenseelements-param-bot": "علم على هذا التعديل كبوت، سيتم فقط احترام علامة المسار علم المسار هذا إذا كان المستخدم ينتمي إلى المجموعة \"{{int:group-bot}}\".",
+	"apihelp-wbleditsenseelements-param-baserevid": "معرف مراجعة الأساس للكسيم، إذا كانت عناصر المعنى تعارض التحرير مطلوبة.",
 	"apihelp-wbleditsenseelements-example-1": "يعدل المعنى بالمعرف <samp>$1</samp>  للحصول على <samp>$2</samp> لامع باللغات  <samp>$3</samp> على التوالي.",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "شروط كيان معجمي (ليمات ليما، أو تمثيلات نموذجح، أو لمعان معنى).",
 	"apihelp-wblmergelexemes-description": "يدمج اثنين من اللكسيم.",
