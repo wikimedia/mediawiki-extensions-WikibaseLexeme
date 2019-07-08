@@ -10,8 +10,8 @@ use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
 use Wikibase\Lexeme\Domain\Diff\LexemePatcher;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Diff\LexemeDiffer

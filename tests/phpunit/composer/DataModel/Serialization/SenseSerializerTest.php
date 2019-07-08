@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Serializers\Serializer;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\Serialization\SenseSerializer

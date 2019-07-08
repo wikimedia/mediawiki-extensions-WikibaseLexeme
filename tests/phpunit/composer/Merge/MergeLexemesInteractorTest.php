@@ -18,7 +18,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\TestDoubles\FailingLexemeAuthorizer;
 use Wikibase\Lexeme\Tests\TestDoubles\FakeLexemeRepository;
 use Wikibase\Lexeme\Tests\TestDoubles\SucceedingLexemeAuthorizer;

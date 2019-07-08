@@ -8,7 +8,7 @@ use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Tests\NewItem;

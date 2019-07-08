@@ -7,8 +7,8 @@ use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\AddSenseToLexemeChangeOp;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\AddSenseToLexemeChangeOp

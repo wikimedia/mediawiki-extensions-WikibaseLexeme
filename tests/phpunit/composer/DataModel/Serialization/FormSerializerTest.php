@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 use PHPUnit4And6Compat;
 use Serializers\Serializer;
 use Wikibase\Lexeme\Serialization\FormSerializer;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 
 /**
  * @covers \Wikibase\Lexeme\Serialization\FormSerializer

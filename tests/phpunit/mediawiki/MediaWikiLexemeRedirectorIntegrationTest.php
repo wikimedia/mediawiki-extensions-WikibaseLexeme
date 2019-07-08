@@ -7,7 +7,7 @@ use Status;
 use Title;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\EditEntity\EditFilterHookRunner;

@@ -7,8 +7,8 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Summary;
 
 /**
