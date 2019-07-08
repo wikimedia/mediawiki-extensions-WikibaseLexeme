@@ -10,6 +10,12 @@
 	var Sense = wb.lexeme.datamodel.Sense;
 	var TermMap = wb.datamodel.TermMap;
 	var Term = wb.datamodel.Term;
+	var revisionStore = {
+		setSenseRevision: function () {},
+		getBaseRevision: function () {
+			return 123;
+		}
+	};
 
 	QUnit.test( 'New Sense - makes the expected API call', function ( assert ) {
 		var post = sinon.spy( function () {
@@ -17,9 +23,6 @@
 		} );
 		var api = {
 			post: post
-		};
-		var revisionStore = {
-			setSenseRevision: function () {}
 		};
 
 		var lexemeId = 'L11';
@@ -36,6 +39,7 @@
 		assert.equal( gotParameters.action, 'wbladdsense', 'Add sense API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
+		assert.equal( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
 		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
 		assert.deepEqual(
 			gotData.glosses,
@@ -61,9 +65,6 @@
 					}
 				} ).promise();
 			}
-		};
-		var revisionStore = {
-			setSenseRevision: function () {}
 		};
 
 		var changer = new SenseChanger( api, revisionStore, 'L1', {} );
@@ -101,6 +102,9 @@
 			setSenseRevision: function ( revision, senseId ) {
 				this.senseBaseRevisions[ senseId ] = revision;
 
+			},
+			getBaseRevision: function () {
+				return 123;
 			}
 		};
 
@@ -134,7 +138,7 @@
 				}
 			};
 
-			var changer = new SenseChanger( api, {}, 'L1', {} );
+			var changer = new SenseChanger( api, revisionStore, 'L1', {} );
 
 			var sense = new Sense( null, null );
 
@@ -179,7 +183,7 @@
 			}
 		};
 
-		var changer = new SenseChanger( api, {}, 'L11', oldSenseData );
+		var changer = new SenseChanger( api, revisionStore, 'L11', oldSenseData );
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( senseId, glosses );
 
@@ -192,6 +196,7 @@
 		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
+		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
 		assert.equal( gotParameters.senseId, senseId, 'senseId parameter' );
 		assert.deepEqual(
 			gotData.glosses,
@@ -215,7 +220,7 @@
 			}
 		};
 
-		var changer = new SenseChanger( api, {}, 'L11', oldSenseData );
+		var changer = new SenseChanger( api, revisionStore, 'L11', oldSenseData );
 		var glosses = new TermMap( {
 			en: new Term( 'en', 'test gloss' ),
 			'en-gb': new Term( 'en-gb', 'test gloss gb' )
@@ -252,7 +257,7 @@
 			}
 		};
 
-		var changer = new SenseChanger( api, {}, 'L11', oldSenseData );
+		var changer = new SenseChanger( api, revisionStore, 'L11', oldSenseData );
 		var glosses = new TermMap( {
 			en: new Term( 'en', 'new gloss' ),
 			'en-gb': new Term( 'en-gb', 'old gloss gb' )
@@ -289,7 +294,7 @@
 			}
 		};
 
-		var changer = new SenseChanger( api, {}, 'L11', oldSenseData );
+		var changer = new SenseChanger( api, revisionStore, 'L11', oldSenseData );
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( senseId, glosses );
 
@@ -336,7 +341,7 @@
 
 		var sense = new Sense( senseId, glosses );
 
-		var changer = new SenseChanger( api, {}, 'L1', oldSenseData );
+		var changer = new SenseChanger( api, revisionStore, 'L1', oldSenseData );
 
 		changer.save( sense ).then( function ( sense ) {
 			assert.equal( sense.getId(), 'L1-S100', 'Saved Sense ID' );
@@ -369,7 +374,7 @@
 				}
 			};
 
-			var changer = new SenseChanger( api, {}, 'L1', {} );
+			var changer = new SenseChanger( api, revisionStore, 'L1', {} );
 
 			var sense = new Sense( 'L1-S1', null );
 
@@ -405,7 +410,7 @@
 		};
 
 		var senseId = 'L11-S2';
-		var changer = new SenseChanger( api, {}, 'L11', {} );
+		var changer = new SenseChanger( api, revisionStore, 'L11', {} );
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( senseId, glosses );
 
@@ -420,6 +425,7 @@
 		assert.equal( gotParameters.id, senseId, 'Sends form id parameter' );
 		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
 		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
+		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
 	} );
 
 	QUnit.test( 'Existing Sense removal fails - formats and passes API errors', function ( assert ) {
@@ -429,7 +435,7 @@
 			)
 		};
 
-		var changer = new SenseChanger( api, {}, 'L11', {} );
+		var changer = new SenseChanger( api, revisionStore, 'L11', {} );
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( 'L11-S300', glosses );
 

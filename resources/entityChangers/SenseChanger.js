@@ -86,6 +86,7 @@
 			return this.api.post( {
 				action: 'wbleditsenseelements',
 				senseId: senseId,
+				baserevid: this.revisionStore.getBaseRevision(),
 				data: JSON.stringify( {
 					glosses: requestGlosses
 				} ),
@@ -124,6 +125,7 @@
 
 			this.api.post( {
 				action: 'wblremovesense',
+				baserevid: this.revisionStore.getBaseRevision(),
 				id: sense.getId(),
 				errorformat: 'plaintext',
 				bot: 0
