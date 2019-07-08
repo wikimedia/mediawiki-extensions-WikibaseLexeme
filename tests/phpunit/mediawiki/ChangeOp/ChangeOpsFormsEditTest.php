@@ -7,8 +7,8 @@ use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsFormsEdit;
 use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 

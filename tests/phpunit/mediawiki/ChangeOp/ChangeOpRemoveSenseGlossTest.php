@@ -6,8 +6,8 @@ use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Summary;
 
 /**

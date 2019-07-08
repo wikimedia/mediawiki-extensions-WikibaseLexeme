@@ -16,7 +16,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
 use Wikibase\Lexeme\Presentation\Diff\SenseDiffView;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;

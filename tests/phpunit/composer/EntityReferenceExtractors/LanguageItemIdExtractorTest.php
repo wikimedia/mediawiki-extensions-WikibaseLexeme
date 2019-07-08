@@ -8,7 +8,7 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LanguageItemIdExtractor;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\EntityReferenceExtractors\LanguageItemIdExtractor

@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\DummyObjects\BlankSense

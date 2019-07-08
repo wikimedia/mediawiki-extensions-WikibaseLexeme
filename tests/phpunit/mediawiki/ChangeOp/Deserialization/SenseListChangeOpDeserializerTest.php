@@ -12,8 +12,8 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Summary;
 

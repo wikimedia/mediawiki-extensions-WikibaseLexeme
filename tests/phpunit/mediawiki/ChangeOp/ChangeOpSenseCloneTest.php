@@ -9,8 +9,8 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Tests\NewStatement;
 

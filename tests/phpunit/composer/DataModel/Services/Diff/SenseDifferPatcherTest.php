@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
 use Wikibase\Lexeme\Domain\Diff\SensePatcher;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 

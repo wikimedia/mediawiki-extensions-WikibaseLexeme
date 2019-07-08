@@ -8,8 +8,8 @@ use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveFormRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Domain\Model\Form;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Summary;
 

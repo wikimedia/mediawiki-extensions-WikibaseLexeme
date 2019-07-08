@@ -9,8 +9,8 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**

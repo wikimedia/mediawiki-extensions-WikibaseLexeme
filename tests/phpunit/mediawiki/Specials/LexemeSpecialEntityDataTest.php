@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 use FauxRequest;
 use FauxResponse;
 use SpecialPage;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Specials\SpecialEntityData;
 use Wikibase\Repo\WikibaseRepo;

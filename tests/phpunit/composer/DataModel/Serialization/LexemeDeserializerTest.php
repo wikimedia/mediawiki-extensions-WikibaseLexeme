@@ -19,8 +19,8 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\Serialization\LexemeDeserializer;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**

@@ -14,7 +14,8 @@
 	"AutoloadNamespaces": {
 		"Wikibase\\Lexeme\\": "src/",
 		"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/",
-		"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/"
+		"Wikibase\\Lexeme\\Tests\\MediaWiki\\": "tests/phpunit/mediawiki/",
+		"Wikibase\\Lexeme\\Tests\\Unit\\": "tests/phpunit/unit/"
 	},
 	"callback": "Wikibase\\Lexeme\\Registrar::registerExtension",
 	"config": {

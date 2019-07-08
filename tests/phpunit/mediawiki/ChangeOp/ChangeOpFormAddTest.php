@@ -12,7 +12,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Summary;

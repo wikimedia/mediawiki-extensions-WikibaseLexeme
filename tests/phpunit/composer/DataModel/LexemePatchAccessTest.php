@@ -7,6 +7,8 @@ use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\LexemePatchAccess

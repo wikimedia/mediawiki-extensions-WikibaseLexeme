@@ -14,9 +14,9 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Serialization\ExternalLexemeSerializer;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
-use Wikibase\Lexeme\Tests\DataModel\NewForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\Serialization\ExternalLexemeSerializer

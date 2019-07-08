@@ -10,7 +10,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
-use Wikibase\Lexeme\Tests\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 
 /**

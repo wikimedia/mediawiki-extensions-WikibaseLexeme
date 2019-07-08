@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
-use Wikibase\Lexeme\Tests\DataModel\NewSense;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Presentation\View\SensesView;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
