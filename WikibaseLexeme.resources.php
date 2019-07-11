@@ -134,13 +134,10 @@ return call_user_func( function() {
 				"wikibaselexeme-statementsection-statements-about-sense"
 			]
 		],
-		"vue" => $moduleTemplate + [
-			"scripts" => "vendor/vue-2.3.3.min.js"
-		],
 		"vuex" => $moduleTemplate + [
 			"scripts" => "vendor/vuex-2.3.0.js",
 			"dependencies" => [
-				"vue",
+				"vue2",
 				"promise-polyfill"
 			]
 		],
@@ -153,7 +150,7 @@ return call_user_func( function() {
 				"widgets/LexemeHeader.js"
 			],
 			"dependencies" => [
-				"vue",
+				"vue2",
 				"vuex",
 				"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget",
 				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader",
@@ -180,21 +177,18 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.widgets.RedundantLanguageIndicator" => $moduleTemplate + [
 			"scripts" => "widgets/RedundantLanguageIndicator.js",
-			"dependencies" => [
-				"vue"
-			]
 		],
 		"wikibase.lexeme.widgets.InvalidLanguageIndicator" => $moduleTemplate + [
 			"scripts" => "widgets/InvalidLanguageIndicator.js",
 			"dependencies" => [
 				"mw.config.values.wbRepo",
-				"vue"
 			]
 		],
 		"wikibase.lexeme.widgets.RepresentationWidget" => $moduleTemplate + [
 			"scripts" => "widgets/RepresentationWidget.js",
 			"dependencies" => [
-				"vue",
+				"vue2",
+				"vuex",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
 				"wikibase.lexeme.store.actionTypes"
 			],
@@ -209,7 +203,7 @@ return call_user_func( function() {
 		"wikibase.lexeme.widgets.GlossWidget" => $moduleTemplate + [
 			"scripts" => "widgets/GlossWidget.js",
 			"dependencies" => [
-				"vue",
+				"vue2",
 				"vuex",
 				"jquery.util.getDirectionality",
 				"wikibase.lexeme.widgets.LanguageSelectorWrapper",
