@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 class RemoveSenseRequestParser {
 
 	const PARAM_SENSE_ID = 'id';
+	const PARAM_BASEREVID = 'baserevid';
 
 	/**
 	 * @var SenseIdDeserializer
@@ -33,7 +34,12 @@ class RemoveSenseRequestParser {
 			ValidationContext::create( self::PARAM_SENSE_ID )
 		);
 
-		return new RemoveSenseRequest( $senseId );
+		$baseRevId = null;
+		if ( isset( $params[ self::PARAM_BASEREVID ] ) ) {
+			$baseRevId = (int)$params[self::PARAM_BASEREVID];
+		}
+
+		return new RemoveSenseRequest( $senseId, $baseRevId );
 	}
 
 }

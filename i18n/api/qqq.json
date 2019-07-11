@@ -33,6 +33,7 @@
 	"apihelp-wbladdsense-example-1": "{{doc-apihelp-example|wbladdsense}}",
 	"apihelp-wblremovesense-summary": "{{doc-apihelp-summary|wblremovesense}}",
 	"apihelp-wblremovesense-param-id": "{{doc-apihelp-param|wblremovesense|id}}",
+	"apihelp-wblremovesense-param-baserevid": "{{doc-apihelp-param|wblremovesense|baserevid}}",
 	"apihelp-wblremovesense-param-bot": "{{doc-apihelp-param|wblremovesense|bot}}",
 	"apihelp-wblremovesense-example-1": "{{doc-apihelp-example|wblremovesense}}",
 	"apihelp-wbleditsenseelements-summary": "{{doc-apihelp-summary|wbleditsenseelements}}",
