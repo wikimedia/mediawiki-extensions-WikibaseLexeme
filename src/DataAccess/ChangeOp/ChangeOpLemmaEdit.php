@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -83,6 +84,8 @@ class ChangeOpLemmaEdit extends ChangeOpBase {
 			$this->lemma
 		);
 		$lemmas->setTextForLanguage( $this->language, $this->lemma );
+
+		return new DummyChangeOpResult();
 	}
 
 }

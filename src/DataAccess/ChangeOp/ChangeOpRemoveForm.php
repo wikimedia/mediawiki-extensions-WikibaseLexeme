@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -62,6 +63,8 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 			'',
 			array_values( $form->getRepresentations()->toTextArray() )
 		);
+
+		return new DummyChangeOpResult();
 	}
 
 	protected function updateSummary( Summary $summary = null, $action, $language = '', $args = '' ) {

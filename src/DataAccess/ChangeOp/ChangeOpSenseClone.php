@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -44,6 +45,8 @@ class ChangeOpSenseClone implements ChangeOp {
 		// TODO summary; This is currently only used as part of merging to copy senses
 		// from the source lexemes onto the target.
 		// Generating a summary here is not necessary as of now.
+
+		return new DummyChangeOpResult();
 	}
 
 	public function validate( EntityDocument $entity ): Result {

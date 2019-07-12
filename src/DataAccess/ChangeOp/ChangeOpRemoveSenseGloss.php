@@ -6,6 +6,7 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -51,6 +52,8 @@ class ChangeOpRemoveSenseGloss implements ChangeOp {
 		$this->updateSummary( $entity, $summary );
 
 		$glosses->removeByLanguage( $this->language );
+
+		return new DummyChangeOpResult();
 	}
 
 	private function updateSummary( Sense $sense, Summary $summary = null ) {

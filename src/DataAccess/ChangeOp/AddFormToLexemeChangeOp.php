@@ -8,6 +8,7 @@ use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -46,6 +47,8 @@ class AddFormToLexemeChangeOp implements ChangeOp {
 		/** @var BlankForm $form */
 		$this->lexeme->addOrUpdateForm( $form );
 		$this->changeOpFormEdit->apply( $form );
+
+		return new DummyChangeOpResult();
 	}
 
 	public function getActions() {

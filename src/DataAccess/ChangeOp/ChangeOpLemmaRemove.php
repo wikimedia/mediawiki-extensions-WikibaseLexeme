@@ -7,6 +7,7 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -63,6 +64,8 @@ class ChangeOpLemmaRemove extends ChangeOpBase {
 			$lemmas->getByLanguage( $this->language )->getText()
 		);
 		$lemmas->removeByLanguage( $this->language );
+
+		return new DummyChangeOpResult();
 	}
 
 }

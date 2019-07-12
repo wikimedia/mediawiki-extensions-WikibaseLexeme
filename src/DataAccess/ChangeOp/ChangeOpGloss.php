@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -42,6 +43,8 @@ class ChangeOpGloss implements ChangeOp {
 		$this->updateSummary( $entity, $summary );
 
 		$entity->getGlosses()->setTerm( $this->gloss );
+
+		return new DummyChangeOpResult();
 	}
 
 	public function getActions() {

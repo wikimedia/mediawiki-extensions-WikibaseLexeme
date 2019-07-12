@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -36,6 +37,8 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 
 		/** @var BlankSense $entity */
 		$entity->setLexeme( $this->lexeme );
+
+		return new DummyChangeOpResult();
 	}
 
 	public function getActions() {

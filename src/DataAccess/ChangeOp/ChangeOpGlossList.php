@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -47,6 +48,8 @@ class ChangeOpGlossList implements ChangeOp {
 				$this->summaryAggregator->overrideSummary( $summary, $subSummary );
 			}
 		}
+
+		return new DummyChangeOpResult();
 	}
 
 	public function validate( EntityDocument $entity ) {

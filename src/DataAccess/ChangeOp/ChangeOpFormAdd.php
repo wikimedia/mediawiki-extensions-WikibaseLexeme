@@ -8,6 +8,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -57,6 +58,8 @@ class ChangeOpFormAdd extends ChangeOpBase {
 			// TODO: use FormId not string?
 			$summary->addAutoCommentArgs( $form->getId()->getSerialization() );
 		}
+
+		return new DummyChangeOpResult();
 	}
 
 }
