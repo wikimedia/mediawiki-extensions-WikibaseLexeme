@@ -54,7 +54,7 @@
 	"wikibaselexeme-add-form": "ajouter une forme",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Une erreur s'est produite : Le dernier lemme n’a pas pu être supprimé.",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}",
-	"wikibase-lexeme-summary-remove-form": "Forme 3 supprimée avec {{PLURAL:$1|sa représentation|ses représentations}}",
+	"wikibase-lexeme-summary-remove-form": "Forme $3 supprimée avec {{PLURAL:$1|sa représentation|ses représentations}}",
 	"wikibase-lexeme-summary-update-form-representations": "Modification des représentations et/ou des fonctionalités grammaticales de la forme $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Représentation|Représentations}} de la forme $3 {{PLURAL:$1|ajoutée|ajoutées}}",
 	"wikibase-lexeme-summary-set-form-representations": "{{PLURAL:$1|Représentation|Représentations}} de la forme $3 {{PLURAL:$1|modifiée|modifiées}}",

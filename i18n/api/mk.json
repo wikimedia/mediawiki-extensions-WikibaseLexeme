@@ -33,6 +33,7 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Назнака на значењето, на пр. L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "Податоци за прибелешките кодирани во JSON",
 	"apihelp-wbleditsenseelements-param-bot": "Означи го уредувањево како бот. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
+	"apihelp-wbleditsenseelements-param-baserevid": "Назнака на појдовната преработка на лексемата, ако барате проверка на спротиставеноста во елементите на значењето.",
 	"apihelp-wbleditsenseelements-example-1": "Уредува значење со назнаката <samp>$1</samp> за зачувување на прибелешките <samp>$2</samp> на јазиците <samp>$3</samp>.",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Поимите на лексикографска единица (лемите на лексемата, претстави на образец, или пак прибелешки на значење).",
 	"apihelp-wblmergelexemes-description": "Спојува две лексеми.",
