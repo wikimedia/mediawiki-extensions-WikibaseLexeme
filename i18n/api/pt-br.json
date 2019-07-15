@@ -27,6 +27,7 @@
 	"apihelp-wbladdsense-example-1": "Adicionar uma forma ao lexema que tem o identificador <samp>$1</samp> com as glosas <samp>$2</samp> nas línguas <samp>$3</samp>, respetivamente",
 	"apihelp-wblremovesense-summary": "Remove sentido do lexema",
 	"apihelp-wblremovesense-param-id": "Identificador do sentido, por exemplo: L10-S20",
+	"apihelp-wblremovesense-param-baserevid": "Identificador da revisão de base do lexema, se for pretendida a verificação de conflito de edição.",
 	"apihelp-wblremovesense-param-bot": "Marcar esta edição como sendo feita por um robô. Esta etiqueta URL só será respeitado se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
 	"apihelp-wblremovesense-example-1": "Remover sentido do lexema com o identificador <samp>$1</samp>",
 	"apihelp-wbleditsenseelements-summary": "Edita glosas de um sentido",

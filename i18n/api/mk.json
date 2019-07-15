@@ -27,6 +27,7 @@
 	"apihelp-wbladdsense-example-1": "Додај образец во лексемата со назнака <samp>$1</samp> што ги има прибелешките <samp>$2</samp> со соодветните јазици <samp>$3</samp>",
 	"apihelp-wblremovesense-summary": "Отстранува значење од лексема",
 	"apihelp-wblremovesense-param-id": "Назнака на значењето, на пр. L10-S20",
+	"apihelp-wblremovesense-param-baserevid": "Назнака на појдовната преработка на лексемата, ако барате проверка на спротиставеноста во уредувањата.",
 	"apihelp-wblremovesense-param-bot": "Означи го уредувањево како бот. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
 	"apihelp-wblremovesense-example-1": "Отстрани значење од лексемата со назнака <samp>$1</samp>",
 	"apihelp-wbleditsenseelements-summary": "Уредува прибелешки на значење",

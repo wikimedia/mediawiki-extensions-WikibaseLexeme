@@ -27,6 +27,7 @@
 	"apihelp-wbladdsense-example-1": "إضافة نموذج إلى لكسيم بالمعرف <samp>$1</samp> يحتوي على اللمعان <samp>$2</samp> باللغات  <samp>$3</samp> على التوالي",
 	"apihelp-wblremovesense-summary": "يزيل نموذجا من Lexeme",
 	"apihelp-wblremovesense-param-id": "معرف المعنى، مثل L10-S20",
+	"apihelp-wblremovesense-param-baserevid": "معرف مراجعة الأساس لبكسيم، إذا كان التحقق من تعارض التحرير مطلوبا.",
 	"apihelp-wblremovesense-param-bot": "علم هذا التعديل كبوت، سيتم فقط احترام علامة المسار إذا كان المستخدم ينتمي إلى المجموعة \"{{int:group-bot}}\".",
 	"apihelp-wblremovesense-example-1": "إزالة نموذج من Lexeme بالمعرف <samp>$1</samp",
 	"apihelp-wbleditsenseelements-summary": "لمعان تحريرات معنى",

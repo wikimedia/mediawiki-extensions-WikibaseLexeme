@@ -28,6 +28,7 @@
 	"apihelp-wbladdsense-example-1": "Ajouter un formulaire au lexème d’ID <samp>$1</samp> ayant les gloses <samp>$2</samp> avec les langues <samp>$3</samp> respectivement",
 	"apihelp-wblremovesense-summary": "Supprime le Sens du lexème",
 	"apihelp-wblremovesense-param-id": "ID du Sens, par ex. L10-S20",
+	"apihelp-wblremovesense-param-baserevid": "ID de révision de base du lexème, si une vérification de conflit de modification est souhaitée.",
 	"apihelp-wblremovesense-param-bot": "Marquer cette modification comme faite par robot. Ce marquage d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wblremovesense-example-1": "Supprimer le Sens du lexème d’ID <samp>$1</samp>",
 	"apihelp-wbleditsenseelements-summary": "Modifie les gloses d’un sens",
