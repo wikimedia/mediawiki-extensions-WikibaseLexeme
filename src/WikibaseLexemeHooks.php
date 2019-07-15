@@ -2,10 +2,14 @@
 
 namespace Wikibase\Lexeme;
 
+use IContextSource;
 use MediaWiki\MediaWikiServices;
+use PageProps;
 use ResourceLoader;
+use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\WikibaseSettings;
 
 /**
@@ -247,6 +251,29 @@ class WikibaseLexemeHooks {
 		CompositeStatementDataUpdater $statementUpdater, array &$entityUpdaters
 	) {
 		$entityUpdaters[] = new LexemeParserOutputUpdater( $statementUpdater );
+	}
+
+	/**
+	 * Adds the Wikis using the entity in action=info
+	 *
+	 * @param IContextSource $context
+	 * @param array[] &$pageInfo
+	 */
+	public static function onInfoAction( IContextSource $context, array &$pageInfo ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		if ( !$config->get( 'LexemeEnableRepo' ) ) {
+			return;
+		}
+
+		$namespaceChecker = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
+		$infoActionHookHandler = new InfoActionHookHandler(
+			$namespaceChecker,
+			WikibaseRepo::getDefaultInstance()->getEntityIdLookup(),
+			PageProps::getInstance(),
+			$context
+		);
+
+		$pageInfo = $infoActionHookHandler->handle( $context, $pageInfo );
 	}
 
 }
