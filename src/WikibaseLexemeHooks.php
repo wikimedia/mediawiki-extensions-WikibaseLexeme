@@ -95,6 +95,11 @@ class WikibaseLexemeHooks {
 	 * @param array[] $entityTypeDefinitions
 	 */
 	public static function onWikibaseRepoEntityTypes( array &$entityTypeDefinitions ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		if ( !$config->get( 'LexemeEnableRepo' ) ) {
+			return;
+		}
+
 		$entityTypeDefinitions = array_merge_recursive(
 			$entityTypeDefinitions,
 			require __DIR__ . '/../WikibaseLexeme.entitytypes.php',
@@ -114,6 +119,11 @@ class WikibaseLexemeHooks {
 	 * @param array[] $dataTypeDefinitions
 	 */
 	public static function onWikibaseDataTypes( array &$dataTypeDefinitions ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		if ( !$config->get( 'LexemeEnableRepo' ) ) {
+			return;
+		}
+
 		$dataTypeDefinitions = array_merge(
 			$dataTypeDefinitions,
 			require __DIR__ . '/../WikibaseLexeme.datatypes.php'
