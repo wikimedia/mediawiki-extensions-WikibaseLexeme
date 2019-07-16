@@ -4,6 +4,8 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Lexeme\MediaWiki\Api\Error\SenseNotFound;
@@ -60,6 +62,11 @@ class EditSenseElements extends \ApiBase {
 	 */
 	private $errorReporter;
 
+	/**
+	 * @var EntityStore
+	 */
+	private $entityStore;
+
 	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -92,7 +99,8 @@ class EditSenseElements extends \ApiBase {
 			$senseSerializer,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
-			}
+			},
+			$wikibaseRepo->getEntityStore()
 		);
 	}
 
@@ -104,7 +112,8 @@ class EditSenseElements extends \ApiBase {
 		EditSenseElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		SenseSerializer $senseSerializer,
-		callable $errorReporterInstantiator
+		callable $errorReporterInstantiator,
+		EntityStore $entityStore
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
@@ -114,6 +123,7 @@ class EditSenseElements extends \ApiBase {
 		$this->summaryFormatter = $summaryFormatter;
 		$this->senseSerializer = $senseSerializer;
 		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->entityStore = $entityStore;
 	}
 
 	public function execute() {
@@ -128,7 +138,7 @@ class EditSenseElements extends \ApiBase {
 		$senseId = $request->getSenseId();
 		$senseRevision = $this->entityRevisionLookup->getEntityRevision(
 			$senseId,
-			$baseRevId,
+			self::LATEST_REVISION,
 			EntityRevisionLookup::LATEST_FROM_MASTER
 		);
 
@@ -139,7 +149,11 @@ class EditSenseElements extends \ApiBase {
 			);
 		}
 		$sense = $senseRevision->getEntity();
-
+		$baseRevId = $this->updateBaseRevIdWhenUserStaysTheSame(
+			$senseRevision->getRevisionId(),
+			$baseRevId,
+			$senseId->getLexemeId()
+		);
 		$changeOp = $request->getChangeOp();
 
 		$result = $changeOp->validate( $sense );
@@ -158,7 +172,6 @@ class EditSenseElements extends \ApiBase {
 		}
 
 		$summaryString = $this->summaryFormatter->formatSummary( $summary );
-		$baseRevId = $senseRevision->getRevisionId();
 
 		$status = $this->saveSense( $sense, $summaryString, $baseRevId, $params );
 
@@ -312,6 +325,36 @@ class EditSenseElements extends \ApiBase {
 		return [
 			urldecode( $query ) => $exampleMessage
 		];
+	}
+
+	/**
+	 * Update base revision id if all of edits between baserevid and latest revision is done
+	 * by the same user
+	 *
+	 * @param int $latestRevisionId
+	 * @param int $baseRevId
+	 * @param EntityId $entityId
+	 * @return int
+	 */
+	private function updateBaseRevIdWhenUserStaysTheSame(
+		$latestRevisionId,
+		$baseRevId,
+		EntityId $entityId
+	) {
+		if ( $baseRevId === self::LATEST_REVISION || $latestRevisionId === $baseRevId ) {
+			return $latestRevisionId;
+		}
+
+		$userWasLastToEdit = $this->entityStore->userWasLastToEdit(
+			$this->getUser(),
+			$entityId,
+			$baseRevId
+		);
+		if ( $userWasLastToEdit ) {
+			return $latestRevisionId;
+		}
+
+		return $baseRevId;
 	}
 
 }

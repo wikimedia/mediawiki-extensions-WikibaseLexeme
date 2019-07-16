@@ -607,4 +607,45 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 1, $senses );
 	}
 
+	public function testAvoidSelfConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'fr', 'goat' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+		$params = [
+			'senseId' => 'L1-S1',
+			'action' => 'wbleditsenseelements',
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
+				],
+			] ),
+		];
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+		$params = [
+			'action' => 'wbleditsenseelements',
+			'senseId' => 'L1-S1',
+			'baserevid' => $baseRevId,
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [ 'language' => 'en', 'value' => 'cat' ],
+				],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+
+		$lexeme = $this->getLexeme( 'L1' );
+		$senses = $lexeme->getSenses()->toArray();
+		$this->assertCount( 1, $senses );
+		$this->assertSame(
+			'cat',
+			$senses[0]->getGlosses()->getByLanguage( 'en' )->getText()
+		);
+	}
+
 }
