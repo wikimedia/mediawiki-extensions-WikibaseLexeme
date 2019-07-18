@@ -35,7 +35,8 @@ class EditFormElementsRequestTest extends TestCase {
 			new ChangeOpFormEdit( [
 				new ChangeOps( new ChangeOpRepresentation( $colorWithU ) ),
 				new ChangeOpGrammaticalFeatures( [ $featureTwo ] )
-			] )
+			] ),
+			1234
 		);
 
 		$changeOp = $request->getChangeOp();
@@ -44,6 +45,16 @@ class EditFormElementsRequestTest extends TestCase {
 
 		$this->assertEquals( $colorWithU, $form->getRepresentations()->getByLanguage( 'en' ) );
 		$this->assertEquals( [ $featureTwo ], $form->getGrammaticalFeatures() );
+	}
+
+	public function testGetBaseRevId() {
+		$request = new EditFormElementsRequest(
+			new FormId( 'L1-F1' ),
+			new ChangeOpFormEdit( [] ),
+			1234
+		);
+
+		$this->assertSame( 1234, $request->getBaseRevId() );
 	}
 
 }

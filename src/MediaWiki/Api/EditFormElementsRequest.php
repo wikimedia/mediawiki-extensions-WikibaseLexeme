@@ -12,10 +12,12 @@ class EditFormElementsRequest {
 
 	private $formId;
 	private $changeOp;
+	private $baseRevId;
 
-	public function __construct( FormId $formId, ChangeOp $changeOp ) {
+	public function __construct( FormId $formId, ChangeOp $changeOp, $baseRevId ) {
 		$this->formId = $formId;
 		$this->changeOp = $changeOp;
+		$this->baseRevId = $baseRevId;
 	}
 
 	public function getChangeOp(): ChangeOp {
@@ -24,6 +26,10 @@ class EditFormElementsRequest {
 
 	public function getFormId(): FormId {
 		return $this->formId;
+	}
+
+	public function getBaseRevId() {
+		return $this->baseRevId;
 	}
 
 }

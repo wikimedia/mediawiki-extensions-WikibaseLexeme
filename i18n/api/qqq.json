@@ -25,6 +25,7 @@
 	"apihelp-wbleditformelements-param-formId": "{{doc-apihelp-param|wbleditformelements|formId}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wbleditformelements-param-data": "{{doc-apihelp-param|wbleditformelements|data}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wbleditformelements-param-bot": "{{doc-apihelp-param|wbleditformelements|bot}}",
+	"apihelp-wbleditformelements-param-baserevid": "{{doc-apihelp-param|wbleditformelements|baserevid}} \n{{doc-important|This refers to a lexicographical Form not a form you fill in}}",
 	"apihelp-wbleditformelements-example-1": "{{doc-apihelp-example|wbleditformelements}}",
 	"apihelp-wbladdsense-summary": "{{doc-apihelp-summary|wbladdsense}}",
 	"apihelp-wbladdsense-param-lexemeId": "{{doc-apihelp-param|wbladdsense|lexemeId}}",

@@ -844,6 +844,132 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->assertStatementGuidHasEntityId( $result['form']['id'], $resultClaim['id'] );
 	}
 
+	public function testFailsOnEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+				->andRepresentation( 'fr', 'foo' )
+				->build()
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+
+		$params = [
+			'formId' => self::DEFAULT_FORM_ID,
+			'action' => 'wbleditformelements',
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
+				],
+			] ),
+		];
+		// Do the mid edit using another user to avoid wikibase ignoring edit as "self-conflict"
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+
+		$params = [
+			'action' => 'wbleditformelements',
+			'formId' => self::DEFAULT_FORM_ID,
+			'baserevid' => $baseRevId,
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
+				],
+			] ),
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( ApiUsageException $e ) {
+			$this->assertEquals(
+				'edit-conflict',
+				$e->getMessageObject()->getKey()
+			);
+			return;
+		}
+		$this->fail( 'Failed to detect the edit conflict' );
+	}
+
+	public function testWorksOnUnrelatedEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'foo' )
+					->build()
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => 'L1',
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+		];
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+		$params = [
+			'action' => 'wbleditformelements',
+			'formId' => self::DEFAULT_FORM_ID,
+			'baserevid' => $baseRevId,
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
+				],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$lexeme = $this->getLexeme( 'L1' );
+		$lemmas = $lexeme->getLemmas()->toTextArray();
+		$this->assertEquals( 'Hello', $lemmas['en'] );
+		$forms = $lexeme->getForms()->toArray();
+		$this->assertCount( 1, $forms );
+	}
+
+	public function testAvoidSelfConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'foo' )
+					->build()
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+		$params = [
+			'formId' => self::DEFAULT_FORM_ID,
+			'action' => 'wbleditformelements',
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'colour' ],
+				],
+			] ),
+		];
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+		$params = [
+			'action' => 'wbleditformelements',
+			'formId' => self::DEFAULT_FORM_ID,
+			'baserevid' => $baseRevId,
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'goat' ],
+				],
+			] ),
+		];
+
+		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
+
+		$lexeme = $this->getLexeme( 'L1' );
+		$forms = $lexeme->getForms()->toArray();
+		$this->assertCount( 1, $forms );
+		$this->assertSame(
+			'goat',
+			$forms[0]->getRepresentations()->getByLanguage( 'en' )->getText()
+		);
+	}
+
 	/**
 	 * @param string $id
 	 *
@@ -863,6 +989,17 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		return $lookup->getEntityRevision( new FormId( $id ) );
+	}
+
+	/**
+	 * @param string $id
+	 *
+	 * @return EntityRevision|null
+	 */
+	private function getCurrentRevisionForLexeme( $id ) {
+		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
+
+		return $lookup->getEntityRevision( new LexemeId( $id ) );
 	}
 
 }

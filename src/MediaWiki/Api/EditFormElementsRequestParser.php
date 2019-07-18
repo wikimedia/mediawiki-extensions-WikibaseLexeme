@@ -16,6 +16,8 @@ class EditFormElementsRequestParser {
 
 	const PARAM_FORM_ID = 'formId';
 
+	const PARAM_BASEREVID = 'baserevid';
+
 	/**
 	 * @var FormIdDeserializer
 	 */
@@ -62,9 +64,15 @@ class EditFormElementsRequestParser {
 			$dataValidation
 		);
 
+		$baseRevId = null;
+		if ( isset( $params[ self::PARAM_BASEREVID ] ) ) {
+			$baseRevId = (int)$params[self::PARAM_BASEREVID];
+		}
+
 		return new EditFormElementsRequest(
 			$formId,
-			$this->editFormChangeOpDeserializer->createEntityChangeOp( $data )
+			$this->editFormChangeOpDeserializer->createEntityChangeOp( $data ),
+			$baseRevId
 		);
 	}
 

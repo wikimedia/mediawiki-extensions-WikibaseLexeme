@@ -74,4 +74,26 @@ class EditFormElementsRequestParserTest extends TestCase {
 		return new FormIdDeserializer( $idParser );
 	}
 
+	public function testBaseRevIdPassedToRequestObject() {
+		$editFormChangeOpDeserializer = $this
+			->getMockBuilder( EditFormChangeOpDeserializer::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$editFormChangeOpDeserializer
+			->method( 'createEntityChangeOp' )
+			->with( $this->getDataParams() )
+			->willReturn( new ChangeOps() );
+
+		$parser = new EditFormElementsRequestParser(
+			$this->newFormIdDeserializer(),
+			$editFormChangeOpDeserializer
+		);
+
+		$request = $parser->parse(
+			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => $this->getDataAsJson() ]
+		);
+
+		$this->assertSame( 12345, $request->getBaseRevId() );
+	}
+
 }
