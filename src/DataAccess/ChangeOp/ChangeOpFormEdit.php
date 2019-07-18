@@ -8,6 +8,7 @@ use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -57,6 +58,8 @@ class ChangeOpFormEdit implements ChangeOp {
 				'apierror-wikibaselexeme-form-must-have-at-least-one-representation'
 			);
 		}
+
+		return new DummyChangeOpResult();
 	}
 
 	public function validate( EntityDocument $entity ) {

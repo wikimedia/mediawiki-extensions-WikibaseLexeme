@@ -8,6 +8,7 @@ use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -57,6 +58,8 @@ class ChangeOpSenseEdit implements ChangeOp {
 				'apierror-wikibaselexeme-sense-must-have-at-least-one-gloss'
 			);
 		}
+
+		return new DummyChangeOpResult();
 	}
 
 	public function validate( EntityDocument $entity ) {

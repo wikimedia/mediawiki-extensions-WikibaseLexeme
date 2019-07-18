@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -70,6 +71,8 @@ class ChangeOpRemoveSense extends ChangeOpBase {
 			$language,
 			array_values( $sense->getGlosses()->toTextArray() )
 		);
+
+		return new DummyChangeOpResult();
 	}
 
 	protected function updateSummary( Summary $summary = null, $action, $language = '', $args = '' ) {

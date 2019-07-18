@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -54,6 +55,8 @@ class ChangeOpFormClone implements ChangeOp {
 		// TODO summary; This is currently only used as part of merging to copy forms
 		// from the source lexemes onto the target.
 		// Generating a summary here is not necessary as of now.
+
+		return new DummyChangeOpResult();
 	}
 
 	public function validate( EntityDocument $entity ): Result {

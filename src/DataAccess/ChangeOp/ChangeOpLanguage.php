@@ -9,6 +9,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -49,6 +50,8 @@ class ChangeOpLanguage extends ChangeOpBase {
 		/** @var Lexeme $entity */
 		$this->updateSummary( $summary, 'set', '', $this->language->getSerialization() );
 		$entity->setLanguage( $this->language );
+
+		return new DummyChangeOpResult();
 	}
 
 }

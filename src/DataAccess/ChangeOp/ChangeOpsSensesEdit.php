@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -63,6 +64,8 @@ class ChangeOpsSensesEdit implements ChangeOp {
 			// Passes summary albeit there is no clear definition how summaries should be combined
 			$changeOp->apply( $sense, $summary );
 		}
+
+		return new DummyChangeOpResult();
 	}
 
 }

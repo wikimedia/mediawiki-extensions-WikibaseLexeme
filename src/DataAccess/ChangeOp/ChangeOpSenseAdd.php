@@ -9,6 +9,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -80,6 +81,8 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 			// TODO: use SenseId not string?
 			$summary->addAutoCommentArgs( $sense->getId()->getSerialization() );
 		}
+
+		return new DummyChangeOpResult();
 	}
 
 }

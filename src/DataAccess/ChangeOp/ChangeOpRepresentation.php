@@ -7,6 +7,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -42,6 +43,8 @@ class ChangeOpRepresentation implements ChangeOp {
 		$this->updateSummary( $entity, $summary );
 
 		$entity->getRepresentations()->setTerm( $this->representation );
+
+		return new DummyChangeOpResult();
 	}
 
 	public function getActions() {

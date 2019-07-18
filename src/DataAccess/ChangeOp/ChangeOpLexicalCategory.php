@@ -9,6 +9,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
+use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
@@ -52,6 +53,8 @@ class ChangeOpLexicalCategory extends ChangeOpBase {
 		/** @var Lexeme $entity */
 		$this->updateSummary( $summary, 'set', '', $this->lexicalCategory->getSerialization() );
 		$entity->setLexicalCategory( $this->lexicalCategory );
+
+		return new DummyChangeOpResult();
 	}
 
 }
