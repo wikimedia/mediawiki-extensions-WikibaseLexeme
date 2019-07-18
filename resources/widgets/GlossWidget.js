@@ -1,9 +1,12 @@
-module.exports = ( function ( require, Vue, wb ) {
+module.exports = ( function ( require, wb, Vuex ) {
 	'use strict';
 
-	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
+	var Vue = require( 'vue2' ),
+		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
 		InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' ),
 		LanguageSelectorWrapper = require( 'wikibase.lexeme.widgets.LanguageSelectorWrapper' );
+
+	Vue.use( Vuex );
 
 	function deepClone( object ) {
 		return JSON.parse( JSON.stringify( object ) ).sort( function ( a, b ) {
@@ -87,4 +90,4 @@ module.exports = ( function ( require, Vue, wb ) {
 		newGlossWidget: newGlossWidget
 	};
 
-} )( require, Vue, wikibase );
+} )( require, wikibase, Vuex );

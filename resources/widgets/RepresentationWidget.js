@@ -1,8 +1,11 @@
-module.exports = ( function () {
+module.exports = ( function ( Vuex ) {
 	'use strict';
 
-	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
+	var Vue = require( 'vue2' ),
+		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
 		actionTypes = require( 'wikibase.lexeme.store.actionTypes' );
+
+	Vue.use( Vuex );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.RepresentationWidget.newComponent
@@ -109,4 +112,4 @@ module.exports = ( function () {
 		create: create
 	};
 
-} )();
+} )( Vuex );

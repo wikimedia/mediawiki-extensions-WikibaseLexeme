@@ -1,12 +1,15 @@
-wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb ) {
+wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	'use strict';
 
+	var Vue = require( 'vue2' );
 	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
 	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var newLemmaWidget = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget' );
 	var newLanguageAndLexicalCategoryWidget = require( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget' );
 	var newLexemeHeader = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+
+	Vue.use( Vuex );
 
 	/**
 	 * @param {Object} wbEntity
@@ -100,4 +103,4 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb ) {
 			} );
 	};
 
-} )( wikibase );
+} )( wikibase, Vuex );

@@ -1,8 +1,10 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb ) {
+( function ( require, wb ) {
 	'use strict';
+
+	var Vue = require( 'vue2' );
 
 	/** @type {wikibase.datamodel.TermMap}*/
 	var TermMap = wb.datamodel.TermMap;
@@ -347,4 +349,4 @@
 			'</div>';
 	}
 
-}( wikibase ) );
+}( require, wikibase ) );

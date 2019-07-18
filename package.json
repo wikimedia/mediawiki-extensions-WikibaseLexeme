@@ -29,7 +29,7 @@
     "unexpected": "^10.32.1",
     "unexpected-dom": "~4.8.0",
     "unexpected-sinon": "^10.8.2",
-    "vue": "2.3.3",
+    "vue": "^2.6.10",
     "vuex": "^2.3.1",
     "wdio-mediawiki": "0.3.0",
     "wdio-mocha-framework": "0.6.4",
@@ -38,6 +38,7 @@
     "webdriverio": "4.13.1"
   },
   "_moduleAliases": {
+    "vue2": "node_modules/vue/dist/vue.js",
     "wikibase.lexeme.widgets.InvalidLanguageIndicator": "./resources/widgets/InvalidLanguageIndicator.js",
     "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
     "wikibase.lexeme.widgets.RedundantLanguageIndicator": "./resources/widgets/RedundantLanguageIndicator.js",

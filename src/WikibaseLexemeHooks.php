@@ -207,7 +207,7 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.view.ViewFactoryFactory',
 				'wikibase.tests.qunit.testrunner',
 				'wikibase.view.tests.getMockListItemAdapter',
-				'vue',
+				'vue2',
 				'vuex',
 			],
 			'localBasePath' => dirname( __DIR__ ),
