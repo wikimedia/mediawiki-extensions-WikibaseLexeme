@@ -135,7 +135,7 @@ class EditFormElements extends \ApiBase {
 			$this->dieWithError( $error->asApiMessage( EditFormElementsRequestParser::PARAM_FORM_ID, [] ) );
 		}
 
-		$baseRevId = $this->updateBaseRevIdWhenUserStaysTheSame(
+		$baseRevId = $this->getRevIdForWhenUserWasLastToEdit(
 			$formRevision->getRevisionId(),
 			$baseRevId,
 			$formId->getLexemeId()
@@ -315,15 +315,15 @@ class EditFormElements extends \ApiBase {
 	}
 
 	/**
-	 * Update base revision id if all of edits between baserevid and latest revision is done
-	 * by the same user
+	 * Returns $latestRevisionId if all of edits since $baseRevId are done
+	 * by the same user, otherwise returns $baseRevId.
 	 *
 	 * @param int $latestRevisionId
 	 * @param int $baseRevId
 	 * @param EntityId $entityId
 	 * @return int
 	 */
-	private function updateBaseRevIdWhenUserStaysTheSame(
+	private function getRevIdForWhenUserWasLastToEdit(
 		$latestRevisionId,
 		$baseRevId,
 		EntityId $entityId
