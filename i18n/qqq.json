@@ -54,6 +54,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "{{Wikibase-datatype-body|Sense}}",
 	"wikibaselexeme-add-sense": "Label for button to add a new Sense",
 	"wikibaselexeme-add-form": "Label for button to add a new lexicographical Form",
+	"wikibase-pageinfo-wbl-forms": "Label for page information on number of Forms",
+	"wikibase-pageinfo-wbl-senses": "Label for page information on number of Senses",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Error message that is being reported when the last lemma is being removed.",
 	"wikibase-lexeme-summary-add-form": "{{wikibase summary messages|lexeme|Automatic edit summary generated when adding new lexicographical Form to a Lexeme.}}\n\nParameters:\n* $1 - Number of representations of the lexicographical Form added.\n* $2 - empty.\n* $3 - lexicographical Form ID.\n\n{{Related|Wikibase-lexeme-summary}}",
 	"wikibase-lexeme-summary-remove-form": "{{wikibase summary messages|lexeme|Automatic edit summary generated when removing a lexicographical Form from a Lexeme.}}\n\nParameters:\n* $1 - Number of representations of the lexicographical Form removed.\n* $2 - empty.\n* $3 - lexicographical Form ID.\n\n{{Related|Wikibase-lexeme-summary}}",

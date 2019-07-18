@@ -36,6 +36,9 @@
 		"WikibaseLexemeAlias": "WikibaseLexeme.i18n.alias.php"
 	},
 	"Hooks": {
+		"InfoAction": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onInfoAction"
+		],
 		"WikibaseRepoEntityNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
 		],
