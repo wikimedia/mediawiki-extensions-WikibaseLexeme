@@ -83,11 +83,11 @@
 			var items = widget.menu.getItems();
 
 			assert.equal( items[ 0 ].getData(), 'Q1' );
-			assert.ok( items[ 0 ].getLabel().text().match( 'q1-label' ) );
-			assert.ok( items[ 0 ].getLabel().text().match( 'q1-description' ) );
+			assert.ok( items[ 0 ].$element.text().match( 'q1-label' ) );
+			assert.ok( items[ 0 ].$element.text().match( 'q1-description' ) );
 			assert.equal( items[ 1 ].getData(), 'Q2' );
-			assert.ok( items[ 1 ].getLabel().text().match( 'q2-label' ) );
-			assert.ok( items[ 1 ].getLabel().text().match( 'q2-description' ) );
+			assert.ok( items[ 1 ].$element.text().match( 'q2-label' ) );
+			assert.ok( items[ 1 ].$element.text().match( 'q2-description' ) );
 			done();
 		}, INTERNAL_DEBOUNCE_TIMEOUT );
 	} );
@@ -129,7 +129,7 @@
 			language: 'en',
 			debounceInterval: 0,
 			selected: [ 'Q1' ],
-			options: [ { data: 'Q1' } ]
+			options: [ { id: 'Q1' } ]
 		} );
 
 		assert.deepEqual( widget.getValue(), [ 'Q1' ] );
@@ -141,7 +141,7 @@
 			labelFormattingService: dummyLabelFormattingService,
 			language: 'en',
 			debounceInterval: 0,
-			options: [ { data: 'Q1', label: 'Q1-label' } ],
+			options: [ { id: 'Q1', label: 'Q1-label' } ],
 			selected: [ 'Q1' ]
 		} );
 

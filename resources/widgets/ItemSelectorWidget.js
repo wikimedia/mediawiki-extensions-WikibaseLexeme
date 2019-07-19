@@ -22,6 +22,9 @@
 
 		this.$valueField = config.$valueField;
 		this.$element.append( this.$valueField );
+
+		// TODO: This should extend mw.widgets.TitleInputWidget
+		this.lookupMenu.$element.addClass( 'mw-widget-titleWidget-menu mw-widget-titleWidget-menu-withDescriptions' );
 	};
 
 	OO.inheritClass( ItemSelectorWidget, OO.ui.TextInputWidget );
@@ -131,11 +134,10 @@
 				i;
 
 			for ( i = 0; i < data.length; i++ ) {
-				items.push( new wb.lexeme.widgets.LabelDescriptionOptionWidget( {
+				items.push( new mw.widgets.TitleOptionWidget( {
 					data: data[ i ].id,
-					label: data[ i ].label,
-					description: data[ i ].description,
-					id: data[ i ].id
+					label: data[ i ].label || data[ i ].id,
+					description: data[ i ].description
 				} ) );
 			}
 
@@ -157,7 +159,7 @@
 		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuItemChoose
 		 */
 		onLookupMenuItemChoose: function ( item ) {
-			this.setValue( item.getInputLabel() );
+			this.setValue( item.getLabel() );
 			this.$valueField.val( item.getData() );
 
 			if ( this._changeObserver ) {

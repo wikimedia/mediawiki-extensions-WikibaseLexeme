@@ -133,7 +133,7 @@
 						return $el.text();
 					};
 					return {
-						data: item,
+						id: item,
 						label: $el
 					};
 				} ),

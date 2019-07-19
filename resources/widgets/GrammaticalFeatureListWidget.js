@@ -40,6 +40,9 @@ module.exports = ( function () {
 		this._labelFormattingService = config.labelFormattingService;
 		this._language = config.language;
 
+		// TODO: This should extend mw.widgets.TitlesMultiselectWidget
+		this.menu.$element.addClass( 'mw-widget-titleWidget-menu mw-widget-titleWidget-menu-withDescriptions' );
+
 		var debounceInterval = typeof config.debounceInterval === 'number' ? config.debounceInterval : 250;
 		this.input.on( 'change', OO.ui.debounce( this.updateMenu.bind( this ), debounceInterval ) );
 		this.clearMenuItems();
@@ -114,27 +117,23 @@ module.exports = ( function () {
 
 				this.clearMenuItems();
 
-				var options = response.search.map( function ( item ) {
-					var textLabel = item.label || item.id,
-						label = $( '<a>' ).text( textLabel )
-							.prop( 'href', item.url )
-							.css( 'display', 'block' )
-							.data( 'label', textLabel );
-
-					if ( item.description ) {
-						label.append(
-							$( '<br/>' ),
-							$( '<small>' ).text( item.description )
-						);
-					}
-
-					return { data: item.id, label: label };
-				} );
-
-				this.addOptions( options );
+				this.addOptions( response.search );
 				this.menu.updateItemVisibility();
 				this.menu.toggle( true );
 			}.bind( this ) );
+		},
+
+		addOptions: function ( menuOptions ) {
+			this.menu.addItems(
+				menuOptions.map( function ( item ) {
+					return new mw.widgets.TitleOptionWidget( {
+						data: item.id,
+						label: item.label || item.id,
+						url: item.url,
+						description: item.description
+					} );
+				} )
+			);
 		},
 
 		/**
@@ -151,7 +150,7 @@ module.exports = ( function () {
 			// To avoid displaying multiline selected boxes in the widget
 			// we have to replace the label contents
 			var itemId = menuItem.getData();
-			var $label = $( '<span>' ).text( menuItem.getLabel().data( 'label' ) );
+			var $label = $( '<span>' ).text( menuItem.getLabel() );
 			this._labelFormattingService.getHtml( itemId ).then( function ( html ) {
 				// FIXME: Add target="blank"
 				$label.empty().append( html );
