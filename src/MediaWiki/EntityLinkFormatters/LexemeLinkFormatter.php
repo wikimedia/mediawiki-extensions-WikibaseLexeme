@@ -7,6 +7,7 @@ use Language;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -87,7 +88,19 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	private function getLemmas( LexemeId $entityId ) : TermList {
-		$lexeme = $this->entityLookup->getEntity( $entityId );
+		try {
+			$lexeme = $this->entityLookup->getEntity( $entityId );
+		} catch ( UnresolvedEntityRedirectException $ex ) { // T228996
+			// Regression catch.
+			// When there's a double redirect in lexems (eg. L1 -> L2 -> L3)
+			// then getting lemmas of L1 will fatal as the second redirect is
+			// not handlred by the lookp, and the exception bubles up here.
+			// Fatal was caused by that exception as it weren't handled. Seen on
+			// Special:RecentChanges and Special:WhatLinksHere pages.
+			// Handled gracefully with this catch, by returning an empty list,
+			// effectively displaying the lexeme by its ID instead.
+			return new TermList();
+		}
 
 		if ( $lexeme === null ) {
 			return new TermList();
