@@ -19,6 +19,7 @@
 	"apihelp-wbleditformelements-param-formId": "Назнака на образецот, на пр. L10-F2",
 	"apihelp-wbleditformelements-param-data": "Претстава и податоци за граматички особености во JSON",
 	"apihelp-wbleditformelements-param-bot": "Означи го уредувањево како ботовско. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
+	"apihelp-wbleditformelements-param-baserevid": "Назнака на појдовната преработка на лексемата, ако барате проверка на спротиставеноста во елементите на обликот.",
 	"apihelp-wbleditformelements-example-1": "Уредува образец во лексемата со назнака <samp>$1</samp> да ги има претставите <samp>$2</samp> со јазиците <samp>$3</samp> и граматичките особености <samp>$4</samp>",
 	"apihelp-wbladdsense-summary": "Додава значење на лексема",
 	"apihelp-wbladdsense-param-lexemeId": "назнака на лексемата, на пр. L10",

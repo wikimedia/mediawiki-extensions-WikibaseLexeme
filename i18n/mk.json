@@ -47,6 +47,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "Врска до други значења во проектот. При внесување на вредност во именскиот простор „Лексема“ (Lexeme), системот ќе побара значења што одговараат на бараното.",
 	"wikibaselexeme-add-sense": "додај значење",
 	"wikibaselexeme-add-form": "додај образец",
+	"wikibase-pageinfo-wbl-forms": "Број на облици",
+	"wikibase-pageinfo-wbl-senses": "Број на значења",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Се појави грешка: Не можам да ја отстранам последната лема.",
 	"wikibase-lexeme-summary-add-form": "Ставен нов образец $3 со {{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-remove-form": "Отстранет образецот $3 со {{PLURAL:$1|претстава|претстави}}",

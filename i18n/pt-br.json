@@ -47,6 +47,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "Hiperligação para sentidos no projeto. Quando um valor é introduzido, serão pesquisados sentidos correspondentes no espaço nominal \"Lexema\" do projeto.",
 	"wikibaselexeme-add-sense": "adicionar sentido",
 	"wikibaselexeme-add-form": "adicionar forma",
+	"wikibase-pageinfo-wbl-forms": "Número de formulários",
+	"wikibase-pageinfo-wbl-senses": "Número de sentidos",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Ocorreu um erro: o último lema não pode ser removido.",
 	"wikibase-lexeme-summary-add-form": "Foi adicionada a nova forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-remove-form": "Removeu a forma $3 com {{PLURAL:$1|representação|representações}}",

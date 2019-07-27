@@ -18,6 +18,7 @@
 	"apihelp-wbleditformelements-param-formId": "O identificador da forma, por exemplo: L10-F2",
 	"apihelp-wbleditformelements-param-data": "Representação codificada JSON e dados da funcionalidade gramatical",
 	"apihelp-wbleditformelements-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"{{int:group-bot}}\".",
+	"apihelp-wbleditformelements-param-baserevid": "Identificador da revisão de base do lexema, se for pretendida a verificação de conflito de edição de elementos de forma.",
 	"apihelp-wbleditformelements-example-1": "Edita a forma com o identificador <samp>$1</samp> para ter as representações <samp>$2</samp> nas línguas <samp>$3</samp> respetivamente, e as funcionalidades gramaticais <samp>$4</samp>.",
 	"apihelp-wbladdsense-summary": "Adiciona um sentido a um lexema",
 	"apihelp-wbladdsense-param-lexemeId": "Identificador do lexema, por exemplo L10",

@@ -52,6 +52,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "Lien vers les sens du projet. Quand une valeur est saisie, l’espace de noms « Lexeme » du projet est recherché pour trouver les sens correspondants.",
 	"wikibaselexeme-add-sense": "ajouter un sens",
 	"wikibaselexeme-add-form": "ajouter une forme",
+	"wikibase-pageinfo-wbl-forms": "Nombre de formulaires",
+	"wikibase-pageinfo-wbl-senses": "Nombre d’avis",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Une erreur s'est produite : Le dernier lemme n’a pas pu être supprimé.",
 	"wikibase-lexeme-summary-add-form": "Nouvelle forme $3 ajoutée avec {{PLURAL:$1|représentation|représentations}}",
 	"wikibase-lexeme-summary-remove-form": "Forme $3 supprimée avec {{PLURAL:$1|sa représentation|ses représentations}}",

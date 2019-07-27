@@ -19,6 +19,7 @@
 	"apihelp-wbleditformelements-param-formId": "O identificador da forma, por exemplo: L10-F2",
 	"apihelp-wbleditformelements-param-data": "Representação codificada JSON e dados de características gramaticais",
 	"apihelp-wbleditformelements-param-bot": "Marcar esta edição como sendo feita por um robô. Esta etiqueta URL só será respeitado se o usuário pertencer ao grupo \"{{int:group-bot}}\".",
+	"apihelp-wbleditformelements-param-baserevid": "ID de Revisão Base do Lexeme, se a verificação de conflito de edição de elementos de formulário for desejada.",
 	"apihelp-wbleditformelements-example-1": "Edita uma Forma com o ID <samp>$1</samp> ter representações <samp>$2</samp> em idiomas <samp>$3</samp> respectivamente, e características gramaticais <samp>$4</samp>.",
 	"apihelp-wbladdsense-summary": "Adiciona um sentido a um Lexeme",
 	"apihelp-wbladdsense-param-lexemeId": "ID do Lexeme, por ex. L10",

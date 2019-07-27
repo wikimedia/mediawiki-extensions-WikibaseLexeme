@@ -45,6 +45,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "Odkaz na významy na tomto projektu. Když je zadána hodnota, vyhledají se odpovídající významy ve jmenném prostoru „Lexeme“.",
 	"wikibaselexeme-add-sense": "přidat význam",
 	"wikibaselexeme-add-form": "přidat tvar",
+	"wikibase-pageinfo-wbl-forms": "Počet tvarů",
+	"wikibase-pageinfo-wbl-senses": "Počet významů",
 	"wikibase-lexeme-summary-add-form": "Přidán nový tvar $3 s {{PLURAL:$1|reprezentací|reprezentacemi}}",
 	"wikibase-lexeme-summary-remove-form": "Odstraněn tvar $3 s {{PLURAL:$1|reprezentací|reprezentacemi}}",
 	"wikibase-lexeme-summary-update-form-representations": "Změněny reprezentace a/nebo gramatické vlastnosti tvaru $3",

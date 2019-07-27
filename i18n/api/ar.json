@@ -19,6 +19,7 @@
 	"apihelp-wbleditformelements-param-formId": "معرف النموذج، على سبيل المثال L10-F2",
 	"apihelp-wbleditformelements-param-data": "تمثيل بيانات JSON مشفرة وميزات نحوية",
 	"apihelp-wbleditformelements-param-bot": "علم على هذا التعديل كروبوت، علم المسار هذا سيتم احترامه فقط إذا ما كان المستخدم ينتمي للمجموعة \"{{int:group-bot}}\".",
+	"apihelp-wbleditformelements-param-baserevid": "معرف مراجعة الأساس للكسيم، إذا كانت عناصر المعنى تعارض التحرير مطلوبة.",
 	"apihelp-wbleditformelements-example-1": "يعدل نموذجا بالمعرف <samp>$1</samp> يحتوي على تمثيلات <samp>$2</samp> باللغات <samp>$3</samp> على التوالي والميزات النحوية <samp>$4</samp>",
 	"apihelp-wbladdsense-summary": "يضيف معنى للكسيم",
 	"apihelp-wbladdsense-param-lexemeId": "معرف لكسيم على سبيل المثال L10",

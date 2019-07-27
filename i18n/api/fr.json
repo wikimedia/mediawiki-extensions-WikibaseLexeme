@@ -20,6 +20,7 @@
 	"apihelp-wbleditformelements-param-formId": "ID du formulaire, par ex. L10-F2",
 	"apihelp-wbleditformelements-param-data": "Représentation encodée en JSON et données à caractère grammatical",
 	"apihelp-wbleditformelements-param-bot": "Marquer cette modification comme robot. Ce drapeau d’URL sera respecté uniquement si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wbleditformelements-param-baserevid": "ID de révision de base du lexème, si une vérification de conflit de modification d’éléments du formulaire est souhaitée.",
 	"apihelp-wbleditformelements-example-1": "Modifie le formulaire d’ID <samp>$1</samp> pour avoir des représentations <samp>$2</samp> dans les langues <samp>$3</samp> respectivement, et les caractéristiques grammaticales <samp>$4</samp>.",
 	"apihelp-wbladdsense-summary": "Ajoute un sens à un lexème",
 	"apihelp-wbladdsense-param-lexemeId": "ID du Lexème, par exemple L10",

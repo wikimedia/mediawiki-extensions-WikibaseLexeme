@@ -48,6 +48,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "連結至專案中的含義。當輸入數值時，將會搜尋專案的「詞位」命名空間尋找符合的項目。",
 	"wikibaselexeme-add-sense": "添加含意",
 	"wikibaselexeme-add-form": "添加詞性",
+	"wikibase-pageinfo-wbl-forms": "詞性數量",
+	"wikibase-pageinfo-wbl-senses": "含意數量",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "發生錯誤：最後一筆主題無法移除。",
 	"wikibase-lexeme-summary-add-form": "已添加具{{PLURAL:$1|表述|表述}}的新詞性 $3",
 	"wikibase-lexeme-summary-remove-form": "已移除具{{PLURAL:$1|表述|表述}}的詞性 $3",

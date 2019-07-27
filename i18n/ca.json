@@ -48,6 +48,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "Enllaç a les accepcions en el projecte. Quan s'introdueixi un valor, se cercaran les accepcions que hi coincideixin en l'espai de noms del projecte «Lexema».",
 	"wikibaselexeme-add-sense": "afegeix una accepció",
 	"wikibaselexeme-add-form": "afegeix una forma",
+	"wikibase-pageinfo-wbl-forms": "Nombre de formes",
+	"wikibase-pageinfo-wbl-senses": "Nombre de sentits",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "S'ha produït un error: El darrer lema no s'ha pogut suprimir.",
 	"wikibase-lexeme-summary-add-form": "Nova forma $3 afegida amb {{PLURAL:$1|representació|representacions}}",
 	"wikibase-lexeme-summary-remove-form": "Forma $3 suprimida amb {{PLURAL:$1|la seva representació|les seves representacions}}",

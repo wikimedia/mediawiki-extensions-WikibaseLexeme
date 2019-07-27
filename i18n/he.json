@@ -47,6 +47,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "קישור למשמעויות שבפרויקט. כאשר מוזן ערך, מרחב היחידות המילוניות של הפרויקט ייכלל בחיפוש של המשמעויות התואמות.",
 	"wikibaselexeme-add-sense": "הוספת משמעות",
 	"wikibaselexeme-add-form": "הוספת צורה",
+	"wikibase-pageinfo-wbl-forms": "מספר הצורות",
+	"wikibase-pageinfo-wbl-senses": "מספר המשמעויות",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "אירעה שגיאה: לא ניתן להסיר את המשפט המוגדר האחרון.",
 	"wikibase-lexeme-summary-add-form": "נוספה הצורה החדשה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
 	"wikibase-lexeme-summary-remove-form": "הוסרה הצורה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
