@@ -12,6 +12,7 @@ use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -125,6 +126,24 @@ class LexemeLinkFormatterTest extends TestCase {
 		$this->assertEquals(
 			'Lexeme:L123',
 			$formatter->getTitleAttribute( $title )
+		);
+	}
+
+	/**
+	 * @group regression
+	 * @bug T228996
+	 */
+	public function testGetHtml_whenDoubleRedirectLexemes_usesLexemeID() {
+		$unresolvedRedirectionException = new UnresolvedEntityRedirectException(
+			new LexemeId( 'Lexeme:L123' ), new LexemeId( 'Lexeme:L234' ) );
+		$this->entityLookup->method( 'getEntity' )
+			->will( $this->throwException( $unresolvedRedirectionException ) );
+
+		$formatter = $this->newFormatter();
+
+		$this->assertContains(
+			'Lexeme:L123',
+			$formatter->getHtml( new LexemeId( 'Lexeme:L123' ) )
 		);
 	}
 
