@@ -94,8 +94,8 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 			// Regression catch.
 			// When there's a double redirect in lexems (eg. L1 -> L2 -> L3)
 			// then getting lemmas of L1 will fatal as the second redirect is
-			// not handlred by the lookp, and the exception bubles up here.
-			// Fatal was caused by that exception as it weren't handled. Seen on
+			// not handlred by the lookup, and the exception bubbles up here.
+			// Fatal was caused by that exception as it wasn't handled. Seen on
 			// Special:RecentChanges and Special:WhatLinksHere pages.
 			// Handled gracefully with this catch, by returning an empty list,
 			// effectively displaying the lexeme by its ID instead.
