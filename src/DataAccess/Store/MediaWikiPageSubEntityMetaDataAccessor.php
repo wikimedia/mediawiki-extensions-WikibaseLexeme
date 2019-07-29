@@ -114,25 +114,20 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 			}
 		}
 
-		$lookup = $this->wikiPageEntityMetaDataLookup->loadLatestRevisionIds( $entityIds, $mode );
+		$entityRevisionIds = $this->wikiPageEntityMetaDataLookup->loadLatestRevisionIds(
+			$entityIds,
+			$mode
+		);
 
+		$subEntitiesRevisionIds = [];
 		/** @var LexemeSubEntityId $subEntityId */
 		foreach ( $subEntityIds as $subEntityId ) {
-			$subEntityString = $subEntityId->getSerialization();
-			$lexemeString = $subEntityId->getLexemeId()->getSerialization();
-			$lookup[ $subEntityString ] = $lookup[ $lexemeString ];
+			$subEntityIdString = $subEntityId->getSerialization();
+			$lexemeIdString = $subEntityId->getLexemeId()->getSerialization();
+			$subEntitiesRevisionIds[ $subEntityIdString ] = $entityRevisionIds[ $lexemeIdString ];
 		}
-		$filteredLookup = $this->filterOutUnrequestedEntities( $subEntityIds, $lookup );
-		return $filteredLookup;
-	}
 
-	private function filterOutUnrequestedEntities( $requestedEntityIds, $lookup ) {
-		$serializedRequestedEntityIds = array_map(
-			function ( $id ) {
-				return $id->getSerialization();
-			},
-			$requestedEntityIds );
-		return array_intersect_key( $lookup, array_flip( $serializedRequestedEntityIds ) );
+		return $subEntitiesRevisionIds;
 	}
 
 }
