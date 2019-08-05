@@ -6,14 +6,8 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
-	MWApi = require( 'wdio-mediawiki/Api' );
-
-let WikibaseApi;
-try {
+	MWApi = require( 'wdio-mediawiki/Api' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
-} catch ( e ) {
-	WikibaseApi = require( '../../../../../Wikibase/repo/tests/selenium/wdio-wikibase/wikibase.api' );
-}
 
 describe( 'NewLexeme:Page', () => {
 

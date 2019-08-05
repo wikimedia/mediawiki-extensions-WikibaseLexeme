@@ -1,18 +1,10 @@
 'use strict';
 
 const Page = require( 'wdio-mediawiki/Page' ),
-	_ = require( 'lodash' );
-
-let MixinBuilder, MainStatementSection, ComponentInteraction;
-try {
-	MixinBuilder = require( 'wdio-wikibase/pagesections/mixinbuilder' );
-	MainStatementSection = require( 'wdio-wikibase/pagesections/main.statement.section' );
+	_ = require( 'lodash' ),
+	MixinBuilder = require( 'wdio-wikibase/pagesections/mixinbuilder' ),
+	MainStatementSection = require( 'wdio-wikibase/pagesections/main.statement.section' ),
 	ComponentInteraction = require( 'wdio-wikibase/pagesections/ComponentInteraction' );
-} catch ( e ) {
-	MixinBuilder = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/mixinbuilder' );
-	MainStatementSection = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/main.statement.section' );
-	ComponentInteraction = require( '../../../../Wikibase/repo/tests/selenium/wdio-wikibase/pagesections/ComponentInteraction' );
-}
 
 class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, ComponentInteraction ) {
 
