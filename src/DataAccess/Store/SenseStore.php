@@ -95,7 +95,6 @@ class SenseStore implements EntityStore {
 		// Unset EDIT_NEW flag if present (senses don't have own pages, thus EDIT_NEW is never needed)
 		$flags &= ~EDIT_NEW;
 
-		/* @phan-suppress-next-line PhanParamTooMany TODO remove this suppression */
 		return $this->store->saveEntity( $lexeme, $summary, $user, $flags, $baseRevId, $tags );
 	}
 
