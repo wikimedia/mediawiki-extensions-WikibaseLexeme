@@ -47,6 +47,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "語義へのリンク。値の入力時に語彙素名前空間に一致する語義がないか検索されます。",
 	"wikibaselexeme-add-sense": "語義を追加",
 	"wikibaselexeme-add-form": "語形を追加",
+	"wikibase-pageinfo-wbl-forms": "語形数",
+	"wikibase-pageinfo-wbl-senses": "語義数",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "エラーが発生：最後の見出し語の除去はできません。",
 	"wikibase-lexeme-summary-add-form": "$3とその{{PLURAL:$1|表現}}を追加",
 	"wikibase-lexeme-summary-remove-form": "$3とその{{PLURAL:$1|表現}}を除去",
