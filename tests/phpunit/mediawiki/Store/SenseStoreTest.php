@@ -106,10 +106,12 @@ class SenseStoreTest extends TestCase {
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
-			->will( $this->returnCallback( function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId ) {
-				$this->assertSame( 0, $flags );
-				return 'fromParentService';
-			} ) );
+			->will( $this->returnCallback(
+				function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId, $tags ) {
+					$this->assertSame( 0, $flags );
+					return 'fromParentService';
+				}
+			) );
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
@@ -124,10 +126,12 @@ class SenseStoreTest extends TestCase {
 		$parentService = $this->getMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
-			->will( $this->returnCallback( function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId ) {
-				$this->assertSame( 0, $flags );
-				return 'fromParentService';
-			} ) );
+			->will( $this->returnCallback(
+				function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId, $tags ) {
+					$this->assertSame( 0, $flags );
+					return 'fromParentService';
+				}
+			) );
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
@@ -167,6 +171,26 @@ class SenseStoreTest extends TestCase {
 		$instance = new SenseStore( $parentService, $lexemeLookup );
 
 		$instance->saveEntity( $this->newSense(), '', $user, 0, 47 );
+	}
+
+	public function testGivenSaveEntityWithTags_tagsPassedToParentService() {
+		$lexeme = $this->newLexeme();
+		$user = $this->newUser();
+
+		$parentService = $this->getMock( EntityStore::class );
+		$parentService->expects( $this->once() )
+			->method( 'saveEntity' )
+			->will( $this->returnCallback(
+				function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId, $tags ) {
+					$this->assertSame( [ 'test', 'tag' ], $tags );
+					return 'fromParentService';
+				}
+			) );
+
+		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
+
+		$result = $instance->saveEntity( $this->newSense(), '', $user, 0, false, [ 'test', 'tag' ] );
+		$this->assertSame( 'fromParentService', $result );
 	}
 
 	public function testSaveRedirect() {

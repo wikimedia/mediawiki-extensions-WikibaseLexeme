@@ -62,6 +62,7 @@ class SenseStore implements EntityStore {
 	 * @param User $user
 	 * @param int $flags
 	 * @param int|bool $baseRevId
+	 * @param string[] $tags
 	 *
 	 * @throws StorageException
 	 * @throws PermissionsError
@@ -72,7 +73,8 @@ class SenseStore implements EntityStore {
 		$summary,
 		User $user,
 		$flags = 0,
-		$baseRevId = false
+		$baseRevId = false,
+		array $tags = []
 	) {
 		Assert::parameterType( Sense::class, $sense, '$sense' );
 
@@ -93,7 +95,8 @@ class SenseStore implements EntityStore {
 		// Unset EDIT_NEW flag if present (senses don't have own pages, thus EDIT_NEW is never needed)
 		$flags &= ~EDIT_NEW;
 
-		return $this->store->saveEntity( $lexeme, $summary, $user, $flags, $baseRevId );
+		/* @phan-suppress-next-line PhanParamTooMany TODO remove this suppression */
+		return $this->store->saveEntity( $lexeme, $summary, $user, $flags, $baseRevId, $tags );
 	}
 
 	/**
