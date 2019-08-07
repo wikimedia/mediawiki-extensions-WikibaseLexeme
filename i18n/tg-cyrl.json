@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"ToJack"
+		]
+	},
+	"special-newlexeme": "Эҷоди лексемаи нав",
+	"special-mergelexemes": "Як кардани ду лексема",
+	"wikibaselexeme-newlexeme-fieldset": "Эҷоди лексемаи нав",
+	"wikibaselexeme-newlexeme-lemma": "Лемма",
+	"wikibaselexeme-lemma-field-lemma-label": "Лемма",
+	"wikibaselexeme-gloss-field-language-label": "Забон",
+	"wikibase-listdatatypes-wikibase-form-head": "Шакл",
+	"wikibaselexeme-diffview-language": "забон"
+}
