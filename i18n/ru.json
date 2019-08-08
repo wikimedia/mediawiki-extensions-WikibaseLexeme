@@ -12,7 +12,8 @@
 			"Vlad5250",
 			"Infovarius",
 			"Putnik",
-			"Alexandr Efremov"
+			"Alexandr Efremov",
+			"Movses"
 		]
 	},
 	"wikibaselexeme-desc": "Работа с видом единицы «лексема»",
@@ -94,12 +95,14 @@
 	"wikibaselexeme-no-features": "нет свойств",
 	"wikibase-validator-form-not-found": "У лексемы нет формы с таким ID",
 	"wikibase-lexeme-language-name-mis": "другие",
+	"wikibase-lexeme-language-name-rm-rumgr": "руманч грижун",
+	"wikibase-lexeme-language-name-rm-surmiran": "сурмиранский",
 	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан.",
 	"wikibase-lexeme-mergelexemes-intro": "Если вы объедините две лексемы, все леммы, декларации, формы и смыслы будут перемещены из одной лексемы на другую.",
 	"wikibase-lexeme-mergelexemes-submit": "Объединить лексемы",
 	"wikibase-lexeme-mergelexemes-success": "«$1» был влит в «$2» с последующей установкой перенаправления.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» — некорректный идентификатор лексемы",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Элемент '$1' не найден",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Лексема '$1' не найдена.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Не удалось объединить лексемы, сначала устраните конфликты. Ошибка: Лексемы имеют разные леммы с тем же правописным вариантом.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Не удалось объединить лексемы, сначала устраните конфликты. Ошибка: Лексемы ссылаются одна на другую.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Не удалось объединить лексемы, сначала устраните конфликты. Ошибка: Лексемы имеют разные языки.",
