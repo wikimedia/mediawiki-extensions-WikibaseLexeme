@@ -2,7 +2,6 @@
 
 namespace Wikibase;
 
-use ExtensionRegistry;
 use Maintenance;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -30,9 +29,11 @@ class CreateBlacklistedLexemes extends Maintenance {
 	const CATEGORY = 'cat';
 
 	public function __construct() {
+		parent::__construct();
+
 		$this->addDescription( 'Created blacklisted lexemes' );
 
-		parent::__construct();
+		$this->requireExtension( 'WikibaseLexeme' );
 	}
 
 	public function execute() {
@@ -44,12 +45,6 @@ class CreateBlacklistedLexemes extends Maintenance {
 		if ( !WikibaseSettings::isRepoEnabled() ) {
 			$this->fatalError(
 				"You need to have Wikibase enabled in order to use this maintenance script!\n\n"
-			);
-		}
-
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseLexeme' ) ) {
-			$this->fatalError(
-				"You need to have WikibaseLexeme enabled in order to use this maintenance script!\n\n"
 			);
 		}
 
