@@ -8,29 +8,22 @@ const assert = require( 'assert' ),
 describe( 'Special:RecentChanges', () => {
 
 	it( 'shows lemmas in title links to lexemes', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create( {
-				lemmas: {
-					ruq: {
-						value: 'entrôpi',
-						language: 'ruq'
-					},
-					'ruq-latn': {
-						value: 'entropy',
-						language: 'ruq-latn'
-					},
-					'ruq-cyrl': {
-						value: 'ентропы',
-						language: 'ruq-cyrl'
-					}
+		const id = browser.call( () => LexemeApi.create( {
+			lemmas: {
+				ruq: {
+					value: 'entrôpi',
+					language: 'ruq'
+				},
+				'ruq-latn': {
+					value: 'entropy',
+					language: 'ruq-latn'
+				},
+				'ruq-cyrl': {
+					value: 'ентропы',
+					language: 'ruq-cyrl'
 				}
-			} )
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
-		} );
+			}
+		} ).then( ( lexeme ) => lexeme.id ) );
 		RunJobs.run();
 
 		RecentChangesPage.open();

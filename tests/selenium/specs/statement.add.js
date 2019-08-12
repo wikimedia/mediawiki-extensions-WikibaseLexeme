@@ -17,22 +17,8 @@ describe( 'Lexeme:Statements', () => {
 	} );
 
 	it( 'can be added', () => {
-		let lexemeId,
-			propertyId;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					lexemeId = lexeme.id;
-				} );
-		} );
-
-		browser.call( () => {
-			return WikibaseApi.getProperty( 'string' )
-				.then( ( property ) => {
-					propertyId = property;
-				} );
-		} );
+		const lexemeId = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
+		const propertyId = browser.call( () => WikibaseApi.getProperty( 'string' ) );
 
 		let testStringValue = Util.getTestString( 'value-' );
 		LexemePage.open( lexemeId );
@@ -46,13 +32,10 @@ describe( 'Lexeme:Statements', () => {
 
 		assert.equal( testStringValue, statementFromGui.value, 'Statement value added to GUI shows value' );
 
-		browser.call( () => {
-			return LexemeApi.get( lexemeId )
-				.then( ( lexeme ) => {
-					assert.equal( 1, lexeme.claims[ propertyId ].length, 'Statement to be found via API' );
-					assert.equal( testStringValue, lexeme.claims[ propertyId ][ 0 ].mainsnak.datavalue.value, 'Correct value in API' );
-				} );
-		} );
+		browser.call( () => LexemeApi.get( lexemeId ).then( ( lexeme ) => {
+			assert.equal( 1, lexeme.claims[ propertyId ].length, 'Statement to be found via API' );
+			assert.equal( testStringValue, lexeme.claims[ propertyId ][ 0 ].mainsnak.datavalue.value, 'Correct value in API' );
+		} ) );
 	} );
 
 } );

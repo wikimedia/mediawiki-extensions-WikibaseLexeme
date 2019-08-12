@@ -16,9 +16,7 @@ describe( 'Special:Watchlist', () => {
 		username = Util.getTestString( 'user-' );
 		password = Util.getTestString( 'password-' );
 
-		browser.call( function () {
-			return Api.createAccount( username, password );
-		} );
+		browser.call( () => Api.createAccount( username, password ) );
 	} );
 
 	beforeEach( function () {
@@ -27,25 +25,18 @@ describe( 'Special:Watchlist', () => {
 	} );
 
 	it( 'shows lemmas in title links to lexemes', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create( {
-				lemmas: {
-					en: {
-						value: 'color',
-						language: 'en'
-					},
-					'en-gb': {
-						value: 'colour',
-						language: 'en-gb'
-					}
+		const id = browser.call( () => LexemeApi.create( {
+			lemmas: {
+				en: {
+					value: 'color',
+					language: 'en'
+				},
+				'en-gb': {
+					value: 'colour',
+					language: 'en-gb'
 				}
-			} )
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
-		} );
+			}
+		} ).then( ( lexeme ) => lexeme.id ) );
 
 		WatchablePage.watch( 'Lexeme:' + id );
 

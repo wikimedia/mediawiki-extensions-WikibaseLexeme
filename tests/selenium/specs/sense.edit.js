@@ -16,24 +16,18 @@ describe( 'Lexeme:Senses', () => {
 	} );
 
 	it( 'can edit sense and save successfully', () => {
-		let id;
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addSense(
+				id,
+				{
+					glosses: {
+						en: { language: 'en', value: 'cats' }
+					}
+				}
+			).then( () => id );
+		} ) );
 
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addSense(
-						id,
-						{
-							glosses: {
-								en: { language: 'en', value: 'cats' }
-							}
-						}
-					);
-				} );
-		} );
 		LexemePage.open( id );
 		SensePage.editSensValueAndSubmit( 0, 'goats' );
 
@@ -41,50 +35,36 @@ describe( 'Lexeme:Senses', () => {
 	} );
 
 	it( 'can not save senses with redundant languages', () => {
-		let id;
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addSense(
+				id,
+				{
+					glosses: {
+						en: { language: 'en', value: 'one' }
+					}
+				}
+			).then( () => id );
+		} ) );
 
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addSense(
-						id,
-						{
-							glosses: {
-								en: { language: 'en', value: 'one' }
-							}
-						}
-					);
-				} );
-		} );
 		LexemePage.open( id );
-
 		SensePage.addGlossToNthSense( 0, 'two', 'en', false );
 
 		assert.equal( SensePage.isNthSenseSubmittable( 0 ), false );
 	} );
 
 	it( 'shows the language and value in edit mode', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addSense(
-						id,
-						{
-							glosses: {
-								en: { language: 'en', value: 'goat' }
-							}
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addSense(
+				id,
+				{
+					glosses: {
+						en: { language: 'en', value: 'goat' }
+					}
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 		SensePage.startEditingNthSense( 0 );
@@ -94,24 +74,17 @@ describe( 'Lexeme:Senses', () => {
 	} );
 
 	it( 'removes sense when clicked on remove', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addSense(
-						id,
-						{
-							glosses: {
-								en: { language: 'en', value: 'goat' }
-							}
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addSense(
+				id,
+				{
+					glosses: {
+						en: { language: 'en', value: 'goat' }
+					}
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 		SensePage.startEditingNthSense( 0 );
@@ -122,24 +95,17 @@ describe( 'Lexeme:Senses', () => {
 	} );
 
 	it( 'Gloss value unchanged after editing was cancelled', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addSense(
-						id,
-						{
-							glosses: {
-								en: { language: 'en', value: 'goat' }
-							}
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addSense(
+				id,
+				{
+					glosses: {
+						en: { language: 'en', value: 'goat' }
+					}
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 		SensePage.editSenseNoSubmit( 0, 'goats' );
@@ -150,24 +116,17 @@ describe( 'Lexeme:Senses', () => {
 	} );
 
 	it( 'Removes Gloss', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addSense(
-						id,
-						{
-							glosses: {
-								en: { language: 'en', value: 'goat' }
-							}
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addSense(
+				id,
+				{
+					glosses: {
+						en: { language: 'en', value: 'goat' }
+					}
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 		SensePage.addGlossToNthSense( 0, 'test', 'de', true );

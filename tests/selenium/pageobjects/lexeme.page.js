@@ -231,13 +231,13 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @private
 	 */
 	_waitAndRetryInput( input, value, timeoutMS ) {
-		browser.call( () => {
-			return new Promise( ( resolve ) => {
+		browser.call( () =>
+			new Promise( ( resolve ) => {
 				setTimeout( resolve, timeoutMS || 1000 );
 			} ).then( () => {
 				input.setValue( value );
-			} );
-		} );
+			} )
+		);
 	}
 
 	/**

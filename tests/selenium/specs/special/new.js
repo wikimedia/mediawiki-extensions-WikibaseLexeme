@@ -23,8 +23,7 @@ describe( 'NewLexeme:Page', () => {
 	 * here as 'language', see README.md.
 	 */
 	describe( 'with default LexemeLanguageCodePropertyId configured', () => {
-		let lexemeLanguageCodePropertyId,
-			lexemeLanguageCodeProperty;
+		let lexemeLanguageCodePropertyId;
 
 		before( function () {
 			NewLexemePage.open();
@@ -46,12 +45,7 @@ describe( 'NewLexeme:Page', () => {
 				this.skip( 'LexemeLanguageCodePropertyId not set' );
 			}
 
-			browser.call( () => {
-				return WikibaseApi.getEntity( lexemeLanguageCodePropertyId )
-					.then( ( entity ) => {
-						lexemeLanguageCodeProperty = entity;
-					} );
-			} );
+			const lexemeLanguageCodeProperty = browser.call( () => WikibaseApi.getEntity( lexemeLanguageCodePropertyId ) );
 
 			if ( lexemeLanguageCodeProperty.missing === '' ) {
 				this.skip( 'Configured LexemeLanguageCodePropertyId not a known property' );
@@ -63,7 +57,6 @@ describe( 'NewLexeme:Page', () => {
 				language = Util.getTestString( 'language-' ),
 				languageItemsLanguageCode = 'en',
 				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-				languageId, lexicalCategoryId,
 				lexemeId;
 
 			NewLexemePage.open();
@@ -83,19 +76,9 @@ describe( 'NewLexeme:Page', () => {
 				}
 			];
 
-			browser.call( () => {
-				return WikibaseApi.createItem( language, { claims } )
-					.then( ( id ) => {
-						languageId = id;
-					} );
-			} );
+			const languageId = browser.call( () => WikibaseApi.createItem( language, { claims } ) );
 
-			browser.call( () => {
-				return WikibaseApi.createItem( lexicalCategory )
-					.then( ( id ) => {
-						lexicalCategoryId = id;
-					} );
-			} );
+			const lexicalCategoryId = browser.call( () => WikibaseApi.createItem( lexicalCategory ) );
 
 			NewLexemePage.createLexeme(
 				lemma,
@@ -107,14 +90,11 @@ describe( 'NewLexeme:Page', () => {
 
 			lexemeId = LexemePage.headerId;
 
-			browser.call( () => {
-				return LexemeApi.get( lexemeId )
-					.then( ( lexeme ) => {
-						assert.equal( lexeme.lemmas[ languageItemsLanguageCode ].value, lemma );
-						assert.equal( lexeme.language, languageId );
-						assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
-					} );
-			} );
+			browser.call( () => LexemeApi.get( lexemeId ).then( ( lexeme ) => {
+				assert.equal( lexeme.lemmas[ languageItemsLanguageCode ].value, lemma );
+				assert.equal( lexeme.language, languageId );
+				assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
+			} ) );
 		} );
 	} );
 
@@ -127,24 +107,13 @@ describe( 'NewLexeme:Page', () => {
 					wannabeLanguage = Util.getTestString( 'wannabeLanguage-' ),
 					lemmaLanguageCode = language,
 					lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-					wannabeLanguageId, lexicalCategoryId,
 					lexemeId;
 
 				NewLexemePage.open();
 
-				browser.call( () => {
-					return WikibaseApi.createItem( wannabeLanguage )
-						.then( ( id ) => {
-							wannabeLanguageId = id;
-						} );
-				} );
+				const wannabeLanguageId = browser.call( () => WikibaseApi.createItem( wannabeLanguage ) );
 
-				browser.call( () => {
-					return WikibaseApi.createItem( lexicalCategory )
-						.then( ( id ) => {
-							lexicalCategoryId = id;
-						} );
-				} );
+				const lexicalCategoryId = browser.call( () => WikibaseApi.createItem( lexicalCategory ) );
 
 				NewLexemePage.createLexeme(
 					lemma,
@@ -157,22 +126,19 @@ describe( 'NewLexeme:Page', () => {
 
 				lexemeId = LexemePage.headerId;
 
-				browser.call( () => {
-					return LexemeApi.get( lexemeId )
-						.then( ( lexeme ) => {
-							assert.equal(
-								JSON.stringify( lexeme.lemmas ),
-								JSON.stringify( {
-									[ lemmaLanguageCode ]: {
-										language: lemmaLanguageCode,
-										value: lemma
-									}
-								} )
-							);
-							assert.equal( lexeme.language, wannabeLanguageId );
-							assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
-						} );
-				} );
+				browser.call( () => LexemeApi.get( lexemeId ).then( ( lexeme ) => {
+					assert.equal(
+						JSON.stringify( lexeme.lemmas ),
+						JSON.stringify( {
+							[ lemmaLanguageCode ]: {
+								language: lemmaLanguageCode,
+								value: lemma
+							}
+						} )
+					);
+					assert.equal( lexeme.language, wannabeLanguageId );
+					assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
+				} ) );
 			} );
 		} );
 	} );
@@ -181,21 +147,13 @@ describe( 'NewLexeme:Page', () => {
 		it( 'is possible to immediately see lemmaLanguageCode field', () => {
 			let lemma = Util.getTestString( 'lemma-' ),
 				languageItem = Util.getTestString( 'wannabeLanguage-' ),
-				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-				languageItemId,
-				lexicalCategoryId;
+				lexicalCategory = Util.getTestString( 'lexicalCategory-' );
 
 			NewLexemePage.open();
 
-			browser.call( () => {
-				return Promise.all( [
-					WikibaseApi.createItem( languageItem ),
-					WikibaseApi.createItem( lexicalCategory )
-				] ).then( ( ids ) => {
-					languageItemId = ids[ 0 ];
-					lexicalCategoryId = ids[ 1 ];
-				} );
-			} );
+			const languageItemId = browser.call( () => WikibaseApi.createItem( languageItem ) );
+
+			const lexicalCategoryId = browser.call( () => WikibaseApi.createItem( lexicalCategory ) );
 
 			NewLexemePage.setLemma( lemma );
 			NewLexemePage.setLexemeLanguage( languageItemId );
@@ -214,19 +172,11 @@ describe( 'NewLexeme:Page', () => {
 			let lemma = Util.getTestString( 'lemma-' ),
 				languageItem = Util.getTestString( 'wannabeLanguage-' ),
 				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-				lemmaLanguage = 'fooLanguageCode',
-				languageItemId,
-				lexicalCategoryId;
+				lemmaLanguage = 'fooLanguageCode';
 
-			browser.call( () => {
-				return Promise.all( [
-					WikibaseApi.createItem( languageItem ),
-					WikibaseApi.createItem( lexicalCategory )
-				] ).then( ( ids ) => {
-					languageItemId = ids[ 0 ];
-					lexicalCategoryId = ids[ 1 ];
-				} );
-			} );
+			const languageItemId = browser.call( () => WikibaseApi.createItem( languageItem ) );
+
+			const lexicalCategoryId = browser.call( () => WikibaseApi.createItem( lexicalCategory ) );
 
 			NewLexemePage.open( {
 				'lexeme-language': languageItemId,
@@ -246,16 +196,12 @@ describe( 'NewLexeme:Page', () => {
 
 	describe( 'when blocked', () => {
 		beforeEach( () => {
-			return browser.call( () => {
-				return MWApi.blockUser();
-			} );
+			return browser.call( () => MWApi.blockUser() );
 
 		} );
 
 		afterEach( () => {
-			return browser.call( () => {
-				return MWApi.unblockUser();
-			} );
+			return browser.call( () => MWApi.unblockUser() );
 		} );
 
 		it( 'is not possible to edit', () => {

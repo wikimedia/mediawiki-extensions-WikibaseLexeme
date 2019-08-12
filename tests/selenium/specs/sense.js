@@ -13,15 +13,9 @@ describe( 'Lexeme:Senses', () => {
 		if ( !LexemePage.isUserLoggedIn() ) {
 			LoginPage.loginAdmin();
 		}
-		let id;
 
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
-		} );
 		LexemePage.open( id );
 		SensePage.addSense( 'en', 'Yacht' );
 	} );

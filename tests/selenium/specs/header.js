@@ -15,14 +15,7 @@ describe( 'Lexeme:Header', () => {
 	} );
 
 	it( 'shows id', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
 

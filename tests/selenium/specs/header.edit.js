@@ -14,66 +14,36 @@ try {
 describe( 'Lexeme:Header', () => {
 
 	it( 'can edit the language of a Lexeme', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} ).catch( assert.fail );
-		} );
-
-		let languageItem;
-		browser.call( () => {
-			return WikibaseApi.createItem()
-				.then( ( item ) => {
-					languageItem = item;
-				} ).catch( assert.fail );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
+		const languageItem = browser.call( () => WikibaseApi.createItem() );
 
 		LexemePage.open( id );
 		LexemePage.startHeaderEditMode();
 
 		LexemePage.setLexemeLanguageItem( languageItem );
 
-		browser.call( () => {
-			return LexemeApi.get( id )
-				.then( ( lexeme ) => {
-					assert.equal( languageItem, lexeme.language, 'Unexpected Language value' );
-				} ).catch( assert.fail );
-		} );
+		browser.call( () => LexemeApi.get( id )
+			.then( ( lexeme ) => {
+				assert.equal( languageItem, lexeme.language, 'Unexpected Language value' );
+			} ).catch( assert.fail )
+		);
 
 	} );
 
 	it( 'can edit the lexical category of a Lexeme', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} ).catch( assert.fail );
-		} );
-
-		let categoryItem;
-		browser.call( () => {
-			return WikibaseApi.createItem()
-				.then( ( item ) => {
-					categoryItem = item;
-				} ).catch( assert.fail );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
+		const categoryItem = browser.call( () => WikibaseApi.createItem() );
 
 		LexemePage.open( id );
 		LexemePage.startHeaderEditMode();
 
 		LexemePage.setLexicalCategoryItem( categoryItem );
 
-		browser.call( () => {
-			return LexemeApi.get( id )
-				.then( ( lexeme ) => {
-					assert.equal( categoryItem, lexeme.lexicalCategory, 'Unexpected lexical category value' );
-				} ).catch( assert.fail );
-		} );
+		browser.call( () => LexemeApi.get( id )
+			.then( ( lexeme ) => {
+				assert.equal( categoryItem, lexeme.lexicalCategory, 'Unexpected lexical category value' );
+			} ).catch( assert.fail )
+		);
 
 	} );
 } );

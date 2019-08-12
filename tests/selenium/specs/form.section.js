@@ -15,14 +15,7 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'shows Forms header', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
 
@@ -30,14 +23,7 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'has Forms container', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
 
@@ -45,25 +31,18 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'has an ID', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						id,
-						{
-							representations: {
-								'en-ca': { language: 'en-ca', value: 'color' }
-							},
-							grammaticalFeatures: []
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addForm(
+				id,
+				{
+					representations: {
+						'en-ca': { language: 'en-ca', value: 'color' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 
@@ -71,25 +50,18 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'has representation', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						id,
-						{
-							representations: {
-								'en-ca': { language: 'en-ca', value: 'color' }
-							},
-							grammaticalFeatures: []
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addForm(
+				id,
+				{
+					representations: {
+						'en-ca': { language: 'en-ca', value: 'color' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 
@@ -97,25 +69,18 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'has each representation having a language', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						id,
-						{
-							representations: {
-								en: { language: 'en', value: 'color' }
-							},
-							grammaticalFeatures: []
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addForm(
+				id,
+				{
+					representations: {
+						en: { language: 'en', value: 'color' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 
@@ -125,25 +90,18 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'show Forms grammatical features', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						id,
-						{
-							representations: {
-								en: { language: 'en', value: 'color' }
-							},
-							grammaticalFeatures: []
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addForm(
+				id,
+				{
+					representations: {
+						en: { language: 'en', value: 'color' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 		LexemePage.addFormLink.click();
@@ -152,27 +110,21 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'has link to Form', () => {
-		let id,
-			formId,
+		let formId,
 			anchorId;
 
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						id,
-						{
-							representations: {
-								en: { language: 'en', value: 'color' }
-							},
-							grammaticalFeatures: []
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addForm(
+				id,
+				{
+					representations: {
+						en: { language: 'en', value: 'color' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 

@@ -15,25 +15,18 @@ describe( 'Lexeme:Forms', () => {
 	} );
 
 	it( 'can be removed', () => {
-		let id;
-
-		browser.call( () => {
-			return LexemeApi.create()
-				.then( ( lexeme ) => {
-					id = lexeme.id;
-				} )
-				.then( () => {
-					return LexemeApi.addForm(
-						id,
-						{
-							representations: {
-								de: { language: 'de', value: 'lorem' }
-							},
-							grammaticalFeatures: []
-						}
-					);
-				} );
-		} );
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const id = lexeme.id;
+			return LexemeApi.addForm(
+				id,
+				{
+					representations: {
+						de: { language: 'de', value: 'lorem' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => id );
+		} ) );
 
 		LexemePage.open( id );
 
@@ -41,12 +34,9 @@ describe( 'Lexeme:Forms', () => {
 
 		assert.equal( 0, LexemePage.forms.length, 'form removed from GUI' );
 
-		browser.call( () => {
-			return LexemeApi.get( id )
-				.then( ( lexeme ) => {
-					assert.equal( 0, lexeme.forms.length, 'no forms to be found via API' );
-				} );
-		} );
+		browser.call( () => LexemeApi.get( id ).then( ( lexeme ) => {
+			assert.equal( 0, lexeme.forms.length, 'no forms to be found via API' );
+		} ) );
 
 	} );
 
