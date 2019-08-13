@@ -75,14 +75,14 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 			return '';
 		}
 
-		$langauge = $this->labelDescriptionLookup->getLabel( $entity->getLanguage() );
+		$language = $this->labelDescriptionLookup->getLabel( $entity->getLanguage() );
 		$category = $this->labelDescriptionLookup->getLabel( $entity->getLexicalCategory() );
 
-		if ( !$langauge || !$category ) {
+		if ( !$language || !$category ) {
 			return '';
 		}
 
-		return $langauge->getText() . ' ' . $category->getText();
+		return $language->getText() . ' ' . $category->getText();
 	}
 
 }
