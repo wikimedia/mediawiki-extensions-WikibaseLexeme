@@ -20,7 +20,7 @@ class LemmaLanguageFieldTest extends TestCase {
 	 * It already has it's own options
 	 * @dataProvider provideForbiddenConstructorParameters
 	 */
-	public function testConstructionWithForbiddenParamtersFails( $param ) {
+	public function testConstructionWithForbiddenParametersFails( $param ) {
 		new LemmaLanguageField( [ $param => 'value' ] );
 	}
 
