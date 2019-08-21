@@ -116,8 +116,9 @@ class SpecialNewLexeme extends SpecialPage {
 		$form->displayForm( $submitStatus ?: Status::newGood() );
 	}
 
-	private function checkBlocked() {
-		if ( $this->getUser()->isBlocked() ) {
+	protected function checkBlocked() {
+		$block = $this->getUser()->getBlock();
+		if ( $block && $block->isSitewide() ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}

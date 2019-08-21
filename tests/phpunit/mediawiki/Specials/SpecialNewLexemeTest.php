@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use FauxRequest;
+use MediaWiki\Block\AbstractBlock;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
@@ -90,6 +91,67 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		list( $html, ) = $this->executeSpecialPage( '', $request, 'qqx' );
 
 		$this->assertContains( '(actionthrottledtext)', $html );
+	}
+
+	/**
+	 * @throws \Exception
+	 */
+	public function testExceptionWhenUserBlockedOnNamespace() {
+		$block = $this->getMockBlock( false, true );
+		$user = $this->getMockBlockedUser( $block );
+
+		$this->setExpectedException( \UserBlockedError::class );
+		$this->executeSpecialPage( '', null, null, $user );
+	}
+
+	public function testNoExceptionWhenUserBlockedOnDifferentNamespace() {
+		$block = $this->getMockBlock( false, false );
+		$user = $this->getMockBlockedUser( $block );
+
+		// to avoid test being tagged as risky for not making assertions
+		$this->addToAssertionCount( 1 );
+		$this->executeSpecialPage( '', null, null, $user );
+	}
+
+	/**
+	 * @throws \Exception
+	 */
+	public function testExceptionWhenUserBlockedSitewide() {
+		$block = $this->getMockBlock( true );
+		$user = $this->getMockBlockedUser( $block );
+
+		$this->setExpectedException( \UserBlockedError::class );
+		$this->executeSpecialPage( '', null, null, $user );
+	}
+
+	private function getMockBlock( $isSiteWide, $isLexemeNamespace = null ) {
+		$block = $this->getMockBuilder( AbstractBlock::class )
+			->disableOriginalConstructor()
+			->getMock();
+		if ( $isLexemeNamespace != null ) {
+			$block->expects( $this->once() )
+				->method( 'appliesToNamespace' )
+				->with( $this->isType( 'integer' ) )
+				->willReturn( $isLexemeNamespace );
+		}
+		$block->method( 'isSitewide' )
+			->willReturn( $isSiteWide );
+		$block->method( 'getPermissionsError' )
+			->willReturn( [ 'foo' ] );
+
+		return $block;
+	}
+
+	private function getMockBlockedUser( $block ) {
+		$user = $this->getMockBuilder( \User::class )
+			->disableOriginalConstructor()
+			->getMock();
+		$user->method( 'getBlock' )
+			->willReturn( $block );
+		$user->method( 'isAllowed' )
+			->willReturn( true );
+
+		return $user;
 	}
 
 	public function testAllNecessaryFormFieldsArePresent_WhenRendered() {
