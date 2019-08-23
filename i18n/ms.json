@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tofeiku"
+		]
+	},
+	"special-newlexeme": "Cipta Leksem baru",
+	"special-mergelexemes": "Gabungkan dua Leksem",
+	"wikibaselexeme-deletedentity-form": "Bentuk Terhapus",
+	"wikibaselexeme-newlexeme-fieldset": "Cipta Leksem baru",
+	"wikibaselexeme-newlexeme-lemma": "Lema",
+	"wikibaselexeme-newlexeme-language": "Bahasa Leksem",
+	"wikibaselexeme-newlexeme-language-placeholder": "Masukkan bahasa, cth. Bahasa Melayu",
+	"wikibaselexeme-statementsection-statements-about-form": "Kenyataan tentang $1",
+	"wikibaselexeme-header-forms": "Bentuk",
+	"wikibaselexeme-statementsection-statements-about-sense": "Kenyataan tentang $1",
+	"wikibaselexeme-lemma-field-lemma-label": "Lema",
+	"wikibaselexeme-gloss-field-language-label": "Bahasa",
+	"wikibase-lexeme-summary-wbeditentity-update": "Telah mengubah suatu Leksem",
+	"datatypes-type-wikibase-lexeme": "Leksem",
+	"datatypes-type-wikibase-form": "Bentuk",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Leksem",
+	"wikibase-listdatatypes-wikibase-form-head": "Bentuk",
+	"wikibaselexeme-add-form": "tambah Bentuk",
+	"wikibase-pageinfo-wbl-forms": "Bilangan Bentuk",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Leksem baru tercipta",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Bentuk baru ditambah",
+	"wikibaselexeme-field-language-label": "Bahasa",
+	"wikibaselexeme-diffview-lemma": "Lema",
+	"wikibaselexeme-diffview-language": "bahasa",
+	"wikibaselexeme-diffview-form": "Bentuk",
+	"wikibase-lexeme-language-name-mis": "lain",
+	"wikibase-lexeme-language-selector-label": "$1 ($2)",
+	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Leksem '$1' tidak dapat dijumpai.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal memuat Leksem.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Gagal menyimpan Leksem."
+}
