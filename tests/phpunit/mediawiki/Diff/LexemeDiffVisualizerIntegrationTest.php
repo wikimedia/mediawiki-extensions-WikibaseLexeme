@@ -56,7 +56,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		parent::tearDown();
 
 		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
-		$this->clearLanguageNameCache();
 	}
 
 	public function testAddedStatementsWithLexemesAsTargetDisplayLemma() {
@@ -455,13 +454,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$handlers->setAccessible( true );
 
 		return $handlers;
-	}
-
-	private function clearLanguageNameCache() {
-		$languageClass = new \ReflectionClass( \Language::class );
-		$cacheProperty = $languageClass->getProperty( 'languageNameCache' );
-		$cacheProperty->setAccessible( true );
-		$cacheProperty->setValue( null );
 	}
 
 	private function saveItem( $id, $label ) {
