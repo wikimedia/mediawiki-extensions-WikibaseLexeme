@@ -8,13 +8,15 @@
 			"Robin van der Vliet",
 			"KlaasZ4usV",
 			"Ndecouck",
-			"Elroy"
+			"Elroy",
+			"George Animal"
 		]
 	},
 	"wikibaselexeme-desc": "Verzorgt het lexeem-entiteitstype",
 	"special-newlexeme": "Nieuw lexeem aanmaken",
 	"special-mergelexemes": "Twee lexemen samenvoegen",
 	"wikibaselexeme-deletedentity-form": "Vorm verwijderd",
+	"wikibaselexeme-deletedentity-sense": "{{delete|I accidentally created this. This is not Kurdish.}}",
 	"wikibaselexeme-newlexeme-fieldset": "Een nieuw lexeem aanmaken",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Spellingsvariant van lemma",
@@ -47,6 +49,7 @@
 	"wikibase-listdatatypes-wikibase-sense-head": "Betekenis",
 	"wikibaselexeme-add-sense": "Betekenis toevoegen",
 	"wikibaselexeme-add-form": "Vorm toevoegen",
+	"wikibase-pageinfo-wbl-senses": "{{delete|I accidentally created this. This is not Kurdish.}}",
 	"wikibase-lexeme-summary-remove-form": "Formulier $3 met {{PLURAL:$1|representatie|representaties}} verwijderd",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Creëer een nieuw lexeme.",
 	"wikibaselexeme-field-language-label": "Taal",

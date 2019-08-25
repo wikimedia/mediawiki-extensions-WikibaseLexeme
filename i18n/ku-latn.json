@@ -8,11 +8,19 @@
 		]
 	},
 	"wikibaselexeme-newlexeme-lexicalcategory": "Kategoriya peyvê",
+	"wikibaselexeme-newlexeme-language-placeholder": "Zimanekî binivîse, wek mînak kurdî",
+	"wikibaselexeme-header-forms": "Form",
+	"wikibaselexeme-header-senses": "Wate",
 	"wikibaselexeme-lemma-field-language-label": "Ziman",
 	"wikibaselexeme-form-field-language-label": "Ziman",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
+	"datatypes-type-wikibase-sense": "Wate",
+	"wikibase-listdatatypes-wikibase-sense-head": "Wate",
+	"wikibase-pageinfo-wbl-forms": "Hejmara forman",
+	"wikibase-pageinfo-wbl-senses": "Hejmara wateyan",
 	"wikibaselexeme-field-language-label": "Ziman",
 	"wikibaselexeme-diffview-language": "ziman",
+	"wikibaselexeme-diffview-sense": "Wate",
 	"wikibaselexeme-unknown-language": "Zimanê nenas",
 	"wikibaselexeme-unknown-category": "Nenas"
 }
