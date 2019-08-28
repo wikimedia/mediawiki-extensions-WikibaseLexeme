@@ -6,7 +6,8 @@
 			"Vlad5250",
 			"Renamerr",
 			"Bjankuloski06",
-			"Ата"
+			"Ата",
+			"Base"
 		]
 	},
 	"wikibaselexeme-desc": "Робота з типом сутності Лексеми",
@@ -27,7 +28,7 @@
 	"wikibaselexeme-enter-form-representation": "Введіть нову репрезентацію Форми",
 	"wikibaselexeme-empty-form-representation": "Не визначено жодної репрезентації Форми",
 	"wikibaselexeme-statementsection-statements-about-sense": "Твердження про $1",
-	"wikibaselexeme-header-senses": "Значења",
+	"wikibaselexeme-header-senses": "Смисли",
 	"wikibase-lexeme-gloss-empty": "Жодну глосу не визначено",
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
 	"wikibaselexeme-lemma-field-language-label": "Варіант написання",
