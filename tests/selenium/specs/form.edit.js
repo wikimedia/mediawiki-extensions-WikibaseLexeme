@@ -177,7 +177,8 @@ describe( 'Lexeme:Forms', () => {
 
 	} );
 
-	it( 'can cancel form addition', () => {
+	// T231685
+	it.skip( 'can cancel form addition', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
