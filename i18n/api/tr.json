@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Incelemeelemani"
+		]
+	},
+	"apihelp-wbladdform-summary": "Sözlükbirime Formları Ekle",
+	"apihelp-wbladdform-param-lexemeId": "Sözlükbirimin kimliği, örn. L10"
+}

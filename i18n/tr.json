@@ -50,6 +50,8 @@
 	"wikibase-listdatatypes-wikibase-sense-body": "Projedeki anlamlara bağlantı. Bir değer girildiğinde, projenin \"Sözlükbirim\" ad alanında eşleşen kelimeler aranacak.",
 	"wikibaselexeme-add-sense": "Anlam ekle",
 	"wikibaselexeme-add-form": "Form ekle",
+	"wikibase-pageinfo-wbl-forms": "Formların sayıları",
+	"wikibase-pageinfo-wbl-senses": "Anlamların sayıları",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Bir hata oluştu: Son Lemma kaldırılamaz.",
 	"wikibase-lexeme-summary-add-form": "{{PLURAL:$1|sunumu|sunumları}} ile yeni $3 Formu eklendi",
 	"wikibase-lexeme-summary-remove-form": "{{PLURAL:$1|sunumu|sunumları}} ile yeni $3 Formu silindi",
