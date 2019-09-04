@@ -61,7 +61,7 @@
 	"wikibase-lexeme-lemma-language-not-recognized": "No se reconoció el código de idioma proporcionado.",
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar lexemas",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» no es un identificador de lexema válido",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "No se encontró «$1»",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "No se encontró el lexema «$1».",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permiso denegado.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "No se puede fusionar un lexema consigo mismo."
 }

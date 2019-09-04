@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Xuacu"
+			"Xuacu",
+			"Fitoschido"
 		]
 	},
 	"wikibaselexeme-desc": "Alministrar el tipu d'entidá Lexema",
@@ -82,7 +83,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar Lexemes",
 	"wikibase-lexeme-mergelexemes-success": "$1 fusionóse con $2 y redirixóse.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' nun ye una id de Lexema válida",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Nun s'alcontró $1",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Nun s'alcontró'l lexema «$1».",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permisu refugáu.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Nun puede fusionase un lexema con sigo mesmu.",
 	"wikibase-entity-summary-wblmergelexemes-from": "Lexema fusionáu dende $3",

@@ -98,7 +98,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Fusiona els lexemes",
 	"wikibase-lexeme-mergelexemes-success": "S'ha fusionat $1 a $2 i s'ha redirigit.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» no és un identificador de lexema vàlid",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "No s'ha trobat el lexema '$1'.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "No s’ha trobat el lexema «$1».",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "No s'han pogut fusionar els lexemes. Resolgueu els conflictes abans. Error: els lexemes tenen la mateixa variant ortogràfica.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "No s'han pogut fusionar els lexemes. Resolgueu els conflictes abans. Error: els lexemes s'enllacen mútuament en una afirmació.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "No s'han pogut fusionar els lexemes. Resolgueu els conflictes abans. Error: els lexemes tenen llengües diferents.",
