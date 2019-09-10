@@ -1,4 +1,4 @@
-( function ( wb ) {
+( function () {
 	'use strict';
 
 	/**
@@ -40,6 +40,6 @@
 		}
 	} );
 
-	wb.lexeme.services.ItemLookup = ItemLookup;
+	module.exports = ItemLookup;
 
-}( wikibase ) );
+}() );

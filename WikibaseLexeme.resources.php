@@ -394,6 +394,7 @@ return call_user_func( function() {
 			]
 		],
 
+		// This module cannot go into packageFiles because it's connected to the PHP version of the Widget
 		"wikibase.lexeme.widgets.ItemSelectorWidget" => $moduleTemplate + [
 			"scripts" => [
 				"widgets/__namespace.js",
@@ -420,42 +421,18 @@ return call_user_func( function() {
 			"scripts" => "special/__namespace.js",
 			"dependencies" => "wikibase.lexeme"
 		],
-		"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver" => $moduleTemplate + [
-			"scripts" => [
-				"special/formHelpers/__namespace.js",
-				"special/formHelpers/LexemeLanguageFieldObserver.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme.special"
-			]
-		],
-		"wikibase.lexeme.services.ItemLookup" => $moduleTemplate + [
-			"scripts" => [
-				"services/__namespace.js",
-				"services/ItemLookup.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme"
-			]
-		],
-		"wikibase.lexeme.services.LanguageFromItemExtractor" => $moduleTemplate + [
-			"scripts" => [
-				"services/__namespace.js",
-				"services/LanguageFromItemExtractor.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme"
-			]
-		],
 		"wikibase.lexeme.special.NewLexeme.styles" => $moduleTemplate + [
 			"styles" => [
 				"special/new-lexeme.less"
 			]
 		],
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [
-			"scripts" => [
-				"special/__namespace.js",
-				"special/NewLexeme.js"
+			"packageFiles" => [
+				"special/NewLexeme.js",
+
+				"services/ItemLookup.js",
+				"services/LanguageFromItemExtractor.js",
+				"special/formHelpers/LexemeLanguageFieldObserver.js",
 			],
 			"dependencies" => [
 				"mw.config.values.wbRepo",
@@ -463,10 +440,7 @@ return call_user_func( function() {
 				"wikibase.api.getLocationAgnosticMwApi",
 				"wikibase.api.RepoApi",
 				"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig",
-				"wikibase.lexeme.services.ItemLookup",
-				"wikibase.lexeme.services.LanguageFromItemExtractor",
-				"wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver",
-				"wikibase.lexeme.widgets.ItemSelectorWidget"
+				"wikibase.lexeme.widgets.ItemSelectorWidget",
 			]
 		],
 		"wikibase.lexeme.view.ControllerViewFactory" => $moduleTemplate + [

@@ -1,7 +1,10 @@
 ( function ( wb ) {
 	'use strict';
 
-	var repoConfig = mw.config.get( 'wbRepo' ),
+	var LanguageFromItemExtractor = require( '../services/LanguageFromItemExtractor.js' ),
+		ItemLookup = require( '../services/ItemLookup.js' ),
+		LexemeLanguageFieldObserver = require( '../special/formHelpers/LexemeLanguageFieldObserver.js' ),
+		repoConfig = mw.config.get( 'wbRepo' ),
 		repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
 		languageSelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
 			$( '#wb-newlexeme-lexeme-language' )
@@ -20,10 +23,10 @@
 		};
 
 	languageSelector.initialize( $.extend( {
-		changeObserver: new wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver(
+		changeObserver: new LexemeLanguageFieldObserver(
 			$lemmaLanguageField,
-			new wb.lexeme.services.ItemLookup( new wb.api.RepoApi( mwApi ) ),
-			new wb.lexeme.services.LanguageFromItemExtractor( mw.config.get( 'LexemeLanguageCodePropertyId' ) )
+			new ItemLookup( new wb.api.RepoApi( mwApi ) ),
+			new LanguageFromItemExtractor( mw.config.get( 'LexemeLanguageCodePropertyId' ) )
 		)
 	}, itemSelectorConfig ) );
 

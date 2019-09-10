@@ -4,7 +4,8 @@
 ( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver' );
 
-	var getMockItemLookup = function () {
+	var LexemeLanguageFieldObserver = require( '../../../../resources/special/formHelpers/LexemeLanguageFieldObserver.js' ),
+		getMockItemLookup = function () {
 			return {
 				fetchEntity: function () {
 					var d = $.Deferred();
@@ -22,22 +23,20 @@
 		};
 
 	QUnit.test( 'Given not all parameters provided, throws error', function ( assert ) {
-		var LanguageFieldObserver = wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver;
-
 		assert.throws( function () {
-			new LanguageFieldObserver( null, getMockItemLookup(), getMockLanguageExtractor() );
+			new LexemeLanguageFieldObserver( null, getMockItemLookup(), getMockLanguageExtractor() );
 		} );
 		assert.throws( function () {
-			new LanguageFieldObserver( $( '<div/>' ), null, getMockLanguageExtractor() );
+			new LexemeLanguageFieldObserver( $( '<div/>' ), null, getMockLanguageExtractor() );
 		} );
 		assert.throws( function () {
-			new LanguageFieldObserver( $( '<div/>' ), getMockItemLookup(), null );
+			new LexemeLanguageFieldObserver( $( '<div/>' ), getMockItemLookup(), null );
 		} );
 	} );
 
 	QUnit.test( 'Given the provided item has no language code statement, lemma language field is shown', function ( assert ) {
 		var $field = $( '<div/>' ).css( 'display', 'none' ),
-			languageFieldObserver = new wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver(
+			languageFieldObserver = new LexemeLanguageFieldObserver(
 				$field,
 				getMockItemLookup(),
 				getMockLanguageExtractor()
@@ -54,7 +53,7 @@
 
 	QUnit.test( 'Given the provided item has a language code statement, lemma language field is hidden', function ( assert ) {
 		var $field = $( '<div><input/></div>' ),
-			languageFieldObserver = new wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver(
+			languageFieldObserver = new LexemeLanguageFieldObserver(
 				$field,
 				getMockItemLookup(),
 				getMockLanguageExtractor( 'en' )

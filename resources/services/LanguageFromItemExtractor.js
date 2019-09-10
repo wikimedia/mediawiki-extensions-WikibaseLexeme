@@ -1,4 +1,4 @@
-( function ( wb ) {
+( function () {
 	'use strict';
 
 	var LanguageFromItemExtractor = function ( languageCodePropertyId ) {
@@ -43,6 +43,6 @@
 		}
 	} );
 
-	wb.lexeme.services.LanguageFromItemExtractor = LanguageFromItemExtractor;
+	module.exports = LanguageFromItemExtractor;
 
-}( wikibase ) );
+}() );

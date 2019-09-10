@@ -1,4 +1,4 @@
-( function ( wb ) {
+( function () {
 	'use strict';
 
 	/**
@@ -64,6 +64,6 @@
 
 	} );
 
-	wb.lexeme.special.formHelpers.LexemeLanguageFieldObserver = LexemeLanguageFieldObserver;
+	module.exports = LexemeLanguageFieldObserver;
 
-}( wikibase ) );
+}() );

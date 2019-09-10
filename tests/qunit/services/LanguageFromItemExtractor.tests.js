@@ -3,14 +3,14 @@
  */
 ( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.services.LanguageFromItemExtractor' );
-
+	var LanguageFromItemExtractor = require( '../../../resources/services/LanguageFromItemExtractor.js' );
 	var newLanguageExtractor = function ( propertyId ) {
-		return new wb.lexeme.services.LanguageFromItemExtractor( propertyId );
+		return new LanguageFromItemExtractor( propertyId );
 	};
 
 	QUnit.test( 'requires language code property ID', function ( assert ) {
 		assert.throws( function () {
-			new wb.lexeme.services.LanguageFromItemExtractor();
+			new LanguageFromItemExtractor();
 		} );
 	} );
 

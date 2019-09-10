@@ -172,9 +172,6 @@ class WikibaseLexemeHooks {
 				'tests/qunit/serialization/LexemeDeserializer.tests.js',
 				'tests/qunit/serialization/FormSerializer.tests.js',
 				'tests/qunit/serialization/SenseSerializer.tests.js',
-				'tests/qunit/services/ItemLookup.tests.js',
-				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
-				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'tests/qunit/widgets/ItemSelectorWidget.tests.js',
 				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
 				'tests/qunit/view/ViewFactoryFactory.tests.js',
@@ -198,9 +195,6 @@ class WikibaseLexemeHooks {
 				'wikibase.lexeme.serialization.LexemeDeserializer',
 				'wikibase.lexeme.serialization.FormSerializer',
 				'wikibase.lexeme.serialization.SenseSerializer',
-				'wikibase.lexeme.services.ItemLookup',
-				'wikibase.lexeme.services.LanguageFromItemExtractor',
-				'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver',
 				'wikibase.lexeme.widgets.ItemSelectorWidget',
 				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 				'wikibase.lexeme.widgets.GlossWidget',
@@ -211,6 +205,23 @@ class WikibaseLexemeHooks {
 				'wikibase.view.tests.getMockListItemAdapter',
 				'vue2',
 				'vuex',
+			],
+			'localBasePath' => dirname( __DIR__ ),
+			'remoteExtPath' => 'WikibaseLexeme',
+		];
+
+		$testModules['qunit']['WikibaseLexeme.tests.internals'] = [
+			'packageFiles' => [
+				'tests/qunit/internals.tests.js',
+
+				'tests/qunit/services/ItemLookup.tests.js',
+				'resources/services/ItemLookup.js',
+
+				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
+				'resources/services/LanguageFromItemExtractor.js',
+
+				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
+				'resources/special/formHelpers/LexemeLanguageFieldObserver.js',
 			],
 			'localBasePath' => dirname( __DIR__ ),
 			'remoteExtPath' => 'WikibaseLexeme',

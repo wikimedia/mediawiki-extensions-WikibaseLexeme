@@ -3,6 +3,7 @@
  */
 ( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.services.ItemLookup' );
+	var ItemLookup = require( '../../../resources/services/ItemLookup.js' );
 
 	var getMockApiWithResponse = function ( response ) {
 			return {
@@ -23,12 +24,12 @@
 			};
 		},
 		newLookupWithApi = function ( api ) {
-			return new wb.lexeme.services.ItemLookup( api );
+			return new ItemLookup( api );
 		};
 
 	QUnit.test( 'requires RepoApi', function ( assert ) {
 		assert.throws( function () {
-			new wb.lexeme.services.ItemLookup();
+			new ItemLookup();
 		} );
 	} );
 
