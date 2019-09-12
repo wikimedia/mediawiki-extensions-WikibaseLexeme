@@ -3,7 +3,9 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use FauxRequest;
-use MediaWiki\Block\AbstractBlock;
+use MediaWiki\Block\DatabaseBlock;
+use MediaWiki\Block\Restriction\NamespaceRestriction;
+use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
@@ -60,14 +62,12 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	}
 
 	protected function newSpecialPage() {
-		$irrelevantNamespaceNumber = -1;
-
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$summaryFormatter = $this->getMockSummaryFormatter();
 
 		return new SpecialNewLexeme(
 			$this->copyrightView,
-			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => $irrelevantNamespaceNumber ] ),
+			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			$summaryFormatter,
 			$wikibaseRepo->getEntityTitleLookup(),
 			$wikibaseRepo->newEditEntityFactory()
@@ -97,16 +97,14 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @throws \Exception
 	 */
 	public function testExceptionWhenUserBlockedOnNamespace() {
-		$block = $this->getMockBlock( false, true );
-		$user = $this->getMockBlockedUser( $block );
+		$user = $this->getTestBlockedUser( false, [ 146 ] );
 
 		$this->setExpectedException( \UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
 
 	public function testNoExceptionWhenUserBlockedOnDifferentNamespace() {
-		$block = $this->getMockBlock( false, false );
-		$user = $this->getMockBlockedUser( $block );
+		$user = $this->getTestBlockedUser( false, [ NS_MAIN ] );
 
 		// to avoid test being tagged as risky for not making assertions
 		$this->addToAssertionCount( 1 );
@@ -117,40 +115,31 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @throws \Exception
 	 */
 	public function testExceptionWhenUserBlockedSitewide() {
-		$block = $this->getMockBlock( true );
-		$user = $this->getMockBlockedUser( $block );
+		$user = $this->getTestBlockedUser( true );
 
 		$this->setExpectedException( \UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
 
-	private function getMockBlock( $isSiteWide, $isLexemeNamespace = null ) {
-		$block = $this->getMockBuilder( AbstractBlock::class )
-			->disableOriginalConstructor()
-			->getMock();
-		if ( $isLexemeNamespace != null ) {
-			$block->expects( $this->once() )
-				->method( 'appliesToNamespace' )
-				->with( $this->isType( 'integer' ) )
-				->willReturn( $isLexemeNamespace );
+	private function getTestBlockedUser( $blockIsSitewide, $blockedNamespaces = null ) {
+		$user = $this->getMutableTestUser()->getUser();
+		$block = new DatabaseBlock( [
+			'address' => $user->getName(),
+			'user' => $user->getID(),
+			'by' => $this->getTestSysop()->getUser()->getId(),
+			'reason' => __METHOD__,
+			'expiry' => time() + 100500,
+			'sitewide' => $blockIsSitewide,
+		] );
+		$block->insert();
+		if ( $blockedNamespaces !== null ) {
+			$restrictions = [];
+			foreach ( $blockedNamespaces as $blockedNamespace ) {
+				$restrictions[] = new NamespaceRestriction( $block->getId(), $blockedNamespace );
+			}
+			$block->setRestrictions( $restrictions );
+			MediaWikiServices::getInstance()->getBlockRestrictionStore()->insert( $restrictions );
 		}
-		$block->method( 'isSitewide' )
-			->willReturn( $isSiteWide );
-		$block->method( 'getPermissionsError' )
-			->willReturn( [ 'foo' ] );
-
-		return $block;
-	}
-
-	private function getMockBlockedUser( $block ) {
-		$user = $this->getMockBuilder( \User::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$user->method( 'getBlock' )
-			->willReturn( $block );
-		$user->method( 'isAllowed' )
-			->willReturn( true );
-
 		return $user;
 	}
 
