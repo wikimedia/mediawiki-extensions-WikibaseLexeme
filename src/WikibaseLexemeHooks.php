@@ -210,19 +210,22 @@ class WikibaseLexemeHooks {
 			'remoteExtPath' => 'WikibaseLexeme',
 		];
 
+		$testFiles = [
+			'services/ItemLookup.tests.js',
+			'services/LanguageFromItemExtractor.tests.js',
+			'special/formHelpers/LexemeLanguageFieldObserver.tests.js',
+		];
 		$testModules['qunit']['WikibaseLexeme.tests.internals'] = [
-			'packageFiles' => [
+			'packageFiles' => array_merge( [
 				'tests/qunit/internals.tests.js',
 
-				'tests/qunit/services/ItemLookup.tests.js',
 				'resources/services/ItemLookup.js',
-
-				'tests/qunit/services/LanguageFromItemExtractor.tests.js',
 				'resources/services/LanguageFromItemExtractor.js',
-
-				'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 				'resources/special/formHelpers/LexemeLanguageFieldObserver.js',
-			],
+				[ 'name' => 'testFiles.json', 'content' => $testFiles ]
+			], array_map( function( $file ) {
+				return 'tests/qunit/' . $file;
+			}, $testFiles ) ),
 			'localBasePath' => dirname( __DIR__ ),
 			'remoteExtPath' => 'WikibaseLexeme',
 		];
