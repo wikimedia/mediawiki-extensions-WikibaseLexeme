@@ -105,7 +105,8 @@ class WikibaseLexemeServices {
 					RequestContext::getMain()->getUser(),
 					$this->botEditRequested,
 					$this->getWikibaseRepo()->getEntityStore(),
-					$this->getWikibaseRepo()->getEntityRevisionLookup()
+					$this->getWikibaseRepo()->getEntityRevisionLookup(),
+					MediaWikiServices::getInstance()->getPermissionManager()
 				);
 			}
 		);

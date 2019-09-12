@@ -196,7 +196,9 @@ class EditFormElements extends \ApiBase {
 
 		// TODO: bot flag should probably be part of the request
 		$flags = EDIT_UPDATE;
-		if ( isset( $params['bot'] ) && $params['bot'] && $this->getUser()->isAllowed( 'bot' ) ) {
+		if ( isset( $params['bot'] ) && $params['bot'] &&
+			$this->getPermissionManager()->userHasRight( $this->getUser(), 'bot' )
+		) {
 			$flags |= EDIT_FORCE_BOT;
 		}
 

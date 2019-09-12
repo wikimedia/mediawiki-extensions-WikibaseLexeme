@@ -139,7 +139,10 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 
 		$testuser = self::getTestUser()->getUser();
 
-		$this->assertTrue( $testuser->isBlocked(), 'User is expected to be blocked' );
+		$this->assertTrue(
+			$testuser->getBlock()->appliesToRight( 'edit' ),
+			'User is expected to be blocked'
+		);
 
 		try {
 			$this->doApiRequestWithToken(

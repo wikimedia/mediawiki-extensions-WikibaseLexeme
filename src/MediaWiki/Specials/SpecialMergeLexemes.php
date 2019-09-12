@@ -6,6 +6,8 @@ use Exception;
 use Html;
 use HTMLForm;
 use InvalidArgumentException;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\PermissionManager;
 use Message;
 use SpecialPage;
 use UserBlockedError;
@@ -42,15 +44,22 @@ class SpecialMergeLexemes extends SpecialPage {
 	 */
 	private $exceptionLocalizer;
 
+	/**
+	 * @var PermissionManager
+	 */
+	private $permissionManager;
+
 	public function __construct(
 		MergeLexemesInteractor $mergeInteractor,
 		EntityTitleLookup $titleLookup,
-		ExceptionLocalizer $exceptionLocalizer
+		ExceptionLocalizer $exceptionLocalizer,
+		PermissionManager $permissionManager
 	) {
 		parent::__construct( 'MergeLexemes', 'item-merge' );
 		$this->mergeInteractor = $mergeInteractor;
 		$this->titleLookup = $titleLookup;
 		$this->exceptionLocalizer = $exceptionLocalizer;
+		$this->permissionManager = $permissionManager;
 	}
 
 	/**
@@ -82,7 +91,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	}
 
 	private function checkBlocked() {
-		if ( $this->getUser()->isBlockedFrom( $this->getFullTitle() ) ) {
+		if ( $this->permissionManager->isBlockedFrom( $this->getUser(), $this->getFullTitle() ) ) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}
@@ -93,7 +102,8 @@ class SpecialMergeLexemes extends SpecialPage {
 		return new self(
 			WikibaseLexemeServices::createGlobalInstance( false )->newMergeLexemesInteractor(),
 			$repo->getEntityTitleLookup(),
-			$repo->getExceptionLocalizer()
+			$repo->getExceptionLocalizer(),
+			MediaWikiServices::getInstance()->getPermissionManager()
 		);
 	}
 

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
+use MediaWiki\Permissions\PermissionManager;
 use Wikibase\EntityContent;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -22,6 +23,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	private $entityStore;
 	private $botEditRequested;
 	private $entityRevisionLookup;
+	private $permissionManager;
 
 	/**
 	 * @param \User $user
@@ -29,14 +31,21 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	 * Ignored if the user does not have the 'bot' right.
 	 * @param EntityStore $entityStore Needs to be able to save Lexeme entities
 	 * @param EntityRevisionLookup $entityRevisionLookup Needs to be able to retrieve Lexeme entities
+	 * @param PermissionManager $permissionManager
 	 */
-	public function __construct( \User $user, $botEditRequested, EntityStore $entityStore,
-		EntityRevisionLookup $entityRevisionLookup ) {
+	public function __construct(
+		\User $user,
+		$botEditRequested,
+		EntityStore $entityStore,
+		EntityRevisionLookup $entityRevisionLookup,
+		PermissionManager $permissionManager
+	) {
 
 		$this->user = $user;
 		$this->botEditRequested = $botEditRequested;
 		$this->entityStore = $entityStore;
 		$this->entityRevisionLookup = $entityRevisionLookup;
+		$this->permissionManager = $permissionManager;
 	}
 
 	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary ) {
@@ -59,7 +68,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 		// (LexemeHandler has no onSaveValidators)
 		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
 
-		if ( $this->botEditRequested && $this->user->isAllowed( 'bot' ) ) {
+		if ( $this->botEditRequested && $this->permissionManager->userHasRight( $this->user, 'bot' ) ) {
 			$flags |= EDIT_FORCE_BOT;
 		}
 
