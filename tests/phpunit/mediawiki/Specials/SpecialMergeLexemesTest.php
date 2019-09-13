@@ -5,6 +5,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 use Exception;
 use FauxRequest;
 use HamcrestPHPUnitIntegration;
+use MediaWiki\MediaWikiServices;
+use MediaWiki\Permissions\PermissionManager;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RawMessage;
@@ -55,6 +57,9 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	/** @var ExceptionLocalizer|MockObject */
 	private $exceptionLocalizer;
 
+	/** @var PermissionManager */
+	private $permissionManager;
+
 	public function setUp() {
 		parent::setUp();
 
@@ -65,6 +70,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		$this->entityStore = $this->repo->getEntityStore();
 		$this->titleLookup = $this->repo->getEntityTitleLookup();
 		$this->exceptionLocalizer = $this->newMockExceptionLocalizer();
+		$this->permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
 	}
 
 	public function testSpecialMergeLexemesContainsInputFields() {
@@ -206,7 +212,8 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		return new SpecialMergeLexemes(
 			$this->mergeInteractor,
 			$this->titleLookup,
-			$this->exceptionLocalizer
+			$this->exceptionLocalizer,
+			$this->permissionManager
 		);
 	}
 

@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use MWNamespace;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -17,7 +17,8 @@ class LexemeMWNamespaceTest extends TestCase {
 	 * @dataProvider provideNamespacesAndMoveability
 	 */
 	public function testNamespaceMoveability( $namespace, $moveable ) {
-		$this->assertSame( $moveable, MWNamespace::isMovable( $namespace ) );
+		$this->assertSame( $moveable, MediaWikiServices::getInstance()->getNamespaceInfo()
+			->isMovable( $namespace ) );
 	}
 
 	public function provideNamespacesAndMoveability() {

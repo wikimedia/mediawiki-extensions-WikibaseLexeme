@@ -206,7 +206,9 @@ class AddSense extends ApiBase {
 			$summary
 		);
 		$flags = EDIT_UPDATE;
-		if ( isset( $params['bot'] ) && $params['bot'] && $this->getUser()->isAllowed( 'bot' ) ) {
+		if ( isset( $params['bot'] ) && $params['bot'] &&
+			$this->getPermissionManager()->userHasRight( $this->getUser(), 'bot' )
+		) {
 			$flags |= EDIT_FORCE_BOT;
 		}
 
