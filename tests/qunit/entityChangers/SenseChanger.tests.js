@@ -6,7 +6,7 @@
 
 	QUnit.module( 'wikibase.lexeme.entityChangers.SenseChanger' );
 
-	var SenseChanger = wb.lexeme.entityChangers.SenseChanger;
+	var SenseChanger = require( '../../../resources/entityChangers/SenseChanger.js' );
 	var Sense = wb.lexeme.datamodel.Sense;
 	var TermMap = wb.datamodel.TermMap;
 	var Term = wb.datamodel.Term;

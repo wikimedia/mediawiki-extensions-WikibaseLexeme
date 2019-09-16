@@ -1,10 +1,10 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb ) {
+( function () {
 	'use strict';
 
-	var SELF = wb.lexeme.RevisionStore = function WbLexemeRevisionStore( baseStore ) {
+	var SELF = function WbLexemeRevisionStore( baseStore ) {
 		this.baseStore = baseStore;
 		this.formRevisions = {};
 		this.formStatementRevisions = {};
@@ -140,4 +140,6 @@
 
 	} );
 
-}( wikibase ) );
+	module.exports = SELF;
+
+}() );

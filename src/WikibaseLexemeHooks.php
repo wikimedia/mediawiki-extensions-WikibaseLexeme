@@ -165,9 +165,6 @@ class WikibaseLexemeHooks {
 					'tests/qunit/datamodel/Form.tests.js',
 					'tests/qunit/datamodel/Sense.tests.js',
 					'tests/qunit/datamodel/Lexeme.tests.js',
-					'tests/qunit/entityChangers/FormChanger.tests.js',
-					'tests/qunit/entityChangers/SenseChanger.tests.js',
-					'tests/qunit/entityChangers/LexemeRevisionStore.tests.js',
 					'tests/qunit/experts/Lexeme.tests.js',
 					'tests/qunit/experts/Form.tests.js',
 					'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
@@ -181,7 +178,6 @@ class WikibaseLexemeHooks {
 					'tests/qunit/widgets/ItemSelectorWidget.tests.js',
 					'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
 					'tests/qunit/view/ViewFactoryFactory.tests.js',
-					'tests/qunit/view/ControllerViewFactory.tests.js',
 				],
 				'dependencies' => [
 					'jquery.valueview.tests.testExpert',
@@ -195,9 +191,6 @@ class WikibaseLexemeHooks {
 					'wikibase.experts.Form',
 					'wikibase.lexeme.datamodel.Form',
 					'wikibase.lexeme.datamodel.Sense',
-					'wikibase.lexeme.entityChangers.FormChanger',
-					'wikibase.lexeme.entityChangers.SenseChanger',
-					'wikibase.lexeme.entityChangers.LexemeRevisionStore',
 					'wikibase.lexeme.serialization.LexemeDeserializer',
 					'wikibase.lexeme.serialization.FormSerializer',
 					'wikibase.lexeme.serialization.SenseSerializer',
@@ -230,6 +223,41 @@ class WikibaseLexemeHooks {
 					'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
 					'resources/special/formHelpers/LexemeLanguageFieldObserver.js',
 				],
+			],
+			'WikibaseLexeme.tests.ControllerViewFactory' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/view/ControllerViewFactory.tests.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ControllerViewFactory"
+				]
+			],
+			'WikibaseLexeme.tests.FormChanger' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/entityChangers/FormChanger.tests.js',
+					'resources/entityChangers/FormChanger.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ControllerViewFactory"
+				]
+			],
+			'WikibaseLexeme.tests.SenseChanger' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/entityChangers/SenseChanger.tests.js',
+					'resources/entityChangers/SenseChanger.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ControllerViewFactory"
+				]
+			],
+			'WikibaseLexeme.tests.LexemeRevisionStore' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/entityChangers/LexemeRevisionStore.tests.js',
+					'resources/entityChangers/LexemeRevisionStore.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ControllerViewFactory"
+				]
 			],
 		];
 

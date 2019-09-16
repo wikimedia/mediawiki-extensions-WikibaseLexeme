@@ -1,7 +1,7 @@
 ( function ( wb ) {
 	'use strict';
 
-	var ControllerViewFactory = wb.lexeme.view.ControllerViewFactory;
+	var ControllerViewFactory = wb.lexeme.ControllerViewFactory;
 
 	function newControllerViewFactory() {
 		return new ControllerViewFactory(

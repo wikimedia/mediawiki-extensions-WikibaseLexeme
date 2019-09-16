@@ -23,7 +23,7 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
 
 		_getControllerViewFactory: function ( factoryArguments ) {
 			return this._getInstance(
-				wb.lexeme.view.ControllerViewFactory,
+				wb.lexeme.ControllerViewFactory,
 				factoryArguments
 			);
 		},
