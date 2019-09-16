@@ -7,7 +7,8 @@
 			"Yzelf",
 			"Oupsa",
 			"Tpt",
-			"Ash Crow"
+			"Ash Crow",
+			"Thibaut120094"
 		]
 	},
 	"wikibaselexeme-desc": "Manipuler le type d’entité Lexème",
@@ -45,11 +46,11 @@
 	"datatypes-type-wikibase-form": "Forme",
 	"datatypes-type-wikibase-sense": "Sens",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexème",
-	"wikibase-listdatatypes-wikibase-lexeme-body": "Lien vers les lexèmes du projet. Quand une valeur est saisie, l’espace de noms « Lexeme » du projet sera recherché pour trouver les lexèmes correspondants.",
+	"wikibase-listdatatypes-wikibase-lexeme-body": "Lien vers les lexèmes du projet. Quand une valeur est saisie, l’espace de noms « Lexème » du projet sera recherché pour trouver les lexèmes correspondants.",
 	"wikibase-listdatatypes-wikibase-form-head": "Forme",
-	"wikibase-listdatatypes-wikibase-form-body": "Lien vers les formes du projet. Quand une valeur est saisie, l’espace de noms « Lexeme » du projet sera recherché pour trouver les formes correspondantes.",
+	"wikibase-listdatatypes-wikibase-form-body": "Lien vers les formes du projet. Quand une valeur est saisie, l’espace de noms « Lexème » du projet sera recherché pour trouver les formes correspondantes.",
 	"wikibase-listdatatypes-wikibase-sense-head": "Sens",
-	"wikibase-listdatatypes-wikibase-sense-body": "Lien vers les sens du projet. Quand une valeur est saisie, l’espace de noms « Lexeme » du projet est recherché pour trouver les sens correspondants.",
+	"wikibase-listdatatypes-wikibase-sense-body": "Lien vers les sens du projet. Quand une valeur est saisie, l’espace de noms « Lexème » du projet est recherché pour trouver les sens correspondants.",
 	"wikibaselexeme-add-sense": "ajouter un sens",
 	"wikibaselexeme-add-form": "ajouter une forme",
 	"wikibase-pageinfo-wbl-forms": "Nombre de formulaires",
