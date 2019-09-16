@@ -417,10 +417,6 @@ return call_user_func( function() {
 				"mediawiki.widgets"
 			]
 		],
-		"wikibase.lexeme.special" => $moduleTemplate + [
-			"scripts" => "special/__namespace.js",
-			"dependencies" => "wikibase.lexeme"
-		],
 		"wikibase.lexeme.special.NewLexeme.styles" => $moduleTemplate + [
 			"styles" => [
 				"special/new-lexeme.less"
