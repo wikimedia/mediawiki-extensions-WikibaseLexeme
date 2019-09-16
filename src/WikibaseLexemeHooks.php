@@ -154,80 +154,83 @@ class WikibaseLexemeHooks {
 	}
 
 	public static function onResourceLoaderTestModules( array &$testModules, ResourceLoader $rl ) {
-		$testModules['qunit']['WikibaseLexeme.tests'] = [
-			'scripts' => [
-				'tests/qunit/datamodel/Form.tests.js',
-				'tests/qunit/datamodel/Sense.tests.js',
-				'tests/qunit/datamodel/Lexeme.tests.js',
-				'tests/qunit/entityChangers/FormChanger.tests.js',
-				'tests/qunit/entityChangers/SenseChanger.tests.js',
-				'tests/qunit/entityChangers/LexemeRevisionStore.tests.js',
-				'tests/qunit/experts/Lexeme.tests.js',
-				'tests/qunit/experts/Form.tests.js',
-				'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
-				'tests/qunit/jquery.wikibase.lexemeformview.tests.js',
-				'tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js',
-				'tests/qunit/jquery.wikibase.senselistview.tests.js',
-				'tests/qunit/jquery.wikibase.senseview.tests.js',
-				'tests/qunit/serialization/LexemeDeserializer.tests.js',
-				'tests/qunit/serialization/FormSerializer.tests.js',
-				'tests/qunit/serialization/SenseSerializer.tests.js',
-				'tests/qunit/widgets/ItemSelectorWidget.tests.js',
-				'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
-				'tests/qunit/view/ViewFactoryFactory.tests.js',
-				'tests/qunit/view/ControllerViewFactory.tests.js',
-			],
-			'dependencies' => [
-				'jquery.valueview.tests.testExpert',
-				'jquery.wikibase.lexemeformlistview',
-				'jquery.wikibase.lexemeformview',
-				'jquery.wikibase.grammaticalfeatureview',
-				'jquery.wikibase.senselistview',
-				'jquery.wikibase.senseview',
-				'oojs-ui',
-				'wikibase.experts.Lexeme',
-				'wikibase.experts.Form',
-				'wikibase.lexeme.datamodel.Form',
-				'wikibase.lexeme.datamodel.Sense',
-				'wikibase.lexeme.entityChangers.FormChanger',
-				'wikibase.lexeme.entityChangers.SenseChanger',
-				'wikibase.lexeme.entityChangers.LexemeRevisionStore',
-				'wikibase.lexeme.serialization.LexemeDeserializer',
-				'wikibase.lexeme.serialization.FormSerializer',
-				'wikibase.lexeme.serialization.SenseSerializer',
-				'wikibase.lexeme.widgets.ItemSelectorWidget',
-				'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
-				'wikibase.lexeme.widgets.GlossWidget',
-				'wikibase.lexeme.widgets.RepresentationWidget',
-				'wikibase.lexeme.view.ControllerViewFactory',
-				'wikibase.lexeme.view.ViewFactoryFactory',
-				'wikibase.tests.qunit.testrunner',
-				'wikibase.view.tests.getMockListItemAdapter',
-				'vue2',
-				'vuex',
-			],
+		$moduleBase = [
 			'localBasePath' => dirname( __DIR__ ),
 			'remoteExtPath' => 'WikibaseLexeme',
 		];
 
-		$testFiles = [
-			'services/ItemLookup.tests.js',
-			'services/LanguageFromItemExtractor.tests.js',
-			'special/formHelpers/LexemeLanguageFieldObserver.tests.js',
-		];
-		$testModules['qunit']['WikibaseLexeme.tests.internals'] = [
-			'packageFiles' => array_merge( [
-				'tests/qunit/internals.tests.js',
-
-				'resources/services/ItemLookup.js',
-				'resources/services/LanguageFromItemExtractor.js',
-				'resources/special/formHelpers/LexemeLanguageFieldObserver.js',
-				[ 'name' => 'testFiles.json', 'content' => $testFiles ]
-			], array_map( function( $file ) {
-				return 'tests/qunit/' . $file;
-			}, $testFiles ) ),
-			'localBasePath' => dirname( __DIR__ ),
-			'remoteExtPath' => 'WikibaseLexeme',
+		$testModules['qunit'] += [
+			'WikibaseLexeme.tests' => $moduleBase + [
+				'scripts' => [
+					'tests/qunit/datamodel/Form.tests.js',
+					'tests/qunit/datamodel/Sense.tests.js',
+					'tests/qunit/datamodel/Lexeme.tests.js',
+					'tests/qunit/entityChangers/FormChanger.tests.js',
+					'tests/qunit/entityChangers/SenseChanger.tests.js',
+					'tests/qunit/entityChangers/LexemeRevisionStore.tests.js',
+					'tests/qunit/experts/Lexeme.tests.js',
+					'tests/qunit/experts/Form.tests.js',
+					'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
+					'tests/qunit/jquery.wikibase.lexemeformview.tests.js',
+					'tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js',
+					'tests/qunit/jquery.wikibase.senselistview.tests.js',
+					'tests/qunit/jquery.wikibase.senseview.tests.js',
+					'tests/qunit/serialization/LexemeDeserializer.tests.js',
+					'tests/qunit/serialization/FormSerializer.tests.js',
+					'tests/qunit/serialization/SenseSerializer.tests.js',
+					'tests/qunit/widgets/ItemSelectorWidget.tests.js',
+					'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
+					'tests/qunit/view/ViewFactoryFactory.tests.js',
+					'tests/qunit/view/ControllerViewFactory.tests.js',
+				],
+				'dependencies' => [
+					'jquery.valueview.tests.testExpert',
+					'jquery.wikibase.lexemeformlistview',
+					'jquery.wikibase.lexemeformview',
+					'jquery.wikibase.grammaticalfeatureview',
+					'jquery.wikibase.senselistview',
+					'jquery.wikibase.senseview',
+					'oojs-ui',
+					'wikibase.experts.Lexeme',
+					'wikibase.experts.Form',
+					'wikibase.lexeme.datamodel.Form',
+					'wikibase.lexeme.datamodel.Sense',
+					'wikibase.lexeme.entityChangers.FormChanger',
+					'wikibase.lexeme.entityChangers.SenseChanger',
+					'wikibase.lexeme.entityChangers.LexemeRevisionStore',
+					'wikibase.lexeme.serialization.LexemeDeserializer',
+					'wikibase.lexeme.serialization.FormSerializer',
+					'wikibase.lexeme.serialization.SenseSerializer',
+					'wikibase.lexeme.widgets.ItemSelectorWidget',
+					'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
+					'wikibase.lexeme.widgets.GlossWidget',
+					'wikibase.lexeme.widgets.RepresentationWidget',
+					'wikibase.lexeme.view.ControllerViewFactory',
+					'wikibase.lexeme.view.ViewFactoryFactory',
+					'wikibase.tests.qunit.testrunner',
+					'wikibase.view.tests.getMockListItemAdapter',
+					'vue2',
+					'vuex',
+				],
+			],
+			'WikibaseLexeme.tests.ItemLookup' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/services/ItemLookup.tests.js',
+					'resources/services/ItemLookup.js',
+				],
+			],
+			'WikibaseLexeme.tests.LanguageFromItemExtractor' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/services/LanguageFromItemExtractor.tests.js',
+					'resources/services/LanguageFromItemExtractor.js',
+				],
+			],
+			'WikibaseLexeme.tests.LexemeLanguageFieldObserver' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js',
+					'resources/special/formHelpers/LexemeLanguageFieldObserver.js',
+				],
+			],
 		];
 
 		return true;
