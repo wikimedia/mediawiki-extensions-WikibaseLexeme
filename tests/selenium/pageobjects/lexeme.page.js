@@ -141,8 +141,16 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @param {string} lexemeId
 	 */
 	open( lexemeId ) {
-		super.openTitle( 'Lexeme:' + lexemeId );
-		browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+		const title = 'Lexeme:' + lexemeId;
+		super.openTitle( title );
+		try {
+			browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+		} catch ( e ) {
+			// reload and try again once, in case the lexeme is new
+			// and the first load hit a lagged replica (T232364)
+			super.openTitle( title );
+			browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+		}
 		this.addFormLink.waitForVisible(); // last button on page, probably the last
 	}
 
