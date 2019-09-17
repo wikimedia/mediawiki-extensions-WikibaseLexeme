@@ -1,7 +1,7 @@
 module.exports = ( function () {
 	'use strict';
 
-	var ItemSelectorWrapper = require( 'wikibase.lexeme.widgets.ItemSelectorWrapper' );
+	var ItemSelectorWrapper = require( './ItemSelectorWrapper.js' );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget

@@ -243,13 +243,10 @@ return call_user_func( function() {
 			"scripts" => "widgets/LexemeHeader.newLexemeHeader.js"
 		],
 		"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget" => $moduleTemplate + [
-			"scripts" => "widgets/LanguageAndLexicalCategoryWidget.js",
-			"dependencies" => [
-				"wikibase.lexeme.widgets.ItemSelectorWrapper"
-			]
-		],
-		"wikibase.lexeme.widgets.ItemSelectorWrapper" => $moduleTemplate + [
-			"scripts" => "widgets/ItemSelectorWrapper.js"
+			"packageFiles" => [
+				"widgets/LanguageAndLexicalCategoryWidget.js",
+				"widgets/ItemSelectorWrapper.js"
+			],
 		],
 		"wikibase.lexeme.widgets.LanguageSelectorWrapper" => $moduleTemplate + [
 				"scripts" => "widgets/LanguageSelectorWrapper.js",
