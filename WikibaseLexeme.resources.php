@@ -417,11 +417,6 @@ return call_user_func( function() {
 				"mediawiki.widgets"
 			]
 		],
-		"wikibase.lexeme.special.NewLexeme.styles" => $moduleTemplate + [
-			"styles" => [
-				"special/new-lexeme.less"
-			]
-		],
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [
 			"packageFiles" => [
 				"special/NewLexeme.js",
@@ -429,6 +424,9 @@ return call_user_func( function() {
 				"services/ItemLookup.js",
 				"services/LanguageFromItemExtractor.js",
 				"special/formHelpers/LexemeLanguageFieldObserver.js",
+			],
+			"styles" => [
+				"special/new-lexeme.less"
 			],
 			"dependencies" => [
 				"mw.config.values.wbRepo",

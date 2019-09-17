@@ -292,7 +292,6 @@ class SpecialNewLexeme extends SpecialPage {
 		}
 
 		$output->addModules( 'wikibase.lexeme.special.NewLexeme' );
-		$output->addModuleStyles( 'wikibase.lexeme.special.NewLexeme.styles' );
 	}
 
 	/**
