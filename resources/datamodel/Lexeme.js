@@ -19,7 +19,7 @@
 	 *
 	 * @throws {Error} if a required parameter is not specified properly.
 	 */
-	var SELF = wb.lexeme.datamodel.Lexeme = util.inherit(
+	var SELF = util.inherit(
 		'WbDataModelLexeme',
 		PARENT,
 		function ( lexemeId, lemmas, statementGroupSet, forms, senses ) {
@@ -124,5 +124,7 @@
 	 * @static
 	 */
 	SELF.TYPE = 'lexeme';
+
+	module.exports = SELF;
 
 }( wikibase, util ) );

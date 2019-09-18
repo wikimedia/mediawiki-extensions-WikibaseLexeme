@@ -164,7 +164,6 @@ class WikibaseLexemeHooks {
 				'scripts' => [
 					'tests/qunit/datamodel/Form.tests.js',
 					'tests/qunit/datamodel/Sense.tests.js',
-					'tests/qunit/datamodel/Lexeme.tests.js',
 					'tests/qunit/experts/Lexeme.tests.js',
 					'tests/qunit/experts/Form.tests.js',
 					'tests/qunit/jquery.wikibase.lexemeformlistview.tests.js',
@@ -172,7 +171,6 @@ class WikibaseLexemeHooks {
 					'tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js',
 					'tests/qunit/jquery.wikibase.senselistview.tests.js',
 					'tests/qunit/jquery.wikibase.senseview.tests.js',
-					'tests/qunit/serialization/LexemeDeserializer.tests.js',
 					'tests/qunit/serialization/FormSerializer.tests.js',
 					'tests/qunit/serialization/SenseSerializer.tests.js',
 					'tests/qunit/widgets/ItemSelectorWidget.tests.js',
@@ -257,6 +255,25 @@ class WikibaseLexemeHooks {
 				],
 				'dependencies' => [
 					"wikibase.lexeme.view.ControllerViewFactory"
+				]
+			],
+			'WikibaseLexeme.tests.LexemeDeserializer' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/serialization/LexemeDeserializer.tests.js',
+					'resources/serialization/LexemeDeserializer.js',
+					'resources/datamodel/Lexeme.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.serialization.LexemeDeserializer"
+				]
+			],
+			'WikibaseLexeme.tests.datamodel.Lexeme' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/datamodel/Lexeme.tests.js',
+					'resources/datamodel/Lexeme.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.serialization.LexemeDeserializer"
 				]
 			],
 		];
