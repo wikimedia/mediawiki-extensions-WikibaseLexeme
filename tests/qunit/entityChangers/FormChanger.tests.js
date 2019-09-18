@@ -6,7 +6,7 @@
 
 	QUnit.module( 'wikibase.lexeme.entityChangers.FormChanger' );
 
-	var FormChanger = wb.lexeme.entityChangers.FormChanger;
+	var FormChanger = require( '../../../resources/entityChangers/FormChanger.js' );
 	var Form = wb.lexeme.datamodel.Form;
 	var TermMap = wb.datamodel.TermMap;
 	var Term = wb.datamodel.Term;

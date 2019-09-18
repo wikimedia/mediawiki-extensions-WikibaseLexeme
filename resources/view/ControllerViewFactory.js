@@ -1,7 +1,10 @@
 ( function ( wb ) {
 	'use strict';
 
-	var PARENT = wb.view.ControllerViewFactory;
+	var PARENT = wb.view.ControllerViewFactory,
+		RevisionStore = require( '../entityChangers/LexemeRevisionStore.js' ),
+		FormChanger = require( '../entityChangers/FormChanger.js' ),
+		SenseChanger = require( '../entityChangers/SenseChanger.js' );
 
 	var SELF = util.inherit(
 		PARENT,
@@ -26,7 +29,7 @@
 				repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php';
 			this._api = wb.api.getLocationAgnosticMwApi( repoApiUrl );
 
-			this._revisionStore = new wb.lexeme.RevisionStore(
+			this._revisionStore = new RevisionStore(
 				entityChangersFactory.getRevisionStore()
 			);
 			var changersFactory = new wb.entityChangers.EntityChangersFactory(
@@ -144,7 +147,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
 				formView,
-				new wb.lexeme.entityChangers.FormChanger(
+				new FormChanger(
 					new wb.api.RepoApi( this._api ),
 					this._revisionStore,
 					lexeme.getId(),
@@ -190,7 +193,7 @@
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( senseView.element ),
 				senseView,
-				new wb.lexeme.entityChangers.SenseChanger(
+				new SenseChanger(
 					new wb.api.RepoApi( this._api ),
 					this._revisionStore,
 					lexeme.getId(),
@@ -309,6 +312,6 @@
 		} );
 	};
 
-	wb.lexeme.view.ControllerViewFactory = SELF;
+	wb.lexeme.ControllerViewFactory = SELF;
 
 }( wikibase ) );

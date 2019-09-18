@@ -12,7 +12,7 @@
 	 * @param {string} lexemeId
 	 * @param {Object} senseData
 	 */
-	var SELF = wb.lexeme.entityChangers.SenseChanger = function WbLexemeSenseChanger(
+	var SELF = function WbLexemeSenseChanger(
 		api,
 		revisionStore,
 		lexemeId,
@@ -187,5 +187,7 @@
 			action
 		);
 	}
+
+	module.exports = SELF;
 
 }( wikibase ) );

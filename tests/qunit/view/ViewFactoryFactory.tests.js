@@ -5,7 +5,7 @@
 
 	QUnit.module( 'wikibase.lexeme.view.ViewFactoryFactory', {
 		beforeEach: function () {
-			sandbox.stub( wikibase.lexeme.view, 'ControllerViewFactory' );
+			sandbox.stub( wikibase.lexeme, 'ControllerViewFactory' );
 			sandbox.stub( wikibase.lexeme.view, 'ReadModeViewFactory' );
 		},
 		afterEach: function () {
@@ -17,8 +17,8 @@
 		var factory = new ViewFactoryFactory(),
 			result = factory.getViewFactory( true, [] );
 
-		sinon.assert.calledWithNew( wikibase.lexeme.view.ControllerViewFactory );
-		assert.ok( result instanceof wikibase.lexeme.view.ControllerViewFactory );
+		sinon.assert.calledWithNew( wikibase.lexeme.ControllerViewFactory );
+		assert.ok( result instanceof wikibase.lexeme.ControllerViewFactory );
 	} );
 
 	QUnit.test( 'returns ReadModeViewFactory when not editable', function ( assert ) {
@@ -34,7 +34,7 @@
 
 		factory.getViewFactory( true, [ 1, 2, 3 ] );
 
-		assert.ok( wikibase.lexeme.view.ControllerViewFactory.calledWith( 1, 2, 3 ) );
+		assert.ok( wikibase.lexeme.ControllerViewFactory.calledWith( 1, 2, 3 ) );
 	} );
 
 	QUnit.test( 'ReadModeViewFactory is called with correct arguments', function ( assert ) {

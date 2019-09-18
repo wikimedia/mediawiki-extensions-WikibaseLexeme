@@ -26,45 +26,6 @@ return call_user_func( function() {
 			"dependencies" => "wikibase"
 		],
 
-		"wikibase.lexeme.entityChangers" => $moduleTemplate + [
-			"scripts" => [
-				"entityChangers/__namespace.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme"
-			]
-		],
-
-		"wikibase.lexeme.entityChangers.FormChanger" => $moduleTemplate + [
-			"scripts" => [
-				"entityChangers/FormChanger.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme.entityChangers",
-				"wikibase.lexeme.serialization.FormSerializer"
-			]
-		],
-
-		"wikibase.lexeme.entityChangers.SenseChanger" => $moduleTemplate + [
-				"scripts" => [
-					"entityChangers/SenseChanger.js"
-				],
-				"dependencies" => [
-					"wikibase.lexeme.entityChangers",
-					"wikibase.lexeme.serialization.SenseSerializer"
-				]
-			],
-
-		"wikibase.lexeme.entityChangers.LexemeRevisionStore" => $moduleTemplate + [
-			"scripts" => [
-				"entityChangers/LexemeRevisionStore.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme",
-				"wikibase.lexeme.entityChangers"
-			]
-		],
-
 		"wikibase.lexeme.lexemeview.viewhook" => $moduleTemplate + [
 			"scripts" => "hooks/lexeme.viewhook.js"
 		],
@@ -435,18 +396,20 @@ return call_user_func( function() {
 			]
 		],
 		"wikibase.lexeme.view.ControllerViewFactory" => $moduleTemplate + [
-			"scripts" => [
-				"view/__namespace.js",
-				"view/ControllerViewFactory.js"
+			"packageFiles" => [
+				"view/ControllerViewFactory.js",
+
+				"entityChangers/FormChanger.js",
+				"entityChangers/SenseChanger.js",
+				"entityChangers/LexemeRevisionStore.js"
 			],
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
-				"wikibase.lexeme.entityChangers.FormChanger",
-				"wikibase.lexeme.entityChangers.SenseChanger",
-				"wikibase.lexeme.entityChangers.LexemeRevisionStore",
+				"wikibase.lexeme.serialization.FormSerializer",
+				"wikibase.lexeme.serialization.SenseSerializer",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
 				"wikibase.api.getLocationAgnosticMwApi",

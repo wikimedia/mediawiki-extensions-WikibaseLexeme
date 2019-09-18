@@ -12,7 +12,7 @@
 	 * @param {string} lexemeId
 	 * @param {Object} formData
 	 */
-	var SELF = wb.lexeme.entityChangers.FormChanger = function WbLexemeFormChanger(
+	var SELF = function WbLexemeFormChanger(
 		api,
 		revisionStore,
 		lexemeId,
@@ -198,5 +198,7 @@
 			action
 		);
 	}
+
+	module.exports = SELF;
 
 }( wikibase ) );
