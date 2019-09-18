@@ -1,6 +1,6 @@
-describe( 'wikibase.lexeme.datamodel.LexemeSubEntityId', function () {
+describe( 'LexemeSubEntityId', function () {
 	var expect = require( 'unexpected' ).clone();
-	var LexemeSubEntityId = require( 'wikibase.lexeme.datamodel.LexemeSubEntityId' );
+	var LexemeSubEntityId = require( '../../../resources/datamodel/LexemeSubEntityId.js' );
 
 	describe( 'getIdSuffix', function () {
 

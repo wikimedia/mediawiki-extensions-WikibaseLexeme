@@ -86,13 +86,16 @@ return call_user_func( function() {
 			]
 		],
 		"jquery.wikibase.lexemeformview" => $moduleTemplate + [
-			"scripts" => "jquery.wikibase.lexemeformview.js",
+			"packageFiles" => [
+				"jquery.wikibase.lexemeformview.js",
+				"datamodel/LexemeSubEntityId.js",
+			],
 			"dependencies" => [
 				"jquery.ui.EditableTemplatedWidget",
+				"wikibase.lexeme",
 				"wikibase.templates.lexeme",
 				"jquery.wikibase.grammaticalfeatureview",
 				"wikibase.lexeme.widgets.RepresentationWidget",
-				"wikibase.lexeme.datamodel.LexemeSubEntityId",
 				"wikibase.lexeme.store"
 			],
 			"messages" => [
@@ -124,7 +127,10 @@ return call_user_func( function() {
 			]
 		],
 		"jquery.wikibase.senseview" => $moduleTemplate + [
-			"scripts" => "jquery.wikibase.senseview.js",
+			"packageFiles" => [
+				"jquery.wikibase.senseview.js",
+				"datamodel/LexemeSubEntityId.js"
+			],
 			"dependencies" => [
 				"jquery.ui.EditableTemplatedWidget",
 				"wikibase.templates.lexeme",
@@ -328,15 +334,6 @@ return call_user_func( function() {
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme"
-			]
-		],
-		"wikibase.lexeme.datamodel.LexemeSubEntityId" => $moduleTemplate + [
-			"scripts" => [
-				"datamodel/__namespace.js",
-				"datamodel/LexemeSubEntityId.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme",
 			]
 		],
 		"wikibase.lexeme.getDeserializer" => $moduleTemplate + [
