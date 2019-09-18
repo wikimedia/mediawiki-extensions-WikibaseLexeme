@@ -13,7 +13,7 @@
 	 *
 	 * @constructor
 	 */
-	wb.lexeme.serialization.SenseSerializer = util.inherit( 'WbLexemeSenseSerializer', PARENT, {
+	module.exports = util.inherit( 'WbLexemeSenseSerializer', PARENT, {
 		/**
 		 * @inheritdoc
 		 *

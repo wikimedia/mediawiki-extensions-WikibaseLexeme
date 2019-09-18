@@ -1,7 +1,7 @@
-( function ( wb ) {
+( function () {
 	'use strict';
 
-	var ControllerViewFactory = wb.lexeme.ControllerViewFactory;
+	var ControllerViewFactory = require( '../../../resources/view/ControllerViewFactory.js' );
 
 	function newControllerViewFactory() {
 		return new ControllerViewFactory(
@@ -54,4 +54,4 @@
 			}
 		);
 	} );
-}( wikibase ) );
+}() );

@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb ) {
+( function () {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.serialization.SenseSerializer' );
@@ -9,7 +9,7 @@
 	var Sense = wikibase.lexeme.datamodel.Sense,
 		TermMap = wikibase.datamodel.TermMap,
 		Term = wikibase.datamodel.Term,
-		Serializer = wikibase.lexeme.serialization.SenseSerializer,
+		Serializer = require( '../../../resources/serialization/SenseSerializer.js' ),
 		testCases = {
 			'Empty Sense': {
 				sense: new Sense(),
@@ -73,4 +73,4 @@
 
 	} );
 
-}( wikibase ) );
+}() );

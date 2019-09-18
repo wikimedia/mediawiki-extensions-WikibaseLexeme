@@ -1,4 +1,4 @@
-wikibase.lexeme.view.ReadModeViewFactory = ( function ( wb ) {
+module.exports = ( function ( wb ) {
 	'use strict';
 
 	var PARENT = wb.view.ReadModeViewFactory;

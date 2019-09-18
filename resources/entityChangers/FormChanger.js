@@ -4,6 +4,8 @@
 ( function ( wb ) {
 	'use strict';
 
+	var FormSerializer = require( '../serialization/FormSerializer.js' );
+
 	/**
 	 * @constructor
 	 *
@@ -23,7 +25,7 @@
 		this.lexemeId = lexemeId;
 		this.formData = formData;
 		this.lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
-		this.formSerializer = new wb.lexeme.serialization.FormSerializer();
+		this.formSerializer = new FormSerializer();
 	};
 
 	/**
@@ -74,7 +76,7 @@
 		 * @return {jQuery.Promise}
 		 */
 		save: function ( form ) {
-			var formSerializer = new wb.lexeme.serialization.FormSerializer();
+			var formSerializer = new FormSerializer();
 
 			var serializedForm = formSerializer.serialize( form );
 
