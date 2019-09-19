@@ -231,19 +231,6 @@ return call_user_func( function() {
 				"wikibase.templates"
 			]
 		],
-		"wikibase.lexeme.datamodel.Lexeme" => $moduleTemplate + [
-			"scripts" => [
-				"datamodel/__namespace.js",
-				"datamodel/Lexeme.js"
-			],
-			"dependencies" => [
-				"util.inherit",
-				"wikibase.datamodel.Entity",
-				"wikibase.datamodel.StatementGroupSet",
-				"wikibase.datamodel.TermMap",
-				"wikibase.lexeme"
-			]
-		],
 		"wikibase.lexeme.datamodel.Lemma" => $moduleTemplate + [
 			"scripts" => "datamodel/Lemma.js"
 		],
@@ -331,16 +318,19 @@ return call_user_func( function() {
 				"wikibase.serialization.TermMapSerializer"
 			]
 		],
-
 		"wikibase.lexeme.serialization.LexemeDeserializer" => $moduleTemplate + [
-			"scripts" => [
+			"packageFiles" => [
+				"serialization/LexemeDeserializer.js",
+
 				"serialization/__namespace.js",
-				"serialization/LexemeDeserializer.js"
+				"datamodel/Lexeme.js"
 			],
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme",
-				"wikibase.lexeme.datamodel.Lexeme",
+				"wikibase.datamodel.Entity",
+				"wikibase.datamodel.StatementGroupSet",
+				"wikibase.datamodel.TermMap",
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.serialization.Deserializer",

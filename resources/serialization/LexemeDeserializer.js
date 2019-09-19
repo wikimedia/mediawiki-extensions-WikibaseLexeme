@@ -1,9 +1,12 @@
 ( function ( wb, util ) {
 	'use strict';
 
+	require( './__namespace.js' );
+
 	var MODULE = wb.lexeme.serialization,
 		SERIALIZER = wb.serialization,
-		PARENT = SERIALIZER.Deserializer;
+		PARENT = SERIALIZER.Deserializer,
+		Lexeme = require( '../datamodel/Lexeme.js' );
 
 	/**
 	 * @class wikibase.serialization.LexemeDeserializer
@@ -21,7 +24,7 @@
 		 * @throws {Error} if serialization does not resolve to a serialized Lexeme.
 		 */
 		deserialize: function ( serialization ) {
-			if ( serialization.type !== wb.lexeme.datamodel.Lexeme.TYPE ) {
+			if ( serialization.type !== Lexeme.TYPE ) {
 				throw new Error( 'Serialization does not resolve to a Lexeme' );
 			}
 
@@ -38,7 +41,7 @@
 				return this.deserializeSense( sense );
 			}.bind( this ) );
 
-			var lexeme = new wb.lexeme.datamodel.Lexeme(
+			var lexeme = new Lexeme(
 				serialization.id,
 				termMapDeserializer.deserialize( serialization.lemmas ),
 				statementGroupSetDeserializer.deserialize( serialization.claims ),

@@ -3,8 +3,7 @@
 
 	QUnit.module( 'wikibase.lexeme.datamodel.Lexeme' );
 
-	/** @type {wikibase.lexeme.datamodel.Lexeme} */
-	var Lexeme = wb.lexeme.datamodel.Lexeme;
+	var Lexeme = require( '../../../resources/datamodel/Lexeme.js' );
 	/** @type {wikibase.lexeme.datamodel.Form} */
 	var Form = wb.lexeme.datamodel.Form;
 	/** @type {wikibase.lexeme.datamodel.Sense} */

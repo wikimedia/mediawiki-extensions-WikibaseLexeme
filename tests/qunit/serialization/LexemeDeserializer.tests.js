@@ -7,8 +7,9 @@
 
 	QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
 
-	var TermMap = wb.datamodel.TermMap;
-	var Term = wb.datamodel.Term;
+	var TermMap = wb.datamodel.TermMap,
+		Term = wb.datamodel.Term,
+		Lexeme = require( '../../../resources/datamodel/Lexeme.js' );
 
 	var claimsSerialization = {
 		P1: [
@@ -45,7 +46,7 @@
 				new wb.datamodel.PropertyNoValueSnak( 'P1' ), null, 'L1$1' ) )
 		] ) )
 	] );
-	var expectedDataModel = new wb.lexeme.datamodel.Lexeme(
+	var expectedDataModel = new Lexeme(
 		'L1',
 		new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'blah' ) } ),
 		expectedStatementGroupSet,
@@ -54,13 +55,15 @@
 	);
 
 	QUnit.test( 'deserialize()', function ( assert ) {
-		var ds = new wb.lexeme.serialization.LexemeDeserializer();
+		var ds = new wb.lexeme.serialization.LexemeDeserializer(),
+			lexeme = ds.deserialize( serialization );
 
-		assert.deepEqual(
-			ds.deserialize( serialization ),
-			expectedDataModel,
-			'Deserialized data model should deep equal expected data model'
-		);
+		assert.equal( lexeme.getId(), expectedDataModel.getId() );
+		assert.equal( lexeme.getType(), expectedDataModel.getType() );
+		assert.deepEqual( lexeme.getLemmas(), expectedDataModel.getLemmas() );
+		assert.deepEqual( lexeme.getStatements(), expectedDataModel.getStatements() );
+		assert.deepEqual( lexeme.getForms(), expectedDataModel.getForms() );
+		assert.deepEqual( lexeme.getSenses(), expectedDataModel.getSenses() );
 	} );
 
 	QUnit.test( 'deserialize() deserializes forms', function ( assert ) {
