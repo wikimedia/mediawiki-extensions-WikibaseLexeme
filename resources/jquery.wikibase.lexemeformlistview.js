@@ -3,6 +3,8 @@
 
 	var PARENT = $.Widget;
 
+	require( './jquery.wikibase.lexemeformview.js' );
+
 	/**
 	 * @class jQuery.wikibase.lexemeformlistview
 	 * @extends jQuery.ui.Widget

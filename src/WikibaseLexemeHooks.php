@@ -179,11 +179,8 @@ class WikibaseLexemeHooks {
 				],
 				'dependencies' => [
 					'jquery.valueview.tests.testExpert',
-					'jquery.wikibase.lexemeformlistview',
-					'jquery.wikibase.lexemeformview',
 					'jquery.wikibase.grammaticalfeatureview',
-					'jquery.wikibase.senselistview',
-					'jquery.wikibase.senseview',
+					'jquery.wikibase.lexemeview',
 					'oojs-ui',
 					'wikibase.experts.Lexeme',
 					'wikibase.experts.Form',
