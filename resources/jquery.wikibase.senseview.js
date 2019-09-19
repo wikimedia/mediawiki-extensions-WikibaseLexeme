@@ -4,7 +4,7 @@
 	var PARENT = $.ui.EditableTemplatedWidget;
 
 	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' ),
-		LexemeSubEntityId = require( 'wikibase.lexeme.datamodel.LexemeSubEntityId' );
+		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element

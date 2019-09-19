@@ -2,7 +2,7 @@
 	'use strict';
 
 	/**
-	 * @class wikibase.lexeme.datamodel.LexemeSubEntityId
+	 * @class LexemeSubEntityId
 	 */
 	module.exports = {
 
