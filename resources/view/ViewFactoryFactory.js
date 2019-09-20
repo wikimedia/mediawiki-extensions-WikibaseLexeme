@@ -56,3 +56,5 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function () {
 
 	return ViewFactoryFactory;
 }() );
+
+module.exports = wikibase.lexeme.view.ViewFactoryFactory;

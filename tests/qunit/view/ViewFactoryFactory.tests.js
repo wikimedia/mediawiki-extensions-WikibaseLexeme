@@ -1,6 +1,9 @@
-( function ( wb, ViewFactoryFactory ) {
+( function () {
 	'use strict';
 
+	var ViewFactoryFactory = require( '../../../resources/view/ViewFactoryFactory.js' ),
+		ControllerViewFactory = require( '../../../resources/view/ControllerViewFactory.js' ),
+		ReadModeViewFactory = require( '../../../resources/view/ReadModeViewFactory.js' );
 	function getFactoryArgs() {
 		return [
 			sinon.stub(),
@@ -27,9 +30,7 @@
 		var factory = new ViewFactoryFactory(),
 			result = factory.getViewFactory( true, getFactoryArgs() );
 
-		// instanceof check across package module doesn't work
-		// assert.ok( result instanceof ControllerViewFactory );
-		assert.ok( result.getFormListView );
+		assert.ok( result instanceof ControllerViewFactory );
 	} );
 
 	QUnit.test( 'returns ReadModeViewFactory when not editable', function ( assert ) {
@@ -41,4 +42,4 @@
 		assert.notOk( result.getFormListView );
 	} );
 
-}( wikibase, wikibase.lexeme.view.ViewFactoryFactory ) );
+}() );

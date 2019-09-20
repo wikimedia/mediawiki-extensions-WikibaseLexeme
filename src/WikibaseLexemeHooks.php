@@ -285,6 +285,7 @@ class WikibaseLexemeHooks {
 			'WikibaseLexeme.tests.ViewFactoryFactory' => $moduleBase + [
 				'packageFiles' => [
 					'tests/qunit/view/ViewFactoryFactory.tests.js',
+					'resources/view/ViewFactoryFactory.js',
 					'resources/view/ReadModeViewFactory.js',
 					'resources/view/ControllerViewFactory.js',
 					'resources/entityChangers/LexemeRevisionStore.js',
