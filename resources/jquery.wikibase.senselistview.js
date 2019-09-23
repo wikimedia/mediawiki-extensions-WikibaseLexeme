@@ -3,6 +3,8 @@
 
 	var PARENT = $.Widget;
 
+	require( './jquery.wikibase.senseview.js' );
+
 	/**
 	 * @class jQuery.wikibase.senselistview
 	 * @extends jQuery.ui.Widget

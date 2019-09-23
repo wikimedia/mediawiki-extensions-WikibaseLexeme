@@ -12,13 +12,36 @@ return call_user_func( function() {
 
 	return [
 		"jquery.wikibase.lexemeview" => $moduleTemplate + [
-			"scripts" => "jquery.wikibase.lexemeview.js",
+			"packageFiles" => [
+				"jquery.wikibase.lexemeview.js",
+
+				"jquery.wikibase.lexemeformview.js",
+				"jquery.wikibase.lexemeformlistview.js",
+				"jquery.wikibase.senselistview.js",
+				"jquery.wikibase.senseview.js",
+				"datamodel/LexemeSubEntityId.js",
+			],
 			"dependencies" => [
+				"jquery.ui.EditableTemplatedWidget",
+				"jquery.ui.widget",
 				"jquery.wikibase.entityview",
-				"jquery.wikibase.lexemeformlistview",
-				"jquery.wikibase.senselistview",
+				"jquery.wikibase.grammaticalfeatureview",
+				"lexeme-header",
+				"wikibase.lexeme",
+				"wikibase.lexeme.store",
 				"wikibase.lexeme.view.ViewFactoryFactory",
-				"lexeme-header"
+				"wikibase.lexeme.widgets.GlossWidget",
+				"wikibase.lexeme.widgets.RepresentationWidget",
+				"wikibase.templates.lexeme"
+			],
+			"messages" => [
+				"wikibaselexeme-empty-form-representation",
+				"wikibaselexeme-enter-form-representation",
+				"wikibaselexeme-statementsection-statements-about-form",
+				"wikibaselexeme-statementsection-statements-about-sense",
+				"wikibaselexeme-form-grammatical-features",
+				"wikibaselexeme-add-form",
+				"wikibaselexeme-add-sense"
 			]
 		],
 		"wikibase.lexeme" => $moduleTemplate + [
@@ -36,36 +59,6 @@ return call_user_func( function() {
 				"wikibase.lexeme.getDeserializer"
 			]
 		],
-		"jquery.wikibase.lexemeformlistview" => $moduleTemplate + [
-			"scripts" => "jquery.wikibase.lexemeformlistview.js",
-			"dependencies" => [
-				"jquery.ui.widget",
-				"jquery.wikibase.lexemeformview"
-			],
-			"messages" => [
-				"wikibaselexeme-add-form"
-			]
-		],
-		"jquery.wikibase.lexemeformview" => $moduleTemplate + [
-			"packageFiles" => [
-				"jquery.wikibase.lexemeformview.js",
-				"datamodel/LexemeSubEntityId.js",
-			],
-			"dependencies" => [
-				"jquery.ui.EditableTemplatedWidget",
-				"wikibase.lexeme",
-				"wikibase.templates.lexeme",
-				"jquery.wikibase.grammaticalfeatureview",
-				"wikibase.lexeme.widgets.RepresentationWidget",
-				"wikibase.lexeme.store"
-			],
-			"messages" => [
-				"wikibaselexeme-empty-form-representation",
-				"wikibaselexeme-enter-form-representation",
-				"wikibaselexeme-statementsection-statements-about-form",
-				"wikibaselexeme-form-grammatical-features"
-			]
-		],
 		"jquery.wikibase.grammaticalfeatureview" => $moduleTemplate + [
 			"scripts" => "jquery.wikibase.grammaticalfeatureview.js",
 			"dependencies" => [
@@ -75,30 +68,6 @@ return call_user_func( function() {
 			],
 			"messages" => [
 				"wikibaselexeme-grammatical-features-input-placeholder"
-			]
-		],
-		"jquery.wikibase.senselistview" => $moduleTemplate + [
-			"scripts" => "jquery.wikibase.senselistview.js",
-			"dependencies" => [
-				"jquery.ui.widget",
-				"jquery.wikibase.senseview"
-			],
-			"messages" => [
-				"wikibaselexeme-add-sense"
-			]
-		],
-		"jquery.wikibase.senseview" => $moduleTemplate + [
-			"packageFiles" => [
-				"jquery.wikibase.senseview.js",
-				"datamodel/LexemeSubEntityId.js"
-			],
-			"dependencies" => [
-				"jquery.ui.EditableTemplatedWidget",
-				"wikibase.templates.lexeme",
-				"wikibase.lexeme.widgets.GlossWidget"
-			],
-			"messages" => [
-				"wikibaselexeme-statementsection-statements-about-sense"
 			]
 		],
 		"vuex" => $moduleTemplate + [

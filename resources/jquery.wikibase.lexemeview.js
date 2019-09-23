@@ -3,6 +3,9 @@
 
 	var PARENT = $.wikibase.entityview;
 
+	require( './jquery.wikibase.lexemeformlistview.js' );
+	require( './jquery.wikibase.senselistview.js' );
+
 	/**
 	 * View for displaying a Wikibase `Lexeme`.
 	 * Copied from jQuery.wikibase.mediainfoview
