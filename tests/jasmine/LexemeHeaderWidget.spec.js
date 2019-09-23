@@ -8,7 +8,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	expect.installPlugin( require( 'unexpected-dom' ) );
 	expect.installPlugin( require( 'unexpected-sinon' ) );
 
-	var newLexemeHeader = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader' );
+	var newLexemeHeader = require( './../../resources/widgets/LexemeHeader.newLexemeHeader.js' );
 	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );

@@ -85,13 +85,13 @@ return call_user_func( function() {
 				"widgets/LexemeHeader.js",
 
 				"widgets/__namespace.js",
+				"widgets/LexemeHeader.newLexemeHeader.js",
 				"widgets/LanguageAndLexicalCategoryWidget.js",
 				"widgets/ItemSelectorWrapper.js"
 			],
 			"dependencies" => [
 				"vue2",
 				"vuex",
-				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader",
 				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore",
 				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget",
 				"wikibase.api.RepoApi",
@@ -176,9 +176,6 @@ return call_user_func( function() {
 				"wikibase.lexeme.datamodel.Lemma",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator"
 			]
-		],
-		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader" => $moduleTemplate + [
-			"scripts" => "widgets/LexemeHeader.newLexemeHeader.js"
 		],
 		"wikibase.lexeme.widgets.LanguageSelectorWrapper" => $moduleTemplate + [
 				"scripts" => "widgets/LanguageSelectorWrapper.js",
