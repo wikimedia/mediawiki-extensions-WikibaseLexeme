@@ -87,16 +87,17 @@ return call_user_func( function() {
 				"widgets/__namespace.js",
 				"widgets/LexemeHeader.newLexemeHeader.js",
 				"widgets/LanguageAndLexicalCategoryWidget.js",
-				"widgets/ItemSelectorWrapper.js"
+				"widgets/ItemSelectorWrapper.js",
+				"widgets/LexemeHeader.newLexemeHeaderStore.js"
 			],
 			"dependencies" => [
 				"vue2",
 				"vuex",
-				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore",
 				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget",
 				"wikibase.api.RepoApi",
 				"jquery.wikibase.wbtooltip",
 				"mediawiki.api",
+				"wikibase.lexeme.datatransfer.LemmaList",
 				"wikibase.lexeme.datamodel.Lemma"
 			],
 			"messages" => [
@@ -160,13 +161,6 @@ return call_user_func( function() {
 				"wikibaselexeme-gloss-field-gloss-label",
 				"wikibaselexeme-sense-gloss-redundant-language",
 				"wikibaselexeme-sense-gloss-invalid-language"
-			]
-		],
-		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore" => $moduleTemplate + [
-			"scripts" => "widgets/LexemeHeader.newLexemeHeaderStore.js",
-			"dependencies" => [
-				"wikibase.lexeme.datamodel.Lemma",
-				"wikibase.lexeme.datatransfer.LemmaList"
 			]
 		],
 		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget" => $moduleTemplate + [

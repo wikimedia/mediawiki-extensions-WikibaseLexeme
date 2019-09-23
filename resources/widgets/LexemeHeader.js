@@ -3,8 +3,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	'use strict';
 
 	var Vue = require( 'vue2' );
-	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
-	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
+	var newLexemeHeaderStore = require( './LexemeHeader.newLexemeHeaderStore.js' );
 	var newLemmaWidget = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget' );
 	var newLanguageAndLexicalCategoryWidget = require( './LanguageAndLexicalCategoryWidget.js' );
 	var newLexemeHeader = require( './LexemeHeader.newLexemeHeader.js' );

@@ -1,14 +1,13 @@
 /**
  * @license GPL-2.0-or-later
  */
-describe( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore', function () {
+describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 	var sinon = require( 'sinon' );
 	var expect = require( 'unexpected' ).clone();
 
 	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
 
-	/** @type {wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore} */
-	var newLexemeHeaderStore = require( 'wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore' );
+	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
