@@ -4,7 +4,9 @@
 	var PARENT = wb.view.ControllerViewFactory,
 		RevisionStore = require( '../entityChangers/LexemeRevisionStore.js' ),
 		FormChanger = require( '../entityChangers/FormChanger.js' ),
-		SenseChanger = require( '../entityChangers/SenseChanger.js' );
+		SenseChanger = require( '../entityChangers/SenseChanger.js' ),
+		FormSerializer = require( '../serialization/FormSerializer.js' ),
+		SenseSerializer = require( '../serialization/SenseSerializer.js' );
 
 	var SELF = util.inherit(
 		PARENT,
@@ -142,7 +144,7 @@
 					lexeme: lexeme
 				}
 			),
-			formSerializer = new wb.lexeme.serialization.FormSerializer(),
+			formSerializer = new FormSerializer(),
 			formData = form ? formSerializer.serialize( form ) : null,
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( formView.element ),
@@ -188,7 +190,7 @@
 					lexeme: lexeme
 				}
 			),
-			senseSerializer = new wb.lexeme.serialization.SenseSerializer(),
+			senseSerializer = new SenseSerializer(),
 			senseData = sense ? senseSerializer.serialize( sense ) : null,
 			controller = this._getController(
 				this._toolbarFactory.getToolbarContainer( senseView.element ),
@@ -312,6 +314,6 @@
 		} );
 	};
 
-	wb.lexeme.ControllerViewFactory = SELF;
+	module.exports = SELF;
 
 }( wikibase ) );

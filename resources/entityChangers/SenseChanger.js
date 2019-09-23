@@ -4,6 +4,8 @@
 ( function ( wb ) {
 	'use strict';
 
+	var SenseSerializer = require( '../serialization/SenseSerializer.js' );
+
 	/**
 	 * @constructor
 	 *
@@ -23,7 +25,7 @@
 		this.lexemeId = lexemeId;
 		this.senseData = senseData;
 		this.lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
-		this.senseSerializer = new wb.lexeme.serialization.SenseSerializer();
+		this.senseSerializer = new SenseSerializer();
 	};
 
 	/**
@@ -66,7 +68,7 @@
 		 * @return {jQuery.Promise}
 		 */
 		save: function ( sense ) {
-			var senseSerializer = new wb.lexeme.serialization.SenseSerializer();
+			var senseSerializer = new SenseSerializer();
 
 			var serializedSense = senseSerializer.serialize( sense );
 

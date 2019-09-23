@@ -291,33 +291,6 @@ return call_user_func( function() {
 			]
 		],
 
-		"wikibase.lexeme.serialization.FormSerializer" => $moduleTemplate + [
-			"scripts" => [
-				"serialization/__namespace.js",
-				"serialization/FormSerializer.js"
-			],
-			"dependencies" => [
-				"util.inherit",
-				"wikibase.lexeme",
-				"wikibase.lexeme.datamodel.Form",
-				"wikibase.serialization.Serializer",
-				"wikibase.serialization.TermMapSerializer"
-			]
-		],
-
-		"wikibase.lexeme.serialization.SenseSerializer" => $moduleTemplate + [
-			"scripts" => [
-				"serialization/__namespace.js",
-				"serialization/SenseSerializer.js"
-			],
-			"dependencies" => [
-				"util.inherit",
-				"wikibase.lexeme",
-				"wikibase.lexeme.datamodel.Sense",
-				"wikibase.serialization.Serializer",
-				"wikibase.serialization.TermMapSerializer"
-			]
-		],
 		"wikibase.lexeme.serialization.LexemeDeserializer" => $moduleTemplate + [
 			"packageFiles" => [
 				"serialization/LexemeDeserializer.js",
@@ -382,45 +355,30 @@ return call_user_func( function() {
 				"wikibase.lexeme.widgets.ItemSelectorWidget",
 			]
 		],
-		"wikibase.lexeme.view.ControllerViewFactory" => $moduleTemplate + [
-			"packageFiles" => [
-				"view/ControllerViewFactory.js",
 
+		"wikibase.lexeme.view.ViewFactoryFactory" => $moduleTemplate + [
+			"packageFiles" => [
+				"view/ViewFactoryFactory.js",
+
+				"view/ReadModeViewFactory.js",
+				"view/ControllerViewFactory.js",
 				"entityChangers/FormChanger.js",
 				"entityChangers/SenseChanger.js",
-				"entityChangers/LexemeRevisionStore.js"
+				"entityChangers/LexemeRevisionStore.js",
+				"serialization/FormSerializer.js",
+				"serialization/SenseSerializer.js"
 			],
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
-				"wikibase.lexeme.serialization.FormSerializer",
-				"wikibase.lexeme.serialization.SenseSerializer",
+				"wikibase.serialization.Serializer",
+				"wikibase.serialization.TermMapSerializer",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
 				"wikibase.api.getLocationAgnosticMwApi",
 				"wikibase.api.RepoApi"
-			]
-		],
-		"wikibase.lexeme.view.ReadModeViewFactory" => $moduleTemplate + [
-			"scripts" => [
-				"view/__namespace.js",
-				"view/ReadModeViewFactory.js"
-			],
-			"dependencies" => [
-				"util.inherit",
-				"wikibase.view.ReadModeViewFactory"
-			]
-		],
-		"wikibase.lexeme.view.ViewFactoryFactory" => $moduleTemplate + [
-			"scripts" => [
-				"view/__namespace.js",
-				"view/ViewFactoryFactory.js"
-			],
-			"dependencies" => [
-				"wikibase.lexeme.view.ReadModeViewFactory",
-				"wikibase.lexeme.view.ControllerViewFactory"
 			]
 		],
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig" => $moduleTemplate + [

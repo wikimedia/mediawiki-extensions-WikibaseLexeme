@@ -13,7 +13,7 @@
 	 *
 	 * @constructor
 	 */
-	wb.lexeme.serialization.FormSerializer = util.inherit( 'WbLexemeFormSerializer', PARENT, {
+	module.exports = util.inherit( 'WbLexemeFormSerializer', PARENT, {
 		/**
 		 * @inheritdoc
 		 *

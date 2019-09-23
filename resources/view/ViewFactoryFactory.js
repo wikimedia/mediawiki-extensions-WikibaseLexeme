@@ -1,7 +1,12 @@
-wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
+// Temporary, until merging this with jquery.wikibase.lexemeview
+wikibase.lexeme.view = {};
+
+wikibase.lexeme.view.ViewFactoryFactory = ( function () {
 	'use strict';
 
-	var ViewFactoryFactory = function () {};
+	var ViewFactoryFactory = function () {},
+		ControllerViewFactory = require( './ControllerViewFactory.js' ),
+		ReadModeViewFactory = require( './ReadModeViewFactory.js' );
 
 	$.extend( ViewFactoryFactory.prototype, {
 
@@ -11,7 +16,7 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
 		 * @param {boolean} isEditable
 		 * @param {[]} factoryArguments
 		 *
-		 * @returns {wikibase.lexeme.view.ControllerViewFactory|wikibase.lexeme.view.ReadModeViewFactory}
+		 * @returns {ControllerViewFactory|ReadModeViewFactory}
 		 */
 		getViewFactory: function ( isEditable, factoryArguments ) {
 			if ( isEditable ) {
@@ -23,7 +28,7 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
 
 		_getControllerViewFactory: function ( factoryArguments ) {
 			return this._getInstance(
-				wb.lexeme.ControllerViewFactory,
+				ControllerViewFactory,
 				factoryArguments
 			);
 		},
@@ -33,7 +38,7 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
 			factoryArguments.shift();
 
 			return this._getInstance(
-				wb.lexeme.view.ReadModeViewFactory,
+				ReadModeViewFactory,
 				factoryArguments
 			);
 		},
@@ -50,4 +55,4 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function ( wb ) {
 	} );
 
 	return ViewFactoryFactory;
-}( wikibase ) );
+}() );

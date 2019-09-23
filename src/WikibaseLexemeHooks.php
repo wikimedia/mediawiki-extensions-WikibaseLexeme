@@ -171,11 +171,8 @@ class WikibaseLexemeHooks {
 					'tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js',
 					'tests/qunit/jquery.wikibase.senselistview.tests.js',
 					'tests/qunit/jquery.wikibase.senseview.tests.js',
-					'tests/qunit/serialization/FormSerializer.tests.js',
-					'tests/qunit/serialization/SenseSerializer.tests.js',
 					'tests/qunit/widgets/ItemSelectorWidget.tests.js',
 					'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
-					'tests/qunit/view/ViewFactoryFactory.tests.js',
 				],
 				'dependencies' => [
 					'jquery.valueview.tests.testExpert',
@@ -190,13 +187,10 @@ class WikibaseLexemeHooks {
 					'wikibase.lexeme.datamodel.Form',
 					'wikibase.lexeme.datamodel.Sense',
 					'wikibase.lexeme.serialization.LexemeDeserializer',
-					'wikibase.lexeme.serialization.FormSerializer',
-					'wikibase.lexeme.serialization.SenseSerializer',
 					'wikibase.lexeme.widgets.ItemSelectorWidget',
 					'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 					'wikibase.lexeme.widgets.GlossWidget',
 					'wikibase.lexeme.widgets.RepresentationWidget',
-					'wikibase.lexeme.view.ControllerViewFactory',
 					'wikibase.lexeme.view.ViewFactoryFactory',
 					'wikibase.tests.qunit.testrunner',
 					'wikibase.view.tests.getMockListItemAdapter',
@@ -222,30 +216,24 @@ class WikibaseLexemeHooks {
 					'resources/special/formHelpers/LexemeLanguageFieldObserver.js',
 				],
 			],
-			'WikibaseLexeme.tests.ControllerViewFactory' => $moduleBase + [
-				'packageFiles' => [
-					'tests/qunit/view/ControllerViewFactory.tests.js',
-				],
-				'dependencies' => [
-					"wikibase.lexeme.view.ControllerViewFactory"
-				]
-			],
 			'WikibaseLexeme.tests.FormChanger' => $moduleBase + [
 				'packageFiles' => [
 					'tests/qunit/entityChangers/FormChanger.tests.js',
 					'resources/entityChangers/FormChanger.js',
+					'resources/serialization/FormSerializer.js',
 				],
 				'dependencies' => [
-					"wikibase.lexeme.view.ControllerViewFactory"
+					"wikibase.lexeme.view.ViewFactoryFactory"
 				]
 			],
 			'WikibaseLexeme.tests.SenseChanger' => $moduleBase + [
 				'packageFiles' => [
 					'tests/qunit/entityChangers/SenseChanger.tests.js',
 					'resources/entityChangers/SenseChanger.js',
+					'resources/serialization/SenseSerializer.js',
 				],
 				'dependencies' => [
-					"wikibase.lexeme.view.ControllerViewFactory"
+					"wikibase.lexeme.view.ViewFactoryFactory"
 				]
 			],
 			'WikibaseLexeme.tests.LexemeRevisionStore' => $moduleBase + [
@@ -254,7 +242,7 @@ class WikibaseLexemeHooks {
 					'resources/entityChangers/LexemeRevisionStore.js',
 				],
 				'dependencies' => [
-					"wikibase.lexeme.view.ControllerViewFactory"
+					"wikibase.lexeme.view.ViewFactoryFactory"
 				]
 			],
 			'WikibaseLexeme.tests.LexemeDeserializer' => $moduleBase + [
@@ -274,6 +262,53 @@ class WikibaseLexemeHooks {
 				],
 				'dependencies' => [
 					"wikibase.lexeme.serialization.LexemeDeserializer"
+				]
+			],
+			'WikibaseLexeme.tests.serialization.FormSerializer' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/serialization/FormSerializer.tests.js',
+					'resources/serialization/FormSerializer.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ViewFactoryFactory"
+				]
+			],
+			'WikibaseLexeme.tests.serialization.SenseSerializer' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/serialization/SenseSerializer.tests.js',
+					'resources/serialization/SenseSerializer.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ViewFactoryFactory"
+				]
+			],
+			'WikibaseLexeme.tests.ViewFactoryFactory' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/view/ViewFactoryFactory.tests.js',
+					'resources/view/ReadModeViewFactory.js',
+					'resources/view/ControllerViewFactory.js',
+					'resources/entityChangers/LexemeRevisionStore.js',
+					'resources/entityChangers/FormChanger.js',
+					'resources/serialization/FormSerializer.js',
+					'resources/entityChangers/SenseChanger.js',
+					'resources/serialization/SenseSerializer.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ViewFactoryFactory"
+				]
+			],
+			'WikibaseLexeme.tests.ControllerViewFactory' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/view/ControllerViewFactory.tests.js',
+					'resources/view/ControllerViewFactory.js',
+					'resources/entityChangers/LexemeRevisionStore.js',
+					'resources/entityChangers/FormChanger.js',
+					'resources/serialization/FormSerializer.js',
+					'resources/entityChangers/SenseChanger.js',
+					'resources/serialization/SenseSerializer.js',
+				],
+				'dependencies' => [
+					"wikibase.lexeme.view.ViewFactoryFactory"
 				]
 			],
 		];

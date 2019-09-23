@@ -10,7 +10,7 @@
 	var Form = wikibase.lexeme.datamodel.Form,
 		TermMap = wikibase.datamodel.TermMap,
 		Term = wikibase.datamodel.Term,
-		Serializer = wikibase.lexeme.serialization.FormSerializer,
+		Serializer = require( '../../../resources/serialization/FormSerializer.js' ),
 		testCases = {
 			'Empty Form': {
 				form: new Form(),
