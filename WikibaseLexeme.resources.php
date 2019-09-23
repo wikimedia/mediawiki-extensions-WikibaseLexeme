@@ -81,14 +81,16 @@ return call_user_func( function() {
 			"scripts" => "vendor/es6-promise.auto.js"
 		],
 		"lexeme-header" => $moduleTemplate + [
-			"scripts" => [
+			"packageFiles" => [
+				"widgets/LexemeHeader.js",
+
 				"widgets/__namespace.js",
-				"widgets/LexemeHeader.js"
+				"widgets/LanguageAndLexicalCategoryWidget.js",
+				"widgets/ItemSelectorWrapper.js"
 			],
 			"dependencies" => [
 				"vue2",
 				"vuex",
-				"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget",
 				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader",
 				"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore",
 				"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget",
@@ -177,12 +179,6 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader" => $moduleTemplate + [
 			"scripts" => "widgets/LexemeHeader.newLexemeHeader.js"
-		],
-		"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget" => $moduleTemplate + [
-			"packageFiles" => [
-				"widgets/LanguageAndLexicalCategoryWidget.js",
-				"widgets/ItemSelectorWrapper.js"
-			],
 		],
 		"wikibase.lexeme.widgets.LanguageSelectorWrapper" => $moduleTemplate + [
 				"scripts" => "widgets/LanguageSelectorWrapper.js",

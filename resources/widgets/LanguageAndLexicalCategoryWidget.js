@@ -4,7 +4,7 @@ module.exports = ( function () {
 	var ItemSelectorWrapper = require( './ItemSelectorWrapper.js' );
 
 	/**
-	 * @callback wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget
+	 * @callback LanguageAndLexicalCategoryWidget
 	 *
 	 * @param {string} template - template string or selector
 	 * @param {wikibase.api.RepoApi} repoApi

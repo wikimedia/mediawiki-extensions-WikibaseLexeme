@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function () {
+describe( 'LanguageAndLexicalCategoryWidget', function () {
 	global.mw = { // eslint-disable-line no-restricted-globals
 		config: {
 			get: function () {
@@ -13,7 +13,7 @@ describe( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget', function (
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 
-	var newLanguageAndLexicalCategoryWidget = require( 'wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget' );
+	var newLanguageAndLexicalCategoryWidget = require( './../../resources/widgets/LanguageAndLexicalCategoryWidget.js' );
 
 	it( 'shows the language and the lexical category', function () {
 		var language = 'Q123',
