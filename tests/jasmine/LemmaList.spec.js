@@ -1,10 +1,10 @@
 /**
  * @license GPL-2.0-or-later
  */
-describe( 'wikibase.lexeme.datatransfer.LemmaList', function () {
+describe( 'LemmaList', function () {
 	var expect = require( 'unexpected' ).clone(),
 		Lemma = require( './../../resources/datamodel/Lemma.js' ),
-		LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
+		LemmaList = require( './../../resources/datatransfer/LemmaList.js' );
 
 	it( 'getLemmas', function () {
 		var lemmas = [

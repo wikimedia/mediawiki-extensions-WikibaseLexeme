@@ -2,7 +2,7 @@ module.exports = ( function () {
 	'use strict';
 
 	var Lemma = require( './../datamodel/Lemma.js' );
-	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
+	var LemmaList = require( './../datatransfer/LemmaList.js' );
 
 	function getRequestLemmas( origLemmas, currentLemmas ) {
 		var removedLemmas = [];

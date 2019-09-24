@@ -2,8 +2,6 @@
 	'use strict';
 
 	/**
-	 * @class wikibase.lexeme.datatransfer.LemmaList
-	 *
 	 * @param {Lemma[]} lemmas
 	 */
 	function LemmaList( lemmas ) {

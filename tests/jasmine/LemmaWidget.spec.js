@@ -7,7 +7,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 
 	var newLemmaWidget = require( './../../resources/widgets/LemmaWidget.newLemmaWidget.js' );
 	var Lemma = require( './../../resources/datamodel/Lemma.js' );
-	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
+	var LemmaList = require( './../../resources/datatransfer/LemmaList.js' );
 
 	var selector = {
 		lemma: '.lemma-widget_lemma',

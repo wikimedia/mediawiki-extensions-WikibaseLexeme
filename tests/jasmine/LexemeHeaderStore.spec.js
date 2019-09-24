@@ -9,7 +9,7 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 
 	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
 	var Lemma = require( './../../resources/datamodel/Lemma.js' );
-	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
+	var LemmaList = require( './../../resources/datatransfer/LemmaList.js' );
 
 	var mutations = newLexemeHeaderStore( {}, {}, 0, 'Some language', 'Some category' ).mutations;
 

@@ -11,7 +11,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	var newLexemeHeader = require( './../../resources/widgets/LexemeHeader.newLexemeHeader.js' );
 	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
 	var Lemma = require( './../../resources/datamodel/Lemma.js' );
-	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
+	var LemmaList = require( './../../resources/datatransfer/LemmaList.js' );
 
 	it( 'switch to edit mode', function ( done ) {
 		var widget = newWidget( { lemmas: [] } );

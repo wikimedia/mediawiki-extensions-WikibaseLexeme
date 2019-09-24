@@ -90,7 +90,8 @@ return call_user_func( function() {
 				"widgets/ItemSelectorWrapper.js",
 				"widgets/LexemeHeader.newLexemeHeaderStore.js",
 				"widgets/LemmaWidget.newLemmaWidget.js",
-				"datamodel/Lemma.js"
+				"datamodel/Lemma.js",
+				"datatransfer/LemmaList.js"
 			],
 			"dependencies" => [
 				"vue2",
@@ -99,7 +100,6 @@ return call_user_func( function() {
 				"wikibase.api.RepoApi",
 				"jquery.wikibase.wbtooltip",
 				"mediawiki.api",
-				"wikibase.lexeme.datatransfer.LemmaList",
 			],
 			"messages" => [
 				"wikibase-edit",
@@ -179,9 +179,6 @@ return call_user_func( function() {
 			"dependencies" => [
 				"wikibase.templates"
 			]
-		],
-		"wikibase.lexeme.datatransfer.LemmaList" => $moduleTemplate + [
-			"scripts" => "datatransfer/LemmaList.js"
 		],
 		"wikibase.lexeme.store" => $moduleTemplate + [
 			"scripts" => "store/index.js",
