@@ -10,7 +10,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 
 	var newLexemeHeader = require( './../../resources/widgets/LexemeHeader.newLexemeHeader.js' );
 	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
-	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var Lemma = require( './../../resources/datamodel/Lemma.js' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	it( 'switch to edit mode', function ( done ) {

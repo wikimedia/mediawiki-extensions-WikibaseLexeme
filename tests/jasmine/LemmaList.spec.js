@@ -3,7 +3,7 @@
  */
 describe( 'wikibase.lexeme.datatransfer.LemmaList', function () {
 	var expect = require( 'unexpected' ).clone(),
-		Lemma = require( 'wikibase.lexeme.datamodel.Lemma' ),
+		Lemma = require( './../../resources/datamodel/Lemma.js' ),
 		LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	it( 'getLemmas', function () {

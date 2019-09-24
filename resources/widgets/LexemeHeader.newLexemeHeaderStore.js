@@ -1,7 +1,7 @@
 module.exports = ( function () {
 	'use strict';
 
-	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var Lemma = require( './../datamodel/Lemma.js' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	function getRequestLemmas( origLemmas, currentLemmas ) {
@@ -52,7 +52,7 @@ module.exports = ( function () {
 	/**
 	 * @callback wikibase.lexeme.widgets.LexemeHeader.newLemmaWidgetStore
 	 * @param {wikibase.api.RepoApi} repoApi
-	 * @param {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
+	 * @param {{lemmas: Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
 	 *        this is NOT a wikibase.lexeme.datamodel.Lexeme!
 	 * @param {int} baseRevId
 	 * @param {string} languageLink HTML

@@ -8,7 +8,7 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
 
 	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
-	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var Lemma = require( './../../resources/datamodel/Lemma.js' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	var mutations = newLexemeHeaderStore( {}, {}, 0, 'Some language', 'Some category' ).mutations;

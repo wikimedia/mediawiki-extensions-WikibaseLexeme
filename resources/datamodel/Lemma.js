@@ -2,8 +2,6 @@
 	'use strict';
 
 	/**
-	 * @class wikibase.lexeme.datamodel.Lemma
-	 *
 	 * @param {string} label
 	 * @param {string} language
 	 */

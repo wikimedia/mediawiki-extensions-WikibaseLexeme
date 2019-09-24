@@ -46,7 +46,6 @@
 		"wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js",
 		"wikibase.lexeme.widgets.LanguageSelectorWrapper": "./resources/widgets/LanguageSelectorWrapper.js",
 		"wikibase.lexeme.datatransfer.LemmaList": "./resources/datatransfer/LemmaList.js",
-		"wikibase.lexeme.datamodel.Lemma": "./resources/datamodel/Lemma.js",
 		"wikibase.lexeme.store": "./resources/store/index.js",
 		"wikibase.lexeme.store.actions": "./resources/store/actions.js",
 		"wikibase.lexeme.store.actionTypes": "./resources/store/actionTypes.js",

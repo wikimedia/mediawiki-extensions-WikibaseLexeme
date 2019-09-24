@@ -7,13 +7,13 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	var newLemmaWidget = require( './LemmaWidget.newLemmaWidget.js' );
 	var newLanguageAndLexicalCategoryWidget = require( './LanguageAndLexicalCategoryWidget.js' );
 	var newLexemeHeader = require( './LexemeHeader.newLexemeHeader.js' );
-	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var Lemma = require( './../datamodel/Lemma.js' );
 
 	Vue.use( Vuex );
 
 	/**
 	 * @param {Object} wbEntity
-	 * @return {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}}
+	 * @return {{lemmas: Lemma[], lexicalCategory: string|null, language: string|null, id: string}}
 	 */
 	function hydrateLexeme( wbEntity ) {
 		return {
@@ -25,10 +25,10 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	}
 
 	/**
-	 * Create an array of wikibase.lexeme.datamodel.Lemma from lemma information per wikibase entity object
+	 * Create an array of Lemma from lemma information per wikibase entity object
 	 *
 	 * @param {Object} lemmaInfo
-	 * @return {wikibase.lexeme.datamodel.Lemma[]}
+	 * @return {Lemma[]}
 	 */
 	function hydrateLemmas( lemmaInfo ) {
 		var lemmas = [];
@@ -42,7 +42,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	/**
 	 * @tutorial Parameter is _not_ wikibase.lexeme.datamodel.Lexeme! See hydrateLexeme()
 	 *
-	 * @param {{lemmas: wikibase.lexeme.datamodel.Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
+	 * @param {{lemmas: Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
 	 */
 	function init( lexeme ) {
 		var repoApi = new wb.api.RepoApi( new mw.Api() );

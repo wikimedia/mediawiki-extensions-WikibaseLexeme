@@ -6,7 +6,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	expect.installPlugin( require( 'unexpected-dom' ) );
 
 	var newLemmaWidget = require( './../../resources/widgets/LemmaWidget.newLemmaWidget.js' );
-	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
+	var Lemma = require( './../../resources/datamodel/Lemma.js' );
 	var LemmaList = require( 'wikibase.lexeme.datatransfer.LemmaList' );
 
 	var selector = {
