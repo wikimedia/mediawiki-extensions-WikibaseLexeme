@@ -4,7 +4,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 
 	var Vue = require( 'vue2' );
 	var newLexemeHeaderStore = require( './LexemeHeader.newLexemeHeaderStore.js' );
-	var newLemmaWidget = require( 'wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget' );
+	var newLemmaWidget = require( './LemmaWidget.newLemmaWidget.js' );
 	var newLanguageAndLexicalCategoryWidget = require( './LanguageAndLexicalCategoryWidget.js' );
 	var newLexemeHeader = require( './LexemeHeader.newLexemeHeader.js' );
 	var Lemma = require( 'wikibase.lexeme.datamodel.Lemma' );
