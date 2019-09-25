@@ -5,9 +5,8 @@ namespace Wikibase\Lexeme\Domain\Model;
 use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\ClearableEntity;
-use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\StatementListProvidingEntity;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
@@ -22,7 +21,7 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class Form implements EntityDocument, StatementListProvider, ClearableEntity {
+class Form implements StatementListProvidingEntity, ClearableEntity {
 
 	/* public */ const ENTITY_TYPE = 'form';
 

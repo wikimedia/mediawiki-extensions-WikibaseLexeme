@@ -4,9 +4,8 @@ namespace Wikibase\Lexeme\Domain\Model;
 
 use LogicException;
 use Wikibase\DataModel\Entity\ClearableEntity;
-use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\StatementListProvidingEntity;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Statement\StatementListProvider;
 use Wikibase\DataModel\Term\TermList;
 
 /**
@@ -17,7 +16,7 @@ use Wikibase\DataModel\Term\TermList;
  *
  * @license GPL-2.0-or-later
  */
-class Sense implements EntityDocument, StatementListProvider, ClearableEntity {
+class Sense implements StatementListProvidingEntity, ClearableEntity {
 
 	const ENTITY_TYPE = 'sense';
 
