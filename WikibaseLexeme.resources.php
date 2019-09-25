@@ -176,11 +176,14 @@ return call_user_func( function() {
 			]
 		],
 		"wikibase.lexeme.store" => $moduleTemplate + [
-			"scripts" => "store/index.js",
+			"packageFiles" => [
+				"store/index.js",
+				"store/mutations.js",
+			],
 			"dependencies" => [
 				"vuex",
 				"wikibase.lexeme.store.actions",
-				"wikibase.lexeme.store.mutations"
+				"wikibase.lexeme.store.mutationTypes"
 			]
 		],
 		"wikibase.lexeme.store.actions" => $moduleTemplate + [
@@ -192,12 +195,6 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.store.actionTypes" => $moduleTemplate + [
 			"scripts" => "store/actionTypes.js"
-		],
-		"wikibase.lexeme.store.mutations" => $moduleTemplate + [
-			"scripts" => "store/mutations.js",
-			"dependencies" => [
-				"wikibase.lexeme.store.mutationTypes"
-			]
 		],
 		"wikibase.lexeme.store.mutationTypes" => $moduleTemplate + [
 			"scripts" => "store/mutationTypes.js"

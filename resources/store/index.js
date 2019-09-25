@@ -2,7 +2,7 @@
 	'use strict';
 
 	var actions = require( 'wikibase.lexeme.store.actions' ),
-		mutations = require( 'wikibase.lexeme.store.mutations' );
+		mutations = require( './mutations.js' );
 
 	function create( lemmas, forms ) {
 		return new Vuex.Store( {
