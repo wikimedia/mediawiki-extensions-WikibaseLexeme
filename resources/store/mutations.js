@@ -1,7 +1,7 @@
 ( function () {
 	'use strict';
 
-	var mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
+	var mutationTypes = require( './mutationTypes.js' ),
 		mutations = {};
 
 	mutations[ mutationTypes.ADD_REPRESENTATION ] = function ( state, payload ) {

@@ -1,7 +1,7 @@
-describe( 'wikibase.lexeme.store.mutationTypes', function () {
+describe( 'mutationTypes', function () {
 	var expect = require( 'unexpected' ).clone(),
 		_ = require( 'lodash' ),
-		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' );
+		mutationTypes = require( './../../../resources/store/mutationTypes.js' );
 
 	it( 'uses unique ids for all mutation types', function () {
 		expect(

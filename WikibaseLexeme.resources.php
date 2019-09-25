@@ -180,18 +180,15 @@ return call_user_func( function() {
 				"store/index.js",
 				"store/mutations.js",
 				"store/actions.js",
+				"store/mutationTypes.js"
 			],
 			"dependencies" => [
 				"vuex",
 				"wikibase.lexeme.store.actionTypes",
-				"wikibase.lexeme.store.mutationTypes"
 			]
 		],
 		"wikibase.lexeme.store.actionTypes" => $moduleTemplate + [
 			"scripts" => "store/actionTypes.js"
-		],
-		"wikibase.lexeme.store.mutationTypes" => $moduleTemplate + [
-			"scripts" => "store/mutationTypes.js"
 		],
 		"wikibase.lexeme.datamodel.Form" => $moduleTemplate + [
 			"scripts" => [

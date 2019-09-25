@@ -3,7 +3,7 @@ describe( 'actions', function () {
 		sinon = require( 'sinon' ),
 		actions = require( './../../../resources/store/actions.js' ),
 		actionTypes = require( 'wikibase.lexeme.store.actionTypes' ),
-		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
+		mutationTypes = require( './../../../resources/store/mutationTypes.js' ),
 		state;
 
 	beforeEach( function () {

@@ -2,7 +2,7 @@
 	'use strict';
 
 	var actionTypes = require( 'wikibase.lexeme.store.actionTypes' ),
-		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
+		mutationTypes = require( './mutationTypes.js' ),
 		actions = {};
 
 	actions[ actionTypes.ADD_REPRESENTATION ] = function ( store, payload ) {

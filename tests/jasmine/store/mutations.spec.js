@@ -1,7 +1,7 @@
 describe( 'mutations', function () {
 	var expect = require( 'unexpected' ).clone(),
 		mutations = require( './../../../resources/store/mutations.js' ),
-		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
+		mutationTypes = require( './../../../resources/store/mutationTypes.js' ),
 		state;
 
 	beforeEach( function () {
