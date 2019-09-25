@@ -179,16 +179,10 @@ return call_user_func( function() {
 			"packageFiles" => [
 				"store/index.js",
 				"store/mutations.js",
+				"store/actions.js",
 			],
 			"dependencies" => [
 				"vuex",
-				"wikibase.lexeme.store.actions",
-				"wikibase.lexeme.store.mutationTypes"
-			]
-		],
-		"wikibase.lexeme.store.actions" => $moduleTemplate + [
-			"scripts" => "store/actions.js",
-			"dependencies" => [
 				"wikibase.lexeme.store.actionTypes",
 				"wikibase.lexeme.store.mutationTypes"
 			]

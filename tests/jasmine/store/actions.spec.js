@@ -1,7 +1,7 @@
-describe( 'wikibase.lexeme.store.actions', function () {
+describe( 'actions', function () {
 	var expect = require( 'unexpected' ).clone(),
 		sinon = require( 'sinon' ),
-		actions = require( 'wikibase.lexeme.store.actions' ),
+		actions = require( './../../../resources/store/actions.js' ),
 		actionTypes = require( 'wikibase.lexeme.store.actionTypes' ),
 		mutationTypes = require( 'wikibase.lexeme.store.mutationTypes' ),
 		state;
