@@ -4,7 +4,7 @@ module.exports = ( function ( require, wb, Vuex ) {
 	var Vue = require( 'vue2' ),
 		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
 		InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' ),
-		LanguageSelectorWrapper = require( 'wikibase.lexeme.widgets.LanguageSelectorWrapper' );
+		LanguageSelectorWrapper = require( './LanguageSelectorWrapper.js' );
 
 	Vue.use( Vuex );
 

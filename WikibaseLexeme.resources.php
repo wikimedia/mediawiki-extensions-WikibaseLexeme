@@ -141,16 +141,20 @@ return call_user_func( function() {
 			]
 		],
 		"wikibase.lexeme.widgets.GlossWidget" => $moduleTemplate + [
-			"scripts" => "widgets/GlossWidget.js",
+			"packageFiles" => [
+				"widgets/GlossWidget.js",
+				"widgets/LanguageSelectorWrapper.js",
+			],
 			"dependencies" => [
 				"vue2",
 				"vuex",
 				"jquery.util.getDirectionality",
-				"wikibase.lexeme.widgets.LanguageSelectorWrapper",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
 				"wikibase.lexeme.widgets.InvalidLanguageIndicator",
 				"wikibase.getLanguageNameByCode",
-				"wikibase.WikibaseContentLanguages"
+				"wikibase.WikibaseContentLanguages",
+				"jquery.ui.languagesuggester",
+				"wikibase.getLanguageNameByCode"
 			],
 			"messages" => [
 				"wikibase-edit",
@@ -161,18 +165,9 @@ return call_user_func( function() {
 				"wikibaselexeme-gloss-field-language-label",
 				"wikibaselexeme-gloss-field-gloss-label",
 				"wikibaselexeme-sense-gloss-redundant-language",
-				"wikibaselexeme-sense-gloss-invalid-language"
+				"wikibaselexeme-sense-gloss-invalid-language",
+				"wikibase-lexeme-language-selector-label"
 			]
-		],
-		"wikibase.lexeme.widgets.LanguageSelectorWrapper" => $moduleTemplate + [
-				"scripts" => "widgets/LanguageSelectorWrapper.js",
-				"dependencies" => [
-					"jquery.ui.languagesuggester",
-					"wikibase.getLanguageNameByCode"
-				],
-				"messages" => [
-					"wikibase-lexeme-language-selector-label"
-				]
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
