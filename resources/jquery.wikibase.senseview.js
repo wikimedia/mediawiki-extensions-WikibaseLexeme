@@ -3,7 +3,7 @@
 
 	var PARENT = $.ui.EditableTemplatedWidget;
 
-	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' ),
+	var GlossWidget = require( './widgets/GlossWidget.js' ),
 		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
 
 	/**

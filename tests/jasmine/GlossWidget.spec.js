@@ -1,4 +1,4 @@
-describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
+describe( 'GlossWidget', function () {
 	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
 	global.mw = { // eslint-disable-line no-restricted-globals
 		config: {
@@ -50,7 +50,7 @@ describe( 'wikibase.lexeme.widgets.GlossWidget', function () {
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 	var Vue = global.Vue = require( 'vue/dist/vue.js' ); // eslint-disable-line no-restricted-globals
-	var GlossWidget = require( 'wikibase.lexeme.widgets.GlossWidget' );
+	var GlossWidget = require( './../../resources/widgets/GlossWidget.js' );
 
 	it(
 		'create with no glosses - when switched to edit mode empty gloss is added',

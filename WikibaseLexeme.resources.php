@@ -23,7 +23,10 @@ return call_user_func( function() {
 				"store/index.js",
 				"store/mutations.js",
 				"store/actions.js",
-				"store/mutationTypes.js"
+				"store/mutationTypes.js",
+				"widgets/GlossWidget.js",
+				"widgets/LanguageSelectorWrapper.js",
+				"widgets/InvalidLanguageIndicator.js",
 			],
 			"dependencies" => [
 				"jquery.ui.EditableTemplatedWidget",
@@ -33,11 +36,18 @@ return call_user_func( function() {
 				"lexeme-header",
 				"wikibase.lexeme",
 				"wikibase.lexeme.view.ViewFactoryFactory",
-				"wikibase.lexeme.widgets.GlossWidget",
 				"wikibase.lexeme.widgets.RepresentationWidget",
 				"wikibase.templates.lexeme",
 				"vuex",
 				"wikibase.lexeme.store.actionTypes",
+				"vue2",
+				"jquery.util.getDirectionality",
+				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
+				"wikibase.getLanguageNameByCode",
+				"wikibase.WikibaseContentLanguages",
+				"jquery.ui.languagesuggester",
+				"mw.config.values.wbRepo",
+				"wikibase.getLanguageNameByCode"
 			],
 			"messages" => [
 				"wikibaselexeme-empty-form-representation",
@@ -46,7 +56,17 @@ return call_user_func( function() {
 				"wikibaselexeme-statementsection-statements-about-sense",
 				"wikibaselexeme-form-grammatical-features",
 				"wikibaselexeme-add-form",
-				"wikibaselexeme-add-sense"
+				"wikibaselexeme-add-sense",
+				"wikibase-edit",
+				"wikibase-save",
+				"wikibase-cancel",
+				"wikibase-add",
+				"wikibase-remove",
+				"wikibaselexeme-gloss-field-language-label",
+				"wikibaselexeme-gloss-field-gloss-label",
+				"wikibaselexeme-sense-gloss-redundant-language",
+				"wikibaselexeme-sense-gloss-invalid-language",
+				"wikibase-lexeme-language-selector-label"
 			]
 		],
 		"wikibase.lexeme" => $moduleTemplate + [
@@ -135,36 +155,6 @@ return call_user_func( function() {
 				"wikibaselexeme-form-field-representation-label",
 				"wikibaselexeme-form-field-language-label",
 				"wikibaselexeme-form-representation-redundant-language"
-			]
-		],
-		"wikibase.lexeme.widgets.GlossWidget" => $moduleTemplate + [
-			"packageFiles" => [
-				"widgets/GlossWidget.js",
-				"widgets/LanguageSelectorWrapper.js",
-				"widgets/InvalidLanguageIndicator.js",
-			],
-			"dependencies" => [
-				"vue2",
-				"vuex",
-				"jquery.util.getDirectionality",
-				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
-				"wikibase.getLanguageNameByCode",
-				"wikibase.WikibaseContentLanguages",
-				"jquery.ui.languagesuggester",
-				"mw.config.values.wbRepo",
-				"wikibase.getLanguageNameByCode"
-			],
-			"messages" => [
-				"wikibase-edit",
-				"wikibase-save",
-				"wikibase-cancel",
-				"wikibase-add",
-				"wikibase-remove",
-				"wikibaselexeme-gloss-field-language-label",
-				"wikibaselexeme-gloss-field-gloss-label",
-				"wikibaselexeme-sense-gloss-redundant-language",
-				"wikibaselexeme-sense-gloss-invalid-language",
-				"wikibase-lexeme-language-selector-label"
 			]
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
