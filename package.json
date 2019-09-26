@@ -39,7 +39,6 @@
 	},
 	"_moduleAliases": {
 		"vue2": "node_modules/vue/dist/vue.js",
-		"wikibase.lexeme.widgets.InvalidLanguageIndicator": "./resources/widgets/InvalidLanguageIndicator.js",
 		"wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
 		"wikibase.lexeme.widgets.RedundantLanguageIndicator": "./resources/widgets/RedundantLanguageIndicator.js",
 		"wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js",

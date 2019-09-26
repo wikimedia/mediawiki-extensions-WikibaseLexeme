@@ -1,4 +1,4 @@
-describe( 'wikibase.lexeme.widgets.InvalidLanguageIndicator', function () {
+describe( 'InvalidLanguageIndicator', function () {
 	var expect = require( 'unexpected' ).clone(),
 		sinon = require( 'sinon' );
 
@@ -19,7 +19,7 @@ describe( 'wikibase.lexeme.widgets.InvalidLanguageIndicator', function () {
 		}
 	};
 
-	var InvalidLanguageIndicator = require( 'wikibase.lexeme.widgets.InvalidLanguageIndicator' );
+	var InvalidLanguageIndicator = require( './../../resources/widgets/InvalidLanguageIndicator.js' );
 
 	it( 'creates mixin definition that adds an InvalidLanguages property to data', function () {
 		var mixin = InvalidLanguageIndicator( 'myprop' );

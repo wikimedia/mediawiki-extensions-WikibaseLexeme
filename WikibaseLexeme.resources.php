@@ -121,12 +121,6 @@ return call_user_func( function() {
 		"wikibase.lexeme.widgets.RedundantLanguageIndicator" => $moduleTemplate + [
 			"scripts" => "widgets/RedundantLanguageIndicator.js",
 		],
-		"wikibase.lexeme.widgets.InvalidLanguageIndicator" => $moduleTemplate + [
-			"scripts" => "widgets/InvalidLanguageIndicator.js",
-			"dependencies" => [
-				"mw.config.values.wbRepo",
-			]
-		],
 		"wikibase.lexeme.widgets.RepresentationWidget" => $moduleTemplate + [
 			"scripts" => "widgets/RepresentationWidget.js",
 			"dependencies" => [
@@ -147,16 +141,17 @@ return call_user_func( function() {
 			"packageFiles" => [
 				"widgets/GlossWidget.js",
 				"widgets/LanguageSelectorWrapper.js",
+				"widgets/InvalidLanguageIndicator.js",
 			],
 			"dependencies" => [
 				"vue2",
 				"vuex",
 				"jquery.util.getDirectionality",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
-				"wikibase.lexeme.widgets.InvalidLanguageIndicator",
 				"wikibase.getLanguageNameByCode",
 				"wikibase.WikibaseContentLanguages",
 				"jquery.ui.languagesuggester",
+				"mw.config.values.wbRepo",
 				"wikibase.getLanguageNameByCode"
 			],
 			"messages" => [
