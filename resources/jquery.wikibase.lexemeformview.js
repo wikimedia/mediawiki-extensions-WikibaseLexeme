@@ -5,7 +5,7 @@
 
 	/** @type {wikibase.lexeme.widgets.RepresentationWidget} */
 	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
-		LexemeStore = require( 'wikibase.lexeme.store' ),
+		LexemeStore = require( './store/index.js' ),
 		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
 
 	/**

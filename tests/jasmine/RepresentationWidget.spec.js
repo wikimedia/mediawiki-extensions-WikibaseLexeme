@@ -1,7 +1,7 @@
 describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
 	var expect = require( 'unexpected' ).clone(),
 		RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
-		LexemeStore = require( 'wikibase.lexeme.store' );
+		LexemeStore = require( './../../resources/store/index.js' );
 
 	var mw = { messages: {} };
 

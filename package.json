@@ -44,7 +44,6 @@
 		"wikibase.lexeme.widgets.RedundantLanguageIndicator": "./resources/widgets/RedundantLanguageIndicator.js",
 		"wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js",
 		"wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js",
-		"wikibase.lexeme.store": "./resources/store/index.js",
 		"wikibase.lexeme.store.actionTypes": "./resources/store/actionTypes.js"
 	},
 	"browserslist": [

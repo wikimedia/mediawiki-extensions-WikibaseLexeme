@@ -20,6 +20,10 @@ return call_user_func( function() {
 				"jquery.wikibase.senselistview.js",
 				"jquery.wikibase.senseview.js",
 				"datamodel/LexemeSubEntityId.js",
+				"store/index.js",
+				"store/mutations.js",
+				"store/actions.js",
+				"store/mutationTypes.js"
 			],
 			"dependencies" => [
 				"jquery.ui.EditableTemplatedWidget",
@@ -28,11 +32,12 @@ return call_user_func( function() {
 				"jquery.wikibase.grammaticalfeatureview",
 				"lexeme-header",
 				"wikibase.lexeme",
-				"wikibase.lexeme.store",
 				"wikibase.lexeme.view.ViewFactoryFactory",
 				"wikibase.lexeme.widgets.GlossWidget",
 				"wikibase.lexeme.widgets.RepresentationWidget",
-				"wikibase.templates.lexeme"
+				"wikibase.templates.lexeme",
+				"vuex",
+				"wikibase.lexeme.store.actionTypes",
 			],
 			"messages" => [
 				"wikibaselexeme-empty-form-representation",
@@ -171,18 +176,6 @@ return call_user_func( function() {
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
 			"dependencies" => [
 				"wikibase.templates"
-			]
-		],
-		"wikibase.lexeme.store" => $moduleTemplate + [
-			"packageFiles" => [
-				"store/index.js",
-				"store/mutations.js",
-				"store/actions.js",
-				"store/mutationTypes.js"
-			],
-			"dependencies" => [
-				"vuex",
-				"wikibase.lexeme.store.actionTypes",
 			]
 		],
 		"wikibase.lexeme.store.actionTypes" => $moduleTemplate + [

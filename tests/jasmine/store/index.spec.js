@@ -1,6 +1,6 @@
-describe( 'wikibase.lexeme.store', function () {
+describe( 'store', function () {
 	var expect = require( 'unexpected' ).clone(),
-		LexemeStore = require( 'wikibase.lexeme.store' );
+		LexemeStore = require( './../../../resources/store/index.js' );
 
 	it( 'creates initial state', function () {
 		var store = LexemeStore.create(
