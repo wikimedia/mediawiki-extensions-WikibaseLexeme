@@ -20,6 +20,7 @@ return call_user_func( function() {
 				"jquery.wikibase.senselistview.js",
 				"jquery.wikibase.senseview.js",
 				"datamodel/LexemeSubEntityId.js",
+				"jquery.wikibase.grammaticalfeatureview.js",
 				"store/index.js",
 				"store/mutations.js",
 				"store/actions.js",
@@ -32,7 +33,6 @@ return call_user_func( function() {
 				"jquery.ui.EditableTemplatedWidget",
 				"jquery.ui.widget",
 				"jquery.wikibase.entityview",
-				"jquery.wikibase.grammaticalfeatureview",
 				"lexeme-header",
 				"wikibase.lexeme",
 				"wikibase.lexeme.view.ViewFactoryFactory",
@@ -47,7 +47,8 @@ return call_user_func( function() {
 				"wikibase.WikibaseContentLanguages",
 				"jquery.ui.languagesuggester",
 				"mw.config.values.wbRepo",
-				"wikibase.getLanguageNameByCode"
+				"wikibase.getLanguageNameByCode",
+				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
 			],
 			"messages" => [
 				"wikibaselexeme-empty-form-representation",
@@ -66,7 +67,8 @@ return call_user_func( function() {
 				"wikibaselexeme-gloss-field-gloss-label",
 				"wikibaselexeme-sense-gloss-redundant-language",
 				"wikibaselexeme-sense-gloss-invalid-language",
-				"wikibase-lexeme-language-selector-label"
+				"wikibase-lexeme-language-selector-label",
+				"wikibaselexeme-grammatical-features-input-placeholder"
 			]
 		],
 		"wikibase.lexeme" => $moduleTemplate + [
@@ -80,17 +82,6 @@ return call_user_func( function() {
 			"dependencies" => [
 				"jquery.wikibase.lexemeview",
 				"wikibase.lexeme.getDeserializer"
-			]
-		],
-		"jquery.wikibase.grammaticalfeatureview" => $moduleTemplate + [
-			"scripts" => "jquery.wikibase.grammaticalfeatureview.js",
-			"dependencies" => [
-				"jquery.ui.EditableTemplatedWidget",
-				"wikibase.templates.lexeme",
-				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
-			],
-			"messages" => [
-				"wikibaselexeme-grammatical-features-input-placeholder"
 			]
 		],
 		"vuex" => $moduleTemplate + [

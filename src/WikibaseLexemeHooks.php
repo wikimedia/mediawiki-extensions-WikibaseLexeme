@@ -176,7 +176,6 @@ class WikibaseLexemeHooks {
 				],
 				'dependencies' => [
 					'jquery.valueview.tests.testExpert',
-					'jquery.wikibase.grammaticalfeatureview',
 					'jquery.wikibase.lexemeview',
 					'oojs-ui',
 					'wikibase.experts.Lexeme',

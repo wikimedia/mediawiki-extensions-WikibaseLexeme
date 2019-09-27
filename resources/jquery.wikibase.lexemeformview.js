@@ -7,6 +7,7 @@
 	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
 		LexemeStore = require( './store/index.js' ),
 		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
+	require( './jquery.wikibase.grammaticalfeatureview.js' );
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
