@@ -185,7 +185,6 @@ class WikibaseLexemeHooks {
 					'wikibase.lexeme.serialization.LexemeDeserializer',
 					'wikibase.lexeme.widgets.ItemSelectorWidget',
 					'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
-					'wikibase.lexeme.widgets.RepresentationWidget',
 					'wikibase.lexeme.view.ViewFactoryFactory',
 					'wikibase.tests.qunit.testrunner',
 					'wikibase.view.tests.getMockListItemAdapter',

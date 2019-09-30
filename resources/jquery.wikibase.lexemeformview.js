@@ -3,8 +3,7 @@
 
 	var PARENT = $.ui.EditableTemplatedWidget;
 
-	/** @type {wikibase.lexeme.widgets.RepresentationWidget} */
-	var RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
+	var RepresentationWidget = require( './widgets/RepresentationWidget.js' ),
 		LexemeStore = require( './store/index.js' ),
 		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
 	require( './jquery.wikibase.grammaticalfeatureview.js' );

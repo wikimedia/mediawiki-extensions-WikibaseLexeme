@@ -1,6 +1,6 @@
-describe( 'wikibase.lexeme.widgets.RepresentationWidget', function () {
+describe( 'RepresentationWidget', function () {
 	var expect = require( 'unexpected' ).clone(),
-		RepresentationWidget = require( 'wikibase.lexeme.widgets.RepresentationWidget' ),
+		RepresentationWidget = require( './../../resources/widgets/RepresentationWidget.js' ),
 		LexemeStore = require( './../../resources/store/index.js' );
 
 	var mw = { messages: {} };

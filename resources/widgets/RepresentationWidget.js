@@ -8,7 +8,7 @@ module.exports = ( function ( Vuex ) {
 	Vue.use( Vuex );
 
 	/**
-	 * @callback wikibase.lexeme.widgets.RepresentationWidget.newComponent
+	 * @callback RepresentationWidget.newComponent
 	 *
 	 * @param {Vuex.Store} store
 	 * @param {integer} formIndex Index of the form to emit value updates on
@@ -91,7 +91,7 @@ module.exports = ( function ( Vuex ) {
 	}
 
 	/**
-	 * @callback wikibase.lexeme.widgets.RepresentationWidget.create
+	 * @callback RepresentationWidget.create
 	 *
 	 * @param {Vuex.Store} store
 	 * @param {integer} formIndex Index of the form to emit value updates on
@@ -106,7 +106,7 @@ module.exports = ( function ( Vuex ) {
 	}
 
 	/**
-	 * @class wikibase.lexeme.widgets.RepresentationWidget
+	 * @class RepresentationWidget
 	 */
 	return {
 		create: create

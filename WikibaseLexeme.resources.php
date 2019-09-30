@@ -27,6 +27,7 @@ return call_user_func( function() {
 				"store/mutationTypes.js",
 				"widgets/GlossWidget.js",
 				"widgets/LanguageSelectorWrapper.js",
+				"widgets/RepresentationWidget.js",
 				"widgets/InvalidLanguageIndicator.js",
 			],
 			"dependencies" => [
@@ -45,7 +46,6 @@ return call_user_func( function() {
 				"wikibase.lexeme.store.actionTypes",
 				"wikibase.WikibaseContentLanguages",
 				"wikibase.lexeme.view.ViewFactoryFactory",
-				"wikibase.lexeme.widgets.RepresentationWidget",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
 				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
 			],
@@ -55,6 +55,9 @@ return call_user_func( function() {
 				"wikibaselexeme-empty-form-representation",
 				"wikibaselexeme-enter-form-representation",
 				"wikibaselexeme-form-grammatical-features",
+				"wikibaselexeme-form-field-language-label",
+				"wikibaselexeme-form-field-representation-label",
+				"wikibaselexeme-form-representation-redundant-language",
 				"wikibaselexeme-statementsection-statements-about-form",
 				"wikibaselexeme-statementsection-statements-about-sense",
 				"wikibase-edit",
@@ -130,22 +133,6 @@ return call_user_func( function() {
 		],
 		"wikibase.lexeme.widgets.RedundantLanguageIndicator" => $moduleTemplate + [
 			"scripts" => "widgets/RedundantLanguageIndicator.js",
-		],
-		"wikibase.lexeme.widgets.RepresentationWidget" => $moduleTemplate + [
-			"scripts" => "widgets/RepresentationWidget.js",
-			"dependencies" => [
-				"vue2",
-				"vuex",
-				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
-				"wikibase.lexeme.store.actionTypes"
-			],
-			"messages" => [
-				"wikibase-add",
-				"wikibase-remove",
-				"wikibaselexeme-form-field-representation-label",
-				"wikibaselexeme-form-field-language-label",
-				"wikibaselexeme-form-representation-redundant-language"
-			]
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
