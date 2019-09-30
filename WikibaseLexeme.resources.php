@@ -22,8 +22,9 @@ return call_user_func( function() {
 				"jquery.wikibase.senseview.js",
 				"jquery.wikibase.grammaticalfeatureview.js",
 				"store/index.js",
-				"store/mutations.js",
 				"store/actions.js",
+				"store/actionTypes.js",
+				"store/mutations.js",
 				"store/mutationTypes.js",
 				"widgets/GlossWidget.js",
 				"widgets/LanguageSelectorWrapper.js",
@@ -43,7 +44,6 @@ return call_user_func( function() {
 				"wikibase.lexeme",
 				"wikibase.templates.lexeme",
 				"wikibase.getLanguageNameByCode",
-				"wikibase.lexeme.store.actionTypes",
 				"wikibase.WikibaseContentLanguages",
 				"wikibase.lexeme.view.ViewFactoryFactory",
 				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
@@ -139,9 +139,6 @@ return call_user_func( function() {
 			"dependencies" => [
 				"wikibase.templates"
 			]
-		],
-		"wikibase.lexeme.store.actionTypes" => $moduleTemplate + [
-			"scripts" => "store/actionTypes.js"
 		],
 		"wikibase.lexeme.datamodel.Form" => $moduleTemplate + [
 			"scripts" => [

@@ -1,7 +1,7 @@
-describe( 'wikibase.lexeme.store.actionTypes', function () {
+describe( 'actionTypes', function () {
 	var expect = require( 'unexpected' ).clone(),
 		_ = require( 'lodash' ),
-		actionTypes = require( 'wikibase.lexeme.store.actionTypes' );
+		actionTypes = require( './../../../resources/store/actionTypes.js' );
 
 	it( 'uses unique ids for all action types', function () {
 		expect(

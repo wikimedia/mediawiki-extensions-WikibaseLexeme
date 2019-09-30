@@ -1,7 +1,7 @@
 ( function () {
 	'use strict';
 
-	var actionTypes = require( 'wikibase.lexeme.store.actionTypes' ),
+	var actionTypes = require( './actionTypes.js' ),
 		mutationTypes = require( './mutationTypes.js' ),
 		actions = {};
 

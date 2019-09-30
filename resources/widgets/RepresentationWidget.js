@@ -3,7 +3,7 @@ module.exports = ( function ( Vuex ) {
 
 	var Vue = require( 'vue2' ),
 		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
-		actionTypes = require( 'wikibase.lexeme.store.actionTypes' );
+		actionTypes = require( './../store/actionTypes.js' );
 
 	Vue.use( Vuex );
 

@@ -40,8 +40,7 @@
 	"_moduleAliases": {
 		"vue2": "node_modules/vue/dist/vue.js",
 		"wikibase.lexeme.widgets.RedundantLanguageIndicator": "./resources/widgets/RedundantLanguageIndicator.js",
-		"wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js",
-		"wikibase.lexeme.store.actionTypes": "./resources/store/actionTypes.js"
+		"wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js"
 	},
 	"browserslist": [
 		"ie 11"
