@@ -30,6 +30,7 @@ return call_user_func( function() {
 				"store/mutationTypes.js",
 				"widgets/__namespace.js",
 				"widgets/GlossWidget.js",
+				"widgets/GrammaticalFeatureListWidget.js",
 				"widgets/InvalidLanguageIndicator.js",
 				"widgets/ItemSelectorWrapper.js",
 				"widgets/LexemeHeader.js",
@@ -51,6 +52,7 @@ return call_user_func( function() {
 				"jquery.wikibase.wbtooltip",
 				"mw.config.values.wbRepo",
 				"mediawiki.api",
+				"mediawiki.widgets",
 				"vue2",
 				"vuex",
 				"wikibase.lexeme",
@@ -59,7 +61,8 @@ return call_user_func( function() {
 				"wikibase.getLanguageNameByCode",
 				"wikibase.WikibaseContentLanguages",
 				"wikibase.lexeme.view.ViewFactoryFactory",
-				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
+				"oojs-ui-core",
+				"oojs-ui-widgets",
 			],
 			"messages" => [
 				"wikibaselexeme-add-form",
@@ -179,16 +182,6 @@ return call_user_func( function() {
 				"oojs-ui-widgets",
 				"mediawiki.widgets",
 				"wikibase.lexeme"
-			]
-		],
-		"wikibase.lexeme.widgets.GrammaticalFeatureListWidget" => $moduleTemplate + [
-			"scripts" => [
-				"widgets/GrammaticalFeatureListWidget.js"
-			],
-			"dependencies" => [
-				"oojs-ui-core",
-				"oojs-ui-widgets",
-				"mediawiki.widgets"
 			]
 		],
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [

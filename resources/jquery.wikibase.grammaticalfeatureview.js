@@ -3,8 +3,7 @@
 
 	var PARENT = $.ui.EditableTemplatedWidget;
 
-	/** @type {wikibase.lexeme.widgets.GrammaticalFeatureListWidget} */
-	var GrammaticalFeatureListWidget = require( 'wikibase.lexeme.widgets.GrammaticalFeatureListWidget' );
+	var GrammaticalFeatureListWidget = require( './widgets/GrammaticalFeatureListWidget.js' );
 
 	/**
 	 * @class jQuery.wikibase.grammaticalfeatureview
@@ -38,7 +37,7 @@
 		_labelFormattingService: null,
 
 		/**
-		 * @type {wikibase.lexeme.widgets.GrammaticalFeatureListWidget}
+		 * @type {GrammaticalFeatureListWidget}
 		 * @private
 		 */
 		_grammaticalFeatureListWidget: null,

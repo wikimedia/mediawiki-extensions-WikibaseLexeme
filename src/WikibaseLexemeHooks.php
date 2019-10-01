@@ -172,7 +172,6 @@ class WikibaseLexemeHooks {
 					'tests/qunit/jquery.wikibase.senselistview.tests.js',
 					'tests/qunit/jquery.wikibase.senseview.tests.js',
 					'tests/qunit/widgets/ItemSelectorWidget.tests.js',
-					'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
 				],
 				'dependencies' => [
 					'jquery.valueview.tests.testExpert',
@@ -184,13 +183,23 @@ class WikibaseLexemeHooks {
 					'wikibase.lexeme.datamodel.Sense',
 					'wikibase.lexeme.serialization.LexemeDeserializer',
 					'wikibase.lexeme.widgets.ItemSelectorWidget',
-					'wikibase.lexeme.widgets.GrammaticalFeatureListWidget',
 					'wikibase.lexeme.view.ViewFactoryFactory',
 					'wikibase.tests.qunit.testrunner',
 					'wikibase.view.tests.getMockListItemAdapter',
 					'vue2',
 					'vuex',
 				],
+			],
+			'WikibaseLexeme.tests.GrammaticalFeatureListWidget' => $moduleBase + [
+				'packageFiles' => [
+					'tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js',
+					'resources/widgets/GrammaticalFeatureListWidget.js'
+				],
+				'dependencies' => [
+					'mediawiki.widgets',
+					'oojs-ui-core',
+					'oojs-ui-widgets'
+				]
 			],
 			'WikibaseLexeme.tests.ItemLookup' => $moduleBase + [
 				'packageFiles' => [

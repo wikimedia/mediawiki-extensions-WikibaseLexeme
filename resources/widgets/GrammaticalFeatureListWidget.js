@@ -2,7 +2,7 @@ module.exports = ( function () {
 	'use strict';
 
 	/**
-	 * @class wikibase.lexeme.widgets.GrammaticalFeatureListWidget
+	 * @class GrammaticalFeatureListWidget
 	 * @extends OO.ui.MenuTagMultiselectWidget
 	 * @mixins OO.ui.mixin.RequestManager
 	 *
