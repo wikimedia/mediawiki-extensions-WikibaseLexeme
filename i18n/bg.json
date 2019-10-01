@@ -5,16 +5,16 @@
 			"StanProg"
 		]
 	},
-	"special-newlexeme": "Създаване на нова лексема",
-	"wikibaselexeme-newlexeme-fieldset": "Създаване на нова лексема",
+	"special-newlexeme": "Създаване на нова Лексема",
+	"wikibaselexeme-newlexeme-fieldset": "Създаване на нова Лексема",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
-	"wikibaselexeme-lemma-edit-placeholder": "Лема е обикновено най-кратката форма на думата",
+	"wikibaselexeme-lemma-edit-placeholder": "Лемата е обикновено най-кратката форма на думата",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Въведете лексикалната категория, например съществително",
-	"wikibaselexeme-newlexeme-language": "Език на лексемата",
+	"wikibaselexeme-newlexeme-language": "Език на Лексемата",
 	"wikibaselexeme-newlexeme-language-placeholder": "Въведете език, например български",
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
 	"wikibaselexeme-gloss-field-language-label": "Език",
-	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Създаване на нова лексема",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Създаване на нова Лексема",
 	"wikibaselexeme-field-language-label": "Език",
 	"wikibaselexeme-diffview-lexical-category": "лексикална категория",
 	"wikibaselexeme-diffview-language": "език"
