@@ -38,9 +38,7 @@
 		"webdriverio": "4.13.1"
 	},
 	"_moduleAliases": {
-		"vue2": "node_modules/vue/dist/vue.js",
-		"wikibase.lexeme.widgets.RedundantLanguageIndicator": "./resources/widgets/RedundantLanguageIndicator.js",
-		"wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js"
+		"vue2": "node_modules/vue/dist/vue.js"
 	},
 	"browserslist": [
 		"ie 11"

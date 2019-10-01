@@ -2,7 +2,7 @@ module.exports = ( function ( Vuex ) {
 	'use strict';
 
 	var Vue = require( 'vue2' ),
-		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
+		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
 		actionTypes = require( './../store/actionTypes.js' );
 
 	Vue.use( Vuex );

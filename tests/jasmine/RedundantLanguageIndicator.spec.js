@@ -1,8 +1,8 @@
-describe( 'wikibase.lexeme.widgets.RedundantLanguageIndicator', function () {
+describe( 'RedundantLanguageIndicator', function () {
 	var expect = require( 'unexpected' ).clone(),
 		sinon = require( 'sinon' );
 
-	var RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
+	var RedundantLanguageIndicator = require( './../../resources/widgets/RedundantLanguageIndicator.js' );
 
 	it( 'creates mixin definition that adds a redundantLanguages property to data', function () {
 		var mixin = RedundantLanguageIndicator( 'myprop' );

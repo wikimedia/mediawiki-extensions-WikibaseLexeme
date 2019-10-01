@@ -5,6 +5,7 @@
 
 	require( './jquery.wikibase.lexemeformlistview.js' );
 	require( './jquery.wikibase.senselistview.js' );
+	require( './widgets/LexemeHeader.js' );
 
 	/**
 	 * View for displaying a Wikibase `Lexeme`.

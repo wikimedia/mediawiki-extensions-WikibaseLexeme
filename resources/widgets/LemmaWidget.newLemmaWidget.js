@@ -2,7 +2,7 @@ module.exports = ( function () {
 	'use strict';
 
 	var Lemma = require( './../datamodel/Lemma.js' ),
-		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' );
+		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent

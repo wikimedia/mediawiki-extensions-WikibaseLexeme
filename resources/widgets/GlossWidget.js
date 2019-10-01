@@ -2,7 +2,7 @@ module.exports = ( function ( require, wb, Vuex ) {
 	'use strict';
 
 	var Vue = require( 'vue2' ),
-		RedundantLanguageIndicator = require( 'wikibase.lexeme.widgets.RedundantLanguageIndicator' ),
+		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
 		InvalidLanguageIndicator = require( './InvalidLanguageIndicator.js' ),
 		LanguageSelectorWrapper = require( './LanguageSelectorWrapper.js' );
 

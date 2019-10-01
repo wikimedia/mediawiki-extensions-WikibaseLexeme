@@ -15,6 +15,8 @@ return call_user_func( function() {
 			"packageFiles" => [
 				"jquery.wikibase.lexemeview.js",
 
+				"datatransfer/LemmaList.js",
+				"datamodel/Lemma.js",
 				"datamodel/LexemeSubEntityId.js",
 				"jquery.wikibase.lexemeformview.js",
 				"jquery.wikibase.lexemeformlistview.js",
@@ -26,10 +28,19 @@ return call_user_func( function() {
 				"store/actionTypes.js",
 				"store/mutations.js",
 				"store/mutationTypes.js",
+				"widgets/__namespace.js",
 				"widgets/GlossWidget.js",
-				"widgets/LanguageSelectorWrapper.js",
-				"widgets/RepresentationWidget.js",
 				"widgets/InvalidLanguageIndicator.js",
+				"widgets/ItemSelectorWrapper.js",
+				"widgets/LexemeHeader.js",
+				"widgets/LanguageSelectorWrapper.js",
+				"widgets/LexemeHeader.newLexemeHeader.js",
+				"widgets/LanguageAndLexicalCategoryWidget.js",
+				"widgets/LexemeHeader.newLexemeHeaderStore.js",
+				"widgets/LemmaWidget.newLemmaWidget.js",
+				"widgets/RepresentationWidget.js",
+				"widgets/RedundantLanguageIndicator.js",
+
 			],
 			"dependencies" => [
 				"jquery.ui.EditableTemplatedWidget",
@@ -37,16 +48,17 @@ return call_user_func( function() {
 				"jquery.ui.languagesuggester",
 				"jquery.wikibase.entityview",
 				"jquery.ui.widget",
+				"jquery.wikibase.wbtooltip",
 				"mw.config.values.wbRepo",
-				"lexeme-header",
+				"mediawiki.api",
 				"vue2",
 				"vuex",
 				"wikibase.lexeme",
+				"wikibase.api.RepoApi",
 				"wikibase.templates.lexeme",
 				"wikibase.getLanguageNameByCode",
 				"wikibase.WikibaseContentLanguages",
 				"wikibase.lexeme.view.ViewFactoryFactory",
-				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
 				"wikibase.lexeme.widgets.GrammaticalFeatureListWidget"
 			],
 			"messages" => [
@@ -65,12 +77,18 @@ return call_user_func( function() {
 				"wikibase-cancel",
 				"wikibase-add",
 				"wikibase-remove",
-				"wikibaselexeme-gloss-field-language-label",
+				"wikibaselexeme-error-cannot-remove-last-lemma",
+				"wikibaselexeme-field-language-label",
+				"wikibaselexeme-field-lexical-category-label",
 				"wikibaselexeme-gloss-field-gloss-label",
-				"wikibaselexeme-sense-gloss-redundant-language",
+				"wikibaselexeme-gloss-field-language-label",
+				"wikibaselexeme-grammatical-features-input-placeholder",
+				"wikibaselexeme-lemma-field-language-label",
+				"wikibaselexeme-lemma-field-lemma-label",
+				"wikibaselexeme-lemma-redundant-language",
 				"wikibaselexeme-sense-gloss-invalid-language",
-				"wikibase-lexeme-language-selector-label",
-				"wikibaselexeme-grammatical-features-input-placeholder"
+				"wikibaselexeme-sense-gloss-redundant-language",
+				"wikibase-lexeme-language-selector-label"
 			]
 		],
 		"wikibase.lexeme" => $moduleTemplate + [
@@ -95,44 +113,6 @@ return call_user_func( function() {
 		],
 		"promise-polyfill" => $moduleTemplate + [
 			"scripts" => "vendor/es6-promise.auto.js"
-		],
-		"lexeme-header" => $moduleTemplate + [
-			"packageFiles" => [
-				"widgets/LexemeHeader.js",
-
-				"widgets/__namespace.js",
-				"widgets/LexemeHeader.newLexemeHeader.js",
-				"widgets/LanguageAndLexicalCategoryWidget.js",
-				"widgets/ItemSelectorWrapper.js",
-				"widgets/LexemeHeader.newLexemeHeaderStore.js",
-				"widgets/LemmaWidget.newLemmaWidget.js",
-				"datamodel/Lemma.js",
-				"datatransfer/LemmaList.js"
-			],
-			"dependencies" => [
-				"vue2",
-				"vuex",
-				"wikibase.lexeme.widgets.RedundantLanguageIndicator",
-				"wikibase.api.RepoApi",
-				"jquery.wikibase.wbtooltip",
-				"mediawiki.api",
-			],
-			"messages" => [
-				"wikibase-edit",
-				"wikibase-save",
-				"wikibase-cancel",
-				"wikibase-add",
-				"wikibase-remove",
-				"wikibaselexeme-lemma-field-lemma-label",
-				"wikibaselexeme-lemma-field-language-label",
-				"wikibaselexeme-lemma-redundant-language",
-				"wikibaselexeme-field-language-label",
-				"wikibaselexeme-field-lexical-category-label",
-				"wikibaselexeme-error-cannot-remove-last-lemma"
-			]
-		],
-		"wikibase.lexeme.widgets.RedundantLanguageIndicator" => $moduleTemplate + [
-			"scripts" => "widgets/RedundantLanguageIndicator.js",
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
