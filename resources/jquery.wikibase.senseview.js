@@ -4,7 +4,8 @@
 	var PARENT = $.ui.EditableTemplatedWidget;
 
 	var GlossWidget = require( './widgets/GlossWidget.js' ),
-		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
+		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' ),
+		datamodel = require( 'wikibase.datamodel' );
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
@@ -182,13 +183,13 @@
 	} );
 
 	function arrayToTermMap( glosses ) {
-		var result = new wb.datamodel.TermMap();
+		var result = new datamodel.TermMap();
 
 		glosses.forEach( function ( gloss ) {
 			try {
 				result.setItem(
 					gloss.language,
-					new wb.datamodel.Term( gloss.language, gloss.value )
+					new datamodel.Term( gloss.language, gloss.value )
 				);
 			} catch ( e ) {
 				// ignore
@@ -199,7 +200,7 @@
 	}
 
 	/**
-	 * @param {wikibase.datamodel.TermMap} glosses
+	 * @param {datamodel.TermMap} glosses
 	 * @return {Array}
 	 */
 	function termMapToArray( glosses ) {

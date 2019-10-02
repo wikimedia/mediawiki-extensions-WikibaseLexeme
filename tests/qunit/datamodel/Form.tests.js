@@ -7,8 +7,9 @@
 	QUnit.module( 'wikibase.lexeme.datamodel.Form' );
 
 	var Form = wb.lexeme.datamodel.Form;
-	var TermMap = wb.datamodel.TermMap;
-	var Term = wb.datamodel.Term;
+	var datamodel = require( 'wikibase.datamodel' );
+	var TermMap = datamodel.TermMap;
+	var Term = datamodel.Term;
 
 	var someRepresentations = new TermMap( { en: new Term( 'en', 'text' ) } );
 

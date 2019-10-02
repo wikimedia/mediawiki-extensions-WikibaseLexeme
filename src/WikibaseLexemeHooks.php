@@ -217,7 +217,8 @@ class WikibaseLexemeHooks {
 					'resources/serialization/FormSerializer.js',
 				],
 				'dependencies' => [
-					"wikibase.lexeme.view.ViewFactoryFactory"
+					"wikibase.lexeme.view.ViewFactoryFactory",
+					"wikibase.datamodel",
 				]
 			],
 			'WikibaseLexeme.tests.SenseChanger' => $moduleBase + [

@@ -7,8 +7,9 @@
 
 	QUnit.module( 'wikibase.lexeme.serialization.LexemeDeserializer' );
 
-	var TermMap = wb.datamodel.TermMap,
-		Term = wb.datamodel.Term,
+	var datamodel = require( 'wikibase.datamodel' ),
+		TermMap = datamodel.TermMap,
+		Term = datamodel.Term,
 		Lexeme = require( '../../../resources/datamodel/Lexeme.js' );
 
 	var claimsSerialization = {
@@ -40,15 +41,15 @@
 		senses: []
 	};
 
-	var expectedStatementGroupSet = new wb.datamodel.StatementGroupSet( [
-		new wb.datamodel.StatementGroup( 'P1', new wb.datamodel.StatementList( [
-			new wb.datamodel.Statement( new wb.datamodel.Claim(
-				new wb.datamodel.PropertyNoValueSnak( 'P1' ), null, 'L1$1' ) )
+	var expectedStatementGroupSet = new datamodel.StatementGroupSet( [
+		new datamodel.StatementGroup( 'P1', new datamodel.StatementList( [
+			new datamodel.Statement( new datamodel.Claim(
+				new datamodel.PropertyNoValueSnak( 'P1' ), null, 'L1$1' ) )
 		] ) )
 	] );
 	var expectedDataModel = new Lexeme(
 		'L1',
-		new wb.datamodel.TermMap( { de: new wb.datamodel.Term( 'de', 'blah' ) } ),
+		new datamodel.TermMap( { de: new datamodel.Term( 'de', 'blah' ) } ),
 		expectedStatementGroupSet,
 		[],
 		[]

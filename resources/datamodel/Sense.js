@@ -1,6 +1,8 @@
 ( function ( wb, util ) {
 	'use strict';
 
+	var datamodel = require( 'wikibase.datamodel' );
+
 	/**
 	 * @class wikibase.lexeme.datamodel.Sense
 	 *
@@ -11,12 +13,12 @@
 		'Sense',
 		function ( id, glosses, statementGroupSet ) {
 			this._id = id;
-			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
-			glosses = glosses || new wb.datamodel.TermMap();
+			statementGroupSet = statementGroupSet || new datamodel.StatementGroupSet();
+			glosses = glosses || new datamodel.TermMap();
 
 			if (
-				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
-				!( glosses instanceof wb.datamodel.TermMap )
+				!( statementGroupSet instanceof datamodel.StatementGroupSet ) ||
+				!( glosses instanceof datamodel.TermMap )
 			) {
 				throw new Error( 'Required parameter(s) missing or not defined properly' );
 			}
@@ -32,12 +34,12 @@
 			_id: null,
 
 			/**
-			 * @type {wikibase.datamodel.TermMap}
+			 * @type {datamodel.TermMap}
 			 */
 			_glosses: null,
 
 			/**
-			 * @type {wikibase.datamodel.StatementGroupSet}
+			 * @type {datamodel.StatementGroupSet}
 			 */
 			_statementGroupSet: null,
 
@@ -49,14 +51,14 @@
 			},
 
 			/**
-			 * @return {wikibase.datamodel.TermMap}
+			 * @return {datamodel.TermMap}
 			 */
 			getGlosses: function () {
 				return this._glosses;
 			},
 
 			/**
-			 * @return {wikibase.datamodel.StatementGroupSet}
+			 * @return {datamodel.StatementGroupSet}
 			 */
 			getStatements: function () {
 				return this._statementGroupSet;

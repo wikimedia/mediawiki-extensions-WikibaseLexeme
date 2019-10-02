@@ -4,6 +4,7 @@
 	QUnit.module( 'wikibase.lexeme.datamodel.Lexeme' );
 
 	var Lexeme = require( '../../../resources/datamodel/Lexeme.js' );
+	var datamodel = require( 'wikibase.datamodel' );
 	/** @type {wikibase.lexeme.datamodel.Form} */
 	var Form = wb.lexeme.datamodel.Form;
 	/** @type {wikibase.lexeme.datamodel.Sense} */
@@ -75,17 +76,17 @@
 	} );
 
 	function createStatementGroupWithSingleStatement( propertyId, guid ) {
-		return new wb.datamodel.StatementGroupSet( [
-			new wb.datamodel.StatementGroup( propertyId, new wb.datamodel.StatementList( [
-				new wb.datamodel.Statement( new wb.datamodel.Claim(
-					new wb.datamodel.PropertyNoValueSnak( propertyId ), null, guid
+		return new datamodel.StatementGroupSet( [
+			new datamodel.StatementGroup( propertyId, new datamodel.StatementList( [
+				new datamodel.Statement( new datamodel.Claim(
+					new datamodel.PropertyNoValueSnak( propertyId ), null, guid
 				) )
 			] ) )
 		] );
 	}
 
 	function createTermMapWithTerm() {
-		return new wb.datamodel.TermMap( { en: new wb.datamodel.Term( 'en', 'foo' ) } );
+		return new datamodel.TermMap( { en: new datamodel.Term( 'en', 'foo' ) } );
 	}
 
 }( wikibase ) );

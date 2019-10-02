@@ -2,14 +2,15 @@
  * @license GPL-2.0-or-later
  * @author Jonas Kress
  */
-( function ( wb ) {
+( function () {
 	'use strict';
 
 	QUnit.module( 'wikibase.lexeme.serialization.FormSerializer' );
 
 	var Form = wikibase.lexeme.datamodel.Form,
-		TermMap = wikibase.datamodel.TermMap,
-		Term = wikibase.datamodel.Term,
+		datamodel = require( 'wikibase.datamodel' ),
+		TermMap = datamodel.TermMap,
+		Term = datamodel.Term,
 		Serializer = require( '../../../resources/serialization/FormSerializer.js' ),
 		testCases = {
 			'Empty Form': {
@@ -83,4 +84,4 @@
 
 	} );
 
-}( wikibase ) );
+}() );

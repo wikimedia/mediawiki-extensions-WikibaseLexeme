@@ -1,19 +1,20 @@
-( function ( wb, util ) {
+( function ( util ) {
 	'use strict';
 
-	var PARENT = wb.datamodel.Entity;
+	var datamodel = require( 'wikibase.datamodel' ),
+		PARENT = datamodel.Entity;
 
 	/**
 	 * @class wikibase.lexeme.datamodel.Lexeme
-	 * @extends wikibase.datamodel.Entity
+	 * @extends datamodel.Entity
 	 * @license GNU GPL v2+
 	 * @author Adrian Heine <adrian.heine@wikimedia.de>
 	 *
 	 * @constructor
 	 *
 	 * @param {string} lexemeId
-	 * @param {wikibase.datamodel.TermMap} lemmas
-	 * @param {wikibase.datamodel.StatementGroupSet|null} [statementGroupSet=new wikibase.datamodel.StatementGroupSet()]
+	 * @param {datamodel.TermMap} lemmas
+	 * @param {datamodel.StatementGroupSet|null} [statementGroupSet=new datamodel.StatementGroupSet()]
 	 * @param {wikibase.lexeme.datamodel.Form[]} [forms=[]]
 	 * @param {wikibase.lexeme.datamodel.Sense[]} [senses=[]]
 	 *
@@ -23,15 +24,15 @@
 		'WbDataModelLexeme',
 		PARENT,
 		function ( lexemeId, lemmas, statementGroupSet, forms, senses ) {
-			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
+			statementGroupSet = statementGroupSet || new datamodel.StatementGroupSet();
 			forms = forms || [];
 			senses = senses || [];
 
 			if (
 				typeof lexemeId !== 'string' ||
-				!( lemmas instanceof wb.datamodel.TermMap ) ||
+				!( lemmas instanceof datamodel.TermMap ) ||
 				( lemmas.isEmpty() ) ||
-				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
+				!( statementGroupSet instanceof datamodel.StatementGroupSet ) ||
 				!( Array.isArray( forms ) ) ||
 				!( Array.isArray( senses ) )
 			) {
@@ -47,38 +48,38 @@
 		{
 
 			/**
-			 * @property {wikibase.datamodel.TermMap}
+			 * @property {datamodel.TermMap}
 			 * @private
 			 */
 			_lemmas: null,
 
 			/**
-			 * @property {wikibase.datamodel.StatementGroupSet}
+			 * @property {datamodel.StatementGroupSet}
 			 * @private
 			 */
 			_statementGroupSet: null,
 
 			/**
-			 * @property {wikibase.datamodel.Form[]}
+			 * @property {datamodel.Form[]}
 			 * @private
 			 */
 			_forms: null,
 
 			/**
-			 * @property {wikibase.datamodel.Sense[]}
+			 * @property {datamodel.Sense[]}
 			 * @private
 			 */
 			_senses: null,
 
 			/**
-			 * @return {wikibase.datamodel.TermMap}
+			 * @return {datamodel.TermMap}
 			 */
 			getLemmas: function () {
 				return this._lemmas;
 			},
 
 			/**
-			 * @return {wikibase.datamodel.StatementGroupSet}
+			 * @return {datamodel.StatementGroupSet}
 			 */
 			getStatements: function () {
 				return this._statementGroupSet;
@@ -127,4 +128,4 @@
 
 	module.exports = SELF;
 
-}( wikibase, util ) );
+}( util ) );

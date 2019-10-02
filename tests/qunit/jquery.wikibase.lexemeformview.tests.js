@@ -5,11 +5,12 @@
 	'use strict';
 
 	var Vue = require( 'vue2' );
+	var datamodel = require( 'wikibase.datamodel' );
 
 	/** @type {wikibase.datamodel.TermMap}*/
-	var TermMap = wb.datamodel.TermMap;
+	var TermMap = datamodel.TermMap;
 	/** @type {wikibase.datamodel.Term}*/
-	var Term = wb.datamodel.Term;
+	var Term = datamodel.Term;
 
 	var selector = {
 		representationTextInput: '.representation-widget_representation-value-input',

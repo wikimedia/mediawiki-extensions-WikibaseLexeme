@@ -1,26 +1,28 @@
 ( function ( wb, util ) {
 	'use strict';
 
+	var datamodel = require( 'wikibase.datamodel' );
+
 	/**
 	 * @class wikibase.lexeme.datamodel.Form
 	 *
 	 * @param {string} id
-	 * @param {wikibase.datamodel.TermMap} representations
+	 * @param {datamodel.TermMap} representations
 	 * @param {string[]} grammaticalFeatures
-	 * @param {wikibase.datamodel.StatementGroupSet} statementGroupSet
+	 * @param {datamodel.StatementGroupSet} statementGroupSet
 	 */
 	var Form = util.inherit(
 		'Form',
 		function ( id, representations, grammaticalFeatures, statementGroupSet ) {
-			statementGroupSet = statementGroupSet || new wb.datamodel.StatementGroupSet();
-			representations = representations || new wb.datamodel.TermMap();
+			statementGroupSet = statementGroupSet || new datamodel.StatementGroupSet();
+			representations = representations || new datamodel.TermMap();
 			this._id = id;
 			this._representations = representations;
 			this._grammaticalFeatures = grammaticalFeatures || [];
 
 			if (
-				!( statementGroupSet instanceof wb.datamodel.StatementGroupSet ) ||
-				!( representations instanceof wb.datamodel.TermMap )
+				!( statementGroupSet instanceof datamodel.StatementGroupSet ) ||
+				!( representations instanceof datamodel.TermMap )
 			) {
 				throw new Error( 'Required parameter(s) missing or not defined properly' );
 			}
@@ -35,7 +37,7 @@
 			_id: null,
 
 			/**
-			 * @type {wikibase.datamodel.TermMap}
+			 * @type {datamodel.TermMap}
 			 */
 			_representations: null,
 
@@ -45,7 +47,7 @@
 			_grammaticalFeatures: [],
 
 			/**
-			 * @property {wikibase.datamodel.StatementGroupSet}
+			 * @property {datamodel.StatementGroupSet}
 			 * @private
 			 */
 			_statementGroupSet: null,
@@ -58,7 +60,7 @@
 			},
 
 			/**
-			 * @return {wikibase.datamodel.TermMap}
+			 * @return {datamodel.TermMap}
 			 */
 			getRepresentations: function () {
 				return this._representations;
@@ -72,7 +74,7 @@
 			},
 
 			/**
-			 * @return {wikibase.datamodel.StatementGroupSet}
+			 * @return {datamodel.StatementGroupSet}
 			 */
 			getStatements: function () {
 				return this._statementGroupSet;

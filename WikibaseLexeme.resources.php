@@ -127,6 +127,7 @@ return call_user_func( function() {
 			],
 			"dependencies" => [
 				"util.inherit",
+				"wikibase.datamodel",
 				"wikibase.lexeme"
 			]
 		],
@@ -137,6 +138,7 @@ return call_user_func( function() {
 			],
 			"dependencies" => [
 				"util.inherit",
+				"wikibase.datamodel",
 				"wikibase.lexeme"
 			]
 		],
@@ -157,8 +159,7 @@ return call_user_func( function() {
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme",
-				"wikibase.datamodel.Entity",
-				"wikibase.datamodel.TermMap",
+				"wikibase.datamodel",
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.serialization.Deserializer",

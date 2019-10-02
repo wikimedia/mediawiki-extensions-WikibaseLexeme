@@ -7,8 +7,9 @@
 	QUnit.module( 'wikibase.lexeme.serialization.SenseSerializer' );
 
 	var Sense = wikibase.lexeme.datamodel.Sense,
-		TermMap = wikibase.datamodel.TermMap,
-		Term = wikibase.datamodel.Term,
+		datamodel = require( 'wikibase.datamodel' ),
+		TermMap = datamodel.TermMap,
+		Term = datamodel.Term,
 		Serializer = require( '../../../resources/serialization/SenseSerializer.js' ),
 		testCases = {
 			'Empty Sense': {

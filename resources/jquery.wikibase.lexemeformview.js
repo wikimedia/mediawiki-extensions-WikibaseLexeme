@@ -5,7 +5,9 @@
 
 	var RepresentationWidget = require( './widgets/RepresentationWidget.js' ),
 		LexemeStore = require( './store/index.js' ),
-		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' );
+		LexemeSubEntityId = require( './datamodel/LexemeSubEntityId.js' ),
+		datamodel = require( 'wikibase.datamodel' );
+
 	require( './jquery.wikibase.grammaticalfeatureview.js' );
 
 	/**
@@ -234,16 +236,16 @@
 
 	/**
 	 * @param {{language:string, value: string}[]} termArray
-	 * @return {wikibase.datamodel.TermMap}
+	 * @return {datamodel.TermMap}
 	 */
 	function arrayToTermMap( termArray ) {
-		var result = new wb.datamodel.TermMap();
+		var result = new datamodel.TermMap();
 
 		termArray.forEach( function ( representation ) {
 			try {
 				result.setItem(
 					representation.language,
-					new wb.datamodel.Term( representation.language, representation.value )
+					new datamodel.Term( representation.language, representation.value )
 				);
 			} catch ( e ) {
 				// ignore
@@ -254,7 +256,7 @@
 	}
 
 	/**
-	 * @param {wikibase.datamodel.TermMap} termMap
+	 * @param {datamodel.TermMap} termMap
 	 * @return {Array}
 	 */
 	function termMapToArray( termMap ) {

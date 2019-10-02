@@ -8,8 +8,9 @@
 
 	var SenseChanger = require( '../../../resources/entityChangers/SenseChanger.js' );
 	var Sense = wb.lexeme.datamodel.Sense;
-	var TermMap = wb.datamodel.TermMap;
-	var Term = wb.datamodel.Term;
+	var datamodel = require( 'wikibase.datamodel' );
+	var TermMap = datamodel.TermMap;
+	var Term = datamodel.Term;
 	var revisionStore = {
 		setSenseRevision: function () {},
 		getBaseRevision: function () {

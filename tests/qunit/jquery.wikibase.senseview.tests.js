@@ -5,10 +5,11 @@
 	'use strict';
 
 	var TEST_LEXMEFORMVIEW_CLASS = 'test_senseview';
+	var datamodel = require( 'wikibase.datamodel' );
 	/** @type {wikibase.datamodel.TermMap}*/
-	var TermMap = wb.datamodel.TermMap;
+	var TermMap = datamodel.TermMap;
 	/** @type {wikibase.datamodel.Term}*/
-	var Term = wb.datamodel.Term;
+	var Term = datamodel.Term;
 
 	QUnit.module( 'jquery.wikibase.senseview', QUnit.newMwEnvironment( {
 		teardown: function () {
