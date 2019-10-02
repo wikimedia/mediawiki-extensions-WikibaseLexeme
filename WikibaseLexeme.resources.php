@@ -205,7 +205,6 @@ return call_user_func( function() {
 			"dependencies" => [
 				"mw.config.values.wbRepo",
 				"util.inherit",
-				"wikibase.api.getLocationAgnosticMwApi",
 				"wikibase.api.RepoApi",
 				"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig",
 				"wikibase.lexeme.widgets.ItemSelectorWidget",
@@ -233,7 +232,6 @@ return call_user_func( function() {
 				"wikibase.serialization.TermMapSerializer",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
-				"wikibase.api.getLocationAgnosticMwApi",
 				"wikibase.api.RepoApi"
 			]
 		],
