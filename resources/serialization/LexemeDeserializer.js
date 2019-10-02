@@ -4,13 +4,13 @@
 	require( './__namespace.js' );
 
 	var MODULE = wb.lexeme.serialization,
-		SERIALIZER = wb.serialization,
+		SERIALIZER = require( 'wikibase.serialization' ),
 		PARENT = SERIALIZER.Deserializer,
 		Lexeme = require( '../datamodel/Lexeme.js' );
 
 	/**
-	 * @class wikibase.serialization.LexemeDeserializer
-	 * @extends wikibase.serialization.Deserializer
+	 * @class wikibase.lexeme.serialization.LexemeDeserializer
+	 * @extends SERIALIZER.Deserializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor

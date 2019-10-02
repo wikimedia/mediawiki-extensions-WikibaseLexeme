@@ -146,9 +146,7 @@ return call_user_func( function() {
 				"wikibase.lexeme",
 				"wikibase.datamodel",
 				"wikibase.lexeme.datamodel",
-				"wikibase.serialization.Deserializer",
-				"wikibase.serialization.TermMapDeserializer",
-				"wikibase.serialization.StatementGroupSetDeserializer"
+				"wikibase.serialization",
 			]
 		],
 
@@ -201,8 +199,7 @@ return call_user_func( function() {
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel",
-				"wikibase.serialization.Serializer",
-				"wikibase.serialization.TermMapSerializer",
+				"wikibase.serialization",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
 				"wikibase.api.RepoApi"
