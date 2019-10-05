@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit4And6Compat;
 use Title;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -22,7 +21,6 @@ use Wikibase\Lib\Store\EntityTitleLookup;
 class RedirectedLexemeSubEntityIdHtmlFormatterTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var EntityTitleLookup|MockObject

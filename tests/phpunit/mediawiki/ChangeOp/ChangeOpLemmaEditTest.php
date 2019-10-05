@@ -29,7 +29,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 * @dataProvider invalidConstructorArgumentsProvider
 	 */
 	public function testGivenInvalidArguments_constructorThrowsException( $language, $lemma ) {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		new ChangeOpLemmaEdit( $language, $lemma, $this->getLemmaTermValidator() );
 	}
 
@@ -47,7 +47,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 * @dataProvider invalidEntityProvider
 	 */
 	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $this->getLemmaTermValidator() );
 		$changeOp->validate( $entity );
 	}
@@ -100,7 +100,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 * @dataProvider invalidEntityProvider
 	 */
 	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $this->getLemmaTermValidator() );
 		$changeOp->apply( $entity );
 	}

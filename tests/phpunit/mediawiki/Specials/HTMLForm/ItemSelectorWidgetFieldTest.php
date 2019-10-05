@@ -6,7 +6,6 @@ use HamcrestPHPUnitIntegration;
 use OOUI\BlankTheme;
 use OOUI\Theme;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use ReflectionClass;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -22,7 +21,6 @@ use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidgetField;
 class ItemSelectorWidgetFieldTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	public function setUp() {
 		parent::setUp();
@@ -48,7 +46,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 	private function getLabelDescriptionLookup() {
 		$fakeTerm = new Term( 'en', 'Test Item' );
 
-		$lookup = $this->getMock( LabelDescriptionLookup::class );
+		$lookup = $this->createMock( LabelDescriptionLookup::class );
 		$lookup->method( 'getLabel' )
 			->will( $this->returnValue( $fakeTerm ) );
 
@@ -81,7 +79,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 	}
 
 	public function testGivenValueIsIdOfNotExistingItem_valueGetsPassedToLabelField() {
-		$lookup = $this->getMock( LabelDescriptionLookup::class );
+		$lookup = $this->createMock( LabelDescriptionLookup::class );
 		$lookup->method( 'getLabel' )
 			->will( $this->returnValue( null ) );
 

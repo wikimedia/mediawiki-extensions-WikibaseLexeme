@@ -57,7 +57,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( \DomainException::class );
+		$this->expectException( \DomainException::class );
 		$instance->assignFreshId( $this->newLexeme() );
 	}
 
@@ -78,7 +78,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->saveEntity( $this->newLexeme(), '', $this->newUser() );
 	}
 
@@ -86,7 +86,7 @@ class FormStoreTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$user = $this->newUser();
 
-		$parentService = $this->getMock( EntityStore::class );
+		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
 			->with( $lexeme, '', $user )
@@ -102,7 +102,7 @@ class FormStoreTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$user = $this->newUser();
 
-		$parentService = $this->getMock( EntityStore::class );
+		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
 			->will( $this->returnCallback(
@@ -122,7 +122,7 @@ class FormStoreTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$user = $this->newUser();
 
-		$parentService = $this->getMock( EntityStore::class );
+		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
 			->will( $this->returnCallback(
@@ -142,8 +142,8 @@ class FormStoreTest extends TestCase {
 		$user = $this->newUser();
 		$lexeme = $this->newLexeme();
 
-		$parentService = $this->getMock( EntityStore::class );
-		$lexemeLookup = $this->getMock( EntityRevisionLookup::class );
+		$parentService = $this->createMock( EntityStore::class );
+		$lexemeLookup = $this->createMock( EntityRevisionLookup::class );
 		$lexemeLookup->expects( $this->once() )
 			->method( 'getEntityRevision' )
 			->will( $this->returnCallback( function ( LexemeId $lexemeId, $revId, $mode ) use ( $lexeme ) {
@@ -160,8 +160,8 @@ class FormStoreTest extends TestCase {
 		$user = $this->newUser();
 		$lexeme = $this->newLexeme();
 
-		$parentService = $this->getMock( EntityStore::class );
-		$lexemeLookup = $this->getMock( EntityRevisionLookup::class );
+		$parentService = $this->createMock( EntityStore::class );
+		$lexemeLookup = $this->createMock( EntityRevisionLookup::class );
 		$lexemeLookup->expects( $this->once() )
 			->method( 'getEntityRevision' )
 			->with( $this->lexemeId, 47, 'master' )
@@ -176,7 +176,7 @@ class FormStoreTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$user = $this->newUser();
 
-		$parentService = $this->getMock( EntityStore::class );
+		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
 			->will( $this->returnCallback(
@@ -199,7 +199,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( \DomainException::class );
+		$this->expectException( \DomainException::class );
 		$instance->saveRedirect( $redirect, '', $this->newUser() );
 	}
 
@@ -209,7 +209,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->deleteEntity( $this->lexemeId, '', $this->newUser() );
 	}
 
@@ -219,7 +219,7 @@ class FormStoreTest extends TestCase {
 			->method( 'removeForm' )
 			->with( $this->formIdOne );
 
-		$parentService = $this->getMock( EntityStore::class );
+		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->never() )
 			->method( 'deleteEntity' );
 		$parentService->expects( $this->once() )
@@ -237,7 +237,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->userWasLastToEdit( $this->newUser(), $this->lexemeId, 0 );
 	}
 
@@ -257,7 +257,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->updateWatchlist( $this->newUser(), $this->lexemeId, false );
 	}
 
@@ -276,7 +276,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->isWatching( $this->newUser(), $this->lexemeId );
 	}
 
@@ -310,7 +310,7 @@ class FormStoreTest extends TestCase {
 		$parentMethod,
 		$expectedCalls
 	) {
-		$parentService = $this->getMock( EntityStore::class );
+		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $expectedCalls )
 			->method( $parentMethod )
 			->willReturn( 'fromParentService' );
@@ -323,7 +323,7 @@ class FormStoreTest extends TestCase {
 	 * @return EntityRevisionLookup
 	 */
 	private function newEntityRevisionLookup( Lexeme $expectedLexeme = null ) {
-		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 
 		if ( $expectedLexeme ) {
 			$lookup->expects( $this->once() )

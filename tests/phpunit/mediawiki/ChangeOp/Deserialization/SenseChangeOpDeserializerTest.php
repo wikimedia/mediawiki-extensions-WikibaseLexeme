@@ -36,7 +36,7 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$editSenseChangeOp = $this->getMock( ChangeOp::class );
+		$editSenseChangeOp = $this->createMock( ChangeOp::class );
 
 		$repr->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
@@ -64,20 +64,20 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$editSenseChangeOp = $this->getMock( ChangeOp::class );
+		$editSenseChangeOp = $this->createMock( ChangeOp::class );
 
 		$repr->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
 			->with( $request )
 			->willReturn( $editSenseChangeOp );
 
-		$entityLookup = $this->getMock( EntityLookup::class );
+		$entityLookup = $this->createMock( EntityLookup::class );
 		$entityLookup
 			->expects( $this->once() )
 			->method( 'getEntity' )
 			->willReturn( NewLexeme::havingId( 'L4711' )->build() );
 
-		$idParser = $this->getMock( EntityIdParser::class );
+		$idParser = $this->createMock( EntityIdParser::class );
 		$idParser->method( 'parse' )
 			->willReturnCallback(
 				function ( $id ) {
@@ -111,16 +111,16 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$editSenseChangeOp = $this->getMock( ChangeOp::class );
+		$editSenseChangeOp = $this->createMock( ChangeOp::class );
 
 		$repr->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
 			->with( $request )
 			->willReturn( $editSenseChangeOp );
 
-		$entityLookup = $this->getMock( EntityLookup::class );
+		$entityLookup = $this->createMock( EntityLookup::class );
 
-		$idParser = $this->getMock( EntityIdParser::class );
+		$idParser = $this->createMock( EntityIdParser::class );
 		$idParser->method( 'parse' )
 			->willThrowException( new EntityIdParsingException() );
 
@@ -159,16 +159,16 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$editSenseChangeOp = $this->getMock( ChangeOp::class );
+		$editSenseChangeOp = $this->createMock( ChangeOp::class );
 
 		$repr->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
 			->with( $request )
 			->willReturn( $editSenseChangeOp );
 
-		$entityLookup = $this->getMock( EntityLookup::class );
+		$entityLookup = $this->createMock( EntityLookup::class );
 
-		$idParser = $this->getMock( EntityIdParser::class );
+		$idParser = $this->createMock( EntityIdParser::class );
 		$idParser->method( 'parse' )
 			->willReturn( new ItemId( 'Q2' ) );
 
@@ -207,18 +207,18 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$editSenseChangeOp = $this->getMock( ChangeOp::class );
+		$editSenseChangeOp = $this->createMock( ChangeOp::class );
 
 		$repr->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
 			->with( $request )
 			->willReturn( $editSenseChangeOp );
 
-		$entityLookup = $this->getMock( EntityLookup::class );
+		$entityLookup = $this->createMock( EntityLookup::class );
 		$entityLookup->method( 'getEntity' )
 			->willReturn( null );
 
-		$idParser = $this->getMock( EntityIdParser::class );
+		$idParser = $this->createMock( EntityIdParser::class );
 		$idParser->method( 'parse' )
 			->willReturnCallback(
 				function ( $id ) {

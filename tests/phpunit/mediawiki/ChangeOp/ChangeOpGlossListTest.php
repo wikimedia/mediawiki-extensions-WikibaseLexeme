@@ -56,11 +56,11 @@ class ChangeOpGlossListTest extends TestCase {
 	public function testApply_propagatesApplyToChangeOps() {
 		$sense = NewSense::havingId( 'S1' )->build();
 
-		$op1 = $this->getMock( ChangeOp::class );
+		$op1 = $this->createMock( ChangeOp::class );
 		$op1->expects( $this->once() )
 			->method( 'apply' )
 			->with( $sense, new Summary() );
-		$op2 = $this->getMock( ChangeOp::class );
+		$op2 = $this->createMock( ChangeOp::class );
 		$op2->expects( $this->once() )
 			->method( 'apply' )
 			->with( $sense, new Summary() );

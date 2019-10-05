@@ -143,7 +143,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 	 * @return MessageLocalizer
 	 */
 	private function getMockMessageLocalizer() {
-		$mock = $this->getMock( MessageLocalizer::class );
+		$mock = $this->createMock( MessageLocalizer::class );
 
 		$mock->method( 'msg' )
 			->will( $this->returnCallback( function ( $key ) {
@@ -175,7 +175,7 @@ class LexemeDiffVisualizerTest extends MediaWikiTestCase {
 	}
 
 	private function getIdFormatter() {
-		$formatter = $this->getMock( EntityIdFormatter::class );
+		$formatter = $this->createMock( EntityIdFormatter::class );
 		$formatter->method( $this->anything() )
 			->willReturnCallback( function ( EntityId $entityId ) {
 				$id = $entityId->getSerialization();

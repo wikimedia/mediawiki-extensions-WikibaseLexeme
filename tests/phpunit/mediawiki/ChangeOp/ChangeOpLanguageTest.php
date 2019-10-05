@@ -29,7 +29,7 @@ class ChangeOpLanguageTest extends TestCase {
 		EntityDocument $entity
 	) {
 		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q2' ) );
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 
@@ -57,7 +57,7 @@ class ChangeOpLanguageTest extends TestCase {
 	public function testGivenNotALanguageProvider_applyThrowsException( EntityDocument $entity ) {
 		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q123' ) );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
 	}
 

@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -18,8 +17,6 @@ use Wikibase\StringNormalizer;
  * @license GPL-2.0-or-later
  */
 class LanguageChangeOpDeserializerTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function provideInvalidSerialization() {
 		return [
@@ -37,7 +34,7 @@ class LanguageChangeOpDeserializerTest extends TestCase {
 	) {
 		$deserializer = $this->newLanguageChangeOpDeserializer();
 
-		$this->setExpectedException( ChangeOpDeserializationException::class );
+		$this->expectException( ChangeOpDeserializationException::class );
 
 		$deserializer->createEntityChangeOp( [ 'language' => $serialization ] );
 	}
@@ -55,7 +52,7 @@ class LanguageChangeOpDeserializerTest extends TestCase {
 			new StringNormalizer()
 		);
 
-		$this->setExpectedException( ChangeOpDeserializationException::class );
+		$this->expectException( ChangeOpDeserializationException::class );
 
 		// Invalid ItemId (not a Q###)
 		$deserializer->createEntityChangeOp( [ 'language' => 'invalid item id' ] );

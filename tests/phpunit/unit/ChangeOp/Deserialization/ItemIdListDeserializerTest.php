@@ -17,7 +17,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 
 	public function testDeserializeEmptyArray_returnsEmptyArray() {
-		$itemIdParser = $this->getMock( ItemIdParser::class );
+		$itemIdParser = $this->createMock( ItemIdParser::class );
 		$itemIdParser
 			->expects( $this->never() )
 			->method( 'parse' );
@@ -32,7 +32,7 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 		$q3 = new ItemId( 'Q3' );
 		$q7 = new ItemId( 'Q7' );
 
-		$itemIdParser = $this->getMock( ItemIdParser::class );
+		$itemIdParser = $this->createMock( ItemIdParser::class );
 		$itemIdParser
 			->method( 'parse' )
 			->will( $this->returnValueMap( [
@@ -51,7 +51,7 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDeserializeArrayWithInvalidSerializations_returnsEmptyArrayAndAddsViolation() {
-		$itemIdParser = $this->getMock( ItemIdParser::class );
+		$itemIdParser = $this->createMock( ItemIdParser::class );
 		$itemIdParser
 			->method( 'parse' )
 			->willThrowException( new EntityIdParsingException() );

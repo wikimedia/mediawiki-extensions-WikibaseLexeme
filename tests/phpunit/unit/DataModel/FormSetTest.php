@@ -17,7 +17,7 @@ use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 class FormSetTest extends MediaWikiUnitTestCase {
 
 	public function testCanNotCreateWithSomethingThatIsNotAForm() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new FormSet( [ 1 ] );
 	}
 
@@ -29,7 +29,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithTwoFormsHavingTheSameId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 
 		new FormSet(
 			[
@@ -83,7 +83,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	public function testAddForm_AddFormWithIdThatAlreadyPresentInTheSet_ThrowsAnException() {
 		$formSet = new FormSet( [ NewForm::havingId( 'F1' )->build() ] );
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$formSet->add( NewForm::havingId( 'F1' )->build() );
 	}
 

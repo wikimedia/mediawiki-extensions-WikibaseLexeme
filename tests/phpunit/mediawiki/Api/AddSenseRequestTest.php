@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
@@ -18,8 +17,6 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
  * @license GPL-2.0-or-later
  */
 class AddSenseRequestTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testReturnsChangeOpThatAddsSense() {
 		$request = new AddSenseRequest(

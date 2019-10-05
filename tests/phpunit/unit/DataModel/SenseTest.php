@@ -37,7 +37,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 
 	public function testIdCanNotBeChanged() {
 		$sense = NewSense::havingId( 'S1' )->build();
-		$this->setExpectedException( LogicException::class );
+		$this->expectException( LogicException::class );
 		$sense->setId( new SenseId( 'L1-S2' ) );
 	}
 

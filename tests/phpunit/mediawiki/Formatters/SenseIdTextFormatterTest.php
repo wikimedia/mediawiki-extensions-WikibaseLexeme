@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -20,11 +19,9 @@ use Wikibase\View\DummyLocalizedTextProvider;
  */
 class SenseIdTextFormatterTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function testFormatId_nonExisting() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturn( null );
 		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
@@ -37,7 +34,7 @@ class SenseIdTextFormatterTest extends TestCase {
 	public function testFormatId_redirected() {
 		$senseId = new SenseId( 'L10-S20' );
 		$exception = $this->createMock( RevisionedUnresolvedRedirectException::class );
-		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willThrowException( $exception );
 		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
@@ -49,7 +46,7 @@ class SenseIdTextFormatterTest extends TestCase {
 
 	public function testFormatId_oneLemma_ownGlossLanguage() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
 				$entity = NewLexeme::create()
@@ -70,7 +67,7 @@ class SenseIdTextFormatterTest extends TestCase {
 
 	public function testFormatId_threeLemmas_ownGlossLanguage() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
 				$entity = NewLexeme::create()
@@ -99,7 +96,7 @@ class SenseIdTextFormatterTest extends TestCase {
 
 	public function testFormatId_oneLemma_fallbackGlossLanguage() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMock( EntityRevisionLookup::class );
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
 				$entity = NewLexeme::create()

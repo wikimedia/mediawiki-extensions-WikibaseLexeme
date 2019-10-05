@@ -231,7 +231,7 @@ class LexemeRdfBuilderTest extends TestCase {
 
 	private function subEntityTest( EntityDocument $entity, $expectedSubEntities ) {
 		$subEntities = [];
-		$mentionTracker = $this->getMock( EntityMentionListener::class );
+		$mentionTracker = $this->createMock( EntityMentionListener::class );
 		$mentionTracker->expects( $this->any() )
 			->method( 'subEntityMentioned' )
 			->will( $this->returnCallback( function( EntityDocument $entity ) use ( &$subEntities ) {
@@ -247,7 +247,7 @@ class LexemeRdfBuilderTest extends TestCase {
 
 	private function mentionedEntityTest( EntityDocument $entity, $expectedMentionedEntities ) {
 		$mentionedEntities = [];
-		$mentionTracker = $this->getMock( EntityMentionListener::class );
+		$mentionTracker = $this->createMock( EntityMentionListener::class );
 		$mentionTracker->expects( $this->any() )
 			->method( 'entityReferenceMentioned' )
 			->will( $this->returnCallback( function( EntityId $id ) use ( &$mentionedEntities ) {
@@ -273,7 +273,7 @@ class LexemeRdfBuilderTest extends TestCase {
 	public function testLexemeFullSerialization( $lexemeName, $dataSetName ) {
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$writer = $this->getTestData()->getNTriplesWriter( false );
-		$entityTitleLookup = $this->getMock( EntityTitleLookup::class );
+		$entityTitleLookup = $this->createMock( EntityTitleLookup::class );
 
 		$builder = $this->newFullBuilder( $writer, RdfProducer::PRODUCE_ALL, $entityTitleLookup );
 		$builder->addEntity( $lexeme );

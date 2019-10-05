@@ -64,7 +64,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	 * @dataProvider invalidIdSerializationProvider
 	 */
 	public function testCannotConstructWithInvalidSerialization( $invalidSerialization ) {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		new LexemeId( $invalidSerialization );
 	}
 
@@ -129,7 +129,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGetNumericIdThrowsExceptionOnForeignIds() {
-		$this->setExpectedException( RuntimeException::class );
+		$this->expectException( RuntimeException::class );
 		( new LexemeId( 'foo:L42' ) )->getNumericId();
 	}
 

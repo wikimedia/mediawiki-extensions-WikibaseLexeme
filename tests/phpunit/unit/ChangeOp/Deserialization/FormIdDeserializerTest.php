@@ -20,7 +20,7 @@ class FormIdDeserializerTest extends MediaWikiUnitTestCase {
 	public function testDeserializeValidFormId_returnsFormId() {
 		$formId = new FormId( 'L1-F1' );
 
-		$entityIdParser = $this->getMock( EntityIdParser::class );
+		$entityIdParser = $this->createMock( EntityIdParser::class );
 		$entityIdParser
 			->method( 'parse' )
 			->with( 'L1-F1' )
@@ -37,7 +37,7 @@ class FormIdDeserializerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDeserializeNotValidFormId_returnsNullAndContextHasViolation() {
-		$entityIdParser = $this->getMock( EntityIdParser::class );
+		$entityIdParser = $this->createMock( EntityIdParser::class );
 		$entityIdParser
 			->method( 'parse' )
 			->with( 'somesome' )
@@ -62,7 +62,7 @@ class FormIdDeserializerTest extends MediaWikiUnitTestCase {
 			->method( 'getEntityType' )
 			->willReturn( 'weird' );
 
-		$entityIdParser = $this->getMock( EntityIdParser::class );
+		$entityIdParser = $this->createMock( EntityIdParser::class );
 		$entityIdParser
 			->method( 'parse' )
 			->with( 'L1-F1' )

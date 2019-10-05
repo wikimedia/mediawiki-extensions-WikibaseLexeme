@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\DataModel;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
@@ -16,8 +15,6 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  * @license GPL-2.0-or-later
  */
 class LexemePatchAccessTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testCanAddAForm() {
 		$forms = new FormSet();
@@ -35,7 +32,7 @@ class LexemePatchAccessTest extends TestCase {
 		$form = NewForm::any()->build();
 		$lexemePatchAccess->close();
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexemePatchAccess->addForm( $form );
 	}
 
@@ -51,7 +48,7 @@ class LexemePatchAccessTest extends TestCase {
 	}
 
 	public function testCanNotCreateWithNextFromIdWhichIsNotAPositiveInteger() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new LexemePatchAccess( 0, new FormSet(), 1, new SenseSet() );
 	}
 
@@ -66,14 +63,14 @@ class LexemePatchAccessTest extends TestCase {
 	public function testIncreaseNextFormIdTo_GivenLexemeSmallerInitialId_ThrowsAnException() {
 		$lexemePatchAccess = new LexemePatchAccess( 2, new FormSet(), 1, new SenseSet() );
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexemePatchAccess->increaseNextFormIdTo( 1 );
 	}
 
 	public function testIncreaseNextFormIdTo_GivenNonInteger_ThrowsAnException() {
 		$lexemePatchAccess = new LexemePatchAccess( 1, new FormSet(), 1, new SenseSet() );
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexemePatchAccess->increaseNextFormIdTo( 2.0 );
 	}
 
@@ -91,7 +88,7 @@ class LexemePatchAccessTest extends TestCase {
 		$sense = NewSense::havingId( 'S1' )->build();
 		$lexemePatchAccess->close();
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexemePatchAccess->addSense( $sense );
 	}
 
@@ -107,7 +104,7 @@ class LexemePatchAccessTest extends TestCase {
 	}
 
 	public function testCanNotCreateWithNextSenseIdWhichIsNotAPositiveInteger() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new LexemePatchAccess( 1, new FormSet(), 0, new SenseSet() );
 	}
 
@@ -122,14 +119,14 @@ class LexemePatchAccessTest extends TestCase {
 	public function testIncreaseNextSenseIdTo_GivenLexemeSmallerInitialId_ThrowsAnException() {
 		$lexemePatchAccess = new LexemePatchAccess( 1, new FormSet(), 2, new SenseSet() );
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexemePatchAccess->increaseNextSenseIdTo( 1 );
 	}
 
 	public function testIncreaseNextSenseIdTo_GivenNonInteger_ThrowsAnException() {
 		$lexemePatchAccess = new LexemePatchAccess( 1, new FormSet(), 1, new SenseSet() );
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexemePatchAccess->increaseNextSenseIdTo( 2.0 );
 	}
 

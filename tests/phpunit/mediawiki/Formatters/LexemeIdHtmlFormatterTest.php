@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -23,7 +22,6 @@ use Wikibase\View\DummyLocalizedTextProvider;
 class LexemeIdHtmlFormatterTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	const SINGLE_LEMMA_LEXEME_ID = 'L313';
 	const MULTIPLE_LEMMA_LEXEME_ID = 'L323';
@@ -107,7 +105,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 	}
 
 	public function testGivenLexicalCategoryWithoutLabel_showsItemId() {
-		$lookup = $this->getMock( LabelDescriptionLookup::class );
+		$lookup = $this->createMock( LabelDescriptionLookup::class );
 		$lookup->method( $this->anything() )
 			->willReturn( null );
 		$formatter = new LexemeIdHtmlFormatter(
@@ -163,7 +161,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 	 * @return LabelDescriptionLookup
 	 */
 	private function newLabelDescriptionLookup() {
-		$lookup = $this->getMock( LabelDescriptionLookup::class );
+		$lookup = $this->createMock( LabelDescriptionLookup::class );
 
 		$lookup->method( $this->anything() )
 			->willReturnCallback( function ( ItemId $id ) {
@@ -180,11 +178,11 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 	 * @return EntityTitleLookup
 	 */
 	private function newTitleLookup() {
-		$lookup = $this->getMock( EntityTitleLookup::class );
+		$lookup = $this->createMock( EntityTitleLookup::class );
 
 		$lookup->method( 'getTitleForId' )
 			->willReturnCallback( function ( LexemeId $id ) {
-				$title = $this->getMock( \Title::class );
+				$title = $this->createMock( \Title::class );
 
 				$title->method( 'isLocal' )->willReturn( true );
 				$title->method( 'getLocalURL' )

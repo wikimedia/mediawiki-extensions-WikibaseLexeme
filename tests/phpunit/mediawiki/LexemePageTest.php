@@ -25,7 +25,7 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 			self::getTestUser( [] )->getUser() )
 		);
 
-		$this->setExpectedException( \PermissionsError::class );
+		$this->expectException( \PermissionsError::class );
 		$article->delete();
 	}
 

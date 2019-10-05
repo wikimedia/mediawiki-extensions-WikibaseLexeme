@@ -27,7 +27,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_Test
 		$accessor = new MediaWikiPageSubEntityMetaDataAccessor(
 			$this->createMock( WikiPageEntityMetaDataAccessor::class )
 		);
-		$this->setExpectedException( BadMethodCallException::class );
+		$this->expectException( BadMethodCallException::class );
 		$accessor->loadRevisionInformationByRevisionId( $this->createMock( EntityId::class ), 1 );
 	}
 
@@ -55,7 +55,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_Test
 			$lexemeId // invalid id type
 		];
 
-		$this->setExpectedException( LogicException::class );
+		$this->expectException( LogicException::class );
 
 		$entityDataAccessor = $this->getMediaWikiPageSubEntityMetaDataAccessor_mockAccessor(
 			[ $senseId, $lexemeId ],

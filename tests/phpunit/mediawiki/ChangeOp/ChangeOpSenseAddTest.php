@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -26,14 +25,12 @@ use Wikibase\Summary;
  */
 class ChangeOpSenseAddTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpAddSense = $this->newChangeOpSenseAdd( new ChangeOpSenseEdit( [
 			new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'foo' ) ) ] ),
 		] ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpAddSense->validate( NewItem::withId( 'Q1' )->build() );
 	}
 
@@ -52,7 +49,7 @@ class ChangeOpSenseAddTest extends TestCase {
 			new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'foo' ) ) ] ),
 		] ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpAddSense->apply( NewItem::withId( 'Q1' )->build() );
 	}
 

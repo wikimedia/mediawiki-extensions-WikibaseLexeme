@@ -75,7 +75,7 @@ class SenseSerializerTest extends TestCase {
 	}
 
 	public function testReturnedDataContainsGlosses() {
-		$glossListSerializer = $this->getMock( Serializer::class );
+		$glossListSerializer = $this->createMock( Serializer::class );
 		$glossListSerializer->method( 'serialize' )
 			->willReturn( 'REPRESENTATION DATA' );
 
@@ -92,7 +92,7 @@ class SenseSerializerTest extends TestCase {
 	}
 
 	public function testReturnedDataContainsStatements() {
-		$statementSerializer = $this->getMock( Serializer::class );
+		$statementSerializer = $this->createMock( Serializer::class );
 		$statementSerializer->method( 'serialize' )
 			->willReturn( 'STATEMENTS DATA' );
 

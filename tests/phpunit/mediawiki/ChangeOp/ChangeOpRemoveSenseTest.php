@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -18,12 +17,10 @@ use Wikibase\Summary;
  */
 class ChangeOpRemoveSenseTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpRemoveSense = new ChangeOpRemoveSense( new SenseId( 'L1-S1' ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpRemoveSense->validate( NewItem::withId( 'Q1' )->build() );
 	}
 
@@ -50,7 +47,7 @@ class ChangeOpRemoveSenseTest extends TestCase {
 	public function test_applyFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpRemoveSense = new ChangeOpRemoveSense( new SenseId( 'L1-S1' ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpRemoveSense->apply( NewItem::withId( 'Q1' )->build() );
 	}
 

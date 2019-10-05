@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiMessage;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemIdParser;
@@ -37,8 +36,6 @@ use Wikibase\StringNormalizer;
  * @license GPL-2.0-or-later
  */
 class EditFormElementsRequestParserIntegrationTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	const DEFAULT_REPRESENTATION = 'colour';
 	const DEFAULT_REPRESENTATION_LANGUAGE = 'en';

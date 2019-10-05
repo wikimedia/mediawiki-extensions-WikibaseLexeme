@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
@@ -19,8 +18,6 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  * @license GPL-2.0-or-later
  */
 class AddFormToLexemeChangeOpTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/** @var ChangeOp|MockObject */
 	private $changeOpFormEdit;
@@ -63,7 +60,7 @@ class AddFormToLexemeChangeOpTest extends TestCase {
 
 	public function testApply_connectsLexemeToForm() {
 		$lexeme = $this->createMock( Lexeme::class );
-		$blankForm = $this->getMock( BlankForm::class );
+		$blankForm = $this->createMock( BlankForm::class );
 
 		$lexeme->expects( $this->once() )
 			->method( 'addOrUpdateForm' )

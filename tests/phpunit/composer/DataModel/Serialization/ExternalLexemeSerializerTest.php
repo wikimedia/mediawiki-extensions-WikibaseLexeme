@@ -32,13 +32,13 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 	}
 
 	private function newSerializer() {
-		$statementListSerializer = $this->getMock( Serializer::class );
+		$statementListSerializer = $this->createMock( Serializer::class );
 		$statementListSerializer->method( 'serialize' )
 			->will( $this->returnCallback( function ( StatementList $statementList ) {
 				return implode( '|', $statementList->getPropertyIds() );
 			} ) );
 
-		$termListSerializer = $this->getMock( Serializer::class );
+		$termListSerializer = $this->createMock( Serializer::class );
 		$termListSerializer->method( 'serialize' )
 			->will( $this->returnCallback( function ( TermList $termList ) {
 				return $termList->toTextArray();
@@ -70,7 +70,7 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 	public function testSerializeException( $object ) {
 		$serializer = $this->newSerializer();
 
-		$this->setExpectedException( SerializationException::class );
+		$this->expectException( SerializationException::class );
 		$serializer->serialize( $object );
 	}
 

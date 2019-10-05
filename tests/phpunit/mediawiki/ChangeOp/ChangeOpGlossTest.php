@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
-use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
@@ -17,7 +16,6 @@ use Wikibase\Summary;
  * @license GPL-2.0-or-later
  */
 class ChangeOpGlossTest extends TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testAction_isEdit() {
 		$changeOp = new ChangeOpGloss( new Term( 'en', 'furry animal' ) );

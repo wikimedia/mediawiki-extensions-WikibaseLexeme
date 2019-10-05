@@ -26,7 +26,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	public function testCreateEntityChangeOpEmpty_yieldsZeroChangeOpRepresentationList() {
-		$representationDeserializer = $this->getMock( TermDeserializer::class );
+		$representationDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
@@ -41,7 +41,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithValidTerm_yieldsChangeOpRepresentationList() {
-		$representationDeserializer = $this->getMock( TermDeserializer::class );
+		$representationDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$representationDeserializer
@@ -74,7 +74,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithValidTerm_trimsRepresentationsValuesToNFC() {
-		$representationDeserializer = $this->getMock( TermDeserializer::class );
+		$representationDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$representationDeserializer
@@ -107,7 +107,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithRemoval_yieldsChangeOpRepresentationList() {
-		$representationDeserializer = $this->getMock( TermDeserializer::class );
+		$representationDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
@@ -137,7 +137,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 	 * @expectedException \ApiUsageException
 	 */
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
-		$representationDeserializer = $this->getMock( TermDeserializer::class );
+		$representationDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 		$validator->method( 'validate' )
 			->willThrowException(

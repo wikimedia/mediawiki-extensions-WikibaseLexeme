@@ -25,7 +25,7 @@ class ChangeOpsFormsEditTest extends TestCase {
 
 		$form = NewForm::any()->build();
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 
 		$changeOpRemoveForm->validate( $form );
 	}
@@ -68,7 +68,7 @@ class ChangeOpsFormsEditTest extends TestCase {
 
 		$form = NewForm::any()->build();
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 
 		$changeOpRemoveForm->apply( $form );
 	}

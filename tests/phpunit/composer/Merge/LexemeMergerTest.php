@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\Merge;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Prophecy\Argument;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -35,8 +34,6 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  */
 class LexemeMergerTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeMerger

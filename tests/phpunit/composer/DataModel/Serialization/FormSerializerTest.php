@@ -71,7 +71,7 @@ class FormSerializerTest extends TestCase {
 	}
 
 	public function testReturnedDataContainsRepresentations() {
-		$representationListSerializer = $this->getMock( Serializer::class );
+		$representationListSerializer = $this->createMock( Serializer::class );
 		$representationListSerializer->method( 'serialize' )
 			->willReturn( 'REPRESENTATION DATA' );
 
@@ -101,7 +101,7 @@ class FormSerializerTest extends TestCase {
 	}
 
 	public function testReturnedDataContainsStatements() {
-		$statementSerializer = $this->getMock( Serializer::class );
+		$statementSerializer = $this->createMock( Serializer::class );
 		$statementSerializer->method( 'serialize' )
 			->willReturn( 'STATEMENTS DATA' );
 

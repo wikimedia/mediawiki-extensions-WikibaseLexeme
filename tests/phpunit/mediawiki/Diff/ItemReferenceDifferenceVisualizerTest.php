@@ -8,7 +8,6 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
@@ -20,7 +19,6 @@ use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 class ItemReferenceDifferenceVisualizerTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	public function testGivenItemReferenceChanged_oldAndNewItemsAreDisplayed() {
 		$visualizer = new ItemReferenceDifferenceVisualizer( $this->getIdFormatter() );
@@ -145,7 +143,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 	}
 
 	private function getIdFormatter() {
-		$formatter = $this->getMock( EntityIdFormatter::class );
+		$formatter = $this->createMock( EntityIdFormatter::class );
 		$formatter->method( $this->anything() )
 			->willReturnCallback( function ( EntityId $entityId ) {
 				$id = $entityId->getSerialization();

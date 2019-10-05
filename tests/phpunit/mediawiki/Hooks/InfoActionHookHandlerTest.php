@@ -71,7 +71,7 @@ class InfoActionHookHandlerTest extends TestCase {
 	private function newHookHandler( IContextSource $context, array $pagePropsValues ) {
 		$lexemeId = new LexemeId( 'L4' );
 
-		$entityIdLookup = $this->getMock( EntityIdLookup::class );
+		$entityIdLookup = $this->createMock( EntityIdLookup::class );
 		$entityIdLookup->expects( $this->once() )
 			->method( 'getEntityIdForTitle' )
 			->with( $context->getTitle() )
@@ -97,7 +97,7 @@ class InfoActionHookHandlerTest extends TestCase {
 	 * @return IContextSource
 	 */
 	private function getContext() {
-		$title = $this->getMock( Title::class );
+		$title = $this->createMock( Title::class );
 
 		$title->expects( $this->any() )
 			->method( 'exists' )

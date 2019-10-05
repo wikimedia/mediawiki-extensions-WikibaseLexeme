@@ -371,7 +371,7 @@ class LexemeDeserializerTest extends TestCase {
 	public function testDeserializeException( $serialization ) {
 		$deserializer = $this->newDeserializer();
 
-		$this->setExpectedException( DeserializationException::class );
+		$this->expectException( DeserializationException::class );
 		$deserializer->deserialize( $serialization );
 	}
 

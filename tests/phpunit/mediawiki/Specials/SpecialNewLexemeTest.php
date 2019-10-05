@@ -99,7 +99,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedOnNamespace() {
 		$user = $this->getTestBlockedUser( false, [ 146 ] );
 
-		$this->setExpectedException( \UserBlockedError::class );
+		$this->expectException( \UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
 
@@ -117,7 +117,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedSitewide() {
 		$user = $this->getTestBlockedUser( true );
 
-		$this->setExpectedException( \UserBlockedError::class );
+		$this->expectException( \UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
 

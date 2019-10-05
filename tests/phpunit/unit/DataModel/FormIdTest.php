@@ -50,7 +50,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideInvalidSerializations
 	 */
 	public function testGivenInvalidSerialization_constructorThrowsAnException( $id ) {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		new FormId( $id );
 	}
 

@@ -26,7 +26,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	use PHPUnit4And6Compat;
 
 	public function testCreateEntityChangeOpEmpty_yieldsZeroChangeOpGlossList() {
-		$glossDeserializer = $this->getMock( TermDeserializer::class );
+		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$deserializer = new GlossesChangeOpDeserializer(
@@ -41,7 +41,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithValidTerm_yieldsChangeOpGlossList() {
-		$glossDeserializer = $this->getMock( TermDeserializer::class );
+		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$glossDeserializer
@@ -74,7 +74,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithValidTerm_trimsGlossValuesToNFC() {
-		$glossDeserializer = $this->getMock( TermDeserializer::class );
+		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$glossDeserializer
@@ -107,7 +107,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithRemoval_yieldsChangeOpGlossList() {
-		$glossDeserializer = $this->getMock( TermDeserializer::class );
+		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 
 		$deserializer = new GlossesChangeOpDeserializer(
@@ -137,7 +137,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	 * @expectedException \ApiUsageException
 	 */
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
-		$glossDeserializer = $this->getMock( TermDeserializer::class );
+		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
 		$validator->method( 'validate' )
 			->willThrowException(

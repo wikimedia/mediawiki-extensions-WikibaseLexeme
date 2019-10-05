@@ -31,12 +31,12 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 * @return MockObject|EntityTitleLookup
 	 */
 	private function getMockTitleLookup( SenseId $expectedSenseId ) {
-		$title = $this->getMock( Title::class );
+		$title = $this->createMock( Title::class );
 		$title->method( 'isLocal' )->willReturn( true );
 		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#FORM' );
 
 		/** @var EntityTitleLookup|MockObject $titleLookup */
-		$titleLookup = $this->getMock( EntityTitleLookup::class );
+		$titleLookup = $this->createMock( EntityTitleLookup::class );
 		$titleLookup->method( 'getTitleForId' )
 			->with( $expectedSenseId )
 			->willReturn( $title );
@@ -48,7 +48,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 * @return \PHPUnit_Framework_MockObject_MockObject|EntityRevisionLookup
 	 */
 	private function getMockRevisionLookup() {
-		return $this->getMock( EntityRevisionLookup::class );
+		return $this->createMock( EntityRevisionLookup::class );
 	}
 
 	/**

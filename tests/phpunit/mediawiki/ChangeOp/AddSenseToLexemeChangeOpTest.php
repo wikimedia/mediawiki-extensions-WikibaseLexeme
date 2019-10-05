@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\AddSenseToLexemeChangeOp;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
@@ -16,8 +15,6 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  * @license GPL-2.0-or-later
  */
 class AddSenseToLexemeChangeOpTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testAction_isEdit() {
 		$changeOp = new AddSenseToLexemeChangeOp( NewLexeme::create()->build() );
@@ -70,7 +67,7 @@ class AddSenseToLexemeChangeOpTest extends TestCase {
 
 	public function testApply_connectsLexemeToSense() {
 		$lexeme = NewLexeme::create()->build();
-		$blankSense = $this->getMock( BlankSense::class );
+		$blankSense = $this->createMock( BlankSense::class );
 		$blankSense->expects( $this->once() )
 			->method( 'setLexeme' )
 			->with( $lexeme );

@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\WikibaseLexemeHooks;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 
@@ -14,8 +13,6 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
  * @license GPL-2.0-or-later
  */
 class WikibaseLexemeHooksTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testOnCanonicalNamespaces_ReturnsTrue() {
 		$namespaces = [];
@@ -61,7 +58,7 @@ class WikibaseLexemeHooksTest extends TestCase {
 		$namespaceId = $config->get( 'LexemeNamespace' );
 		$namespaces = [ $namespaceId => 'SomeOtherNamespace' ];
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
 	}
 

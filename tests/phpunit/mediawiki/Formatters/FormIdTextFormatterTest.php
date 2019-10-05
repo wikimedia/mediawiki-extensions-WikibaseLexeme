@@ -29,7 +29,7 @@ class FormIdTextFormatterTest extends TestCase {
 	 * @return \PHPUnit_Framework_MockObject_MockObject|LocalizedTextProvider
 	 */
 	private function getMockTextProvider() {
-		$mock = $this->getMock( LocalizedTextProvider::class );
+		$mock = $this->createMock( LocalizedTextProvider::class );
 		$mock->method( 'get' )
 			->willReturn( '-S-' );
 		return $mock;
@@ -39,7 +39,7 @@ class FormIdTextFormatterTest extends TestCase {
 		$formId = new FormId( 'L999-F666' );
 
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
-		$mockLookup = $this->getMock( EntityRevisionLookup::class );
+		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
 			->with( $this->equalTo( $formId ) )
 			->willReturn( null );
@@ -53,7 +53,7 @@ class FormIdTextFormatterTest extends TestCase {
 		$formId = new FormId( 'L999-F666' );
 
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
-		$mockLookup = $this->getMock( EntityRevisionLookup::class );
+		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
 			->with( $this->equalTo( $formId ) )
 			->willThrowException(
@@ -79,7 +79,7 @@ class FormIdTextFormatterTest extends TestCase {
 		);
 
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
-		$mockLookup = $this->getMock( EntityRevisionLookup::class );
+		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
 			->with( $this->equalTo( $formId ) )
 			->willReturn( $formRevision );
@@ -98,7 +98,7 @@ class FormIdTextFormatterTest extends TestCase {
 		);
 
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
-		$mockLookup = $this->getMock( EntityRevisionLookup::class );
+		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
 			->with( $this->equalTo( $formId ) )
 			->willReturn( $formRevision );

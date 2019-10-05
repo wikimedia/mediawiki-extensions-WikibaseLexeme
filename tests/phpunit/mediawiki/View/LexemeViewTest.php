@@ -86,7 +86,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 	 * @return LanguageDirectionalityLookup
 	 */
 	private function newLanguageDirectionalityLookupMock() {
-		$languageDirectionalityLookup = $this->getMock( LanguageDirectionalityLookup::class );
+		$languageDirectionalityLookup = $this->createMock( LanguageDirectionalityLookup::class );
 		$languageDirectionalityLookup->method( 'getDirectionality' )
 			->willReturn( 'auto' );
 
@@ -129,9 +129,9 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view = $this->newLexemeView();
 
 		/** @var EntityDocument $entity */
-		$entity = $this->getMock( EntityDocument::class );
+		$entity = $this->createMock( EntityDocument::class );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$view->getContent( $entity );
 	}
 
@@ -172,8 +172,8 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view = $this->newLexemeView();
 
 		/** @var EntityDocument $entity */
-		$entity = $this->getMock( EntityDocument::class );
-		$this->setExpectedException( ParameterTypeException::class );
+		$entity = $this->createMock( EntityDocument::class );
+		$this->expectException( ParameterTypeException::class );
 		$view->getTitleHtml( $entity );
 	}
 

@@ -48,7 +48,7 @@ class LexemePatcherTest extends MediaWikiUnitTestCase {
 	public function testGivenNonLexeme_exceptionIsThrown() {
 		$patcher = new LexemePatcher();
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$patcher->patchEntity( new Item(), new LexemeDiff() );
 	}
 

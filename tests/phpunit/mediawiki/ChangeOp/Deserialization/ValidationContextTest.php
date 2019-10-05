@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 use ApiMessage;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 
@@ -15,8 +14,6 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
  * @license GPL-2.0-or-later
  */
 class ValidationContextTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testAddingContextLevels_buildsNestedTree() {
 		$root = ValidationContext::create( 'data' );
@@ -35,7 +32,7 @@ class ValidationContextTest extends TestCase {
 			->at( 'representations' )
 			->at( 'de' );
 
-		$violation = $this->getMock( ApiError::class );
+		$violation = $this->createMock( ApiError::class );
 		$violation
 			->method( 'asApiMessage' )
 			->with( 'data', [ 'representations', 'de' ] )

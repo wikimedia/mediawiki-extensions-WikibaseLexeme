@@ -56,11 +56,11 @@ class ChangeOpRepresentationListTest extends TestCase {
 	public function testApply_propagatesApplyToChangeOps() {
 		$form = NewForm::any()->build();
 
-		$op1 = $this->getMock( ChangeOp::class );
+		$op1 = $this->createMock( ChangeOp::class );
 		$op1->expects( $this->once() )
 			->method( 'apply' )
 			->with( $form, new Summary() );
-		$op2 = $this->getMock( ChangeOp::class );
+		$op2 = $this->createMock( ChangeOp::class );
 		$op2->expects( $this->once() )
 			->method( 'apply' )
 			->with( $form, new Summary() );

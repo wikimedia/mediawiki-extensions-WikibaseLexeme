@@ -58,14 +58,14 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	public function testUninitializedLexicalCategory() {
 		$lexeme = new Lexeme();
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->expectException( UnexpectedValueException::class );
 		$lexeme->getLexicalCategory();
 	}
 
 	public function testUninitializedLanguage() {
 		$lexeme = new Lexeme();
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->expectException( UnexpectedValueException::class );
 		$lexeme->getLanguage();
 	}
 
@@ -91,7 +91,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNonIntNextFormId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -103,7 +103,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNonPositiveNextFormId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -115,7 +115,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNextFormIdSmallerOrEqualThanNumberOfProvidedForms() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -128,7 +128,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNextFormIdSmallerOrEqualThanMaxExistingFormId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -141,7 +141,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNonIntNextSenseId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -155,7 +155,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNonPositiveNextSenseId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -169,7 +169,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNextSenseIdSmallerOrEqualThanNumberOfProvidedSenses() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -184,7 +184,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCanNotCreateWithNextSenseIdSmallerOrEqualThanMaxExistingSenseId() {
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -215,7 +215,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	public function testSetInvalidId( $id ) {
 		$lexeme = new Lexeme();
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$lexeme->setId( $id );
 	}
 
@@ -611,7 +611,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme = new Lexeme( $id );
 		$lexeme->setLexicalCategory( null );
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->expectException( UnexpectedValueException::class );
 		$lexeme->getLexicalCategory();
 	}
 
@@ -631,7 +631,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme = new Lexeme( $id );
 		$lexeme->setLanguage( null );
 
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->expectException( UnexpectedValueException::class );
 		$lexeme->getLanguage();
 	}
 
@@ -798,7 +798,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	public function testGetForm_LexemeDoesntHaveFormWithThatId_ThrowsAnException() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->setExpectedException( \OutOfRangeException::class );
+		$this->expectException( \OutOfRangeException::class );
 		$lexeme->getForm( new FormId( 'L1-F1' ) );
 	}
 
@@ -811,7 +811,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	public function testGetSense_LexemeDoesntHaveSenseWithThatId_ThrowsAnException() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
-		$this->setExpectedException( \OutOfRangeException::class );
+		$this->expectException( \OutOfRangeException::class );
 		$lexeme->getSense( new SenseId( 'L1-S1' ) );
 	}
 
@@ -873,7 +873,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 			}
 		);
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$patchAccessFromOutside->addForm( $form );
 	}
 
@@ -894,7 +894,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		} catch ( \Exception $e ) {
 			// ignore
 		}
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$patchAccessFromOutside->addForm( $form );
 	}
 
@@ -903,7 +903,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme = NewLexeme::havingForm( $existingForm )->build();
 		$newForm = NewForm::havingId( 'F1' )->build();
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexeme->patch(
 			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
 				$patchAccess->addForm( $newForm );
@@ -916,7 +916,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$newForm = NewForm::havingId( 'F1' )->build();
 
 		$this->assertEquals( 1, $lexeme->getNextFormId() );
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexeme->patch(
 			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
 				$patchAccess->addForm( $newForm );
@@ -1000,7 +1000,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 			}
 		);
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$patchAccessFromOutside->addSense( $newSense );
 	}
 
@@ -1021,7 +1021,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		} catch ( \Exception $e ) {
 			// ignore
 		}
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$patchAccessFromOutside->addSense( $newSense );
 	}
 
@@ -1030,7 +1030,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme = NewLexeme::havingSense( $existingSense )->build();
 		$newSense = NewSense::havingId( 'S1' )->build();
 
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexeme->patch(
 			function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
 				$patchAccess->addSense( $newSense );
@@ -1043,7 +1043,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$newSense = NewSense::havingId( 'S1' )->build();
 
 		$this->assertSame( 1, $lexeme->getNextSenseId() );
-		$this->setExpectedException( \Exception::class );
+		$this->expectException( \Exception::class );
 		$lexeme->patch(
 			function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
 				$patchAccess->addSense( $newSense );
@@ -1168,7 +1168,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme->clear();
 
 		$this->assertTrue( $lexeme->isEmpty() );
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->expectException( UnexpectedValueException::class );
 		$lexeme->getLanguage();
 	}
 
@@ -1177,7 +1177,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme->clear();
 
 		$this->assertTrue( $lexeme->isEmpty() );
-		$this->setExpectedException( UnexpectedValueException::class );
+		$this->expectException( UnexpectedValueException::class );
 		$lexeme->getLexicalCategory();
 	}
 

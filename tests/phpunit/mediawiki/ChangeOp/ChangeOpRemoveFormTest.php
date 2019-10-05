@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
@@ -18,12 +17,10 @@ use Wikibase\Summary;
  */
 class ChangeOpRemoveFormTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpRemoveForm = new ChangeOpRemoveForm( new FormId( 'L1-F1' ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpRemoveForm->validate( NewItem::withId( 'Q1' )->build() );
 	}
 
@@ -50,7 +47,7 @@ class ChangeOpRemoveFormTest extends TestCase {
 	public function test_applyFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpRemoveForm = new ChangeOpRemoveForm( new FormId( 'L1-F1' ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpRemoveForm->apply( NewItem::withId( 'Q1' )->build() );
 	}
 

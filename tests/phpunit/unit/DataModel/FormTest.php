@@ -39,7 +39,7 @@ class FormTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCreateForm_GrammaticalFeaturesIsNotAnArrayOfItemIds_ThrowsAnException() {
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		new Form(
 			new FormId( 'L1-F1' ),
 			new TermList( [ new Term( 'en', 'representation' ) ] ),
@@ -69,7 +69,7 @@ class FormTest extends MediaWikiUnitTestCase {
 	public function testSetGrammaticalFeatures_NonItemIdIsGiven_ThrowsException() {
 		$form = NewForm::havingId( 'F1' )->build();
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$form->setGrammaticalFeatures( [ "Q1" ] );
 	}
 

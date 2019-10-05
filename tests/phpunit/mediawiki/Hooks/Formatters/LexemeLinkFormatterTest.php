@@ -52,7 +52,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	 */
 	public function testGivenNotALexemeId_getHtmlThrowsException( EntityId $id ) {
 		$formatter = $this->newFormatter();
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$formatter->getHtml( $id, [] );
 	}
 
@@ -113,7 +113,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	 * @return \PHPUnit_Framework_MockObject_MockObject|EntityLookup
 	 */
 	private function getMockEntityLookup( $lexeme ) {
-		$entityLookup = $this->getMock( EntityLookup::class );
+		$entityLookup = $this->createMock( EntityLookup::class );
 		$entityLookup->method( 'getEntity' )->willReturn( $lexeme );
 
 		return $entityLookup;
@@ -121,7 +121,7 @@ class LexemeLinkFormatterTest extends TestCase {
 
 	public function testGetTitleAttribute() {
 		$formatter = $this->newFormatter();
-		$title = $this->getMock( Title::class );
+		$title = $this->createMock( Title::class );
 		$title->method( 'getPrefixedText' )->willReturn( 'Lexeme:L123' );
 		$this->assertEquals(
 			'Lexeme:L123',

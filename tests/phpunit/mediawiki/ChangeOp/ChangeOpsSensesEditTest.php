@@ -25,7 +25,7 @@ class ChangeOpsSensesEditTest extends TestCase {
 
 		$sense = ( new NewSense() )->build();
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 
 		$changeOpRemoveSense->validate( $sense );
 	}
@@ -68,7 +68,7 @@ class ChangeOpsSensesEditTest extends TestCase {
 
 		$sense = ( new NewSense() )->build();
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 
 		$changeOpRemoveSense->apply( $sense );
 	}

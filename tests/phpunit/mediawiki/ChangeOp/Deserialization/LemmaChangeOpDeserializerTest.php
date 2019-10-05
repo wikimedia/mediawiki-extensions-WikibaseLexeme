@@ -45,7 +45,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 	public function testGivenLemmaSerializationIsNotArray_exceptionIsThrown() {
 		$deserializer = $this->newLemmaChangeOpDeserializer();
 
-		$this->setExpectedException( ChangeOpDeserializationException::class );
+		$this->expectException( ChangeOpDeserializationException::class );
 
 		$deserializer->createEntityChangeOp( [ 'lemmas' => 'foo' ] );
 	}
@@ -72,7 +72,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 			new StringNormalizer()
 		);
 
-		$this->setExpectedException( ChangeOpDeserializationException::class );
+		$this->expectException( ChangeOpDeserializationException::class );
 
 		$deserializer->createEntityChangeOp( [ 'lemmas' => [ 'invalid term change serialization' ] ] );
 	}

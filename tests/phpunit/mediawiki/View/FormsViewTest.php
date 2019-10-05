@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Prophecy\Argument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
@@ -25,7 +24,6 @@ use Wikibase\View\StatementGroupListView;
 class FormsViewTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
 

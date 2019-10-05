@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\Merge;
 
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -19,7 +18,6 @@ use Wikibase\Repo\Tests\NewStatement;
  * @license GPL-2.0-or-later
  */
 class LexemeSensesMergerTest extends TestCase {
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider provideSamples

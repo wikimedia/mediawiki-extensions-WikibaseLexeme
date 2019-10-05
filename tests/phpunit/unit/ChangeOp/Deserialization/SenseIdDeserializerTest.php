@@ -20,7 +20,7 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 	public function testDeserializeValidSenseId_returnsSenseId() {
 		$senseId = new SenseId( 'L1-S1' );
 
-		$entityIdParser = $this->getMock( EntityIdParser::class );
+		$entityIdParser = $this->createMock( EntityIdParser::class );
 		$entityIdParser
 			->method( 'parse' )
 			->with( 'L1-S1' )
@@ -37,7 +37,7 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDeserializeNotValidSenseId_returnsNullAndContextHasViolation() {
-		$entityIdParser = $this->getMock( EntityIdParser::class );
+		$entityIdParser = $this->createMock( EntityIdParser::class );
 		$entityIdParser
 			->method( 'parse' )
 			->with( 'somesome' )
@@ -62,7 +62,7 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 			->method( 'getEntityType' )
 			->willReturn( 'weird' );
 
-		$entityIdParser = $this->getMock( EntityIdParser::class );
+		$entityIdParser = $this->createMock( EntityIdParser::class );
 		$entityIdParser
 			->method( 'parse' )
 			->with( 'L1-S1' )

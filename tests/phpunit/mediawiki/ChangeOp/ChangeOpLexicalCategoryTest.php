@@ -30,7 +30,7 @@ class ChangeOpLexicalCategoryTest extends TestCase {
 	) {
 		$changeOp = $this->newChangeOpLexicalCategory( new ItemId( 'Q2' ) );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 
@@ -62,7 +62,7 @@ class ChangeOpLexicalCategoryTest extends TestCase {
 	) {
 		$changeOp = $this->newChangeOpLexicalCategory( new ItemId( 'Q234' ) );
 
-		$this->setExpectedException( InvalidArgumentException::class );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
 	}
 

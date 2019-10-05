@@ -46,7 +46,7 @@ class FormDiffViewTest extends TestCase {
 	 * @return SnakFormatter
 	 */
 	public function newSnakFormatter( $returnValue = '<i>SNAK</i>' ) {
-		$instance = $this->getMock( SnakFormatter::class );
+		$instance = $this->createMock( SnakFormatter::class );
 		$instance->expects( $this->any() )
 			->method( 'getFormat' )
 			->will( $this->returnValue( SnakFormatter::FORMAT_HTML ) );
@@ -60,7 +60,7 @@ class FormDiffViewTest extends TestCase {
 	 * @return EntityIdFormatter
 	 */
 	public function newEntityIdLabelFormatter() {
-		$instance = $this->getMock( EntityIdFormatter::class );
+		$instance = $this->createMock( EntityIdFormatter::class );
 
 		$instance->expects( $this->any() )
 			->method( 'formatEntityId' )
@@ -88,7 +88,7 @@ class FormDiffViewTest extends TestCase {
 	 * @return MessageLocalizer
 	 */
 	private function getMockMessageLocalizer() {
-		$mock = $this->getMock( MessageLocalizer::class );
+		$mock = $this->createMock( MessageLocalizer::class );
 
 		$mock->method( 'msg' )
 			->will( $this->returnCallback( function ( $key ) {
@@ -243,7 +243,7 @@ class FormDiffViewTest extends TestCase {
 	}
 
 	private function getIdFormatter() {
-		$formatter = $this->getMock( EntityIdFormatter::class );
+		$formatter = $this->createMock( EntityIdFormatter::class );
 		$formatter->method( $this->anything() )
 			->willReturnCallback( function ( EntityId $entityId ) {
 				$id = $entityId->getSerialization();

@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
@@ -28,7 +27,6 @@ use Wikibase\Repo\WikibaseRepo;
 class NoCrossReferencingLexemeStatementsTest extends TestCase {
 
 	use ErisTest;
-	use PHPUnit4And6Compat;
 
 	private function getLexemeStatementEntityReferenceExtractor() {
 		$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(

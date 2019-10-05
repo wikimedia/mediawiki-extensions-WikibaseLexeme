@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
@@ -23,8 +22,6 @@ use Wikimedia\Assert\ParameterTypeException;
  */
 class SenseRevisionLookupTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	/**
 	 * @var LexemeId
 	 */
@@ -43,10 +40,10 @@ class SenseRevisionLookupTest extends TestCase {
 	}
 
 	public function testGivenLexemeId_getEntityRevisionFails() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
+		$parentService = $this->createMock( EntityRevisionLookup::class );
 		$instance = new SenseRevisionLookup( $parentService );
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->getEntityRevision( $this->lexemeId );
 	}
 
@@ -54,7 +51,7 @@ class SenseRevisionLookupTest extends TestCase {
 		$lexeme = $this->newLexeme();
 		$revisionId = 23;
 
-		$parentService = $this->getMock( EntityRevisionLookup::class );
+		$parentService = $this->createMock( EntityRevisionLookup::class );
 		$parentService->expects( $this->once() )
 			->method( 'getEntityRevision' )
 			->with( $this->lexemeId, $revisionId )
@@ -68,15 +65,15 @@ class SenseRevisionLookupTest extends TestCase {
 	}
 
 	public function testGivenLexemeId_getLatestRevisionIdFails() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
+		$parentService = $this->createMock( EntityRevisionLookup::class );
 		$instance = new SenseRevisionLookup( $parentService );
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->getLatestRevisionId( $this->lexemeId );
 	}
 
 	public function testGivenNullSenseId_lookupIsNotPerformedAndNullReturned() {
-		$parentService = $this->getMock( EntityRevisionLookup::class );
+		$parentService = $this->createMock( EntityRevisionLookup::class );
 		$parentService
 			->expects( $this->never() )
 			->method( 'getEntityRevision' );

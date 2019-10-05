@@ -24,7 +24,7 @@ class SenseTitleStoreLookupTest extends TestCase {
 	public function testGivenLexemeId_getTitleForIdFails() {
 		$instance = new SenseTitleStoreLookup( $this->getMock( EntityTitleStoreLookup::class ) );
 
-		$this->setExpectedException( ParameterTypeException::class );
+		$this->expectException( ParameterTypeException::class );
 		$instance->getTitleForId( new LexemeId( 'L1' ) );
 	}
 
@@ -32,11 +32,11 @@ class SenseTitleStoreLookupTest extends TestCase {
 		$lexemeId = new LexemeId( 'L1' );
 		$senseId = new SenseId( 'L1-S1' );
 
-		$title = $this->getMock( Title::class );
+		$title = $this->createMock( Title::class );
 		$title->method( 'setFragment' )
 			->with( '#' . $senseId->getIdSuffix() );
 
-		$parentLookup = $this->getMock( EntityTitleStoreLookup::class );
+		$parentLookup = $this->createMock( EntityTitleStoreLookup::class );
 		$parentLookup->method( 'getTitleForId' )
 			->with( $lexemeId )
 			->willReturn( $title );
@@ -48,7 +48,7 @@ class SenseTitleStoreLookupTest extends TestCase {
 	}
 
 	public function testGivenNoTitleForLexeme_getTitleForIdReturnsNull() {
-		$parentLookup = $this->getMock( EntityTitleStoreLookup::class );
+		$parentLookup = $this->createMock( EntityTitleStoreLookup::class );
 		$parentLookup->method( 'getTitleForId' )
 			->willReturn( null );
 

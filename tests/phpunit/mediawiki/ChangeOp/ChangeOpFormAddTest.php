@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -24,15 +23,13 @@ use Wikibase\Summary;
  */
 class ChangeOpFormAddTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpAddForm = $this->newChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
 			new ChangeOpGrammaticalFeatures( [] )
 		] ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpAddForm->validate( NewItem::withId( 'Q1' )->build() );
 	}
 
@@ -53,7 +50,7 @@ class ChangeOpFormAddTest extends TestCase {
 			new ChangeOpGrammaticalFeatures( [] )
 		] ) );
 
-		$this->setExpectedException( \InvalidArgumentException::class );
+		$this->expectException( \InvalidArgumentException::class );
 		$changeOpAddForm->apply( NewItem::withId( 'Q1' )->build() );
 	}
 
