@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\EntityReferenceExtractors;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
@@ -18,30 +17,22 @@ use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
  */
 class LexemeStatementEntityReferenceExtractorTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function testSubExtractorsAreAllCalledOnceAndResultCombined() {
 		$lexeme = NewLexeme::havingId( new LexemeId( 'L98' ) )->build();
 
-		$statementRefExtractor = $this->getMock(
-			StatementEntityReferenceExtractor::class, [], [], '', false
-		);
+		$statementRefExtractor = $this->createMock( StatementEntityReferenceExtractor::class );
 		$statementRefExtractor->expects( $this->once() )
 			->method( 'extractEntityIds' )
 			->with( $lexeme )
 			->willReturn( [ new LexemeId( 'L1' ) ] );
 
-		$formStatementRefExtractor = $this->getMock(
-			FormsStatementEntityReferenceExtractor::class, [], [], '', false
-		);
+		$formStatementRefExtractor = $this->createMock( FormsStatementEntityReferenceExtractor::class );
 		$formStatementRefExtractor->expects( $this->once() )
 			->method( 'extractEntityIds' )
 			->with( $lexeme )
 			->willReturn( [ new LexemeId( 'L2' ) ] );
 
-		$senseStatementRefExtractor = $this->getMock(
-			SensesStatementEntityReferenceExtractor::class, [], [], '', false
-		);
+		$senseStatementRefExtractor = $this->createMock( SensesStatementEntityReferenceExtractor::class );
 		$senseStatementRefExtractor->expects( $this->once() )
 			->method( 'extractEntityIds' )
 			->with( $lexeme )

@@ -6,7 +6,6 @@ use HamcrestPHPUnitIntegration;
 use HtmlArmor;
 use Language;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
@@ -32,7 +31,6 @@ use Wikimedia\Assert\ParameterTypeException;
 class LexemeLinkFormatterTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	/** @var MockObject|EntityLookup */
 	private $entityLookup;

@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\Merge;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Title;
 use User;
 use WatchedItemStoreInterface;
@@ -33,8 +32,6 @@ use Wikibase\SummaryFormatter;
  * @license GPL-2.0-or-later
  */
 class MergeLexemesInteractorTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeMerger|MockObject

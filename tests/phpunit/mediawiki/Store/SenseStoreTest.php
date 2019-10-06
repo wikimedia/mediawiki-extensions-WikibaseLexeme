@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
 use PHPUnit_Framework_MockObject_MockObject;
 use User;
@@ -26,8 +25,6 @@ use Wikimedia\Assert\ParameterTypeException;
  * @author Thiemo Kreuz
  */
 class SenseStoreTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var LexemeId

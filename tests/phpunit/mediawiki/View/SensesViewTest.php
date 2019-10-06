@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -27,7 +26,6 @@ use Wikibase\View\StatementGroupListView;
 class SensesViewTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
-	use PHPUnit4And6Compat;
 
 	const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
 

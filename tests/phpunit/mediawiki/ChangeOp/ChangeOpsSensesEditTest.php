@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsSensesEdit;
 use Wikibase\Lexeme\Domain\Model\SenseId;
@@ -18,7 +17,6 @@ use Wikimedia\Assert\ParameterTypeException;
  * @license GPL-2.0-or-later
  */
 class ChangeOpsSensesEditTest extends TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testValidateSense_yieldsError() {
 		$changeOpRemoveSense = new ChangeOpsSensesEdit( [] );

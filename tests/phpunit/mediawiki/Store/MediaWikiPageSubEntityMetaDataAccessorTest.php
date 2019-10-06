@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use BadMethodCallException;
 use LogicException;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -20,8 +19,6 @@ use Wikibase\Lib\Store\Sql\WikiPageEntityMetaDataAccessor;
  * @license GPL-2.0-or-later
  */
 class MediaWikiPageSubEntityMetaDataAccessorTest extends \PHPUnit_Framework_TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testloadRevisionInformationByRevisionId_notImplemented() {
 		$accessor = new MediaWikiPageSubEntityMetaDataAccessor(

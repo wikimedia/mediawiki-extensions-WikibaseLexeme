@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -29,7 +28,6 @@ use Wikimedia\Purtle\RdfWriter;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class LexemeRdfBuilderTest extends TestCase {
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var NTriplesRdfTestHelper

@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Serializers\Serializer;
 use Wikibase\Lexeme\Serialization\FormSerializer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
@@ -16,12 +15,10 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
  */
 class FormSerializerTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function testGivenLexeme_isSerializerForReturnsFalse() {
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$this->assertFalse( $serializer->isSerializerFor( NewLexeme::create()->build() ) );
@@ -29,8 +26,8 @@ class FormSerializerTest extends TestCase {
 
 	public function testGivenForm_isSerializerForReturnsTrue() {
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$this->assertTrue( $serializer->isSerializerFor( NewForm::any()->build() ) );
@@ -41,8 +38,8 @@ class FormSerializerTest extends TestCase {
 	 */
 	public function testGivenLexeme_serializeThrowsException() {
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$serializer->serialize( NewLexeme::create()->build() );
@@ -50,8 +47,8 @@ class FormSerializerTest extends TestCase {
 
 	public function testGivenForm_serializeReturnsSerializedData() {
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$this->assertInternalType( 'array', $serializer->serialize( NewForm::any()->build() ) );
@@ -59,8 +56,8 @@ class FormSerializerTest extends TestCase {
 
 	public function testReturnedDataContainsFormId() {
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$form = NewForm::havingLexeme( 'L1' )->andId( 'F3' )->build();
@@ -77,7 +74,7 @@ class FormSerializerTest extends TestCase {
 
 		$serializer = new FormSerializer(
 			$representationListSerializer,
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class )
 		);
 
 		$form = NewForm::any()->build();
@@ -89,8 +86,8 @@ class FormSerializerTest extends TestCase {
 
 	public function testReturnedDataContainsGrammaticalFeatures() {
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$form = NewForm::havingGrammaticalFeature( 'Q100' )->andGrammaticalFeature( 'Q500' )->build();
@@ -106,7 +103,7 @@ class FormSerializerTest extends TestCase {
 			->willReturn( 'STATEMENTS DATA' );
 
 		$serializer = new FormSerializer(
-			$this->getMock( Serializer::class ),
+			$this->createMock( Serializer::class ),
 			$statementSerializer
 		);
 

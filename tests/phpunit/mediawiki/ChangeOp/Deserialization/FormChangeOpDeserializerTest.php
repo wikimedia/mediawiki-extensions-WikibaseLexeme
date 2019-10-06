@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Entity\ItemId;
@@ -27,8 +26,6 @@ use Wikibase\Repo\ChangeOp\NullChangeOp;
  */
 class FormChangeOpDeserializerTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function testRequestWithoutLexemeId_yieldsPureEditFormChangeOp() {
 		$request = [ 'something' ];
 
@@ -44,8 +41,8 @@ class FormChangeOpDeserializerTest extends TestCase {
 			->willReturn( $editFormChangeOp );
 
 		$deserializer = new FormChangeOpDeserializer(
-			$this->getMock( EntityLookup::class ),
-			$this->getMock( EntityIdParser::class ),
+			$this->createMock( EntityLookup::class ),
+			$this->createMock( EntityIdParser::class ),
 			$repr
 		);
 

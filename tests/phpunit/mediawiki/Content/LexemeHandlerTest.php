@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
-use PHPUnit4And6Compat;
 use Title;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
@@ -38,8 +37,6 @@ use Wikibase\TermIndex;
  * @author Bene* < benestar.wikimedia@gmail.com >
  */
 class LexemeHandlerTest extends EntityHandlerTestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @return string
@@ -148,16 +145,16 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			LanguageFallbackLabelDescriptionLookupFactory::class
 		);
 		$labelLookupFactory->method( 'newLabelDescriptionLookup' )
-			->will( $this->returnValue( $this->getMock( LabelDescriptionLookup::class ) ) );
+			->will( $this->returnValue( $this->createMock( LabelDescriptionLookup::class ) ) );
 
 		return new LexemeHandler(
-			$this->getMock( TermIndex::class ),
+			$this->createMock( TermIndex::class ),
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
 			$this->getMockWithoutConstructor( EntityConstraintProvider::class ),
-			$this->getMock( ValidatorErrorLocalizer::class ),
-			$this->getMock( EntityIdParser::class ),
-			$this->getMock( EntityIdLookup::class ),
-			$this->getMock( EntityLookup::class ),
+			$this->createMock( ValidatorErrorLocalizer::class ),
+			$this->createMock( EntityIdParser::class ),
+			$this->createMock( EntityIdLookup::class ),
+			$this->createMock( EntityLookup::class ),
 			$labelLookupFactory,
 			new NoFieldDefinitions()
 		);

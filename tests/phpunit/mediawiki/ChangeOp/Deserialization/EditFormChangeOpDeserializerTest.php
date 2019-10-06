@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
@@ -19,8 +18,6 @@ use Wikibase\Repo\Validators\CompositeValidator;
  * @license GPL-2.0-or-later
  */
 class EditFormChangeOpDeserializerTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testCreateEntityChangeOp_yieldsChangeOpFormEdit() {
 		$deserializer = $this->getDeserializer();

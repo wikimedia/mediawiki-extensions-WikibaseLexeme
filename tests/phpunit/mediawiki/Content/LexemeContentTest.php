@@ -10,7 +10,6 @@ use Diff\DiffOp\Diff\Diff;
 use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Title;
 use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\EntityRedirect;
@@ -49,8 +48,6 @@ use Wikibase\Repo\Content\EntityContentDiff;
  * @license GPL-2.0-or-later
  */
 class LexemeContentTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider invalidConstructorArgsProvider

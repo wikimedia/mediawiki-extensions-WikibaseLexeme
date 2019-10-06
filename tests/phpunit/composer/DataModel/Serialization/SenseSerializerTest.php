@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Serializers\Serializer;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -16,12 +15,10 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  */
 class SenseSerializerTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function testGivenLexeme_isSerializerForReturnsFalse() {
 		$serializer = new SenseSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$lexeme = NewLexeme::create()->build();
@@ -30,8 +27,8 @@ class SenseSerializerTest extends TestCase {
 
 	public function testGivenSense_isSerializerForReturnsTrue() {
 		$serializer = new SenseSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$sense = NewSense::havingId( 'S1' )->build();
@@ -43,8 +40,8 @@ class SenseSerializerTest extends TestCase {
 	 */
 	public function testGivenLexeme_serializeThrowsException() {
 		$serializer = new SenseSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$lexeme = NewLexeme::create()->build();
@@ -53,8 +50,8 @@ class SenseSerializerTest extends TestCase {
 
 	public function testGivenSense_serializeReturnsSerializedData() {
 		$serializer = new SenseSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$sense = NewSense::havingId( 'S1' )->build();
@@ -63,8 +60,8 @@ class SenseSerializerTest extends TestCase {
 
 	public function testReturnedDataContainsSenseId() {
 		$serializer = new SenseSerializer(
-			$this->getMock( Serializer::class ),
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class ),
+			$this->createMock( Serializer::class )
 		);
 
 		$sense = NewSense::havingId( 'S3' )->build();
@@ -81,7 +78,7 @@ class SenseSerializerTest extends TestCase {
 
 		$serializer = new SenseSerializer(
 			$glossListSerializer,
-			$this->getMock( Serializer::class )
+			$this->createMock( Serializer::class )
 		);
 
 		$sense = NewSense::havingId( 'S3' )->build();
@@ -97,7 +94,7 @@ class SenseSerializerTest extends TestCase {
 			->willReturn( 'STATEMENTS DATA' );
 
 		$serializer = new SenseSerializer(
-			$this->getMock( Serializer::class ),
+			$this->createMock( Serializer::class ),
 			$statementSerializer
 		);
 

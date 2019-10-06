@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Title;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -19,10 +18,8 @@ use Wikimedia\Assert\ParameterTypeException;
  */
 class FormTitleStoreLookupTest extends TestCase {
 
-	use PHPUnit4And6Compat;
-
 	public function testGivenLexemeId_getTitleForIdFails() {
-		$instance = new FormTitleStoreLookup( $this->getMock( EntityTitleStoreLookup::class ) );
+		$instance = new FormTitleStoreLookup( $this->createMock( EntityTitleStoreLookup::class ) );
 
 		$this->expectException( ParameterTypeException::class );
 		$instance->getTitleForId( new LexemeId( 'L1' ) );

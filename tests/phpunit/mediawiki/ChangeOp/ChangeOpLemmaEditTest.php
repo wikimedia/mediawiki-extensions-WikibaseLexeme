@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
@@ -22,8 +21,6 @@ use Wikibase\Summary;
  * @license GPL-2.0-or-later
  */
 class ChangeOpLemmaEditTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider invalidConstructorArgumentsProvider
@@ -54,7 +51,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 
 	public function invalidEntityProvider() {
 		return [
-			[ $this->getMock( EntityDocument::class ) ],
+			[ $this->createMock( EntityDocument::class ) ],
 			[ new Item( new ItemId( 'Q123' ) ) ],
 		];
 	}

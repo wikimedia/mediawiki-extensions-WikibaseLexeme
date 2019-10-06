@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit4And6Compat;
 use Title;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
@@ -27,8 +26,6 @@ use Wikibase\View\LocalizedTextProvider;
  * @license GPL-2.0-or-later
  */
 class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var EntityRevisionLookup|MockObject

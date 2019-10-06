@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
@@ -24,8 +23,6 @@ use Wikibase\Repo\Tests\NewStatement;
  * @license GPL-2.0-or-later
  */
 class ChangeOpFormCloneTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @var GuidGenerator|MockObject

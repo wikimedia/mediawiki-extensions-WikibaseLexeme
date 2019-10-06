@@ -55,7 +55,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 * @return \PHPUnit_Framework_MockObject_MockObject|LanguageFallbackIndicator
 	 */
 	private function getMockLanguageFallbackIndicator() {
-		$mock = $this->getMock( LanguageFallbackIndicator::class, [], [], '', false );
+		$mock = $this->createMock( LanguageFallbackIndicator::class );
 		$mock->method( 'getHtml' )
 			->willReturn( 'FB-INDICATOR' );
 		return $mock;

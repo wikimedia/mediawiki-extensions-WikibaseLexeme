@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks;
 use IContextSource;
 use PageProps;
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use RequestContext;
 use Title;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -22,7 +21,6 @@ use Wikibase\Lib\Store\EntityNamespaceLookup;
  * @license GPL-2.0-or-later
  */
 class InfoActionHookHandlerTest extends TestCase {
-	use PHPUnit4And6Compat;
 
 	/**
 	 * @dataProvider handleProvider

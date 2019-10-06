@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use ApiUsageException;
-use PHPUnit4And6Compat;
 use PHPUnit\Framework\TestCase;
 use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
@@ -22,8 +21,6 @@ use Wikibase\StringNormalizer;
  * @license GPL-2.0-or-later
  */
 class RepresentationsChangeOpDeserializerTest extends TestCase {
-
-	use PHPUnit4And6Compat;
 
 	public function testCreateEntityChangeOpEmpty_yieldsZeroChangeOpRepresentationList() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );

@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
-use PHPUnit4And6Compat;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsFormsEdit;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -18,7 +17,6 @@ use Wikimedia\Assert\ParameterTypeException;
  * @license GPL-2.0-or-later
  */
 class ChangeOpsFormsEditTest extends TestCase {
-	use PHPUnit4And6Compat;
 
 	public function testValidateForm_yieldsError() {
 		$changeOpRemoveForm = new ChangeOpsFormsEdit( [] );
