@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use Language;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\LexemeDescription;
 
@@ -11,7 +12,7 @@ use Wikibase\Lexeme\DataAccess\LexemeDescription;
 /**
  * @covers \Wikibase\Lexeme\DataAccess\LexemeDescription
  */
-class LexemeDescriptionTest extends \PHPUnit_Framework_TestCase {
+class LexemeDescriptionTest extends TestCase {
 	use LexemeDescriptionTestCase;
 
 	private $labels = [

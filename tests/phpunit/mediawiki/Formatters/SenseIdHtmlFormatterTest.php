@@ -45,14 +45,14 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|EntityRevisionLookup
+	 * @return MockObject|EntityRevisionLookup
 	 */
 	private function getMockRevisionLookup() {
 		return $this->createMock( EntityRevisionLookup::class );
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|LanguageFallbackIndicator
+	 * @return MockObject|LanguageFallbackIndicator
 	 */
 	private function getMockLanguageFallbackIndicator() {
 		$mock = $this->createMock( LanguageFallbackIndicator::class );

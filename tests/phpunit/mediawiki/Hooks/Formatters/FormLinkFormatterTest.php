@@ -7,6 +7,7 @@ use HtmlArmor;
 use InvalidArgumentException;
 use Language;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -23,7 +24,7 @@ use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
  *
  * @license GPL-2.0-or-later
  */
-class FormLinkFormatterTest extends \PHPUnit_Framework_TestCase {
+class FormLinkFormatterTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
 

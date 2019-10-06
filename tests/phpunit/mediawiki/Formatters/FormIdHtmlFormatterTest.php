@@ -73,7 +73,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	}
 
 	/**
-	 * @return \PHPUnit_Framework_MockObject_MockObject|LocalizedTextProvider
+	 * @return MockObject|LocalizedTextProvider
 	 */
 	private function getMockTextProvider() {
 		$mock = $this->createMock( LocalizedTextProvider::class );

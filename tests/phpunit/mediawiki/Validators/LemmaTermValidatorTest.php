@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 
 /**
@@ -9,7 +10,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
  *
  * @license GPL-2.0-or-later
  */
-class LemmaTermValidatorTest extends \PHPUnit_Framework_TestCase {
+class LemmaTermValidatorTest extends TestCase {
 
 	const MAX_LENGTH = 10;
 

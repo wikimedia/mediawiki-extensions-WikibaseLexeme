@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
+use PHPUnit\Framework\MockObject\Matcher\InvokedCount;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use PHPUnit_Framework_MockObject_Matcher_InvokedCount;
-use PHPUnit_Framework_MockObject_MockObject;
 use User;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\Domain\Model\Form;
@@ -299,7 +299,7 @@ class FormStoreTest extends TestCase {
 
 	/**
 	 * @param string $parentMethod
-	 * @param PHPUnit_Framework_MockObject_Matcher_InvokedCount $expectedCalls
+	 * @param InvokedCount $expectedCalls
 	 *
 	 * @return EntityStore
 	 */
@@ -346,7 +346,7 @@ class FormStoreTest extends TestCase {
 	}
 
 	/**
-	 * @return Lexeme|PHPUnit_Framework_MockObject_MockObject
+	 * @return Lexeme|MockObject
 	 */
 	private function newLexeme() {
 		$mock = $this->getMockBuilder( Lexeme::class )

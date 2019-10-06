@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use ApiUsageException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
@@ -168,7 +169,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	}
 
 	/**
-	 * @return LexemeTermSerializationValidator|\PHPUnit_Framework_MockObject_MockObject
+	 * @return LexemeTermSerializationValidator|MockObject
 	 */
 	private function newDummyValidator() {
 		$validator = $this->getMockBuilder( LexemeTermSerializationValidator::class )
