@@ -163,7 +163,6 @@ return call_user_func( function() {
 				"wikibase.lexeme.datamodel.Form",
 				"wikibase.lexeme.datamodel.Sense",
 				"wikibase.serialization.Deserializer",
-				"wikibase.datamodel.StatementGroupSet",
 				"wikibase.serialization.TermMapDeserializer",
 				"wikibase.serialization.StatementGroupSetDeserializer"
 			]
