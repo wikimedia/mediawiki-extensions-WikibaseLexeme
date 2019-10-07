@@ -6,8 +6,7 @@
 
 	var INTERNAL_DEBOUNCE_TIMEOUT = 150;
 
-	/** @type {wikibase.lexeme.widgets.GrammaticalFeatureListWidget} */
-	var GrammaticalFeatureListWidget = require( 'wikibase.lexeme.widgets.GrammaticalFeatureListWidget' );
+	var GrammaticalFeatureListWidget = require( './../../../resources/widgets/GrammaticalFeatureListWidget.js' );
 
 	var dummyLabelFormattingService = {
 		getHtml: function ( itemId ) {
@@ -15,7 +14,7 @@
 		}
 	};
 
-	QUnit.module( 'wikibase.lexeme.widgets.GrammaticalFeatureListWidget' );
+	QUnit.module( 'GrammaticalFeatureListWidget' );
 
 	QUnit.test( 'throws an error if no api provided', function ( assert ) {
 		assert.throws( function () {
