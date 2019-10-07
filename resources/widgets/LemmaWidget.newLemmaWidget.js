@@ -7,9 +7,8 @@ module.exports = ( function () {
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent
 	 *
-	 * @param {Vuex.Store} store
-	 * @param {string} element
 	 * @param {string} template - template string or selector
+	 * @param {Object} messages - mw.messages localization service
 	 */
 	return function ( template, messages ) {
 		return {
