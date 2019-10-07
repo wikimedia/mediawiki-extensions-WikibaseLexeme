@@ -186,6 +186,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 */
 	setLexemeLanguageItem( item ) {
 		this.lexemeLanguageInput.setValue( item );
+		this.selectFirstSuggestedEntityOnEntitySelector();
 
 		browser.waitUntil( () => {
 			if ( this.waitTillHeaderIsSaveableOrError() ) {
@@ -209,6 +210,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 */
 	setLexicalCategoryItem( item ) {
 		this.lexemeLexicalCategoryInput.setValue( item );
+		this.selectFirstSuggestedEntityOnEntitySelector();
 
 		browser.waitUntil( () => {
 			if ( this.waitTillHeaderIsSaveableOrError() ) {
@@ -377,6 +379,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		let propertyInputfield = form.$( '.wikibase-statementgroupview .wikibase-snakview-property input' );
 
 		propertyInputfield.setValue( statementPropertyId );
+		this.selectFirstSuggestedEntityOnEntitySelector();
 		this.formClaimValueInputField.waitForVisible();
 		this.formClaimValueInputField.setValue( statementValue );
 
