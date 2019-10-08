@@ -123,20 +123,10 @@ return call_user_func( function() {
 				"wikibase.templates"
 			]
 		],
-		"wikibase.lexeme.datamodel.Form" => $moduleTemplate + [
+		"wikibase.lexeme.datamodel" => $moduleTemplate + [
 			"scripts" => [
 				"datamodel/__namespace.js",
-				"datamodel/Form.js"
-			],
-			"dependencies" => [
-				"util.inherit",
-				"wikibase.datamodel",
-				"wikibase.lexeme"
-			]
-		],
-		"wikibase.lexeme.datamodel.Sense" => $moduleTemplate + [
-			"scripts" => [
-				"datamodel/__namespace.js",
+				"datamodel/Form.js",
 				"datamodel/Sense.js"
 			],
 			"dependencies" => [
@@ -163,8 +153,7 @@ return call_user_func( function() {
 				"util.inherit",
 				"wikibase.lexeme",
 				"wikibase.datamodel",
-				"wikibase.lexeme.datamodel.Form",
-				"wikibase.lexeme.datamodel.Sense",
+				"wikibase.lexeme.datamodel",
 				"wikibase.serialization.Deserializer",
 				"wikibase.serialization.TermMapDeserializer",
 				"wikibase.serialization.StatementGroupSetDeserializer"
@@ -219,8 +208,7 @@ return call_user_func( function() {
 			"dependencies" => [
 				"util.inherit",
 				"wikibase.lexeme",
-				"wikibase.lexeme.datamodel.Form",
-				"wikibase.lexeme.datamodel.Sense",
+				"wikibase.lexeme.datamodel",
 				"wikibase.serialization.Serializer",
 				"wikibase.serialization.TermMapSerializer",
 				"wikibase.entityChangers.EntityChangersFactory",
