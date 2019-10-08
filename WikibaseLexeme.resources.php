@@ -11,10 +11,15 @@ return call_user_func( function() {
 	];
 
 	return [
-		"jquery.wikibase.lexemeview" => $moduleTemplate + [
+		"wikibase.lexeme" => $moduleTemplate + [
+			"scripts" => "__namespace.js",
+			"dependencies" => "wikibase"
+		],
+		"wikibase.lexeme.lexemeview" => $moduleTemplate + [
 			"packageFiles" => [
-				"jquery.wikibase.lexemeview.js",
+				"hooks/lexeme.viewhook.js",
 
+				"jquery.wikibase.lexemeview.js",
 				"datatransfer/LemmaList.js",
 				"datamodel/Lemma.js",
 				"datamodel/LexemeSubEntityId.js",
@@ -41,7 +46,6 @@ return call_user_func( function() {
 				"widgets/LemmaWidget.newLemmaWidget.js",
 				"widgets/RepresentationWidget.js",
 				"widgets/RedundantLanguageIndicator.js",
-
 			],
 			"dependencies" => [
 				"jquery.ui.EditableTemplatedWidget",
@@ -59,6 +63,7 @@ return call_user_func( function() {
 				"wikibase.api.RepoApi",
 				"wikibase.templates.lexeme",
 				"wikibase.getLanguageNameByCode",
+				"wikibase.lexeme.getDeserializer",
 				"wikibase.WikibaseContentLanguages",
 				"wikibase.lexeme.view.ViewFactoryFactory",
 				"oojs-ui-core",
@@ -92,19 +97,6 @@ return call_user_func( function() {
 				"wikibaselexeme-sense-gloss-invalid-language",
 				"wikibaselexeme-sense-gloss-redundant-language",
 				"wikibase-lexeme-language-selector-label"
-			]
-		],
-		"wikibase.lexeme" => $moduleTemplate + [
-			"scripts" => "__namespace.js",
-			"dependencies" => "wikibase"
-		],
-		"wikibase.lexeme.lexemeview" => $moduleTemplate + [
-			"packageFiles" => [
-				"hooks/lexeme.viewhook.js",
-			],
-			"dependencies" => [
-				"jquery.wikibase.lexemeview",
-				"wikibase.lexeme.getDeserializer"
 			]
 		],
 		"vuex" => $moduleTemplate + [
