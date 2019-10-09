@@ -1,14 +1,15 @@
 ( function ( wb, util ) {
 	'use strict';
 
-	var PARENT = wb.serialization.Serializer;
+	var serialization = require( 'wikibase.serialization' ),
+		PARENT = serialization.Serializer;
 
 	/**
 	 * A serializer for forms.
 	 * Statements are currently not serialized.
 	 *
 	 * @class wikibase.lexeme.serialization.FormSerializer
-	 * @extends wikibase.serialization.Serializer
+	 * @extends serialization.Serializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor
@@ -25,7 +26,7 @@
 				throw new Error( 'Not an instance of wikibase.lexeme.datamodel.Form' );
 			}
 
-			var termMapSerializer = new wb.serialization.TermMapSerializer();
+			var termMapSerializer = new serialization.TermMapSerializer();
 
 			return {
 				id: form.getId(),
