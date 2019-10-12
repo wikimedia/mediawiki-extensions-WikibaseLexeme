@@ -27,7 +27,7 @@ class ValidationContext {
 
 	private $throwOnFirstViolation = true;
 
-	private function __construct( self $parentContext = null, $field, $level = null ) {
+	private function __construct( ?self $parentContext, $field, $level = null ) {
 		$this->parentContext = $parentContext;
 		$this->field = $field;
 		if ( $level !== null ) {

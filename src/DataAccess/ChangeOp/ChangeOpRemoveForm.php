@@ -69,7 +69,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 		return new DummyChangeOpResult();
 	}
 
-	protected function updateSummary( Summary $summary = null, $action, $language = '', $args = '' ) {
+	protected function updateSummary( ?Summary $summary, $action, $language = '', $args = '' ) {
 		parent::updateSummary( $summary, $action, $language, $args );
 		if ( $summary !== null ) {
 			$summary->addAutoCommentArgs( [ $this->formId->getSerialization() ] );
