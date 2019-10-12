@@ -35,7 +35,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	/** @var WikibaseRepo */
 	private $repo;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->tablesUsed[] = 'page';

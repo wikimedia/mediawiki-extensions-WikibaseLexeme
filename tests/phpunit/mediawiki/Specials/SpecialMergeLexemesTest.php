@@ -60,7 +60,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	/** @var PermissionManager */
 	private $permissionManager;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->tablesUsed[] = 'page';

@@ -27,7 +27,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 	use HamcrestPHPUnitIntegration;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 	}
 

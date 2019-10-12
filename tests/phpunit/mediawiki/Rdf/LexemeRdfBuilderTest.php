@@ -39,7 +39,7 @@ class LexemeRdfBuilderTest extends TestCase {
 	 */
 	private $testData = null;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 		$this->helper = new NTriplesRdfTestHelper();
 	}

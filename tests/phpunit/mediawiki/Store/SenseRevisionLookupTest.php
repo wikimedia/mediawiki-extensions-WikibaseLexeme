@@ -32,7 +32,7 @@ class SenseRevisionLookupTest extends TestCase {
 	 */
 	private $senseId;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );
@@ -110,8 +110,7 @@ class SenseRevisionLookupTest extends TestCase {
 		$this->assertSame( 123, $result );
 	}
 
-	public function testLexemeDoesNotContainTheSense_getLatestRevisionIdReturnsNonexistentEntity(
-	) {
+	public function testLexemeDoesNotContainTheSense_getLatestRevisionIdReturnsNonexistentEntity() {
 		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
 
 		$parentService = $this->prophesize( EntityRevisionLookup::class );

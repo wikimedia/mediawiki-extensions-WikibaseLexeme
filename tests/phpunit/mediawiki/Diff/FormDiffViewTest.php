@@ -171,7 +171,7 @@ class FormDiffViewTest extends TestCase {
 		$expected = '<tr><td colspan="2" class="diff-lineno">' .
 			'</td><td colspan="2" class="diff-lineno">' . $formDiffViewHeader . '</td>' .
 			'</tr><tr><td colspan="2">&nbsp;</td><td class="diff-marker">+</td>' .
-			'<td class="diff-addedline"><div><ins class="diffchange diffchange-inline">'.
+			'<td class="diff-addedline"><div><ins class="diffchange diffchange-inline">' .
 			'<span>formatted Q2</span></ins></div></td></tr>';
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}

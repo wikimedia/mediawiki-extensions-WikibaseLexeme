@@ -46,13 +46,13 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	 *
 	 * @throws \MWException
 	 */
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->hookHandlers = $this->getHookHandlersProperty()->getValue();
 	}
 
-	public function tearDown() {
+	public function tearDown() : void {
 		parent::tearDown();
 
 		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );

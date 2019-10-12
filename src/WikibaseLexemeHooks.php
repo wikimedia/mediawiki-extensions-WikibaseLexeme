@@ -78,7 +78,7 @@ class WikibaseLexemeHooks {
 	 *
 	 * @see WikibaseLexeme.entitytypes.php
 	 *
-	 * @note: This is bootstrap code, it is executed for EVERY request. Avoid instantiating
+	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
 	 * objects or loading classes here!
 	 *
 	 * @param array[] $entityTypeDefinitions
@@ -117,7 +117,7 @@ class WikibaseLexemeHooks {
 	 *
 	 * @see WikibaseLexeme.datatypes.php
 	 *
-	 * @note: This is bootstrap code, it is executed for EVERY request. Avoid instantiating
+	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
 	 * objects or loading classes here!
 	 *
 	 * @param array[] $dataTypeDefinitions

@@ -6,14 +6,14 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
+use HamcrestPHPUnitIntegration;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter
  * @license GPL-2.0-or-later
  */
 class LexemeTermFormatterTest extends TestCase {
-
-	use \HamcrestPHPUnitIntegration;
+	use HamcrestPHPUnitIntegration;
 
 	public function testGivenSingleLemma_formatsWithLangAttributes() {
 		$formatter = $this->newFormatter();

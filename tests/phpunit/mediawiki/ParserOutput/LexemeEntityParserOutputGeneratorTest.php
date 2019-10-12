@@ -40,7 +40,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 	private $propertyNamespace;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->entityStore = $this->getEntityStore();

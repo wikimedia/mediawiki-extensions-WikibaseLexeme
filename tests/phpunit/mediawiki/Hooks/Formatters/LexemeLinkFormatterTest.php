@@ -38,7 +38,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	/** @var MockObject|LexemeTermFormatter */
 	private $lemmaFormatter;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->lemmaFormatter = $this->createMock( LexemeTermFormatter::class );
@@ -129,7 +129,7 @@ class LexemeLinkFormatterTest extends TestCase {
 
 	/**
 	 * @group regression
-	 * @bug T228996
+	 * For T228996
 	 */
 	public function testGetHtml_whenDoubleRedirectLexemes_usesLexemeID() {
 		$unresolvedRedirectionException = new UnresolvedEntityRedirectException(

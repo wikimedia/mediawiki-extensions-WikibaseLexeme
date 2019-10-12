@@ -17,12 +17,12 @@ class ItemSelectorWidgetTest extends MediaWikiUnitTestCase {
 
 	use HamcrestPHPUnitIntegration;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 		Theme::setSingleton( new BlankTheme() );
 	}
 
-	public function tearDown() {
+	public function tearDown() : void {
 		Theme::setSingleton( null );
 		parent::tearDown();
 	}

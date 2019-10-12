@@ -32,7 +32,7 @@ class FormRevisionLookupTest extends TestCase {
 	 */
 	private $formId;
 
-	protected function setUp() {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );

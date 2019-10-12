@@ -55,7 +55,7 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 		Assert::parameterType( SenseId::class, $entityId, '$entityId' );
 		$lexemeId = $entityId->getLexemeId();
 
-		if ( ! $this->entityLookup->hasEntity( $lexemeId ) ) {
+		if ( !$this->entityLookup->hasEntity( $lexemeId ) ) {
 			return null;
 		}
 
@@ -78,7 +78,7 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 	public function getDescription( EntityId $entityId ) {
 		Assert::parameterType( SenseId::class, $entityId, '$entityId' );
 
-		if ( ! $this->entityLookup->hasEntity( $entityId ) ) {
+		if ( !$this->entityLookup->hasEntity( $entityId ) ) {
 			return null;
 		}
 

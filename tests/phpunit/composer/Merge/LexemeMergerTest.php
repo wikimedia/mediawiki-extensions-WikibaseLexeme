@@ -40,7 +40,7 @@ class LexemeMergerTest extends TestCase {
 	 */
 	private $lexemeMerger;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->lexemeMerger = $this->newLexemeMerger();

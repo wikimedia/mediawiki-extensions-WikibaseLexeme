@@ -27,7 +27,7 @@ class RedirectedLexemeSubEntityIdHtmlFormatterTest extends TestCase {
 	 */
 	private $entityTitleLookup;
 
-	public function setUp() {
+	public function setUp() : void {
 		parent::setUp();
 
 		$this->entityTitleLookup = $this->createMock( EntityTitleLookup::class );

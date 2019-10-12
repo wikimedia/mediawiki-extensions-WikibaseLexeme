@@ -31,7 +31,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	 */
 	protected $entityStore;
 
-	public function setUp() {
+	public function setUp() : void {
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
 
@@ -41,7 +41,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		$this->entityStore = $this->wikibaseRepo->getEntityStore();
 	}
 
-	public function tearDown() {
+	public function tearDown() : void {
 		parent::tearDown();
 		$this->resetTermBuffer();
 	}
