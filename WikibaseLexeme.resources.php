@@ -48,10 +48,8 @@ return call_user_func( function() {
 				"widgets/RedundantLanguageIndicator.js",
 			],
 			"dependencies" => [
-				"jquery.ui.EditableTemplatedWidget",
 				"jquery.util.getDirectionality",
 				"jquery.ui.languagesuggester",
-				"jquery.wikibase.entityview",
 				"jquery.ui.widget",
 				"jquery.wikibase.wbtooltip",
 				"mw.config.values.wbRepo",
