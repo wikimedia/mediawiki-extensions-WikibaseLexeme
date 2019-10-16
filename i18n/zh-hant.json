@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"Mutolisp",
-			"Kly"
+			"Kly",
+			"予弦"
 		]
 	},
 	"wikibaselexeme-desc": "處理詞位項目類型",
@@ -24,7 +25,7 @@
 	"wikibaselexeme-enter-form-representation": "輸入新的詞性表述",
 	"wikibaselexeme-empty-form-representation": "未有定義詞性表述",
 	"wikibaselexeme-statementsection-statements-about-sense": "有關 $1 的陳述",
-	"wikibaselexeme-header-senses": "含意",
+	"wikibaselexeme-header-senses": "意義",
 	"wikibase-lexeme-gloss-empty": "未定義註解",
 	"wikibaselexeme-lemma-field-lemma-label": "主題",
 	"wikibaselexeme-lemma-field-language-label": "拼寫變體",
