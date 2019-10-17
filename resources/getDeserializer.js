@@ -1,6 +1,8 @@
-( function ( wb ) {
+( function () {
 	'use strict';
+	var LexemeDeserializer = require( './serialization/LexemeDeserializer.js' );
+
 	module.exports = function () {
-		return new wb.lexeme.serialization.LexemeDeserializer();
+		return new LexemeDeserializer();
 	};
-}( wikibase ) );
+}() );

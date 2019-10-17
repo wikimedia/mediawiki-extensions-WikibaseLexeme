@@ -4,7 +4,8 @@
 ( function ( wb ) {
 	'use strict';
 
-	var SenseSerializer = require( '../serialization/SenseSerializer.js' );
+	var SenseSerializer = require( '../serialization/SenseSerializer.js' ),
+		getDeserializer = require( 'wikibase.lexeme.getDeserializer' );
 
 	/**
 	 * @constructor
@@ -24,7 +25,7 @@
 		this.revisionStore = revisionStore;
 		this.lexemeId = lexemeId;
 		this.senseData = senseData;
-		this.lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
+		this.lexemeDeserializer = getDeserializer();
 		this.senseSerializer = new SenseSerializer();
 	};
 

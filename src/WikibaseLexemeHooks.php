@@ -180,7 +180,6 @@ class WikibaseLexemeHooks {
 					'wikibase.experts.Form',
 					'wikibase.lexeme.datamodel',
 					'wikibase.lexeme.lexemeview',
-					'wikibase.lexeme.serialization.LexemeDeserializer',
 					'wikibase.lexeme.widgets.ItemSelectorWidget',
 					'wikibase.lexeme.view.ViewFactoryFactory',
 					'wikibase.tests.qunit.testrunner',
@@ -255,7 +254,7 @@ class WikibaseLexemeHooks {
 					'resources/datamodel/Lexeme.js',
 				],
 				'dependencies' => [
-					"wikibase.lexeme.serialization.LexemeDeserializer"
+					"wikibase.lexeme.getDeserializer"
 				]
 			],
 			'WikibaseLexeme.tests.datamodel.Lexeme' => $moduleBase + [
@@ -264,7 +263,7 @@ class WikibaseLexemeHooks {
 					'resources/datamodel/Lexeme.js',
 				],
 				'dependencies' => [
-					"wikibase.lexeme.serialization.LexemeDeserializer"
+					"wikibase.lexeme.getDeserializer"
 				]
 			],
 			'WikibaseLexeme.tests.serialization.FormSerializer' => $moduleBase + [

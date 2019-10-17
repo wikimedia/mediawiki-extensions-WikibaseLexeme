@@ -1,21 +1,18 @@
 ( function ( wb, util ) {
 	'use strict';
 
-	require( './__namespace.js' );
-
-	var MODULE = wb.lexeme.serialization,
-		SERIALIZER = require( 'wikibase.serialization' ),
+	var SERIALIZER = require( 'wikibase.serialization' ),
 		PARENT = SERIALIZER.Deserializer,
 		Lexeme = require( '../datamodel/Lexeme.js' );
 
 	/**
-	 * @class wikibase.lexeme.serialization.LexemeDeserializer
+	 * @class LexemeDeserializer
 	 * @extends SERIALIZER.Deserializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor
 	 */
-	MODULE.LexemeDeserializer = util.inherit( 'WbLexemeDeserializer', PARENT, {
+	module.exports = util.inherit( 'WbLexemeDeserializer', PARENT, {
 		/**
 		 * @inheritdoc
 		 *

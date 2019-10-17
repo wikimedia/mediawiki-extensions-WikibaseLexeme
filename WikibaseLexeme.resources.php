@@ -126,17 +126,10 @@ return call_user_func( function() {
 			]
 		],
 		"wikibase.lexeme.getDeserializer" => $moduleTemplate + [
-			"scripts" => "getDeserializer.js",
-			"dependencies" => [
-				"wikibase.lexeme.serialization.LexemeDeserializer"
-			]
-		],
-
-		"wikibase.lexeme.serialization.LexemeDeserializer" => $moduleTemplate + [
 			"packageFiles" => [
-				"serialization/LexemeDeserializer.js",
+				"getDeserializer.js",
 
-				"serialization/__namespace.js",
+				"serialization/LexemeDeserializer.js",
 				"datamodel/Lexeme.js"
 			],
 			"dependencies" => [
@@ -198,6 +191,7 @@ return call_user_func( function() {
 				"wikibase.lexeme",
 				"wikibase.lexeme.datamodel",
 				"wikibase.serialization",
+				"wikibase.lexeme.getDeserializer",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
 				"wikibase.api.RepoApi"
