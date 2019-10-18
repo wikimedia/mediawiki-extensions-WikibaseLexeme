@@ -1,0 +1,73 @@
+WikibaseLexeme provides a Lua [https://www.mediawiki.org/wiki/Scribunto Scribunto] interface that implements functions to access data from the Wikibase repository, if the Wikibase Client configuration enables <code>allowDataTransclusion</code> and <code>$wgLexemeEnableDataTransclusion</code>. Lua modules and wiki templates can invoke these functions.
+
+<strong>This is not a stable interface yet</strong>, though we hope to declare it stable soon.
+<!--
+Changes to the WikibaseLexeme Lua interface are subject to the [https://www.wikidata.org/wiki/Wikidata:Stable_Interface_Policy Stable Interface Policy].
+-->
+
+Aspects of the data can be accessed either directly or by loading the whole entity. The following table summarizes the most common functions:
+{| class="wikitable"
+! Aspect !! mw.wikibase.lexeme.FUNCTION !! entity:FUNCTION
+|-
+| Item ID of language of lexeme
+| [[#mw.wikibase.lexeme.getLanguage|getLanguage]]
+| [[#mw.wikibase.lexeme.entity.lexeme:getLanguage|getLanguage]]
+|-
+| Item ID of lexical category of lexeme
+| [[#mw.wikibase.lexeme.getLexicalCategory|getLexicalCategory]]
+| [[#mw.wikibase.lexeme.entity.lexeme:getLexicalCategory|getLexicalCategory]]
+|}
+
+:<span style="color: red;">Accessing data of lexemes is [https://www.mediawiki.org/wiki/Manual:$wgExpensiveParserFunctionLimit expensive].</span>
+Loading entities doesn't count as expensive if the same entity is loaded twice during a module run.
+However, due to restrictions in the caching, if more than 14 other entities are loaded inbetween, the entity must be fetched again, which then counts as expensive.
+
+== mw.wikibase.lexeme ==
+<code>mw.wikibase.lexeme</code> has general Lua functionality for working with Wikibase Lexeme data.
+
+=== mw.wikibase.lexeme.getLanguage ===
+<code>mw.wikibase.lexeme.getLanguage( id )</code>
+
+Gets the item ID of the language of the lexeme with this ID.
+Returns nil if there is no such lexeme or the ID is invalid.
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.lexeme.getLanguage( 'L1' ) -- Returns 'Q36790' on Wikidata
+</source>
+
+=== mw.wikibase.lexeme.getLexicalCategory ===
+<code>mw.wikibase.lexeme.getLexicalCategory( id )</code>
+
+Gets the item ID of the lexical category of the lexeme with this ID.
+Returns nil if there is no such lexeme or the ID is invalid.
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.lexeme.getLexicalCategory( 'L1' ) -- Returns 'Q1084' on Wikidata
+</source>
+
+== mw.wikibase.lexeme.entity.lexeme ==
+<code>mw.wikibase.lexeme.entity.lexeme</code> has methods for accessing data of a loaded Lexeme entity.
+It is typically not used directly – <code>mw.wikibase.getEntity( lexemeId )</code> returns a table on which you can call the following methods,
+as well as the methods from [[Extension:Wikibase Client/Lua#mw.wikibase.entity|mw.wikibase.entity]].
+
+=== mw.wikibase.lexeme.entity.lexeme:getLanguage ===
+<code>entity:getLanguage()</code>
+
+Gets the item ID of the language of this lexeme.
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.getEntity( 'L1' ):getLanguage() -- Returns 'Q36790' on Wikidata
+</source>
+
+=== mw.wikibase.lexeme.entity.lexeme:getLexicalCategory ===
+<code>entity:getLexicalCategory()</code>
+
+Gets the item ID of the lexical category of this lexeme.
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.getEntity( 'L1' ):getLexicalCategory() -- Returns 'Q1084' on Wikidata
+</source>
