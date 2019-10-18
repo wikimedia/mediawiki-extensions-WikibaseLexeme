@@ -5,12 +5,8 @@
 local php = mw_interface
 mw_interface = nil
 local wikibaseLexemeEntityLexeme = {}
-local metatable = {}
 local methodtable = {}
-local util = require 'libraryUtil'
-local checkType = util.checkType
-
-metatable.__index = methodtable
+local wikibaseEntity = require 'mw.wikibase.entity'
 
 wikibaseLexemeEntityLexeme.create = function( data )
 	if type( data ) ~= 'table' then
@@ -29,15 +25,33 @@ wikibaseLexemeEntityLexeme.create = function( data )
 		error( 'data.id must be a string, got ' .. type( data.id ) .. ' instead' )
 	end
 
-	local entity = data
+	local entity = wikibaseEntity.create( data )
 	php.addAllUsage( entity.id ) -- TODO support fine-grained usage tracking
+
+	-- preserve original methods (ensuring function form even if __index was a table)
+	local originalmethods = getmetatable( entity ).__index
+	if type( originalmethods ) == 'nil' then
+		originalmethods = {}
+	end
+	if type( originalmethods ) == 'table' then
+		local oldoriginalmethods = originalmethods
+		originalmethods = function( table, key )
+			return oldoriginalmethods[key]
+		end
+	end
+
+	-- build metatable that searches our methods first and falls back to the original ones
+	local metatable = {}
+	metatable.__index = function( table, key )
+		local ourmethod = methodtable[key]
+		if ourmethod ~= nil then
+			return ourmethod
+		end
+		return originalmethods( table, key )
+	end
 
 	setmetatable( entity, metatable )
 	return entity
-end
-
-methodtable.getId = function( entity )
-	return entity.id
 end
 
 methodtable.getLanguage = function( entity )
