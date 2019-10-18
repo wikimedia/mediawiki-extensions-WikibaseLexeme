@@ -38,7 +38,7 @@ class LexemeDiff extends EntityDiff {
 	 * @return Diff
 	 */
 	public function getLemmasDiff() {
-		return isset( $this['lemmas'] ) ? $this['lemmas'] : new Diff( [], true );
+		return $this['lemmas'] ?? new Diff( [], true );
 	}
 
 	/**
@@ -47,7 +47,7 @@ class LexemeDiff extends EntityDiff {
 	 * @return Diff
 	 */
 	public function getLexicalCategoryDiff() {
-		return isset( $this['lexicalCategory'] ) ? $this['lexicalCategory'] : new Diff( [], true );
+		return $this['lexicalCategory'] ?? new Diff( [], true );
 	}
 
 	/**
@@ -56,21 +56,21 @@ class LexemeDiff extends EntityDiff {
 	 * @return Diff
 	 */
 	public function getLanguageDiff() {
-		return isset( $this['language'] ) ? $this['language'] : new Diff( [], true );
+		return $this['language'] ?? new Diff( [], true );
 	}
 
 	/**
 	 * @return Diff
 	 */
 	public function getFormsDiff() {
-		return isset( $this['forms'] ) ? $this['forms'] : new Diff( [], true );
+		return $this['forms'] ?? new Diff( [], true );
 	}
 
 	/**
 	 * @return Diff
 	 */
 	public function getSensesDiff() {
-		return isset( $this['senses'] ) ? $this['senses'] : new Diff( [], true );
+		return $this['senses'] ?? new Diff( [], true );
 	}
 
 	/**
@@ -91,11 +91,11 @@ class LexemeDiff extends EntityDiff {
 	}
 
 	public function getNextFormIdDiff() {
-		return isset( $this['nextFormId'] ) ? $this['nextFormId'] : new Diff( [], true );
+		return $this['nextFormId'] ?? new Diff( [], true );
 	}
 
 	public function getNextSenseIdDiff() {
-		return isset( $this['nextSenseId'] ) ? $this['nextSenseId'] : new Diff( [], true );
+		return $this['nextSenseId'] ?? new Diff( [], true );
 	}
 
 	public function toArray( $valueConverter = null ) {

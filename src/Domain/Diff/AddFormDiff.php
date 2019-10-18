@@ -33,27 +33,21 @@ class AddFormDiff implements FormDiff {
 	 * @return Diff
 	 */
 	public function getRepresentationDiff() {
-		return isset( $this->diffOps['representations'] ) ?
-			$this->diffOps['representations']
-			: new Diff( [] );
+		return $this->diffOps['representations'] ?? new Diff( [] );
 	}
 
 	/**
 	 * @return Diff
 	 */
 	public function getGrammaticalFeaturesDiff() {
-		return isset( $this->diffOps['grammaticalFeatures'] ) ?
-			$this->diffOps['grammaticalFeatures']
-			: new Diff( [] );
+		return $this->diffOps['grammaticalFeatures'] ?? new Diff( [] );
 	}
 
 	/**
 	 * @return Diff
 	 */
 	public function getStatementsDiff() {
-		return isset( $this->diffOps['claim'] ) ?
-			$this->diffOps['claim']
-			: new Diff( [] );
+		return $this->diffOps['claim'] ?? new Diff( [] );
 	}
 
 	public function serialize() {

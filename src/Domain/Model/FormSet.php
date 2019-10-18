@@ -109,9 +109,7 @@ class FormSet implements Countable, Comparable {
 	 * @return Form|null
 	 */
 	public function getById( FormId $formId ) {
-		return isset( $this->forms[$formId->getSerialization()] ) ?
-			$this->forms[$formId->getSerialization()]
-			: null;
+		return $this->forms[$formId->getSerialization()] ?? null;
 	}
 
 	/**

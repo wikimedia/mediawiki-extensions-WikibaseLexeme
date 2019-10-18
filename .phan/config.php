@@ -31,8 +31,5 @@ $cfg['exclude_analysis_directory_list'] = array_merge(
 );
 
 $cfg['suppress_issue_types'][] = 'PhanParamSignatureMismatch';
-// @todo Remove the next line once HHVM is gone. Many instances are on ArrayObjects, and on HHVM the
-// coalesce operator doesn't behave well on them.
-$cfg['suppress_issue_types'][] = 'PhanPluginDuplicateConditionalNullCoalescing';
 
 return $cfg;

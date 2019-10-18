@@ -40,7 +40,7 @@ class ItemSelectorWidget extends TextInputWidget {
 			$this->valueField->setAttributes( [ 'name' => $config['fieldname'] ] );
 		}
 
-		$this->valueField->setValue( isset( $config['value'] ) ? $config['value'] : $this->getValue() );
+		$this->valueField->setValue( $config['value'] ?? $this->getValue() );
 
 		$this->appendContent( $this->valueField );
 	}

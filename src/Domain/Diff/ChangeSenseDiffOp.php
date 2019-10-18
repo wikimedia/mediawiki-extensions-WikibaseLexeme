@@ -38,18 +38,14 @@ class ChangeSenseDiffOp extends EntityDiff implements SenseDiff {
 	 * @return Diff
 	 */
 	public function getGlossesDiff() {
-		return isset( $this->diffOps['glosses'] ) ?
-			$this->diffOps['glosses']
-			: new Diff( [] );
+		return $this->diffOps['glosses'] ?? new Diff( [] );
 	}
 
 	/**
 	 * @return Diff
 	 */
 	public function getStatementsDiff() {
-		return isset( $this->diffOps['claim'] ) ?
-			$this->diffOps['claim']
-			: new Diff( [] );
+		return $this->diffOps['claim'] ?? new Diff( [] );
 	}
 
 	public function serialize() {
