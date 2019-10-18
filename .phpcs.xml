@@ -11,6 +11,10 @@
 		<exclude-pattern>resources/templates\.php</exclude-pattern>
 	</rule>
 
+	<rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
+		<exclude-pattern>Scribunto_LuaWikibaseLexeme*</exclude-pattern>
+	</rule>
+
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
 	<rule ref="Generic.Metrics.NestingLevel" />
 

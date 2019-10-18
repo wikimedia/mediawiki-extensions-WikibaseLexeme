@@ -6,8 +6,10 @@ use IContextSource;
 use MediaWiki\MediaWikiServices;
 use PageProps;
 use ResourceLoader;
+use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
+use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeLibrary;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\WikibaseSettings;
@@ -373,6 +375,21 @@ class WikibaseLexemeHooks {
 		);
 
 		$pageInfo = $infoActionHookHandler->handle( $context, $pageInfo );
+	}
+
+	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ) {
+		$config = MediaWikiServices::getInstance()->getMainConfig();
+		if ( !$config->get( 'LexemeEnableDataTransclusion' ) ) {
+			return;
+		}
+		$clientSettings = WikibaseClient::getDefaultInstance()->getSettings();
+		if ( !$clientSettings->getSetting( 'allowDataTransclusion' ) ) {
+			return;
+		}
+
+		if ( $engine == 'lua' ) {
+			$extraLibraries['mw.wikibase.lexeme'] = Scribunto_LuaWikibaseLexemeLibrary::class;
+		}
 	}
 
 }
