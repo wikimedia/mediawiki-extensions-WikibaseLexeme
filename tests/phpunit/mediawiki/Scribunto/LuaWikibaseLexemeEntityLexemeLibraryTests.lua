@@ -1,10 +1,8 @@
 local testframework = require 'Module:TestFramework'
-local wikibaseLexemeEntityLexeme = require 'mw.wikibase.lexeme.entity.lexeme'
 
 local function getEntityAndCallMethod( id, name, args )
 	local entity = mw.wikibase.getEntity( id )
-	local lexeme = wikibaseLexemeEntityLexeme.create( entity )
-	return lexeme[ name ]( lexeme, unpack( args or {} ) )
+	return entity[ name ]( entity, unpack( args or {} ) )
 end
 
 local tests = {

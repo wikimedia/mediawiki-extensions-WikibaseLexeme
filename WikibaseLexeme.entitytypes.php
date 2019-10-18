@@ -81,6 +81,7 @@ return [
 			'form',
 			'sense',
 		],
+		'lua-entity-module' => 'mw.wikibase.lexeme.entity.lexeme',
 	],
 	'form' => [
 		'entity-store-factory-callback' => function (
