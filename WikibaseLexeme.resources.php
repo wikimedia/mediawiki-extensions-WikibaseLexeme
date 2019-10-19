@@ -50,7 +50,7 @@ return call_user_func( function() {
 			"dependencies" => [
 				"jquery.util.getDirectionality",
 				"jquery.ui.languagesuggester",
-				"jquery.ui.widget",
+				"jquery.ui",
 				"jquery.wikibase.wbtooltip",
 				"mw.config.values.wbRepo",
 				"mediawiki.api",
