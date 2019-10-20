@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use PHPUnit\Framework\TestCase;
+use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -35,9 +36,6 @@ class SenseSerializerTest extends TestCase {
 		$this->assertTrue( $serializer->isSerializerFor( $sense ) );
 	}
 
-	/**
-	 * @expectedException \Serializers\Exceptions\UnsupportedObjectException
-	 */
 	public function testGivenLexeme_serializeThrowsException() {
 		$serializer = new SenseSerializer(
 			$this->createMock( Serializer::class ),
@@ -45,6 +43,7 @@ class SenseSerializerTest extends TestCase {
 		);
 
 		$lexeme = NewLexeme::create()->build();
+		$this->expectException( UnsupportedObjectException::class );
 		$serializer->serialize( $lexeme );
 	}
 

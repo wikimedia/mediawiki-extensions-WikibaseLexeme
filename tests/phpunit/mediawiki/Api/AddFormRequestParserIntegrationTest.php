@@ -256,12 +256,10 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @expectedException ApiUsageException
-	 */
 	public function testGivenInvalidClaimsRequest_throwException() {
 		$parser = $this->newAddFormRequestParser();
 
+		$this->expectException( ApiUsageException::class );
 		$parser->parse( [
 			'lexemeId' => 'L1',
 			'data' => $this->getDataParam( [

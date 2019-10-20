@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use ApiUsageException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd;
@@ -113,13 +114,11 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 		$this->assertInstanceOf( ChangeOpSenseAdd::class, $lexemeChangeOps->getChangeOps()[0] );
 	}
 
-	/**
-	 * @expectedException \ApiUsageException
-	 * @expectedExceptionMessage Field "id" at "0" in parameter "data" is required
-	 */
 	public function testGivenChangeRequestWithoutId_exceptionIsThrown() {
 		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
 
+		$this->expectException( ApiUsageException::class );
+		$this->expectExceptionMessage( 'Field "id" at "0" in parameter "data" is required' );
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'senses' => [ [ 'remove' => '' ] ] ]
 		);

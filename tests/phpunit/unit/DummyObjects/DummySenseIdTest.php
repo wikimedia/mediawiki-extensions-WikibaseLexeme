@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DummyObjects;
 
+use LogicException;
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
@@ -20,21 +21,17 @@ class DummySenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $lexemeId, $dummySenseId->getLexemeId() );
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Shall never be called
-	 */
 	public function testSerialize_throwsException() {
 		$dummySenseId = new DummySenseId( new LexemeId( 'L1' ) );
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Shall never be called' );
 		$dummySenseId->serialize();
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Shall never be called
-	 */
 	public function testUnserialize_throwsException() {
 		$dummySenseId = new DummySenseId( new LexemeId( 'L1' ) );
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Shall never be called' );
 		$dummySenseId->unserialize( 'ff' );
 	}
 

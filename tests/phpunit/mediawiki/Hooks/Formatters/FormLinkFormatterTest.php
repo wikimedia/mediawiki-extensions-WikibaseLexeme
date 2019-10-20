@@ -71,12 +71,10 @@ class FormLinkFormatterTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testGivenNonFormId_getHtmlThrowsException() {
 		$formatter = $this->newFormatter();
 
+		$this->expectException( InvalidArgumentException::class );
 		$formatter->getHtml( new LexemeId( 'L1' ) );
 	}
 

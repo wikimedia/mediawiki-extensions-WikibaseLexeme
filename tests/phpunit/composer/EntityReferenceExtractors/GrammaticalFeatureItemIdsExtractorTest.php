@@ -35,11 +35,10 @@ class GrammaticalFeatureItemIdsExtractorTest extends TestCase {
 
 	/**
 	 * @dataProvider nonLexemeProvider
-	 *
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenNotALexeme_throwsException( $nonLexeme ) {
 		$extractor = new GrammaticalFeatureItemIdsExtractor();
+		$this->expectException( InvalidArgumentException::class );
 		$extractor->extractEntityIds( $nonLexeme );
 	}
 

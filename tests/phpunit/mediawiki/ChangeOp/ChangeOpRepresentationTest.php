@@ -10,6 +10,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Summary;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation
@@ -23,12 +24,10 @@ class ChangeOpRepresentationTest extends TestCase {
 		$this->assertSame( [ 'edit' ], $changeOp->getActions() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testValidateNonForm_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpRepresentation( new Term( 'en', 'goat' ) );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 
@@ -40,12 +39,10 @@ class ChangeOpRepresentationTest extends TestCase {
 		$this->assertTrue( $result->isValid() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testApplyNonForm_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpRepresentation( new Term( 'en', 'goat' ) );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->apply( NewLexeme::create()->build() );
 	}
 

@@ -51,13 +51,13 @@ class LexemeContentTest extends TestCase {
 
 	/**
 	 * @dataProvider invalidConstructorArgsProvider
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenIncorrectConstructorArgs_throwsException(
 		$lexemeHolder,
 		$redirect,
 		$redirectTitle
 	) {
+		$this->expectException( InvalidArgumentException::class );
 		new LexemeContent( $lexemeHolder, $redirect, $redirectTitle );
 	}
 

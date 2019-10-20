@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
+use LogicException;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -241,19 +242,17 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $id, $form->getId() );
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 */
 	public function testGivenFormAlreadyHasRealId_setIdThrowsException() {
 		$form = NewForm::havingId( new FormId( 'L1-F1' ) )->build();
+		$this->expectException( LogicException::class );
 		$form->setId( new FormId( 'L2-F2' ) );
 	}
 
 	/**
 	 * @dataProvider nonFormIdProvider
-	 * @expectedException \InvalidArgumentException
 	 */
 	public function testGivenNotAFormId_setIdThrowsException( $id ) {
+		$this->expectException( InvalidArgumentException::class );
 		NewForm::any()->build()->setId( $id );
 	}
 

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
+use InvalidArgumentException;
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
@@ -48,9 +49,9 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @dataProvider provideInvalidSerializations
-	 * @expectedException \InvalidArgumentException
 	 */
 	public function testGivenInvalidSerialization_constructorThrowsAnException( $id ) {
+		$this->expectException( InvalidArgumentException::class );
 		new SenseId( $id );
 	}
 

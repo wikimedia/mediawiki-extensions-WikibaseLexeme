@@ -24,12 +24,12 @@ class FormsStatementEntityReferenceExtractorTest extends TestCase {
 
 	/**
 	 * @dataProvider nonLexemeProvider
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenNotALexeme_throwsException( EntityDocument $entity ) {
 		$extractor = new FormsStatementEntityReferenceExtractor(
 			$this->getMockStatementEntityReferenceExtractor()
 		);
+		$this->expectException( InvalidArgumentException::class );
 		$extractor->extractEntityIds( $entity );
 	}
 

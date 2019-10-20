@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use PHPUnit\Framework\TestCase;
+use Serializers\Exceptions\UnsupportedObjectException;
 use Serializers\Serializer;
 use Wikibase\Lexeme\Serialization\FormSerializer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
@@ -33,15 +34,13 @@ class FormSerializerTest extends TestCase {
 		$this->assertTrue( $serializer->isSerializerFor( NewForm::any()->build() ) );
 	}
 
-	/**
-	 * @expectedException \Serializers\Exceptions\UnsupportedObjectException
-	 */
 	public function testGivenLexeme_serializeThrowsException() {
 		$serializer = new FormSerializer(
 			$this->createMock( Serializer::class ),
 			$this->createMock( Serializer::class )
 		);
 
+		$this->expectException( UnsupportedObjectException::class );
 		$serializer->serialize( NewLexeme::create()->build() );
 	}
 

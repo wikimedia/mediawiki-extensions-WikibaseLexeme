@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
+use Exception;
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
@@ -14,10 +15,8 @@ use Wikibase\Lexeme\Domain\Model\SenseSet;
  */
 class SenseSetTest extends MediaWikiUnitTestCase {
 
-	/**
-	 * @expectedException \Exception
-	 */
 	public function testCanNotCreateWithSomethingThatIsNotASense() {
+		$this->expectException( Exception::class );
 		new SenseSet( [ 1 ] );
 	}
 
@@ -28,10 +27,8 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		$this->assertSame( [ $sense ], $senseSet->toArray() );
 	}
 
-	/**
-	 * @expectedException \Exception
-	 */
 	public function testCanNotCreateWithTwoSensesHavingTheSameId() {
+		$this->expectException( Exception::class );
 		new SenseSet(
 			[
 				NewSense::havingId( 'S1' )->build(),
@@ -83,12 +80,10 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		$this->assertSame( [ $sense ], $senseSet->toArray() );
 	}
 
-	/**
-	 * @expectedException \Exception
-	 */
 	public function testAddSense_AddSenseWithIdThatAlreadyPresentInTheSet_ThrowsAnException() {
 		$senseSet = new SenseSet( [ NewSense::havingId( 'S1' )->build() ] );
 
+		$this->expectException( Exception::class );
 		$senseSet->add( NewSense::havingId( 'S1' )->build() );
 	}
 

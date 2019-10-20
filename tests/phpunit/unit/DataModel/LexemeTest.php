@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
+use LogicException;
 use MediaWikiUnitTestCase;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\Item;
@@ -666,14 +667,12 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( [], $lexeme->getSenses()->toArray() );
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Can not add forms to a lexeme with no ID
-	 */
 	public function testAddOrUpdateFormOnLexemeWithoutId_throwsException() {
 		$lexeme = new Lexeme();
 
 		$newForm = NewForm::havingId( 'F1' )->build();
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Can not add forms to a lexeme with no ID' );
 		$lexeme->addOrUpdateForm( $newForm );
 	}
 
@@ -719,14 +718,12 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage $nextFormId must always be greater than the number of Forms.
-	 */
 	public function testAddOrUpdateFormWithFormWithTooHighId_throwsException() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$form = NewForm::havingLexeme( 'L1' )->andId( 'F200' )->build();
 
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( '$nextFormId must always be greater than the number of Forms.' );
 		$lexeme->addOrUpdateForm( $form );
 	}
 
@@ -768,14 +765,12 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( [ $newSense ], $lexeme->getSenses()->toArray() );
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Cannot add sense to a lexeme with no ID
-	 */
 	public function testAddOrUpdateSenseOnLexemeWithoutId_throwsException() {
 		$lexeme = new Lexeme();
 
 		$newSense = NewSense::havingId( 'S1' )->build();
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Cannot add sense to a lexeme with no ID' );
 		$lexeme->addOrUpdateSense( $newSense );
 	}
 

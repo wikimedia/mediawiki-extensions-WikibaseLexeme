@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Summary;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList
@@ -24,12 +25,10 @@ class ChangeOpGlossListTest extends TestCase {
 		$this->assertSame( [ 'edit' ], $changeOp->getActions() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testValidateNonSense_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpGlossList( [] );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 
@@ -41,12 +40,10 @@ class ChangeOpGlossListTest extends TestCase {
 		$this->assertTrue( $result->isValid() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testApplyNonSense_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpGlossList( [] );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->apply( NewLexeme::create()->build() );
 	}
 

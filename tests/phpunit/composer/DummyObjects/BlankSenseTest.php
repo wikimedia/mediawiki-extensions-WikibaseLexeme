@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikimedia\Assert\ParameterAssertionException;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\DummyObjects\BlankSense
@@ -45,13 +46,11 @@ class BlankSenseTest extends TestCase {
 		$this->assertSame( $senseId, $blankSense->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterAssertionException
-	 * @expectedExceptionMessage Sense must have at least one gloss
-	 */
 	public function testGetRealSenseOnIncompleteData_throwsSenseConstructionExceptions() {
 		$this->markTestSkipped( 'Sense constructor does not yet verify this' ); // TODO
 		$blankSense = new BlankSense();
+		$this->expectException( ParameterAssertionException::class );
+		$this->expectExceptionMessage( 'Sense must have at least one gloss' );
 		$blankSense->getRealSense( new SenseId( 'L1-S4' ) );
 	}
 

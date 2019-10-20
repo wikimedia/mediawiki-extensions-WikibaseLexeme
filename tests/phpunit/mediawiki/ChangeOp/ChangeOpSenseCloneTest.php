@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Tests\NewStatement;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @coversDefaultClass \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseClone
@@ -23,11 +24,11 @@ class ChangeOpSenseCloneTest extends TestCase {
 
 	/**
 	 * @covers ::validate
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
 	 */
 	public function testValidateNonSense_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpSenseClone( NewSense::havingId( 'S1' )->build() );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 

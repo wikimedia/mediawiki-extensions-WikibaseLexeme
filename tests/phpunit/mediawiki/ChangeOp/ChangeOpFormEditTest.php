@@ -11,7 +11,9 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
 use Wikibase\Summary;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit
@@ -25,12 +27,10 @@ class ChangeOpFormEditTest extends TestCase {
 		$this->assertSame( [ 'edit' ], $changeOp->getActions() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testValidateNonForm_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpFormEdit( [] );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 
@@ -42,12 +42,10 @@ class ChangeOpFormEditTest extends TestCase {
 		$this->assertTrue( $result->isValid() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testApplyNonForm_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpFormEdit( [] );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->apply( NewLexeme::create()->build() );
 	}
 
@@ -157,16 +155,15 @@ class ChangeOpFormEditTest extends TestCase {
 		$this->assertSame( [], $summary->getAutoSummaryArgs() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Repo\ChangeOp\ChangeOpApplyException
-	 * @expectedExceptionMessage apierror-wikibaselexeme-form-must-have-at-least-one-representation
-	 */
 	public function testApplyRemovingOnlyRepresentations_throwsException() {
 		$form = NewForm::havingRepresentation( 'en', 'goat' )
 			->andId( new FormId( 'L1-F3' ) )
 			->build();
 
 		$changeOp = new ChangeOpFormEdit( [ new ChangeOpRemoveFormRepresentation( 'en' ) ] );
+		$this->expectException( ChangeOpApplyException::class );
+		$this->expectExceptionMessage(
+			'apierror-wikibaselexeme-form-must-have-at-least-one-representation' );
 		$changeOp->apply( $form );
 	}
 

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
+use InvalidArgumentException;
 use Message;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
@@ -15,12 +16,13 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 class LemmaLanguageFieldTest extends TestCase {
 
 	/**
-	 * @expectedException \InvalidArgumentException
-	 * @expectedExceptionMessage Cannot set options for content language field.
 	 * It already has it's own options
 	 * @dataProvider provideForbiddenConstructorParameters
 	 */
 	public function testConstructionWithForbiddenParametersFails( $param ) {
+		$this->expectException( InvalidArgumentException::class );
+		$this->expectExceptionMessage(
+			"Cannot set options for content language field. It already has it's own options" );
 		new LemmaLanguageField( [ $param => 'value' ] );
 	}
 

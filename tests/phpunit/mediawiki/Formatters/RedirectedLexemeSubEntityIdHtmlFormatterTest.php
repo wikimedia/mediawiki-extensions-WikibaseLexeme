@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use Title;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -33,11 +34,9 @@ class RedirectedLexemeSubEntityIdHtmlFormatterTest extends TestCase {
 		$this->entityTitleLookup = $this->createMock( EntityTitleLookup::class );
 	}
 
-	/**
-	 * @expectedException \InvalidArgumentException
-	 */
 	public function testAssertsCorrectInputType() {
 		$formatter = $this->newFormatter();
+		$this->expectException( InvalidArgumentException::class );
 		$formatter->formatEntityId( new LexemeId( 'L1337' ) );
 	}
 

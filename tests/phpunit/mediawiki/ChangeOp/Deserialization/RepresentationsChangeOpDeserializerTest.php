@@ -131,9 +131,6 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 		$this->assertInstanceOf( ChangeOpRemoveFormRepresentation::class, $changeOps->getChangeOps()[0] );
 	}
 
-	/**
-	 * @expectedException \ApiUsageException
-	 */
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
@@ -156,6 +153,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 			->willReturn( $languageContext );
 		$deserializer->setContext( $representationContext );
 
+		$this->expectException( ApiUsageException::class );
 		$deserializer->createEntityChangeOp( [
 			'en' => [ 'language' => 'en', 'value' => 'bad things' ]
 		] );

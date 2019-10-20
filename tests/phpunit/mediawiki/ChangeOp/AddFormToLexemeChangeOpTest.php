@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp
@@ -32,12 +33,10 @@ class AddFormToLexemeChangeOpTest extends TestCase {
 		$this->assertSame( [ 'edit' ], $changeOp->getActions() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $form
-	 */
 	public function testValidateNonForm_yieldsAssertionProblem() {
 		$changeOp = $this->newAddFormToLexemeChangeOp( NewLexeme::create()->build() );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $form' );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 
@@ -49,12 +48,10 @@ class AddFormToLexemeChangeOpTest extends TestCase {
 		$this->assertTrue( $result->isValid() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $form
-	 */
 	public function testApplyNonForm_yieldsAssertionProblem() {
 		$changeOp = $this->newAddFormToLexemeChangeOp( NewLexeme::create()->build() );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $form' );
 		$changeOp->apply( NewLexeme::create()->build() );
 	}
 

@@ -11,7 +11,12 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\PermissionDeniedException;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
@@ -164,74 +169,60 @@ class MergeLexemesInteractorTest extends TestCase {
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException
-	 */
 	public function testGivenIdenticalLexemeIds_throwsException() {
 		$this->targetLexeme = $this->sourceLexeme->copy();
 
+		$this->expectException( ReferenceSameLexemeException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException
-	 */
 	public function testGivenLexemeMergerThrowsException_exceptionBubblesUp() {
 		$this->lexemeMerger->expects( $this->once() )
 			->method( 'merge' )
 			->willThrowException( $this->getMockForAbstractClass( MergingException::class ) );
 
+		$this->expectException( MergingException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\PermissionDeniedException
-	 */
 	public function testGivenUserDoesNotHavePermission_throwsException() {
 		$this->authorizer = new FailingLexemeAuthorizer();
 
+		$this->expectException( PermissionDeniedException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException
-	 */
 	public function testGivenSourceNotFound_throwsException() {
 		$this->lexemeRepository = new FakeLexemeRepository( $this->targetLexeme );
 
+		$this->expectException( LexemeNotFoundException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException
-	 */
 	public function testGivenTargetNotFound_throwsException() {
 		$this->lexemeRepository = new FakeLexemeRepository( $this->sourceLexeme );
 
+		$this->expectException( LexemeNotFoundException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException
-	 */
 	public function testGivenExceptionInLoadEntity_throwsAppropriateException() {
 		$this->lexemeRepository->throwOnRead();
 
+		$this->expectException( LexemeLoadingException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException
-	 */
 	public function testGivenEntitySaveFails_throwsException() {
 		$this->lexemeRepository->throwOnWrite();
 
+		$this->expectException( LexemeSaveFailedException::class );
 		$this->newMergeInteractor()
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 	}

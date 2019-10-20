@@ -131,9 +131,6 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 		$this->assertInstanceOf( ChangeOpRemoveSenseGloss::class, $changeOps->getChangeOps()[0] );
 	}
 
-	/**
-	 * @expectedException \ApiUsageException
-	 */
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
@@ -156,6 +153,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 			->willReturn( $languageContext );
 		$deserializer->setContext( $glossContext );
 
+		$this->expectException( ApiUsageException::class );
 		$deserializer->createEntityChangeOp( [
 			'en' => [ 'language' => 'en', 'value' => 'bad things' ]
 		] );

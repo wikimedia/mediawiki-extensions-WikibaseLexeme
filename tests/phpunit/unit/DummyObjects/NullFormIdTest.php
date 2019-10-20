@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DummyObjects;
 
+use LogicException;
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
@@ -14,30 +15,24 @@ use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
  */
 class NullFormIdTest extends MediaWikiUnitTestCase {
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Shall never be called
-	 */
 	public function testGetLexemeId_throwsException() {
 		$nullFormId = new NullFormId();
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Shall never be called' );
 		$nullFormId->getLexemeId();
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Shall never be called
-	 */
 	public function testSerialize_throwsException() {
 		$nullFormId = new NullFormId();
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Shall never be called' );
 		$nullFormId->serialize();
 	}
 
-	/**
-	 * @expectedException \LogicException
-	 * @expectedExceptionMessage Shall never be called
-	 */
 	public function testUnserialize_throwsException() {
 		$nullFormId = new NullFormId();
+		$this->expectException( LogicException::class );
+		$this->expectExceptionMessage( 'Shall never be called' );
 		$nullFormId->unserialize( 'ff' );
 	}
 

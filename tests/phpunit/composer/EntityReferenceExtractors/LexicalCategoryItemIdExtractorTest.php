@@ -29,11 +29,10 @@ class LexicalCategoryItemIdExtractorTest extends TestCase {
 
 	/**
 	 * @dataProvider nonLexemeProvider
-	 *
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenNotALexeme_throwsException( $nonLexeme ) {
 		$extractor = new LexicalCategoryItemIdExtractor();
+		$this->expectException( InvalidArgumentException::class );
 		$extractor->extractEntityIds( $nonLexeme );
 	}
 

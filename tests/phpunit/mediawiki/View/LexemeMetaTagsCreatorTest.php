@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use InvalidArgumentException;
 use RawMessage;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
@@ -78,9 +79,9 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 
 	/**
 	 * @dataProvider nonStringProvider
-	 * @expectedException \InvalidArgumentException
 	 */
 	public function testGivenNotAString_constructorThrowsException( $input ) {
+		$this->expectException( InvalidArgumentException::class );
 		new LexemeMetaTagsCreator(
 			$input,
 			WikibaseRepo::getDefaultInstance()

@@ -21,10 +21,8 @@ use Wikibase\Summary;
  */
 class ChangeOpLemmaRemoveTest extends TestCase {
 
-	/**
-	 * @expectedException InvalidArgumentException
-	 */
 	public function testGivenInvalidArguments_constructorThrowsException() {
+		$this->expectException( InvalidArgumentException::class );
 		new ChangeOpLemmaRemove( null );
 	}
 
@@ -39,19 +37,19 @@ class ChangeOpLemmaRemoveTest extends TestCase {
 
 	/**
 	 * @dataProvider invalidEntityProvider
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
 		$changeOp = new ChangeOpLemmaRemove( 'en' );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 
 	/**
 	 * @dataProvider invalidEntityProvider
-	 * @expectedException InvalidArgumentException
 	 */
 	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
 		$changeOp = new ChangeOpLemmaRemove( 'en' );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
 	}
 

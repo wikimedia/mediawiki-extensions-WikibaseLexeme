@@ -10,7 +10,9 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
 use Wikibase\Summary;
+use Wikimedia\Assert\ParameterTypeException;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit
@@ -24,12 +26,10 @@ class ChangeOpSenseEditTest extends TestCase {
 		$this->assertSame( [ 'edit' ], $changeOp->getActions() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testValidateNonSense_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpSenseEdit( [] );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->validate( NewLexeme::create()->build() );
 	}
 
@@ -41,12 +41,10 @@ class ChangeOpSenseEditTest extends TestCase {
 		$this->assertTrue( $result->isValid() );
 	}
 
-	/**
-	 * @expectedException \Wikimedia\Assert\ParameterTypeException
-	 * @expectedExceptionMessage Bad value for parameter $entity
-	 */
 	public function testApplyNonSense_yieldsAssertionProblem() {
 		$changeOp = new ChangeOpSenseEdit( [] );
+		$this->expectException( ParameterTypeException::class );
+		$this->expectExceptionMessage( 'Bad value for parameter $entity' );
 		$changeOp->apply( NewLexeme::create()->build() );
 	}
 
@@ -164,16 +162,14 @@ class ChangeOpSenseEditTest extends TestCase {
 		$this->assertSame( [], $summary->getAutoSummaryArgs() );
 	}
 
-	/**
-	 * @expectedException \Wikibase\Repo\ChangeOp\ChangeOpApplyException
-	 * @expectedExceptionMessage apierror-wikibaselexeme-sense-must-have-at-least-one-gloss
-	 */
 	public function testApplyRemovingOnlyGlosses_throwsException() {
 		$sense = NewSense::havingId( 'S3' )
 			->withGloss( 'en', 'furry animal' )
 			->build();
 
 		$changeOp = new ChangeOpSenseEdit( [ new ChangeOpRemoveSenseGloss( 'en' ) ] );
+		$this->expectException( ChangeOpApplyException::class );
+		$this->expectExceptionMessage( 'apierror-wikibaselexeme-sense-must-have-at-least-one-gloss' );
 		$changeOp->apply( $sense );
 	}
 
