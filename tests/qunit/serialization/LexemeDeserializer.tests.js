@@ -10,6 +10,7 @@
 	var datamodel = require( 'wikibase.datamodel' ),
 		TermMap = datamodel.TermMap,
 		Term = datamodel.Term,
+		LexemeDeserializer = require( '../../../resources/serialization/LexemeDeserializer.js' ),
 		Lexeme = require( '../../../resources/datamodel/Lexeme.js' );
 
 	var claimsSerialization = {
@@ -56,7 +57,7 @@
 	);
 
 	QUnit.test( 'deserialize()', function ( assert ) {
-		var ds = new wb.lexeme.serialization.LexemeDeserializer(),
+		var ds = new LexemeDeserializer(),
 			lexeme = ds.deserialize( serialization );
 
 		assert.equal( lexeme.getId(), expectedDataModel.getId() );
@@ -68,7 +69,7 @@
 	} );
 
 	QUnit.test( 'deserialize() deserializes forms', function ( assert ) {
-		var ds = new wb.lexeme.serialization.LexemeDeserializer();
+		var ds = new LexemeDeserializer();
 
 		var result = ds.deserialize( {
 			type: 'lexeme',
@@ -121,7 +122,7 @@
 	QUnit.test(
 		'deserialize() deserializes forms when `forms` key is not present',
 		function ( assert ) {
-			var ds = new wb.lexeme.serialization.LexemeDeserializer();
+			var ds = new LexemeDeserializer();
 
 			var result = ds.deserialize( {
 				type: 'lexeme',
@@ -142,7 +143,7 @@
 	);
 
 	QUnit.test( 'deserialize() deserializes senses', function ( assert ) {
-		var ds = new wb.lexeme.serialization.LexemeDeserializer();
+		var ds = new LexemeDeserializer();
 
 		var result = ds.deserialize( {
 			type: 'lexeme',
@@ -189,7 +190,7 @@
 	QUnit.test(
 		'deserialize() deserializes senses when `senses` key is not present',
 		function ( assert ) {
-			var ds = new wb.lexeme.serialization.LexemeDeserializer();
+			var ds = new LexemeDeserializer();
 
 			var result = ds.deserialize( {
 				type: 'lexeme',

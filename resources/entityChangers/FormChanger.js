@@ -4,7 +4,8 @@
 ( function ( wb ) {
 	'use strict';
 
-	var FormSerializer = require( '../serialization/FormSerializer.js' );
+	var FormSerializer = require( '../serialization/FormSerializer.js' ),
+		getDeserializer = require( 'wikibase.lexeme.getDeserializer' );
 
 	/**
 	 * @constructor
@@ -24,7 +25,7 @@
 		this.revisionStore = revisionStore;
 		this.lexemeId = lexemeId;
 		this.formData = formData;
-		this.lexemeDeserializer = new wb.lexeme.serialization.LexemeDeserializer();
+		this.lexemeDeserializer = getDeserializer();
 		this.formSerializer = new FormSerializer();
 	};
 
@@ -63,7 +64,7 @@
 		formData: null,
 
 		/**
-		 * @type {wikibase.lexeme.serialization.LexemeDeserializer}
+		 * @type {LexemeDeserializer}
 		 * @private
 		 */
 		lexemeDeserializer: null,
