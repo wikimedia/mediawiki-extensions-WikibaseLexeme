@@ -6,6 +6,11 @@ local function getEntityAndCallMethod( id, name, args )
 end
 
 local tests = {
+	{ name = 'getLemmas of existing lexeme',
+	  func = getEntityAndCallMethod,
+	  args = { 'L1', 'getLemmas' },
+	  expect = { { { 'English lemma', 'en' }, { 'British English lemma', 'en-gb' } } },
+	},
 	{ name = 'getLanguage of existing lexeme',
 	  func = getEntityAndCallMethod,
 	  args = { 'L1', 'getLanguage' },

@@ -1,6 +1,21 @@
 local testframework = require 'Module:TestFramework'
 
 local tests = {
+	{ name = 'getLemmas of existing lexeme',
+	  func = mw.wikibase.lexeme.getLemmas,
+	  args = { 'L1' },
+	  expect = { { { 'English lemma', 'en' }, { 'British English lemma', 'en-gb' } } },
+	},
+	{ name = 'getLemmas of missing lexeme',
+	  func = mw.wikibase.lexeme.getLemmas,
+	  args = { 'L1000' },
+	  expect = { nil },
+	},
+	{ name = 'getLemmas of invalid lexeme ID',
+	  func = mw.wikibase.lexeme.getLemmas,
+	  args = { 'invalid' },
+	  expect = { nil },
+	},
 	{ name = 'getLanguage of existing lexeme',
 	  func = mw.wikibase.lexeme.getLanguage,
 	  args = { 'L1' },

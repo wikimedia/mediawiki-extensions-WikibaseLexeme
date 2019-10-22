@@ -10,6 +10,12 @@ function wikibaseLexeme.setupInterface()
 	local php = mw_interface
 	mw_interface = nil
 
+	wikibaseLexeme.getLemmas = function( id )
+		checkType( 'getLemmas', 1, id, 'string' )
+
+		return php.getLemmas( id )
+	end
+
 	wikibaseLexeme.getLanguage = function( id )
 		checkType( 'getLanguage', 1, id, 'string' )
 

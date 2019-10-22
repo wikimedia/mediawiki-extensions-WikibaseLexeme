@@ -63,6 +63,7 @@ class Scribunto_LuaWikibaseLexemeLibrary extends Scribunto_LuaLibraryBase {
 		// They are member functions on a Lua table which is private to the module, thus
 		// these can't be called from user code, unless explicitly exposed in Lua.
 		$lib = [
+			'getLemmas' => [ $this, 'getLemmas' ],
 			'getLanguage' => [ $this, 'getLanguage' ],
 			'getLexicalCategory' => [ $this, 'getLexicalCategory' ],
 		];
@@ -70,6 +71,22 @@ class Scribunto_LuaWikibaseLexemeLibrary extends Scribunto_LuaLibraryBase {
 		return $this->getEngine()->registerInterface(
 			__DIR__ . '/mw.wikibase.lexeme.lua', $lib, []
 		);
+	}
+
+	public function getLemmas( $prefixedEntityId ) {
+		$this->checkType( 'getLemmas', 1, $prefixedEntityId, 'string' );
+
+		$lexeme = $this->getLexeme( $prefixedEntityId );
+		if ( $lexeme === null ) {
+			return [ null ];
+		}
+
+		$terms = [ 'placeholder because Lua tables start at 1' ];
+		foreach ( $lexeme->getLemmas() as $lemma ) {
+			$terms[] = [ 1 => $lemma->getText(), 2 => $lemma->getLanguageCode() ];
+		}
+		unset( $terms[0] );
+		return [ $terms ];
 	}
 
 	public function getLanguage( $prefixedEntityId ) {

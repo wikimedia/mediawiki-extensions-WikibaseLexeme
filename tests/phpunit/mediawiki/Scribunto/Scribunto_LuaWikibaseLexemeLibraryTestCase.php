@@ -57,6 +57,8 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 		$mockRepository = WikibaseClient::getDefaultInstance()->getStore()->getSiteLinkLookup();
 		$mockRepository->putEntity(
 			NewLexeme::havingId( 'L1' )
+				->withLemma( 'en', 'English lemma' )
+				->withLemma( 'en-gb', 'British English lemma' )
 				->withLanguage( 'Q1' )
 				->withLexicalCategory( 'Q2' )
 				->build()

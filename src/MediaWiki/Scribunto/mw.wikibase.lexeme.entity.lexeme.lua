@@ -54,6 +54,14 @@ wikibaseLexemeEntityLexeme.create = function( data )
 	return entity
 end
 
+methodtable.getLemmas = function( entity )
+	local lemmas = {}
+	for lang, lemma in pairs( entity.lemmas ) do
+		table.insert( lemmas, { lemma.value, lemma.language } )
+	end
+	return lemmas
+end
+
 methodtable.getLanguage = function( entity )
 	return entity.language
 end
