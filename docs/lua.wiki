@@ -20,6 +20,10 @@ Aspects of the data can be accessed either directly or by loading the whole enti
 | Item ID of lexical category of Lexeme
 | [[#mw.wikibase.lexeme.getLexicalCategory|getLexicalCategory]]
 | [[#mw.wikibase.lexeme.entity.lexeme:getLexicalCategory|getLexicalCategory]]
+|-
+| Forms of Lexeme
+| NA
+| [[#mw.wikibase.lexeme.entity.lexeme:getForms|getForms]]
 |}
 
 :<span style="color: red;">Accessing data of Lexemes is [https://www.mediawiki.org/wiki/Manual:$wgExpensiveParserFunctionLimit expensive].</span>
@@ -111,4 +115,42 @@ Gets the Item ID of the lexical category of this Lexeme.
 An example call might look like this:
 <source lang="lua">
 mw.wikibase.getEntity( 'L1' ):getLexicalCategory() -- Returns 'Q1084' on Wikidata
+</source>
+
+=== mw.wikibase.lexeme.entity.lexeme:getForms ===
+<code>entity:getForms()</code>
+
+Get the Forms of this Lexeme, as a list of Form entities.
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.getEntity( 'L1' ):getForms() -- Returns a table of Form entities
+</source>
+
+== mw.wikibase.lexeme.entity.form ==
+<code>mw.wikibase.lexeme.entity.form</code> has methods for accessing data of a loaded Form entity.
+It is typically not used directly –
+<code>mw.wikibase.getEntity( formId )</code> returns a table on which you can call the following methods,
+as well as the methods from [[Extension:Wikibase Client/Lua#mw.wikibase.entity|mw.wikibase.entity]].
+while [[#mw.wikibase.lexeme.entity.lexeme:getForms|lexeme:getForms()]] returns a list of such tables.
+
+=== mw.wikibase.lexeme.entity.form:getRepresentations ===
+<code>entity:getRepresentations()</code>
+
+Gets the representation(s) of this Form,
+as a list of tables where each table has the representation text as the first element and the representation language as the second.
+
+An example call might look like this:
+<source lang="lua">
+form:getRepresentations() -- example: { { 'Luftballon', 'de' } }
+</source>
+
+=== mw.wikibase.lexeme.entity.form:getGrammaticalFeatures ===
+<code>entity:getGrammaticalFeatures()</code>
+
+Gets the grammatical features of this Form as a list of item IDs.
+
+An example call might look like this:
+<source lang="lua">
+form:getGrammaticalFeatures() -- example: { 'Q110786', 'Q131105' }
 </source>

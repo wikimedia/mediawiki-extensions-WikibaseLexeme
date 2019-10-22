@@ -6,6 +6,7 @@ use ExtensionRegistry;
 use PHPUnit\Framework\TestSuite;
 use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Tests\MockRepository;
 
@@ -78,14 +79,22 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 
 		/** @var MockRepository $mockRepository */
 		$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
-		$mockRepository->putEntity(
-			NewLexeme::havingId( 'L1' )
-				->withLemma( 'en', 'English lemma' )
-				->withLemma( 'en-gb', 'British English lemma' )
-				->withLanguage( 'Q1' )
-				->withLexicalCategory( 'Q2' )
-				->build()
-		);
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withLemma( 'en', 'English lemma' )
+			->withLemma( 'en-gb', 'British English lemma' )
+			->withLanguage( 'Q1' )
+			->withLexicalCategory( 'Q2' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'English representation' )
+					->andRepresentation( 'en-gb', 'British English representation' )
+					->andGrammaticalFeature( 'Q1' )
+			)
+			->build();
+		$mockRepository->putEntity( $lexeme );
+		foreach ( $lexeme->getForms()->toArrayUnordered() as $form ) {
+			$mockRepository->putEntity( $form );
+		}
 	}
 
 	protected function tearDown(): void {

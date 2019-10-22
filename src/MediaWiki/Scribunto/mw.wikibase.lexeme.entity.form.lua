@@ -4,27 +4,22 @@
 
 local php = mw_interface
 mw_interface = nil
-local wikibaseLexemeEntityLexeme = {}
+local wikibaseLexemeEntityForm = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
 
-wikibaseLexemeEntityLexeme.create = function( data )
+wikibaseLexemeEntityForm.create = function( data )
 	if type( data ) ~= 'table' then
 		error( 'Expected a table obtained via mw.wikibase.getEntity, got ' .. type( data ) .. ' instead' )
 	end
 	if next( data ) == nil then
 		error( 'Expected a non-empty table obtained via mw.wikibase.getEntity' )
 	end
-	if type( data.schemaVersion ) ~= 'number' then
-		error( 'data.schemaVersion must be a number, got ' .. type( data.schemaVersion ) .. ' instead' )
-	end
-	if data.schemaVersion < 2 then
-		error( 'mw.wikibase.entity must not be constructed using legacy data' )
-	end
 	if type( data.id ) ~= 'string' then
 		error( 'data.id must be a string, got ' .. type( data.id ) .. ' instead' )
 	end
 
+	data.schemaVersion = 2
 	local entity = wikibaseEntity.create( data )
 	php.addAllUsage( entity.id ) -- TODO support fine-grained usage tracking
 
@@ -54,31 +49,18 @@ wikibaseLexemeEntityLexeme.create = function( data )
 	return entity
 end
 
-methodtable.getLemmas = function( entity )
-	local lemmas = {}
-	for lang, lemma in pairs( entity.lemmas ) do
-		table.insert( lemmas, { lemma.value, lemma.language } )
+methodtable.getRepresentations = function( entity )
+	local representations = {}
+	for lang, reprentation in pairs( entity.representations ) do
+		table.insert( representations, { reprentation.value, reprentation.language } )
 	end
-	return lemmas
+	return representations
 end
 
-methodtable.getLanguage = function( entity )
-	return entity.language
+methodtable.getGrammaticalFeatures = function( entity )
+	return entity.grammaticalFeatures
 end
 
-methodtable.getLexicalCategory = function( entity )
-	return entity.lexicalCategory
-end
+package.loaded['mw.wikibase.lexeme.entity.form'] = wikibaseLexemeEntityForm
 
-methodtable.getForms = function( entity )
-	local wikibaseLexemeEntityForm = require 'mw.wikibase.lexeme.entity.form'
-	local forms = {}
-	for i, form in pairs( entity.forms or {} ) do
-		table.insert( forms, wikibaseLexemeEntityForm.create( form ) )
-	end
-	return forms
-end
-
-package.loaded['mw.wikibase.lexeme.entity.lexeme'] = wikibaseLexemeEntityLexeme
-
-return wikibaseLexemeEntityLexeme
+return wikibaseLexemeEntityForm

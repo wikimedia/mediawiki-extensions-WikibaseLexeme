@@ -7,6 +7,7 @@ use MediaWiki\MediaWikiServices;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
+use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeLibrary;
 use Wikibase\Lib\WikibaseSettings;
@@ -227,6 +228,10 @@ class WikibaseLexemeHooks {
 				= Scribunto_LuaWikibaseLexemeLibrary::class;
 			$extraLibraries['mw.wikibase.lexeme.entity.lexeme'] = [
 				'class' => Scribunto_LuaWikibaseLexemeEntityLexemeLibrary::class,
+				'deferLoad' => true,
+			];
+			$extraLibraries['mw.wikibase.lexeme.entity.form'] = [
+				'class' => Scribunto_LuaWikibaseLexemeEntityFormLibrary::class,
 				'deferLoad' => true,
 			];
 		}
