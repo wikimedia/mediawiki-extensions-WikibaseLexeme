@@ -179,5 +179,6 @@ return [
 		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
 			return new NullPrefetchingTermLookup();
 		},
+		DEF::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.sense',
 	]
 ];

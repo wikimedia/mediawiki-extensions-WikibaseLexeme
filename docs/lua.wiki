@@ -24,6 +24,10 @@ Aspects of the data can be accessed either directly or by loading the whole enti
 | Forms of Lexeme
 | NA
 | [[#mw.wikibase.lexeme.entity.lexeme:getForms|getForms]]
+|-
+| Senses of Lexeme
+| NA
+| [[#mw.wikibase.lexeme.entity.lexeme:getSenses|getSenses]]
 |}
 
 :<span style="color: red;">Accessing data of Lexemes is [https://www.mediawiki.org/wiki/Manual:$wgExpensiveParserFunctionLimit expensive].</span>
@@ -127,6 +131,16 @@ An example call might look like this:
 mw.wikibase.getEntity( 'L1' ):getForms() -- Returns a table of Form entities
 </source>
 
+=== mw.wikibase.lexeme.entity.lexeme:getSenses ===
+<code>entity:getSenses()</code>
+
+Get the Senses of this Lexeme, as a list of Sense entities.
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.getEntity( 'L1' ):getSenses() -- Returns a table of Sense entities
+</source>
+
 == mw.wikibase.lexeme.entity.form ==
 <code>mw.wikibase.lexeme.entity.form</code> has methods for accessing data of a loaded Form entity.
 It is typically not used directly –
@@ -153,4 +167,22 @@ Gets the grammatical features of this Form as a list of item IDs.
 An example call might look like this:
 <source lang="lua">
 form:getGrammaticalFeatures() -- example: { 'Q110786', 'Q131105' }
+</source>
+
+== mw.wikibase.lexeme.entity.sense ==
+<code>mw.wikibase.lexeme.entity.sense</code> has methods for accessing data of a loaded Sense entity.
+It is typically not used directly –
+<code>mw.wikibase.getEntity( senseId )</code> returns a table on which you can call the following methods,
+as well as the methods from [[Extension:Wikibase Client/Lua#mw.wikibase.entity|mw.wikibase.entity]].
+while [[#mw.wikibase.lexeme.entity.lexeme:getSenses|lexeme:getSenses()]] returns a list of such tables.
+
+=== mw.wikibase.lexeme.entity.sense:getGlosses ===
+<code>entity:getGlosses()</code>
+
+Gets the gloss(es) of this Sense,
+as a list of tables where each table has the gloss text as the first element and the gloss language as the second.
+
+An example call might look like this:
+<source lang="lua">
+sense:getGlosses() -- example: { { 'a rubber sack designed to be inflated with air', 'en' } }
 </source>

@@ -9,6 +9,7 @@ use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeLibrary;
+use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntitySenseLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeLibrary;
 use Wikibase\Lib\WikibaseSettings;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
@@ -232,6 +233,10 @@ class WikibaseLexemeHooks {
 			];
 			$extraLibraries['mw.wikibase.lexeme.entity.form'] = [
 				'class' => Scribunto_LuaWikibaseLexemeEntityFormLibrary::class,
+				'deferLoad' => true,
+			];
+			$extraLibraries['mw.wikibase.lexeme.entity.sense'] = [
+				'class' => Scribunto_LuaWikibaseLexemeEntitySenseLibrary::class,
 				'deferLoad' => true,
 			];
 		}

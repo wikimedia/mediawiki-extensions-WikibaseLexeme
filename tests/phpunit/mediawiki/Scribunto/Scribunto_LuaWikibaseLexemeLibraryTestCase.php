@@ -8,6 +8,7 @@ use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\Scribunto_LuaWikibase
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Tests\MockRepository;
 
 if (
@@ -90,10 +91,18 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 					->andRepresentation( 'en-gb', 'British English representation' )
 					->andGrammaticalFeature( 'Q1' )
 			)
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'English gloss' )
+					->withGloss( 'en-gb', 'British English gloss' )
+			)
 			->build();
 		$mockRepository->putEntity( $lexeme );
 		foreach ( $lexeme->getForms()->toArrayUnordered() as $form ) {
 			$mockRepository->putEntity( $form );
+		}
+		foreach ( $lexeme->getSenses()->toArrayUnordered() as $sense ) {
+			$mockRepository->putEntity( $sense );
 		}
 	}
 
