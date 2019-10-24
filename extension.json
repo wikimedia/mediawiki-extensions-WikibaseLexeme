@@ -30,6 +30,9 @@
 		},
 		"LexemeLanguageCodePropertyId": {
 			"value": null
+		},
+		"LexemeEnableDataTransclusion": {
+			"value": false
 		}
 	},
 	"ExtensionMessagesFiles": {
@@ -65,6 +68,9 @@
 		],
 		"WikibaseRepoOnParserOutputUpdaterConstruction": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onParserOutputUpdaterConstruction"
+		],
+		"ScribuntoExternalLibraries": [
+			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onScribuntoExternalLibraries"
 		]
 	},
 	"MessagesDirs": {

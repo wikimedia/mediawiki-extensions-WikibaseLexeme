@@ -1,0 +1,36 @@
+local testframework = require 'Module:TestFramework'
+
+local tests = {
+	{ name = 'getLanguage of existing lexeme',
+	  func = mw.wikibase.lexeme.getLanguage,
+	  args = { 'L1' },
+	  expect = { 'Q1' },
+	},
+	{ name = 'getLanguage of missing lexeme',
+	  func = mw.wikibase.lexeme.getLanguage,
+	  args = { 'L1000' },
+	  expect = { nil },
+	},
+	{ name = 'getLanguage of invalid lexeme ID',
+	  func = mw.wikibase.lexeme.getLanguage,
+	  args = { 'invalid' },
+	  expect = { nil },
+	},
+	{ name = 'getLexicalCategory of existing lexeme',
+	  func = mw.wikibase.lexeme.getLexicalCategory,
+	  args = { 'L1' },
+	  expect = { 'Q2' },
+	},
+	{ name = 'getLexicalCategory of missing lexeme',
+	  func = mw.wikibase.lexeme.getLexicalCategory,
+	  args = { 'L1000' },
+	  expect = { nil },
+	},
+	{ name = 'getLexicalCategory of invalid lexeme ID',
+	  func = mw.wikibase.lexeme.getLexicalCategory,
+	  args = { 'invalid' },
+	  expect = { nil },
+	},
+}
+
+return testframework.getTestProvider( tests )
