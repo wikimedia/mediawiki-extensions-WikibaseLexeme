@@ -17,6 +17,7 @@
 	},
 	"plugins": [
 		"promise",
+		"mediawiki",
 		"compat"
 	],
 	"rules": {
@@ -36,6 +37,7 @@
 			"nofunc"
 		],
 		"max-len": "off",
+		"mediawiki/valid-package-file-require": "error",
 		"one-var": "off",
 		"operator-linebreak": "off",
 		"promise/no-native": "error",

@@ -6,7 +6,7 @@
 
 	var INTERNAL_DEBOUNCE_TIMEOUT = 150;
 
-	var GrammaticalFeatureListWidget = require( './../../../resources/widgets/GrammaticalFeatureListWidget.js' );
+	var GrammaticalFeatureListWidget = require( '../../../resources/widgets/GrammaticalFeatureListWidget.js' );
 
 	var dummyLabelFormattingService = {
 		getHtml: function ( itemId ) {

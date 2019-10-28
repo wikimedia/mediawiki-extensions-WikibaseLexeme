@@ -8,6 +8,7 @@
 		"Promise": false
 	},
 	"rules": {
+		"mediawiki/valid-package-file-require": 0,
 		"no-global-assign": 2,
 		"no-restricted-globals": [2, "global"]
 	}

@@ -9,6 +9,7 @@
 	"devDependencies": {
 		"eslint-config-wikimedia": "0.9.0",
 		"eslint-plugin-compat": "^2.7.0",
+		"eslint-plugin-mediawiki": "^0.2.1",
 		"eslint-plugin-promise": "^3.6.0",
 		"eslint-plugin-qunit": "^4.0.0",
 		"grunt": "^1.0.4",
