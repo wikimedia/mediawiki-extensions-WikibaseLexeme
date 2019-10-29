@@ -3,7 +3,7 @@ module.exports = ( function ( Vuex ) {
 
 	var Vue = require( 'vue2' ),
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
-		actionTypes = require( './../store/actionTypes.js' );
+		actionTypes = require( '../store/actionTypes.js' );
 
 	Vue.use( Vuex );
 

@@ -1,5 +1,5 @@
 ( function () {
-	require( './../jquery.wikibase.lexemeview.js' );
+	require( '../jquery.wikibase.lexemeview.js' );
 	mw.hook( 'wikibase.entityPage.entityView.viewFactoryFactory.required' ).add( function ( entityNamespace, addPromise ) {
 		if ( entityNamespace !== 'lexeme' ) {
 			// not our view

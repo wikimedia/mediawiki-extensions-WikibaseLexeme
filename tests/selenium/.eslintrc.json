@@ -12,6 +12,7 @@
 		"node": true
 	},
 	"rules": {
-		"no-console": 0
+		"no-console": 0,
+		"mediawiki/valid-package-file-require": "off"
 	}
 }

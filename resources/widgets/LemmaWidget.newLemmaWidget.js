@@ -1,7 +1,7 @@
 module.exports = ( function () {
 	'use strict';
 
-	var Lemma = require( './../datamodel/Lemma.js' ),
+	var Lemma = require( '../datamodel/Lemma.js' ),
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' );
 
 	/**

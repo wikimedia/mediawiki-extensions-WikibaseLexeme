@@ -1,8 +1,8 @@
 module.exports = ( function () {
 	'use strict';
 
-	var Lemma = require( './../datamodel/Lemma.js' );
-	var LemmaList = require( './../datatransfer/LemmaList.js' );
+	var Lemma = require( '../datamodel/Lemma.js' );
+	var LemmaList = require( '../datatransfer/LemmaList.js' );
 
 	function getRequestLemmas( origLemmas, currentLemmas ) {
 		var removedLemmas = [];

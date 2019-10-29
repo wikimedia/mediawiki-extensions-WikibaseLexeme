@@ -3,7 +3,7 @@
 
 	var LanguageFromItemExtractor = require( '../services/LanguageFromItemExtractor.js' ),
 		ItemLookup = require( '../services/ItemLookup.js' ),
-		LexemeLanguageFieldObserver = require( '../special/formHelpers/LexemeLanguageFieldObserver.js' ),
+		LexemeLanguageFieldObserver = require( './formHelpers/LexemeLanguageFieldObserver.js' ),
 		repoConfig = mw.config.get( 'wbRepo' ),
 		repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
 		languageSelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
