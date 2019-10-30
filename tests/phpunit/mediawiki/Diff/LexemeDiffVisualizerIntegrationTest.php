@@ -56,7 +56,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		parent::tearDown();
 
 		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
-		\Language::clearCaches();
 	}
 
 	public function testAddedStatementsWithLexemesAsTargetDisplayLemma() {
