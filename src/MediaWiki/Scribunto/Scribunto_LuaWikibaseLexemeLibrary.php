@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Scribunto;
 
 use Scribunto_LuaLibraryBase;
 use Wikibase\Client\Usage\ParserOutputUsageAccumulator;
+use Wikibase\Client\Usage\EntityUsageFactory;
 use Wikibase\Client\Usage\UsageAccumulator;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -29,7 +30,10 @@ class Scribunto_LuaWikibaseLexemeLibrary extends Scribunto_LuaLibraryBase {
 	public function getUsageAccumulator(): UsageAccumulator {
 		if ( $this->usageAccumulator === null ) {
 			$parserOutput = $this->getParser()->getOutput();
-			$this->usageAccumulator = new ParserOutputUsageAccumulator( $parserOutput );
+			$this->usageAccumulator = new ParserOutputUsageAccumulator(
+				$parserOutput,
+				new EntityUsageFactory( $this->getEntityIdParser() )
+			);
 		}
 
 		return $this->usageAccumulator;
