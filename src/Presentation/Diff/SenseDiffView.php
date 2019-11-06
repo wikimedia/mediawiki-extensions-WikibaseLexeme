@@ -108,7 +108,6 @@ class SenseDiffView extends BasicDiffView {
 	 *
 	 * @return string HTML
 	 * @throws MWException
-	 * @suppress PhanUndeclaredMethod
 	 */
 	private function getClaimDiffHtml( DiffOp $diffOp, array $path ) {
 		switch ( true ) {

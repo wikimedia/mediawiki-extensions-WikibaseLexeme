@@ -52,6 +52,10 @@ class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 		$this->validationContext = $context;
 	}
 
+	/**
+	 * @param array[] $glosses
+	 * @return ChangeOpGlossList
+	 */
 	public function createEntityChangeOp( array $glosses ) {
 		$changeOps = [];
 

@@ -52,6 +52,10 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 		$this->validationContext = $context;
 	}
 
+	/**
+	 * @param array[] $representations
+	 * @return ChangeOpRepresentationList
+	 */
 	public function createEntityChangeOp( array $representations ) {
 		$changeOps = [];
 

@@ -71,10 +71,6 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 	}
 
 	private function getDescriptionText( Lexeme $entity ) {
-		if ( !$entity->getLanguage() || !$entity->getLexicalCategory() ) {
-			return '';
-		}
-
 		$language = $this->labelDescriptionLookup->getLabel( $entity->getLanguage() );
 		$category = $this->labelDescriptionLookup->getLabel( $entity->getLexicalCategory() );
 
