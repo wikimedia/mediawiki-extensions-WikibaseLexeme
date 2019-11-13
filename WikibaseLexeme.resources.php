@@ -194,6 +194,7 @@ return call_user_func( function() {
 				"wikibase.lexeme.getDeserializer",
 				"wikibase.entityChangers.EntityChangersFactory",
 				"wikibase.view.ControllerViewFactory",
+				"wikibase.view.ReadModeViewFactory",
 				"wikibase.api.RepoApi"
 			]
 		],
