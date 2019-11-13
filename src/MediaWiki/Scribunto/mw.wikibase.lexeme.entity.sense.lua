@@ -8,7 +8,7 @@ local wikibaseLexemeEntitySense = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
 
-wikibaseLexemeEntitySense.create = function( data )
+function wikibaseLexemeEntitySense.create( data )
 	if type( data ) ~= 'table' then
 		error( 'Expected a table obtained via mw.wikibase.getEntity, got ' .. type( data ) .. ' instead' )
 	end
@@ -49,7 +49,7 @@ wikibaseLexemeEntitySense.create = function( data )
 	return entity
 end
 
-methodtable.getGlosses = function( entity )
+function methodtable.getGlosses( entity )
 	local glosses = {}
 	for lang, gloss in pairs( entity.glosses ) do
 		table.insert( glosses, { gloss.value, gloss.language } )

@@ -8,7 +8,7 @@ local wikibaseLexemeEntityForm = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
 
-wikibaseLexemeEntityForm.create = function( data )
+function wikibaseLexemeEntityForm.create( data )
 	if type( data ) ~= 'table' then
 		error( 'Expected a table obtained via mw.wikibase.getEntity, got ' .. type( data ) .. ' instead' )
 	end
@@ -49,7 +49,7 @@ wikibaseLexemeEntityForm.create = function( data )
 	return entity
 end
 
-methodtable.getRepresentations = function( entity )
+function methodtable.getRepresentations( entity )
 	local representations = {}
 	for lang, reprentation in pairs( entity.representations ) do
 		table.insert( representations, { reprentation.value, reprentation.language } )
@@ -57,7 +57,7 @@ methodtable.getRepresentations = function( entity )
 	return representations
 end
 
-methodtable.getGrammaticalFeatures = function( entity )
+function methodtable.getGrammaticalFeatures( entity )
 	return entity.grammaticalFeatures
 end
 

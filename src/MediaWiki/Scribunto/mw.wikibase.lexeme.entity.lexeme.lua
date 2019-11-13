@@ -8,7 +8,7 @@ local wikibaseLexemeEntityLexeme = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
 
-wikibaseLexemeEntityLexeme.create = function( data )
+function wikibaseLexemeEntityLexeme.create( data )
 	if type( data ) ~= 'table' then
 		error( 'Expected a table obtained via mw.wikibase.getEntity, got ' .. type( data ) .. ' instead' )
 	end
@@ -54,7 +54,7 @@ wikibaseLexemeEntityLexeme.create = function( data )
 	return entity
 end
 
-methodtable.getLemmas = function( entity )
+function methodtable.getLemmas( entity )
 	local lemmas = {}
 	for lang, lemma in pairs( entity.lemmas ) do
 		table.insert( lemmas, { lemma.value, lemma.language } )
@@ -62,15 +62,15 @@ methodtable.getLemmas = function( entity )
 	return lemmas
 end
 
-methodtable.getLanguage = function( entity )
+function methodtable.getLanguage( entity )
 	return entity.language
 end
 
-methodtable.getLexicalCategory = function( entity )
+function methodtable.getLexicalCategory( entity )
 	return entity.lexicalCategory
 end
 
-methodtable.getForms = function( entity )
+function methodtable.getForms( entity )
 	local wikibaseLexemeEntityForm = require 'mw.wikibase.lexeme.entity.form'
 	local forms = {}
 	for i, form in pairs( entity.forms or {} ) do
@@ -79,7 +79,7 @@ methodtable.getForms = function( entity )
 	return forms
 end
 
-methodtable.getSenses = function( entity )
+function methodtable.getSenses( entity )
 	local wikibaseLexemeEntitySense = require 'mw.wikibase.lexeme.entity.sense'
 	local senses = {}
 	for i, sense in pairs( entity.senses or {} ) do

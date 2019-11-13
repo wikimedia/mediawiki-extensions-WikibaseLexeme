@@ -10,19 +10,19 @@ function wikibaseLexeme.setupInterface()
 	local php = mw_interface
 	mw_interface = nil
 
-	wikibaseLexeme.getLemmas = function( id )
+	function wikibaseLexeme.getLemmas( id )
 		checkType( 'getLemmas', 1, id, 'string' )
 
 		return php.getLemmas( id )
 	end
 
-	wikibaseLexeme.getLanguage = function( id )
+	function wikibaseLexeme.getLanguage( id )
 		checkType( 'getLanguage', 1, id, 'string' )
 
 		return php.getLanguage( id )
 	end
 
-	wikibaseLexeme.getLexicalCategory = function( id )
+	function wikibaseLexeme.getLexicalCategory( id )
 		checkType( 'getLexicalCategory', 1, id, 'string' )
 
 		return php.getLexicalCategory( id )
