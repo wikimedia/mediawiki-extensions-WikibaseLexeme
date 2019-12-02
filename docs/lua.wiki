@@ -9,20 +9,20 @@ Aspects of the data can be accessed either directly or by loading the whole enti
 {| class="wikitable"
 ! Aspect !! mw.wikibase.lexeme.FUNCTION !! entity:FUNCTION
 |-
-| Lemmas of lexeme
+| Lemmas of Lexeme
 | [[#mw.wikibase.lexeme.getLemmas|getLemmas]]
 | [[#mw.wikibase.lexeme.entity.lexeme:getLemmas|getLemmas]]
 |-
-| Item ID of language of lexeme
+| Item ID of language of Lexeme
 | [[#mw.wikibase.lexeme.getLanguage|getLanguage]]
 | [[#mw.wikibase.lexeme.entity.lexeme:getLanguage|getLanguage]]
 |-
-| Item ID of lexical category of lexeme
+| Item ID of lexical category of Lexeme
 | [[#mw.wikibase.lexeme.getLexicalCategory|getLexicalCategory]]
 | [[#mw.wikibase.lexeme.entity.lexeme:getLexicalCategory|getLexicalCategory]]
 |}
 
-:<span style="color: red;">Accessing data of lexemes is [https://www.mediawiki.org/wiki/Manual:$wgExpensiveParserFunctionLimit expensive].</span>
+:<span style="color: red;">Accessing data of Lexemes is [https://www.mediawiki.org/wiki/Manual:$wgExpensiveParserFunctionLimit expensive].</span>
 Loading entities doesn't count as expensive if the same entity is loaded twice during a module run.
 However, due to restrictions in the caching, if more than 14 other entities are loaded inbetween, the entity must be fetched again, which then counts as expensive.
 
@@ -32,9 +32,9 @@ However, due to restrictions in the caching, if more than 14 other entities are 
 === mw.wikibase.lexeme.getLemmas ===
 <code>mw.wikibase.lexeme.getLemmas( id )</code>
 
-Gets the lemma(s) of the lexeme with this ID,
+Gets the lemma(s) of the Lexeme with this ID,
 as a list of tables where each table has the lemma text as the first element and the lemma language as the second.
-Returns nil if there is no such lexeme or the ID is invalid.
+Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
 <source lang="lua">
@@ -44,8 +44,8 @@ mw.wikibase.lexeme.getLemmas( 'L1' ) -- Returns { { 'ama', 'mis-x-Q36790' }, { '
 === mw.wikibase.lexeme.getLanguage ===
 <code>mw.wikibase.lexeme.getLanguage( id )</code>
 
-Gets the item ID of the language of the lexeme with this ID.
-Returns nil if there is no such lexeme or the ID is invalid.
+Gets the item ID of the language of the Lexeme with this ID.
+Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
 <source lang="lua">
@@ -55,8 +55,8 @@ mw.wikibase.lexeme.getLanguage( 'L1' ) -- Returns 'Q36790' on Wikidata
 === mw.wikibase.lexeme.getLexicalCategory ===
 <code>mw.wikibase.lexeme.getLexicalCategory( id )</code>
 
-Gets the item ID of the lexical category of the lexeme with this ID.
-Returns nil if there is no such lexeme or the ID is invalid.
+Gets the item ID of the lexical category of the Lexeme with this ID.
+Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
 <source lang="lua">
@@ -71,9 +71,9 @@ as well as the methods from [[Extension:Wikibase Client/Lua#mw.wikibase.entity|m
 === mw.wikibase.lexeme.entity.lexeme:getLemmas ===
 <code>entity:getLemmas()</code>
 
-Gets the lemma(s) of the lexeme with this ID,
+Gets the lemma(s) of the Lexeme with this ID,
 as a list of tables where each table has the lemma text as the first element and the lemma language as the second.
-Returns nil if there is no such lexeme or the ID is invalid.
+Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
 <source lang="lua">
@@ -83,7 +83,7 @@ mw.wikibase.getEntity( 'L1' ):getLemmas() -- Returns { { 'ama', 'mis-x-Q36790' }
 === mw.wikibase.lexeme.entity.lexeme:getLanguage ===
 <code>entity:getLanguage()</code>
 
-Gets the item ID of the language of this lexeme.
+Gets the item ID of the language of this Lexeme.
 
 An example call might look like this:
 <source lang="lua">
@@ -93,7 +93,7 @@ mw.wikibase.getEntity( 'L1' ):getLanguage() -- Returns 'Q36790' on Wikidata
 === mw.wikibase.lexeme.entity.lexeme:getLexicalCategory ===
 <code>entity:getLexicalCategory()</code>
 
-Gets the item ID of the lexical category of this lexeme.
+Gets the item ID of the lexical category of this Lexeme.
 
 An example call might look like this:
 <source lang="lua">
