@@ -63,6 +63,19 @@ An example call might look like this:
 mw.wikibase.lexeme.getLexicalCategory( 'L1' ) -- Returns 'Q1084' on Wikidata
 </source>
 
+=== mw.wikibase.lexeme.splitLexemeId ===
+<code>mw.wikibase.lexeme.splitLexemeId( id )</code>
+
+Split a Lexeme, Sense or Form ID into the Lexeme ID part
+and (if present) Sense or Form ID part.
+Returns two strings for Sense or Form IDs,
+one string for Lexeme IDs and nil otherwise.
+
+An example call might look like this:
+<source lang="lua">
+l, s = mw.wikibase.lexeme.splitLexemeId( 'L1-S1' ) -- returns 'L1' and 'S1'
+</source>
+
 == mw.wikibase.lexeme.entity.lexeme ==
 <code>mw.wikibase.lexeme.entity.lexeme</code> has methods for accessing data of a loaded Lexeme entity.
 It is typically not used directly – <code>mw.wikibase.getEntity( lexemeId )</code> returns a table on which you can call the following methods,
