@@ -51,4 +51,17 @@ class FormTitleStoreLookup implements EntityTitleStoreLookup {
 		return $title;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
+	public function getTitlesForIds( array $ids ) {
+		$result = [];
+		/** @var EntityId $id */
+		foreach ( $ids as $id ) {
+			$result[$id->getSerialization()] = $this->getTitleForId( $id );
+		}
+
+		return $result;
+	}
+
 }
