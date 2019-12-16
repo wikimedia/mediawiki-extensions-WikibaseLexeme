@@ -44,7 +44,7 @@ mw.wikibase.lexeme.getLemmas( 'L1' ) -- Returns { { 'ama', 'mis-x-Q36790' }, { '
 === mw.wikibase.lexeme.getLanguage ===
 <code>mw.wikibase.lexeme.getLanguage( id )</code>
 
-Gets the item ID of the language of the Lexeme with this ID.
+Gets the Item ID of the language of the Lexeme with this ID.
 Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
@@ -55,7 +55,7 @@ mw.wikibase.lexeme.getLanguage( 'L1' ) -- Returns 'Q36790' on Wikidata
 === mw.wikibase.lexeme.getLexicalCategory ===
 <code>mw.wikibase.lexeme.getLexicalCategory( id )</code>
 
-Gets the item ID of the lexical category of the Lexeme with this ID.
+Gets the Item ID of the lexical category of the Lexeme with this ID.
 Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
@@ -83,7 +83,7 @@ mw.wikibase.getEntity( 'L1' ):getLemmas() -- Returns { { 'ama', 'mis-x-Q36790' }
 === mw.wikibase.lexeme.entity.lexeme:getLanguage ===
 <code>entity:getLanguage()</code>
 
-Gets the item ID of the language of this Lexeme.
+Gets the Item ID of the language of this Lexeme.
 
 An example call might look like this:
 <source lang="lua">
@@ -93,7 +93,7 @@ mw.wikibase.getEntity( 'L1' ):getLanguage() -- Returns 'Q36790' on Wikidata
 === mw.wikibase.lexeme.entity.lexeme:getLexicalCategory ===
 <code>entity:getLexicalCategory()</code>
 
-Gets the item ID of the lexical category of this Lexeme.
+Gets the Item ID of the lexical category of this Lexeme.
 
 An example call might look like this:
 <source lang="lua">
