@@ -30,7 +30,7 @@
 		"unexpected": "^10.32.1",
 		"unexpected-dom": "~4.8.0",
 		"unexpected-sinon": "^10.8.2",
-		"vue": "^2.6.10",
+		"vue": "^2.6.11",
 		"vuex": "^2.3.1",
 		"wdio-mediawiki": "0.4.0",
 		"wdio-mocha-framework": "0.6.4",
