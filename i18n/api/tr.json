@@ -1,9 +1,27 @@
 {
 	"@metadata": {
 		"authors": [
-			"Incelemeelemani"
+			"Incelemeelemani",
+			"BaRaN6161 TURK"
 		]
 	},
 	"apihelp-wbladdform-summary": "Sözlükbirime Formları Ekle",
-	"apihelp-wbladdform-param-lexemeId": "Sözlükbirimin kimliği, örn. L10"
+	"apihelp-wbladdform-param-lexemeId": "Sözlükbirimin kimliği, örn. L10",
+	"apihelp-wbladdform-param-data": "Form yani temsiller ve gramer özellikleri için JSON kodlu veriler",
+	"apihelp-wbladdform-param-baserevid": "Düzenleme çakışması kontrolü istenirse Lexeme'nin Temel Revizyon Kimliği.",
+	"apihelp-wbladdform-param-bot": "Bu düzenlemeyi bot olarak işaretle. Bu URL işaretine yalnızca kullanıcı \"{{int:group-bot}}\" grubuna aitse saygı gösterilir.",
+	"apihelp-wbladdform-example-1": "Sırasıyla <samp>$3</samp> dilleri ve <samp>$4</samp> dilleriyle <samp>$2</samp> kimliğine sahip <samp>$1</samp> kimliğine sahip Lexeme'ye Form ekleyin.",
+	"apihelp-wblremoveform-summary": "Formu Lexeme'den kaldırır",
+	"apihelp-wblremoveform-param-id": "Formun Kimliği, ör. L10-F20",
+	"apihelp-wblremoveform-param-bot": "Bu düzenlemeyi bot olarak işaretle. Bu URL işaretine yalnızca kullanıcı \"{{int:group-bot}}\" grubuna aitse saygı gösterilir.",
+	"apihelp-wblremoveform-example-1": "<samp>$1</samp> kimliğine sahip Lexeme'den Formu kaldırın",
+	"apihelp-wbleditformelements-summary": "Bir Formun temsillerini ve gramer özelliklerini düzenler",
+	"apihelp-wbleditformelements-param-formId": "Formun Kimliği, ör. L10-F2",
+	"apihelp-wbleditformelements-param-data": "JSON kodlu gösterim ve gramer özellik verileri",
+	"apihelp-wbleditformelements-param-bot": "Bu düzenlemeyi bot olarak işaretle. Bu URL işaretine yalnızca kullanıcı \"{{int:group-bot}}\" grubuna aitse saygı gösterilir.",
+	"apihelp-wbleditformelements-param-baserevid": "Form öğelerinin çakışma denetimini düzenlemesi isteniyorsa Lexeme'nin Temel Düzeltme Kimliği.",
+	"apihelp-wbleditformelements-example-1": "<samp>$3</samp> dillerinde sırasıyla <samp>$2</samp> temsillerine ve <samp>$4</samp> dil bilgisine sahip olmak için Formu <samp>$1</samp> kimliğiyle düzenler.",
+	"apihelp-wbladdsense-summary": "Bir Lexeme'e bir Anlam Ekler",
+	"apihelp-wbladdsense-param-lexemeId": "Lexeme'nin kimliği, ör. L10",
+	"apihelp-wbladdsense-param-data": "Sense için JSON kodlu veriler, yani parlaklıkları"
 }
