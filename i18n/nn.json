@@ -22,6 +22,7 @@
 	"wikibaselexeme-header-senses": "Tydingar",
 	"wikibase-lexeme-gloss-empty": "Ingen tydingsdefinisjon er lagd inn",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
+	"wikibaselexeme-lemma-redundant-language": "Det er ikkje mogeleg å føra opp fleire lemma med den same språkvarianten.",
 	"wikibaselexeme-sense-gloss-invalid-language": "Språkkodar for tydingsdefinisjonar lyt vera gyldige",
 	"wikibaselexeme-gloss-field-language-label": "Språk",
 	"wikibaselexeme-gloss-field-gloss-label": "Definisjon",
