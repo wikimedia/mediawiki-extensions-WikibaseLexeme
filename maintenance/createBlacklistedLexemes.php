@@ -37,9 +37,7 @@ class CreateBlacklistedLexemes extends Maintenance {
 	}
 
 	public function execute() {
-		global $wgUser;
-
-		$user = $wgUser;
+		$user = \User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
 
 		if ( !WikibaseSettings::isRepoEnabled() ) {
