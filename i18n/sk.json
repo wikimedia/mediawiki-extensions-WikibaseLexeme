@@ -7,6 +7,7 @@
 	"wikibaselexeme-desc": "Spracováva typ entity lexémy",
 	"special-newlexeme": "Vytvoriť novú lexému",
 	"wikibaselexeme-newlexeme-fieldset": "Vytvoriť novú lexému",
+	"wikibaselexeme-lemma-edit-placeholder": "Lemma je spravidla najkratší tvar slova",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Slovný druh",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Zadajte slovný druh, napr. podstatné meno",
 	"wikibaselexeme-newlexeme-language": "Jazyk lexémy",
