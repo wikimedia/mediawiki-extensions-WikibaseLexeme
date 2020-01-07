@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Domain\Diff;
 
+use Diff\Comparer\CallbackComparer;
+use Diff\Comparer\ComparableComparer;
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpChange;
@@ -9,7 +11,6 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpRemove;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityDifferStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListDiffer;
@@ -53,10 +54,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 
 	public function __construct() {
 		$this->recursiveMapDiffer = new MapDiffer( true );
-		$this->itemIdDiffer = new MapDiffer();
-		$this->itemIdDiffer->setComparisonCallback( function ( ItemId $a, ItemId $b ) {
-			return $a->equals( $b );
-		} );
+		$this->itemIdDiffer = new MapDiffer( false, null, new ComparableComparer() );
 		$this->statementListDiffer = new StatementListDiffer();
 		$this->formDiffer = new FormDiffer();
 		$this->senseDiffer = new SenseDiffer();
@@ -178,11 +176,15 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 * @return Diff
 	 */
 	private function getFormsDiff( FormSet $from, FormSet $to ) {
-		$differ = new MapDiffer();
-
-		$differ->setComparisonCallback( function ( Form $from, Form $to ) {
-			return $from == $to;
-		} );
+		$differ = new MapDiffer(
+			false,
+			null,
+			new CallbackComparer(
+				function ( Form $from, Form $to ) {
+					return $from == $to;
+				}
+			)
+		);
 
 		$from = $this->toFormsDiffArray( $from );
 		$to = $this->toFormsDiffArray( $to );
@@ -237,11 +239,15 @@ class LexemeDiffer implements EntityDifferStrategy {
 	 * @return Diff
 	 */
 	private function getSensesDiff( SenseSet $from, SenseSet $to ) {
-		$differ = new MapDiffer();
-
-		$differ->setComparisonCallback( function ( Sense $from, Sense $to ) {
-			return $from == $to;
-		} );
+		$differ = new MapDiffer(
+			false,
+			null,
+			new CallbackComparer(
+				function ( Sense $from, Sense $to ) {
+					return $from == $to;
+				}
+			)
+		);
 
 		$from = $this->toSensesDiffArray( $from );
 		$to = $this->toSensesDiffArray( $to );

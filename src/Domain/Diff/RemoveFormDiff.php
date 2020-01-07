@@ -58,15 +58,15 @@ class RemoveFormDiff implements FormDiff {
 		throw new \LogicException( "unserialize() is not implemented" );
 	}
 
-	public function getType() {
+	public function getType(): string {
 		return 'diff';
 	}
 
-	public function isAtomic() {
+	public function isAtomic(): bool {
 		return false;
 	}
 
-	public function toArray( $valueConverter = null ) {
+	public function toArray( callable $valueConverter = null ): array {
 		throw new \LogicException( 'toArray() is not implemented' );
 	}
 

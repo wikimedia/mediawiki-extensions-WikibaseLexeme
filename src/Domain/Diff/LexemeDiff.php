@@ -78,7 +78,7 @@ class LexemeDiff extends EntityDiff {
 	 *
 	 * @return bool
 	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		//FIXME: Needs to be fixed, otherwise conflict resolution may lead to unexpected results
 		return $this->getLemmasDiff()->isEmpty()
 			&& $this->getLexicalCategoryDiff()->isEmpty()
@@ -98,7 +98,7 @@ class LexemeDiff extends EntityDiff {
 		return $this['nextSenseId'] ?? new Diff( [], true );
 	}
 
-	public function toArray( $valueConverter = null ) {
+	public function toArray( callable $valueConverter = null ): array {
 		throw new \LogicException( 'toArray() is not implemented' );
 	}
 

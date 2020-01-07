@@ -62,15 +62,15 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 		throw new \LogicException( "unserialize() is not implemented" );
 	}
 
-	public function getType() {
+	public function getType(): string {
 		return 'diff';
 	}
 
-	public function isAtomic() {
+	public function isAtomic(): bool {
 		return false;
 	}
 
-	public function toArray( $valueConverter = null ) {
+	public function toArray( callable $valueConverter = null ): array {
 		throw new \LogicException( "toArray() is not implemented" );
 	}
 
@@ -79,7 +79,7 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 	 *
 	 * @return int
 	 */
-	public function count() {
+	public function count(): int {
 		return $this->diffOps->count();
 	}
 
@@ -88,11 +88,11 @@ class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 	 *
 	 * @return bool
 	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		return $this->diffOps->isEmpty();
 	}
 
-	public function getOperations() {
+	public function getOperations(): array {
 		// Due to the way this DiffOp is structured the default implementation would return nothing
 		throw new \LogicException( "getOperations() is not implemented" );
 	}
