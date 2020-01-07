@@ -104,7 +104,7 @@ class SummaryAggregator {
 			// TODO bubble the language into the aggregation here?
 			// $language = $summary->getLanguageCode();
 			$language = null;
-		} else {
+		} else { // @phan-suppress-current-line PhanPluginDuplicateIfStatements
 			$language = null;
 		}
 		$newSummary = new Summary();
