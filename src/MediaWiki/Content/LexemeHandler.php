@@ -23,13 +23,13 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\NullEntityTermStoreWriter;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Search\Fields\FieldDefinitions;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Store\EntityIdLookup;
 use Wikibase\SubmitEntityAction;
-use Wikibase\TermIndex;
 
 /**
  * @license GPL-2.0-or-later
@@ -53,7 +53,6 @@ class LexemeHandler extends EntityHandler {
 	private $labelLookupFactory;
 
 	/**
-	 * @param TermIndex $termIndex
 	 * @param EntityContentDataCodec $contentCodec
 	 * @param EntityConstraintProvider $constraintProvider
 	 * @param ValidatorErrorLocalizer $errorLocalizer
@@ -65,7 +64,6 @@ class LexemeHandler extends EntityHandler {
 	 * @param callable|null $legacyExportFormatDetector
 	 */
 	public function __construct(
-		TermIndex $termIndex,
 		EntityContentDataCodec $contentCodec,
 		EntityConstraintProvider $constraintProvider,
 		ValidatorErrorLocalizer $errorLocalizer,
@@ -78,7 +76,7 @@ class LexemeHandler extends EntityHandler {
 	) {
 		parent::__construct(
 			LexemeContent::CONTENT_MODEL_ID,
-			$termIndex,
+			new NullEntityTermStoreWriter(),
 			$contentCodec,
 			$constraintProvider,
 			$errorLocalizer,

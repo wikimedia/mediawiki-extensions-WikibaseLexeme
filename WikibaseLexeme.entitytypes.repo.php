@@ -109,7 +109,6 @@ return [
 		'content-handler-factory-callback' => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
-				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
@@ -290,7 +289,6 @@ return [
 			}
 
 			return new LexemeHandler(
-				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
@@ -393,7 +391,6 @@ return [
 			}
 
 			return new LexemeHandler(
-				$wikibaseRepo->getStore()->getTermIndex(),
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),

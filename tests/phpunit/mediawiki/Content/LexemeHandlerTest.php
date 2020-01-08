@@ -28,7 +28,6 @@ use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SettingsArray;
 use Wikibase\Store\EntityIdLookup;
-use Wikibase\TermIndex;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeHandler
@@ -148,7 +147,6 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			->will( $this->returnValue( $this->createMock( LabelDescriptionLookup::class ) ) );
 
 		return new LexemeHandler(
-			$this->createMock( TermIndex::class ),
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
 			$this->getMockWithoutConstructor( EntityConstraintProvider::class ),
 			$this->createMock( ValidatorErrorLocalizer::class ),

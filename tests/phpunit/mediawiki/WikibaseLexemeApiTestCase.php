@@ -7,6 +7,7 @@ use IApiMessage;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\NullTermIndex;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store\BufferingTermLookup;
@@ -127,14 +128,14 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$services->disableService( 'TermBuffer' );
 			$services->redefineService( 'TermBuffer', function () {
 				return new BufferingTermLookup(
-					$this->wikibaseRepo->getStore()->getTermIndex(),
+					new NullTermIndex(),
 					1000
 				);
 			} );
 		} else {
 			$services->defineService( 'TermBuffer', function () {
 				return new BufferingTermLookup(
-					$this->wikibaseRepo->getStore()->getTermIndex(),
+					new NullTermIndex(),
 					1000
 				);
 			} );
