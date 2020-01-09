@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use HamcrestPHPUnitIntegration;
+use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\NullTermIndex;
 use Wikibase\Repo\WikibaseRepo;
@@ -23,14 +24,31 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 
 	private function resetTermBuffer() {
 		$repo = WikibaseRepo::getDefaultInstance();
-		/**
-		 * @var ServiceContainer $services
-		 */
+
 		$services = $repo->getWikibaseServices();
+		if ( $this->basedOnMediaWikiServiceContainer( $services ) ) {
+			$this->overrideBufferService( $services );
+		} else {
+			$this->resetInternalLookupService( $services );
+		}
+	}
+
+	private function basedOnMediaWikiServiceContainer( WikibaseServices $services ) {
+		return $services instanceof ServiceContainer;
+	}
+
+	private function overrideBufferService( WikibaseServices $services ) {
 		$services->disableService( 'TermBuffer' );
-		$services->redefineService( 'TermBuffer', function () use ( $repo ) {
+
+		$services->redefineService( 'TermBuffer', function () {
 			return new BufferingTermIndexTermLookup( new NullTermIndex(), 1000 );
 		} );
+	}
+
+	private function resetInternalLookupService( WikibaseServices $services ) {
+		$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
+		$internalLookup->setAccessible( true );
+		$internalLookup->setValue( $services, null );
 	}
 
 	protected function getEntityStore() {
