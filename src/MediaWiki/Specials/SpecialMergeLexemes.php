@@ -145,7 +145,7 @@ class SpecialMergeLexemes extends SpecialPage {
 			return Html::rawElement(
 				'p',
 				[ 'class' => 'warning' ],
-				$this->msg( 'wikibase-anonymouseditwarning' )->escaped()
+				$this->msg( 'wikibase-anonymouseditwarning' )->parse()
 			);
 		}
 
