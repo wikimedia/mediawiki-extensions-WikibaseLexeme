@@ -6,7 +6,7 @@ use HamcrestPHPUnitIntegration;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\NullTermIndex;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\Store\BufferingTermLookup;
+use Wikibase\Store\BufferingTermIndexTermLookup;
 use Wikimedia\Services\ServiceContainer;
 
 /**
@@ -29,7 +29,7 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 		$services = $repo->getWikibaseServices();
 		$services->disableService( 'TermBuffer' );
 		$services->redefineService( 'TermBuffer', function () use ( $repo ) {
-			return new BufferingTermLookup( new NullTermIndex(), 1000 );
+			return new BufferingTermIndexTermLookup( new NullTermIndex(), 1000 );
 		} );
 	}
 
