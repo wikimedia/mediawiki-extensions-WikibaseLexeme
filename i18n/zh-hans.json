@@ -10,7 +10,8 @@
 			"A Chinese Wikipedian",
 			"神樂坂秀吉",
 			"予弦",
-			"A Retired User"
+			"A Retired User",
+			"沈澄心"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
@@ -19,8 +20,8 @@
 	"wikibaselexeme-deletedentity-form": "已删除词形",
 	"wikibaselexeme-deletedentity-sense": "删除Sence",
 	"wikibaselexeme-newlexeme-fieldset": "创建新词位",
-	"wikibaselexeme-newlexeme-lemma": "引理",
-	"wikibaselexeme-newlexeme-lemma-language": "引理的拼写变体",
+	"wikibaselexeme-newlexeme-lemma": "词根",
+	"wikibaselexeme-newlexeme-lemma-language": "词根的拼写变体",
 	"wikibaselexeme-lemma-edit-placeholder": "引理通常是字词的最短词形",
 	"wikibaselexeme-newlexeme-lexicalcategory": "词类",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "输入词类，例如名词",
@@ -33,7 +34,7 @@
 	"wikibaselexeme-statementsection-statements-about-sense": "有关$1的声明",
 	"wikibaselexeme-header-senses": "意义",
 	"wikibase-lexeme-gloss-empty": "未定义注解",
-	"wikibaselexeme-lemma-field-lemma-label": "引理",
+	"wikibaselexeme-lemma-field-lemma-label": "词根",
 	"wikibaselexeme-lemma-field-language-label": "发音变体",
 	"wikibaselexeme-lemma-redundant-language": "无法输入拥有相同发音变体的多个引理。",
 	"wikibaselexeme-form-field-representation-label": "表现形式",
@@ -77,7 +78,7 @@
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "加入新Sense",
 	"wikibaselexeme-field-language-label": "语言",
 	"wikibaselexeme-field-lexical-category-label": "词类",
-	"wikibaselexeme-diffview-lemma": "引理",
+	"wikibaselexeme-diffview-lemma": "词根",
 	"wikibaselexeme-diffview-lexical-category": "词类",
 	"wikibaselexeme-diffview-language": "语言",
 	"wikibaselexeme-diffview-form": "词形",
