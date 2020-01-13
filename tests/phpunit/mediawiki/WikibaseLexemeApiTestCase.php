@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiUsageException;
 use IApiMessage;
+use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
@@ -120,10 +121,19 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	}
 
 	private function resetTermBuffer() {
-		/**
-		 * @var ServiceContainer $services
-		 */
 		$services = $this->wikibaseRepo->getWikibaseServices();
+		if ( $this->basedOnMediaWikiServiceContainer( $services ) ) {
+			$this->overrideBufferService( $services );
+		} else {
+			$this->resetInternalLookupService( $services );
+		}
+	}
+
+	private function basedOnMediaWikiServiceContainer( WikibaseServices $services ) {
+		return $services instanceof ServiceContainer;
+	}
+
+	private function overrideBufferService( WikibaseServices $services ) {
 		if ( $services->hasService( 'TermBuffer' ) ) {
 			$services->disableService( 'TermBuffer' );
 			$services->redefineService( 'TermBuffer', function () {
@@ -140,6 +150,12 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 				);
 			} );
 		}
+	}
+
+	private function resetInternalLookupService( WikibaseServices $services ) {
+		$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
+		$internalLookup->setAccessible( true );
+		$internalLookup->setValue( $services, null );
 	}
 
 }
