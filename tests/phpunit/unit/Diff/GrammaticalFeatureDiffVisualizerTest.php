@@ -23,9 +23,9 @@ class GrammaticalFeatureDiffVisualizerTest extends MediaWikiUnitTestCase {
 			new DiffOpChange( 'Q2', 'Q3' )
 		);
 
-		$this->assertContains( '<h1>Form / L123-F321 / grammatical feature</h1>', $diffHtml );
-		$this->assertContains( '<del>Q2</del>', $diffHtml );
-		$this->assertContains( '<ins>Q3</ins>', $diffHtml );
+		$this->assertStringContainsString( '<h1>Form / L123-F321 / grammatical feature</h1>', $diffHtml );
+		$this->assertStringContainsString( '<del>Q2</del>', $diffHtml );
+		$this->assertStringContainsString( '<ins>Q3</ins>', $diffHtml );
 	}
 
 	public function testGivenMultipleDiffOps_resultsAreConcatenated() {
@@ -40,13 +40,13 @@ class GrammaticalFeatureDiffVisualizerTest extends MediaWikiUnitTestCase {
 			] )
 		);
 
-		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
-		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
-		$this->assertContains( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
+		$this->assertStringContainsString( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
+		$this->assertStringContainsString( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
+		$this->assertStringContainsString( '<h1>Form / L23-F42 / grammatical feature</h1>', $diffHtml );
 
-		$this->assertContains( '<ins>Q3</ins>', $diffHtml );
-		$this->assertContains( '<ins>Q5</ins>', $diffHtml );
-		$this->assertContains( '<del>Q8</del>', $diffHtml );
+		$this->assertStringContainsString( '<ins>Q3</ins>', $diffHtml );
+		$this->assertStringContainsString( '<ins>Q5</ins>', $diffHtml );
+		$this->assertStringContainsString( '<del>Q8</del>', $diffHtml );
 	}
 
 	private function getItemRefDiffVisualizer() {
