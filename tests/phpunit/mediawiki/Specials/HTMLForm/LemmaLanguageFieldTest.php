@@ -64,7 +64,7 @@ class LemmaLanguageFieldTest extends TestCase {
 		$field->__construct( [ 'fieldname' => 'testfield' ] );
 
 		$options = $field->getOptions();
-		$this->assertInternalType( 'array', $options );
+		$this->assertIsArray( $options );
 		$this->assertCount( count( $languages ), $options );
 	}
 

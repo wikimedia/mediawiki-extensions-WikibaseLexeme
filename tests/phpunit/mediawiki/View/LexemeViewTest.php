@@ -142,7 +142,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
 		$html = $view->getContent( $lexeme )->getHtml();
-		$this->assertInternalType( 'string', $html );
+		$this->assertIsString( $html );
 		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
 		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
 		$this->assertContains( 'FormsView::getHtml', $html );
@@ -192,7 +192,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 			$html
 		);
 
-		$this->assertInternalType( 'string', $html );
+		$this->assertIsString( $html );
 		$this->assertThatHamcrest(
 			$html,
 			is(
@@ -229,7 +229,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
 		$html = $view->getContent( $lexeme )->getHtml();
-		$this->assertInternalType( 'string', $html );
+		$this->assertIsString( $html );
 		$this->assertThatHamcrest(
 			$html,
 			is(
@@ -267,7 +267,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 
 		$html = $view->getContent( $lexeme )->getHtml();
-		$this->assertInternalType( 'string', $html );
+		$this->assertIsString( $html );
 		$this->assertThatHamcrest(
 			$html,
 			is(

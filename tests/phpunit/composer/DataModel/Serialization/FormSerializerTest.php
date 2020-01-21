@@ -50,7 +50,7 @@ class FormSerializerTest extends TestCase {
 			$this->createMock( Serializer::class )
 		);
 
-		$this->assertInternalType( 'array', $serializer->serialize( NewForm::any()->build() ) );
+		$this->assertIsArray( $serializer->serialize( NewForm::any()->build() ) );
 	}
 
 	public function testReturnedDataContainsFormId() {

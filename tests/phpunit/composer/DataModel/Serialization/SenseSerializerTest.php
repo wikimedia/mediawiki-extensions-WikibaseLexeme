@@ -54,7 +54,7 @@ class SenseSerializerTest extends TestCase {
 		);
 
 		$sense = NewSense::havingId( 'S1' )->build();
-		$this->assertInternalType( 'array', $serializer->serialize( $sense ) );
+		$this->assertIsArray( $serializer->serialize( $sense ) );
 	}
 
 	public function testReturnedDataContainsSenseId() {
