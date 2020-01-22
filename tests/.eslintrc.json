@@ -4,7 +4,10 @@
 		"no-unused-vars": "off",
 		"promise/no-native": "off",
 		"compat/compat": "off",
+		"no-redeclare": "off",
 		"no-restricted-properties": "off",
-		"no-restricted-syntax": "off"
+		"no-restricted-syntax": "off",
+		"no-jquery/no-event-shorthand": "off",
+		"no-jquery/variable-pattern": "off"
 	}
 }

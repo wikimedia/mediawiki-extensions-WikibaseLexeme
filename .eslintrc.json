@@ -2,6 +2,7 @@
 	"root": true,
 	"extends": [
 		"wikimedia/client",
+		"wikimedia/mediawiki",
 		"wikimedia/jquery"
 	],
 	"globals": {
@@ -17,7 +18,6 @@
 	},
 	"plugins": [
 		"promise",
-		"mediawiki",
 		"compat"
 	],
 	"rules": {
@@ -38,6 +38,8 @@
 		],
 		"max-len": "off",
 		"mediawiki/valid-package-file-require": "error",
+		"no-jquery/no-global-selector": "off",
+		"no-jquery/no-parse-html-literal": "off",
 		"one-var": "off",
 		"operator-linebreak": "off",
 		"promise/no-native": "error",

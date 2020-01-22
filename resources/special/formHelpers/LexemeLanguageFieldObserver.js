@@ -11,6 +11,7 @@
 			throw new Error( '$lemmaLanguageField, itemLookup, languageExtractor arguments need to be provided' );
 		}
 
+		// eslint-disable-next-line no-jquery/variable-pattern
 		this._$lemmaLanguageField = $lemmaLanguageField;
 		this._itemLookup = itemLookup;
 		this._languageExtractor = languageExtractor;
