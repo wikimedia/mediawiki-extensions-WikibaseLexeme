@@ -23,14 +23,24 @@ $cfg['file_list'] = array_merge(
 $cfg['directory_list'] = array_merge(
 	$cfg['directory_list'],
 	[
-		'../../extensions/Wikibase',
+		'../../extensions/Wikibase/client',
+		'../../extensions/Wikibase/data-access',
+		'../../extensions/Wikibase/lib',
+		'../../extensions/Wikibase/repo',
+		'../../extensions/Wikibase/view',
+		'../../extensions/Wikibase/.phan/stubs',
 	]
 );
 
 $cfg['exclude_analysis_directory_list'] = array_merge(
 	$cfg['exclude_analysis_directory_list'],
 	[
-		'../../extensions/Wikibase',
+		'../../extensions/Wikibase/client',
+		'../../extensions/Wikibase/data-access',
+		'../../extensions/Wikibase/lib',
+		'../../extensions/Wikibase/repo',
+		'../../extensions/Wikibase/view',
+		'../../extensions/Wikibase/.phan/stubs',
 	]
 );
 
