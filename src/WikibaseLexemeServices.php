@@ -135,7 +135,7 @@ class WikibaseLexemeServices {
 
 	private function newNoCrossReferencingLexemeStatements(): NoCrossReferencingLexemeStatements {
 		$baseExtractor = new StatementEntityReferenceExtractor(
-			$this->getWikibaseRepo()->getLocalItemUriParser()
+			$this->getWikibaseRepo()->getItemUrlParser()
 		);
 
 		return new NoCrossReferencingLexemeStatements(
