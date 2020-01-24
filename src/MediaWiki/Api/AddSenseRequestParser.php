@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
+use LogicException;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
@@ -51,6 +52,7 @@ class AddSenseRequestParser {
 			$dataValidation->addViolation(
 				new ParameterIsNotAJsonObject( self::PARAM_DATA, $params[self::PARAM_DATA] )
 			);
+			throw new LogicException( 'ApiUsageException not thrown' );
 		}
 
 		$lexemeId = $this->parseLexemeId(

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
@@ -24,18 +25,9 @@ class EditFormElementsRequestParserTest extends TestCase {
 	const DEFAULT_FORM_ID = 'L1-F1';
 
 	public function testFormIdAndDataGetPassedToRequestObject() {
-		$editFormChangeOpDeserializer = $this
-			->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$editFormChangeOpDeserializer
-			->method( 'createEntityChangeOp' )
-			->with( $this->getDataParams() )
-			->willReturn( new ChangeOps() );
-
 		$parser = new EditFormElementsRequestParser(
 			$this->newFormIdDeserializer(),
-			$editFormChangeOpDeserializer
+			$this->mockEditFormChangeOpDeserializer()
 		);
 
 		$request = $parser->parse( [
@@ -45,6 +37,49 @@ class EditFormElementsRequestParserTest extends TestCase {
 
 		$this->assertInstanceOf( EditFormElementsRequest::class, $request );
 		$this->assertSame( $request->getFormId()->serialize(), self::DEFAULT_FORM_ID );
+	}
+
+	public function testBaseRevIdPassedToRequestObject() {
+		$parser = new EditFormElementsRequestParser(
+			$this->newFormIdDeserializer(),
+			$this->mockEditFormChangeOpDeserializer()
+		);
+
+		$request = $parser->parse(
+			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => $this->getDataAsJson() ]
+		);
+
+		$this->assertSame( 12345, $request->getBaseRevId() );
+	}
+
+	public function testGivenEmptyData() {
+		$this->expectException( ApiUsageException::class );
+
+		$parser = new EditFormElementsRequestParser(
+			$this->newFormIdDeserializer(),
+			$this->mockEditFormChangeOpDeserializer()
+		);
+
+		$parser->parse(
+			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => "" ]
+		);
+	}
+
+	public function testGivenInvalidData() {
+		$this->expectException( ApiUsageException::class );
+
+		$parser = new EditFormElementsRequestParser(
+			$this->newFormIdDeserializer(),
+			$this->mockEditFormChangeOpDeserializer()
+		);
+
+		$parser->parse(
+			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => "singleStringInsteadOfArray" ]
+		);
+	}
+
+	private function getDataAsJson( array $dataToUse = [] ) {
+		return json_encode( $this->getDataParams( $dataToUse ) );
 	}
 
 	private function getDataParams( array $dataToUse = [] ) {
@@ -61,10 +96,6 @@ class EditFormElementsRequestParserTest extends TestCase {
 		return array_merge( $simpleData, $dataToUse );
 	}
 
-	private function getDataAsJson( array $dataToUse = [] ) {
-		return json_encode( $this->getDataParams( $dataToUse ) );
-	}
-
 	private function newFormIdDeserializer() {
 		$idParser = new DispatchingEntityIdParser( [
 			FormId::PATTERN => function ( $id ) {
@@ -74,7 +105,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 		return new FormIdDeserializer( $idParser );
 	}
 
-	public function testBaseRevIdPassedToRequestObject() {
+	private function mockEditFormChangeOpDeserializer() {
 		$editFormChangeOpDeserializer = $this
 			->getMockBuilder( EditFormChangeOpDeserializer::class )
 			->disableOriginalConstructor()
@@ -84,16 +115,6 @@ class EditFormElementsRequestParserTest extends TestCase {
 			->with( $this->getDataParams() )
 			->willReturn( new ChangeOps() );
 
-		$parser = new EditFormElementsRequestParser(
-			$this->newFormIdDeserializer(),
-			$editFormChangeOpDeserializer
-		);
-
-		$request = $parser->parse(
-			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => $this->getDataAsJson() ]
-		);
-
-		$this->assertSame( 12345, $request->getBaseRevId() );
+		return $editFormChangeOpDeserializer;
 	}
-
 }

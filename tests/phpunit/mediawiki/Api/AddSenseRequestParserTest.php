@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
@@ -58,6 +59,18 @@ class AddSenseRequestParserTest extends TestCase {
 			),
 			$request->getChangeOp()
 		);
+	}
+
+	public function testGivenEmptyData() {
+		$this->expectException( ApiUsageException::class );
+
+		$this->newAddSenseRequestParser()->parse( [ 'lexemeId' => 'L1', 'data' => "" ] );
+	}
+
+	public function testGivenInvalidData() {
+		$this->expectException( ApiUsageException::class );
+
+		$this->newAddSenseRequestParser()->parse( [ 'lexemeId' => 'L1', 'data' => "singleString" ] );
 	}
 
 	private function getDataParam( array $dataToUse = [] ) {
