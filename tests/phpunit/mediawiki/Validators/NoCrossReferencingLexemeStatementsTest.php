@@ -30,7 +30,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 
 	private function getLexemeStatementEntityReferenceExtractor() {
 		$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(
-			WikibaseRepo::getDefaultInstance()->getLocalItemUriParser()
+			WikibaseRepo::getDefaultInstance()->getItemUrlParser()
 		);
 		return new LexemeStatementEntityReferenceExtractor(
 			$statementEntityReferenceExtractor,

@@ -266,7 +266,7 @@ return [
 		},
 		'entity-reference-extractor-callback' => function () {
 			$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(
-				WikibaseRepo::getDefaultInstance()->getLocalItemUriParser()
+				WikibaseRepo::getDefaultInstance()->getItemUrlParser()
 			);
 			return new EntityReferenceExtractorCollection( [
 				new LanguageItemIdExtractor(),
