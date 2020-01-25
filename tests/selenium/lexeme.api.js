@@ -40,7 +40,7 @@ class LexemeApi {
 			} ).then( () => {
 				return bot.request( {
 					action: 'wbeditentity',
-					'new': 'lexeme',
+					new: 'lexeme',
 					data: JSON.stringify( lexeme ),
 					token: bot.editToken
 				} ).then( ( payload ) => {
