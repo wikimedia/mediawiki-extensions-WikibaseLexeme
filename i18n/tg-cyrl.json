@@ -4,12 +4,15 @@
 			"ToJack"
 		]
 	},
+	"wikibaselexeme-desc": "Кор бо намуди воҳидии \"лексема\"",
 	"special-newlexeme": "Эҷоди лексемаи нав",
 	"special-mergelexemes": "Як кардани ду лексема",
 	"wikibaselexeme-newlexeme-fieldset": "Эҷоди лексемаи нав",
 	"wikibaselexeme-newlexeme-lemma": "Лемма",
 	"wikibaselexeme-lemma-field-lemma-label": "Лемма",
 	"wikibaselexeme-gloss-field-language-label": "Забон",
+	"datatypes-type-wikibase-lexeme": "Лексема",
 	"wikibase-listdatatypes-wikibase-form-head": "Шакл",
-	"wikibaselexeme-diffview-language": "забон"
+	"wikibaselexeme-diffview-language": "забон",
+	"content-model-wikibase-lexeme": "Лексемаи Викибаза"
 }
