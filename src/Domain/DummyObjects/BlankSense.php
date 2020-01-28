@@ -18,6 +18,11 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 class BlankSense extends Sense {
 
 	/**
+	 * @var SenseId|null
+	 */
+	protected $id;
+
+	/**
 	 * @var Lexeme
 	 */
 	private $lexeme;

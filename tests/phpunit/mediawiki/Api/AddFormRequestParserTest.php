@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
@@ -73,6 +74,22 @@ class AddFormRequestParserTest extends TestCase {
 		);
 
 		$this->assertEquals( 1, $request->getBaseRevId() );
+	}
+
+	public function testGivenEmptyData() {
+		$this->expectException( ApiUsageException::class );
+
+		$this->newAddFormRequestParser()->parse(
+			[ 'lexemeId' => 'L1', 'data' => "" ]
+		);
+	}
+
+	public function testGivenInvalidData() {
+		$this->expectException( ApiUsageException::class );
+
+		$this->newAddFormRequestParser()->parse(
+			[ 'lexemeId' => 'L1', 'data' => "singleStringInsteadOfArray" ]
+		);
 	}
 
 	private function getDataParam( array $dataToUse = [] ) {

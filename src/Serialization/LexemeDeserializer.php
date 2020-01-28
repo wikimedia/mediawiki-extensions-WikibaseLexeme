@@ -167,6 +167,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 	/**
 	 * @param array $serialization
 	 *
+	 * @throws DeserializationException
 	 * @return Form
 	 */
 	private function deserializeForm( array $serialization ) {
@@ -175,6 +176,8 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		if ( array_key_exists( 'id', $serialization ) ) {
 			// We may want to use an EntityIdDeserializer here
 			$id = new FormId( $serialization['id'] );
+		} else {
+			throw new DeserializationException( "No id found in Form serialization" );
 		}
 
 		$representations = $this->termListDeserializer->deserialize(

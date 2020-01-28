@@ -294,11 +294,6 @@ class AddForm extends ApiBase {
 				self::LATEST_REVISION,
 				EntityRevisionLookup::LATEST_FROM_MASTER
 			);
-
-			if ( !$lexemeRevision ) {
-				$error = new LexemeNotFound( $lexemeId );
-				$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
-			}
 		} catch ( StorageException $e ) {
 			//TODO Test it
 			if ( $e->getStatus() ) {
@@ -311,6 +306,13 @@ class AddForm extends ApiBase {
 				);
 			}
 		}
+
+		if ( !$lexemeRevision ) {
+			$error = new LexemeNotFound( $lexemeId );
+			$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
+			throw new LogicException( 'ApiUsageException not thrown' );
+		}
+
 		return $lexemeRevision;
 	}
 
@@ -329,7 +331,7 @@ class AddForm extends ApiBase {
 
 	private function saveNewLexemeRevision(
 		EntityDocument $lexeme,
-		$baseRevId,
+		?int $baseRevId,
 		FormatableSummary $summary,
 		$flags
 	): Status {

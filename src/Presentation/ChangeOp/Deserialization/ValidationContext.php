@@ -16,7 +16,7 @@ class ValidationContext {
 	private $level = '';
 
 	/**
-	 * @var self
+	 * @var self|null
 	 */
 	private $parentContext;
 
@@ -24,8 +24,6 @@ class ValidationContext {
 	 * @var ApiError[]
 	 */
 	private $violations = [];
-
-	private $throwOnFirstViolation = true;
 
 	private function __construct( ?self $parentContext, $field, $level = null ) {
 		$this->parentContext = $parentContext;
@@ -52,9 +50,7 @@ class ValidationContext {
 	public function addViolation( ApiError $error ) {
 		$this->violations[] = $error;
 
-		if ( $this->throwOnFirstViolation ) {
-			$this->toApiUsageException();
-		}
+		$this->toApiUsageException();
 	}
 
 	private function toApiUsageException() {

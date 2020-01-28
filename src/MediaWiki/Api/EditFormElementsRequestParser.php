@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
+use LogicException;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
@@ -53,6 +54,7 @@ class EditFormElementsRequestParser {
 			$dataValidation->addViolation(
 				new ParameterIsNotAJsonObject( self::PARAM_DATA, $params[self::PARAM_DATA] )
 			);
+			throw new LogicException( 'ApiUsageException not thrown' );
 		}
 
 		$formId = $this->formIdDeserializer->deserialize(
