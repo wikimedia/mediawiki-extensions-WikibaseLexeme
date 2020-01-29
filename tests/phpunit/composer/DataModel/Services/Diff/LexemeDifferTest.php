@@ -113,7 +113,7 @@ class LexemeDifferTest extends TestCase {
 
 		/**
 		 * This property is needed to avoid serializing currently needless data in
-		 * \Wikibase\EntityChange::getSerializedInfo.
+		 * \Wikibase\Lib\Changes\EntityChange::getSerializedInfo.
 		 * Making `toArray()` to always return an empty array was the easiest way to achieve this.
 		 */
 
