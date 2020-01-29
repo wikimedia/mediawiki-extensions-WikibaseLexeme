@@ -8,6 +8,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
+use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
 use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
 use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
@@ -62,6 +63,9 @@ class ChangeOpsFormsEdit implements ChangeOp {
 
 		foreach ( $this->changeOpForForm as $formId => $changeOp ) {
 			$form = $entity->getForms()->getById( new FormId( $formId ) );
+			if ( $form === null ) {
+				throw new ChangeOpApplyException( 'wikibase-validator-form-not-found' );
+			}
 
 			// Passes summary albeit there is no clear definition how summaries should be combined
 			$changeOp->apply( $form, $summary );
