@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
 use PHPUnit\Framework\TestSuite;
+use Scribunto_LuaEngineTestBase;
 use Wikibase\Client\Tests\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -39,6 +40,10 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 	 * @return TestSuite
 	 */
 	public static function suite( $className ) {
+		if ( !class_exists( Scribunto_LuaEngineTestBase::class ) ) {
+			return new TestSuite();
+		}
+
 		self::doMock();
 
 		$res = parent::suite( $className );
