@@ -87,6 +87,8 @@
 	"wikibaselexeme-diffview-sense": "Sens",
 	"wikibaselexeme-diffview-gloss": "glose",
 	"content-model-wikibase-lexeme": "Lexème de Wikibase",
+	"wikibaselexeme-lexeme-link-title": "$1 : $2",
+	"wikibaselexeme-formidformatter-link-title": "$1 : $2",
 	"wikibaselexeme-form-grammatical-features": "Caractéristiques grammaticales",
 	"wikibaselexeme-form-description": "$1 pour : $2 ($3) : $4",
 	"wikibaselexeme-search-result-stats": "$1 instruction{{PLURAL:$1||s}}, $2 {{PLURAL:$2|forme|formes}}",
