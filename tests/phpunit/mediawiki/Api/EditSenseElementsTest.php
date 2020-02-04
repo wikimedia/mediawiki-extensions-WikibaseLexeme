@@ -91,18 +91,18 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			'no senseId param' => [
 				[ 'data' => $this->getDataParam() ],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'senseId' ],
-					'code' => 'nosenseId',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'senseId' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],
 			'no data param' => [
 				[ 'senseId' => self::DEFAULT_SENSE_ID ],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'data' ],
-					'code' => 'nodata',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'data' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],

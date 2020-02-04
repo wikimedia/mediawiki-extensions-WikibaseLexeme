@@ -81,9 +81,9 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			'no id param' => [
 				[],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'id' ],
-					'code' => 'noid',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'id' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],

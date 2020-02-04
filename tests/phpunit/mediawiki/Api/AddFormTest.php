@@ -83,18 +83,18 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'no lexemeId param' => [
 				[ 'data' => $this->getDataParam() ],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'lexemeId' ],
-					'code' => 'nolexemeId',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'lexemeId' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],
 			'no data param' => [
 				[ 'lexemeId' => 'L1' ],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'data' ],
-					'code' => 'nodata',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'data' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],

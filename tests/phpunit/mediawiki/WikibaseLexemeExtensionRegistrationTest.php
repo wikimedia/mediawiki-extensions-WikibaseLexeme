@@ -32,7 +32,7 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 			$this->doApiRequest( [ 'action' => $module ] );
 			$this->fail( 'Exception expected but not thrown' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'apierror-missingparam', $e->getMessageObject()->getKey() );
+			$this->assertEquals( 'paramvalidator-missingparam', $e->getMessageObject()->getKey() );
 		}
 	}
 

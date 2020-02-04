@@ -105,18 +105,18 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'no formId param' => [
 				[ 'data' => $this->getDataParam() ],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'formId' ],
-					'code' => 'noformId',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'formId' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],
 			'no data param' => [
 				[ 'formId' => self::DEFAULT_FORM_ID ],
 				[
-					'key' => 'apierror-missingparam',
-					'params' => [ 'data' ],
-					'code' => 'nodata',
+					'key' => 'paramvalidator-missingparam',
+					'params' => [ [ 'plaintext' => 'data' ] ],
+					'code' => 'missingparam',
 					'data' => []
 				],
 			],
