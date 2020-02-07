@@ -54,7 +54,7 @@ class SummaryAggregatorTest extends TestCase {
 		$aggregate = $aggregator->aggregate( $summary, $subSummary );
 
 		$this->assertSame( 'aggr', $aggregate->getMessageKey() );
-		$this->assertSame( null, $aggregate->getLanguageCode() );
+		$this->assertNull( $aggregate->getLanguageCode() );
 		$this->assertSame( [ 'a' => 'b' ], $aggregate->getCommentArgs() );
 		$this->assertSame( [ 'c' => 'd' ], $aggregate->getAutoSummaryArgs() );
 	}
@@ -96,7 +96,7 @@ class SummaryAggregatorTest extends TestCase {
 		$aggregate = $aggregator->aggregate( $summary, $subSummary );
 
 		$this->assertSame( 'aggr', $aggregate->getMessageKey() );
-		$this->assertSame( null, $aggregate->getLanguageCode() );
+		$this->assertNull( $aggregate->getLanguageCode() );
 		$this->assertSame(
 			[ 'lama', 'L1-F1', 'zebra' ],
 			$aggregate->getCommentArgs()
@@ -122,7 +122,7 @@ class SummaryAggregatorTest extends TestCase {
 		$aggregate = $aggregator->aggregate( $summary, $subSummary );
 
 		$this->assertSame( 'atomic', $aggregate->getMessageKey() );
-		$this->assertSame( null, $aggregate->getLanguageCode() );
+		$this->assertNull( $aggregate->getLanguageCode() );
 		$this->assertSame(
 			[ 'lama', 'L1-F1', 'zebra' ],
 			$aggregate->getCommentArgs()
