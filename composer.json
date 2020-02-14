@@ -19,7 +19,7 @@
 		"wikibase/data-model": "^9.0.1",
 		"wikibase/data-model-serialization": "~2.9",
 		"wikibase/data-model-services": "~4.0|~5.0",
-		"wikimedia/assert": "~0.2.2|~0.3.0|~0.4.0",
+		"wikimedia/assert": "~0.2.2|~0.3.0|~0.4.0|~0.5.0",
 		"wmde/php-vuejs-templating": "^1.0.2"
 	},
 	"require-dev": {
