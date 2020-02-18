@@ -63,7 +63,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 					],
 				] ),
 			],
-			[ 'apierror-blocked', 'no-permission' ],
+			[ 'apierror-blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -72,7 +72,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'lexemeId' => 'L1',
 				'data' => '{"glosses":{"en":{"value":"Some text value","language":"en"}}}',
 			],
-			[ 'apierror-blocked', 'no-permission' ],
+			[ 'apierror-blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -81,7 +81,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'formId' => 'L1-F1',
 				'data' => '{"a": "b"}',
 			],
-			[ 'apierror-blocked', 'no-permission' ],
+			[ 'apierror-blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -90,7 +90,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'senseId' => 'L1-S1',
 				'data' => '{"a": "b"}',
 			],
-			[ 'apierror-blocked', 'no-permission' ],
+			[ 'apierror-blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -107,7 +107,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			[
 				'id' => 'L1-F1',
 			],
-			[ 'apierror-blocked', 'no-permission' ],
+			[ 'apierror-blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -115,7 +115,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			[
 				'id' => 'L1-S1',
 			],
-			[ 'apierror-blocked', 'no-permission' ],
+			[ 'apierror-blocked', 'permissionserrors' ],
 		];
 	}
 
@@ -155,9 +155,8 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			$this->fail( 'Expected api error to be raised' );
 		} catch ( ApiUsageException $e ) {
 			foreach ( $expectedMessages as $message ) {
-				$this->assertTrue( true );
-				// $this->assertTrue( $e->getStatusValue()->hasMessage( $message ),
-				// 'Expected message ' . $message );
+				$this->assertTrue( $e->getStatusValue()->hasMessage( $message ),
+					'Expected message ' . $message );
 			}
 		}
 	}
