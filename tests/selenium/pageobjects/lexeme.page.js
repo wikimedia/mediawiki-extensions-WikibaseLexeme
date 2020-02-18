@@ -68,9 +68,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	get formClaimValueInputField() {
-
 		return $( '.wikibase-listview #new .wikibase-snakview-value-container .valueview-value .valueview-input' );
-
 	}
 
 	get viewHistoryLink() {
@@ -78,9 +76,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	get restoreRevisionLink() {
-		let element = browser.element( 'a[href*=restore]' ); // This link doesn't have any css identifier
-
-		return element;
+		return $( 'a[href*=restore]' ); // This link doesn't have any css identifier
 	}
 
 	get undoRevisionLink() {
@@ -144,14 +140,14 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		const title = 'Lexeme:' + lexemeId;
 		super.openTitle( title );
 		try {
-			browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+			$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).waitForDisplayed();
 		} catch ( e ) {
 			// reload and try again once, in case the lexeme is new
 			// and the first load hit a lagged replica (T232364)
 			super.openTitle( title );
-			browser.waitForVisible( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON );
+			$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).waitForDisplayed();
 		}
-		this.addFormLink.waitForVisible(); // last button on page, probably the last
+		this.addFormLink.waitForDisplayed(); // last button on page, probably the last
 	}
 
 	/**
@@ -176,7 +172,9 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	fillNthLemma( position, lemmaText, languageCode ) {
 		for ( let i = this.lemmas.length; i <= position; i++ ) {
-			$( this.constructor.LEMMA_WIDGET_SELECTORS.ADD_BUTTON ).click();
+			const addButton = $( this.constructor.LEMMA_WIDGET_SELECTORS.ADD_BUTTON );
+			addButton.waitForClickable();
+			addButton.click();
 		}
 
 		let lemma = this.lemmas[ position ];
@@ -296,15 +294,14 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @param {int} index
 	 */
 	removeNthForm( index ) {
+		this.startEditingNthForm( index );
+
 		let form = this.forms[ index ];
-
-		form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
-
 		let removeButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.REMOVE_BUTTON );
 
-		removeButton.waitForVisible();
+		removeButton.waitForClickable();
 		removeButton.click();
-		removeButton.waitForExist( null, true );
+		form.waitForExist( null, true );
 	}
 
 	/**
@@ -367,8 +364,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	getNthFormStatement( index ) {
 		let form = this.forms[ index ];
 
-		form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' ).waitForVisible();
-		form.$( '.wikibase-statementgroupview-property-label a' ).waitForVisible();
+		form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' ).waitForDisplayed();
+		form.$( '.wikibase-statementgroupview-property-label a' ).waitForDisplayed();
 
 		let property = form.$( '.wikibase-statementgroupview' ),
 			value = form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' );
@@ -388,7 +385,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		propertyInputfield.setValue( statementPropertyId );
 		this.selectFirstSuggestedEntityOnEntitySelector();
-		this.formClaimValueInputField.waitForVisible();
+		this.formClaimValueInputField.waitForDisplayed();
 		this.formClaimValueInputField.setValue( statementValue );
 
 		if ( submitImmediately !== false ) {
@@ -415,7 +412,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		let addRepresentationButton = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_REPRESENTATION_BUTTON );
 
-		addRepresentationButton.waitForVisible();
+		addRepresentationButton.waitForDisplayed();
 		addRepresentationButton.click();
 
 		let representationContainer = form.$( '.representation-widget_representation-list' );
@@ -436,14 +433,14 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		this.viewHistoryLink.click();
 		this.restoreRevisionLink.click();
 		this.undoOrRestoreSavePageButton.click();
-		this.addFormLink.waitForVisible();
+		this.addFormLink.waitForDisplayed();
 	}
 
 	undoLatestRevision() {
 		this.viewHistoryLink.click();
 		this.undoRevisionLink.click();
 		this.undoOrRestoreSavePageButton.click();
-		this.addFormLink.waitForVisible();
+		this.addFormLink.waitForDisplayed();
 	}
 
 	editRepresentationOfNthForm( index, representation, language, submitImmediately ) {
@@ -478,6 +475,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	startEditingNthForm( index ) {
+		this.forms[ index ].waitForClickable();
 		this.forms[ index ].$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 	}
 
@@ -493,14 +491,17 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		let saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
+		saveButton.waitForClickable();
 		saveButton.click();
 		saveButton.waitForExist( null, true );
 	}
 
 	addGrammaticalFeatureToNthForm( index, grammaticalFeatureId, submitImmediately ) {
 		let form = this.forms[ index ];
+		const editButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON );
 
-		form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
+		editButton.waitForClickable();
+		editButton.click();
 
 		this.setSingleValueOnMultiselectElement(
 			form.$( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES ),
@@ -510,8 +511,6 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		if ( submitImmediately !== false ) {
 			this.submitNthForm( index );
 		}
-		form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.GRAMMATICAL_FEATURE_ELENENT ).click();
-
 	}
 
 	removeGrammaticalFeatureFromNthForm( index, submitImmediately ) {

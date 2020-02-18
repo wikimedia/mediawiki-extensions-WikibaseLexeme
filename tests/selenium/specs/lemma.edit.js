@@ -3,15 +3,13 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' );
+	loginAdmin = require( '../loginAdmin' );
 
 describe( 'Lexeme:Lemma', () => {
 
 	beforeEach( 'check logged in', () => {
-		LoginPage.open();
-		if ( !LexemePage.isUserLoggedIn() ) {
-			LoginPage.loginAdmin();
-		}
+		browser.deleteAllCookies();
+		loginAdmin();
 	} );
 
 	it( 'can be edited', () => {

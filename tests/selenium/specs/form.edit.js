@@ -3,16 +3,14 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	loginAdmin = require( '../loginAdmin' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 describe( 'Lexeme:Forms', () => {
 
 	before( 'check logged in', () => {
-		LoginPage.open();
-		if ( !LexemePage.isUserLoggedIn() ) {
-			LoginPage.loginAdmin();
-		}
+		browser.deleteAllCookies();
+		loginAdmin();
 	} );
 
 	it( 'can add representation', () => {
@@ -269,7 +267,7 @@ describe( 'Lexeme:Forms', () => {
 
 		browser.refresh();
 
-		LexemePage.addFormLink.waitForVisible();// just to make sure the page loaded completely
+		LexemePage.addFormLink.waitForDisplayed();// just to make sure the page loaded completely
 
 		formRepresentation = LexemePage.getNthFormFormValuesAfterSave( 0 );
 

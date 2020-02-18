@@ -13,7 +13,7 @@ describe( 'Lexeme:non-existing', () => {
 			'Lexeme:L-invalid'
 		);
 
-		NonExistingLexemePage.noArticleText.waitForVisible();
+		NonExistingLexemePage.noArticleText.waitForDisplayed();
 	} );
 
 } );

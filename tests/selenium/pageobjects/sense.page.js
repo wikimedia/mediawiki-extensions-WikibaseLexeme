@@ -121,7 +121,7 @@ class SensePage extends Page {
 
 		let addGlossButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.ADD_GLOSS_BUTTON );
 
-		addGlossButton.waitForVisible();
+		addGlossButton.waitForDisplayed();
 		addGlossButton.click();
 
 		let glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
@@ -152,6 +152,7 @@ class SensePage extends Page {
 
 		let sense = this.senses[ index ];
 		let saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+		saveButton.waitForClickable();
 		saveButton.click();
 		saveButton.waitForExist( null, true );
 	}

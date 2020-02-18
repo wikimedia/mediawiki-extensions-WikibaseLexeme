@@ -27,9 +27,9 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	* Waits to see if eventually the form is shown
 	*/
 	showsForm() {
-		browser.waitForVisible( this.constructor.NEW_LEXEME_SELECTORS.LEMMA );
-		browser.waitForVisible( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE );
-		browser.waitForVisible( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY );
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).waitForDisplayed();
+		$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).waitForDisplayed();
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).waitForDisplayed();
 
 		return true;
 	}
@@ -52,68 +52,68 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		this.setLexicalCategory( lexicalCategory );
 
 		if ( typeof lemmaLanguage !== 'undefined' ) {
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed();
 			this.setLemmaLanguage( lemmaLanguage );
 		} else {
 			// ensure lemma language input is not presented (logic is asynchronous)
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible( 1000, true );
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed( 1000, true );
 		}
 
 		this.clickSubmit();
 	}
 
 	setLemma( lemma ) {
-		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
 	}
 
 	getLemma() {
-		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).getValue();
+		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).getValue();
 	}
 
 	setLexemeLanguage( language ) {
 		this.setValueOnLookupElement(
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
+			$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
 			language
 		);
 	}
 
 	getLexemeLanguage() {
-		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE_SELECTOR_VALUE ).getValue();
+		return $( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE_SELECTOR_VALUE ).getValue();
 	}
 
 	setLexicalCategory( lexicalCategory ) {
 		this.setValueOnLookupElement(
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
 			lexicalCategory
 		);
 	}
 
 	getLexicalCategory() {
-		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY_SELECTOR_VALUE ).getValue();
+		return $( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY_SELECTOR_VALUE ).getValue();
 	}
 
 	setLemmaLanguage( lemmaLanguage ) {
 		this.setValueOnComboboxElement(
-			browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
 			lemmaLanguage
 		);
 	}
 
 	getLemmaLanguage() {
-		return browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE + ' input' ).getValue();
+		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE + ' input' ).getValue();
 	}
 
 	clickSubmit() {
-		browser.$( this.constructor.NEW_LEXEME_SELECTORS.SUBMIT_BUTTON ).click();
+		$( this.constructor.NEW_LEXEME_SELECTORS.SUBMIT_BUTTON ).click();
 	}
 
 	showsLemmaLanguageField() {
-		browser.$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForVisible();
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed();
 		return true;
 	}
 
 	isUserBlockedErrorVisible() {
-		$( '#mw-returnto' ).waitForVisible();
+		$( '#mw-returnto' ).waitForDisplayed();
 		return ( $( '#firstHeading' ).getText() === 'User is blocked' );
 	}
 

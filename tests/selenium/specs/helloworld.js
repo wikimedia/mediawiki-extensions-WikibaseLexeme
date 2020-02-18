@@ -7,7 +7,7 @@ describe( 'Special:Version', function () {
 
 	it( 'has the Wikibase Lexeme extension enabled', function () {
 		SpecialVersionPage.open();
-		assert( SpecialVersionPage.wikibaseLexemeExtensionLink.isVisible() );
+		assert( SpecialVersionPage.wikibaseLexemeExtensionLink.isDisplayed() );
 	} );
 
 } );

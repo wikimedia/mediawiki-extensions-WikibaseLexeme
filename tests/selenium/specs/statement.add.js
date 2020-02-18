@@ -4,16 +4,14 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	loginAdmin = require( '../loginAdmin' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 describe( 'Lexeme:Statements', () => {
 
 	beforeEach( 'check logged in', () => {
-		LoginPage.open();
-		if ( !LexemePage.isUserLoggedIn() ) {
-			LoginPage.loginAdmin();
-		}
+		browser.deleteAllCookies();
+		loginAdmin();
 	} );
 
 	it( 'can be added', () => {
