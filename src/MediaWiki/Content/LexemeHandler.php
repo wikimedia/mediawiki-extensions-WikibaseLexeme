@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\MediaWiki\Content;
 
 use IContextSource;
-use Page;
 use Title;
 use UnexpectedValueException;
 use Wikibase\Content\EntityHolder;
@@ -97,7 +96,8 @@ class LexemeHandler extends EntityHandler {
 	 */
 	public function getActionOverrides() {
 		return [
-			'history' => function( Page $page, IContextSource $context ) {
+			'history' => function( object $page, IContextSource $context ) {
+				/** @var \WikiPage|\Article $page */
 				return new HistoryEntityAction(
 					$page,
 					$context,
