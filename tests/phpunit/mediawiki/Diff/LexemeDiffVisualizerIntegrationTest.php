@@ -50,6 +50,8 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		parent::setUp();
 
 		$this->hookHandlers = $this->getHookHandlersProperty()->getValue();
+		// non-EmptyBagOStuff cache needed for the CachingPrefetchingTermLookup for items
+		$this->setService( 'LocalServerObjectCache', new \HashBagOStuff() );
 	}
 
 	public function tearDown() : void {
