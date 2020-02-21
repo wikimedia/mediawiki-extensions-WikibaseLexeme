@@ -10,7 +10,7 @@ use Title;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
-use Wikibase\Store\EntityIdLookup;
+use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 
 /**

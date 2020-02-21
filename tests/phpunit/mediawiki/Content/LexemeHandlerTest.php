@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityContentDataCodec;
+use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -27,7 +28,6 @@ use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\SettingsArray;
-use Wikibase\Store\EntityIdLookup;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeHandler

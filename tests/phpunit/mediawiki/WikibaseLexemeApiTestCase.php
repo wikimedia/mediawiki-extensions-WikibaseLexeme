@@ -7,11 +7,11 @@ use IApiMessage;
 use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
+use Wikibase\Lib\Store\BufferingTermIndexTermLookup;
 use Wikibase\Lib\Store\EntityStore;
-use Wikibase\NullTermIndex;
+use Wikibase\Lib\Store\NullTermIndex;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\Store\BufferingTermIndexTermLookup;
 use Wikimedia\Services\ServiceContainer;
 
 /**

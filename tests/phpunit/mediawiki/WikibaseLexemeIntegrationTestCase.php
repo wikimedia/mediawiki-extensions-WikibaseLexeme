@@ -5,9 +5,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 use HamcrestPHPUnitIntegration;
 use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\NullTermIndex;
+use Wikibase\Lib\Store\BufferingTermIndexTermLookup;
+use Wikibase\Lib\Store\NullTermIndex;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\Store\BufferingTermIndexTermLookup;
 use Wikimedia\Services\ServiceContainer;
 
 /**

@@ -6,7 +6,7 @@ use IContextSource;
 use PageProps;
 use Title;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Store\EntityIdLookup;
+use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 
 /**
