@@ -3,16 +3,14 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	loginAdmin = require( '../loginAdmin' ),
 	SensePage = require( '../pageobjects/sense.page' );
 
 describe( 'Lexeme:Senses', () => {
 
 	before( 'check logged in, create lexeme and sense', () => {
-		LoginPage.open();
-		if ( !LexemePage.isUserLoggedIn() ) {
-			LoginPage.loginAdmin();
-		}
+		browser.deleteAllCookies();
+		loginAdmin();
 
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 

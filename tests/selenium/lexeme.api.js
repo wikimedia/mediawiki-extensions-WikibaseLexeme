@@ -32,11 +32,11 @@ class LexemeApi {
 		} ).then( ( languageValue ) => {
 			lexeme.language = languageValue;
 			let bot = new MWBot( {
-				apiUrl: browser.options.baseUrl + '/api.php'
+				apiUrl: browser.config.baseUrl + '/api.php'
 			} );
 			return bot.loginGetEditToken( {
-				username: browser.options.username,
-				password: browser.options.password
+				username: browser.config.username,
+				password: browser.config.password
 			} ).then( () => {
 				return bot.request( {
 					action: 'wbeditentity',
@@ -58,7 +58,7 @@ class LexemeApi {
 	 */
 	get( lexemeId ) {
 		let bot = new MWBot( {
-			apiUrl: browser.options.baseUrl + '/api.php'
+			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 		return bot.request( {
 			action: 'wbgetentities',
@@ -77,7 +77,7 @@ class LexemeApi {
 	 */
 	addForm( lexemeId, form ) {
 		let bot = new MWBot( {
-			apiUrl: browser.options.baseUrl + '/api.php'
+			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 
 		return bot.getEditToken().then( () => {
@@ -99,7 +99,7 @@ class LexemeApi {
 	 */
 	addSense( lexemeId, sense ) {
 		let bot = new MWBot( {
-			apiUrl: browser.options.baseUrl + '/api.php'
+			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 
 		return bot.getEditToken().then( () => {
@@ -121,7 +121,7 @@ class LexemeApi {
 	 */
 	editForm( formId, formData ) {
 		let bot = new MWBot( {
-			apiUrl: browser.options.baseUrl + '/api.php'
+			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 
 		return bot.getEditToken().then( () => {

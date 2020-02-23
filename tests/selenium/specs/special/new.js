@@ -5,7 +5,7 @@ const assert = require( 'assert' ),
 	LexemePage = require( '../../pageobjects/lexeme.page' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	loginAdmin = require( '../../loginAdmin' ),
 	MWApi = require( 'wdio-mediawiki/Api' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
@@ -86,7 +86,7 @@ describe( 'NewLexeme:Page', () => {
 				lexicalCategoryId
 			);
 
-			LexemePage.lemmaContainer.waitForVisible();
+			LexemePage.lemmaContainer.waitForDisplayed();
 
 			lexemeId = LexemePage.headerId;
 
@@ -122,7 +122,7 @@ describe( 'NewLexeme:Page', () => {
 					lemmaLanguageCode
 				);
 
-				LexemePage.lemmaContainer.waitForVisible();
+				LexemePage.lemmaContainer.waitForDisplayed();
 
 				lexemeId = LexemePage.headerId;
 
@@ -205,7 +205,7 @@ describe( 'NewLexeme:Page', () => {
 		} );
 
 		it( 'is not possible to edit', () => {
-			LoginPage.loginAdmin();
+			loginAdmin();
 
 			NewLexemePage.open();
 

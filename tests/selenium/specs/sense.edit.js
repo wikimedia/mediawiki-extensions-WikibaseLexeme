@@ -3,16 +3,14 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	loginAdmin = require( '../loginAdmin' ),
 	SensePage = require( '../pageobjects/sense.page' );
 
 describe( 'Lexeme:Senses', () => {
 
 	before( 'check logged in', () => {
-		LoginPage.open();
-		if ( !LexemePage.isUserLoggedIn() ) {
-			LoginPage.loginAdmin();
-		}
+		browser.deleteAllCookies();
+		loginAdmin();
 	} );
 
 	it( 'can edit sense and save successfully', () => {
@@ -115,7 +113,7 @@ describe( 'Lexeme:Senses', () => {
 		assert.equal( 'goat', data.value );
 	} );
 
-	it( 'Removes Gloss', () => {
+	it.only( 'Removes Gloss', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
 			const id = lexeme.id;
 			return LexemeApi.addSense(

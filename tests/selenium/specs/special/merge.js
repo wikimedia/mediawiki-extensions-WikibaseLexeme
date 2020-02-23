@@ -2,7 +2,7 @@
 
 const assert = require( 'assert' ),
 	MergeLexemesPage = require( '../../pageobjects/specialmergelexemes.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	loginAdmin = require( '../../loginAdmin' ),
 	MWApi = require( 'wdio-mediawiki/Api' );
 
 describe( 'Special:MergeLexemes', () => {
@@ -12,7 +12,7 @@ describe( 'Special:MergeLexemes', () => {
 		} );
 
 		it( 'is not possible to edit', () => {
-			LoginPage.loginAdmin();
+			loginAdmin();
 
 			MergeLexemesPage.open();
 
