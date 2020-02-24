@@ -5,7 +5,7 @@ const LoginPage = require( 'wdio-mediawiki/LoginPage' );
  */
 module.exports = function () {
 	LoginPage.open();
-	$( '#wpName1' ).setValue( browser.config.username );
-	$( '#wpPassword1' ).setValue( browser.config.password );
+	$( '#wpName1' ).setValue( browser.config.mwUser );
+	$( '#wpPassword1' ).setValue( browser.config.mwPwd );
 	$( '#wpLoginAttempt' ).click(); // eslint-disable-line no-jquery/no-event-shorthand
 };
