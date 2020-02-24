@@ -3,14 +3,14 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	loginAdmin = require( '../loginAdmin' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	SensePage = require( '../pageobjects/sense.page' );
 
 describe( 'Lexeme:Senses', () => {
 
 	before( 'check logged in', () => {
 		browser.deleteAllCookies();
-		loginAdmin();
+		LoginPage.loginAdmin();
 	} );
 
 	it( 'can edit sense and save successfully', () => {
