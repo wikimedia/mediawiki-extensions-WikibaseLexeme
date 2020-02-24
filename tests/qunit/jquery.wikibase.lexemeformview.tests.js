@@ -29,7 +29,7 @@
 	} ) );
 
 	var newFormView = function ( options ) {
-		var $node = $( '<div/>' ).appendTo( '#qunit-fixture' );
+		var $node = $( '<div>' ).appendTo( '#qunit-fixture' );
 
 		options = options || {};
 

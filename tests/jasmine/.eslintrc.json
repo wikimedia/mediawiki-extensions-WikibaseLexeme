@@ -5,11 +5,12 @@
 	},
 	"globals": {
 		"beforeEach": false,
-		"Promise": false
+		"Promise": false,
+		"require": false
 	},
 	"rules": {
-		"mediawiki/valid-package-file-require": 0,
-		"no-global-assign": 2,
-		"no-restricted-globals": [2, "global"]
+		"mediawiki/valid-package-file-require": "off",
+		"no-global-assign": "error",
+		"no-restricted-globals": [ "error", "global" ]
 	}
 }

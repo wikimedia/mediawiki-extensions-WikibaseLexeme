@@ -2,19 +2,18 @@
 	"root": true,
 	"extends": [
 		"wikimedia/client",
-		"wikimedia/mediawiki",
-		"wikimedia/jquery"
+		"wikimedia/jquery",
+		"wikimedia/mediawiki"
 	],
 	"globals": {
-		"mw": false,
-		"module": false,
-		"OO": false,
-		"require": false,
-		"util": false,
-		"wikibase": false,
-		"Vue": false,
-		"Vuex": false,
-		"global": false
+		"module": "readonly",
+		"require": "readonly",
+		"OO": "readonly",
+		"util": "readonly",
+		"wikibase": "readonly",
+		"Vue": "readonly",
+		"Vuex": "readonly",
+		"global": "readonly"
 	},
 	"plugins": [
 		"promise",
@@ -31,15 +30,13 @@
 				}
 			}
 		],
+		"no-jquery/no-global-selector": "off",
 		"no-underscore-dangle": "off",
 		"no-use-before-define": [
 			"error",
 			"nofunc"
 		],
 		"max-len": "off",
-		"mediawiki/valid-package-file-require": "error",
-		"no-jquery/no-global-selector": "off",
-		"no-jquery/no-parse-html-literal": "off",
 		"one-var": "off",
 		"operator-linebreak": "off",
 		"promise/no-native": "error",

@@ -28,7 +28,7 @@
 			template: 'wikibase-lexeme-sense',
 			templateParams: [
 				function () {
-					var $container = $( '<span/>' );
+					var $container = $( '<span>' );
 					this.deferredSenseWithId.promise().then( function ( sense ) {
 						$container.text( sense.getId() );
 					} );
@@ -36,13 +36,13 @@
 					return $container;
 				},
 				function () {
-					return $( '<div class="wikibase-lexeme-sense-glosses"></div>' );
+					return $( '<div>' ).addClass( 'wikibase-lexeme-sense-glosses' );
 				},
 				function () {
-					var $container = $( '<div/>' );
+					var $container = $( '<div>' );
 					this.deferredSenseWithId.promise().then( function ( sense ) {
 						var messageKey = 'wikibaselexeme-statementsection-statements-about-sense';
-						var $header = $( '<h2/>' ).applyTemplate(
+						var $header = $( '<h2>' ).applyTemplate(
 							'wb-section-heading',
 							[
 								// eslint-disable-next-line mediawiki/msg-doc
@@ -53,7 +53,7 @@
 						);
 						$container.append( $header );
 
-						var $statements = $( '<div/>' );
+						var $statements = $( '<div>' );
 						this.options.buildStatementGroupListView(
 							sense,
 							$statements,

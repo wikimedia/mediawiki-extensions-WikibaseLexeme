@@ -4,11 +4,12 @@
 		"../.eslintrc.json"
 	],
 	"globals": {
-		"sinon": false
+		"sinon": "readonly"
 	},
 	"rules": {
 		"no-new": "off",
 		"qunit/no-assert-equal": "off",
-		"qunit/resolve-async": "off"
+		"qunit/resolve-async": "off",
+		"no-jquery/no-parse-html-literal": "off"
 	}
 }

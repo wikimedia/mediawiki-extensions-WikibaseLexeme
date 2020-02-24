@@ -36,7 +36,7 @@
 			template: 'wikibase-lexeme-form',
 			templateParams: [
 				function () {
-					var $container = $( '<span/>' );
+					var $container = $( '<span>' );
 					this.deferredFormWithId.promise().then( function ( form ) {
 						$container.text( form.getId() );
 					} );
@@ -48,10 +48,10 @@
 					return mw.wbTemplate( 'wikibase-lexeme-form-grammatical-features', '' );
 				},
 				function () {
-					var $container = $( '<div/>' );
+					var $container = $( '<div>' );
 					this.deferredFormWithId.promise().then( function ( form ) {
 						var messageKey = 'wikibaselexeme-statementsection-statements-about-form';
-						var $header = $( '<h2/>' ).applyTemplate(
+						var $header = $( '<h2>' ).applyTemplate(
 							'wb-section-heading',
 							[
 								// eslint-disable-next-line mediawiki/msg-doc
@@ -62,7 +62,7 @@
 						);
 						$container.append( $header );
 
-						var $statements = $( '<div/>' );
+						var $statements = $( '<div>' );
 						this.options.buildStatementGroupListView(
 							form,
 							$statements,
