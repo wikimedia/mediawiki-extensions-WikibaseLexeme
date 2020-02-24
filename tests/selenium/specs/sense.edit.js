@@ -113,7 +113,7 @@ describe( 'Lexeme:Senses', () => {
 		assert.equal( 'goat', data.value );
 	} );
 
-	it.only( 'Removes Gloss', () => {
+	it( 'Removes Gloss', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
 			const id = lexeme.id;
 			return LexemeApi.addSense(
