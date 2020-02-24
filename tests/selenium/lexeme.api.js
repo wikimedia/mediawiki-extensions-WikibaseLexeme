@@ -35,8 +35,8 @@ class LexemeApi {
 				apiUrl: browser.config.baseUrl + '/api.php'
 			} );
 			return bot.loginGetEditToken( {
-				username: browser.config.username,
-				password: browser.config.password
+				username: browser.config.mwUser,
+				password: browser.config.mwPwd
 			} ).then( () => {
 				return bot.request( {
 					action: 'wbeditentity',
