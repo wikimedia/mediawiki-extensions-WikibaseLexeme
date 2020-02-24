@@ -5,7 +5,7 @@ const assert = require( 'assert' ),
 	LexemePage = require( '../../pageobjects/lexeme.page' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
-	loginAdmin = require( '../../loginAdmin' ),
+	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	MWApi = require( 'wdio-mediawiki/Api' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
@@ -205,7 +205,7 @@ describe( 'NewLexeme:Page', () => {
 		} );
 
 		it( 'is not possible to edit', () => {
-			loginAdmin();
+			LoginPage.loginAdmin();
 
 			NewLexemePage.open();
 
