@@ -18,7 +18,7 @@
 	} ) );
 
 	var newSenseView = function ( options ) {
-		var $node = $( '<div/>' ).appendTo( 'body' );
+		var $node = $( '<div>' ).appendTo( 'body' );
 		options = options || {};
 
 		$node.addClass( TEST_LEXMEFORMVIEW_CLASS );

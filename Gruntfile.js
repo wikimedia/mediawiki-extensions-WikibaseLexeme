@@ -14,7 +14,8 @@ module.exports = function ( grunt ) {
 		eslint: {
 			options: {
 				extensions: [ '.js', '.json' ],
-				cache: true
+				cache: true,
+				fix: grunt.option( 'fix' )
 			},
 			all: [
 				'**/*.{js,json}',
@@ -22,28 +23,19 @@ module.exports = function ( grunt ) {
 				'!node_modules/**',
 				'!resources/vendor/**',
 				'!vendor/**'
-			],
-			fix: {
-				options: {
-					extensions: [ '.js', '.json' ],
-					fix: true
-				},
-				src: [
-					'**/*.{js,json}',
-					'!Gruntfile.js',
-					'!node_modules/**',
-					'!resources/vendor/**',
-					'!vendor/**'
-				]
-			}
+			]
 		},
 		stylelint: {
+			options: {
+				fix: grunt.option( 'fix' )
+			},
 			all: [
 				'**/*.less',
 				'!node_modules/**',
 				'!vendor/**'
 			]
 		},
+		// eslint-disable-next-line no-restricted-properties
 		banana: Object.assign(
 			conf.MessagesDirs,
 			{
@@ -52,6 +44,7 @@ module.exports = function ( grunt ) {
 				}
 			}
 		),
+		// eslint-disable-next-line camelcase
 		jasmine_nodejs: {
 			all: {
 				options: {

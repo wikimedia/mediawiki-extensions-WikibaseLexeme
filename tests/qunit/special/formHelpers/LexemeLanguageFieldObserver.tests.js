@@ -27,15 +27,15 @@
 			new LexemeLanguageFieldObserver( null, getMockItemLookup(), getMockLanguageExtractor() );
 		} );
 		assert.throws( function () {
-			new LexemeLanguageFieldObserver( $( '<div/>' ), null, getMockLanguageExtractor() );
+			new LexemeLanguageFieldObserver( $( '<div>' ), null, getMockLanguageExtractor() );
 		} );
 		assert.throws( function () {
-			new LexemeLanguageFieldObserver( $( '<div/>' ), getMockItemLookup(), null );
+			new LexemeLanguageFieldObserver( $( '<div>' ), getMockItemLookup(), null );
 		} );
 	} );
 
 	QUnit.test( 'Given the provided item has no language code statement, lemma language field is shown', function ( assert ) {
-		var $field = $( '<div/>' ).css( 'display', 'none' ),
+		var $field = $( '<div>' ).css( 'display', 'none' ),
 			languageFieldObserver = new LexemeLanguageFieldObserver(
 				$field,
 				getMockItemLookup(),
