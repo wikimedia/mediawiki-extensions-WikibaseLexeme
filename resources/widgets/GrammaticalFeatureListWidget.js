@@ -81,6 +81,7 @@ module.exports = ( function () {
 				action: 'wbsearchentities',
 				search: this.input.getValue(),
 				format: 'json',
+				errorformat: 'plaintext',
 				language: this._language,
 				uselang: this._language,
 				type: 'item'

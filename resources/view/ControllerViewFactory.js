@@ -35,7 +35,7 @@
 				entityChangersFactory.getRevisionStore()
 			);
 			var changersFactory = new wb.entityChangers.EntityChangersFactory(
-				new wb.api.RepoApi( this._api ),
+				new wb.api.RepoApi( this._api, mw.config.get( 'wgUserLanguage' ) ),
 				this._revisionStore,
 				entityChangersFactory.getEntity(),
 				function ( hookName ) {
@@ -253,6 +253,7 @@
 				type: 'wikibase-entityid'
 			} ), // FIXME use data value
 			format: 'json',
+			errorformat: 'plaintext',
 			language: mw.config.get( 'wgUserLanguage' ),
 			uselang: mw.config.get( 'wgUserLanguage' ),
 			generate: 'text/html'

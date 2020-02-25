@@ -5,6 +5,7 @@
 		ItemLookup = require( '../services/ItemLookup.js' ),
 		LexemeLanguageFieldObserver = require( './formHelpers/LexemeLanguageFieldObserver.js' ),
 		repoConfig = mw.config.get( 'wbRepo' ),
+		userLanguage = mw.config.get( 'wgUserLanguage' ),
 		repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
 		languageSelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
 			$( '#wb-newlexeme-lexeme-language' )
@@ -18,14 +19,14 @@
 		).$element,
 		itemSelectorConfig = {
 			apiUrl: repoApiUrl,
-			language: mw.config.get( 'wgUserLanguage' ),
+			language: userLanguage,
 			timeout: 8000
 		};
 
 	languageSelector.initialize( $.extend( {
 		changeObserver: new LexemeLanguageFieldObserver(
 			$lemmaLanguageField,
-			new ItemLookup( new wb.api.RepoApi( mwApi ) ),
+			new ItemLookup( new wb.api.RepoApi( mwApi, userLanguage ) ),
 			new LanguageFromItemExtractor( mw.config.get( 'LexemeLanguageCodePropertyId' ) )
 		)
 	}, itemSelectorConfig ) );
