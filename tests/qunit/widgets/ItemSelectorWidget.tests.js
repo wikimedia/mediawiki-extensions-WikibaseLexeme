@@ -4,17 +4,13 @@
 ( function ( wb ) {
 	QUnit.module( 'wikibase.lexeme.widgets.ItemSelectorWidget' );
 
-	var newInitializedItemSelectorWidget = function () {
+	var newInitializedItemSelectorWidget = function ( options ) {
 		var $hiddenField = $( '<input>' )
 				.attr( 'type', 'hidden' ),
 			config = { $valueField: $hiddenField },
 			widget = new wb.lexeme.widgets.ItemSelectorWidget( config );
 
-		widget.initialize( {
-			apiUrl: '-',
-			language: '-',
-			timeout: 100
-		} );
+		widget.initialize( options || { apiUrl: '-', language: '-', timeout: 100 } );
 
 		return widget;
 	};
@@ -26,6 +22,22 @@
 		assertionCallback();
 		ajaxStub.restore();
 	};
+
+	QUnit.test( 'test request parameters that must be sent to the API', function ( assert ) {
+		var widget = newInitializedItemSelectorWidget(
+				{ apiUrl: '-', language: 'someLanguage', timeout: 100 }
+			),
+			expectedParameters = {
+				action: 'wbsearchentities',
+				search: 'someSearchTerm',
+				format: 'json',
+				language: 'someLanguage',
+				type: 'item',
+				errorformat: 'plaintext',
+				uselang: 'someLanguage' };
+
+		assert.deepEqual( widget._getSearchApiParameters( 'someSearchTerm' ), expectedParameters );
+	} );
 
 	QUnit.test( 'getLookupRequest returns request results', function ( assert ) {
 		var widget = newInitializedItemSelectorWidget(),

@@ -50,6 +50,7 @@
 				{
 					action: 'wbsearchentities',
 					format: 'json',
+					errorformat: 'plaintext',
 					language: 'en',
 					search: 'some input value',
 					type: 'item',

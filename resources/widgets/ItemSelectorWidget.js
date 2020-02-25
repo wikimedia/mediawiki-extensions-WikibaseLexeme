@@ -149,6 +149,7 @@
 				action: 'wbsearchentities',
 				search: term,
 				format: 'json',
+				errorformat: 'plaintext',
 				language: this._language,
 				uselang: this._language,
 				type: 'item'
