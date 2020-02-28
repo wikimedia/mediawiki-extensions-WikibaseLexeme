@@ -20,7 +20,9 @@
 
 	QUnit.test( 'New Sense - makes the expected API call', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				sense: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -72,10 +74,12 @@
 
 		var sense = new Sense( null, null );
 
+		assert.expect( 2 );
+
 		changer.save( sense ).then( function ( sense ) {
 			assert.equal( sense.getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.equal(
-				sense.getglosses().getItemByKey( 'en' ).getText(),
+				sense.getGlosses().getItemByKey( 'en' ).getText(),
 				'some gloss',
 				'Saved gloss'
 			);
@@ -113,6 +117,8 @@
 
 		var sense = new Sense( null, null );
 
+		assert.expect( 1 );
+
 		changer.save( sense ).then( function () {
 			assert.equal( revisionStore.getSenseRevision( 'L1-S100' ), 303 );
 			done();
@@ -143,6 +149,8 @@
 
 			var sense = new Sense( null, null );
 
+			assert.expect( 3 );
+
 			changer.save( sense ).catch( function ( error ) {
 				assert.ok(
 					error instanceof wb.api.RepoApiError,
@@ -171,8 +179,11 @@
 
 	QUnit.test( 'Existing Sense data changed - makes the expected API call', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				sense: {}
+			} ).promise();
 		} );
+
 		var api = {
 			post: post
 		};
@@ -208,7 +219,9 @@
 
 	QUnit.test( 'Gloss added - only new gloss passed to API', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				sense: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -244,7 +257,9 @@
 
 	QUnit.test( 'One of many glosses changed - only changed gloss passed to API', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				sense: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -281,7 +296,9 @@
 
 	QUnit.test( 'Gloss removed - remove request passed to API', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				sense: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -344,6 +361,8 @@
 
 		var changer = new SenseChanger( api, revisionStore, 'L1', oldSenseData );
 
+		assert.expect( 2 );
+
 		changer.save( sense ).then( function ( sense ) {
 			assert.equal( sense.getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.equal(
@@ -378,6 +397,8 @@
 			var changer = new SenseChanger( api, revisionStore, 'L1', {} );
 
 			var sense = new Sense( 'L1-S1', null );
+
+			assert.expect( 3 );
 
 			changer.save( sense ).catch( function ( error ) {
 				assert.ok(
@@ -441,6 +462,8 @@
 		var sense = new Sense( 'L11-S300', glosses );
 
 		var testPromise = $.Deferred();
+
+		assert.expect( 4 );
 
 		changer.remove( sense ).fail( function ( apiError ) {
 			assert.ok( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );

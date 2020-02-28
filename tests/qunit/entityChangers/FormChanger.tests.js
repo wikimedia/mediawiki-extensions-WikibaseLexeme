@@ -20,7 +20,9 @@
 
 	QUnit.test( 'New Form - makes the expected API call', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				form: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -78,6 +80,8 @@
 
 		var form = new Form( null, null, [] );
 
+		assert.expect( 3 );
+
 		changer.save( form ).then( function ( form ) {
 			assert.equal( form.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.equal(
@@ -124,6 +128,8 @@
 
 		var form = new Form( null, null, [] );
 
+		assert.expect( 1 );
+
 		changer.save( form ).then( function () {
 			assert.equal( revisionStore.getFormRevision( 'L1-F100' ), 303 );
 			done();
@@ -154,6 +160,8 @@
 
 			var form = new Form( null, null, [] );
 
+			assert.expect( 3 );
+
 			changer.save( form ).catch( function ( error ) {
 				assert.ok(
 					error instanceof wb.api.RepoApiError,
@@ -182,7 +190,9 @@
 
 	QUnit.test( 'Existing Form data changed - makes the expected API call', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				form: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -225,7 +235,9 @@
 
 	QUnit.test( 'Representation added - only new representation passed to API', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				form: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -262,7 +274,9 @@
 
 	QUnit.test( 'One of many representations changed - only changed representation passed to API', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				form: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -300,7 +314,9 @@
 
 	QUnit.test( 'Representation removed - remove request passed to API', function ( assert ) {
 		var post = sinon.spy( function () {
-			return $.Deferred().resolve( {} ).promise();
+			return $.Deferred().resolve( {
+				form: {}
+			} ).promise();
 		} );
 		var api = {
 			post: post
@@ -367,6 +383,8 @@
 
 		var changer = new FormChanger( api, revisionStore, 'L1', oldFormData );
 
+		assert.expect( 3 );
+
 		changer.save( form ).then( function ( form ) {
 			assert.equal( form.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.equal(
@@ -406,6 +424,8 @@
 			var changer = new FormChanger( api, revisionStore, 'L1', {} );
 
 			var form = new Form( 'L1-F1', null, [] );
+
+			assert.expect( 3 );
 
 			changer.save( form ).catch( function ( error ) {
 				assert.ok(
@@ -469,6 +489,8 @@
 		var form = new Form( 'L11-F300', representations, [ 'Q1', 'Q2' ] );
 
 		var testPromise = $.Deferred();
+
+		assert.expect( 4 );
 
 		changer.remove( form ).fail( function ( apiError ) {
 			assert.ok( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
