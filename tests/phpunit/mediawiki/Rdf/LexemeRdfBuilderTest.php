@@ -3,17 +3,21 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataAccess\EntitySource;
+use Wikibase\DataAccess\EntitySourceDefinitions;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
+use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Rdf\EntityMentionListener;
 use Wikibase\Rdf\HashDedupeBag;
 use Wikibase\Rdf\NullEntityMentionListener;
 use Wikibase\Rdf\RdfBuilder;
 use Wikibase\Rdf\RdfProducer;
+use Wikibase\Rdf\RdfVocabulary;
 use Wikibase\Repo\Tests\Rdf\NTriplesRdfTestHelper;
 use Wikibase\Repo\Tests\Rdf\RdfBuilderTestData;
 use Wikibase\Repo\WikibaseRepo;
@@ -60,6 +64,39 @@ class LexemeRdfBuilderTest extends TestCase {
 		return $this->testData;
 	}
 
+	private function getVocabulary() : RdfVocabulary {
+		return new RdfVocabulary(
+			[ 'test' => 'http://acme.test/' ],
+			[ 'test' => '' ],
+			new EntitySourceDefinitions(
+				[
+					new EntitySource(
+						'test',
+						'testdb',
+						[
+							'item' => [ 'namespaceId' => 500, 'slot' => 'main' ],
+							'lexeme' => [ 'namespaceId' => 700, 'slot' => 'main' ],
+						],
+						'http://acme.test/',
+						'',
+						'',
+						''
+					),
+				],
+				new EntityTypeDefinitions( [
+					'lexeme' => [ 'sub-entity-types' => [ 'form', 'sense' ] ],
+				] )
+			),
+			'test',
+			[ 'test' => '' ],
+			[ 'test' => '' ],
+			[],
+			[],
+			[],
+			'http://creativecommons.org/publicdomain/zero/1.0/'
+		);
+	}
+
 	/**
 	 * @param RdfWriter $writer
 	 * @param EntityMentionListener $entityMentionTracker
@@ -67,7 +104,7 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @return LexemeRdfBuilder
 	 */
 	private function newBuilder( RdfWriter $writer, EntityMentionListener $entityMentionTracker ) {
-		$vocabulary = $this->getTestData()->getVocabulary();
+		$vocabulary = $this->getVocabulary();
 		$builder = new \Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder(
 			$vocabulary,
 			$writer,
@@ -91,7 +128,7 @@ class LexemeRdfBuilderTest extends TestCase {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$builder = new RdfBuilder(
 			$this->getTestData()->getSiteLookup()->getSites(),
-			$this->getTestData()->getVocabulary(),
+			$this->getVocabulary(),
 			$wikibaseRepo->getValueSnakRdfBuilderFactory(),
 			$this->getTestData()->getMockRepository(),
 			$wikibaseRepo->getEntityRdfBuilderFactory(),
@@ -127,8 +164,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideAddLexeme
 	 */
 	public function testAddLexeme( $lexemeName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$this->addEntityTest( $lexeme, $dataSetName );
 	}
@@ -143,8 +178,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideLexemeSubEntities
 	 */
 	public function testLexemeSubEntities( $lexemeName, $subEntities ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$this->subEntityTest( $lexeme, $subEntities );
 	}
@@ -159,8 +192,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideLexemeMentionedEntities
 	 */
 	public function testLexemeMentionedEntities( $lexemeName, $mentionedEntities ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$this->mentionedEntityTest( $lexeme, $mentionedEntities );
 	}
@@ -175,8 +206,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideAddForm
 	 */
 	public function testAddForm( $lexemeName, $formName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$form = $lexeme->getForm( new FormId( $formName ) );
 		$this->addEntityTest( $form, $dataSetName );
@@ -192,8 +221,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideFormMentionedEntities
 	 */
 	public function testFormMentionedEntities( $lexemeName, $formName, $mentionedEntities ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$form = $lexeme->getForm( new FormId( $formName ) );
 		$this->mentionedEntityTest( $form, $mentionedEntities );
@@ -209,8 +236,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideAddSense
 	 */
 	public function testAddSense( $lexemeName, $senseName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$sense = $lexeme->getSense( new SenseId( $senseName ) );
 		$this->addEntityTest( $sense, $dataSetName );
@@ -226,8 +251,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideSenseMentionedEntities
 	 */
 	public function testSenseMentionedEntities( $lexemeName, $senseName, $mentionedEntities ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$sense = $lexeme->getSense( new SenseId( $senseName ) );
 		$this->mentionedEntityTest( $sense, $mentionedEntities );
@@ -283,8 +306,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideLexemeFullSerialization
 	 */
 	public function testLexemeFullSerialization( $lexemeName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$writer = $this->getTestData()->getNTriplesWriter( false );
 		$entityTitleLookup = $this->createMock( EntityTitleLookup::class );
@@ -304,8 +325,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideAddLexemeStub
 	 */
 	public function testAddLexemeStub( $lexemeName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$this->addEntityStubTest( $lexeme, $dataSetName );
 	}
@@ -320,8 +339,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideAddFormStub
 	 */
 	public function testAddFormStub( $lexemeName, $formName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$form = $lexeme->getForm( new FormId( $formName ) );
 		$this->addEntityStubTest( $form, $dataSetName );
@@ -337,8 +354,6 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @dataProvider provideAddSenseStub
 	 */
 	public function testAddSenseStub( $lexemeName, $senseName, $dataSetName ) {
-		$this->markTestSkipped( 'Temporarily skipping due to ongoing changes in Wikibase: T245830' );
-
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$sense = $lexeme->getSense( new SenseId( $senseName ) );
 		$this->addEntityStubTest( $sense, $dataSetName );
