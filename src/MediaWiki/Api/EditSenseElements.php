@@ -18,11 +18,11 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
-use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
 /**

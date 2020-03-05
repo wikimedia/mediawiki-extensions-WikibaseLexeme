@@ -14,8 +14,8 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeseria
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\ChangeOps;
-use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser

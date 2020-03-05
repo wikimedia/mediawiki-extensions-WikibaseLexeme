@@ -9,8 +9,8 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\Validators\CompositeValidator;
-use Wikibase\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage

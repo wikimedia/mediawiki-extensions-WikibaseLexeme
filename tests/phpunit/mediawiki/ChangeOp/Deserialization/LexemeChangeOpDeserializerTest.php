@@ -31,11 +31,11 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LexemeChangeOpDeserializer

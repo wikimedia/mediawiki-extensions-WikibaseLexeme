@@ -11,9 +11,9 @@ use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeLibrary;
+use Wikibase\Lib\WikibaseSettings;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\WikibaseSettings;
 
 /**
  * MediaWiki hook handlers for the Wikibase Lexeme extension.

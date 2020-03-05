@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
-use Wikibase\Summary;
+use Wikibase\Lib\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**

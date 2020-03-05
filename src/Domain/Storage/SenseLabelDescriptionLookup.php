@@ -6,10 +6,10 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\View\LocalizedTextProvider;
 use Wikimedia\Assert\Assert;
 

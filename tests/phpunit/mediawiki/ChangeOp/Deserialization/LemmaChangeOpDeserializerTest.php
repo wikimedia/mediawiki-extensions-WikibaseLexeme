@@ -14,9 +14,9 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValida
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
-use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LemmaChangeOpDeserializer

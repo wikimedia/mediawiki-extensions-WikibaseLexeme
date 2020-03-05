@@ -14,7 +14,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\StringNormalizer;
+use Wikibase\Lib\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer

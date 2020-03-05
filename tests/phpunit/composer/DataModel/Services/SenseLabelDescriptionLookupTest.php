@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\DataModel\Services;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
-use Wikibase\LanguageFallbackChain;
-use Wikibase\LanguageWithConversion;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lib\LanguageFallbackChain;
+use Wikibase\Lib\LanguageWithConversion;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**

@@ -26,9 +26,9 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lib\StaticContentLanguages;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Validators\CompositeValidator;
-use Wikibase\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser

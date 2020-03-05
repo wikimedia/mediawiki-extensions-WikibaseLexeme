@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use Language;
 use PHPUnit\Framework\TestCase;
-use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\View\LexemeView;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
+use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\Store\EntityInfo;
 
 /**

@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Presentation\View;
 
 use Language;
-use Wikibase\LanguageFallbackChain;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\Store\EntityInfo;
 use Wikibase\Lib\Store\EntityInfoTermLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;

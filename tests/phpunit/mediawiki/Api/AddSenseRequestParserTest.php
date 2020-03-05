@@ -20,7 +20,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\StaticContentLanguages;
-use Wikibase\StringNormalizer;
+use Wikibase\Lib\StringNormalizer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\AddSenseRequestParser

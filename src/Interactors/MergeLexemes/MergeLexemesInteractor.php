@@ -19,8 +19,8 @@ use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
 use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
-use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 
 /**

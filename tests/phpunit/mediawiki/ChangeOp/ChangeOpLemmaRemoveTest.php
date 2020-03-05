@@ -12,7 +12,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Summary;
+use Wikibase\Lib\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove

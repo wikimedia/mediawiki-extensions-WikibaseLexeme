@@ -7,8 +7,8 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveForm;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\Tests\NewItem;
-use Wikibase\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveForm

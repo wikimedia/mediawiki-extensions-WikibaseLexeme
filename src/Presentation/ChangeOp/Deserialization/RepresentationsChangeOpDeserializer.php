@@ -7,8 +7,8 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveFormRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
-use Wikibase\StringNormalizer;
 
 /**
  * @license GPL-2.0-or-later

@@ -6,10 +6,10 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
-use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
 /**

@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Summary;
 
-use Wikibase\Summary;
+use Wikibase\Lib\Summary;
 
 /**
  * @license GPL-2.0-or-later

@@ -7,7 +7,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
-use Wikibase\Summary;
+use Wikibase\Lib\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**

@@ -13,10 +13,10 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\NewStatement;
-use Wikibase\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd

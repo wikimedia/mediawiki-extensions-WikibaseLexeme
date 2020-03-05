@@ -7,10 +7,10 @@ use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpApplyException;
 use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
-use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
 /**

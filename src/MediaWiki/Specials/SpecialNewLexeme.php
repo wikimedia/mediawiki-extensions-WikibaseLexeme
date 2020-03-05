@@ -22,10 +22,10 @@ use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
-use Wikibase\Summary;
 use Wikibase\SummaryFormatter;
 use Wikimedia\Assert\Assert;
 

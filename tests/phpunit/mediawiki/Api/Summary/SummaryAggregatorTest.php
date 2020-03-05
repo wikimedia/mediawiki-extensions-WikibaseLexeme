@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Summary;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
-use Wikibase\Summary;
+use Wikibase\Lib\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator

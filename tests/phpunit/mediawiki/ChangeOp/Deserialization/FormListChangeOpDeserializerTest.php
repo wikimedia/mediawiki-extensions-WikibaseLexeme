@@ -15,8 +15,8 @@ use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOps;
-use Wikibase\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormListChangeOpDeserializer

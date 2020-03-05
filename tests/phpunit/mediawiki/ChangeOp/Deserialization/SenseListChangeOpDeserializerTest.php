@@ -15,8 +15,8 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOps;
-use Wikibase\Summary;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseListChangeOpDeserializer

@@ -8,9 +8,9 @@ use ValueValidators\ValueValidator;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
 use Wikibase\Repo\ChangeOp\DummyChangeOpResult;
-use Wikibase\Summary;
 use Wikimedia\Assert\Assert;
 
 /**

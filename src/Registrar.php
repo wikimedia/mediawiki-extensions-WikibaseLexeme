@@ -9,7 +9,7 @@ use Wikibase\Lexeme\MediaWiki\Api\EditSenseElements;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveForm;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSense;
-use Wikibase\WikibaseSettings;
+use Wikibase\Lib\WikibaseSettings;
 
 /**
  * @license GPL-2.0-or-later
