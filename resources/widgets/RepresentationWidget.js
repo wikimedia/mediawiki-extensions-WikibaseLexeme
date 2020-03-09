@@ -1,7 +1,7 @@
 module.exports = ( function ( Vuex ) {
 	'use strict';
 
-	var Vue = require( 'vue2' ),
+	var Vue = require( 'vue' ),
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
 		actionTypes = require( '../store/actionTypes.js' ),
 		focusElement = require( '../focusElement.js' );

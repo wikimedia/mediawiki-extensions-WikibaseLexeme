@@ -56,8 +56,8 @@ return call_user_func( function() {
 				"mw.config.values.wbRepo",
 				"mediawiki.api",
 				"mediawiki.widgets",
-				"vue2",
-				"vuex3",
+				"vue",
+				"vuex",
 				"wikibase.lexeme",
 				"wikibase.api.RepoApi",
 				"wikibase.templates.lexeme",
@@ -96,13 +96,6 @@ return call_user_func( function() {
 				"wikibaselexeme-sense-gloss-invalid-language",
 				"wikibaselexeme-sense-gloss-redundant-language",
 				"wikibase-lexeme-language-selector-label"
-			]
-		],
-		"vuex3" => $moduleTemplate + [
-			"scripts" => "vendor/vuex-3.1.3.js",
-			"dependencies" => [
-				"vue2",
-				"es6-promise"
 			]
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [

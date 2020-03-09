@@ -1,12 +1,13 @@
 /**
- * vuex is provided by ResourceLoader, not required inside prod code
- *
- * vue is provided via require of "vue2" (name of the ResourceLoader module) in prod code.
- * The name "vue2" is made known to require during jasmine tests, where there is no ResourceLoader,
- * through a module alias (see package.json)
+ * In production, both Vue and Vuex are loaded as ResourceLoader modules,
+ * and the Vuex module already installs Vuex in Vue.
+ * In the jasmine tests, none of that happens,
+ * so we have to do the loading and installing ourselves.
  */
 
 /* eslint no-restricted-globals: 0 */
 /* eslint no-implicit-globals: 0 */
 
+var Vue = global.Vue = require( 'vue/dist/vue.js' );
 var Vuex = global.Vuex = require( 'vuex/dist/vuex.js' );
+Vue.use( Vuex );

@@ -37,9 +37,6 @@
 		"wdio-wikibase": "^3.0.0",
 		"webdriverio": "^5.18.7"
 	},
-	"_moduleAliases": {
-		"vue2": "node_modules/vue/dist/vue.js"
-	},
 	"browserslist": [
 		"ie 11"
 	]

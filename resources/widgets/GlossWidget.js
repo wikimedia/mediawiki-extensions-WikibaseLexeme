@@ -1,7 +1,7 @@
 module.exports = ( function ( require, wb, Vuex ) {
 	'use strict';
 
-	var Vue = require( 'vue2' ),
+	var Vue = require( 'vue' ),
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
 		InvalidLanguageIndicator = require( './InvalidLanguageIndicator.js' ),
 		LanguageSelectorWrapper = require( './LanguageSelectorWrapper.js' ),

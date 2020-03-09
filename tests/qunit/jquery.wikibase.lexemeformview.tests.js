@@ -4,7 +4,7 @@
 ( function ( require, wb ) {
 	'use strict';
 
-	var Vue = require( 'vue2' );
+	var Vue = require( 'vue' );
 	var datamodel = require( 'wikibase.datamodel' );
 
 	/** @type {wikibase.datamodel.TermMap}*/

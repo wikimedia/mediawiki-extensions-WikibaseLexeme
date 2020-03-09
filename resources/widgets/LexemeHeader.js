@@ -2,7 +2,7 @@ require( './__namespace.js' );
 wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	'use strict';
 
-	var Vue = require( 'vue2' );
+	var Vue = require( 'vue' );
 	var newLexemeHeaderStore = require( './LexemeHeader.newLexemeHeaderStore.js' );
 	var newLemmaWidget = require( './LemmaWidget.newLemmaWidget.js' );
 	var newLanguageAndLexicalCategoryWidget = require( './LanguageAndLexicalCategoryWidget.js' );
