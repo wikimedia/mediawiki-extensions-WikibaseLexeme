@@ -40,7 +40,7 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 
 		$article->delete();
 
-		$this->assertContains( 'Delete', $context->getOutput()->getPageTitle() );
+		$this->assertStringContainsString( 'Delete', $context->getOutput()->getPageTitle() );
 	}
 
 	private function createTestLexeme( $id ) {

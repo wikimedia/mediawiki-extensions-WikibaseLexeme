@@ -618,7 +618,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'/* add-form-grammatical-features:1||L1-F1 */',
 			$revision->getComment()->text
 		);
-		$this->assertContains( 'Q678', $revision->getComment()->text );
+		$this->assertStringContainsString( 'Q678', $revision->getComment()->text );
 	}
 
 	public function testGivenRemovedGrammaticalFeature_summarySetAccordingly() {
@@ -653,7 +653,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'/* remove-form-grammatical-features:1||L1-F1 */',
 			$revision->getComment()->text
 		);
-		$this->assertContains( 'Q123', $revision->getComment()->text );
+		$this->assertStringContainsString( 'Q123', $revision->getComment()->text );
 	}
 
 	public function testGivenAddedAndRemovedGrammaticalFeature_summarySetAccordingly() {

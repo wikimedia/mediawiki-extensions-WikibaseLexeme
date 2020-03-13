@@ -164,9 +164,9 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$parserOutput = $entityParserOutputGenerator->getParserOutput( $entityRevision );
 		$title = $parserOutput->getExtensionData( 'wikibase-meta-tags' )['title'];
 
-		$this->assertContains( 'goat', $title );
-		$this->assertContains( 'taog', $title );
-		$this->assertContains(
+		$this->assertStringContainsString( 'goat', $title );
+		$this->assertStringContainsString( 'taog', $title );
+		$this->assertStringContainsString(
 			( new Message(
 				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
 			)->escaped(),

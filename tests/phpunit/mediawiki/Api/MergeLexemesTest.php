@@ -92,7 +92,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		$revision = MediaWikiServices::getInstance()->getRevisionStore()
 			->getRevisionById( $revId );
 
-		$this->assertContains( $summary, $revision->getComment()->text );
+		$this->assertStringContainsString( $summary, $revision->getComment()->text );
 	}
 
 	public function testRequestByUserWithoutPermission_accessIsDenied() {

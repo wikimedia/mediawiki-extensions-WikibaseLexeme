@@ -90,7 +90,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 		list( $html, ) = $this->executeSpecialPage( '', $request, 'qqx' );
 
-		$this->assertContains( '(actionthrottledtext)', $html );
+		$this->assertStringContainsString( '(actionthrottledtext)', $html );
 	}
 
 	/**
