@@ -354,7 +354,7 @@ class LexemeContentTest extends TestCase {
 	 * @return Title|MockObject
 	 */
 	private function getMockTitle() {
-		return $this->getMockBuilder( Title::class )->getMock();
+		return $this->createMock( Title::class );
 	}
 
 	public function testGetTextForFilters() {
