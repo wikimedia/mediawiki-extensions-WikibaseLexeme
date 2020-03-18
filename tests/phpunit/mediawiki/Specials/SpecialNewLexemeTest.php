@@ -38,6 +38,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	public function setUp() : void {
 		parent::setUp();
+		$this->setUserLang( 'qqx' );
 
 		$this->tablesUsed[] = 'page';
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
@@ -201,7 +202,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],
-				'language code was not recognized',
+				'(htmlform-invalid-input)',
 			],
 			'empty lemma' => [
 				[
@@ -210,7 +211,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],
-				'value is required',
+				'(htmlform-invalid-input)',
 			],
 			'lexical category has wrong format' => [
 				[
@@ -219,7 +220,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => 'x',
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],
-				'invalid format',
+				'(htmlform-invalid-input)',
 			],
 			'lexeme language has wrong format' => [
 				[
@@ -228,7 +229,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => 'x',
 				],
-				'invalid format',
+				'(htmlform-invalid-input)',
 			],
 			'lexical category does not exist' => [
 				[
@@ -237,7 +238,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::NON_EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],
-				'does not exist',
+				'(htmlform-invalid-input)',
 			],
 			'lexeme language does not exist' => [
 				[
@@ -246,7 +247,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::NON_EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],
-				'does not exist',
+				'(htmlform-invalid-input)',
 			],
 			'lexeme language is not set' => [
 				[
@@ -255,7 +256,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => '',
 				],
-				'invalid format',
+				'(htmlform-invalid-input)',
 			],
 			'lexical category is not set' => [
 				[
@@ -264,7 +265,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => '',
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],
-				'invalid format',
+				'(htmlform-invalid-input)',
 			],
 		];
 	}

@@ -33,7 +33,6 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  */
 class SpecialMergeLexemesTest extends SpecialPageTestBase {
-
 	use HamcrestPHPUnitIntegration;
 
 	/** @var Lexeme */
@@ -62,6 +61,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 	public function setUp() : void {
 		parent::setUp();
+		$this->setUserLang( 'qqx' );
 
 		$this->tablesUsed[] = 'page';
 
@@ -133,7 +133,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 			is( htmlPiece( havingChild(
 				both( withTagName( 'p' ) )
 					->andAlso( havingTextContents(
-						equalToIgnoringWhiteSpace( 'Lexeme:L1 was merged into Lexeme:L2 and redirected.' )
+						containsString( '(wikibase-lexeme-mergelexemes-success: ' )
 					) )
 			) ) )
 		);
@@ -158,10 +158,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 		$this->assertShowsErrorWithMessage(
 			$output,
-			wfMessage( 'wikibase-lexeme-mergelexemes-error-invalid-id',
-				[
-					'not-a-lexeme-id'
-				] )
+			'(wikibase-lexeme-mergelexemes-error-invalid-id: not-a-lexeme-id)'
 		);
 	}
 
