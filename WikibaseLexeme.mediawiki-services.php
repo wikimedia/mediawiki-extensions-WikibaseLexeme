@@ -30,6 +30,10 @@ return call_user_func( function() {
 		'rm-sursilv',
 		'rm-vallader',
 		'rm-puter',
+
+		//T223716
+		'nrf-gg',
+		'nrf-je'
 	];
 
 	return [
