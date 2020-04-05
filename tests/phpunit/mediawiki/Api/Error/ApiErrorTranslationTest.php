@@ -95,7 +95,7 @@ class ApiErrorTranslationTest extends TestCase {
 	) {
 		$text = $apiMessage->inLanguage( 'en' )->text();
 		foreach ( $paramValues as $paramValue ) {
-			$this->assertContains( $paramValue, $text );
+			$this->assertStringContainsString( $paramValue, $text );
 		}
 	}
 

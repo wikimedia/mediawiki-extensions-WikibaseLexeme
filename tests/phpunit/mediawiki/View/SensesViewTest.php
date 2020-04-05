@@ -156,7 +156,7 @@ class SensesViewTest extends TestCase {
 			) ) )
 		);
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<td class="wikibase-lexeme-sense-gloss-value-cell" dir="rtl" lang="fa">',
 			explode( '<tr class="wikibase-lexeme-sense-gloss">', $html, 3 )[2]
 		);

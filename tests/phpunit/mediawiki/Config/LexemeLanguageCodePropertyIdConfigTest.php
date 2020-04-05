@@ -38,14 +38,10 @@ class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiTestCase {
 		$evilConfig = '"\'';
 		$this->setMwGlobals( 'wgLexemeLanguageCodePropertyId', $evilConfig );
 
-		$this->assertContainsString(
-			$module->getScript( $this->getContext() ),
-			json_encode( $evilConfig )
+		$this->assertStringContainsString(
+			json_encode( $evilConfig ),
+			$module->getScript( $this->getContext() )
 		);
-	}
-
-	private function assertContainsString( $haystack, $needle ) {
-		$this->assertTrue( strpos( $haystack, $needle ) !== false );
 	}
 
 }
