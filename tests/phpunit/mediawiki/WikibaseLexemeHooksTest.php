@@ -64,7 +64,7 @@ class WikibaseLexemeHooksTest extends TestCase {
 
 	private function assertSuccessfulHookResult( $result ) {
 		$this->assertNotFalse( $result );
-		$this->assertNotInternalType( 'string', $result );
+		$this->assertIsNotString( $result );
 	}
 
 	public function testOnWikibaseContentLanguages() {
