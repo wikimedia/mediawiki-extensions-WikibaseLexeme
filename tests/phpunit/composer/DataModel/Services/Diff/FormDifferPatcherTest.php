@@ -190,24 +190,20 @@ class FormDifferPatcherTest extends TestCase {
 	}
 
 	private function assertHasGrammaticalFeature( ItemId $gf, Form $form ) {
-		$this->assertContains(
+		$this->assertContainsEquals(
 			$gf,
 			$form->getGrammaticalFeatures(),
 			"Expected to have grammatical feature {$gf->getSerialization()}"
-			. " but doesn't",
-			false,
-			false
+			. " but doesn't"
 		);
 	}
 
 	private function assertDoentHaveGrammaticalFeature( ItemId $gf, Form $form ) {
-		$this->assertNotContains(
+		$this->assertNotContainsEquals(
 			$gf,
 			$form->getGrammaticalFeatures(),
 			"Expected not to have grammatical feature {$gf->getSerialization()}"
-			. " but has",
-			false,
-			false
+			. " but has"
 		);
 	}
 
