@@ -143,11 +143,14 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$html = $view->getContent( $lexeme )->getHtml();
 		$this->assertIsString( $html );
-		$this->assertContains( 'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"', $html );
-		$this->assertContains( 'class="wikibase-entityview wb-lexeme"', $html );
-		$this->assertContains( 'FormsView::getHtml', $html );
-		$this->assertContains( 'SensesView::getHtml', $html );
-		$this->assertContains( 'StatementSectionsView::getHtml', $html );
+		$this->assertStringContainsString(
+			'id="wb-lexeme-' . ( $lexeme->getId() ?: 'new' ) . '"',
+			$html
+		);
+		$this->assertStringContainsString( 'class="wikibase-entityview wb-lexeme"', $html );
+		$this->assertStringContainsString( 'FormsView::getHtml', $html );
+		$this->assertStringContainsString( 'SensesView::getHtml', $html );
+		$this->assertStringContainsString( 'StatementSectionsView::getHtml', $html );
 	}
 
 	public function provideTestGetContent() {
@@ -187,7 +190,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 		$html = $view->getContent( $lexeme )->getHtml();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'v-on:click="save">{{\'wikibase-release-the-goats\'|message}}</button>',
 			$html
 		);
@@ -247,7 +250,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 				)
 			)
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<div id="toc"></div>'
 			. "StatementSectionsView::getHtml\n"
 			. "SensesView::getHtml\n"
@@ -285,7 +288,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 				)
 			)
 		);
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'<div id="toc"></div>'
 			. "StatementSectionsView::getHtml\n"
 			. "SensesView::getHtml\n"

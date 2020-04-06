@@ -94,7 +94,10 @@ class LexemeLinkFormatterTest extends TestCase {
 
 		$formatter = $this->newFormatter();
 
-		$this->assertContains( $formatterOutput, $formatter->getHtml( new LexemeId( 'L1' ) ) );
+		$this->assertStringContainsString(
+			$formatterOutput,
+			$formatter->getHtml( new LexemeId( 'L1' ) )
+		);
 	}
 
 	private function newFormatter() {
@@ -139,7 +142,7 @@ class LexemeLinkFormatterTest extends TestCase {
 
 		$formatter = $this->newFormatter();
 
-		$this->assertContains(
+		$this->assertStringContainsString(
 			'Lexeme:L123',
 			$formatter->getHtml( new LexemeId( 'Lexeme:L123' ) )
 		);
