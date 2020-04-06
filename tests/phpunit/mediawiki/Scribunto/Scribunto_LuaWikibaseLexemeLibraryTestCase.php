@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
 use PHPUnit\Framework\TestSuite;
 use Scribunto_LuaEngineTestBase;
-use Wikibase\Client\Tests\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
+use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Tests\MockRepository;
