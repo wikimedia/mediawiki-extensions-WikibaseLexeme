@@ -14,14 +14,6 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
  */
 class WikibaseLexemeHooksTest extends TestCase {
 
-	public function testOnCanonicalNamespaces_ReturnsTrue() {
-		$namespaces = [];
-
-		$result = WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
-
-		$this->assertSuccessfulHookResult( $result );
-	}
-
 	public function testOnCanonicalNamespaces_CalledFirstTime_RegistersLexemeNamespace() {
 		$namespaces = [];
 		$config = MediaWikiServices::getInstance()->getMainConfig();
@@ -60,11 +52,6 @@ class WikibaseLexemeHooksTest extends TestCase {
 
 		$this->expectException( \Exception::class );
 		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
-	}
-
-	private function assertSuccessfulHookResult( $result ) {
-		$this->assertNotFalse( $result );
-		$this->assertIsNotString( $result );
 	}
 
 	public function testOnWikibaseContentLanguages() {
