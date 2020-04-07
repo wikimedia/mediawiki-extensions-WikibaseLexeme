@@ -1,5 +1,7 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": []
+	},
 	"apihelp-wbladdform-param-lexemeId": "Lekseemin ID, esim. L10",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Kieli ei voi olla tyhjä"
 }

@@ -1,4 +1,6 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": []
+	},
 	"apierror-wikibaselexeme-parameter-required": "Parametrs \"$1\" ir obligāts"
 }

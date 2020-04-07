@@ -1,15 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Liuxinyu970226",
-			"Robby",
 			"Amire80",
-			"Raymond",
-			"Metalhead64",
-			"Lucas Werkmeister (WMDE)",
 			"Hamilton Abreu",
-			"Umherirrender",
-			"Omotecho"
+			"Liuxinyu970226",
+			"Lucas Werkmeister (WMDE)",
+			"Metalhead64",
+			"Omotecho",
+			"Raymond",
+			"Robby",
+			"Umherirrender"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",

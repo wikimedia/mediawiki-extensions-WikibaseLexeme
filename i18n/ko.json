@@ -1,12 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hwangjy9",
-			"Ykhwong",
-			"Garam",
-			"Nuevo Paso",
 			"Doyoon1995",
-			"Kwj2772"
+			"Garam",
+			"Hwangjy9",
+			"Kwj2772",
+			"Nuevo Paso",
+			"Ykhwong"
 		]
 	},
 	"wikibaselexeme-desc": "어휘소 개체 유형을 처리합니다",

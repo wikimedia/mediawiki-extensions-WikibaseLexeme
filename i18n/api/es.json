@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Carlosmg.dg",
 			"Dgstranz",
-			"Fitoschido",
-			"Carlosmg.dg"
+			"Fitoschido"
 		]
 	},
 	"apihelp-wbladdform-summary": "Añade una Forma al Lexema",

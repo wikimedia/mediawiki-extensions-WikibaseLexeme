@@ -1,11 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ilimanaq29",
-			"Mormegil",
-			"Matěj Suchánek",
 			"Dvorapa",
-			"JAn Dudík"
+			"Ilimanaq29",
+			"JAn Dudík",
+			"Matěj Suchánek",
+			"Mormegil"
 		]
 	},
 	"wikibaselexeme-desc": "Zpracovává typ entity lexém",

@@ -1,5 +1,7 @@
 {
-	"@metadata": [],
+	"@metadata": {
+		"authors": []
+	},
 	"apierror-wikibaselexeme-parameter-required": "Parameteren «$1» er påkrævet.",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Sproget kan ikke være tomt"
 }

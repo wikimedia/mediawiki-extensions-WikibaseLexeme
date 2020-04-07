@@ -1,16 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98",
-			"Festina90",
-			"Patio",
-			"Sjoerddebruin",
-			"Robin van der Vliet",
-			"KlaasZ4usV",
-			"Ndecouck",
 			"Elroy",
+			"Festina90",
 			"George Animal",
-			"Klaas van Buiten"
+			"Klaas van Buiten",
+			"KlaasZ4usV",
+			"Mainframe98",
+			"Ndecouck",
+			"Patio",
+			"Robin van der Vliet",
+			"Sjoerddebruin"
 		]
 	},
 	"wikibaselexeme-desc": "Verzorgt het lexeem-entiteitstype",

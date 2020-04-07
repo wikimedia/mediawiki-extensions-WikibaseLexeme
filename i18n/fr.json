@@ -1,14 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ash Crow",
 			"Derugon",
 			"Gomoko",
-			"Wladek92",
-			"Yzelf",
 			"Oupsa",
+			"Thibaut120094",
 			"Tpt",
-			"Ash Crow",
-			"Thibaut120094"
+			"Wladek92",
+			"Yzelf"
 		]
 	},
 	"wikibaselexeme-desc": "Manipuler le type d’entité Lexème",

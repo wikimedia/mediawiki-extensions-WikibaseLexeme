@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion",
-			"Movses",
-			"Vlad5250",
-			"Renamerr",
+			"Base",
 			"Bjankuloski06",
-			"Ата",
-			"Base"
+			"Movses",
+			"Piramidion",
+			"Renamerr",
+			"Vlad5250",
+			"Ата"
 		]
 	},
 	"wikibaselexeme-desc": "Робота з типом сутності Лексеми",

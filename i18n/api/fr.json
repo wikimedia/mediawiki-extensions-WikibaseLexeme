@@ -1,10 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Gomoko",
-			"Wladek92",
 			"Derugon",
-			"Thibaut120094"
+			"Gomoko",
+			"Thibaut120094",
+			"Wladek92"
 		]
 	},
 	"apihelp-wbladdform-summary": "Ajoute une forme au lexème",
