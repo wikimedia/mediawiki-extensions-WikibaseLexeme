@@ -101,11 +101,8 @@ return call_user_func( function() {
 			"scripts" => "vendor/vuex-2.3.0.js",
 			"dependencies" => [
 				"vue2",
-				"promise-polyfill"
+				"es6-promise"
 			]
-		],
-		"promise-polyfill" => $moduleTemplate + [
-			"scripts" => "vendor/es6-promise.auto.js"
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
