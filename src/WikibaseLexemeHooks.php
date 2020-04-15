@@ -188,7 +188,7 @@ class WikibaseLexemeHooks {
 					'wikibase.tests.qunit.testrunner',
 					'wikibase.view.tests.getMockListItemAdapter',
 					'vue2',
-					'vuex',
+					'vuex2',
 				],
 			],
 			'WikibaseLexeme.tests.GrammaticalFeatureListWidget' => $moduleBase + [

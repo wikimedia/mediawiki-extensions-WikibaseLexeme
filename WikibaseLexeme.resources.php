@@ -56,7 +56,7 @@ return call_user_func( function() {
 				"mediawiki.api",
 				"mediawiki.widgets",
 				"vue2",
-				"vuex",
+				"vuex2",
 				"wikibase.lexeme",
 				"wikibase.api.RepoApi",
 				"wikibase.templates.lexeme",
@@ -97,7 +97,7 @@ return call_user_func( function() {
 				"wikibase-lexeme-language-selector-label"
 			]
 		],
-		"vuex" => $moduleTemplate + [
+		"vuex2" => $moduleTemplate + [
 			"scripts" => "vendor/vuex-2.3.0.js",
 			"dependencies" => [
 				"vue2",
