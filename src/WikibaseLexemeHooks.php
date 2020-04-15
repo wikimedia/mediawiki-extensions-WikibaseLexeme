@@ -187,7 +187,7 @@ class WikibaseLexemeHooks {
 					'wikibase.lexeme.view.ViewFactoryFactory',
 					'wikibase.view.tests.getMockListItemAdapter',
 					'vue2',
-					'vuex2',
+					'vuex3',
 				],
 			],
 			'WikibaseLexeme.tests.GrammaticalFeatureListWidget' => $moduleBase + [
