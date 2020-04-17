@@ -6,7 +6,6 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
-use Hooks;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -39,25 +38,12 @@ use Wikibase\Repo\WikibaseRepo;
 class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
 	const LANGUAGE_TRANSLATION_HOOK_NAME = 'LanguageGetTranslatedLanguageNames';
-	private $hookHandlers = [];
 
-	/**
-	 * Backs up Hook::$handlers to be reset after tearDown
-	 *
-	 * @throws \MWException
-	 */
 	public function setUp() : void {
 		parent::setUp();
 
-		$this->hookHandlers = $this->getHookHandlersProperty()->getValue();
 		// non-EmptyBagOStuff cache needed for the CachingPrefetchingTermLookup for items
 		$this->setService( 'LocalServerObjectCache', new \HashBagOStuff() );
-	}
-
-	public function tearDown() : void {
-		parent::tearDown();
-
-		$this->getHookHandlersProperty()->setValue( $this->hookHandlers );
 	}
 
 	public function testAddedStatementsWithLexemesAsTargetDisplayLemma() {
@@ -443,19 +429,12 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	 */
 	private function simulateLanguageTranslation( $languageName ) {
 		// mimics CLDR behavior
-		Hooks::register(
+		$this->setTemporaryHook(
 			self::LANGUAGE_TRANSLATION_HOOK_NAME,
 			function ( &$names, $inLanguage ) use ( $languageName ) {
 				$names['en'] = $languageName;
 			}
 		);
-	}
-
-	private function getHookHandlersProperty() {
-		$handlers = ( new \ReflectionClass( \Hooks::class ) )->getProperty( 'handlers' );
-		$handlers->setAccessible( true );
-
-		return $handlers;
 	}
 
 	private function saveItem( $id, $label ) {
