@@ -185,7 +185,6 @@ class WikibaseLexemeHooks {
 					'wikibase.lexeme.lexemeview',
 					'wikibase.lexeme.widgets.ItemSelectorWidget',
 					'wikibase.lexeme.view.ViewFactoryFactory',
-					'wikibase.tests.qunit.testrunner',
 					'wikibase.view.tests.getMockListItemAdapter',
 					'vue2',
 					'vuex2',
