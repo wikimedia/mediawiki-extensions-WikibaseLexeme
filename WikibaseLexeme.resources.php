@@ -23,6 +23,7 @@ return call_user_func( function() {
 				"datatransfer/LemmaList.js",
 				"datamodel/Lemma.js",
 				"datamodel/LexemeSubEntityId.js",
+				"focusElement.js",
 				"jquery.wikibase.lexemeformview.js",
 				"jquery.wikibase.lexemeformlistview.js",
 				"jquery.wikibase.senselistview.js",

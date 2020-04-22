@@ -4,7 +4,8 @@ module.exports = ( function ( require, wb, Vuex ) {
 	var Vue = require( 'vue2' ),
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
 		InvalidLanguageIndicator = require( './InvalidLanguageIndicator.js' ),
-		LanguageSelectorWrapper = require( './LanguageSelectorWrapper.js' );
+		LanguageSelectorWrapper = require( './LanguageSelectorWrapper.js' ),
+		focusElement = require( '../focusElement.js' );
 
 	Vue.use( Vuex );
 
@@ -52,6 +53,7 @@ module.exports = ( function ( require, wb, Vuex ) {
 			methods: {
 				add: function () {
 					this.glosses.push( { value: '', language: '' } );
+					this.$nextTick( focusElement( 'tr:last-child input' ) );
 				},
 				remove: function ( gloss ) {
 					var index = this.glosses.indexOf( gloss );
@@ -63,6 +65,7 @@ module.exports = ( function ( require, wb, Vuex ) {
 					if ( this.glosses.length === 0 ) {
 						this.add();
 					}
+					this.$nextTick( focusElement( 'input' ) );
 				},
 				stopEditing: function () {
 					this.inEditMode = false;
