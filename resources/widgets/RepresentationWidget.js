@@ -3,7 +3,8 @@ module.exports = ( function ( Vuex ) {
 
 	var Vue = require( 'vue2' ),
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
-		actionTypes = require( '../store/actionTypes.js' );
+		actionTypes = require( '../store/actionTypes.js' ),
+		focusElement = require( '../focusElement.js' );
 
 	Vue.use( Vuex );
 
@@ -44,6 +45,8 @@ module.exports = ( function ( Vuex ) {
 					this.inEditMode = true;
 					if ( this.representations.length === 0 ) {
 						this.add();
+					} else {
+						this.$nextTick( focusElement( 'input' ) );
 					}
 				},
 				updateValue: function ( representation, event ) {
@@ -71,6 +74,7 @@ module.exports = ( function ( Vuex ) {
 					this.$store.dispatch( actionTypes.ADD_REPRESENTATION, {
 						formIndex: this.formIndex
 					} );
+					this.$nextTick( focusElement( 'li:nth-last-child(2) input' ) );
 				},
 				remove: function ( representation ) {
 					if ( !this.inEditMode ) {
