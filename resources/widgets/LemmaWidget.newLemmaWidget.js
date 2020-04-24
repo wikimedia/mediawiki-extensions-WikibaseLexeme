@@ -2,7 +2,8 @@ module.exports = ( function () {
 	'use strict';
 
 	var Lemma = require( '../datamodel/Lemma.js' ),
-		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' );
+		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
+		focusElement = require( '../focusElement.js' );
 
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent
@@ -20,6 +21,7 @@ module.exports = ( function () {
 			methods: {
 				add: function () {
 					this.lemmas.add( new Lemma( '', '' ) );
+					this.$nextTick( focusElement( 'li:nth-last-child(2) input' ) );
 				},
 				remove: function ( lemma ) {
 					this.lemmas.remove( lemma );

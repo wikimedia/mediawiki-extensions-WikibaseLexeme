@@ -1,6 +1,8 @@
 module.exports = ( function () {
 	'use strict';
 
+	var focusElement = require( '../focusElement.js' );
+
 	/**
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent
 	 *
@@ -57,6 +59,7 @@ module.exports = ( function () {
 
 				edit: function () {
 					this.inEditMode = true;
+					this.$nextTick( focusElement( 'input' ) );
 				},
 
 				cancel: function () {
