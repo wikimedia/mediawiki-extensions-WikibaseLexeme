@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Actions;
 
-use Wikibase\ViewEntityAction;
+use Wikibase\Repo\Actions\ViewEntityAction;
 
 /**
  * Handles the view action for Wikibase Lexeme.
