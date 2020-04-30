@@ -4,11 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use Wikibase\Lexeme\Domain\Model\Sense;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikimedia\Assert\ParameterTypeException;

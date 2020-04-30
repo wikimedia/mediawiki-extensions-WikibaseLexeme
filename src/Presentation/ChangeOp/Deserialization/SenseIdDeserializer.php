@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 
 /**
  * A throwing ValidationContext guards us from actual null return values,

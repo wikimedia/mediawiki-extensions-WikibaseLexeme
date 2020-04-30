@@ -2,10 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
+use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
-use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;

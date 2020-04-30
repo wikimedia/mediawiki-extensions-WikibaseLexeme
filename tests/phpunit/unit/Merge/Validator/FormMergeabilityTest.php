@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\Unit\Merge\Validator;
 
 use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Merge\Validator\FormMergeability;
+use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 
 /**

@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Domain\Model;
 
+use InvalidArgumentException;
+use RuntimeException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\Int32EntityId;
 use Wikimedia\Assert\Assert;
-use InvalidArgumentException;
-use RuntimeException;
 
 /**
  * Immutable ID of a Lexeme in the lexicographical data model.

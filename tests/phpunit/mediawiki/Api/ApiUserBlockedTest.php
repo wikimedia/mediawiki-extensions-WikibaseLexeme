@@ -6,10 +6,10 @@ use ApiUsageException;
 use MediaWiki\Block\DatabaseBlock;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
-use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 
 /**
  * @license GPL-2.0-or-later

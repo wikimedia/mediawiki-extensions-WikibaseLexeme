@@ -2,10 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\Merge\Exceptions;
 
-use Message;
 use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Message;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException

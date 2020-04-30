@@ -6,11 +6,11 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseAdd;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseClone;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Summary;
@@ -110,7 +110,7 @@ class ChangeOpSenseAddTest extends TestCase {
 
 		$changeOp->apply( $lexeme, $summary );
 
-		$this->assertEquals( null, $summary->getLanguageCode() );
+		$this->assertNull( $summary->getLanguageCode() );
 	}
 
 	private function newChangeOpSenseAdd( ChangeOp $childChangeOp ) {

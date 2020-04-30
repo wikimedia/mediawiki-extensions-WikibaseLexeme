@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Validation;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermLanguageCanNotBeEmpty;
 use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\StaticContentLanguages;
 

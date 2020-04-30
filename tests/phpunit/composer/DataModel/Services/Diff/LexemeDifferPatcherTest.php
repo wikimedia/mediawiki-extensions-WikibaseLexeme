@@ -3,11 +3,11 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
+use Wikibase\Lexeme\Domain\Diff\LexemePatcher;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
-use Wikibase\Lexeme\Domain\Diff\LexemePatcher;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;

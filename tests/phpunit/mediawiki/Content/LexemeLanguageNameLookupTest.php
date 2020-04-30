@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
 use IContextSource;
 use Message;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lib\LanguageNameLookup;
 
 /**

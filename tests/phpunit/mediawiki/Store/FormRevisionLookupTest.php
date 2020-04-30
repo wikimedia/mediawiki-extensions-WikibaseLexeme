@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\DataAccess\Store\FormRevisionLookup;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
-use Wikibase\Lexeme\DataAccess\Store\FormRevisionLookup;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;

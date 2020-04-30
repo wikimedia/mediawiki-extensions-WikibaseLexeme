@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\Assert;
 

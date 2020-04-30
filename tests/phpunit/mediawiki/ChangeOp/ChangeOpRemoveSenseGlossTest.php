@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
+use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
-use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 

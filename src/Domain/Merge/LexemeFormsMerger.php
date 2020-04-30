@@ -5,9 +5,9 @@ namespace Wikibase\Lexeme\Domain\Merge;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormAdd;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormClone;
+use Wikibase\Lexeme\Domain\Merge\Validator\FormMergeability;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Merge\Validator\FormMergeability;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\Merge\StatementsMerger;
 

@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
 

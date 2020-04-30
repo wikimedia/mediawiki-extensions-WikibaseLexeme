@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
+use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
-use MediaWikiUnitTestCase;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\LexemeSubEntityId

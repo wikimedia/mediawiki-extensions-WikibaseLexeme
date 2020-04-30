@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\MediaWiki\Api\AddFormRequest;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\MediaWiki\Api\AddFormRequest;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 
 /**

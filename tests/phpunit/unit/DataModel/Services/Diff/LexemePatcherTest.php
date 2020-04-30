@@ -14,9 +14,9 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
 use Wikibase\Lexeme\Domain\Diff\LexemePatcher;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Diff\LexemePatcher

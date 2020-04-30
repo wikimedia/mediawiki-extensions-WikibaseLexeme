@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\MediaWiki\Specials\HTMLForm;
 
 use HTMLComboboxField;
 use InvalidArgumentException;
-use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\ContentLanguages;
 
 /**
  * Class representing lexeme lemma language selector field

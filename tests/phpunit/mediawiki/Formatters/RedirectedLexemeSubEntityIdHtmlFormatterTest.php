@@ -5,13 +5,13 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 use HamcrestPHPUnitIntegration;
 use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Title;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
-use PHPUnit\Framework\TestCase;
 use Wikibase\Lib\Store\EntityTitleLookup;
 
 /**

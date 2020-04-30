@@ -6,13 +6,13 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\Lexeme\Domain\Model\Sense;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
 use Wikibase\Lexeme\Domain\Diff\SensePatcher;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Diff\SenseDiffer

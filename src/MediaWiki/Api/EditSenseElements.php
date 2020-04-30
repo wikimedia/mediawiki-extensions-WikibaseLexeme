@@ -5,22 +5,22 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiMain;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\Lib\Store\EntityStore;
-use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
-use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\MediaWiki\Api\Error\SenseNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
+use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
+use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\Store;
 use Wikibase\SummaryFormatter;
@@ -334,7 +334,7 @@ class EditSenseElements extends \ApiBase {
 	}
 
 	/**
-	   Returns $latestRevisionId if all of edits since $baseRevId are done
+	 * Returns $latestRevisionId if all of edits since $baseRevId are done
 	 * by the same user, otherwise returns $baseRevId.
 	 *
 	 * @param int $latestRevisionId

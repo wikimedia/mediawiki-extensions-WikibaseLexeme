@@ -6,10 +6,10 @@ use ApiMessage;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequestParser;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequest

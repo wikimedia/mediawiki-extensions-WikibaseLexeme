@@ -28,9 +28,9 @@ use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlForma
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
 use Wikibase\Lib\Formatters\EntityIdValueFormatter;
-use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
+use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\WikibaseRepo;

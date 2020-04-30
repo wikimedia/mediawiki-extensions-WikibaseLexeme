@@ -6,12 +6,12 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

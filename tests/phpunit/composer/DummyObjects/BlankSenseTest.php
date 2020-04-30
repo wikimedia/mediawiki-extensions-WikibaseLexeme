@@ -6,12 +6,12 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Model\Sense;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikimedia\Assert\ParameterAssertionException;
 

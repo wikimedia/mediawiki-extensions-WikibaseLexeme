@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\Tests\Unit\ChangeOp\Deserialization;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer

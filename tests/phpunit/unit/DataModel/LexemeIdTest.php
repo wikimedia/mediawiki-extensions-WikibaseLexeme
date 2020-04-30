@@ -2,10 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
-use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use InvalidArgumentException;
+use MediaWikiUnitTestCase;
 use RuntimeException;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\LexemeId

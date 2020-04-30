@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
-use MediaWikiTestCase;
 use HamcrestPHPUnitIntegration;
+use MediaWikiTestCase;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;

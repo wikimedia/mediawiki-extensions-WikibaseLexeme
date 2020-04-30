@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\Tests\Unit\ChangeOp\Deserialization;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer

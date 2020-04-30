@@ -2,14 +2,14 @@
 
 namespace Wikibase\Lexeme\Tests\Merge;
 
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
-use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**

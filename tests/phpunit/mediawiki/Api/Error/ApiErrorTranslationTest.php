@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
@@ -10,11 +11,10 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsNotAnItemId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsRequired;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
+use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotAJsonObject;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
-use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeTermTextCanNotBeEmpty;
 use Wikibase\Lexeme\MediaWiki\Api\Error\UnknownLanguage;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims

@@ -5,11 +5,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequest;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**

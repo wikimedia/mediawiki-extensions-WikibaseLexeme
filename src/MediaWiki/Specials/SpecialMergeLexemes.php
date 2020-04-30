@@ -11,9 +11,9 @@ use MediaWiki\Permissions\PermissionManager;
 use Message;
 use SpecialPage;
 use UserBlockedError;
+use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
-use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
@@ -64,7 +64,7 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	/**
 	 * @see SpecialWikibasePage::execute
-	 **/
+	 */
 	public function execute( $subPage ) {
 		$this->setHeaders();
 		$this->outputHeader( 'wikibase-mergelexemes-summary' );

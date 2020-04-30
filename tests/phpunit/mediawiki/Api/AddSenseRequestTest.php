@@ -4,11 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\MediaWiki\Api\AddSenseRequest;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 
 /**

@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Tests\Unit\Specials\HTMLForm;
 
 use HamcrestPHPUnitIntegration;
+use MediaWikiUnitTestCase;
 use OOUI\BlankTheme;
 use OOUI\Theme;
-use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidget;
 
 /**

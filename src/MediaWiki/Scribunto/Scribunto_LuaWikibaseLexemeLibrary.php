@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\MediaWiki\Scribunto;
 
 use Scribunto_LuaLibraryBase;
-use Wikibase\Client\Usage\ParserOutputUsageAccumulator;
 use Wikibase\Client\Usage\EntityUsageFactory;
+use Wikibase\Client\Usage\ParserOutputUsageAccumulator;
 use Wikibase\Client\Usage\UsageAccumulator;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\DataModel\Entity\EntityIdParser;

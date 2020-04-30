@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpsSensesEdit;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Summary;
 use Wikimedia\Assert\ParameterTypeException;
 

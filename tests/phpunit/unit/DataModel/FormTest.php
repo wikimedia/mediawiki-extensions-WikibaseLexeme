@@ -11,11 +11,11 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
-use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\Form

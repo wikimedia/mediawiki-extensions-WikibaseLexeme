@@ -13,6 +13,8 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\FormSet;
@@ -22,8 +24,6 @@ use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
-use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
-use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\Lexeme

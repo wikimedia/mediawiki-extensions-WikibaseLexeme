@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
 use Title;
+use Wikibase\Lexeme\DataAccess\Store\FormTitleStoreLookup;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\DataAccess\Store\FormTitleStoreLookup;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikimedia\Assert\ParameterTypeException;
 

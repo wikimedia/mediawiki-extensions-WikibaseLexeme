@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
-use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages

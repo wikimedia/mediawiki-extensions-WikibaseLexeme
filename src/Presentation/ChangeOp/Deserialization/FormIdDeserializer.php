@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
-use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 
 /**
  * A throwing ValidationContext guards us from actual null return values,

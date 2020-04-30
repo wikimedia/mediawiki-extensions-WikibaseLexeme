@@ -27,9 +27,9 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseChangeOpDeseriali
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseListChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
+use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
-use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;

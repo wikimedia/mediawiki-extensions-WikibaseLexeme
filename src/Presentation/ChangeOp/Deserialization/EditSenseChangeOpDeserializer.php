@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
-use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
+use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;

@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 
 use Language;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikibase\Repo\WikibaseRepo;
 

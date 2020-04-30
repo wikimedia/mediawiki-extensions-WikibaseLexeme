@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\DataAccess\ChangeOp;
 
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\MediaWiki\Api\Summary\SummaryAggregator;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\DummyChangeOpResult;

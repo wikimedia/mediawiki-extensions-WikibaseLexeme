@@ -10,10 +10,10 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 

@@ -29,7 +29,7 @@
 		"giorgiosironi/eris": "0.10.0",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/minus-x": "1.0.0",
-		"wikibase/wikibase-codesniffer": "1.0.0",
+		"wikibase/wikibase-codesniffer": "1.1.0",
 		"davidrjonas/composer-lock-diff": "^1.4",
 		"mediawiki/mediawiki-phan-config": "0.9.1"
 	},

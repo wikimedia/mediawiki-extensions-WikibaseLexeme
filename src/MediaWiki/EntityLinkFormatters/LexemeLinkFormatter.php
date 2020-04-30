@@ -12,8 +12,8 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
-use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
+use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\Assert;
 
 /**

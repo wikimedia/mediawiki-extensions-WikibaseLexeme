@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\Unit\DummyObjects;
 
 use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\DummyObjects\BlankForm

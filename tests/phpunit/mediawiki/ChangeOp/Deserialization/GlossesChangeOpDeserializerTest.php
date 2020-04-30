@@ -8,12 +8,12 @@ use PHPUnit\Framework\TestCase;
 use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Term\Term;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGlossList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRemoveSenseGloss;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lib\StringNormalizer;
 
 /**

@@ -7,11 +7,11 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**

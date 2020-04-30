@@ -4,16 +4,16 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use InvalidArgumentException;
 use RawMessage;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 
 /**
  * @license GPL-2.0-or-later

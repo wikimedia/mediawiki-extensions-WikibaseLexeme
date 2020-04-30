@@ -7,13 +7,13 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
-use Wikibase\Lexeme\Domain\Model\Form;
-use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Diff\FormDiffer;
 use Wikibase\Lexeme\Domain\Diff\FormPatcher;
-use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Diff\FormDiffer

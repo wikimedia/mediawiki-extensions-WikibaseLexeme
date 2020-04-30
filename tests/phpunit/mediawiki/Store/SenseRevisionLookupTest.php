@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\Lexeme\DataAccess\Store\SenseRevisionLookup;
+use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
-use Wikibase\Lexeme\DataAccess\Store\SenseRevisionLookup;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;

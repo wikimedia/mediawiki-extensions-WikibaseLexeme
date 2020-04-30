@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Tests\Unit\DummyObjects;
 
 use LogicException;
 use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\DummyObjects\DummySenseId

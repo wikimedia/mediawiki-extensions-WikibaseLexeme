@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
+use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
-use HamcrestPHPUnitIntegration;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter

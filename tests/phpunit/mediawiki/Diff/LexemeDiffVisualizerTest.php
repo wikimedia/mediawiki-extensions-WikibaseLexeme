@@ -16,17 +16,17 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
-use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Diff\ChangeFormDiffOp;
 use Wikibase\Lexeme\Domain\Diff\ChangeSenseDiffOp;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
-use Wikibase\Lexeme\Presentation\Diff\LexemeDiffVisualizer;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
+use Wikibase\Lexeme\Presentation\Diff\LexemeDiffVisualizer;
 use Wikibase\Repo\Content\EntityContentDiff;
+use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
 use Wikibase\Repo\Diff\ClaimDifferenceVisualizer;
-use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Tests\NewStatement;
 
 /**

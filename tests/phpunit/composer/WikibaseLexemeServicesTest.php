@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
+use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\MediaWikiContentLanguages;

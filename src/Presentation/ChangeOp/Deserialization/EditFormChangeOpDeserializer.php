@@ -3,11 +3,11 @@
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use ValueValidators\ValueValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
+use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
-use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGrammaticalFeatures;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;

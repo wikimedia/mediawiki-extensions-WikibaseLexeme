@@ -6,9 +6,10 @@ use Diff\Comparer\CallbackComparer;
 use Diff\Comparer\ComparableComparer;
 use Diff\Differ\MapDiffer;
 use Diff\DiffOp\Diff\Diff;
-use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpAdd;
+use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use InvalidArgumentException;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
@@ -20,7 +21,6 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikimedia\Assert\Assert;
-use InvalidArgumentException;
 
 /**
  * @license GPL-2.0-or-later

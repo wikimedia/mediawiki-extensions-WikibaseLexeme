@@ -8,12 +8,12 @@ use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\DeserializerFactory;
-use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
@@ -21,11 +21,11 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
+use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
-use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
-use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
  * @covers \Wikibase\Lexeme\Serialization\StorageLexemeSerializer

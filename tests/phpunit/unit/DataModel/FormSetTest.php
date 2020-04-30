@@ -3,11 +3,11 @@
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Domain\Model\FormId;
-use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullFormId;
+use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\FormSet;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Model\FormSet
@@ -40,7 +40,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testCount() {
-		$this->assertEquals( 0, ( new FormSet() )->count() );
+		$this->assertSame( 0, ( new FormSet() )->count() );
 		$this->assertEquals( 1, ( new FormSet( [ NewForm::any()->build() ] ) )->count() );
 	}
 
@@ -50,7 +50,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testMaxFormIdNumber_EmptySet_ReturnsZero() {
-		$this->assertEquals( 0, ( new FormSet() )->maxFormIdNumber() );
+		$this->assertSame( 0, ( new FormSet() )->maxFormIdNumber() );
 	}
 
 	public function testMaxFormIdNumber_SetWithOneForm_ReturnsThatFormIdNumber() {

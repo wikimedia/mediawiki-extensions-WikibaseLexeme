@@ -5,11 +5,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequest;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpGloss;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequest;
 use Wikibase\Repo\ChangeOp\ChangeOps;
 
 /**
