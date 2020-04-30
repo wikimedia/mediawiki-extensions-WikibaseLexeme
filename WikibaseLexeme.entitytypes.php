@@ -35,13 +35,14 @@ use Wikibase\Lexeme\DataAccess\Store\FormTitleStoreLookup;
 use Wikibase\Lexeme\DataAccess\Store\SenseRevisionLookup;
 use Wikibase\Lexeme\DataAccess\Store\SenseStore;
 use Wikibase\Lexeme\DataAccess\Store\SenseTitleStoreLookup;
+use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 
 return [
 	'lexeme' => [
-		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
 			return new ExternalLexemeSerializer(
 				new StorageLexemeSerializer(
 					$serializerFactory->newTermListSerializer(),
@@ -49,68 +50,68 @@ return [
 				)
 			);
 		},
-		'deserializer-factory-callback' => function ( DeserializerFactory $deserializerFactory ) {
+		Def::DESERIALIZER_FACTORY_CALLBACK => function ( DeserializerFactory $deserializerFactory ) {
 			return new LexemeDeserializer(
 				$deserializerFactory->newEntityIdDeserializer(),
 				$deserializerFactory->newStatementListDeserializer()
 			);
 		},
 
-		'entity-id-pattern' => LexemeId::PATTERN,
-		'entity-id-builder' => function ( $serialization ) {
+		Def::ENTITY_ID_PATTERN => LexemeId::PATTERN,
+		Def::ENTITY_ID_BUILDER => function ( $serialization ) {
 			return new LexemeId( $serialization );
 		},
-		'entity-id-composer-callback' => function ( $repositoryName, $uniquePart ) {
+		Def::ENTITY_ID_COMPOSER_CALLBACK => function ( $repositoryName, $uniquePart ) {
 			return new LexemeId( EntityId::joinSerialization( [
 				$repositoryName,
 				'',
 				'L' . $uniquePart
 			] ) );
 		},
-		'entity-differ-strategy-builder' => function () {
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => function () {
 			return new LexemeDiffer();
 		},
-		'entity-patcher-strategy-builder' => function () {
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => function () {
 			return new LexemePatcher();
 		},
 
 		// Identifier of a resource loader module that, when `require`d, returns a function
 		// returning a deserializer
-		'js-deserializer-factory-function' => 'wikibase.lexeme.getDeserializer',
-		'sub-entity-types' => [
+		Def::JS_DESERIALIZER_FACTORY_FUNCTION => 'wikibase.lexeme.getDeserializer',
+		Def::SUB_ENTITY_TYPES => [
 			'form',
 			'sense',
 		],
-		'lua-entity-module' => 'mw.wikibase.lexeme.entity.lexeme',
+		Def::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.lexeme',
 	],
 	'form' => [
-		'entity-store-factory-callback' => function (
+		Def::ENTITY_STORE_FACTORY_CALLBACK => function (
 			EntityStore $defaultStore,
 			EntityRevisionLookup $lookup
 		) {
 			return new FormStore( $defaultStore, $lookup );
 		},
-		'entity-revision-lookup-factory-callback' => function (
+		Def::ENTITY_REVISION_LOOKUP_FACTORY_CALLBACK => function (
 			EntityRevisionLookup $defaultLookup
 		) {
 			return new FormRevisionLookup( $defaultLookup );
 		},
-		'entity-title-store-lookup-factory-callback' => function (
+		Def::ENTITY_TITLE_STORE_LOOKUP_FACTORY_CALLBACK => function (
 			EntityTitleStoreLookup $defaultLookup
 		) {
 			return new FormTitleStoreLookup( $defaultLookup );
 		},
-		'entity-id-pattern' => FormId::PATTERN,
-		'entity-id-builder' => function ( $serialization ) {
+		Def::ENTITY_ID_PATTERN => FormId::PATTERN,
+		Def::ENTITY_ID_BUILDER => function ( $serialization ) {
 			return new FormId( $serialization );
 		},
-		'entity-differ-strategy-builder' => function () {
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => function () {
 			return new FormDiffer();
 		},
-		'entity-patcher-strategy-builder' => function () {
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => function () {
 			return new FormPatcher();
 		},
-		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
 			return new FormSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
@@ -118,33 +119,33 @@ return [
 		},
 	],
 	'sense' => [
-		'entity-store-factory-callback' => function (
+		Def::ENTITY_STORE_FACTORY_CALLBACK => function (
 			EntityStore $defaultStore,
 			EntityRevisionLookup $lookup
 		) {
 			return new SenseStore( $defaultStore, $lookup );
 		},
-		'entity-revision-lookup-factory-callback' => function (
+		Def::ENTITY_REVISION_LOOKUP_FACTORY_CALLBACK => function (
 			EntityRevisionLookup $defaultLookup
 		) {
 			return new SenseRevisionLookup( $defaultLookup );
 		},
-		'entity-title-store-lookup-factory-callback' => function (
+		Def::ENTITY_TITLE_STORE_LOOKUP_FACTORY_CALLBACK => function (
 			EntityTitleStoreLookup $defaultLookup
 		) {
 			return new SenseTitleStoreLookup( $defaultLookup );
 		},
-		'entity-id-pattern' => SenseId::PATTERN,
-		'entity-id-builder' => function ( $serialization ) {
+		Def::ENTITY_ID_PATTERN => SenseId::PATTERN,
+		Def::ENTITY_ID_BUILDER => function ( $serialization ) {
 			return new SenseId( $serialization );
 		},
-		'entity-differ-strategy-builder' => function () {
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => function () {
 			return new SenseDiffer();
 		},
-		'entity-patcher-strategy-builder' => function () {
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => function () {
 			return new SensePatcher();
 		},
-		'serializer-factory-callback' => function ( SerializerFactory $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
 			return new SenseSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
