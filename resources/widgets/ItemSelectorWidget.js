@@ -157,9 +157,9 @@
 		},
 
 		/**
-		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuItemChoose
+		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuChoose
 		 */
-		onLookupMenuItemChoose: function ( item ) {
+		onLookupMenuChoose: function ( item ) {
 			this.setValue( item.getLabel() );
 			this.$valueField.val( item.getData() );
 
