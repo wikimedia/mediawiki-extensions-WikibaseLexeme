@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb ) {
+( function () {
 	QUnit.module( 'wikibase.lexeme.services.ItemLookup' );
 	var ItemLookup = require( '../../../resources/services/ItemLookup.js' );
 
@@ -62,4 +62,4 @@
 		} );
 	} );
 
-}( wikibase ) );
+}() );
