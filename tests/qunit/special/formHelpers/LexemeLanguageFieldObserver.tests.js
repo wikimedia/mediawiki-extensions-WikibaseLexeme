@@ -1,7 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
-( function ( wb ) {
+( function () {
 	QUnit.module( 'wikibase.lexeme.special.formHelpers.LexemeLanguageFieldObserver' );
 
 	var LexemeLanguageFieldObserver = require( '../../../../resources/special/formHelpers/LexemeLanguageFieldObserver.js' ),
@@ -64,4 +64,4 @@
 		assert.equal( $field.find( 'input' ).val(), 'en' );
 	} );
 
-}( wikibase ) );
+}() );
