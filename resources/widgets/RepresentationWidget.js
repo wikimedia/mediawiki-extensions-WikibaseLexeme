@@ -24,7 +24,6 @@ module.exports = ( function ( Vuex ) {
 		return {
 			el: element,
 			template: template,
-
 			store: store,
 
 			mixins: [ RedundantLanguageIndicator( 'representations' ) ],
@@ -33,7 +32,10 @@ module.exports = ( function ( Vuex ) {
 
 			data: {
 				inEditMode: false,
-				formIndex: formIndex
+				formIndex: formIndex,
+				// We need a way to identify each form input.
+				// formIndex however is currently not incremented and awaiting refactoring.
+				uid: Math.round( Math.random() * 1000000 )
 			},
 			computed: {
 				representations: function () {
@@ -41,6 +43,15 @@ module.exports = ( function ( Vuex ) {
 				}
 			},
 			methods: {
+				inputId: function ( index, fieldId ) {
+					return 'form' + this.uid + fieldId + index;
+				},
+				inputRepresentationId: function ( index ) {
+					return this.inputId( index, 'inputRep' );
+				},
+				inputLanguageId: function ( index ) {
+					return this.inputId( index, 'inputLang' );
+				},
 				edit: function () {
 					this.inEditMode = true;
 					if ( this.representations.length === 0 ) {
