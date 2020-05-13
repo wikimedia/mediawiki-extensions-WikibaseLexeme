@@ -311,7 +311,8 @@
 		return '<div class="representation-widget">\n' +
 			'<ul v-if="!inEditMode" class="representation-widget_representation-list">\n' +
 			'<li v-for="representation in representations" class="representation-widget_representation">\n' +
-			'<span class="representation-widget_representation-value">{{representation.value}}</span>\n' +
+			'<span class="representation-widget_representation-value"\n' +
+			':lang="representation.language">{{representation.value}}</span>\n' +
 			'<span class="representation-widget_representation-language">\n' +
 			'{{representation.language}}\n' +
 			'</span>\n' +
@@ -320,25 +321,34 @@
 			'<div v-else>\n' +
 			'<div class="representation-widget_edit-area">\n' +
 			'<ul class="representation-widget_representation-list">\n' +
-			'<li v-for="representation in representations" \n' +
+			'<li v-for="representation in representations"\n' +
 			'class="representation-widget_representation-edit-box">\n' +
-			'<input size="1" class="representation-widget_representation-value-input" \n' +
-			':value="representation.value" \n' +
+			'<span class="representation-widget_representation-value-label">\n' +
+			'{{\'wikibaselexeme-form-field-representation-label\'|message}}\n' +
+			'</span>\n' +
+			'<input size="1" class="representation-widget_representation-value-input"\n' +
+			':value="representation.value"\n' +
 			'@input="updateValue(representation, $event)">\n' +
-			'<input size="1" class="representation-widget_representation-language-input" \n' +
-			':value="representation.language" \n' +
-			'@input="updateLanguage(representation, $event)" \n' +
-			'v-bind:class="{ \'representation-widget_representation-language-input_redundant-language\': ' +
-			'isRedundantLanguage(representation.language) }" \n' +
+			'<span class="representation-widget_representation-language-label">\n' +
+			'{{\'wikibaselexeme-form-field-language-label\'|message}}\n' +
+			'</span>\n' +
+			'<input size="1" class="representation-widget_representation-language-input"\n' +
+			':value="representation.language"\n' +
+			'@input="updateLanguage(representation, $event)"\n' +
+			':class="{\n' +
+			'\'representation-widget_representation-language-input_redundant-language\':\n' +
+			'isRedundantLanguage(representation.language)\n' +
+			'}"\n' +
 			':aria-invalid="isRedundantLanguage(representation.language)">\n' +
-			'<button class="representation-widget_representation-remove" \n' +
-			'v-on:click="remove(representation)" \n' +
+			'<button class="representation-widget_representation-remove"\n' +
+			'v-on:click="remove(representation)"\n' +
+			':disabled="representations.length <= 1"\n' +
 			':title="\'wikibase-remove\'|message">\n' +
 			'&times;\n' +
 			'</button>\n' +
 			'</li>\n' +
-			'<li>\n' +
-			'<button type="button" class="representation-widget_add" v-on:click="add" \n' +
+			'<li class="representation-widget_edit-area-controls">\n' +
+			'<button type="button" class="representation-widget_add" v-on:click="add"\n' +
 			':title="\'wikibase-add\'|message">+</button>\n' +
 			'</li>\n' +
 			'</ul>\n' +
