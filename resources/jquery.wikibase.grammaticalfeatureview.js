@@ -57,6 +57,7 @@
 		_create: function () {
 			PARENT.prototype._create.call( this );
 			this._labelFormattingService = this.options.labelFormattingService;
+			this.$header.attr( 'for', 'grammatical-features-' + this.uuid );
 		},
 
 		_startEditing: function () {
@@ -119,6 +120,7 @@
 				labelFormattingService: this._labelFormattingService,
 				language: mw.config.get( 'wgUserLanguage' ),
 				placeholder: mw.messages.get( 'wikibaselexeme-grammatical-features-input-placeholder' ),
+				inputId: this.$header.attr( 'for' ),
 				options: value.map( function ( item ) {
 					var $el = $( '<span>' ).text( item );
 					self._labelFormattingService.getHtml( item ).then( function ( html ) {

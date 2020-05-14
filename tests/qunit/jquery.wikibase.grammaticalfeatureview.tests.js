@@ -125,4 +125,20 @@
 		} );
 	} );
 
+	QUnit.test( 'should contain label connected to input through input id', function ( assert ) {
+		var view = newGrammaticalFeatureView( {
+			value: [ 'Q1' ]
+		} );
+
+		view.startEditing();
+
+		var inputId = view.element.find( 'input' )[ 0 ].id;
+		var labelsFound = view.element.find( 'label[for="' + inputId + '"]' );
+
+		assert.equal(
+			labelsFound.length,
+			1
+		);
+	} );
+
 }() );
