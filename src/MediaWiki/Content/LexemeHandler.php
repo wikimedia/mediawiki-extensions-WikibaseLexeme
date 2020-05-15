@@ -12,8 +12,6 @@ use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\EditEntityAction;
-use Wikibase\HistoryEntityAction;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -26,11 +24,13 @@ use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Store\NullEntityTermStoreWriter;
+use Wikibase\Repo\Actions\EditEntityAction;
+use Wikibase\Repo\Actions\HistoryEntityAction;
+use Wikibase\Repo\Actions\SubmitEntityAction;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Search\Fields\FieldDefinitions;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
-use Wikibase\SubmitEntityAction;
 
 /**
  * @license GPL-2.0-or-later
