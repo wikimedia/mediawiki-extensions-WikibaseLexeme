@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\MediaWiki\Content;
 use InvalidArgumentException;
 use LogicException;
 use Title;
-use Wikibase\Content\EntityHolder;
 use Wikibase\DataModel\Entity\EntityRedirect;
-use Wikibase\EntityContent;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Repo\Content\EntityContent;
+use Wikibase\Repo\Content\EntityHolder;
 use Wikimedia\Assert\Assert;
 
 /**

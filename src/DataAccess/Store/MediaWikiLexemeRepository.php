@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use MediaWiki\Permissions\PermissionManager;
-use Wikibase\EntityContent;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
@@ -13,6 +12,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
+use Wikibase\Repo\Content\EntityContent;
 
 /**
  * @license GPL-2.0-or-later
