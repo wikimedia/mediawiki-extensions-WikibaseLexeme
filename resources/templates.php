@@ -29,7 +29,7 @@ HTML;
 
 	$templates['wikibase-lexeme-form-grammatical-features'] = <<<'HTML'
 <div class="wikibase-lexeme-form-grammatical-features">
-		<div class="wikibase-lexeme-form-grammatical-features-header">$1</div>
+		<label class="wikibase-lexeme-form-grammatical-features-header">$1</label>
 		<div class="wikibase-lexeme-form-grammatical-features-values">$2</div>
 </div>
 HTML;

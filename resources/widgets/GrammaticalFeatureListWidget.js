@@ -18,6 +18,7 @@ module.exports = ( function () {
 		config.selected = undefined;
 		this._placeHolder = config.placeholder || '';
 		config.placeholder = selected && selected.length > 0 ? '' : config.placeholder;
+		config.input = { inputId: config.inputId };
 
 		OO.ui.MenuTagMultiselectWidget.call( this, config );
 
