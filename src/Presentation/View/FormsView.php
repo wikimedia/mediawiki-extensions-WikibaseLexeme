@@ -175,18 +175,22 @@ HTML;
 	<div v-else>
 		<div class="representation-widget_edit-area">
 			<ul class="representation-widget_representation-list">
-				<li v-for="representation in representations"
+				<li v-for="(representation, index) in representations"
 					class="representation-widget_representation-edit-box">
-					<span class="representation-widget_representation-value-label">
+					<label :for="inputRepresentationId(index)"
+						class="representation-widget_representation-value-label">
 						{{'wikibaselexeme-form-field-representation-label'|message}}
-					</span>
+					</label>
 					<input size="1" class="representation-widget_representation-value-input"
 						:value="representation.value"
+						:id="inputRepresentationId(index)"
 						@input="updateValue(representation, $event)">
-					<span class="representation-widget_representation-language-label">
+					<label :for="inputLanguageId(index)"
+						class="representation-widget_representation-language-label">
 						{{'wikibaselexeme-form-field-language-label'|message}}
-					</span>
+					</label>
 					<input size="1" class="representation-widget_representation-language-input"
+						:id="inputLanguageId(index)"
 						:value="representation.language"
 						@input="updateLanguage(representation, $event)"
 						:class="{

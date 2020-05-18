@@ -295,6 +295,25 @@
 		} );
 	} );
 
+	QUnit.test( 'form inputs should have connected labels', function ( assert ) {
+		var done = assert.async(),
+			form1 = newForm( 'F123', 'foo' ),
+			view = newFormView( { value: form1 } );
+
+		view.startEditing().then( function () {
+			var languageId = view.element.find( selector.representationLanguageInput )[ 0 ].id;
+			var languageLabelsFound = ( view.element.find( 'label[for=' + languageId + ']' ) );
+
+			var textId = view.element.find( selector.representationTextInput )[ 0 ].id;
+			var textLabelsFound = ( view.element.find( 'label[for=' + textId + ']' ) );
+
+			assert.ok( languageLabelsFound.length, 1 );
+			assert.ok( textLabelsFound.length, 1 );
+		} ).catch( function ( e ) {
+			assert.notOk( e.stack );
+		} ).then( done );
+	} );
+
 	/**
 	 * Sets input value and triggers 'input'
 	 * @param {jQuery} $element
@@ -321,18 +340,22 @@
 			'<div v-else>\n' +
 			'<div class="representation-widget_edit-area">\n' +
 			'<ul class="representation-widget_representation-list">\n' +
-			'<li v-for="representation in representations"\n' +
+			'<li v-for="(representation, index) in representations"\n' +
 			'class="representation-widget_representation-edit-box">\n' +
-			'<span class="representation-widget_representation-value-label">\n' +
+			'<label :for="inputRepresentationId(index)"\n' +
+			'class="representation-widget_representation-value-label">\n' +
 			'{{\'wikibaselexeme-form-field-representation-label\'|message}}\n' +
-			'</span>\n' +
+			'</label>\n' +
 			'<input size="1" class="representation-widget_representation-value-input"\n' +
 			':value="representation.value"\n' +
+			':id="inputRepresentationId(index)"\n' +
 			'@input="updateValue(representation, $event)">\n' +
-			'<span class="representation-widget_representation-language-label">\n' +
+			'<label :for="inputLanguageId(index)"\n' +
+			'class="representation-widget_representation-language-label">\n' +
 			'{{\'wikibaselexeme-form-field-language-label\'|message}}\n' +
-			'</span>\n' +
+			'</label>\n' +
 			'<input size="1" class="representation-widget_representation-language-input"\n' +
+			':id="inputLanguageId(index)"\n' +
 			':value="representation.language"\n' +
 			'@input="updateLanguage(representation, $event)"\n' +
 			':class="{\n' +
