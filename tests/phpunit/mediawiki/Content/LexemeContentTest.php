@@ -11,7 +11,6 @@ use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Title;
-use Wikibase\Content\EntityInstanceHolder;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -41,6 +40,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Content\EntityContentDiff;
+use Wikibase\Repo\Content\EntityInstanceHolder;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeContent
