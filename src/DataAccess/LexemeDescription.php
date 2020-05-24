@@ -100,17 +100,17 @@ class LexemeDescription {
 	) {
 		$lemmaDescription = $this->createDescription( $lexemeId, $language, $category );
 		// Create list of feature labels, should match what FormsView.php is doing
-		$comma = wfMessage( 'comma-separator' )->inLanguage( $this->displayLanguage );
+		$comma = wfMessage( 'comma-separator' )->inLanguage( $this->displayLanguage )->text();
 		$featuresString = implode( $comma, array_filter( array_map(
 			function ( EntityId $featureId ) {
 				// TODO: do we need separate string for this?
 				return $this->getLabelOrDefault( $featureId,
 					wfMessage( 'wikibaselexeme-unknown-category' )
-						->inLanguage( $this->displayLanguage ) );
+						->inLanguage( $this->displayLanguage )->text() );
 			}, $features ) ) );
 		if ( empty( $featuresString ) ) {
 			$featuresString = wfMessage( 'wikibaselexeme-no-features' )
-				->inLanguage( $this->displayLanguage );
+				->inLanguage( $this->displayLanguage )->text();
 		}
 		return wfMessage( 'wikibaselexeme-form-description' )
 			->inLanguage( $this->displayLanguage )
