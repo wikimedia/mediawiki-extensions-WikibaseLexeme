@@ -5,6 +5,11 @@
 		]
 	},
 	"wikibaselexeme-newlexeme-fieldset": "Krear nova lexemo",
+	"wikibaselexeme-lemma-field-language-label": "Espelo-variado",
+	"wikibaselexeme-form-field-language-label": "Espelo-variado",
+	"wikibaselexeme-gloss-field-language-label": "Linguo",
+	"wikibaselexeme-field-language-label": "Linguo",
+	"wikibaselexeme-diffview-language": "linguo",
 	"wikibaselexeme-unknown-category": "Nekonocata",
 	"wikibase-lexeme-language-name-rm-rumgr": "Rumantsch Grischun",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
