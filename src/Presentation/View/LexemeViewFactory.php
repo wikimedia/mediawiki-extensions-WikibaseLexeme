@@ -7,9 +7,6 @@ use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\LanguageFallbackChain;
-use Wikibase\Lib\Store\EntityInfo;
-use Wikibase\Lib\Store\EntityInfoTermLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\View\RepoSpecialPageLinker;
@@ -34,11 +31,6 @@ class LexemeViewFactory {
 	private $language;
 
 	/**
-	 * @var EntityInfo
-	 */
-	private $entityInfo;
-
-	/**
 	 * @var string
 	 */
 	private $saveMessageKey;
@@ -46,12 +38,10 @@ class LexemeViewFactory {
 	public function __construct(
 		Language $language,
 		LanguageFallbackChain $fallbackChain,
-		EntityInfo $entityInfo,
 		$saveMessageKey
 	) {
 		$this->fallbackChain = $fallbackChain;
 		$this->language = $language;
-		$this->entityInfo = $entityInfo;
 		$this->saveMessageKey = $saveMessageKey;
 	}
 
@@ -61,10 +51,6 @@ class LexemeViewFactory {
 
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->language );
-		$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
-			new EntityInfoTermLookup( $this->entityInfo ),
-			$this->fallbackChain
-		);
 
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
@@ -74,14 +60,14 @@ class LexemeViewFactory {
 
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->language->getCode(),
-			$labelDescriptionLookup,
+			null,
 			$this->fallbackChain,
 			$editSectionGenerator
 		);
 
 		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
 			$this->language->getCode(),
-			$labelDescriptionLookup,
+			null,
 			$this->fallbackChain,
 			$editSectionGenerator
 		);

@@ -51,7 +51,6 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\LanguageFallbackIndicator;
-use Wikibase\Lib\Store\EntityInfo;
 use Wikibase\Lib\Store\Sql\EntityIdLocalPartPageTableEntityQuery;
 use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
@@ -81,7 +80,7 @@ return [
 			Language $language,
 			LanguageFallbackChain $fallbackChain,
 			EntityDocument $entity,
-			EntityInfo $entityInfo
+			$unused = null
 		) {
 			$saveMessageKey =
 				( MediaWikiServices::getInstance()->getMainConfig()->get( 'EditSubmitButtonLabelPublish' ) )
@@ -90,7 +89,6 @@ return [
 			$factory = new LexemeViewFactory(
 				$language,
 				$fallbackChain,
-				$entityInfo,
 				$saveMessageKey
 			);
 
