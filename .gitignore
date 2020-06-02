@@ -1,10 +1,10 @@
 *~
 *.kate-swp
 
-composer.phar
-composer.lock
+/composer.phar
+/composer.lock
 
-vendor/
+/vendor/
 extensions/
 node_modules/
 
