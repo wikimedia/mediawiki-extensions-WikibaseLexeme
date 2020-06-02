@@ -7,6 +7,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Store\EntityTitleTextLookup;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -42,9 +43,21 @@ class FormLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCase
 
 	private function getLinkFormatter( $entityType ): EntityLinkFormatter {
 		$factory = WikibaseRepo::getDefaultInstance()
-			->getEntityLinkFormatterFactory( Language::factory( 'en' ) );
+			->getEntityLinkFormatterFactory(
+				Language::factory( 'en' ),
+				$this->getEntityTitleTextLookupMock( 'foo' )
+			);
 
 		return $factory->getLinkFormatter( $entityType );
+	}
+
+	private function getEntityTitleTextLookupMock( string $titleText = null ) {
+		$entityTitleTextLookup = $this->createMock( EntityTitleTextLookup::class );
+		$entityTitleTextLookup->expects( $this->any() )
+			->method( 'getPrefixedText' )
+			->with( $entityId ?? $this->anything() )
+			->willReturn( $titleText );
+		return $entityTitleTextLookup;
 	}
 
 }

@@ -81,13 +81,25 @@ class FormLinkFormatter implements EntityLinkFormatter {
 		return $form->getRepresentations();
 	}
 
+	/**
+	 * @suppress PhanParamSignatureRealMismatchHasNoParamType
+	 * @inheritDoc
+	 */
 	public function getTitleAttribute(
-		Title $title,
+		$entityIdOrTitle,
 		array $labelData = null,
 		array $descriptionData = null
 	) {
+		$paramType = Title::class . '|' . EntityId::class;
+		Assert::parameterType( $paramType, $entityIdOrTitle, '$entityIdOrTitle' );
 		// TODO: return the right thing here once defined and technically possible
-		return $title->getFragment();
+		if ( $entityIdOrTitle instanceof EntityId ) {
+			return $entityIdOrTitle->getSerialization();
+		}
+		if ( $entityIdOrTitle instanceof Title ) {
+			return $entityIdOrTitle->getFragment();
+		}
+		throw new \LogicException( 'Should have been EntityId or Title' );
 	}
 
 	/**

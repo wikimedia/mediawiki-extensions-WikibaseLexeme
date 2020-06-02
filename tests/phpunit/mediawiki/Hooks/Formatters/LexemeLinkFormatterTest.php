@@ -7,7 +7,6 @@ use HtmlArmor;
 use Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -19,6 +18,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Store\EntityTitleTextLookup;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\ParameterTypeException;
@@ -100,8 +100,9 @@ class LexemeLinkFormatterTest extends TestCase {
 		);
 	}
 
-	private function newFormatter() {
+	private function newFormatter( $titleText = 'foo' ) {
 		return new LexemeLinkFormatter(
+			$this->getEntityTitleTextLookupMock( $titleText ),
 			$this->entityLookup,
 			$this->getMockDefaultFormatter(),
 			$this->lemmaFormatter,
@@ -120,9 +121,19 @@ class LexemeLinkFormatterTest extends TestCase {
 		return $entityLookup;
 	}
 
-	public function testGetTitleAttribute() {
+	public function testGetTitleAttributeFromEntityId() {
+		$lexemeId = new LexemeId( 'L123' );
+		$titleText = 'Lexeme:L123';
+		$formatter = $this->newFormatter( $titleText );
+		$this->assertEquals(
+			'Lexeme:L123',
+			$formatter->getTitleAttribute( $lexemeId )
+		);
+	}
+
+	public function testGetTitleAttributeFromTitle() {
 		$formatter = $this->newFormatter();
-		$title = $this->createMock( Title::class );
+		$title = $this->createMock( \Title::class );
 		$title->method( 'getPrefixedText' )->willReturn( 'Lexeme:L123' );
 		$this->assertEquals(
 			'Lexeme:L123',
@@ -165,6 +176,15 @@ class LexemeLinkFormatterTest extends TestCase {
 			} );
 
 		return $formatter;
+	}
+
+	private function getEntityTitleTextLookupMock( $titleText ) {
+		$entityTitleTextLookup = $this->createMock( EntityTitleTextLookup::class );
+		$entityTitleTextLookup->expects( $this->any() )
+			->method( 'getPrefixedText' )
+			->with( $entityId ?? $this->anything() )
+			->willReturn( $titleText );
+		return $entityTitleTextLookup;
 	}
 
 }

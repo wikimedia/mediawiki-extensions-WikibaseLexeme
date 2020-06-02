@@ -12,6 +12,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
+use Wikibase\Lib\Store\EntityTitleTextLookup;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\Assert;
@@ -42,17 +43,24 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	private $lemmaFormatter;
 
 	/**
+	 * @var EntityTitleTextLookup
+	 */
+	private $entityTitleTextLookup;
+
+	/**
 	 * @param EntityLookup $entityLookup
 	 * @param DefaultEntityLinkFormatter $linkFormatter
 	 * @param LexemeTermFormatter $lemmaFormatter
 	 * @param Language $language
 	 */
 	public function __construct(
+		EntityTitleTextLookup $entityTitleTextLookup,
 		EntityLookup $entityLookup,
-		DefaultEntityLinkFormatter $linkFormatter,
+		EntityLinkFormatter $linkFormatter,
 		LexemeTermFormatter $lemmaFormatter,
 		Language $language
 	) {
+		$this->entityTitleTextLookup = $entityTitleTextLookup;
 		$this->entityLookup = $entityLookup;
 		$this->linkFormatter = $linkFormatter;
 		$this->lemmaFormatter = $lemmaFormatter;
@@ -78,14 +86,24 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	/**
+	 * @suppress PhanParamSignatureRealMismatchHasNoParamType
 	 * @inheritDoc
 	 */
 	public function getTitleAttribute(
-		Title $title,
+		$entityIdOrTitle,
 		array $labelData = null,
 		array $descriptionData = null
 	) {
-		return $title->getPrefixedText();
+		$paramType = Title::class . '|' . EntityId::class;
+		Assert::parameterType( $paramType, $entityIdOrTitle, '$entityIdOrTitle' );
+
+		if ( $entityIdOrTitle instanceof EntityId ) {
+			return $this->entityTitleTextLookup->getPrefixedText( $entityIdOrTitle );
+		}
+		if ( $entityIdOrTitle instanceof Title ) {
+			return $entityIdOrTitle->getPrefixedText();
+		}
+		throw new \LogicException( 'Should have been EntityId or Title' );
 	}
 
 	/**
