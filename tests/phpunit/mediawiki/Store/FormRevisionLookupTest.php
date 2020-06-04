@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;
+use Wikibase\Store;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
@@ -93,7 +94,7 @@ class FormRevisionLookupTest extends TestCase {
 	}
 
 	public function testGivenFormId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
-		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
+		$defaultMode = Store::LATEST_FROM_REPLICA;
 
 		/** @var EntityRevisionLookup $parentService */
 		$parentService = $this->prophesize( EntityRevisionLookup::class );
@@ -112,7 +113,7 @@ class FormRevisionLookupTest extends TestCase {
 	}
 
 	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsNonexistentRevision() {
-		$defaultMode = EntityRevisionLookup::LATEST_FROM_REPLICA;
+		$defaultMode = Store::LATEST_FROM_REPLICA;
 
 		/** @var EntityRevisionLookup $parentService */
 		$parentService = $this->prophesize( EntityRevisionLookup::class );

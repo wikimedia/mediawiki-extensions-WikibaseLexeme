@@ -11,8 +11,8 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\Sql\WikiPageEntityMetaDataAccessor;
+use Wikibase\Store;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor
@@ -40,7 +40,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 		);
 
 		$actualReturn = $entityDataAccessor->loadRevisionInformation(
-			$entityIds, EntityRevisionLookup::LATEST_FROM_MASTER );
+			$entityIds, Store::LATEST_FROM_MASTER );
 
 		$this->assertEquals( $expectedReturn, $actualReturn );
 	}
@@ -63,7 +63,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 
 		$entityDataAccessor->loadRevisionInformation(
 			$entityIds,
-			EntityRevisionLookup::LATEST_FROM_MASTER
+			Store::LATEST_FROM_MASTER
 		);
 	}
 

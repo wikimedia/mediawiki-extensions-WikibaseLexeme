@@ -17,6 +17,7 @@ use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\StorageException;
+use Wikibase\Store;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -217,7 +218,7 @@ class FormStore implements EntityStore {
 		$revision = $this->lookup->getEntityRevision(
 			$formId->getLexemeId(),
 			$revisionId,
-			EntityRevisionLookup::LATEST_FROM_MASTER
+			Store::LATEST_FROM_MASTER
 		);
 
 		if ( !$revision || !( $revision->getEntity() instanceof Lexeme ) ) {
