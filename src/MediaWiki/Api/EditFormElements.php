@@ -131,7 +131,7 @@ class EditFormElements extends \ApiBase {
 		$formRevision = $this->entityRevisionLookup->getEntityRevision(
 			$formId,
 			self::LATEST_REVISION,
-			EntityRevisionLookup::LATEST_FROM_MASTER
+			Store::LATEST_FROM_MASTER
 		);
 
 		if ( $formRevision === null ) {

@@ -143,7 +143,7 @@ class EditSenseElements extends \ApiBase {
 		$senseRevision = $this->entityRevisionLookup->getEntityRevision(
 			$senseId,
 			self::LATEST_REVISION,
-			EntityRevisionLookup::LATEST_FROM_MASTER
+			Store::LATEST_FROM_MASTER
 		);
 
 		if ( $senseRevision === null ) {

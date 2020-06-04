@@ -13,6 +13,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
+use Wikibase\Store;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -44,7 +45,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 	public function getEntityRevision(
 		EntityId $senseId,
 		$revisionId = 0,
-		$mode = self::LATEST_FROM_REPLICA
+		$mode = Store::LATEST_FROM_REPLICA
 	) {
 		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 
@@ -80,7 +81,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 	 * @throws UnexpectedValueException
 	 * @return LatestRevisionIdResult|int|false
 	 */
-	public function getLatestRevisionId( EntityId $senseId, $mode = self::LATEST_FROM_REPLICA ) {
+	public function getLatestRevisionId( EntityId $senseId, $mode = Store::LATEST_FROM_REPLICA ) {
 		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
 
 		$lexemeId = $senseId->getLexemeId();

@@ -116,7 +116,7 @@ class RemoveSense extends ApiBase {
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
 				$lexemeId,
 				$baseRevId,
-				EntityRevisionLookup::LATEST_FROM_MASTER
+				Store::LATEST_FROM_MASTER
 			);
 
 			if ( !$lexemeRevision ) {

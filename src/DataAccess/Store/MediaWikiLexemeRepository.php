@@ -13,6 +13,7 @@ use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Content\EntityContent;
+use Wikibase\Store;
 
 /**
  * @license GPL-2.0-or-later
@@ -86,7 +87,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 			$revision = $this->entityRevisionLookup->getEntityRevision(
 				$id,
 				0,
-				EntityRevisionLookup::LATEST_FROM_MASTER
+				Store::LATEST_FROM_MASTER
 			);
 
 			if ( $revision ) {

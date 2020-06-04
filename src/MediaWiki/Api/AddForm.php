@@ -292,7 +292,7 @@ class AddForm extends ApiBase {
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
 				$lexemeId,
 				self::LATEST_REVISION,
-				EntityRevisionLookup::LATEST_FROM_MASTER
+				Store::LATEST_FROM_MASTER
 			);
 		} catch ( StorageException $e ) {
 			//TODO Test it
