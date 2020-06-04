@@ -2,12 +2,34 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
+use ExtensionRegistry;
 use PHPUnit\Framework\TestSuite;
-use Scribunto_LuaEngineTestBase;
 use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Tests\MockRepository;
+
+if (
+	!ExtensionRegistry::getInstance()->isLoaded( 'WikibaseClient' ) ||
+	!ExtensionRegistry::getInstance()->isLoaded( 'Scribunto' )
+) {
+	/**
+	 * Fake base class in case Scribunto or Wikibase client is not available.
+	 */
+	abstract class Scribunto_LuaWikibaseLexemeLibraryTestCase extends \PHPUnit\Framework\TestCase {
+
+		protected function setUp() : void {
+			$this->markTestSkipped( 'WikibaseClient and Scribunto extensions are needed to run the tests' );
+		}
+
+		public function testPlaceholder() {
+			$this->fail( 'PHPunit expects this class to have tests. This should never run.' );
+		}
+
+	}
+
+	return;
+}
 
 /**
  * @license GPL-2.0-or-later
@@ -40,10 +62,6 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 	 * @return TestSuite
 	 */
 	public static function suite( $className ) {
-		if ( !class_exists( Scribunto_LuaEngineTestBase::class ) ) {
-			return new TestSuite();
-		}
-
 		self::doMock();
 
 		$res = parent::suite( $className );
