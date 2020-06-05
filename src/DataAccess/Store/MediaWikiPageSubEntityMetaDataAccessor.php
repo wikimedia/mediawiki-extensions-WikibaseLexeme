@@ -7,8 +7,8 @@ use LogicException;
 use stdClass;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\Sql\WikiPageEntityMetaDataAccessor;
-use Wikibase\Store;
 
 /**
  * An Accessor for SubEntities that uses the supplied Accessor to look up
@@ -30,9 +30,9 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 * belong.
 	 *
 	 * @param EntityId[] $entityIds values must be instances of {@link LexemeSubEntityId}
-	 * @param string $mode (Store::LATEST_FROM_REPLICA,
-	 *     Store::LATEST_FROM_REPLICA_WITH_FALLBACK or
-	 *     Store::LATEST_FROM_MASTER)
+	 * @param string $mode (LookupConstants::LATEST_FROM_REPLICA,
+	 *     LookupConstants::LATEST_FROM_REPLICA_WITH_FALLBACK or
+	 *     LookupConstants::LATEST_FROM_MASTER)
 	 *
 	 * @return (stdClass|bool)[] Array mapping entity ID serializations to either objects
 	 * or false if an entity could not be found.
@@ -73,9 +73,9 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 *
 	 * @param EntityId $entityId
 	 * @param int $revisionId Revision id to fetch data about, must be an integer greater than 0.
-	 * @param string $mode (Store::LATEST_FROM_REPLICA,
-	 *     Store::LATEST_FROM_REPLICA_WITH_FALLBACK or
-	 *     Store::LATEST_FROM_MASTER).
+	 * @param string $mode (LookupConstants::LATEST_FROM_REPLICA,
+	 *     LookupConstants::LATEST_FROM_REPLICA_WITH_FALLBACK or
+	 *     LookupConstants::LATEST_FROM_MASTER).
 	 *
 	 * @return stdClass|bool false if no such entity exists
 	 *
@@ -83,7 +83,7 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 */
 	public function loadRevisionInformationByRevisionId( EntityId $entityId,
 		$revisionId,
-		$mode = Store::LATEST_FROM_MASTER ) {
+		$mode = LookupConstants::LATEST_FROM_MASTER ) {
 		throw new BadMethodCallException( 'Not Implemented' );
 	}
 
@@ -96,9 +96,9 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 * and the SubEntity row is reinserted into the lookup afterwards.
 	 *
 	 * @param EntityId[] $entityIds
-	 * @param string $mode (Store::LATEST_FROM_REPLICA,
-	 *     Store::LATEST_FROM_REPLICA_WITH_FALLBACK or
-	 *     Store::LATEST_FROM_MASTER)
+	 * @param string $mode (LookupConstants::LATEST_FROM_REPLICA,
+	 *     LookupConstants::LATEST_FROM_REPLICA_WITH_FALLBACK or
+	 *     LookupConstants::LATEST_FROM_MASTER)
 	 *
 	 * @return (int|bool)[] Array mapping entity ID serializations to either revision IDs
 	 * or false if an entity could not be found (including if the page is a redirect).

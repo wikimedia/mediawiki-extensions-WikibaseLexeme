@@ -12,6 +12,7 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\SenseNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
@@ -116,7 +117,7 @@ class RemoveSense extends ApiBase {
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
 				$lexemeId,
 				$baseRevId,
-				Store::LATEST_FROM_MASTER
+				LookupConstants::LATEST_FROM_MASTER
 			);
 
 			if ( !$lexemeRevision ) {

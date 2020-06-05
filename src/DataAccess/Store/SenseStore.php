@@ -16,8 +16,8 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\StorageException;
-use Wikibase\Store;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -216,7 +216,7 @@ class SenseStore implements EntityStore {
 		$revision = $this->lookup->getEntityRevision(
 			$senseId->getLexemeId(),
 			$revisionId,
-			Store::LATEST_FROM_MASTER
+			LookupConstants::LATEST_FROM_MASTER
 		);
 
 		if ( !$revision || !( $revision->getEntity() instanceof Lexeme ) ) {

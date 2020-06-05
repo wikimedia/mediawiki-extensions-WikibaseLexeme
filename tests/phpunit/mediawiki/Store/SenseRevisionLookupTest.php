@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;
-use Wikibase\Store;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**
@@ -94,7 +94,7 @@ class SenseRevisionLookupTest extends TestCase {
 	}
 
 	public function testGivenSenseId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
-		$defaultMode = Store::LATEST_FROM_REPLICA;
+		$defaultMode = LookupConstants::LATEST_FROM_REPLICA;
 		/** @var EntityRevisionLookup $parentService */
 		$parentService = $this->prophesize( EntityRevisionLookup::class );
 		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
@@ -112,7 +112,7 @@ class SenseRevisionLookupTest extends TestCase {
 	}
 
 	public function testLexemeDoesNotContainTheSense_getLatestRevisionIdReturnsNonexistentEntity() {
-		$defaultMode = Store::LATEST_FROM_REPLICA;
+		$defaultMode = LookupConstants::LATEST_FROM_REPLICA;
 
 		$parentService = $this->prophesize( EntityRevisionLookup::class );
 		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )

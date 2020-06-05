@@ -10,10 +10,10 @@ use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\Content\EntityContent;
-use Wikibase\Store;
 
 /**
  * @license GPL-2.0-or-later
@@ -87,7 +87,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 			$revision = $this->entityRevisionLookup->getEntityRevision(
 				$id,
 				0,
-				Store::LATEST_FROM_MASTER
+				LookupConstants::LATEST_FROM_MASTER
 			);
 
 			if ( $revision ) {
