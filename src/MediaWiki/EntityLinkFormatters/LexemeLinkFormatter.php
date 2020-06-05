@@ -86,7 +86,6 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	/**
-	 * @suppress PhanParamSignatureRealMismatchHasNoParamType
 	 * @inheritDoc
 	 */
 	public function getTitleAttribute(
@@ -98,7 +97,13 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 		Assert::parameterType( $paramType, $entityIdOrTitle, '$entityIdOrTitle' );
 
 		if ( $entityIdOrTitle instanceof EntityId ) {
-			return $this->entityTitleTextLookup->getPrefixedText( $entityIdOrTitle );
+			$prefixedText = $this->entityTitleTextLookup->getPrefixedText( $entityIdOrTitle );
+			if ( $prefixedText === null ) {
+				// XXX: This indicates that something wen't wrong, probably with Federated Properties
+				// EntityTitleTextLookup should throw instead of returning null
+				throw new \RuntimeException( 'Prefixed Text should not be null' );
+			}
+			return $prefixedText;
 		}
 		if ( $entityIdOrTitle instanceof Title ) {
 			return $entityIdOrTitle->getPrefixedText();

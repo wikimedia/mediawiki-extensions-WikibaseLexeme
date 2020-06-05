@@ -82,7 +82,6 @@ class FormLinkFormatter implements EntityLinkFormatter {
 	}
 
 	/**
-	 * @suppress PhanParamSignatureRealMismatchHasNoParamType
 	 * @inheritDoc
 	 */
 	public function getTitleAttribute(
