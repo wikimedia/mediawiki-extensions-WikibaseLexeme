@@ -121,23 +121,13 @@ class LexemeLinkFormatterTest extends TestCase {
 		return $entityLookup;
 	}
 
-	public function testGetTitleAttributeFromEntityId() {
+	public function testGetTitleAttribute() {
 		$lexemeId = new LexemeId( 'L123' );
 		$titleText = 'Lexeme:L123';
 		$formatter = $this->newFormatter( $titleText );
 		$this->assertEquals(
-			'Lexeme:L123',
+			$titleText,
 			$formatter->getTitleAttribute( $lexemeId )
-		);
-	}
-
-	public function testGetTitleAttributeFromTitle() {
-		$formatter = $this->newFormatter();
-		$title = $this->createMock( \Title::class );
-		$title->method( 'getPrefixedText' )->willReturn( 'Lexeme:L123' );
-		$this->assertEquals(
-			'Lexeme:L123',
-			$formatter->getTitleAttribute( $title )
 		);
 	}
 

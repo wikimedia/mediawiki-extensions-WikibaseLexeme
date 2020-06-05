@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\MediaWiki\EntityLinkFormatters;
 
 use HtmlArmor;
 use Language;
-use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\TermList;
@@ -85,20 +84,11 @@ class FormLinkFormatter implements EntityLinkFormatter {
 	 * @inheritDoc
 	 */
 	public function getTitleAttribute(
-		$entityIdOrTitle,
+		EntityId $entityId,
 		array $labelData = null,
 		array $descriptionData = null
 	) {
-		$paramType = Title::class . '|' . EntityId::class;
-		Assert::parameterType( $paramType, $entityIdOrTitle, '$entityIdOrTitle' );
-		// TODO: return the right thing here once defined and technically possible
-		if ( $entityIdOrTitle instanceof EntityId ) {
-			return $entityIdOrTitle->getSerialization();
-		}
-		if ( $entityIdOrTitle instanceof Title ) {
-			return $entityIdOrTitle->getFragment();
-		}
-		throw new \LogicException( 'Should have been EntityId or Title' );
+		return $entityId->getSerialization();
 	}
 
 	/**

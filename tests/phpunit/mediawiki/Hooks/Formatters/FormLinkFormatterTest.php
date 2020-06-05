@@ -8,7 +8,6 @@ use InvalidArgumentException;
 use Language;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\Domain\Model\Form;
@@ -78,14 +77,7 @@ class FormLinkFormatterTest extends TestCase {
 		$formatter->getHtml( new LexemeId( 'L1' ) );
 	}
 
-	public function testGetTitleAttributeReturnsFormIdFromTitleFragment() {
-		$title = $this->createMock( Title::class );
-		$title->method( 'getFragment' )->willReturn( 'L2-F3' );
-		$formatter = $this->newFormatter();
-		$this->assertEquals( 'L2-F3', $formatter->getTitleAttribute( $title ) );
-	}
-
-	public function testGetTitleAttributeWithEntityId() {
+	public function testGetTitleAttribute() {
 		$entityId = new FormId( 'L2-F3' );
 		$formatter = $this->newFormatter();
 		$this->assertEquals( 'L2-F3', $formatter->getTitleAttribute( $entityId ) );

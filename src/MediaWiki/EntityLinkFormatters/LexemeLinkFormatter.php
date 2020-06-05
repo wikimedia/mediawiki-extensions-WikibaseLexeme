@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\MediaWiki\EntityLinkFormatters;
 
 use HtmlArmor;
 use Language;
-use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
@@ -89,26 +88,14 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	 * @inheritDoc
 	 */
 	public function getTitleAttribute(
-		$entityIdOrTitle,
+		EntityId $entityId,
 		array $labelData = null,
 		array $descriptionData = null
 	) {
-		$paramType = Title::class . '|' . EntityId::class;
-		Assert::parameterType( $paramType, $entityIdOrTitle, '$entityIdOrTitle' );
-
-		if ( $entityIdOrTitle instanceof EntityId ) {
-			$prefixedText = $this->entityTitleTextLookup->getPrefixedText( $entityIdOrTitle );
-			if ( $prefixedText === null ) {
-				// XXX: This indicates that something wen't wrong, probably with Federated Properties
-				// EntityTitleTextLookup should throw instead of returning null
-				throw new \RuntimeException( 'Prefixed Text should not be null' );
-			}
-			return $prefixedText;
-		}
-		if ( $entityIdOrTitle instanceof Title ) {
-			return $entityIdOrTitle->getPrefixedText();
-		}
-		throw new \LogicException( 'Should have been EntityId or Title' );
+		// TODO Can't this use $entityId->getSerialization() directly?
+		//      It may have only used the Title text for historical reasons.
+		return $this->entityTitleTextLookup->getPrefixedText( $entityId )
+			?? $entityId->getSerialization();
 	}
 
 	/**
