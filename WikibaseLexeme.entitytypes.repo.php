@@ -242,10 +242,14 @@ return [
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$requestContext = RequestContext::getMain();
+			$linkFormatter = $repo->getEntityLinkFormatterFactory( $language )->getDefaultLinkFormatter();
+			/** @var $linkFormatter DefaultEntityLinkFormatter */
+			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
 			return new LexemeLinkFormatter(
+				$repo->getEntityTitleTextLookup(),
 				$repo->getEntityLookup(),
-				new DefaultEntityLinkFormatter( $language ),
+				$linkFormatter,
 				new LexemeTermFormatter(
 					$requestContext
 						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
@@ -344,10 +348,13 @@ return [
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$requestContext = RequestContext::getMain();
+			$linkFormatter = $repo->getEntityLinkFormatterFactory( $language )->getDefaultLinkFormatter();
+			/** @var $linkFormatter DefaultEntityLinkFormatter */
+			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
 			return new FormLinkFormatter(
 				$repo->getEntityLookup(),
-				new DefaultEntityLinkFormatter( $language ),
+				$linkFormatter,
 				new LexemeTermFormatter(
 					$requestContext
 						->msg( 'wikibaselexeme-formidformatter-separator-multiple-representation' )

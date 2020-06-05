@@ -81,10 +81,14 @@ class FormLinkFormatterTest extends TestCase {
 	public function testGetTitleAttributeReturnsFormIdFromTitleFragment() {
 		$title = $this->createMock( Title::class );
 		$title->method( 'getFragment' )->willReturn( 'L2-F3' );
-
 		$formatter = $this->newFormatter();
-
 		$this->assertEquals( 'L2-F3', $formatter->getTitleAttribute( $title ) );
+	}
+
+	public function testGetTitleAttributeWithEntityId() {
+		$entityId = new FormId( 'L2-F3' );
+		$formatter = $this->newFormatter();
+		$this->assertEquals( 'L2-F3', $formatter->getTitleAttribute( $entityId ) );
 	}
 
 	/**
