@@ -79,8 +79,7 @@ return [
 		Def::VIEW_FACTORY_CALLBACK => function (
 			Language $language,
 			LanguageFallbackChain $fallbackChain,
-			EntityDocument $entity,
-			$unused = null
+			EntityDocument $entity
 		) {
 			$saveMessageKey =
 				( MediaWikiServices::getInstance()->getMainConfig()->get( 'EditSubmitButtonLabelPublish' ) )
