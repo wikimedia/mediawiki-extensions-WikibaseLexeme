@@ -13,7 +13,7 @@ use Wikibase\Repo\EditEntity\EditFilterHookRunner;
 use Wikibase\Repo\Interactors\EntityRedirectCreationInteractor;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
-use Wikibase\SummaryFormatter;
+use Wikibase\Repo\SummaryFormatter;
 
 /**
  * @license GPL-2.0-or-later

@@ -25,8 +25,8 @@ use Wikibase\Repo\EditEntity\EditEntity;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
+use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\SummaryFormatter;
 use Wikimedia\Assert\Assert;
 
 /**
