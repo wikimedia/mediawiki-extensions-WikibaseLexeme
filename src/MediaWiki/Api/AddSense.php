@@ -24,8 +24,8 @@ use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
+use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\Store;
 use Wikibase\SummaryFormatter;
 
 /**

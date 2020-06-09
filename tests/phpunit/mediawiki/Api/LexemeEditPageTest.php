@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Tests\NewItem;
-use Wikibase\Store;
 
 /**
  * Tests undoing edits on a lexeme

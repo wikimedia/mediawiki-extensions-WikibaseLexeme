@@ -14,7 +14,7 @@ use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Store;
+use Wikibase\Repo\Store\Store;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditFormElements

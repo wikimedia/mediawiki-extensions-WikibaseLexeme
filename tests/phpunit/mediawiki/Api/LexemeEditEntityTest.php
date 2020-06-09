@@ -19,7 +19,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
-use Wikibase\Store;
+use Wikibase\Repo\Store\Store;
 
 /**
  * @covers \Wikibase\Repo\Api\EditEntity

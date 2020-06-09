@@ -11,9 +11,9 @@ use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\Store;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\MergeLexemes
