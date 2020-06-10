@@ -21,7 +21,7 @@ use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
-use Wikibase\SummaryFormatter;
+use Wikibase\Repo\SummaryFormatter;
 
 /**
  * @license GPL-2.0-or-later

@@ -16,10 +16,10 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
+use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\SummaryFormatter;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme

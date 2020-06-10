@@ -28,8 +28,8 @@ use Wikibase\Lexeme\Tests\TestDoubles\SucceedingLexemeAuthorizer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
+use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\SummaryFormatter;
 
 /**
  * @covers \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor
