@@ -160,7 +160,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		this.fillNthLemma( 0, lemmaText, languageCode );
 
 		this.headerSaveButton.click();
-		this.headerSaveButton.waitForExist( null, true );
+		this.headerSaveButton.waitForExist( { reverse: true } );
 	}
 
 	startHeaderEditMode() {
@@ -203,7 +203,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		} );
 
 		this.headerSaveButton.click();
-		this.headerSaveButton.waitForExist( null, true );
+		this.headerSaveButton.waitForExist( { reverse: true } );
 	}
 
 	/**
@@ -227,7 +227,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		} );
 
 		this.headerSaveButton.click();
-		this.headerSaveButton.waitForExist( null, true );
+		this.headerSaveButton.waitForExist( { reverse: true } );
 	}
 
 	/**
@@ -268,7 +268,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	isHeaderSubmittable() {
-		return this.headerSaveButton.getAttribute( 'disabled' ) !== 'true';
+		return this.headerSaveButton.isEnabled();
 	}
 
 	/**
@@ -285,7 +285,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		this.formsContainer.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON ).click();
 
-		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).waitForExist( null, true );
+		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE )
+			.waitForExist( { reverse: true } );
 	}
 
 	/**
@@ -301,7 +302,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		removeButton.waitForClickable();
 		removeButton.click();
-		form.waitForExist( null, true );
+		form.waitForExist( { reverse: true } );
 	}
 
 	/**
@@ -402,7 +403,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		} );
 
 		saveLink.click();
-		saveLink.waitForExist( null, true );
+		saveLink.waitForExist( { reverse: true } );
 	}
 
 	addRepresentationToNthForm( index, representation, language, submitImmediately ) {
@@ -493,7 +494,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		saveButton.waitForClickable();
 		saveButton.click();
-		saveButton.waitForExist( null, true );
+		saveButton.waitForExist( { reverse: true } );
 	}
 
 	addGrammaticalFeatureToNthForm( index, grammaticalFeatureId, submitImmediately ) {
@@ -535,7 +536,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	isUserLoggedIn() {
-		$( this.constructor.PERSONAL_BAR.USER_TOOLBAR ).waitForExist( null, false );
+		$( this.constructor.PERSONAL_BAR.USER_TOOLBAR ).waitForExist( { reverse: true } );
 		return !$( this.constructor.PERSONAL_BAR.USER_NOT_LOGIN_ICON ).isExisting();
 	}
 
