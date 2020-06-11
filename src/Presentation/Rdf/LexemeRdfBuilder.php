@@ -10,9 +10,9 @@ use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
-use Wikibase\Rdf\EntityMentionListener;
-use Wikibase\Rdf\EntityRdfBuilder;
-use Wikibase\Rdf\RdfVocabulary;
+use Wikibase\Repo\Rdf\EntityMentionListener;
+use Wikibase\Repo\Rdf\EntityRdfBuilder;
+use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
