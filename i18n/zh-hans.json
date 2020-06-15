@@ -11,7 +11,8 @@
 			"予弦",
 			"夢蝶葬花",
 			"沈澄心",
-			"神樂坂秀吉"
+			"神樂坂秀吉",
+			"铁桶"
 		]
 	},
 	"wikibaselexeme-desc": "处理词位实体类型",
@@ -102,7 +103,7 @@
 	"wikibase-lexeme-mergelexemes-to-id": "要合并到的ID",
 	"wikibase-lexeme-mergelexemes-submit": "合并词位",
 	"wikibase-lexeme-mergelexemes-success": "$1已合并至$2并已创建重定向。",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "未找到$1",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "未找到词位$1",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "加载Lexeme失败。",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "提交Lexeme失败。",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "权限被拒绝。",
