@@ -686,6 +686,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID );
 		$this->saveDummyItemToDatabase( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID );
 
+		// TODO disabling exception logging probably shouldn’t be necessary (T255566)
+		$this->setNullLogger( 'exception' );
+
 		$exception = null;
 		try {
 			$this->doApiRequestWithToken( $params );
