@@ -86,7 +86,7 @@ class SensePage extends Page {
 	 * @return {{value, language, senseIdElement}}
 	 */
 	getNthSenseData( index ) {
-		let sense = this.senses[ index ];
+		const sense = this.senses[ index ];
 
 		sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_VALUE ).waitForExist();
 
@@ -98,7 +98,7 @@ class SensePage extends Page {
 	}
 
 	getNthSenseFormValues( index ) {
-		let sense = this.senses[ index ],
+		const sense = this.senses[ index ],
 			languageFields = sense.$$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ),
 			glossInputs = [];
 
@@ -115,20 +115,20 @@ class SensePage extends Page {
 	}
 
 	addGlossToNthSense( index, gloss, language, submitImmediately ) {
-		let sense = this.senses[ index ];
+		const sense = this.senses[ index ];
 
 		this.startEditingNthSense( index );
 
-		let addGlossButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.ADD_GLOSS_BUTTON );
+		const addGlossButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.ADD_GLOSS_BUTTON );
 
 		addGlossButton.waitForDisplayed();
 		addGlossButton.click();
 
-		let glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
-		let glosses = glossContainer.$$( '.wikibase-lexeme-sense-gloss' );
+		const glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
+		const glosses = glossContainer.$$( '.wikibase-lexeme-sense-gloss' );
 
-		let newGlossIndex = glosses.length - 1;
-		let newGloss = glosses[ newGlossIndex ];
+		const newGlossIndex = glosses.length - 1;
+		const newGloss = glosses[ newGlossIndex ];
 
 		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
 		newGloss.$( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( gloss );
@@ -139,7 +139,7 @@ class SensePage extends Page {
 	}
 
 	isNthSenseSubmittable( index ) {
-		let sense = this.senses[ index ],
+		const sense = this.senses[ index ],
 			saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
 
 		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
@@ -150,8 +150,8 @@ class SensePage extends Page {
 			return this.isNthSenseSubmittable( index );
 		} );
 
-		let sense = this.senses[ index ];
-		let saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
+		const sense = this.senses[ index ];
+		const saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
 		saveButton.waitForClickable();
 		saveButton.click();
 		saveButton.waitForExist( null, true );
@@ -166,23 +166,23 @@ class SensePage extends Page {
 	}
 
 	getSenseAnchor( index ) {
-		let sense = this.senses[ index ];
+		const sense = this.senses[ index ];
 
 		return sense.getAttribute( 'id' );
 	}
 
 	removeSense( index ) {
-		let sense = this.senses[ index ];
-		let removeButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_REMOVE_BUTTON );
+		const sense = this.senses[ index ];
+		const removeButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_REMOVE_BUTTON );
 		removeButton.click();
 	}
 
 	removeGloss( index, submitImmediately ) {
-		let sense = this.senses[ index ];
-		let glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
-		let glosses = glossContainer.$$( '.wikibase-lexeme-sense-gloss' );
+		const sense = this.senses[ index ];
+		const glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
+		const glosses = glossContainer.$$( '.wikibase-lexeme-sense-gloss' );
 
-		let removeButton = glosses[ 1 ].$( this.constructor.GLOSS_WIDGET_SELECTORS.GLOSS_REMOVE_BUTTON );
+		const removeButton = glosses[ 1 ].$( this.constructor.GLOSS_WIDGET_SELECTORS.GLOSS_REMOVE_BUTTON );
 		removeButton.click();
 
 		if ( submitImmediately !== false ) {
@@ -191,9 +191,9 @@ class SensePage extends Page {
 	}
 
 	cancelSenseEditing( index ) {
-		let sense = this.senses[ index ];
+		const sense = this.senses[ index ];
 
-		let cancelButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.CANCEL_BUTTON );
+		const cancelButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.CANCEL_BUTTON );
 		cancelButton.click();
 	}
 }

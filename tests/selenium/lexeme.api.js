@@ -31,7 +31,7 @@ class LexemeApi {
 			return ( lexeme.language === null ? WikibaseApi.createItem() : Promise.resolve( lexeme.language ) );
 		} ).then( ( languageValue ) => {
 			lexeme.language = languageValue;
-			let bot = new MWBot( {
+			const bot = new MWBot( {
 				apiUrl: browser.config.baseUrl + '/api.php'
 			} );
 			return bot.loginGetEditToken( {
@@ -57,7 +57,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	get( lexemeId ) {
-		let bot = new MWBot( {
+		const bot = new MWBot( {
 			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 		return bot.request( {
@@ -76,7 +76,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	addForm( lexemeId, form ) {
-		let bot = new MWBot( {
+		const bot = new MWBot( {
 			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 
@@ -98,7 +98,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	addSense( lexemeId, sense ) {
-		let bot = new MWBot( {
+		const bot = new MWBot( {
 			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 
@@ -120,7 +120,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	editForm( formId, formData ) {
-		let bot = new MWBot( {
+		const bot = new MWBot( {
 			apiUrl: browser.config.baseUrl + '/api.php'
 		} );
 

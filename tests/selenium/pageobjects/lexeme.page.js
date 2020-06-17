@@ -177,7 +177,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			addButton.click();
 		}
 
-		let lemma = this.lemmas[ position ];
+		const lemma = this.lemmas[ position ];
 		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( lemmaText );
 		lemma.$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( languageCode );
 	}
@@ -198,7 +198,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			if ( this.waitTillHeaderIsSaveableOrError() ) {
 				return true;
 			}
-			this._waitAndRetryInput( this.lexemeLanguageInput, item );
+			this.waitAndRetryInput( this.lexemeLanguageInput, item );
 			return false;
 		} );
 
@@ -222,7 +222,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 			if ( this.waitTillHeaderIsSaveableOrError() ) {
 				return true;
 			}
-			this._waitAndRetryInput( this.lexemeLexicalCategoryInput, item );
+			this.waitAndRetryInput( this.lexemeLexicalCategoryInput, item );
 			return false;
 		} );
 
@@ -238,7 +238,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @param {number} [timeoutMS] duration to wait in ms, default 1000 ms
 	 * @private
 	 */
-	_waitAndRetryInput( input, value, timeoutMS ) {
+	waitAndRetryInput( input, value, timeoutMS ) {
 		browser.call( () =>
 			new Promise( ( resolve ) => {
 				setTimeout( resolve, timeoutMS || 1000 );
@@ -296,8 +296,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	removeNthForm( index ) {
 		this.startEditingNthForm( index );
 
-		let form = this.forms[ index ];
-		let removeButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.REMOVE_BUTTON );
+		const form = this.forms[ index ];
+		const removeButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.REMOVE_BUTTON );
 
 		removeButton.waitForClickable();
 		removeButton.click();
@@ -312,7 +312,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @return {{value, language, grammaticalFeatures}}
 	 */
 	getNthFormData( index ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		return {
 			value: form.$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_VALUE ).getText(),
@@ -328,7 +328,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @return {{value, language}}
 	 */
 	getNthFormFormValues( index ) {
-		let form = this.forms[ index ],
+		const form = this.forms[ index ],
 			languageFields = form.$$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ),
 			representationInputs = [];
 
@@ -345,7 +345,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	getNthFormFormValuesAfterSave( index ) {
-		let form = this.forms[ index ],
+		const form = this.forms[ index ],
 			languageFields = form.$$( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATIONS ),
 			representationValues = [];
 
@@ -362,12 +362,12 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	getNthFormStatement( index ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' ).waitForDisplayed();
 		form.$( '.wikibase-statementgroupview-property-label a' ).waitForDisplayed();
 
-		let property = form.$( '.wikibase-statementgroupview' ),
+		const property = form.$( '.wikibase-statementgroupview' ),
 			value = form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' );
 
 		return {
@@ -376,12 +376,12 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	addStatementToNthForm( index, statementPropertyId, statementValue, submitImmediately ) {
-		let form = this.forms[ index ],
+		const form = this.forms[ index ],
 			addStatementLink = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_STATEMENT_TO_FORM );
 
 		addStatementLink.click();
 
-		let propertyInputfield = form.$( '.wikibase-statementgroupview .wikibase-snakview-property input' );
+		const propertyInputfield = form.$( '.wikibase-statementgroupview .wikibase-snakview-property input' );
 
 		propertyInputfield.setValue( statementPropertyId );
 		this.selectFirstSuggestedEntityOnEntitySelector();
@@ -394,7 +394,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	submitNthFormStatement( index ) {
-		let form = this.forms[ index ],
+		const form = this.forms[ index ],
 			saveLink = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		browser.waitUntil( () => {
@@ -406,20 +406,20 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	addRepresentationToNthForm( index, representation, language, submitImmediately ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		this.startEditingNthForm( index );
 
-		let addRepresentationButton = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_REPRESENTATION_BUTTON );
+		const addRepresentationButton = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_REPRESENTATION_BUTTON );
 
 		addRepresentationButton.waitForDisplayed();
 		addRepresentationButton.click();
 
-		let representationContainer = form.$( '.representation-widget_representation-list' );
-		let representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
+		const representationContainer = form.$( '.representation-widget_representation-list' );
+		const representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
 
-		let newRepresentationIndex = representations.length - 1;
-		let newRepresentation = representations[ newRepresentationIndex ];
+		const newRepresentationIndex = representations.length - 1;
+		const newRepresentation = representations[ newRepresentationIndex ];
 
 		newRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( representation );
 		newRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
@@ -444,7 +444,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	editRepresentationOfNthForm( index, representation, language, submitImmediately ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		this.startEditingNthForm( index );
 
@@ -457,15 +457,15 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	removeLastRepresentationOfNthForm( index, submitImmediately ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		this.startEditingNthForm( index );
 
-		let representationContainer = form.$( '.representation-widget_representation-list' );
-		let representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
+		const representationContainer = form.$( '.representation-widget_representation-list' );
+		const representations = representationContainer.$$( '.representation-widget_representation-edit-box' );
 
-		let lastRepresentationIndex = representations.length - 1;
-		let lastRepresentation = representations[ lastRepresentationIndex ];
+		const lastRepresentationIndex = representations.length - 1;
+		const lastRepresentation = representations[ lastRepresentationIndex ];
 
 		lastRepresentation.$( this.constructor.FORM_WIDGET_SELECTORS.REMOVE_REPRESENTATION_BUTTON ).click();
 
@@ -480,16 +480,16 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	isNthFormSubmittable( index ) {
-		let form = this.forms[ index ],
+		const form = this.forms[ index ],
 			saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		return saveButton.getAttribute( 'aria-disabled' ) !== 'true';
 	}
 
 	submitNthForm( index ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
-		let saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
+		const saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
 		saveButton.waitForClickable();
 		saveButton.click();
@@ -497,7 +497,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	addGrammaticalFeatureToNthForm( index, grammaticalFeatureId, submitImmediately ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 		const editButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON );
 
 		editButton.waitForClickable();
@@ -514,12 +514,12 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	removeGrammaticalFeatureFromNthForm( index, submitImmediately ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		this.startEditingNthForm( index );
-		let gramFeaturesValues = form.$( '.wikibase-lexeme-form-grammatical-features-values' );
-		let gramFeatureToDelete = gramFeaturesValues.$$( '.oo-ui-tagItemWidget' );
-		let gramFeatureRemove = gramFeatureToDelete[ 0 ].$( '.oo-ui-buttonElement-button' );
+		const gramFeaturesValues = form.$( '.wikibase-lexeme-form-grammatical-features-values' );
+		const gramFeatureToDelete = gramFeaturesValues.$$( '.oo-ui-tagItemWidget' );
+		const gramFeatureRemove = gramFeatureToDelete[ 0 ].$( '.oo-ui-buttonElement-button' );
 
 		gramFeatureRemove.click();
 
@@ -529,7 +529,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	getFormAnchor( index ) {
-		let form = this.forms[ index ];
+		const form = this.forms[ index ];
 
 		return form.getAttribute( 'id' );
 	}

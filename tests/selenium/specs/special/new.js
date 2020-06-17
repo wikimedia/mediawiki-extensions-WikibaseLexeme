@@ -53,15 +53,14 @@ describe( 'NewLexeme:Page', () => {
 		} );
 
 		it( 'can create lexeme with language item bearing language code statement', () => {
-			let lemma = Util.getTestString( 'lemma-' ),
+			const lemma = Util.getTestString( 'lemma-' ),
 				language = Util.getTestString( 'language-' ),
 				languageItemsLanguageCode = 'en',
-				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-				lexemeId;
+				lexicalCategory = Util.getTestString( 'lexicalCategory-' );
 
 			NewLexemePage.open();
 
-			let claims = [
+			const claims = [
 				{
 					mainsnak: {
 						snaktype: 'value',
@@ -88,7 +87,7 @@ describe( 'NewLexeme:Page', () => {
 
 			LexemePage.lemmaContainer.waitForDisplayed();
 
-			lexemeId = LexemePage.headerId;
+			const lexemeId = LexemePage.headerId;
 
 			browser.call( () => LexemeApi.get( lexemeId ).then( ( lexeme ) => {
 				assert.equal( lexeme.lemmas[ languageItemsLanguageCode ].value, lemma );
@@ -103,11 +102,10 @@ describe( 'NewLexeme:Page', () => {
 
 		assertions.forEach( ( language ) => {
 			it( `can create lexeme with language item not bearing language code statement and ${language} lemma language`, () => {
-				let lemma = Util.getTestString( 'lemma-' ),
+				const lemma = Util.getTestString( 'lemma-' ),
 					wannabeLanguage = Util.getTestString( 'wannabeLanguage-' ),
 					lemmaLanguageCode = language,
-					lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
-					lexemeId;
+					lexicalCategory = Util.getTestString( 'lexicalCategory-' );
 
 				NewLexemePage.open();
 
@@ -124,7 +122,7 @@ describe( 'NewLexeme:Page', () => {
 
 				LexemePage.lemmaContainer.waitForDisplayed();
 
-				lexemeId = LexemePage.headerId;
+				const lexemeId = LexemePage.headerId;
 
 				browser.call( () => LexemeApi.get( lexemeId ).then( ( lexeme ) => {
 					assert.equal(
@@ -145,7 +143,7 @@ describe( 'NewLexeme:Page', () => {
 
 	describe( 'with language item not bearing language code statement set on form submission and failure to validate', () => {
 		it( 'is possible to immediately see lemmaLanguageCode field', () => {
-			let lemma = Util.getTestString( 'lemma-' ),
+			const lemma = Util.getTestString( 'lemma-' ),
 				languageItem = Util.getTestString( 'wannabeLanguage-' ),
 				lexicalCategory = Util.getTestString( 'lexicalCategory-' );
 
@@ -169,7 +167,7 @@ describe( 'NewLexeme:Page', () => {
 
 	describe( 'with form parameters included in query string and language item not bearing language code statement', () => {
 		it( 'all forms are visible in UI with query parameters', () => {
-			let lemma = Util.getTestString( 'lemma-' ),
+			const lemma = Util.getTestString( 'lemma-' ),
 				languageItem = Util.getTestString( 'wannabeLanguage-' ),
 				lexicalCategory = Util.getTestString( 'lexicalCategory-' ),
 				lemmaLanguage = 'fooLanguageCode';

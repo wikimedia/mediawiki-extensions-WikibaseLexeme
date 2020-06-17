@@ -18,7 +18,7 @@ describe( 'Lexeme:Statements', () => {
 		const lexemeId = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 		const propertyId = browser.call( () => WikibaseApi.getProperty( 'string' ) );
 
-		let testStringValue = Util.getTestString( 'value-' );
+		const testStringValue = Util.getTestString( 'value-' );
 		LexemePage.open( lexemeId );
 		LexemePage.addMainStatement( propertyId, testStringValue );
 
