@@ -1,3 +1,6 @@
+/**
+ * @external Lemma
+ */
 require( './__namespace.js' );
 wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	'use strict';

@@ -13,7 +13,6 @@ module.exports = function ( grunt ) {
 	grunt.initConfig( {
 		eslint: {
 			options: {
-				extensions: [ '.js', '.json' ],
 				cache: true,
 				fix: grunt.option( 'fix' )
 			},
@@ -35,7 +34,7 @@ module.exports = function ( grunt ) {
 				'!vendor/**'
 			]
 		},
-		// eslint-disable-next-line no-restricted-properties
+		// eslint-disable-next-line es/no-object-assign, compat/compat
 		banana: Object.assign(
 			conf.MessagesDirs,
 			{

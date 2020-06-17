@@ -1,3 +1,7 @@
+/**
+ * @external ItemLookup
+ * @external LanguageFromItemExtractor
+ */
 ( function () {
 	'use strict';
 

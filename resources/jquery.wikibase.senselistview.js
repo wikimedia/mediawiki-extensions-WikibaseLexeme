@@ -13,7 +13,7 @@
 	 * @constructor
 	 *
 	 * @param {Object} options
-	 * @param {jquery.wikibase.listview.ListItemAdapter} options.getListItemAdapter
+	 * @param {jQuery.wikibase.listview.ListItemAdapter} options.getListItemAdapter
 	 * @param {Function} options.getMessage
 	 * @param {jQuery.wikibase.addtoolbar} options.getAdder
 	 * @param {wikibase.lexeme.datamodel.Sense} options.value

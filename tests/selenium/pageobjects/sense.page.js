@@ -53,8 +53,8 @@ class SensePage extends Page {
 	/**
 	 * Add a sense
 	 *
-	 * @param {string} value
 	 * @param {string} language
+	 * @param {string} value
 	 */
 	addSense( language, value ) {
 		this.addSenseLink.click();

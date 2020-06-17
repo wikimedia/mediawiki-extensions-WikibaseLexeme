@@ -1,5 +1,10 @@
 'use strict';
 
+// For use inside browser.execute
+/* global window */
+
+/* eslint-disable mocha/no-setup-in-describe */
+
 const assert = require( 'assert' ),
 	NewLexemePage = require( '../../pageobjects/newlexeme.page' ),
 	LexemePage = require( '../../pageobjects/lexeme.page' ),

@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * See also: http://webdriver.io/guide/testrunner/configurationfile.html
  */

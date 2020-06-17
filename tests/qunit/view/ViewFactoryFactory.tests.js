@@ -2,8 +2,7 @@
 	'use strict';
 
 	var ViewFactoryFactory = require( '../../../resources/view/ViewFactoryFactory.js' ),
-		ControllerViewFactory = require( '../../../resources/view/ControllerViewFactory.js' ),
-		ReadModeViewFactory = require( '../../../resources/view/ReadModeViewFactory.js' );
+		ControllerViewFactory = require( '../../../resources/view/ControllerViewFactory.js' );
 	function getFactoryArgs() {
 		return [
 			sinon.stub(),
