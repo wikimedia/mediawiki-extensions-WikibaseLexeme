@@ -12,12 +12,12 @@ module.exports = ( function ( Vuex ) {
 	 * @callback RepresentationWidget.newComponent
 	 *
 	 * @param {Vuex.Store} store
-	 * @param {integer} formIndex Index of the form to emit value updates on
+	 * @param {number} formIndex Index of the form to emit value updates on
 	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
-	 * @param {function} beforeUpdate
+	 * @param {Function} beforeUpdate
 	 *
-	 * @return {object} Vue component object
+	 * @return {Object} Vue component object
 	 */
 	function newComponent( store, formIndex, element, template, beforeUpdate, mw ) {
 
@@ -109,10 +109,10 @@ module.exports = ( function ( Vuex ) {
 	 * @callback RepresentationWidget.create
 	 *
 	 * @param {Vuex.Store} store
-	 * @param {integer} formIndex Index of the form to emit value updates on
+	 * @param {number} formIndex Index of the form to emit value updates on
 	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
-	 * @param {function} beforeUpdate
+	 * @param {Function} beforeUpdate
 	 *
 	 * @return {Vue} Initialized widget
 	 */

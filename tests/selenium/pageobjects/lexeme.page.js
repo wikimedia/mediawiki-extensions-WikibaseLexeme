@@ -235,7 +235,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 *
 	 * @param input the wdio input element into which to enter the value
 	 * @param value value to be entered into the element
-	 * @param {int} [timeoutMS] duration to wait in ms, default 1000 ms
+	 * @param {number} [timeoutMS] duration to wait in ms, default 1000 ms
 	 * @private
 	 */
 	_waitAndRetryInput( input, value, timeoutMS ) {
@@ -251,7 +251,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	/**
 	 * Wait until the Lexeme header is saveable or there is an error message
 	 *
-	 * @returns {boolean} true if saveable, false if there is an error message
+	 * @return {boolean} true if saveable, false if there is an error message
 	 * @private
 	 */
 	waitTillHeaderIsSaveableOrError() {
@@ -291,7 +291,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	/**
 	 * Remove the nth for on the page
 	 *
-	 * @param {int} index
+	 * @param {number} index
 	 */
 	removeNthForm( index ) {
 		this.startEditingNthForm( index );
@@ -308,8 +308,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * Get data of the nth form on the page
 	 * Gets only the first form representation value
 	 *
-	 * @param {int} index
-	 * @return {value, language}
+	 * @param {number} index
+	 * @return {{value, language, grammaticalFeatures}}
 	 */
 	getNthFormData( index ) {
 		let form = this.forms[ index ];
@@ -324,7 +324,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	/**
 	 * Get data of the nth form on the page
 	 *
-	 * @param {int} index
+	 * @param {number} index
 	 * @return {{value, language}}
 	 */
 	getNthFormFormValues( index ) {

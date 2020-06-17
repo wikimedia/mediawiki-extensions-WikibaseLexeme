@@ -49,6 +49,7 @@
 
 		/**
 		 * TODO: make this more generic
+		 *
 		 * @property {null|LexemeLanguageFieldObserver}
 		 */
 		_changeObserver: null,

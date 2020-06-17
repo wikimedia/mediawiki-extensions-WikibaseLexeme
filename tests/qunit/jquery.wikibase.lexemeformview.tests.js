@@ -7,9 +7,9 @@
 	var Vue = require( 'vue' );
 	var datamodel = require( 'wikibase.datamodel' );
 
-	/** @type {wikibase.datamodel.TermMap}*/
+	/** @type {wikibase.datamodel.TermMap} */
 	var TermMap = datamodel.TermMap;
-	/** @type {wikibase.datamodel.Term}*/
+	/** @type {wikibase.datamodel.Term} */
 	var Term = datamodel.Term;
 
 	var selector = {
@@ -316,6 +316,7 @@
 
 	/**
 	 * Sets input value and triggers 'input'
+	 *
 	 * @param {jQuery} $element
 	 * @param {string} newValue
 	 */

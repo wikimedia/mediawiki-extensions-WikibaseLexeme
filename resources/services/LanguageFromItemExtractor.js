@@ -18,7 +18,7 @@
 		/**
 		 * @param {Object} itemSerialization
 		 *
-		 * @return {string|false} ISO language code or false if there is no such ISO code statement
+		 * @return {string|boolean} ISO language code or false if there is no such ISO code statement
 		 */
 		getLanguageFromItem: function ( itemSerialization ) {
 			return this._languageCodePropertyId

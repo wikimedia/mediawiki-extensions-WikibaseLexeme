@@ -9,7 +9,7 @@ class LexemeApi {
 	/**
 	 * Create a lexeme
 	 *
-	 * @param {object} lexeme Optional lexeme definition to merge into default definition
+	 * @param {Object} lexeme Optional lexeme definition to merge into default definition
 	 * @return {Promise}
 	 */
 	create( lexeme ) {
@@ -72,7 +72,7 @@ class LexemeApi {
 	 * Add a new form to a lexeme
 	 *
 	 * @param {string} lexemeId
-	 * @param {object} form
+	 * @param {Object} form
 	 * @return {Promise}
 	 */
 	addForm( lexemeId, form ) {
@@ -94,7 +94,7 @@ class LexemeApi {
 	 * Add a new sense to a lexeme
 	 *
 	 * @param {string} lexemeId
-	 * @param {object} sense
+	 * @param {Object} sense
 	 * @return {Promise}
 	 */
 	addSense( lexemeId, sense ) {
@@ -116,7 +116,7 @@ class LexemeApi {
 	 * Changes representation and grammatical features of the form
 	 *
 	 * @param {string} formId
-	 * @param {object} formData
+	 * @param {Object} formData
 	 * @return {Promise}
 	 */
 	editForm( formId, formData ) {

@@ -7,7 +7,7 @@ module.exports = ( function () {
 	 * @callback LanguageAndLexicalCategoryWidget
 	 *
 	 * @param {string} template - template string or selector
-	 * @param {wikibase.api.RepoApi} repoApi
+	 * @param {wikibase.api.RepoApi} api
 	 * @param {Object} messages - mw.messages localization service
 	 */
 	return function ( template, api, messages ) {

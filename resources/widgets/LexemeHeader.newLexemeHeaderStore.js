@@ -30,7 +30,7 @@ module.exports = ( function () {
 	/**
 	 * @param {wikibase.api.RepoApi} api
 	 * @param {string} id
-	 * @return {jquery.Promise}
+	 * @return {jQuery.Promise}
 	 */
 	function formatEntityId( api, id ) {
 		var deferred = $.Deferred(),
@@ -54,7 +54,7 @@ module.exports = ( function () {
 	 * @param {wikibase.api.RepoApi} repoApi
 	 * @param {{lemmas: Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
 	 *        this is NOT a wikibase.lexeme.datamodel.Lexeme!
-	 * @param {int} baseRevId
+	 * @param {number} baseRevId
 	 * @param {string} languageLink HTML
 	 * @param {string} lexicalCategoryLink HTML
 	 */

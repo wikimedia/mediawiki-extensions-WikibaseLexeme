@@ -10,6 +10,7 @@
 	/**
 	 * View for displaying a Wikibase `Lexeme`.
 	 * Copied from jQuery.wikibase.mediainfoview
+	 *
 	 * @class jQuery.wikibase.lexemeview
 	 * @extends jQuery.wikibase.entityview
 	 * @license GPL-2.0-or-later

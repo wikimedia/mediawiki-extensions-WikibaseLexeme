@@ -9,6 +9,7 @@
 
 	/**
 	 * Initializes StatementGroupListView on given DOM element
+	 *
 	 * @callback buildStatementGroupListView
 	 * @param {wikibase.lexeme.datamodel.Sense}
 	 * @param {jQuery} JQuery DOM element

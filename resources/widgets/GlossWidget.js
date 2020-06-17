@@ -28,9 +28,9 @@ module.exports = ( function ( require, wb, Vuex ) {
 	 * @param {string|HTMLElement} widgetElement
 	 * @param {string} template
 	 * @param {[{ value: string, language: string }]} glosses
-	 * @param {function} beforeUpdate
-	 * @param {function} getDirectionality
-	 * @return {object}
+	 * @param {Function} beforeUpdate
+	 * @param {Function} getDirectionality
+	 * @return {Object}
 	 */
 	function newGlossWidget( messages, widgetElement, template, glosses, beforeUpdate, getDirectionality ) {
 		var invalidLanguageIndicator = InvalidLanguageIndicator( 'glosses' );
