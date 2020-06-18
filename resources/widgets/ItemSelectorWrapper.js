@@ -4,7 +4,7 @@ module.exports = ( function () {
 	/**
 	 * @param {wikibase.api.RepoApi} api
 	 * @param {string} id
-	 * @return {jquery.Promise}
+	 * @return {jQuery.Promise}
 	 */
 	function formatEntityLabel( api, id ) {
 		var deferred = $.Deferred(),

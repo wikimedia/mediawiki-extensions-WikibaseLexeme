@@ -36,7 +36,7 @@ module.exports = ( function () {
 
 			computed: {
 				/**
-				 * @returns {Lemma[]}
+				 * @return {Lemma[]}
 				 */
 				lemmaList: function () {
 					return this.lemmas.getLemmas();

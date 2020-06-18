@@ -82,7 +82,7 @@ class SensePage extends Page {
 	/**
 	 * Get data of the nth Sense on the page
 	 *
-	 * @param {int} index
+	 * @param {number} index
 	 * @return {{value, language, senseIdElement}}
 	 */
 	getNthSenseData( index ) {

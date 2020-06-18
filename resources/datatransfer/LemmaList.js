@@ -9,14 +9,14 @@
 	}
 
 	/**
-	 * @returns {Lemma[]}
+	 * @return {Lemma[]}
 	 */
 	LemmaList.prototype.getLemmas = function () {
 		return this.lemmas;
 	};
 
 	/**
-	 * @returns {LemmaList}
+	 * @return {LemmaList}
 	 */
 	LemmaList.prototype.copy = function () {
 		return new LemmaList( this.lemmas.map( function ( l ) {
@@ -40,7 +40,7 @@
 	};
 
 	/**
-	 * @returns {Number}
+	 * @return {number}
 	 */
 	LemmaList.prototype.length = function () {
 		return this.lemmas.length;
@@ -50,7 +50,7 @@
 	 * Compares two LemmaList objects ignoring empty Lemmas
 	 *
 	 * @param {*} other
-	 * @returns {boolean}
+	 * @return {boolean}
 	 */
 	LemmaList.prototype.equals = function ( other ) {
 		if ( !( other instanceof LemmaList ) ) {
@@ -75,7 +75,7 @@
 	 * @param {Lemma[]} ownLemmas
 	 * @param {Lemma[]} other
 	 *
-	 * @returns {boolean}
+	 * @return {boolean}
 	 */
 	function hasSameLemmas( ownLemmas, other ) {
 		for ( var i = 0; i < ownLemmas.length; i++ ) {

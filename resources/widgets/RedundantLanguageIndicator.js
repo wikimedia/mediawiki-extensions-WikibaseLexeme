@@ -6,7 +6,7 @@ module.exports = ( function () {
 	 *
 	 * @param {string} watchedProperty The property containing the term list on your component
 	 *
-	 * @return {object} Vue component object
+	 * @return {Object} Vue component object
 	 */
 	return function ( watchedProperty ) {
 		var definition = {
