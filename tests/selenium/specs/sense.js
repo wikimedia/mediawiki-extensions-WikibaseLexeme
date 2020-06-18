@@ -20,7 +20,7 @@ describe( 'Lexeme:Senses', () => {
 
 	// T224546
 	it.skip( 'Adding Sense', () => {
-		let sense = SensePage.getNthSenseData( 0 );
+		const sense = SensePage.getNthSenseData( 0 );
 
 		assert.strictEqual( 'English', sense.language, 'Sense added to GUI shows language' );
 		assert.strictEqual( 'Yacht', sense.value, 'Sense added to GUI shows value' );
@@ -28,7 +28,7 @@ describe( 'Lexeme:Senses', () => {
 	} );
 
 	it( 'Sense header and container exist', () => {
-		let header = 'Senses';
+		const header = 'Senses';
 
 		assert.strictEqual( SensePage.sensesHeader, header );
 		assert( SensePage.sensesContainer.isExisting() );
@@ -36,16 +36,16 @@ describe( 'Lexeme:Senses', () => {
 
 	// T224546
 	it.skip( 'Added Sense has statement', () => {
-		let senseStatements = SensePage.senseStatements;
-		let senseId = SensePage.senseId;
+		const senseStatements = SensePage.senseStatements;
+		const senseId = SensePage.senseId;
 
 		assert.strictEqual( senseStatements, 'Statements about ' + senseId );
 	} );
 
 	// T224546
 	it.skip( 'Anchor exists and is equal to Sense ID', () => {
-		let senseId = SensePage.senseId.split( '-' )[ 1 ];
-		let anchorId = SensePage.getSenseAnchor( 0 );
+		const senseId = SensePage.senseId.split( '-' )[ 1 ];
+		const anchorId = SensePage.getSenseAnchor( 0 );
 
 		assert.strictEqual( senseId, anchorId );
 	} );

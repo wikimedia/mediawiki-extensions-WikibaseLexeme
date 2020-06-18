@@ -209,54 +209,44 @@ describe( 'Lexeme:Forms', () => {
 	} );
 
 	it( 'FormId counter is not decremented when addForm is undone', () => {
-		let oldFormID,
-			newFormID,
-			isNotDecremented;
-
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
 
 		LexemePage.addForm( 'Foo', 'en' );
-		oldFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+		const oldFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
 
 		LexemePage.undoLatestRevision();
 
 		LexemePage.addForm( 'Yacht', 'de' );
-		newFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+		const newFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
 
-		isNotDecremented = ( newFormID > oldFormID );
+		const isNotDecremented = ( newFormID > oldFormID );
 
 		assert.ok( isNotDecremented, 'FormId counter is not decremented' );
 
 	} );
 
 	it( 'FormId counter is not decremented when old revision is restored', () => {
-		let oldFormID,
-			newFormID,
-			isNotDecremented;
-
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
 
 		LexemePage.addForm( 'Foo', 'en' );
-		oldFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+		const oldFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
 
 		LexemePage.restorePreviousRevision();
 
 		LexemePage.addForm( 'Yacht', 'de' );
-		newFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
+		const newFormID = ( LexemePage.formId.getText() ).split( '-F' )[ 1 ];
 
-		isNotDecremented = ( newFormID > oldFormID );
+		const isNotDecremented = ( newFormID > oldFormID );
 
 		assert.ok( isNotDecremented, 'FormId counter is not decremented' );
 
 	} );
 
 	it( 'change multi-variant representations', () => {
-		let formRepresentation;
-
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
@@ -269,7 +259,7 @@ describe( 'Lexeme:Forms', () => {
 
 		LexemePage.addFormLink.waitForDisplayed();// just to make sure the page loaded completely
 
-		formRepresentation = LexemePage.getNthFormFormValuesAfterSave( 0 );
+		const formRepresentation = LexemePage.getNthFormFormValuesAfterSave( 0 );
 
 		assert.equal( 'colors', formRepresentation.representations[ 0 ].value );
 		assert.equal( 'en-ca', formRepresentation.representations[ 0 ].language );

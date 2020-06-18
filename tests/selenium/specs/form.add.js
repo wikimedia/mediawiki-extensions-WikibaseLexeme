@@ -19,7 +19,7 @@ describe( 'Lexeme:Forms', () => {
 
 		LexemePage.addForm( 'Yacht', 'de' );
 
-		let form = LexemePage.getNthFormData( 0 );
+		const form = LexemePage.getNthFormData( 0 );
 
 		assert.equal( 'Yacht', form.value, 'Form added to GUI shows value' );
 		assert.equal( 'de', form.language, 'Form added to GUI shows language' );

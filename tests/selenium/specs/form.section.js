@@ -82,7 +82,7 @@ describe( 'Form:Header', () => {
 
 		LexemePage.open( id );
 
-		let form = LexemePage.getNthFormData( 0 );
+		const form = LexemePage.getNthFormData( 0 );
 
 		assert.equal( 'en', form.language, 'Form added to GUI shows language' );
 	} );
@@ -108,9 +108,6 @@ describe( 'Form:Header', () => {
 	} );
 
 	it( 'has link to Form', () => {
-		let formId,
-			anchorId;
-
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
 			const id = lexeme.id;
 			return LexemeApi.addForm(
@@ -126,8 +123,8 @@ describe( 'Form:Header', () => {
 
 		LexemePage.open( id );
 
-		formId = ( LexemePage.formId.getText() ).split( '-' )[ 1 ];
-		anchorId = LexemePage.getFormAnchor( 0 );
+		const formId = ( LexemePage.formId.getText() ).split( '-' )[ 1 ];
+		const anchorId = LexemePage.getFormAnchor( 0 );
 
 		assert.strictEqual( formId, anchorId );
 	} );

@@ -66,7 +66,7 @@ describe( 'Lexeme:Senses', () => {
 
 		LexemePage.open( id );
 		SensePage.startEditingNthSense( 0 );
-		var senseValues = SensePage.getNthSenseFormValues( 0 );
+		const senseValues = SensePage.getNthSenseFormValues( 0 );
 		assert.strictEqual( 'English (en)', senseValues.glosses[ 0 ].language );
 		assert.strictEqual( 'goat', senseValues.glosses[ 0 ].value );
 	} );
@@ -108,7 +108,7 @@ describe( 'Lexeme:Senses', () => {
 		LexemePage.open( id );
 		SensePage.editSenseNoSubmit( 0, 'goats' );
 		SensePage.cancelSenseEditing( 0 );
-		let data = SensePage.getNthSenseData( 0 );
+		const data = SensePage.getNthSenseData( 0 );
 
 		assert.equal( 'goat', data.value );
 	} );
@@ -129,9 +129,9 @@ describe( 'Lexeme:Senses', () => {
 		LexemePage.open( id );
 		SensePage.addGlossToNthSense( 0, 'test', 'de', true );
 		SensePage.startEditingNthSense( 0 );
-		let glossCountBefore = SensePage.getNthSenseFormValues( 0 ).glosses.length;
+		const glossCountBefore = SensePage.getNthSenseFormValues( 0 ).glosses.length;
 		SensePage.removeGloss( 0, true );
-		let glossCountAfter = SensePage.getNthSenseFormValues( 0 ).glosses.length;
+		const glossCountAfter = SensePage.getNthSenseFormValues( 0 ).glosses.length;
 		assert.notEqual( glossCountBefore, glossCountAfter );
 	} );
 

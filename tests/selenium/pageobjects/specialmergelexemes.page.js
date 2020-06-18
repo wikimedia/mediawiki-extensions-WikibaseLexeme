@@ -17,7 +17,7 @@ class SpecialMergeLexemesPage extends Page {
 	}
 
 	showsForm() {
-		let $fromId = $( this.constructor.MERGE_LEXEME_SELECTORS.FROMID ),
+		const $fromId = $( this.constructor.MERGE_LEXEME_SELECTORS.FROMID ),
 			$toId = $( this.constructor.MERGE_LEXEME_SELECTORS.TOID ),
 			$submit = $( this.constructor.MERGE_LEXEME_SELECTORS.SUBMIT_BUTTON );
 		return $fromId.isVisible() &&
