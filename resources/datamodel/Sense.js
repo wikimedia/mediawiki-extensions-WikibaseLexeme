@@ -1,3 +1,6 @@
+/**
+ * @external datamodel
+ */
 ( function ( wb, util ) {
 	'use strict';
 
@@ -65,7 +68,7 @@
 			},
 
 			/**
-			 * @param {Sense} other
+			 * @param {wikibase.lexeme.datamodel.Sense} other
 			 * @return {boolean}
 			 */
 			equals: function ( other ) {

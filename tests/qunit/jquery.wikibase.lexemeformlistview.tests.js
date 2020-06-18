@@ -58,7 +58,7 @@
 		message.withArgs( messageKey ).returns( localizedMessage );
 		message.throws( 'Wrong argument to message()' );
 
-		var view = createViewElement( getAdder, message );
+		createViewElement( getAdder, message );
 
 		assert.ok( getAdder.calledOnce );
 		assert.equal( localizedMessage, getAdder.lastCall.args[ 2 ] );

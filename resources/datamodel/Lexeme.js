@@ -1,3 +1,6 @@
+/**
+ * @external datamodel
+ */
 ( function ( util ) {
 	'use strict';
 

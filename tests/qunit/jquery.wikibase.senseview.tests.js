@@ -21,6 +21,7 @@
 		var $node = $( '<div>' ).appendTo( 'body' );
 		options = options || {};
 
+		// eslint-disable-next-line mediawiki/class-doc
 		$node.addClass( TEST_LEXMEFORMVIEW_CLASS );
 
 		options.buildStatementGroupListView = options.buildStatementGroupListView || function () {};
@@ -48,6 +49,7 @@
 	} );
 
 	QUnit.test( 'value() sets internal value', function ( assert ) {
+		// eslint-disable-next-line no-unused-vars
 		var sense1 = newSense( 'S123', 'foo' ),
 			sense2 = newSense( 'S234', 'bar' ),
 			view = newSenseView( { value: sense2 } );

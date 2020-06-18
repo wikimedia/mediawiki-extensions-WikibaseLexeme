@@ -27,8 +27,6 @@
 
 	QUnit.test( 'Can set statements and get them back', function ( assert ) {
 		var lemmas = createTermMapWithTerm();
-		var lexcat = 'Q123';
-		var lang = 'Q1';
 		var statementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'L1$1' );
 		var lexeme = new Lexeme( 'L1', lemmas, statementGroupSet );
 

@@ -1,3 +1,7 @@
+/**
+ * @external ControllerViewFactory
+ * @external ReadModeViewFactory
+ */
 // Temporary, until merging this with jquery.wikibase.lexemeview
 wikibase.lexeme.view = {};
 

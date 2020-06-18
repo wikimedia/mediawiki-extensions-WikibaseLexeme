@@ -1,4 +1,8 @@
 /**
+ * @external LexemeDeserializer
+ */
+
+/**
  * @license GPL-2.0-or-later
  */
 ( function ( wb ) {

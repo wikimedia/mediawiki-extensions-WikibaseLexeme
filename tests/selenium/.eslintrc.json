@@ -1,18 +1,10 @@
 {
-	"extends": "../.eslintrc.json",
-	"parserOptions": {
-		"ecmaVersion": 6
-	},
-	"globals": {
-		"browser": false
-	},
-	"env": {
-		"es6": true,
-		"mocha": true,
-		"node": true
-	},
+	"root": true,
+	"extends": [
+		"wikimedia/selenium"
+	],
 	"rules": {
-		"no-console": 0,
-		"mediawiki/valid-package-file-require": "off"
+		"max-len": "off",
+		"node/no-missing-require": "warn"
 	}
 }

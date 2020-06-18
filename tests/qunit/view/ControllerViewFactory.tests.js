@@ -30,7 +30,7 @@
 		);
 	}
 
-	QUnit.test( 'injects senses into SenseListView', function ( assert ) {
+	QUnit.test( 'injects senses into SenseListView', function () {
 		var factory = newControllerViewFactory(),
 			senses = [ { _id: 'L1-S5' } ],
 			lexeme = {
