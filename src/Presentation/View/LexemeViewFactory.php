@@ -60,14 +60,12 @@ class LexemeViewFactory {
 
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->language->getCode(),
-			null,
 			$this->fallbackChain,
 			$editSectionGenerator
 		);
 
 		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
 			$this->language->getCode(),
-			null,
 			$this->fallbackChain,
 			$editSectionGenerator
 		);
