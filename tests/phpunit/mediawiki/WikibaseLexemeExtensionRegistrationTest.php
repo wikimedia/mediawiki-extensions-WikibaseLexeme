@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiTestCase;
 use ApiUsageException;
+use ExtensionRegistry;
 
 /**
  * TODO: Those test should not really be skipped but always run. There is no way
@@ -24,7 +25,7 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 	 * @dataProvider provideLexemeApiModules
 	 */
 	public function testGivenRepoEnabledLexemeApiModulesRegistered( $module ) {
-		if ( !defined( 'WB_VERSION' ) ) {
+		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
 			$this->markTestSkipped( 'WikibaseRepo not enabled' );
 		}
 
@@ -40,7 +41,7 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 	 * @dataProvider provideLexemeApiModules
 	 */
 	public function testGivenRepoNotEnabledNoLexemeApiModulesRegistered( $module ) {
-		if ( defined( 'WB_VERSION' ) ) {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
 			$this->markTestSkipped( 'WikibaseRepo enabled' );
 		}
 
