@@ -1,7 +1,7 @@
 <?php
 /**
  * Definition of the lexeme entity type.
- * The array returned by the code below is supposed to be merged into $wgWBRepoEntityTypes.
+ * The array returned by the code below is supposed to be merged into the Repo entity types.
  *
  * @note: Keep in sync with Wikibase
  *
