@@ -95,6 +95,8 @@
 	"wikibase-validator-form-not-found": "Lexeme does not have Form with given ID",
 	"wikibaselexeme-grammatical-features-input-placeholder": "For example: normative, comparative, past tense...",
 	"wikibase-lexeme-language-name-mis": "other",
+	"wikibase-lexeme-language-name-nrf-gg": "Guernésiais",
+	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
 	"wikibase-lexeme-language-name-rm-rumgr": "Rumantsch Grischun",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan",
