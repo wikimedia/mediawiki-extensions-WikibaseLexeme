@@ -8,8 +8,6 @@ use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 /**
  * @covers \Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory
  *
- * @group WikibaseView
- *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
