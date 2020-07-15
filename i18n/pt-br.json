@@ -90,6 +90,8 @@
 	"wikibase-validator-form-not-found": "O lexema não tem uma Forma com o ID fornecido",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado...",
 	"wikibase-lexeme-language-name-mis": "outro",
+	"wikibase-lexeme-language-name-nrf-gg": "Guernésiais",
+	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
 	"wikibase-lexeme-language-name-rm-rumgr": "Romanche",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan",

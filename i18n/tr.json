@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ahmetlii",
 			"Botansahin",
 			"Incelemeelemani",
 			"Sayginer",
@@ -93,6 +94,8 @@
 	"wikibase-validator-form-not-found": "Sözlükbirim belirtilen kimliğe (ID) sahip Form değil",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Örneğin: düzgüsel, karşılaştırmalı, geçmiş zaman ...",
 	"wikibase-lexeme-language-name-mis": "diğer",
+	"wikibase-lexeme-language-name-nrf-gg": "Guernesiais",
+	"wikibase-lexeme-language-name-nrf-je": "Jerriais",
 	"wikibase-lexeme-language-name-rm-rumgr": "Romanesk lehçesi",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran lehçesi",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan lehçesi",
