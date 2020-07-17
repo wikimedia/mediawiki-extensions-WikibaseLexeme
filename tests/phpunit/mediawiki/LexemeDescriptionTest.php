@@ -143,7 +143,7 @@ class LexemeDescriptionTest extends TestCase {
 		$desc = $descriptionMaker->createFormDescription(
 			$formId, $features, $data['lemma'], $data['language'], $data['category']
 		);
-		$this->assertSame( $desc, $expected );
+		$this->assertSame( $expected, $desc );
 	}
 
 }

@@ -10,13 +10,13 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
-use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\LanguageWithConversion;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
@@ -62,7 +62,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	}
 
 	private function getLanguageFallbackChain() {
-		return new LanguageFallbackChain(
+		return new TermLanguageFallbackChain(
 			[
 				LanguageWithConversion::factory( 'en' ),
 				LanguageWithConversion::factory( 'qqx' ),

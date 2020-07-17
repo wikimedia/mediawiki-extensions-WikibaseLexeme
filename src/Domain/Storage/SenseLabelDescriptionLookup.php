@@ -9,7 +9,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lib\LanguageFallbackChain;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\View\LocalizedTextProvider;
 use Wikimedia\Assert\Assert;
 
@@ -28,9 +28,9 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 	private $entityLookup;
 
 	/**
-	 * @var LanguageFallbackChain
+	 * @var TermLanguageFallbackChain
 	 */
-	private $languageFallbackChain;
+	private $termLanguageFallbackChain;
 
 	/**
 	 * @var LocalizedTextProvider
@@ -39,11 +39,11 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 
 	public function __construct(
 		EntityLookup $entityLookup,
-		LanguageFallbackChain $languageFallbackChain,
+		TermLanguageFallbackChain $termLanguageFallbackChain,
 		LocalizedTextProvider $localizedTextProvider
 	) {
 		$this->entityLookup = $entityLookup;
-		$this->languageFallbackChain = $languageFallbackChain;
+		$this->termLanguageFallbackChain = $termLanguageFallbackChain;
 		$this->localizedTextProvider = $localizedTextProvider;
 	}
 
@@ -87,7 +87,7 @@ class SenseLabelDescriptionLookup implements LabelDescriptionLookup {
 		'@phan-var Sense $sense';
 		$glosses = $sense->getGlosses()->toTextArray();
 
-		$value = $this->languageFallbackChain->extractPreferredValue( $glosses );
+		$value = $this->termLanguageFallbackChain->extractPreferredValue( $glosses );
 		if ( $value === null ) {
 			return null;
 		}

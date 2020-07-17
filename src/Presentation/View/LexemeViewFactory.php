@@ -6,7 +6,7 @@ use Language;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
-use Wikibase\Lib\LanguageFallbackChain;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\View\RepoSpecialPageLinker;
@@ -21,9 +21,9 @@ use Wikibase\View\ToolbarEditSectionGenerator;
 class LexemeViewFactory {
 
 	/**
-	 * @var LanguageFallbackChain
+	 * @var TermLanguageFallbackChain
 	 */
-	private $fallbackChain;
+	private $termFallbackChain;
 
 	/**
 	 * @var Language
@@ -37,10 +37,10 @@ class LexemeViewFactory {
 
 	public function __construct(
 		Language $language,
-		LanguageFallbackChain $fallbackChain,
+		TermLanguageFallbackChain $termFallbackChain,
 		$saveMessageKey
 	) {
-		$this->fallbackChain = $fallbackChain;
+		$this->termFallbackChain = $termFallbackChain;
 		$this->language = $language;
 		$this->saveMessageKey = $saveMessageKey;
 	}
@@ -60,13 +60,13 @@ class LexemeViewFactory {
 
 		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
 			$this->language->getCode(),
-			$this->fallbackChain,
+			$this->termFallbackChain,
 			$editSectionGenerator
 		);
 
 		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
 			$this->language->getCode(),
-			$this->fallbackChain,
+			$this->termFallbackChain,
 			$editSectionGenerator
 		);
 

@@ -8,8 +8,8 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
-use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\LanguageWithConversion;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\View\DummyLocalizedTextProvider;
 
 /**
@@ -26,7 +26,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		$entityLookup = new InMemoryEntityLookup();
 		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			$entityLookup,
-			new LanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [] ),
 			new DummyLocalizedTextProvider()
 		);
 
@@ -71,7 +71,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 	public function testGetLabel_unknownEntity() {
 		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			new InMemoryEntityLookup(),
-			new LanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [] ),
 			new DummyLocalizedTextProvider()
 		);
 
@@ -87,7 +87,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		$entityLookup = new InMemoryEntityLookup();
 		$labelDescriptionLookup = new \Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup(
 			$entityLookup,
-			new LanguageFallbackChain( [
+			new TermLanguageFallbackChain( [
 				LanguageWithConversion::factory( 'de' ),
 				LanguageWithConversion::factory( 'en' ),
 			] ),
@@ -135,7 +135,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 	public function testGetDescription_unknownEntity() {
 		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			new InMemoryEntityLookup(),
-			new LanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [] ),
 			new DummyLocalizedTextProvider()
 		);
 
