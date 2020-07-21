@@ -6,7 +6,7 @@ use Language;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Presentation\View\LexemeView;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
-use Wikibase\Lib\LanguageFallbackChain;
+use Wikibase\Lib\TermLanguageFallbackChain;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\View\LexemeViewFactory
@@ -19,7 +19,7 @@ class LexemeViewFactoryTest extends TestCase {
 	public function testNewLexemeView() {
 		$factory = new LexemeViewFactory(
 			Language::factory( 'en' ),
-			new LanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [] ),
 			'wikibase-save'
 		);
 		$view = $factory->newLexemeView();

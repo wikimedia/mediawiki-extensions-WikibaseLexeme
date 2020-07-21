@@ -49,9 +49,9 @@ use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
-use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\Sql\EntityIdLocalPartPageTableEntityQuery;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
@@ -78,7 +78,7 @@ return [
 		},
 		Def::VIEW_FACTORY_CALLBACK => function (
 			Language $language,
-			LanguageFallbackChain $fallbackChain,
+			TermLanguageFallbackChain $termFallbackChain,
 			EntityDocument $entity
 		) {
 			$saveMessageKey =
@@ -87,7 +87,7 @@ return [
 
 			$factory = new LexemeViewFactory(
 				$language,
-				$fallbackChain,
+				$termFallbackChain,
 				$saveMessageKey
 			);
 

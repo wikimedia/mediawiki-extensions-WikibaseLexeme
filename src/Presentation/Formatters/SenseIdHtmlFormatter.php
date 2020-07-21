@@ -10,11 +10,11 @@ use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lib\LanguageFallbackChain;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
+use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\View\LocalizedTextProvider;
 
 /**
@@ -38,9 +38,9 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 	private $localizedTextProvider;
 
 	/**
-	 * @var LanguageFallbackChain
+	 * @var TermLanguageFallbackChain
 	 */
-	private $languageFallbackChain;
+	private $termLanguageFallbackChain;
 
 	/**
 	 * @var LanguageFallbackIndicator
@@ -51,13 +51,13 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 		EntityTitleLookup $titleLookup,
 		EntityRevisionLookup $revisionLookup,
 		LocalizedTextProvider $localizedTextProvider,
-		LanguageFallbackChain $languageFallbackChain,
+		TermLanguageFallbackChain $termLanguageFallbackChain,
 		LanguageFallbackIndicator $languageFallbackIndicator
 	) {
 		$this->titleLookup = $titleLookup;
 		$this->revisionLookup = $revisionLookup;
 		$this->localizedTextProvider = $localizedTextProvider;
-		$this->languageFallbackChain = $languageFallbackChain;
+		$this->termLanguageFallbackChain = $termLanguageFallbackChain;
 		$this->languageFallbackIndicator = $languageFallbackIndicator;
 	}
 
@@ -99,7 +99,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 			'wikibaselexeme-senseidformatter-layout'
 		);
 		$glossArray = $sense->getGlosses()->toTextArray();
-		$preferredGloss = $this->languageFallbackChain->extractPreferredValue( $glossArray );
+		$preferredGloss = $this->termLanguageFallbackChain->extractPreferredValue( $glossArray );
 		if ( $preferredGloss === null ) {
 			return $this->getTextWrappedInLink( $value->getSerialization(), $title );
 		}
