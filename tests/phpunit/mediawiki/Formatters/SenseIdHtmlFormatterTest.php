@@ -65,7 +65,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return new TermLanguageFallbackChain(
 			[
 				LanguageWithConversion::factory( 'en' ),
-				LanguageWithConversion::factory( 'qqx' ),
+				LanguageWithConversion::factory( 'fr' ),
 			]
 		);
 	}
@@ -134,7 +134,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 					->withId( $entityId )
 					->withLemma( 'en', 'lemma' )
 					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'qqx', 'gloss' ) )
+						->withGloss( 'fr', 'gloss' ) )
 					->build();
 				return new EntityRevision( $entity );
 			} );
@@ -158,7 +158,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 					->withLemma( 'de', 'Lemma' )
 					->withLemma( 'el', 'λεμμα' )
 					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'qqx', 'gloss' ) )
+						->withGloss( 'fr', 'gloss' ) )
 					->build();
 				return new EntityRevision( $entity );
 			} );

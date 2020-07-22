@@ -18,15 +18,15 @@ class LexemeDescriptionTest extends TestCase {
 	private $labels = [
 		'Q1' => [
 			'en' => 'English',
-			'qqx' => 'Anglais',
+			'fr' => 'Anglais',
 		],
 		'Q2' => [
 			'en' => 'noun',
-			'qqx' => 'nom',
+			'fr' => 'nom',
 		],
 		'Q3' => [
 			'en' => 'singular',
-			'qqx' => 'singulier'
+			'fr' => 'singulier'
 		],
 		'Q4' => [
 			'en' => 'plural',
@@ -43,6 +43,7 @@ class LexemeDescriptionTest extends TestCase {
 		return [
 			"one form" => [
 				'en',
+				'en',
 				[ 'Q1', 'Q2', 'Q3' ],
 				[
 					'lexeme-id' => 'L1',
@@ -56,6 +57,7 @@ class LexemeDescriptionTest extends TestCase {
 			// Many features
 			"multiple features" => [
 				'en',
+				'en',
 				[ 'Q1', 'Q2', 'Q3', 'Q5' ],
 				[
 					'lexeme-id' => 'L3',
@@ -68,6 +70,7 @@ class LexemeDescriptionTest extends TestCase {
 			],
 			"in language" => [
 				'qqx',
+				'fr',
 				[ 'Q1', 'Q2', 'Q3' ],
 				[
 					'lexeme-id' => 'L1',
@@ -81,6 +84,7 @@ class LexemeDescriptionTest extends TestCase {
 //			// No features
 			"no feature" => [
 				'en',
+				'en',
 				[ 'Q1', 'Q2' ],
 				[
 					'lexeme-id' => 'L1',
@@ -93,6 +97,7 @@ class LexemeDescriptionTest extends TestCase {
 			],
 			"no label - fallback" => [
 				'qqx',
+				'fr',
 				[ 'Q1', 'Q5', 'Q4' ],
 				[
 					'lexeme-id' => 'L1',
@@ -105,6 +110,7 @@ class LexemeDescriptionTest extends TestCase {
 			],
 			"no label" => [
 				'qqx',
+				'fr',
 				[ 'Q1', 'Q2', 'Q6' ],
 				[
 					'lexeme-id' => 'L1',
@@ -123,6 +129,7 @@ class LexemeDescriptionTest extends TestCase {
 	 */
 	public function testFormDescription(
 		$displayLanguage,
+		$termLanguage,
 		array $fetchIds,
 		array $data,
 		$expected
@@ -135,8 +142,8 @@ class LexemeDescriptionTest extends TestCase {
 			return new ItemId( $id );
 		}, $fetchIds ) );
 
-		$termLookupFactory = $this->getTermLookupFactory( $fetchIds, $displayLanguage );
-		$termLookup = $termLookupFactory->newLabelDescriptionLookup( Language::factory( $displayLanguage ), $itemIds );
+		$termLookupFactory = $this->getTermLookupFactory( $fetchIds, $termLanguage );
+		$termLookup = $termLookupFactory->newLabelDescriptionLookup( Language::factory( $termLanguage ), $itemIds );
 		$descriptionMaker = new LexemeDescription( $termLookup, $idParser, Language::factory( $displayLanguage ) );
 
 		$formId = $idParser->parse( $data['lexeme-id'] );
