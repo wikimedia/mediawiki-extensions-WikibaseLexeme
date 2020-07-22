@@ -10,6 +10,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\LanguageWithConversion;
 use Wikibase\Lib\Store\EntityRevision;
@@ -66,8 +67,16 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			[
 				LanguageWithConversion::factory( 'en' ),
 				LanguageWithConversion::factory( 'fr' ),
-			]
+			],
+			$this->getStubContentLanguages()
 		);
+	}
+
+	private function getStubContentLanguages(): ContentLanguages {
+		$mock = $this->createStub( ContentLanguages::class );
+		$mock->method( 'hasLanguage' )
+			->willReturn( true );
+		return $mock;
 	}
 
 	private function getFormatter( $senseId, $lookup ) {

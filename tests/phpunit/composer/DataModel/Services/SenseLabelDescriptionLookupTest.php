@@ -8,6 +8,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\LanguageWithConversion;
 use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\View\DummyLocalizedTextProvider;
@@ -26,7 +27,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		$entityLookup = new InMemoryEntityLookup();
 		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			$entityLookup,
-			new TermLanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [], $this->createStub( ContentLanguages::class ) ),
 			new DummyLocalizedTextProvider()
 		);
 
@@ -71,7 +72,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 	public function testGetLabel_unknownEntity() {
 		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			new InMemoryEntityLookup(),
-			new TermLanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [], $this->createStub( ContentLanguages::class ) ),
 			new DummyLocalizedTextProvider()
 		);
 
@@ -85,12 +86,15 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 	 */
 	public function testGetDescription( $glosses, $expectedGloss ) {
 		$entityLookup = new InMemoryEntityLookup();
+		$stubContentLanguages = $this->createStub( ContentLanguages::class );
+		$stubContentLanguages->method( 'hasLanguage' )
+			->willReturn( true );
 		$labelDescriptionLookup = new \Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup(
 			$entityLookup,
 			new TermLanguageFallbackChain( [
 				LanguageWithConversion::factory( 'de' ),
 				LanguageWithConversion::factory( 'en' ),
-			] ),
+			], $stubContentLanguages ),
 			new DummyLocalizedTextProvider()
 		);
 
@@ -135,7 +139,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 	public function testGetDescription_unknownEntity() {
 		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			new InMemoryEntityLookup(),
-			new TermLanguageFallbackChain( [] ),
+			new TermLanguageFallbackChain( [], $this->createStub( ContentLanguages::class ) ),
 			new DummyLocalizedTextProvider()
 		);
 
