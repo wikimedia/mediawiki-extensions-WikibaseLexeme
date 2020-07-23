@@ -4,7 +4,8 @@
 			"Bikarhêner",
 			"Cûndûllah el-Kurdî",
 			"George Animal",
-			"Ghybu"
+			"Ghybu",
+			"Guherto"
 		]
 	},
 	"special-newlexeme": "Leksemeke nû biafirîne",
@@ -15,8 +16,8 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Zimanekî binivîse, wek mînak kurdî",
 	"wikibaselexeme-header-forms": "Form",
 	"wikibaselexeme-header-senses": "Wate",
-	"wikibaselexeme-lemma-field-language-label": "Ziman",
-	"wikibaselexeme-form-field-language-label": "Ziman",
+	"wikibaselexeme-lemma-field-language-label": "Guhertoya rênivîsê",
+	"wikibaselexeme-form-field-language-label": "Guhertoya rênivîsê",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-form": "Form",

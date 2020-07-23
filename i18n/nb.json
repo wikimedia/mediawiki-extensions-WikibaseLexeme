@@ -89,6 +89,8 @@
 	"wikibase-validator-form-not-found": "Leksemet har ikke en form med den gitte ID-en",
 	"wikibaselexeme-grammatical-features-input-placeholder": "For eksempel: normativ, komparativ, fortid …",
 	"wikibase-lexeme-language-name-mis": "annet",
+	"wikibase-lexeme-language-name-nrf-gg": "guernésiais",
+	"wikibase-lexeme-language-name-nrf-je": "jèrriais",
 	"wikibase-lexeme-language-name-rm-rumgr": "Grischun-retoromansk",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan",
