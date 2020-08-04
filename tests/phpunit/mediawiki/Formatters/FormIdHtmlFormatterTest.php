@@ -47,7 +47,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 */
 	private $redirectedLexemeSubEntityIdHtmlFormatter;
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->revisionLookup = $this->createMock( EntityRevisionLookup::class );

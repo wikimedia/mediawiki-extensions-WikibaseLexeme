@@ -33,7 +33,7 @@ class FormLinkFormatterTest extends TestCase {
 	/** @var MockObject|LexemeTermFormatter */
 	private $representationsFormatter;
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->representationsFormatter = $this->createMock( LexemeTermFormatter::class );

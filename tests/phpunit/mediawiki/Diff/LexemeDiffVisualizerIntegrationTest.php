@@ -39,7 +39,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 
 	const LANGUAGE_TRANSLATION_HOOK_NAME = 'LanguageGetTranslatedLanguageNames';
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		// non-EmptyBagOStuff cache needed for the CachingPrefetchingTermLookup for items

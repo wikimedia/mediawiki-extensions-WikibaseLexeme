@@ -59,7 +59,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	/** @var PermissionManager */
 	private $permissionManager;
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 

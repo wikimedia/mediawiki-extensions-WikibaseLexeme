@@ -17,9 +17,9 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 
 	use HamcrestPHPUnitIntegration;
 
-	public function tearDown() : void {
-		parent::tearDown();
+	protected function tearDown() : void {
 		$this->resetTermBuffer();
+		parent::tearDown();
 	}
 
 	private function resetTermBuffer() {

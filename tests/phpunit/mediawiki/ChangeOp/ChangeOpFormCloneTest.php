@@ -30,7 +30,8 @@ class ChangeOpFormCloneTest extends TestCase {
 	 */
 	private $guidGenerator;
 
-	public function setUp() : void {
+	protected function setUp() : void {
+		parent::setUp();
 		$this->guidGenerator = $this->createMock( GuidGenerator::class );
 	}
 

@@ -93,7 +93,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	 */
 	private $targetLexeme;
 
-	public function setUp() : void {
+	protected function setUp() : void {
 		parent::setUp();
 
 		$this->sourceLexeme = NewLexeme::havingId( 'L123' )->build();
