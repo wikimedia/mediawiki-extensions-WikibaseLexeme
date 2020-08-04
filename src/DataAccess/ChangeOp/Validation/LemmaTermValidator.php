@@ -12,7 +12,7 @@ use Wikibase\Repo\Validators\TypeValidator;
  */
 class LemmaTermValidator {
 
-	/*
+	/**
 	 * @var CompositeValidator
 	 */
 	private $validator;

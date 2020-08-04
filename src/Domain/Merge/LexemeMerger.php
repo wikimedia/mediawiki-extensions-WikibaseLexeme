@@ -34,7 +34,7 @@ class LexemeMerger {
 	 */
 	private $sensesMerger;
 
-	/*
+	/**
 	 * @var NoCrossReferencingLexemeStatements
 	 */
 	private $noCrossReferencingLexemeStatementsValidator;
