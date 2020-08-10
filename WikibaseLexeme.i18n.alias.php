@@ -13,6 +13,12 @@ $specialPageAliases['en'] = [
 	'MergeLexemes' => [ 'MergeLexemes' ],
 ];
 
+/** French (français) */
+$specialPageAliases['fr'] = [
+	'NewLexeme' => [ 'NouveauLexème' ],
+	'MergeLexemes' => [ 'FusionnerLexèmes' ],
+];
+
 /** Serbian Cyrillic (српски (ћирилица)) */
 $specialPageAliases['sr-ec'] = [
 	'NewLexeme' => [ 'НоваЛексема' ],
