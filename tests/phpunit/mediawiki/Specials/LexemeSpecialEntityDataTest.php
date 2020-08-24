@@ -52,11 +52,14 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 
 	public function testSensesKeyExistsInJson() {
 		$this->saveLexemeToDb();
+		$params = [ 'id' => self::LEXEME_ID, 'format' => 'json' ];
+		$request = new FauxRequest( $params );
+		$request->setRequestURL( $this->newSpecialPage()->getPageTitle()->getLocalURL( $params ) );
 
 		/** @var FauxResponse $response */
 		list( $output, $response ) = $this->executeSpecialPage(
 			'',
-			new FauxRequest( [ 'id' => self::LEXEME_ID, 'format' => 'json' ] )
+			$request
 		);
 
 		$resultArray = json_decode( $output, true );
