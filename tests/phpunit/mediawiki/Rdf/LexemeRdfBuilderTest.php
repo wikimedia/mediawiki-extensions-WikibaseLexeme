@@ -126,17 +126,32 @@ class LexemeRdfBuilderTest extends TestCase {
 		RdfWriter $writer, $produce, EntityTitleLookup $entityTitleLookup
 	) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		$builder = new RdfBuilder(
-			$this->getTestData()->getSiteLookup()->getSites(),
-			$this->getVocabulary(),
-			$wikibaseRepo->getValueSnakRdfBuilderFactory(),
-			$this->getTestData()->getMockRepository(),
-			$wikibaseRepo->getEntityRdfBuilderFactory(),
-			$produce,
-			$writer,
-			new HashDedupeBag(),
-			$entityTitleLookup
-		);
+		$builderClass = new \ReflectionClass( 'Wikibase\Repo\Rdf\RdfBuilder' );
+		$builderParameters = $builderClass->getConstructor()->getParameters();
+		if ( $builderParameters[0]->getType()->getName() === \SiteList::class ) {
+			$builder = new RdfBuilder(
+				$this->getTestData()->getSiteLookup()->getSites(),
+				$this->getVocabulary(),
+				$wikibaseRepo->getValueSnakRdfBuilderFactory(),
+				$this->getTestData()->getMockRepository(),
+				$wikibaseRepo->getEntityRdfBuilderFactory(),
+				$produce,
+				$writer,
+				new HashDedupeBag(),
+				$entityTitleLookup
+			);
+		} else {
+			$builder = new RdfBuilder(
+				$this->getVocabulary(),
+				$wikibaseRepo->getValueSnakRdfBuilderFactory(),
+				$this->getTestData()->getMockRepository(),
+				$wikibaseRepo->getEntityRdfBuilderFactory(),
+				$produce,
+				$writer,
+				new HashDedupeBag(),
+				$entityTitleLookup
+			);
+		}
 		$builder->startDocument();
 		return $builder;
 	}
