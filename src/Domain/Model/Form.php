@@ -23,7 +23,7 @@ use Wikimedia\Assert\Assert;
  */
 class Form implements StatementListProvidingEntity, ClearableEntity {
 
-	/* public */ const ENTITY_TYPE = 'form';
+	public const ENTITY_TYPE = 'form';
 
 	/**
 	 * @var FormId

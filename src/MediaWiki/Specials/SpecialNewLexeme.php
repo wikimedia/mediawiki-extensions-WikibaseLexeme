@@ -36,10 +36,10 @@ use Wikimedia\Assert\Assert;
  */
 class SpecialNewLexeme extends SpecialPage {
 
-	/* public */ const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
-	/* public */ const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
-	/* public */ const FIELD_LEMMA = 'lemma';
-	/* public */ const FIELD_LEMMA_LANGUAGE = 'lemma-language';
+	public const FIELD_LEXEME_LANGUAGE = 'lexeme-language';
+	public const FIELD_LEXICAL_CATEGORY = 'lexicalcategory';
+	public const FIELD_LEMMA = 'lemma';
+	public const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
 	private $copyrightView;
 	private $entityNamespaceLookup;
