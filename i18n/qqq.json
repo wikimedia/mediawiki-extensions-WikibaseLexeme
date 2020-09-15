@@ -105,6 +105,7 @@
 	"wikibaselexeme-no-features": "Message for form having no features",
 	"wikibase-validator-form-not-found": "Error message that is being reported when Form with provided ID does not exist.\n\nParameters:\n* $1 - ID of the Form",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field",
+	"wikibase-lexeme-language-name-lij-mc": "Name for language code for Monégasque",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",
 	"wikibase-lexeme-language-name-nrf-gg": "Name for language code for Guernésiais",
 	"wikibase-lexeme-language-name-nrf-je": "Name for language code for Jèrriais",

@@ -66,6 +66,7 @@
 	"wikibaselexeme-form-description": "$1 voor: $2 ($3): $4",
 	"wikibaselexeme-unknown-language": "Onbekende taal",
 	"wikibaselexeme-unknown-category": "Onbekend",
+	"wikibase-lexeme-language-name-lij-mc": "Monegaskisch",
 	"wikibase-lexeme-language-name-mis": "overige",
 	"wikibase-lexeme-lemma-language-not-recognized": "De opgegeven taalcode kon niet worden herkend.",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' kon niet worden gevonden",

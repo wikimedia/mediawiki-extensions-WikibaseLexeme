@@ -21,19 +21,16 @@ use Wikibase\Repo\WikibaseRepo;
 return call_user_func( function() {
 	// TODO Problem when removing a code after such an item exists in DB
 	$additionalLanguages = [
+		'lij-mc', // T254968
 		'mis',
-
-		// T210293
-		'rm-rumgr',
-		'rm-surmiran',
-		'rm-sutsilv',
-		'rm-sursilv',
-		'rm-vallader',
-		'rm-puter',
-
-		//T223716
-		'nrf-gg',
-		'nrf-je'
+		'nrf-gg', // T223716
+		'nrf-je', // T223716
+		'rm-rumgr', // T210293
+		'rm-surmiran', // T210293
+		'rm-sutsilv', // T210293
+		'rm-sursilv', // T210293
+		'rm-vallader', // T210293
+		'rm-puter', // T210293
 	];
 
 	return [
