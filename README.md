@@ -11,7 +11,7 @@ WikibaseLexeme requires the following extensions to be installed and configured 
 Note: Currently, this extension is only compatible with the current development version of Wikibase, i.e. it might not work correctly if you use older Wikibase version.
 
 Install dependencies by running `composer install`.
-Add `wfLoadExtension( 'WikibaseLexeme');` to LocalSettings.php.
+Add `wfLoadExtension( 'WikibaseLexeme' );` to LocalSettings.php.
 
 ## Development setup
 
