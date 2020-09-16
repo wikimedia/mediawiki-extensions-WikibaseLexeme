@@ -12,15 +12,14 @@ specific to a single Interactor/UseCase.
 * Model: Domain Model (Entities (DDD), Value Objects, Aggregates, Events, etc)
 * Diff: diffing and patching of domain objects
 * DummyObjects: null objects
-* EntityReferenceExtractors: 
+* EntityReferenceExtractors:
 * Storage: interfaces for persistence services and non-mechanism-bound implementations
 * Merge:
 
 ## src/Interactors
 
 Interactors are application code. One directory per interactor. Interactors cannot contain any presentation code,
-persistence bound code or framework bound code or code. See the Use Cases section in the [Clean Architecture blog post]
-(https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html). 
+persistence bound code or framework bound code or code. See the Use Cases section in the [Clean Architecture blog post](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html).
 
 At the moment the dependency restrictions for Interactors are often violated. The idea is to work towards adhering to
 these restrictions.
@@ -35,8 +34,8 @@ Framework binding is allowed here (though might still make sense to avoid in cer
 
 It likely makes sense to treat MediaWiki pages, revisions, etc, as persistence mechanism.
 
-* ChangeOp: 
-* Search: 
+* ChangeOp:
+* Search:
 * Store: implementations of persistence services
 
 ## src/Presentation
