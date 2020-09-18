@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Harriettruong3",
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Yosari101"
 		]
 	},
 	"wikibaselexeme-desc": "Thực hiện kiểu thực thể từ vị",
@@ -64,6 +65,7 @@
 	"wikibaselexeme-unknown-category": "Không rõ",
 	"wikibaselexeme-no-features": "không có thuộc tính",
 	"wikibase-validator-form-not-found": "Từ vị không có dạng với mã số được chỉ định",
+	"wikibase-lexeme-language-name-ja-kana": "Tiếng Nhật viết theo katakana",
 	"wikibase-lexeme-language-name-mis": "khác",
 	"wikibase-lexeme-mergelexemes-from-id": "ID để hợp nhất từ",
 	"wikibase-lexeme-mergelexemes-to-id": "ID để hợp nhất vào",
