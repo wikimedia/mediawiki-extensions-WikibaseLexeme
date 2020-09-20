@@ -14,16 +14,16 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'can be removed', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						de: { language: 'de', value: 'lorem' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );

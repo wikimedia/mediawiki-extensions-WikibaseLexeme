@@ -82,10 +82,10 @@
 
 		assert.expect( 3 );
 
-		changer.save( form ).then( function ( form ) {
-			assert.equal( form.getId(), 'L1-F100', 'Saved Form ID' );
+		changer.save( form ).then( function ( saveForm ) {
+			assert.equal( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.equal(
-				form.getRepresentations().getItemByKey( 'en' ).getText(),
+				saveForm.getRepresentations().getItemByKey( 'en' ).getText(),
 				'some representation',
 				'Saved representation'
 			);
@@ -109,7 +109,7 @@
 				} ).promise();
 			}
 		};
-		var revisionStore = {
+		var revisionStore2 = {
 			formBaseRevisions: {
 			},
 			getFormRevision: function ( formId ) {
@@ -124,14 +124,14 @@
 			}
 		};
 
-		var changer = new FormChanger( api, revisionStore, 'L1', {} );
+		var changer = new FormChanger( api, revisionStore2, 'L1', {} );
 
 		var form = new Form( null, null, [] );
 
 		assert.expect( 1 );
 
 		changer.save( form ).then( function () {
-			assert.equal( revisionStore.getFormRevision( 'L1-F100' ), 303 );
+			assert.equal( revisionStore2.getFormRevision( 'L1-F100' ), 303 );
 			done();
 		} ).catch( done );
 	} );
@@ -385,15 +385,15 @@
 
 		assert.expect( 3 );
 
-		changer.save( form ).then( function ( form ) {
-			assert.equal( form.getId(), 'L1-F100', 'Saved Form ID' );
+		changer.save( form ).then( function ( saveForm ) {
+			assert.equal( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.equal(
-				form.getRepresentations().getItemByKey( 'en' ).getText(),
+				saveForm.getRepresentations().getItemByKey( 'en' ).getText(),
 				'test representation',
 				'Saved representation'
 			);
 			assert.deepEqual(
-				form.getGrammaticalFeatures(),
+				saveForm.getGrammaticalFeatures(),
 				[ 'Q1', 'Q2' ],
 				'Saved grammatical features'
 			);
