@@ -62,6 +62,7 @@
 	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (sistema de equis)",
 	"wikibase-lexeme-language-name-ja-hira": "Japonés escrito en hiragana",
 	"wikibase-lexeme-language-name-ja-kana": "Japonés escrito en katakana",
+	"wikibase-lexeme-language-name-ja-hrkt": "Japonés escrito en hiragana y katakana",
 	"wikibase-lexeme-language-name-mis": "otros",
 	"wikibase-lexeme-lemma-language-not-recognized": "No se reconoció el código de idioma proporcionado.",
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar lexemas",
