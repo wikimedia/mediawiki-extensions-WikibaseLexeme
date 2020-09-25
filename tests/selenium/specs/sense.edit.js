@@ -15,15 +15,15 @@ describe( 'Lexeme:Senses', () => {
 
 	it( 'can edit sense and save successfully', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addSense(
-				id,
+				lexemeId,
 				{
 					glosses: {
 						en: { language: 'en', value: 'cats' }
 					}
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -34,15 +34,15 @@ describe( 'Lexeme:Senses', () => {
 
 	it( 'can not save senses with redundant languages', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addSense(
-				id,
+				lexemeId,
 				{
 					glosses: {
 						en: { language: 'en', value: 'one' }
 					}
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -53,15 +53,15 @@ describe( 'Lexeme:Senses', () => {
 
 	it( 'shows the language and value in edit mode', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addSense(
-				id,
+				lexemeId,
 				{
 					glosses: {
 						en: { language: 'en', value: 'goat' }
 					}
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -73,15 +73,15 @@ describe( 'Lexeme:Senses', () => {
 
 	it( 'removes sense when clicked on remove', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addSense(
-				id,
+				lexemeId,
 				{
 					glosses: {
 						en: { language: 'en', value: 'goat' }
 					}
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -94,15 +94,15 @@ describe( 'Lexeme:Senses', () => {
 
 	it( 'Gloss value unchanged after editing was cancelled', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addSense(
-				id,
+				lexemeId,
 				{
 					glosses: {
 						en: { language: 'en', value: 'goat' }
 					}
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -115,15 +115,15 @@ describe( 'Lexeme:Senses', () => {
 
 	it( 'Removes Gloss', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addSense(
-				id,
+				lexemeId,
 				{
 					glosses: {
 						en: { language: 'en', value: 'goat' }
 					}
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );

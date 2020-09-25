@@ -104,16 +104,16 @@ module.exports = ( function () {
 				}
 			},
 			actions: {
-				save: function ( context, lexeme ) {
+				save: function ( context, saveLexeme ) {
 					if ( context.state.isSaving ) {
 						throw new Error( 'Already saving!' );
 					}
 					context.commit( 'startSaving' );
 
 					var data = {
-							lemmas: getRequestLemmas( context.state.lemmas.getLemmas(), lexeme.lemmas ),
-							language: lexeme.language,
-							lexicalCategory: lexeme.lexicalCategory
+							lemmas: getRequestLemmas( context.state.lemmas.getLemmas(), saveLexeme.lemmas ),
+							language: saveLexeme.language,
+							lexicalCategory: saveLexeme.lexicalCategory
 						},
 						saveRequest = $.Deferred( function ( deferred ) {
 							repoApi.editEntity(
@@ -132,16 +132,16 @@ module.exports = ( function () {
 
 					return $.when(
 						saveRequest,
-						formatEntityId( repoApi, lexeme.language ),
-						formatEntityId( repoApi, lexeme.lexicalCategory )
+						formatEntityId( repoApi, saveLexeme.language ),
+						formatEntityId( repoApi, saveLexeme.lexicalCategory )
 					).then( function ( response, formattedLanguage, formattedLexicalCategory ) {
 						context.commit( 'updateRevisionId', response.entity.lastrevid );
 						// TODO: Update state of lemmas, language and lexicalCategory if needed.
 						// Note: API response does not contain lemma.
-						context.commit( 'updateLemmas', response.entity.lemmas || lexeme.lemmas );
-						context.commit( 'updateLanguage', { id: lexeme.language, link: formattedLanguage } );
+						context.commit( 'updateLemmas', response.entity.lemmas || saveLexeme.lemmas );
+						context.commit( 'updateLanguage', { id: saveLexeme.language, link: formattedLanguage } );
 						context.commit( 'updateLexicalCategory', {
-							id: lexeme.lexicalCategory,
+							id: saveLexeme.lexicalCategory,
 							link: formattedLexicalCategory
 						} );
 

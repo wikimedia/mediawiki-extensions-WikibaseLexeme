@@ -98,9 +98,9 @@
 			}
 
 			this.$values.empty();
-			value.forEach( function ( value, i ) {
-				var $el = $( '<span>' ).text( value );
-				self._labelFormattingService.getHtml( value ).then( function ( html ) {
+			value.forEach( function ( innerValue, i ) {
+				var $el = $( '<span>' ).text( innerValue );
+				self._labelFormattingService.getHtml( innerValue ).then( function ( html ) {
 					$el.empty().append( html );
 				} );
 

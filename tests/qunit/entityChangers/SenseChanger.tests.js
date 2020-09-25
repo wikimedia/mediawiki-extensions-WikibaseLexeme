@@ -76,10 +76,10 @@
 
 		assert.expect( 2 );
 
-		changer.save( sense ).then( function ( sense ) {
-			assert.equal( sense.getId(), 'L1-S100', 'Saved Sense ID' );
+		changer.save( sense ).then( function ( saveSense ) {
+			assert.equal( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.equal(
-				sense.getGlosses().getItemByKey( 'en' ).getText(),
+				saveSense.getGlosses().getItemByKey( 'en' ).getText(),
 				'some gloss',
 				'Saved gloss'
 			);
@@ -98,7 +98,7 @@
 				} ).promise();
 			}
 		};
-		var revisionStore = {
+		var revisionStore2 = {
 			senseBaseRevisions: {
 			},
 			getSenseRevision: function ( senseId ) {
@@ -113,14 +113,14 @@
 			}
 		};
 
-		var changer = new SenseChanger( api, revisionStore, 'L1', {} );
+		var changer = new SenseChanger( api, revisionStore2, 'L1', {} );
 
 		var sense = new Sense( null, null );
 
 		assert.expect( 1 );
 
 		changer.save( sense ).then( function () {
-			assert.equal( revisionStore.getSenseRevision( 'L1-S100' ), 303 );
+			assert.equal( revisionStore2.getSenseRevision( 'L1-S100' ), 303 );
 			done();
 		} ).catch( done );
 	} );
@@ -363,10 +363,10 @@
 
 		assert.expect( 2 );
 
-		changer.save( sense ).then( function ( sense ) {
-			assert.equal( sense.getId(), 'L1-S100', 'Saved Sense ID' );
+		changer.save( sense ).then( function ( saveSense ) {
+			assert.equal( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.equal(
-				sense.getGlosses().getItemByKey( 'en' ).getText(),
+				saveSense.getGlosses().getItemByKey( 'en' ).getText(),
 				'test gloss',
 				'Saved gloss'
 			);

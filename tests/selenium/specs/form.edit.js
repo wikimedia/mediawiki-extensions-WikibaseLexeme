@@ -15,16 +15,16 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'can add representation', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						'en-ca': { language: 'en-ca', value: 'color' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -51,16 +51,16 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'can edit representation', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						en: { language: 'en', value: 'color' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -75,9 +75,9 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'can remove representation', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						'en-ca': { language: 'en-ca', value: 'color' },
@@ -85,7 +85,7 @@ describe( 'Lexeme:Forms', () => {
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -100,16 +100,16 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'can not save representations with redundant languages', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						en: { language: 'en', value: 'color' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -122,16 +122,16 @@ describe( 'Lexeme:Forms', () => {
 	it( 'can add grammatical feature', () => {
 		const grammaticalFeatureId = browser.call( () => WikibaseApi.createItem() );
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						'en-ca': { language: 'en-ca', value: 'color' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -147,16 +147,16 @@ describe( 'Lexeme:Forms', () => {
 	it( 'can remove first grammatical feature', () => {
 		const grammaticalFeatureId = browser.call( () => WikibaseApi.createItem() );
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						de: { language: 'de', value: 'lorem' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -191,16 +191,16 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'has statement list', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
-			const id = lexeme.id;
+			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
-				id,
+				lexemeId,
 				{
 					representations: {
 						en: { language: 'en', value: 'color' }
 					},
 					grammaticalFeatures: []
 				}
-			).then( () => id );
+			).then( () => lexemeId );
 		} ) );
 
 		LexemePage.open( id );
@@ -270,9 +270,9 @@ describe( 'Lexeme:Forms', () => {
 
 	it( 'can edit statements on a new Form', () => {
 		const statementPropertyId = browser.call( () => WikibaseApi.getProperty( 'string' )
-			.then( ( statementPropertyId ) => {
-				return WikibaseApi.getEntity( statementPropertyId )
-					.then( () => statementPropertyId );
+			.then( ( innerStatementPropertyId ) => {
+				return WikibaseApi.getEntity( innerStatementPropertyId )
+					.then( () => innerStatementPropertyId );
 			} )
 		);
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
