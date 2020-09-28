@@ -2,6 +2,7 @@
  * @license GPL-2.0-or-later
  */
 describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
+	var getTemplate = require('./helpers/template-loader');
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 
@@ -143,7 +144,7 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 	} );
 
 	function newWidget( lemmas ) {
-		var LemmaWidget = Vue.extend( newLemmaWidget( getTemplate(), {
+		var LemmaWidget = Vue.extend( newLemmaWidget( getTemplate('resources/templates/lemma.vue.html'), {
 			get: function ( key ) {
 				return key;
 			}
@@ -161,45 +162,5 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 
 		inputElm.value = value;
 		inputElm.dispatchEvent( new Event( 'input' ) );
-	}
-
-	function getTemplate() {
-		return '<div class="lemma-widget">'
-			+ '<ul v-if="!inEditMode" class="lemma-widget_lemma-list">'
-			+ '<li v-for="lemma in lemmaList" class="lemma-widget_lemma">'
-			+ '<span class="lemma-widget_lemma-value" :lang="lemma.language">{{lemma.value}}</span>'
-			+ '<span class="lemma-widget_lemma-language">{{lemma.language}}</span>'
-			+ '</li>'
-			+ '</ul>'
-			+ '<div v-else class="lemma-widget_edit-area">'
-			+ '<ul class="lemma-widget_lemma-list">'
-			+ '<li v-for="lemma in lemmaList" class="lemma-widget_lemma-edit-box">'
-			+ '<span class="lemma-widget_lemma-value-label">'
-			+ '{{\'wikibaselexeme-lemma-field-lemma-label\'|message}}'
-			+ '</span>'
-			+ '<input size="1" class="lemma-widget_lemma-value-input" '
-			+ ':value="lemma.value" @input="lemma.value = $event.target.value.trim()" :disabled="isSaving">'
-			+ '<span class="lemma-widget_lemma-language-label">'
-			+ '{{\'wikibaselexeme-lemma-field-language-label\'|message}}'
-			+ '</span>'
-			+ '<input size="1" class="lemma-widget_lemma-language-input" '
-			+ 'v-model="lemma.language" :disabled="isSaving"'
-			+ ':class="{'
-			+ '\'lemma-widget_lemma-language-input_redundant-language\': '
-			+ 'isRedundantLanguage(lemma.language)'
-			+ '}'
-			+ ':aria-invalid="isRedundantLanguage(lemma.language)">'
-			+ '<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)" '
-			+ ':disabled="isSaving" :title="\'wikibase-remove\'|message">'
-			+ '&times;'
-			+ '</button>'
-			+ '</li>'
-			+ '<li>'
-			+ '<button type="button" class="lemma-widget_add" v-on:click="add" '
-			+ ':disabled="isSaving" :title="\'wikibase-add\'|message">+</button>'
-			+ '</li>'
-			+ '</ul>'
-			+ '</div>'
-			+ '</div>';
 	}
 } );

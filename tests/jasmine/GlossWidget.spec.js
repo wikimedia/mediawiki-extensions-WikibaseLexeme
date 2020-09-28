@@ -1,4 +1,6 @@
 describe( 'GlossWidget', function () {
+	var getTemplate = require('./helpers/template-loader');
+
 	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
 	global.mw = { // eslint-disable-line no-restricted-globals
 		config: {
@@ -244,60 +246,11 @@ describe( 'GlossWidget', function () {
 		return new Vue( GlossWidget.newGlossWidget(
 			messages,
 			document.createElement( 'div' ),
-			getTemplate(),
+			getTemplate('resources/templates/glossWidget.vue.html'),
 			glosses,
 			function () {
 			},
 			getDirectionality
 		) );
-	}
-
-	/* FIXME: duplicated from SensesView.php but out of date because bringing up-to-date breaks the tests
-	* i.e. if we actually include the components rather than just using input.
-	* For now this is only properly covered by the browser tests
-	*/
-	function getTemplate() {
-		return '<div class="wikibase-lexeme-sense-glosses">\n' +
-			'<table class="wikibase-lexeme-sense-glosses-table">\n' +
-			'<tbody>\n' +
-			'<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">\n' +
-			'<td class="wikibase-lexeme-sense-gloss-language">\n' +
-			'<span v-if="!inEditMode">{{gloss.language|languageName}}</span>\n' +
-			'<input v-else class="wikibase-lexeme-sense-gloss-language-input"\n' +
-			'v-model="gloss.language" >\n' +
-			'</td>\n' +
-			'<td class="wikibase-lexeme-sense-gloss-value-cell">\n' +
-			'<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value"\n' +
-			':dir="gloss.language|directionality" :lang="gloss.language">\n' +
-			'{{gloss.value}}\n' +
-			'</span>\n' +
-			'<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"\n' +
-			':value="gloss.value" @input="gloss.value = $event.target.value.trim()">\n' +
-			'</td>\n' +
-			'<td>\n' +
-			'<button v-if="inEditMode"\n' +
-			'class="wikibase-lexeme-sense-glosses-control\n' +
-			'wikibase-lexeme-sense-glosses-remove"\n' +
-			'v-on:click="remove(gloss)"  type="button">\n' +
-			'{{\'wikibase-remove\'|message}}\n' +
-			'</button>\n' +
-			'</td>\n' +
-			'</tr>\n' +
-			'</tbody>\n' +
-			'<tfoot v-if="inEditMode">\n' +
-			'<tr>\n' +
-			'<td>\n' +
-			'</td>\n' +
-			'<td>\n' +
-			'<button type="button"\n' +
-			'class="wikibase-lexeme-sense-glosses-control\n' +
-			'wikibase-lexeme-sense-glosses-add"\n' +
-			'v-on:click="add" >+ {{\'wikibase-add\'|message}}\n' +
-			'</button>\n' +
-			'</td>\n' +
-			'</tr>\n' +
-			'</tfoot>\n' +
-			'</table>\n' +
-			'</div>';
 	}
 } );

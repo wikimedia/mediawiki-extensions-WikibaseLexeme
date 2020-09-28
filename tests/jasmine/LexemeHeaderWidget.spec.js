@@ -8,6 +8,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	expect.installPlugin( require( 'unexpected-dom' ) );
 	expect.installPlugin( require( 'unexpected-sinon' ) );
 
+	var getTemplate = require('./helpers/template-loader');
+
 	var newLexemeHeader = require( './../../resources/widgets/LexemeHeader.newLexemeHeader.js' );
 	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
 	var Lemma = require( './../../resources/datamodel/Lemma.js' );
@@ -142,7 +144,6 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		var widget = newWidget( { lemmas: [] } );
 
 		widget.$refs.lemmas.$emit( 'hasRedundantLanguage', true );
-
 		expect( widget.hasRedundantLemmaLanguage, 'to be true' );
 	} );
 
@@ -257,11 +258,12 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	 * @return {Vue}
 	 */
 	function newWidgetWithStore( store, mergeOptions ) {
+		var template = getTemplate('resources/templates/lexemeHeader.vue.html').replace('%saveMessageKey%', 'wikibase-save');
 		var element = document.createElement( 'div' ),
 			options = newLexemeHeader(
 				store,
 				element,
-				getTemplate(),
+				template,
 				getLemmaWidget(),
 				getLanguageAndLexicalCategoryWidget(),
 				{
@@ -287,40 +289,4 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			template: '<div></div>'
 		};
 	}
-
-	// FIXME: duplicated from LexemeView.php until it's reusable
-	/* eslint-disable no-tabs */
-	function getTemplate() {
-		return '<div>'
-			+ '<div id="wb-lexeme-header" class="wb-lexeme-header">'
-			+ '<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->'
-			+ '<div class="wb-lexeme-header_lemma-widget">'
-			+ '<lemma-widget '
-			+ ':lemmas="lemmas" '
-			+ ':inEditMode="inEditMode" '
-			+ ':isSaving="isSaving" '
-			+ '@hasRedundantLanguage="hasRedundantLemmaLanguage = $event" '
-			+ 'ref="lemmas"></lemma-widget>'
-			+ '</div>'
-			+ '<div class="lemma-widget_controls" v-if="isInitialized" >'
-			+ '<button type="button" class="lemma-widget_edit" v-if="!inEditMode" '
-			+ ' :disabled="isSaving" v-on:click="edit">{{\'wikibase-edit\'|message}}</button>'
-			+ '<button type="button" class="lemma-widget_save" v-if="inEditMode" '
-			+ ' :disabled="isUnsaveable" v-on:click="save">{{\'wikibase-save\'|message}}</button>'
-			+ '<button type="button" class="lemma-widget_cancel" v-if="inEditMode" '
-			+ ' :disabled="isSaving"  v-on:click="cancel">{{\'wikibase-cancel\'|message}}</button>'
-			+ '</div>'
-			+ '</div>'
-			+ '<language-and-category-widget '
-			+ '	:language.sync="language"'
-			+ '	:lexicalCategory.sync="lexicalCategory"'
-			+ '	:inEditMode="inEditMode"'
-			+ '	:isSaving="isSaving"'
-			+ '	ref="languageAndLexicalCategory">'
-			+ '</language-and-category-widget>'
-			+ '</div>';
-
-	}
-	/* eslint-enable */
-
 } );

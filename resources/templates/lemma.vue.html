@@ -1,0 +1,60 @@
+<div class="lemma-widget">
+	<ul v-if="!inEditMode" class="lemma-widget_lemma-list">
+		<li v-for="lemma in lemmaList" class="lemma-widget_lemma">
+			<span class="lemma-widget_lemma-value" :lang="lemma.language">{{lemma.value}}</span>
+			<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
+		</li>
+	</ul>
+	<div v-else class="lemma-widget_edit-area">
+		<ul class="lemma-widget_lemma-list">
+			<li v-for="lemma in lemmaList" class="lemma-widget_lemma-edit-box">
+				<span class="lemma-widget_lemma-value-label">
+					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
+				</span>
+                <!--
+					 In this input, we reverted back to using custom two-way binding
+					 instead of using v-model.trim. The reason was that wdio's
+					 $(selector).setValue(value) was conflicting with vue's trimming
+					 behavior, causing setValue() to append instead of replace text
+					 in the input field, causing some false-negatives in browser tests.
+                -->
+				<input size="1" 
+					class="lemma-widget_lemma-value-input"
+					:value="lemma.value" 
+					:disabled="isSaving"
+					@input="lemma.value = $event.target.value.trim()"
+				>
+				<span class="lemma-widget_lemma-language-label">
+					{{'wikibaselexeme-lemma-field-language-label'|message}}
+				</span>
+				<input size="1" 
+					class="lemma-widget_lemma-language-input"
+					v-model="lemma.language" 
+					:disabled="isSaving"
+					:class="{
+						'lemma-widget_lemma-language-input_redundant-language':
+							isRedundantLanguage(lemma.language)
+					}"
+					:aria-invalid="isRedundantLanguage(lemma.language)">
+				<button class="lemma-widget_lemma-remove" 
+					v-on:click="remove(lemma)"
+					:disabled="isSaving" 
+					:title="'wikibase-remove'|message">
+					&times;
+				</button>
+			</li>
+			<li>
+				<button type="button" 
+					class="lemma-widget_add" 
+					v-on:click="add"
+					:disabled="isSaving" 
+					:title="'wikibase-add'|message">
+					+
+				</button>
+			</li>
+		</ul>
+		<div v-if="hasRedundantLanguage" class="lemma-widget_redundant-language-warning">
+			<p>{{'wikibaselexeme-lemma-redundant-language'|message}}</p>
+		</div>
+	</div>
+</div>

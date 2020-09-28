@@ -10,6 +10,7 @@ describe( 'LanguageAndLexicalCategoryWidget', function () {
 		}
 	};
 
+	var getTemplate = require('./helpers/template-loader');
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
 
@@ -53,7 +54,8 @@ describe( 'LanguageAndLexicalCategoryWidget', function () {
 	} );
 
 	function newWidget( language, lexicalCategory ) {
-		var LanguageAndLexicalCategoryWidget = Vue.extend( newLanguageAndLexicalCategoryWidget( getTemplate(), {}, {
+		var template = getTemplate('resources/templates/languageAndLexicalCategoryWidget.vue.html');
+		var LanguageAndLexicalCategoryWidget = Vue.extend( newLanguageAndLexicalCategoryWidget( template, {}, {
 			get: function ( key ) {
 				return key;
 			}
@@ -73,30 +75,5 @@ describe( 'LanguageAndLexicalCategoryWidget', function () {
 				isSaving: false
 			}
 		} ).$mount();
-	}
-
-	function getTemplate() {
-		return '<div class="language-lexical-category-widget">'
-			+ '<div v-if="!inEditMode">'
-			+ '<div>'
-			+ '<span>{{\'wikibaselexeme-field-language-label\'|message}}</span>'
-			+ '<span v-html="formattedLanguage"></span>'
-			+ '</div>'
-			+ '<div>'
-			+ '<span>{{\'wikibaselexeme-field-lexical-category-label\'|message}}</span>'
-			+ '<span v-html="formattedLexicalCategory"></span>'
-			+ '</div>'
-			+ '</div>'
-			+ '<div v-else>'
-			+ '<div>'
-			+ '<label for="lexeme-language">{{\'wikibaselexeme-field-language-label\'|message}}</label>'
-			+ '<input id="lexeme-language" v-bind:value="language" @input="$emit(\'update:language\', $event.target.value)">'
-			+ '</div>'
-			+ '<div>'
-			+ '<label for="lexeme-lexical-category">{{\'wikibaselexeme-field-lexical-category-label\'|message}}</label>'
-			+ '<input id="lexeme-lexical-category" v-bind:value="lexicalCategory" @input="$emit(\'update:lexicalCategory\', $event.target.value)">'
-			+ '</div>'
-			+ '</div>'
-			+ '</div>';
 	}
 } );

@@ -7,6 +7,7 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
+use Wikibase\Lexeme\Presentation\View\Template\VueTemplates;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
@@ -94,6 +95,7 @@ class SensesView {
 	 */
 	private function getSenseHtml( Sense $sense ) {
 		$templating = new Templating();
+		$template = file_get_contents( __DIR__ . VueTemplates::GLOSS_WIDGET );
 
 		$glosses = array_map(
 			function ( Term $gloss ) {
@@ -104,7 +106,7 @@ class SensesView {
 		ksort( $glosses );
 
 		$glossWidget = $templating->render(
-			$this->getRawGlossWidgetTemplate(),
+			$template,
 			[
 				'senseId' => $sense->getId()->getSerialization(),
 				'inEditMode' => false,
@@ -164,93 +166,11 @@ HTML;
 	}
 
 	private function getGlossWidgetVueTemplate() {
+		$template = file_get_contents( __DIR__ . VueTemplates::GLOSS_WIDGET );
 		return <<<HTML
 <script id="gloss-widget-vue-template" type="x-template">
-	{$this->getRawGlossWidgetTemplate()}
+	{$template}
 </script>
-HTML;
-	}
-
-	private function getRawGlossWidgetTemplate() {
-		return <<<'HTML'
-<div class="wikibase-lexeme-sense-glosses">
-	<table class="wikibase-lexeme-sense-glosses-table">
-		<thead v-if="inEditMode">
-			<tr class="wikibase-lexeme-sense-gloss-table-header">
-				<td class="wikibase-lexeme-sense-gloss-language">
-					{{'wikibaselexeme-gloss-field-language-label'|message}}
-				</td>
-				<td>{{'wikibaselexeme-gloss-field-gloss-label'|message}}</td>
-				<td></td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
-				<td class="wikibase-lexeme-sense-gloss-language">
-					<span v-if="!inEditMode">{{gloss.language|languageName}}</span>
-					<language-selector v-else class="wikibase-lexeme-sense-gloss-language-input"
-					:class="{
-						'wikibase-lexeme-sense-gloss-language-input_redundant-language':
-							isRedundantLanguage(gloss.language),
-						'wikibase-lexeme-sense-gloss-language-input_invalid-language':
-							isInvalidLanguage(gloss.language)
-				   }"
-				   v-model="gloss.language"
-				   :initialCode="gloss.language"
-				></language-selector>
-				</td>
-				<td class="wikibase-lexeme-sense-gloss-value-cell"
-					:dir="gloss.language|directionality" :lang="gloss.language">
-					<span v-if="!inEditMode" class="wikibase-lexeme-sense-gloss-value">
-						{{gloss.value}}
-					</span>
-					<input v-if="inEditMode" class="wikibase-lexeme-sense-gloss-value-input"
-						:value="gloss.value"
-						@input="gloss.value = $event.target.value.trim()"
-					>
-				</td>
-				<td class="wikibase-lexeme-sense-gloss-actions-cell">
-					<button v-if="inEditMode"
-					class="wikibase-lexeme-sense-glosses-control
-						wikibase-lexeme-sense-glosses-remove"
-					:disabled="glosses.length <= 1"
-					v-on:click="remove(gloss)"  type="button">
-						{{'wikibase-remove'|message}}
-					</button>
-				</td>
-			</tr>
-		</tbody>
-		<tfoot v-if="inEditMode">
-			<tr>
-				<td colspan="3" >
-					<div
-					v-if="hasRedundantLanguage"
-					class="wikibase-lexeme-sense-gloss_redundant-language-warning"
-					>
-						<p>{{'wikibaselexeme-sense-gloss-redundant-language'|message}}</p>
-					</div>
-					<div
-					v-if="hasInvalidLanguage"
-					class="wikibase-lexeme-sense-gloss_invalid-language-warning"
-					>
-						<p>{{'wikibaselexeme-sense-gloss-invalid-language'|message}}</p>
-					</div>
-				</td>
-			</tr>
-			<tr>
-				<td>
-				</td>
-				<td>
-					<button type="button"
-						class="wikibase-lexeme-sense-glosses-control
-							wikibase-lexeme-sense-glosses-add"
-						v-on:click="add" >+ {{'wikibase-add'|message}}
-					</button>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</div>
 HTML;
 	}
 
