@@ -104,6 +104,11 @@ return call_user_func( function() {
 				"wikibase.templates"
 			]
 		],
+		"mediawiki.template.vue" => $moduleTemplate + [
+			'scripts' => [
+				'mediawiki.template.vue.js'
+			]
+		],
 		"wikibase.lexeme.datamodel" => $moduleTemplate + [
 			"scripts" => [
 				"datamodel/__namespace.js",
