@@ -179,17 +179,7 @@ class SensesViewTest extends TestCase {
 	}
 
 	private function newTemplateFactory() : LexemeTemplateFactory {
-		return new LexemeTemplateFactory( [
-			'wikibase-lexeme-sense' => '
-					<div class="wikibase-lexeme-sense">
-						<div class="wikibase-lexeme-sense-header">
-							<div class="wikibase-lexeme-sense-id">$1</div>
-							<div class="sense-representations">$2</div>
-						</div>
-						$3
-						$4
-					</div>'
-		] );
+		return LexemeTemplateFactory::factory();
 	}
 
 	private function getLanguageNameMock(): LexemeLanguageNameLookup {

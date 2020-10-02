@@ -24,6 +24,11 @@ class LexemeTemplateFactory {
 		$this->templateRegistry = new TemplateRegistry( $templates );
 	}
 
+	public static function factory(): self {
+		$templates = include __DIR__ . '/../../../../resources/templates.php';
+		return new self( $templates );
+	}
+
 	/**
 	 * Shorthand function to retrieve a template filled with the specified parameters.
 	 *

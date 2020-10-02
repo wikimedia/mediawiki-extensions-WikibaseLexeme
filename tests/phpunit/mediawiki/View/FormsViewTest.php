@@ -162,18 +162,7 @@ class FormsViewTest extends TestCase {
 	}
 
 	private function newTemplateFactory() : LexemeTemplateFactory {
-		return new LexemeTemplateFactory( [
-			'wikibase-lexeme-form' => '
-					<div class="wikibase-lexeme-form">
-						<div class="wikibase-lexeme-form-header">
-							<div class="wikibase-lexeme-form-id">$1</div>
-							<div class="form-representations">$2</div>
-						</div>
-						$3
-						$4
-					</div>',
-			'wikibase-lexeme-form-grammatical-features' => '<div><div>$1</div><div>$2</div></div>'
-		] );
+		return LexemeTemplateFactory::factory();
 	}
 
 }
