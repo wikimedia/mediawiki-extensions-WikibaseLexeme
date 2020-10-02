@@ -20,13 +20,7 @@
 		representationLanguageRedundant: '.representation-widget_representation-language-input_redundant-language'
 	};
 
-	QUnit.module( 'jquery.wikibase.lexemeformview', QUnit.newMwEnvironment( {
-		setup: function () {
-			$( '<script id="representation-widget-vue-template" type="x-template"/>' )
-				.html( getRepresentationWidgetTemplate() )
-				.appendTo( '#qunit-fixture' );
-		}
-	} ) );
+	QUnit.module( 'jquery.wikibase.lexemeformview', QUnit.newMwEnvironment() );
 
 	var newFormView = function ( options ) {
 		var $node = $( '<div>' ).appendTo( '#qunit-fixture' );
@@ -325,11 +319,6 @@
 		var event = document.createEvent( 'Event' );
 		event.initEvent( 'input', true, true );
 		$element[ 0 ].dispatchEvent( event );
-	}
-
-	function getRepresentationWidgetTemplate() {
-		var template = mw.template.get( 'test.WikibaseLexeme', 'representations.vue' );
-		return template.getSource();
 	}
 
 }( require, wikibase ) );

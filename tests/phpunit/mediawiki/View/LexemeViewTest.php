@@ -114,8 +114,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 			$this->newSensesViewMock(),
 			$this->newStatementSectionsViewMock( $expectedStatements ),
 			$lemmaFormatter,
-			$linkFormatter,
-			'wikibase-release-the-goats'
+			$linkFormatter
 		);
 	}
 
@@ -189,11 +188,6 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$view = $this->newLexemeView( $lexeme->getStatements() );
 		$html = $view->getContent( $lexeme )->getHtml();
-
-		$this->assertStringContainsString(
-			'{{\'wikibase-release-the-goats\'|message}}',
-			$html
-		);
 
 		$this->assertIsString( $html );
 		$this->assertThatHamcrest(

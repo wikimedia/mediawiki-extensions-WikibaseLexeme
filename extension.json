@@ -99,10 +99,7 @@
 			"wikibase.lexeme.view.ViewFactoryFactory",
 			"wikibase.lexeme.widgets.ItemSelectorWidget",
 			"test.WikibaseRepository"
-		],
-		"templates": {
-			"representations.vue": "resources/templates/representations.vue.html"
-		}
+		]
 	},
 	"Hooks": {
 		"InfoAction": [

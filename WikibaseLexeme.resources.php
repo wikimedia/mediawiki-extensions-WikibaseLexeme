@@ -96,6 +96,13 @@ return call_user_func( function() {
 				"wikibaselexeme-sense-gloss-invalid-language",
 				"wikibaselexeme-sense-gloss-redundant-language",
 				"wikibase-lexeme-language-selector-label"
+			],
+			"templates" => [
+				'lexemeHeader.vue' => 'templates/lexemeHeader.vue.html',
+				'glossWidget.vue' => 'templates/glossWidget.vue.html',
+				'languageAndLexicalCategoryWidget.vue' => 'templates/languageAndLexicalCategoryWidget.vue.html',
+				'lemma.vue' => 'templates/lemma.vue.html',
+				'representations.vue' => 'templates/representations.vue.html',
 			]
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
