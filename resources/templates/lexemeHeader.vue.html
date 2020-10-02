@@ -1,0 +1,47 @@
+<div id="wb-lexeme-header" 
+	class="wb-lexeme-header" 
+	v-on:keyup.enter="handleEnter">
+	<div id="wb-lexeme-header-lemmas">
+		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
+		<div class="wb-lexeme-header_lemma-widget">
+			<lemma-widget
+				:lemmas="lemmas"
+				:inEditMode="inEditMode"
+				:isSaving="isSaving"
+				@hasRedundantLanguage="hasRedundantLemmaLanguage = $event"
+				ref="lemmas">
+			</lemma-widget>
+		</div>
+		<div class="lemma-widget_controls" 
+			v-if="isInitialized">
+			<button type="button" 
+				class="lemma-widget_edit" 
+				v-if="!inEditMode"
+				:disabled="isSaving" 
+				v-on:click="edit">
+				{{'wikibase-edit'|message}}
+			</button>
+			<button type="button" 
+				class="lemma-widget_save" 
+				v-if="inEditMode"
+				:disabled="isUnsaveable" 
+				v-on:click="save">
+				{{'%saveMessageKey%'|message}}
+			</button>
+			<button type="button" 
+				class="lemma-widget_cancel" 
+				v-if="inEditMode"
+				:disabled="isSaving"
+				v-on:click="cancel">
+				{{'wikibase-cancel'|message}}
+			</button>
+		</div>
+	</div>
+	<language-and-category-widget
+		:language.sync="language"
+		:lexicalCategory.sync="lexicalCategory"
+		:inEditMode="inEditMode"
+		:isSaving="isSaving"
+		ref="languageAndLexicalCategory">
+	</language-and-category-widget>
+</div>

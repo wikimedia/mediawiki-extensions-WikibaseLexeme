@@ -1,0 +1,34 @@
+<div class="language-lexical-category-widget">
+	<div v-if="!inEditMode">
+		<div>
+			<span>{{'wikibaselexeme-field-language-label'|message}}</span>
+			<span class="language-lexical-category-widget_language" v-html="formattedLanguage"></span>
+		</div>
+		<div>
+			<span>{{'wikibaselexeme-field-lexical-category-label'|message}}</span>
+			<span class="language-lexical-category-widget_lexical-category"
+				v-html="formattedLexicalCategory">
+			</span>
+		</div>
+	</div>
+	<div v-else>
+		<div>
+			<label for="lexeme-language">{{'wikibaselexeme-field-language-label'|message}}</label>
+			<item-selector
+				id="lexeme-language"
+				v-bind:value="language"
+				@input="$emit('update:language', $event)">
+			</item-selector>
+		</div>
+		<div>
+			<label for="lexeme-lexical-category">
+				{{'wikibaselexeme-field-lexical-category-label'|message}}
+			</label>
+			<item-selector
+				id="lexeme-lexical-category"
+				v-bind:value="lexicalCategory"
+				@input="$emit('update:lexicalCategory', $event)">
+			</item-selector>
+		</div>
+	</div>
+</div>

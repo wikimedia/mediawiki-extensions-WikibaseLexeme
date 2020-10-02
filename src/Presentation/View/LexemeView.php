@@ -10,6 +10,7 @@ use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\Presentation\View\Template\VueTemplates;
 use Wikibase\View\EntityView;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\StatementSectionsView;
@@ -96,7 +97,7 @@ class LexemeView extends EntityView {
 	 * Builds and returns the main content representing a whole Lexeme
 	 *
 	 * @param EntityDocument $entity the entity to render
-	 * @param int $revision the revision of the entity to render
+	 * @param int|null $revision the revision of the entity to render
 	 *
 	 * @return ViewContent
 	 */
@@ -214,149 +215,33 @@ HTML;
 	}
 
 	private function getLemmaVueTemplate() {
+		$template = file_get_contents( __DIR__ . VueTemplates::LEMMA );
 		return <<<HTML
 <script id="lemma-widget-vue-template" type="x-template">
-	{$this->getRawLemmaVueTemplate()}
+	{$template}
 </script>
 HTML;
 	}
 
 	private function getLexemeHeaderVueTemplate() {
+		$template = str_replace(
+			'%saveMessageKey%',
+			$this->saveMessageKey,
+			file_get_contents( __DIR__ . VueTemplates::LEMMA_HEADER )
+		);
 		return <<<HTML
 <script id="lexeme-header-widget-vue-template" type="x-template">
-	{$this->getRawLexemeHeaderVueTemplate()}
+	{$template}
 </script>
 HTML;
 	}
 
 	private function getLanguageAndLexicalCategoryVueTemplate() {
+		$template = file_get_contents( __DIR__ . VueTemplates::CATEGORY_WIDGET );
 		return <<<HTML
 <script id="language-and-lexical-category-widget-vue-template" type="x-template">
-	{$this->getRawLanguageAndLexicalCategoryWidgetVueTemplate()}
+	{$template}
 </script>
-HTML;
-	}
-
-	private function getRawLexemeHeaderVueTemplate() {
-		return <<<HTML
-<div id="wb-lexeme-header" class="wb-lexeme-header" v-on:keyup.enter="handleEnter">
-	<div id="wb-lexeme-header-lemmas">
-		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
-		<div class="wb-lexeme-header_lemma-widget">
-			<lemma-widget
-				:lemmas="lemmas"
-				:inEditMode="inEditMode"
-				:isSaving="isSaving"
-				@hasRedundantLanguage="hasRedundantLemmaLanguage = \$event">
-				ref="lemmas"></lemma-widget>
-		</div>
-		<div class="lemma-widget_controls" v-if="isInitialized" >
-			<button type="button" class="lemma-widget_edit" v-if="!inEditMode"
-				:disabled="isSaving" v-on:click="edit">{{'wikibase-edit'|message}}</button>
-			<button type="button" class="lemma-widget_save" v-if="inEditMode"
-				:disabled="isUnsaveable" v-on:click="save">{{'{$this->saveMessageKey}'|message}}</button>
-			<button type="button" class="lemma-widget_cancel" v-if="inEditMode"
-				:disabled="isSaving"  v-on:click="cancel">{{'wikibase-cancel'|message}}</button>
-		</div>
-	</div>
-	<language-and-category-widget
-		:language.sync="language"
-		:lexicalCategory.sync="lexicalCategory"
-		:inEditMode="inEditMode"
-		:isSaving="isSaving"
-		ref="languageAndLexicalCategory">
-	</language-and-category-widget>
-</div>
-HTML;
-	}
-
-	private function getRawLanguageAndLexicalCategoryWidgetVueTemplate() {
-		return <<<'HTML'
-<div class="language-lexical-category-widget">
-	<div v-if="!inEditMode">
-		<div>
-			<span>{{'wikibaselexeme-field-language-label'|message}}</span>
-			<span class="language-lexical-category-widget_language" v-html="formattedLanguage"></span>
-		</div>
-		<div>
-			<span>{{'wikibaselexeme-field-lexical-category-label'|message}}</span>
-			<span class="language-lexical-category-widget_lexical-category"
-				v-html="formattedLexicalCategory"></span>
-		</div>
-	</div>
-	<div v-else>
-		<div>
-			<label for="lexeme-language">{{'wikibaselexeme-field-language-label'|message}}</label>
-			<item-selector
-				id="lexeme-language"
-				v-bind:value="language"
-				@input="$emit('update:language', $event)"></item-selector>
-		</div>
-		<div>
-			<label for="lexeme-lexical-category">
-				{{'wikibaselexeme-field-lexical-category-label'|message}}
-			</label>
-			<item-selector
-				id="lexeme-lexical-category"
-				v-bind:value="lexicalCategory"
-				@input="$emit('update:lexicalCategory', $event)"></item-selector>
-		</div>
-	</div>
-</div>
-HTML;
-	}
-
-	private function getRawLemmaVueTemplate() {
-		return <<<'HTML'
-<div class="lemma-widget">
-	<ul v-if="!inEditMode" class="lemma-widget_lemma-list">
-		<li v-for="lemma in lemmaList" class="lemma-widget_lemma">
-			<span class="lemma-widget_lemma-value" :lang="lemma.language">{{lemma.value}}</span>
-			<span class="lemma-widget_lemma-language">{{lemma.language}}</span>
-		</li>
-	</ul>
-	<div v-else class="lemma-widget_edit-area">
-		<ul class="lemma-widget_lemma-list">
-			<li v-for="lemma in lemmaList" class="lemma-widget_lemma-edit-box">
-				<span class="lemma-widget_lemma-value-label">
-					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
-				</span>
-                <!--
-					 In this input, we reverted back to using custom two-way binding
-					 instead of using v-model.trim. The reason was that wdio's
-					 $(selector).setValue(value) was conflicting with vue's trimming
-					 behavior, causing setValue() to append instead of replace text
-					 in the input field, causing some false-negatives in browser tests.
-                -->
-				<input size="1" class="lemma-widget_lemma-value-input"
-					:value="lemma.value" :disabled="isSaving"
-					@input="lemma.value = $event.target.value.trim()"
-				>
-				<span class="lemma-widget_lemma-language-label">
-					{{'wikibaselexeme-lemma-field-language-label'|message}}
-				</span>
-				<input size="1" class="lemma-widget_lemma-language-input"
-					v-model="lemma.language" :disabled="isSaving"
-					:class="{
-						'lemma-widget_lemma-language-input_redundant-language':
-							isRedundantLanguage(lemma.language)
-					}"
-					:aria-invalid="isRedundantLanguage(lemma.language)">
-				<button class="lemma-widget_lemma-remove" v-on:click="remove(lemma)"
-					:disabled="isSaving" :title="'wikibase-remove'|message">
-					&times;
-				</button>
-			</li>
-			<li>
-				<button type="button" class="lemma-widget_add" v-on:click="add"
-					:disabled="isSaving" :title="'wikibase-add'|message">+</button>
-			</li>
-		</ul>
-		<div v-if="hasRedundantLanguage" class="lemma-widget_redundant-language-warning">
-			<p>{{'wikibaselexeme-lemma-redundant-language'|message}}</p>
-		</div>
-	</div>
-</div>
 HTML;
 	}
 
@@ -365,6 +250,7 @@ HTML;
 	 */
 	private function renderLemmaWidget( Lexeme $lexeme ) {
 		$templating = new Templating();
+		$template = file_get_contents( __DIR__ . VueTemplates::LEMMA );
 
 		$lemmas = array_map(
 			function ( Term $lemma ) {
@@ -374,7 +260,7 @@ HTML;
 		);
 
 		$result = $templating->render(
-			$this->getRawLemmaVueTemplate(),
+			$template,
 			[
 				'isInitialized' => false,
 				'inEditMode' => false,
@@ -400,12 +286,13 @@ HTML;
 	 */
 	private function renderLanguageAndLexicalCategoryWidget( Lexeme $lexeme ) {
 		$templating = new Templating();
+		$categoryTemplate = file_get_contents( __DIR__ . VueTemplates::CATEGORY_WIDGET );
 
 		$languageId = $lexeme->getLanguage();
 		$lexicalCategoryId = $lexeme->getLexicalCategory();
 
 		$result = $templating->render(
-			$this->getRawLanguageAndLexicalCategoryWidgetVueTemplate(),
+			$categoryTemplate,
 			[
 				'isInitialized' => false,
 				'inEditMode' => false,

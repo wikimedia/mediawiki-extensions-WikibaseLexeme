@@ -191,7 +191,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$html = $view->getContent( $lexeme )->getHtml();
 
 		$this->assertStringContainsString(
-			'v-on:click="save">{{\'wikibase-release-the-goats\'|message}}</button>',
+			'{{\'wikibase-release-the-goats\'|message}}',
 			$html
 		);
 
