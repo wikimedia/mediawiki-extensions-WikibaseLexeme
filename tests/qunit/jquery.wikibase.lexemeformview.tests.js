@@ -226,7 +226,7 @@
 			return view.stopEditing();
 		} ).then( function () {
 			assert.equal(
-				view.element.find( selector.representationText ).text(),
+				view.element.find( selector.representationText ).text().trim(),
 				form.getRepresentations().getItemByKey( 'en' ).getText()
 			);
 		} ).catch( function ( e ) {
@@ -328,60 +328,8 @@
 	}
 
 	function getRepresentationWidgetTemplate() {
-		return '<div class="representation-widget">\n' +
-			'<ul v-if="!inEditMode" class="representation-widget_representation-list">\n' +
-			'<li v-for="representation in representations" class="representation-widget_representation">\n' +
-			'<span class="representation-widget_representation-value"\n' +
-			':lang="representation.language">{{representation.value}}</span>\n' +
-			'<span class="representation-widget_representation-language">\n' +
-			'{{representation.language}}\n' +
-			'</span>\n' +
-			'</li>\n' +
-			'</ul>\n' +
-			'<div v-else>\n' +
-			'<div class="representation-widget_edit-area">\n' +
-			'<ul class="representation-widget_representation-list">\n' +
-			'<li v-for="(representation, index) in representations"\n' +
-			'class="representation-widget_representation-edit-box">\n' +
-			'<label :for="inputRepresentationId(index)"\n' +
-			'class="representation-widget_representation-value-label">\n' +
-			'{{\'wikibaselexeme-form-field-representation-label\'|message}}\n' +
-			'</label>\n' +
-			'<input size="1" class="representation-widget_representation-value-input"\n' +
-			':value="representation.value"\n' +
-			':id="inputRepresentationId(index)"\n' +
-			'@input="updateValue(representation, $event)">\n' +
-			'<label :for="inputLanguageId(index)"\n' +
-			'class="representation-widget_representation-language-label">\n' +
-			'{{\'wikibaselexeme-form-field-language-label\'|message}}\n' +
-			'</label>\n' +
-			'<input size="1" class="representation-widget_representation-language-input"\n' +
-			':id="inputLanguageId(index)"\n' +
-			':value="representation.language"\n' +
-			'@input="updateLanguage(representation, $event)"\n' +
-			':class="{\n' +
-			'\'representation-widget_representation-language-input_redundant-language\':\n' +
-			'isRedundantLanguage(representation.language)\n' +
-			'}"\n' +
-			':aria-invalid="isRedundantLanguage(representation.language)">\n' +
-			'<button class="representation-widget_representation-remove"\n' +
-			'v-on:click="remove(representation)"\n' +
-			':disabled="representations.length <= 1"\n' +
-			':title="\'wikibase-remove\'|message">\n' +
-			'&times;\n' +
-			'</button>\n' +
-			'</li>\n' +
-			'<li class="representation-widget_edit-area-controls">\n' +
-			'<button type="button" class="representation-widget_add" v-on:click="add"\n' +
-			':title="\'wikibase-add\'|message">+</button>\n' +
-			'</li>\n' +
-			'</ul>\n' +
-			'</div>\n' +
-			'<div v-if="hasRedundantLanguage" class="representation-widget_redundant-language-warning">\n' +
-			'<p>{{\'wikibaselexeme-form-representation-redundant-language\'|message}}</p>\n' +
-			'</div>\n' +
-			'</div>\n' +
-			'</div>';
+		var template = mw.template.get( 'test.WikibaseLexeme', 'representations.vue' );
+		return template.getSource();
 	}
 
 }( require, wikibase ) );
