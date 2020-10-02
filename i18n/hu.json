@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Hanna Tardos",
 			"Máté",
 			"Tacsipacsi"
 		]
@@ -48,5 +49,6 @@
 	"wikibaselexeme-unknown-language": "Ismeretlen nyelv",
 	"wikibaselexeme-unknown-category": "Ismeretlen",
 	"wikibaselexeme-no-features": "nincsenek kategóriák",
-	"wikibase-validator-form-not-found": "A lexémának nincs ilyen azonosítójú alakja"
+	"wikibase-validator-form-not-found": "A lexémának nincs ilyen azonosítójú alakja",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Eszperantó (x-rendszer)"
 }
