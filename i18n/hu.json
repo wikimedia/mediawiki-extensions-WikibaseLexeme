@@ -50,5 +50,10 @@
 	"wikibaselexeme-unknown-category": "Ismeretlen",
 	"wikibaselexeme-no-features": "nincsenek kategóriák",
 	"wikibase-validator-form-not-found": "A lexémának nincs ilyen azonosítójú alakja",
-	"wikibase-lexeme-language-name-eo-xsistemo": "Eszperantó (x-rendszer)"
+	"wikibase-lexeme-language-name-eo-hsistemo": "Eszperantó (h-rendszer)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Eszperantó (x-rendszer)",
+	"wikibase-lexeme-language-name-ja-hira": "Hiragana japán",
+	"wikibase-lexeme-language-name-ja-kana": "Katana japán",
+	"wikibase-lexeme-language-name-ja-hrkt": "Hiragana és katana japán",
+	"wikibase-lexeme-language-name-lij-mc": "monacói"
 }

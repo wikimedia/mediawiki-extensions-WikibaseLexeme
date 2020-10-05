@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Patsagorn Y."
+		]
+	},
+	"wikibaselexeme-desc": "จัดการชนิดเอนทิตี้แบบหน่วยศัพท์",
+	"special-newlexeme": "สร้างหน่วยศัพท์ใหม่",
+	"special-mergelexemes": "รวมสองหน่วยศัพท์ไว้ด้วยกัน",
+	"wikibaselexeme-deletedentity-form": "ฟอร์มที่ถูกลบ"
+}
