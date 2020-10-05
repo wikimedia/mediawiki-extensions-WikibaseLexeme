@@ -3,10 +3,9 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use HamcrestPHPUnitIntegration;
+use Wikibase\DataAccess\NullPrefetchingTermLookup;
 use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lib\Store\BufferingTermIndexTermLookup;
-use Wikibase\Lib\Store\NullTermIndex;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Services\ServiceContainer;
 
@@ -41,7 +40,7 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 		$services->disableService( 'TermBuffer' );
 
 		$services->redefineService( 'TermBuffer', function () {
-			return new BufferingTermIndexTermLookup( new NullTermIndex(), 1000 );
+			return new NullPrefetchingTermLookup();
 		} );
 	}
 

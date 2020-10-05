@@ -4,12 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiUsageException;
 use IApiMessage;
+use Wikibase\DataAccess\NullPrefetchingTermLookup;
 use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
-use Wikibase\Lib\Store\BufferingTermIndexTermLookup;
 use Wikibase\Lib\Store\EntityStore;
-use Wikibase\Lib\Store\NullTermIndex;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Services\ServiceContainer;
@@ -137,17 +136,11 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		if ( $services->hasService( 'TermBuffer' ) ) {
 			$services->disableService( 'TermBuffer' );
 			$services->redefineService( 'TermBuffer', function () {
-				return new BufferingTermIndexTermLookup(
-					new NullTermIndex(),
-					1000
-				);
+				return new NullPrefetchingTermLookup();
 			} );
 		} else {
 			$services->defineService( 'TermBuffer', function () {
-				return new BufferingTermIndexTermLookup(
-					new NullTermIndex(),
-					1000
-				);
+				return new NullPrefetchingTermLookup();
 			} );
 		}
 	}
