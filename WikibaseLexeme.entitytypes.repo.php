@@ -81,10 +81,14 @@ return [
 			TermLanguageFallbackChain $termFallbackChain,
 			EntityDocument $entity
 		) {
+			$saveMessageKey =
+				( MediaWikiServices::getInstance()->getMainConfig()->get( 'EditSubmitButtonLabelPublish' ) )
+					? 'wikibase-publish' : 'wikibase-save';
 
 			$factory = new LexemeViewFactory(
 				$language,
-				$termFallbackChain
+				$termFallbackChain,
+				$saveMessageKey
 			);
 
 			return $factory->newLexemeView();

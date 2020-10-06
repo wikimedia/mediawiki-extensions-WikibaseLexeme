@@ -83,6 +83,7 @@ class SensesView {
 		}
 		$html .= '</div>';
 		$html .= '</div>';
+		$html .= $this->getGlossWidgetVueTemplate();
 
 		return $html;
 	}
@@ -163,4 +164,14 @@ HTML;
 		);
 		return $statementHeader . $statementSection;
 	}
+
+	private function getGlossWidgetVueTemplate() {
+		$template = file_get_contents( __DIR__ . VueTemplates::GLOSS_WIDGET );
+		return <<<HTML
+<script id="gloss-widget-vue-template" type="x-template">
+	{$template}
+</script>
+HTML;
+	}
+
 }

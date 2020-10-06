@@ -30,12 +30,19 @@ class LexemeViewFactory {
 	 */
 	private $language;
 
+	/**
+	 * @var string
+	 */
+	private $saveMessageKey;
+
 	public function __construct(
 		Language $language,
-		TermLanguageFallbackChain $termFallbackChain
+		TermLanguageFallbackChain $termFallbackChain,
+		$saveMessageKey
 	) {
 		$this->termFallbackChain = $termFallbackChain;
 		$this->language = $language;
+		$this->saveMessageKey = $saveMessageKey;
 	}
 
 	public function newLexemeView() {
@@ -92,7 +99,8 @@ class LexemeViewFactory {
 				$localizedTextProvider
 					->get( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
 			),
-			$idLinkFormatter
+			$idLinkFormatter,
+			$this->saveMessageKey
 		);
 	}
 

@@ -53,6 +53,11 @@ class LexemeView extends EntityView {
 	private $lemmaFormatter;
 
 	/**
+	 * @var string
+	 */
+	private $saveMessageKey;
+
+	/**
 	 * @param TemplateFactory $templateFactory
 	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
 	 * @param string $languageCode
@@ -61,6 +66,7 @@ class LexemeView extends EntityView {
 	 * @param StatementSectionsView $statementSectionsView
 	 * @param LexemeTermFormatter $lemmaFormatter
 	 * @param EntityIdFormatter $idFormatter
+	 * @param string $saveMessageKey
 	 */
 	public function __construct(
 		TemplateFactory $templateFactory,
@@ -70,7 +76,8 @@ class LexemeView extends EntityView {
 		SensesView $sensesView,
 		StatementSectionsView $statementSectionsView,
 		LexemeTermFormatter $lemmaFormatter,
-		EntityIdFormatter $idFormatter
+		EntityIdFormatter $idFormatter,
+		$saveMessageKey = 'wikibase-save'
 	) {
 		parent::__construct(
 			$templateFactory,
@@ -83,6 +90,7 @@ class LexemeView extends EntityView {
 		$this->statementSectionsView = $statementSectionsView;
 		$this->idFormatter = $idFormatter;
 		$this->lemmaFormatter = $lemmaFormatter;
+		$this->saveMessageKey = $saveMessageKey;
 	}
 
 	/**
@@ -113,6 +121,8 @@ class LexemeView extends EntityView {
 		'@phan-var Lexeme $entity';
 
 		$html = $this->getLexemeHeader( $entity )
+			. $this->getLexemeHeaderVueTemplate()
+			. $this->getLanguageAndLexicalCategoryVueTemplate()
 			. $this->templateFactory->render( 'wikibase-toc' )
 			. $this->statementSectionsView->getHtml( $entity->getStatements() )
 			. $this->sensesView->getHtml( $entity->getSenses() )
@@ -133,7 +143,7 @@ class LexemeView extends EntityView {
 			);
 		}
 
-		$lemmaWidget = $this->renderLemmaWidget( $entity );
+		$lemmaWidget = $this->renderLemmaWidget( $entity ) . $this->getLemmaVueTemplate();
 		$languageAndCategory = $this->renderLanguageAndLexicalCategoryWidget( $entity );
 
 		return <<<HTML
@@ -202,6 +212,37 @@ HTML;
 	 */
 	private function getLocalizedMessage( $key, array $params = [] ) {
 		return ( new Message( $key, $params, Language::factory( $this->languageCode ) ) )->text();
+	}
+
+	private function getLemmaVueTemplate() {
+		$template = file_get_contents( __DIR__ . VueTemplates::LEMMA );
+		return <<<HTML
+<script id="lemma-widget-vue-template" type="x-template">
+	{$template}
+</script>
+HTML;
+	}
+
+	private function getLexemeHeaderVueTemplate() {
+		$template = str_replace(
+			'%saveMessageKey%',
+			$this->saveMessageKey,
+			file_get_contents( __DIR__ . VueTemplates::LEMMA_HEADER )
+		);
+		return <<<HTML
+<script id="lexeme-header-widget-vue-template" type="x-template">
+	{$template}
+</script>
+HTML;
+	}
+
+	private function getLanguageAndLexicalCategoryVueTemplate() {
+		$template = file_get_contents( __DIR__ . VueTemplates::CATEGORY_WIDGET );
+		return <<<HTML
+<script id="language-and-lexical-category-widget-vue-template" type="x-template">
+	{$template}
+</script>
+HTML;
 	}
 
 	/**
