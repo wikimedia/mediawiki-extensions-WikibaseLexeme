@@ -812,7 +812,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 	public function testPatch_IncreaseNextFormIdTo_GivenLexemWithGreaterId_Increases() {
 		$lexemeWithoutForm = NewLexeme::create()->build();
-		$this->assertEquals( 1, $lexemeWithoutForm->getNextFormId() );
+		$this->assertSame( 1, $lexemeWithoutForm->getNextFormId() );
 
 		$lexemeWithoutForm->patch(
 			function ( LexemePatchAccess $patchAccess ) {
@@ -910,7 +910,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme = NewLexeme::create()->build();
 		$newForm = NewForm::havingId( 'F1' )->build();
 
-		$this->assertEquals( 1, $lexeme->getNextFormId() );
+		$this->assertSame( 1, $lexeme->getNextFormId() );
 		$this->expectException( \Exception::class );
 		$lexeme->patch(
 			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
@@ -939,7 +939,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 	public function testPatch_IncreaseNextSenseIdTo_GivenLexemeWithGreaterId_Increases() {
 		$lexemeWithoutSense = NewLexeme::create()->build();
-		$this->assertEquals( 1, $lexemeWithoutSense->getNextSenseId() );
+		$this->assertSame( 1, $lexemeWithoutSense->getNextSenseId() );
 
 		$lexemeWithoutSense->patch(
 			function ( LexemePatchAccess $patchAccess ) {

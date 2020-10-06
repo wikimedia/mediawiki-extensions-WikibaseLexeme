@@ -73,7 +73,7 @@ class AddFormRequestParserTest extends TestCase {
 			[ 'lexemeId' => 'L1', 'data' => $this->getDataParam(), 'baserevid' => 1 ]
 		);
 
-		$this->assertEquals( 1, $request->getBaseRevId() );
+		$this->assertSame( 1, $request->getBaseRevId() );
 	}
 
 	public function testGivenEmptyData() {

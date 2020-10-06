@@ -41,7 +41,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 
 	public function testCount() {
 		$this->assertSame( 0, ( new FormSet() )->count() );
-		$this->assertEquals( 1, ( new FormSet( [ NewForm::any()->build() ] ) )->count() );
+		$this->assertSame( 1, ( new FormSet( [ NewForm::any()->build() ] ) )->count() );
 	}
 
 	public function testIsEmpty() {
@@ -56,7 +56,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	public function testMaxFormIdNumber_SetWithOneForm_ReturnsThatFormIdNumber() {
 		$formSet = new FormSet( [ NewForm::havingId( 'F1' )->build() ] );
 
-		$this->assertEquals( 1, $formSet->maxFormIdNumber() );
+		$this->assertSame( 1, $formSet->maxFormIdNumber() );
 	}
 
 	public function testMaxFormIdNumber_SetWithManyForms_ReturnsMaximumFormIdNumber() {

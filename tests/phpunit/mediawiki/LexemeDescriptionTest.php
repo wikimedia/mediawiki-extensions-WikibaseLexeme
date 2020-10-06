@@ -119,7 +119,9 @@ class LexemeDescriptionTest extends TestCase {
 					'language' => 'Q1',
 					'category' => 'Q2',
 				],
-				'(wikibaselexeme-form-description: (wikibaselexeme-unknown-category), duck, L1, (wikibaselexeme-description: Anglais, nom))',
+				// Long line split into two
+				'(wikibaselexeme-form-description: (wikibaselexeme-unknown-category), ' .
+				'duck, L1, (wikibaselexeme-description: Anglais, nom))',
 			],
 		];
 	}

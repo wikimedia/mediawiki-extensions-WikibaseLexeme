@@ -68,7 +68,7 @@ class AddFormRequestTest extends TestCase {
 			1
 		);
 
-		$this->assertEquals( 1, $request->getBaseRevId() );
+		$this->assertSame( 1, $request->getBaseRevId() );
 	}
 
 }
