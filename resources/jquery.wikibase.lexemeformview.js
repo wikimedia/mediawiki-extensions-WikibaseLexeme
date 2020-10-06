@@ -198,6 +198,8 @@
 			var representations = termMapToArray( form.getRepresentations() ),
 				lemmas = termMapToArray( this.options.lexeme.getLemmas() );
 
+			var template = mw.template.get( 'wikibase.lexeme.lexemeview', 'representations.vue' ).getSource();
+
 			this._representationsWidget = RepresentationWidget.create(
 				getStore(
 					lemmas,
@@ -207,7 +209,7 @@
 				),
 				getFormIndex(),
 				this.$representations[ 0 ],
-				'#representation-widget-vue-template',
+				template,
 				function () {
 					this._trigger( 'change' );
 				}.bind( this ),

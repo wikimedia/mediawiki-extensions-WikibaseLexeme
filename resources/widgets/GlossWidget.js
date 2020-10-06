@@ -16,7 +16,7 @@ module.exports = ( function ( require, wb, Vuex ) {
 	}
 
 	function applyGlossWidget( widgetElement, glosses, beforeUpdate, mw, getDirectionality ) {
-		var template = '#gloss-widget-vue-template';
+		var template = mw.template.get( 'wikibase.lexeme.lexemeview', 'glossWidget.vue' ).getSource();
 		var messages = mw.messages;
 
 		return new Vue( newGlossWidget( messages, widgetElement, template, glosses, beforeUpdate, getDirectionality ) );
