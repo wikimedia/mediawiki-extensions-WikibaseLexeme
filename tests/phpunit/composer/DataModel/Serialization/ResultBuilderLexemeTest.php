@@ -35,7 +35,7 @@ class ResultBuilderLexemeTest extends TestCase {
 	 */
 	private function removeMetaData( array $array ) {
 		foreach ( $array as $key => &$value ) {
-			if ( $key[0] === '_' ) {
+			if ( is_string( $key ) && $key[0] === '_' ) {
 				unset( $array[$key] );
 			} else {
 				if ( is_array( $value ) ) {
