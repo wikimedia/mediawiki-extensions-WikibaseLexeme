@@ -44,7 +44,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 			] ),
 			'id' => 'L123-F1',
 		] );
-		$this->assertEquals( 1, $result['success'] );
+		$this->assertSame( 1, $result['success'] );
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'edit',
@@ -80,7 +80,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 				],
 			] ),
 		] );
-		$this->assertEquals( 1, $result['success'] );
+		$this->assertSame( 1, $result['success'] );
 
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'edit',

@@ -16,13 +16,11 @@ class CartesianProduct {
 	private $generatedValues;
 
 	/**
-	 * @param GeneratedValueOptions|GeneratedValueSingle $generatedValue
-	 * @param GeneratedValueOptions|GeneratedValueSingle $_generatedValue
+	 * @param array ...$args an array of GeneratedValueSingle | GeneratedValueOptions
 	 *
 	 * @return self
 	 */
-	public static function create( $generatedValue /*, ...$_generatedValue*/ ) {
-		$args = func_get_args();
+	public static function create( ...$args ) {
 
 		$resultingValues = array_map(
 			function ( $generatedValue ) {

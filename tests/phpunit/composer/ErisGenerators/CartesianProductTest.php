@@ -28,8 +28,8 @@ class CartesianProductTest extends TestCase {
 				}
 			);
 
-		$this->assertEquals( 1, $result->count() );
-		$this->assertEquals( 1, $result->first()->unbox() );
+		$this->assertSame( 1, $result->count() );
+		$this->assertSame( 1, $result->first()->unbox() );
 	}
 
 	public function testCanHandleTwoGeneratedValueOptions() {
@@ -47,7 +47,7 @@ class CartesianProductTest extends TestCase {
 			);
 
 		$this->assertInstanceOf( GeneratedValueOptions::class, $result );
-		$this->assertEquals( 1, $result->count() );
+		$this->assertSame( 1, $result->count() );
 		$this->assertEquals( [ 1, 2 ], $result->first()->unbox() );
 	}
 
@@ -66,7 +66,7 @@ class CartesianProductTest extends TestCase {
 				}
 			);
 
-		$this->assertEquals( 1, $result->count() );
+		$this->assertSame( 1, $result->count() );
 		$this->assertEquals( [ 1, 2, 3 ], $result->first()->unbox() );
 	}
 
@@ -85,7 +85,7 @@ class CartesianProductTest extends TestCase {
 			);
 
 		$this->assertInstanceOf( GeneratedValueOptions::class, $result );
-		$this->assertEquals( 1, $result->count() );
+		$this->assertSame( 1, $result->count() );
 		$this->assertEquals( [ 1, 2 ], $result->first()->unbox() );
 	}
 
@@ -103,7 +103,7 @@ class CartesianProductTest extends TestCase {
 				}
 			);
 
-		$this->assertEquals( 1, $result->count() );
+		$this->assertSame( 1, $result->count() );
 		$this->assertEquals( [ 1, 2 ], $result->first()->unbox() );
 	}
 
