@@ -6,9 +6,6 @@
 		"wikimedia/mediawiki"
 	],
 	"globals": {
-		"module": "readonly",
-		"require": "readonly",
-		"OO": "readonly",
 		"util": "readonly",
 		"wikibase": "readonly",
 		"Vue": "readonly",

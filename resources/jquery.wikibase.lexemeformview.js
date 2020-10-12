@@ -285,6 +285,11 @@
 	/**
 	 * Creates a separate store per form - with all resulting limitations
 	 * TODO Continue refactoring by moving store creation upstream (ControllerViewFactory)
+	 *
+	 * @param lemmas
+	 * @param formIndex
+	 * @param formId
+	 * @param representations
 	 */
 	function getStore( lemmas, formIndex, formId, representations ) {
 		var forms = {};

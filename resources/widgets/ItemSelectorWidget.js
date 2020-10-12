@@ -124,6 +124,7 @@
 		},
 
 		/**
+		 * @param response
 		 * @see OO.ui.mixin.LookupElement.prototype.getLookupCacheDataFromResponse
 		 */
 		getLookupCacheDataFromResponse: function ( response ) {
@@ -131,6 +132,7 @@
 		},
 
 		/**
+		 * @param data
 		 * @see OO.ui.mixin.LookupElement.prototype.getLookupMenuOptionsFromData
 		 */
 		getLookupMenuOptionsFromData: function ( data ) {
@@ -161,6 +163,7 @@
 		},
 
 		/**
+		 * @param item
 		 * @see OO.ui.mixin.LookupElement.prototype.onLookupMenuChoose
 		 */
 		onLookupMenuChoose: function ( item ) {
