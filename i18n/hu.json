@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Hanna Tardos",
+			"Misibacsi",
 			"Máté",
 			"Tacsipacsi"
 		]
@@ -54,7 +55,7 @@
 	"wikibase-lexeme-language-name-eo-hsistemo": "Eszperantó (h-rendszer)",
 	"wikibase-lexeme-language-name-eo-xsistemo": "Eszperantó (x-rendszer)",
 	"wikibase-lexeme-language-name-ja-hira": "Hiragana japán",
-	"wikibase-lexeme-language-name-ja-kana": "Katana japán",
+	"wikibase-lexeme-language-name-ja-kana": "Katakana japán",
 	"wikibase-lexeme-language-name-ja-hrkt": "Hiragana és katana japán",
 	"wikibase-lexeme-language-name-lij-mc": "monacói"
 }
