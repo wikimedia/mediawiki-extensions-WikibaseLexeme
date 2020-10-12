@@ -154,11 +154,12 @@ class SensePage extends Page {
 		const saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
 		saveButton.waitForClickable();
 		saveButton.click();
-		saveButton.waitForExist( null, true );
+		saveButton.waitForExist( { reverse: true } );
 	}
 
 	waitUntilStateChangeIsDone() {
-		$( this.constructor.GLOSS_WIDGET_SELECTORS.CHANGESTATE_INDICATOR ).waitForExist( null, true );
+		$( this.constructor.GLOSS_WIDGET_SELECTORS.CHANGESTATE_INDICATOR )
+			.waitForExist( { reverse: true } );
 	}
 
 	doesSenseExist() {
