@@ -37,6 +37,9 @@ return call_user_func( function() {
 		'rm-sursilv', // T210293
 		'rm-vallader', // T210293
 		'rm-puter', // T210293
+		'sat-latn', // T262967
+		'sat-beng', // T262967
+		'sat-orya' // T262967
 	];
 
 	return [
