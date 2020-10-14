@@ -4,9 +4,11 @@ namespace Wikibase\Lexeme\MediaWiki\Content;
 
 use InvalidArgumentException;
 use LogicException;
+use MediaWiki\MediaWikiServices;
 use Title;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Presentation\Content\LemmaTextSummaryFormatter;
 use Wikibase\Repo\Content\EntityContent;
 use Wikibase\Repo\Content\EntityHolder;
 use Wikimedia\Assert\Assert;
@@ -36,6 +38,11 @@ class LexemeContent extends EntityContent {
 	private $redirectTitle;
 
 	/**
+	 * @var LemmaTextSummaryFormatter
+	 */
+	private $summaryFormatter;
+
+	/**
 	 * @param EntityHolder|null $lexemeHolder
 	 *
 	 * @throws InvalidArgumentException
@@ -58,6 +65,10 @@ class LexemeContent extends EntityContent {
 		} elseif ( $redirect !== null ) {
 			$this->constructAsRedirect( $redirect, $redirectTitle );
 		}
+
+		$this->summaryFormatter = new LemmaTextSummaryFormatter(
+			MediaWikiServices::getInstance()->getContentLanguage()
+		);
 	}
 
 	public static function newFromRedirect( $redirect, $title ) {
@@ -201,4 +212,20 @@ class LexemeContent extends EntityContent {
 		$this->redirectTitle = $redirectTitle;
 	}
 
+	/**
+	 * Returns a textual representation of the content suitable for use in edit summaries and log messages.
+	 *
+	 * @param int $maxLength maximum length of the summary text
+	 * @return string
+	 */
+	public function getTextForSummary( $maxLength = 250 ) {
+		if ( $this->isRedirect() ) {
+			return $this->getRedirectText();
+		}
+
+		return $this->summaryFormatter->getSummary(
+			$this->getEntity()->getLemmas(),
+			$maxLength
+		);
+	}
 }
