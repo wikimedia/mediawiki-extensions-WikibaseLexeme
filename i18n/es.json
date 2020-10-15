@@ -8,6 +8,7 @@
 			"Fortega",
 			"KATRINE1992",
 			"Macofe",
+			"Mpayansilva",
 			"RicardoSGZ"
 		]
 	},
@@ -64,6 +65,7 @@
 	"wikibase-lexeme-language-name-ja-kana": "Japonés escrito en katakana",
 	"wikibase-lexeme-language-name-ja-hrkt": "Japonés escrito en hiragana y katakana",
 	"wikibase-lexeme-language-name-mis": "otros",
+	"wikibase-lexeme-language-name-sat-latn": "Santali en alfabeto latín",
 	"wikibase-lexeme-lemma-language-not-recognized": "No se reconoció el código de idioma proporcionado.",
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar lexemas",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» no es un identificador de lexema válido",
