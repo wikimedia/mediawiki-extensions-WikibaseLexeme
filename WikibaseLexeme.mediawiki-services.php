@@ -29,6 +29,7 @@ return call_user_func( function() {
 		'ja-hrkt', // T262330
 		'lij-mc', // T254968
 		'mis',
+		'non', // T265782
 		'non-runr', // T265782
 		'nrf-gg', // T223716
 		'nrf-je', // T223716
