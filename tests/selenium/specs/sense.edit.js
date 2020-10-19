@@ -48,7 +48,11 @@ describe( 'Lexeme:Senses', () => {
 		LexemePage.open( id );
 		SensePage.addGlossToNthSense( 0, 'two', 'en', false );
 
-		assert.equal( SensePage.isNthSenseSubmittable( 0 ), false );
+		assert.strictEqual(
+			SensePage.isNthSenseSubmittable( 0 ),
+			false,
+			'Sense should not be submittable'
+		);
 	} );
 
 	it( 'shows the language and value in edit mode', () => {
