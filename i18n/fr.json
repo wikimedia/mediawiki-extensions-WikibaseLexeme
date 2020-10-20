@@ -7,6 +7,7 @@
 			"Oupsa",
 			"Thibaut120094",
 			"Tpt",
+			"Verdy p",
 			"Wladek92",
 			"Yzelf"
 		]
@@ -113,6 +114,9 @@
 	"wikibase-lexeme-language-name-rm-sursilv": "Sursilvan",
 	"wikibase-lexeme-language-name-rm-vallader": "Vallader",
 	"wikibase-lexeme-language-name-rm-puter": "Puter",
+	"wikibase-lexeme-language-name-sat-latn": "Santali en écriture latine",
+	"wikibase-lexeme-language-name-sat-beng": "Santali en écriture bengalaise",
+	"wikibase-lexeme-language-name-sat-orya": "Santali en écriture oriya",
 	"wikibase-lexeme-lemma-language-not-recognized": "Le code fourni pour la langue n'est pas reconnu.",
 	"wikibase-lexeme-mergelexemes-intro": "Si vous fusionnez deux lexèmes, tous les lemmes, les déclarations, les formes et les sens seront déplacés d’un lexème vers l’autre.",
 	"wikibase-lexeme-mergelexemes-from-id": "L’ID depuis lequel fusionner",
