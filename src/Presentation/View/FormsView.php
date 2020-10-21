@@ -70,8 +70,6 @@ class FormsView {
 		}
 		$html .= '</div>';
 		$html .= '</div>';
-		$html .= $this->getRepresentationsVueTemplate();
-
 		return $html;
 	}
 
@@ -152,15 +150,6 @@ class FormsView {
 	 */
 	private function getGrammaticalFeatureHtml( ItemId $id ) {
 		return $this->entityIdFormatter->formatEntityId( $id );
-	}
-
-	private function getRepresentationsVueTemplate() {
-		$template = file_get_contents( __DIR__ . VueTemplates::REPRESENTATIONS );
-		return <<<HTML
-<script id="representation-widget-vue-template" type="x-template">
-	{$template}
-</script>
-HTML;
 	}
 
 	/**
