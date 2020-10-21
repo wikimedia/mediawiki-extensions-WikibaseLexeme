@@ -1,0 +1,3 @@
+Dumping entities of type lexeme
+Dumping shard 0/1
+Processed 2 entities.
