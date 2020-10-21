@@ -8,8 +8,8 @@ use DataValues\StringValue;
 use DataValues\TimeValue;
 use Diff\DiffOp\Diff\Diff;
 use InvalidArgumentException;
+use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use PHPUnit\Framework\TestCase;
 use Title;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\Item;
@@ -47,7 +47,7 @@ use Wikibase\Repo\Content\EntityInstanceHolder;
  *
  * @license GPL-2.0-or-later
  */
-class LexemeContentTest extends TestCase {
+class LexemeContentTest extends MediaWikiLangTestCase {
 
 	/**
 	 * @dataProvider invalidConstructorArgsProvider
@@ -424,6 +424,64 @@ class LexemeContentTest extends TestCase {
 			trim( file_get_contents( __DIR__ . '/textForFilters.txt' ) ),
 			$output
 		);
+	}
+
+	/**
+	 * @dataProvider lexemeTextSummaryProvider
+	 */
+	public function testGetTextSummary( $lexeme, $redirect, $redirectTitle, $expectedOutput, $length ) {
+		$lexemeContent = new LexemeContent(
+			$lexeme === null ? null : new EntityInstanceHolder( $lexeme ),
+			$redirect,
+			$redirectTitle
+		);
+
+		$this->assertEquals( $expectedOutput, $lexemeContent->getTextForSummary( $length ) );
+	}
+
+	public function lexemeTextSummaryProvider() {
+		return [
+			'normal behaviour' => [
+				NewLexeme::havingId( 'L1' )
+					->withLemma( 'sv', 'ett' )
+					->withLemma( 'en-gb', 'two' )
+					->withLemma( 'de', 'drei' )
+					->withForm(
+						NewForm::havingId( 'F1' )
+							->andRepresentation( 'en', 'should' )
+							->andRepresentation( 'en-gb', 'not' )
+							->andRepresentation( 'en-us', 'show up' )
+					)
+					->build(),
+				null,
+				null,
+				'ett, two, drei',
+				250
+			],
+			'cuts off the text' => [
+				NewLexeme::havingId( 'L2' )
+					->withLemma( 'sv', 'some thing really long that should get cut off eventually' )
+					->build(),
+				null,
+				null,
+				'some thing...',
+				13
+			],
+			'returns nothing if no lemmas' => [
+				new Lexeme(),
+				null,
+				null,
+				'',
+				250
+			],
+			'redirect' => [
+				null,
+				new EntityRedirect( new LexemeId( 'L1' ), new LexemeId( 'L2' ) ),
+				Title::newFromText( 'redirectTitle' ),
+				'#REDIRECT [[RedirectTitle]]',
+				250
+			]
+		];
 	}
 
 }

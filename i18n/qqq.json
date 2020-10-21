@@ -92,7 +92,7 @@
 	"wikibaselexeme-diffview-gloss": "Title of gloss in diff page",
 	"content-model-wikibase-lexeme": "The name for Wikibase Lexeme content model, used when describing what type of content a page contains.",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "{{optional}}\n\nLexeme's \"secondary label\" consisting of lexeme's language and lexical category (as text).\n\nParameters:\n* $1 - Language\n* $2 - Lexical category.",
-	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "{{optional}}\n\nDelimiter used to separate multiple lemmata of the lexeme when it being displayed as text/HTML.",
+	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "{{optional}}\n\nDelimiter used to separate multiple lemmas of the lexeme when it being displayed as text/HTML.",
 	"wikibaselexeme-formidformatter-separator-multiple-representation": "{{optional}}\n\nDelimiter used to separate multiple representations of the form when the Form ID is being displayed as text/HTML.",
 	"wikibaselexeme-senseidformatter-layout": "{{optional}}\n\nFormat used when showing a sense ID. $1 is the lemma(s) of the associated lexeme, $2 is the gloss in the user's language.",
 	"wikibaselexeme-lexeme-link-title": "{{optional}}\n\nValue of the \"title\" attribute of a link to lexeme page when the lexeme is displayed as HTML.\n\nParameters:\n* $1 - Lexeme ID\n* $2 - Lexeme's \"secondary label\" (language and lexical category).",
