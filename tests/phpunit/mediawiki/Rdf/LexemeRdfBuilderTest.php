@@ -11,7 +11,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
 use Wikibase\Lib\EntityTypeDefinitions;
-use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Repo\Content\EntityContentFactory;
 use Wikibase\Repo\Rdf\EntityMentionListener;
 use Wikibase\Repo\Rdf\HashDedupeBag;
 use Wikibase\Repo\Rdf\NullEntityMentionListener;
@@ -118,12 +118,11 @@ class LexemeRdfBuilderTest extends TestCase {
 	/**
 	 * @param RdfWriter $writer
 	 * @param int $produce One of the RdfProducer::PRODUCE_... constants.
-	 * @param EntityTitleLookup $entityTitleLookup
 	 *
 	 * @return RdfBuilder
 	 */
 	private function newFullBuilder(
-		RdfWriter $writer, $produce, EntityTitleLookup $entityTitleLookup
+		RdfWriter $writer, $produce
 	) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$builder = new RdfBuilder(
@@ -134,7 +133,7 @@ class LexemeRdfBuilderTest extends TestCase {
 			$produce,
 			$writer,
 			new HashDedupeBag(),
-			$entityTitleLookup
+			$this->createMock( EntityContentFactory::class )
 		);
 		$builder->startDocument();
 		return $builder;
@@ -307,9 +306,8 @@ class LexemeRdfBuilderTest extends TestCase {
 	public function testLexemeFullSerialization( $lexemeName, $dataSetName ) {
 		$lexeme = $this->getTestData()->getEntity( $lexemeName );
 		$writer = $this->getTestData()->getNTriplesWriter( false );
-		$entityTitleLookup = $this->createMock( EntityTitleLookup::class );
 
-		$builder = $this->newFullBuilder( $writer, RdfProducer::PRODUCE_ALL, $entityTitleLookup );
+		$builder = $this->newFullBuilder( $writer, RdfProducer::PRODUCE_ALL );
 		$builder->addEntity( $lexeme );
 		$this->assertOrCreateNTriples( $dataSetName, $writer );
 	}
