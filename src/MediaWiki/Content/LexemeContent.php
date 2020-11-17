@@ -154,11 +154,11 @@ class LexemeContent extends EntityContent {
 
 		$count = $lexeme->getStatements()->count();
 
-		foreach ( $lexeme->getForms()->toArray() as $form ) {
+		foreach ( $lexeme->getForms()->toArrayUnordered() as $form ) {
 			$count += $form->getStatements()->count();
 		}
 
-		foreach ( $lexeme->getSenses()->toArray() as $sense ) {
+		foreach ( $lexeme->getSenses()->toArrayUnordered() as $sense ) {
 			$count += $sense->getStatements()->count();
 		}
 

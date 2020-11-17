@@ -35,7 +35,7 @@ class GrammaticalFeatureItemIdsExtractor implements EntityReferenceExtractor {
 	private function extractGrammaticalFeatureIds( FormSet $forms ) {
 		$ids = [];
 
-		foreach ( $forms->toArray() as $form ) {
+		foreach ( $forms->toArrayUnordered() as $form ) {
 			$ids = array_merge( $ids, $form->getGrammaticalFeatures() );
 		}
 

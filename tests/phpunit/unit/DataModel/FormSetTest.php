@@ -28,6 +28,13 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( [ $form ], $formSet->toArray() );
 	}
 
+	public function testToArrayUnordered() {
+		$form = NewForm::any()->build();
+		$formSet = new FormSet( [ $form ] );
+
+		$this->assertEquals( [ $form ], $formSet->toArrayUnordered() );
+	}
+
 	public function testCanNotCreateWithTwoFormsHavingTheSameId() {
 		$this->expectException( \Exception::class );
 
@@ -116,7 +123,9 @@ class FormSetTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * Forms can only be accessed through FormSet::toArray(), which enforces right order,
-	 * or one-by-one through id, where order is irrelevant.
+	 * one-by-one through id, where order is irrelevant,
+	 * or through FormSet::toArrayUnordered(), where the caller has explicitly declared
+	 * that the order is not relevant.
 	 */
 	public function testToArray_ReturnedFormsAreSortedByTheirId() {
 		$form1 = NewForm::havingId( 'F2' )->build();

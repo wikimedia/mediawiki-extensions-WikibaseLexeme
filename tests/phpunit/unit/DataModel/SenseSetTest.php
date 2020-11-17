@@ -27,6 +27,13 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		$this->assertSame( [ $sense ], $senseSet->toArray() );
 	}
 
+	public function testToArrayUnordered() {
+		$sense = NewSense::havingId( 'S1' )->build();
+		$senseSet = new SenseSet( [ $sense ] );
+
+		$this->assertSame( [ $sense ], $senseSet->toArrayUnordered() );
+	}
+
 	public function testCanNotCreateWithTwoSensesHavingTheSameId() {
 		$this->expectException( Exception::class );
 		new SenseSet(
@@ -119,7 +126,9 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * Senses can only be accessed through SenseSet::toArray(), which enforces right order,
-	 * or one-by-one through id, where order is irrelevant.
+	 * one-by-one through id, where order is irrelevant,
+	 * or through SenseSet::toArrayUnordered(), where the caller has explicitly declared
+	 * that the order is not relevant.
 	 */
 	public function testToArray_ReturnedSensesAreSortedByTheirId() {
 		$sense1 = NewSense::havingId( 'S2' )->build();

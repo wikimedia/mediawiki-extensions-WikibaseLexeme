@@ -38,7 +38,7 @@ class SensesStatementEntityReferenceExtractor implements EntityReferenceExtracto
 		$ids = [];
 
 		/** @var Lexeme $lexeme */
-		foreach ( $lexeme->getSenses()->toArray() as $sense ) {
+		foreach ( $lexeme->getSenses()->toArrayUnordered() as $sense ) {
 			$ids = array_merge(
 				$ids,
 				$this->statementEntityReferenceExtractor->extractEntityIds( $sense )

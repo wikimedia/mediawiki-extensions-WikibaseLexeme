@@ -42,6 +42,19 @@ class SenseSet implements Countable, Comparable {
 	}
 
 	/**
+	 * Return the individual Senses in arbitrary order.
+	 *
+	 * Only use this method if the order is certainly insignificant,
+	 * e.g. because the Senses will be summarized or reduced in some way.
+	 * Otherwise, use {@link toArray()}.
+	 *
+	 * @return Sense[]
+	 */
+	public function toArrayUnordered(): array {
+		return array_values( $this->senses );
+	}
+
+	/**
 	 * @param Sense[] $senses
 	 * @return array sorted array mapping numeric id to the sense
 	 */

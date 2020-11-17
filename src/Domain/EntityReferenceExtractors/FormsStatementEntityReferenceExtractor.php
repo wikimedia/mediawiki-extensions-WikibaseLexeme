@@ -38,7 +38,7 @@ class FormsStatementEntityReferenceExtractor implements EntityReferenceExtractor
 		$ids = [];
 
 		/** @var Lexeme $lexeme */
-		foreach ( $lexeme->getForms()->toArray() as $form ) {
+		foreach ( $lexeme->getForms()->toArrayUnordered() as $form ) {
 			$ids = array_merge(
 				$ids,
 				$this->statementEntityReferenceExtractor->extractEntityIds( $form )

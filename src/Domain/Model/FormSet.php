@@ -41,6 +41,19 @@ class FormSet implements Countable, Comparable {
 	}
 
 	/**
+	 * Return the individual Forms in arbitrary order.
+	 *
+	 * Only use this method if the order is certainly insignificant,
+	 * e.g. because the Forms will be summarized or reduced in some way.
+	 * Otherwise, use {@link toArray()}.
+	 *
+	 * @return Form[]
+	 */
+	public function toArrayUnordered(): array {
+		return array_values( $this->forms );
+	}
+
+	/**
 	 * @param Form[] $forms
 	 * @return array sorted array mapping numeric id to the form
 	 */
