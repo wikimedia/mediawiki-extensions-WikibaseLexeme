@@ -90,7 +90,7 @@
 				'Saved representation'
 			);
 			assert.deepEqual(
-				form.getGrammaticalFeatures(),
+				saveForm.getGrammaticalFeatures(),
 				[ 'Q1', 'Q2' ],
 				'Saved grammatical features'
 			);

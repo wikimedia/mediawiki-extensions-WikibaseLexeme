@@ -44,6 +44,7 @@
 		"localBasePath": "",
 		"remoteExtPath": "WikibaseLexeme",
 		"packageFiles": [
+			"tests/qunit/index.js",
 			"tests/qunit/datamodel/Form.tests.js",
 			"tests/qunit/datamodel/Sense.tests.js",
 			"tests/qunit/experts/Lexeme.tests.js",
@@ -80,7 +81,8 @@
 			"resources/view/ViewFactoryFactory.js",
 			"resources/view/ReadModeViewFactory.js",
 			"resources/view/ControllerViewFactory.js",
-			"tests/qunit/view/ControllerViewFactory.tests.js"
+			"tests/qunit/view/ControllerViewFactory.tests.js",
+			"tests/qunit/view/ViewFactoryFactory.tests.js"
 		],
 		"dependencies": [
 			"mediawiki.widgets",
