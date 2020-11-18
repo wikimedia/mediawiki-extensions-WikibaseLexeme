@@ -8,11 +8,14 @@ const assert = require( 'assert' ),
 describe( 'Lexeme:Lemma', () => {
 
 	beforeEach( 'check logged in', () => {
-		browser.deleteAllCookies();
-		LoginPage.loginAdmin();
+		// Hook content is moved temporarily to individual tests for beta testing purposes
+		// browser.deleteAllCookies();
+		// LoginPage.loginAdmin();
 	} );
 
 	it( 'can be edited', () => {
+		browser.deleteAllCookies();
+		LoginPage.loginAdmin();
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
@@ -30,6 +33,8 @@ describe( 'Lexeme:Lemma', () => {
 	} );
 
 	it( 'can be edited multiple times', () => {
+		browser.deleteAllCookies();
+		LoginPage.loginAdmin();
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
@@ -46,6 +51,8 @@ describe( 'Lexeme:Lemma', () => {
 	} );
 
 	it( 'can not save lemmas with redundant languages', () => {
+		browser.deleteAllCookies();
+		LoginPage.loginAdmin();
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
