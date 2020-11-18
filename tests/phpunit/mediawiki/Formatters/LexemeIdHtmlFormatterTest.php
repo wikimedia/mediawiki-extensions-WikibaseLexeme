@@ -33,6 +33,15 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 	private const LEXICAL_CATEGORY_ID = 'Q200';
 	private const LEXICAL_CATEGORY = 'noun';
 
+	/** @var string */
+	private $lemmaLanguage;
+
+	public function setUp(): void {
+		parent::setUp();
+
+		$this->lemmaLanguage = 'en';
+	}
+
 	public function testFormatReturnsLinkWithLexemeLemmaAsContents() {
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) );
@@ -46,16 +55,25 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		);
 	}
 
-	public function testFormatReturnsLinkWithLexemeLemmasWrappedInLangCodedSpans() {
+	/**
+	 * @dataProvider lemmaLanguageProvider
+	 */
+	public function testFormatReturnsLinkWithLemmasWrappedInLangCodedSpans( $lemmaLang, $langAttr ) {
+		$this->lemmaLanguage = $lemmaLang;
 		$formatter = $this->newFormatter();
 		$formattedId = $formatter->formatEntityId( new LexemeId( self::SINGLE_LEMMA_LEXEME_ID ) );
 
 		$this->assertThatHamcrest(
 			$formattedId,
 			is( htmlPiece(
-				havingChild( tagMatchingOutline( '<span lang="en"/>' ) ) )
+				havingChild( tagMatchingOutline( '<span lang="' . $langAttr . '"/>' ) ) )
 			)
 		);
+	}
+
+	public function lemmaLanguageProvider() {
+		yield 'BCP 47 compliant language code' => [ 'en', 'en' ];
+		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD' ];
 	}
 
 	public function testFormatReturnsLinkWithLexemePageAsUrl() {
@@ -161,11 +179,11 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$lexeme = NewLexeme::havingId( self::SINGLE_LEMMA_LEXEME_ID )
 			->withLanguage( self::LANGUAGE_ID )
 			->withLexicalCategory( self::LEXICAL_CATEGORY_ID )
-			->withLemma( 'en', self::LEMMA )
+			->withLemma( $this->lemmaLanguage, self::LEMMA )
 			->build();
 
 		$otherLexeme = NewLexeme::havingId( self::MULTIPLE_LEMMA_LEXEME_ID )
-			->withLemma( 'en', self::LEMMA )
+			->withLemma( $this->lemmaLanguage, self::LEMMA )
 			->withLemma( 'en-foo', self::OTHER_LEMMA )
 			->build();
 

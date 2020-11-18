@@ -110,7 +110,11 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 	private function formatLemmas( TermList $lemmas ) {
 		$elements = [];
 		foreach ( $lemmas->toTextArray() as $languageCode => $lemma ) {
-			$elements[] = Html::element( 'span', [ 'lang' => $languageCode ], $lemma );
+			$elements[] = Html::element(
+				'span',
+				[ 'lang' => \LanguageCode::bcp47( $languageCode ) ],
+				$lemma
+			);
 		}
 		return $elements;
 	}
