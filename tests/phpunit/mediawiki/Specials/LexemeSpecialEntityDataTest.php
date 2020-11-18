@@ -38,7 +38,9 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 	 * @return SpecialPage
 	 */
 	protected function newSpecialPage() {
-		return new SpecialEntityData();
+		return $this->getServiceContainer()
+			->getSpecialPageFactory()
+			->getPage( SpecialEntityData::SPECIAL_PAGE_NAME );
 	}
 
 	private function saveLexemeToDb() {
