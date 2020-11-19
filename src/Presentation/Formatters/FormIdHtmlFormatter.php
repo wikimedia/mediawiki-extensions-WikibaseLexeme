@@ -3,10 +3,13 @@
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Html;
+use LanguageCode;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
@@ -96,18 +99,18 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 			self::REPRESENTATION_SEPARATOR_I18N
 		);
 
-		$representationString = implode(
+		$representationMarkup = implode(
 			$representationSeparator,
-			$representations->toTextArray()
+			$this->buildRepresentationMarkupElements( $representations )
 		);
 
-		return Html::element(
+		return Html::rawElement(
 			'a',
 			[
 				'href'  => $title->isLocal() ? $title->getLinkURL() : $title->getFullURL(),
 				'title' => $this->getLinkTitle( $form )
 			],
-			$representationString
+			$representationMarkup
 		);
 	}
 
@@ -150,6 +153,16 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		}
 
 		return $labels;
+	}
+
+	private function buildRepresentationMarkupElements( TermList $representations ): array {
+		return array_map( function ( Term $representation ) {
+			return Html::element(
+				'span',
+				[ 'lang' => LanguageCode::bcp47( $representation->getLanguageCode() ) ],
+				$representation->getText()
+			);
+		}, iterator_to_array( $representations->getIterator() ) );
 	}
 
 }
