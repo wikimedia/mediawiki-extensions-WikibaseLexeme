@@ -366,7 +366,8 @@ return [
 				$languageLabelLookup,
 				$titleLookup,
 				new MediaWikiLocalizedTextProvider( $language ),
-				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
+				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup ),
+				MediaWikiServices::getInstance()->getLanguageFactory()
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {

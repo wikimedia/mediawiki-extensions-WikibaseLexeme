@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Html;
-use LanguageCode;
+use MediaWiki\Languages\LanguageFactory;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -57,12 +57,18 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 	 */
 	private $labelDescriptionLookup;
 
+	/**
+	 * @var LanguageFactory
+	 */
+	private $languageFactory;
+
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
 		LabelDescriptionLookup $labelDescriptionLookup,
 		EntityTitleLookup $titleLookup,
 		LocalizedTextProvider $localizedTextProvider,
-		RedirectedLexemeSubEntityIdHtmlFormatter $redirectedLexemeSubEntityIdHtmlFormatter
+		RedirectedLexemeSubEntityIdHtmlFormatter $redirectedLexemeSubEntityIdHtmlFormatter,
+		LanguageFactory $languageFactory
 	) {
 		$this->revisionLookup = $revisionLookup;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
@@ -72,6 +78,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		$this->nonExistingIdFormatter = new NonExistingEntityIdHtmlFormatter(
 			'wikibaselexeme-deletedentity-'
 		);
+		$this->languageFactory = $languageFactory;
 	}
 
 	/**
@@ -94,14 +101,13 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		/** @var Form $form */
 		$form = $formRevision->getEntity();
 		'@phan-var Form $form';
-		$representations = $form->getRepresentations();
 		$representationSeparator = $this->localizedTextProvider->get(
 			self::REPRESENTATION_SEPARATOR_I18N
 		);
 
 		$representationMarkup = implode(
 			$representationSeparator,
-			$this->buildRepresentationMarkupElements( $representations )
+			$this->buildRepresentationMarkupElements( $form->getRepresentations() )
 		);
 
 		return Html::rawElement(
@@ -157,9 +163,13 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 
 	private function buildRepresentationMarkupElements( TermList $representations ): array {
 		return array_map( function ( Term $representation ) {
+			$language = $this->languageFactory->getLanguage( $representation->getLanguageCode() );
 			return Html::element(
 				'span',
-				[ 'lang' => LanguageCode::bcp47( $representation->getLanguageCode() ) ],
+				[
+					'lang' => $language->getHtmlCode(),
+					'dir' => $language->getDir(),
+				],
 				$representation->getText()
 			);
 		}, iterator_to_array( $representations->getIterator() ) );

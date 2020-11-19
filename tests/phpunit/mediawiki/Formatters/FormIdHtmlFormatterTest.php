@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
+use MediaWiki\MediaWikiServices;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Title;
@@ -173,7 +174,8 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	 */
 	public function testFormatId_oneRepresentation(
 		string $representationLanguage,
-		string $langAttr
+		string $langAttr,
+		string $dirAttr
 	) {
 		$formId = new FormId( 'L999-F666' );
 
@@ -201,15 +203,18 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 				both( tagMatchingOutline( '<a href="LOCAL-URL#FORM" title="L999-F666">' ) )
 					->andAlso( havingChild(
 						both( havingTextContents( $representationText ) )
-							->andAlso( tagMatchingOutline( "<span lang=\"$langAttr\">" ) )
+							->andAlso( tagMatchingOutline(
+								"<span lang='$langAttr' dir='$dirAttr'>"
+							) )
 					) )
 			) ) )
 		);
 	}
 
 	public function representationLanguageProvider() {
-		yield 'BCP 47 compliant language code' => [ 'en', 'en' ];
-		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD' ];
+		yield 'BCP 47 compliant language code' => [ 'en', 'en', 'ltr' ];
+		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD', 'ltr' ];
+		yield 'rtl language' => [ 'he', 'he', 'rtl' ];
 	}
 
 	public function testFormatId_multipleRepresentations() {
@@ -244,11 +249,11 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 					tagMatchingOutline( '<a href="LOCAL-URL#FORM" title="L999-F666">' ) ),
 					havingChild(
 						both( havingTextContents( $representation1Text ) )
-							->andAlso( tagMatchingOutline( "<span lang=\"$representation1Language\">" ) )
+							->andAlso( tagMatchingOutline( "<span lang='$representation1Language'>" ) )
 					),
 				havingChild(
 						both( havingTextContents( $representation2Text ) )
-							->andAlso( tagMatchingOutline( "<span lang=\"$representation2Language\">" ) )
+							->andAlso( tagMatchingOutline( "<span lang='$representation2Language'>" ) )
 					)
 
 			) ) )
@@ -322,7 +327,8 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			$this->labelLookup,
 			$this->titleLookup,
 			$this->textProvider,
-			$this->redirectedLexemeSubEntityIdHtmlFormatter
+			$this->redirectedLexemeSubEntityIdHtmlFormatter,
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 	}
 

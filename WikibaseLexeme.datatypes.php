@@ -17,6 +17,7 @@
  * @license GPL-2.0-or-later
  */
 
+use MediaWiki\MediaWikiServices;
 use ValueFormatters\FormatterOptions;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -93,7 +94,8 @@ return [
 					$languageLabelLookup,
 					$titleLookup,
 					$textProvider,
-					new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup )
+					new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup ),
+					MediaWikiServices::getInstance()->getLanguageFactory()
 				);
 			} else {
 				$baseFormatter = new FormIdTextFormatter(
