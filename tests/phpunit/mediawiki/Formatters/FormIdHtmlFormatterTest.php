@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
+use HamcrestPHPUnitIntegration;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Title;
@@ -26,6 +27,10 @@ use Wikibase\View\LocalizedTextProvider;
  * @license GPL-2.0-or-later
  */
 class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
+
+	use HamcrestPHPUnitIntegration;
+
+	private const REPRESENTATION_SEPARATOR = '-S-';
 
 	/**
 	 * @var EntityRevisionLookup|MockObject
@@ -79,7 +84,11 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$mock = $this->createMock( LocalizedTextProvider::class );
 
 		$getMethodValuesMap = [
-			[ 'wikibaselexeme-formidformatter-separator-multiple-representation', [], '-S-' ],
+			[
+				'wikibaselexeme-formidformatter-separator-multiple-representation',
+				[],
+				self::REPRESENTATION_SEPARATOR
+			],
 			[ 'wikibaselexeme-formidformatter-separator-grammatical-features', [], ', ' ],
 			[
 				'wikibaselexeme-formidformatter-link-title',
@@ -159,11 +168,22 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function testFormatId_oneRepresentation() {
+	/**
+	 * @dataProvider representationLanguageProvider
+	 */
+	public function testFormatId_oneRepresentation(
+		string $representationLanguage,
+		string $langAttr
+	) {
 		$formId = new FormId( 'L999-F666' );
 
+		$representationText = 'fOo';
 		$formRevision = new EntityRevision(
-			new Form( $formId, new TermList( [ new Term( 'pt', 'fOo' ) ] ), [] )
+			new Form(
+				$formId,
+				new TermList( [ new Term( $representationLanguage, $representationText ) ] ),
+				[]
+			)
 		);
 
 		$this->revisionLookup->method( 'getEntityRevision' )
@@ -174,16 +194,36 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
-		$this->assertSame(
-			'<a href="LOCAL-URL#FORM" title="L999-F666">fOo</a>',
-			$result
+
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( havingRootElement(
+				both( tagMatchingOutline( '<a href="LOCAL-URL#FORM" title="L999-F666">' ) )
+					->andAlso( havingChild(
+						both( havingTextContents( $representationText ) )
+							->andAlso( tagMatchingOutline( "<span lang=\"$langAttr\">" ) )
+					) )
+			) ) )
 		);
+	}
+
+	public function representationLanguageProvider() {
+		yield 'BCP 47 compliant language code' => [ 'en', 'en' ];
+		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD' ];
 	}
 
 	public function testFormatId_multipleRepresentations() {
 		$formId = new FormId( 'L999-F666' );
 
-		$representations = new TermList( [ new Term( 'pt', 'fOo' ), new Term( 'en', 'bAr' ) ] );
+		$representation1Language = 'pt';
+		$representation1Text = 'fOo';
+		$representation2Language = 'en';
+		$representation2Text = 'bAr';
+
+		$representations = new TermList( [
+			new Term( $representation1Language, $representation1Text ),
+			new Term( $representation2Language, $representation2Text )
+		] );
 		$formRevision = new EntityRevision(
 			new Form( $formId, $representations, [] )
 		);
@@ -196,9 +236,26 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
-		$this->assertSame(
-			'<a href="LOCAL-URL#FORM" title="L999-F666">fOo-S-bAr</a>',
-			$result
+
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( havingRootElement(
+				allOf(
+					tagMatchingOutline( '<a href="LOCAL-URL#FORM" title="L999-F666">' ) ),
+					havingChild(
+						both( havingTextContents( $representation1Text ) )
+							->andAlso( tagMatchingOutline( "<span lang=\"$representation1Language\">" ) )
+					),
+				havingChild(
+						both( havingTextContents( $representation2Text ) )
+							->andAlso( tagMatchingOutline( "<span lang=\"$representation2Language\">" ) )
+					)
+
+			) ) )
+		);
+		$this->assertEquals(
+			$representation1Text . self::REPRESENTATION_SEPARATOR . $representation2Text,
+			strip_tags( $result )
 		);
 	}
 
@@ -217,9 +274,11 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
-		$this->assertSame(
-			'<a href="LOCAL-URL#FORM" title="L999-F666">&lt;script>alert("hi")&lt;/script></a>',
-			$result
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( havingChild(
+				havingTextContents( '<script>alert("hi")</script>' )
+			) ) )
 		);
 	}
 
@@ -230,7 +289,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$grammaticalFeature2 = new ItemId( 'Q321' );
 
 		$formRevision = new EntityRevision( new Form( $formId, new TermList( [
-			new Term( 'pt', '<script>alert("hi")</script>' ),
+			new Term( 'pt', 'some representation' ),
 		] ), [ $grammaticalFeature1, $grammaticalFeature2 ] ) );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
@@ -248,9 +307,12 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$formatter = $this->newFormIdHtmlFormatter();
 		$result = $formatter->formatEntityId( $formId );
-		$this->assertSame(
-			'<a href="LOCAL-URL#FORM" title="L999-F666: noun, verb">&lt;script>alert("hi")&lt;/script></a>',
-			$result
+
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( havingRootElement(
+				tagMatchingOutline( '<a href="LOCAL-URL#FORM" title="L999-F666: noun, verb">' )
+			) ) )
 		);
 	}
 
