@@ -106,7 +106,7 @@ return [
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
-				$wikibaseRepo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
@@ -123,6 +123,7 @@ return [
 				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 			);
 			$itemValidator = new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' );
+			$entityIdParser = WikibaseRepo::getEntityIdParser();
 			$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
 				// TODO: WikibaseRepo should probably provide this validator?
@@ -145,18 +146,18 @@ return [
 				),
 				$statementChangeOpDeserializer,
 				new FormListChangeOpDeserializer(
-					new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+					new FormIdDeserializer( $entityIdParser ),
 					new FormChangeOpDeserializer(
 						$wikibaseRepo->getEntityLookup(),
-						$wikibaseRepo->getEntityIdParser(),
+						$entityIdParser,
 						WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 					)
 				),
 				new SenseListChangeOpDeserializer(
-					new SenseIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+					new SenseIdDeserializer( $entityIdParser ),
 					new SenseChangeOpDeserializer(
 						$wikibaseRepo->getEntityLookup(),
-						$wikibaseRepo->getEntityIdParser(),
+						$entityIdParser,
 						new EditSenseChangeOpDeserializer(
 							new GlossesChangeOpDeserializer(
 								new TermDeserializer(),
@@ -224,7 +225,7 @@ return [
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
-				$repo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				new Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup(
 					$repo->getTermLookup(),
 					$repo->getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
@@ -290,7 +291,7 @@ return [
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
-				$wikibaseRepo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
@@ -303,7 +304,7 @@ return [
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$repo->getEntityLookup(),
-				$repo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				new NullLabelDescriptionLookup(),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
@@ -312,7 +313,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
 				$wikibaseRepo->getEntityLookup(),
-				$wikibaseRepo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			);
 			$formChangeOpDeserializer->setContext(
@@ -396,7 +397,7 @@ return [
 				$wikibaseRepo->getEntityContentDataCodec(),
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
-				$wikibaseRepo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				$wikibaseRepo->getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
@@ -416,7 +417,7 @@ return [
 
 			return new Wikibase\Repo\Api\EntityIdSearchHelper(
 				$entityLookup,
-				$repo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				$senseLabelDescriptionLookup,
 				$repo->getEntityTypeToRepositoryMapping()
 			);
@@ -425,7 +426,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$senseChangeOpDeserializer = new SenseChangeOpDeserializer(
 				$wikibaseRepo->getEntityLookup(),
-				$wikibaseRepo->getEntityIdParser(),
+				WikibaseRepo::getEntityIdParser(),
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),

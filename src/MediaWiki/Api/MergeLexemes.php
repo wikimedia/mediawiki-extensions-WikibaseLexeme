@@ -39,7 +39,7 @@ class MergeLexemes extends ApiBase {
 		$this->errorReporter = $errorReporterCallback( $this );
 	}
 
-	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
+	public static function factory( ApiMain $mainModule, string $moduleName ): self {
 		$repo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $repo->getApiHelperFactory( $mainModule->getContext() );
 		return new self(

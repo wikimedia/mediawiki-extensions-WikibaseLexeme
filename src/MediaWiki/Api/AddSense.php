@@ -6,6 +6,7 @@ use ApiBase;
 use ApiMain;
 use LogicException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -68,7 +69,11 @@ class AddSense extends ApiBase {
 	/**
 	 * @return self
 	 */
-	public static function newFromGlobalState( \ApiMain $mainModule, $moduleName ) {
+	public static function factory(
+		ApiMain $mainModule,
+		string $moduleName,
+		EntityIdParser $entityIdParser
+	) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
@@ -83,7 +88,7 @@ class AddSense extends ApiBase {
 			$mainModule,
 			$moduleName,
 			new AddSenseRequestParser(
-				$wikibaseRepo->getEntityIdParser(),
+				$entityIdParser,
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),

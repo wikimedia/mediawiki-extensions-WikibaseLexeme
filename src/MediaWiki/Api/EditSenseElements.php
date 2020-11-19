@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiMain;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\Sense;
@@ -68,7 +69,11 @@ class EditSenseElements extends \ApiBase {
 	 */
 	private $entityStore;
 
-	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
+	public static function factory(
+		ApiMain $mainModule,
+		string $moduleName,
+		EntityIdParser $entityIdParser
+	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
@@ -85,7 +90,7 @@ class EditSenseElements extends \ApiBase {
 			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			new EditSenseElementsRequestParser(
-				new SenseIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+				new SenseIdDeserializer( $entityIdParser ),
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),

@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
@@ -63,7 +64,11 @@ class EditFormElements extends \ApiBase {
 	 */
 	private $entityStore;
 
-	public static function newFromGlobalState( ApiMain $mainModule, $moduleName ) {
+	public static function factory(
+		ApiMain $mainModule,
+		string $moduleName,
+		EntityIdParser $entityIdParser
+	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
@@ -80,7 +85,7 @@ class EditFormElements extends \ApiBase {
 			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			new EditFormElementsRequestParser(
-				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+				new FormIdDeserializer( $entityIdParser ),
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			),
 			$wikibaseRepo->getSummaryFormatter(),

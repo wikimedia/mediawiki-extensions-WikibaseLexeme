@@ -8,6 +8,7 @@ use LogicException;
 use RuntimeException;
 use Status;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -64,10 +65,11 @@ class AddForm extends ApiBase {
 	 */
 	private $entityRevisionLookup;
 
-	/**
-	 * @return self
-	 */
-	public static function newFromGlobalState( \ApiMain $mainModule, $moduleName ) {
+	public static function factory(
+		ApiMain $mainModule,
+		string $moduleName,
+		EntityIdParser $entityIdParser
+	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
@@ -82,7 +84,7 @@ class AddForm extends ApiBase {
 			$mainModule,
 			$moduleName,
 			new AddFormRequestParser(
-				$wikibaseRepo->getEntityIdParser(),
+				$entityIdParser,
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			),
 			$formSerializer,
