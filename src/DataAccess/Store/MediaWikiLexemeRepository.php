@@ -95,9 +95,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 			}
 
 			return null;
-		} catch ( StorageException $ex ) {
-			throw new GetLexemeException( $ex );
-		} catch ( RevisionedUnresolvedRedirectException $ex ) {
+		} catch ( StorageException | RevisionedUnresolvedRedirectException $ex ) {
 			throw new GetLexemeException( $ex );
 		}
 	}

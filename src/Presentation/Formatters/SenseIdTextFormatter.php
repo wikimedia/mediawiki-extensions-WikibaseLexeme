@@ -44,9 +44,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 	public function formatEntityId( EntityId $value ) {
 		try {
 			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
-		} catch ( RevisionedUnresolvedRedirectException $e ) {
-			$lexemeRevision = null; // see fallback below
-		} catch ( StorageException $e ) {
+		} catch ( RevisionedUnresolvedRedirectException | StorageException $e ) {
 			$lexemeRevision = null; // see fallback below
 		}
 
