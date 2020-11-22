@@ -3,6 +3,7 @@
 	"rules": {
 		"selector-max-id": null,
 		"declaration-no-important": null,
-		"unit-blacklist": null
+		"unit-blacklist": null,
+		"unit-disallowed-list": null
 	}
 }
