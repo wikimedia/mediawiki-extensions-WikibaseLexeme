@@ -9,6 +9,8 @@ use Wikibase\Lexeme\MediaWiki\Api\EditSenseElements;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveForm;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSense;
+use Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes;
+use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme;
 use Wikibase\Lib\WikibaseSettings;
 
 /**
@@ -72,10 +74,14 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::factory',
 		];
 
-		$wgSpecialPages['NewLexeme']
-			= 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::newFromGlobalState';
-		$wgSpecialPages['MergeLexemes']
-			= 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::newFromGlobalState';
+		$wgSpecialPages['NewLexeme'] = [
+			'class' => SpecialNewLexeme::class,
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::factory',
+		];
+		$wgSpecialPages['MergeLexemes'] = [
+			'class' => SpecialMergeLexemes::class,
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::factory',
+		];
 
 		$wgResourceModules = array_merge(
 			$wgResourceModules,

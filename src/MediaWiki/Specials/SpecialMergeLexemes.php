@@ -96,7 +96,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		}
 	}
 
-	public static function newFromGlobalState() {
+	public static function factory(): self {
 		$repo = WikibaseRepo::getDefaultInstance();
 
 		return new self(
