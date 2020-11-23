@@ -467,7 +467,8 @@ return [
 				$repo->getEntityRevisionLookup(),
 				new MediaWikiLocalizedTextProvider( $language ),
 				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $language ),
-				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() )
+				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() ),
+				MediaWikiServices::getInstance()->getLanguageFactory()
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
