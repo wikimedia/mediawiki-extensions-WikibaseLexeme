@@ -43,6 +43,9 @@ module.exports = ( function () {
 						selectOnAutocomplete: true
 					} );
 
+					// initialise entityselector with Q-id from value
+					$input.data( 'entityselector' ).selectedEntity( vm.value );
+
 					$input.on( 'entityselectorselected', function ( /* e */ ) {
 						var entitySelector = $( vm.$el ).data( 'entityselector' ),
 							selectedEntity = entitySelector.selectedEntity();
