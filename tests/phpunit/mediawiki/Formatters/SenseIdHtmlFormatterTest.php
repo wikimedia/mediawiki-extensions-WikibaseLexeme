@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Title;
-use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -28,13 +27,13 @@ use Wikibase\View\DummyLocalizedTextProvider;
 class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 	/**
-	 * @param FormId $expectedSenseId
+	 * @param SenseId $expectedSenseId
 	 * @return MockObject|EntityTitleLookup
 	 */
 	private function getMockTitleLookup( SenseId $expectedSenseId ) {
 		$title = $this->createMock( Title::class );
 		$title->method( 'isLocal' )->willReturn( true );
-		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#FORM' );
+		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#SENSE' );
 
 		/** @var EntityTitleLookup|MockObject $titleLookup */
 		$titleLookup = $this->createMock( EntityTitleLookup::class );
@@ -98,7 +97,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$this->assertSame( '<a href="LOCAL-URL#FORM">L10-S20</a>', $result );
+		$this->assertSame( '<a href="LOCAL-URL#SENSE">L10-S20</a>', $result );
 	}
 
 	public function testFormatId_redirectedEntity() {
@@ -111,7 +110,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$this->assertSame( '<a href="LOCAL-URL#FORM">L10-S20</a>', $result );
+		$this->assertSame( '<a href="LOCAL-URL#SENSE">L10-S20</a>', $result );
 	}
 
 	public function testFormatId_oneLemma_noGloss() {
@@ -130,7 +129,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$expected = '<a href="LOCAL-URL#FORM">L10-S20</a>';
+		$expected = '<a href="LOCAL-URL#SENSE">L10-S20</a>';
 		$this->assertSame( $expected, $result );
 	}
 
@@ -152,7 +151,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$result = $formatter->formatEntityId( $senseId );
 
 		// phpcs:ignore Generic.Files.LineLength
-		$expected = '<a href="LOCAL-URL#FORM">(wikibaselexeme-senseidformatter-layout: lemma, gloss)</a>FB-INDICATOR';
+		$expected = '<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma, gloss)</a>FB-INDICATOR';
 		$this->assertSame( $expected, $result );
 	}
 
@@ -176,7 +175,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$result = $formatter->formatEntityId( $senseId );
 
 		// phpcs:ignore Generic.Files.LineLength
-		$expected = '<a href="LOCAL-URL#FORM">(wikibaselexeme-senseidformatter-layout: lemma(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)Lemma(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)λεμμα, gloss)</a>FB-INDICATOR';
+		$expected = '<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)Lemma(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)λεμμα, gloss)</a>FB-INDICATOR';
 		$this->assertSame( $expected, $result );
 	}
 
@@ -198,7 +197,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$result = $formatter->formatEntityId( $senseId );
 
 		// phpcs:ignore Generic.Files.LineLength
-		$expected = '<a href="LOCAL-URL#FORM">(wikibaselexeme-senseidformatter-layout: lemma, gloss)</a>FB-INDICATOR';
+		$expected = '<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma, gloss)</a>FB-INDICATOR';
 		$this->assertSame( $expected, $result );
 	}
 
@@ -221,7 +220,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$this->assertSame(
 			// phpcs:ignore Generic.Files.LineLength
-			'<a href="LOCAL-URL#FORM">(wikibaselexeme-senseidformatter-layout: lemma, &lt;script>alert("hi")&lt;/script>)</a>FB-INDICATOR',
+			'<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma, &lt;script>alert("hi")&lt;/script>)</a>FB-INDICATOR',
 			$result
 		);
 	}
