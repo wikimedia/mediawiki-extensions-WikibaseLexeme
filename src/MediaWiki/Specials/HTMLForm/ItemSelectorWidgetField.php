@@ -42,7 +42,7 @@ class ItemSelectorWidgetField extends HTMLItemReferenceField {
 
 		parent::__construct( $params );
 
-		$this->idParser = $idParser ?: WikibaseRepo::getDefaultInstance()->getEntityIdParser();
+		$this->idParser = $idParser ?: WikibaseRepo::getEntityIdParser();
 		$this->labelLookup = $lookup ?:
 			WikibaseRepo::getDefaultInstance()->getLanguageFallbackLabelDescriptionLookupFactory()
 				->newLabelDescriptionLookup( Language::factory( 'en' ) );

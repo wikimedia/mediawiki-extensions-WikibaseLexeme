@@ -27,31 +27,49 @@ class Registrar {
 
 		$wgAPIModules['wbladdform'] = [
 			'class' => AddForm::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm::newFromGlobalState',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm::factory',
+			'services' => [
+				'WikibaseRepo.EntityIdParser',
+			],
 		];
 		$wgAPIModules['wblremoveform'] = [
 			'class' => RemoveForm::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm::newFromGlobalState',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm::factory',
+			'services' => [
+				'WikibaseRepo.EntityIdParser',
+			],
 		];
 		$wgAPIModules['wbleditformelements'] = [
 			'class' => EditFormElements::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::newFromGlobalState'
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::factory',
+			'services' => [
+				'WikibaseRepo.EntityIdParser',
+			],
 		];
 		$wgAPIModules['wbladdsense'] = [
 			'class' => AddSense::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::newFromGlobalState',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::factory',
+			'services' => [
+				'WikibaseRepo.EntityIdParser',
+			],
 		];
 		$wgAPIModules['wbleditsenseelements'] = [
 			'class' => EditSenseElements::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::newFromGlobalState'
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::factory',
+			'services' => [
+				'WikibaseRepo.EntityIdParser',
+			],
 		];
 		$wgAPIModules['wblremovesense'] = [
 			'class' => RemoveSense::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::newFromGlobalState',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::factory',
+			'services' => [
+				'WikibaseRepo.EntityIdParser',
+			],
 		];
 		$wgAPIModules['wblmergelexemes'] = [
 			'class' => MergeLexemes::class,
-			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::newFromGlobalState',
+			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::factory',
 		];
 
 		$wgSpecialPages['NewLexeme']

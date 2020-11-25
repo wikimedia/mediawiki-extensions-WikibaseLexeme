@@ -52,6 +52,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			$wikibaseRepo->getExternalFormatStatementDeserializer(),
 			$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 		);
+		$entityIdParser = WikibaseRepo::getEntityIdParser();
 		$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 			new LemmaChangeOpDeserializer(
 				new LexemeTermSerializationValidator(
@@ -64,10 +65,10 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			new LanguageChangeOpDeserializer( new CompositeValidator( [] ), $stringNormalizer ),
 			$statementChangeOpDeserializer,
 			new FormListChangeOpDeserializer(
-				new FormIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+				new FormIdDeserializer( $entityIdParser ),
 				new FormChangeOpDeserializer(
 					$wikibaseRepo->getEntityLookup(),
-					$wikibaseRepo->getEntityIdParser(),
+					$entityIdParser,
 					new EditFormChangeOpDeserializer(
 						new RepresentationsChangeOpDeserializer(
 							new TermDeserializer(),
@@ -83,10 +84,10 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 				)
 			),
 			new SenseListChangeOpDeserializer(
-				new SenseIdDeserializer( $wikibaseRepo->getEntityIdParser() ),
+				new SenseIdDeserializer( $entityIdParser ),
 				new SenseChangeOpDeserializer(
 					$wikibaseRepo->getEntityLookup(),
-					$wikibaseRepo->getEntityIdParser(),
+					$entityIdParser,
 					new EditSenseChangeOpDeserializer(
 						new GlossesChangeOpDeserializer(
 							new TermDeserializer(),
