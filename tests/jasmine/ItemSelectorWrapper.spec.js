@@ -12,23 +12,31 @@ describe( 'ItemSelectorWrapper', function () {
 	};
 	var sinon = require( 'sinon' ),
 		expect = require( 'unexpected' ).clone(),
-		newItemSelectorWrapper = require( './../../resources/widgets/ItemSelectorWrapper.js' );
+		newItemSelectorWrapper = require( './../../resources/widgets/ItemSelectorWrapper.js' ),
+		sandbox;
+
+	beforeEach( function () {
+		sandbox = sinon.createSandbox();
+	} );
+
+	afterEach( function () {
+		sandbox.restore();
+	} );
 
 	it( 'passes the item ID to the entityselector widget on mount', function ( done ) {
 		var itemId = 'Q123',
 			component = newComponent( itemId ),
-			sandbox = sinon.createSandbox(),
 			mockEntitySelector = {
 				selectedEntity: function ( valuePassedToEntitySelector ) {
 					expect( valuePassedToEntitySelector, 'to be', itemId );
-					sandbox.restore();
 
 					// must be called for the test to pass
 					done();
 				},
 				destroy: sinon.stub()
-			},
-			dataStub = sandbox.stub( $.prototype, 'data' ).returns( mockEntitySelector );
+			};
+
+		sandbox.stub( $.prototype, 'data' ).returns( mockEntitySelector )
 		$.fn.entityselector = sinon.stub(); // pretend the entityselector widget exists
 
 		component.$mount();
