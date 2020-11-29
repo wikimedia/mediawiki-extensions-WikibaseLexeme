@@ -24,6 +24,8 @@ return call_user_func( function() {
 		'de-1901', // T250559
 		'eo-hsistemo', // T257422
 		'eo-xsistemo', // T257422
+		'frm', // T268332
+		'fro', // T268332
 		'ja-hira', // T262330
 		'ja-kana', // T262330
 		'ja-hrkt', // T262330
