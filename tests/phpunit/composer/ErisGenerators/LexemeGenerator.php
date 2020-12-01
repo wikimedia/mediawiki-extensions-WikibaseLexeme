@@ -3,8 +3,11 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\ChooseGenerator;
+use Eris\Generator\ConstantGenerator;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
+use Eris\Generator\MapGenerator;
 use Wikibase\DataModel\Entity\Int32EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
@@ -44,13 +47,13 @@ class LexemeGenerator implements Generator {
 
 	public function __construct( LexemeId $lexemeId = null ) {
 		if ( $lexemeId ) {
-			$this->lexemeIdGenerator = new Generator\ConstantGenerator( $lexemeId );
+			$this->lexemeIdGenerator = new ConstantGenerator( $lexemeId );
 		} else {
-			$this->lexemeIdGenerator = new Generator\MapGenerator(
+			$this->lexemeIdGenerator = new MapGenerator(
 				function ( $number ) {
 					return new LexemeId( 'L' . $number );
 				},
-				new Generator\ChooseGenerator( 1, Int32EntityId::MAX )
+				new ChooseGenerator( 1, Int32EntityId::MAX )
 			);
 		}
 

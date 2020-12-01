@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\ChooseGenerator;
 use Eris\Generator\ConstantGenerator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
@@ -43,7 +44,7 @@ class FormGenerator implements Generator {
 					// FIXME: This hard coded parent ID will result in inconsistent test data!
 					return new FormId( 'L1-F' . $number );
 				},
-				new Generator\ChooseGenerator( 1, self::MAX_FORM_ID )
+				new ChooseGenerator( 1, self::MAX_FORM_ID )
 			);
 		}
 	}

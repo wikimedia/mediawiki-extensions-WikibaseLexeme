@@ -22,6 +22,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Tests\TestDoubles\FailingLexemeAuthorizer;
 use Wikibase\Lexeme\Tests\TestDoubles\FakeLexemeRepository;
 use Wikibase\Lexeme\Tests\TestDoubles\SucceedingLexemeAuthorizer;
@@ -228,7 +229,7 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	private function newMergeInteractor() {
-		return new \Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor(
+		return new MergeLexemesInteractor(
 			$this->lexemeMerger,
 			$this->authorizer,
 			$this->summaryFormatter,

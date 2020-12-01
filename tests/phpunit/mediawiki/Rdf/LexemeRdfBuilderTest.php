@@ -105,7 +105,7 @@ class LexemeRdfBuilderTest extends TestCase {
 	 */
 	private function newBuilder( RdfWriter $writer, EntityMentionListener $entityMentionTracker ) {
 		$vocabulary = $this->getVocabulary();
-		$builder = new \Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder(
+		$builder = new LexemeRdfBuilder(
 			$vocabulary,
 			$writer,
 			$entityMentionTracker

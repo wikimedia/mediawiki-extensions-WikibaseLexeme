@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\ChooseGenerator;
 use Eris\Generator\ConstantGenerator;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
@@ -36,7 +37,7 @@ class SenseGenerator implements Generator {
 					// FIXME: This hard coded parent ID will result in inconsistent test data!
 					return new SenseId( 'L1-S' . $number );
 				},
-				new Generator\ChooseGenerator( 1, self::MAX_SENSE_ID )
+				new ChooseGenerator( 1, self::MAX_SENSE_ID )
 			);
 		}
 	}

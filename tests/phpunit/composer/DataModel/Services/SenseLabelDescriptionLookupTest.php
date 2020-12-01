@@ -89,7 +89,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		$stubContentLanguages = $this->createStub( ContentLanguages::class );
 		$stubContentLanguages->method( 'hasLanguage' )
 			->willReturn( true );
-		$labelDescriptionLookup = new \Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup(
+		$labelDescriptionLookup = new SenseLabelDescriptionLookup(
 			$entityLookup,
 			new TermLanguageFallbackChain( [
 				LanguageWithConversion::factory( 'de' ),

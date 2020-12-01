@@ -50,9 +50,11 @@ use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\LanguageFallbackIndicator;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\Sql\EntityIdLocalPartPageTableEntityQuery;
 use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\Api\EditEntity;
+use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
@@ -223,10 +225,10 @@ return [
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 
-			return new Wikibase\Repo\Api\EntityIdSearchHelper(
+			return new EntityIdSearchHelper(
 				$repo->getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
-				new Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup(
+				new LanguageFallbackLabelDescriptionLookup(
 					$repo->getTermLookup(),
 					$repo->getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
 				),
@@ -302,7 +304,7 @@ return [
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
 
-			return new Wikibase\Repo\Api\EntityIdSearchHelper(
+			return new EntityIdSearchHelper(
 				$repo->getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new NullLabelDescriptionLookup(),
@@ -415,7 +417,7 @@ return [
 				new MediaWikiLocalizedTextProvider( $userLanguage )
 			);
 
-			return new Wikibase\Repo\Api\EntityIdSearchHelper(
+			return new EntityIdSearchHelper(
 				$entityLookup,
 				WikibaseRepo::getEntityIdParser(),
 				$senseLabelDescriptionLookup,

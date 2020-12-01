@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -92,7 +93,7 @@ class TermListGenerator implements Generator {
 			array_pop( $terms );
 			$shrunkOneLess = new TermList( $terms );
 
-			return new Generator\GeneratedValueOptions( [
+			return new GeneratedValueOptions( [
 				GeneratedValueSingle::fromValueAndInput( $shrunk1, $element, 'TermList' ),
 				GeneratedValueSingle::fromValueAndInput( $shrunk2, $element, 'TermList' ),
 				GeneratedValueSingle::fromValueAndInput( $shrunkOneLess, $element, 'TermList' ),
