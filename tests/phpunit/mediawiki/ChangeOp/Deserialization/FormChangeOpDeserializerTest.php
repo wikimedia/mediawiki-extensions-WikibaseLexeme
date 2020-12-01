@@ -8,7 +8,6 @@ use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\DataAccess\ChangeOp\AddFormToLexemeChangeOp;
-use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotLexemeId;
