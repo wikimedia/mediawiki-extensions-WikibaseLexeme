@@ -14,6 +14,8 @@ use Wikibase\Lexeme\Domain\Model\SenseSet;
 
 /**
  * @method static NewLexeme havingId(LexemeId | string $lexemeId)
+ *
+ * @license GPL-2.0-or-later
  */
 class NewLexeme {
 

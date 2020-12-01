@@ -18,6 +18,8 @@ use ExtensionRegistry;
  * @group medium
  * In the Database group because it extends the ApiTestCase that in setUp creates users
  * @group Database
+ *
+ * @license GPL-2.0-or-later
  */
 class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 

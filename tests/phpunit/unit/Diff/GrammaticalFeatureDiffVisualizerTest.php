@@ -12,6 +12,8 @@ use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\Diff\GrammaticalFeatureDiffVisualizer
+ *
+ * @license GPL-2.0-or-later
  */
 class GrammaticalFeatureDiffVisualizerTest extends MediaWikiUnitTestCase {
 

@@ -20,6 +20,8 @@ use Wikibase\Repo\Tests\NewStatement;
  * @method static NewForm havingId (FormId | string $formId)
  * @method static NewForm havingStatement (Statement | Snak | NewStatement $statement)
  * @method static NewForm havingGrammaticalFeature (ItemId | string $itemId)
+ *
+ * @license GPL-2.0-or-later
  */
 class NewForm {
 

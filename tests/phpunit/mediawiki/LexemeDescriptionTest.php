@@ -11,6 +11,8 @@ use Wikibase\Lexeme\DataAccess\LexemeDescription;
 // We need long template strings here...
 /**
  * @covers \Wikibase\Lexeme\DataAccess\LexemeDescription
+ *
+ * @license GPL-2.0-or-later
  */
 class LexemeDescriptionTest extends TestCase {
 	use LexemeDescriptionTestCase;

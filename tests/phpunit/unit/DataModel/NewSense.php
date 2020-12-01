@@ -17,6 +17,8 @@ use Wikibase\Repo\Tests\NewStatement;
 
 /**
  * Sense builder to use in tests
+ *
+ * @license GPL-2.0-or-later
  */
 class NewSense {
 

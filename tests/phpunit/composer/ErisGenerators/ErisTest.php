@@ -8,6 +8,8 @@ use Eris\Facade;
  * Helper trait to simplify Eris usage in Mediawiki PHPUnit tests
  *
  * IMPORTANT: This trait can only be applied to \PHPUnit\Framework\TestCase
+ *
+ * @license GPL-2.0-or-later
  */
 trait ErisTest {
 

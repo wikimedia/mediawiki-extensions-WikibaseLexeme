@@ -10,6 +10,8 @@ use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 
 /**
  * Class for generating Lexeme description strings
+ *
+ * @license GPL-2.0-or-later
  */
 class LexemeDescription {
 	/**

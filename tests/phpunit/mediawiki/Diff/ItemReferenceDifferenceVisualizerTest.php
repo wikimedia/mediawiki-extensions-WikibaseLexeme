@@ -15,6 +15,8 @@ use Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\Diff\ItemReferenceDifferenceVisualizer
+ *
+ * @license GPL-2.0-or-later
  */
 class ItemReferenceDifferenceVisualizerTest extends TestCase {
 

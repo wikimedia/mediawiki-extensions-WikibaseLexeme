@@ -106,6 +106,12 @@
 		</properties>
 	</rule>
 
+	<rule ref="MediaWiki.Commenting.ClassLevelLicense">
+		<properties>
+			<property name="license" value="GPL-2.0-or-later" />
+		</properties>
+	</rule>
+
 	<!-- END equivalent rules based on wikibase-codesniffer (T268831) -->
 
 	<file>.</file>

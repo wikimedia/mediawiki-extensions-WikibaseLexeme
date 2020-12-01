@@ -16,6 +16,8 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 
 /**
  * Trait for producing mockups for tests dealing with Lemma descriptions
+ *
+ * @license GPL-2.0-or-later
  */
 trait LexemeDescriptionTestCase {
 
