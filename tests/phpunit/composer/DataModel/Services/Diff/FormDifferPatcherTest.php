@@ -29,7 +29,7 @@ class FormDifferPatcherTest extends TestCase {
 		$differ = new FormDiffer();
 		$patcher = new FormPatcher();
 
-		//Line below is needed to reproduce failures. In case of failure seed will be in the output
+		// Line below is needed to reproduce failures. In case of failure seed will be in the output
 		//$this->eris()->seed(1504876177284329)->forAll( ...
 
 		$this->eris()

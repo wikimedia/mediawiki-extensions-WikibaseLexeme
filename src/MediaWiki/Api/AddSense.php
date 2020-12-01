@@ -173,7 +173,7 @@ class AddSense extends ApiBase {
 					[] ) );
 			}
 		} catch ( StorageException $e ) {
-			//TODO Test it
+			// TODO Test it
 			if ( $e->getStatus() ) {
 				$this->dieStatus( $e->getStatus() );
 			} else {
@@ -219,7 +219,7 @@ class AddSense extends ApiBase {
 		}
 
 		$tokenThatDoesNotNeedChecking = false;
-		//FIXME: Handle failure
+		// FIXME: Handle failure
 		$status = $editEntity->attemptSave(
 			$lexeme,
 			$summaryString,
@@ -228,7 +228,7 @@ class AddSense extends ApiBase {
 		);
 
 		if ( !$status->isGood() ) {
-			$this->dieStatus( $status ); //Seems like it is good enough
+			$this->dieStatus( $status ); // Seems like it is good enough
 		}
 
 		/** @var EntityRevision $entityRevision */

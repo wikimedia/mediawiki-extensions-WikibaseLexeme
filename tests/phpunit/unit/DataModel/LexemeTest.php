@@ -83,7 +83,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testOverrideId() {
-		//FIXME: This behaviour seems wrong. Should probably be changed
+		// FIXME: This behaviour seems wrong. Should probably be changed
 		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
 		$id = new LexemeId( 'L2' );
 		$lexeme->setId( $id );

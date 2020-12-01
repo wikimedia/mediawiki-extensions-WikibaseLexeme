@@ -95,7 +95,7 @@ class StorageLexemeSerializer implements DispatchableSerializer {
 			$serialization['id'] = $id->getSerialization();
 		}
 
-		//FIXME: Should always present
+		// FIXME: Should always present
 		if ( !$lexeme->getLemmas()->isEmpty() ) {
 			$serialization['lemmas'] = $this->termListSerializer->serialize(
 				$lexeme->getLemmas()

@@ -174,7 +174,7 @@ class AddForm extends ApiBase {
 		$status = $this->saveNewLexemeRevision( $lexeme, $baseRevId, $summary, $flags );
 
 		if ( !$status->isGood() ) {
-			$this->dieStatus( $status ); //Seems like it is good enough
+			$this->dieStatus( $status ); // Seems like it is good enough
 		}
 
 		$this->fillApiResultFromStatus( $status );
@@ -298,7 +298,7 @@ class AddForm extends ApiBase {
 				LookupConstants::LATEST_FROM_MASTER
 			);
 		} catch ( StorageException $e ) {
-			//TODO Test it
+			// TODO Test it
 			if ( $e->getStatus() ) {
 				$this->dieStatus( $e->getStatus() );
 			} else {
@@ -348,7 +348,7 @@ class AddForm extends ApiBase {
 		);
 
 		$tokenThatDoesNotNeedChecking = false;
-		//FIXME: Handle failure
+		// FIXME: Handle failure
 		try {
 			$status = $editEntity->attemptSave(
 				$lexeme,

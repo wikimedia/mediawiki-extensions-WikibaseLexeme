@@ -86,7 +86,7 @@ class SenseDiffer implements EntityDifferStrategy {
 	 * @return ChangeSenseDiffOp
 	 */
 	private function diff( Sense $old, Sense $new ) {
-		//TODO: Assert same ID
+		// TODO: Assert same ID
 		$diffOps = $this->recursiveMapDiffer->doDiff(
 			$this->toSenseDiffArray( $old ),
 			$this->toSenseDiffArray( $new )

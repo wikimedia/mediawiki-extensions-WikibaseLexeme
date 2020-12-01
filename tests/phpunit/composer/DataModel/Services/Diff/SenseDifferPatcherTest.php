@@ -28,7 +28,7 @@ class SenseDifferPatcherTest extends TestCase {
 		$differ = new SenseDiffer();
 		$patcher = new SensePatcher();
 
-		//Line below is needed to reproduce failures. In case of failure seed will be in the output
+		// Line below is needed to reproduce failures. In case of failure seed will be in the output
 		//$this->eris()->seed(1504876177284329)->forAll( ...
 
 		$this->eris()

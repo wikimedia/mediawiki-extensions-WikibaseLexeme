@@ -83,7 +83,7 @@ class LexemeDescriptionTest extends TestCase {
 				],
 				'(wikibaselexeme-form-description: singulier, duck, L1, (wikibaselexeme-description: Anglais, nom))',
 			],
-//			// No features
+			// No features
 			"no feature" => [
 				'en',
 				'en',
