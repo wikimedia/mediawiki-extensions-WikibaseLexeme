@@ -57,9 +57,6 @@
 	<!-- NOTE: We purposely decided against additional Generic.CodeAnalysis.… sniffs, because they
 		all have possible exceptions, and are not meant to block patches from being merged. -->
 
-	<!-- NOTE: Never add the Generic.Metrics.… sniffs to this generic rule set, because these are
-		not about "code style", and the exact limits are highly disputable. -->
-
 	<rule ref="MediaWiki.NamingConventions.LowerCamelFunctionsName">
 		<!-- Exclude test methods like "testGivenInvalidInput_methodThrowsException". -->
 		<exclude-pattern>tests*Test*\.php</exclude-pattern>
