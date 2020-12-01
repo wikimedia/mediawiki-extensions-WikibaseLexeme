@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"1917 Ekim Devrimi",
 			"Mirzali",
 			"Orbot707"
 		]
@@ -17,5 +18,7 @@
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeme",
 	"wikibase-listdatatypes-wikibase-form-head": "Form",
 	"wikibase-listdatatypes-wikibase-sense-head": "Maney cı",
-	"wikibaselexeme-unknown-category": "Nêzanaye"
+	"wikibaselexeme-unknown-category": "Nêzanaye",
+	"wikibase-lexeme-language-name-frm": "Fransızkiya werti",
+	"wikibase-lexeme-language-name-fro": "Fransızkiya kehan"
 }
