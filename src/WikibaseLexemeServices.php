@@ -100,7 +100,7 @@ class WikibaseLexemeServices {
 	private function getLexemeRepository(): LexemeRepository {
 		return $this->getSharedService(
 			LexemeRepository::class,
-			function() {
+			function () {
 				return new MediaWikiLexemeRepository(
 					RequestContext::getMain()->getUser(),
 					$this->botEditRequested,
@@ -150,7 +150,7 @@ class WikibaseLexemeServices {
 	private function getLexemeAuthorizer(): LexemeAuthorizer {
 		return $this->getSharedService(
 			LexemeAuthorizer::class,
-			function() {
+			function () {
 				return new MediaWikiLexemeAuthorizer(
 					RequestContext::getMain()->getUser(),
 					$this->getWikibaseRepo()->getEntityPermissionChecker()

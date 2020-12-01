@@ -100,7 +100,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 
 		$linkFormatter = $this->createMock( EntityIdFormatter::class );
 		$linkFormatter->method( 'formatEntityId' )
-			->willReturnCallback( function( EntityId $entityId ) {
+			->willReturnCallback( function ( EntityId $entityId ) {
 				$id = $entityId->getSerialization();
 				$label = 'LABEL OF ' . $id;
 				return "<a href='foobar/$id'>$label</a>";

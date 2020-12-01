@@ -254,7 +254,7 @@ return [
 				$language
 			);
 		},
-		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function( Language $language ) {
+		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
@@ -359,7 +359,7 @@ return [
 				$language
 			);
 		},
-		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function( Language $language ) {
+		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$titleLookup = $repo->getEntityTitleLookup();
 			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
@@ -462,7 +462,7 @@ return [
 			$rdfBuilder->addPrefixes();
 			return $rdfBuilder;
 		},
-		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function( Language $language ) {
+		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 
 			return new SenseIdHtmlFormatter(

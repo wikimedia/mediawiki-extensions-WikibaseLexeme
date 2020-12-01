@@ -89,7 +89,7 @@ class ChangeOpSenseEditTest extends TestCase {
 			->getMock();
 		$op1->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Sense $a, Summary $b ) use ( $sense ) {
+			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
 				$this->assertSame( $sense, $a );
 
 				$b->setAction( 'specific-action' );
@@ -102,7 +102,7 @@ class ChangeOpSenseEditTest extends TestCase {
 			->getMock();
 		$op2->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Sense $a, Summary $b ) use ( $sense ) {
+			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
 				$this->assertSame( $sense, $a );
 
 				$b->setAction( 'specific-action' );
@@ -131,7 +131,7 @@ class ChangeOpSenseEditTest extends TestCase {
 			->getMock();
 		$op1->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Sense $a, Summary $b ) use ( $sense ) {
+			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
 				$this->assertSame( $sense, $a );
 
 				$b->setAction( 'specific-action' );
@@ -144,7 +144,7 @@ class ChangeOpSenseEditTest extends TestCase {
 			->getMock();
 		$op2->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Sense $a, Summary $b ) use ( $sense ) {
+			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
 				$this->assertSame( $sense, $a );
 
 				$b->setAction( 'other-action' );

@@ -98,7 +98,7 @@ class LexemeHandler extends EntityHandler {
 	 */
 	public function getActionOverrides() {
 		return [
-			'history' => function(
+			'history' => function (
 				Page $article,
 				IContextSource $context
 			) {

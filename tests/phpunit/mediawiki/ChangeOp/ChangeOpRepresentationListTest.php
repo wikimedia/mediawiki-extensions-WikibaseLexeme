@@ -82,7 +82,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 			->getMock();
 		$op1->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Form $a, Summary $b ) use ( $form ) {
+			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
 				$this->assertSame( $form, $a );
 
 				$b->setAction( 'specific-action' );
@@ -95,7 +95,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 			->getMock();
 		$op2->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Form $a, Summary $b ) use ( $form ) {
+			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
 				$this->assertSame( $form, $a );
 
 				$b->setAction( 'specific-action' );
@@ -122,7 +122,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 			->getMock();
 		$op1->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Form $a, Summary $b ) use ( $form ) {
+			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
 				$this->assertSame( $form, $a );
 
 				$b->setAction( 'specific-action' );
@@ -135,7 +135,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 			->getMock();
 		$op2->expects( $this->once() )
 			->method( 'apply' )
-			->willReturnCallback( function( Form $a, Summary $b ) use ( $form ) {
+			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
 				$this->assertSame( $form, $a );
 
 				$b->setAction( 'other-action' );

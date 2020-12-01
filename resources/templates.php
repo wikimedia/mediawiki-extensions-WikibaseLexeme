@@ -11,7 +11,7 @@ namespace Wikibase\Lexeme;
  * @return array
  */
 
-return call_user_func( function() {
+return call_user_func( function () {
 	$templates = [];
 
 	$templates['wikibase-lexeme-form'] = <<<'HTML'

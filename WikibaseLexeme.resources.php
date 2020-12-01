@@ -4,7 +4,7 @@
  * TODO => should rather be defined in extension.json. To be moved there once client-
  * and repo-specific functionality have been split to separate extensions.
  */
-return call_user_func( function() {
+return call_user_func( function () {
 	$moduleTemplate = [
 		'localBasePath' => __DIR__ . '/resources',
 		'remoteExtPath' => 'WikibaseLexeme/resources',

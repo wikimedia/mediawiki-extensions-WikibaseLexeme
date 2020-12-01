@@ -268,7 +268,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 		$mockDataTypeLookup = $this->createMock( PropertyDataTypeLookup::class );
 		$mockDataTypeLookup->expects( $this->any() )
 			->method( 'getDataTypeIdForProperty' )
-			->will( $this->returnCallback( function( PropertyId $id ) {
+			->will( $this->returnCallback( function ( PropertyId $id ) {
 				if ( $id->getSerialization() === 'P999' ) {
 					throw new PropertyDataTypeLookupException( $id );
 				}

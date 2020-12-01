@@ -39,7 +39,7 @@ use Wikibase\Repo\WikibaseRepo;
 return [
 	'PT:wikibase-lexeme' => [
 		'expert-module' => 'wikibase.experts.Lexeme',
-		'validator-factory-callback' => function() {
+		'validator-factory-callback' => function () {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
 		},
@@ -74,11 +74,11 @@ return [
 	],
 	'PT:wikibase-form' => [
 		'expert-module' => 'wikibase.experts.Form',
-		'validator-factory-callback' => function() {
+		'validator-factory-callback' => function () {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Form::ENTITY_TYPE );
 		},
-		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
+		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$userLanguage = $wikibaseRepo->getUserLanguage();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
@@ -111,11 +111,11 @@ return [
 	],
 	'PT:wikibase-sense' => [
 		'expert-module' => 'wikibase.experts.Sense',
-		'validator-factory-callback' => function() {
+		'validator-factory-callback' => function () {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Sense::ENTITY_TYPE );
 		},
-		'formatter-factory-callback' => function( $format, FormatterOptions $options ) {
+		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
 			$language = $wikibaseRepo->getUserLanguage();
