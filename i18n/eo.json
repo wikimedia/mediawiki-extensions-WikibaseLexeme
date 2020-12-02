@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Javiero",
 			"KuboF",
 			"Robin van der Vliet"
 		]
@@ -50,6 +51,7 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|deklaro|deklaroj}}, $2 {{PLURAL:$2|formo|formoj}}",
 	"wikibaselexeme-unknown-language": "Nekonata lingvo",
 	"wikibaselexeme-unknown-category": "Nekonata",
+	"wikibase-lexeme-language-name-fro": "Malnovfranca",
 	"wikibase-lexeme-language-selector-label": "$1 ($2)",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)"
 }

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Ajam",
 			"Dejavu",
 			"Ladsgroup",
 			"Ommmmid",
@@ -56,6 +57,8 @@
 	"wikibaselexeme-unknown-language": "زبان ناشناخته",
 	"wikibaselexeme-unknown-category": "ناشناس",
 	"wikibaselexeme-no-features": "بدون نوع",
+	"wikibase-lexeme-language-name-frm": "فرانسوی میانه",
+	"wikibase-lexeme-language-name-fro": "فرانسوی باستان",
 	"wikibase-lexeme-language-name-mis": "سایر",
 	"wikibase-lexeme-mergelexemes-from-id": "شناسه برای ادغام از",
 	"wikibase-lexeme-mergelexemes-to-id": "شناسه برای ادغام به",
