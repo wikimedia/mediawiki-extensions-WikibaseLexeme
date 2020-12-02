@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
+use HamcrestPHPUnitIntegration;
+use MediaWiki\MediaWikiServices;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Title;
@@ -25,6 +27,8 @@ use Wikibase\View\DummyLocalizedTextProvider;
  * @license GPL-2.0-or-later
  */
 class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
+
+	use HamcrestPHPUnitIntegration;
 
 	/**
 	 * @param SenseId $expectedSenseId
@@ -51,6 +55,14 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return $this->createMock( EntityRevisionLookup::class );
 	}
 
+	private function newMockRevisionLookupWithRevision( EntityRevision $rev ): EntityRevisionLookup {
+		$mock = $this->createMock( EntityRevisionLookup::class );
+		$mock->method( 'getEntityRevision' )
+			->willReturn( $rev );
+
+		return $mock;
+	}
+
 	/**
 	 * @return MockObject|LanguageFallbackIndicator
 	 */
@@ -66,6 +78,8 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			[
 				LanguageWithConversion::factory( 'en' ),
 				LanguageWithConversion::factory( 'fr' ),
+				LanguageWithConversion::factory( 'he' ),
+				LanguageWithConversion::factory( 'mo' ),
 			],
 			$this->getStubContentLanguages()
 		);
@@ -84,7 +98,8 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			$lookup,
 			new DummyLocalizedTextProvider(),
 			$this->getLanguageFallbackChain(),
-			$this->getMockLanguageFallbackIndicator()
+			$this->getMockLanguageFallbackIndicator(),
+			MediaWikiServices::getInstance()->getLanguageFactory()
 		);
 	}
 
@@ -115,16 +130,13 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 	public function testFormatId_oneLemma_noGloss() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMockRevisionLookup();
-		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
-				$entity = NewLexeme::create()
-					->withId( $entityId )
-					->withLemma( 'en', 'lemma' )
-					->withSense( NewSense::havingId( $senseId ) )
-					->build();
-				return new EntityRevision( $entity );
-			} );
+		$lookup = $this->newMockRevisionLookupWithRevision(
+			new EntityRevision( NewLexeme::create()
+				->withId( 'L10' )
+				->withLemma( 'en', 'lemma' )
+				->withSense( NewSense::havingId( $senseId ) )
+				->build() )
+		);
 		$formatter = $this->getFormatter( $senseId, $lookup );
 
 		$result = $formatter->formatEntityId( $senseId );
@@ -133,95 +145,153 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$this->assertSame( $expected, $result );
 	}
 
-	public function testFormatId_oneLemma_ownGlossLanguage() {
+	/**
+	 * @dataProvider glossLanguageProvider
+	 */
+	public function testFormatId_oneLemma_ownGlossLanguage(
+		string $language,
+		string $langAttr,
+		string $dirAttr
+	) {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMockRevisionLookup();
-		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
-				$entity = NewLexeme::create()
-					->withId( $entityId )
-					->withLemma( 'en', 'lemma' )
-					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'fr', 'gloss' ) )
-					->build();
-				return new EntityRevision( $entity );
-			} );
+		$glossText = 'gloss';
+		$lemmaText = 'lemma';
+		$lookup = $this->newMockRevisionLookupWithRevision(
+			new EntityRevision( NewLexeme::create()
+				->withId( 'L10' )
+				->withLemma( $language, $lemmaText )
+				->withSense( NewSense::havingId( $senseId )
+					->withGloss( $language, $glossText ) )
+				->build() )
+		);
 		$formatter = $this->getFormatter( $senseId, $lookup );
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		// phpcs:ignore Generic.Files.LineLength
-		$expected = '<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma, gloss)</a>FB-INDICATOR';
-		$this->assertSame( $expected, $result );
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( havingDirectChild( allOf(
+				tagMatchingOutline( '<a href="LOCAL-URL#SENSE">' ),
+				havingChild(
+					both( tagMatchingOutline(
+						"<span lang='$langAttr' dir='$dirAttr'>"
+					) )->andAlso(
+						havingTextContents( $glossText )
+					)
+				),
+				havingChild(
+					both( tagMatchingOutline(
+						"<span lang='$langAttr' dir='$dirAttr'>"
+					) )->andAlso(
+						havingTextContents( $lemmaText )
+					)
+				)
+			) ) ) )
+		);
+		$this->assertSame(
+			"(wikibaselexeme-senseidformatter-layout: $lemmaText, $glossText)FB-INDICATOR",
+			strip_tags( $result )
+		);
+	}
+
+	public function glossLanguageProvider() {
+		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD', 'ltr' ];
+		yield 'BCP 47 compliant language code' => [ 'en', 'en', 'ltr' ];
+		yield 'rtl language' => [ 'he', 'he', 'rtl' ];
 	}
 
 	public function testFormatId_threeLemmas_ownGlossLanguage() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMockRevisionLookup();
-		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
-				$entity = NewLexeme::create()
-					->withId( $entityId )
-					->withLemma( 'en', 'lemma' )
-					->withLemma( 'de', 'Lemma' )
-					->withLemma( 'el', 'λεμμα' )
-					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'fr', 'gloss' ) )
-					->build();
-				return new EntityRevision( $entity );
-			} );
+		$lemma1Language = 'en';
+		$lemma1Text = 'lemma';
+		$lemma2Language = 'de';
+		$lemma2Text = 'Lemma';
+		$lemma3Language = 'el';
+		$lemma3Text = 'λεμμα';
+		$lookup = $this->newMockRevisionLookupWithRevision(
+			new EntityRevision( NewLexeme::create()
+				->withId( 'L10' )
+				->withLemma( $lemma1Language, $lemma1Text )
+				->withLemma( $lemma2Language, $lemma2Text )
+				->withLemma( $lemma3Language, $lemma3Text )
+				->withSense( NewSense::havingId( $senseId )
+					->withGloss( 'fr', 'gloss' ) )
+				->build() )
+		);
 		$formatter = $this->getFormatter( $senseId, $lookup );
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		// phpcs:ignore Generic.Files.LineLength
-		$expected = '<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)Lemma(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)λεμμα, gloss)</a>FB-INDICATOR';
-		$this->assertSame( $expected, $result );
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( allOf(
+				havingChild(
+					both( tagMatchingOutline(
+						"<span lang='$lemma1Language'>"
+					) )->andAlso(
+						havingTextContents( $lemma1Text )
+					)
+				),
+				havingChild(
+					both( tagMatchingOutline(
+						"<span lang='$lemma2Language'>"
+					) )->andAlso(
+						havingTextContents( $lemma2Text )
+					)
+				),
+				havingChild(
+					both( tagMatchingOutline(
+						"<span lang='$lemma3Language'>"
+					) )->andAlso(
+						havingTextContents( $lemma3Text )
+					)
+				)
+			) ) )
+		);
+		$this->assertSame(
+			// phpcs:ignore Generic.Files.LineLength
+			"(wikibaselexeme-senseidformatter-layout: $lemma1Text(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)$lemma2Text(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)$lemma3Text, gloss)FB-INDICATOR",
+			strip_tags( $result )
+		);
 	}
 
 	public function testFormatId_oneLemma_fallbackGlossLanguage() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMockRevisionLookup();
-		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
-				$entity = NewLexeme::create()
-					->withId( $entityId )
-					->withLemma( 'en', 'lemma' )
-					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'en', 'gloss' ) )
-					->build();
-				return new EntityRevision( $entity );
-			} );
+		$lookup = $this->newMockRevisionLookupWithRevision(
+			new EntityRevision( NewLexeme::create()
+				->withId( 'L10' )
+				->withLemma( 'en', 'lemma' )
+				->withSense( NewSense::havingId( $senseId )
+					->withGloss( 'en', 'gloss' ) )
+				->build() )
+		);
 		$formatter = $this->getFormatter( $senseId, $lookup );
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		// phpcs:ignore Generic.Files.LineLength
-		$expected = '<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma, gloss)</a>FB-INDICATOR';
-		$this->assertSame( $expected, $result );
+		$expected = '(wikibaselexeme-senseidformatter-layout: lemma, gloss)FB-INDICATOR';
+		$this->assertSame( $expected, strip_tags( $result ) );
 	}
 
 	public function testFormatEntityId_htmlEscapesText() {
 		$senseId = new SenseId( 'L999-S666' );
-		$lookup = $this->getMockRevisionLookup();
-		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
-				$entity = NewLexeme::create()
-					->withId( $entityId )
-					->withLemma( 'en', 'lemma' )
-					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'en', '<script>alert("hi")</script>' ) )
-					->build();
-				return new EntityRevision( $entity );
-			} );
+		$lookup = $this->newMockRevisionLookupWithRevision(
+			new EntityRevision( NewLexeme::create()
+				->withId( 'L999' )
+				->withLemma( 'en', 'lemma' )
+				->withSense( NewSense::havingId( $senseId )
+					->withGloss( 'en', '<script>alert("hi")</script>' ) )
+				->build() )
+		);
 		$formatter = $this->getFormatter( $senseId, $lookup );
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$this->assertSame(
-			// phpcs:ignore Generic.Files.LineLength
-			'<a href="LOCAL-URL#SENSE">(wikibaselexeme-senseidformatter-layout: lemma, &lt;script>alert("hi")&lt;/script>)</a>FB-INDICATOR',
-			$result
+		$this->assertThatHamcrest(
+			$result,
+			is( htmlPiece( havingChild( havingTextContents(
+				'<script>alert("hi")</script>'
+			) ) ) )
 		);
 	}
 
