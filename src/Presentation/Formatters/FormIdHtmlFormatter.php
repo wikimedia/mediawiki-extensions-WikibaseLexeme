@@ -101,12 +101,11 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		/** @var Form $form */
 		$form = $formRevision->getEntity();
 		'@phan-var Form $form';
-		$representationSeparator = $this->localizedTextProvider->get(
-			self::REPRESENTATION_SEPARATOR_I18N
-		);
 
 		$representationMarkup = implode(
-			$representationSeparator,
+			$this->localizedTextProvider->getEscaped(
+				self::REPRESENTATION_SEPARATOR_I18N
+			),
 			$this->buildRepresentationMarkupElements( $form->getRepresentations() )
 		);
 

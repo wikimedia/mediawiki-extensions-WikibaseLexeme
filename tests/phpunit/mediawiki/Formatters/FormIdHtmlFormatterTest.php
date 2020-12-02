@@ -97,7 +97,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 				'L999-F666: noun, verb'
 			]
 		];
-		$mock->method( 'get' )
+		$mock->method( $this->logicalOr( 'get', 'getEscaped' ) )
 			->will(
 				$this->returnValueMap( $getMethodValuesMap )
 			);
