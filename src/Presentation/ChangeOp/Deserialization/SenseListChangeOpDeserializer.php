@@ -21,7 +21,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class SenseListChangeOpDeserializer implements ChangeOpDeserializer {
 
-	const PARAM_SENSE_ID = 'id';
+	private const PARAM_SENSE_ID = 'id';
 
 	/**
 	 * @var SenseChangeOpDeserializer

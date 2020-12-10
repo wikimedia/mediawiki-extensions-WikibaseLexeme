@@ -26,12 +26,12 @@ use Wikibase\Repo\Tests\NewStatement;
  */
 class LexemeApiQueryBacklinksTest extends WikibaseLexemeApiTestCase {
 
-	const LANGUAGE_ID = 'Q123';
-	const LEXICAL_CATEGORY_ID = 'Q321';
-	const GRAMMATICAL_FEATURE_1_ID = 'Q234';
-	const GRAMMATICAL_FEATURE_2_ID = 'Q432';
-	const FORM_STATEMENT_VALUE = 'Q789';
-	const SENSE_STATEMENT_VALUE = 'Q987';
+	private const LANGUAGE_ID = 'Q123';
+	private const LEXICAL_CATEGORY_ID = 'Q321';
+	private const GRAMMATICAL_FEATURE_1_ID = 'Q234';
+	private const GRAMMATICAL_FEATURE_2_ID = 'Q432';
+	private const FORM_STATEMENT_VALUE = 'Q789';
+	private const SENSE_STATEMENT_VALUE = 'Q987';
 
 	public function testLexemeLanguage() {
 		$lexeme = $this->saveTestLexemeToDb();

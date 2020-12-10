@@ -14,7 +14,7 @@ use Wikibase\DataModel\Entity\EntityId;
  */
 abstract class LexemeSubEntityId extends EntityId {
 
-	const SUBENTITY_ID_SEPARATOR = '-';
+	public const SUBENTITY_ID_SEPARATOR = '-';
 
 	/**
 	 * @return string

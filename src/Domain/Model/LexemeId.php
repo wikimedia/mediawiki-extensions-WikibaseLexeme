@@ -17,7 +17,7 @@ use Wikimedia\Assert\Assert;
  */
 class LexemeId extends EntityId implements Int32EntityId {
 
-	const PATTERN = '/^L[1-9]\d{0,9}\z/i';
+	public const PATTERN = '/^L[1-9]\d{0,9}\z/i';
 
 	/**
 	 * @param string $serialization

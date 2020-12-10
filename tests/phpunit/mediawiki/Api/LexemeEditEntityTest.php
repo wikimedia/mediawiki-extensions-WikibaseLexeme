@@ -33,21 +33,21 @@ use Wikibase\Repo\Store\Store;
  */
 class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
-	const EXISTING_LEXEME_ID = 'L100';
-	const EXISTING_LEXEME_LEMMA = 'apple';
-	const EXISTING_LEXEME_LEMMA_LANGUAGE = 'en';
-	const EXISTING_LEXEME_LANGUAGE_ITEM_ID = 'Q66';
-	const EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID = 'Q55';
-	const EXISTING_GRAMMATICAL_FEATURE_ITEM_ID = 'Q16';
-	const EXISTING_LEXEME_FORM_1_ID = 'F1';
-	const EXISTING_LEXEME_FORM_1_LANGUAGE = 'en';
-	const EXISTING_LEXEME_FORM_1_TEXT = 'crabapple';
-	const EXISTING_LEXEME_FORM_1_LANGUAGE2 = 'en-gb';
-	const EXISTING_LEXEME_FORM_1_TEXT2 = 'crebappla';
-	const EXISTING_LEXEME_FORM_2_ID = 'F2';
-	const EXISTING_LEXEME_FORM_2_LANGUAGE = 'en';
-	const EXISTING_LEXEME_FORM_2_TEXT = 'Malus';
-	const SPECIAL_TERM_LANGUAGE = 'mis';
+	private const EXISTING_LEXEME_ID = 'L100';
+	private const EXISTING_LEXEME_LEMMA = 'apple';
+	private const EXISTING_LEXEME_LEMMA_LANGUAGE = 'en';
+	private const EXISTING_LEXEME_LANGUAGE_ITEM_ID = 'Q66';
+	private const EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID = 'Q55';
+	private const EXISTING_GRAMMATICAL_FEATURE_ITEM_ID = 'Q16';
+	private const EXISTING_LEXEME_FORM_1_ID = 'F1';
+	private const EXISTING_LEXEME_FORM_1_LANGUAGE = 'en';
+	private const EXISTING_LEXEME_FORM_1_TEXT = 'crabapple';
+	private const EXISTING_LEXEME_FORM_1_LANGUAGE2 = 'en-gb';
+	private const EXISTING_LEXEME_FORM_1_TEXT2 = 'crebappla';
+	private const EXISTING_LEXEME_FORM_2_ID = 'F2';
+	private const EXISTING_LEXEME_FORM_2_LANGUAGE = 'en';
+	private const EXISTING_LEXEME_FORM_2_TEXT = 'Malus';
+	private const SPECIAL_TERM_LANGUAGE = 'mis';
 
 	public function testGivenNewParameterAndValidDataAreProvided_newLexemeIsCreated() {
 		$lemma = 'worm';

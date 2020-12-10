@@ -13,7 +13,7 @@ use Wikimedia\Assert\Assert;
  */
 class SenseId extends LexemeSubEntityId {
 
-	const PATTERN = '/^L[1-9]\d*-S[1-9]\d*\z/';
+	public const PATTERN = '/^L[1-9]\d*-S[1-9]\d*\z/';
 
 	/**
 	 * @param string $serialization

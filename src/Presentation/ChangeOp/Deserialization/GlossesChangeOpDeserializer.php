@@ -15,8 +15,8 @@ use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
  */
 class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 
-	const PARAM_LANGUAGE = 'language';
-	const PARAM_VALUE = 'value';
+	private const PARAM_LANGUAGE = 'language';
+	private const PARAM_VALUE = 'value';
 
 	/**
 	 * @var TermDeserializer

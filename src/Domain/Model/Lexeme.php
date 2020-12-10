@@ -23,7 +23,7 @@ use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
  */
 class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 
-	const ENTITY_TYPE = 'lexeme';
+	public const ENTITY_TYPE = 'lexeme';
 
 	/**
 	 * @var LexemeId|null

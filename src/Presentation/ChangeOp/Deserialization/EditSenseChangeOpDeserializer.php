@@ -15,7 +15,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class EditSenseChangeOpDeserializer implements ChangeOpDeserializer {
 
-	const PARAM_GLOSSES = 'glosses';
+	private const PARAM_GLOSSES = 'glosses';
 
 	/**
 	 * @var GlossesChangeOpDeserializer
