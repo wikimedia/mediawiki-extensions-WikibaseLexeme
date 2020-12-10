@@ -32,9 +32,9 @@ use Wikibase\Lib\StringNormalizer;
  */
 class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 
-	const DEFAULT_GLOSS = 'colour';
-	const DEFAULT_GLOSS_LANGUAGE = 'en';
-	const DEFAULT_SENSE_ID = 'L1-S1';
+	private const DEFAULT_GLOSS = 'colour';
+	private const DEFAULT_GLOSS_LANGUAGE = 'en';
+	private const DEFAULT_SENSE_ID = 'L1-S1';
 
 	/**
 	 * @dataProvider provideInvalidParamsAndRespectiveErrors

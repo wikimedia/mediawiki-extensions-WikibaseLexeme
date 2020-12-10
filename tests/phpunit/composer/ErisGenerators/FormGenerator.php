@@ -16,7 +16,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class FormGenerator implements Generator {
 
-	const MAX_FORM_ID = 100;
+	private const MAX_FORM_ID = 100;
 
 	/**
 	 * @var TermListGenerator

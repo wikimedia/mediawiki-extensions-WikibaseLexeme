@@ -12,7 +12,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
  */
 class LemmaTermValidatorTest extends TestCase {
 
-	const MAX_LENGTH = 10;
+	private const MAX_LENGTH = 10;
 
 	/**
 	 * @dataProvider dataProvider_validTerms

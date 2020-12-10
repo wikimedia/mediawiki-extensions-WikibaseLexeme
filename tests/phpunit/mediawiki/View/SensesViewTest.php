@@ -27,7 +27,7 @@ class SensesViewTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
 
-	const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
+	private const STATEMENT_SECTION_HTML = '<div class="statement-section"/>';
 
 	public function testHtmlContainsTheSensesHeadline() {
 		$view = $this->newSensesView();

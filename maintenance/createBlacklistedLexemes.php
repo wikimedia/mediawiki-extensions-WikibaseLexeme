@@ -25,9 +25,9 @@ require_once $basePath . '/maintenance/Maintenance.php';
  */
 class CreateBlacklistedLexemes extends Maintenance {
 
-	const LEMMA = 'lemma';
-	const LANGUAGE = 'lang';
-	const CATEGORY = 'cat';
+	private const LEMMA = 'lemma';
+	private const LANGUAGE = 'lang';
+	private const CATEGORY = 'cat';
 
 	public function __construct() {
 		parent::__construct();

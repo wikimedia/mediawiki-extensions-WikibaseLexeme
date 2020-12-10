@@ -24,9 +24,9 @@ use Wikibase\Repo\ChangeOp\ChangeOps;
  */
 class EditSenseElementsRequestParserTest extends TestCase {
 
-	const DEFAULT_GLOSS = 'furry animal';
-	const DEFAULT_GLOSS_LANGUAGE = 'en';
-	const DEFAULT_SENSE_ID = 'L1-S1';
+	private const DEFAULT_GLOSS = 'furry animal';
+	private const DEFAULT_GLOSS_LANGUAGE = 'en';
+	private const DEFAULT_SENSE_ID = 'L1-S1';
 
 	public function testSenseIdAndDataGetPassedToRequestObject() {
 		$editSenseChangeOpDeserializer = $this

@@ -37,10 +37,10 @@ use Wikibase\Repo\Validators\CompositeValidator;
  */
 class EditFormElementsRequestParserIntegrationTest extends TestCase {
 
-	const DEFAULT_REPRESENTATION = 'colour';
-	const DEFAULT_REPRESENTATION_LANGUAGE = 'en';
-	const DEFAULT_GRAMMATICAL_FEATURE = 'Q17';
-	const DEFAULT_FORM_ID = 'L1-F1';
+	private const DEFAULT_REPRESENTATION = 'colour';
+	private const DEFAULT_REPRESENTATION_LANGUAGE = 'en';
+	private const DEFAULT_GRAMMATICAL_FEATURE = 'Q17';
+	private const DEFAULT_FORM_ID = 'L1-F1';
 
 	/**
 	 * @dataProvider provideInvalidParamsAndRespectiveErrors

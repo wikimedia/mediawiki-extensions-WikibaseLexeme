@@ -19,9 +19,9 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class LexemeStoreIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
-	const LEXEME_ID = 'L1';
-	const FORM_ID = 'F1';
-	const FULL_FORM_ID = 'L1-F1';
+	private const LEXEME_ID = 'L1';
+	private const FORM_ID = 'F1';
+	private const FULL_FORM_ID = 'L1-F1';
 
 	public function testGivenExistingFormId_EntityLookupHasEntityReturnsTrue() {
 		$this->saveLexemeWithForm();

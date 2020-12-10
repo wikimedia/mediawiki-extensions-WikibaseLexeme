@@ -22,7 +22,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  */
 class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 
-	const LEXEME_ID = 'L1200';
+	private const LEXEME_ID = 'L1200';
 
 	public function testNextFormIdIsNotIncludedInLexemeData() {
 		$this->saveDummyLexemeToDatabase();

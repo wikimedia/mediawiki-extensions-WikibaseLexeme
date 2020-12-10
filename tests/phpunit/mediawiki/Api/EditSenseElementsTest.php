@@ -24,7 +24,7 @@ use Wikibase\Repo\Store\Store;
  */
 class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 
-	const DEFAULT_SENSE_ID = 'L1-S1';
+	private const DEFAULT_SENSE_ID = 'L1-S1';
 
 	public function testRateLimitIsCheckedWhenEditing() {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();

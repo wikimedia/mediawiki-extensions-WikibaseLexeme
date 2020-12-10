@@ -24,8 +24,8 @@ use Wikimedia\Purtle\RdfWriter;
  */
 class LexemeRdfBuilder implements EntityRdfBuilder {
 
-	const NS_ONTOLEX = 'ontolex';
-	const NS_DUBLIN_CORE_TERM = 'dct';
+	private const NS_ONTOLEX = 'ontolex';
+	private const NS_DUBLIN_CORE_TERM = 'dct';
 
 	/**
 	 * @var RdfVocabulary

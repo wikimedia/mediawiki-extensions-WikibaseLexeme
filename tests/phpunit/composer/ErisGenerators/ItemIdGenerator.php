@@ -11,7 +11,7 @@ use Wikibase\DataModel\Entity\ItemId;
  * @license GPL-2.0-or-later
  */
 class ItemIdGenerator implements Generator {
-	const MAX_ITEM_ID = 2147483647;
+	private const MAX_ITEM_ID = 2147483647;
 
 	/**
 	 * @var Generator

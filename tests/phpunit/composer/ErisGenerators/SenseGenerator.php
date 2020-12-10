@@ -15,7 +15,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class SenseGenerator implements Generator {
 
-	const MAX_SENSE_ID = 100;
+	private const MAX_SENSE_ID = 100;
 
 	/**
 	 * @var TermListGenerator

@@ -26,8 +26,8 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class SpecialMergeLexemes extends SpecialPage {
 
-	const FROM_ID = 'from-id';
-	const TO_ID = 'to-id';
+	private const FROM_ID = 'from-id';
+	private const TO_ID = 'to-id';
 
 	/**
 	 * @var MergeLexemesInteractor

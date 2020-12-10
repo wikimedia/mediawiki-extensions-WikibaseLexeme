@@ -33,8 +33,8 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
-	const EXISTING_ITEM_ID = 'Q1';
-	const NON_EXISTING_ITEM_ID = 'Q100';
+	private const EXISTING_ITEM_ID = 'Q1';
+	private const NON_EXISTING_ITEM_ID = 'Q100';
 
 	protected function setUp() : void {
 		parent::setUp();
