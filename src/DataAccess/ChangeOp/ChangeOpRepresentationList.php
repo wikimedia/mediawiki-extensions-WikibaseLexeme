@@ -17,7 +17,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpRepresentationList implements ChangeOp {
 
-	const SUMMARY_ACTION_AGGREGATE = 'update-form-representations';
+	private const SUMMARY_ACTION_AGGREGATE = 'update-form-representations';
 
 	/**
 	 * @var ChangeOp[]

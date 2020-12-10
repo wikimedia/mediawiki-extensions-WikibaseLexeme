@@ -16,9 +16,9 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
  */
 class AddFormRequestParser {
 
-	const PARAM_DATA = 'data';
-	const PARAM_LEXEME_ID = 'lexemeId';
-	const PARAM_BASEREVID = 'baserevid';
+	public const PARAM_DATA = 'data';
+	public const PARAM_LEXEME_ID = 'lexemeId';
+	public const PARAM_BASEREVID = 'baserevid';
 
 	/**
 	 * @var EntityIdParser

@@ -17,8 +17,8 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpGloss implements ChangeOp {
 
-	const SUMMARY_ACTION_ADD = 'add-sense-glosses';
-	const SUMMARY_ACTION_SET = 'set-sense-glosses';
+	private const SUMMARY_ACTION_ADD = 'add-sense-glosses';
+	private const SUMMARY_ACTION_SET = 'set-sense-glosses';
 
 	/**
 	 * @var Term

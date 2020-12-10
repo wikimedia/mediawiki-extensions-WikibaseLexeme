@@ -17,8 +17,8 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpLemmaEdit extends ChangeOpBase {
 
-	const SUMMARY_ACTION_ADD = 'add';
-	const SUMMARY_ACTION_UPDATE = 'set';
+	private const SUMMARY_ACTION_ADD = 'add';
+	private const SUMMARY_ACTION_UPDATE = 'set';
 
 	/**
 	 * @var string

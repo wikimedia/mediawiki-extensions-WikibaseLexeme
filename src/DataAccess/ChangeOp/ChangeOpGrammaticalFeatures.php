@@ -17,9 +17,9 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpGrammaticalFeatures implements ChangeOp {
 
-	const SUMMARY_ACTION_ADD = 'add-form-grammatical-features';
-	const SUMMARY_ACTION_REMOVE = 'remove-form-grammatical-features';
-	const SUMMARY_ACTION_UPDATE = 'update-form-grammatical-features';
+	private const SUMMARY_ACTION_ADD = 'add-form-grammatical-features';
+	private const SUMMARY_ACTION_REMOVE = 'remove-form-grammatical-features';
+	private const SUMMARY_ACTION_UPDATE = 'update-form-grammatical-features';
 
 	/**
 	 * @var ItemId[]

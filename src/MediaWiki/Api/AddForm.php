@@ -33,7 +33,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class AddForm extends ApiBase {
 
-	const LATEST_REVISION = 0;
+	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var AddFormRequestParser

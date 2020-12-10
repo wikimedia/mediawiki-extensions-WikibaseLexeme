@@ -17,7 +17,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpGlossList implements ChangeOp {
 
-	const SUMMARY_ACTION_AGGREGATE = 'update-sense-glosses';
+	private const SUMMARY_ACTION_AGGREGATE = 'update-sense-glosses';
 
 	/**
 	 * @var ChangeOp[]

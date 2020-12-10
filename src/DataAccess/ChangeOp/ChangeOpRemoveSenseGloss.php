@@ -16,7 +16,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpRemoveSenseGloss implements ChangeOp {
 
-	const SUMMARY_ACTION_REMOVE = 'remove-sense-glosses';
+	private const SUMMARY_ACTION_REMOVE = 'remove-sense-glosses';
 
 	/**
 	 * TODO LanguageCode model?

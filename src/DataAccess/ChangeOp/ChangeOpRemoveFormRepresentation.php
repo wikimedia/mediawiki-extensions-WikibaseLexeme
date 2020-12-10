@@ -16,7 +16,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpRemoveFormRepresentation implements ChangeOp {
 
-	const SUMMARY_ACTION_REMOVE = 'remove-form-representations';
+	private const SUMMARY_ACTION_REMOVE = 'remove-form-representations';
 
 	/**
 	 * TODO LanguageCode model?

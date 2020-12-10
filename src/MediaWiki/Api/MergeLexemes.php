@@ -20,10 +20,10 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class MergeLexemes extends ApiBase {
 
-	const SOURCE_ID_PARAM = 'source';
-	const TARGET_ID_PARAM = 'target';
-	const SUMMARY_PARAM = 'summary';
-	const BOT_PARAM = 'bot';
+	public const SOURCE_ID_PARAM = 'source';
+	public const TARGET_ID_PARAM = 'target';
+	public const SUMMARY_PARAM = 'summary';
+	private const BOT_PARAM = 'bot';
 
 	/**
 	 * @var ApiErrorReporter

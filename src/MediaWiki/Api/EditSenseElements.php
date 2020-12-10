@@ -32,7 +32,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class EditSenseElements extends \ApiBase {
 
-	const LATEST_REVISION = 0;
+	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var EntityRevisionLookup

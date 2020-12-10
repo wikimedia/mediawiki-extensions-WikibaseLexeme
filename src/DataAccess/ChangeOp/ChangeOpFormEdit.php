@@ -19,7 +19,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpFormEdit implements ChangeOp {
 
-	const SUMMARY_ACTION_AGGREGATE = 'update-form-elements';
+	private const SUMMARY_ACTION_AGGREGATE = 'update-form-elements';
 
 	/**
 	 * @var ChangeOp[]
