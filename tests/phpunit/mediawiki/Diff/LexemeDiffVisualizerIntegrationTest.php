@@ -37,7 +37,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
-	const LANGUAGE_TRANSLATION_HOOK_NAME = 'LanguageGetTranslatedLanguageNames';
+	private const LANGUAGE_TRANSLATION_HOOK_NAME = 'LanguageGetTranslatedLanguageNames';
 
 	protected function setUp() : void {
 		parent::setUp();

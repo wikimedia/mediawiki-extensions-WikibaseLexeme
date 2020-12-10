@@ -14,7 +14,7 @@ use Wikibase\View\LocalizedTextProvider;
  */
 class FormIdTextFormatter implements EntityIdFormatter {
 
-	const REPRESENTATION_SEPARATOR_I18N =
+	private const REPRESENTATION_SEPARATOR_I18N =
 		'wikibaselexeme-formidformatter-separator-multiple-representation';
 
 	/**

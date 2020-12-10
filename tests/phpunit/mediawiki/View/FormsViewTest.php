@@ -25,7 +25,7 @@ class FormsViewTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
 
-	const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
+	private const STATEMENT_LIST_HTML = '<div class="statement-list"></div>';
 
 	public function testHtmlContainsTheFormsHeadline() {
 		$view = $this->newFormsView();

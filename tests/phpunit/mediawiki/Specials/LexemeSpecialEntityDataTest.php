@@ -20,7 +20,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 
-	const LEXEME_ID = 'L1222';
+	private const LEXEME_ID = 'L1222';
 
 	/** @var EntityStore */
 	private $entityStore;

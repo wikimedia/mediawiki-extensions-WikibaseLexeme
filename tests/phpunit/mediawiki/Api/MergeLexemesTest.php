@@ -25,11 +25,11 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 
-	const API_ACTION = 'wblmergelexemes';
+	private const API_ACTION = 'wblmergelexemes';
 
-	const DEFAULT_LANGUAGE = 'Q1';
+	private const DEFAULT_LANGUAGE = 'Q1';
 
-	const DEFAULT_LEXICAL_CATEGORY = 'Q2';
+	private const DEFAULT_LEXICAL_CATEGORY = 'Q2';
 
 	public function testGivenSuccessfulMerge_respondsWithSuccessMessage() {
 		$source = NewLexeme::havingId( 'L1' )

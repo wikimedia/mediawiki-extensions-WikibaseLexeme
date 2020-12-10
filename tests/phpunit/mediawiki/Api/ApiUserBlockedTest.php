@@ -26,7 +26,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 	/** @var DatabaseBlock */
 	private $block;
 
-	const GRAMMATICAL_FEATURE_ITEM_ID = 'Q1';
+	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q1';
 
 	protected function setUp() : void {
 		parent::setUp();

@@ -23,14 +23,14 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 
 	use HamcrestPHPUnitIntegration;
 
-	const SINGLE_LEMMA_LEXEME_ID = 'L313';
-	const MULTIPLE_LEMMA_LEXEME_ID = 'L323';
-	const LEMMA = 'artichoke';
-	const OTHER_LEMMA = 'garlic';
-	const LANGUAGE_ID = 'Q100';
-	const LANGUAGE = 'English';
-	const LEXICAL_CATEGORY_ID = 'Q200';
-	const LEXICAL_CATEGORY = 'noun';
+	private const SINGLE_LEMMA_LEXEME_ID = 'L313';
+	private const MULTIPLE_LEMMA_LEXEME_ID = 'L323';
+	private const LEMMA = 'artichoke';
+	private const OTHER_LEMMA = 'garlic';
+	private const LANGUAGE_ID = 'Q100';
+	private const LANGUAGE = 'English';
+	private const LEXICAL_CATEGORY_ID = 'Q200';
+	private const LEXICAL_CATEGORY = 'noun';
 
 	public function testFormatReturnsLinkWithLexemeLemmaAsContents() {
 		$formatter = $this->newFormatter();

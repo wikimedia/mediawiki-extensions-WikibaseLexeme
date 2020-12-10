@@ -26,8 +26,8 @@ use Wikibase\Repo\Store\Store;
  */
 class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
-	const DEFAULT_FORM_ID = 'L1-F1';
-	const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
+	private const DEFAULT_FORM_ID = 'L1-F1';
+	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
 
 	public function testRateLimitIsCheckedWhenEditing() {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();

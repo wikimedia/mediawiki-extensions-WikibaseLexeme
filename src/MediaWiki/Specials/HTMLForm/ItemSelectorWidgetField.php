@@ -16,7 +16,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class ItemSelectorWidgetField extends HTMLItemReferenceField {
 
-	const NATIVE_AGENT_AUTOCOMPLETE = false;
+	private const NATIVE_AGENT_AUTOCOMPLETE = false;
 
 	/**
 	 * @var string|null

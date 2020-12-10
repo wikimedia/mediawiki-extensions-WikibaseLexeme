@@ -55,7 +55,7 @@ class NewLexeme {
 	 */
 	private $forms = [];
 
-	const DEFAULT_ID = 'L1';
+	private const DEFAULT_ID = 'L1';
 
 	public static function create() {
 		return new self();

@@ -20,7 +20,7 @@ use Wikimedia\Assert\Assert;
  */
 class LexemeContent extends EntityContent {
 
-	const CONTENT_MODEL_ID = 'wikibase-lexeme';
+	public const CONTENT_MODEL_ID = 'wikibase-lexeme';
 
 	/**
 	 * @var EntityHolder|null

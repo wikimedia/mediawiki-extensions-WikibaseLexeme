@@ -18,7 +18,7 @@ class LexemeTermLanguageValidator {
 	/**
 	 * According to BCP 47 (https://tools.ietf.org/html/bcp47)
 	 */
-	const PRIVATE_USE_SUBTAG_SEPARATOR = '-x-';
+	private const PRIVATE_USE_SUBTAG_SEPARATOR = '-x-';
 
 	/**
 	 * @var ContentLanguages

@@ -18,9 +18,9 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
  */
 class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 
-	const LEXEME_ID = 'L100';
-	const FORM_ID = 'F1';
-	const FULL_FORM_ID = 'L100-F1';
+	private const LEXEME_ID = 'L100';
+	private const FORM_ID = 'F1';
+	private const FULL_FORM_ID = 'L100-F1';
 
 	public function testLexemeIsFoundWhenIdGivenAsSearchTerm() {
 		$this->saveLexeme();

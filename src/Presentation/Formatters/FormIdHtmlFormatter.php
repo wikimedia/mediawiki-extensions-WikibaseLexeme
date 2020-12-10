@@ -22,9 +22,9 @@ use Wikibase\View\LocalizedTextProvider;
  */
 class FormIdHtmlFormatter implements EntityIdFormatter {
 
-	const REPRESENTATION_SEPARATOR_I18N =
+	private const REPRESENTATION_SEPARATOR_I18N =
 		'wikibaselexeme-formidformatter-separator-multiple-representation';
-	const GRAMMATICAL_FEATURES_SEPARATOR_I18N =
+	private const GRAMMATICAL_FEATURES_SEPARATOR_I18N =
 		'wikibaselexeme-formidformatter-separator-grammatical-features';
 
 	/**
