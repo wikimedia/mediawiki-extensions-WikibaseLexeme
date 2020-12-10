@@ -20,7 +20,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class FormListChangeOpDeserializer implements ChangeOpDeserializer {
 
-	const PARAM_FORM_ID = 'id';
+	private const PARAM_FORM_ID = 'id';
 
 	/**
 	 * @var FormChangeOpDeserializer

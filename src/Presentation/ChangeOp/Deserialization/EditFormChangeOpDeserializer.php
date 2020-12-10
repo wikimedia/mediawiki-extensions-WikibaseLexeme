@@ -20,11 +20,11 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
  */
 class EditFormChangeOpDeserializer implements ChangeOpDeserializer {
 
-	const PARAM_REPRESENTATIONS = 'representations';
+	private const PARAM_REPRESENTATIONS = 'representations';
 
-	const PARAM_GRAMM_FEAT = 'grammaticalFeatures';
+	private const PARAM_GRAMM_FEAT = 'grammaticalFeatures';
 
-	const PARAM_STATEMENTS = 'claims';
+	private const PARAM_STATEMENTS = 'claims';
 
 	/**
 	 * @var RepresentationsChangeOpDeserializer

@@ -18,7 +18,7 @@ use Wikibase\DataModel\Term\TermList;
  */
 class Sense implements StatementListProvidingEntity, ClearableEntity {
 
-	const ENTITY_TYPE = 'sense';
+	public const ENTITY_TYPE = 'sense';
 
 	/**
 	 * @var SenseId

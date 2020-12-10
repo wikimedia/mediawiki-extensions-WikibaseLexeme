@@ -36,7 +36,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $termSerializationValidator;
 
-	const LEMMAS_PARAM = 'lemmas';
+	private const LEMMAS_PARAM = 'lemmas';
 
 	public function __construct(
 		LexemeTermSerializationValidator $termChangeOpSerializationValidator,

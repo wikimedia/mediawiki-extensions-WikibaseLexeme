@@ -14,7 +14,7 @@ use Wikimedia\Assert\Assert;
  */
 class FormId extends LexemeSubEntityId {
 
-	const PATTERN = '/^L[1-9]\d*-F[1-9]\d*\z/';
+	public const PATTERN = '/^L[1-9]\d*-F[1-9]\d*\z/';
 
 	/**
 	 * @param string $serialization

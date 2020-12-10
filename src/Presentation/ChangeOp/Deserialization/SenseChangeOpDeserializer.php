@@ -28,7 +28,7 @@ class SenseChangeOpDeserializer implements ChangeOpDeserializer {
 	/**
 	 * In 'data' when creating 'new' => 'sense' through wbeditentity
 	 */
-	const PARAM_LEXEME_ID = 'lexemeId';
+	private const PARAM_LEXEME_ID = 'lexemeId';
 
 	/**
 	 * @var EntityLookup
