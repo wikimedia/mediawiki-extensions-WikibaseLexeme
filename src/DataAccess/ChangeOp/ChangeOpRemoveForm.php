@@ -17,7 +17,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpRemoveForm extends ChangeOpBase {
 
-	const SUMMARY_ACTION_REMOVE = 'remove-form';
+	private const SUMMARY_ACTION_REMOVE = 'remove-form';
 
 	/**
 	 * @var FormId

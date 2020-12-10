@@ -27,7 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class EditFormElements extends \ApiBase {
 
-	const LATEST_REVISION = 0;
+	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var EntityRevisionLookup

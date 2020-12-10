@@ -17,7 +17,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpRemoveSense extends ChangeOpBase {
 
-	const SUMMARY_ACTION_REMOVE = 'remove-sense';
+	private const SUMMARY_ACTION_REMOVE = 'remove-sense';
 
 	/**
 	 * @var SenseId

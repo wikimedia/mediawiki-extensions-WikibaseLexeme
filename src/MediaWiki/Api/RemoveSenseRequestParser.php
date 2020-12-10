@@ -10,8 +10,8 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
  */
 class RemoveSenseRequestParser {
 
-	const PARAM_SENSE_ID = 'id';
-	const PARAM_BASEREVID = 'baserevid';
+	public const PARAM_SENSE_ID = 'id';
+	private const PARAM_BASEREVID = 'baserevid';
 
 	/**
 	 * @var SenseIdDeserializer

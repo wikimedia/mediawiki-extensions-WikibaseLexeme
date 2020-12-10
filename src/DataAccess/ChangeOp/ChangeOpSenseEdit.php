@@ -19,7 +19,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpSenseEdit implements ChangeOp {
 
-	const SUMMARY_ACTION_AGGREGATE = 'update-sense-elements';
+	private const SUMMARY_ACTION_AGGREGATE = 'update-sense-elements';
 
 	/**
 	 * @var ChangeOp[]

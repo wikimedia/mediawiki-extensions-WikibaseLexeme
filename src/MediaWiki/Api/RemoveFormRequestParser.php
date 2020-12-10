@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
  */
 class RemoveFormRequestParser {
 
-	const PARAM_FORM_ID = 'id';
+	public const PARAM_FORM_ID = 'id';
 
 	/**
 	 * @var FormIdDeserializer

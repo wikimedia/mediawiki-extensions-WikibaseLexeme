@@ -13,11 +13,11 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
  */
 class EditFormElementsRequestParser {
 
-	const PARAM_DATA = 'data';
+	public const PARAM_DATA = 'data';
 
-	const PARAM_FORM_ID = 'formId';
+	public const PARAM_FORM_ID = 'formId';
 
-	const PARAM_BASEREVID = 'baserevid';
+	public const PARAM_BASEREVID = 'baserevid';
 
 	/**
 	 * @var FormIdDeserializer

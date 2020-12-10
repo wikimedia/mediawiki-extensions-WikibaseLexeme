@@ -23,7 +23,7 @@ use Wikibase\Lib\Store\EntityRevision;
  */
 class AddFormTest extends WikibaseLexemeApiTestCase {
 
-	const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
+	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
 
 	public function testRateLimitIsCheckedWhenEditing() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();

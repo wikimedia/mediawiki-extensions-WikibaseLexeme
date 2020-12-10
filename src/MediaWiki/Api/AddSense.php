@@ -34,7 +34,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class AddSense extends ApiBase {
 
-	const LATEST_REVISION = 0;
+	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var AddSenseRequestParser

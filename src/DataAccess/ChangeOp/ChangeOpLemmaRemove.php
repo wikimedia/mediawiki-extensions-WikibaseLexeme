@@ -16,7 +16,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpLemmaRemove extends ChangeOpBase {
 
-	const SUMMARY_ACTION_REMOVE = 'remove';
+	private const SUMMARY_ACTION_REMOVE = 'remove';
 
 	/**
 	 * @var string

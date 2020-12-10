@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <ruleset>
 	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="PSR12.Properties.ConstantVisibility.NotFound" />
-
 		<!-- BEGIN rules copied from wikibase-codesniffer (T268831) -->
 
 		<!-- The function comment sniff is way too rigorous about way too many details that need

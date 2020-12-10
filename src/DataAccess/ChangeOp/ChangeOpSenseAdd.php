@@ -18,7 +18,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpSenseAdd extends ChangeOpBase {
 
-	const SUMMARY_ACTION_ADD = 'add-sense';
+	private const SUMMARY_ACTION_ADD = 'add-sense';
 
 	/**
 	 * @var ChangeOp

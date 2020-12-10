@@ -17,8 +17,8 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpRepresentation implements ChangeOp {
 
-	const SUMMARY_ACTION_ADD = 'add-form-representations';
-	const SUMMARY_ACTION_SET = 'set-form-representations';
+	private const SUMMARY_ACTION_ADD = 'add-form-representations';
+	private const SUMMARY_ACTION_SET = 'set-form-representations';
 
 	/**
 	 * @var Term

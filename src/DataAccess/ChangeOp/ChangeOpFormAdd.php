@@ -17,7 +17,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpFormAdd extends ChangeOpBase {
 
-	const SUMMARY_ACTION_ADD = 'add-form';
+	private const SUMMARY_ACTION_ADD = 'add-form';
 
 	/**
 	 * @var ChangeOp

@@ -13,10 +13,10 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
  */
 class EditSenseElementsRequestParser {
 
-	const PARAM_DATA = 'data';
+	public const PARAM_DATA = 'data';
 
-	const PARAM_SENSE_ID = 'senseId';
-	const PARAM_BASEREVID = 'baserevid';
+	public const PARAM_SENSE_ID = 'senseId';
+	public const PARAM_BASEREVID = 'baserevid';
 
 	/**
 	 * @var SenseIdDeserializer
