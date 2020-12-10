@@ -18,12 +18,12 @@ $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
 require_once $basePath . '/maintenance/Maintenance.php';
 
 /**
- * Maintenance script for creating blacklisted Lexeme entities.
+ * Maintenance script for creating reserved Lexeme entities.
  *
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class CreateBlacklistedLexemes extends Maintenance {
+class CreateReservedLexemes extends Maintenance {
 
 	private const LEMMA = 'lemma';
 	private const LANGUAGE = 'lang';
@@ -32,7 +32,7 @@ class CreateBlacklistedLexemes extends Maintenance {
 	public function __construct() {
 		parent::__construct();
 
-		$this->addDescription( 'Created blacklisted lexemes' );
+		$this->addDescription( 'Created reserved lexemes' );
 
 		$this->requireExtension( 'WikibaseLexeme' );
 	}
@@ -181,5 +181,5 @@ class CreateBlacklistedLexemes extends Maintenance {
 
 }
 
-$maintClass = CreateBlacklistedLexemes::class;
+$maintClass = CreateReservedLexemes::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
