@@ -77,6 +77,9 @@ class Registrar {
 		$wgSpecialPages['NewLexeme'] = [
 			'class' => SpecialNewLexeme::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::factory',
+			'services' => [
+				'WikibaseRepo.Settings',
+			],
 		];
 		$wgSpecialPages['MergeLexemes'] = [
 			'class' => SpecialMergeLexemes::class,

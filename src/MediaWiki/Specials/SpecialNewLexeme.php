@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidgetField;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
+use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Lib\Summary;
@@ -66,14 +67,15 @@ class SpecialNewLexeme extends SpecialPage {
 		$this->editEntityFactory = $editEntityFactory;
 	}
 
-	public static function factory(): self {
+	public static function factory(
+		SettingsArray $repoSettings
+	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
-		$settings = $wikibaseRepo->getSettings();
 		$copyrightView = new SpecialPageCopyrightView(
 			new CopyrightMessageBuilder(),
-			$settings->getSetting( 'dataRightsUrl' ),
-			$settings->getSetting( 'dataRightsText' )
+			$repoSettings->getSetting( 'dataRightsUrl' ),
+			$repoSettings->getSetting( 'dataRightsText' )
 		);
 
 		return new self(
