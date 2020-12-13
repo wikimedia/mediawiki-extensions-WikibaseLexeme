@@ -81,8 +81,9 @@ class SensesView {
 		foreach ( $senses->toArray() as $sense ) {
 			$html .= $this->getSenseHtml( $sense );
 		}
-		$html .= '</div>';
-		$html .= '</div>';
+		$html .= '</div>'; // wikibase-lexeme-senses
+		// @phan-suppress-next-line PhanPluginDuplicateAdjacentStatement
+		$html .= '</div>'; // wikibase-lexeme-senses-section
 
 		return $html;
 	}

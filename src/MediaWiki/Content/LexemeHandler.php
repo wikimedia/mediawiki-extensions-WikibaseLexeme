@@ -200,6 +200,7 @@ class LexemeHandler extends EntityHandler {
 
 			if (
 				isset( $lexemeSubEntityId ) &&
+				// @phan-suppress-next-line PhanPossiblyUndeclaredVariable
 				$lexemeSubEntityId->getLexemeId()->equals( $lexemeId )
 			) {
 				return $lexemeSubEntityId;

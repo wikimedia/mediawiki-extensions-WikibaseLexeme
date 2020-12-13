@@ -68,8 +68,9 @@ class FormsView {
 		foreach ( $forms->toArray() as $form ) {
 			$html .= $this->getFormHtml( $form );
 		}
-		$html .= '</div>';
-		$html .= '</div>';
+		$html .= '</div>'; // wikibase-lexeme-forms
+		// @phan-suppress-next-line PhanPluginDuplicateAdjacentStatement
+		$html .= '</div>'; // wikibase-lexeme-forms-section
 		return $html;
 	}
 
