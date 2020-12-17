@@ -117,17 +117,6 @@ describe( 'actions', function () {
 		expect( store.commit.withArgs( mutationTypes.UPDATE_REPRESENTATION_VALUE, payload ).calledOnce, 'to be true' );
 	} );
 
-	it( 'UPDATE_REPRESENTATION_VALUE trims the value', function () {
-		var store = {
-				commit: sinon.stub()
-			},
-			payload = { value: ' \v\t b \n ' };
-
-		actions[ actionTypes.UPDATE_REPRESENTATION_VALUE ]( store, payload );
-
-		expect( store.commit.withArgs( mutationTypes.UPDATE_REPRESENTATION_VALUE, { value: 'b' } ).calledOnce, 'to be true' );
-	} );
-
 	it( 'UPDATE_REPRESENTATION_LANGUAGE delegates to mutation', function () {
 		var store = {
 				commit: sinon.stub()

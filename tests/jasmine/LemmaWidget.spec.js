@@ -102,20 +102,6 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 		} );
 	} );
 
-	it( 'trims user input in lemma value', function ( done ) {
-		var lemma = new Lemma( 'hello', 'en' ),
-			widget = newWidget( [ lemma ] );
-
-		widget.inEditMode = true;
-		widget.$nextTick( function () {
-			setLemmaValue( widget, ' \v\t hello \n ' );
-			widget.$nextTick( function () {
-				expect( lemma.value, 'to equal', 'hello' );
-				done();
-			} );
-		} );
-	} );
-
 	expect.addAssertion( '<DOMElement> to contain lemma <object>', function ( expect, element, lemma ) {
 		var language = lemma.language;
 		var value = lemma.value;
@@ -155,12 +141,5 @@ describe( 'wikibase.lexeme.widgets.LemmaWidget', function () {
 			inEditMode: false,
 			isSaving: false
 		} } ).$mount();
-	}
-
-	function setLemmaValue( widget, value ) {
-		var inputElm = widget.$el.querySelector( selector.lemmaValueInput );
-
-		inputElm.value = value;
-		inputElm.dispatchEvent( new Event( 'input' ) );
 	}
 } );

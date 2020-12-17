@@ -145,27 +145,6 @@ describe( 'GlossWidget', function () {
 		expect( widget.glosses.length, 'to equal', 1 );
 	} );
 
-	it( 'trims user input in gloss value', function ( done ) {
-		var gloss = { language: 'en', value: 'hello' },
-			widget = newWidget( [ gloss ] );
-
-		widget.edit();
-		widget.$nextTick( function () {
-			setGlossValue( widget, ' \v\t hello \n ' );
-			widget.$nextTick( function () {
-				expect( widget.glosses[ 0 ].value, 'to equal', 'hello' );
-				done();
-			} );
-		} );
-	} );
-
-	function setGlossValue( widget, value ) {
-		var inputElm = widget.$el.querySelector( selector.glossValueCell + ' input' );
-
-		inputElm.value = value;
-		inputElm.dispatchEvent( new Event( 'input' ) );
-	}
-
 	function assertWidget( widget ) {
 		'use strict';
 
