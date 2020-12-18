@@ -94,6 +94,12 @@ module.exports = ( function ( Vuex ) {
 						formIndex: this.formIndex,
 						representationIndex: this.representations.indexOf( representation )
 					} );
+				},
+				replaceAllRepresentations: function ( representations ) {
+					this.$store.dispatch( actionTypes.REPLACE_ALL_REPRESENTATIONS, {
+						formIndex: this.formIndex,
+						representations: representations
+					} );
 				}
 			},
 			filters: {

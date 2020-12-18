@@ -30,6 +30,9 @@
 			{ language: state.lexeme.lemmas[ 0 ].language }
 		);
 	};
+	mutations[ mutationTypes.REPLACE_ALL_REPRESENTATIONS ] = function ( state, payload ) {
+		state.lexeme.forms[ payload.formIndex ].representations = payload.representations;
+	};
 
 	module.exports = mutations;
 

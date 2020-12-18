@@ -128,4 +128,15 @@ describe( 'actions', function () {
 		expect( store.commit.withArgs( mutationTypes.UPDATE_REPRESENTATION_LANGUAGE, payload ).calledOnce, 'to be true' );
 	} );
 
+	it( 'REPLACE_ALL_REPRESENTATIONS delegates to mutation', function () {
+		var store = {
+				commit: sinon.stub()
+			},
+			payload = { a: 'b' };
+
+		actions[ actionTypes.REPLACE_ALL_REPRESENTATIONS ]( store, payload );
+
+		expect( store.commit.withArgs( mutationTypes.REPLACE_ALL_REPRESENTATIONS, payload ).calledOnce, 'to be true' );
+	} );
+
 } );

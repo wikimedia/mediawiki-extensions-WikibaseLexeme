@@ -33,6 +33,9 @@
 	actions[ actionTypes.UPDATE_REPRESENTATION_LANGUAGE ] = function ( store, payload ) {
 		store.commit( mutationTypes.UPDATE_REPRESENTATION_LANGUAGE, payload );
 	};
+	actions[ actionTypes.REPLACE_ALL_REPRESENTATIONS ] = function ( store, payload ) {
+		store.commit( mutationTypes.REPLACE_ALL_REPRESENTATIONS, payload );
+	};
 
 	module.exports = actions;
 

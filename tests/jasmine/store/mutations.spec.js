@@ -77,4 +77,30 @@ describe( 'mutations', function () {
 		expect( state.lexeme.forms[ 0 ].representations[ 0 ].language, 'to equal', 'en' );
 	} );
 
+	it( 'REPLACE_ALL_REPRESENTATIONS replaces representations of correct form', function () {
+		state.lexeme.forms.push( {
+			id: 'L42-F2',
+			representations: [
+				{ language: 'en', value: 'collars' },
+			],
+		} );
+
+		mutations[ mutationTypes.REPLACE_ALL_REPRESENTATIONS ]( state, {
+			formIndex: 1,
+			representations: [
+				{ language: 'en', value: 'colors' },
+				{ language: 'en-gb', value: 'colours' }
+			]
+		} );
+
+		expect( state.lexeme.forms[ 0 ].representations, 'to equal', [
+			{ language: 'en', value: 'color' },
+			{ language: 'en-gb', value: 'colour' }
+		] );
+		expect( state.lexeme.forms[ 1 ].representations, 'to equal', [
+			{ language: 'en', value: 'colors' },
+			{ language: 'en-gb', value: 'colours' }
+		] );
+	} );
+
 } );

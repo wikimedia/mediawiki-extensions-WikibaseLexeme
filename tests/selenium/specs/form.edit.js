@@ -119,6 +119,30 @@ describe( 'Lexeme:Forms', () => {
 		assert.equal( LexemePage.isNthFormSubmittable( 0 ), false );
 	} );
 
+	it( 'trims whitespace from representation', () => {
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const lexemeId = lexeme.id;
+			return LexemeApi.addForm(
+				lexemeId,
+				{
+					representations: {
+						en: { language: 'en', value: 'color charge' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => lexemeId );
+		} ) );
+
+		LexemePage.open( id );
+
+		LexemePage.editRepresentationOfNthForm( 0, 'color ', 'en' );
+
+		browser.call( () => LexemeApi.get( id ).then( ( lexeme ) => {
+			assert.equal( lexeme.forms[ 0 ].representations.en.value, 'color' );
+		} ) );
+		assert.equal( LexemePage.getNthFormData( 0 ).value, 'color' );
+	} );
+
 	it( 'can add grammatical feature', () => {
 		const grammaticalFeatureId = browser.call( () => WikibaseApi.createItem() );
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {

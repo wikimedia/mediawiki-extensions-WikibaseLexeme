@@ -98,6 +98,7 @@
 		value: function ( sense ) {
 			if ( sense instanceof wb.lexeme.datamodel.Sense ) {
 				this.option( 'value', sense );
+				this.glossWidget.glosses = termMapToArray( sense.getGlosses() );
 				if ( this.deferredSenseWithId && sense.getId() ) {
 					this.deferredSenseWithId.resolve( sense );
 					this.deferredSenseWithId = null;
@@ -213,6 +214,10 @@
 
 		glosses.each( function ( language, term ) {
 			result.push( { language: term.getLanguageCode(), value: term.getText() } );
+		} );
+
+		result.sort( function ( a, b ) {
+			return a.language > b.language;
 		} );
 
 		return result;

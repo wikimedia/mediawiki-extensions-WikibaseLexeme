@@ -139,4 +139,28 @@ describe( 'Lexeme:Senses', () => {
 		assert.notEqual( glossCountBefore, glossCountAfter );
 	} );
 
+	it( 'Trims whitespace from Gloss', () => {
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			const lexemeId = lexeme.id;
+			return LexemeApi.addSense(
+				lexemeId,
+				{
+					glosses: {
+						en: { language: 'en', value: 'cat animal' }
+					},
+					grammaticalFeatures: []
+				}
+			).then( () => lexemeId );
+		} ) );
+
+		LexemePage.open( id );
+
+		SensePage.editSensValueAndSubmit( 0, 'cat ' );
+
+		browser.call( () => LexemeApi.get( id ).then( ( lexeme ) => {
+			assert.equal( lexeme.senses[ 0 ].glosses.en.value, 'cat' );
+		} ) );
+		assert.equal( SensePage.getNthSenseData( 0 ).value, 'cat' );
+	} );
+
 } );
