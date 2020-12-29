@@ -27,7 +27,7 @@
 	"wikibase-lexeme-gloss-empty": "לא הוגדר פירוש",
 	"wikibaselexeme-lemma-field-lemma-label": "משפט מוגדר",
 	"wikibaselexeme-lemma-field-language-label": "תקן כתיב",
-	"wikibaselexeme-lemma-redundant-language": "אין אפשרות להזין משפטים מוגדרים מרובים עם אותו תקן כתיב.",
+	"wikibaselexeme-lemma-redundant-language": "אי־אפשר להזין מספר משפטים מוגדרים עם אותו תקן כתיב.",
 	"wikibaselexeme-form-field-representation-label": "ייצוג",
 	"wikibaselexeme-form-field-language-label": "תקן כתיב",
 	"wikibaselexeme-form-representation-redundant-language": "אין אפשרות להזין ייצוגים מרובים עם אותו תקן כתיב.",
