@@ -59,7 +59,8 @@
 		],
 		"mediawiki-vendor-diff-changed": [
 			"composer-lock-diff --from ./composer.lock --to https://raw.githubusercontent.com/wikimedia/mediawiki-vendor/master/composer.lock | grep -v \"| REMOVED\" | grep -v \"| NEW\""
-		]
+		],
+		"phan": "phan -d . --long-progress-bar"
 	},
 	"repositories": [
 		{
