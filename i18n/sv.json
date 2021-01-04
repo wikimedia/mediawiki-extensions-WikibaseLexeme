@@ -61,7 +61,7 @@
 	"wikibaselexeme-formidformatter-separator-grammatical-features": ",",
 	"wikibaselexeme-description": "$1, $2",
 	"wikibaselexeme-form-description": "$1 för: $2 ($3): $4",
-	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|uttalande|uttalanden}}, $2 {{PLURAL:$2|formulär}}",
+	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|uttalande|uttalanden}}, $2 {{PLURAL:$2|form|former}}",
 	"wikibaselexeme-unknown-language": "Okänt språk",
 	"wikibaselexeme-unknown-category": "Okänd",
 	"wikibaselexeme-no-features": "inga funktioner",
