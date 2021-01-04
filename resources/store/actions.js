@@ -28,10 +28,7 @@
 		store.commit( mutationTypes.REMOVE_REPRESENTATION, payload );
 	};
 	actions[ actionTypes.UPDATE_REPRESENTATION_VALUE ] = function ( store, payload ) {
-		store.commit(
-			mutationTypes.UPDATE_REPRESENTATION_VALUE,
-			$.extend( payload, { value: payload.value.trim() } )
-		);
+		store.commit( mutationTypes.UPDATE_REPRESENTATION_VALUE, payload );
 	};
 	actions[ actionTypes.UPDATE_REPRESENTATION_LANGUAGE ] = function ( store, payload ) {
 		store.commit( mutationTypes.UPDATE_REPRESENTATION_LANGUAGE, payload );
