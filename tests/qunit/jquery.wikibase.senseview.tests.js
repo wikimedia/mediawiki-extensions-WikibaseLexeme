@@ -49,13 +49,17 @@
 	} );
 
 	QUnit.test( 'value() sets internal value', function ( assert ) {
-		// eslint-disable-next-line no-unused-vars
-		var sense1 = newSense( 'S123', 'foo' ),
+		var done = assert.async(),
+			sense1 = newSense( 'S123', 'foo' ),
 			sense2 = newSense( 'S234', 'bar' ),
-			view = newSenseView( { value: sense2 } );
+			view = newSenseView( { value: sense1 } );
 
 		view.value( sense2 );
 		assert.equal( view.value(), sense2 );
+
+		// await this promise if the call to value() triggered it,
+		// to avoid test error due to pending AJAX request
+		view.glossWidget.getValidLanguagesPromise().then( done, done );
 	} );
 
 	QUnit.test( 'Given a value, creates StatementGroupListView with Sense id prefix', function ( assert ) {

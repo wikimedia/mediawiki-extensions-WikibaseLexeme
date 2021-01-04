@@ -116,6 +116,7 @@
 			if ( form instanceof wb.lexeme.datamodel.Form ) {
 				this.option( 'value', form );
 				this._grammaticalFeatureView.value( form.getGrammaticalFeatures() );
+				this._representationsWidget.replaceAllRepresentations( termMapToArray( form.getRepresentations() ) );
 				if ( this.deferredFormWithId && form.getId() ) {
 					this.deferredFormWithId.resolve( form );
 					this.deferredFormWithId = null;
