@@ -89,6 +89,32 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 
 	} );
 
+	it( 'failed save returns rejected promise with first error object if API returns multiple errors', function ( done ) {
+		var expectedError = { code: 'error-code', info: 'info-text' },
+			ignoredError = { code: 'error-code', info: 'info-text' },
+			repoApi = {
+				editEntity: function () {
+					return $.Deferred( function ( defer ) {
+						defer.reject( 'error-code', { errors: [ expectedError, ignoredError ] } );
+					} );
+				},
+				formatValue: function ( dataValue ) {
+					return Promise.resolve( { result: 'Link for ' + dataValue.value.id } );
+				}
+			},
+			store = new Vuex.Store( newLexemeHeaderStore( repoApi, { lemmas: [] }, 0, 'Q223', 'Q322' ) );
+
+		store.dispatch( 'save', {
+			lemmas: [ new Lemma( '', '' ) ],
+			language: 'Q223',
+			lexicalCategory: 'Q322'
+		} ).catch( function ( error ) {
+			expect( error, 'to equal', expectedError );
+			done();
+		} );
+
+	} );
+
 	function newTestAction( done ) {
 
 		// helper for testing action with expected mutations

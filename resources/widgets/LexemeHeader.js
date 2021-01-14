@@ -88,7 +88,7 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 			$saveButton.wbtooltip( {
 				content: {
 					code: error.code,
-					message: error.info
+					message: error.info || error.text || error[ '*' ]
 				},
 				permanent: true
 			} );
