@@ -270,7 +270,7 @@ class LexemeFormsMergerTest extends TestCase {
 		$statementChangeOpFactory = new StatementChangeOpFactory(
 			$guidGenerator,
 			$mockProvider->getMockGuidValidator(),
-			WikibaseRepo::getDefaultInstance()->getStatementGuidParser(),
+			WikibaseRepo::getStatementGuidParser(),
 			$mockProvider->getMockSnakValidator(),
 			$mockProvider->getMockSnakValidator()
 		);
