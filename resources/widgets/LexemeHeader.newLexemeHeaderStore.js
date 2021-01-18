@@ -126,7 +126,8 @@ module.exports = ( function () {
 									deferred.resolve( response );
 								} )
 								.catch( function ( code, response ) {
-									deferred.reject( response && response.error );
+									var error = response && ( response.error || response.errors[ 0 ] );
+									deferred.reject( error );
 								} );
 						} );
 
