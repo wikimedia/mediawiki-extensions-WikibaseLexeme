@@ -24,14 +24,14 @@
 		"symfony/validator": "^3.0"
 	},
 	"require-dev": {
-		"jakub-onderka/php-parallel-lint": "1.0.0",
-		"jakub-onderka/php-console-highlighter": "0.3.2",
-		"hamcrest/hamcrest-php": "^2.0",
+		"davidrjonas/composer-lock-diff": "^1.3",
 		"giorgiosironi/eris": "dev-master#34ca0178905d476f25bc28cf401d04cd5df09dd1",
+		"hamcrest/hamcrest-php": "^2.0",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/minus-x": "0.3.1",
-		"wikibase/wikibase-codesniffer": "^0.3.0",
-		"davidrjonas/composer-lock-diff": "^1.3"
+		"php-parallel-lint/php-console-highlighter": "0.3.2",
+		"php-parallel-lint/php-parallel-lint": "1.0.0",
+		"wikibase/wikibase-codesniffer": "0.5.1"
 	},
 	"autoload": {
 		"psr-4": {
@@ -46,8 +46,8 @@
 	},
 	"scripts": {
 		"fix": [
-			"phpcbf",
-			"minus-x fix ."
+			"minus-x fix .",
+			"phpcbf"
 		],
 		"test": [
 			"parallel-lint . --exclude vendor --exclude node_modules",

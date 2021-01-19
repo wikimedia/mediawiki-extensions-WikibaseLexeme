@@ -1,37 +1,37 @@
 {
-  "private": true,
-  "scripts": {
-    "test": "grunt test"
-  },
-  "devDependencies": {
-    "eslint-config-wikimedia": "0.4.0",
-    "eslint-plugin-promise": "^3.6.0",
-    "grunt": "1.0.1",
-    "grunt-banana-checker": "0.4.0",
-    "grunt-eslint": "19.0.0",
-    "grunt-jasmine-nodejs": "^1.6.0",
-    "grunt-jsonlint": "1.0.7",
-    "jasmine": "^2.6.0",
-    "jquery": "^3.2.1",
-    "jsdom": "^11.1.0",
-    "jsdom-global": "^3.0.2",
-    "module-alias": "^2.0.0",
-    "sinon": "^3.2.1",
-    "unexpected": "^10.32.1",
-    "unexpected-dom": "^4.0.0",
-    "unexpected-sinon": "^10.8.2",
-    "vue": "2.3.3",
-    "vuex": "^2.3.1"
-  },
-  "_moduleAliases": {
-    "wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
-    "wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js",
-    "wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js",
-    "wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": "./resources/widgets/LemmaWidget.newLemmaWidget.js",
-    "wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore": "./resources/widgets/LexemeHeader.newLexemeHeaderStore.js",
-    "wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget": "./resources/widgets/LanguageAndLexicalCategoryWidget.js",
-    "wikibase.lexeme.widgets.ItemSelectorWrapper": "./resources/widgets/ItemSelectorWrapper.js",
-    "wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader": "./resources/widgets/LexemeHeader.newLexemeHeader.js",
-    "wikibase.lexeme.datamodel.Lemma": "./resources/datamodel/Lemma.js"
-  }
+	"private": true,
+	"scripts": {
+		"test": "grunt test"
+	},
+	"devDependencies": {
+		"eslint-config-wikimedia": "0.4.0",
+		"eslint-plugin-promise": "^3.6.0",
+		"grunt": "1.3.0",
+		"grunt-banana-checker": "0.4.0",
+		"grunt-eslint": "19.0.0",
+		"grunt-jasmine-nodejs": "^1.6.0",
+		"grunt-jsonlint": "1.0.7",
+		"jasmine": "^2.6.0",
+		"jquery": "^3.5.1",
+		"jsdom": "^11.1.0",
+		"jsdom-global": "^3.0.2",
+		"module-alias": "^2.0.0",
+		"sinon": "^3.2.1",
+		"unexpected": "^10.32.1",
+		"unexpected-dom": "^4.0.0",
+		"unexpected-sinon": "^10.8.2",
+		"vue": "2.3.3",
+		"vuex": "^2.3.1"
+	},
+	"_moduleAliases": {
+		"wikibase.lexeme.widgets.GlossWidget": "./resources/widgets/GlossWidget.js",
+		"wikibase.lexeme.widgets.RepresentationWidget": "./resources/widgets/RepresentationWidget.js",
+		"wikibase.lexeme.widgets.LexemeHeader": "./resources/widgets/LexemeHeader.js",
+		"wikibase.lexeme.widgets.LemmaWidget.newLemmaWidget": "./resources/widgets/LemmaWidget.newLemmaWidget.js",
+		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeaderStore": "./resources/widgets/LexemeHeader.newLexemeHeaderStore.js",
+		"wikibase.lexeme.widgets.LanguageAndLexicalCategoryWidget": "./resources/widgets/LanguageAndLexicalCategoryWidget.js",
+		"wikibase.lexeme.widgets.ItemSelectorWrapper": "./resources/widgets/ItemSelectorWrapper.js",
+		"wikibase.lexeme.widgets.LexemeHeader.newLexemeHeader": "./resources/widgets/LexemeHeader.newLexemeHeader.js",
+		"wikibase.lexeme.datamodel.Lemma": "./resources/datamodel/Lemma.js"
+	}
 }
