@@ -1,10 +1,16 @@
 {
 	"private": true,
+	"config": {
+		"remoteVersion": {
+		  "vue": "https://raw.githubusercontent.com/wikimedia/mediawiki/#{ZUUL_BRANCH}/resources/lib/vue/vue.common.prod.js",
+		  "vuex": "https://raw.githubusercontent.com/wikimedia/mediawiki/#{ZUUL_BRANCH}/resources/lib/vuex/vuex.js"
+		}
+	},
 	"scripts": {
 		"selenium-daily": "MEDIAWIKI_USER='Selenium user' MW_SERVER=https://wikidata.beta.wmflabs.org:443 MW_SCRIPT_PATH=/w WIKIBASE_PROPERTY_STRING=P443 npm run selenium-test",
 		"selenium-test": "wdio tests/selenium/wdio.conf.js",
 		"test": "grunt test",
-		"test:mwlibs": "node tests/mwlibs-testing/mwlibs.js",
+		"test:mwlibs": "ZUUL_BRANCH=${ZUUL_BRANCH:-master} lib-version-check",
 		"fix": "grunt fix"
 	},
 	"devDependencies": {
@@ -13,6 +19,7 @@
 		"@wdio/mocha-framework": "^6.1.14",
 		"@wdio/spec-reporter": "^6.1.14",
 		"@wdio/sync": "^6.1.14",
+		"@wmde/lib-version-check": "^0.1.0",
 		"eslint-config-wikimedia": "0.17.0",
 		"eslint-plugin-compat": "^3.5.1",
 		"eslint-plugin-promise": "^4.2.1",
@@ -27,7 +34,6 @@
 		"jsdom-global": "^3.0.2",
 		"lodash": "^4.17.19",
 		"module-alias": "^2.0.0",
-		"require-from-url": "^3.1.3",
 		"sinon": "^7.2.3",
 		"stylelint-config-wikimedia": "0.10.3",
 		"unexpected": "^10.32.1",
