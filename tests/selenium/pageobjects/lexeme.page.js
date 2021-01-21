@@ -262,7 +262,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 				return true;
 			}
 			const errorMsg = $( 'body > ul.ui-entityselector-list > .ui-entityselector-notfound' );
-			return errorMsg.isVisible();
+			return errorMsg.isDisplayed();
 		} );
 		return isSaveable;
 	}

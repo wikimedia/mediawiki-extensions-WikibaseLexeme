@@ -38,10 +38,10 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	* Checks if any elements of the form are currently visible
 	*/
 	formCurrentlyVisible() {
-		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).isVisible() ||
-			$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).isVisible() ||
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).isVisible() ||
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).isVisible();
+		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).isDisplayed() ||
+			$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).isDisplayed() ||
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).isDisplayed() ||
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).isDisplayed();
 
 	}
 
