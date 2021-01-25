@@ -173,19 +173,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		$this->assertSame( 'lexeme', $result['entity']['type'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'type' => 'lexeme',
 				'id' => self::EXISTING_LEXEME_ID,
 				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -203,10 +197,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
@@ -215,7 +205,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'en-gb' => [ 'language' => 'en-gb', 'value' => 'appel' ],
 				]
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -254,10 +244,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
@@ -266,7 +252,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'appel' ],
 				]
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -284,10 +270,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
@@ -295,7 +277,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'en' => [ 'language' => 'en', 'value' => 'apple' ],
 				]
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -358,17 +340,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
 				'language' => 'Q333',
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -388,17 +365,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
 				'lexicalCategory' => 'Q333',
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -421,11 +393,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
@@ -433,7 +400,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lexicalCategory' => 'Q606',
 				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -464,12 +431,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertHasStatement( $claim, $lexemeData );
+		$this->assertHasStatement( $claim, $result['entity'] );
 	}
 
 	public function testGivenClearAndExisitingLexemeIdAndLemma_lemmaDataIsChanged() {
@@ -492,11 +454,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
-		// TODO: Also check lexeme fields are returned in the response when they're returned (T160504)
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
 		$this->assertEntityFieldsEqual(
 			[
 				'id' => self::EXISTING_LEXEME_ID,
@@ -504,7 +461,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
 				'lemmas' => [ 'en-gb' => [ 'language' => 'en-gb', 'value' => 'appel' ] ],
 			],
-			$lexemeData
+			$result['entity']
 		);
 	}
 
@@ -526,10 +483,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$firstFormData = $lexemeData['forms'][0];
+		$firstFormData = $result['entity'];
 
 		$this->assertEquals( $formId, $firstFormData['id'] );
 		$this->assertEquals(
@@ -998,18 +952,14 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-
-		$this->assertCount( 1, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 1, $result['entity']['forms'] );
 		$this->assertSame(
 			$this->formatFormId(
 				self::EXISTING_LEXEME_ID,
 				self::EXISTING_LEXEME_FORM_2_ID
 			),
-			$lexemeData['forms'][0]['id']
+			$result['entity']['forms'][0]['id']
 		);
 	}
 
@@ -1068,11 +1018,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 0, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 0, $result['entity']['forms'] );
 	}
 
 	public function testGivenIdOfExistingLexemeAndFirstFormRemovalFails_noneOfTheFormsAreRemoved() {
@@ -1459,14 +1406,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 2, $lexemeData['forms'] );
-		$this->assertCount( 1, $lexemeData['forms'][1]['representations'] );
-		$this->assertSame( 'en', $lexemeData['forms'][1]['representations']['en']['language'] );
-		$this->assertSame( 'Chinese crab', $lexemeData['forms'][1]['representations']['en']['value'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 2, $result['entity']['forms'] );
+		$form = $result['entity']['forms'][1];
+		$this->assertCount( 1, $form['representations'] );
+		$this->assertSame( 'en', $form['representations']['en']['language'] );
+		$this->assertSame( 'Chinese crab', $form['representations']['en']['value'] );
 	}
 
 	public function testGivenExistingLexemeAndRemovingFormRepresentations_formIsUpdatedCorrectly() {
@@ -1495,11 +1440,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 1, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 1, $result['entity']['forms'] );
 		$this->assertSame(
 			[
 				self::EXISTING_LEXEME_FORM_1_LANGUAGE2 => [
@@ -1507,7 +1449,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'value' => self::EXISTING_LEXEME_FORM_1_TEXT2
 				]
 			],
-			$lexemeData['forms'][0]['representations']
+			$result['entity']['forms'][0]['representations']
 		);
 	}
 
@@ -1532,10 +1474,6 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertCount( 1, $lexemeData['forms'] );
 		$this->assertSame(
 			[
 				self::EXISTING_LEXEME_FORM_1_LANGUAGE2 => [
@@ -1543,7 +1481,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'value' => self::EXISTING_LEXEME_FORM_1_TEXT2
 				]
 			],
-			$lexemeData['forms'][0]['representations']
+			$result['entity']['representations']
 		);
 	}
 
@@ -1680,14 +1618,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 2, $lexemeData['forms'] );
-		$this->assertCount( 2, $lexemeData['forms'][1]['representations'] );
-		$this->assertSame( 'Malus', $lexemeData['forms'][1]['representations']['en']['value'] );
-		$this->assertSame( 'Malus baccata', $lexemeData['forms'][1]['representations']['la']['value'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 2, $result['entity']['forms'] );
+		$form = $result['entity']['forms'][1];
+		$this->assertCount( 2, $form['representations'] );
+		$this->assertSame( 'Malus', $form['representations']['en']['value'] );
+		$this->assertSame( 'Malus baccata', $form['representations']['la']['value'] );
 	}
 
 	public function testGivenFormToBeChangedDoesNotExistOnLexeme_errorIsReported() {
@@ -1748,18 +1684,15 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 2, $lexemeData['forms'] );
-		$this->assertCount( 1, $lexemeData['forms'][0]['grammaticalFeatures'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 2, $result['entity']['forms'] );
+		$this->assertCount( 1, $result['entity']['forms'][0]['grammaticalFeatures'] );
 		$this->assertSame(
 			self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID,
-			$lexemeData['forms'][0]['grammaticalFeatures'][0]
+			$result['entity']['forms'][0]['grammaticalFeatures'][0]
 		);
 
-		$this->assertHasStatement( $claim, $lexemeData['forms'][0] );
+		$this->assertHasStatement( $claim, $result['entity']['forms'][0] );
 	}
 
 	// TODO: edit statements (all options: add, edit, remove?) with id=L1
@@ -1795,27 +1728,24 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 3, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 3, $result['entity']['forms'] );
 
 		$this->assertSame(
 			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
-			$lexemeData['forms'][0]['grammaticalFeatures']
+			$result['entity']['forms'][0]['grammaticalFeatures']
 		);
 
 		$this->assertSame(
 			$this->formatFormId(
 				self::EXISTING_LEXEME_ID, 'F3'
 			),
-			$lexemeData['forms'][2]['id']
+			$result['entity']['forms'][2]['id']
 		);
-		$this->assertSame( [ 'Q18', 'Q19' ], $lexemeData['forms'][2]['grammaticalFeatures'] );
-		$this->assertCount( 1, $lexemeData['forms'][2]['representations'] );
-		$this->assertSame( 'la', $lexemeData['forms'][2]['representations']['la']['language'] );
-		$this->assertSame( 'Malus baccata', $lexemeData['forms'][2]['representations']['la']['value'] );
+		$this->assertSame( [ 'Q18', 'Q19' ], $result['entity']['forms'][2]['grammaticalFeatures'] );
+		$this->assertCount( 1, $result['entity']['forms'][2]['representations'] );
+		$this->assertSame( 'la', $result['entity']['forms'][2]['representations']['la']['language'] );
+		$this->assertSame( 'Malus baccata', $result['entity']['forms'][2]['representations']['la']['value'] );
 	}
 
 	public function testGivenExistingLexemeAndFormDataWithAddKey_formIsAdded() {
@@ -1841,20 +1771,17 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 3, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 3, $result['entity']['forms'] );
 		$this->assertEquals(
 			[
 				'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 			],
-			$lexemeData['forms'][2]['representations']
+			$result['entity']['forms'][2]['representations']
 		);
 		$this->assertEquals(
 			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
-			$lexemeData['forms'][2]['grammaticalFeatures']
+			$result['entity']['forms'][2]['grammaticalFeatures']
 		);
 
 		/** @var Lexeme $lexeme */
@@ -1895,29 +1822,27 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 2, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 2, $result['entity']['forms'] );
 
 		$this->assertSame(
 			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
-			$lexemeData['forms'][0]['grammaticalFeatures']
+			$result['entity']['forms'][0]['grammaticalFeatures']
 		);
 
-		$this->assertSame( [ 'Q18', 'Q19' ], $lexemeData['forms'][1]['grammaticalFeatures'] );
+		$form = $result['entity']['forms'][1];
+		$this->assertSame( [ 'Q18', 'Q19' ], $form['grammaticalFeatures'] );
 
-		$this->assertCount( 2, $lexemeData['forms'][1]['representations'] );
-		$this->assertSame( 'la', $lexemeData['forms'][1]['representations']['la']['language'] );
-		$this->assertSame( 'Malus baccata', $lexemeData['forms'][1]['representations']['la']['value'] );
+		$this->assertCount( 2, $form['representations'] );
+		$this->assertSame( 'la', $form['representations']['la']['language'] );
+		$this->assertSame( 'Malus baccata', $form['representations']['la']['value'] );
 		$this->assertSame(
 			self::EXISTING_LEXEME_FORM_2_LANGUAGE,
-			$lexemeData['forms'][1]['representations'][self::EXISTING_LEXEME_FORM_2_LANGUAGE]['language']
+			$form['representations'][self::EXISTING_LEXEME_FORM_2_LANGUAGE]['language']
 		);
 		$this->assertSame(
 			self::EXISTING_LEXEME_FORM_2_TEXT,
-			$lexemeData['forms'][1]['representations'][self::EXISTING_LEXEME_FORM_2_LANGUAGE]['value']
+			$form['representations'][self::EXISTING_LEXEME_FORM_2_LANGUAGE]['value']
 		);
 	}
 
@@ -1945,20 +1870,17 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 3, $lexemeData['forms'] );
+		$expectedId = $this->formatFormId( self::EXISTING_LEXEME_ID, 'F3' );
+		$this->assertSame( $expectedId, $result['entity']['id'] );
 		$this->assertEquals(
 			[
 				'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 			],
-			$lexemeData['forms'][2]['representations']
+			$result['entity']['representations']
 		);
 		$this->assertEquals(
 			[ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
-			$lexemeData['forms'][2]['grammaticalFeatures']
+			$result['entity']['grammaticalFeatures']
 		);
 
 		/** @var Lexeme $lexeme */
@@ -2093,25 +2015,23 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 1, $lexemeData['forms'] );
+		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
+		$this->assertCount( 1, $result['entity']['forms'] );
 		$this->assertSame(
 			$this->formatFormId( self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID ),
-			$lexemeData['forms'][0]['id']
+			$result['entity']['forms'][0]['id']
 		);
 	}
 
 	public function testGivenExistingFormAndChangeInFormRepresentations_formPropertyIsUpdated() {
 		$this->saveDummyLexemeToDatabase();
 
+		$formId = $this->formatFormId(
+			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+		);
 		$params = [
 			'action' => 'wbeditentity',
-			'id' => $this->formatFormId(
-				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
-			),
+			'id' => $formId,
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
@@ -2122,14 +2042,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 2, $lexemeData['forms'] );
-		$this->assertCount( 1, $lexemeData['forms'][0]['representations'] );
-		$this->assertSame( 'en', $lexemeData['forms'][0]['representations']['en']['language'] );
-		$this->assertSame( 'Chinese crab', $lexemeData['forms'][0]['representations']['en']['value'] );
+		$this->assertSame( $formId, $result['entity']['id'] );
+		$form = $result['entity'];
+		$this->assertCount( 1, $form['representations'] );
+		$this->assertSame( 'en', $form['representations']['en']['language'] );
+		$this->assertSame( 'Chinese crab', $form['representations']['en']['value'] );
 	}
 
 	public function testGivenExistingFormAndAddingFormRepresentation_formPropertyIsUpdated() {
@@ -2151,14 +2068,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertCount( 2, $lexemeData['forms'] );
-		$this->assertSame( $formId, $lexemeData['forms'][1]['id'] );
-		$this->assertCount( 2, $lexemeData['forms'][1]['representations'] );
-		$this->assertSame( 'Malus', $lexemeData['forms'][1]['representations']['en']['value'] );
-		$this->assertSame( 'Malus baccata', $lexemeData['forms'][1]['representations']['la']['value'] );
+		$form = $result['entity'];
+		$this->assertSame( $formId, $form['id'] );
+		$this->assertCount( 2, $form['representations'] );
+		$this->assertSame( 'Malus', $form['representations']['en']['value'] );
+		$this->assertSame( 'Malus baccata', $form['representations']['la']['value'] );
 	}
 
 	public function testGivenExistingFormAndRepresentationsWithSpecialLanguage_formIsUpdated() {
@@ -2240,11 +2154,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->saveDummyLexemeToDatabase();
 		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
+		$formId = $this->formatFormId(
+			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+		);
 		$params = [
 			'action' => 'wbeditentity',
-			'id' => $this->formatFormId(
-				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
-			),
+			'id' => $formId,
 			'data' => json_encode( [
 				'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 			] ),
@@ -2253,15 +2168,11 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-
-		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
-
-		$this->assertSame( self::EXISTING_LEXEME_ID, $lexemeData['id'] );
-		$this->assertCount( 2, $lexemeData['forms'] );
-		$this->assertCount( 1, $lexemeData['forms'][0]['grammaticalFeatures'] );
+		$this->assertSame( $formId, $result['entity']['id'] );
+		$this->assertCount( 1, $result['entity']['grammaticalFeatures'] );
 		$this->assertSame(
 			self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID,
-			$lexemeData['forms'][0]['grammaticalFeatures'][0]
+			$result['entity']['grammaticalFeatures'][0]
 		);
 	}
 
