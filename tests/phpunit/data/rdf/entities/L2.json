@@ -1,52 +1,52 @@
 {
-    "id": "L2",
-    "type": "lexeme",
-    "lemmas": {
-        "en-us": {
-            "language": "en-us",
-            "value": "Color"
-        },
-        "en-gb": {
-            "language": "en-gb",
-            "value": "Colour"
-        }
-    },
-    "language": "Q1",
-    "lexicalCategory": "Q2",
-    "claims": [],
-    "forms": [
-        {
-            "id": "L2-F1",
-            "representations": {
-                "en-us": {
-                    "language": "en-us",
-                    "value": "Colors"
-                },
-                "en-gb": {
-                    "language": "en-gb",
-                    "value": "Colours"
-                }
-            },
-            "grammaticalFeatures": [ "Q3", "Q4" ],
-            "claims": []
-        }
-    ],
-    "nextFormId": 2,
-    "senses": [
-        {
-            "id": "L2-S1",
-            "glosses": {
-                "en-us": {
-                    "language": "en-us",
-                    "value": "coloring"
-                },
-                "en-gb": {
-                    "language": "en-gb",
-                    "value": "colouring"
-                }
-            },
-            "claims": []
-        }
-    ],
-    "nextSenseId": 2
+	"id": "L2",
+	"type": "lexeme",
+	"lemmas": {
+		"en-us": {
+			"language": "en-us",
+			"value": "Color"
+		},
+		"en-gb": {
+			"language": "en-gb",
+			"value": "Colour"
+		}
+	},
+	"language": "Q1",
+	"lexicalCategory": "Q2",
+	"claims": [],
+	"forms": [
+		{
+			"id": "L2-F1",
+			"representations": {
+				"en-us": {
+					"language": "en-us",
+					"value": "Colors"
+				},
+				"en-gb": {
+					"language": "en-gb",
+					"value": "Colours"
+				}
+			},
+			"grammaticalFeatures": [ "Q3", "Q4" ],
+			"claims": []
+		}
+	],
+	"nextFormId": 2,
+	"senses": [
+		{
+			"id": "L2-S1",
+			"glosses": {
+				"en-us": {
+					"language": "en-us",
+					"value": "coloring"
+				},
+				"en-gb": {
+					"language": "en-gb",
+					"value": "colouring"
+				}
+			},
+			"claims": []
+		}
+	],
+	"nextSenseId": 2
 }
