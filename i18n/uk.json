@@ -94,6 +94,7 @@
 	"wikibaselexeme-no-features": "немає ознак",
 	"wikibase-validator-form-not-found": "Лексема не має Форми із заданим ідентифікатором",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Наприклад: нормативний, порівняльний, минулий час...",
+	"wikibase-lexeme-language-name-az-cyrl": "Азербайджанська записана кирилицею",
 	"wikibase-lexeme-language-name-de-1901": "німецька (до реформи 1996 року)",
 	"wikibase-lexeme-language-name-eo-hsistemo": "есперанто (за системою h)",
 	"wikibase-lexeme-language-name-eo-xsistemo": "есперанто (за системою x)",
