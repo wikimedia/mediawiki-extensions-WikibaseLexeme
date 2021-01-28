@@ -115,6 +115,7 @@ class FormDiffViewTest extends TestCase {
 	}
 
 	public function testDiffChangedRepresentations() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new FormDiffer();
 		$form1 = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'cat' )
@@ -135,6 +136,7 @@ class FormDiffViewTest extends TestCase {
 	}
 
 	public function testDiffAddedRepresentations() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new FormDiffer();
 		$form1 = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'en-value' )
@@ -155,6 +157,7 @@ class FormDiffViewTest extends TestCase {
 	}
 
 	public function testDiffAddedGrammaticalFeatures() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new FormDiffer();
 		$form1 = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'en-value' )
@@ -177,6 +180,7 @@ class FormDiffViewTest extends TestCase {
 	}
 
 	public function testDiffChangedStatements() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new FormDiffer();
 		$form1 = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'en-value' )
@@ -204,6 +208,7 @@ class FormDiffViewTest extends TestCase {
 	}
 
 	public function testPatchRemovedGrammaticalFeature() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new FormDiffer();
 		$form1 = NewForm::havingId( 'F1' )
 			->andRepresentation( 'en', 'en-value' )

@@ -112,6 +112,7 @@ class SenseDiffViewTest extends TestCase {
 	}
 
 	public function testDiffChangedGlosses() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new SenseDiffer();
 		$sense1 = NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'cat' )
@@ -132,6 +133,7 @@ class SenseDiffViewTest extends TestCase {
 	}
 
 	public function testDiffAddedGlosses() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new SenseDiffer();
 		$sense1 = NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'en-value' )
@@ -152,6 +154,7 @@ class SenseDiffViewTest extends TestCase {
 	}
 
 	public function testDiffChangedStatements() {
+		$this->markTestSkipped( 'T272579' );
 		$differ = new SenseDiffer();
 		$sense1 = NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'en-value' )
