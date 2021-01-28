@@ -20,9 +20,9 @@ class SpecialMergeLexemesPage extends Page {
 		const $fromId = $( this.constructor.MERGE_LEXEME_SELECTORS.FROMID ),
 			$toId = $( this.constructor.MERGE_LEXEME_SELECTORS.TOID ),
 			$submit = $( this.constructor.MERGE_LEXEME_SELECTORS.SUBMIT_BUTTON );
-		return $fromId.isVisible() &&
-		$toId.isVisible() &&
-		$submit.isVisible();
+		return $fromId.isDisplayed() &&
+			$toId.isDisplayed() &&
+			$submit.isDisplayed();
 	}
 
 	open() {
