@@ -112,7 +112,6 @@ class SenseDiffViewTest extends TestCase {
 	}
 
 	public function testDiffChangedGlosses() {
-		$this->markTestSkipped( 'T272579' );
 		$differ = new SenseDiffer();
 		$sense1 = NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'cat' )
@@ -125,15 +124,14 @@ class SenseDiffViewTest extends TestCase {
 		$senseDiffViewHeader = 'sense / L1-S1 / (wikibaselexeme-diffview-gloss) / en';
 		$expected = '<tr><td colspan="2" class="diff-lineno">' . $senseDiffViewHeader .
 			'</td><td colspan="2" class="diff-lineno">' . $senseDiffViewHeader . '</td></tr>' .
-			'<tr><td class="diff-marker">-</td><td class="diff-deletedline"><div>' .
-			'<del class="diffchange diffchange-inline">cat</del></div></td><td class="diff-marker">' .
-			'+</td><td class="diff-addedline"><div><ins class="diffchange diffchange-inline">' .
-			'goat</ins></div></td></tr>';
+			'<tr><td class="diff-marker" data-marker="−"></td><td class="diff-deletedline"><div>' .
+			'<del class="diffchange diffchange-inline">cat</del></div></td><td class="diff-marker" ' .
+			'data-marker="+"></td><td class="diff-addedline"><div><ins class="diffchange ' .
+			'diffchange-inline">goat</ins></div></td></tr>';
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
 	public function testDiffAddedGlosses() {
-		$this->markTestSkipped( 'T272579' );
 		$differ = new SenseDiffer();
 		$sense1 = NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'en-value' )
@@ -148,13 +146,12 @@ class SenseDiffViewTest extends TestCase {
 		$senseDiffViewHeader = 'sense / L1-S1 / (wikibaselexeme-diffview-gloss) / fr';
 		$expected = '<tr><td colspan="2" class="diff-lineno">' . $senseDiffViewHeader .
 			'</td><td colspan="2" class="diff-lineno">' . $senseDiffViewHeader . '</td></tr>' .
-			'<tr><td colspan="2">&nbsp;</td><td class="diff-marker">+</td><td class="diff-addedline">' .
+			'<tr><td colspan="2">&nbsp;</td><td class="diff-marker" data-marker="+"></td><td class="diff-addedline">' .
 			'<div><ins class="diffchange diffchange-inline">fr-value</ins></div></td></tr>';
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
 	public function testDiffChangedStatements() {
-		$this->markTestSkipped( 'T272579' );
 		$differ = new SenseDiffer();
 		$sense1 = NewSense::havingId( 'S1' )
 			->withGloss( 'en', 'en-value' )
@@ -170,12 +167,12 @@ class SenseDiffViewTest extends TestCase {
 
 		$expected = '<tr><td colspan="2" class="diff-lineno"></td><td colspan="2" class="diff-lineno">' .
 			'sense / L1-S1 / (wikibase-entity-property) / <a>PID</a></td></tr><tr>' .
-			'<td colspan="2">&nbsp;</td><td class="diff-marker">+</td><td class="diff-addedline">' .
+			'<td colspan="2">&nbsp;</td><td class="diff-marker" data-marker="+"></td><td class="diff-addedline">' .
 			'<div><ins class="diffchange diffchange-inline"><span><i>DETAILED SNAK</i></span></ins>' .
 			'</div></td></tr><tr><td colspan="2" class="diff-lineno"></td><td colspan="2" ' .
 			'class="diff-lineno">sense / L1-S1 / (wikibase-entity-property) / <a>PID</a>' .
 			'(colon-separator)<i>SNAK</i> / (wikibase-diffview-rank)</td></tr><tr><td colspan="2">' .
-			'&nbsp;</td><td class="diff-marker">+</td><td class="diff-addedline"><div>' .
+			'&nbsp;</td><td class="diff-marker" data-marker="+"></td><td class="diff-addedline"><div>' .
 			'<ins class="diffchange diffchange-inline"><span>(wikibase-diffview-rank-normal)</span>' .
 			'</ins></div></td></tr>';
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
