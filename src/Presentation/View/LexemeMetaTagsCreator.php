@@ -49,8 +49,8 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 
 		$description = $this->getDescriptionText( $entity );
 		if ( !empty( $description ) ) {
-			$metaTags [ 'description' ] = $description;
-			$metaTags [ 'og:description' ] = $description;
+			$metaTags[ 'description' ] = $description;
+			$metaTags[ 'og:description' ] = $description;
 
 		}
 
