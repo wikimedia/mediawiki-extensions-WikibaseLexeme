@@ -22,6 +22,8 @@ return call_user_func( function () {
 	// TODO Problem when removing a code after such an item exists in DB
 	$additionalLanguages = [
 		'az-cyrl', // T265906
+		'ccp', // T272442
+		'ccp-beng', // T272442
 		'ctg', // T271589
 		'de-1901', // T250559
 		'eo-hsistemo', // T257422
@@ -37,6 +39,7 @@ return call_user_func( function () {
 		'non-runr', // T265782
 		'nrf-gg', // T223716
 		'nrf-je', // T223716
+		'rhg-rohg', // T272442
 		'rkt', // T271589
 		'rm-rumgr', // T210293
 		'rm-surmiran', // T210293
@@ -46,7 +49,8 @@ return call_user_func( function () {
 		'rm-puter', // T210293
 		'sat-latn', // T262967
 		'sat-beng', // T262967
-		'sat-orya' // T262967
+		'sat-orya', // T262967
+		'syl-beng' // T267480
 	];
 
 	return [
