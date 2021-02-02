@@ -85,7 +85,7 @@
 	"wikibaselexeme-lexeme-link-title": "$1: $2",
 	"wikibaselexeme-formidformatter-link-title": "$1: $2",
 	"wikibaselexeme-form-grammatical-features": "Grammatical features",
-	"wikibaselexeme-formidformatter-separator-grammatical-features": ", ",
+	"wikibaselexeme-formidformatter-separator-grammatical-features": ",&#32;",
 	"wikibaselexeme-description": "$1, $2",
 	"wikibaselexeme-form-description": "$1 for: $2 ($3): $4",
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|statement|statements}}, $2 {{PLURAL:$2|form|forms}}",
