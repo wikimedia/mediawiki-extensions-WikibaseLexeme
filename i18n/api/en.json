@@ -59,6 +59,7 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Form must have at least one representation",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Sense must have at least one gloss",
 	"apierror-wikibaselexeme-unknown-language": "Unknown language \"$3\" in field \"$1\" at \"$2\".",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Unknown language \"$3\" for term \"$4\" in field \"$1\" at \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "Invalid Item ID \"$3\" in field \"$1\" at \"$2\".",
 	"apierror-wikibaselexeme-invalid-form-claims": "Invalid claims in field \"$1\" at \"$2\"."
 }

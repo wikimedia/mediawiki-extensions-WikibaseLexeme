@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Validation;
 
 use PHPUnit\Framework\MockObject\MockObject;
@@ -54,6 +56,20 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 			->with( new UnknownLanguage( $language ) );
 
 		$validator->validate( $language, $context );
+	}
+
+	/**
+	 * @dataProvider invalidLanguageCodeProvider
+	 */
+	public function testGivenUnknownLanguage_addsViolation_withText( $language ) {
+		$termText = 'example term text';
+		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
+		$context = $this->getValidationContext();
+		$context->expects( $this->once() )
+			->method( 'addViolation' )
+			->with( new UnknownLanguage( $language, $termText ) );
+
+		$validator->validate( $language, $context, $termText );
 	}
 
 	/**

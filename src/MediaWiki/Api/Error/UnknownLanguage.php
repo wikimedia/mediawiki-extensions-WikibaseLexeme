@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
 use Message;
@@ -13,18 +15,31 @@ class UnknownLanguage implements ApiError {
 	 */
 	private $given;
 
+	/** @var string|null */
+	private $termText;
+
 	/**
 	 * @param string $given
+	 * @param string|null $termText for context, if available
 	 */
-	public function __construct( $given ) {
+	public function __construct( string $given, $termText = null ) {
 		$this->given = $given;
+		$this->termText = $termText;
 	}
 
 	public function asApiMessage( $parameterName, array $path ) {
-		return new \ApiMessage( new Message(
-			'apierror-wikibaselexeme-unknown-language',
-			[ $parameterName, implode( '/', $path ), $this->given ]
-		), 'not-recognized-language' );
+		if ( $this->termText !== null ) {
+			$message = new Message(
+				'apierror-wikibaselexeme-unknown-language-withtext',
+				[ $parameterName, implode( '/', $path ), $this->given, $this->termText ]
+			);
+		} else {
+			$message = new Message(
+				'apierror-wikibaselexeme-unknown-language',
+				[ $parameterName, implode( '/', $path ), $this->given ]
+			);
+		}
+		return new \ApiMessage( $message, 'not-recognized-language' );
 	}
 
 }
