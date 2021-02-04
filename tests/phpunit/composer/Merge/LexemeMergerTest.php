@@ -854,6 +854,25 @@ class LexemeMergerTest extends TestCase {
 		}
 	}
 
+	public function testGivenSelfReferentialLexemesMergeIsAllowed() {
+		$sourceStatement = NewStatement::forProperty( 'P1' )
+			->withValue( new LexemeId( 'L1' ) )
+			->withGuid( 'L1$8af6a76b-298f-473a-ae77-24c065cf6e8f' )
+			->build();
+		$source = $this->newMinimumValidLexeme( 'L1' )->build();
+		$source->getStatements()->addStatement( $sourceStatement );
+		$targetStatement = NewStatement::forProperty( 'P2' )
+			->withValue( new LexemeId( 'L2' ) )
+			->withGuid( 'L2$8b59398e-da52-4d53-8cc4-39fb0cc2b4af' )
+			->build();
+		$target = $this->newMinimumValidLexeme( 'L2' )->build();
+		$target->getStatements()->addStatement( $targetStatement );
+
+		$this->lexemeMerger->merge( $source, $target );
+
+		$this->assertCount( 2, $target->getStatements() );
+	}
+
 	/**
 	 * Use this method if you want to manually add lemmas later
 	 *
