@@ -15,8 +15,8 @@ use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Api\ResultBuilder;
+use Wikibase\Repo\Store\EntityTitleStoreLookup;
 
 /**
  * Checks if ResultBuilder in Wikibase can work with Lexeme and its subentities.
@@ -60,8 +60,8 @@ class ResultBuilderLexemeTest extends TestCase {
 			->method( 'getPrefixedText' )
 			->willReturn( 'MockPrefixedText' );
 
-		$mockEntityTitleLookup = $this->createMock( EntityTitleLookup::class );
-		$mockEntityTitleLookup->expects( $this->any() )
+		$entityTitleStoreLookup = $this->createMock( EntityTitleStoreLookup::class );
+		$entityTitleStoreLookup->expects( $this->any() )
 			->method( 'getTitleForId' )
 			->willReturn( $mockTitle );
 
@@ -80,7 +80,7 @@ class ResultBuilderLexemeTest extends TestCase {
 
 		return new ResultBuilder(
 			$result,
-			$mockEntityTitleLookup,
+			$entityTitleStoreLookup,
 			$serializerFactory,
 			new StorageLexemeSerializer(
 				$serializerFactory->newTermListSerializer(),
