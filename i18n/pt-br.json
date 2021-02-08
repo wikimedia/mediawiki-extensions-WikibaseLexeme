@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Eduardo Addad de Oliveira",
+			"Eduardoaddad",
 			"Luk3",
 			"NMaia"
 		]
@@ -91,6 +92,8 @@
 	"wikibase-validator-form-not-found": "O lexema não tem uma Forma com o ID fornecido",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado...",
 	"wikibase-lexeme-language-name-az-cyrl": "Azerbaijão escrito em escrita cirílica",
+	"wikibase-lexeme-language-name-ccp": "Changma",
+	"wikibase-lexeme-language-name-ccp-beng": "Changma na escrita bengali",
 	"wikibase-lexeme-language-name-ctg": "Chittagoniano",
 	"wikibase-lexeme-language-name-de-1901": "Alemão (antes da reforma de 1996)",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (h-system)",
@@ -106,6 +109,7 @@
 	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
 	"wikibase-lexeme-language-name-non": "Nórdica antiga",
 	"wikibase-lexeme-language-name-non-runr": "Nórdico antigo escrito em escrita rúnica",
+	"wikibase-lexeme-language-name-rhg-rhog": "Ruáingga em script Hanifi",
 	"wikibase-lexeme-language-name-rkt": "Rangpuri",
 	"wikibase-lexeme-language-name-rm-rumgr": "Romanche",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
@@ -116,6 +120,7 @@
 	"wikibase-lexeme-language-name-sat-latn": "Santali em escrita latina",
 	"wikibase-lexeme-language-name-sat-beng": "Santali na escrita bengali",
 	"wikibase-lexeme-language-name-sat-orya": "Santali na escrita oriá",
+	"wikibase-lexeme-language-name-syl-beng": "Sylheti na escrita bengali",
 	"wikibase-lexeme-lemma-language-not-recognized": "O código de idioma fornecido não foi reconhecido.",
 	"wikibase-lexeme-mergelexemes-intro": "Se fundir dois lexemas, todos os lemas, declarações, formas e sentidos serão movidos de um lexema para o outro.",
 	"wikibase-lexeme-mergelexemes-from-id": "Mesclar a partir do ID",

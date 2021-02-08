@@ -26,5 +26,9 @@
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-form": "Muoto",
 	"content-model-wikibase-lexeme": "Wikibase lekseemi",
-	"wikibaselexeme-form-grammatical-features": "Kieliopilliset ominaisuudet"
+	"wikibaselexeme-form-grammatical-features": "Kieliopilliset ominaisuudet",
+	"wikibase-lexeme-language-name-ccp": "Chakma",
+	"wikibase-lexeme-language-name-ccp-beng": "Chakma bengalilaisella kirjaimistolla",
+	"wikibase-lexeme-language-name-rhg-rhog": "Rohingya hanifi-kirjaimistolla",
+	"wikibase-lexeme-language-name-syl-beng": "Sylheti bengalilaisella kirjaimistolla"
 }
