@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\ChangeOp\Validation;
 
 use MediaWikiUnitTestCase;
@@ -63,12 +65,14 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 		$validator->validate( 'en-x-Q123', [ 'language' => 'en', 'value' => 'potato' ], $context );
 	}
 
-	public function testLanguageCodeIsValidated() {
+	public function testLanguageCodeIsValidated_withText() {
 		$languageValidator = $this->newLanguageValidator();
 		$mockError = $this->getMockBuilder( ApiError::class )->getMock();
 		$languageValidator->expects( $this->once() )
 			->method( 'validate' )
-			->willReturnCallback( function ( $lang, $context ) use ( $mockError ) {
+			->willReturnCallback( function ( $lang, $context, $termText ) use ( $mockError ) {
+				$this->assertSame( 'foo', $lang );
+				$this->assertSame( 'bar', $termText );
 				$context->addViolation( $mockError );
 			} );
 		$context = $this->newValidationContext();
@@ -78,6 +82,25 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 
 		( new LexemeTermSerializationValidator( $languageValidator ) )
 			->validate( 'foo', [ 'language' => 'foo', 'value' => 'bar' ], $context );
+	}
+
+	public function testLanguageCodeIsValidated_withoutText() {
+		$languageValidator = $this->newLanguageValidator();
+		$mockError = $this->getMockBuilder( ApiError::class )->getMock();
+		$languageValidator->expects( $this->once() )
+			->method( 'validate' )
+			->willReturnCallback( function ( $lang, $context, $termText ) use ( $mockError ) {
+				$this->assertSame( 'foo', $lang );
+				$this->assertNull( $termText );
+				$context->addViolation( $mockError );
+			} );
+		$context = $this->newValidationContext();
+		$context->expects( $this->once() )
+			->method( 'addViolation' )
+			->with( $mockError );
+
+		( new LexemeTermSerializationValidator( $languageValidator ) )
+			->validate( 'foo', [ 'language' => 'foo', 'remove' => '' ], $context );
 	}
 
 	/**

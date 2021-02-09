@@ -178,7 +178,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'foobar' ] ],
-					new UnknownLanguage( 'foobar' )
+					new UnknownLanguage( 'foobar', 'furry animal' )
 				]
 			],
 			'no gloss string in data' => [

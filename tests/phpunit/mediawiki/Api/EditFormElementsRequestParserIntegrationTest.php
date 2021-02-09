@@ -194,7 +194,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
-					new UnknownLanguage( 'foobar' )
+					new UnknownLanguage( 'foobar', 'goat' )
 				]
 			],
 			'no representation string in data' => [

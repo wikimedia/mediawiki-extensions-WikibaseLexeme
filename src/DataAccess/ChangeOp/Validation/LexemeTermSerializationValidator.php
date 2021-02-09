@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\DataAccess\ChangeOp\Validation;
 
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
@@ -55,7 +57,7 @@ class LexemeTermSerializationValidator {
 			}
 		}
 
-		$this->languageValidator->validate( $language, $context );
+		$this->languageValidator->validate( $language, $context, $serialization['value'] ?? null );
 
 		if ( $language !== $serialization['language'] ) {
 			$context->addViolation( new LanguageInconsistent( $language, $serialization['language'] ) );
