@@ -96,7 +96,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Обједини лексеме",
 	"wikibase-lexeme-mergelexemes-success": "Лексема $1 је обједињена у $2 и преусмерена.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "„$1” није важећи ID лексеме",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Лексема „$1” не може да се пронађе.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Није могуће пронаћи лексему „$1”.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Обједињавање лексема није успело. Прво решите све сукобе. Грешка: Леме имају различите језике.",
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Обједињавање лексема није успело. Прво решите све сукобе. Грешка: Леме имају различите лексичке категорије.",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Учитавање лексеме није успело.",
