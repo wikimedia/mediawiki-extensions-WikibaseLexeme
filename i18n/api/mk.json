@@ -62,6 +62,7 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Образецот мора да има барем една претстава",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Значењето мора да има барем една прибелешка",
 	"apierror-wikibaselexeme-unknown-language": "Непознат јазик „$3“ во полето „$1“ на „$2“.",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Непознат јазик „$3“ за поимот „$4“ во поелто „$1“ на „$2“.",
 	"apierror-wikibaselexeme-invalid-item-id": "Неважечка назнака на предметот „$3“ во полето „$1“ на „$2“.",
 	"apierror-wikibaselexeme-invalid-form-claims": "Неважечки тврдења во полето „$1“ на „$2“."
 }

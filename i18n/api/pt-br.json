@@ -63,6 +63,7 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "O formulário deve ter pelo menos uma representação",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "O sentido tem de ter pelo menos uma glosa",
 	"apierror-wikibaselexeme-unknown-language": "Idioma \"$3\" desconhecido no campo \"$1\" em \"$2\"",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Idioma desconhecido \"$3\" para o termo \"$4\" no campo \"$1\" em \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "O identificador de elemento \"$3\" no campo \"$1\" em \"$2\" é inválido.",
 	"apierror-wikibaselexeme-invalid-form-claims": "Reivindicações inválidas no campo \"$1\" no \"$2\"."
 }

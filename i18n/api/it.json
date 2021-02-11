@@ -21,5 +21,6 @@
 	"apierror-wikibaselexeme-json-field-has-wrong-type": "Il campo \"$2\" nel parametro \"$1\" dovrebbe essere di tipo \"$3\". Fornito: \"$4\"",
 	"apierror-wikibaselexeme-parameter-not-lexeme-id": "Il parametro \"$1\" dovrebbe essere un ID lessema. Fornito: \"$2\"",
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Il testo del termine non può essere vuoto",
-	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "La lingua non può essere vuota"
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "La lingua non può essere vuota",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Lingua sconosciuta \"$3\" per il termine \"$4\" nel campo \"$1\" in \"$2\"."
 }
