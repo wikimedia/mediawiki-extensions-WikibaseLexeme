@@ -62,6 +62,7 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "לצורה צריך להיות לפחות ייצוג אחד",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "למשמעות חייב להיות לפחות פירוש אחד",
 	"apierror-wikibaselexeme-unknown-language": "שפה בלתי־ידועה \"$3\" בשדה \"$1\" שבתוך \"$2\".",
+	"apierror-wikibaselexeme-unknown-language-withtext": "שפה לא יודע \"$3\" למונח \"$4\" בשדה \"$1\" בתוך \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "מזהה פריט בלתי־תקין \"$3\" בשדה \"$1\" שבתוך \"$2\".",
 	"apierror-wikibaselexeme-invalid-form-claims": "טענות בלתי־תקינות בשדה \"$1\" ב־\"$2\"."
 }
