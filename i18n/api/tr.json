@@ -3,6 +3,7 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Incelemeelemani",
+			"Joseph",
 			"Sezgin İbiş"
 		]
 	},
@@ -63,6 +64,7 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Formun en az bir temsili olmalıdır",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Sense en az bir parlaklığa sahip olmalıdır",
 	"apierror-wikibaselexeme-unknown-language": "\"$2\" altında \"$1\" alanında bilinmeyen dil \"$3\".",
+	"apierror-wikibaselexeme-unknown-language-withtext": "\"$2\" adresindeki \"$1\" alanında \"$4\" terimi için bilinmeyen \"$3\" dili.",
 	"apierror-wikibaselexeme-invalid-item-id": "\"$2\" altında \"$1\" alanında \"$3\" geçersiz öğe kimliği.",
 	"apierror-wikibaselexeme-invalid-form-claims": "\"$2\" altındaki \"$1\" alanında geçersiz hak talepleri."
 }
