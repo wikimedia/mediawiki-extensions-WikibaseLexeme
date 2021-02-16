@@ -4,6 +4,7 @@
 			"Aftabuzzaman",
 			"Elias Ahmmad",
 			"Mahir256",
+			"R4356th",
 			"Rasal Lia",
 			"আফতাবুজ্জামান"
 		]
@@ -35,6 +36,10 @@
 	"wikibaselexeme-form-grammatical-features": "ব্যাকরণগত বৈশিষ্ট্য",
 	"wikibaselexeme-unknown-language": "অজানা ভাষা",
 	"wikibaselexeme-unknown-category": "অজানা",
+	"wikibase-lexeme-language-name-ccp": "চাকমা",
+	"wikibase-lexeme-language-name-ccp-beng": "বাংলা লিপিতে চাকমা",
 	"wikibase-lexeme-language-name-mis": "অন্যান্য",
+	"wikibase-lexeme-language-name-rhg-rohg": "হানিফির লিপিতে রোহিঙ্গা",
+	"wikibase-lexeme-language-name-syl-beng": "বাংলা লিপিতে সিলেটি",
 	"wikibase-lexeme-lemma-language-not-recognized": "সরবরাহকৃত ভাষা কোড চেনা যায়নি।"
 }
