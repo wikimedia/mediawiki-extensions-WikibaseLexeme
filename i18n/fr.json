@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ash Crow",
+			"Darmo",
 			"Derugon",
 			"Gomoko",
 			"Oupsa",
@@ -31,7 +32,7 @@
 	"wikibaselexeme-empty-form-representation": "Aucune représentation de la forme définie",
 	"wikibaselexeme-statementsection-statements-about-sense": "Déclarations concernant $1",
 	"wikibaselexeme-header-senses": "Sens",
-	"wikibase-lexeme-gloss-empty": "Aucune apparence définie",
+	"wikibase-lexeme-gloss-empty": "Aucune glose définie",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemme",
 	"wikibaselexeme-lemma-field-language-label": "Variante d’orthographe",
 	"wikibaselexeme-lemma-redundant-language": "Il n’est pas possible de saisir plusieurs lemmes avec la même variante d’orthographe.",
@@ -40,7 +41,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Il n’est pas possible de saisir plusieurs représentations avec la même variante d’écriture.",
 	"wikibaselexeme-sense-gloss-invalid-language": "Les codes de langue de glose doivent être valides",
 	"wikibaselexeme-gloss-field-language-label": "Langue",
-	"wikibaselexeme-gloss-field-gloss-label": "Apparence",
+	"wikibaselexeme-gloss-field-gloss-label": "Glose",
 	"wikibaselexeme-sense-gloss-redundant-language": "Il n’est pas possible de saisir plusieurs gloses avec la même langue.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexème modifié",
 	"datatypes-type-wikibase-lexeme": "Lexème",
