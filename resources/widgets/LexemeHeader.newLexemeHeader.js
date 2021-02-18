@@ -50,6 +50,9 @@ module.exports = ( function () {
 						}
 					).then( function () {
 						this.inEditMode = false;
+						this.lemmas = this.$store.state.lemmas.copy();
+						this.language = this.$store.state.language;
+						this.lexicalCategory = this.$store.state.lexicalCategory;
 					}
 						.bind( this ) )
 						.catch( function ( error ) {
@@ -65,6 +68,8 @@ module.exports = ( function () {
 				cancel: function () {
 					this.inEditMode = false;
 					this.lemmas = this.$store.state.lemmas.copy();
+					this.language = this.$store.state.language;
+					this.lexicalCategory = this.$store.state.lexicalCategory;
 				},
 
 				/**

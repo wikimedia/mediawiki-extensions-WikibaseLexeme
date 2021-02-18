@@ -41,6 +41,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 			store = newStore( lexeme ),
 			widget = newWidgetWithStore( store ),
 			storeSpy = sinon.stub( store, 'dispatch' ).callsFake( function () {
+				store.commit( 'updateLemmas', { en: { value: 'hi', language: 'en' } } );
 				return Promise.resolve();
 			} );
 
@@ -48,6 +49,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		widget.save().then( function () {
 			expect( storeSpy, 'to have a call satisfying', [ 'save', lexeme ] );
 			expect( widget, 'not to be in edit mode' );
+			expect( widget.$refs.lemmas.lemmas, 'to equal', new LemmaList( [ new Lemma( 'hi', 'en' ) ] ) );
 			done();
 		} );
 	} );
@@ -99,6 +101,26 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 
 		expect( widget.$refs.languageAndLexicalCategory.language, 'to equal', language );
 		expect( widget.$refs.languageAndLexicalCategory.lexicalCategory, 'to equal', lexicalCategory );
+	} );
+
+	it( 'updates language and lexical category on save', function ( done ) {
+		var language = 'Q123',
+			lexicalCategory = 'Q234',
+			lexeme = { lemmas: [ new Lemma( 'hi', 'en' ) ], language: language, lexicalCategory: lexicalCategory },
+			store = newStore( lexeme ),
+			widget = newWidgetWithStore( store ),
+			storeSpy = sinon.stub( store, 'dispatch' ).callsFake( function () {
+				store.commit( 'updateLanguage', { id: language + '0', link: '' } );
+				store.commit( 'updateLexicalCategory', { id: lexicalCategory + '0', link: '' } );
+				return Promise.resolve();
+			} );
+
+		widget.edit();
+		widget.save().then( function () {
+			expect( widget.$refs.languageAndLexicalCategory.language, 'to equal', language + '0' );
+			expect( widget.$refs.languageAndLexicalCategory.lexicalCategory, 'to equal', lexicalCategory + '0' );
+			done();
+		} );
 	} );
 
 	it( 'shows save button disabled without changes', function ( done ) {
