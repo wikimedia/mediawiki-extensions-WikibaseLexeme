@@ -175,7 +175,9 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 			var response = {
 				entity: {
 					lastrevid: newRevisionId,
-					lemmas: { en: { value: 'lemma1', language: 'en' } }
+					lemmas: { en: { value: 'lemma1', language: 'en' } },
+					language: 'Q123',
+					lexicalCategory: 'Q234'
 				}
 			};
 
@@ -201,7 +203,7 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 				[
 					{ type: 'startSaving' },
 					{ type: 'updateRevisionId', payload: newRevisionId },
-					{ type: 'updateLemmas', payload: [ new Lemma( 'lemma1', 'en' ) ] },
+					{ type: 'updateLemmas', payload: { en: { value: 'lemma1', language: 'en' } } },
 					{ type: 'updateLanguage', payload: { id: 'Q123', link: 'Link for Q123' } },
 					{ type: 'updateLexicalCategory', payload: { id: 'Q234', link: 'Link for Q234' } },
 					{ type: 'finishSaving' }
@@ -231,7 +233,9 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 			var response = {
 				entity: {
 					lastrevid: newRevisionId,
-					lemmas: { en: { value: 'lemma1', language: 'en' } }
+					lemmas: { en: { value: 'lemma1', language: 'en' } },
+					language: 'Q123',
+					lexicalCategory: 'Q234'
 				}
 			};
 
@@ -323,7 +327,9 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 			var response = {
 				entity: {
 					lastrevid: newRevisionId,
-					lemmas: {}
+					lemmas: {},
+					language: 'Q123',
+					lexicalCategory: 'Q234'
 				}
 			};
 

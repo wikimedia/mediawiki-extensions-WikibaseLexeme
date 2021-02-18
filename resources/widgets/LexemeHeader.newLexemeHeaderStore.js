@@ -76,14 +76,20 @@ module.exports = ( function () {
 			},
 			mutations: {
 				updateLemmas: function ( state, newLemmas ) {
-					// TODO: newLemmas is array of Lemma objects when coming from lexeme.lemmas
-					// but would be a generic object when passed from the API response
-					state.lemmas = new LemmaList( newLemmas.map( function ( x ) {
-						if ( x instanceof Lemma ) {
-							return x.copy();
+					// newLemmas can be an array of Lemma objects when coming from lexeme.lemmas
+					// or a plain object when coming from the API response
+					var lemmaList = new LemmaList( [] ),
+						index,
+						lemma;
+					for ( index in newLemmas ) {
+						lemma = newLemmas[ index ];
+						if ( lemma instanceof Lemma ) {
+							lemmaList.add( lemma.copy() );
+						} else {
+							lemmaList.add( new Lemma( lemma.value, lemma.language ) );
 						}
-						return new Lemma( x.value, x.language );
-					} ) );
+					}
+					state.lemmas = lemmaList;
 				},
 				updateRevisionId: function ( state, revisionId ) {
 					state.baseRevId = revisionId;
@@ -137,12 +143,25 @@ module.exports = ( function () {
 						formatEntityId( repoApi, saveLexeme.lexicalCategory )
 					).then( function ( response, formattedLanguage, formattedLexicalCategory ) {
 						context.commit( 'updateRevisionId', response.entity.lastrevid );
-						// TODO: Update state of lemmas, language and lexicalCategory if needed.
-						// Note: API response does not contain lemma. (T271105)
-						context.commit( 'updateLemmas', saveLexeme.lemmas );
-						context.commit( 'updateLanguage', { id: saveLexeme.language, link: formattedLanguage } );
+						context.commit( 'updateLemmas', response.entity.lemmas );
+						return $.when(
+							response,
+							// re-format entity IDs if they changed server-side
+							// (but they probably didn't)
+							saveLexeme.language === response.entity.language
+								? formattedLanguage
+								: formatEntityId( repoApi, response.entity.language ),
+							saveLexeme.lexicalCategory === response.entity.lexicalCategory
+								? formattedLexicalCategory
+								: formatEntityId( repoApi, response.entity.lexicalCategory )
+						);
+					} ).then( function ( response, formattedLanguage, formattedLexicalCategory ) {
+						context.commit( 'updateLanguage', {
+							id: response.entity.language,
+							link: formattedLanguage
+						} );
 						context.commit( 'updateLexicalCategory', {
-							id: saveLexeme.lexicalCategory,
+							id: response.entity.lexicalCategory,
 							link: formattedLexicalCategory
 						} );
 
