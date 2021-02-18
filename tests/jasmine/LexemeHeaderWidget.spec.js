@@ -36,7 +36,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		} );
 	} );
 
-	xit( 'save lemma list', function ( done ) {
+	it( 'save lemma list', function ( done ) {
 		var lexeme = { lemmas: [ new Lemma( 'hello', 'en' ) ] },
 			store = newStore( lexeme ),
 			widget = newWidgetWithStore( store ),
@@ -54,7 +54,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		} );
 	} );
 
-	xit( 'save lemma list with error', function ( done ) {
+	it( 'save lemma list with error', function ( done ) {
 		var lexeme = { lemmas: [ new Lemma( 'hello', 'en' ) ] },
 			store = newStore( lexeme ),
 			widget = newWidgetWithStore( store ),
