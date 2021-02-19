@@ -1,7 +1,7 @@
 module.exports = ( function ( mw, wikibase ) {
 	'use strict';
 
-	return function ( contentLanguages ) {
+	return function ( languageCodes ) {
 		return {
 			props: [ 'initialCode' ],
 			template: '<input>',
@@ -23,12 +23,10 @@ module.exports = ( function ( mw, wikibase ) {
 					).text();
 				};
 
-				var languages = contentLanguages.getAll();
-
-				if ( languages !== null ) {
+				if ( languageCodes !== null ) {
 
 					var _labels = {};
-					languages.forEach( function ( code ) {
+					languageCodes.forEach( function ( code ) {
 						_labels[ code ] = getLanguageLabel( code );
 					} );
 				}
