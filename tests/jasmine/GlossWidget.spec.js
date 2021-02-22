@@ -28,20 +28,11 @@ describe( 'GlossWidget', function () {
 		glossLanguage: '.wikibase-lexeme-sense-gloss-language'
 	};
 
-	function WikibaseContentLanguages() {}
-	WikibaseContentLanguages.prototype.getAll = function () {
-		return [ 'en' ];
-	};
-	WikibaseContentLanguages.prototype.getName = function () {
-		return 'English';
-	};
-
 	global.wikibase = { // eslint-disable-line no-restricted-globals
 		getLanguageNameByCode: function () {
 			// this is tested in Wikibase/view/tests/qunit/wikibase/wikibase.getLanguageNameByCode.tests.js
 			return 'English';
 		},
-		WikibaseContentLanguages: WikibaseContentLanguages
 	};
 
 	var getDirectionality = function ( languageCode ) {

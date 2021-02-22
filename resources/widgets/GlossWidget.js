@@ -5,7 +5,9 @@ module.exports = ( function ( require, wb, Vuex ) {
 		RedundantLanguageIndicator = require( './RedundantLanguageIndicator.js' ),
 		InvalidLanguageIndicator = require( './InvalidLanguageIndicator.js' ),
 		LanguageSelectorWrapper = require( './LanguageSelectorWrapper.js' ),
-		focusElement = require( '../focusElement.js' );
+		focusElement = require( '../focusElement.js' ),
+		// languages.json is a dynamic ResourceLoader source file
+		lexemeTermLanguages = require( './languages.json' ).lexemeTermLanguages;
 
 	Vue.use( Vuex );
 
@@ -41,7 +43,7 @@ module.exports = ( function ( require, wb, Vuex ) {
 			mixins: [ RedundantLanguageIndicator( 'glosses' ), invalidLanguageIndicator ],
 
 			components: {
-				'language-selector': LanguageSelectorWrapper( new wikibase.WikibaseContentLanguages() )
+				'language-selector': LanguageSelectorWrapper( lexemeTermLanguages )
 			},
 
 			beforeUpdate: beforeUpdate,
