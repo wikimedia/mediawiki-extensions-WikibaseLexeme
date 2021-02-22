@@ -2,10 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Bjakupi",
+			"Eraldkerciku",
 			"Luanibraj"
 		]
 	},
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma eshte zakonisht forma me e shkurt e nje fjale",
 	"wikibaselexeme-form-representation-redundant-language": "Nuk është e mundur të fusni paraqitje të shumëfishta me të njëjtin variant të germëzimit.",
-	"wikibaselexeme-grammatical-features-input-placeholder": "Për shembull: normative, krahasuese, koha e shkuar..."
+	"wikibaselexeme-grammatical-features-input-placeholder": "Për shembull: normative, krahasuese, koha e shkuar...",
+	"wikibase-lexeme-language-name-ms-arab": "Malay në skriptin Jawi",
+	"wikibase-lexeme-language-name-rah": "Rabha"
 }
