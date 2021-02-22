@@ -5,8 +5,6 @@
  * and repo-specific functionality have been split to separate extensions.
  */
 
-use MediaWiki\MediaWikiServices;
-
 return call_user_func( function () {
 	$moduleTemplate = [
 		'localBasePath' => __DIR__ . '/resources',
@@ -53,13 +51,8 @@ return call_user_func( function () {
 				[
 					// used by GlossWidget
 					'name' => 'widgets/languages.json',
-					'callback' => function () {
-						return [
-							'lexemeTermLanguages' => MediaWikiServices::getInstance()
-								->getService( 'WikibaseLexemeTermLanguages' )->getLanguages(),
-						];
-					},
-				]
+					'callback' => 'Wikibase\Lexeme\WikibaseLexemeHooks::getLexemeViewLanguages'
+				],
 
 			],
 			"dependencies" => [

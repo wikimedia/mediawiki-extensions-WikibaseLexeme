@@ -230,4 +230,11 @@ class WikibaseLexemeHooks {
 		}
 	}
 
+	public static function getLexemeViewLanguages(): array {
+		return [
+			'lexemeTermLanguages' => MediaWikiServices::getInstance()
+				->getService( 'WikibaseLexemeTermLanguages' )->getLanguages(),
+		];
+	}
+
 }
