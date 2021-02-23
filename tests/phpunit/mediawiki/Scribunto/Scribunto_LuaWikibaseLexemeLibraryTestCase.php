@@ -41,13 +41,13 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 	/**
 	 * Make sure data transclusion is enabled regardless of wiki configuration.
 	 */
-	private static function doMock() {
+	private static function enableDataTransclusion() {
 		global $wgLexemeEnableDataTransclusion;
 		self::$originalLexemeEnableDataTransclusion = $wgLexemeEnableDataTransclusion;
 		$wgLexemeEnableDataTransclusion = true;
 	}
 
-	private static function unMock() {
+	private static function resetDataTransclusion() {
 		global $wgLexemeEnableDataTransclusion;
 		$wgLexemeEnableDataTransclusion = self::$originalLexemeEnableDataTransclusion;
 	}
@@ -62,11 +62,11 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 	 * @return TestSuite
 	 */
 	public static function suite( $className ) {
-		self::doMock();
+		self::enableDataTransclusion();
 
 		$res = parent::suite( $className );
 
-		self::unMock();
+		self::resetDataTransclusion();
 
 		return $res;
 	}
@@ -74,7 +74,7 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 	protected function setUp(): void {
 		parent::setUp();
 
-		self::doMock();
+		self::enableDataTransclusion();
 
 		/** @var MockRepository $mockRepository */
 		$mockRepository = WikibaseClient::getDefaultInstance()->getStore()->getSiteLinkLookup();
@@ -89,7 +89,7 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 	}
 
 	protected function tearDown(): void {
-		self::unMock();
+		self::resetDataTransclusion();
 
 		parent::tearDown();
 	}
