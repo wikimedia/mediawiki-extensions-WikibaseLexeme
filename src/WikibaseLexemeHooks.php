@@ -215,7 +215,7 @@ class WikibaseLexemeHooks {
 		if ( !$config->get( 'LexemeEnableDataTransclusion' ) ) {
 			return;
 		}
-		$clientSettings = WikibaseClient::getDefaultInstance()->getSettings();
+		$clientSettings = WikibaseClient::getSettings();
 		if ( !$clientSettings->getSetting( 'allowDataTransclusion' ) ) {
 			return;
 		}
