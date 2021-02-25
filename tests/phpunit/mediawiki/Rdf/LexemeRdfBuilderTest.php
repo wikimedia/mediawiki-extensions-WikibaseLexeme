@@ -127,7 +127,7 @@ class LexemeRdfBuilderTest extends TestCase {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$builder = new RdfBuilder(
 			$this->getVocabulary(),
-			$wikibaseRepo->getValueSnakRdfBuilderFactory(),
+			WikibaseRepo::getValueSnakRdfBuilderFactory(),
 			$this->getTestData()->getMockRepository(),
 			$wikibaseRepo->getEntityRdfBuilderFactory(),
 			$produce,
