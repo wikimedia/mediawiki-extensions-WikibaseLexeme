@@ -87,7 +87,6 @@ class LexemeRdfBuilderTest extends TestCase {
 					'lexeme' => [ 'sub-entity-types' => [ 'form', 'sense' ] ],
 				] )
 			),
-			'test',
 			[ 'test' => '' ],
 			[ 'test' => '' ],
 			[],
