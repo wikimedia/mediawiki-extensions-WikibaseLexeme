@@ -3,6 +3,7 @@
 		"authors": [
 			"Metalhead64",
 			"Pascalco",
+			"Umherirrender",
 			"Wolfdietmann"
 		]
 	},
@@ -55,7 +56,7 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Die Form muss mindestens eine Darstellung haben",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Das Sense muss mindestens eine Fußnote haben",
 	"apierror-wikibaselexeme-unknown-language": "Unbekannte Sprache „$3“ in Feld „$1“ bei „$2“.",
-	"apierror-wikibaselexeme-unknown-language-withtext": "Unbekannte Sprache \"$3\" für den Ausdruck \"$4\" in Feld \"$1\" an Stelle \"$2\".",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Unbekannte Sprache „$3“ für den Ausdruck „$4“ in Feld „$1“ an Stelle „$2“.",
 	"apierror-wikibaselexeme-invalid-item-id": "Ungültige Objektkennung „$3“ im Feld „$1“ bei „$2“.",
 	"apierror-wikibaselexeme-invalid-form-claims": "Ungültige Behauptungen im Feld „$1“ bei „$2“."
 }
