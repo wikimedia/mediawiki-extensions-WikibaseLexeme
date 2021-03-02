@@ -169,7 +169,7 @@ class WikibaseLexemeServices {
 			new MediawikiEditFilterHookRunner(
 				$this->getWikibaseRepo()->getEntityNamespaceLookup(),
 				$this->getWikibaseRepo()->getEntityTitleLookup(),
-				$this->getWikibaseRepo()->getEntityContentFactory(),
+				WikibaseRepo::getEntityContentFactory(),
 				RequestContext::getMain()
 			),
 			$this->getWikibaseRepo()->getStore()->getEntityRedirectLookup(),
