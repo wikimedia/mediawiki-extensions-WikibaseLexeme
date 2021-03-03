@@ -52,8 +52,11 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	 * @return EntityHandler
 	 */
 	protected function getHandler( SettingsArray $settings = null ) {
-		return $this->getWikibaseRepo( $settings )
-			->getEntityContentFactory()
+		// This parent method is still called, as it sets up mocks for required
+		// service dependencies
+		$this->getWikibaseRepo( $settings );
+
+		return WikibaseRepo::getEntityContentFactory()
 			->getContentHandlerForType( Lexeme::ENTITY_TYPE );
 	}
 
