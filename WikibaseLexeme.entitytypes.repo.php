@@ -109,7 +109,7 @@ return [
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
-				$wikibaseRepo->getEntityIdLookup(),
+				WikibaseRepo::getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
@@ -294,7 +294,7 @@ return [
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
-				$wikibaseRepo->getEntityIdLookup(),
+				WikibaseRepo::getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
@@ -400,7 +400,7 @@ return [
 				$wikibaseRepo->getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
-				$wikibaseRepo->getEntityIdLookup(),
+				WikibaseRepo::getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
 				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )

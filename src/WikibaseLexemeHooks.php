@@ -202,7 +202,7 @@ class WikibaseLexemeHooks {
 		$namespaceChecker = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
 		$infoActionHookHandler = new InfoActionHookHandler(
 			$namespaceChecker,
-			WikibaseRepo::getDefaultInstance()->getEntityIdLookup(),
+			WikibaseRepo::getEntityIdLookup(),
 			PageProps::getInstance(),
 			$context
 		);
