@@ -230,7 +230,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				new LanguageFallbackLabelDescriptionLookup(
 					$repo->getTermLookup(),
-					$repo->getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
+					WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
 				),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
@@ -413,7 +413,7 @@ return [
 			$userLanguage = $repo->getUserLanguage();
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
 				$entityLookup,
-				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
+				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
 				new MediaWikiLocalizedTextProvider( $userLanguage )
 			);
 
@@ -469,7 +469,7 @@ return [
 				$repo->getEntityTitleLookup(),
 				$repo->getEntityRevisionLookup(),
 				new MediaWikiLocalizedTextProvider( $language ),
-				$repo->getLanguageFallbackChainFactory()->newFromLanguage( $language ),
+				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $language ),
 				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() ),
 				MediaWikiServices::getInstance()->getLanguageFactory()
 			);

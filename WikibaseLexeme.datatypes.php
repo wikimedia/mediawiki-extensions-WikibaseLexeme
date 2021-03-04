@@ -53,7 +53,7 @@ return [
 				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
 				$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
 					$wikibaseRepo->getTermLookup(),
-					$wikibaseRepo->getLanguageFallbackChainFactory()
+					WikibaseRepo::getLanguageFallbackChainFactory()
 						->newFromLanguage( $userLanguage )
 				);
 
@@ -122,7 +122,7 @@ return [
 
 			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );
 
-			$languageFallbackChainFactory = $wikibaseRepo->getLanguageFallbackChainFactory();
+			$languageFallbackChainFactory = WikibaseRepo::getLanguageFallbackChainFactory();
 			$fallbackChain = $languageFallbackChainFactory->newFromLanguage( $language );
 			$snakFormat = new SnakFormat();
 
