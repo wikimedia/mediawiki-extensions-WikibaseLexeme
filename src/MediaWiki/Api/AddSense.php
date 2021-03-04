@@ -21,6 +21,7 @@ use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\StorageException;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
@@ -74,7 +75,8 @@ class AddSense extends ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
-		EntityIdParser $entityIdParser
+		EntityIdParser $entityIdParser,
+		StringNormalizer $stringNormalizer
 	) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -92,7 +94,7 @@ class AddSense extends ApiBase {
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),
-						$wikibaseRepo->getStringNormalizer(),
+						$stringNormalizer,
 						new LexemeTermSerializationValidator(
 							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)

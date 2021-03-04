@@ -56,6 +56,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.StringNormalizer',
 			],
 		];
 		$wgAPIModules['wbleditsenseelements'] = [
@@ -64,6 +65,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.StringNormalizer',
 			],
 		];
 		$wgAPIModules['wblremovesense'] = [

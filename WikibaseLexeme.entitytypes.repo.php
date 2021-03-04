@@ -119,13 +119,15 @@ return [
 			return new Lexeme();
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
+			$services = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
 				$wikibaseRepo->getExternalFormatStatementDeserializer(),
 				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 			);
 			$itemValidator = new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' );
-			$entityIdParser = WikibaseRepo::getEntityIdParser();
+			$entityIdParser = WikibaseRepo::getEntityIdParser( $services );
+			$stringNormalizer = WikibaseRepo::getStringNormalizer( $services );
 			$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 				new LemmaChangeOpDeserializer(
 				// TODO: WikibaseRepo should probably provide this validator?
@@ -136,15 +138,15 @@ return [
 					),
 					// TODO: move to setting, at least change to some reasonable hard-coded value
 					new LemmaTermValidator( 1000 ),
-					$wikibaseRepo->getStringNormalizer()
+					$stringNormalizer
 				),
 				new LexicalCategoryChangeOpDeserializer(
 					$itemValidator,
-					$wikibaseRepo->getStringNormalizer()
+					$stringNormalizer
 				),
 				new LanguageChangeOpDeserializer(
 					$itemValidator,
-					$wikibaseRepo->getStringNormalizer()
+					$stringNormalizer
 				),
 				$statementChangeOpDeserializer,
 				new FormListChangeOpDeserializer(
@@ -163,7 +165,7 @@ return [
 						new EditSenseChangeOpDeserializer(
 							new GlossesChangeOpDeserializer(
 								new TermDeserializer(),
-								$wikibaseRepo->getStringNormalizer(),
+								$stringNormalizer,
 								new LexemeTermSerializationValidator(
 									new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 								)
@@ -432,7 +434,7 @@ return [
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),
-						$wikibaseRepo->getStringNormalizer(),
+						WikibaseRepo::getStringNormalizer(),
 						new LexemeTermSerializationValidator(
 							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)
