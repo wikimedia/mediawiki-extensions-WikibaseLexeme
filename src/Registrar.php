@@ -90,7 +90,8 @@ class Registrar {
 			'class' => SpecialMergeLexemes::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::factory',
 			'services' => [
-				'WikibaseRepo.EntityTitleLookup'
+				'PermissionManager',
+				'WikibaseRepo.EntityTitleLookup',
 			]
 		];
 
