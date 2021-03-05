@@ -56,7 +56,8 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 			this.setLemmaLanguage( lemmaLanguage );
 		} else {
 			// ensure lemma language input is not presented (logic is asynchronous)
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed( 1000, true );
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE )
+				.waitForDisplayed( { timeout: 1000, reverse: true } );
 		}
 
 		this.clickSubmit();
@@ -97,6 +98,15 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
 			lemmaLanguage
 		);
+	}
+
+	// FIXME this method is a modified copy of the one from wdio-wikibase. The change should be upstreamed!
+	setValueOnComboboxElement( element, value ) {
+		element.$( 'input' ).setValue( value );
+		$( `${this.constructor.OOUI_SELECTORS.OVERLAY} ${this.constructor.OOUI_SELECTORS.OPTION_WIDGET_SELECTED}` )
+			.waitForExist();
+		// close suggestion overlay
+		element.$( this.constructor.OOUI_SELECTORS.COMBOBOX_DROPDOWN ).click();
 	}
 
 	getLemmaLanguage() {

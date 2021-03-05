@@ -37,14 +37,14 @@ describe( 'NewLexeme:Page', () => {
 			browser.waitUntil( () => {
 				return browser.execute( () => {
 					return ( typeof window.mw.loader === 'object' && typeof window.mw.loader.using === 'function' );
-				} ).value === true;
+				} ) === true;
 			} );
 
 			lexemeLanguageCodePropertyId = browser.executeAsync( ( done ) => {
 				window.mw.loader.using( [ 'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig' ], function () {
 					done( window.mw.config.get( 'LexemeLanguageCodePropertyId' ) );
 				} );
-			} ).value;
+			} );
 
 			if ( lexemeLanguageCodePropertyId === null ) {
 				this.skip( 'LexemeLanguageCodePropertyId not set' );
@@ -199,12 +199,12 @@ describe( 'NewLexeme:Page', () => {
 
 	describe( 'when blocked', () => {
 		beforeEach( () => {
-			return browser.call( () => MWApi.blockUser() );
+			return browser.call( async () => MWApi.blockUser( await MWApi.bot() ) );
 
 		} );
 
 		afterEach( () => {
-			return browser.call( () => MWApi.unblockUser() );
+			return browser.call( async () => MWApi.unblockUser( await MWApi.bot() ) );
 		} );
 
 		it( 'is not possible to edit', () => {

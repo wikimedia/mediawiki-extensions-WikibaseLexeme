@@ -5,26 +5,26 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
-	WatchlistPage = require( '../../../../pageobjects/watchlist.page' ),
-	WatchablePage = require( '../../../../pageobjects/watchable.page' );
+	WatchlistPage = require( '../../../../../../tests/selenium/pageobjects/watchlist.page' ),
+	WatchablePage = require( '../../../../../../tests/selenium/pageobjects/watchable.page' );
 
 describe( 'Special:Watchlist', () => {
 
-	let username, password;
+	let username, password, bot;
 
-	before( function () {
+	before( async () => {
 		username = Util.getTestString( 'user-' );
 		password = Util.getTestString( 'password-' );
-
-		browser.call( () => Api.createAccount( username, password ) );
+		bot = await Api.bot();
+		await Api.createAccount( bot, username, password );
 	} );
 
 	beforeEach( function () {
-		browser.deleteCookie();
+		browser.deleteAllCookies();
 		LoginPage.login( username, password );
 	} );
 
-	it( 'shows lemmas in title links to lexemes', () => {
+	it( 'shows lemmas in title links to lexemes on Special:Watchlist', () => {
 		const id = browser.call( () => LexemeApi.create( {
 			lemmas: {
 				en: {
