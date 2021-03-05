@@ -6,7 +6,6 @@ use Exception;
 use Html;
 use HTMLForm;
 use InvalidArgumentException;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\PermissionManager;
 use Message;
 use SpecialPage;
@@ -97,6 +96,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	}
 
 	public static function factory(
+		PermissionManager $permissionManager,
 		EntityTitleLookup $entityTitleLookup
 	): self {
 		$repo = WikibaseRepo::getDefaultInstance();
@@ -105,7 +105,7 @@ class SpecialMergeLexemes extends SpecialPage {
 			WikibaseLexemeServices::createGlobalInstance( false )->newMergeLexemesInteractor(),
 			$entityTitleLookup,
 			$repo->getExceptionLocalizer(),
-			MediaWikiServices::getInstance()->getPermissionManager()
+			$permissionManager
 		);
 	}
 
