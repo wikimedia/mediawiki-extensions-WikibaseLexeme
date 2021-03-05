@@ -65,12 +65,14 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 		$this->tablesUsed[] = 'page';
 
+		$mwServices = MediaWikiServices::getInstance();
+
 		$this->mergeInteractor = $this->newMockMergeInteractor();
 		$this->repo = WikibaseRepo::getDefaultInstance();
 		$this->entityStore = $this->repo->getEntityStore();
-		$this->titleLookup = $this->repo->getEntityTitleLookup();
+		$this->titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
 		$this->exceptionLocalizer = $this->newMockExceptionLocalizer();
-		$this->permissionManager = MediaWikiServices::getInstance()->getPermissionManager();
+		$this->permissionManager = $mwServices->getPermissionManager();
 	}
 
 	public function testSpecialMergeLexemesContainsInputFields() {

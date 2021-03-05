@@ -61,7 +61,7 @@ return [
 					new LexemeIdHtmlFormatter(
 						$wikibaseRepo->getEntityLookup(),
 						$labelDescriptionLookup,
-						$wikibaseRepo->getEntityTitleLookup(),
+						WikibaseRepo::getEntityTitleLookup(),
 						new MediaWikiLocalizedTextProvider( $userLanguage )
 					)
 				);
@@ -79,6 +79,7 @@ return [
 			return $factory->getEntityValidators( Form::ENTITY_TYPE );
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
+			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$userLanguage = $wikibaseRepo->getUserLanguage();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
@@ -86,7 +87,7 @@ return [
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
-				$titleLookup = $wikibaseRepo->getEntityTitleLookup();
+				$titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
 				$languageLabelLookupFactory = $wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory();
 				$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $userLanguage );
 				$baseFormatter = new FormIdHtmlFormatter(
@@ -95,7 +96,7 @@ return [
 					$titleLookup,
 					$textProvider,
 					new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup ),
-					MediaWikiServices::getInstance()->getLanguageFactory()
+					$mwServices->getLanguageFactory()
 				);
 			} else {
 				$baseFormatter = new FormIdTextFormatter(
@@ -116,6 +117,7 @@ return [
 			return $factory->getEntityValidators( Sense::ENTITY_TYPE );
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
+			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
 			$language = $wikibaseRepo->getUserLanguage();
@@ -127,7 +129,7 @@ return [
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
-				$titleLookup = $wikibaseRepo->getEntityTitleLookup();
+				$titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
 
 				return new EntityIdValueFormatter(
 					new SenseIdHtmlFormatter(
@@ -136,7 +138,7 @@ return [
 						$localizedTextProvider,
 						$fallbackChain,
 						new LanguageFallbackIndicator( $wikibaseRepo->getLanguageNameLookup() ),
-						MediaWikiServices::getInstance()->getLanguageFactory()
+						$mwServices->getLanguageFactory()
 					)
 				);
 			}

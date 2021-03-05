@@ -86,13 +86,14 @@ class WikibaseLexemeServices {
 	}
 
 	public function newMergeLexemesInteractor(): MergeLexemesInteractor {
+		$mwServices = MediaWikiServices::getInstance();
 		return new MergeLexemesInteractor(
 			$this->newLexemeMerger(),
 			$this->getLexemeAuthorizer(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			$this->newLexemeRedirector(),
-			$this->getWikibaseRepo()->getEntityTitleLookup(),
-			MediaWikiServices::getInstance()->getWatchedItemStore(),
+			WikibaseRepo::getEntityTitleStoreLookup( $mwServices ),
+			$mwServices->getWatchedItemStore(),
 			$this->getLexemeRepository()
 		);
 	}
@@ -168,12 +169,12 @@ class WikibaseLexemeServices {
 			RequestContext::getMain()->getUser(),
 			new MediawikiEditFilterHookRunner(
 				$this->getWikibaseRepo()->getEntityNamespaceLookup(),
-				$this->getWikibaseRepo()->getEntityTitleLookup(),
+				WikibaseRepo::getEntityTitleStoreLookup(),
 				WikibaseRepo::getEntityContentFactory(),
 				RequestContext::getMain()
 			),
 			$this->getWikibaseRepo()->getStore()->getEntityRedirectLookup(),
-			$this->getWikibaseRepo()->getEntityTitleLookup(),
+			WikibaseRepo::getEntityTitleStoreLookup(),
 			$this->botEditRequested
 		);
 	}

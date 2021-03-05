@@ -96,12 +96,14 @@ class SpecialMergeLexemes extends SpecialPage {
 		}
 	}
 
-	public static function factory(): self {
+	public static function factory(
+		EntityTitleLookup $entityTitleLookup
+	): self {
 		$repo = WikibaseRepo::getDefaultInstance();
 
 		return new self(
 			WikibaseLexemeServices::createGlobalInstance( false )->newMergeLexemesInteractor(),
-			$repo->getEntityTitleLookup(),
+			$entityTitleLookup,
 			$repo->getExceptionLocalizer(),
 			MediaWikiServices::getInstance()->getPermissionManager()
 		);
