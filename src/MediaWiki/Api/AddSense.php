@@ -7,6 +7,7 @@ use ApiMain;
 use LogicException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\SerializerFactory;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -72,16 +73,15 @@ class AddSense extends ApiBase {
 	public static function factory(
 		ApiMain $mainModule,
 		string $moduleName,
+		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser
 	) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
 
-		$serializerFactory = $wikibaseRepo->getBaseDataModelSerializerFactory();
-
 		$senseSerializer = new SenseSerializer(
-			$serializerFactory->newTermListSerializer(),
-			$serializerFactory->newStatementListSerializer()
+			$baseDataModelSerializerFactory->newTermListSerializer(),
+			$baseDataModelSerializerFactory->newStatementListSerializer()
 		);
 
 		return new self(

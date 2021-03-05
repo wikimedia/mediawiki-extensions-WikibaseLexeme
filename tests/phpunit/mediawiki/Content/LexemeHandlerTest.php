@@ -149,8 +149,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	}
 
 	protected function getEntitySerializer() {
-		$baseModelSerializerFactory = WikibaseRepo::getDefaultInstance()
-			->getBaseDataModelSerializerFactory();
+		$baseModelSerializerFactory = WikibaseRepo::getBaseDataModelSerializerFactory();
 		$entityTypeDefinitions = $this->getEntityTypeDefinitions();
 		$serializerFactoryCallbacks = $entityTypeDefinitions->getSerializerFactoryCallbacks();
 		return $serializerFactoryCallbacks['lexeme']( $baseModelSerializerFactory );

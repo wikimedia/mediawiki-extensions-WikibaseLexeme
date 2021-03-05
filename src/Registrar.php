@@ -31,6 +31,7 @@ class Registrar {
 			'class' => AddForm::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm::factory',
 			'services' => [
+				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
 			],
 		];
@@ -45,6 +46,7 @@ class Registrar {
 			'class' => EditFormElements::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::factory',
 			'services' => [
+				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
 			],
 		];
@@ -52,6 +54,7 @@ class Registrar {
 			'class' => AddSense::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::factory',
 			'services' => [
+				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
 			],
 		];
@@ -59,6 +62,7 @@ class Registrar {
 			'class' => EditSenseElements::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::factory',
 			'services' => [
+				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
 			],
 		];
