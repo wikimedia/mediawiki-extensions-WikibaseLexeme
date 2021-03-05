@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\NewStatement;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * E2E test for backlinks/WhatLinksHere functionality for lexeme specific properties
@@ -103,7 +104,7 @@ class LexemeApiQueryBacklinksTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function getEntityTitle( EntityId $id ) {
-		return $this->wikibaseRepo->getEntityTitleLookup()
+		return WikibaseRepo::getEntityTitleLookup()
 			->getTitleForId( $id )
 			->getPrefixedText();
 	}

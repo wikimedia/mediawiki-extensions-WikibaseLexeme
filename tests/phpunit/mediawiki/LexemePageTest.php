@@ -51,7 +51,7 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 
 	private function newLexemePage( Lexeme $lexeme ) {
 		return new Article(
-			WikibaseRepo::getDefaultInstance()->getEntityTitleLookup()->getTitleForId( $lexeme->getId() )
+			WikibaseRepo::getEntityTitleStoreLookup()->getTitleForId( $lexeme->getId() )
 		);
 	}
 

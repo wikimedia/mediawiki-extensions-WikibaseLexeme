@@ -82,12 +82,16 @@ class Registrar {
 			'class' => SpecialNewLexeme::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::factory',
 			'services' => [
+				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.Settings',
 			],
 		];
 		$wgSpecialPages['MergeLexemes'] = [
 			'class' => SpecialMergeLexemes::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::factory',
+			'services' => [
+				'WikibaseRepo.EntityTitleLookup'
+			]
 		];
 
 		$wgResourceModules = array_merge(

@@ -68,6 +68,7 @@ class SpecialNewLexeme extends SpecialPage {
 	}
 
 	public static function factory(
+		EntityTitleLookup $entityTitleLookup,
 		SettingsArray $repoSettings
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
@@ -82,7 +83,7 @@ class SpecialNewLexeme extends SpecialPage {
 			$copyrightView,
 			$wikibaseRepo->getEntityNamespaceLookup(),
 			$wikibaseRepo->getSummaryFormatter(),
-			$wikibaseRepo->getEntityTitleLookup(),
+			$entityTitleLookup,
 			$wikibaseRepo->newEditEntityFactory()
 		);
 	}

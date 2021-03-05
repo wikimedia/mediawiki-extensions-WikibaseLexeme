@@ -70,7 +70,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			$this->copyrightView,
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			$summaryFormatter,
-			$wikibaseRepo->getEntityTitleLookup(),
+			WikibaseRepo::getEntityTitleLookup(),
 			$wikibaseRepo->newEditEntityFactory()
 		);
 	}

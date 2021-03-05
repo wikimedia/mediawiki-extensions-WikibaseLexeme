@@ -261,7 +261,7 @@ return [
 			return new LexemeIdHtmlFormatter(
 				$repo->getEntityLookup(),
 				$languageLabelLookup,
-				$repo->getEntityTitleLookup(),
+				WikibaseRepo::getEntityTitleLookup(),
 				new MediaWikiLocalizedTextProvider( $language )
 			);
 		},
@@ -361,7 +361,7 @@ return [
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
-			$titleLookup = $repo->getEntityTitleLookup();
+			$titleLookup = WikibaseRepo::getEntityTitleLookup();
 			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new FormIdHtmlFormatter(
@@ -466,7 +466,7 @@ return [
 			$repo = WikibaseRepo::getDefaultInstance();
 
 			return new SenseIdHtmlFormatter(
-				$repo->getEntityTitleLookup(),
+				WikibaseRepo::getEntityTitleLookup(),
 				$repo->getEntityRevisionLookup(),
 				new MediaWikiLocalizedTextProvider( $language ),
 				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $language ),
