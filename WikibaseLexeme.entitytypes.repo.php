@@ -167,6 +167,10 @@ return [
 								new LexemeTermSerializationValidator(
 									new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 								)
+							),
+							new ClaimsChangeOpDeserializer(
+								$wikibaseRepo->getExternalFormatStatementDeserializer(),
+								$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 							)
 						)
 					)
@@ -436,6 +440,10 @@ return [
 						new LexemeTermSerializationValidator(
 							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)
+					),
+					new ClaimsChangeOpDeserializer(
+						$wikibaseRepo->getExternalFormatStatementDeserializer(),
+						$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 					)
 				)
 			);

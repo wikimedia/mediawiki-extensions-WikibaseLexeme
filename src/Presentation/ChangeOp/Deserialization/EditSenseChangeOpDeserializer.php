@@ -3,10 +3,12 @@
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpSenseEdit;
+use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidSenseClaims;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
 use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * Deserialize a change request on a single sense
@@ -16,6 +18,8 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 class EditSenseChangeOpDeserializer implements ChangeOpDeserializer {
 
 	private const PARAM_GLOSSES = 'glosses';
+
+	private const PARAM_STATEMENTS = 'claims';
 
 	/**
 	 * @var GlossesChangeOpDeserializer
@@ -27,10 +31,17 @@ class EditSenseChangeOpDeserializer implements ChangeOpDeserializer {
 	 */
 	private $validationContext;
 
+	/**
+	 * @var ClaimsChangeOpDeserializer
+	 */
+	private $statementsChangeOpDeserializer;
+
 	public function __construct(
-		GlossesChangeOpDeserializer $glossesChangeOpDeserializer
+		GlossesChangeOpDeserializer $glossesChangeOpDeserializer,
+		ClaimsChangeOpDeserializer $statementsChangeOpDeserializer
 	) {
 		$this->glossesChangeOpDeserializer = $glossesChangeOpDeserializer;
+		$this->statementsChangeOpDeserializer = $statementsChangeOpDeserializer;
 	}
 
 	public function setContext( ValidationContext $context ) {
@@ -62,6 +73,23 @@ class EditSenseChangeOpDeserializer implements ChangeOpDeserializer {
 				$this->glossesChangeOpDeserializer->setContext( $glossesContext );
 				$changeOps[] =
 					$this->glossesChangeOpDeserializer->createEntityChangeOp( $glosses );
+			}
+		}
+
+		if ( array_key_exists( self::PARAM_STATEMENTS, $changeRequest ) ) {
+			$statementsContext = $this->validationContext->at( self::PARAM_STATEMENTS );
+			$statementsRequest = $changeRequest[self::PARAM_STATEMENTS];
+
+			if ( !is_array( $statementsRequest ) ) {
+				$statementsContext->addViolation(
+					new JsonFieldHasWrongType( 'array', gettype( $statementsRequest ) )
+				);
+			} else {
+				try {
+					$changeOps[] = $this->statementsChangeOpDeserializer->createEntityChangeOp( $changeRequest );
+				} catch ( ChangeOpDeserializationException $exception ) {
+					$statementsContext->addViolation( new InvalidSenseClaims() );
+				}
 			}
 		}
 

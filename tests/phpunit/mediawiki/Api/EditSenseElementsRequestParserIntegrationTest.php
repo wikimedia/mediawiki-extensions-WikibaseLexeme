@@ -24,6 +24,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeseria
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\StringNormalizer;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser
@@ -242,7 +243,8 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)
-			)
+			),
+			$this->createStub( ClaimsChangeOpDeserializer::class )
 		);
 
 		return new EditSenseElementsRequestParser(

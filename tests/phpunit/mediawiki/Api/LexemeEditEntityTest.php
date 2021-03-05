@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Store\Store;
 
 /**
@@ -48,6 +49,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	private const EXISTING_LEXEME_FORM_2_LANGUAGE = 'en';
 	private const EXISTING_LEXEME_FORM_2_TEXT = 'Malus';
 	private const SPECIAL_TERM_LANGUAGE = 'mis';
+	private const EXISTING_LEXEME_SENSE_ID = 'S1';
+	private const EXISTING_LEXEME_SENSE_GLOSS_LANG = 'en';
+	private const EXISTING_LEXEME_SENSE_GLOSS_TEXT = 'a fruit of a tree of the genus Malus';
 
 	public function testGivenNewParameterAndValidDataAreProvided_newLexemeIsCreated() {
 		$lemma = 'worm';
@@ -133,6 +137,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						self::EXISTING_LEXEME_FORM_2_LANGUAGE,
 						self::EXISTING_LEXEME_FORM_2_TEXT
 					)->build()
+			)->withSense(
+				NewSense::havingId( self::EXISTING_LEXEME_SENSE_ID )
+					->andLexeme( $id )
+					->withGloss(
+						self::EXISTING_LEXEME_SENSE_GLOSS_LANG,
+						self::EXISTING_LEXEME_SENSE_GLOSS_TEXT
+					)
 			)->build();
 	}
 
@@ -1703,6 +1714,30 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertSame( 1, $result['success'] );
 		$this->assertSame( $formId, $result['entity']['id'] );
+		$this->assertHasStatement( $claim, $result['entity'] );
+	}
+
+	public function testGivenNewStatementOnExistingSense_statementIsAdded() {
+		$this->saveDummyLexemeToDatabase();
+
+		$senseId = self::EXISTING_LEXEME_ID . '-' . self::EXISTING_LEXEME_SENSE_ID;
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P666' ],
+			'type' => 'statement',
+			'rank' => 'normal',
+		];
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => $senseId,
+			'data' => json_encode( [
+				'claims' => [ $claim ],
+			] ),
+		];
+
+		[ $result ] = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+		$this->assertSame( $senseId, $result['entity']['id'] );
 		$this->assertHasStatement( $claim, $result['entity'] );
 	}
 

@@ -24,6 +24,7 @@ use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
@@ -96,6 +97,10 @@ class AddSense extends ApiBase {
 						new LexemeTermSerializationValidator(
 							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)
+					),
+					new ClaimsChangeOpDeserializer(
+						$wikibaseRepo->getExternalFormatStatementDeserializer(),
+						$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 					)
 				)
 			),
