@@ -123,12 +123,11 @@ class LexemeRdfBuilderTest extends TestCase {
 	private function newFullBuilder(
 		RdfWriter $writer, $produce
 	) {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$builder = new RdfBuilder(
 			$this->getVocabulary(),
 			WikibaseRepo::getValueSnakRdfBuilderFactory(),
 			$this->getTestData()->getMockRepository(),
-			$wikibaseRepo->getEntityRdfBuilderFactory(),
+			WikibaseRepo::getEntityRdfBuilderFactory(),
 			$produce,
 			$writer,
 			new HashDedupeBag(),
