@@ -19,6 +19,7 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LookupConstants;
+use Wikibase\Lib\StringNormalizer;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
@@ -74,7 +75,8 @@ class EditSenseElements extends \ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
-		EntityIdParser $entityIdParser
+		EntityIdParser $entityIdParser,
+		StringNormalizer $stringNormalizer
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -94,7 +96,7 @@ class EditSenseElements extends \ApiBase {
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(
 						new TermDeserializer(),
-						$wikibaseRepo->getStringNormalizer(),
+						$stringNormalizer,
 						new LexemeTermSerializationValidator(
 							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 						)
