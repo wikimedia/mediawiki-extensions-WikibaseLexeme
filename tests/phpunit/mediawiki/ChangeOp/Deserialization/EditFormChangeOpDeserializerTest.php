@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormEdit;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
@@ -19,8 +20,31 @@ use Wikibase\Repo\Validators\CompositeValidator;
  */
 class EditFormChangeOpDeserializerTest extends TestCase {
 
+	/**
+	 * @var MockObject|RepresentationsChangeOpDeserializer
+	 */
+	private $representationsChangeOpDeserializer;
+
+	/**
+	 * @var MockObject|ItemIdListDeserializer
+	 */
+	private $itemIdListDeserializer;
+
+	/**
+	 * @var MockObject|ClaimsChangeOpDeserializer
+	 */
+	private $statementsChangeOpDeserializer;
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		$this->representationsChangeOpDeserializer = $this->createStub( RepresentationsChangeOpDeserializer::class );
+		$this->itemIdListDeserializer = $this->createStub( ItemIdListDeserializer::class );
+		$this->statementsChangeOpDeserializer = $this->createStub( ClaimsChangeOpDeserializer::class );
+	}
+
 	public function testCreateEntityChangeOp_yieldsChangeOpFormEdit() {
-		$deserializer = $this->getDeserializer();
+		$deserializer = $this->newChangeOpDeserializer();
 		$changeOps = $deserializer->createEntityChangeOp( [] );
 
 		$this->assertInstanceOf( ChangeOpFormEdit::class, $changeOps );
@@ -28,14 +52,10 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithOffTypeRepresentations_addsViolation() {
-		$deserializer = $this->getDeserializer();
+		$deserializer = $this->newChangeOpDeserializer();
 
-		$formContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$representationsContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$formContext = $this->createMock( ValidationContext::class );
+		$representationsContext = $this->createMock( ValidationContext::class );
 
 		$formContext->expects( $this->once() )
 			->method( 'at' )
@@ -53,19 +73,15 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithRepresentations_callsDownstreamDeserializer() {
-		$representationsChangeOpDeserializer = $this->getRepresentationsChangeOpDeserializer();
-		$representationsChangeOpDeserializer
+		$this->representationsChangeOpDeserializer = $this->getRepresentationsChangeOpDeserializer();
+		$this->representationsChangeOpDeserializer
 			->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
 			->with( [ 'some' => 'info' ] );
-		$deserializer = $this->getDeserializer( $representationsChangeOpDeserializer );
+		$deserializer = $this->newChangeOpDeserializer();
 
-		$formContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$representationsContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$formContext = $this->createMock( ValidationContext::class );
+		$representationsContext = $this->createMock( ValidationContext::class );
 
 		$formContext->expects( $this->once() )
 			->method( 'at' )
@@ -82,14 +98,10 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithOffTypeGrammaticalFeatures_addsViolation() {
-		$deserializer = $this->getDeserializer();
+		$deserializer = $this->newChangeOpDeserializer();
 
-		$formContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$grammaticalFeaturesContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$formContext = $this->createMock( ValidationContext::class );
+		$grammaticalFeaturesContext = $this->createMock( ValidationContext::class );
 
 		$formContext->expects( $this->once() )
 			->method( 'at' )
@@ -107,25 +119,21 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithGrammaticalFeatures_callsDownstreamDeserializer() {
-		$formContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$grammaticalFeaturesContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$formContext = $this->createMock( ValidationContext::class );
+		$grammaticalFeaturesContext = $this->createMock( ValidationContext::class );
 
 		$formContext->expects( $this->once() )
 			->method( 'at' )
 			->with( 'grammaticalFeatures' )
 			->willReturn( $grammaticalFeaturesContext );
 
-		$itemIdListDeserializer = $this->getItemIdListDeserializer();
-		$itemIdListDeserializer
+		$this->itemIdListDeserializer = $this->getItemIdListDeserializer();
+		$this->itemIdListDeserializer
 			->expects( $this->once() )
 			->method( 'deserialize' )
 			->with( [ 'some' => 'info' ], $grammaticalFeaturesContext )
 			->willReturn( [] );
-		$deserializer = $this->getDeserializer( null, $itemIdListDeserializer );
+		$deserializer = $this->newChangeOpDeserializer();
 
 		$deserializer->setContext( $formContext );
 		$changeOps = $deserializer->createEntityChangeOp( [
@@ -138,52 +146,30 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 
 	public function testGivenChangeRequestContainsClaims_callsDownstreamDeserializer() {
 		$changeRequest = [ 'claims' => [] ];
-		$mockClaimsChangeOpDeserializer = $this->createMock( ClaimsChangeOpDeserializer::class );
-		$mockClaimsChangeOpDeserializer->expects( $this->once() )
+		$this->statementsChangeOpDeserializer = $this->createMock( ClaimsChangeOpDeserializer::class );
+		$this->statementsChangeOpDeserializer->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
 			->with( $changeRequest );
 
-		$deserializer = $this->getDeserializer(
-			null,
-			null,
-			$mockClaimsChangeOpDeserializer
-		);
+		$deserializer = $this->newChangeOpDeserializer();
 		$deserializer->setContext( $this->createMock( ValidationContext::class ) );
 
 		$deserializer->createEntityChangeOp( $changeRequest );
 	}
 
 	private function getRepresentationsChangeOpDeserializer() {
-		return $this->getMockBuilder( RepresentationsChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		return $this->createMock( RepresentationsChangeOpDeserializer::class );
 	}
 
 	private function getItemIdListDeserializer() {
-		return $this->getMockBuilder( ItemIdListDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		return $this->createMock( ItemIdListDeserializer::class );
 	}
 
-	private function getDeserializer(
-		$representationsChangeOpDeserializer = null,
-		$itemIdListDeserializer = null,
-		$claimsChangeOpDeserializer = null
-	) {
-		if ( $representationsChangeOpDeserializer === null ) {
-			$representationsChangeOpDeserializer = $this->getRepresentationsChangeOpDeserializer();
-		}
-		if ( $itemIdListDeserializer === null ) {
-			$itemIdListDeserializer = $this->getItemIdListDeserializer();
-		}
-		if ( $claimsChangeOpDeserializer === null ) {
-			$claimsChangeOpDeserializer = $this->createMock( ClaimsChangeOpDeserializer::class );
-		}
-
+	private function newChangeOpDeserializer() {
 		return new EditFormChangeOpDeserializer(
-			$representationsChangeOpDeserializer,
-			$itemIdListDeserializer,
-			$claimsChangeOpDeserializer,
+			$this->representationsChangeOpDeserializer,
+			$this->itemIdListDeserializer,
+			$this->statementsChangeOpDeserializer,
 			new CompositeValidator( [] )
 		);
 	}
