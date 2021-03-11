@@ -13,11 +13,11 @@ use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Store\Store;
 
@@ -119,36 +119,21 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			->withLemma( self::EXISTING_LEXEME_LEMMA_LANGUAGE, self::EXISTING_LEXEME_LEMMA )
 			->withLexicalCategory( self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID )
 			->withLanguage( self::EXISTING_LEXEME_LANGUAGE_ITEM_ID )
-			->withForm( new Form(
-				new FormId(
-					$this->formatFormId(
-						$id,
-						self::EXISTING_LEXEME_FORM_1_ID
-					)
-				),
-				new TermList( [
-					new Term(
+			->withForm(
+				NewForm::havingId( self::EXISTING_LEXEME_FORM_1_ID )
+					->andLexeme( $id )
+					->andRepresentation(
 						self::EXISTING_LEXEME_FORM_1_LANGUAGE,
 						self::EXISTING_LEXEME_FORM_1_TEXT
-					)
-				] ),
-				[]
-			) )->withForm( new Form(
-				new FormId(
-					$this->formatFormId(
-						$id,
-						self::EXISTING_LEXEME_FORM_2_ID
-					)
-				),
-				new TermList( [
-					new Term(
+					)->build()
+			)->withForm(
+				NewForm::havingId( self::EXISTING_LEXEME_FORM_2_ID )
+					->andLexeme( $id )
+					->andRepresentation(
 						self::EXISTING_LEXEME_FORM_2_LANGUAGE,
 						self::EXISTING_LEXEME_FORM_2_TEXT
-					)
-				] ),
-				[]
-			) )
-			->build();
+					)->build()
+			)->build();
 	}
 
 	private function saveDummyLexemeToDatabase() {
@@ -1693,6 +1678,32 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$this->assertHasStatement( $claim, $result['entity']['forms'][0] );
+	}
+
+	public function testGivenNewStatementOnExistingForm_statementIsAdded() {
+		$this->saveDummyLexemeToDatabase();
+
+		$formId = $this->formatFormId(
+			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
+		);
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P666' ],
+			'type' => 'statement',
+			'rank' => 'normal',
+		];
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => $formId,
+			'data' => json_encode( [
+				'claims' => [ $claim ],
+			] ),
+		];
+
+		[ $result ] = $this->doApiRequestWithToken( $params );
+
+		$this->assertSame( 1, $result['success'] );
+		$this->assertSame( $formId, $result['entity']['id'] );
+		$this->assertHasStatement( $claim, $result['entity'] );
 	}
 
 	// TODO: edit statements (all options: add, edit, remove?) with id=L1
