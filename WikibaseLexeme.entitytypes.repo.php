@@ -245,7 +245,7 @@ return [
 			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
 			return new LexemeLinkFormatter(
-				$repo->getEntityTitleTextLookup(),
+				WikibaseRepo::getEntityTitleTextLookup(),
 				$repo->getEntityLookup(),
 				$linkFormatter,
 				new LexemeTermFormatter(
