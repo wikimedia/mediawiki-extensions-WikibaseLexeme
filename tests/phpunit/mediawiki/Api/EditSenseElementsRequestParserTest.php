@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\ChangeOps;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser
@@ -86,7 +87,8 @@ class EditSenseElementsRequestParserTest extends TestCase {
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)
-			)
+			),
+			$this->createStub( ClaimsChangeOpDeserializer::class )
 		);
 		$parser = new EditSenseElementsRequestParser(
 			$this->newSenseIdDeserializer(),

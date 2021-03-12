@@ -21,6 +21,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeser
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\StringNormalizer;
+use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\AddSenseRequestParser
@@ -100,7 +101,8 @@ class AddSenseRequestParserTest extends TestCase {
 				new LexemeTermSerializationValidator(
 					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
 				)
-			)
+			),
+			$this->createStub( ClaimsChangeOpDeserializer::class )
 		);
 
 		return new AddSenseRequestParser(

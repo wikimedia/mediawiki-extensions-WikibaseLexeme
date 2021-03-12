@@ -61,5 +61,6 @@
 	"apierror-wikibaselexeme-unknown-language": "Unknown language \"$3\" in field \"$1\" at \"$2\".",
 	"apierror-wikibaselexeme-unknown-language-withtext": "Unknown language \"$3\" for term \"$4\" in field \"$1\" at \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "Invalid Item ID \"$3\" in field \"$1\" at \"$2\".",
-	"apierror-wikibaselexeme-invalid-form-claims": "Invalid claims in field \"$1\" at \"$2\"."
+	"apierror-wikibaselexeme-invalid-form-claims": "Invalid claims in field \"$1\" at \"$2\".",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Invalid claims in field \"$1\" at \"$2\"."
 }
