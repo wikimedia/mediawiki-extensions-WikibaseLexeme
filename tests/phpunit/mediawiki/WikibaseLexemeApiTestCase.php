@@ -4,14 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiUsageException;
 use IApiMessage;
-use Wikibase\DataAccess\NullPrefetchingTermLookup;
-use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\Tests\Api\WikibaseApiTestCase;
 use Wikibase\Repo\WikibaseRepo;
-use Wikimedia\Services\ServiceContainer;
 
 /**
  * todo Add a reset function to wikibase Entity(Revision)Lookup to reset caches
@@ -120,35 +117,14 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	}
 
 	private function resetTermBuffer() {
-		$services = $this->wikibaseRepo->getWikibaseServices();
-		if ( $this->basedOnMediaWikiServiceContainer( $services ) ) {
-			$this->overrideBufferService( $services );
+		if ( $this->getServiceContainer()->has( 'WikibaseRepo.PrefetchingTermLookup' ) ) {
+			$this->resetServices();
 		} else {
-			$this->resetInternalLookupService( $services );
+			$services = WikibaseRepo::getWikibaseServices();
+			$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
+			$internalLookup->setAccessible( true );
+			$internalLookup->setValue( $services, null );
 		}
-	}
-
-	private function basedOnMediaWikiServiceContainer( WikibaseServices $services ) {
-		return $services instanceof ServiceContainer;
-	}
-
-	private function overrideBufferService( WikibaseServices $services ) {
-		if ( $services->hasService( 'TermBuffer' ) ) {
-			$services->disableService( 'TermBuffer' );
-			$services->redefineService( 'TermBuffer', function () {
-				return new NullPrefetchingTermLookup();
-			} );
-		} else {
-			$services->defineService( 'TermBuffer', function () {
-				return new NullPrefetchingTermLookup();
-			} );
-		}
-	}
-
-	private function resetInternalLookupService( WikibaseServices $services ) {
-		$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
-		$internalLookup->setAccessible( true );
-		$internalLookup->setValue( $services, null );
 	}
 
 }

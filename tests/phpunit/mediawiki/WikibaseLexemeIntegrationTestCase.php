@@ -3,11 +3,8 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use HamcrestPHPUnitIntegration;
-use Wikibase\DataAccess\NullPrefetchingTermLookup;
-use Wikibase\DataAccess\WikibaseServices;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Repo\WikibaseRepo;
-use Wikimedia\Services\ServiceContainer;
 
 /**
  * @license GPL-2.0-or-later
@@ -22,32 +19,14 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 	}
 
 	private function resetTermBuffer() {
-		$repo = WikibaseRepo::getDefaultInstance();
-
-		$services = $repo->getWikibaseServices();
-		if ( $this->basedOnMediaWikiServiceContainer( $services ) ) {
-			$this->overrideBufferService( $services );
+		if ( $this->getServiceContainer()->has( 'WikibaseRepo.PrefetchingTermLookup' ) ) {
+			$this->resetServices();
 		} else {
-			$this->resetInternalLookupService( $services );
+			$services = WikibaseRepo::getWikibaseServices();
+			$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
+			$internalLookup->setAccessible( true );
+			$internalLookup->setValue( $services, null );
 		}
-	}
-
-	private function basedOnMediaWikiServiceContainer( WikibaseServices $services ) {
-		return $services instanceof ServiceContainer;
-	}
-
-	private function overrideBufferService( WikibaseServices $services ) {
-		$services->disableService( 'TermBuffer' );
-
-		$services->redefineService( 'TermBuffer', function () {
-			return new NullPrefetchingTermLookup();
-		} );
-	}
-
-	private function resetInternalLookupService( WikibaseServices $services ) {
-		$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
-		$internalLookup->setAccessible( true );
-		$internalLookup->setValue( $services, null );
 	}
 
 	protected function getEntityStore() {
