@@ -11,7 +11,6 @@ $cfg['file_list'] = array_merge(
 		'WikibaseLexeme.entitytypes.repo.php',
 		'WikibaseLexeme.i18n.alias.php',
 		'WikibaseLexeme.mediawiki-services.php',
-		'WikibaseLexeme.php',
 		'WikibaseLexeme.resources.php',
 	]
 );
