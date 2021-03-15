@@ -20,6 +20,9 @@
 	"apihelp-wbleditformelements-summary": "Bearbeitet die Darstellungen und grammatikalischen Funktionen einer Form",
 	"apihelp-wbleditformelements-param-formId": "Kennung der Form, z.&nbsp;B. L10-F2",
 	"apihelp-wbleditformelements-param-data": "JSON-kodierte Darstellung und Daten für die grammatikalische Funktion",
+	"apihelp-wbleditformelements-param-bot": "Diese Bearbeitung als Bot markieren. Dieses URL-Flag wird nur beachtet, wenn der Benutzer zur Gruppe „{{int:group-bot}}“ gehört.",
+	"apihelp-wbleditformelements-param-baserevid": "Basis-Versions-ID des Lexems, wenn die Prüfung auf Bearbeitungskonflikte von Formularelementen gewünscht ist.",
+	"apihelp-wbleditformelements-example-1": "Bearbeitet Form mit der ID <samp>$1</samp>, um Darstellungen <samp>$2</samp> in Sprachen <samp>$3</samp> bzw. grammatische Merkmale <samp>$4</samp> zu haben.",
 	"apihelp-wbladdsense-summary": "Fügt ein Sense einem Lexeme hinzu",
 	"apihelp-wbladdsense-param-lexemeId": "Kennung des Lexemes, z.&nbsp;B. L10",
 	"apihelp-wbladdsense-param-data": "JSON-kodierte Daten für das Sense, z.&nbsp;B. seine Fußnoten.",
@@ -27,11 +30,14 @@
 	"apihelp-wbladdsense-example-1": "Ergänzt eine Form im Lexeme mit der Kennung <samp>$1</samp>, das die Fußnoten <samp>$2</samp> beziehungsweise die Sprachen <samp>$3</samp> hat.",
 	"apihelp-wblremovesense-summary": "Entfernt das Sense vom Lexeme",
 	"apihelp-wblremovesense-param-id": "Kennung des Senses, z.&nbsp;B. L10-S20",
+	"apihelp-wblremovesense-param-baserevid": "Basis-Versionskennung des Lexems, falls die Prüfung auf Bearbeitungskonflikte gewünscht ist.",
 	"apihelp-wblremovesense-param-bot": "Markiert diese Bearbeitung als Bot. Diese URL-Markierung wird nur berücksichtigt, wenn der Benutzer der Gruppe „{{int:group-bot}}“ angehört.",
 	"apihelp-wblremovesense-example-1": "Entfernt das Sense vom Lexeme mit der Kennung <samp>$1</samp>",
 	"apihelp-wbleditsenseelements-summary": "Bearbeitet Fußnoten eines Senses",
 	"apihelp-wbleditsenseelements-param-senseId": "Kennung des Senses, z.&nbsp;B. L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "JSON-kodierte Fußnotendaten",
+	"apihelp-wbleditsenseelements-param-bot": "Diese Bearbeitung als Bot markieren. Dieses URL-Flag wird nur beachtet, wenn der Benutzer zur Gruppe „{{int:group-bot}}“ gehört.",
+	"apihelp-wbleditsenseelements-param-baserevid": "Basis-Revisions-ID des Lexems, wenn die Prüfung von Editierkonflikten von Sense-Elementen gewünscht ist.",
 	"apihelp-wblmergelexemes-description": "Führt zwei Lexemes zusammen.",
 	"apihelp-wblmergelexemes-summary": "Führt zwei Lexemes zusammen.",
 	"apihelp-wblmergelexemes-param-source": "Die Kennung, von der zusammengeführt werden soll.",
@@ -58,5 +64,6 @@
 	"apierror-wikibaselexeme-unknown-language": "Unbekannte Sprache „$3“ in Feld „$1“ bei „$2“.",
 	"apierror-wikibaselexeme-unknown-language-withtext": "Unbekannte Sprache „$3“ für den Ausdruck „$4“ in Feld „$1“ an Stelle „$2“.",
 	"apierror-wikibaselexeme-invalid-item-id": "Ungültige Objektkennung „$3“ im Feld „$1“ bei „$2“.",
-	"apierror-wikibaselexeme-invalid-form-claims": "Ungültige Behauptungen im Feld „$1“ bei „$2“."
+	"apierror-wikibaselexeme-invalid-form-claims": "Ungültige Behauptungen im Feld „$1“ bei „$2“.",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Ungültige Behauptungen im Feld „$1“ bei „$2“."
 }

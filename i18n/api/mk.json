@@ -64,5 +64,6 @@
 	"apierror-wikibaselexeme-unknown-language": "Непознат јазик „$3“ во полето „$1“ на „$2“.",
 	"apierror-wikibaselexeme-unknown-language-withtext": "Непознат јазик „$3“ за поимот „$4“ во поелто „$1“ на „$2“.",
 	"apierror-wikibaselexeme-invalid-item-id": "Неважечка назнака на предметот „$3“ во полето „$1“ на „$2“.",
-	"apierror-wikibaselexeme-invalid-form-claims": "Неважечки тврдења во полето „$1“ на „$2“."
+	"apierror-wikibaselexeme-invalid-form-claims": "Неважечки тврдења во полето „$1“ на „$2“.",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Неважечки тврдења во полето „$1“ на „$2“."
 }

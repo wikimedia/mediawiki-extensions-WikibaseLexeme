@@ -15,7 +15,7 @@
 	"wikibaselexeme-newlexeme-language": "Zimanê leksemê",
 	"wikibaselexeme-newlexeme-language-placeholder": "Zimanekî binivîse, wek mînak kurdî",
 	"wikibaselexeme-header-forms": "Form",
-	"wikibaselexeme-header-senses": "Wate",
+	"wikibaselexeme-header-senses": "Mane",
 	"wikibaselexeme-lemma-field-language-label": "Guhertoya rênivîsê",
 	"wikibaselexeme-form-field-language-label": "Guhertoya rênivîsê",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
@@ -35,7 +35,8 @@
 	"wikibaselexeme-diffview-language": "ziman",
 	"wikibaselexeme-diffview-form": "Form",
 	"wikibaselexeme-diffview-grammatical-feature": "taybetmendiya rêzimanî",
-	"wikibaselexeme-diffview-sense": "Wate",
+	"wikibaselexeme-diffview-sense": "Mane",
+	"wikibaselexeme-form-grammatical-features": "Taybetmendiyên rêzimanî",
 	"wikibaselexeme-unknown-language": "Zimanê nenas",
 	"wikibaselexeme-unknown-category": "Nenas"
 }

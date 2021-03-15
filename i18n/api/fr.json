@@ -67,5 +67,6 @@
 	"apierror-wikibaselexeme-unknown-language": "Langue inconnue « $3 » dans le champ « $1» à « $2 » .",
 	"apierror-wikibaselexeme-unknown-language-withtext": "Langue « $3 » inconnue pour le terme « $4 » dans le champ « $1 » en « $2 ».",
 	"apierror-wikibaselexeme-invalid-item-id": "Numéro invalide d’élément « $3 » sur le champ « $1 » dans « $2 ».",
-	"apierror-wikibaselexeme-invalid-form-claims": "Déclarations non valides dans le champ « $1 » en « $2 »."
+	"apierror-wikibaselexeme-invalid-form-claims": "Déclarations non valides dans le champ « $1 » en « $2 ».",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Déclarations non valides dans le champ « $1 » en « $2 »."
 }

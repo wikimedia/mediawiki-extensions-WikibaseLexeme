@@ -66,5 +66,6 @@
 	"apierror-wikibaselexeme-unknown-language": "\"$2\" altında \"$1\" alanında bilinmeyen dil \"$3\".",
 	"apierror-wikibaselexeme-unknown-language-withtext": "\"$2\" adresindeki \"$1\" alanında \"$4\" terimi için bilinmeyen \"$3\" dili.",
 	"apierror-wikibaselexeme-invalid-item-id": "\"$2\" altında \"$1\" alanında \"$3\" geçersiz öğe kimliği.",
-	"apierror-wikibaselexeme-invalid-form-claims": "\"$2\" altındaki \"$1\" alanında geçersiz hak talepleri."
+	"apierror-wikibaselexeme-invalid-form-claims": "\"$2\" altındaki \"$1\" alanında geçersiz talep.",
+	"apierror-wikibaselexeme-invalid-sense-claims": "\"$2\" altındaki \"$1\" alanında geçersiz talep."
 }

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Daanboven",
 			"Ndecouck",
 			"Sjoerddebruin"
 		]
@@ -9,5 +10,6 @@
 	"apihelp-wbladdform-param-lexemeId": "ID van het lexeem, bijv. L10",
 	"apihelp-wblremoveform-param-id": "Identificatie van het formulier bijv. L10-F20",
 	"apihelp-wblmergelexemes-summary": "Twee lexemen samenvoegen.",
-	"apierror-wikibaselexeme-sense-not-found": "Het veld $1 bevat een nummer van betekenis $2 dat niet kan worden gevonden."
+	"apierror-wikibaselexeme-sense-not-found": "Het veld $1 bevat een nummer van betekenis $2 dat niet kan worden gevonden.",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Ongeldige claims in veld \"$1\" bij \"$2\"."
 }
