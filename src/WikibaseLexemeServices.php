@@ -168,7 +168,7 @@ class WikibaseLexemeServices {
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			RequestContext::getMain()->getUser(),
 			new MediawikiEditFilterHookRunner(
-				$this->getWikibaseRepo()->getEntityNamespaceLookup(),
+				WikibaseRepo::getEntityNamespaceLookup(),
 				WikibaseRepo::getEntityTitleStoreLookup(),
 				WikibaseRepo::getEntityContentFactory(),
 				RequestContext::getMain()
