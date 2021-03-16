@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Content;
 
+use MediaWiki\Languages\LanguageNameUtils;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\MediaWikiContentLanguages;
 use Wikibase\Lib\StaticContentLanguages;
@@ -19,10 +20,14 @@ class LexemeTermLanguages implements ContentLanguages {
 
 	/**
 	 * @param string[] $additionalLanguageCodes Codes beyond the Mediawiki's Language ones
+	 * @param LanguageNameUtils|null $languageNameUtils
 	 */
-	public function __construct( array $additionalLanguageCodes ) {
+	public function __construct(
+		array $additionalLanguageCodes,
+		LanguageNameUtils $languageNameUtils = null
+	) {
 		$this->contentLanguages = new UnionContentLanguages(
-			new MediaWikiContentLanguages(),
+			new MediaWikiContentLanguages( $languageNameUtils ),
 			new StaticContentLanguages( $additionalLanguageCodes )
 		);
 	}
