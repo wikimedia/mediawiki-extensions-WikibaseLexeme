@@ -380,7 +380,7 @@ return [
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
-			$entityNamespaceLookup = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
+			$entityNamespaceLookup = WikibaseRepo::getEntityNamespaceLookup();
 			$entityQuery = new EntityIdLocalPartPageTableEntityQuery(
 				$entityNamespaceLookup,
 				MediaWikiServices::getInstance()->getSlotRoleStore()
@@ -485,7 +485,7 @@ return [
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
-			$entityNamespaceLookup = WikibaseRepo::getDefaultInstance()->getEntityNamespaceLookup();
+			$entityNamespaceLookup = WikibaseRepo::getEntityNamespaceLookup();
 			$entityQuery = new EntityIdLocalPartPageTableEntityQuery(
 				$entityNamespaceLookup,
 				MediaWikiServices::getInstance()->getSlotRoleStore()

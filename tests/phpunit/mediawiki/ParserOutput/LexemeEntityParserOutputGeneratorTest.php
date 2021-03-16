@@ -45,8 +45,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 		$this->entityStore = $this->getEntityStore();
 
-		$repo = WikibaseRepo::getDefaultInstance();
-		$namespaceLookup = $repo->getEntityNamespaceLookup();
+		$namespaceLookup = WikibaseRepo::getEntityNamespaceLookup();
 		$this->propertyNamespace = $namespaceLookup->getEntityNamespace( 'property' );
 		$this->itemNamespace = $namespaceLookup->getEntityNamespace( 'item' );
 	}

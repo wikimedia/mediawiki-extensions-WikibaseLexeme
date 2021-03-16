@@ -84,6 +84,7 @@ class Registrar {
 			'class' => SpecialNewLexeme::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::factory',
 			'services' => [
+				'WikibaseRepo.EntityNamespaceLookup',
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.Settings',
 			],
