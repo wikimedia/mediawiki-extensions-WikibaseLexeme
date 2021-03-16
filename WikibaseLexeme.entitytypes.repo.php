@@ -51,7 +51,6 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
-use Wikibase\Lib\Store\Sql\EntityIdLocalPartPageTableEntityQuery;
 use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\Api\EntityIdSearchHelper;
@@ -380,11 +379,6 @@ return [
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
-			$entityNamespaceLookup = WikibaseRepo::getEntityNamespaceLookup();
-			$entityQuery = new EntityIdLocalPartPageTableEntityQuery(
-				$entityNamespaceLookup,
-				MediaWikiServices::getInstance()->getSlotRoleStore()
-			);
 			return new MediaWikiPageSubEntityMetaDataAccessor(
 				WikibaseRepo::getDefaultInstance()->getLocalRepoWikiPageMetaDataAccessor()
 			);
@@ -485,11 +479,6 @@ return [
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
-			$entityNamespaceLookup = WikibaseRepo::getEntityNamespaceLookup();
-			$entityQuery = new EntityIdLocalPartPageTableEntityQuery(
-				$entityNamespaceLookup,
-				MediaWikiServices::getInstance()->getSlotRoleStore()
-			);
 			return new MediaWikiPageSubEntityMetaDataAccessor(
 				WikibaseRepo::getDefaultInstance()->getLocalRepoWikiPageMetaDataAccessor()
 			);
