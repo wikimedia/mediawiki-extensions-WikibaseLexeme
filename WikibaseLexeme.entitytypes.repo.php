@@ -122,7 +122,7 @@ return [
 			$services = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
-				$wikibaseRepo->getExternalFormatStatementDeserializer(),
+				WikibaseRepo::getExternalFormatStatementDeserializer(),
 				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 			);
 			$itemValidator = new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' );

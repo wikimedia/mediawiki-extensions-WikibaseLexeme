@@ -85,7 +85,7 @@ return call_user_func( function () {
 				),
 				new ItemIdListDeserializer( new ItemIdParser() ),
 				new ClaimsChangeOpDeserializer(
-					$wikibaseRepo->getExternalFormatStatementDeserializer(),
+					WikibaseRepo::getExternalFormatStatementDeserializer( $mediaWikiServices ),
 					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 				),
 				new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' )
