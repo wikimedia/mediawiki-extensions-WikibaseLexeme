@@ -14,19 +14,8 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 	use HamcrestPHPUnitIntegration;
 
 	protected function tearDown() : void {
-		$this->resetTermBuffer();
+		$this->resetServices();
 		parent::tearDown();
-	}
-
-	private function resetTermBuffer() {
-		if ( $this->getServiceContainer()->has( 'WikibaseRepo.PrefetchingTermLookup' ) ) {
-			$this->resetServices();
-		} else {
-			$services = WikibaseRepo::getWikibaseServices();
-			$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
-			$internalLookup->setAccessible( true );
-			$internalLookup->setValue( $services, null );
-		}
 	}
 
 	protected function getEntityStore() {

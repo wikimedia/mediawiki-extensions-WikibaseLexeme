@@ -40,7 +40,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	}
 
 	protected function tearDown() : void {
-		$this->resetTermBuffer();
+		$this->resetServices();
 		parent::tearDown();
 	}
 
@@ -114,17 +114,6 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$serializedEntityId . StatementGuid::SEPARATOR,
 			$guid
 		);
-	}
-
-	private function resetTermBuffer() {
-		if ( $this->getServiceContainer()->has( 'WikibaseRepo.PrefetchingTermLookup' ) ) {
-			$this->resetServices();
-		} else {
-			$services = WikibaseRepo::getWikibaseServices();
-			$internalLookup = ( new \ReflectionClass( $services ) )->getProperty( 'prefetchingTermLookup' );
-			$internalLookup->setAccessible( true );
-			$internalLookup->setValue( $services, null );
-		}
 	}
 
 }
