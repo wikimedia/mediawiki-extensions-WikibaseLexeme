@@ -59,7 +59,8 @@ return call_user_func( function () {
 		'WikibaseLexemeTermLanguages' =>
 			function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
 				return new LexemeTermLanguages(
-					$additionalLanguages
+					$additionalLanguages,
+					$mediawikiServices->getLanguageNameUtils()
 				);
 			},
 		'WikibaseLexemeLanguageNameLookup' =>
