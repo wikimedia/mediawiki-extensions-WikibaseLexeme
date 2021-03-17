@@ -40,6 +40,7 @@ return call_user_func( function () {
 		'non-runr', // T265782
 		'nrf-gg', // T223716
 		'nrf-je', // T223716
+		'quc', // T277392
 		'rah', // T267479
 		'rhg-rohg', // T272442
 		'rkt', // T271589
