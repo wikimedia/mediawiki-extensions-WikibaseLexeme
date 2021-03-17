@@ -65,5 +65,6 @@
 	"apierror-wikibaselexeme-unknown-language": "Idioma \"$3\" desconhecido no campo \"$1\" em \"$2\"",
 	"apierror-wikibaselexeme-unknown-language-withtext": "Idioma desconhecido \"$3\" para o termo \"$4\" no campo \"$1\" em \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "O identificador de elemento \"$3\" no campo \"$1\" em \"$2\" é inválido.",
-	"apierror-wikibaselexeme-invalid-form-claims": "Reivindicações inválidas no campo \"$1\" no \"$2\"."
+	"apierror-wikibaselexeme-invalid-form-claims": "Reivindicações inválidas no campo \"$1\" no \"$2\".",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Reivindicações inválidas no campo \"$1\" no \"$2\"."
 }
