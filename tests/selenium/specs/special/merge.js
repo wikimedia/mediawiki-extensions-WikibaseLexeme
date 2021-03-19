@@ -8,7 +8,7 @@ const assert = require( 'assert' ),
 describe( 'Special:MergeLexemes', () => {
 	describe( 'when blocked', () => {
 		beforeEach( () => {
-			return browser.call( () => MWApi.blockUser() );
+			return browser.call( async () => MWApi.blockUser( await MWApi.bot() ) );
 		} );
 
 		it( 'is not possible to edit', () => {
@@ -21,7 +21,7 @@ describe( 'Special:MergeLexemes', () => {
 		} );
 
 		afterEach( () => {
-			return browser.call( () => MWApi.unblockUser() );
+			return browser.call( async () => MWApi.unblockUser( await MWApi.bot() ) );
 		} );
 	} );
 } );

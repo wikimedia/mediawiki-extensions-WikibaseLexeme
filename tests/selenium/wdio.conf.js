@@ -26,7 +26,8 @@ exports.config = {
 	// Test Files
 	// ==================
 	specs: [
-		__dirname + '/specs/*.js'
+		__dirname + '/specs/*.js',
+		__dirname + '/specs/special/*.js'
 	],
 
 	// ============
