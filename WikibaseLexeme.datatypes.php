@@ -52,7 +52,7 @@ return [
 
 				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
 				$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
-					$wikibaseRepo->getTermLookup(),
+					WikibaseRepo::getTermLookup(),
 					WikibaseRepo::getLanguageFallbackChainFactory()
 						->newFromLanguage( $userLanguage )
 				);
