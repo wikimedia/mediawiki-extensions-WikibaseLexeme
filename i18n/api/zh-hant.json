@@ -61,6 +61,8 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "詞性必須至少要有一個表述以及拼寫變體",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "含意必須至少要有一個註解",
 	"apierror-wikibaselexeme-unknown-language": "在「$2」的欄位「$1」裡有未知語言「$3」。",
+	"apierror-wikibaselexeme-unknown-language-withtext": "在「$2」的欄位「$1」裡有用於詞彙「$4」的未知語言「$3」。",
 	"apierror-wikibaselexeme-invalid-item-id": "在「$2」的欄位「$1」裡有無效項目 ID「$3」。",
-	"apierror-wikibaselexeme-invalid-form-claims": "在「$2」的欄位「$1」裡有無效聲稱內容。"
+	"apierror-wikibaselexeme-invalid-form-claims": "在「$2」的欄位「$1」裡有無效聲稱內容。",
+	"apierror-wikibaselexeme-invalid-sense-claims": "在「$2」的欄位「$1」裡有無效聲稱內容。"
 }
