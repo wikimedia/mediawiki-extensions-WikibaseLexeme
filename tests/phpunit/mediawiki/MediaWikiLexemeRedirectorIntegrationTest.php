@@ -59,7 +59,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 
 		$this->assertEquals(
 			$target->getId(),
-			$this->repo->getStore()->getEntityRedirectLookup()
+			WikibaseRepo::getStore()->getEntityRedirectLookup()
 				->getRedirectForEntityId( $source->getId() )
 		);
 	}
@@ -72,7 +72,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 			$this->getMockSummaryFormatter(),
 			$this->getTestUser()->getUser(),
 			$this->getMockEditFilterHookRunner(),
-			$this->repo->getStore()->getEntityRedirectLookup(),
+			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			$this->getMockEntityTitleLookup(),
 			false
 		);

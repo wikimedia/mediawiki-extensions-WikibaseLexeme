@@ -173,7 +173,7 @@ class WikibaseLexemeServices {
 				WikibaseRepo::getEntityContentFactory(),
 				RequestContext::getMain()
 			),
-			$this->getWikibaseRepo()->getStore()->getEntityRedirectLookup(),
+			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			WikibaseRepo::getEntityTitleStoreLookup(),
 			$this->botEditRequested
 		);

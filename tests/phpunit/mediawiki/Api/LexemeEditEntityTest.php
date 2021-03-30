@@ -21,6 +21,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Repo\Store\Store;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Repo\Api\EditEntity
@@ -2284,7 +2285,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function getEntityLookup() : EntityLookup {
-		return $this->wikibaseRepo->getStore()->getEntityLookup( Store::LOOKUP_CACHING_DISABLED );
+		return WikibaseRepo::getStore()->getEntityLookup( Store::LOOKUP_CACHING_DISABLED );
 	}
 
 }
