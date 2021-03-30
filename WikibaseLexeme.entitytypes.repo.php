@@ -380,7 +380,7 @@ return [
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
 			return new MediaWikiPageSubEntityMetaDataAccessor(
-				WikibaseRepo::getDefaultInstance()->getLocalRepoWikiPageMetaDataAccessor()
+				WikibaseRepo::getLocalRepoWikiPageMetaDataAccessor()
 			);
 		},
 	],
@@ -480,7 +480,7 @@ return [
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
 			return new MediaWikiPageSubEntityMetaDataAccessor(
-				WikibaseRepo::getDefaultInstance()->getLocalRepoWikiPageMetaDataAccessor()
+				WikibaseRepo::getLocalRepoWikiPageMetaDataAccessor()
 			);
 		},
 	],
