@@ -95,8 +95,7 @@ return [
 				RequestContext::getMain()
 					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
 					->escaped(),
-				WikibaseRepo::getDefaultInstance()
-					->getLanguageFallbackLabelDescriptionLookupFactory()
+				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
 					->newLabelDescriptionLookup( \Language::factory( 'en' ) )
 			);
 		},
@@ -110,7 +109,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
-				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
+				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
@@ -261,7 +260,7 @@ return [
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
-			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
+			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new LexemeIdHtmlFormatter(
 				$repo->getEntityLookup(),
@@ -301,7 +300,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
-				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
+				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
@@ -367,7 +366,7 @@ return [
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$titleLookup = WikibaseRepo::getEntityTitleLookup();
-			$languageLabelLookupFactory = $repo->getLanguageFallbackLabelDescriptionLookupFactory();
+			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new FormIdHtmlFormatter(
 				$repo->getEntityRevisionLookup(),
@@ -402,7 +401,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				$wikibaseRepo->getEntityLookup(),
-				$wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory(),
+				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},

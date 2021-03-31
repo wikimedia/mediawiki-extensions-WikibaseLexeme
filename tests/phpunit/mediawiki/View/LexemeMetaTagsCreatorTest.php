@@ -84,8 +84,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		$this->expectException( InvalidArgumentException::class );
 		new LexemeMetaTagsCreator(
 			$input,
-			WikibaseRepo::getDefaultInstance()
-				->getLanguageFallbackLabelDescriptionLookupFactory()
+			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
 				->newLabelDescriptionLookup( \Language::factory( 'en' ) )
 		);
 	}

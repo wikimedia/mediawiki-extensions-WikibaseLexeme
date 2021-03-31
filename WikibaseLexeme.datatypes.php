@@ -88,7 +88,8 @@ return [
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
-				$languageLabelLookupFactory = $wikibaseRepo->getLanguageFallbackLabelDescriptionLookupFactory();
+				$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(
+					$mwServices );
 				$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $userLanguage );
 				$baseFormatter = new FormIdHtmlFormatter(
 					$revisionLookup,
