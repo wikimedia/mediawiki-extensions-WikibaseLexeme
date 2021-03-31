@@ -154,7 +154,7 @@ class WikibaseLexemeServices {
 			function () {
 				return new MediaWikiLexemeAuthorizer(
 					RequestContext::getMain()->getUser(),
-					$this->getWikibaseRepo()->getEntityPermissionChecker()
+					WikibaseRepo::getEntityPermissionChecker()
 				);
 			}
 		);
@@ -164,7 +164,7 @@ class WikibaseLexemeServices {
 		return new MediaWikiLexemeRedirector(
 			$this->getWikibaseRepo()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$this->getWikibaseRepo()->getEntityStore(),
-			$this->getWikibaseRepo()->getEntityPermissionChecker(),
+			WikibaseRepo::getEntityPermissionChecker(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			RequestContext::getMain()->getUser(),
 			new MediawikiEditFilterHookRunner(
