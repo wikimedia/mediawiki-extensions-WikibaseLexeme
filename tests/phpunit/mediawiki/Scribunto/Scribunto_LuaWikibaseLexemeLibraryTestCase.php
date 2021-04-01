@@ -77,7 +77,7 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 		self::enableDataTransclusion();
 
 		/** @var MockRepository $mockRepository */
-		$mockRepository = WikibaseClient::getDefaultInstance()->getStore()->getSiteLinkLookup();
+		$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
 		$mockRepository->putEntity(
 			NewLexeme::havingId( 'L1' )
 				->withLemma( 'en', 'English lemma' )
