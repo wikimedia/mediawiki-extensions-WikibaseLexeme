@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Domain\Model;
 
-use Comparable;
 use Countable;
 use InvalidArgumentException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
@@ -13,7 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
  *
  * @license GPL-2.0-or-later
  */
-class SenseSet implements Countable, Comparable {
+class SenseSet implements Countable {
 
 	/**
 	 * @var Sense[] indexed by serialization of SenseId
@@ -155,9 +154,6 @@ class SenseSet implements Countable, Comparable {
 		return $this->senses === [];
 	}
 
-	/**
-	 * @see Comparable::equals()
-	 */
 	public function equals( $other ) {
 		if ( $this === $other ) {
 			return true;
