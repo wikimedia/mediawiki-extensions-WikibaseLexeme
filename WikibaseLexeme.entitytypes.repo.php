@@ -104,7 +104,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
 				$wikibaseRepo->getEntityContentDataCodec(),
-				$wikibaseRepo->getEntityConstraintProvider(),
+				WikibaseRepo::getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
@@ -295,7 +295,7 @@ return [
 
 			return new LexemeHandler(
 				$wikibaseRepo->getEntityContentDataCodec(),
-				$wikibaseRepo->getEntityConstraintProvider(),
+				WikibaseRepo::getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
@@ -396,7 +396,7 @@ return [
 
 			return new LexemeHandler(
 				$wikibaseRepo->getEntityContentDataCodec(),
-				$wikibaseRepo->getEntityConstraintProvider(),
+				WikibaseRepo::getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
