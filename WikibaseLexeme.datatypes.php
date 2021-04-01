@@ -48,7 +48,7 @@ return [
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-				$userLanguage = $wikibaseRepo->getUserLanguage();
+				$userLanguage = WikibaseRepo::getUserLanguage();
 
 				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
 				$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
@@ -81,7 +81,7 @@ return [
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$userLanguage = $wikibaseRepo->getUserLanguage();
+			$userLanguage = WikibaseRepo::getUserLanguage();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
 			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage );
 			$snakFormat = new SnakFormat();
@@ -121,7 +121,7 @@ return [
 			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
-			$language = $wikibaseRepo->getUserLanguage();
+			$language = WikibaseRepo::getUserLanguage();
 
 			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );
 
