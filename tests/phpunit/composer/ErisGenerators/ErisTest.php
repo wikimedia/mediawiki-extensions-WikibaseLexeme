@@ -27,11 +27,9 @@ trait ErisTest {
 	}
 
 	/**
-	 * @codingStandardsIgnoreStart this is a trait, we cannot use tearDown() instead of @after
 	 * @after
-	 * @codingStandardsIgnoreEnd
 	 */
-	public function erisTeardown() {
+	public function erisTearDown() {
 		if ( !self::erisIsInstalled() ) {
 			return;
 		}
