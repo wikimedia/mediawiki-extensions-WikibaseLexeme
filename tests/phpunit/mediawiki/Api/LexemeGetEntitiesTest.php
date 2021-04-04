@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiMain;
+use ApiResult;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -89,6 +91,44 @@ class LexemeGetEntitiesTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertEquals( self::LEXEME_ID . '-S1', $senseData['id'] );
 		$this->assertEquals( [ 'language' => 'en', 'value' => 'foo' ], $senseData['glosses']['en'] );
+	}
+
+	public function testEmptyListMetaData() {
+		$this->entityStore->saveEntity(
+			NewLexeme::havingId( self::LEXEME_ID )
+				->withForm( NewForm::any()->andId( 'F1' ) )
+				->withSense( NewSense::havingId( 'S1' )->withGloss( 'en', 'foo' ) )
+				->build(),
+			self::class,
+			$this->getTestUser()->getUser()
+		);
+
+		$repoSettings = clone $this->getServiceContainer()->getService( 'WikibaseRepo.Settings' );
+		$repoSettings->setSetting( 'tmpSerializeEmptyListsAsObjects', true );
+		$this->setService( 'WikibaseRepo.Settings', $repoSettings );
+
+		/** @var ApiMain $module */
+		$module = $this->doApiRequest(
+			[
+				'action' => 'wbgetentities',
+				'format' => 'json',
+				'ids' => self::LEXEME_ID,
+			],
+			null,
+			true
+		)[3];
+
+		// avoid loadEntity which strips the metadata
+		$lexemeData = $module->getResult()->getResultData()['entities'][self::LEXEME_ID];
+
+		$this->assertArrayHasKey( ApiResult::META_TYPE, $lexemeData['claims'] );
+		$this->assertEquals( 'kvp', $lexemeData['claims'][ApiResult::META_TYPE] );
+
+		$this->assertArrayHasKey( ApiResult::META_TYPE, $lexemeData['forms'][0]['claims'] );
+		$this->assertEquals( 'kvp', $lexemeData['forms'][0]['claims'][ApiResult::META_TYPE] );
+
+		$this->assertArrayHasKey( ApiResult::META_TYPE, $lexemeData['senses'][0]['claims'] );
+		$this->assertEquals( 'kvp', $lexemeData['senses'][0]['claims'][ApiResult::META_TYPE] );
 	}
 
 }
