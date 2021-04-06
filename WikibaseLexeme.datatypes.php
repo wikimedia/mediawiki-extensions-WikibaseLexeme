@@ -81,7 +81,7 @@ return [
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$userLanguage = WikibaseRepo::getUserLanguage();
+			$userLanguage = WikibaseRepo::getUserLanguage( $mwServices );
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
 			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage );
 			$snakFormat = new SnakFormat();
@@ -121,7 +121,7 @@ return [
 			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
-			$language = WikibaseRepo::getUserLanguage();
+			$language = WikibaseRepo::getUserLanguage( $mwServices );
 
 			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );
 
