@@ -105,7 +105,7 @@ class WikibaseLexemeServices {
 				return new MediaWikiLexemeRepository(
 					RequestContext::getMain()->getUser(),
 					$this->botEditRequested,
-					$this->getWikibaseRepo()->getEntityStore(),
+					WikibaseRepo::getEntityStore(),
 					$this->getWikibaseRepo()->getEntityRevisionLookup(),
 					MediaWikiServices::getInstance()->getPermissionManager()
 				);
@@ -163,7 +163,7 @@ class WikibaseLexemeServices {
 	private function newLexemeRedirector(): LexemeRedirector {
 		return new MediaWikiLexemeRedirector(
 			$this->getWikibaseRepo()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-			$this->getWikibaseRepo()->getEntityStore(),
+			WikibaseRepo::getEntityStore(),
 			WikibaseRepo::getEntityPermissionChecker(),
 			$this->getWikibaseRepo()->getSummaryFormatter(),
 			RequestContext::getMain()->getUser(),

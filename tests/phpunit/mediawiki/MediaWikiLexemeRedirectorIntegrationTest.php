@@ -41,7 +41,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 		$this->tablesUsed[] = 'page';
 
 		$this->repo = WikibaseRepo::getDefaultInstance();
-		$this->entityStore = $this->repo->getEntityStore();
+		$this->entityStore = WikibaseRepo::getEntityStore();
 		$this->entityLookup = $this->repo->getEntityLookup();
 	}
 
@@ -67,7 +67,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	private function newRedirector() {
 		return new MediaWikiLexemeRedirector(
 			$this->repo->getEntityRevisionLookup(),
-			$this->repo->getEntityStore(),
+			WikibaseRepo::getEntityStore(),
 			$this->getMockEntityPermissionChecker(),
 			$this->getMockSummaryFormatter(),
 			$this->getTestUser()->getUser(),

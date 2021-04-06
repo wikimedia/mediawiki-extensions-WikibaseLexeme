@@ -69,7 +69,8 @@ class EditFormElements extends \ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
-		EntityIdParser $entityIdParser
+		EntityIdParser $entityIdParser,
+		EntityStore $entityStore
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -93,7 +94,7 @@ class EditFormElements extends \ApiBase {
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			},
-			$wikibaseRepo->getEntityStore()
+			$entityStore
 		);
 	}
 

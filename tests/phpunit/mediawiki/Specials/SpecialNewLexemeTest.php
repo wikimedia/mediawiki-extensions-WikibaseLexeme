@@ -310,8 +310,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @param string $id
 	 */
 	private function givenItemExists( $id ) {
-		WikibaseRepo::getDefaultInstance()
-			->getEntityStore()
+		WikibaseRepo::getEntityStore()
 			->saveEntity(
 				NewItem::withId( $id )->build(),
 				'',
