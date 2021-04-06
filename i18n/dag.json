@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Musahfm"
+			"Musahfm",
+			"Sir Amugi"
 		]
 	},
-	"wikibase-lexeme-language-name-ja-hira": "Japanese din sabi hiragana"
+	"wikibase-lexeme-language-name-ja-hira": "Japanese din sabi hiragana",
+	"wikibase-lexeme-language-name-quc": "Kʼicheʼ"
 }
