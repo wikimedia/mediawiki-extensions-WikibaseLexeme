@@ -48,6 +48,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.EntityStore'
 			],
 		];
 		$wgAPIModules['wbladdsense'] = [
@@ -65,6 +66,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.EntityStore',
 				'WikibaseRepo.StringNormalizer',
 			],
 		];

@@ -31,8 +31,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 	protected function setUp() : void {
 		parent::setUp();
 
-		$repo = WikibaseRepo::getDefaultInstance();
-		$this->entityStore = $repo->getEntityStore();
+		$this->entityStore = WikibaseRepo::getEntityStore();
 	}
 
 	/**

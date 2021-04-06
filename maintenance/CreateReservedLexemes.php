@@ -39,7 +39,7 @@ class CreateReservedLexemes extends Maintenance {
 
 	public function execute() {
 		$user = \User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
-		$store = WikibaseRepo::getDefaultInstance()->getEntityStore();
+		$store = WikibaseRepo::getEntityStore();
 
 		if ( !WikibaseSettings::isRepoEnabled() ) {
 			$this->fatalError(

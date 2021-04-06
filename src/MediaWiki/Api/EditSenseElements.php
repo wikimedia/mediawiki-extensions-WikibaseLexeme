@@ -77,6 +77,7 @@ class EditSenseElements extends \ApiBase {
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser,
+		EntityStore $entityStore,
 		StringNormalizer $stringNormalizer
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
@@ -113,7 +114,7 @@ class EditSenseElements extends \ApiBase {
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			},
-			$wikibaseRepo->getEntityStore()
+			$entityStore
 		);
 	}
 

@@ -69,7 +69,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 		$this->mergeInteractor = $this->newMockMergeInteractor();
 		$this->repo = WikibaseRepo::getDefaultInstance();
-		$this->entityStore = $this->repo->getEntityStore();
+		$this->entityStore = WikibaseRepo::getEntityStore();
 		$this->titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
 		$this->exceptionLocalizer = $this->newMockExceptionLocalizer();
 		$this->permissionManager = $mwServices->getPermissionManager();

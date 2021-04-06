@@ -36,7 +36,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		$this->tablesUsed[] = 'revision';
 
 		$this->wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		$this->entityStore = $this->wikibaseRepo->getEntityStore();
+		$this->entityStore = WikibaseRepo::getEntityStore();
 	}
 
 	protected function tearDown() : void {
