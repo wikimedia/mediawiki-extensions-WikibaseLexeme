@@ -214,7 +214,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 			$entityIdFormatter = $wikibaseRepo->getEntityIdHtmlLinkFormatterFactory()
-				->getEntityIdFormatter( $wikibaseRepo->getUserLanguage() );
+				->getEntityIdFormatter( WikibaseRepo::getUserLanguage() );
 
 			return new LexemeDiffVisualizer(
 				$messageLocalizer,
@@ -234,7 +234,8 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				new LanguageFallbackLabelDescriptionLookup(
 					WikibaseRepo::getTermLookup(),
-					WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $repo->getUserLanguage() )
+					WikibaseRepo::getLanguageFallbackChainFactory()
+						->newFromLanguage( WikibaseRepo::getUserLanguage() )
 				),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
@@ -409,7 +410,7 @@ return [
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
 			$entityLookup = $repo->getEntityLookup();
-			$userLanguage = $repo->getUserLanguage();
+			$userLanguage = WikibaseRepo::getUserLanguage();
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
 				$entityLookup,
 				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
