@@ -905,7 +905,7 @@ class LexemeMergerTest extends TestCase {
 			->getStatementsMerger();
 
 		// Tests depend on correct behaviour, so don't mock NoCrossReferencingLexemeStatements
-		$baseExtractor = new StatementEntityReferenceExtractor( $repo->getItemUrlParser() );
+		$baseExtractor = new StatementEntityReferenceExtractor( WikibaseRepo::getItemUrlParser() );
 		$noCrossReferencingStatementsValidator = new NoCrossReferencingLexemeStatements(
 			new LexemeStatementEntityReferenceExtractor(
 				$baseExtractor,
