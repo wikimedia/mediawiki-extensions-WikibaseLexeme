@@ -7,7 +7,6 @@ use DataValues\StringValue;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
-use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -16,6 +15,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @coversNothing
@@ -289,19 +289,12 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	 * @return Lexeme
 	 */
 	private function loadForm( LexemeId $lexemeId, FormId $formId ) {
-		$lookup = $this->getLookup();
+		$lookup = WikibaseRepo::getEntityLookup();
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $lookup->getEntity( $lexemeId );
 
 		return $lexeme->getForm( $formId );
-	}
-
-	/**
-	 * @return EntityLookup
-	 */
-	private function getLookup() {
-		return $this->wikibaseRepo->getEntityLookup();
 	}
 
 	private function getStatementData( $guid, PropertyId $propertyId, $value, $type = 'string' ) {

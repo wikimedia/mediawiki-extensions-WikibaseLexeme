@@ -15,6 +15,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Store\Store;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\EditFormElements
@@ -976,7 +977,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	 * @return Lexeme|null
 	 */
 	private function getLexeme( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityLookup();
+		$lookup = WikibaseRepo::getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 

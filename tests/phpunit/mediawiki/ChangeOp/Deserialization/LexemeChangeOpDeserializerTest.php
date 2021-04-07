@@ -67,7 +67,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			new FormListChangeOpDeserializer(
 				new FormIdDeserializer( $entityIdParser ),
 				new FormChangeOpDeserializer(
-					$wikibaseRepo->getEntityLookup(),
+					WikibaseRepo::getEntityLookup(),
 					$entityIdParser,
 					new EditFormChangeOpDeserializer(
 						new RepresentationsChangeOpDeserializer(
@@ -86,7 +86,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			new SenseListChangeOpDeserializer(
 				new SenseIdDeserializer( $entityIdParser ),
 				new SenseChangeOpDeserializer(
-					$wikibaseRepo->getEntityLookup(),
+					WikibaseRepo::getEntityLookup(),
 					$entityIdParser,
 					new EditSenseChangeOpDeserializer(
 						new GlossesChangeOpDeserializer(

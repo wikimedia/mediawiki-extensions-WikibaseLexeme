@@ -141,8 +141,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		);
 
 		/** @var Lexeme $postMergeTarget */
-		$postMergeTarget = WikibaseRepo::getDefaultInstance()
-			->getEntityLookup()
+		$postMergeTarget = WikibaseRepo::getEntityLookup()
 			->getEntity( $this->target->getId() );
 
 		$this->assertEquals(

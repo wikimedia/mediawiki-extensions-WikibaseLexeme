@@ -99,7 +99,7 @@ return call_user_func( function () {
 					WikibaseRepo::getExternalFormatStatementDeserializer( $mediaWikiServices ),
 					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 				),
-				new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' )
+				new EntityExistsValidator( WikibaseRepo::getEntityLookup( $mediaWikiServices ), 'item' )
 			);
 		},
 	];

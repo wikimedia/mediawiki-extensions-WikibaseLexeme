@@ -108,7 +108,7 @@ return [
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
-				$wikibaseRepo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -123,7 +123,8 @@ return [
 				WikibaseRepo::getExternalFormatStatementDeserializer(),
 				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 			);
-			$itemValidator = new EntityExistsValidator( $wikibaseRepo->getEntityLookup(), 'item' );
+			$entityLookup = WikibaseRepo::getEntityLookup( $services );
+			$itemValidator = new EntityExistsValidator( $entityLookup, 'item' );
 			$entityIdParser = WikibaseRepo::getEntityIdParser( $services );
 			$stringNormalizer = WikibaseRepo::getStringNormalizer( $services );
 			$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
@@ -150,7 +151,7 @@ return [
 				new FormListChangeOpDeserializer(
 					new FormIdDeserializer( $entityIdParser ),
 					new FormChangeOpDeserializer(
-						$wikibaseRepo->getEntityLookup(),
+						$entityLookup,
 						$entityIdParser,
 						WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 					)
@@ -158,7 +159,7 @@ return [
 				new SenseListChangeOpDeserializer(
 					new SenseIdDeserializer( $entityIdParser ),
 					new SenseChangeOpDeserializer(
-						$wikibaseRepo->getEntityLookup(),
+						$entityLookup,
 						$entityIdParser,
 						new EditSenseChangeOpDeserializer(
 							new GlossesChangeOpDeserializer(
@@ -230,7 +231,7 @@ return [
 			$repo = WikibaseRepo::getDefaultInstance();
 
 			return new EntityIdSearchHelper(
-				$repo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new LanguageFallbackLabelDescriptionLookup(
 					WikibaseRepo::getTermLookup(),
@@ -249,7 +250,7 @@ return [
 
 			return new LexemeLinkFormatter(
 				WikibaseRepo::getEntityTitleTextLookup(),
-				$repo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				$linkFormatter,
 				new LexemeTermFormatter(
 					$requestContext
@@ -260,11 +261,10 @@ return [
 			);
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
-			$repo = WikibaseRepo::getDefaultInstance();
 			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new LexemeIdHtmlFormatter(
-				$repo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				$languageLabelLookup,
 				WikibaseRepo::getEntityTitleLookup(),
 				new MediaWikiLocalizedTextProvider( $language )
@@ -300,7 +300,7 @@ return [
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
-				$wikibaseRepo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -310,16 +310,15 @@ return [
 			$repo = WikibaseRepo::getDefaultInstance();
 
 			return new EntityIdSearchHelper(
-				$repo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new NullLabelDescriptionLookup(),
 				$repo->getEntityTypeToRepositoryMapping()
 			);
 		},
 		DEF::CHANGEOP_DESERIALIZER_CALLBACK => function () {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
-				$wikibaseRepo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			);
@@ -354,7 +353,7 @@ return [
 			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
 			return new FormLinkFormatter(
-				$repo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				$linkFormatter,
 				new LexemeTermFormatter(
 					$requestContext
@@ -401,7 +400,7 @@ return [
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
-				$wikibaseRepo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
 				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -409,7 +408,7 @@ return [
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
 			$repo = WikibaseRepo::getDefaultInstance();
-			$entityLookup = $repo->getEntityLookup();
+			$entityLookup = WikibaseRepo::getEntityLookup();
 			$userLanguage = WikibaseRepo::getUserLanguage();
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
 				$entityLookup,
@@ -427,7 +426,7 @@ return [
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$senseChangeOpDeserializer = new SenseChangeOpDeserializer(
-				$wikibaseRepo->getEntityLookup(),
+				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new EditSenseChangeOpDeserializer(
 					new GlossesChangeOpDeserializer(

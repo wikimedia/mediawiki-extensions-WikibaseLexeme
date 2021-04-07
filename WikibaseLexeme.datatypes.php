@@ -47,7 +47,6 @@ return [
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
-				$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 				$userLanguage = WikibaseRepo::getUserLanguage();
 
 				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
@@ -59,7 +58,7 @@ return [
 
 				return new EntityIdValueFormatter(
 					new LexemeIdHtmlFormatter(
-						$wikibaseRepo->getEntityLookup(),
+						WikibaseRepo::getEntityLookup(),
 						$labelDescriptionLookup,
 						WikibaseRepo::getEntityTitleLookup(),
 						new MediaWikiLocalizedTextProvider( $userLanguage )

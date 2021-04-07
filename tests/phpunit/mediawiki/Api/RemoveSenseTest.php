@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Api\RemoveSense
@@ -237,7 +238,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 	 * @return Lexeme|null
 	 */
 	private function getLexeme( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityLookup();
+		$lookup = WikibaseRepo::getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 

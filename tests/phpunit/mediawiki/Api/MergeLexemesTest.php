@@ -53,8 +53,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( 1, $response['success'] );
 
 		/** @var Lexeme $postMergeTarget */
-		$postMergeTarget = WikibaseRepo::getDefaultInstance()
-			->getEntityLookup()
+		$postMergeTarget = WikibaseRepo::getEntityLookup()
 			->getEntity( $target->getId() );
 
 		$this->assertEquals(

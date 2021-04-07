@@ -42,7 +42,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 
 		$this->repo = WikibaseRepo::getDefaultInstance();
 		$this->entityStore = WikibaseRepo::getEntityStore();
-		$this->entityLookup = $this->repo->getEntityLookup();
+		$this->entityLookup = WikibaseRepo::getEntityLookup();
 	}
 
 	public function testCanCreateLexemeRedirect() {
