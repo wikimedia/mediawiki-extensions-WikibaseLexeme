@@ -16,7 +16,6 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * Special page for merging one lexeme into another.
@@ -97,14 +96,13 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	public static function factory(
 		PermissionManager $permissionManager,
-		EntityTitleLookup $entityTitleLookup
+		EntityTitleLookup $entityTitleLookup,
+		ExceptionLocalizer $exceptionLocalizer
 	): self {
-		$repo = WikibaseRepo::getDefaultInstance();
-
 		return new self(
 			WikibaseLexemeServices::createGlobalInstance( false )->newMergeLexemesInteractor(),
 			$entityTitleLookup,
-			$repo->getExceptionLocalizer(),
+			$exceptionLocalizer,
 			$permissionManager
 		);
 	}

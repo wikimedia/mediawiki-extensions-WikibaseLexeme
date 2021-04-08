@@ -97,6 +97,7 @@ class Registrar {
 			'services' => [
 				'PermissionManager',
 				'WikibaseRepo.EntityTitleLookup',
+				'WikibaseRepo.ExceptionLocalizer',
 			]
 		];
 
