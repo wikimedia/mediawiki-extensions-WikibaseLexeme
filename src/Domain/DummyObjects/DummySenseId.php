@@ -2,8 +2,6 @@
 
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
-use LogicException;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
@@ -13,27 +11,9 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class DummySenseId extends SenseId {
 
-	private $lexemeId;
-
-	public function __construct( LexemeId $lexemeId ) {
-		$this->lexemeId = $lexemeId;
-	}
-
-	public function getLexemeId() {
-		return $this->lexemeId;
-	}
-
-	public function serialize() {
-		throw new LogicException( 'Shall never be called' );
-	}
-
-	public function unserialize( $serialized ) {
-		throw new LogicException( 'Shall never be called' );
-	}
-
 	public function equals( $target ) {
 		return $this->stemsFromNewlyCreatedSense( $target )
-			|| $target->getLexemeId() === $this->getLexemeId();
+			|| parent::equals( $target );
 	}
 
 	/**

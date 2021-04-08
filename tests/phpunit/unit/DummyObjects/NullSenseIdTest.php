@@ -6,7 +6,6 @@ use LogicException;
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
@@ -42,7 +41,7 @@ class NullSenseIdTest extends MediaWikiUnitTestCase {
 
 		$this->assertTrue( $nullSenseId->equals( new NullSenseId() ) );
 		$this->assertTrue( $nullSenseId->equals( new SenseId( 'L1-S7' ) ) );
-		$this->assertTrue( $nullSenseId->equals( new DummySenseId( new LexemeId( 'L9' ) ) ) );
+		$this->assertTrue( $nullSenseId->equals( new DummySenseId( 'L9-S1' ) ) );
 		$this->assertTrue( $nullSenseId->equals( 'gg' ) );
 	}
 

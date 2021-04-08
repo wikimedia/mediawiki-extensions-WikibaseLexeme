@@ -58,7 +58,9 @@ class ChangeOpSenseCloneTest extends TestCase {
 		$changeOp = new ChangeOpSenseClone( $sourceSense );
 
 		$targetSense = new BlankSense();
-		$targetSense->setLexeme( NewLexeme::havingId( 'L34' )->build() );
+		$lexeme = NewLexeme::havingId( 'L34' )->build();
+		$lexeme->addOrUpdateSense( $targetSense );
+
 		$changeOp->apply( $targetSense );
 
 		$this->assertInstanceOf( DummySenseId::class, $targetSense->getId() );
@@ -81,7 +83,7 @@ class ChangeOpSenseCloneTest extends TestCase {
 	 * @covers ::__construct
 	 * @covers ::apply
 	 */
-	public function testApply_doesNotModifySourceForm() {
+	public function testApply_doesNotModifySourceSense() {
 		$originalSourceSense = NewSense::havingId( 'S71' )
 			->andLexeme( new LexemeId( 'L42' ) )
 			->withGloss( 'en-us', 'colorful' )
@@ -94,7 +96,9 @@ class ChangeOpSenseCloneTest extends TestCase {
 		$changeOp = new ChangeOpSenseClone( $sourceSense );
 
 		$targetSense = new BlankSense();
-		$targetSense->setLexeme( NewLexeme::havingId( 'L34' )->build() );
+		$lexeme = NewLexeme::havingId( 'L34' )->build();
+		$lexeme->addOrUpdateSense( $targetSense );
+
 		$changeOp->apply( $targetSense );
 
 		$this->assertEquals( $originalSourceSense, $sourceSense );

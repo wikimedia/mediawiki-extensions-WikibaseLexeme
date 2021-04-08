@@ -30,11 +30,11 @@ class ChangeOpSenseClone implements ChangeOp {
 
 	public function apply( EntityDocument $entity, Summary $summary = null ) {
 		Assert::parameterType( BlankSense::class, $entity, '$entity' );
-		'@phan-var BlankSense $entity';
+		'@phan-var Sense $entity';
 
-		/** @var BlankSense $entity */
+		/** @var Sense $entity */
 
-		$entity->setGlosses( $this->sourceSense->getGlosses() );
+		$entity->getGlosses()->addAll( $this->sourceSense->getGlosses() );
 
 		// Resets statement GUIDs so they do not mention the former (sense) entity
 		// ChangeOpSenseAdd::apply() ensures a new - suitable - GUID is applied once new sense id known

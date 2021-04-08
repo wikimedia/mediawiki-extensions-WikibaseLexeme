@@ -195,10 +195,11 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		];
 
 		$blankSense = new BlankSense();
-		$blankSense->setGlosses( $sense->getGlosses() );
+		$blankSense->getGlosses()->addAll( $sense->getGlosses() );
+		$blankSense->setId( $sense->getId() );
 		yield 'Sense and equivalent BlankSense' => [
 			new SenseSet( [ $sense ] ),
-			new SenseSet( [ $blankSense->getRealSense( $sense->getId() ) ] ),
+			new SenseSet( [ $blankSense ] ),
 			true
 		];
 

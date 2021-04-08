@@ -170,6 +170,10 @@ class SenseSet implements Countable, Comparable {
 		return $this->sameSenses( $other );
 	}
 
+	public function hasSenseWithId( SenseId $id ): bool {
+		return $this->getById( $id ) !== null;
+	}
+
 	/**
 	 * @return bool
 	 */

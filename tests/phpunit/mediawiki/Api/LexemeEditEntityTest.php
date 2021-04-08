@@ -1742,6 +1742,31 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertHasStatement( $claim, $result['entity'] );
 	}
 
+	public function testGivenNewSenseWithStatement_senseWithStatementIsAdded() {
+		$this->saveDummyLexemeToDatabase();
+		$claim = [
+			'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P666' ],
+			'type' => 'statement',
+			'rank' => 'normal',
+		];
+
+		[ $result ] = $this->doApiRequestWithToken( [
+			'action' => 'wbeditentity',
+			'id' => self::EXISTING_LEXEME_ID,
+			'data' => json_encode( [
+				'senses' => [ [
+					'add' => '',
+					'glosses' => [ 'en' => [ 'language' => 'en', 'value' => 'whatevs' ] ],
+					'claims' => [ $claim ],
+				] ],
+			] ),
+		] );
+
+		$this->assertSame( 1, $result['success'] );
+		$this->assertCount( 2, $result['entity']['senses'] );
+		$this->assertHasStatement( $claim, $result['entity']['senses'][1] );
+	}
+
 	// TODO: edit statements (all options: add, edit, remove?) with id=L1
 
 	public function testGivenExistingLexemeAndFormChangeAndAdd_formsAreProperlyUpdatedAndAdded() {
