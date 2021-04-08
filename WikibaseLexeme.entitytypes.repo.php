@@ -473,7 +473,7 @@ return [
 				$repo->getEntityRevisionLookup(),
 				new MediaWikiLocalizedTextProvider( $language ),
 				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $language ),
-				new LanguageFallbackIndicator( $repo->getLanguageNameLookup() ),
+				new LanguageFallbackIndicator( WikibaseRepo::getLanguageNameLookup() ),
 				MediaWikiServices::getInstance()->getLanguageFactory()
 			);
 		},

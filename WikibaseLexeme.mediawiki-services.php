@@ -78,7 +78,7 @@ return call_user_func( function () {
 				return new LexemeLanguageNameLookup(
 					RequestContext::getMain(),
 					$additionalLanguages,
-					WikibaseRepo::getDefaultInstance()->getLanguageNameLookup()
+					WikibaseRepo::getLanguageNameLookup( $mediawikiServices )
 				);
 			},
 		'WikibaseLexemeEditFormChangeOpDeserializer' => function (
