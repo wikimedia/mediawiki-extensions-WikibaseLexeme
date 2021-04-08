@@ -70,7 +70,8 @@ class AddForm extends ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
-		EntityIdParser $entityIdParser
+		EntityIdParser $entityIdParser,
+		Store $store
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -88,7 +89,7 @@ class AddForm extends ApiBase {
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			),
 			$formSerializer,
-			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			$wikibaseRepo->getSummaryFormatter(),
 			function ( $module ) use ( $apiHelperFactory ) {

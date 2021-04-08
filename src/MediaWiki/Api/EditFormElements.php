@@ -70,7 +70,8 @@ class EditFormElements extends \ApiBase {
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser,
-		EntityStore $entityStore
+		EntityStore $entityStore,
+		Store $store
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -83,7 +84,7 @@ class EditFormElements extends \ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			new EditFormElementsRequestParser(
 				new FormIdDeserializer( $entityIdParser ),

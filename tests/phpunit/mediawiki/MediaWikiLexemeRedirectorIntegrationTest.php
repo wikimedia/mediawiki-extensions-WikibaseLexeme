@@ -66,7 +66,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 
 	private function newRedirector() {
 		return new MediaWikiLexemeRedirector(
-			$this->repo->getEntityRevisionLookup(),
+			WikibaseRepo::getEntityRevisionLookup(),
 			WikibaseRepo::getEntityStore(),
 			$this->getMockEntityPermissionChecker(),
 			$this->getMockSummaryFormatter(),

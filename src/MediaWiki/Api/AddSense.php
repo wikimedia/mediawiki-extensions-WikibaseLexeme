@@ -77,6 +77,7 @@ class AddSense extends ApiBase {
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser,
+		Store $store,
 		StringNormalizer $stringNormalizer
 	) {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
@@ -107,7 +108,7 @@ class AddSense extends ApiBase {
 				)
 			),
 			$senseSerializer,
-			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			$wikibaseRepo->getSummaryFormatter(),
 			function ( $module ) use ( $apiHelperFactory ) {

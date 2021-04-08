@@ -33,6 +33,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.Store',
 			],
 		];
 		$wgAPIModules['wblremoveform'] = [
@@ -40,6 +41,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm::factory',
 			'services' => [
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.Store',
 			],
 		];
 		$wgAPIModules['wbleditformelements'] = [
@@ -48,7 +50,8 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
-				'WikibaseRepo.EntityStore'
+				'WikibaseRepo.EntityStore',
+				'WikibaseRepo.Store',
 			],
 		];
 		$wgAPIModules['wbladdsense'] = [
@@ -57,6 +60,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.Store',
 				'WikibaseRepo.StringNormalizer',
 			],
 		];
@@ -67,6 +71,7 @@ class Registrar {
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.EntityStore',
+				'WikibaseRepo.Store',
 				'WikibaseRepo.StringNormalizer',
 			],
 		];
@@ -75,6 +80,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::factory',
 			'services' => [
 				'WikibaseRepo.EntityIdParser',
+				'WikibaseRepo.Store',
 			],
 		];
 		$wgAPIModules['wblmergelexemes'] = [

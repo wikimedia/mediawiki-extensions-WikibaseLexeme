@@ -987,7 +987,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	 * @return EntityRevision|null
 	 */
 	private function getCurrentRevisionForForm( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
+		$lookup = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		return $lookup->getEntityRevision( new FormId( $id ) );
 	}
@@ -998,7 +998,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	 * @return EntityRevision|null
 	 */
 	private function getCurrentRevisionForLexeme( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
+		$lookup = WikibaseRepo::getEntityRevisionLookup();
 
 		return $lookup->getEntityRevision( new LexemeId( $id ) );
 	}

@@ -318,7 +318,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function loadPageRevision( $lexemeId ) {
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
+		$lookup = WikibaseRepo::getEntityRevisionLookup();
 		$revisionId = $lookup->getEntityRevision( $lexemeId )->getRevisionId();
 
 		return MediaWikiServices::getInstance()->getRevisionStore()->getRevisionById( $revisionId );

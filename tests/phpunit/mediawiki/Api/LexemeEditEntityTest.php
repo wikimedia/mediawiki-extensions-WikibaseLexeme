@@ -784,7 +784,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenNoOpRequest_noEditIsMadeAndNochangeFlagSet( array $dataArgs ) {
 		$this->saveDummyLexemeToDatabase();
 
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
+		$lookup = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		$lexemeId = new LexemeId( self::EXISTING_LEXEME_ID );
 		$revisionBeforeRequest = $lookup->getEntityRevision( $lexemeId );
@@ -2238,7 +2238,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertSame( 1, $result['success'] );
 
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
+		$lookup = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		$lexemeRevision = $lookup->getEntityRevision( new LexemeId( self::EXISTING_LEXEME_ID ) );
 

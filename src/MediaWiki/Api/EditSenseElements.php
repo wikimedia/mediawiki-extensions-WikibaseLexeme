@@ -78,6 +78,7 @@ class EditSenseElements extends \ApiBase {
 		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser,
 		EntityStore $entityStore,
+		Store $store,
 		StringNormalizer $stringNormalizer
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
@@ -91,7 +92,7 @@ class EditSenseElements extends \ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			new EditSenseElementsRequestParser(
 				new SenseIdDeserializer( $entityIdParser ),

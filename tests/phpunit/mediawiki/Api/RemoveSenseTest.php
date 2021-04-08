@@ -248,7 +248,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 	 * @return EntityRevision|null
 	 */
 	private function getCurrentRevisionForLexeme( $id ) {
-		$lookup = $this->wikibaseRepo->getEntityRevisionLookup();
+		$lookup = WikibaseRepo::getEntityRevisionLookup();
 
 		return $lookup->getEntityRevision( new LexemeId( $id ) );
 	}

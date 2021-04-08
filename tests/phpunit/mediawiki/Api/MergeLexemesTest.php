@@ -80,7 +80,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			$summary
 		);
 
-		$revId = $this->wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED )
+		$revId = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED )
 			->getLatestRevisionId( $target->getId() )->onConcreteRevision( function ( $id ) {
 				return $id;
 			} )->onNonexistentEntity( function () {

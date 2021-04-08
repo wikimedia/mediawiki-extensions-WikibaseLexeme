@@ -79,9 +79,8 @@ return [
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$userLanguage = WikibaseRepo::getUserLanguage( $mwServices );
-			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
+			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
 			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage );
 			$snakFormat = new SnakFormat();
 
@@ -119,7 +118,7 @@ return [
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$revisionLookup = $wikibaseRepo->getEntityRevisionLookup();
+			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
 			$language = WikibaseRepo::getUserLanguage( $mwServices );
 
 			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );

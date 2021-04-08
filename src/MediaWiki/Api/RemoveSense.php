@@ -58,7 +58,8 @@ class RemoveSense extends ApiBase {
 	public static function factory(
 		ApiMain $mainModule,
 		string $moduleName,
-		EntityIdParser $entityIdParser
+		EntityIdParser $entityIdParser,
+		Store $store
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -69,7 +70,7 @@ class RemoveSense extends ApiBase {
 			new RemoveSenseRequestParser(
 				new SenseIdDeserializer( $entityIdParser )
 			),
-			$wikibaseRepo->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
 			$wikibaseRepo->getSummaryFormatter(),
 			function ( $module ) use ( $apiHelperFactory ) {
