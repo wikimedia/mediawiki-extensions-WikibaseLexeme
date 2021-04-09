@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Domain\Model;
 
-use Comparable;
 use Countable;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 
@@ -12,7 +11,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
  *
  * @license GPL-2.0-or-later
  */
-class FormSet implements Countable, Comparable {
+class FormSet implements Countable {
 
 	/**
 	 * @var Form[] indexed by serialization of FormId
@@ -150,9 +149,6 @@ class FormSet implements Countable, Comparable {
 		return empty( $this->forms );
 	}
 
-	/**
-	 * @see Comparable::equals()
-	 */
 	public function equals( $other ) {
 		if ( $this === $other ) {
 			return true;
