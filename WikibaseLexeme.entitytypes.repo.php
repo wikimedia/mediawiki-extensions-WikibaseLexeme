@@ -287,12 +287,6 @@ return [
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$config = MediaWikiServices::getInstance()->getMainConfig();
-			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
-				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
-			} else {
-				$lcID = null;
-			}
 
 			return new LexemeHandler(
 				$wikibaseRepo->getEntityContentDataCodec(),
@@ -386,12 +380,6 @@ return [
 		// TODO lexemes and forms have identical content-handler-factory-callback, extract
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-			$config = MediaWikiServices::getInstance()->getMainConfig();
-			if ( $config->has( 'LexemeLanguageCodePropertyId' ) ) {
-				$lcID = $config->get( 'LexemeLanguageCodePropertyId' );
-			} else {
-				$lcID = null;
-			}
 
 			return new LexemeHandler(
 				$wikibaseRepo->getEntityContentDataCodec(),
