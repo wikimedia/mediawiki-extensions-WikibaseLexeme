@@ -136,7 +136,7 @@ return [
 						$revisionLookup,
 						$localizedTextProvider,
 						$fallbackChain,
-						new LanguageFallbackIndicator( $wikibaseRepo->getLanguageNameLookup() ),
+						new LanguageFallbackIndicator( WikibaseRepo::getLanguageNameLookup( $mwServices ) ),
 						$mwServices->getLanguageFactory()
 					)
 				);
