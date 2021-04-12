@@ -103,7 +103,7 @@ return [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
-				$wikibaseRepo->getEntityContentDataCodec(),
+				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
@@ -289,7 +289,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 			return new LexemeHandler(
-				$wikibaseRepo->getEntityContentDataCodec(),
+				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
@@ -382,7 +382,7 @@ return [
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 			return new LexemeHandler(
-				$wikibaseRepo->getEntityContentDataCodec(),
+				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
 				$wikibaseRepo->getValidatorErrorLocalizer(),
 				WikibaseRepo::getEntityIdParser(),
