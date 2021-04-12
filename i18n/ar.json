@@ -91,6 +91,8 @@
 	"wikibaselexeme-no-features": "لا توجد ميزات",
 	"wikibase-validator-form-not-found": "ليس لدى المفردة صيغة بمعرف معين",
 	"wikibaselexeme-grammatical-features-input-placeholder": "على سبيل المثال: المعيار، المقارنة، الزمن الماضي ...",
+	"wikibase-lexeme-language-name-gmh": "الألمانية العليا الوسطى",
+	"wikibase-lexeme-language-name-goh": "الألمانية العليا القديمة",
 	"wikibase-lexeme-language-name-mis": "أخرى",
 	"wikibase-lexeme-language-name-rm-rumgr": "رومانتش جريشون",
 	"wikibase-lexeme-language-name-rm-surmiran": "السورمانية",
