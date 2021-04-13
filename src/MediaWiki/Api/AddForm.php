@@ -71,7 +71,8 @@ class AddForm extends ApiBase {
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser,
-		Store $store
+		Store $store,
+		SummaryFormatter $summaryFormatter
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -91,7 +92,7 @@ class AddForm extends ApiBase {
 			$formSerializer,
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
-			$wikibaseRepo->getSummaryFormatter(),
+			$summaryFormatter,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}

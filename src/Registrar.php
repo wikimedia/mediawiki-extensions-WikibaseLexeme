@@ -34,6 +34,7 @@ class Registrar {
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgAPIModules['wblremoveform'] = [
@@ -42,6 +43,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgAPIModules['wbleditformelements'] = [
@@ -52,6 +54,7 @@ class Registrar {
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.EntityStore',
 				'WikibaseRepo.Store',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgAPIModules['wbladdsense'] = [
@@ -62,6 +65,7 @@ class Registrar {
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.StringNormalizer',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgAPIModules['wbleditsenseelements'] = [
@@ -73,6 +77,7 @@ class Registrar {
 				'WikibaseRepo.EntityStore',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.StringNormalizer',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgAPIModules['wblremovesense'] = [
@@ -81,6 +86,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgAPIModules['wblmergelexemes'] = [
@@ -95,6 +101,7 @@ class Registrar {
 				'WikibaseRepo.EntityNamespaceLookup',
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.Settings',
+				'WikibaseRepo.SummaryFormatter',
 			],
 		];
 		$wgSpecialPages['MergeLexemes'] = [

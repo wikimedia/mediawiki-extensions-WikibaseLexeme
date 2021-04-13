@@ -90,7 +90,7 @@ class WikibaseLexemeServices {
 		return new MergeLexemesInteractor(
 			$this->newLexemeMerger(),
 			$this->getLexemeAuthorizer(),
-			$this->getWikibaseRepo()->getSummaryFormatter(),
+			WikibaseRepo::getSummaryFormatter( $mwServices ),
 			$this->newLexemeRedirector(),
 			WikibaseRepo::getEntityTitleStoreLookup( $mwServices ),
 			$mwServices->getWatchedItemStore(),
@@ -165,7 +165,7 @@ class WikibaseLexemeServices {
 			WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			WikibaseRepo::getEntityStore(),
 			WikibaseRepo::getEntityPermissionChecker(),
-			$this->getWikibaseRepo()->getSummaryFormatter(),
+			WikibaseRepo::getSummaryFormatter(),
 			RequestContext::getMain()->getUser(),
 			new MediawikiEditFilterHookRunner(
 				WikibaseRepo::getEntityNamespaceLookup(),
