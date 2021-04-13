@@ -48,8 +48,7 @@ class Scribunto_LuaWikibaseLexemeLibrary extends Scribunto_LuaLibraryBase {
 
 	private function getEntityLookup(): EntityLookup {
 		if ( $this->entityLookup === null ) {
-			$this->entityLookup = WikibaseClient::getDefaultInstance()
-				->getRestrictedEntityLookup();
+			$this->entityLookup = WikibaseClient::getRestrictedEntityLookup();
 		}
 		return $this->entityLookup;
 	}
