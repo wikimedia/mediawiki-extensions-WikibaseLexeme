@@ -110,7 +110,8 @@ return [
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
-				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
+				WikibaseRepo::getFieldDefinitionsFactory()
+					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
 		Def::ENTITY_FACTORY_CALLBACK => function () {
@@ -296,7 +297,8 @@ return [
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
-				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
+				WikibaseRepo::getFieldDefinitionsFactory()
+					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
@@ -389,7 +391,8 @@ return [
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
-				$wikibaseRepo->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
+				WikibaseRepo::getFieldDefinitionsFactory()
+					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
