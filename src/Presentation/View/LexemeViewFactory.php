@@ -63,7 +63,7 @@ class LexemeViewFactory {
 			$editSectionGenerator
 		);
 
-		$idLinkFormatter = $wikibaseRepo->getEntityIdHtmlLinkFormatterFactory()
+		$idLinkFormatter = WikibaseRepo::getEntityIdHtmlLinkFormatterFactory()
 			->getEntityIdFormatter( $this->language );
 
 		$formsView = new FormsView(

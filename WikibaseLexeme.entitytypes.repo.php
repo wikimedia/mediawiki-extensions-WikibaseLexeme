@@ -214,9 +214,7 @@ return [
 				$entityIdFormatter
 			);
 
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-
-			$entityIdFormatter = $wikibaseRepo->getEntityIdHtmlLinkFormatterFactory()
+			$entityIdFormatter = WikibaseRepo::getEntityIdHtmlLinkFormatterFactory()
 				->getEntityIdFormatter( WikibaseRepo::getUserLanguage() );
 
 			return new LexemeDiffVisualizer(
