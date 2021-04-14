@@ -71,7 +71,8 @@ class EditFormElements extends \ApiBase {
 		SerializerFactory $baseDataModelSerializerFactory,
 		EntityIdParser $entityIdParser,
 		EntityStore $entityStore,
-		Store $store
+		Store $store,
+		SummaryFormatter $summaryFormatter
 	): self {
 		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
@@ -90,7 +91,7 @@ class EditFormElements extends \ApiBase {
 				new FormIdDeserializer( $entityIdParser ),
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
 			),
-			$wikibaseRepo->getSummaryFormatter(),
+			$summaryFormatter,
 			$formSerializer,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
