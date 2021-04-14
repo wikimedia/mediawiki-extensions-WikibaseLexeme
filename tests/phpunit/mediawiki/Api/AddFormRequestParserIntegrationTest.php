@@ -314,7 +314,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 	private function newClaimsChangeOpDeserializer() {
 		return new ClaimsChangeOpDeserializer(
 			WikibaseRepo::getExternalFormatStatementDeserializer(),
-			WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()
+			WikibaseRepo::getChangeOpFactoryProvider()
 				->getStatementChangeOpFactory()
 		);
 	}

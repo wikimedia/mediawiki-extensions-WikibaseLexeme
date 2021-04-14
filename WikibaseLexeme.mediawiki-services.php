@@ -84,8 +84,6 @@ return call_user_func( function () {
 		'WikibaseLexemeEditFormChangeOpDeserializer' => function (
 			MediaWikiServices $mediaWikiServices
 		) {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-
 			return new EditFormChangeOpDeserializer(
 				new RepresentationsChangeOpDeserializer(
 					new TermDeserializer(),
@@ -97,7 +95,8 @@ return call_user_func( function () {
 				new ItemIdListDeserializer( new ItemIdParser() ),
 				new ClaimsChangeOpDeserializer(
 					WikibaseRepo::getExternalFormatStatementDeserializer( $mediaWikiServices ),
-					$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+					WikibaseRepo::getChangeOpFactoryProvider( $mediaWikiServices )
+						->getStatementChangeOpFactory()
 				),
 				new EntityExistsValidator( WikibaseRepo::getEntityLookup( $mediaWikiServices ), 'item' )
 			);

@@ -46,10 +46,9 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 
 	private function getChangeOpDeserializer() {
 		$stringNormalizer = new StringNormalizer();
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
 			WikibaseRepo::getExternalFormatStatementDeserializer(),
-			$wikibaseRepo->getChangeOpFactoryProvider()
+			WikibaseRepo::getChangeOpFactoryProvider()
 				->getStatementChangeOpFactory()
 		);
 		$entityIdParser = WikibaseRepo::getEntityIdParser();

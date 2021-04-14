@@ -897,10 +897,7 @@ class LexemeMergerTest extends TestCase {
 	}
 
 	private function newLexemeMerger() : LexemeMerger {
-		$repo = WikibaseRepo::getDefaultInstance();
-
-		$statementsMerger = $repo
-			->getChangeOpFactoryProvider()
+		$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider()
 			->getMergeFactory()
 			->getStatementsMerger();
 

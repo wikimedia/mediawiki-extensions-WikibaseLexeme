@@ -120,9 +120,10 @@ return [
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
 			$services = MediaWikiServices::getInstance();
 			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+			$changeOpFactoryProvider = WikibaseRepo::getChangeOpFactoryProvider( $services );
 			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
-				WikibaseRepo::getExternalFormatStatementDeserializer(),
-				$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+				WikibaseRepo::getExternalFormatStatementDeserializer( $services ),
+				$changeOpFactoryProvider->getStatementChangeOpFactory()
 			);
 			$entityLookup = WikibaseRepo::getEntityLookup( $services );
 			$itemValidator = new EntityExistsValidator( $entityLookup, 'item' );
@@ -172,7 +173,7 @@ return [
 							),
 							new ClaimsChangeOpDeserializer(
 								$wikibaseRepo->getExternalFormatStatementDeserializer(),
-								$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+								$changeOpFactoryProvider->getStatementChangeOpFactory()
 							)
 						)
 					)
@@ -428,7 +429,7 @@ return [
 					),
 					new ClaimsChangeOpDeserializer(
 						$wikibaseRepo->getExternalFormatStatementDeserializer(),
-						$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+						WikibaseRepo::getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 					)
 				)
 			);

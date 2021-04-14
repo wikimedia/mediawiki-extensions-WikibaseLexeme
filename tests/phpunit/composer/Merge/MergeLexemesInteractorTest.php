@@ -127,7 +127,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			->method( 'redirect' )
 			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
 
-		$statementsMerger = WikibaseRepo::getDefaultInstance()->getChangeOpFactoryProvider()
+		$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider()
 			->getMergeFactory()->getStatementsMerger();
 
 		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );

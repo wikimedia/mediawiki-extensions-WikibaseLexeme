@@ -62,6 +62,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddSense::factory',
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
+				'WikibaseRepo.ChangeOpFactoryProvider',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.StringNormalizer',
@@ -73,6 +74,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditSenseElements::factory',
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
+				'WikibaseRepo.ChangeOpFactoryProvider',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.EntityStore',
 				'WikibaseRepo.Store',

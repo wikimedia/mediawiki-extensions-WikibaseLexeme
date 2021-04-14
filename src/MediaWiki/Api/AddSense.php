@@ -25,6 +25,7 @@ use Wikibase\Lib\StringNormalizer;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
+use Wikibase\Repo\ChangeOp\ChangeOpFactoryProvider;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
@@ -76,6 +77,7 @@ class AddSense extends ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
+		ChangeOpFactoryProvider $changeOpFactoryProvider,
 		EntityIdParser $entityIdParser,
 		Store $store,
 		StringNormalizer $stringNormalizer,
@@ -104,7 +106,7 @@ class AddSense extends ApiBase {
 					),
 					new ClaimsChangeOpDeserializer(
 						$wikibaseRepo->getExternalFormatStatementDeserializer(),
-						$wikibaseRepo->getChangeOpFactoryProvider()->getStatementChangeOpFactory()
+						$changeOpFactoryProvider->getStatementChangeOpFactory()
 					)
 				)
 			),

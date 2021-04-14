@@ -114,8 +114,7 @@ class WikibaseLexemeServices {
 	}
 
 	private function newLexemeMerger(): LexemeMerger {
-		$statementsMerger = $this->getWikibaseRepo()
-			->getChangeOpFactoryProvider()
+		$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider()
 			->getMergeFactory()
 			->getStatementsMerger();
 
@@ -177,10 +176,6 @@ class WikibaseLexemeServices {
 			WikibaseRepo::getEntityTitleStoreLookup(),
 			$this->botEditRequested
 		);
-	}
-
-	private function getWikibaseRepo(): WikibaseRepo {
-		return WikibaseRepo::getDefaultInstance();
 	}
 
 	public static function getTermLanguages(): LexemeTermLanguages {
