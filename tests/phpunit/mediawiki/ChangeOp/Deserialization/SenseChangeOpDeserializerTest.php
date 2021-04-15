@@ -16,7 +16,6 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseChangeOpDeseriali
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\ChangeOp\ChangeOp;
-use Wikibase\Repo\ChangeOp\ChangeOps;
 use Wikibase\Repo\ChangeOp\NullChangeOp;
 
 /**
@@ -89,16 +88,10 @@ class SenseChangeOpDeserializerTest extends TestCase {
 
 		$deserializer->setContext( ValidationContext::create( 'data' ) );
 
-		/**
-		 * @var ChangeOps $changeOps
-		 */
-		$changeOps = $deserializer->createEntityChangeOp( $request );
-		$changeOpsArray = $changeOps->getChangeOps();
+		$changeOp = $deserializer->createEntityChangeOp( $request );
 
 		// TODO Assert that correct lexeme is passed
-		$this->assertInstanceOf( AddSenseToLexemeChangeOp::class, $changeOpsArray[0] );
-
-		$this->assertSame( $editSenseChangeOp, $changeOpsArray[1] );
+		$this->assertInstanceOf( AddSenseToLexemeChangeOp::class, $changeOp );
 	}
 
 	public function testRequestWithInvalidLexemeId_addsViolation() {

@@ -22,12 +22,20 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 	 */
 	private $lexeme;
 
-	public function __construct( Lexeme $lexeme ) {
+	/**
+	 * @var ChangeOp
+	 */
+	private $changeOpSenseEdit;
+
+	public function __construct( Lexeme $lexeme, ChangeOp $changeOpSenseEdit ) {
 		$this->lexeme = $lexeme;
+		$this->changeOpSenseEdit = $changeOpSenseEdit;
 	}
 
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( BlankSense::class, $entity, '$entity' );
+
+		$this->changeOpSenseEdit->validate( $entity );
 
 		return Result::newSuccess();
 	}
@@ -38,6 +46,7 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 
 		/** @var BlankSense $sense */
 		$this->lexeme->addOrUpdateSense( $sense );
+		$this->changeOpSenseEdit->apply( $sense );
 
 		return new DummyChangeOpResult();
 	}
