@@ -532,7 +532,8 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$formId = $blankForm->getId();
 		$blankSense = new BlankSense();
 		$blankSense->getGlosses()->setTextForLanguage( 'en', 'orig-sense' );
-		$senseId = $lexeme->addOrUpdateSense( $blankSense )->getId();
+		$lexeme->addOrUpdateSense( $blankSense );
+		$senseId = $blankSense->getId();
 
 		$copy = $lexeme->copy();
 
@@ -641,14 +642,14 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		$blankSense = new BlankSense();
 		$blankSense->getGlosses()->setTextForLanguage( 'en', 'color' );
-		$newSense1 = $lexeme->addOrUpdateSense( $blankSense );
+		$lexeme->addOrUpdateSense( $blankSense );
 
-		$blankSense = new BlankSense();
-		$blankSense->getGlosses()->setTextForLanguage( 'en-gb', 'colour' );
-		$newSense2 = $lexeme->addOrUpdateSense( $blankSense );
+		$blankSense2 = new BlankSense();
+		$blankSense2->getGlosses()->setTextForLanguage( 'en-gb', 'colour' );
+		$lexeme->addOrUpdateSense( $blankSense2 );
 
-		$this->assertEquals( new SenseId( 'L1-S1' ), $newSense1->getId() );
-		$this->assertEquals( new SenseId( 'L1-S2' ), $newSense2->getId() );
+		$this->assertEquals( 'L1-S1', $blankSense->getId()->getSerialization() );
+		$this->assertEquals( 'L1-S2', $blankSense2->getId()->getSerialization() );
 	}
 
 	public function testRemoveAForm() {
@@ -774,14 +775,13 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexeme->addOrUpdateSense( $newSense );
 	}
 
-	public function testAddOrUpdateSense_returnedSense() {
+	public function testAddOrUpdateSense_addsSense() {
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 		$blankSense = new BlankSense();
 
-		$sense = $lexeme->addOrUpdateSense( $blankSense );
+		$lexeme->addOrUpdateSense( $blankSense );
 
-		$this->assertInstanceOf( Sense::class, $sense );
-		$this->assertNotInstanceOf( BlankSense::class, $sense );
+		$this->assertSame( 'L1-S1', $blankSense->getId()->getSerialization() );
 	}
 
 	public function testGetForm_LexemeHaveFormWithThatId_ReturnsThatForm() {

@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
 use Wikibase\Lexeme\DataAccess\ChangeOp\AddSenseToLexemeChangeOp;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikimedia\Assert\ParameterTypeException;
@@ -59,11 +60,12 @@ class AddSenseToLexemeChangeOpTest extends TestCase {
 	}
 
 	public function testApply_connectsLexemeToSense() {
-		$lexeme = NewLexeme::create()->build();
-		$blankSense = $this->createMock( BlankSense::class );
-		$blankSense->expects( $this->once() )
-			->method( 'setLexeme' )
-			->with( $lexeme );
+		$lexeme = $this->createMock( Lexeme::class );
+		$blankSense = $this->createStub( BlankSense::class );
+
+		$lexeme->expects( $this->once() )
+			->method( 'addOrUpdateSense' )
+			->with( $blankSense );
 
 		$changeOp = new AddSenseToLexemeChangeOp( $lexeme );
 		$changeOp->apply( $blankSense );

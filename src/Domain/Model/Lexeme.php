@@ -360,24 +360,21 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	/**
 	 * Replace the sense identified by $sense->getId() with the given one or add it.
 	 */
-	public function addOrUpdateSense( Sense $sense ): Sense {
+	public function addOrUpdateSense( Sense $sense ) {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Cannot add sense to a lexeme with no ID' );
 		}
 
-		if ( $sense instanceof BlankSense ) {
-			$sense = $sense->getRealSense(
+		if ( $sense instanceof BlankSense && !$this->senses->hasSenseWithId( $sense->getId() ) ) {
+			$sense->setId(
 				new SenseId(
 					LexemeSubEntityId::formatSerialization( $this->id, 'S', $this->nextSenseId++ )
 				)
 			);
-
-			$this->senses->add( $sense );
-		} else {
-			$this->senses->put( $sense );
 		}
 
-		return $sense;
+		$this->senses->put( $sense );
+		$this->assertCorrectNextSenseIdIsGiven( $this->getNextSenseId(), $this->getSenses() );
 	}
 
 	public function removeForm( FormId $formId ) {

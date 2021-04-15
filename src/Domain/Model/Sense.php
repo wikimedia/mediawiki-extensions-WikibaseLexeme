@@ -7,6 +7,9 @@ use Wikibase\DataModel\Entity\ClearableEntity;
 use Wikibase\DataModel\Entity\StatementListProvidingEntity;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\DummyObjects\DummySenseId;
+use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;
+use Wikimedia\Assert\Assert;
 
 /**
  * Mutable (e.g. the provided StatementList can be changed) implementation of a Lexeme's sense in
@@ -97,13 +100,15 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 
 	/**
 	 * @param SenseId $id
-	 *
-	 * @throws LogicException always
 	 */
 	public function setId( $id ) {
-		throw new LogicException( 'Setting the ID of a Sense is currently not implemented, and '
-			. 'might not be needed any more, except when implementing the "clear" feature of the '
-			. '"wbeditentity" API' );
+		Assert::parameterType( SenseId::class, $id, '$id' );
+
+		if ( !( $this->id instanceof NullSenseId || $this->id instanceof DummySenseId ) ) {
+			throw new LogicException( 'Cannot override a real SenseId' );
+		}
+
+		$this->id = $id;
 	}
 
 	/**

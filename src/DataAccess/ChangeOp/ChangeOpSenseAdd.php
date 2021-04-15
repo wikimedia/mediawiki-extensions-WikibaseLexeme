@@ -50,12 +50,10 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 
 		/** @var Lexeme $entity */
 
-		$blankSense = new BlankSense();
-		$blankSense->setLexeme( $entity );
+		$sense = new BlankSense();
 
-		$this->changeOpSense->apply( $blankSense, null );
-
-		$sense = $entity->addOrUpdateSense( $blankSense );
+		$entity->addOrUpdateSense( $sense );
+		$this->changeOpSense->apply( $sense, null );
 
 		// update statements to have a suitable guid now that the new sense id is known
 		// fixme This should find a new home in a more central place, maybe StatementList
