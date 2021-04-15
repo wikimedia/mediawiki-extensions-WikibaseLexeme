@@ -29,6 +29,7 @@ use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlForma
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
 use Wikibase\Lib\Formatters\EntityIdValueFormatter;
+use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
@@ -61,7 +62,10 @@ return [
 						WikibaseRepo::getEntityLookup(),
 						$labelDescriptionLookup,
 						WikibaseRepo::getEntityTitleLookup(),
-						new MediaWikiLocalizedTextProvider( $userLanguage )
+						new MediaWikiLocalizedTextProvider( $userLanguage ),
+						new NonExistingEntityIdHtmlFormatter(
+							'wikibaselexeme-deletedentity-'
+						)
 					)
 				);
 			}

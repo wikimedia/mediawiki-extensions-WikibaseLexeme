@@ -12,6 +12,7 @@ use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\LocalizedTextProvider;
 
@@ -39,18 +40,24 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 	 * @var LocalizedTextProvider
 	 */
 	private $textProvider;
+	/**
+	 * @var NonExistingEntityIdHtmlFormatter
+	 */
+	private $nonExistingFormatter;
 
 	public function __construct(
 		EntityLookup $entityLookup,
 		LabelDescriptionLookup $labelDescriptionLookup,
 		EntityTitleLookup $titleLookup,
-		LocalizedTextProvider $textProvider
+		LocalizedTextProvider $textProvider,
+		NonExistingEntityIdHtmlFormatter $nonExistingEntityIdHtmlFormatter
 	) {
 		// TODO: This formatter should not load entire entities.
 		$this->entityLookup = $entityLookup;
 		$this->labelDescriptionLookup = $labelDescriptionLookup;
 		$this->titleLookup = $titleLookup;
 		$this->textProvider = $textProvider;
+		$this->nonExistingFormatter = $nonExistingEntityIdHtmlFormatter;
 	}
 
 	public function formatEntityId( EntityId $id ) {
@@ -61,6 +68,11 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->entityLookup->getEntity( $id );
 		'@phan-var Lexeme $lexeme';
+
+		if ( $lexeme === null ) {
+			// msg: wikibaselexeme-deletedentity-lexeme
+			return $this->nonExistingFormatter->formatEntityId( $id );
+		}
 
 		$lemmas = $lexeme->getLemmas();
 
