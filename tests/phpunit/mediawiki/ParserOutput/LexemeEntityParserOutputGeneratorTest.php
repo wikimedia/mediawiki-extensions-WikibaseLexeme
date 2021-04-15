@@ -174,7 +174,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	}
 
 	private function newParserOutputGenerator(): EntityParserOutputGenerator {
-		return WikibaseRepo::getDefaultInstance()
+		return WikibaseRepo::getEntityParserOutputGeneratorFactory()
 			->getEntityParserOutputGenerator( Language::factory( 'en' ) );
 	}
 
