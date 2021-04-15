@@ -45,19 +45,19 @@ class LexemeViewFactory {
 		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->language );
 
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
+		$viewFactory = WikibaseRepo::getViewFactory();
 
 		$editSectionGenerator = $this->newToolbarEditSectionGenerator();
 
 		$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookup();
 
-		$statementSectionsView = $wikibaseRepo->getViewFactory()->newStatementSectionsView(
+		$statementSectionsView = $viewFactory->newStatementSectionsView(
 			$this->language->getCode(),
 			$this->termFallbackChain,
 			$editSectionGenerator
 		);
 
-		$statementGroupListView = $wikibaseRepo->getViewFactory()->newStatementGroupListView(
+		$statementGroupListView = $viewFactory->newStatementGroupListView(
 			$this->language->getCode(),
 			$this->termFallbackChain,
 			$editSectionGenerator
