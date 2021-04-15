@@ -49,6 +49,7 @@ use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
+use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\TermLanguageFallbackChain;
@@ -267,7 +268,10 @@ return [
 				WikibaseRepo::getEntityLookup(),
 				$languageLabelLookup,
 				WikibaseRepo::getEntityTitleLookup(),
-				new MediaWikiLocalizedTextProvider( $language )
+				new MediaWikiLocalizedTextProvider( $language ),
+				new NonExistingEntityIdHtmlFormatter(
+					'wikibaselexeme-deletedentity-'
+				)
 			);
 		},
 		Def::ENTITY_REFERENCE_EXTRACTOR_CALLBACK => function () {

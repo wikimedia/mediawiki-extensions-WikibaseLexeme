@@ -11,6 +11,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\View\DummyLocalizedTextProvider;
 
@@ -104,6 +105,18 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		);
 	}
 
+	public function testGivenLexemeDoesNotExist_returnsProperMessage() {
+		$formatter = $this->newFormatter();
+		$formattedId = $formatter->formatEntityId( new LexemeId( 'L314' ) );
+
+		$this->assertThatHamcrest(
+			$formattedId,
+			is( htmlPiece(
+					havingChild( tagMatchingOutline( '<span class="wb-entity-undefinedinfo" />' ) ) )
+			)
+		);
+	}
+
 	public function testGivenLexicalCategoryWithoutLabel_showsItemId() {
 		$lookup = $this->createMock( LabelDescriptionLookup::class );
 		$lookup->method( $this->anything() )
@@ -112,7 +125,10 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 			$this->newEntityLookup(),
 			$lookup,
 			$this->newTitleLookup(),
-			new DummyLocalizedTextProvider()
+			new DummyLocalizedTextProvider(),
+			new NonExistingEntityIdHtmlFormatter(
+				'wikibaselexeme-deletedentity-'
+			)
 		);
 
 		$this->assertThatHamcrest(
@@ -134,7 +150,10 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 			$this->newEntityLookup(),
 			$this->newLabelDescriptionLookup(),
 			$this->newTitleLookup(),
-			new DummyLocalizedTextProvider()
+			new DummyLocalizedTextProvider(),
+			new NonExistingEntityIdHtmlFormatter(
+				'wikibaselexeme-deletedentity-'
+			)
 		);
 	}
 
