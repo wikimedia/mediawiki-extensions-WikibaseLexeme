@@ -39,6 +39,7 @@
 		"promise/no-native": "error",
 		"valid-jsdoc": "off",
 		"vars-on-top": "off",
-		"wrap-iife": "off"
+		"wrap-iife": "off",
+		"block-scoped-var": "warn"
 	}
 }
