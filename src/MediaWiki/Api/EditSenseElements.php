@@ -78,6 +78,7 @@ class EditSenseElements extends \ApiBase {
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
 		ChangeOpFactoryProvider $changeOpFactoryProvider,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		EntityStore $entityStore,
 		Store $store,
@@ -96,7 +97,7 @@ class EditSenseElements extends \ApiBase {
 			$mainModule,
 			$moduleName,
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
+			$editEntityFactory,
 			new EditSenseElementsRequestParser(
 				new SenseIdDeserializer( $entityIdParser ),
 				new EditSenseChangeOpDeserializer(

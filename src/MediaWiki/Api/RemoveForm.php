@@ -58,6 +58,7 @@ class RemoveForm extends ApiBase {
 	public static function factory(
 		ApiMain $mainModule,
 		string $moduleName,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		Store $store,
 		SummaryFormatter $summaryFormatter
@@ -72,7 +73,7 @@ class RemoveForm extends ApiBase {
 				new FormIdDeserializer( $entityIdParser )
 			),
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
+			$editEntityFactory,
 			$summaryFormatter,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );

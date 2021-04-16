@@ -69,6 +69,7 @@ class EditFormElements extends \ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		EntityStore $entityStore,
 		Store $store,
@@ -86,7 +87,7 @@ class EditFormElements extends \ApiBase {
 			$mainModule,
 			$moduleName,
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
+			$editEntityFactory,
 			new EditFormElementsRequestParser(
 				new FormIdDeserializer( $entityIdParser ),
 				WikibaseLexemeServices::getEditFormChangeOpDeserializer()
