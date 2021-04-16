@@ -78,6 +78,7 @@ class AddSense extends ApiBase {
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
 		ChangeOpFactoryProvider $changeOpFactoryProvider,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		Store $store,
 		StringNormalizer $stringNormalizer,
@@ -112,7 +113,7 @@ class AddSense extends ApiBase {
 			),
 			$senseSerializer,
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
+			$editEntityFactory,
 			$summaryFormatter,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );

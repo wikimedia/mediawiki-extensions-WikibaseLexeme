@@ -71,7 +71,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			$summaryFormatter,
 			WikibaseRepo::getEntityTitleLookup(),
-			$wikibaseRepo->newEditEntityFactory()
+			WikibaseRepo::getEditEntityFactory()
 		);
 	}
 

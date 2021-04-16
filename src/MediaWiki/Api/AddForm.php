@@ -70,6 +70,7 @@ class AddForm extends ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		SerializerFactory $baseDataModelSerializerFactory,
+		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		Store $store,
 		SummaryFormatter $summaryFormatter
@@ -91,7 +92,7 @@ class AddForm extends ApiBase {
 			),
 			$formSerializer,
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-			$wikibaseRepo->newEditEntityFactory( $mainModule->getContext() ),
+			$editEntityFactory,
 			$summaryFormatter,
 			function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );

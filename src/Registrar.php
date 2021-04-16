@@ -32,6 +32,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\AddForm::factory',
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.SummaryFormatter',
@@ -41,6 +42,7 @@ class Registrar {
 			'class' => RemoveForm::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveForm::factory',
 			'services' => [
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.SummaryFormatter',
@@ -51,6 +53,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\EditFormElements::factory',
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.EntityStore',
 				'WikibaseRepo.Store',
@@ -63,6 +66,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.ChangeOpFactoryProvider',
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.StringNormalizer',
@@ -75,6 +79,7 @@ class Registrar {
 			'services' => [
 				'WikibaseRepo.BaseDataModelSerializerFactory',
 				'WikibaseRepo.ChangeOpFactoryProvider',
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.EntityStore',
 				'WikibaseRepo.Store',
@@ -86,6 +91,7 @@ class Registrar {
 			'class' => RemoveSense::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\RemoveSense::factory',
 			'services' => [
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityIdParser',
 				'WikibaseRepo.Store',
 				'WikibaseRepo.SummaryFormatter',
@@ -100,6 +106,7 @@ class Registrar {
 			'class' => SpecialNewLexeme::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme::factory',
 			'services' => [
+				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityNamespaceLookup',
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.Settings',
