@@ -22,7 +22,6 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
-use Wikibase\Repo\EditEntity\MediawikiEditFilterHookRunner;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\WikibaseRepo;
@@ -166,12 +165,7 @@ class WikibaseLexemeServices {
 			WikibaseRepo::getEntityPermissionChecker(),
 			WikibaseRepo::getSummaryFormatter(),
 			RequestContext::getMain()->getUser(),
-			new MediawikiEditFilterHookRunner(
-				WikibaseRepo::getEntityNamespaceLookup(),
-				WikibaseRepo::getEntityTitleStoreLookup(),
-				WikibaseRepo::getEntityContentFactory(),
-				RequestContext::getMain()
-			),
+			WikibaseRepo::getEditFilterHookRunner(),
 			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			WikibaseRepo::getEntityTitleStoreLookup(),
 			$this->botEditRequested
