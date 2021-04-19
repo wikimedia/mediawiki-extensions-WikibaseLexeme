@@ -170,6 +170,8 @@ module.exports = ( function () {
 		 */
 		onChangeTags: function () {
 			this.updateInputPlaceHolder();
+			GrammaticalFeatureListWidget.super.prototype.onChangeTags.call( this );
+
 		},
 
 		/**
