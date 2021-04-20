@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
-use User;
+use IContextSource;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Lookup\EntityRedirectLookup;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
@@ -28,7 +28,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		EntityStore $entityStore,
 		EntityPermissionChecker $permissionChecker,
 		SummaryFormatter $summaryFormatter,
-		User $user,
+		IContextSource $context,
 		EditFilterHookRunner $editFilterHookRunner,
 		EntityRedirectLookup $entityRedirectLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -41,7 +41,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 			$entityStore,
 			$permissionChecker,
 			$summaryFormatter,
-			$user,
+			$context,
 			$editFilterHookRunner,
 			$entityRedirectLookup,
 			$entityTitleLookup

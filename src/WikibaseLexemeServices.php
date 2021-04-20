@@ -164,7 +164,7 @@ class WikibaseLexemeServices {
 			WikibaseRepo::getEntityStore(),
 			WikibaseRepo::getEntityPermissionChecker(),
 			WikibaseRepo::getSummaryFormatter(),
-			RequestContext::getMain()->getUser(),
+			RequestContext::getMain(),
 			WikibaseRepo::getEditFilterHookRunner(),
 			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			WikibaseRepo::getEntityTitleStoreLookup(),

@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
+use FauxRequest;
 use PHPUnit\Framework\MockObject\MockObject;
+use RequestContext;
 use Status;
 use Title;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -65,12 +67,16 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	}
 
 	private function newRedirector() {
+		$context = new RequestContext();
+		$context->setRequest( new FauxRequest() );
+		$context->setUser( $this->getTestUser()->getUser() );
+
 		return new MediaWikiLexemeRedirector(
 			WikibaseRepo::getEntityRevisionLookup(),
 			WikibaseRepo::getEntityStore(),
 			$this->getMockEntityPermissionChecker(),
 			$this->getMockSummaryFormatter(),
-			$this->getTestUser()->getUser(),
+			$context,
 			$this->getMockEditFilterHookRunner(),
 			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			$this->getMockEntityTitleLookup(),
