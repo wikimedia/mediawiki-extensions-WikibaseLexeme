@@ -216,7 +216,7 @@ class AddSense extends ApiBase {
 		}
 
 		$editEntity = $this->editEntityFactory->newEditEntity(
-			$this->getUser(),
+			$this->getContext(),
 			$request->getLexemeId(),
 			$lexemeRevision->getRevisionId()
 		);

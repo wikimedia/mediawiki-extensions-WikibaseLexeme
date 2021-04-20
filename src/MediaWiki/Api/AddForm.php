@@ -342,7 +342,7 @@ class AddForm extends ApiBase {
 		$flags
 	): Status {
 		$editEntity = $this->editEntityFactory->newEditEntity(
-			$this->getUser(),
+			$this->getContext(),
 			$lexeme->getId(),
 			$baseRevId
 		);

@@ -164,7 +164,7 @@ class RemoveSense extends ApiBase {
 		$changeOp->apply( $lexeme, $summary );
 
 		$editEntity = $this->editEntityFactory->newEditEntity(
-			$this->getUser(),
+			$this->getContext(),
 			$lexemeId,
 			$baseRevId
 		);

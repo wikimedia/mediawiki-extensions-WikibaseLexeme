@@ -199,7 +199,7 @@ class EditFormElements extends \ApiBase {
 		array $params
 	) {
 		$editEntity = $this->editEntityFactory->newEditEntity(
-			$this->getUser(),
+			$this->getContext(),
 			$form->getId(),
 			$baseRevisionId
 		);

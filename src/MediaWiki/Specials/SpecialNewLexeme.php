@@ -162,7 +162,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 	private function newEditEntity(): EditEntity {
 		return $this->editEntityFactory->newEditEntity(
-			$this->getUser(),
+			$this->getContext(),
 			null,
 			0,
 			$this->getRequest()->wasPosted()
