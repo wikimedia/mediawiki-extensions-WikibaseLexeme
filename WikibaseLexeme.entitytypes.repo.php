@@ -229,8 +229,6 @@ return [
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
-			$repo = WikibaseRepo::getDefaultInstance();
-
 			return new EntityIdSearchHelper(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
@@ -239,7 +237,7 @@ return [
 					WikibaseRepo::getLanguageFallbackChainFactory()
 						->newFromLanguage( WikibaseRepo::getUserLanguage() )
 				),
-				$repo->getEntityTypeToRepositoryMapping()
+				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
@@ -306,13 +304,11 @@ return [
 		},
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
-			$repo = WikibaseRepo::getDefaultInstance();
-
 			return new EntityIdSearchHelper(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new NullLabelDescriptionLookup(),
-				$repo->getEntityTypeToRepositoryMapping()
+				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
 		DEF::CHANGEOP_DESERIALIZER_CALLBACK => function () {
@@ -400,7 +396,6 @@ return [
 		},
 		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
-			$repo = WikibaseRepo::getDefaultInstance();
 			$entityLookup = WikibaseRepo::getEntityLookup();
 			$userLanguage = WikibaseRepo::getUserLanguage();
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
@@ -413,7 +408,7 @@ return [
 				$entityLookup,
 				WikibaseRepo::getEntityIdParser(),
 				$senseLabelDescriptionLookup,
-				$repo->getEntityTypeToRepositoryMapping()
+				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
