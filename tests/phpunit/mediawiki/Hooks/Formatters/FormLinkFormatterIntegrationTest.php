@@ -48,7 +48,7 @@ class FormLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCase
 				$this->getEntityTitleTextLookupMock( 'foo' )
 			);
 
-		return $factory->getLinkFormatter( $entityType );
+		return $factory->getLinkFormatter( $entityType, Language::factory( 'en' ) );
 	}
 
 	private function getEntityTitleTextLookupMock( string $titleText = null ) {

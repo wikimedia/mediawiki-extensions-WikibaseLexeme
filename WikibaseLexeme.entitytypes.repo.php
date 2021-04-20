@@ -243,7 +243,8 @@ return [
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$requestContext = RequestContext::getMain();
-			$linkFormatter = $repo->getEntityLinkFormatterFactory( $language )->getDefaultLinkFormatter();
+			// @phan-suppress-next-line PhanParamTooMany temporary workaround to move param from constructor to method
+			$linkFormatter = $repo->getEntityLinkFormatterFactory( $language )->getDefaultLinkFormatter( $language );
 			/** @var $linkFormatter DefaultEntityLinkFormatter */
 			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
@@ -343,7 +344,8 @@ return [
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
 			$repo = WikibaseRepo::getDefaultInstance();
 			$requestContext = RequestContext::getMain();
-			$linkFormatter = $repo->getEntityLinkFormatterFactory( $language )->getDefaultLinkFormatter();
+			// @phan-suppress-next-line PhanParamTooMany temporary workaround to move param from constructor to method
+			$linkFormatter = $repo->getEntityLinkFormatterFactory( $language )->getDefaultLinkFormatter( $language );
 			/** @var $linkFormatter DefaultEntityLinkFormatter */
 			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
