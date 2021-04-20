@@ -43,10 +43,7 @@ class FormLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCase
 
 	private function getLinkFormatter( $entityType ): EntityLinkFormatter {
 		$factory = WikibaseRepo::getDefaultInstance()
-			->getEntityLinkFormatterFactory(
-				Language::factory( 'en' ),
-				$this->getEntityTitleTextLookupMock( 'foo' )
-			);
+			->getEntityLinkFormatterFactory();
 
 		return $factory->getLinkFormatter( $entityType, Language::factory( 'en' ) );
 	}
