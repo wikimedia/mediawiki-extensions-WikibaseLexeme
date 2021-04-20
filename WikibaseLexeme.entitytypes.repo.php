@@ -241,9 +241,8 @@ return [
 			);
 		},
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
-			$repo = WikibaseRepo::getDefaultInstance();
 			$requestContext = RequestContext::getMain();
-			$linkFormatter = $repo->getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
+			$linkFormatter = WikibaseRepo::getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
 			/** @var $linkFormatter DefaultEntityLinkFormatter */
 			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
@@ -341,9 +340,8 @@ return [
 			return $rdfBuilder;
 		},
 		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
-			$repo = WikibaseRepo::getDefaultInstance();
 			$requestContext = RequestContext::getMain();
-			$linkFormatter = $repo->getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
+			$linkFormatter = WikibaseRepo::getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
 			/** @var $linkFormatter DefaultEntityLinkFormatter */
 			'@phan-var DefaultEntityLinkFormatter $linkFormatter';
 
