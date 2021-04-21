@@ -38,8 +38,7 @@ class LexemeLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCa
 	}
 
 	private function getLinkFormatter( $entityType ): EntityLinkFormatter {
-		$repo = WikibaseRepo::getDefaultInstance();
-		$factory = $repo->getEntityLinkFormatterFactory();
+		$factory = WikibaseRepo::getEntityLinkFormatterFactory();
 
 		return $factory->getLinkFormatter( $entityType, Language::factory( 'en' ) );
 	}
