@@ -16,12 +16,12 @@ use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\Repo\Api\ApiHelperFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @license GPL-2.0-or-later
@@ -68,6 +68,7 @@ class EditFormElements extends \ApiBase {
 	public static function factory(
 		ApiMain $mainModule,
 		string $moduleName,
+		ApiHelperFactory $apiHelperFactory,
 		SerializerFactory $baseDataModelSerializerFactory,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
@@ -75,9 +76,6 @@ class EditFormElements extends \ApiBase {
 		Store $store,
 		SummaryFormatter $summaryFormatter
 	): self {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
-
 		$formSerializer = new FormSerializer(
 			$baseDataModelSerializerFactory->newTermListSerializer(),
 			$baseDataModelSerializerFactory->newStatementListSerializer()

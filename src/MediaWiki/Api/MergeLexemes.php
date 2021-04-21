@@ -11,7 +11,7 @@ use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Api\ApiErrorReporter;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Repo\Api\ApiHelperFactory;
 
 /**
  * WikibaseLexeme API endpoint wblmergelexemes
@@ -39,9 +39,11 @@ class MergeLexemes extends ApiBase {
 		$this->errorReporter = $errorReporterCallback( $this );
 	}
 
-	public static function factory( ApiMain $mainModule, string $moduleName ): self {
-		$repo = WikibaseRepo::getDefaultInstance();
-		$apiHelperFactory = $repo->getApiHelperFactory( $mainModule->getContext() );
+	public static function factory(
+		ApiMain $mainModule,
+		string $moduleName,
+		ApiHelperFactory $apiHelperFactory
+	): self {
 		return new self(
 			$mainModule,
 			$moduleName,
