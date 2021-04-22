@@ -6,6 +6,7 @@ use Diff\DiffOp\Diff\Diff;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use RequestContext;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
@@ -451,8 +452,8 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	private function newDiffVisualizer() {
-		return WikibaseRepo::getDefaultInstance()->getEntityDiffVisualizerFactory( new \RequestContext() )
-			->newEntityDiffVisualizer( 'lexeme' );
+		return WikibaseRepo::getDefaultInstance()->getEntityDiffVisualizerFactory()
+			->newEntityDiffVisualizer( 'lexeme', RequestContext::getMain() );
 	}
 
 }
