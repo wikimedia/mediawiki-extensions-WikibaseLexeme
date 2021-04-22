@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
 use ApiMain;
+use Deserializers\Deserializer;
 use LogicException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -24,6 +25,7 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Lib\StringNormalizer;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
+use Wikibase\Repo\Api\ApiHelperFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpFactoryProvider;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
@@ -31,7 +33,6 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
-use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @license GPL-2.0-or-later
@@ -76,17 +77,16 @@ class AddSense extends ApiBase {
 	public static function factory(
 		ApiMain $mainModule,
 		string $moduleName,
+		ApiHelperFactory $apiHelperFactory,
 		SerializerFactory $baseDataModelSerializerFactory,
 		ChangeOpFactoryProvider $changeOpFactoryProvider,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
+		Deserializer $externalFormatStatementDeserializer,
 		Store $store,
 		StringNormalizer $stringNormalizer,
 		SummaryFormatter $summaryFormatter
 	) {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-		$apiHelperFactory = $wikibaseRepo->getApiHelperFactory( $mainModule->getContext() );
-
 		$senseSerializer = new SenseSerializer(
 			$baseDataModelSerializerFactory->newTermListSerializer(),
 			$baseDataModelSerializerFactory->newStatementListSerializer()
@@ -106,7 +106,7 @@ class AddSense extends ApiBase {
 						)
 					),
 					new ClaimsChangeOpDeserializer(
-						$wikibaseRepo->getExternalFormatStatementDeserializer(),
+						$externalFormatStatementDeserializer,
 						$changeOpFactoryProvider->getStatementChangeOpFactory()
 					)
 				)
