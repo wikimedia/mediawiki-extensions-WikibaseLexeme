@@ -22,6 +22,10 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 	implements LexemeRedirector {
 
 	private $botEditRequested;
+	/**
+	 * @var IContextSource
+	 */
+	private $context;
 
 	public function __construct(
 		EntityRevisionLookup $entityRevisionLookup,
@@ -35,13 +39,13 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		$botEditRequested
 	) {
 		$this->botEditRequested = $botEditRequested;
+		$this->context = $context;
 
 		parent::__construct(
 			$entityRevisionLookup,
 			$entityStore,
 			$permissionChecker,
 			$summaryFormatter,
-			$context,
 			$editFilterHookRunner,
 			$entityRedirectLookup,
 			$entityTitleLookup
@@ -49,7 +53,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 	}
 
 	public function redirect( LexemeId $sourceId, LexemeId $targetId ) {
-		$this->createRedirect( $sourceId, $targetId, $this->botEditRequested );
+		$this->createRedirect( $sourceId, $targetId, $this->botEditRequested, $this->context );
 	}
 
 	protected function assertEntityIsRedirectable( EntityDocument $entity ) {
