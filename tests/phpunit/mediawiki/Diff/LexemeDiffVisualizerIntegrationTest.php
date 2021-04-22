@@ -452,7 +452,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	private function newDiffVisualizer() {
-		return WikibaseRepo::getDefaultInstance()->getEntityDiffVisualizerFactory()
+		return WikibaseRepo::getEntityDiffVisualizerFactory()
 			->newEntityDiffVisualizer( 'lexeme', RequestContext::getMain() );
 	}
 
