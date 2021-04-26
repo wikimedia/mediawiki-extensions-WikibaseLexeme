@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 
 use IContextSource;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\Services\Lookup\EntityRedirectLookup;
+use Wikibase\DataModel\Services\Lookup\EntityRedirectTargetLookup;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -34,7 +34,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		SummaryFormatter $summaryFormatter,
 		IContextSource $context,
 		EditFilterHookRunner $editFilterHookRunner,
-		EntityRedirectLookup $entityRedirectLookup,
+		EntityRedirectTargetLookup $entityRedirectLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
 		$botEditRequested
 	) {
