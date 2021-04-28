@@ -121,7 +121,6 @@ return [
 		},
 		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
 			$language = WikibaseRepo::getUserLanguage( $mwServices );
 

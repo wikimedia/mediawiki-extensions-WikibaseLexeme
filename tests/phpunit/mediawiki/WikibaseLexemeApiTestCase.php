@@ -20,11 +20,6 @@ use Wikibase\Repo\WikibaseRepo;
 abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 
 	/**
-	 * @var WikibaseRepo
-	 */
-	protected $wikibaseRepo;
-
-	/**
 	 * @var EntityStore
 	 */
 	protected $entityStore;
@@ -35,7 +30,6 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		$this->tablesUsed[] = 'page';
 		$this->tablesUsed[] = 'revision';
 
-		$this->wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$this->entityStore = WikibaseRepo::getEntityStore();
 	}
 

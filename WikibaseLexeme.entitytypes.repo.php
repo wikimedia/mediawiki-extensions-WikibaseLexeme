@@ -102,7 +102,6 @@ return [
 		},
 		Def::CONTENT_MODEL_ID => LexemeContent::CONTENT_MODEL_ID,
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
@@ -120,7 +119,6 @@ return [
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
 			$services = MediaWikiServices::getInstance();
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$changeOpFactoryProvider = WikibaseRepo::getChangeOpFactoryProvider( $services );
 			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
 				WikibaseRepo::getExternalFormatStatementDeserializer( $services ),
@@ -173,7 +171,7 @@ return [
 								)
 							),
 							new ClaimsChangeOpDeserializer(
-								$wikibaseRepo->getExternalFormatStatementDeserializer(),
+								WikibaseRepo::getExternalFormatStatementDeserializer(),
 								$changeOpFactoryProvider->getStatementChangeOpFactory()
 							)
 						)
@@ -287,7 +285,6 @@ return [
 	],
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
@@ -378,7 +375,6 @@ return [
 	'sense' => [
 		// TODO lexemes and forms have identical content-handler-factory-callback, extract
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
@@ -410,7 +406,6 @@ return [
 			);
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
-			$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 			$senseChangeOpDeserializer = new SenseChangeOpDeserializer(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
@@ -423,7 +418,7 @@ return [
 						)
 					),
 					new ClaimsChangeOpDeserializer(
-						$wikibaseRepo->getExternalFormatStatementDeserializer(),
+						WikibaseRepo::getExternalFormatStatementDeserializer(),
 						WikibaseRepo::getChangeOpFactoryProvider()->getStatementChangeOpFactory()
 					)
 				)
@@ -452,7 +447,6 @@ return [
 			return $rdfBuilder;
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
-			$repo = WikibaseRepo::getDefaultInstance();
 
 			return new SenseIdHtmlFormatter(
 				WikibaseRepo::getEntityTitleLookup(),

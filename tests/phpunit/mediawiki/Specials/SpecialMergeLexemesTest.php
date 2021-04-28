@@ -50,9 +50,6 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	/** @var EntityTitleLookup */
 	private $titleLookup;
 
-	/** @var WikibaseRepo */
-	private $repo;
-
 	/** @var ExceptionLocalizer|MockObject */
 	private $exceptionLocalizer;
 
@@ -68,7 +65,6 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		$mwServices = MediaWikiServices::getInstance();
 
 		$this->mergeInteractor = $this->newMockMergeInteractor();
-		$this->repo = WikibaseRepo::getDefaultInstance();
 		$this->entityStore = WikibaseRepo::getEntityStore();
 		$this->titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
 		$this->exceptionLocalizer = $this->newMockExceptionLocalizer();

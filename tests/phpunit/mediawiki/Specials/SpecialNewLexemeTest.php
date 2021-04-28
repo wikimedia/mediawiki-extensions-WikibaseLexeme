@@ -63,7 +63,6 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	}
 
 	protected function newSpecialPage() {
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
 		$summaryFormatter = $this->getMockSummaryFormatter();
 
 		return new SpecialNewLexeme(
