@@ -195,8 +195,6 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 			$mockEntityIdPager->addEntityId( $testEntity->getId() );
 		}
 
-		$wikibaseRepo = WikibaseRepo::getDefaultInstance();
-
 		$sqlEntityIdPagerFactory = $this->getMockBuilder( SqlEntityIdPagerFactory::class )
 			->disableOriginalConstructor()
 			->getMock();
