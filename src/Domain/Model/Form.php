@@ -126,7 +126,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 			}
 		}
 
-		usort( $result, function ( ItemId $a, ItemId $b ) {
+		usort( $result, static function ( ItemId $a, ItemId $b ) {
 			return strcmp( $a->getSerialization(), $b->getSerialization() );
 		} );
 

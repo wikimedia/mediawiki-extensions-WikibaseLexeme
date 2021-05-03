@@ -93,7 +93,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 
 		$revisionIdResult = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
-		$returnNonexistentEntityResult = function () {
+		$returnNonexistentEntityResult = static function () {
 			return LatestRevisionIdResult::nonexistentEntity();
 		};
 

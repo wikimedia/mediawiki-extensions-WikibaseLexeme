@@ -72,7 +72,7 @@ class RemoveFormRequestParserTest extends TestCase {
 	 */
 	private function newRemoveFormRequestParser() {
 		$idParser = new DispatchingEntityIdParser( [
-			FormId::PATTERN => function ( $id ) {
+			FormId::PATTERN => static function ( $id ) {
 				return new FormId( $id );
 			}
 		] );

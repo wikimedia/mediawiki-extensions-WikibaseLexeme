@@ -120,7 +120,7 @@ class FormsView {
 		$representationsVueTemplate = file_get_contents( __DIR__ . VueTemplates::REPRESENTATIONS );
 
 		$representations = array_map(
-			function ( Term $r ) {
+			static function ( Term $r ) {
 				return [ 'value' => $r->getText(), 'language' => $r->getLanguageCode() ];
 			},
 			iterator_to_array( $form->getRepresentations() )

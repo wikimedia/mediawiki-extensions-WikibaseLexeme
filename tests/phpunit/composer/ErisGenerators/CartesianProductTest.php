@@ -23,7 +23,7 @@ class CartesianProductTest extends TestCase {
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1 )
 			->map(
-				function ( $n1 ) {
+				static function ( $n1 ) {
 					return $n1;
 				}
 			);
@@ -41,7 +41,7 @@ class CartesianProductTest extends TestCase {
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2 )
 			->map(
-				function ( $n1, $n2 ) {
+				static function ( $n1, $n2 ) {
 					return [ $n1, $n2 ];
 				}
 			);
@@ -61,7 +61,7 @@ class CartesianProductTest extends TestCase {
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2, $opt3 )
 			->map(
-				function ( $n1, $n2, $n3 ) {
+				static function ( $n1, $n2, $n3 ) {
 					return [ $n1, $n2, $n3 ];
 				}
 			);
@@ -79,7 +79,7 @@ class CartesianProductTest extends TestCase {
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2 )
 			->map(
-				function ( $n1, $n2 ) {
+				static function ( $n1, $n2 ) {
 					return [ $n1, $n2 ];
 				}
 			);
@@ -98,7 +98,7 @@ class CartesianProductTest extends TestCase {
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2 )
 			->map(
-				function ( $n1, $n2 ) {
+				static function ( $n1, $n2 ) {
 					return [ $n1, $n2 ];
 				}
 			);
@@ -125,7 +125,7 @@ class CartesianProductTest extends TestCase {
 		$resultingCalls = [];
 		$result = CartesianProduct::create( $opt1, $opt2 )
 			->map(
-				function ( $n1, $n2 ) use ( &$resultingCalls ) {
+				static function ( $n1, $n2 ) use ( &$resultingCalls ) {
 					$resultingCalls[] = [ $n1, $n2 ];
 					return [ $n1, $n2 ];
 				}

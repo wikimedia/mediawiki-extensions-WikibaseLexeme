@@ -92,7 +92,7 @@ class AddForm extends ApiBase {
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$editEntityFactory,
 			$summaryFormatter,
-			function ( $module ) use ( $apiHelperFactory ) {
+			static function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}
 		);
@@ -253,10 +253,10 @@ class AddForm extends ApiBase {
 			AddFormRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
-		$languages = array_map( function ( $r ) {
+		$languages = array_map( static function ( $r ) {
 			return $r['language'];
 		}, $exampleData['representations'] );
-		$representations = array_map( function ( $r ) {
+		$representations = array_map( static function ( $r ) {
 			return $r['value'];
 		}, $exampleData['representations'] );
 

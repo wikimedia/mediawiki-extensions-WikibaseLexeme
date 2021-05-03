@@ -33,7 +33,7 @@ class SenseGenerator implements Generator {
 			$this->senseIdGenerator = ConstantGenerator::box( $senseId );
 		} else {
 			$this->senseIdGenerator = new MapGenerator(
-				function ( $number ) {
+				static function ( $number ) {
 					// FIXME: This hard coded parent ID will result in inconsistent test data!
 					return new SenseId( 'L1-S' . $number );
 				},

@@ -89,7 +89,7 @@ class AddSenseRequestParserTest extends TestCase {
 
 	private function newAddSenseRequestParser() {
 		$idParser = new DispatchingEntityIdParser( [
-			LexemeId::PATTERN => function ( $id ) {
+			LexemeId::PATTERN => static function ( $id ) {
 				return new LexemeId( $id );
 			}
 		] );

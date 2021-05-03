@@ -212,7 +212,7 @@ HTML;
 		$template = file_get_contents( __DIR__ . VueTemplates::LEMMA );
 
 		$lemmas = array_map(
-			function ( Term $lemma ) {
+			static function ( Term $lemma ) {
 				return [ 'value' => $lemma->getText(), 'language' => $lemma->getLanguageCode() ];
 			},
 			iterator_to_array( $lexeme->getLemmas() )

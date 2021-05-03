@@ -237,13 +237,13 @@ class StorageLexemeSerializerTest extends TestCase {
 	private function createDeserializer() {
 		$entityIdParser = new DispatchingEntityIdParser(
 			[
-				LexemeId::PATTERN => function ( $s ) {
+				LexemeId::PATTERN => static function ( $s ) {
 					return new LexemeId( $s );
 				},
-				ItemId::PATTERN => function ( $s ) {
+				ItemId::PATTERN => static function ( $s ) {
 					return new ItemId( $s );
 				},
-				PropertyId::PATTERN => function ( $s ) {
+				PropertyId::PATTERN => static function ( $s ) {
 					return new PropertyId( $s );
 				}
 			]

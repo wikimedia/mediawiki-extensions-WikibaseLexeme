@@ -92,7 +92,7 @@ class EditFormElements extends \ApiBase {
 			),
 			$summaryFormatter,
 			$formSerializer,
-			function ( $module ) use ( $apiHelperFactory ) {
+			static function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			},
 			$entityStore
@@ -302,10 +302,10 @@ class EditFormElements extends \ApiBase {
 			EditFormElementsRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
-		$languages = array_map( function ( $r ) {
+		$languages = array_map( static function ( $r ) {
 			return $r['language'];
 		}, $exampleData['representations'] );
-		$representations = array_map( function ( $r ) {
+		$representations = array_map( static function ( $r ) {
 			return $r['value'];
 		}, $exampleData['representations'] );
 

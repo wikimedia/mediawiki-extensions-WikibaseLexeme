@@ -50,7 +50,7 @@ class LexemeGenerator implements Generator {
 			$this->lexemeIdGenerator = new ConstantGenerator( $lexemeId );
 		} else {
 			$this->lexemeIdGenerator = new MapGenerator(
-				function ( $number ) {
+				static function ( $number ) {
 					return new LexemeId( 'L' . $number );
 				},
 				new ChooseGenerator( 1, Int32EntityId::MAX )
@@ -121,7 +121,7 @@ class LexemeGenerator implements Generator {
 		);
 
 		return CartesianProduct::create( $shrunkLemmas, $shrunkFormSet )->map(
-			function ( TermList $lemmas, FormSet $formSet ) {
+			static function ( TermList $lemmas, FormSet $formSet ) {
 				return new Lexeme(
 					new LexemeId( 'L1' ),
 					$lemmas,

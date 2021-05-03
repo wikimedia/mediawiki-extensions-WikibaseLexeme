@@ -815,7 +815,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 1, $lexemeWithoutForm->getNextFormId() );
 
 		$lexemeWithoutForm->patch(
-			function ( LexemePatchAccess $patchAccess ) {
+			static function ( LexemePatchAccess $patchAccess ) {
 				$patchAccess->increaseNextFormIdTo( 2 );
 			}
 		);
@@ -830,7 +830,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		try {
 			$lexeme->patch(
-				function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+				static function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
 					$patchAccess->increaseNextFormIdTo( 2 );
 					$patchAccess->addForm( $newForm );
 				}
@@ -848,7 +848,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$restoredForm = NewForm::havingId( 'F1' )->build();
 
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( $restoredForm ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( $restoredForm ) {
 				$patchAccess->addForm( $restoredForm );
 			}
 		);
@@ -863,7 +863,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		/** @var LexemePatchAccess $patchAccessFromOutside */
 		$patchAccessFromOutside = null;
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
 				$patchAccessFromOutside = $patchAccess;
 			}
 		);
@@ -880,7 +880,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$patchAccessFromOutside = null;
 		try {
 			$lexeme->patch(
-				function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+				static function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
 					$patchAccessFromOutside = $patchAccess;
 					throw new \Exception();
 				}
@@ -900,7 +900,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		$this->expectException( \Exception::class );
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
 				$patchAccess->addForm( $newForm );
 			}
 		);
@@ -913,7 +913,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 1, $lexeme->getNextFormId() );
 		$this->expectException( \Exception::class );
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
 				$patchAccess->addForm( $newForm );
 			}
 		);
@@ -926,7 +926,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		try {
 			$lexeme->patch(
-				function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
+				static function ( LexemePatchAccess $patchAccess ) use ( $newForm ) {
 					$patchAccess->addForm( $newForm );
 				}
 			);
@@ -942,7 +942,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 1, $lexemeWithoutSense->getNextSenseId() );
 
 		$lexemeWithoutSense->patch(
-			function ( LexemePatchAccess $patchAccess ) {
+			static function ( LexemePatchAccess $patchAccess ) {
 				$patchAccess->increaseNextSenseIdTo( 2 );
 			}
 		);
@@ -957,7 +957,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		try {
 			$lexeme->patch(
-				function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+				static function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
 					$patchAccess->increaseNextSenseIdTo( 2 );
 					$patchAccess->addSense( $newSense );
 				}
@@ -975,7 +975,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$restoredSense = NewSense::havingId( 'S1' )->build();
 
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( $restoredSense ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( $restoredSense ) {
 				$patchAccess->addSense( $restoredSense );
 			}
 		);
@@ -990,7 +990,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		/** @var LexemePatchAccess $patchAccessFromOutside */
 		$patchAccessFromOutside = null;
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
 				$patchAccessFromOutside = $patchAccess;
 			}
 		);
@@ -1007,7 +1007,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$patchAccessFromOutside = null;
 		try {
 			$lexeme->patch(
-				function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
+				static function ( LexemePatchAccess $patchAccess ) use ( &$patchAccessFromOutside ) {
 					$patchAccessFromOutside = $patchAccess;
 					throw new \Exception();
 				}
@@ -1027,7 +1027,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		$this->expectException( \Exception::class );
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
 				$patchAccess->addSense( $newSense );
 			}
 		);
@@ -1040,7 +1040,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 1, $lexeme->getNextSenseId() );
 		$this->expectException( \Exception::class );
 		$lexeme->patch(
-			function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+			static function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
 				$patchAccess->addSense( $newSense );
 			}
 		);
@@ -1053,7 +1053,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 
 		try {
 			$lexeme->patch(
-				function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
+				static function ( LexemePatchAccess $patchAccess ) use ( $newSense ) {
 					$patchAccess->addSense( $newSense );
 				}
 			);

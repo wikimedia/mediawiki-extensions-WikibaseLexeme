@@ -5,7 +5,7 @@
  * and repo-specific functionality have been split to separate extensions.
  */
 
-return call_user_func( function () {
+return call_user_func( static function () {
 	$moduleTemplate = [
 		'localBasePath' => __DIR__ . '/resources',
 		'remoteExtPath' => 'WikibaseLexeme/resources',

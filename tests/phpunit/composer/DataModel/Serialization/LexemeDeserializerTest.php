@@ -35,7 +35,7 @@ class LexemeDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$entityIdDeserializer->method( 'deserialize' )
-			->will( $this->returnCallback( function ( $serialization ) {
+			->will( $this->returnCallback( static function ( $serialization ) {
 				return new ItemId( $serialization );
 			} ) );
 
@@ -43,7 +43,7 @@ class LexemeDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$statementListDeserializer->method( 'deserialize' )
-			->will( $this->returnCallback( function ( array $serialization ) {
+			->will( $this->returnCallback( static function ( array $serialization ) {
 				$statementList = new StatementList();
 
 				foreach ( $serialization as $propertyId => $propertyStatements ) {

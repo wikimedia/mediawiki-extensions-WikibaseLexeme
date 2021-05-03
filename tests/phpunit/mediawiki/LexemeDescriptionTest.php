@@ -139,10 +139,10 @@ class LexemeDescriptionTest extends TestCase {
 		$expected
 	) {
 		$idParser = $this->getIdParser();
-		$features = array_map( function ( $id ) use ( $idParser ) {
+		$features = array_map( static function ( $id ) use ( $idParser ) {
 			return $idParser->parse( $id );
 		}, $data['features'] );
-		$itemIds = array_combine( $fetchIds, array_map( function ( $id ) {
+		$itemIds = array_combine( $fetchIds, array_map( static function ( $id ) {
 			return new ItemId( $id );
 		}, $fetchIds ) );
 

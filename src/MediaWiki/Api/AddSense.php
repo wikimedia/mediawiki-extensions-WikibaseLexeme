@@ -115,7 +115,7 @@ class AddSense extends ApiBase {
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$editEntityFactory,
 			$summaryFormatter,
-			function ( $module ) use ( $apiHelperFactory ) {
+			static function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}
 		);
@@ -325,10 +325,10 @@ class AddSense extends ApiBase {
 			AddSenseRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
-		$languages = array_map( function ( $r ) {
+		$languages = array_map( static function ( $r ) {
 			return $r['language'];
 		}, $exampleData['glosses'] );
-		$glosses = array_map( function ( $r ) {
+		$glosses = array_map( static function ( $r ) {
 			return $r['value'];
 		}, $exampleData['glosses'] );
 

@@ -72,7 +72,7 @@ class RemoveSenseRequestParserTest extends TestCase {
 	 */
 	private function newRemoveSenseRequestParser() {
 		$idParser = new DispatchingEntityIdParser( [
-			SenseId::PATTERN => function ( $id ) {
+			SenseId::PATTERN => static function ( $id ) {
 				return new SenseId( $id );
 			}
 		] );

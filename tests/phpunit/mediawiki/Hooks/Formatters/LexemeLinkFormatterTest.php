@@ -158,7 +158,7 @@ class LexemeLinkFormatterTest extends TestCase {
 			->getMock();
 
 		$formatter->method( 'getHtml' )
-			->willReturnCallback( function ( EntityId $entityId, array $label ) {
+			->willReturnCallback( static function ( EntityId $entityId, array $label ) {
 				return "<span lang=\"${label['language']}\">"
 					. HtmlArmor::getHtml( $label['value'] )
 					. $entityId->getSerialization()

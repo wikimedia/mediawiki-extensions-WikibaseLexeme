@@ -63,7 +63,7 @@ class FormSerializer implements DispatchableSerializer {
 			$form->getRepresentations()
 		);
 		$serialization['grammaticalFeatures'] = array_map(
-			function ( ItemId $itemId ) {
+			static function ( ItemId $itemId ) {
 				return $itemId->getSerialization();
 			},
 			$form->getGrammaticalFeatures()

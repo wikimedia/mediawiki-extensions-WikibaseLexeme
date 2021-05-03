@@ -76,7 +76,7 @@ class SenseChangeOpDeserializerTest extends TestCase {
 		$idParser = $this->createMock( EntityIdParser::class );
 		$idParser->method( 'parse' )
 			->willReturnCallback(
-				function ( $id ) {
+				static function ( $id ) {
 					return new LexemeId( $id );
 				} );
 
@@ -211,7 +211,7 @@ class SenseChangeOpDeserializerTest extends TestCase {
 		$idParser = $this->createMock( EntityIdParser::class );
 		$idParser->method( 'parse' )
 			->willReturnCallback(
-				function ( $id ) {
+				static function ( $id ) {
 					return new LexemeId( $id );
 				} );
 

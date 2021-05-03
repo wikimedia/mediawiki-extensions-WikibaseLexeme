@@ -432,7 +432,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		// mimics CLDR behavior
 		$this->setTemporaryHook(
 			self::LANGUAGE_TRANSLATION_HOOK_NAME,
-			function ( &$names, $inLanguage ) use ( $languageName ) {
+			static function ( &$names, $inLanguage ) use ( $languageName ) {
 				$names['en'] = $languageName;
 			}
 		);

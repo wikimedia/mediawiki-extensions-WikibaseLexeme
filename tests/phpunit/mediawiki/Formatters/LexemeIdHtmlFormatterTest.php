@@ -183,7 +183,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$lookup = $this->createMock( LabelDescriptionLookup::class );
 
 		$lookup->method( $this->anything() )
-			->willReturnCallback( function ( ItemId $id ) {
+			->willReturnCallback( static function ( ItemId $id ) {
 				if ( $id->getSerialization() === self::LANGUAGE_ID ) {
 					return new Term( 'en', self::LANGUAGE );
 				}

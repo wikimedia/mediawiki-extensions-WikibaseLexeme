@@ -88,7 +88,7 @@ class FormDiffViewTest extends TestCase {
 		$mock = $this->createMock( MessageLocalizer::class );
 
 		$mock->method( 'msg' )
-			->will( $this->returnCallback( function ( $key ) {
+			->will( $this->returnCallback( static function ( $key ) {
 				return new RawMessage( "($key)" );
 			} ) );
 
@@ -242,7 +242,7 @@ class FormDiffViewTest extends TestCase {
 	private function getIdFormatter() {
 		$formatter = $this->createMock( EntityIdFormatter::class );
 		$formatter->method( $this->anything() )
-			->willReturnCallback( function ( EntityId $entityId ) {
+			->willReturnCallback( static function ( EntityId $entityId ) {
 				$id = $entityId->getSerialization();
 				return 'formatted ' . $id;
 			} );

@@ -23,7 +23,7 @@ class CartesianProduct {
 	public static function create( ...$args ) {
 
 		$resultingValues = array_map(
-			function ( $generatedValue ) {
+			static function ( $generatedValue ) {
 				if ( $generatedValue instanceof GeneratedValueSingle ) {
 					return new GeneratedValueOptions( [ $generatedValue ] );
 				} elseif ( $generatedValue instanceof GeneratedValueOptions ) {
@@ -48,7 +48,7 @@ class CartesianProduct {
 		$result = $this->combine( $generatorName );
 
 		return $result->map(
-			function ( array $args ) use ( $fn ) {
+			static function ( array $args ) use ( $fn ) {
 				return call_user_func_array( $fn, $args );
 			},
 			$generatorName
@@ -63,7 +63,7 @@ class CartesianProduct {
 	private function combine( $generatorName ) {
 		if ( count( $this->generatedValues ) === 1 ) {
 			return $this->generatedValues[0]->map(
-				function ( $v ) {
+				static function ( $v ) {
 					return [ $v ];
 				},
 				$generatorName
@@ -74,7 +74,7 @@ class CartesianProduct {
 			$this->generatedValues[0],
 			$this->generatedValues[1],
 			$generatorName,
-			function ( $v1, $v2 ) {
+			static function ( $v1, $v2 ) {
 				return [ $v1, $v2 ];
 			}
 		);
@@ -85,7 +85,7 @@ class CartesianProduct {
 				$result,
 				$this->generatedValues[$i],
 				$generatorName,
-				function ( array $args, $value ) {
+				static function ( array $args, $value ) {
 					$args[] = $value;
 					return $args;
 				}

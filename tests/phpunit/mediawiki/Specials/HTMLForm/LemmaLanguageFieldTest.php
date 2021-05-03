@@ -51,7 +51,7 @@ class LemmaLanguageFieldTest extends TestCase {
 		$languages = WikibaseLexemeServices::getTermLanguages()->getLanguages();
 		$field = $this->getMockBuilder( LemmaLanguageField::class )
 			->disableOriginalConstructor()
-			->setMethods( [ 'msg' ] )
+			->onlyMethods( [ 'msg' ] )
 			->getMock();
 		$field->expects( $this->exactly( count( $languages ) ) )
 			->method( 'msg' )

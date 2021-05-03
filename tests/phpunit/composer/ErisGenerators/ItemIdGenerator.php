@@ -36,7 +36,7 @@ class ItemIdGenerator implements Generator {
 		/** @var GeneratedValueSingle $generatedValue */
 		$generatedValue = $generateNumericItemId( $size, $rand );
 		return $generatedValue->map(
-			function ( $numericId ) {
+			static function ( $numericId ) {
 				return new ItemId( 'Q' . $numericId );
 			},
 			'itemId'

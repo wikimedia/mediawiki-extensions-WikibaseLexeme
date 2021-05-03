@@ -57,7 +57,7 @@ class GrammaticalFeatureDiffVisualizerTest extends MediaWikiUnitTestCase {
 			->getMock();
 
 		$diffVis->method( $this->anything() )
-			->willReturnCallback( function ( $headerText, Diff $diff ) {
+			->willReturnCallback( static function ( $headerText, Diff $diff ) {
 				$diffOp = $diff[0];
 				$oldValue = $diffOp instanceof DiffOpAdd ? '' : $diffOp->getOldValue();
 				$newValue = $diffOp instanceof DiffOpRemove ? '' : $diffOp->getNewValue();

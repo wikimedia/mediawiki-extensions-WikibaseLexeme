@@ -147,7 +147,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 	private function getIdFormatter() {
 		$formatter = $this->createMock( EntityIdFormatter::class );
 		$formatter->method( $this->anything() )
-			->willReturnCallback( function ( EntityId $entityId ) {
+			->willReturnCallback( static function ( EntityId $entityId ) {
 				$id = $entityId->getSerialization();
 				return 'formatted ' . $id;
 			} );

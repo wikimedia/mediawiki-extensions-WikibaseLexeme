@@ -73,7 +73,7 @@ class RemoveSense extends ApiBase {
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$editEntityFactory,
 			$summaryFormatter,
-			function ( $module ) use ( $apiHelperFactory ) {
+			static function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}
 		);

@@ -223,7 +223,7 @@ class LexemeSensesMergerTest extends TestCase {
 	private function newLexemeSensesMerger() : LexemeSensesMerger {
 		$guidGenerator = $this->createMock( GuidGenerator::class );
 		$guidGenerator->method( 'newGuid' )
-			->willReturnCallback( function ( EntityId $entityId ) {
+			->willReturnCallback( static function ( EntityId $entityId ) {
 				return $entityId->getSerialization() . '$00000000-0000-0000-0000-000000000000';
 			} );
 

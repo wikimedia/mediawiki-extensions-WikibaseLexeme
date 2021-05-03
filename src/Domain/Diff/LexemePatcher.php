@@ -131,7 +131,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 			$newNumber = $nextFormIdDiff->getNewValue();
 			if ( $newNumber > $entity->getNextFormId() ) {
-				$entity->patch( function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
+				$entity->patch( static function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
 					$patchAccess->increaseNextFormIdTo( $newNumber );
 				} );
 			}
@@ -147,7 +147,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 
 			$newNumber = $nextSenseIdDiff->getNewValue();
 			if ( $newNumber > $entity->getNextSenseId() ) {
-				$entity->patch( function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
+				$entity->patch( static function ( LexemePatchAccess $patchAccess ) use ( $newNumber ) {
 					$patchAccess->increaseNextSenseIdTo( $newNumber );
 				} );
 			}
@@ -160,7 +160,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 				case $formDiff instanceof AddFormDiff:
 					$form = $formDiff->getAddedForm();
 					$lexeme->patch(
-						function ( LexemePatchAccess $patchAccess ) use ( $form ) {
+						static function ( LexemePatchAccess $patchAccess ) use ( $form ) {
 							$patchAccess->addForm( $form );
 						}
 					);
@@ -189,7 +189,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 				case $senseDiff instanceof AddSenseDiff:
 					$sense = $senseDiff->getAddedSense();
 					$lexeme->patch(
-						function ( LexemePatchAccess $patchAccess ) use ( $sense ) {
+						static function ( LexemePatchAccess $patchAccess ) use ( $sense ) {
 							$patchAccess->addSense( $sense );
 						}
 					);

@@ -18,7 +18,7 @@ use Wikibase\Repo\WikibaseRepo;
 // TODO Replace by framework-agnostic DI container.
 // Pimple e.g. is well known in the free world and yet part of mediawiki-vendor
 // Challenge: Dedicated API endpoints (e.g. AddForm) need to have it passed w/o singletons/globals
-return call_user_func( function () {
+return call_user_func( static function () {
 	// TODO Problem when removing a code after such an item exists in DB
 	$additionalLanguages = [
 		'az-cyrl', // T265906
@@ -67,21 +67,21 @@ return call_user_func( function () {
 
 	return [
 		'WikibaseLexemeTermLanguages' =>
-			function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
+			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
 				return new LexemeTermLanguages(
 					$additionalLanguages,
 					$mediawikiServices->getLanguageNameUtils()
 				);
 			},
 		'WikibaseLexemeLanguageNameLookup' =>
-			function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
+			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
 				return new LexemeLanguageNameLookup(
 					RequestContext::getMain(),
 					$additionalLanguages,
 					WikibaseRepo::getLanguageNameLookup( $mediawikiServices )
 				);
 			},
-		'WikibaseLexemeEditFormChangeOpDeserializer' => function (
+		'WikibaseLexemeEditFormChangeOpDeserializer' => static function (
 			MediaWikiServices $mediaWikiServices
 		) {
 			return new EditFormChangeOpDeserializer(

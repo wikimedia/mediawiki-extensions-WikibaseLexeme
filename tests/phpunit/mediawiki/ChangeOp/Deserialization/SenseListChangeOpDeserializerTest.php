@@ -132,7 +132,7 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 			->getMock();
 		$senseIdDeserializer
 			->method( 'deserialize' )
-			->willReturnCallback( function ( $senseId ) {
+			->willReturnCallback( static function ( $senseId ) {
 				return new SenseId( $senseId );
 			} );
 

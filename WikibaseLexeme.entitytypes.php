@@ -42,7 +42,7 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
 
 return [
 	'lexeme' => [
-		Def::SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new ExternalLexemeSerializer(
 				new StorageLexemeSerializer(
 					$serializerFactory->newTermListSerializer(),
@@ -50,7 +50,7 @@ return [
 				)
 			);
 		},
-		Def::DESERIALIZER_FACTORY_CALLBACK => function ( DeserializerFactory $deserializerFactory ) {
+		Def::DESERIALIZER_FACTORY_CALLBACK => static function ( DeserializerFactory $deserializerFactory ) {
 			return new LexemeDeserializer(
 				$deserializerFactory->newEntityIdDeserializer(),
 				$deserializerFactory->newStatementListDeserializer()
@@ -58,20 +58,20 @@ return [
 		},
 
 		Def::ENTITY_ID_PATTERN => LexemeId::PATTERN,
-		Def::ENTITY_ID_BUILDER => function ( $serialization ) {
+		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new LexemeId( $serialization );
 		},
-		Def::ENTITY_ID_COMPOSER_CALLBACK => function ( $repositoryName, $uniquePart ) {
+		Def::ENTITY_ID_COMPOSER_CALLBACK => static function ( $repositoryName, $uniquePart ) {
 			return new LexemeId( EntityId::joinSerialization( [
 				$repositoryName,
 				'',
 				'L' . $uniquePart
 			] ) );
 		},
-		Def::ENTITY_DIFFER_STRATEGY_BUILDER => function () {
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
 			return new LexemeDiffer();
 		},
-		Def::ENTITY_PATCHER_STRATEGY_BUILDER => function () {
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
 			return new LexemePatcher();
 		},
 
@@ -85,33 +85,33 @@ return [
 		Def::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.lexeme',
 	],
 	'form' => [
-		Def::ENTITY_STORE_FACTORY_CALLBACK => function (
+		Def::ENTITY_STORE_FACTORY_CALLBACK => static function (
 			EntityStore $defaultStore,
 			EntityRevisionLookup $lookup
 		) {
 			return new FormStore( $defaultStore, $lookup );
 		},
-		Def::ENTITY_REVISION_LOOKUP_FACTORY_CALLBACK => function (
+		Def::ENTITY_REVISION_LOOKUP_FACTORY_CALLBACK => static function (
 			EntityRevisionLookup $defaultLookup
 		) {
 			return new FormRevisionLookup( $defaultLookup );
 		},
-		Def::ENTITY_TITLE_STORE_LOOKUP_FACTORY_CALLBACK => function (
+		Def::ENTITY_TITLE_STORE_LOOKUP_FACTORY_CALLBACK => static function (
 			EntityTitleStoreLookup $defaultLookup
 		) {
 			return new FormTitleStoreLookup( $defaultLookup );
 		},
 		Def::ENTITY_ID_PATTERN => FormId::PATTERN,
-		Def::ENTITY_ID_BUILDER => function ( $serialization ) {
+		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new FormId( $serialization );
 		},
-		Def::ENTITY_DIFFER_STRATEGY_BUILDER => function () {
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
 			return new FormDiffer();
 		},
-		Def::ENTITY_PATCHER_STRATEGY_BUILDER => function () {
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
 			return new FormPatcher();
 		},
-		Def::SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new FormSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
@@ -119,33 +119,33 @@ return [
 		},
 	],
 	'sense' => [
-		Def::ENTITY_STORE_FACTORY_CALLBACK => function (
+		Def::ENTITY_STORE_FACTORY_CALLBACK => static function (
 			EntityStore $defaultStore,
 			EntityRevisionLookup $lookup
 		) {
 			return new SenseStore( $defaultStore, $lookup );
 		},
-		Def::ENTITY_REVISION_LOOKUP_FACTORY_CALLBACK => function (
+		Def::ENTITY_REVISION_LOOKUP_FACTORY_CALLBACK => static function (
 			EntityRevisionLookup $defaultLookup
 		) {
 			return new SenseRevisionLookup( $defaultLookup );
 		},
-		Def::ENTITY_TITLE_STORE_LOOKUP_FACTORY_CALLBACK => function (
+		Def::ENTITY_TITLE_STORE_LOOKUP_FACTORY_CALLBACK => static function (
 			EntityTitleStoreLookup $defaultLookup
 		) {
 			return new SenseTitleStoreLookup( $defaultLookup );
 		},
 		Def::ENTITY_ID_PATTERN => SenseId::PATTERN,
-		Def::ENTITY_ID_BUILDER => function ( $serialization ) {
+		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new SenseId( $serialization );
 		},
-		Def::ENTITY_DIFFER_STRATEGY_BUILDER => function () {
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
 			return new SenseDiffer();
 		},
-		Def::ENTITY_PATCHER_STRATEGY_BUILDER => function () {
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
 			return new SensePatcher();
 		},
-		Def::SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new SenseSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()

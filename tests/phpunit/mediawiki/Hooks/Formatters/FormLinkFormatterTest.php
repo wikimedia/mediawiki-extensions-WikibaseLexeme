@@ -112,7 +112,7 @@ class FormLinkFormatterTest extends TestCase {
 			->getMock();
 
 		$formatter->method( 'getHtml' )
-			->willReturnCallback( function ( EntityId $entityId, array $labelData ) {
+			->willReturnCallback( static function ( EntityId $entityId, array $labelData ) {
 				return "<span lang=\"${labelData['language']}\">"
 					. HtmlArmor::getHtml( $labelData['value'] )
 					. $entityId->getSerialization()
