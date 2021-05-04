@@ -40,7 +40,7 @@ class FormGenerator implements Generator {
 			$this->formIdGenerator = ConstantGenerator::box( $formId );
 		} else {
 			$this->formIdGenerator = new MapGenerator(
-				function ( $number ) {
+				static function ( $number ) {
 					// FIXME: This hard coded parent ID will result in inconsistent test data!
 					return new FormId( 'L1-F' . $number );
 				},

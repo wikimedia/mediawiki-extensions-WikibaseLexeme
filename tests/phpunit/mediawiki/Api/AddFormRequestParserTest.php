@@ -108,10 +108,10 @@ class AddFormRequestParserTest extends TestCase {
 
 	private function newAddFormRequestParser() {
 		$idParser = new DispatchingEntityIdParser( [
-			ItemId::PATTERN => function ( $id ) {
+			ItemId::PATTERN => static function ( $id ) {
 				return new ItemId( $id );
 			},
-			LexemeId::PATTERN => function ( $id ) {
+			LexemeId::PATTERN => static function ( $id ) {
 				return new LexemeId( $id );
 			}
 		] );

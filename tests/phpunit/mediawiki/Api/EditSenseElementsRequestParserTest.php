@@ -72,7 +72,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 
 	private function newSenseIdDeserializer() {
 		$idParser = new DispatchingEntityIdParser( [
-			SenseId::PATTERN => function ( $id ) {
+			SenseId::PATTERN => static function ( $id ) {
 				return new SenseId( $id );
 			}
 		] );

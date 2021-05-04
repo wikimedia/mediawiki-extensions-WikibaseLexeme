@@ -98,7 +98,7 @@ class SensesView {
 		$template = file_get_contents( __DIR__ . VueTemplates::GLOSS_WIDGET );
 
 		$glosses = array_map(
-			function ( Term $gloss ) {
+			static function ( Term $gloss ) {
 				return [ 'value' => $gloss->getText(), 'language' => $gloss->getLanguageCode() ];
 			},
 			iterator_to_array( $sense->getGlosses() )

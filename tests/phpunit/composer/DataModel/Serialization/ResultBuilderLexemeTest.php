@@ -68,7 +68,7 @@ class ResultBuilderLexemeTest extends TestCase {
 		$mockPropertyDataTypeLookup = $this->createMock( PropertyDataTypeLookup::class );
 		$mockPropertyDataTypeLookup->expects( $this->any() )
 			->method( 'getDataTypeIdForProperty' )
-			->willReturnCallback( function ( PropertyId $id ) {
+			->willReturnCallback( static function ( PropertyId $id ) {
 				return 'DtIdFor_' . $id->getSerialization();
 			} );
 

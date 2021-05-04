@@ -40,11 +40,11 @@ use Wikibase\Repo\WikibaseRepo;
 return [
 	'PT:wikibase-lexeme' => [
 		'expert-module' => 'wikibase.experts.Lexeme',
-		'validator-factory-callback' => function () {
+		'validator-factory-callback' => static function () {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Lexeme::ENTITY_TYPE );
 		},
-		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
+		'formatter-factory-callback' => static function ( $format, FormatterOptions $options ) {
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
@@ -77,11 +77,11 @@ return [
 	],
 	'PT:wikibase-form' => [
 		'expert-module' => 'wikibase.experts.Form',
-		'validator-factory-callback' => function () {
+		'validator-factory-callback' => static function () {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Form::ENTITY_TYPE );
 		},
-		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
+		'formatter-factory-callback' => static function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
 			$userLanguage = WikibaseRepo::getUserLanguage( $mwServices );
 			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
@@ -115,11 +115,11 @@ return [
 	],
 	'PT:wikibase-sense' => [
 		'expert-module' => 'wikibase.experts.Sense',
-		'validator-factory-callback' => function () {
+		'validator-factory-callback' => static function () {
 			$factory = WikibaseRepo::getDefaultValidatorBuilders();
 			return $factory->getEntityValidators( Sense::ENTITY_TYPE );
 		},
-		'formatter-factory-callback' => function ( $format, FormatterOptions $options ) {
+		'formatter-factory-callback' => static function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
 			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
 			$language = WikibaseRepo::getUserLanguage( $mwServices );

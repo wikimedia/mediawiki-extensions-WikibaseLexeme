@@ -72,13 +72,13 @@ use Wikimedia\Purtle\RdfWriter;
 
 return [
 	'lexeme' => [
-		Def::STORAGE_SERIALIZER_FACTORY_CALLBACK => function ( SerializerFactory $serializerFactory ) {
+		Def::STORAGE_SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new StorageLexemeSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
-		Def::VIEW_FACTORY_CALLBACK => function (
+		Def::VIEW_FACTORY_CALLBACK => static function (
 			Language $language,
 			TermLanguageFallbackChain $termFallbackChain,
 			EntityDocument $entity
@@ -91,7 +91,7 @@ return [
 
 			return $factory->newLexemeView();
 		},
-		Def::META_TAGS_CREATOR_CALLBACK => function () {
+		Def::META_TAGS_CREATOR_CALLBACK => static function () {
 			return new LexemeMetaTagsCreator(
 				RequestContext::getMain()
 					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
@@ -101,7 +101,7 @@ return [
 			);
 		},
 		Def::CONTENT_MODEL_ID => LexemeContent::CONTENT_MODEL_ID,
-		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
+		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
@@ -114,10 +114,10 @@ return [
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
-		Def::ENTITY_FACTORY_CALLBACK => function () {
+		Def::ENTITY_FACTORY_CALLBACK => static function () {
 			return new Lexeme();
 		},
-		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
+		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$services = MediaWikiServices::getInstance();
 			$changeOpFactoryProvider = WikibaseRepo::getChangeOpFactoryProvider( $services );
 			$statementChangeOpDeserializer = new ClaimsChangeOpDeserializer(
@@ -183,7 +183,7 @@ return [
 			);
 			return $lexemeChangeOpDeserializer;
 		},
-		Def::RDF_BUILDER_FACTORY_CALLBACK => function (
+		Def::RDF_BUILDER_FACTORY_CALLBACK => static function (
 			$flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer,
@@ -198,7 +198,7 @@ return [
 			$rdfBuilder->addPrefixes();
 			return $rdfBuilder;
 		},
-		Def::ENTITY_DIFF_VISUALIZER_CALLBACK => function (
+		Def::ENTITY_DIFF_VISUALIZER_CALLBACK => static function (
 			MessageLocalizer $messageLocalizer,
 			ClaimDiffer $claimDiffer,
 			ClaimDifferenceVisualizer $claimDiffView,
@@ -226,7 +226,7 @@ return [
 				)
 			);
 		},
-		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
+		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			return new EntityIdSearchHelper(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
@@ -238,7 +238,7 @@ return [
 				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
-		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
+		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$requestContext = RequestContext::getMain();
 			$linkFormatter = WikibaseRepo::getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
 			/** @var $linkFormatter DefaultEntityLinkFormatter */
@@ -256,7 +256,7 @@ return [
 				$language
 			);
 		},
-		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
+		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new LexemeIdHtmlFormatter(
@@ -269,7 +269,7 @@ return [
 				)
 			);
 		},
-		Def::ENTITY_REFERENCE_EXTRACTOR_CALLBACK => function () {
+		Def::ENTITY_REFERENCE_EXTRACTOR_CALLBACK => static function () {
 			$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(
 				WikibaseRepo::getItemUrlParser()
 			);
@@ -284,7 +284,7 @@ return [
 		},
 	],
 	'form' => [
-		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
+		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
 
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
@@ -298,7 +298,7 @@ return [
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
-		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
+		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
 			return new EntityIdSearchHelper(
 				WikibaseRepo::getEntityLookup(),
@@ -307,7 +307,7 @@ return [
 				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
-		DEF::CHANGEOP_DESERIALIZER_CALLBACK => function () {
+		DEF::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
@@ -318,10 +318,10 @@ return [
 			);
 			return $formChangeOpDeserializer;
 		},
-		Def::ENTITY_FACTORY_CALLBACK => function () {
+		Def::ENTITY_FACTORY_CALLBACK => static function () {
 			return new BlankForm();
 		},
-		Def::RDF_BUILDER_FACTORY_CALLBACK => function (
+		Def::RDF_BUILDER_FACTORY_CALLBACK => static function (
 			$flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer,
@@ -336,7 +336,7 @@ return [
 			$rdfBuilder->addPrefixes();
 			return $rdfBuilder;
 		},
-		Def::LINK_FORMATTER_CALLBACK => function ( Language $language ) {
+		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$requestContext = RequestContext::getMain();
 			$linkFormatter = WikibaseRepo::getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
 			/** @var $linkFormatter DefaultEntityLinkFormatter */
@@ -353,7 +353,7 @@ return [
 				$language
 			);
 		},
-		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
+		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$titleLookup = WikibaseRepo::getEntityTitleLookup();
 			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
 			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
@@ -366,7 +366,7 @@ return [
 				MediaWikiServices::getInstance()->getLanguageFactory()
 			);
 		},
-		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
+		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => static function ( $dbName, $repoName ) {
 			return new MediaWikiPageSubEntityMetaDataAccessor(
 				WikibaseRepo::getLocalRepoWikiPageMetaDataAccessor()
 			);
@@ -374,7 +374,7 @@ return [
 	],
 	'sense' => [
 		// TODO lexemes and forms have identical content-handler-factory-callback, extract
-		Def::CONTENT_HANDLER_FACTORY_CALLBACK => function () {
+		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
 
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
@@ -388,7 +388,7 @@ return [
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
 		},
-		Def::ENTITY_SEARCH_CALLBACK => function ( WebRequest $request ) {
+		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			// FIXME: this code should be split into extension for T190022
 			$entityLookup = WikibaseRepo::getEntityLookup();
 			$userLanguage = WikibaseRepo::getUserLanguage();
@@ -405,7 +405,7 @@ return [
 				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
-		Def::CHANGEOP_DESERIALIZER_CALLBACK => function () {
+		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$senseChangeOpDeserializer = new SenseChangeOpDeserializer(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
@@ -428,10 +428,10 @@ return [
 			);
 			return $senseChangeOpDeserializer;
 		},
-		Def::ENTITY_FACTORY_CALLBACK => function () {
+		Def::ENTITY_FACTORY_CALLBACK => static function () {
 			return new BlankSense();
 		},
-		Def::RDF_BUILDER_FACTORY_CALLBACK => function (
+		Def::RDF_BUILDER_FACTORY_CALLBACK => static function (
 			$flavorFlags,
 			RdfVocabulary $vocabulary,
 			RdfWriter $writer,
@@ -446,7 +446,7 @@ return [
 			$rdfBuilder->addPrefixes();
 			return $rdfBuilder;
 		},
-		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => function ( Language $language ) {
+		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 
 			return new SenseIdHtmlFormatter(
 				WikibaseRepo::getEntityTitleLookup(),
@@ -457,7 +457,7 @@ return [
 				MediaWikiServices::getInstance()->getLanguageFactory()
 			);
 		},
-		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => function ( $dbName, $repoName ) {
+		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => static function ( $dbName, $repoName ) {
 			return new MediaWikiPageSubEntityMetaDataAccessor(
 				WikibaseRepo::getLocalRepoWikiPageMetaDataAccessor()
 			);

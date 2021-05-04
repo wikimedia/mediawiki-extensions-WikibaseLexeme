@@ -256,7 +256,7 @@ class MergeLexemesInteractorTest extends TestCase {
 		$lookup = $this->createMock( EntityTitleStoreLookup::class );
 
 		$lookup->method( 'getTitleForId' )
-			->willReturnCallback( function ( EntityId $id ) {
+			->willReturnCallback( static function ( EntityId $id ) {
 				return Title::newFromText( $id->getSerialization() );
 			} );
 

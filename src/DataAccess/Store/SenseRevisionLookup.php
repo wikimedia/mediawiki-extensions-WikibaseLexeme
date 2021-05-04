@@ -90,7 +90,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 		$lexemeId = $senseId->getLexemeId();
 		$revisionIdResult = $this->lookup->getLatestRevisionId( $lexemeId, $mode );
 
-		$returnNonexistentEntityResult = function () {
+		$returnNonexistentEntityResult = static function () {
 			return LatestRevisionIdResult::nonexistentEntity();
 		};
 

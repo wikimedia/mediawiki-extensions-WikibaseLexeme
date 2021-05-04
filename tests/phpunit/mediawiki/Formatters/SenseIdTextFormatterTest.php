@@ -48,7 +48,7 @@ class SenseIdTextFormatterTest extends TestCase {
 		$senseId = new SenseId( 'L10-S20' );
 		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
+			->willReturnCallback( static function ( $entityId ) use ( $senseId ) {
 				$entity = NewLexeme::create()
 					->withId( $entityId )
 					->withLemma( 'en', 'lemma' )
@@ -69,7 +69,7 @@ class SenseIdTextFormatterTest extends TestCase {
 		$senseId = new SenseId( 'L10-S20' );
 		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
+			->willReturnCallback( static function ( $entityId ) use ( $senseId ) {
 				$entity = NewLexeme::create()
 					->withId( $entityId )
 					->withLemma( 'en', 'lemma' )
@@ -98,7 +98,7 @@ class SenseIdTextFormatterTest extends TestCase {
 		$senseId = new SenseId( 'L10-S20' );
 		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
-			->willReturnCallback( function ( $entityId ) use ( $senseId ) {
+			->willReturnCallback( static function ( $entityId ) use ( $senseId ) {
 				$entity = NewLexeme::create()
 					->withId( $entityId )
 					->withLemma( 'en', 'lemma' )

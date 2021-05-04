@@ -265,7 +265,7 @@ class LexemeRdfBuilderTest extends TestCase {
 		$mentionTracker = $this->createMock( EntityMentionListener::class );
 		$mentionTracker->expects( $this->any() )
 			->method( 'subEntityMentioned' )
-			->will( $this->returnCallback( function ( EntityDocument $entity ) use ( &$subEntities ) {
+			->will( $this->returnCallback( static function ( EntityDocument $entity ) use ( &$subEntities ) {
 				$subEntities[] = $entity->getId()->getSerialization();
 			} ) );
 
@@ -281,7 +281,7 @@ class LexemeRdfBuilderTest extends TestCase {
 		$mentionTracker = $this->createMock( EntityMentionListener::class );
 		$mentionTracker->expects( $this->any() )
 			->method( 'entityReferenceMentioned' )
-			->will( $this->returnCallback( function ( EntityId $id ) use ( &$mentionedEntities ) {
+			->will( $this->returnCallback( static function ( EntityId $id ) use ( &$mentionedEntities ) {
 				$mentionedEntities[] = $id->getSerialization();
 			} ) );
 

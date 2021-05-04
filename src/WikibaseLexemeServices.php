@@ -149,7 +149,7 @@ class WikibaseLexemeServices {
 	private function getLexemeAuthorizer(): LexemeAuthorizer {
 		return $this->getSharedService(
 			LexemeAuthorizer::class,
-			function () {
+			static function () {
 				return new MediaWikiLexemeAuthorizer(
 					RequestContext::getMain()->getUser(),
 					WikibaseRepo::getEntityPermissionChecker()

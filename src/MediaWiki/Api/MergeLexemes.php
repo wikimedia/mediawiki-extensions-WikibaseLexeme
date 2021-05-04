@@ -47,7 +47,7 @@ class MergeLexemes extends ApiBase {
 		return new self(
 			$mainModule,
 			$moduleName,
-			function ( $module ) use ( $apiHelperFactory ) {
+			static function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
 			}
 		);

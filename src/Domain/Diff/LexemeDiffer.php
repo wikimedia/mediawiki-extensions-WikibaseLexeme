@@ -180,7 +180,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 			false,
 			null,
 			new CallbackComparer(
-				function ( Form $from, Form $to ) {
+				static function ( Form $from, Form $to ) {
 					return $from == $to;
 				}
 			)
@@ -243,7 +243,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 			false,
 			null,
 			new CallbackComparer(
-				function ( Sense $from, Sense $to ) {
+				static function ( Sense $from, Sense $to ) {
 					return $from == $to;
 				}
 			)

@@ -74,7 +74,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 			$this->getMockSubEntityId( $subIdString, $lexemeIdString )
 		];
 		$mockedRevIds = [ 1 ];
-		$expectedEntityIds = array_map( function ( $entityId ) {
+		$expectedEntityIds = array_map( static function ( $entityId ) {
 			return $entityId->getLexemeId();
 		}, $entityIds );
 		$entityDataAccessor = $this->getMediaWikiPageSubEntityMetaDataAccessor_mockAccessor(

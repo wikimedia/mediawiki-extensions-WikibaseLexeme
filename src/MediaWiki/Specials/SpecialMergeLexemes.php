@@ -116,7 +116,7 @@ class SpecialMergeLexemes extends SpecialPage {
 			->setSubmitName( 'wikibase-lexeme-mergelexemes-submit' )
 			->setSubmitTextMsg( 'wikibase-lexeme-mergelexemes-submit' )
 			->setWrapperLegendMsg( 'special-mergelexemes' )
-			->setSubmitCallback( function () {
+			->setSubmitCallback( static function () {
 			} )
 			->show();
 	}

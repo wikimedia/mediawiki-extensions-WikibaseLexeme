@@ -98,7 +98,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 
 	private function newFormIdDeserializer() {
 		$idParser = new DispatchingEntityIdParser( [
-			FormId::PATTERN => function ( $id ) {
+			FormId::PATTERN => static function ( $id ) {
 				return new FormId( $id );
 			}
 		] );

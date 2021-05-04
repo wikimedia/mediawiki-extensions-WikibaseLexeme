@@ -129,7 +129,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 			->getMock();
 		$formIdDeserializer
 			->method( 'deserialize' )
-			->willReturnCallback( function ( $formId ) {
+			->willReturnCallback( static function ( $formId ) {
 				return new FormId( $formId );
 			} );
 

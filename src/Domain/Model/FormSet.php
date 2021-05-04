@@ -83,7 +83,7 @@ class FormSet implements Countable {
 			return 0;
 		}
 
-		$numbers = array_map( function ( $formId ) {
+		$numbers = array_map( static function ( $formId ) {
 			list( , $formId ) = explode( '-', $formId, 2 );
 			return (int)substr( $formId, 1 );
 		}, array_keys( $this->forms ) );

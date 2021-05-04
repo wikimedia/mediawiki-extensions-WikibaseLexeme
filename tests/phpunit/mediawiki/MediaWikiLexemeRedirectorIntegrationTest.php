@@ -69,7 +69,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	private function getMockSummaryFormatter() {
 		$summaryFormatter = $this->createMock( SummaryFormatter::class );
 		$summaryFormatter->method( 'formatSummary' )
-			->willReturnCallback( function ( FormatableSummary $summary ) {
+			->willReturnCallback( static function ( FormatableSummary $summary ) {
 				return 'MOCKFORMAT: ' .
 					$summary->getMessageKey() .
 					' ' .

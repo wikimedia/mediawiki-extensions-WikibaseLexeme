@@ -81,7 +81,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$revId = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED )
-			->getLatestRevisionId( $target->getId() )->onConcreteRevision( function ( $id ) {
+			->getLatestRevisionId( $target->getId() )->onConcreteRevision( static function ( $id ) {
 				return $id;
 			} )->onNonexistentEntity( function () {
 				$this->fail( 'Target entity went away!?' );
