@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tofeiku"
+		]
+	},
+	"wikibaselexeme-newlexeme-lemma": "ليما",
+	"wikibaselexeme-header-forms": "بنتوق",
+	"wikibaselexeme-lemma-field-lemma-label": "ليما",
+	"wikibaselexeme-gloss-field-language-label": "بهاس",
+	"datatypes-type-wikibase-lexeme": "ليکسيم",
+	"datatypes-type-wikibase-form": "بنتوق",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "ليکسيم",
+	"wikibase-listdatatypes-wikibase-form-head": "بنتوق",
+	"wikibaselexeme-field-language-label": "بهاس",
+	"wikibaselexeme-diffview-lemma": "ليما",
+	"wikibaselexeme-diffview-language": "بهاس",
+	"wikibaselexeme-diffview-form": "بنتوق",
+	"wikibaselexeme-diffview-grammatical-feature": "چيري تاتابهاس",
+	"wikibaselexeme-form-grammatical-features": "چيري تاتابهاس",
+	"wikibase-lexeme-language-name-ms-arab": "بهاس ملايو دالم توليسن جاوي"
+}
