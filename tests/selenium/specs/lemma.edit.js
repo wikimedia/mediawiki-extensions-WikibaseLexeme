@@ -22,6 +22,11 @@ describe( 'Lexeme:Lemma', () => {
 
 		LexemePage.setFirstLemma( 'test lemma', 'en' );
 
+		// Wait for 120% of the current replication lag to increase the chance we
+		// get up to date entity data below, even if reading from a replica.
+		browser.call( () => LexemeApi.getReplicationLag()
+			.then( ( replag ) => browser.pause( replag * 1200 ) )
+		);
 		browser.call( () => LexemeApi.get( id )
 			.then( ( lexeme ) => {
 				assert.equal( 1, Object.keys( lexeme.lemmas ).length, 'No lemma added' );
@@ -43,6 +48,11 @@ describe( 'Lexeme:Lemma', () => {
 
 		LexemePage.setFirstLemma( 'another lemma', 'en-gb' );
 
+		// Wait for 120% of the current replication lag to increase the chance we
+		// get up to date entity data below, even if reading from a replica.
+		browser.call( () => LexemeApi.getReplicationLag()
+			.then( ( replag ) => browser.pause( replag * 1200 ) )
+		);
 		browser.call( () => LexemeApi.get( id ).then( ( lexeme ) => {
 			assert.equal( 1, Object.keys( lexeme.lemmas ).length, 'No lemma added' );
 			assert.equal( 'another lemma', lexeme.lemmas[ 'en-gb' ].value, 'Lemma changed' );

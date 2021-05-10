@@ -69,6 +69,24 @@ class LexemeApi {
 	}
 
 	/**
+	 * Get the current replication lag.
+	 *
+	 * @return {Promise}
+	 */
+	getReplicationLag() {
+		const bot = new MWBot( {
+			apiUrl: browser.config.baseUrl + '/api.php'
+		} );
+		return bot.request( {
+			action: 'query',
+			meta: 'siteinfo',
+			siprop: 'dbrepllag'
+		} ).then( ( response ) => {
+			return Promise.resolve( Math.max( 0, response.query.dbrepllag[ 0 ].lag ) );
+		} );
+	}
+
+	/**
 	 * Add a new form to a lexeme
 	 *
 	 * @param {string} lexemeId
