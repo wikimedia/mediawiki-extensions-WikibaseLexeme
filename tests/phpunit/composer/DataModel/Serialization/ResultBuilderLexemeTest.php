@@ -2,6 +2,7 @@
 
 use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Reference;
@@ -24,6 +25,24 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
  * @license GPL-2.0-or-later
  */
 class ResultBuilderLexemeTest extends TestCase {
+
+	private $originalWBRepoSettings;
+
+	protected function setUp(): void {
+		global $wgWBRepoSettings;
+
+		parent::setUp();
+		$this->originalWBRepoSettings = $wgWBRepoSettings;
+		$wgWBRepoSettings['tmpSerializeEmptyListsAsObjects'] = true;
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'WikibaseRepo.Settings' );
+	}
+
+	protected function tearDown(): void {
+		global $wgWBRepoSettings;
+
+		$wgWBRepoSettings = $this->originalWBRepoSettings;
+		MediaWikiServices::getInstance()->resetServiceForTesting( 'WikibaseRepo.Settings' );
+	}
 
 	/**
 	 * Removes all metadata keys as recognised by the MW Api.
@@ -148,11 +167,16 @@ class ResultBuilderLexemeTest extends TestCase {
 													'property' => 'P65',
 													'datatype' => 'DtIdFor_P65',
 												],
+												'_element' => 'qualifiers',
 											],
+											'_type' => 'kvp',
+											'_kvpkeyname' => 'id',
+											'_element' => 'property',
 										],
 										'rank' => 'normal',
 										'qualifiers-order' => [
 											'P65',
+											'_element' => 'property',
 										],
 										'references' => [
 											[
@@ -164,6 +188,7 @@ class ResultBuilderLexemeTest extends TestCase {
 															'property' => 'P65',
 															'datatype' => 'DtIdFor_P65',
 														],
+														'_element' => 'snak',
 													],
 													'P68' => [
 														[
@@ -171,16 +196,26 @@ class ResultBuilderLexemeTest extends TestCase {
 															'property' => 'P68',
 															'datatype' => 'DtIdFor_P68',
 														],
+														'_element' => 'snak',
 													],
+													'_type' => 'kvp',
+													'_kvpkeyname' => 'id',
+													'_element' => 'property',
 												],
 												'snaks-order' => [
 													'P65',
 													'P68',
+													'_element' => 'property',
 												]
 											],
+											'_element' => 'reference',
 										],
 									],
+									'_element' => 'claim',
 								],
+								'_type' => 'kvp',
+								'_kvpkeyname' => 'id',
+								'_element' => 'property',
 							],
 						]
 					],
