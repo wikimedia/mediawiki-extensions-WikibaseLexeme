@@ -5,8 +5,8 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
-	WatchlistPage = require( '../../../../../../tests/selenium/pageobjects/watchlist.page' ),
-	WatchablePage = require( '../../../../../../tests/selenium/pageobjects/watchable.page' );
+	WatchlistPage = require( '../../pageobjects/watchlist.page' ),
+	WatchablePage = require( '../../pageobjects/watchable.page' );
 
 describe( 'Special:Watchlist', () => {
 
