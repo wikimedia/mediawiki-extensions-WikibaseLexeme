@@ -4,7 +4,10 @@
 			"Tofeiku"
 		]
 	},
+	"special-newlexeme": "چيڤتا ليکسيم بارو",
+	"wikibaselexeme-newlexeme-fieldset": "چيڤتا ليکسيم بارو",
 	"wikibaselexeme-newlexeme-lemma": "ليما",
+	"wikibaselexeme-newlexeme-lexicalcategory": "کاتݢوري ليکسيکل",
 	"wikibaselexeme-header-forms": "بنتوق",
 	"wikibaselexeme-lemma-field-lemma-label": "ليما",
 	"wikibaselexeme-gloss-field-language-label": "بهاس",
