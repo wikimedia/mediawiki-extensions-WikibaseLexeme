@@ -24,6 +24,8 @@ describe( 'Special:RecentChanges', () => {
 			}
 		} ).then( ( lexeme ) => lexeme.id ) );
 
+		browser.pause( 2000 );
+
 		RecentChangesPage.open();
 
 		const title = RecentChangesPage.titles[ 0 ].getText();
