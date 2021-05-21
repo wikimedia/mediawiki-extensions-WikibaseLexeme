@@ -11,7 +11,7 @@
 	],
 	"support": {
 		"issues": "https://phabricator.wikimedia.org/",
-		"irc": "irc://irc.freenode.net/wikidata"
+		"irc": "irc://irc.libera.chat/wikidata"
 	},
 	"require": {
 		"serialization/serialization": "~3.2|~4.0",
