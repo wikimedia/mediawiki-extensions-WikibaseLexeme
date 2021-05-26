@@ -43,7 +43,7 @@ use Wikibase\Lexeme\Presentation\Formatters\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
-use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
+use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
@@ -190,7 +190,7 @@ return [
 			EntityMentionListener $tracker,
 			DedupeBag $dedupe
 		) {
-			$rdfBuilder = new LexemeRdfBuilder(
+			$rdfBuilder = new LexemeSpecificComponentsRdfBuilder(
 				$vocabulary,
 				$writer,
 				$tracker
@@ -328,7 +328,7 @@ return [
 			EntityMentionListener $tracker,
 			DedupeBag $dedupe
 		) {
-			$rdfBuilder = new LexemeRdfBuilder(
+			$rdfBuilder = new LexemeSpecificComponentsRdfBuilder(
 				$vocabulary,
 				$writer,
 				$tracker
@@ -438,7 +438,7 @@ return [
 			EntityMentionListener $tracker,
 			DedupeBag $dedupe
 		) {
-			$rdfBuilder = new LexemeRdfBuilder(
+			$rdfBuilder = new LexemeSpecificComponentsRdfBuilder(
 				$vocabulary,
 				$writer,
 				$tracker
