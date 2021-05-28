@@ -9,7 +9,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
+use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
 use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Repo\Content\EntityContentFactory;
 use Wikibase\Repo\Rdf\EntityMentionListener;
@@ -24,14 +24,14 @@ use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
- * @covers \Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder
+ * @covers \Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder
  *
  * @group WikibaseRdf
  *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeRdfBuilderTest extends TestCase {
+class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 
 	/**
 	 * @var NTriplesRdfTestHelper
@@ -57,7 +57,7 @@ class LexemeRdfBuilderTest extends TestCase {
 		if ( $this->testData === null ) {
 			$this->testData = new RdfBuilderTestData(
 				__DIR__ . '/../../data/rdf/entities',
-				__DIR__ . '/../../data/rdf/LexemeRdfBuilder'
+				__DIR__ . '/../../data/rdf/LexemeSpecificComponentsRdfBuilder'
 			);
 		}
 
@@ -100,11 +100,11 @@ class LexemeRdfBuilderTest extends TestCase {
 	 * @param RdfWriter $writer
 	 * @param EntityMentionListener $entityMentionTracker
 	 *
-	 * @return LexemeRdfBuilder
+	 * @return LexemeSpecificComponentsRdfBuilder
 	 */
 	private function newBuilder( RdfWriter $writer, EntityMentionListener $entityMentionTracker ) {
 		$vocabulary = $this->getVocabulary();
-		$builder = new LexemeRdfBuilder(
+		$builder = new LexemeSpecificComponentsRdfBuilder(
 			$vocabulary,
 			$writer,
 			$entityMentionTracker

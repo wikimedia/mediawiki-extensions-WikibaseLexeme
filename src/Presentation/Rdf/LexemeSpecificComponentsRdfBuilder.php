@@ -16,13 +16,13 @@ use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
- * Factory to return Rdf builders for parts of lexeme
+ * Rdf builder for parts of lexeme
  *
  * @license GPL-2.0-or-later
  * @author Thomas Pellissier Tanon
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class LexemeRdfBuilder implements EntityRdfBuilder {
+class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 
 	private const NS_ONTOLEX = 'ontolex';
 	private const NS_DUBLIN_CORE_TERM = 'dct';
