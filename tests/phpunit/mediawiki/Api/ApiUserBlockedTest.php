@@ -35,7 +35,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 		$this->block = new DatabaseBlock( [
 			'address' => $testuser,
 			'reason' => 'testing in ' . __CLASS__,
-			'by' => $testuser->getId(),
+			'by' => $testuser,
 			'expiry' => (string)( time() + 60 ),
 		] );
 		$this->block->insert();

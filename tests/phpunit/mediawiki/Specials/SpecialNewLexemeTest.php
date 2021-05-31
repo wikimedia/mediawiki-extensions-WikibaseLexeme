@@ -126,7 +126,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$block = new DatabaseBlock( [
 			'address' => $user->getName(),
 			'user' => $user->getID(),
-			'by' => $this->getTestSysop()->getUser()->getId(),
+			'by' => $this->getTestSysop()->getUser(),
 			'reason' => __METHOD__,
 			'expiry' => time() + 100500,
 			'sitewide' => $blockIsSitewide,
