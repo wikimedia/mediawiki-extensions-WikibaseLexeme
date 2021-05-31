@@ -43,11 +43,13 @@ use Wikibase\Lexeme\Presentation\Formatters\LexemeIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
+use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\DataTypeDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
@@ -65,7 +67,10 @@ use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\Rdf\DedupeBag;
 use Wikibase\Repo\Rdf\EntityMentionListener;
+use Wikibase\Repo\Rdf\FullStatementRdfBuilderFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
+use Wikibase\Repo\Rdf\TruthyStatementRdfBuilderFactory;
+use Wikibase\Repo\Rdf\ValueSnakRdfBuilderFactory;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
@@ -190,12 +195,43 @@ return [
 			EntityMentionListener $tracker,
 			DedupeBag $dedupe
 		) {
-			$rdfBuilder = new LexemeSpecificComponentsRdfBuilder(
+			$services = MediaWikiServices::getInstance();
+			$propertyDataLookup = WikibaseRepo::getPropertyDataTypeLookup();
+			$valueSnakRdfBuilderFactory = new ValueSnakRdfBuilderFactory(
+				WikibaseRepo::getDataTypeDefinitions( $services )
+					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE )
+			);
+
+			$lexemeSpecificComponentsRdfBuilder = new LexemeSpecificComponentsRdfBuilder(
 				$vocabulary,
 				$writer,
 				$tracker
 			);
-			$rdfBuilder->addPrefixes();
+			$lexemeSpecificComponentsRdfBuilder->addPrefixes();
+
+			$truthyStatementRdfBuilderFactory = new TruthyStatementRdfBuilderFactory(
+				$dedupe,
+				$vocabulary,
+				$writer,
+				$valueSnakRdfBuilderFactory,
+				$tracker,
+				$propertyDataLookup
+			);
+			$fullStatementRdfBuilderFactory = new FullStatementRdfBuilderFactory(
+				$vocabulary,
+				$writer,
+				$valueSnakRdfBuilderFactory,
+				$tracker,
+				$dedupe,
+				$propertyDataLookup
+			);
+
+			$rdfBuilder = new LexemeRdfBuilder(
+				$flavorFlags,
+				$truthyStatementRdfBuilderFactory,
+				$fullStatementRdfBuilderFactory,
+				$lexemeSpecificComponentsRdfBuilder
+			);
 			return $rdfBuilder;
 		},
 		Def::ENTITY_DIFF_VISUALIZER_CALLBACK => static function (
@@ -328,12 +364,43 @@ return [
 			EntityMentionListener $tracker,
 			DedupeBag $dedupe
 		) {
-			$rdfBuilder = new LexemeSpecificComponentsRdfBuilder(
+			$services = MediaWikiServices::getInstance();
+			$propertyDataLookup = WikibaseRepo::getPropertyDataTypeLookup();
+			$valueSnakRdfBuilderFactory = new ValueSnakRdfBuilderFactory(
+				WikibaseRepo::getDataTypeDefinitions( $services )
+					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE )
+			);
+
+			$lexemeSpecificComponentsRdfBuilder = new LexemeSpecificComponentsRdfBuilder(
 				$vocabulary,
 				$writer,
 				$tracker
 			);
-			$rdfBuilder->addPrefixes();
+			$lexemeSpecificComponentsRdfBuilder->addPrefixes();
+
+			$truthyStatementRdfBuilderFactory = new TruthyStatementRdfBuilderFactory(
+				$dedupe,
+				$vocabulary,
+				$writer,
+				$valueSnakRdfBuilderFactory,
+				$tracker,
+				$propertyDataLookup
+			);
+			$fullStatementRdfBuilderFactory = new FullStatementRdfBuilderFactory(
+				$vocabulary,
+				$writer,
+				$valueSnakRdfBuilderFactory,
+				$tracker,
+				$dedupe,
+				$propertyDataLookup
+			);
+
+			$rdfBuilder = new LexemeRdfBuilder(
+				$flavorFlags,
+				$truthyStatementRdfBuilderFactory,
+				$fullStatementRdfBuilderFactory,
+				$lexemeSpecificComponentsRdfBuilder
+			);
 			return $rdfBuilder;
 		},
 		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
@@ -438,12 +505,42 @@ return [
 			EntityMentionListener $tracker,
 			DedupeBag $dedupe
 		) {
-			$rdfBuilder = new LexemeSpecificComponentsRdfBuilder(
+			$services = MediaWikiServices::getInstance();
+			$propertyDataLookup = WikibaseRepo::getPropertyDataTypeLookup();
+			$valueSnakRdfBuilderFactory = new ValueSnakRdfBuilderFactory(
+				WikibaseRepo::getDataTypeDefinitions( $services )
+					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE )
+			);
+
+			$truthyStatementRdfBuilderFactory = new TruthyStatementRdfBuilderFactory(
+				$dedupe,
+				$vocabulary,
+				$writer,
+				$valueSnakRdfBuilderFactory,
+				$tracker,
+				$propertyDataLookup
+			);
+			$fullStatementRdfBuilderFactory = new FullStatementRdfBuilderFactory(
+				$vocabulary,
+				$writer,
+				$valueSnakRdfBuilderFactory,
+				$tracker,
+				$dedupe,
+				$propertyDataLookup
+			);
+			$lexemeSpecificComponentsRdfBuilder = new LexemeSpecificComponentsRdfBuilder(
 				$vocabulary,
 				$writer,
 				$tracker
 			);
-			$rdfBuilder->addPrefixes();
+			$lexemeSpecificComponentsRdfBuilder->addPrefixes();
+
+			$rdfBuilder = new LexemeRdfBuilder(
+				$flavorFlags,
+				$truthyStatementRdfBuilderFactory,
+				$fullStatementRdfBuilderFactory,
+				$lexemeSpecificComponentsRdfBuilder
+			);
 			return $rdfBuilder;
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
