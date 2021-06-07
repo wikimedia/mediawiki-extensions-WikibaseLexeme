@@ -34,6 +34,7 @@
 		"jsdom-global": "^3.0.2",
 		"lodash": "^4.17.21",
 		"module-alias": "^2.0.0",
+		"request": "^2.88.2",
 		"sinon": "^7.2.3",
 		"stylelint-config-wikimedia": "0.10.3",
 		"unexpected": "^10.32.1",

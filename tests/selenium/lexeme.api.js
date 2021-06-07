@@ -1,10 +1,54 @@
 'use strict';
 
 const MWBot = require( 'mwbot' ),
+	request = require( 'request' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 class LexemeApi {
+
+	/**
+	 * Initialize the API
+	 *
+	 * @param {string} [cpPosIndex] The value of the cpPosIndex browser cookie.
+	 * Optional, but strongly recommended to have chronology protection.
+	 * @return {Promise}
+	 */
+	initialize( cpPosIndex ) {
+		const jar = request.jar();
+		if ( cpPosIndex ) {
+			const cookie = request.cookie( 'cpPosIndex=' + cpPosIndex );
+			jar.setCookie( cookie, browser.config.baseUrl );
+		}
+		const bot = new MWBot(
+			{
+				apiUrl: browser.config.baseUrl + '/api.php'
+			},
+			{
+				jar: jar
+			}
+		);
+		return bot.loginGetEditToken( {
+			username: browser.config.mwUser,
+			password: browser.config.mwPwd
+		} ).then( () => {
+			this.bot = bot;
+			return bot;
+		} );
+	}
+
+	/**
+	 * @private
+	 * @return {Promise} resolving with MWBot
+	 */
+	getBot() {
+		if ( !this.bot ) {
+			console.trace( 'WARNING: LexemeApi not initialized' );
+			return this.initialize();
+		}
+
+		return Promise.resolve( this.bot );
+	}
 
 	/**
 	 * Create a lexeme
@@ -31,13 +75,7 @@ class LexemeApi {
 			return ( lexeme.language === null ? WikibaseApi.createItem() : Promise.resolve( lexeme.language ) );
 		} ).then( ( languageValue ) => {
 			lexeme.language = languageValue;
-			const bot = new MWBot( {
-				apiUrl: browser.config.baseUrl + '/api.php'
-			} );
-			return bot.loginGetEditToken( {
-				username: browser.config.mwUser,
-				password: browser.config.mwPwd
-			} ).then( () => {
+			return this.getBot().then( ( bot ) => {
 				return bot.request( {
 					action: 'wbeditentity',
 					new: 'lexeme',
@@ -57,12 +95,11 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	get( lexemeId ) {
-		const bot = new MWBot( {
-			apiUrl: browser.config.baseUrl + '/api.php'
-		} );
-		return bot.request( {
-			action: 'wbgetentities',
-			ids: lexemeId
+		return this.getBot().then( ( bot ) => {
+			return bot.request( {
+				action: 'wbgetentities',
+				ids: lexemeId
+			} );
 		} ).then( ( response ) => {
 			return Promise.resolve( response.entities[ lexemeId ] );
 		} );
@@ -74,13 +111,12 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	getReplicationLag() {
-		const bot = new MWBot( {
-			apiUrl: browser.config.baseUrl + '/api.php'
-		} );
-		return bot.request( {
-			action: 'query',
-			meta: 'siteinfo',
-			siprop: 'dbrepllag'
+		return this.getBot().then( ( bot ) => {
+			return bot.request( {
+				action: 'query',
+				meta: 'siteinfo',
+				siprop: 'dbrepllag'
+			} );
 		} ).then( ( response ) => {
 			return Promise.resolve( Math.max( 0, response.query.dbrepllag[ 0 ].lag ) );
 		} );
@@ -94,11 +130,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	addForm( lexemeId, form ) {
-		const bot = new MWBot( {
-			apiUrl: browser.config.baseUrl + '/api.php'
-		} );
-
-		return bot.getEditToken().then( () => {
+		return this.getBot().then( ( bot ) => {
 			return bot.request( {
 				action: 'wbladdform',
 				lexemeId: lexemeId,
@@ -116,11 +148,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	addSense( lexemeId, sense ) {
-		const bot = new MWBot( {
-			apiUrl: browser.config.baseUrl + '/api.php'
-		} );
-
-		return bot.getEditToken().then( () => {
+		return this.getBot().then( ( bot ) => {
 			return bot.request( {
 				action: 'wbladdsense',
 				lexemeId: lexemeId,
@@ -138,11 +166,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	editForm( formId, formData ) {
-		const bot = new MWBot( {
-			apiUrl: browser.config.baseUrl + '/api.php'
-		} );
-
-		return bot.getEditToken().then( () => {
+		return this.getBot().then( ( bot ) => {
 			return bot.request( {
 				action: 'wbleditformelements',
 				formId: formId,
