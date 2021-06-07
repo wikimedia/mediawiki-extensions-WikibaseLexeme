@@ -23,12 +23,14 @@ return call_user_func( static function () {
 	$additionalLanguages = [
 		'az-cyrl', // T265906
 		'bas', // T277619
+		'bfi', // T279557
 		'cak', // T277622
 		'ccp', // T272442
 		'ccp-beng', // T272442
 		'cnh', // T277625
 		'ctg', // T271589
 		'de-1901', // T250559
+		'enm', // T279557
 		'eo-hsistemo', // T257422
 		'eo-xsistemo', // T257422
 		'fon', // T223648
@@ -36,12 +38,15 @@ return call_user_func( static function () {
 		'fro', // T268332
 		'gmh', // T278027
 		'goh', // T278027
+		'gsg', // T282512
+		'ha-arab', // T282512
 		'ja-hira', // T262330
 		'ja-kana', // T262330
 		'ja-hrkt', // T262330
 		'lij-mc', // T254968
 		'mis',
 		'ms-arab', // T270059
+		'mvf', // T282512
 		'nn-hognorsk', // T235344
 		'non', // T265782
 		'non-runr', // T265782
@@ -50,6 +55,7 @@ return call_user_func( static function () {
 		'quc', // T277392
 		'pt-ao1990', // T270043
 		'pt-colb1945', // T270043
+		'pwn', // T279557
 		'rah', // T267479
 		'rhg-rohg', // T272442
 		'rkt', // T271589
@@ -62,7 +68,11 @@ return call_user_func( static function () {
 		'sat-latn', // T262967
 		'sat-beng', // T262967
 		'sat-orya', // T262967
-		'syl-beng' // T267480
+		'sux-latn', // T282512
+		'sux-xsux', // T282512
+		'syl-beng', // T267480
+		'tlh-piqd', // T282512
+		'tlh-latn' // T282512
 	];
 
 	return [
