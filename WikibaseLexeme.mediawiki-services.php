@@ -45,7 +45,6 @@ return call_user_func( static function () {
 		'ja-hrkt', // T262330
 		'lij-mc', // T254968
 		'mis',
-		'ms-arab', // T270059
 		'mvf', // T282512
 		'nn-hognorsk', // T235344
 		'non', // T265782
@@ -55,7 +54,6 @@ return call_user_func( static function () {
 		'quc', // T277392
 		'pt-ao1990', // T270043
 		'pt-colb1945', // T270043
-		'pwn', // T279557
 		'rah', // T267479
 		'rhg-rohg', // T272442
 		'rkt', // T271589
