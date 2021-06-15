@@ -89,7 +89,14 @@ class SpecialMergeLexemes extends SpecialPage {
 	}
 
 	private function checkBlocked() {
-		if ( $this->permissionManager->isBlockedFrom( $this->getUser(), $this->getFullTitle() ) ) {
+		$checkReplica = !$this->getRequest()->wasPosted();
+		if (
+			$this->permissionManager->isBlockedFrom(
+				$this->getUser(),
+				$this->getFullTitle(),
+				$checkReplica
+			)
+		) {
 			throw new UserBlockedError( $this->getUser()->getBlock() );
 		}
 	}
