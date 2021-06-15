@@ -45,6 +45,7 @@ use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlForma
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
+use Wikibase\Lexeme\Presentation\Rdf\LexemeStubRdfBuilder;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\Lexeme\Presentation\View\LexemeViewFactory;
 use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
@@ -234,6 +235,18 @@ return [
 			);
 			return $rdfBuilder;
 		},
+		Def::RDF_BUILDER_STUB_FACTORY_CALLBACK => static function (
+			RdfVocabulary $vocabulary,
+			RdfWriter $writer
+		) {
+			$entityLookup = WikibaseRepo::getEntityLookup();
+
+			return new LexemeStubRdfBuilder(
+				$vocabulary,
+				$writer,
+				$entityLookup
+			);
+		},
 		Def::ENTITY_DIFF_VISUALIZER_CALLBACK => static function (
 			MessageLocalizer $messageLocalizer,
 			ClaimDiffer $claimDiffer,
@@ -403,6 +416,18 @@ return [
 			);
 			return $rdfBuilder;
 		},
+		Def::RDF_BUILDER_STUB_FACTORY_CALLBACK => static function (
+			RdfVocabulary $vocabulary,
+			RdfWriter $writer
+		) {
+			$entityLookup = WikibaseRepo::getEntityLookup();
+
+			return new LexemeStubRdfBuilder(
+				$vocabulary,
+				$writer,
+				$entityLookup
+			);
+		},
 		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$requestContext = RequestContext::getMain();
 			$linkFormatter = WikibaseRepo::getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
@@ -542,6 +567,18 @@ return [
 				$lexemeSpecificComponentsRdfBuilder
 			);
 			return $rdfBuilder;
+		},
+		Def::RDF_BUILDER_STUB_FACTORY_CALLBACK => static function (
+			RdfVocabulary $vocabulary,
+			RdfWriter $writer
+		) {
+			$entityLookup = WikibaseRepo::getEntityLookup();
+
+			return new LexemeStubRdfBuilder(
+				$vocabulary,
+				$writer,
+				$entityLookup
+			);
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 
