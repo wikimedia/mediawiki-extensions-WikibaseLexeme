@@ -15,7 +15,7 @@
 		),
 		mwApi = wb.api.getLocationAgnosticMwApi( repoApiUrl ),
 		$lemmaLanguageField = OO.ui.infuse(
-			OO.ui.infuse( $( '#wb-newlexeme-lemma-language' ) ).$element.parents( '.mw-htmlform-field-autoinfuse' )
+			OO.ui.infuse( $( '#wb-newlexeme-lemma-language' ) ).$element.parents( '.oo-ui-fieldLayout' )
 		).$element,
 		itemSelectorConfig = {
 			apiUrl: repoApiUrl,
