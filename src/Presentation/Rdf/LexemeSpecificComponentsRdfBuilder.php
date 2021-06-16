@@ -305,60 +305,9 @@ class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 	 * @param EntityDocument $entity
 	 */
 	public function addEntityStub( EntityDocument $entity ) {
-		if ( $entity instanceof Lexeme ) {
-			$this->addLexemeSub( $entity );
-		}
-		if ( $entity instanceof Form ) {
-			$this->addFormSub( $entity );
-		}
-		if ( $entity instanceof Sense ) {
-			$this->addSenseSub( $entity );
-		}
-	}
-
-	/**
-	 * Map some aspect of a Lexeme to the RDF graph, as it should appear in the stub
-	 * representation of the lexeme.
-	 *
-	 * @param Lexeme $lexeme
-	 */
-	private function addLexemeSub( Lexeme $lexeme ) {
-		$lexemeLName = $this->vocabulary->getEntityLName( $lexeme->getId() );
-		$repositoryName = $this->vocabulary->getEntityRepositoryName( $lexeme->getId() );
-		$lexemePrefix = $this->vocabulary->entityNamespaceNames[$repositoryName];
-
-		$this->addLexemeTypes( $lexemePrefix, $lexemeLName );
-		$this->addLemmas( $lexemePrefix, $lexemeLName, $lexeme->getLemmas() );
-	}
-
-	/**
-	 * Map some aspect of a Form to the RDF graph, as it should appear in the stub
-	 * representation of the form.
-	 *
-	 * @param Form $form
-	 */
-	private function addFormSub( Form $form ) {
-		$formLName = $this->vocabulary->getEntityLName( $form->getId() );
-		$repositoryName = $this->vocabulary->getEntityRepositoryName( $form->getId() );
-		$lexemePrefix = $this->vocabulary->entityNamespaceNames[$repositoryName];
-
-		$this->addFormTypes( $lexemePrefix, $formLName );
-		$this->addRepresentations( $lexemePrefix, $formLName, $form->getRepresentations() );
-	}
-
-	/**
-	 * Map some aspect of a Sense to the RDF graph, as it should appear in the stub
-	 * representation of the sense.
-	 *
-	 * @param Sense $sense
-	 */
-	private function addSenseSub( Sense $sense ) {
-		$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );
-		$repositoryName = $this->vocabulary->getEntityRepositoryName( $sense->getId() );
-		$lexemePrefix = $this->vocabulary->entityNamespaceNames[$repositoryName];
-
-		$this->addSenseTypes( $lexemePrefix, $senseLName );
-		$this->addGlosses( $lexemePrefix, $senseLName, $sense->getGlosses() );
+		// Functionality moved to LexemeStubRdfBuilder
+		// Remove when LexemeRdfBuilder implements the new EntityRdfBuilder,
+		// the one without am addEntityStub function
 	}
 
 }

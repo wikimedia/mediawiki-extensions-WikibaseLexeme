@@ -48,12 +48,8 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 	}
 
 	public function addEntityStub( EntityDocument $entity ): void {
-		if ( $this->truthyStatementRdfBuilder ) {
-			$this->truthyStatementRdfBuilder->addEntityStub( $entity );
-		}
-		if ( $this->fullStatementRdfBuilder ) {
-			$this->fullStatementRdfBuilder->addEntityStub( $entity );
-		}
-		$this->lexemeSpecificComponentsRdfBuilder->addEntityStub( $entity );
+		// Functionality moved to LexemeStubRdfBuilder
+		// Remove when LexemeRdfBuilder implements the new EntityRdfBuilder,
+		// the one without am addEntityStub function
 	}
 }
