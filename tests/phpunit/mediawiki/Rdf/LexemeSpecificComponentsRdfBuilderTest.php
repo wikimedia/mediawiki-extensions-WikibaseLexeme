@@ -11,8 +11,10 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
 use Wikibase\Lib\EntityTypeDefinitions;
+use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Repo\Content\EntityContentFactory;
 use Wikibase\Repo\Rdf\EntityMentionListener;
+use Wikibase\Repo\Rdf\EntityStubRdfBuilderFactory;
 use Wikibase\Repo\Rdf\HashDedupeBag;
 use Wikibase\Repo\Rdf\NullEntityMentionListener;
 use Wikibase\Repo\Rdf\RdfBuilder;
@@ -131,7 +133,9 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 			$produce,
 			$writer,
 			new HashDedupeBag(),
-			$this->createMock( EntityContentFactory::class )
+			$this->createMock( EntityContentFactory::class ),
+			$this->createMock( EntityStubRdfBuilderFactory::class ),
+			$this->createMock( EntityRevisionLookup::class )
 		);
 		$builder->startDocument();
 		return $builder;
