@@ -432,14 +432,18 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 	restorePreviousRevision() {
 		this.viewHistoryLink.click();
+		browser.pause( 1000 );
 		this.restoreRevisionLink.click();
+		browser.pause( 1000 );
 		this.undoOrRestoreSavePageButton.click();
 		this.addFormLink.waitForDisplayed();
 	}
 
 	undoLatestRevision() {
 		this.viewHistoryLink.click();
+		browser.pause( 1000 );
 		this.undoRevisionLink.click();
+		browser.pause( 1000 );
 		this.undoOrRestoreSavePageButton.click();
 		this.addFormLink.waitForDisplayed();
 	}
