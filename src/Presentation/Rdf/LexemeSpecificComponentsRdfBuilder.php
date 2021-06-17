@@ -297,17 +297,4 @@ class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 				->text( $glossText, $glossCode );
 		}
 	}
-
-	/**
-	 * Map some aspect of an entity to the RDF graph, as it should appear in the stub
-	 * representation of the entity.
-	 *
-	 * @param EntityDocument $entity
-	 */
-	public function addEntityStub( EntityDocument $entity ) {
-		// Functionality moved to LexemeStubRdfBuilder
-		// Remove when LexemeRdfBuilder implements the new EntityRdfBuilder,
-		// the one without am addEntityStub function
-	}
-
 }

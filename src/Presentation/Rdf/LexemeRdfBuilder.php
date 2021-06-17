@@ -46,10 +46,4 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		}
 		$this->lexemeSpecificComponentsRdfBuilder->addEntity( $entity );
 	}
-
-	public function addEntityStub( EntityDocument $entity ): void {
-		// Functionality moved to LexemeStubRdfBuilder
-		// Remove when LexemeRdfBuilder implements the new EntityRdfBuilder,
-		// the one without am addEntityStub function
-	}
 }
