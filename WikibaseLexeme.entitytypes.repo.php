@@ -200,7 +200,8 @@ return [
 			$propertyDataLookup = WikibaseRepo::getPropertyDataTypeLookup();
 			$valueSnakRdfBuilderFactory = new ValueSnakRdfBuilderFactory(
 				WikibaseRepo::getDataTypeDefinitions( $services )
-					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE )
+					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE ),
+				WikibaseRepo::getLogger( $services )
 			);
 
 			$lexemeSpecificComponentsRdfBuilder = new LexemeSpecificComponentsRdfBuilder(
@@ -381,7 +382,8 @@ return [
 			$propertyDataLookup = WikibaseRepo::getPropertyDataTypeLookup();
 			$valueSnakRdfBuilderFactory = new ValueSnakRdfBuilderFactory(
 				WikibaseRepo::getDataTypeDefinitions( $services )
-					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE )
+					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE ),
+				WikibaseRepo::getLogger( $services )
 			);
 
 			$lexemeSpecificComponentsRdfBuilder = new LexemeSpecificComponentsRdfBuilder(
@@ -534,7 +536,8 @@ return [
 			$propertyDataLookup = WikibaseRepo::getPropertyDataTypeLookup();
 			$valueSnakRdfBuilderFactory = new ValueSnakRdfBuilderFactory(
 				WikibaseRepo::getDataTypeDefinitions( $services )
-					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE )
+					->getRdfBuilderFactoryCallbacks( DataTypeDefinitions::PREFIXED_MODE ),
+				WikibaseRepo::getLogger( $services )
 			);
 
 			$truthyStatementRdfBuilderFactory = new TruthyStatementRdfBuilderFactory(
