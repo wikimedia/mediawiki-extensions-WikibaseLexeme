@@ -867,7 +867,6 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		];
 		// Do the mid edit using another user to avoid wikibase ignoring edit as "self-conflict"
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
-		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
 
 		$params = [
 			'action' => 'wbleditformelements',
@@ -881,7 +880,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		];
 
 		try {
-			$this->doApiRequestWithToken( $params );
+			$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester2' ) );
 		} catch ( ApiUsageException $e ) {
 			$this->assertEquals(
 				'edit-conflict',
