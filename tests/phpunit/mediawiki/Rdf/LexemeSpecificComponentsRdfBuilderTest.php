@@ -46,9 +46,6 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 	private $testData = null;
 
 	protected function setUp() : void {
-		$this->markTestSkipped(
-			'Skipped while refactoring RdfBuilder. See: T282689'
-		);
 		parent::setUp();
 		$this->helper = new NTriplesRdfTestHelper();
 	}
@@ -130,8 +127,6 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 	) {
 		$builder = new RdfBuilder(
 			$this->getVocabulary(),
-			WikibaseRepo::getValueSnakRdfBuilderFactory(),
-			$this->getTestData()->getMockRepository(),
 			WikibaseRepo::getEntityRdfBuilderFactory(),
 			$produce,
 			$writer,
