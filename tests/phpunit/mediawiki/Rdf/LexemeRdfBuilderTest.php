@@ -27,6 +27,9 @@ class LexemeRdfBuilderTest extends TestCase {
 	private $lexemeSpecificComponentsRdfBuilder;
 
 	public function setUp(): void {
+		$this->markTestSkipped(
+			'Skipped while refactoring RdfBuilder. See: T282689'
+		);
 		parent::setUp();
 		$this->truthyStatementRdfBuilderFactory = $this->createMock( TruthyStatementRdfBuilderFactory::class );
 		$this->fullStatementRdfBuilderFactory = $this->createMock( FullStatementRdfBuilderFactory::class );
