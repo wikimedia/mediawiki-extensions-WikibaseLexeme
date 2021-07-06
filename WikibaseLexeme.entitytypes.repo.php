@@ -56,6 +56,7 @@ use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\TitleLookupBasedEntityExistenceChecker;
+use Wikibase\Lib\Store\TitleLookupBasedEntityUrlLookup;
 use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\Api\EditEntity;
 use Wikibase\Repo\Api\EntityIdSearchHelper;
@@ -333,13 +334,16 @@ return [
 				new SensesStatementEntityReferenceExtractor( $statementEntityReferenceExtractor ),
 			] );
 		},
+		Def::URL_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityUrlLookup( WikibaseRepo::getEntityTitleLookup() );
+		},
 		Def::EXISTENCE_CHECKER_CALLBACK => static function () {
 			$services = MediaWikiServices::getInstance();
 			return new TitleLookupBasedEntityExistenceChecker(
 				WikibaseRepo::getEntityTitleLookup( $services ),
 				$services->getLinkBatchFactory()
 			);
-		}
+		},
 	],
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
@@ -473,13 +477,16 @@ return [
 				WikibaseRepo::getLocalRepoWikiPageMetaDataAccessor()
 			);
 		},
+		Def::URL_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityUrlLookup( WikibaseRepo::getEntityTitleLookup() );
+		},
 		Def::EXISTENCE_CHECKER_CALLBACK => static function () {
 			$services = MediaWikiServices::getInstance();
 			return new TitleLookupBasedEntityExistenceChecker(
 				WikibaseRepo::getEntityTitleLookup( $services ),
 				$services->getLinkBatchFactory()
 			);
-		}
+		},
 	],
 	'sense' => [
 		// TODO lexemes and forms have identical content-handler-factory-callback, extract
@@ -614,12 +621,15 @@ return [
 				WikibaseRepo::getLocalRepoWikiPageMetaDataAccessor()
 			);
 		},
+		Def::URL_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityUrlLookup( WikibaseRepo::getEntityTitleLookup() );
+		},
 		Def::EXISTENCE_CHECKER_CALLBACK => static function () {
 			$services = MediaWikiServices::getInstance();
 			return new TitleLookupBasedEntityExistenceChecker(
 				WikibaseRepo::getEntityTitleLookup( $services ),
 				$services->getLinkBatchFactory()
 			);
-		}
+		},
 	],
 ];
