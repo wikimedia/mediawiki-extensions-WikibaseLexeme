@@ -12,7 +12,7 @@ use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeStubRdfBuilder;
-use Wikibase\Lib\EntityTypeDefinitions;
+use Wikibase\Lib\SubEntityTypesMapper;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Tests\Rdf\NTriplesRdfTestHelper;
 use Wikibase\Repo\Tests\Rdf\RdfBuilderTestData;
@@ -78,8 +78,8 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 						''
 					),
 				],
-				new EntityTypeDefinitions( [
-					'lexeme' => [ 'sub-entity-types' => [ 'form', 'sense' ] ],
+				new SubEntityTypesMapper( [
+					'lexeme' => [ 'form', 'sense' ],
 				] )
 			),
 			[ 'test' => '' ],

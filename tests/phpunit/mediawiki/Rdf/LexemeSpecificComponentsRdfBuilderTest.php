@@ -10,8 +10,8 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
-use Wikibase\Lib\EntityTypeDefinitions;
 use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\SubEntityTypesMapper;
 use Wikibase\Repo\Content\EntityContentFactory;
 use Wikibase\Repo\Rdf\EntityMentionListener;
 use Wikibase\Repo\Rdf\EntityStubRdfBuilderFactory;
@@ -85,8 +85,8 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 						''
 					),
 				],
-				new EntityTypeDefinitions( [
-					'lexeme' => [ 'sub-entity-types' => [ 'form', 'sense' ] ],
+				new SubEntityTypesMapper( [
+					'lexeme' => [ 'form', 'sense' ],
 				] )
 			),
 			[ 'test' => '' ],
