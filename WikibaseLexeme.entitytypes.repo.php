@@ -56,6 +56,7 @@ use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\TitleLookupBasedEntityExistenceChecker;
+use Wikibase\Lib\Store\TitleLookupBasedEntityTitleTextLookup;
 use Wikibase\Lib\Store\TitleLookupBasedEntityUrlLookup;
 use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\Api\EditEntity;
@@ -344,6 +345,11 @@ return [
 				$services->getLinkBatchFactory()
 			);
 		},
+		Def::TITLE_TEXT_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityTitleTextLookup(
+				WikibaseRepo::getEntityTitleLookup()
+			);
+		},
 	],
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
@@ -485,6 +491,11 @@ return [
 			return new TitleLookupBasedEntityExistenceChecker(
 				WikibaseRepo::getEntityTitleLookup( $services ),
 				$services->getLinkBatchFactory()
+			);
+		},
+		Def::TITLE_TEXT_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityTitleTextLookup(
+				WikibaseRepo::getEntityTitleLookup()
 			);
 		},
 	],
@@ -629,6 +640,11 @@ return [
 			return new TitleLookupBasedEntityExistenceChecker(
 				WikibaseRepo::getEntityTitleLookup( $services ),
 				$services->getLinkBatchFactory()
+			);
+		},
+		Def::TITLE_TEXT_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityTitleTextLookup(
+				WikibaseRepo::getEntityTitleLookup()
 			);
 		},
 	],
