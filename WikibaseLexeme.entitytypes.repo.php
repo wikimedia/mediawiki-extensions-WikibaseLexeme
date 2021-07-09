@@ -56,6 +56,7 @@ use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\TitleLookupBasedEntityExistenceChecker;
+use Wikibase\Lib\Store\TitleLookupBasedEntityRedirectChecker;
 use Wikibase\Lib\Store\TitleLookupBasedEntityTitleTextLookup;
 use Wikibase\Lib\Store\TitleLookupBasedEntityUrlLookup;
 use Wikibase\Lib\TermLanguageFallbackChain;
@@ -350,6 +351,9 @@ return [
 				WikibaseRepo::getEntityTitleLookup()
 			);
 		},
+		Def::REDIRECT_CHECKER_CALLBACK => static function () {
+			return new TitleLookupBasedEntityRedirectChecker( WikibaseRepo::getEntityTitleLookup() );
+		},
 	],
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
@@ -497,6 +501,9 @@ return [
 			return new TitleLookupBasedEntityTitleTextLookup(
 				WikibaseRepo::getEntityTitleLookup()
 			);
+		},
+		Def::REDIRECT_CHECKER_CALLBACK => static function () {
+			return new TitleLookupBasedEntityRedirectChecker( WikibaseRepo::getEntityTitleLookup() );
 		},
 	],
 	'sense' => [
@@ -646,6 +653,9 @@ return [
 			return new TitleLookupBasedEntityTitleTextLookup(
 				WikibaseRepo::getEntityTitleLookup()
 			);
+		},
+		Def::REDIRECT_CHECKER_CALLBACK => static function () {
+			return new TitleLookupBasedEntityRedirectChecker( WikibaseRepo::getEntityTitleLookup() );
 		},
 	],
 ];
