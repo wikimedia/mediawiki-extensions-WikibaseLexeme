@@ -1,6 +1,7 @@
 <?php
 
 use MediaWiki\MediaWikiServices;
+use Wikibase\DataAccess\NullPrefetchingTermLookup;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\SerializerFactory;
@@ -353,6 +354,9 @@ return [
 		},
 		Def::REDIRECT_CHECKER_CALLBACK => static function () {
 			return new TitleLookupBasedEntityRedirectChecker( WikibaseRepo::getEntityTitleLookup() );
+		},
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
+			return new NullPrefetchingTermLookup();
 		},
 	],
 	'form' => [
