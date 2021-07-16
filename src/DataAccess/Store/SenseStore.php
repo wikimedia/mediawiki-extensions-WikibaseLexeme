@@ -116,7 +116,8 @@ class SenseStore implements EntityStore {
 		$summary,
 		User $user,
 		$flags = 0,
-		$baseRevId = false
+		$baseRevId = false,
+		array $tags = []
 	) {
 		throw new \DomainException( 'Senses currently don\'t support redirects' );
 	}
