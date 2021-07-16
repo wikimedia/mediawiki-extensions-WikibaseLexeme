@@ -21,10 +21,13 @@ use Wikibase\Repo\SummaryFormatter;
 class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 	implements LexemeRedirector {
 
+	/** @var bool */
 	private $botEditRequested;
-	/**
-	 * @var IContextSource
-	 */
+
+	/** @var string[] */
+	private $tags;
+
+	/** @var IContextSource */
 	private $context;
 
 	public function __construct(
@@ -39,6 +42,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		$botEditRequested
 	) {
 		$this->botEditRequested = $botEditRequested;
+		$this->tags = []; // may become a constructor parameter at some point
 		$this->context = $context;
 
 		parent::__construct(
@@ -53,7 +57,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 	}
 
 	public function redirect( LexemeId $sourceId, LexemeId $targetId ) {
-		$this->createRedirect( $sourceId, $targetId, $this->botEditRequested, $this->context );
+		$this->createRedirect( $sourceId, $targetId, $this->botEditRequested, $this->tags, $this->context );
 	}
 
 	protected function assertEntityIsRedirectable( EntityDocument $entity ) {
