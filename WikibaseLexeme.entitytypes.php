@@ -12,6 +12,7 @@
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 
+use Wikibase\DataAccess\NullPrefetchingTermLookup;
 use Wikibase\DataModel\DeserializerFactory;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\SerializerFactory;
@@ -83,6 +84,9 @@ return [
 			'sense',
 		],
 		Def::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.lexeme',
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
+			return new NullPrefetchingTermLookup();
+		},
 	],
 	'form' => [
 		Def::ENTITY_STORE_FACTORY_CALLBACK => static function (
@@ -117,6 +121,9 @@ return [
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
+			return new NullPrefetchingTermLookup();
+		},
 	],
 	'sense' => [
 		Def::ENTITY_STORE_FACTORY_CALLBACK => static function (
@@ -150,6 +157,9 @@ return [
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
-		}
+		},
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
+			return new NullPrefetchingTermLookup();
+		},
 	]
 ];
