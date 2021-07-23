@@ -30,20 +30,8 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class WikibaseLexemeServices {
 
-	private static $globalInstance;
-
-	public static function createGlobalInstance(): self {
-		self::$globalInstance = new self();
-
-		return self::$globalInstance;
-	}
-
-	public static function globalInstance(): self {
-		if ( self::$globalInstance === null ) {
-			throw new \RuntimeException( 'Cannot get global instance without first initializing it' );
-		}
-
-		return self::$globalInstance;
+	public static function newInstance(): self {
+		return new self();
 	}
 
 	public static function newTestInstance(): self {
