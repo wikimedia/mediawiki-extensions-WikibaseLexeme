@@ -45,7 +45,7 @@ class LexemeMergerTest extends TestCase {
 	 */
 	private $lexemeMerger;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->lexemeMerger = $this->newLexemeMerger();
@@ -879,7 +879,7 @@ class LexemeMergerTest extends TestCase {
 	 * @param string $id Lexeme id
 	 * @return NewLexeme Add lemmas to avoid randomness and possible collisions
 	 */
-	private function newLexeme( $id ) : NewLexeme {
+	private function newLexeme( $id ): NewLexeme {
 		return NewLexeme::havingId( $id )
 			->withLanguage( 'Q7' )
 			->withLexicalCategory( 'Q55' );
@@ -891,12 +891,12 @@ class LexemeMergerTest extends TestCase {
 	 * @param string $id Lexeme id
 	 * @return NewLexeme With a stable lemma so randomness and possible collisions are avoided
 	 */
-	private function newMinimumValidLexeme( $id ) : NewLexeme {
+	private function newMinimumValidLexeme( $id ): NewLexeme {
 		return $this->newLexeme( $id )
 			->withLemma( 'en', 'mergeme' );
 	}
 
-	private function newLexemeMerger() : LexemeMerger {
+	private function newLexemeMerger(): LexemeMerger {
 		$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider()
 			->getMergeFactory()
 			->getStatementsMerger();

@@ -162,7 +162,7 @@ class SensesViewTest extends TestCase {
 		);
 	}
 
-	private function newSensesView()  : SensesView {
+	private function newSensesView(): SensesView {
 		$statementGroupListView = $this->getMockBuilder( StatementGroupListView::class )
 			->disableOriginalConstructor()
 			->getMock();
@@ -178,7 +178,7 @@ class SensesViewTest extends TestCase {
 		);
 	}
 
-	private function newTemplateFactory() : LexemeTemplateFactory {
+	private function newTemplateFactory(): LexemeTemplateFactory {
 		return LexemeTemplateFactory::factory();
 	}
 

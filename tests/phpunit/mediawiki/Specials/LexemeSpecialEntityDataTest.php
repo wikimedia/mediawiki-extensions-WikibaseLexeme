@@ -28,7 +28,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 	/** @var EntityStore */
 	private $entityStore;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->entityStore = WikibaseRepo::getEntityStore();

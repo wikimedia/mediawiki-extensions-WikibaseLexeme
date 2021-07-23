@@ -258,7 +258,7 @@ class LexemeFormsMergerTest extends TestCase {
 		$this->assertSame( [ 'en' => 'foo' ], $target->getLemmas()->toTextArray() );
 	}
 
-	private function newLexemeFormsMerger() : LexemeFormsMerger {
+	private function newLexemeFormsMerger(): LexemeFormsMerger {
 		$guidGenerator = $this->createMock( GuidGenerator::class );
 		$guidGenerator->method( 'newGuid' )
 			->willReturnCallback( static function ( EntityId $entityId ) {
@@ -285,7 +285,7 @@ class LexemeFormsMergerTest extends TestCase {
 	 * @param string $id Lexeme id
 	 * @return NewLexeme
 	 */
-	private function newMinimumValidLexeme( $id ) : NewLexeme {
+	private function newMinimumValidLexeme( $id ): NewLexeme {
 		return NewLexeme::havingId( $id )
 			->withLanguage( 'Q7' )
 			->withLexicalCategory( 'Q55' )

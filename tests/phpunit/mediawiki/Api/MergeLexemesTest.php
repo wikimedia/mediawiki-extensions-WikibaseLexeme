@@ -183,7 +183,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
-	private function newLexeme( $id ) : NewLexeme {
+	private function newLexeme( $id ): NewLexeme {
 		return NewLexeme::havingId( $id )
 			->withLanguage( self::DEFAULT_LANGUAGE )
 			->withLexicalCategory( self::DEFAULT_LEXICAL_CATEGORY )
@@ -193,7 +193,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 	/**
 	 * for unit test use
 	 */
-	private function newMergeLexemes() : MergeLexemes {
+	private function newMergeLexemes(): MergeLexemes {
 		$mainModule = $this->createMock( ApiMain::class );
 		$mainModule->method( 'getContext' )
 			->willReturn( $this->createMock( RequestContext::class ) );

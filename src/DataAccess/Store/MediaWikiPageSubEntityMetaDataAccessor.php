@@ -103,7 +103,7 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 * @return (int|bool)[] Array mapping entity ID serializations to either revision IDs
 	 * or false if an entity could not be found (including if the page is a redirect).
 	 */
-	public function loadLatestRevisionIds( array $entityIds, $mode ) : array {
+	public function loadLatestRevisionIds( array $entityIds, $mode ): array {
 		$subEntityIds = [];
 		foreach ( $entityIds as $key => $entityId ) {
 			if ( $entityId instanceof LexemeSubEntityId ) {

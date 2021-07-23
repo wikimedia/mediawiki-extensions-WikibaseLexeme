@@ -142,7 +142,7 @@ class FormsViewTest extends TestCase {
 		$formsView->getHtml( new FormSet( [ $form ] ) );
 	}
 
-	private function newFormsView() : FormsView {
+	private function newFormsView(): FormsView {
 		$statementSectionView = $this->prophesize( StatementGroupListView::class );
 		$statementSectionView->getHtml( Argument::any(), Argument::any() )
 			->willReturn( self::STATEMENT_LIST_HTML );
@@ -161,7 +161,7 @@ class FormsViewTest extends TestCase {
 		);
 	}
 
-	private function newTemplateFactory() : LexemeTemplateFactory {
+	private function newTemplateFactory(): LexemeTemplateFactory {
 		return LexemeTemplateFactory::factory();
 	}
 

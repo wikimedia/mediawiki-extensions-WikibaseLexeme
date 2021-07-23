@@ -40,7 +40,7 @@ class FormStoreTest extends TestCase {
 	 */
 	private $formIdTwo;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );

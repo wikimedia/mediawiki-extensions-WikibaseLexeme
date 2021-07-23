@@ -30,7 +30,7 @@ class ChangeOpFormCloneTest extends TestCase {
 	 */
 	private $guidGenerator;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->guidGenerator = $this->createMock( GuidGenerator::class );
 	}
@@ -141,7 +141,7 @@ class ChangeOpFormCloneTest extends TestCase {
 		$this->assertSame( [ EntityPermissionChecker::ACTION_EDIT ], $changeOp->getActions() );
 	}
 
-	private function newChangeOpFormClone( Form $sourceForm ) : ChangeOpFormClone {
+	private function newChangeOpFormClone( Form $sourceForm ): ChangeOpFormClone {
 		return new ChangeOpFormClone( $sourceForm, $this->guidGenerator );
 	}
 

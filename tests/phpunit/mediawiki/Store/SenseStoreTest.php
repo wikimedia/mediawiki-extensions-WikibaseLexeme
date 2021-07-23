@@ -41,7 +41,7 @@ class SenseStoreTest extends TestCase {
 	 */
 	private $senseIdTwo;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );

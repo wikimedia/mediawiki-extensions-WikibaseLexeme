@@ -23,7 +23,7 @@ class AddFormToLexemeChangeOpTest extends TestCase {
 	/** @var ChangeOp|MockObject */
 	private $changeOpFormEdit;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->changeOpFormEdit = $this->createMock( ChangeOpFormEdit::class );
 	}

@@ -18,7 +18,7 @@ if (
 	 */
 	abstract class Scribunto_LuaWikibaseLexemeLibraryTestCase extends \PHPUnit\Framework\TestCase {
 
-		protected function setUp() : void {
+		protected function setUp(): void {
 			$this->markTestSkipped( 'WikibaseClient and Scribunto extensions are needed to run the tests' );
 		}
 

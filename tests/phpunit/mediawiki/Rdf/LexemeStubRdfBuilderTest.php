@@ -37,7 +37,7 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 	 */
 	private $testData = null;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->helper = new NTriplesRdfTestHelper();
 		$this->lookup = new InMemoryEntityLookup();
@@ -59,7 +59,7 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 		return $this->testData;
 	}
 
-	private function getVocabulary() : RdfVocabulary {
+	private function getVocabulary(): RdfVocabulary {
 		return new RdfVocabulary(
 			[ 'test' => 'http://acme.test/' ],
 			[ 'test' => '' ],

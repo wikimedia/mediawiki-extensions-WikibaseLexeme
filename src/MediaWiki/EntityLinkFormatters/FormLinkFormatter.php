@@ -70,7 +70,7 @@ class FormLinkFormatter implements EntityLinkFormatter {
 	 * @return TermList
 	 * @suppress PhanUndeclaredMethod
 	 */
-	private function getRepresentations( FormId $formId ) : TermList {
+	private function getRepresentations( FormId $formId ): TermList {
 		$form = $this->entityLookup->getEntity( $formId );
 
 		if ( $form === null ) {

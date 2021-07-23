@@ -103,7 +103,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	 * @return TermList
 	 * @suppress PhanUndeclaredMethod
 	 */
-	private function getLemmas( LexemeId $entityId ) : TermList {
+	private function getLemmas( LexemeId $entityId ): TermList {
 		try {
 			$lexeme = $this->entityLookup->getEntity( $entityId );
 		} catch ( UnresolvedEntityRedirectException $ex ) { // T228996

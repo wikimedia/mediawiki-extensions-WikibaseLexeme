@@ -28,7 +28,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 
 	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q1';
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$testuser = self::getTestUser()->getUser();
@@ -41,7 +41,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 		$this->block->insert();
 	}
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		$this->block->delete();
 		parent::tearDown();
 	}

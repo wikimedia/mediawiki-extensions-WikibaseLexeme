@@ -36,7 +36,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	private const EXISTING_ITEM_ID = 'Q1';
 	private const NON_EXISTING_ITEM_ID = 'Q100';
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 

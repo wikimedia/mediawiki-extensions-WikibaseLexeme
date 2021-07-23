@@ -31,7 +31,7 @@ class ChangeOpFormAdd extends ChangeOpBase {
 		$this->changeOpForm = $changeOpForm;
 	}
 
-	public function validate( EntityDocument $entity ) : Result {
+	public function validate( EntityDocument $entity ): Result {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		return Result::newSuccess();

@@ -13,7 +13,7 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 
 	use HamcrestPHPUnitIntegration;
 
-	protected function tearDown() : void {
+	protected function tearDown(): void {
 		$this->resetServices();
 		parent::tearDown();
 	}

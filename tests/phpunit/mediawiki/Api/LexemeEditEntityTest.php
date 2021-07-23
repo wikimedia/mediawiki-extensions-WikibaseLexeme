@@ -2309,7 +2309,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertStatementGuidHasEntityId( $entity['id'], $claim['id'] );
 	}
 
-	private function getEntityLookup() : EntityLookup {
+	private function getEntityLookup(): EntityLookup {
 		return WikibaseRepo::getStore()->getEntityLookup( Store::LOOKUP_CACHING_DISABLED );
 	}
 

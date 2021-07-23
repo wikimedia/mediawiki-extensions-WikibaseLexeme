@@ -33,7 +33,7 @@ class SenseRevisionLookupTest extends TestCase {
 	 */
 	private $senseId;
 
-	protected function setUp() : void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->lexemeId = new LexemeId( 'L1' );
