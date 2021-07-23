@@ -118,7 +118,8 @@ class FormStore implements EntityStore {
 		$summary,
 		User $user,
 		$flags = 0,
-		$baseRevId = false
+		$baseRevId = false,
+		array $tags = []
 	) {
 		throw new \DomainException( 'Forms currently don\'t support redirects' );
 	}
