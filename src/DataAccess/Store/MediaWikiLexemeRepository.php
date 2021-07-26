@@ -49,7 +49,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 		$this->permissionManager = $permissionManager;
 	}
 
-	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary ) {
+	public function updateLexeme( Lexeme $lexeme, string $editSummary, array $tags ) {
 		// TODO: assert id not null
 
 		try {
@@ -57,7 +57,9 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 				$lexeme,
 				$editSummary,
 				$this->user,
-				$this->getSaveFlags()
+				$this->getSaveFlags(),
+				false,
+				$tags
 			);
 		} catch ( StorageException $ex ) {
 			throw new UpdateLexemeException( $ex );

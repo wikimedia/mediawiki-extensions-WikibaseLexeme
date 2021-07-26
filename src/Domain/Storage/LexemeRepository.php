@@ -15,7 +15,7 @@ interface LexemeRepository {
 	/**
 	 * @throws UpdateLexemeException
 	 */
-	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary );
+	public function updateLexeme( Lexeme $lexeme, string $editSummary, array $tags );
 
 	/**
 	 * @param LexemeId $id

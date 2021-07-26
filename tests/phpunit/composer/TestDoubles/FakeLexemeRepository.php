@@ -19,11 +19,11 @@ class FakeLexemeRepository implements LexemeRepository {
 
 	public function __construct( /* Lexeme */ ...$lexemes ) {
 		foreach ( $lexemes as $lexeme ) {
-			$this->updateLexeme( $lexeme, '' );
+			$this->updateLexeme( $lexeme, '', [] );
 		}
 	}
 
-	public function updateLexeme( Lexeme $lexeme, /* string */ $editSummary ) {
+	public function updateLexeme( Lexeme $lexeme, string $editSummary, array $tags ) {
 		if ( $this->throwOnWrite ) {
 			throw new UpdateLexemeException();
 		}

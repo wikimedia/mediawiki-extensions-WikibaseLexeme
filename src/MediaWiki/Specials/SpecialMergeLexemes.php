@@ -14,6 +14,7 @@ use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
 
@@ -26,6 +27,9 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	private const FROM_ID = 'from-id';
 	private const TO_ID = 'to-id';
+
+	/** @var string[] */
+	private $tags;
 
 	/**
 	 * @var MergeLexemesInteractor
@@ -48,12 +52,14 @@ class SpecialMergeLexemes extends SpecialPage {
 	private $permissionManager;
 
 	public function __construct(
+		array $tags,
 		MergeLexemesInteractor $mergeInteractor,
 		EntityTitleLookup $titleLookup,
 		ExceptionLocalizer $exceptionLocalizer,
 		PermissionManager $permissionManager
 	) {
 		parent::__construct( 'MergeLexemes', 'item-merge' );
+		$this->tags = $tags;
 		$this->mergeInteractor = $mergeInteractor;
 		$this->titleLookup = $titleLookup;
 		$this->exceptionLocalizer = $exceptionLocalizer;
@@ -106,9 +112,11 @@ class SpecialMergeLexemes extends SpecialPage {
 	public static function factory(
 		PermissionManager $permissionManager,
 		EntityTitleLookup $entityTitleLookup,
-		ExceptionLocalizer $exceptionLocalizer
+		ExceptionLocalizer $exceptionLocalizer,
+		SettingsArray $repoSettings
 	): self {
 		return new self(
+			$repoSettings->getSetting( 'specialPageTags' ),
 			WikibaseLexemeServices::createGlobalInstance( false )->newMergeLexemesInteractor(),
 			$entityTitleLookup,
 			$exceptionLocalizer,
@@ -177,7 +185,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		try {
 			/** @var LexemeId $sourceId */
 			/** @var LexemeId $targetId */
-			$this->mergeInteractor->mergeLexemes( $sourceId, $targetId );
+			$this->mergeInteractor->mergeLexemes( $sourceId, $targetId, null, $this->tags );
 		} catch ( MergingException $e ) {
 			$this->showErrorHTML( $e->getErrorMessage()->escaped() );
 			return;

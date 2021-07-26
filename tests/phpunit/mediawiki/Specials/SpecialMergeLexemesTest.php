@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
+use ChangeTags;
 use Exception;
 use FauxRequest;
 use HamcrestPHPUnitIntegration;
@@ -34,6 +35,8 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	use HamcrestPHPUnitIntegration;
+
+	private const TAGS = [ 'mw-replace' ];
 
 	/** @var Lexeme */
 	private $source;
@@ -148,6 +151,16 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 			$this->target->getLemmas()->getByLanguage( 'en-gb' ),
 			$postMergeTarget->getLemmas()->getByLanguage( 'en-gb' )
 		);
+
+		$entityTitleStoreLookup = WikibaseRepo::getEntityTitleStoreLookup();
+		$titles = $entityTitleStoreLookup->getTitlesForIds( [
+			// $this->source->getId(),
+			$this->target->getId(),
+		] );
+		$targetTitle = $titles[$this->target->getId()->getSerialization()];
+		$targetTags = ChangeTags::getTags( $this->db, null, $targetTitle->getLatestRevID() );
+		$this->assertArrayEquals( self::TAGS, $targetTags );
+		// TODO test source tags as well
 	}
 
 	public function testGivenNotALexemeIdSerialization_showsErrorMessage() {
@@ -204,6 +217,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 	protected function newSpecialPage() {
 		return new SpecialMergeLexemes(
+			self::TAGS,
 			$this->mergeInteractor,
 			$this->titleLookup,
 			$this->exceptionLocalizer,

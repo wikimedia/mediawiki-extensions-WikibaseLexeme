@@ -41,6 +41,8 @@ class SpecialNewLexeme extends SpecialPage {
 	public const FIELD_LEMMA = 'lemma';
 	public const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
+	/** @var string[] */
+	private $tags;
 	private $copyrightView;
 	private $entityNamespaceLookup;
 	private $summaryFormatter;
@@ -48,6 +50,7 @@ class SpecialNewLexeme extends SpecialPage {
 	private $editEntityFactory;
 
 	public function __construct(
+		array $tags,
 		SpecialPageCopyrightView $copyrightView,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		SummaryFormatter $summaryFormatter,
@@ -59,6 +62,7 @@ class SpecialNewLexeme extends SpecialPage {
 			'createpage'
 		);
 
+		$this->tags = $tags;
 		$this->copyrightView = $copyrightView;
 		$this->entityNamespaceLookup = $entityNamespaceLookup;
 		$this->summaryFormatter = $summaryFormatter;
@@ -80,6 +84,7 @@ class SpecialNewLexeme extends SpecialPage {
 		);
 
 		return new self(
+			$repoSettings->getSetting( 'specialPageTags' ),
 			$copyrightView,
 			$entityNamespaceLookup,
 			$summaryFormatter,
@@ -191,7 +196,9 @@ class SpecialNewLexeme extends SpecialPage {
 			$entity,
 			$this->summaryFormatter->formatSummary( $summary ),
 			$flags,
-			$token
+			$token,
+			null,
+			$this->tags
 		);
 	}
 
