@@ -38,6 +38,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
+		$this->markTestSkipped( 'temporary (T286774)' );
 		$this->setUserLang( 'qqx' );
 
 		$this->tablesUsed[] = 'page';
