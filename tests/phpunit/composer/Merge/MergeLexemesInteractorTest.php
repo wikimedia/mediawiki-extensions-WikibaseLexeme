@@ -2,13 +2,14 @@
 
 namespace Wikibase\Lexeme\Tests\Merge;
 
+use IContextSource;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Title;
-use User;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
@@ -60,14 +61,17 @@ class MergeLexemesInteractorTest extends TestCase {
 	private $summaryFormatter;
 
 	/**
-	 * @var User|MockObject
+	 * @var IContextSource|MockObject
 	 */
-	private $user;
+	private $context;
 
 	/**
 	 * @var LexemeRedirector|MockObject
 	 */
 	private $redirector;
+
+	/** @var MediaWikiLexemeRedirectorFactory|MockObject */
+	private $redirectorFactory;
 
 	/**
 	 * @var EntityTitleStoreLookup|MockObject
@@ -104,7 +108,8 @@ class MergeLexemesInteractorTest extends TestCase {
 		$this->lexemeMerger = $this->newMockLexemeMerger();
 		$this->authorizer = new SucceedingLexemeAuthorizer();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
-		$this->redirector = $this->newMockRedirector();
+		$this->context = $this->createMock( IContextSource::class );
+		[ $this->redirector, $this->redirectorFactory ] = $this->newMockRedirectorAndFactory();
 		$this->entityTitleLookup = $this->newMockTitleLookup();
 		$this->watchedItemStore = $this->newMockWatchedItemStore();
 	}
@@ -150,7 +155,7 @@ class MergeLexemesInteractorTest extends TestCase {
 		);
 
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 
 		$this->assertCount(
 			2,
@@ -167,7 +172,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			);
 
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenIdenticalLexemeIds_throwsException() {
@@ -175,7 +180,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( ReferenceSameLexemeException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenLexemeMergerThrowsException_exceptionBubblesUp() {
@@ -185,7 +190,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( MergingException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenUserDoesNotHavePermission_throwsException() {
@@ -193,7 +198,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( PermissionDeniedException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenSourceNotFound_throwsException() {
@@ -201,7 +206,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( LexemeNotFoundException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenTargetNotFound_throwsException() {
@@ -209,7 +214,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( LexemeNotFoundException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenExceptionInLoadEntity_throwsAppropriateException() {
@@ -217,7 +222,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( LexemeLoadingException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	public function testGivenEntitySaveFails_throwsException() {
@@ -225,7 +230,7 @@ class MergeLexemesInteractorTest extends TestCase {
 
 		$this->expectException( LexemeSaveFailedException::class );
 		$this->newMergeInteractor()
-			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
 	private function newMergeInteractor() {
@@ -233,7 +238,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			$this->lexemeMerger,
 			$this->authorizer,
 			$this->summaryFormatter,
-			$this->redirector,
+			$this->redirectorFactory,
 			$this->entityTitleLookup,
 			$this->watchedItemStore,
 			$this->lexemeRepository
@@ -251,8 +256,13 @@ class MergeLexemesInteractorTest extends TestCase {
 		return $summaryFormatter;
 	}
 
-	private function newMockRedirector() {
-		return $this->createMock( LexemeRedirector::class );
+	private function newMockRedirectorAndFactory() {
+		$redirector = $this->createMock( LexemeRedirector::class );
+		$factory = $this->createMock( MediaWikiLexemeRedirectorFactory::class );
+		$factory->method( 'newFromContext' )
+			->with( $this->context, $this->anything(), $this->anything() )
+			->willReturn( $redirector );
+		return [ $redirector, $factory ];
 	}
 
 	private function newMockTitleLookup() {

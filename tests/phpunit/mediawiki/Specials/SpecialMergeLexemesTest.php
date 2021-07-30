@@ -154,13 +154,15 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 		$entityTitleStoreLookup = WikibaseRepo::getEntityTitleStoreLookup();
 		$titles = $entityTitleStoreLookup->getTitlesForIds( [
-			// $this->source->getId(),
+			$this->source->getId(),
 			$this->target->getId(),
 		] );
 		$targetTitle = $titles[$this->target->getId()->getSerialization()];
 		$targetTags = ChangeTags::getTags( $this->db, null, $targetTitle->getLatestRevID() );
 		$this->assertArrayEquals( self::TAGS, $targetTags );
-		// TODO test source tags as well
+		$sourceTitle = $titles[$this->source->getId()->getSerialization()];
+		$sourceTags = ChangeTags::getTags( $this->db, null, $sourceTitle->getLatestRevID() );
+		$this->assertArrayEquals( array_merge( self::TAGS, [ 'mw-new-redirect' ] ), $sourceTags );
 	}
 
 	public function testGivenNotALexemeIdSerialization_showsErrorMessage() {

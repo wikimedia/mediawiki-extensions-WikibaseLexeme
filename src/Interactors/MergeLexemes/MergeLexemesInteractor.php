@@ -2,10 +2,11 @@
 
 namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
+use IContextSource;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
-use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -44,9 +45,9 @@ class MergeLexemesInteractor {
 	private $repo;
 
 	/**
-	 * @var LexemeRedirector
+	 * @var MediaWikiLexemeRedirectorFactory
 	 */
-	private $lexemeRedirector;
+	private $lexemeRedirectorFactory;
 
 	/**
 	 * @var EntityTitleStoreLookup
@@ -67,7 +68,7 @@ class MergeLexemesInteractor {
 		LexemeMerger $lexemeMerger,
 		LexemeAuthorizer $authorizer,
 		SummaryFormatter $summaryFormatter,
-		LexemeRedirector $lexemeRedirector,
+		MediaWikiLexemeRedirectorFactory $lexemeRedirectorFactory,
 		EntityTitleStoreLookup $entityTitleLookup,
 		WatchedItemStoreInterface $watchedItemStore,
 		LexemeRepository $repo
@@ -75,7 +76,7 @@ class MergeLexemesInteractor {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->authorizer = $authorizer;
 		$this->summaryFormatter = $summaryFormatter;
-		$this->lexemeRedirector = $lexemeRedirector;
+		$this->lexemeRedirectorFactory = $lexemeRedirectorFactory;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
 		$this->repo = $repo;
@@ -92,7 +93,9 @@ class MergeLexemesInteractor {
 	public function mergeLexemes(
 		LexemeId $sourceId,
 		LexemeId $targetId,
+		IContextSource $context,
 		?string $summary = null,
+		bool $botEditRequested = false,
 		array $tags = []
 	) {
 		if ( !$this->authorizer->canMerge( $sourceId, $targetId ) ) {
@@ -109,7 +112,9 @@ class MergeLexemesInteractor {
 		$this->attemptSaveMerge( $source, $target, $summary, $tags );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
-		$this->lexemeRedirector->redirect( $sourceId, $targetId ); // TODO pass $tags
+		$this->lexemeRedirectorFactory
+			->newFromContext( $context, $botEditRequested, $tags )
+			->redirect( $sourceId, $targetId );
 	}
 
 	/**

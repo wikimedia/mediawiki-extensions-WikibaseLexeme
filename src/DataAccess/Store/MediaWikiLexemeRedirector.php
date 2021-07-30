@@ -39,10 +39,11 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		EditFilterHookRunner $editFilterHookRunner,
 		EntityRedirectTargetLookup $entityRedirectLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
-		$botEditRequested
+		bool $botEditRequested,
+		array $tags
 	) {
 		$this->botEditRequested = $botEditRequested;
-		$this->tags = []; // may become a constructor parameter at some point
+		$this->tags = $tags;
 		$this->context = $context;
 
 		parent::__construct(
