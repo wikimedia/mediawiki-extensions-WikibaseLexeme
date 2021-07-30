@@ -7,7 +7,7 @@ use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
@@ -16,7 +16,6 @@ use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
-use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
@@ -32,15 +31,8 @@ class WikibaseLexemeServices {
 
 	private static $globalInstance;
 
-	/**
-	 * @param bool $botEditRequested Whether the user has requested that edits be marked as bot edits.
-	 * @return WikibaseLexemeServices
-	 */
-	public static function createGlobalInstance( $botEditRequested ): self {
-		self::$globalInstance = new self(
-			RequestContext::getMain(),
-			$botEditRequested
-		);
+	public static function createGlobalInstance(): self {
+		self::$globalInstance = new self();
 
 		return self::$globalInstance;
 	}
@@ -59,18 +51,10 @@ class WikibaseLexemeServices {
 				'Cannot get newTestInstance during regular operation.'
 			);
 		}
-		return new self( RequestContext::getMain(), false );
+		return new self();
 	}
 
 	private $container = [];
-
-	private $mediaWikiContext;
-	private $botEditRequested = false;
-
-	private function __construct( RequestContext $mediaWikiContext, /* bool */$botEditRequested ) {
-		$this->mediaWikiContext = $mediaWikiContext;
-		$this->botEditRequested = $botEditRequested;
-	}
 
 	/**
 	 * @return mixed
@@ -92,17 +76,15 @@ class WikibaseLexemeServices {
 			$this->newLexemeRedirectorFactory(),
 			WikibaseRepo::getEntityTitleStoreLookup( $mwServices ),
 			$mwServices->getWatchedItemStore(),
-			$this->getLexemeRepository()
+			$this->getLexemeRepositoryFactory()
 		);
 	}
 
-	private function getLexemeRepository(): LexemeRepository {
+	private function getLexemeRepositoryFactory(): MediaWikiLexemeRepositoryFactory {
 		return $this->getSharedService(
-			LexemeRepository::class,
-			function () {
-				return new MediaWikiLexemeRepository(
-					RequestContext::getMain()->getUser(),
-					$this->botEditRequested,
+			MediaWikiLexemeRepositoryFactory::class,
+			static function () {
+				return new MediaWikiLexemeRepositoryFactory(
 					WikibaseRepo::getEntityStore(),
 					WikibaseRepo::getEntityRevisionLookup(),
 					MediaWikiServices::getInstance()->getPermissionManager()

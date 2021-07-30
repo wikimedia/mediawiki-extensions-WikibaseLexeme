@@ -6,6 +6,7 @@ use IContextSource;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
@@ -40,9 +41,9 @@ class MergeLexemesInteractor {
 	private $summaryFormatter;
 
 	/**
-	 * @var LexemeRepository
+	 * @var MediaWikiLexemeRepositoryFactory
 	 */
-	private $repo;
+	private $repoFactory;
 
 	/**
 	 * @var MediaWikiLexemeRedirectorFactory
@@ -71,7 +72,7 @@ class MergeLexemesInteractor {
 		MediaWikiLexemeRedirectorFactory $lexemeRedirectorFactory,
 		EntityTitleStoreLookup $entityTitleLookup,
 		WatchedItemStoreInterface $watchedItemStore,
-		LexemeRepository $repo
+		MediaWikiLexemeRepositoryFactory $repoFactory
 	) {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->authorizer = $authorizer;
@@ -79,7 +80,7 @@ class MergeLexemesInteractor {
 		$this->lexemeRedirectorFactory = $lexemeRedirectorFactory;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
-		$this->repo = $repo;
+		$this->repoFactory = $repoFactory;
 	}
 
 	/**
@@ -102,14 +103,16 @@ class MergeLexemesInteractor {
 			throw new PermissionDeniedException();
 		}
 
-		$source = $this->getLexeme( $sourceId );
-		$target = $this->getLexeme( $targetId );
+		$repo = $this->repoFactory->newFromContext( $context, $botEditRequested );
+
+		$source = $this->getLexeme( $repo, $sourceId );
+		$target = $this->getLexeme( $repo, $targetId );
 
 		$this->validateEntities( $source, $target );
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$this->attemptSaveMerge( $source, $target, $summary, $tags );
+		$this->attemptSaveMerge( $repo, $source, $target, $summary, $tags );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
 		$this->lexemeRedirectorFactory
@@ -120,9 +123,9 @@ class MergeLexemesInteractor {
 	/**
 	 * @throws MergingException
 	 */
-	private function getLexeme( LexemeId $lexemeId ): Lexeme {
+	private function getLexeme( LexemeRepository $repo, LexemeId $lexemeId ): Lexeme {
 		try {
-			$lexeme = $this->repo->getLexemeById( $lexemeId );
+			$lexeme = $repo->getLexemeById( $lexemeId );
 		} catch ( GetLexemeException $ex ) {
 			throw new LexemeLoadingException();
 		}
@@ -160,24 +163,37 @@ class MergeLexemesInteractor {
 		return $summary;
 	}
 
-	private function attemptSaveMerge( Lexeme $source, Lexeme $target, ?string $summary, array $tags ) {
+	private function attemptSaveMerge(
+		LexemeRepository $repo,
+		Lexeme $source,
+		Lexeme $target,
+		?string $summary,
+		array $tags
+	) {
 		$this->saveLexeme(
+			$repo,
 			$source,
 			$this->getSummary( 'to', $target->getId(), $summary ),
 			$tags
 		);
 
 		$this->saveLexeme(
+			$repo,
 			$target,
 			$this->getSummary( 'from', $source->getId(), $summary ),
 			$tags
 		);
 	}
 
-	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, array $tags ) {
+	private function saveLexeme(
+		LexemeRepository $repo,
+		Lexeme $lexeme,
+		FormatableSummary $summary,
+		array $tags
+	) {
 
 		try {
-			$this->repo->updateLexeme(
+			$repo->updateLexeme(
 				$lexeme,
 				$this->summaryFormatter->formatSummary( $summary ),
 				$tags
