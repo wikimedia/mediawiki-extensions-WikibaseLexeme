@@ -103,7 +103,7 @@ class MergeLexemesInteractor {
 			throw new PermissionDeniedException();
 		}
 
-		$repo = $this->repoFactory->newFromContext( $context, $botEditRequested );
+		$repo = $this->repoFactory->newFromContext( $context, $botEditRequested, $tags );
 
 		$source = $this->getLexeme( $repo, $sourceId );
 		$target = $this->getLexeme( $repo, $targetId );
@@ -112,7 +112,7 @@ class MergeLexemesInteractor {
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$this->attemptSaveMerge( $repo, $source, $target, $summary, $tags );
+		$this->attemptSaveMerge( $repo, $source, $target, $summary );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
 		$this->lexemeRedirectorFactory
@@ -167,36 +167,31 @@ class MergeLexemesInteractor {
 		LexemeRepository $repo,
 		Lexeme $source,
 		Lexeme $target,
-		?string $summary,
-		array $tags
+		?string $summary
 	) {
 		$this->saveLexeme(
 			$repo,
 			$source,
-			$this->getSummary( 'to', $target->getId(), $summary ),
-			$tags
+			$this->getSummary( 'to', $target->getId(), $summary )
 		);
 
 		$this->saveLexeme(
 			$repo,
 			$target,
-			$this->getSummary( 'from', $source->getId(), $summary ),
-			$tags
+			$this->getSummary( 'from', $source->getId(), $summary )
 		);
 	}
 
 	private function saveLexeme(
 		LexemeRepository $repo,
 		Lexeme $lexeme,
-		FormatableSummary $summary,
-		array $tags
+		FormatableSummary $summary
 	) {
 
 		try {
 			$repo->updateLexeme(
 				$lexeme,
-				$this->summaryFormatter->formatSummary( $summary ),
-				$tags
+				$this->summaryFormatter->formatSummary( $summary )
 			);
 		} catch ( UpdateLexemeException $ex ) {
 			throw new LexemeSaveFailedException( $ex->getMessage(), $ex->getCode(), $ex );

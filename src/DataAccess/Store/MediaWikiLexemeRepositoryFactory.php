@@ -35,11 +35,13 @@ class MediaWikiLexemeRepositoryFactory {
 
 	public function newFromContext(
 		IContextSource $context,
-		bool $botEditRequested = false
+		bool $botEditRequested = false,
+		array $tags = []
 	): LexemeRepository {
 		return new MediaWikiLexemeRepository(
 			$context->getUser(),
 			$botEditRequested,
+			$tags,
 			$this->entityStore,
 			$this->entityRevisionLookup,
 			$this->permissionManager
