@@ -185,7 +185,14 @@ class SpecialMergeLexemes extends SpecialPage {
 		try {
 			/** @var LexemeId $sourceId */
 			/** @var LexemeId $targetId */
-			$this->mergeInteractor->mergeLexemes( $sourceId, $targetId, null, $this->tags );
+			$this->mergeInteractor->mergeLexemes(
+				$sourceId,
+				$targetId,
+				$this->getContext(),
+				null,
+				false,
+				$this->tags
+			);
 		} catch ( MergingException $e ) {
 			$this->showErrorHTML( $e->getErrorMessage()->escaped() );
 			return;

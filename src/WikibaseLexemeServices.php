@@ -6,13 +6,12 @@ use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepository;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
-use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
@@ -90,7 +89,7 @@ class WikibaseLexemeServices {
 			$this->newLexemeMerger(),
 			$this->getLexemeAuthorizer(),
 			WikibaseRepo::getSummaryFormatter( $mwServices ),
-			$this->newLexemeRedirector(),
+			$this->newLexemeRedirectorFactory(),
 			WikibaseRepo::getEntityTitleStoreLookup( $mwServices ),
 			$mwServices->getWatchedItemStore(),
 			$this->getLexemeRepository()
@@ -158,17 +157,15 @@ class WikibaseLexemeServices {
 		);
 	}
 
-	private function newLexemeRedirector(): LexemeRedirector {
-		return new MediaWikiLexemeRedirector(
+	private function newLexemeRedirectorFactory(): MediaWikiLexemeRedirectorFactory {
+		return new MediaWikiLexemeRedirectorFactory(
 			WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			WikibaseRepo::getEntityStore(),
 			WikibaseRepo::getEntityPermissionChecker(),
 			WikibaseRepo::getSummaryFormatter(),
-			RequestContext::getMain(),
 			WikibaseRepo::getEditFilterHookRunner(),
 			WikibaseRepo::getStore()->getEntityRedirectLookup(),
-			WikibaseRepo::getEntityTitleStoreLookup(),
-			$this->botEditRequested
+			WikibaseRepo::getEntityTitleStoreLookup()
 		);
 	}
 

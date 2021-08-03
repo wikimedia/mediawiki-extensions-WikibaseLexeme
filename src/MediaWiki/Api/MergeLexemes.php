@@ -69,7 +69,9 @@ class MergeLexemes extends ApiBase {
 			$services->newMergeLexemesInteractor()->mergeLexemes(
 				$sourceId,
 				$targetId,
+				$this->getContext(),
 				$params[self::SUMMARY_PARAM],
+				$params[self::BOT_PARAM],
 				[] // TODO add tags parameter to API, pass them through here
 			);
 		} catch ( MergingException $e ) {
