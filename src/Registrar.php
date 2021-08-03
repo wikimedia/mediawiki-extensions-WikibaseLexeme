@@ -131,6 +131,7 @@ class Registrar {
 				'PermissionManager',
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.ExceptionLocalizer',
+				'WikibaseRepo.Settings',
 			]
 		];
 

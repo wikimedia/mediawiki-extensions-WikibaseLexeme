@@ -38,7 +38,6 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	protected function setUp(): void {
 		parent::setUp();
-		$this->markTestSkipped( 'temporary (T286774)' );
 		$this->setUserLang( 'qqx' );
 
 		$this->tablesUsed[] = 'page';
@@ -67,6 +66,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$summaryFormatter = $this->getMockSummaryFormatter();
 
 		return new SpecialNewLexeme(
+			parent::TAGS,
 			$this->copyrightView,
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			$summaryFormatter,

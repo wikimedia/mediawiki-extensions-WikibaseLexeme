@@ -85,13 +85,15 @@ class MergeLexemesInteractor {
 	 * @param LexemeId $sourceId
 	 * @param LexemeId $targetId
 	 * @param string|null $summary - only relevant when called through the API
+	 * @param string[] $tags
 	 *
 	 * @throws MergingException
 	 */
 	public function mergeLexemes(
 		LexemeId $sourceId,
 		LexemeId $targetId,
-		$summary = null
+		?string $summary = null,
+		array $tags = []
 	) {
 		if ( !$this->authorizer->canMerge( $sourceId, $targetId ) ) {
 			throw new PermissionDeniedException();
@@ -104,10 +106,10 @@ class MergeLexemesInteractor {
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$this->attemptSaveMerge( $source, $target, $summary );
+		$this->attemptSaveMerge( $source, $target, $summary, $tags );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
-		$this->lexemeRedirector->redirect( $sourceId, $targetId );
+		$this->lexemeRedirector->redirect( $sourceId, $targetId ); // TODO pass $tags
 	}
 
 	/**
@@ -153,29 +155,27 @@ class MergeLexemesInteractor {
 		return $summary;
 	}
 
-	/**
-	 * @param Lexeme $source
-	 * @param Lexeme $target
-	 * @param string|null $summary
-	 */
-	private function attemptSaveMerge( Lexeme $source, Lexeme $target, $summary ) {
+	private function attemptSaveMerge( Lexeme $source, Lexeme $target, ?string $summary, array $tags ) {
 		$this->saveLexeme(
 			$source,
-			$this->getSummary( 'to', $target->getId(), $summary )
+			$this->getSummary( 'to', $target->getId(), $summary ),
+			$tags
 		);
 
 		$this->saveLexeme(
 			$target,
-			$this->getSummary( 'from', $source->getId(), $summary )
+			$this->getSummary( 'from', $source->getId(), $summary ),
+			$tags
 		);
 	}
 
-	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary ) {
+	private function saveLexeme( Lexeme $lexeme, FormatableSummary $summary, array $tags ) {
 
 		try {
 			$this->repo->updateLexeme(
 				$lexeme,
-				$this->summaryFormatter->formatSummary( $summary )
+				$this->summaryFormatter->formatSummary( $summary ),
+				$tags
 			);
 		} catch ( UpdateLexemeException $ex ) {
 			throw new LexemeSaveFailedException( $ex->getMessage(), $ex->getCode(), $ex );

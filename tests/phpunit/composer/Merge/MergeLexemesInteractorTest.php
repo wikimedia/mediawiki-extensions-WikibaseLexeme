@@ -245,7 +245,10 @@ class MergeLexemesInteractorTest extends TestCase {
 	}
 
 	private function newMockSummaryFormatter() {
-		return $this->createMock( SummaryFormatter::class );
+		$summaryFormatter = $this->createMock( SummaryFormatter::class );
+		$summaryFormatter->method( 'formatSummary' )
+			->willReturn( '' );
+		return $summaryFormatter;
 	}
 
 	private function newMockRedirector() {
