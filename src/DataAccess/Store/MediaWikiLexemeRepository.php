@@ -21,8 +21,9 @@ use Wikibase\Repo\Content\EntityContent;
 class MediaWikiLexemeRepository implements LexemeRepository {
 
 	private $user;
-	private $entityStore;
 	private $botEditRequested;
+	private $tags;
+	private $entityStore;
 	private $entityRevisionLookup;
 	private $permissionManager;
 
@@ -36,7 +37,8 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	 */
 	public function __construct(
 		\User $user,
-		$botEditRequested,
+		bool $botEditRequested,
+		array $tags,
 		EntityStore $entityStore,
 		EntityRevisionLookup $entityRevisionLookup,
 		PermissionManager $permissionManager
@@ -44,12 +46,13 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 
 		$this->user = $user;
 		$this->botEditRequested = $botEditRequested;
+		$this->tags = $tags;
 		$this->entityStore = $entityStore;
 		$this->entityRevisionLookup = $entityRevisionLookup;
 		$this->permissionManager = $permissionManager;
 	}
 
-	public function updateLexeme( Lexeme $lexeme, string $editSummary, array $tags ) {
+	public function updateLexeme( Lexeme $lexeme, string $editSummary ) {
 		// TODO: assert id not null
 
 		try {
@@ -59,7 +62,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 				$this->user,
 				$this->getSaveFlags(),
 				false,
-				$tags
+				$this->tags
 			);
 		} catch ( StorageException $ex ) {
 			throw new UpdateLexemeException( $ex );
