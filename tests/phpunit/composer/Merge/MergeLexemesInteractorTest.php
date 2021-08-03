@@ -10,6 +10,7 @@ use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
@@ -88,6 +89,9 @@ class MergeLexemesInteractorTest extends TestCase {
 	 */
 	private $lexemeRepository;
 
+	/** @var MediaWikiLexemeRepositoryFactory|MockObject */
+	private $lexemeRepositoryFactory;
+
 	/**
 	 * @var Lexeme
 	 */
@@ -105,6 +109,11 @@ class MergeLexemesInteractorTest extends TestCase {
 		$this->targetLexeme = NewLexeme::havingId( 'L321' )->build();
 
 		$this->lexemeRepository = new FakeLexemeRepository( $this->sourceLexeme, $this->targetLexeme );
+		$this->lexemeRepositoryFactory = $this->createMock( MediaWikiLexemeRepositoryFactory::class );
+		$this->lexemeRepositoryFactory->method( 'newFromContext' )
+			->willReturnCallback( function () {
+				return $this->lexemeRepository;
+			} );
 		$this->lexemeMerger = $this->newMockLexemeMerger();
 		$this->authorizer = new SucceedingLexemeAuthorizer();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
@@ -241,7 +250,7 @@ class MergeLexemesInteractorTest extends TestCase {
 			$this->redirectorFactory,
 			$this->entityTitleLookup,
 			$this->watchedItemStore,
-			$this->lexemeRepository
+			$this->lexemeRepositoryFactory
 		);
 	}
 
