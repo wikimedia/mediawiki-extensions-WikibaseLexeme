@@ -2,15 +2,9 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' );
+	LexemePage = require( '../pageobjects/lexeme.page' );
 
 describe( 'Lexeme:Forms', () => {
-
-	before( 'check logged in', () => {
-		browser.deleteAllCookies();
-		LoginPage.loginAdmin();
-	} );
 
 	it( 'can be removed', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {

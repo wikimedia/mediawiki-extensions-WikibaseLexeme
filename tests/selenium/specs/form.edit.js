@@ -3,16 +3,9 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 describe( 'Lexeme:Forms', () => {
-
-	before( 'check logged in', () => {
-		browser.deleteAllCookies();
-		LoginPage.loginAdmin();
-	} );
-
 	it( 'can add representation', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
 			const lexemeId = lexeme.id;

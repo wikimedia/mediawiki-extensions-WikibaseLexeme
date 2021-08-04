@@ -10,7 +10,6 @@ const assert = require( 'assert' ),
 	LexemePage = require( '../../pageobjects/lexeme.page' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	MWApi = require( 'wdio-mediawiki/Api' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
@@ -208,8 +207,6 @@ describe( 'NewLexeme:Page', () => {
 		} );
 
 		it( 'is not possible to edit', () => {
-			LoginPage.loginAdmin();
-
 			NewLexemePage.open();
 
 			assert.strictEqual( NewLexemePage.formCurrentlyVisible(), false );

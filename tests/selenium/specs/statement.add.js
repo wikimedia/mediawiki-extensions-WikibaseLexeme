@@ -4,16 +4,9 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
-	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 describe( 'Lexeme:Statements', () => {
-
-	beforeEach( 'check logged in', () => {
-		browser.deleteAllCookies();
-		LoginPage.loginAdmin();
-	} );
-
 	it( 'can be added', () => {
 		const lexemeId = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 		const propertyId = browser.call( () => WikibaseApi.getProperty( 'string' ) );
