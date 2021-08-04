@@ -267,13 +267,16 @@ class LexemeFormsMergerTest extends TestCase {
 
 		$mockProvider = new ChangeOpTestMockProvider( $this );
 
-		$this->markTestSkipped( 'temporarily skipped for signature change (T251480)' );
 		$statementChangeOpFactory = new StatementChangeOpFactory(
 			$guidGenerator,
 			$mockProvider->getMockGuidValidator(),
 			WikibaseRepo::getStatementGuidParser(),
 			$mockProvider->getMockSnakValidator(),
-			$mockProvider->getMockSnakValidator()
+			$mockProvider->getMockSnakValidator(),
+			$mockProvider->getMockSnakNormalizer(),
+			$mockProvider->getMockReferenceNormalizer(),
+			$mockProvider->getMockStatementNormalizer(),
+			true
 		);
 
 		return new LexemeFormsMerger(
