@@ -39,10 +39,17 @@ use Wikibase\Lexeme\Serialization\StorageLexemeSerializer;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
+use Wikibase\Lib\Store\TitleLookupBasedEntityArticleIdLookup;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
+use Wikibase\Repo\WikibaseRepo;
 
 return [
 	'lexeme' => [
+		Def::ARTICLE_ID_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityArticleIdLookup(
+				WikibaseRepo::getEntityTitleLookup()
+			);
+		},
 		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new ExternalLexemeSerializer(
 				new StorageLexemeSerializer(
@@ -89,6 +96,11 @@ return [
 		},
 	],
 	'form' => [
+		Def::ARTICLE_ID_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityArticleIdLookup(
+				WikibaseRepo::getEntityTitleLookup()
+			);
+		},
 		Def::ENTITY_STORE_FACTORY_CALLBACK => static function (
 			EntityStore $defaultStore,
 			EntityRevisionLookup $lookup
@@ -126,6 +138,11 @@ return [
 		},
 	],
 	'sense' => [
+		Def::ARTICLE_ID_LOOKUP_CALLBACK => static function () {
+			return new TitleLookupBasedEntityArticleIdLookup(
+				WikibaseRepo::getEntityTitleLookup()
+			);
+		},
 		Def::ENTITY_STORE_FACTORY_CALLBACK => static function (
 			EntityStore $defaultStore,
 			EntityRevisionLookup $lookup
