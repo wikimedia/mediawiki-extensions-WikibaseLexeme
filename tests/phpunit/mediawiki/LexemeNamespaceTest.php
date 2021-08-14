@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
  * @license GPL-2.0-or-later
  * @author Addshore
  */
-class LexemeMWNamespaceTest extends TestCase {
+class LexemeNamespaceTest extends TestCase {
 
 	/**
 	 * @dataProvider provideNamespacesAndMoveability
