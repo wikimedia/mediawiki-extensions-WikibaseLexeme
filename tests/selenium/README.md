@@ -1,21 +1,21 @@
-All command examples are assuming to be run from the main directory of MediaWiki core.
+# Selenium tests
 
-## Running with all MediaWiki browser tests
+For more information see https://www.mediawiki.org/wiki/Selenium
 
-Runs all MediaWiki core browser tests, and tests of all extensions (including this one):
+## Setup
 
-    npm run selenium
+See https://www.mediawiki.org/wiki/MediaWiki-Docker/Extension/WikibaseLexeme
 
-## Running selected tests
+## Run all specs
 
-Start chromedriver:
+    npm run selenium-test
 
-    chromedriver --url-base=wd/hub --port=4444
+## Run specific tests
 
-Run tests from the specification file COOL-TESTS.js
+Filter by file name:
 
-    node_modules/.bin/wdio tests/selenium/wdio.conf.js --baseUrl WIKI_URL --spec /path/to/extensions/tests/selenium/specs/COOL-TESTS.js
+    npm run selenium-test -- --spec tests/selenium/specs/[FILE-NAME]
 
-Unless you're running tests against a wiki running at 127.0.0.1:8080, when `baseUrl` can be omitted:
+Filter by file name and test name:
 
-    node_modules/.bin/wdio tests/selenium/wdio.conf.js --spec /path/to/extensions/tests/selenium/specs/COOL-TESTS.js
+    npm run selenium-test -- --spec tests/selenium/specs/[FILE-NAME] --mochaOpts.grep [TEST-NAME]
