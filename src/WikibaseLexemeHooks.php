@@ -106,10 +106,12 @@ class WikibaseLexemeHooks {
 			return;
 		}
 
-		$entityTypeDefinitions = array_merge_recursive(
+		$entityTypeDefinitions = array_merge(
 			$entityTypeDefinitions,
-			require __DIR__ . '/../WikibaseLexeme.entitytypes.php',
-			require __DIR__ . '/../WikibaseLexeme.entitytypes.repo.php'
+			wfArrayPlus2d(
+				require __DIR__ . '/../WikibaseLexeme.entitytypes.repo.php',
+				require __DIR__ . '/../WikibaseLexeme.entitytypes.php'
+			)
 		);
 	}
 
