@@ -12,7 +12,7 @@ class SpecialMergeLexemesPage extends Page {
 	}
 
 	isUserBlockedErrorVisible() {
-		$( '#mw-returnto' ).waitForDisplayed();
+		$( '#mw-returnto' ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		return ( $( '#firstHeading' ).getText() === 'User is blocked' );
 	}
 

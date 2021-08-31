@@ -89,7 +89,7 @@ describe( 'NewLexeme:Page', () => {
 				lexicalCategoryId
 			);
 
-			LexemePage.lemmaContainer.waitForDisplayed();
+			LexemePage.lemmaContainer.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 
 			const lexemeId = LexemePage.headerId;
 
@@ -124,7 +124,7 @@ describe( 'NewLexeme:Page', () => {
 					lemmaLanguageCode
 				);
 
-				LexemePage.lemmaContainer.waitForDisplayed();
+				LexemePage.lemmaContainer.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 
 				const lexemeId = LexemePage.headerId;
 
