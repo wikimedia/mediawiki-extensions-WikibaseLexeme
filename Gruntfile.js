@@ -60,6 +60,9 @@ module.exports = function ( grunt ) {
 	} );
 
 	grunt.registerTask( 'test', [ 'eslint:all', 'banana', 'jasmine_nodejs', 'stylelint' ] );
-	grunt.registerTask( 'fix', 'eslint:fix' );
+	grunt.registerTask( 'fix', function () {
+		grunt.config.set( 'eslint.options.fix', true );
+		grunt.task.run( 'eslint' );
+	} );
 	grunt.registerTask( 'default', 'test' );
 };
