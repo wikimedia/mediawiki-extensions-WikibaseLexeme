@@ -4,6 +4,7 @@ use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Reference;
 use Wikibase\DataModel\ReferenceList;
@@ -90,6 +91,11 @@ class ResultBuilderLexemeTest extends TestCase {
 			->willReturnCallback( static function ( PropertyId $id ) {
 				return 'DtIdFor_' . $id->getSerialization();
 			} );
+		$propertyIdParser = $this->createStub( EntityIdParser::class );
+		$propertyIdParser->method( 'parse' )
+			->willReturnCallback( static function ( string $id ) {
+				return new PropertyId( $id );
+			} );
 
 		$serializerFactory = new SerializerFactory(
 			new DataValueSerializer(),
@@ -107,6 +113,7 @@ class ResultBuilderLexemeTest extends TestCase {
 			),
 			new HashSiteStore(),
 			$mockPropertyDataTypeLookup,
+			$propertyIdParser,
 			$addMetaData
 		);
 	}
