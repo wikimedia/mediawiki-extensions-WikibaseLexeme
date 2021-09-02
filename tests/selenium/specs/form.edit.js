@@ -260,7 +260,7 @@ describe( 'Lexeme:Forms', () => {
 
 		browser.refresh();
 
-		LexemePage.addFormLink.waitForDisplayed();// just to make sure the page loaded completely
+		LexemePage.addFormLink.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );// just to make sure the page loaded completely
 
 		const formRepresentation = LexemePage.getNthFormFormValuesAfterSave( 0 );
 

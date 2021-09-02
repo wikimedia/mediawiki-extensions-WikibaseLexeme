@@ -88,7 +88,7 @@ class SensePage extends Page {
 	getNthSenseData( index ) {
 		const sense = this.senses[ index ];
 
-		sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_VALUE ).waitForExist();
+		sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_VALUE ).waitForExist( { timeout: browser.config.nonApiTimeout } );
 
 		return {
 			value: sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SENSE_VALUE ).getText(),
@@ -121,7 +121,7 @@ class SensePage extends Page {
 
 		const addGlossButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.ADD_GLOSS_BUTTON );
 
-		addGlossButton.waitForDisplayed();
+		addGlossButton.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		addGlossButton.click();
 
 		const glossContainer = sense.$( '.wikibase-lexeme-sense-glosses-table' );
@@ -152,7 +152,7 @@ class SensePage extends Page {
 
 		const sense = this.senses[ index ];
 		const saveButton = sense.$( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON );
-		saveButton.waitForClickable();
+		saveButton.waitForClickable( { timeout: browser.config.nonApiTimeout } );
 		saveButton.click();
 		saveButton.waitForExist( { reverse: true } );
 	}

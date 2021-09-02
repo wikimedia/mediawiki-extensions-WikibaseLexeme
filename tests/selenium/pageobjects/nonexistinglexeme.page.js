@@ -24,7 +24,7 @@ class NonExistingLexemePage extends Page {
 	 */
 	open() {
 		super.openTitle( 'Lexeme:L-invalid' );
-		this.firstHeading.waitForDisplayed();
+		this.firstHeading.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 	}
 
 }

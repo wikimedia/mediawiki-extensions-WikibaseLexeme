@@ -15,6 +15,12 @@ exports.config = { ...config,
 		__dirname + '/specs/special/*.js'
 	],
 
+	// Default timeout for all waitFor* commands.
+	waitforTimeout: 20000,
+
+	// custom config to be used for waitFor* timeouts where we're not waiting for an API call or such
+	nonApiTimeout: 10000,
+
 	beforeSuite: function () {
 		LoginPage.loginAdmin();
 		browser.executeAsync( function ( done ) {

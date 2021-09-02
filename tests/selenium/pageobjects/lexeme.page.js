@@ -140,14 +140,14 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		const title = 'Lexeme:' + lexemeId;
 		super.openTitle( title );
 		try {
-			$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).waitForDisplayed();
+			$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		} catch ( e ) {
 			// reload and try again once, in case the lexeme is new
 			// and the first load hit a lagged replica (T232364)
 			super.openTitle( title );
-			$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).waitForDisplayed();
+			$( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		}
-		this.addFormLink.waitForDisplayed(); // last button on page, probably the last
+		this.addFormLink.waitForDisplayed( { timeout: browser.config.nonApiTimeout } ); // last button on page, probably the last
 	}
 
 	/**
@@ -173,7 +173,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	fillNthLemma( position, lemmaText, languageCode ) {
 		for ( let i = this.lemmas.length; i <= position; i++ ) {
 			const addButton = $( this.constructor.LEMMA_WIDGET_SELECTORS.ADD_BUTTON );
-			addButton.waitForClickable();
+			addButton.waitForClickable( { timeout: browser.config.nonApiTimeout } );
 			addButton.click();
 		}
 
@@ -365,8 +365,8 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	getNthFormStatement( index ) {
 		const form = this.forms[ index ];
 
-		form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' ).waitForDisplayed();
-		form.$( '.wikibase-statementgroupview-property-label a' ).waitForDisplayed();
+		form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
+		form.$( '.wikibase-statementgroupview-property-label a' ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 
 		const property = form.$( '.wikibase-statementgroupview' ),
 			value = form.$( '.wikibase-snakview-body .wikibase-snakview-variation-valuesnak  .valueview-instaticmode' );
@@ -386,7 +386,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		propertyInputfield.setValue( statementPropertyId );
 		this.selectFirstSuggestedEntityOnEntitySelector();
-		this.formClaimValueInputField.waitForDisplayed();
+		this.formClaimValueInputField.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		this.formClaimValueInputField.setValue( statementValue );
 
 		if ( submitImmediately !== false ) {
@@ -413,7 +413,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		const addRepresentationButton = form.$( this.constructor.FORM_WIDGET_SELECTORS.ADD_REPRESENTATION_BUTTON );
 
-		addRepresentationButton.waitForDisplayed();
+		addRepresentationButton.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		addRepresentationButton.click();
 
 		const representationContainer = form.$( '.representation-widget_representation-list' );
@@ -476,7 +476,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	startEditingNthForm( index ) {
-		this.forms[ index ].waitForClickable();
+		this.forms[ index ].waitForClickable( { timeout: browser.config.nonApiTimeout } );
 		this.forms[ index ].$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON ).click();
 	}
 
@@ -492,7 +492,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 
 		const saveButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.SAVE_BUTTON );
 
-		saveButton.waitForClickable();
+		saveButton.waitForClickable( { timeout: browser.config.nonApiTimeout } );
 		saveButton.click();
 		saveButton.waitForExist( { reverse: true } );
 	}
@@ -501,7 +501,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 		const form = this.forms[ index ];
 		const editButton = form.$( this.constructor.GENERIC_TOOLBAR_SELECTORS.EDIT_BUTTON );
 
-		editButton.waitForClickable();
+		editButton.waitForClickable( { timeout: browser.config.nonApiTimeout } );
 		editButton.click();
 
 		this.setSingleValueOnMultiselectElement(
@@ -536,7 +536,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	isUserLoggedIn() {
-		$( this.constructor.PERSONAL_BAR.USER_TOOLBAR ).waitForExist( { reverse: true } );
+		$( this.constructor.PERSONAL_BAR.USER_TOOLBAR ).waitForExist( { reverse: true, timeout: browser.config.nonApiTimeout } );
 		return !$( this.constructor.PERSONAL_BAR.USER_NOT_LOGIN_ICON ).isExisting();
 	}
 

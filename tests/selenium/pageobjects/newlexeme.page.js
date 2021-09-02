@@ -27,9 +27,9 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	* Waits to see if eventually the form is shown
 	*/
 	showsForm() {
-		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).waitForDisplayed();
-		$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).waitForDisplayed();
-		$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).waitForDisplayed();
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
+		$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 
 		return true;
 	}
@@ -52,12 +52,12 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		this.setLexicalCategory( lexicalCategory );
 
 		if ( typeof lemmaLanguage !== 'undefined' ) {
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed();
+			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 			this.setLemmaLanguage( lemmaLanguage );
 		} else {
 			// ensure lemma language input is not presented (logic is asynchronous)
 			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE )
-				.waitForDisplayed( { timeout: 1000, reverse: true } );
+				.waitForDisplayed( { timeout: browser.config.nonApiTimeout, reverse: true } );
 		}
 
 		this.clickSubmit();
@@ -104,7 +104,7 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	setValueOnComboboxElement( element, value ) {
 		element.$( 'input' ).setValue( value );
 		$( `${this.constructor.OOUI_SELECTORS.OVERLAY} ${this.constructor.OOUI_SELECTORS.OPTION_WIDGET_SELECTED}` )
-			.waitForExist();
+			.waitForExist( { timeout: browser.config.nonApiTimeout } );
 		// close suggestion overlay
 		element.$( this.constructor.OOUI_SELECTORS.COMBOBOX_DROPDOWN ).click();
 	}
@@ -118,12 +118,12 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 	}
 
 	showsLemmaLanguageField() {
-		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed();
+		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		return true;
 	}
 
 	isUserBlockedErrorVisible() {
-		$( '#mw-returnto' ).waitForDisplayed();
+		$( '#mw-returnto' ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
 		return ( $( '#firstHeading' ).getText() === 'User is blocked' );
 	}
 
