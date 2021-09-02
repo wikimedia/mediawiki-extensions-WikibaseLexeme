@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Danieldegroot2",
 			"Elroy",
 			"Festina90",
 			"George Animal",
@@ -75,7 +76,7 @@
 	"wikibase-lexeme-language-name-fro": "Oudfrans",
 	"wikibase-lexeme-language-name-ja-hira": "Japanes geschreven in hiragana",
 	"wikibase-lexeme-language-name-ja-kana": "Japanes geschreven in katakana",
-	"wikibase-lexeme-language-name-ja-hrkt": "Japanes geschreven in hiragana and katakana",
+	"wikibase-lexeme-language-name-ja-hrkt": "Japans geschreven in hiragana en katakana",
 	"wikibase-lexeme-language-name-lij-mc": "Monegaskisch",
 	"wikibase-lexeme-language-name-mis": "overige",
 	"wikibase-lexeme-lemma-language-not-recognized": "De opgegeven taalcode kon niet worden herkend.",
