@@ -5,7 +5,7 @@ declare( strict_types=1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use MediaWikiIntegrationTestCase;
-use Wikibase\DataAccess\EntitySource;
+use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataAccess\EntitySourceDefinitions;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
@@ -65,7 +65,7 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 			[ 'test' => '' ],
 			new EntitySourceDefinitions(
 				[
-					new EntitySource(
+					new DataBaseEntitySource(
 						'test',
 						'testdb',
 						[

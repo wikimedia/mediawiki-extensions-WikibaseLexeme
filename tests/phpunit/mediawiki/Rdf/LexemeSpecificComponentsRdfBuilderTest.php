@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataAccess\EntitySource;
+use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataAccess\EntitySourceDefinitions;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
@@ -72,7 +72,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 			[ 'test' => '' ],
 			new EntitySourceDefinitions(
 				[
-					new EntitySource(
+					new DatabaseEntitySource(
 						'test',
 						'testdb',
 						[
