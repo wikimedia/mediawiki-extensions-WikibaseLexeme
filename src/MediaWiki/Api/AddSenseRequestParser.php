@@ -87,8 +87,9 @@ class AddSenseRequestParser {
 		}
 
 		/**
-		 * @var $lexemeId LexemeId
+		 * @var LexemeId $lexemeId
 		 */
+		'@phan-var LexemeId $lexemeId';
 
 		return $lexemeId;
 	}

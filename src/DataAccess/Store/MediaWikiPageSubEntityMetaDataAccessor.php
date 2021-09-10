@@ -77,7 +77,7 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 	 *     LookupConstants::LATEST_FROM_REPLICA_WITH_FALLBACK or
 	 *     LookupConstants::LATEST_FROM_MASTER).
 	 *
-	 * @return stdClass|bool false if no such entity exists
+	 * @return never
 	 *
 	 * @throws BadMethodCallException
 	 */

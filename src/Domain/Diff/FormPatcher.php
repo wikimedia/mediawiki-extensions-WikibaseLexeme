@@ -48,7 +48,7 @@ class FormPatcher implements EntityPatcherStrategy {
 			throw new InvalidArgumentException( 'Can only patch Forms' );
 		}
 
-		// @phan-suppress-next-line PhanTypeMismatchArgument
+		// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
 		return $this->patch( $entity, $patch );
 	}
 

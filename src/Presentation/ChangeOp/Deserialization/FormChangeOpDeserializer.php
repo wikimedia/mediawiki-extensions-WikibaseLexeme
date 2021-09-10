@@ -119,6 +119,7 @@ class FormChangeOpDeserializer implements ChangeOpDeserializer {
 			return null;
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
 		return $lexemeId;
 	}
 

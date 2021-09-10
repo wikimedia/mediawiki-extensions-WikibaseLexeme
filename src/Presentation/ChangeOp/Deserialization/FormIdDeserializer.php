@@ -44,6 +44,7 @@ class FormIdDeserializer {
 		}
 
 		/** @var FormId $formId */
+		'@phan-var FormId $formId';
 		return $formId;
 	}
 

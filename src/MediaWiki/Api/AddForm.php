@@ -314,9 +314,9 @@ class AddForm extends ApiBase {
 		if ( !$lexemeRevision ) {
 			$error = new LexemeNotFound( $lexemeId );
 			$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
-			throw new LogicException( 'ApiUsageException not thrown' );
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchReturnNullable
 		return $lexemeRevision;
 	}
 

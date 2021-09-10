@@ -13,6 +13,7 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
  *
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
+ * @phan-file-suppress PhanPluginNeverReturnMethod
  */
 class LexemeDiff extends EntityDiff {
 

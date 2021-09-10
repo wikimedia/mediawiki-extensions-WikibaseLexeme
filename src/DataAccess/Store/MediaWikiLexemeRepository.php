@@ -96,6 +96,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 			);
 
 			if ( $revision ) {
+				// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
 				return $revision->getEntity();
 			}
 

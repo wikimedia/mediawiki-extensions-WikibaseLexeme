@@ -44,6 +44,7 @@ class SenseIdDeserializer {
 		}
 
 		/** @var SenseId $senseId */
+		'@phan-var SenseId $senseId';
 		return $senseId;
 	}
 

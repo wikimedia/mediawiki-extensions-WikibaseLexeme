@@ -111,7 +111,7 @@ class FormStore implements EntityStore {
 	 * @param int|bool $baseRevId
 	 *
 	 * @throws \DomainException always
-	 * @return int
+	 * @return never
 	 */
 	public function saveRedirect(
 		EntityRedirect $redirect,

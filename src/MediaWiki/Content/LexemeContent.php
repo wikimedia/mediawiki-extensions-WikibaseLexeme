@@ -98,6 +98,7 @@ class LexemeContent extends EntityContent {
 			throw new LogicException( 'This content object is empty!' );
 		}
 
+		// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
 		return $this->lexemeHolder->getEntity( Lexeme::class );
 	}
 

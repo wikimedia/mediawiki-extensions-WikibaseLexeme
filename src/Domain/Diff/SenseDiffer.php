@@ -15,6 +15,7 @@ use Wikibase\Lexeme\Domain\Model\Sense;
 
 /**
  * @license GPL-2.0-or-later
+ * @phan-file-suppress PhanPluginNeverReturnMethod
  */
 class SenseDiffer implements EntityDifferStrategy {
 

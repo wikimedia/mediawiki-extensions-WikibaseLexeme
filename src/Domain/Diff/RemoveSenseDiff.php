@@ -8,6 +8,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @license GPL-2.0-or-later
+ * @phan-file-suppress PhanPluginNeverReturnMethod
  */
 class RemoveSenseDiff implements SenseDiff {
 
