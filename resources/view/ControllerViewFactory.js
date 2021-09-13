@@ -35,7 +35,11 @@
 				entityChangersFactory.getRevisionStore()
 			);
 			var changersFactory = new wb.entityChangers.EntityChangersFactory(
-				new wb.api.RepoApi( this._api, mw.config.get( 'wgUserLanguage' ) ),
+				new wb.api.RepoApi(
+					this._api,
+					mw.config.get( 'wgUserLanguage' ),
+					require( './config.json' ).tags
+				),
 				this._revisionStore,
 				entityChangersFactory.getEntity(),
 				function ( hookName ) {

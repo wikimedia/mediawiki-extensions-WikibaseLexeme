@@ -5,6 +5,8 @@
  * and repo-specific functionality have been split to separate extensions.
  */
 
+use Wikibase\Repo\WikibaseRepo;
+
 return call_user_func( static function () {
 	$moduleTemplate = [
 		'localBasePath' => __DIR__ . '/resources',
@@ -193,7 +195,15 @@ return call_user_func( static function () {
 				"entityChangers/SenseChanger.js",
 				"entityChangers/LexemeRevisionStore.js",
 				"serialization/FormSerializer.js",
-				"serialization/SenseSerializer.js"
+				"serialization/SenseSerializer.js",
+				[
+					"name" => "view/config.json",
+					"callback" => static function () {
+						return [
+							'tags' => WikibaseRepo::getSettings()->getSetting( 'viewUiTags' ),
+						];
+					}
+				],
 			],
 			"dependencies" => [
 				"util.inherit",

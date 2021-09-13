@@ -79,6 +79,7 @@
 			"tests/qunit/serialization/SenseSerializer.tests.js",
 			"tests/qunit/view/ViewFactoryFactory.tests.js",
 			"resources/view/ViewFactoryFactory.js",
+			"resources/view/config.json",
 			"resources/view/ReadModeViewFactory.js",
 			"resources/view/ControllerViewFactory.js",
 			"tests/qunit/view/ControllerViewFactory.tests.js",
