@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Services\Diff;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
@@ -114,7 +114,7 @@ class SenseDifferPatcherTest extends TestCase {
 	 */
 	private function someStatement( $propertyId, $guid ) {
 		$statement = new Statement(
-			new PropertySomeValueSnak( new PropertyId( $propertyId ) )
+			new PropertySomeValueSnak( new NumericPropertyId( $propertyId ) )
 		);
 		$statement->setGuid( $guid );
 		return $statement;

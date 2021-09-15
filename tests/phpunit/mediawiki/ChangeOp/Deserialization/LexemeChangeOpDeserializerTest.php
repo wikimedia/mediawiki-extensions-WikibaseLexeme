@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
@@ -269,11 +269,11 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 	public function testGivenChangeRequestWithStatementRemove_statementIsRemoved() {
 		$lexeme = $this->getEnglishNewLexeme()->build();
 
-		$statement = new Statement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) );
+		$statement = new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ) );
 		$statement->setGuid( 'testguid' );
 
 		$lexeme->getStatements()->addNewStatement(
-			new PropertyNoValueSnak( new PropertyId( 'P2' ) ),
+			new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ),
 			null,
 			null,
 			'testguid'

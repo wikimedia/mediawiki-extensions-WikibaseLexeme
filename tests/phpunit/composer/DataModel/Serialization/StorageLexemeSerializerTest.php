@@ -12,7 +12,7 @@ use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
@@ -86,13 +86,13 @@ class StorageLexemeSerializerTest extends TestCase {
 					->andRepresentation( 'en', 'color' )
 					->andRepresentation( 'en_gb', 'colour' )
 					->andGrammaticalFeature( 'Q3' )
-					->andStatement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) )
+					->andStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
 			)->withForm(
 				NewForm::havingId( 'F2' )
 					->andRepresentation( 'en', 'colors' )
 					->andRepresentation( 'en_gb', 'colours' )
 					->andGrammaticalFeature( 'Q4' )
-					->andStatement( new PropertySomeValueSnak( new PropertyId( 'P2' ) ) )
+					->andStatement( new PropertySomeValueSnak( new NumericPropertyId( 'P2' ) ) )
 			)->withSense(
 				NewSense::havingId( 'S1' )
 					->withGloss(
@@ -100,12 +100,12 @@ class StorageLexemeSerializerTest extends TestCase {
 						'the property of an object of producing different sensations on the eye'
 					)->withStatement(
 						new PropertyValueSnak(
-							new PropertyId( 'P3' ),
+							new NumericPropertyId( 'P3' ),
 							new EntityIdValue( new ItemId( 'Q5' ) )
 						)
 					)
-			)->withStatement( new PropertySomeValueSnak( new PropertyId( 'P4' ) ) )
-			->withStatement( new PropertyNoValueSnak( new PropertyId( 'P5' ) ) )
+			)->withStatement( new PropertySomeValueSnak( new NumericPropertyId( 'P4' ) ) )
+			->withStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P5' ) ) )
 			->build();
 
 		$lexemeSerialization = $serializer->serialize( $lexeme );
@@ -243,8 +243,8 @@ class StorageLexemeSerializerTest extends TestCase {
 				ItemId::PATTERN => static function ( $s ) {
 					return new ItemId( $s );
 				},
-				PropertyId::PATTERN => static function ( $s ) {
-					return new PropertyId( $s );
+				NumericPropertyId::PATTERN => static function ( $s ) {
+					return new NumericPropertyId( $s );
 				}
 			]
 		);

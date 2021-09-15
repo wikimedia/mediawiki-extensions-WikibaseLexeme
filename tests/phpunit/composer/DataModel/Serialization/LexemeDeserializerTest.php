@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\EntityIdDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
@@ -48,7 +48,9 @@ class LexemeDeserializerTest extends TestCase {
 
 				foreach ( $serialization as $propertyId => $propertyStatements ) {
 					foreach ( $propertyStatements as $ignoredStatementData ) {
-						$statementList->addNewStatement( new PropertyNoValueSnak( new PropertyId( $propertyId ) ) );
+						$statementList->addNewStatement(
+							new PropertyNoValueSnak( new NumericPropertyId( $propertyId ) )
+						);
 					}
 				}
 
@@ -98,7 +100,9 @@ class LexemeDeserializerTest extends TestCase {
 		];
 
 		$lexeme = new Lexeme();
-		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
+		$lexeme->getStatements()->addNewStatement(
+			new PropertyNoValueSnak( new NumericPropertyId( 'P42' ) )
+		);
 
 		$serializations['with content'] = [
 			[
@@ -110,7 +114,9 @@ class LexemeDeserializerTest extends TestCase {
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
-		$lexeme->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
+		$lexeme->getStatements()->addNewStatement(
+			new PropertyNoValueSnak( new NumericPropertyId( 'P42' ) )
+		);
 
 		$serializations['with content and id'] = [
 			[
@@ -215,7 +221,7 @@ class LexemeDeserializerTest extends TestCase {
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'form' )
-						->andStatement( NewStatement::noValueFor( 'P42' )->build() )
+						->andStatement( NewStatement::noValueFor( new NumericPropertyId( 'P42' ) )->build() )
 				)->build()
 
 		];
@@ -291,7 +297,7 @@ class LexemeDeserializerTest extends TestCase {
 				new Sense(
 					new SenseId( 'L1-S1' ),
 					new TermList( [ new Term( 'en', 'gloss' ) ] ),
-					new StatementList( [ NewStatement::noValueFor( 'P42' )->build() ] )
+					new StatementList( NewStatement::noValueFor( new NumericPropertyId( 'P42' ) )->build() )
 				),
 			] ) )
 		];

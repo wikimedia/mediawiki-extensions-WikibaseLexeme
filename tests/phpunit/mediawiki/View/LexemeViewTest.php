@@ -7,7 +7,7 @@ use InvalidArgumentException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
@@ -157,7 +157,7 @@ class LexemeViewTest extends \MediaWikiTestCase {
 		$lexicalCategory = new ItemId( 'Q32' );
 		$language = new ItemId( 'Q11' );
 		$statements = new StatementList( [
-			new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) )
+			new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
 		] );
 
 		return [

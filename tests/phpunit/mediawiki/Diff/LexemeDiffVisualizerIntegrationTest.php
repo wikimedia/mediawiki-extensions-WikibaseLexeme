@@ -10,8 +10,8 @@ use RequestContext;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Fingerprint;
@@ -52,7 +52,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$diffVisualizer = $this->newDiffVisualizer();
 
 		$l1 = new Lexeme( new LexemeId( 'L1' ) );
-		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-lexeme' );
+		$p1 = new Property( new NumericPropertyId( 'P1' ), null, 'wikibase-lexeme' );
 
 		$l1->setLanguage( new ItemId( 'Q1' ) );
 		$l1->setLemmas( new TermList( [
@@ -385,7 +385,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$f1->setGrammaticalFeatures( [ new ItemId( 'Q1' ) ] );
 		$l1->addOrUpdateForm( $f1 );
 
-		$p1 = new Property( new PropertyId( 'P1' ), null, 'wikibase-form' );
+		$p1 = new Property( new NumericPropertyId( 'P1' ), null, 'wikibase-form' );
 
 		$store = $this->getEntityStore();
 		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );

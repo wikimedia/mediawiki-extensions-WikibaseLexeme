@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use LogicException;
 use MediaWikiUnitTestCase;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
@@ -133,7 +133,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 	}
 
 	private function newStatement() {
-		return new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) );
+		return new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
 	}
 
 	/**

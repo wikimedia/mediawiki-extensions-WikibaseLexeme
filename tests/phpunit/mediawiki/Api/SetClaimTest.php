@@ -5,8 +5,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiUsageException;
 use DataValues\StringValue;
 use MediaWiki\MediaWikiServices;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -28,7 +28,7 @@ use Wikibase\Repo\WikibaseRepo;
 class SetClaimTest extends WikibaseLexemeApiTestCase {
 
 	public function testGivenFormId_setClaimAddsStatementOnTheForm() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -59,7 +59,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenFormIdAndGuidOfExistingStatement_setClaimEditsTheStatement() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -91,7 +91,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenFormIdAndIndex_setClaimReordersStatementsAccordingly() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -129,7 +129,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenFormId_setClaimResponseSetsSuccess() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -156,7 +156,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	// TODO: test statement data in response?
 
 	public function testGivenFormId_setClaimSetsEditSummaryAccordingly() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -186,7 +186,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenFormIdAndCustomSummary_setClaimSetsEditSummaryAccordingly() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -217,7 +217,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenFormIdWithoutEditPermission_violationIsReported() {
-		$propertyId = new PropertyId( 'P1' );
+		$propertyId = new NumericPropertyId( 'P1' );
 		$this->saveTestProperty( $propertyId );
 
 		$lexemeId = new LexemeId( 'L1' );
@@ -260,7 +260,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 				->build()
 		);
 		$this->entityStore->saveEntity(
-			new Property( new PropertyId( $propertyId ), null, 'wikibase-form' ),
+			new Property( new NumericPropertyId( $propertyId ), null, 'wikibase-form' ),
 			self::class,
 			$this->getTestUser()->getUser()
 		);
@@ -269,7 +269,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			'action' => 'wbsetclaim',
 			'claim' => json_encode( $this->getStatementData(
 				$propertyId . '$00000000-0000-0000-0000-000000000000',
-				new PropertyId( $propertyId ),
+				new NumericPropertyId( $propertyId ),
 				[ 'id' => $formId ],
 				'wikibase-entityid'
 			) ),
@@ -278,7 +278,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( 1, $result['success'] );
 	}
 
-	private function saveTestProperty( PropertyId $propertyId ) {
+	private function saveTestProperty( NumericPropertyId $propertyId ) {
 		$this->saveEntity( new Property( $propertyId, null, 'string' ) );
 	}
 
@@ -297,7 +297,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		return $lexeme->getForm( $formId );
 	}
 
-	private function getStatementData( $guid, PropertyId $propertyId, $value, $type = 'string' ) {
+	private function getStatementData( $guid, NumericPropertyId $propertyId, $value, $type = 'string' ) {
 		return [
 			'id' => $guid,
 			'type' => 'claim',
@@ -312,7 +312,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		];
 	}
 
-	private function getStatement( $guid, PropertyId $propertyId, $value ) {
+	private function getStatement( $guid, NumericPropertyId $propertyId, $value ) {
 		$snak = new PropertyValueSnak( $propertyId, new StringValue( $value ) );
 		return new Statement( $snak, null, null, $guid );
 	}

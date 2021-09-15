@@ -8,8 +8,8 @@ use Exception;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -404,7 +404,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenIdOfExistingLexemeAndStatementData_statementIsAdded() {
 		$this->saveDummyLexemeToDatabase();
 
-		$property = new Property( new PropertyId( 'P909' ), null, 'test' );
+		$property = new Property( new NumericPropertyId( 'P909' ), null, 'test' );
 		$this->entityStore->saveEntity(
 			$property,
 			self::class,

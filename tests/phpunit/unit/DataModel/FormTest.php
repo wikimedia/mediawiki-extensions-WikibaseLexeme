@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use LogicException;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Term\Term;
@@ -203,7 +203,7 @@ class FormTest extends MediaWikiUnitTestCase {
 	}
 
 	private function newStatement() {
-		return new Statement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) );
+		return new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
 	}
 
 	/**

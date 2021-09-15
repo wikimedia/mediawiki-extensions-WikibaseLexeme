@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
@@ -110,7 +110,7 @@ class LexemeApiQueryBacklinksTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function saveTestLexemeToDb() {
-		$p4711 = new Property( new PropertyId( 'P4711' ), null, 'wikibase-item' );
+		$p4711 = new Property( new NumericPropertyId( 'P4711' ), null, 'wikibase-item' );
 		$this->saveEntity( $p4711 );
 
 		$language = NewItem::withId( self::LANGUAGE_ID )->build();
