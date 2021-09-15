@@ -236,7 +236,9 @@ class AddSense extends ApiBase {
 			$lexeme,
 			$summaryString,
 			$flags,
-			$tokenThatDoesNotNeedChecking
+			$tokenThatDoesNotNeedChecking,
+			null,
+			$params['tags'] ?: []
 		);
 
 		if ( !$status->isGood() ) {
@@ -272,6 +274,10 @@ class AddSense extends ApiBase {
 				AddSenseRequestParser::PARAM_DATA => [
 					self::PARAM_TYPE => 'text',
 					self::PARAM_REQUIRED => true,
+				],
+				'tags' => [
+					self::PARAM_TYPE => 'tags',
+					self::PARAM_ISMULTI => true,
 				],
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',

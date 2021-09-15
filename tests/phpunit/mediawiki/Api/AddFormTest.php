@@ -414,6 +414,19 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$this->assertStatementGuidHasEntityId( $result['form']['id'], $resultClaim['id'] );
 	}
 
+	public function testAddsFormWithTags() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+
+		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
+
+		$this->assertCanTagSuccessfulRequest( [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam(),
+		] );
+	}
+
 	/**
 	 * @param string $id
 	 *

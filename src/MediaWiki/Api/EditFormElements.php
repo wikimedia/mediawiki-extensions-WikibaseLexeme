@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
+use Status;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\SerializerFactory;
@@ -11,6 +12,7 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Serialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LookupConstants;
@@ -180,7 +182,7 @@ class EditFormElements extends \ApiBase {
 			$this->dieStatus( $status );
 		}
 
-		$this->generateResponse( $form );
+		$this->generateResponse( $form, $status );
 	}
 
 	/**
@@ -215,17 +217,26 @@ class EditFormElements extends \ApiBase {
 			$form,
 			$summary,
 			$flags,
-			$tokenThatDoesNotNeedChecking
+			$tokenThatDoesNotNeedChecking,
+			null,
+			$params['tags'] ?: []
 		);
 	}
 
 	/**
 	 * @param Form $form
+	 * @param Status $status
 	 */
-	private function generateResponse( Form $form ) {
+	private function generateResponse( Form $form, Status $status ) {
 		$apiResult = $this->getResult();
 
 		$serializedForm = $this->formSerializer->serialize( $form );
+
+		/** @var EntityRevision $entityRevision */
+		$entityRevision = $status->getValue()['revision'];
+		$revisionId = $entityRevision->getRevisionId();
+
+		$apiResult->addValue( null, 'lastrevid', $revisionId );
 
 		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );
@@ -245,12 +256,16 @@ class EditFormElements extends \ApiBase {
 				self::PARAM_TYPE => 'text',
 				self::PARAM_REQUIRED => true,
 			],
+			EditFormElementsRequestParser::PARAM_BASEREVID => [
+				self::PARAM_TYPE => 'integer',
+			],
+			'tags' => [
+				self::PARAM_TYPE => 'tags',
+				self::PARAM_ISMULTI => true,
+			],
 			'bot' => [
 				self::PARAM_TYPE => 'boolean',
 				self::PARAM_DFLT => false,
-			],
-			EditFormElementsRequestParser::PARAM_BASEREVID => [
-				self::PARAM_TYPE => 'integer',
 			]
 		];
 	}

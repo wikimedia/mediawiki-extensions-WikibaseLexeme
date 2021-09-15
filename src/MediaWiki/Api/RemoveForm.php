@@ -173,7 +173,9 @@ class RemoveForm extends ApiBase {
 			$lexeme,
 			$this->summaryFormatter->formatSummary( $summary ),
 			$flags,
-			$tokenThatDoesNotNeedChecking
+			$tokenThatDoesNotNeedChecking,
+			null,
+			$params['tags'] ?: []
 		);
 
 		if ( !$status->isGood() ) {
@@ -198,6 +200,10 @@ class RemoveForm extends ApiBase {
 				RemoveFormRequestParser::PARAM_FORM_ID => [
 					self::PARAM_TYPE => 'string',
 					self::PARAM_REQUIRED => true,
+				],
+				'tags' => [
+					self::PARAM_TYPE => 'tags',
+					self::PARAM_ISMULTI => true,
 				],
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',

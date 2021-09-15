@@ -4,12 +4,14 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiMain;
 use ApiUsageException;
+use ChangeTags;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Tests\NewItem;
@@ -153,6 +155,47 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			'csrf',
 			$this->newMergeLexemes()->needsToken()
 		);
+	}
+
+	public function testMergesLexemesWithTags() {
+		$source = NewLexeme::havingId( 'L1' )
+			->withLexicalCategory( self::DEFAULT_LEXICAL_CATEGORY )
+			->withLanguage( self::DEFAULT_LANGUAGE )
+			->withLemma( 'en', 'color' )
+			->build();
+		$target = NewLexeme::havingId( 'L2' )
+			->withLexicalCategory( self::DEFAULT_LEXICAL_CATEGORY )
+			->withLanguage( self::DEFAULT_LANGUAGE )
+			->withLemma( 'en-gb', 'colour' )
+			->build();
+
+		$this->saveLexemes( $source, $target );
+		$dummyTag = __METHOD__ . '-dummy-tag';
+		ChangeTags::defineTag( $dummyTag );
+
+		$params = [
+			'action' => self::API_ACTION,
+			MergeLexemes::SOURCE_ID_PARAM => $source->getId(),
+			MergeLexemes::TARGET_ID_PARAM => $target->getId(),
+			'tags' => $dummyTag
+		];
+
+		$shouldNotBeCalled = function () {
+			$this->fail( 'Should not be called' );
+		};
+
+		$this->doApiRequestWithToken( $params );
+		$lastRevIdResult = WikibaseRepo::getEntityRevisionLookup()->getLatestRevisionId(
+			$target->getId(),
+			LookupConstants::LATEST_FROM_MASTER
+		)->onConcreteRevision( static function ( $revisionId )  {
+			return $revisionId;
+		} )
+		->onRedirect( $shouldNotBeCalled )
+		->onNonexistentEntity( $shouldNotBeCalled )
+		->map();
+
+		$this->assertContains( $dummyTag, ChangeTags::getTags( $this->db, null, $lastRevIdResult ) );
 	}
 
 	private function executeApiWithIds( $sourceId, $targetId, $summary = null ) {

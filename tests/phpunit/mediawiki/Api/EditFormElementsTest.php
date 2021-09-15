@@ -970,6 +970,25 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testEditFormsWithTags() {
+		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
+
+		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
+
+		$this->assertCanTagSuccessfulRequest( [
+			'action' => 'wbleditformelements',
+			'formId' => self::DEFAULT_FORM_ID,
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'goadth' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		] );
+	}
+
 	/**
 	 * @param string $id
 	 *

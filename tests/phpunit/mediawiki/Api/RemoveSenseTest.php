@@ -323,4 +323,19 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 0, $senses );
 	}
 
+	public function testRemovesSenseWithTags() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'fr', 'goat' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+
+		$this->assertCanTagSuccessfulRequest( [
+			'action' => 'wblremovesense',
+			'id' => 'L1-S1',
+		] );
+	}
+
 }

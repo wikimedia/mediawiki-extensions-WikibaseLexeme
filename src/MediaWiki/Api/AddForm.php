@@ -172,7 +172,7 @@ class AddForm extends ApiBase {
 		}
 
 		$flags = $this->buildSaveFlags( $params );
-		$status = $this->saveNewLexemeRevision( $lexeme, $baseRevId, $summary, $flags );
+		$status = $this->saveNewLexemeRevision( $lexeme, $baseRevId, $summary, $flags, $params['tags'] ?: [] );
 
 		if ( !$status->isGood() ) {
 			$this->dieStatus( $status ); // Seems like it is good enough
@@ -197,6 +197,10 @@ class AddForm extends ApiBase {
 				],
 				AddFormRequestParser::PARAM_BASEREVID => [
 					self::PARAM_TYPE => 'integer',
+				],
+				'tags' => [
+					self::PARAM_TYPE => 'tags',
+					self::PARAM_ISMULTI => true,
 				],
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',
@@ -337,7 +341,8 @@ class AddForm extends ApiBase {
 		EntityDocument $lexeme,
 		?int $baseRevId,
 		FormatableSummary $summary,
-		$flags
+		$flags,
+		array $tags
 	): Status {
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
@@ -355,7 +360,9 @@ class AddForm extends ApiBase {
 				$lexeme,
 				$summaryString,
 				$flags,
-				$tokenThatDoesNotNeedChecking
+				$tokenThatDoesNotNeedChecking,
+				null,
+				$tags
 			);
 		} catch ( ConflictException $exception ) {
 			$this->dieWithException( new RuntimeException( 'Edit conflict: ' . $exception->getMessage() ) );

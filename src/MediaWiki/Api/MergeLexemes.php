@@ -72,7 +72,7 @@ class MergeLexemes extends ApiBase {
 				$this->getContext(),
 				$params[self::SUMMARY_PARAM],
 				$params[self::BOT_PARAM],
-				[] // TODO add tags parameter to API, pass them through here
+				$params['tags'] ?: []
 			);
 		} catch ( MergingException $e ) {
 			$this->errorReporter->dieException(
@@ -113,10 +113,14 @@ class MergeLexemes extends ApiBase {
 			self::SUMMARY_PARAM => [
 				self::PARAM_TYPE => 'string',
 			],
+			'tags' => [
+				self::PARAM_TYPE => 'tags',
+				self::PARAM_ISMULTI => true,
+			],
 			self::BOT_PARAM => [
 				self::PARAM_TYPE => 'boolean',
 				self::PARAM_DFLT => false,
-			],
+			]
 		];
 	}
 
