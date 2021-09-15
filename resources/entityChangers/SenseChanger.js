@@ -14,12 +14,14 @@
 	 * @param {wikibase.lexeme.RevisionStore} revisionStore
 	 * @param {string} lexemeId
 	 * @param {Object} senseData
+	 * @param {Array} tags
 	 */
 	var SELF = function WbLexemeSenseChanger(
 		api,
 		revisionStore,
 		lexemeId,
-		senseData
+		senseData,
+		tags
 	) {
 		this.api = api;
 		this.revisionStore = revisionStore;
@@ -27,6 +29,7 @@
 		this.senseData = senseData;
 		this.lexemeDeserializer = getDeserializer();
 		this.senseSerializer = new SenseSerializer();
+		this._tags = tags;
 	};
 
 	/**
@@ -65,6 +68,25 @@
 		lexemeDeserializer: null,
 
 		/**
+		 * @property {string[]}
+		 * @private
+		 */
+		_tags: null,
+
+		/**
+		 * Returns tags used for edits
+		 *
+		 * @return {Array}
+		 */
+		getTags: function () {
+			if ( this._tags && this._tags.length ) {
+				return this.api.normalizeMultiValue( this._tags );
+			}
+
+			return [];
+		},
+
+		/**
 		 * @param {wikibase.lexeme.datamodel.Sense} sense
 		 * @return {jQuery.Promise}
 		 */
@@ -94,7 +116,8 @@
 					glosses: requestGlosses
 				} ),
 				errorformat: 'plaintext',
-				bot: 0
+				bot: 0,
+				tags: this.getTags()
 			} ).then( function ( data ) {
 				var sense = self.lexemeDeserializer.deserializeSense( data.sense );
 				self.senseData = self.senseSerializer.serialize( sense );
@@ -112,7 +135,8 @@
 				lexemeId: this.lexemeId,
 				data: JSON.stringify( { glosses: glosses } ),
 				errorformat: 'plaintext',
-				bot: 0
+				bot: 0,
+				tags: this.getTags()
 			} ).then( function ( data ) {
 				var sense = self.lexemeDeserializer.deserializeSense( data.sense );
 				self.revisionStore.setSenseRevision( data.lastrevid, sense.getId() );
@@ -131,7 +155,8 @@
 				baserevid: this.revisionStore.getBaseRevision(),
 				id: sense.getId(),
 				errorformat: 'plaintext',
-				bot: 0
+				bot: 0,
+				tags: this.getTags()
 			} )
 				.then( deferred.resolve )
 				.fail( function ( code, response ) {

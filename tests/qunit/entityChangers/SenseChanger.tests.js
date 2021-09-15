@@ -25,11 +25,15 @@
 			} ).promise();
 		} );
 		var api = {
-			post: post
+			post: post,
+			normalizeMultiValue: function ( stuff ) {
+				return stuff;
+			}
 		};
 
+		var tags = [ 'asdf' ];
 		var lexemeId = 'L11';
-		var changer = new SenseChanger( api, revisionStore, lexemeId, {} );
+		var changer = new SenseChanger( api, revisionStore, lexemeId, {}, tags );
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( null, glosses );
 
@@ -44,6 +48,7 @@
 		assert.equal( gotParameters.bot, 0, 'BOT flag' );
 		assert.equal( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
 		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
+		assert.equal( gotParameters.tags, tags, 'Tags should be set' );
 		assert.deepEqual(
 			gotData.glosses,
 			{ en: { language: 'en', value: 'test gloss' } },

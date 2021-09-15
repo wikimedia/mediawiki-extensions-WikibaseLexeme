@@ -30,7 +30,7 @@
 			var repoConfig = mw.config.get( 'wbRepo' ),
 				repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php';
 			this._api = wb.api.getLocationAgnosticMwApi( repoApiUrl );
-
+			this._tags = require( './config.json' ).tags;
 			this._revisionStore = new RevisionStore(
 				entityChangersFactory.getRevisionStore()
 			);
@@ -38,7 +38,7 @@
 				new wb.api.RepoApi(
 					this._api,
 					mw.config.get( 'wgUserLanguage' ),
-					require( './config.json' ).tags
+					this._tags
 				),
 				this._revisionStore,
 				entityChangersFactory.getEntity(),
@@ -157,7 +157,8 @@
 					new wb.api.RepoApi( this._api ),
 					this._revisionStore,
 					lexeme.getId(),
-					formData
+					formData,
+					this._tags
 				),
 				removeCallback.bind( null, formView ),
 				form,
@@ -203,7 +204,8 @@
 					new wb.api.RepoApi( this._api ),
 					this._revisionStore,
 					lexeme.getId(),
-					senseData
+					senseData,
+					this._tags
 				),
 				removeCallback.bind( null, senseView ),
 				sense,
