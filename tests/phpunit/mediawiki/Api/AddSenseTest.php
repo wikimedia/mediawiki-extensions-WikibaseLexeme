@@ -225,7 +225,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -284,6 +284,17 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			],
 			$result['sense']
 		);
+	}
+
+	public function testAddsSenseWithTags() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$this->saveEntity( $lexeme );
+
+		$this->assertCanTagSuccessfulRequest( [
+			'action' => 'wbladdsense',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam(),
+		] );
 	}
 
 	/**

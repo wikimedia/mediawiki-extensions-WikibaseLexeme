@@ -179,7 +179,9 @@ class RemoveSense extends ApiBase {
 			$lexeme,
 			$this->summaryFormatter->formatSummary( $summary ),
 			$flags,
-			$tokenThatDoesNotNeedChecking
+			$tokenThatDoesNotNeedChecking,
+			null,
+			$params['tags'] ?: []
 		);
 
 		if ( !$status->isOK() ) {
@@ -208,10 +210,14 @@ class RemoveSense extends ApiBase {
 				AddFormRequestParser::PARAM_BASEREVID => [
 					self::PARAM_TYPE => 'integer',
 				],
+				'tags' => [
+					self::PARAM_TYPE => 'tags',
+					self::PARAM_ISMULTI => true,
+				],
 				'bot' => [
 					self::PARAM_TYPE => 'boolean',
 					self::PARAM_DFLT => false,
-				],
+				]
 			]
 		);
 	}

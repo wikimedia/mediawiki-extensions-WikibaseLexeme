@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Deserializers\Deserializer;
+use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -17,6 +18,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeseria
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LookupConstants;
@@ -202,7 +204,7 @@ class EditSenseElements extends \ApiBase {
 			$this->dieStatus( $status );
 		}
 
-		$this->generateResponse( $sense );
+		$this->generateResponse( $sense, $status );
 	}
 
 	/**
@@ -237,18 +239,27 @@ class EditSenseElements extends \ApiBase {
 			$sense,
 			$summary,
 			$flags,
-			$tokenThatDoesNotNeedChecking
+			$tokenThatDoesNotNeedChecking,
+			null,
+			$params['tags'] ?: []
 		);
 	}
 
 	/**
 	 * @param Sense $sense
+	 * @param Status $status
 	 */
-	private function generateResponse( Sense $sense ) {
+	private function generateResponse( Sense $sense, Status $status ) {
 		$apiResult = $this->getResult();
 
 		$serializedSense = $this->senseSerializer->serialize( $sense );
 		unset( $serializedSense['claims'] );
+
+		/** @var EntityRevision $entityRevision */
+		$entityRevision = $status->getValue()['revision'];
+		$revisionId = $entityRevision->getRevisionId();
+
+		$apiResult->addValue( null, 'lastrevid', $revisionId );
 
 		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );
@@ -268,12 +279,16 @@ class EditSenseElements extends \ApiBase {
 				self::PARAM_TYPE => 'text',
 				self::PARAM_REQUIRED => true,
 			],
+			EditSenseElementsRequestParser::PARAM_BASEREVID => [
+				self::PARAM_TYPE => 'integer',
+			],
+			'tags' => [
+				self::PARAM_TYPE => 'tags',
+				self::PARAM_ISMULTI => true,
+			],
 			'bot' => [
 				self::PARAM_TYPE => 'boolean',
 				self::PARAM_DFLT => false,
-			],
-			EditSenseElementsRequestParser::PARAM_BASEREVID => [
-				self::PARAM_TYPE => 'integer',
 			]
 		];
 	}

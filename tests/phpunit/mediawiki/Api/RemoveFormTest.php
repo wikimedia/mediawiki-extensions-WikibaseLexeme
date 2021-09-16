@@ -233,6 +233,21 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
+	public function testRemovesFormWithTags() {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'fr', 'goat' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+
+		$this->assertCanTagSuccessfulRequest( [
+			'action' => 'wblremoveform',
+			'id' => 'L1-F1',
+		] );
+	}
+
 	/**
 	 * @param string $id
 	 *

@@ -648,4 +648,23 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
+	public function testEditSenseElementsWithTags() {
+		$sense = NewSense::havingId( 'S1' )
+			->withGloss( 'en', 'furry animal' )
+			->build();
+		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
+
+		$this->saveEntity( $lexeme );
+		$this->assertCanTagSuccessfulRequest( [
+			'action' => 'wbleditsenseelements',
+			'senseId' => self::DEFAULT_SENSE_ID,
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [ 'language' => 'en', 'value' => 'furry animal' ],
+					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'hairy animal' ],
+				],
+			] ),
+		] );
+	}
+
 }
