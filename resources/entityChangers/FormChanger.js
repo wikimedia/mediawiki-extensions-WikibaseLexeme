@@ -18,12 +18,14 @@
 	 * @param {wikibase.lexeme.RevisionStore} revisionStore
 	 * @param {string} lexemeId
 	 * @param {Object} formData
+	 * @param {Array} tags
 	 */
 	var SELF = function WbLexemeFormChanger(
 		api,
 		revisionStore,
 		lexemeId,
-		formData
+		formData,
+		tags
 	) {
 		this.api = api;
 		this.revisionStore = revisionStore;
@@ -31,6 +33,7 @@
 		this.formData = formData;
 		this.lexemeDeserializer = getDeserializer();
 		this.formSerializer = new FormSerializer();
+		this._tags = tags;
 	};
 
 	/**
@@ -74,6 +77,25 @@
 		lexemeDeserializer: null,
 
 		/**
+		 * @property {string[]}
+		 * @private
+		 */
+		_tags: null,
+
+		/**
+		 * Returns tags used for edits
+		 *
+		 * @return {Array}
+		 */
+		getTags: function () {
+			if ( this._tags && this._tags.length ) {
+				return this.api.normalizeMultiValue( this._tags );
+			}
+
+			return [];
+		},
+
+		/**
 		 * Save the changes for the given form.
 		 * Statements are ignored.
 		 *
@@ -107,7 +129,8 @@
 					grammaticalFeatures: grammaticalFeatures
 				} ),
 				errorformat: 'plaintext',
-				bot: 0
+				bot: 0,
+				tags: this.getTags()
 			} ).then( function ( data ) {
 				var form = self.lexemeDeserializer.deserializeForm( data.form );
 				self.formData = self.formSerializer.serialize( form );
@@ -128,7 +151,8 @@
 					grammaticalFeatures: grammaticalFeatures
 				} ),
 				errorformat: 'plaintext',
-				bot: 0
+				bot: 0,
+				tags: this.getTags()
 			} ).then( function ( data ) {
 				var form = self.lexemeDeserializer.deserializeForm( data.form );
 				self.revisionStore.setFormRevision( data.lastrevid, form.getId() );
@@ -147,7 +171,8 @@
 				baserevid: this.revisionStore.getBaseRevision(),
 				id: form.getId(),
 				errorformat: 'plaintext',
-				bot: 0
+				bot: 0,
+				tags: this.getTags()
 			} )
 				.then( deferred.resolve )
 				.fail( function ( code, response ) {
