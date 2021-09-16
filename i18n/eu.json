@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DavidLi",
 			"Mikel Ibaiba",
 			"Subi",
 			"Theklan"
@@ -10,7 +11,7 @@
 	"special-newlexeme": "Lexema berria sortu",
 	"special-mergelexemes": "Bi lexema batu",
 	"wikibaselexeme-deletedentity-form": "Ezabatutako forma",
-	"wikibaselexeme-deletedentity-sense": "Ezabatutako esanahia",
+	"wikibaselexeme-deletedentity-sense": "Ezabatutako adiera",
 	"wikibaselexeme-newlexeme-fieldset": "Lexema berria sortu",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
 	"wikibaselexeme-newlexeme-lemma-language": "Lemaren aldaera idatzia",
@@ -19,11 +20,11 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Sartu kategoria lexikoa, adb. aditz",
 	"wikibaselexeme-newlexeme-language": "Lexemaren hizkuntza",
 	"wikibaselexeme-newlexeme-language-placeholder": "Sartu hizkuntza, adb. euskara",
-	"wikibaselexeme-statementsection-statements-about-form": "Aitorpenak $1 ingurukoak",
+	"wikibaselexeme-statementsection-statements-about-form": "$1 inguruko adierazpenak",
 	"wikibaselexeme-header-forms": "Formak",
 	"wikibaselexeme-enter-form-representation": "Sartu forma honen errepresentazio berria",
 	"wikibaselexeme-empty-form-representation": "Ez dago errepresantazio formarik denifituta",
-	"wikibaselexeme-statementsection-statements-about-sense": "Aitorpenak $1 ingurukoak",
+	"wikibaselexeme-statementsection-statements-about-sense": "$1 inguruko adierazpenak",
 	"wikibaselexeme-header-senses": "Esanahiak",
 	"wikibase-lexeme-gloss-empty": "Ez da glosarik definitu",
 	"wikibaselexeme-lemma-field-lemma-label": "Lema",
@@ -39,8 +40,8 @@
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema bat aldatu da",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-form": "Forma",
-	"datatypes-type-wikibase-sense": "Esanahia",
+	"datatypes-type-wikibase-sense": "Adiera",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexema",
-	"wikibaselexeme-add-sense": "Zentzua eman",
+	"wikibaselexeme-add-sense": "Adiera gehitu",
 	"wikibaselexeme-add-form": "forma gehitu"
 }
