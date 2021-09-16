@@ -8,8 +8,8 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
@@ -54,7 +54,7 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 		$lexeme = NewLexeme::havingId( 'L3' )
 			->withSense( $sense )
 			->build();
-		$expected = [ new PropertyId( 'P123' ), new ItemId( 'Q42' ) ];
+		$expected = [ new NumericPropertyId( 'P123' ), new ItemId( 'Q42' ) ];
 
 		$statementEntityReferenceExtractor = $this->getMockStatementEntityReferenceExtractor();
 		$statementEntityReferenceExtractor->expects( $this->once() )
@@ -81,14 +81,19 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 			->method( 'extractEntityIds' )
 			->willReturnOnConsecutiveCalls(
 				[],
-				[ new PropertyId( 'P123' ), new ItemId( 'Q42' ), new ItemId( 'Q64' ) ],
-				[ new PropertyId( 'P321' ), new ItemId( 'Q42' ) ]
+				[ new NumericPropertyId( 'P123' ), new ItemId( 'Q42' ), new ItemId( 'Q64' ) ],
+				[ new NumericPropertyId( 'P321' ), new ItemId( 'Q42' ) ]
 			);
 
 		$extractor = new SensesStatementEntityReferenceExtractor( $statementEntityReferenceExtractor );
 
 		$this->assertEquals(
-			[ new PropertyId( 'P123' ), new ItemId( 'Q42' ), new ItemId( 'Q64' ), new PropertyId( 'P321' ) ],
+			[
+				new NumericPropertyId( 'P123' ),
+				new ItemId( 'Q42' ),
+				new ItemId( 'Q64' ),
+				new NumericPropertyId( 'P321' )
+			],
 			$extractor->extractEntityIds( $lexeme )
 		);
 	}

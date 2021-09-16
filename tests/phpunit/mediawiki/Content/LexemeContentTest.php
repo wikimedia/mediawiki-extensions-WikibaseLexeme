@@ -14,7 +14,7 @@ use Title;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Reference;
 use Wikibase\DataModel\ReferenceList;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
@@ -257,7 +257,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 	public function provideLexemesWithStatementCount() {
 		yield 'empty lexeme' => [ NewLexeme::create(), 0 ];
 
-		$snak = new PropertyNoValueSnak( new PropertyId( 'P1' ) );
+		$snak = new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) );
 		$lexeme = NewLexeme::create()->withStatement( $snak );
 		yield 'one statement' => [ $lexeme, 1 ];
 		yield 'two statements' => [ $lexeme->withStatement( $snak ), 2 ];
@@ -366,16 +366,16 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 			new StatementList(
 				new Statement(
 					new PropertyValueSnak(
-						new PropertyId( 'P6654' ), new StringValue( 'stringvalue' )
+						new NumericPropertyId( 'P6654' ), new StringValue( 'stringvalue' )
 					),
 					new SnakList(
 						[
 							new PropertyValueSnak(
-								new PropertyId( 'P6654' ),
+								new NumericPropertyId( 'P6654' ),
 								new GlobeCoordinateValue( new LatLongValue( 1, 2 ), 1 )
 							),
 							new PropertyValueSnak(
-								new PropertyId( 'P6654' ),
+								new NumericPropertyId( 'P6654' ),
 								new TimeValue(
 									'+2015-11-11T00:00:00Z',
 									0,
@@ -391,8 +391,8 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 						[
 							new Reference(
 								[
-									new PropertySomeValueSnak( new PropertyId( 'P987' ) ),
-									new PropertyNoValueSnak( new PropertyId( 'P986' ) )
+									new PropertySomeValueSnak( new NumericPropertyId( 'P987' ) ),
+									new PropertyNoValueSnak( new NumericPropertyId( 'P986' ) )
 								]
 							)
 						]

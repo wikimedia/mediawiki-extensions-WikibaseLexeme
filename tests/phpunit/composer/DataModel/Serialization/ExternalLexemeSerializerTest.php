@@ -7,7 +7,7 @@ use MediaWikiTestCase;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\TermList;
@@ -119,7 +119,7 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 
 	public function testLexemeWithStatements_SerializesStatements() {
 		$lexeme = NewLexeme::create()
-			->withStatement( new PropertyNoValueSnak( new PropertyId( 'P1' ) ) )
+			->withStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
 			->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -180,7 +180,7 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 
 	public function testSerializesStatementsOnForms() {
 		$lexeme = NewLexeme::havingForm(
-			NewForm::havingStatement( new PropertyNoValueSnak( new PropertyId( 'P2' ) ) )
+			NewForm::havingStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ) )
 		)->build();
 
 		$serialization = $this->newSerializer()->serialize( $lexeme );
@@ -247,7 +247,7 @@ class ExternalLexemeSerializerTest extends MediaWikiTestCase {
 	public function testSerializesStatementsOnSenses() {
 		$lexeme = NewLexeme::create()
 			->withSense(
-				NewSense::havingStatement( new PropertyId( 'P2' ) )
+				NewSense::havingStatement( new NumericPropertyId( 'P2' ) )
 			)
 			->build();
 

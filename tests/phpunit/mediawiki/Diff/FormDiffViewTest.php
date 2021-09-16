@@ -9,7 +9,7 @@ use MessageLocalizer;
 use PHPUnit\Framework\TestCase;
 use RawMessage;
 use Wikibase\DataModel\Entity\EntityId;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Statement\Statement;
@@ -229,7 +229,7 @@ class FormDiffViewTest extends TestCase {
 	 */
 	private function someStatement( $propertyId, $guid ) {
 		$statement = new Statement(
-			new PropertySomeValueSnak( new PropertyId( $propertyId ) )
+			new PropertySomeValueSnak( new NumericPropertyId( $propertyId ) )
 		);
 		$statement->setGuid( $guid );
 		return $statement;

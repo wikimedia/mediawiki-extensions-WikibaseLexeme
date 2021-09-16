@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Validators;
 
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityIdValue;
-use Wikibase\DataModel\Entity\PropertyId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
@@ -42,7 +42,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 
 	public function provideValidMerges() {
 		$p1l3Snak = new PropertyValueSnak(
-			new PropertyId( 'P1' ),
+			new NumericPropertyId( 'P1' ),
 			new EntityIdValue( new LexemeId( 'L3' ) )
 		);
 		return [
@@ -98,11 +98,11 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 
 	public function provideInvalidMerges() {
 		$p1l1Snak = new PropertyValueSnak(
-			new PropertyId( 'P1' ),
+			new NumericPropertyId( 'P1' ),
 			new EntityIdValue( new LexemeId( 'L1' ) )
 		);
 		$p1l2Snak = new PropertyValueSnak(
-			new PropertyId( 'P1' ),
+			new NumericPropertyId( 'P1' ),
 			new EntityIdValue( new LexemeId( 'L2' ) )
 		);
 		return [
@@ -162,7 +162,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 					->withLemma( 'de', 'a' )
 					->withSense( NewSense::havingStatement(
 						new PropertyValueSnak(
-							new PropertyId( 'P1' ),
+							new NumericPropertyId( 'P1' ),
 							new EntityIdValue( new SenseId( 'L1-S1' ) )
 						)
 					)->build() )

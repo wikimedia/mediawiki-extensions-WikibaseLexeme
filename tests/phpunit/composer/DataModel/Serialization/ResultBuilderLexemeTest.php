@@ -5,6 +5,7 @@ use DataValues\StringValue;
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Reference;
 use Wikibase\DataModel\ReferenceList;
@@ -94,7 +95,7 @@ class ResultBuilderLexemeTest extends TestCase {
 		$propertyIdParser = $this->createStub( EntityIdParser::class );
 		$propertyIdParser->method( 'parse' )
 			->willReturnCallback( static function ( string $id ) {
-				return new PropertyId( $id );
+				return new NumericPropertyId( $id );
 			} );
 
 		$serializerFactory = new SerializerFactory(
@@ -259,19 +260,19 @@ class ResultBuilderLexemeTest extends TestCase {
 		$blankForm = new BlankForm();
 
 		$snak = new PropertyValueSnak(
-			new PropertyId( 'P65' ), new StringValue( 'snakStringValue' )
+			new NumericPropertyId( 'P65' ), new StringValue( 'snakStringValue' )
 		);
 
 		$qualifiers = new SnakList();
 		$qualifiers->addSnak(
-			new PropertyValueSnak( new PropertyId( 'P65' ), new StringValue( 'string!' ) )
+			new PropertyValueSnak( new NumericPropertyId( 'P65' ), new StringValue( 'string!' ) )
 		);
-		$qualifiers->addSnak( new PropertySomeValueSnak( new PropertyId( 'P65' ) ) );
+		$qualifiers->addSnak( new PropertySomeValueSnak( new NumericPropertyId( 'P65' ) ) );
 
 		$references = new ReferenceList();
 		$referenceSnaks = new SnakList();
-		$referenceSnaks->addSnak( new PropertySomeValueSnak( new PropertyId( 'P65' ) ) );
-		$referenceSnaks->addSnak( new PropertySomeValueSnak( new PropertyId( 'P68' ) ) );
+		$referenceSnaks->addSnak( new PropertySomeValueSnak( new NumericPropertyId( 'P65' ) ) );
+		$referenceSnaks->addSnak( new PropertySomeValueSnak( new NumericPropertyId( 'P68' ) ) );
 		$references->addReference( new Reference( $referenceSnaks ) );
 
 		$guid = 'imaguid';

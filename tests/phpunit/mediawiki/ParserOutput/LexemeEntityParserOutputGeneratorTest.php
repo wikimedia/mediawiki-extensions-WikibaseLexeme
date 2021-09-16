@@ -8,8 +8,8 @@ use Message;
 use ParserOutput;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
-use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
@@ -54,11 +54,11 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$propertyId = 'P123';
 		$valueItemId = 'Q42';
 		$this->saveEntity( NewItem::withId( $valueItemId )->build() );
-		$this->saveEntity( new Property( new PropertyId( $propertyId ), null, 'wikibase-item' ) );
+		$this->saveEntity( new Property( new NumericPropertyId( $propertyId ), null, 'wikibase-item' ) );
 		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withForm( NewForm::any()
 				->andStatement( new PropertyValueSnak(
-					new PropertyId( $propertyId ),
+					new NumericPropertyId( $propertyId ),
 					new EntityIdValue( new ItemId( $valueItemId ) )
 				) ) )
 			->build() );
@@ -79,10 +79,10 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$propertyId = 'P123';
 		$valueItemId = 'Q42';
 		$this->saveEntity( NewItem::withId( $valueItemId )->build() );
-		$this->saveEntity( new Property( new PropertyId( $propertyId ), null, 'wikibase-item' ) );
+		$this->saveEntity( new Property( new NumericPropertyId( $propertyId ), null, 'wikibase-item' ) );
 		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withStatement( new PropertyValueSnak(
-				new PropertyId( $propertyId ),
+				new NumericPropertyId( $propertyId ),
 				new EntityIdValue( new ItemId( $valueItemId ) )
 			) )
 			->build() );
@@ -202,8 +202,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		);
 	}
 
-	private function getIdOfUrlProperty(): PropertyId {
-		$urlPropertyId = new PropertyId( 'P1' );
+	private function getIdOfUrlProperty(): NumericPropertyId {
+		$urlPropertyId = new NumericPropertyId( 'P1' );
 
 		$this->saveEntity(
 			new Property( $urlPropertyId, null, 'url' )

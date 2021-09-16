@@ -7,6 +7,7 @@ use MediaWikiIntegrationTestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Reference;
@@ -65,21 +66,21 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 		$mockEntityIdPager = new InMemoryEntityIdPager();
 
 		$snakList = new SnakList();
-		$snakList->addSnak( new PropertySomeValueSnak( new PropertyId( 'P12' ) ) );
-		$snakList->addSnak( new PropertyValueSnak( new PropertyId( 'P12' ), new StringValue( 'stringVal' ) ) );
+		$snakList->addSnak( new PropertySomeValueSnak( new NumericPropertyId( 'P12' ) ) );
+		$snakList->addSnak( new PropertyValueSnak( new NumericPropertyId( 'P12' ), new StringValue( 'stringVal' ) ) );
 		/** @var EntityDocument[] $testEntities */
 		$testEntities = [
 			new Item( new ItemId( 'Q1' ) ),
-			new Property( new PropertyId( 'P1' ), null, 'string' ),
+			new Property( new NumericPropertyId( 'P1' ), null, 'string' ),
 			new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q11' ), new ItemId( 'Q12' ) ),
 			new Property(
-				new PropertyId( 'P12' ),
+				new NumericPropertyId( 'P12' ),
 				null,
 				'string',
 				new StatementList( [
 					new Statement(
 						// P999 is non existent thus the datatype will not be present
-						new PropertySomeValueSnak( new PropertyId( 'P999' ) ),
+						new PropertySomeValueSnak( new NumericPropertyId( 'P999' ) ),
 						null,
 						null,
 						'GUID1'
@@ -108,18 +109,21 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 				] ),
 				new StatementList( [
 					new Statement(
-						new PropertySomeValueSnak( new PropertyId( 'P12' ) ),
+						new PropertySomeValueSnak( new NumericPropertyId( 'P12' ) ),
 						null,
 						null,
 						'GUID1'
 					),
 					new Statement(
-						new PropertySomeValueSnak( new PropertyId( 'P12' ) ),
+						new PropertySomeValueSnak( new NumericPropertyId( 'P12' ) ),
 						$snakList,
 						new ReferenceList( [
 							new Reference( [
-								new PropertyValueSnak( new PropertyId( 'P12' ), new StringValue( 'refSnakVal' ) ),
-								new PropertyNoValueSnak( new PropertyId( 'P12' ) ),
+								new PropertyValueSnak(
+									new NumericPropertyId( 'P12' ),
+									new StringValue( 'refSnakVal' )
+								),
+								new PropertyNoValueSnak( new NumericPropertyId( 'P12' ) ),
 							] ),
 						] ),
 						'GUID2'
@@ -137,13 +141,13 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 				new StatementList( [
 					new Statement(
 						// P999 is non existent thus the datatype will not be present
-						new PropertySomeValueSnak( new PropertyId( 'P999' ) ),
+						new PropertySomeValueSnak( new NumericPropertyId( 'P999' ) ),
 						null,
 						null,
 						'GUID1'
 					),
 					new Statement(
-						new PropertySomeValueSnak( new PropertyId( 'P3' ) ),
+						new PropertySomeValueSnak( new NumericPropertyId( 'P3' ) ),
 						null,
 						null,
 						'GUID1'
@@ -161,7 +165,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 						new StatementList( [
 							new Statement(
 								// P999 is non existent thus the datatype will not be present
-								new PropertySomeValueSnak( new PropertyId( 'P12' ) ),
+								new PropertySomeValueSnak( new NumericPropertyId( 'P12' ) ),
 								null,
 								null,
 								'GUID1'
@@ -179,7 +183,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 						] ),
 						new StatementList( [
 							new Statement(
-								new PropertySomeValueSnak( new PropertyId( 'P13' ) ),
+								new PropertySomeValueSnak( new NumericPropertyId( 'P13' ) ),
 								null,
 								null,
 								'GUID1'
