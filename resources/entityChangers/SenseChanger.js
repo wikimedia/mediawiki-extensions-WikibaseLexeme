@@ -76,7 +76,7 @@
 		/**
 		 * Returns tags used for edits
 		 *
-		 * @return {Array}
+		 * @return {string|Array}
 		 */
 		getTags: function () {
 			if ( this._tags && this._tags.length ) {

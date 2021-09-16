@@ -13,6 +13,15 @@ return call_user_func( static function () {
 		'remoteExtPath' => 'WikibaseLexeme/resources',
 	];
 
+	$defaultViewConfigFile = [
+		"name" => "view/config.json",
+		"callback" => static function () {
+			return [
+				'tags' => WikibaseRepo::getSettings()->getSetting( 'viewUiTags' ),
+			];
+		}
+	];
+
 	return [
 		"wikibase.lexeme" => $moduleTemplate + [
 			"scripts" => "__namespace.js",
@@ -55,6 +64,7 @@ return call_user_func( static function () {
 					'name' => 'widgets/languages.json',
 					'callback' => 'Wikibase\Lexeme\WikibaseLexemeHooks::getLexemeViewLanguages'
 				],
+				$defaultViewConfigFile
 
 			],
 			"dependencies" => [
@@ -196,14 +206,7 @@ return call_user_func( static function () {
 				"entityChangers/LexemeRevisionStore.js",
 				"serialization/FormSerializer.js",
 				"serialization/SenseSerializer.js",
-				[
-					"name" => "view/config.json",
-					"callback" => static function () {
-						return [
-							'tags' => WikibaseRepo::getSettings()->getSetting( 'viewUiTags' ),
-						];
-					}
-				],
+				$defaultViewConfigFile,
 			],
 			"dependencies" => [
 				"util.inherit",

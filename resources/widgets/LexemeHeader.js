@@ -48,7 +48,11 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	 * @param {{lemmas: Lemma[], lexicalCategory: string|null, language: string|null, id: string}} lexeme
 	 */
 	function init( lexeme ) {
-		var repoApi = new wb.api.RepoApi( new mw.Api(), mw.config.get( 'wgUserLanguage' ) );
+		var repoApi = new wb.api.RepoApi(
+			new mw.Api(),
+			mw.config.get( 'wgUserLanguage' ),
+			require( '../view/config.json' ).tags
+		);
 
 		var baseRevId = mw.config.get( 'wgCurRevisionId' );
 
