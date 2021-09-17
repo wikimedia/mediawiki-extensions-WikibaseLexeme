@@ -80,7 +80,6 @@ class SenseDeserializerTest extends MediaWikiUnitTestCase {
 	 * @dataProvider provideSerializations
 	 */
 	public function testDeserialize( array $serialization, Sense $expected ) {
-		$this->markTestSkipped( 'Temporarily disabled for compatibility dance with BasicEntityIdParser' );
 		$deserializer = new SenseDeserializer(
 			new TermListDeserializer( new TermDeserializer() ),
 			$this->newStatementListDeserializer()
