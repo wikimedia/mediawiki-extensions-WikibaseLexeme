@@ -17,7 +17,6 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
-use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Repo\ParserOutput\EntityParserOutputGenerator;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\WikibaseRepo;
@@ -31,19 +30,12 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTestCase {
 
-	/**
-	 * @var EntityStore
-	 */
-	private $entityStore;
-
 	private $itemNamespace;
 
 	private $propertyNamespace;
 
 	protected function setUp(): void {
 		parent::setUp();
-
-		$this->entityStore = $this->getEntityStore();
 
 		$namespaceLookup = WikibaseRepo::getEntityNamespaceLookup();
 		$this->propertyNamespace = $namespaceLookup->getEntityNamespace( 'property' );
