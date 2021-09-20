@@ -13,7 +13,9 @@
  */
 
 use Wikibase\DataAccess\NullPrefetchingTermLookup;
+use Wikibase\DataModel\Deserializers\DeserializerFactory;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\Lexeme\DataAccess\Store\FormRevisionLookup;
 use Wikibase\Lexeme\DataAccess\Store\FormStore;
 use Wikibase\Lexeme\DataAccess\Store\FormTitleStoreLookup;
@@ -48,7 +50,7 @@ return [
 				WikibaseRepo::getEntityTitleLookup()
 			);
 		},
-		Def::SERIALIZER_FACTORY_CALLBACK => static function ( $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new ExternalLexemeSerializer(
 				new StorageLexemeSerializer(
 					$serializerFactory->newTermListSerializer(),
@@ -56,7 +58,7 @@ return [
 				)
 			);
 		},
-		Def::DESERIALIZER_FACTORY_CALLBACK => static function ( $deserializerFactory ) {
+		Def::DESERIALIZER_FACTORY_CALLBACK => static function ( DeserializerFactory $deserializerFactory ) {
 			return new LexemeDeserializer(
 				$deserializerFactory->newEntityIdDeserializer(),
 				$deserializerFactory->newStatementListDeserializer()
@@ -125,7 +127,7 @@ return [
 		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
 			return new FormPatcher();
 		},
-		Def::SERIALIZER_FACTORY_CALLBACK => static function ( $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new FormSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
@@ -167,7 +169,7 @@ return [
 		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
 			return new SensePatcher();
 		},
-		Def::SERIALIZER_FACTORY_CALLBACK => static function ( $serializerFactory ) {
+		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new SenseSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()

@@ -8,6 +8,7 @@ use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\Sense;
@@ -79,7 +80,7 @@ class EditSenseElements extends \ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		ApiHelperFactory $apiHelperFactory,
-		$baseDataModelSerializerFactory,
+		SerializerFactory $baseDataModelSerializerFactory,
 		ChangeOpFactoryProvider $changeOpFactoryProvider,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,

@@ -6,6 +6,7 @@ use ApiMain;
 use Status;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
@@ -70,7 +71,7 @@ class EditFormElements extends \ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		ApiHelperFactory $apiHelperFactory,
-		$baseDataModelSerializerFactory,
+		SerializerFactory $baseDataModelSerializerFactory,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		EntityStore $entityStore,

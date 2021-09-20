@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\Unit\DataModel\Serialization;
 use Deserializers\Deserializer;
 use MediaWikiUnitTestCase;
 use Serializers\Serializer;
-use Wikibase\DataModel\DeserializerFactory;
+use Wikibase\DataModel\Deserializers\DeserializerFactory;
 use Wikibase\DataModel\Deserializers\StatementDeserializer;
 use Wikibase\DataModel\Deserializers\StatementListDeserializer;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
