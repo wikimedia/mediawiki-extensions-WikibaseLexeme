@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use Article;
-use User;
+use MediaWiki\Page\ProperPageIdentity;
+use MediaWiki\Permissions\Authority;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\WikibaseRepo;
@@ -18,36 +18,28 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 
-	protected function setUp(): void {
-		$this->markTestSkipped(
-			'Page deletion logic is being moved around (T288282), ' .
-			'reenable this test when that’s done'
-		);
-	}
-
 	public function testGivenUserHasNoDeleteRights_lexemePageCannotBeDeleted() {
 		$lexeme = $this->createTestLexeme( 'L123' );
-		$article = $this->newLexemePage( $lexeme );
-		$article->setContext( $this->newContextWithUser(
-			self::getTestUser( [] )->getUser() )
-		);
+		$pageIdentity = $this->lexemePageIdentity( $lexeme );
+		$authority = $this->authorityWithGroups( [] );
+		$deletePage = $this->getServiceContainer()
+			->getDeletePageFactory()
+			->newDeletePage( $pageIdentity, $authority );
 
-		$this->expectException( \PermissionsError::class );
-		// $article->delete();
+		$status = $deletePage->deleteIfAllowed( '' );
+		$this->assertFalse( $status->isOK() );
 	}
 
 	public function testGivenUserHasDeleteRights_lexemePageCanBeDeleted() {
 		$lexeme = $this->createTestLexeme( 'L123' );
-		$article = $this->newLexemePage( $lexeme );
-		$context = $this->newContextWithUser(
-			self::getTestUser( [ 'sysop' ] )->getUser()
-		);
-		$context->setOutput( new \OutputPage( new \RequestContext() ) );
-		$article->setContext( $context );
+		$pageIdentity = $this->lexemePageIdentity( $lexeme );
+		$authority = $this->authorityWithGroups( [ 'sysop' ] );
+		$deletePage = $this->getServiceContainer()
+			->getDeletePageFactory()
+			->newDeletePage( $pageIdentity, $authority );
 
-		// $article->delete();
-
-		$this->assertStringContainsString( 'Delete', $context->getOutput()->getPageTitle() );
+		$status = $deletePage->deleteIfAllowed( '' );
+		$this->assertTrue( $status->isOK() );
 	}
 
 	private function createTestLexeme( $id ) {
@@ -56,17 +48,14 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 		return $lexeme;
 	}
 
-	private function newLexemePage( Lexeme $lexeme ) {
-		return new Article(
-			WikibaseRepo::getEntityTitleStoreLookup()->getTitleForId( $lexeme->getId() )
-		);
+	private function lexemePageIdentity( Lexeme $lexeme ): ProperPageIdentity {
+		return WikibaseRepo::getEntityTitleStoreLookup( $this->getServiceContainer() )
+			->getTitleForId( $lexeme->getId() )
+			->toPageIdentity();
 	}
 
-	private function newContextWithUser( User $user ) {
-		$context = new \RequestContext();
-		$context->setUser( $user );
-
-		return $context;
+	private function authorityWithGroups( array $groups ): Authority {
+		return self::getTestUser( $groups )->getUser();
 	}
 
 }
