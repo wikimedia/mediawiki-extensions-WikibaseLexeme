@@ -9,7 +9,6 @@ use RuntimeException;
 use Status;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityIdParser;
-use Wikibase\DataModel\SerializerFactory;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -70,7 +69,7 @@ class AddForm extends ApiBase {
 		ApiMain $mainModule,
 		string $moduleName,
 		ApiHelperFactory $apiHelperFactory,
-		SerializerFactory $baseDataModelSerializerFactory,
+		$baseDataModelSerializerFactory,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		Store $store,

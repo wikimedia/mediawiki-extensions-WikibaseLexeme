@@ -3,7 +3,6 @@
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\DataModel\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
@@ -82,7 +81,7 @@ use Wikimedia\Purtle\RdfWriter;
 
 return [
 	'lexeme' => [
-		Def::STORAGE_SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
+		Def::STORAGE_SERIALIZER_FACTORY_CALLBACK => static function ( $serializerFactory ) {
 			return new StorageLexemeSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
