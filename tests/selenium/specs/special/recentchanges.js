@@ -28,7 +28,7 @@ describe( 'Special:RecentChanges', () => {
 
 		RecentChangesPage.open();
 
-		const title = RecentChangesPage.titles[ 0 ].getText();
+		const title = RecentChangesPage.lastLexeme.getText();
 
 		assert( title.includes( 'entrôpi' ) );
 		assert( title.includes( 'entropy' ) );
