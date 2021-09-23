@@ -3,8 +3,7 @@
 const Page = require( 'wdio-mediawiki/Page' );
 
 class RecentChangesPage extends Page {
-	get changesList() { return $( '.mw-changeslist' ); }
-	get titles() { return this.changesList.$$( '.mw-changeslist-title' ); }
+	get lastLexeme() { return $( '[data-target-page^="Lexeme:L"]' ); }
 
 	open() {
 		super.openTitle( 'Special:RecentChanges' );
