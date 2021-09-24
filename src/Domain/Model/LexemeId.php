@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Domain\Model;
 
 use InvalidArgumentException;
 use RuntimeException;
-use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\Int32EntityId;
+use Wikibase\DataModel\Entity\SerializableEntityId;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -15,7 +15,7 @@ use Wikimedia\Assert\Assert;
  *
  * @license GPL-2.0-or-later
  */
-class LexemeId extends EntityId implements Int32EntityId {
+class LexemeId extends SerializableEntityId implements Int32EntityId {
 
 	public const PATTERN = '/^L[1-9]\d{0,9}\z/i';
 

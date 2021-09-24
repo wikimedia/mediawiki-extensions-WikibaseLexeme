@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Domain\Model;
 
 use LogicException;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\SerializableEntityId;
 
 /**
  * An entity ID of a sub-entity of a {@link Lexeme},
@@ -12,7 +13,7 @@ use Wikibase\DataModel\Entity\EntityId;
  *
  * @license GPL-2.0-or-later
  */
-abstract class LexemeSubEntityId extends EntityId {
+abstract class LexemeSubEntityId extends SerializableEntityId {
 
 	public const SUBENTITY_ID_SEPARATOR = '-';
 
