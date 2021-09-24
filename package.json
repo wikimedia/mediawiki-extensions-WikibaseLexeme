@@ -30,7 +30,7 @@
 		"grunt-stylelint": "0.16.0",
 		"jasmine": "^3.9.0",
 		"jquery": "^3.6.0",
-		"jsdom": "^11.11.0",
+		"jsdom": "^17.0.0",
 		"jsdom-global": "^3.0.2",
 		"lodash": "^4.17.21",
 		"module-alias": "^2.0.0",
