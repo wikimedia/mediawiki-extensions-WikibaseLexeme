@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme;
 
 use IContextSource;
 use MediaWiki\MediaWikiServices;
-use PageProps;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
@@ -196,7 +195,8 @@ class WikibaseLexemeHooks {
 	 * @param array[] &$pageInfo
 	 */
 	public static function onInfoAction( IContextSource $context, array &$pageInfo ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
+		$services = MediaWikiServices::getInstance();
+		$config = $services->getMainConfig();
 		if ( !$config->get( 'LexemeEnableRepo' ) ) {
 			return;
 		}
@@ -205,7 +205,7 @@ class WikibaseLexemeHooks {
 		$infoActionHookHandler = new InfoActionHookHandler(
 			$namespaceChecker,
 			WikibaseRepo::getEntityIdLookup(),
-			PageProps::getInstance(),
+			$services->getPageProps(),
 			$context
 		);
 
