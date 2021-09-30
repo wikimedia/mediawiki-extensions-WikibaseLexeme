@@ -2,13 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Liuxinyu970226",
-			"Shimamura Sakura"
+			"Shimamura Sakura",
+			"列维劳德"
 		]
 	},
 	"apihelp-wbladdform-summary": "添加词形至词位",
 	"apihelp-wbladdform-param-lexemeId": "词位的ID，例如L10",
 	"apihelp-wbladdform-param-data": "用于词形的JSON编码数据，也就是表现形式和语法特征",
-	"apihelp-wbladdform-param-tags": "修改应用于修订的标签。",
+	"apihelp-wbladdform-param-tags": "应用于修订的更改标签。",
 	"apihelp-wbladdform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wbladdform-example-1": "添加词形至ID为<samp>$1</samp>的词位，其分别具有表现形式<samp>$2</samp>与语言<samp>$3</samp>，以及语法特征<samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "从词位移除词形",
@@ -18,7 +19,7 @@
 	"apihelp-wbleditformelements-summary": "编辑词形的表现形式和语法特征",
 	"apihelp-wbleditformelements-param-formId": "词形ID，例如L10-F2",
 	"apihelp-wbleditformelements-param-data": "JSON编码的表现形式和语法特征数据",
-	"apihelp-wbleditformelements-param-tags": "修改要应用到此修订的标签。",
+	"apihelp-wbleditformelements-param-tags": "应用到此修订的更改标签。",
 	"apihelp-wbleditformelements-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时受尊重。",
 	"apihelp-wbleditformelements-example-1": "编辑ID为<samp>$1</samp>的词形，使其在语言<samp>$3</samp>中分别拥有表现形式<samp>$2</samp>，以及语法特征<samp>$4</samp>。",
 	"apihelp-wbladdsense-summary": "添加意义至词位",
