@@ -47,6 +47,13 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	}
 
 	/**
+	 * @return LexemeContent
+	 */
+	protected function newEmptyContent() {
+		return new LexemeContent();
+	}
+
+	/**
 	 * @param SettingsArray|null $settings
 	 *
 	 * @return EntityHandler

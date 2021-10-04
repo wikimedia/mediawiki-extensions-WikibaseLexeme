@@ -118,7 +118,7 @@ class LexemeContent extends EntityContent {
 	 *
 	 * @return EntityHolder|null
 	 */
-	protected function getEntityHolder() {
+	public function getEntityHolder() {
 		return $this->lexemeHolder;
 	}
 
