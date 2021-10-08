@@ -50,7 +50,7 @@
 		],
 		"test": [
 			"parallel-lint . --exclude vendor --exclude node_modules",
-			"phpcs -p -s",
+			"@phpcs",
 			"minus-x check ."
 		],
 		"mediawiki-vendor-diff": [
@@ -59,6 +59,7 @@
 		"mediawiki-vendor-diff-changed": [
 			"composer-lock-diff --from ./composer.lock --to https://raw.githubusercontent.com/wikimedia/mediawiki-vendor/master/composer.lock | grep -v \"| REMOVED\" | grep -v \"| NEW\""
 		],
-		"phan": "phan -d . --long-progress-bar"
+		"phan": "phan -d . --long-progress-bar",
+		"phpcs": "phpcs -sp --cache"
 	}
 }
