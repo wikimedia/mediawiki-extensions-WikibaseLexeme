@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ResourceLoaderContext;
 use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
@@ -12,7 +12,7 @@ use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
  *
  * @license GPL-2.0-or-later
  */
-class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiTestCase {
+class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * @return MockObject|ResourceLoaderContext

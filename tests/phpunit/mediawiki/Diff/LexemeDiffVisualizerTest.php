@@ -8,7 +8,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use HamcrestPHPUnitIntegration;
 use HashSiteStore;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
 use RawMessage;
 use Site;
@@ -38,7 +38,7 @@ use Wikibase\Repo\Tests\NewStatement;
  * @author Daniel Kinzler
  * @author Thiemo Kreuz
  */
-class LexemeDiffVisualizerTest extends MediaWikiTestCase {
+class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 	use HamcrestPHPUnitIntegration;
 
 	public function testVisualizingEmptyDiff() {

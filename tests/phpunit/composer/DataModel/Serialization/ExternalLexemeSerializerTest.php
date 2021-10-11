@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests\DataModel\Serialization;
 
 use HamcrestPHPUnitIntegration;
-use MediaWikiTestCase;
+use MediaWikiIntegrationTestCase;
 use Serializers\Exceptions\SerializationException;
 use Serializers\Serializer;
 use Wikibase\DataModel\Entity\Item;
@@ -24,7 +24,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class ExternalLexemeSerializerTest extends MediaWikiTestCase {
+class ExternalLexemeSerializerTest extends MediaWikiIntegrationTestCase {
 	use HamcrestPHPUnitIntegration;
 
 	private function newSerializer() {

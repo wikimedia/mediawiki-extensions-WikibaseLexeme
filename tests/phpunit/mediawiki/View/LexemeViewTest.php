@@ -33,7 +33,7 @@ use Wikimedia\Assert\ParameterTypeException;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  * @author Thiemo Kreuz
  */
-class LexemeViewTest extends \MediaWikiTestCase {
+class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 	use HamcrestPHPUnitIntegration;
 
 	/**
