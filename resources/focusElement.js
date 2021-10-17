@@ -9,6 +9,7 @@
 	 *     this.$nextTick( focusElement( 'input' ) );
 	 *
 	 * @param {string} selector CSS selector
+	 * @return {Function}
 	 */
 	function focusElement( selector ) {
 		return function () {

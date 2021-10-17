@@ -36,7 +36,6 @@
 		"max-len": "off",
 		"operator-linebreak": "off",
 		"promise/no-native": "error",
-		"valid-jsdoc": "off",
 		"wrap-iife": "off",
 		"block-scoped-var": "warn"
 	},

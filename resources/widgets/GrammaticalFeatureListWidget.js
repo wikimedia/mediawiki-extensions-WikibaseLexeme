@@ -4,7 +4,7 @@ module.exports = ( function () {
 	/**
 	 * @class GrammaticalFeatureListWidget
 	 * @extends OO.ui.MenuTagMultiselectWidget
-	 * @mixins OO.ui.mixin.RequestManager
+	 * @mixin OO.ui.mixin.RequestManager
 	 *
 	 * @param {Object} config Configuration object
 	 * @cfg {mw.Api} api Api object to access 'wbsearchentities' action
@@ -75,7 +75,7 @@ module.exports = ( function () {
 		_placeHolder: '',
 
 		/**
-		 * @protected
+		 * @inheritdoc OO.ui.mixin.RequestManager
 		 */
 		getRequest: function getRequest() {
 			return this._api.get( {
@@ -90,23 +90,21 @@ module.exports = ( function () {
 		},
 
 		/**
-		 * @protected
+		 * @inheritdoc OO.ui.mixin.RequestManager
 		 */
 		getRequestQuery: function () {
 			return this.input.getValue();
 		},
 
 		/**
-		 * @param response
-		 * @protected
+		 * @inheritdoc OO.ui.mixin.RequestManager
 		 */
 		getRequestCacheDataFromResponse: function ( response ) {
 			return response || [];
 		},
 
 		/**
-		 * @param term
-		 * @private
+		 * @param {string} term
 		 */
 		updateMenu: function updateMenu( term ) {
 			if ( term === '' ) {
@@ -148,8 +146,7 @@ module.exports = ( function () {
 		},
 
 		/**
-		 * @param menuItem
-		 * @protected
+		 * @inheritdoc OO.ui.MenuTagMultiselectWidget
 		 */
 		onMenuChoose: function onMenuChoose( menuItem ) {
 			// To avoid displaying multiline selected boxes in the widget

@@ -10,6 +10,7 @@ module.exports = ( function () {
 	 *
 	 * @param {string} template - template string or selector
 	 * @param {Object} messages - mw.messages localization service
+	 * @return {Object}
 	 */
 	return function ( template, messages ) {
 		return {

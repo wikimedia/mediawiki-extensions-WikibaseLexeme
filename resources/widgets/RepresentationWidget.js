@@ -15,7 +15,7 @@ module.exports = ( function ( Vuex ) {
 	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
 	 * @param {Function} beforeUpdate
-	 * @param mw
+	 * @param {Object} mw
 	 * @return {Object} Vue component object
 	 */
 	function newComponent( store, formIndex, element, template, beforeUpdate, mw ) {
@@ -117,7 +117,7 @@ module.exports = ( function ( Vuex ) {
 	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
 	 * @param {Function} beforeUpdate
-	 * @param mw
+	 * @param {Object} mw
 	 * @return {Vue} Initialized widget
 	 */
 	function create( store, formIndex, element, template, beforeUpdate, mw ) {

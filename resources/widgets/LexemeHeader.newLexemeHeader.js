@@ -12,6 +12,7 @@ module.exports = ( function () {
 	 * @param {Object} lemmaWidget
 	 * @param {Object} languageAndCategoryWidget
 	 * @param {Object} messages - mw.messages localization service
+	 * @return {Object}
 	 */
 	return function ( store, element, template, lemmaWidget, languageAndCategoryWidget, messages ) {
 		return {

@@ -288,6 +288,7 @@
 	 * @param formIndex
 	 * @param formId
 	 * @param representations
+	 * @return {Vuex.Store}
 	 */
 	function getStore( lemmas, formIndex, formId, representations ) {
 		var forms = {};

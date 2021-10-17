@@ -57,6 +57,7 @@ module.exports = ( function () {
 	 * @param {number} baseRevId
 	 * @param {string} languageLink HTML
 	 * @param {string} lexicalCategoryLink HTML
+	 * @return {Object}
 	 */
 	return function ( repoApi, lexeme, baseRevId, languageLink, lexicalCategoryLink ) {
 		return {

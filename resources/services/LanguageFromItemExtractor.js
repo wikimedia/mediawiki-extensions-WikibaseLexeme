@@ -29,6 +29,7 @@
 
 		/**
 		 * @param {Object[]} statements
+		 * @return {string}
 		 */
 		_getBestRankedLanguageCode: function ( statements ) {
 			var RANK_ORDER = [ 'preferred', 'normal', 'deprecated' ];

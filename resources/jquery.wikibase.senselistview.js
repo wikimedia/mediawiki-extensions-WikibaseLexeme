@@ -64,6 +64,7 @@
 		 * Creates the `listview` widget managing the `senseview` widgets.
 		 *
 		 * @private
+		 * @return {jQuery.wikibase.listview}
 		 */
 		_createListView: function () {
 			// eslint-disable-next-line new-cap

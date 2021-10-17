@@ -8,6 +8,7 @@
 
 		/**
 		 * @param {string} serialization
+		 * @return {string}
 		 */
 		getIdSuffix: function ( serialization ) {
 			return serialization.split( '-' )[ 1 ];
