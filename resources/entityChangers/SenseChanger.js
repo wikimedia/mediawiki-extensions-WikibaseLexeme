@@ -169,8 +169,9 @@
 		// TODO same as FormChanger's getRepresentationDataForApiRequest, extract somewhere
 		getGlossDataForApiRequest: function ( oldGlosses, newGlosses ) {
 			var result = {};
+			var language;
 
-			for ( var language in newGlosses ) {
+			for ( language in newGlosses ) {
 				var newGloss = newGlosses[ language ].value;
 
 				if ( ( !( language in oldGlosses ) )
