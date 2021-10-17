@@ -1,6 +1,3 @@
-/**
- * @external GrammaticalFeatureListWidget
- */
 ( function () {
 	'use strict';
 

@@ -1,7 +1,3 @@
-/**
- * @external Lemma
- * @external LemmaList
- */
 ( function () {
 	'use strict';
 

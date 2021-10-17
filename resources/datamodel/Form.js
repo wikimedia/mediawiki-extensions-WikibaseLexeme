@@ -1,6 +1,3 @@
-/**
- * @external datamodel
- */
 ( function ( wb, util ) {
 	'use strict';
 

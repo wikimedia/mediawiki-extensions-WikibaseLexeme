@@ -1,6 +1,3 @@
-/**
- * @external RepoApi
- */
 ( function () {
 	'use strict';
 

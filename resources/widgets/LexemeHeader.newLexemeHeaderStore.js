@@ -1,6 +1,3 @@
-/**
- * @external Lemma
- */
 module.exports = ( function () {
 	'use strict';
 

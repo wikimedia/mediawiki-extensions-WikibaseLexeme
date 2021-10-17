@@ -39,5 +39,22 @@
 		"valid-jsdoc": "off",
 		"wrap-iife": "off",
 		"block-scoped-var": "warn"
+	},
+	"settings": {
+		"jsdoc": {
+			"preferredTypes": {
+				"ControllerViewFactory": "ControllerViewFactory",
+				"datamodel": "datamodel",
+				"GrammaticalFeatureListWidget": "GrammaticalFeatureListWidget",
+				"ItemLookup": "ItemLookup",
+				"LanguageFromItemExtractor": "LanguageFromItemExtractor",
+				"Lemma": "Lemma",
+				"LemmaList": "LemmaList",
+				"LexemeDeserializer": "LexemeDeserializer",
+				"LexemeLanguageFieldObserver": "LexemeLanguageFieldObserver",
+				"ReadModeViewFactory": "ReadModeViewFactory",
+				"RepoApi": "RepoApi"
+			}
+		}
 	}
 }

@@ -1,6 +1,3 @@
-/**
- * @external LexemeLanguageFieldObserver
- */
 ( function ( wb ) {
 	'use strict';
 
