@@ -190,4 +190,4 @@ module.exports = ( function () {
 	} );
 
 	return GrammaticalFeatureListWidget;
-} )();
+}() );

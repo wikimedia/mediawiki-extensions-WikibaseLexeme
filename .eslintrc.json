@@ -35,8 +35,7 @@
 		],
 		"max-len": "off",
 		"operator-linebreak": "off",
-		"promise/no-native": "error",
-		"wrap-iife": "off"
+		"promise/no-native": "error"
 	},
 	"settings": {
 		"jsdoc": {

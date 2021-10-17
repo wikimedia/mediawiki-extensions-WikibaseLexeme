@@ -66,4 +66,4 @@ module.exports = ( function () {
 		this.$emit( 'hasRedundantLanguage', this.hasRedundantLanguage );
 	}
 
-} )();
+}() );

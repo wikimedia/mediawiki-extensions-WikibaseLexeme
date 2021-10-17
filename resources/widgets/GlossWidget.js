@@ -99,4 +99,4 @@ module.exports = ( function ( require, wb ) {
 		newGlossWidget: newGlossWidget
 	};
 
-} )( require, wikibase );
+}( require, wikibase ) );

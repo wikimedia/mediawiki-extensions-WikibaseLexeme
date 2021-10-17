@@ -129,4 +129,4 @@ module.exports = ( function ( Vuex ) {
 		newComponent: newComponent
 	};
 
-} )( Vuex );
+}( Vuex ) );
