@@ -5,6 +5,7 @@
 			"DeRudySoulStorm",
 			"KaMan",
 			"Railfail536",
+			"Rzuwig",
 			"Woytecr"
 		]
 	},
@@ -34,6 +35,7 @@
 	"wikibaselexeme-form-field-representation-label": "Reprezentacja",
 	"wikibaselexeme-form-field-language-label": "Wariant pisowni",
 	"wikibaselexeme-form-representation-redundant-language": "Nie jest możliwe wprowadzenie kilku reprezentacji z tym samym wariantem pisowni.",
+	"wikibaselexeme-sense-gloss-invalid-language": "Kody języka muszą być prawidłowe",
 	"wikibaselexeme-gloss-field-language-label": "Język",
 	"wikibaselexeme-gloss-field-gloss-label": "Definicja",
 	"wikibaselexeme-sense-gloss-redundant-language": "Nie jest możliwe wprowadzenie kilku definicji z tym samym językiem.",
