@@ -6,6 +6,7 @@ use Scribunto_LuaLibraryBase;
 use Wikibase\Client\Usage\UsageAccumulator;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 
 /**
  * @license GPL-2.0-or-later
@@ -51,9 +52,13 @@ class Scribunto_LuaWikibaseLexemeEntityLexemeLibrary extends Scribunto_LuaLibrar
 		);
 	}
 
-	public function addAllUsage( $prefixedEntityId ) {
+	public function addAllUsage( string $prefixedEntityId ) {
 		$entityId = $this->getEntityIdParser()->parse( $prefixedEntityId );
-		$this->getUsageAccumulator()->addAllUsage( $entityId );
+		if ( $entityId instanceof LexemeSubEntityId ) {
+			$this->getUsageAccumulator()->addAllUsage( $entityId->getLexemeId() );
+		} else {
+			$this->getUsageAccumulator()->addAllUsage( $entityId );
+		}
 	}
 
 }
