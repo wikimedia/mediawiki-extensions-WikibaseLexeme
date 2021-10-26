@@ -1,4 +1,4 @@
-# 2. Use vuex store instead of models
+# 2. Use vuex store instead of models {#adr_0002}
 
 Date: 2018-07-02
 

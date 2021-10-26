@@ -1,4 +1,4 @@
-# 1. Record architecture decisions
+# 1. Record architecture decisions {#adr_0001}
 
 Date: 2018-06-29
 

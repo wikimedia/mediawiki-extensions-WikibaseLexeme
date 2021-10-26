@@ -1,0 +1,60 @@
+# Configuration file for Doxygen
+
+PROJECT_NAME           = WikibaseLexeme
+PROJECT_BRIEF          = "MediaWiki WikibaseLexeme extension"
+
+OUTPUT_DIRECTORY       = docs
+HTML_OUTPUT            = php
+
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+
+MARKDOWN_SUPPORT       = YES
+USE_MDFILE_AS_MAINPAGE = docs/index.md
+
+INPUT                  = docs/index.md .
+
+EXCLUDE                = docs/php vendor
+
+EXCLUDE_PATTERNS       = */node_modules/* \
+                         */tests/* \
+                         */jmeter/*
+
+FILE_PATTERNS          = *.php \
+                         *.sql \
+                         *.md
+RECURSIVE              = YES
+
+HTML_DYNAMIC_SECTIONS  = YES
+GENERATE_TREEVIEW      = YES
+TREEVIEW_WIDTH         = 250
+
+GENERATE_LATEX         = NO
+
+HAVE_DOT               = YES
+DOT_FONTNAME           = Helvetica
+DOT_FONTSIZE           = 10
+TEMPLATE_RELATIONS     = YES
+CALL_GRAPH             = NO
+CALLER_GRAPH           = NO
+# Makes dot run faster. Requires graphviz >1.8.10
+DOT_MULTI_TARGETS      = YES
+
+ALIASES                = "access=\par Access:\n" \
+                         "private=\access private" \
+                         "protected=\access protected" \
+                         "license=\copyright" \
+                         "inheritDoc=\inheritdoc" \
+                         "covers=" \
+                         "codeCoverageIgnore=" \
+                         "phpcs=" \
+                         "phan=" \
+                         "suppress="
+
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_PACKAGE        = NO
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+EXTRACT_LOCAL_METHODS  = NO
+EXTRACT_ANON_NSPACES   = NO
