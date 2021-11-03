@@ -67,8 +67,8 @@ exports.config = { ...config,
 		// pass the chronology protector cookie into LexemeApi and WikibaseApi,
 		// where it’s used for all mwbot requests as well
 		const cookie = browser.getCookies( [ 'cpPosIndex' ] )[ 0 ];
-		browser.call( () => LexemeApi.initialize( cookie.value ) );
-		browser.call( () => WikibaseApi.initialize( cookie.value ) );
+		browser.call( () => LexemeApi.initialize( cookie && cookie.value ) );
+		browser.call( () => WikibaseApi.initialize( cookie && cookie.value ) );
 		browser.config.defaultLexicalCategory = WikibaseApi.createItem();
 		browser.config.defaultLanguage = WikibaseApi.createItem();
 		Replication.waitForReplicationLag( LexemeApi.getBot() );
