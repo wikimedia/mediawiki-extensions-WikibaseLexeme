@@ -55,7 +55,7 @@
 	"apihelp-wblmergelexemes-example-1": "Slår samman data från <samp>L123</samp> till <samp>L321</samp>",
 	"apierror-wikibaselexeme-parameter-required": "Parametern \"$1\" är nödvändig",
 	"apierror-wikibaselexeme-parameter-invalid-json-object": "Parametern \"$1\" förväntas vara ett giltigt JSON-objekt, med tanke på \"$2\"",
-	"apierror-wikibaselexeme-lexeme-not-found": "Fältet \"$1\" innehåller ett ID för ett Lexeme \"$2\" som inte kunde hittas.",
+	"apierror-wikibaselexeme-lexeme-not-found": "Fältet \"$1\" innehåller ett ID för ett lexem \"$2\" som inte kunde hittas.",
 	"apierror-wikibaselexeme-form-not-found": "Fältet \"$1\" innehåller ett ID för ett formulär \"$2\" som inte kunde hittas.",
 	"apierror-wikibaselexeme-sense-not-found": "Fältet \"$1\" innehåller ett ID för en Sense \"$2\" som inte kunde hittas.",
 	"apierror-wikibaselexeme-json-field-required": "Fältet \"$3\" vid \"$2\" i parametern \"$1\" krävs",
