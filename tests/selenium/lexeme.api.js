@@ -56,6 +56,7 @@ class LexemeApi {
 	 * @return {Promise}
 	 */
 	create( lexeme ) {
+		browser.log( 'starting lexeme creation' );
 		lexeme = Object.assign( {
 			lemmas: {
 				en: {
@@ -71,18 +72,22 @@ class LexemeApi {
 			lexeme.lexicalCategory === null ?
 				Promise.resolve( browser.config.defaultLexicalCategory ) : Promise.resolve( lexeme.lexicalCategory )
 		).then( ( categoryValue ) => {
+			browser.log( 'have categoryValue' );
 			lexeme.lexicalCategory = categoryValue;
 			return ( lexeme.language === null ?
 				Promise.resolve( browser.config.defaultLanguage ) : Promise.resolve( lexeme.language ) );
 		} ).then( ( languageValue ) => {
+			browser.log( 'have languageValue' );
 			lexeme.language = languageValue;
 			return this.getBot().then( ( bot ) => {
+				browser.log( 'have bot' );
 				return bot.request( {
 					action: 'wbeditentity',
 					new: 'lexeme',
 					data: JSON.stringify( lexeme ),
 					token: bot.editToken
 				} ).then( ( payload ) => {
+					browser.log( 'Lexeme created' );
 					return payload.entity;
 				} );
 			} );
