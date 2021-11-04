@@ -2,8 +2,7 @@
 
 const MWBot = require( 'mwbot' ),
 	request = require( 'request' ),
-	Util = require( 'wdio-mediawiki/Util' ),
-	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
+	Util = require( 'wdio-mediawiki/Util' );
 
 class LexemeApi {
 
@@ -69,10 +68,12 @@ class LexemeApi {
 		}, lexeme );
 		// Avoid an ID acquisition race condition by executing one after another.
 		return (
-			lexeme.lexicalCategory === null ? WikibaseApi.createItem() : Promise.resolve( lexeme.lexicalCategory )
+			lexeme.lexicalCategory === null ?
+				Promise.resolve( browser.config.defaultLexicalCategory ) : Promise.resolve( lexeme.lexicalCategory )
 		).then( ( categoryValue ) => {
 			lexeme.lexicalCategory = categoryValue;
-			return ( lexeme.language === null ? WikibaseApi.createItem() : Promise.resolve( lexeme.language ) );
+			return ( lexeme.language === null ?
+				Promise.resolve( browser.config.defaultLanguage ) : Promise.resolve( lexeme.language ) );
 		} ).then( ( languageValue ) => {
 			lexeme.language = languageValue;
 			return this.getBot().then( ( bot ) => {

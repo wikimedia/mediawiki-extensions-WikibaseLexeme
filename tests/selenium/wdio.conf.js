@@ -2,7 +2,8 @@
 
 const { config } = require( 'wdio-mediawiki/wdio-defaults.conf.js' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
-	LexemeApi = require( './lexeme.api' );
+	LexemeApi = require( './lexeme.api' ),
+	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 exports.config = { ...config,
 	// Override, or add to, the setting from wdio-mediawiki.
@@ -23,6 +24,8 @@ exports.config = { ...config,
 
 	beforeSuite: function () {
 		LoginPage.loginAdmin();
+		browser.config.defaultLexicalCategory = WikibaseApi.createItem();
+		browser.config.defaultLanguage = WikibaseApi.createItem();
 		browser.executeAsync( function ( done ) {
 			/* global mw */
 			// save any option (setting it to its previous value),
