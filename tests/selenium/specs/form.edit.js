@@ -162,8 +162,11 @@ describe( 'Lexeme:Forms', () => {
 	} );
 
 	it( 'can remove first grammatical feature', () => {
+		browser.log( 'test started' );
 		const grammaticalFeatureId = browser.call( () => WikibaseApi.createItem() );
+		browser.log( 'grammaticalFeatureId created' );
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
+			browser.log( 'Lexeme creation done' );
 			const lexemeId = lexeme.id;
 			return LexemeApi.addForm(
 				lexemeId,
@@ -175,14 +178,19 @@ describe( 'Lexeme:Forms', () => {
 				}
 			).then( () => lexemeId );
 		} ) );
+		browser.log( 'Form added to Lexeme' );
 
 		LexemePage.open( id );
+		browser.log( 'Lexeme opened' );
 
 		LexemePage.addGrammaticalFeatureToNthForm( 0, grammaticalFeatureId );
+		browser.log( 'grammatical feature added' );
 
 		LexemePage.removeGrammaticalFeatureFromNthForm( 0 );
+		browser.log( 'grammatical feature removed' );
 
 		browser.call( () => LexemeApi.get( id ).then( ( lexeme ) => {
+			browser.log( 'Lexeme retrieved for assertion' );
 			assert.equal(
 				grammaticalFeatureId === lexeme.forms[ 0 ].grammaticalFeatures[ 0 ],
 				false,

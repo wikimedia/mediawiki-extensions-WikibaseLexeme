@@ -22,6 +22,19 @@ exports.config = { ...config,
 	// custom config to be used for waitFor* timeouts where we're not waiting for an API call or such
 	nonApiTimeout: 10000,
 
+	startOfTestTime: null,
+
+	before: function ( capabilities, specs, browser ) {
+		browser.log = function ( message ) {
+			console.log( `${Date.now() - browser.config.startOfTestTime}: ${message}` );
+		};
+	},
+
+	beforeTest: function ( test, context ) {
+		config.beforeTest( test, context );
+		browser.config.startOfTestTime = Date.now();
+	},
+
 	beforeSuite: function () {
 		LoginPage.loginAdmin();
 		browser.config.defaultLexicalCategory = WikibaseApi.createItem();
