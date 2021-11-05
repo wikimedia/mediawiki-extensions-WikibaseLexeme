@@ -19,12 +19,10 @@ describe( 'Special:Watchlist', () => {
 		await Api.createAccount( bot, username, password );
 	} );
 
-	beforeEach( function () {
+	it( 'shows lemmas in title links to lexemes on Special:Watchlist', () => {
 		browser.deleteAllCookies();
 		LoginPage.login( username, password );
-	} );
 
-	it( 'shows lemmas in title links to lexemes on Special:Watchlist', () => {
 		const id = browser.call( () => LexemeApi.create( {
 			lemmas: {
 				en: {
