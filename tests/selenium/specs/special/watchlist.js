@@ -5,6 +5,7 @@ const assert = require( 'assert' ),
 	Util = require( 'wdio-mediawiki/Util' ),
 	LexemeApi = require( '../../lexeme.api' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
+	LogoutPage = require( '../../pageobjects/logout.page' ),
 	WatchlistPage = require( '../../pageobjects/watchlist.page' ),
 	WatchablePage = require( '../../pageobjects/watchable.page' );
 
@@ -20,7 +21,7 @@ describe( 'Special:Watchlist', () => {
 	} );
 
 	it( 'shows lemmas in title links to lexemes on Special:Watchlist', () => {
-		browser.deleteAllCookies();
+		LogoutPage.ensureLoggedOut();
 		LoginPage.login( username, password );
 
 		const id = browser.call( () => LexemeApi.create( {
