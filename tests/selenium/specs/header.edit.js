@@ -2,7 +2,8 @@
 
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
-	LexemePage = require( '../pageobjects/lexeme.page' );
+	LexemePage = require( '../pageobjects/lexeme.page' ),
+	Replication = require( '../replication' );
 
 let WikibaseApi;
 try {
@@ -22,11 +23,7 @@ describe( 'Lexeme:Header', () => {
 
 		LexemePage.setLexemeLanguageItem( languageItem );
 
-		// Wait for 120% of the current replication lag to increase the chance we
-		// get up to date entity data below, even if reading from a replica.
-		browser.call( () => LexemeApi.getReplicationLag()
-			.then( ( replag ) => browser.pause( replag * 1200 ) )
-		);
+		Replication.waitForReplicationLag();
 		browser.call( () => LexemeApi.get( id )
 			.then( ( lexeme ) => {
 				assert.equal( languageItem, lexeme.language, 'Unexpected Language value' );
@@ -44,11 +41,7 @@ describe( 'Lexeme:Header', () => {
 
 		LexemePage.setLexicalCategoryItem( categoryItem );
 
-		// Wait for 120% of the current replication lag to increase the chance we
-		// get up to date entity data below, even if reading from a replica.
-		browser.call( () => LexemeApi.getReplicationLag()
-			.then( ( replag ) => browser.pause( replag * 1200 ) )
-		);
+		Replication.waitForReplicationLag();
 		browser.call( () => LexemeApi.get( id )
 			.then( ( lexeme ) => {
 				assert.equal( categoryItem, lexeme.lexicalCategory, 'Unexpected lexical category value' );

@@ -3,6 +3,7 @@
 const assert = require( 'assert' ),
 	LexemeApi = require( '../lexeme.api' ),
 	LexemePage = require( '../pageobjects/lexeme.page' ),
+	Replication = require( '../replication' ),
 	SensePage = require( '../pageobjects/sense.page' );
 
 describe( 'Lexeme:Senses', () => {
@@ -122,6 +123,7 @@ describe( 'Lexeme:Senses', () => {
 				}
 			).then( () => lexemeId );
 		} ) );
+		Replication.waitForReplicationLag();
 
 		LexemePage.open( id );
 		SensePage.addGlossToNthSense( 0, 'test', 'de', true );
