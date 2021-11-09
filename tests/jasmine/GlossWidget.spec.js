@@ -213,14 +213,16 @@ describe( 'GlossWidget', function () {
 			}
 		};
 
-		return new Vue( GlossWidget.newGlossWidget(
+		var widget = GlossWidget.newGlossWidget(
 			messages,
-			document.createElement( 'div' ),
 			getTemplate('resources/templates/glossWidget.vue.html'),
 			glosses,
 			function () {
 			},
 			getDirectionality
-		) );
+		);
+		widget.el = document.createElement( 'div' );
+		widget.data = widget.data();
+		return new Vue( widget );
 	}
 } );

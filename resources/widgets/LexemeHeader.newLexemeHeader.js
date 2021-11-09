@@ -7,27 +7,27 @@ module.exports = ( function () {
 	 * @callback wikibase.lexeme.widgets.LemmaWidget.newComponent
 	 *
 	 * @param {Vuex.Store} store
-	 * @param {string} element
 	 * @param {string} template - template string or selector
 	 * @param {Object} lemmaWidget
 	 * @param {Object} languageAndCategoryWidget
 	 * @param {Object} messages - mw.messages localization service
 	 * @return {Object}
 	 */
-	return function ( store, element, template, lemmaWidget, languageAndCategoryWidget, messages ) {
+	return function ( store, template, lemmaWidget, languageAndCategoryWidget, messages ) {
 		return {
-			el: element,
 			template: template,
 			store: store,
 
-			data: {
-				isInitialized: true,
-				inEditMode: false,
-				id: store.state.id,
-				lemmas: store.state.lemmas.copy(),
-				hasRedundantLemmaLanguage: false,
-				language: store.state.language,
-				lexicalCategory: store.state.lexicalCategory
+			data: function () {
+				return {
+					isInitialized: true,
+					inEditMode: false,
+					id: store.state.id,
+					lemmas: store.state.lemmas.copy(),
+					hasRedundantLemmaLanguage: false,
+					language: store.state.language,
+					lexicalCategory: store.state.lexicalCategory
+				};
 			},
 
 			methods: {

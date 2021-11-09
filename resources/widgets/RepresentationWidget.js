@@ -6,35 +6,31 @@ module.exports = ( function ( Vuex ) {
 		actionTypes = require( '../store/actionTypes.js' ),
 		focusElement = require( '../focusElement.js' );
 
-	Vue.use( Vuex );
-
 	/**
 	 * @callback RepresentationWidget.newComponent
-	 * @param {Vuex.Store} store
 	 * @param {number} formIndex Index of the form to emit value updates on
-	 * @param {string|HTMLElement} element - ID selector or DOM node
 	 * @param {string} template - template string or ID selector
 	 * @param {Function} beforeUpdate
 	 * @param {Object} mw
 	 * @return {Object} Vue component object
 	 */
-	function newComponent( store, formIndex, element, template, beforeUpdate, mw ) {
+	function newComponent( formIndex, template, beforeUpdate, mw ) {
 
 		return {
-			el: element,
 			template: template,
-			store: store,
 
 			mixins: [ RedundantLanguageIndicator( 'representations' ) ],
 
 			beforeUpdate: beforeUpdate,
 
-			data: {
-				inEditMode: false,
-				formIndex: formIndex,
-				// We need a way to identify each form input.
-				// formIndex however is currently not incremented and awaiting refactoring.
-				uid: Math.round( Math.random() * 1000000 )
+			data: function () {
+				return {
+					inEditMode: false,
+					formIndex: formIndex,
+					// We need a way to identify each form input.
+					// formIndex however is currently not incremented and awaiting refactoring.
+					uid: Math.round( Math.random() * 1000000 )
+				};
 			},
 			computed: {
 				representations: function () {
@@ -121,14 +117,16 @@ module.exports = ( function ( Vuex ) {
 	 * @return {Vue} Initialized widget
 	 */
 	function create( store, formIndex, element, template, beforeUpdate, mw ) {
-		return new Vue( newComponent( store, formIndex, element, template, beforeUpdate, mw ) );
+		return Vue.createMwApp( $.extend( { store: store }, newComponent( formIndex, template, beforeUpdate, mw ) ) )
+			.mount( element );
 	}
 
 	/**
 	 * @class RepresentationWidget
 	 */
 	return {
-		create: create
+		create: create,
+		newComponent: newComponent
 	};
 
 } )( Vuex );

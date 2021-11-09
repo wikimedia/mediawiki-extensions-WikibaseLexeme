@@ -284,7 +284,6 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		var element = document.createElement( 'div' ),
 			options = newLexemeHeader(
 				store,
-				element,
 				template,
 				getLemmaWidget(),
 				getLanguageAndLexicalCategoryWidget(),
@@ -294,6 +293,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					}
 				}
 			);
+		options.el = element;
+		options.data = options.data();
 
 		return new Vue( _.merge( options, mergeOptions ) ).$mount();
 	}
