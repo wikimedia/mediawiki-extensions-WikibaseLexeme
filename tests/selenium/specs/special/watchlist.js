@@ -21,9 +21,6 @@ describe( 'Special:Watchlist', () => {
 	} );
 
 	it( 'shows lemmas in title links to lexemes on Special:Watchlist', () => {
-		LogoutPage.ensureLoggedOut();
-		LoginPage.login( username, password );
-
 		const id = browser.call( () => LexemeApi.create( {
 			lemmas: {
 				en: {
@@ -36,6 +33,9 @@ describe( 'Special:Watchlist', () => {
 				}
 			}
 		} ).then( ( lexeme ) => lexeme.id ) );
+
+		LogoutPage.ensureLoggedOut();
+		LoginPage.login( username, password );
 
 		WatchablePage.watch( 'Lexeme:' + id );
 
