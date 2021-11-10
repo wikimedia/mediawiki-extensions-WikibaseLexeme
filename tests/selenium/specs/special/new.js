@@ -32,17 +32,9 @@ describe( 'NewLexeme:Page', () => {
 		before( function () {
 			NewLexemePage.open();
 
-			// TODO how to do this nicely?
-			browser.waitUntil( () => {
-				return browser.execute( () => {
-					return ( typeof window.mw.loader === 'object' && typeof window.mw.loader.using === 'function' );
-				} ) === true;
-			} );
-
+			Util.waitForModuleState( 'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig' );
 			lexemeLanguageCodePropertyId = browser.executeAsync( ( done ) => {
-				window.mw.loader.using( [ 'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig' ], function () {
-					done( window.mw.config.get( 'LexemeLanguageCodePropertyId' ) );
-				} );
+				done( window.mw.config.get( 'LexemeLanguageCodePropertyId' ) );
 			} );
 
 			if ( lexemeLanguageCodePropertyId === null ) {
