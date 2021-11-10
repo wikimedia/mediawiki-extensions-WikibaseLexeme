@@ -123,7 +123,7 @@ describe( 'Lexeme:Senses', () => {
 				}
 			).then( () => lexemeId );
 		} ) );
-		Replication.waitForReplicationLag();
+		Replication.waitForReplicationLag( LexemeApi.getBot() );
 
 		LexemePage.open( id );
 		SensePage.addGlossToNthSense( 0, 'test', 'de', true );
