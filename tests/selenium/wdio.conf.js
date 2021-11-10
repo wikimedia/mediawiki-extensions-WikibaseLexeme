@@ -3,6 +3,7 @@
 const { config } = require( 'wdio-mediawiki/wdio-defaults.conf.js' ),
 	LoginPage = require( 'wdio-mediawiki/LoginPage' ),
 	LexemeApi = require( './lexeme.api' ),
+	Replication = require( './replication' ),
 	WikibaseApi = require( 'wdio-wikibase/wikibase.api' );
 
 exports.config = { ...config,
@@ -54,6 +55,7 @@ exports.config = { ...config,
 		// where it’s used for all mwbot requests as well
 		const cookie = browser.getCookies( [ 'cpPosIndex' ] )[ 0 ];
 		browser.call( () => LexemeApi.initialize( cookie.value ) );
+		Replication.waitForReplicationLag( LexemeApi.getBot() );
 	}
 
 };
