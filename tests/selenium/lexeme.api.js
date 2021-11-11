@@ -37,7 +37,6 @@ class LexemeApi {
 	}
 
 	/**
-	 * @private
 	 * @return {Promise} resolving with MWBot
 	 */
 	getBot() {
@@ -108,23 +107,6 @@ class LexemeApi {
 			} );
 		} ).then( ( response ) => {
 			return Promise.resolve( response.entities[ lexemeId ] );
-		} );
-	}
-
-	/**
-	 * Get the current replication lag.
-	 *
-	 * @return {Promise}
-	 */
-	getReplicationLag() {
-		return this.getBot().then( ( bot ) => {
-			return bot.request( {
-				action: 'query',
-				meta: 'siteinfo',
-				siprop: 'dbrepllag'
-			} );
-		} ).then( ( response ) => {
-			return Promise.resolve( Math.max( 0, response.query.dbrepllag[ 0 ].lag ) );
 		} );
 	}
 

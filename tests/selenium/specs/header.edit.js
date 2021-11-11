@@ -23,7 +23,7 @@ describe( 'Lexeme:Header', () => {
 
 		LexemePage.setLexemeLanguageItem( languageItem );
 
-		Replication.waitForReplicationLag();
+		Replication.waitForReplicationLag( LexemeApi.getBot() );
 		browser.call( () => LexemeApi.get( id )
 			.then( ( lexeme ) => {
 				assert.equal( languageItem, lexeme.language, 'Unexpected Language value' );
@@ -41,7 +41,7 @@ describe( 'Lexeme:Header', () => {
 
 		LexemePage.setLexicalCategoryItem( categoryItem );
 
-		Replication.waitForReplicationLag();
+		Replication.waitForReplicationLag( LexemeApi.getBot() );
 		browser.call( () => LexemeApi.get( id )
 			.then( ( lexeme ) => {
 				assert.equal( categoryItem, lexeme.lexicalCategory, 'Unexpected lexical category value' );
