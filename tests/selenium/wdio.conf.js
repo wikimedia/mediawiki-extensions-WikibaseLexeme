@@ -38,8 +38,6 @@ exports.config = { ...config,
 
 	beforeSuite: function () {
 		LoginPage.loginAdmin();
-		browser.config.defaultLexicalCategory = WikibaseApi.createItem();
-		browser.config.defaultLanguage = WikibaseApi.createItem();
 		browser.executeAsync( function ( done ) {
 			/* global mw */
 			// save any option (setting it to its previous value),
@@ -51,10 +49,13 @@ exports.config = { ...config,
 				).then( done );
 			} );
 		} );
-		// pass the chronology protector cookie into LexemeApi,
+		// pass the chronology protector cookie into LexemeApi and WikibaseApi,
 		// where it’s used for all mwbot requests as well
 		const cookie = browser.getCookies( [ 'cpPosIndex' ] )[ 0 ];
 		browser.call( () => LexemeApi.initialize( cookie.value ) );
+		browser.call( () => WikibaseApi.initialize( cookie.value ) );
+		browser.config.defaultLexicalCategory = WikibaseApi.createItem();
+		browser.config.defaultLanguage = WikibaseApi.createItem();
 		Replication.waitForReplicationLag( LexemeApi.getBot() );
 	}
 
