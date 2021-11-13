@@ -46,8 +46,8 @@ class ValidationContextTest extends TestCase {
 
 			$this->assertInstanceOf( ApiMessage::class, $message );
 
-			$this->assertSame( $message->getKey(), 'hello' );
-			$this->assertSame( $message->getApiCode(), 'world' );
+			$this->assertSame( 'hello', $message->getKey() );
+			$this->assertSame( 'world', $message->getApiCode() );
 			$this->assertSame( $message->getParams(), [] );
 			$this->assertSame( $message->getApiData(), [
 				'parameterName' => 'data',
