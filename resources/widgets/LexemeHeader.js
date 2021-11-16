@@ -9,8 +9,6 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 	var newLexemeHeader = require( './LexemeHeader.newLexemeHeader.js' );
 	var Lemma = require( '../datamodel/Lemma.js' );
 
-	Vue.use( Vuex );
-
 	/**
 	 * @param {Object} wbEntity
 	 * @return {{lemmas: Lemma[], lexicalCategory: string|null, language: string|null, id: string}}
@@ -76,7 +74,6 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 
 		var header = newLexemeHeader(
 			store,
-			'#wb-lexeme-header',
 			templates.header,
 			lemmaWidget,
 			languageAndLexicalCategoryWidget,
@@ -96,8 +93,8 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 			$saveButton.data( 'wbtooltip' ).show();
 		};
 
-		// eslint-disable-next-line no-unused-vars
-		var app = new Vue( header );
+		Vue.createMwApp( $.extend( { store: store }, header ) )
+			.mount( '#wb-lexeme-header' );
 	}
 
 	return function () {

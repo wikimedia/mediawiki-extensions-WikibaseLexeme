@@ -1,4 +1,4 @@
-module.exports = ( function ( require, wb, Vuex ) {
+module.exports = ( function ( require, wb ) {
 	'use strict';
 
 	var Vue = require( 'vue' ),
@@ -8,8 +8,6 @@ module.exports = ( function ( require, wb, Vuex ) {
 		focusElement = require( '../focusElement.js' ),
 		// languages.json is a dynamic ResourceLoader source file
 		lexemeTermLanguages = require( './languages.json' ).lexemeTermLanguages;
-
-	Vue.use( Vuex );
 
 	function deepClone( object ) {
 		return JSON.parse( JSON.stringify( object ) ).sort( function ( a, b ) {
@@ -21,22 +19,21 @@ module.exports = ( function ( require, wb, Vuex ) {
 		var template = mw.template.get( 'wikibase.lexeme.lexemeview', 'glossWidget.vue' ).getSource();
 		var messages = mw.messages;
 
-		return new Vue( newGlossWidget( messages, widgetElement, template, glosses, beforeUpdate, getDirectionality ) );
+		return Vue.createMwApp( newGlossWidget( messages, template, glosses, beforeUpdate, getDirectionality ) )
+			.mount( widgetElement );
 	}
 
 	/**
 	 *
 	 * @param {mw.messages} messages
-	 * @param {string|HTMLElement} widgetElement
 	 * @param {string} template
 	 * @param {[{ value: string, language: string }]} glosses
 	 * @param {Function} beforeUpdate
 	 * @param {Function} getDirectionality
 	 * @return {Object}
 	 */
-	function newGlossWidget( messages, widgetElement, template, glosses, beforeUpdate, getDirectionality ) {
+	function newGlossWidget( messages, template, glosses, beforeUpdate, getDirectionality ) {
 		return {
-			el: widgetElement,
 			template: template,
 
 			mixins: [
@@ -50,9 +47,11 @@ module.exports = ( function ( require, wb, Vuex ) {
 
 			beforeUpdate: beforeUpdate,
 
-			data: {
-				inEditMode: false,
-				glosses: deepClone( glosses )
+			data: function () {
+				return {
+					inEditMode: false,
+					glosses: deepClone( glosses )
+				};
 			},
 			methods: {
 				add: function () {
@@ -96,4 +95,4 @@ module.exports = ( function ( require, wb, Vuex ) {
 		newGlossWidget: newGlossWidget
 	};
 
-} )( require, wikibase, Vuex );
+} )( require, wikibase );

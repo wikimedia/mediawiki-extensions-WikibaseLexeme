@@ -112,7 +112,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	get hasRepresentation() {
-		return $( '.wikibase-lexeme-form-header > .representation-widget' ).isExisting();
+		return $( '.wikibase-lexeme-form-header .representation-widget' ).isExisting();
 	}
 
 	get formStatementList() {

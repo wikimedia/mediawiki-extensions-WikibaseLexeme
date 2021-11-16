@@ -137,15 +137,17 @@ describe( 'RepresentationWidget', function () {
 	} );
 
 	function newWidget( representations, lemmas ) {
-		return RepresentationWidget.create(
-			getTestStore( lemmas, representations ),
+		var widget = RepresentationWidget.newComponent(
 			getFormIndex(),
-			document.createElement( 'div' ),
 			'<div id="dummy-template"></div>',
 			function () {
 			},
 			mw
 		);
+		widget.el = document.createElement( 'div' );
+		widget.data = widget.data();
+		widget.store = getTestStore( lemmas, representations );
+		return new Vue( widget );
 	}
 
 	function getTestStore( lemmas, representations ) {
