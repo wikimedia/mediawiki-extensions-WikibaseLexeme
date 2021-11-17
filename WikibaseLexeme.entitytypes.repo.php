@@ -55,6 +55,7 @@ use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
+use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\TitleLookupBasedEntityExistenceChecker;
 use Wikibase\Lib\Store\TitleLookupBasedEntityRedirectChecker;
 use Wikibase\Lib\Store\TitleLookupBasedEntityTitleTextLookup;
@@ -76,6 +77,7 @@ use Wikibase\Repo\Rdf\FullStatementRdfBuilderFactory;
 use Wikibase\Repo\Rdf\RdfVocabulary;
 use Wikibase\Repo\Rdf\TruthyStatementRdfBuilderFactory;
 use Wikibase\Repo\Rdf\ValueSnakRdfBuilderFactory;
+use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Purtle\RdfWriter;
@@ -134,7 +136,10 @@ return [
 				WikibaseRepo::getExternalFormatStatementDeserializer( $services ),
 				$changeOpFactoryProvider->getStatementChangeOpFactory()
 			);
-			$entityLookup = WikibaseRepo::getEntityLookup( $services );
+			$entityLookup = WikibaseRepo::getStore( $services )->getEntityLookup(
+				Store::LOOKUP_CACHING_DISABLED,
+				LookupConstants::LATEST_FROM_MASTER
+			);
 			$itemValidator = new EntityExistsValidator( $entityLookup, 'item' );
 			$entityIdParser = WikibaseRepo::getEntityIdParser( $services );
 			$stringNormalizer = WikibaseRepo::getStringNormalizer( $services );
