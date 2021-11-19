@@ -11,14 +11,14 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
  */
 class ValidationContext {
 
-	private $field = '';
-
-	private $level = '';
-
 	/**
 	 * @var self|null
 	 */
 	private $parentContext;
+
+	private $field;
+
+	private $level = '';
 
 	/**
 	 * @var ApiError[]

@@ -63,12 +63,12 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	/**
 	 * @var int
 	 */
-	private $nextFormId = 1;
+	private $nextFormId;
 
 	/**
 	 * @var int
 	 */
-	private $nextSenseId = 1;
+	private $nextSenseId;
 
 	/**
 	 * Note that $lexicalCategory and $language can only be null during construction time. Their

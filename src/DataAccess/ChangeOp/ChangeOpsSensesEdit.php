@@ -21,7 +21,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpsSensesEdit implements ChangeOp {
 
-	private $changeOpForSense = [];
+	private $changeOpForSense;
 
 	/**
 	 * @param ChangeOp[] $changeOpForSense [ string $senseId => ChangeOp $changeOp ]
