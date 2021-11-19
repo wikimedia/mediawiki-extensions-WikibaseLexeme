@@ -85,8 +85,6 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 
 	/**
 	 * @dataProvider provideValidMerges
-	 * @param Lexeme $source
-	 * @param Lexeme $target
 	 */
 	public function testValidMerges( Lexeme $source, Lexeme $target ) {
 		$validator = new NoCrossReferencingLexemeStatements(

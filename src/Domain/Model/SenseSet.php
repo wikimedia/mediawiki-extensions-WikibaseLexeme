@@ -124,9 +124,7 @@ class SenseSet implements Countable {
 	 * @return Sense|null
 	 */
 	public function getById( SenseId $senseId ) {
-		return array_key_exists( $senseId->getSerialization(), $this->senses ) ?
-			$this->senses[$senseId->getSerialization()] :
-			null;
+		return $this->senses[$senseId->getSerialization()] ?? null;
 	}
 
 	/**

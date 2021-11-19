@@ -24,7 +24,6 @@ module.exports = ( function ( require, wb ) {
 	}
 
 	/**
-	 *
 	 * @param {mw.messages} messages
 	 * @param {string} template
 	 * @param {[{ value: string, language: string }]} glosses

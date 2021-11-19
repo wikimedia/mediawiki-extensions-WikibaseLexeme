@@ -28,7 +28,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 	}
 
 	protected function tearDown(): void {
-		Theme::setSingleton( null );
+		Theme::setSingleton();
 		parent::tearDown();
 	}
 
