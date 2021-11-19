@@ -170,10 +170,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	 * @return LexemeTermSerializationValidator|MockObject
 	 */
 	private function newDummyValidator() {
-		$validator = $this->getMockBuilder( LexemeTermSerializationValidator::class )
-			->disableOriginalConstructor()
-			->getMock();
-		return $validator;
+		return $this->createMock( LexemeTermSerializationValidator::class );
 	}
 
 }

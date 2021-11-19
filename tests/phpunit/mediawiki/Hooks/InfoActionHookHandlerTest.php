@@ -73,7 +73,7 @@ class InfoActionHookHandlerTest extends TestCase {
 		$entityIdLookup->expects( $this->once() )
 			->method( 'getEntityIdForTitle' )
 			->with( $context->getTitle() )
-			->will( $this->returnValue( $lexemeId ) );
+			->willReturn( $lexemeId );
 
 		$pageProps = $this->getMockBuilder( PageProps::class )
 			->disableOriginalConstructor()
@@ -97,17 +97,14 @@ class InfoActionHookHandlerTest extends TestCase {
 	private function getContext() {
 		$title = $this->createMock( Title::class );
 
-		$title->expects( $this->any() )
-			->method( 'exists' )
-			->will( $this->returnValue( true ) );
+		$title->method( 'exists' )
+			->willReturn( true );
 
-		$title->expects( $this->any() )
-			->method( 'getNamespace' )
-			->will( $this->returnValue( NS_MAIN ) );
+		$title->method( 'getNamespace' )
+			->willReturn( NS_MAIN );
 
-		$title->expects( $this->any() )
-			->method( 'getPrefixedText' )
-			->will( $this->returnValue( 'L4' ) );
+		$title->method( 'getPrefixedText' )
+			->willReturn( 'L4' );
 
 		$context = new RequestContext();
 		$context->setTitle( $title );

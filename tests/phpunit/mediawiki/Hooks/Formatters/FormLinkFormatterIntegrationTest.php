@@ -49,8 +49,7 @@ class FormLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCase
 
 	private function getEntityTitleTextLookupMock( string $titleText = null ) {
 		$entityTitleTextLookup = $this->createMock( EntityTitleTextLookup::class );
-		$entityTitleTextLookup->expects( $this->any() )
-			->method( 'getPrefixedText' )
+		$entityTitleTextLookup->method( 'getPrefixedText' )
 			->with( $entityId ?? $this->anything() )
 			->willReturn( $titleText );
 		return $entityTitleTextLookup;

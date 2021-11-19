@@ -157,10 +157,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 	 * @return ClaimDiffer
 	 */
 	private function getMockClaimDiffer() {
-		$mock = $this->getMockBuilder( ClaimDiffer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		return $mock;
+		return $this->createMock( ClaimDiffer::class );
 	}
 
 	/**
@@ -170,7 +167,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		$mockNewClaimHTML = '<tr>SOME_CLAIM_DIFF_ROW</tr>';
 		$mock = $this->createMock( ClaimDifferenceVisualizer::class );
 		$mock->method( 'visualizeNewClaim' )
-			->will( $this->returnValue( $mockNewClaimHTML ) );
+			->willReturn( $mockNewClaimHTML );
 		return $mock;
 	}
 

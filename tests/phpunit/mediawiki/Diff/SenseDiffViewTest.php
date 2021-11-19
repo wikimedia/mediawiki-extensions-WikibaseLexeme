@@ -42,12 +42,10 @@ class SenseDiffViewTest extends TestCase {
 	 */
 	public function newSnakFormatter( $returnValue = '<i>SNAK</i>' ) {
 		$instance = $this->createMock( SnakFormatter::class );
-		$instance->expects( $this->any() )
-			->method( 'getFormat' )
-			->will( $this->returnValue( SnakFormatter::FORMAT_HTML ) );
-		$instance->expects( $this->any() )
-			->method( 'formatSnak' )
-			->will( $this->returnValue( $returnValue ) );
+		$instance->method( 'getFormat' )
+			->willReturn( SnakFormatter::FORMAT_HTML );
+		$instance->method( 'formatSnak' )
+			->willReturn( $returnValue );
 		return $instance;
 	}
 
@@ -57,9 +55,8 @@ class SenseDiffViewTest extends TestCase {
 	public function newEntityIdLabelFormatter() {
 		$instance = $this->createMock( EntityIdFormatter::class );
 
-		$instance->expects( $this->any() )
-			->method( 'formatEntityId' )
-			->will( $this->returnValue( '<a>PID</a>' ) );
+		$instance->method( 'formatEntityId' )
+			->willReturn( '<a>PID</a>' );
 
 		return $instance;
 	}

@@ -91,12 +91,12 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 	private function getMockSubEntityId( $subIdString, $lexemeIdString ) {
 		$mockLexemeId = $this->createMock( LexemeId::class );
 		$mockLexemeId->method( 'getSerialization' )
-			->will( $this->returnValue( $lexemeIdString ) );
+			->willReturn( $lexemeIdString );
 		$mockSubEntityId = $this->createMock( LexemeSubEntityId::class );
 		$mockSubEntityId->method( 'getLexemeId' )
-			->will( $this->returnValue( $mockLexemeId ) );
+			->willReturn( $mockLexemeId );
 		$mockSubEntityId->method( 'getSerialization' )
-			->will( $this->returnValue( $subIdString ) );
+			->willReturn( $subIdString );
 		return $mockSubEntityId;
 	}
 

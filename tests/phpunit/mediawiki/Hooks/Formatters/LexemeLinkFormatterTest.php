@@ -170,8 +170,7 @@ class LexemeLinkFormatterTest extends TestCase {
 
 	private function getEntityTitleTextLookupMock( $titleText ) {
 		$entityTitleTextLookup = $this->createMock( EntityTitleTextLookup::class );
-		$entityTitleTextLookup->expects( $this->any() )
-			->method( 'getPrefixedText' )
+		$entityTitleTextLookup->method( 'getPrefixedText' )
 			->with( $entityId ?? $this->anything() )
 			->willReturn( $titleText );
 		return $entityTitleTextLookup;

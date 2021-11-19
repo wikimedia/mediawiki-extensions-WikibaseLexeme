@@ -167,7 +167,7 @@ class SensesViewTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$statementGroupListView->method( 'getHtml' )
-			->will( $this->returnValue( self::STATEMENT_SECTION_HTML ) );
+			->willReturn( self::STATEMENT_SECTION_HTML );
 
 		return new SensesView(
 			new DummyLocalizedTextProvider(),

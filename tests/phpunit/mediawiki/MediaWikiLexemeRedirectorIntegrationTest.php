@@ -95,8 +95,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	 */
 	private function getMockEntityTitleLookup() {
 		$titleLookup = $this->createMock( EntityTitleStoreLookup::class );
-		$titleLookup->expects( $this->any() )
-			->method( 'getTitleForId' )
+		$titleLookup->method( 'getTitleForId' )
 			->willReturn( $this->createMock( Title::class ) );
 
 		return $titleLookup;

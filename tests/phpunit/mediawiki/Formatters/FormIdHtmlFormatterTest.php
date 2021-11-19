@@ -74,7 +74,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#FORM' );
 
 		$this->titleLookup->method( 'getTitleForId' )
-			->with( $this->equalTo( $expectedFormId ) )
+			->with( $expectedFormId )
 			->willReturn( $title );
 	}
 
@@ -109,7 +109,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		/** @var EntityRevisionLookup|MockObject $revisionLookup */
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( null );
 
 		$this->makeTitleLookupReturnMainPage( $formId );
@@ -126,7 +126,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$formId = new FormId( 'L999-F666' );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willThrowException(
 				new UnresolvedEntityRedirectException(
 					$formId,
@@ -152,13 +152,13 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$formId = new FormId( 'L999-F666' );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( new EntityRevision(
 				new Form( $formId, new TermList( [ new Term( 'en', 'a' ) ] ), []
 				) ) );
 
 		$this->titleLookup->method( 'getTitleForId' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( null );
 
 		$formatter = $this->newFormIdHtmlFormatter();
@@ -189,7 +189,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( $formRevision );
 
 		$this->makeTitleLookupReturnMainPage( $formId );
@@ -234,7 +234,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( $formRevision );
 
 		$this->makeTitleLookupReturnMainPage( $formId );
@@ -272,7 +272,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		] ), [] ) );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( $formRevision );
 
 		$this->makeTitleLookupReturnMainPage( $formId );
@@ -298,7 +298,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		] ), [ $grammaticalFeature1, $grammaticalFeature2 ] ) );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( $formRevision );
 
 		$this->labelLookup->method( 'getLabel' )->will(
