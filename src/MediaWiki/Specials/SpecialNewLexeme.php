@@ -315,7 +315,7 @@ class SpecialNewLexeme extends SpecialPage {
 	}
 
 	private function getWarnings(): array {
-		if ( $this->getUser()->isAnon() ) {
+		if ( !$this->getUser()->isRegistered() ) {
 			return [
 				$this->msg(
 					'wikibase-anonymouseditwarning',

@@ -158,7 +158,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	}
 
 	private function anonymousEditWarning() {
-		if ( $this->getUser()->isAnon() ) {
+		if ( !$this->getUser()->isRegistered() ) {
 			return Html::rawElement(
 				'p',
 				[ 'class' => 'warning' ],
