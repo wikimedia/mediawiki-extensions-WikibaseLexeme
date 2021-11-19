@@ -219,7 +219,7 @@ describe( 'Lexeme:Forms', () => {
 		assert.equal( LexemePage.formStatementList.isExisting(), true );
 	} );
 
-	it( 'FormId counter is not decremented when addForm is undone', () => {
+	it.skip( 'FormId counter is not decremented when addForm is undone', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
@@ -238,7 +238,7 @@ describe( 'Lexeme:Forms', () => {
 
 	} );
 
-	it( 'FormId counter is not decremented when old revision is restored', () => {
+	it.skip( 'FormId counter is not decremented when old revision is restored', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 
 		LexemePage.open( id );
