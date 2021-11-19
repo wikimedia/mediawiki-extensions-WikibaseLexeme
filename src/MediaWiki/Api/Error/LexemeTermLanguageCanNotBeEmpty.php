@@ -7,9 +7,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api\Error;
  */
 class LexemeTermLanguageCanNotBeEmpty implements ApiError {
 
-	/**
-	 * @see ApiError::asApiMessage()
-	 */
+	/** @inheritDoc */
 	public function asApiMessage( $parameterName, array $path ) {
 		$message = new \Message(
 			'apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty',

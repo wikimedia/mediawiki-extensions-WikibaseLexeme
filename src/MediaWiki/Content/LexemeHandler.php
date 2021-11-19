@@ -128,9 +128,7 @@ class LexemeHandler extends EntityHandler {
 		return LexemeContent::newFromRedirect( $redirect, $title );
 	}
 
-	/**
-	 * @see EntityHandler::supportsRedirects()
-	 */
+	/** @inheritDoc */
 	public function supportsRedirects() {
 		return true;
 	}

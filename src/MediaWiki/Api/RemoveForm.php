@@ -190,9 +190,7 @@ class RemoveForm extends ApiBase {
 		$apiResult->addValue( null, 'success', 1 );
 	}
 
-	/**
-	 * @see ApiBase::getAllowedParams
-	 */
+	/** @inheritDoc */
 	protected function getAllowedParams() {
 		// TODO baserevid (not in addform etc currently....)
 		return array_merge(
@@ -213,9 +211,7 @@ class RemoveForm extends ApiBase {
 		);
 	}
 
-	/**
-	 * @see ApiBase::isWriteMode()
-	 */
+	/** @inheritDoc */
 	public function isWriteMode() {
 		return true;
 	}
@@ -228,16 +224,12 @@ class RemoveForm extends ApiBase {
 		return true;
 	}
 
-	/**
-	 * @see ApiBase::needsToken()
-	 */
+	/** @inheritDoc */
 	public function needsToken() {
 		return 'csrf';
 	}
 
-	/**
-	 * @see ApiBase::mustBePosted()
-	 */
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}

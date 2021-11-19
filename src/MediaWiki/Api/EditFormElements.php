@@ -243,9 +243,7 @@ class EditFormElements extends \ApiBase {
 		$apiResult->addValue( null, 'form', $serializedForm );
 	}
 
-	/**
-	 * @see ApiBase::getAllowedParams
-	 */
+	/** @inheritDoc */
 	protected function getAllowedParams() {
 		return [
 			EditFormElementsRequestParser::PARAM_FORM_ID => [
@@ -270,9 +268,7 @@ class EditFormElements extends \ApiBase {
 		];
 	}
 
-	/**
-	 * @see ApiBase::isWriteMode()
-	 */
+	/** @inheritDoc */
 	public function isWriteMode() {
 		return true;
 	}
@@ -285,16 +281,12 @@ class EditFormElements extends \ApiBase {
 		return true;
 	}
 
-	/**
-	 * @see ApiBase::needsToken()
-	 */
+	/** @inheritDoc */
 	public function needsToken() {
 		return 'csrf';
 	}
 
-	/**
-	 * @see ApiBase::mustBePosted()
-	 */
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}

@@ -22,9 +22,7 @@ class ParameterIsNotLexemeId implements ApiError {
 		$this->given = $given;
 	}
 
-	/**
-	 * @see ApiError::asApiMessage()
-	 */
+	/** @inheritDoc */
 	public function asApiMessage( $parameterName, array $path = [] ) {
 		// Parameter "$1" expected to be a valid Lexeme ID (ex. "L10"), given "$2"
 		$message = new \Message(

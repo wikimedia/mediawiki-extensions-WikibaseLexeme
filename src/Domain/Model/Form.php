@@ -133,9 +133,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 		$this->grammaticalFeatures = $result;
 	}
 
-	/**
-	 * @see StatementListProvider::getStatements()
-	 */
+	/** @inheritDoc */
 	public function getStatements() {
 		return $this->statementList;
 	}

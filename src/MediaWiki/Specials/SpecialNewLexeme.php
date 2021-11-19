@@ -336,9 +336,7 @@ class SpecialNewLexeme extends SpecialPage {
 		return true;
 	}
 
-	/**
-	 * @see SpecialPage::isListed()
-	 */
+	/** @inheritDoc */
 	public function isListed() {
 		return $this->entityNamespaceLookup->getEntityNamespace( Lexeme::ENTITY_TYPE ) !== null;
 	}
