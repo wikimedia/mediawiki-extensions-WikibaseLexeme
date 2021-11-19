@@ -24,14 +24,14 @@ class ItemSelectorWidgetField extends HTMLItemReferenceField {
 	private $labelFieldName = null;
 
 	/**
-	 * @var EntityIdParser|null
+	 * @var EntityIdParser
 	 */
-	private $idParser = null;
+	private $idParser;
 
 	/**
-	 * @var LabelDescriptionLookup|null
+	 * @var LabelDescriptionLookup
 	 */
-	private $labelLookup = null;
+	private $labelLookup;
 
 	public function __construct(
 		array $params,
