@@ -804,7 +804,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$revisionBeforeRequest->getRevisionId(),
 			$revisionAfterRequest->getRevisionId()
 		);
-		$this->assertSame( true, $result['entity']['nochange'] );
+		$this->assertTrue( $result['entity']['nochange'] );
 	}
 
 	public function testGivenTryingToRemoveAllLemmas_errorIsReported() {

@@ -48,7 +48,7 @@ class CartesianProductTest extends TestCase {
 
 		$this->assertInstanceOf( GeneratedValueOptions::class, $result );
 		$this->assertSame( 1, $result->count() );
-		$this->assertEquals( [ 1, 2 ], $result->first()->unbox() );
+		$this->assertSame( [ 1, 2 ], $result->first()->unbox() );
 	}
 
 	public function testCanHandleThreeGeneratedValueOptions() {
@@ -67,7 +67,7 @@ class CartesianProductTest extends TestCase {
 			);
 
 		$this->assertSame( 1, $result->count() );
-		$this->assertEquals( [ 1, 2, 3 ], $result->first()->unbox() );
+		$this->assertSame( [ 1, 2, 3 ], $result->first()->unbox() );
 	}
 
 	public function testCanHandleGeneratedValueSingle() {
@@ -86,7 +86,7 @@ class CartesianProductTest extends TestCase {
 
 		$this->assertInstanceOf( GeneratedValueOptions::class, $result );
 		$this->assertSame( 1, $result->count() );
-		$this->assertEquals( [ 1, 2 ], $result->first()->unbox() );
+		$this->assertSame( [ 1, 2 ], $result->first()->unbox() );
 	}
 
 	public function testCanCombineValuesFromDifferentGenerators() {
@@ -104,7 +104,7 @@ class CartesianProductTest extends TestCase {
 			);
 
 		$this->assertSame( 1, $result->count() );
-		$this->assertEquals( [ 1, 2 ], $result->first()->unbox() );
+		$this->assertSame( [ 1, 2 ], $result->first()->unbox() );
 	}
 
 	public function testProducesAllTheCombinations() {
