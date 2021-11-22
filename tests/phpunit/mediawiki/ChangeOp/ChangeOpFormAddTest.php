@@ -13,7 +13,6 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentation;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpRepresentationList;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Summary;
-use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\Tests\NewItem;
 
 /**
@@ -24,7 +23,7 @@ use Wikibase\Repo\Tests\NewItem;
 class ChangeOpFormAddTest extends TestCase {
 
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
-		$changeOpAddForm = $this->newChangeOpFormAdd( new ChangeOpFormEdit( [
+		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
 			new ChangeOpGrammaticalFeatures( [] )
 		] ) );
@@ -34,7 +33,7 @@ class ChangeOpFormAddTest extends TestCase {
 	}
 
 	public function test_validatePassesIfProvidedEntityIsALexeme() {
-		$changeOpAddForm = $this->newChangeOpFormAdd( new ChangeOpFormEdit( [
+		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
 			new ChangeOpGrammaticalFeatures( [] )
 		] ) );
@@ -45,7 +44,7 @@ class ChangeOpFormAddTest extends TestCase {
 	}
 
 	public function test_applyFailsIfProvidedEntityIsNotALexeme() {
-		$changeOpAddForm = $this->newChangeOpFormAdd( new ChangeOpFormEdit( [
+		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
 			new ChangeOpGrammaticalFeatures( [] )
 		] ) );
@@ -56,7 +55,7 @@ class ChangeOpFormAddTest extends TestCase {
 
 	public function test_applyAddsFormIfGivenALexeme() {
 		$representations = new TermList( [ new Term( 'en', 'goat' ) ] );
-		$changeOp = $this->newChangeOpFormAdd( new ChangeOpFormEdit( [
+		$changeOp = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
 				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] )
 		] ) );
@@ -70,7 +69,7 @@ class ChangeOpFormAddTest extends TestCase {
 	}
 
 	public function test_applySetsTheSummary() {
-		$changeOp = $this->newChangeOpFormAdd( new ChangeOpFormEdit( [
+		$changeOp = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
 			new ChangeOpGrammaticalFeatures( [] )
 		] ) );
@@ -85,12 +84,6 @@ class ChangeOpFormAddTest extends TestCase {
 		$this->assertEquals( [ 'goat' ], $summary->getAutoSummaryArgs() );
 		$this->assertNull( $summary->getLanguageCode() );
 		$this->assertSame( [ 'L1-F1' ], $summary->getCommentArgs() );
-	}
-
-	private function newChangeOpFormAdd( ChangeOp $childChangeOp ) {
-		return new ChangeOpFormAdd(
-			$childChangeOp
-		);
 	}
 
 }
