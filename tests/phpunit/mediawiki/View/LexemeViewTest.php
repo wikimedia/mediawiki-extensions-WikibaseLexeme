@@ -45,7 +45,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 			->getMock();
 
 		$view->method( 'getHtml' )
-			->will( $this->returnValue( "FormsView::getHtml\n" ) );
+			->willReturn( "FormsView::getHtml\n" );
 
 		return $view;
 	}
@@ -59,7 +59,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 			->getMock();
 
 		$view->method( 'getHtml' )
-			->will( $this->returnValue( "SensesView::getHtml\n" ) );
+			->willReturn( "SensesView::getHtml\n" );
 
 		return $view;
 	}
@@ -77,7 +77,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 		$statementSectionsView->expects( $expectedStatements ? $this->once() : $this->never() )
 			->method( 'getHtml' )
 			->with( $expectedStatements )
-			->will( $this->returnValue( "StatementSectionsView::getHtml\n" ) );
+			->willReturn( "StatementSectionsView::getHtml\n" );
 
 		return $statementSectionsView;
 	}

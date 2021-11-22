@@ -22,7 +22,7 @@ class TemplateModuleTest extends TestCase {
 			->getMock();
 
 		$context->method( 'getLanguage' )
-			->will( $this->returnValue( 'en' ) );
+			->willReturn( 'en' );
 
 		return $context;
 	}

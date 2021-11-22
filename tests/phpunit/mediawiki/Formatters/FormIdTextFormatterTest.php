@@ -38,7 +38,7 @@ class FormIdTextFormatterTest extends TestCase {
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
 		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( null );
 
 		$formatter = new FormIdTextFormatter( $mockLookup, $this->getMockTextProvider() );
@@ -52,7 +52,7 @@ class FormIdTextFormatterTest extends TestCase {
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
 		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willThrowException(
 				new UnresolvedEntityRedirectException(
 					$formId,
@@ -78,7 +78,7 @@ class FormIdTextFormatterTest extends TestCase {
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
 		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( $formRevision );
 
 		$formatter = new FormIdTextFormatter( $mockLookup, $this->getMockTextProvider() );
@@ -97,7 +97,7 @@ class FormIdTextFormatterTest extends TestCase {
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
 		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$mockLookup->method( 'getEntityRevision' )
-			->with( $this->equalTo( $formId ) )
+			->with( $formId )
 			->willReturn( $formRevision );
 
 		$formatter = new FormIdTextFormatter( $mockLookup, $this->getMockTextProvider() );

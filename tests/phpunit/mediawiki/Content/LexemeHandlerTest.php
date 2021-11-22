@@ -175,7 +175,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			LanguageFallbackLabelDescriptionLookupFactory::class
 		);
 		$labelLookupFactory->method( 'newLabelDescriptionLookup' )
-			->will( $this->returnValue( $this->createMock( LabelDescriptionLookup::class ) ) );
+			->willReturn( $this->createMock( LabelDescriptionLookup::class ) );
 
 		return new LexemeHandler(
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),

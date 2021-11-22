@@ -48,7 +48,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 
 		$lookup = $this->createMock( LabelDescriptionLookup::class );
 		$lookup->method( 'getLabel' )
-			->will( $this->returnValue( $fakeTerm ) );
+			->willReturn( $fakeTerm );
 
 		return $lookup;
 	}
@@ -81,7 +81,7 @@ class ItemSelectorWidgetFieldTest extends TestCase {
 	public function testGivenValueIsIdOfNotExistingItem_valueGetsPassedToLabelField() {
 		$lookup = $this->createMock( LabelDescriptionLookup::class );
 		$lookup->method( 'getLabel' )
-			->will( $this->returnValue( null ) );
+			->willReturn( null );
 
 		$widgetField = new ItemSelectorWidgetField(
 			[ 'fieldname' => 'test' ],

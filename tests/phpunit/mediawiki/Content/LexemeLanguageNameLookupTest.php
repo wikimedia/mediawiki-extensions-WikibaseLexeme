@@ -16,7 +16,7 @@ use Wikibase\Lib\LanguageNameLookup;
 class LexemeLanguageNameLookupTest extends TestCase {
 
 	public function testGetNameDelegatedToFallbackForDefaultLanguages() {
-		$messageLocalizer = $this->getMockBuilder( IContextSource::class )->getMock();
+		$messageLocalizer = $this->createMock( IContextSource::class );
 		$messageLocalizer->expects( $this->never() )->method( 'msg' );
 
 		$fallbackLookup = $this->getMockBuilder( LanguageNameLookup::class )->getMock();
@@ -36,7 +36,7 @@ class LexemeLanguageNameLookupTest extends TestCase {
 			->method( 'plain' )
 			->willReturn( 'British 🍵' );
 
-		$messageLocalizer = $this->getMockBuilder( IContextSource::class )->getMock();
+		$messageLocalizer = $this->createMock( IContextSource::class );
 		$messageLocalizer->expects( $this->once() )
 			->method( 'msg' )
 			->with( 'wikibase-lexeme-language-name-en' )
