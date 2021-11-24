@@ -3,13 +3,16 @@
 		"authors": [
 			"Daanboven",
 			"Ndecouck",
-			"Sjoerddebruin"
+			"Sjoerddebruin",
+			"Romaine"
 		]
 	},
 	"apihelp-wbladdform-summary": "Voegt vorm aan lexeem toe",
 	"apihelp-wbladdform-param-lexemeId": "ID van het lexeem, bijv. L10",
 	"apihelp-wblremoveform-param-id": "Identificatie van het formulier bijv. L10-F20",
+	"apihelp-wblmergelexemes-description": "Twee lexemen samenvoegen.",
 	"apihelp-wblmergelexemes-summary": "Twee lexemen samenvoegen.",
 	"apierror-wikibaselexeme-sense-not-found": "Het veld $1 bevat een nummer van betekenis $2 dat niet kan worden gevonden.",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Taal kan niet leeg zijn",
 	"apierror-wikibaselexeme-invalid-sense-claims": "Ongeldige claims in veld \"$1\" bij \"$2\"."
 }

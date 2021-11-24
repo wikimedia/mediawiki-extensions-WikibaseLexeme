@@ -6,5 +6,9 @@
 	},
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibaselexeme-field-language-label": "Lingua",
-	"wikibaselexeme-diffview-language": "lingua"
+	"wikibaselexeme-diffview-language": "lingua",
+	"wikibaselexeme-form-description": "$1 pi: $2 ($3): $4",
+	"wikibaselexeme-unknown-language": "Lingua scanusciuta",
+	"wikibaselexeme-unknown-category": "Scanusciutu",
+	"wikibase-lexeme-language-name-mis": "àutru"
 }
