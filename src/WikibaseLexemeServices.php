@@ -20,6 +20,7 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\WikibaseRepo;
@@ -162,6 +163,12 @@ class WikibaseLexemeServices {
 	public static function getEditFormChangeOpDeserializer(): EditFormChangeOpDeserializer {
 		return MediaWikiServices::getInstance()->getService(
 			'WikibaseLexemeEditFormChangeOpDeserializer'
+		);
+	}
+
+	public static function getGrammaticalFeaturesOrderProvider(): ItemOrderProvider {
+		return MediaWikiServices::getInstance()->getService(
+			'WikibaseLexemeGrammaticalFeaturesOrderProvider'
 		);
 	}
 

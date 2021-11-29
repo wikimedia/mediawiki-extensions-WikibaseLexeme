@@ -9,6 +9,7 @@ use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\Presentation\View\Template\VueTemplates;
+use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\View\LocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 use WMDE\VueJsTemplating\Templating;
@@ -39,16 +40,23 @@ class FormsView {
 	 */
 	private $statementGroupListView;
 
+	/**
+	 * @var ItemOrderProvider
+	 */
+	private $grammaticalFeaturesOrderProvider;
+
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LexemeTemplateFactory $templateFactory,
 		EntityIdFormatter $entityIdFormatter,
-		StatementGroupListView $statementGroupListView
+		StatementGroupListView $statementGroupListView,
+		ItemOrderProvider $grammaticalFeaturesOrderProvider
 	) {
 		$this->textProvider = $textProvider;
 		$this->templateFactory = $templateFactory;
 		$this->entityIdFormatter = $entityIdFormatter;
 		$this->statementGroupListView = $statementGroupListView;
+		$this->grammaticalFeaturesOrderProvider = $grammaticalFeaturesOrderProvider;
 	}
 
 	/**
@@ -96,7 +104,7 @@ class FormsView {
 						function ( ItemId $id ) {
 							return '<span>' . $this->getGrammaticalFeatureHtml( $id ) . '</span>';
 						},
-						$form->getGrammaticalFeatures()
+						$this->getSortedGrammaticalFeatures( $form )
 					)
 				)
 			]
@@ -110,6 +118,44 @@ class FormsView {
 			// Anchor separated from ID to avoid issue with front-end rendering
 			htmlspecialchars( $form->getId()->getIdSuffix() )
 		] );
+	}
+
+	/**
+	 * Return a list of grammatical features by a specific order,
+	 * decided by the list maintained in the wikipage
+	 * MediaWiki:WikibaseLexeme-SortedGrammaticalFeatures
+	 *
+	 * @param Form $form
+	 *
+	 * @return ItemId[]
+	 */
+	private function getSortedGrammaticalFeatures( Form $form ): array {
+		$grammaticalFeaturesItemIds = $form->getGrammaticalFeatures();
+		$grammaticalFeaturesOrder = $this->grammaticalFeaturesOrderProvider->getItemOrder();
+
+		if ( $grammaticalFeaturesItemIds === [] ) {
+			return [];
+		}
+
+		$sortedGrammaticalFeatures = [];
+		$unsortedGrammaticalFeatures = [];
+
+		foreach ( $grammaticalFeaturesItemIds as $grammaticalFeatureItemId ) {
+			$key = $grammaticalFeatureItemId->getSerialization();
+			$grammaticalFeaturePosition = $grammaticalFeaturesOrder[ $key ] ?? null;
+			if ( $grammaticalFeaturePosition !== null ) {
+				$sortedGrammaticalFeatures[ $grammaticalFeaturePosition ] = $grammaticalFeatureItemId;
+			} else {
+				$unsortedGrammaticalFeatures[] = $grammaticalFeatureItemId;
+			}
+		}
+		ksort( $sortedGrammaticalFeatures, SORT_NUMERIC );
+		// sort new grammatical features numerically
+		usort( $unsortedGrammaticalFeatures, static function ( ItemId $a, ItemId $b ) {
+			return strcmp( $a->getSerialization(), $b->getSerialization() );
+		} );
+		$sortedGrammaticalFeatures = array_merge( $sortedGrammaticalFeatures, $unsortedGrammaticalFeatures );
+		return $sortedGrammaticalFeatures;
 	}
 
 	/**

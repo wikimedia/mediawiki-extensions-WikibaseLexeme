@@ -11,7 +11,9 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeseri
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\Store\CachingItemOrderProvider;
 use Wikibase\Lib\Store\LookupConstants;
+use Wikibase\Lib\Store\WikiPageItemOrderProvider;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
@@ -114,6 +116,21 @@ return call_user_func( static function () {
 				),
 				new EntityExistsValidator( $entityLookup, 'item' )
 			);
+		},
+		'WikibaseLexemeGrammaticalFeaturesOrderProvider' => static function (
+			MediaWikiServices $mediaWikiServices
+		) {
+			$grammaticalFeaturesOrderProvider = new CachingItemOrderProvider(
+			new WikiPageItemOrderProvider(
+				$mediaWikiServices->getWikiPageFactory(),
+				$mediaWikiServices->getTitleFactory()
+					->newFromTextThrow( 'MediaWiki:WikibaseLexeme-SortedGrammaticalFeatures' )
+			),
+			ObjectCache::getLocalClusterInstance(),
+			'wikibaseLexeme-grammaticalFeaturesOrderProvider'
+		);
+
+			return $grammaticalFeaturesOrderProvider;
 		},
 	];
 } );
