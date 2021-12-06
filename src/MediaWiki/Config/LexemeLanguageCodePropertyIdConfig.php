@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Config;
 
-use MediaWiki\MediaWikiServices;
+use ResourceLoader;
 use ResourceLoaderContext;
 use ResourceLoaderModule;
 
@@ -21,11 +21,9 @@ class LexemeLanguageCodePropertyIdConfig extends ResourceLoaderModule {
 	 * @return string
 	 */
 	public function getScript( ResourceLoaderContext $context ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-
-		return 'mw.config.set( "LexemeLanguageCodePropertyId", '
-			. json_encode( $config->get( 'LexemeLanguageCodePropertyId' ) )
-			. ' );';
+		return ResourceLoader::makeConfigSetScript( [
+			'LexemeLanguageCodePropertyId' => $this->getConfig()->get( 'LexemeLanguageCodePropertyId' ),
+		] );
 	}
 
 }
