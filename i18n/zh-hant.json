@@ -5,7 +5,8 @@
 			"Kly",
 			"Liuxinyu970226",
 			"Mutolisp",
-			"予弦"
+			"予弦",
+			"列维劳德"
 		]
 	},
 	"wikibaselexeme-desc": "處理詞位項目類型",
@@ -21,7 +22,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "詞類",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "輸入詞類，例如：名詞",
 	"wikibaselexeme-newlexeme-language": "詞位語言",
-	"wikibaselexeme-newlexeme-language-placeholder": "輸入語言，例如中文",
+	"wikibaselexeme-newlexeme-language-placeholder": "輸入語言，例：中文",
 	"wikibaselexeme-statementsection-statements-about-form": "有關 $1 的陳述",
 	"wikibaselexeme-header-forms": "詞性",
 	"wikibaselexeme-enter-form-representation": "輸入新的詞性表述",
