@@ -5,7 +5,9 @@
 			"Beta16",
 			"Ricordisamoa",
 			"Sarah Bernabei",
-			"TheRukk"
+			"TheRukk",
+			"Ajeje Brazorf",
+			"Lorem Ipsum"
 		]
 	},
 	"wikibaselexeme-desc": "Gestisce tipi di entità lessema",
@@ -83,7 +85,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Errore durante il salvataggio del lessema.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Impossibile unire i lessemi, risolvi tutti i conflitti prima.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permesso negato.",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Impossibile unire un lessema con se stesso.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Impossibile unire un lessema con sé stesso.",
 	"wikibase-entity-summary-wblmergelexemes-from": "Lessema unito da $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Lessema unito a $3"
 }

@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Piramidion"
+			"Piramidion",
+			"DDPAT"
 		]
 	},
 	"apihelp-wbladdform-summary": "Додає Форму до Лексеми",
@@ -61,6 +62,8 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Форма повинна мати принаймні одну репрезентацію",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Смисл повинен мати принаймні одну глосу",
 	"apierror-wikibaselexeme-unknown-language": "Невідома мова «$3» в полі «$1» у «$2».",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Невідома мова \"$3\" для терміну \"$4\" у полі \"$1\" при \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "Недійсний ідентифікатор елемента «$3» в полі «$1» у «$2».",
-	"apierror-wikibaselexeme-invalid-form-claims": "Недійсні записи в полі «$1» у «$2»."
+	"apierror-wikibaselexeme-invalid-form-claims": "Недійсні записи в полі «$1» у «$2».",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Недійсні претензії в полі \"$1\" на рівні \"$2\"."
 }
