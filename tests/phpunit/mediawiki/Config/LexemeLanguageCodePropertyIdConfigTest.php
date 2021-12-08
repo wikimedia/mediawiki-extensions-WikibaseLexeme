@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 
+use HashConfig;
 use MediaWikiIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use ResourceLoaderContext;
@@ -25,18 +26,23 @@ class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCas
 
 	public function testGetScript() {
 		$module = new LexemeLanguageCodePropertyIdConfig();
+		$module->setConfig( new HashConfig( [
+			'LexemeLanguageCodePropertyId' => null,
+		] ) );
 		$script = $module->getScript( $this->getContext() );
 		$this->assertStringStartsWith(
-			'mw.config.set( "LexemeLanguageCodePropertyId", ',
+			'mw.config.set({"LexemeLanguageCodePropertyId":',
 			$script
 		);
-		$this->assertStringEndsWith( ' );', $script );
+		$this->assertStringEndsWith( '});', $script );
 	}
 
 	public function testEscapesConfigVariableContent() {
 		$module = new LexemeLanguageCodePropertyIdConfig();
 		$evilConfig = '"\'';
-		$this->setMwGlobals( 'wgLexemeLanguageCodePropertyId', $evilConfig );
+		$module->setConfig( new HashConfig( [
+			'LexemeLanguageCodePropertyId' => $evilConfig,
+		] ) );
 
 		$this->assertStringContainsString(
 			json_encode( $evilConfig ),
