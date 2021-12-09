@@ -249,7 +249,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	 * @param string $source
 	 * @param string $target
 	 *
-	 * @return string $output
+	 * @return string
 	 */
 	private function executeSpecialPageWithIds( $source, $target ) {
 		list( $output, ) = $this->executeSpecialPage(

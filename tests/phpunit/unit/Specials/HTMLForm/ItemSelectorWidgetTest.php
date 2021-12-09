@@ -23,7 +23,7 @@ class ItemSelectorWidgetTest extends MediaWikiUnitTestCase {
 	}
 
 	protected function tearDown(): void {
-		Theme::setSingleton( null );
+		Theme::setSingleton();
 		parent::tearDown();
 	}
 
