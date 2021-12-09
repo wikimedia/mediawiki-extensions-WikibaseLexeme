@@ -7,6 +7,8 @@ mw_interface = nil
 local wikibaseLexemeEntitySense = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
+local util = require 'libraryUtil'
+local checkType = util.checkType
 
 function wikibaseLexemeEntitySense.create( data )
 	if type( data ) ~= 'table' then
@@ -55,6 +57,17 @@ function methodtable.getGlosses( entity )
 		table.insert( glosses, { gloss.value, gloss.language } )
 	end
 	return glosses
+end
+
+function methodtable.getGloss( entity, language )
+	checkType( 'getGloss', 1, language, 'string', true )
+	language = language or mw.language.getContentLanguage():getCode()
+	gloss = entity.glosses[ language ]
+	if gloss then
+		return gloss.value, gloss.language
+	else
+		return nil
+	end
 end
 
 package.loaded['mw.wikibase.lexeme.entity.sense'] = wikibaseLexemeEntitySense

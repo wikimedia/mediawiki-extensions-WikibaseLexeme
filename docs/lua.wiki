@@ -45,6 +45,21 @@ An example call might look like this:
 mw.wikibase.getEntity( 'L1' ):getLemmas() -- Returns { { 'ama', 'mis-x-Q36790' }, { '𒂼', 'mis-x-Q401' } } on Wikidata
 </source>
 
+=== mw.wikibase.lexeme.entity.lexeme:getLemma ===
+<code>entity:getLemma()</code>
+<code>entity:getLemma( languageCode )</code>
+
+Gets the lemma of this Lexeme in the given language,
+or in the content language if no language is given.
+Returns the lemma and its language as two strings if the lexeme has a lemma in this language, or nil otherwise.
+(Language fallbacks are not applied.)
+
+An example call might look like this:
+<source lang="lua">
+mw.wikibase.getEntity( 'L1' ):getLemma( 'mis-x-Q36790' ) -- Returns 'ama', 'mis-x-Q36790' on Wikidata
+mw.wikibase.getEntity( 'L99' ):getLemma() -- Returns 'Luftballon', 'de' on German Wiktionary
+</source>
+
 === mw.wikibase.lexeme.entity.lexeme:getLanguage ===
 <code>entity:getLanguage()</code>
 
@@ -103,6 +118,20 @@ An example call might look like this:
 form:getRepresentations() -- example: { { 'Luftballon', 'de' } }
 </source>
 
+=== mw.wikibase.lexeme.entity.form:getRepresentation ===
+<code>entity:getRepresentation()</code>
+<code>entity:getRepresentation( languageCode )</code>
+
+Gets the representation of this Form in the given language,
+or in the content language if no language is given.
+Returns the representation and its language as two strings if the Form has a representation in this language, or nil otherwise.
+(Language fallbacks are not applied.)
+
+An example call might look like this:
+<source lang="lua">
+form:getRepresentation( 'de' ) -- example: 'Luftballon', 'de'
+</source>
+
 === mw.wikibase.lexeme.entity.form:getGrammaticalFeatures ===
 <code>entity:getGrammaticalFeatures()</code>
 
@@ -129,4 +158,18 @@ as a list of tables where each table has the gloss text as the first element and
 An example call might look like this:
 <source lang="lua">
 sense:getGlosses() -- example: { { 'a rubber sack designed to be inflated with air', 'en' } }
+</source>
+
+=== mw.wikibase.lexeme.entity.sense:getGloss ===
+<code>entity:getGloss()</code>
+<code>entity:getGloss( languageCode )</code>
+
+Gets the gloss of this Sense in the given language,
+or in the content language if no language is given.
+Returns the gloss and its language as two strings if the Sense has a gloss in this language, or nil otherwise.
+(Language fallbacks are not applied.)
+
+An example call might look like this:
+<source lang="lua">
+sense:getGloss( 'en' ) -- example: 'a rubber sack designed to be inflated with air', 'en'
 </source>
