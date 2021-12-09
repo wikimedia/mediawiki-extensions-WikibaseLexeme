@@ -5,71 +5,16 @@ WikibaseLexeme provides a Lua [https://www.mediawiki.org/wiki/Scribunto Scribunt
 Changes to the WikibaseLexeme Lua interface are subject to the [https://www.wikidata.org/wiki/Wikidata:Stable_Interface_Policy Stable Interface Policy].
 -->
 
-Aspects of the data can be accessed either directly or by loading the whole entity. The following table summarizes the most common functions:
-{| class="wikitable"
-! Aspect !! mw.wikibase.lexeme.FUNCTION !! entity:FUNCTION
-|-
-| Lemmas of Lexeme
-| [[#mw.wikibase.lexeme.getLemmas|getLemmas]]
-| [[#mw.wikibase.lexeme.entity.lexeme:getLemmas|getLemmas]]
-|-
-| Item ID of language of Lexeme
-| [[#mw.wikibase.lexeme.getLanguage|getLanguage]]
-| [[#mw.wikibase.lexeme.entity.lexeme:getLanguage|getLanguage]]
-|-
-| Item ID of lexical category of Lexeme
-| [[#mw.wikibase.lexeme.getLexicalCategory|getLexicalCategory]]
-| [[#mw.wikibase.lexeme.entity.lexeme:getLexicalCategory|getLexicalCategory]]
-|-
-| Forms of Lexeme
-| NA
-| [[#mw.wikibase.lexeme.entity.lexeme:getForms|getForms]]
-|-
-| Senses of Lexeme
-| NA
-| [[#mw.wikibase.lexeme.entity.lexeme:getSenses|getSenses]]
-|}
+Most aspects of the data are accessed as methods on a loaded entity.
+For Forms and Senses, you can either load the Form or Sense directly by its ID from <code>mw.wikibase.getEntity()</code>,
+or load the surrounding Lexeme and then get the Form or Sense from it via <code>entity:getForms()</code> or <code>entity:getSenses()</code>.
 
 :<span style="color: red;">Accessing data of Lexemes is [https://www.mediawiki.org/wiki/Manual:$wgExpensiveParserFunctionLimit expensive].</span>
 Loading entities doesn't count as expensive if the same entity is loaded twice during a module run.
 However, due to restrictions in the caching, if more than 14 other entities are loaded inbetween, the entity must be fetched again, which then counts as expensive.
 
 == mw.wikibase.lexeme ==
-<code>mw.wikibase.lexeme</code> has general Lua functionality for working with Wikibase Lexeme data.
-
-=== mw.wikibase.lexeme.getLemmas ===
-<code>mw.wikibase.lexeme.getLemmas( id )</code>
-
-Gets the lemma(s) of the Lexeme with this ID,
-as a list of tables where each table has the lemma text as the first element and the lemma language as the second.
-Returns nil if there is no such Lexeme or the ID is invalid.
-
-An example call might look like this:
-<source lang="lua">
-mw.wikibase.lexeme.getLemmas( 'L1' ) -- Returns { { 'ama', 'mis-x-Q36790' }, { '𒂼', 'mis-x-Q401' } } on Wikidata
-</source>
-
-=== mw.wikibase.lexeme.getLanguage ===
-<code>mw.wikibase.lexeme.getLanguage( id )</code>
-
-Gets the Item ID of the language of the Lexeme with this ID.
-Returns nil if there is no such Lexeme or the ID is invalid.
-
-An example call might look like this:
-<source lang="lua">
-mw.wikibase.lexeme.getLanguage( 'L1' ) -- Returns 'Q36790' on Wikidata
-</source>
-
-=== mw.wikibase.lexeme.getLexicalCategory ===
-<code>mw.wikibase.lexeme.getLexicalCategory( id )</code>
-
-Gets the Item ID of the lexical category of the Lexeme with this ID.
-Returns nil if there is no such Lexeme or the ID is invalid.
-
-An example call might look like this:
-<source lang="lua">
-mw.wikibase.lexeme.getLexicalCategory( 'L1' ) -- Returns 'Q1084' on Wikidata
-</source>
+<code>mw.wikibase.lexeme</code> has some general Lua functionality for working with Wikibase Lexeme data.
 
 === mw.wikibase.lexeme.splitLexemeId ===
 <code>mw.wikibase.lexeme.splitLexemeId( id )</code>
@@ -92,9 +37,8 @@ as well as the methods from [[Extension:Wikibase Client/Lua#mw.wikibase.entity|m
 === mw.wikibase.lexeme.entity.lexeme:getLemmas ===
 <code>entity:getLemmas()</code>
 
-Gets the lemma(s) of the Lexeme with this ID,
+Gets the lemma(s) of this Lexeme,
 as a list of tables where each table has the lemma text as the first element and the lemma language as the second.
-Returns nil if there is no such Lexeme or the ID is invalid.
 
 An example call might look like this:
 <source lang="lua">
