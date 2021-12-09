@@ -78,6 +78,8 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 
 		self::enableDataTransclusion();
 
+		$this->setMwGlobals( 'wgLanguageCode', 'en' );
+
 		/** @var MockRepository $mockRepository */
 		$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
 		$lexeme = NewLexeme::havingId( 'L1' )
