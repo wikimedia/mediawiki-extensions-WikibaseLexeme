@@ -7,6 +7,8 @@ mw_interface = nil
 local wikibaseLexemeEntityForm = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
+local util = require 'libraryUtil'
+local checkType = util.checkType
 
 function wikibaseLexemeEntityForm.create( data )
 	if type( data ) ~= 'table' then
@@ -55,6 +57,17 @@ function methodtable.getRepresentations( entity )
 		table.insert( representations, { reprentation.value, reprentation.language } )
 	end
 	return representations
+end
+
+function methodtable.getRepresentation( entity, language )
+	checkType( 'getRepresentation', 1, language, 'string', true )
+	language = language or mw.language.getContentLanguage():getCode()
+	representation = entity.representations[ language ]
+	if representation then
+		return representation.value, representation.language
+	else
+		return nil
+	end
 end
 
 function methodtable.getGrammaticalFeatures( entity )

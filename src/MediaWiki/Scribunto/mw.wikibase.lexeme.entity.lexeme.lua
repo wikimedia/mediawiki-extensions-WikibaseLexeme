@@ -7,6 +7,8 @@ mw_interface = nil
 local wikibaseLexemeEntityLexeme = {}
 local methodtable = {}
 local wikibaseEntity = require 'mw.wikibase.entity'
+local util = require 'libraryUtil'
+local checkType = util.checkType
 
 function wikibaseLexemeEntityLexeme.create( data )
 	if type( data ) ~= 'table' then
@@ -60,6 +62,17 @@ function methodtable.getLemmas( entity )
 		table.insert( lemmas, { lemma.value, lemma.language } )
 	end
 	return lemmas
+end
+
+function methodtable.getLemma( entity, language )
+	checkType( 'getLemma', 1, language, 'string', true )
+	language = language or mw.language.getContentLanguage():getCode()
+	lemma = entity.lemmas[ language ]
+	if lemma then
+		return lemma.value, lemma.language
+	else
+		return nil
+	end
 end
 
 function methodtable.getLanguage( entity )
