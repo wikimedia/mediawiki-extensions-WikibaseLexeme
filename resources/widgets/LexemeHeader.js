@@ -93,8 +93,11 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 			$saveButton.data( 'wbtooltip' ).show();
 		};
 
+		// make the app replace the existing #wb-lexeme-header (like in Vue 2) instead of appending to it (Vue 3 mount behavior)
+		var fragment = document.createDocumentFragment();
 		Vue.createMwApp( $.extend( { store: store }, header ) )
-			.mount( '#wb-lexeme-header' );
+			.mount( fragment );
+		document.getElementById( 'wb-lexeme-header' ).replaceWith( fragment );
 	}
 
 	return function () {
