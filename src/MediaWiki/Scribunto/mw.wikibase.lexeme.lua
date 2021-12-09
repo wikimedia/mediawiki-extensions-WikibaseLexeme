@@ -7,26 +7,7 @@ local util = require 'libraryUtil'
 local checkType = util.checkType
 
 function wikibaseLexeme.setupInterface()
-	local php = mw_interface
-	mw_interface = nil
-
-	function wikibaseLexeme.getLemmas( id )
-		checkType( 'getLemmas', 1, id, 'string' )
-
-		return php.getLemmas( id )
-	end
-
-	function wikibaseLexeme.getLanguage( id )
-		checkType( 'getLanguage', 1, id, 'string' )
-
-		return php.getLanguage( id )
-	end
-
-	function wikibaseLexeme.getLexicalCategory( id )
-		checkType( 'getLexicalCategory', 1, id, 'string' )
-
-		return php.getLexicalCategory( id )
-	end
+	mw_interface = nil -- currently unused, see git history or other modules for example usage
 
 	wikibaseLexeme.splitLexemeId = function( id )
 		checkType( 'splitLexemeId', 1, id, 'string' )
