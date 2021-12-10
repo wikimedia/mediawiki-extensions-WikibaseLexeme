@@ -142,6 +142,16 @@ An example call might look like this:
 form:getGrammaticalFeatures() -- example: { 'Q110786', 'Q131105' }
 </source>
 
+=== mw.wikibase.lexeme.entity.form:hasGrammaticalFeature ===
+<code>entity:hasGrammaticalFeature( itemId )</code>
+
+Tests whether this Form has the given grammatical feature or not.
+
+An example call might look like this:
+<source lang="lua">
+form:hasGrammaticalFeature( 'Q110786' ) -- example: true
+</source>
+
 == mw.wikibase.lexeme.entity.sense ==
 <code>mw.wikibase.lexeme.entity.sense</code> has methods for accessing data of a loaded Sense entity.
 It is typically not used directly –
