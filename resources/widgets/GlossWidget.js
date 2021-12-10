@@ -18,9 +18,14 @@ module.exports = ( function ( require, wb ) {
 	function applyGlossWidget( widgetElement, glosses, beforeUpdate, mw, getDirectionality ) {
 		var template = mw.template.get( 'wikibase.lexeme.lexemeview', 'glossWidget.vue' ).getSource();
 		var messages = mw.messages;
+		var fragment = document.createDocumentFragment();
 
-		return Vue.createMwApp( newGlossWidget( messages, template, glosses, beforeUpdate, getDirectionality ) )
-			.mount( widgetElement );
+		// make the app replace the widgetElement (like in Vue 2) instead of appending to it (Vue 3 mount behavior)
+		var app = Vue.createMwApp( newGlossWidget( messages, template, glosses, beforeUpdate, getDirectionality ) )
+			.mount( fragment );
+		widgetElement.replaceWith( fragment );
+
+		return app;
 	}
 
 	/**
