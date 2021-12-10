@@ -74,6 +74,16 @@ function methodtable.getGrammaticalFeatures( entity )
 	return entity.grammaticalFeatures
 end
 
+function methodtable.hasGrammaticalFeature( entity, itemId )
+	checkType( 'hasGrammaticalFeature', 1, itemId, 'string' )
+	for i, grammaticalFeature in pairs( entity.grammaticalFeatures ) do
+		if grammaticalFeature == itemId then
+			return true
+		end
+	end
+	return false
+end
+
 package.loaded['mw.wikibase.lexeme.entity.form'] = wikibaseLexemeEntityForm
 
 return wikibaseLexemeEntityForm
