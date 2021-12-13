@@ -4,7 +4,8 @@
 			"Athena in Wonderland",
 			"Banjo",
 			"Elisardojm",
-			"Maria zaos"
+			"Maria zaos",
+			"ArenaL5"
 		]
 	},
 	"wikibaselexeme-desc": "Xestionar o tipo de entidade Lexema",
@@ -17,9 +18,9 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoría léxica",
 	"wikibaselexeme-newlexeme-language": "Lingua do lexema",
 	"wikibaselexeme-newlexeme-language-placeholder": "Introduce a lingua, por exemplo inglés",
-	"wikibaselexeme-statementsection-statements-about-form": "Afirmacións sobre $1",
+	"wikibaselexeme-statementsection-statements-about-form": "Declaracións sobre $1",
 	"wikibaselexeme-header-forms": "Formularios",
-	"wikibaselexeme-statementsection-statements-about-sense": "Afirmacións sobre $1",
+	"wikibaselexeme-statementsection-statements-about-sense": "Declaracións sobre $1",
 	"wikibaselexeme-header-senses": "Acepcións",
 	"wikibaselexeme-lemma-field-lemma-label": "Lema",
 	"wikibaselexeme-lemma-field-language-label": "Variante ortográfica",

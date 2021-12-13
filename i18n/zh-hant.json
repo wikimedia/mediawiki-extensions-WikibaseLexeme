@@ -5,7 +5,8 @@
 			"Kly",
 			"Liuxinyu970226",
 			"Mutolisp",
-			"予弦"
+			"予弦",
+			"列维劳德"
 		]
 	},
 	"wikibaselexeme-desc": "處理詞位項目類型",
@@ -20,7 +21,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "詞類",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "輸入詞類，例如：名詞",
 	"wikibaselexeme-newlexeme-language": "詞位語言",
-	"wikibaselexeme-newlexeme-language-placeholder": "輸入語言，例如中文",
+	"wikibaselexeme-newlexeme-language-placeholder": "輸入語言，例：中文",
 	"wikibaselexeme-statementsection-statements-about-form": "有關 $1 的陳述",
 	"wikibaselexeme-header-forms": "詞性",
 	"wikibaselexeme-enter-form-representation": "輸入新的詞性表述",
@@ -93,6 +94,8 @@
 	"wikibase-validator-form-not-found": "詞位未包含指定 ID 的詞性",
 	"wikibaselexeme-grammatical-features-input-placeholder": "例如：標準、比較、過去式...",
 	"wikibase-lexeme-language-name-mis": "其它",
+	"wikibase-lexeme-language-name-nrf-gg": "根西語",
+	"wikibase-lexeme-language-name-nrf-je": "澤西語",
 	"wikibase-lexeme-language-name-rm-rumgr": "羅曼什格西森方言",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran 方言",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan 方言",

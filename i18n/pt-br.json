@@ -2,7 +2,11 @@
 	"@metadata": {
 		"authors": [
 			"Eduardo Addad de Oliveira",
-			"NMaia"
+			"NMaia",
+			"Eduardoaddad",
+			"Gustavo.moraes",
+			"Luk3",
+			"Mariagarbin"
 		]
 	},
 	"wikibaselexeme-desc": "Tratar o tipo de entidade lexema",
@@ -24,7 +28,7 @@
 	"wikibaselexeme-empty-form-representation": "Não foi definida uma representação da forma",
 	"wikibaselexeme-statementsection-statements-about-sense": "Declarações sobre $1",
 	"wikibaselexeme-header-senses": "Sentidos",
-	"wikibase-lexeme-gloss-empty": "Nenhum brilho definido",
+	"wikibase-lexeme-gloss-empty": "Nenhuma glosa definida",
 	"wikibaselexeme-lemma-field-lemma-label": "Lema",
 	"wikibaselexeme-lemma-field-language-label": "Variante ortográfica",
 	"wikibaselexeme-lemma-redundant-language": "Não é possível introduzir mais do que um lema com a mesma variante ortográfica.",
@@ -33,7 +37,7 @@
 	"wikibaselexeme-form-representation-redundant-language": "Não é possível introduzir mais do que uma representação com a mesma variante ortográfica.",
 	"wikibaselexeme-sense-gloss-invalid-language": "Códigos de idioma do gloss devem ser válidos",
 	"wikibaselexeme-gloss-field-language-label": "Idioma",
-	"wikibaselexeme-gloss-field-gloss-label": "Brilho",
+	"wikibaselexeme-gloss-field-gloss-label": "Glosa",
 	"wikibaselexeme-sense-gloss-redundant-language": "Não é possível inserir vários glosses com o mesmo idioma.",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
@@ -90,6 +94,8 @@
 	"wikibase-validator-form-not-found": "O lexema não tem uma Forma com o ID fornecido",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Por exemplo: normativa, comparativa, passado...",
 	"wikibase-lexeme-language-name-mis": "outro",
+	"wikibase-lexeme-language-name-nrf-gg": "Guernésiais",
+	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
 	"wikibase-lexeme-language-name-rm-rumgr": "Romanche",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan",

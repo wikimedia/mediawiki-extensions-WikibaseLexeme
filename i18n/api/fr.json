@@ -4,7 +4,9 @@
 			"Derugon",
 			"Gomoko",
 			"Thibaut120094",
-			"Wladek92"
+			"Wladek92",
+			"DreZhsh",
+			"Verdy p"
 		]
 	},
 	"apihelp-wbladdform-summary": "Ajoute une forme au lexème",
@@ -53,10 +55,10 @@
 	"apierror-wikibaselexeme-form-not-found": "Le champ « $1 » contient un ID de formulaire « $2 » qui n’a pu être trouvé.",
 	"apierror-wikibaselexeme-sense-not-found": "Le champ « $1 » contient l’ID d’un Sens « $2 » qui est introuvable.",
 	"apierror-wikibaselexeme-json-field-required": "Le champ « $3 » de « $2 » dans le paramètre « $1 » est obligatoire",
-	"apierror-wikibaselexeme-json-field-not-item-id": "Le champ « $2 » dans le paramètre « $1 » doit être un Id. d’élément. Fourni : « $3 »",
-	"apierror-wikibaselexeme-json-field-has-wrong-type": "Le champ « $2 » dans le paramètre « $1 » doit être du type « $3 ». Fourni : « $4 »",
-	"apierror-wikibaselexeme-parameter-not-lexeme-id": "Le paramètre « $1 » doit être un ID de lexème. Fourni : « $2 »",
-	"apierror-wikibaselexeme-parameter-not-form-id": "Le champ « $2 » du paramètre « $1 » est censé être un ID de formulaire. Fourni : « $3 »",
+	"apierror-wikibaselexeme-json-field-not-item-id": "Le champ « $2 » dans le paramètre « $1 » doit être un ID d’élément. Fourni : « $3 »",
+	"apierror-wikibaselexeme-json-field-has-wrong-type": "Le champ « $2 » dans le paramètre « $1 » doit être du type « $3 ». Fourni : « $4 »",
+	"apierror-wikibaselexeme-parameter-not-lexeme-id": "Le paramètre « $1 » doit être un ID de lexème. Fourni : « $2 »",
+	"apierror-wikibaselexeme-parameter-not-form-id": "Le champ « $2 » du paramètre « $1 » est censé être un ID de formulaire. Fourni : « $3 »",
 	"apierror-wikibaselexeme-parameter-not-sense-id": "Le champ « $2 » dans le paramètre « $1 » est censé être un ID de Sens. Fourni: « $3 »",
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Le texte du term ne peut être vide",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "La langue ne peut pas être vide",

@@ -2,7 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Máté",
-			"Tacsipacsi"
+			"Tacsipacsi",
+			"Hanna Tardos",
+			"Misibacsi"
 		]
 	},
 	"special-newlexeme": "Új lexéma létrehozása",
@@ -10,7 +12,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "Új lexéma létrehozása",
 	"wikibaselexeme-newlexeme-lemma": "Szótári alak",
 	"wikibaselexeme-newlexeme-lemma-language": "Szótári alak írásmódja",
-	"wikibaselexeme-lemma-edit-placeholder": "Add meg a szótári alakot!",
+	"wikibaselexeme-lemma-edit-placeholder": "A lemma általában a szó legrövidebb alakja",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Szófaj",
 	"wikibaselexeme-newlexeme-language": "Lexéma nyelve",
 	"wikibaselexeme-statementsection-statements-about-form": "Állítások az $1 alakról",

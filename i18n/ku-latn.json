@@ -4,7 +4,8 @@
 			"Bikarhêner",
 			"Cûndûllah el-Kurdî",
 			"George Animal",
-			"Ghybu"
+			"Ghybu",
+			"Guherto"
 		]
 	},
 	"special-newlexeme": "Leksemeke nû biafirîne",
@@ -14,16 +15,16 @@
 	"wikibaselexeme-newlexeme-language": "Zimanê leksemê",
 	"wikibaselexeme-newlexeme-language-placeholder": "Zimanekî binivîse, wek mînak kurdî",
 	"wikibaselexeme-header-forms": "Form",
-	"wikibaselexeme-header-senses": "Wate",
-	"wikibaselexeme-lemma-field-language-label": "Ziman",
-	"wikibaselexeme-form-field-language-label": "Ziman",
+	"wikibaselexeme-header-senses": "Mane",
+	"wikibaselexeme-lemma-field-language-label": "Guhertoya rênivîsê",
+	"wikibaselexeme-form-field-language-label": "Guhertoya rênivîsê",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-form": "Form",
 	"datatypes-type-wikibase-sense": "Wate",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Leksem",
 	"wikibase-listdatatypes-wikibase-sense-head": "Wate",
-	"wikibaselexeme-add-sense": "Wateyê lê zêde bike",
+	"wikibaselexeme-add-sense": "Maneyê lê zêde bike",
 	"wikibaselexeme-add-form": "Formekê lê zêde bike",
 	"wikibase-pageinfo-wbl-forms": "Hejmara forman",
 	"wikibase-pageinfo-wbl-senses": "Hejmara wateyan",
@@ -34,7 +35,8 @@
 	"wikibaselexeme-diffview-language": "ziman",
 	"wikibaselexeme-diffview-form": "Form",
 	"wikibaselexeme-diffview-grammatical-feature": "taybetmendiya rêzimanî",
-	"wikibaselexeme-diffview-sense": "Wate",
+	"wikibaselexeme-diffview-sense": "Mane",
+	"wikibaselexeme-form-grammatical-features": "Taybetmendiyên rêzimanî",
 	"wikibaselexeme-unknown-language": "Zimanê nenas",
 	"wikibaselexeme-unknown-category": "Nenas"
 }

@@ -22,9 +22,12 @@
 	"wikibase-listdatatypes-wikibase-form-head": "Muoto",
 	"wikibase-listdatatypes-wikibase-sense-head": "Merkitys",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Loi uuden lekseemin",
+	"wikibaselexeme-field-language-label": "Kieli",
 	"wikibaselexeme-field-lexical-category-label": "Leksikaalinen luokka",
 	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-language": "kieli",
 	"wikibaselexeme-diffview-form": "Muoto",
 	"content-model-wikibase-lexeme": "Wikibase lekseemi",
-	"wikibaselexeme-form-grammatical-features": "Kieliopilliset ominaisuudet"
+	"wikibaselexeme-form-grammatical-features": "Kieliopilliset ominaisuudet",
+	"wikibaselexeme-unknown-language": "Tuntematon kieli"
 }
