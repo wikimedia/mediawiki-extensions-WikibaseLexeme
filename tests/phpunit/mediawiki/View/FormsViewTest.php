@@ -12,6 +12,8 @@ use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Presentation\View\FormsView;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
+use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 
@@ -128,7 +130,8 @@ class FormsViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			$this->newTemplateFactory(),
 			$this->createMock( EntityIdFormatter::class ),
-			$statementGroupListView
+			$statementGroupListView,
+			WikibaseLexemeServices::getGrammaticalFeaturesOrderProvider()
 		);
 
 		$formId = 'L2-F3';
@@ -140,6 +143,44 @@ class FormsViewTest extends TestCase {
 			->with( [], 'F3' );
 
 		$formsView->getHtml( new FormSet( [ $form ] ) );
+	}
+
+	public function testGrammaticalFeaturesOrder() {
+		$statementSectionView = $this->prophesize( StatementGroupListView::class );
+		$statementSectionView->getHtml( Argument::any(), Argument::any() )
+			->willReturn( self::STATEMENT_LIST_HTML );
+
+		$idFormatter = $this->createMock( EntityIdFormatter::class );
+		$idFormatter->method( 'formatEntityId' )
+			->willReturnCallback( static function ( EntityId $entityId ) {
+				return $entityId->serialize();
+			} );
+
+		$grammaticalFeaturesOrderProvider = $this->createMock( ItemOrderProvider::class );
+		$grammaticalFeaturesOrderProvider->method( 'getItemOrder' )
+			->willReturn( [ 'Q5' => 0, 'Q4' => 1, 'Q8' => 2 ]
+		);
+
+		$formsView = new FormsView(
+			new DummyLocalizedTextProvider(),
+			$this->newTemplateFactory(),
+			$idFormatter,
+			$statementSectionView->reveal(),
+			$grammaticalFeaturesOrderProvider
+		);
+
+		$form = NewForm::havingId( new FormId( 'L2-F4' ) )
+		->andGrammaticalFeature( 'Q4' )
+		->andGrammaticalFeature( 'Q8' )
+		->andGrammaticalFeature( 'Q5' )
+			->build();
+
+		$html = $formsView->getHtml( new FormSet( [ $form ] ) );
+
+		$this->assertThatHamcrest(
+			$html,
+			stringContainsInOrder( 'Q5', 'Q4', 'Q8' )
+		);
 	}
 
 	private function newFormsView(): FormsView {
@@ -157,7 +198,8 @@ class FormsViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			$this->newTemplateFactory(),
 			$idFormatter,
-			$statementSectionView->reveal()
+			$statementSectionView->reveal(),
+			WikibaseLexemeServices::getGrammaticalFeaturesOrderProvider()
 		);
 	}
 

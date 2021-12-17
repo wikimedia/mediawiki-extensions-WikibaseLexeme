@@ -70,7 +70,8 @@ class LexemeViewFactory {
 			$localizedTextProvider,
 			$templateFactory,
 			$idLinkFormatter,
-			$statementGroupListView
+			$statementGroupListView,
+			WikibaseLexemeServices::getGrammaticalFeaturesOrderProvider()
 		);
 
 		$sensesView = new SensesView(
