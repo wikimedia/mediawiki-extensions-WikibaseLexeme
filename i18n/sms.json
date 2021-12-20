@@ -4,8 +4,15 @@
 			"Yupik"
 		]
 	},
+	"special-newlexeme": "Raaj ođđ lekseeʹm",
 	"wikibaselexeme-deletedentity-lexeme": "Jaukkuum lekseeʹm",
+	"wikibaselexeme-newlexeme-fieldset": "Raaj ođđ lekseeʹm",
+	"wikibaselexeme-newlexeme-language": "Lekseeʹm ǩiõll",
 	"wikibaselexeme-gloss-field-language-label": "Ǩiõll",
+	"datatypes-type-wikibase-lexeme": "Lekseeʹm",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseeʹm",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Raaji ođđ lekseeʹm",
 	"wikibaselexeme-field-language-label": "Ǩiõll",
-	"wikibaselexeme-diffview-language": "ǩiõll"
+	"wikibaselexeme-diffview-language": "ǩiõll",
+	"content-model-wikibase-lexeme": "Wikibase-lekseeʹm"
 }
