@@ -32,7 +32,7 @@ describe( 'Lexeme:Header', () => {
 
 	} );
 
-	it( 'can edit the lexical category of a Lexeme', () => {
+	it.skip( 'can edit the lexical category of a Lexeme', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
 		const categoryItem = browser.call( () => WikibaseApi.createItem() );
 
