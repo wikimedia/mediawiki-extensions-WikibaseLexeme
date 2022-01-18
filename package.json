@@ -37,7 +37,7 @@
 		"request": "^2.88.2",
 		"sinon": "^12.0.1",
 		"stylelint-config-wikimedia": "0.11.1",
-		"unexpected": "^10.32.1",
+		"unexpected": "^12.0.3",
 		"unexpected-dom": "^5.0.1",
 		"unexpected-sinon": "^11.0.1",
 		"vue": "^2.6.11",
