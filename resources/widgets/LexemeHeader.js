@@ -113,4 +113,4 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 			} );
 	};
 
-} )( wikibase, Vuex );
+}( wikibase, Vuex ) );

@@ -9,4 +9,4 @@
 		REPLACE_ALL_REPRESENTATIONS: 'replaceAllRepresentations'
 	};
 
-} )();
+}() );

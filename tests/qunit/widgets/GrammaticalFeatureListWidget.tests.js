@@ -148,4 +148,4 @@
 		assert.deepEqual( widget.getValue(), [ 'Q1' ] );
 	} );
 
-} )( QUnit, require, sinon );
+}( QUnit, require, sinon ) );
