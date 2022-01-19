@@ -1,8 +1,9 @@
 require( './__namespace.js' );
-wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
+wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb ) {
 	'use strict';
 
 	var Vue = require( 'vue' );
+	var Vuex = require( 'vuex' );
 	var newLexemeHeaderStore = require( './LexemeHeader.newLexemeHeaderStore.js' );
 	var newLemmaWidget = require( './LemmaWidget.newLemmaWidget.js' );
 	var newLanguageAndLexicalCategoryWidget = require( './LanguageAndLexicalCategoryWidget.js' );
@@ -113,4 +114,4 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb, Vuex ) {
 			} );
 	};
 
-}( wikibase, Vuex ) );
+}( wikibase ) );

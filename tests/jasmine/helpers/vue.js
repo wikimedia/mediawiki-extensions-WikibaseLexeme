@@ -9,5 +9,5 @@
 /* eslint no-implicit-globals: 0 */
 
 var Vue = global.Vue = require( 'vue/dist/vue.js' );
-var Vuex = global.Vuex = require( 'vuex/dist/vuex.js' );
+var Vuex = global.Vuex = require( 'vuex' );
 Vue.use( Vuex );

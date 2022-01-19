@@ -1,7 +1,8 @@
 ( function () {
 	'use strict';
 
-	var actions = require( './actions.js' ),
+	var Vuex = require( 'vuex' ),
+		actions = require( './actions.js' ),
 		mutations = require( './mutations.js' );
 
 	function create( lemmas, forms ) {

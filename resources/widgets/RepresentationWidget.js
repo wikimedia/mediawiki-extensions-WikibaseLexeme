@@ -1,4 +1,4 @@
-module.exports = ( function ( Vuex ) {
+module.exports = ( function () {
 	'use strict';
 
 	var Vue = require( 'vue' ),
@@ -129,4 +129,4 @@ module.exports = ( function ( Vuex ) {
 		newComponent: newComponent
 	};
 
-}( Vuex ) );
+}() );
