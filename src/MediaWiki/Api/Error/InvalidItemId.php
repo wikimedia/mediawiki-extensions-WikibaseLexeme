@@ -20,9 +20,7 @@ class InvalidItemId implements ApiError {
 		$this->given = $given;
 	}
 
-	/**
-	 * @see ApiError::asApiMessage
-	 */
+	/** @inheritDoc */
 	public function asApiMessage( $parameterName, array $path ) {
 		return new \ApiMessage( new Message(
 			'apierror-wikibaselexeme-invalid-item-id',

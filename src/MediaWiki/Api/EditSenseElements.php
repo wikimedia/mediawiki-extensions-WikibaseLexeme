@@ -266,9 +266,7 @@ class EditSenseElements extends \ApiBase {
 		$apiResult->addValue( null, 'sense', $serializedSense );
 	}
 
-	/**
-	 * @see ApiBase::getAllowedParams
-	 */
+	/** @inheritDoc */
 	protected function getAllowedParams() {
 		return [
 			EditSenseElementsRequestParser::PARAM_SENSE_ID => [
@@ -293,9 +291,7 @@ class EditSenseElements extends \ApiBase {
 		];
 	}
 
-	/**
-	 * @see ApiBase::isWriteMode()
-	 */
+	/** @inheritDoc */
 	public function isWriteMode() {
 		return true;
 	}
@@ -308,16 +304,12 @@ class EditSenseElements extends \ApiBase {
 		return true;
 	}
 
-	/**
-	 * @see ApiBase::needsToken()
-	 */
+	/** @inheritDoc */
 	public function needsToken() {
 		return 'csrf';
 	}
 
-	/**
-	 * @see ApiBase::mustBePosted()
-	 */
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}

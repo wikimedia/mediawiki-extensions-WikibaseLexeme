@@ -66,9 +66,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->permissionManager = $permissionManager;
 	}
 
-	/**
-	 * @see SpecialWikibasePage::execute
-	 */
+	/** @inheritDoc */
 	public function execute( $subPage ) {
 		$this->setHeaders();
 		$this->outputHeader( 'wikibase-mergelexemes-summary' );

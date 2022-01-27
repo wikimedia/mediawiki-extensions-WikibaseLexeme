@@ -261,9 +261,7 @@ class AddSense extends ApiBase {
 		$apiResult->addValue( null, 'sense', $serializedSense );
 	}
 
-	/**
-	 * @see ApiBase::getAllowedParams
-	 */
+	/** @inheritDoc */
 	protected function getAllowedParams() {
 		return array_merge(
 			[
@@ -287,9 +285,7 @@ class AddSense extends ApiBase {
 		);
 	}
 
-	/**
-	 * @see ApiBase::isWriteMode()
-	 */
+	/** @inheritDoc */
 	public function isWriteMode() {
 		return true;
 	}
@@ -302,16 +298,12 @@ class AddSense extends ApiBase {
 		return true;
 	}
 
-	/**
-	 * @see ApiBase::needsToken()
-	 */
+	/** @inheritDoc */
 	public function needsToken() {
 		return 'csrf';
 	}
 
-	/**
-	 * @see ApiBase::mustBePosted()
-	 */
+	/** @inheritDoc */
 	public function mustBePosted() {
 		return true;
 	}
