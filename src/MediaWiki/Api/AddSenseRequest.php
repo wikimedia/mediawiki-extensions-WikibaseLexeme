@@ -14,13 +14,16 @@ class AddSenseRequest {
 
 	private $lexemeId;
 	private $editSenseChangeOp;
+	private $baseRevId;
 
 	public function __construct(
 		LexemeId $lexemeId,
-		ChangeOp $editSenseChangeOp
+		ChangeOp $editSenseChangeOp,
+		?int $baseRevId
 	) {
 		$this->lexemeId = $lexemeId;
 		$this->editSenseChangeOp = $editSenseChangeOp;
+		$this->baseRevId = $baseRevId;
 	}
 
 	public function getChangeOp(): ChangeOpSenseAdd {
@@ -29,6 +32,10 @@ class AddSenseRequest {
 
 	public function getLexemeId(): LexemeId {
 		return $this->lexemeId;
+	}
+
+	public function getBaseRevId(): ?int {
+		return $this->baseRevId;
 	}
 
 }

@@ -6,11 +6,13 @@ use ApiBase;
 use ApiMain;
 use Deserializers\Deserializer;
 use LogicException;
+use RuntimeException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
@@ -215,10 +217,16 @@ class AddSense extends ApiBase {
 			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
 		}
 
+		if ( $request->getBaseRevId() ) {
+			$baseRevId = $request->getBaseRevId();
+		} else {
+			$baseRevId = $lexemeRevision->getRevisionId();
+		}
+
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
 			$request->getLexemeId(),
-			$lexemeRevision->getRevisionId()
+			$baseRevId
 		);
 		$summaryString = $this->summaryFormatter->formatSummary(
 			$summary
@@ -232,14 +240,18 @@ class AddSense extends ApiBase {
 
 		$tokenThatDoesNotNeedChecking = false;
 		// FIXME: Handle failure
-		$status = $editEntity->attemptSave(
-			$lexeme,
-			$summaryString,
-			$flags,
-			$tokenThatDoesNotNeedChecking,
-			null,
-			$params['tags'] ?: []
-		);
+		try {
+			$status = $editEntity->attemptSave(
+				$lexeme,
+				$summaryString,
+				$flags,
+				$tokenThatDoesNotNeedChecking,
+				null,
+				$params['tags'] ?: []
+			);
+		} catch ( ConflictException $exception ) {
+			$this->dieWithException( new RuntimeException( 'Edit conflict: ' . $exception->getMessage() ) );
+		}
 
 		if ( !$status->isGood() ) {
 			$this->dieStatus( $status ); // Seems like it is good enough
@@ -272,6 +284,9 @@ class AddSense extends ApiBase {
 				AddSenseRequestParser::PARAM_DATA => [
 					self::PARAM_TYPE => 'text',
 					self::PARAM_REQUIRED => true,
+				],
+				AddSenseRequestParser::PARAM_BASEREVID => [
+					self::PARAM_TYPE => 'integer',
 				],
 				'tags' => [
 					self::PARAM_TYPE => 'tags',

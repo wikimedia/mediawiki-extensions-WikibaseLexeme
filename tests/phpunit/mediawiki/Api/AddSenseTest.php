@@ -142,6 +142,66 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
+	public function testFailsOnEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+
+		$params = [
+			'action' => 'wbladdsense',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam(),
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$params['baserevid'] = $baseRevId;
+
+		$this->doTestQueryApiException( $params, [
+			'params' => [ 'Edit conflict: At least two senses with the same ID were provided: `L1-S1`' ],
+		] );
+	}
+
+	public function testWorksOnUnrelatedEditConflict() {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$this->saveEntity( $lexeme );
+		$baseRevId = $this->getCurrentRevisionForLexeme( 'L1' )->getRevisionId();
+
+		$params = [
+			'action' => 'wbeditentity',
+			'id' => 'L1',
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+		];
+
+		$this->doApiRequestWithToken( $params );
+
+		$params = [
+			'action' => 'wbladdsense',
+			'lexemeId' => 'L1',
+			'data' => $this->getDataParam(),
+			'baserevid' => $baseRevId,
+		];
+
+		try {
+			$this->doApiRequestWithToken( $params );
+		} catch ( ApiUsageException $e ) {
+			$this->assertEquals(
+				'wikibase-self-conflict-patched',
+				$e->getMessageObject()->getKey()
+			);
+		}
+
+		$lexeme = $this->getLexeme( 'L1' );
+
+		$lemmas = $lexeme->getLemmas()->toTextArray();
+		$this->assertSame( 'Hello', $lemmas['en'] );
+
+		$senses = $lexeme->getSenses()->toArray();
+
+		$this->assertCount( 1, $senses );
+		$this->assertSame( 'furry animal', $senses[0]->getGlosses()->getByLanguage( 'en' )->getText() );
+	}
+
 	private function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'glosses' => [

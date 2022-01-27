@@ -34,6 +34,7 @@
 	"apihelp-wbladdsense-summary": "{{doc-apihelp-summary|wbladdsense}}",
 	"apihelp-wbladdsense-param-lexemeId": "{{doc-apihelp-param|wbladdsense|lexemeId}}",
 	"apihelp-wbladdsense-param-data": "{{doc-apihelp-param|wbladdsense|data}}",
+	"apihelp-wbladdsense-param-baserevid": "{{doc-apihelp-param|wbladdsense|baserevid}}",
 	"apihelp-wbladdsense-param-tags": "{{doc-apihelp-param|wbladdsense|tags}}",
 	"apihelp-wbladdsense-param-bot": "{{doc-apihelp-param|wbladdsense|bot}}",
 	"apihelp-wbladdsense-example-1": "{{doc-apihelp-example|wbladdsense}}",

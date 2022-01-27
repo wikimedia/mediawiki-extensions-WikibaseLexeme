@@ -336,8 +336,8 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$lexeme = $this->getLexeme( 'L1' );
 		$lemmas = $lexeme->getLemmas()->toTextArray();
 		$this->assertSame( 'Hello', $lemmas['en'] );
-		$senses = $lexeme->getForms()->toArray();
-		$this->assertCount( 0, $senses );
+		$forms = $lexeme->getForms()->toArray();
+		$this->assertCount( 0, $forms );
 	}
 
 }
