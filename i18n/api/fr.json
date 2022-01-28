@@ -20,6 +20,7 @@
 	"apihelp-wblremoveform-param-id": "ID du formulaire, par ex. L10-F20",
 	"apihelp-wblremoveform-param-tags": "Modifier les balises à appliquer à la version.",
 	"apihelp-wblremoveform-param-bot": "Marquer cette modification comme faite par robot. Ce drapeau d’URL ne sera respecté  que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wblremoveform-param-baserevid": "ID de révision de base du lexème, si la vérification du conflit de modification est souhaitée.",
 	"apihelp-wblremoveform-example-1": "Supprimer le formulaire du lexème avec l’ID <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Modifie les représentations et les caractères grammaticaux d’un formulaire",
 	"apihelp-wbleditformelements-param-formId": "ID du formulaire, par ex. L10-F2",

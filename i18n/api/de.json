@@ -18,6 +18,7 @@
 	"apihelp-wblremoveform-param-id": "Kennung der Form, z.&nbsp;B. L10-F20",
 	"apihelp-wblremoveform-param-tags": "Auf die Version anzuwendende Änderungsmarkierungen.",
 	"apihelp-wblremoveform-param-bot": "Markiert diese Bearbeitung als Bot. Diese URL-Markierung wird nur beachtet, falls der Benutzer der Gruppe „{{int:group-bot}}“ angehört.",
+	"apihelp-wblremoveform-param-baserevid": "Basis-Versionskennung des Lexems, falls die Prüfung auf Bearbeitungskonflikte gewünscht ist.",
 	"apihelp-wblremoveform-example-1": "Entfernt die Form vom Lexeme mit der Kennung <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Bearbeitet die Darstellungen und grammatikalischen Funktionen einer Form",
 	"apihelp-wbleditformelements-param-formId": "Kennung der Form, z.&nbsp;B. L10-F2",
