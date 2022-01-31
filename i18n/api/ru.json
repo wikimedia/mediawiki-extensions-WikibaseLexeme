@@ -4,6 +4,7 @@
 			"Infovarius",
 			"Laboramus",
 			"Stjn",
+			"Tanzun",
 			"Vlad5250"
 		]
 	},
@@ -15,6 +16,7 @@
 	"apihelp-wblremoveform-summary": "Удалить Форму из Лексемы",
 	"apihelp-wblremoveform-param-id": "Идентификатор для формы, например L10-F20",
 	"apihelp-wblremoveform-param-bot": "Отметить правку как правку бота. Этот флаг URL-адреса будет считаться действительным только в случае, если пользователь принадлежит к группе «{{int:group-bot}}».",
+	"apihelp-wblremoveform-param-baserevid": "Идентификация базовой версии лексемы в случае необходимости проверки конфликта редактирования.",
 	"apihelp-wblremoveform-example-1": "Удалить Форму из Лексемы с идентификатором <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Редактирует представления и грамматические категории Формы",
 	"apihelp-wbleditformelements-param-formId": "идентификатор для формы, например L10-F2",

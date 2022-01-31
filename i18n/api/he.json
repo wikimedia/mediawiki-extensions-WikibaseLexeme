@@ -16,6 +16,7 @@
 	"apihelp-wblremoveform-param-id": "מזהה הצורה, למשל L10-F20",
 	"apihelp-wblremoveform-param-tags": "אילו תגי שינוי להחיל על הגרסה.",
 	"apihelp-wblremoveform-param-bot": "סימון עריכה זו בתור עריכת בוט. דגל ה־URL הזה יכובד רק אם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
+	"apihelp-wblremoveform-param-baserevid": "מזהה גרסת הבסיס של היחידה המילונית, אם רצויה בדיקת התנגשות עריכה.",
 	"apihelp-wblremoveform-example-1": "הסרת צורה מהיחידה המילונית עם המזהה <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "עריכת ייצוגים ומאפיינים דקדוקיים של צורה",
 	"apihelp-wbleditformelements-param-formId": "מזהה הצורה, למשל L10-F2",

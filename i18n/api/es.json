@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Adam N.",
 			"Carlosmg.dg",
 			"Dgstranz",
 			"Fitoschido",
@@ -11,6 +12,7 @@
 	"apihelp-wbladdform-param-lexemeId": "Id. del lexema; p. ej., L10",
 	"apihelp-wblremoveform-summary": "Elimina la Forma del Lexema",
 	"apihelp-wblremoveform-param-id": "Identificador del formulario; p. ej., L10-F20",
+	"apihelp-wblremoveform-param-baserevid": "Revisión de base ID del Lexema, si edita control de conflicto está querido.",
 	"apihelp-wbleditformelements-param-formId": "Identificador del formulario; p. ej., L10-F2",
 	"apihelp-wbladdsense-summary": "Añade una acepción a un lexema",
 	"apihelp-wbladdsense-param-lexemeId": "Identificador del lexema; p. ej., L10",
