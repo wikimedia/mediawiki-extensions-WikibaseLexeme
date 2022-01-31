@@ -21,7 +21,7 @@
 		"@wdio/mocha-framework": "^7.16.14",
 		"@wdio/sync": "^7.16.14",
 		"@wmde/lib-version-check": "^0.1.0",
-		"eslint-config-wikimedia": "0.20.0",
+		"eslint-config-wikimedia": "0.21.0",
 		"eslint-plugin-promise": "^6.0.0",
 		"grunt": "1.4.1",
 		"grunt-banana-checker": "0.9.0",
