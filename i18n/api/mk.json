@@ -16,6 +16,7 @@
 	"apihelp-wblremoveform-param-id": "Назнака на образецот, на пр. L10-F20",
 	"apihelp-wblremoveform-param-tags": "Ознаки за измена за применување на преработката.",
 	"apihelp-wblremoveform-param-bot": "Означи го уредувањето како ботовско. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
+	"apihelp-wblremoveform-param-baserevid": "Основна преработна назнака на лексемата, ако се бара проверка на спротиставеност во уредувањата.",
 	"apihelp-wblremoveform-example-1": "Отстрани образец од лексемата со назнака <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Уреди претстави и граматички особености на образецот",
 	"apihelp-wbleditformelements-param-formId": "Назнака на образецот, на пр. L10-F2",
