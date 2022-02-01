@@ -23,7 +23,8 @@ class AddSenseRequestTest extends TestCase {
 			new LexemeId( 'L1' ),
 			new ChangeOpSenseEdit( [
 				new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
-			] )
+			] ),
+			1
 		);
 
 		$changeOp = $request->getChangeOp();
@@ -45,10 +46,23 @@ class AddSenseRequestTest extends TestCase {
 			$lexemeId,
 			new ChangeOpSenseEdit( [
 				new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
-			] )
+			] ),
+			1
 		);
 
 		$this->assertSame( $lexemeId, $request->getLexemeId() );
+	}
+
+	public function testGetBaseRevId() {
+		$request = new AddSenseRequest(
+			new LexemeId( 'L1' ),
+			new ChangeOpSenseEdit( [
+				new ChangeOpGlossList( [ new ChangeOpGloss( new Term( 'en', 'furry animal' ) ) ] ),
+			] ),
+			1
+		);
+
+		$this->assertSame( 1, $request->getBaseRevId() );
 	}
 
 }

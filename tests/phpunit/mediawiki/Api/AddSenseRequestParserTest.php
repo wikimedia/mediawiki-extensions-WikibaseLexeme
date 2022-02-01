@@ -62,6 +62,16 @@ class AddSenseRequestParserTest extends TestCase {
 		);
 	}
 
+	public function testBaseRevIdPassedToRequestObject() {
+		$parser = $this->newAddSenseRequestParser();
+
+		$request = $parser->parse(
+			[ 'lexemeId' => 'L1', 'data' => $this->getDataParam(), 'baserevid' => 1 ]
+		);
+
+		$this->assertSame( 1, $request->getBaseRevId() );
+	}
+
 	public function testGivenEmptyData() {
 		$this->expectException( ApiUsageException::class );
 

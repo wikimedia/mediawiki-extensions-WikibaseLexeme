@@ -18,6 +18,7 @@ class AddSenseRequestParser {
 
 	public const PARAM_DATA = 'data';
 	public const PARAM_LEXEME_ID = 'lexemeId';
+	public const PARAM_BASEREVID = 'baserevid';
 	/**
 	 * @var EntityIdParser
 	 */
@@ -60,11 +61,17 @@ class AddSenseRequestParser {
 			ValidationContext::create( self::PARAM_LEXEME_ID )
 		);
 
+		$baseRevId = null;
+		if ( isset( $params[ self::PARAM_BASEREVID ] ) ) {
+			$baseRevId = (int)$params[self::PARAM_BASEREVID];
+		}
+
 		$this->editSenseChangeOpDeserializer->setContext( $dataValidation );
 
 		return new AddSenseRequest(
 			$lexemeId,
-			$this->editSenseChangeOpDeserializer->createEntityChangeOp( $data )
+			$this->editSenseChangeOpDeserializer->createEntityChangeOp( $data ),
+			$baseRevId
 		);
 	}
 
