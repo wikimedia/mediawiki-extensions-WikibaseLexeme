@@ -1,5 +1,6 @@
 describe( 'GlossWidget', function () {
 	var getTemplate = require('./helpers/template-loader');
+	var sinon = require( 'sinon' );
 
 	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
 	global.mw = { // eslint-disable-line no-restricted-globals
@@ -17,7 +18,11 @@ describe( 'GlossWidget', function () {
 			}
 		},
 		message: function ( key ) {
-			return key;
+			return {
+				text: function() {
+					return key;
+				}
+			};
 		}
 	};
 
@@ -42,12 +47,26 @@ describe( 'GlossWidget', function () {
 
 	var expect = require( 'unexpected' ).clone();
 	expect.installPlugin( require( 'unexpected-dom' ) );
-	var Vue = global.Vue = require( 'vue/dist/vue.js' ); // eslint-disable-line no-restricted-globals
 	var GlossWidget = require( './../../resources/widgets/GlossWidget.js' );
+
+	var sandbox;
+	var mockLanguageSuggester = {
+		setSelectedValue: function () {},
+	};
+
+	beforeEach( function () {
+		sandbox = sinon.createSandbox();
+	} );
+
+	afterEach( function () {
+		sandbox.restore();
+	} );
 
 	it(
 		'create with no glosses - when switched to edit mode empty gloss is added',
 		function () {
+			$.fn.languagesuggester = sinon.stub(); // pretend the languagesuggester widget exists
+			sandbox.stub( $.prototype, 'data' ).returns( mockLanguageSuggester );
 			var widget = newWidget( [] );
 			var emptyGloss = { language: '', value: '' };
 
@@ -58,6 +77,8 @@ describe( 'GlossWidget', function () {
 	);
 
 	it( 'switch to edit mode', function ( done ) {
+		$.fn.languagesuggester = sinon.stub(); // pretend the languagesuggester widget exists
+		sandbox.stub( $.prototype, 'data' ).returns( mockLanguageSuggester );
 		var widget = newWidget( [ { language: 'en', value: 'gloss in english' } ] );
 
 		assertWidget( widget ).when( 'created' ).dom.hasNoInputFields();
@@ -95,6 +116,8 @@ describe( 'GlossWidget', function () {
 	} );
 
 	it( 'add a new gloss', function ( done ) {
+		$.fn.languagesuggester = sinon.stub(); // pretend the languagesuggester widget exists
+		sandbox.stub( $.prototype, 'data' ).returns( mockLanguageSuggester );
 		var widget = newWidget( [ { language: 'en', value: 'gloss in english' } ] );
 
 		assertWidget( widget ).when( 'created' ).dom.containsGloss(
@@ -221,8 +244,7 @@ describe( 'GlossWidget', function () {
 			},
 			getDirectionality
 		);
-		widget.el = document.createElement( 'div' );
-		widget.data = widget.data();
-		return new Vue( widget );
+		return Vue.createApp( widget )
+			.mount( document.createElement( 'div' ) );
 	}
 } );

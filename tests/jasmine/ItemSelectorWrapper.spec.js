@@ -39,21 +39,16 @@ describe( 'ItemSelectorWrapper', function () {
 		sandbox.stub( $.prototype, 'data' ).returns( mockEntitySelector )
 		$.fn.entityselector = sinon.stub(); // pretend the entityselector widget exists
 
-		component.$mount();
+		component.mount( document.createElement( 'div' ) );
 	} );
 
 	function newComponent( value ) {
-		var ItemSelectorWrapper = Vue.extend( newItemSelectorWrapper( { formatValue: function()  {
+		return Vue.createApp(
+			newItemSelectorWrapper( { formatValue: function()  {
 				return $.Deferred().resolve( { result: {} } );
-				}
-			}
-		) );
-
-		return new ItemSelectorWrapper( {
-			propsData: {
-				value: value
-			}
-		} );
+			} } ),
+			{ value: value }
+		);
 	}
 
 } );

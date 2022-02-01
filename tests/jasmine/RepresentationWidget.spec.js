@@ -144,10 +144,9 @@ describe( 'RepresentationWidget', function () {
 			},
 			mw
 		);
-		widget.el = document.createElement( 'div' );
-		widget.data = widget.data();
-		widget.store = getTestStore( lemmas, representations );
-		return new Vue( widget );
+		return Vue.createApp( widget )
+			.use( getTestStore( lemmas, representations ) )
+			.mount( document.createElement( 'div' ) );
 	}
 
 	function getTestStore( lemmas, representations ) {

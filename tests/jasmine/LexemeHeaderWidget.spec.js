@@ -127,7 +127,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		var widget = newWidget( { lemmas: [] } );
 		widget.edit();
 		widget.$nextTick( function () {
-			expect( widget.$el.querySelector( '.lemma-widget_save' ), 'to have attributes', { disabled: 'disabled' } );
+			expect( widget.$el.querySelector( '.lemma-widget_save' ), 'to have attributes', { disabled: true } );
 			done();
 		} );
 	} );
@@ -142,7 +142,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		} );
 		widget.edit();
 		widget.$nextTick( function () {
-			expect( widget.$el.querySelector( '.lemma-widget_save' ), 'to have attributes', { disabled: 'disabled' } );
+			expect( widget.$el.querySelector( '.lemma-widget_save' ), 'to have attributes', { disabled: true } );
 			done();
 		} );
 	} );
@@ -178,7 +178,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					}
 				}
 			} );
-			Vue.set( widget, 'hasRedundantLemmaLanguage', false );
+			widget.hasRedundantLemmaLanguage = false;
 			expect( widget.isUnsaveable, 'to be false' );
 		} );
 
@@ -190,7 +190,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					}
 				}
 			} );
-			Vue.set( widget, 'hasRedundantLemmaLanguage', false );
+			widget.hasRedundantLemmaLanguage = false;
 			expect( widget.isUnsaveable, 'to be true' );
 		} );
 
@@ -205,7 +205,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					}
 				}
 			} );
-			Vue.set( widget, 'hasRedundantLemmaLanguage', false );
+			widget.hasRedundantLemmaLanguage = false;
 			expect( widget.isUnsaveable, 'to be true' );
 		} );
 
@@ -217,7 +217,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					}
 				}
 			} );
-			Vue.set( widget, 'hasRedundantLemmaLanguage', true );
+			widget.hasRedundantLemmaLanguage = true;
 			expect( widget.isUnsaveable, 'to be true' );
 		} );
 	} );
@@ -281,8 +281,7 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 	 */
 	function newWidgetWithStore( store, mergeOptions ) {
 		var template = getTemplate('resources/templates/lexemeHeader.vue.html').replace('%saveMessageKey%', 'wikibase-save');
-		var element = document.createElement( 'div' ),
-			options = newLexemeHeader(
+		var options = newLexemeHeader(
 				store,
 				template,
 				getLemmaWidget(),
@@ -293,17 +292,18 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 					}
 				}
 			);
-		options.el = element;
-		options.data = options.data();
 
-		return new Vue( _.merge( options, mergeOptions ) ).$mount();
+		return Vue.createApp( _.merge( options, mergeOptions ) )
+			.use( store )
+			.mount( document.createElement( 'div' ) );
 	}
 
 	function getLemmaWidget() {
-		return Vue.component( 'lemma-widget', {
+		return {
+			name: 'lemma-widget',
 			props: [ 'lemmas', 'inEditMode', 'isSaving' ],
 			template: '<div></div>'
-		} );
+		};
 	}
 
 	function getLanguageAndLexicalCategoryWidget() {

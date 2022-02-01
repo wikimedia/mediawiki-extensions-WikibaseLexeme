@@ -16,7 +16,6 @@ module.exports = ( function () {
 	return function ( store, template, lemmaWidget, languageAndCategoryWidget, messages ) {
 		return {
 			template: template,
-			store: store,
 
 			data: function () {
 				return {

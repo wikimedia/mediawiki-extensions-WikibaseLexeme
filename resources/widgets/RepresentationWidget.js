@@ -115,7 +115,8 @@ module.exports = ( function () {
 	 * @return {Vue} Initialized widget
 	 */
 	function create( store, formIndex, element, template, beforeUpdate, mw ) {
-		return Vue.createMwApp( $.extend( { store: store }, newComponent( formIndex, template, beforeUpdate, mw ) ) )
+		return Vue.createApp( newComponent( formIndex, template, beforeUpdate, mw ) )
+			.use( store )
 			.mount( element );
 	}
 
