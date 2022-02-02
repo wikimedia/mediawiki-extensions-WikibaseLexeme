@@ -32,6 +32,7 @@
 	"apihelp-wbladdsense-summary": "Ajoute un sens à un lexème",
 	"apihelp-wbladdsense-param-lexemeId": "ID du Lexème, par exemple L10",
 	"apihelp-wbladdsense-param-data": "Données encodées en JSON pour le Sens, c.-à-d. ses gloses",
+	"apihelp-wbladdsense-param-baserevid": "ID de la révision de base du lexème, si conflit de modification, une vérification est requise.",
 	"apihelp-wbladdsense-param-tags": "Modifier les balises à appliquer à la version.",
 	"apihelp-wbladdsense-param-bot": "Marquer cette modification comme faite par robot. Ce marquage d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wbladdsense-example-1": "Ajouter un formulaire au lexème d’ID <samp>$1</samp> ayant les gloses <samp>$2</samp> avec les langues <samp>$3</samp> respectivement",

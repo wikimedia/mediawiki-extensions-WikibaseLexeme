@@ -28,6 +28,7 @@
 	"apihelp-wbladdsense-summary": "Додава значење на лексема",
 	"apihelp-wbladdsense-param-lexemeId": "назнака на лексемата, на пр. L10",
 	"apihelp-wbladdsense-param-data": "Податоци за значењето во JSON, на пр. нејзините прибелешки",
+	"apihelp-wbladdsense-param-baserevid": "Основна преработна назнака на лексемата, ако се бара проверка на спротиставеност во уредувањата.",
 	"apihelp-wbladdsense-param-tags": "Ознаки за измена за применување на преработката.",
 	"apihelp-wbladdsense-param-bot": "Означи го уредувањево како бот. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „{{int:group-bot}}“.",
 	"apihelp-wbladdsense-example-1": "Додај образец во лексемата со назнака <samp>$1</samp> што ги има прибелешките <samp>$2</samp> со соодветните јазици <samp>$3</samp>",

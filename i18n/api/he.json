@@ -28,6 +28,7 @@
 	"apihelp-wbladdsense-summary": "הוספת משמעות ליחידה מילונית",
 	"apihelp-wbladdsense-param-lexemeId": "מזהה היחידה המילונית, למשל L10",
 	"apihelp-wbladdsense-param-data": "נתונים בקידוד JSON עבור המשמעות, למשל הפירושים שלה",
+	"apihelp-wbladdsense-param-baserevid": "מזהה גרסת הבסיס של היחידה המילונית, אם רצויה בדיקת התנגשות עריכה.",
 	"apihelp-wbladdsense-param-tags": "אילו תגי שינוי להחיל על הגרסה.",
 	"apihelp-wbladdsense-param-bot": "סימון עריכה זו כעריכה של בוט. תהיה השפעה לסימון ה־URL הזה רק אם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
 	"apihelp-wbladdsense-example-1": "הוספת צורה ליחידה המילונית עם המזהה <samp>$1</samp> שיש לה את הפירושים <samp>$2</samp> עם השפות <samp>$3</samp> בהתאמה",
