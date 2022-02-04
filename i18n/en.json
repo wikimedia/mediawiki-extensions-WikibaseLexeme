@@ -4,6 +4,7 @@
 	},
 	"wikibaselexeme-desc": "Handle Lexeme entity type",
 	"special-newlexeme": "Create a new Lexeme",
+	"special-newlexeme-alpha": "Create a new Lexeme (experimental)",
 	"special-mergelexemes": "Merge two Lexemes",
 	"wikibaselexeme-deletedentity-form": "Deleted Form",
 	"wikibaselexeme-deletedentity-sense": "Deleted Sense",

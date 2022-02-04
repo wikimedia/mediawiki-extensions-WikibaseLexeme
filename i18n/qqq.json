@@ -18,6 +18,7 @@
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
 	"special-newlexeme": "Title of Special:NewLexeme",
+	"special-newlexeme-alpha": "Title of Special:NewLexemeAlpha, based on {{msg-mw|special-newlexeme}}",
 	"special-mergelexemes": "Title of Special:MergeLexemes",
 	"wikibaselexeme-deletedentity-form": "Message displayed instead of a Form's Representations if the Form has been deleted.\n\nSee also:\n* {{msg-mw|Wikibase-entity-item}}\n* {{msg-mw|Wikibase-deletedentity-property}}",
 	"wikibaselexeme-deletedentity-sense": "Message displayed instead of a Sense's Gloss and Lemmas of the associated Lexeme if the Sense has been deleted.\n\nSee also:\n* {{msg-mw|Wikibase-entity-item}}\n* {{msg-mw|Wikibase-deletedentity-property}}",

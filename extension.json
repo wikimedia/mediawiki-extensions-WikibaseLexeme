@@ -35,6 +35,10 @@
 		},
 		"LexemeEnableDataTransclusion": {
 			"value": false
+		},
+		"LexemeEnableNewAlpha": {
+			"value": false,
+			"description": "Whether to enable the experimental new version of Special:NewLexeme, Special:NewLexemeAlpha. (Temporary.)"
 		}
 	},
 	"ExtensionMessagesFiles": {

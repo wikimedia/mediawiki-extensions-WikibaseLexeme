@@ -11,6 +11,7 @@ use Wikibase\Lexeme\MediaWiki\Api\RemoveForm;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSense;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme;
+use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexemeAlpha;
 use Wikibase\Lib\WikibaseSettings;
 
 /**
@@ -19,7 +20,7 @@ use Wikibase\Lib\WikibaseSettings;
 class Registrar {
 
 	public static function registerExtension() {
-		global $wgLexemeEnableRepo;
+		global $wgLexemeEnableRepo, $wgLexemeEnableNewAlpha;
 
 		if ( !WikibaseSettings::isRepoEnabled() || !$wgLexemeEnableRepo ) {
 			return;
@@ -124,6 +125,13 @@ class Registrar {
 				'WikibaseRepo.SummaryFormatter',
 			],
 		];
+
+		if ( $wgLexemeEnableNewAlpha ) {
+			$wgSpecialPages['NewLexemeAlpha'] = [
+				'class' => SpecialNewLexemeAlpha::class,
+			];
+		}
+
 		$wgSpecialPages['MergeLexemes'] = [
 			'class' => SpecialMergeLexemes::class,
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::factory',
