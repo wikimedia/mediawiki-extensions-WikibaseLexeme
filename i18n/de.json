@@ -11,6 +11,7 @@
 	},
 	"wikibaselexeme-desc": "Bietet eine Unterstützung für den Objekttyp „Lexeme“",
 	"special-newlexeme": "Ein neues Lexem erstellen",
+	"special-newlexeme-alpha": "Ein neues Lexem erstellen (experimentell)",
 	"special-mergelexemes": "Zwei Lexemes zusammenführen",
 	"wikibaselexeme-deletedentity-form": "Gelöschte Form",
 	"wikibaselexeme-deletedentity-sense": "Gelöschtes Sense",

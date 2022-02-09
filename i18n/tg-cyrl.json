@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Robin van der Vliet",
 			"ToJack"
 		]
 	},
@@ -77,6 +78,7 @@
 	"wikibase-lexeme-language-name-de-1901": "Олмонӣ (пеш аз 1996)",
 	"wikibase-lexeme-language-name-enm": "англисии миёна",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Эсперанто (h-система)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Эсперанто (x-система)",
 	"wikibase-lexeme-language-name-fon": "Фон",
 	"wikibase-lexeme-language-name-frm": "Фаронсавии миёна",
 	"wikibase-lexeme-language-name-fro": "Фаронсавии қадима"

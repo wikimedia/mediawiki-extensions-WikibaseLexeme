@@ -51,6 +51,8 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|deklaro|deklaroj}}, $2 {{PLURAL:$2|formo|formoj}}",
 	"wikibaselexeme-unknown-language": "Nekonata lingvo",
 	"wikibaselexeme-unknown-category": "Nekonata",
+	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (H-sistemo)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (X-sistemo)",
 	"wikibase-lexeme-language-name-frm": "Mezfranca",
 	"wikibase-lexeme-language-name-fro": "Malnovfranca",
 	"wikibase-lexeme-language-selector-label": "$1 ($2)",
