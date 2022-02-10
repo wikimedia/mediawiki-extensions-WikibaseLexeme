@@ -8,6 +8,8 @@
 use Wikibase\Repo\WikibaseRepo;
 
 return call_user_func( static function () {
+	global $wgLexemeEnableNewAlpha;
+
 	$moduleTemplate = [
 		'localBasePath' => __DIR__ . '/resources',
 		'remoteExtPath' => 'WikibaseLexeme/resources',
@@ -22,7 +24,7 @@ return call_user_func( static function () {
 		}
 	];
 
-	return [
+	$modules = [
 		"wikibase.lexeme" => $moduleTemplate + [
 			"scripts" => "__namespace.js",
 			"dependencies" => "wikibase"
@@ -254,6 +256,40 @@ return call_user_func( static function () {
 			"styles" => [
 				"lexeme.less"
 			]
-		]
+		],
 	];
+
+	if ( $wgLexemeEnableNewAlpha ) {
+		$modules += [
+			"wikibase.lexeme.special.NewLexemeAlpha" => $moduleTemplate + [
+					"es6" => true,
+					"packageFiles" => [
+						'special/NewLexemeAlpha.js',
+						'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
+					],
+					"styles" => [
+						'special/new-lexeme-dist/style.css',
+					],
+					"dependencies" => [
+						"vue", // MW core
+						"vuex", // MW core
+						"@vue/compat", // see below
+					],
+					"messages" => [
+						"wikibaselexeme-newlexeme-lemma",
+					],
+				],
+			// temporary alias because SpecialNewLexeme.cjs.js has require('@vue/compat');
+			// remove when we are ready to use Vue 3 only, or when we are no longer
+			// externalizing @vue/compat because MW core moves to non-compat Vue 3
+			'@vue/compat' => [
+				'packageFiles' => [
+					[ 'name' => 'index.js', 'content' => 'module.exports = require( "vue" );' ],
+				],
+				'dependencies' => [ 'vue' ],
+			],
+		];
+	}
+
+	return $modules;
 } );

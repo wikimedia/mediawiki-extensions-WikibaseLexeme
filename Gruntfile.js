@@ -21,6 +21,8 @@ module.exports = function ( grunt ) {
 				'!Gruntfile.js',
 				'!node_modules/**',
 				'!resources/vendor/**',
+				'!resources/special/new-lexeme/**',
+				'!resources/special/new-lexeme-dist/**',
 				'!vendor/**'
 			]
 		},

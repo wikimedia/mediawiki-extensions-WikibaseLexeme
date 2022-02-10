@@ -1,0 +1,3 @@
+[submodule "resources/special/new-lexeme"]
+	path = resources/special/new-lexeme
+	url = https://phabricator.wikimedia.org/diffusion/NLSP/new-lexeme-special-page.git

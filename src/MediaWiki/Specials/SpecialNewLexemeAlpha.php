@@ -31,8 +31,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$output = $this->getOutput();
 		$this->setHeaders();
 
-		$wikitext = 'Hello world!';
-		$output->addWikiTextAsInterface( $wikitext );
+		$output->addHTML( '<div id="special-newlexeme-root"></div>' );
+		$output->addModules( [ 'wikibase.lexeme.special.NewLexemeAlpha' ] );
 	}
 
 	public function setHeaders() {
