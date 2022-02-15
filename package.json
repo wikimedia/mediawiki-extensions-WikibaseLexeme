@@ -4,6 +4,12 @@
 		"remoteVersion": {
 			"vue": "https://raw.githubusercontent.com/wikimedia/mediawiki/#{ZUUL_BRANCH}/resources/lib/vue/vue.common.prod.js",
 			"vuex": "https://raw.githubusercontent.com/wikimedia/mediawiki/#{ZUUL_BRANCH}/resources/lib/vuex/vuex.js"
+		},
+		"snl": {
+			"src": "resources/special/new-lexeme",
+			"dist": "resources/special/new-lexeme-dist",
+			"cjs": "SpecialNewLexeme.cjs.js",
+			"css": "style.css"
 		}
 	},
 	"scripts": {
@@ -11,7 +17,16 @@
 		"selenium-test": "wdio tests/selenium/wdio.conf.js",
 		"test": "grunt test && npm run test:mwlibs",
 		"test:mwlibs": "echo 'disabled (T297381)' # ZUUL_BRANCH=${ZUUL_BRANCH:-master} lib-version-check",
-		"fix": "grunt fix"
+		"fix": "grunt fix",
+		"bump-special-new-lexeme": "run-s bsnl:fetch bsnl:checkout bsnl:install bsnl:build bsnl:cp bsnl:restore",
+		"bsnl:fetch": "git -C $npm_package_config_snl_src fetch origin main",
+		"bsnl:checkout": "git -C $npm_package_config_snl_src checkout FETCH_HEAD",
+		"bsnl:install": "npm -C $npm_package_config_snl_src i",
+		"bsnl:build": "npm -C $npm_package_config_snl_src run build",
+		"bsnl:cp": "run-p bsnl:cp:*",
+		"bsnl:cp:cjs": "cp $npm_package_config_snl_src/dist/$npm_package_config_snl_cjs $npm_package_config_snl_dist/",
+		"bsnl:cp:css": "cp $npm_package_config_snl_src/dist/$npm_package_config_snl_css $npm_package_config_snl_dist/",
+		"bsnl:restore": "git -C $npm_package_config_snl_src checkout -"
 	},
 	"devDependencies": {
 		"@wdio/cli": "^7.16.14",
@@ -34,6 +49,7 @@
 		"jsdom-global": "^3.0.2",
 		"lodash": "^4.17.21",
 		"module-alias": "^2.0.0",
+		"npm-run-all": "^4.1.5",
 		"request": "^2.88.2",
 		"sinon": "^13.0.0",
 		"stylelint-config-wikimedia": "0.11.1",
