@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Les Meloures",
-			"Robby"
+			"Robby",
+			"Robin van der Vliet"
 		]
 	},
 	"special-newlexeme": "En neie Lexeem uleeën",
@@ -44,6 +45,7 @@
 	"wikibaselexeme-no-features": "keng Funktiounen",
 	"wikibase-lexeme-language-name-de-1901": "Däitsch (virun der Reform vun 1996)",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (H-System)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (X-System)",
 	"wikibase-lexeme-language-name-lij-mc": "Monegassesch",
 	"wikibase-lexeme-language-name-mis": "anerer",
 	"wikibase-lexeme-language-name-non": "Alnorweegesch",
