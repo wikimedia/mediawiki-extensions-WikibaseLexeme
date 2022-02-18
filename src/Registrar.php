@@ -129,6 +129,14 @@ class Registrar {
 		if ( $wgLexemeEnableNewAlpha ) {
 			$wgSpecialPages['NewLexemeAlpha'] = [
 				'class' => SpecialNewLexemeAlpha::class,
+				'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexemeAlpha::factory',
+				'services' => [
+					'WikibaseRepo.EditEntityFactory',
+					'WikibaseRepo.EntityNamespaceLookup',
+					'WikibaseRepo.EntityTitleStoreLookup',
+					'WikibaseRepo.Settings',
+					'WikibaseRepo.SummaryFormatter',
+				],
 			];
 		}
 
