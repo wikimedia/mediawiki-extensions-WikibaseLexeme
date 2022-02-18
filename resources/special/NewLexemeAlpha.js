@@ -11,7 +11,7 @@
 	};
 
 	createAndMount(
-		{ rootSelector: '#special-newlexeme-root' },
+		{ rootSelector: '#special-newlexeme-root', token: mw.user.tokens.get( 'csrfToken' ) },
 		messagesRepository
 	);
 }() );
