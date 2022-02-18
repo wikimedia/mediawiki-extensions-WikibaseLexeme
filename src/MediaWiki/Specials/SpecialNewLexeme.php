@@ -143,7 +143,7 @@ class SpecialNewLexeme extends SpecialPage {
 			->setWrapperLegendMsg( $this->getLegend() )
 			->setSubmitCallback(
 				function ( $data, HTMLForm $form ) {
-					// TODO: no form data validation??
+					// $data is already validated at this point (according to the field definitions)
 
 					$entity = $this->createEntityFromFormData( $data );
 
