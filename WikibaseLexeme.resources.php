@@ -274,6 +274,7 @@ return call_user_func( static function () {
 						"vue", // MW core
 						"vuex", // MW core
 						"@vue/compat", // see below
+						'mediawiki.user',
 					],
 					"messages" => [
 						"wikibaselexeme-newlexeme-lemma",
