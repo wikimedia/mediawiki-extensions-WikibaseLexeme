@@ -18,7 +18,7 @@
 		"test": "grunt test && npm run test:mwlibs",
 		"test:mwlibs": "echo 'disabled (T297381)' # ZUUL_BRANCH=${ZUUL_BRANCH:-master} lib-version-check",
 		"fix": "grunt fix",
-		"bump-special-new-lexeme": "run-s bsnl:fetch bsnl:checkout bsnl:install bsnl:build bsnl:cp bsnl:restore",
+		"bump-special-new-lexeme": "run-s bsnl:fetch bsnl:checkout bsnl:install bsnl:build bsnl:cp bsnl:add bsnl:restore",
 		"bsnl:fetch": "git -C $npm_package_config_snl_src fetch origin main",
 		"bsnl:checkout": "git -C $npm_package_config_snl_src checkout FETCH_HEAD",
 		"bsnl:install": "npm -C $npm_package_config_snl_src i",
@@ -26,6 +26,7 @@
 		"bsnl:cp": "run-p bsnl:cp:*",
 		"bsnl:cp:cjs": "cp $npm_package_config_snl_src/dist/$npm_package_config_snl_cjs $npm_package_config_snl_dist/",
 		"bsnl:cp:css": "cp $npm_package_config_snl_src/dist/$npm_package_config_snl_css $npm_package_config_snl_dist/",
+		"bsnl:add": "git add $npm_package_config_snl_src $npm_package_config_snl_dist",
 		"bsnl:restore": "git -C $npm_package_config_snl_src checkout -"
 	},
 	"devDependencies": {
