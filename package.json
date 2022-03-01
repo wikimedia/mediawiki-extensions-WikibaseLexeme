@@ -15,7 +15,10 @@
 	"scripts": {
 		"selenium-daily": "MEDIAWIKI_USER='Selenium user' MW_SERVER=https://wikidata.beta.wmflabs.org:443 MW_SCRIPT_PATH=/w WIKIBASE_PROPERTY_STRING=P443 npm run selenium-test",
 		"selenium-test": "wdio tests/selenium/wdio.conf.js",
-		"test": "grunt test && npm run test:mwlibs",
+		"test": "run-s test:*",
+		"test:grunt": "grunt test",
+		"test:snl-distnodiff": "run-s bsnl:install bsnl:build bsnl:cp bsnl:diff",
+		"test:snl-main": "git -C $npm_package_config_snl_src branch --contains HEAD main | grep -q .",
 		"test:mwlibs": "echo 'disabled (T297381)' # ZUUL_BRANCH=${ZUUL_BRANCH:-master} lib-version-check",
 		"fix": "grunt fix",
 		"bump-special-new-lexeme": "run-s bsnl:fetch bsnl:checkout bsnl:install bsnl:build bsnl:cp bsnl:add bsnl:restore",
@@ -27,7 +30,8 @@
 		"bsnl:cp:cjs": "cp $npm_package_config_snl_src/dist/$npm_package_config_snl_cjs $npm_package_config_snl_dist/",
 		"bsnl:cp:css": "cp $npm_package_config_snl_src/dist/$npm_package_config_snl_css $npm_package_config_snl_dist/",
 		"bsnl:add": "git add $npm_package_config_snl_src $npm_package_config_snl_dist",
-		"bsnl:restore": "git -C $npm_package_config_snl_src checkout -"
+		"bsnl:restore": "git -C $npm_package_config_snl_src checkout -",
+		"bsnl:diff": "git diff --exit-code $npm_package_config_snl_dist"
 	},
 	"devDependencies": {
 		"@wdio/cli": "^7.16.14",
