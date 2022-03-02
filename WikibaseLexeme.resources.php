@@ -278,6 +278,12 @@ return call_user_func( static function () {
 					],
 					"messages" => [
 						"wikibaselexeme-newlexeme-lemma",
+						// TODO "wikibaselexeme-newlexeme-lemma-placeholder",
+						"wikibaselexeme-newlexeme-language",
+						"wikibaselexeme-newlexeme-language-placeholder",
+						"wikibaselexeme-newlexeme-lexicalcategory",
+						"wikibaselexeme-newlexeme-lexicalcategory-placeholder",
+						// TODO "wikibaselexeme-newlexeme-submit",
 					],
 				],
 			// temporary alias because SpecialNewLexeme.cjs.js has require('@vue/compat');
