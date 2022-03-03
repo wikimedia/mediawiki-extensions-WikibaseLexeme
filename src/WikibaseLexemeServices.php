@@ -34,15 +34,6 @@ class WikibaseLexemeServices {
 		return new self();
 	}
 
-	public static function newTestInstance(): self {
-		if ( !defined( 'MW_PHPUNIT_TEST' ) ) {
-			throw new \Exception(
-				'Cannot get newTestInstance during regular operation.'
-			);
-		}
-		return new self();
-	}
-
 	private $container = [];
 
 	/**
