@@ -115,7 +115,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	): self {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
-			WikibaseLexemeServices::createGlobalInstance()->newMergeLexemesInteractor(),
+			WikibaseLexemeServices::newInstance()->newMergeLexemesInteractor(),
 			$entityTitleLookup,
 			$exceptionLocalizer,
 			$permissionManager
