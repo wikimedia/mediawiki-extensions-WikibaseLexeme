@@ -266,6 +266,16 @@ return call_user_func( static function () {
 					"packageFiles" => [
 						'special/NewLexemeAlpha.js',
 						'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
+						[
+							"name" => "special/licenseConfig.json",
+							"callback" => static function () {
+								$wbRepoSettings = WikibaseRepo::getSettings();
+								return [
+									'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
+									'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
+								];
+							}
+						],
 					],
 					"styles" => [
 						'special/new-lexeme-dist/style.css',
@@ -284,6 +294,8 @@ return call_user_func( static function () {
 						"wikibaselexeme-newlexeme-lexicalcategory",
 						"wikibaselexeme-newlexeme-lexicalcategory-placeholder",
 						// TODO "wikibaselexeme-newlexeme-submit",
+						"wikibase-shortcopyrightwarning",
+						"copyrightpage",
 					],
 				],
 			// temporary alias because SpecialNewLexeme.cjs.js has require('@vue/compat');
