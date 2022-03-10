@@ -23,7 +23,7 @@
 		"fix": "grunt fix",
 		"bump-special-new-lexeme": "run-s bsnl:fetch bsnl:checkout bsnl:install bsnl:build bsnl:cp bsnl:add bsnl:restore",
 		"bsnl:fetch": "git -C $npm_package_config_snl_src fetch origin main",
-		"bsnl:checkout": "git -C $npm_package_config_snl_src checkout FETCH_HEAD",
+		"bsnl:checkout": "git -C $npm_package_config_snl_src -c advice.detachedHead=false checkout FETCH_HEAD",
 		"bsnl:install": "npm -C $npm_package_config_snl_src i",
 		"bsnl:build": "npm -C $npm_package_config_snl_src run build",
 		"bsnl:cp": "run-p bsnl:cp:*",
