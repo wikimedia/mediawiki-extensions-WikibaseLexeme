@@ -7,19 +7,21 @@
 	</ul>
 	<div v-else class="lemma-widget_edit-area">
 		<ul class="lemma-widget_lemma-list">
-			<li v-for="lemma in lemmaList" class="lemma-widget_lemma-edit-box">
-				<span class="lemma-widget_lemma-value-label">
+			<li v-for="(lemma, lemmaIndex) in lemmaList" class="lemma-widget_lemma-edit-box">
+				<label :for="'lexeme-lemma-' + lemmaIndex + '-value'" class="lemma-widget_lemma-value-label">
 					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
-				</span>
-				<input size="1" 
+				</label>
+				<input :id="'lexeme-lemma-' + lemmaIndex + '-value'"
+					size="1"
 					class="lemma-widget_lemma-value-input"
 					v-model="lemma.value"
 					:disabled="isSaving"
 				>
-				<span class="lemma-widget_lemma-language-label">
+				<label :for="'lexeme-lemma-' + lemmaIndex + '-language'" class="lemma-widget_lemma-language-label">
 					{{'wikibaselexeme-lemma-field-language-label'|message}}
-				</span>
-				<input size="1" 
+				</label>
+				<input :id="'lexeme-lemma-' + lemmaIndex + '-language'"
+					size="1"
 					class="lemma-widget_lemma-language-input"
 					v-model="lemma.language" 
 					:disabled="isSaving"
