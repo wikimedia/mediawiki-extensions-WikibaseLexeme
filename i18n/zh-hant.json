@@ -11,6 +11,7 @@
 	},
 	"wikibaselexeme-desc": "處理詞位項目類型",
 	"special-newlexeme": "建立一個新詞位",
+	"special-newlexeme-alpha": "建立新的詞位（實驗功能）",
 	"special-mergelexemes": "合併兩個詞位",
 	"wikibaselexeme-deletedentity-form": "已刪除詞性",
 	"wikibaselexeme-deletedentity-sense": "刪除含意",
