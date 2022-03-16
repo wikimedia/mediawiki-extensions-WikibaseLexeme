@@ -267,12 +267,13 @@ return call_user_func( static function () {
 						'special/NewLexemeAlpha.js',
 						'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
 						[
-							"name" => "special/licenseConfig.json",
+							"name" => "special/settings.json",
 							"callback" => static function () {
 								$wbRepoSettings = WikibaseRepo::getSettings();
 								return [
 									'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
 									'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
+									'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
 								];
 							}
 						],

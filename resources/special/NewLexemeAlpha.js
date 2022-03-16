@@ -1,12 +1,13 @@
 ( function () {
 	var init = require( './new-lexeme-dist/SpecialNewLexeme.cjs.js' );
-	var config = require( './licenseConfig.json' );
+	var settings = require( './settings.json' );
 
 	init(
 		{
 			rootSelector: '#special-newlexeme-root',
-			licenseUrl: config.licenseUrl,
-			licenseName: config.licenseText
+			licenseUrl: settings.licenseUrl,
+			licenseName: settings.licenseText,
+			tags: settings.tags
 		},
 		mw
 	);
