@@ -5,7 +5,6 @@
 	init(
 		{
 			rootSelector: '#special-newlexeme-root',
-			token: mw.user.tokens.get( 'csrfToken' ),
 			licenseUrl: config.licenseUrl,
 			licenseName: config.licenseText
 		},
