@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
+			"Eleassar",
 			"Janezdrilc"
 		]
 	},
@@ -15,7 +16,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Besedna vrsta",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Vnesi besedno vrsto, na primer samostalnik",
 	"wikibaselexeme-newlexeme-language": "Jezik leksema",
-	"wikibaselexeme-newlexeme-language-placeholder": "Vnesi jezik, na primer slovenščina",
+	"wikibaselexeme-newlexeme-language-placeholder": "Vnesite jezik, na primer slovenščina",
 	"wikibaselexeme-statementsection-statements-about-form": "Izjave o $1",
 	"wikibaselexeme-header-forms": "Oblike",
 	"wikibaselexeme-enter-form-representation": "Vnesi novo obliko prikaza",
