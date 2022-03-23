@@ -13,7 +13,8 @@
 			"Omotecho",
 			"Raymond",
 			"Robby",
-			"Umherirrender"
+			"Umherirrender",
+			"Verdy p"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -25,7 +26,7 @@
 	"wikibaselexeme-deletedentity-lexeme": "Message displayed instead of a Lemma of the Lexeme if the Lexeme has been deleted.\n\nSee also:\n* {{msg-mw|Wikibase-entity-item}}\n* {{msg-mw|Wikibase-deletedentity-property}}",
 	"wikibaselexeme-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
 	"wikibaselexeme-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
-	"wikibaselexeme-newlexeme-lemma-placeholder": "Placeholder for the Lemma input field on the special page to create a new Lexeme",
+	"wikibaselexeme-newlexeme-lemma-placeholder": "Placeholder for the Lemma input field on the special page to create a new Lexeme.\n\nNote that this is not necessarily an abbreviated form, but just a word reduced to its simplest lexical expression, i.e. without articles, particles, required complements, context of use, or notations. However it may be a lexicalized compound word.",
 	"wikibaselexeme-newlexeme-lemma-language": "Name for \"Lemma\" language",
 	"wikibaselexeme-lemma-edit-placeholder": "Placeholder content for Lemma",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
