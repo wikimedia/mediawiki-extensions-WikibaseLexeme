@@ -7,7 +7,8 @@
 			rootSelector: '#special-newlexeme-root',
 			licenseUrl: settings.licenseUrl,
 			licenseName: settings.licenseText,
-			tags: settings.tags
+			tags: settings.tags,
+			wikibaseLexemeTermLanguages: settings.wikibaseLexemeTermLanguages
 		},
 		mw
 	);

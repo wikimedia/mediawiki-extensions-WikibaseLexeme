@@ -5,6 +5,7 @@
  * and repo-specific functionality have been split to separate extensions.
  */
 
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\WikibaseRepo;
 
 return call_user_func( static function () {
@@ -270,10 +271,12 @@ return call_user_func( static function () {
 							"name" => "special/settings.json",
 							"callback" => static function () {
 								$wbRepoSettings = WikibaseRepo::getSettings();
+								$wbLexemeTermLanguages = WikibaseLexemeServices::getTermLanguages();
 								return [
 									'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
 									'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
 									'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
+									'wikibaseLexemeTermLanguages' => $wbLexemeTermLanguages->getLanguages(),
 								];
 							}
 						],
