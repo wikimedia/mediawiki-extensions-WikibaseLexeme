@@ -34,7 +34,7 @@
 		"bsnl:diff": "git diff --exit-code $npm_package_config_snl_dist"
 	},
 	"devDependencies": {
-		"@wdio/cli": "^7.16.14",
+		"@wdio/cli": "^7.19.1",
 		"@wdio/dot-reporter": "^7.16.14",
 		"@wdio/junit-reporter": "^7.16.14",
 		"@wdio/local-runner": "^7.16.16",
