@@ -4,20 +4,20 @@
 			"Ladsgroup"
 		]
 	},
-	"apihelp-wbladdform-summary": "فرم به یک بن‌مایه می‌افزاید",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "فرم‌ها حتما باید حداقل یک بیانگر داشته‌باشند",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "زبان نمی‌تواند خالی باشد",
+	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "متن نمی‌تواند خالی باشد",
+	"apierror-wikibaselexeme-parameter-required": "پارامتر «$1» اجباری است",
 	"apihelp-wbladdform-param-lexemeId": "شناسه بن‌مایه مثلا L10",
-	"apihelp-wblremoveform-summary": "فرم را از یک بن‌مایه حذف می‌کند",
-	"apihelp-wblremoveform-param-id": "شناسه فرم مثلا L10-F2",
-	"apihelp-wblremoveform-param-bot": "این ویرایش را به عنوان ربات علامتگذاری کن\nفلگ یوآرال تنها در صورتی قابل اعتنا است که کاربر موردنظر عضو گروه «{{int:group-bot}}» باشد.",
-	"apihelp-wbleditformelements-param-formId": "شناسه فرم مثلا L10-F2",
-	"apihelp-wbladdsense-summary": "یک معنی به یک بن‌مایه اضافه می‌کند",
+	"apihelp-wbladdform-summary": "فرم به یک بن‌مایه می‌افزاید",
 	"apihelp-wbladdsense-param-lexemeId": "شناسه بن‌مایه مثلا L10",
+	"apihelp-wbladdsense-summary": "یک معنی به یک بن‌مایه اضافه می‌کند",
+	"apihelp-wbleditformelements-param-formId": "شناسه فرم مثلا L10-F2",
 	"apihelp-wblmergelexemes-description": "ادغام دو لکسیم.",
-	"apihelp-wblmergelexemes-summary": "ادغام دو لکسیم.",
 	"apihelp-wblmergelexemes-param-source": "شناسه برای ادغام از",
 	"apihelp-wblmergelexemes-param-target": "شناسه برای ادغام به",
-	"apierror-wikibaselexeme-parameter-required": "پارامتر «$1» اجباری است",
-	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "متن نمی‌تواند خالی باشد",
-	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "زبان نمی‌تواند خالی باشد",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "فرم‌ها حتما باید حداقل یک بیانگر داشته‌باشند"
+	"apihelp-wblmergelexemes-summary": "ادغام دو لکسیم.",
+	"apihelp-wblremoveform-param-bot": "این ویرایش را به عنوان ربات علامتگذاری کن\nفلگ یوآرال تنها در صورتی قابل اعتنا است که کاربر موردنظر عضو گروه «{{int:group-bot}}» باشد.",
+	"apihelp-wblremoveform-param-id": "شناسه فرم مثلا L10-F2",
+	"apihelp-wblremoveform-summary": "فرم را از یک بن‌مایه حذف می‌کند"
 }

@@ -4,14 +4,14 @@
 			"Luky001"
 		]
 	},
-	"wikibaselexeme-desc": "Spracováva typ entity lexémy",
 	"special-newlexeme": "Vytvoriť novú lexému",
-	"wikibaselexeme-newlexeme-fieldset": "Vytvoriť novú lexému",
+	"wikibaselexeme-desc": "Spracováva typ entity lexémy",
+	"wikibaselexeme-diffview-lexical-category": "slovný druh",
+	"wikibaselexeme-field-lexical-category-label": "Slovný druh",
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma je spravidla najkratší tvar slova",
-	"wikibaselexeme-newlexeme-lexicalcategory": "Slovný druh",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Zadajte slovný druh, napr. podstatné meno",
+	"wikibaselexeme-newlexeme-fieldset": "Vytvoriť novú lexému",
 	"wikibaselexeme-newlexeme-language": "Jazyk lexémy",
 	"wikibaselexeme-newlexeme-language-placeholder": "Zadajte jazyk, napr. angličtina",
-	"wikibaselexeme-field-lexical-category-label": "Slovný druh",
-	"wikibaselexeme-diffview-lexical-category": "slovný druh"
+	"wikibaselexeme-newlexeme-lexicalcategory": "Slovný druh",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Zadajte slovný druh, napr. podstatné meno"
 }

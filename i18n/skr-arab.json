@@ -4,15 +4,15 @@
 			"Saraiki"
 		]
 	},
-	"wikibaselexeme-lemma-field-language-label": "زبان",
+	"datatypes-type-wikibase-form": "شکل",
+	"wikibase-lexeme-language-name-mis": "ٻیا",
+	"wikibase-listdatatypes-wikibase-form-head": "شکل",
+	"wikibaselexeme-diffview-form": "شکل",
+	"wikibaselexeme-diffview-language": "زبان",
+	"wikibaselexeme-diffview-lemma": "اصل موضوع",
+	"wikibaselexeme-field-language-label": "زبان",
 	"wikibaselexeme-form-field-language-label": "زبان",
 	"wikibaselexeme-gloss-field-language-label": "زبان",
-	"datatypes-type-wikibase-form": "شکل",
-	"wikibase-listdatatypes-wikibase-form-head": "شکل",
-	"wikibaselexeme-field-language-label": "زبان",
-	"wikibaselexeme-diffview-lemma": "اصل موضوع",
-	"wikibaselexeme-diffview-language": "زبان",
-	"wikibaselexeme-diffview-form": "شکل",
-	"wikibaselexeme-unknown-category": "اݨ سونہاں",
-	"wikibase-lexeme-language-name-mis": "ٻیا"
+	"wikibaselexeme-lemma-field-language-label": "زبان",
+	"wikibaselexeme-unknown-category": "اݨ سونہاں"
 }

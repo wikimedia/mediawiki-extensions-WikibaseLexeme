@@ -4,20 +4,20 @@
 			"Saederup92"
 		]
 	},
-	"special-newlexeme": "Opret et nyt leksem",
-	"wikibaselexeme-newlexeme-fieldset": "Opret et nyt leksem",
-	"wikibaselexeme-newlexeme-language": "Leksemets sprog",
-	"wikibaselexeme-gloss-field-language-label": "Sprog",
-	"wikibase-lexeme-summary-wbeditentity-update": "Ændrede et leksem",
-	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Oprettede et nyt leksem",
-	"wikibaselexeme-field-language-label": "Sprog",
-	"wikibaselexeme-diffview-lemma": "lemma",
-	"wikibaselexeme-diffview-language": "sprog",
 	"content-model-wikibase-lexeme": "Wikibase-leksem",
-	"wikibaselexeme-unknown-language": "Ukendt sprog",
-	"wikibaselexeme-unknown-category": "Ukendt",
+	"special-newlexeme": "Opret et nyt leksem",
 	"wikibase-lexeme-language-name-mis": "andet",
 	"wikibase-lexeme-language-name-non": "Oldnordisk",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' er ikke et gyldigt lekseme-ID",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' ikke fundet"
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' ikke fundet",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Oprettede et nyt leksem",
+	"wikibase-lexeme-summary-wbeditentity-update": "Ændrede et leksem",
+	"wikibaselexeme-diffview-language": "sprog",
+	"wikibaselexeme-diffview-lemma": "lemma",
+	"wikibaselexeme-field-language-label": "Sprog",
+	"wikibaselexeme-gloss-field-language-label": "Sprog",
+	"wikibaselexeme-newlexeme-fieldset": "Opret et nyt leksem",
+	"wikibaselexeme-newlexeme-language": "Leksemets sprog",
+	"wikibaselexeme-unknown-category": "Ukendt",
+	"wikibaselexeme-unknown-language": "Ukendt sprog"
 }

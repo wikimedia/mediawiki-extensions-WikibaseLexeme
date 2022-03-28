@@ -4,13 +4,13 @@
 			"Ajeje Brazorf"
 		]
 	},
-	"wikibaselexeme-gloss-field-language-label": "Lingua",
-	"wikibaselexeme-field-language-label": "Lingua",
-	"wikibaselexeme-diffview-language": "lingua",
-	"wikibaselexeme-form-description": "$1 pi: $2 ($3): $4",
-	"wikibaselexeme-unknown-language": "Lingua scanusciuta",
-	"wikibaselexeme-unknown-category": "Scanusciutu",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperantu (sistema-h)",
 	"wikibase-lexeme-language-name-eo-xsistemo": "Esperantu (sistema-x)",
-	"wikibase-lexeme-language-name-mis": "àutru"
+	"wikibase-lexeme-language-name-mis": "àutru",
+	"wikibaselexeme-diffview-language": "lingua",
+	"wikibaselexeme-field-language-label": "Lingua",
+	"wikibaselexeme-form-description": "$1 pi: $2 ($3): $4",
+	"wikibaselexeme-gloss-field-language-label": "Lingua",
+	"wikibaselexeme-unknown-category": "Scanusciutu",
+	"wikibaselexeme-unknown-language": "Lingua scanusciuta"
 }

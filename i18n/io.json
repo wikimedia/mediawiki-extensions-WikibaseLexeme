@@ -4,18 +4,18 @@
 			"Joao Xavier"
 		]
 	},
-	"wikibaselexeme-newlexeme-fieldset": "Krear nova lexemo",
-	"wikibaselexeme-lemma-field-language-label": "Espelo-variado",
-	"wikibaselexeme-form-field-language-label": "Espelo-variado",
-	"wikibaselexeme-gloss-field-language-label": "Linguo",
-	"wikibaselexeme-field-language-label": "Linguo",
-	"wikibaselexeme-diffview-language": "linguo",
-	"wikibaselexeme-unknown-category": "Nekonocata",
 	"wikibase-lexeme-language-name-nrf-gg": "Guernésiais",
 	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
 	"wikibase-lexeme-language-name-rm-rumgr": "Rumantsch Grischun",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
 	"wikibase-lexeme-language-name-rm-sursilv": "Sursilvan",
 	"wikibase-lexeme-language-name-rm-vallader": "Vallader",
-	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permiso vetata."
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permiso vetata.",
+	"wikibaselexeme-diffview-language": "linguo",
+	"wikibaselexeme-field-language-label": "Linguo",
+	"wikibaselexeme-form-field-language-label": "Espelo-variado",
+	"wikibaselexeme-gloss-field-language-label": "Linguo",
+	"wikibaselexeme-lemma-field-language-label": "Espelo-variado",
+	"wikibaselexeme-newlexeme-fieldset": "Krear nova lexemo",
+	"wikibaselexeme-unknown-category": "Nekonocata"
 }

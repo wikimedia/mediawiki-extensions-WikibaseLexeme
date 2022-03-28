@@ -5,12 +5,12 @@
 		]
 	},
 	"special-newlexeme": "નવા શબ્દને ઉમેરો",
+	"wikibase-lexeme-summary-wbeditentity-update": "શબ્દ બદલ્યો",
+	"wikibaselexeme-header-senses": "શબ્દાર્થો",
+	"wikibaselexeme-lemma-edit-placeholder": "મૂળ શબ્દ ઉમેરો",
 	"wikibaselexeme-newlexeme-fieldset": "નવા શબ્દને ઉમેરો",
+	"wikibaselexeme-newlexeme-language": "શબ્દની ભાષા",
 	"wikibaselexeme-newlexeme-lemma": "મૂળ શબ્દ",
 	"wikibaselexeme-newlexeme-lemma-language": "મૂળ શબ્દની ભાષા",
-	"wikibaselexeme-lemma-edit-placeholder": "મૂળ શબ્દ ઉમેરો",
-	"wikibaselexeme-newlexeme-lexicalcategory": "વ્યાકરણ વર્ગીકરણ",
-	"wikibaselexeme-newlexeme-language": "શબ્દની ભાષા",
-	"wikibaselexeme-header-senses": "શબ્દાર્થો",
-	"wikibase-lexeme-summary-wbeditentity-update": "શબ્દ બદલ્યો"
+	"wikibaselexeme-newlexeme-lexicalcategory": "વ્યાકરણ વર્ગીકરણ"
 }

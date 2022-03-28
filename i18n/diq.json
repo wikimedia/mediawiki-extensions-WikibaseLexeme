@@ -6,19 +6,19 @@
 			"Orbot707"
 		]
 	},
-	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"datatypes-type-wikibase-form": "Form",
+	"datatypes-type-wikibase-lexeme": "Lexeme",
+	"datatypes-type-wikibase-sense": "Maney cı",
+	"wikibase-lexeme-language-name-frm": "Fransızkiya werti",
+	"wikibase-lexeme-language-name-fro": "Fransızkiyo kehan",
+	"wikibase-listdatatypes-wikibase-form-head": "Form",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeme",
+	"wikibase-listdatatypes-wikibase-sense-head": "Maney cı",
+	"wikibaselexeme-gloss-field-gloss-label": "Dipnot",
+	"wikibaselexeme-gloss-field-language-label": "Zıwan",
 	"wikibaselexeme-header-forms": "Formi",
 	"wikibaselexeme-header-senses": "Maneyi",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
-	"wikibaselexeme-gloss-field-language-label": "Zıwan",
-	"wikibaselexeme-gloss-field-gloss-label": "Dipnot",
-	"datatypes-type-wikibase-lexeme": "Lexeme",
-	"datatypes-type-wikibase-form": "Form",
-	"datatypes-type-wikibase-sense": "Maney cı",
-	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeme",
-	"wikibase-listdatatypes-wikibase-form-head": "Form",
-	"wikibase-listdatatypes-wikibase-sense-head": "Maney cı",
-	"wikibaselexeme-unknown-category": "Nêzanaye",
-	"wikibase-lexeme-language-name-frm": "Fransızkiya werti",
-	"wikibase-lexeme-language-name-fro": "Fransızkiyo kehan"
+	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"wikibaselexeme-unknown-category": "Nêzanaye"
 }

@@ -159,7 +159,7 @@
 	"wikibaselexeme-grammatical-features-input-placeholder": "Placeholder for the grammatical features input field",
 	"wikibaselexeme-header-forms": "Subheading for the '''lexicographical forms''' (not forms of tables or dialogs) section on a Lexeme page.",
 	"wikibaselexeme-header-senses": "Subheading for the Senses section on a Lexeme page.\n{{Identical|Sense}}",
-	"wikibaselexeme-lemma-edit-placeholder": "Placeholder content for lemma",
+	"wikibaselexeme-lemma-edit-placeholder": "Placeholder content for Lemma",
 	"wikibaselexeme-lemma-field-language-label": "Label of the field to input the spelling variant code of the lemma",
 	"wikibaselexeme-lemma-field-lemma-label": "Label of the field to input the lemma of the Lexeme.\n{{Identical|Lemma}}",
 	"wikibaselexeme-lemma-redundant-language": "Error message to show if multiple lemma with same language are provided",

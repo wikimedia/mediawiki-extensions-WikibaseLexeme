@@ -5,10 +5,10 @@
 			"Iváns"
 		]
 	},
-	"apihelp-wbladdform-summary": "Engade unha forma ó lexema",
+	"apierror-wikibaselexeme-parameter-required": "O parámetro «$1» é obrigatorio",
 	"apihelp-wbladdform-param-lexemeId": "Id. do lexema; p. ex., L10",
-	"apihelp-wblremoveform-summary": "Borra unha forma do lexema",
-	"apihelp-wblremoveform-param-id": "ID do Formulario, p.ex. L10-F20",
+	"apihelp-wbladdform-summary": "Engade unha forma ó lexema",
 	"apihelp-wbleditformelements-param-formId": "ID do Formulario, p.ex. L10-F2",
-	"apierror-wikibaselexeme-parameter-required": "O parámetro «$1» é obrigatorio"
+	"apihelp-wblremoveform-param-id": "ID do Formulario, p.ex. L10-F20",
+	"apihelp-wblremoveform-summary": "Borra unha forma do lexema"
 }

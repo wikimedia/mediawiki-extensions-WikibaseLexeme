@@ -4,12 +4,12 @@
 			"Dr Lotus Black"
 		]
 	},
-	"wikibaselexeme-gloss-field-language-label": "ဘာသာစကား",
-	"wikibaselexeme-field-language-label": "ဘာသာစကား",
-	"wikibaselexeme-unknown-language": "အမည်မသိ ဘာသာစကား",
-	"wikibaselexeme-unknown-category": "အမည်မသိ",
 	"wikibase-lexeme-language-name-ccp": "သက္ကမဘာသာစကား",
 	"wikibase-lexeme-language-name-cnh": "ဟားခါးချင်း",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' မတွေ့ရှိနိုင်ပါ။",
-	"wikibase-lexeme-mergelexemes-error-permission-denied": "ခွင့်ပြုချက် ငြင်းပယ်လိုက်သည်။"
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "ခွင့်ပြုချက် ငြင်းပယ်လိုက်သည်။",
+	"wikibaselexeme-field-language-label": "ဘာသာစကား",
+	"wikibaselexeme-gloss-field-language-label": "ဘာသာစကား",
+	"wikibaselexeme-unknown-category": "အမည်မသိ",
+	"wikibaselexeme-unknown-language": "အမည်မသိ ဘာသာစကား"
 }

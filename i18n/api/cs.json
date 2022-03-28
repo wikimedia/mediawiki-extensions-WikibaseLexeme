@@ -6,14 +6,14 @@
 			"Matěj Suchánek"
 		]
 	},
-	"apihelp-wbladdform-summary": "Přidá tvar k lexému",
 	"apihelp-wbladdform-param-lexemeId": "ID lexému (např. L10)",
 	"apihelp-wbladdform-param-tags": "Změnit značky, které chcete použít pro tuto revizi.",
-	"apihelp-wblremoveform-summary": "Odstraní tvar z lexému",
-	"apihelp-wblremoveform-param-id": "ID tvaru (např. L10-F20)",
-	"apihelp-wbleditformelements-example-1": "Edituje tvar s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>.",
-	"apihelp-wbladdsense-summary": "Přidá význam k lexému",
+	"apihelp-wbladdform-summary": "Přidá tvar k lexému",
 	"apihelp-wbladdsense-param-lexemeId": "ID lexému (např. L10)",
-	"apihelp-wblremovesense-summary": "Odstraní význam z lexému",
-	"apihelp-wblremovesense-param-id": "ID významu (např. L10-S20)"
+	"apihelp-wbladdsense-summary": "Přidá význam k lexému",
+	"apihelp-wbleditformelements-example-1": "Edituje tvar s ID <samp>$1</samp> k možnosti reprezentací <samp>$2</samp> v jazycích <samp>$3</samp>, a gramatickými funkcemi <samp>$4</samp>.",
+	"apihelp-wblremoveform-param-id": "ID tvaru (např. L10-F20)",
+	"apihelp-wblremoveform-summary": "Odstraní tvar z lexému",
+	"apihelp-wblremovesense-param-id": "ID významu (např. L10-S20)",
+	"apihelp-wblremovesense-summary": "Odstraní význam z lexému"
 }

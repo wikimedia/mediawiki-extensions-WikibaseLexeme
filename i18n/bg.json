@@ -6,16 +6,16 @@
 		]
 	},
 	"special-newlexeme": "Създаване на нова Лексема",
-	"wikibaselexeme-newlexeme-fieldset": "Създаване на нова Лексема",
-	"wikibaselexeme-newlexeme-lemma": "Лема",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Създаване на нова Лексема",
+	"wikibaselexeme-diffview-language": "език",
+	"wikibaselexeme-diffview-lexical-category": "лексикална категория",
+	"wikibaselexeme-field-language-label": "Език",
+	"wikibaselexeme-gloss-field-language-label": "Език",
 	"wikibaselexeme-lemma-edit-placeholder": "Лемата е обикновено най-кратката форма на думата",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Въведете лексикалната категория, например съществително",
+	"wikibaselexeme-lemma-field-lemma-label": "Лема",
+	"wikibaselexeme-newlexeme-fieldset": "Създаване на нова Лексема",
 	"wikibaselexeme-newlexeme-language": "Език на Лексемата",
 	"wikibaselexeme-newlexeme-language-placeholder": "Въведете език, например български",
-	"wikibaselexeme-lemma-field-lemma-label": "Лема",
-	"wikibaselexeme-gloss-field-language-label": "Език",
-	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Създаване на нова Лексема",
-	"wikibaselexeme-field-language-label": "Език",
-	"wikibaselexeme-diffview-lexical-category": "лексикална категория",
-	"wikibaselexeme-diffview-language": "език"
+	"wikibaselexeme-newlexeme-lemma": "Лема",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Въведете лексикалната категория, например съществително"
 }
