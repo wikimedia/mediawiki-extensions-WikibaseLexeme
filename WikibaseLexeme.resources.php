@@ -296,6 +296,7 @@ return call_user_func( static function () {
 						"wikibaselexeme-newlexeme-lexicalcategory-placeholder",
 						"wikibaselexeme-newlexeme-submit",
 						"wikibase-shortcopyrightwarning",
+						"wikibaselexeme-newlexeme-submit-error",
 						"copyrightpage",
 					],
 				],
