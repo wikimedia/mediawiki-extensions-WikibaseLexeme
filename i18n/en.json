@@ -158,6 +158,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexical category",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "The Lexeme's category, e.g. 'numeral'",
 	"wikibaselexeme-newlexeme-submit": "Create Lexeme",
+	"wikibaselexeme-newlexeme-submit-error": "The server encountered a temporary error and could not complete your request. Please try again.",
 	"wikibaselexeme-no-features": "no features",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",

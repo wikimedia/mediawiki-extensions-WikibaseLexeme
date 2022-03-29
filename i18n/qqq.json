@@ -173,6 +173,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Placeholder for the \"lexical category\" field in the Lexeme creation form.",
 	"wikibaselexeme-newlexeme-submit": "Label on the button to create a new Lexeme",
+	"wikibaselexeme-newlexeme-submit-error": "Error message for a generic network error",
 	"wikibaselexeme-no-features": "Message for form having no features",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "{{optional}}\n\nDelimiter used to separate multiple lemmas of the lexeme when it being displayed as text/HTML.",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "{{optional}}\n\nLexeme's \"secondary label\" consisting of lexeme's language and lexical category (as text).\n\nParameters:\n* $1 - Language\n* $2 - Lexical category.",
