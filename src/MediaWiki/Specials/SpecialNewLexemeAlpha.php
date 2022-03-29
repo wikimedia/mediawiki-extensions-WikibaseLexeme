@@ -218,6 +218,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				'cssclass' => 'lemma-language',
 				'id' => 'wb-newlexeme-lemma-language',
 				'label-message' => 'wikibaselexeme-newlexeme-lemma-language',
+				'placeholder-message' => 'wikibaselexeme-newlexeme-lemma-language-placeholder',
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,

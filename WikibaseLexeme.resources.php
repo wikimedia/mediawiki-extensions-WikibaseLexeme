@@ -293,6 +293,8 @@ return call_user_func( static function () {
 					"messages" => [
 						"wikibaselexeme-newlexeme-lemma",
 						"wikibaselexeme-newlexeme-lemma-placeholder",
+						"wikibaselexeme-newlexeme-lemma-language",
+						"wikibaselexeme-newlexeme-lemma-language-placeholder",
 						"wikibaselexeme-newlexeme-language",
 						"wikibaselexeme-newlexeme-language-placeholder",
 						"wikibaselexeme-newlexeme-lexicalcategory",
