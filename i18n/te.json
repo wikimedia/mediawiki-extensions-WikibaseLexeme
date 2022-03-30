@@ -5,5 +5,6 @@
 		]
 	},
 	"wikibaselexeme-newlexeme-language": "లెక్సీమ్ భాష",
-	"wikibaselexeme-newlexeme-language-placeholder": "లెక్సీమ్ భాష, ఉదా. 'తెలుగు'"
+	"wikibaselexeme-newlexeme-language-placeholder": "లెక్సీమ్ భాష, ఉదా. 'తెలుగు'",
+	"wikibaselexeme-newlexeme-submit-error": "సర్వరులో తాత్కాలికంగా ఏదో లోపం ఎదురవడంతో మీ అభ్యర్థనను పూర్తిచెయ్యలేక పోయాం. మళ్ళీ ప్రయత్నించండి."
 }

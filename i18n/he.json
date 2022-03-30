@@ -154,6 +154,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "קטגוריה מילונית",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "הקטגוריה של היחידה המילונית, למשל \"שם המספר\"",
 	"wikibaselexeme-newlexeme-submit": "יצירת יחידה מילונית",
+	"wikibaselexeme-newlexeme-submit-error": "השרת נתקל השגיאה זמנית ואינו יכול להשלים את הבקשה שלך. נא לנסות שוב.",
 	"wikibaselexeme-no-features": "ללא מאפיינים",
 	"wikibaselexeme-search-result-stats": "{{PLURAL:$1|קביעה אחת|$1 קביעות}}, {{PLURAL:$2|צורה אחת|$2 צורות}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "שפת הפירוש צריכה להיות תקינה",

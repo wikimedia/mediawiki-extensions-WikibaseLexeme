@@ -169,6 +169,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Entrer la catégorie lexicale, par exemple « nom »",
 	"wikibaselexeme-newlexeme-submit": "Créer un lexème",
+	"wikibaselexeme-newlexeme-submit-error": "Une erreur temporaire est survenue dans le serveur qui ne pourra pas satisfaire votre requête. Veuillez réessayer plus tard.",
 	"wikibaselexeme-no-features": "aucune caractéristique",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": " / ",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "($1) $2",

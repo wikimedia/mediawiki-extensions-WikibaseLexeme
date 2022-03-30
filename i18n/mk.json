@@ -154,6 +154,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексичка категорија",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Категорија на лексемата, на пр. „бројка“",
 	"wikibaselexeme-newlexeme-submit": "Создај лексема",
+	"wikibaselexeme-newlexeme-submit-error": "Опслужувачот наиде на привремена грешка и затоа не можеше да го исполни вашето барање. Обидете се повторно.",
 	"wikibaselexeme-no-features": "нема функции",
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|исказ|искази}}, $2 {{PLURAL:$2|образец|обрасци}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Јазичните кодови на прибелешките мора да бидат важечки",

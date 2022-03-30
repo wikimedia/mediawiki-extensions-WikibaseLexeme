@@ -4,7 +4,8 @@
 			"Afaz",
 			"LaMagiaaa",
 			"Nikki",
-			"Omotecho"
+			"Omotecho",
+			"Yamagata Yusuke"
 		]
 	},
 	"content-model-wikibase-lexeme": "ウィキベース語彙素",
@@ -138,11 +139,11 @@
 	"wikibaselexeme-lemma-redundant-language": "同じ綴りを持つ見出し語を入力することはできません。",
 	"wikibaselexeme-newlexeme-fieldset": "語彙素の新規作成",
 	"wikibaselexeme-newlexeme-language": "語彙素の言語",
-	"wikibaselexeme-newlexeme-language-placeholder": "言語を入力。例：日本語",
+	"wikibaselexeme-newlexeme-language-placeholder": "語彙素の言語。例：日本語",
 	"wikibaselexeme-newlexeme-lemma": "見出し語",
 	"wikibaselexeme-newlexeme-lemma-language": "見出し語のつづりの変形",
 	"wikibaselexeme-newlexeme-lexicalcategory": "語彙範疇",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "語彙範疇を入力。例：名詞",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "語彙範疇。例：数詞",
 	"wikibaselexeme-no-features": "文法的特徴がありません",
 	"wikibaselexeme-search-result-stats": "{{PLURAL:$1|文}}：$1、{{PLURAL:$2|語形}}：$2",
 	"wikibaselexeme-sense-gloss-invalid-language": "語義の言語コードが無効です",
