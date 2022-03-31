@@ -13,7 +13,8 @@
 			"Omotecho",
 			"Raymond",
 			"Robby",
-			"Umherirrender"
+			"Umherirrender",
+			"Verdy p"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -26,7 +27,7 @@
 	"wikibaselexeme-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
 	"wikibaselexeme-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
 	"wikibaselexeme-newlexeme-lemma-language": "Name for \"Lemma\" language",
-	"wikibaselexeme-lemma-edit-placeholder": "Placeholder content for lemma",
+	"wikibaselexeme-lemma-edit-placeholder": "Placeholder content for Lemma",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Placeholder for the \"lexical category\" field in the Lexeme creation form.",
 	"wikibaselexeme-newlexeme-language": "Label for field in the Lexeme creation form.",
