@@ -6,7 +6,8 @@
 			"Gustavo.moraes",
 			"Luk3",
 			"Mariagarbin",
-			"NMaia"
+			"NMaia",
+			"YuriNikolai"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
@@ -147,7 +148,7 @@
 	"wikibaselexeme-lemma-redundant-language": "Não é possível introduzir mais do que um lema com a mesma variante ortográfica.",
 	"wikibaselexeme-newlexeme-fieldset": "Criar um lexema novo",
 	"wikibaselexeme-newlexeme-language": "Língua do lexema",
-	"wikibaselexeme-newlexeme-language-placeholder": "Introduza o idioma, por exemplo: português",
+	"wikibaselexeme-newlexeme-language-placeholder": "O idioma do Lexeme, por exempl, 'Português'",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
 	"wikibaselexeme-newlexeme-lemma-language": "Variante ortográfica do Lema",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoria lexical",
