@@ -20,7 +20,7 @@ use Wikibase\Lib\WikibaseSettings;
 class Registrar {
 
 	public static function registerExtension() {
-		global $wgLexemeEnableRepo, $wgLexemeEnableNewAlpha;
+		global $wgLexemeEnableRepo;
 
 		if ( !WikibaseSettings::isRepoEnabled() || !$wgLexemeEnableRepo ) {
 			return;
@@ -125,6 +125,11 @@ class Registrar {
 				'WikibaseRepo.SummaryFormatter',
 			],
 		];
+
+		global $wgLexemeEnableNewAlpha, $wgWikimediaJenkinsCI;
+		if ( $wgWikimediaJenkinsCI ?? false ) {
+			$wgLexemeEnableNewAlpha = true;
+		}
 
 		if ( $wgLexemeEnableNewAlpha ) {
 			$wgSpecialPages['NewLexemeAlpha'] = [
