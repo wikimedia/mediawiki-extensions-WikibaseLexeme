@@ -19,7 +19,7 @@
 	"apihelp-wbleditformelements-param-data": "Dateno en JSON pri prezentoj kaj gramatikaj trajtoj",
 	"apihelp-wbleditformelements-param-bot": "Marki redakton robota. Tiu retadresa flago nur observiĝos se la uzanto apartenas al la grupo \"{{int:group-bot}}\".",
 	"apihelp-wbleditformelements-param-baserevid": "Baza Redakta Numero de la Leksemo, se oni volas kontroli redaktan konflikton de formaj elementoj.",
-	"apihelp-wbleditformelements-example-1": "Redakti la Formon de la identigilo <samp>$1</samp> por havigi prezentojn <samp>$2</samp> en lingvoj <samp>$3</samp> kaj gramatikaj trajtojn <samp>$4</smap>.",
+	"apihelp-wbleditformelements-example-1": "Redakti la Formon de la identigilo <samp>$1</samp> por havigi prezentojn <samp>$2</samp> en lingvoj <samp>$3</samp> kaj gramatikaj trajtojn <samp>$4</samp>.",
 	"apihelp-wbladdsense-summary": "Aldoni Sencon al Leksemo",
 	"apihelp-wbladdsense-param-lexemeId": "Identigilo de la Leksemo, ekz. L10",
 	"apihelp-wbladdsense-param-data": "Dateno en JSON pri la Senco, t.e. ĝiaj glosoj",
