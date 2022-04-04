@@ -35,6 +35,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
+use Wikimedia\ParamValidator\ParamValidator;
 
 /**
  * @license GPL-2.0-or-later
@@ -278,22 +279,22 @@ class AddSense extends ApiBase {
 		return array_merge(
 			[
 				AddSenseRequestParser::PARAM_LEXEME_ID => [
-					self::PARAM_TYPE => 'string',
-					self::PARAM_REQUIRED => true,
+					ParamValidator::PARAM_TYPE => 'string',
+					ParamValidator::PARAM_REQUIRED => true,
 				],
 				AddSenseRequestParser::PARAM_DATA => [
-					self::PARAM_TYPE => 'text',
-					self::PARAM_REQUIRED => true,
+					ParamValidator::PARAM_TYPE => 'text',
+					ParamValidator::PARAM_REQUIRED => true,
 				],
 				AddSenseRequestParser::PARAM_BASEREVID => [
-					self::PARAM_TYPE => 'integer',
+					ParamValidator::PARAM_TYPE => 'integer',
 				],
 				'tags' => [
-					self::PARAM_TYPE => 'tags',
-					self::PARAM_ISMULTI => true,
+					ParamValidator::PARAM_TYPE => 'tags',
+					ParamValidator::PARAM_ISMULTI => true,
 				],
 				'bot' => [
-					self::PARAM_TYPE => 'boolean',
+					ParamValidator::PARAM_TYPE => 'boolean',
 					self::PARAM_DFLT => false,
 				]
 			]

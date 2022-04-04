@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
+use Wikimedia\ParamValidator\ParamValidator;
 
 /**
  * WikibaseLexeme API endpoint wblmergelexemes
@@ -101,22 +102,22 @@ class MergeLexemes extends ApiBase {
 	protected function getAllowedParams() {
 		return [
 			self::SOURCE_ID_PARAM => [
-				self::PARAM_TYPE => 'string',
-				self::PARAM_REQUIRED => true,
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
 			],
 			self::TARGET_ID_PARAM => [
-				self::PARAM_TYPE => 'string',
-				self::PARAM_REQUIRED => true,
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
 			],
 			self::SUMMARY_PARAM => [
-				self::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_TYPE => 'string',
 			],
 			'tags' => [
-				self::PARAM_TYPE => 'tags',
-				self::PARAM_ISMULTI => true,
+				ParamValidator::PARAM_TYPE => 'tags',
+				ParamValidator::PARAM_ISMULTI => true,
 			],
 			self::BOT_PARAM => [
-				self::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_TYPE => 'boolean',
 				self::PARAM_DFLT => false,
 			]
 		];
