@@ -118,7 +118,7 @@ class MergeLexemes extends ApiBase {
 			],
 			self::BOT_PARAM => [
 				ParamValidator::PARAM_TYPE => 'boolean',
-				self::PARAM_DFLT => false,
+				ParamValidator::PARAM_DEFAULT => false,
 			]
 		];
 	}

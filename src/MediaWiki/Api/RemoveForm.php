@@ -212,7 +212,7 @@ class RemoveForm extends ApiBase {
 				],
 				'bot' => [
 					ParamValidator::PARAM_TYPE => 'boolean',
-					self::PARAM_DFLT => false,
+					ParamValidator::PARAM_DEFAULT => false,
 				],
 				RemoveFormRequestParser::PARAM_BASEREVID => [
 					ParamValidator::PARAM_TYPE => 'integer',
