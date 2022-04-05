@@ -30,7 +30,8 @@ describe( 'NewLexemeAlpha:Page', () => {
 		NewLexemePage.createLexeme(
 			lemma,
 			languageId,
-			lexicalCategoryId
+			lexicalCategoryId,
+			languageItemsLanguageCode
 		);
 
 		LexemePage.lemmaContainer.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
