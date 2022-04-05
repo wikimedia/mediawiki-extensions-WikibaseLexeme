@@ -169,6 +169,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Placeholder for the \"language\" field in the Lexeme creation form. Feel free to change \"English\" to your language name.",
 	"wikibaselexeme-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
 	"wikibaselexeme-newlexeme-lemma-language": "Name for \"Lemma\" language",
+	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Placeholder for the \"Lemma\" language (spelling variant) on the special page.",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Placeholder for the Lemma input field on the special page to create a new Lexeme.\n\nNote that this is not necessarily an abbreviated form, but just a word reduced to its simplest lexical expression, i.e. without articles, particles, required complements, context of use, or notations. However it may be a lexicalized compound word.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Placeholder for the \"lexical category\" field in the Lexeme creation form.",

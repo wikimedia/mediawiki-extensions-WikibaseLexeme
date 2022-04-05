@@ -154,6 +154,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "The Lexeme's language, e.g. 'English'",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Spelling variant of the Lemma",
+	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Language code for the Lemma's spelling variant, e.g., 'en'",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Short form of a word, e.g. 'first'",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexical category",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "The Lexeme's category, e.g. 'numeral'",
