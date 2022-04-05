@@ -10,6 +10,7 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		return {
 			LEMMA: '.wbl-snl-lemma-input',
 			LANGUAGE: '.wbl-snl-language-lookup',
+			SPELLING_VARIANT: '.wbl-snl-spelling-variant-lookup',
 			LEXICAL_CATEGORY: '.wbl-snl-lexical-category-lookup',
 
 			SUBMIT_BUTTON: '.wbl-snl-form button[type=submit]'
@@ -31,10 +32,11 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		return true;
 	}
 
-	createLexeme( lemma, language, lexicalCategory ) {
+	createLexeme( lemma, language, lexicalCategory, languageVariant ) {
 		this.setLemma( lemma );
 
 		this.setLexemeLanguage( language );
+		this.setSpellingVariant( languageVariant );
 		this.setLexicalCategory( lexicalCategory );
 
 		this.clickSubmit();
@@ -55,6 +57,13 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		this.setValueOnWikitLookup(
 			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
 			lexicalCategory
+		);
+	}
+
+	setSpellingVariant( languageVariant ) {
+		this.setValueOnWikitLookup(
+			$( this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT ),
+			languageVariant
 		);
 	}
 
