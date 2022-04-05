@@ -287,7 +287,7 @@ class EditSenseElements extends \ApiBase {
 			],
 			'bot' => [
 				ParamValidator::PARAM_TYPE => 'boolean',
-				self::PARAM_DFLT => false,
+				ParamValidator::PARAM_DEFAULT => false,
 			]
 		];
 	}
