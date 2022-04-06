@@ -154,6 +154,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Die Sprache des Lexems, z. B. „Deutsch“.",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Rechtschreibvariante des Lemmas",
+	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Sprachcode für die Rechtschreibvariante des Lemmas, z. B. „de“.",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Kurzform eines Wortes, z. B. „erster“.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikalische Kategorie",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Die Kategorie des Lexems, z. B. „Zahl“.",
