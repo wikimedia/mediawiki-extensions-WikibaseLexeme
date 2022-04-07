@@ -150,6 +150,7 @@
 	"wikibaselexeme-lemma-redundant-language": "It is not possible to enter multiple lemmas with the same spelling variant.",
 	"wikibaselexeme-lexeme-link-title": "$1: $2",
 	"wikibaselexeme-newlexeme-fieldset": "Create a new Lexeme",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "This Item has an unrecognized language code. Please select one below.",
 	"wikibaselexeme-newlexeme-language": "Lexeme's language",
 	"wikibaselexeme-newlexeme-language-placeholder": "The Lexeme's language, e.g. 'English'",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
