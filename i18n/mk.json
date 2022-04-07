@@ -150,6 +150,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Јазик на лексемата, на пр. „македонски“",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
 	"wikibaselexeme-newlexeme-lemma-language": "Правописна варијанта на лемата",
+	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Јазичен код на правописната варијанта на лемата, како на пр. „mk“",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Краток облик на зборот, на пр. „прв“",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексичка категорија",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Категорија на лексемата, на пр. „бројка“",

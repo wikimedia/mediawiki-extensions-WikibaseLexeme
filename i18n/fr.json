@@ -165,6 +165,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "La langue du lexème, par exemple « anglais »",
 	"wikibaselexeme-newlexeme-lemma": "Lemme",
 	"wikibaselexeme-newlexeme-lemma-language": "Variante orthographique du lemme",
+	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Code de langue pour la variante d’orthographe de Lemma, par ex., « en »",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Forme courte d’un mot, par ex. « premier »",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Entrer la catégorie lexicale, par exemple « nom »",

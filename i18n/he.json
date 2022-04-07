@@ -150,6 +150,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "שפת היחידה המילונית, למשל \"אנגלית\"",
 	"wikibaselexeme-newlexeme-lemma": "משפט מוגדר",
 	"wikibaselexeme-newlexeme-lemma-language": "הגוון כתיב של היחידה המילונית",
+	"wikibaselexeme-newlexeme-lemma-language-placeholder": "קוד השפה של הגוון הכתיב של המשפט המוגדר, למשל \"en\"",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "צורה קצרה של מילה, למשל \"ראשון\"",
 	"wikibaselexeme-newlexeme-lexicalcategory": "קטגוריה מילונית",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "הקטגוריה של היחידה המילונית, למשל \"שם המספר\"",
