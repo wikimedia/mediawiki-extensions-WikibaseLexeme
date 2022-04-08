@@ -289,6 +289,7 @@ return call_user_func( static function () {
 						"vuex", // MW core
 						"@vue/compat", // see below
 						'mediawiki.user',
+						'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig',
 					],
 					"messages" => [
 						"wikibaselexeme-newlexeme-lemma",
