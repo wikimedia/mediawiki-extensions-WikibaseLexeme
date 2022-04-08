@@ -19,12 +19,12 @@ Recommended way of setting the development environment is with the use of [Docke
 
 ### Setting up the extension using Docker
 
-#### Set up mediawiki-docker-dev
+#### Set up Mediawiki Docker Development environment
 
-* Follow the guide available at https://github.com/addshore/mediawiki-docker-dev.
+* Follow the guide available at https://www.mediawiki.org/wiki/Cli/guide/Docker-Development-Environment
 
 * Once this is setup you can just check it all works by visiting:
-[http://default.web.mw.localhost:8080].
+[http://default.mediawiki.mwdd.localhost:8080].
 
 * You should see a mediawiki installation all setup and running.
 
