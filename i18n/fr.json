@@ -161,6 +161,7 @@
 	"wikibaselexeme-lemma-redundant-language": "Il n’est pas possible de saisir plusieurs lemmes avec la même variante orthographique.",
 	"wikibaselexeme-lexeme-link-title": "$1 : $2",
 	"wikibaselexeme-newlexeme-fieldset": "Créer un nouveau lexème",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Cet élément a un code de langue non reconnu. Veuillez en sélectionner un ci-dessous.",
 	"wikibaselexeme-newlexeme-language": "Langue du lexème",
 	"wikibaselexeme-newlexeme-language-placeholder": "La langue du lexème, par exemple « anglais »",
 	"wikibaselexeme-newlexeme-lemma": "Lemme",

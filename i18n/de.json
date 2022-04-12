@@ -150,6 +150,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-lemma-redundant-language": "Es ist nicht möglich, mehrere Lemmata mit der gleichen Rechtschreibvariante einzugeben.",
 	"wikibaselexeme-newlexeme-fieldset": "Ein neues Lexem erstellen",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Dieses Objekt hat einen nicht erkannten Sprachcode. Bitte wähle unten einen aus.",
 	"wikibaselexeme-newlexeme-language": "Die Sprache der Lexeme",
 	"wikibaselexeme-newlexeme-language-placeholder": "Die Sprache des Lexems, z. B. „Deutsch“.",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",

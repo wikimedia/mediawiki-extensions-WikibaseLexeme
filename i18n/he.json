@@ -146,6 +146,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "משפט מוגדר",
 	"wikibaselexeme-lemma-redundant-language": "אי־אפשר להזין כמה משפטים מוגדרים עם אותו תקן כתיב.",
 	"wikibaselexeme-newlexeme-fieldset": "יצירת יחידה מילונית חדשה",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "לפריט הזה יש קוד שפה בלתי־מוכר. נא לבחור אחד למטה.",
 	"wikibaselexeme-newlexeme-language": "שפת היחידה המילונית",
 	"wikibaselexeme-newlexeme-language-placeholder": "שפת היחידה המילונית, למשל \"אנגלית\"",
 	"wikibaselexeme-newlexeme-lemma": "משפט מוגדר",
