@@ -306,6 +306,11 @@ return call_user_func( static function () {
 						"copyrightpage",
 					],
 				],
+			"wikibase.lexeme.special.NewLexemeAlpha.styles" => $moduleTemplate + [
+					"styles" => [
+						'special/new-lexeme-alpha.less',
+					],
+			],
 		];
 	}
 

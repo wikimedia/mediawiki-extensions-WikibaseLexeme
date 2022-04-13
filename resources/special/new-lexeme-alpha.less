@@ -1,0 +1,86 @@
+@import '../_variablesWikit';
+
+@wbl-snl-padding: 1.5rem;
+
+@wbl-snl-break-point: 981px;
+
+// Overall page layout
+.wbl-snl-main-content {
+	display: flex;
+
+	@media ( min-width: ( @wbl-snl-break-point + 1 ) ) {
+		align-items: stretch;
+
+		& > * + * {
+			margin-left: @dimension-layout-medium;
+		}
+	}
+
+	@media ( max-width: @wbl-snl-break-point ) {
+		flex-direction: column;
+
+		& > * + * {
+			margin-top: @dimension-layout-small;
+		}
+	}
+
+	& > * {
+		flex: 1 1 0;
+	}
+}
+
+// info panel
+.wbl-snl-infopanel {
+	font-family: @wikit-Message-font-family;
+	font-size: @wikit-Message-font-size;
+	font-weight: @wikit-Message-font-weight;
+	line-height: @wikit-Message-line-height;
+	border-width: @wikit-Message-border-width;
+	border-style: @wikit-Message-border-style;
+	border-radius: @wikit-Message-border-radius;
+	padding: @wbl-snl-padding;
+
+	&--notice {
+		border-color: @wikit-Message-notice-border-color;
+		background: @wikit-Message-notice-background-color;
+	}
+
+	&__content {
+		& > * {
+			margin-top: @wikit-Message-spacing-vertical;
+			margin-bottom: @wikit-Message-spacing-vertical;
+		}
+	}
+
+	&__icon {
+		margin-right: @wikit-Message-icon-gap-to-text;
+	}
+}
+
+// lemma-card
+.wbl-snl-lemma-card {
+	background-color: @background-color-neutral-default;
+	padding: @dimension-spacing-large @dimension-spacing-xlarge;
+	border: @border-style-base @border-width-thin @border-color-base-default;
+	border-radius: @border-radius-base;
+	display: inline-flex;
+	align-items: center;
+
+	&__lexeme-id {
+		padding-right: @dimension-spacing-small;
+		color: @font-color-subtle;
+	}
+
+	&__lemma {
+		display: flex;
+		flex-direction: column;
+		padding-left: @dimension-spacing-small;
+		border-left: solid @dimension-static-size-50 @border-color-base-subtle;
+	}
+
+	&__lex-meta {
+		display: flex;
+		flex-direction: column;
+		margin-left: @dimension-spacing-large;
+	}
+}

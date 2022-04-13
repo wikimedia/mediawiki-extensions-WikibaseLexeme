@@ -1,0 +1,22 @@
+<aside class="wbl-snl-infopanel wbl-snl-infopanel--notice">
+	<header>
+		{{! This is a comment. Also, things in triple-{ are NOT html-escaped! }}
+		<span class="wbl-snl-infopanel__icon">{{{info_icon_HTML}}}</span><span>{{header}}</span>
+	</header>
+	<div class="wbl-snl-infopanel__content">
+		<p>{{{lexicographical-data_HTML}}}</p>
+		<div class="wbl-snl-lemma-card">
+			{{! Things in double-{ are html-escaped and are safe to contain unsanitized user input. }}
+			<span class="wbl-snl-lemma-card__lexeme-id">({{lexeme_id}})</span>
+			<div class="wbl-snl-lemma-card__lemma">
+				<b lang="{{lemma_language}}">{{lemma_text}}</b>
+				<span>{{lemma_language}}</span>
+			</div>
+			<div class="wbl-snl-lemma-card__lex-meta">
+				<span>{{language_label}}{{colon_separator}}{{{language_link_HTML}}}</span>
+				<span>{{lexical_category_label}}{{colon_separator}}{{{lexical_category_link_HTML}}}</span>
+			</div>
+		</div>
+		<p>{{{no-general-data_HTML}}}</p>
+	</div>
+</aside>

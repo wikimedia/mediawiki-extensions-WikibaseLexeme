@@ -8,11 +8,13 @@ use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
 use RequestContext;
+use Title;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexemeAlpha;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\SummaryFormatter;
@@ -66,7 +68,10 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getEditEntityFactory(),
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			WikibaseRepo::getEntityTitleStoreLookup(),
-			$summaryFormatter
+			WikibaseRepo::getEntityLookup(),
+			WikibaseRepo::getEntityIdParser(),
+			$summaryFormatter,
+			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory()
 		);
 	}
 
@@ -166,6 +171,52 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		} catch ( PermissionsError $exception ) {
 			$this->assertSame( 'badaccess-group0', $exception->errors[0][0] );
 		}
+	}
+
+	public function testInfoPanelEscapesLexemeBoxContents(): void {
+		$languageItemId = 'Q10';
+		$lexicalCategoryItemId = 'Q11';
+		$this->givenItemExists( $languageItemId, '<language>' );
+		$this->givenItemExists( $lexicalCategoryItemId, '<lexicalcategory>' );
+		$exampleLexemeId = 'L100';
+		$exampleLexeme = NewLexeme::havingId( $exampleLexemeId )
+			->withLemma( 'en', '<lemma>' )
+			->withLanguage( $languageItemId )
+			->withLexicalCategory( $lexicalCategoryItemId )
+			->build();
+		WikibaseRepo::getEntityStore()
+			->saveEntity(
+				$exampleLexeme,
+				'',
+				self::getTestUser()->getUser(),
+				EDIT_NEW
+			);
+		$this->editPage(
+			Title::makeTitle( NS_MEDIAWIKI, 'Wikibaselexeme-newlexeme-info-panel-example-lexeme-id' ),
+			$exampleLexemeId
+		);
+		$this->setMwGlobals( [
+			'wgUseDatabaseMessages' => true,
+			'wgLanguageCode' => 'en',
+		] );
+
+		[ $html ] = $this->executeSpecialPage( '', null, 'en' );
+
+		// the first three assertions don’t include &gt; because "&lt;language>" is also okay
+		$this->assertStringContainsString( '&lt;language', $html );
+		$this->assertStringContainsString( '&lt;lexicalcategory', $html );
+		$this->assertStringContainsString( '&lt;lemma', $html );
+		$this->assertStringNotContainsString( '<language>', $html );
+		$this->assertStringNotContainsString( '<lexicalcategory>', $html );
+		$this->assertStringNotContainsString( '<lemma>', $html );
+	}
+
+	public function testInfoPanelFallsBackToHardCodedExampleLexeme(): void {
+		[ $html ] = $this->executeSpecialPage();
+
+		$this->assertStringContainsString( 'speak', $html );
+		$this->assertStringContainsString( 'English', $html );
+		$this->assertStringContainsString( 'verb', $html );
 	}
 
 	public function provideValidEntityCreationRequests(): array {
@@ -300,10 +351,15 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		}
 	}
 
-	private function givenItemExists( string $id ): void {
+	private function givenItemExists( string $id, ?string $enLabel = null ): void {
+		$item = NewItem::withId( $id );
+		if ( $enLabel !== null ) {
+			$item = $item->andLabel( 'en', $enLabel );
+		}
+
 		WikibaseRepo::getEntityStore()
 			->saveEntity(
-				NewItem::withId( $id )->build(),
+				$item->build(),
 				'',
 				self::getTestUser()->getUser(),
 				EDIT_NEW,

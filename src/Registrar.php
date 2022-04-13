@@ -139,8 +139,11 @@ class Registrar {
 					'WikibaseRepo.EditEntityFactory',
 					'WikibaseRepo.EntityNamespaceLookup',
 					'WikibaseRepo.EntityTitleStoreLookup',
+					'WikibaseRepo.EntityLookup',
+					'WikibaseRepo.EntityIdParser',
 					'WikibaseRepo.Settings',
 					'WikibaseRepo.SummaryFormatter',
+					'WikibaseRepo.EntityIdHtmlLinkFormatterFactory',
 				],
 			];
 		}
