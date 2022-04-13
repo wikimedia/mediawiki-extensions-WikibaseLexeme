@@ -146,6 +146,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
 	"wikibaselexeme-lemma-redundant-language": "Не може да се внесуваат повеќе леми со истата правописна варијанта.",
 	"wikibaselexeme-newlexeme-fieldset": "Создај нова лексема",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Овој предмет има непризнаен јазичен код. Изберете еден од долуприкажаните.",
 	"wikibaselexeme-newlexeme-language": "Јазик на лексемата",
 	"wikibaselexeme-newlexeme-language-placeholder": "Јазик на лексемата, на пр. „македонски“",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
