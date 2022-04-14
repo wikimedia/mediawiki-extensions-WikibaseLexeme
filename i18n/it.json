@@ -85,7 +85,7 @@
 	"wikibaselexeme-lemma-field-language-label": "Variante ortografica",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-newlexeme-fieldset": "Crea un nuovo lessema",
-	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Questo Elemento ha un codice lingua non riconosciuto. Per favore, selezionare una lingua sotto.",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Questo elemento ha un codice lingua non riconosciuto. Per favore, selezionare una lingua sotto.",
 	"wikibaselexeme-newlexeme-language": "Lingua del lessema",
 	"wikibaselexeme-newlexeme-language-placeholder": "La lingua del lessema, ad esempio: italiano",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
