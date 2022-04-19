@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Brettchenweber",
 			"Kghbln",
 			"Lucas Werkmeister (WMDE)",
 			"Metalhead64",
@@ -160,7 +161,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikalische Kategorie",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Die Kategorie des Lexems, z. B. „Zahl“.",
 	"wikibaselexeme-newlexeme-submit": "Lexem erstellen",
-	"wikibaselexeme-newlexeme-submit-error": "Der Server ist auf einen temporären Fehler getroffen und konnte deine  Anfrage nicht abschließen. Bitte versuche es erneut.",
+	"wikibaselexeme-newlexeme-submit-error": "Der Server ist auf einen temporären Fehler getroffen und konnte deine Anfrage nicht abschließen. Bitte versuche es erneut.",
 	"wikibaselexeme-no-features": "keine Funktionen",
 	"wikibaselexeme-search-result-stats": "{{PLURAL:$1|Eine Aussage|$1 Aussagen}}, {{PLURAL:$2|eine Form|$2 Formen}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Die Sprachcodes der Fußnoten müssen gültig sein",
