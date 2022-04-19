@@ -27,14 +27,17 @@ describe( 'NewLexemeAlpha:Page', () => {
 
 		const lexicalCategoryId = browser.call( () => WikibaseApi.createItem( lexicalCategory ) );
 
+		browser.log( 'Special:NewLexeme page opened and Items for language and lexical category created.' );
 		NewLexemePage.createLexeme(
 			lemma,
 			languageId,
 			lexicalCategoryId,
 			languageItemsLanguageCode
 		);
-
-		LexemePage.lemmaContainer.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
+		browser.log( 'Data entered into form and submit button clicked.' );
+		const navigationTimeout = 10000;
+		LexemePage.lemmaContainer.waitForDisplayed( { timeout: browser.config.waitforTimeout + navigationTimeout } );
+		browser.log( 'Lexeme has been created via the API and the Page for the newly created Lexeme is being displayed.' );
 
 		const lexemeId = LexemePage.headerId;
 
@@ -43,6 +46,7 @@ describe( 'NewLexemeAlpha:Page', () => {
 			assert.equal( lexeme.language, languageId );
 			assert.equal( lexeme.lexicalCategory, lexicalCategoryId );
 		} ) );
+		browser.log( 'Lexeme data asserted via the API.' );
 	} );
 
 } );
