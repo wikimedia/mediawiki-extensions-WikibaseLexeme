@@ -285,9 +285,8 @@ return call_user_func( static function () {
 						'special/new-lexeme-dist/style.css',
 					],
 					"dependencies" => [
-						"vue", // MW core
-						"vuex", // MW core
-						"@vue/compat", // see below
+						'vue',
+						'vuex',
 						'mediawiki.user',
 						'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig',
 					],
@@ -307,15 +306,6 @@ return call_user_func( static function () {
 						"copyrightpage",
 					],
 				],
-			// temporary alias because SpecialNewLexeme.cjs.js has require('@vue/compat');
-			// remove when we are ready to use Vue 3 only, or when we are no longer
-			// externalizing @vue/compat because MW core moves to non-compat Vue 3
-			'@vue/compat' => [
-				'packageFiles' => [
-					[ 'name' => 'index.js', 'content' => 'module.exports = require( "vue" );' ],
-				],
-				'dependencies' => [ 'vue' ],
-			],
 		];
 	}
 
