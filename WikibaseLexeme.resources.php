@@ -5,6 +5,7 @@
  * and repo-specific functionality have been split to separate extensions.
  */
 
+use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -271,14 +272,39 @@ return call_user_func( static function () {
 							"name" => "special/settings.json",
 							"callback" => static function () {
 								$wbRepoSettings = WikibaseRepo::getSettings();
-								$wbLexemeTermLanguages = WikibaseLexemeServices::getTermLanguages();
 								return [
 									'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
 									'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
 									'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
-									'wikibaseLexemeTermLanguages' => $wbLexemeTermLanguages->getLanguages(),
 								];
 							}
+						],
+						[
+							'name' => 'special/languageNames.json',
+							'callback' => static function ( ResourceLoaderContext $context ) {
+								$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
+
+								return $cache->getWithSetCallback(
+									$cache->makeKey(
+										'wikibaseLexeme-languageNames',
+										$context->getLanguage()
+									),
+									60 * 60, // 1 hour
+									static function () use ( $context ) {
+										$termLanguages = WikibaseLexemeServices::getTermLanguages();
+										$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory()
+											->getForLanguageCodeAndMessageLocalizer(
+												$context->getLanguage(),
+												$context
+											);
+										$names = [];
+										foreach ( $termLanguages->getLanguages() as $languageCode ) {
+											$names[$languageCode] = $languageNameLookup->getName( $languageCode );
+										}
+										return $names;
+									}
+								);
+							},
 						],
 					],
 					"styles" => [
