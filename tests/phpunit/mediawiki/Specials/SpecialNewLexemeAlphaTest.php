@@ -193,7 +193,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			);
 		$this->editPage(
 			Title::makeTitle( NS_MEDIAWIKI, 'Wikibaselexeme-newlexeme-info-panel-example-lexeme-id' ),
-			$exampleLexemeId
+			"\n \n \n " . $exampleLexemeId
 		);
 		$this->setMwGlobals( [
 			'wgUseDatabaseMessages' => true,

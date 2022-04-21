@@ -154,7 +154,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	}
 
 	private function createInfoPanelHtml(): string {
-		$lexemeIdString = $this->msg( 'wikibaselexeme-newlexeme-info-panel-example-lexeme-id' )->text();
+		$lexemeIdString = trim( $this->msg( 'wikibaselexeme-newlexeme-info-panel-example-lexeme-id' )->text() );
 		try {
 			$params = $this->createTemplateParamsFromLexemeId( $lexemeIdString );
 		} catch ( Exception $_ ) {
