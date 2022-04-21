@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\ContentLanguages;
@@ -29,10 +29,10 @@ class WikibaseLexemeServicesTest extends TestCase {
 		);
 	}
 
-	public function testGetLanguageNameLookup() {
+	public function testGetLanguageNameLookupFactory() {
 		$this->assertInstanceOf(
-			LexemeLanguageNameLookup::class,
-			WikibaseLexemeServices::getLanguageNameLookup()
+			LexemeLanguageNameLookupFactory::class,
+			WikibaseLexemeServices::getLanguageNameLookupFactory()
 		);
 	}
 

@@ -5,7 +5,7 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
+use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
@@ -85,12 +85,11 @@ return call_user_func( static function () {
 					$mediawikiServices->getLanguageNameUtils()
 				);
 			},
-		'WikibaseLexemeLanguageNameLookup' =>
+		'WikibaseLexemeLanguageNameLookupFactory' =>
 			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
-				return new LexemeLanguageNameLookup(
-					RequestContext::getMain(),
-					$additionalLanguages,
-					WikibaseRepo::getLanguageNameLookup( $mediawikiServices )
+				return new LexemeLanguageNameLookupFactory(
+					WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
+					$additionalLanguages
 				);
 			},
 		'WikibaseLexemeEditFormChangeOpDeserializer' => static function (
