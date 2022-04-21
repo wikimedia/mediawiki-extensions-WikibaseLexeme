@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Ex-Diktator",
 			"Guycn2"
 		]
 	},
@@ -146,6 +147,9 @@
 	"wikibaselexeme-lemma-field-lemma-label": "משפט מוגדר",
 	"wikibaselexeme-lemma-redundant-language": "אי־אפשר להזין כמה משפטים מוגדרים עם אותו תקן כתיב.",
 	"wikibaselexeme-newlexeme-fieldset": "יצירת יחידה מילונית חדשה",
+	"wikibaselexeme-newlexeme-info-panel-heading": "אודות יחידות מילוניות",
+	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "יחידות מילוניות מכילות [[Special:MyLanguage/Project:Lexicographical data|מידע מילוני]] שהוא נתונים על מילים או משפטים, כגון שפה, גיזרון, הטיות, וכו'. הנה דוגמה:",
+	"wikibaselexeme-newlexeme-info-panel-no-general-data": "יחידות מילוניות לא מכילות נתונים כלליים (תאריך לידה, תאריך פתיחה, מחבר, מדינה, נקודות ציון, אתר, וכו') על הישות או המושג שהן מפנות אליו. אם ברצונך לשלוח נתונים כליים, צריך [[Special:NewItem|ליצור פריט]] במקום זה.",
 	"wikibaselexeme-newlexeme-invalid-language-code-warning": "לפריט הזה יש קוד שפה בלתי־מוכר. נא לבחור אחד למטה.",
 	"wikibaselexeme-newlexeme-language": "שפת היחידה המילונית",
 	"wikibaselexeme-newlexeme-language-placeholder": "שפת היחידה המילונית, למשל \"אנגלית\"",
