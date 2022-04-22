@@ -18,7 +18,7 @@ describe( 'NewLexemeAlpha:Page', () => {
 	it( 'can create lexeme', () => {
 		const lemma = Util.getTestString( 'lemma-' ),
 			language = Util.getTestString( 'language-' ),
-			languageItemsLanguageCode = 'en',
+			languageItemsLanguageCode = 'aa',
 			lexicalCategory = Util.getTestString( 'lexicalCategory-' );
 
 		NewLexemePage.open();

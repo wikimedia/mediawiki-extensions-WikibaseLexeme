@@ -329,6 +329,7 @@ return call_user_func( static function () {
 						"wikibase-shortcopyrightwarning",
 						"wikibaselexeme-newlexeme-submit-error",
 						"wikibaselexeme-newlexeme-invalid-language-code-warning",
+						"wikibase-lexeme-lemma-language-option",
 						"copyrightpage",
 					],
 				],
