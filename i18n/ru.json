@@ -102,6 +102,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Лемма",
 	"wikibaselexeme-lemma-redundant-language": "Невозможно ввести несколько лемм с тем же вариантом правописания.",
 	"wikibaselexeme-newlexeme-fieldset": "Создать новую лексему",
+	"wikibaselexeme-newlexeme-info-panel-heading": "О лексемах",
 	"wikibaselexeme-newlexeme-language": "Язык лексемы",
 	"wikibaselexeme-newlexeme-language-placeholder": "Введите язык лекксемы, напр. 'русский'",
 	"wikibaselexeme-newlexeme-lemma": "Лемма",
