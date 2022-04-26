@@ -7,6 +7,7 @@ use Exception;
 use HTMLForm;
 use Iterator;
 use LanguageCode;
+use MediaWiki\Linker\LinkRenderer;
 use OOUI\IconWidget;
 use SpecialPage;
 use Status;
@@ -46,6 +47,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	public const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
 	private $tags;
+	private $linkRenderer;
 	private $editEntityFactory;
 	private $entityNamespaceLookup;
 	private $entityTitleLookup;
@@ -56,6 +58,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 	public function __construct(
 		array $tags,
+		LinkRenderer $linkRenderer,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -74,6 +77,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		);
 
 		$this->tags = $tags;
+		$this->linkRenderer = $linkRenderer;
 		$this->editEntityFactory = $editEntityFactory;
 		$this->entityNamespaceLookup = $entityNamespaceLookup;
 		$this->entityTitleLookup = $entityTitleLookup;
@@ -84,6 +88,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	}
 
 	public static function factory(
+		LinkRenderer $linkRenderer,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -95,6 +100,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	): self {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
+			$linkRenderer,
 			$editEntityFactory,
 			$entityNamespaceLookup,
 			$entityTitleLookup,
@@ -159,7 +165,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			$params = $this->createTemplateParamsFromLexemeId( $lexemeIdString );
 		} catch ( Exception $_ ) {
 			$params = [
-				'lexeme_id' => 'L1',
+				'lexeme_id_HTML' => 'L1',
 				'lemma_text' => 'speak',
 				'lemma_language' => 'en',
 				'language_link_HTML' => 'English',
@@ -177,8 +183,12 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		}
 		$lemma = $lexeme->getLemmas()->getIterator()->current();
 		$entityIdFormatter = $this->entityIdFormatterFactory->getEntityIdFormatter( $this->getLanguage() );
+		$lexemeIdLink = $this->linkRenderer->makeKnownLink(
+			$this->entityTitleLookup->getTitleForId( $lexemeId ),
+			$lexemeIdString
+		);
 		return [
-			'lexeme_id' => $lexemeIdString,
+			'lexeme_id_HTML' => $lexemeIdLink,
 			'lemma_text' => $lemma->getText(),
 			'lemma_language' => LanguageCode::bcp47( $lemma->getLanguageCode() ),
 			'language_link_HTML' => $entityIdFormatter->formatEntityId( $lexeme->getLanguage() ),

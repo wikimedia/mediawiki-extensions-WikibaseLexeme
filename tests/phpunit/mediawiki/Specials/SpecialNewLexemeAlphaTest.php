@@ -65,6 +65,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 
 		return new SpecialNewLexemeAlpha(
 			self::TAGS,
+			$this->getServiceContainer()->getLinkRenderer(),
 			WikibaseRepo::getEditEntityFactory(),
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			WikibaseRepo::getEntityTitleStoreLookup(),
