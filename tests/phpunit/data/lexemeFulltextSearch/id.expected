@@ -1,7 +1,6 @@
 {
     "query": {
         "bool": {
-            "disable_coord": true,
             "should": [
                 {
                     "term": {
