@@ -325,6 +325,7 @@ return call_user_func( static function () {
 						"wikibaselexeme-newlexeme-language-placeholder",
 						"wikibaselexeme-newlexeme-lexicalcategory",
 						"wikibaselexeme-newlexeme-lexicalcategory-placeholder",
+						"wikibaselexeme-newlexeme-search-existing",
 						"wikibaselexeme-newlexeme-submit",
 						"wikibase-shortcopyrightwarning",
 						"wikibaselexeme-newlexeme-submit-error",

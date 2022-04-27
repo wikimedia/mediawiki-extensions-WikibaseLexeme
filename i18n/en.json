@@ -163,6 +163,7 @@
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Short form of a word, e.g. 'first'",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexical category",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "The Lexeme's category, e.g. 'numeral'",
+	"wikibaselexeme-newlexeme-search-existing": "You can check whether a Lexeme already exists by using [$1 the search]. You can also learn more about Lexemes in the help box below.",
 	"wikibaselexeme-newlexeme-submit": "Create Lexeme",
 	"wikibaselexeme-newlexeme-submit-error": "The server encountered a temporary error and could not complete your request. Please try again.",
 	"wikibaselexeme-no-features": "no features",
