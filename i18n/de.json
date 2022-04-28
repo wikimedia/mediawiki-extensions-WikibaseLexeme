@@ -163,6 +163,7 @@
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Kurzform eines Wortes, z. B. „erster“.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikalische Kategorie",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Die Kategorie des Lexems, z. B. „Zahl“.",
+	"wikibaselexeme-newlexeme-search-existing": "Du kannst prüfen, ob ein Lexem bereits existiert, indem du [$1 die Suche] verwendest. Du kannst mehr über Lexeme in der Hilfebox unten erfahren.",
 	"wikibaselexeme-newlexeme-submit": "Lexem erstellen",
 	"wikibaselexeme-newlexeme-submit-error": "Der Server ist auf einen temporären Fehler getroffen und konnte deine Anfrage nicht abschließen. Bitte versuche es erneut.",
 	"wikibaselexeme-no-features": "keine Funktionen",

@@ -173,6 +173,7 @@
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Forme courte d’un mot, par ex. « premier »",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Entrer la catégorie lexicale, par exemple « nom »",
+	"wikibaselexeme-newlexeme-search-existing": "Vous pouvez vérifier si un lexème existe déjà en utilisant [$1 la recherche]. Vous pouvez également en savoir plus sur les lexèmes dans la boîte d’aide ci-dessous.",
 	"wikibaselexeme-newlexeme-submit": "Créer un lexème",
 	"wikibaselexeme-newlexeme-submit-error": "Une erreur temporaire est survenue dans le serveur qui ne pourra pas satisfaire votre requête. Veuillez réessayer plus tard.",
 	"wikibaselexeme-no-features": "aucune caractéristique",
