@@ -137,6 +137,7 @@ class Registrar {
 				'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexemeAlpha::factory',
 				'services' => [
 					'LinkRenderer',
+					'StatsdDataFactory',
 					'WikibaseRepo.EditEntityFactory',
 					'WikibaseRepo.EntityNamespaceLookup',
 					'WikibaseRepo.EntityTitleStoreLookup',

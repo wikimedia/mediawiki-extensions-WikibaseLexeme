@@ -7,6 +7,7 @@ use Exception;
 use HTMLForm;
 use Iterator;
 use LanguageCode;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Linker\LinkRenderer;
 use OOUI\IconWidget;
 use SpecialPage;
@@ -48,6 +49,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 	private $tags;
 	private $linkRenderer;
+	private $statsDataFactory;
 	private $editEntityFactory;
 	private $entityNamespaceLookup;
 	private $entityTitleLookup;
@@ -59,6 +61,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	public function __construct(
 		array $tags,
 		LinkRenderer $linkRenderer,
+		StatsdDataFactoryInterface $statsDataFactory,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -78,6 +81,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 		$this->tags = $tags;
 		$this->linkRenderer = $linkRenderer;
+		$this->statsDataFactory = $statsDataFactory;
 		$this->editEntityFactory = $editEntityFactory;
 		$this->entityNamespaceLookup = $entityNamespaceLookup;
 		$this->entityTitleLookup = $entityTitleLookup;
@@ -89,6 +93,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 	public static function factory(
 		LinkRenderer $linkRenderer,
+		StatsdDataFactoryInterface $statsDataFactory,
 		MediawikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -101,6 +106,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
 			$linkRenderer,
+			$statsDataFactory,
 			$editEntityFactory,
 			$entityNamespaceLookup,
 			$entityTitleLookup,
@@ -119,6 +125,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ): void {
+		$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.views' );
+
 		parent::execute( $subPage );
 
 		$this->checkBlocked();

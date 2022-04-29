@@ -3,10 +3,12 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use FauxRequest;
+use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\MediaWikiServices;
 use PermissionsError;
+use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use Title;
 use User;
@@ -37,12 +39,18 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 	private const EXISTING_ITEM_ID = 'Q1';
 	private const NON_EXISTING_ITEM_ID = 'Q100';
 
+	/**
+	 * @var StatsdDataFactoryInterface|MockObject
+	 */
+	private $stats;
+
 	protected function setUp(): void {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 
 		$this->tablesUsed[] = 'page';
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
+		$this->stats = $this->createMock( StatsdDataFactoryInterface::class );
 	}
 
 	private function getMockSummaryFormatter(): SummaryFormatter {
@@ -66,6 +74,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		return new SpecialNewLexemeAlpha(
 			self::TAGS,
 			$this->getServiceContainer()->getLinkRenderer(),
+			$this->stats,
 			WikibaseRepo::getEditEntityFactory(),
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			WikibaseRepo::getEntityTitleStoreLookup(),
@@ -119,6 +128,9 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedSitewide(): void {
 		$user = $this->getTestBlockedUser( true );
 
+		$this->stats->expects( $this->once() )
+			->method( 'increment' )
+			->with( 'wikibase.lexeme.special.NewLexeme.views' );
 		$this->expectException( \UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
@@ -166,6 +178,9 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		] );
 		$this->resetServices();
 
+		$this->stats->expects( $this->once() )
+			->method( 'increment' )
+			->with( 'wikibase.lexeme.special.NewLexeme.views' );
 		try {
 			$this->executeSpecialPage();
 			$this->fail();
