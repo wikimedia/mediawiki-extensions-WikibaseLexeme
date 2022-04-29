@@ -104,7 +104,11 @@ Recommended way of setting the development environment is with the use of [Docke
 
   From the extensions folder in your mediawiki run:
 
-  `git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseLexeme`
+  ```
+  git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseLexeme.git
+  cd WikibaseLexeme
+  git submodule update --init --recursive # get the dependencies using submodules
+  ```
 
 * Add it to Config
 
