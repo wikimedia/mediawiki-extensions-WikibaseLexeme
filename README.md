@@ -135,6 +135,26 @@ Recommended way of setting the development environment is with the use of [Docke
 
 If you get `Your requirements could not be resolved to an installable set of packages` error message, delete `composer.lock` file and run the command again.
 
+#### New Lexeme Special Page
+
+The code for the Special:NewLexemeAlpha special page (soon™ to become Special:NewLexeme) lives in a separate Git repository,
+included as a submodule under `resources/special/new-lexeme/`.
+That directory is not directly used at runtime,
+but rather the build results from it are stored in this repository under `resources/special/new-lexeme-dist/`.
+The following command updates the submodule to the latest `main` branch and adds a new build to Git, ready to be committed here:
+```
+npm run bump-special-new-lexeme
+```
+This command should be run from time to time (but not necessarily for every new commit in the submodule).
+
+When you are working with the submodule,
+and want to see the current status of your work,
+you can use the following command to build and copy whatever is currently in the directory:
+```
+npm run snl:dev
+```
+Then go to Special:NewLexemeAlpha on your wiki and see the result.
+
 ## Configuration
 
 By default WikibaseLexeme uses the namespace number 146 for storing lexeme pages, and namespace numer 147 for the related talk page. Namespaces can be customized by setting `$wgLexemeNamespace` and `$wgLexemeTalkNamespace` global variables accordingly.
