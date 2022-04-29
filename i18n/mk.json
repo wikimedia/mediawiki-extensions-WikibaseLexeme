@@ -158,6 +158,7 @@
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Краток облик на зборот, на пр. „прв“",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексичка категорија",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Категорија на лексемата, на пр. „бројка“",
+	"wikibaselexeme-newlexeme-search-existing": "Можете да проверите дали лексемата веќе постои користејќи го [$1 пребарувањето]. Исто така, можете да дознаете повеќе за лексемите во полето за помош подолу.",
 	"wikibaselexeme-newlexeme-submit": "Создај лексема",
 	"wikibaselexeme-newlexeme-submit-error": "Опслужувачот наиде на привремена грешка и затоа не можеше да го исполни вашето барање. Обидете се повторно.",
 	"wikibaselexeme-no-features": "нема функции",
