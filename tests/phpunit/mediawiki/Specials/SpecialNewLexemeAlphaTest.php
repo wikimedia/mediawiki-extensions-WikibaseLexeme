@@ -334,6 +334,19 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 	}
 
 	/**
+	 * @dataProvider provideValidEntityCreationRequests
+	 */
+	public function testEntityIsBeingCreated_WhenValidInputIsGiven( array $formData ) {
+		$this->stats->expects( $this->exactly( 2 ) )
+			->method( 'increment' )
+			->withConsecutive(
+				[ 'wikibase.lexeme.special.NewLexeme.views' ],
+				[ 'wikibase.lexeme.special.NewLexeme.nojs.create' ]
+			);
+		parent::testEntityIsBeingCreated_WhenValidInputIsGiven( $formData );
+	}
+
+	/**
 	 * @param string $url
 	 */
 	protected function extractEntityIdFromUrl( $url ): LexemeId {

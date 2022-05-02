@@ -244,6 +244,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 						return $saveStatus;
 					}
 
+					$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.nojs.create' );
+
 					return Status::newGood( $entity );
 				}
 			)->addPreHtml( '<noscript>' )->addPostHtml( '</noscript>' );
