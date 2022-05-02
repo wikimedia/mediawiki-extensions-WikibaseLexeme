@@ -69,6 +69,7 @@
 	"wikibaselexeme-lemma-field-language-label": "언어",
 	"wikibaselexeme-lemma-field-lemma-label": "기본형",
 	"wikibaselexeme-newlexeme-fieldset": "새 어휘소 만들기",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Lexemes 정보",
 	"wikibaselexeme-newlexeme-language": "어휘소의 언어",
 	"wikibaselexeme-newlexeme-language-placeholder": "어휘소의 언어 (예: English)",
 	"wikibaselexeme-newlexeme-lemma": "기본형",
