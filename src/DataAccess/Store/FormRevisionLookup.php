@@ -100,7 +100,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		return $revisionIdResult->onRedirect( $returnNonexistentEntityResult )
 			->onNonexistentEntity( $returnNonexistentEntityResult )
 			->onConcreteRevision(
-				function ( $revisionId ) use ( $lexemeId, $mode, $formId ) {
+				function ( $revisionId, $revisionTimestamp ) use ( $lexemeId, $mode, $formId ) {
 					$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
 					/** @var Lexeme $lexeme */
 					$lexeme = $revision->getEntity();
@@ -112,7 +112,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 						return LatestRevisionIdResult::nonexistentEntity();
 					}
 
-					return LatestRevisionIdResult::concreteRevision( $revisionId );
+					return LatestRevisionIdResult::concreteRevision( $revisionId, $revisionTimestamp );
 				}
 			)
 			->map();

@@ -99,7 +99,7 @@ class FormRevisionLookupTest extends TestCase {
 		/** @var EntityRevisionLookup $parentService */
 		$parentService = $this->prophesize( EntityRevisionLookup::class );
 		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
-			->willReturn( LatestRevisionIdResult::concreteRevision( 123 ) );
+			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
 		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )->willReturn(
 			new EntityRevision( $this->newLexeme(), 123 )
 		);
@@ -118,7 +118,7 @@ class FormRevisionLookupTest extends TestCase {
 		/** @var EntityRevisionLookup $parentService */
 		$parentService = $this->prophesize( EntityRevisionLookup::class );
 		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
-			->willReturn( LatestRevisionIdResult::concreteRevision( 123 ) );
+			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
 
 		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )
 			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );

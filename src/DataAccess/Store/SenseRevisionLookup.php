@@ -97,7 +97,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 		return $revisionIdResult->onRedirect( $returnNonexistentEntityResult )
 			->onNonexistentEntity( $returnNonexistentEntityResult )
 			->onConcreteRevision(
-				function ( $revisionId ) use ( $lexemeId, $mode, $senseId ) {
+				function ( $revisionId, $revisionTimestamp ) use ( $lexemeId, $mode, $senseId ) {
 					$revision = $this->lookup->getEntityRevision( $lexemeId, $revisionId, $mode );
 					/** @var Lexeme $lexeme */
 					$lexeme = $revision->getEntity();
@@ -109,7 +109,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 						return LatestRevisionIdResult::nonexistentEntity();
 					}
 
-					return LatestRevisionIdResult::concreteRevision( $revisionId );
+					return LatestRevisionIdResult::concreteRevision( $revisionId, $revisionTimestamp );
 				}
 			)
 			->map();
