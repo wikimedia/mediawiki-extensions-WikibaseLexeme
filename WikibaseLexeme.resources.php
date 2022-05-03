@@ -264,80 +264,80 @@ return call_user_func( static function () {
 	if ( $wgLexemeEnableNewAlpha ) {
 		$modules += [
 			"wikibase.lexeme.special.NewLexemeAlpha" => $moduleTemplate + [
-					"es6" => true,
-					"packageFiles" => [
-						'special/NewLexemeAlpha.js',
-						'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
-						[
-							"name" => "special/settings.json",
-							"callback" => static function () {
-								$wbRepoSettings = WikibaseRepo::getSettings();
-								return [
-									'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
-									'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
-									'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
-								];
-							}
-						],
-						[
-							'name' => 'special/languageNames.json',
-							'callback' => static function ( ResourceLoaderContext $context ) {
-								$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
+				"es6" => true,
+				"packageFiles" => [
+					'special/NewLexemeAlpha.js',
+					'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
+					[
+						"name" => "special/settings.json",
+						"callback" => static function () {
+							$wbRepoSettings = WikibaseRepo::getSettings();
+							return [
+								'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
+								'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
+								'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
+							];
+						}
+					],
+					[
+						'name' => 'special/languageNames.json',
+						'callback' => static function ( ResourceLoaderContext $context ) {
+							$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
 
-								return $cache->getWithSetCallback(
-									$cache->makeKey(
-										'wikibaseLexeme-languageNames',
-										$context->getLanguage()
-									),
-									60 * 60, // 1 hour
-									static function () use ( $context ) {
-										$termLanguages = WikibaseLexemeServices::getTermLanguages();
-										$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory()
-											->getForLanguageCodeAndMessageLocalizer(
-												$context->getLanguage(),
-												$context
-											);
-										$names = [];
-										foreach ( $termLanguages->getLanguages() as $languageCode ) {
-											$names[$languageCode] = $languageNameLookup->getName( $languageCode );
-										}
-										return $names;
+							return $cache->getWithSetCallback(
+								$cache->makeKey(
+									'wikibaseLexeme-languageNames',
+									$context->getLanguage()
+								),
+								60 * 60, // 1 hour
+								static function () use ( $context ) {
+									$termLanguages = WikibaseLexemeServices::getTermLanguages();
+									$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory()
+										->getForLanguageCodeAndMessageLocalizer(
+											$context->getLanguage(),
+											$context
+										);
+									$names = [];
+									foreach ( $termLanguages->getLanguages() as $languageCode ) {
+										$names[$languageCode] = $languageNameLookup->getName( $languageCode );
 									}
-								);
-							},
-						],
-					],
-					"styles" => [
-						'special/new-lexeme-dist/style.css',
-					],
-					"dependencies" => [
-						'vue',
-						'vuex',
-						'mediawiki.user',
-						'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig',
-					],
-					"messages" => [
-						"wikibaselexeme-newlexeme-lemma",
-						"wikibaselexeme-newlexeme-lemma-placeholder",
-						"wikibaselexeme-newlexeme-lemma-language",
-						"wikibaselexeme-newlexeme-lemma-language-placeholder",
-						"wikibaselexeme-newlexeme-language",
-						"wikibaselexeme-newlexeme-language-placeholder",
-						"wikibaselexeme-newlexeme-lexicalcategory",
-						"wikibaselexeme-newlexeme-lexicalcategory-placeholder",
-						"wikibaselexeme-newlexeme-search-existing",
-						"wikibaselexeme-newlexeme-submit",
-						"wikibase-shortcopyrightwarning",
-						"wikibaselexeme-newlexeme-submit-error",
-						"wikibaselexeme-newlexeme-invalid-language-code-warning",
-						"wikibase-lexeme-lemma-language-option",
-						"copyrightpage",
+									return $names;
+								}
+							);
+						},
 					],
 				],
+				"styles" => [
+					'special/new-lexeme-dist/style.css',
+				],
+				"dependencies" => [
+					'vue',
+					'vuex',
+					'mediawiki.user',
+					'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig',
+				],
+				"messages" => [
+					"wikibaselexeme-newlexeme-lemma",
+					"wikibaselexeme-newlexeme-lemma-placeholder",
+					"wikibaselexeme-newlexeme-lemma-language",
+					"wikibaselexeme-newlexeme-lemma-language-placeholder",
+					"wikibaselexeme-newlexeme-language",
+					"wikibaselexeme-newlexeme-language-placeholder",
+					"wikibaselexeme-newlexeme-lexicalcategory",
+					"wikibaselexeme-newlexeme-lexicalcategory-placeholder",
+					"wikibaselexeme-newlexeme-search-existing",
+					"wikibaselexeme-newlexeme-submit",
+					"wikibase-shortcopyrightwarning",
+					"wikibaselexeme-newlexeme-submit-error",
+					"wikibaselexeme-newlexeme-invalid-language-code-warning",
+					"wikibase-lexeme-lemma-language-option",
+					"copyrightpage",
+				],
+			],
 			"wikibase.lexeme.special.NewLexemeAlpha.styles" => $moduleTemplate + [
-					"styles" => [
-						'special/new-lexeme-alpha.less',
-					],
+				"styles" => [
+					'special/new-lexeme-alpha.less',
+				],
 			],
 		];
 	}
