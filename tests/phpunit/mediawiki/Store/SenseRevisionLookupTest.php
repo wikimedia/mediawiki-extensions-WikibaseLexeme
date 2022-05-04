@@ -134,7 +134,9 @@ class SenseRevisionLookupTest extends TestCase {
 
 		return $result->onNonexistentEntity( $shouldNotBeCalled )
 			->onRedirect( $shouldNotBeCalled )
-			->onConcreteRevision( 'intval' )
+			->onConcreteRevision( static function ( $revId ) {
+				return $revId;
+			} )
 			->map();
 	}
 
