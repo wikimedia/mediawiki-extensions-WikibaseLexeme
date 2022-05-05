@@ -9,6 +9,9 @@
 		languageNamesMap.set( languageName, languageNames[ languageName ] );
 	}
 
+	// remove server-rendered "search existing" link now that we're ready to render it in Vue
+	document.getElementById( 'wbl-snl-intro-text-wrapper' ).textContent = '';
+
 	init(
 		{
 			rootSelector: '#special-newlexeme-root',

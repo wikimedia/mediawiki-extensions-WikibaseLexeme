@@ -168,6 +168,16 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->assertHtmlContainsSubmitControl( $html );
 	}
 
+	public function testSearchLinkIncludesLemma(): void {
+		$request = new FauxRequest( [
+			SpecialNewLexemeAlpha::FIELD_LEMMA => '">lemma',
+		] );
+
+		[ $html ] = $this->executeSpecialPage( '', $request );
+
+		$this->assertStringContainsString( 'search=%22%3Elemma', $html );
+	}
+
 	public function testRequestByUserWithoutPermission_accessIsDenied(): void {
 		$this->setMwGlobals( [
 			'wgGroupPermissions' => [

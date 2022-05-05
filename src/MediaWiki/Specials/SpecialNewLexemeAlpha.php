@@ -135,8 +135,19 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 		$output = $this->getOutput();
 		$this->setHeaders();
-
-		$output->addHTML( '<div id="wbl-snl-intro-text-wrapper"></div>' );
+		$searchUrl = SpecialPage::getTitleFor( 'Search' )
+			->getFullURL( [
+				'ns' . $this->getConfig()->get( 'LexemeNamespace' ) => '',
+				'search' => $this->getRequest()->getText( self::FIELD_LEMMA ),
+			] );
+		$searchExisting = $this->msg( 'wikibaselexeme-newlexeme-search-existing' )
+			->params( $searchUrl )
+			->parse();
+		$output->addHTML(
+			'<div id="wbl-snl-intro-text-wrapper">'
+			. '<p class="wbl-snl-search-existing-no-js">' . $searchExisting . '</p>'
+			. '</div>'
+		);
 		$output->addHTML( '<div class="wbl-snl-main-content">' );
 		$output->addHTML( '<div id="special-newlexeme-root"></div>' );
 		$output->addModules( [ 'wikibase.lexeme.special.NewLexemeAlpha' ] );
