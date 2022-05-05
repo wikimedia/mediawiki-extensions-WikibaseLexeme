@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
+use Exception;
 use FauxRequest;
+use Language;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
@@ -13,12 +15,17 @@ use RequestContext;
 use Title;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Term\TermFallback;
+use Wikibase\DataModel\Term\TermTypes;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexemeAlpha;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
@@ -81,7 +88,8 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getEntityLookup(),
 			WikibaseRepo::getEntityIdParser(),
 			$summaryFormatter,
-			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory()
+			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory(),
+			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
 		);
 	}
 
@@ -243,6 +251,81 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->assertStringContainsString( 'speak', $html );
 		$this->assertStringContainsString( 'English', $html );
 		$this->assertStringContainsString( 'verb', $html );
+	}
+
+	/**
+	 * Configure two lexical category item IDs:
+	 * Q1 with a German label and an English description,
+	 * and Q2 without label or description.
+	 * Assert that JSON information about them ends up in the mw.config of the output.
+	 */
+	public function testLexicalCategorySuggestions(): void {
+		$this->setMwGlobals( [
+			'wgLexemeLexicalCategoryItemIds' => [ 'Q1', 'Q2' ],
+			'wgLanguageCode' => 'de',
+		] );
+		$labelDescriptionLookup = $this->createMock( LanguageFallbackLabelDescriptionLookup::class );
+		$labelDescriptionLookup->expects( $this->exactly( 2 ) )
+			->method( 'getLabel' )
+			->willReturnCallback( static function ( ItemId $itemId ): ?TermFallback {
+				switch ( $itemId->getSerialization() ) {
+					case 'Q1':
+						return new TermFallback( 'de', 'Nomen', 'de', 'de' );
+					case 'Q2':
+						return null;
+					default:
+						throw new Exception( 'Expected Q1 or Q2, got ' . $itemId->getSerialization() );
+				}
+			} );
+		$labelDescriptionLookup->expects( $this->exactly( 2 ) )
+			->method( 'getDescription' )
+			->willReturnCallback( static function ( ItemId $itemId ): ?TermFallback {
+				switch ( $itemId->getSerialization() ) {
+					case 'Q1':
+						return new TermFallback( 'de', 'lexical category', 'en', 'en' );
+					case 'Q2':
+						return null;
+					default:
+						throw new Exception( 'Expected Q1 or Q2, got ' . $itemId->getSerialization() );
+				}
+			} );
+		$labelDescriptionLookupFactory = $this->createMock(
+			LanguageFallbackLabelDescriptionLookupFactory::class );
+		$labelDescriptionLookupFactory->expects( $this->once() )
+			->method( 'newLabelDescriptionLookup' )
+			->with(
+				$this->callback( static function ( Language $language ): bool {
+					return $language->getCode() === 'de';
+				} ),
+				[ new ItemId( 'Q1' ), new ItemId( 'Q2' ) ],
+				[ TermTypes::TYPE_LABEL, TermTypes::TYPE_DESCRIPTION ]
+			)
+			->willReturn( $labelDescriptionLookup );
+		$this->setService( 'WikibaseRepo.LanguageFallbackLabelDescriptionLookupFactory',
+			$labelDescriptionLookupFactory );
+
+		[ $html ] = $this->executeSpecialPage( '', null, 'de', null, true );
+
+		$expected = [
+			[
+				'id' => 'Q1',
+				'display' => [
+					'label' => [
+						'language' => 'de',
+						'value' => 'Nomen',
+					],
+					'description' => [
+						'language' => 'en', // language fallback
+						'value' => 'lexical category',
+					],
+				],
+			],
+			[
+				'id' => 'Q2',
+				'display' => [],
+			],
+		];
+		$this->assertStringContainsString( json_encode( $expected ), $html );
 	}
 
 	public function provideValidEntityCreationRequests(): array {
