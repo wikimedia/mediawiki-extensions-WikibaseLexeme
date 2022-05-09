@@ -18,7 +18,8 @@
 			licenseUrl: settings.licenseUrl,
 			licenseName: settings.licenseText,
 			tags: settings.tags,
-			wikibaseLexemeTermLanguages: languageNamesMap
+			wikibaseLexemeTermLanguages: languageNamesMap,
+			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' )
 		},
 		mw
 	);
