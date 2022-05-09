@@ -12,6 +12,9 @@
 	// remove server-rendered "search existing" link now that we're ready to render it in Vue
 	document.getElementById( 'wbl-snl-intro-text-wrapper' ).textContent = '';
 
+	// FIXME: inject params into init
+	// var params = mw.config.get( 'wblSpecialNewLexemeParams' );
+
 	init(
 		{
 			rootSelector: '#special-newlexeme-root',

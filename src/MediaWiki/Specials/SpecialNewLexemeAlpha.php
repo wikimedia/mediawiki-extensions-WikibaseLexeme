@@ -17,8 +17,12 @@ use UserBlockedError;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
+use Wikibase\DataModel\Entity\EntityIdParsingException;
+use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\DataModel\Term\TermTypes;
@@ -27,6 +31,7 @@ use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\EditEntity\EditEntity;
@@ -186,10 +191,119 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			return;
 		}
 
+		$output->addJsConfigVars( 'wblSpecialNewLexemeParams',
+			$this->getUrlParamsForConfig()
+		);
 		$output->addJsConfigVars(
 			'wblSpecialNewLexemeLexicalCategorySuggestions',
 			$this->getLexicalCategorySuggestions()
 		);
+	}
+
+	private function getUrlParamsForConfig(): array {
+		$params = [];
+		$lemma = $this->getRequest()->getText( self::FIELD_LEMMA );
+		if ( $lemma ) {
+			$params['lemma'] = $lemma;
+		}
+
+		$spellVarCode = $this->getRequest()->getText( self::FIELD_LEMMA_LANGUAGE );
+		if ( $spellVarCode ) {
+			$params['spellVarCode'] = $spellVarCode;
+		}
+
+		try {
+			$languageId = $this->entityIdParser->parse(
+				$this->getRequest()->getText( self::FIELD_LEXEME_LANGUAGE )
+			);
+		} catch ( EntityIdParsingException $e ) {
+			$languageId = null;
+		}
+		try {
+			$lexCatId = $this->entityIdParser->parse(
+				$this->getRequest()->getText( self::FIELD_LEXICAL_CATEGORY )
+			);
+		} catch ( EntityIdParsingException $e ) {
+			$lexCatId = null;
+		}
+
+		$idsToPrefetch = array_filter( [ $languageId, $lexCatId ] );
+		if ( !$idsToPrefetch ) {
+			return $params;
+		}
+
+		$labelDescriptionLookup = $this->labelDescriptionLookupFactory->newLabelDescriptionLookup(
+			$this->getLanguage(),
+			$idsToPrefetch,
+			[ TermTypes::TYPE_LABEL, TermTypes::TYPE_DESCRIPTION ]
+		);
+
+		if ( $languageId ) {
+			$params['language'] = $this->getItemIdLabelDesc( $languageId, $labelDescriptionLookup );
+			$languageCode = $this->extractLanguageCode( $languageId );
+			if ( $languageCode ) {
+				$params['language']['languageCode'] = $languageCode;
+			}
+		}
+
+		if ( $lexCatId ) {
+			$params['lexicalCategory'] = $this->getItemIdLabelDesc( $lexCatId, $labelDescriptionLookup );
+		}
+
+		return $params;
+	}
+
+	private function getItemIdLabelDesc(
+		EntityId $itemId,
+		LanguageFallbackLabelDescriptionLookup $labelDescriptionLookup
+	): array {
+		$params = [ 'display' => [] ];
+		$params['id'] = $itemId->getSerialization();
+		$label = $labelDescriptionLookup->getLabel( $itemId );
+		if ( $label !== null ) {
+			$params['display']['label'] = [
+				'language' => LanguageCode::bcp47( $label->getActualLanguageCode() ),
+				'value' => $label->getText(),
+			];
+		}
+		$description = $labelDescriptionLookup->getDescription( $itemId );
+		if ( $description !== null ) {
+			$params['display']['description'] = [
+				'language' => LanguageCode::bcp47( $description->getActualLanguageCode() ),
+				'value' => $description->getText(),
+			];
+		}
+
+		return $params;
+	}
+
+	private function extractLanguageCode( EntityId $languageId ): ?string {
+		$lexemeLanguageCodePropertyIdString = $this->getConfig()->get( 'LexemeLanguageCodePropertyId' );
+		if ( !$lexemeLanguageCodePropertyIdString ) {
+			return null;
+		}
+		$languageItem = $this->entityLookup->getEntity( $languageId );
+		if ( !( $languageItem instanceof Item ) ) {
+			return null;
+		}
+		$lexemeLanguageCodePropertyId = $this->entityIdParser->parse(
+			$lexemeLanguageCodePropertyIdString
+		);
+		if ( !( $lexemeLanguageCodePropertyId instanceof PropertyId ) ) {
+			throw new Exception(
+				'This should be a valid Property Id, but isn\'t: ' . $lexemeLanguageCodePropertyIdString
+			);
+		}
+		$languageCodeStatements = $languageItem->getStatements()->getByPropertyId(
+			$lexemeLanguageCodePropertyId
+		)->getBestStatements();
+		if ( !$languageCodeStatements->isEmpty() ) {
+			$firstBestSnak = $languageCodeStatements->getMainSnaks()[0];
+			if ( $firstBestSnak instanceof PropertyValueSnak ) {
+				return $firstBestSnak->getDataValue()->getValue();
+			}
+		}
+		return null;
 	}
 
 	private function createInfoPanelHtml(): string {

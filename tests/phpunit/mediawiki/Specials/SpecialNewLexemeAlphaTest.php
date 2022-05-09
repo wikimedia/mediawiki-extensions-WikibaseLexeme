@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
+use DataValues\StringValue;
 use Exception;
 use FauxRequest;
 use Language;
@@ -28,6 +29,7 @@ use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Tests\NewItem;
+use Wikibase\Repo\Tests\NewStatement;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -190,9 +192,9 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->setMwGlobals( [
 			'wgGroupPermissions' => [
 				'*' => [
-					'createpage' => false
-				]
-			]
+					'createpage' => false,
+				],
+			],
 		] );
 		$this->resetServices();
 
@@ -328,6 +330,128 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->assertStringContainsString( json_encode( $expected ), $html );
 	}
 
+	public function provideUrlParameterTestData(): \Traversable {
+		yield 'No url params' => [
+			[],
+			[],
+		];
+
+		yield 'lemma param' => [
+			[ SpecialNewLexemeAlpha::FIELD_LEMMA => 'foo' ],
+			[
+				'lemma' => 'foo'
+			],
+		];
+
+		yield 'spelling variant code param' => [
+			[ SpecialNewLexemeAlpha::FIELD_LEMMA_LANGUAGE => 'de' ],
+			[
+				'spellVarCode' => 'de'
+			],
+		];
+
+		$lexCatItem = NewItem::withId( 'Q123' );
+		$lexCatItem = $lexCatItem->andLabel( 'en', 'lex cat label' );
+		yield 'lexical category param' => [
+			[
+				SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY => 'Q123',
+			],
+			[
+				'lexicalCategory' => [
+					'display' => [
+						'label' => [
+							'language' => 'en',
+							'value' => 'lex cat label',
+						],
+					],
+					'id' => 'Q123',
+				],
+			],
+			[ $lexCatItem ],
+		];
+
+		$languageLabel = 'language label';
+		$languageItem = NewItem::withId( 'Q456' );
+		$languageItem = $languageItem->andLabel( 'en', $languageLabel );
+		$statement = NewStatement::forProperty( 'P123' );
+		$statement = $statement->withValue( new StringValue( 'en' ) );
+		$languageItem = $languageItem->andStatement( $statement );
+		yield 'language param' => [
+			[
+				SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE => 'Q456',
+			],
+			[
+				'language' => [
+					'display' => [
+						'label' => [
+							'language' => 'en',
+							'value' => $languageLabel,
+						],
+					],
+					'id' => 'Q456',
+					'languageCode' => 'en',
+				],
+			],
+			[ $languageItem ]
+		];
+
+		$languageItem = NewItem::withId( 'Q789' );
+		$lexCatItem = NewItem::withId( 'Q741' )->andDescription( 'en', 'english description' );
+		yield 'language and lexical category' => [
+			[
+				SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY => 'Q741',
+				SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE => 'Q789',
+			],
+			[
+				'language' => [
+					'display' => [],
+					'id' => 'Q789',
+				],
+				'lexicalCategory' => [
+					'display' => [
+						'description' => [
+							'language' => 'en',
+							'value' => 'english description',
+						],
+					],
+					'id' => 'Q741',
+				],
+			],
+			[ $languageItem, $lexCatItem ],
+		];
+	}
+
+	/**
+	 * @dataProvider provideUrlParameterTestData
+	 */
+	public function testUrlParsing( $urlParams, $expectedConfigValue, $itemsToCreate = [] ): void {
+		$this->setMwGlobals( [
+			'wgLexemeLanguageCodePropertyId' => 'P123',
+		] );
+
+		foreach ( $itemsToCreate as $item ) {
+			WikibaseRepo::getEntityStore()
+				->saveEntity(
+					$item->build(),
+					'',
+					self::getTestUser()->getUser(),
+					EDIT_NEW,
+					false
+				);
+		}
+
+		$request = new FauxRequest( $urlParams );
+		[ $html ] = $this->executeSpecialPage( '', $request, 'en', null, true );
+
+		$scriptBlockFound = preg_match( '/<script>.*?<\/script>/s', $html, $scriptHTML );
+		$this->assertSame( 1, $scriptBlockFound );
+
+		$expected = [ 'wblSpecialNewLexemeParams' => $expectedConfigValue ];
+		$expectedHTML = substr( json_encode( $expected ), 1, -1 );
+
+		$this->assertStringContainsString( $expectedHTML, $scriptHTML[0] );
+	}
+
 	public function provideValidEntityCreationRequests(): array {
 		return [
 			'everything is set' => [
@@ -452,22 +576,22 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->assertInstanceOf( Lexeme::class, $entity );
 		/** @var Lexeme $entity */
 
-		$language = $form[ SpecialNewLexemeAlpha::FIELD_LEMMA_LANGUAGE ];
+		$language = $form[SpecialNewLexemeAlpha::FIELD_LEMMA_LANGUAGE];
 		self::assertEquals(
-			$form[ SpecialNewLexemeAlpha::FIELD_LEMMA ],
+			$form[SpecialNewLexemeAlpha::FIELD_LEMMA],
 			$entity->getLemmas()->getByLanguage( $language )->getText()
 		);
 
-		if ( $form[ SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY ] ) {
+		if ( $form[SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY] ) {
 			self::assertEquals(
-				$form[ SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY ],
+				$form[SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY],
 				$entity->getLexicalCategory()->getSerialization()
 			);
 		}
 
-		if ( $form[ SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE ] ) {
+		if ( $form[SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE] ) {
 			self::assertEquals(
-				$form[ SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE ],
+				$form[SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE],
 				$entity->getLanguage()->getSerialization()
 			);
 		}
