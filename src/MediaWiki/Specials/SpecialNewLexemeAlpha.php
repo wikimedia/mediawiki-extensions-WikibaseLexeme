@@ -22,6 +22,7 @@ use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\PropertyId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -240,10 +241,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 		if ( $languageId ) {
 			$params['language'] = $this->getItemIdLabelDesc( $languageId, $labelDescriptionLookup );
-			$languageCode = $this->extractLanguageCode( $languageId );
-			if ( $languageCode ) {
-				$params['language']['languageCode'] = $languageCode;
-			}
+			$params['language']['languageCode'] = $this->extractLanguageCode( $languageId );
 		}
 
 		if ( $lexCatId ) {
@@ -277,7 +275,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		return $params;
 	}
 
-	private function extractLanguageCode( EntityId $languageId ): ?string {
+	private function extractLanguageCode( EntityId $languageId ) {
 		$lexemeLanguageCodePropertyIdString = $this->getConfig()->get( 'LexemeLanguageCodePropertyId' );
 		if ( !$lexemeLanguageCodePropertyIdString ) {
 			return null;
@@ -301,6 +299,9 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			$firstBestSnak = $languageCodeStatements->getMainSnaks()[0];
 			if ( $firstBestSnak instanceof PropertyValueSnak ) {
 				return $firstBestSnak->getDataValue()->getValue();
+			}
+			if ( $firstBestSnak instanceof PropertySomeValueSnak ) {
+				return false;
 			}
 		}
 		return null;

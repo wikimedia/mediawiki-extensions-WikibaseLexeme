@@ -406,6 +406,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 				'language' => [
 					'display' => [],
 					'id' => 'Q789',
+					'languageCode' => null,
 				],
 				'lexicalCategory' => [
 					'display' => [
@@ -418,6 +419,21 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 				],
 			],
 			[ $languageItem, $lexCatItem ],
+		];
+
+		$languageItem = NewItem::withId( 'Q852' );
+		$statement = NewStatement::someValueFor( 'P123' );
+		$languageItem = $languageItem->andStatement( $statement );
+		yield 'language code "false" for somevalue snak' => [
+			[ SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE => 'Q852' ],
+			[
+				'language' => [
+					'display' => [],
+					'id' => 'Q852',
+					'languageCode' => false,
+				],
+			],
+			[ $languageItem ],
 		];
 	}
 
