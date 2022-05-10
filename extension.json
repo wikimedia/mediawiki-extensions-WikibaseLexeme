@@ -33,6 +33,10 @@
 		"LexemeLanguageCodePropertyId": {
 			"value": null
 		},
+		"LexemeLexicalCategoryItemIds": {
+			"value": [],
+			"description": "Item IDs of Items to suggest as the Lexical Category of a Lexeme. Any Item can be used for the Lexical Category, but the Items listed here will be suggested to editors preferentially."
+		},
 		"LexemeEnableDataTransclusion": {
 			"value": false
 		},

@@ -15,16 +15,19 @@ use Status;
 use TemplateParser;
 use UserBlockedError;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\DataModel\Term\TermTypes;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
+use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\EditEntity\EditEntity;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
@@ -57,6 +60,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	private $entityIdParser;
 	private $summaryFormatter;
 	private $entityIdFormatterFactory;
+	private $labelDescriptionLookupFactory;
 
 	public function __construct(
 		array $tags,
@@ -68,7 +72,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		EntityLookup $entityLookup,
 		EntityIdParser $entityIdParser,
 		SummaryFormatter $summaryFormatter,
-		EntityIdFormatterFactory $entityIdFormatterFactory
+		EntityIdFormatterFactory $entityIdFormatterFactory,
+		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory
 	) {
 		parent::__construct(
 			'NewLexemeAlpha',
@@ -89,6 +94,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$this->entityIdParser = $entityIdParser;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->entityIdFormatterFactory = $entityIdFormatterFactory;
+		$this->labelDescriptionLookupFactory = $labelDescriptionLookupFactory;
 	}
 
 	public static function factory(
@@ -101,7 +107,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		EntityIdParser $entityIdParser,
 		SettingsArray $repoSettings,
 		SummaryFormatter $summaryFormatter,
-		EntityIdFormatterFactory $entityIdFormatterFactory
+		EntityIdFormatterFactory $entityIdFormatterFactory,
+		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory
 	): self {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
@@ -113,7 +120,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			$entityLookup,
 			$entityIdParser,
 			$summaryFormatter,
-			$entityIdFormatterFactory
+			$entityIdFormatterFactory,
+			$labelDescriptionLookupFactory
 		);
 	}
 
@@ -175,7 +183,13 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 		if ( $status instanceof Status && $status->isGood() ) {
 			$this->redirectToEntityPage( $status->getValue() );
+			return;
 		}
+
+		$output->addJsConfigVars(
+			'wblSpecialNewLexemeLexicalCategorySuggestions',
+			$this->getLexicalCategorySuggestions()
+		);
 	}
 
 	private function createInfoPanelHtml(): string {
@@ -233,6 +247,45 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			'SpecialNewLexemeAlpha-infopanel',
 			$staticTemplateParams + $params
 		);
+	}
+
+	/**
+	 * Get the suggested lexical category items with their labels and descriptions.
+	 *
+	 * @return array[]
+	 */
+	private function getLexicalCategorySuggestions(): array {
+		$itemIds = array_map(
+			[ $this->entityIdParser, 'parse' ],
+			$this->getConfig()->get( 'LexemeLexicalCategoryItemIds' )
+		);
+		$labelDescriptionLookup = $this->labelDescriptionLookupFactory->newLabelDescriptionLookup(
+			$this->getLanguage(),
+			$itemIds, // prefetch labels and descriptions of all these item IDs
+			[ TermTypes::TYPE_LABEL, TermTypes::TYPE_DESCRIPTION ]
+		);
+
+		return array_map( static function ( EntityId $entityId ) use ( $labelDescriptionLookup ) {
+			$label = $labelDescriptionLookup->getLabel( $entityId );
+			$description = $labelDescriptionLookup->getDescription( $entityId );
+			$suggestion = [
+				'id' => $entityId->getSerialization(),
+				'display' => [],
+			];
+			if ( $label !== null ) {
+				$suggestion['display']['label'] = [
+					'language' => LanguageCode::bcp47( $label->getActualLanguageCode() ),
+					'value' => $label->getText(),
+				];
+			}
+			if ( $description !== null ) {
+				$suggestion['display']['description'] = [
+					'language' => LanguageCode::bcp47( $description->getActualLanguageCode() ),
+					'value' => $description->getText(),
+				];
+			}
+			return $suggestion;
+		}, $itemIds );
 	}
 
 	private function createForm(): HTMLForm {
