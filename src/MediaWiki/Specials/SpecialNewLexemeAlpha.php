@@ -25,6 +25,7 @@ use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
 use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\DataModel\Term\TermTypes;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -259,17 +260,11 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$params['id'] = $itemId->getSerialization();
 		$label = $labelDescriptionLookup->getLabel( $itemId );
 		if ( $label !== null ) {
-			$params['display']['label'] = [
-				'language' => LanguageCode::bcp47( $label->getActualLanguageCode() ),
-				'value' => $label->getText(),
-			];
+			$params['display']['label'] = self::termToArrayForJs( $label );
 		}
 		$description = $labelDescriptionLookup->getDescription( $itemId );
 		if ( $description !== null ) {
-			$params['display']['description'] = [
-				'language' => LanguageCode::bcp47( $description->getActualLanguageCode() ),
-				'value' => $description->getText(),
-			];
+			$params['display']['description'] = self::termToArrayForJs( $description );
 		}
 
 		return $params;
@@ -388,19 +383,20 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				'display' => [],
 			];
 			if ( $label !== null ) {
-				$suggestion['display']['label'] = [
-					'language' => LanguageCode::bcp47( $label->getActualLanguageCode() ),
-					'value' => $label->getText(),
-				];
+				$suggestion['display']['label'] = self::termToArrayForJs( $label );
 			}
 			if ( $description !== null ) {
-				$suggestion['display']['description'] = [
-					'language' => LanguageCode::bcp47( $description->getActualLanguageCode() ),
-					'value' => $description->getText(),
-				];
+				$suggestion['display']['description'] = self::termToArrayForJs( $description );
 			}
 			return $suggestion;
 		}, $itemIds );
+	}
+
+	private static function termToArrayForJs( TermFallback $term ): array {
+		return [
+			'language' => LanguageCode::bcp47( $term->getActualLanguageCode() ),
+			'value' => $term->getText(),
+		];
 	}
 
 	private function createForm(): HTMLForm {
