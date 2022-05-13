@@ -12,8 +12,8 @@
 	// remove server-rendered "search existing" link now that we're ready to render it in Vue
 	document.getElementById( 'wbl-snl-intro-text-wrapper' ).textContent = '';
 
-	// FIXME: inject params into init
-	// var params = mw.config.get( 'wblSpecialNewLexemeParams' );
+	// includes labels, descriptions and language code statement value of referenced items
+	var initParamsFromUrl = mw.config.get( 'wblSpecialNewLexemeParams' );
 
 	init(
 		{
@@ -22,7 +22,8 @@
 			licenseName: settings.licenseText,
 			tags: settings.tags,
 			wikibaseLexemeTermLanguages: languageNamesMap,
-			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' )
+			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' ),
+			initParams: initParamsFromUrl
 		},
 		mw
 	);
