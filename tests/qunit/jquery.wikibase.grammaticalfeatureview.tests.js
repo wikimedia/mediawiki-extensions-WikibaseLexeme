@@ -7,7 +7,7 @@
 	var TEST_ELEMENT_CLASS = 'test_grammaticalfeatureview';
 
 	QUnit.module( 'jquery.wikibase.grammaticalfeatureview', QUnit.newMwEnvironment( {
-		teardown: function () {
+		afterEach: function () {
 			$( '.' + TEST_ELEMENT_CLASS ).remove();
 		}
 	} ) );

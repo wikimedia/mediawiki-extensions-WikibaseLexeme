@@ -12,7 +12,7 @@
 	var Term = datamodel.Term;
 
 	QUnit.module( 'jquery.wikibase.senseview', QUnit.newMwEnvironment( {
-		teardown: function () {
+		afterEach: function () {
 			$( '.' + TEST_LEXMEFORMVIEW_CLASS ).remove();
 		}
 	} ) );
