@@ -9,6 +9,7 @@ use Iterator;
 use LanguageCode;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Linker\LinkRenderer;
+use Message;
 use OOUI\IconWidget;
 use SpecialPage;
 use Status;
@@ -168,7 +169,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$output->addModules( [ 'wikibase.lexeme.special.NewLexemeAlpha' ] );
 		$output->addModuleStyles( [ 'wikibase.lexeme.special.NewLexemeAlpha.styles' ] );
 
-		$form = $this->createForm();
+		$exampleLexemeParams = $this->createExampleParameters();
+		$form = $this->createForm( $exampleLexemeParams );
 
 		// handle submit (submit callback may create form, see below)
 		// or show form (possibly with errors); status represents submit result
@@ -179,7 +181,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			'oojs-ui.styles.icons-content', // info icon
 		] );
 		$output->addHTML(
-			$this->createInfoPanelHtml()
+			$this->processInfoPanelTemplate( $exampleLexemeParams )
 		);
 		$output->addHTML( '</div>' ); // .wbl-snl-main-content
 		$output->addHTML(
@@ -302,20 +304,21 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		return null;
 	}
 
-	private function createInfoPanelHtml(): string {
+	private function createExampleParameters(): array {
 		$lexemeIdString = trim( $this->msg( 'wikibaselexeme-newlexeme-info-panel-example-lexeme-id' )->text() );
 		try {
-			$params = $this->createTemplateParamsFromLexemeId( $lexemeIdString );
+			return $this->createTemplateParamsFromLexemeId( $lexemeIdString );
 		} catch ( Exception $_ ) {
-			$params = [
+			return [
 				'lexeme_id_HTML' => 'L1',
 				'lemma_text' => 'speak',
 				'lemma_language' => 'en',
+				'language_item_id' => 'Q1',
 				'language_link_HTML' => 'English',
+				'lexical_category_item_id' => 'Q2',
 				'lexical_category_link_HTML' => 'verb',
 			];
 		}
-		return $this->processInfoPanelTemplate( $params );
 	}
 
 	private function createTemplateParamsFromLexemeId( string $lexemeIdString ): array {
@@ -333,8 +336,10 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		return [
 			'lexeme_id_HTML' => $lexemeIdLink,
 			'lemma_text' => $lemma->getText(),
-			'lemma_language' => LanguageCode::bcp47( $lemma->getLanguageCode() ),
+			'lemma_language' => $lemma->getLanguageCode(),
+			'language_item_id' => $lexeme->getLanguage()->getSerialization(),
 			'language_link_HTML' => $entityIdFormatter->formatEntityId( $lexeme->getLanguage() ),
+			'lexical_category_item_id' => $lexeme->getLexicalCategory()->getSerialization(),
 			'lexical_category_link_HTML' => $entityIdFormatter->formatEntityId( $lexeme->getLexicalCategory() ),
 		];
 	}
@@ -353,6 +358,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			)->text(),
 			'colon_separator' => $this->msg( 'colon-separator' )->text(),
 		];
+		$params['lemma_language_HTML'] = LanguageCode::bcp47( $params['lemma_language'] );
+
 		return ( new TemplateParser( __DIR__ ) )->processTemplate(
 			'SpecialNewLexemeAlpha-infopanel',
 			$staticTemplateParams + $params
@@ -399,8 +406,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		];
 	}
 
-	private function createForm(): HTMLForm {
-		return HTMLForm::factory( 'ooui', $this->getFormFields(), $this->getContext() )
+	private function createForm( array $exampleLexemeParams ): HTMLForm {
+		return HTMLForm::factory( 'ooui', $this->getFormFields( $exampleLexemeParams ), $this->getContext() )
 			->setSubmitCallback(
 				function ( $data, HTMLForm $form ) {
 					// $data is already validated at this point (according to the field definitions)
@@ -489,14 +496,17 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		);
 	}
 
-	private function getFormFields(): array {
+	private function getFormFields( array $exampleLexemeParams ): array {
 		return [
 			self::FIELD_LEMMA => [
 				'name' => self::FIELD_LEMMA,
 				'class' => HTMLTrimmedTextField::class,
 				'id' => 'wb-newlexeme-lemma',
 				'required' => true,
-				'placeholder-message' => 'wikibaselexeme-lemma-edit-placeholder',
+				'placeholder-message' => [
+					'wikibaselexeme-newlexeme-lemma-placeholder-with-example',
+					Message::plaintextParam( $exampleLexemeParams['lemma_text'] ),
+				],
 				'label-message' => 'wikibaselexeme-newlexeme-lemma'
 			],
 			self::FIELD_LEMMA_LANGUAGE => [
@@ -505,7 +515,10 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				'cssclass' => 'lemma-language',
 				'id' => 'wb-newlexeme-lemma-language',
 				'label-message' => 'wikibaselexeme-newlexeme-lemma-language',
-				'placeholder-message' => 'wikibaselexeme-newlexeme-lemma-language-placeholder',
+				'placeholder-message' => [
+					'wikibaselexeme-newlexeme-lemma-language-placeholder-with-example',
+					Message::plaintextParam( $exampleLexemeParams['lemma_language'] ),
+				],
 			],
 			self::FIELD_LEXEME_LANGUAGE => [
 				'name' => self::FIELD_LEXEME_LANGUAGE,
@@ -514,7 +527,10 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				'id' => 'wb-newlexeme-lexeme-language',
 				'label-message' => 'wikibaselexeme-newlexeme-language',
 				'required' => true,
-				'placeholder-message' => 'wikibaselexeme-newlexeme-language-placeholder'
+				'placeholder-message' => [
+					'wikibaselexeme-newlexeme-language-placeholder-with-example',
+					Message::plaintextParam( $exampleLexemeParams['language_item_id'] ),
+				],
 			],
 			self::FIELD_LEXICAL_CATEGORY => [
 				'name' => self::FIELD_LEXICAL_CATEGORY,
@@ -523,7 +539,10 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				'id' => 'wb-newlexeme-lexicalCategory',
 				'label-message' => 'wikibaselexeme-newlexeme-lexicalcategory',
 				'required' => true,
-				'placeholder-message' => 'wikibaselexeme-newlexeme-lexicalcategory-placeholder'
+				'placeholder-message' => [
+					'wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example',
+					Message::plaintextParam( $exampleLexemeParams['lexical_category_item_id'] ),
+				],
 			]
 		];
 	}
