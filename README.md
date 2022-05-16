@@ -8,138 +8,75 @@ WikibaseLexeme requires the following extensions to be installed and configured 
 
 ## Installation
 
-Note: Currently, this extension is only compatible with the current development version of Wikibase, i.e. it might not work correctly if you use older Wikibase version.
+To add WikibaseLexeme to an already installed MediaWiki Wikibase instance, please see the extension's [installation instructions](https://www.mediawiki.org/wiki/Extension:WikibaseLexeme) on MediaWiki.
 
-Install dependencies by running `composer install`.
-Add `wfLoadExtension( 'WikibaseLexeme' );` to LocalSettings.php.
+## Configuration
+
+See the [options documentation](https://doc.wikimedia.org/WikibaseLexeme/master/php/md_docs_topics_options.html).
 
 ## Development setup
 
-Recommended way of setting the development environment is with the use of [Docker containers for MediaWiki development](https://github.com/addshore/mediawiki-docker-dev).
+### Prerequisites
 
-### Setting up the extension using Docker
+#### MediaWiki
 
-#### Set up Mediawiki Docker Development environment
+The recommended way of setting up the development environment is with the use of the [mwcli tool](https://www.mediawiki.org/wiki/Cli). To create a local MediaWiki development environment using this tool, see the [docker development environment guide](https://www.mediawiki.org/wiki/Cli/guide/Docker-Development-Environment/First-Setup) in the tool's documentation.
 
-* Follow the guide available at https://www.mediawiki.org/wiki/Cli/guide/Docker-Development-Environment
+_**Note**: All following command examples will be using the mwcli tool, but can also be run with docker or on bare metal according to preference._
 
-* Once this is setup you can just check it all works by visiting:
-[http://default.mediawiki.mwdd.localhost:8080].
+#### Wikibase
 
-* You should see a mediawiki installation all setup and running.
+The WikibaseLexeme extension also requires Wikibase to be set up and configured in your local MediaWiki instance. To get up and running with Wikibase, follow the [installation instructions](https://www.mediawiki.org/wiki/Wikibase/Installation) on MediaWiki.
 
-#### Get Wikibase Extension
+#### Composer Merge
 
-* Following the setup guide from https://www.mediawiki.org/wiki/Wikibase/Installation, run:
+Both Wikibase and WikibaseLexeme rely on the composer merge plugin for MediaWiki. To ensure the plugin is configured correctly, double check your `composer.local.json` file in your local MediaWiki directory against the [instructions](https://www.mediawiki.org/wiki/Composer#Using_composer-merge-plugin) on the MediaWiki website.
 
-  ```
-  cd extensions
-  git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/Wikibase.git
-  cd Wikibase
-  git submodule update --init --recursive # get the dependencies using submodules
-  ```
+### Setup
 
-* Install the dependencies with composer:
+#### 1. Get WikibaseLexeme
 
-  Add `composer.json` of Wikibase to `composer.local.json` at the root of your mediawiki folder,
-  as documented in [MediaWiki's Composer documentation](https://www.mediawiki.org/wiki/Composer#Using_composer-merge-plugin)
+Clone this repository to the `extensions/` directory in your local MediaWiki directory:
 
-  It should now look similar to:
-  ```
-  {
-  "extra": {
-      "merge-plugin": {
-        "include": [
-          "extensions/Wikibase/composer.json"
-        ]
-      }
-    }
-  }
-  ```
+```
+$ cd <path-to-mediawiki>/extensions
+$ git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseLexeme.git
+```
 
-  Using a similar command to that for installing mediawiki dependencies install the dependencies using docker and composer.
+#### 2. Initialize git submodules
 
-  You should run this from the root of your mediawiki installation.
+To initialize and update git submodules run:
 
-  `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
+```
+$ cd WikibaseLexeme
+$ git submodule update --init --recursive
+```
 
-  It may be that you need to run this twice. The first time to get the composer-merge-plugin and most of the libraries
-  then the second time to get those which are added by the merge plugin. If update.php fails with:
-  ```
-  docker-compose exec "web" php /var/www/mediawiki/maintenance/update.php --wiki default --quick
-  [26142080ebaf7fde12c6233c] [no req]   Error from line 35 of /var/www/mediawiki/extensions/Wikibase/lib/WikibaseLib.entitytypes.php: Class 'Wikibase\DataModel\Entity\ItemId' not found
-	```
+#### 3. Enable the extension in MediaWiki
 
-	Then try running the command again.
+Add the following line to `LocalSettings.php` at the root of you MediaWiki directory, to enable the extension:
 
-  Finally you may also have problems if your composer.lock file does not contain the extra dependencies pulled in by the merge-pulgin.
-  In this case it may be beneficial to either remove composer.lock or run `composer update` instead of `composer install`
+```php
+wfLoadExtension( 'WikibaseLexeme' );
+```
 
-* Enable Extension
+#### 4. Install composer dependencies
 
-  Add the following lines to the `LocalSettings.php` at the root of your mediawiki folder:
+To ensure all composer dependencies are installed, run composer from the root of your MediaWiki instance:
 
-  ```
-  $wgEnableWikibaseRepo = true;
-  $wgEnableWikibaseClient = true;
-  require_once "$IP/extensions/Wikibase/repo/Wikibase.php";
-  require_once "$IP/extensions/Wikibase/repo/ExampleSettings.php";
-  require_once "$IP/extensions/Wikibase/client/WikibaseClient.php";
-  require_once "$IP/extensions/Wikibase/client/ExampleSettings.php";
-  ```
+```
+$ mw dev mediawiki composer install
+```
 
-* Run the Wikibase setup scripts
+#### 5. Install npm dependencies
 
-  Run `update.php` in the default site from within the web docker container.
-  This needs to be run from the mediawiki-docker-dev directory; the one with `docker-compose.yml`
+Install all npm dependencies in order to use node development tools and scripts, using mwcli fresh:
 
-  ```
-  docker-compose exec "web" php /var/www/mediawiki/maintenance/update.php --wiki default --quick
-  docker-compose exec "web" php /var/www/mediawiki/extensions/Wikibase/lib/maintenance/populateSitesTable.php --wiki default --quick
-  ```
+```
+$ mw dev mediawiki fresh npm install
+```
 
-#### Get WikibaseLexeme Extension
-
-* Clone WikibaseLexeme code
-
-  From the extensions folder in your mediawiki run:
-
-  ```
-  git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseLexeme.git
-  cd WikibaseLexeme
-  git submodule update --init --recursive # get the dependencies using submodules
-  ```
-
-* Add it to Config
-
-  Add this to the `LocalSettings.php` in the root of the mediawiki repo:
-
-  `wfLoadExtension( 'WikibaseLexeme' );`
-
-* Install with composer
-
-  Add `extensions/WikibaseLexeme/composer.json` to `composer.local.json` at the root of your mediawiki folder, so it looks similar to
-
-  ```
-  {
-    "extra": {
-      "merge-plugin": {
-        "include": [
-          "extensions/Wikibase/composer.json",
-          "extensions/WikibaseLexeme/composer.json"
-        ]
-      }
-    }
-  }
-  ```
-
-  From the root folder of mediawiki run again
-
-  `docker run -it --rm --user $(id -u):$(id -g) -v ~/.composer:/composer -v $(pwd):/app docker.io/composer install`
-
-If you get `Your requirements could not be resolved to an installable set of packages` error message, delete `composer.lock` file and run the command again.
-
-#### New Lexeme Special Page
+### New Lexeme Special Page
 
 The code for the Special:NewLexemeAlpha special page (soon™ to become Special:NewLexeme) lives in a separate Git repository,
 included as a submodule under `resources/special/new-lexeme/`.
@@ -158,10 +95,6 @@ you can use the following command to build and copy whatever is currently in the
 npm run snl:dev
 ```
 Then go to Special:NewLexemeAlpha on your wiki and see the result.
-
-## Configuration
-
-See the [options documentation](https://doc.wikimedia.org/WikibaseLexeme/master/php/md_docs_topics_options.html).
 
 ## Running tests
 
