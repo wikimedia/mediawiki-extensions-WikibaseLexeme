@@ -15,6 +15,8 @@
 	// includes labels, descriptions and language code statement value of referenced items
 	var initParamsFromUrl = mw.config.get( 'wblSpecialNewLexemeParams' );
 
+	var placeholderExampleData = mw.config.get( 'wblSpecialNewLexemeExampleData' );
+
 	init(
 		{
 			rootSelector: '#special-newlexeme-root',
@@ -23,7 +25,8 @@
 			tags: settings.tags,
 			wikibaseLexemeTermLanguages: languageNamesMap,
 			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' ),
-			initParams: initParamsFromUrl
+			initParams: initParamsFromUrl,
+			placeholderExampleData: placeholderExampleData
 		},
 		mw
 	);

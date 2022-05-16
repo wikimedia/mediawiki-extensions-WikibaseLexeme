@@ -58,6 +58,10 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	public const FIELD_LEMMA = 'lemma';
 	public const FIELD_LEMMA_LANGUAGE = 'lemma-language';
 
+	// used for the info panel and placeholders if the example lexeme is incomplete/missing
+	private const FALLBACK_LANGUAGE_LABEL = 'English';
+	private const FALLBACK_LEXICAL_CATEGORY_LABEL = 'verb';
+
 	private $tags;
 	private $linkRenderer;
 	private $statsDataFactory;
@@ -202,6 +206,15 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			'wblSpecialNewLexemeLexicalCategorySuggestions',
 			$this->getLexicalCategorySuggestions()
 		);
+		$output->addJSConfigVars(
+			'wblSpecialNewLexemeExampleData',
+			[
+				'languageLabel' => $exampleLexemeParams['language_item_label'],
+				'lexicalCategoryLabel' => $exampleLexemeParams['lexical_category_item_label'],
+				'lemma' => $exampleLexemeParams['lemma_text'],
+				'spellingVariant' => $exampleLexemeParams['lemma_language'],
+			]
+		);
 	}
 
 	private function getUrlParamsForConfig(): array {
@@ -314,9 +327,11 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				'lemma_text' => 'speak',
 				'lemma_language' => 'en',
 				'language_item_id' => 'Q1',
-				'language_link_HTML' => 'English',
+				'language_item_label' => self::FALLBACK_LANGUAGE_LABEL,
+				'language_link_HTML' => self::FALLBACK_LANGUAGE_LABEL,
 				'lexical_category_item_id' => 'Q2',
-				'lexical_category_link_HTML' => 'verb',
+				'lexical_category_item_label' => self::FALLBACK_LEXICAL_CATEGORY_LABEL,
+				'lexical_category_link_HTML' => self::FALLBACK_LEXICAL_CATEGORY_LABEL,
 			];
 		}
 	}
@@ -327,19 +342,36 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		if ( !( $lexeme instanceof Lexeme ) ) {
 			throw new Exception( 'Lexeme missing or not a Lexeme' );
 		}
+
 		$lemma = $lexeme->getLemmas()->getIterator()->current();
-		$entityIdFormatter = $this->entityIdFormatterFactory->getEntityIdFormatter( $this->getLanguage() );
 		$lexemeIdLink = $this->linkRenderer->makeKnownLink(
 			$this->entityTitleLookup->getTitleForId( $lexemeId ),
 			$lexemeIdString
 		);
+
+		$labelDescriptionLookup = $this->labelDescriptionLookupFactory->newLabelDescriptionLookup(
+			$this->getLanguage(),
+			[ $lexeme->getLanguage(), $lexeme->getLexicalCategory() ],
+			[ TermTypes::TYPE_LABEL ]
+		);
+
+		$entityIdFormatter = $this->entityIdFormatterFactory->getEntityIdFormatter( $this->getLanguage() );
+		$languageLabel = $labelDescriptionLookup->getLabel( $lexeme->getLanguage() );
+		$lexicalCategoryLabel = $labelDescriptionLookup->getLabel( $lexeme->getLexicalCategory() );
+
 		return [
 			'lexeme_id_HTML' => $lexemeIdLink,
 			'lemma_text' => $lemma->getText(),
 			'lemma_language' => $lemma->getLanguageCode(),
 			'language_item_id' => $lexeme->getLanguage()->getSerialization(),
+			'language_item_label' => $languageLabel ?
+				$languageLabel->getText() :
+				self::FALLBACK_LANGUAGE_LABEL,
 			'language_link_HTML' => $entityIdFormatter->formatEntityId( $lexeme->getLanguage() ),
 			'lexical_category_item_id' => $lexeme->getLexicalCategory()->getSerialization(),
+			'lexical_category_item_label' => $lexicalCategoryLabel ?
+				$lexicalCategoryLabel->getText() :
+				self::FALLBACK_LEXICAL_CATEGORY_LABEL,
 			'lexical_category_link_HTML' => $entityIdFormatter->formatEntityId( $lexeme->getLexicalCategory() ),
 		];
 	}
