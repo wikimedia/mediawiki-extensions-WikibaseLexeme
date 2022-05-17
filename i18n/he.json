@@ -153,6 +153,7 @@
 	"wikibaselexeme-newlexeme-invalid-language-code-warning": "לפריט הזה יש קוד שפה בלתי־מוכר. נא לבחור אחד למטה.",
 	"wikibaselexeme-newlexeme-language": "שפת היחידה המילונית",
 	"wikibaselexeme-newlexeme-language-placeholder": "שפת היחידה המילונית, למשל \"אנגלית\"",
+	"wikibaselexeme-newlexeme-language-placeholder-with-example": "שפת היחידה המילונית, למשל \"$1\"",
 	"wikibaselexeme-newlexeme-lemma": "משפט מוגדר",
 	"wikibaselexeme-newlexeme-lemma-language": "הגוון כתיב של היחידה המילונית",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "קוד השפה של הגוון הכתיב של המשפט המוגדר, למשל \"en\"",
