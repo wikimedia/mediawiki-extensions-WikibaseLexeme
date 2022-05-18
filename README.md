@@ -161,11 +161,7 @@ Then go to Special:NewLexemeAlpha on your wiki and see the result.
 
 ## Configuration
 
-By default WikibaseLexeme uses the namespace number 146 for storing lexeme pages, and namespace numer 147 for the related talk page. Namespaces can be customized by setting `$wgLexemeNamespace` and `$wgLexemeTalkNamespace` global variables accordingly.
-
-When creating a new lexeme using Special:NewLexeme page, the language code of the lemma can be deducted from the item referring to the language of the lexeme. The language code would be the value of the statement on the language item that uses the specififed property. The language code property can be specified using `$wgLexemeLanguageCodePropertyId` global variable.
-
-TODO: do we want an example for this?
+See the [options documentation](https://doc.wikimedia.org/WikibaseLexeme/master/php/md_docs_topics_options.html).
 
 ## Running tests
 
