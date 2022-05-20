@@ -151,8 +151,8 @@ return [
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 					),
-					// TODO: move to setting, at least change to some reasonable hard-coded value
-					new LemmaTermValidator( 1000 ),
+					// TODO: move to setting
+					new LemmaTermValidator( LemmaTermValidator::LEMMA_MAX_LENGTH ),
 					$stringNormalizer
 				),
 				new LexicalCategoryChangeOpDeserializer(
