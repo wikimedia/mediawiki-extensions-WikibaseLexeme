@@ -2,25 +2,25 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Config;
 
-use ResourceLoader;
-use ResourceLoaderContext;
-use ResourceLoaderModule;
+// phpcs:disable MediaWiki.Classes.FullQualifiedClassName -- T308814
+use MediaWiki\ResourceLoader as RL;
+use MediaWiki\ResourceLoader\ResourceLoader;
 
 /**
  * @license GPL-2.0-or-later
  */
-class LexemeLanguageCodePropertyIdConfig extends ResourceLoaderModule {
+class LexemeLanguageCodePropertyIdConfig extends RL\Module {
 
 	/**
 	 * Used to propagate the ISO 639-2 code property ID to JavaScript.
 	 *
-	 * @see ResourceLoaderModule::getScript
+	 * @see RL\Module::getScript
 	 *
-	 * @param ResourceLoaderContext $context
+	 * @param RL\Context $context
 	 *
 	 * @return string
 	 */
-	public function getScript( ResourceLoaderContext $context ) {
+	public function getScript( RL\Context $context ) {
 		return ResourceLoader::makeConfigSetScript( [
 			'LexemeLanguageCodePropertyId' => $this->getConfig()->get( 'LexemeLanguageCodePropertyId' ),
 		] );
