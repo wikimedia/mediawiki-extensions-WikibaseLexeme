@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Artsiom91",
+			"Chadyka",
 			"Da voli",
 			"Чаховіч Уладзіслаў"
 		]
@@ -10,9 +11,17 @@
 	"datatypes-type-wikibase-form": "Форма",
 	"datatypes-type-wikibase-lexeme": "Лексема",
 	"datatypes-type-wikibase-sense": "Значэнне",
-	"special-newlexeme": "Стварыць новую лексему",
+	"special-mergelexemes": "Аб’яднаць дзве лексемы",
+	"special-newlexeme": "Стварыць новую Лексему",
 	"wikibase-lexeme-gloss-empty": "Глоса не пазначана",
+	"wikibase-lexeme-language-name-fon": "Фон",
+	"wikibase-lexeme-language-name-mis": "іншая",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Не атрымалася запісаць Лексему.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Доступ забаронены.",
+	"wikibase-lexeme-mergelexemes-submit": "Аб’яднаць лексемы",
 	"wikibase-lexeme-summary-wbeditentity-update": "Змяніць лексему",
+	"wikibase-listdatatypes-wikibase-form-head": "Форма",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Лексема",
 	"wikibase-validator-form-not-found": "У лексемы няма формы з такім ID",
 	"wikibaselexeme-add-form": "дадаць Форму",
 	"wikibaselexeme-add-sense": "дадаць Значэнне",
