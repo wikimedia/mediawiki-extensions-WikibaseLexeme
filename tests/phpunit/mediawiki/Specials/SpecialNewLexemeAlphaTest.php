@@ -509,6 +509,15 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 				],
 				'(htmlform-invalid-input)',
 			],
+			'lemma too long' => [
+				[
+					SpecialNewLexemeAlpha::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexemeAlpha::FIELD_LEMMA => str_repeat( 'a', 1000 + 1 ),
+					SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
+					SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
+				],
+				'(htmlform-invalid-input)',
+			],
 			'lexical category has wrong format' => [
 				[
 					SpecialNewLexemeAlpha::FIELD_LEMMA_LANGUAGE => 'en',
