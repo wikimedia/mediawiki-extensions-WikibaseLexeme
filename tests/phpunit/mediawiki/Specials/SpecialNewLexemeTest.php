@@ -213,6 +213,15 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 				],
 				'(htmlform-invalid-input)',
 			],
+			'lemma too long' => [
+				[
+					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
+					SpecialNewLexeme::FIELD_LEMMA => str_repeat( 'a', 1000 + 1 ),
+					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
+					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
+				],
+				'(htmlform-invalid-input)',
+			],
 			'lexical category has wrong format' => [
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
