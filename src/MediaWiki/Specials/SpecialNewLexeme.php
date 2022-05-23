@@ -210,7 +210,15 @@ class SpecialNewLexeme extends SpecialPage {
 				'id' => 'wb-newlexeme-lemma',
 				'required' => true,
 				'placeholder-message' => 'wikibaselexeme-lemma-edit-placeholder',
-				'label-message' => 'wikibaselexeme-newlexeme-lemma'
+				'label-message' => 'wikibaselexeme-newlexeme-lemma',
+				'validation-callback' => function ( string $lemma ) {
+					// TODO use LemmaTermValidator with ValidatorErrorLocalizer instead
+					if ( mb_strlen( $lemma ) > 1000 ) {
+						return $this->msg( 'wikibase-validator-too-long' )
+							->numParams( 1000 );
+					}
+					return true;
+				},
 			],
 			self::FIELD_LEMMA_LANGUAGE => [
 				'name' => self::FIELD_LEMMA_LANGUAGE,
