@@ -12,11 +12,16 @@ use Wikibase\Repo\Validators\TypeValidator;
  */
 class LemmaTermValidator {
 
+	public const LEMMA_MAX_LENGTH = 1000;
+
 	/**
 	 * @var CompositeValidator
 	 */
 	private $validator;
 
+	/**
+	 * @param int $maxTermLength LEMMA_MAX_LENGTH
+	 */
 	public function __construct( $maxTermLength ) {
 		// TODO: validate UTF8
 		$this->validator = new CompositeValidator(
