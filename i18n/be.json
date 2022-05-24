@@ -3,10 +3,12 @@
 		"authors": [
 			"Artsiom91",
 			"Da voli",
-			"Чаховіч Уладзіслаў"
+			"Чаховіч Уладзіслаў",
+			"Chadyka"
 		]
 	},
-	"special-newlexeme": "Стварыць новую лексему",
+	"special-newlexeme": "Стварыць новую Лексему",
+	"special-mergelexemes": "Аб’яднаць дзве лексемы",
 	"wikibaselexeme-deletedentity-form": "Выдаленая форма",
 	"wikibaselexeme-newlexeme-fieldset": "Стварыць новую лексему",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
@@ -31,6 +33,8 @@
 	"datatypes-type-wikibase-lexeme": "Лексема",
 	"datatypes-type-wikibase-form": "Форма",
 	"datatypes-type-wikibase-sense": "Значэнне",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Лексема",
+	"wikibase-listdatatypes-wikibase-form-head": "Форма",
 	"wikibaselexeme-add-sense": "дадаць Значэнне",
 	"wikibaselexeme-add-form": "дадаць Форму",
 	"wikibaselexeme-field-language-label": "Мова",
@@ -46,5 +50,10 @@
 	"wikibaselexeme-unknown-language": "Невядомая мова",
 	"wikibaselexeme-unknown-category": "Невядома",
 	"wikibaselexeme-no-features": "няма ўласцівасцей",
-	"wikibase-validator-form-not-found": "У лексемы няма формы з такім ID"
+	"wikibase-validator-form-not-found": "У лексемы няма формы з такім ID",
+	"wikibase-lexeme-language-name-fon": "Фон",
+	"wikibase-lexeme-language-name-mis": "іншая",
+	"wikibase-lexeme-mergelexemes-submit": "Аб’яднаць лексемы",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Не атрымалася запісаць Лексему.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Доступ забаронены."
 }
