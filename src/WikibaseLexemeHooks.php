@@ -14,6 +14,7 @@ use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeLibrary;
 use Wikibase\Lib\WikibaseSettings;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 use Wikibase\Repo\WikibaseRepo;
+use Wikimedia\Assert\Assert;
 
 /**
  * MediaWiki hook handlers for the Wikibase Lexeme extension.
@@ -56,18 +57,23 @@ class WikibaseLexemeHooks {
 
 		// Setting the namespace to false disabled automatic registration.
 		$lexemeNamespaceId = $config->get( 'LexemeNamespace' );
-		$lexemeNamespaceName = 'Lexeme';
 		if ( $lexemeNamespaceId !== false ) {
+			Assert::parameter(
+				is_int( $lexemeNamespaceId ) &&
+					$lexemeNamespaceId >= 100 &&
+					( $lexemeNamespaceId % 2 ) === 0,
+				'$wgLexemeNamespace',
+				'Namespace ID must be an even integer, at least 100'
+			);
+			$lexemeNamespaceName = 'Lexeme';
 			$namespaces = self::registerNamespace(
 				$namespaces,
 				$lexemeNamespaceId,
 				$lexemeNamespaceName
 			);
-		}
 
-		$talkNamespaceId = $config->get( 'LexemeTalkNamespace' );
-		$talkNamespaceName = $lexemeNamespaceName . '_talk';
-		if ( $talkNamespaceId !== false ) {
+			$talkNamespaceId = $lexemeNamespaceId + 1;
+			$talkNamespaceName = $lexemeNamespaceName . '_talk';
 			$namespaces = self::registerNamespace(
 				$namespaces,
 				$talkNamespaceId,
@@ -177,9 +183,7 @@ class WikibaseLexemeHooks {
 			);
 		}
 
-		if ( !isset( $namespaces[$namespaceId] ) && $namespaceId >= 100 ) {
-			$namespaces[$namespaceId] = $namespaceName;
-		}
+		$namespaces[$namespaceId] = $namespaceName;
 
 		return $namespaces;
 	}

@@ -36,16 +36,10 @@ These options apply only to “repo” functionality.
 ### $wgLexemeNamespace
 
 The number of the namespace in which WikibaseLexeme stores Lexeme entities.
-If you change this, you must also change `$wgLexemeTalkNamespace`.
+A corresponding talk namespace is automatically registered as well.
+Set to `false` to disable registering namespaces automatically.
 
-DEFAULT: `146`
-
-### $wgLexemeTalkNamespace
-
-The number of the talk namespace associated with the `$wgLexemeNamespace`.
-Must be `$wgLexemeNamespace + 1`.
-
-DEFAULT: `147`
+DEFAULT: `146` (therefore the default talk namespace is `147`)
 
 ### $wgLexemeLanguageCodePropertyId
 
