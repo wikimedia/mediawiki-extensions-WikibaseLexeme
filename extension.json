@@ -147,7 +147,8 @@
 	"MessagesDirs": {
 		"WikibaseLexeme": [
 			"i18n",
-			"i18n/api"
+			"i18n/api",
+			"i18n/language-names"
 		]
 	},
 	"ServiceWiringFiles": [
