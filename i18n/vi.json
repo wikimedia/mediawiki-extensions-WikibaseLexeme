@@ -13,8 +13,6 @@
 	"special-mergelexemes": "Hợp nhất hai từ vị",
 	"special-newlexeme": "Tạo từ vị mới",
 	"wikibase-lexeme-gloss-empty": "Không định rõ chú giải",
-	"wikibase-lexeme-language-name-ja-kana": "Tiếng Nhật viết theo Katakana",
-	"wikibase-lexeme-language-name-mis": "khác",
 	"wikibase-lexeme-mergelexemes-from-id": "ID để hợp nhất từ",
 	"wikibase-lexeme-mergelexemes-submit": "Hợp nhất từ vị",
 	"wikibase-lexeme-mergelexemes-to-id": "ID để hợp nhất vào",

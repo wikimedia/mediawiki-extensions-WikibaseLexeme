@@ -17,7 +17,6 @@
 	"wikibase-entity-summary-wblmergelexemes-from": "Обједињена лексема из $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Обједињена лексема у $3",
 	"wikibase-lexeme-gloss-empty": "Није дефинисано тумачење",
-	"wikibase-lexeme-language-name-mis": "друго",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Учитавање лексеме није успело.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Обједињавање лексема није успело. Прво решите све сукобе.",

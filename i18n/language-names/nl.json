@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Danieldegroot2",
+			"Robin van der Vliet",
+			"Sjoerddebruin"
+		]
+	},
+	"wikibase-lexeme-language-name-bfi": "Britse Gebarentaal",
+	"wikibase-lexeme-language-name-de-1901": "Duits (voor de hervorming uit 1996)",
+	"wikibase-lexeme-language-name-enm": "Middelengels",
+	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (h-systeem)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (x-systeem)",
+	"wikibase-lexeme-language-name-frm": "Middelfrans",
+	"wikibase-lexeme-language-name-fro": "Oudfrans",
+	"wikibase-lexeme-language-name-gmh": "Middelhoogduits",
+	"wikibase-lexeme-language-name-goh": "Oudhoogduits",
+	"wikibase-lexeme-language-name-gsg": "Duitse Gebarentaal",
+	"wikibase-lexeme-language-name-ja-hira": "Japans geschreven in hiragana",
+	"wikibase-lexeme-language-name-ja-hrkt": "Japans geschreven in hiragana en katakana",
+	"wikibase-lexeme-language-name-ja-kana": "Japans geschreven in katakana",
+	"wikibase-lexeme-language-name-lij-mc": "Monegaskisch",
+	"wikibase-lexeme-language-name-mis": "overige",
+	"wikibase-lexeme-language-name-nn-hognorsk": "Hoognoors",
+	"wikibase-lexeme-language-name-non": "Oudnoors"
+}

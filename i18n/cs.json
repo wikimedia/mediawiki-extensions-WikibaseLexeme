@@ -16,7 +16,6 @@
 	"special-newlexeme": "Vytvořit nový lexém",
 	"wikibase-entity-summary-wblmergelexemes-from": "Sloučeno z lexému $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Sloučeno do lexému $3",
-	"wikibase-lexeme-language-name-mis": "jiný",
 	"wikibase-lexeme-lemma-language-not-recognized": "Zadaný kód jazyka nebyl rozpoznán.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Nepodařilo se sloučit lexémy, nejprve prosím vyřešte všechny konflikty.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "„$1“ není platný identifikátor lexému",

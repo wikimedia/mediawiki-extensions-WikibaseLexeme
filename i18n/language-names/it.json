@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Lorem Ipsum",
+			"TheRukk"
+		]
+	},
+	"wikibase-lexeme-language-name-bfi": "Lingua dei segni inglese",
+	"wikibase-lexeme-language-name-de-1901": "Tedesco (prima della riforma del 1996)",
+	"wikibase-lexeme-language-name-fro": "Francese antico",
+	"wikibase-lexeme-language-name-gsg": "Lingua dei segni tedesca",
+	"wikibase-lexeme-language-name-ha-arab": "Hausa in caratteri arabi",
+	"wikibase-lexeme-language-name-mis": "altro",
+	"wikibase-lexeme-language-name-mvf": "Mongolo periferico",
+	"wikibase-lexeme-language-name-sux-latn": "Sumero in caratteri latini",
+	"wikibase-lexeme-language-name-sux-xsux": "Sumero in scrittura sumera",
+	"wikibase-lexeme-language-name-tlh-latn": "Klingon in caratteri latini",
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in scrittura Klingon"
+}

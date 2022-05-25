@@ -11,7 +11,6 @@
 	"wikibase-entity-summary-wblmergelexemes-from": "Fletta leksem frå $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Fletta leksem inn i $3",
 	"wikibase-lexeme-gloss-empty": "Ingen tydingsdefinisjon er lagd inn",
-	"wikibase-lexeme-language-name-mis": "anna",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Kunne ikkje lasta leksem.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Greidde ikkje å fletta saman dei to leksema, du lyt fyrst løysa konfliktar.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Kunne ikkje lagra leksem.",

@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Robby",
+			"Robin van der Vliet"
+		]
+	},
+	"wikibase-lexeme-language-name-bfi": "Brittesch Zeechesprooch",
+	"wikibase-lexeme-language-name-de-1901": "Däitsch (virun der Reform vun 1996)",
+	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (H-System)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (X-System)",
+	"wikibase-lexeme-language-name-gsg": "Däitsch Zeechesprooch",
+	"wikibase-lexeme-language-name-lij-mc": "Monegassesch",
+	"wikibase-lexeme-language-name-mis": "anerer",
+	"wikibase-lexeme-language-name-non": "Alnorweegesch",
+	"wikibase-lexeme-language-name-sux-latn": "Sumeresch a laténgescher Schrëft",
+	"wikibase-lexeme-language-name-sux-xsux": "Sumeresch a sumerescher Schrëft",
+	"wikibase-lexeme-language-name-tlh-latn": "Klingonesch a laténgescher Schrëft",
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingonesch a klingonescher Schrëft"
+}

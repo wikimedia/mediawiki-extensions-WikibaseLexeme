@@ -17,8 +17,6 @@
 	"wikibase-entity-summary-wblmergelexemes-from": "Лексема аб’яднаная з $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Лексема аб’яднаная ў $3",
 	"wikibase-lexeme-gloss-empty": "Глоса не пазначана",
-	"wikibase-lexeme-language-name-fon": "Фон",
-	"wikibase-lexeme-language-name-mis": "іншая",
 	"wikibase-lexeme-lemma-language-not-recognized": "Пададзены код мовы не быў распазнаны.",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не атрымалася загрузіць Лексему.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Не атрымалася аб’яднаць Лексемы, спачатку вырашыце канфлікты. Памылка: Лексемы маюць розныя Лемы для аднаго правапіснага варыянта.",

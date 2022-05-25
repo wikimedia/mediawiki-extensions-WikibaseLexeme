@@ -9,7 +9,6 @@
 	"special-newlexeme": "Buat leksem baru",
 	"wikibase-entity-summary-wblmergelexemes-from": "Menggabungkan leksem dari $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Menggabungkan leksem ke dalam $3",
-	"wikibase-lexeme-language-name-mis": "lainnya",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal memuat Leksem.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Gagal menggabungkan Leksem, silakan selesaikan konflik terlebih dahulu. Galat: Leksem memiliki Lema yang berbeda untuk varian ejaan yang sama.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Gagal menggabungkan Leksem, silakan selesaikan konflik terlebih dahulu. Galat: Leksem menautkan satu sama lain dalam pernyataan.",

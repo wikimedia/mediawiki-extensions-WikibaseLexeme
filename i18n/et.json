@@ -13,7 +13,6 @@
 	"wikibase-entity-summary-wblmergelexemes-from": "Liidetud lekseem $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Liidetud lekseemiga $3",
 	"wikibase-lexeme-gloss-empty": "Seletust pole määratud",
-	"wikibase-lexeme-language-name-mis": "muu",
 	"wikibase-lexeme-lemma-language-not-recognized": "Ette antud keelekood on tundmatu.",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lekseemi ei õnnestunud laadida.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Lekseeme ei õnnestunud liita, palun lahenda kõigepealt võimalikud konfliktid. Tõrge: lekseemidel on sama kirjaviisi puhul sama lemma.",

@@ -17,7 +17,6 @@
 	"wikibase-entity-summary-wblmergelexemes-from": "Połączono leksem z $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Połączono leksem do $3",
 	"wikibase-lexeme-gloss-empty": "Brak definicji",
-	"wikibase-lexeme-language-name-mis": "inny",
 	"wikibase-lexeme-lemma-language-not-recognized": "Podany kod języka nie został rozpoznany.",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Nie można pobrać leksemu.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Nie powiodło się połączenie leksemów, proszę rozwiązać najpierw konflikty. Błąd: leksemy mają różne lemmy dla tego samego wariantu pisowni.",

@@ -14,7 +14,6 @@
 	"wikibase-entity-summary-wblmergelexemes-from": "Lexema fusionáu dende $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Lexema fusionáu en $3",
 	"wikibase-lexeme-gloss-empty": "Nun se definió nenguna glosa",
-	"wikibase-lexeme-language-name-mis": "otru",
 	"wikibase-lexeme-lemma-language-not-recognized": "Nun se reconoció'l códigu d'idioma proporcionáu.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' nun ye una id de Lexema válida",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Nun s'alcontró'l lexema «$1».",
