@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
+use MediaWiki\ResourceLoader\Context;
 use PHPUnit\Framework\TestCase;
-use ResourceLoaderContext;
 use Wikibase\Lexeme\Presentation\View\TemplateModule;
 
 /**
@@ -14,10 +14,10 @@ use Wikibase\Lexeme\Presentation\View\TemplateModule;
 class TemplateModuleTest extends TestCase {
 
 	/**
-	 * @return ResourceLoaderContext
+	 * @return Context
 	 */
 	private function getResourceLoaderContext() {
-		$context = $this->getMockBuilder( ResourceLoaderContext::class )
+		$context = $this->getMockBuilder( Context::class )
 			->disableOriginalConstructor()
 			->getMock();
 

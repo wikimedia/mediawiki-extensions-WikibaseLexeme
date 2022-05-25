@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 
 use HashConfig;
+use MediaWiki\ResourceLoader\Context;
 use MediaWikiIntegrationTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use ResourceLoaderContext;
 use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
 
 /**
@@ -16,10 +16,10 @@ use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
 class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCase {
 
 	/**
-	 * @return MockObject|ResourceLoaderContext
+	 * @return MockObject|Context
 	 */
 	private function getContext() {
-		return $this->getMockBuilder( ResourceLoaderContext::class )
+		return $this->getMockBuilder( Context::class )
 			->disableOriginalConstructor()
 			->getMock();
 	}
