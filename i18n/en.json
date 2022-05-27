@@ -120,6 +120,7 @@
 	"wikibaselexeme-newlexeme-search-existing": "You can check whether a Lexeme already exists by using [$1 the search]. You can also learn more about Lexemes in the help box below.",
 	"wikibaselexeme-newlexeme-submit": "Create Lexeme",
 	"wikibaselexeme-newlexeme-submit-error": "The server encountered a temporary error and could not complete your request. Please try again.",
+	"wikibaselexeme-newlexeme-submitting": "Creating Lexeme...",
 	"wikibaselexeme-no-features": "no features",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",

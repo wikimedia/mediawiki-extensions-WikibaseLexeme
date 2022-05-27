@@ -135,6 +135,7 @@
 	"wikibaselexeme-newlexeme-search-existing": "Instructions at the top of the special page to create a new Lexeme, to encourage users to check for duplicates.\n\nParameters:\n* $1 - a URL to search for lexemes with the currently entered lemma text\n\n\"The help box below\" refers to the info-panel messages, e.g. {{msg-mw|wikibaselexeme-newlexeme-info-panel-lexicographical-data}}.",
 	"wikibaselexeme-newlexeme-submit": "Label on the button to create a new Lexeme",
 	"wikibaselexeme-newlexeme-submit-error": "Error message for a generic network error",
+	"wikibaselexeme-newlexeme-submitting": "Label on the button to create a new Lexeme, when the button was clicked and the Lexeme is currently being created. A variant of {{msg-mw|wikibaselexeme-newlexeme-submit}}.",
 	"wikibaselexeme-no-features": "Message for form having no features",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "{{optional}}\n\nDelimiter used to separate multiple lemmas of the lexeme when it being displayed as text/HTML.",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "{{optional}}\n\nLexeme's \"secondary label\" consisting of lexeme's language and lexical category (as text).\n\nParameters:\n* $1 - Language\n* $2 - Lexical category.",
