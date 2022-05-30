@@ -116,6 +116,7 @@
 	"wikibaselexeme-newlexeme-search-existing": "באפשרותך לבדוק אם יחידה מילונית כבר קיימת באמצעות [$1 חיפוש]. אפשר גם לקבל מידע נוסף על יחידות מילוניות בתיבת העזרה למטה.",
 	"wikibaselexeme-newlexeme-submit": "יצירת יחידה מילונית",
 	"wikibaselexeme-newlexeme-submit-error": "השרת נתקל השגיאה זמנית ואינו יכול להשלים את הבקשה שלך. נא לנסות שוב.",
+	"wikibaselexeme-newlexeme-submitting": "יצירת יחידה מילונית...",
 	"wikibaselexeme-no-features": "ללא מאפיינים",
 	"wikibaselexeme-search-result-stats": "{{PLURAL:$1|קביעה אחת|$1 קביעות}}, {{PLURAL:$2|צורה אחת|$2 צורות}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "שפת הפירוש צריכה להיות תקינה",

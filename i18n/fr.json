@@ -130,6 +130,7 @@
 	"wikibaselexeme-newlexeme-search-existing": "Vous pouvez vérifier si un lexème existe déjà en utilisant [$1 la recherche]. Vous pouvez également en savoir plus sur les lexèmes dans la boîte d’aide ci-dessous.",
 	"wikibaselexeme-newlexeme-submit": "Créer un lexème",
 	"wikibaselexeme-newlexeme-submit-error": "Une erreur temporaire est survenue dans le serveur qui ne pourra pas satisfaire votre requête. Veuillez réessayer plus tard.",
+	"wikibaselexeme-newlexeme-submitting": "Création du lexème...",
 	"wikibaselexeme-no-features": "aucune caractéristique",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": " / ",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "($1) $2",
