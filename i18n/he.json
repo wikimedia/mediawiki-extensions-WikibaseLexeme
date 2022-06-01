@@ -115,6 +115,7 @@
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "צורת היסוד של המילה, למשל \"$1\"",
 	"wikibaselexeme-newlexeme-lemma-too-long-error": "שדה המשפט המוגדר ארוך מדי; נא לרשום שם משהו באורך של $1 תווים לכל היותר.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "קטגוריה מילונית",
+	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "שדה הקטגוריה המילונית ריק; נא לרשום שם משהו.",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "הקטגוריה של היחידה המילונית, למשל \"שם המספר\"",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example": "הקטגוריה המילונית של היחידה המילונית, למשל \"$1\"",
 	"wikibaselexeme-newlexeme-search-existing": "באפשרותך לבדוק אם יחידה מילונית כבר קיימת באמצעות [$1 חיפוש]. אפשר גם לקבל מידע נוסף על יחידות מילוניות בתיבת העזרה למטה.",
