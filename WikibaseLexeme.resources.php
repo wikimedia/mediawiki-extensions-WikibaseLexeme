@@ -335,6 +335,7 @@ return call_user_func( static function () {
 					"wikibaselexeme-newlexeme-search-existing",
 					"wikibaselexeme-newlexeme-submit",
 					"wikibaselexeme-newlexeme-submitting",
+					"wikibase-entityselector-notfound",
 					"wikibase-shortcopyrightwarning",
 					"wikibaselexeme-newlexeme-submit-error",
 					"wikibaselexeme-newlexeme-invalid-language-code-warning",
