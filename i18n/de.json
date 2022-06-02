@@ -117,7 +117,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Sprachcode für die Rechtschreibvariante des Lemmas, z. B. „$1“.",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Kurzform eines Wortes, z. B. „erster“.",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Grundform eines Wortes, z. B. „$1“.",
-	"wikibaselexeme-newlexeme-lemma-too-long-error": "Das Feld Lemma ist zu lang; bitte mache einen Eintrag, der nicht länger als $1 Zeichen ist.",
+	"wikibaselexeme-newlexeme-lemma-too-long-error": "Das Feld Lemma ist zu lang; der Eintrag darf maximal $1 Zeichen haben.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikalische Kategorie",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Das Feld für die lexikalische Kategorie ist leer; bitte trage etwas ein.",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Die Kategorie des Lexems, z. B. „Zahl“.",
