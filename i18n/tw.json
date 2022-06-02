@@ -1,0 +1,25 @@
+{
+	"@metadata": {
+		"authors": [
+			"Valentine Badu"
+		]
+	},
+	"special-newlexeme": "Yɛ Lexeme foforɔ",
+	"special-newlexeme-alpha": "Yɛ Lexeme foforɔ nhwehwɛmu",
+	"special-mergelexemes": "Fa Lexeme mmienu bom",
+	"wikibase-lexeme-gloss-empty": "Y'ankyerɛkyerɛ gloss biara mu",
+	"datatypes-type-wikibase-lexeme": "Lexeme",
+	"datatypes-type-wikibase-form": "Yɛ",
+	"datatypes-type-wikibase-sense": "Nyansa",
+	"wikibase-lexeme-lemma-language-not-recognized": "Kasa a wɔn de baeɛ no ahyensodeɛ soronko no y'anhunu",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "Ɛnyɛ Lexeme ahyɛnsodeɛ a ɛdimu",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' yɛnnhunu",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Yɛde Lexeme no ɛbom no anyɛ yie,anidie mu ara siesie ntawantawa biara kanee.Error: Lexemes wɔ Lemmas soronko de ma supɛline ahodoɔ",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Yɛde Lexeme no bom no anyɛ yie,anidie mu ara siesie ntawantawa biara kanee. Error : Lexeme ne wɔn ho tostoa wɔ wɔn kasam",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Yɛde Lexeme no yɛɛ hyehyɛmu no anyɛ yie",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Y'antumi amfa Lexeme no ansie",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Y'antumi amfa Lexeme abom,anidie mu ara dinkae siesie ntawantawa biara",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Y'angye akwanbisa no antom",
+	"wikibase-entity-summary-wblmergelexemes-from": "Fa Lexeme bom firi $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Fa Lexeme bom nkɔ $3 mu"
+}
