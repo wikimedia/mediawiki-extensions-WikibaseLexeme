@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Merlin266",
 			"Valentine Badu"
 		]
 	},
@@ -21,5 +22,6 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Y'antumi amfa Lexeme no ansie",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "Ɛnyɛ Lexeme ahyɛnsodeɛ a ɛdimu",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' yɛnnhunu",
-	"wikibase-lexeme-mergelexemes-error-permission-denied": "Y'angye akwanbisa no antom"
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Y'angye akwanbisa no antom",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Ntumi nka Leseme bom ne ho."
 }
