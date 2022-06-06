@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Чаховіч Уладзіслаў"
+			"Чаховіч Уладзіслаў",
+			"No Sleep till Krupki"
 		]
 	},
 	"apihelp-wbladdform-summary": "Дадаць Форму да Лексемы",
@@ -11,5 +12,5 @@
 	"apihelp-wblremoveform-param-bot": "Пазначыць праўку як праўку бота. Гэты сцяг URL-адраса будзе лічыцца сапраўдным толькі ў выпадку, калі карыстальнік належыць да групы «{{int:group-bot}}».",
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Тэкст не можа быць пустым",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Мова не можа быць пустой",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "У формы мусіць быць прынамсі адзін тэкст"
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Форма мусіць мець прынамсі адну словаформу"
 }
