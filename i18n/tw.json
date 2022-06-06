@@ -23,5 +23,16 @@
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "Ɛnyɛ Lexeme ahyɛnsodeɛ a ɛdimu",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' yɛnnhunu",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Y'angye akwanbisa no antom",
-	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Ntumi nka Leseme bom ne ho."
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Ntumi nka Leseme bom ne ho.",
+	"wikibaselexeme-diffview-gloss": "deɛ ɛhyerɛnn",
+	"wikibaselexeme-diffview-grammatical-feature": "kasa mmara su",
+	"wikibaselexeme-diffview-language": "Kasa",
+	"wikibaselexeme-diffview-sense": "Nyansa",
+	"wikibaselexeme-field-language-label": "Kasa",
+	"wikibaselexeme-header-senses": "Nyansa",
+	"wikibaselexeme-newlexeme-fieldset": "Yɛ Leseme foforɔ",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Ɛfa Leseme ho",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Lesecal nkyekyemu",
+	"wikibaselexeme-unknown-category": "Nnim",
+	"wikibaselexeme-unknown-language": "Nnim kasa"
 }
