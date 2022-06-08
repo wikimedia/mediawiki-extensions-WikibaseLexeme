@@ -1,15 +1,26 @@
 {
 	"@metadata": {
 		"authors": [
-			"Valentine Badu"
+			"Valentine Badu",
+			"Merlin266"
 		]
 	},
 	"special-newlexeme": "Yɛ Lexeme foforɔ",
 	"special-mergelexemes": "Fa Lexeme mmienu bom",
+	"wikibaselexeme-newlexeme-fieldset": "Yɛ Leseme foforɔ",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Lesecal nkyekyemu",
+	"wikibaselexeme-header-senses": "Nyansa",
 	"wikibase-lexeme-gloss-empty": "Y'ankyerɛkyerɛ gloss biara mu",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"datatypes-type-wikibase-form": "Yɛ",
 	"datatypes-type-wikibase-sense": "Nyansa",
+	"wikibaselexeme-field-language-label": "Kasa",
+	"wikibaselexeme-diffview-language": "Kasa",
+	"wikibaselexeme-diffview-grammatical-feature": "kasa mmara su",
+	"wikibaselexeme-diffview-sense": "Nyansa",
+	"wikibaselexeme-diffview-gloss": "deɛ ɛhyerɛnn",
+	"wikibaselexeme-unknown-language": "Nnim kasa",
+	"wikibaselexeme-unknown-category": "Nnim",
 	"wikibase-lexeme-lemma-language-not-recognized": "Kasa a wɔn de baeɛ no ahyensodeɛ soronko no y'anhunu",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "Ɛnyɛ Lexeme ahyɛnsodeɛ a ɛdimu",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lexeme '$1' yɛnnhunu",
@@ -19,6 +30,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Y'antumi amfa Lexeme no ansie",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Y'antumi amfa Lexeme abom,anidie mu ara dinkae siesie ntawantawa biara",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Y'angye akwanbisa no antom",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Ntumi nka Leseme bom ne ho.",
 	"wikibase-entity-summary-wblmergelexemes-from": "Fa Lexeme bom firi $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Fa Lexeme bom nkɔ $3 mu"
 }
