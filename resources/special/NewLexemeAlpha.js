@@ -26,7 +26,8 @@
 			wikibaseLexemeTermLanguages: languageNamesMap,
 			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' ),
 			initParams: initParamsFromUrl,
-			placeholderExampleData: placeholderExampleData
+			placeholderExampleData: placeholderExampleData,
+			maxLemmaLength: settings.maxLemmaLength
 		},
 		mw
 	);
