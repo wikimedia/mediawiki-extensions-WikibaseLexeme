@@ -132,7 +132,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Placeholder for the \"Lemma\" language (spelling variant) on the special page.\n\nParameters:\n* $1 - an example language code\n\nWill replace current placeholder message {{msg-mw|wikibaselexeme-newlexeme-lemma-language-placeholder}}",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Placeholder for the Lemma input field on the special page to create a new Lexeme.\n\nNote that this is not necessarily an abbreviated form, but just a word reduced to its simplest lexical expression, i.e. without articles, particles, required complements, context of use, or notations. However it may be a lexicalized compound word.",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Placeholder for the Lemma input field on the special page to create a new Lexeme.\n\nParameters:\n* $1 - an example Lemma (likely already translated)\n\nWill replace current placeholder message {{msg-mw|wikibaselexeme-newlexeme-lemma-placeholder}}",
-	"wikibaselexeme-newlexeme-lemma-too-long-error": "Error message displayed when the lemma field submitted has too many characters. \n\nParameters:\n* $1 - allowed character limit",
+	"wikibaselexeme-newlexeme-lemma-too-long-error": "Error message displayed when the lemma field submitted has too many characters. \n\nParameters:\n* $1 - allowed character limit (always expected to be significantly greater than one)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Error message displayed when the lexical category field is submitted empty.",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Placeholder for the \"lexical category\" field in the Lexeme creation form.",

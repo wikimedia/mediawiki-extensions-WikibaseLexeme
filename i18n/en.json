@@ -117,7 +117,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Language code for the Lemma's spelling variant, e.g. '$1'",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Short form of a word, e.g. 'first'",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Base form of a word, e.g. '$1'",
-	"wikibaselexeme-newlexeme-lemma-too-long-error": "Lemma cannot exceed $1 characters.",
+	"wikibaselexeme-newlexeme-lemma-too-long-error": "Lemma cannot exceed $1 {{PLURAL:$1|character|characters}}.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexical category",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Lexical category field cannot be empty.",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "The Lexeme's category, e.g. 'numeral'",
