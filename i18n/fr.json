@@ -127,7 +127,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Le code de langue pour la variante orthographique du lemme, par ex. « $1 »",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Forme courte d’un mot, par ex. « premier »",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Forme de base d’un mot, par ex. « $1 »",
-	"wikibaselexeme-newlexeme-lemma-too-long-error": "Le lemme ne peut pas dépasser $1 caractères.",
+	"wikibaselexeme-newlexeme-lemma-too-long-error": "Le lemme ne peut pas dépasser $1 caractère{{PLURAL:$1||s}}.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Catégorie lexicale",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Le champ de la catégorie lexicale ne peut pas être vide.",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Entrer la catégorie lexicale, par exemple « nom »",
