@@ -2,10 +2,7 @@
 
 WikibaseLexeme provides a Lua [Scribunto](https://www.mediawiki.org/wiki/Scribunto) interface that implements functions to access data from the Wikibase repository, if the Wikibase Client configuration enables `allowDataTransclusion` and `$wgLexemeEnableDataTransclusion`. Lua modules and wiki templates can invoke these functions.
 
-<strong>This is not a stable interface yet</strong>, though we hope to declare it stable soon.
-<!--
-Changes to the WikibaseLexeme Lua interface are subject to the [https://www.wikidata.org/wiki/Wikidata:Stable_Interface_Policy Stable Interface Policy].
--->
+Changes to the WikibaseLexeme Lua interface are subject to the [Stable Interface Policy](https://www.wikidata.org/wiki/Wikidata:Stable_Interface_Policy).
 
 Most aspects of the data are accessed as methods on a loaded entity.
 For Forms and Senses, you can either load the Form or Sense directly by its ID from `mw.wikibase.getEntity()`,
