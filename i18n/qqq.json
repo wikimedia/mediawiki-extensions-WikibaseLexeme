@@ -129,6 +129,7 @@
 	"wikibaselexeme-newlexeme-lemma-empty-error": "Error message displayed when the lemma field is submitted empty",
 	"wikibaselexeme-newlexeme-lemma-language": "Name for \"Lemma\" language",
 	"wikibaselexeme-newlexeme-lemma-language-empty-error": "Error message displayed when the spelling variant field is submitted empty",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-target": "{{notranslate}} This message is meant to be customized on an individual wiki, allowing to point to docs appropriate for that wiki.",
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "Link text for a link next to the label for the spelling variant input ({{msg-mw|wikibaselexeme-newlexeme-lemma-language}}), linking to more documentation about it",
 	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "Error message displayed when the input to the spelling variant field is not a valid language code.",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Placeholder for the \"Lemma\" language (spelling variant) on the special page.",

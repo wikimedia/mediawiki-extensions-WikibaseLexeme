@@ -325,6 +325,7 @@ return call_user_func( static function () {
 					"wikibaselexeme-newlexeme-lemma-too-long-error",
 					"wikibaselexeme-newlexeme-lemma-language",
 					"wikibaselexeme-newlexeme-lemma-language-empty-error",
+					"wikibaselexeme-newlexeme-lemma-language-help-link-target",
 					"wikibaselexeme-newlexeme-lemma-language-help-link-text",
 					"wikibaselexeme-newlexeme-lemma-language-invalid-error",
 					"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example",
