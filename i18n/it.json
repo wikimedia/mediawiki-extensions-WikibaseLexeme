@@ -79,6 +79,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "La lingua del lessema, ad esempio: italiano",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Variante ortografica del Lemma",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Aiuto)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoria lessicale",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "La categoria lessicale, ad esempio: sostantivo",
 	"wikibaselexeme-no-features": "Nessuna caratteristica",

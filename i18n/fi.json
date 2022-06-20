@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"MITO",
 			"Nike",
 			"Pyscowicz"
 		]
@@ -27,6 +28,7 @@
 	"wikibaselexeme-newlexeme-language": "Lekseemin kieli",
 	"wikibaselexeme-newlexeme-language-placeholder": "Syötä kieli, esim. suomi",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Ohje)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Leksikaalinen luokka",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Syötä leksikaalinen luokka, esim. substantiivi",
 	"wikibaselexeme-unknown-language": "Tuntematon kieli"

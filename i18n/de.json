@@ -114,6 +114,7 @@
 	"wikibaselexeme-newlexeme-lemma-empty-error": "Das Lemmafeld darf nicht leer sein.",
 	"wikibaselexeme-newlexeme-lemma-language": "Rechtschreibvariante des Lemmas",
 	"wikibaselexeme-newlexeme-lemma-language-empty-error": "Das Feld für die Rechtschreibvariante darf nicht leer sein.",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Hilfe)",
 	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "Die Rechtschreibvariante muss ein gültiger Sprachcode sein.",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Sprachcode für die Rechtschreibvariante des Lemmas, z. B. „de“.",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Sprachcode für die Rechtschreibvariante des Lemmas, z. B. „$1“.",

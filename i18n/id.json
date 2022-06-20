@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Beeyan",
-			"Daud I.F. Argana"
+			"Daud I.F. Argana",
+			"Farras"
 		]
 	},
 	"special-mergelexemes": "Gabungkan dua Leksem",
@@ -29,6 +30,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Bahasa Leksem, contoh: 'Indonesia'",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
 	"wikibaselexeme-newlexeme-lemma-language": "Varian ejaan Lema",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Bantuan)",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Kode bahasa untuk varian ejaan Lema, contoh: 'id'",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Kategori leksikal",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Kategori Leksem, contoh: 'numeral'",

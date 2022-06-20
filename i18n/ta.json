@@ -1,10 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"ElangoRamanujam"
+			"ElangoRamanujam",
+			"Siddhan"
 		]
 	},
 	"wikibaselexeme-form-field-language-label": "மொழி",
 	"wikibaselexeme-gloss-field-language-label": "மொழி",
-	"wikibaselexeme-lemma-field-language-label": "மொழி"
+	"wikibaselexeme-lemma-field-language-label": "மொழி",
+	"wikibaselexeme-newlexeme-language-invalid-error": "லெக்ஸீம் மொழி சரியான பொருளாக இருக்க வேண்டும்",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(உதவி)",
+	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "வேறுபாடு உடைய எழுத்தாக்கம் சரியான மொழிக் குறியீட்டாக இருக்க வேண்டும்.",
+	"wikibaselexeme-newlexeme-lexicalcategory-invalid-error": "லெக்சிகல் வகை சரியான பொருளாக இருக்க வேண்டும்."
 }

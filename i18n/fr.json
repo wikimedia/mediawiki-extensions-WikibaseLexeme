@@ -124,6 +124,7 @@
 	"wikibaselexeme-newlexeme-lemma-empty-error": "Le champ du lemme ne peut pas être vide.",
 	"wikibaselexeme-newlexeme-lemma-language": "Variante orthographique du lemme",
 	"wikibaselexeme-newlexeme-lemma-language-empty-error": "Le champ de la variante orthographique ne peut pas être vide.",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Aide)",
 	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "La variante orthographique doit être un code de langue valide.",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Code de langue pour la variante d’orthographe de Lemma, par ex., « en »",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Le code de langue pour la variante orthographique du lemme, par ex. « $1 »",

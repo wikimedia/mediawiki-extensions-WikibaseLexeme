@@ -101,6 +101,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Введите язык лекксемы, напр. 'русский'",
 	"wikibaselexeme-newlexeme-lemma": "Лемма",
 	"wikibaselexeme-newlexeme-lemma-language": "Вариант написания Леммы",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Помощь)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексическая категория",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Введите категорию лексемы, например \"числительное\"",
 	"wikibaselexeme-newlexeme-submit": "Создать лексему",

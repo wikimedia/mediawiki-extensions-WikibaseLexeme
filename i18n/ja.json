@@ -2,7 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Afaz",
+			"Funa-enpitu",
 			"LaMagiaaa",
+			"MathXplore",
 			"Nikki",
 			"Omotecho",
 			"Yamagata Yusuke"
@@ -98,9 +100,12 @@
 	"wikibaselexeme-lemma-redundant-language": "同じ綴りを持つ見出し語を入力することはできません。",
 	"wikibaselexeme-newlexeme-fieldset": "語彙素の新規作成",
 	"wikibaselexeme-newlexeme-language": "語彙素の言語",
+	"wikibaselexeme-newlexeme-language-invalid-error": "レキシーム言語は有効なItemである必要があります。",
 	"wikibaselexeme-newlexeme-language-placeholder": "語彙素の言語。例：日本語",
 	"wikibaselexeme-newlexeme-lemma": "見出し語",
 	"wikibaselexeme-newlexeme-lemma-language": "見出し語のつづりの変形",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(ヘルプ)",
+	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "スペリングバリアントは有効な言語コードでなければなりません。",
 	"wikibaselexeme-newlexeme-lexicalcategory": "語彙範疇",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "語彙範疇。例：数詞",
 	"wikibaselexeme-no-features": "文法的特徴がありません",
