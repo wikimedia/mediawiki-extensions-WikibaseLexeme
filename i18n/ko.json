@@ -69,6 +69,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "어휘소의 언어 (예: English)",
 	"wikibaselexeme-newlexeme-lemma": "기본형",
 	"wikibaselexeme-newlexeme-lemma-language": "기본형의 언어",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(도움말)",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "단어의 짧은 형태 (예: '처음')",
 	"wikibaselexeme-newlexeme-lexicalcategory": "어휘 범주",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "어휘소의 분류 (예: numeral)",
