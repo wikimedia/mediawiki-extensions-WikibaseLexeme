@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"Saurmandal"
+		]
+	},
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "रूप में कम-से-कम एक प्रतिनिधित्व होना होगा",
+	"apierror-wikibaselexeme-form-not-found": "फ़ील्ड \"$1\" में रूप \"$2\" की एक ID है जो नहीं मिली।",
+	"apierror-wikibaselexeme-invalid-form-claims": "फ़ील्ड \"$1\" में \"$2\" पर अमान्य दावे हैं।",
+	"apierror-wikibaselexeme-invalid-item-id": "फ़ील्ड \"$1\" में \"$2\" पर अमान्य आयटम ID \"$3\" है।",
+	"apierror-wikibaselexeme-invalid-sense-claims": "फ़ील्ड \"$1\" में \"$2\" पर अमान्य दावे हैं।",
+	"apierror-wikibaselexeme-json-field-has-wrong-type": "पैरामीटर \"$1\" के फ़ील्ड \"$2\" को \"$3\" प्रकार का होना चाहिए। प्राप्त: \"$4\"",
+	"apierror-wikibaselexeme-json-field-not-item-id": "पैरामीटर \"$1\" के फ़ील्ड \"$2\" को एक आयटम ID होना चाहिए। प्राप्त: \"$3\"",
+	"apierror-wikibaselexeme-json-field-required": "पैरामीटर \"$1\" के \"$2\" पर फ़ील्ड \"$3\" आवश्यक है",
+	"apierror-wikibaselexeme-language-inconsistent": "\"$2\" पर फ़ील्ड \"$1\" की भाषा को \"$3\" होना चाहिए था। प्राप्त: \"$4\"",
+	"apierror-wikibaselexeme-lexeme-not-found": "फ़ील्ड \"$1\" में एक लेक्सिमे \"$2\" की ID है जो नहीं मिली।",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "भाषा खाली नहीं हो सकता",
+	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "शब्द का टेक्स्ट खाली नहीं हो सकता",
+	"apierror-wikibaselexeme-parameter-invalid-json-object": "पैरामीटर \"$1\" को एक मान्य JSON वस्तु होना चाहिए, प्राप्त \"$2\"",
+	"apierror-wikibaselexeme-parameter-not-form-id": "पैरामीटर \"$1\" के फ़ील्ड \"$2\" को एक रूप ID होना चाहिए। प्राप्त: \"$3\"",
+	"apierror-wikibaselexeme-parameter-not-lexeme-id": "पैरामीटर \"$1\" में एक लेक्सिमे ID होनी चाहिए। प्राप्त: \"$2\""
+}
