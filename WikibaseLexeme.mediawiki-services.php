@@ -3,6 +3,7 @@
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
@@ -92,6 +93,12 @@ return call_user_func( static function () {
 					$additionalLanguages
 				);
 			},
+		'WikibaseLexemeLemmaTermValidator' => static function (
+			MediaWikiServices $services
+		): LemmaTermValidator {
+			// TODO: move to setting
+			return new LemmaTermValidator( LemmaTermValidator::LEMMA_MAX_LENGTH );
+		},
 		'WikibaseLexemeEditFormChangeOpDeserializer' => static function (
 			MediaWikiServices $mediaWikiServices
 		) {

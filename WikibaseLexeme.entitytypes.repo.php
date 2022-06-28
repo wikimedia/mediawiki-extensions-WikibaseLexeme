@@ -5,7 +5,6 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor;
@@ -151,8 +150,7 @@ return [
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
 					),
-					// TODO: move to setting
-					new LemmaTermValidator( LemmaTermValidator::LEMMA_MAX_LENGTH ),
+					WikibaseLexemeServices::getLemmaTermValidator( $services ),
 					$stringNormalizer
 				),
 				new LexicalCategoryChangeOpDeserializer(
