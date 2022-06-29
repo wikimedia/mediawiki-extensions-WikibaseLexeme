@@ -13,6 +13,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\ItemSelectorWidgetField;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
@@ -27,6 +28,7 @@ use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Repo\SummaryFormatter;
+use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -48,6 +50,8 @@ class SpecialNewLexeme extends SpecialPage {
 	private $summaryFormatter;
 	private $entityTitleLookup;
 	private $editEntityFactory;
+	private $validatorErrorLocalizer;
+	private $lemmaTermValidator;
 
 	public function __construct(
 		array $tags,
@@ -55,7 +59,9 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityNamespaceLookup $entityNamespaceLookup,
 		SummaryFormatter $summaryFormatter,
 		EntityTitleLookup $entityTitleLookup,
-		MediawikiEditEntityFactory $editEntityFactory
+		MediawikiEditEntityFactory $editEntityFactory,
+		ValidatorErrorLocalizer $validatorErrorLocalizer,
+		LemmaTermValidator $lemmaTermValidator
 	) {
 		parent::__construct(
 			'NewLexeme',
@@ -68,6 +74,8 @@ class SpecialNewLexeme extends SpecialPage {
 		$this->summaryFormatter = $summaryFormatter;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->editEntityFactory = $editEntityFactory;
+		$this->validatorErrorLocalizer = $validatorErrorLocalizer;
+		$this->lemmaTermValidator = $lemmaTermValidator;
 	}
 
 	public static function factory(
@@ -75,7 +83,9 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleLookup $entityTitleLookup,
 		SettingsArray $repoSettings,
-		SummaryFormatter $summaryFormatter
+		SummaryFormatter $summaryFormatter,
+		ValidatorErrorLocalizer $validatorErrorLocalizer,
+		LemmaTermValidator $lemmaTermValidator
 	): self {
 		$copyrightView = new SpecialPageCopyrightView(
 			new CopyrightMessageBuilder(),
@@ -89,7 +99,9 @@ class SpecialNewLexeme extends SpecialPage {
 			$entityNamespaceLookup,
 			$summaryFormatter,
 			$entityTitleLookup,
-			$editEntityFactory
+			$editEntityFactory,
+			$validatorErrorLocalizer,
+			$lemmaTermValidator
 		);
 	}
 
@@ -212,12 +224,9 @@ class SpecialNewLexeme extends SpecialPage {
 				'placeholder-message' => 'wikibaselexeme-lemma-edit-placeholder',
 				'label-message' => 'wikibaselexeme-newlexeme-lemma',
 				'validation-callback' => function ( string $lemma ) {
-					// TODO use LemmaTermValidator with ValidatorErrorLocalizer instead
-					if ( mb_strlen( $lemma ) > 1000 ) {
-						return $this->msg( 'wikibase-validator-too-long' )
-							->numParams( 1000 );
-					}
-					return true;
+					$result = $this->lemmaTermValidator->validate( $lemma );
+					return $result->isValid() ?:
+						$this->validatorErrorLocalizer->getErrorMessage( $result->getErrors()[0] );
 				},
 			],
 			self::FIELD_LEMMA_LANGUAGE => [

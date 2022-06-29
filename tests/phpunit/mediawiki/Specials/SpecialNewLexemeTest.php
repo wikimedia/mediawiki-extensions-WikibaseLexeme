@@ -11,9 +11,11 @@ use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\SummaryFormatter;
@@ -71,7 +73,9 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			new EntityNamespaceLookup( [ Lexeme::ENTITY_TYPE => 146 ] ),
 			$summaryFormatter,
 			WikibaseRepo::getEntityTitleLookup(),
-			WikibaseRepo::getEditEntityFactory()
+			WikibaseRepo::getEditEntityFactory(),
+			WikibaseRepo::getValidatorErrorLocalizer(),
+			WikibaseLexemeServices::getLemmaTermValidator()
 		);
 	}
 
@@ -216,7 +220,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			'lemma too long' => [
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
-					SpecialNewLexeme::FIELD_LEMMA => str_repeat( 'a', 1000 + 1 ),
+					SpecialNewLexeme::FIELD_LEMMA =>
+						str_repeat( 'a', LemmaTermValidator::LEMMA_MAX_LENGTH + 1 ),
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],

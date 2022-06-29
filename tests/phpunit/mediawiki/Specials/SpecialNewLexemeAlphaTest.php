@@ -19,10 +19,12 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\DataModel\Term\TermTypes;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexemeAlpha;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
@@ -91,7 +93,9 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getEntityIdParser(),
 			$summaryFormatter,
 			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory(),
-			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
+			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
+			WikibaseRepo::getValidatorErrorLocalizer(),
+			WikibaseLexemeServices::getLemmaTermValidator()
 		);
 	}
 
@@ -512,7 +516,8 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			'lemma too long' => [
 				[
 					SpecialNewLexemeAlpha::FIELD_LEMMA_LANGUAGE => 'en',
-					SpecialNewLexemeAlpha::FIELD_LEMMA => str_repeat( 'a', 1000 + 1 ),
+					SpecialNewLexemeAlpha::FIELD_LEMMA =>
+						str_repeat( 'a', LemmaTermValidator::LEMMA_MAX_LENGTH + 1 ),
 					SpecialNewLexemeAlpha::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexemeAlpha::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],

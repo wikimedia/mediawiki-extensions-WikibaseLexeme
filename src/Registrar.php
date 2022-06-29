@@ -123,6 +123,8 @@ class Registrar {
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.Settings',
 				'WikibaseRepo.SummaryFormatter',
+				'WikibaseRepo.ValidatorErrorLocalizer',
+				'WikibaseLexemeLemmaTermValidator',
 			],
 		];
 
@@ -147,6 +149,8 @@ class Registrar {
 					'WikibaseRepo.SummaryFormatter',
 					'WikibaseRepo.EntityIdHtmlLinkFormatterFactory',
 					'WikibaseRepo.LanguageFallbackLabelDescriptionLookupFactory',
+					'WikibaseRepo.ValidatorErrorLocalizer',
+					'WikibaseLexemeLemmaTermValidator',
 				],
 			];
 		}

@@ -3,8 +3,10 @@
 namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
+use Psr\Container\ContainerInterface;
 use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
@@ -138,6 +140,13 @@ class WikibaseLexemeServices {
 	public static function getLanguageNameLookupFactory(): LexemeLanguageNameLookupFactory {
 		return MediaWikiServices::getInstance()
 			->getService( 'WikibaseLexemeLanguageNameLookupFactory' );
+	}
+
+	public static function getLemmaTermValidator(
+		ContainerInterface $services = null
+	): LemmaTermValidator {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexemeLemmaTermValidator' );
 	}
 
 	public static function getEditFormChangeOpDeserializer(): EditFormChangeOpDeserializer {

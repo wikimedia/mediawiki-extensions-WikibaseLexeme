@@ -29,6 +29,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\DataModel\Term\TermTypes;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
@@ -43,6 +44,7 @@ use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
+use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\View\EntityIdFormatterFactory;
 use Wikimedia\Assert\Assert;
 
@@ -73,6 +75,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	private $summaryFormatter;
 	private $entityIdFormatterFactory;
 	private $labelDescriptionLookupFactory;
+	private $validatorErrorLocalizer;
+	private $lemmaTermValidator;
 
 	public function __construct(
 		array $tags,
@@ -85,7 +89,9 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		EntityIdParser $entityIdParser,
 		SummaryFormatter $summaryFormatter,
 		EntityIdFormatterFactory $entityIdFormatterFactory,
-		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory
+		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
+		ValidatorErrorLocalizer $validatorErrorLocalizer,
+		LemmaTermValidator $lemmaTermValidator
 	) {
 		parent::__construct(
 			'NewLexemeAlpha',
@@ -107,6 +113,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$this->summaryFormatter = $summaryFormatter;
 		$this->entityIdFormatterFactory = $entityIdFormatterFactory;
 		$this->labelDescriptionLookupFactory = $labelDescriptionLookupFactory;
+		$this->validatorErrorLocalizer = $validatorErrorLocalizer;
+		$this->lemmaTermValidator = $lemmaTermValidator;
 	}
 
 	public static function factory(
@@ -120,7 +128,9 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		SettingsArray $repoSettings,
 		SummaryFormatter $summaryFormatter,
 		EntityIdFormatterFactory $entityIdFormatterFactory,
-		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory
+		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
+		ValidatorErrorLocalizer $validatorErrorLocalizer,
+		LemmaTermValidator $lemmaTermValidator
 	): self {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
@@ -133,7 +143,9 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			$entityIdParser,
 			$summaryFormatter,
 			$entityIdFormatterFactory,
-			$labelDescriptionLookupFactory
+			$labelDescriptionLookupFactory,
+			$validatorErrorLocalizer,
+			$lemmaTermValidator
 		);
 	}
 
@@ -541,12 +553,9 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				],
 				'label-message' => 'wikibaselexeme-newlexeme-lemma',
 				'validation-callback' => function ( string $lemma ) {
-					// TODO use LemmaTermValidator with ValidatorErrorLocalizer instead
-					if ( mb_strlen( $lemma ) > 1000 ) {
-						return $this->msg( 'wikibase-validator-too-long' )
-							->numParams( 1000 );
-					}
-					return true;
+					$result = $this->lemmaTermValidator->validate( $lemma );
+					return $result->isValid() ?:
+						$this->validatorErrorLocalizer->getErrorMessage( $result->getErrors()[0] );
 				},
 			],
 			self::FIELD_LEMMA_LANGUAGE => [
