@@ -7,7 +7,6 @@ use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use HamcrestPHPUnitIntegration;
-use HashSiteStore;
 use MediaWikiIntegrationTestCase;
 use MessageLocalizer;
 use RawMessage;
@@ -191,9 +190,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		$basicVisualizer = new BasicEntityDiffVisualizer(
 			$this->getMockMessageLocalizer(),
 			$this->getMockClaimDiffer(),
-			$this->getMockClaimDiffVisualizer(),
-			new HashSiteStore( [ $enwiki ] ),
-			$this->createMock( EntityIdFormatter::class )
+			$this->getMockClaimDiffVisualizer()
 		);
 
 		return new LexemeDiffVisualizer(
