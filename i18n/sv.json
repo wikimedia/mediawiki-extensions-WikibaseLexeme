@@ -108,6 +108,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Lexemets språk, t.ex. \"svenska\"",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Stavningsvariant av lemmat",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Hjälp)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Lexikal kategori",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Lexemets kategori, t.ex. \"räkneord\"",
 	"wikibaselexeme-newlexeme-submit": "Skapa lexem",
