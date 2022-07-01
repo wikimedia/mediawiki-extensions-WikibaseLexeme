@@ -265,13 +265,8 @@ return [
 			$basicEntityDiffVisualizer = new BasicEntityDiffVisualizer(
 				$messageLocalizer,
 				$claimDiffer,
-				$claimDiffView,
-				$siteLookup,
-				$entityIdFormatter
+				$claimDiffView
 			);
-
-			$entityIdFormatter = WikibaseRepo::getEntityIdHtmlLinkFormatterFactory()
-				->getEntityIdFormatter( WikibaseRepo::getUserLanguage() );
 
 			return new LexemeDiffVisualizer(
 				$messageLocalizer,
