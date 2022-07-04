@@ -1,0 +1,26 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kambai Akau"
+		]
+	},
+	"datatypes-type-wikibase-form": "Fom",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Mbeang Fom fai",
+	"wikibase-listdatatypes-wikibase-form-head": "Fom",
+	"wikibase-pageinfo-wbl-forms": "La̱mba A̱yaafom",
+	"wikibaselexeme-add-form": "mbeang Fom",
+	"wikibaselexeme-diffview-form": "Fom",
+	"wikibaselexeme-diffview-gloss": "swang a̱lyiat nta",
+	"wikibaselexeme-diffview-language": "a̱lyem",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-field-language-label": "A̱lyem",
+	"wikibaselexeme-form-field-language-label": "Vak lyuut ghyang",
+	"wikibaselexeme-form-field-representation-label": "A̱lama",
+	"wikibaselexeme-gloss-field-gloss-label": "Swang a̱lyiat nta",
+	"wikibaselexeme-gloss-field-language-label": "A̱lyem",
+	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"wikibaselexeme-newlexeme-lemma-empty-error": "A si̱ mi̱n ghwon kyai hu di̱ mi̱n tyei kyang bah.",
+	"wikibaselexeme-newlexeme-lemma-language": "Vak lyuut ghyang si̱ Lemma hu",
+	"wikibaselexeme-newlexeme-lemma-language-empty-error": "A si̱ mi̱n ghwon kyai vak lyuut ghyang hu di̱ mi̱n tyei kyang bah.",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Beang)"
+}
