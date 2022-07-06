@@ -5,6 +5,22 @@
 			"Kambai Akau"
 		]
 	},
+	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"wikibaselexeme-newlexeme-lemma-language": "Vak lyuut ghyang si̱ Lemma hu",
+	"wikibaselexeme-form-field-representation-label": "A̱lama",
+	"wikibaselexeme-form-field-language-label": "Vak lyuut ghyang",
+	"wikibaselexeme-gloss-field-language-label": "A̱lyem",
+	"wikibaselexeme-gloss-field-gloss-label": "Swang a̱lyiat nta",
+	"datatypes-type-wikibase-form": "Fom",
+	"wikibase-listdatatypes-wikibase-form-head": "Fom",
+	"wikibaselexeme-add-form": "mbeang Fom",
+	"wikibase-pageinfo-wbl-forms": "La̱mba A̱yaafom",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Mbeang Fom fai",
+	"wikibaselexeme-field-language-label": "A̱lyem",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-language": "a̱lyem",
+	"wikibaselexeme-diffview-form": "Fom",
+	"wikibaselexeme-diffview-gloss": "swang a̱lyiat nta",
 	"wikibase-lexeme-language-name-frm": "Fi̱ransa A̱tyia̱ka̱u",
 	"wikibase-lexeme-language-name-fro": "A̱khwukhwop Fi̱ransa"
 }
