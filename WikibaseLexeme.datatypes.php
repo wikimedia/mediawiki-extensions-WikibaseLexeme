@@ -33,7 +33,6 @@ use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -50,12 +49,8 @@ return [
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$userLanguage = WikibaseRepo::getUserLanguage();
 
-				// TODO: Use LanguageFallbackLabelDescriptionLookupFactory instead?
-				$labelDescriptionLookup = new LanguageFallbackLabelDescriptionLookup(
-					WikibaseRepo::getTermLookup(),
-					WikibaseRepo::getLanguageFallbackChainFactory()
-						->newFromLanguage( $userLanguage )
-				);
+				$labelDescriptionLookup = WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
+					->newLabelDescriptionLookup( $userLanguage );
 
 				return new EntityIdValueFormatter(
 					new LexemeIdHtmlFormatter(
