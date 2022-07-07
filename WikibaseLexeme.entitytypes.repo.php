@@ -309,8 +309,8 @@ return [
 			);
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
-			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
-			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
+			$languageLabelLookup = WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
+				->newLabelDescriptionLookup( $language );
 			return new LexemeIdHtmlFormatter(
 				WikibaseRepo::getEntityLookup(),
 				$languageLabelLookup,
