@@ -20,7 +20,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Store\NullEntityTermStoreWriter;
 use Wikibase\Repo\Actions\EditEntityAction;
 use Wikibase\Repo\Actions\HistoryEntityAction;
@@ -49,7 +49,7 @@ class LexemeHandler extends EntityHandler {
 	private $entityLookup;
 
 	/**
-	 * @var LanguageFallbackLabelDescriptionLookupFactory
+	 * @var FallbackLabelDescriptionLookupFactory
 	 */
 	private $labelLookupFactory;
 
@@ -60,7 +60,7 @@ class LexemeHandler extends EntityHandler {
 	 * @param EntityIdParser $entityIdParser
 	 * @param EntityIdLookup $entityIdLookup
 	 * @param EntityLookup $entityLookup
-	 * @param LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory
+	 * @param FallbackLabelDescriptionLookupFactory $labelLookupFactory
 	 * @param FieldDefinitions $lexemeFieldDefinitions
 	 * @param callable|null $legacyExportFormatDetector
 	 */
@@ -71,7 +71,7 @@ class LexemeHandler extends EntityHandler {
 		EntityIdParser $entityIdParser,
 		EntityIdLookup $entityIdLookup,
 		EntityLookup $entityLookup,
-		LanguageFallbackLabelDescriptionLookupFactory $labelLookupFactory,
+		FallbackLabelDescriptionLookupFactory $labelLookupFactory,
 		FieldDefinitions $lexemeFieldDefinitions,
 		$legacyExportFormatDetector = null
 	) {
