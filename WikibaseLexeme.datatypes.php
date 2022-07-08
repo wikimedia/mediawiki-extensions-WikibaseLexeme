@@ -85,12 +85,10 @@ return [
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
 				$titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
-				$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(
-					$mwServices );
-				$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $userLanguage );
 				$baseFormatter = new FormIdHtmlFormatter(
 					$revisionLookup,
-					$languageLabelLookup,
+					WikibaseRepo::getFallbackLabelDescriptionLookupFactory( $mwServices )
+						->newLabelDescriptionLookup( $userLanguage ),
 					$titleLookup,
 					$textProvider,
 					new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup ),
