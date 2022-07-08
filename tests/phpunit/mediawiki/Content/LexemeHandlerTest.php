@@ -9,7 +9,6 @@ use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -21,7 +20,7 @@ use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\Content\EntityContent;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Content\EntityInstanceHolder;
@@ -172,10 +171,8 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 	private function newLexemeHandler() {
 		$labelLookupFactory = $this->getMockWithoutConstructor(
-			LanguageFallbackLabelDescriptionLookupFactory::class
+			FallbackLabelDescriptionLookupFactory::class
 		);
-		$labelLookupFactory->method( 'newLabelDescriptionLookup' )
-			->willReturn( $this->createMock( LabelDescriptionLookup::class ) );
 
 		return new LexemeHandler(
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),

@@ -120,7 +120,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
+				WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 				WikibaseRepo::getFieldDefinitionsFactory()
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -363,7 +363,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
+				WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 				WikibaseRepo::getFieldDefinitionsFactory()
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -514,7 +514,7 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
+				WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 				WikibaseRepo::getFieldDefinitionsFactory()
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
