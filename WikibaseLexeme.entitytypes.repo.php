@@ -107,7 +107,7 @@ return [
 				RequestContext::getMain()
 					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
 					->escaped(),
-				WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
+				WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
 					->newLabelDescriptionLookup( \Language::factory( 'en' ) )
 			);
 		},

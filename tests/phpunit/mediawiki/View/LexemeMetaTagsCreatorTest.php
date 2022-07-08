@@ -11,7 +11,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 
@@ -22,10 +22,7 @@ use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 
 	public function provideTestGetMetaTags() {
-		$labelDescriptionLookup = $this->getMockBuilder(
-			LanguageFallbackLabelDescriptionLookup::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$labelDescriptionLookup = $this->createMock( FallbackLabelDescriptionLookup::class );
 
 		$lexemeMetaTags = new LexemeMetaTagsCreator( '/', $labelDescriptionLookup );
 
@@ -84,7 +81,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		$this->expectException( InvalidArgumentException::class );
 		new LexemeMetaTagsCreator(
 			$input,
-			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
+			WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
 				->newLabelDescriptionLookup( \Language::factory( 'en' ) )
 		);
 	}

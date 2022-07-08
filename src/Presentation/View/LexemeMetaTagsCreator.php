@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Presentation\View;
 
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\View\EntityMetaTagsCreator;
 use Wikimedia\Assert\Assert;
 
@@ -19,11 +19,11 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 
 	/**
 	 * @param string $lemmaSeparator
-	 * @param LanguageFallbackLabelDescriptionLookup $labelDescriptionLookup
+	 * @param FallbackLabelDescriptionLookup $labelDescriptionLookup
 	 */
 	public function __construct(
 		$lemmaSeparator,
-		LanguageFallbackLabelDescriptionLookup $labelDescriptionLookup
+		FallbackLabelDescriptionLookup $labelDescriptionLookup
 	) {
 		Assert::parameterType( 'string', $lemmaSeparator, '$lemmaSeparator' );
 
