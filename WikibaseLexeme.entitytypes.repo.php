@@ -469,11 +469,10 @@ return [
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$titleLookup = WikibaseRepo::getEntityTitleLookup();
-			$languageLabelLookupFactory = WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory();
-			$languageLabelLookup = $languageLabelLookupFactory->newLabelDescriptionLookup( $language );
 			return new FormIdHtmlFormatter(
 				WikibaseRepo::getEntityRevisionLookup(),
-				$languageLabelLookup,
+				WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
+					->newLabelDescriptionLookup( $language ),
 				$titleLookup,
 				new MediaWikiLocalizedTextProvider( $language ),
 				new RedirectedLexemeSubEntityIdHtmlFormatter( $titleLookup ),
