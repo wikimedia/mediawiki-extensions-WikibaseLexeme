@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Specials\HTMLForm;
 
-use Language;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
@@ -45,8 +44,7 @@ class ItemSelectorWidgetField extends HTMLItemReferenceField {
 		$this->idParser = $idParser ?: WikibaseRepo::getEntityIdParser();
 		$this->labelLookup = $lookup ?:
 			WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
-				// TODO why hard-coded to English?
-				->newLabelDescriptionLookup( Language::factory( 'en' ) );
+				->newLabelDescriptionLookup( WikibaseRepo::getUserLanguage() );
 
 		if ( isset( $params['labelFieldName'] ) ) {
 			$this->labelFieldName = $params['labelFieldName'];
