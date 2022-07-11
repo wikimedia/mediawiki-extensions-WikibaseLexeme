@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Kambai Akau"
+		]
+	},
+	"wikibaselexeme-deletedentity-form": "Á̱ Ti̱n Fom hu",
+	"wikibaselexeme-deletedentity-sense": "Á̱ Ti̱n A̱ma̱nyi ka",
+	"wikibaselexeme-newlexeme-lemma": "Lemma",
+	"wikibaselexeme-newlexeme-lemma-language": "Vak lyuut ghyang si̱ Lemma hu",
+	"wikibaselexeme-header-senses": "A̱ka̱ma̱nyi",
+	"wikibaselexeme-form-field-representation-label": "A̱lama",
+	"wikibaselexeme-form-field-language-label": "Vak lyuut ghyang",
+	"wikibaselexeme-gloss-field-language-label": "A̱lyem",
+	"wikibaselexeme-gloss-field-gloss-label": "Swang a̱lyiat nta",
+	"datatypes-type-wikibase-form": "Fom",
+	"datatypes-type-wikibase-sense": "A̱ma̱nyi",
+	"wikibase-listdatatypes-wikibase-form-head": "Fom",
+	"wikibase-listdatatypes-wikibase-sense-head": "A̱ma̱nyi",
+	"wikibaselexeme-add-sense": "mbeang A̱ma̱nyi",
+	"wikibaselexeme-add-form": "mbeang Fom",
+	"wikibase-pageinfo-wbl-forms": "La̱mba A̱yaafom",
+	"wikibase-pageinfo-wbl-senses": "La̱mba A̱ka̱ma̱nyi",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Mbeang Fom fai",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "Á̱ mbeang a̱ma̱nyi a̱fai",
+	"wikibaselexeme-field-language-label": "A̱lyem",
+	"wikibaselexeme-diffview-lemma": "Lemma",
+	"wikibaselexeme-diffview-language": "a̱lyem",
+	"wikibaselexeme-diffview-form": "Fom",
+	"wikibaselexeme-diffview-sense": "A̱ma̱nyi",
+	"wikibaselexeme-diffview-gloss": "swang a̱lyiat nta"
+}
