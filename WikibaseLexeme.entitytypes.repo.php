@@ -369,7 +369,6 @@ return [
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			// FIXME: this code should be split into extension for T190022
 			return new EntityIdSearchHelper(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
@@ -520,7 +519,6 @@ return [
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			// FIXME: this code should be split into extension for T190022
 			$entityLookup = WikibaseRepo::getEntityLookup();
 			$userLanguage = WikibaseRepo::getUserLanguage();
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
