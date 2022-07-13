@@ -8,6 +8,7 @@
 	"datatypes-type-wikibase-form": "Form",
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-sense": "Betydning",
+	"nstab-lexeme": "Leksem",
 	"special-mergelexemes": "Flett to leksemer",
 	"special-newlexeme": "Opprett et nytt leksem",
 	"wikibase-entity-summary-wblmergelexemes-from": "Slo sammen leksem fra $3",

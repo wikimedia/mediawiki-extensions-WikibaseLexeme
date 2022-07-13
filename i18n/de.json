@@ -15,6 +15,7 @@
 	"datatypes-type-wikibase-form": "Form",
 	"datatypes-type-wikibase-lexeme": "Lexem",
 	"datatypes-type-wikibase-sense": "Sense",
+	"nstab-lexeme": "Lexem",
 	"special-mergelexemes": "Zwei Lexemes zusammenführen",
 	"special-newlexeme": "Ein neues Lexem erstellen",
 	"special-newlexeme-alpha": "Ein neues Lexem erstellen (experimentell)",

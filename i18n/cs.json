@@ -12,6 +12,7 @@
 	"datatypes-type-wikibase-form": "Tvar",
 	"datatypes-type-wikibase-lexeme": "Lexém",
 	"datatypes-type-wikibase-sense": "Význam",
+	"nstab-lexeme": "Lexém",
 	"special-mergelexemes": "Sloučit dva lexémy",
 	"special-newlexeme": "Vytvořit nový lexém",
 	"wikibase-entity-summary-wblmergelexemes-from": "Sloučeno z lexému $3",

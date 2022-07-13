@@ -6,6 +6,7 @@
 	},
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-sense": "Tyding",
+	"nstab-lexeme": "Leksem",
 	"special-mergelexemes": "Flett saman to leksem",
 	"special-newlexeme": "Opprett eit nytt leksem",
 	"wikibase-entity-summary-wblmergelexemes-from": "Fletta leksem frå $3",

@@ -13,6 +13,7 @@
 	"datatypes-type-wikibase-form": "형태",
 	"datatypes-type-wikibase-lexeme": "어휘소",
 	"datatypes-type-wikibase-sense": "의미",
+	"nstab-lexeme": "어휘소",
 	"special-mergelexemes": "2개의 어휘소 병합",
 	"special-newlexeme": "새 어휘소 만들기",
 	"wikibase-lexeme-gloss-empty": "주석을 규정하지 않음",

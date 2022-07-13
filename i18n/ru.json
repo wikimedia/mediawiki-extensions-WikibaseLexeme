@@ -20,6 +20,7 @@
 	"datatypes-type-wikibase-form": "Форма",
 	"datatypes-type-wikibase-lexeme": "Лексема",
 	"datatypes-type-wikibase-sense": "Значение",
+	"nstab-lexeme": "Лексема",
 	"special-mergelexemes": "Объединение двух Лексем",
 	"special-newlexeme": "Создать новую лексему",
 	"wikibase-lexeme-gloss-empty": "Глоссa не указанa",

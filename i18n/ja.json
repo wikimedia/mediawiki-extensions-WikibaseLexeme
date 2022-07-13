@@ -14,6 +14,7 @@
 	"datatypes-type-wikibase-form": "語形",
 	"datatypes-type-wikibase-lexeme": "語彙素",
 	"datatypes-type-wikibase-sense": "語義",
+	"nstab-lexeme": "語彙素",
 	"special-mergelexemes": "2つの語彙素を統合",
 	"special-newlexeme": "語彙素の新規作成",
 	"wikibase-entity-summary-wblmergelexemes-from": "語彙素に$3を統合しました",
