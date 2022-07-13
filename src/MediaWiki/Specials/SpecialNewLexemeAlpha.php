@@ -35,8 +35,8 @@ use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\EditEntity\EditEntity;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
@@ -89,7 +89,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		EntityIdParser $entityIdParser,
 		SummaryFormatter $summaryFormatter,
 		EntityIdFormatterFactory $entityIdFormatterFactory,
-		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
+		FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
 		LemmaTermValidator $lemmaTermValidator
 	) {
@@ -128,7 +128,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		SettingsArray $repoSettings,
 		SummaryFormatter $summaryFormatter,
 		EntityIdFormatterFactory $entityIdFormatterFactory,
-		LanguageFallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
+		FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
 		LemmaTermValidator $lemmaTermValidator
 	): self {
@@ -281,7 +281,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 	private function getItemIdLabelDesc(
 		EntityId $itemId,
-		LanguageFallbackLabelDescriptionLookup $labelDescriptionLookup
+		FallbackLabelDescriptionLookup $labelDescriptionLookup
 	): array {
 		$params = [ 'display' => [] ];
 		$params['id'] = $itemId->getSerialization();

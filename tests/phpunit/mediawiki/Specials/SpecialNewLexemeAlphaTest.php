@@ -27,8 +27,8 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\NewStatement;
@@ -93,7 +93,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getEntityIdParser(),
 			$summaryFormatter,
 			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory(),
-			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory(),
+			WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 			WikibaseRepo::getValidatorErrorLocalizer(),
 			WikibaseLexemeServices::getLemmaTermValidator()
 		);
@@ -270,7 +270,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			'wgLexemeLexicalCategoryItemIds' => [ 'Q1', 'Q2' ],
 			'wgLanguageCode' => 'de',
 		] );
-		$labelDescriptionLookup = $this->createMock( LanguageFallbackLabelDescriptionLookup::class );
+		$labelDescriptionLookup = $this->createMock( FallbackLabelDescriptionLookup::class );
 		$labelDescriptionLookup->expects( $this->exactly( 2 ) )
 			->method( 'getLabel' )
 			->willReturnCallback( static function ( ItemId $itemId ): ?TermFallback {
@@ -296,7 +296,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 				}
 			} );
 		$labelDescriptionLookupFactory = $this->createMock(
-			LanguageFallbackLabelDescriptionLookupFactory::class );
+			FallbackLabelDescriptionLookupFactory::class );
 		$labelDescriptionLookupFactory->expects( $this->once() )
 			->method( 'newLabelDescriptionLookup' )
 			->with(
@@ -307,7 +307,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 				[ TermTypes::TYPE_LABEL, TermTypes::TYPE_DESCRIPTION ]
 			)
 			->willReturn( $labelDescriptionLookup );
-		$this->setService( 'WikibaseRepo.LanguageFallbackLabelDescriptionLookupFactory',
+		$this->setService( 'WikibaseRepo.FallbackLabelDescriptionLookupFactory',
 			$labelDescriptionLookupFactory );
 
 		[ $html ] = $this->executeSpecialPage( '', null, 'de', null, true );

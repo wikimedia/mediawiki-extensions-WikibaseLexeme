@@ -148,7 +148,7 @@ class Registrar {
 					'WikibaseRepo.Settings',
 					'WikibaseRepo.SummaryFormatter',
 					'WikibaseRepo.EntityIdHtmlLinkFormatterFactory',
-					'WikibaseRepo.LanguageFallbackLabelDescriptionLookupFactory',
+					'WikibaseRepo.FallbackLabelDescriptionLookupFactory',
 					'WikibaseRepo.ValidatorErrorLocalizer',
 					'WikibaseLexemeLemmaTermValidator',
 				],
