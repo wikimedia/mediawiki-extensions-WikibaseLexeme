@@ -44,7 +44,8 @@ class ItemSelectorWidgetField extends HTMLItemReferenceField {
 
 		$this->idParser = $idParser ?: WikibaseRepo::getEntityIdParser();
 		$this->labelLookup = $lookup ?:
-			WikibaseRepo::getLanguageFallbackLabelDescriptionLookupFactory()
+			WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
+				// TODO why hard-coded to English?
 				->newLabelDescriptionLookup( Language::factory( 'en' ) );
 
 		if ( isset( $params['labelFieldName'] ) ) {
