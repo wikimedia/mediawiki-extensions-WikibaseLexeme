@@ -125,7 +125,7 @@
 	"wikibaselexeme-newlexeme-language-invalid-error": "Error message displayed when the input to the Lexeme's language field is not a valid item",
 	"wikibaselexeme-newlexeme-language-placeholder": "Placeholder for the \"language\" field in the Lexeme creation form. Feel free to change \"English\" to your language name.",
 	"wikibaselexeme-newlexeme-language-placeholder-with-example": "Placeholder for the \"language\" field in the Lexeme creation form.\n\nParameters:\n* $1 - the name of an example language (already translated)\n\nWill replace current placeholder message {{msg-mw|wikibaselexeme-newlexeme-language-placeholder}}",
-	"wikibaselexeme-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
+	"wikibaselexeme-newlexeme-lemma": "Label for \"Lemma\" in the lexeme creation form. This is the base form of the word, without the gloss. The placeholder in the input box is {{msg-mw|Wikibaselexeme-newlexeme-lemma-placeholder-with-example}}.\n\n{{Identical|Lemma}}",
 	"wikibaselexeme-newlexeme-lemma-empty-error": "Error message displayed when the lemma field is submitted empty",
 	"wikibaselexeme-newlexeme-lemma-language": "Name for \"Lemma\" language",
 	"wikibaselexeme-newlexeme-lemma-language-empty-error": "Error message displayed when the spelling variant field is submitted empty",

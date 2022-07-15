@@ -106,7 +106,7 @@
 	"wikibaselexeme-newlexeme-language-invalid-error": "שפת היחידה המילונית צריכה להיות פריט תקין.",
 	"wikibaselexeme-newlexeme-language-placeholder": "שפת היחידה המילונית, למשל \"אנגלית\"",
 	"wikibaselexeme-newlexeme-language-placeholder-with-example": "שפת היחידה המילונית, למשל \"$1\"",
-	"wikibaselexeme-newlexeme-lemma": "משפט מוגדר",
+	"wikibaselexeme-newlexeme-lemma": "צורת יסוד",
 	"wikibaselexeme-newlexeme-lemma-empty-error": "שדה המשפט המוגדר לא יכול להיות ריק.",
 	"wikibaselexeme-newlexeme-lemma-language": "הגוון כתיב של היחידה המילונית",
 	"wikibaselexeme-newlexeme-lemma-language-empty-error": "שדה תקן הכתיב לא יכול להיות ריק.",
