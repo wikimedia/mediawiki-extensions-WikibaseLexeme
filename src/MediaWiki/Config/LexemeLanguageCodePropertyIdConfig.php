@@ -26,4 +26,8 @@ class LexemeLanguageCodePropertyIdConfig extends RL\Module {
 		] );
 	}
 
+	public function getTargets() {
+		return [ 'desktop', 'mobile' ];
+	}
+
 }

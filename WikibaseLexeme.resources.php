@@ -266,6 +266,10 @@ return call_user_func( static function () {
 		$modules += [
 			"wikibase.lexeme.special.NewLexemeAlpha" => $moduleTemplate + [
 				"es6" => true,
+				"targets" => [
+					'desktop',
+					'mobile',
+				],
 				"packageFiles" => [
 					'special/NewLexemeAlpha.js',
 					'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
@@ -349,6 +353,10 @@ return call_user_func( static function () {
 				],
 			],
 			"wikibase.lexeme.special.NewLexemeAlpha.styles" => $moduleTemplate + [
+				"targets" => [
+					'desktop',
+					'mobile',
+				],
 				"styles" => [
 					'special/new-lexeme-alpha.less',
 				],
