@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
-			"Guycn2"
+			"Guycn2",
+			"Ex-Diktator"
 		]
 	},
 	"wikibaselexeme-desc": "טיפול בסוג הישות יחידה מילונית (Lexeme)",
@@ -11,7 +12,7 @@
 	"wikibaselexeme-deletedentity-form": "צורה מחוקה",
 	"wikibaselexeme-deletedentity-sense": "המשמעות נמחקה",
 	"wikibaselexeme-newlexeme-fieldset": "יצירת יחידה מילונית חדשה",
-	"wikibaselexeme-newlexeme-lemma": "משפט מוגדר",
+	"wikibaselexeme-newlexeme-lemma": "צורת יסוד",
 	"wikibaselexeme-newlexeme-lemma-language": "הגוון כתיב של היחידה המילונית",
 	"wikibaselexeme-lemma-edit-placeholder": "משפט מוגדר הוא בדרך־כלל הצורה הקצרה ביותר של המילה",
 	"wikibaselexeme-newlexeme-lexicalcategory": "קטגוריה מילונית",

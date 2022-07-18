@@ -13,5 +13,6 @@
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Raaji ođđ lekseeʹm",
 	"wikibaselexeme-field-language-label": "Ǩiõll",
 	"wikibaselexeme-diffview-language": "ǩiõll",
-	"content-model-wikibase-lexeme": "Wikibase-lekseeʹm"
+	"content-model-wikibase-lexeme": "Wikibase-lekseeʹm",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseeʹm ruõkkmõš ij oʹnnstam."
 }
