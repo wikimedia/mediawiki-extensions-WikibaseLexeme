@@ -20,7 +20,6 @@ use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
-use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\Content\EntityContent;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Content\EntityInstanceHolder;
@@ -170,10 +169,6 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	}
 
 	private function newLexemeHandler() {
-		$labelLookupFactory = $this->getMockWithoutConstructor(
-			FallbackLabelDescriptionLookupFactory::class
-		);
-
 		return new LexemeHandler(
 			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
 			$this->getMockWithoutConstructor( EntityConstraintProvider::class ),
@@ -181,7 +176,6 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			$this->createMock( EntityIdParser::class ),
 			$this->createMock( EntityIdLookup::class ),
 			$this->createMock( EntityLookup::class ),
-			$labelLookupFactory,
 			new NoFieldDefinitions()
 		);
 	}

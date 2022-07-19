@@ -10,6 +10,7 @@ use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
+use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -20,8 +21,6 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
-use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
-use Wikibase\Lib\Store\NullEntityTermStoreWriter;
 use Wikibase\Repo\Actions\EditEntityAction;
 use Wikibase\Repo\Actions\HistoryEntityAction;
 use Wikibase\Repo\Actions\SubmitEntityAction;
@@ -49,18 +48,12 @@ class LexemeHandler extends EntityHandler {
 	private $entityLookup;
 
 	/**
-	 * @var FallbackLabelDescriptionLookupFactory
-	 */
-	private $labelLookupFactory;
-
-	/**
 	 * @param EntityContentDataCodec $contentCodec
 	 * @param EntityConstraintProvider $constraintProvider
 	 * @param ValidatorErrorLocalizer $errorLocalizer
 	 * @param EntityIdParser $entityIdParser
 	 * @param EntityIdLookup $entityIdLookup
 	 * @param EntityLookup $entityLookup
-	 * @param FallbackLabelDescriptionLookupFactory $labelLookupFactory
 	 * @param FieldDefinitions $lexemeFieldDefinitions
 	 * @param callable|null $legacyExportFormatDetector
 	 */
@@ -71,13 +64,12 @@ class LexemeHandler extends EntityHandler {
 		EntityIdParser $entityIdParser,
 		EntityIdLookup $entityIdLookup,
 		EntityLookup $entityLookup,
-		FallbackLabelDescriptionLookupFactory $labelLookupFactory,
 		FieldDefinitions $lexemeFieldDefinitions,
 		$legacyExportFormatDetector = null
 	) {
 		parent::__construct(
 			LexemeContent::CONTENT_MODEL_ID,
-			new NullEntityTermStoreWriter(),
+			null, // TODO: this is unused in the parent class and has a TODO to be removed
 			$contentCodec,
 			$constraintProvider,
 			$errorLocalizer,
@@ -88,7 +80,6 @@ class LexemeHandler extends EntityHandler {
 
 		$this->entityIdLookup = $entityIdLookup;
 		$this->entityLookup = $entityLookup;
-		$this->labelLookupFactory = $labelLookupFactory;
 	}
 
 	/**
@@ -107,7 +98,7 @@ class LexemeHandler extends EntityHandler {
 					$article,
 					$context,
 					$this->entityIdLookup,
-					$this->labelLookupFactory->newLabelDescriptionLookup( $context->getLanguage() )
+					new NullLabelDescriptionLookup()
 				);
 			},
 			'view' => ViewLexemeAction::class,

@@ -53,7 +53,6 @@ use Wikibase\Lib\DataTypeDefinitions;
 use Wikibase\Lib\EntityTypeDefinitions as Def;
 use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\LanguageFallbackIndicator;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\TitleLookupBasedEntityExistenceChecker;
 use Wikibase\Lib\Store\TitleLookupBasedEntityRedirectChecker;
@@ -120,7 +119,6 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 				WikibaseRepo::getFieldDefinitionsFactory()
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -282,11 +280,7 @@ return [
 			return new EntityIdSearchHelper(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
-				new LanguageFallbackLabelDescriptionLookup(
-					WikibaseRepo::getTermLookup(),
-					WikibaseRepo::getLanguageFallbackChainFactory()
-						->newFromLanguage( WikibaseRepo::getUserLanguage() )
-				),
+				new NullLabelDescriptionLookup(),
 				WikibaseRepo::getEntityTypeToRepositoryMapping()
 			);
 		},
@@ -363,7 +357,6 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 				WikibaseRepo::getFieldDefinitionsFactory()
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
@@ -513,7 +506,6 @@ return [
 				WikibaseRepo::getEntityIdParser(),
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 				WikibaseRepo::getFieldDefinitionsFactory()
 					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
 			);
