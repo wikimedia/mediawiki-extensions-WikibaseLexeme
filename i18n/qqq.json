@@ -25,7 +25,7 @@
 	"wikibaselexeme-deletedentity-sense": "Message displayed instead of a Sense's Gloss and Lemmas of the associated Lexeme if the Sense has been deleted.\n\nSee also:\n* {{msg-mw|Wikibase-entity-item}}\n* {{msg-mw|Wikibase-deletedentity-property}}",
 	"wikibaselexeme-deletedentity-lexeme": "Message displayed instead of a Lemma of the Lexeme if the Lexeme has been deleted.\n\nSee also:\n* {{msg-mw|Wikibase-entity-item}}\n* {{msg-mw|Wikibase-deletedentity-property}}",
 	"wikibaselexeme-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
-	"wikibaselexeme-newlexeme-lemma": "Name for \"Lemma\"\n{{Identical|Lemma}}",
+	"wikibaselexeme-newlexeme-lemma": "Label for \"Lemma\" in the lexeme creation form. This is the base form of the word, without the gloss. The placeholder in the input box is {{msg-mw|Wikibaselexeme-newlexeme-lemma-placeholder-with-example}}.\n\n{{Identical|Lemma}}",
 	"wikibaselexeme-newlexeme-lemma-language": "Name for \"Lemma\" language",
 	"wikibaselexeme-lemma-edit-placeholder": "Placeholder content for Lemma",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Name for \"lexical category\"",
