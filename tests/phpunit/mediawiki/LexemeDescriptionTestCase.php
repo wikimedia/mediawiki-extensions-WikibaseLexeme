@@ -12,7 +12,10 @@ use Wikibase\DataModel\Services\Term\TermBuffer;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\LanguageFallbackChainFactory;
-use Wikibase\Lib\Store\LanguageFallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
+use Wikibase\Lib\Store\RedirectResolvingLatestRevisionLookup;
+use Wikibase\Lib\TermFallbackCache\TermFallbackCacheFacade;
+use Wikibase\Lib\Tests\FakeCache;
 
 /**
  * Trait for producing mockups for tests dealing with Lemma descriptions
@@ -90,16 +93,32 @@ trait LexemeDescriptionTestCase {
 		);
 	}
 
+	private function getFakeRedirectResolvingLatestRevisionLookup() {
+		$lookup = $this->createMock( RedirectResolvingLatestRevisionLookup::class );
+		$lookup->method( 'lookupLatestRevisionResolvingRedirect' )->willReturnCallback(
+			static function ( EntityId $entityId ) {
+				return [ 0, $entityId ];
+			}
+		);
+
+		return $lookup;
+	}
+
 	/**
 	 * @param string[] $fetchIds IDs we expect to be fetched
 	 * @param string $displayLanguage Display language to use
-	 * @return LanguageFallbackLabelDescriptionLookupFactory
+	 * @return FallbackLabelDescriptionLookupFactory
 	 */
 	private function getTermLookupFactory( $fetchIds, $displayLanguage ) {
 		$langFactory = new LanguageFallbackChainFactory();
 
-		return new LanguageFallbackLabelDescriptionLookupFactory(
+		return new FallbackLabelDescriptionLookupFactory(
 			$langFactory,
+			$this->getFakeRedirectResolvingLatestRevisionLookup(),
+			new TermFallbackCacheFacade(
+				new FakeCache(),
+				10
+			),
 			$this->getMockTermLookup(),
 			$this->getMockTermBuffer( $fetchIds,
 				$langFactory->newFromLanguageCode( $displayLanguage )->getFetchLanguageCodes() )
