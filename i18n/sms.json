@@ -8,6 +8,7 @@
 	"datatypes-type-wikibase-lexeme": "Lekseeʹm",
 	"special-newlexeme": "Raaj ođđ lekseeʹm",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseeʹm ruõkkmõš ij oʹnnstam.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lekseeʹm '$1' ij käunnʼjam.",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Raaji ođđ lekseeʹm",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseeʹm",
 	"wikibaselexeme-deletedentity-lexeme": "Jaukkuum lekseeʹm",
@@ -16,5 +17,6 @@
 	"wikibaselexeme-gloss-field-language-label": "Ǩiõll",
 	"wikibaselexeme-newlexeme-fieldset": "Raaj ođđ lekseeʹm",
 	"wikibaselexeme-newlexeme-info-panel-heading": "Lââʹssteâđ lekseeʹmi pirr",
-	"wikibaselexeme-newlexeme-language": "Lekseeʹm ǩiõll"
+	"wikibaselexeme-newlexeme-language": "Lekseeʹm ǩiõll",
+	"wikibaselexeme-newlexeme-submit": "Raaj lekseeʹm"
 }
