@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Harriettruong3",
-			"Minh Nguyen"
+			"Minh Nguyen",
+			"Yosari101"
 		]
 	},
 	"wikibaselexeme-desc": "Thực hiện kiểu thực thể từ vị",
@@ -17,11 +18,11 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Nhập từ loại, ví dụ danh từ",
 	"wikibaselexeme-newlexeme-language": "Ngôn ngữ từ vị",
 	"wikibaselexeme-newlexeme-language-placeholder": "Nhập ngôn ngữ, ví dụ tiếng Việt",
-	"wikibaselexeme-statementsection-statements-about-form": "Tuyên bố về $1",
+	"wikibaselexeme-statementsection-statements-about-form": "Lời phát biểu về $1",
 	"wikibaselexeme-header-forms": "Dạng",
 	"wikibaselexeme-enter-form-representation": "Nhập cách viết dạng mới",
 	"wikibaselexeme-empty-form-representation": "Không định rõ cách viết dạng",
-	"wikibaselexeme-statementsection-statements-about-sense": "Tuyên bố về $1",
+	"wikibaselexeme-statementsection-statements-about-sense": "Lời phát biểu về $1",
 	"wikibaselexeme-header-senses": "Ngữ nghĩa",
 	"wikibase-lexeme-gloss-empty": "Không định rõ chú giải",
 	"wikibaselexeme-lemma-field-lemma-label": "Dạng chuẩn",
