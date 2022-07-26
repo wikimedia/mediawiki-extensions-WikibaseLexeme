@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amir E. Aharoni",
+			"Mahir256",
 			"Michael Große",
 			"Nike",
 			"Pablo Grass",
@@ -11,6 +12,7 @@
 	"wikibase-lexeme-language-name-az-cyrl": "Name for language code for Azerbaijani written in Cyrillic script",
 	"wikibase-lexeme-language-name-bas": "Name for language code for Basaa",
 	"wikibase-lexeme-language-name-bfi": "Name for language code for British Sign Language",
+	"wikibase-lexeme-language-name-bzs": "Name for language code for Brazilian Sign Language",
 	"wikibase-lexeme-language-name-cak": "Name for language code for Kaqchikel",
 	"wikibase-lexeme-language-name-ccp": "Name for language code for [[:wikipedia:en:Chakma language|Chakma]]",
 	"wikibase-lexeme-language-name-ccp-beng": "Name for language code for [[:wikipedia:en:Chakma language|Chakma]] in Bengali script",
@@ -27,9 +29,11 @@
 	"wikibase-lexeme-language-name-goh": "Name for language code for Old High German",
 	"wikibase-lexeme-language-name-gsg": "Name for language code for German Sign Language",
 	"wikibase-lexeme-language-name-ha-arab": "Name for language code for Hausa in Arab script",
+	"wikibase-lexeme-language-name-hoc": "Name for language code for Ho",
 	"wikibase-lexeme-language-name-ja-hira": "Name for language code for Japanese written in hiragana",
 	"wikibase-lexeme-language-name-ja-hrkt": "Name for language code for Japanese written in hiragana and katakana",
 	"wikibase-lexeme-language-name-ja-kana": "Name for language code for Japanese written in katakana",
+	"wikibase-lexeme-language-name-lad-hebr": "Name for language code for Judaeo-Spanish in Hebrew script",
 	"wikibase-lexeme-language-name-lij-mc": "Name for language code for Monégasque",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",
 	"wikibase-lexeme-language-name-mvf": "Name for language code for Peripheral Mongolian",
