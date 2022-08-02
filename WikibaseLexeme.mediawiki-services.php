@@ -29,6 +29,7 @@ return call_user_func( static function () {
 		'az-cyrl', // T265906
 		'bas', // T277619
 		'bfi', // T279557
+		'bzs', // T286213
 		'cak', // T277622
 		'ccp', // T272442
 		'ccp-beng', // T272442
@@ -45,9 +46,11 @@ return call_user_func( static function () {
 		'goh', // T278027
 		'gsg', // T282512
 		'ha-arab', // T282512
+		'hoc', // T304133
 		'ja-hira', // T262330
 		'ja-kana', // T262330
 		'ja-hrkt', // T262330
+		'lad-hebr', // T308794
 		'lij-mc', // T254968
 		'mis',
 		'mvf', // T282512

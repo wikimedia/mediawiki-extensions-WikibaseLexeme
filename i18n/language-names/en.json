@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amir E. Aharoni",
+			"Mahir256",
 			"Michael Große",
 			"Pablo Grass",
 			"Remko de Keijzer"
@@ -10,6 +11,7 @@
 	"wikibase-lexeme-language-name-az-cyrl": "Azerbaijani written in Cyrillic script",
 	"wikibase-lexeme-language-name-bas": "Basaa",
 	"wikibase-lexeme-language-name-bfi": "British Sign Language",
+	"wikibase-lexeme-language-name-bzs": "Brazilian Sign Language",
 	"wikibase-lexeme-language-name-cak": "Kaqchikel",
 	"wikibase-lexeme-language-name-ccp": "Chakma",
 	"wikibase-lexeme-language-name-ccp-beng": "Chakma in Bengali script",
@@ -26,9 +28,11 @@
 	"wikibase-lexeme-language-name-goh": "Old High German",
 	"wikibase-lexeme-language-name-gsg": "German Sign Language",
 	"wikibase-lexeme-language-name-ha-arab": "Hausa in Arab script",
+	"wikibase-lexeme-language-name-hoc": "Ho",
 	"wikibase-lexeme-language-name-ja-hira": "Japanese written in Hiragana",
 	"wikibase-lexeme-language-name-ja-hrkt": "Japanese written in Hiragana and Katakana",
 	"wikibase-lexeme-language-name-ja-kana": "Japanese written in Katakana",
+	"wikibase-lexeme-language-name-lad-hebr": "Judaeo-Spanish in Hebrew script",
 	"wikibase-lexeme-language-name-lij-mc": "Monégasque",
 	"wikibase-lexeme-language-name-mis": "other",
 	"wikibase-lexeme-language-name-mvf": "Peripheral Mongolian",
