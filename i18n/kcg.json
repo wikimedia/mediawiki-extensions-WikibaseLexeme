@@ -20,6 +20,7 @@
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Á̱ si̱ mi̱n di La̱kzi̱m '$1'.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Á̱ lak nwuak a̱wat.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "A si̱ mi̱n mun La̱kzi̱m ma̱ng a̱pyia̱ nhu bah.",
+	"wikibase-lexeme-mergelexemes-from-id": "ID nang á̱ na mun neet a̱ni",
 	"wikibase-lexeme-mergelexemes-submit": "Mun Nla̱kzi̱m",
 	"wikibase-lexeme-mergelexemes-to-id": "ID mun wu ma̱ng",
 	"wikibase-lexeme-summary-update-sense-elements": "Shai swáng a̱lyiat A̱ma̱nyi $3",
@@ -82,5 +83,7 @@
 	"wikibaselexeme-newlexeme-submit": "Khwuk la̱kzi̱m",
 	"wikibaselexeme-newlexeme-submitting": "Á̱ shyia̱ di̱ khwuk la̱kzi̱m hu...",
 	"wikibaselexeme-statementsection-statements-about-form": "Á̱lyiat tazwa $1",
-	"wikibaselexeme-statementsection-statements-about-sense": "Á̱lyiat tazwa $1"
+	"wikibaselexeme-statementsection-statements-about-sense": "Á̱lyiat tazwa $1",
+	"wikibaselexeme-unknown-category": "A̱kang",
+	"wikibaselexeme-unknown-language": "A̱kang a̱lyem"
 }

@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Eihel",
 			"Gomoko",
 			"Thibaut120094",
 			"Verdy p",
@@ -10,6 +11,7 @@
 	"wikibase-lexeme-language-name-az-cyrl": "azéri en écriture cyrillique",
 	"wikibase-lexeme-language-name-bas": "basaá",
 	"wikibase-lexeme-language-name-bfi": "langue des signes britannique",
+	"wikibase-lexeme-language-name-bzs": "langue des signes brésilienne",
 	"wikibase-lexeme-language-name-cak": "cakchiquel",
 	"wikibase-lexeme-language-name-ccp": "Changma kodha",
 	"wikibase-lexeme-language-name-ccp-beng": "Changma kodha en écriture bengalaise",
@@ -26,9 +28,11 @@
 	"wikibase-lexeme-language-name-goh": "haut allemand ancien",
 	"wikibase-lexeme-language-name-gsg": "langue des signes allemande",
 	"wikibase-lexeme-language-name-ha-arab": "hausa en écriture arabe",
+	"wikibase-lexeme-language-name-hoc": "ho",
 	"wikibase-lexeme-language-name-ja-hira": "japonais écrit en hiragana",
 	"wikibase-lexeme-language-name-ja-hrkt": "japonais écrit en hiragana et katakana",
 	"wikibase-lexeme-language-name-ja-kana": "japonais écrit en katakana",
+	"wikibase-lexeme-language-name-lad-hebr": "judéo-espagnol en écriture hébraïque",
 	"wikibase-lexeme-language-name-lij-mc": "monégasque",
 	"wikibase-lexeme-language-name-mis": "autre",
 	"wikibase-lexeme-language-name-mvf": "mongol périphérique",
