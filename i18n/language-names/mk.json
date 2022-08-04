@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bjankuloski06"
+			"Bjankuloski06",
+			"Vlad5250"
 		]
 	},
 	"wikibase-lexeme-language-name-az-cyrl": "Азербејџански на кирилица",
 	"wikibase-lexeme-language-name-bas": "басански",
 	"wikibase-lexeme-language-name-bfi": "британски знаковен јазик",
+	"wikibase-lexeme-language-name-bzs": "бразилски знаковен јазик",
 	"wikibase-lexeme-language-name-cak": "какчикелски",
 	"wikibase-lexeme-language-name-ccp": "чакмански",
 	"wikibase-lexeme-language-name-ccp-beng": "чакмански со бенгалско писмо",
@@ -23,6 +25,7 @@
 	"wikibase-lexeme-language-name-goh": "старогорногермански",
 	"wikibase-lexeme-language-name-gsg": "германски знаковен јазик",
 	"wikibase-lexeme-language-name-ha-arab": "хауса на арабица",
+	"wikibase-lexeme-language-name-hoc": "Ho",
 	"wikibase-lexeme-language-name-ja-hira": "јапонски напишан на хирагана",
 	"wikibase-lexeme-language-name-ja-hrkt": "јапонски напишан на хирагана и катакана",
 	"wikibase-lexeme-language-name-ja-kana": "јапонски напишан на катакана",
