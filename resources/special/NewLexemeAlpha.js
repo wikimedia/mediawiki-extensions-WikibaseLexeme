@@ -20,6 +20,7 @@
 	init(
 		{
 			rootSelector: '#special-newlexeme-root',
+			isAnonymous: mw.user.isAnon(),
 			licenseUrl: settings.licenseUrl,
 			licenseName: settings.licenseText,
 			tags: settings.tags,
