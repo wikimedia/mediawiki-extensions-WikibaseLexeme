@@ -16,6 +16,7 @@
 // Overall page layout
 .wbl-snl-main-content {
 	display: flex;
+	margin-top: 0.5rem;
 
 	@media ( min-width: ( @wbl-snl-break-point + 1 ) ) {
 		align-items: stretch;
@@ -59,10 +60,22 @@
 			margin-top: @wikit-Message-spacing-vertical;
 			margin-bottom: @wikit-Message-spacing-vertical;
 		}
+
+		:first-child {
+			margin-top: 1rem;
+			margin-bottom: 0;
+		}
+
+		:last-child {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
 	}
 
 	&__icon {
 		margin-right: @wikit-Message-icon-gap-to-text;
+		line-height: 1;
+		vertical-align: top;
 	}
 }
 
