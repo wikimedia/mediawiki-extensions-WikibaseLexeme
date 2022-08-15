@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Jeeputer",
 			"Ladsgroup"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "فرم‌ها حتما باید حداقل یک بیانگر داشته‌باشند",
+	"apierror-wikibaselexeme-json-field-required": "زمینهٔ «$3» در «$2» در پارامتر «$1» الزامی است",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "زبان نمی‌تواند خالی باشد",
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "متن نمی‌تواند خالی باشد",
 	"apierror-wikibaselexeme-parameter-required": "پارامتر «$1» اجباری است",
