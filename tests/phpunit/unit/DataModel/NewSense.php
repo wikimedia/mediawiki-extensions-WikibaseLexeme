@@ -151,7 +151,7 @@ class NewSense {
 		return new Sense(
 			new SenseId( $this->lexemeId . '-' . $senseId ),
 			new TermList( $this->glosses ),
-			new StatementList( $this->statements )
+			new StatementList( ...$this->statements )
 		);
 	}
 

@@ -77,7 +77,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 				new NumericPropertyId( 'P12' ),
 				null,
 				'string',
-				new StatementList( [
+				new StatementList(
 					new Statement(
 						// P999 is non existent thus the datatype will not be present
 						new PropertySomeValueSnak( new NumericPropertyId( 'P999' ) ),
@@ -85,7 +85,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 						null,
 						'GUID1'
 					)
-				] )
+				)
 			),
 			new Item(
 				new ItemId( 'Q2' ),
@@ -107,7 +107,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 					new SiteLink( 'enwiki', 'Berlin' ),
 					new SiteLink( 'dewiki', 'England', [ new ItemId( 'Q1' ) ] )
 				] ),
-				new StatementList( [
+				new StatementList(
 					new Statement(
 						new PropertySomeValueSnak( new NumericPropertyId( 'P12' ) ),
 						null,
@@ -128,7 +128,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 						] ),
 						'GUID2'
 					)
-				] )
+				)
 			),
 			new Lexeme(
 				new LexemeId( 'L2' ),
@@ -138,7 +138,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 				] ),
 				new ItemId( 'Q11' ),
 				new ItemId( 'Q12' ),
-				new StatementList( [
+				new StatementList(
 					new Statement(
 						// P999 is non existent thus the datatype will not be present
 						new PropertySomeValueSnak( new NumericPropertyId( 'P999' ) ),
@@ -152,7 +152,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 						null,
 						'GUID1'
 					)
-				] ),
+				),
 				2,
 				new FormSet( [
 					new Form(
@@ -162,7 +162,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 							new Term( 'de', 'de-label' ),
 						] ),
 						[ new ItemId( 'Q22' ), new ItemId( 'Q23' ) ],
-						new StatementList( [
+						new StatementList(
 							new Statement(
 								// P999 is non existent thus the datatype will not be present
 								new PropertySomeValueSnak( new NumericPropertyId( 'P12' ) ),
@@ -170,7 +170,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 								null,
 								'GUID1'
 							)
-						] )
+						)
 					)
 				] ),
 				2,
@@ -181,14 +181,14 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 							new Term( 'en', 'en-label' ),
 							new Term( 'de', 'de-label' ),
 						] ),
-						new StatementList( [
+						new StatementList(
 							new Statement(
 								new PropertySomeValueSnak( new NumericPropertyId( 'P13' ) ),
 								null,
 								null,
 								'GUID1'
 							)
-						] )
+						)
 					)
 				] )
 			)
