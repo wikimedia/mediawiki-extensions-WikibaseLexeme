@@ -38,10 +38,12 @@ use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Summary;
+use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\EditEntity\EditEntity;
 use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
+use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
@@ -77,9 +79,11 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	private $labelDescriptionLookupFactory;
 	private $validatorErrorLocalizer;
 	private $lemmaTermValidator;
+	private $copyrightView;
 
 	public function __construct(
 		array $tags,
+		SpecialPageCopyrightView $copyrightView,
 		LinkRenderer $linkRenderer,
 		StatsdDataFactoryInterface $statsDataFactory,
 		MediawikiEditEntityFactory $editEntityFactory,
@@ -115,6 +119,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$this->labelDescriptionLookupFactory = $labelDescriptionLookupFactory;
 		$this->validatorErrorLocalizer = $validatorErrorLocalizer;
 		$this->lemmaTermValidator = $lemmaTermValidator;
+		$this->copyrightView = $copyrightView;
 	}
 
 	public static function factory(
@@ -132,8 +137,15 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
 		LemmaTermValidator $lemmaTermValidator
 	): self {
+		$copyrightView = new SpecialPageCopyrightView(
+			new CopyrightMessageBuilder(),
+			$repoSettings->getSetting( 'dataRightsUrl' ),
+			$repoSettings->getSetting( 'dataRightsText' )
+		);
+
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
+			$copyrightView,
 			$linkRenderer,
 			$statsDataFactory,
 			$editEntityFactory,
@@ -187,6 +199,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 		$exampleLexemeParams = $this->createExampleParameters();
 		$form = $this->createForm( $exampleLexemeParams );
+		$form->setSubmitText( $this->msg( 'wikibaselexeme-newlexeme-submit' ) );
 
 		// handle submit (submit callback may create form, see below)
 		// or show form (possibly with errors); status represents submit result
@@ -592,6 +605,13 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 					'wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example',
 					Message::plaintextParam( $exampleLexemeParams['lexical_category_item_id'] ),
 				],
+			],
+			'copyright-message' => [
+				'name' => 'copyright-message',
+				'type' => 'info',
+				'raw' => true,
+				'id' => 'wb-newlexeme-copyright',
+				'default' => $this->getCopyrightHTML()
 			]
 		];
 	}
@@ -624,5 +644,15 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		if ( $block && $block->appliesToNamespace( $namespace ) ) {
 			throw new UserBlockedError( $block );
 		}
+	}
+
+	/**
+	 * @return string HTML
+	 */
+	private function getCopyrightHTML() {
+		return $this->copyrightView->getHtml(
+			$this->getLanguage(),
+			'wikibaselexeme-newlexeme-submit'
+		);
 	}
 }

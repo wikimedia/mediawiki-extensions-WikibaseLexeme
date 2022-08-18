@@ -29,6 +29,7 @@ use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
+use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\NewStatement;
@@ -62,6 +63,8 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->tablesUsed[] = 'page';
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
 		$this->stats = $this->createMock( StatsdDataFactoryInterface::class );
+		$this->copyrightView = $this->createMock( SpecialPageCopyrightView::class );
+		$this->copyrightView->method( "getHtml" )->willReturn( 'copyright' );
 	}
 
 	private function getMockSummaryFormatter(): SummaryFormatter {
@@ -84,6 +87,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 
 		return new SpecialNewLexemeAlpha(
 			self::TAGS,
+			$this->copyrightView,
 			$this->getServiceContainer()->getLinkRenderer(),
 			$this->stats,
 			WikibaseRepo::getEditEntityFactory(),
@@ -331,6 +335,7 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 				'display' => [],
 			],
 		];
+
 		$this->assertStringContainsString( json_encode( $expected ), $html );
 	}
 
