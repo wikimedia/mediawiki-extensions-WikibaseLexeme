@@ -474,7 +474,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 					return Status::newGood( $entity );
 				}
-			)->addPreHtml( '<noscript>' )->addPostHtml( '</noscript>' );
+			)->addPreHtml( '<noscript id="special-newlexeme-noscript">' )->addPostHtml( '</noscript>' );
 	}
 
 	private function createEntityFromFormData( array $formData ): Lexeme {
