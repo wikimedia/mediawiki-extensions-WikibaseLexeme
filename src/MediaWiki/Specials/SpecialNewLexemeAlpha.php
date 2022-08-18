@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
+use Html;
 use HTMLForm;
 use Iterator;
 use LanguageCode;
@@ -192,6 +193,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			. '<p class="wbl-snl-search-existing-no-js">' . $searchExisting . '</p>'
 			. '</div>'
 		);
+		$output->enableOOUI();
+		$output->addHTML( $this->anonymousEditWarning() );
 		$output->addHTML( '<div class="wbl-snl-main-content">' );
 		$output->addHTML( '<div id="special-newlexeme-root"></div>' );
 		$output->addModules( [ 'wikibase.lexeme.special.NewLexemeAlpha' ] );
@@ -204,10 +207,9 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		// handle submit (submit callback may create form, see below)
 		// or show form (possibly with errors); status represents submit result
 		$status = $form->show();
-
-		$output->enableOOUI();
 		$output->addModuleStyles( [
 			'oojs-ui.styles.icons-content', // info icon
+			'oojs-ui.styles.icons-alert', // alert icon
 		] );
 		$output->addHTML(
 			$this->processInfoPanelTemplate( $exampleLexemeParams )
@@ -654,5 +656,26 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 			$this->getLanguage(),
 			'wikibaselexeme-newlexeme-submit'
 		);
+	}
+
+	/**
+	 * @return string HTML
+	 */
+	private function anonymousEditWarning() {
+		$warningIconHtml = ( new IconWidget( [ 'icon' => 'alert' ] ) )->toString();
+
+		if ( !$this->getUser()->isRegistered() ) {
+			$messageSpan = Html::rawElement(
+				'span',
+				[ 'class' => 'warning' ],
+				$this->msg( 'wikibase-anonymouseditwarning' )->parse()
+			);
+			return '<noscript> <div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'
+				. $warningIconHtml
+				. $messageSpan
+				. '</div></noscript>';
+		}
+
+		return '';
 	}
 }

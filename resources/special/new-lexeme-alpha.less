@@ -13,6 +13,21 @@
 	color: @font-color-base;
 }
 
+.wbl-snl-message-warning {
+	border-width: @border-width-thin;
+	border-color: @border-color-feedback-warning;
+	border-style: @wikit-Message-border-style;
+	background: @wikit-Message-warning-background-color;
+	padding: @wikit-Message-spacing-vertical @wikit-Message-spacing-horizontal;
+	margin: @wikit-Message-icon-gap-to-text 0;
+	display: inline-flex;
+	align-items: flex-start;
+
+	& .oo-ui-iconElement-icon {
+		margin-right: @wikit-Message-icon-gap-to-text;
+	}
+}
+
 // Overall page layout
 .wbl-snl-main-content {
 	display: flex;
