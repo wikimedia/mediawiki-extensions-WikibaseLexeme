@@ -64,14 +64,14 @@ class SenseDeserializerTest extends MediaWikiUnitTestCase {
 					new Term( 'en', 'small furry animal' ),
 					new Term( 'de', 'kleines pelziges Tier' ),
 				] ),
-				new StatementList( [
+				new StatementList(
 					new Statement(
 						new PropertyNoValueSnak( new NumericPropertyId( 'P31' ) ),
 						null,
 						null,
 						$statementId
-					),
-				] )
+					)
+				)
 			)
 		];
 	}

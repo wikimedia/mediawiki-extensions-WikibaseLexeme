@@ -172,7 +172,7 @@ class NewForm {
 			new FormId( $this->lexemeId . '-' . $formId ),
 			$representations,
 			$this->grammaticalFeatures,
-			new StatementList( $this->statements )
+			new StatementList( ...$this->statements )
 		);
 	}
 

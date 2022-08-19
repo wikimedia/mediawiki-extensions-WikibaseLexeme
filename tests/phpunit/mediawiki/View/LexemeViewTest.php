@@ -156,9 +156,9 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 		$lexemeId = new LexemeId( 'L1' );
 		$lexicalCategory = new ItemId( 'Q32' );
 		$language = new ItemId( 'Q11' );
-		$statements = new StatementList( [
+		$statements = new StatementList(
 			new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
-		] );
+		);
 
 		return [
 			[
