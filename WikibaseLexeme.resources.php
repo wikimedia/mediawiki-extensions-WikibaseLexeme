@@ -266,6 +266,7 @@ return call_user_func( static function () {
 		$modules += [
 			"wikibase.lexeme.special.NewLexemeAlpha" => $moduleTemplate + [
 				"es6" => true,
+				"skipFunction" => 'special/SpecialNewLexemeAlphaSkipVueApp.js',
 				"targets" => [
 					'desktop',
 					'mobile',
