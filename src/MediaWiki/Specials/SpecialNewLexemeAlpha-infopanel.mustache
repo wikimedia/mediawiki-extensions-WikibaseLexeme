@@ -5,7 +5,7 @@
 		<span>{{header}}</span>
 	</header>
 	<div class="wbl-snl-infopanel__content">
-		<p>{{{lexicographical-data_HTML}}}</p>
+		<p class="wbl-snl-infopanel__lexeme-info">{{{lexicographical-data_HTML}}}</p>
 		<div class="wbl-snl-lemma-card">
 			{{! Things in double-{ are html-escaped and are safe to contain unsanitized user input. }}
 			<span class="wbl-snl-lemma-card__lexeme-id">{{{lexeme_id_HTML}}}</span>
@@ -18,6 +18,6 @@
 				<span>{{lexical_category_label}}{{colon_separator}}{{{lexical_category_link_HTML}}}</span>
 			</div>
 		</div>
-		<p>{{{no-general-data_HTML}}}</p>
+		<p class="wbl-snl-infopanel__general-info">{{{no-general-data_HTML}}}</p>
 	</div>
 </aside>
