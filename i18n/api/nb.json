@@ -61,6 +61,8 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Formen må ha minst én representasjon",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Betydningen må ha minst én glose",
 	"apierror-wikibaselexeme-unknown-language": "Ukjent språk «$3» i felt «$1» i «$2».",
+	"apierror-wikibaselexeme-unknown-language-withtext": "Ukjent språk «$3» for begrepet «$4» i felt «$1» ved «$2».",
 	"apierror-wikibaselexeme-invalid-item-id": "Ukjent element-ID «$3» i felt «$1» i «$2».",
-	"apierror-wikibaselexeme-invalid-form-claims": "Ugyldige påstander i felt «$1» i «$2»."
+	"apierror-wikibaselexeme-invalid-form-claims": "Ugyldige påstander i felt «$1» i «$2».",
+	"apierror-wikibaselexeme-invalid-sense-claims": "Ugyldige påstander i felt «$1» ved «$2»."
 }
