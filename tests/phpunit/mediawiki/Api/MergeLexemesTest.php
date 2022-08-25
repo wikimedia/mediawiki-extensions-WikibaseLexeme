@@ -7,6 +7,7 @@ use ApiUsageException;
 use ChangeTags;
 use MediaWiki\MediaWikiServices;
 use RequestContext;
+use Wikibase\DataModel\Tests\NewItem;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
@@ -14,7 +15,6 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Store\Store;
-use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\WikibaseRepo;
 
 /**

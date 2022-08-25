@@ -11,6 +11,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use User;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Tests\NewItem;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -19,7 +20,6 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Repo\SummaryFormatter;
-use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
 

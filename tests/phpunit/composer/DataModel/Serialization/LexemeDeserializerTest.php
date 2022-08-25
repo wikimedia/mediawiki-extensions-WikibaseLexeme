@@ -12,6 +12,7 @@ use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\DataModel\Tests\NewStatement;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\Sense;
@@ -20,7 +21,6 @@ use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\Serialization\LexemeDeserializer;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
-use Wikibase\Repo\Tests\NewStatement;
 
 /**
  * @covers \Wikibase\Lexeme\Serialization\LexemeDeserializer

@@ -7,6 +7,7 @@ use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\DataModel\Tests\NewStatement;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpFormClone;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\DummyFormId;
@@ -15,7 +16,6 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Store\EntityPermissionChecker;
-use Wikibase\Repo\Tests\NewStatement;
 use Wikimedia\Assert\ParameterTypeException;
 
 /**

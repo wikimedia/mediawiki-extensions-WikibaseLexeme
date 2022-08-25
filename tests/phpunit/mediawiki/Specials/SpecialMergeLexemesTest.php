@@ -13,6 +13,7 @@ use PHPUnit\Framework\MockObject\MockObject;
 use RawMessage;
 use SpecialPageTestBase;
 use Wikibase\DataModel\Entity\EntityDocument;
+use Wikibase\DataModel\Tests\NewItem;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -23,7 +24,6 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
-use Wikibase\Repo\Tests\NewItem;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
