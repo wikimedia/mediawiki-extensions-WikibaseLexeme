@@ -38,9 +38,8 @@
 		flex: 1 1 0;
 	}
 }
-
-// info panel
-.wbl-snl-infopanel {
+// info panel - specificity added to prevent general skin styles from overriding our own
+.wbl-snl-main-content .wbl-snl-infopanel {
 	font-family: @wikit-Message-font-family;
 	font-size: @wikit-Message-font-size;
 	font-weight: @wikit-Message-font-weight;
@@ -60,16 +59,16 @@
 			margin-top: @wikit-Message-spacing-vertical;
 			margin-bottom: @wikit-Message-spacing-vertical;
 		}
+	}
 
-		&__lexeme-info {
-			margin-top: 1rem;
-			margin-bottom: 0;
-		}
+	&__lexeme-info {
+		margin-top: 1rem;
+		margin-bottom: 0;
+	}
 
-		&__general-info {
-			margin-top: 0;
-			margin-bottom: 0;
-		}
+	&__general-info {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 
 	&__icon {
@@ -79,8 +78,8 @@
 	}
 }
 
-// lemma-card
-.wbl-snl-lemma-card {
+// lemma-card - specificity added to prevent general skin styles from overriding our own
+.wbl-snl-main-content .wbl-snl-lemma-card {
 	background-color: @background-color-neutral-default;
 	padding: @dimension-spacing-large @dimension-spacing-xlarge;
 	border: @border-style-base @border-width-thin @border-color-base-default;
