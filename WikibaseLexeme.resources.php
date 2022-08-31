@@ -266,7 +266,6 @@ return call_user_func( static function () {
 		$modules += [
 			"wikibase.lexeme.special.NewLexemeAlpha" => $moduleTemplate + [
 				"es6" => true,
-				"skipFunction" => 'special/SpecialNewLexemeAlphaSkipVueApp.js',
 				"targets" => [
 					'desktop',
 					'mobile',
@@ -361,6 +360,13 @@ return call_user_func( static function () {
 				],
 				"styles" => [
 					'special/new-lexeme-alpha.less',
+				],
+			],
+			"wikibase.lexeme.special.NewLexemeAlpha.legacyBrowserFallback" => $moduleTemplate + [
+				"packageFiles" => [ 'special/SpecialNewLexemeAlphaSkipVueApp.js' ],
+				"targets" => [
+					'desktop',
+					'mobile',
 				],
 			],
 		];
