@@ -54,9 +54,11 @@ return call_user_func( static function () {
 		'lij-mc', // T254968
 		'mis',
 		'mvf', // T282512
+		'nd', // T317193
 		'nn-hognorsk', // T235344
 		'non', // T265782
 		'non-runr', // T265782
+		'nr', // T317193
 		'nrf-gg', // T223716
 		'nrf-je', // T223716
 		'quc', // T277392
