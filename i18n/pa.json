@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bgo eiu"
+		]
+	},
+	"content-model-wikibase-lexeme": "ਵਿਕੀਬੇਸ ਸ਼ਬਦਾਵਲੀ",
+	"datatypes-type-wikibase-form": "ਰੂਪ",
+	"datatypes-type-wikibase-lexeme": "ਸ਼ਬਦਾਵਲੀ",
+	"datatypes-type-wikibase-sense": "ਅਰਥ",
+	"wikibase-listdatatypes-wikibase-form-head": "ਰੂਪ",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "ਸ਼ਬਦਾਵਲੀ",
+	"wikibase-listdatatypes-wikibase-sense-head": "ਅਰਥ",
+	"wikibaselexeme-diffview-form": "ਰੂਪ",
+	"wikibaselexeme-diffview-language": "ਭਾਸ਼ਾ",
+	"wikibaselexeme-diffview-sense": "ਅਰਥ",
+	"wikibaselexeme-field-language-label": "ਭਾਸ਼ਾ",
+	"wikibaselexeme-gloss-field-language-label": "ਭਾਸ਼ਾ"
+}
