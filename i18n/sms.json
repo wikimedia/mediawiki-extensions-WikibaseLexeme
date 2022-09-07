@@ -16,5 +16,6 @@
 	"wikibaselexeme-diffview-language": "ǩiõll",
 	"content-model-wikibase-lexeme": "Wikibase-lekseeʹm",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lekseeʹm '$1' ij käunnʼjam.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lekseeʹm laaddmõš ij oʹnnstam.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseeʹm ruõkkmõš ij oʹnnstam."
 }
