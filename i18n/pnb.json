@@ -1,9 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Abbas dhothar"
+			"Abbas dhothar",
+			"Bgo eiu"
 		]
 	},
+	"content-model-wikibase-lexeme": "وِکیبیَس شبداولی",
+	"datatypes-type-wikibase-form": "روپ",
+	"datatypes-type-wikibase-lexeme": "شبداولی",
+	"datatypes-type-wikibase-sense": "ارتھ",
 	"wikibaselexeme-diffview-language": "بولی",
 	"wikibaselexeme-field-language-label": "بولی",
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(مدد)"
