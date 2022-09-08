@@ -197,7 +197,10 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		$output->addHTML( $this->anonymousEditWarning() );
 		$output->addHTML( '<div class="wbl-snl-main-content">' );
 		$output->addHTML( '<div id="special-newlexeme-root"></div>' );
-		$output->addModules( [ 'wikibase.lexeme.special.NewLexemeAlpha' ] );
+		$output->addModules( [
+			'wikibase.lexeme.special.NewLexemeAlpha',
+			'wikibase.lexeme.special.NewLexemeAlpha.legacyBrowserFallback'
+			] );
 		$output->addModuleStyles( [ 'wikibase.lexeme.special.NewLexemeAlpha.styles' ] );
 
 		$exampleLexemeParams = $this->createExampleParameters();
@@ -216,7 +219,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		);
 		$output->addHTML( '</div>' ); // .wbl-snl-main-content
 		$output->addHTML(
-			'<noscript>'
+			'<noscript id="wbl-snl-noscript-wrapper">'
 			. '<style type="text/css">#special-newlexeme-root {display:none;}</style>'
 			. '</noscript>'
 		);
@@ -489,7 +492,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 					return Status::newGood( $entity );
 				}
-			)->addPreHtml( '<noscript id="special-newlexeme-noscript">' )->addPostHtml( '</noscript>' );
+			)->addPreHtml( '<noscript id="wbl-snl-noscript">' )
+			->addPostHtml( '</noscript>' );
 	}
 
 	private function createEntityFromFormData( array $formData ): Lexeme {
@@ -670,7 +674,8 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				[ 'class' => 'warning' ],
 				$this->msg( 'wikibase-anonymouseditwarning' )->parse()
 			);
-			return '<noscript> <div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'
+			return '<noscript id="wbl-snl-noscript-warning">
+				<div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'
 				. $warningIconHtml
 				. $messageSpan
 				. '</div></noscript>';
