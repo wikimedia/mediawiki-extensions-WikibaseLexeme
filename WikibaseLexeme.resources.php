@@ -364,7 +364,7 @@ return call_user_func( static function () {
 				],
 			],
 			"wikibase.lexeme.special.NewLexemeAlpha.legacyBrowserFallback" => $moduleTemplate + [
-				"packageFiles" => [ 'special/SpecialNewLexemeAlphaSkipVueApp.js' ],
+				"packageFiles" => [ 'special/NewLexemeAlphaFallback.js' ],
 				"targets" => [
 					'desktop',
 					'mobile',
