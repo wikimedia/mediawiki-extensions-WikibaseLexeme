@@ -219,7 +219,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 		);
 		$output->addHTML( '</div>' ); // .wbl-snl-main-content
 		$output->addHTML(
-			'<noscript id="wbl-snl-noscript-wrapper">'
+			'<noscript>'
 			. '<style type="text/css">#special-newlexeme-root {display:none;}</style>'
 			. '</noscript>'
 		);
@@ -492,7 +492,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 
 					return Status::newGood( $entity );
 				}
-			)->addPreHtml( '<noscript id="wbl-snl-noscript">' )
+			)->addPreHtml( '<noscript>' )
 			->addPostHtml( '</noscript>' );
 	}
 
@@ -674,7 +674,7 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 				[ 'class' => 'warning' ],
 				$this->msg( 'wikibase-anonymouseditwarning' )->parse()
 			);
-			return '<noscript id="wbl-snl-noscript-warning">
+			return '<noscript>
 				<div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'
 				. $warningIconHtml
 				. $messageSpan
