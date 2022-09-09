@@ -115,7 +115,6 @@
 	"wikibaselexeme-lemma-redundant-language": "Error message to show if multiple lemma with same language are provided",
 	"wikibaselexeme-lexeme-link-title": "{{optional}}\n\nValue of the \"title\" attribute of a link to lexeme page when the lexeme is displayed as HTML.\n\nParameters:\n* $1 - Lexeme ID\n* $2 - Lexeme's \"secondary label\" (language and lexical category).",
 	"wikibaselexeme-newlexeme-fieldset": "Title of the form in Special:NewLexeme",
-	"wikibaselexeme-newlexeme-info-panel-example-lexeme-id": "{{notranslate}} This message is meant to be customized on an individual wiki, allowing to make use of that wiki's content.",
 	"wikibaselexeme-newlexeme-info-panel-heading": "Heading for an info panel about Lexemes on Special:NewLexeme",
 	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "First paragraph in an info panel on Special:NewLexeme explaining what a Lexeme is in one sentence. This paragraph is directly followed by an example of a Lexeme.",
 	"wikibaselexeme-newlexeme-info-panel-no-general-data": "Paragraph in an info panel on Special:NewLexeme, explaining what distinguishes a Lexeme from an Item",
