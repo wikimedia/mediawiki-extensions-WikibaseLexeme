@@ -283,6 +283,9 @@ return call_user_func( static function () {
 								'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
 								'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
 								'maxLemmaLength' => LemmaTermValidator::LEMMA_MAX_LENGTH,
+								'availableSearchProfiles' => array_keys(
+									$wbRepoSettings->getSetting( 'searchProfiles' )
+								),
 							];
 						}
 					],
