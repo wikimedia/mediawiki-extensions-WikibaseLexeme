@@ -28,7 +28,8 @@
 			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' ),
 			initParams: initParamsFromUrl,
 			placeholderExampleData: placeholderExampleData,
-			maxLemmaLength: settings.maxLemmaLength
+			maxLemmaLength: settings.maxLemmaLength,
+			availableSearchProfiles: settings.availableSearchProfiles
 		},
 		mw
 	);
