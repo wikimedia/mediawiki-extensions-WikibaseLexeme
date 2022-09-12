@@ -1,9 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Abbas dhothar"
+			"Abbas dhothar",
+			"Bgo eiu"
 		]
 	},
+	"datatypes-type-wikibase-lexeme": "شبداولی",
+	"datatypes-type-wikibase-form": "روپ",
+	"datatypes-type-wikibase-sense": "ارتھ",
 	"wikibaselexeme-field-language-label": "بولی",
-	"wikibaselexeme-diffview-language": "بولی"
+	"wikibaselexeme-diffview-language": "بولی",
+	"content-model-wikibase-lexeme": "وِکیبیَس شبداولی"
 }
