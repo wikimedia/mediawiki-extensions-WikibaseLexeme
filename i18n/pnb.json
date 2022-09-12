@@ -9,7 +9,14 @@
 	"datatypes-type-wikibase-form": "روپ",
 	"datatypes-type-wikibase-lexeme": "شبداولی",
 	"datatypes-type-wikibase-sense": "ارتھ",
+	"wikibase-listdatatypes-wikibase-form-head": "روپ",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "شبداولی",
+	"wikibase-listdatatypes-wikibase-sense-head": "ارتھ",
+	"wikibaselexeme-diffview-form": "روپ",
 	"wikibaselexeme-diffview-language": "بولی",
+	"wikibaselexeme-diffview-sense": "ارتھ",
 	"wikibaselexeme-field-language-label": "بولی",
+	"wikibaselexeme-header-forms": "روپ",
+	"wikibaselexeme-header-senses": "ارتھ",
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(مدد)"
 }
