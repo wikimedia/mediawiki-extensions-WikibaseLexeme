@@ -1,10 +1,23 @@
 {
 	"@metadata": {
 		"authors": [
-			"Abbas dhothar"
+			"Abbas dhothar",
+			"Bgo eiu"
 		]
 	},
+	"special-newlexeme": "نویں شبداولی بݨاؤ",
+	"wikibaselexeme-header-forms": "روپ",
+	"wikibaselexeme-header-senses": "ارتھ",
+	"datatypes-type-wikibase-lexeme": "شبداولی",
+	"datatypes-type-wikibase-form": "روپ",
+	"datatypes-type-wikibase-sense": "ارتھ",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "شبداولی",
+	"wikibase-listdatatypes-wikibase-form-head": "روپ",
+	"wikibase-listdatatypes-wikibase-sense-head": "ارتھ",
 	"wikibaselexeme-field-language-label": "بولی",
 	"wikibaselexeme-diffview-language": "بولی",
+	"wikibaselexeme-diffview-form": "روپ",
+	"wikibaselexeme-diffview-sense": "ارتھ",
+	"content-model-wikibase-lexeme": "وِکیبیَس شبداولی",
 	"wikibase-lexeme-language-name-fro": "پرانی فرانسیسی"
 }
