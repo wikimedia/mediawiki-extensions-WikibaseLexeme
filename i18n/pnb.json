@@ -17,7 +17,11 @@
 	"wikibaselexeme-diffview-language": "بولی",
 	"wikibaselexeme-diffview-sense": "ارتھ",
 	"wikibaselexeme-field-language-label": "بولی",
+	"wikibaselexeme-gloss-field-language-label": "بھاشا",
 	"wikibaselexeme-header-forms": "روپ",
 	"wikibaselexeme-header-senses": "ارتھ",
-	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(مدد)"
+	"wikibaselexeme-newlexeme-fieldset": "نویں شبداولی بݨاؤ",
+	"wikibaselexeme-newlexeme-language": "بھاشا دی شبدوالی",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(مدد)",
+	"wikibaselexeme-newlexeme-submit": "شبدوالی بݨاؤ"
 }
