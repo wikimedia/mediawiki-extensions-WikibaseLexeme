@@ -95,15 +95,16 @@ class SenseRevisionLookupTest extends TestCase {
 
 	public function testGivenSenseId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
 		$defaultMode = LookupConstants::LATEST_FROM_REPLICA;
-		/** @var EntityRevisionLookup $parentService */
-		$parentService = $this->prophesize( EntityRevisionLookup::class );
-		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
-			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
-		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )->willReturn(
-			new EntityRevision( $this->newLexeme(), 123 )
-		);
 
-		$instance = new SenseRevisionLookup( $parentService->reveal() );
+		$parentService = $this->createMock( EntityRevisionLookup::class );
+		$parentService->method( 'getLatestRevisionId' )
+			->with( $this->lexemeId, $defaultMode )
+			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
+		$parentService->method( 'getEntityRevision' )
+			->with( $this->lexemeId, 123, $defaultMode )
+			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
+
+		$instance = new SenseRevisionLookup( $parentService );
 
 		$result = $this->extractConcreteRevision(
 			$instance->getLatestRevisionId( $this->senseId )
@@ -114,13 +115,15 @@ class SenseRevisionLookupTest extends TestCase {
 	public function testLexemeDoesNotContainTheSense_getLatestRevisionIdReturnsNonexistentEntity() {
 		$defaultMode = LookupConstants::LATEST_FROM_REPLICA;
 
-		$parentService = $this->prophesize( EntityRevisionLookup::class );
-		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
+		$parentService = $this->createMock( EntityRevisionLookup::class );
+		$parentService->method( 'getLatestRevisionId' )
+			->with( $this->lexemeId, $defaultMode )
 			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
-		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )->willReturn(
-			new EntityRevision( $this->newLexeme(), 123 )
-		);
-		$instance = new SenseRevisionLookup( $parentService->reveal() );
+		$parentService->method( 'getEntityRevision' )
+			->with( $this->lexemeId, 123, $defaultMode )
+			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
+
+		$instance = new SenseRevisionLookup( $parentService );
 
 		$this->assertNonexistentRevision(
 			$instance->getLatestRevisionId( new SenseId( 'L1-S200' ) )

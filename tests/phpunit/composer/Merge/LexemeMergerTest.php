@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\Merge;
 
 use Exception;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Tests\NewStatement;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -924,15 +923,12 @@ class LexemeMergerTest extends TestCase {
 		);
 	}
 
-	/**
-	 * @return NoCrossReferencingLexemeStatements
-	 */
-	private function newValidNoCrossReferencingLexemeStatementsValidator() {
-		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
-		$crossRefValidator
-			->validate( Argument::type( Lexeme::class ), Argument::type( Lexeme::class ) )
+	private function newValidNoCrossReferencingLexemeStatementsValidator(): NoCrossReferencingLexemeStatements {
+		$crossRefValidator = $this->createMock( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator->method( 'validate' )
+			->with( $this->isInstanceOf( Lexeme::class ), $this->isInstanceOf( Lexeme::class ) )
 			->willReturn( true );
-		return $crossRefValidator->reveal();
+		return $crossRefValidator;
 	}
 
 }
