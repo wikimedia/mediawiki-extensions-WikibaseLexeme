@@ -134,7 +134,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
 		$validator = $this->newDummyValidator();
-		$validator->method( 'validate' )
+		$validator->method( 'validateStructure' )
 			->willThrowException(
 				new ApiUsageException( null, Status::newFatal( 'some-validation-error' ) )
 			);

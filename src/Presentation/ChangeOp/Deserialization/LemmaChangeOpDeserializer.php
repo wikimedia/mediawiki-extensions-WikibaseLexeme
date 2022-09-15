@@ -66,8 +66,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 		foreach ( $changeRequest[self::LEMMAS_PARAM] as $languageCode => $serialization ) {
 			$languageContext = $validationContext->at( $languageCode );
 
-			$this->termSerializationValidator->validate(
-				$languageCode,
+			$this->termSerializationValidator->validateStructure(
 				$serialization,
 				$languageContext
 			);
@@ -79,6 +78,12 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 				$changeOps->add( new ChangeOpLemmaRemove( $serialization['language'] ) );
 				continue;
 			}
+
+			$this->termSerializationValidator->validateLanguage(
+				$languageCode,
+				$serialization,
+				$languageContext
+			);
 
 			// TODO: maybe move creating ChangeOpLemmaEdit instance to some kind of factory?
 			$changeOps->add( new ChangeOpLemmaEdit(

@@ -61,11 +61,13 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 
 		foreach ( $representations as $language => $representation ) {
 			$languageContext = $this->validationContext->at( $language );
-			$this->termSerializationValidator->validate( $language, $representation, $languageContext );
+			$this->termSerializationValidator->validateStructure( $representation, $languageContext );
 
 			if ( array_key_exists( 'remove', $representation ) ) {
 				$changeOps[] = new ChangeOpRemoveFormRepresentation( $representation[self::PARAM_LANGUAGE] );
 			} else {
+				$this->termSerializationValidator->validateLanguage(
+					$language, $representation, $languageContext );
 				$trimmedRepresentation = [
 					self::PARAM_LANGUAGE => $representation[self::PARAM_LANGUAGE],
 					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $representation[self::PARAM_VALUE] )

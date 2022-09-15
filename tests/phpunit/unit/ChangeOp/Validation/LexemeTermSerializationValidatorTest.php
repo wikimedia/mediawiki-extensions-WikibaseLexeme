@@ -32,7 +32,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->method( 'addViolation' )
 			->with( new JsonFieldHasWrongType( 'array', gettype( $serialization ) ) );
 
-		$validator->validate( 'en', $serialization, $context );
+		$validator->validateStructure( $serialization, $context );
 	}
 
 	public function testGivenLanguageKeyMissingInSerialization_addsViolation() {
@@ -42,7 +42,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->method( 'addViolation' )
 			->with( new JsonFieldIsRequired( 'language' ) );
 
-		$validator->validate( 'en', [ 'value' => 'potato' ], $context );
+		$validator->validateStructure( [ 'value' => 'potato' ], $context );
 	}
 
 	public function testGivenValueKeyMissingInSerialization_addsViolation() {
@@ -52,7 +52,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->method( 'addViolation' )
 			->with( new JsonFieldIsRequired( 'value' ) );
 
-		$validator->validate( 'en', [ 'language' => 'en' ], $context );
+		$validator->validateStructure( [ 'language' => 'en' ], $context );
 	}
 
 	public function testLanguageInconsistent_addsViolation() {
@@ -62,7 +62,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->method( 'addViolation' )
 			->with( new LanguageInconsistent( 'en-x-Q123', 'en' ) );
 
-		$validator->validate( 'en-x-Q123', [ 'language' => 'en', 'value' => 'potato' ], $context );
+		$validator->validateLanguage( 'en-x-Q123', [ 'language' => 'en', 'value' => 'potato' ], $context );
 	}
 
 	public function testLanguageCodeIsValidated_withText() {
@@ -81,7 +81,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->with( $mockError );
 
 		( new LexemeTermSerializationValidator( $languageValidator ) )
-			->validate( 'foo', [ 'language' => 'foo', 'value' => 'bar' ], $context );
+			->validateLanguage( 'foo', [ 'language' => 'foo', 'value' => 'bar' ], $context );
 	}
 
 	public function testLanguageCodeIsValidated_withoutText() {
@@ -100,7 +100,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->with( $mockError );
 
 		( new LexemeTermSerializationValidator( $languageValidator ) )
-			->validate( 'foo', [ 'language' => 'foo', 'remove' => '' ], $context );
+			->validateLanguage( 'foo', [ 'language' => 'foo', 'remove' => '' ], $context );
 	}
 
 	/**
@@ -113,7 +113,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->method( 'addViolation' )
 			->with( new JsonFieldHasWrongType( 'string', gettype( $value ) ) );
 
-		$validator->validate( 'qqq', [ 'language' => 'qqq', 'value' => $value ], $context );
+		$validator->validateStructure( [ 'language' => 'qqq', 'value' => $value ], $context );
 	}
 
 	public function testGivenEmptyValue_addsViolation() {
@@ -123,7 +123,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 			->method( 'addViolation' )
 			->with( new LexemeTermTextCanNotBeEmpty() );
 
-		$validator->validate( 'en', [ 'language' => 'en', 'value' => '' ], $context );
+		$validator->validateStructure( [ 'language' => 'en', 'value' => '' ], $context );
 	}
 
 	/**
@@ -135,7 +135,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 		$context->expects( $this->never() )
 			->method( 'addViolation' );
 
-		$validator->validate( $languageCode, $serialization, $context );
+		$validator->validateStructure( $serialization, $context );
+		$validator->validateLanguage( $languageCode, $serialization, $context );
 	}
 
 	/**

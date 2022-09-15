@@ -54,7 +54,7 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 			->disableOriginalConstructor()
 			->getMock();
 		$termSerializationValidator->expects( $this->atLeastOnce() )
-			->method( 'validate' )
+			->method( 'validateStructure' )
 			->will(
 				$this->throwException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) )
 			);
@@ -129,6 +129,47 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 
 		$this->assertInstanceOf( ChangeOpLemmaRemove::class, $changeOps->getChangeOps()[0] );
 		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'en' ) );
+	}
+
+	public function testGivenRequestWithInvalidLanguage_exceptionIsThrown(): void {
+		$deserializer = $this->newLemmaChangeOpDeserializer();
+
+		try {
+			$deserializer->createEntityChangeOp(
+				[ 'lemmas' => [ 'invalid' => [ 'language' => 'invalid', 'value' => 'abc' ] ] ]
+			);
+		} catch ( \ApiUsageException $ex ) {
+			$exception = $ex;
+		}
+
+		$message = $exception->getMessageObject();
+		$this->assertEquals( 'not-recognized-language', $message->getApiCode() );
+		$this->assertEquals(
+			'apierror-wikibaselexeme-unknown-language-withtext',
+			$message->getKey()
+		);
+		$this->assertEquals(
+			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 'invalid' ] ],
+			$message->getApiData()
+		);
+	}
+
+	public function testGivenRemoveRequestWithInvalidLanguage_changeOpRemovesLemmaInTheLanguage(): void {
+		$lexeme = new Lexeme( new LexemeId( 'L100' ), new TermList( [
+			new Term( 'en', 'en lemma' ),
+			new Term( 'invalid', 'invalid lemma' ),
+		] ) );
+
+		$deserializer = $this->newLemmaChangeOpDeserializer();
+
+		$changeOps = $deserializer->createEntityChangeOp(
+			[ 'lemmas' => [ 'invalid' => [ 'language' => 'invalid', 'remove' => '' ] ] ]
+		);
+
+		$changeOps->apply( $lexeme );
+
+		$this->assertInstanceOf( ChangeOpLemmaRemove::class, $changeOps->getChangeOps()[0] );
+		$this->assertFalse( $lexeme->getLemmas()->hasTermForLanguage( 'invalid' ) );
 	}
 
 	public function testGivenEmptyTerm_exceptionIsThrown() {

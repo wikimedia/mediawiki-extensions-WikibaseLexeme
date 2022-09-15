@@ -25,11 +25,16 @@ class LexemeTermSerializationValidator {
 	}
 
 	/**
-	 * @param string $language
-	 * @param array $serialization
+	 * Validate the structure of the given $serialization.
+	 *
+	 * If the term is not being removed,
+	 * callers should also call {@link LexemeTermSerializationValidator::validateLanguage()}
+	 * afterwards.
+	 *
+	 * @param array $serialization (checking that it is an array is part of the validation)
 	 * @param ValidationContext $context
 	 */
-	public function validate( $language, $serialization, ValidationContext $context ) {
+	public function validateStructure( $serialization, ValidationContext $context ) {
 		if ( !is_array( $serialization ) ) {
 			$context->addViolation( new JsonFieldHasWrongType( 'array', gettype( $serialization ) ) );
 			return;
@@ -56,7 +61,18 @@ class LexemeTermSerializationValidator {
 				$context->addViolation( new LexemeTermTextCanNotBeEmpty() );
 			}
 		}
+	}
 
+	/**
+	 * Check that the language inside the $serialization is valid
+	 * and consistent with the given $language.
+	 *
+	 * The $serialization must already have been
+	 * {@link LexemeTermSerializationValidator::validateStructure() validated for structural correctness}.
+	 *
+	 * @param string $language (checking that it is a string is part of the validation)
+	 */
+	public function validateLanguage( $language, array $serialization, ValidationContext $context ) {
 		$this->languageValidator->validate( $language, $context, $serialization['value'] ?? null );
 
 		if ( $language !== $serialization['language'] ) {
