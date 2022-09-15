@@ -144,6 +144,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 			[ 'en-x-123', '123' ],
 			[ 'en-x-Q123-foo', 'Q123-foo' ],
 			[ 'en-x-Q2-x-Q3', 'Q2-x-Q3' ],
+			[ 'en-x-q123', 'q123' ],
 		];
 	}
 

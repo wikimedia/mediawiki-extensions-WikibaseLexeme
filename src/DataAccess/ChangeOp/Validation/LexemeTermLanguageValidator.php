@@ -64,7 +64,8 @@ class LexemeTermLanguageValidator {
 	}
 
 	private function isValidItemId( $id ) {
-		return preg_match( ItemId::PATTERN, $id );
+		return preg_match( ItemId::PATTERN, $id ) &&
+			strtoupper( $id ) === $id;
 	}
 
 }
