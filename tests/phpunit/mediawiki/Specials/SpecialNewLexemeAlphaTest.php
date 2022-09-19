@@ -243,8 +243,9 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 			'wgUseDatabaseMessages' => true,
 			'wgLanguageCode' => 'en',
 		] );
+		$uselang = 'de'; // should fall back to the wgLanguageCode (en) message created above
 
-		[ $html ] = $this->executeSpecialPage( '', null, 'en' );
+		[ $html ] = $this->executeSpecialPage( '', null, $uselang );
 
 		// the first three assertions don’t include &gt; because "&lt;language>" is also okay
 		$this->assertStringContainsString( '&lt;language', $html );
@@ -253,6 +254,44 @@ class SpecialNewLexemeAlphaTest extends SpecialNewEntityTestCase {
 		$this->assertStringNotContainsString( '<language>', $html );
 		$this->assertStringNotContainsString( '<lexicalcategory>', $html );
 		$this->assertStringNotContainsString( '<lemma>', $html );
+	}
+
+	public function testInfoPanelAppliesLanguageFallbacks(): void {
+		$languageItemId = 'Q10';
+		$languageLabel = 'Test Language';
+		$lexicalCategoryItemId = 'Q11';
+		$lexicalCategoryLabel = 'Test Lexical Category';
+		$lemma = 'Test Lemma';
+		$this->givenItemExists( $languageItemId, $languageLabel );
+		$this->givenItemExists( $lexicalCategoryItemId, $lexicalCategoryLabel );
+		$exampleLexemeId = 'L100';
+		$exampleLexeme = NewLexeme::havingId( $exampleLexemeId )
+			->withLemma( 'en', $lemma )
+			->withLanguage( $languageItemId )
+			->withLexicalCategory( $lexicalCategoryItemId )
+			->build();
+		WikibaseRepo::getEntityStore()
+			->saveEntity(
+				$exampleLexeme,
+				'',
+				self::getTestUser()->getUser(),
+				EDIT_NEW
+			);
+		$this->editPage(
+			Title::makeTitle( NS_MEDIAWIKI, 'Wikibaselexeme-newlexeme-info-panel-example-lexeme-id/de' ),
+			$exampleLexemeId
+		);
+		$this->setMwGlobals( [
+			'wgUseDatabaseMessages' => true,
+			'wgLanguageCode' => 'en',
+		] );
+		$uselang = 'de-at'; // should fall back to the de message created above
+
+		[ $html ] = $this->executeSpecialPage( '', null, $uselang );
+
+		$this->assertStringContainsString( $languageLabel, $html );
+		$this->assertStringContainsString( $lexicalCategoryLabel, $html );
+		$this->assertStringContainsString( $lemma, $html );
 	}
 
 	public function testInfoPanelFallsBackToHardCodedExampleLexeme(): void {

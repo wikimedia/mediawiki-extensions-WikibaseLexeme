@@ -100,7 +100,6 @@
 	"wikibaselexeme-lemma-redundant-language": "It is not possible to enter multiple lemmas with the same spelling variant.",
 	"wikibaselexeme-lexeme-link-title": "$1: $2",
 	"wikibaselexeme-newlexeme-fieldset": "Create a new Lexeme",
-	"wikibaselexeme-newlexeme-info-panel-example-lexeme-id": "L1",
 	"wikibaselexeme-newlexeme-info-panel-heading": "About Lexemes",
 	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "Lexemes contain [[Special:MyLanguage/Project:Lexicographical data|lexicographical data]] which is data about words or phrases, such as language, etymology, inflections, etc. Here is an example:",
 	"wikibaselexeme-newlexeme-info-panel-no-general-data": "Lexemes don't contain general data (date of birth, opening date, author, country, coordinates, website, etc.) about the entity or concept to which they refer. If you want to submit general data, you need to [[Special:NewItem|create an Item]] instead.",

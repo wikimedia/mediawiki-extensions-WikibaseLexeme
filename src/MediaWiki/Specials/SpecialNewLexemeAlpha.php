@@ -348,7 +348,12 @@ class SpecialNewLexemeAlpha extends SpecialPage {
 	}
 
 	private function createExampleParameters(): array {
-		$lexemeIdString = trim( $this->msg( 'wikibaselexeme-newlexeme-info-panel-example-lexeme-id' )->text() );
+		$exampleMessage = $this->msg( 'wikibaselexeme-newlexeme-info-panel-example-lexeme-id' );
+		if ( $exampleMessage->exists() ) {
+			$lexemeIdString = trim( $exampleMessage->text() );
+		} else {
+			$lexemeIdString = 'L1';
+		}
 		try {
 			return $this->createTemplateParamsFromLexemeId( $lexemeIdString );
 		} catch ( Exception $_ ) {
