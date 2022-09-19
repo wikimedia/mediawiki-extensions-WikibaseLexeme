@@ -308,64 +308,161 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 		}
 	);
 
-	it(
-		'action save calls API with correct parameters when removing an item from the state',
-		function ( done ) {
-			var baseRevisionId = 1;
-			var entityId = 'L1';
-			var state = {
-				id: entityId,
-				isSaving: false,
-				baseRevId: baseRevisionId,
-				lemmas: new LemmaList( [ new Lemma( 'a lemma', 'en' ) ] ),
-				language: 'Q1',
-				languageLink: 'Some language'
-			};
+	// further tests for the lemmas of the API request,
+	// without asserting that the state changes according to the response
+	[
+		{
+			description: 'removing an item from the state',
+			stateLemmas: new LemmaList( [ new Lemma( 'a lemma', 'en' ) ] ),
+			saveLemmas: [],
+			requestLemmas: { en: { language: 'en', remove: '' } },
+			responseLemmas: {},
+		},
+		{
+			description: 'editing an existing lemma',
+			stateLemmas: new LemmaList( [ new Lemma( 'a lemma', 'en' ) ] ),
+			saveLemmas: [ new Lemma( 'a different lemma', 'en' ) ],
+			requestLemmas: { en: new Lemma( 'a different lemma', 'en' ) },
+			responseLemmas: { en: { language: 'en', value: 'a different lemma' } }
+		},
+		{
+			description: 'editing several existing lemmas',
+			stateLemmas: new LemmaList( [
+				new Lemma( 'a lemma', 'en' ),
+				new Lemma( 'ein Lemma', 'de' )
+			] ),
+			saveLemmas: [
+				new Lemma( 'a different lemma', 'en' ),
+				new Lemma( 'ein anderes Lemma', 'de' )
+			],
+			requestLemmas: {
+				en: new Lemma( 'a different lemma', 'en' ),
+				de: new Lemma( 'ein anderes Lemma', 'de' )
+			},
+			responseLemmas: {
+				en: { language: 'en', value: 'a different lemma' },
+				de: { language: 'de', value: 'ein anderes Lemma' }
+			}
+		},
+		{
+			description: 'removing one of several existing lemmas',
+			stateLemmas: new LemmaList( [
+				new Lemma( 'a lemma', 'en' ),
+				new Lemma( 'ein Lemma', 'de' )
+			] ),
+			saveLemmas: [
+				new Lemma( 'ein Lemma', 'de' )
+			],
+			requestLemmas: {
+				en: { language: 'en', remove: '' }
+				// de unchanged, not sent
+			},
+			responseLemmas: {
+				de: { language: 'de', value: 'ein Lemma' }
+			}
+		},
+		{
+			description: 'editing one of several existing lemmas',
+			stateLemmas: new LemmaList( [
+				new Lemma( 'a lemma', 'en' ),
+				new Lemma( 'ein Lemma', 'de' )
+			] ),
+			saveLemmas: [
+				new Lemma( 'a different lemma', 'en' ),
+				new Lemma( 'ein Lemma', 'de' )
+			],
+			requestLemmas: {
+				en: new Lemma( 'a different lemma', 'en' )
+				// de unchanged, not sent
+			},
+			responseLemmas: {
+				en: { language: 'en', value: 'a different lemma' },
+				de: { language: 'de', value: 'ein Lemma' }
+			}
+		},
+		{
+			description: 'adding, editing and removing lemmas',
+			stateLemmas: new LemmaList( [
+				new Lemma( 'a lemma', 'en' ),
+				new Lemma( 'ein Lemma', 'de' ),
+				new Lemma( 'un lemme', 'fr' )
+			] ),
+			saveLemmas: [
+				new Lemma( 'a different lemma', 'en' ),
+				new Lemma( 'ein Lemma', 'de' ),
+				new Lemma( 'un lema', 'es' )
+			],
+			requestLemmas: {
+				en: new Lemma( 'a different lemma', 'en' ),
+				// de unchanged, not sent
+				es: new Lemma( 'un lema', 'es' ),
+				fr: { language: 'fr', remove: '' }
+			},
+			responseLemmas: {
+				en: { language: 'en', value: 'a different lemma' },
+				de: { language: 'de', value: 'ein Lemma' },
+				es: { language: 'es', value: 'un lema' }
+			}
+		}
+	].forEach( function ( testCase ) {
+		it(
+			'action save calls API with correct parameters when ' + testCase.description,
+			function ( done ) {
+				var baseRevisionId = 1;
+				var entityId = 'L1';
+				var state = {
+					id: entityId,
+					isSaving: false,
+					baseRevId: baseRevisionId,
+					lemmas: testCase.stateLemmas,
+					language: 'Q1',
+					languageLink: 'Some language'
+				};
 
-			var newRevisionId = 2;
+				var newRevisionId = 2;
 
-			var response = {
-				entity: {
-					lastrevid: newRevisionId,
-					lemmas: {},
+				var response = {
+					entity: {
+						lastrevid: newRevisionId,
+						lemmas: testCase.responseLemmas,
+						language: 'Q123',
+						lexicalCategory: 'Q234'
+					}
+				};
+
+				var editEntity = function ( id, baseRevId, data, clear ) {
+					return Promise.resolve( response );
+				};
+				var formatValue = function ( dataValue, options, dataType, outputFormat, propertyId ) {
+					return Promise.resolve( { result: 'some formatted item' } );
+				};
+
+				var repoApi = {
+					editEntity: sinon.spy( editEntity ),
+					formatValue: sinon.spy( formatValue )
+				};
+
+				var lexemeToSave = {
+					lemmas: testCase.saveLemmas,
 					language: 'Q123',
 					lexicalCategory: 'Q234'
-				}
-			};
+				};
+				var lexemeInApiRequest = {
+					lemmas: testCase.requestLemmas,
+					language: 'Q123',
+					lexicalCategory: 'Q234'
+				};
 
-			var editEntity = function ( id, baseRevId, data, clear ) {
-				return Promise.resolve( response );
-			};
-			var formatValue = function ( dataValue, options, dataType, outputFormat, propertyId ) {
-				return Promise.resolve( { result: 'some formatted item' } );
-			};
-
-			var repoApi = {
-				editEntity: sinon.spy( editEntity ),
-				formatValue: sinon.spy( formatValue )
-			};
-
-			var lexemeToSave = {
-				lemmas: [],
-				language: 'Q123',
-				lexicalCategory: 'Q234'
-			};
-			var lexemeInApiRequest = {
-				lemmas: { en: { language: 'en', remove: '' } },
-				language: 'Q123',
-				lexicalCategory: 'Q234'
-			};
-
-			var actions = newLexemeHeaderStore( repoApi, { id: entityId }, baseRevisionId, 'Some language', 'Some category' ).actions;
-			newTestAction( done ).applyWithMutations(
-				actions.save,
-				lexemeToSave,
-				state,
-				mutations
-			).then( function () {
-				sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, lexemeInApiRequest, false );
-				done();
-			} );
-		}
-	);
+				var actions = newLexemeHeaderStore( repoApi, { id: entityId }, baseRevisionId, 'Some language', 'Some category' ).actions;
+				newTestAction( done ).applyWithMutations(
+					actions.save,
+					lexemeToSave,
+					state,
+					mutations
+				).then( function () {
+					sinon.assert.calledWith( repoApi.editEntity, entityId, baseRevisionId, lexemeInApiRequest, false );
+				} ).then( done, done.fail );
+			}
+		);
+	} );
 } );
