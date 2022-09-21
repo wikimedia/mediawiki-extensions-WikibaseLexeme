@@ -144,12 +144,10 @@ class MergeLexemesInteractorTest extends TestCase {
 		$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider()
 			->getMergeFactory()->getStatementsMerger();
 
-		$crossRefValidator = $this->prophesize( NoCrossReferencingLexemeStatements::class );
-		$crossRefValidator
-			->validate( $this->sourceLexeme, $this->targetLexeme )
+		$crossRefValidator = $this->createMock( NoCrossReferencingLexemeStatements::class );
+		$crossRefValidator->method( 'validate' )
+			->with( $this->sourceLexeme, $this->targetLexeme )
 			->willReturn( true );
-		$crossRefValidator = $crossRefValidator->reveal();
-		/** @var \Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements $crossRefValidator */
 
 		$this->lexemeMerger = new LexemeMerger(
 			$statementsMerger,

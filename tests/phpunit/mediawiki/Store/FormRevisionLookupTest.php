@@ -96,15 +96,15 @@ class FormRevisionLookupTest extends TestCase {
 	public function testGivenFormId_getLatestRevisionIdCallsToParentServiceWithLexemeId() {
 		$defaultMode = LookupConstants::LATEST_FROM_REPLICA;
 
-		/** @var EntityRevisionLookup $parentService */
-		$parentService = $this->prophesize( EntityRevisionLookup::class );
-		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
+		$parentService = $this->createMock( EntityRevisionLookup::class );
+		$parentService->method( 'getLatestRevisionId' )
+			->with( $this->lexemeId, $defaultMode )
 			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
-		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )->willReturn(
-			new EntityRevision( $this->newLexeme(), 123 )
-		);
+		$parentService->method( 'getEntityRevision' )
+			->with( $this->lexemeId, 123, $defaultMode )
+			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
 
-		$instance = new FormRevisionLookup( $parentService->reveal() );
+		$instance = new FormRevisionLookup( $parentService );
 
 		$result = $this->extractConcreteRevision(
 			$instance->getLatestRevisionId( $this->formId, $defaultMode )
@@ -115,15 +115,15 @@ class FormRevisionLookupTest extends TestCase {
 	public function testGivenNotExistingFormId_getLatestRevisionIdReturnsNonexistentRevision() {
 		$defaultMode = LookupConstants::LATEST_FROM_REPLICA;
 
-		/** @var EntityRevisionLookup $parentService */
-		$parentService = $this->prophesize( EntityRevisionLookup::class );
-		$parentService->getLatestRevisionId( $this->lexemeId, $defaultMode )
+		$parentService = $this->createMock( EntityRevisionLookup::class );
+		$parentService->method( 'getLatestRevisionId' )
+			->with( $this->lexemeId, $defaultMode )
 			->willReturn( LatestRevisionIdResult::concreteRevision( 123, '20220101001122' ) );
-
-		$parentService->getEntityRevision( $this->lexemeId, 123, $defaultMode )
+		$parentService->method( 'getEntityRevision' )
+			->with( $this->lexemeId, 123, $defaultMode )
 			->willReturn( new EntityRevision( $this->newLexeme(), 123 ) );
 
-		$instance = new FormRevisionLookup( $parentService->reveal() );
+		$instance = new FormRevisionLookup( $parentService );
 
 		$this->assertNonexistentRevision(
 			$instance->getLatestRevisionId( new FormId( 'L1-F200' ) )

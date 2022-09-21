@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use HamcrestPHPUnitIntegration;
 use PHPUnit\Framework\TestCase;
-use Prophecy\Argument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -146,8 +145,8 @@ class FormsViewTest extends TestCase {
 	}
 
 	public function testGrammaticalFeaturesOrder() {
-		$statementSectionView = $this->prophesize( StatementGroupListView::class );
-		$statementSectionView->getHtml( Argument::any(), Argument::any() )
+		$statementSectionView = $this->createMock( StatementGroupListView::class );
+		$statementSectionView->method( 'getHtml' )
 			->willReturn( self::STATEMENT_LIST_HTML );
 
 		$idFormatter = $this->createMock( EntityIdFormatter::class );
@@ -165,7 +164,7 @@ class FormsViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			$this->newTemplateFactory(),
 			$idFormatter,
-			$statementSectionView->reveal(),
+			$statementSectionView,
 			$grammaticalFeaturesOrderProvider
 		);
 
@@ -184,8 +183,8 @@ class FormsViewTest extends TestCase {
 	}
 
 	private function newFormsView(): FormsView {
-		$statementSectionView = $this->prophesize( StatementGroupListView::class );
-		$statementSectionView->getHtml( Argument::any(), Argument::any() )
+		$statementSectionView = $this->createMock( StatementGroupListView::class );
+		$statementSectionView->method( 'getHtml' )
 			->willReturn( self::STATEMENT_LIST_HTML );
 
 		$idFormatter = $this->createMock( EntityIdFormatter::class );
@@ -198,7 +197,7 @@ class FormsViewTest extends TestCase {
 			new DummyLocalizedTextProvider(),
 			$this->newTemplateFactory(),
 			$idFormatter,
-			$statementSectionView->reveal(),
+			$statementSectionView,
 			WikibaseLexemeServices::getGrammaticalFeaturesOrderProvider()
 		);
 	}
