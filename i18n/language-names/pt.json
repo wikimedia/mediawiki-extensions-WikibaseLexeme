@@ -4,11 +4,27 @@
 			"Hamilton Abreu"
 		]
 	},
+	"wikibase-lexeme-language-name-az-cyrl": "Azerbaijano escrito em alfabeto cirílico",
+	"wikibase-lexeme-language-name-ja-hira": "Japonês escrito em hiragana",
+	"wikibase-lexeme-language-name-ja-hrkt": "Japonês escrito em hiragana e katakana",
+	"wikibase-lexeme-language-name-ja-kana": "Japonês escrito em katakana",
+	"wikibase-lexeme-language-name-lad-hebr": "Judeu-espanhol em alfabeto hebraico",
+	"wikibase-lexeme-language-name-lij-mc": "Monegasco",
 	"wikibase-lexeme-language-name-mis": "outras",
+	"wikibase-lexeme-language-name-pt-ao1990": "Português (Acordo Ortográfico da Língua Portuguesa de 1990)",
+	"wikibase-lexeme-language-name-pt-colb1945": "Português (Convenção Ortográfica Luso-Brasileira de 1945)",
 	"wikibase-lexeme-language-name-rm-puter": "Puter",
 	"wikibase-lexeme-language-name-rm-rumgr": "Grisão",
 	"wikibase-lexeme-language-name-rm-surmiran": "Surmiran",
 	"wikibase-lexeme-language-name-rm-sursilv": "Sursilvan",
 	"wikibase-lexeme-language-name-rm-sutsilv": "Sutsilvan",
-	"wikibase-lexeme-language-name-rm-vallader": "Vallader"
+	"wikibase-lexeme-language-name-rm-vallader": "Vallader",
+	"wikibase-lexeme-language-name-sat-beng": "Santali em escrita bengali",
+	"wikibase-lexeme-language-name-sat-latn": "Santali em alfabeto latino",
+	"wikibase-lexeme-language-name-sat-orya": "Santali em alfabeto oriá",
+	"wikibase-lexeme-language-name-sux-latn": "Sumério em alfabeto latino",
+	"wikibase-lexeme-language-name-sux-xsux": "Sumério em escrita suméria",
+	"wikibase-lexeme-language-name-syl-beng": "Sylheti em escrita bengali",
+	"wikibase-lexeme-language-name-tlh-latn": "Klingon em alfabeto latino",
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingon em alfabeto klingon"
 }
