@@ -339,12 +339,8 @@ class AddSense extends ApiBase {
 			AddSenseRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
-		$languages = array_map( static function ( $r ) {
-			return $r['language'];
-		}, $exampleData['glosses'] );
-		$glosses = array_map( static function ( $r ) {
-			return $r['value'];
-		}, $exampleData['glosses'] );
+		$languages = array_column( $exampleData['glosses'], 'language' );
+		$glosses = array_column( $exampleData['glosses'], 'value' );
 
 		$glossesText = $this->getLanguage()->commaList( $glosses );
 		$languagesText = $this->getLanguage()->commaList( $languages );

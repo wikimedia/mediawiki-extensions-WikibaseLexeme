@@ -31,9 +31,7 @@ class LexemeTermFormatter {
 		return implode(
 			$this->separator,
 			array_map(
-				function ( Term $term ) {
-					return $this->getTermHtml( $term );
-				},
+				[ $this, 'getTermHtml' ],
 				iterator_to_array( $terms->getIterator() )
 			)
 		);

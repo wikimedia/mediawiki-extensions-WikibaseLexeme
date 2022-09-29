@@ -121,7 +121,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 
 		$result = [];
 		foreach ( $grammaticalFeatures as $grammaticalFeature ) {
-			if ( array_search( $grammaticalFeature, $result ) === false ) {
+			if ( !in_array( $grammaticalFeature, $result ) ) {
 				$result[] = $grammaticalFeature;
 			}
 		}

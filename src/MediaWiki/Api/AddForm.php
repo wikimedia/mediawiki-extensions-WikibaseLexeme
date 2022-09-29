@@ -250,12 +250,8 @@ class AddForm extends ApiBase {
 			AddFormRequestParser::PARAM_DATA => json_encode( $exampleData )
 		] );
 
-		$languages = array_map( static function ( $r ) {
-			return $r['language'];
-		}, $exampleData['representations'] );
-		$representations = array_map( static function ( $r ) {
-			return $r['value'];
-		}, $exampleData['representations'] );
+		$languages = array_column( $exampleData['representations'], 'language' );
+		$representations = array_column( $exampleData['representations'], 'value' );
 
 		$representationsText = $this->getLanguage()->commaList( $representations );
 		$languagesText = $this->getLanguage()->commaList( $languages );
