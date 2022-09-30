@@ -57,7 +57,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Lema",
 	"wikibaselexeme-lemma-redundant-language": "Ni možno vnesti več lem z isto različico črkovanja.",
 	"wikibaselexeme-newlexeme-fieldset": "Ustvari nov leksem",
-	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Ta predmet ima neveljavno kodo jezika. Prosimo, izberite eno od spodnjih.",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Ta predmet ima neprepoznano oznako jezika. Prosimo, izberite eno od naslednjih.",
 	"wikibaselexeme-newlexeme-language": "Jezik leksema",
 	"wikibaselexeme-newlexeme-language-placeholder": "Jezik leksema, na primer »slovenščina«",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
