@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
+			"Eleassar",
 			"Janezdrilc"
 		]
 	},
@@ -15,6 +16,9 @@
 	"apihelp-wbladdform-summary": "Doda leksemu obliko",
 	"apihelp-wbleditformelements-param-formId": "ID oblike, na primer L10-F20",
 	"apihelp-wbleditformelements-summary": "Uredi prikaze in slovnične funkcije oblike",
+	"apihelp-wblmergelexemes-description": "Združi dva leksema.",
+	"apihelp-wblmergelexemes-param-source": "Ciljni ID za združitev",
+	"apihelp-wblmergelexemes-summary": "Združi dva leksema.",
 	"apihelp-wblremoveform-example-1": "Odstrani leksemu obliko z ID-jem <samp>$1</samp>",
 	"apihelp-wblremoveform-param-id": "ID oblike, na primer L10-F20",
 	"apihelp-wblremoveform-summary": "Odstrani leksemu obliko"
