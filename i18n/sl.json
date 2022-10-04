@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
-			"Janezdrilc"
+			"Janezdrilc",
+			"Eleassar"
 		]
 	},
 	"wikibaselexeme-desc": "Obravnavaj vrsto leksema",
@@ -66,5 +67,9 @@
 	"wikibaselexeme-unknown-language": "Neznan jezik",
 	"wikibaselexeme-unknown-category": "Neznano",
 	"wikibaselexeme-no-features": "brez funkcij",
-	"wikibase-validator-form-not-found": "Leksem nima oblike z danim ID-jem"
+	"wikibase-validator-form-not-found": "Leksem nima oblike z danim ID-jem",
+	"wikibase-lexeme-mergelexemes-intro": "Če boste združili dva leksema, bodo od enega k drugemu prestavljeni vse leme, izjave, oblike in pomeni.",
+	"wikibase-lexeme-mergelexemes-from-id": "Ciljni ID za združitev",
+	"wikibase-lexeme-mergelexemes-to-id": "Ciljni ID za združitev",
+	"wikibase-lexeme-mergelexemes-submit": "Združi leksema"
 }
