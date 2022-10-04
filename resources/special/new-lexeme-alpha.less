@@ -121,3 +121,12 @@
 		margin-left: @dimension-spacing-large;
 	}
 }
+
+// override Wikit styles, specificity 1-0-0 or 0-3-0 should be enough
+.wbl-snl-main-content.wbl-snl-main-content.wbl-snl-main-content,
+.wbl-snl-main-content.wbl-snl-main-content.wbl-snl-main-content *,
+#wbl-snl-intro-text-wrapper,
+#wbl-snl-intro-text-wrapper * {
+	// inherit the skin’s font family
+	font-family: unset;
+}
