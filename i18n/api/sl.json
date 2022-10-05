@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Dbc334",
-			"Janezdrilc"
+			"Janezdrilc",
+			"Eleassar"
 		]
 	},
 	"apihelp-wbladdform-summary": "Doda leksemu obliko",
@@ -13,6 +14,9 @@
 	"apihelp-wblremoveform-example-1": "Odstrani leksemu obliko z ID-jem <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Uredi prikaze in slovnične funkcije oblike",
 	"apihelp-wbleditformelements-param-formId": "ID oblike, na primer L10-F20",
+	"apihelp-wblmergelexemes-description": "Združi dva leksema.",
+	"apihelp-wblmergelexemes-summary": "Združi dva leksema.",
+	"apihelp-wblmergelexemes-param-source": "Ciljni ID za združitev",
 	"apierror-wikibaselexeme-parameter-required": "Zahtevan je parameter \"$1\"",
 	"apierror-wikibaselexeme-lexeme-not-found": "Polje \"$1\" vsebuje ID leksema \"$2\", ki ga ni mogoče najti.",
 	"apierror-wikibaselexeme-form-not-found": "Polje \"$1\" vsebuje ID oblike \"$2\", ki je ni mogoče najti.",
