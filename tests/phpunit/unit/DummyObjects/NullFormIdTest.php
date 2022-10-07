@@ -26,14 +26,20 @@ class NullFormIdTest extends MediaWikiUnitTestCase {
 		$nullFormId = new NullFormId();
 		$this->expectException( LogicException::class );
 		$this->expectExceptionMessage( 'Shall never be called' );
-		$nullFormId->serialize();
+		serialize( $nullFormId );
 	}
 
-	public function testUnserialize_throwsException() {
+	/** @dataProvider unserializeMethodProvider */
+	public function testUnserialize_throwsException( string $method, ...$args ) {
 		$nullFormId = new NullFormId();
 		$this->expectException( LogicException::class );
 		$this->expectExceptionMessage( 'Shall never be called' );
-		$nullFormId->unserialize( 'ff' );
+		$nullFormId->$method( ...$args );
+	}
+
+	public function unserializeMethodProvider(): iterable {
+		yield 'PHP < 7.4' => [ 'unserialize', 'ff' ];
+		yield 'PHP >= 7.4' => [ '__unserialize', [ 'serialization' => 'ff' ] ];
 	}
 
 	public function testEquals_alwaysReturnsTrue() {

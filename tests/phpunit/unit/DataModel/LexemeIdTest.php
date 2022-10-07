@@ -97,6 +97,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	public function testSerialize() {
 		$id = new LexemeId( 'L1' );
 		$this->assertSame( 'L1', $id->serialize() );
+		$this->assertSame( [ 'serialization' => 'L1' ], $id->__serialize() );
 	}
 
 	/**
@@ -105,6 +106,8 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	public function testUnserialize( $json, $expected ) {
 		$id = new LexemeId( 'L1' );
 		$id->unserialize( $json );
+		$this->assertSame( $expected, $id->getSerialization() );
+		$id->__unserialize( [ 'serialization' => $json ] );
 		$this->assertSame( $expected, $id->getSerialization() );
 	}
 

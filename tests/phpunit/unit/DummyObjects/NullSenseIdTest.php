@@ -26,14 +26,20 @@ class NullSenseIdTest extends MediaWikiUnitTestCase {
 		$nullSenseId = new NullSenseId();
 		$this->expectException( LogicException::class );
 		$this->expectExceptionMessage( 'Shall never be called' );
-		$nullSenseId->serialize();
+		serialize( $nullSenseId );
 	}
 
-	public function testUnserialize_throwsException() {
+	/** @dataProvider unserializeMethodProvider */
+	public function testUnserialize_throwsException( string $method, ...$args ) {
 		$nullSenseId = new NullSenseId();
 		$this->expectException( LogicException::class );
 		$this->expectExceptionMessage( 'Shall never be called' );
-		$nullSenseId->unserialize( 'ff' );
+		$nullSenseId->$method( ...$args );
+	}
+
+	public function unserializeMethodProvider(): iterable {
+		yield 'PHP < 7.4' => [ 'unserialize', 'ff' ];
+		yield 'PHP >= 7.4' => [ '__unserialize', [ 'serialization' => 'ff' ] ];
 	}
 
 	public function testEquals_alwaysReturnsTrue() {

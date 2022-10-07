@@ -24,11 +24,19 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 		return $this->serialization;
 	}
 
+	public function __serialize(): array {
+		return [ 'serialization' => $this->serialize() ];
+	}
+
 	/**
 	 * @return string
 	 */
 	public function serialize() {
 		return $this->serialization;
+	}
+
+	public function __unserialize( array $data ): void {
+		$this->unserialize( $data['serialization'] );
 	}
 
 	/**
