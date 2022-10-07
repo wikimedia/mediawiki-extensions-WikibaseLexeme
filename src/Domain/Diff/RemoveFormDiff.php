@@ -11,6 +11,8 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class RemoveFormDiff implements FormDiff {
 
+	use Unserializable;
+
 	/**
 	 * @var FormId
 	 */
@@ -49,14 +51,6 @@ class RemoveFormDiff implements FormDiff {
 	 */
 	public function getStatementsDiff() {
 		return $this->diffOps['claim'] ?? new Diff( [] );
-	}
-
-	public function serialize() {
-		throw new \LogicException( "serialize() is not implemented" );
-	}
-
-	public function unserialize( $serialized ) {
-		throw new \LogicException( "unserialize() is not implemented" );
 	}
 
 	public function getType(): string {

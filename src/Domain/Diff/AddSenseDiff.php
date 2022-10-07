@@ -12,6 +12,8 @@ use Wikibase\Lexeme\Domain\Model\Sense;
  */
 class AddSenseDiff implements SenseDiff {
 
+	use Unserializable;
+
 	/**
 	 * @var Sense
 	 */
@@ -43,14 +45,6 @@ class AddSenseDiff implements SenseDiff {
 	 */
 	public function getStatementsDiff() {
 		return $this->diffOps['claim'] ?? new Diff( [] );
-	}
-
-	public function serialize() {
-		throw new LogicException( "serialize() is not implemented" );
-	}
-
-	public function unserialize( $serialized ) {
-		throw new LogicException( "unserialize() is not implemented" );
 	}
 
 	public function getType(): string {
