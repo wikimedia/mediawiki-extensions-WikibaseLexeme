@@ -30,7 +30,7 @@ class TemplateModuleTest extends TestCase {
 	public function testGetScriptAddsTemplatesToJavaScriptCode() {
 		$templateModule = new TemplateModule();
 
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/.*mw\.wbTemplates\.store\.set\( \$\.extend\( .+, mw.wbTemplates.store.values \) \);.*/',
 			$templateModule->getScript( $this->getResourceLoaderContext() )
 		);

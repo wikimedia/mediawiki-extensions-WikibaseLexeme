@@ -107,7 +107,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			)
 		);
 
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/<tr><td[^<>]*><\/td><td[^>]*>header text<\/td><\/tr>/', $diffHtml
 		);
 	}
@@ -123,7 +123,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			)
 		);
 
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/<tr><td[^<>]*>header text<\/td><td[^>]*>header text<\/td><\/tr>/', $diffHtml
 		);
 	}
@@ -139,7 +139,7 @@ class ItemReferenceDifferenceVisualizerTest extends TestCase {
 			)
 		);
 
-		$this->assertRegExp(
+		$this->assertMatchesRegularExpression(
 			'/<tr><td[^<>]*>header text<\/td><td[^>]*><\/td><\/tr>/', $diffHtml
 		);
 	}
