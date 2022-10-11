@@ -19,6 +19,7 @@
 	"special-mergelexemes": "Zwei Lexemes zusammenführen",
 	"special-newlexeme": "Ein neues Lexem erstellen",
 	"special-newlexeme-alpha": "Ein neues Lexem erstellen (experimentell)",
+	"tooltip-ca-nstab-lexeme": "Lexemdefinition",
 	"wikibase-entity-summary-wblmergelexemes-from": "Lexeme von $3 zusammengeführt",
 	"wikibase-entity-summary-wblmergelexemes-to": "Lexeme in $3 zusammengeführt",
 	"wikibase-lexeme-gloss-empty": "Keine Fußnote definiert",

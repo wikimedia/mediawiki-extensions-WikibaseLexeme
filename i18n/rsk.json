@@ -1,0 +1,32 @@
+{
+	"@metadata": {
+		"authors": [
+			"Keresturec"
+		]
+	},
+	"content-model-wikibase-lexeme": "Wikibase лексема",
+	"datatypes-type-wikibase-form": "Форма",
+	"datatypes-type-wikibase-lexeme": "Лексема",
+	"datatypes-type-wikibase-sense": "Смисел",
+	"nstab-lexeme": "Лексема",
+	"special-mergelexemes": "Обєдиньованє двох лексемох",
+	"special-newlexeme": "Креировац нову лексему",
+	"special-newlexeme-alpha": "Креировац нову лексему (експериментално)",
+	"tooltip-ca-nstab-lexeme": "Дефиниция лексеми",
+	"wikibase-entity-summary-wblmergelexemes-from": "Обєдинєна лексема зоз $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Обєдинєна лексема до $3",
+	"wikibase-lexeme-gloss-empty": "Нє дефиноване толкованє",
+	"wikibase-lexeme-lemma-language-not-recognized": "Виказани язиков код нє препознати",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Нє удало ше учитованє лексеми",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Нє удало ше приключованє лексемох, модлїм вас же бисце розришели шицки конфликти. Гришка: Лексеме маю различни леми за исту вариянту правопису.",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Нє удало ше обєдиньованє лексемох, модлїм вас же бисце розришели шицки конфликти. Гришка: Лексеми ше у вияви повязую једна зоз другу.",
+	"wikibase-lexeme-mergelexemes-error-failed-modify": "Обєдиньованє лексемох ше нє удало. Перше ришце шицки конфликти.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Нє удало ше зачувац лексему.",
+	"wikibase-lexeme-mergelexemes-error-invalid-id": "„$1” нє важаци идентификатор лексеми",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Нє мож пренайсц лексему $1",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Допущенє одбите.",
+	"wikibase-lexeme-mergelexemes-error-same-language": "Нє удало ше обєдиньованє лексемох, модлїм вас же бисце розришели шицки конфликти. Гришка: Лексеми ше у вияви повязую єдна зоз другу.",
+	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Нє можлїве обєдинїц лексему саму зоз собу.",
+	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Обєдиньованє лексемох ше нє удало. Перше ришце шицки конфликти. Гришка: Лексеми маю розлични лексични катеґориї.",
+	"wikibase-lexeme-mergelexemes-from-id": "Идентификатор за обєдиньованє зоз"
+}

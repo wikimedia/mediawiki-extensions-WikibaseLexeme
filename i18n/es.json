@@ -3,6 +3,7 @@
 		"authors": [
 			"Adjen",
 			"Agent",
+			"Armando",
 			"Astroemi",
 			"Dgstranz",
 			"DiegoAmbrocio",
@@ -20,8 +21,10 @@
 	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-sense": "Acepción",
+	"nstab-lexeme": "Léxico",
 	"special-mergelexemes": "Fusionar dos Lexemas",
 	"special-newlexeme": "Crear un lexema nuevo",
+	"tooltip-ca-nstab-lexeme": "Definición de léxico",
 	"wikibase-lexeme-gloss-empty": "No se ha definido ninguna glosa",
 	"wikibase-lexeme-lemma-language-not-recognized": "No se reconoció el código de idioma proporcionado.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» no es un identificador de lexema válido",

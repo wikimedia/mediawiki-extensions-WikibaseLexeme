@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Telaneo"
 		]
 	},
 	"content-model-wikibase-lexeme": "Wikibase-leksem",
@@ -11,6 +12,7 @@
 	"nstab-lexeme": "Leksem",
 	"special-mergelexemes": "Flett to leksemer",
 	"special-newlexeme": "Opprett et nytt leksem",
+	"tooltip-ca-nstab-lexeme": "Leksemdefinisjon",
 	"wikibase-entity-summary-wblmergelexemes-from": "Slo sammen leksem fra $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Slo sammen leksem til $3",
 	"wikibase-lexeme-gloss-empty": "Ingen glose definert",

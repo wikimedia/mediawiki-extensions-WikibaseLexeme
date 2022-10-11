@@ -5,6 +5,8 @@
 			"McDutchie"
 		]
 	},
+	"nstab-lexeme": "Lexema",
+	"tooltip-ca-nstab-lexeme": "Definition de lexema",
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar lexemas",
 	"wikibaselexeme-diffview-representation": "representation"
 }
