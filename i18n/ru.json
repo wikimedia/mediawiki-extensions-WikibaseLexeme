@@ -23,6 +23,7 @@
 	"nstab-lexeme": "Лексема",
 	"special-mergelexemes": "Объединение двух Лексем",
 	"special-newlexeme": "Создать новую лексему",
+	"tooltip-ca-nstab-lexeme": "Определение лексемы",
 	"wikibase-lexeme-gloss-empty": "Глоссa не указанa",
 	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан.",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не удалось загрузить лексему.",

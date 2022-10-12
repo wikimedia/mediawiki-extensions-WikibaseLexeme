@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Kareyac",
 			"ShockD",
 			"StanProg"
 		]
 	},
+	"nstab-lexeme": "Лексема",
 	"special-newlexeme": "Създаване на нова Лексема",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Създаване на нова Лексема",
 	"wikibaselexeme-diffview-language": "език",
