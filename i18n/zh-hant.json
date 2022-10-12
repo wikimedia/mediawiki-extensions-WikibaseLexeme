@@ -6,7 +6,8 @@
 			"Liuxinyu970226",
 			"Mutolisp",
 			"予弦",
-			"列维劳德"
+			"列维劳德",
+			"Winston Sung"
 		]
 	},
 	"wikibaselexeme-desc": "處理詞位項目類型",
@@ -16,7 +17,7 @@
 	"wikibaselexeme-deletedentity-form": "已刪除詞性",
 	"wikibaselexeme-deletedentity-sense": "刪除含意",
 	"wikibaselexeme-deletedentity-lexeme": "已刪除詞位",
-	"wikibaselexeme-newlexeme-fieldset": "建立一個新詞位",
+	"wikibaselexeme-newlexeme-fieldset": "新增詞位",
 	"wikibaselexeme-newlexeme-lemma": "主題",
 	"wikibaselexeme-newlexeme-lemma-language": "主題的拼寫變體",
 	"wikibaselexeme-lemma-edit-placeholder": "主題通常是字詞的最短詞性",
@@ -86,8 +87,13 @@
 	"wikibaselexeme-diffview-grammatical-feature": "語法特徵",
 	"wikibaselexeme-diffview-sense": "含意",
 	"wikibaselexeme-diffview-gloss": "註解",
-	"content-model-wikibase-lexeme": "Wikibase Lexeme",
+	"content-model-wikibase-lexeme": "Wikibase詞位",
+	"wikibaselexeme-presentation-lexeme-secondary-label": "$1，$2",
+	"wikibaselexeme-lexeme-link-title": "$1：$2",
+	"wikibaselexeme-formidformatter-link-title": "$1：$2",
 	"wikibaselexeme-form-grammatical-features": "語法特徵",
+	"wikibaselexeme-formidformatter-separator-grammatical-features": "、​",
+	"wikibaselexeme-description": "$1，$2",
 	"wikibaselexeme-form-description": "$1 用於：$2（$3）：$4",
 	"wikibaselexeme-search-result-stats": "$1 個{{PLURAL:$1|陳述|陳述}}，$2 個{{PLURAL:$2|詞性|詞性}}",
 	"wikibaselexeme-unknown-language": "不明語言",
