@@ -65,16 +65,16 @@ class RemoveFormDiff implements FormDiff {
 		throw new \LogicException( 'toArray() is not implemented' );
 	}
 
-	public function count() {
+	public function count(): int {
 		return $this->diffOps->count();
 	}
 
-	public function getOperations() {
+	public function getOperations(): array {
 		// Due to the way this DiffOp is structured the default implementation would return nothing
 		throw new \LogicException( "getOperations() is not implemented" );
 	}
 
-	public function getArrayCopy() {
+	public function getArrayCopy(): array {
 		// Due to the way this DiffOp is structured the default implementation would return nothing
 		throw new \LogicException( "getArrayCopy() is not implemented" );
 	}
