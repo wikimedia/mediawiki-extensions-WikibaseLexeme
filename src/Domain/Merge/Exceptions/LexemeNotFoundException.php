@@ -16,17 +16,16 @@ class LexemeNotFoundException extends MergingException {
 	 */
 	private $lexemeId;
 
-	/**
-	 * @param LexemeId $lexemeId
-	 * @param string|null $message
-	 * @param Throwable|null $previous
-	 */
 	public function __construct(
 		LexemeId $lexemeId,
-		$message = null,
-		Throwable $previous = null
+		?string $message = null,
+		?Throwable $previous = null
 	) {
-		parent::__construct( $message, 0, $previous );
+		parent::__construct(
+			$message ?: "Lexeme {$lexemeId->getSerialization()} not found",
+			0,
+			$previous
+		);
 
 		$this->lexemeId = $lexemeId;
 	}
