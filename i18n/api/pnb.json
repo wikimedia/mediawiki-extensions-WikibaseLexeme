@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bgo eiu"
+			"Bgo eiu",
+			"Abbas dhothar"
 		]
 	},
 	"apihelp-wbladdform-summary": "شبداولی 'تے روپ پایئیا",
@@ -13,9 +14,9 @@
 	"apihelp-wbladdsense-example-1": "نمبر دی شبداولی 'تے روپ\n<samp>$1</samp> دے بھاشا انشاں\n<samp>$2</samp> دیاں بولیاں\n<samp>$3</samp>",
 	"apihelp-wblremovesense-param-id": "ارتھ دا نمبر، مثلاً L10-S20",
 	"apihelp-wblremovesense-example-1": "نمبر دی شبداولی 'تے ارتھ مٹایئیا\n<samp>$1</samp>",
-	"apihelp-wbleditsenseelements-summary": "ارتھ دے بھاشا انشاں سودھیئے",
+	"apihelp-wbleditsenseelements-summary": "مطلب دے بولی انش سودھو",
 	"apihelp-wbleditsenseelements-param-senseId": "ارتھ دا نمبر، مثلاً L10-S2",
-	"apihelp-wbleditsenseelements-param-data": "جے سون دا کوڈ وچ بھاشا انش دے ڈیٹا",
+	"apihelp-wbleditsenseelements-param-data": "جے سون دا کوڈ وچ بولی انش دے ڈیٹا",
 	"apihelp-wblmergelexemes-param-source": "نمبر توں ملائیں‌گے",
 	"apihelp-wblmergelexemes-param-target": "نمبر توں ملائیں‌گے",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "بولی پایئیو"
