@@ -1,11 +1,11 @@
 <div class="language-lexical-category-widget">
 	<div v-if="!inEditMode">
 		<div>
-			<span>{{'wikibaselexeme-field-language-label'|message}}</span>
+			<span>{{message('wikibaselexeme-field-language-label')}}</span>
 			<span class="language-lexical-category-widget_language" v-html="formattedLanguage"></span>
 		</div>
 		<div>
-			<span>{{'wikibaselexeme-field-lexical-category-label'|message}}</span>
+			<span>{{message('wikibaselexeme-field-lexical-category-label')}}</span>
 			<span class="language-lexical-category-widget_lexical-category"
 				v-html="formattedLexicalCategory">
 			</span>
@@ -13,7 +13,7 @@
 	</div>
 	<div v-else>
 		<div>
-			<label for="lexeme-language">{{'wikibaselexeme-field-language-label'|message}}</label>
+			<label for="lexeme-language">{{message('wikibaselexeme-field-language-label')}}</label>
 			<item-selector
 				id="lexeme-language"
 				v-bind:value="language"
@@ -22,7 +22,7 @@
 		</div>
 		<div>
 			<label for="lexeme-lexical-category">
-				{{'wikibaselexeme-field-lexical-category-label'|message}}
+				{{message('WIKIBASELEXEME-field-lexical-category-label')}}
 			</label>
 			<item-selector
 				id="lexeme-lexical-category"

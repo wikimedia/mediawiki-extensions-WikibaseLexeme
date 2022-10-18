@@ -96,9 +96,7 @@ module.exports = ( function () {
 						formIndex: this.formIndex,
 						representations: representations
 					} );
-				}
-			},
-			filters: {
+				},
 				message: function ( key ) {
 					return mw.messages.get( key );
 				}

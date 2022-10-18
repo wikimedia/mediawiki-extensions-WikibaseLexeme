@@ -78,9 +78,7 @@ module.exports = ( function ( require, wb ) {
 					this.glosses = this.glosses.filter( function ( gloss ) {
 						return gloss.value.trim() !== '' && gloss.language.trim() !== '';
 					} );
-				}
-			},
-			filters: {
+				},
 				message: function ( key ) {
 					return messages.get( key );
 				},

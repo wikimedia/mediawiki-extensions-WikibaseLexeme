@@ -19,7 +19,7 @@ module.exports = ( function () {
 				'item-selector': ItemSelectorWrapper( api )
 			},
 
-			filters: {
+			methods: {
 				message: function ( key ) {
 					return messages.get( key );
 				}

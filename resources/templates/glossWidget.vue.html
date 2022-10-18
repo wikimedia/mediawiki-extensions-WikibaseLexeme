@@ -3,16 +3,16 @@
 		<thead v-if="inEditMode">
 			<tr class="wikibase-lexeme-sense-gloss-table-header">
 				<td class="wikibase-lexeme-sense-gloss-language">
-					{{'wikibaselexeme-gloss-field-language-label'|message}}
+					{{message('wikibaselexeme-gloss-field-language-label')}}
 				</td>
-				<td>{{'wikibaselexeme-gloss-field-gloss-label'|message}}</td>
+				<td>{{message('wikibaselexeme-gloss-field-gloss-label')}}</td>
 				<td></td>
 			</tr>
 		</thead>
 		<tbody>
 			<tr v-for="gloss in glosses" class="wikibase-lexeme-sense-gloss">
 				<td class="wikibase-lexeme-sense-gloss-language">
-					<span v-if="!inEditMode">{{gloss.language|languageName}}</span>
+					<span v-if="!inEditMode">{{languageName(gloss.language)}}</span>
 					<language-selector v-else
 						class="wikibase-lexeme-sense-gloss-language-input"
 						:class="{
@@ -26,7 +26,7 @@
 					</language-selector>
 				</td>
 				<td class="wikibase-lexeme-sense-gloss-value-cell"
-					:dir="gloss.language|directionality"
+					:dir="directionality(gloss.language)"
 					:lang="gloss.language">
 					<span v-if="!inEditMode"
 						class="wikibase-lexeme-sense-gloss-value">
@@ -43,7 +43,7 @@
 						:disabled="glosses.length <= 1"
 						v-on:click="remove(gloss)"
 						type="button">
-						{{'wikibase-remove'|message}}
+						{{message('wikibase-remove')}}
 					</button>
 				</td>
 			</tr>
@@ -53,11 +53,11 @@
 				<td colspan="3" >
 					<div v-if="hasRedundantLanguage"
 						class="wikibase-lexeme-sense-gloss_redundant-language-warning">
-						<p>{{'wikibaselexeme-sense-gloss-redundant-language'|message}}</p>
+						<p>{{message('wikibaselexeme-sense-gloss-redundant-language')}}</p>
 					</div>
 					<div v-if="hasInvalidLanguage"
 						class="wikibase-lexeme-sense-gloss_invalid-language-warning">
-						<p>{{'wikibaselexeme-sense-gloss-invalid-language'|message}}</p>
+						<p>{{message('wikibaselexeme-sense-gloss-invalid-language')}}</p>
 					</div>
 				</td>
 			</tr>
@@ -68,7 +68,7 @@
 					<button type="button"
 						class="wikibase-lexeme-sense-glosses-control
 							wikibase-lexeme-sense-glosses-add"
-						v-on:click="add" >+ {{'wikibase-add'|message}}
+						v-on:click="add" >+ {{message('wikibase-add')}}
 					</button>
 				</td>
 			</tr>

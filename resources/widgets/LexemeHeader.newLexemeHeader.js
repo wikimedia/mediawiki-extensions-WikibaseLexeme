@@ -86,6 +86,10 @@ module.exports = ( function () {
 						code: 'save-failed',
 						info: messages.get( 'wikibaselexeme-error-cannot-remove-last-lemma' )
 					} );
+				},
+
+				message: function ( key ) {
+					return messages.get( key );
 				}
 			},
 
@@ -110,12 +114,6 @@ module.exports = ( function () {
 			components: {
 				'lemma-widget': lemmaWidget,
 				'language-and-category-widget': languageAndCategoryWidget
-			},
-
-			filters: {
-				message: function ( key ) {
-					return messages.get( key );
-				}
 			}
 		};
 	};

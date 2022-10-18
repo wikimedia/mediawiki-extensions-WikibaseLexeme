@@ -19,7 +19,7 @@
 					class="representation-widget_representation-edit-box">
 					<label :for="inputRepresentationId(index)"
 						class="representation-widget_representation-value-label">
-						{{'wikibaselexeme-form-field-representation-label'|message}}
+						{{message('wikibaselexeme-form-field-representation-label')}}
 					</label>
 					<input size="1"
 						class="representation-widget_representation-value-input"
@@ -28,7 +28,7 @@
 						@input="updateValue(representation, $event)">
 					<label :for="inputLanguageId(index)"
 						class="representation-widget_representation-language-label">
-						{{'wikibaselexeme-form-field-language-label'|message}}
+						{{message('wikibaselexeme-form-field-language-label')}}
 					</label>
 					<input size="1"
 						class="representation-widget_representation-language-input"
@@ -43,7 +43,7 @@
 					<button class="representation-widget_representation-remove"
 						v-on:click="remove(representation)"
 						:disabled="representations.length <= 1"
-						:title="'wikibase-remove'|message">
+						:title="message('wikibase-remove')">
 						&times;
 					</button>
 				</li>
@@ -51,7 +51,7 @@
 					<button type="button"
 						class="representation-widget_add"
 						v-on:click="add"
-						:title="'wikibase-add'|message">
+						:title="message('wikibase-add')">
 						+
 					</button>
 				</li>
@@ -59,7 +59,7 @@
 		</div>
 		<div v-if="hasRedundantLanguage"
 			class="representation-widget_redundant-language-warning">
-			<p>{{'wikibaselexeme-form-representation-redundant-language'|message}}</p>
+			<p>{{message('wikibaselexeme-form-representation-redundant-language')}}</p>
 		</div>
 	</div>
 </div>

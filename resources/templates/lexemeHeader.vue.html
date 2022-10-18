@@ -19,21 +19,21 @@
 				v-if="!inEditMode"
 				:disabled="isSaving"
 				v-on:click="edit">
-				{{'wikibase-edit'|message}}
+				{{message('wikibase-edit')}}
 			</button>
 			<button type="button"
 				class="lemma-widget_save"
 				v-if="inEditMode"
 				:disabled="isUnsaveable"
 				v-on:click="save">
-				{{'%saveMessageKey%'|message}}
+				{{message('%saveMessageKey%')}}
 			</button>
 			<button type="button"
 				class="lemma-widget_cancel"
 				v-if="inEditMode"
 				:disabled="isSaving"
 				v-on:click="cancel">
-				{{'wikibase-cancel'|message}}
+				{{message('wikibase-cancel')}}
 			</button>
 		</div>
 	</div>

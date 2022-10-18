@@ -26,10 +26,7 @@ module.exports = ( function () {
 				},
 				remove: function ( lemma ) {
 					this.lemmas.remove( lemma );
-				}
-			},
-
-			filters: {
+				},
 				message: function ( key ) {
 					return messages.get( key );
 				}

@@ -9,7 +9,7 @@
 		<ul class="lemma-widget_lemma-list">
 			<li v-for="(lemma, lemmaIndex) in lemmaList" class="lemma-widget_lemma-edit-box">
 				<label :for="'lexeme-lemma-' + lemmaIndex + '-value'" class="lemma-widget_lemma-value-label">
-					{{'wikibaselexeme-lemma-field-lemma-label'|message}}
+					{{message('wikibaselexeme-lemma-field-lemma-label')}}
 				</label>
 				<input :id="'lexeme-lemma-' + lemmaIndex + '-value'"
 					size="1"
@@ -18,7 +18,7 @@
 					:disabled="isSaving"
 				>
 				<label :for="'lexeme-lemma-' + lemmaIndex + '-language'" class="lemma-widget_lemma-language-label">
-					{{'wikibaselexeme-lemma-field-language-label'|message}}
+					{{message('wikibaselexeme-lemma-field-language-label')}}
 				</label>
 				<input :id="'lexeme-lemma-' + lemmaIndex + '-language'"
 					size="1"
@@ -33,7 +33,7 @@
 				<button class="lemma-widget_lemma-remove"
 					v-on:click="remove(lemma)"
 					:disabled="isSaving"
-					:title="'wikibase-remove'|message">
+					:title="message('wikibase-remove')">
 					&times;
 				</button>
 			</li>
@@ -42,13 +42,13 @@
 					class="lemma-widget_add"
 					v-on:click="add"
 					:disabled="isSaving"
-					:title="'wikibase-add'|message">
+					:title="message('wikibase-add')">
 					+
 				</button>
 			</li>
 		</ul>
 		<div v-if="hasRedundantLanguage" class="lemma-widget_redundant-language-warning">
-			<p>{{'wikibaselexeme-lemma-redundant-language'|message}}</p>
+			<p>{{message('wikibaselexeme-lemma-redundant-language')}}</p>
 		</div>
 	</div>
 </div>
