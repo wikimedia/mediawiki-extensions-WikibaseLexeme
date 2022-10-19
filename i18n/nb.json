@@ -1,11 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jon Harald Søby"
+			"Jon Harald Søby",
+			"Telaneo"
 		]
 	},
 	"wikibaselexeme-desc": "Behandle entitetstypen Lexeme",
 	"special-newlexeme": "Opprett et nytt leksem",
+	"special-newlexeme-alpha": "Opprett et nytt leksem (eksperimentelt)",
 	"special-mergelexemes": "Flett to leksemer",
 	"wikibaselexeme-deletedentity-form": "Slettet form",
 	"wikibaselexeme-deletedentity-sense": "Slettet betydning",
