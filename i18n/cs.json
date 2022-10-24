@@ -15,6 +15,7 @@
 	"nstab-lexeme": "Lexém",
 	"special-mergelexemes": "Sloučit dva lexémy",
 	"special-newlexeme": "Vytvořit nový lexém",
+	"tooltip-ca-nstab-lexeme": "Definice lexému",
 	"wikibase-entity-summary-wblmergelexemes-from": "Sloučeno z lexému $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Sloučeno do lexému $3",
 	"wikibase-lexeme-lemma-language-not-recognized": "Zadaný kód jazyka nebyl rozpoznán.",
