@@ -17,7 +17,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
 	"wikibaselexeme-newlexeme-fieldset": "Създаване на нова Лексема",
 	"wikibaselexeme-newlexeme-language": "Език на Лексемата",
-	"wikibaselexeme-newlexeme-language-placeholder": "Въведете език, например български",
+	"wikibaselexeme-newlexeme-language-placeholder": "Език на Лексемата, напр. „български“",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Въведете лексикалната категория, например съществително"
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Категория на Лексемата, напр. „цифра“"
 }
