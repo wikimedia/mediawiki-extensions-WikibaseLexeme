@@ -39,10 +39,6 @@
 		},
 		"LexemeEnableDataTransclusion": {
 			"value": false
-		},
-		"LexemeEnableNewAlpha": {
-			"value": false,
-			"description": "Whether to enable the experimental new version of Special:NewLexeme, Special:NewLexemeAlpha. (Temporary.)"
 		}
 	},
 	"ExtensionMessagesFiles": {
@@ -62,15 +58,8 @@
 			"tests/qunit/jquery.wikibase.grammaticalfeatureview.tests.js",
 			"tests/qunit/jquery.wikibase.senselistview.tests.js",
 			"tests/qunit/jquery.wikibase.senseview.tests.js",
-			"tests/qunit/widgets/ItemSelectorWidget.tests.js",
 			"tests/qunit/widgets/GrammaticalFeatureListWidget.tests.js",
 			"resources/widgets/GrammaticalFeatureListWidget.js",
-			"tests/qunit/services/ItemLookup.tests.js",
-			"resources/services/ItemLookup.js",
-			"tests/qunit/services/LanguageFromItemExtractor.tests.js",
-			"resources/services/LanguageFromItemExtractor.js",
-			"tests/qunit/special/formHelpers/LexemeLanguageFieldObserver.tests.js",
-			"resources/special/formHelpers/LexemeLanguageFieldObserver.js",
 			"tests/qunit/entityChangers/FormChanger.tests.js",
 			"resources/entityChangers/FormChanger.js",
 			"resources/serialization/FormSerializer.js",
@@ -109,7 +98,6 @@
 			"wikibase.lexeme.lexemeview",
 			"wikibase.lexeme.view.ViewFactoryFactory",
 			"wikibase.lexeme.view.ViewFactoryFactory",
-			"wikibase.lexeme.widgets.ItemSelectorWidget",
 			"test.WikibaseRepository"
 		]
 	},

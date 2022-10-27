@@ -68,13 +68,6 @@ Other Items can still be selected and used as the lexical category of a Lexeme.
 
 DEFAULT: `[]`
 
-### $wgLexemeEnableNewAlpha
-
-Whether to enable the new version of the Special:NewLexeme page, Special:NewLexemeAlpha.
-This option is temporary and will be removed when Special:NewLexemeAlpha replaces Special:NewLexeme.
-
-DEFAULT: `false`
-
 ## Client options
 
 These options only apply to “client” functionality.

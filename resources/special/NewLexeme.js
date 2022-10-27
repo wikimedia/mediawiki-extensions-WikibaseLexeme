@@ -1,36 +1,36 @@
-( function ( wb ) {
-	'use strict';
+( function () {
+	var init = require( './new-lexeme-dist/SpecialNewLexeme.cjs.js' );
+	var settings = require( './settings.json' );
+	var languageNames = require( './languageNames.json' );
 
-	var LanguageFromItemExtractor = require( '../services/LanguageFromItemExtractor.js' ),
-		ItemLookup = require( '../services/ItemLookup.js' ),
-		LexemeLanguageFieldObserver = require( './formHelpers/LexemeLanguageFieldObserver.js' ),
-		repoConfig = mw.config.get( 'wbRepo' ),
-		userLanguage = mw.config.get( 'wgUserLanguage' ),
-		repoApiUrl = repoConfig.url + repoConfig.scriptPath + '/api.php',
-		languageSelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
-			$( '#wb-newlexeme-lexeme-language' )
-		),
-		lexicalCategorySelector = wb.lexeme.widgets.ItemSelectorWidget.static.infuse(
-			$( '#wb-newlexeme-lexicalCategory' )
-		),
-		mwApi = wb.api.getLocationAgnosticMwApi( repoApiUrl ),
-		$lemmaLanguageField = OO.ui.infuse(
-			OO.ui.infuse( $( '#wb-newlexeme-lemma-language' ) ).$element.parents( '.oo-ui-fieldLayout' )
-		).$element,
-		itemSelectorConfig = {
-			apiUrl: repoApiUrl,
-			language: userLanguage,
-			timeout: 8000
-		};
+	// eslint-disable-next-line no-undef
+	var languageNamesMap = new Map();
+	for ( var languageName in languageNames ) {
+		languageNamesMap.set( languageName, languageNames[ languageName ] );
+	}
 
-	languageSelector.initialize( $.extend( {
-		changeObserver: new LexemeLanguageFieldObserver(
-			$lemmaLanguageField,
-			new ItemLookup( new wb.api.RepoApi( mwApi, userLanguage ) ),
-			new LanguageFromItemExtractor( mw.config.get( 'LexemeLanguageCodePropertyId' ) )
-		)
-	}, itemSelectorConfig ) );
+	// remove server-rendered "search existing" link now that we're ready to render it in Vue
+	document.getElementById( 'wbl-snl-intro-text-wrapper' ).textContent = '';
 
-	lexicalCategorySelector.initialize( itemSelectorConfig );
+	// includes labels, descriptions and language code statement value of referenced items
+	var initParamsFromUrl = mw.config.get( 'wblSpecialNewLexemeParams' );
 
-}( wikibase ) );
+	var placeholderExampleData = mw.config.get( 'wblSpecialNewLexemeExampleData' );
+
+	init(
+		{
+			rootSelector: '#special-newlexeme-root',
+			isAnonymous: mw.user.isAnon(),
+			licenseUrl: settings.licenseUrl,
+			licenseName: settings.licenseText,
+			tags: settings.tags,
+			wikibaseLexemeTermLanguages: languageNamesMap,
+			lexicalCategorySuggestions: mw.config.get( 'wblSpecialNewLexemeLexicalCategorySuggestions' ),
+			initParams: initParamsFromUrl,
+			placeholderExampleData: placeholderExampleData,
+			maxLemmaLength: settings.maxLemmaLength,
+			availableSearchProfiles: settings.availableSearchProfiles
+		},
+		mw
+	);
+}() );

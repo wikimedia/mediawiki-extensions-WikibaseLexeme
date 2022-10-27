@@ -77,7 +77,7 @@ $ mw dev mediawiki fresh npm install
 
 ### New Lexeme Special Page
 
-The code for the Special:NewLexemeAlpha special page (soon™ to become Special:NewLexeme) lives in a separate Git repository,
+The code for the Special:NewLexeme special page lives in a separate Git repository,
 included as a submodule under `resources/special/new-lexeme/`.
 That directory is not directly used at runtime,
 but rather the build results from it are stored in this repository under `resources/special/new-lexeme-dist/`.
@@ -94,7 +94,12 @@ you can use the following command to build and copy whatever is currently in the
 ```
 mw dev mediawiki fresh npm run snl:dev
 ```
-Then go to Special:NewLexemeAlpha on your wiki and see the result.
+Then go to Special:NewLexeme on your wiki and see the result.
+
+Historical note: during development, the current special page was called Special:NewLexemeAlpha,
+and Special:NewLexeme was a separate (older) implementation of similar functionality,
+which was eventually replaced with the new implementation.
+You might come across the NewLexemeAlpha name in git logs or similar.
 
 ## Running tests
 

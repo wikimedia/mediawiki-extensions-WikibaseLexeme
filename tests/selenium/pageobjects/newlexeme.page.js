@@ -8,14 +8,12 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 
 	static get NEW_LEXEME_SELECTORS() {
 		return {
-			LEMMA: '#wb-newlexeme-lemma',
-			LANGUAGE: '#wb-newlexeme-lexeme-language',
-			LANGUAGE_SELECTOR_VALUE: '#wb-newlexeme-lexeme-language input.oo-ui-wikibase-item-selector-value',
-			LEXICAL_CATEGORY: '#wb-newlexeme-lexicalCategory',
-			LEXICAL_CATEGORY_SELECTOR_VALUE: '#wb-newlexeme-lexicalCategory input.oo-ui-wikibase-item-selector-value',
-			LEMMA_LANGUAGE: '#wb-newlexeme-lemma-language',
+			LEMMA: '.wbl-snl-lemma-input',
+			LANGUAGE: '.wbl-snl-language-lookup',
+			SPELLING_VARIANT: '.wbl-snl-spelling-variant-lookup',
+			LEXICAL_CATEGORY: '.wbl-snl-lexical-category-lookup',
 
-			SUBMIT_BUTTON: '#wb-newentity-submit button'
+			SUBMIT_BUTTON: '.wbl-snl-form button[type=submit]'
 		};
 	}
 
@@ -34,31 +32,12 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		return true;
 	}
 
-	/*
-	* Checks if any elements of the form are currently visible
-	*/
-	formCurrentlyVisible() {
-		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA ).isDisplayed() ||
-			$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).isDisplayed() ||
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).isDisplayed() ||
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).isDisplayed();
-
-	}
-
-	createLexeme( lemma, language, lexicalCategory, lemmaLanguage ) {
+	createLexeme( lemma, language, lexicalCategory, languageVariant ) {
 		this.setLemma( lemma );
 
 		this.setLexemeLanguage( language );
+		this.setSpellingVariant( languageVariant );
 		this.setLexicalCategory( lexicalCategory );
-
-		if ( typeof lemmaLanguage !== 'undefined' ) {
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
-			this.setLemmaLanguage( lemmaLanguage );
-		} else {
-			// ensure lemma language input is not presented (logic is asynchronous)
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE )
-				.waitForDisplayed( { timeout: browser.config.nonApiTimeout, reverse: true } );
-		}
 
 		this.clickSubmit();
 	}
@@ -67,66 +46,37 @@ class NewLexemePage extends MixinBuilder.mix( Page ).with( ComponentInteraction 
 		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).setValue( lemma );
 	}
 
-	getLemma() {
-		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).getValue();
-	}
-
 	setLexemeLanguage( language ) {
-		this.setValueOnLookupElement(
+		this.setValueOnWikitLookup(
 			$( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ),
 			language
 		);
 	}
 
-	getLexemeLanguage() {
-		return $( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE_SELECTOR_VALUE ).getValue();
-	}
-
 	setLexicalCategory( lexicalCategory ) {
-		this.setValueOnLookupElement(
+		this.setValueOnWikitLookup(
 			$( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ),
 			lexicalCategory
 		);
 	}
 
-	getLexicalCategory() {
-		return $( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY_SELECTOR_VALUE ).getValue();
-	}
-
-	setLemmaLanguage( lemmaLanguage ) {
-		this.setValueOnComboboxElement(
-			$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ),
-			lemmaLanguage
+	setSpellingVariant( languageVariant ) {
+		this.setValueOnWikitLookup(
+			$( this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT ),
+			languageVariant
 		);
 	}
 
-	// FIXME this method is a modified copy of the one from wdio-wikibase. The change should be upstreamed!
-	setValueOnComboboxElement( element, value ) {
+	setValueOnWikitLookup( element, value ) {
 		element.$( 'input' ).setValue( value );
-		$( `${this.constructor.OOUI_SELECTORS.OVERLAY} ${this.constructor.OOUI_SELECTORS.OPTION_WIDGET_SELECTED}` )
-			.waitForExist( { timeout: browser.config.nonApiTimeout } );
-		// close suggestion overlay
-		element.$( this.constructor.OOUI_SELECTORS.COMBOBOX_DROPDOWN ).click();
-	}
-
-	getLemmaLanguage() {
-		return $( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE + ' input' ).getValue();
+		const option = element.$( '.wikit-LookupInput__menu .wikit-OptionsMenu__item' );
+		option.waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
+		option.click();
 	}
 
 	clickSubmit() {
 		$( this.constructor.NEW_LEXEME_SELECTORS.SUBMIT_BUTTON ).click();
 	}
-
-	showsLemmaLanguageField() {
-		$( this.constructor.NEW_LEXEME_SELECTORS.LEMMA_LANGUAGE ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
-		return true;
-	}
-
-	isUserBlockedErrorVisible() {
-		$( '#mw-returnto' ).waitForDisplayed( { timeout: browser.config.nonApiTimeout } );
-		return ( $( '#firstHeading' ).getText() === 'User is blocked' );
-	}
-
 }
 
 module.exports = new NewLexemePage();

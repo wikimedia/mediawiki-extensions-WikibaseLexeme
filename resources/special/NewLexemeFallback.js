@@ -3,7 +3,7 @@
  */
 
 ( function () {
-	var moduleState = mw.loader.getState( 'wikibase.lexeme.special.NewLexemeAlpha' );
+	var moduleState = mw.loader.getState( 'wikibase.lexeme.special.NewLexeme' );
 	if ( moduleState === 'error' || moduleState === 'missing' || moduleState === null ) {
 		document.querySelectorAll( '#mw-content-text noscript' ).forEach( function ( noscriptNode ) {
 			noscriptNode.outerHTML = noscriptNode.textContent;
