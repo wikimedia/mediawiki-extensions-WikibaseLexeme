@@ -3,8 +3,10 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
+use Eris\Random\RandomRange;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 
@@ -32,15 +34,15 @@ class TermListGenerator implements Generator {
 	 * @see Generator::__invoke
 	 *
 	 * @param int $size
-	 * @param callable $rand
+	 * @param RandomRange $rand
 	 *
 	 * @return GeneratedValueSingle<T>
 	 */
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$generateTerm = $this->termGenerator;
 
 		$size = max( $this->minimalSize, $size );
-		$listSize = $rand( $this->minimalSize, $size );
+		$listSize = $rand->rand( $this->minimalSize, $size );
 
 		$result = new TermList( [] );
 
@@ -63,11 +65,11 @@ class TermListGenerator implements Generator {
 	/**
 	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T> $element
+	 * @param GeneratedValue<T> $element
 	 *
-	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
+	 * @return GeneratedValue<T>
 	 */
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		/** @var TermList $termList */
 		$termList = $element->unbox();
 

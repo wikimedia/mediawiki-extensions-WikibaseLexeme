@@ -3,8 +3,10 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\StringGenerator;
+use Eris\Random\RandomRange;
 use Wikibase\DataModel\Term\Term;
 
 /**
@@ -31,11 +33,11 @@ class TermGenerator implements Generator {
 	 * @see Generator::__invoke
 	 *
 	 * @param int $size
-	 * @param callable $rand
+	 * @param RandomRange $rand
 	 *
 	 * @return GeneratedValueSingle<T>
 	 */
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$generateTermLanguage = $this->termLanguageGenerator;
 		$generateTermText = $this->termTextGenerator;
 
@@ -50,11 +52,11 @@ class TermGenerator implements Generator {
 	/**
 	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T> $element
+	 * @param GeneratedValue<T> $element
 	 *
-	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
+	 * @return GeneratedValue<T>
 	 */
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		return $element;
 	}
 

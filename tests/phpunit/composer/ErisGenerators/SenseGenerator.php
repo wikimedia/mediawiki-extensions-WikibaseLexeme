@@ -5,8 +5,10 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 use Eris\Generator;
 use Eris\Generator\ChooseGenerator;
 use Eris\Generator\ConstantGenerator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
+use Eris\Random\RandomRange;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 
@@ -42,7 +44,7 @@ class SenseGenerator implements Generator {
 		}
 	}
 
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$generateGlosses = $this->representationGenerator;
 		$generateSenseId = $this->senseIdGenerator;
 
@@ -54,7 +56,7 @@ class SenseGenerator implements Generator {
 		return GeneratedValueSingle::fromJustValue( $sense, 'sense' );
 	}
 
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		return $element;
 	}
 
