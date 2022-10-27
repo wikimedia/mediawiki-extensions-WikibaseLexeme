@@ -127,8 +127,8 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|بیان}}، $2 {{PLURAL:$2|روپ}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "بھاشا انش لئی، معیربند بولی دا کوڈ پاؤ",
 	"wikibaselexeme-senseidformatter-layout": "؜$1 ؜($2)؜",
-	"wikibaselexeme-statementsection-statements-about-form": "$1 بارے بیان",
-	"wikibaselexeme-statementsection-statements-about-sense": "$1 بارے بیان",
+	"wikibaselexeme-statementsection-statements-about-form": "؜‫$1‬ ؜بارے بیان",
+	"wikibaselexeme-statementsection-statements-about-sense": "؜‫$1‬ ؜بارے بیان",
 	"wikibaselexeme-unknown-category": "نامعلوم",
 	"wikibaselexeme-unknown-language": "نامعلوم بولی"
 }

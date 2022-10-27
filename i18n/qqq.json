@@ -3,6 +3,7 @@
 		"authors": [
 			"Amire80",
 			"BaRaN6161 TURK",
+			"Bgo eiu",
 			"Hamilton Abreu",
 			"Liuxinyu970226",
 			"Lucas Werkmeister (WMDE)",
@@ -154,8 +155,8 @@
 	"wikibaselexeme-sense-gloss-invalid-language": "Error message to show if one or more sense glosses with invalid language codes are provided",
 	"wikibaselexeme-sense-gloss-redundant-language": "Error message to show if multiple glosses with the same language are provided.",
 	"wikibaselexeme-senseidformatter-layout": "{{optional}}\n\nFormat used when showing a sense ID. $1 is the lemma(s) of the associated lexeme, $2 is the gloss in the user's language.",
-	"wikibaselexeme-statementsection-statements-about-form": "Heading for the list of statements giving specific information about the currently viewed Form of a Lexeme.\n\nParameters:\n* $1 - Form ID.",
-	"wikibaselexeme-statementsection-statements-about-sense": "Heading for the list of statements giving specific information about the currently viewed Sense of a Lexeme.\n\nParameters:\n* $1 - Sense ID.",
+	"wikibaselexeme-statementsection-statements-about-form": "Heading for the list of statements giving specific information about the currently viewed Form of a Lexeme.\n\nParameters:\n* $1 - Form ID.\n\nThe form ID string is left-to-right; to render correctly in right-to-left scripts, you will likely have to insert the Unicode formatting characters U+202B Right-To-Left Embedding (before start of $1) and U+202C POP Directional Formatting (after end of $1), as well as U+061C Arabic Letter Mark (Arabic-based scripts and Divehi) or U+200F Right-to-Left Mark (other right-to-left scripts) at the beginning of the string if $1 comes first.",
+	"wikibaselexeme-statementsection-statements-about-sense": "Heading for the list of statements giving specific information about the currently viewed Sense of a Lexeme.\n\nParameters:\n* $1 - Sense ID.\n\nThe sense ID string is left-to-right; to render correctly in right-to-left scripts, you will likely have to insert the Unicode formatting characters U+202B Right-To-Left Embedding (before start of $1) and U+202C POP Directional Formatting (after end of $1), as well as U+061C Arabic Letter Mark (Arabic-based scripts and Divehi) or U+200F Right-to-Left Mark (other right-to-left scripts) at the beginning of the string if $1 comes first.",
 	"wikibaselexeme-unknown-category": "Message for unknown lexical category\n{{Identical|Unknown}}",
 	"wikibaselexeme-unknown-language": "Message for unknown language"
 }
