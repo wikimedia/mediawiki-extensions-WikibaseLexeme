@@ -120,7 +120,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 			[ 'string', 'string' ],
 			[ '', '' ],
 			[ 2, 2 ],
-			[ null, null ],
+			[ null, '' ],
 		];
 	}
 
