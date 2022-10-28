@@ -17,7 +17,6 @@
 	"nstab-lexeme": "詞位",
 	"special-mergelexemes": "合併兩個詞位",
 	"special-newlexeme": "建立一個新詞位",
-	"special-newlexeme-alpha": "建立新的詞位（實驗功能）",
 	"tooltip-ca-nstab-lexeme": "詞位定義",
 	"wikibase-entity-summary-wblmergelexemes-from": "已從 $3 合併詞位",
 	"wikibase-entity-summary-wblmergelexemes-to": "已合併詞位至 $3",

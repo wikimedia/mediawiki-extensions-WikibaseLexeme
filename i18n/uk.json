@@ -18,7 +18,6 @@
 	"datatypes-type-wikibase-sense": "Смисл",
 	"special-mergelexemes": "Об'єднання двох Лексем",
 	"special-newlexeme": "Створити нову Лексему",
-	"special-newlexeme-alpha": "Створити нову лексему (експериментально)",
 	"wikibase-entity-summary-wblmergelexemes-from": "Приєднано Лексему з $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Приєднано Лексему до $3",
 	"wikibase-lexeme-gloss-empty": "Жодну глосу не визначено",

@@ -13,7 +13,6 @@
 	"nstab-lexeme": "Leksem",
 	"special-mergelexemes": "Združitev dveh leksemov",
 	"special-newlexeme": "Ustvari nov leksem",
-	"special-newlexeme-alpha": "Ustvaritev novega leksema (eksperimentalno)",
 	"tooltip-ca-nstab-lexeme": "Opredelitev leksema",
 	"wikibase-entity-summary-wblmergelexemes-from": "Leksem, združen iz $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Leksem, združen v $3",

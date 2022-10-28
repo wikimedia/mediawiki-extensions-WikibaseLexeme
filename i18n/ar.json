@@ -13,7 +13,6 @@
 	"datatypes-type-wikibase-sense": "معنى",
 	"special-mergelexemes": "ادمج مفردتين",
 	"special-newlexeme": "إنشاء مفردة جديدة",
-	"special-newlexeme-alpha": "إنشاء مفردة جديدة (تجريبي)",
 	"wikibase-entity-summary-wblmergelexemes-from": "دمج مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دمج المفردة إلى $3",
 	"wikibase-lexeme-gloss-empty": "لا يوجد تفسير محدد",

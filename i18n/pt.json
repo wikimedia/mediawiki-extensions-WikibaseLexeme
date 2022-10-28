@@ -13,7 +13,6 @@
 	"nstab-lexeme": "Lexema",
 	"special-mergelexemes": "Fundir dois lexemas",
 	"special-newlexeme": "Criar um lexema novo",
-	"special-newlexeme-alpha": "Criar um lexema novo (experimental)",
 	"tooltip-ca-nstab-lexeme": "Definição de lexema",
 	"wikibase-entity-summary-wblmergelexemes-from": "Lexema fundido a partir de $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Lexema fundido em $3",
