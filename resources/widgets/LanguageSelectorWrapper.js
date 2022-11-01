@@ -61,7 +61,7 @@ module.exports = ( function ( mw, wikibase ) {
 					$( this.$el ).data( 'languagesuggester' ).setSelectedValue( value, value );
 				}
 			},
-			destroyed: function () {
+			unmounted: function () {
 				$( this.$el ).data( 'languagesuggester' ).destroy();
 			},
 			computed: {
