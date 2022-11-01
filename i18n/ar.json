@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"BAB ZAA",
+			"Meno25",
 			"Mr. Ibrahem",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
@@ -11,8 +12,10 @@
 	"datatypes-type-wikibase-form": "صيغة",
 	"datatypes-type-wikibase-lexeme": "مفردة",
 	"datatypes-type-wikibase-sense": "معنى",
+	"nstab-lexeme": "مفردة",
 	"special-mergelexemes": "ادمج مفردتين",
 	"special-newlexeme": "إنشاء مفردة جديدة",
+	"tooltip-ca-nstab-lexeme": "تعريف ليكسيم",
 	"wikibase-entity-summary-wblmergelexemes-from": "دمج مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دمج المفردة إلى $3",
 	"wikibase-lexeme-gloss-empty": "لا يوجد تفسير محدد",
