@@ -38,8 +38,10 @@
 		</div>
 	</div>
 	<language-and-category-widget
-		:language.sync="language"
-		:lexicalCategory.sync="lexicalCategory"
+		:language="language"
+		@update:language="language = $event"
+		:lexicalCategory="lexicalCategory"
+		@update:lexicalCategory="lexicalCategory = $event"
 		:inEditMode="inEditMode"
 		:isSaving="isSaving"
 		ref="languageAndLexicalCategory">
