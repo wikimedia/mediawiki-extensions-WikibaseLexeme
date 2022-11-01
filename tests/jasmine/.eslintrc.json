@@ -4,6 +4,9 @@
 		"shared-node-browser": true,
 		"jasmine": true
 	},
+	"parserOptions": {
+		"ecmaVersion": 8
+	},
 	"globals": {
 		"beforeEach": false,
 		"Promise": false,
