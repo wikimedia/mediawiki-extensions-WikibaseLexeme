@@ -16,7 +16,7 @@
 	"require": {
 		"serialization/serialization": "~3.2|~4.0",
 		"wikimedia/assert": "^0.5.0",
-		"wmde/php-vuejs-templating": "^1.0.2"
+		"wmde/php-vuejs-templating": "^1.1.0"
 	},
 	"require-dev": {
 		"davidrjonas/composer-lock-diff": "^1.4",
