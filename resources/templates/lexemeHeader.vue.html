@@ -1,5 +1,5 @@
-<div id="wb-lexeme-header" 
-	class="wb-lexeme-header" 
+<div id="wb-lexeme-header"
+	class="wb-lexeme-header"
 	v-on:keyup.enter="handleEnter">
 	<div id="wb-lexeme-header-lemmas">
 		<div class="wb-lexeme-header_id">({{id}})</div><!-- TODO: i18n parentheses -->
@@ -12,24 +12,24 @@
 				ref="lemmas">
 			</lemma-widget>
 		</div>
-		<div class="lemma-widget_controls" 
+		<div class="lemma-widget_controls"
 			v-if="isInitialized">
-			<button type="button" 
-				class="lemma-widget_edit" 
+			<button type="button"
+				class="lemma-widget_edit"
 				v-if="!inEditMode"
-				:disabled="isSaving" 
+				:disabled="isSaving"
 				v-on:click="edit">
 				{{'wikibase-edit'|message}}
 			</button>
-			<button type="button" 
-				class="lemma-widget_save" 
+			<button type="button"
+				class="lemma-widget_save"
 				v-if="inEditMode"
-				:disabled="isUnsaveable" 
+				:disabled="isUnsaveable"
 				v-on:click="save">
 				{{'%saveMessageKey%'|message}}
 			</button>
-			<button type="button" 
-				class="lemma-widget_cancel" 
+			<button type="button"
+				class="lemma-widget_cancel"
 				v-if="inEditMode"
 				:disabled="isSaving"
 				v-on:click="cancel">

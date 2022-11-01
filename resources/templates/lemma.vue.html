@@ -23,25 +23,25 @@
 				<input :id="'lexeme-lemma-' + lemmaIndex + '-language'"
 					size="1"
 					class="lemma-widget_lemma-language-input"
-					v-model="lemma.language" 
+					v-model="lemma.language"
 					:disabled="isSaving"
 					:class="{
 						'lemma-widget_lemma-language-input_redundant-language':
 							isRedundantLanguage(lemma.language)
 					}"
 					:aria-invalid="isRedundantLanguage(lemma.language)">
-				<button class="lemma-widget_lemma-remove" 
+				<button class="lemma-widget_lemma-remove"
 					v-on:click="remove(lemma)"
-					:disabled="isSaving" 
+					:disabled="isSaving"
 					:title="'wikibase-remove'|message">
 					&times;
 				</button>
 			</li>
 			<li>
-				<button type="button" 
-					class="lemma-widget_add" 
+				<button type="button"
+					class="lemma-widget_add"
 					v-on:click="add"
-					:disabled="isSaving" 
+					:disabled="isSaving"
 					:title="'wikibase-add'|message">
 					+
 				</button>
