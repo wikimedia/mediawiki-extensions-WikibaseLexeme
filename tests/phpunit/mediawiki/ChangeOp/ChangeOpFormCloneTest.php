@@ -133,9 +133,7 @@ class ChangeOpFormCloneTest extends TestCase {
 	 * @covers ::getActions
 	 */
 	public function testGetActions() {
-		$sourceForm = $this->getMockBuilder( Form::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$sourceForm = $this->createMock( Form::class );
 		$changeOp = $this->newChangeOpFormClone( $sourceForm );
 
 		$this->assertSame( [ EntityPermissionChecker::ACTION_EDIT ], $changeOp->getActions() );

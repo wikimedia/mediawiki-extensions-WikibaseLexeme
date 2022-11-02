@@ -5,7 +5,6 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\Unit\ChangeOp\Validation;
 
 use MediaWikiUnitTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
@@ -26,8 +25,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	 * @dataProvider notAnArrayProvider
 	 */
 	public function testGivenSerializationIsNotAnArray_addsViolation( $serialization ) {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new JsonFieldHasWrongType( 'array', gettype( $serialization ) ) );
@@ -36,8 +35,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGivenLanguageKeyMissingInSerialization_addsViolation() {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new JsonFieldIsRequired( 'language' ) );
@@ -46,8 +45,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGivenValueKeyMissingInSerialization_addsViolation() {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new JsonFieldIsRequired( 'value' ) );
@@ -56,8 +55,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testLanguageInconsistent_addsViolation() {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new LanguageInconsistent( 'en-x-Q123', 'en' ) );
@@ -66,8 +65,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testLanguageCodeIsValidated_withText() {
-		$languageValidator = $this->newLanguageValidator();
-		$mockError = $this->getMockBuilder( ApiError::class )->getMock();
+		$languageValidator = $this->createMock( LexemeTermLanguageValidator::class );
+		$mockError = $this->createMock( ApiError::class );
 		$languageValidator->expects( $this->once() )
 			->method( 'validate' )
 			->willReturnCallback( function ( $lang, $context, $termText ) use ( $mockError ) {
@@ -75,7 +74,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 				$this->assertSame( 'bar', $termText );
 				$context->addViolation( $mockError );
 			} );
-		$context = $this->newValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( $mockError );
@@ -85,8 +84,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testLanguageCodeIsValidated_withoutText() {
-		$languageValidator = $this->newLanguageValidator();
-		$mockError = $this->getMockBuilder( ApiError::class )->getMock();
+		$languageValidator = $this->createMock( LexemeTermLanguageValidator::class );
+		$mockError = $this->createMock( ApiError::class );
 		$languageValidator->expects( $this->once() )
 			->method( 'validate' )
 			->willReturnCallback( function ( $lang, $context, $termText ) use ( $mockError ) {
@@ -94,7 +93,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 				$this->assertNull( $termText );
 				$context->addViolation( $mockError );
 			} );
-		$context = $this->newValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( $mockError );
@@ -107,8 +106,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	 * @dataProvider notAStringProvider
 	 */
 	public function testGivenValueIsNotAString_addsViolation( $value ) {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->atLeastOnce() )
 			->method( 'addViolation' )
 			->with( new JsonFieldHasWrongType( 'string', gettype( $value ) ) );
@@ -117,8 +116,8 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGivenEmptyValue_addsViolation() {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->atLeastOnce() )
 			->method( 'addViolation' )
 			->with( new LexemeTermTextCanNotBeEmpty() );
@@ -130,31 +129,13 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 	 * @dataProvider validTermProvider
 	 */
 	public function testGivenValidTermSerialization_addsNoViolations( $languageCode, $serialization ) {
-		$validator = new LexemeTermSerializationValidator( $this->newLanguageValidator() );
-		$context = $this->newValidationContext();
+		$validator = new LexemeTermSerializationValidator( $this->createMock( LexemeTermLanguageValidator::class ) );
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->never() )
 			->method( 'addViolation' );
 
 		$validator->validateStructure( $serialization, $context );
 		$validator->validateLanguage( $languageCode, $serialization, $context );
-	}
-
-	/**
-	 * @return MockObject|LexemeTermLanguageValidator
-	 */
-	private function newLanguageValidator() {
-		return $this->getMockBuilder( LexemeTermLanguageValidator::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return MockObject|ValidationContext
-	 */
-	private function newValidationContext() {
-		return $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 	public function notAnArrayProvider() {

@@ -40,9 +40,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 	 * @return FormsView
 	 */
 	private function newFormsViewMock() {
-		$view = $this->getMockBuilder( FormsView::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$view = $this->createMock( FormsView::class );
 
 		$view->method( 'getHtml' )
 			->willReturn( "FormsView::getHtml\n" );
@@ -54,9 +52,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 	 * @return SensesView
 	 */
 	private function newSensesViewMock() {
-		$view = $this->getMockBuilder( SensesView::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$view = $this->createMock( SensesView::class );
 
 		$view->method( 'getHtml' )
 			->willReturn( "SensesView::getHtml\n" );
@@ -70,9 +66,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 	 * @return StatementSectionsView
 	 */
 	private function newStatementSectionsViewMock( StatementList $expectedStatements = null ) {
-		$statementSectionsView = $this->getMockBuilder( StatementSectionsView::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$statementSectionsView = $this->createMock( StatementSectionsView::class );
 
 		$statementSectionsView->expects( $expectedStatements ? $this->once() : $this->never() )
 			->method( 'getHtml' )

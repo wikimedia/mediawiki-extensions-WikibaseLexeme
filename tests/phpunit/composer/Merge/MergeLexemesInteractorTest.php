@@ -114,13 +114,13 @@ class MergeLexemesInteractorTest extends TestCase {
 			->willReturnCallback( function () {
 				return $this->lexemeRepository;
 			} );
-		$this->lexemeMerger = $this->newMockLexemeMerger();
+		$this->lexemeMerger = $this->createMock( LexemeMerger::class );
 		$this->authorizer = new SucceedingLexemeAuthorizer();
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
 		$this->context = $this->createMock( IContextSource::class );
 		[ $this->redirector, $this->redirectorFactory ] = $this->newMockRedirectorAndFactory();
 		$this->entityTitleLookup = $this->newMockTitleLookup();
-		$this->watchedItemStore = $this->newMockWatchedItemStore();
+		$this->watchedItemStore = $this->createMock( WatchedItemStoreInterface::class );
 	}
 
 	public function testGivenMergeSucceeds_targetIsChangedCorrectly() {
@@ -252,10 +252,6 @@ class MergeLexemesInteractorTest extends TestCase {
 		);
 	}
 
-	private function newMockLexemeMerger() {
-		return $this->createMock( LexemeMerger::class );
-	}
-
 	private function newMockSummaryFormatter() {
 		$summaryFormatter = $this->createMock( SummaryFormatter::class );
 		$summaryFormatter->method( 'formatSummary' )
@@ -281,10 +277,6 @@ class MergeLexemesInteractorTest extends TestCase {
 			} );
 
 		return $lookup;
-	}
-
-	private function newMockWatchedItemStore() {
-		return $this->createMock( WatchedItemStoreInterface::class );
 	}
 
 }

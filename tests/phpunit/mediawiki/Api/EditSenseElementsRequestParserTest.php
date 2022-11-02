@@ -30,12 +30,8 @@ class EditSenseElementsRequestParserTest extends TestCase {
 	private const DEFAULT_SENSE_ID = 'L1-S1';
 
 	public function testSenseIdAndDataGetPassedToRequestObject() {
-		$editSenseChangeOpDeserializer = $this
-			->getMockBuilder( EditSenseChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$editSenseChangeOpDeserializer
-			->method( 'createEntityChangeOp' )
+		$editSenseChangeOpDeserializer = $this->createMock( EditSenseChangeOpDeserializer::class );
+		$editSenseChangeOpDeserializer->method( 'createEntityChangeOp' )
 			->with( $this->getDataParams() )
 			->willReturn( new ChangeOps() );
 

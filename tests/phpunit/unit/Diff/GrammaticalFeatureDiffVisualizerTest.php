@@ -52,9 +52,7 @@ class GrammaticalFeatureDiffVisualizerTest extends MediaWikiUnitTestCase {
 	}
 
 	private function getItemRefDiffVisualizer() {
-		$diffVis = $this->getMockBuilder( ItemReferenceDifferenceVisualizer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$diffVis = $this->createMock( ItemReferenceDifferenceVisualizer::class );
 
 		$diffVis->method( $this->anything() )
 			->willReturnCallback( static function ( $headerText, Diff $diff ) {

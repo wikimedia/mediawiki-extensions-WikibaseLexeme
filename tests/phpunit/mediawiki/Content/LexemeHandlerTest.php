@@ -162,16 +162,10 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 		return $serializerFactoryCallbacks['lexeme']( $baseModelSerializerFactory );
 	}
 
-	private function getMockWithoutConstructor( $className ) {
-		return $this->getMockBuilder( $className )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
 	private function newLexemeHandler() {
 		return new LexemeHandler(
-			$this->getMockWithoutConstructor( EntityContentDataCodec::class ),
-			$this->getMockWithoutConstructor( EntityConstraintProvider::class ),
+			$this->createMock( EntityContentDataCodec::class ),
+			$this->createMock( EntityConstraintProvider::class ),
 			$this->createMock( ValidatorErrorLocalizer::class ),
 			$this->createMock( EntityIdParser::class ),
 			$this->createMock( EntityIdLookup::class ),

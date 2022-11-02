@@ -127,20 +127,14 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 	}
 
 	private function getDeserializer() {
-		$senseIdDeserializer = $this->getMockBuilder( SenseIdDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$senseIdDeserializer
-			->method( 'deserialize' )
+		$senseIdDeserializer = $this->createMock( SenseIdDeserializer::class );
+		$senseIdDeserializer->method( 'deserialize' )
 			->willReturnCallback( static function ( $senseId ) {
 				return new SenseId( $senseId );
 			} );
 
-		$senseChangeOpDeserializer = $this->getMockBuilder( SenseChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$senseChangeOpDeserializer
-			->method( 'createEntityChangeOp' )
+		$senseChangeOpDeserializer = $this->createMock( SenseChangeOpDeserializer::class );
+		$senseChangeOpDeserializer->method( 'createEntityChangeOp' )
 			->willReturn( new ChangeOps() );
 
 		$deserializer = new SenseListChangeOpDeserializer(

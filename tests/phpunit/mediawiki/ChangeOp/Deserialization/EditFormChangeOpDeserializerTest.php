@@ -73,7 +73,8 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testCreateEntityChangeOpWithRepresentations_callsDownstreamDeserializer() {
-		$this->representationsChangeOpDeserializer = $this->getRepresentationsChangeOpDeserializer();
+		$this->representationsChangeOpDeserializer =
+			$this->createMock( RepresentationsChangeOpDeserializer::class );
 		$this->representationsChangeOpDeserializer
 			->expects( $this->once() )
 			->method( 'createEntityChangeOp' )
@@ -81,12 +82,10 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 		$deserializer = $this->newChangeOpDeserializer();
 
 		$formContext = $this->createMock( ValidationContext::class );
-		$representationsContext = $this->createMock( ValidationContext::class );
-
 		$formContext->expects( $this->once() )
 			->method( 'at' )
 			->with( 'representations' )
-			->willReturn( $representationsContext );
+			->willReturn( $this->createMock( ValidationContext::class ) );
 
 		$deserializer->setContext( $formContext );
 		$changeOps = $deserializer->createEntityChangeOp( [
@@ -127,7 +126,7 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 			->with( 'grammaticalFeatures' )
 			->willReturn( $grammaticalFeaturesContext );
 
-		$this->itemIdListDeserializer = $this->getItemIdListDeserializer();
+		$this->itemIdListDeserializer = $this->createMock( ItemIdListDeserializer::class );
 		$this->itemIdListDeserializer
 			->expects( $this->once() )
 			->method( 'deserialize' )
@@ -155,14 +154,6 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 		$deserializer->setContext( $this->createMock( ValidationContext::class ) );
 
 		$deserializer->createEntityChangeOp( $changeRequest );
-	}
-
-	private function getRepresentationsChangeOpDeserializer() {
-		return $this->createMock( RepresentationsChangeOpDeserializer::class );
-	}
-
-	private function getItemIdListDeserializer() {
-		return $this->createMock( ItemIdListDeserializer::class );
 	}
 
 	private function newChangeOpDeserializer() {

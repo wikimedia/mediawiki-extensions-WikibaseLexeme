@@ -265,8 +265,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 	private function subEntityTest( EntityDocument $entity, $expectedSubEntities ) {
 		$subEntities = [];
 		$mentionTracker = $this->createMock( EntityMentionListener::class );
-		$mentionTracker->expects( $this->any() )
-			->method( 'subEntityMentioned' )
+		$mentionTracker->method( 'subEntityMentioned' )
 			->will( $this->returnCallback( static function ( EntityDocument $entity ) use ( &$subEntities ) {
 				$subEntities[] = $entity->getId()->getSerialization();
 			} ) );
@@ -281,8 +280,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 	private function mentionedEntityTest( EntityDocument $entity, $expectedMentionedEntities ) {
 		$mentionedEntities = [];
 		$mentionTracker = $this->createMock( EntityMentionListener::class );
-		$mentionTracker->expects( $this->any() )
-			->method( 'entityReferenceMentioned' )
+		$mentionTracker->method( 'entityReferenceMentioned' )
 			->will( $this->returnCallback( static function ( EntityId $id ) use ( &$mentionedEntities ) {
 				$mentionedEntities[] = $id->getSerialization();
 			} ) );

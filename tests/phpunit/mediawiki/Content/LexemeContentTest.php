@@ -9,7 +9,6 @@ use DataValues\TimeValue;
 use Diff\DiffOp\Diff\Diff;
 use InvalidArgumentException;
 use MediaWikiLangTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 use Title;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Entity\Item;
@@ -96,7 +95,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$content = new LexemeContent(
 			null,
 			$redirect,
-			$this->getMockTitle()
+			$this->createMock( Title::class )
 		);
 
 		$this->assertSame( $redirect, $content->getEntityRedirect() );
@@ -104,7 +103,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 
 	public function testGetRedirectTarget() {
 		$redirectTarget = Title::newFromText( 'Lexeme:L123' );
-		$redirect = $this->getMockRedirect();
+		$redirect = $this->createMock( EntityRedirect::class );
 		$content = new LexemeContent( null, $redirect, $redirectTarget );
 
 		$this->assertSame( $redirectTarget, $content->getRedirectTarget() );
@@ -150,8 +149,8 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 	public function testGivenRedirect_isValidReturnsTrue() {
 		$content = new LexemeContent(
 			null,
-			$this->getMockRedirect(),
-			$this->getMockTitle()
+			$this->createMock( EntityRedirect::class ),
+			$this->createMock( Title::class )
 		);
 		$this->assertTrue( $content->isValid() );
 	}
@@ -339,22 +338,6 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 
 		$data = $lexemeContent->getTextForSearchIndex();
 		$this->assertEquals( "test moretest тест form moreform форма form2 moreform2 форма2", $data );
-	}
-
-	/**
-	 * @return EntityRedirect|MockObject
-	 */
-	private function getMockRedirect() {
-		return $this->getMockBuilder( EntityRedirect::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return Title|MockObject
-	 */
-	private function getMockTitle() {
-		return $this->createMock( Title::class );
 	}
 
 	public function testGetTextForFilters() {

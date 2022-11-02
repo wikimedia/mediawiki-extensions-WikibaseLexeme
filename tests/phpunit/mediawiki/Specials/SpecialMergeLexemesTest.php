@@ -67,10 +67,10 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 		$mwServices = MediaWikiServices::getInstance();
 
-		$this->mergeInteractor = $this->newMockMergeInteractor();
+		$this->mergeInteractor = $this->createMock( MergeLexemesInteractor::class );
 		$this->entityStore = WikibaseRepo::getEntityStore();
 		$this->titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
-		$this->exceptionLocalizer = $this->newMockExceptionLocalizer();
+		$this->exceptionLocalizer = $this->createMock( ExceptionLocalizer::class );
 		$this->permissionManager = $mwServices->getPermissionManager();
 	}
 
@@ -176,7 +176,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 	public function testGivenTitleLookupThrows_exceptionIsLocalized() {
 		$l123 = new LexemeId( 'L123' );
-		$this->titleLookup = $this->newMockTitleLookup();
+		$this->titleLookup = $this->createMock( EntityTitleLookup::class );
 		$exception = new Exception();
 		$expected = 'localized evil error';
 		$this->titleLookup->expects( $this->once() )
@@ -197,12 +197,12 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 	public function testGivenMergeException_showsErrorMessage() {
 		$expectedErrorMsg = 'bad things happened';
-		$this->exceptionLocalizer = $this->newMockExceptionLocalizer();
+		$this->exceptionLocalizer = $this->createMock( ExceptionLocalizer::class );
 		$mockException = $this->createMock( MergingException::class );
 		$mockException->expects( $this->once() )
 			->method( 'getErrorMessage' )
 			->willReturn( new RawMessage( $expectedErrorMsg ) );
-		$this->mergeInteractor = $this->newMockMergeInteractor();
+		$this->mergeInteractor = $this->createMock( MergeLexemesInteractor::class );
 		$this->mergeInteractor->method( 'mergeLexemes' )
 			->willThrowException( $mockException );
 
@@ -227,10 +227,6 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		);
 	}
 
-	private function newMockMergeInteractor() {
-		return $this->createMock( MergeLexemesInteractor::class );
-	}
-
 	private function assertShowsErrorWithMessage( $output, $string ) {
 		$this->assertThatHamcrest(
 			$output,
@@ -239,10 +235,6 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 					->andAlso( havingTextContents( $string ) )
 			) ) )
 		);
-	}
-
-	private function newMockTitleLookup() {
-		return $this->createMock( EntityTitleLookup::class );
 	}
 
 	/**
@@ -261,10 +253,6 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		);
 
 		return $output;
-	}
-
-	private function newMockExceptionLocalizer() {
-		return $this->createMock( ExceptionLocalizer::class );
 	}
 
 }

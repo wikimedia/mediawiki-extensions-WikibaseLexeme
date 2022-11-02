@@ -153,13 +153,6 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	/**
-	 * @return ClaimDiffer
-	 */
-	private function getMockClaimDiffer() {
-		return $this->createMock( ClaimDiffer::class );
-	}
-
-	/**
 	 * @return ClaimDifferenceVisualizer
 	 */
 	private function getMockClaimDiffVisualizer() {
@@ -189,14 +182,14 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 
 		$basicVisualizer = new BasicEntityDiffVisualizer(
 			$this->getMockMessageLocalizer(),
-			$this->getMockClaimDiffer(),
+			$this->createMock( ClaimDiffer::class ),
 			$this->getMockClaimDiffVisualizer()
 		);
 
 		return new LexemeDiffVisualizer(
 			$this->getMockMessageLocalizer(),
 			$basicVisualizer,
-			$this->getMockClaimDiffer(),
+			$this->createMock( ClaimDiffer::class ),
 			$this->getMockClaimDiffVisualizer(),
 			new ItemReferenceDifferenceVisualizer( $this->getIdFormatter() )
 		);

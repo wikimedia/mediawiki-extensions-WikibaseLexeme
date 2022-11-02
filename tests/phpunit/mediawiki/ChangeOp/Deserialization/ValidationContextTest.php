@@ -33,8 +33,7 @@ class ValidationContextTest extends TestCase {
 			->at( 'de' );
 
 		$violation = $this->createMock( ApiError::class );
-		$violation
-			->method( 'asApiMessage' )
+		$violation->method( 'asApiMessage' )
 			->with( 'data', [ 'representations', 'de' ] )
 			->willReturn( new ApiMessage( 'hello', 'world' ) );
 		try {

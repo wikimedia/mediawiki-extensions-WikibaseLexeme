@@ -38,7 +38,7 @@ trait LexemeDescriptionTestCase {
 	 * @return TermLookup
 	 */
 	private function getMockTermLookup() {
-		$lookup = $this->getMockBuilder( TermLookup::class )->disableOriginalConstructor()->getMock();
+		$lookup = $this->createMock( TermLookup::class );
 		$lookup->method( 'getLabel' )->willReturnCallback( function ( EntityId $id, $language ) {
 			return $this->getMockLabel( $id->getSerialization(), $language );
 		} );
@@ -61,7 +61,7 @@ trait LexemeDescriptionTestCase {
 			return new ItemId( $id );
 		}, $lookupIds ) );
 
-		$lookup = $this->getMockBuilder( TermBuffer::class )->disableOriginalConstructor()->getMock();
+		$lookup = $this->createMock( TermBuffer::class );
 		if ( empty( $lookupIds ) ) {
 			$lookup->expects( $this->never() )
 				->method( 'prefetchTerms' );

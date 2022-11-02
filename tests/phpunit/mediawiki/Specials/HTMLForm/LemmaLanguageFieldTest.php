@@ -49,10 +49,7 @@ class LemmaLanguageFieldTest extends TestCase {
 
 	public function testOptionsAreBuildFromLanguagesAndFormatted() {
 		$languages = WikibaseLexemeServices::getTermLanguages()->getLanguages();
-		$field = $this->getMockBuilder( LemmaLanguageField::class )
-			->disableOriginalConstructor()
-			->onlyMethods( [ 'msg' ] )
-			->getMock();
+		$field = $this->createPartialMock( LemmaLanguageField::class, [ 'msg' ] );
 		$field->expects( $this->exactly( count( $languages ) ) )
 			->method( 'msg' )
 			->willReturnCallback( function ( $messageKey, $messageParams ) use ( $languages ) {

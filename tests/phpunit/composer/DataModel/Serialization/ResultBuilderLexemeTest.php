@@ -68,27 +68,20 @@ class ResultBuilderLexemeTest extends TestCase {
 	}
 
 	private function getResultBuilderLexeme( ApiResult $result, bool $addMetaData = false ) {
-		$mockTitle = $this->getMockBuilder( Title::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$mockTitle->expects( $this->any() )
-			->method( 'getArticleID' )
+		$mockTitle = $this->createMock( Title::class );
+		$mockTitle->method( 'getArticleID' )
 			->willReturn( 123 );
-		$mockTitle->expects( $this->any() )
-			->method( 'getNamespace' )
+		$mockTitle->method( 'getNamespace' )
 			->willReturn( 406 );
-		$mockTitle->expects( $this->any() )
-			->method( 'getPrefixedText' )
+		$mockTitle->method( 'getPrefixedText' )
 			->willReturn( 'MockPrefixedText' );
 
 		$entityTitleStoreLookup = $this->createMock( EntityTitleStoreLookup::class );
-		$entityTitleStoreLookup->expects( $this->any() )
-			->method( 'getTitleForId' )
+		$entityTitleStoreLookup->method( 'getTitleForId' )
 			->willReturn( $mockTitle );
 
 		$mockPropertyDataTypeLookup = $this->createMock( PropertyDataTypeLookup::class );
-		$mockPropertyDataTypeLookup->expects( $this->any() )
-			->method( 'getDataTypeIdForProperty' )
+		$mockPropertyDataTypeLookup->method( 'getDataTypeIdForProperty' )
 			->willReturnCallback( static function ( PropertyId $id ) {
 				return 'DtIdFor_' . $id->getSerialization();
 			} );

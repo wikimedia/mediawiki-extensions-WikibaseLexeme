@@ -23,7 +23,7 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 			->method( 'parse' );
 		$derserializer = new ItemIdListDeserializer( $itemIdParser );
 
-		$contextSpy = $this->getContextSpy();
+		$contextSpy = $this->createMock( ValidationContext::class );
 
 		$this->assertSame( [], $derserializer->deserialize( [], $contextSpy ) );
 	}
@@ -33,14 +33,13 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 		$q7 = new ItemId( 'Q7' );
 
 		$itemIdParser = $this->createMock( ItemIdParser::class );
-		$itemIdParser
-			->method( 'parse' )
+		$itemIdParser->method( 'parse' )
 			->will( $this->returnValueMap( [
 				[ 'Q3', $q3 ],
 				[ 'Q7', $q7 ]
 			] ) );
 
-		$contextSpy = $this->getContextSpy();
+		$contextSpy = $this->createMock( ValidationContext::class );
 		$contextSpy
 			->expects( $this->never() )
 			->method( 'addViolation' );
@@ -52,11 +51,10 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 
 	public function testDeserializeArrayWithInvalidSerializations_returnsEmptyArrayAndAddsViolation() {
 		$itemIdParser = $this->createMock( ItemIdParser::class );
-		$itemIdParser
-			->method( 'parse' )
+		$itemIdParser->method( 'parse' )
 			->willThrowException( new EntityIdParsingException() );
 
-		$contextSpy = $this->getContextSpy();
+		$contextSpy = $this->createMock( ValidationContext::class );
 		$contextSpy
 			->expects( $this->once() )
 			->method( 'at' )
@@ -69,13 +67,6 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 		$derserializer = new ItemIdListDeserializer( $itemIdParser );
 
 		$this->assertSame( [], $derserializer->deserialize( [ 'qFoo' ], $contextSpy ) );
-	}
-
-	private function getContextSpy() {
-		return $this
-			->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 }

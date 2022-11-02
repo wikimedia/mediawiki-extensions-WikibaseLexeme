@@ -107,9 +107,7 @@ class FormLinkFormatterTest extends TestCase {
 	 * @return DefaultEntityLinkFormatter
 	 */
 	private function newDefaultFormatter() {
-		$formatter = $this->getMockBuilder( DefaultEntityLinkFormatter::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$formatter = $this->createMock( DefaultEntityLinkFormatter::class );
 
 		$formatter->method( 'getHtml' )
 			->willReturnCallback( static function ( EntityId $entityId, array $labelData ) {

@@ -106,12 +106,8 @@ class EditFormElementsRequestParserTest extends TestCase {
 	}
 
 	private function mockEditFormChangeOpDeserializer() {
-		$editFormChangeOpDeserializer = $this
-			->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$editFormChangeOpDeserializer
-			->method( 'createEntityChangeOp' )
+		$editFormChangeOpDeserializer = $this->createMock( EditFormChangeOpDeserializer::class );
+		$editFormChangeOpDeserializer->method( 'createEntityChangeOp' )
 			->with( $this->getDataParams() )
 			->willReturn( new ChangeOps() );
 

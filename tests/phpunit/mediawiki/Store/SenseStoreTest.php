@@ -77,12 +77,12 @@ class SenseStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->saveEntity( $this->newLexeme(), '', $this->newUser() );
+		$instance->saveEntity( $this->newLexeme(), '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenSenseId_saveEntityEditsSenseOnLexeme() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -98,7 +98,7 @@ class SenseStoreTest extends TestCase {
 
 	public function testGivenSaveEntityWithDefaultFlag_editNewFlagNotPassedToParentService() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -118,7 +118,7 @@ class SenseStoreTest extends TestCase {
 
 	public function testGivenSaveEntityWithEditNewFlag_editNewFlagNotPassedToParentService() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -137,7 +137,7 @@ class SenseStoreTest extends TestCase {
 	}
 
 	public function testGivenSaveSenseWithFalseBaseRev_saveEntityEditsSenseOnLexemeLoadedWith0Rev() {
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 		$lexeme = $this->newLexeme();
 
 		$parentService = $this->createMock( EntityStore::class );
@@ -155,7 +155,7 @@ class SenseStoreTest extends TestCase {
 	}
 
 	public function testGivenSaveSenseWithXBaseRev_saveEntityEditsSenseOnLexemeLoadedWithXRev() {
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 		$lexeme = $this->newLexeme();
 
 		$parentService = $this->createMock( EntityStore::class );
@@ -172,7 +172,7 @@ class SenseStoreTest extends TestCase {
 
 	public function testGivenSaveEntityWithTags_tagsPassedToParentService() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -198,7 +198,7 @@ class SenseStoreTest extends TestCase {
 		);
 
 		$this->expectException( \DomainException::class );
-		$instance->saveRedirect( $redirect, '', $this->newUser() );
+		$instance->saveRedirect( $redirect, '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenLexemeId_deleteEntityFails() {
@@ -208,7 +208,7 @@ class SenseStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->deleteEntity( $this->lexemeId, '', $this->newUser() );
+		$instance->deleteEntity( $this->lexemeId, '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenSenseId_deleteEntityRemovesSenseFromLexeme() {
@@ -226,7 +226,7 @@ class SenseStoreTest extends TestCase {
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
-		$instance->deleteEntity( $this->senseIdOne, '', $this->newUser() );
+		$instance->deleteEntity( $this->senseIdOne, '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenLexemeId_userWasLastToEditFails() {
@@ -236,7 +236,7 @@ class SenseStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->userWasLastToEdit( $this->newUser(), $this->lexemeId, 0 );
+		$instance->userWasLastToEdit( $this->createMock( User::class ), $this->lexemeId, 0 );
 	}
 
 	public function testGivenSenseId_userWasLastToEditForwardsToParentService() {
@@ -245,7 +245,7 @@ class SenseStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->userWasLastToEdit( $this->newUser(), $this->senseIdOne, 0 );
+		$result = $instance->userWasLastToEdit( $this->createMock( User::class ), $this->senseIdOne, 0 );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -256,7 +256,7 @@ class SenseStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->updateWatchlist( $this->newUser(), $this->lexemeId, false );
+		$instance->updateWatchlist( $this->createMock( User::class ), $this->lexemeId, false );
 	}
 
 	public function testGivenSenseId_updateWatchlistForwardsToParentService() {
@@ -265,7 +265,7 @@ class SenseStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$instance->updateWatchlist( $this->newUser(), $this->senseIdOne, false );
+		$instance->updateWatchlist( $this->createMock( User::class ), $this->senseIdOne, false );
 	}
 
 	public function testGivenLexemeId_isWatchingFails() {
@@ -275,7 +275,7 @@ class SenseStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->isWatching( $this->newUser(), $this->lexemeId );
+		$instance->isWatching( $this->createMock( User::class ), $this->lexemeId );
 	}
 
 	public function testGivenSenseId_isWatchingForwardsToParentService() {
@@ -284,7 +284,7 @@ class SenseStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->isWatching( $this->newUser(), $this->senseIdOne );
+		$result = $instance->isWatching( $this->createMock( User::class ), $this->senseIdOne );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -337,19 +337,10 @@ class SenseStoreTest extends TestCase {
 	}
 
 	/**
-	 * @return User
-	 */
-	private function newUser() {
-		return $this->createMock( User::class );
-	}
-
-	/**
 	 * @return Lexeme|MockObject
 	 */
 	private function newLexeme() {
-		$mock = $this->getMockBuilder( Lexeme::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mock = $this->createMock( Lexeme::class );
 		$mock->method( 'getId' )
 			->willReturn( $this->lexemeId );
 		return $mock;
@@ -359,9 +350,7 @@ class SenseStoreTest extends TestCase {
 	 * @return Sense
 	 */
 	private function newSense() {
-		$mock = $this->getMockBuilder( Sense::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mock = $this->createMock( Sense::class );
 		$mock->method( 'getId' )
 			->willReturn( $this->senseIdOne );
 		return $mock;

@@ -77,9 +77,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 		$form = NewForm::any()->build();
 		$summary = new Summary();
 
-		$op1 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op1 = $this->createMock( ChangeOp::class );
 		$op1->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
@@ -90,9 +88,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 				$b->setAutoCommentArgs( [ 'f' ] );
 				$b->setAutoSummaryArgs( [ 'ff' ] );
 			} );
-		$op2 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op2 = $this->createMock( ChangeOp::class );
 		$op2->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
@@ -117,9 +113,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 		$form = NewForm::any()->build();
 		$summary = new Summary();
 
-		$op1 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op1 = $this->createMock( ChangeOp::class );
 		$op1->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
@@ -130,9 +124,7 @@ class ChangeOpRepresentationListTest extends TestCase {
 				$b->setAutoCommentArgs( [ 'f' ] );
 				$b->setAutoSummaryArgs( [ 'ff' ] );
 			} );
-		$op2 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op2 = $this->createMock( ChangeOp::class );
 		$op2->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Form $a, Summary $b ) use ( $form ) {
