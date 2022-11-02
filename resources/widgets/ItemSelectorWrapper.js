@@ -62,7 +62,7 @@ module.exports = ( function () {
 					$( this.$el ).data( 'entityselector' ).selectedEntity( value );
 				}
 			},
-			destroyed: function () {
+			unmounted: function () {
 				$( this.$el ).data( 'entityselector' ).destroy();
 			}
 		};
