@@ -21,7 +21,8 @@
 							'wikibase-lexeme-sense-gloss-language-input_invalid-language':
 								isInvalidLanguage(gloss.language)
 							}"
-						v-model="gloss.language"
+						@input="gloss.language = $event"
+						:value="gloss.language"
 						:initialCode="gloss.language">
 					</language-selector>
 				</td>

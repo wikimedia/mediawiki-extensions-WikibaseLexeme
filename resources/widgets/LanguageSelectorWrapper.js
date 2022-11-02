@@ -5,6 +5,7 @@ module.exports = ( function ( mw, wikibase ) {
 		return {
 			props: [ 'initialCode' ],
 			template: '<input>',
+			emits: [ 'input' ],
 			mounted: function () {
 				var vm = this,
 					languageMenuOptions,
