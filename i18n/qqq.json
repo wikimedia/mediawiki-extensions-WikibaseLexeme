@@ -14,7 +14,8 @@
 			"Raymond",
 			"Robby",
 			"Umherirrender",
-			"Verdy p"
+			"Verdy p",
+			"Bgo eiu"
 		]
 	},
 	"wikibaselexeme-desc": "{{desc|name=WikibaseLexeme|url=https://www.mediawiki.org/wiki/Extension:WikibaseLexeme}}",
@@ -32,11 +33,11 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Placeholder for the \"lexical category\" field in the Lexeme creation form.",
 	"wikibaselexeme-newlexeme-language": "Label for field in the Lexeme creation form.",
 	"wikibaselexeme-newlexeme-language-placeholder": "Placeholder for the \"language\" field in the Lexeme creation form. Feel free to change \"English\" to your language name.",
-	"wikibaselexeme-statementsection-statements-about-form": "Heading for the list of statements giving specific information about the currently viewed Form of a Lexeme.\n\nParameters:\n* $1 - Form ID.",
+	"wikibaselexeme-statementsection-statements-about-form": "Heading for the list of statements giving specific information about the currently viewed Form of a Lexeme.\n\nParameters:\n* $1 - Form ID.\n\nThe form ID string is left-to-right; to render correctly in right-to-left scripts, you will likely have to insert the Unicode formatting characters U+202B Right-To-Left Embedding (before start of $1) and U+202C POP Directional Formatting (after end of $1), as well as U+061C Arabic Letter Mark (Arabic-based scripts and Divehi) or U+200F Right-to-Left Mark (other right-to-left scripts) at the beginning of the string if $1 comes first.",
 	"wikibaselexeme-header-forms": "Subheading for the '''lexicographical forms''' (not forms of tables or dialogs) section on a Lexeme page.",
 	"wikibaselexeme-enter-form-representation": "Placeholder for the Lexeme lexicographical Form representation input field.",
 	"wikibaselexeme-empty-form-representation": "Placeholder message displayed instead of the Lexeme lexicographical Form representation in case no representation has been specified yet.",
-	"wikibaselexeme-statementsection-statements-about-sense": "Heading for the list of statements giving specific information about the currently viewed Sense of a Lexeme.\n\nParameters:\n* $1 - Sense ID.",
+	"wikibaselexeme-statementsection-statements-about-sense": "Heading for the list of statements giving specific information about the currently viewed Sense of a Lexeme.\n\nParameters:\n* $1 - Sense ID.\n\nThe sense ID string is left-to-right; to render correctly in right-to-left scripts, you will likely have to insert the Unicode formatting characters U+202B Right-To-Left Embedding (before start of $1) and U+202C POP Directional Formatting (after end of $1), as well as U+061C Arabic Letter Mark (Arabic-based scripts and Divehi) or U+200F Right-to-Left Mark (other right-to-left scripts) at the beginning of the string if $1 comes first.",
 	"wikibaselexeme-header-senses": "Subheading for the Senses section on a Lexeme page.\n{{Identical|Sense}}",
 	"wikibase-lexeme-gloss-empty": "Placeholder message displayed instead of the gloss of the Sense in case the gloss in the display language has not been specified yet.",
 	"wikibaselexeme-lemma-field-lemma-label": "Label of the field to input the lemma of the Lexeme.\n{{Identical|Lemma}}",
