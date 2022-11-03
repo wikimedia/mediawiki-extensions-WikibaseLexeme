@@ -14,6 +14,7 @@ module.exports = ( function () {
 	 */
 	return function ( template, messages ) {
 		return {
+			compatConfig: { MODE: 3 },
 			props: [ 'lemmas', 'inEditMode', 'isSaving' ],
 			template: template,
 

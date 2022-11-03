@@ -15,6 +15,7 @@ module.exports = ( function () {
 	 */
 	return function ( store, template, lemmaWidget, languageAndCategoryWidget, messages ) {
 		return {
+			compatConfig: { MODE: 3 },
 			template: template,
 
 			data: function () {

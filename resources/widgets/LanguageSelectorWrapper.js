@@ -3,6 +3,7 @@ module.exports = ( function ( mw, wikibase ) {
 
 	return function ( languageCodes ) {
 		return {
+			compatConfig: { MODE: 3 },
 			props: [ 'initialCode' ],
 			template: '<input>',
 			emits: [ 'input' ],

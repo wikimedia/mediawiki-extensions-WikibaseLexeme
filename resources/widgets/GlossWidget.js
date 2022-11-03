@@ -38,6 +38,7 @@ module.exports = ( function ( require, wb ) {
 	 */
 	function newGlossWidget( messages, template, glosses, beforeUpdate, getDirectionality ) {
 		return {
+			compatConfig: { MODE: 3 },
 			template: template,
 
 			mixins: [

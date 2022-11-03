@@ -10,6 +10,7 @@ module.exports = ( function () {
 	 */
 	return function ( watchedProperty ) {
 		var definition = {
+			compatConfig: { MODE: 3 },
 			data: function () {
 				return {
 					redundantLanguages: []
