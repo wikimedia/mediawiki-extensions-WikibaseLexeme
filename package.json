@@ -49,7 +49,7 @@
 		"grunt-banana-checker": "0.9.0",
 		"grunt-eslint": "24.0.0",
 		"grunt-jasmine-nodejs": "^1.6.1",
-		"grunt-stylelint": "0.16.0",
+		"grunt-stylelint": "0.18.0",
 		"jasmine": "^4.0.2",
 		"jquery": "3.6.1",
 		"jsdom": "^19.0.0",
