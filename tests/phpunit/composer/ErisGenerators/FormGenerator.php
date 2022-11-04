@@ -5,9 +5,11 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 use Eris\Generator;
 use Eris\Generator\ChooseGenerator;
 use Eris\Generator\ConstantGenerator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
 use Eris\Generator\SetGenerator;
+use Eris\Random\RandomRange;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 
@@ -49,7 +51,7 @@ class FormGenerator implements Generator {
 		}
 	}
 
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$generateRepresentations = $this->representationGenerator;
 		$generateGrammaticalFeatures = $this->grammaticalFeaturesGenerator;
 		$generateFormId = $this->formIdGenerator;
@@ -63,7 +65,7 @@ class FormGenerator implements Generator {
 		return GeneratedValueSingle::fromJustValue( $form, 'form' );
 	}
 
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		return $element;
 	}
 

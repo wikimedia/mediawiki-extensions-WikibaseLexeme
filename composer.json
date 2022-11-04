@@ -20,7 +20,7 @@
 	},
 	"require-dev": {
 		"davidrjonas/composer-lock-diff": "^1.4",
-		"giorgiosironi/eris": "0.10.0",
+		"giorgiosironi/eris": "^0.13.0",
 		"hamcrest/hamcrest-php": "^2.0",
 		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/mediawiki-codesniffer": "38.0.0",

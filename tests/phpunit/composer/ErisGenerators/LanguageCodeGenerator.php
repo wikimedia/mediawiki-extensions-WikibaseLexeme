@@ -4,7 +4,9 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use DomainException;
 use Eris\Generator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
+use Eris\Random\RandomRange;
 
 /**
  * @license GPL-2.0-or-later
@@ -15,16 +17,16 @@ class LanguageCodeGenerator implements Generator {
 	 * @see Generator::__invoke
 	 *
 	 * @param int $size
-	 * @param callable $rand
+	 * @param RandomRange $rand
 	 *
 	 * @return GeneratedValueSingle<T>
 	 */
-	public function __invoke( $size, $rand ) {
-		$length = $rand( 2, 3 );
+	public function __invoke( $size, RandomRange $rand ) {
+		$length = $rand->rand( 2, 3 );
 		$built = '';
 
 		for ( $i = 0; $i < $length; $i++ ) {
-			$built .= chr( $rand( ord( 'a' ), ord( 'z' ) ) );
+			$built .= chr( $rand->rand( ord( 'a' ), ord( 'z' ) ) );
 		}
 
 		return GeneratedValueSingle::fromJustValue( $built, 'languageCode' );
@@ -33,11 +35,11 @@ class LanguageCodeGenerator implements Generator {
 	/**
 	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T> $element
+	 * @param GeneratedValue<T> $element
 	 *
-	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
+	 * @return GeneratedValue<T>
 	 */
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		if ( !$this->contains( $element ) ) {
 			throw new DomainException(
 				'Cannot shrink ' . $element . ' because it does not belong ' .

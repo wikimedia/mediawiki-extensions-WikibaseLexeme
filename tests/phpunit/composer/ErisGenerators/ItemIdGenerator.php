@@ -4,7 +4,9 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
 use Eris\Generator\ChooseGenerator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
+use Eris\Random\RandomRange;
 use Wikibase\DataModel\Entity\ItemId;
 
 /**
@@ -26,11 +28,11 @@ class ItemIdGenerator implements Generator {
 	 * @see Generator::__invoke
 	 *
 	 * @param int $size
-	 * @param callable $rand
+	 * @param RandomRange $rand
 	 *
 	 * @return GeneratedValueSingle<T>
 	 */
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$generateNumericItemId = $this->numericItemIdGenerator;
 
 		/** @var GeneratedValueSingle $generatedValue */
@@ -46,11 +48,11 @@ class ItemIdGenerator implements Generator {
 	/**
 	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T> $element
+	 * @param GeneratedValue<T> $element
 	 *
-	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
+	 * @return GeneratedValue<T>
 	 */
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		return $element;
 	}
 

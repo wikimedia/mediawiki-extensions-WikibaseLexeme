@@ -5,9 +5,10 @@ namespace Wikibase\Lexeme\Tests\ErisGenerators;
 use Eris\Generator;
 use Eris\Generator\ChooseGenerator;
 use Eris\Generator\ConstantGenerator;
-use Eris\Generator\GeneratedValueOptions;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueSingle;
 use Eris\Generator\MapGenerator;
+use Eris\Random\RandomRange;
 use Wikibase\DataModel\Entity\Int32EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
@@ -67,11 +68,11 @@ class LexemeGenerator implements Generator {
 	 * @see Generator::__invoke
 	 *
 	 * @param int $size
-	 * @param callable $rand
+	 * @param RandomRange $rand
 	 *
 	 * @return GeneratedValueSingle<T>
 	 */
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$size = min( $size, 10 );
 
 		$generateLexemeId = $this->lexemeIdGenerator;
@@ -87,7 +88,7 @@ class LexemeGenerator implements Generator {
 
 		/** @var FormSet $formSet */
 		$formSet = $generateFormSet( $size, $rand )->unbox();
-		$counterIncrement = $rand( 1, 50 );
+		$counterIncrement = $rand->rand( 1, 50 );
 
 		$nextFormId = $formSet->maxFormIdNumber() + $counterIncrement;
 		$lexeme = new Lexeme(
@@ -105,11 +106,11 @@ class LexemeGenerator implements Generator {
 	/**
 	 * @see Generator::shrink
 	 *
-	 * @param GeneratedValueSingle<T> $element
+	 * @param GeneratedValue<T> $element
 	 *
-	 * @return GeneratedValueSingle<T>|GeneratedValueOptions<T>
+	 * @return GeneratedValue<T>
 	 */
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		/** @var Lexeme $lexeme */
 		$lexeme = $element->unbox();
 

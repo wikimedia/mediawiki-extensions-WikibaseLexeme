@@ -3,8 +3,10 @@
 namespace Wikibase\Lexeme\Tests\ErisGenerators;
 
 use Eris\Generator;
+use Eris\Generator\GeneratedValue;
 use Eris\Generator\GeneratedValueOptions;
 use Eris\Generator\GeneratedValueSingle;
+use Eris\Random\RandomRange;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormSet;
 
@@ -22,10 +24,10 @@ class FormSetGenerator implements Generator {
 		$this->formGenerator = new FormGenerator();
 	}
 
-	public function __invoke( $size, $rand ) {
+	public function __invoke( $size, RandomRange $rand ) {
 		$generateForm = $this->formGenerator;
 
-		$listSize = $rand( 0, $size );
+		$listSize = $rand->rand( 0, $size );
 
 		$result = new FormSet();
 
@@ -45,7 +47,7 @@ class FormSetGenerator implements Generator {
 		return GeneratedValueSingle::fromJustValue( $result, 'FormSet' );
 	}
 
-	public function shrink( GeneratedValueSingle $element ) {
+	public function shrink( GeneratedValue $element ) {
 		/** @var FormSet $formSet */
 		$formSet = $element->unbox();
 
