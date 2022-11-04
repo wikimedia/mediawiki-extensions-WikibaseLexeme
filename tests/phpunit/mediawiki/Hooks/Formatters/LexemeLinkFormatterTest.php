@@ -153,9 +153,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	 * @return EntityLinkFormatter|\PHPUnit\Framework\MockObject\MockObject
 	 */
 	private function getMockDefaultFormatter() {
-		$formatter = $this->getMockBuilder( DefaultEntityLinkFormatter::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$formatter = $this->createMock( DefaultEntityLinkFormatter::class );
 
 		$formatter->method( 'getHtml' )
 			->willReturnCallback( static function ( EntityId $entityId, array $label ) {

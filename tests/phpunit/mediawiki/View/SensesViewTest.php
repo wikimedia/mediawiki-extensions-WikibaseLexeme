@@ -163,9 +163,7 @@ class SensesViewTest extends TestCase {
 	}
 
 	private function newSensesView(): SensesView {
-		$statementGroupListView = $this->getMockBuilder( StatementGroupListView::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$statementGroupListView = $this->createMock( StatementGroupListView::class );
 		$statementGroupListView->method( 'getHtml' )
 			->willReturn( self::STATEMENT_SECTION_HTML );
 

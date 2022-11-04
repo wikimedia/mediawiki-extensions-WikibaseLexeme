@@ -36,7 +36,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 	/** @var string */
 	private $lemmaLanguage;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 
 		$this->lemmaLanguage = 'en';

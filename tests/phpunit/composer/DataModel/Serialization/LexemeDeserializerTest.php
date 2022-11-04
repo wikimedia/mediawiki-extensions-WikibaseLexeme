@@ -31,17 +31,13 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 class LexemeDeserializerTest extends TestCase {
 
 	private function newDeserializer() {
-		$entityIdDeserializer = $this->getMockBuilder( EntityIdDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$entityIdDeserializer = $this->createMock( EntityIdDeserializer::class );
 		$entityIdDeserializer->method( 'deserialize' )
 			->will( $this->returnCallback( static function ( $serialization ) {
 				return new ItemId( $serialization );
 			} ) );
 
-		$statementListDeserializer = $this->getMockBuilder( StatementListDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$statementListDeserializer = $this->createMock( StatementListDeserializer::class );
 		$statementListDeserializer->method( 'deserialize' )
 			->will( $this->returnCallback( static function ( array $serialization ) {
 				$statementList = new StatementList();

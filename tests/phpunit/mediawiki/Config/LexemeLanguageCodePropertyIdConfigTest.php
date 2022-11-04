@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 use HashConfig;
 use MediaWiki\ResourceLoader\Context;
 use MediaWikiIntegrationTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
 
 /**
@@ -15,21 +14,12 @@ use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
  */
 class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCase {
 
-	/**
-	 * @return MockObject|Context
-	 */
-	private function getContext() {
-		return $this->getMockBuilder( Context::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
 	public function testGetScript() {
 		$module = new LexemeLanguageCodePropertyIdConfig();
 		$module->setConfig( new HashConfig( [
 			'LexemeLanguageCodePropertyId' => null,
 		] ) );
-		$script = $module->getScript( $this->getContext() );
+		$script = $module->getScript( $this->createMock( Context::class ) );
 		$this->assertStringStartsWith(
 			'mw.config.set({"LexemeLanguageCodePropertyId":',
 			$script
@@ -46,7 +36,7 @@ class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCas
 
 		$this->assertStringContainsString(
 			json_encode( $evilConfig ),
-			$module->getScript( $this->getContext() )
+			$module->getScript( $this->createMock( Context::class ) )
 		);
 	}
 

@@ -108,9 +108,7 @@ class ChangeOpSenseCloneTest extends TestCase {
 	 * @covers ::getActions
 	 */
 	public function testGetActions() {
-		$sourceSense = $this->getMockBuilder( Sense::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$sourceSense = $this->createMock( Sense::class );
 		$changeOp = new ChangeOpSenseClone( $sourceSense );
 
 		$this->assertSame( [ EntityPermissionChecker::ACTION_EDIT ], $changeOp->getActions() );

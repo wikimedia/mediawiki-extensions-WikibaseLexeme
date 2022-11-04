@@ -26,9 +26,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 class LemmaChangeOpDeserializerTest extends TestCase {
 
 	private function newLemmaChangeOpDeserializer() {
-		$lemmaTermValidator = $this->getMockBuilder( LemmaTermValidator::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$lemmaTermValidator = $this->createMock( LemmaTermValidator::class );
 
 		return new LemmaChangeOpDeserializer(
 			new LexemeTermSerializationValidator(
@@ -48,20 +46,14 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 	}
 
 	public function testGivenTermChangeOpSerializationFormatInvalid_exceptionIsThrown() {
-		$termSerializationValidator = $this->getMockBuilder(
-			LexemeTermSerializationValidator::class
-		)
-			->disableOriginalConstructor()
-			->getMock();
+		$termSerializationValidator = $this->createMock( LexemeTermSerializationValidator::class );
 		$termSerializationValidator->expects( $this->atLeastOnce() )
 			->method( 'validateStructure' )
 			->will(
 				$this->throwException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) )
 			);
 
-		$lemmaTermValidator = $this->getMockBuilder( LemmaTermValidator::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$lemmaTermValidator = $this->createMock( LemmaTermValidator::class );
 
 		$deserializer = new LemmaChangeOpDeserializer(
 			$termSerializationValidator,

@@ -199,9 +199,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 			$mockEntityIdPager->addEntityId( $testEntity->getId() );
 		}
 
-		$sqlEntityIdPagerFactory = $this->getMockBuilder( SqlEntityIdPagerFactory::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$sqlEntityIdPagerFactory = $this->createMock( SqlEntityIdPagerFactory::class );
 		$sqlEntityIdPagerFactory->expects( $this->once() )
 			->method( 'newSqlEntityIdPager' )
 			->with( $entityTypes, EntityIdPager::NO_REDIRECTS )
@@ -270,8 +268,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 	 */
 	private function getMockPropertyDataTypeLookup() {
 		$mockDataTypeLookup = $this->createMock( PropertyDataTypeLookup::class );
-		$mockDataTypeLookup->expects( $this->any() )
-			->method( 'getDataTypeIdForProperty' )
+		$mockDataTypeLookup->method( 'getDataTypeIdForProperty' )
 			->will( $this->returnCallback( static function ( PropertyId $id ) {
 				if ( $id->getSerialization() === 'P999' ) {
 					throw new PropertyDataTypeLookupException( $id );

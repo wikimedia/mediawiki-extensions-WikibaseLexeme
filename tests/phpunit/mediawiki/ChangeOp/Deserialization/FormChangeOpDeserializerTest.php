@@ -28,9 +28,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 	public function testRequestWithoutLexemeId_yieldsPureEditFormChangeOp() {
 		$request = [ 'something' ];
 
-		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$repr = $this->createMock( EditFormChangeOpDeserializer::class );
 
 		$editFormChangeOp = $this->createMock( ChangeOp::class );
 
@@ -56,9 +54,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 	public function testRequestWithLexemeId_yieldsAddFormToLexemeChangeOp() {
 		$request = [ 'lexemeId' => 'L4711', 'something' => 'else' ];
 
-		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$repr = $this->createMock( EditFormChangeOpDeserializer::class );
 
 		$editFormChangeOp = $this->createMock( ChangeOp::class );
 
@@ -97,9 +93,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 	public function testRequestWithInvalidLexemeId_addsViolation() {
 		$request = [ 'lexemeId' => 'foo', 'something' => 'else' ];
 
-		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$repr = $this->createMock( EditFormChangeOpDeserializer::class );
 
 		$editFormChangeOp = $this->createMock( ChangeOp::class );
 
@@ -114,16 +108,12 @@ class FormChangeOpDeserializerTest extends TestCase {
 		$idParser->method( 'parse' )
 			->willThrowException( new EntityIdParsingException() );
 
-		$idContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$idContext = $this->createMock( ValidationContext::class );
 		$idContext->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new ParameterIsNotLexemeId( 'foo' ) );
 
-		$dataContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$dataContext = $this->createMock( ValidationContext::class );
 		$dataContext->expects( $this->once() )
 			->method( 'at' )
 			->with( 'lexemeId' )
@@ -145,9 +135,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 	public function testRequestWithNonLexemeId_addsViolation() {
 		$request = [ 'lexemeId' => 'Q2', 'something' => 'else' ];
 
-		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$repr = $this->createMock( EditFormChangeOpDeserializer::class );
 
 		$editFormChangeOp = $this->createMock( ChangeOp::class );
 
@@ -162,16 +150,12 @@ class FormChangeOpDeserializerTest extends TestCase {
 		$idParser->method( 'parse' )
 			->willReturn( new ItemId( 'Q2' ) );
 
-		$idContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$idContext = $this->createMock( ValidationContext::class );
 		$idContext->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new ParameterIsNotLexemeId( 'Q2' ) );
 
-		$dataContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$dataContext = $this->createMock( ValidationContext::class );
 		$dataContext->expects( $this->once() )
 			->method( 'at' )
 			->with( 'lexemeId' )
@@ -193,9 +177,7 @@ class FormChangeOpDeserializerTest extends TestCase {
 	public function testRequestWithIdOfNotExistingLexeme_addsViolation() {
 		$request = [ 'lexemeId' => 'L3000', 'something' => 'else' ];
 
-		$repr = $this->getMockBuilder( EditFormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$repr = $this->createMock( EditFormChangeOpDeserializer::class );
 
 		$editFormChangeOp = $this->createMock( ChangeOp::class );
 
@@ -215,16 +197,12 @@ class FormChangeOpDeserializerTest extends TestCase {
 					return new LexemeId( $id );
 				} );
 
-		$idContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$idContext = $this->createMock( ValidationContext::class );
 		$idContext->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new LexemeNotFound( new LexemeId( 'L3000' ) ) );
 
-		$dataContext = $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$dataContext = $this->createMock( ValidationContext::class );
 		$dataContext->expects( $this->once() )
 			->method( 'at' )
 			->with( 'lexemeId' )

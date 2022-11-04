@@ -48,13 +48,6 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return $titleLookup;
 	}
 
-	/**
-	 * @return MockObject|EntityRevisionLookup
-	 */
-	private function getMockRevisionLookup() {
-		return $this->createMock( EntityRevisionLookup::class );
-	}
-
 	private function newMockRevisionLookupWithRevision( EntityRevision $rev ): EntityRevisionLookup {
 		$mock = $this->createMock( EntityRevisionLookup::class );
 		$mock->method( 'getEntityRevision' )
@@ -105,7 +98,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 	public function testFormatId_nonExistingEntity() {
 		$senseId = new SenseId( 'L10-S20' );
-		$lookup = $this->getMockRevisionLookup();
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturn( null );
 		$formatter = $this->getFormatter( $senseId, $lookup );
@@ -118,7 +111,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	public function testFormatId_redirectedEntity() {
 		$senseId = new SenseId( 'L10-S20' );
 		$exception = $this->createMock( RevisionedUnresolvedRedirectException::class );
-		$lookup = $this->getMockRevisionLookup();
+		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willThrowException( $exception );
 		$formatter = $this->getFormatter( $senseId, $lookup );

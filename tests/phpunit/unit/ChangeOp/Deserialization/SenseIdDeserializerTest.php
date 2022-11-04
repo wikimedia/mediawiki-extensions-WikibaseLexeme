@@ -21,12 +21,11 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 		$senseId = new SenseId( 'L1-S1' );
 
 		$entityIdParser = $this->createMock( EntityIdParser::class );
-		$entityIdParser
-			->method( 'parse' )
+		$entityIdParser->method( 'parse' )
 			->with( 'L1-S1' )
 			->willReturn( $senseId );
 
-		$context = $this->getContextSpy();
+		$context = $this->createMock( ValidationContext::class );
 		$context
 			->expects( $this->never() )
 			->method( 'addViolation' );
@@ -38,12 +37,11 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 
 	public function testDeserializeNotValidSenseId_returnsNullAndContextHasViolation() {
 		$entityIdParser = $this->createMock( EntityIdParser::class );
-		$entityIdParser
-			->method( 'parse' )
+		$entityIdParser->method( 'parse' )
 			->with( 'somesome' )
 			->willThrowException( new EntityIdParsingException( 'so sad' ) );
 
-		$context = $this->getContextSpy();
+		$context = $this->createMock( ValidationContext::class );
 		$context
 			->expects( $this->once() )
 			->method( 'addViolation' )
@@ -55,20 +53,16 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testDeserializeNonSenseReferencingSenseId_returnsNullAndContextHasViolation() {
-		$senseId = $this->getMockBuilder( SenseId::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$senseId
-			->method( 'getEntityType' )
+		$senseId = $this->createMock( SenseId::class );
+		$senseId->method( 'getEntityType' )
 			->willReturn( 'weird' );
 
 		$entityIdParser = $this->createMock( EntityIdParser::class );
-		$entityIdParser
-			->method( 'parse' )
+		$entityIdParser->method( 'parse' )
 			->with( 'L1-S1' )
 			->willReturn( $senseId );
 
-		$context = $this->getContextSpy();
+		$context = $this->createMock( ValidationContext::class );
 		$context
 			->expects( $this->once() )
 			->method( 'addViolation' )
@@ -77,13 +71,6 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 		$deserializer = new SenseIdDeserializer( $entityIdParser );
 
 		$this->assertNull( $deserializer->deserialize( 'L1-S1', $context ) );
-	}
-
-	private function getContextSpy() {
-		return $this
-			->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 }

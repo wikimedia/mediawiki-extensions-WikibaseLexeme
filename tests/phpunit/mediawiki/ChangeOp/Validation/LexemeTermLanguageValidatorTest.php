@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Validation;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidItemId;
@@ -27,7 +26,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 	 */
 	public function testGivenLanguageNotAString_addsViolation( $language ) {
 		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
-		$context = $this->getValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new JsonFieldHasWrongType( 'string', gettype( $language ) ) );
@@ -37,7 +36,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 
 	public function testGivenEmptyLanguage_addsViolation() {
 		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
-		$context = $this->getValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new LexemeTermLanguageCanNotBeEmpty() );
@@ -50,7 +49,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 	 */
 	public function testGivenUnknownLanguage_addsViolation( $language ) {
 		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
-		$context = $this->getValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new UnknownLanguage( $language ) );
@@ -64,7 +63,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 	public function testGivenUnknownLanguage_addsViolation_withText( $language ) {
 		$termText = 'example term text';
 		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
-		$context = $this->getValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new UnknownLanguage( $language, $termText ) );
@@ -77,7 +76,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 	 */
 	public function testGivenInvalidItem_addsViolation( $language, $invalidItem ) {
 		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
-		$context = $this->getValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->once() )
 			->method( 'addViolation' )
 			->with( new InvalidItemId( $invalidItem ) );
@@ -90,7 +89,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 	 */
 	public function testGivenValidLanguage_addsNoViolations( $language ) {
 		$validator = new LexemeTermLanguageValidator( $this->newContentLanguages() );
-		$context = $this->getValidationContext();
+		$context = $this->createMock( ValidationContext::class );
 		$context->expects( $this->never() )
 			->method( 'addViolation' );
 
@@ -102,15 +101,6 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 	 */
 	private function newContentLanguages() {
 		return new StaticContentLanguages( [ 'en', 'qqq' ] );
-	}
-
-	/**
-	 * @return MockObject|ValidationContext
-	 */
-	private function getValidationContext() {
-		return $this->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 	public function notAStringProvider() {

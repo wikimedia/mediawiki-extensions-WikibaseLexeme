@@ -26,7 +26,7 @@ class LexemeRdfBuilderTest extends TestCase {
 	private $fullStatementRdfBuilderFactory;
 	private $lexemeSpecificComponentsRdfBuilder;
 
-	public function setUp(): void {
+	protected function setUp(): void {
 		parent::setUp();
 		$this->truthyStatementRdfBuilderFactory = $this->createMock( TruthyStatementRdfBuilderFactory::class );
 		$this->fullStatementRdfBuilderFactory = $this->createMock( FullStatementRdfBuilderFactory::class );

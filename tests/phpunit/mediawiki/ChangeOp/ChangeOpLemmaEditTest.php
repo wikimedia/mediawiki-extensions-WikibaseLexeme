@@ -27,7 +27,8 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 */
 	public function testGivenInvalidArguments_constructorThrowsException( $language, $lemma ) {
 		$this->expectException( InvalidArgumentException::class );
-		new ChangeOpLemmaEdit( $language, $lemma, $this->getLemmaTermValidator() );
+		new ChangeOpLemmaEdit( $language, $lemma,
+			$this->createMock( LemmaTermValidator::class ) );
 	}
 
 	public function invalidConstructorArgumentsProvider() {
@@ -45,7 +46,8 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 */
 	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
 		$this->expectException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
+			$this->createMock( LemmaTermValidator::class ) );
 		$changeOp->validate( $entity );
 	}
 
@@ -62,7 +64,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenInvalidLemmaTerm_validateReturnsInvalidResult( $lemmaTerm ) {
 		$lexeme = new Lexeme();
 
-		$lemmasTermValidator = $this->getLemmaTermValidator();
+		$lemmasTermValidator = $this->createMock( LemmaTermValidator::class );
 		$lemmasTermValidator
 			->expects( $this->once() )
 			->method( 'validate' )
@@ -82,7 +84,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenValidLemmaTerm_validateReturnsValidResult() {
 		$lexeme = new Lexeme();
 
-		$lemmasTermValidator = $this->getLemmaTermValidator();
+		$lemmasTermValidator = $this->createMock( LemmaTermValidator::class );
 		$lemmasTermValidator
 			->expects( $this->once() )
 			->method( 'validate' )
@@ -98,7 +100,8 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 */
 	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
 		$this->expectException( InvalidArgumentException::class );
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
+			$this->createMock( LemmaTermValidator::class ) );
 		$changeOp->apply( $entity );
 	}
 
@@ -109,7 +112,8 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemmaEdit( 'de', 'Ente', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'de', 'Ente',
+			$this->createMock( LemmaTermValidator::class ) );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -130,7 +134,8 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'bar', $this->getLemmaTermValidator() );
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'bar',
+			$this->createMock( LemmaTermValidator::class ) );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -139,12 +144,6 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$this->assertSame( 'set', $summary->getMessageKey() );
 		$this->assertSame( 'en', $summary->getLanguageCode() );
 		$this->assertSame( [ 'bar' ], $summary->getAutoSummaryArgs() );
-	}
-
-	private function getLemmaTermValidator() {
-		return $this->getMockBuilder( LemmaTermValidator::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 }

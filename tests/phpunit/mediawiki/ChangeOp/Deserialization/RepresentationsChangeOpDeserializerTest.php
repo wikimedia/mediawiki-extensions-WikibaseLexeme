@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use ApiUsageException;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
@@ -25,7 +24,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpEmpty_yieldsZeroChangeOpRepresentationList() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
 			$representationDeserializer,
@@ -40,7 +39,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpWithValidTerm_yieldsChangeOpRepresentationList() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$representationDeserializer
 			->expects( $this->once() )
@@ -54,10 +53,9 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$representationContext = $this->getContextSpy();
-		$representationContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$representationContext = $this->createMock( ValidationContext::class );
+		$representationContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $representationContext );
@@ -73,7 +71,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpWithValidTerm_trimsRepresentationsValuesToNFC() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$representationDeserializer
 			->expects( $this->once() )
@@ -87,10 +85,9 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$representationContext = $this->getContextSpy();
-		$representationContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$representationContext = $this->createMock( ValidationContext::class );
+		$representationContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $representationContext );
@@ -106,7 +103,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpWithRemoval_yieldsChangeOpRepresentationList() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$deserializer = new RepresentationsChangeOpDeserializer(
 			$representationDeserializer,
@@ -114,10 +111,9 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$representationContext = $this->getContextSpy();
-		$representationContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$representationContext = $this->createMock( ValidationContext::class );
+		$representationContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $representationContext );
@@ -133,7 +129,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
 		$representationDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 		$validator->method( 'validateStructure' )
 			->willThrowException(
 				new ApiUsageException( null, Status::newFatal( 'some-validation-error' ) )
@@ -145,10 +141,9 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$representationContext = $this->getContextSpy();
-		$representationContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$representationContext = $this->createMock( ValidationContext::class );
+		$representationContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $representationContext );
@@ -157,20 +152,6 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 		$deserializer->createEntityChangeOp( [
 			'en' => [ 'language' => 'en', 'value' => 'bad things' ]
 		] );
-	}
-
-	private function getContextSpy() {
-		return $this
-			->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return LexemeTermSerializationValidator|MockObject
-	 */
-	private function newDummyValidator() {
-		return $this->createMock( LexemeTermSerializationValidator::class );
 	}
 
 }

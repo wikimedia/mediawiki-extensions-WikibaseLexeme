@@ -76,12 +76,12 @@ class FormStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->saveEntity( $this->newLexeme(), '', $this->newUser() );
+		$instance->saveEntity( $this->newLexeme(), '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenFormId_saveEntityEditsFormOnLexeme() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -97,7 +97,7 @@ class FormStoreTest extends TestCase {
 
 	public function testGivenSaveEntityWithDefaultFlag_editNewFlagNotPassedToParentService() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -117,7 +117,7 @@ class FormStoreTest extends TestCase {
 
 	public function testGivenSaveEntityWithEditNewFlag_editNewFlagNotPassedToParentService() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -136,7 +136,7 @@ class FormStoreTest extends TestCase {
 	}
 
 	public function testGivenSaveFormWithFalseBaseRev_saveEntityEditsFormOnLexemeLoadedWithZeroRev() {
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 		$lexeme = $this->newLexeme();
 
 		$parentService = $this->createMock( EntityStore::class );
@@ -154,7 +154,7 @@ class FormStoreTest extends TestCase {
 	}
 
 	public function testGivenSaveFormWithNumberBaseRev_saveEntityEditsFormOnLexemeLoadedWithThatRev() {
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 		$lexeme = $this->newLexeme();
 
 		$parentService = $this->createMock( EntityStore::class );
@@ -171,7 +171,7 @@ class FormStoreTest extends TestCase {
 
 	public function testGivenSaveEntityWithTags_tagsPassedToParentService() {
 		$lexeme = $this->newLexeme();
-		$user = $this->newUser();
+		$user = $this->createMock( User::class );
 
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
@@ -197,7 +197,7 @@ class FormStoreTest extends TestCase {
 		);
 
 		$this->expectException( \DomainException::class );
-		$instance->saveRedirect( $redirect, '', $this->newUser() );
+		$instance->saveRedirect( $redirect, '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenLexemeId_deleteEntityFails() {
@@ -207,7 +207,7 @@ class FormStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->deleteEntity( $this->lexemeId, '', $this->newUser() );
+		$instance->deleteEntity( $this->lexemeId, '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenFormId_deleteEntityRemovesFormFromLexeme() {
@@ -225,7 +225,7 @@ class FormStoreTest extends TestCase {
 
 		$instance = new FormStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
-		$instance->deleteEntity( $this->formIdOne, '', $this->newUser() );
+		$instance->deleteEntity( $this->formIdOne, '', $this->createMock( User::class ) );
 	}
 
 	public function testGivenLexemeId_userWasLastToEditFails() {
@@ -235,7 +235,7 @@ class FormStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->userWasLastToEdit( $this->newUser(), $this->lexemeId, 0 );
+		$instance->userWasLastToEdit( $this->createMock( User::class ), $this->lexemeId, 0 );
 	}
 
 	public function testGivenFormId_userWasLastToEditForwardsToParentService() {
@@ -244,7 +244,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->userWasLastToEdit( $this->newUser(), $this->formIdOne, 0 );
+		$result = $instance->userWasLastToEdit( $this->createMock( User::class ), $this->formIdOne, 0 );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -255,7 +255,7 @@ class FormStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->updateWatchlist( $this->newUser(), $this->lexemeId, false );
+		$instance->updateWatchlist( $this->createMock( User::class ), $this->lexemeId, false );
 	}
 
 	public function testGivenFormId_updateWatchlistForwardsToParentService() {
@@ -264,7 +264,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$instance->updateWatchlist( $this->newUser(), $this->formIdOne, false );
+		$instance->updateWatchlist( $this->createMock( User::class ), $this->formIdOne, false );
 	}
 
 	public function testGivenLexemeId_isWatchingFails() {
@@ -274,7 +274,7 @@ class FormStoreTest extends TestCase {
 		);
 
 		$this->expectException( ParameterTypeException::class );
-		$instance->isWatching( $this->newUser(), $this->lexemeId );
+		$instance->isWatching( $this->createMock( User::class ), $this->lexemeId );
 	}
 
 	public function testGivenFormId_isWatchingForwardsToParentService() {
@@ -283,7 +283,7 @@ class FormStoreTest extends TestCase {
 			$this->newEntityRevisionLookup()
 		);
 
-		$result = $instance->isWatching( $this->newUser(), $this->formIdOne );
+		$result = $instance->isWatching( $this->createMock( User::class ), $this->formIdOne );
 		$this->assertSame( 'fromParentService', $result );
 	}
 
@@ -336,19 +336,10 @@ class FormStoreTest extends TestCase {
 	}
 
 	/**
-	 * @return User
-	 */
-	private function newUser() {
-		return $this->createMock( User::class );
-	}
-
-	/**
 	 * @return Lexeme|MockObject
 	 */
 	private function newLexeme() {
-		$mock = $this->getMockBuilder( Lexeme::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mock = $this->createMock( Lexeme::class );
 		$mock->method( 'getId' )
 			->willReturn( $this->lexemeId );
 		return $mock;
@@ -358,9 +349,7 @@ class FormStoreTest extends TestCase {
 	 * @return Form
 	 */
 	private function newForm() {
-		$mock = $this->getMockBuilder( Form::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$mock = $this->createMock( Form::class );
 		$mock->method( 'getId' )
 			->willReturn( $this->formIdOne );
 		return $mock;

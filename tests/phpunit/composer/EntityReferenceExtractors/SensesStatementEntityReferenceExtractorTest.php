@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\EntityReferenceExtractors;
 
 use InvalidArgumentException;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
@@ -27,7 +26,7 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 	 */
 	public function testGivenNotALexeme_throwsException( EntityDocument $entity ) {
 		$extractor = new SensesStatementEntityReferenceExtractor(
-			$this->getMockStatementEntityReferenceExtractor()
+			$this->createMock( StatementEntityReferenceExtractor::class )
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$extractor->extractEntityIds( $entity );
@@ -42,7 +41,7 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 
 	public function testGivenLexemeWithoutSenses_returnsEmptyArray() {
 		$extractor = new SensesStatementEntityReferenceExtractor(
-			$this->getMockStatementEntityReferenceExtractor()
+			$this->createMock( StatementEntityReferenceExtractor::class )
 		);
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
@@ -56,7 +55,7 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 			->build();
 		$expected = [ new NumericPropertyId( 'P123' ), new ItemId( 'Q42' ) ];
 
-		$statementEntityReferenceExtractor = $this->getMockStatementEntityReferenceExtractor();
+		$statementEntityReferenceExtractor = $this->createMock( StatementEntityReferenceExtractor::class );
 		$statementEntityReferenceExtractor->expects( $this->once() )
 			->method( 'extractEntityIds' )
 			->with( $sense )
@@ -76,7 +75,7 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 			->withSense( NewSense::havingId( 'S3' ) )
 			->build();
 
-		$statementEntityReferenceExtractor = $this->getMockStatementEntityReferenceExtractor();
+		$statementEntityReferenceExtractor = $this->createMock( StatementEntityReferenceExtractor::class );
 		$statementEntityReferenceExtractor->expects( $this->exactly( 3 ) )
 			->method( 'extractEntityIds' )
 			->willReturnOnConsecutiveCalls(
@@ -96,15 +95,6 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 			],
 			$extractor->extractEntityIds( $lexeme )
 		);
-	}
-
-	/**
-	 * @return StatementEntityReferenceExtractor|MockObject
-	 */
-	private function getMockStatementEntityReferenceExtractor() {
-		return $this->getMockBuilder( StatementEntityReferenceExtractor::class )
-			->disableOriginalConstructor()
-			->getMock();
 	}
 
 }

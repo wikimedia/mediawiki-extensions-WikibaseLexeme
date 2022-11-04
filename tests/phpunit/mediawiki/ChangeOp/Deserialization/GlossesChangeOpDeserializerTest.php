@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use ApiUsageException;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
@@ -25,7 +24,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpEmpty_yieldsZeroChangeOpGlossList() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$deserializer = new GlossesChangeOpDeserializer(
 			$glossDeserializer,
@@ -40,7 +39,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpWithValidTerm_yieldsChangeOpGlossList() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$glossDeserializer
 			->expects( $this->once() )
@@ -54,10 +53,9 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$glossContext = $this->getContextSpy();
-		$glossContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$glossContext = $this->createMock( ValidationContext::class );
+		$glossContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $glossContext );
@@ -73,7 +71,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpWithValidTerm_trimsGlossValuesToNFC() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$glossDeserializer
 			->expects( $this->once() )
@@ -87,10 +85,9 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$glossContext = $this->getContextSpy();
-		$glossContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$glossContext = $this->createMock( ValidationContext::class );
+		$glossContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $glossContext );
@@ -106,7 +103,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 	public function testCreateEntityChangeOpWithRemoval_yieldsChangeOpGlossList() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 
 		$deserializer = new GlossesChangeOpDeserializer(
 			$glossDeserializer,
@@ -114,10 +111,9 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$glossContext = $this->getContextSpy();
-		$glossContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$glossContext = $this->createMock( ValidationContext::class );
+		$glossContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $glossContext );
@@ -133,7 +129,7 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 
 	public function testGivenChangeValidationFails_exceptionIsThrownInsteadOfCreatingChangeOp() {
 		$glossDeserializer = $this->createMock( TermDeserializer::class );
-		$validator = $this->newDummyValidator();
+		$validator = $this->createMock( LexemeTermSerializationValidator::class );
 		$validator->method( 'validateStructure' )
 			->willThrowException(
 				new ApiUsageException( null, Status::newFatal( 'some-validation-error' ) )
@@ -145,10 +141,9 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 			$validator
 		);
 
-		$languageContext = $this->getContextSpy();
-		$glossContext = $this->getContextSpy();
-		$glossContext
-			->method( 'at' )
+		$languageContext = $this->createMock( ValidationContext::class );
+		$glossContext = $this->createMock( ValidationContext::class );
+		$glossContext->method( 'at' )
 			->with( 'en' )
 			->willReturn( $languageContext );
 		$deserializer->setContext( $glossContext );
@@ -157,20 +152,6 @@ class GlossesChangeOpDeserializerTest extends TestCase {
 		$deserializer->createEntityChangeOp( [
 			'en' => [ 'language' => 'en', 'value' => 'bad things' ]
 		] );
-	}
-
-	private function getContextSpy() {
-		return $this
-			->getMockBuilder( ValidationContext::class )
-			->disableOriginalConstructor()
-			->getMock();
-	}
-
-	/**
-	 * @return LexemeTermSerializationValidator|MockObject
-	 */
-	private function newDummyValidator() {
-		return $this->createMock( LexemeTermSerializationValidator::class );
 	}
 
 }

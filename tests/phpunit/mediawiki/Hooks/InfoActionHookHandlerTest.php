@@ -75,9 +75,7 @@ class InfoActionHookHandlerTest extends TestCase {
 			->with( $context->getTitle() )
 			->willReturn( $lexemeId );
 
-		$pageProps = $this->getMockBuilder( PageProps::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$pageProps = $this->createMock( PageProps::class );
 		$pageProps->expects( $this->once() )
 			->method( 'getProperties' )
 			->with( $context->getTitle() )

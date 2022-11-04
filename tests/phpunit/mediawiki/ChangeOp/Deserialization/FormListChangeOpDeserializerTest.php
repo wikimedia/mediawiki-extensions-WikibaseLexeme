@@ -124,20 +124,14 @@ class FormListChangeOpDeserializerTest extends TestCase {
 	}
 
 	private function getDeserializer() {
-		$formIdDeserializer = $this->getMockBuilder( FormIdDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$formIdDeserializer
-			->method( 'deserialize' )
+		$formIdDeserializer = $this->createMock( FormIdDeserializer::class );
+		$formIdDeserializer->method( 'deserialize' )
 			->willReturnCallback( static function ( $formId ) {
 				return new FormId( $formId );
 			} );
 
-		$formChangeOpDeserializer = $this->getMockBuilder( FormChangeOpDeserializer::class )
-			->disableOriginalConstructor()
-			->getMock();
-		$formChangeOpDeserializer
-			->method( 'createEntityChangeOp' )
+		$formChangeOpDeserializer = $this->createMock( FormChangeOpDeserializer::class );
+		$formChangeOpDeserializer->method( 'createEntityChangeOp' )
 			->willReturn( new ChangeOps() );
 
 		$deserializer = new FormListChangeOpDeserializer(

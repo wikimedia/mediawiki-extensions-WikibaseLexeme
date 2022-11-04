@@ -38,9 +38,7 @@ class ChangeOpsFormsEditTest extends TestCase {
 
 	public function testValidateLexemeWithUnknownFormOp_yieldsError() {
 		$changeOpRemoveForm = new ChangeOpsFormsEdit( [
-			'L1-F1' => $this->getMockBuilder( ChangeOpFormEdit::class )
-				->disableOriginalConstructor()
-				->getMock()
+			'L1-F1' => $this->createMock( ChangeOpFormEdit::class )
 		] );
 
 		$lexeme = NewLexeme::create()->build();
@@ -50,9 +48,7 @@ class ChangeOpsFormsEditTest extends TestCase {
 
 	public function testValidateLexemeWithFormOp_yieldsSuccess() {
 		$changeOpRemoveForm = new ChangeOpsFormsEdit( [
-			'L1-F1' => $this->getMockBuilder( ChangeOpFormEdit::class )
-				->disableOriginalConstructor()
-				->getMock()
+			'L1-F1' => $this->createMock( ChangeOpFormEdit::class )
 		] );
 
 		$form = NewForm::havingLexeme( 'L1' )->andId( 'F1' )->build();
@@ -77,9 +73,7 @@ class ChangeOpsFormsEditTest extends TestCase {
 
 		$summary = new Summary();
 
-		$op = $this->getMockBuilder( ChangeOpFormEdit::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$op = $this->createMock( ChangeOpFormEdit::class );
 		$op->expects( $this->once() )
 			->method( 'apply' )
 			->with( $form, $summary );

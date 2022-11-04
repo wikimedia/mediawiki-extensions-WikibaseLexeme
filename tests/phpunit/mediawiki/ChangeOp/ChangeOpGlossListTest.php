@@ -77,9 +77,7 @@ class ChangeOpGlossListTest extends TestCase {
 		$sense = NewSense::havingId( 'S1' )->build();
 		$summary = new Summary();
 
-		$op1 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op1 = $this->createMock( ChangeOp::class );
 		$op1->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
@@ -90,9 +88,7 @@ class ChangeOpGlossListTest extends TestCase {
 				$b->setAutoCommentArgs( [ 'f' ] );
 				$b->setAutoSummaryArgs( [ 'ff' ] );
 			} );
-		$op2 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op2 = $this->createMock( ChangeOp::class );
 		$op2->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
@@ -117,9 +113,7 @@ class ChangeOpGlossListTest extends TestCase {
 		$sense = NewSense::havingId( 'S1' )->build();
 		$summary = new Summary();
 
-		$op1 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op1 = $this->createMock( ChangeOp::class );
 		$op1->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {
@@ -130,9 +124,7 @@ class ChangeOpGlossListTest extends TestCase {
 				$b->setAutoCommentArgs( [ 'f' ] );
 				$b->setAutoSummaryArgs( [ 'ff' ] );
 			} );
-		$op2 = $this->getMockBuilder( ChangeOp::class )
-			->disableArgumentCloning()
-			->getMock();
+		$op2 = $this->createMock( ChangeOp::class );
 		$op2->expects( $this->once() )
 			->method( 'apply' )
 			->willReturnCallback( function ( Sense $a, Summary $b ) use ( $sense ) {

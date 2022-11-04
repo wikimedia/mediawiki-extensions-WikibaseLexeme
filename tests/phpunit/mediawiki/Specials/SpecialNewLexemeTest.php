@@ -68,9 +68,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	}
 
 	private function getMockSummaryFormatter(): SummaryFormatter {
-		$summaryFormatter = $this->getMockBuilder( SummaryFormatter::class )
-			->disableOriginalConstructor()
-			->getMock();
+		$summaryFormatter = $this->createMock( SummaryFormatter::class );
 
 		$summaryFormatter->method( 'formatSummary' )
 			->willReturnCallback( static function ( FormatableSummary $summary ) {
