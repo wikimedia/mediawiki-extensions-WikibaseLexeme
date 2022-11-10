@@ -5,8 +5,11 @@
 		]
 	},
 	"wikibaselexeme-diffview-language": "kielâ",
+	"wikibaselexeme-diffview-lexical-category": "säniluokka",
 	"wikibaselexeme-field-language-label": "Kielâ",
+	"wikibaselexeme-field-lexical-category-label": "Säniluokka",
 	"wikibaselexeme-gloss-field-language-label": "Kielâ",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Säniluokka",
 	"wikibaselexeme-unknown-category": "Tubdâmettum",
 	"wikibaselexeme-unknown-language": "Tubdâmettum kielâ"
 }

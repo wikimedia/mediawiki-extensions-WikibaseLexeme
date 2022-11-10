@@ -14,10 +14,14 @@
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseeʹm",
 	"wikibaselexeme-deletedentity-lexeme": "Jaukkuum lekseeʹm",
 	"wikibaselexeme-diffview-language": "ǩiõll",
+	"wikibaselexeme-diffview-lexical-category": "sääʹnnklass",
 	"wikibaselexeme-field-language-label": "Ǩiõll",
+	"wikibaselexeme-field-lexical-category-label": "Sääʹnnklass",
 	"wikibaselexeme-gloss-field-language-label": "Ǩiõll",
 	"wikibaselexeme-newlexeme-fieldset": "Raaj ođđ lekseeʹm",
 	"wikibaselexeme-newlexeme-info-panel-heading": "Lââʹssteâđ lekseeʹmi pirr",
 	"wikibaselexeme-newlexeme-language": "Lekseeʹm ǩiõll",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Sääʹnnklass",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example": "Lekseeʹm sääʹnnklass, ouddmiârkkân '$1'",
 	"wikibaselexeme-newlexeme-submit": "Raaj lekseeʹm"
 }

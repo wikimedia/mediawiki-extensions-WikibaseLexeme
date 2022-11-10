@@ -4,9 +4,15 @@
 			"Yupik"
 		]
 	},
+	"datatypes-type-wikibase-lexeme": "Leksema",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Leksema",
 	"wikibaselexeme-diffview-language": "giella",
+	"wikibaselexeme-diffview-lexical-category": "sátneluohkká",
 	"wikibaselexeme-field-language-label": "Giella",
+	"wikibaselexeme-field-lexical-category-label": "Sátneluohkká",
 	"wikibaselexeme-gloss-field-language-label": "Giella",
+	"wikibaselexeme-newlexeme-lexicalcategory": "Sátneluohkká",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example": "Leksema sátneluohkká, omd. '$1'",
 	"wikibaselexeme-unknown-category": "Dovdameahttun",
 	"wikibaselexeme-unknown-language": "Dovdameahttun giella"
 }
