@@ -4,8 +4,11 @@
 			"Yupik"
 		]
 	},
+	"wikibaselexeme-newlexeme-lexicalcategory": "Säniluokka",
 	"wikibaselexeme-gloss-field-language-label": "Kielâ",
 	"wikibaselexeme-field-language-label": "Kielâ",
+	"wikibaselexeme-field-lexical-category-label": "Säniluokka",
+	"wikibaselexeme-diffview-lexical-category": "säniluokka",
 	"wikibaselexeme-diffview-language": "kielâ",
 	"wikibaselexeme-unknown-language": "Tubdâmettum kielâ",
 	"wikibaselexeme-unknown-category": "Tubdâmettum"
