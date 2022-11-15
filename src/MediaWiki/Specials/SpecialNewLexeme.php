@@ -197,7 +197,10 @@ class SpecialNewLexeme extends SpecialPage {
 			'wikibase.lexeme.special.NewLexeme',
 			'wikibase.lexeme.special.NewLexeme.legacyBrowserFallback'
 			] );
-		$output->addModuleStyles( [ 'wikibase.lexeme.special.NewLexeme.styles' ] );
+		$output->addModuleStyles( [
+			'wikibase.lexeme.special.NewLexeme.styles',
+			'wikibase.common', // T322687
+		] );
 
 		$exampleLexemeParams = $this->createExampleParameters();
 		$form = $this->createForm( $exampleLexemeParams );
