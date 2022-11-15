@@ -148,7 +148,6 @@ class FormDiffViewTest extends TestCase {
 			'</td><td colspan="2" class="diff-lineno">' . $formDiffViewHeader . '</td></tr>' .
 			"<tr><td colspan=\"2\">\u{00A0}</td><td class=\"diff-marker\" data-marker=\"+\"></td>" .
 			'<td class="diff-addedline"><div><ins class="diffchange diffchange-inline">fr-value</ins></div></td></tr>';
-		$this->markTestSkipped( 'Temporarily skip test' );
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
@@ -171,7 +170,6 @@ class FormDiffViewTest extends TestCase {
 			"</tr><tr><td colspan=\"2\">\u{00A0}</td><td class=\"diff-marker\" data-marker=\"+\"></td>" .
 			'<td class="diff-addedline"><div><ins class="diffchange diffchange-inline">' .
 			'<span>formatted Q2</span></ins></div></td></tr>';
-		$this->markTestSkipped( 'Temporarily skip test' );
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
@@ -200,7 +198,6 @@ class FormDiffViewTest extends TestCase {
 			"\u{00A0}</td><td class=\"diff-marker\" data-marker=\"+\"></td><td class=\"diff-addedline\">" .
 			'<div><ins class="diffchange diffchange-inline"><span>(wikibase-diffview-rank-normal)</span>' .
 			'</ins></div></td></tr>';
-		$this->markTestSkipped( 'Temporarily skip test' );
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
@@ -222,7 +219,6 @@ class FormDiffViewTest extends TestCase {
 			'</tr><tr><td class="diff-marker" data-marker="−"></td><td class="diff-deletedline"><div>' .
 			'<del class="diffchange diffchange-inline"><span>formatted Q1</span></del></div></td>' .
 			"<td colspan=\"2\">\u{00A0}</td></tr>";
-		$this->markTestSkipped( 'Temporarily skip test' );
 		$this->assertSame( $expected, $this->getDiffView( $diff )->getHtml() );
 	}
 
