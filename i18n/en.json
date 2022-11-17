@@ -114,7 +114,7 @@
 	"wikibaselexeme-newlexeme-lemma-empty-error": "Lemma field cannot be empty.",
 	"wikibaselexeme-newlexeme-lemma-language": "Spelling variant of the Lemma",
 	"wikibaselexeme-newlexeme-lemma-language-empty-error": "Spelling variant field cannot be empty.",
-	"wikibaselexeme-newlexeme-lemma-language-help-link-target": "https://www.wikidata.org/wiki/Special:MyLanguage/Help:Monolingual_text_languages",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-target": "https://www.wikidata.org/wiki/Special:MyLanguage/Wikidata:Lexicographical_data/Spelling_variant",
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Help)",
 	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "Spelling variant must be a valid language code.",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Language code for the Lemma's spelling variant, e.g. 'en'",
