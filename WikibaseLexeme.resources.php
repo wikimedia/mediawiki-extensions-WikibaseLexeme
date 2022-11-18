@@ -317,6 +317,7 @@ return call_user_func( static function () {
 				"wikibaselexeme-newlexeme-invalid-language-code-warning",
 				"wikibase-lexeme-lemma-language-option",
 				"copyrightpage",
+				"wikibaselexeme-form-field-required",
 			],
 		],
 		"wikibase.lexeme.special.NewLexeme.styles" => $moduleTemplate + [

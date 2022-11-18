@@ -101,6 +101,7 @@
 	"wikibaselexeme-form-description": "Template for generating a description of a Form, used when displaying search results. Parameters:\n* $1 - grammatical features\n* $2 - Lemma\n* $3 - Lexeme ID\n* $4 - computed Lemma description\n\nExample: [https://www.wikidata.org/w/index.php?search=%22fires%22&title=Special%3ASearch&profile=advanced&fulltext=1&advancedSearch-current=%7B%22namespaces%22%3A%5B146%5D%7D&ns146=1 Search for \"fires\" on wikidata]",
 	"wikibaselexeme-form-field-language-label": "Label of the field to input the spelling variant code of the Form representation",
 	"wikibaselexeme-form-field-representation-label": "Label of the field to input the representation of the Form\n{{Identical|Representation}}",
+	"wikibaselexeme-form-field-required": "Hint message to indicate that a form field is required. Shown on hover over a required-indicator (asterisk, '*')",
 	"wikibaselexeme-form-grammatical-features": "Label for the list of a form's grammatical features",
 	"wikibaselexeme-form-representation-redundant-language": "Error message to show if multiple form representations with same language are provided",
 	"wikibaselexeme-formidformatter-link-title": "{{optional}}\n\nValue of the \"title\" attribute of a link to form page when the form is displayed as HTML.\n\nParameters:\n* $1 - Form ID\n* $2 - Form's \"secondary label\" (grammatical features).",
