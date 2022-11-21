@@ -56,6 +56,7 @@
 	"wikibaselexeme-field-lexical-category-label": "어휘 범주",
 	"wikibaselexeme-form-field-language-label": "언어",
 	"wikibaselexeme-form-field-representation-label": "표현",
+	"wikibaselexeme-form-field-required": "이 칸은 필수입니다",
 	"wikibaselexeme-form-grammatical-features": "문법적 특징",
 	"wikibaselexeme-gloss-field-gloss-label": "주석",
 	"wikibaselexeme-gloss-field-language-label": "언어",

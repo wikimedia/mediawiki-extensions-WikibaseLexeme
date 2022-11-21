@@ -86,6 +86,7 @@
 	"wikibaselexeme-form-description": "$1 para: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Variante ortográfica",
 	"wikibaselexeme-form-field-representation-label": "Representação",
+	"wikibaselexeme-form-field-required": "Este campo é obrigatório",
 	"wikibaselexeme-form-grammatical-features": "Funcionalidades gramaticais",
 	"wikibaselexeme-form-representation-redundant-language": "Não é possível introduzir mais do que uma representação com a mesma variante ortográfica.",
 	"wikibaselexeme-gloss-field-gloss-label": "Glosa",

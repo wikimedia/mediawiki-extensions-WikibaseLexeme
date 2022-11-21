@@ -85,6 +85,7 @@
 	"wikibaselexeme-form-description": "$1 за: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Правописна варијанта",
 	"wikibaselexeme-form-field-representation-label": "Претставување",
+	"wikibaselexeme-form-field-required": "Ова поле е задолжително",
 	"wikibaselexeme-form-grammatical-features": "Граматички можности",
 	"wikibaselexeme-form-representation-redundant-language": "Не можете да внесете повеќе претстави со истата правописна варијанта.",
 	"wikibaselexeme-gloss-field-gloss-label": "Подножје",

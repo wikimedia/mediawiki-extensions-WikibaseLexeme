@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Balyozxane",
 			"Bikarhêner",
 			"Cûndûllah el-Kurdî",
 			"George Animal",
@@ -27,12 +28,12 @@
 	"wikibaselexeme-diffview-sense": "Mane",
 	"wikibaselexeme-field-language-label": "Ziman",
 	"wikibaselexeme-field-lexical-category-label": "Kategoriya ferhengî",
-	"wikibaselexeme-form-field-language-label": "Guhertoya rênivîsê",
+	"wikibaselexeme-form-field-language-label": "Guhartoya rênivîsê",
 	"wikibaselexeme-form-grammatical-features": "Taybetmendiyên rêzimanî",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
 	"wikibaselexeme-header-forms": "Form",
 	"wikibaselexeme-header-senses": "Mane",
-	"wikibaselexeme-lemma-field-language-label": "Guhertoya rênivîsê",
+	"wikibaselexeme-lemma-field-language-label": "Guhartoya rênivîsê",
 	"wikibaselexeme-newlexeme-fieldset": "Leksemeke nû biafirîne",
 	"wikibaselexeme-newlexeme-language": "Zimanê leksemê",
 	"wikibaselexeme-newlexeme-language-placeholder": "Zimanekî binivîse, wek mînak kurdî",
