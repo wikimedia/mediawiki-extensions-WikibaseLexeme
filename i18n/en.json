@@ -85,7 +85,7 @@
 	"wikibaselexeme-form-description": "$1 for: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Spelling variant",
 	"wikibaselexeme-form-field-representation-label": "Representation",
-	"wikibaselexeme-form-field-required": "This field is required",
+	"wikibaselexeme-form-field-required": "Required field",
 	"wikibaselexeme-form-grammatical-features": "Grammatical features",
 	"wikibaselexeme-form-representation-redundant-language": "It is not possible to enter multiple representations with the same spelling variant.",
 	"wikibaselexeme-formidformatter-link-title": "$1: $2",
