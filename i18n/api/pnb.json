@@ -9,6 +9,7 @@
 	"apihelp-wbladdform-param-lexemeId": "شبداولی دا نمبر، مثلاً L10",
 	"apihelp-wblremoveform-summary": "شبداولی توں روپ مٹاوندا",
 	"apihelp-wblremoveform-param-id": "روپ دا نمبر، مثلاً L10-F20",
+	"apihelp-wblremoveform-example-1": "شبداولی توں روپ <samp>$1</samp> مٹاؤ",
 	"apihelp-wbleditformelements-param-formId": "روپ دا نمبر، مثلاً L10-F2",
 	"apihelp-wbladdsense-summary": "شبداولی تے اِکّ معنیٰ پایا گیا",
 	"apihelp-wbladdsense-param-lexemeId": "شبداولی دا نمبر، مثلاً L10",
@@ -20,8 +21,10 @@
 	"apihelp-wbleditsenseelements-summary": "معنے دے درج سودھو",
 	"apihelp-wbleditsenseelements-param-senseId": "معنے دا نمبر، مثلاً L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "جےسون کوڈ وچ معنے درج ڈیٹا",
+	"apihelp-wblmergelexemes-summary": "دو شبداولیاں ملاوݨیاں۔",
 	"apihelp-wblmergelexemes-param-source": "نمبر توں ملائیں‌گے",
 	"apihelp-wblmergelexemes-param-target": "نمبر توں ملائیں‌گے",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "بولی پایئیو",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "کوئی روپ نہیں پایا",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "کجھ معنے دے درج ضروری اے"
 }
