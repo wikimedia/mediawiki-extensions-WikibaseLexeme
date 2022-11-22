@@ -91,7 +91,7 @@
 	"wikibaselexeme-form-description": "$1 für: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Rechtschreibvariante",
 	"wikibaselexeme-form-field-representation-label": "Darstellung",
-	"wikibaselexeme-form-field-required": "Dieses Feld ist erforderlich",
+	"wikibaselexeme-form-field-required": "Pflichtfeld",
 	"wikibaselexeme-form-grammatical-features": "Grammatikalische Funktionen",
 	"wikibaselexeme-form-representation-redundant-language": "Es ist nicht möglich, mehrere Darstellungen mit der gleichen Rechtschreibvariante einzugeben.",
 	"wikibaselexeme-gloss-field-gloss-label": "Fußnote",

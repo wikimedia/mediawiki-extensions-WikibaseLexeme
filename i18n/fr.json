@@ -96,7 +96,7 @@
 	"wikibaselexeme-form-description": "$1 pour : $2 ($3) : $4",
 	"wikibaselexeme-form-field-language-label": "Variante orthographique",
 	"wikibaselexeme-form-field-representation-label": "Représentation",
-	"wikibaselexeme-form-field-required": "Ce champ est obligatoire",
+	"wikibaselexeme-form-field-required": "Champ obligatoire",
 	"wikibaselexeme-form-grammatical-features": "Caractéristiques grammaticales",
 	"wikibaselexeme-form-representation-redundant-language": "Il n’est pas possible de saisir plusieurs représentations avec la même variante orthographique.",
 	"wikibaselexeme-formidformatter-link-title": "$1 : $2",

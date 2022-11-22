@@ -89,7 +89,7 @@
 	"wikibaselexeme-form-description": "$1 za: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Različica črkovanja",
 	"wikibaselexeme-form-field-representation-label": "Prikaz",
-	"wikibaselexeme-form-field-required": "To polje je obvezno",
+	"wikibaselexeme-form-field-required": "Obvezno polje",
 	"wikibaselexeme-form-grammatical-features": "Slovnične lastnosti",
 	"wikibaselexeme-form-representation-redundant-language": "Ni mogoče vnesti več predstavitev z isto različico črkovanja.",
 	"wikibaselexeme-formidformatter-link-title": "$1: $2",
