@@ -32,6 +32,7 @@
 	"wikibaselexeme-field-lexical-category-label": "Lexikalesch Kategorie",
 	"wikibaselexeme-form-description": "$1 fir: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Variant vun der Orthographie",
+	"wikibaselexeme-form-field-required": "Obligatorescht Feld",
 	"wikibaselexeme-gloss-field-language-label": "Sprooch",
 	"wikibaselexeme-header-senses": "Sënner",
 	"wikibaselexeme-lemma-edit-placeholder": "De Lemma ass normalerweis déi kierzt Form vum Wuert",

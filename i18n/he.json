@@ -86,7 +86,7 @@
 	"wikibaselexeme-form-description": "$1 עבור: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "תקן כתיב",
 	"wikibaselexeme-form-field-representation-label": "ייצוג",
-	"wikibaselexeme-form-field-required": "חובה למלא את השדה הזה",
+	"wikibaselexeme-form-field-required": "שדה נדרש",
 	"wikibaselexeme-form-grammatical-features": "מאפיינים דקדוקיים",
 	"wikibaselexeme-form-representation-redundant-language": "אין אפשרות להזין ייצוגים מרובים עם אותו תקן כתיב.",
 	"wikibaselexeme-gloss-field-gloss-label": "פירוש",

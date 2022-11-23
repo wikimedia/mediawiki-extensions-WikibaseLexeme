@@ -67,7 +67,7 @@
 	"wikibaselexeme-form-description": "$1 per: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Variante ortografica",
 	"wikibaselexeme-form-field-representation-label": "Rappresentazione",
-	"wikibaselexeme-form-field-required": "Questo campo è obbligatorio",
+	"wikibaselexeme-form-field-required": "Campo obbligatorio",
 	"wikibaselexeme-form-grammatical-features": "Caratteristiche grammaticali",
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Per esempio: singolare, aggettivo, indicativo presente",
