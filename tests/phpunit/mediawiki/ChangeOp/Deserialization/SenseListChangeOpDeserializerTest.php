@@ -118,9 +118,22 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
 
 		$this->expectException( ApiUsageException::class );
-		$this->expectExceptionMessage( 'Field "id" at "0" in parameter "data" is required' );
+		$this->expectExceptionMessage( 'Field "id" at "senses/0" in parameter "data" is required' );
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'senses' => [ [ 'remove' => '' ] ] ]
+		);
+
+		$changeOps->apply( $lexeme );
+	}
+
+	public function testGivenNonArraySenses_exceptionIsThrown(): void {
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
+
+		$this->expectException( ApiUsageException::class );
+		$this->expectExceptionMessage(
+			'Field "senses" in parameter "data" expected to be of type "array". Given: "NULL"' );
+		$changeOps = $this->getDeserializer()->createEntityChangeOp(
+			[ 'senses' => null ]
 		);
 
 		$changeOps->apply( $lexeme );
@@ -142,7 +155,7 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 			$senseChangeOpDeserializer
 		);
 
-		$deserializer->setContext( ValidationContext::create( 'data' ) );
+		$deserializer->setContext( ValidationContext::create( 'data' )->at( 'senses' ) );
 
 		return $deserializer;
 	}

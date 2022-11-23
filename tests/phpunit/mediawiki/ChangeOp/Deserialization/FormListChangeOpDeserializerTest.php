@@ -115,9 +115,22 @@ class FormListChangeOpDeserializerTest extends TestCase {
 		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
 
 		$this->expectException( ApiUsageException::class );
-		$this->expectExceptionMessage( 'Field "id" at "0" in parameter "data" is required' );
+		$this->expectExceptionMessage( 'Field "id" at "forms/0" in parameter "data" is required' );
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => [ [ 'remove' => '' ] ] ]
+		);
+
+		$changeOps->apply( $lexeme );
+	}
+
+	public function testGivenNonArrayForms_exceptionIsThrown(): void {
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
+
+		$this->expectException( ApiUsageException::class );
+		$this->expectExceptionMessage(
+			'Field "forms" in parameter "data" expected to be of type "array". Given: "NULL"' );
+		$changeOps = $this->getDeserializer()->createEntityChangeOp(
+			[ 'forms' => null ]
 		);
 
 		$changeOps->apply( $lexeme );
@@ -139,7 +152,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 			$formChangeOpDeserializer
 		);
 
-		$deserializer->setContext( ValidationContext::create( 'data' ) );
+		$deserializer->setContext( ValidationContext::create( 'data' )->at( 'forms' ) );
 
 		return $deserializer;
 	}
