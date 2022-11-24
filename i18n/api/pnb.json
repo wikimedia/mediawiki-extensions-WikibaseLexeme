@@ -5,6 +5,7 @@
 			"Abbas dhothar"
 		]
 	},
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "کوئی روپ نہیں پایا",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "بولی پایئیو",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "کجھ معنے دے درج ضروری اے",
 	"apihelp-wbladdform-param-lexemeId": "شبداولی دا نمبر، مثلاً L10",
@@ -19,6 +20,8 @@
 	"apihelp-wbleditsenseelements-summary": "معنے دے درج سودھو",
 	"apihelp-wblmergelexemes-param-source": "نمبر توں ملائیں‌گے",
 	"apihelp-wblmergelexemes-param-target": "نمبر توں ملائیں‌گے",
+	"apihelp-wblmergelexemes-summary": "دو شبداولیاں ملاوݨیاں۔",
+	"apihelp-wblremoveform-example-1": "شبداولی توں روپ <samp>$1</samp> مٹاؤ",
 	"apihelp-wblremoveform-param-id": "روپ دا نمبر، مثلاً L10-F20",
 	"apihelp-wblremoveform-summary": "شبداولی توں روپ مٹاوندا",
 	"apihelp-wblremovesense-example-1": "نمبر <samp>$1</samp> نال شبداولی تے معنیٰ مٹاؤ",
