@@ -100,7 +100,7 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	}
 
 	get hasFormHeader() {
-		return $( '.wikibase-lexeme-forms-section h2 > #forms' ).isExisting();
+		return $( '.wikibase-lexeme-forms-section h2#forms' ).isExisting();
 	}
 
 	get addFormLink() {

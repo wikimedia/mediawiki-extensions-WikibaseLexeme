@@ -37,11 +37,10 @@ class SensesViewTest extends TestCase {
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'h2' ) )
-					->andAlso( havingChild(
-						both( withAttribute( 'id' )->havingValue( 'senses' ) )
-							->andAlso( havingTextContents( '(wikibaselexeme-header-senses)' ) )
+					->andAlso( withAttribute( 'id' )->havingValue( 'senses' ) )
+					->andAlso( havingTextContents( '(wikibaselexeme-header-senses)' ) )
 					) )
-			) ) )
+			)
 		);
 	}
 

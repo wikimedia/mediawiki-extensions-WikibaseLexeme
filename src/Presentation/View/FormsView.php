@@ -58,10 +58,8 @@ class FormsView {
 	 */
 	public function getHtml( FormSet $forms ) {
 		$html = '<div class="wikibase-lexeme-forms-section">';
-		$html .= '<h2 class="wb-section-heading section-heading">'
-			. '<span class="mw-headline" id="forms">'
+		$html .= '<h2 class="wb-section-heading section-heading" id="forms">'
 			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-header-forms' ) )
-			. '</span>'
 			. '</h2>';
 
 		$html .= '<div class="wikibase-lexeme-forms ">';
@@ -168,7 +166,7 @@ class FormsView {
 
 		$statementHeader = <<<HTML
 <h2 class="wb-section-heading section-heading wikibase-statements" dir="auto">
-	<span class="mw-headline">{$headerText}</span>
+	$headerText
 </h2>
 HTML;
 
