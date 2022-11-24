@@ -99,7 +99,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 
 		$formSet->remove( new FormId( 'L1-F1' ) );
 
-		$this->assertEmpty( $formSet->toArray() );
+		$this->assertSame( [], $formSet->toArray() );
 	}
 
 	public function testPut_updatedFormReference() {

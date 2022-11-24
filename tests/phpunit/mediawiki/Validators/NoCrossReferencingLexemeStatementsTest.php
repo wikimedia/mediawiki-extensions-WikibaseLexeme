@@ -91,7 +91,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 			$this->getLexemeStatementEntityReferenceExtractor()
 		);
 		$this->assertTrue( $validator->validate( $source, $target ) );
-		$this->assertEmpty( $validator->getViolations() );
+		$this->assertSame( [], $validator->getViolations() );
 	}
 
 	public function provideInvalidMerges() {

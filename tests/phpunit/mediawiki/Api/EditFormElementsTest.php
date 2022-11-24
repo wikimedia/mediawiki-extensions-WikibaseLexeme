@@ -414,7 +414,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$lexeme = $this->getLexeme( 'L1' );
 
 		$form = $lexeme->getForms()->getById( new FormId( self::DEFAULT_FORM_ID ) );
-		$this->assertEmpty( $form->getGrammaticalFeatures() );
+		$this->assertSame( [], $form->getGrammaticalFeatures() );
 	}
 
 	public function testGivenChangedRepresentation_summarySetAccordingly() {

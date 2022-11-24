@@ -114,7 +114,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			[ $representationLang => [ 'language' => $representationLang, 'value' => $representation ] ],
 			$form['representations']
 		);
-		$this->assertEmpty( $form['grammaticalFeatures'] );
+		$this->assertSame( [], $form['grammaticalFeatures'] );
 		$this->assertCount( 1, $form['claims'] );
 		$this->assertHasStatement( $claim, $form );
 	}
@@ -487,8 +487,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			[ 'en' => [ 'language' => 'en', 'value' => 'artichoke' ] ],
 			$firstFormData['representations']
 		);
-		$this->assertEmpty( $firstFormData['grammaticalFeatures'] );
-		$this->assertEmpty( $firstFormData['claims'] );
+		$this->assertSame( [], $firstFormData['grammaticalFeatures'] );
+		$this->assertSame( [], $firstFormData['claims'] );
 	}
 
 	public function provideInvalidData() {
@@ -1352,7 +1352,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		/** @var Lexeme $lexeme */
 		$lexeme = $this->getEntityLookup()->getEntity( new LexemeId( self::EXISTING_LEXEME_ID ) );
-		$this->assertEmpty( $lexeme->getForms() );
+		$this->assertSame( [], $lexeme->getForms()->toArray() );
 		$this->assertEquals( 3, $lexeme->getNextFormId() );
 	}
 

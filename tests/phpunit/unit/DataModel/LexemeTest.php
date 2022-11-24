@@ -572,7 +572,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexemeCopy->addOrUpdateForm( $blankForm );
 
 		$this->assertCount( 1, $lexemeCopy->getForms()->toArray() );
-		$this->assertEmpty( $lexeme->getForms()->toArray() );
+		$this->assertSame( [], $lexeme->getForms()->toArray() );
 	}
 
 	public function testCopy_SenseSetIsCopied() {
@@ -584,7 +584,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$lexemeCopy->addOrUpdateSense( $blankSense );
 
 		$this->assertCount( 1, $lexemeCopy->getSenses()->toArray() );
-		$this->assertEmpty( $lexeme->getSenses()->toArray() );
+		$this->assertSame( [], $lexeme->getSenses()->toArray() );
 	}
 
 	public function testSetLemmas() {
