@@ -67,7 +67,7 @@
 		"vuex": "4.0.2",
 		"wdio-mediawiki": "^1.2.0",
 		"wdio-wikibase": "^5.2.0",
-		"webdriverio": "^7.16.14"
+		"webdriverio": "^7.27.0"
 	},
 	"browserslist": [
 		"ie 11"
