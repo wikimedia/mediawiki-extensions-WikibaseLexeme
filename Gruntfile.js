@@ -18,7 +18,6 @@ module.exports = function ( grunt ) {
 			},
 			all: [
 				'**/*.{js,json}',
-				'!Gruntfile.js',
 				'!node_modules/**',
 				'!resources/special/new-lexeme/**',
 				'!resources/special/new-lexeme-dist/**',
@@ -32,6 +31,8 @@ module.exports = function ( grunt ) {
 			all: [
 				'**/*.less',
 				'!node_modules/**',
+				'!resources/special/new-lexeme/**',
+				'!resources/special/new-lexeme-dist/**',
 				'!vendor/**'
 			]
 		},
