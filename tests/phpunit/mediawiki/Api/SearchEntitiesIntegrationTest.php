@@ -54,7 +54,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 
 		list( $result, ) = $this->doApiRequest( $params );
 
-		$this->assertEmpty( $result['search'] );
+		$this->assertSame( [], $result['search'] );
 	}
 
 	public function testFormIsFoundWhenIdGivenAsSearchTerm() {
@@ -89,7 +89,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 
 		list( $result, ) = $this->doApiRequest( $params );
 
-		$this->assertEmpty( $result['search'] );
+		$this->assertSame( [], $result['search'] );
 	}
 
 	public function testGivenIdOfNonExistingLexeme_noFormSearchResults() {
@@ -104,7 +104,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 
 		list( $result, ) = $this->doApiRequest( $params );
 
-		$this->assertEmpty( $result['search'] );
+		$this->assertSame( [], $result['search'] );
 	}
 
 	private function saveLexeme() {

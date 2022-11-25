@@ -99,7 +99,7 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 
 		$senseSet->remove( new SenseId( 'L1-S1' ) );
 
-		$this->assertEmpty( $senseSet->toArray() );
+		$this->assertSame( [], $senseSet->toArray() );
 	}
 
 	public function testPut_updatedSenseReference() {

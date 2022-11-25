@@ -198,7 +198,7 @@ class FormTest extends MediaWikiUnitTestCase {
 
 		// None of these changes should make it to the copy
 		$this->assertFalse( $copy->getRepresentations()->hasTermForLanguage( 'en' ) );
-		$this->assertEmpty( $copy->getGrammaticalFeatures() );
+		$this->assertSame( [], $copy->getGrammaticalFeatures() );
 		$this->assertTrue( $copy->getStatements()->isEmpty() );
 	}
 
