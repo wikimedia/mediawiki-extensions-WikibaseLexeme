@@ -3,6 +3,7 @@
 		"authors": [
 			"BadDog",
 			"Kizule",
+			"Milicevic01",
 			"Obsuser",
 			"Zoranzoki21",
 			"Милан Јелисавчић"
@@ -74,6 +75,7 @@
 	"wikibaselexeme-form-description": "$1 за: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Језик писања",
 	"wikibaselexeme-form-field-representation-label": "Представљање",
+	"wikibaselexeme-form-field-required": "Обавезно поље",
 	"wikibaselexeme-form-grammatical-features": "Граматичке особине",
 	"wikibaselexeme-form-representation-redundant-language": "Није могуће унети више представљања са истим језиком писања.",
 	"wikibaselexeme-formidformatter-separator-multiple-representation": "/",
