@@ -20,7 +20,6 @@ module.exports = function ( grunt ) {
 				'**/*.{js,json}',
 				'!Gruntfile.js',
 				'!node_modules/**',
-				'!resources/vendor/**',
 				'!resources/special/new-lexeme/**',
 				'!resources/special/new-lexeme-dist/**',
 				'!vendor/**'
