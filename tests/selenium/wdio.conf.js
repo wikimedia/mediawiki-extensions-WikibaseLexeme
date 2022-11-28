@@ -29,6 +29,21 @@ exports.config = { ...config,
 		browser.log = function ( message ) {
 			console.log( `${Date.now() - browser.config.startOfTestTime}: ${message}` );
 		};
+
+		browser.clickTillItExists = function ( clickTarget, targetToExist, timeoutMsg ) {
+			browser.waitUntil(
+				() => {
+					clickTarget.click();
+
+					return targetToExist.isExisting();
+				},
+				{
+					timeout: 5000,
+					interval: 500,
+					timeoutMsg
+				}
+			);
+		};
 	},
 
 	beforeTest: function ( test, context ) {
