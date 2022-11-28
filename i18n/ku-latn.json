@@ -5,7 +5,8 @@
 			"Cûndûllah el-Kurdî",
 			"George Animal",
 			"Ghybu",
-			"Guherto"
+			"Guherto",
+			"Balyozxane"
 		]
 	},
 	"special-newlexeme": "Leksemeke nû biafirîne",
@@ -16,8 +17,8 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Zimanekî binivîse, wek mînak kurdî",
 	"wikibaselexeme-header-forms": "Form",
 	"wikibaselexeme-header-senses": "Mane",
-	"wikibaselexeme-lemma-field-language-label": "Guhertoya rênivîsê",
-	"wikibaselexeme-form-field-language-label": "Guhertoya rênivîsê",
+	"wikibaselexeme-lemma-field-language-label": "Guhartoya rênivîsê",
+	"wikibaselexeme-form-field-language-label": "Guhartoya rênivîsê",
 	"wikibaselexeme-gloss-field-language-label": "Ziman",
 	"datatypes-type-wikibase-lexeme": "Leksem",
 	"datatypes-type-wikibase-form": "Form",
