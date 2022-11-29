@@ -200,6 +200,19 @@ describe( 'Lexeme:Forms', () => {
 
 	} );
 
+	it( 'can cancel form addition', () => {
+		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => lexeme.id ) );
+
+		LexemePage.open( id );
+
+		LexemePage.addFormLink.click();
+
+		LexemePage.addFormCancelLink.click();
+
+		assert.equal( LexemePage.formId.isExisting(), false, 'No form added' );
+
+	} );
+
 	it( 'has statement list', () => {
 		const id = browser.call( () => LexemeApi.create().then( ( lexeme ) => {
 			const lexemeId = lexeme.id;
