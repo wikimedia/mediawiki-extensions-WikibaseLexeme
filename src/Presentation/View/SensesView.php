@@ -71,10 +71,8 @@ class SensesView {
 	 */
 	public function getHtml( SenseSet $senses ) {
 		$html = '<div class="wikibase-lexeme-senses-section">';
-		$html .= '<h2 class="wb-section-heading section-heading">'
-			. '<span class="mw-headline" id="senses">'
+		$html .= '<h2 class="wb-section-heading section-heading" id="senses">'
 			. htmlspecialchars( $this->textProvider->get( 'wikibaselexeme-header-senses' ) )
-			. '</span>'
 			. '</h2>';
 
 		$html .= '<div class="wikibase-lexeme-senses">';
@@ -155,7 +153,7 @@ class SensesView {
 
 		$statementHeader = <<<HTML
 <h2 class="wb-section-heading section-heading wikibase-statements" dir="auto">
-	<span class="mw-headline">{$headerText}</span>
+	$headerText
 </h2>
 HTML;
 

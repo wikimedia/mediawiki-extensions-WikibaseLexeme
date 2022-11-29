@@ -36,11 +36,10 @@ class FormsViewTest extends TestCase {
 			$html,
 			is( htmlPiece( havingChild(
 				both( withTagName( 'h2' ) )
-					->andAlso( havingChild(
-						both( withAttribute( 'id' )->havingValue( 'forms' ) )
-							->andAlso( havingTextContents( '(wikibaselexeme-header-forms)' ) )
+					->andAlso( withAttribute( 'id' )->havingValue( 'forms' ) )
+					->andAlso( havingTextContents( '(wikibaselexeme-header-forms)' ) )
 					) )
-			) ) )
+			)
 		);
 	}
 

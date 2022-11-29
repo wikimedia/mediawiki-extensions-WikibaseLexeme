@@ -35,15 +35,11 @@ class SensePage extends Page {
 	}
 
 	get sensesHeader() {
-		return $( '.wikibase-lexeme-senses-section h2 > #senses' ).getText();
+		return $( '.wikibase-lexeme-senses-section h2#senses' ).getText();
 	}
 
 	get senseId() {
 		return $( '.wikibase-lexeme-sense-id' ).getText();
-	}
-
-	get senseStatements() {
-		return $( '.wikibase-lexeme-sense-statements h2 > span' ).getText();
 	}
 
 	startEditingNthSense( index ) {
