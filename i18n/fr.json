@@ -101,7 +101,7 @@
 	"wikibaselexeme-formidformatter-separator-grammatical-features": ",&#32;",
 	"wikibaselexeme-description": "($1) $2",
 	"wikibaselexeme-form-description": "$1 pour : $2 ($3) : $4",
-	"wikibaselexeme-search-result-stats": "$1 déclaration{{PLURAL:$1||s}}, $2 {{PLURAL:$2|forme|formes}}",
+	"wikibaselexeme-search-result-stats": "$1 déclaration{{PLURAL:$1||s}}, $2 forme{{PLURAL:$2||s}}",
 	"wikibaselexeme-unknown-language": "Langue inconnue",
 	"wikibaselexeme-unknown-category": "Inconnu",
 	"wikibaselexeme-no-features": "aucune caractéristique",
