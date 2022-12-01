@@ -143,7 +143,7 @@
 	"wikibaselexeme-no-features": "aucune caractéristique",
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": " / ",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "($1) $2",
-	"wikibaselexeme-search-result-stats": "$1 déclaration{{PLURAL:$1||s}}, $2 {{PLURAL:$2|forme|formes}}",
+	"wikibaselexeme-search-result-stats": "$1 déclaration{{PLURAL:$1||s}}, $2 forme{{PLURAL:$2||s}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Les codes de langue de glose doivent être valides",
 	"wikibaselexeme-sense-gloss-redundant-language": "Il n’est pas possible de saisir plusieurs gloses avec la même langue.",
 	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
