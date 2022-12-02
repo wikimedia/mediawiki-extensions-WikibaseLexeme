@@ -136,6 +136,19 @@ class FormListChangeOpDeserializerTest extends TestCase {
 		$changeOps->apply( $lexeme );
 	}
 
+	public function testGivenNonArrayFormSerialization_exceptionIsThrown(): void {
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
+
+		$this->expectException( ApiUsageException::class );
+		$this->expectExceptionMessage(
+			'Field "forms/0" in parameter "data" expected to be of type "array". Given: "NULL"' );
+		$changeOps = $this->getDeserializer()->createEntityChangeOp(
+			[ 'forms' => [ null ] ]
+		);
+
+		$changeOps->apply( $lexeme );
+	}
+
 	private function getDeserializer() {
 		$formIdDeserializer = $this->createMock( FormIdDeserializer::class );
 		$formIdDeserializer->method( 'deserialize' )

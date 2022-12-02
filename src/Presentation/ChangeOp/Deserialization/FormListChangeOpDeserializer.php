@@ -73,6 +73,12 @@ class FormListChangeOpDeserializer implements ChangeOpDeserializer {
 			$formValidationContext = $this->validationContext->at( $index );
 			$this->formChangeOpDeserializer->setContext( $formValidationContext );
 
+			if ( !is_array( $serializedForm ) ) {
+				$formValidationContext->addViolation(
+					new JsonFieldHasWrongType( 'array', gettype( $serializedForm ) )
+				);
+			}
+
 			if ( array_key_exists( 'remove', $serializedForm ) ) {
 				if ( !array_key_exists( self::PARAM_FORM_ID, $serializedForm ) ) {
 					$formValidationContext->addViolation(

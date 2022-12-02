@@ -139,6 +139,19 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 		$changeOps->apply( $lexeme );
 	}
 
+	public function testGivenNonArraySenseSerialization_exceptionIsThrown(): void {
+		$lexeme = $this->getEnglishNewLexeme( 'L107' )->build();
+
+		$this->expectException( ApiUsageException::class );
+		$this->expectExceptionMessage(
+			'Field "senses/0" in parameter "data" expected to be of type "array". Given: "NULL"' );
+		$changeOps = $this->getDeserializer()->createEntityChangeOp(
+			[ 'senses' => [ null ] ]
+		);
+
+		$changeOps->apply( $lexeme );
+	}
+
 	private function getDeserializer() {
 		$senseIdDeserializer = $this->createMock( SenseIdDeserializer::class );
 		$senseIdDeserializer->method( 'deserialize' )

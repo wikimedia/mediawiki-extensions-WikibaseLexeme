@@ -74,6 +74,12 @@ class SenseListChangeOpDeserializer implements ChangeOpDeserializer {
 			$senseValidationContext = $this->validationContext->at( $index );
 			$this->senseChangeOpDeserializer->setContext( $senseValidationContext );
 
+			if ( !is_array( $serializedSense ) ) {
+				$senseValidationContext->addViolation(
+					new JsonFieldHasWrongType( 'array', gettype( $serializedSense ) )
+				);
+			}
+
 			if ( array_key_exists( 'remove', $serializedSense ) ) {
 				if ( !array_key_exists( self::PARAM_SENSE_ID, $serializedSense ) ) {
 					$senseValidationContext->addViolation(
