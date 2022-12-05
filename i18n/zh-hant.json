@@ -5,6 +5,7 @@
 			"Kly",
 			"Liuxinyu970226",
 			"Mutolisp",
+			"SupaplexTW",
 			"Winston Sung",
 			"予弦",
 			"列维劳德"
@@ -91,6 +92,7 @@
 	"wikibaselexeme-form-description": "$1 用於：$2（$3）：$4",
 	"wikibaselexeme-form-field-language-label": "拼寫變體",
 	"wikibaselexeme-form-field-representation-label": "表述",
+	"wikibaselexeme-form-field-required": "必填欄位",
 	"wikibaselexeme-form-grammatical-features": "語法特徵",
 	"wikibaselexeme-form-representation-redundant-language": "不能以相同的拼寫變體來輸入多個表述。",
 	"wikibaselexeme-formidformatter-link-title": "$1：$2",
@@ -107,6 +109,7 @@
 	"wikibaselexeme-lexeme-link-title": "$1：$2",
 	"wikibaselexeme-newlexeme-fieldset": "新增詞位",
 	"wikibaselexeme-newlexeme-info-panel-heading": "關於詞位",
+	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "詞位包含 [[Special:MyLanguage/Project:Lexicographical data|lexicographical data]]，是關於字或句子的資料，例如語言、詞源、詞形變化等。這邊有一個例子：",
 	"wikibaselexeme-newlexeme-language": "詞位語言",
 	"wikibaselexeme-newlexeme-language-placeholder": "詞位語言，例如：「繁體中文」",
 	"wikibaselexeme-newlexeme-language-placeholder-with-example": "詞位語言，例如：「$1」",
