@@ -7,7 +7,7 @@
 		]
 	},
 	"apihelp-wbladdform-summary": "Doda leksemu obliko",
-	"apihelp-wbladdform-param-lexemeId": "Leksemov ID, naprimer L10",
+	"apihelp-wbladdform-param-lexemeId": "Leksemov ID, na primer L10",
 	"apihelp-wbladdform-param-data": "Podatki zakodiranega JSON-a, to je prikazov in slovničnih funkcij",
 	"apihelp-wblremoveform-summary": "Odstrani leksemu obliko",
 	"apihelp-wblremoveform-param-id": "ID oblike, na primer L10-F20",
