@@ -12,7 +12,7 @@
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Jezik mora biti izpolnjen",
 	"apierror-wikibaselexeme-parameter-required": "Zahtevan je parameter \"$1\"",
 	"apihelp-wbladdform-param-data": "Podatki zakodiranega JSON-a, to je prikazov in slovničnih funkcij",
-	"apihelp-wbladdform-param-lexemeId": "Leksemov ID, naprimer L10",
+	"apihelp-wbladdform-param-lexemeId": "Leksemov ID, na primer L10",
 	"apihelp-wbladdform-summary": "Doda leksemu obliko",
 	"apihelp-wbleditformelements-param-formId": "ID oblike, na primer L10-F20",
 	"apihelp-wbleditformelements-summary": "Uredi prikaze in slovnične funkcije oblike",

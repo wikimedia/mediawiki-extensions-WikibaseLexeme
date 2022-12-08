@@ -7,7 +7,8 @@
 			"Mutolisp",
 			"予弦",
 			"列维劳德",
-			"Winston Sung"
+			"Winston Sung",
+			"SupaplexTW"
 		]
 	},
 	"content-model-wikibase-lexeme": "Wikibase詞位",
@@ -106,6 +107,7 @@
 	"wikibaselexeme-lexeme-link-title": "$1：$2",
 	"wikibaselexeme-newlexeme-fieldset": "新增詞位",
 	"wikibaselexeme-newlexeme-info-panel-heading": "關於詞位",
+	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "詞位包含 [[Special:MyLanguage/Project:Lexicographical data|lexicographical data]]，是關於字或句子的資料，例如語言、詞源、詞形變化等。這邊有一個例子：",
 	"wikibaselexeme-newlexeme-language": "詞位語言",
 	"wikibaselexeme-newlexeme-language-placeholder": "詞位語言，例如：「繁體中文」",
 	"wikibaselexeme-newlexeme-language-placeholder-with-example": "詞位語言，例如：「$1」",
