@@ -278,7 +278,11 @@ class LexemePage extends MixinBuilder.mix( Page ).with( MainStatementSection, Co
 	 * @param {string} language
 	 */
 	addForm( value, language ) {
-		this.addFormLink.click();
+		browser.clickTillItExists(
+			this.addFormLink,
+			this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ),
+			'Failed to make the "Add Form" inputs exist by clicking the addForm link'
+		);
 
 		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_VALUE ).setValue( value );
 		this.formsContainer.$( this.constructor.FORM_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE ).setValue( language );
