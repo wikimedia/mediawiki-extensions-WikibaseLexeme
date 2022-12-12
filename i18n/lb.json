@@ -2,11 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Les Meloures",
+			"McDutchie",
 			"Robby",
 			"Robin van der Vliet"
 		]
 	},
-	"datatypes-type-wikibase-form": "Formulaire",
+	"datatypes-type-wikibase-form": "Form",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
 	"datatypes-type-wikibase-sense": "Bedeitung",
 	"special-mergelexemes": "Zwee Lexemes fusionéieren",

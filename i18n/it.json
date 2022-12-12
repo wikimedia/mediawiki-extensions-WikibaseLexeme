@@ -6,13 +6,14 @@
 			"Beta16",
 			"GpieroMW",
 			"Lorem Ipsum",
+			"McDutchie",
 			"Ricordisamoa",
 			"Sarah Bernabei",
 			"TheRukk"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lessema Wikibase",
-	"datatypes-type-wikibase-form": "Modulo",
+	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-lexeme": "Lessema",
 	"datatypes-type-wikibase-sense": "Accezione",
 	"nstab-lexeme": "Lessema",

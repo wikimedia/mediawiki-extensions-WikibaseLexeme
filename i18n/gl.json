@@ -5,11 +5,12 @@
 			"Athena in Wonderland",
 			"Banjo",
 			"Elisardojm",
-			"Maria zaos"
+			"Maria zaos",
+			"McDutchie"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
-	"datatypes-type-wikibase-form": "Formulario",
+	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"special-mergelexemes": "Fusionar dous lexemas",
 	"special-newlexeme": "Crear un novo lexema",
