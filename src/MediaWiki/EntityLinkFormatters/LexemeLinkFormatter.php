@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\EntityLinkFormatters;
 
 use HtmlArmor;
@@ -21,37 +23,16 @@ use Wikimedia\Assert\Assert;
  */
 class LexemeLinkFormatter implements EntityLinkFormatter {
 
-	/**
-	 * @var EntityLookup
-	 */
-	private $entityLookup;
+	private EntityLookup $entityLookup;
 
-	/**
-	 * @var DefaultEntityLinkFormatter
-	 */
-	private $linkFormatter;
+	private DefaultEntityLinkFormatter $linkFormatter;
 
-	/**
-	 * @var Language
-	 */
-	private $language;
+	private Language $language;
 
-	/**
-	 * @var LexemeTermFormatter
-	 */
-	private $lemmaFormatter;
+	private LexemeTermFormatter $lemmaFormatter;
 
-	/**
-	 * @var EntityTitleTextLookup
-	 */
-	private $entityTitleTextLookup;
+	private EntityTitleTextLookup $entityTitleTextLookup;
 
-	/**
-	 * @param EntityLookup $entityLookup
-	 * @param DefaultEntityLinkFormatter $linkFormatter
-	 * @param LexemeTermFormatter $lemmaFormatter
-	 * @param Language $language
-	 */
 	public function __construct(
 		EntityTitleTextLookup $entityTitleTextLookup,
 		EntityLookup $entityLookup,
@@ -69,7 +50,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	/**
 	 * @inheritDoc
 	 */
-	public function getHtml( EntityId $entityId, array $labelData = null ) {
+	public function getHtml( EntityId $entityId, array $labelData = null ): string {
 		Assert::parameterType( LexemeId::class, $entityId, '$entityId' );
 		'@phan-var LexemeId $entityId';
 
@@ -91,7 +72,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 		EntityId $entityId,
 		array $labelData = null,
 		array $descriptionData = null
-	) {
+	): string {
 		// TODO Can't this use $entityId->getSerialization() directly?
 		//      It may have only used the Title text for historical reasons.
 		return $this->entityTitleTextLookup->getPrefixedText( $entityId )
@@ -99,8 +80,6 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	}
 
 	/**
-	 * @param LexemeId $entityId
-	 * @return TermList
 	 * @suppress PhanUndeclaredMethod
 	 */
 	private function getLemmas( LexemeId $entityId ): TermList {
@@ -126,7 +105,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 		return $lexeme->getLemmas();
 	}
 
-	public function getFragment( EntityId $entityId, $fragment ) {
+	public function getFragment( EntityId $entityId, $fragment ): string {
 		return $fragment;
 	}
 
