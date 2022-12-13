@@ -7,6 +7,7 @@ use Psr\Container\ContainerInterface;
 use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
@@ -140,6 +141,13 @@ class WikibaseLexemeServices {
 	public static function getLanguageNameLookupFactory(): LexemeLanguageNameLookupFactory {
 		return MediaWikiServices::getInstance()
 			->getService( 'WikibaseLexemeLanguageNameLookupFactory' );
+	}
+
+	public static function getLemmaLookup(
+		ContainerInterface $services = null
+	): LemmaLookup {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexemeLemmaLookup' );
 	}
 
 	public static function getLemmaTermValidator(

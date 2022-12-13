@@ -292,7 +292,7 @@ return [
 
 			return new LexemeLinkFormatter(
 				WikibaseRepo::getEntityTitleTextLookup(),
-				WikibaseRepo::getEntityLookup(),
+				WikibaseLexemeServices::getLemmaLookup(),
 				$linkFormatter,
 				new LexemeTermFormatter(
 					$requestContext

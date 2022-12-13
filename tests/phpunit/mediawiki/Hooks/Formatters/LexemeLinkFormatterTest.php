@@ -12,6 +12,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -103,7 +104,7 @@ class LexemeLinkFormatterTest extends TestCase {
 	private function newFormatter( $titleText = 'foo' ) {
 		return new LexemeLinkFormatter(
 			$this->getEntityTitleTextLookupMock( $titleText ),
-			$this->entityLookup,
+			new EntityLookupLemmaLookup( $this->entityLookup ),
 			$this->getMockDefaultFormatter(),
 			$this->lemmaFormatter,
 			Language::factory( 'en' )

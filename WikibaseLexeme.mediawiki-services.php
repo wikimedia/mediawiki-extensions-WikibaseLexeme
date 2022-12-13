@@ -6,6 +6,7 @@ use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
@@ -97,6 +98,10 @@ return call_user_func( static function () {
 					WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
 					$additionalLanguages
 				);
+			},
+		'WikibaseLexemeLemmaLookup' =>
+			static function ( MediaWikiServices $mediawikiServices ) {
+				return new EntityLookupLemmaLookup( WikibaseRepo::getEntityLookup( $mediawikiServices ) );
 			},
 		'WikibaseLexemeLemmaTermValidator' => static function (
 			MediaWikiServices $services
