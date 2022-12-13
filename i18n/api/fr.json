@@ -10,7 +10,7 @@
 			"Wladek92"
 		]
 	},
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Le forme doit avoir au moins une représentation",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "La forme doit avoir au moins une représentation",
 	"apierror-wikibaselexeme-form-not-found": "Le champ « $1 » contient un identifiant de formulaire « $2 » qui n’a pu être trouvé.",
 	"apierror-wikibaselexeme-invalid-form-claims": "Déclarations non valides dans le champ « $1 » en « $2 ».",
 	"apierror-wikibaselexeme-invalid-item-id": "Numéro invalide d’élément « $3 » sur le champ « $1 » dans « $2 ».",
