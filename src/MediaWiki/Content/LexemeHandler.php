@@ -12,7 +12,7 @@ use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
-use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
+use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -20,11 +20,12 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\MediaWiki\Actions\LexemeHistoryAction;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Repo\Actions\EditEntityAction;
-use Wikibase\Repo\Actions\HistoryEntityAction;
 use Wikibase\Repo\Actions\SubmitEntityAction;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Content\EntityHolder;
@@ -43,16 +44,9 @@ class LexemeHandler extends EntityHandler {
 
 	private EntityLookup $entityLookup;
 
-	/**
-	 * @param EntityContentDataCodec $contentCodec
-	 * @param EntityConstraintProvider $constraintProvider
-	 * @param ValidatorErrorLocalizer $errorLocalizer
-	 * @param EntityIdParser $entityIdParser
-	 * @param EntityIdLookup $entityIdLookup
-	 * @param EntityLookup $entityLookup
-	 * @param FieldDefinitions $lexemeFieldDefinitions
-	 * @param callable|null $legacyExportFormatDetector
-	 */
+	private LemmaLookup $lemmaLookup;
+	private LexemeTermFormatter $lexemeTermFormatter;
+
 	public function __construct(
 		EntityContentDataCodec $contentCodec,
 		EntityConstraintProvider $constraintProvider,
@@ -61,6 +55,8 @@ class LexemeHandler extends EntityHandler {
 		EntityIdLookup $entityIdLookup,
 		EntityLookup $entityLookup,
 		FieldDefinitions $lexemeFieldDefinitions,
+		LemmaLookup $lemmaLookup,
+		LexemeTermFormatter $lexemeTermFormatter,
 		callable $legacyExportFormatDetector = null
 	) {
 		parent::__construct(
@@ -76,6 +72,8 @@ class LexemeHandler extends EntityHandler {
 
 		$this->entityIdLookup = $entityIdLookup;
 		$this->entityLookup = $entityLookup;
+		$this->lemmaLookup = $lemmaLookup;
+		$this->lexemeTermFormatter = $lexemeTermFormatter;
 	}
 
 	/**
@@ -87,11 +85,12 @@ class LexemeHandler extends EntityHandler {
 				Article $article,
 				IContextSource $context
 			) {
-				return new HistoryEntityAction(
+				return new LexemeHistoryAction(
 					$article,
 					$context,
 					$this->entityIdLookup,
-					new NullLabelDescriptionLookup()
+					$this->lemmaLookup,
+					$this->lexemeTermFormatter
 				);
 			},
 			'view' => ViewLexemeAction::class,

@@ -11,12 +11,14 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
+use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
@@ -170,7 +172,9 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			$this->createMock( EntityIdParser::class ),
 			$this->createMock( EntityIdLookup::class ),
 			$this->createMock( EntityLookup::class ),
-			new NoFieldDefinitions()
+			new NoFieldDefinitions(),
+			$this->createMock( LemmaLookup::class ),
+			$this->createMock( LexemeTermFormatter::class )
 		);
 	}
 

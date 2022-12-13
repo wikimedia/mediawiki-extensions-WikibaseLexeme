@@ -112,6 +112,7 @@ return [
 		},
 		Def::CONTENT_MODEL_ID => LexemeContent::CONTENT_MODEL_ID,
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
+			$requestContext = RequestContext::getMain();
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
@@ -120,7 +121,13 @@ return [
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getFieldDefinitionsFactory()
-					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
+					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
+				WikibaseLexemeServices::getLemmaLookup(),
+				new LexemeTermFormatter(
+					$requestContext
+						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+						->escaped()
+				)
 			);
 		},
 		Def::ENTITY_FACTORY_CALLBACK => static function () {
@@ -349,7 +356,7 @@ return [
 	],
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
-
+			$requestContext = RequestContext::getMain();
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
@@ -358,7 +365,13 @@ return [
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getFieldDefinitionsFactory()
-					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
+					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
+				WikibaseLexemeServices::getLemmaLookup(),
+				new LexemeTermFormatter(
+					$requestContext
+						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+						->escaped()
+				)
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
@@ -498,7 +511,7 @@ return [
 	'sense' => [
 		// TODO lexemes and forms have identical content-handler-factory-callback, extract
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
-
+			$requestContext = RequestContext::getMain();
 			return new LexemeHandler(
 				WikibaseRepo::getEntityContentDataCodec(),
 				WikibaseRepo::getEntityConstraintProvider(),
@@ -507,7 +520,13 @@ return [
 				WikibaseRepo::getEntityIdLookup(),
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getFieldDefinitionsFactory()
-					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE )
+					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
+				WikibaseLexemeServices::getLemmaLookup(),
+				new LexemeTermFormatter(
+					$requestContext
+						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+						->escaped()
+				)
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
