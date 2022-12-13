@@ -2,11 +2,12 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Xuacu"
+			"Xuacu",
+			"McDutchie"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema de Wikibase",
-	"datatypes-type-wikibase-form": "Formulariu",
+	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"datatypes-type-wikibase-sense": "Sentíu",
 	"special-mergelexemes": "Fusionar dos lexemes",

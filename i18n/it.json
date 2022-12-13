@@ -8,11 +8,12 @@
 			"Lorem Ipsum",
 			"Ricordisamoa",
 			"Sarah Bernabei",
-			"TheRukk"
+			"TheRukk",
+			"McDutchie"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lessema Wikibase",
-	"datatypes-type-wikibase-form": "Modulo",
+	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-lexeme": "Lessema",
 	"datatypes-type-wikibase-sense": "Accezione",
 	"special-mergelexemes": "Unisci due lessemi",
