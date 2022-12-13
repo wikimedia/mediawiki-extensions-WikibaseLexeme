@@ -1,11 +1,14 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Content;
 
 use Article;
 use IContextSource;
 use Title;
 use UnexpectedValueException;
+use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -36,15 +39,9 @@ use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
  */
 class LexemeHandler extends EntityHandler {
 
-	/**
-	 * @var EntityIdLookup
-	 */
-	private $entityIdLookup;
+	private EntityIdLookup $entityIdLookup;
 
-	/**
-	 * @var EntityLookup
-	 */
-	private $entityLookup;
+	private EntityLookup $entityLookup;
 
 	/**
 	 * @param EntityContentDataCodec $contentCodec
@@ -64,7 +61,7 @@ class LexemeHandler extends EntityHandler {
 		EntityIdLookup $entityIdLookup,
 		EntityLookup $entityLookup,
 		FieldDefinitions $lexemeFieldDefinitions,
-		$legacyExportFormatDetector = null
+		callable $legacyExportFormatDetector = null
 	) {
 		parent::__construct(
 			LexemeContent::CONTENT_MODEL_ID,
@@ -83,10 +80,8 @@ class LexemeHandler extends EntityHandler {
 
 	/**
 	 * @see ContentHandler::getActionOverrides
-	 *
-	 * @return array
 	 */
-	public function getActionOverrides() {
+	public function getActionOverrides(): array {
 		return [
 			'history' => function (
 				Article $article,
@@ -105,31 +100,24 @@ class LexemeHandler extends EntityHandler {
 		];
 	}
 
-	/**
-	 * @return Lexeme
-	 */
-	public function makeEmptyEntity() {
+	public function makeEmptyEntity(): Lexeme {
 		return new Lexeme();
 	}
 
-	public function makeEntityRedirectContent( EntityRedirect $redirect ) {
+	public function makeEntityRedirectContent( EntityRedirect $redirect ): LexemeContent {
 		$title = $this->getTitleForId( $redirect->getTargetId() );
 		return LexemeContent::newFromRedirect( $redirect, $title );
 	}
 
 	/** @inheritDoc */
-	public function supportsRedirects() {
+	public function supportsRedirects(): bool {
 		return true;
 	}
 
 	/**
 	 * @see EntityHandler::newEntityContent
-	 *
-	 * @param EntityHolder|null $entityHolder
-	 *
-	 * @return LexemeContent
 	 */
-	protected function newEntityContent( EntityHolder $entityHolder = null ) {
+	protected function newEntityContent( EntityHolder $entityHolder = null ): LexemeContent {
 		if ( $entityHolder !== null && $entityHolder->getEntityType() === Form::ENTITY_TYPE ) {
 			$formId = $entityHolder->getEntityId();
 			if ( !( $formId instanceof FormId ) ) {
@@ -151,28 +139,20 @@ class LexemeHandler extends EntityHandler {
 
 	/**
 	 * @param string $id
-	 *
-	 * @return LexemeId
 	 */
-	public function makeEntityId( $id ) {
+	public function makeEntityId( $id ): LexemeId {
 		return new LexemeId( $id );
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getEntityType() {
+	public function getEntityType(): string {
 		return Lexeme::ENTITY_TYPE;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getSpecialPageForCreation() {
+	public function getSpecialPageForCreation(): string {
 		return 'NewLexeme';
 	}
 
-	public function getIdForTitle( Title $target ) {
+	public function getIdForTitle( Title $target ): EntityId {
 		$lexemeId = parent::getIdForTitle( $target );
 
 		if ( $target->hasFragment() ) {
@@ -196,7 +176,7 @@ class LexemeHandler extends EntityHandler {
 		return $lexemeId;
 	}
 
-	private function normalizeFragmentToId( Title $target ) {
+	private function normalizeFragmentToId( Title $target ): string {
 		$fragment = $target->getFragment();
 		if ( strpos( $fragment, LexemeSubEntityId::SUBENTITY_ID_SEPARATOR ) === false ) {
 			$fragment = $target->getText() . LexemeSubEntityId::SUBENTITY_ID_SEPARATOR . $fragment;
