@@ -7,7 +7,9 @@
 			"Lorem Ipsum",
 			"Ricordisamoa",
 			"Sarah Bernabei",
-			"TheRukk"
+			"TheRukk",
+			"GpieroMW",
+			"McDutchie"
 		]
 	},
 	"wikibaselexeme-desc": "Gestisce tipi di entità lessema",
@@ -35,7 +37,7 @@
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Modificato un lessema",
 	"datatypes-type-wikibase-lexeme": "Lessema",
-	"datatypes-type-wikibase-form": "Modulo",
+	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-sense": "Accezione",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lessema",
 	"wikibase-listdatatypes-wikibase-form-head": "Forma",

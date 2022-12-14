@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Xuacu"
+			"Xuacu",
+			"McDutchie"
 		]
 	},
 	"wikibaselexeme-desc": "Alministrar el tipu d'entidá Lexema",
@@ -35,7 +36,7 @@
 	"wikibaselexeme-gloss-field-gloss-label": "Glosa",
 	"wikibase-lexeme-summary-wbeditentity-update": "Cambió un lexema",
 	"datatypes-type-wikibase-lexeme": "Lexema",
-	"datatypes-type-wikibase-form": "Formulariu",
+	"datatypes-type-wikibase-form": "Forma",
 	"datatypes-type-wikibase-sense": "Sentíu",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexema",
 	"wikibase-listdatatypes-wikibase-lexeme-body": "Enllaz a lexemes del proyeutu. Cuando s'escribe un valor, guetaráse nel espaciu de nomes «Lexema» del proyeutu pa buscar entraes que coincidan.",
