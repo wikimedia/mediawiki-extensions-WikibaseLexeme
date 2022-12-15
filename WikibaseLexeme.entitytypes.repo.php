@@ -113,22 +113,7 @@ return [
 		Def::CONTENT_MODEL_ID => LexemeContent::CONTENT_MODEL_ID,
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
 			$requestContext = RequestContext::getMain();
-			return new LexemeHandler(
-				WikibaseRepo::getEntityContentDataCodec(),
-				WikibaseRepo::getEntityConstraintProvider(),
-				WikibaseRepo::getValidatorErrorLocalizer(),
-				WikibaseRepo::getEntityIdParser(),
-				WikibaseRepo::getEntityIdLookup(),
-				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getFieldDefinitionsFactory()
-					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
-				WikibaseLexemeServices::getLemmaLookup(),
-				new LexemeTermFormatter(
-					$requestContext
-						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
-						->escaped()
-				)
-			);
+			return LexemeHandler::factory( $requestContext );
 		},
 		Def::ENTITY_FACTORY_CALLBACK => static function () {
 			return new Lexeme();
@@ -357,22 +342,7 @@ return [
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
 			$requestContext = RequestContext::getMain();
-			return new LexemeHandler(
-				WikibaseRepo::getEntityContentDataCodec(),
-				WikibaseRepo::getEntityConstraintProvider(),
-				WikibaseRepo::getValidatorErrorLocalizer(),
-				WikibaseRepo::getEntityIdParser(),
-				WikibaseRepo::getEntityIdLookup(),
-				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getFieldDefinitionsFactory()
-					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
-				WikibaseLexemeServices::getLemmaLookup(),
-				new LexemeTermFormatter(
-					$requestContext
-						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
-						->escaped()
-				)
-			);
+			return LexemeHandler::factory( $requestContext );
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			return new EntityIdSearchHelper(
@@ -509,25 +479,9 @@ return [
 		},
 	],
 	'sense' => [
-		// TODO lexemes and forms have identical content-handler-factory-callback, extract
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
 			$requestContext = RequestContext::getMain();
-			return new LexemeHandler(
-				WikibaseRepo::getEntityContentDataCodec(),
-				WikibaseRepo::getEntityConstraintProvider(),
-				WikibaseRepo::getValidatorErrorLocalizer(),
-				WikibaseRepo::getEntityIdParser(),
-				WikibaseRepo::getEntityIdLookup(),
-				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getFieldDefinitionsFactory()
-					->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
-				WikibaseLexemeServices::getLemmaLookup(),
-				new LexemeTermFormatter(
-					$requestContext
-						->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
-						->escaped()
-				)
-			);
+			return LexemeHandler::factory( $requestContext );
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			$entityLookup = WikibaseRepo::getEntityLookup();

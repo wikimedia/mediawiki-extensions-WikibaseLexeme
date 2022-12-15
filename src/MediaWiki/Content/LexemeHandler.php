@@ -23,6 +23,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Actions\LexemeHistoryAction;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityContentDataCodec;
 use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Repo\Actions\EditEntityAction;
@@ -33,6 +34,7 @@ use Wikibase\Repo\Content\EntityInstanceHolder;
 use Wikibase\Repo\Search\Fields\FieldDefinitions;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
+use Wikibase\Repo\WikibaseRepo;
 
 /**
  * @license GPL-2.0-or-later
@@ -74,6 +76,28 @@ class LexemeHandler extends EntityHandler {
 		$this->entityLookup = $entityLookup;
 		$this->lemmaLookup = $lemmaLookup;
 		$this->lexemeTermFormatter = $lexemeTermFormatter;
+	}
+
+	/**
+	 * This is intended to be used in the entity types wiring.
+	 */
+	public static function factory( IContextSource $context ): self {
+		return new self(
+			WikibaseRepo::getEntityContentDataCodec(),
+			WikibaseRepo::getEntityConstraintProvider(),
+			WikibaseRepo::getValidatorErrorLocalizer(),
+			WikibaseRepo::getEntityIdParser(),
+			WikibaseRepo::getEntityIdLookup(),
+			WikibaseRepo::getEntityLookup(),
+			WikibaseRepo::getFieldDefinitionsFactory()
+				->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
+			WikibaseLexemeServices::getLemmaLookup(),
+			new LexemeTermFormatter(
+				$context
+					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
+					->escaped()
+			)
+		);
 	}
 
 	/**
