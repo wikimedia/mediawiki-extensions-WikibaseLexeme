@@ -112,8 +112,9 @@ return [
 		},
 		Def::CONTENT_MODEL_ID => LexemeContent::CONTENT_MODEL_ID,
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
+			$services = MediaWikiServices::getInstance();
 			$requestContext = RequestContext::getMain();
-			return LexemeHandler::factory( $requestContext );
+			return LexemeHandler::factory( $services, $requestContext );
 		},
 		Def::ENTITY_FACTORY_CALLBACK => static function () {
 			return new Lexeme();
@@ -341,8 +342,9 @@ return [
 	],
 	'form' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
+			$services = MediaWikiServices::getInstance();
 			$requestContext = RequestContext::getMain();
-			return LexemeHandler::factory( $requestContext );
+			return LexemeHandler::factory( $services, $requestContext );
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			return new EntityIdSearchHelper(
@@ -480,8 +482,9 @@ return [
 	],
 	'sense' => [
 		Def::CONTENT_HANDLER_FACTORY_CALLBACK => static function () {
+			$services = MediaWikiServices::getInstance();
 			$requestContext = RequestContext::getMain();
-			return LexemeHandler::factory( $requestContext );
+			return LexemeHandler::factory( $services, $requestContext );
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			$entityLookup = WikibaseRepo::getEntityLookup();

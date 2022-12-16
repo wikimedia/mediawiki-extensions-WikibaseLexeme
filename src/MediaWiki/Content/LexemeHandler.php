@@ -6,6 +6,7 @@ namespace Wikibase\Lexeme\MediaWiki\Content;
 
 use Article;
 use IContextSource;
+use Psr\Container\ContainerInterface;
 use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
@@ -81,17 +82,17 @@ class LexemeHandler extends EntityHandler {
 	/**
 	 * This is intended to be used in the entity types wiring.
 	 */
-	public static function factory( IContextSource $context ): self {
+	public static function factory( ContainerInterface $services, IContextSource $context ): self {
 		return new self(
-			WikibaseRepo::getEntityContentDataCodec(),
-			WikibaseRepo::getEntityConstraintProvider(),
-			WikibaseRepo::getValidatorErrorLocalizer(),
-			WikibaseRepo::getEntityIdParser(),
-			WikibaseRepo::getEntityIdLookup(),
-			WikibaseRepo::getEntityLookup(),
-			WikibaseRepo::getFieldDefinitionsFactory()
+			WikibaseRepo::getEntityContentDataCodec( $services ),
+			WikibaseRepo::getEntityConstraintProvider( $services ),
+			WikibaseRepo::getValidatorErrorLocalizer( $services ),
+			WikibaseRepo::getEntityIdParser( $services ),
+			WikibaseRepo::getEntityIdLookup( $services ),
+			WikibaseRepo::getEntityLookup( $services ),
+			WikibaseRepo::getFieldDefinitionsFactory( $services )
 				->getFieldDefinitionsByType( Lexeme::ENTITY_TYPE ),
-			WikibaseLexemeServices::getLemmaLookup(),
+			WikibaseLexemeServices::getLemmaLookup( $services ),
 			new LexemeTermFormatter(
 				$context
 					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
