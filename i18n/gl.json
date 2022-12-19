@@ -5,7 +5,8 @@
 			"Banjo",
 			"Elisardojm",
 			"Maria zaos",
-			"ArenaL5"
+			"ArenaL5",
+			"McDutchie"
 		]
 	},
 	"wikibaselexeme-desc": "Xestionar o tipo de entidade Lexema",
@@ -30,7 +31,7 @@
 	"wikibaselexeme-gloss-field-language-label": "Lingua",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"datatypes-type-wikibase-lexeme": "Lexema",
-	"datatypes-type-wikibase-form": "Formulario",
+	"datatypes-type-wikibase-form": "Forma",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexema",
 	"wikibase-listdatatypes-wikibase-form-head": "Formulario",
 	"wikibaselexeme-add-form": "engadir forma",

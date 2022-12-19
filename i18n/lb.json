@@ -2,7 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Les Meloures",
-			"Robby"
+			"Robby",
+			"McDutchie",
+			"Robin van der Vliet"
 		]
 	},
 	"special-newlexeme": "En neie Lexeem uleeën",
@@ -23,7 +25,7 @@
 	"wikibaselexeme-form-field-language-label": "Variant vun der Orthographie",
 	"wikibaselexeme-gloss-field-language-label": "Sprooch",
 	"datatypes-type-wikibase-lexeme": "Lexeme",
-	"datatypes-type-wikibase-form": "Formulaire",
+	"datatypes-type-wikibase-form": "Form",
 	"datatypes-type-wikibase-sense": "Bedeitung",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeme",
 	"wikibase-listdatatypes-wikibase-form-head": "Formulaire",

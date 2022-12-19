@@ -6,7 +6,8 @@
 			"Thibaut120094",
 			"Wladek92",
 			"DreZhsh",
-			"Verdy p"
+			"Verdy p",
+			"McDutchie"
 		]
 	},
 	"apihelp-wbladdform-summary": "Ajoute une forme au lexème",
@@ -63,7 +64,7 @@
 	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Le texte du term ne peut être vide",
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "La langue ne peut pas être vide",
 	"apierror-wikibaselexeme-language-inconsistent": "La langue du champ « $1 » dans « $2 » était supposée être « $3 » . Obtenu: « $4 »",
-	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Le formulaire doit avoir au moins une représentation et une variante orthographique",
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "La forme doit avoir au moins une représentation",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Le Sens doit avoir au moins une glose",
 	"apierror-wikibaselexeme-unknown-language": "Langue inconnue « $3 » dans le champ « $1» à « $2 » .",
 	"apierror-wikibaselexeme-invalid-item-id": "Numéro invalide d’élément « $3 » sur le champ « $1 » dans « $2 ».",
