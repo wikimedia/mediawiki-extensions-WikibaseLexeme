@@ -126,6 +126,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedLexicalCategoryItemsUseLabelsFromLanguageFallback() {
+		$this->markTestSkipped( 'T291608' );
 		$this->setUserLang( 'de' );
 
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
@@ -219,6 +220,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedLanguageItemsUseLabelsFromLanguageFallback() {
+		$this->markTestSkipped( 'T291608' );
 		$this->setUserLang( 'de' );
 
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
@@ -313,6 +315,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedGrammaticalFeatureItemsUseLabelsFromLanguageFallback() {
+		$this->markTestSkipped( 'T291608' );
 		$this->setUserLang( 'de' );
 
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
