@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use PHPUnit\Framework\TestCase;

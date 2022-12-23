@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use OutOfBoundsException;
@@ -18,15 +20,8 @@ use Wikibase\View\LocalizedTextProvider;
  */
 class SenseIdTextFormatter implements EntityIdFormatter {
 
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $revisionLookup;
-
-	/**
-	 * @var LocalizedTextProvider
-	 */
-	private $localizedTextProvider;
+	private EntityRevisionLookup $revisionLookup;
+	private LocalizedTextProvider $localizedTextProvider;
 
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
@@ -41,7 +36,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 	 *
 	 * @return string plain text
 	 */
-	public function formatEntityId( EntityId $value ) {
+	public function formatEntityId( EntityId $value ): string {
 		try {
 			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
 		} catch ( RevisionedUnresolvedRedirectException | StorageException $e ) {
