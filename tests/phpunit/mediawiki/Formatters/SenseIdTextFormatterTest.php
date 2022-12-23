@@ -5,6 +5,8 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -21,12 +23,25 @@ use Wikibase\View\DummyLocalizedTextProvider;
  */
 class SenseIdTextFormatterTest extends TestCase {
 
+	private function getEntityIdLabelFormatter(): EntityIdFormatter {
+		$formatter = $this->createStub( EntityIdFormatter::class );
+		$formatter->method( 'formatEntityId' )
+			->willReturnCallback( static function ( EntityId $value ): string {
+				return "label of {$value->getSerialization()}";
+			} );
+		return $formatter;
+	}
+
 	public function testFormatId_nonExisting() {
 		$senseId = new SenseId( 'L10-S20' );
 		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willReturn( null );
-		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
+		$formatter = new SenseIdTextFormatter(
+			$lookup,
+			new DummyLocalizedTextProvider(),
+			$this->getEntityIdLabelFormatter()
+		);
 
 		$result = $formatter->formatEntityId( $senseId );
 
@@ -39,7 +54,11 @@ class SenseIdTextFormatterTest extends TestCase {
 		$lookup = $this->createMock( EntityRevisionLookup::class );
 		$lookup->method( 'getEntityRevision' )
 			->willThrowException( $exception );
-		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
+		$formatter = new SenseIdTextFormatter(
+			$lookup,
+			new DummyLocalizedTextProvider(),
+			$this->getEntityIdLabelFormatter()
+		);
 
 		$result = $formatter->formatEntityId( $senseId );
 
@@ -54,16 +73,21 @@ class SenseIdTextFormatterTest extends TestCase {
 				$entity = NewLexeme::create()
 					->withId( $entityId )
 					->withLemma( 'en', 'lemma' )
+					->withLanguage( 'Q123' )
 					->withSense( NewSense::havingId( $senseId )
 						->withGloss( 'qqx', 'gloss' ) )
 					->build();
 				return new EntityRevision( $entity );
 			} );
-		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
+		$formatter = new SenseIdTextFormatter(
+			$lookup,
+			new DummyLocalizedTextProvider(),
+			$this->getEntityIdLabelFormatter()
+		);
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$expected = '(wikibaselexeme-senseidformatter-layout: lemma, gloss)';
+		$expected = '(wikibaselexeme-senseidformatter-layout: lemma, gloss, label of Q123)';
 		$this->assertSame( $expected, $result );
 	}
 
@@ -77,12 +101,17 @@ class SenseIdTextFormatterTest extends TestCase {
 					->withLemma( 'en', 'lemma' )
 					->withLemma( 'de', 'Lemma' )
 					->withLemma( 'el', 'λεμμα' )
+					->withLanguage( 'Q123' )
 					->withSense( NewSense::havingId( $senseId )
 						->withGloss( 'qqx', 'gloss' ) )
 					->build();
 				return new EntityRevision( $entity );
 			} );
-		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
+		$formatter = new SenseIdTextFormatter(
+			$lookup,
+			new DummyLocalizedTextProvider(),
+			$this->getEntityIdLabelFormatter()
+		);
 
 		$result = $formatter->formatEntityId( $senseId );
 
@@ -92,7 +121,7 @@ class SenseIdTextFormatterTest extends TestCase {
 			'Lemma' .
 			'(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)' .
 			'λεμμα' .
-			', gloss)';
+			', gloss, label of Q123)';
 		$this->assertSame( $expected, $result );
 	}
 
@@ -109,7 +138,11 @@ class SenseIdTextFormatterTest extends TestCase {
 					->build();
 				return new EntityRevision( $entity );
 			} );
-		$formatter = new SenseIdTextFormatter( $lookup, new DummyLocalizedTextProvider() );
+		$formatter = new SenseIdTextFormatter(
+			$lookup,
+			new DummyLocalizedTextProvider(),
+			$this->getEntityIdLabelFormatter()
+		);
 
 		$result = $formatter->formatEntityId( $senseId );
 

@@ -118,6 +118,8 @@ return [
 			$language = WikibaseRepo::getUserLanguage( $mwServices );
 
 			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );
+			$entityIdLabelFormatter = WikibaseRepo::getEntityIdLabelFormatterFactory( $mwServices )
+				->getEntityIdFormatter( $language );
 
 			$languageFallbackChainFactory = WikibaseRepo::getLanguageFallbackChainFactory();
 			$fallbackChain = $languageFallbackChainFactory->newFromLanguage( $language );
@@ -133,7 +135,8 @@ return [
 						$localizedTextProvider,
 						$fallbackChain,
 						new LanguageFallbackIndicator( WikibaseRepo::getLanguageNameLookup( $mwServices ) ),
-						$mwServices->getLanguageFactory()
+						$mwServices->getLanguageFactory(),
+						$entityIdLabelFormatter
 					)
 				);
 			}
@@ -141,7 +144,8 @@ return [
 			return new EntityIdValueFormatter(
 					new SenseIdTextFormatter(
 					$revisionLookup,
-					$localizedTextProvider
+					$localizedTextProvider,
+					$entityIdLabelFormatter
 				)
 			);
 		},

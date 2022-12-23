@@ -595,7 +595,8 @@ return [
 				new MediaWikiLocalizedTextProvider( $language ),
 				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $language ),
 				new LanguageFallbackIndicator( WikibaseRepo::getLanguageNameLookup() ),
-				MediaWikiServices::getInstance()->getLanguageFactory()
+				MediaWikiServices::getInstance()->getLanguageFactory(),
+				WikibaseRepo::getEntityIdLabelFormatterFactory()->getEntityIdFormatter( $language )
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => static function ( $dbName, $repoName ) {

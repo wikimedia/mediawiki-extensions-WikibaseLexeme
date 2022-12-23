@@ -34,6 +34,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 	private TermLanguageFallbackChain $termLanguageFallbackChain;
 	private LanguageFallbackIndicator $languageFallbackIndicator;
 	private LanguageFactory $languageFactory;
+	private EntityIdFormatter $entityIdLabelFormatter;
 
 	public function __construct(
 		EntityTitleLookup $titleLookup,
@@ -41,7 +42,8 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 		LocalizedTextProvider $localizedTextProvider,
 		TermLanguageFallbackChain $termLanguageFallbackChain,
 		LanguageFallbackIndicator $languageFallbackIndicator,
-		LanguageFactory $languageFactory
+		LanguageFactory $languageFactory,
+		EntityIdFormatter $entityIdLabelFormatter
 	) {
 		$this->titleLookup = $titleLookup;
 		$this->revisionLookup = $revisionLookup;
@@ -49,6 +51,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 		$this->termLanguageFallbackChain = $termLanguageFallbackChain;
 		$this->languageFallbackIndicator = $languageFallbackIndicator;
 		$this->languageFactory = $languageFactory;
+		$this->entityIdLabelFormatter = $entityIdLabelFormatter;
 	}
 
 	/**
@@ -78,26 +81,28 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 			return $this->getTextWrappedInLink( $value->getSerialization(), $title );
 		}
 
-		$languageCode = $this->localizedTextProvider->getLanguageOf(
-			'wikibaselexeme-senseidformatter-layout'
-		);
+		$lexemeLanguageLabel = $this->entityIdLabelFormatter->formatEntityId( $lexeme->getLanguage() );
 		$glossArray = $sense->getGlosses()->toTextArray();
 		$preferredGloss = $this->termLanguageFallbackChain->extractPreferredValue( $glossArray );
-		if ( $preferredGloss === null ) {
-			return $this->getTextWrappedInLink( $value->getSerialization(), $title );
+
+		if ( $preferredGloss !== null ) {
+			$languageCode = $this->localizedTextProvider->getLanguageOf(
+				'wikibaselexeme-senseidformatter-layout'
+			);
+			$glossFallback = new TermFallback(
+				$languageCode,
+				$preferredGloss['value'],
+				$preferredGloss['language'],
+				$preferredGloss['source']
+			);
+			$linkContents = $this->buildSenseLinkContents( $lexeme->getLemmas(), $lexemeLanguageLabel, $glossFallback );
+			$suffix = $this->languageFallbackIndicator->getHtml( $glossFallback );
+		} else {
+			$linkContents = $value->getSerialization();
+			$suffix = '';
 		}
 
-		$glossFallback = new TermFallback(
-			$languageCode,
-			$preferredGloss['value'],
-			$preferredGloss['language'],
-			$preferredGloss['source']
-		);
-
-		return $this->getTextWrappedInLink(
-				$this->buildSenseLinkContents( $lexeme->getLemmas(), $glossFallback ),
-				$title
-			) . $this->languageFallbackIndicator->getHtml( $glossFallback );
+		return $this->getTextWrappedInLink( $linkContents, $title ) . $suffix;
 	}
 
 	private function getTextWrappedInLink( string $linkContents, Title $title ): string {
@@ -110,7 +115,11 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 		);
 	}
 
-	private function buildSenseLinkContents( TermList $lemmas, TermFallback $gloss ): string {
+	private function buildSenseLinkContents(
+		TermList $lemmas,
+		string $languageLabel,
+		TermFallback $gloss
+	): string {
 		return $this->localizedTextProvider->getEscaped(
 			'wikibaselexeme-senseidformatter-layout',
 			[
@@ -120,7 +129,8 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 					),
 					$this->buildLemmasMarkup( $lemmas )
 				) ),
-				new RawMessageParameter( $this->buildGlossMarkup( $gloss ) )
+				new RawMessageParameter( $this->buildGlossMarkup( $gloss ) ),
+				$languageLabel,
 			]
 		);
 	}
