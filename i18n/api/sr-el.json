@@ -1,0 +1,28 @@
+{
+	"@metadata": {
+		"authors": []
+	},
+	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Oblici moraju imati bar jedno predstavljanje",
+	"apierror-wikibaselexeme-form-not-found": "Polje „$1” sadrži ID oblika „$2” koji se ne može pronaći.",
+	"apierror-wikibaselexeme-json-field-not-item-id": "Polje „$2” u parametru „$1” očekivalo se da bude ID stavke. Zadato: „$3”",
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Jezik ne može da bude prazan",
+	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Tekst termina ne može da bude prazan",
+	"apierror-wikibaselexeme-parameter-not-sense-id": "Polje „$2” u parametru „$1” očekuje se da bude ID značenja. Zadato: „$3”",
+	"apierror-wikibaselexeme-parameter-required": "Neophodan je parametar „$1”",
+	"apierror-wikibaselexeme-sense-not-found": "Polje „$1” sadrži ID značenja „$2” koji se ne može pronaći.",
+	"apihelp-wbladdform-param-lexemeId": "ID lekseme, npr. L10",
+	"apihelp-wbladdform-summary": "Dodaje oblik na leksemu",
+	"apihelp-wbladdsense-param-lexemeId": "ID lekseme, npr. L10",
+	"apihelp-wbladdsense-summary": "Dodaje značenje leksemi",
+	"apihelp-wbleditformelements-param-formId": "ID oblika, npr. L10-F2",
+	"apihelp-wbleditsenseelements-param-senseId": "ID značenja, npr. L10-S2",
+	"apihelp-wbleditsenseelements-summary": "Uređuje tumačenja značenja",
+	"apihelp-wblmergelexemes-description": "Objedinjava dve lekseme.",
+	"apihelp-wblmergelexemes-param-source": "ID za objedinjavanje sa",
+	"apihelp-wblmergelexemes-param-target": "ID za objedinjavanje u",
+	"apihelp-wblmergelexemes-summary": "Objedinjava dve lekseme.",
+	"apihelp-wblremoveform-param-id": "ID oblika, npr. L10-F20",
+	"apihelp-wblremoveform-summary": "Uklanja oblik sa lekseme",
+	"apihelp-wblremovesense-param-id": "ID značenja, npr. L10-S20",
+	"apihelp-wblremovesense-summary": "Uklanja značenje sa lekseme"
+}
