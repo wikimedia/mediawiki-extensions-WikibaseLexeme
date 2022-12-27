@@ -125,8 +125,8 @@ class SpecialMergeLexemes extends SpecialPage {
 	private function showMergeForm() {
 		HTMLForm::factory( 'ooui', $this->getFormElements(), $this->getContext() )
 			->setId( 'wb-mergelexemes' )
-			->setPreText( $this->anonymousEditWarning() )
-			->setHeaderText( $this->msg( 'wikibase-lexeme-mergelexemes-intro' )->parse() )
+			->setPreHtml( $this->anonymousEditWarning() )
+			->setHeaderHtml( $this->msg( 'wikibase-lexeme-mergelexemes-intro' )->parse() )
 			->setSubmitID( 'wb-mergelexemes-submit' )
 			->setSubmitName( 'wikibase-lexeme-mergelexemes-submit' )
 			->setSubmitTextMsg( 'wikibase-lexeme-mergelexemes-submit' )
