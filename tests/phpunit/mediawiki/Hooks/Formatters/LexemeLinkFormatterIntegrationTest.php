@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 
-use Language;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
@@ -40,7 +39,10 @@ class LexemeLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCa
 	private function getLinkFormatter( $entityType ): EntityLinkFormatter {
 		$factory = WikibaseRepo::getEntityLinkFormatterFactory();
 
-		return $factory->getLinkFormatter( $entityType, Language::factory( 'en' ) );
+		return $factory->getLinkFormatter(
+			$entityType,
+			$this->getServiceContainer()->getLanguageFactory()->getLanguage( 'en' )
+		);
 	}
 
 }

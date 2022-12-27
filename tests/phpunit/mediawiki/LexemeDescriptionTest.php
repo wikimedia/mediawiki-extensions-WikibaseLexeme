@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use Language;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\LexemeDescription;
@@ -147,8 +147,15 @@ class LexemeDescriptionTest extends TestCase {
 		}, $fetchIds ) );
 
 		$termLookupFactory = $this->getTermLookupFactory( $fetchIds, $termLanguage );
-		$termLookup = $termLookupFactory->newLabelDescriptionLookup( Language::factory( $termLanguage ), $itemIds );
-		$descriptionMaker = new LexemeDescription( $termLookup, $idParser, Language::factory( $displayLanguage ) );
+		$termLookup = $termLookupFactory->newLabelDescriptionLookup(
+			MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $termLanguage ),
+			$itemIds
+		);
+		$descriptionMaker = new LexemeDescription(
+			$termLookup,
+			$idParser,
+			MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $displayLanguage )
+		);
 
 		$formId = $idParser->parse( $data['lexeme-id'] );
 		$desc = $descriptionMaker->createFormDescription(

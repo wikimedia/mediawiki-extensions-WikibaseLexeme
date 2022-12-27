@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 use HamcrestPHPUnitIntegration;
 use HtmlArmor;
 use InvalidArgumentException;
-use Language;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityId;
@@ -136,7 +136,7 @@ class FormLinkFormatterTest extends TestCase {
 			$this->entityLookup,
 			$this->newDefaultFormatter(),
 			$this->representationsFormatter,
-			Language::factory( 'en' )
+			MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' )
 		);
 	}
 

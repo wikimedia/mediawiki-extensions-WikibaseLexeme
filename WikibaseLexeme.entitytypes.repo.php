@@ -102,12 +102,13 @@ return [
 			return $factory->newLexemeView();
 		},
 		Def::META_TAGS_CREATOR_CALLBACK => static function () {
+			$services = MediaWikiServices::getInstance();
 			return new LexemeMetaTagsCreator(
 				RequestContext::getMain()
 					->msg( 'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
 					->escaped(),
 				WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
-					->newLabelDescriptionLookup( \Language::factory( 'en' ) )
+					->newLabelDescriptionLookup( $services->getLanguageFactory()->getLanguage( 'en' ) )
 			);
 		},
 		Def::CONTENT_MODEL_ID => LexemeContent::CONTENT_MODEL_ID,

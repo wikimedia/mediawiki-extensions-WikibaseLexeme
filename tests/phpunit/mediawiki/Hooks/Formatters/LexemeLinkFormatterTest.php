@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use HtmlArmor;
-use Language;
+use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityId;
@@ -107,7 +107,7 @@ class LexemeLinkFormatterTest extends TestCase {
 			new EntityLookupLemmaLookup( $this->entityLookup ),
 			$this->getMockDefaultFormatter(),
 			$this->lemmaFormatter,
-			Language::factory( 'en' )
+			MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' )
 		);
 	}
 
