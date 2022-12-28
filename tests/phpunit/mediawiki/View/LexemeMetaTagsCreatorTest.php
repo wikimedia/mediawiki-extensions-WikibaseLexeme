@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use InvalidArgumentException;
+use MediaWiki\MediaWikiServices;
 use RawMessage;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -82,7 +83,9 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		new LexemeMetaTagsCreator(
 			$input,
 			WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
-				->newLabelDescriptionLookup( \Language::factory( 'en' ) )
+				->newLabelDescriptionLookup(
+					MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( 'en' )
+				)
 		);
 	}
 

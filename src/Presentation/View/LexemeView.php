@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Presentation\View;
 
 use InvalidArgumentException;
-use Language;
 use Message;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
@@ -201,7 +200,7 @@ HTML;
 	 * @return string Plain text
 	 */
 	private function getLocalizedMessage( $key, array $params = [] ) {
-		return ( new Message( $key, $params, Language::factory( $this->languageCode ) ) )->text();
+		return ( new Message( $key, $params ) )->inLanguage( $this->languageCode )->text();
 	}
 
 	/**

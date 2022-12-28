@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Html;
-use Language;
+use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 
@@ -38,7 +38,7 @@ class LexemeTermFormatter {
 	}
 
 	private function getTermHtml( Term $term ) {
-		$language = Language::factory( $term->getLanguageCode() );
+		$language = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $term->getLanguageCode() );
 
 		return Html::element(
 			'span',

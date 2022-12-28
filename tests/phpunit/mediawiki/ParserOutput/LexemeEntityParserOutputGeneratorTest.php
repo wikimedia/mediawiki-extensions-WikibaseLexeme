@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ParserOutput;
 
 use DataValues\StringValue;
-use Language;
 use Message;
 use ParserOutput;
 use Wikibase\DataModel\Entity\EntityIdValue;
@@ -167,7 +166,9 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 	private function newParserOutputGenerator(): EntityParserOutputGenerator {
 		return WikibaseRepo::getEntityParserOutputGeneratorFactory()
-			->getEntityParserOutputGenerator( Language::factory( 'en' ) );
+			->getEntityParserOutputGenerator(
+				$this->getServiceContainer()->getLanguageFactory()->getLanguage( 'en' )
+			);
 	}
 
 	/**
