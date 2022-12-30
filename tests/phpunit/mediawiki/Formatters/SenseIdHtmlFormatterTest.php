@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
@@ -30,11 +32,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 	use HamcrestPHPUnitIntegration;
 
-	/**
-	 * @param SenseId $expectedSenseId
-	 * @return MockObject|EntityTitleLookup
-	 */
-	private function getMockTitleLookup( SenseId $expectedSenseId ) {
+	private function getMockTitleLookup( SenseId $expectedSenseId ): EntityTitleLookup {
 		$title = $this->createMock( Title::class );
 		$title->method( 'isLocal' )->willReturn( true );
 		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#SENSE' );
@@ -56,17 +54,14 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	/**
-	 * @return MockObject|LanguageFallbackIndicator
-	 */
-	private function getMockLanguageFallbackIndicator() {
+	private function getMockLanguageFallbackIndicator(): LanguageFallbackIndicator {
 		$mock = $this->createMock( LanguageFallbackIndicator::class );
 		$mock->method( 'getHtml' )
 			->willReturn( 'FB-INDICATOR' );
 		return $mock;
 	}
 
-	private function getLanguageFallbackChain() {
+	private function getLanguageFallbackChain(): TermLanguageFallbackChain {
 		return new TermLanguageFallbackChain(
 			[
 				LanguageWithConversion::factory( 'en' ),
@@ -85,7 +80,10 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	private function getFormatter( $senseId, $lookup ) {
+	private function getFormatter(
+		SenseId $senseId,
+		EntityRevisionLookup $lookup
+	): SenseIdHtmlFormatter {
 		return new SenseIdHtmlFormatter(
 			$this->getMockTitleLookup( $senseId ),
 			$lookup,
@@ -187,7 +185,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function glossLanguageProvider() {
+	public function glossLanguageProvider(): iterable {
 		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD', 'ltr' ];
 		yield 'BCP 47 compliant language code' => [ 'en', 'en', 'ltr' ];
 		yield 'rtl language' => [ 'he', 'he', 'rtl' ];

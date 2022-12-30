@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Html;
@@ -26,35 +28,12 @@ use Wikibase\View\RawMessageParameter;
  */
 class SenseIdHtmlFormatter implements EntityIdFormatter {
 
-	/**
-	 * @var EntityTitleLookup
-	 */
-	private $titleLookup;
-
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $revisionLookup;
-
-	/**
-	 * @var LocalizedTextProvider
-	 */
-	private $localizedTextProvider;
-
-	/**
-	 * @var TermLanguageFallbackChain
-	 */
-	private $termLanguageFallbackChain;
-
-	/**
-	 * @var LanguageFallbackIndicator
-	 */
-	private $languageFallbackIndicator;
-
-	/**
-	 * @var LanguageFactory
-	 */
-	private $languageFactory;
+	private EntityTitleLookup $titleLookup;
+	private EntityRevisionLookup $revisionLookup;
+	private LocalizedTextProvider $localizedTextProvider;
+	private TermLanguageFallbackChain $termLanguageFallbackChain;
+	private LanguageFallbackIndicator $languageFallbackIndicator;
+	private LanguageFactory $languageFactory;
 
 	public function __construct(
 		EntityTitleLookup $titleLookup,
@@ -77,7 +56,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 	 *
 	 * @return string HTML
 	 */
-	public function formatEntityId( EntityId $value ) {
+	public function formatEntityId( EntityId $value ): string {
 		$title = $this->titleLookup->getTitleForId( $value );
 
 		try {
@@ -121,7 +100,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 			) . $this->languageFallbackIndicator->getHtml( $glossFallback );
 	}
 
-	private function getTextWrappedInLink( string $linkContents, Title $title ) {
+	private function getTextWrappedInLink( string $linkContents, Title $title ): string {
 		return Html::rawElement(
 			'a',
 			[
@@ -146,7 +125,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 		);
 	}
 
-	private function buildGlossMarkup( TermFallback $gloss ) {
+	private function buildGlossMarkup( TermFallback $gloss ): string {
 		$language = $this->languageFactory->getLanguage( $gloss->getActualLanguageCode() );
 		return Html::element(
 			'span',
