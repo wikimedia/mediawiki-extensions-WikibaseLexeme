@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
+use MediaWiki\Revision\SlotRecord;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataAccess\EntitySourceDefinitions;
@@ -76,8 +77,8 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 						'test',
 						'testdb',
 						[
-							'item' => [ 'namespaceId' => 500, 'slot' => 'main' ],
-							'lexeme' => [ 'namespaceId' => 700, 'slot' => 'main' ],
+							'item' => [ 'namespaceId' => 500, 'slot' => SlotRecord::MAIN ],
+							'lexeme' => [ 'namespaceId' => 700, 'slot' => SlotRecord::MAIN ],
 						],
 						'http://acme.test/',
 						'',

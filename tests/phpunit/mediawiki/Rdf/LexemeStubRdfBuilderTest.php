@@ -4,6 +4,7 @@ declare( strict_types=1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
+use MediaWiki\Revision\SlotRecord;
 use MediaWikiIntegrationTestCase;
 use Wikibase\DataAccess\DatabaseEntitySource;
 use Wikibase\DataAccess\EntitySourceDefinitions;
@@ -69,8 +70,8 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 						'test',
 						'testdb',
 						[
-							'item' => [ 'namespaceId' => 500, 'slot' => 'main' ],
-							'lexeme' => [ 'namespaceId' => 700, 'slot' => 'main' ],
+							'item' => [ 'namespaceId' => 500, 'slot' => SlotRecord::MAIN ],
+							'lexeme' => [ 'namespaceId' => 700, 'slot' => SlotRecord::MAIN ],
 						],
 						'http://acme.test/',
 						'',
