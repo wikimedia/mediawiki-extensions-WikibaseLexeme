@@ -1,10 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Saraiki"
+			"Saraiki",
+			"Bgo eiu"
 		]
 	},
+	"content-model-wikibase-lexeme": "وِکیبیس مفرد لفظ",
 	"datatypes-type-wikibase-form": "شکل",
+	"datatypes-type-wikibase-lexeme": "مفرد لفظ",
+	"datatypes-type-wikibase-sense": "معنیٰ",
 	"wikibase-listdatatypes-wikibase-form-head": "شکل",
 	"wikibaselexeme-diffview-form": "شکل",
 	"wikibaselexeme-diffview-language": "زبان",
