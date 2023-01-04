@@ -7,7 +7,8 @@
 			"Mutolisp",
 			"予弦",
 			"列维劳德",
-			"Winston Sung"
+			"Winston Sung",
+			"SupaplexTW"
 		]
 	},
 	"wikibaselexeme-desc": "處理詞位項目類型",
@@ -89,6 +90,7 @@
 	"wikibaselexeme-diffview-gloss": "註解",
 	"content-model-wikibase-lexeme": "Wikibase詞位",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1，$2",
+	"wikibaselexeme-formidformatter-separator-multiple-representation": "/",
 	"wikibaselexeme-lexeme-link-title": "$1：$2",
 	"wikibaselexeme-formidformatter-link-title": "$1：$2",
 	"wikibaselexeme-form-grammatical-features": "語法特徵",
@@ -151,7 +153,9 @@
 	"wikibase-lexeme-language-name-syl-beng": "孟加拉文字母寫的錫爾赫特語",
 	"wikibase-lexeme-language-name-tlh-latn": "使用拉丁字母的克林貢語",
 	"wikibase-lexeme-language-name-tlh-piqd": "使用克林貢字母的克林貢語",
+	"wikibase-lexeme-language-selector-label": "$1 ($2)",
 	"wikibase-lexeme-lemma-language-not-recognized": "所提供的語言代碼無法確認。",
+	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
 	"wikibase-lexeme-mergelexemes-intro": "當您合併兩個詞位時，所有的主題、陳述、詞性，以及含意都會從一個詞位移動至另一個。",
 	"wikibase-lexeme-mergelexemes-from-id": "要合併的來源 ID",
 	"wikibase-lexeme-mergelexemes-to-id": "要合併的目標 ID",
