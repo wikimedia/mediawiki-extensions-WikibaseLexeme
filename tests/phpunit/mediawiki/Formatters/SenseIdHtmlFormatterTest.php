@@ -9,6 +9,8 @@ use MediaWiki\MediaWikiServices;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
 use Title;
+use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -80,6 +82,15 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
+	private function getEntityIdLabelFormatter(): EntityIdFormatter {
+		$formatter = $this->createStub( EntityIdFormatter::class );
+		$formatter->method( 'formatEntityId' )
+			->willReturnCallback( static function ( EntityId $value ): string {
+				return "label of {$value->getSerialization()}";
+			} );
+		return $formatter;
+	}
+
 	private function getFormatter(
 		SenseId $senseId,
 		EntityRevisionLookup $lookup
@@ -90,7 +101,8 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			new DummyLocalizedTextProvider(),
 			$this->getLanguageFallbackChain(),
 			$this->getMockLanguageFallbackIndicator(),
-			MediaWikiServices::getInstance()->getLanguageFactory()
+			MediaWikiServices::getInstance()->getLanguageFactory(),
+			$this->getEntityIdLabelFormatter()
 		);
 	}
 
@@ -147,10 +159,12 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$senseId = new SenseId( 'L10-S20' );
 		$glossText = 'gloss';
 		$lemmaText = 'lemma';
+		$labelText = 'label of Q123';
 		$lookup = $this->newMockRevisionLookupWithRevision(
 			new EntityRevision( NewLexeme::create()
 				->withId( 'L10' )
 				->withLemma( $language, $lemmaText )
+				->withLanguage( 'Q123' )
 				->withSense( NewSense::havingId( $senseId )
 					->withGloss( $language, $glossText ) )
 				->build() )
@@ -180,7 +194,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			) ) ) )
 		);
 		$this->assertSame(
-			"(wikibaselexeme-senseidformatter-layout: $lemmaText, $glossText)FB-INDICATOR",
+			"(wikibaselexeme-senseidformatter-layout: $lemmaText, $glossText, $labelText)FB-INDICATOR",
 			strip_tags( $result )
 		);
 	}
@@ -205,6 +219,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 				->withLemma( $lemma1Language, $lemma1Text )
 				->withLemma( $lemma2Language, $lemma2Text )
 				->withLemma( $lemma3Language, $lemma3Text )
+				->withLanguage( 'Q123' )
 				->withSense( NewSense::havingId( $senseId )
 					->withGloss( 'fr', 'gloss' ) )
 				->build() )
@@ -241,7 +256,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 		$this->assertSame(
 			// phpcs:ignore Generic.Files.LineLength
-			"(wikibaselexeme-senseidformatter-layout: $lemma1Text(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)$lemma2Text(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)$lemma3Text, gloss)FB-INDICATOR",
+			"(wikibaselexeme-senseidformatter-layout: $lemma1Text(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)$lemma2Text(wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma)$lemma3Text, gloss, label of Q123)FB-INDICATOR",
 			strip_tags( $result )
 		);
 	}
@@ -252,6 +267,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			new EntityRevision( NewLexeme::create()
 				->withId( 'L10' )
 				->withLemma( 'en', 'lemma' )
+				->withLanguage( 'Q123' )
 				->withSense( NewSense::havingId( $senseId )
 					->withGloss( 'en', 'gloss' ) )
 				->build() )
@@ -260,7 +276,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$result = $formatter->formatEntityId( $senseId );
 
-		$expected = '(wikibaselexeme-senseidformatter-layout: lemma, gloss)FB-INDICATOR';
+		$expected = '(wikibaselexeme-senseidformatter-layout: lemma, gloss, label of Q123)FB-INDICATOR';
 		$this->assertSame( $expected, strip_tags( $result ) );
 	}
 

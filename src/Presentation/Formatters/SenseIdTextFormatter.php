@@ -22,13 +22,16 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 
 	private EntityRevisionLookup $revisionLookup;
 	private LocalizedTextProvider $localizedTextProvider;
+	private EntityIdFormatter $entityIdLabelFormatter;
 
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
-		LocalizedTextProvider $localizedTextProvider
+		LocalizedTextProvider $localizedTextProvider,
+		EntityIdFormatter $entityIdLabelFormatter
 	) {
 		$this->revisionLookup = $revisionLookup;
 		$this->localizedTextProvider = $localizedTextProvider;
+		$this->entityIdLabelFormatter = $entityIdLabelFormatter;
 	}
 
 	/**
@@ -56,6 +59,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 			return $value->getSerialization();
 		}
 
+		$lexemeLanguageLabel = $this->entityIdLabelFormatter->formatEntityId( $lexeme->getLanguage() );
 		$lemmas = implode(
 			$this->localizedTextProvider->get(
 				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
@@ -74,7 +78,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 
 		return $this->localizedTextProvider->get(
 			$messageKey,
-			[ $lemmas, $gloss ]
+			[ $lemmas, $gloss, $lexemeLanguageLabel ]
 		);
 	}
 
