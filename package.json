@@ -39,7 +39,7 @@
 		"@wdio/dot-reporter": "^7.16.14",
 		"@wdio/junit-reporter": "^7.16.14",
 		"@wdio/local-runner": "^7.16.16",
-		"@wdio/mocha-framework": "^7.16.14",
+		"@wdio/mocha-framework": "^8.1.2",
 		"@wdio/sync": "^7.16.14",
 		"@wmde/lib-version-check": "^0.1.0",
 		"eslint-config-wikimedia": "0.20.0",
