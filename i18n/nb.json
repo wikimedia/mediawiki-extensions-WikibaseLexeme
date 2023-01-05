@@ -133,7 +133,6 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|påstand|påstander}}, $2 {{PLURAL:$2|form|former}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Glosespråkkoder må være gyldige",
 	"wikibaselexeme-sense-gloss-redundant-language": "Det er ikke mulig å skrive inn flere gloser med samme språk.",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "Utsagn om $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Utsagn om $1",
 	"wikibaselexeme-unknown-category": "Ukjent",

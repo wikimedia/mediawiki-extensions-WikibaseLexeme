@@ -62,7 +62,6 @@
 	"wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma": "/",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|тасдиқ}}, $2 {{PLURAL:$2|шакл}}",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "Тасдиқҳо дар бораи $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Тасдиқҳо дар бораи $1",
 	"wikibaselexeme-unknown-category": "Номаълум",

@@ -88,7 +88,6 @@
 	"wikibaselexeme-no-features": "بدون نوع",
 	"wikibaselexeme-presentation-lexeme-secondary-label": "$1, $2",
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|اظهار}}، $2 {{PLURAL:$2|فرم}}",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "اظهارات در مورد $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "اظهارات در مورد $1",
 	"wikibaselexeme-unknown-category": "ناشناس",

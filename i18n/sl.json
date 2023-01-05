@@ -141,7 +141,6 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|izjava|izjavi|izjave|izjav}} za $2 {{PLURAL:$2|obliko|obliki|oblike|oblik}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Oznake jezika glos morajo biti veljavne",
 	"wikibaselexeme-sense-gloss-redundant-language": "Ni mogoče vnesti več glos z istim jezikom.",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "Izjave o $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Izjave o $1",
 	"wikibaselexeme-unknown-category": "Neznano",

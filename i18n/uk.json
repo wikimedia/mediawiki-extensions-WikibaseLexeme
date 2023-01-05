@@ -124,7 +124,6 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|значення|значення|значень}}, $2 {{PLURAL:$2|форма|форми|форм}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Код мови глоси має бути дійсним",
 	"wikibaselexeme-sense-gloss-redundant-language": "Неможливо ввести кілька глос із тією ж мовою.",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "Твердження про $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Твердження про $1",
 	"wikibaselexeme-unknown-category": "Невідома",

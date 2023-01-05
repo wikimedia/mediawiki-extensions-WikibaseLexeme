@@ -148,7 +148,7 @@
 	"wikibaselexeme-search-result-stats": "$1 déclaration{{PLURAL:$1||s}}, $2 forme{{PLURAL:$2||s}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Les codes de langue de glose doivent être valides",
 	"wikibaselexeme-sense-gloss-redundant-language": "Il n’est pas possible de saisir plusieurs gloses avec la même langue.",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
+	"wikibaselexeme-senseidformatter-layout": "$1 ($3) en $2",
 	"wikibaselexeme-statementsection-statements-about-form": "Déclarations concernant $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Déclarations concernant $1",
 	"wikibaselexeme-unknown-category": "Inconnu",

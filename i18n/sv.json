@@ -118,7 +118,6 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|uttalande|uttalanden}}, $2 {{PLURAL:$2|form|former}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Språkkoder för glosor måste vara giltig",
 	"wikibaselexeme-sense-gloss-redundant-language": "Det går inte att ange flera glosor med samma språk.",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "Uttalanden om $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Uttalanden om $1",
 	"wikibaselexeme-unknown-category": "Okänd",

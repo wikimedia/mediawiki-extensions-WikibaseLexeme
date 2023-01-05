@@ -102,7 +102,6 @@
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|изјава|изјаве|изјава}}, $2 {{PLURAL:$2|облик|облика}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Кодови језика тумачења морају да буду важећи",
 	"wikibaselexeme-sense-gloss-redundant-language": "Није могуће унети више тумачења са истим језиком писања.",
-	"wikibaselexeme-senseidformatter-layout": "$1 ($2)",
 	"wikibaselexeme-statementsection-statements-about-form": "Изјаве о $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Изјаве о $1",
 	"wikibaselexeme-unknown-category": "Непознато",
