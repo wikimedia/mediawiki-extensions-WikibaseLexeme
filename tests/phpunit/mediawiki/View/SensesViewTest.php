@@ -14,7 +14,7 @@ use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Presentation\View\SensesView;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
-use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
+use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
 
@@ -114,7 +114,7 @@ class SensesViewTest extends TestCase {
 		$statementGroupListView = $this->createMock( StatementGroupListView::class );
 		$senseView = new SensesView(
 			new DummyLocalizedTextProvider(),
-			new MediaWikiLanguageDirectionalityLookup(),
+			WikibaseRepo::getLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
 			$statementGroupListView,
 			$this->getLanguageNameMock()
@@ -168,7 +168,7 @@ class SensesViewTest extends TestCase {
 
 		return new SensesView(
 			new DummyLocalizedTextProvider(),
-			new MediaWikiLanguageDirectionalityLookup(),
+			WikibaseRepo::getLanguageDirectionalityLookup(),
 			$this->newTemplateFactory(),
 			$statementGroupListView,
 			$this->getLanguageNameMock()

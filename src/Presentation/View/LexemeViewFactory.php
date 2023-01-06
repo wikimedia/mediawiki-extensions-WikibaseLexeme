@@ -9,7 +9,6 @@ use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\TermLanguageFallbackChain;
-use Wikibase\Repo\MediaWikiLanguageDirectionalityLookup;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\View\RepoSpecialPageLinker;
 use Wikibase\Repo\WikibaseRepo;
@@ -44,7 +43,7 @@ class LexemeViewFactory {
 		$templates = include __DIR__ . '/../../../resources/templates.php';
 		$templateFactory = new LexemeTemplateFactory( $templates );
 
-		$languageDirectionalityLookup = new MediaWikiLanguageDirectionalityLookup();
+		$languageDirectionalityLookup = WikibaseRepo::getLanguageDirectionalityLookup();
 		$localizedTextProvider = new MediaWikiLocalizedTextProvider( $this->language );
 
 		$viewFactory = WikibaseRepo::getViewFactory();
