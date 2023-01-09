@@ -4,7 +4,8 @@
 			"Metalhead64",
 			"Pascalco",
 			"Umherirrender",
-			"Wolfdietmann"
+			"Wolfdietmann",
+			"Brettchenweber"
 		]
 	},
 	"apihelp-wbladdform-summary": "Ergänzt Form zu Lexeme",
@@ -12,7 +13,7 @@
 	"apihelp-wbladdform-param-data": "JSON-kodierte Daten für Form, z.&nbsp;B. representations und grammaticalFeatures",
 	"apihelp-wbladdform-param-baserevid": "Basis-Versionskennung des Lexems, falls die Prüfung auf Bearbeitungskonflikte gewünscht ist.",
 	"apihelp-wbladdform-param-bot": "Markiert diese Bearbeitung als Bot. Dieses URL-Flag wird nur berücksichtigt, falls der Benutzer zur Gruppe der „{{int:group-bot}}“ gehört.",
-	"apihelp-wbladdform-example-1": "Fügt die Form zum Lexeme mit der Kennung <samp>$1</samp> hinzu, das Darstellungen <samp>$2</samp> jeweils mit den Sprachen <samp>$3</samp> und den grammatikalischen Funktionen <samp>$4</samp> hat",
+	"apihelp-wbladdform-example-1": "Fügt die Form zum Lexem mit der Kennung <samp>$1</samp> hinzu, das Darstellungen <samp>$2</samp> jeweils mit den Sprachen <samp>$3</samp> und den grammatikalischen Funktionen <samp>$4</samp> hat",
 	"apihelp-wblremoveform-summary": "Entfernt die Form vom Lexeme",
 	"apihelp-wblremoveform-param-id": "Kennung der Form, z.&nbsp;B. L10-F20",
 	"apihelp-wblremoveform-param-bot": "Markiert diese Bearbeitung als Bot. Diese URL-Markierung wird nur beachtet, falls der Benutzer der Gruppe „{{int:group-bot}}“ angehört.",
@@ -27,7 +28,7 @@
 	"apihelp-wbladdsense-param-lexemeId": "Kennung des Lexemes, z.&nbsp;B. L10",
 	"apihelp-wbladdsense-param-data": "JSON-kodierte Daten für das Sense, z.&nbsp;B. seine Fußnoten.",
 	"apihelp-wbladdsense-param-bot": "Markiert diese Bearbeitung als Bot. Diese URL-Markierung wird nur beachtet, wenn der Benutzer der Gruppe „{{int:group-bot}}“ angehört.",
-	"apihelp-wbladdsense-example-1": "Ergänzt eine Form im Lexeme mit der Kennung <samp>$1</samp>, das die Fußnoten <samp>$2</samp> beziehungsweise die Sprachen <samp>$3</samp> hat.",
+	"apihelp-wbladdsense-example-1": "Ergänzt eine Form im Lexem mit der Kennung <samp>$1</samp>, das die Fußnoten <samp>$2</samp> beziehungsweise die Sprachen <samp>$3</samp> hat.",
 	"apihelp-wblremovesense-summary": "Entfernt das Sense vom Lexeme",
 	"apihelp-wblremovesense-param-id": "Kennung des Senses, z.&nbsp;B. L10-S20",
 	"apihelp-wblremovesense-param-baserevid": "Basis-Versionskennung des Lexems, falls die Prüfung auf Bearbeitungskonflikte gewünscht ist.",
@@ -42,7 +43,7 @@
 	"apihelp-wblmergelexemes-summary": "Führt zwei Lexemes zusammen.",
 	"apihelp-wblmergelexemes-param-source": "Die Kennung, von der zusammengeführt werden soll.",
 	"apihelp-wblmergelexemes-param-target": "Die Kennung, in die zusammengeführt werden soll.",
-	"apihelp-wblmergelexemes-param-summary": "Zusammenfassung der Bearbeitung.\nWird vorangestellt durch einen automatisch erzeugten Kommentar. Die Längengrenze des Autokommentars zusammen mit der Zusammenfassung beträgt 260 Zeichen. Beachte bitte, dass alles, was darüber liegt, abgeschnitten wird.",
+	"apihelp-wblmergelexemes-param-summary": "Zusammenfassung der Bearbeitung.\nWird vorangestellt durch einen automatisch erzeugten Kommentar. Die maximale Länge des Autokommentars zusammen mit der Zusammenfassung beträgt 260 Zeichen. Beachte bitte, dass alles, was darüber liegt, abgeschnitten wird.",
 	"apihelp-wblmergelexemes-param-bot": "Markiert diese Bearbeitung als Bot. Diese URL-Markierung wird nur anerkannt, falls der Benutzer der Gruppe „Bot“ angehört.",
 	"apihelp-wblmergelexemes-example-1": "Führt Daten von <samp>L123</samp> in <samp>L321</samp> zusammen",
 	"apierror-wikibaselexeme-parameter-required": "Der Parameter „$1“ ist erforderlich",

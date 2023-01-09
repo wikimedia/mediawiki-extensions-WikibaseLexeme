@@ -76,6 +76,7 @@
 	"wikibaselexeme-unknown-language": "Neznámý jazyk",
 	"wikibaselexeme-unknown-category": "Neznámá",
 	"wikibaselexeme-no-features": "bez vlastností",
+	"wikibaselexeme-grammatical-features-input-placeholder": "Například: normativ, komparativ, minulý čas...",
 	"wikibase-lexeme-language-name-mis": "jiný",
 	"wikibase-lexeme-lemma-language-not-recognized": "Zadaný kód jazyka nebyl rozpoznán.",
 	"wikibase-lexeme-mergelexemes-intro": "Když sloučíte dva lexémy, všechna lemmata, tvrzení, tvary a významy budou přesunuty z jednoho lexému do druhého.",
