@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
+use HTMLForm;
 use InvalidArgumentException;
 use Message;
 use PHPUnit\Framework\TestCase;
@@ -16,7 +17,7 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
 class LemmaLanguageFieldTest extends TestCase {
 
 	/**
-	 * It already has it's own options
+	 * It already has its own options
 	 * @dataProvider provideForbiddenConstructorParameters
 	 */
 	public function testConstructionWithForbiddenParametersFails( $param ) {
@@ -58,7 +59,7 @@ class LemmaLanguageFieldTest extends TestCase {
 				$this->assertContains( $messageParams[1], $languages );
 				return new Message( $messageKey, $messageParams );
 			} );
-		$field->__construct( [ 'fieldname' => 'testfield' ] );
+		$field->__construct( [ 'fieldname' => 'testfield', 'parent' => $this->newStubHtmlForm() ] );
 
 		$options = $field->getOptions();
 		$this->assertIsArray( $options );
@@ -66,9 +67,20 @@ class LemmaLanguageFieldTest extends TestCase {
 	}
 
 	private function getWidget( array $params = [] ) {
-		$requiredParams = [ 'fieldname' => 'testfield' ];
+		$requiredParams = [
+			'fieldname' => 'testfield',
+			'parent' => $this->newStubHtmlForm(),
+		];
 
 		return new LemmaLanguageField( array_merge( $requiredParams, $params ) );
+	}
+
+	private function newStubHtmlForm(): HTMLForm {
+		$form = $this->createStub( HTMLForm::class );
+		$form->method( 'msg' )
+			->willReturnCallback( 'wfMessage' );
+
+		return $form;
 	}
 
 }
