@@ -199,7 +199,6 @@ class RemoveForm extends ApiBase {
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		// TODO baserevid (not in addform etc currently....)
 		return array_merge(
 			[
 				RemoveFormRequestParser::PARAM_FORM_ID => [

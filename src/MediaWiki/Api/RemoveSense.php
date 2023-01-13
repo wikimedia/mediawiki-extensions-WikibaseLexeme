@@ -199,7 +199,6 @@ class RemoveSense extends ApiBase {
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		// TODO baserevid (not in addsense etc currently....)
 		return array_merge(
 			[
 				RemoveSenseRequestParser::PARAM_SENSE_ID => [
