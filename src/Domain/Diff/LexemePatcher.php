@@ -16,6 +16,7 @@ use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
+use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -171,10 +172,29 @@ class LexemePatcher implements EntityPatcherStrategy {
 					break;
 
 				case $formDiff instanceof ChangeFormDiffOp:
-					$form = $lexeme->getForm( $formDiff->getFormId() );
-					if ( $form !== null ) {
-						$this->formPatcher->patch( $form, $formDiff );
+					try {
+						$form = $lexeme->getForm( $formDiff->getFormId() );
+					} catch ( \OutOfRangeException $e ) {
+						/**
+						 * This should never happen, but somehow sometimes a request to remove a form ends up here
+						 * for unknown reasons. See T326768.
+						 *
+						 * Log what data we have to hopefully help figure out the problem
+						 */
+						WikibaseRepo::getLogger()->warning( __METHOD__ . ': Form not found', [
+							'formId' => $formDiff->getFormId(),
+							'representationDiff' => $formDiff->getRepresentationDiff()->serialize(),
+							'grammaticalFeaturesDiff' => $formDiff->getGrammaticalFeaturesDiff()->serialize(),
+							'statementsDiff' => $formDiff->getStatementsDiff()->serialize(),
+							'existingForms' => implode( ', ', array_map(
+								fn( $form ) => $form->getId()->getSerialization(),
+								$lexeme->getForms()->toArray()
+							) ),
+						] );
+
+						throw $e;
 					}
+					$this->formPatcher->patch( $form, $formDiff );
 					break;
 
 				default:
