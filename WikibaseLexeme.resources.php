@@ -28,7 +28,8 @@ return call_user_func( static function () {
 	$modules = [
 		"wikibase.lexeme" => $moduleTemplate + [
 			"scripts" => "__namespace.js",
-			"dependencies" => "wikibase"
+			"dependencies" => "wikibase",
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.lexeme.lexemeview" => $moduleTemplate + [
 			"packageFiles" => [
@@ -125,18 +126,21 @@ return call_user_func( static function () {
 				'languageAndLexicalCategoryWidget.vue' => 'templates/languageAndLexicalCategoryWidget.vue.html',
 				'lemma.vue' => 'templates/lemma.vue.html',
 				'representations.vue' => 'templates/representations.vue.html',
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
 			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
 			"dependencies" => [
 				"wikibase.templates"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"mediawiki.template.vue" => $moduleTemplate + [
 			'scripts' => [
 				'mediawiki.template.vue.js'
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.lexeme.datamodel" => $moduleTemplate + [
 			"scripts" => [
@@ -148,7 +152,8 @@ return call_user_func( static function () {
 				"util.inherit",
 				"wikibase.datamodel",
 				"wikibase.lexeme"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.lexeme.getDeserializer" => $moduleTemplate + [
 			"packageFiles" => [
@@ -163,7 +168,8 @@ return call_user_func( static function () {
 				"wikibase.datamodel",
 				"wikibase.lexeme.datamodel",
 				"wikibase.serialization",
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 
 		"wikibase.lexeme.view.ViewFactoryFactory" => $moduleTemplate + [
@@ -189,7 +195,8 @@ return call_user_func( static function () {
 				"wikibase.view.ControllerViewFactory",
 				"wikibase.view.ReadModeViewFactory",
 				"wikibase.api.RepoApi"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig" => $moduleTemplate + [
 			"class" => "Wikibase\\Lexeme\\MediaWiki\\Config\\LexemeLanguageCodePropertyIdConfig"
@@ -201,7 +208,8 @@ return call_user_func( static function () {
 			"dependencies" => [
 				"jquery.valueview.Expert",
 				"wikibase.experts.Entity"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.experts.Form" => $moduleTemplate + [
 			"scripts" => [
@@ -210,7 +218,8 @@ return call_user_func( static function () {
 			"dependencies" => [
 				"jquery.valueview.Expert",
 				"wikibase.experts.Entity"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.experts.Sense" => $moduleTemplate + [
 			"scripts" => [
@@ -219,12 +228,14 @@ return call_user_func( static function () {
 			"dependencies" => [
 				"jquery.valueview.Expert",
 				"wikibase.experts.Entity"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 		"wikibase.lexeme.styles" => $moduleTemplate + [
 			"styles" => [
 				"lexeme.less"
-			]
+			],
+			"targets" => [ "desktop" ], // T326405
 		],
 
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [
