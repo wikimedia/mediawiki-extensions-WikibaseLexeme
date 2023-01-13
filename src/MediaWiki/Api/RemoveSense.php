@@ -205,7 +205,7 @@ class RemoveSense extends ApiBase {
 					ParamValidator::PARAM_TYPE => 'string',
 					ParamValidator::PARAM_REQUIRED => true,
 				],
-				AddFormRequestParser::PARAM_BASEREVID => [
+				RemoveSenseRequestParser::PARAM_BASEREVID => [
 					ParamValidator::PARAM_TYPE => 'integer',
 				],
 				'tags' => [
