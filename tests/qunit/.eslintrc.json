@@ -11,6 +11,7 @@
 		"qunit/no-assert-equal": "off",
 		"qunit/resolve-async": "off",
 	  	"qunit/require-expect": "off",
-		"no-jquery/no-parse-html-literal": "off"
+		"no-jquery/no-parse-html-literal": "off",
+		"qunit/no-loose-assertions": "warn"
 	}
 }

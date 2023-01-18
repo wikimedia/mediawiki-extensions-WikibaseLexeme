@@ -35,7 +35,8 @@
 		],
 		"max-len": "off",
 		"operator-linebreak": "off",
-		"promise/no-native": "error"
+		"promise/no-native": "error",
+		"mediawiki/no-nodelist-unsupported-methods": "warn"
 	},
 	"settings": {
 		"jsdoc": {

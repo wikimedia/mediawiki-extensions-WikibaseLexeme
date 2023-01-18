@@ -5,6 +5,7 @@
 	],
 	"rules": {
 		"max-len": "off",
-		"node/no-missing-require": "warn"
+		"node/no-missing-require": "warn",
+		"wdio/no-pause": "warn"
 	}
 }
