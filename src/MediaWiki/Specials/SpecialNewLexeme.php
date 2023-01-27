@@ -199,9 +199,7 @@ class SpecialNewLexeme extends SpecialPage {
 			] );
 		$output->addModuleStyles( [
 			'wikibase.lexeme.special.NewLexeme.styles',
-			// T322687
-			'wikibase.alltargets',
-			'wikibase.desktop',
+			'wikibase.alltargets', // T322687
 		] );
 
 		$exampleLexemeParams = $this->createExampleParameters();
