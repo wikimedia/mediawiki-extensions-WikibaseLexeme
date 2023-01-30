@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Ainali",
+			"Alicia Fagerving (WMSE)",
 			"Bengtsson96",
 			"Sabelöga",
 			"WikiPhoenix"
@@ -11,6 +12,7 @@
 	"datatypes-type-wikibase-form": "Form",
 	"datatypes-type-wikibase-lexeme": "Lexem",
 	"datatypes-type-wikibase-sense": "Betydelse",
+	"nstab-lexeme": "Lexem",
 	"special-mergelexemes": "Sammanfoga två lexem",
 	"special-newlexeme": "Skapa ett nytt lexem",
 	"wikibase-entity-summary-wblmergelexemes-from": "Sammanfogade lexem från $3",
@@ -88,6 +90,7 @@
 	"wikibaselexeme-form-description": "$1 för: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Stavningsvariant",
 	"wikibaselexeme-form-field-representation-label": "Representation",
+	"wikibaselexeme-form-field-required": "Obligatoriskt fält",
 	"wikibaselexeme-form-grammatical-features": "Grammatiska funktioner",
 	"wikibaselexeme-form-representation-redundant-language": "Det går inte att ange flera representationer med samma stavning.",
 	"wikibaselexeme-formidformatter-link-title": "$1: $2",
