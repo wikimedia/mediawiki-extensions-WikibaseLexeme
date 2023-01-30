@@ -14,7 +14,7 @@ use Wikibase\Lexeme\WikibaseLexemeServices;
  */
 class WikibaseLexemeHooksTest extends TestCase {
 
-	public function testOnCanonicalNamespaces_CalledFirstTime_RegistersLexemeNamespace() {
+	public function testOnCanonicalNamespaces_CalledFirstTime_RegistersLexemeNamespaces() {
 		$namespaces = [];
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$namespaceId = $config->get( 'LexemeNamespace' );
@@ -22,16 +22,7 @@ class WikibaseLexemeHooksTest extends TestCase {
 		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
 
 		$this->assertEquals( 'Lexeme', $namespaces[$namespaceId] );
-	}
-
-	public function testOnCanonicalNamespaces_CalledFirstTime_RegistersLexemeTalkNamespace() {
-		$namespaces = [];
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		$namespaceId = $config->get( 'LexemeTalkNamespace' );
-
-		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
-
-		$this->assertEquals( 'Lexeme_talk', $namespaces[$namespaceId] );
+		$this->assertEquals( 'Lexeme_talk', $namespaces[$namespaceId + 1] );
 	}
 
 	public function testOnCanonicalNamespaces_CalledMultipleTimes_RegistersLexemeNamespace() {

@@ -22,9 +22,9 @@ class LexemeNamespaceTest extends TestCase {
 	}
 
 	public function provideNamespacesAndMoveability() {
-		global $wgLexemeNamespace, $wgLexemeTalkNamespace;
-		yield $wgLexemeNamespace => [ $wgLexemeNamespace, false ];
-		yield $wgLexemeTalkNamespace => [ $wgLexemeTalkNamespace, true ];
+		global $wgLexemeNamespace;
+		yield 'Lexeme' => [ $wgLexemeNamespace, false ];
+		yield 'Lexeme talk' => [ $wgLexemeNamespace + 1, true ];
 	}
 
 }
