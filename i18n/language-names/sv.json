@@ -1,12 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Sabelöga"
+			"Sabelöga",
+			"Alicia Fagerving (WMSE)"
 		]
 	},
 	"wikibase-lexeme-language-name-az-cyrl": "Azerbajdzjanska skrivet med kyrilliska bokstäver",
 	"wikibase-lexeme-language-name-bas": "basaa",
 	"wikibase-lexeme-language-name-bfi": "brittiskt teckenspråk",
+	"wikibase-lexeme-language-name-bzs": "brasilianskt teckenspråk",
 	"wikibase-lexeme-language-name-cak": "cakchiquel",
 	"wikibase-lexeme-language-name-ccp": "Chakma",
 	"wikibase-lexeme-language-name-ccp-beng": "Chakma med Bengali-skrift",

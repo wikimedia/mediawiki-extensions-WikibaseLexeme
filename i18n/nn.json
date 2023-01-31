@@ -72,6 +72,7 @@
 	"wikibaselexeme-newlexeme-info-panel-no-general-data": "Leksem har ikkje ålmenn informasjon (fødselsdato, opningsdato, forfattar, land, koordinatar, vevside osb.) om eininga eller konseptet dei viser til. Ynskjer du å leggja inn ålmenn informasjon, lyt du [[Special:NewItem|oppretta eit element]] i staden.",
 	"wikibaselexeme-newlexeme-language": "Språket til leksemet",
 	"wikibaselexeme-newlexeme-language-placeholder": "Språket til leksemet (t.d. «nynorsk»)",
+	"wikibaselexeme-newlexeme-language-placeholder-with-example": "Språket til leksemet, t.d. «$1»",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language": "Språket til lemmaet",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Grunnforma, den ubøygde forma til eit ord, t.d. «$1»",
