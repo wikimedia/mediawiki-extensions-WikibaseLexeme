@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Tofeiku"
+		]
+	},
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Bahasa tidak boleh kosong",
+	"apierror-wikibaselexeme-parameter-required": "Parameter \"$1\" diperlukan",
+	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Maksud mesti sekurang-kurangnya ada satu padanan kata",
+	"apihelp-wbladdform-param-lexemeId": "ID Leksem, contohnya L10",
+	"apihelp-wbladdform-summary": "Menambah Bentuk kepada Leksem",
+	"apihelp-wbladdsense-param-lexemeId": "ID Leksem, contohnya L10",
+	"apihelp-wbladdsense-summary": "Menambah Maksud kepada Leksem",
+	"apihelp-wbleditsenseelements-summary": "Menyunting padanan kata suatu Maksud",
+	"apihelp-wblmergelexemes-description": "Mencantum dua Leksem.",
+	"apihelp-wblmergelexemes-summary": "Mencantum dua Leksem.",
+	"apihelp-wblremoveform-summary": "Membuang Bentuk daripada Leksem"
+}
