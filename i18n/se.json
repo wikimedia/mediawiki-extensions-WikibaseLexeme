@@ -1,17 +1,29 @@
 {
 	"@metadata": {
 		"authors": [
-			"Yupik"
+			"Yupik",
+			"Kimberli Mäkäräinen (WMNO)"
 		]
 	},
+	"wikibaselexeme-deletedentity-sense": "Sihkkojuvvon mearkkašupmi",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Sátneluohkká",
+	"wikibaselexeme-header-senses": "Mearkkašumit",
 	"wikibaselexeme-gloss-field-language-label": "Giella",
 	"datatypes-type-wikibase-lexeme": "Leksema",
+	"datatypes-type-wikibase-sense": "Mearkkašupmi",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Leksema",
+	"wikibase-listdatatypes-wikibase-sense-head": "Mearkkašupmi",
+	"wikibaselexeme-add-sense": "lasit mearkkašumi",
+	"wikibase-pageinfo-wbl-senses": "Mearkkašumiid mearri",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "Ođđa mearkkašupmi lasihuvvon.",
 	"wikibaselexeme-field-language-label": "Giella",
 	"wikibaselexeme-field-lexical-category-label": "Sátneluohkká",
 	"wikibaselexeme-diffview-lexical-category": "sátneluohkká",
 	"wikibaselexeme-diffview-language": "giella",
+	"wikibaselexeme-diffview-sense": "Mearkkašupmi",
+	"content-model-wikibase-lexeme": "Wikibase-leksema",
 	"wikibaselexeme-unknown-language": "Dovdameahttun giella",
-	"wikibaselexeme-unknown-category": "Dovdameahttun"
+	"wikibaselexeme-unknown-category": "Dovdameahttun",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Leksema '$1' ii gávdnon.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Leksema vurken ii lihkostuvvan."
 }
