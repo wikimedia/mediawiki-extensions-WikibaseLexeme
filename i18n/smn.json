@@ -4,12 +4,29 @@
 			"Yupik"
 		]
 	},
+	"special-newlexeme": "Räähti uđdâ lekseem",
+	"wikibaselexeme-deletedentity-sense": "Sikkum merhâšumeh",
+	"wikibaselexeme-deletedentity-lexeme": "Sikkum lekseem",
+	"wikibaselexeme-newlexeme-fieldset": "Räähti uđdâ lekseem",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Säniluokka",
+	"wikibaselexeme-header-senses": "Merhâšumeh",
 	"wikibaselexeme-gloss-field-language-label": "Kielâ",
+	"datatypes-type-wikibase-lexeme": "Lekseem",
+	"datatypes-type-wikibase-sense": "Merhâšume",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseem",
+	"wikibase-listdatatypes-wikibase-sense-head": "Merhâšume",
+	"wikibaselexeme-add-sense": "lasseet merhâšume",
+	"wikibase-pageinfo-wbl-senses": "Merhâšuumij meeri",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Raahtij uđdâ lekseem",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "Uđđâ merhâšume lasettum",
 	"wikibaselexeme-field-language-label": "Kielâ",
 	"wikibaselexeme-field-lexical-category-label": "Säniluokka",
 	"wikibaselexeme-diffview-lexical-category": "säniluokka",
 	"wikibaselexeme-diffview-language": "kielâ",
+	"wikibaselexeme-diffview-sense": "Merhâšume",
+	"content-model-wikibase-lexeme": "Wikibase-lekseem",
 	"wikibaselexeme-unknown-language": "Tubdâmettum kielâ",
-	"wikibaselexeme-unknown-category": "Tubdâmettum"
+	"wikibaselexeme-unknown-category": "Tubdâmettum",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Lekseem '$1' ij kavnum.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseem vuorkkim ij luhostum."
 }
