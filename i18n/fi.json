@@ -2,11 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Nike",
-			"Pyscowicz"
+			"Pyscowicz",
+			"MITO",
+			"Yupik"
 		]
 	},
 	"special-newlexeme": "Luo uusi lekseemi",
 	"special-mergelexemes": "Yhdistä kaksi lekseemiä",
+	"wikibaselexeme-deletedentity-form": "Poistettu sananmuoto",
 	"wikibaselexeme-newlexeme-fieldset": "Luo uusi lekseemi",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma on yleensä sanan lyhin muoto",
@@ -17,17 +20,21 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-gloss-field-language-label": "Kieli",
 	"datatypes-type-wikibase-lexeme": "Lekseemi",
+	"datatypes-type-wikibase-form": "Sananmuoto",
 	"datatypes-type-wikibase-sense": "Merkitys",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseemi",
 	"wikibase-listdatatypes-wikibase-form-head": "Muoto",
 	"wikibase-listdatatypes-wikibase-sense-head": "Merkitys",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Loi uuden lekseemin",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Uusi sananmuoto lisätty",
 	"wikibaselexeme-field-language-label": "Kieli",
 	"wikibaselexeme-field-lexical-category-label": "Leksikaalinen luokka",
 	"wikibaselexeme-diffview-lemma": "Lemma",
 	"wikibaselexeme-diffview-language": "kieli",
 	"wikibaselexeme-diffview-form": "Muoto",
-	"content-model-wikibase-lexeme": "Wikibase lekseemi",
+	"content-model-wikibase-lexeme": "Wikibase-lekseemi",
 	"wikibaselexeme-form-grammatical-features": "Kieliopilliset ominaisuudet",
-	"wikibaselexeme-unknown-language": "Tuntematon kieli"
+	"wikibaselexeme-unknown-language": "Tuntematon kieli",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lekseemin lataaminen epäonnistui.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseemin tallentaminen epäonnistui."
 }
