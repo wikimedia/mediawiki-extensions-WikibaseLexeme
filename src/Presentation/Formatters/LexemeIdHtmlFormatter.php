@@ -83,7 +83,7 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 
 		$attributes = [
 			'href' => $url,
-			'title' => $this->buildLinkTitle( $id, $lexeme->getLanguage(), $lexeme->getLexicalCategory() )
+			'title' => $this->buildLinkTitle( $id, $lexeme->getLanguage(), $lexeme->getLexicalCategory() ),
 		];
 		return Html::rawElement( 'a', $attributes, $linkLabel );
 	}

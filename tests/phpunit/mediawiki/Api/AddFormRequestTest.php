@@ -25,7 +25,7 @@ class AddFormRequestTest extends TestCase {
 			new LexemeId( 'L1' ),
 			new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
-				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] )
+				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] ),
 			] ),
 			1
 		);
@@ -50,7 +50,7 @@ class AddFormRequestTest extends TestCase {
 			$lexemeId,
 			new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
-				new ChangeOpGrammaticalFeatures( [] )
+				new ChangeOpGrammaticalFeatures( [] ),
 			] ),
 			1
 		);
@@ -63,7 +63,7 @@ class AddFormRequestTest extends TestCase {
 			new LexemeId( 'L1' ),
 			new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
-				new ChangeOpGrammaticalFeatures( [] )
+				new ChangeOpGrammaticalFeatures( [] ),
 			] ),
 			1
 		);

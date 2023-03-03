@@ -71,7 +71,7 @@ class ChangeOpRepresentation implements ChangeOp {
 		);
 		$summary->setLanguage( $languageCode );
 		$summary->addAutoCommentArgs( [
-			$form->getId()->getSerialization() // TODO: use FormId not string?
+			$form->getId()->getSerialization(), // TODO: use FormId not string?
 		] );
 		$summary->addAutoSummaryArgs( [ $languageCode => $representation ] );
 	}

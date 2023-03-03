@@ -231,8 +231,8 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
 				'read' => true,
-				'edit' => false
-			]
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 
@@ -306,9 +306,9 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 				'property' => $propertyId->getSerialization(),
 				'datavalue' => [
 					'value' => $value,
-					'type' => $type
-				]
-			]
+					'type' => $type,
+				],
+			],
 		];
 	}
 

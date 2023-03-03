@@ -28,7 +28,7 @@ class LexemeDescriptionTest extends TestCase {
 		],
 		'Q3' => [
 			'en' => 'singular',
-			'fr' => 'singulier'
+			'fr' => 'singulier',
 		],
 		'Q4' => [
 			'en' => 'plural',
@@ -37,8 +37,8 @@ class LexemeDescriptionTest extends TestCase {
 			'en' => 'nominative',
 		],
 		'Q6' => [
-			'ru' => 'настоящее время'
-		]
+			'ru' => 'настоящее время',
+		],
 	];
 
 	public function termResultsProvider() {
@@ -54,7 +54,7 @@ class LexemeDescriptionTest extends TestCase {
 					'language' => 'Q1',
 					'category' => 'Q2',
 				],
-				'singular for: duck (L1): English, noun'
+				'singular for: duck (L1): English, noun',
 			],
 			// Many features
 			"multiple features" => [

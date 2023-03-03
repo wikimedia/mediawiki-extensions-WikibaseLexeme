@@ -59,7 +59,7 @@ class AddFormRequestParserTest extends TestCase {
 			new ChangeOpFormAdd(
 				new ChangeOpFormEdit( [
 					new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
-					new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q17' ) ] )
+					new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q17' ) ] ),
 				] )
 			),
 			$request->getChangeOp()
@@ -97,8 +97,8 @@ class AddFormRequestParserTest extends TestCase {
 			'representations' => [
 				'en' => [
 					'language' => 'en',
-					'value' => 'goat'
-				]
+					'value' => 'goat',
+				],
 			],
 			'grammaticalFeatures' => [ 'Q17' ],
 		];
@@ -113,7 +113,7 @@ class AddFormRequestParserTest extends TestCase {
 			},
 			LexemeId::PATTERN => static function ( $id ) {
 				return new LexemeId( $id );
-			}
+			},
 		] );
 
 		$editFormChangeOpDeserializer = new EditFormChangeOpDeserializer(

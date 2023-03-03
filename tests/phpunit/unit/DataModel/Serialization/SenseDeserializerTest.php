@@ -72,7 +72,7 @@ class SenseDeserializerTest extends MediaWikiUnitTestCase {
 						$statementId
 					)
 				)
-			)
+			),
 		];
 	}
 

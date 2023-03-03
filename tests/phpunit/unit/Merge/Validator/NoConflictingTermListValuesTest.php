@@ -27,7 +27,7 @@ class NoConflictingTermListValuesTest extends MediaWikiUnitTestCase {
 		yield [
 			true,
 			new TermList(),
-			new TermList()
+			new TermList(),
 		];
 
 		yield [

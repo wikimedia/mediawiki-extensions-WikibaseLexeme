@@ -33,23 +33,23 @@ class LemmaTextSummaryFormatterTest extends TestCase {
 				[
 					new Term( 'en', 'EnglishLabel' ),
 					new Term( 'de', 'ZeGermanLabel' ),
-					new Term( 'fr', 'LeFrenchLabel' )
+					new Term( 'fr', 'LeFrenchLabel' ),
 				],
 				250,
-				'EnglishLabel, ZeGermanLabel, LeFrenchLabel'
+				'EnglishLabel, ZeGermanLabel, LeFrenchLabel',
 			],
 			'cuts off text' => [
 				[
 					new Term( 'en', 'EnglishLabel' ),
 				],
 				10,
-				'English...'
+				'English...',
 			],
 			'empty' => [
 				[],
 				250,
-				''
-			]
+				'',
+			],
 		];
 	}
 }

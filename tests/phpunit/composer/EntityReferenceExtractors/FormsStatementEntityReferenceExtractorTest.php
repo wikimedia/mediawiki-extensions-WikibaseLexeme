@@ -91,7 +91,7 @@ class FormsStatementEntityReferenceExtractorTest extends TestCase {
 				new NumericPropertyId( 'P123' ),
 				new ItemId( 'Q42' ),
 				new ItemId( 'Q64' ),
-				new NumericPropertyId( 'P321' )
+				new NumericPropertyId( 'P321' ),
 			],
 			$extractor->extractEntityIds( $lexeme )
 		);

@@ -215,7 +215,7 @@ class RemoveSense extends ApiBase {
 				'bot' => [
 					ParamValidator::PARAM_TYPE => 'boolean',
 					ParamValidator::PARAM_DEFAULT => false,
-				]
+				],
 			]
 		);
 	}
@@ -248,7 +248,7 @@ class RemoveSense extends ApiBase {
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
-			RemoveSenseRequestParser::PARAM_SENSE_ID => $senseId
+			RemoveSenseRequestParser::PARAM_SENSE_ID => $senseId,
 		] );
 
 		$exampleMessage = new Message(
@@ -257,7 +257,7 @@ class RemoveSense extends ApiBase {
 		);
 
 		return [
-			urldecode( $query ) => $exampleMessage
+			urldecode( $query ) => $exampleMessage,
 		];
 	}
 

@@ -66,10 +66,10 @@ class ChangeOpRemoveFormRepresentation implements ChangeOp {
 
 		$summary->setLanguage( $this->language );
 		$summary->addAutoCommentArgs( [
-			$form->getId()->getSerialization() // TODO: use FormId not string?
+			$form->getId()->getSerialization(), // TODO: use FormId not string?
 		] );
 		$summary->addAutoSummaryArgs( [
-			$this->language => $form->getRepresentations()->getByLanguage( $this->language )->getText()
+			$this->language => $form->getRepresentations()->getByLanguage( $this->language )->getText(),
 		] );
 	}
 

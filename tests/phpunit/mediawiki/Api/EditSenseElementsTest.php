@@ -79,8 +79,8 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			'glosses' => [
 				'en' => [
 					'language' => 'en',
-					'value' => 'furry animal'
-				]
+					'value' => 'furry animal',
+				],
 			],
 		];
 
@@ -95,7 +95,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'senseId' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'no data param' => [
@@ -104,7 +104,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'data' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'invalid sense ID (random string not ID)' => [
@@ -116,9 +116,9 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'senseId',
-						'fieldPath' => []
-					]
-				]
+						'fieldPath' => [],
+					],
+				],
 			],
 			'data not a well-formed JSON object' => [
 				[ 'senseId' => self::DEFAULT_SENSE_ID, 'data' => '{foo' ],
@@ -128,8 +128,8 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'data',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
 				],
 			],
 			'Sense is not found' => [
@@ -140,8 +140,8 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'senseId',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
 				],
 			],
 		];
@@ -425,7 +425,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbleditsenseelements',
 			'senseId' => self::DEFAULT_SENSE_ID,
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -477,8 +477,8 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
 				'read' => true,
-				'edit' => false
-			]
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 
@@ -486,7 +486,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbleditsenseelements',
 				'senseId' => self::DEFAULT_SENSE_ID,
-				'data' => $this->getDataParam()
+				'data' => $this->getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
@@ -583,7 +583,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => 'L1',
-			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
 		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );

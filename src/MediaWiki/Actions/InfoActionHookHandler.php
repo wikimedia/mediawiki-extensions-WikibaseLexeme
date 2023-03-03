@@ -103,7 +103,7 @@ class InfoActionHookHandler {
 			foreach ( $pageProperties as $property => $value ) {
 				$output[] = [
 					$this->context->msg( 'wikibase-pageinfo-' . $property )->parse(),
-					$this->context->getLanguage()->formatNum( (int)$value )
+					$this->context->getLanguage()->formatNum( (int)$value ),
 				];
 			}
 		}

@@ -41,7 +41,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 				'grammaticalFeatures' => [
 					$gf1->getId()->getSerialization(),
 					$gf2->getId()->getSerialization(),
-				]
+				],
 			] ),
 			'id' => 'L123-F1',
 		] );

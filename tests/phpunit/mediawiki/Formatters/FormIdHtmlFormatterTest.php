@@ -88,14 +88,14 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			[
 				'wikibaselexeme-formidformatter-separator-multiple-representation',
 				[],
-				self::REPRESENTATION_SEPARATOR
+				self::REPRESENTATION_SEPARATOR,
 			],
 			[ 'wikibaselexeme-formidformatter-separator-grammatical-features', [], ', ' ],
 			[
 				'wikibaselexeme-formidformatter-link-title',
 				[ 'L999-F666', 'noun, verb' ],
-				'L999-F666: noun, verb'
-			]
+				'L999-F666: noun, verb',
+			],
 		];
 		$mock->method( $this->logicalOr( 'get', 'getEscaped' ) )
 			->will(
@@ -227,7 +227,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 		$representations = new TermList( [
 			new Term( $representation1Language, $representation1Text ),
-			new Term( $representation2Language, $representation2Text )
+			new Term( $representation2Language, $representation2Text ),
 		] );
 		$formRevision = new EntityRevision(
 			new Form( $formId, $representations, [] )
@@ -304,7 +304,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		$this->labelLookup->method( 'getLabel' )->will(
 			$this->returnValueMap( [
 				[ $grammaticalFeature1, new Term( 'en', 'noun' ) ],
-				[ $grammaticalFeature2, new Term( 'en', 'verb' ) ]
+				[ $grammaticalFeature2, new Term( 'en', 'verb' ) ],
 			] )
 		);
 

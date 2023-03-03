@@ -84,7 +84,7 @@ class LexemeContent extends EntityContent {
 			'language',
 			'site',
 			'type',
-			'hash'
+			'hash',
 		];
 	}
 

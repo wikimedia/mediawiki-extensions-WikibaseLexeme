@@ -101,7 +101,7 @@ class AddSenseRequestParserTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			LexemeId::PATTERN => static function ( $id ) {
 				return new LexemeId( $id );
-			}
+			},
 		] );
 
 		$editSenseChangeOpDeserializer = new EditSenseChangeOpDeserializer(

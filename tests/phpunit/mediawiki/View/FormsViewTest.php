@@ -60,7 +60,7 @@ class FormsViewTest extends TestCase {
 		$html = $view->getHtml( new FormSet( [
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en', 'FORM_REPRESENTATION' )
-				->build()
+				->build(),
 		] ) );
 
 		$this->assertThatHamcrest(
@@ -85,7 +85,7 @@ class FormsViewTest extends TestCase {
 	public function testHtmlContainsFormId() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( new FormSet( [
-			NewForm::havingId( 'F1' )->build()
+			NewForm::havingId( 'F1' )->build(),
 		] ) );
 
 		$this->assertThatHamcrest(
@@ -101,7 +101,7 @@ class FormsViewTest extends TestCase {
 		$view = $this->newFormsView();
 
 		$html = $view->getHtml( new FormSet( [
-			NewForm::havingGrammaticalFeature( 'Q1' )->build()
+			NewForm::havingGrammaticalFeature( 'Q1' )->build(),
 		] ) );
 
 		$this->assertThatHamcrest(
@@ -113,7 +113,7 @@ class FormsViewTest extends TestCase {
 	public function testHtmlContainsStatementSection() {
 		$view = $this->newFormsView();
 		$html = $view->getHtml( new FormSet( [
-			NewForm::any()->build()
+			NewForm::any()->build(),
 		] ) );
 
 		$this->assertThatHamcrest(

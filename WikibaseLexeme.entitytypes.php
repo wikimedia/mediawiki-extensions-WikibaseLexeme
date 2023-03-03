@@ -73,7 +73,7 @@ return [
 			return new LexemeId( SerializableEntityId::joinSerialization( [
 				$repositoryName,
 				'',
-				'L' . $uniquePart
+				'L' . $uniquePart,
 			] ) );
 		},
 		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
@@ -180,5 +180,5 @@ return [
 			return new NullPrefetchingTermLookup();
 		},
 		DEF::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.sense',
-	]
+	],
 ];

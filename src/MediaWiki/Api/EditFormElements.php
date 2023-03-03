@@ -265,7 +265,7 @@ class EditFormElements extends \ApiBase {
 			'bot' => [
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_DEFAULT => false,
-			]
+			],
 		];
 	}
 
@@ -300,14 +300,14 @@ class EditFormElements extends \ApiBase {
 				'en-GB' => [ 'value' => 'colour', 'language' => 'en-GB' ],
 			],
 			'grammaticalFeatures' => [
-				'Q1', 'Q2'
-			]
+				'Q1', 'Q2',
+			],
 		];
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
 			EditFormElementsRequestParser::PARAM_FORM_ID => $formId,
-			EditFormElementsRequestParser::PARAM_DATA => json_encode( $exampleData )
+			EditFormElementsRequestParser::PARAM_DATA => json_encode( $exampleData ),
 		] );
 
 		$languages = array_column( $exampleData['representations'], 'language' );
@@ -323,12 +323,12 @@ class EditFormElements extends \ApiBase {
 				$formId,
 				$representationsText,
 				$languagesText,
-				$grammaticalFeaturesText
+				$grammaticalFeaturesText,
 			]
 		);
 
 		return [
-			urldecode( $query ) => $exampleMessage
+			urldecode( $query ) => $exampleMessage,
 		];
 	}
 

@@ -101,9 +101,9 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			'wgGroupPermissions' => [
 				'*' => [
 					'read' => true,
-					'lexeme-merge' => false
-				]
-			]
+					'lexeme-merge' => false,
+				],
+			],
 		] );
 		$this->resetServices();
 
@@ -177,7 +177,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			'action' => self::API_ACTION,
 			MergeLexemes::SOURCE_ID_PARAM => $source->getId(),
 			MergeLexemes::TARGET_ID_PARAM => $target->getId(),
-			'tags' => $dummyTag
+			'tags' => $dummyTag,
 		];
 
 		$shouldNotBeCalled = function () {

@@ -200,7 +200,7 @@ class AddForm extends ApiBase {
 				'bot' => [
 					ParamValidator::PARAM_TYPE => 'boolean',
 					ParamValidator::PARAM_DEFAULT => false,
-				]
+				],
 			]
 		);
 	}
@@ -236,14 +236,14 @@ class AddForm extends ApiBase {
 				'en-GB' => [ 'value' => 'colour', 'language' => 'en-GB' ],
 			],
 			'grammaticalFeatures' => [
-				'Q1', 'Q2'
-			]
+				'Q1', 'Q2',
+			],
 		];
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
 			AddFormRequestParser::PARAM_LEXEME_ID => $lexemeId,
-			AddFormRequestParser::PARAM_DATA => json_encode( $exampleData )
+			AddFormRequestParser::PARAM_DATA => json_encode( $exampleData ),
 		] );
 
 		$languages = array_column( $exampleData['representations'], 'language' );
@@ -259,12 +259,12 @@ class AddForm extends ApiBase {
 				$lexemeId,
 				$representationsText,
 				$languagesText,
-				$grammaticalFeaturesText
+				$grammaticalFeaturesText,
 			]
 		);
 
 		return [
-			urldecode( $query ) => $exampleMessage
+			urldecode( $query ) => $exampleMessage,
 		];
 	}
 

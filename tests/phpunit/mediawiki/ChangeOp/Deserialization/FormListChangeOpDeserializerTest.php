@@ -100,9 +100,9 @@ class FormListChangeOpDeserializerTest extends TestCase {
 			'forms' => [
 				[
 					'add' => '',
-					'representations' => [ 'de' => [ 'language' => 'de', 'value' => 'term' ] ]
-				]
-			]
+					'representations' => [ 'de' => [ 'language' => 'de', 'value' => 'term' ] ],
+				],
+			],
 		] );
 
 		$this->assertCount( 2, $changeOps->getChangeOps() );
@@ -178,7 +178,7 @@ class FormListChangeOpDeserializerTest extends TestCase {
 					$this->formatFormId( $id, 'F1' )
 				),
 				new TermList( [
-					new Term( 'en', 'Malus' )
+					new Term( 'en', 'Malus' ),
 				] ),
 				[]
 			) );

@@ -36,7 +36,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		$labelDescriptionLookup->method( 'getLabel' )->will(
 			$this->returnValueMap( [
 				[ $languageItemId, $languageTerm ],
-				[ $categoryItemId, $categoryTerm ]
+				[ $categoryItemId, $categoryTerm ],
 			] )
 		);
 
@@ -52,8 +52,8 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 				[
 					'title' => 'goat',
 					'og:title' => 'goat',
-					'twitter:card' => 'summary'
-				]
+					'twitter:card' => 'summary',
+				],
 			],
 			[
 				$lexemeMetaTags,
@@ -68,9 +68,9 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 					'og:title' => 'goat/taog',
 					'description' => 'The language The category',
 					'og:description' => 'The language The category',
-					'twitter:card' => 'summary'
-				]
-			]
+					'twitter:card' => 'summary',
+				],
+			],
 
 		];
 	}

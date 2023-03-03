@@ -30,7 +30,7 @@ class FormNotFound implements ApiError {
 		);
 		return new ApiMessage( $message, 'not-found', [
 			'parameterName' => $parameterName,
-			'fieldPath' => []
+			'fieldPath' => [],
 		] );
 	}
 

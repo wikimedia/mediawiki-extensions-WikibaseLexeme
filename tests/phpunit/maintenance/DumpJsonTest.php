@@ -100,12 +100,12 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 					] ),
 					new AliasGroupList( [
 						new AliasGroup( 'en', [ 'ali1', 'ali2' ] ),
-						new AliasGroup( 'dv', [ 'ali11', 'ali22' ] )
+						new AliasGroup( 'dv', [ 'ali11', 'ali22' ] ),
 					] )
 				),
 				new SiteLinkList( [
 					new SiteLink( 'enwiki', 'Berlin' ),
-					new SiteLink( 'dewiki', 'England', [ new ItemId( 'Q1' ) ] )
+					new SiteLink( 'dewiki', 'England', [ new ItemId( 'Q1' ) ] ),
 				] ),
 				new StatementList(
 					new Statement(
@@ -171,7 +171,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 								'GUID1'
 							)
 						)
-					)
+					),
 				] ),
 				2,
 				new SenseSet( [
@@ -189,9 +189,9 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 								'GUID1'
 							)
 						)
-					)
+					),
 				] )
-			)
+			),
 		];
 
 		foreach ( $testEntities as $testEntity ) {
@@ -232,7 +232,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 				],
 				__DIR__ . '/../data/maintenance/dumpJson-lexeme-log.txt',
 				__DIR__ . '/../data/maintenance/dumpJson-lexeme-out.txt',
-			]
+			],
 		];
 	}
 

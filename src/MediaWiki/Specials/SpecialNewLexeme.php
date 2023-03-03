@@ -195,7 +195,7 @@ class SpecialNewLexeme extends SpecialPage {
 		$output->addHTML( '<div id="special-newlexeme-root"></div>' );
 		$output->addModules( [
 			'wikibase.lexeme.special.NewLexeme',
-			'wikibase.lexeme.special.NewLexeme.legacyBrowserFallback'
+			'wikibase.lexeme.special.NewLexeme.legacyBrowserFallback',
 			] );
 		$output->addModuleStyles( [
 			'wikibase.lexeme.special.NewLexeme.styles',
@@ -621,8 +621,8 @@ class SpecialNewLexeme extends SpecialPage {
 				'type' => 'info',
 				'raw' => true,
 				'id' => 'wb-newlexeme-copyright',
-				'default' => $this->getCopyrightHTML()
-			]
+				'default' => $this->getCopyrightHTML(),
+			],
 		];
 	}
 

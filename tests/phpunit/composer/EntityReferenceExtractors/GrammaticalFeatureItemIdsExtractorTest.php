@@ -58,7 +58,7 @@ class GrammaticalFeatureItemIdsExtractorTest extends TestCase {
 						->andGrammaticalFeature( 'Q2' )
 						->andGrammaticalFeature( 'Q3' ) )
 					->build(),
-				[ new ItemId( 'Q2' ), new ItemId( 'Q3' ), ]
+				[ new ItemId( 'Q2' ), new ItemId( 'Q3' ) ],
 			],
 			'multiple forms with recurring grammatical features' => [
 				NewLexeme::havingId( 'L234' )
@@ -70,7 +70,7 @@ class GrammaticalFeatureItemIdsExtractorTest extends TestCase {
 						->andGrammaticalFeature( 'Q234' )
 						->andGrammaticalFeature( 'Q123' ) )
 					->build(),
-				[ new ItemId( 'Q123' ), new ItemId( 'Q321' ), new ItemId( 'Q234' ) ]
+				[ new ItemId( 'Q123' ), new ItemId( 'Q321' ), new ItemId( 'Q234' ) ],
 			],
 		];
 	}

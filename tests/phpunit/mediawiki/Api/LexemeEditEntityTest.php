@@ -79,9 +79,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'representations' => [
 							$representationLang => [ 'language' => $representationLang, 'value' => $representation ],
 						],
-						'claims' => [ $claim ]
-					]
-				]
+						'claims' => [ $claim ],
+					],
+				],
 			] ),
 		];
 
@@ -200,7 +200,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [
 					'en' => [ 'language' => 'en', 'value' => 'apple' ],
 					'en-gb' => [ 'language' => 'en-gb', 'value' => 'appel' ],
-				]
+				],
 			],
 			$result['entity']
 		);
@@ -216,8 +216,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [
 					self::SPECIAL_TERM_LANGUAGE => [
 						'language' => self::SPECIAL_TERM_LANGUAGE,
-						'value' => 'exotic'
-					]
+						'value' => 'exotic',
+					],
 				],
 			] ),
 		];
@@ -247,7 +247,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [
 					'en' => [ 'language' => 'en', 'value' => 'apple' ],
 					'en-x-Q123' => [ 'language' => 'en-x-Q123', 'value' => 'appel' ],
-				]
+				],
 			],
 			$result['entity']
 		);
@@ -272,7 +272,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'id' => self::EXISTING_LEXEME_ID,
 				'lemmas' => [
 					'en' => [ 'language' => 'en', 'value' => 'apple' ],
-				]
+				],
 			],
 			$result['entity']
 		);
@@ -282,7 +282,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$lexeme = $this->getDummyLexeme();
 		$lexeme->setLemmas( new TermList( [
 			new Term( 'en', 'apple' ),
-			new Term( 'en-gb', 'appel' )
+			new Term( 'en-gb', 'appel' ),
 		] ) );
 
 		$this->entityStore->saveEntity(
@@ -495,67 +495,67 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		return [
 			'not string as language' => [
 				[ 'language' => 100 ],
-				'invalid-language'
+				'invalid-language',
 			],
 			'not item ID as language (random string)' => [
 				[ 'language' => 'XXX' ],
-				'invalid-item-id'
+				'invalid-item-id',
 			],
 			'not item ID as language (property ID)' => [
 				[ 'language' => 'P123' ],
-				'invalid-item-id'
+				'invalid-item-id',
 			],
 			'empty string as a language' => [
 				[ 'language' => '' ],
-				'invalid-item-id'
+				'invalid-item-id',
 			],
 			'null as a language' => [
 				[ 'language' => null ],
-				'invalid-language'
+				'invalid-language',
 			],
 			'not string as lexical category' => [
 				[ 'lexicalCategory' => 100 ],
-				'invalid-lexical-category'
+				'invalid-lexical-category',
 			],
 			'not item ID as lexical category (random string)' => [
 				[ 'lexicalCategory' => 'XXX' ],
-				'invalid-item-id'
+				'invalid-item-id',
 			],
 			'not item ID as lexical category (property ID)' => [
 				[ 'lexicalCategory' => 'P123' ],
-				'invalid-item-id'
+				'invalid-item-id',
 			],
 			'empty string as a lexical category' => [
 				[ 'lexicalCategory' => '' ],
-				'invalid-item-id'
+				'invalid-item-id',
 			],
 			'null as a lexical category' => [
 				[ 'lexicalCategory' => null ],
-				'invalid-lexical-category'
+				'invalid-lexical-category',
 			],
 			'lemmas not an array' => [
 				[ 'lemmas' => 'BAD' ],
-				'not-recognized-array'
+				'not-recognized-array',
 			],
 			'no language in lemma change request' => [
 				[ 'lemmas' => [ 'en' => [ 'value' => 'foo' ] ] ],
-				'bad-request'
+				'bad-request',
 			],
 			'no language in lemma change request (remove)' => [
 				[ 'lemmas' => [ 'en' => [ 'remove' => '' ] ] ],
-				'bad-request'
+				'bad-request',
 			],
 			'inconsistent language in lemma change request' => [
 				[ 'lemmas' => [ 'en' => [ 'language' => 'en-gb', 'value' => 'colour' ] ] ],
-				'inconsistent-language'
+				'inconsistent-language',
 			],
 			'unknown language in lemma change request' => [
 				[ 'lemmas' => [ 'SUPERODD' => [ 'language' => 'SUPERODD', 'value' => 'foo' ] ] ],
-				'not-recognized-language'
+				'not-recognized-language',
 			],
 			'too long term in lemma change request' => [
 				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => str_repeat( 'x', 10000 ) ] ] ],
-				'modification-failed'
+				'modification-failed',
 			],
 		];
 	}
@@ -609,14 +609,14 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				[
 					'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
 					'language' => self::EXISTING_LEXEME_LANGUAGE_ITEM_ID,
-				]
+				],
 			],
 			'empty lemmas in new data' => [
 				[
 					'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
 					'language' => self::EXISTING_LEXEME_LANGUAGE_ITEM_ID,
 					'lemmas' => [],
-				]
+				],
 			],
 		];
 	}
@@ -670,9 +670,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					[
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
-						)
-					]
-				]
+						),
+					],
+				],
 			] ),
 		];
 
@@ -710,9 +710,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						[
 							'add' => '',
 							'representations' => [],
-						]
-					]
-				]
+						],
+					],
+				],
 			],
 			'no form representations in new data' => [
 				[
@@ -722,9 +722,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					'forms' => [
 						[
 							'add' => '',
-						]
-					]
-				]
+						],
+					],
+				],
 			],
 		];
 	}
@@ -764,16 +764,16 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		return [
 			'empty form list ' => [ [
 				'forms' => [
-				]
+				],
 			] ],
 			'only ID of existing form' => [ [
 				'forms' => [
 					[
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
-						)
-					]
-				]
+						),
+					],
+				],
 			] ],
 		];
 	}
@@ -792,7 +792,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => self::EXISTING_LEXEME_ID,
-			'data' => json_encode( $dataArgs )
+			'data' => json_encode( $dataArgs ),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -940,8 +940,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
-						'unrelatedkey' => 'no harm done'
-					]
+						'unrelatedkey' => 'no harm done',
+					],
 				],
 			] ),
 		];
@@ -974,8 +974,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'remove' => ''
-					]
+						'remove' => '',
+					],
 				],
 			] ),
 		];
@@ -1000,14 +1000,14 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'remove' => ''
+						'remove' => '',
 					],
 					[
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
-						'remove' => ''
-					]
+						'remove' => '',
+					],
 				],
 			] ),
 		];
@@ -1031,14 +1031,14 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, 'malformed'
 						),
-						'remove' => ''
+						'remove' => '',
 					],
 					[
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
-						'remove' => ''
-					]
+						'remove' => '',
+					],
 				],
 			] ),
 		];
@@ -1051,8 +1051,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'forms/0/id', '"L100-malformed"' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0, 'id' ]
-				]
+					'fieldPath' => [ 'forms', 0, 'id' ],
+				],
 			]
 		);
 
@@ -1070,9 +1070,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
@@ -1084,8 +1084,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'forms/0', 'id' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0 ]
-				]
+					'fieldPath' => [ 'forms', 0 ],
+				],
 			]
 		);
 	}
@@ -1102,9 +1102,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, 'bad'
 						),
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
@@ -1116,8 +1116,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'forms/0/id', '"L100-bad"' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0, 'id' ]
-				]
+					'fieldPath' => [ 'forms', 0, 'id' ],
+				],
 			]
 		);
 	}
@@ -1134,9 +1134,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'grammaticalFeatures' => [ 'BAD' ]
-					]
-				]
+						'grammaticalFeatures' => [ 'BAD' ],
+					],
+				],
 			] ),
 		];
 
@@ -1166,7 +1166,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$this->assertEquals(
 				[
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0, 'grammaticalFeatures', 0 ]
+					'fieldPath' => [ 'forms', 0, 'grammaticalFeatures', 0 ],
 				],
 				$message->getApiData(),
 				'Wrong api data'
@@ -1184,9 +1184,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'forms' => [
 					[
 						'id' => [ 'justevil' ],
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
@@ -1198,8 +1198,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'forms/0/id', '["justevil"]' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0, 'id' ]
-				]
+					'fieldPath' => [ 'forms', 0, 'id' ],
+				],
 			]
 		);
 	}
@@ -1216,14 +1216,14 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
 		$this->doTestQueryExceptions( $params, [
-			'code' => 'no-such-entity'
+			'code' => 'no-such-entity',
 		] );
 
 		$lexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
@@ -1256,16 +1256,16 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
 		$this->doTestQueryExceptions( $params, [
 			'code' => 'modification-failed',
 			// FIXME Wikibase\Repo\Validators\ValidatorErrorLocalizer needs to become configurable
-			'message-key' => 'wikibase-validator-form-not-found'
+			'message-key' => 'wikibase-validator-form-not-found',
 		] );
 
 		$firstLexemeData = $this->loadEntity( self::EXISTING_LEXEME_ID );
@@ -1287,16 +1287,16 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, 'F77'
 						),
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
 		$this->doTestQueryExceptions( $params, [
 			'code' => 'modification-failed',
 			// FIXME Wikibase\Repo\Validators\ValidatorErrorLocalizer needs to become configurable
-			'message-key' => 'wikibase-validator-form-not-found'
+			'message-key' => 'wikibase-validator-form-not-found',
 		] );
 	}
 
@@ -1309,8 +1309,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
 				'read' => true,
-				'edit' => false
-			]
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 
@@ -1364,19 +1364,19 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $this->formatFormId(
 							self::EXISTING_LEXEME_ID, 'F77'
 						),
-						'remove' => ''
-					]
-				]
-			]
+						'remove' => '',
+					],
+				],
+			],
 		];
 		yield [
-			[ 'lexicalCategory' => 'Q333' ]
+			[ 'lexicalCategory' => 'Q333' ],
 		];
 		yield [
-			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ] ]
+			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ] ],
 		];
 		yield [
-			[ 'language' => 'Q303' ]
+			[ 'language' => 'Q303' ],
 		];
 	}
 
@@ -1394,8 +1394,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						),
 						'representations' => [
 							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
-						]
-					]
+						],
+					],
 				],
 			] ),
 		];
@@ -1426,10 +1426,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'representations' => [
 							self::EXISTING_LEXEME_FORM_1_LANGUAGE => [
 								'language' => self::EXISTING_LEXEME_FORM_1_LANGUAGE,
-								'remove' => ''
-							]
-						]
-					]
+								'remove' => '',
+							],
+						],
+					],
 				],
 			] ),
 		];
@@ -1443,8 +1443,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			[
 				self::EXISTING_LEXEME_FORM_1_LANGUAGE2 => [
 					'language' => self::EXISTING_LEXEME_FORM_1_LANGUAGE2,
-					'value' => self::EXISTING_LEXEME_FORM_1_TEXT2
-				]
+					'value' => self::EXISTING_LEXEME_FORM_1_TEXT2,
+				],
 			],
 			$result['entity']['forms'][0]['representations']
 		);
@@ -1462,9 +1462,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'representations' => [
 					self::EXISTING_LEXEME_FORM_1_LANGUAGE => [
 						'language' => self::EXISTING_LEXEME_FORM_1_LANGUAGE,
-						'remove' => ''
-					]
-				]
+						'remove' => '',
+					],
+				],
 			] ),
 		];
 
@@ -1475,8 +1475,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			[
 				self::EXISTING_LEXEME_FORM_1_LANGUAGE2 => [
 					'language' => self::EXISTING_LEXEME_FORM_1_LANGUAGE2,
-					'value' => self::EXISTING_LEXEME_FORM_1_TEXT2
-				]
+					'value' => self::EXISTING_LEXEME_FORM_1_TEXT2,
+				],
 			],
 			$result['entity']['representations']
 		);
@@ -1496,8 +1496,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						),
 						'representations' => [
 							'la' => [ 'language' => 'la' ],
-						]
-					]
+						],
+					],
 				],
 			] ),
 		];
@@ -1510,8 +1510,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'forms/0/representations/la', 'value' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0, 'representations', 'la' ]
-				]
+					'fieldPath' => [ 'forms', 0, 'representations', 'la' ],
+				],
 			]
 		);
 
@@ -1532,7 +1532,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'la' => [ 'language' => 'la' ],
-				]
+				],
 			] ),
 		];
 
@@ -1544,8 +1544,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'representations/la', 'value' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'representations', 'la' ]
-				]
+					'fieldPath' => [ 'representations', 'la' ],
+				],
 			]
 		);
 
@@ -1567,8 +1567,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'add' => '',
 						'representations' => [
 							'la' => [ 'language' => 'ay', 'value' => 'papa' ],
-						]
-					]
+						],
+					],
 				],
 			] ),
 		];
@@ -1581,8 +1581,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'forms/0/representations/la', 'la', 'ay' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'forms', 0, 'representations', 'la' ]
-				]
+					'fieldPath' => [ 'forms', 0, 'representations', 'la' ],
+				],
 			]
 		);
 
@@ -1606,8 +1606,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						),
 						'representations' => [
 							'la' => [ 'language' => 'la', 'value' => 'Malus baccata' ],
-						]
-					]
+						],
+					],
 				],
 			] ),
 		];
@@ -1637,8 +1637,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						),
 						'representations' => [
 							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
-						]
-					]
+						],
+					],
 				],
 			] ),
 		];
@@ -1646,7 +1646,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryExceptions( $params, [
 			'code' => 'modification-failed',
 			// FIXME Wikibase\Repo\Validators\ValidatorErrorLocalizer needs to become configurable
-			'message-key' => 'wikibase-validator-form-not-found'
+			'message-key' => 'wikibase-validator-form-not-found',
 		] );
 	}
 
@@ -1673,7 +1673,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 						'id' => $formId,
 						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 						'claims' => [ $claim ],
-					]
+					],
 				],
 			] ),
 		];
@@ -1792,7 +1792,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 							'la' => [ 'language' => 'la', 'value' => 'Malus baccata' ],
 						],
 						'grammaticalFeatures' => [ 'Q18', 'Q19' ],
-					]
+					],
 				],
 			] ),
 		];
@@ -1835,7 +1835,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 							'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
 						],
 						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
-					]
+					],
 				],
 			] ),
 		];
@@ -1886,7 +1886,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 							'la' => [ 'language' => 'la', 'value' => 'Malus baccata' ],
 						],
 						'grammaticalFeatures' => [ 'Q18', 'Q19' ],
-					]
+					],
 				],
 			] ),
 		];
@@ -2004,8 +2004,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', '"foo"' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'lexemeId' ]
-				]
+					'fieldPath' => [ 'lexemeId' ],
+				],
 			]
 		);
 	}
@@ -2032,8 +2032,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', '"Q2"' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'lexemeId' ]
-				]
+					'fieldPath' => [ 'lexemeId' ],
+				],
 			]
 		);
 	}
@@ -2060,8 +2060,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'params' => [ 'data', 'L30000' ],
 				'data' => [
 					'parameterName' => 'data',
-					'fieldPath' => [ 'lexemeId' ]
-				]
+					'fieldPath' => [ 'lexemeId' ],
+				],
 			]
 		);
 	}
@@ -2079,7 +2079,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
-					]
+					],
 				],
 			] ),
 		];
@@ -2107,7 +2107,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'en' => [ 'language' => 'en', 'value' => 'Chinese crab' ],
-				]
+				],
 			] ),
 		];
 
@@ -2133,7 +2133,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'representations' => [
 					'la' => [ 'language' => 'la', 'value' => 'Malus baccata' ],
-				]
+				],
 			] ),
 		];
 
@@ -2159,9 +2159,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'representations' => [
 					self::SPECIAL_TERM_LANGUAGE => [
 						'language' => self::SPECIAL_TERM_LANGUAGE,
-						'value' => 'pineapple'
+						'value' => 'pineapple',
 					],
-				]
+				],
 			] ),
 		];
 
@@ -2194,7 +2194,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 					[
 						'add' => '',
 						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
-					]
+					],
 				],
 			] ),
 		];

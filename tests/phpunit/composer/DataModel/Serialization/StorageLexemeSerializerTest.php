@@ -157,7 +157,7 @@ class StorageLexemeSerializerTest extends TestCase {
 							],
 							'type' => 'statement',
 							'rank' => 'normal',
-						], ],
+						] ],
 					],
 				],
 				[
@@ -209,9 +209,9 @@ class StorageLexemeSerializerTest extends TestCase {
 							'type' => 'statement',
 							'rank' => 'normal',
 						] ],
-					]
-				]
-			]
+					],
+				],
+			],
 		];
 
 		$this->assertEquals( $expectedSerialization, $lexemeSerialization );
@@ -245,7 +245,7 @@ class StorageLexemeSerializerTest extends TestCase {
 				},
 				NumericPropertyId::PATTERN => static function ( $s ) {
 					return new NumericPropertyId( $s );
-				}
+				},
 			]
 		);
 		$factory = new DeserializerFactory(

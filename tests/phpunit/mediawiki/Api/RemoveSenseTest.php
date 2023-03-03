@@ -85,7 +85,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'id' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'invalid id (random string not ID)' => [
@@ -96,9 +96,9 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'id',
-						'fieldPath' => []
-					]
-				]
+						'fieldPath' => [],
+					],
+				],
 			],
 			'Lexeme is not found' => [
 				[ 'id' => 'L999-S1' ],
@@ -108,8 +108,8 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'id',
-						'fieldPath' => []
-					]
+						'fieldPath' => [],
+					],
 				],
 			],
 			'Sense is not found' => [
@@ -120,8 +120,8 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'id',
-						'fieldPath' => []
-					]
+						'fieldPath' => [],
+					],
 				],
 			],
 		];
@@ -217,8 +217,8 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
 				'read' => true,
-				'edit' => false
-			]
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 		try {
@@ -276,7 +276,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wblremovesense',
 			'id' => 'L1-S1',
-			'baserevid' => $baseRevId
+			'baserevid' => $baseRevId,
 		];
 
 		try {
@@ -304,14 +304,14 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => 'L1',
-			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
 		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
 		$params = [
 			'action' => 'wblremovesense',
 			'id' => 'L1-S1',
-			'baserevid' => $baseRevId
+			'baserevid' => $baseRevId,
 		];
 
 		$this->doApiRequestWithToken( $params );

@@ -45,7 +45,7 @@ class LexemeSensesMergerTest extends TestCase {
 						->withGloss( 'en-gb', 'colour' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )->build()
+			$this->newMinimumValidLexeme( 'L2' )->build(),
 		];
 		yield 'senses gets copied after existing one' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -67,7 +67,7 @@ class LexemeSensesMergerTest extends TestCase {
 					NewSense::havingId( 'S1' )
 						->withGloss( 'en', 'color' )
 						->withGloss( 'en-gb', 'colour' )
-				)->build()
+				)->build(),
 		];
 		yield 'sense with same gloss gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -92,7 +92,7 @@ class LexemeSensesMergerTest extends TestCase {
 					NewSense::havingId( 'S1' )
 						->withGloss( 'en', 'color' )
 				)
-				->build()
+				->build(),
 		];
 		yield 'sense with same gloss and statement gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -124,7 +124,7 @@ class LexemeSensesMergerTest extends TestCase {
 				->withSense(
 					NewSense::havingId( 'S1' )
 						->withGloss( 'en', 'color' )
-				)->build()
+				)->build(),
 		];
 		yield 'sense with different gloss and statement gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -157,7 +157,7 @@ class LexemeSensesMergerTest extends TestCase {
 				->withSense(
 					NewSense::havingId( 'S1' )
 						->withGloss( 'en-gb', 'colour' )
-				)->build()
+				)->build(),
 		];
 		yield 'redundant source senses persist' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -180,7 +180,7 @@ class LexemeSensesMergerTest extends TestCase {
 						->withGloss( 'en', 'color' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )->build()
+			$this->newMinimumValidLexeme( 'L2' )->build(),
 		];
 		yield 'redundant target senses persist' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -204,7 +204,7 @@ class LexemeSensesMergerTest extends TestCase {
 					NewSense::havingId( 'S2' )
 						->withGloss( 'en', 'color' )
 				)
-				->build()
+				->build(),
 		];
 	}
 

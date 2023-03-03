@@ -48,7 +48,7 @@ class ChangeOpsSensesEdit implements ChangeOp {
 						null,
 						'sense-not-found',
 						[ $senseId ]
-					)
+					),
 				] );
 			}
 		}

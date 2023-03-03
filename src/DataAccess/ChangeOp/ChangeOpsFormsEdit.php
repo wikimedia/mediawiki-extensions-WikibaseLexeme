@@ -48,7 +48,7 @@ class ChangeOpsFormsEdit implements ChangeOp {
 						null,
 						'form-not-found',
 						[ $formId ]
-					)
+					),
 				] );
 			}
 		}

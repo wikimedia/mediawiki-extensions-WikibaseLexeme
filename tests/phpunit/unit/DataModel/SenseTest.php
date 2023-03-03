@@ -57,11 +57,11 @@ class SenseTest extends MediaWikiUnitTestCase {
 			'2 glosses' => [
 				NewSense::havingGloss( 'en', 'one' )
 					->withGloss( 'fr', 'two' )
-					->build()
+					->build(),
 			],
 			'1 statement' => [
 				NewSense::havingStatement( $this->newStatement() )
-					->build()
+					->build(),
 			],
 		];
 	}
@@ -82,19 +82,19 @@ class SenseTest extends MediaWikiUnitTestCase {
 		return [
 			'same instance' => [
 				$minimalInstance,
-				$minimalInstance
+				$minimalInstance,
 			],
 			'minimal senses' => [
 				$minimal->build(),
-				$minimal->build()
+				$minimal->build(),
 			],
 			'different IDs' => [
 				$minimal->build(),
-				NewSense::havingId( 'S2' )->withGloss( 'en', 'minimal' )->build()
+				NewSense::havingId( 'S2' )->withGloss( 'en', 'minimal' )->build(),
 			],
 			'non-empty senses' => [
 				$nonEmpty->build(),
-				$nonEmpty->build()
+				$nonEmpty->build(),
 			],
 		];
 	}
@@ -112,15 +112,15 @@ class SenseTest extends MediaWikiUnitTestCase {
 		return [
 			'different glosses' => [
 				$sense->build(),
-				NewSense::havingId( 'S1' )->withGloss( 'en', 'different' )->build()
+				NewSense::havingId( 'S1' )->withGloss( 'en', 'different' )->build(),
 			],
 			'+1 gloss' => [
 				$sense->build(),
-				$sense->withGloss( 'fr', 'two' )->build()
+				$sense->withGloss( 'fr', 'two' )->build(),
 			],
 			'+1 statement' => [
 				$sense->build(),
-				$sense->withStatement( $this->newStatement() )->build()
+				$sense->withStatement( $this->newStatement() )->build(),
 			],
 		];
 	}

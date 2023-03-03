@@ -71,187 +71,187 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 		return [
 			'invalid lexeme ID (random string not ID)' => [
 				[ 'lexemeId' => 'foo', 'data' => $this->getDataParam() ],
-				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'foo' ) ]
+				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'foo' ) ],
 			],
 			'invalid lexeme ID (not a lexeme ID)' => [
 				[ 'lexemeId' => 'Q11', 'data' => $this->getDataParam() ],
-				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'Q11' ) ]
+				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'Q11' ) ],
 			],
 			'data not a well-formed JSON' => [
 				[ 'lexemeId' => 'L1', 'data' => '{foo' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '{foo' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '{foo' ),
+				],
 			],
 			'data not an object - string given' => [
 				[ 'lexemeId' => 'L1', 'data' => '"foo"' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '"foo"' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '"foo"' ),
+				],
 			],
 			'data not an object - array given' => [
 				[ 'lexemeId' => 'L1', 'data' => '[]' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '[]' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '[]' ),
+				],
 			],
 			'representations is a string' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam( [ 'representations' => 'foo' ] )
+					'data' => $this->getDataParam( [ 'representations' => 'foo' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
+					new JsonFieldHasWrongType( 'array', 'string' ),
+				],
 			],
 			'grammatical features not an array' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam( [ 'grammaticalFeatures' => 'Q1' ] )
+					'data' => $this->getDataParam( [ 'grammaticalFeatures' => 'Q1' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
+					new JsonFieldHasWrongType( 'array', 'string' ),
+				],
 			],
 			'representation list contains only single empty representation' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LexemeTermTextCanNotBeEmpty()
-				]
+					new LexemeTermTextCanNotBeEmpty(),
+				],
 			],
 			'representation list contains only representation with empty language' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => '' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LanguageInconsistent( 'en', '' )
-				]
+					new LanguageInconsistent( 'en', '' ),
+				],
 			],
 			'representation list contains representation with empty language key' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ '' => [ 'value' => 'goat', 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', '' ] ],
-					new LexemeTermLanguageCanNotBeEmpty()
-				]
+					new LexemeTermLanguageCanNotBeEmpty(),
+				],
 			],
 			'representation list contains element with inconsistent language' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => 'de' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
 					new LanguageInconsistent(
 						'en',
 						'de'
-					)
-				]
+					),
+				],
 			],
 			'representation list contains element with unknown language' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
-					new UnknownLanguage( 'foobar', 'goat' )
-				]
+					new UnknownLanguage( 'foobar', 'goat' ),
+				],
 			],
 			'no representation string in data' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ 'en' => [ 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new JsonFieldIsRequired( 'value' )
-				]
+					new JsonFieldIsRequired( 'value' ),
+				],
 			],
 			'no representation language in data' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => 'foo' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new JsonFieldIsRequired( 'language' )
-				]
+					new JsonFieldIsRequired( 'language' ),
+				],
 			],
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
-					new JsonFieldIsNotAnItemId( 'foo' )
-				]
+					new JsonFieldIsNotAnItemId( 'foo' ),
+				],
 			],
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
-					)
+					),
 				] ,
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
-					new JsonFieldIsNotAnItemId( 'L2' )
-				]
+					new JsonFieldIsNotAnItemId( 'L2' ),
+				],
 			],
 			'invalid form claims request (not an array)' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'claims' => 'not an array' ]
-					)
+					),
 				] ,
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
+					new JsonFieldHasWrongType( 'array', 'string' ),
+				],
 			],
 			'invalid form claims request (invalid serialization)' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => $this->getDataParam(
 						[ 'claims' => [ [ 'invalid' ] ] ]
-					)
+					),
 				] ,
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
-					new InvalidFormClaims()
-				]
+					new InvalidFormClaims(),
+				],
 			],
 		];
 	}
@@ -273,8 +273,8 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representations' => [
 				'en' => [
 					'language' => 'en',
-					'value' => 'goat'
-				]
+					'value' => 'goat',
+				],
 			],
 			'grammaticalFeatures' => [ 'Q17' ],
 		];
@@ -289,7 +289,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			},
 			LexemeId::PATTERN => static function ( $id ) {
 				return new LexemeId( $id );
-			}
+			},
 		] );
 
 		$editFormChangeOpDeserializer = new EditFormChangeOpDeserializer(

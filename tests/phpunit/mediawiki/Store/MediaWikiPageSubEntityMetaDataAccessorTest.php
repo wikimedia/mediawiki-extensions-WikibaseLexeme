@@ -50,7 +50,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 		$lexemeId = new LexemeId( 'L1' );
 		$entityIds = [
 			$senseId,
-			$lexemeId // invalid id type
+			$lexemeId, // invalid id type
 		];
 
 		$this->expectException( LogicException::class );
@@ -71,7 +71,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 		$subIdString = 'L6392-F1';
 		$lexemeIdString = 'L6392';
 		$entityIds = [
-			$this->getMockSubEntityId( $subIdString, $lexemeIdString )
+			$this->getMockSubEntityId( $subIdString, $lexemeIdString ),
 		];
 		$mockedRevIds = [ 1 ];
 		$expectedEntityIds = array_map( static function ( $entityId ) {

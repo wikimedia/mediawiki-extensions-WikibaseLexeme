@@ -104,7 +104,7 @@ class FormsView {
 						},
 						$this->getSortedGrammaticalFeatures( $form )
 					)
-				)
+				),
 			]
 		);
 
@@ -114,7 +114,7 @@ class FormsView {
 			$grammaticalFeaturesHtml,
 			$this->getStatementSectionHtml( $form ),
 			// Anchor separated from ID to avoid issue with front-end rendering
-			htmlspecialchars( $form->getId()->getIdSuffix() )
+			htmlspecialchars( $form->getId()->getIdSuffix() ),
 		] );
 	}
 
@@ -174,12 +174,12 @@ class FormsView {
 			$representationsVueTemplate,
 			[
 				'inEditMode' => false,
-				'representations' => $representations
+				'representations' => $representations,
 			],
 			[
 				'message' => function ( $key ) {
 					return $this->textProvider->get( $key );
-				}
+				},
 			]
 		);
 

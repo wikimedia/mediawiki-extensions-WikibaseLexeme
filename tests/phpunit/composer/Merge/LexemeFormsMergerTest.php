@@ -53,7 +53,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andGrammaticalFeature( 'Q1' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )->build()
+			$this->newMinimumValidLexeme( 'L2' )->build(),
 		];
 		yield 'forms gets copied after existing one' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -81,7 +81,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andRepresentation( 'en-gb', 'colour' )
 						->andGrammaticalFeature( 'Q2' )
 						->andGrammaticalFeature( 'Q1' )
-				)->build()
+				)->build(),
 		];
 		yield 'form representations get merged' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -103,7 +103,7 @@ class LexemeFormsMergerTest extends TestCase {
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
 				)
-				->build()
+				->build(),
 		];
 		yield 'forms are considered identical irrespective of grammatical feature order' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -129,7 +129,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andGrammaticalFeature( 'Q2' )
 						->andGrammaticalFeature( 'Q1' )
 				)
-				->build()
+				->build(),
 		];
 		yield 'form statement gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -161,7 +161,7 @@ class LexemeFormsMergerTest extends TestCase {
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
 						->andGrammaticalFeature( 'Q1' )
-				)->build()
+				)->build(),
 		];
 		yield 'form with statement gets copied' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -194,7 +194,7 @@ class LexemeFormsMergerTest extends TestCase {
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en-gb', 'colour' )
-				)->build()
+				)->build(),
 		];
 		yield 'redundant source forms persist' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -217,7 +217,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andRepresentation( 'en', 'color' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )->build()
+			$this->newMinimumValidLexeme( 'L2' )->build(),
 		];
 		yield 'redundant target forms persist' => [
 			$this->newMinimumValidLexeme( 'L2' )
@@ -241,7 +241,7 @@ class LexemeFormsMergerTest extends TestCase {
 					NewForm::havingId( 'F2' )
 						->andRepresentation( 'en', 'color' )
 				)
-				->build()
+				->build(),
 		];
 	}
 

@@ -115,7 +115,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$formData['wpEditToken'] = RequestContext::getMain()->getUser()->getEditToken();
 		$request = new FauxRequest( $formData, true );
 
-		[ $html, ] = $this->executeSpecialPage( '', $request, 'qqx' );
+		[ $html ] = $this->executeSpecialPage( '', $request, 'qqx' );
 
 		$this->assertStringContainsString( '(actionthrottledtext)', $html );
 	}
@@ -385,14 +385,14 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		yield 'lemma param' => [
 			[ SpecialNewLexeme::FIELD_LEMMA => 'foo' ],
 			[
-				'lemma' => 'foo'
+				'lemma' => 'foo',
 			],
 		];
 
 		yield 'spelling variant code param' => [
 			[ SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'de' ],
 			[
-				'spellVarCode' => 'de'
+				'spellVarCode' => 'de',
 			],
 		];
 
@@ -438,7 +438,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 					'languageCode' => 'en',
 				],
 			],
-			[ $languageItem ]
+			[ $languageItem ],
 		];
 
 		$languageItem = NewItem::withId( 'Q789' );

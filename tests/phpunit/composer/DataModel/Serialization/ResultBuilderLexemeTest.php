@@ -207,7 +207,7 @@ class ResultBuilderLexemeTest extends TestCase {
 													'P65',
 													'P68',
 													'_element' => 'property',
-												]
+												],
 											],
 											'_element' => 'reference',
 										],
@@ -218,7 +218,7 @@ class ResultBuilderLexemeTest extends TestCase {
 								'_kvpkeyname' => 'id',
 								'_element' => 'property',
 							],
-						]
+						],
 					],
 				],
 				'_element' => 'entity',

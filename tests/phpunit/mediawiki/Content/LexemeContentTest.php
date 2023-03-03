@@ -64,19 +64,19 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		yield 'must not contain lexeme and be a redirect at once' => [
 			new EntityInstanceHolder( new Lexeme() ),
 			new EntityRedirect( new LexemeId( 'L123' ), new LexemeId( 'L321' ) ),
-			null
+			null,
 		];
 
 		yield 'EntityInstanceHolder must contain lexeme' => [
 			new EntityInstanceHolder( new Item() ),
 			null,
-			null
+			null,
 		];
 
 		yield 'when it\'s a redirect, it must contain a redirect title' => [
 			null,
 			new EntityRedirect( new LexemeId( 'L123' ), new LexemeId( 'L321' ) ),
-			null
+			null,
 		];
 	}
 
@@ -375,9 +375,9 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 							new Reference(
 								[
 									new PropertySomeValueSnak( new NumericPropertyId( 'P987' ) ),
-									new PropertyNoValueSnak( new NumericPropertyId( 'P986' ) )
+									new PropertyNoValueSnak( new NumericPropertyId( 'P986' ) ),
 								]
-							)
+							),
 						]
 					),
 					'imaguid'
@@ -389,14 +389,14 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 					new FormId( 'L123-F123' ),
 					new TermList( [ new Term( 'en', 'rep1' ), new Term( 'de', 'rep2' ) ] ),
 					[ new ItemId( 'Q553' ), new ItemId( 'Q554' ) ]
-				)
+				),
 			] ),
 			6662,
 			new SenseSet( [
 				new Sense(
 					new SenseId( 'L123-S123' ),
 					new TermList( [ new Term( 'en', 'gloss1' ), new Term( 'de', 'gloss2' ) ] )
-				)
+				),
 			] )
 		);
 
@@ -439,7 +439,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 				null,
 				null,
 				'ett, two, drei',
-				250
+				250,
 			],
 			'cuts off the text' => [
 				NewLexeme::havingId( 'L2' )
@@ -448,22 +448,22 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 				null,
 				null,
 				'some thing...',
-				13
+				13,
 			],
 			'returns nothing if no lemmas' => [
 				new Lexeme(),
 				null,
 				null,
 				'',
-				250
+				250,
 			],
 			'redirect' => [
 				null,
 				new EntityRedirect( new LexemeId( 'L1' ), new LexemeId( 'L2' ) ),
 				Title::newFromText( 'redirectTitle' ),
 				'#REDIRECT [[RedirectTitle]]',
-				250
-			]
+				250,
+			],
 		];
 	}
 

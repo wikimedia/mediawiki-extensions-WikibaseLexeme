@@ -471,7 +471,7 @@ class LexemeMergerTest extends TestCase {
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en-gb', 'colours' ),
 			NewForm::havingId( 'F1' )
-				->andRepresentation( 'en-gb', 'colours' )
+				->andRepresentation( 'en-gb', 'colours' ),
 		];
 		yield 'identical representations and underspecified grammatical features cause no match' => [
 			false,
@@ -479,14 +479,14 @@ class LexemeMergerTest extends TestCase {
 				->andRepresentation( 'en-gb', 'colours' )
 				->andGrammaticalFeature( 'Q1' ),
 			NewForm::havingId( 'F1' )
-				->andRepresentation( 'en-gb', 'colours' )
+				->andRepresentation( 'en-gb', 'colours' ),
 		];
 		yield 'different representations prevent match' => [
 			false,
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en', 'colors' ),
 			NewForm::havingId( 'F1' )
-				->andRepresentation( 'en-gb', 'colours' )
+				->andRepresentation( 'en-gb', 'colours' ),
 		];
 		yield 'one identical and no contradicting representation causes match' => [
 			true,
@@ -494,14 +494,14 @@ class LexemeMergerTest extends TestCase {
 				->andRepresentation( 'en', 'colors' ),
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en', 'colors' )
-				->andRepresentation( 'en-gb', 'colours' )
+				->andRepresentation( 'en-gb', 'colours' ),
 		];
 		yield 'contradicting representations prevent match' => [
 			false,
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en', 'color' ),
 			NewForm::havingId( 'F1' )
-				->andRepresentation( 'en', 'colors' )
+				->andRepresentation( 'en', 'colors' ),
 		];
 		yield 'identical representations and grammatical features cause match' => [
 			true,
@@ -512,7 +512,7 @@ class LexemeMergerTest extends TestCase {
 			NewForm::havingId( 'F1' )
 				->andRepresentation( 'en', 'color' )
 				->andGrammaticalFeature( 'Q1' )
-				->andGrammaticalFeature( 'Q2' )
+				->andGrammaticalFeature( 'Q2' ),
 		];
 		yield 'different grammatical features prevent match' => [
 			false,
@@ -524,7 +524,7 @@ class LexemeMergerTest extends TestCase {
 				->andRepresentation( 'en', 'color' )
 				->andGrammaticalFeature( 'Q1' )
 				->andGrammaticalFeature( 'Q2' )
-				->andGrammaticalFeature( 'Q3' )
+				->andGrammaticalFeature( 'Q3' ),
 		];
 		yield 'order of parts in identifier is irrelevant' => [
 			true,
@@ -537,7 +537,7 @@ class LexemeMergerTest extends TestCase {
 				->andRepresentation( 'en-gb', 'colour' )
 				->andRepresentation( 'en', 'color' )
 				->andGrammaticalFeature( 'Q1' )
-				->andGrammaticalFeature( 'Q2' )
+				->andGrammaticalFeature( 'Q2' ),
 		];
 	}
 

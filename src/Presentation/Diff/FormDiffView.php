@@ -107,7 +107,7 @@ class FormDiffView extends BasicDiffView {
 				$path,
 				[
 					$key,
-					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-grammatical-feature' )->text()
+					$this->messageLocalizer->msg( 'wikibaselexeme-diffview-grammatical-feature' )->text(),
 				]
 			),
 			$op->getGrammaticalFeaturesDiff()

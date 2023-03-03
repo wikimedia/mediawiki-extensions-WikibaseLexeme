@@ -48,43 +48,43 @@ class ApiErrorTranslationTest extends TestCase {
 		return [
 			ParameterIsNotAJsonObject::class => [
 				new ParameterIsNotAJsonObject( 'param-1', 'given-param' ),
-				[ 'param-1', 'given-param' ]
+				[ 'param-1', 'given-param' ],
 			],
 			JsonFieldIsRequired::class => [
 				new JsonFieldIsRequired( 'id' ),
-				[ 'param-1', 'a/1/b' ]
+				[ 'param-1', 'a/1/b' ],
 			],
 			JsonFieldIsNotAnItemId::class => [
 				new JsonFieldIsNotAnItemId( 'foo' ),
-				[ 'param-1', 'a/1/b', 'foo' ]
+				[ 'param-1', 'a/1/b', 'foo' ],
 			],
 			JsonFieldHasWrongType::class => [
 				new JsonFieldHasWrongType( 'string', 'array' ),
-				[ 'param-1', 'a/1/b', 'string', 'array' ]
+				[ 'param-1', 'a/1/b', 'string', 'array' ],
 			],
 			ParameterIsNotLexemeId::class => [
 				new ParameterIsNotLexemeId( 'foo' ),
-				[ 'param-1', 'foo' ]
+				[ 'param-1', 'foo' ],
 			],
 			LexemeTermTextCanNotBeEmpty::class => [
 				new LexemeTermTextCanNotBeEmpty(),
-				[]
+				[],
 			],
 			LexemeNotFound::class => [
 				new LexemeNotFound( new LexemeId( 'L1' ) ),
-				[ 'L1' ]
+				[ 'L1' ],
 			],
 			InvalidItemId::class => [
 				new InvalidItemId( 'Qx' ),
-				[ 'param-1', 'a/1/b', 'Qx' ]
+				[ 'param-1', 'a/1/b', 'Qx' ],
 			],
 			UnknownLanguage::class => [
 				new UnknownLanguage( 'foo' ),
-				[ 'param-1', 'a/1/b', 'foo' ]
+				[ 'param-1', 'a/1/b', 'foo' ],
 			],
 			InvalidFormClaims::class => [
 				new InvalidFormClaims(),
-				[ 'param-1', 'a/1/b' ]
+				[ 'param-1', 'a/1/b' ],
 			],
 		];
 	}

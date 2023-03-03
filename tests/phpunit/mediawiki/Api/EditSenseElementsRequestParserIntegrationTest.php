@@ -71,140 +71,140 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 				[ 'senseId' => 'foo', 'data' => $this->getDataAsJson() ],
 				[
 					[ 'parameterName' => 'senseId', 'fieldPath' => [] ],
-					new ParameterIsNotSenseId( 'foo' )
-				]
+					new ParameterIsNotSenseId( 'foo' ),
+				],
 			],
 			'invalid sense ID (not a sense ID)' => [
 				[ 'senseId' => 'Q11', 'data' => $this->getDataAsJson() ],
 				[
 					[ 'parameterName' => 'senseId', 'fieldPath' => [] ],
-					new ParameterIsNotSenseId( 'Q11' )
-				]
+					new ParameterIsNotSenseId( 'Q11' ),
+				],
 			],
 			'invalid sense ID (no lexeme part in the ID)' => [
 				[ 'senseId' => 'S1', 'data' => $this->getDataAsJson() ],
 				[
 					[ 'parameterName' => 'senseId', 'fieldPath' => [] ],
-					new ParameterIsNotSenseId( 'F1' )
-				]
+					new ParameterIsNotSenseId( 'F1' ),
+				],
 			],
 			'data not a well-formed JSON' => [
 				[ 'senseId' => self::DEFAULT_SENSE_ID, 'data' => '{foo' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '{foo' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '{foo' ),
+				],
 			],
 			'data not an object - string given' => [
 				[ 'senseId' => self::DEFAULT_SENSE_ID, 'data' => '"foo"' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '"foo"' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '"foo"' ),
+				],
 			],
 			'data not an object - array given' => [
 				[ 'senseId' => self::DEFAULT_SENSE_ID, 'data' => '[]' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '[]' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '[]' ),
+				],
 			],
 			'glosses is a string' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson( [ 'glosses' => 'foo' ] )
+					'data' => $this->getDataAsJson( [ 'glosses' => 'foo' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
+					new JsonFieldHasWrongType( 'array', 'string' ),
+				],
 			],
 			'gloss list contains only single empty gloss' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'en' ] ],
-					new LexemeTermTextCanNotBeEmpty()
-				]
+					new LexemeTermTextCanNotBeEmpty(),
+				],
 			],
 			'gloss list contains only gloss with empty language' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => 'furry animal', 'language' => '' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'en' ] ],
-					new LanguageInconsistent( 'en', '' )
-				]
+					new LanguageInconsistent( 'en', '' ),
+				],
 			],
 			'gloss list contains gloss with empty language key' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ '' => [ 'value' => 'furry animal', 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', '' ] ],
-					new LexemeTermLanguageCanNotBeEmpty()
-				]
+					new LexemeTermLanguageCanNotBeEmpty(),
+				],
 			],
 			'gloss list contains element with inconsistent language' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => 'furry animal', 'language' => 'de' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'en' ] ],
 					new LanguageInconsistent(
 						'en',
 						'de'
-					)
-				]
+					),
+				],
 			],
 			'gloss list contains element with unknown language' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ 'foobar' => [ 'value' => 'furry animal', 'language' => 'foobar' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'foobar' ] ],
-					new UnknownLanguage( 'foobar', 'furry animal' )
-				]
+					new UnknownLanguage( 'foobar', 'furry animal' ),
+				],
 			],
 			'no gloss string in data' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'en' ] ],
-					new JsonFieldIsRequired( 'value' )
-				]
+					new JsonFieldIsRequired( 'value' ),
+				],
 			],
 			'no gloss language in data' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
 					'data' => $this->getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => 'foo' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses', 'en' ] ],
-					new JsonFieldIsRequired( 'language' )
-				]
+					new JsonFieldIsRequired( 'language' ),
+				],
 			],
 		];
 	}
@@ -215,7 +215,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 				self::DEFAULT_GLOSS_LANGUAGE => [
 					'language' => self::DEFAULT_GLOSS_LANGUAGE,
 					'value' => self::DEFAULT_GLOSS,
-				]
+				],
 			],
 		];
 
@@ -230,7 +230,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			SenseId::PATTERN => static function ( $id ) {
 				return new SenseId( $id );
-			}
+			},
 		] );
 		return new SenseIdDeserializer( $idParser );
 	}

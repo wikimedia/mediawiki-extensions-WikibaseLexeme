@@ -42,7 +42,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 
 		$request = $parser->parse( [
 			'senseId' => self::DEFAULT_SENSE_ID,
-			'data' => $this->getDataAsJson()
+			'data' => $this->getDataAsJson(),
 		] );
 
 		$this->assertInstanceOf( EditSenseElementsRequest::class, $request );
@@ -55,7 +55,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 				self::DEFAULT_GLOSS_LANGUAGE => [
 					'language' => self::DEFAULT_GLOSS_LANGUAGE,
 					'value' => self::DEFAULT_GLOSS,
-				]
+				],
 			],
 		];
 
@@ -70,7 +70,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			SenseId::PATTERN => static function ( $id ) {
 				return new SenseId( $id );
-			}
+			},
 		] );
 		return new SenseIdDeserializer( $idParser );
 	}

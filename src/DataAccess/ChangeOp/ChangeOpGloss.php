@@ -71,7 +71,7 @@ class ChangeOpGloss implements ChangeOp {
 		);
 		$summary->setLanguage( $languageCode );
 		$summary->addAutoCommentArgs( [
-			$sense->getId()->getSerialization() // TODO: use SenseId not string?
+			$sense->getId()->getSerialization(), // TODO: use SenseId not string?
 		] );
 		$summary->addAutoSummaryArgs( [ $languageCode => $glossText ] );
 	}

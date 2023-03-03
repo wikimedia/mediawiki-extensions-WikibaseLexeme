@@ -103,9 +103,9 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 			'senses' => [
 				[
 					'add' => '',
-					'glosses' => [ 'de' => [ 'language' => 'de', 'value' => 'term' ] ]
-				]
-			]
+					'glosses' => [ 'de' => [ 'language' => 'de', 'value' => 'term' ] ],
+				],
+			],
 		] );
 
 		$this->assertCount( 2, $changeOps->getChangeOps() );
@@ -181,7 +181,7 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 					$this->formatSenseId( $id, 'S1' )
 				),
 				new TermList( [
-					new Term( 'en', 'Malus' )
+					new Term( 'en', 'Malus' ),
 				] )
 			) );
 	}

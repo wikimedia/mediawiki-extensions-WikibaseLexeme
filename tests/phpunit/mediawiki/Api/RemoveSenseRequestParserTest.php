@@ -50,11 +50,11 @@ class RemoveSenseRequestParserTest extends TestCase {
 		return [
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotSenseId( 'foo' ) ]
+				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotSenseId( 'foo' ) ],
 			],
 			'invalid id (form id)' => [
 				[ 'id' => 'L1-F2' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotSenseId( 'L1-F2' ) ]
+				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotSenseId( 'L1-F2' ) ],
 			],
 		];
 	}
@@ -74,7 +74,7 @@ class RemoveSenseRequestParserTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			SenseId::PATTERN => static function ( $id ) {
 				return new SenseId( $id );
-			}
+			},
 		] );
 
 		return new RemoveSenseRequestParser( new SenseIdDeserializer( $idParser ) );

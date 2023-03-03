@@ -85,7 +85,7 @@ class EditSenseChangeOpDeserializerTest extends TestCase {
 
 		$deserializer->setContext( $senseContext );
 		$changeOps = $deserializer->createEntityChangeOp( [
-			'glosses' => [ 'some' => 'info' ]
+			'glosses' => [ 'some' => 'info' ],
 		] );
 
 		$this->assertInstanceOf( ChangeOpSenseEdit::class, $changeOps );

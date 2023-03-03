@@ -143,15 +143,15 @@ class SpecialMergeLexemes extends SpecialPage {
 				'default' => $this->getRequest()->getVal( self::FROM_ID ),
 				'type' => 'text',
 				'id' => 'wb-mergelexemes-from-id',
-				'label-message' => 'wikibase-lexeme-mergelexemes-from-id'
+				'label-message' => 'wikibase-lexeme-mergelexemes-from-id',
 			],
 			self::TO_ID => [
 				'name' => self::TO_ID,
 				'default' => $this->getRequest()->getVal( self::TO_ID ),
 				'type' => 'text',
 				'id' => 'wb-mergelexemes-to-id',
-				'label-message' => 'wikibase-lexeme-mergelexemes-to-id'
-			]
+				'label-message' => 'wikibase-lexeme-mergelexemes-to-id',
+			],
 		];
 	}
 

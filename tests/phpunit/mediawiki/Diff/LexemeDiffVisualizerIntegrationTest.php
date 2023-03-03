@@ -290,7 +290,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 							new DiffOpAdd( new ItemId( 'Q234' ) ),
 						] ),
 					] )
-				)
+				),
 			] ),
 			new Diff(),
 			'lexeme'
@@ -333,7 +333,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 							new DiffOpAdd( new ItemId( 'Q123' ) ),
 						] ),
 					] )
-				)
+				),
 			] ),
 			new Diff(),
 			'lexeme'

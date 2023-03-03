@@ -342,60 +342,60 @@ class LexemeTest extends MediaWikiUnitTestCase {
 			'true, empty' => [
 				true,
 				$empty,
-				new Lexeme()
+				new Lexeme(),
 			],
 			'true, same id' => [
 				true,
 				new Lexeme( new LexemeId( 'L1' ) ),
-				new Lexeme( new LexemeId( 'L1' ) )
+				new Lexeme( new LexemeId( 'L1' ) ),
 			],
 			'true, different id' => [
 				true,
 				new Lexeme( new LexemeId( 'L1' ) ),
-				new Lexeme( new LexemeId( 'L2' ) )
+				new Lexeme( new LexemeId( 'L2' ) ),
 			],
 			'true, no id' => [
 				true,
 				new Lexeme( new LexemeId( 'L1' ) ),
-				$empty
+				$empty,
 			],
 			'true, same object' => [
 				true,
 				$empty,
-				$empty
+				$empty,
 			],
 			'true, same statements' => [
 				true,
 				$withStatement,
-				clone $withStatement
+				clone $withStatement,
 			],
 			'true, same forms' => [
 				true,
 				$withForm1,
-				$withForm1Again
+				$withForm1Again,
 			],
 			'true, same senses' => [
 				true,
 				$withSense,
-				clone $withSense
+				clone $withSense,
 			],
 			'false, differing form feature 1->2' => [
-				false, $withFormAndFeatureQ1, $withFormAndFeatureQ2
+				false, $withFormAndFeatureQ1, $withFormAndFeatureQ2,
 			],
 			'false, differing form feature 1->1,2 ' => [
-				false, $withFormAndFeatureQ1, $withFormAndFeatureQ1andQ2
+				false, $withFormAndFeatureQ1, $withFormAndFeatureQ1andQ2,
 			],
 			'false, differing form feature null->1 ' => [
-				false, $withFormAndNoFeature, $withFormAndFeatureQ1
+				false, $withFormAndNoFeature, $withFormAndFeatureQ1,
 			],
 			'false, differing form feature 1->null ' => [
-				false, $withFormAndFeatureQ1, $withFormAndNoFeature
+				false, $withFormAndFeatureQ1, $withFormAndNoFeature,
 			],
 			'false, differing sense' => [
-				false, $withSense, $empty
+				false, $withSense, $empty,
 			],
 			'false, differing sense counter' => [
-				false, $withSense, $withSenseButDifferentCounter
+				false, $withSense, $withSenseButDifferentCounter,
 			],
 		];
 	}
@@ -438,15 +438,15 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		return [
 			'null' => [
 				new Lexeme(),
-				null
+				null,
 			],
 			'item' => [
 				new Lexeme(),
-				new Item()
+				new Item(),
 			],
 			'different statements' => [
 				$withStatement1,
-				$withStatement2
+				$withStatement2,
 			],
 			'different lemmas' => [
 				new Lexeme( new LexemeId( 'l1' ), $lemmas1 ),
@@ -475,7 +475,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 			'different internal form index counter state' => [
 				$lexemeWithInitialFormCounter,
 				$lexemeWithChangedFormCounter,
-			]
+			],
 		];
 	}
 

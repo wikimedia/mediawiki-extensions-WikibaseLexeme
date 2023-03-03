@@ -18,7 +18,7 @@ class LexemeTermLanguageCanNotBeEmpty implements ApiError {
 			'unprocessable-request',
 			[
 				'parameterName' => $parameterName,
-				'fieldPath' => $path
+				'fieldPath' => $path,
 			]
 		);
 	}

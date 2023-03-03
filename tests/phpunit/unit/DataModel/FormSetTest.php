@@ -165,13 +165,13 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		yield 'empty sets' => [
 			new FormSet(),
 			new FormSet(),
-			true
+			true,
 		];
 
 		yield 'not a FormSet - not equal' => [
 			new FormSet(),
 			[],
-			false
+			false,
 		];
 
 		$form = NewForm::havingId( new FormId( 'L1-F1' ) )
@@ -180,7 +180,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		yield 'same Form' => [
 			new FormSet( [ $form ] ),
 			new FormSet( [ $form->copy() ] ),
-			true
+			true,
 		];
 
 		$form2 = NewForm::havingId( new FormId( 'L12-F2' ) )
@@ -189,7 +189,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		yield 'different order of Forms' => [
 			new FormSet( [ $form, $form2 ] ),
 			new FormSet( [ $form2, $form ] ),
-			true
+			true,
 		];
 
 		$blankForm = new BlankForm();
@@ -198,7 +198,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		yield 'Form and equivalent BlankForm' => [
 			new FormSet( [ $form ] ),
 			new FormSet( [ $blankForm ] ),
-			true
+			true,
 		];
 
 		$form3 = NewForm::havingId( new FormId( 'L12-F3' ) )
@@ -207,7 +207,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		yield 'one replaced Form but same length' => [
 			new FormSet( [ $form, $form2 ] ),
 			new FormSet( [ $form, $form3 ] ),
-			false
+			false,
 		];
 	}
 
@@ -221,11 +221,11 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	public function provideFormSetAndContainedFormId() {
 		yield 'FormId already contained in set' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
-			new FormId( 'L42-F1' )
+			new FormId( 'L42-F1' ),
 		];
 		yield 'DummyFormId already contained in set' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
-			new DummyFormId( 'L42-F1' )
+			new DummyFormId( 'L42-F1' ),
 		];
 	}
 
@@ -239,15 +239,15 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	public function provideFormSetAndUnaccountedFormId() {
 		yield 'form not added to this set (yet)' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
-			new FormId( 'L42-F17' )
+			new FormId( 'L42-F17' ),
 		];
 		yield 'unrelated lexeme' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
-			new FormId( 'L4711-F1' )
+			new FormId( 'L4711-F1' ),
 		];
 		yield 'form with a NullFormId' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
-			new NullFormId()
+			new NullFormId(),
 		];
 	}
 

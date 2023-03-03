@@ -50,11 +50,11 @@ class RemoveFormRequestParserTest extends TestCase {
 		return [
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'foo' ) ]
+				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'foo' ) ],
 			],
 			'invalid id (sense ID)' => [
 				[ 'id' => 'L1-S2' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'L1-S2' ) ]
+				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'L1-S2' ) ],
 			],
 		];
 	}
@@ -74,7 +74,7 @@ class RemoveFormRequestParserTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			FormId::PATTERN => static function ( $id ) {
 				return new FormId( $id );
-			}
+			},
 		] );
 
 		return new RemoveFormRequestParser( new FormIdDeserializer( $idParser ) );

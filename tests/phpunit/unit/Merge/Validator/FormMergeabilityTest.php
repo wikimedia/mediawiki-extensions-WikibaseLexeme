@@ -29,7 +29,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 				->build(),
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitän' )
-				->build()
+				->build(),
 		];
 		yield 'a common representation' => [
 			NewForm::any()
@@ -38,7 +38,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitän' )
 				->andRepresentation( 'de-sh', 'Keppn' )
-				->build()
+				->build(),
 		];
 		yield 'identical representation and grammatical feature' => [
 			NewForm::any()
@@ -48,7 +48,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitän' )
 				->andGrammaticalFeature( 'Q7' )
-				->build()
+				->build(),
 		];
 		yield 'irrespective of grammatical feature order' => [
 			NewForm::any()
@@ -60,7 +60,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 				->andRepresentation( 'en', 'foo' )
 				->andGrammaticalFeature( 'Q9' )
 				->andGrammaticalFeature( 'Q7' )
-				->build()
+				->build(),
 		];
 	}
 
@@ -79,7 +79,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 				->build(),
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitaen' )
-				->build()
+				->build(),
 		];
 		yield 'different grammatical features' => [
 			NewForm::any()
@@ -88,7 +88,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 				->build(),
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitän' )
-				->build()
+				->build(),
 		];
 		yield 'no common representations' => [
 			NewForm::any()
@@ -96,7 +96,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 				->build(),
 			NewForm::any()
 				->andRepresentation( 'en', 'Captain' )
-				->build()
+				->build(),
 		];
 	}
 

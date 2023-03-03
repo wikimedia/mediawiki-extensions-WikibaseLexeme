@@ -56,7 +56,7 @@ class ExternalLexemeSerializerTest extends MediaWikiIntegrationTestCase {
 			[ null ],
 			[ '' ],
 			[ [] ],
-			[ new Item() ]
+			[ new Item() ],
 		];
 	}
 

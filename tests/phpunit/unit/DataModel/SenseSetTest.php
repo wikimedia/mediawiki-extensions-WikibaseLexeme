@@ -167,13 +167,13 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		yield 'empty sets' => [
 			new SenseSet(),
 			new SenseSet(),
-			true
+			true,
 		];
 
 		yield 'not a SenseSet - not equal' => [
 			new SenseSet(),
 			[],
-			false
+			false,
 		];
 
 		$sense = NewSense::havingId( new SenseId( 'L1-S1' ) )
@@ -182,7 +182,7 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		yield 'same Sense' => [
 			new SenseSet( [ $sense ] ),
 			new SenseSet( [ $sense->copy() ] ),
-			true
+			true,
 		];
 
 		$sense2 = NewSense::havingId( new SenseId( 'L12-S2' ) )
@@ -191,7 +191,7 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		yield 'different order of Senses' => [
 			new SenseSet( [ $sense, $sense2 ] ),
 			new SenseSet( [ $sense2, $sense ] ),
-			true
+			true,
 		];
 
 		$blankSense = new BlankSense();
@@ -200,7 +200,7 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		yield 'Sense and equivalent BlankSense' => [
 			new SenseSet( [ $sense ] ),
 			new SenseSet( [ $blankSense ] ),
-			true
+			true,
 		];
 
 		$sense3 = NewSense::havingId( new SenseId( 'L12-S3' ) )
@@ -209,7 +209,7 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		yield 'one replaced Sense but same length' => [
 			new SenseSet( [ $sense, $sense2 ] ),
 			new SenseSet( [ $sense, $sense3 ] ),
-			false
+			false,
 		];
 	}
 

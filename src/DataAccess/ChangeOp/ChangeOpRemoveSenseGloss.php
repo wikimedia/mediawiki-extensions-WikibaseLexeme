@@ -66,10 +66,10 @@ class ChangeOpRemoveSenseGloss implements ChangeOp {
 
 		$summary->setLanguage( $this->language );
 		$summary->addAutoCommentArgs( [
-			$sense->getId()->getSerialization() // TODO: use SenseId not string?
+			$sense->getId()->getSerialization(), // TODO: use SenseId not string?
 		] );
 		$summary->addAutoSummaryArgs( [
-			$this->language => $sense->getGlosses()->getByLanguage( $this->language )->getText()
+			$this->language => $sense->getGlosses()->getByLanguage( $this->language )->getText(),
 		] );
 	}
 

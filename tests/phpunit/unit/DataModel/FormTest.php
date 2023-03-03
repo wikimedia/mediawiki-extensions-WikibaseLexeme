@@ -90,15 +90,15 @@ class FormTest extends MediaWikiUnitTestCase {
 			'2 representations' => [
 				NewForm::havingRepresentation( 'en', 'one' )
 					->andRepresentation( 'fr', 'two' )
-					->build()
+					->build(),
 			],
 			'1 grammatical feature' => [
 				NewForm::havingGrammaticalFeature( 'Q1' )
-					->build()
+					->build(),
 			],
 			'1 statement' => [
 				NewForm::havingStatement( $this->newStatement() )
-					->build()
+					->build(),
 			],
 		];
 	}
@@ -120,27 +120,27 @@ class FormTest extends MediaWikiUnitTestCase {
 		return [
 			'same instance' => [
 				$minimalInstance,
-				$minimalInstance
+				$minimalInstance,
 			],
 			'minimal forms' => [
 				$minimal->build(),
-				$minimal->build()
+				$minimal->build(),
 			],
 			'different IDs' => [
 				$minimal->build(),
-				NewForm::havingId( 'F2' )->andRepresentation( 'en', 'minimal' )->build()
+				NewForm::havingId( 'F2' )->andRepresentation( 'en', 'minimal' )->build(),
 			],
 			'non-empty forms' => [
 				$nonEmpty->build(),
-				$nonEmpty->build()
+				$nonEmpty->build(),
 			],
 			'multiple grammatical features' => [
 				$nonEmpty->andGrammaticalFeature( 'Q2' )->build(),
-				$nonEmpty->andGrammaticalFeature( 'Q2' )->build()
+				$nonEmpty->andGrammaticalFeature( 'Q2' )->build(),
 			],
 			'grammatical features in different order' => [
 				$minimal->andGrammaticalFeature( 'Q1' )->andGrammaticalFeature( 'Q2' )->build(),
-				$minimal->andGrammaticalFeature( 'Q2' )->andGrammaticalFeature( 'Q1' )->build()
+				$minimal->andGrammaticalFeature( 'Q2' )->andGrammaticalFeature( 'Q1' )->build(),
 			],
 		];
 	}
@@ -158,19 +158,19 @@ class FormTest extends MediaWikiUnitTestCase {
 		return [
 			'different representations' => [
 				$form->build(),
-				NewForm::havingId( 'F1' )->andRepresentation( 'en', 'different' )->build()
+				NewForm::havingId( 'F1' )->andRepresentation( 'en', 'different' )->build(),
 			],
 			'+1 representation' => [
 				$form->build(),
-				$form->andRepresentation( 'fr', 'two' )->build()
+				$form->andRepresentation( 'fr', 'two' )->build(),
 			],
 			'+1 grammatical feature' => [
 				$form->build(),
-				$form->andGrammaticalFeature( 'Q1' )->build()
+				$form->andGrammaticalFeature( 'Q1' )->build(),
 			],
 			'+1 statement' => [
 				$form->build(),
-				$form->andStatement( $this->newStatement() )->build()
+				$form->andStatement( $this->newStatement() )->build(),
 			],
 		];
 	}

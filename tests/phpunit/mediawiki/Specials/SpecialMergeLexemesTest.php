@@ -90,9 +90,9 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		$this->setMwGlobals( [
 			'wgGroupPermissions' => [
 				'*' => [
-					'lexeme-merge' => false
-				]
-			]
+					'lexeme-merge' => false,
+				],
+			],
 		] );
 
 		try {

@@ -50,7 +50,7 @@ class ValidationContextTest extends TestCase {
 			$this->assertSame( [], $message->getParams() );
 			$this->assertSame( [
 				'parameterName' => 'data',
-				'fieldPath' => [ 'representations', 'de' ]
+				'fieldPath' => [ 'representations', 'de' ],
 			], $message->getApiData() );
 		}
 	}

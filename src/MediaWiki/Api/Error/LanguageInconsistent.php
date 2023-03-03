@@ -37,7 +37,7 @@ class LanguageInconsistent implements ApiError {
 			'inconsistent-language',
 			[
 				'parameterName' => $parameterName,
-				'fieldPath' => $path
+				'fieldPath' => $path,
 			]
 		);
 	}

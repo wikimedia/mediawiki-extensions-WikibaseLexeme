@@ -32,7 +32,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 
 		$request = $parser->parse( [
 			'formId' => self::DEFAULT_FORM_ID,
-			'data' => $this->getDataAsJson()
+			'data' => $this->getDataAsJson(),
 		] );
 
 		$this->assertInstanceOf( EditFormElementsRequest::class, $request );
@@ -88,7 +88,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 				self::DEFAULT_REPRESENTATION_LANGUAGE => [
 					'language' => self::DEFAULT_REPRESENTATION_LANGUAGE,
 					'value' => self::DEFAULT_REPRESENTATION,
-				]
+				],
 			],
 			'grammaticalFeatures' => [ self::DEFAULT_GRAMMATICAL_FEATURE ],
 		];
@@ -100,7 +100,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			FormId::PATTERN => static function ( $id ) {
 				return new FormId( $id );
-			}
+			},
 		] );
 		return new FormIdDeserializer( $idParser );
 	}

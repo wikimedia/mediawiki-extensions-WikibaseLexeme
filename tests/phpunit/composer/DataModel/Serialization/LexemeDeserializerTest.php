@@ -63,8 +63,8 @@ class LexemeDeserializerTest extends TestCase {
 		$serializations = [];
 
 		$serializations['empty'] = [
-			[ 'type' => 'lexeme', 'nextFormId' => 1, ],
-			new Lexeme()
+			[ 'type' => 'lexeme', 'nextFormId' => 1 ],
+			new Lexeme(),
 		];
 
 		$serializations['empty lists'] = [
@@ -73,7 +73,7 @@ class LexemeDeserializerTest extends TestCase {
 				'claims' => [],
 				'nextFormId' => 1,
 			],
-			new Lexeme()
+			new Lexeme(),
 		];
 
 		$serializations['with id'] = [
@@ -82,7 +82,7 @@ class LexemeDeserializerTest extends TestCase {
 				'id' => 'L1',
 				'nextFormId' => 1,
 			],
-			new Lexeme( new LexemeId( 'L1' ) )
+			new Lexeme( new LexemeId( 'L1' ) ),
 		];
 
 		$serializations['with id and empty lists'] = [
@@ -92,7 +92,7 @@ class LexemeDeserializerTest extends TestCase {
 				'claims' => [],
 				'nextFormId' => 1,
 			],
-			new Lexeme( new LexemeId( 'L1' ) )
+			new Lexeme( new LexemeId( 'L1' ) ),
 		];
 
 		$lexeme = new Lexeme();
@@ -106,7 +106,7 @@ class LexemeDeserializerTest extends TestCase {
 				'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
 				'nextFormId' => 1,
 			],
-			$lexeme
+			$lexeme,
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
@@ -121,7 +121,7 @@ class LexemeDeserializerTest extends TestCase {
 				'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
 				'nextFormId' => 1,
 			],
-			$lexeme
+			$lexeme,
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
@@ -134,7 +134,7 @@ class LexemeDeserializerTest extends TestCase {
 				'lemmas' => [ 'el'  => [ 'language' => 'el', 'value' => 'Hey' ] ],
 				'nextFormId' => 1,
 			],
-			$lexeme
+			$lexeme,
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l2' ) );
@@ -146,7 +146,7 @@ class LexemeDeserializerTest extends TestCase {
 				'lexicalCategory' => 'Q33',
 				'nextFormId' => 1,
 			],
-			$lexeme
+			$lexeme,
 		];
 
 		$lexeme = new Lexeme( new LexemeId( 'l3' ) );
@@ -158,7 +158,7 @@ class LexemeDeserializerTest extends TestCase {
 				'language' => 'Q11',
 				'nextFormId' => 1,
 			],
-			$lexeme
+			$lexeme,
 		];
 
 		$serializations['with minimal forms'] = [
@@ -173,11 +173,11 @@ class LexemeDeserializerTest extends TestCase {
 					[
 						'id' => 'L1-F1',
 						'representations' => [
-							'en' => [ 'language' => 'en', 'value' => 'form' ]
+							'en' => [ 'language' => 'en', 'value' => 'form' ],
 						],
 						'grammaticalFeatures' => [],
 						'claims' => [],
-					]
+					],
 				],
 			],
 			NewLexeme::havingId( 'L1' )
@@ -187,7 +187,7 @@ class LexemeDeserializerTest extends TestCase {
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'form' )
-				)->build()
+				)->build(),
 
 		];
 
@@ -203,11 +203,11 @@ class LexemeDeserializerTest extends TestCase {
 					[
 						'id' => 'L1-F1',
 						'representations' => [
-							'en' => [ 'language' => 'en', 'value' => 'form' ]
+							'en' => [ 'language' => 'en', 'value' => 'form' ],
 						],
 						'grammaticalFeatures' => [],
 						'claims' => [ 'P42' => [ 'STATEMENT DATA' ] ],
-					]
+					],
 				],
 			],
 			NewLexeme::havingId( 'L1' )
@@ -218,7 +218,7 @@ class LexemeDeserializerTest extends TestCase {
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'form' )
 						->andStatement( NewStatement::noValueFor( new NumericPropertyId( 'P42' ) )->build() )
-				)->build()
+				)->build(),
 
 		];
 
@@ -228,7 +228,7 @@ class LexemeDeserializerTest extends TestCase {
 				'nextFormId' => 1,
 				'senses' => [],
 			],
-			new Lexeme()
+			new Lexeme(),
 		];
 
 		$serializations['with empty senses list and default nextSenseId'] = [
@@ -238,7 +238,7 @@ class LexemeDeserializerTest extends TestCase {
 				'nextSenseId' => 1,
 				'senses' => [],
 			],
-			new Lexeme()
+			new Lexeme(),
 		];
 
 		$serializations['with empty senses list and non-default nextSenseId'] = [
@@ -248,7 +248,7 @@ class LexemeDeserializerTest extends TestCase {
 				'nextSenseId' => 2,
 				'senses' => [],
 			],
-			new Lexeme( null, null, null, null, null, 1, null, 2 )
+			new Lexeme( null, null, null, null, null, 1, null, 2 ),
 		];
 
 		$serializations['with minimal sense'] = [
@@ -271,7 +271,7 @@ class LexemeDeserializerTest extends TestCase {
 					new SenseId( 'L1-S1' ),
 					new TermList( [ new Term( 'en', 'gloss' ) ] )
 				),
-			] ) )
+			] ) ),
 		];
 
 		$serializations['with statement on a sense'] = [
@@ -295,7 +295,7 @@ class LexemeDeserializerTest extends TestCase {
 					new TermList( [ new Term( 'en', 'gloss' ) ] ),
 					new StatementList( NewStatement::noValueFor( new NumericPropertyId( 'P42' ) )->build() )
 				),
-			] ) )
+			] ) ),
 		];
 
 		$serializations['with multiple non-consecutive senses'] = [
@@ -329,7 +329,7 @@ class LexemeDeserializerTest extends TestCase {
 					new SenseId( 'L1-S5' ),
 					new TermList( [ new Term( 'de', 'Glosse' ) ] )
 				),
-			] ) )
+			] ) ),
 		];
 
 		return $serializations;
@@ -360,7 +360,7 @@ class LexemeDeserializerTest extends TestCase {
 			[ [] ],
 			[ [ 'foo' => 'bar' ] ],
 			[ [ 'type' => null ] ],
-			[ [ 'type' => 'item' ] ]
+			[ [ 'type' => 'item' ] ],
 		];
 	}
 
@@ -402,7 +402,7 @@ class LexemeDeserializerTest extends TestCase {
 			'lemmas' => [ 'el' => [ 'language' => 'el', 'value' => 'Hey' ] ],
 			'nextFormId' => 1,
 			"forms" => [],
-			"senses" => []
+			"senses" => [],
 		];
 	}
 

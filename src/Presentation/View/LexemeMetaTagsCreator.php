@@ -44,7 +44,7 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 		$metaTags = [
 			'title' => $this->getTitleText( $entity ),
 			'og:title' => $this->getTitleText( $entity ),
-			'twitter:card' => 'summary'
+			'twitter:card' => 'summary',
 		];
 
 		$description = $this->getDescriptionText( $entity );

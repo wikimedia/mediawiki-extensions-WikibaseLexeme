@@ -76,19 +76,19 @@ class LexemeRdfBuilderTest extends TestCase {
 			'Just truthy statements requested' => [
 				RdfProducer::PRODUCE_TRUTHY_STATEMENTS,
 				new Lexeme(),
-				true
+				true,
 			],
 			'Full statements requested' => [
 				RdfProducer::PRODUCE_ALL_STATEMENTS,
 				new Lexeme(),
 				false,
-				true
+				true,
 			],
 			'All statements requested' => [
 				RdfProducer::PRODUCE_ALL,
 				new Lexeme(),
 				true,
-				true
+				true,
 			],
 		];
 	}

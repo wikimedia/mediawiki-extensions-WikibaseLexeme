@@ -34,7 +34,7 @@ class JsonFieldHasWrongType implements ApiError {
 				$parameterName,
 				implode( '/', $path ),
 				$this->expectedType,
-				$this->givenType
+				$this->givenType,
 			]
 		);
 		return new \ApiMessage( $message, 'bad-request' );

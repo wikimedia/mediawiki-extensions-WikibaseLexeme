@@ -61,7 +61,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 		$deserializer->setContext( $representationContext );
 
 		$changeOps = $deserializer->createEntityChangeOp( [
-			'en' => [ 'language' => 'en', 'value' => 'smth' ]
+			'en' => [ 'language' => 'en', 'value' => 'smth' ],
 		] );
 
 		$this->assertInstanceOf( ChangeOpRepresentationList::class, $changeOps );
@@ -93,7 +93,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 		$deserializer->setContext( $representationContext );
 
 		$changeOps = $deserializer->createEntityChangeOp( [
-			'en' => [ 'language' => 'en', 'value' => " \t smth \v\n " ]
+			'en' => [ 'language' => 'en', 'value' => " \t smth \v\n " ],
 		] );
 
 		$this->assertInstanceOf( ChangeOpRepresentationList::class, $changeOps );
@@ -119,7 +119,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 		$deserializer->setContext( $representationContext );
 
 		$changeOps = $deserializer->createEntityChangeOp( [
-			'en' => [ 'language' => 'en', 'remove' => '' ]
+			'en' => [ 'language' => 'en', 'remove' => '' ],
 		] );
 
 		$this->assertInstanceOf( ChangeOpRepresentationList::class, $changeOps );
@@ -150,7 +150,7 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 
 		$this->expectException( ApiUsageException::class );
 		$deserializer->createEntityChangeOp( [
-			'en' => [ 'language' => 'en', 'value' => 'bad things' ]
+			'en' => [ 'language' => 'en', 'value' => 'bad things' ],
 		] );
 	}
 

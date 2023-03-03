@@ -9,6 +9,13 @@
 		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
 	</rule>
 
+	<rule ref="MediaWiki.Arrays.TrailingComma">
+		<properties>
+			<property name="singleLine" value="false" />
+			<property name="multiLine" value="true" />
+		</properties>
+	</rule>
+
 	<!-- BEGIN rules copied from wikibase-codesniffer (T268831) -->
 
 	<!-- The function comment sniff is way too rigorous about way too many details that need

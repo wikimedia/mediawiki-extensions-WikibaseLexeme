@@ -113,7 +113,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 			'a',
 			[
 				'href'  => $title->isLocal() ? $title->getLinkURL() : $title->getFullURL(),
-				'title' => $this->getLinkTitle( $form )
+				'title' => $this->getLinkTitle( $form ),
 			],
 			$representationMarkup
 		);

@@ -63,7 +63,7 @@ class SensesViewTest extends TestCase {
 				new SenseId( 'L1-S1' ),
 				new TermList( [ new Term( 'en', 'test gloss' ) ] ),
 				new StatementList()
-			)
+			),
 		] ) );
 
 		$this->assertThatHamcrest(
@@ -101,7 +101,7 @@ class SensesViewTest extends TestCase {
 				new SenseId( 'L1-S1' ),
 				new TermList( [ new Term( 'en', 'test gloss' ) ] ),
 				new StatementList()
-			)
+			),
 		] ) );
 
 		$this->assertThatHamcrest(

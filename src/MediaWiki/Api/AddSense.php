@@ -292,7 +292,7 @@ class AddSense extends ApiBase {
 				'bot' => [
 					ParamValidator::PARAM_TYPE => 'boolean',
 					ParamValidator::PARAM_DEFAULT => false,
-				]
+				],
 			]
 		);
 	}
@@ -326,13 +326,13 @@ class AddSense extends ApiBase {
 			'glosses' => [
 				'en-US' => [ 'value' => 'Some text value', 'language' => 'en-US' ],
 				'en-GB' => [ 'value' => 'Another text value', 'language' => 'en-GB' ],
-			]
+			],
 		];
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
 			AddSenseRequestParser::PARAM_LEXEME_ID => $lexemeId,
-			AddSenseRequestParser::PARAM_DATA => json_encode( $exampleData )
+			AddSenseRequestParser::PARAM_DATA => json_encode( $exampleData ),
 		] );
 
 		$languages = array_column( $exampleData['glosses'], 'language' );
@@ -346,12 +346,12 @@ class AddSense extends ApiBase {
 			[
 				$lexemeId,
 				$glossesText,
-				$languagesText
+				$languagesText,
 			]
 		);
 
 		return [
-			urldecode( $query ) => $exampleMessage
+			urldecode( $query ) => $exampleMessage,
 		];
 	}
 

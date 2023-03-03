@@ -83,7 +83,7 @@ return call_user_func( static function () {
 		'syl-beng', // T267480
 		'tlh-piqd', // T282512
 		'tlh-latn', // T282512
-		'txg'// T331094
+		'txg',// T331094
 	];
 
 	return [

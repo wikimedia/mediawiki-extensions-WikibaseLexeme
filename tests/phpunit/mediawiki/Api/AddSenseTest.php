@@ -30,7 +30,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		$this->setTemporaryHook(
@@ -73,7 +73,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'lexemeId' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'no data param' => [
@@ -82,7 +82,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'data' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'invalid lexeme ID (random string not ID)' => [
@@ -93,9 +93,9 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'lexemeId',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
-				]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
+				],
 			],
 			'data not a well-formed JSON object' => [
 				[ 'lexemeId' => 'L1', 'data' => '{foo' ],
@@ -105,8 +105,8 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'data',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
 				],
 			],
 			'Lexeme is not found' => [
@@ -117,8 +117,8 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'lexemeId',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
 				],
 			],
 
@@ -133,7 +133,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => json_encode( [ 'glosses' => [] ] )
+			'data' => json_encode( [ 'glosses' => [] ] ),
 		];
 
 		$this->doTestQueryApiException( $params, [
@@ -170,7 +170,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => 'L1',
-			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -207,8 +207,8 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			'glosses' => [
 				'en' => [
 					'language' => 'en',
-					'value' => 'furry animal'
-				]
+					'value' => 'furry animal',
+				],
 			],
 		];
 
@@ -223,7 +223,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -245,7 +245,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -261,15 +261,15 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 				'*' => [
 					'read' => true,
-					'edit' => false
-				]
+					'edit' => false,
+				],
 		] );
 		$this->resetServices();
 		try {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbladdsense',
 				'lexemeId' => 'L1',
-				'data' => $this->getDataParam()
+				'data' => $this->getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
@@ -308,7 +308,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -326,7 +326,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -337,8 +337,8 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 				'glosses' => [
 					'en' => [
 						'language' => 'en',
-						'value' => 'furry animal'
-					]
+						'value' => 'furry animal',
+					],
 				],
 				'claims' => [],
 			],

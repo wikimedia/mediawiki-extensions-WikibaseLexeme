@@ -25,7 +25,7 @@ class ChangeOpFormAddTest extends TestCase {
 	public function test_validateFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
-			new ChangeOpGrammaticalFeatures( [] )
+			new ChangeOpGrammaticalFeatures( [] ),
 		] ) );
 
 		$this->expectException( \InvalidArgumentException::class );
@@ -35,7 +35,7 @@ class ChangeOpFormAddTest extends TestCase {
 	public function test_validatePassesIfProvidedEntityIsALexeme() {
 		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
-			new ChangeOpGrammaticalFeatures( [] )
+			new ChangeOpGrammaticalFeatures( [] ),
 		] ) );
 
 		$result = $changeOpAddForm->validate( NewLexeme::create()->build() );
@@ -46,7 +46,7 @@ class ChangeOpFormAddTest extends TestCase {
 	public function test_applyFailsIfProvidedEntityIsNotALexeme() {
 		$changeOpAddForm = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'foo' ) ) ] ),
-			new ChangeOpGrammaticalFeatures( [] )
+			new ChangeOpGrammaticalFeatures( [] ),
 		] ) );
 
 		$this->expectException( \InvalidArgumentException::class );
@@ -57,7 +57,7 @@ class ChangeOpFormAddTest extends TestCase {
 		$representations = new TermList( [ new Term( 'en', 'goat' ) ] );
 		$changeOp = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 				new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
-				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] )
+				new ChangeOpGrammaticalFeatures( [ new ItemId( 'Q1' ) ] ),
 		] ) );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
@@ -71,7 +71,7 @@ class ChangeOpFormAddTest extends TestCase {
 	public function test_applySetsTheSummary() {
 		$changeOp = new ChangeOpFormAdd( new ChangeOpFormEdit( [
 			new ChangeOpRepresentationList( [ new ChangeOpRepresentation( new Term( 'en', 'goat' ) ) ] ),
-			new ChangeOpGrammaticalFeatures( [] )
+			new ChangeOpGrammaticalFeatures( [] ),
 		] ) );
 
 		$lexeme = NewLexeme::havingId( 'L1' )->build();

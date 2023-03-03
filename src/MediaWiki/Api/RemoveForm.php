@@ -248,7 +248,7 @@ class RemoveForm extends ApiBase {
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
-			RemoveFormRequestParser::PARAM_FORM_ID => $formId
+			RemoveFormRequestParser::PARAM_FORM_ID => $formId,
 		] );
 
 		$exampleMessage = new Message(
@@ -257,7 +257,7 @@ class RemoveForm extends ApiBase {
 		);
 
 		return [
-			urldecode( $query ) => $exampleMessage
+			urldecode( $query ) => $exampleMessage,
 		];
 	}
 

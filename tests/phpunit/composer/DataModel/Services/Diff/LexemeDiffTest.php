@@ -40,38 +40,38 @@ class LexemeDiffTest extends TestCase {
 		yield 'Empty diff is empty' => [ true, new LexemeDiff() ];
 		yield 'lemmas change' => [
 			false,
-			new LexemeDiff( [ 'lemmas' => new Diff( [ $addAOp ] ) ] )
+			new LexemeDiff( [ 'lemmas' => new Diff( [ $addAOp ] ) ] ),
 		];
 		yield 'lexical category changes' => [
 			false,
-			new LexemeDiff( [ 'lexicalCategory' => new Diff( [ $addQ1Op ] ) ] )
+			new LexemeDiff( [ 'lexicalCategory' => new Diff( [ $addQ1Op ] ) ] ),
 		];
 		yield 'language changes' => [
 			false,
-			new LexemeDiff( [ 'language' => new Diff( [ $changeQ2Q3Op ] ) ] )
+			new LexemeDiff( [ 'language' => new Diff( [ $changeQ2Q3Op ] ) ] ),
 		];
 		yield 'claims change' => [
 			false,
-			new LexemeDiff( [ 'claim' => new Diff( [ $addP1Op ] ) ] )
+			new LexemeDiff( [ 'claim' => new Diff( [ $addP1Op ] ) ] ),
 		];
 		yield 'form grammatical features change' => [
 			false,
 			new LexemeDiff( [ 'forms' =>
-				new ChangeFormDiffOp( $f1, new Diff( [ 'grammaticalFeatures' => $addAOp ], true ) )
+				new ChangeFormDiffOp( $f1, new Diff( [ 'grammaticalFeatures' => $addAOp ], true ) ),
 			] ) ];
 		yield 'sense glosses change' => [
 			false,
 			new LexemeDiff( [ 'senses' =>
-				new ChangeSenseDiffOp( $s1, new Diff( [ 'glosses' => new Diff( [ $addAOp ] ) ] ) )
-			] )
+				new ChangeSenseDiffOp( $s1, new Diff( [ 'glosses' => new Diff( [ $addAOp ] ) ] ) ),
+			] ),
 		];
 		yield 'next form ID changes' => [
 			false,
-			new LexemeDiff( [ 'nextFormId' => new Diff( [ $change12Op ] ) ] )
+			new LexemeDiff( [ 'nextFormId' => new Diff( [ $change12Op ] ) ] ),
 		];
 		yield 'next sense ID changes' => [
 			false,
-			new LexemeDiff( [ 'nextSenseId' => new Diff( [ $change12Op ] ) ] )
+			new LexemeDiff( [ 'nextSenseId' => new Diff( [ $change12Op ] ) ] ),
 		];
 	}
 

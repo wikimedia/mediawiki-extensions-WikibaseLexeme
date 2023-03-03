@@ -34,7 +34,7 @@ class EditFormElementsRequestTest extends TestCase {
 			new FormId( 'L1-F1' ),
 			new ChangeOpFormEdit( [
 				new ChangeOps( new ChangeOpRepresentation( $colorWithU ) ),
-				new ChangeOpGrammaticalFeatures( [ $featureTwo ] )
+				new ChangeOpGrammaticalFeatures( [ $featureTwo ] ),
 			] ),
 			1234
 		);

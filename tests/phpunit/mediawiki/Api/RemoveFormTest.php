@@ -85,7 +85,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'id' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'invalid id (random string not ID)' => [
@@ -96,9 +96,9 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'id',
-						'fieldPath' => []
-					]
-				]
+						'fieldPath' => [],
+					],
+				],
 			],
 			'Lexeme is not found' => [
 				[ 'id' => 'L999-F1' ],
@@ -108,8 +108,8 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'id',
-						'fieldPath' => []
-					]
+						'fieldPath' => [],
+					],
 				],
 			],
 			'Form is not found' => [
@@ -120,8 +120,8 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'id',
-						'fieldPath' => []
-					]
+						'fieldPath' => [],
+					],
 				],
 			],
 		];
@@ -217,8 +217,8 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
 				'read' => true,
-				'edit' => false
-			]
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 
@@ -293,7 +293,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wblremoveform',
 			'id' => 'L1-F1',
-			'baserevid' => $baseRevId
+			'baserevid' => $baseRevId,
 		];
 
 		try {
@@ -321,14 +321,14 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => 'L1',
-			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
 		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
 		$params = [
 			'action' => 'wblremoveform',
 			'id' => 'L1-F1',
-			'baserevid' => $baseRevId
+			'baserevid' => $baseRevId,
 		];
 
 		$this->doApiRequestWithToken( $params );

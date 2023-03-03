@@ -70,7 +70,7 @@ class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 					$language, $gloss, $languageContext );
 				$trimmedGloss = [
 					self::PARAM_LANGUAGE => $gloss[self::PARAM_LANGUAGE],
-					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $gloss[self::PARAM_VALUE] )
+					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $gloss[self::PARAM_VALUE] ),
 				];
 
 				$changeOps[] = new ChangeOpGloss(

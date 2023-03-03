@@ -288,7 +288,7 @@ class EditSenseElements extends \ApiBase {
 			'bot' => [
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_DEFAULT => false,
-			]
+			],
 		];
 	}
 
@@ -326,14 +326,14 @@ class EditSenseElements extends \ApiBase {
 				'de' => [
 					'value' => 'Eigenschaft eines Objekts, verschiedene Sinneseindrücke im Auge zu verursachen',
 					'language' => 'de',
-				]
+				],
 			],
 		];
 
 		$query = http_build_query( [
 			'action' => $this->getModuleName(),
 			EditSenseElementsRequestParser::PARAM_SENSE_ID => $senseId,
-			EditSenseElementsRequestParser::PARAM_DATA => json_encode( $exampleData )
+			EditSenseElementsRequestParser::PARAM_DATA => json_encode( $exampleData ),
 		] );
 
 		$languages = array_column( $exampleData['glosses'], 'language' );
@@ -352,7 +352,7 @@ class EditSenseElements extends \ApiBase {
 		);
 
 		return [
-			urldecode( $query ) => $exampleMessage
+			urldecode( $query ) => $exampleMessage,
 		];
 	}
 

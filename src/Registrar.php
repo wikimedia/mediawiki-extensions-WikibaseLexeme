@@ -141,7 +141,7 @@ class Registrar {
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.ExceptionLocalizer',
 				'WikibaseRepo.Settings',
-			]
+			],
 		];
 
 		$wgResourceModules = array_merge(

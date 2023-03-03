@@ -38,7 +38,7 @@ class ChangeOpsSensesEditTest extends TestCase {
 
 	public function testValidateLexemeWithUnknownSenseOp_yieldsError() {
 		$changeOpRemoveSense = new ChangeOpsSensesEdit( [
-			'L1-S1' => $this->createMock( ChangeOpSenseEdit::class )
+			'L1-S1' => $this->createMock( ChangeOpSenseEdit::class ),
 		] );
 
 		$lexeme = NewLexeme::create()->build();
@@ -48,7 +48,7 @@ class ChangeOpsSensesEditTest extends TestCase {
 
 	public function testValidateLexemeWithSenseOp_yieldsSuccess() {
 		$changeOpRemoveSense = new ChangeOpsSensesEdit( [
-			'L1-S1' => $this->createMock( ChangeOpSenseEdit::class )
+			'L1-S1' => $this->createMock( ChangeOpSenseEdit::class ),
 		] );
 
 		$sense = NewSense::havingId( 'S1' )->andLexeme( 'L1' )->build();
@@ -79,7 +79,7 @@ class ChangeOpsSensesEditTest extends TestCase {
 			->with( $sense, $summary );
 
 		$changeOpRemoveSense = new ChangeOpsSensesEdit( [
-			'L1-S1' => $op
+			'L1-S1' => $op,
 		] );
 
 		$changeOpRemoveSense->apply( $lexeme, $summary );

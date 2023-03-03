@@ -83,8 +83,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'representations' => [
 				'en' => [
 					'language' => 'en',
-					'value' => 'colour'
-				]
+					'value' => 'colour',
+				],
 			],
 			'grammaticalFeatures' => [ self::GRAMMATICAL_FEATURE_ITEM_ID ],
 		];
@@ -97,8 +97,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'representations' => [
 				'en' => [
 					'language' => 'en',
-					'value' => 'goat'
-				]
+					'value' => 'goat',
+				],
 			],
 			'grammaticalFeatures' => [],
 		];
@@ -109,7 +109,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'formId' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'no data param' => [
@@ -118,7 +118,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'data' ] ],
 					'code' => 'missingparam',
-					'data' => []
+					'data' => [],
 				],
 			],
 			'invalid form ID (random string not ID)' => [
@@ -130,9 +130,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'formId',
-						'fieldPath' => []
-					]
-				]
+						'fieldPath' => [],
+					],
+				],
 			],
 			'data not a well-formed JSON object' => [
 				[ 'formId' => self::DEFAULT_FORM_ID, 'data' => '{foo' ],
@@ -142,8 +142,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'data',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
 				],
 			],
 			'Form is not found' => [
@@ -154,8 +154,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'not-found',
 					'data' => [
 						'parameterName' => 'formId',
-						'fieldPath' => [] // TODO Is empty fields path for native params desired?
-					]
+						'fieldPath' => [], // TODO Is empty fields path for native params desired?
+					],
 				],
 			],
 
@@ -164,7 +164,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataParam(
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
-					)
+					),
 				],
 				[
 					'key' => 'apierror-wikibaselexeme-json-field-not-item-id',
@@ -172,16 +172,16 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request', // TODO: was not-found, why?
 					'data' => [
 						'parameterName' => 'data',
-						'fieldPath' => [ 'grammaticalFeatures', 0 ]
-					]
-				]
+						'fieldPath' => [ 'grammaticalFeatures', 0 ],
+					],
+				],
 			],
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataParam(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
-					)
+					),
 				] ,
 				[
 					'key' => 'apierror-wikibaselexeme-json-field-not-item-id',
@@ -189,16 +189,16 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request', // TODO: was not-found, why?
 					'data' => [
 						'parameterName' => 'data',
-						'fieldPath' => [ 'grammaticalFeatures', 0 ]
-					]
-				]
+						'fieldPath' => [ 'grammaticalFeatures', 0 ],
+					],
+				],
 			],
 			'invalid Item ID as grammatical feature (Item ID not found)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataParam(
 						[ 'grammaticalFeatures' => [ 'Q2' ] ]
-					)
+					),
 				] ,
 				[
 					'key' => 'apierror-wikibaselexeme-invalid-item-id',
@@ -206,9 +206,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'code' => 'bad-request',
 					'data' => [
 						'parameterName' => 'data',
-						'fieldPath' => [ 'grammaticalFeatures' ]
-					]
-				]
+						'fieldPath' => [ 'grammaticalFeatures' ],
+					],
+				],
 			],
 		];
 	}
@@ -742,7 +742,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbleditformelements',
 			'formId' => self::DEFAULT_FORM_ID,
-			'data' => $this->getDataParam()
+			'data' => $this->getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -800,8 +800,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
 				'read' => true,
-				'edit' => false
-			]
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 
@@ -809,7 +809,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbleditformelements',
 				'formId' => self::DEFAULT_FORM_ID,
-				'data' => $this->getDataParam()
+				'data' => $this->getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
@@ -836,7 +836,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'formId' => 'L1-F1',
 			'data' => $this->getDataParam( [
 				'claims' => [ $claim ],
-			] )
+			] ),
 		] );
 
 		$this->assertArrayHasKey( $property, $result['form']['claims'] );
@@ -904,7 +904,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbeditentity',
 			'id' => 'L1',
-			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}'
+			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
 		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );

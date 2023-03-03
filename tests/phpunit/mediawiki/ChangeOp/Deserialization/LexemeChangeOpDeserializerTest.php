@@ -235,7 +235,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$changeOp = $deserializer->createEntityChangeOp( [
 			'language' => 'Q123',
 			'lexicalCategory' => 'Q321',
-			'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ]
+			'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'worm' ] ],
 		] );
 
 		$changeOp->apply( $lexeme );
@@ -253,8 +253,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			[
 				'mainsnak' => [ 'snaktype' => 'novalue', 'property' => 'P1' ],
 				'type' => 'statement',
-				'rank' => 'normal'
-			]
+				'rank' => 'normal',
+			],
 		] ] );
 
 		$changeOp->apply( $lexeme );
@@ -324,8 +324,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$changeOp = $deserializer->createEntityChangeOp( [
 			'forms' => [
 				[ 'id' => 'L500-F1', 'remove' => '' ],
-				[ 'id' => 'L500-F2', 'remove' => '' ]
-			]
+				[ 'id' => 'L500-F2', 'remove' => '' ],
+			],
 		] );
 
 		$changeOp->apply( $lexeme );
@@ -348,8 +348,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$deserializer = $this->getChangeOpDeserializer();
 		$changeOp = $deserializer->createEntityChangeOp( [
 			'forms' => [
-				[ 'id' => 'L500-F1', 'remove' => '' ]
-			]
+				[ 'id' => 'L500-F1', 'remove' => '' ],
+			],
 		] );
 
 		$changeOp->apply( $lexeme );

@@ -76,174 +76,174 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 				[ 'formId' => 'foo', 'data' => $this->getDataAsJson() ],
 				[
 					[ 'parameterName' => 'formId', 'fieldPath' => [] ],
-					new ParameterIsNotFormId( 'foo' )
-				]
+					new ParameterIsNotFormId( 'foo' ),
+				],
 			],
 			'invalid form ID (not a form ID)' => [
 				[ 'formId' => 'Q11', 'data' => $this->getDataAsJson() ],
 				[
 					[ 'parameterName' => 'formId', 'fieldPath' => [] ],
-					new ParameterIsNotFormId( 'Q11' )
-				]
+					new ParameterIsNotFormId( 'Q11' ),
+				],
 			],
 			'invalid form ID (no lexeme part in the ID)' => [
 				[ 'formId' => 'F1', 'data' => $this->getDataAsJson() ],
 				[
 					[ 'parameterName' => 'formId', 'fieldPath' => [] ],
-					new ParameterIsNotFormId( 'F1' )
-				]
+					new ParameterIsNotFormId( 'F1' ),
+				],
 			],
 			'data not a well-formed JSON' => [
 				[ 'formId' => self::DEFAULT_FORM_ID, 'data' => '{foo' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '{foo' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '{foo' ),
+				],
 			],
 			'data not an object - string given' => [
 				[ 'formId' => self::DEFAULT_FORM_ID, 'data' => '"foo"' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '"foo"' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '"foo"' ),
+				],
 			],
 			'data not an object - array given' => [
 				[ 'formId' => self::DEFAULT_FORM_ID, 'data' => '[]' ],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '[]' )
-				]
+					new ParameterIsNotAJsonObject( 'data', '[]' ),
+				],
 			],
 			'representations is a string' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson( [ 'representations' => 'foo' ] )
+					'data' => $this->getDataAsJson( [ 'representations' => 'foo' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
+					new JsonFieldHasWrongType( 'array', 'string' ),
+				],
 			],
 			'grammatical features not an array' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson( [ 'grammaticalFeatures' => 'Q1' ] )
+					'data' => $this->getDataAsJson( [ 'grammaticalFeatures' => 'Q1' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' )
-				]
+					new JsonFieldHasWrongType( 'array', 'string' ),
+				],
 			],
 			'representation list contains only single empty representation' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LexemeTermTextCanNotBeEmpty()
-				]
+					new LexemeTermTextCanNotBeEmpty(),
+				],
 			],
 			'representation list contains only representation with empty language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => '' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LanguageInconsistent( 'en', '' )
-				]
+					new LanguageInconsistent( 'en', '' ),
+				],
 			],
 			'representation list contains representation with empty language key' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ '' => [ 'value' => 'goat', 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', '' ] ],
-					new LexemeTermLanguageCanNotBeEmpty()
-				]
+					new LexemeTermLanguageCanNotBeEmpty(),
+				],
 			],
 			'representation list contains element with inconsistent language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => 'de' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
 					new LanguageInconsistent(
 						'en',
 						'de'
-					)
-				]
+					),
+				],
 			],
 			'representation list contains element with unknown language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
-					new UnknownLanguage( 'foobar', 'goat' )
-				]
+					new UnknownLanguage( 'foobar', 'goat' ),
+				],
 			],
 			'no representation string in data' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'language' => 'en' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new JsonFieldIsRequired( 'value' )
-				]
+					new JsonFieldIsRequired( 'value' ),
+				],
 			],
 			'no representation language in data' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => 'foo' ] ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new JsonFieldIsRequired( 'language' )
-				]
+					new JsonFieldIsRequired( 'language' ),
+				],
 			],
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
-					)
+					),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
-					new JsonFieldIsNotAnItemId( 'foo' )
-				]
+					new JsonFieldIsNotAnItemId( 'foo' ),
+				],
 			],
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
 					'data' => $this->getDataAsJson(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
-					)
+					),
 				] ,
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
-					new JsonFieldIsNotAnItemId( 'L2' )
-				]
+					new JsonFieldIsNotAnItemId( 'L2' ),
+				],
 			],
 		];
 	}
@@ -254,7 +254,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 				self::DEFAULT_REPRESENTATION_LANGUAGE => [
 					'language' => self::DEFAULT_REPRESENTATION_LANGUAGE,
 					'value' => self::DEFAULT_REPRESENTATION,
-				]
+				],
 			],
 			'grammaticalFeatures' => [ self::DEFAULT_GRAMMATICAL_FEATURE ],
 		];
@@ -270,7 +270,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 		$idParser = new DispatchingEntityIdParser( [
 			FormId::PATTERN => static function ( $id ) {
 				return new FormId( $id );
-			}
+			},
 		] );
 		return new FormIdDeserializer( $idParser );
 	}

@@ -148,7 +148,7 @@ class CartesianProductTest extends TestCase {
 	 */
 	private function createOptionsWithSingleValue( $value ) {
 		return new GeneratedValueOptions( [
-				GeneratedValueSingle::fromJustValue( $value )
+				GeneratedValueSingle::fromJustValue( $value ),
 		] );
 	}
 

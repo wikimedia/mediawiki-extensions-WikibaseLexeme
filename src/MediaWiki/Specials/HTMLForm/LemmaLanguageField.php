@@ -57,7 +57,7 @@ class LemmaLanguageField extends HTMLComboboxField {
 				'wikibase-lexeme-lemma-language-option',
 				[
 					$lookup->getName( $code ),
-					$code
+					$code,
 				]
 			)->plain();
 			$languageOptions[$option] = $code;

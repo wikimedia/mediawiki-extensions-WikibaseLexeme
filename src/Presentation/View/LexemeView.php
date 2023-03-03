@@ -224,12 +224,12 @@ HTML;
 				'inEditMode' => false,
 				'isSaving' => false,
 				'lemmaList' => $lemmas,
-				'isUnsaveable' => true
+				'isUnsaveable' => true,
 			],
 			[
 				'message' => function ( $key ) {
 					return $this->getLocalizedMessage( $key );
-				}
+				},
 			]
 		);
 
@@ -260,12 +260,12 @@ HTML;
 				'formattedLexicalCategory' => $this->idFormatter->formatEntityId(
 					$lexicalCategoryId
 				),
-				'lexicalCategory' => $lexicalCategoryId->getSerialization()
+				'lexicalCategory' => $lexicalCategoryId->getSerialization(),
 			],
 			[
 				'message' => function ( $key ) {
 					return $this->getLocalizedMessage( $key );
-				}
+				},
 			]
 		);
 

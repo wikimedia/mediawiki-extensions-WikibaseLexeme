@@ -44,19 +44,19 @@ class InfoActionHookHandlerTest extends TestCase {
 				[
 					'header-basic' => [
 						[ '(wikibase-pageinfo-wbl-forms)', '5' ],
-						[ '(wikibase-pageinfo-wbl-senses)', '4' ]
+						[ '(wikibase-pageinfo-wbl-senses)', '4' ],
 					],
 				],
 				$context,
-				[ 'wbl-forms' => 5, 'wbl-senses' => 4 ]
+				[ 'wbl-forms' => 5, 'wbl-senses' => 4 ],
 			],
 			'no sense or forms' => [
 				[
 					'header-basic' => [],
 				],
 				$context,
-				[]
-			]
+				[],
+			],
 		];
 	}
 

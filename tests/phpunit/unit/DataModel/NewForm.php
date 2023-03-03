@@ -159,7 +159,7 @@ class NewForm {
 
 		if ( empty( $this->representations ) ) {
 			$representations = new TermList( [
-				new Term( 'qqq', 'representation' . mt_rand( 0, mt_getrandmax() ) )
+				new Term( 'qqq', 'representation' . mt_rand( 0, mt_getrandmax() ) ),
 			] );
 		} else {
 			$representations = new TermList();

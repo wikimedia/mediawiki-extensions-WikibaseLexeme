@@ -68,7 +68,7 @@ class ChangeOpGrammaticalFeatures implements ChangeOp {
 			$summary->setAction( self::SUMMARY_ACTION_UPDATE );
 			$summary->setLanguage( null );
 			$summary->addAutoCommentArgs( [
-				$formId->getSerialization() // TODO: use FormId not string?
+				$formId->getSerialization(), // TODO: use FormId not string?
 			] );
 			return;
 		}
@@ -77,7 +77,7 @@ class ChangeOpGrammaticalFeatures implements ChangeOp {
 			$summary->setAction( self::SUMMARY_ACTION_ADD );
 			$summary->setLanguage( null );
 			$summary->addAutoCommentArgs( [
-				$formId->getSerialization() // TODO: use FormId not string?
+				$formId->getSerialization(), // TODO: use FormId not string?
 			] );
 			$summary->addAutoSummaryArgs( $addedFeatures );
 		}
@@ -86,7 +86,7 @@ class ChangeOpGrammaticalFeatures implements ChangeOp {
 			$summary->setAction( self::SUMMARY_ACTION_REMOVE );
 			$summary->setLanguage( null );
 			$summary->addAutoCommentArgs( [
-				$formId->getSerialization() // TODO: use FormId not string?
+				$formId->getSerialization(), // TODO: use FormId not string?
 			] );
 			$summary->addAutoSummaryArgs( $removedFeatures );
 		}

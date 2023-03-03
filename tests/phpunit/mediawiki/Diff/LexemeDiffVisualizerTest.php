@@ -110,7 +110,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 
 				'senses' => new Diff( [
 					'L1-S1' => $this->getSensesDiff(),
-					], true )
+					], true ),
 			] ),
 			new Diff(),
 			'lexeme'
@@ -122,9 +122,9 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 			new FormId( 'L1-F1' ),
 			new Diff( [
 				'representations' => new Diff( [
-					'en' => new DiffOpChange( 'oldFormRepresentation', 'newFormRepresentation' )
+					'en' => new DiffOpChange( 'oldFormRepresentation', 'newFormRepresentation' ),
 				], true ),
-				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) )
+				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) ),
 			], true )
 		);
 	}
@@ -202,7 +202,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 					[
 						'en' => new DiffOpAdd( 'NewLemma' ),
 					], true
-				)
+				),
 			]
 		);
 		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
@@ -261,7 +261,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 			[
 				'language' => new Diff( [
 					'id' => new DiffOpChange( new ItemId( 'Q3' ), new ItemId( 'Q4' ) ),
-				], true )
+				], true ),
 			]
 		);
 		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
@@ -279,7 +279,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 	public function testGeneratesClaimHtml() {
 		$lexemeDiff = new LexemeDiff( [
 			'claim' => new Diff( [
-				new DiffOpAdd( NewStatement::forProperty( 'P1' )->withValue( 'foo' )->build() )
+				new DiffOpAdd( NewStatement::forProperty( 'P1' )->withValue( 'foo' )->build() ),
 			] ) ] );
 		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
 		$html = $this->getVisualizer()->visualizeEntityContentDiff( $entityContentDiff );
@@ -297,15 +297,15 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 			new FormId( 'L1-F3141' ),
 			new Diff( [
 				'representations' => new Diff( [
-					'en' => new DiffOpChange( 'oldFormRepresentation', 'newFormRepresentation' )
-				], true )
+					'en' => new DiffOpChange( 'oldFormRepresentation', 'newFormRepresentation' ),
+				], true ),
 			] )
 		);
 		$lexemeDiff = new LexemeDiff(
 			[
 				'forms' => new Diff( [
 					'L1-F3141' => $formDiff,
-				], true )
+				], true ),
 			]
 		);
 		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );
@@ -318,14 +318,14 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		$formDiff = new ChangeFormDiffOp(
 			new FormId( 'L1-F2718' ),
 			new Diff( [
-				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) )
+				'grammaticalFeatures' => new DiffOpChange( new ItemId( 'Q5' ), new ItemId( 'Q6' ) ),
 			] )
 		);
 		$lexemeDiff = new LexemeDiff(
 			[
 				'forms' => new Diff( [
 					'L1-F2718' => $formDiff,
-				], true )
+				], true ),
 			]
 		);
 		$entityContentDiff = new EntityContentDiff( $lexemeDiff, new Diff(), 'lexeme' );

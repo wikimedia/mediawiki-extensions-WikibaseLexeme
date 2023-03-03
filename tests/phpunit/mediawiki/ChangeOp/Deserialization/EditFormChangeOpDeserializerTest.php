@@ -89,7 +89,7 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 
 		$deserializer->setContext( $formContext );
 		$changeOps = $deserializer->createEntityChangeOp( [
-			'representations' => [ 'some' => 'info' ]
+			'representations' => [ 'some' => 'info' ],
 		] );
 
 		$this->assertInstanceOf( ChangeOpFormEdit::class, $changeOps );
@@ -136,7 +136,7 @@ class EditFormChangeOpDeserializerTest extends TestCase {
 
 		$deserializer->setContext( $formContext );
 		$changeOps = $deserializer->createEntityChangeOp( [
-			'grammaticalFeatures' => [ 'some' => 'info' ]
+			'grammaticalFeatures' => [ 'some' => 'info' ],
 		] );
 
 		$this->assertInstanceOf( ChangeOpFormEdit::class, $changeOps );

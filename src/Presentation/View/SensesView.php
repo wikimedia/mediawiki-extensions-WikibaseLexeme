@@ -110,7 +110,7 @@ class SensesView {
 				'inEditMode' => false,
 				'isSaving' => false,
 				'glosses' => $glosses,
-				'isUnsaveable' => true
+				'isUnsaveable' => true,
 			],
 			[
 				'message' => function ( $key ) {
@@ -121,7 +121,7 @@ class SensesView {
 				},
 				'languageName' => function ( $languageCode ) {
 					return $this->languageNameLookup->getName( $languageCode );
-				}
+				},
 
 			]
 		);
@@ -133,7 +133,7 @@ class SensesView {
 				$glossWidget,
 				$this->getStatementSectionHtml( $sense ),
 				htmlspecialchars( $sense->getId()->getIdSuffix() ),
-				htmlspecialchars( $sense->getId()->getSerialization() )
+				htmlspecialchars( $sense->getId()->getSerialization() ),
 			]
 		);
 	}
