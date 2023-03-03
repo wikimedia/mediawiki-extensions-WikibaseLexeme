@@ -22,7 +22,6 @@
 		"davidrjonas/composer-lock-diff": "^1.4",
 		"giorgiosironi/eris": "^0.13.0",
 		"hamcrest/hamcrest-php": "^2.0",
-		"icomefromthenet/reverse-regex": "^0.0.6.3",
 		"mediawiki/mediawiki-codesniffer": "41.0.0",
 		"mediawiki/mediawiki-phan-config": "0.12.0",
 		"mediawiki/minus-x": "1.1.1",
