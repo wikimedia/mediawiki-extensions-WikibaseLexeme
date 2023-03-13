@@ -2,12 +2,16 @@
 	"@metadata": {
 		"authors": [
 			"Har-wradim",
-			"פוילישער"
+			"פוילישער",
+			"Pacha Tchernof"
 		]
 	},
 	"wikibaselexeme-deletedentity-form": "אויסגעמעקטע פֿארעם",
+	"wikibaselexeme-gloss-field-language-label": "שפּראַך",
 	"datatypes-type-wikibase-form": "פֿארעם",
 	"datatypes-type-wikibase-sense": "משמעות",
+	"wikibaselexeme-field-language-label": "שפּראַך",
+	"wikibaselexeme-diffview-language": "שפּראַך",
 	"wikibaselexeme-unknown-category": "אומבאַוואוסט",
 	"wikibaselexeme-grammatical-features-input-placeholder": "למשל: נאָרמאַטיוו, קאָמפּאַראַטיוו, פאַרגאַנגענהייט..."
 }
