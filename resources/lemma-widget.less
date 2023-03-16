@@ -46,7 +46,7 @@
 	}
 
 	.prepend-with-wikibase-ooui-icon(@image) {
-		&:before {
+		&::before {
 			content: '';
 
 			/* Copied from .wikibase-toolbar-button .wb-icon */
@@ -65,7 +65,7 @@
 			opacity: 0.7;
 		}
 
-		&:hover:before {
+		&:hover::before {
 			opacity: 1;
 		}
 	}
