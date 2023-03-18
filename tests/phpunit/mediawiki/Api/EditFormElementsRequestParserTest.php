@@ -36,7 +36,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 		] );
 
 		$this->assertInstanceOf( EditFormElementsRequest::class, $request );
-		$this->assertSame( $request->getFormId()->serialize(), self::DEFAULT_FORM_ID );
+		$this->assertSame( self::DEFAULT_FORM_ID, $request->getFormId()->serialize() );
 	}
 
 	public function testBaseRevIdPassedToRequestObject() {

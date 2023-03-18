@@ -46,7 +46,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 		] );
 
 		$this->assertInstanceOf( EditSenseElementsRequest::class, $request );
-		$this->assertSame( $request->getSenseId()->serialize(), self::DEFAULT_SENSE_ID );
+		$this->assertSame( self::DEFAULT_SENSE_ID, $request->getSenseId()->serialize() );
 	}
 
 	private function getDataParams( array $dataToUse = [] ) {
