@@ -47,11 +47,11 @@ class ValidationContextTest extends TestCase {
 
 			$this->assertSame( 'hello', $message->getKey() );
 			$this->assertSame( 'world', $message->getApiCode() );
-			$this->assertSame( $message->getParams(), [] );
-			$this->assertSame( $message->getApiData(), [
+			$this->assertSame( [], $message->getParams() );
+			$this->assertSame( [
 				'parameterName' => 'data',
 				'fieldPath' => [ 'representations', 'de' ]
-			] );
+			], $message->getApiData() );
 		}
 	}
 
