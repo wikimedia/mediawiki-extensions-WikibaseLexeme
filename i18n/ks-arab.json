@@ -1,9 +1,11 @@
 {
 	"@metadata": {
 		"authors": [
+			"Iflaq",
 			"Tajamul9"
 		]
 	},
+	"content-model-wikibase-lexeme": "وِکی بیس لیکسیم",
 	"nstab-lexeme": "لیٚکزیٖم",
 	"tooltip-ca-nstab-lexeme": "لیٚکزیٖم تفصیٖل"
 }
