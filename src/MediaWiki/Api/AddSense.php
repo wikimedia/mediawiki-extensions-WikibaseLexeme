@@ -149,7 +149,7 @@ class AddSense extends ApiBase {
 	 *
 	 * @throws \ApiUsageException
 	 */
-	public function execute() {
+	public function execute() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 		/*
 		 * {
 			  "glosses": [
@@ -173,12 +173,37 @@ class AddSense extends ApiBase {
 
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
-		$lexemeRevision = $this->validateRequest( $request );
 
+		try {
+			$lexemeId = $request->getLexemeId();
+			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
+				$lexemeId,
+				self::LATEST_REVISION,
+				LookupConstants::LATEST_FROM_MASTER
+			);
+
+			if ( !$lexemeRevision ) {
+				$error = new LexemeNotFound( $lexemeId );
+				$this->dieWithError( $error->asApiMessage( AddSenseRequestParser::PARAM_LEXEME_ID,
+					[] ) );
+			}
+		} catch ( StorageException $e ) {
+			// TODO Test it
+			if ( $e->getStatus() ) {
+				$this->dieStatus( $e->getStatus() );
+			} else {
+				throw new LogicException(
+					'StorageException caught with no status',
+					0,
+					$e
+				);
+			}
+		}
 		/** @var Lexeme $lexeme */
 		$lexeme = $lexemeRevision->getEntity();
 		$changeOp = $request->getChangeOp();
 
+		$summary = new Summary();
 		$result = $changeOp->validate( $lexeme );
 		if ( !$result->isValid() ) {
 			$this->errorReporter->dieException(
@@ -187,23 +212,26 @@ class AddSense extends ApiBase {
 			);
 		}
 
-		$summary = new Summary();
 		try {
 			$changeOp->apply( $lexeme, $summary );
 		} catch ( ChangeOpException $exception ) {
 			$this->errorReporter->dieException( $exception, 'unprocessable-request' );
 		}
 
-		$baseRevId = $request->getBaseRevId() ?? $lexemeRevision->getRevisionId();
+		$baseRevId = $request->getBaseRevId() ?: $lexemeRevision->getRevisionId();
 
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
 			$request->getLexemeId(),
 			$baseRevId
 		);
-		$summaryString = $this->summaryFormatter->formatSummary( $summary );
+		$summaryString = $this->summaryFormatter->formatSummary(
+			$summary
+		);
 		$flags = EDIT_UPDATE;
-		if ( $params['bot'] && $this->getPermissionManager()->userHasRight( $this->getUser(), 'bot' ) ) {
+		if ( isset( $params['bot'] ) && $params['bot'] &&
+			$this->getPermissionManager()->userHasRight( $this->getUser(), 'bot' )
+		) {
 			$flags |= EDIT_FORCE_BOT;
 		}
 
@@ -218,12 +246,12 @@ class AddSense extends ApiBase {
 				null,
 				$params['tags'] ?: []
 			);
-
-			if ( !$status->isGood() ) {
-				$this->dieStatus( $status ); // Seems like it is good enough
-			}
 		} catch ( ConflictException $exception ) {
 			$this->dieWithException( new RuntimeException( 'Edit conflict: ' . $exception->getMessage() ) );
+		}
+
+		if ( !$status->isGood() ) {
+			$this->dieStatus( $status ); // Seems like it is good enough
 		}
 
 		/** @var EntityRevision $entityRevision */
@@ -240,34 +268,6 @@ class AddSense extends ApiBase {
 		// TODO: Do we really need `success` property in response?
 		$apiResult->addValue( null, 'success', 1 );
 		$apiResult->addValue( null, 'sense', $serializedSense );
-	}
-
-	private function validateRequest( AddSenseRequest $request ): EntityRevision {
-		try {
-			$lexemeId = $request->getLexemeId();
-			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
-				$lexemeId,
-				self::LATEST_REVISION,
-				LookupConstants::LATEST_FROM_MASTER
-			);
-
-			if ( !$lexemeRevision ) {
-				$error = new LexemeNotFound( $lexemeId );
-				$this->dieWithError( $error->asApiMessage( AddSenseRequestParser::PARAM_LEXEME_ID, [] ) );
-			}
-		} catch ( StorageException $e ) {
-			if ( !$e->getStatus() ) {
-				throw new LogicException(
-					'StorageException caught with no status',
-					0,
-					$e
-				);
-			}
-			// TODO Test it
-			$this->dieStatus( $e->getStatus() );
-		}
-		// @phan-suppress-next-line PhanTypeMismatchReturnNullable
-		return $lexemeRevision;
 	}
 
 	/** @inheritDoc */
