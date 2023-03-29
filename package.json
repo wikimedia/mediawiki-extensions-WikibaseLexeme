@@ -1,4 +1,5 @@
 {
+	"name": "WikibaseLexeme",
 	"private": true,
 	"config": {
 		"remoteVersion": {
@@ -45,8 +46,8 @@
 		"eslint-config-wikimedia": "0.24.0",
 		"eslint-plugin-jsonc": "^2.2.1",
 		"eslint-plugin-promise": "^6.0.0",
-		"grunt": "1.4.1",
-		"grunt-banana-checker": "0.9.0",
+		"grunt": "1.6.1",
+		"grunt-banana-checker": "0.10.0",
 		"grunt-eslint": "24.0.0",
 		"grunt-jasmine-nodejs": "^1.6.1",
 		"grunt-stylelint": "0.18.0",
