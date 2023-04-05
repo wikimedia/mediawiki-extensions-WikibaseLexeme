@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"MRidhaAJ"
+		]
+	},
+	"datatypes-type-wikibase-lexeme": "مفردة",
+	"datatypes-type-wikibase-form": "صيغة",
+	"datatypes-type-wikibase-sense": "معنى",
+	"content-model-wikibase-lexeme": "قاعدة الويكي المفرده"
+}
