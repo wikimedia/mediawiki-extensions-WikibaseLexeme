@@ -85,6 +85,7 @@
 	"wikibaselexeme-form-description": "$1 for: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Stavingsvariant",
 	"wikibaselexeme-form-field-representation-label": "Representasjon",
+	"wikibaselexeme-form-field-required": "Påkrevd felt",
 	"wikibaselexeme-form-grammatical-features": "Grammatiske trekk",
 	"wikibaselexeme-form-representation-redundant-language": "Det er ikke mulig å angi flere representasjoner med samme stavingsvariant.",
 	"wikibaselexeme-formidformatter-separator-multiple-representation": "/",
