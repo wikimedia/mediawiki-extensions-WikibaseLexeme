@@ -1,5 +1,5 @@
+@import 'mediawiki.skin.variables.less';
 @import 'mediawiki.mixins';
-@import 'mediawiki.ui/variables';
 
 .wikibase-lexeme-sense-glosses {
 	margin-right: 252px;
@@ -7,12 +7,12 @@
 
 .wikibase-lexeme-sense-glosses-table {
 	max-width: 65rem;
-	border-left: 5px solid @colorGray12;
+	border-left: 5px @border-style-base @border-color-subtle;
 	padding-left: 9px;
 }
 
 .wikibase-lexeme-sense-gloss-table-header {
-	color: @colorGray2;
+	color: @color-base;
 }
 
 .wikibase-lexeme-sense-glosses-table td {
@@ -55,23 +55,23 @@
 	border: 0;
 
 	&:enabled {
-		color: @colorProgressive;
-		cursor: pointer;
+		color: @color-progressive;
 
 		&:hover {
 			text-decoration: underline;
+			cursor: @cursor-base--hover;
 		}
 	}
 
 	&:disabled { // stylelint-disable-line no-descending-specificity
-		color: @colorGray7;
+		color: @color-disabled;
 	}
 }
 
 .wikibase-lexeme-sense-gloss-language-input_invalid-language,
 .wikibase-lexeme-sense-gloss_invalid-language-warning {
-	background-color: @warning-background;
-	border-color: @warning-color;
+	background-color: @background-color-error-subtle;
+	border-color: @border-color-error;
 }
 
 .wikibase-lexeme-sense-gloss_invalid-language-warning p {
@@ -80,8 +80,8 @@
 
 .wikibase-lexeme-sense-gloss-language-input_redundant-language,
 .wikibase-lexeme-sense-gloss_redundant-language-warning {
-	background-color: @warning-background;
-	border-color: @warning-color;
+	background-color: @background-color-error-subtle;
+	border-color: @border-color-error;
 }
 
 .wikibase-lexeme-sense-gloss_redundant-language-warning p {
