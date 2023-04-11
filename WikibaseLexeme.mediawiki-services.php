@@ -106,6 +106,14 @@ return call_user_func( static function () {
 					$additionalLanguages
 				);
 			},
+		'WikibaseLexemeMobileView' =>
+			static function ( MediaWikiServices $mediawikiServices ): bool {
+				if ( $mediawikiServices->hasService( 'MobileFrontend.Context' ) ) {
+						$mobileContext = $mediawikiServices->getService( 'MobileFrontend.Context' );
+						return $mobileContext->shouldDisplayMobileView();
+				}
+				return false;
+			},
 		'WikibaseLexemeLemmaLookup' =>
 			static function ( MediaWikiServices $mediawikiServices ) {
 				return new EntityLookupLemmaLookup( WikibaseRepo::getEntityLookup( $mediawikiServices ) );

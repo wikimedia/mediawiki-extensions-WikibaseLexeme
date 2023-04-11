@@ -143,6 +143,13 @@ class WikibaseLexemeServices {
 			->getService( 'WikibaseLexemeLanguageNameLookupFactory' );
 	}
 
+	public static function getMobileView(
+		ContainerInterface $services = null
+	): bool {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexemeMobileView' );
+	}
+
 	public static function getLemmaLookup(
 		ContainerInterface $services = null
 	): LemmaLookup {
