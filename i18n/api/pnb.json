@@ -5,7 +5,7 @@
 			"Abbas dhothar"
 		]
 	},
-	"apihelp-wbladdform-summary": "شبداولی 'تے روپ پایئیا",
+	"apihelp-wbladdform-summary": "لغوی نوں روپ جوڑدا",
 	"apihelp-wbladdform-param-lexemeId": "شبداولی دا نمبر، مثلاً L10",
 	"apihelp-wblremoveform-summary": "شبداولی توں روپ مٹاوندا",
 	"apihelp-wblremoveform-param-id": "روپ دا نمبر، مثلاً L10-F20",
@@ -15,7 +15,7 @@
 	"apihelp-wbladdsense-param-lexemeId": "شبداولی دا نمبر، مثلاً L10",
 	"apihelp-wbladdsense-param-data": "ایس معنے درجاں لئی جےسون ڈیٹا",
 	"apihelp-wbladdsense-example-1": "نمبر دی شبداولی 'تے روپ\n<samp>$1</samp> دے بھاشا انشاں\n<samp>$2</samp> دیاں بولیاں\n<samp>$3</samp>",
-	"apihelp-wblremovesense-summary": "شبداولی توں معنیٰ ہٹاوندے",
+	"apihelp-wblremovesense-summary": "لغوی توں معنیٰ ہٹاوندا",
 	"apihelp-wblremovesense-param-id": "معنے دا نمبر، مثلاً L10-S20",
 	"apihelp-wblremovesense-example-1": "نمبر <samp>$1</samp> نال شبداولی تے معنیٰ مٹاؤ",
 	"apihelp-wbleditsenseelements-summary": "معنے دے درج سودھو",
