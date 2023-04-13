@@ -166,11 +166,7 @@ class AddForm extends ApiBase {
 			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
 		}
 
-		if ( $request->getBaseRevId() ) {
-			$baseRevId = $request->getBaseRevId();
-		} else {
-			$baseRevId = $lexemeRevision->getRevisionId();
-		}
+		$baseRevId = $request->getBaseRevId() ?: $lexemeRevision->getRevisionId();
 
 		$flags = $this->buildSaveFlags( $params );
 		$status = $this->saveNewLexemeRevision( $lexeme, $baseRevId, $summary, $flags, $params['tags'] ?: [] );
@@ -328,7 +324,7 @@ class AddForm extends ApiBase {
 
 	private function saveNewLexemeRevision(
 		EntityDocument $lexeme,
-		?int $baseRevId,
+		int $baseRevId,
 		FormatableSummary $summary,
 		$flags,
 		array $tags
