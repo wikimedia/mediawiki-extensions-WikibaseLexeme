@@ -8,6 +8,7 @@
 			"Remko de Keijzer"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "Levantine Arabic",
 	"wikibase-lexeme-language-name-az-cyrl": "Azerbaijani written in Cyrillic script",
 	"wikibase-lexeme-language-name-bas": "Basaa",
 	"wikibase-lexeme-language-name-bfi": "British Sign Language",
@@ -60,5 +61,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "Sumerian in Sumerian script",
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti in Bengali script",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon in Latin script",
-	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in Klingon script"
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in Klingon script",
+	"wikibase-lexeme-language-name-txg": "Tangut"
 }

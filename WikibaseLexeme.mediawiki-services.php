@@ -27,6 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
 return call_user_func( static function () {
 	// TODO Problem when removing a code after such an item exists in DB
 	$additionalLanguages = [
+		'apc', // T332264
 		'az-cyrl', // T265906
 		'bas', // T277619
 		'bfi', // T279557
@@ -81,7 +82,8 @@ return call_user_func( static function () {
 		'sux-xsux', // T282512
 		'syl-beng', // T267480
 		'tlh-piqd', // T282512
-		'tlh-latn' // T282512
+		'tlh-latn', // T282512
+		'txg'// T331094
 	];
 
 	return [
