@@ -169,10 +169,11 @@ class WikibaseLexemeServices {
 			->get( 'WikibaseLexemeEditFormChangeOpDeserializer' );
 	}
 
-	public static function getGrammaticalFeaturesOrderProvider(): ItemOrderProvider {
-		return MediaWikiServices::getInstance()->getService(
-			'WikibaseLexemeGrammaticalFeaturesOrderProvider'
-		);
+	public static function getGrammaticalFeaturesOrderProvider(
+		ContainerInterface $services = null
+	): ItemOrderProvider {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexemeGrammaticalFeaturesOrderProvider' );
 	}
 
 }
