@@ -7,6 +7,7 @@
 			"Umherirrender"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "Levantinisches Arabisch",
 	"wikibase-lexeme-language-name-az-cyrl": "Aserbaidschanisch geschrieben in kyrillischer Schrift",
 	"wikibase-lexeme-language-name-bas": "Bassa",
 	"wikibase-lexeme-language-name-bfi": "Britische Gebärdensprache",
@@ -59,5 +60,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "Sumerisch in sumerischer Schrift",
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti in bengalischer Schrift",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingonisch in lateinischer Schrift",
-	"wikibase-lexeme-language-name-tlh-piqd": "Klingonisch in klingonischer Schrift"
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingonisch in klingonischer Schrift",
+	"wikibase-lexeme-language-name-txg": "Tangutisch"
 }

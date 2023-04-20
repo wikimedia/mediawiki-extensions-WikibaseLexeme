@@ -7,6 +7,7 @@
 			"Mpayansilva"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "Árabe levantino",
 	"wikibase-lexeme-language-name-de-1901": "Alemán (antes de la reforma de 1996)",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (sistema de haches)",
 	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (sistema de equis)",
@@ -17,5 +18,6 @@
 	"wikibase-lexeme-language-name-ja-kana": "Japonés escrito en katakana",
 	"wikibase-lexeme-language-name-mis": "otros",
 	"wikibase-lexeme-language-name-sat-latn": "Santali en alfabeto latín",
-	"wikibase-lexeme-language-name-sux-xsux": "Sumerio en escritura sumeria"
+	"wikibase-lexeme-language-name-sux-xsux": "Sumerio en escritura sumeria",
+	"wikibase-lexeme-language-name-txg": "Tángut"
 }

@@ -4,6 +4,7 @@
 			"Eleassar"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "levantinska arabščina",
 	"wikibase-lexeme-language-name-az-cyrl": "azerbajdžanščina, zapisana s cirilico",
 	"wikibase-lexeme-language-name-bas": "basaa",
 	"wikibase-lexeme-language-name-bfi": "britanski znakovni jezik",
@@ -56,5 +57,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "sumerščina v sumerski pisavi",
 	"wikibase-lexeme-language-name-syl-beng": "silheti v bengalski pisavi",
 	"wikibase-lexeme-language-name-tlh-latn": "klingonščina v latinici",
-	"wikibase-lexeme-language-name-tlh-piqd": "klingonščina v klingonski pisavi"
+	"wikibase-lexeme-language-name-tlh-piqd": "klingonščina v klingonski pisavi",
+	"wikibase-lexeme-language-name-txg": "tangutščina"
 }

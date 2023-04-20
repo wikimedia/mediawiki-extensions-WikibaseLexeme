@@ -4,6 +4,7 @@
 			"McDutchie"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "Arabe levantin",
 	"wikibase-lexeme-language-name-az-cyrl": "Azeri scribite in alphabeto cyrillic",
 	"wikibase-lexeme-language-name-bas": "Basaa",
 	"wikibase-lexeme-language-name-bfi": "Lingua de signos britannic",
@@ -56,5 +57,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "Sumeriano in scriptura sumerian",
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti in scriptura bengali",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon in scriptura latin",
-	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in scriptura klingon"
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in scriptura klingon",
+	"wikibase-lexeme-language-name-txg": "tangut"
 }
