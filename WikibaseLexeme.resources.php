@@ -265,7 +265,8 @@ return call_user_func( static function () {
 				[
 					'name' => 'special/languageNames.json',
 					'callback' => static function ( ResourceLoaderContext $context ) {
-						$cache = MediaWikiServices::getInstance()->getLocalServerObjectCache();
+						$services = MediaWikiServices::getInstance();
+						$cache = $services->getLocalServerObjectCache();
 
 						return $cache->getWithSetCallback(
 							$cache->makeKey(
@@ -273,8 +274,8 @@ return call_user_func( static function () {
 								$context->getLanguage()
 							),
 							60 * 60, // 1 hour
-							static function () use ( $context ) {
-								$termLanguages = WikibaseLexemeServices::getTermLanguages();
+							static function () use ( $context, $services ) {
+								$termLanguages = WikibaseLexemeServices::getTermLanguages( $services );
 								$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory()
 									->getForLanguageCodeAndMessageLocalizer(
 										$context->getLanguage(),

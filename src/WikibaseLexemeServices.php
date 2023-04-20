@@ -134,8 +134,11 @@ class WikibaseLexemeServices {
 		);
 	}
 
-	public static function getTermLanguages(): LexemeTermLanguages {
-		return MediaWikiServices::getInstance()->getService( 'WikibaseLexemeTermLanguages' );
+	public static function getTermLanguages(
+		ContainerInterface $services = null
+	): LexemeTermLanguages {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexemeTermLanguages' );
 	}
 
 	public static function getLanguageNameLookupFactory(): LexemeLanguageNameLookupFactory {

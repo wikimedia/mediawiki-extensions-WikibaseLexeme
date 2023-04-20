@@ -140,7 +140,7 @@ return [
 				// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 				// that should be allowed as "languages" of lemma terms
 					new LexemeTermSerializationValidator(
-						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages( $services ) )
 					),
 					WikibaseLexemeServices::getLemmaTermValidator( $services ),
 					$stringNormalizer
@@ -172,7 +172,9 @@ return [
 								new TermDeserializer(),
 								$stringNormalizer,
 								new LexemeTermSerializationValidator(
-									new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+									new LexemeTermLanguageValidator(
+										WikibaseLexemeServices::getTermLanguages( $services )
+									)
 								)
 							),
 							new ClaimsChangeOpDeserializer(
