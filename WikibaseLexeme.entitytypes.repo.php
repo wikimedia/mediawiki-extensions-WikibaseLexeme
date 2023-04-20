@@ -159,7 +159,7 @@ return [
 					new FormChangeOpDeserializer(
 						$entityLookup,
 						$entityIdParser,
-						WikibaseLexemeServices::getEditFormChangeOpDeserializer()
+						WikibaseLexemeServices::getEditFormChangeOpDeserializer( $services )
 					)
 				),
 				new SenseListChangeOpDeserializer(
