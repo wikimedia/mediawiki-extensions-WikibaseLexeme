@@ -276,7 +276,7 @@ return call_user_func( static function () {
 							60 * 60, // 1 hour
 							static function () use ( $context, $services ) {
 								$termLanguages = WikibaseLexemeServices::getTermLanguages( $services );
-								$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory()
+								$languageNameLookup = WikibaseLexemeServices::getLanguageNameLookupFactory( $services )
 									->getForLanguageCodeAndMessageLocalizer(
 										$context->getLanguage(),
 										$context
