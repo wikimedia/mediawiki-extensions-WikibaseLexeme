@@ -4,6 +4,7 @@
 			"Amire80"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "ערבית שאמית",
 	"wikibase-lexeme-language-name-az-cyrl": "אזרבייג'נית בכתב קירילי",
 	"wikibase-lexeme-language-name-bas": "בסאה",
 	"wikibase-lexeme-language-name-bfi": "שפת סימנים בריטית",
@@ -56,5 +57,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "שומרית בכתב שומרי",
 	"wikibase-lexeme-language-name-syl-beng": "סילהטית בכתב בנגלי",
 	"wikibase-lexeme-language-name-tlh-latn": "קלינגונית בכתב לטיני",
-	"wikibase-lexeme-language-name-tlh-piqd": "קלינגונית בכתב קלינגוני"
+	"wikibase-lexeme-language-name-tlh-piqd": "קלינגונית בכתב קלינגוני",
+	"wikibase-lexeme-language-name-txg": "טנגוט"
 }

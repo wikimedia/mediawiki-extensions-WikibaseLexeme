@@ -8,6 +8,7 @@
 			"Wladek92"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "Arabe levantin",
 	"wikibase-lexeme-language-name-az-cyrl": "azéri en écriture cyrillique",
 	"wikibase-lexeme-language-name-bas": "basaá",
 	"wikibase-lexeme-language-name-bfi": "langue des signes britannique",
@@ -60,5 +61,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "sumérien en écriture sumérienne",
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti en écriture bengalaise",
 	"wikibase-lexeme-language-name-tlh-latn": "klingon en écriture latine",
-	"wikibase-lexeme-language-name-tlh-piqd": "klingon en écriture klingon"
+	"wikibase-lexeme-language-name-tlh-piqd": "klingon en écriture klingon",
+	"wikibase-lexeme-language-name-txg": "Tangoute"
 }
