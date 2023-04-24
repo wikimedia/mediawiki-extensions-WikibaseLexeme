@@ -5,6 +5,7 @@
 			"Vlad5250"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "левантски арапски",
 	"wikibase-lexeme-language-name-az-cyrl": "Азербејџански на кирилица",
 	"wikibase-lexeme-language-name-bas": "басански",
 	"wikibase-lexeme-language-name-bfi": "британски знаковен јазик",
@@ -13,7 +14,7 @@
 	"wikibase-lexeme-language-name-ccp": "чакмански",
 	"wikibase-lexeme-language-name-ccp-beng": "чакмански со бенгалско писмо",
 	"wikibase-lexeme-language-name-cnh": "хачкочински",
-	"wikibase-lexeme-language-name-ctg": "Читагонски",
+	"wikibase-lexeme-language-name-ctg": "читагонски",
 	"wikibase-lexeme-language-name-de-1901": "германски (пред реформата од 1996 г.)",
 	"wikibase-lexeme-language-name-enm": "средноанглиски",
 	"wikibase-lexeme-language-name-eo-hsistemo": "есперанто (h-систем)",
@@ -57,5 +58,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "сумерски со сумерско писмо",
 	"wikibase-lexeme-language-name-syl-beng": "силетски со бенгалско писмо",
 	"wikibase-lexeme-language-name-tlh-latn": "клингонски на латиница",
-	"wikibase-lexeme-language-name-tlh-piqd": "клингонски на клингонско писмо"
+	"wikibase-lexeme-language-name-tlh-piqd": "клингонски на клингонско писмо",
+	"wikibase-lexeme-language-name-txg": "тангутски"
 }
