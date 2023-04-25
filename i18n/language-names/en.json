@@ -42,6 +42,7 @@
 	"wikibase-lexeme-language-name-non-runr": "Old Norse written in Runic script",
 	"wikibase-lexeme-language-name-nrf-gg": "Guernésiais",
 	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
+	"wikibase-lexeme-language-name-obt": "Old Breton",
 	"wikibase-lexeme-language-name-pks": "Pakistan Sign Language",
 	"wikibase-lexeme-language-name-pt-ao1990": "Portuguese (Portuguese Language Orthographic Agreement of 1990)",
 	"wikibase-lexeme-language-name-pt-colb1945": "Portuguese (Portuguese-Brazilian Orthographic Convention of 1945)",
@@ -65,5 +66,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti in Bengali script",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon in Latin script",
 	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in Klingon script",
-	"wikibase-lexeme-language-name-txg": "Tangut"
+	"wikibase-lexeme-language-name-txg": "Tangut",
+	"wikibase-lexeme-language-name-xbm": "Middle Breton"
 }
