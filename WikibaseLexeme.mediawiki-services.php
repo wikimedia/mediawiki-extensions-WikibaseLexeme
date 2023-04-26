@@ -78,6 +78,8 @@ return call_user_func( static function () {
 		'sat-latn', // T262967
 		'sat-beng', // T262967
 		'sat-orya', // T262967
+		'sia', // T321031
+		'sjk', // T321031
 		'sux-latn', // T282512
 		'sux-xsux', // T282512
 		'syl-beng', // T267480
