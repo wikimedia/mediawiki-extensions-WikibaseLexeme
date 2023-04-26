@@ -63,6 +63,7 @@ return call_user_func( static function () {
 		'nr', // T317193
 		'nrf-gg', // T223716
 		'nrf-je', // T223716
+		'pks', // T317161
 		'quc', // T277392
 		'pt-ao1990', // T270043
 		'pt-colb1945', // T270043
