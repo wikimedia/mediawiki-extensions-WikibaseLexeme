@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"Awangba Mangang"
+		]
+	},
+	"content-model-wikibase-lexeme": "ꯋꯤꯀꯤꯕꯦꯁ ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ",
+	"datatypes-type-wikibase-form": "ꯃꯑꯣꯡ",
+	"datatypes-type-wikibase-lexeme": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ",
+	"nstab-lexeme": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ",
+	"special-mergelexemes": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯲ ꯄꯨꯟꯁꯤꯟꯕ",
+	"special-newlexeme": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯱ ꯁꯥꯕꯥ",
+	"tooltip-ca-nstab-lexeme": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯄꯥꯎꯈꯨꯝ",
+	"wikibase-entity-summary-wblmergelexemes-from": "$3ꯗꯒꯤ ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯄꯨꯟꯁꯤꯟꯕ",
+	"wikibase-entity-summary-wblmergelexemes-to": "$3ꯗ ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯄꯨꯟꯁꯤꯟꯕ",
+	"wikibaselexeme-diffview-language": "ꯂꯣꯟ",
+	"wikibaselexeme-field-language-label": "ꯂꯣꯟ",
+	"wikibaselexeme-newlexeme-fieldset": "ꯑꯅꯧꯕ ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯱ ꯁꯥꯕꯥ",
+	"wikibaselexeme-newlexeme-submit": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯁꯥꯕꯥ",
+	"wikibaselexeme-newlexeme-submitting": "ꯑꯄꯨꯟꯕ-ꯋꯥꯍꯟꯊꯣꯛ ꯁꯥꯔꯤ...",
+	"wikibaselexeme-unknown-category": "ꯁꯛꯈꯪꯗꯕ",
+	"wikibaselexeme-unknown-language": "ꯃꯁꯛꯈꯪꯗꯕ ꯂꯣꯟ"
+}
