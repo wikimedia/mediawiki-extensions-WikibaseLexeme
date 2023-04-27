@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
+use ApiMessage;
 use ApiUsageException;
 use MediaWiki\Block\DatabaseBlock;
 use Wikibase\DataModel\Entity\Item;
@@ -63,7 +64,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 					],
 				] ),
 			],
-			[ 'apierror-blocked', 'permissionserrors' ],
+			[ 'blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -72,7 +73,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'lexemeId' => 'L1',
 				'data' => '{"glosses":{"en":{"value":"Some text value","language":"en"}}}',
 			],
-			[ 'apierror-blocked', 'permissionserrors' ],
+			[ 'blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -81,7 +82,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'formId' => 'L1-F1',
 				'data' => '{"a": "b"}',
 			],
-			[ 'apierror-blocked', 'permissionserrors' ],
+			[ 'blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -90,7 +91,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'senseId' => 'L1-S1',
 				'data' => '{"a": "b"}',
 			],
-			[ 'apierror-blocked', 'permissionserrors' ],
+			[ 'blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -99,7 +100,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 				'source' => 'L1',
 				'target' => 'L1',
 			],
-			[ 'wikibase-api-permissiondenied' ],
+			[ 'permissiondenied' ],
 		];
 
 		yield [
@@ -107,7 +108,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			[
 				'id' => 'L1-F1',
 			],
-			[ 'apierror-blocked', 'permissionserrors' ],
+			[ 'blocked', 'permissionserrors' ],
 		];
 
 		yield [
@@ -115,7 +116,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			[
 				'id' => 'L1-S1',
 			],
-			[ 'apierror-blocked', 'permissionserrors' ],
+			[ 'blocked', 'permissionserrors' ],
 		];
 	}
 
@@ -154,9 +155,10 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			);
 			$this->fail( 'Expected api error to be raised' );
 		} catch ( ApiUsageException $e ) {
-			foreach ( $expectedMessages as $message ) {
-				$this->assertTrue( $e->getStatusValue()->hasMessage( $message ),
-					'Expected message ' . $message );
+			$errors = $e->getStatusValue()->getErrors();
+			foreach ( $errors as $error ) {
+				$apiCode = ApiMessage::create( $error )->getApiCode();
+				$this->assertContains( $apiCode, $expectedMessages );
 			}
 		}
 	}
