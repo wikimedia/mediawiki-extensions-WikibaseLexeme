@@ -63,10 +63,11 @@ return call_user_func( static function () {
 		'nr', // T317193
 		'nrf-gg', // T223716
 		'nrf-je', // T223716
+		'obt', // T319125
 		'pks', // T317161
-		'quc', // T277392
 		'pt-ao1990', // T270043
 		'pt-colb1945', // T270043
+		'quc', // T277392
 		'rah', // T267479
 		'rhg-rohg', // T272442
 		'rkt', // T271589
@@ -87,6 +88,7 @@ return call_user_func( static function () {
 		'tlh-piqd', // T282512
 		'tlh-latn', // T282512
 		'txg',// T331094
+		'xbm', // T319125
 	];
 
 	return [
