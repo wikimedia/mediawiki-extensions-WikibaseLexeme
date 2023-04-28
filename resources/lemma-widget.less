@@ -1,5 +1,5 @@
+@import 'mediawiki.skin.variables.less';
 @import 'mediawiki.mixins';
-@import 'mediawiki.ui/variables';
 
 .lemma-widget {
 	display: flex;
@@ -17,7 +17,7 @@
 	&_lemma {
 		display: flex;
 		flex-direction: column;
-		border-left: 5px solid @colorGray12;
+		border-left: 5px @border-style-base @border-color-subtle;
 		padding: 0 9px;
 		margin: 11px;
 		min-width: 0;
@@ -34,7 +34,7 @@
 	}
 
 	&_edit-area {
-		border: 3px solid #eaf3ff;
+		border: 3px @border-style-base #eaf3ff;
 	}
 
 	&_controls {
@@ -74,7 +74,8 @@
 		background: transparent;
 		border: 0;
 		cursor: pointer;
-		color: @colorProgressiveActive;
+		// TODO: Revisit color (token) choice with designer. Should probably be slightly lighter `@color-link`.
+		color: @color-progressive--active;
 		white-space: nowrap;
 
 		&:hover {
@@ -83,8 +84,8 @@
 
 		&[ disabled ] {
 			text-decoration: none;
-			cursor: default;
-			color: @button-disabled-color;
+			cursor: @cursor-base--disabled;
+			color: @color-disabled;
 		}
 	}
 
@@ -108,7 +109,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		border-left: 6px solid #eaf3ff;
+		border-left: 6px @border-style-base #eaf3ff;
 		padding: 0 45px 0 9px;
 		margin: 0;
 		height: 132px;
@@ -138,8 +139,8 @@
 
 	&_lemma-language-input_redundant-language,
 	&_redundant-language-warning {
-		background-color: @warning-background;
-		border-color: @warning-color;
+		background-color: @background-color-error-subtle;
+		border-color: @border-color-error;
 	}
 
 	&_redundant-language-warning p {

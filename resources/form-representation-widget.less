@@ -1,5 +1,5 @@
+@import 'mediawiki.skin.variables.less';
 @import 'mediawiki.mixins';
-@import 'mediawiki.ui/variables';
 
 .representation-widget {
 	display: flex;
@@ -19,7 +19,7 @@
 	&_representation {
 		display: flex;
 		flex-direction: column;
-		border-left: 5px solid @colorGray12;
+		border-left: 5px @border-style-base @border-color-subtle;
 		padding: 0 9px;
 		margin: 0.785em 0;
 		min-width: 0;
@@ -36,7 +36,7 @@
 
 	&_edit-area {
 		display: flex;
-		border: 0.143em solid #9cf;
+		border: 0.143em @border-style-base #9cf;
 	}
 
 	&_edit-area-controls {
@@ -46,7 +46,7 @@
 	&_controls {
 		width: 100px;
 		padding: 20px 40px;
-		background: #eaf3ff;
+		background: @background-color-progressive-subtle;
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
@@ -58,7 +58,7 @@
 		font-size: 1em;
 		margin: 10px;
 		cursor: pointer;
-		color: @colorProgressive;
+		color: @color-progressive;
 	}
 
 	&_representation-edit-box {
@@ -66,7 +66,7 @@
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		border-left: 6px solid #eaf3ff;
+		border-left: 6px @border-style-base #eaf3ff;
 		padding: 0 18px 0 9px;
 		margin: 0.5em 0;
 	}
@@ -100,8 +100,8 @@
 
 	&_representation-language-input_redundant-language,
 	&_redundant-language-warning {
-		background-color: @warning-background;
-		border-color: @warning-color;
+		background-color: @background-color-error-subtle;
+		border-color: @border-color-error;
 	}
 
 	&_redundant-language-warning p {
@@ -121,12 +121,13 @@
 		right: 0.125em;
 
 		&:enabled {
-			color: @colorProgressiveActive;
+			// TODO: Revisit color (token) choice with designer.
+			color: @color-progressive--active;
 			cursor: pointer;
 		}
 
 		&:disabled {
-			color: @colorGray7;
+			color: @color-disabled;
 		}
 	}
 
@@ -135,7 +136,7 @@
 		border: 0;
 		font-size: 1em;
 		text-align: center;
-		background: #eaf3ff;
+		background: @background-color-progressive-subtle;
 		cursor: pointer;
 	}
 }
