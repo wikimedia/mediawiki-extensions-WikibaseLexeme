@@ -38,6 +38,7 @@
 	"wikibase-lexeme-language-name-non-runr": "stara nordijščina, zapisana z runami",
 	"wikibase-lexeme-language-name-nrf-gg": "guernseyščina",
 	"wikibase-lexeme-language-name-nrf-je": "jerseyjščina",
+	"wikibase-lexeme-language-name-obt": "stara bretonščina",
 	"wikibase-lexeme-language-name-pks": "Pakistanski znakovni jezik",
 	"wikibase-lexeme-language-name-pt-ao1990": "portugalščina (pravopisni dogovor o portugalskem jeziku iz leta 1990)",
 	"wikibase-lexeme-language-name-pt-colb1945": "portugalščina (portugalsko-brazilski pravopisni dogovor iz leta 1945)",
@@ -61,5 +62,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "silheti v bengalski pisavi",
 	"wikibase-lexeme-language-name-tlh-latn": "klingonščina v latinici",
 	"wikibase-lexeme-language-name-tlh-piqd": "klingonščina v klingonski pisavi",
-	"wikibase-lexeme-language-name-txg": "tangutščina"
+	"wikibase-lexeme-language-name-txg": "tangutščina",
+	"wikibase-lexeme-language-name-xbm": "srednja bretonščina"
 }

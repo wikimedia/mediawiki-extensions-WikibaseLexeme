@@ -41,6 +41,7 @@
 	"wikibase-lexeme-language-name-non-runr": "Altnordisch geschrieben in Runenschrift",
 	"wikibase-lexeme-language-name-nrf-gg": "Guernésiais",
 	"wikibase-lexeme-language-name-nrf-je": "Jèrriais",
+	"wikibase-lexeme-language-name-obt": "Altbretonisch",
 	"wikibase-lexeme-language-name-pks": "Pakistanische Gebärdensprache",
 	"wikibase-lexeme-language-name-pt-ao1990": "Portugiesisch (portugiesische Sprache gemäß der orthographischen Vereinbarung von 1990)",
 	"wikibase-lexeme-language-name-pt-colb1945": "Portugiesisch (portugiesisch-brasilianische Orthographie-Konvention von 1945)",
@@ -64,5 +65,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti in bengalischer Schrift",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingonisch in lateinischer Schrift",
 	"wikibase-lexeme-language-name-tlh-piqd": "Klingonisch in klingonischer Schrift",
-	"wikibase-lexeme-language-name-txg": "Tangutisch"
+	"wikibase-lexeme-language-name-txg": "Tangutisch",
+	"wikibase-lexeme-language-name-xbm": "Mittelbretonisch"
 }

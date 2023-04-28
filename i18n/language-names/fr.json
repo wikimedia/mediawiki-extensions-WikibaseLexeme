@@ -42,6 +42,7 @@
 	"wikibase-lexeme-language-name-non-runr": "vieux norrois en écriture runique",
 	"wikibase-lexeme-language-name-nrf-gg": "guernésiais",
 	"wikibase-lexeme-language-name-nrf-je": "jersiais",
+	"wikibase-lexeme-language-name-obt": "Breton ancien",
 	"wikibase-lexeme-language-name-pks": "langue des signes pakistanaise",
 	"wikibase-lexeme-language-name-pt-ao1990": "portugais (accord sur l’orthographe de la langue portugaise de 1990)",
 	"wikibase-lexeme-language-name-pt-colb1945": "portugais (convention orthographique portugaise et brésilienne de 1945)",
@@ -65,5 +66,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "sylheti en écriture bengalaise",
 	"wikibase-lexeme-language-name-tlh-latn": "klingon en écriture latine",
 	"wikibase-lexeme-language-name-tlh-piqd": "klingon en écriture klingon",
-	"wikibase-lexeme-language-name-txg": "tangoute"
+	"wikibase-lexeme-language-name-txg": "tangoute",
+	"wikibase-lexeme-language-name-xbm": "Breton intermédiaire"
 }
