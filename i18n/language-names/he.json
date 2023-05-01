@@ -38,6 +38,7 @@
 	"wikibase-lexeme-language-name-non-runr": "נורדית עתיקה כתובה ברונות",
 	"wikibase-lexeme-language-name-nrf-gg": "גרנזי",
 	"wikibase-lexeme-language-name-nrf-je": "ג'רזי",
+	"wikibase-lexeme-language-name-obt": "ברטונית עתיקה",
 	"wikibase-lexeme-language-name-pks": "שפת הסימנים הפקיסטנית",
 	"wikibase-lexeme-language-name-pt-ao1990": "פורטוגלית (הסכם הכתיב של השפה הפורטוגלית 1990)",
 	"wikibase-lexeme-language-name-pt-colb1945": "פורטוגלית (כנס הכתיב הפורטוגלי־ברזילאי 1945)",
@@ -61,5 +62,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "סילהטית בכתב בנגלי",
 	"wikibase-lexeme-language-name-tlh-latn": "קלינגונית בכתב לטיני",
 	"wikibase-lexeme-language-name-tlh-piqd": "קלינגונית בכתב קלינגוני",
-	"wikibase-lexeme-language-name-txg": "טנגוט"
+	"wikibase-lexeme-language-name-txg": "טנגוט",
+	"wikibase-lexeme-language-name-xbm": "ברטונית בינונית"
 }

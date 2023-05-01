@@ -39,6 +39,7 @@
 	"wikibase-lexeme-language-name-non-runr": "Старонордиски напишан со рунско писмо",
 	"wikibase-lexeme-language-name-nrf-gg": "гернзиски",
 	"wikibase-lexeme-language-name-nrf-je": "џерсиски",
+	"wikibase-lexeme-language-name-obt": "старобретонски",
 	"wikibase-lexeme-language-name-pks": "пакистански знаковен јазик",
 	"wikibase-lexeme-language-name-pt-ao1990": "португалски (правопис од 1990 г.)",
 	"wikibase-lexeme-language-name-pt-colb1945": "португалски (бразилски правопис од 1945 г.)",
@@ -62,5 +63,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "силетски со бенгалско писмо",
 	"wikibase-lexeme-language-name-tlh-latn": "клингонски на латиница",
 	"wikibase-lexeme-language-name-tlh-piqd": "клингонски на клингонско писмо",
-	"wikibase-lexeme-language-name-txg": "тангутски"
+	"wikibase-lexeme-language-name-txg": "тангутски",
+	"wikibase-lexeme-language-name-xbm": "среднобретонски"
 }
