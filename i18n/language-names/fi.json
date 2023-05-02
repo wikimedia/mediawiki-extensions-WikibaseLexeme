@@ -1,11 +1,29 @@
 {
 	"@metadata": {
 		"authors": [
-			"Nike"
+			"Nike",
+			"Pyscowicz"
 		]
 	},
+	"wikibase-lexeme-language-name-bas": "Basaa",
+	"wikibase-lexeme-language-name-bfi": "Brittiläinen viittomakieli",
+	"wikibase-lexeme-language-name-bzs": "Brasilialainen viittomakieli",
+	"wikibase-lexeme-language-name-cak": "Kaqchikel",
 	"wikibase-lexeme-language-name-ccp": "Chakma",
 	"wikibase-lexeme-language-name-ccp-beng": "Chakma bengalilaisella kirjaimistolla",
+	"wikibase-lexeme-language-name-ctg": "Chittagong",
+	"wikibase-lexeme-language-name-enm": "Keskienglanti",
+	"wikibase-lexeme-language-name-fon": "Fon",
+	"wikibase-lexeme-language-name-frm": "Keskiranska",
+	"wikibase-lexeme-language-name-fro": "Muinaisranska",
+	"wikibase-lexeme-language-name-gmh": "Keskiyläsaksa",
+	"wikibase-lexeme-language-name-goh": "Muinaisyläsaksa",
+	"wikibase-lexeme-language-name-gsg": "Saksalainen viittomakieli",
+	"wikibase-lexeme-language-name-hoc": "Ho",
+	"wikibase-lexeme-language-name-ja-hira": "Japani Hiragana-kirjaimistolla",
+	"wikibase-lexeme-language-name-mis": "muu",
+	"wikibase-lexeme-language-name-nn-hognorsk": "Høgnorsk",
+	"wikibase-lexeme-language-name-non": "Muinaisnorja",
 	"wikibase-lexeme-language-name-rhg-rohg": "Rohingya hanifi-kirjaimistolla",
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti bengalilaisella kirjaimistolla"
 }
