@@ -4,7 +4,9 @@
 			"Mehtab ahmed"
 		]
 	},
+	"wikibaselexeme-description": "$1، $2",
 	"wikibaselexeme-diffview-language": "ٻولي",
 	"wikibaselexeme-field-language-label": "ٻولي",
-	"wikibaselexeme-gloss-field-language-label": "ٻولي"
+	"wikibaselexeme-gloss-field-language-label": "ٻولي",
+	"wikibaselexeme-presentation-lexeme-secondary-label": "$1، $2"
 }
