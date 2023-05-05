@@ -106,4 +106,5 @@
 	<!-- END equivalent rules based on wikibase-codesniffer (T268831) -->
 
 	<file>.</file>
+	<exclude-pattern type="relative">^resources/special/new-lexeme/*</exclude-pattern>
 </ruleset>
