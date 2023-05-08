@@ -6,5 +6,7 @@
 	},
 	"wikibaselexeme-gloss-field-language-label": "ٻولي",
 	"wikibaselexeme-field-language-label": "ٻولي",
-	"wikibaselexeme-diffview-language": "ٻولي"
+	"wikibaselexeme-diffview-language": "ٻولي",
+	"wikibaselexeme-presentation-lexeme-secondary-label": "$1، $2",
+	"wikibaselexeme-description": "$1، $2"
 }
