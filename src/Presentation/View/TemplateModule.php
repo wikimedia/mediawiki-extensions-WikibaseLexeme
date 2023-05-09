@@ -12,23 +12,23 @@ use Wikibase\View\Template\TemplateRegistry;
  *
  * @license GPL-2.0-or-later
  */
-class TemplateModule extends RL\FileModule {
+class TemplateModule {
 
 	/**
-	 * @see RL\Module::getScript
+	 * Get templates.php as a JavaScript function call
 	 *
 	 * @param RL\Context $context
 	 *
 	 * @return string
 	 */
-	public function getScript( RL\Context $context ) {
+	public static function getScript( RL\Context $context ) {
 		$templates = include __DIR__ . '/../../../resources/templates.php';
 		$templateRegistry = new TemplateRegistry( $templates );
 
 		$templatesJson = FormatJson::encode( $templateRegistry->getTemplates() );
 
 		// template store JavaScript initialisation
-		$script = <<<JS
+		return <<<JS
 ( function () {
 	'use strict';
 
@@ -36,31 +36,16 @@ class TemplateModule extends RL\FileModule {
 
 }() );
 JS;
-
-		return $script . "\n" . parent::getScript( $context );
 	}
 
 	/**
-	 * @see RL\Module::supportsURLLoading
-	 *
-	 * @return bool
-	 */
-	public function supportsURLLoading() {
-		return false; // always use getScript() to acquire JavaScript (even in debug mode)
-	}
-
-	/**
-	 * @see RL\Module::getDefinitionSummary
+	 * Get the version corresponding to getScript()
 	 *
 	 * @param RL\Context $context
-	 *
-	 * @return array
+	 * @return RL\FilePath
 	 */
-	public function getDefinitionSummary( RL\Context $context ) {
-		$summary = parent::getDefinitionSummary( $context );
-		$summary['mtime'] = (string)filemtime( __DIR__ . '/../../../resources/templates.php' );
-
-		return $summary;
+	public static function getVersion( RL\Context $context ) {
+		return new RL\FilePath( 'templates.php' );
 	}
 
 }
