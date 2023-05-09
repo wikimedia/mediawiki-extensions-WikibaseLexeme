@@ -4,7 +4,10 @@
 			"Mehtab ahmed"
 		]
 	},
+	"wikibaselexeme-description": "$1، $2",
 	"wikibaselexeme-diffview-language": "ٻولي",
 	"wikibaselexeme-field-language-label": "ٻولي",
-	"wikibaselexeme-gloss-field-language-label": "ٻولي"
+	"wikibaselexeme-gloss-field-language-label": "ٻولي",
+	"wikibaselexeme-newlexeme-search-existing": "[$1 ڳولا] کي استعمال ڪندي توهان ڏسي سگهو ٿا تہ ڇا ڪا Lexeme اڳ ۾ ئي موجود آهي. توهان هيٺ ڏنل مدد خاني ۾ Lexemes بابت وڌيڪ ڄاڻي سگهو ٿا.",
+	"wikibaselexeme-presentation-lexeme-secondary-label": "$1، $2"
 }
