@@ -38,6 +38,8 @@
 	"wikibase-lexeme-language-name-non-runr": "norrønt skrevet med runer",
 	"wikibase-lexeme-language-name-nrf-gg": "guernésiais",
 	"wikibase-lexeme-language-name-nrf-je": "jèrriais",
+	"wikibase-lexeme-language-name-obt": "gammelbretonsk",
+	"wikibase-lexeme-language-name-pks": "pakistansk tegnspråk",
 	"wikibase-lexeme-language-name-pt-ao1990": "portugisisk (ortografi fra 1990)",
 	"wikibase-lexeme-language-name-pt-colb1945": "portugisisk (ortografi fra 1945)",
 	"wikibase-lexeme-language-name-quc": "quiché",
@@ -53,10 +55,13 @@
 	"wikibase-lexeme-language-name-sat-beng": "santali med bengali-skrift",
 	"wikibase-lexeme-language-name-sat-latn": "santali med det latinske alfabetet",
 	"wikibase-lexeme-language-name-sat-orya": "santali med oriya-skrift",
+	"wikibase-lexeme-language-name-sia": "akkalasamisk",
+	"wikibase-lexeme-language-name-sjk": "kemisamisk",
 	"wikibase-lexeme-language-name-sux-latn": "sumerisk med latinsk alfabet",
 	"wikibase-lexeme-language-name-sux-xsux": "sumerisk med sumerisk skrift",
 	"wikibase-lexeme-language-name-syl-beng": "sylheti med bengali-skrift",
 	"wikibase-lexeme-language-name-tlh-latn": "klingon med latinsk alfabet",
 	"wikibase-lexeme-language-name-tlh-piqd": "klingon med klingon-alfabet",
-	"wikibase-lexeme-language-name-txg": "tangut"
+	"wikibase-lexeme-language-name-txg": "tangut",
+	"wikibase-lexeme-language-name-xbm": "mellombretonsk"
 }
