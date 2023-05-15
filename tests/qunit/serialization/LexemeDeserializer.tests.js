@@ -2,6 +2,7 @@
  * @license GPL-2.0-or-later
  * @author Jonas Kress
  */
+
 ( function ( wb ) {
 	'use strict';
 

@@ -1,6 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
+
 ( function ( QUnit, require, sinon ) {
 	'use strict';
 

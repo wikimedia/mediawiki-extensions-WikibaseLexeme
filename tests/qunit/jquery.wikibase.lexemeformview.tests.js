@@ -1,6 +1,7 @@
 /**
  * @license GPL-2.0-or-later
  */
+
 ( function ( require, wb ) {
 	'use strict';
 
