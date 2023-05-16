@@ -2,7 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
-use MediaWiki\ResourceLoader\Context;
+// phpcs:disable MediaWiki.Classes.FullQualifiedClassName -- T308814
+use MediaWiki\ResourceLoader as RL;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Presentation\View\TemplateModule;
 
@@ -14,10 +15,10 @@ use Wikibase\Lexeme\Presentation\View\TemplateModule;
 class TemplateModuleTest extends TestCase {
 
 	/**
-	 * @return Context
+	 * @return RL\Context
 	 */
 	private function getResourceLoaderContext() {
-		$context = $this->createMock( Context::class );
+		$context = $this->createMock( RL\Context::class );
 
 		$context->method( 'getLanguage' )
 			->willReturn( 'en' );
@@ -26,27 +27,15 @@ class TemplateModuleTest extends TestCase {
 	}
 
 	public function testGetScriptAddsTemplatesToJavaScriptCode() {
-		$templateModule = new TemplateModule();
-
 		$this->assertMatchesRegularExpression(
 			'/.*mw\.wbTemplates\.store\.set\( \$\.extend\( .+, mw.wbTemplates.store.values \) \);.*/',
-			$templateModule->getScript( $this->getResourceLoaderContext() )
+			TemplateModule::getScript( $this->getResourceLoaderContext() )
 		);
 	}
 
-	public function testSupportsURLLoading() {
-		$templateModule = new TemplateModule();
-
-		$this->assertFalse( $templateModule->supportsURLLoading() );
-	}
-
-	public function testGetDefinitionSummarySetsModificationTimeToModificationTimeOfLexemeTemplates() {
-		$expectedMTime = (string)filemtime( __DIR__ . '/../../../../resources/templates.php' );
-
-		$templateModule = new TemplateModule();
-
-		$summary = $templateModule->getDefinitionSummary( $this->getResourceLoaderContext() );
-		$this->assertEquals( $expectedMTime, $summary['mtime'] );
+	public function testGetVersionReturnsFilePath() {
+		$version = TemplateModule::getVersion( $this->getResourceLoaderContext() );
+		$this->assertEquals( new RL\FilePath( 'templates.php' ), $version );
 	}
 
 }

@@ -7,6 +7,7 @@
 
 use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\Presentation\View\TemplateModule;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -128,7 +129,13 @@ return call_user_func( static function () {
 			],
 		],
 		"wikibase.templates.lexeme" => $moduleTemplate + [
-			"class" => "\\Wikibase\\Lexeme\\Presentation\\View\\TemplateModule",
+			'scripts' => [
+				[
+					'name' => 'wikibase.templates.lexeme.js',
+					'callback' => [ TemplateModule::class, 'getScript' ],
+					'versionCallback' => [ TemplateModule::class, 'getVersion' ],
+				],
+			],
 			"dependencies" => [
 				"wikibase.templates",
 			],
