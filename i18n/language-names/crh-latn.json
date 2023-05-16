@@ -1,14 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"TayfunEt."
+			"TayfunEt.",
+			"Don Alessandro",
+			"Zolgoyo"
 		]
 	},
 	"wikibase-lexeme-language-name-az-cyrl": "Kiril yazuvında Azerbaycanca",
 	"wikibase-lexeme-language-name-bas": "Basaa",
 	"wikibase-lexeme-language-name-enm": "Orta İnglizce",
 	"wikibase-lexeme-language-name-frm": "Orta Frenkçe",
-	"wikibase-lexeme-language-name-fro": "Eski Frenkce",
+	"wikibase-lexeme-language-name-fro": "Eski Frenkçe",
 	"wikibase-lexeme-language-name-ja-hira": "Hiragana yazuvında Japonca",
 	"wikibase-lexeme-language-name-ja-hrkt": "Hiragana ve Katakana yazuvında Japonca",
 	"wikibase-lexeme-language-name-ja-kana": "Katakana yazuvında Japonca",

@@ -44,6 +44,8 @@
 	"wikibaselexeme-newlexeme-lemma-language": "کلاءينن ايجاءن ليما",
 	"wikibaselexeme-newlexeme-lexicalcategory": "کاتݢوري ليکسيکل",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "ماسوقکن کاتݢوري ليکسيکل. چونتوهڽ، کات نام",
+	"wikibaselexeme-newlexeme-submit": "چيڤتا ليکسيم",
+	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|کڽاتاءن}}، $2 {{PLURAL:$2|بنتوق}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "کود بهاس ڤادنن کات مستي صح",
 	"wikibaselexeme-statementsection-statements-about-form": "کڽاتاءن تنتڠ $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "کڽاتاءن تنتڠ $1",
