@@ -2,9 +2,22 @@
 	"@metadata": {
 		"authors": [
 			"BukhariSaeed",
-			"Zainab Meher"
+			"Zainab Meher",
+			"Muhammad Shuaib"
 		]
 	},
-	"content-model-wikibase-lexeme": "ویکی‌بیس لیکسیم",
-	"wikibaselexeme-newlexeme-language-placeholder": "زبان درج کریں مثلاً اردو"
+	"content-model-wikibase-lexeme": "ویکی بیس لغویہ",
+	"datatypes-type-wikibase-lexeme": "لغویہ",
+	"nstab-lexeme": "لغویہ",
+	"special-mergelexemes": "دو لغویوں کا انضمام",
+	"special-newlexeme": "نیا لغویہ بنائیں",
+	"tooltip-ca-nstab-lexeme": "لغویہ کی تعریف",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "لغویہ لوڈ نہیں ہو سکا۔",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "نئے لغویہ کی تخلیق",
+	"wikibase-lexeme-summary-wbeditentity-update": "لغویہ کو تبدیل کیا",
+	"wikibaselexeme-deletedentity-lexeme": "حذف شدہ لغویہ",
+	"wikibaselexeme-newlexeme-fieldset": "نیا لغویہ بنائیں",
+	"wikibaselexeme-newlexeme-language": "لغویہ کی زبان",
+	"wikibaselexeme-newlexeme-language-placeholder": "زبان درج کریں مثلاً اردو",
+	"wikibaselexeme-newlexeme-submitting": "لغویہ بنایا جا رہا ہے۔۔۔"
 }
