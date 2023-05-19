@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 
 use InvalidArgumentException;
+use MediaWiki\Language\RawMessage;
 use MediaWiki\MediaWikiServices;
-use RawMessage;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
