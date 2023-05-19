@@ -4,10 +4,10 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use ChangeTags;
 use Exception;
-use FauxRequest;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\Request\FauxRequest;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RawMessage;

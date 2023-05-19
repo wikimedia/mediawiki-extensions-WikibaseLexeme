@@ -4,12 +4,12 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use DataValues\StringValue;
 use Exception;
-use FauxRequest;
 use Language;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Request\FauxRequest;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;

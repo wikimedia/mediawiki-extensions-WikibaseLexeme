@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use FauxRequest;
+use MediaWiki\Request\FauxRequest;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use Status;

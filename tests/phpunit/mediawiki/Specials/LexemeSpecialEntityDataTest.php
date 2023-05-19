@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
-use FauxRequest;
 use FauxResponse;
+use MediaWiki\Request\FauxRequest;
 use SpecialPage;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
