@@ -33,7 +33,7 @@ class AddSenseRequestParserTest extends TestCase {
 	public function testGivenValidData_parseReturnsRequest() {
 		$parser = $this->newAddSenseRequestParser();
 
-		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
+		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => self::getDataParam() ] );
 
 		$this->assertInstanceOf( AddSenseRequest::class, $request );
 	}
@@ -41,7 +41,7 @@ class AddSenseRequestParserTest extends TestCase {
 	public function testLexemeIdPassedToRequestObject() {
 		$parser = $this->newAddSenseRequestParser();
 
-		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
+		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => self::getDataParam() ] );
 
 		$this->assertEquals( new LexemeId( 'L1' ), $request->getLexemeId() );
 	}
@@ -49,7 +49,7 @@ class AddSenseRequestParserTest extends TestCase {
 	public function testSenseDataPassedToRequestObject() {
 		$parser = $this->newAddSenseRequestParser();
 
-		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
+		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => self::getDataParam() ] );
 
 		$this->assertEquals(
 			new ChangeOpSenseAdd(
@@ -66,7 +66,7 @@ class AddSenseRequestParserTest extends TestCase {
 		$parser = $this->newAddSenseRequestParser();
 
 		$request = $parser->parse(
-			[ 'lexemeId' => 'L1', 'data' => $this->getDataParam(), 'baserevid' => 1 ]
+			[ 'lexemeId' => 'L1', 'data' => self::getDataParam(), 'baserevid' => 1 ]
 		);
 
 		$this->assertSame( 1, $request->getBaseRevId() );
@@ -84,7 +84,7 @@ class AddSenseRequestParserTest extends TestCase {
 		$this->newAddSenseRequestParser()->parse( [ 'lexemeId' => 'L1', 'data' => "singleString" ] );
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'glosses' => [
 				'en' => [

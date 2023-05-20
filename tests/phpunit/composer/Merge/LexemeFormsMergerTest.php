@@ -33,9 +33,9 @@ class LexemeFormsMergerTest extends TestCase {
 		$this->assertTrue( $expectedTarget->equals( $target ) );
 	}
 
-	public function provideSamples() {
+	public static function provideSamples() {
 		yield 'form gets copied' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -44,7 +44,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andGrammaticalFeature( 'Q1' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -53,10 +53,10 @@ class LexemeFormsMergerTest extends TestCase {
 						->andGrammaticalFeature( 'Q1' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )->build(),
+			self::newMinimumValidLexeme( 'L2' )->build(),
 		];
 		yield 'forms gets copied after existing one' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -68,13 +68,13 @@ class LexemeFormsMergerTest extends TestCase {
 						->andRepresentation( 'en', 'bar' )
 						->andGrammaticalFeature( 'Q1' )
 				)->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F2' )
 						->andRepresentation( 'en', 'bar' )
 						->andGrammaticalFeature( 'Q1' )
 				)->build(),
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -84,21 +84,21 @@ class LexemeFormsMergerTest extends TestCase {
 				)->build(),
 		];
 		yield 'form representations get merged' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
 						->andRepresentation( 'en-gb', 'colour' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
 						->andRepresentation( 'en-gb', 'colour' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -106,7 +106,7 @@ class LexemeFormsMergerTest extends TestCase {
 				->build(),
 		];
 		yield 'forms are considered identical irrespective of grammatical feature order' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -114,7 +114,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andGrammaticalFeature( 'Q1' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -122,7 +122,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andGrammaticalFeature( 'Q2' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -132,7 +132,7 @@ class LexemeFormsMergerTest extends TestCase {
 				->build(),
 		];
 		yield 'form statement gets copied' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -144,7 +144,7 @@ class LexemeFormsMergerTest extends TestCase {
 								->build()
 						)
 				)->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -156,7 +156,7 @@ class LexemeFormsMergerTest extends TestCase {
 								->build()
 						)
 				)->build(),
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -164,7 +164,7 @@ class LexemeFormsMergerTest extends TestCase {
 				)->build(),
 		];
 		yield 'form with statement gets copied' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en-gb', 'colour' )
@@ -179,7 +179,7 @@ class LexemeFormsMergerTest extends TestCase {
 						)
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -190,14 +190,14 @@ class LexemeFormsMergerTest extends TestCase {
 								->build()
 						)
 				)->build(),
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en-gb', 'colour' )
 				)->build(),
 		];
 		yield 'redundant source forms persist' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -207,7 +207,7 @@ class LexemeFormsMergerTest extends TestCase {
 						->andRepresentation( 'en', 'color' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -217,10 +217,10 @@ class LexemeFormsMergerTest extends TestCase {
 						->andRepresentation( 'en', 'color' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )->build(),
+			self::newMinimumValidLexeme( 'L2' )->build(),
 		];
 		yield 'redundant target forms persist' => [
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -230,9 +230,9 @@ class LexemeFormsMergerTest extends TestCase {
 						->andRepresentation( 'en', 'color' )
 				)
 				->build(),
-			$this->newMinimumValidLexeme( 'L1' )
+			self::newMinimumValidLexeme( 'L1' )
 				->build(),
-			$this->newMinimumValidLexeme( 'L2' )
+			self::newMinimumValidLexeme( 'L2' )
 				->withForm(
 					NewForm::havingId( 'F1' )
 						->andRepresentation( 'en', 'color' )
@@ -246,8 +246,8 @@ class LexemeFormsMergerTest extends TestCase {
 	}
 
 	public function testMergeLeavesTargetIntact() {
-		$source = $this->newMinimumValidLexeme( 'L1' )->build();
-		$target = $this->newMinimumValidLexeme( 'L2' )->build();
+		$source = self::newMinimumValidLexeme( 'L1' )->build();
+		$target = self::newMinimumValidLexeme( 'L2' )->build();
 
 		$merger = $this->newLexemeFormsMerger();
 		$merger->merge( $source, $target );
@@ -289,7 +289,7 @@ class LexemeFormsMergerTest extends TestCase {
 	 * @param string $id Lexeme id
 	 * @return NewLexeme
 	 */
-	private function newMinimumValidLexeme( $id ): NewLexeme {
+	private static function newMinimumValidLexeme( $id ): NewLexeme {
 		return NewLexeme::havingId( $id )
 			->withLanguage( 'Q7' )
 			->withLexicalCategory( 'Q55' )

@@ -32,7 +32,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 	public function testSenseIdAndDataGetPassedToRequestObject() {
 		$editSenseChangeOpDeserializer = $this->createMock( EditSenseChangeOpDeserializer::class );
 		$editSenseChangeOpDeserializer->method( 'createEntityChangeOp' )
-			->with( $this->getDataParams() )
+			->with( self::getDataParams() )
 			->willReturn( new ChangeOps() );
 
 		$parser = new EditSenseElementsRequestParser(
@@ -42,14 +42,14 @@ class EditSenseElementsRequestParserTest extends TestCase {
 
 		$request = $parser->parse( [
 			'senseId' => self::DEFAULT_SENSE_ID,
-			'data' => $this->getDataAsJson(),
+			'data' => self::getDataAsJson(),
 		] );
 
 		$this->assertInstanceOf( EditSenseElementsRequest::class, $request );
 		$this->assertSame( self::DEFAULT_SENSE_ID, $request->getSenseId()->serialize() );
 	}
 
-	private function getDataParams( array $dataToUse = [] ) {
+	private static function getDataParams( array $dataToUse = [] ) {
 		$simpleData = [
 			'glosses' => [
 				self::DEFAULT_GLOSS_LANGUAGE => [
@@ -62,8 +62,8 @@ class EditSenseElementsRequestParserTest extends TestCase {
 		return array_merge( $simpleData, $dataToUse );
 	}
 
-	private function getDataAsJson( array $dataToUse = [] ) {
-		return json_encode( $this->getDataParams( $dataToUse ) );
+	private static function getDataAsJson( array $dataToUse = [] ) {
+		return json_encode( self::getDataParams( $dataToUse ) );
 	}
 
 	private function newSenseIdDeserializer() {
@@ -92,7 +92,7 @@ class EditSenseElementsRequestParserTest extends TestCase {
 		);
 
 		$request = $parser->parse(
-			[ 'senseId' => 'L1-S1', 'baserevid' => 12345, 'data' => $this->getDataAsJson() ]
+			[ 'senseId' => 'L1-S1', 'baserevid' => 12345, 'data' => self::getDataAsJson() ]
 		);
 
 		$this->assertSame( 12345, $request->getBaseRevId() );

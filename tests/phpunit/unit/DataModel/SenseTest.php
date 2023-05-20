@@ -52,7 +52,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $sense->isEmpty() );
 	}
 
-	public function provideNonEmptySenses() {
+	public static function provideNonEmptySenses() {
 		return [
 			'2 glosses' => [
 				NewSense::havingGloss( 'en', 'one' )
@@ -60,7 +60,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 					->build(),
 			],
 			'1 statement' => [
-				NewSense::havingStatement( $this->newStatement() )
+				NewSense::havingStatement( self::newStatement() )
 					->build(),
 			],
 		];
@@ -73,9 +73,9 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $sense->isEmpty() );
 	}
 
-	public function provideEqualSenses() {
+	public static function provideEqualSenses() {
 		$minimal = NewSense::havingId( 'S1' )->withGloss( 'en', 'minimal' );
-		$nonEmpty = $minimal->withStatement( $this->newStatement() );
+		$nonEmpty = $minimal->withStatement( self::newStatement() );
 
 		$minimalInstance = $minimal->build();
 
@@ -106,7 +106,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $sense1->equals( $sense2 ) );
 	}
 
-	public function provideUnequalSenses() {
+	public static function provideUnequalSenses() {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'minimal' );
 
 		return [
@@ -120,7 +120,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 			],
 			'+1 statement' => [
 				$sense->build(),
-				$sense->withStatement( $this->newStatement() )->build(),
+				$sense->withStatement( self::newStatement() )->build(),
 			],
 		];
 	}
@@ -132,7 +132,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $sense1->equals( $sense2 ) );
 	}
 
-	private function newStatement() {
+	private static function newStatement() {
 		return new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
 	}
 
@@ -148,7 +148,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $clone->getId(), $sense->getId(), 'ids must be equal' );
 	}
 
-	public function clearableProvider() {
+	public static function clearableProvider() {
 		return [
 			'empty' => [ NewSense::havingId( 'S1' )->build() ],
 			'with gloss' => [

@@ -30,7 +30,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->setTemporaryHook(
@@ -65,10 +65,10 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	public function provideInvalidParams() {
+	public static function provideInvalidParams() {
 		return [
 			'no lexemeId param' => [
-				[ 'data' => $this->getDataParam() ],
+				[ 'data' => self::getDataParam() ],
 				[
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'lexemeId' ] ],
@@ -86,7 +86,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'invalid lexeme ID (random string not ID)' => [
-				[ 'lexemeId' => 'foo', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'foo', 'data' => self::getDataParam() ],
 				[
 					'key' => 'apierror-wikibaselexeme-parameter-not-lexeme-id',
 					'params' => [ 'lexemeId', '"foo"' ],
@@ -110,7 +110,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'Lexeme is not found' => [
-				[ 'lexemeId' => 'L999', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'L999', 'data' => self::getDataParam() ],
 				[
 					'key' => 'apierror-wikibaselexeme-lexeme-not-found',
 					'params' => [ 'lexemeId', 'L999' ],
@@ -150,7 +150,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -178,7 +178,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 			'baserevid' => $baseRevId,
 		];
 
@@ -202,7 +202,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( 'furry animal', $senses[0]->getGlosses()->getByLanguage( 'en' )->getText() );
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'glosses' => [
 				'en' => [
@@ -223,7 +223,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -245,7 +245,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -269,7 +269,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbladdsense',
 				'lexemeId' => 'L1',
-				'data' => $this->getDataParam(),
+				'data' => self::getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
@@ -285,7 +285,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -308,7 +308,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -326,7 +326,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -353,7 +353,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$this->assertCanTagSuccessfulRequest( [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		] );
 	}
 

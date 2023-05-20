@@ -28,7 +28,7 @@ class LexemeDiffTest extends TestCase {
 		$this->assertSame( $expected, $lexemeDiff->isEmpty() );
 	}
 
-	public function provideIsEmpty() {
+	public static function provideIsEmpty() {
 		$f1 = new FormId( 'L1-F1' );
 		$s1 = new SenseId( 'L1-S1' );
 		$addAOp = new DiffOpAdd( 'a' );

@@ -199,7 +199,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function provideInvalidIds() {
+	public static function provideInvalidIds() {
 		return [
 			[ null ],
 			[ false ],
@@ -291,7 +291,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $lexeme->isEmpty() );
 	}
 
-	private function newLexemeWithForm( Form $form ) {
+	private static function newLexemeWithForm( Form $form ) {
 		return new Lexeme(
 			new LexemeId( 'L1' ),
 			null,
@@ -303,7 +303,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function provideTestEquals() {
+	public static function provideTestEquals() {
 		$empty = new Lexeme();
 
 		$withStatement = new Lexeme();
@@ -317,12 +317,12 @@ class LexemeTest extends MediaWikiUnitTestCase {
 			->andGrammaticalFeature( 'Q1' )
 			->andGrammaticalFeature( 'Q2' );
 
-		$withForm1 = $this->newLexemeWithForm( $newFormGoatFeatureQ1->build() );
-		$withForm1Again = $this->newLexemeWithForm( $newFormGoatFeatureQ1->build() );
-		$withFormAndNoFeature = $this->newLexemeWithForm( $newFormGoat->build() );
-		$withFormAndFeatureQ1 = $this->newLexemeWithForm( $newFormGoatFeatureQ1->build() );
-		$withFormAndFeatureQ2 = $this->newLexemeWithForm( $newFormGoatFeatureQ2->build() );
-		$withFormAndFeatureQ1andQ2 = $this->newLexemeWithForm( $newFormGoatFeatureQ1andQ2->build() );
+		$withForm1 = self::newLexemeWithForm( $newFormGoatFeatureQ1->build() );
+		$withForm1Again = self::newLexemeWithForm( $newFormGoatFeatureQ1->build() );
+		$withFormAndNoFeature = self::newLexemeWithForm( $newFormGoat->build() );
+		$withFormAndFeatureQ1 = self::newLexemeWithForm( $newFormGoatFeatureQ1->build() );
+		$withFormAndFeatureQ2 = self::newLexemeWithForm( $newFormGoatFeatureQ2->build() );
+		$withFormAndFeatureQ1andQ2 = self::newLexemeWithForm( $newFormGoatFeatureQ1andQ2->build() );
 
 		$goatSense = NewSense::havingId( 'S1' );
 		$goatSense->withGloss( 'en', 'goat' );
@@ -414,7 +414,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $lexeme->getLemmas()->equals( null ) );
 	}
 
-	public function differentLexemesProvider() {
+	public static function differentLexemesProvider() {
 		$withStatement1 = new Lexeme();
 		$withStatement1->getStatements()->addNewStatement( new PropertyNoValueSnak( 42 ) );
 
@@ -1188,7 +1188,7 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $lexeme->isEmpty(), 'lexeme must be empty after clear' );
 	}
 
-	public function clearableProvider() {
+	public static function clearableProvider() {
 		return [
 			'empty' => [
 				NewLexeme::havingId( 'L1' )->build(),

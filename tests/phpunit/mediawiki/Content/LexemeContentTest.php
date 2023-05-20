@@ -60,7 +60,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		new LexemeContent( $lexemeHolder, $redirect, $redirectTitle );
 	}
 
-	public function invalidConstructorArgsProvider() {
+	public static function invalidConstructorArgsProvider() {
 		yield 'must not contain lexeme and be a redirect at once' => [
 			new EntityInstanceHolder( new Lexeme() ),
 			new EntityRedirect( new LexemeId( 'L123' ), new LexemeId( 'L321' ) ),
@@ -117,7 +117,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$this->assertTrue( $lexemeContent->isCountable() );
 	}
 
-	public function countableLexemeProvider() {
+	public static function countableLexemeProvider() {
 		$countable = [];
 
 		$lexeme = new Lexeme( new LexemeId( 'L1' ) );
@@ -163,7 +163,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$this->assertFalse( $lexemeContent->isValid() );
 	}
 
-	public function provideInvalidLexeme() {
+	public static function provideInvalidLexeme() {
 		yield [ new Lexeme( new LexemeId( 'L1' ) ) ];
 		yield [ new Lexeme( new LexemeId( 'L1' ), null, new ItemId( 'Q120' ), new ItemId( 'Q121' ) ) ];
 		yield [ new Lexeme( new LexemeId( 'L1' ), null, null, new ItemId( 'Q121' ) ) ];
@@ -205,39 +205,39 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		yield 'Minimal entities, empty diff, should still be empty' => [
 			$lexemeEmpty,
 			$lexemeDiffer->diffEntities( $lexemeEmpty, $lexemeEmpty ),
-			function ( Lexeme $lexeme, Lexeme $lexemeCopy ) {
-				$this->assertTrue( $lexemeCopy->equals( $lexeme ) );
+			static function ( Lexeme $lexeme, Lexeme $lexemeCopy ) {
+				self::assertTrue( $lexemeCopy->equals( $lexeme ) );
 			},
 		];
 		yield 'Entities with the same form, empty diff, should remain unchanged' => [
 			$lexemeFormFeatureQ1,
 			$lexemeDiffer->diffEntities( $lexemeFormFeatureQ1, $lexemeFormFeatureQ1 ),
-			function ( Lexeme $lexeme, Lexeme $lexemeCopy ) {
-				$this->assertTrue( $lexemeCopy->equals( $lexeme ) );
+			static function ( Lexeme $lexeme, Lexeme $lexemeCopy ) {
+				self::assertTrue( $lexemeCopy->equals( $lexeme ) );
 			},
 		];
 		yield 'Adding a form feature (Q2)' => [
 			$lexemeFormFeatureQ1,
 			$lexemeDiffer->diffEntities( $lexemeFormFeatureQ1, $lexemeFormFeatureQ1andQ2 ),
-			function ( Lexeme $lexeme, Lexeme $lexemeCopy ) use ( $lexemeFormFeatureQ1andQ2 ) {
-				$this->assertFalse( $lexemeCopy->equals( $lexeme ) );
-				$this->assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ1andQ2 ) );
+			static function ( Lexeme $lexeme, Lexeme $lexemeCopy ) use ( $lexemeFormFeatureQ1andQ2 ) {
+				self::assertFalse( $lexemeCopy->equals( $lexeme ) );
+				self::assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ1andQ2 ) );
 			},
 		];
 		yield 'Removing a form feature (Q2)' => [
 			$lexemeFormFeatureQ1andQ2,
 			$lexemeDiffer->diffEntities( $lexemeFormFeatureQ1andQ2, $lexemeFormFeatureQ1 ),
-			function ( Lexeme $lexeme, Lexeme $lexemeCopy ) use ( $lexemeFormFeatureQ1 ) {
-				$this->assertFalse( $lexemeCopy->equals( $lexeme ) );
-				$this->assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ1 ) );
+			static function ( Lexeme $lexeme, Lexeme $lexemeCopy ) use ( $lexemeFormFeatureQ1 ) {
+				self::assertFalse( $lexemeCopy->equals( $lexeme ) );
+				self::assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ1 ) );
 			},
 		];
 		yield 'Changing a form feature (Q1 -> Q2)' => [
 			$lexemeFormFeatureQ1,
 			$lexemeDiffer->diffEntities( $lexemeFormFeatureQ1, $lexemeFormFeatureQ2 ),
-			function ( Lexeme $lexeme, Lexeme $lexemeCopy ) use ( $lexemeFormFeatureQ2 ) {
-				$this->assertFalse( $lexemeCopy->equals( $lexeme ) );
-				$this->assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ2 ) );
+			static function ( Lexeme $lexeme, Lexeme $lexemeCopy ) use ( $lexemeFormFeatureQ2 ) {
+				self::assertFalse( $lexemeCopy->equals( $lexeme ) );
+				self::assertTrue( $lexemeCopy->equals( $lexemeFormFeatureQ2 ) );
 			},
 		];
 	}
@@ -253,7 +253,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$this->assertSame( $expectedCount, (int)$pageProps['wb-claims'] );
 	}
 
-	public function provideLexemesWithStatementCount() {
+	public static function provideLexemesWithStatementCount() {
 		yield 'empty lexeme' => [ NewLexeme::create(), 0 ];
 
 		$snak = new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) );
@@ -296,7 +296,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$this->assertSame( $expectedFormsCount, (int)$pageProps['wbl-forms'] );
 	}
 
-	public function provideLexemesWithSensesAndForms() {
+	public static function provideLexemesWithSensesAndForms() {
 		yield 'empty lexeme' => [ NewLexeme::create(), 0, 0 ];
 
 		$lexeme = NewLexeme::create();
@@ -422,7 +422,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$this->assertEquals( $expectedOutput, $lexemeContent->getTextForSummary( $length ) );
 	}
 
-	public function lexemeTextSummaryProvider() {
+	public static function lexemeTextSummaryProvider() {
 		return [
 			'normal behaviour' => [
 				NewLexeme::havingId( 'L1' )

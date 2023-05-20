@@ -41,7 +41,7 @@ class LexemeDescriptionTest extends TestCase {
 		],
 	];
 
-	public function termResultsProvider() {
+	public static function termResultsProvider() {
 		return [
 			"one form" => [
 				'en',

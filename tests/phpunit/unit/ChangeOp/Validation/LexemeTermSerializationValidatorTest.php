@@ -138,7 +138,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 		$validator->validateLanguage( $languageCode, $serialization, $context );
 	}
 
-	public function notAnArrayProvider() {
+	public static function notAnArrayProvider() {
 		return [
 			[ null ],
 			[ false ],
@@ -147,7 +147,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 		];
 	}
 
-	public function notAStringProvider() {
+	public static function notAStringProvider() {
 		return [
 			[ null ],
 			[ false ],
@@ -156,7 +156,7 @@ class LexemeTermSerializationValidatorTest extends MediaWikiUnitTestCase {
 		];
 	}
 
-	public function validTermProvider() {
+	public static function validTermProvider() {
 		return [
 			[ 'en', [ 'language' => 'en', 'value' => 'yay' ] ],
 			[ 'en', [ 'language' => 'en', 'remove' => '' ] ],

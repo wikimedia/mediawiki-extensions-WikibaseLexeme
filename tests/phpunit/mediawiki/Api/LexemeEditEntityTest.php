@@ -465,7 +465,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenClearAndExisitingFormIdAndRepresentationsData_formDataIsChanged() {
 		$this->saveDummyLexemeToDatabase();
 
-		$formId = $this->formatFormId(
+		$formId = self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 		);
 		$params = [
@@ -491,7 +491,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( [], $firstFormData['claims'] );
 	}
 
-	public function provideInvalidData() {
+	public static function provideInvalidData() {
 		return [
 			'not string as language' => [
 				[ 'language' => 100 ],
@@ -586,7 +586,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
-	public function provideInvalidLexemeDataWithClear() {
+	public static function provideInvalidLexemeDataWithClear() {
 		return [
 			'language missing in new data' => [
 				[
@@ -668,7 +668,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => 'foo' ] ],
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 					],
@@ -699,7 +699,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
-	public function provideIncompleteFormDataToGoWithClear() {
+	public static function provideIncompleteFormDataToGoWithClear() {
 		return [
 			'empty form representations in new data' => [
 				[
@@ -760,7 +760,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
-	public function provideNoChangeLexemeData() {
+	public static function provideNoChangeLexemeData() {
 		return [
 			'empty form list ' => [ [
 				'forms' => [
@@ -769,7 +769,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'only ID of existing form' => [ [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 					],
@@ -936,7 +936,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
@@ -952,7 +952,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
 		$this->assertCount( 1, $result['entity']['forms'] );
 		$this->assertSame(
-			$this->formatFormId(
+			self::formatFormId(
 				self::EXISTING_LEXEME_ID,
 				self::EXISTING_LEXEME_FORM_2_ID
 			),
@@ -971,7 +971,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'lexicalCategory' => self::EXISTING_LEXEME_LEXICAL_CATEGORY_ITEM_ID,
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
@@ -997,13 +997,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
 					],
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'remove' => '',
@@ -1028,13 +1028,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, 'malformed'
 						),
 						'remove' => '',
 					],
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'remove' => '',
@@ -1099,7 +1099,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, 'bad'
 						),
 						'remove' => '',
@@ -1131,7 +1131,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'grammaticalFeatures' => [ 'BAD' ],
@@ -1213,7 +1213,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
@@ -1237,7 +1237,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$secondLexemeId = 'L33';
 
 		$secondLexeme = $this->getDummyLexeme( $secondLexemeId );
-		$secondLexeme->getForms()->remove( new FormId( $this->formatFormId(
+		$secondLexeme->getForms()->remove( new FormId( self::formatFormId(
 			$secondLexemeId, self::EXISTING_LEXEME_FORM_1_ID
 		) ) );
 
@@ -1253,7 +1253,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
@@ -1284,7 +1284,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, 'F77'
 						),
 						'remove' => '',
@@ -1356,12 +1356,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertEquals( 3, $lexeme->getNextFormId() );
 	}
 
-	public function provideDataRequiringEditPermissions() {
+	public static function provideDataRequiringEditPermissions() {
 		yield [
 			[
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, 'F77'
 						),
 						'remove' => '',
@@ -1389,7 +1389,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'representations' => [
@@ -1420,7 +1420,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'representations' => [
@@ -1455,7 +1455,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$params = [
 			'action' => 'wbeditentity',
-			'id' => $this->formatFormId(
+			'id' => self::formatFormId(
 				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 			),
 			'data' => json_encode( [
@@ -1491,7 +1491,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'representations' => [
@@ -1526,7 +1526,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$params = [
 			'action' => 'wbeditentity',
-			'id' => $this->formatFormId(
+			'id' => self::formatFormId(
 				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 			),
 			'data' => json_encode( [
@@ -1601,7 +1601,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'representations' => [
@@ -1632,7 +1632,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, 'F100'
 						),
 						'representations' => [
@@ -1656,7 +1656,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$property = 'P909';
 		$snakType = 'novalue';
-		$formId = $this->formatFormId(
+		$formId = self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 		);
 		$claim = [
@@ -1695,7 +1695,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenNewStatementOnExistingForm_statementIsAdded() {
 		$this->saveDummyLexemeToDatabase();
 
-		$formId = $this->formatFormId(
+		$formId = self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 		);
 		$claim = [
@@ -1781,7 +1781,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
@@ -1809,7 +1809,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$this->assertSame(
-			$this->formatFormId(
+			self::formatFormId(
 				self::EXISTING_LEXEME_ID, 'F3'
 			),
 			$result['entity']['forms'][2]['id']
@@ -1873,13 +1873,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'grammaticalFeatures' => [ self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ],
 					],
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'representations' => [
@@ -1942,7 +1942,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
-		$expectedId = $this->formatFormId( self::EXISTING_LEXEME_ID, 'F3' );
+		$expectedId = self::formatFormId( self::EXISTING_LEXEME_ID, 'F3' );
 		$this->assertSame( $expectedId, $result['entity']['id'] );
 		$this->assertEquals(
 			[
@@ -2075,7 +2075,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
@@ -2090,7 +2090,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( self::EXISTING_LEXEME_ID, $result['entity']['id'] );
 		$this->assertCount( 1, $result['entity']['forms'] );
 		$this->assertSame(
-			$this->formatFormId( self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID ),
+			self::formatFormId( self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID ),
 			$result['entity']['forms'][0]['id']
 		);
 	}
@@ -2098,7 +2098,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenExistingFormAndChangeInFormRepresentations_formPropertyIsUpdated() {
 		$this->saveDummyLexemeToDatabase();
 
-		$formId = $this->formatFormId(
+		$formId = self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 		);
 		$params = [
@@ -2124,7 +2124,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testGivenExistingFormAndAddingFormRepresentation_formPropertyIsUpdated() {
 		$this->saveDummyLexemeToDatabase();
 
-		$formId = $this->formatFormId(
+		$formId = self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 		);
 		$params = [
@@ -2152,7 +2152,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$params = [
 			'action' => 'wbeditentity',
-			'id' => $this->formatFormId(
+			'id' => self::formatFormId(
 				self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 			),
 			'data' => json_encode( [
@@ -2180,13 +2180,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			'data' => json_encode( [
 				'forms' => [
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 						),
 						'remove' => '',
 					],
 					[
-						'id' => $this->formatFormId(
+						'id' => self::formatFormId(
 							self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 						),
 						'remove' => '',
@@ -2226,7 +2226,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 		$this->saveDummyLexemeToDatabase();
 		$this->saveEntity( new Item( new ItemId( self::EXISTING_GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
-		$formId = $this->formatFormId(
+		$formId = self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 		);
 		$params = [
@@ -2279,19 +2279,19 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 	// TODO: edit statements (all options: add, edit, remove?) with id=L1-F1
 
-	private function formatFormId( $lexemeId, $formId ) {
+	private static function formatFormId( $lexemeId, $formId ) {
 		return $lexemeId . '-' . $formId;
 	}
 
 	private function saveLexemeWithTwoRepresentations() {
 		$lexeme = $this->getDummyLexeme();
-		$lexeme->getForms()->getById( new FormId( $this->formatFormId(
+		$lexeme->getForms()->getById( new FormId( self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_1_ID
 		) ) )->getRepresentations()->setTerm( new Term(
 			self::EXISTING_LEXEME_FORM_1_LANGUAGE2,
 			self::EXISTING_LEXEME_FORM_1_TEXT2
 		) );
-		$lexeme->removeForm( new FormId( $this->formatFormId(
+		$lexeme->removeForm( new FormId( self::formatFormId(
 			self::EXISTING_LEXEME_ID, self::EXISTING_LEXEME_FORM_2_ID
 		) ) );
 		$this->saveEntity( $lexeme );

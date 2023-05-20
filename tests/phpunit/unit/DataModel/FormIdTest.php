@@ -31,7 +31,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $id->isForeign(), 'isForeign' );
 	}
 
-	public function provideInvalidSerializations() {
+	public static function provideInvalidSerializations() {
 		return [
 			[ null ],
 			[ '' ],
@@ -73,7 +73,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function provideLexemeIdMatchingFormId() {
+	public static function provideLexemeIdMatchingFormId() {
 		yield [ 'L1', 'repo:L1-F1' ];
 		yield [ 'L777', ':L777-F123' ];
 	}
@@ -88,7 +88,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function idSuffixProvider() {
+	public static function idSuffixProvider() {
 		yield [ 'F1', 'L1-F1' ];
 		yield [ 'F123', 'foreign:L321-F123' ];
 	}

@@ -161,7 +161,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $isEqual, $set1->equals( $set2 ) );
 	}
 
-	public function equalsProvider() {
+	public static function equalsProvider() {
 		yield 'empty sets' => [
 			new FormSet(),
 			new FormSet(),
@@ -218,7 +218,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $formSet->hasFormWithId( $formId ) );
 	}
 
-	public function provideFormSetAndContainedFormId() {
+	public static function provideFormSetAndContainedFormId() {
 		yield 'FormId already contained in set' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
 			new FormId( 'L42-F1' ),
@@ -236,7 +236,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $formSet->hasFormWithId( $formId ) );
 	}
 
-	public function provideFormSetAndUnaccountedFormId() {
+	public static function provideFormSetAndUnaccountedFormId() {
 		yield 'form not added to this set (yet)' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
 			new FormId( 'L42-F17' ),

@@ -42,14 +42,14 @@ class GrammaticalFeatureItemIdsExtractorTest extends TestCase {
 		$extractor->extractEntityIds( $nonLexeme );
 	}
 
-	public function nonLexemeProvider() {
+	public static function nonLexemeProvider() {
 		return [
 			[ new Item() ],
 			[ new Property( null, null, 'string' ) ],
 		];
 	}
 
-	public function lexemeWithFormsProvider() {
+	public static function lexemeWithFormsProvider() {
 		return [
 			'no forms' => [ NewLexeme::havingId( 'L321' )->build(), [] ],
 			'one form with multiple grammatical features' => [

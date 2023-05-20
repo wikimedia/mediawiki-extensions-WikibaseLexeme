@@ -18,7 +18,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class LexicalCategoryChangeOpDeserializerTest extends TestCase {
 
-	public function provideInvalidSerialization() {
+	public static function provideInvalidSerialization() {
 		return [
 			[ [] ],
 			[ null ],

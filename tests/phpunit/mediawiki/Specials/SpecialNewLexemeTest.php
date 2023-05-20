@@ -376,7 +376,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		$this->assertStringContainsString( json_encode( $expected ), $html );
 	}
 
-	public function provideUrlParameterTestData(): \Traversable {
+	public static function provideUrlParameterTestData(): \Traversable {
 		yield 'No url params' => [
 			[],
 			[],

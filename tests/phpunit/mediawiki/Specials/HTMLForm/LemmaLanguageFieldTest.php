@@ -27,7 +27,7 @@ class LemmaLanguageFieldTest extends TestCase {
 		new LemmaLanguageField( [ $param => 'value' ] );
 	}
 
-	public function provideForbiddenConstructorParameters() {
+	public static function provideForbiddenConstructorParameters() {
 		yield [ 'options' ];
 		yield [ 'options-message' ];
 		yield [ 'options-messages' ];

@@ -31,7 +31,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 			$this->createMock( LemmaTermValidator::class ) );
 	}
 
-	public function invalidConstructorArgumentsProvider() {
+	public static function invalidConstructorArgumentsProvider() {
 		return [
 			'not a string as a language code (null)' => [ null, 'duck' ],
 			'not a string as a language code (int)' => [ 123, 'duck' ],
@@ -74,7 +74,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$this->assertFalse( $changeOp->validate( $lexeme )->isValid() );
 	}
 
-	public function invalidLemmaTermProvider() {
+	public static function invalidLemmaTermProvider() {
 		return [
 			'empty string' => [ '' ],
 			'too long text' => [ 'Lorem ipsum dolor sit amet' ],

@@ -77,7 +77,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	public function provideInvalidParams() {
+	public static function provideInvalidParams() {
 		return [
 			'no id param' => [
 				[],

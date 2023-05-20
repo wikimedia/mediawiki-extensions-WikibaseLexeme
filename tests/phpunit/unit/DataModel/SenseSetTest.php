@@ -163,7 +163,7 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $isEqual, $set1->equals( $set2 ) );
 	}
 
-	public function equalsProvider() {
+	public static function equalsProvider() {
 		yield 'empty sets' => [
 			new SenseSet(),
 			new SenseSet(),

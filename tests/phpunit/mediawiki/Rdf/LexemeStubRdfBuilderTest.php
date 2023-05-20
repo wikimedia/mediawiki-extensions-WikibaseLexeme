@@ -123,7 +123,7 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 		$this->helper->assertNTriplesEquals( $expected, $actual, "Data set $dataSetName" );
 	}
 
-	public function provideAddLexemeStub(): array {
+	public static function provideAddLexemeStub(): array {
 		return [
 			[ 'L2', 'L2_stubs' ],
 		];
@@ -138,7 +138,7 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 		$this->addEntityStubTest( $lexeme, $dataSetName );
 	}
 
-	public function provideAddFormStub() {
+	public static function provideAddFormStub() {
 		return [
 			[ 'L2', 'L2-F1', 'L2-F1_stubs' ],
 		];
@@ -154,7 +154,7 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 		$this->addEntityStubTest( $form, $dataSetName );
 	}
 
-	public function provideAddSenseStub(): array {
+	public static function provideAddSenseStub(): array {
 		return [
 			[ 'L2', 'L2-S1', 'L2-S1_stubs' ],
 		];

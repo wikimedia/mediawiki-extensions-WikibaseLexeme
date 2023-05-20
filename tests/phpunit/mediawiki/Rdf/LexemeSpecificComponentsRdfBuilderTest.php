@@ -153,7 +153,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->helper->assertNTriplesEquals( $expected, $actual, "Data set $dataSetName" );
 	}
 
-	public function provideAddLexeme() {
+	public static function provideAddLexeme() {
 		return [
 			[ 'L2', 'L2_all' ],
 		];
@@ -167,7 +167,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->addEntityTest( $lexeme, $dataSetName );
 	}
 
-	public function provideLexemeSubEntities() {
+	public static function provideLexemeSubEntities() {
 		return [
 			[ 'L2', [ 'L2-F1', 'L2-S1' ] ],
 		];
@@ -181,7 +181,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->subEntityTest( $lexeme, $subEntities );
 	}
 
-	public function provideLexemeMentionedEntities() {
+	public static function provideLexemeMentionedEntities() {
 		return [
 			[ 'L2', [ 'Q1', 'Q2' ] ],
 		];
@@ -195,7 +195,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->mentionedEntityTest( $lexeme, $mentionedEntities );
 	}
 
-	public function provideAddForm() {
+	public static function provideAddForm() {
 		return [
 			[ 'L2', 'L2-F1', 'L2-F1_all' ],
 		];
@@ -210,7 +210,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->addEntityTest( $form, $dataSetName );
 	}
 
-	public function provideFormMentionedEntities() {
+	public static function provideFormMentionedEntities() {
 		return [
 			[ 'L2', 'L2-F1', [ 'Q3', 'Q4' ] ],
 		];
@@ -225,7 +225,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->mentionedEntityTest( $form, $mentionedEntities );
 	}
 
-	public function provideAddSense() {
+	public static function provideAddSense() {
 		return [
 			[ 'L2', 'L2-S1', 'L2-S1_all' ],
 		];
@@ -240,7 +240,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->addEntityTest( $sense, $dataSetName );
 	}
 
-	public function provideSenseMentionedEntities() {
+	public static function provideSenseMentionedEntities() {
 		return [
 			[ 'L2', 'L2-S1', [] ],
 		];
@@ -293,7 +293,7 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$this->assertEquals( $expectedMentionedEntities, $mentionedEntities );
 	}
 
-	public function provideLexemeFullSerialization() {
+	public static function provideLexemeFullSerialization() {
 		return [
 			[ 'L2', 'L2_full' ],
 		];

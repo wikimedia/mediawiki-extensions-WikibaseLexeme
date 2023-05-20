@@ -25,7 +25,7 @@ class LexemeTemplateFactoryTest extends TestCase {
 		$this->assertSame( $expected, $rendered );
 	}
 
-	public function renderParamsProvider() {
+	public static function renderParamsProvider() {
 		return [
 			[ '<PARAM>', '<PARAM>' ],
 			[ [], '$1' ],

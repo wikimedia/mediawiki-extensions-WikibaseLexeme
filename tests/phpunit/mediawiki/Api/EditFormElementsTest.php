@@ -78,7 +78,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
 				'en' => [
@@ -92,7 +92,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		return json_encode( array_merge( $simpleData, $dataToUse ) );
 	}
 
-	public function provideInvalidParams() {
+	public static function provideInvalidParams() {
 		$basicData = [
 			'representations' => [
 				'en' => [
@@ -104,7 +104,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		];
 		return [
 			'no formId param' => [
-				[ 'data' => $this->getDataParam() ],
+				[ 'data' => self::getDataParam() ],
 				[
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'formId' ] ],
@@ -122,7 +122,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'invalid form ID (random string not ID)' => [
-				[ 'formId' => 'foo', 'data' => $this->getDataParam() ],
+				[ 'formId' => 'foo', 'data' => self::getDataParam() ],
 				[
 					'key' => 'apierror-wikibaselexeme-parameter-not-form-id',
 					// TODO Empty path questionable result of Error reuse (w/ and w/o path)
@@ -162,7 +162,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
 					),
 				],
@@ -179,7 +179,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
 				] ,
@@ -196,7 +196,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'invalid Item ID as grammatical feature (Item ID not found)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'Q2' ] ]
 					),
 				] ,
@@ -742,7 +742,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbleditformelements',
 			'formId' => self::DEFAULT_FORM_ID,
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -809,7 +809,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbleditformelements',
 				'formId' => self::DEFAULT_FORM_ID,
-				'data' => $this->getDataParam(),
+				'data' => self::getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
@@ -834,7 +834,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
-			'data' => $this->getDataParam( [
+			'data' => self::getDataParam( [
 				'claims' => [ $claim ],
 			] ),
 		] );

@@ -35,7 +35,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->setTemporaryHook(
@@ -70,7 +70,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	public function provideInvalidParams() {
+	public static function provideInvalidParams() {
 		$basicData = [
 			'representations' => [
 				'en' => [
@@ -82,7 +82,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		];
 		return [
 			'no lexemeId param' => [
-				[ 'data' => $this->getDataParam() ],
+				[ 'data' => self::getDataParam() ],
 				[
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'lexemeId' ] ],
@@ -136,7 +136,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'grammatical features is not found' => [
-				[ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'L1', 'data' => self::getDataParam() ],
 				[
 					'key' => 'apierror-wikibaselexeme-invalid-item-id',
 					'params' => [ 'data', 'grammaticalFeatures', self::GRAMMATICAL_FEATURE_ITEM_ID ],
@@ -178,7 +178,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -207,7 +207,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 			'baserevid' => $baseRevId,
 		];
 
@@ -235,7 +235,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
 				'en' => [
@@ -258,7 +258,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -284,7 +284,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -309,7 +309,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbladdform',
 				'lexemeId' => 'L1',
-				'data' => $this->getDataParam(),
+				'data' => self::getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
@@ -326,7 +326,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		$this->doApiRequestWithToken( $params );
@@ -349,7 +349,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -368,7 +368,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -403,7 +403,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		list( $result, ) = $this->doApiRequestWithToken( [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam( [
+			'data' => self::getDataParam( [
 				'claims' => [ $claim ],
 			] ),
 		] );
@@ -423,7 +423,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$this->assertCanTagSuccessfulRequest( [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		] );
 	}
 

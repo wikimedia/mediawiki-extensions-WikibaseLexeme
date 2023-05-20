@@ -22,7 +22,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $matcher->validate( $source, $target ) );
 	}
 
-	public function provideMatchingSamples() {
+	public static function provideMatchingSamples() {
 		yield 'identical representations' => [
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitän' )
@@ -72,7 +72,7 @@ class FormMergeabilityTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $matcher->validate( $source, $target ) );
 	}
 
-	public function provideFailingSamples() {
+	public static function provideFailingSamples() {
 		yield 'different representations in the same spelling variant' => [
 			NewForm::any()
 				->andRepresentation( 'de', 'Kapitän' )

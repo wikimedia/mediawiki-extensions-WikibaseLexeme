@@ -55,7 +55,7 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 		}
 	}
 
-	public function provideLexemeApiModules() {
+	public static function provideLexemeApiModules() {
 		return [
 			[ 'wbladdform' ],
 			[ 'wbleditformelements' ],

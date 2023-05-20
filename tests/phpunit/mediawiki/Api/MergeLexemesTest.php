@@ -132,7 +132,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		}
 	}
 
-	public function invalidParamsProvider() {
+	public static function invalidParamsProvider() {
 		yield 'invalid source' => [ 'Q7', 'L123' ];
 		yield 'invalid target' => [ 'L321', 'potato' ];
 	}

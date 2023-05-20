@@ -23,7 +23,7 @@ class NoConflictingTermListValuesTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $validator->validate( $source, $target ) );
 	}
 
-	public function provideSamples() {
+	public static function provideSamples() {
 		yield [
 			true,
 			new TermList(),

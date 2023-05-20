@@ -26,7 +26,7 @@ class FormDifferTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $expectedEmpty, $entityDiff->isEmpty() );
 	}
 
-	public function provideDiffEntities() {
+	public static function provideDiffEntities() {
 		$newF1 = NewForm::havingId( 'F1' );
 		$q1 = new ItemId( 'Q1' );
 		$q2 = new ItemId( 'Q2' );

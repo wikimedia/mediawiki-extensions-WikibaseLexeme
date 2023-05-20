@@ -70,24 +70,24 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 		}
 	}
 
-	public function provideInvalidParamsAndRespectiveErrors() {
+	public static function provideInvalidParamsAndRespectiveErrors() {
 		return [
 			'invalid form ID (random string not ID)' => [
-				[ 'formId' => 'foo', 'data' => $this->getDataAsJson() ],
+				[ 'formId' => 'foo', 'data' => self::getDataAsJson() ],
 				[
 					[ 'parameterName' => 'formId', 'fieldPath' => [] ],
 					new ParameterIsNotFormId( 'foo' ),
 				],
 			],
 			'invalid form ID (not a form ID)' => [
-				[ 'formId' => 'Q11', 'data' => $this->getDataAsJson() ],
+				[ 'formId' => 'Q11', 'data' => self::getDataAsJson() ],
 				[
 					[ 'parameterName' => 'formId', 'fieldPath' => [] ],
 					new ParameterIsNotFormId( 'Q11' ),
 				],
 			],
 			'invalid form ID (no lexeme part in the ID)' => [
-				[ 'formId' => 'F1', 'data' => $this->getDataAsJson() ],
+				[ 'formId' => 'F1', 'data' => self::getDataAsJson() ],
 				[
 					[ 'parameterName' => 'formId', 'fieldPath' => [] ],
 					new ParameterIsNotFormId( 'F1' ),
@@ -117,7 +117,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'representations is a string' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson( [ 'representations' => 'foo' ] ),
+					'data' => self::getDataAsJson( [ 'representations' => 'foo' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
@@ -127,7 +127,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'grammatical features not an array' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson( [ 'grammaticalFeatures' => 'Q1' ] ),
+					'data' => self::getDataAsJson( [ 'grammaticalFeatures' => 'Q1' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures' ] ],
@@ -137,7 +137,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'representation list contains only single empty representation' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
 					),
 				],
@@ -149,7 +149,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'representation list contains only representation with empty language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => '' ] ] ]
 					),
 				],
@@ -161,7 +161,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'representation list contains representation with empty language key' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ '' => [ 'value' => 'goat', 'language' => 'en' ] ] ]
 					),
 				],
@@ -173,7 +173,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'representation list contains element with inconsistent language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => 'de' ] ] ]
 					),
 				],
@@ -188,7 +188,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'representation list contains element with unknown language' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
 					),
 				],
@@ -200,7 +200,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'no representation string in data' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'language' => 'en' ] ] ]
 					),
 				],
@@ -212,7 +212,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'no representation language in data' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'representations' => [ 'en' => [ 'value' => 'foo' ] ] ]
 					),
 				],
@@ -224,7 +224,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
 					),
 				],
@@ -236,7 +236,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
 					'formId' => self::DEFAULT_FORM_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
 				] ,
@@ -248,7 +248,7 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 		];
 	}
 
-	private function getDataParams( array $dataToUse = [] ) {
+	private static function getDataParams( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
 				self::DEFAULT_REPRESENTATION_LANGUAGE => [
@@ -262,8 +262,8 @@ class EditFormElementsRequestParserIntegrationTest extends TestCase {
 		return array_merge( $simpleData, $dataToUse );
 	}
 
-	private function getDataAsJson( array $dataToUse = [] ) {
-		return json_encode( $this->getDataParams( $dataToUse ) );
+	private static function getDataAsJson( array $dataToUse = [] ) {
+		return json_encode( self::getDataParams( $dataToUse ) );
 	}
 
 	private function newFormIdDeserializer() {

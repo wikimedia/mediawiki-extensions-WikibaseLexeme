@@ -65,24 +65,24 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 		}
 	}
 
-	public function provideInvalidParamsAndRespectiveErrors() {
+	public static function provideInvalidParamsAndRespectiveErrors() {
 		return [
 			'invalid sense ID (random string not ID)' => [
-				[ 'senseId' => 'foo', 'data' => $this->getDataAsJson() ],
+				[ 'senseId' => 'foo', 'data' => self::getDataAsJson() ],
 				[
 					[ 'parameterName' => 'senseId', 'fieldPath' => [] ],
 					new ParameterIsNotSenseId( 'foo' ),
 				],
 			],
 			'invalid sense ID (not a sense ID)' => [
-				[ 'senseId' => 'Q11', 'data' => $this->getDataAsJson() ],
+				[ 'senseId' => 'Q11', 'data' => self::getDataAsJson() ],
 				[
 					[ 'parameterName' => 'senseId', 'fieldPath' => [] ],
 					new ParameterIsNotSenseId( 'Q11' ),
 				],
 			],
 			'invalid sense ID (no lexeme part in the ID)' => [
-				[ 'senseId' => 'S1', 'data' => $this->getDataAsJson() ],
+				[ 'senseId' => 'S1', 'data' => self::getDataAsJson() ],
 				[
 					[ 'parameterName' => 'senseId', 'fieldPath' => [] ],
 					new ParameterIsNotSenseId( 'F1' ),
@@ -112,7 +112,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'glosses is a string' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson( [ 'glosses' => 'foo' ] ),
+					'data' => self::getDataAsJson( [ 'glosses' => 'foo' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'glosses' ] ],
@@ -122,7 +122,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'gloss list contains only single empty gloss' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
 					),
 				],
@@ -134,7 +134,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'gloss list contains only gloss with empty language' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => 'furry animal', 'language' => '' ] ] ]
 					),
 				],
@@ -146,7 +146,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'gloss list contains gloss with empty language key' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ '' => [ 'value' => 'furry animal', 'language' => 'en' ] ] ]
 					),
 				],
@@ -158,7 +158,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'gloss list contains element with inconsistent language' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => 'furry animal', 'language' => 'de' ] ] ]
 					),
 				],
@@ -173,7 +173,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'gloss list contains element with unknown language' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ 'foobar' => [ 'value' => 'furry animal', 'language' => 'foobar' ] ] ]
 					),
 				],
@@ -185,7 +185,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'no gloss string in data' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'language' => 'en' ] ] ]
 					),
 				],
@@ -197,7 +197,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 			'no gloss language in data' => [
 				[
 					'senseId' => self::DEFAULT_SENSE_ID,
-					'data' => $this->getDataAsJson(
+					'data' => self::getDataAsJson(
 						[ 'glosses' => [ 'en' => [ 'value' => 'foo' ] ] ]
 					),
 				],
@@ -209,7 +209,7 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 		];
 	}
 
-	private function getDataParams( array $dataToUse = [] ) {
+	private static function getDataParams( array $dataToUse = [] ) {
 		$simpleData = [
 			'glosses' => [
 				self::DEFAULT_GLOSS_LANGUAGE => [
@@ -222,8 +222,8 @@ class EditSenseElementsRequestParserIntegrationTest extends TestCase {
 		return array_merge( $simpleData, $dataToUse );
 	}
 
-	private function getDataAsJson( array $dataToUse = [] ) {
-		return json_encode( $this->getDataParams( $dataToUse ) );
+	private static function getDataAsJson( array $dataToUse = [] ) {
+		return json_encode( self::getDataParams( $dataToUse ) );
 	}
 
 	private function newSenseIdDeserializer() {

@@ -103,7 +103,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 		return new StaticContentLanguages( [ 'en', 'qqq' ] );
 	}
 
-	public function notAStringProvider() {
+	public static function notAStringProvider() {
 		return [
 			[ 1 ],
 			[ true ],
@@ -112,7 +112,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 		];
 	}
 
-	public function validLanguageProvider() {
+	public static function validLanguageProvider() {
 		return [
 			[ 'en' ],
 			[ 'qqq' ],
@@ -120,7 +120,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 		];
 	}
 
-	public function invalidLanguageCodeProvider() {
+	public static function invalidLanguageCodeProvider() {
 		return [
 			[ 'foo' ],
 			[ 'en-us' ],
@@ -128,7 +128,7 @@ class LexemeTermLanguageValidatorTest extends TestCase {
 		];
 	}
 
-	public function invalidItemProvider() {
+	public static function invalidItemProvider() {
 		return [
 			[ 'en-x-foo', 'foo' ],
 			[ 'en-x-123', '123' ],

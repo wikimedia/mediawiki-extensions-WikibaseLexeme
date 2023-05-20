@@ -38,7 +38,7 @@ class SenseDeserializerTest extends MediaWikiUnitTestCase {
 	 * Provides pairs of serializations and a Sense they are expected to deserialize to.
 	 * The last serialization returned is in the current format.
 	 */
-	public function provideSerializations() {
+	public static function provideSerializations() {
 		$statementId = 'L2-S3$6b2eb64d-2069-43ba-8020-51068985aa8a';
 		yield [
 			[

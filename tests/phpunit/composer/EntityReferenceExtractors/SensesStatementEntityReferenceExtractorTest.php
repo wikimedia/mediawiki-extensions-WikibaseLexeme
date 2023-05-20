@@ -32,7 +32,7 @@ class SensesStatementEntityReferenceExtractorTest extends TestCase {
 		$extractor->extractEntityIds( $entity );
 	}
 
-	public function nonLexemeProvider() {
+	public static function nonLexemeProvider() {
 		return [
 			[ new Item() ],
 			[ new Property( null, null, 'string' ) ],

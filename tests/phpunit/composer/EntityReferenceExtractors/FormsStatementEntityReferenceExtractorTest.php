@@ -41,7 +41,7 @@ class FormsStatementEntityReferenceExtractorTest extends TestCase {
 		$this->assertEquals( [], $extractor->extractEntityIds( $lexeme ) );
 	}
 
-	public function nonLexemeProvider() {
+	public static function nonLexemeProvider() {
 		return [
 			[ new Item() ],
 			[ new Property( null, null, 'string' ) ],

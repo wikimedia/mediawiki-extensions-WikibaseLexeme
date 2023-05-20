@@ -37,7 +37,7 @@ class NullFormIdTest extends MediaWikiUnitTestCase {
 		$nullFormId->$method( ...$args );
 	}
 
-	public function unserializeMethodProvider(): iterable {
+	public static function unserializeMethodProvider(): iterable {
 		yield 'PHP < 7.4' => [ 'unserialize', 'ff' ];
 		yield 'PHP >= 7.4' => [ '__unserialize', [ 'serialization' => 'ff' ] ];
 	}

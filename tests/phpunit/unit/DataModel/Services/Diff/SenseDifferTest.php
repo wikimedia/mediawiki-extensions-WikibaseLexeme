@@ -25,7 +25,7 @@ class SenseDifferTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $expectedEmpty, $entityDiff->isEmpty() );
 	}
 
-	public function provideDiffEntities() {
+	public static function provideDiffEntities() {
 		$newS1 = NewSense::havingId( 'S1' );
 
 		$newS1WithEnFooGloss = $newS1->withGloss( 'en', 'Foo' );

@@ -74,7 +74,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'glosses' => [
 				'en' => [
@@ -87,10 +87,10 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		return json_encode( array_merge( $simpleData, $dataToUse ) );
 	}
 
-	public function provideInvalidParams() {
+	public static function provideInvalidParams() {
 		return [
 			'no senseId param' => [
-				[ 'data' => $this->getDataParam() ],
+				[ 'data' => self::getDataParam() ],
 				[
 					'key' => 'paramvalidator-missingparam',
 					'params' => [ [ 'plaintext' => 'senseId' ] ],
@@ -108,7 +108,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'invalid sense ID (random string not ID)' => [
-				[ 'senseId' => 'foo', 'data' => $this->getDataParam() ],
+				[ 'senseId' => 'foo', 'data' => self::getDataParam() ],
 				[
 					'key' => 'apierror-wikibaselexeme-parameter-not-sense-id',
 					// TODO Empty path questionable result of Error reuse (w/ and w/o path)
@@ -133,7 +133,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 				],
 			],
 			'Sense is not found' => [
-				[ 'senseId' => 'L999-S1', 'data' => $this->getDataParam() ],
+				[ 'senseId' => 'L999-S1', 'data' => self::getDataParam() ],
 				[
 					'key' => 'apierror-wikibaselexeme-sense-not-found',
 					'params' => [ 'senseId', 'L999-S1' ],
@@ -425,7 +425,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		$params = [
 			'action' => 'wbleditsenseelements',
 			'senseId' => self::DEFAULT_SENSE_ID,
-			'data' => $this->getDataParam(),
+			'data' => self::getDataParam(),
 		];
 
 		list( $result, ) = $this->doApiRequestWithToken( $params );
@@ -486,7 +486,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( [
 				'action' => 'wbleditsenseelements',
 				'senseId' => self::DEFAULT_SENSE_ID,
-				'data' => $this->getDataParam(),
+				'data' => self::getDataParam(),
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {

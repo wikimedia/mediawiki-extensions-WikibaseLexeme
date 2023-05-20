@@ -18,7 +18,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class LanguageChangeOpDeserializerTest extends TestCase {
 
-	public function provideInvalidSerialization() {
+	public static function provideInvalidSerialization() {
 		return [
 			[ [] ],
 			[ null ],

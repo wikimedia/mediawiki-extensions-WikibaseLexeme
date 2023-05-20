@@ -94,7 +94,7 @@ class FormLinkFormatterTest extends TestCase {
 		$this->assertSame( $expected, $actual );
 	}
 
-	public function provideFragments() {
+	public static function provideFragments() {
 		$f1 = new FormId( 'L1-F1' );
 		return [
 			'old-style' => [ $f1, 'L1-F1', 'F1' ],

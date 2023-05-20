@@ -89,7 +89,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		);
 	}
 
-	public function nonStringProvider() {
+	public static function nonStringProvider() {
 		yield [ false ];
 		yield [ 123 ];
 		yield [ new RawMessage( 'potato' ) ];

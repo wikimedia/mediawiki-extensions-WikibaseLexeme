@@ -55,7 +55,7 @@ class LexemeLinkFormatterTest extends TestCase {
 		$formatter->getHtml( $id, [] );
 	}
 
-	public function notALexemeProvider() {
+	public static function notALexemeProvider() {
 		return [
 			[ new ItemId( 'Q123' ) ],
 			[ new FormId( 'L12-F3' ) ],

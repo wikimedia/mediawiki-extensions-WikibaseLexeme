@@ -45,7 +45,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function idSerializationProvider() {
+	public static function idSerializationProvider() {
 		return [
 			[ 'l1', 'L1' ],
 			[ 'l100', 'L100' ],
@@ -68,7 +68,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		new LexemeId( $invalidSerialization );
 	}
 
-	public function invalidIdSerializationProvider() {
+	public static function invalidIdSerializationProvider() {
 		return [
 			[ "L1\n" ],
 			[ 'l' ],
@@ -111,7 +111,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expected, $id->getSerialization() );
 	}
 
-	public function serializationProvider() {
+	public static function serializationProvider() {
 		return [
 			[ 'L2', 'L2' ],
 

@@ -85,7 +85,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $form->isEmpty() );
 	}
 
-	public function provideNonEmptyForms() {
+	public static function provideNonEmptyForms() {
 		return [
 			'2 representations' => [
 				NewForm::havingRepresentation( 'en', 'one' )
@@ -97,7 +97,7 @@ class FormTest extends MediaWikiUnitTestCase {
 					->build(),
 			],
 			'1 statement' => [
-				NewForm::havingStatement( $this->newStatement() )
+				NewForm::havingStatement( self::newStatement() )
 					->build(),
 			],
 		];
@@ -110,10 +110,10 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $form->isEmpty() );
 	}
 
-	public function provideEqualForms() {
+	public static function provideEqualForms() {
 		$minimal = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'minimal' );
 		$nonEmpty = $minimal->andGrammaticalFeature( 'Q1' )
-			->andStatement( $this->newStatement() );
+			->andStatement( self::newStatement() );
 
 		$minimalInstance = $minimal->build();
 
@@ -152,7 +152,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $form1->equals( $form2 ) );
 	}
 
-	public function provideUnequalForms() {
+	public static function provideUnequalForms() {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'minimal' );
 
 		return [
@@ -170,7 +170,7 @@ class FormTest extends MediaWikiUnitTestCase {
 			],
 			'+1 statement' => [
 				$form->build(),
-				$form->andStatement( $this->newStatement() )->build(),
+				$form->andStatement( self::newStatement() )->build(),
 			],
 		];
 	}
@@ -189,7 +189,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		// Edit all mutable fields on the original
 		$original->getRepresentations()->setTextForLanguage( 'en', 'added' );
 		$original->setGrammaticalFeatures( [ new ItemId( 'Q2' ) ] );
-		$original->getStatements()->addStatement( $this->newStatement() );
+		$original->getStatements()->addStatement( self::newStatement() );
 
 		// Make sure the original changed
 		$this->assertTrue( $original->getRepresentations()->hasTermForLanguage( 'en' ) );
@@ -202,7 +202,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $copy->getStatements()->isEmpty() );
 	}
 
-	private function newStatement() {
+	private static function newStatement() {
 		return new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
 	}
 
@@ -256,14 +256,14 @@ class FormTest extends MediaWikiUnitTestCase {
 		NewForm::any()->build()->setId( $id );
 	}
 
-	public function nonFormIdProvider() {
+	public static function nonFormIdProvider() {
 		yield [ 'L1-F1' ];
 		yield [ null ];
 		yield [ new ItemId( 'Q1' ) ];
 		yield [ new LexemeId( 'L1' ) ];
 	}
 
-	public function clearableProvider() {
+	public static function clearableProvider() {
 		return [
 			'empty' => [ NewForm::havingId( 'F1' )->build() ],
 			'with representation' => [

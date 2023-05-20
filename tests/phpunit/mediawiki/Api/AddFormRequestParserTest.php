@@ -37,7 +37,7 @@ class AddFormRequestParserTest extends TestCase {
 	public function testGivenValidData_parseReturnsRequest() {
 		$parser = $this->newAddFormRequestParser();
 
-		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
+		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => self::getDataParam() ] );
 
 		$this->assertInstanceOf( AddFormRequest::class, $request );
 	}
@@ -45,7 +45,7 @@ class AddFormRequestParserTest extends TestCase {
 	public function testLexemeIdPassedToRequestObject() {
 		$parser = $this->newAddFormRequestParser();
 
-		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
+		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => self::getDataParam() ] );
 
 		$this->assertEquals( new LexemeId( 'L1' ), $request->getLexemeId() );
 	}
@@ -53,7 +53,7 @@ class AddFormRequestParserTest extends TestCase {
 	public function testFormDataPassedToRequestObject() {
 		$parser = $this->newAddFormRequestParser();
 
-		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => $this->getDataParam() ] );
+		$request = $parser->parse( [ 'lexemeId' => 'L1', 'data' => self::getDataParam() ] );
 
 		$this->assertEquals(
 			new ChangeOpFormAdd(
@@ -70,7 +70,7 @@ class AddFormRequestParserTest extends TestCase {
 		$parser = $this->newAddFormRequestParser();
 
 		$request = $parser->parse(
-			[ 'lexemeId' => 'L1', 'data' => $this->getDataParam(), 'baserevid' => 1 ]
+			[ 'lexemeId' => 'L1', 'data' => self::getDataParam(), 'baserevid' => 1 ]
 		);
 
 		$this->assertSame( 1, $request->getBaseRevId() );
@@ -92,7 +92,7 @@ class AddFormRequestParserTest extends TestCase {
 		);
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
 				'en' => [

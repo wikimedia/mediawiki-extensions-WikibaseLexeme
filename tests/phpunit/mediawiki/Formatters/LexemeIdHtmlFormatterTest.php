@@ -71,7 +71,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		);
 	}
 
-	public function lemmaLanguageProvider() {
+	public static function lemmaLanguageProvider() {
 		yield 'BCP 47 compliant language code' => [ 'en', 'en' ];
 		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD' ];
 	}

@@ -211,7 +211,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function representationLanguageProvider() {
+	public static function representationLanguageProvider() {
 		yield 'BCP 47 compliant language code' => [ 'en', 'en', 'ltr' ];
 		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD', 'ltr' ];
 		yield 'rtl language' => [ 'he', 'he', 'rtl' ];

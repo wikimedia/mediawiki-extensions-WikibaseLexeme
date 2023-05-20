@@ -146,7 +146,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( 'StatementSectionsView::getHtml', $html );
 	}
 
-	public function provideTestGetContent() {
+	public static function provideTestGetContent() {
 		$lexemeId = new LexemeId( 'L1' );
 		$lexicalCategory = new ItemId( 'Q32' );
 		$language = new ItemId( 'Q11' );

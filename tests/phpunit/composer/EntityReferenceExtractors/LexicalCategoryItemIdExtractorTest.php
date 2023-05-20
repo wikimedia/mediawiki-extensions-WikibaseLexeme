@@ -36,7 +36,7 @@ class LexicalCategoryItemIdExtractorTest extends TestCase {
 		$extractor->extractEntityIds( $nonLexeme );
 	}
 
-	public function nonLexemeProvider() {
+	public static function nonLexemeProvider() {
 		return [
 			[ new Item() ],
 			[ new Property( null, null, 'string' ) ],

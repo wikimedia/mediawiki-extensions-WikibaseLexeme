@@ -51,7 +51,7 @@ class ExternalLexemeSerializerTest extends MediaWikiIntegrationTestCase {
 		$this->assertTrue( $serializer->isSerializerFor( new Lexeme() ) );
 	}
 
-	public function provideInvalidObjects() {
+	public static function provideInvalidObjects() {
 		return [
 			[ null ],
 			[ '' ],

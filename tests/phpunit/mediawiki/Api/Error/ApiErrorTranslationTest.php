@@ -44,7 +44,7 @@ class ApiErrorTranslationTest extends TestCase {
 		$this->assertEnglishTranslationContainsAllTheParameters( $apiMessage, $paramValues );
 	}
 
-	public function provideApiErrors() {
+	public static function provideApiErrors() {
 		return [
 			ParameterIsNotAJsonObject::class => [
 				new ParameterIsNotAJsonObject( 'param-1', 'given-param' ),

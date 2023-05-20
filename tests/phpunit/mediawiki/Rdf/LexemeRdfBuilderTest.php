@@ -70,7 +70,7 @@ class LexemeRdfBuilderTest extends TestCase {
 		$builder->addEntity( $lexeme );
 	}
 
-	public function provideAddEntity(): array {
+	public static function provideAddEntity(): array {
 		return [
 			'No flavors selected' => [ 0, new Lexeme() ],
 			'Just truthy statements requested' => [

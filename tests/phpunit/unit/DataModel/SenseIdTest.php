@@ -31,7 +31,7 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $id->isForeign(), 'isForeign' );
 	}
 
-	public function provideInvalidSerializations() {
+	public static function provideInvalidSerializations() {
 		return [
 			[ null ],
 			[ '' ],
@@ -71,7 +71,7 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expectedLexemeId, $lexemeId->getSerialization() );
 	}
 
-	public function provideLexemeIdMatchingSenseId() {
+	public static function provideLexemeIdMatchingSenseId() {
 		yield [ 'L1', 'repo:L1-S1' ];
 		yield [ 'L777', ':L777-S123' ];
 	}
@@ -86,7 +86,7 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function idSuffixProvider() {
+	public static function idSuffixProvider() {
 		yield [ 'S1', 'L1-S1' ];
 		yield [ 'S123', 'foreign:L321-S123' ];
 	}

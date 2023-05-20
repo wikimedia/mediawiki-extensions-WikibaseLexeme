@@ -199,7 +199,7 @@ class SenseIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function glossLanguageProvider(): iterable {
+	public static function glossLanguageProvider(): iterable {
 		yield 'mediawiki language code mapped to BCP 47' => [ 'mo', 'ro-Cyrl-MD', 'ltr' ];
 		yield 'BCP 47 compliant language code' => [ 'en', 'en', 'ltr' ];
 		yield 'rtl language' => [ 'he', 'he', 'rtl' ];

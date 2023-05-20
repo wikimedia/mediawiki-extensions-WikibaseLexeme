@@ -47,8 +47,8 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( '', $html );
 	}
 
-	public function diffProvider() {
-		$lexemeDiff = $this->getLexemeDiff();
+	public static function diffProvider() {
+		$lexemeDiff = self::getLexemeDiff();
 
 		$expectedForm = '(wikibaselexeme-diffview-form) / L1-F1 / (wikibaselexeme-diffview-';
 		$lexemeTags = [
@@ -84,7 +84,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		];
 	}
 
-	private function getLexemeDiff() {
+	private static function getLexemeDiff() {
 		return new EntityContentDiff(
 			new LexemeDiff( [
 				'lemmas' => new Diff( [
@@ -105,11 +105,11 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 					) ] ),
 
 				'forms' => new Diff( [
-					'L1-F1' => $this->getFormDiff(),
+					'L1-F1' => self::getFormDiff(),
 				], true ),
 
 				'senses' => new Diff( [
-					'L1-S1' => $this->getSensesDiff(),
+					'L1-S1' => self::getSensesDiff(),
 					], true ),
 			] ),
 			new Diff(),
@@ -117,7 +117,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function getFormDiff() {
+	private static function getFormDiff() {
 		return new ChangeFormDiffOp(
 			new FormId( 'L1-F1' ),
 			new Diff( [
@@ -129,7 +129,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function getSensesDiff() {
+	private static function getSensesDiff() {
 		return new ChangeSenseDiffOp(
 			new SenseId( 'L1-S1' ),
 			new Diff( [
@@ -371,7 +371,7 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testGenerateEntityContentDiffOrder() {
-		$lexemeEntityContentDiff = $this->getLexemeDiff();
+		$lexemeEntityContentDiff = self::getLexemeDiff();
 		$html = $this->getVisualizer()->visualizeEntityContentDiff( $lexemeEntityContentDiff );
 		$this->assertThatHamcrest( $html, stringContainsInOrder(
 			[

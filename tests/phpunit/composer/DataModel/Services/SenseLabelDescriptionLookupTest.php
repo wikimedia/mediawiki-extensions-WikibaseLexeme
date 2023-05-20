@@ -47,7 +47,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		$this->assertSame( $expectedText, $label->getText() );
 	}
 
-	public function provideLemmasAndExpectedLanguageCodesAndTexts() {
+	public static function provideLemmasAndExpectedLanguageCodesAndTexts() {
 		yield 'one lemma' => [
 			[ [ 'en', 'lemma' ] ],
 			'en',
@@ -115,7 +115,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		}
 	}
 
-	public function provideGlossesAndExpectedGloss() {
+	public static function provideGlossesAndExpectedGloss() {
 		$glossDe = [ 'de', 'Stichwortform im Wörterbuch' ];
 		$glossEn = [ 'en', 'dictionary form of a word' ];
 		$glossPt = [ 'pt', 'forma canônica de uma palavra' ];

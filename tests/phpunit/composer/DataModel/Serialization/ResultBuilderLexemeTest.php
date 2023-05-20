@@ -54,13 +54,13 @@ class ResultBuilderLexemeTest extends TestCase {
 	 *
 	 * @return array
 	 */
-	private function removeMetaData( array $array ) {
+	private static function removeMetaData( array $array ) {
 		foreach ( $array as $key => &$value ) {
 			if ( is_string( $key ) && $key[0] === '_' ) {
 				unset( $array[$key] );
 			} else {
 				if ( is_array( $value ) ) {
-					$value = $this->removeMetaData( $value );
+					$value = self::removeMetaData( $value );
 				}
 			}
 		}
@@ -112,7 +112,7 @@ class ResultBuilderLexemeTest extends TestCase {
 		);
 	}
 
-	public function provideTestAddLexemeRevision() {
+	public static function provideTestAddLexemeRevision() {
 		$expected = [
 			'entities' => [
 				'L1' => [
@@ -229,7 +229,7 @@ class ResultBuilderLexemeTest extends TestCase {
 			'_type' => 'assoc',
 		];
 
-		$expectedNoMetaData = $this->removeMetaData( $expected );
+		$expectedNoMetaData = self::removeMetaData( $expected );
 		// The api always starts with this
 		$expectedNoMetaData['_type'] = 'assoc';
 

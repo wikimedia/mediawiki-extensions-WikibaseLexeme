@@ -59,7 +59,7 @@ class LexemeDeserializerTest extends TestCase {
 		);
 	}
 
-	public function provideObjectSerializations() {
+	public static function provideObjectSerializations() {
 		$serializations = [];
 
 		$serializations['empty'] = [
@@ -353,7 +353,7 @@ class LexemeDeserializerTest extends TestCase {
 		$this->assertTrue( $deserializer->isDeserializerFor( $serialization ) );
 	}
 
-	public function provideInvalidSerializations() {
+	public static function provideInvalidSerializations() {
 		return [
 			[ null ],
 			[ '' ],

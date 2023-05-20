@@ -46,7 +46,7 @@ class RemoveSenseRequestParserTest extends TestCase {
 		}
 	}
 
-	public function provideInvalidParamsAndErrors() {
+	public static function provideInvalidParamsAndErrors() {
 		return [
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],

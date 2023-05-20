@@ -116,7 +116,7 @@ class LexemeMergerTest extends TestCase {
 		$this->lexemeMerger->merge( $source, $target );
 	}
 
-	public function provideConflictingLemmas() {
+	public static function provideConflictingLemmas() {
 		yield [ [ [ 'en', 'bar' ] ], [ [ 'en', 'foo' ] ] ];
 		yield [ [ [ 'en', 'bar' ], [ 'en-gb', 'foo' ] ], [ [ 'en-gb', 'foo2' ] ] ];
 		yield [ [ [ 'en', 'bar' ] ], [ [ 'en-gb', 'foo2' ], [ 'en', 'baz' ] ] ];
@@ -465,7 +465,7 @@ class LexemeMergerTest extends TestCase {
 		$this->assertCount( $matchingOrNot ? 1 : 2, $target->getForms() );
 	}
 
-	public function provideFormMatchingSamples() {
+	public static function provideFormMatchingSamples() {
 		yield 'identical representations cause match' => [
 			true,
 			NewForm::havingId( 'F1' )

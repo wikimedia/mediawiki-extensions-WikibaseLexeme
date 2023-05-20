@@ -106,7 +106,7 @@ class RedirectedLexemeSubEntityIdHtmlFormatterTest extends TestCase {
 		);
 	}
 
-	public function provideSubEntityInput() {
+	public static function provideSubEntityInput() {
 		yield [ 'L9-F2', 'L9#L9-F2', new FormId( 'L9-F2' ) ];
 		yield [ 'L9-S7', 'L9#L9-S7', new SenseId( 'L9-S7' ) ];
 	}

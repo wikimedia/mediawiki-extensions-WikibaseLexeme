@@ -32,7 +32,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 
 		$request = $parser->parse( [
 			'formId' => self::DEFAULT_FORM_ID,
-			'data' => $this->getDataAsJson(),
+			'data' => self::getDataAsJson(),
 		] );
 
 		$this->assertInstanceOf( EditFormElementsRequest::class, $request );
@@ -46,7 +46,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 		);
 
 		$request = $parser->parse(
-			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => $this->getDataAsJson() ]
+			[ 'formId' => 'L1-F1', 'baserevid' => 12345, 'data' => self::getDataAsJson() ]
 		);
 
 		$this->assertSame( 12345, $request->getBaseRevId() );
@@ -78,11 +78,11 @@ class EditFormElementsRequestParserTest extends TestCase {
 		);
 	}
 
-	private function getDataAsJson( array $dataToUse = [] ) {
-		return json_encode( $this->getDataParams( $dataToUse ) );
+	private static function getDataAsJson( array $dataToUse = [] ) {
+		return json_encode( self::getDataParams( $dataToUse ) );
 	}
 
-	private function getDataParams( array $dataToUse = [] ) {
+	private static function getDataParams( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
 				self::DEFAULT_REPRESENTATION_LANGUAGE => [
@@ -108,7 +108,7 @@ class EditFormElementsRequestParserTest extends TestCase {
 	private function mockEditFormChangeOpDeserializer() {
 		$editFormChangeOpDeserializer = $this->createMock( EditFormChangeOpDeserializer::class );
 		$editFormChangeOpDeserializer->method( 'createEntityChangeOp' )
-			->with( $this->getDataParams() )
+			->with( self::getDataParams() )
 			->willReturn( new ChangeOps() );
 
 		return $editFormChangeOpDeserializer;

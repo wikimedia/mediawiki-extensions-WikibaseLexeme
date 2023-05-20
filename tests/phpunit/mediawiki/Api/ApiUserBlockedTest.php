@@ -47,7 +47,7 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 		parent::tearDown();
 	}
 
-	public function dataProvider() {
+	public static function dataProvider() {
 		yield [
 			'wbladdform',
 			[

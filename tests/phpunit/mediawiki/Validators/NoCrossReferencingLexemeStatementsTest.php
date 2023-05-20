@@ -40,7 +40,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 		);
 	}
 
-	public function provideValidMerges() {
+	public static function provideValidMerges() {
 		$p1l3Snak = new PropertyValueSnak(
 			new NumericPropertyId( 'P1' ),
 			new EntityIdValue( new LexemeId( 'L3' ) )
@@ -94,7 +94,7 @@ class NoCrossReferencingLexemeStatementsTest extends TestCase {
 		$this->assertSame( [], $validator->getViolations() );
 	}
 
-	public function provideInvalidMerges() {
+	public static function provideInvalidMerges() {
 		$p1l1Snak = new PropertyValueSnak(
 			new NumericPropertyId( 'P1' ),
 			new EntityIdValue( new LexemeId( 'L1' ) )

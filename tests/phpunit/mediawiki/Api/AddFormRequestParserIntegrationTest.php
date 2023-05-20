@@ -67,14 +67,14 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 		}
 	}
 
-	public function provideInvalidParamsAndErrors() {
+	public static function provideInvalidParamsAndErrors() {
 		return [
 			'invalid lexeme ID (random string not ID)' => [
-				[ 'lexemeId' => 'foo', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'foo', 'data' => self::getDataParam() ],
 				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'foo' ) ],
 			],
 			'invalid lexeme ID (not a lexeme ID)' => [
-				[ 'lexemeId' => 'Q11', 'data' => $this->getDataParam() ],
+				[ 'lexemeId' => 'Q11', 'data' => self::getDataParam() ],
 				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'Q11' ) ],
 			],
 			'data not a well-formed JSON' => [
@@ -101,7 +101,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representations is a string' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam( [ 'representations' => 'foo' ] ),
+					'data' => self::getDataParam( [ 'representations' => 'foo' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
@@ -111,7 +111,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'grammatical features not an array' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam( [ 'grammaticalFeatures' => 'Q1' ] ),
+					'data' => self::getDataParam( [ 'grammaticalFeatures' => 'Q1' ] ),
 				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures' ] ],
@@ -121,7 +121,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representation list contains only single empty representation' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
 					),
 				],
@@ -133,7 +133,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representation list contains only representation with empty language' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => '' ] ] ]
 					),
 				],
@@ -145,7 +145,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representation list contains representation with empty language key' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ '' => [ 'value' => 'goat', 'language' => 'en' ] ] ]
 					),
 				],
@@ -157,7 +157,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representation list contains element with inconsistent language' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => 'de' ] ] ]
 					),
 				],
@@ -172,7 +172,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'representation list contains element with unknown language' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
 					),
 				],
@@ -184,7 +184,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'no representation string in data' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ 'en' => [ 'language' => 'en' ] ] ]
 					),
 				],
@@ -196,7 +196,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'no representation language in data' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'representations' => [ 'en' => [ 'value' => 'foo' ] ] ]
 					),
 				],
@@ -208,7 +208,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
 					),
 				],
@@ -220,7 +220,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
 				] ,
@@ -232,7 +232,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'invalid form claims request (not an array)' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'claims' => 'not an array' ]
 					),
 				] ,
@@ -244,7 +244,7 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			'invalid form claims request (invalid serialization)' => [
 				[
 					'lexemeId' => 'L1',
-					'data' => $this->getDataParam(
+					'data' => self::getDataParam(
 						[ 'claims' => [ [ 'invalid' ] ] ]
 					),
 				] ,
@@ -262,13 +262,13 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 		$this->expectException( ApiUsageException::class );
 		$parser->parse( [
 			'lexemeId' => 'L1',
-			'data' => $this->getDataParam( [
+			'data' => self::getDataParam( [
 				'claims' => 'not an array',
 			] ),
 		] );
 	}
 
-	private function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ) {
 		$simpleData = [
 			'representations' => [
 				'en' => [

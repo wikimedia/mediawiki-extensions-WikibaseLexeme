@@ -27,7 +27,7 @@ class LemmaTextSummaryFormatterTest extends TestCase {
 		$this->assertSame( $expected, $output );
 	}
 
-	public function termsProvider() {
+	public static function termsProvider() {
 		return [
 			'basic usage' => [
 				[
