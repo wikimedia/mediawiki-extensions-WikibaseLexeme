@@ -14,6 +14,7 @@
   - [PHP](#php)
   - [JavaScript](#javascript)
   - [Browser tests](#browser-tests)
+  - [Adding language code support for lexemes](#adding-language-code-support-for-lexemes)
   - [Other](#other)
 ### Prerequisites
 
@@ -136,6 +137,10 @@ For more information see the [Mediawiki manual for Javascript tests](https://www
 ### Browser tests
 
 Please see its [README](./tests/selenium/README.md).
+
+### Adding language code support for lexemes
+
+To add a new language code for lexemes please refer to the [detailed manual](https://www.mediawiki.org/wiki/Manual:Adding_and_removing_languages#Adding_a_language_code_for_Lexemes).
 
 ### Other
 
