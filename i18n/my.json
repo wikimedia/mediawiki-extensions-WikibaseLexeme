@@ -8,6 +8,9 @@
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "ခွင့်ပြုချက် ငြင်းပယ်လိုက်သည်။",
 	"wikibaselexeme-field-language-label": "ဘာသာစကား",
 	"wikibaselexeme-gloss-field-language-label": "ဘာသာစကား",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(အကူအညီ)",
+	"wikibaselexeme-statementsection-statements-about-form": "$1 အကြောင်း ထုတ်ပြန်ချက်များ",
+	"wikibaselexeme-statementsection-statements-about-sense": "$1 အကြောင်း ထုတ်ပြန်ချက်များ",
 	"wikibaselexeme-unknown-category": "အမည်မသိ",
 	"wikibaselexeme-unknown-language": "အမည်မသိ ဘာသာစကား"
 }
