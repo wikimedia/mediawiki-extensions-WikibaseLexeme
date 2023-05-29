@@ -8,7 +8,14 @@
 			"Fortega",
 			"KATRINE1992",
 			"Macofe",
-			"RicardoSGZ"
+			"RicardoSGZ",
+			"Agent",
+			"Armando",
+			"DiegoAmbrocio",
+			"Jackiezelaya",
+			"Juan t2905",
+			"Mpayansilva",
+			"No se"
 		]
 	},
 	"wikibaselexeme-desc": "Gestión del tipo de entidad Lexema",
@@ -59,6 +66,8 @@
 	"wikibase-validator-form-not-found": "El Lexema no tiene ninguna Forma con el ID dado",
 	"wikibase-lexeme-language-name-mis": "otros",
 	"wikibase-lexeme-lemma-language-not-recognized": "No se reconoció el código de idioma proporcionado.",
+	"wikibase-lexeme-mergelexemes-from-id": "El ID para fusionar desde",
+	"wikibase-lexeme-mergelexemes-to-id": "El ID para fusionar a",
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar lexemas",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» no es un identificador de lexema válido",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "No se encontró el lexema «$1».",

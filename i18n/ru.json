@@ -13,7 +13,8 @@
 			"Putnik",
 			"Redredsonia",
 			"Stjn",
-			"Vlad5250"
+			"Vlad5250",
+			"Evs"
 		]
 	},
 	"wikibaselexeme-desc": "Работа с видом единицы «лексема»",
@@ -99,6 +100,8 @@
 	"wikibase-lexeme-language-name-rm-surmiran": "сурмиранский",
 	"wikibase-lexeme-lemma-language-not-recognized": "Указанный код языка не распознан.",
 	"wikibase-lexeme-mergelexemes-intro": "Если вы объедините две лексемы, все леммы, декларации, формы и смыслы будут перемещены из одной лексемы на другую.",
+	"wikibase-lexeme-mergelexemes-from-id": "Идентификатор для слияния из",
+	"wikibase-lexeme-mergelexemes-to-id": "Идентификатор для слияния в",
 	"wikibase-lexeme-mergelexemes-submit": "Объединить лексемы",
 	"wikibase-lexeme-mergelexemes-success": "«$1» был влит в «$2» с последующей установкой перенаправления.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» — некорректный идентификатор лексемы",
