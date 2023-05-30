@@ -13,7 +13,9 @@
 			"KATRINE1992",
 			"Macofe",
 			"Mpayansilva",
-			"RicardoSGZ"
+			"RicardoSGZ",
+			"Armando",
+			"No se"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema de Wikibase",
@@ -28,7 +30,9 @@
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "No se encontró el lexema «$1».",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permiso denegado.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "No se puede fusionar un lexema consigo mismo.",
+	"wikibase-lexeme-mergelexemes-from-id": "El ID para fusionar desde",
 	"wikibase-lexeme-mergelexemes-submit": "Fusionar lexemas",
+	"wikibase-lexeme-mergelexemes-to-id": "El ID para fusionar a",
 	"wikibase-lexeme-summary-add-form": "Se añadió la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"wikibase-listdatatypes-wikibase-form-head": "Forma",
