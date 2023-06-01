@@ -13,7 +13,8 @@
 			"Putnik",
 			"Redredsonia",
 			"Stjn",
-			"Vlad5250"
+			"Vlad5250",
+			"Evs"
 		]
 	},
 	"content-model-wikibase-lexeme": "Викибазная лексема",
@@ -37,9 +38,11 @@
 	"wikibase-lexeme-mergelexemes-error-same-language": "Не удалось объединить лексемы, сначала устраните конфликты. Ошибка: Лексемы имеют разные языки.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Вы не можете объединить лексему с собой.",
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Не удалось объединить лексемы, сначала устраните конфликты. Ошибка: Лексемы имеют разные лексические категории.",
+	"wikibase-lexeme-mergelexemes-from-id": "Идентификатор для слияния из",
 	"wikibase-lexeme-mergelexemes-intro": "Если вы объедините две лексемы, все леммы, декларации, формы и смыслы будут перемещены из одной лексемы на другую.",
 	"wikibase-lexeme-mergelexemes-submit": "Объединить лексемы",
 	"wikibase-lexeme-mergelexemes-success": "«$1» был влит в «$2» с последующей установкой перенаправления.",
+	"wikibase-lexeme-mergelexemes-to-id": "Идентификатор для слияния в",
 	"wikibase-lexeme-summary-add-form": "Добавлена новая форма $3 с {{PLURAL:$1|1=представлением|представлениями}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|1=Добавлена грамматическая возможность|Добавлены грамматические возможности}} формы $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|1=Добавлено представление|Добавлены представления}} формы $3",
