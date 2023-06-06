@@ -59,10 +59,10 @@ class FormTest extends MediaWikiUnitTestCase {
 	public function testSetGrammaticalFeatures_AlphabeticallySortsItemIdsByTheirSerialization() {
 		$form = NewForm::havingId( 'F1' )->build();
 
-		$form->setGrammaticalFeatures( [ new ItemId( 'z:Q1' ), new ItemId( 'a:Q1' ) ] );
+		$form->setGrammaticalFeatures( [ new ItemId( 'Q2' ), new ItemId( 'Q1' ) ] );
 
 		$this->assertEquals(
-			[ new ItemId( 'a:Q1' ), new ItemId( 'z:Q1' ) ],
+			[ new ItemId( 'Q1' ), new ItemId( 'Q2' ) ],
 			$form->getGrammaticalFeatures()
 		);
 	}

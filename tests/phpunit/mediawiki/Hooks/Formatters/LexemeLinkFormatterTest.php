@@ -138,15 +138,15 @@ class LexemeLinkFormatterTest extends TestCase {
 	 */
 	public function testGetHtml_whenDoubleRedirectLexemes_usesLexemeID() {
 		$unresolvedRedirectionException = new UnresolvedEntityRedirectException(
-			new LexemeId( 'Lexeme:L123' ), new LexemeId( 'Lexeme:L234' ) );
+			new LexemeId( 'L123' ), new LexemeId( 'L234' ) );
 		$this->entityLookup->method( 'getEntity' )
 			->will( $this->throwException( $unresolvedRedirectionException ) );
 
 		$formatter = $this->newFormatter();
 
 		$this->assertStringContainsString(
-			'Lexeme:L123',
-			$formatter->getHtml( new LexemeId( 'Lexeme:L123' ) )
+			'L123',
+			$formatter->getHtml( new LexemeId( 'L123' ) )
 		);
 	}
 

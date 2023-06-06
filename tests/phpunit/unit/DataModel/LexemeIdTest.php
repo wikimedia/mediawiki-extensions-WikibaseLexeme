@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
 use MediaWikiUnitTestCase;
-use RuntimeException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
@@ -54,8 +53,6 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 			[ 'L31337', 'L31337' ],
 			[ 'L42', 'L42' ],
 			[ ':L42', 'L42' ],
-			[ 'foo:L42', 'foo:L42' ],
-			[ 'foo:bar:l42', 'foo:bar:L42' ],
 			[ 'L2147483647', 'L2147483647' ],
 		];
 	}
@@ -129,11 +126,6 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 1, $id->getNumericId() );
 		$id = new LexemeId( 'L42' );
 		$this->assertSame( 42, $id->getNumericId() );
-	}
-
-	public function testGetNumericIdThrowsExceptionOnForeignIds() {
-		$this->expectException( RuntimeException::class );
-		( new LexemeId( 'foo:L42' ) )->getNumericId();
 	}
 
 }
