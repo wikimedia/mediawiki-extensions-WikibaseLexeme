@@ -73,6 +73,8 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 			[ 'L2147483648' ],
 			[ 'L99999999999' ],
 			[ ':L42', 'L42' ],
+			[ 'foo:L42' ],
+			[ 'foo:bar:l42' ],
 		];
 	}
 
