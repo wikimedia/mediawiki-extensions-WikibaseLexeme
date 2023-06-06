@@ -11,6 +11,7 @@
 	"datatypes-type-wikibase-sense": "معنیٰ",
 	"nstab-lexeme": "مفرد لفظ",
 	"wikibase-listdatatypes-wikibase-form-head": "شکل",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "مفرد لفظ",
 	"wikibaselexeme-diffview-form": "شکل",
 	"wikibaselexeme-diffview-language": "زبان",
 	"wikibaselexeme-diffview-lemma": "اصل موضوع",
@@ -19,5 +20,8 @@
 	"wikibaselexeme-form-field-required": "ضروری خانہ",
 	"wikibaselexeme-gloss-field-language-label": "زبان",
 	"wikibaselexeme-lemma-field-language-label": "زبان",
+	"wikibaselexeme-lemma-field-lemma-label": "اصل موضوع",
+	"wikibaselexeme-newlexeme-lemma": "اصل موضوع",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(مدد)",
 	"wikibaselexeme-unknown-category": "اݨ سونہاں"
 }
