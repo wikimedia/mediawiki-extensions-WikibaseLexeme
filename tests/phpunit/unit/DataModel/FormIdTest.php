@@ -16,19 +16,10 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 class FormIdTest extends MediaWikiUnitTestCase {
 
 	public function testGivenValidSerialization_allGettersBehaveConsistent() {
-		$id = new FormId( ':L1-F1' );
+		$id = new FormId( 'L1-F1' );
 		$this->assertSame( 'L1-F1', $id->getSerialization() );
 		$this->assertSame( '', $id->getRepositoryName(), 'getRepositoryName' );
 		$this->assertSame( 'L1-F1', $id->getLocalPart(), 'getLocalPart' );
-		$this->assertFalse( $id->isForeign(), 'isForeign' );
-	}
-
-	public function testGivenNonEmptyPrefix_allGettersBehaveConsistent() {
-		$id = new FormId( 'repo:L1-F1' );
-		$this->assertSame( 'repo:L1-F1', $id->getSerialization() );
-		$this->assertSame( 'repo', $id->getRepositoryName(), 'getRepositoryName' );
-		$this->assertSame( 'L1-F1', $id->getLocalPart(), 'getLocalPart' );
-		$this->assertTrue( $id->isForeign(), 'isForeign' );
 	}
 
 	public static function provideInvalidSerializations() {
@@ -55,7 +46,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testPhpSerializationRoundtrip() {
-		$id = new FormId( 'repo:L1-F1' );
+		$id = new FormId( 'L1-F1' );
 		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
 	}
 
@@ -74,8 +65,8 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	}
 
 	public static function provideLexemeIdMatchingFormId() {
-		yield [ 'L1', 'repo:L1-F1' ];
-		yield [ 'L777', ':L777-F123' ];
+		yield [ 'L1', 'L1-F1' ];
+		yield [ 'L777', 'L777-F123' ];
 	}
 
 	/**
@@ -90,7 +81,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 
 	public static function idSuffixProvider() {
 		yield [ 'F1', 'L1-F1' ];
-		yield [ 'F123', 'foreign:L321-F123' ];
+		yield [ 'F123', 'L321-F123' ];
 	}
 
 }
