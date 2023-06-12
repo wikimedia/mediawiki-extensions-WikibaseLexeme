@@ -5,12 +5,15 @@
 			"Bgo eiu"
 		]
 	},
+	"wikibaselexeme-newlexeme-lemma": "اصل موضوع",
+	"wikibaselexeme-lemma-field-lemma-label": "اصل موضوع",
 	"wikibaselexeme-lemma-field-language-label": "زبان",
 	"wikibaselexeme-form-field-language-label": "زبان",
 	"wikibaselexeme-gloss-field-language-label": "زبان",
 	"datatypes-type-wikibase-lexeme": "مفرد لفظ",
 	"datatypes-type-wikibase-form": "شکل",
 	"datatypes-type-wikibase-sense": "معنیٰ",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "مفرد لفظ",
 	"wikibase-listdatatypes-wikibase-form-head": "شکل",
 	"wikibaselexeme-field-language-label": "زبان",
 	"wikibaselexeme-diffview-lemma": "اصل موضوع",
