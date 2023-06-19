@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Alshamiri1",
+			"Asma",
 			"ديفيد",
 			"محمد أحمد عبد الفتاح"
 		]
@@ -9,6 +10,8 @@
 	"wikibase-lexeme-language-name-gmh": "الألمانية العليا الوسطى",
 	"wikibase-lexeme-language-name-goh": "الألمانية العليا القديمة",
 	"wikibase-lexeme-language-name-mis": "أخرى",
+	"wikibase-lexeme-language-name-nd": "شمال نديبيلي",
+	"wikibase-lexeme-language-name-nr": "جنوب نديبيلي",
 	"wikibase-lexeme-language-name-obt": "بريتون القديمة",
 	"wikibase-lexeme-language-name-pks": "لغة الإشارة الباكستانية",
 	"wikibase-lexeme-language-name-rm-puter": "بوتر",
