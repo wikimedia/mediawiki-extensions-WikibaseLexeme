@@ -7,8 +7,8 @@ use Diff\DiffOp\DiffOp;
 use Diff\DiffOp\DiffOpAdd;
 use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
+use InvalidArgumentException;
 use MessageLocalizer;
-use MWException;
 use Wikibase\Lexeme\Domain\Diff\FormDiff;
 use Wikibase\Repo\Diff\BasicDiffView;
 use Wikibase\Repo\Diff\ClaimDiffer;
@@ -127,7 +127,6 @@ class FormDiffView extends BasicDiffView {
 	 * @param DiffOp $diffOp
 	 *
 	 * @return string HTML
-	 * @throws MWException
 	 */
 	private function getClaimDiffHtml( DiffOp $diffOp, array $path ) {
 		switch ( true ) {
@@ -148,7 +147,7 @@ class FormDiffView extends BasicDiffView {
 				return $this->claimDiffVisualizer->visualizeRemovedClaim( $diffOp->getOldValue(), $path );
 
 			default:
-				throw new MWException( 'Encountered an unexpected diff operation type for a claim' );
+				throw new InvalidArgumentException( 'Encountered an unexpected diff operation type for a claim' );
 		}
 	}
 

@@ -66,7 +66,6 @@ class LexemeDescription {
 	 * @param string $language Language ID, as string
 	 * @param string $category Lexical category ID, as string
 	 * @return string
-	 * @throws \MWException
 	 */
 	public function createDescription( EntityId $id, $language, $category ) {
 		$languageId = self::parseOrNull( $language, $this->idParser );
@@ -95,7 +94,6 @@ class LexemeDescription {
 	 * @param string $language Language ID, as string
 	 * @param string $category Lexical category ID, as string
 	 * @return string
-	 * @throws \MWException
 	 */
 	public function createFormDescription(
 		EntityId $lexemeId, array $features, $lemma, $language, $category

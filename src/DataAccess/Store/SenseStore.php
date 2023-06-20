@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
-use MWException;
 use PermissionsError;
 use UnexpectedValueException;
 use User;
@@ -148,7 +147,6 @@ class SenseStore implements EntityStore {
 	 * @param SenseId $senseId
 	 * @param int $lastRevId
 	 *
-	 * @throws UnexpectedValueException
 	 * @return bool
 	 */
 	public function userWasLastToEdit( User $user, EntityId $senseId, $lastRevId ) {
@@ -163,9 +161,6 @@ class SenseStore implements EntityStore {
 	 * @param User $user
 	 * @param SenseId $senseId
 	 * @param bool $watch
-	 *
-	 * @throws UnexpectedValueException
-	 * @throws MWException
 	 */
 	public function updateWatchlist( User $user, EntityId $senseId, $watch ) {
 		Assert::parameterType( SenseId::class, $senseId, '$senseId' );
@@ -179,7 +174,6 @@ class SenseStore implements EntityStore {
 	 * @param User $user
 	 * @param SenseId $senseId
 	 *
-	 * @throws UnexpectedValueException
 	 * @return bool
 	 */
 	public function isWatching( User $user, EntityId $senseId ) {
