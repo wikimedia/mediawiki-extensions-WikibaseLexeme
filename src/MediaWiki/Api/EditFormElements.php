@@ -21,7 +21,7 @@ use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
-use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
+use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -39,7 +39,7 @@ class EditFormElements extends \ApiBase {
 	private $entityRevisionLookup;
 
 	/**
-	 * @var MediawikiEditEntityFactory
+	 * @var MediaWikiEditEntityFactory
 	 */
 	private $editEntityFactory;
 
@@ -73,7 +73,7 @@ class EditFormElements extends \ApiBase {
 		string $moduleName,
 		ApiHelperFactory $apiHelperFactory,
 		SerializerFactory $baseDataModelSerializerFactory,
-		MediawikiEditEntityFactory $editEntityFactory,
+		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityIdParser $entityIdParser,
 		EntityStore $entityStore,
 		Store $store,
@@ -106,7 +106,7 @@ class EditFormElements extends \ApiBase {
 		ApiMain $mainModule,
 		$moduleName,
 		EntityRevisionLookup $entityRevisionLookup,
-		MediawikiEditEntityFactory $editEntityFactory,
+		MediaWikiEditEntityFactory $editEntityFactory,
 		EditFormElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		FormSerializer $formSerializer,

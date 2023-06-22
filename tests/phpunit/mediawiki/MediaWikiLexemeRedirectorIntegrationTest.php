@@ -11,7 +11,7 @@ use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Repo\EditEntity\EditFilterHookRunner;
-use Wikibase\Repo\EditEntity\MediawikiEditFilterHookRunner;
+use Wikibase\Repo\EditEntity\MediaWikiEditFilterHookRunner;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
@@ -105,7 +105,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	 * @return EditFilterHookRunner|MockObject
 	 */
 	private function getMockEditFilterHookRunner() {
-		$hookRunner = $this->createMock( MediawikiEditFilterHookRunner::class );
+		$hookRunner = $this->createMock( MediaWikiEditFilterHookRunner::class );
 		$hookRunner->method( 'run' )
 			->willReturn( Status::newGood() );
 

@@ -41,7 +41,7 @@ use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\EditEntity\EditEntity;
-use Wikibase\Repo\EditEntity\MediawikiEditEntityFactory;
+use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
@@ -87,7 +87,7 @@ class SpecialNewLexeme extends SpecialPage {
 		SpecialPageCopyrightView $copyrightView,
 		LinkRenderer $linkRenderer,
 		StatsdDataFactoryInterface $statsDataFactory,
-		MediawikiEditEntityFactory $editEntityFactory,
+		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
 		EntityLookup $entityLookup,
@@ -122,7 +122,7 @@ class SpecialNewLexeme extends SpecialPage {
 	public static function factory(
 		LinkRenderer $linkRenderer,
 		StatsdDataFactoryInterface $statsDataFactory,
-		MediawikiEditEntityFactory $editEntityFactory,
+		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
 		EntityLookup $entityLookup,
