@@ -61,7 +61,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "{{doc-apihelp-param|wbleditsenseelements|senseId}}",
 	"apihelp-wbleditsenseelements-param-tags": "{{doc-apihelp-param|wbleditsenseelements|tags}}",
 	"apihelp-wbleditsenseelements-summary": "{{doc-apihelp-summary|wbleditsenseelements}}",
-	"apihelp-wblmergelexemes-description": "{{doc-apihelp-description|wblmergelexemes}}",
 	"apihelp-wblmergelexemes-example-1": "{{doc-apihelp-example|wblmergelexemes}}",
 	"apihelp-wblmergelexemes-param-bot": "{{doc-apihelp-param|wblmergelexemes|bot}}",
 	"apihelp-wblmergelexemes-param-source": "{{doc-apihelp-param|wblmergelexemes|source}}",

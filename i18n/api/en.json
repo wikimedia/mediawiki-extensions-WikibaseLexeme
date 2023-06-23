@@ -52,7 +52,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "ID of the Sense, e.g. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Change tags to apply to the revision.",
 	"apihelp-wbleditsenseelements-summary": "Edits glosses of a Sense",
-	"apihelp-wblmergelexemes-description": "Merges two Lexemes.",
 	"apihelp-wblmergelexemes-example-1": "Merges data from <samp>L123</samp> into <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Mark this edit as bot. This URL flag will only be respected if the user belongs to the group \"bot\".",
 	"apihelp-wblmergelexemes-param-source": "The ID to merge from",
