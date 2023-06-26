@@ -55,7 +55,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "מזהה של משמעות, למשל L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "אילו תגי שינוי להחיל על הגרסה.",
 	"apihelp-wbleditsenseelements-summary": "עריכת פירושים של משמעות",
-	"apihelp-wblmergelexemes-description": "מיזוג שתי יחידות מילוניות.",
 	"apihelp-wblmergelexemes-example-1": "מיזוג נתונים מ־<samp>L123</samp> ל־<samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "סימון העריכה בתור בוט. דגל ה־URL הזה יכובד רק אם המשתמש שייך לקבוצה \"bot\".",
 	"apihelp-wblmergelexemes-param-source": "מאיזה מזהה למזג",

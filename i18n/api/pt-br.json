@@ -51,7 +51,6 @@
 	"apihelp-wbleditsenseelements-param-data": "Dados codificados JSON das glosas",
 	"apihelp-wbleditsenseelements-param-senseId": "Identificador do sentido, por exemplo: L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Edita glosas de um sentido",
-	"apihelp-wblmergelexemes-description": "Funde dois lexemas.",
 	"apihelp-wblmergelexemes-example-1": "Funde os dados de <samp>L123</samp> nos de <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Marcar esta edição como sendo feita por um robô. Esta etiqueta URL só será respeitado se o usuário pertencer ao grupo \"robô\".",
 	"apihelp-wblmergelexemes-param-source": "Mesclar a partir do ID",

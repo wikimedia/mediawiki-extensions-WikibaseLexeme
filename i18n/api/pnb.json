@@ -20,7 +20,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "معنے دا نمبر، مثلاً L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "تبدیلی لاوݨ لئی ٹیگ بدلدے۔",
 	"apihelp-wbleditsenseelements-summary": "معنے دے درج سودھو",
-	"apihelp-wblmergelexemes-description": "دو شبداولیاں ملااوندیاں۔",
 	"apihelp-wblmergelexemes-param-source": "نمبر توں ملائیں‌گے",
 	"apihelp-wblmergelexemes-param-target": "نمبر توں ملائیں‌گے",
 	"apihelp-wblmergelexemes-summary": "دو شبداولیاں ملاوݨیاں۔",

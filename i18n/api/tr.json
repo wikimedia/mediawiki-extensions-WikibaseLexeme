@@ -52,7 +52,6 @@
 	"apihelp-wbleditsenseelements-param-data": "JSON kodlu parlaklık verileri",
 	"apihelp-wbleditsenseelements-param-senseId": "Anlamın kimliği, ör. L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Bir Sense'nin parıltılarını düzenler",
-	"apihelp-wblmergelexemes-description": "İki Sözlükbirimi birleştirir.",
 	"apihelp-wblmergelexemes-example-1": "<samp>L123</samp> ile <samp>L321</samp> arasındaki verileri birleştirir",
 	"apihelp-wblmergelexemes-param-bot": "Bu düzenlemeyi bot olarak işaretleyin. Bu URL işaretine yalnızca kullanıcı \"bot\" grubuna aitse saygı gösterilir.",
 	"apihelp-wblmergelexemes-param-source": "Birleştirilecek kimlik",

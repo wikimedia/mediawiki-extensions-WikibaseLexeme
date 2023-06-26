@@ -56,7 +56,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Kennung der Bedeutung, z.&nbsp;B. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Auf die Version anzuwendende Änderungsmarkierungen.",
 	"apihelp-wbleditsenseelements-summary": "Bearbeitet Glossen einer Bedeutung",
-	"apihelp-wblmergelexemes-description": "Führt zwei Lexeme zusammen.",
 	"apihelp-wblmergelexemes-example-1": "Führt Daten von <samp>L123</samp> in <samp>L321</samp> zusammen",
 	"apihelp-wblmergelexemes-param-bot": "Markiert diese Bearbeitung als Bot. Diese URL-Markierung wird nur anerkannt, falls der Benutzer der Gruppe „Bot“ angehört.",
 	"apihelp-wblmergelexemes-param-source": "Die Kennung, von der zusammengeführt werden soll.",

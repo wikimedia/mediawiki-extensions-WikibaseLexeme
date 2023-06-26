@@ -54,7 +54,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "ID del senso, p.ex. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Etiquettas de modification a applicar al version.",
 	"apihelp-wbleditsenseelements-summary": "Modifica le glossa de un senso",
-	"apihelp-wblmergelexemes-description": "Fusiona duo lexemas.",
 	"apihelp-wblmergelexemes-example-1": "Fusiona datos de <samp>L123</samp> in <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Marcar iste modification como de robot. Iste marca de URL solmente essera respectate si le usator pertine al gruppo \"bot\".",
 	"apihelp-wblmergelexemes-param-source": "Le ID desde le qual fusionar",

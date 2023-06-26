@@ -49,7 +49,6 @@
 	"apihelp-wbleditsenseelements-param-data": "تشفير بيانات JSON اللامعة",
 	"apihelp-wbleditsenseelements-param-senseId": "معرف المعنى، مثل L10-S2",
 	"apihelp-wbleditsenseelements-summary": "لمعان تحريرات معنى",
-	"apihelp-wblmergelexemes-description": "يدمج اثنين من اللكسيم.",
 	"apihelp-wblmergelexemes-example-1": "يدمج البيانات من <samp>L123</samp> إلى <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "التعليم على هذا التعديل كبوت، سيتم فقط احترام علامة المسار هذه إذا كان المستخدم ينتمي إلى المجموعة \"بوت\".",
 	"apihelp-wblmergelexemes-param-source": "المعرف للدمج منه",

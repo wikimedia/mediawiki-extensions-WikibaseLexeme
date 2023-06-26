@@ -15,7 +15,6 @@
 	"apihelp-wbladdsense-param-lexemeId": "شناسه بن‌مایه مثلا L10",
 	"apihelp-wbladdsense-summary": "یک معنی به یک بن‌مایه اضافه می‌کند",
 	"apihelp-wbleditformelements-param-formId": "شناسه فرم مثلا L10-F2",
-	"apihelp-wblmergelexemes-description": "ادغام دو لکسیم.",
 	"apihelp-wblmergelexemes-param-source": "شناسه برای ادغام از",
 	"apihelp-wblmergelexemes-param-target": "شناسه برای ادغام به",
 	"apihelp-wblmergelexemes-summary": "ادغام دو لکسیم.",

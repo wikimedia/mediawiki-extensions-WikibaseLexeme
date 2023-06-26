@@ -54,7 +54,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Identificador do sentido, por exemplo: L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Etiquetas de modificação a aplicar à revisão.",
 	"apihelp-wbleditsenseelements-summary": "Edita glosas de um sentido",
-	"apihelp-wblmergelexemes-description": "Funde dois lexemas.",
 	"apihelp-wblmergelexemes-example-1": "Funde os dados de <samp>L123</samp> nos de <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Marcar esta edição como uma edição por robô. Esta etiqueta URL só será respeitada se o utilizador pertencer ao grupo \"robôs\".",
 	"apihelp-wblmergelexemes-param-source": "O identificador a fundir noutro",

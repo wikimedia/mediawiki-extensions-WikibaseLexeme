@@ -60,7 +60,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Identifiant du sens, par ex. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Modifier les balises à appliquer à la version.",
 	"apihelp-wbleditsenseelements-summary": "Modifie les gloses d’un sens",
-	"apihelp-wblmergelexemes-description": "Fusionne deux lexèmes.",
 	"apihelp-wblmergelexemes-example-1": "Fusionne les données de <samp>L123</samp> dans <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Marquer cette modification comme faite par robot. Cette marque d’URL ne sera prise en compte que si l’utilisateur appartient au groupe « bot ».",
 	"apihelp-wblmergelexemes-param-source": "L’ID à partir duquel fusionner",

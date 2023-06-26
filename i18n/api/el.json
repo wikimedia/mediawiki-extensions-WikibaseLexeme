@@ -29,7 +29,6 @@
 	"apihelp-wbleditsenseelements-example-1": "Έκδοση Όρου μαζί με το ID <samp>$1</samp> για σχετικούς όρους <samp>$2</samp> in languages <samp>$3</samp> αντίστοιχα.",
 	"apihelp-wbleditsenseelements-param-senseId": "ID έννοιας, π.x L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Εκδίδει διάφορα λεξικά",
-	"apihelp-wblmergelexemes-description": "Συγχωνεύει δύο Lexeme.",
 	"apihelp-wblmergelexemes-param-source": "Το αναγνωριστικό για συγχώνευση από",
 	"apihelp-wblmergelexemes-summary": "Συγχώνευση δύο Lexemes.",
 	"apihelp-wblremoveform-example-1": "Αφαίρεση Φόρμας από το  Lexeme με ID <samp>$1</samp>",

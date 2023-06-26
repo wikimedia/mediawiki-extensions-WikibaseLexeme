@@ -9,6 +9,5 @@
 	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Sprooch däerf net eidel sinn",
 	"apierror-wikibaselexeme-parameter-required": "Parameter \"$1\" ass obligatoresch",
 	"apihelp-wbladdform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
-	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
-	"apihelp-wblmergelexemes-description": "Fusionnéiert 2 Lexemen:"
+	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert."
 }

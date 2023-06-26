@@ -28,7 +28,6 @@
 	"apihelp-wbleditformelements-summary": "Редактирует представления и грамматические категории Формы",
 	"apihelp-wbleditsenseelements-param-senseId": "Идентификатор для смысла, например L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Редактирует замечания к значению",
-	"apihelp-wblmergelexemes-description": "Объединение двух лексем.",
 	"apihelp-wblmergelexemes-example-1": "Объединяет данные из <samp>L123</samp> в <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Отметить правку как правку бота. Этот флаг URL-адреса будет считаться действительным только в случае, если пользователь принадлежит к группе «бот».",
 	"apihelp-wblmergelexemes-param-summary": "Описание изменения.\nБудет добавлено к началу автоматически сгенерированного комментария. Лимит на длину автокомментария с описанием правки — 260 символов. Учтите, что всё свыше этого лимита будет опущено.",

@@ -55,7 +55,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Назнака на значењето, на пр. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Ознаки за измена за применување на преработката.",
 	"apihelp-wbleditsenseelements-summary": "Уредува прибелешки на значење",
-	"apihelp-wblmergelexemes-description": "Спојува две лексеми.",
 	"apihelp-wblmergelexemes-example-1": "Ги спојува податоците од <samp>L123</samp> во <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Означи го уредувањево како бот. Оваа URL-ознака ќе се почитува само ако корисникот припаѓа на групата „бот“.",
 	"apihelp-wblmergelexemes-param-source": "Назнака од која се спојува",

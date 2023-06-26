@@ -56,7 +56,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "ID pomena, npr. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Spremeni oznake za uporabo pri redakciji.",
 	"apihelp-wbleditsenseelements-summary": "Uredi razlage pomena",
-	"apihelp-wblmergelexemes-description": "Združi dva leksema.",
 	"apihelp-wblmergelexemes-example-1": "Združi podatke iz <samp>L123</samp> v <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Označi to urejanje kot urejanje bota. Ta URL-zastavica bo upoštevana samo, če uporabnik pripada skupini »bot«.",
 	"apihelp-wblmergelexemes-param-source": "Ciljni ID za združitev",

@@ -45,7 +45,6 @@
 	"apihelp-wbleditsenseelements-param-data": "Dades de glossa codificades en JSON",
 	"apihelp-wbleditsenseelements-param-senseId": "ID del Sentit, p. ex., L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Modifica les glosses d'una accepció",
-	"apihelp-wblmergelexemes-description": "Fusiona dos lexemes",
 	"apihelp-wblmergelexemes-example-1": "Fusiona les dades de <samp>L123</samp> a <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Marca l'edició com feta per un bot. Aquesta marca d'URL només es respectarà si l'usuari pertany al grup «bot».",
 	"apihelp-wblmergelexemes-param-source": "L'ID del qual fusionar",

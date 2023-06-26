@@ -55,7 +55,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Ідентифікатор Смислу, напр., L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Змініть теги, щоб застосувати до версії.",
 	"apihelp-wbleditsenseelements-summary": "Редагує глоси Смислу",
-	"apihelp-wblmergelexemes-description": "Об'єднує дві Лексеми.",
 	"apihelp-wblmergelexemes-example-1": "Приєднує дані з <samp>L123</samp> до <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Позначити це редагування як зроблене ботом. Ця позначка в URL буде враховуватися лише якщо користувач належить до групи «бот».",
 	"apihelp-wblmergelexemes-param-source": "Ідентифікатор, з якого приєднувати",

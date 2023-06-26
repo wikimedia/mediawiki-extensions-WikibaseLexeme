@@ -54,7 +54,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "含意 ID，例如：L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "更改標籤來套用到修訂。",
 	"apihelp-wbleditsenseelements-summary": "編輯含意的註解",
-	"apihelp-wblmergelexemes-description": "合併兩個詞位。",
 	"apihelp-wblmergelexemes-example-1": "從 <samp>L123</samp> 至 <samp>L321</samp> 來合併資料",
 	"apihelp-wblmergelexemes-param-bot": "標註此為機器人編輯。該 URL 標記僅會在使用者隸屬「bot」群組時採用。",
 	"apihelp-wblmergelexemes-param-source": "要合併的來源 ID",

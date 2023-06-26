@@ -54,7 +54,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "ID-en til betydningen, f.eks. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Endringstagger som skal brukes på sideversjonen.",
 	"apihelp-wbleditsenseelements-summary": "Redigerer glosene til en betydning",
-	"apihelp-wblmergelexemes-description": "Slår sammen to leksemer.",
 	"apihelp-wblmergelexemes-example-1": "Slår sammen data fra <samp>L123</samp> til <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Merk denne redigeringen som en botredigering. Dette URL-flagget vil kun respekteres om brukeren tilhører brukergruppa «bot».",
 	"apihelp-wblmergelexemes-param-source": "ID-en det skal slås sammen fra",

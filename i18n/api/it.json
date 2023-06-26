@@ -33,7 +33,6 @@
 	"apihelp-wbleditsenseelements-param-data": "Dati delle glosse codificati in JSON",
 	"apihelp-wbleditsenseelements-param-senseId": "ID dell'accezione, es. L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Modifica le glosse di un'accezione",
-	"apihelp-wblmergelexemes-description": "Unisce due lessemi",
 	"apihelp-wblmergelexemes-example-1": "Unisce dati da <samp>L123</samp> in <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Contrassegna questa modifica come bot. Questo flag di URL sarà rispettato solo se l'utente appartiene al gruppo \"bot\".",
 	"apihelp-wblmergelexemes-param-source": "L'ID da cui unire",

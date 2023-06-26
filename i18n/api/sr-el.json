@@ -17,7 +17,6 @@
 	"apihelp-wbleditformelements-param-formId": "ID oblika, npr. L10-F2",
 	"apihelp-wbleditsenseelements-param-senseId": "ID značenja, npr. L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Uređuje tumačenja značenja",
-	"apihelp-wblmergelexemes-description": "Objedinjava dve lekseme.",
 	"apihelp-wblmergelexemes-param-source": "ID za objedinjavanje sa",
 	"apihelp-wblmergelexemes-param-target": "ID za objedinjavanje u",
 	"apihelp-wblmergelexemes-summary": "Objedinjava dve lekseme.",

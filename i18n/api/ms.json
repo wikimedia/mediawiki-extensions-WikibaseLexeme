@@ -12,7 +12,6 @@
 	"apihelp-wbladdsense-param-lexemeId": "ID Leksem, contohnya L10",
 	"apihelp-wbladdsense-summary": "Menambah Maksud kepada Leksem",
 	"apihelp-wbleditsenseelements-summary": "Menyunting padanan kata suatu Maksud",
-	"apihelp-wblmergelexemes-description": "Mencantum dua Leksem.",
 	"apihelp-wblmergelexemes-summary": "Mencantum dua Leksem.",
 	"apihelp-wblremoveform-summary": "Membuang Bentuk daripada Leksem"
 }

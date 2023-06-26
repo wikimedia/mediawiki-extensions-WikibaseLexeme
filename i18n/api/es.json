@@ -25,7 +25,6 @@
 	"apihelp-wbladdsense-summary": "Añade una acepción a un lexema",
 	"apihelp-wbleditformelements-param-formId": "Identificador del formulario; p. ej., L10-F2",
 	"apihelp-wbleditsenseelements-param-senseId": "Identificador de la acepción; p. ej., L10-S2",
-	"apihelp-wblmergelexemes-description": "Fusiona dos lexemas.",
 	"apihelp-wblmergelexemes-summary": "Fusiona dos lexemas.",
 	"apihelp-wblremoveform-param-id": "Identificador del formulario; p. ej., L10-F20",
 	"apihelp-wblremoveform-summary": "Elimina la Forma del Lexema",

@@ -55,7 +55,6 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Sense-ID, t.ex. L10-S2",
 	"apihelp-wbleditsenseelements-param-tags": "Ändra taggar för att gälla revisionen.",
 	"apihelp-wbleditsenseelements-summary": "Redigerar glans av ett Sense",
-	"apihelp-wblmergelexemes-description": "Slår samman två Lexemes.",
 	"apihelp-wblmergelexemes-example-1": "Slår samman data från <samp>L123</samp> till <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Markera denna redigering som en bot. Denna webbadressflagga kommer bara att respekteras om användare tillhör gruppen \"bot\".",
 	"apihelp-wblmergelexemes-param-source": "ID att slå samman från",

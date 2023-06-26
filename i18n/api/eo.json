@@ -47,7 +47,6 @@
 	"apihelp-wbleditsenseelements-param-data": "Glosa dateno en JSON",
 	"apihelp-wbleditsenseelements-param-senseId": "Identigilo de la Senco, ekz. L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Redakti glosojn de Senco",
-	"apihelp-wblmergelexemes-description": "Kunigi du Leksemojn.",
 	"apihelp-wblmergelexemes-example-1": "Kunigi datenon el <samp>L123</samp> en leksemon <samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-bot": "Marki redakton robota. Tiu retadresa flago nur observiĝos se la uzanto apartenas al la grupo \"bot\".",
 	"apihelp-wblmergelexemes-param-source": "Identigilo elkunigota",

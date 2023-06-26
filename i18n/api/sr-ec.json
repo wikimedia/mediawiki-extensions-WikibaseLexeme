@@ -21,7 +21,6 @@
 	"apihelp-wbleditformelements-param-formId": "ID облика, нпр. L10-F2",
 	"apihelp-wbleditsenseelements-param-senseId": "ID значења, нпр. L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Уређује тумачења значења",
-	"apihelp-wblmergelexemes-description": "Обједињава две лексеме.",
 	"apihelp-wblmergelexemes-param-source": "ID за обједињавање са",
 	"apihelp-wblmergelexemes-param-target": "ID за обједињавање у",
 	"apihelp-wblmergelexemes-summary": "Обједињава две лексеме.",
