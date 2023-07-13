@@ -275,7 +275,7 @@ return [
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new NullLabelDescriptionLookup(),
-				WikibaseRepo::getEntityTypeToRepositoryMapping()
+				WikibaseRepo::getEnabledEntityTypes()
 			);
 		},
 		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
@@ -352,7 +352,7 @@ return [
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),
 				new NullLabelDescriptionLookup(),
-				WikibaseRepo::getEntityTypeToRepositoryMapping()
+				WikibaseRepo::getEnabledEntityTypes()
 			);
 		},
 		DEF::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
@@ -500,7 +500,7 @@ return [
 				$entityLookup,
 				WikibaseRepo::getEntityIdParser(),
 				$senseLabelDescriptionLookup,
-				WikibaseRepo::getEntityTypeToRepositoryMapping()
+				WikibaseRepo::getEnabledEntityTypes()
 			);
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
