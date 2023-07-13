@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Robby",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Volvox"
 		]
 	},
 	"wikibase-lexeme-language-name-bfi": "Brittesch Zeechesprooch",
@@ -10,6 +11,9 @@
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (H-System)",
 	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (X-System)",
 	"wikibase-lexeme-language-name-gsg": "Däitsch Zeechesprooch",
+	"wikibase-lexeme-language-name-ja-hira": "Japanesch mat Hiragana geschriwwen",
+	"wikibase-lexeme-language-name-ja-hrkt": "Japanesch mat Hiragana a Katakana geschriwwen",
+	"wikibase-lexeme-language-name-ja-kana": "Japanesch mat Katakana geschriwwen",
 	"wikibase-lexeme-language-name-lij-mc": "Monegassesch",
 	"wikibase-lexeme-language-name-mis": "anerer",
 	"wikibase-lexeme-language-name-non": "Alnorweegesch",
