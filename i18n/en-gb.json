@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"Boke",
+			"Nikki",
+			"Reedy"
+		]
+	},
+	"wikibase-lexeme-lemma-language-not-recognized": "The supplied language code was not recognised."
+}
