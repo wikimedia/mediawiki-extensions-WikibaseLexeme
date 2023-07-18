@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"ऐक्टिवेटेड्"
+		]
+	},
+	"content-model-wikibase-lexeme": "बिकिबेस् प्रतिशब्द",
+	"datatypes-type-wikibase-form": "रूप",
+	"datatypes-type-wikibase-lexeme": "प्रतिशब्द",
+	"datatypes-type-wikibase-sense": "बोध",
+	"nstab-lexeme": "प्रतिशब्द",
+	"special-mergelexemes": "दुगो प्रतिशब्दके मिलावी",
+	"special-newlexeme": "एगो नया प्रतिशब्द बनावी",
+	"tooltip-ca-nstab-lexeme": "प्रतिशब्द परिभाषा",
+	"wikibase-entity-summary-wblmergelexemes-from": "$3 से प्रतिशब्द संविलीन करल गेल",
+	"wikibase-entity-summary-wblmergelexemes-to": "$3 मे प्रतिशब्द संविलीन करल गेल",
+	"wikibase-lexeme-gloss-empty": "कोईयो भाष्य परिभाषित न हे",
+	"wikibase-lexeme-lemma-language-not-recognized": "निर्धारित भासा कोड् अनजान हे।",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "प्रतिशब्द लोड् न हो सकल।"
+}
