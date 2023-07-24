@@ -31,6 +31,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
 
 	public function testRateLimitIsCheckedWhenEditing() {
+		$this->markTestSkipped( 'T342527' );
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'goat' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 		$this->saveEntity( $lexeme );

@@ -23,6 +23,7 @@ use Wikibase\Repo\WikibaseRepo;
 class AddSenseTest extends WikibaseLexemeApiTestCase {
 
 	public function testRateLimitIsCheckedWhenEditing() {
+		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );

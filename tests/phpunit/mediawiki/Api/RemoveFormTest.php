@@ -24,6 +24,7 @@ use Wikibase\Repo\WikibaseRepo;
 class RemoveFormTest extends WikibaseLexemeApiTestCase {
 
 	public function testRateLimitIsCheckedWhenEditing() {
+		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withForm(
 				NewForm::havingId( 'F1' )

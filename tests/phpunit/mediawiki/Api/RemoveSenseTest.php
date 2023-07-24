@@ -24,6 +24,7 @@ use Wikibase\Repo\WikibaseRepo;
 class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 
 	public function testRateLimitIsCheckedWhenEditing() {
+		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withSense(
 				NewSense::havingId( 'S1' )

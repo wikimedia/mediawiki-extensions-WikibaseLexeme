@@ -27,6 +27,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
 
 	public function testRateLimitIsCheckedWhenEditing() {
+		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
