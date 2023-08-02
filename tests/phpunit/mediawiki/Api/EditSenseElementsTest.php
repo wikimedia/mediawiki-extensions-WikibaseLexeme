@@ -28,7 +28,6 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 	private const DEFAULT_SENSE_ID = 'L1-S1';
 
 	public function testRateLimitIsCheckedWhenEditing() {
-		$this->markTestSkipped( 'T342527' );
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
 		$lexeme = NewLexeme::havingId( 'L1' )->withSense( $sense )->build();
 		$this->saveEntity( $lexeme );
@@ -55,7 +54,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No rate limit API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'actionthrottledtext', $e->getMessageObject()->getKey() );
+			$this->assertEquals( 'apierror-ratelimited', $e->getMessageObject()->getKey() );
 		}
 	}
 

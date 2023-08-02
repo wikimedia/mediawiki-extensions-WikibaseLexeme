@@ -23,7 +23,6 @@ use Wikibase\Repo\WikibaseRepo;
 class AddSenseTest extends WikibaseLexemeApiTestCase {
 
 	public function testRateLimitIsCheckedWhenEditing() {
-		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
@@ -46,7 +45,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No rate limit API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertSame( 'actionthrottledtext', $e->getMessageObject()->getKey() );
+			$this->assertSame( 'apierror-ratelimited', $e->getMessageObject()->getKey() );
 		}
 	}
 

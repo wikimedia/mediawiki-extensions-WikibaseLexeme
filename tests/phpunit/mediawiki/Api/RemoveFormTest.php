@@ -24,7 +24,6 @@ use Wikibase\Repo\WikibaseRepo;
 class RemoveFormTest extends WikibaseLexemeApiTestCase {
 
 	public function testRateLimitIsCheckedWhenEditing() {
-		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )
 			->withForm(
 				NewForm::havingId( 'F1' )
@@ -50,7 +49,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No rate limit API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'actionthrottledtext', $e->getMessageObject()->getKey() );
+			$this->assertEquals( 'apierror-ratelimited', $e->getMessageObject()->getKey() );
 		}
 	}
 

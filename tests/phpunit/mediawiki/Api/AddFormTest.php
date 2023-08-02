@@ -27,7 +27,6 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q17';
 
 	public function testRateLimitIsCheckedWhenEditing() {
-		$this->markTestSkipped( 'T342527' );
 		$lexeme = NewLexeme::havingId( 'L1' )->build();
 
 		$this->saveEntity( $lexeme );
@@ -51,7 +50,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No rate limit API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'actionthrottledtext', $e->getMessageObject()->getKey() );
+			$this->assertEquals( 'apierror-ratelimited', $e->getMessageObject()->getKey() );
 		}
 	}
 
