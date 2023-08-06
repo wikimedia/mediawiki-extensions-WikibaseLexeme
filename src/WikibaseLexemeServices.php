@@ -169,10 +169,11 @@ class WikibaseLexemeServices {
 			->get( 'WikibaseLexemeLemmaTermValidator' );
 	}
 
-	public static function getEditFormChangeOpDeserializer(): EditFormChangeOpDeserializer {
-		return MediaWikiServices::getInstance()->getService(
-			'WikibaseLexemeEditFormChangeOpDeserializer'
-		);
+	public static function getEditFormChangeOpDeserializer(
+		ContainerInterface $services = null
+	): EditFormChangeOpDeserializer {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexemeEditFormChangeOpDeserializer' );
 	}
 
 	public static function getGrammaticalFeaturesOrderProvider(): ItemOrderProvider {
