@@ -136,7 +136,9 @@ return call_user_func( static function () {
 					new TermDeserializer(),
 					WikibaseRepo::getStringNormalizer( $mediaWikiServices ),
 					new LexemeTermSerializationValidator(
-						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+						new LexemeTermLanguageValidator(
+							WikibaseLexemeServices::getTermLanguages( $mediaWikiServices )
+						)
 					)
 				),
 				new ItemIdListDeserializer( new ItemIdParser() ),
