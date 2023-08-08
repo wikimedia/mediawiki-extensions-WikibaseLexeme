@@ -50,6 +50,6 @@ class LexemeHistoryAction extends HistoryAction {
 		$labelText = $this->lexemeTermFormatter->format( $lemmaTerms );
 
 		return $this->msg( 'wikibase-history-title-with-label' )
-			->plaintextParams( $idSerialization )->rawParams( $labelText )->parse();
+			->plaintextParams( $idSerialization )->rawParams( $labelText );
 	}
 }
