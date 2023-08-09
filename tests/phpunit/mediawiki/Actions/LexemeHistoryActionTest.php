@@ -7,6 +7,7 @@ namespace Wikibase\Lexeme\Tests\Unit\mediawiki;
 use Article;
 use IContextSource;
 use MediaWiki\Title\Title;
+use Message;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
@@ -37,8 +38,12 @@ final class LexemeHistoryActionTest extends TestCase {
 
 		$lexemeHistoryAction = $this->getLexemeHistoryAction( $fakeEntityIdLookup, $mockLemmaLookup );
 		$actualTitle = $lexemeHistoryAction->getPageTitle();
+		// PageTitle can return a Message; convert it to a string
+		if ( $actualTitle instanceof Message ) {
+			$actualTitle = $actualTitle->text();
+		}
 
-		$this->assertSame( '(history-title: Page title)', $actualTitle->text() );
+		$this->assertSame( '(history-title: Page title)', $actualTitle );
 	}
 
 	public function testReturnsLemmasInTitleProperlyEscaped(): void {
@@ -56,6 +61,10 @@ final class LexemeHistoryActionTest extends TestCase {
 
 		$lexemeHistoryAction = $this->getLexemeHistoryAction( $fakeEntityIdLookup, $lemmaLookup );
 		$actualTitle = $lexemeHistoryAction->getPageTitle();
+		if ( !is_string( $actualTitle ) ) {
+			// PageTitle can return a Message
+			$actualTitle = $actualTitle->text();
+		}
 
 		$separatorMessageKey = self::SEP_MESSAGE_KEY;
 		// phpcs:ignore Generic.Files.LineLength.TooLong
