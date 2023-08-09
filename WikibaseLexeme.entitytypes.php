@@ -14,7 +14,6 @@
 
 use Wikibase\DataAccess\NullPrefetchingTermLookup;
 use Wikibase\DataModel\Deserializers\DeserializerFactory;
-use Wikibase\DataModel\Entity\SerializableEntityId;
 use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\Lexeme\DataAccess\Store\FormRevisionLookup;
 use Wikibase\Lexeme\DataAccess\Store\FormStore;
@@ -69,12 +68,11 @@ return [
 		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new LexemeId( $serialization );
 		},
-		Def::ENTITY_ID_COMPOSER_CALLBACK => static function ( $repositoryName, $uniquePart ) {
-			return new LexemeId( SerializableEntityId::joinSerialization( [
-				$repositoryName,
-				'',
-				'L' . $uniquePart,
-			] ) );
+		Def::ENTITY_ID_COMPOSER_CALLBACK => static function ( $repositoryName, $uniquePart = null ) {
+			if ( $uniquePart === null ) {
+				$uniquePart = $repositoryName;
+			}
+			return new LexemeId( 'L' . $uniquePart );
 		},
 		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
 			return new LexemeDiffer();
