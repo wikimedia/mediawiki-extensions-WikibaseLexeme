@@ -20,7 +20,6 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 'L1-S1', $id->getSerialization() );
 		$this->assertSame( '', $id->getRepositoryName(), 'getRepositoryName' );
 		$this->assertSame( 'L1-S1', $id->getLocalPart(), 'getLocalPart' );
-		$this->assertFalse( $id->isForeign(), 'isForeign' );
 	}
 
 	public static function provideInvalidSerializations() {

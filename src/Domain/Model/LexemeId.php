@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Domain\Model;
 
 use InvalidArgumentException;
-use RuntimeException;
 use Wikibase\DataModel\Entity\Int32EntityId;
 use Wikibase\DataModel\Entity\SerializableEntityId;
 use Wikimedia\Assert\Assert;
@@ -92,13 +91,8 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	 * @see Int32EntityId::getNumericId
 	 *
 	 * @return int
-	 *
-	 * @throws RuntimeException if called on a foreign ID.
 	 */
 	public function getNumericId() {
-		if ( $this->isForeign() ) {
-			throw new RuntimeException( 'getNumericId must not be called on foreign LexemeIds' );
-		}
 		return (int)substr( $this->serialization, 1 );
 	}
 
