@@ -54,15 +54,15 @@
 	QUnit.test( 'can be created', function ( assert ) {
 		var form = newForm( 'F123', 'foo' );
 
-		assert.ok( newFormView( { value: form } ) instanceof $.wikibase.lexemeformview );
+		assert.true( newFormView( { value: form } ) instanceof $.wikibase.lexemeformview );
 	} );
 
 	QUnit.test( 'creation without injected option.value fails', function ( assert ) {
 		try {
 			newFormView();
-			assert.notOk( true, 'Expecting construction to fail without form value to work with' );
+			assert.false( true, 'Expecting construction to fail without form value to work with' );
 		} catch ( e ) {
-			assert.ok( e );
+			assert.true( !!e );
 		}
 	} );
 
@@ -72,7 +72,7 @@
 				value: form
 			} );
 
-		assert.equal( view.value(), form );
+		assert.strictEqual( view.value(), form );
 	} );
 
 	QUnit.test( 'value() sets internal value', function ( assert ) {
@@ -83,7 +83,7 @@
 			} );
 
 		view.value( form2 );
-		assert.equal( view.value(), form2 );
+		assert.strictEqual( view.value(), form2 );
 	} );
 
 	QUnit.test( 'value() creates value from input if it is in edit mode', function ( assert ) {
@@ -96,12 +96,12 @@
 			changeInputValue( view.element.find( selector.representationLanguageInput ), 'en-gb' );
 			changeInputValue( view.element.find( selector.representationTextInput ), textInput );
 
-			assert.equal(
+			assert.strictEqual(
 				view.value().getRepresentations().getItemByKey( 'en-gb' ).getText(),
 				textInput
 			);
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 	} );
 
@@ -120,7 +120,7 @@
 				changeInputValue( view.element.find( selector.representationTextInput ).last(), 'conflicting' );
 
 				Vue.nextTick( function () {
-					assert.equal(
+					assert.strictEqual(
 						view.value(),
 						null
 					);
@@ -128,7 +128,7 @@
 			} );
 
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 	} );
 
@@ -147,7 +147,7 @@
 				changeInputValue( view.element.find( selector.representationTextInput ).last(), 'conflicting' );
 
 				Vue.nextTick( function () {
-					assert.equal(
+					assert.strictEqual(
 						view.element.find( selector.languageRedundantWarning ).length,
 						1
 					);
@@ -155,7 +155,7 @@
 			} );
 
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 	} );
 
@@ -175,7 +175,7 @@
 				changeInputValue( view.element.find( selector.representationTextInput ).last(), 'conflicting' );
 
 				Vue.nextTick( function () {
-					assert.equal(
+					assert.strictEqual(
 						view.element.find( selector.representationLanguageRedundant ).length,
 						2
 					);
@@ -183,12 +183,12 @@
 			} );
 
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 	} );
 
 	QUnit.test( 'should not be in edit mode by default when initialized with a value', function ( assert ) {
-		assert.notOk( newFormView( { value: newForm( 'F123', 'foo' ) } ).isInEditMode() );
+		assert.false( newFormView( { value: newForm( 'F123', 'foo' ) } ).isInEditMode() );
 	} );
 
 	QUnit.test( 'draws value in input node after startEditing()', function ( assert ) {
@@ -199,12 +199,12 @@
 			} );
 
 		view.startEditing().then( function () {
-			assert.equal(
+			assert.strictEqual(
 				view.element.find( selector.representationTextInput ).val(),
 				form.getRepresentations().getItemByKey( 'en' ).getText()
 			);
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 
 	} );
@@ -220,12 +220,12 @@
 		view.startEditing().then( function () {
 			return view.stopEditing();
 		} ).then( function () {
-			assert.equal(
+			assert.strictEqual(
 				view.element.find( selector.representationText ).text().trim(),
 				form.getRepresentations().getItemByKey( 'en' ).getText()
 			);
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 	} );
 
@@ -239,7 +239,7 @@
 			buildStatementGroupListView: statementGroupListViewSpy
 		} );
 
-		assert.ok( statementGroupListViewSpy.calledWith(
+		assert.true( statementGroupListViewSpy.calledWith(
 			form,
 			sinon.match.any,
 			'F123'
@@ -255,7 +255,7 @@
 			buildStatementGroupListView: statementGroupListViewSpy
 		} );
 
-		assert.ok( statementGroupListViewSpy.calledWith(
+		assert.true( statementGroupListViewSpy.calledWith(
 			form,
 			sinon.match.any,
 			''
@@ -277,11 +277,11 @@
 		view.deferredFormWithId.resolve( newForm( 'L321-F123', 'meow' ) );
 
 		view.deferredFormWithId.promise().then( function () {
-			assert.equal(
+			assert.strictEqual(
 				view.element.attr( 'id' ),
 				'F123'
 			);
-			assert.ok( statementGroupListViewSpy.calledWith(
+			assert.true( statementGroupListViewSpy.calledWith(
 				sinon.match.any,
 				sinon.match.any,
 				'F123'
@@ -302,10 +302,10 @@
 			var textId = view.element.find( selector.representationTextInput )[ 0 ].id;
 			var textLabelsFound = ( view.element.find( 'label[for=' + textId + ']' ) );
 
-			assert.ok( languageLabelsFound.length, 1 );
-			assert.ok( textLabelsFound.length, 1 );
+			assert.strictEqual( languageLabelsFound.length, 1 );
+			assert.strictEqual( textLabelsFound.length, 1 );
 		} ).catch( function ( e ) {
-			assert.notOk( e.stack );
+			assert.false( e.stack );
 		} ).then( done );
 	} );
 

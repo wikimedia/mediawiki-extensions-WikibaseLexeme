@@ -39,14 +39,14 @@
 	QUnit.test( 'can be created', function ( assert ) {
 		var sense = newSense( 'S123', 'foo' );
 
-		assert.ok( newSenseView( { value: sense } ) instanceof $.wikibase.senseview );
+		assert.true( newSenseView( { value: sense } ) instanceof $.wikibase.senseview );
 	} );
 
 	QUnit.test( 'value can be injected as option.value', function ( assert ) {
 		var sense = newSense( 'S123', 'foo' ),
 			view = newSenseView( { value: sense } );
 
-		assert.equal( view.value(), sense );
+		assert.strictEqual( view.value(), sense );
 	} );
 
 	QUnit.test( 'value() sets internal value', function ( assert ) {
@@ -55,7 +55,7 @@
 			view = newSenseView( { value: sense1 } );
 
 		view.value( sense2 );
-		assert.equal( view.value(), sense2 );
+		assert.strictEqual( view.value(), sense2 );
 	} );
 
 	QUnit.test( 'Given a value, creates StatementGroupListView with Sense id prefix', function ( assert ) {
@@ -68,7 +68,7 @@
 			buildStatementGroupListView: statementGroupListViewSpy
 		} );
 
-		assert.ok( statementGroupListViewSpy.calledWith(
+		assert.true( statementGroupListViewSpy.calledWith(
 			sense,
 			sinon.match.any,
 			'S123'
@@ -84,7 +84,7 @@
 			buildStatementGroupListView: statementGroupListViewSpy
 		} );
 
-		assert.ok( statementGroupListViewSpy.calledWith(
+		assert.true( statementGroupListViewSpy.calledWith(
 			sense,
 			sinon.match.any,
 			''
@@ -103,11 +103,11 @@
 		view.deferredSenseWithId.resolve( newSense( 'L321-S123', 'meow' ) );
 
 		view.deferredSenseWithId.promise().then( function () {
-			assert.equal(
+			assert.strictEqual(
 				view.element.attr( 'id' ),
 				'S123'
 			);
-			assert.ok( statementGroupListViewSpy.calledWith(
+			assert.true( statementGroupListViewSpy.calledWith(
 				sinon.match.any,
 				sinon.match.any,
 				'S123'

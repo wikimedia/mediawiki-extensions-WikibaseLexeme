@@ -31,7 +31,7 @@
 	};
 
 	QUnit.test( 'can be created', function ( assert ) {
-		assert.ok( newGrammaticalFeatureView() instanceof $.wikibase.grammaticalfeatureview );
+		assert.true( newGrammaticalFeatureView() instanceof $.wikibase.grammaticalfeatureview );
 	} );
 
 	QUnit.test( 'value can be injected as option.value', function ( assert ) {
@@ -50,7 +50,7 @@
 			} );
 
 		view.value( value2 );
-		assert.equal( view.value(), value2 );
+		assert.strictEqual( view.value(), value2 );
 	} );
 
 	QUnit.test( 'value() creates value from input if it is in edit mode', function ( assert ) {
@@ -64,11 +64,11 @@
 	} );
 
 	QUnit.test( 'should not be in edit mode when initialized without a value', function ( assert ) {
-		assert.notOk( newGrammaticalFeatureView().isInEditMode() );
+		assert.false( newGrammaticalFeatureView().isInEditMode() );
 	} );
 
 	QUnit.test( 'should not be in edit mode by default when initialized with a value', function ( assert ) {
-		assert.notOk( newGrammaticalFeatureView( { value: [ 'Q1' ] } ).isInEditMode() );
+		assert.false( newGrammaticalFeatureView( { value: [ 'Q1' ] } ).isInEditMode() );
 	} );
 
 	QUnit.test( 'draws value in input node after startEditing()', function ( assert ) {
@@ -100,7 +100,7 @@
 		view.stopEditing();
 
 		window.setTimeout( function () {
-			assert.equal( view.$values.text(), 'Q1-label' );
+			assert.strictEqual( view.$values.text(), 'Q1-label' );
 			done();
 		} );
 	} );
@@ -121,7 +121,7 @@
 		view.stopEditing();
 
 		window.setTimeout( function () {
-			assert.equal( view.$values.text(), 'Q1-label, Q2-label' );
+			assert.strictEqual( view.$values.text(), 'Q1-label, Q2-label' );
 			done();
 		} );
 	} );
@@ -136,7 +136,7 @@
 		var inputId = view.element.find( 'input' )[ 0 ].id;
 		var labelsFound = view.element.find( 'label[for="' + inputId + '"]' );
 
-		assert.equal(
+		assert.strictEqual(
 			labelsFound.length,
 			1
 		);

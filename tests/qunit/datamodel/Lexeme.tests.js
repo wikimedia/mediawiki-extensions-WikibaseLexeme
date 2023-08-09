@@ -14,7 +14,7 @@
 		var lemmas = createTermMapWithTerm();
 		var lexeme = new Lexeme( 'L1', lemmas );
 
-		assert.equal( lexeme.getId(), 'L1' );
+		assert.strictEqual( lexeme.getId(), 'L1' );
 	} );
 
 	QUnit.test( 'Can set lemmas and get them back', function ( assert ) {
@@ -22,7 +22,7 @@
 		var lemmas = createTermMapWithTerm();
 		var lexeme = new Lexeme( lexemeId, lemmas );
 
-		assert.equal( lexeme.getLemmas(), lemmas );
+		assert.strictEqual( lexeme.getLemmas(), lemmas );
 	} );
 
 	QUnit.test( 'Can set statements and get them back', function ( assert ) {
@@ -30,7 +30,7 @@
 		var statementGroupSet = createStatementGroupWithSingleStatement( 'P1', 'L1$1' );
 		var lexeme = new Lexeme( 'L1', lemmas, statementGroupSet );
 
-		assert.equal( lexeme.getStatements(), statementGroupSet );
+		assert.strictEqual( lexeme.getStatements(), statementGroupSet );
 	} );
 
 	QUnit.test( 'Can set forms and get them back', function ( assert ) {
@@ -39,14 +39,14 @@
 		var statements = null;
 		var lexeme = new Lexeme( 'L1', lemmas, statements, forms );
 
-		assert.equal( lexeme.getForms(), forms );
+		assert.strictEqual( lexeme.getForms(), forms );
 	} );
 
 	QUnit.test( 'Can set senses and get them back', function ( assert ) {
 		var senses = [ new Sense( 'L1-S1' ), new Sense( 'L1-S2' ) ];
 		var lexeme = new Lexeme( 'L1', createTermMapWithTerm(), null, [], senses );
 
-		assert.equal( lexeme.getSenses(), senses );
+		assert.strictEqual( lexeme.getSenses(), senses );
 	} );
 
 	QUnit.test( 'getSubEntityIds returns all respective ids', function ( assert ) {

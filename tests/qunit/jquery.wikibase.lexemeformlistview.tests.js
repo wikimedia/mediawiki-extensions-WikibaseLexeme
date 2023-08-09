@@ -35,18 +35,18 @@
 	QUnit.test( 'Can be created', function ( assert ) {
 		var view = newView();
 
-		assert.ok( view instanceof $.wikibase.lexemeformlistview );
+		assert.true( view instanceof $.wikibase.lexemeformlistview );
 	} );
 
 	QUnit.test( 'enterNewItem adds new list item', function ( assert ) {
 		var view = newView(),
 			listItemAdapterSpy = sinon.spy( formViewListItemAdapter, 'newListItem' );
 
-		assert.notOk( listItemAdapterSpy.called );
+		assert.false( listItemAdapterSpy.called );
 
 		view.enterNewItem();
 
-		assert.ok( listItemAdapterSpy.called );
+		assert.true( listItemAdapterSpy.called );
 		listItemAdapterSpy.restore();
 	} );
 
@@ -61,18 +61,18 @@
 
 		createViewElement( getAdder, message );
 
-		assert.ok( getAdder.calledOnce );
-		assert.equal( localizedMessage, getAdder.lastCall.args[ 2 ] );
+		assert.true( getAdder.calledOnce );
+		assert.strictEqual( localizedMessage, getAdder.lastCall.args[ 2 ] );
 	} );
 
 	QUnit.test( 'Can be destroyed', function ( assert ) {
 		var $view = createViewElement();
 
-		assert.ok( getViewFromElement( $view ) );
+		assert.true( !!getViewFromElement( $view ) );
 
 		$view.data( 'lexemeformlistview' ).destroy();
 
-		assert.notOk( getViewFromElement( $view ) );
+		assert.strictEqual( undefined, getViewFromElement( $view ) );
 	} );
 
 }( wikibase ) );

@@ -44,12 +44,12 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbladdform', 'Add form API action' );
-		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
-		assert.equal( gotParameters.bot, 0, 'BOT flag' );
-		assert.equal( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
-		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
-		assert.equal( gotParameters.tags, tags, 'Tags should be set' );
+		assert.strictEqual( gotParameters.action, 'wbladdform', 'Add form API action' );
+		assert.strictEqual( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
+		assert.strictEqual( gotParameters.bot, 0, 'BOT flag' );
+		assert.strictEqual( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
+		assert.strictEqual( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
+		assert.strictEqual( gotParameters.tags, tags, 'Tags should be set' );
 		assert.deepEqual(
 			gotData.representations,
 			{ en: { language: 'en', value: 'test representation' } },
@@ -89,8 +89,8 @@
 		assert.expect( 3 );
 
 		changer.save( form ).then( function ( saveForm ) {
-			assert.equal( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
-			assert.equal(
+			assert.strictEqual( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
+			assert.strictEqual(
 				saveForm.getRepresentations().getItemByKey( 'en' ).getText(),
 				'some representation',
 				'Saved representation'
@@ -137,7 +137,7 @@
 		assert.expect( 1 );
 
 		changer.save( form ).then( function () {
-			assert.equal( revisionStore2.getFormRevision( 'L1-F100' ), 303 );
+			assert.strictEqual( revisionStore2.getFormRevision( 'L1-F100' ), 303 );
 			done();
 		} ).catch( done );
 	} );
@@ -169,15 +169,15 @@
 			assert.expect( 3 );
 
 			changer.save( form ).catch( function ( error ) {
-				assert.ok(
+				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
 					'Detailed message contains text of the first error'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
 					'Detailed message contains text of the second error'
 				);
@@ -222,11 +222,11 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
-		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
-		assert.equal( gotParameters.bot, 0, 'BOT flag' );
-		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
-		assert.equal( gotParameters.formId, formId, 'formId parameter' );
+		assert.strictEqual( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
+		assert.strictEqual( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
+		assert.strictEqual( gotParameters.bot, 0, 'BOT flag' );
+		assert.strictEqual( gotParameters.baserevid, 123, 'Base revision Id' );
+		assert.strictEqual( gotParameters.formId, formId, 'formId parameter' );
 		assert.deepEqual(
 			gotData.representations,
 			{ en: { language: 'en', value: 'test representation' } },
@@ -270,7 +270,7 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
+		assert.strictEqual( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
 		assert.deepEqual(
 			gotData.representations,
 			{ 'en-gb': { language: 'en-gb', value: 'test representation gb' } },
@@ -310,7 +310,7 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
+		assert.strictEqual( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
 		assert.deepEqual(
 			gotData.representations,
 			{ en: { language: 'en', value: 'new representation' } },
@@ -347,7 +347,7 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
+		assert.strictEqual( gotParameters.action, 'wbleditformelements', 'Edit form elements API action' );
 		assert.deepEqual(
 			gotData.representations,
 			{ 'en-gb': { language: 'en-gb', remove: '' } },
@@ -392,8 +392,8 @@
 		assert.expect( 3 );
 
 		changer.save( form ).then( function ( saveForm ) {
-			assert.equal( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
-			assert.equal(
+			assert.strictEqual( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
+			assert.strictEqual(
 				saveForm.getRepresentations().getItemByKey( 'en' ).getText(),
 				'test representation',
 				'Saved representation'
@@ -434,15 +434,15 @@
 			assert.expect( 3 );
 
 			changer.save( form ).catch( function ( error ) {
-				assert.ok(
+				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
 					'Detailed message contains text of the first error'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
 					'Detailed message contains text of the second error'
 				);
@@ -471,16 +471,16 @@
 
 		changer.remove( form );
 
-		assert.ok( api.post.calledOnce, 'API gets called once' );
+		assert.true( api.post.calledOnce, 'API gets called once' );
 
 		var callArguments = api.post.firstCall.args;
 		var gotParameters = callArguments[ 0 ];
 
-		assert.equal( gotParameters.action, 'wblremoveform', 'Picks right API action' );
-		assert.equal( gotParameters.id, formId, 'Sends form id parameter' );
-		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
-		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
-		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
+		assert.strictEqual( gotParameters.action, 'wblremoveform', 'Picks right API action' );
+		assert.strictEqual( gotParameters.id, formId, 'Sends form id parameter' );
+		assert.strictEqual( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
+		assert.strictEqual( gotParameters.baserevid, 123, 'Base revision Id' );
+		assert.strictEqual( gotParameters.bot, 0, 'Disables bot flag' );
 	} );
 
 	QUnit.test( 'Existing Form removal fails - formats and passes API errors', function ( assert ) {
@@ -499,10 +499,10 @@
 		assert.expect( 4 );
 
 		changer.remove( form ).fail( function ( apiError ) {
-			assert.ok( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
-			assert.equal( apiError.code, 'bad', 'Code from API gets set' );
-			assert.equal( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
-			assert.equal( apiError.action, 'remove', 'Action that failed gets set' );
+			assert.true( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
+			assert.strictEqual( apiError.code, 'bad', 'Code from API gets set' );
+			assert.strictEqual( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
+			assert.strictEqual( apiError.action, 'remove', 'Action that failed gets set' );
 
 			testPromise.resolve();
 		} );

@@ -68,7 +68,6 @@
 	$.each( testCases, function ( testCase, data ) {
 		QUnit.test( 'Serializing  "' + testCase + '" sense object', function ( assert ) {
 			var s = serialize( data.sense );
-			assert.ok( 'Should no throw an errror' );
 			assert.deepEqual( s, data.expected, 'Should equal "' + testCase + '"' );
 		} );
 

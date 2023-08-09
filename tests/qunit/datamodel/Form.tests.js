@@ -30,25 +30,25 @@
 		var expectedId = 'L123',
 			form = new Form( expectedId );
 
-		assert.equal( form.getId(), expectedId );
+		assert.strictEqual( form.getId(), expectedId );
 	} );
 
 	QUnit.test( 'getRepresentations()', function ( assert ) {
 		var form = new Form( 'L123', someRepresentations );
 
-		assert.equal( form.getRepresentations(), someRepresentations );
+		assert.strictEqual( form.getRepresentations(), someRepresentations );
 	} );
 
 	QUnit.test( 'equals() respects representations', function ( assert ) {
 		var id = 'L123',
 			form = new Form( id, new TermMap( { en: new Term( 'en', 'text' ) } ) );
 
-		assert.ok(
+		assert.true(
 			form.equals( new Form( id, new TermMap( { en: new Term( 'en', 'text' ) } ) ) ),
 			'Equal representations'
 		);
 
-		assert.notOk(
+		assert.false(
 			form.equals( new Form( id, new TermMap( { en: new Term( 'en', 'text1' ) } ) ) ),
 			'Different representations'
 		);
@@ -58,15 +58,15 @@
 		var id = 'L123',
 			form = new Form( id, someRepresentations, [ 'Q1' ] );
 
-		assert.ok(
+		assert.true(
 			form.equals( new Form( id, someRepresentations, [ 'Q1' ] ) ),
 			'same grammatical features'
 		);
-		assert.notOk(
+		assert.false(
 			form.equals( new Form( id, someRepresentations, [] ) ),
 			'one form has grammatical features, another doesn`t'
 		);
-		assert.notOk(
+		assert.false(
 			form.equals( new Form( id, someRepresentations, [ 'Q2' ] ) ),
 			'different grammatical features'
 		);
@@ -96,7 +96,7 @@
 			];
 
 		equalsDataProvider.forEach( function ( testData ) {
-			assert.equal(
+			assert.strictEqual(
 				form.equals( testData.comparison ),
 				false,
 				testData.message

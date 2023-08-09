@@ -29,7 +29,7 @@
 		var factory = new ViewFactoryFactory(),
 			result = factory.getViewFactory( true, getFactoryArgs() );
 
-		assert.ok( result instanceof ControllerViewFactory );
+		assert.true( result instanceof ControllerViewFactory );
 	} );
 
 	QUnit.test( 'returns ReadModeViewFactory when not editable', function ( assert ) {
@@ -37,8 +37,8 @@
 			result = factory.getViewFactory( false, getFactoryArgs() );
 
 		// instanceof check across package module doesn't work
-		// assert.ok( result instanceof ReadModeViewFactory );
-		assert.notOk( result.getFormListView );
+		// assert.true( result instanceof ReadModeViewFactory );
+		assert.strictEqual( undefined, result.getFormListView );
 	} );
 
 }() );
