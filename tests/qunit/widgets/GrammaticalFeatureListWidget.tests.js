@@ -83,12 +83,12 @@
 			/** @type {OO.ui.MenuOptionWidget[]} */
 			var items = widget.menu.getItems();
 
-			assert.equal( items[ 0 ].getData(), 'Q1' );
-			assert.ok( items[ 0 ].$element.text().match( 'q1-label' ) );
-			assert.ok( items[ 0 ].$element.text().match( 'q1-description' ) );
-			assert.equal( items[ 1 ].getData(), 'Q2' );
-			assert.ok( items[ 1 ].$element.text().match( 'q2-label' ) );
-			assert.ok( items[ 1 ].$element.text().match( 'q2-description' ) );
+			assert.strictEqual( items[ 0 ].getData(), 'Q1' );
+			assert.notStrictEqual( items[ 0 ].$element.text().match( 'q1-label' ), null );
+			assert.notStrictEqual( items[ 0 ].$element.text().match( 'q1-description' ), null );
+			assert.strictEqual( items[ 1 ].getData(), 'Q2' );
+			assert.notStrictEqual( items[ 1 ].$element.text().match( 'q2-label' ), null );
+			assert.notStrictEqual( items[ 1 ].$element.text().match( 'q2-description' ), null );
 			done();
 		}, INTERNAL_DEBOUNCE_TIMEOUT );
 	} );
@@ -118,7 +118,7 @@
 			var item = widget.menu.getItems()[ 0 ];
 			widget.menu.chooseItem( item );
 
-			assert.equal( widget.getValue()[ 0 ], 'Q1' );
+			assert.strictEqual( widget.getValue()[ 0 ], 'Q1' );
 			done();
 		}, INTERNAL_DEBOUNCE_TIMEOUT );
 	} );

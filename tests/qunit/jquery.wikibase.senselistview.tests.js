@@ -38,17 +38,17 @@
 	QUnit.test( 'Can be created', function ( assert ) {
 		var view = newView();
 
-		assert.ok( view instanceof $.wikibase.senselistview );
+		assert.true( view instanceof $.wikibase.senselistview );
 	} );
 
 	QUnit.test( 'Can be destroyed', function ( assert ) {
 		var $view = createViewElement();
 
-		assert.ok( getViewFromElement( $view ) );
+		assert.true( !!getViewFromElement( $view ) );
 
 		$view.data( 'senselistview' ).destroy();
 
-		assert.notOk( getViewFromElement( $view ) );
+		assert.strictEqual( undefined, getViewFromElement( $view ) );
 	} );
 
 	QUnit.test( 'includes a button to "add sense"', function ( assert ) {
@@ -61,7 +61,7 @@
 
 		var $view = createViewElement( messageStub );
 
-		assert.equal( $view.find( '.wikibase-toolbar-button-add' ).text(), translatedMessage );
+		assert.strictEqual( $view.find( '.wikibase-toolbar-button-add' ).text(), translatedMessage );
 	} );
 
 }( wikibase ) );

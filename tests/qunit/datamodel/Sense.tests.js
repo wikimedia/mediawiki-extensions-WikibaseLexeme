@@ -17,12 +17,12 @@
 		var expectedId = 'S123',
 			sense = new Sense( expectedId, someGlosses );
 
-		assert.equal( sense.getId(), expectedId );
+		assert.strictEqual( sense.getId(), expectedId );
 	} );
 
 	QUnit.test( 'getGlosses()', function ( assert ) {
 		var sense = new Sense( 'S123', someGlosses );
-		assert.equal( sense.getGlosses(), someGlosses );
+		assert.strictEqual( sense.getGlosses(), someGlosses );
 	} );
 
 	QUnit.test( 'equals()', function ( assert ) {
@@ -31,7 +31,7 @@
 			sense = new Sense( id, glosses ),
 			comparison = new Sense( id, glosses );
 
-		assert.equal( sense.equals( comparison ), true );
+		assert.strictEqual( sense.equals( comparison ), true );
 	} );
 
 	QUnit.test( 'not equals()', function ( assert ) {
@@ -69,7 +69,7 @@
 			];
 
 		equalsDataProvider.forEach( function ( testData ) {
-			assert.equal(
+			assert.strictEqual(
 				sense.equals( testData.comparison ),
 				false,
 				testData.message

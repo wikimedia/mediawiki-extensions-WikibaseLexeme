@@ -44,12 +44,12 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbladdsense', 'Add sense API action' );
-		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
-		assert.equal( gotParameters.bot, 0, 'BOT flag' );
-		assert.equal( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
-		assert.equal( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
-		assert.equal( gotParameters.tags, tags, 'Tags should be set' );
+		assert.strictEqual( gotParameters.action, 'wbladdsense', 'Add sense API action' );
+		assert.strictEqual( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
+		assert.strictEqual( gotParameters.bot, 0, 'BOT flag' );
+		assert.strictEqual( gotParameters.baserevid, undefined, 'Base revision Id should not be sent' );
+		assert.strictEqual( gotParameters.lexemeId, lexemeId, 'lexemeId parameter' );
+		assert.strictEqual( gotParameters.tags, tags, 'Tags should be set' );
 		assert.deepEqual(
 			gotData.glosses,
 			{ en: { language: 'en', value: 'test gloss' } },
@@ -83,8 +83,8 @@
 		assert.expect( 2 );
 
 		changer.save( sense ).then( function ( saveSense ) {
-			assert.equal( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
-			assert.equal(
+			assert.strictEqual( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
+			assert.strictEqual(
 				saveSense.getGlosses().getItemByKey( 'en' ).getText(),
 				'some gloss',
 				'Saved gloss'
@@ -126,7 +126,7 @@
 		assert.expect( 1 );
 
 		changer.save( sense ).then( function () {
-			assert.equal( revisionStore2.getSenseRevision( 'L1-S100' ), 303 );
+			assert.strictEqual( revisionStore2.getSenseRevision( 'L1-S100' ), 303 );
 			done();
 		} ).catch( done );
 	} );
@@ -158,15 +158,15 @@
 			assert.expect( 3 );
 
 			changer.save( sense ).catch( function ( error ) {
-				assert.ok(
+				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
 					'Detailed message contains text of the first error'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
 					'Detailed message contains text of the second error'
 				);
@@ -211,11 +211,11 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
-		assert.equal( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
-		assert.equal( gotParameters.bot, 0, 'BOT flag' );
-		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
-		assert.equal( gotParameters.senseId, senseId, 'senseId parameter' );
+		assert.strictEqual( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
+		assert.strictEqual( gotParameters.errorformat, 'plaintext', 'Plain text error format' );
+		assert.strictEqual( gotParameters.bot, 0, 'BOT flag' );
+		assert.strictEqual( gotParameters.baserevid, 123, 'Base revision Id' );
+		assert.strictEqual( gotParameters.senseId, senseId, 'senseId parameter' );
 		assert.deepEqual(
 			gotData.glosses,
 			{ en: { language: 'en', value: 'test gloss' } },
@@ -253,7 +253,7 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
+		assert.strictEqual( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
 		assert.deepEqual(
 			gotData.glosses,
 			{ 'en-gb': { language: 'en-gb', value: 'test gloss gb' } },
@@ -292,7 +292,7 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
+		assert.strictEqual( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
 		assert.deepEqual(
 			gotData.glosses,
 			{ en: { language: 'en', value: 'new gloss' } },
@@ -328,7 +328,7 @@
 		var gotParameters = callArguments[ 0 ];
 		var gotData = JSON.parse( gotParameters.data );
 
-		assert.equal( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
+		assert.strictEqual( gotParameters.action, 'wbleditsenseelements', 'Edit sense elements API action' );
 		assert.deepEqual(
 			gotData.glosses,
 			{ 'en-gb': { language: 'en-gb', remove: '' } },
@@ -370,8 +370,8 @@
 		assert.expect( 2 );
 
 		changer.save( sense ).then( function ( saveSense ) {
-			assert.equal( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
-			assert.equal(
+			assert.strictEqual( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
+			assert.strictEqual(
 				saveSense.getGlosses().getItemByKey( 'en' ).getText(),
 				'test gloss',
 				'Saved gloss'
@@ -407,15 +407,15 @@
 			assert.expect( 3 );
 
 			changer.save( sense ).catch( function ( error ) {
-				assert.ok(
+				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
 					'Detailed message contains text of the first error'
 				);
-				assert.ok(
+				assert.true(
 					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
 					'Detailed message contains text of the second error'
 				);
@@ -444,16 +444,16 @@
 
 		changer.remove( sense );
 
-		assert.ok( api.post.calledOnce, 'API gets called once' );
+		assert.true( api.post.calledOnce, 'API gets called once' );
 
 		var callArguments = api.post.firstCall.args;
 		var gotParameters = callArguments[ 0 ];
 
-		assert.equal( gotParameters.action, 'wblremovesense', 'Picks right API action' );
-		assert.equal( gotParameters.id, senseId, 'Sends form id parameter' );
-		assert.equal( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
-		assert.equal( gotParameters.bot, 0, 'Disables bot flag' );
-		assert.equal( gotParameters.baserevid, 123, 'Base revision Id' );
+		assert.strictEqual( gotParameters.action, 'wblremovesense', 'Picks right API action' );
+		assert.strictEqual( gotParameters.id, senseId, 'Sends form id parameter' );
+		assert.strictEqual( gotParameters.errorformat, 'plaintext', 'Requests plain text error format' );
+		assert.strictEqual( gotParameters.bot, 0, 'Disables bot flag' );
+		assert.strictEqual( gotParameters.baserevid, 123, 'Base revision Id' );
 	} );
 
 	QUnit.test( 'Existing Sense removal fails - formats and passes API errors', function ( assert ) {
@@ -472,10 +472,10 @@
 		assert.expect( 4 );
 
 		changer.remove( sense ).fail( function ( apiError ) {
-			assert.ok( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
-			assert.equal( apiError.code, 'bad', 'Code from API gets set' );
-			assert.equal( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
-			assert.equal( apiError.action, 'remove', 'Action that failed gets set' );
+			assert.true( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
+			assert.strictEqual( apiError.code, 'bad', 'Code from API gets set' );
+			assert.strictEqual( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
+			assert.strictEqual( apiError.action, 'remove', 'Action that failed gets set' );
 
 			testPromise.resolve();
 		} );

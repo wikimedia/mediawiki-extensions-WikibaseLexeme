@@ -61,8 +61,8 @@
 		var ds = new LexemeDeserializer(),
 			lexeme = ds.deserialize( serialization );
 
-		assert.equal( lexeme.getId(), expectedDataModel.getId() );
-		assert.equal( lexeme.getType(), expectedDataModel.getType() );
+		assert.strictEqual( lexeme.getId(), expectedDataModel.getId() );
+		assert.strictEqual( lexeme.getType(), expectedDataModel.getType() );
 		assert.deepEqual( lexeme.getLemmas(), expectedDataModel.getLemmas() );
 		assert.deepEqual( lexeme.getStatements(), expectedDataModel.getStatements() );
 		assert.deepEqual( lexeme.getForms(), expectedDataModel.getForms() );
@@ -92,15 +92,15 @@
 			senses: []
 		} );
 
-		assert.ok( result.getForms(), 'Deserialized data model should contain forms' );
+		assert.true( !!result.getForms(), 'Deserialized data model should contain forms' );
 
 		var form = result.getForms()[ 0 ];
-		assert.ok(
+		assert.true(
 			form instanceof wb.lexeme.datamodel.Form,
 			'Data model should contain instance of Form'
 		);
-		assert.equal( form.getId(), 'F1', 'Data model should contain form id' );
-		assert.ok(
+		assert.strictEqual( form.getId(), 'F1', 'Data model should contain form id' );
+		assert.true(
 			form.getRepresentations().equals( new TermMap( {
 				en: new Term(
 					'en',
@@ -114,7 +114,7 @@
 			[ 'Q1' ],
 			'Data model should contain form grammatical features'
 		);
-		assert.ok(
+		assert.true(
 			form.getStatements().equals( expectedStatementGroupSet ),
 			'Data model should have statements on form'
 		);
@@ -139,7 +139,7 @@
 				senses: []
 			} );
 
-			assert.ok( result.getForms(), 'Deserialized data model should contain forms' );
+			assert.true( !!result.getForms(), 'Deserialized data model should contain forms' );
 		}
 	);
 
@@ -165,15 +165,15 @@
 			} ]
 		} );
 
-		assert.ok( result.getSenses(), 'Deserialized data model should contain senses' );
+		assert.true( !!result.getSenses(), 'Deserialized data model should contain senses' );
 
 		var sense = result.getSenses()[ 0 ];
-		assert.ok(
+		assert.true(
 			sense instanceof wb.lexeme.datamodel.Sense,
 			'Data model should contain instance of Sense'
 		);
-		assert.equal( sense.getId(), 'L1-S1', 'Data model should contain sense id' );
-		assert.ok(
+		assert.strictEqual( sense.getId(), 'L1-S1', 'Data model should contain sense id' );
+		assert.true(
 			sense.getGlosses().equals( new TermMap( {
 				en: new Term(
 					'en',
@@ -182,7 +182,7 @@
 			} ) ),
 			'Data model should contain sense glosses'
 		);
-		assert.ok(
+		assert.true(
 			sense.getStatements().equals( expectedStatementGroupSet ),
 			'Data model should have statements on sense'
 		);
@@ -207,7 +207,7 @@
 				forms: []
 			} );
 
-			assert.ok( result.getSenses(), 'Deserialized data model should contain senses' );
+			assert.true( !!result.getSenses(), 'Deserialized data model should contain senses' );
 		}
 	);
 
