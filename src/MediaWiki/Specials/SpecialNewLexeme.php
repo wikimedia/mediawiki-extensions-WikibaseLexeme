@@ -631,6 +631,11 @@ class SpecialNewLexeme extends SpecialPage {
 		$out->setPageTitle( $this->getDescription() );
 	}
 
+	/** @see \Wikibase\Repo\Specials\SpecialWikibasePage::getGroupName() */
+	protected function getGroupName(): string {
+		return 'wikibase';
+	}
+
 	public function getDescription(): string {
 		return $this->msg( 'special-newlexeme' )->text();
 	}
