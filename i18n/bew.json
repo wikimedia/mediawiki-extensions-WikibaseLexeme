@@ -116,7 +116,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Kode basa bakal Bentuk Kanun punya ragem èjaan, tulad: '$1'",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Bentuk pèndèk deri kata, tulad: 'pertama'",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Bentuk dasar deri kata, tulad: '$1'",
-	"wikibaselexeme-newlexeme-lemma-too-long-error": "Bentuk Kanun kaga' bolé ngelebihin  $1 {{PLURAL:$1|lèter}}.",
+	"wikibaselexeme-newlexeme-lemma-too-long-error": "Bentuk Kanun kaga' bolé nglantasin $1 {{PLURAL:$1|lèter}}.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Katègori lèksikal",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Katègori lèksikal kaga' bolé kosong.",
 	"wikibaselexeme-newlexeme-lexicalcategory-invalid-error": "Katègori lèksikal misti Butir nyang aci.",
