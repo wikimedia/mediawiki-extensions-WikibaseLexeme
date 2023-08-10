@@ -68,10 +68,7 @@ return [
 		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new LexemeId( $serialization );
 		},
-		Def::ENTITY_ID_COMPOSER_CALLBACK => static function ( $repositoryName, $uniquePart = null ) {
-			if ( $uniquePart === null ) {
-				$uniquePart = $repositoryName;
-			}
+		Def::ENTITY_ID_COMPOSER_CALLBACK => static function ( $uniquePart ) {
 			return new LexemeId( 'L' . $uniquePart );
 		},
 		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
