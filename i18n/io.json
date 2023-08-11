@@ -4,7 +4,11 @@
 			"Joao Xavier"
 		]
 	},
+	"datatypes-type-wikibase-form": "Dokumento",
+	"datatypes-type-wikibase-lexeme": "Lexemo",
+	"datatypes-type-wikibase-sense": "Senco",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permiso vetata.",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexemo",
 	"wikibaselexeme-diffview-language": "linguo",
 	"wikibaselexeme-field-language-label": "Linguo",
 	"wikibaselexeme-form-field-language-label": "Espelo-variado",
