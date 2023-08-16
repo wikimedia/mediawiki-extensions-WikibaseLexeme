@@ -11,6 +11,8 @@ use Wikibase\Repo\WikibaseRepo;
  * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter
  *
  * @license GPL-2.0-or-later
+ *
+ * @group Database
  */
 class LexemeLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
