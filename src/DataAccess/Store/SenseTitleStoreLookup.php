@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
-use Title;
+use MediaWiki\Title\Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\Domain\DummyObjects\NullSenseId;

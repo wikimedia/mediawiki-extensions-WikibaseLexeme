@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\InMemoryEntityLookup;
@@ -219,7 +220,7 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 
 		$lookup->method( 'getTitleForId' )
 			->willReturnCallback( function ( LexemeId $id ) {
-				$title = $this->createMock( \Title::class );
+				$title = $this->createMock( Title::class );
 
 				$title->method( 'isLocal' )->willReturn( true );
 				$title->method( 'getLocalURL' )

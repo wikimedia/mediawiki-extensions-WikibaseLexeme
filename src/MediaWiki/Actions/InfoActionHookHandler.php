@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\MediaWiki\Actions;
 
 use IContextSource;
+use MediaWiki\Title\Title;
 use PageProps;
-use Title;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\Store\EntityIdLookup;
 use Wikibase\Lib\Store\EntityNamespaceLookup;
