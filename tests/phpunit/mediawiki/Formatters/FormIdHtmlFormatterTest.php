@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use Title;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;

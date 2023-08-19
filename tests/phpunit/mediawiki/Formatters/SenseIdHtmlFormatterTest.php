@@ -6,9 +6,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MediaWikiLangTestCase;
 use PHPUnit\Framework\MockObject\MockObject;
-use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\SenseId;

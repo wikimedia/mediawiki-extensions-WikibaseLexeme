@@ -4,9 +4,9 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
 use InvalidArgumentException;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Title;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;

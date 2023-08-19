@@ -6,8 +6,8 @@ namespace Wikibase\Lexeme\MediaWiki\Content;
 
 use Article;
 use IContextSource;
+use MediaWiki\Title\Title;
 use Psr\Container\ContainerInterface;
-use Title;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;

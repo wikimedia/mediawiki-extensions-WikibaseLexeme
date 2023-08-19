@@ -6,8 +6,8 @@ namespace Wikibase\Lexeme\Tests\Unit\mediawiki;
 
 use Article;
 use IContextSource;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use Title;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;

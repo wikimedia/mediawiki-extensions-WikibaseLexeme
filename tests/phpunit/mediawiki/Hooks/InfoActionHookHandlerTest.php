@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks;
 
 use IContextSource;
+use MediaWiki\Title\Title;
 use PageProps;
 use PHPUnit\Framework\TestCase;
 use RequestContext;
-use Title;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;

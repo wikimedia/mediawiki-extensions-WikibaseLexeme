@@ -3,10 +3,10 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
 use Status;
-use Title;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\FormatableSummary;

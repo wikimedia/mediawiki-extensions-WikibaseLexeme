@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use Title;
 use Wikibase\Lexeme\DataAccess\Store\SenseTitleStoreLookup;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;

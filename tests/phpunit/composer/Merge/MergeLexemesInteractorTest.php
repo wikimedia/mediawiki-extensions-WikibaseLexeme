@@ -3,9 +3,9 @@
 namespace Wikibase\Lexeme\Tests\Merge;
 
 use IContextSource;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use Title;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;

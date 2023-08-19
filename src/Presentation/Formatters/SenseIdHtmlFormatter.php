@@ -6,8 +6,8 @@ namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use Html;
 use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Title\Title;
 use OutOfRangeException;
-use Title;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;
