@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks;
 
 use IContextSource;
+use MediaWiki\Page\PageProps;
 use MediaWiki\Title\Title;
-use PageProps;
 use PHPUnit\Framework\TestCase;
 use RequestContext;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
