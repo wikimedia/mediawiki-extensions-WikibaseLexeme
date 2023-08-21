@@ -5,7 +5,9 @@
 			"Obsuser",
 			"Zoranzoki21",
 			"Милан Јелисавчић",
-			"Kizule"
+			"Kizule",
+			"Milicevic01",
+			"Zenfiric"
 		]
 	},
 	"wikibaselexeme-desc": "Руковање врстом ентитета „лексема”",
@@ -89,6 +91,7 @@
 	"wikibase-validator-form-not-found": "Лексема нема облик са датим ID-ом",
 	"wikibaselexeme-grammatical-features-input-placeholder": "На пример: норматив, компаратив, прошло време…",
 	"wikibase-lexeme-language-name-mis": "друго",
+	"wikibase-lexeme-lemma-language-not-recognized": "Наведени језички код није препознат.",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
 	"wikibase-lexeme-mergelexemes-intro": "Ако обједините две лексеме, све леме, изјаве, облици и значења биће премештени из једне лексеме у другу.",
 	"wikibase-lexeme-mergelexemes-from-id": "Идентификатор за спајање од",
