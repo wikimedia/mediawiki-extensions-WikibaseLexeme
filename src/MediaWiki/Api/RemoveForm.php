@@ -199,25 +199,23 @@ class RemoveForm extends ApiBase {
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return array_merge(
-			[
-				RemoveFormRequestParser::PARAM_FORM_ID => [
-					ParamValidator::PARAM_TYPE => 'string',
-					ParamValidator::PARAM_REQUIRED => true,
-				],
-				'tags' => [
-					ParamValidator::PARAM_TYPE => 'tags',
-					ParamValidator::PARAM_ISMULTI => true,
-				],
-				'bot' => [
-					ParamValidator::PARAM_TYPE => 'boolean',
-					ParamValidator::PARAM_DEFAULT => false,
-				],
-				RemoveFormRequestParser::PARAM_BASEREVID => [
-					ParamValidator::PARAM_TYPE => 'integer',
-				],
-			]
-		);
+		return [
+			RemoveFormRequestParser::PARAM_FORM_ID => [
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			'tags' => [
+				ParamValidator::PARAM_TYPE => 'tags',
+				ParamValidator::PARAM_ISMULTI => true,
+			],
+			'bot' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_DEFAULT => false,
+			],
+			RemoveFormRequestParser::PARAM_BASEREVID => [
+				ParamValidator::PARAM_TYPE => 'integer',
+			],
+		];
 	}
 
 	/** @inheritDoc */

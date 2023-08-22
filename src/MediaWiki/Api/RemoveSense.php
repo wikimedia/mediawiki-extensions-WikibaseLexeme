@@ -199,25 +199,23 @@ class RemoveSense extends ApiBase {
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return array_merge(
-			[
-				RemoveSenseRequestParser::PARAM_SENSE_ID => [
-					ParamValidator::PARAM_TYPE => 'string',
-					ParamValidator::PARAM_REQUIRED => true,
-				],
-				RemoveSenseRequestParser::PARAM_BASEREVID => [
-					ParamValidator::PARAM_TYPE => 'integer',
-				],
-				'tags' => [
-					ParamValidator::PARAM_TYPE => 'tags',
-					ParamValidator::PARAM_ISMULTI => true,
-				],
-				'bot' => [
-					ParamValidator::PARAM_TYPE => 'boolean',
-					ParamValidator::PARAM_DEFAULT => false,
-				],
-			]
-		);
+		return [
+			RemoveSenseRequestParser::PARAM_SENSE_ID => [
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			RemoveSenseRequestParser::PARAM_BASEREVID => [
+				ParamValidator::PARAM_TYPE => 'integer',
+			],
+			'tags' => [
+				ParamValidator::PARAM_TYPE => 'tags',
+				ParamValidator::PARAM_ISMULTI => true,
+			],
+			'bot' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_DEFAULT => false,
+			],
+		];
 	}
 
 	/** @inheritDoc */

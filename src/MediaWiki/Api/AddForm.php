@@ -180,29 +180,27 @@ class AddForm extends ApiBase {
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return array_merge(
-			[
-				AddFormRequestParser::PARAM_LEXEME_ID => [
-					ParamValidator::PARAM_TYPE => 'string',
-					ParamValidator::PARAM_REQUIRED => true,
-				],
-				AddFormRequestParser::PARAM_DATA => [
-					ParamValidator::PARAM_TYPE => 'text',
-					ParamValidator::PARAM_REQUIRED => true,
-				],
-				AddFormRequestParser::PARAM_BASEREVID => [
-					ParamValidator::PARAM_TYPE => 'integer',
-				],
-				'tags' => [
-					ParamValidator::PARAM_TYPE => 'tags',
-					ParamValidator::PARAM_ISMULTI => true,
-				],
-				'bot' => [
-					ParamValidator::PARAM_TYPE => 'boolean',
-					ParamValidator::PARAM_DEFAULT => false,
-				],
-			]
-		);
+		return [
+			AddFormRequestParser::PARAM_LEXEME_ID => [
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			AddFormRequestParser::PARAM_DATA => [
+				ParamValidator::PARAM_TYPE => 'text',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			AddFormRequestParser::PARAM_BASEREVID => [
+				ParamValidator::PARAM_TYPE => 'integer',
+			],
+			'tags' => [
+				ParamValidator::PARAM_TYPE => 'tags',
+				ParamValidator::PARAM_ISMULTI => true,
+			],
+			'bot' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_DEFAULT => false,
+			],
+		];
 	}
 
 	/** @inheritDoc */

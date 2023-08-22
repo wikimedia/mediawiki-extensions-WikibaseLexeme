@@ -272,29 +272,27 @@ class AddSense extends ApiBase {
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return array_merge(
-			[
-				AddSenseRequestParser::PARAM_LEXEME_ID => [
-					ParamValidator::PARAM_TYPE => 'string',
-					ParamValidator::PARAM_REQUIRED => true,
-				],
-				AddSenseRequestParser::PARAM_DATA => [
-					ParamValidator::PARAM_TYPE => 'text',
-					ParamValidator::PARAM_REQUIRED => true,
-				],
-				AddSenseRequestParser::PARAM_BASEREVID => [
-					ParamValidator::PARAM_TYPE => 'integer',
-				],
-				'tags' => [
-					ParamValidator::PARAM_TYPE => 'tags',
-					ParamValidator::PARAM_ISMULTI => true,
-				],
-				'bot' => [
-					ParamValidator::PARAM_TYPE => 'boolean',
-					ParamValidator::PARAM_DEFAULT => false,
-				],
-			]
-		);
+		return [
+			AddSenseRequestParser::PARAM_LEXEME_ID => [
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			AddSenseRequestParser::PARAM_DATA => [
+				ParamValidator::PARAM_TYPE => 'text',
+				ParamValidator::PARAM_REQUIRED => true,
+			],
+			AddSenseRequestParser::PARAM_BASEREVID => [
+				ParamValidator::PARAM_TYPE => 'integer',
+			],
+			'tags' => [
+				ParamValidator::PARAM_TYPE => 'tags',
+				ParamValidator::PARAM_ISMULTI => true,
+			],
+			'bot' => [
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_DEFAULT => false,
+			],
+		];
 	}
 
 	/** @inheritDoc */
