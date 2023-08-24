@@ -232,6 +232,14 @@ return call_user_func( static function () {
 			"styles" => [
 				"lexeme.less",
 			],
+			"skinStyles" => [
+				"vector" => [
+					"lexeme.vector.less",
+				],
+				'vector-2022' => [
+					'lexeme.vector.less',
+				],
+			],
 		],
 
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [
