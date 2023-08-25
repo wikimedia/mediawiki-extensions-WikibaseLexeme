@@ -24,12 +24,8 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct( $serialization ) {
-		$serializationParts = self::splitSerialization( $serialization );
-		$localId = strtoupper( $serializationParts[2] );
-		$this->assertValidIdFormat( $localId );
-		parent::__construct( self::joinSerialization(
-			[ $serializationParts[0], $serializationParts[1], $localId ] )
-		);
+		$this->assertValidIdFormat( $serialization );
+		parent::__construct( strtoupper( $serialization ) );
 	}
 
 	/**
