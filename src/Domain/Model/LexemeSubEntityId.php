@@ -63,7 +63,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	 * @return string
 	 */
 	public function getIdSuffix() {
-		if ( $this->localPart !== null ) {
+		if ( $this->serialization !== null ) {
 			return $this->extractLexemeIdAndSubEntityId()[1];
 		}
 
@@ -96,7 +96,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	 *                  e.g. ['L1', 'F1'] for form id L1-F1.
 	 */
 	private function extractLexemeIdAndSubEntityId() {
-		$parts = explode( self::SUBENTITY_ID_SEPARATOR, $this->localPart, 2 );
+		$parts = explode( self::SUBENTITY_ID_SEPARATOR, $this->serialization, 2 );
 
 		if ( count( $parts ) !== 2 ) {
 			throw new LogicException( 'Malformed sub-entity id' );
