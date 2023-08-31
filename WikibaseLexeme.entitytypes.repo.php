@@ -590,15 +590,21 @@ return [
 			);
 		},
 		Def::ENTITY_ID_HTML_LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
+			$services = MediaWikiServices::getInstance();
 
 			return new SenseIdHtmlFormatter(
-				WikibaseRepo::getEntityTitleLookup(),
-				WikibaseRepo::getEntityRevisionLookup(),
+				WikibaseRepo::getEntityTitleLookup( $services ),
+				WikibaseRepo::getEntityRevisionLookup( $services ),
 				new MediaWikiLocalizedTextProvider( $language ),
-				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $language ),
-				new LanguageFallbackIndicator( WikibaseRepo::getLanguageNameLookup() ),
-				MediaWikiServices::getInstance()->getLanguageFactory(),
-				WikibaseRepo::getEntityIdLabelFormatterFactory()->getEntityIdFormatter( $language )
+				WikibaseRepo::getLanguageFallbackChainFactory( $services )
+					->newFromLanguage( $language ),
+				new LanguageFallbackIndicator(
+					WikibaseRepo::getLanguageNameLookupFactory( $services )
+						->getForLanguage( $language )
+				),
+				$services->getLanguageFactory(),
+				WikibaseRepo::getEntityIdLabelFormatterFactory( $services )
+					->getEntityIdFormatter( $language )
 			);
 		},
 		Def::ENTITY_METADATA_ACCESSOR_CALLBACK => static function ( $dbName, $repoName ) {
