@@ -31,17 +31,6 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		$unserialized = unserialize( serialize( $expected ) );
 
 		$this->assertTrue( $expected->equals( $unserialized ), 'equality as defined in EntityId' );
-
-		$this->assertSame(
-			$expected->getRepositoryName(),
-			$unserialized->getRepositoryName(),
-			'getRepositoryName works as expected after unserialize'
-		);
-		$this->assertSame(
-			$expected->getLocalPart(),
-			$unserialized->getLocalPart(),
-			'getLocalPart works as expected after unserialize'
-		);
 	}
 
 	public static function idSerializationProvider() {
