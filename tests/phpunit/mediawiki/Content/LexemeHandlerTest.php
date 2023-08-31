@@ -34,6 +34,8 @@ use Wikibase\Repo\WikibaseRepo;
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeHandler
  *
+ * @group Database
+ *
  * @license GPL-2.0-or-later
  * @author Bene* < benestar.wikimedia@gmail.com >
  */
