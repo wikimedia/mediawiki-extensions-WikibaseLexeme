@@ -26,6 +26,9 @@ class SenseId extends LexemeSubEntityId {
 			'$serialization',
 			'Sense ID must match "' . self::PATTERN . '", given: ' . $this->serialization
 		);
+
+		$this->repositoryName = '';
+		$this->localPart = '';
 	}
 
 	/**
