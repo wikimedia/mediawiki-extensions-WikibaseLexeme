@@ -27,6 +27,9 @@ class FormId extends LexemeSubEntityId {
 			'$serialization',
 			'Form ID must match "' . self::PATTERN . '", given: ' . $serialization
 		);
+
+		$this->repositoryName = '';
+		$this->localPart = '';
 	}
 
 	/**
