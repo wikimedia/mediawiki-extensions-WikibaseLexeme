@@ -22,9 +22,9 @@ class SenseId extends LexemeSubEntityId {
 		parent::__construct( $serialization );
 
 		Assert::parameter(
-			preg_match( self::PATTERN, $this->localPart ),
+			preg_match( self::PATTERN, $this->serialization ),
 			'$serialization',
-			'Sense ID must match "' . self::PATTERN . '", given: ' . $this->localPart
+			'Sense ID must match "' . self::PATTERN . '", given: ' . $this->serialization
 		);
 	}
 
