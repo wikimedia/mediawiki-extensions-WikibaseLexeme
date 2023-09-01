@@ -18,8 +18,6 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	public function testGivenValidSerialization_allGettersBehaveConsistent() {
 		$id = new FormId( 'L1-F1' );
 		$this->assertSame( 'L1-F1', $id->getSerialization() );
-		$this->assertSame( '', $id->getRepositoryName(), 'getRepositoryName' );
-		$this->assertSame( 'L1-F1', $id->getLocalPart(), 'getLocalPart' );
 	}
 
 	public static function provideInvalidSerializations() {
