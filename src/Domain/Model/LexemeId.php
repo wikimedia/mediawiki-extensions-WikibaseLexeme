@@ -26,9 +26,6 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	public function __construct( $serialization ) {
 		$this->assertValidIdFormat( $serialization );
 		parent::__construct( strtoupper( $serialization ) );
-
-		$this->repositoryName = '';
-		$this->localPart = '';
 	}
 
 	/**
@@ -74,8 +71,6 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	 */
 	public function unserialize( $serialized ) {
 		$this->serialization = $serialized ?? '';
-		$this->repositoryName = '';
-		$this->localPart = '';
 	}
 
 	/**

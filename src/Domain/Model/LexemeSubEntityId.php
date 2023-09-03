@@ -44,8 +44,6 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	 */
 	public function unserialize( $serialized ) {
 		$this->serialization = $serialized;
-		$this->repositoryName = '';
-		$this->localPart = '';
 	}
 
 	/**

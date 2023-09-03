@@ -15,8 +15,6 @@ class NullSenseId extends SenseId {
 
 	public function __construct() {
 		$this->serialization = '';
-		$this->localPart = '';
-		$this->repositoryName = '';
 	}
 
 	public function getLexemeId() {
