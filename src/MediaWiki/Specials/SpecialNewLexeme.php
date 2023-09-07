@@ -39,6 +39,7 @@ use Wikibase\Lib\Store\EntityNamespaceLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Lib\Summary;
+use Wikibase\Repo\AnonymousEditWarningBuilder;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\EditEntity\EditEntity;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
@@ -678,10 +679,14 @@ class SpecialNewLexeme extends SpecialPage {
 		$warningIconHtml = ( new IconWidget( [ 'icon' => 'alert' ] ) )->toString();
 
 		if ( !$this->getUser()->isRegistered() ) {
+			$fullTitle = $this->getPageTitle();
+			$anonymousEditWarningBuilder = new AnonymousEditWarningBuilder(
+				$this->getSpecialPageFactory()
+			);
 			$messageSpan = Html::rawElement(
 				'span',
 				[ 'class' => 'warning' ],
-				$this->msg( 'wikibase-anonymouseditwarning' )->parse()
+				$anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
 			);
 			return '<noscript>
 				<div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'

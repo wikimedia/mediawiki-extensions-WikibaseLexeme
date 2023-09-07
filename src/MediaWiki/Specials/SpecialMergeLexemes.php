@@ -18,6 +18,7 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Repo\AnonymousEditWarningBuilder;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
 
 /**
@@ -147,10 +148,14 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	private function anonymousEditWarning(): string {
 		if ( !$this->getUser()->isRegistered() ) {
+			$fullTitle = $this->getPageTitle();
+			$anonymousEditWarningBuilder = new AnonymousEditWarningBuilder(
+				$this->getSpecialPageFactory()
+			);
 			return Html::rawElement(
 				'p',
 				[ 'class' => 'warning' ],
-				$this->msg( 'wikibase-anonymouseditwarning' )->parse()
+				$anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
 			);
 		}
 
