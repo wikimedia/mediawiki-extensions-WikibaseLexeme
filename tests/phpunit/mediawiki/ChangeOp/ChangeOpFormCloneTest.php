@@ -100,9 +100,9 @@ class ChangeOpFormCloneTest extends TestCase {
 		$statement = $statements->toArray()[0];
 		$this->assertSame( 'L34-F1$00000000-0000-0000-0000-000000000000', $statement->getGuid() );
 		$snak = $statement->getMainSnak();
-		$this->assertSame( 'P4711', $snak->getPropertyId()->serialize() );
+		$this->assertSame( 'P4711', $snak->getPropertyId()->getSerialization() );
 		$this->assertSame( 'value', $snak->getType() );
-		$this->assertSame( 'L123', $snak->getDataValue()->getEntityId()->serialize() );
+		$this->assertSame( 'L123', $snak->getDataValue()->getEntityId()->getSerialization() );
 	}
 
 	/**

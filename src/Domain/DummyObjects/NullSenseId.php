@@ -21,7 +21,15 @@ class NullSenseId extends SenseId {
 		throw new LogicException( 'Shall never be called' );
 	}
 
+	public function __serialize(): array {
+		throw new LogicException( 'Shall never be called' );
+	}
+
 	public function serialize() {
+		throw new LogicException( 'Shall never be called' );
+	}
+
+	public function __unserialize( array $data ): void {
 		throw new LogicException( 'Shall never be called' );
 	}
 

@@ -42,7 +42,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 					'Form does not exist',
 					null,
 					'form-not-found',
-					[ $this->formId->serialize() ]
+					[ $this->formId->getSerialization() ]
 				),
 			] );
 		}

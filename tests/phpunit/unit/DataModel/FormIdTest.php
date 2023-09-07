@@ -57,8 +57,8 @@ class FormIdTest extends MediaWikiUnitTestCase {
 
 		$this->assertInstanceOf( LexemeId::class, $lexemeId );
 		$this->assertSame(
-			( new LexemeId( $expectedLexemeId ) )->serialize(),
-			$lexemeId->serialize()
+			( new LexemeId( $expectedLexemeId ) )->getSerialization(),
+			$lexemeId->getSerialization()
 		);
 	}
 

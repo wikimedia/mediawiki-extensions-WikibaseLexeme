@@ -74,9 +74,9 @@ class ChangeOpSenseCloneTest extends TestCase {
 		$statement = $statements->toArray()[0];
 		$this->assertNull( $statement->getGuid() );
 		$snak = $statement->getMainSnak();
-		$this->assertSame( 'P4711', $snak->getPropertyId()->serialize() );
+		$this->assertSame( 'P4711', $snak->getPropertyId()->getSerialization() );
 		$this->assertSame( 'value', $snak->getType() );
-		$this->assertSame( 'L123', $snak->getDataValue()->getEntityId()->serialize() );
+		$this->assertSame( 'L123', $snak->getDataValue()->getEntityId()->getSerialization() );
 	}
 
 	/**

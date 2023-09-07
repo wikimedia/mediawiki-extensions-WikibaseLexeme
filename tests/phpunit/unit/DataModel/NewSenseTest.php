@@ -14,13 +14,13 @@ class NewSenseTest extends \MediaWikiUnitTestCase {
 	public function testAndLexemeWithStringLexemeIdCreatesSenseWithCorrectParentEntityId() {
 		$sense = NewSense::havingId( 'S9' )->andLexeme( 'L74' )->build();
 
-		$this->assertSame( 'L74-S9', $sense->getId()->serialize() );
+		$this->assertSame( 'L74-S9', $sense->getId()->getSerialization() );
 	}
 
 	public function testAndLexemeWithLexemeIdCreatesSenseWithCorrectParentEntityId() {
 		$sense = NewSense::havingId( 'S9' )->andLexeme( new LexemeId( 'L74' ) )->build();
 
-		$this->assertSame( 'L74-S9', $sense->getId()->serialize() );
+		$this->assertSame( 'L74-S9', $sense->getId()->getSerialization() );
 	}
 
 	public function testAndLexemeWithLexemeObjectCreatesSenseWithCorrectParentEntityId() {
@@ -30,7 +30,7 @@ class NewSenseTest extends \MediaWikiUnitTestCase {
 			)
 			->build();
 
-		$this->assertSame( 'L74-S9', $sense->getId()->serialize() );
+		$this->assertSame( 'L74-S9', $sense->getId()->getSerialization() );
 	}
 
 }

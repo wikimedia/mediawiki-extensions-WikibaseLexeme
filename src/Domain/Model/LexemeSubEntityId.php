@@ -25,7 +25,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	}
 
 	public function __serialize(): array {
-		return [ 'serialization' => $this->serialize() ];
+		return [ 'serialization' => $this->serialization ];
 	}
 
 	/**
@@ -36,7 +36,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	}
 
 	public function __unserialize( array $data ): void {
-		$this->unserialize( $data['serialization'] );
+		$this->serialization = $data['serialization'];
 	}
 
 	/**

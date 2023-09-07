@@ -28,7 +28,7 @@ class FakeLexemeRepository implements LexemeRepository {
 			throw new UpdateLexemeException();
 		}
 
-		$this->lexemes[$lexeme->getId()->serialize()] = clone $lexeme;
+		$this->lexemes[$lexeme->getId()->getSerialization()] = clone $lexeme;
 	}
 
 	public function getLexemeById( LexemeId $id ) {
@@ -36,8 +36,8 @@ class FakeLexemeRepository implements LexemeRepository {
 			throw new GetLexemeException();
 		}
 
-		if ( array_key_exists( $id->serialize(), $this->lexemes ) ) {
-			return $this->lexemes[$id->serialize()];
+		if ( array_key_exists( $id->getSerialization(), $this->lexemes ) ) {
+			return $this->lexemes[$id->getSerialization()];
 		}
 
 		return null;
