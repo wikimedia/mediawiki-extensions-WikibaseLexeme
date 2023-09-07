@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
@@ -29,27 +31,15 @@ class SpecialMergeLexemes extends SpecialPage {
 	private const TO_ID = 'to-id';
 
 	/** @var string[] */
-	private $tags;
+	private array $tags;
 
-	/**
-	 * @var MergeLexemesInteractor
-	 */
-	private $mergeInteractor;
+	private MergeLexemesInteractor $mergeInteractor;
 
-	/**
-	 * @var EntityTitleLookup
-	 */
-	private $titleLookup;
+	private EntityTitleLookup $titleLookup;
 
-	/**
-	 * @var ExceptionLocalizer
-	 */
-	private $exceptionLocalizer;
+	private ExceptionLocalizer $exceptionLocalizer;
 
-	/**
-	 * @var PermissionManager
-	 */
-	private $permissionManager;
+	private PermissionManager $permissionManager;
 
 	public function __construct(
 		array $tags,
@@ -67,7 +57,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	}
 
 	/** @inheritDoc */
-	public function execute( $subPage ) {
+	public function execute( $subPage ): void {
 		$this->setHeaders();
 		$this->outputHeader( 'wikibase-mergelexemes-summary' );
 
@@ -86,13 +76,13 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->showMergeForm();
 	}
 
-	public function setHeaders() {
+	public function setHeaders(): void {
 		$out = $this->getOutput();
 		$out->setArticleRelated( false );
 		$out->setPageTitle( $this->getDescription() );
 	}
 
-	private function checkBlocked() {
+	private function checkBlocked(): void {
 		$checkReplica = !$this->getRequest()->wasPosted();
 		$userBlock = $this->getUser()->getBlock( $checkReplica );
 		if (
@@ -122,7 +112,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		);
 	}
 
-	private function showMergeForm() {
+	private function showMergeForm(): void {
 		HTMLForm::factory( 'ooui', $this->getFormElements(), $this->getContext() )
 			->setId( 'wb-mergelexemes' )
 			->setPreHtml( $this->anonymousEditWarning() )
@@ -136,7 +126,7 @@ class SpecialMergeLexemes extends SpecialPage {
 			->show();
 	}
 
-	private function getFormElements() {
+	private function getFormElements(): array {
 		return [
 			self::FROM_ID => [
 				'name' => self::FROM_ID,
@@ -155,7 +145,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		];
 	}
 
-	private function anonymousEditWarning() {
+	private function anonymousEditWarning(): string {
 		if ( !$this->getUser()->isRegistered() ) {
 			return Html::rawElement(
 				'p',
@@ -167,7 +157,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		return '';
 	}
 
-	private function mergeLexemes( $serializedSourceId, $serializedTargetId ) {
+	private function mergeLexemes( $serializedSourceId, $serializedTargetId ): void {
 		$sourceId = $this->getLexemeId( $serializedSourceId );
 		$targetId = $this->getLexemeId( $serializedTargetId );
 
@@ -181,8 +171,6 @@ class SpecialMergeLexemes extends SpecialPage {
 		}
 
 		try {
-			/** @var LexemeId $sourceId */
-			/** @var LexemeId $targetId */
 			$this->mergeInteractor->mergeLexemes(
 				$sourceId,
 				$targetId,
@@ -199,7 +187,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->showSuccessMessage( $sourceId, $targetId );
 	}
 
-	private function getTextParam( $name ) {
+	private function getTextParam( string $name ): string {
 		$value = $this->getRequest()->getText( $name, '' );
 		return trim( $value );
 	}
@@ -209,7 +197,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	 *
 	 * @return LexemeId|false
 	 */
-	private function getLexemeId( $idSerialization ) {
+	private function getLexemeId( string $idSerialization ) {
 		try {
 			return new LexemeId( $idSerialization );
 		} catch ( InvalidArgumentException $e ) {
@@ -217,7 +205,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		}
 	}
 
-	private function showSuccessMessage( LexemeId $sourceId, LexemeId $targetId ) {
+	private function showSuccessMessage( LexemeId $sourceId, LexemeId $targetId ): void {
 		try {
 			$sourceTitle = $this->titleLookup->getTitleForId( $sourceId );
 			$targetTitle = $this->titleLookup->getTitleForId( $targetId );
@@ -237,22 +225,22 @@ class SpecialMergeLexemes extends SpecialPage {
 		);
 	}
 
-	private function showInvalidLexemeIdError( $id ) {
+	private function showInvalidLexemeIdError( $id ): void {
 		$this->showErrorHTML(
 			( new Message( 'wikibase-lexeme-mergelexemes-error-invalid-id', [ $id ] ) )
 				->escaped()
 		);
 	}
 
-	protected function getGroupName() {
+	protected function getGroupName(): string {
 		return 'wikibase';
 	}
 
-	protected function showErrorHTML( $error ) {
+	protected function showErrorHTML( $error ): void {
 		$this->getOutput()->addHTML( '<p class="error">' . $error . '</p>' );
 	}
 
-	public function getDescription() {
+	public function getDescription(): string {
 		return $this->msg( 'special-mergelexemes' )->text();
 	}
 
