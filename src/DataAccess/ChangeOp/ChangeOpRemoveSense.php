@@ -42,7 +42,7 @@ class ChangeOpRemoveSense extends ChangeOpBase {
 					'Sense does not exist',
 					null,
 					'sense-not-found',
-					[ $this->senseId->serialize() ]
+					[ $this->senseId->getSerialization() ]
 				),
 			] );
 		}

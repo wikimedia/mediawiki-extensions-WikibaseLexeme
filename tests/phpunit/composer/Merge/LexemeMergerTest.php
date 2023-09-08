@@ -166,7 +166,7 @@ class LexemeMergerTest extends TestCase {
 		$this->assertCount( 1, $target->getStatements() );
 		$this->assertSame(
 			'P56',
-			$target->getStatements()->getMainSnaks()[0]->getPropertyId()->serialize()
+			$target->getStatements()->getMainSnaks()[0]->getPropertyId()->getSerialization()
 		);
 	}
 
@@ -566,7 +566,7 @@ class LexemeMergerTest extends TestCase {
 		$this->assertCount( 1, $f1Statements );
 		foreach ( $f1Statements as $f1Statement ) {
 			$this->assertStringStartsWith( 'L2-F1$', $f1Statement->getGuid() );
-			$this->assertSame( 'P56', $f1Statement->getPropertyId()->serialize() );
+			$this->assertSame( 'P56', $f1Statement->getPropertyId()->getSerialization() );
 		}
 	}
 

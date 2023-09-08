@@ -48,7 +48,7 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	}
 
 	public function __serialize(): array {
-		return [ 'serialization' => $this->serialize() ];
+		return [ 'serialization' => $this->serialization ];
 	}
 
 	/**
@@ -61,7 +61,7 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	}
 
 	public function __unserialize( array $data ): void {
-		$this->unserialize( $data['serialization'] );
+		$this->serialization = $data['serialization'] ?? '';
 	}
 
 	/**
@@ -70,7 +70,7 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	 * @param string $serialized
 	 */
 	public function unserialize( $serialized ) {
-		$this->serialization = $serialized ?? '';
+		$this->__unserialize( [ 'serialization' => $serialized ] );
 	}
 
 	/**

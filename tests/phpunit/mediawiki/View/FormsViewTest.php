@@ -151,7 +151,7 @@ class FormsViewTest extends TestCase {
 		$idFormatter = $this->createMock( EntityIdFormatter::class );
 		$idFormatter->method( 'formatEntityId' )
 			->willReturnCallback( static function ( EntityId $entityId ) {
-				return $entityId->serialize();
+				return $entityId->getSerialization();
 			} );
 
 		$grammaticalFeaturesOrderProvider = $this->createMock( ItemOrderProvider::class );
@@ -189,7 +189,7 @@ class FormsViewTest extends TestCase {
 		$idFormatter = $this->createMock( EntityIdFormatter::class );
 		$idFormatter->method( 'formatEntityId' )
 			->willReturnCallback( static function ( EntityId $entityId ) {
-				return $entityId->serialize();
+				return $entityId->getSerialization();
 			} );
 
 		return new FormsView(

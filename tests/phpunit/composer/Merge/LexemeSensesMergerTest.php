@@ -214,9 +214,9 @@ class LexemeSensesMergerTest extends TestCase {
 
 		$this->newLexemeSensesMerger()->merge( $source, $target );
 
-		$this->assertSame( 'L2', $target->getId()->serialize() );
-		$this->assertSame( 'Q7', $target->getLanguage()->serialize() );
-		$this->assertSame( 'Q55', $target->getLexicalCategory()->serialize() );
+		$this->assertSame( 'L2', $target->getId()->getSerialization() );
+		$this->assertSame( 'Q7', $target->getLanguage()->getSerialization() );
+		$this->assertSame( 'Q55', $target->getLexicalCategory()->getSerialization() );
 		$this->assertSame( [ 'en' => 'foo' ], $target->getLemmas()->toTextArray() );
 	}
 

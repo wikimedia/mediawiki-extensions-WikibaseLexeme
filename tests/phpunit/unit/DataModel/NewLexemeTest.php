@@ -14,7 +14,7 @@ class NewLexemeTest extends \MediaWikiUnitTestCase {
 			->withSense( NewSense::havingId( 'S9' ) )
 			->build();
 
-		$this->assertSame( 'L7-S9', $lexeme->getSenses()->toArray()[0]->getId()->serialize() );
+		$this->assertSame( 'L7-S9', $lexeme->getSenses()->toArray()[0]->getId()->getSerialization() );
 	}
 
 }
