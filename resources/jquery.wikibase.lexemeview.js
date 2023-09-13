@@ -110,7 +110,8 @@
 				'statementviewafterstartediting.' + this.widgetName,
 				'referenceviewafterstartediting.' + this.widgetName,
 				'senseviewafterstartediting.' + this.widgetName,
-				'lexemeformviewafterstartediting.' + this.widgetName
+				'lexemeformviewafterstartediting.' + this.widgetName,
+				'lexemeheaderafterstartediting.' + this.widgetName
 			];
 
 			this.element
@@ -129,7 +130,8 @@
 				'senselistviewafterremove.' + this.widgetName,
 				'senseviewafterstopediting.' + this.widgetName,
 				'lexemeformviewafterstopediting.' + this.widgetName,
-				'lexemeformlistviewafterremove.' + this.widgetName
+				'lexemeformlistviewafterremove.' + this.widgetName,
+				'lexemeheaderafterstopediting.' + this.widgetName
 			];
 
 			this.element

@@ -50,7 +50,7 @@ module.exports = ( function () {
 							language: this.language
 						}
 					).then( function () {
-						this.inEditMode = false;
+						this.setEditMode( false );
 						this.lemmas = this.$store.state.lemmas.copy();
 						this.language = this.$store.state.language;
 						this.lexicalCategory = this.$store.state.lexicalCategory;
@@ -62,12 +62,12 @@ module.exports = ( function () {
 				},
 
 				edit: function () {
-					this.inEditMode = true;
+					this.setEditMode( true );
 					this.$nextTick( focusElement( 'input' ) );
 				},
 
 				cancel: function () {
-					this.inEditMode = false;
+					this.setEditMode( false );
 					this.lemmas = this.$store.state.lemmas.copy();
 					this.language = this.$store.state.language;
 					this.lexicalCategory = this.$store.state.lexicalCategory;
@@ -90,6 +90,16 @@ module.exports = ( function () {
 
 				message: function ( key ) {
 					return messages.get( key );
+				},
+
+				setEditMode: function ( inEditMode ) {
+					this.inEditMode = inEditMode;
+					// Dispatch an event like jQuery.ui.EditableTemplatedWidget.startEditing/stopEditing would
+					if ( inEditMode ) {
+						this.$el.dispatchEvent( new Event( 'lexemeheaderafterstartediting', { bubbles: true } ) );
+					} else {
+						this.$el.dispatchEvent( new Event( 'lexemeheaderafterstopediting', { bubbles: true } ) );
+					}
 				}
 			},
 
