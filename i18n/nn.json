@@ -69,6 +69,7 @@
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-lemma-redundant-language": "Det er ikkje mogeleg å føra opp fleire lemma med den same språkvarianten.",
 	"wikibaselexeme-newlexeme-fieldset": "Opprett eit nytt leksem",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Om leksem",
 	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "Leksem har [[Special:MyLanguage/Project:Lexicographical data|leksikografiske data]] om ord eller frasar, som språk, opphav, bøying osb. Her er eit døme:",
 	"wikibaselexeme-newlexeme-info-panel-no-general-data": "Leksem har ikkje ålmenn informasjon (fødselsdato, opningsdato, forfattar, land, koordinatar, vevside osb.) om eininga eller konseptet dei viser til. Ynskjer du å leggja inn ålmenn informasjon, lyt du [[Special:NewItem|oppretta eit element]] i staden.",
 	"wikibaselexeme-newlexeme-language": "Språket til leksemet",
