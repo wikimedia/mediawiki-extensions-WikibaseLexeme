@@ -119,27 +119,8 @@ class LexemeHandler extends EntityHandler {
 				);
 			},
 			'view' => ViewLexemeAction::class,
-			'edit' => [
-				'class' => EditEntityAction::class,
-				'services' => [
-					'PermissionManager',
-					'RevisionLookup',
-					'WikibaseRepo.EntityDiffVisualizerFactory',
-				],
-			],
-			'submit' => [
-				'class' => SubmitEntityAction::class,
-				'services' => [
-					'PermissionManager',
-					'RevisionLookup',
-					'UserOptionsLookup',
-					'WatchlistManager',
-					'WikiPageFactory',
-					'WikibaseRepo.EditFilterHookRunner',
-					'WikibaseRepo.EntityDiffVisualizerFactory',
-					'WikibaseRepo.SummaryFormatter',
-				],
-			],
+			'edit' => EditEntityAction::SPEC,
+			'submit' => SubmitEntityAction::SPEC,
 		];
 	}
 
