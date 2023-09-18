@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Toniher",
 			"Vriullop"
 		]
@@ -30,7 +31,7 @@
 	"apihelp-wbladdform-param-data": "Dades codificades en JSON per a la forma; això és, representacions i característiques gramaticals",
 	"apihelp-wbladdform-param-lexemeId": "ID del lexema p. ex. L10",
 	"apihelp-wbladdform-summary": "Afegeix una forma al lexema",
-	"apihelp-wbladdsense-example-1": "Afegeix una forma al lexema amb ID <samp>$1</samp>, que té glosses <samp>$2</samp> amb les  llengües <samp>$3</samp> respectivament",
+	"apihelp-wbladdsense-example-1": "Afegeix una forma al lexema amb ID <samp>$1</samp>, que té glosses <samp>$2</samp> amb les llengües <samp>$3</samp> respectivament",
 	"apihelp-wbladdsense-param-bot": "Marca l'edició com feta per un bot. Aquesta marca d'URL només es respectarà si l'usuari pertany al grup «{{int:group-bot}}».",
 	"apihelp-wbladdsense-param-data": "Dades codificades en JSON de l'accepció; això és, les seves glosses",
 	"apihelp-wbladdsense-param-lexemeId": "ID del Lexema, p. ex., L10",

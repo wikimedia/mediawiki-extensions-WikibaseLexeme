@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"BAB ZAA",
 			"Mr. Ibrahem",
 			"ديفيد"
@@ -32,7 +33,7 @@
 	"apihelp-wbladdform-param-data": "بيانات JSON مشفرة للصيغ: هي التمثيلات والميزات النحوية",
 	"apihelp-wbladdform-param-lexemeId": "معرف المفردة، على سبيل المثال. L10",
 	"apihelp-wbladdform-summary": "يضيف صيغة إلى مفردة",
-	"apihelp-wbladdsense-example-1": "إضافة صيغة إلى المفردة بالمعرف <samp>$1</samp> يحتوي على تفسيرات <samp>$2</samp> باللغات  <samp>$3</samp> على التوالي",
+	"apihelp-wbladdsense-example-1": "إضافة صيغة إلى المفردة بالمعرف <samp>$1</samp> يحتوي على تفسيرات <samp>$2</samp> باللغات <samp>$3</samp> على التوالي",
 	"apihelp-wbladdsense-param-bot": "علم على هذا التعديل كروبوت، سيتم فقط احترام علامة المسار هذه إذا كان المستخدم ينتمي إلى المجموعة \"{{int:group-bot}}\".",
 	"apihelp-wbladdsense-param-data": "بيانات جسون المشفرة للمعنى: هي تفسيرات",
 	"apihelp-wbladdsense-param-lexemeId": "معرف المفردة على سبيل المثال L10",
