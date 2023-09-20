@@ -89,6 +89,17 @@ npm run bump-special-new-lexeme
 This command should be run from time to time (but not necessarily for every new commit in the submodule).
 Note: this command must be run outside a container.
 
+If you try to update the submodule right after merging a commit on GitHub, you might see the following error message in CI:
+```
+error: Server does not allow request for unadvertised object <commit hash>
+Fetched in submodule path 'resources/special/new-lexeme', but it did not contain <commit hash>. Direct fetching of that commit failed.
+```
+In that case, just try again a bit later.
+
+The background is, that due to operational reasons, CI will not pull the code from a GitHub remote.
+Therefore [a mirror in Phabricator's Diffusion](https://phabricator.wikimedia.org/diffusion/NLSP/repository/main/) is used instead (see [T301273](https://phabricator.wikimedia.org/T301273)).
+Its update frequency is dynamic and can be seen on its [status page](https://phabricator.wikimedia.org/diffusion/NLSP/manage/).
+
 When you are working with the submodule,
 and want to see the current status of your work,
 you can use the following command to build and copy whatever is currently in the directory:
