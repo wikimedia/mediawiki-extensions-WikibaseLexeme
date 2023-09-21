@@ -38,7 +38,7 @@ final class LexemeHistoryActionTest extends TestCase {
 		$lexemeHistoryAction = $this->getLexemeHistoryAction( $fakeEntityIdLookup, $mockLemmaLookup );
 		$actualTitle = $lexemeHistoryAction->getPageTitle();
 
-		$this->assertSame( '(history-title: Page title)', $actualTitle );
+		$this->assertSame( '(history-title: Page title)', $actualTitle->text() );
 	}
 
 	public function testReturnsLemmasInTitleProperlyEscaped(): void {
