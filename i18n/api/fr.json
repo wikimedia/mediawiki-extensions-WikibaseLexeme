@@ -7,7 +7,8 @@
 			"McDutchie",
 			"Thibaut120094",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"Amire80"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "La forme doit avoir au moins une représentation",
@@ -70,7 +71,7 @@
 	"apihelp-wblmergelexemes-summary": "Fusionne deux lexèmes.",
 	"apihelp-wblremoveform-example-1": "Supprimer le formulaire du lexème d’identifiant <samp>$1</samp>",
 	"apihelp-wblremoveform-param-baserevid": "Identifiant de la révision de base du lexème, si une vérification de conflit de modification est désirée.",
-	"apihelp-wblremoveform-param-bot": "Marquer cette modification comme faite par robot. Ce drapeau d’URL ne sera respecté  que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wblremoveform-param-bot": "Marquer cette modification comme faite par robot. Ce drapeau d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wblremoveform-param-id": "Identifiant du formulaire, par ex. L10-F20",
 	"apihelp-wblremoveform-param-tags": "Modifier les balises à appliquer à la version.",
 	"apihelp-wblremoveform-summary": "Supprime le formulaire du lexème",
