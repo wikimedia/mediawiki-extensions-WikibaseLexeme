@@ -28,24 +28,8 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 		return [ 'serialization' => $this->serialization ];
 	}
 
-	/**
-	 * @return string
-	 */
-	public function serialize() {
-		wfDeprecated( __METHOD__, '1.41' );
-		return $this->serialization;
-	}
-
 	public function __unserialize( array $data ): void {
 		$this->serialization = $data['serialization'];
-	}
-
-	/**
-	 * @param string $serialized
-	 */
-	public function unserialize( $serialized ) {
-		wfDeprecated( __METHOD__, '1.41' );
-		$this->serialization = $serialized;
 	}
 
 	/**
