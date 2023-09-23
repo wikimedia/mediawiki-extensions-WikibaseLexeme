@@ -126,7 +126,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedLexicalCategoryItemsUseLabelsFromLanguageFallback() {
-		$this->markTestSkipped( 'T345883' );
 		$this->setUserLang( 'de' );
 
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
@@ -160,7 +159,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
 					)->andAlso(
-						havingTextContents( "\u{00A0}" . $translatedLanguageName )
+						havingTextContents( $translatedLanguageName )
 					) )
 				)
 			)
@@ -175,7 +174,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
 					)->andAlso(
-						havingTextContents( "\u{00A0}" . $translatedLanguageName )
+						havingTextContents( $translatedLanguageName )
 					) )
 				)
 			)
@@ -220,7 +219,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedLanguageItemsUseLabelsFromLanguageFallback() {
-		$this->markTestSkipped( 'T345883' );
 		$this->setUserLang( 'de' );
 
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
@@ -254,7 +252,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
 					)->andAlso(
-						havingTextContents( "\u{00A0}" . $translatedLanguageName )
+						havingTextContents( $translatedLanguageName )
 					) )
 				)
 			)
@@ -269,7 +267,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
 					)->andAlso(
-						havingTextContents( "\u{00A0}" . $translatedLanguageName )
+						havingTextContents( $translatedLanguageName )
 					) )
 				)
 			)
@@ -315,7 +313,6 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 	}
 
 	public function testChangedGrammaticalFeatureItemsUseLabelsFromLanguageFallback() {
-		$this->markTestSkipped( 'T345883' );
 		$this->setUserLang( 'de' );
 
 		$translatedLanguageName = 'ENGLISCH'; // name of the English language in German
@@ -354,7 +351,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
 					)->andAlso(
-						havingTextContents( "\u{00A0}" . $translatedLanguageName )
+						havingTextContents( $translatedLanguageName )
 					) )
 				)
 			)
@@ -369,7 +366,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 					havingChild( both(
 						tagMatchingOutline( '<sup class="wb-language-fallback-indicator"/>' )
 					)->andAlso(
-						havingTextContents( "\u{00A0}" . $translatedLanguageName )
+						havingTextContents( $translatedLanguageName )
 					) )
 				)
 			)
