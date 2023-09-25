@@ -42,7 +42,7 @@
 	"apihelp-wbleditsenseelements-param-data": "{{doc-apihelp-param|wbleditsenseelements|data}}",
 	"apihelp-wbleditsenseelements-param-bot": "{{doc-apihelp-param|wbleditsenseelements|bot}}",
 	"apihelp-wbleditsenseelements-param-baserevid": "{{doc-apihelp-param|wbleditsenseelements|baserevid}}",
-	"apihelp-wbleditsenseelements-example-1": "{{ doc-apihelp-example\n  | 1=wbleditsenseelements\n  | params = * $1 - Sense ID\n* $2 - Glosses text\n* $3 - Languages names\n  | paramstart = 4\n}}",
+	"apihelp-wbleditsenseelements-example-1": "{{ doc-apihelp-example\n | 1=wbleditsenseelements\n | params = * $1 - Sense ID\n* $2 - Glosses text\n* $3 - Languages names\n | paramstart = 4\n}}",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "{{doc-apihelp-paramvalue|query+wbcontentlanguages|context|term-lexicographical}}",
 	"apihelp-wblmergelexemes-description": "{{doc-apihelp-description|wblmergelexemes}}",
 	"apihelp-wblmergelexemes-summary": "{{doc-apihelp-summary|wblmergelexemes}}",

@@ -7,7 +7,8 @@
 			"Wladek92",
 			"DreZhsh",
 			"Verdy p",
-			"McDutchie"
+			"McDutchie",
+			"Amire80"
 		]
 	},
 	"apihelp-wbladdform-summary": "Ajoute une forme au lexème",
@@ -18,7 +19,7 @@
 	"apihelp-wbladdform-example-1": "Ajoute un formulaire au lexème d’identifiant <samp>$1</samp> ayant les représentations <samp>$2</samp> dans les langues <samp>$3</samp> respectivement et les caractéristiques grammaticales <samp>$4</samp>",
 	"apihelp-wblremoveform-summary": "Supprime le formulaire du lexème",
 	"apihelp-wblremoveform-param-id": "Identifiant du formulaire, par ex. L10-F20",
-	"apihelp-wblremoveform-param-bot": "Marquer cette modification comme faite par robot. Ce drapeau d’URL ne sera respecté  que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
+	"apihelp-wblremoveform-param-bot": "Marquer cette modification comme faite par robot. Ce drapeau d’URL ne sera respecté que si l’utilisateur appartient au groupe « {{int:group-bot}} ».",
 	"apihelp-wblremoveform-example-1": "Supprimer le formulaire du lexème d’identifiant <samp>$1</samp>",
 	"apihelp-wbleditformelements-summary": "Modifie les représentations et les caractères grammaticaux d’un formulaire",
 	"apihelp-wbleditformelements-param-formId": "Identifiant du formulaire, par ex. L10-F2",
