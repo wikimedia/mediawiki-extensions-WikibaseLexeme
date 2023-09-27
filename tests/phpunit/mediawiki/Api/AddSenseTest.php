@@ -45,7 +45,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No rate limit API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertSame( 'apierror-ratelimited', $e->getMessageObject()->getKey() );
+			$this->assertStatusError( 'apierror-ratelimited', $e->getStatusValue() );
 		}
 	}
 
@@ -185,10 +185,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->doApiRequestWithToken( $params );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals(
-				'wikibase-self-conflict-patched',
-				$e->getMessageObject()->getKey()
-			);
+			$this->assertStatusError( 'wikibase-self-conflict-patched', $e->getStatusValue() );
 		}
 
 		$lexeme = $this->getLexeme( 'L1' );
@@ -273,7 +270,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+			$this->assertStatusError( 'apierror-writeapidenied', $exception->getStatusValue() );
 		}
 	}
 

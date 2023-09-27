@@ -247,7 +247,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+			$this->assertStatusError( 'apierror-writeapidenied', $exception->getStatusValue() );
 		}
 	}
 
