@@ -80,7 +80,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	public function setHeaders(): void {
 		$out = $this->getOutput();
 		$out->setArticleRelated( false );
-		$out->setPageTitle( $this->getDescription() );
+		$out->setPageTitleMsg( $this->getDescription() );
 	}
 
 	private function checkBlocked(): void {
@@ -245,8 +245,8 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->getOutput()->addHTML( '<p class="error">' . $error . '</p>' );
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'special-mergelexemes' )->text();
+	public function getDescription(): Message {
+		return $this->msg( 'special-mergelexemes' );
 	}
 
 }

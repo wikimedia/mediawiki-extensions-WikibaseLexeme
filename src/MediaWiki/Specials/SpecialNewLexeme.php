@@ -629,7 +629,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 	public function setHeaders(): void {
 		$out = $this->getOutput();
-		$out->setPageTitle( $this->getDescription() );
+		$out->setPageTitleMsg( $this->getDescription() );
 	}
 
 	/** @see \Wikibase\Repo\Specials\SpecialWikibasePage::getGroupName() */
@@ -637,8 +637,8 @@ class SpecialNewLexeme extends SpecialPage {
 		return 'wikibase';
 	}
 
-	public function getDescription(): string {
-		return $this->msg( 'special-newlexeme' )->text();
+	public function getDescription(): Message {
+		return $this->msg( 'special-newlexeme' );
 	}
 
 	/**
