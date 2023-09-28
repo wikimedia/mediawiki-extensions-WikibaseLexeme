@@ -35,7 +35,7 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 			$this->doApiRequest( [ 'action' => $module ] );
 			$this->fail( 'Exception expected but not thrown' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'paramvalidator-missingparam', $e->getMessageObject()->getKey() );
+			$this->assertStatusError( 'paramvalidator-missingparam', $e->getStatusValue() );
 		}
 	}
 
@@ -51,7 +51,7 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 			$this->doApiRequest( [ 'action' => $module ] );
 			$this->fail( 'Exception expected but not thrown' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'paramvalidator-badvalue-enumnotmulti', $e->getMessageObject()->getKey() );
+			$this->assertStatusError( 'paramvalidator-badvalue-enumnotmulti', $e->getStatusValue() );
 		}
 	}
 

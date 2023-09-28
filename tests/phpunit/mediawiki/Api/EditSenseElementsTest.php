@@ -54,7 +54,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No rate limit API error was raised' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals( 'apierror-ratelimited', $e->getMessageObject()->getKey() );
+			$this->assertStatusError( 'apierror-ratelimited', $e->getStatusValue() );
 		}
 	}
 
@@ -490,7 +490,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			], null, self::createTestUser()->getUser() );
 			$this->fail( 'Expected apierror-writeapidenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertSame( 'apierror-writeapidenied', $exception->getMessageObject()->getKey() );
+			$this->assertStatusError( 'apierror-writeapidenied', $exception->getStatusValue() );
 		}
 	}
 
@@ -562,10 +562,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester2' ) );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals(
-				'edit-conflict',
-				$e->getMessageObject()->getKey()
-			);
+			$this->assertStatusError( 'edit-conflict', $e->getStatusValue() );
 			return;
 		}
 		$this->fail( 'Failed to detect the edit conflict' );
