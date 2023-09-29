@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use IApiMessage;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
@@ -132,7 +133,8 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 		}
 
 		$status = $exception->getStatusValue();
-		$message = $exception->getMessageObject();
+		/** @var IApiMessage $message */
+		$message = $status->getMessages()[0];
 		$this->assertEquals( 'not-recognized-language', $message->getApiCode() );
 		$this->assertStatusError( 'apierror-wikibaselexeme-unknown-language-withtext', $status );
 		$this->assertEquals(
@@ -171,7 +173,8 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 		}
 
 		$status = $exception->getStatusValue();
-		$message = $exception->getMessageObject();
+		/** @var IApiMessage $message */
+		$message = $status->getMessages()[0];
 		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
 		$this->assertStatusError(
 			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',

@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
 use ApiMessage;
 use ApiUsageException;
+use IApiMessage;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 
@@ -40,10 +41,10 @@ class ValidationContextTest extends \MediaWikiIntegrationTestCase {
 			$this->fail( 'ApiUsageException was not thrown' );
 		} catch ( ApiUsageException $exception ) {
 			$status = $exception->getStatusValue();
-			/** @var ApiMessage $message */
-			$message = $exception->getMessageObject();
+			/** @var IApiMessage $message */
+			$message = $status->getMessages()[0];
 
-			$this->assertInstanceOf( ApiMessage::class, $message );
+			$this->assertInstanceOf( IApiMessage::class, $message );
 
 			$this->assertStatusError( 'hello', $status );
 			$this->assertSame( 'world', $message->getApiCode() );
