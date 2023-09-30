@@ -164,11 +164,12 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			$exception = $ex;
 		}
 
+		$status = $exception->getStatusValue();
 		$message = $exception->getMessageObject();
 		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
-		$this->assertEquals(
+		$this->assertStatusError(
 			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',
-			$message->getKey()
+			$status
 		);
 		$this->assertEquals(
 			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 'en' ] ],

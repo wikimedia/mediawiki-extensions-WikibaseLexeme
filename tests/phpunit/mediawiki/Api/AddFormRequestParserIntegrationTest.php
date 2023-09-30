@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiMessage;
 use ApiUsageException;
-use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
@@ -37,7 +36,7 @@ use Wikibase\Repo\WikibaseRepo;
  *
  * @license GPL-2.0-or-later
  */
-class AddFormRequestParserIntegrationTest extends TestCase {
+class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideInvalidParamsAndErrors
@@ -56,12 +55,13 @@ class AddFormRequestParserIntegrationTest extends TestCase {
 			$parser->parse( $params );
 			$this->fail( 'Expected ApiUsageException did not occur.' );
 		} catch ( ApiUsageException $exception ) {
+			$status = $exception->getStatusValue();
 			/** @var ApiMessage $message */
 			$message = $exception->getMessageObject();
 
 			$this->assertInstanceOf( ApiMessage::class, $message );
 
-			$this->assertEquals( $expectedMessage->getKey(), $message->getKey() );
+			$this->assertStatusError( $expectedMessage->getKey(), $status );
 			$this->assertEquals( $expectedMessage->getApiCode(), $message->getApiCode() );
 			$this->assertEquals( $expectedContext, $message->getApiData() );
 		}

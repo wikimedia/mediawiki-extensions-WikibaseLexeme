@@ -312,9 +312,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 
 		$this->assertInstanceOf( ApiUsageException::class, $exception );
 
+		$status = $exception->getStatusValue();
 		$message = $exception->getMessageObject();
 		$this->assertEquals( 'bad-request', $message->getApiCode() );
-		$this->assertEquals( 'apierror-wikibaselexeme-json-field-has-wrong-type', $message->getKey() );
+		$this->assertStatusError( 'apierror-wikibaselexeme-json-field-has-wrong-type', $status );
 		$this->assertEquals(
 			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 0 ] ],
 			$message->getApiData()
@@ -684,6 +685,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No API exception thrown when expected' );
 		} catch ( ApiUsageException $e ) {
+			$status = $e->getStatusValue();
 			$message = $e->getMessageObject();
 			$this->assertInstanceOf( ApiMessage::class, $message );
 			$this->assertEquals(
@@ -691,11 +693,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				$message->getApiCode(),
 				'API code does not match expectation'
 			);
-			$this->assertEquals(
-				'wikibase-validator-form-not-found',
-				$message->getKey(),
-				'Message key does not match expectation'
-			);
+			$this->assertStatusError( 'wikibase-validator-form-not-found', $status );
 		}
 	}
 
@@ -750,12 +748,10 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No API exception thrown when expected' );
 		} catch ( ApiUsageException $e ) {
-			$message = $e->getMessageObject();
-			$this->assertInstanceOf( ApiMessage::class, $message );
-			$this->assertEquals(
+			$status = $e->getStatusValue();
+			$this->assertStatusError(
 				'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
-				$message->getKey(),
-				'Wrong message codes'
+				$status
 			);
 		}
 	}
@@ -1144,15 +1140,12 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No API error was raised' );
 		} catch ( ApiUsageException $e ) {
+			$status = $e->getStatusValue();
 			/** @var ApiMessage $message */
 			$message = $e->getMessageObject();
 
 			$this->assertInstanceOf( ApiMessage::class, $message );
-			$this->assertEquals(
-				'apierror-wikibaselexeme-json-field-not-item-id',
-				$message->getKey(),
-				'Wrong message codes'
-			);
+			$this->assertStatusError( 'apierror-wikibaselexeme-json-field-not-item-id', $status );
 			$this->assertEquals(
 				[ 'data', 'forms/0/grammaticalFeatures/0', '"BAD"' ],
 				$message->getParams(),
@@ -2203,15 +2196,16 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'Expected exception did not happen.' );
 		} catch ( ApiUsageException $exception ) {
+			$status = $exception->getStatusValue();
 			/** @var ApiMessage $message */
 			$message = $exception->getMessageObject();
 
 			$this->assertInstanceOf( ApiMessage::class, $message );
 
 			$this->assertSame( 'modification-failed', $message->getApiCode() );
-			$this->assertSame(
+			$this->assertStatusError(
 				'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
-				$message->getKey()
+				$status
 			);
 			$this->assertSame( [], $message->getParams() );
 

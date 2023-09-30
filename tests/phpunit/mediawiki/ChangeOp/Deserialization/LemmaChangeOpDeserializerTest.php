@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
-use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
@@ -23,7 +22,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  *
  * @license GPL-2.0-or-later
  */
-class LemmaChangeOpDeserializerTest extends TestCase {
+class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 
 	private function newLemmaChangeOpDeserializer() {
 		$lemmaTermValidator = $this->createMock( LemmaTermValidator::class );
@@ -134,12 +133,10 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 			$exception = $ex;
 		}
 
+		$status = $exception->getStatusValue();
 		$message = $exception->getMessageObject();
 		$this->assertEquals( 'not-recognized-language', $message->getApiCode() );
-		$this->assertEquals(
-			'apierror-wikibaselexeme-unknown-language-withtext',
-			$message->getKey()
-		);
+		$this->assertStatusError( 'apierror-wikibaselexeme-unknown-language-withtext', $status );
 		$this->assertEquals(
 			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 'invalid' ] ],
 			$message->getApiData()
@@ -175,11 +172,12 @@ class LemmaChangeOpDeserializerTest extends TestCase {
 			$exception = $ex;
 		}
 
+		$status = $exception->getStatusValue();
 		$message = $exception->getMessageObject();
 		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
-		$this->assertEquals(
+		$this->assertStatusError(
 			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',
-			$message->getKey()
+			$status
 		);
 		$this->assertEquals(
 			[ 'parameterName' => 'lemmas', 'fieldPath' => [ 'en' ] ],

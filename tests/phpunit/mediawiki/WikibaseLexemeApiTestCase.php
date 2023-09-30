@@ -52,17 +52,14 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No API error was raised' );
 		} catch ( ApiUsageException $e ) {
+			$status = $e->getStatusValue();
 			/** @var IApiMessage $message */
 			$message = $e->getMessageObject();
 
 			$this->assertInstanceOf( IApiMessage::class, $message );
 
 			if ( array_key_exists( 'key', $exception ) ) {
-				$this->assertSame(
-					$exception['key'],
-					$message->getKey(),
-					'Wrong message key'
-				);
+				$this->assertStatusError( $exception['key'], $status );
 			}
 
 			if ( array_key_exists( 'params', $exception ) ) {

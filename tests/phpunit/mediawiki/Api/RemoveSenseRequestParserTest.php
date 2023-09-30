@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiMessage;
 use ApiUsageException;
-use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
@@ -16,7 +15,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
  *
  * @license GPL-2.0-or-later
  */
-class RemoveSenseRequestParserTest extends TestCase {
+class RemoveSenseRequestParserTest extends \MediaWikiIntegrationTestCase {
 
 	/**
 	 * @dataProvider provideInvalidParamsAndErrors
@@ -35,12 +34,13 @@ class RemoveSenseRequestParserTest extends TestCase {
 			$parser->parse( $params );
 			$this->fail( 'Expected ApiUsageException did not occur.' );
 		} catch ( ApiUsageException $exception ) {
+			$status = $exception->getStatusValue();
 			/** @var ApiMessage $message */
 			$message = $exception->getMessageObject();
 
 			$this->assertInstanceOf( ApiMessage::class, $message );
 
-			$this->assertEquals( $expectedMessage->getKey(), $message->getKey() );
+			$this->assertStatusError( $expectedMessage->getKey(), $status );
 			$this->assertEquals( $expectedMessage->getApiCode(), $message->getApiCode() );
 			$this->assertEquals( $expectedContext, $message->getApiData() );
 		}
