@@ -19,7 +19,7 @@ class WikibaseLexemeHooksTest extends TestCase {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$namespaceId = $config->get( 'LexemeNamespace' );
 
-		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
+		( new WikibaseLexemeHooks )->onCanonicalNamespaces( $namespaces );
 
 		$this->assertEquals( 'Lexeme', $namespaces[$namespaceId] );
 		$this->assertEquals( 'Lexeme_talk', $namespaces[$namespaceId + 1] );
@@ -30,8 +30,8 @@ class WikibaseLexemeHooksTest extends TestCase {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		$namespaceId = $config->get( 'LexemeNamespace' );
 
-		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
-		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
+		( new WikibaseLexemeHooks )->onCanonicalNamespaces( $namespaces );
+		( new WikibaseLexemeHooks )->onCanonicalNamespaces( $namespaces );
 
 		$this->assertEquals( 'Lexeme', $namespaces[$namespaceId] );
 	}
@@ -42,7 +42,7 @@ class WikibaseLexemeHooksTest extends TestCase {
 		$namespaces = [ $namespaceId => 'SomeOtherNamespace' ];
 
 		$this->expectException( \Exception::class );
-		WikibaseLexemeHooks::onCanonicalNamespaces( $namespaces );
+		( new WikibaseLexemeHooks )->onCanonicalNamespaces( $namespaces );
 	}
 
 	public function testOnWikibaseContentLanguages() {

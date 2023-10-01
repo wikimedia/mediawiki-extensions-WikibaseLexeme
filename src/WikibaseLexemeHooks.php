@@ -3,6 +3,8 @@
 namespace Wikibase\Lexeme;
 
 use IContextSource;
+use MediaWiki\Hook\CanonicalNamespacesHook;
+use MediaWiki\Hook\InfoActionHook;
 use MediaWiki\MediaWikiServices;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
@@ -22,7 +24,10 @@ use Wikimedia\Assert\Assert;
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class WikibaseLexemeHooks {
+class WikibaseLexemeHooks implements
+	InfoActionHook,
+	CanonicalNamespacesHook
+{
 
 	/**
 	 * Hook to register the lexeme and other entity namespaces for EntityNamespaceLookup.
@@ -46,7 +51,7 @@ class WikibaseLexemeHooks {
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
 	 */
-	public static function onCanonicalNamespaces( array &$namespaces ) {
+	public function onCanonicalNamespaces( &$namespaces ) {
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 
@@ -200,7 +205,7 @@ class WikibaseLexemeHooks {
 	 * @param IContextSource $context
 	 * @param array[] &$pageInfo
 	 */
-	public static function onInfoAction( IContextSource $context, array &$pageInfo ) {
+	public function onInfoAction( $context, &$pageInfo ) {
 		$services = MediaWikiServices::getInstance();
 		$config = $services->getMainConfig();
 		if ( !$config->get( 'LexemeEnableRepo' ) ) {

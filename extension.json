@@ -99,15 +99,11 @@
 		]
 	},
 	"Hooks": {
-		"InfoAction": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onInfoAction"
-		],
+		"InfoAction": "main",
 		"WikibaseRepoEntityNamespaces": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
 		],
-		"CanonicalNamespaces": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onCanonicalNamespaces"
-		],
+		"CanonicalNamespaces": "main",
 		"WikibaseRepoEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityTypes"
 		],
@@ -129,6 +125,11 @@
 		"ScribuntoExternalLibraries": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onScribuntoExternalLibraries"
 		]
+	},
+	"HookHandlers": {
+		"main": {
+			"class": "Wikibase\\Lexeme\\WikibaseLexemeHooks"
+		}
 	},
 	"MessagesDirs": {
 		"WikibaseLexeme": [
