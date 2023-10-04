@@ -87,26 +87,23 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( [ 'serialization' => 'L1' ], $id->__serialize() );
 	}
 
-	/**
-	 * @dataProvider serializationProvider
-	 */
-	public function testUnserialize( $json, $expected ) {
+	public function testUnserialize() {
 		$id = new LexemeId( 'L1' );
-		$id->__unserialize( [ 'serialization' => $json ] );
-		$this->assertSame( $expected, $id->getSerialization() );
+		$id->__unserialize( [ 'serialization' => 'L2' ] );
+		$this->assertSame( 'L2', $id->getSerialization() );
 	}
 
-	public static function serializationProvider() {
-		return [
-			[ 'L2', 'L2' ],
+	public function testUnserializeInvalid(): void {
+		$id = new LexemeId( 'L1' );
+		$this->expectException( InvalidArgumentException::class );
+		$id->__unserialize( [ 'serialization' => 'l' ] );
+	}
 
-			// All these cases are kind of an injection vector and allow constructing invalid ids.
-			[ 'L2', 'L2' ],
-			[ 'string', 'string' ],
-			[ '', '' ],
-			[ 2, 2 ],
-			[ null, '' ],
-		];
+	public function testUnserializeNotNormalized(): void {
+		$id = new LexemeId( 'L1' );
+		$this->expectException( InvalidArgumentException::class );
+		$id->__unserialize( [ 'serialization' => 'l2' ] );
+		// 'l2' is allowed in the constructor (silently uppercased) but not in unserialize()
 	}
 
 	public function testGetNumericId() {

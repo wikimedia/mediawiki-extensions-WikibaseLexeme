@@ -48,6 +48,13 @@ class FormIdTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
 	}
 
+	/** @dataProvider provideInvalidSerializations */
+	public function testGivenInvalidSerialization_unserializeThrowsAnException( $id ): void {
+		$id = new FormId( 'L1-F1' );
+		$this->expectException( InvalidArgumentException::class );
+		$id->__unserialize( [ 'serialization' => $id ] );
+	}
+
 	/**
 	 * @dataProvider provideLexemeIdMatchingFormId
 	 */

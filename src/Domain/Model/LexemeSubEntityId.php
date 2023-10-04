@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Domain\Model;
 
+use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\SerializableEntityId;
@@ -29,7 +30,10 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	}
 
 	public function __unserialize( array $data ): void {
-		$this->serialization = $data['serialization'];
+		$this->__construct( $data['serialization'] ?? '' );
+		if ( $this->serialization !== $data['serialization'] ) {
+			throw new InvalidArgumentException( '$data contained invalid serialization' );
+		}
 	}
 
 	/**

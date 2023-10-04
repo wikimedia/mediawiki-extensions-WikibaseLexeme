@@ -49,6 +49,13 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $id, unserialize( serialize( $id ) ) );
 	}
 
+	/** @dataProvider provideInvalidSerializations */
+	public function testGivenInvalidSerialization_unserializeThrowsAnException( $id ): void {
+		$id = new SenseId( 'L1-S1' );
+		$this->expectException( InvalidArgumentException::class );
+		$id->__unserialize( [ 'serialization' => $id ] );
+	}
+
 	/**
 	 * @dataProvider provideLexemeIdMatchingSenseId
 	 */
