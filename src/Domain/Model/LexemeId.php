@@ -51,28 +51,8 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 		return [ 'serialization' => $this->serialization ];
 	}
 
-	/**
-	 * @see Serializable::serialize
-	 *
-	 * @return string
-	 */
-	public function serialize() {
-		wfDeprecated( __METHOD__, '1.41' );
-		return $this->serialization;
-	}
-
 	public function __unserialize( array $data ): void {
 		$this->serialization = $data['serialization'] ?? '';
-	}
-
-	/**
-	 * @see Serializable::unserialize
-	 *
-	 * @param string $serialized
-	 */
-	public function unserialize( $serialized ) {
-		wfDeprecated( __METHOD__, '1.41' );
-		$this->__unserialize( [ 'serialization' => $serialized ] );
 	}
 
 	/**

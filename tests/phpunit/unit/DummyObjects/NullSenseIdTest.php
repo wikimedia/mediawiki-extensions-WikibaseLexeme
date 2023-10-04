@@ -29,17 +29,11 @@ class NullSenseIdTest extends MediaWikiUnitTestCase {
 		serialize( $nullSenseId );
 	}
 
-	/** @dataProvider unserializeMethodProvider */
-	public function testUnserialize_throwsException( string $method, ...$args ) {
+	public function testUnserialize_throwsException() {
 		$nullSenseId = new NullSenseId();
 		$this->expectException( LogicException::class );
 		$this->expectExceptionMessage( 'Shall never be called' );
-		$nullSenseId->$method( ...$args );
-	}
-
-	public static function unserializeMethodProvider(): iterable {
-		yield 'PHP < 7.4' => [ 'unserialize', 'ff' ];
-		yield 'PHP >= 7.4' => [ '__unserialize', [ 'serialization' => 'ff' ] ];
+		$nullSenseId->__unserialize( [ 'serialization' => 'ff' ] );
 	}
 
 	public function testEquals_alwaysReturnsTrue() {

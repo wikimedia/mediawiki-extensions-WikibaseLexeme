@@ -23,15 +23,7 @@ class NullFormId extends FormId {
 		throw new LogicException( 'Shall never be called' );
 	}
 
-	public function serialize() {
-		throw new LogicException( 'Shall never be called' );
-	}
-
 	public function __unserialize( array $data ): void {
-		throw new LogicException( 'Shall never be called' );
-	}
-
-	public function unserialize( $serialized ) {
 		throw new LogicException( 'Shall never be called' );
 	}
 
