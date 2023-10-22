@@ -130,7 +130,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 			$this->getLabels( $form )
 		);
 
-		if ( empty( $labels ) ) {
+		if ( $labels === '' ) {
 			$title = $serializedId;
 		} else {
 			$title = $this->localizedTextProvider->get(

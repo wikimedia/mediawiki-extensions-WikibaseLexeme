@@ -108,7 +108,7 @@ class LexemeDescription {
 					wfMessage( 'wikibaselexeme-unknown-category' )
 						->inLanguage( $this->displayLanguage )->text() );
 			}, $features ) ) );
-		if ( empty( $featuresString ) ) {
+		if ( $featuresString === '' ) {
 			$featuresString = wfMessage( 'wikibaselexeme-no-features' )
 				->inLanguage( $this->displayLanguage )->text();
 		}
