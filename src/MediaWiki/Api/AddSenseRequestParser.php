@@ -49,7 +49,7 @@ class AddSenseRequestParser {
 		$dataValidation = ValidationContext::create( self::PARAM_DATA );
 
 		$data = json_decode( $params[self::PARAM_DATA], true );
-		if ( !is_array( $data ) || empty( $data ) ) {
+		if ( !is_array( $data ) || !$data ) {
 			$dataValidation->addViolation(
 				new ParameterIsNotAJsonObject( self::PARAM_DATA, $params[self::PARAM_DATA] )
 			);

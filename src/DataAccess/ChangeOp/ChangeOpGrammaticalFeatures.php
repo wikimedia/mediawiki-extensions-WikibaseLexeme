@@ -64,7 +64,7 @@ class ChangeOpGrammaticalFeatures implements ChangeOp {
 
 		$formId = $form->getId();
 
-		if ( !empty( $addedFeatures ) && !empty( $removedFeatures ) ) {
+		if ( $addedFeatures && $removedFeatures ) {
 			$summary->setAction( self::SUMMARY_ACTION_UPDATE );
 			$summary->setLanguage( null );
 			$summary->addAutoCommentArgs( [
@@ -73,7 +73,7 @@ class ChangeOpGrammaticalFeatures implements ChangeOp {
 			return;
 		}
 
-		if ( !empty( $addedFeatures ) ) {
+		if ( $addedFeatures ) {
 			$summary->setAction( self::SUMMARY_ACTION_ADD );
 			$summary->setLanguage( null );
 			$summary->addAutoCommentArgs( [
@@ -82,7 +82,7 @@ class ChangeOpGrammaticalFeatures implements ChangeOp {
 			$summary->addAutoSummaryArgs( $addedFeatures );
 		}
 
-		if ( !empty( $removedFeatures ) ) {
+		if ( $removedFeatures ) {
 			$summary->setAction( self::SUMMARY_ACTION_REMOVE );
 			$summary->setLanguage( null );
 			$summary->addAutoCommentArgs( [

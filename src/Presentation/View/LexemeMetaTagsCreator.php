@@ -64,7 +64,7 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 	 */
 	private function getTitleText( Lexeme $entity ) {
 		$lemmas = $entity->getLemmas()->toTextArray();
-		if ( empty( $lemmas ) ) {
+		if ( !$lemmas ) {
 			return $entity->getId()->getSerialization();
 		}
 		return implode( $this->lemmaSeparator, $lemmas );

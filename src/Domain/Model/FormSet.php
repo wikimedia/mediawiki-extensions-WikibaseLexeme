@@ -79,7 +79,7 @@ class FormSet implements Countable {
 	 * @return int
 	 */
 	public function maxFormIdNumber() {
-		if ( empty( $this->forms ) ) {
+		if ( !$this->forms ) {
 			return 0;
 		}
 
@@ -146,7 +146,7 @@ class FormSet implements Countable {
 	 * @return bool
 	 */
 	public function isEmpty() {
-		return empty( $this->forms );
+		return !$this->forms;
 	}
 
 	public function equals( $other ) {
