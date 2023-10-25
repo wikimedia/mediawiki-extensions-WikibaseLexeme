@@ -1,30 +1,35 @@
-@import '../_variablesWikit';
+@import 'mediawiki.skin.variables.less';
 
+@wbl-snl-breakpoint: 981px;
+
+// Provide custom variables to preserve the CSS unit decision.
+@wbl-snl-spacing-small: 0.5em;
+@wbl-snl-spacing-large: 1em;
+@wbl-snl-spacing-xlarge: 1.5em;
+@wbl-snl-margin-vertical: 1rem;
+@wbl-snl-margin-medium: 2rem;
+@wbl-snl-margin-small: 1.5rem;
 @wbl-snl-padding: 1.5rem;
-
-@wbl-snl-break-point: 981px;
 
 // intro text with search link
 .wbl-snl-search-existing-no-js {
-	font-family: @font-family-style-body;
-	font-size: @font-size-style-body;
-	font-weight: @font-weight-style-body;
-	line-height: @font-line-height-style-body;
-	color: @font-color-base;
+	font-family: @font-family-system-sans;
+	font-size: 1em;
+	font-weight: @font-weight-normal;
+	line-height: @line-height-medium;
+	color: @color-base;
 }
 
 .wbl-snl-message-warning {
-	border-width: @border-width-thin;
-	border-color: @border-color-feedback-warning;
-	border-style: @wikit-Message-border-style;
-	background: @wikit-Message-warning-background-color;
-	padding: @wikit-Message-spacing-vertical @wikit-Message-spacing-horizontal;
-	margin: @wikit-Message-icon-gap-to-text 0;
+	background: @background-color-warning-subtle;
+	border: @border-width-base @border-style-base @border-color-warning;
+	padding: @wbl-snl-spacing-large @wbl-snl-spacing-xlarge;
+	margin: @wbl-snl-spacing-small 0;
 	display: inline-flex;
 	align-items: flex-start;
 
 	& .oo-ui-iconElement-icon {
-		margin-right: @wikit-Message-icon-gap-to-text;
+		margin-right: @wbl-snl-spacing-small;
 	}
 }
 
@@ -33,19 +38,19 @@
 	display: flex;
 	margin-top: 0.5rem;
 
-	@media ( min-width: ( @wbl-snl-break-point + 1 ) ) {
+	@media ( min-width: ( @wbl-snl-breakpoint + 1 ) ) {
 		align-items: stretch;
 
 		& > * + * {
-			margin-left: @dimension-layout-medium;
+			margin-left: @wbl-snl-margin-medium;
 		}
 	}
 
-	@media ( max-width: @wbl-snl-break-point ) {
+	@media ( max-width: @wbl-snl-breakpoint ) {
 		flex-direction: column;
 
 		& > * + * {
-			margin-top: @dimension-layout-small;
+			margin-top: @wbl-snl-margin-small;
 		}
 	}
 
@@ -55,24 +60,24 @@
 }
 // info panel - specificity added to prevent general skin styles from overriding our own
 .wbl-snl-main-content .wbl-snl-infopanel {
-	font-family: @wikit-Message-font-family;
-	font-size: @wikit-Message-font-size;
-	font-weight: @wikit-Message-font-weight;
-	line-height: @wikit-Message-line-height;
-	border-width: @wikit-Message-border-width;
-	border-style: @wikit-Message-border-style;
-	border-radius: @wikit-Message-border-radius;
+	font-family: @font-family-system-sans;
+	font-size: @font-size-medium;
+	font-weight: @font-weight-normal;
+	line-height: @line-height-medium;
+	border-width: @border-width-base;
+	border-style: @border-style-base;
+	border-radius: @border-radius-base;
 	padding: @wbl-snl-padding;
 
 	&--notice {
-		border-color: @wikit-Message-notice-border-color;
-		background: @wikit-Message-notice-background-color;
+		background: @background-color-notice-subtle;
+		border-color: @border-color-notice;
 	}
 
 	&__content {
 		& > * {
-			margin-top: @wikit-Message-spacing-vertical;
-			margin-bottom: @wikit-Message-spacing-vertical;
+			margin-top: @wbl-snl-spacing-large;
+			margin-bottom: @wbl-snl-spacing-large;
 		}
 	}
 
@@ -87,7 +92,7 @@
 	}
 
 	&__icon {
-		margin-right: @wikit-Message-icon-gap-to-text;
+		margin-right: @wbl-snl-spacing-small;
 		line-height: 1;
 		vertical-align: top;
 	}
@@ -95,30 +100,30 @@
 
 // lemma-card - specificity added to prevent general skin styles from overriding our own
 .wbl-snl-main-content .wbl-snl-lemma-card {
-	background-color: @background-color-neutral-default;
-	padding: @dimension-spacing-large @dimension-spacing-xlarge;
-	border: @border-style-base @border-width-thin @border-color-base-default;
+	background-color: @background-color-base;
+	padding: @wbl-snl-spacing-large @wbl-snl-spacing-xlarge;
+	border: @border-base;
 	border-radius: @border-radius-base;
 	display: inline-flex;
 	align-items: center;
-	margin: 1rem 0;
+	margin: @wbl-snl-margin-vertical 0;
 
 	&__lexeme-id {
-		padding-right: @dimension-spacing-small;
-		color: @font-color-subtle;
+		padding-right: @wbl-snl-spacing-small;
+		color: @color-subtle;
 	}
 
 	&__lemma {
 		display: flex;
 		flex-direction: column;
-		padding-left: @dimension-spacing-small;
-		border-left: solid @dimension-static-size-50 @border-color-base-subtle;
+		padding-left: @wbl-snl-spacing-small;
+		border-left: 4px @border-style-base @border-color-subtle;
 	}
 
 	&__lex-meta {
 		display: flex;
 		flex-direction: column;
-		margin-left: @dimension-spacing-large;
+		margin-left: @wbl-snl-spacing-large;
 	}
 }
 
