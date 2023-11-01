@@ -251,7 +251,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 
 		$pageProps = $content->getEntityPageProperties();
 
-		$this->assertSame( $expectedCount, (int)$pageProps['wb-claims'] );
+		$this->assertSame( $expectedCount, $pageProps['wb-claims'] );
 	}
 
 	public function provideLexemesWithStatementCount() {
@@ -293,8 +293,8 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 
 		$pageProps = $content->getEntityPageProperties();
 
-		$this->assertSame( $expectedSensesCount, (int)$pageProps['wbl-senses'] );
-		$this->assertSame( $expectedFormsCount, (int)$pageProps['wbl-forms'] );
+		$this->assertSame( $expectedSensesCount, $pageProps['wbl-senses'] );
+		$this->assertSame( $expectedFormsCount, $pageProps['wbl-forms'] );
 	}
 
 	public function provideLexemesWithSensesAndForms() {
