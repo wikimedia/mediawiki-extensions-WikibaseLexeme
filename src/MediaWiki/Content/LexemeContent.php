@@ -163,10 +163,10 @@ class LexemeContent extends EntityContent {
 			$count += $sense->getStatements()->count();
 		}
 
-		$properties['wb-claims'] = (string)$count;
+		$properties['wb-claims'] = $count;
 
-		$properties['wbl-senses'] = (string)$lexeme->getSenses()->count();
-		$properties['wbl-forms'] = (string)$lexeme->getForms()->count();
+		$properties['wbl-senses'] = $lexeme->getSenses()->count();
+		$properties['wbl-forms'] = $lexeme->getForms()->count();
 
 		return $properties;
 	}
