@@ -8,14 +8,16 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\WikiPageItemOrderProvider;
+use Wikibase\Lib\UnionContentLanguages;
+use Wikibase\Lib\WikibaseContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
@@ -25,85 +27,106 @@ use Wikibase\Repo\WikibaseRepo;
 // Pimple e.g. is well known in the free world and yet part of mediawiki-vendor
 // Challenge: Dedicated API endpoints (e.g. AddForm) need to have it passed w/o singletons/globals
 return call_user_func( static function () {
-	// TODO Problem when removing a code after such an item exists in DB
-	$additionalLanguages = [
-		'apc', // T332264
-		'az-cyrl', // T265906
-		'bas', // T277619
-		'bfi', // T279557
-		'bzs', // T286213
-		'cak', // T277622
-		'ccp', // T272442
+	// TODO Problem when removing a code after such a Lexeme exists in DB?!
+	// These are not supported by Wikibase for monolingual text and some should probably not be supported here either,
+	// but keep these for backwards compatibility.
+	$additionalTermLanguages = [
+		'bat-smg',
+		'be-x-old',
 		'ccp-beng', // T272442
-		'cnh', // T277625
-		'ctg', // T271589
-		'de-1901', // T250559
-		'enm', // T279557
+		'de-formal',
 		'eo-hsistemo', // T257422
 		'eo-xsistemo', // T257422
-		'fon', // T223648
-		'frm', // T268332
-		'fro', // T268332
-		'gmh', // T278027
-		'goh', // T278027
-		'gsg', // T282512
+		'es-formal',
+		'fiu-vro',
 		'ha-arab', // T282512
-		'hoc', // T304133
-		'ja-hira', // T262330
-		'ja-kana', // T262330
-		'ja-hrkt', // T262330
+		'hu-formal',
 		'lad-hebr', // T308794
-		'lij-mc', // T254968
-		'mis',
-		'mvf', // T282512
-		'nd', // T317193
+		'nl-informal',
 		'nn-hognorsk', // T235344
-		'non', // T265782
-		'non-runr', // T265782
-		'nr', // T317193
-		'nrf-gg', // T223716
-		'nrf-je', // T223716
-		'obt', // T319125
-		'pks', // T317161
 		'pt-ao1990', // T270043
 		'pt-colb1945', // T270043
-		'quc', // T277392
-		'rah', // T267479
 		'rhg-rohg', // T272442
-		'rkt', // T271589
-		'rm-rumgr', // T210293
-		'rm-surmiran', // T210293
-		'rm-sutsilv', // T210293
-		'rm-sursilv', // T210293
-		'rm-vallader', // T210293
-		'rm-puter', // T210293
+		'roa-rup',
 		'sat-latn', // T262967
 		'sat-beng', // T262967
 		'sat-orya', // T262967
-		'sia', // T321031
-		'sjk', // T321031
+		'simple',
 		'sux-latn', // T282512
 		'sux-xsux', // T282512
 		'syl-beng', // T267480
-		'tlh-piqd', // T282512
-		'tlh-latn', // T282512
-		'txg',// T331094
-		'xbm', // T319125
+		'zh-classical',
+		'zh-min-nan',
+		'zh-yue',
 	];
+
+	$additionalLocalizedLanguages = array_merge( $additionalTermLanguages, [
+		// Languages that are supported in Wikibase (via cldr) but localized here in LexemeLanguageNameLookup.
+		// These should be localized via the cldr extension (T352922).
+		'apc',
+		'az-cyrl',
+		'bas',
+		'bfi',
+		'bzs',
+		'cak',
+		'ccp',
+		'cnh',
+		'ctg',
+		'de-1901',
+		'enm',
+		'fon',
+		'frm',
+		'fro',
+		'gmh',
+		'goh',
+		'gsg',
+		'hoc',
+		'ja-hira',
+		'ja-hrkt',
+		'ja-kana',
+		'lij-mc',
+		'mis',
+		'mvf',
+		'nd',
+		'non',
+		'non-runr',
+		'nr',
+		'nrf-gg',
+		'nrf-je',
+		'obt',
+		'pks',
+		'quc',
+		'rah',
+		'rkt',
+		'rm-puter',
+		'rm-rumgr',
+		'rm-surmiran',
+		'rm-sursilv',
+		'rm-sutsilv',
+		'rm-vallader',
+		'sia',
+		'sjk',
+		'tlh-latn',
+		'tlh-piqd',
+		'txg',
+		'xbm',
+	] );
 
 	return [
 		'WikibaseLexemeTermLanguages' =>
-			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
-				return new LexemeTermLanguages(
-					$additionalLanguages,
-					$mediawikiServices->getLanguageNameUtils()
+			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalTermLanguages ) {
+				return new UnionContentLanguages(
+					new StaticContentLanguages( $additionalTermLanguages ),
+					WikibaseContentLanguages::getDefaultMonolingualTextLanguages(
+						$mediawikiServices->getLanguageNameUtils()
+					)
 				);
 			},
 		'WikibaseLexemeLanguageNameLookupFactory' =>
-			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLanguages ) {
+			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLocalizedLanguages ) {
 				return new LexemeLanguageNameLookupFactory(
 					WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
-					$additionalLanguages
+					$additionalLocalizedLanguages
 				);
 			},
 		'WikibaseLexemeMobileView' =>
