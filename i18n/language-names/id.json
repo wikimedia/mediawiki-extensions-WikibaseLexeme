@@ -2,10 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Daud I.F. Argana",
+			"Es Krim 5 Juta Rasa",
 			"Veracious"
 		]
 	},
 	"wikibase-lexeme-language-name-bzs": "Bahasa Isyarat Brasil",
+	"wikibase-lexeme-language-name-de-1901": "Jerman (ortografi tradisional)",
 	"wikibase-lexeme-language-name-hoc": "Ho",
-	"wikibase-lexeme-language-name-mis": "lainnya"
+	"wikibase-lexeme-language-name-mis": "lainnya",
+	"wikibase-lexeme-language-name-sat-latn": "Santali (aksara Latin)",
+	"wikibase-lexeme-language-name-sux-xsux": "Sumeria (aksara Sumeria)"
 }

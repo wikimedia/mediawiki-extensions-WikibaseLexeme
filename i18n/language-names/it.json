@@ -1,19 +1,36 @@
 {
 	"@metadata": {
 		"authors": [
+			"Beta16",
 			"Lorem Ipsum",
 			"TheRukk"
 		]
 	},
+	"wikibase-lexeme-language-name-az-cyrl": "Azero (alfabeto cirillico)",
 	"wikibase-lexeme-language-name-bfi": "Lingua dei segni inglese",
-	"wikibase-lexeme-language-name-de-1901": "Tedesco (prima della riforma del 1996)",
+	"wikibase-lexeme-language-name-ccp-beng": "Chakma (scrittura bengalese)",
+	"wikibase-lexeme-language-name-de-1901": "Tedesco (ortografia tradizionale)",
+	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (ortografia del sistema h)",
+	"wikibase-lexeme-language-name-eo-xsistemo": "Esperanto (ortografia del sistema x)",
 	"wikibase-lexeme-language-name-fro": "Francese antico",
 	"wikibase-lexeme-language-name-gsg": "Lingua dei segni tedesca",
-	"wikibase-lexeme-language-name-ha-arab": "Hausa in caratteri arabi",
-	"wikibase-lexeme-language-name-mis": "altro",
+	"wikibase-lexeme-language-name-ha-arab": "Hausa (scrittura araba)",
+	"wikibase-lexeme-language-name-ja-hira": "Giapponese (scrittura Hiragana)",
+	"wikibase-lexeme-language-name-ja-hrkt": "Giapponese (scrittura Kana)",
+	"wikibase-lexeme-language-name-ja-kana": "Giapponese (scrittura Katakana)",
+	"wikibase-lexeme-language-name-lad-hebr": "Ladino (scrittura ebraica)",
+	"wikibase-lexeme-language-name-mis": "lingua non supportata",
 	"wikibase-lexeme-language-name-mvf": "Mongolo periferico",
-	"wikibase-lexeme-language-name-sux-latn": "Sumero in caratteri latini",
-	"wikibase-lexeme-language-name-sux-xsux": "Sumero in scrittura sumera",
-	"wikibase-lexeme-language-name-tlh-latn": "Klingon in caratteri latini",
-	"wikibase-lexeme-language-name-tlh-piqd": "Klingon in scrittura Klingon"
+	"wikibase-lexeme-language-name-non-runr": "Antico norvegese (scrittura runica)",
+	"wikibase-lexeme-language-name-pt-ao1990": "Portoghese (accordo ortografico del 1990)",
+	"wikibase-lexeme-language-name-pt-colb1945": "Portoghese (accordo ortografico del 1945)",
+	"wikibase-lexeme-language-name-rhg-rohg": "Rohingya (scrittura Hanifi Rohingya)",
+	"wikibase-lexeme-language-name-sat-beng": "Santali (scrittura bengalese)",
+	"wikibase-lexeme-language-name-sat-latn": "Santali (scrittura latina)",
+	"wikibase-lexeme-language-name-sat-orya": "Santali (scrittura Oriya)",
+	"wikibase-lexeme-language-name-sux-latn": "Sumero (scrittura latina)",
+	"wikibase-lexeme-language-name-sux-xsux": "Sumero (scrittura sumera)",
+	"wikibase-lexeme-language-name-syl-beng": "Sylheti (scrittura bengalese)",
+	"wikibase-lexeme-language-name-tlh-latn": "Klingon (scrittura latina)",
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingon (scrittura Klingon)"
 }
