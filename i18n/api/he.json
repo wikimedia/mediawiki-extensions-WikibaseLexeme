@@ -26,7 +26,7 @@
 	"apierror-wikibaselexeme-sense-not-found": "השדה \"$1\" מכיל מזהה של משמעות \"$2\" שלא היה אפשר למצוא.",
 	"apierror-wikibaselexeme-unknown-language": "שפה בלתי־ידועה \"$3\" בשדה \"$1\" שבתוך \"$2\".",
 	"apierror-wikibaselexeme-unknown-language-withtext": "שפה לא יודע \"$3\" למונח \"$4\" בשדה \"$1\" בתוך \"$2\".",
-	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "האיברים של ישות מילונאית (משפטים מוגדרים של יחידה מילונית, ייצוגים של צורה, או פירושים של משמעות).",
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "האיברים של ישות מילונאית (שמות ערכים של יחידה מילונית, ייצוגים של צורה, או פירושים של משמעות).",
 	"apihelp-wbladdform-example-1": "הוספת צורה ליחידה המילונית עם המזהה <samp>$1</samp>, עם הייצוגים <samp>$2</samp> בשפות <samp>$3</samp> (בהתאמה) ועם המאפיינים הדקדוקיים <samp>$4</samp>",
 	"apihelp-wbladdform-param-baserevid": "מזהה גרסת הבסיס של היחידה המילונית, אם רצויה בדיקת התנגשות עריכה.",
 	"apihelp-wbladdform-param-bot": "סימון העריכה הזאת בתור עריכת בוט. דגל ה־URL הזה יכובד רק אם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
