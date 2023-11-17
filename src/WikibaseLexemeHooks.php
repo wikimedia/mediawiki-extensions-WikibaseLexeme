@@ -5,8 +5,10 @@ namespace Wikibase\Lexeme;
 use IContextSource;
 use MediaWiki\Hook\CanonicalNamespacesHook;
 use MediaWiki\Hook\InfoActionHook;
+use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
 use MediaWiki\MediaWikiServices;
 use Wikibase\Client\WikibaseClient;
+use Wikibase\Lexeme\Maintenance\FixPagePropsSortkey;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
 use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLibrary;
@@ -26,7 +28,8 @@ use Wikimedia\Assert\Assert;
  */
 class WikibaseLexemeHooks implements
 	InfoActionHook,
-	CanonicalNamespacesHook
+	CanonicalNamespacesHook,
+	LoadExtensionSchemaUpdatesHook
 {
 
 	/**
@@ -256,6 +259,10 @@ class WikibaseLexemeHooks implements
 			'lexemeTermLanguages' => MediaWikiServices::getInstance()
 				->getService( 'WikibaseLexemeTermLanguages' )->getLanguages(),
 		];
+	}
+
+	public function onLoadExtensionSchemaUpdates( $updater ) {
+		$updater->addPostDatabaseUpdateMaintenance( FixPagePropsSortkey::class );
 	}
 
 }
