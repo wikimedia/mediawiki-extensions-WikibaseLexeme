@@ -187,7 +187,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 							'grammaticalFeaturesDiff' => $formDiff->getGrammaticalFeaturesDiff()->serialize(),
 							'statementsDiff' => $formDiff->getStatementsDiff()->serialize(),
 							'existingForms' => implode( ', ', array_map(
-								fn( $form ) => $form->getId()->getSerialization(),
+								fn ( $form ) => $form->getId()->getSerialization(),
 								$lexeme->getForms()->toArray()
 							) ),
 						] );

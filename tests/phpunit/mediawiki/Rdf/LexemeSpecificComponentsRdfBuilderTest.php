@@ -267,9 +267,9 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$subEntities = [];
 		$mentionTracker = $this->createMock( EntityMentionListener::class );
 		$mentionTracker->method( 'subEntityMentioned' )
-			->will( $this->returnCallback( static function ( EntityDocument $entity ) use ( &$subEntities ) {
+			->willReturnCallback( static function ( EntityDocument $entity ) use ( &$subEntities ) {
 				$subEntities[] = $entity->getId()->getSerialization();
-			} ) );
+			} );
 
 		$writer = $this->getTestData()->getNTriplesWriter( false );
 		$builder = $this->newBuilder( $writer, $mentionTracker );
@@ -282,9 +282,9 @@ class LexemeSpecificComponentsRdfBuilderTest extends TestCase {
 		$mentionedEntities = [];
 		$mentionTracker = $this->createMock( EntityMentionListener::class );
 		$mentionTracker->method( 'entityReferenceMentioned' )
-			->will( $this->returnCallback( static function ( EntityId $id ) use ( &$mentionedEntities ) {
+			->willReturnCallback( static function ( EntityId $id ) use ( &$mentionedEntities ) {
 				$mentionedEntities[] = $id->getSerialization();
-			} ) );
+			} );
 
 		$writer = $this->getTestData()->getNTriplesWriter( false );
 		$builder = $this->newBuilder( $writer, $mentionTracker );

@@ -26,7 +26,7 @@ $specialPageAliases['sr-ec'] = [
 ];
 
 /** Serbian Latin (srpski (latinica) */
-	$specialPageAliases['sr-el'] = [
+$specialPageAliases['sr-el'] = [
 	'NewLexeme' => [ 'NovaLeksema' ],
 	'MergeLexemes' => [ 'SpojiLekseme' ],
 ];

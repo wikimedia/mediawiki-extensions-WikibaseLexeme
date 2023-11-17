@@ -103,12 +103,12 @@ class SenseStoreTest extends TestCase {
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
-			->will( $this->returnCallback(
+			->willReturnCallback(
 				function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId, $tags ) {
 					$this->assertSame( 0, $flags );
 					return 'fromParentService';
 				}
-			) );
+			);
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
@@ -123,12 +123,12 @@ class SenseStoreTest extends TestCase {
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
-			->will( $this->returnCallback(
+			->willReturnCallback(
 				function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId, $tags ) {
 					$this->assertSame( 0, $flags );
 					return 'fromParentService';
 				}
-			) );
+			);
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 
@@ -144,10 +144,10 @@ class SenseStoreTest extends TestCase {
 		$lexemeLookup = $this->createMock( EntityRevisionLookup::class );
 		$lexemeLookup->expects( $this->once() )
 			->method( 'getEntityRevision' )
-			->will( $this->returnCallback( function ( LexemeId $lexemeId, $revId, $mode ) use ( $lexeme ) {
+			->willReturnCallback( function ( LexemeId $lexemeId, $revId, $mode ) use ( $lexeme ) {
 				$this->assertSame( 0, $revId, 'strict assertion - 0 !== false' );
 				return new EntityRevision( $lexeme );
-			} ) );
+			} );
 
 		$instance = new SenseStore( $parentService, $lexemeLookup );
 
@@ -177,12 +177,12 @@ class SenseStoreTest extends TestCase {
 		$parentService = $this->createMock( EntityStore::class );
 		$parentService->expects( $this->once() )
 			->method( 'saveEntity' )
-			->will( $this->returnCallback(
+			->willReturnCallback(
 				function ( Lexeme $lexeme, $summary, $user, $flags, $baseRevId, $tags ) {
 					$this->assertSame( [ 'test', 'tag' ], $tags );
 					return 'fromParentService';
 				}
-			) );
+			);
 
 		$instance = new SenseStore( $parentService, $this->newEntityRevisionLookup( $lexeme ) );
 

@@ -153,7 +153,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$this->saveEntity( $lexeme );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wblremovesense',
 			'id' => 'L1-S1',
 		] );
@@ -196,7 +196,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$this->saveEntity( $lexeme );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wblremovesense',
 			'id' => 'L1-S1',
 		] );

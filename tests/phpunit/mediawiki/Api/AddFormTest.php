@@ -284,7 +284,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 	}
@@ -349,7 +349,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
 
@@ -368,7 +368,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertEquals(
 			[
@@ -397,7 +397,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 			'rank' => 'normal',
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wbladdform',
 			'lexemeId' => 'L1',
 			'data' => self::getDataParam( [

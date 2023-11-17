@@ -70,7 +70,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 		$request->setRequestURL( $this->newSpecialPage()->getPageTitle()->getLocalURL( $params ) );
 
 		/** @var FauxResponse $response */
-		list( $output, $response ) = $this->executeSpecialPage(
+		[ $output, $response ] = $this->executeSpecialPage(
 			'',
 			$request
 		);

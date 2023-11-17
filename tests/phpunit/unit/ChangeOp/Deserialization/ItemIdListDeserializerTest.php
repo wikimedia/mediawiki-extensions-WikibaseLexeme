@@ -34,10 +34,10 @@ class ItemIdListDeserializerTest extends MediaWikiUnitTestCase {
 
 		$itemIdParser = $this->createMock( ItemIdParser::class );
 		$itemIdParser->method( 'parse' )
-			->will( $this->returnValueMap( [
+			->willReturnMap( [
 				[ 'Q3', $q3 ],
 				[ 'Q7', $q7 ],
-			] ) );
+			] );
 
 		$contextSpy = $this->createMock( ValidationContext::class );
 		$contextSpy

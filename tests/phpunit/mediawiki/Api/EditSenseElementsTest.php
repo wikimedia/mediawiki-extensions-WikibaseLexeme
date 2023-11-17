@@ -428,7 +428,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 	}
@@ -452,7 +452,7 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 			] ),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertEquals(
 			[

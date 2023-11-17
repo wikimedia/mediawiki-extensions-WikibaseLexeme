@@ -33,12 +33,10 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		$categoryItemId = new ItemId( 'Q321' );
 		$categoryTerm = new TermFallback( 'en', 'The category', 'en', null );
 
-		$labelDescriptionLookup->method( 'getLabel' )->will(
-			$this->returnValueMap( [
+		$labelDescriptionLookup->method( 'getLabel' )->willReturnMap( [
 				[ $languageItemId, $languageTerm ],
 				[ $categoryItemId, $categoryTerm ],
-			] )
-		);
+			] );
 
 		return [
 			[

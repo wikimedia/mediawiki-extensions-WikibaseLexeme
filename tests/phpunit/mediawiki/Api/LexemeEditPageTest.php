@@ -35,7 +35,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 		$this->saveEntity( $gf2 );
 		$this->saveEntity( $lexeme );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wbeditentity',
 			'data' => json_encode( [
 				'grammaticalFeatures' => [
@@ -47,7 +47,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 		] );
 		$this->assertSame( 1, $result['success'] );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'edit',
 			'title' => 'Lexeme:' . $lexeme->getId(),
 			'undo' => $result['entity']['lastrevid'],
@@ -69,7 +69,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 
 		$this->saveEntity( $emptyLexeme );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wbladdsense',
 			'lexemeId' => 'L123',
 			'data' => json_encode( [
@@ -83,7 +83,7 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 		] );
 		$this->assertSame( 1, $result['success'] );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'edit',
 			'title' => 'Lexeme:L123',
 			'undo' => $result['lastrevid'],

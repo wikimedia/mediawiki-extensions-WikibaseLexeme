@@ -32,7 +32,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 			'language' => 'en',
 		];
 
-		list( $result, ) = $this->doApiRequest( $params );
+		[ $result ] = $this->doApiRequest( $params );
 
 		$this->assertCount( 1, $result['search'] );
 		$this->assertSame( self::LEXEME_ID, $result['search'][0]['id'] );
@@ -52,7 +52,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 			'language' => 'en',
 		];
 
-		list( $result, ) = $this->doApiRequest( $params );
+		[ $result ] = $this->doApiRequest( $params );
 
 		$this->assertSame( [], $result['search'] );
 	}
@@ -67,7 +67,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 			'language' => 'en',
 		];
 
-		list( $result, ) = $this->doApiRequest( $params );
+		[ $result ] = $this->doApiRequest( $params );
 
 		$this->assertCount( 1, $result['search'] );
 		$this->assertSame( self::FULL_FORM_ID, $result['search'][0]['id'] );
@@ -87,7 +87,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 			'language' => 'en',
 		];
 
-		list( $result, ) = $this->doApiRequest( $params );
+		[ $result ] = $this->doApiRequest( $params );
 
 		$this->assertSame( [], $result['search'] );
 	}
@@ -102,7 +102,7 @@ class SearchEntitiesIntegrationTest extends WikibaseLexemeApiTestCase {
 			'language' => 'en',
 		];
 
-		list( $result, ) = $this->doApiRequest( $params );
+		[ $result ] = $this->doApiRequest( $params );
 
 		$this->assertSame( [], $result['search'] );
 	}

@@ -83,9 +83,9 @@ class SenseDiffViewTest extends TestCase {
 		$mock = $this->createMock( MessageLocalizer::class );
 
 		$mock->method( 'msg' )
-			->will( $this->returnCallback( static function ( $key ) {
+			->willReturnCallback( static function ( $key ) {
 				return new RawMessage( "($key)" );
-			} ) );
+			} );
 
 		return $mock;
 	}

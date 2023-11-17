@@ -209,7 +209,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			$params[MergeLexemes::SUMMARY_PARAM] = $summary;
 		}
 
-		list( $response ) = $this->doApiRequestWithToken( $params );
+		[ $response ] = $this->doApiRequestWithToken( $params );
 
 		return $response;
 	}

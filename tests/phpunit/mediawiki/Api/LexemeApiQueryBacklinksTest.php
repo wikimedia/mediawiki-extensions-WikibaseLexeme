@@ -150,7 +150,7 @@ class LexemeApiQueryBacklinksTest extends WikibaseLexemeApiTestCase {
 	}
 
 	private function doBacklinksRequestForEntity( EntityId $id ) {
-		list( $result ) = $this->doApiRequest( [
+		[ $result ] = $this->doApiRequest( [
 			'action' => 'query',
 			'generator' => 'backlinks',
 			'gbltitle' => $this->getEntityTitle( $id ),

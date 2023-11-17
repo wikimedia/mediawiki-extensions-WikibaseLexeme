@@ -33,13 +33,13 @@ class LexemeDeserializerTest extends TestCase {
 	private function newDeserializer() {
 		$entityIdDeserializer = $this->createMock( EntityIdDeserializer::class );
 		$entityIdDeserializer->method( 'deserialize' )
-			->will( $this->returnCallback( static function ( $serialization ) {
+			->willReturnCallback( static function ( $serialization ) {
 				return new ItemId( $serialization );
-			} ) );
+			} );
 
 		$statementListDeserializer = $this->createMock( StatementListDeserializer::class );
 		$statementListDeserializer->method( 'deserialize' )
-			->will( $this->returnCallback( static function ( array $serialization ) {
+			->willReturnCallback( static function ( array $serialization ) {
 				$statementList = new StatementList();
 
 				foreach ( $serialization as $propertyId => $propertyStatements ) {
@@ -51,7 +51,7 @@ class LexemeDeserializerTest extends TestCase {
 				}
 
 				return $statementList;
-			} ) );
+			} );
 
 		return new LexemeDeserializer(
 			$entityIdDeserializer,

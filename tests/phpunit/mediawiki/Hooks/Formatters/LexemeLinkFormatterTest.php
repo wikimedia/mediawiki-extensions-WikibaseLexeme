@@ -140,7 +140,7 @@ class LexemeLinkFormatterTest extends TestCase {
 		$unresolvedRedirectionException = new UnresolvedEntityRedirectException(
 			new LexemeId( 'L123' ), new LexemeId( 'L234' ) );
 		$this->entityLookup->method( 'getEntity' )
-			->will( $this->throwException( $unresolvedRedirectionException ) );
+			->willThrowException( $unresolvedRedirectionException );
 
 		$formatter = $this->newFormatter();
 

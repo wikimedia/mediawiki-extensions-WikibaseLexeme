@@ -745,7 +745,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 	}
@@ -772,7 +772,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 
 		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertEquals(
 			[
@@ -831,7 +831,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 			'rank' => 'normal',
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wbleditformelements',
 			'formId' => 'L1-F1',
 			'data' => self::getDataParam( [

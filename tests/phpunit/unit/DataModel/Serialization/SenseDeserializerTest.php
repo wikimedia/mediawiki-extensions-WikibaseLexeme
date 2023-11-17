@@ -92,7 +92,7 @@ class SenseDeserializerTest extends MediaWikiUnitTestCase {
 
 	public function testRoundTrip() {
 		$lastSerialization = null;
-		foreach ( $this->provideSerializations() as list( $serialization, $sense ) ) {
+		foreach ( $this->provideSerializations() as [ $serialization, $sense ] ) {
 			$lastSerialization = $serialization;
 		}
 		$deserializer = new SenseDeserializer(

@@ -153,7 +153,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$this->saveEntity( $lexeme );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
 			'id' => 'L1-F1',
 		] );
@@ -196,7 +196,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$this->saveEntity( $lexeme );
 
-		list( $result, ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wblremoveform',
 			'id' => 'L1-F1',
 		] );

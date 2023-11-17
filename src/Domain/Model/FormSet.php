@@ -84,7 +84,7 @@ class FormSet implements Countable {
 		}
 
 		$numbers = array_map( static function ( $formId ) {
-			list( , $formId ) = explode( '-', $formId, 2 );
+			[ , $formId ] = explode( '-', $formId, 2 );
 			return (int)substr( $formId, 1 );
 		}, array_keys( $this->forms ) );
 		return max( $numbers );

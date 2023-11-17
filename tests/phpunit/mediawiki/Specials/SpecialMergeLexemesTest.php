@@ -75,7 +75,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	}
 
 	public function testSpecialMergeLexemesContainsInputFields() {
-		list( $output, ) = $this->executeSpecialPage();
+		[ $output ] = $this->executeSpecialPage();
 
 		$this->assertThatHamcrest(
 			$output,
@@ -244,7 +244,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	 * @return string
 	 */
 	private function executeSpecialPageWithIds( $source, $target ) {
-		list( $output, ) = $this->executeSpecialPage(
+		[ $output ] = $this->executeSpecialPage(
 			'',
 			new FauxRequest( [
 				'from-id' => $source,

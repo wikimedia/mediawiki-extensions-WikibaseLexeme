@@ -63,7 +63,7 @@ class LemmaLanguageFieldTest extends TestCase {
 
 		$options = $field->getOptions();
 		$this->assertIsArray( $options );
-		$this->assertCount( count( $languages ), $options );
+		$this->assertSameSize( $languages, $options );
 	}
 
 	private function getWidget( array $params = [] ) {

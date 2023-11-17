@@ -35,7 +35,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 			->build();
 		$lexemeBuilder = NewLexeme::havingId( 'L1' )
 			->withSense( $sense );
-		foreach ( $lemmas as list( $languageCode, $text ) ) {
+		foreach ( $lemmas as [ $languageCode, $text ] ) {
 			$lexemeBuilder = $lexemeBuilder->withLemma( $languageCode, $text );
 		}
 		$lexeme = $lexemeBuilder->build();
@@ -99,7 +99,7 @@ class SenseLabelDescriptionLookupTest extends TestCase {
 		);
 
 		$senseBuilder = NewSense::havingId( 'S1' );
-		foreach ( $glosses as list( $languageCode, $text ) ) {
+		foreach ( $glosses as [ $languageCode, $text ] ) {
 			$senseBuilder = $senseBuilder->withGloss( $languageCode, $text );
 		}
 		$sense = $senseBuilder->build();

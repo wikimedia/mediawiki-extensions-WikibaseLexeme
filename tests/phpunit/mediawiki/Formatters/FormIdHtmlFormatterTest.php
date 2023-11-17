@@ -98,9 +98,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			],
 		];
 		$mock->method( $this->logicalOr( 'get', 'getEscaped' ) )
-			->will(
-				$this->returnValueMap( $getMethodValuesMap )
-			);
+			->willReturnMap( $getMethodValuesMap );
 		return $mock;
 	}
 
@@ -301,12 +299,10 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			->with( $formId )
 			->willReturn( $formRevision );
 
-		$this->labelLookup->method( 'getLabel' )->will(
-			$this->returnValueMap( [
+		$this->labelLookup->method( 'getLabel' )->willReturnMap( [
 				[ $grammaticalFeature1, new Term( 'en', 'noun' ) ],
 				[ $grammaticalFeature2, new Term( 'en', 'verb' ) ],
-			] )
-		);
+			] );
 
 		$this->makeTitleLookupReturnMainPage( $formId );
 

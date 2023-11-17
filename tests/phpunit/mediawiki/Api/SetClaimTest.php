@@ -148,7 +148,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			'claim' => json_encode( $this->getStatementData( $guid, $propertyId, $value ) ),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 	}
@@ -265,7 +265,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 			$this->getTestUser()->getUser()
 		);
 
-		list( $result ) = $this->doApiRequestWithToken( [
+		[ $result ] = $this->doApiRequestWithToken( [
 			'action' => 'wbsetclaim',
 			'claim' => json_encode( $this->getStatementData(
 				$propertyId . '$00000000-0000-0000-0000-000000000000',

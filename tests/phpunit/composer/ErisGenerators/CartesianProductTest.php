@@ -132,15 +132,15 @@ class CartesianProductTest extends TestCase {
 			);
 
 		$this->assertEquals( 9, $result->count() );
-		$this->assertContains( [ 1,4 ], $resultingCalls );
-		$this->assertContains( [ 1,5 ], $resultingCalls );
-		$this->assertContains( [ 1,6 ], $resultingCalls );
-		$this->assertContains( [ 2,4 ], $resultingCalls );
-		$this->assertContains( [ 2,5 ], $resultingCalls );
-		$this->assertContains( [ 2,6 ], $resultingCalls );
-		$this->assertContains( [ 3,4 ], $resultingCalls );
-		$this->assertContains( [ 3,5 ], $resultingCalls );
-		$this->assertContains( [ 3,6 ], $resultingCalls );
+		$this->assertContains( [ 1, 4 ], $resultingCalls );
+		$this->assertContains( [ 1, 5 ], $resultingCalls );
+		$this->assertContains( [ 1, 6 ], $resultingCalls );
+		$this->assertContains( [ 2, 4 ], $resultingCalls );
+		$this->assertContains( [ 2, 5 ], $resultingCalls );
+		$this->assertContains( [ 2, 6 ], $resultingCalls );
+		$this->assertContains( [ 3, 4 ], $resultingCalls );
+		$this->assertContains( [ 3, 5 ], $resultingCalls );
+		$this->assertContains( [ 3, 6 ], $resultingCalls );
 	}
 
 	/**

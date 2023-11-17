@@ -154,14 +154,14 @@ return call_user_func( static function () {
 			MediaWikiServices $mediaWikiServices
 		) {
 			$grammaticalFeaturesOrderProvider = new CachingItemOrderProvider(
-			new WikiPageItemOrderProvider(
-				$mediaWikiServices->getWikiPageFactory(),
-				$mediaWikiServices->getTitleFactory()
-					->newFromTextThrow( 'MediaWiki:WikibaseLexeme-SortedGrammaticalFeatures' )
-			),
-			ObjectCache::getLocalClusterInstance(),
-			'wikibaseLexeme-grammaticalFeaturesOrderProvider'
-		);
+				new WikiPageItemOrderProvider(
+					$mediaWikiServices->getWikiPageFactory(),
+					$mediaWikiServices->getTitleFactory()
+						->newFromTextThrow( 'MediaWiki:WikibaseLexeme-SortedGrammaticalFeatures' )
+				),
+				ObjectCache::getLocalClusterInstance(),
+				'wikibaseLexeme-grammaticalFeaturesOrderProvider'
+			);
 
 			return $grammaticalFeaturesOrderProvider;
 		},

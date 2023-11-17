@@ -245,7 +245,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame( 1, $result['success'] );
 	}
@@ -308,7 +308,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$lexemeRevision = $this->getCurrentRevisionForLexeme( 'L1' );
 
@@ -326,7 +326,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 			'data' => self::getDataParam(),
 		];
 
-		list( $result, ) = $this->doApiRequestWithToken( $params );
+		[ $result ] = $this->doApiRequestWithToken( $params );
 
 		$this->assertSame(
 			[

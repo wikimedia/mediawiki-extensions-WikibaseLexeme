@@ -30,15 +30,15 @@ class ExternalLexemeSerializerTest extends MediaWikiIntegrationTestCase {
 	private function newSerializer() {
 		$statementListSerializer = $this->createMock( Serializer::class );
 		$statementListSerializer->method( 'serialize' )
-			->will( $this->returnCallback( static function ( StatementList $statementList ) {
+			->willReturnCallback( static function ( StatementList $statementList ) {
 				return implode( '|', $statementList->getPropertyIds() );
-			} ) );
+			} );
 
 		$termListSerializer = $this->createMock( Serializer::class );
 		$termListSerializer->method( 'serialize' )
-			->will( $this->returnCallback( static function ( TermList $termList ) {
+			->willReturnCallback( static function ( TermList $termList ) {
 				return $termList->toTextArray();
-			} ) );
+			} );
 
 		return new ExternalLexemeSerializer(
 			new StorageLexemeSerializer( $termListSerializer, $statementListSerializer )

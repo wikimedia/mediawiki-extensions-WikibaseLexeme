@@ -48,9 +48,7 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 		$termSerializationValidator = $this->createMock( LexemeTermSerializationValidator::class );
 		$termSerializationValidator->expects( $this->atLeastOnce() )
 			->method( 'validateStructure' )
-			->will(
-				$this->throwException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) )
-			);
+			->willThrowException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) );
 
 		$lemmaTermValidator = $this->createMock( LemmaTermValidator::class );
 

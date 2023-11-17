@@ -94,7 +94,7 @@ class NewForm {
 		$result = clone $this;
 
 		if ( $formId instanceof FormId ) {
-			list( , $formId ) = explode( '-', $formId->getSerialization(), 2 );
+			[ , $formId ] = explode( '-', $formId->getSerialization(), 2 );
 		}
 
 		$result->formId = $formId;
