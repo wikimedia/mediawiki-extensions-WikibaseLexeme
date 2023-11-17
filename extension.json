@@ -12,7 +12,8 @@
 	},
 	"load_composer_autoloader": true,
 	"AutoloadNamespaces": {
-		"Wikibase\\Lexeme\\": "src/"
+		"Wikibase\\Lexeme\\": "src/",
+		"Wikibase\\Lexeme\\Maintenance\\": "maintenance/"
 	},
 	"TestAutoloadNamespaces": {
 		"Wikibase\\Lexeme\\Tests\\": "tests/phpunit/composer/",
@@ -104,6 +105,7 @@
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
 		],
 		"CanonicalNamespaces": "main",
+		"LoadExtensionSchemaUpdates": "main",
 		"WikibaseRepoEntityTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityTypes"
 		],
