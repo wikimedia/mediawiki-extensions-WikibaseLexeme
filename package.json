@@ -60,8 +60,5 @@
 		"unexpected-sinon": "^11.1.0",
 		"vue": "3.2.37",
 		"vuex": "4.0.2"
-	},
-	"browserslist": [
-		"ie 11"
-	]
+	}
 }
