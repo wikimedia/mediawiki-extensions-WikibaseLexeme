@@ -47,7 +47,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 
 		widget.edit();
 		widget.save().then( function () {
-			expect( storeSpy, 'to have a call satisfying', [ 'save', lexeme ] );
+			var lexemePlain = { lemmas: [ { value: 'hello', language: 'en' } ] };
+			expect( storeSpy, 'to have a call satisfying', [ 'save', lexemePlain ] );
 			expect( widget, 'not to be in edit mode' );
 			expect( widget.$refs.lemmas.lemmas, 'to equal', new LemmaList( [ new Lemma( 'hi', 'en' ) ] ) );
 			done();
@@ -65,7 +66,8 @@ describe( 'wikibase.lexeme.widgets.LexemeHeader', function () {
 		widget.edit();
 		widget.save();
 		widget.$nextTick( function () {
-			expect( storeSpy, 'to have a call satisfying', [ 'save', lexeme ] );
+			var lexemePlain = { lemmas: [ { value: 'hello', language: 'en' } ] };
+			expect( storeSpy, 'to have a call satisfying', [ 'save', lexemePlain ] );
 			expect( widget, 'to be in edit mode' );
 			done();
 		} );
