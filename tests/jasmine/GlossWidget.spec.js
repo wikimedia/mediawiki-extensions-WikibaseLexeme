@@ -193,7 +193,7 @@ describe( 'GlossWidget', function () {
 						expect( element, 'queried for first', selector.glossLanguage, 'to have trimmed text', language );
 					};
 
-					expect( widget.$el, 'queried for', selector.gloss, 'to have an item satisfying', assertGloss );
+					expect( widget.$el, 'queried for', selector.gloss, 'to have an item satisfying', expect.it( assertGloss ) );
 				},
 				containsInputsWithGloss: function ( value, language ) {
 					var found = false;
