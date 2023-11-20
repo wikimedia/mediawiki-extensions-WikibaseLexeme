@@ -37,7 +37,7 @@
 	"apihelp-wbleditsenseelements-param-bot": "לסמן שזאת עריכת בוט. דגל ה־URL הזה יכובד רק עם המשתמש שייך לקבוצה \"{{int:group-bot}}\".",
 	"apihelp-wbleditsenseelements-param-baserevid": "מזהה גרסת הבסיס של היחידה המילונית, אם רצויה בדיקת התנגשות עריכה של רכיבי משמעות.",
 	"apihelp-wbleditsenseelements-example-1": "עריכת משמעות עם המזהה <samp>$1</samp> כדי הפירושים שלהם יהיו <samp>$2</samp> בשפות <samp>$3</samp> בהתאמה.",
-	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "האיברים של ישות מילונאית (משפטים מוגדרים של יחידה מילונית, ייצוגים של צורה, או פירושים של משמעות).",
+	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "האיברים של ישות מילונאית (שמות ערכים של יחידה מילונית, ייצוגים של צורה, או פירושים של משמעות).",
 	"apihelp-wblmergelexemes-description": "מיזוג שתי יחידות מילוניות.",
 	"apihelp-wblmergelexemes-summary": "מיזוג שתי יחידות מילוניות.",
 	"apihelp-wblmergelexemes-param-source": "מאיזה מזהה למזג",
