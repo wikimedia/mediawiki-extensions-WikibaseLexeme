@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Alhassan Mohammed Awal",
+			"Alhassan Peter",
 			"Hasslaebetch",
 			"Musahfm",
 			"Sir Amugi"
@@ -13,9 +14,9 @@
 	"wikibase-lexeme-language-name-fon": "Fon",
 	"wikibase-lexeme-language-name-gmh": "Sunsuuni dubu German",
 	"wikibase-lexeme-language-name-goh": "Germani kurili",
-	"wikibase-lexeme-language-name-ja-hira": "Japanese din sabi hiragana",
+	"wikibase-lexeme-language-name-ja-hira": "Japanese (Hiragana script)",
 	"wikibase-lexeme-language-name-nn-hognorsk": "Hognorski",
-	"wikibase-lexeme-language-name-pt-ao1990": "Portuguesi",
-	"wikibase-lexeme-language-name-pt-colb1945": "Portuguesi",
+	"wikibase-lexeme-language-name-pt-ao1990": "Portuguesi (19990 orthographic agreement)",
+	"wikibase-lexeme-language-name-pt-colb1945": "Portuguesi(1945 orthographic agreement)",
 	"wikibase-lexeme-language-name-quc": "Kʼicheʼ"
 }
