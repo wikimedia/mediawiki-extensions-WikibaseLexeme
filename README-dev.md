@@ -140,3 +140,48 @@ To add a new language code for lexemes please refer to the [detailed manual](htt
 ### Other
 
 Configuration files for several linters etc are also provided. The easiest way to run these along with tests, is to either run `mw dev mediawiki composer test` (for PHP code), or `mw dev mediawiki fresh grunt test` (for JavaScript part).
+
+## Chore: Dependency Updates
+
+As of November 2023, we have to update dependencies manually because LibraryUpgrader (LibUp) is broken: [T345930](https://phabricator.wikimedia.org/T345930)
+
+### JS (npm) dependencies
+
+You can see which dependencies have new releases by first making sure your local dependencies are up-to-date by executing `npm ci` and then running `npm outdated`.
+The following dependencies are special cases that should potentially be ignored:
+
+- Vue and Vuex:
+  in production, we use the versions shipped by MediaWiki core,
+  so we should use the same versions for testing.
+  The current versions shipped by MediaWiki core are listed in [foreign-resources.yaml](https://gerrit.wikimedia.org/g/mediawiki/core/+/master/resources/lib/foreign-resources.yaml).
+- Jasmine 5 and Sinon 17:
+  both of these are not compatible with Node 16, which we still use in CI.
+  Until [T331180](https://phabricator.wikimedia.org/T331180) is done,
+  we should use the latest versions of Jasmine 4 and Sinon 16.
+- Unexpected:
+  This shows up in the `npm outdated` output due to a bad “latest” tag on npm;
+  we want to be using the highest version number (currently 13.2.1),
+  not the one tagged as latest (currently 12.0.5).
+
+All other dependencies should generally be updated to the latest version.
+If you discover that a dependency should not be updated for some reason, please add it to the above list.
+If a dependency can only be updated with substantial manual work,
+you can create a new task for it and skip it in the context of the current chore.
+
+The recommended way to update dependencies is to collect related dependency updates into grouped commits;
+this keeps the number of commits to review manageable (compared to having one commit for every update),
+while keeping the scope of each commit limited and increasing reviewability and debuggability (compared to combining all updates in a single commit).
+For example, this can be one commit for each of:
+
+- all ESLint-related dependency updates
+- all Stylelint-related dependency updates
+- `npm update` for all other dependency updates
+
+Make sure that all checks still pass for every commit.
+
+### PHP (composer) dependencies
+
+Make sure your local dependencies are up-to-date by running `composer update`,
+then run `composer outdated --direct` to check that direct dependencies are up to date.
+There are no special cases to take into account here,
+and most of the time, there are few enough libraries to upgrade that no grouping is necessary.
