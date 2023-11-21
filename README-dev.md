@@ -1,40 +1,24 @@
-## Development setup
-  - [Prerequisites](#prerequisites)
-    - [MediaWiki](#mediawiki)
-    - [Wikibase](#wikibase)
-    - [Composer Merge](#composer-merge)
-  - [Setup](#setup)
-    - [1. Get WikibaseLexeme](#1-get-wikibaselexeme)
-    - [2. Initialize git submodules](#2-initialize-git-submodules)
-    - [3. Enable the extension in MediaWiki](#3-enable-the-extension-in-mediawiki)
-    - [4. Install composer dependencies](#4-install-composer-dependencies)
-    - [5. Install npm dependencies](#5-install-npm-dependencies)
-  - [New Lexeme Special Page](#new-lexeme-special-page)
-- [Running tests](#running-tests)
-  - [PHP](#php)
-  - [JavaScript](#javascript)
-  - [Browser tests](#browser-tests)
-  - [Adding language code support for lexemes](#adding-language-code-support-for-lexemes)
-  - [Other](#other)
-### Prerequisites
+# Development setup
 
-#### MediaWiki
+## Prerequisites
+
+### MediaWiki
 
 The recommended way of setting up the development environment is with the use of the [mwcli tool](https://www.mediawiki.org/wiki/Cli). To create a local MediaWiki development environment using this tool, see the [docker development environment guide](https://www.mediawiki.org/wiki/Cli/guide/Docker-Development-Environment/First-Setup) in the tool's documentation.
 
 _**Note**: All following command examples will be using the mwcli tool, but can also be run with docker or on bare metal according to preference._
 
-#### Wikibase
+### Wikibase
 
 The WikibaseLexeme extension also requires Wikibase to be set up and configured in your local MediaWiki instance. To get up and running with Wikibase, follow the [installation instructions](https://www.mediawiki.org/wiki/Wikibase/Installation) on MediaWiki.
 
-#### Composer Merge
+### Composer Merge
 
 Both Wikibase and WikibaseLexeme rely on the composer merge plugin for MediaWiki. To ensure the plugin is configured correctly, double check your `composer.local.json` file in your local MediaWiki directory against the [instructions](https://www.mediawiki.org/wiki/Composer#Using_composer-merge-plugin) on the MediaWiki website.
 
-### Setup
+## Setup
 
-#### 1. Get WikibaseLexeme
+### 1. Get WikibaseLexeme
 
 Clone this repository to the `extensions/` directory in your local MediaWiki directory:
 
@@ -43,7 +27,7 @@ $ cd <path-to-mediawiki>/extensions
 $ git clone https://gerrit.wikimedia.org/r/mediawiki/extensions/WikibaseLexeme.git
 ```
 
-#### 2. Initialize git submodules
+### 2. Initialize git submodules
 
 To initialize and update git submodules run:
 
@@ -52,7 +36,7 @@ $ cd WikibaseLexeme
 $ git submodule update --init --recursive
 ```
 
-#### 3. Enable the extension in MediaWiki
+### 3. Enable the extension in MediaWiki
 
 Add the following line to `LocalSettings.php` at the root of you MediaWiki directory, to enable the extension:
 
@@ -60,7 +44,7 @@ Add the following line to `LocalSettings.php` at the root of you MediaWiki direc
 wfLoadExtension( 'WikibaseLexeme' );
 ```
 
-#### 4. Install composer dependencies
+### 4. Install composer dependencies
 
 To ensure all composer dependencies are installed, run composer from the root of your MediaWiki instance:
 
@@ -68,7 +52,7 @@ To ensure all composer dependencies are installed, run composer from the root of
 $ mw dev mediawiki composer install
 ```
 
-#### 5. Install npm dependencies
+### 5. Install npm dependencies
 
 Install all npm dependencies in order to use node development tools and scripts, using mwcli fresh:
 
@@ -76,7 +60,7 @@ Install all npm dependencies in order to use node development tools and scripts,
 $ mw dev mediawiki fresh npm install
 ```
 
-### New Lexeme Special Page
+## New Lexeme Special Page
 
 The code for the Special:NewLexeme special page lives in a separate Git repository,
 included as a submodule under `resources/special/new-lexeme/`.
