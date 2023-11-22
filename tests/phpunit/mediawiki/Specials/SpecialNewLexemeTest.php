@@ -626,12 +626,16 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @dataProvider provideValidEntityCreationRequests
 	 */
 	public function testEntityIsBeingCreated_WhenValidInputIsGiven( array $formData ) {
-		$this->stats->expects( $this->exactly( 2 ) )
+		$expectedStats = [
+			'wikibase.lexeme.special.NewLexeme.views' => true,
+			'wikibase.lexeme.special.NewLexeme.nojs.create' => true,
+		];
+		$this->stats->expects( $this->exactly( count( $expectedStats ) ) )
 			->method( 'increment' )
-			->withConsecutive(
-				[ 'wikibase.lexeme.special.NewLexeme.views' ],
-				[ 'wikibase.lexeme.special.NewLexeme.nojs.create' ]
-			);
+			->willReturnCallback( function ( $stat ) use ( &$expectedStats ) {
+				$this->assertArrayHasKey( $stat, $expectedStats );
+				unset( $expectedStats[$stat] );
+			} );
 		parent::testEntityIsBeingCreated_WhenValidInputIsGiven( $formData );
 	}
 
