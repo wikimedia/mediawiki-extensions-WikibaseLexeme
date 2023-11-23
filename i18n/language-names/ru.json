@@ -3,6 +3,7 @@
 		"authors": [
 			"Kareyac",
 			"Movses",
+			"Okras",
 			"Pacha Tchernof",
 			"Vlad5250"
 		]
@@ -11,7 +12,7 @@
 	"wikibase-lexeme-language-name-ctg": "Читтагонский",
 	"wikibase-lexeme-language-name-frm": "Среднефранцузский язык",
 	"wikibase-lexeme-language-name-fro": "Старофранцузский язык",
-	"wikibase-lexeme-language-name-mis": "другие",
+	"wikibase-lexeme-language-name-mis": "неподдерживаемый язык",
 	"wikibase-lexeme-language-name-nd": "Северный ндебеле",
 	"wikibase-lexeme-language-name-nr": "Южный ндебеле",
 	"wikibase-lexeme-language-name-rm-rumgr": "руманч грижун",
