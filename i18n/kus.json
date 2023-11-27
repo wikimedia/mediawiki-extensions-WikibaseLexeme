@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mozanky"
+		]
+	},
+	"datatypes-type-wikibase-form": "A-sɔb-kpɛn'ɛs gbaʋŋ",
+	"datatypes-type-wikibase-sense": "Ya'am",
+	"special-newlexeme": "Maalim lɛkzim paal",
+	"wikibase-lexeme-lemma-language-not-recognized": "Pian'ad kanɛ zaŋ tis la koot pa'a pʋ baŋɛ",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Suor mɔŋ ya",
+	"wikibase-lexeme-summary-add-form": "Paasim a-sɔb-kpɛn'ɛs gbaʋŋ paal nɛ $3 {{PLURAL:$1|representation|representations}}",
+	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|representation|representations}} a-sɔb-kpɛn'ɛs gbaʋŋ $3 paas ya",
+	"wikibase-lexeme-summary-add-sense": "Ya'am paal $3 paas ya nɛ {{PLURAL:$1|[$2] gloss l gloss}}",
+	"wikibase-lexeme-summary-add-sense-glosses": "{{PLURAL:$1|[$2] gloss| glosses}} paas ya'am $3",
+	"wikibase-lexeme-summary-remove-form": "Yiisim a-sɔb-kpɛn'ɛs gbaʋŋ $3 nɛ {{PLURAL:$1|representation | representations}}",
+	"wikibase-lexeme-summary-remove-form-representations": "Yiisim {{PLURAL:$1|representation|representations}} a-sɔb-kpɛn'ɛs gbaʋŋ $3 bas"
+}
