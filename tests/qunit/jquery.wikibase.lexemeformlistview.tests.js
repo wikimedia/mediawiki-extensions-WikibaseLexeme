@@ -18,7 +18,9 @@
 				return formViewListItemAdapter;
 			},
 			getAdder: getAdder || function () {},
-			getMessage: message || function () { return 'localize me'; }
+			getMessage: message || function () {
+				return 'localize me';
+			}
 		} );
 	};
 
