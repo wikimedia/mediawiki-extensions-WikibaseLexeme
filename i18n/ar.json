@@ -4,11 +4,13 @@
 			"BAB ZAA",
 			"Mr. Ibrahem",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Meno25",
+			"Michel Bakni"
 		]
 	},
 	"wikibaselexeme-desc": "التعامل مع نوع الكيان Lexeme",
-	"special-newlexeme": "إنشاء مفردة جديدة",
+	"special-newlexeme": "إنشاء وحدة معجمية جديدة",
 	"special-mergelexemes": "ادمج مفردتين",
 	"wikibaselexeme-deletedentity-form": "صيغة محذوفة",
 	"wikibaselexeme-deletedentity-sense": "معنى محذوف",
