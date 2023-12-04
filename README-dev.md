@@ -154,10 +154,10 @@ The following dependencies are special cases that should potentially be ignored:
   in production, we use the versions shipped by MediaWiki core,
   so we should use the same versions for testing.
   The current versions shipped by MediaWiki core are listed in [foreign-resources.yaml](https://gerrit.wikimedia.org/g/mediawiki/core/+/master/resources/lib/foreign-resources.yaml).
-- Jasmine 5 and Sinon 17:
-  both of these are not compatible with Node 16, which we still use in CI.
+- Jasmine 5 and Sinon 17 and jsdom 23:
+  all of them are declared not compatible with Node 16, which we still use in CI.
   Until [T331180](https://phabricator.wikimedia.org/T331180) is done,
-  we should use the latest versions of Jasmine 4 and Sinon 16.
+  we should use the latest versions of Jasmine 4 and Sinon 16 and jsdom 22.
 - Unexpected:
   This shows up in the `npm outdated` output due to a bad “latest” tag on npm;
   we want to be using the highest version number (currently 13.2.1),

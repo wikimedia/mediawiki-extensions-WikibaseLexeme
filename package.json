@@ -56,7 +56,7 @@
 		"sinon": "^16.1.3",
 		"stylelint-config-wikimedia": "^0.16.1",
 		"unexpected": "^13.2.1",
-		"unexpected-dom": "^6.0.0",
+		"unexpected-dom": "^6.0.1",
 		"unexpected-sinon": "^11.1.0",
 		"vue": "3.3.9",
 		"vuex": "4.0.2"
