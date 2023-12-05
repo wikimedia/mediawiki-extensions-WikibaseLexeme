@@ -4,7 +4,9 @@
 			"BAB ZAA",
 			"Mr. Ibrahem",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Meno25",
+			"Michel Bakni"
 		]
 	},
 	"content-model-wikibase-lexeme": "قاعدة الويكي للمفردة",
@@ -12,7 +14,7 @@
 	"datatypes-type-wikibase-lexeme": "مفردة",
 	"datatypes-type-wikibase-sense": "معنى",
 	"special-mergelexemes": "ادمج مفردتين",
-	"special-newlexeme": "إنشاء مفردة جديدة",
+	"special-newlexeme": "إنشاء وحدة معجمية جديدة",
 	"special-newlexeme-alpha": "إنشاء مفردة جديدة (تجريبي)",
 	"wikibase-entity-summary-wblmergelexemes-from": "دمج مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دمج المفردة إلى $3",
