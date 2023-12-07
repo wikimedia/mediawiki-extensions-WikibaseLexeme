@@ -5,7 +5,8 @@
 			"Meno25",
 			"Mr. Ibrahem",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Michel Bakni"
 		]
 	},
 	"content-model-wikibase-lexeme": "قاعدة الويكي للمفردة",
@@ -14,7 +15,7 @@
 	"datatypes-type-wikibase-sense": "معنى",
 	"nstab-lexeme": "مفردة",
 	"special-mergelexemes": "ادمج مفردتين",
-	"special-newlexeme": "إنشاء مفردة جديدة",
+	"special-newlexeme": "إنشاء وحدة معجمية جديدة",
 	"tooltip-ca-nstab-lexeme": "تعريف ليكسيم",
 	"wikibase-entity-summary-wblmergelexemes-from": "دمج مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دمج المفردة إلى $3",

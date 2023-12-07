@@ -2,16 +2,32 @@
 	"@metadata": {
 		"authors": [
 			"Lorem Ipsum",
-			"TheRukk"
+			"TheRukk",
+			"Beta16",
+			"Luca.favorido"
 		]
 	},
 	"wikibase-lexeme-language-name-bfi": "Lingua dei segni inglese",
+	"wikibase-lexeme-language-name-bzs": "Lingua dei segni brasiliana",
 	"wikibase-lexeme-language-name-de-1901": "Tedesco (prima della riforma del 1996)",
+	"wikibase-lexeme-language-name-enm": "Lingua inglese media",
+	"wikibase-lexeme-language-name-fon": "Lingua fon",
+	"wikibase-lexeme-language-name-frm": "Lingua francese media",
 	"wikibase-lexeme-language-name-fro": "Francese antico",
+	"wikibase-lexeme-language-name-gmh": "Lingua alto-tedesca media",
+	"wikibase-lexeme-language-name-goh": "Lingua alto-tedesca antica",
 	"wikibase-lexeme-language-name-gsg": "Lingua dei segni tedesca",
 	"wikibase-lexeme-language-name-ha-arab": "Hausa in caratteri arabi",
+	"wikibase-lexeme-language-name-lij-mc": "Monegasco",
 	"wikibase-lexeme-language-name-mis": "altro",
 	"wikibase-lexeme-language-name-mvf": "Mongolo periferico",
+	"wikibase-lexeme-language-name-non": "Norreno",
+	"wikibase-lexeme-language-name-nrf-je": "Dialetto jèrriais",
+	"wikibase-lexeme-language-name-rm-rumgr": "Romancio grigionese",
+	"wikibase-lexeme-language-name-rm-surmiran": "dialetto surmirano",
+	"wikibase-lexeme-language-name-rm-sursilv": "dialetto sursilvano",
+	"wikibase-lexeme-language-name-rm-sutsilv": "dialetto sottosilvano",
+	"wikibase-lexeme-language-name-rm-vallader": "dialetto basso engadinese",
 	"wikibase-lexeme-language-name-sux-latn": "Sumero in caratteri latini",
 	"wikibase-lexeme-language-name-sux-xsux": "Sumero in scrittura sumera",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon in caratteri latini",
