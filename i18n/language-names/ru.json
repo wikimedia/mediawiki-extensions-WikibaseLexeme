@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Infovarius",
 			"Kareyac",
 			"Movses",
 			"Okras",
@@ -8,13 +9,31 @@
 			"Vlad5250"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "левантийский диалект арабского",
+	"wikibase-lexeme-language-name-az-cyrl": "азербайджанский (кириллица)",
+	"wikibase-lexeme-language-name-bas": "басаа",
+	"wikibase-lexeme-language-name-bfi": "Британский язык жестов",
 	"wikibase-lexeme-language-name-bzs": "Бразильский жестовый язык",
+	"wikibase-lexeme-language-name-cak": "какчикель",
+	"wikibase-lexeme-language-name-ccp": "чакма",
+	"wikibase-lexeme-language-name-ccp-beng": "чакма (бенгальское письмо)",
 	"wikibase-lexeme-language-name-ctg": "Читтагонский",
 	"wikibase-lexeme-language-name-frm": "Среднефранцузский язык",
 	"wikibase-lexeme-language-name-fro": "Старофранцузский язык",
+	"wikibase-lexeme-language-name-gmh": "средневерхненемецкий",
+	"wikibase-lexeme-language-name-ja-hira": "японский (хирагана)",
+	"wikibase-lexeme-language-name-ja-hrkt": "японский (кана)",
+	"wikibase-lexeme-language-name-ja-kana": "японский (катакана)",
+	"wikibase-lexeme-language-name-lad-hebr": "ладино (ивритское письмо)",
+	"wikibase-lexeme-language-name-lij-mc": "монегаскский",
 	"wikibase-lexeme-language-name-mis": "неподдерживаемый язык",
+	"wikibase-lexeme-language-name-mvf": "периферийный монгольский",
 	"wikibase-lexeme-language-name-nd": "Северный ндебеле",
+	"wikibase-lexeme-language-name-nn-hognorsk": "хёгнорск",
+	"wikibase-lexeme-language-name-non": "древнескандинавский",
+	"wikibase-lexeme-language-name-non-runr": "древнескандинавское (руническое письмо)",
 	"wikibase-lexeme-language-name-nr": "Южный ндебеле",
+	"wikibase-lexeme-language-name-nrf-gg": "гернесский",
 	"wikibase-lexeme-language-name-rm-rumgr": "руманч грижун",
 	"wikibase-lexeme-language-name-rm-surmiran": "сурмиранский"
 }
