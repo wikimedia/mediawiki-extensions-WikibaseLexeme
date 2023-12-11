@@ -21,8 +21,8 @@ use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeTermLanguages;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Store\Store;
@@ -136,7 +136,7 @@ class WikibaseLexemeServices {
 
 	public static function getTermLanguages(
 		ContainerInterface $services = null
-	): LexemeTermLanguages {
+	): ContentLanguages {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexemeTermLanguages' );
 	}
