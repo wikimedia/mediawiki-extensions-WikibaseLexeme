@@ -34,6 +34,11 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 	private $helper;
 
 	/**
+	 * @var InMemoryEntityLookup
+	 */
+	private $lookup;
+
+	/**
 	 * @var RdfBuilderTestData|null
 	 */
 	private $testData = null;

@@ -39,6 +39,11 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	private $revisionLookup;
 
 	/**
+	 * @var LabelDescriptionLookup|MockObject
+	 */
+	private $labelLookup;
+
+	/**
 	 * @var EntityTitleLookup|MockObject
 	 */
 	private $titleLookup;
