@@ -15,7 +15,8 @@
 			"Jackiezelaya",
 			"Juan t2905",
 			"Mpayansilva",
-			"No se"
+			"No se",
+			"McDutchie"
 		]
 	},
 	"wikibaselexeme-desc": "Gestión del tipo de entidad Lexema",
@@ -53,6 +54,7 @@
 	"wikibaselexeme-add-sense": "añadir acepción",
 	"wikibaselexeme-add-form": "añadir forma",
 	"wikibase-lexeme-summary-add-form": "Se añadió la forma nueva $3 con {{PLURAL:$1|representación|representaciones}}",
+	"wikibase-lexeme-summary-add-sense": "Agregado nuevo sentido $3 con {{PLURAL:$1|[$2] glosa|glosas}}",
 	"wikibaselexeme-field-language-label": "Idioma",
 	"wikibaselexeme-field-lexical-category-label": "Categoría léxica",
 	"wikibaselexeme-diffview-lemma": "Lema",
