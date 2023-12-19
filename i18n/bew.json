@@ -14,7 +14,7 @@
 	"wikibase-entity-summary-wblmergelexemes-to": "Nggabregin lèksim ke $3",
 	"wikibase-lexeme-gloss-empty": "Kaga' ada padanan nyang dita'rip",
 	"wikibase-lexeme-lemma-language-not-recognized": "Kode basa nyang dikasiin kaga' dikenalin.",
-	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal muat Lèksim.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal munggah Lèksim.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu. Kengabluan: Lèksim ada punya Bentuk Kanun nyang bèda bakal ragem èjaan nyang sama.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu. Kengabluan: Lèksim pada sili sènggèt-sènggètan di pernyataan.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu.",
