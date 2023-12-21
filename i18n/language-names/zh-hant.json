@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Kly",
+			"SunAfterRain",
 			"Winston Sung"
 		]
 	},
@@ -30,14 +31,14 @@
 	"wikibase-lexeme-language-name-ja-hira": "日語（平假名文字）",
 	"wikibase-lexeme-language-name-ja-hrkt": "日語（假名文字）",
 	"wikibase-lexeme-language-name-ja-kana": "日語（片假名文字）",
-	"wikibase-lexeme-language-name-lad-hebr": "使用希伯來字母的猶太西班牙語",
+	"wikibase-lexeme-language-name-lad-hebr": "拉迪諾語（希伯來文字）",
 	"wikibase-lexeme-language-name-lij-mc": "摩納哥語",
 	"wikibase-lexeme-language-name-mis": "不支援的語言",
 	"wikibase-lexeme-language-name-mvf": "周邊蒙古語",
 	"wikibase-lexeme-language-name-nd": "北恩德貝萊語",
 	"wikibase-lexeme-language-name-nn-hognorsk": "高地挪威語",
 	"wikibase-lexeme-language-name-non": "古諾斯語",
-	"wikibase-lexeme-language-name-non-runr": "使用盧恩字母的古諾斯語",
+	"wikibase-lexeme-language-name-non-runr": "古挪威語（盧恩文字）",
 	"wikibase-lexeme-language-name-nr": "南恩德貝萊語",
 	"wikibase-lexeme-language-name-nrf-gg": "根西語",
 	"wikibase-lexeme-language-name-nrf-je": "澤西語",
