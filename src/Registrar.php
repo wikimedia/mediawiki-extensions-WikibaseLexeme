@@ -119,6 +119,7 @@ class Registrar {
 			'services' => [
 				'LinkRenderer',
 				'StatsdDataFactory',
+				'WikibaseRepo.AnonymousEditWarningBuilder',
 				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityNamespaceLookup',
 				'WikibaseRepo.EntityTitleStoreLookup',
@@ -138,6 +139,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Specials\SpecialMergeLexemes::factory',
 			'services' => [
 				'PermissionManager',
+				'WikibaseRepo.AnonymousEditWarningBuilder',
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.ExceptionLocalizer',
 				'WikibaseRepo.Settings',

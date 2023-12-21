@@ -82,6 +82,7 @@ class SpecialNewLexeme extends SpecialPage {
 	private $validatorErrorLocalizer;
 	private $lemmaTermValidator;
 	private $copyrightView;
+	private AnonymousEditWarningBuilder $anonymousEditWarningBuilder;
 
 	public function __construct(
 		array $tags,
@@ -97,7 +98,8 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityIdFormatterFactory $entityIdFormatterFactory,
 		FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
-		LemmaTermValidator $lemmaTermValidator
+		LemmaTermValidator $lemmaTermValidator,
+		AnonymousEditWarningBuilder $anonymousEditWarningBuilder
 	) {
 		parent::__construct(
 			'NewLexeme',
@@ -118,11 +120,13 @@ class SpecialNewLexeme extends SpecialPage {
 		$this->validatorErrorLocalizer = $validatorErrorLocalizer;
 		$this->lemmaTermValidator = $lemmaTermValidator;
 		$this->copyrightView = $copyrightView;
+		$this->anonymousEditWarningBuilder = $anonymousEditWarningBuilder;
 	}
 
 	public static function factory(
 		LinkRenderer $linkRenderer,
 		StatsdDataFactoryInterface $statsDataFactory,
+		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -155,7 +159,8 @@ class SpecialNewLexeme extends SpecialPage {
 			$entityIdFormatterFactory,
 			$labelDescriptionLookupFactory,
 			$validatorErrorLocalizer,
-			$lemmaTermValidator
+			$lemmaTermValidator,
+			$anonymousEditWarningBuilder
 		);
 	}
 
@@ -680,13 +685,10 @@ class SpecialNewLexeme extends SpecialPage {
 
 		if ( !$this->getUser()->isRegistered() ) {
 			$fullTitle = $this->getPageTitle();
-			$anonymousEditWarningBuilder = new AnonymousEditWarningBuilder(
-				$this->getSpecialPageFactory()
-			);
 			$messageSpan = Html::rawElement(
 				'span',
 				[ 'class' => 'warning' ],
-				$anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
+				$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
 			);
 			return '<noscript>
 				<div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'
