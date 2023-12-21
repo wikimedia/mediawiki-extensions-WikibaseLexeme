@@ -97,7 +97,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory(),
 			WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 			WikibaseRepo::getValidatorErrorLocalizer(),
-			WikibaseLexemeServices::getLemmaTermValidator()
+			WikibaseLexemeServices::getLemmaTermValidator(),
+			WikibaseRepo::getAnonymousEditWarningBuilder(),
 		);
 	}
 

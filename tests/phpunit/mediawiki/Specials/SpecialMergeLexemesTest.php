@@ -23,6 +23,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\EntityTitleLookup;
+use Wikibase\Repo\AnonymousEditWarningBuilder;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -58,6 +59,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 
 	/** @var PermissionManager */
 	private $permissionManager;
+	private AnonymousEditWarningBuilder $anonymousEditWarningBuilder;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -72,6 +74,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		$this->titleLookup = WikibaseRepo::getEntityTitleLookup( $mwServices );
 		$this->exceptionLocalizer = $this->createMock( ExceptionLocalizer::class );
 		$this->permissionManager = $mwServices->getPermissionManager();
+		$this->anonymousEditWarningBuilder = WikibaseRepo::getAnonymousEditWarningBuilder();
 	}
 
 	public function testSpecialMergeLexemesContainsInputFields() {
@@ -223,7 +226,8 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 			$this->mergeInteractor,
 			$this->titleLookup,
 			$this->exceptionLocalizer,
-			$this->permissionManager
+			$this->permissionManager,
+			$this->anonymousEditWarningBuilder
 		);
 	}
 

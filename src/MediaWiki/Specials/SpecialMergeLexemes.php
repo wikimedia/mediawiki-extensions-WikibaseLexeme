@@ -42,12 +42,15 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	private PermissionManager $permissionManager;
 
+	private AnonymousEditWarningBuilder $anonymousEditWarningBuilder;
+
 	public function __construct(
 		array $tags,
 		MergeLexemesInteractor $mergeInteractor,
 		EntityTitleLookup $titleLookup,
 		ExceptionLocalizer $exceptionLocalizer,
-		PermissionManager $permissionManager
+		PermissionManager $permissionManager,
+		AnonymousEditWarningBuilder $anonymousEditWarningBuilder
 	) {
 		parent::__construct( 'MergeLexemes', 'item-merge' );
 		$this->tags = $tags;
@@ -55,6 +58,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->titleLookup = $titleLookup;
 		$this->exceptionLocalizer = $exceptionLocalizer;
 		$this->permissionManager = $permissionManager;
+		$this->anonymousEditWarningBuilder = $anonymousEditWarningBuilder;
 	}
 
 	/** @inheritDoc */
@@ -100,6 +104,7 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	public static function factory(
 		PermissionManager $permissionManager,
+		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		EntityTitleLookup $entityTitleLookup,
 		ExceptionLocalizer $exceptionLocalizer,
 		SettingsArray $repoSettings
@@ -109,7 +114,8 @@ class SpecialMergeLexemes extends SpecialPage {
 			WikibaseLexemeServices::newInstance()->newMergeLexemesInteractor(),
 			$entityTitleLookup,
 			$exceptionLocalizer,
-			$permissionManager
+			$permissionManager,
+			$anonymousEditWarningBuilder
 		);
 	}
 
@@ -149,13 +155,10 @@ class SpecialMergeLexemes extends SpecialPage {
 	private function anonymousEditWarning(): string {
 		if ( !$this->getUser()->isRegistered() ) {
 			$fullTitle = $this->getPageTitle();
-			$anonymousEditWarningBuilder = new AnonymousEditWarningBuilder(
-				$this->getSpecialPageFactory()
-			);
 			return Html::rawElement(
 				'p',
 				[ 'class' => 'warning' ],
-				$anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
+				$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
 			);
 		}
 
