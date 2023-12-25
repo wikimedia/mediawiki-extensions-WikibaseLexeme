@@ -97,7 +97,7 @@
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu. Kengabluan: Lèksim pada sili sènggèt-sènggètan di pernyataan.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu. Kengabluan: Lèksim ada punya bèda basa.",
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu. Kengabluan: Lèksim ada punya katègori lèksikal bèda.",
-	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal muat Lèksim.",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal munggah Lèksim.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Gagal nyimpen Lèksim.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Gagal nggabregin Lèksim, padol dah, seleséin bentrok dulu.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Ijin ditolak.",

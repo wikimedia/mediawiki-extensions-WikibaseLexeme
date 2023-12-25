@@ -8,7 +8,8 @@
 			"আফতাবুজ্জামান",
 			"Bodhisattwa",
 			"R4356th",
-			"Yahya"
+			"Yahya",
+			"Aishik Rehman"
 		]
 	},
 	"special-newlexeme": "নতুন লেক্সিম তৈরি করুন",
@@ -25,7 +26,7 @@
 	"wikibaselexeme-header-forms": "রূপ",
 	"wikibaselexeme-statementsection-statements-about-sense": "$1 সম্পর্কে বিবৃতি",
 	"wikibaselexeme-header-senses": "অর্থ",
-	"wikibase-lexeme-gloss-empty": "কোন টীকা সংজ্ঞায়িত করা হয়নি",
+	"wikibase-lexeme-gloss-empty": "কোনো টীকা সংজ্ঞায়িত করা হয়নি",
 	"wikibaselexeme-lemma-field-lemma-label": "লেমা",
 	"wikibaselexeme-lemma-field-language-label": "বিকল্প বানান",
 	"wikibaselexeme-form-field-language-label": "বানানের বৈকল্পিক",
