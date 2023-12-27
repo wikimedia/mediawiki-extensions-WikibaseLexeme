@@ -119,6 +119,7 @@ class Registrar {
 			'services' => [
 				'LinkRenderer',
 				'StatsdDataFactory',
+				'TempUserConfig',
 				'WikibaseRepo.AnonymousEditWarningBuilder',
 				'WikibaseRepo.EditEntityFactory',
 				'WikibaseRepo.EntityNamespaceLookup',

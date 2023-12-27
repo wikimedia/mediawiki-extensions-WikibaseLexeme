@@ -327,6 +327,7 @@ return call_user_func( static function () {
 				"wikibaselexeme-newlexeme-submit",
 				"wikibaselexeme-newlexeme-submitting",
 				"wikibase-anonymouseditwarning",
+				"wikibase-anonymouseditnotificationtempuser",
 				"wikibase-entityselector-notfound",
 				"wikibase-shortcopyrightwarning",
 				"wikibaselexeme-newlexeme-submit-error",
