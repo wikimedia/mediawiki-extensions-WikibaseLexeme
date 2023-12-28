@@ -8,7 +8,8 @@
 			"R4356th",
 			"Rasal Lia",
 			"Yahya",
-			"আফতাবুজ্জামান"
+			"আফতাবুজ্জামান",
+			"Aishik Rehman"
 		]
 	},
 	"content-model-wikibase-lexeme": "উইকিবেস লেক্সেম",
@@ -19,7 +20,7 @@
 	"special-mergelexemes": "দুটি লেক্সিম একত্রিত করুন",
 	"special-newlexeme": "নতুন লেক্সিম তৈরি করুন",
 	"tooltip-ca-nstab-lexeme": "লেক্সিমের সংজ্ঞা",
-	"wikibase-lexeme-gloss-empty": "কোন টীকা সংজ্ঞায়িত করা হয়নি",
+	"wikibase-lexeme-gloss-empty": "কোনো টীকা সংজ্ঞায়িত করা হয়নি",
 	"wikibase-lexeme-lemma-language-not-recognized": "সরবরাহকৃত ভাষা কোড চেনা যায়নি।",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "অনুমতি প্রত্যাখ্যাত হয়েছে।",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "একটি নতুন রূপ যুক্ত হয়েছে",
