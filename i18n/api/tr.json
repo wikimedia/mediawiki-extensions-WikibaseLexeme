@@ -4,7 +4,8 @@
 			"BaRaN6161 TURK",
 			"Incelemeelemani",
 			"Joseph",
-			"Sezgin İbiş"
+			"Sezgin İbiş",
+			"Hedda"
 		]
 	},
 	"apihelp-wbladdform-summary": "Sözlükbirime Formları Ekle",
@@ -21,7 +22,7 @@
 	"apihelp-wbleditformelements-param-formId": "Formun Kimliği, ör. L10-F2",
 	"apihelp-wbleditformelements-param-data": "JSON kodlu gösterim ve gramer özellik verileri",
 	"apihelp-wbleditformelements-param-bot": "Bu düzenlemeyi bot olarak işaretleyin. Bu URL işaretine yalnızca kullanıcı \"{{int:group-bot}}\" grubuna aitse saygı gösterilir.",
-	"apihelp-wbleditformelements-param-baserevid": "Form öğelerinin çakışma denetimini düzenlemesi isteniyorsa Sözcükbirimin Temel Revizyon Kimliği.",
+	"apihelp-wbleditformelements-param-baserevid": "Sözlükbirimin Temel Revizyon Kimliği, eğer form ögeleri düzenleme çakışması kontrolü isteniyorsa.",
 	"apihelp-wbleditformelements-example-1": "<samp>$3</samp> dillerinde sırasıyla <samp>$2</samp> temsillerine ve <samp>$4</samp> dil bilgisine sahip olmak için Formu <samp>$1</samp> kimliğiyle düzenler.",
 	"apihelp-wbladdsense-summary": "Bir Sözcükbirimi bir Anlam Ekler",
 	"apihelp-wbladdsense-param-lexemeId": "Sözcükbirimin kimliği, ör. L10",
@@ -37,7 +38,7 @@
 	"apihelp-wbleditsenseelements-param-senseId": "Anlamın kimliği, ör. L10-S2",
 	"apihelp-wbleditsenseelements-param-data": "JSON kodlu parlaklık verileri",
 	"apihelp-wbleditsenseelements-param-bot": "Bu düzenlemeyi bot olarak işaretleyin. Bu URL işaretine yalnızca kullanıcı \"{{int:group-bot}}\" grubuna aitse saygı gösterilir.",
-	"apihelp-wbleditsenseelements-param-baserevid": "Sözcükbirimi Temel Revizyon Kimliği, algılama öğeleri düzenleme çakışması denetimini istiyorsa.",
+	"apihelp-wbleditsenseelements-param-baserevid": "Düzenleme çakışması kontrolü istenirse Sözlükbirimin Temel Revizyon Kimliği.",
 	"apihelp-wbleditsenseelements-example-1": "Anlamını <samp>$3</samp> dillerinde sırasıyla <samp>$2</samp> kimliğine sahip olacak şekilde <samp>$1</samp> kimliğiyle düzenler.",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "Bir sözlükbilimsel varlığın terimleri (bir sözlükteki lemmalar, bir formun gösterimleri veya bir duyunun parlaması).",
 	"apihelp-wblmergelexemes-description": "İki Sözlükbirimi birleştirir.",
@@ -53,7 +54,7 @@
 	"apierror-wikibaselexeme-form-not-found": "\"$1\" alanı, \"$2\" adlı Formun kimliğini içerdiğini bulunamadı.",
 	"apierror-wikibaselexeme-sense-not-found": "\"$1\" alanı, \"$2\" adlı Anlamın kimliğini içerdiğini bulunamadı.",
 	"apierror-wikibaselexeme-json-field-required": "\"$1\" parametresinde \"$2\" içinde \"$3\" alanı zorunludur",
-	"apierror-wikibaselexeme-json-field-not-item-id": "\"$1\" parametresindeki \"$2\" alanının bir Öğe Kimliği olması bekleniyor. Verilen: \"$3\"",
+	"apierror-wikibaselexeme-json-field-not-item-id": "\"$1\" parametresindeki \"$2\" alanının bir Öge Kimliği olması bekleniyor. Verilen: \"$3\"",
 	"apierror-wikibaselexeme-json-field-has-wrong-type": "\"$1\" parametresinde ki \"$2\" alanının \"$3\" türünde olması bekleniyor. Verilen: \"$4\"",
 	"apierror-wikibaselexeme-parameter-not-lexeme-id": "\"$1\" parametresinin bir Sözcükbirimi kimliği olması bekleniyor. Verilen: \"$2\"",
 	"apierror-wikibaselexeme-parameter-not-form-id": "\"$1\" parametresinde ki \"$2\" alanının Form Kimliği olması bekleniyor. Verilen: \"$3\"",
@@ -64,6 +65,6 @@
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Formun en az bir temsili olmalıdır",
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "Sense en az bir parlaklığa sahip olmalıdır",
 	"apierror-wikibaselexeme-unknown-language": "\"$2\" altında \"$1\" alanında bilinmeyen dil \"$3\".",
-	"apierror-wikibaselexeme-invalid-item-id": "\"$2\" altında \"$1\" alanında \"$3\" geçersiz öğe kimliği.",
+	"apierror-wikibaselexeme-invalid-item-id": "\"$2\" altında \"$1\" alanında \"$3\" geçersiz öge kimliği.",
 	"apierror-wikibaselexeme-invalid-form-claims": "\"$2\" altındaki \"$1\" alanında geçersiz talep."
 }
