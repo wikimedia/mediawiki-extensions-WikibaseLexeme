@@ -11,6 +11,7 @@ use LanguageCode;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Linker\LinkRenderer;
+use MediaWiki\User\TempUser\TempUserConfig;
 use Message;
 use OOUI\IconWidget;
 use SpecialPage;
@@ -83,6 +84,7 @@ class SpecialNewLexeme extends SpecialPage {
 	private $lemmaTermValidator;
 	private $copyrightView;
 	private AnonymousEditWarningBuilder $anonymousEditWarningBuilder;
+	private TempUserConfig $tempUserConfig;
 
 	public function __construct(
 		array $tags,
@@ -99,7 +101,8 @@ class SpecialNewLexeme extends SpecialPage {
 		FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
 		LemmaTermValidator $lemmaTermValidator,
-		AnonymousEditWarningBuilder $anonymousEditWarningBuilder
+		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
+		TempUserConfig $tempUserConfig
 	) {
 		parent::__construct(
 			'NewLexeme',
@@ -121,11 +124,13 @@ class SpecialNewLexeme extends SpecialPage {
 		$this->lemmaTermValidator = $lemmaTermValidator;
 		$this->copyrightView = $copyrightView;
 		$this->anonymousEditWarningBuilder = $anonymousEditWarningBuilder;
+		$this->tempUserConfig = $tempUserConfig;
 	}
 
 	public static function factory(
 		LinkRenderer $linkRenderer,
 		StatsdDataFactoryInterface $statsDataFactory,
+		TempUserConfig $tempUserConfig,
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
@@ -160,7 +165,8 @@ class SpecialNewLexeme extends SpecialPage {
 			$labelDescriptionLookupFactory,
 			$validatorErrorLocalizer,
 			$lemmaTermValidator,
-			$anonymousEditWarningBuilder
+			$anonymousEditWarningBuilder,
+			$tempUserConfig
 		);
 	}
 
@@ -240,6 +246,9 @@ class SpecialNewLexeme extends SpecialPage {
 		$output->addJsConfigVars(
 			'wblSpecialNewLexemeLexicalCategorySuggestions',
 			$this->getLexicalCategorySuggestions()
+		);
+		$output->addJsConfigVars( 'wblSpecialNewLexemeTempUserEnabled',
+			$this->tempUserConfig->isEnabled()
 		);
 		$output->addJSConfigVars(
 			'wblSpecialNewLexemeExampleData',

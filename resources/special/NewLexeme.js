@@ -21,6 +21,7 @@
 		{
 			rootSelector: '#special-newlexeme-root',
 			isAnonymous: mw.user.isAnon(),
+			tempUserEnabled: mw.config.get( 'wblSpecialNewLexemeTempUserEnabled' ),
 			licenseUrl: settings.licenseUrl,
 			licenseName: settings.licenseText,
 			tags: settings.tags,

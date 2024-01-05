@@ -11,6 +11,7 @@ use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Title\Title;
+use MediaWiki\User\TempUser\TempUserConfig;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
@@ -82,6 +83,10 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	protected function newSpecialPage(): SpecialNewLexeme {
 		$summaryFormatter = $this->getMockSummaryFormatter();
+		$tempUserConfig = $this->createMock( TempUserConfig::class );
+		$tempUserConfig->expects( $this->atMost( 1 ) )
+			->method( 'isEnabled' )
+			->willReturn( false );
 
 		return new SpecialNewLexeme(
 			self::TAGS,
@@ -99,6 +104,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getValidatorErrorLocalizer(),
 			WikibaseLexemeServices::getLemmaTermValidator(),
 			WikibaseRepo::getAnonymousEditWarningBuilder(),
+			$tempUserConfig
 		);
 	}
 
