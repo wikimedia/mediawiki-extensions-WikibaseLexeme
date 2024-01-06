@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Deserializers\Deserializer;
-use Status;
+use MediaWiki\Status\Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -213,7 +213,7 @@ class EditSenseElements extends \ApiBase {
 	 * @param string $summary
 	 * @param int $baseRevisionId
 	 * @param array $params
-	 * @return \Status
+	 * @return Status
 	 */
 	private function saveSense(
 		Sense $sense,

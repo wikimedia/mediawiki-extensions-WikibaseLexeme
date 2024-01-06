@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\Languages\LanguageFactory;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;

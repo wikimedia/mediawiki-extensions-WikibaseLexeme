@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Title\Title;
 use OutOfRangeException;

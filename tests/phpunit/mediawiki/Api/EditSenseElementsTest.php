@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
 use MediaWiki\MediaWikiServices;
-use User;
+use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;

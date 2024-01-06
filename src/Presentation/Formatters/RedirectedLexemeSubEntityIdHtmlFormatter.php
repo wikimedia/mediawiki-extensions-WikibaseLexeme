@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
-use Html;
 use InvalidArgumentException;
+use MediaWiki\Html\Html;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;

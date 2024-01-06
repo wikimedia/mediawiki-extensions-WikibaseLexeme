@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Request\FauxResponse;
-use SpecialPage;
+use MediaWiki\SpecialPage\SpecialPage;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;

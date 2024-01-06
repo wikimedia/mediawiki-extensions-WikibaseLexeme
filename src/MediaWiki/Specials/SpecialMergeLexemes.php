@@ -5,12 +5,12 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
-use Html;
 use HTMLForm;
 use InvalidArgumentException;
+use MediaWiki\Html\Html;
 use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\SpecialPage\SpecialPage;
 use Message;
-use SpecialPage;
 use UserBlockedError;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;

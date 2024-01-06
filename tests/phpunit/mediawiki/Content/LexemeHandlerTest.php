@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
+use MediaWiki\Parser\ParserOutput;
 use MediaWiki\Title\Title;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
@@ -198,7 +199,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 
 		$page = $this->getMockWikiPage( $handler );
 
-		$data = $handler->getDataForSearchIndex( $page, new \ParserOutput(), $engine );
+		$data = $handler->getDataForSearchIndex( $page, new ParserOutput(), $engine );
 		$this->assertSame( LexemeContent::CONTENT_MODEL_ID, $data['content_model'], 'content_model' );
 	}
 

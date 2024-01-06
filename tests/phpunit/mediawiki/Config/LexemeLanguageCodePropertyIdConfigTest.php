@@ -2,12 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Config;
 
-use HashConfig;
+use MediaWiki\Config\HashConfig;
+use MediaWiki\Request\WebRequest;
 use MediaWiki\ResourceLoader\Context;
+use MediaWiki\ResourceLoader\ResourceLoader;
 use MediaWikiIntegrationTestCase;
-use ResourceLoader;
-use ResourceLoaderContext;
-use WebRequest;
 use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
 
 /**
@@ -18,7 +17,7 @@ use Wikibase\Lexeme\MediaWiki\Config\LexemeLanguageCodePropertyIdConfig;
 class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCase {
 
 	private function newRLContext(): Context {
-		return new ResourceLoaderContext(
+		return new Context(
 			$this->createMock( ResourceLoader::class ),
 			$this->createMock( WebRequest::class )
 		);

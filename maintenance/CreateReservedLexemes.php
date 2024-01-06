@@ -3,6 +3,7 @@
 namespace Wikibase;
 
 use Maintenance;
+use MediaWiki\User\User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -38,7 +39,7 @@ class CreateReservedLexemes extends Maintenance {
 	}
 
 	public function execute() {
-		$user = \User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
+		$user = User::newSystemUser( 'Maintenance script', [ 'steal' => true ] );
 		$store = WikibaseRepo::getEntityStore();
 
 		if ( !WikibaseSettings::isRepoEnabled() ) {

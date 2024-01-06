@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
+use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Repo\Store\EntityPermissionChecker;
@@ -15,9 +16,9 @@ class MediaWikiLexemeAuthorizer implements LexemeAuthorizer {
 	private $permissionChecker;
 
 	/**
-	 * @param \User $user
+	 * @param User $user
 	 */
-	public function __construct( \User $user, EntityPermissionChecker $permissionChecker ) {
+	public function __construct( User $user, EntityPermissionChecker $permissionChecker ) {
 		$this->user = $user;
 		$this->permissionChecker = $permissionChecker;
 	}

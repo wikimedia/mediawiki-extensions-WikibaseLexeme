@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use ApiUsageException;
-use Status;
+use MediaWiki\Status\Status;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 
 /**

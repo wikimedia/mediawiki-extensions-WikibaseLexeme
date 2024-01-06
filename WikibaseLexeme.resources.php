@@ -6,6 +6,7 @@
  */
 
 use MediaWiki\MediaWikiServices;
+use MediaWiki\ResourceLoader\Context;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Presentation\View\TemplateModule;
 use Wikibase\Lexeme\WikibaseLexemeServices;
@@ -268,7 +269,7 @@ return call_user_func( static function () {
 				],
 				[
 					'name' => 'special/languageNames.json',
-					'callback' => static function ( ResourceLoaderContext $context ) {
+					'callback' => static function ( Context $context ) {
 						$services = MediaWikiServices::getInstance();
 						$cache = $services->getLocalServerObjectCache();
 

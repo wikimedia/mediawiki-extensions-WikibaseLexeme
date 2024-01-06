@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
-use Status;
+use MediaWiki\Status\Status;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Serializers\SerializerFactory;
@@ -191,7 +191,7 @@ class EditFormElements extends \ApiBase {
 	 * @param string $summary
 	 * @param int $baseRevisionId
 	 * @param array $params
-	 * @return \Status
+	 * @return Status
 	 */
 	private function saveForm(
 		Form $form,

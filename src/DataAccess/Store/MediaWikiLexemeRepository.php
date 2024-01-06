@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use MediaWiki\Permissions\PermissionManager;
+use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
@@ -28,7 +29,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	private $permissionManager;
 
 	/**
-	 * @param \User $user
+	 * @param User $user
 	 * @param bool $botEditRequested Whether the user has requested that edits be marked as bot edits.
 	 * Ignored if the user does not have the 'bot' right.
 	 * @param EntityStore $entityStore Needs to be able to save Lexeme entities
@@ -36,7 +37,7 @@ class MediaWikiLexemeRepository implements LexemeRepository {
 	 * @param PermissionManager $permissionManager
 	 */
 	public function __construct(
-		\User $user,
+		User $user,
 		bool $botEditRequested,
 		array $tags,
 		EntityStore $entityStore,

@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;

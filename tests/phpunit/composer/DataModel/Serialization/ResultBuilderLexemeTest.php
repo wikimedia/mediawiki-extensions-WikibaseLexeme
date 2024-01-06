@@ -3,6 +3,8 @@
 use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Site\HashSiteStore;
+use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\NumericPropertyId;

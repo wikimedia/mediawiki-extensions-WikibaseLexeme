@@ -2,10 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
+use MediaWiki\User\User;
 use PHPUnit\Framework\MockObject\Matcher\InvokedCount;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
-use User;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\Lexeme\DataAccess\Store\SenseStore;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
