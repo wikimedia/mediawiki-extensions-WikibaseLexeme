@@ -60,8 +60,6 @@
 			@icon-path: '@{wb-ooui-icon-path}/@{image}';
 			/* @embed */
 			background-image: url( @icon-path );
-			/* @embed */
-			background-image: linear-gradient( transparent, transparent ), url( @icon-path );
 			opacity: 0.7;
 		}
 
@@ -91,17 +89,17 @@
 
 	&_edit {
 		.button-displayed-as-link;
-		.prepend-with-wikibase-ooui-icon( 'edit.png' );
+		.prepend-with-wikibase-ooui-icon( 'edit.svg' );
 	}
 
 	&_save {
 		.button-displayed-as-link;
-		.prepend-with-wikibase-ooui-icon( 'check.png' );
+		.prepend-with-wikibase-ooui-icon( 'check.svg' );
 	}
 
 	&_cancel {
 		.button-displayed-as-link;
-		.prepend-with-wikibase-ooui-icon( 'close.png' );
+		.prepend-with-wikibase-ooui-icon( 'close.svg' );
 	}
 
 	&_lemma-edit-box {
