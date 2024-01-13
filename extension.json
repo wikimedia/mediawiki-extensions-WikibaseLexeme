@@ -80,7 +80,6 @@
 			"tests/qunit/view/ControllerViewFactory.tests.js",
 			"tests/qunit/view/ViewFactoryFactory.tests.js"
 		],
-		"es6": true,
 		"dependencies": [
 			"mediawiki.widgets",
 			"oojs-ui-core",
