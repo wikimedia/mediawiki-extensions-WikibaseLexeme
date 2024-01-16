@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\MergeLexemes;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Store\Store;
@@ -246,7 +247,8 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			self::API_ACTION,
 			function () {
 				return $this->createMock( ApiErrorReporter::class );
-			}
+			},
+			WikibaseLexemeServices::getMergeLexemesInteractor()
 		);
 	}
 

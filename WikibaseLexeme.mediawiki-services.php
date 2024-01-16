@@ -3,10 +3,21 @@
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
+use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
+use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
+use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
@@ -19,6 +30,7 @@ use Wikibase\Lib\Store\WikiPageItemOrderProvider;
 use Wikibase\Lib\UnionContentLanguages;
 use Wikibase\Lib\WikibaseContentLanguages;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
@@ -187,6 +199,73 @@ return call_user_func( static function () {
 			);
 
 			return $grammaticalFeaturesOrderProvider;
+		},
+		'WikibaseLexemeMergeLexemesInteractor' => static function (
+			MediaWikiServices $mediaWikiServices
+		): MergeLexemesInteractor {
+			// this service wiring creates quite a few intermediate services,
+			// which so far haven’t been needed as separate services;
+			// there’s no particular reason against extracting them either, though,
+			// if that’s needed in future :)
+
+			$baseExtractor = new StatementEntityReferenceExtractor(
+				WikibaseRepo::getItemUrlParser( $mediaWikiServices )
+			);
+			$noCrossReferencingLexemeStatements = new NoCrossReferencingLexemeStatements(
+				new LexemeStatementEntityReferenceExtractor(
+					$baseExtractor,
+					new FormsStatementEntityReferenceExtractor( $baseExtractor ),
+					new SensesStatementEntityReferenceExtractor( $baseExtractor )
+				)
+			);
+
+			$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider( $mediaWikiServices )
+				->getMergeFactory()
+				->getStatementsMerger();
+			$guidGenerator = new GuidGenerator();
+			$lexemeMerger = new LexemeMerger(
+				$statementsMerger,
+				new LexemeFormsMerger(
+					$statementsMerger,
+					$guidGenerator
+				),
+				new LexemeSensesMerger(
+					$guidGenerator
+				),
+				$noCrossReferencingLexemeStatements
+			);
+
+			$entityPermissionChecker = WikibaseRepo::getEntityPermissionChecker( $mediaWikiServices );
+
+			$store = WikibaseRepo::getStore( $mediaWikiServices );
+			$entityStore = WikibaseRepo::getEntityStore( $mediaWikiServices );
+			$summaryFormatter = WikibaseRepo::getSummaryFormatter( $mediaWikiServices );
+			$entityTitleStoreLookup = WikibaseRepo::getEntityTitleStoreLookup( $mediaWikiServices );
+			$lexemeRedirectorFactory = new MediaWikiLexemeRedirectorFactory(
+				$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
+				$entityStore,
+				$entityPermissionChecker,
+				$summaryFormatter,
+				WikibaseRepo::getEditFilterHookRunner( $mediaWikiServices ),
+				$store->getEntityRedirectLookup(),
+				$entityTitleStoreLookup
+			);
+
+			$lexemeRepositoryFactory = new MediaWikiLexemeRepositoryFactory(
+				$entityStore,
+				WikibaseRepo::getEntityRevisionLookup( $mediaWikiServices ),
+				$mediaWikiServices->getPermissionManager()
+			);
+
+			return new MergeLexemesInteractor(
+				$lexemeMerger,
+				$summaryFormatter,
+				$lexemeRedirectorFactory,
+				$entityPermissionChecker,
+				$entityTitleStoreLookup,
+				$mediaWikiServices->getWatchedItemStore(),
+				$lexemeRepositoryFactory
+			);
 		},
 	];
 } );

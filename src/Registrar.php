@@ -110,6 +110,7 @@ class Registrar {
 			'factory' => 'Wikibase\Lexeme\MediaWiki\Api\MergeLexemes::factory',
 			'services' => [
 				'WikibaseRepo.ApiHelperFactory',
+				'WikibaseLexemeMergeLexemesInteractor',
 			],
 		];
 
@@ -144,6 +145,7 @@ class Registrar {
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.ExceptionLocalizer',
 				'WikibaseRepo.Settings',
+				'WikibaseLexemeMergeLexemesInteractor',
 			],
 		];
 

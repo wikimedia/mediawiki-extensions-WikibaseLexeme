@@ -15,7 +15,6 @@ use UserBlockedError;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
-use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\AnonymousEditWarningBuilder;
@@ -107,11 +106,12 @@ class SpecialMergeLexemes extends SpecialPage {
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		EntityTitleLookup $entityTitleLookup,
 		ExceptionLocalizer $exceptionLocalizer,
-		SettingsArray $repoSettings
+		SettingsArray $repoSettings,
+		MergeLexemesInteractor $mergeLexemesInteractor
 	): self {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
-			WikibaseLexemeServices::newInstance()->newMergeLexemesInteractor(),
+			$mergeLexemesInteractor,
 			$entityTitleLookup,
 			$exceptionLocalizer,
 			$permissionManager,

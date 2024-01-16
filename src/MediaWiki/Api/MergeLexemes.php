@@ -9,7 +9,7 @@ use Exception;
 use InvalidArgumentException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -31,26 +31,32 @@ class MergeLexemes extends ApiBase {
 	 */
 	private $errorReporter;
 
+	private MergeLexemesInteractor $mergeLexemesInteractor;
+
 	public function __construct(
 		ApiMain $mainModule,
 		$moduleName,
-		callable $errorReporterCallback
+		callable $errorReporterCallback,
+		MergeLexemesInteractor $mergeLexemesInteractor
 	) {
 		parent::__construct( $mainModule, $moduleName );
 		$this->errorReporter = $errorReporterCallback( $this );
+		$this->mergeLexemesInteractor = $mergeLexemesInteractor;
 	}
 
 	public static function factory(
 		ApiMain $mainModule,
 		string $moduleName,
-		ApiHelperFactory $apiHelperFactory
+		ApiHelperFactory $apiHelperFactory,
+		MergeLexemesInteractor $mergeLexemesInteractor
 	): self {
 		return new self(
 			$mainModule,
 			$moduleName,
 			static function ( $module ) use ( $apiHelperFactory ) {
 				return $apiHelperFactory->getErrorReporter( $module );
-			}
+			},
+			$mergeLexemesInteractor
 		);
 	}
 
@@ -61,13 +67,12 @@ class MergeLexemes extends ApiBase {
 	 */
 	public function execute() {
 		$params = $this->extractRequestParams();
-		$services = WikibaseLexemeServices::newInstance();
 
 		$sourceId = $this->getLexemeIdFromParamOrDie( $params[self::SOURCE_ID_PARAM] );
 		$targetId = $this->getLexemeIdFromParamOrDie( $params[self::TARGET_ID_PARAM] );
 
 		try {
-			$services->newMergeLexemesInteractor()->mergeLexemes(
+			$this->mergeLexemesInteractor->mergeLexemes(
 				$sourceId,
 				$targetId,
 				$this->getContext(),

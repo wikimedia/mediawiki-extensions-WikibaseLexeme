@@ -123,7 +123,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		$this->saveEntity( $this->source );
 		$this->saveEntity( $this->target );
 
-		$this->mergeInteractor = WikibaseLexemeServices::newInstance()->newMergeLexemesInteractor();
+		$this->mergeInteractor = WikibaseLexemeServices::getMergeLexemesInteractor();
 
 		$output = $this->executeSpecialPageWithIds(
 			$this->source->getId()->getSerialization(),
