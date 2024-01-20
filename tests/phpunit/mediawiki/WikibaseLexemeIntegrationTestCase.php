@@ -19,8 +19,6 @@ abstract class WikibaseLexemeIntegrationTestCase extends \MediaWikiLangTestCase 
 	}
 
 	protected function getEntityStore() {
-		// When we request an EntityStore via this method assume we will be inserting something.
-		$this->tablesUsed[] = 'page';
 		return WikibaseRepo::getEntityStore();
 	}
 

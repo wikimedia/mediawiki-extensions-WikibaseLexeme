@@ -61,7 +61,6 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 
-		$this->tablesUsed[] = 'page';
 		$this->givenItemExists( self::EXISTING_ITEM_ID );
 		$this->stats = $this->createMock( StatsdDataFactoryInterface::class );
 		$this->copyrightView = $this->createMock( SpecialPageCopyrightView::class );

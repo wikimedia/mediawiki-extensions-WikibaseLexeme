@@ -55,7 +55,6 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 		if ( $lexeme instanceof NewLexeme ) {
 			$lexeme = $lexeme->build();
 		}
-		$this->tablesUsed[] = 'page';
 		$this->entityStore->saveEntity(
 			$lexeme,
 			self::class,

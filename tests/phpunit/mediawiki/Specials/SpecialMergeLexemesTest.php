@@ -65,8 +65,6 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 
-		$this->tablesUsed[] = 'page';
-
 		$mwServices = MediaWikiServices::getInstance();
 
 		$this->mergeInteractor = $this->createMock( MergeLexemesInteractor::class );

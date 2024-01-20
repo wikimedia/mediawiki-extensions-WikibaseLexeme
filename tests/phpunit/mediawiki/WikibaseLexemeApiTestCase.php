@@ -27,9 +27,6 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->tablesUsed[] = 'page';
-		$this->tablesUsed[] = 'revision';
-
 		$this->entityStore = WikibaseRepo::getEntityStore();
 	}
 
