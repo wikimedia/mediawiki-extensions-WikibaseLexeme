@@ -5,10 +5,16 @@
 			"Դավիթ Սարոյան"
 		]
 	},
+	"datatypes-type-wikibase-lexeme": "Բառույթ",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Բառույթ",
 	"wikibaselexeme-diffview-language": "լեզու",
 	"wikibaselexeme-field-language-label": "Լեզու",
 	"wikibaselexeme-field-lexical-category-label": "Բառային կարգ",
 	"wikibaselexeme-form-grammatical-features": "Քերականական հատկանիշներ",
 	"wikibaselexeme-gloss-field-language-label": "Լեզու",
-	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Օգնություն)"
+	"wikibaselexeme-newlexeme-fieldset": "Ստեղծել նոր բառույթ",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Բառույթների մասին",
+	"wikibaselexeme-newlexeme-language": "Բառույթի լեզուն",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Օգնություն)",
+	"wikibaselexeme-unknown-language": "Անհայտ լեզու"
 }

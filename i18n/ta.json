@@ -2,12 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"ElangoRamanujam",
-			"Siddhan"
+			"Siddhan",
+			"Sriveenkat"
 		]
 	},
-	"wikibaselexeme-form-field-language-label": "மொழி",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "அனுமதி மறுக்கப்பட்டது.",
+	"wikibaselexeme-form-field-language-label": "எழுத்து மாற்றொலி",
 	"wikibaselexeme-gloss-field-language-label": "மொழி",
-	"wikibaselexeme-lemma-field-language-label": "மொழி",
+	"wikibaselexeme-lemma-field-language-label": "எழுத்து மாற்றொலி",
 	"wikibaselexeme-newlexeme-language-invalid-error": "லெக்ஸீம் மொழி சரியான பொருளாக இருக்க வேண்டும்",
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(உதவி)",
 	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "வேறுபாடு உடைய எழுத்தாக்கம் சரியான மொழிக் குறியீட்டாக இருக்க வேண்டும்.",
