@@ -72,7 +72,6 @@ return call_user_func( static function () {
 				$defaultViewConfigFile,
 
 			],
-			"es6" => true,
 			"dependencies" => [
 				"jquery.util.getDirectionality",
 				"jquery.ui.languagesuggester",
@@ -244,7 +243,6 @@ return call_user_func( static function () {
 		],
 
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [
-			"es6" => true,
 			"targets" => [
 				'desktop',
 				'mobile',
