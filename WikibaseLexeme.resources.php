@@ -243,10 +243,6 @@ return call_user_func( static function () {
 		],
 
 		"wikibase.lexeme.special.NewLexeme" => $moduleTemplate + [
-			"targets" => [
-				'desktop',
-				'mobile',
-			],
 			"packageFiles" => [
 				'special/NewLexeme.js',
 				'special/new-lexeme-dist/SpecialNewLexeme.cjs.js',
@@ -337,20 +333,12 @@ return call_user_func( static function () {
 			],
 		],
 		"wikibase.lexeme.special.NewLexeme.styles" => $moduleTemplate + [
-			"targets" => [
-				'desktop',
-				'mobile',
-			],
 			"styles" => [
 				'special/new-lexeme.less',
 			],
 		],
 		"wikibase.lexeme.special.NewLexeme.legacyBrowserFallback" => $moduleTemplate + [
 			"packageFiles" => [ 'special/NewLexemeFallback.js' ],
-			"targets" => [
-				'desktop',
-				'mobile',
-			],
 		],
 	];
 
