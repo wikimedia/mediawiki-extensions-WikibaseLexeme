@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Adriendelucca"
+			"Adriendelucca",
+			"Huñvreüs"
 		]
 	},
 	"wikibase-lexeme-language-name-bfi": "yezh ar sinoù Breizh-Veur",
@@ -10,7 +11,7 @@
 	"wikibase-lexeme-language-name-frm": "krennc'halleg",
 	"wikibase-lexeme-language-name-fro": "henc'halleg",
 	"wikibase-lexeme-language-name-gsg": "yezh ar sinoù Alamagn",
-	"wikibase-lexeme-language-name-mis": "all",
+	"wikibase-lexeme-language-name-mis": "yezh diskor",
 	"wikibase-lexeme-language-name-nn-hognorsk": "høgnorsk (norvegeg uhel)",
 	"wikibase-lexeme-language-name-non": "norseg",
 	"wikibase-lexeme-language-name-non-runr": "norseg skrivet gant runoù",

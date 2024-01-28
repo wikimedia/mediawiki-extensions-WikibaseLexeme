@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Akwugo",
 			"Edith Nwobu"
 		]
 	},
@@ -8,5 +9,8 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Asụsụ mkpụrụokwu ahụ, ị.m. 'Bekee'",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Ndebiri okwu, ị.m. 'mbụ'",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Nkejiasụsụ mkpụrụokwu, ị.m. 'ọnụọgụgụ'",
-	"wikibaselexeme-newlexeme-submit": "Mebe mkpụrụokwu"
+	"wikibaselexeme-newlexeme-submit": "Mebe mkpụrụokwu",
+	"wikibaselexeme-statementsection-statements-about-sense": "Nkwupụta banyere $ 1",
+	"wikibaselexeme-unknown-category": "Nke amaghị",
+	"wikibaselexeme-unknown-language": "Asụsụ ana-amaghị"
 }
