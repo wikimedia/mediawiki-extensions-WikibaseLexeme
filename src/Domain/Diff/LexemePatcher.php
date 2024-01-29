@@ -8,6 +8,7 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
 use InvalidArgumentException;
+use RequestContext;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
@@ -186,10 +187,12 @@ class LexemePatcher implements EntityPatcherStrategy {
 							'representationDiff' => $formDiff->getRepresentationDiff()->serialize(),
 							'grammaticalFeaturesDiff' => $formDiff->getGrammaticalFeaturesDiff()->serialize(),
 							'statementsDiff' => $formDiff->getStatementsDiff()->serialize(),
+							'lexemeDiff' => $patch->serialize(),
 							'existingForms' => implode( ', ', array_map(
 								fn ( $form ) => $form->getId()->getSerialization(),
 								$lexeme->getForms()->toArray()
 							) ),
+							'requestPostValues' => RequestContext::getMain()->getRequest()->getPostValues(),
 						] );
 
 						throw $e;
@@ -220,10 +223,30 @@ class LexemePatcher implements EntityPatcherStrategy {
 					break;
 
 				case $senseDiff instanceof ChangeSenseDiffOp:
-					$sense = $lexeme->getSense( $senseDiff->getSenseId() );
-					if ( $sense !== null ) {
-						$this->sensePatcher->patchEntity( $sense, $senseDiff );
+					try {
+						$sense = $lexeme->getSense( $senseDiff->getSenseId() );
+					} catch ( \OutOfRangeException $e ) {
+						/**
+						 * This should never happen, but somehow sometimes a request to remove a sense ends up here
+						 * for unknown reasons. See T326768 / T284061.
+						 *
+						 * Log what data we have to hopefully help figure out the problem
+						 */
+						WikibaseRepo::getLogger()->warning( __METHOD__ . ': Sense not found', [
+							'senseId' => $senseDiff->getSenseId(),
+							'glossesDiff' => $senseDiff->getGlossesDiff()->serialize(),
+							'statementsDiff' => $senseDiff->getStatementsDiff()->serialize(),
+							'lexemeDiff' => $patch->serialize(),
+							'existingSenses' => implode( ', ', array_map(
+								fn ( $sense ) => $sense->getId()->getSerialization(),
+								$lexeme->getSenses()->toArray()
+							) ),
+							'requestPostValues' => RequestContext::getMain()->getRequest()->getPostValues(),
+						] );
+
+						throw $e;
 					}
+					$this->sensePatcher->patchEntity( $sense, $senseDiff );
 					break;
 
 				default:
