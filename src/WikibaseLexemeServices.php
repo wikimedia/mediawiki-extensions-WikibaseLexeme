@@ -4,14 +4,11 @@ namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
 use Psr\Container\ContainerInterface;
-use RequestContext;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeAuthorizer;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
-use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
@@ -54,9 +51,9 @@ class WikibaseLexemeServices {
 		$mwServices = MediaWikiServices::getInstance();
 		return new MergeLexemesInteractor(
 			$this->newLexemeMerger(),
-			$this->getLexemeAuthorizer(),
 			WikibaseRepo::getSummaryFormatter( $mwServices ),
 			$this->newLexemeRedirectorFactory(),
+			WikibaseRepo::getEntityPermissionChecker( $mwServices ),
 			WikibaseRepo::getEntityTitleStoreLookup( $mwServices ),
 			$mwServices->getWatchedItemStore(),
 			$this->getLexemeRepositoryFactory()
@@ -107,18 +104,6 @@ class WikibaseLexemeServices {
 				new FormsStatementEntityReferenceExtractor( $baseExtractor ),
 				new SensesStatementEntityReferenceExtractor( $baseExtractor )
 			)
-		);
-	}
-
-	private function getLexemeAuthorizer(): LexemeAuthorizer {
-		return $this->getSharedService(
-			LexemeAuthorizer::class,
-			static function () {
-				return new MediaWikiLexemeAuthorizer(
-					RequestContext::getMain()->getUser(),
-					WikibaseRepo::getEntityPermissionChecker()
-				);
-			}
 		);
 	}
 

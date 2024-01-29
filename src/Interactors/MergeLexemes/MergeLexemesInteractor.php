@@ -7,7 +7,6 @@ use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
-use Wikibase\Lexeme\Domain\Authorization\LexemeAuthorizer;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -22,6 +21,7 @@ use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Summary;
+use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
 
@@ -29,11 +29,6 @@ use Wikibase\Repo\SummaryFormatter;
  * @license GPL-2.0-or-later
  */
 class MergeLexemesInteractor {
-
-	/**
-	 * @var LexemeAuthorizer
-	 */
-	private $authorizer;
 
 	/**
 	 * @var SummaryFormatter
@@ -49,6 +44,8 @@ class MergeLexemesInteractor {
 	 * @var MediaWikiLexemeRedirectorFactory
 	 */
 	private $lexemeRedirectorFactory;
+
+	private EntityPermissionChecker $permissionChecker;
 
 	/**
 	 * @var EntityTitleStoreLookup
@@ -67,17 +64,17 @@ class MergeLexemesInteractor {
 
 	public function __construct(
 		LexemeMerger $lexemeMerger,
-		LexemeAuthorizer $authorizer,
 		SummaryFormatter $summaryFormatter,
 		MediaWikiLexemeRedirectorFactory $lexemeRedirectorFactory,
+		EntityPermissionChecker $permissionChecker,
 		EntityTitleStoreLookup $entityTitleLookup,
 		WatchedItemStoreInterface $watchedItemStore,
 		MediaWikiLexemeRepositoryFactory $repoFactory
 	) {
 		$this->lexemeMerger = $lexemeMerger;
-		$this->authorizer = $authorizer;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->lexemeRedirectorFactory = $lexemeRedirectorFactory;
+		$this->permissionChecker = $permissionChecker;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
 		$this->repoFactory = $repoFactory;
@@ -99,9 +96,8 @@ class MergeLexemesInteractor {
 		bool $botEditRequested = false,
 		array $tags = []
 	) {
-		if ( !$this->authorizer->canMerge( $sourceId, $targetId ) ) {
-			throw new PermissionDeniedException();
-		}
+		$this->checkCanMerge( $sourceId, $context );
+		$this->checkCanMerge( $targetId, $context );
 
 		$repo = $this->repoFactory->newFromContext( $context, $botEditRequested, $tags );
 
@@ -118,6 +114,19 @@ class MergeLexemesInteractor {
 		$this->lexemeRedirectorFactory
 			->newFromContext( $context, $botEditRequested, $tags )
 			->redirect( $sourceId, $targetId );
+	}
+
+	private function checkCanMerge( LexemeId $lexemeId, IContextSource $context ): void {
+		$status = $this->permissionChecker->getPermissionStatusForEntityId(
+			$context->getUser(),
+			EntityPermissionChecker::ACTION_MERGE,
+			$lexemeId
+		);
+
+		if ( !$status->isOK() ) {
+			// would be nice to propagate the errors from $status...
+			throw new PermissionDeniedException();
+		}
 	}
 
 	/**
