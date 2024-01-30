@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
+use InvalidArgumentException;
 use MediaWiki\Html\Html;
 use MediaWiki\Languages\LanguageFactory;
 use Wikibase\DataModel\Entity\EntityId;
@@ -92,6 +93,10 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 			$title = $this->titleLookup->getTitleForId( $formId );
 		} catch ( UnresolvedEntityRedirectException $exception ) {
 			return $this->redirectedLexemeSubEntityIdHtmlFormatter->formatEntityId( $formId );
+		}
+		if ( !( $formId instanceof FormId ) ) {
+			throw new InvalidArgumentException(
+				'Attemped to format a non-Form entity as a Form: ' . $formId->getSerialization() );
 		}
 
 		if ( $formRevision === null || $title === null ) {

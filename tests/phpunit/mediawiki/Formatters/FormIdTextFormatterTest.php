@@ -2,8 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
@@ -105,4 +107,11 @@ class FormIdTextFormatterTest extends TestCase {
 		$this->assertSame( 'fOo-S-bAr', $result );
 	}
 
+	public function testFormatId_exceptionOnInvalidEntity() {
+		$nonFormId = new ItemId( 'Q99' );
+		$mockLookup = $this->createMock( EntityRevisionLookup::class );
+		$formatter = new FormIdTextFormatter( $mockLookup, $this->getMockTextProvider() );
+		$this->expectException( InvalidArgumentException::class );
+		$formatter->formatEntityId( $nonFormId );
+	}
 }

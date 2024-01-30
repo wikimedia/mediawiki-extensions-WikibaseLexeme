@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
+use InvalidArgumentException;
 use MediaWiki\Html\Html;
 use MediaWiki\Languages\LanguageFactory;
 use MediaWiki\Title\Title;
@@ -60,6 +61,10 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 	 * @return string HTML
 	 */
 	public function formatEntityId( EntityId $value ): string {
+		if ( !( $value instanceof SenseId ) ) {
+			throw new InvalidArgumentException(
+				'Attempted to format non-Sense entity as Sense: ' . $value->getSerialization() );
+		}
 		$title = $this->titleLookup->getTitleForId( $value );
 
 		try {

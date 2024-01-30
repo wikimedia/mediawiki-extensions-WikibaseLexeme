@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
+use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWikiLangTestCase;
@@ -320,6 +321,12 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 				tagMatchingOutline( '<a href="LOCAL-URL#FORM" title="L999-F666: noun, verb">' )
 			) ) )
 		);
+	}
+
+	public function testFormatId_exceptionOnInvalidEntity() {
+		$nonFormId = new ItemId( 'Q99' );
+		$this->expectException( InvalidArgumentException::class );
+		$this->newFormIdHtmlFormatter()->formatEntityId( $nonFormId );
 	}
 
 	private function newFormIdHtmlFormatter(): FormIdHtmlFormatter {
