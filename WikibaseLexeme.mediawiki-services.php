@@ -255,7 +255,8 @@ return call_user_func( static function () {
 				$summaryFormatter,
 				WikibaseRepo::getEditFilterHookRunner( $mediaWikiServices ),
 				$store->getEntityRedirectLookup(),
-				$entityTitleStoreLookup
+				$entityTitleStoreLookup,
+				$mediaWikiServices->getTempUserCreator()
 			);
 
 			$lexemeRepositoryFactory = new MediaWikiLexemeRepositoryFactory(

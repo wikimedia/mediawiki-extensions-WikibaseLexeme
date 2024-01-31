@@ -59,6 +59,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 			$this->getMockEditFilterHookRunner(),
 			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			$this->getMockEntityTitleLookup(),
+			$this->getServiceContainer()->getTempUserCreator(),
 			false,
 			[]
 		);

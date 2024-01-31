@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use IContextSource;
+use MediaWiki\User\TempUser\TempUserCreator;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\Lookup\EntityRedirectTargetLookup;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
@@ -39,6 +40,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		EditFilterHookRunner $editFilterHookRunner,
 		EntityRedirectTargetLookup $entityRedirectLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
+		TempUserCreator $tempUserCreator,
 		bool $botEditRequested,
 		array $tags
 	) {
@@ -46,6 +48,7 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		$this->tags = $tags;
 		$this->context = $context;
 
+		// @phan-suppress-next-line PhanParamTooMany
 		parent::__construct(
 			$entityRevisionLookup,
 			$entityStore,
@@ -53,7 +56,8 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 			$summaryFormatter,
 			$editFilterHookRunner,
 			$entityRedirectLookup,
-			$entityTitleLookup
+			$entityTitleLookup,
+			$tempUserCreator
 		);
 	}
 

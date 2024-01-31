@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use IContextSource;
+use MediaWiki\User\TempUser\TempUserCreator;
 use Wikibase\DataModel\Services\Lookup\EntityRedirectTargetLookup;
 use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -34,6 +35,7 @@ class MediaWikiLexemeRedirectorFactory {
 	private $entityRedirectLookup;
 	/** @var EntityTitleStoreLookup */
 	private $entityTitleLookup;
+	private TempUserCreator $tempUserCreator;
 
 	public function __construct(
 		EntityRevisionLookup $entityRevisionLookup,
@@ -42,7 +44,8 @@ class MediaWikiLexemeRedirectorFactory {
 		SummaryFormatter $summaryFormatter,
 		EditFilterHookRunner $editFilterHookRunner,
 		EntityRedirectTargetLookup $entityRedirectLookup,
-		EntityTitleStoreLookup $entityTitleLookup
+		EntityTitleStoreLookup $entityTitleLookup,
+		TempUserCreator $tempUserCreator
 	) {
 		$this->entityRevisionLookup = $entityRevisionLookup;
 		$this->entityStore = $entityStore;
@@ -51,6 +54,7 @@ class MediaWikiLexemeRedirectorFactory {
 		$this->editFilterHookRunner = $editFilterHookRunner;
 		$this->entityRedirectLookup = $entityRedirectLookup;
 		$this->entityTitleLookup = $entityTitleLookup;
+		$this->tempUserCreator = $tempUserCreator;
 	}
 
 	/**
@@ -70,6 +74,7 @@ class MediaWikiLexemeRedirectorFactory {
 			$this->editFilterHookRunner,
 			$this->entityRedirectLookup,
 			$this->entityTitleLookup,
+			$this->tempUserCreator,
 			$botEditRequested,
 			$tags
 		);
