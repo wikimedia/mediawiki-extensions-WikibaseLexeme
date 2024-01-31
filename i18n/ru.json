@@ -14,7 +14,8 @@
 			"Putnik",
 			"Redredsonia",
 			"Stjn",
-			"Vlad5250"
+			"Vlad5250",
+			"Mitte27"
 		]
 	},
 	"content-model-wikibase-lexeme": "Викибазная лексема",
@@ -109,6 +110,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Помощь)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексическая категория",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Введите категорию лексемы, например \"числительное\"",
+	"wikibaselexeme-newlexeme-search-existing": "Перед созданием лексемы убедитесь, что она ещё не существует с помощью [$1 поиска]. Вы также можете узнать больше о лексемах по справке ниже.",
 	"wikibaselexeme-newlexeme-submit": "Создать лексему",
 	"wikibaselexeme-no-features": "нет свойств",
 	"wikibaselexeme-sense-gloss-invalid-language": "Языковой код глоссы должен быть существующим",
