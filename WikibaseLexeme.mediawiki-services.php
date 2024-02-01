@@ -25,6 +25,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeO
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
+use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\WikiPageItemOrderProvider;
 use Wikibase\Lib\UnionContentLanguages;
@@ -125,22 +126,28 @@ return call_user_func( static function () {
 	] );
 
 	return [
-		'WikibaseLexemeTermLanguages' =>
-			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalTermLanguages ) {
-				return new UnionContentLanguages(
-					new StaticContentLanguages( $additionalTermLanguages ),
-					WikibaseContentLanguages::getDefaultMonolingualTextLanguages(
-						$mediawikiServices->getLanguageNameUtils()
-					)
-				);
-			},
-		'WikibaseLexemeLanguageNameLookupFactory' =>
-			static function ( MediaWikiServices $mediawikiServices ) use ( $additionalLocalizedLanguages ) {
-				return new LexemeLanguageNameLookupFactory(
-					WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
-					$additionalLocalizedLanguages
-				);
-			},
+		'WikibaseLexemeTermLanguages' => static function (
+			MediaWikiServices $mediawikiServices
+		) use (
+			$additionalTermLanguages
+		): UnionContentLanguages {
+			return new UnionContentLanguages(
+				new StaticContentLanguages( $additionalTermLanguages ),
+				WikibaseContentLanguages::getDefaultMonolingualTextLanguages(
+					$mediawikiServices->getLanguageNameUtils()
+				)
+			);
+		},
+		'WikibaseLexemeLanguageNameLookupFactory' => static function (
+			MediaWikiServices $mediawikiServices
+		) use (
+			$additionalLocalizedLanguages
+		): LexemeLanguageNameLookupFactory {
+			return new LexemeLanguageNameLookupFactory(
+				WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
+				$additionalLocalizedLanguages
+			);
+		},
 		'WikibaseLexemeMobileView' =>
 			static function ( MediaWikiServices $mediawikiServices ): bool {
 				if ( $mediawikiServices->hasService( 'MobileFrontend.Context' ) ) {
@@ -150,7 +157,7 @@ return call_user_func( static function () {
 				return false;
 			},
 		'WikibaseLexemeLemmaLookup' =>
-			static function ( MediaWikiServices $mediawikiServices ) {
+			static function ( MediaWikiServices $mediawikiServices ): EntityLookupLemmaLookup {
 				return new EntityLookupLemmaLookup( WikibaseRepo::getEntityLookup( $mediawikiServices ) );
 			},
 		'WikibaseLexemeLemmaTermValidator' => static function (
@@ -161,7 +168,7 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexemeEditFormChangeOpDeserializer' => static function (
 			MediaWikiServices $mediaWikiServices
-		) {
+		): EditFormChangeOpDeserializer {
 			$entityLookup = WikibaseRepo::getStore( $mediaWikiServices )->getEntityLookup(
 				Store::LOOKUP_CACHING_DISABLED,
 				LookupConstants::LATEST_FROM_MASTER
@@ -187,7 +194,7 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexemeGrammaticalFeaturesOrderProvider' => static function (
 			MediaWikiServices $mediaWikiServices
-		) {
+		): ItemOrderProvider {
 			$grammaticalFeaturesOrderProvider = new CachingItemOrderProvider(
 				new WikiPageItemOrderProvider(
 					$mediaWikiServices->getWikiPageFactory(),
