@@ -4,8 +4,10 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityId;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
@@ -150,4 +152,15 @@ class SenseIdTextFormatterTest extends TestCase {
 		$this->assertSame( $expected, $result );
 	}
 
+	public function testFormatEntityId_exceptionOnInvalidEntityType() {
+		$formatter = new SenseIdTextFormatter(
+			$this->createMock( EntityRevisionLookup::class ),
+			new DummyLocalizedTextProvider(),
+			$this->getEntityIdLabelFormatter()
+		);
+
+		$nonSenseId = new ItemId( "Q99" );
+		$this->expectException( InvalidArgumentException::class );
+		$formatter->formatEntityId( $nonSenseId );
+	}
 }

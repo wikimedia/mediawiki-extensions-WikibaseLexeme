@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
+use InvalidArgumentException;
 use OutOfBoundsException;
 use OutOfRangeException;
 use Wikibase\DataModel\Entity\EntityId;
@@ -40,6 +41,10 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 	 * @return string plain text
 	 */
 	public function formatEntityId( EntityId $value ): string {
+		if ( !( $value instanceof SenseId ) ) {
+			throw new InvalidArgumentException(
+				'Attempted to format non-Sense entity as Sense: ' . $value->getSerialization() );
+		}
 		try {
 			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
 		} catch ( RevisionedUnresolvedRedirectException | StorageException $e ) {
