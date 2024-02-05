@@ -22,6 +22,7 @@ use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Content\EntityContent;
+use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
@@ -96,6 +97,11 @@ class MergeLexemesInteractor {
 	 * @param string|null $summary - only relevant when called through the API
 	 * @param string[] $tags
 	 *
+	 * @return MergeLexemesStatus Note that the status is only returned
+	 * to wrap the context and saved temp user in a strongly typed container.
+	 * Errors are (currently) reported as exceptions, not as a failed status.
+	 * (It would be nice to fix this at some point and use status consistently.)
+	 *
 	 * @throws MergingException
 	 */
 	public function mergeLexemes(
@@ -105,7 +111,7 @@ class MergeLexemesInteractor {
 		?string $summary = null,
 		bool $botEditRequested = false,
 		array $tags = []
-	) {
+	): MergeLexemesStatus {
 		$this->checkCanMerge( $sourceId, $context );
 		$this->checkCanMerge( $targetId, $context );
 
@@ -119,12 +125,19 @@ class MergeLexemesInteractor {
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$this->attemptSaveMerge( $source, $target, $context, $summary, $botEditRequested, $tags );
+		$mergeStatus = $this->attemptSaveMerge( $source, $target, $context, $summary, $botEditRequested, $tags );
+		$context = $mergeStatus->getContext();
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
-		$this->lexemeRedirectorFactory
+		$redirectStatus = $this->lexemeRedirectorFactory
 			->newFromContext( $context, $botEditRequested, $tags )
-			->redirect( $sourceId, $targetId );
+			->createRedirect( $sourceId, $targetId, $botEditRequested, $tags, $context );
+		$context = $redirectStatus->getContext();
+
+		return MergeLexemesStatus::newMerge(
+			$mergeStatus->getSavedTempUser() ?? $redirectStatus->getSavedTempUser(),
+			$context
+		);
 	}
 
 	private function checkCanMerge( LexemeId $lexemeId, IContextSource $context ): void {
@@ -190,21 +203,28 @@ class MergeLexemesInteractor {
 		?string $summary,
 		bool $botEditRequested,
 		array $tags
-	) {
-		$this->saveLexeme(
+	): MergeLexemesStatus {
+		$toResult = $this->saveLexeme(
 			$source,
 			$context,
 			$this->getSummary( 'to', $target->getId(), $summary ),
 			$botEditRequested,
 			$tags
 		);
+		$context = $toResult->getContext();
 
-		$this->saveLexeme(
+		$fromResult = $this->saveLexeme(
 			$target,
 			$context,
 			$this->getSummary( 'from', $source->getId(), $summary ),
 			$botEditRequested,
 			$tags
+		);
+		$context = $fromResult->getContext();
+
+		return MergeLexemesStatus::newMerge(
+			$fromResult->getSavedTempUser() ?? $toResult->getSavedTempUser(),
+			$context
 		);
 	}
 
@@ -214,7 +234,7 @@ class MergeLexemesInteractor {
 		FormatableSummary $summary,
 		bool $botEditRequested,
 		array $tags
-	) {
+	): EditEntityStatus {
 		// TODO: the EntityContent::EDIT_IGNORE_CONSTRAINTS flag does not seem to be used by Lexeme
 		// (LexemeHandler has no onSaveValidators)
 		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
@@ -236,6 +256,8 @@ class MergeLexemesInteractor {
 		if ( !$status->isOK() ) {
 			throw new LexemeSaveFailedException( $status->getWikiText() );
 		}
+
+		return $status;
 	}
 
 	private function updateWatchlistEntries( LexemeId $fromId, LexemeId $toId ) {

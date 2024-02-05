@@ -11,9 +11,9 @@ use PHPUnit\Framework\MockObject\MockObject;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
-use Wikibase\Lexeme\Domain\LexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -33,6 +33,7 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\EditEntity\EditEntity;
 use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
+use Wikibase\Repo\Interactors\EntityRedirectCreationStatus;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
@@ -67,7 +68,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 	private $context;
 
 	/**
-	 * @var LexemeRedirector|MockObject
+	 * @var MediaWikiLexemeRedirector|MockObject
 	 */
 	private $redirector;
 
@@ -113,6 +114,12 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 		$this->context->method( 'getConfig' )
 			->willReturn( $this->getServiceContainer()->getMainConfig() );
 		[ $this->redirector, $this->redirectorFactory ] = $this->newMockRedirectorAndFactory();
+		$this->redirector->method( 'createRedirect' )
+			->willReturn( EntityRedirectCreationStatus::newGood( [
+				'savedTempUser' => null,
+				'context' => $this->context,
+				// leave out entityRedirect, not used
+			] ) );
 		$this->entityTitleLookup = $this->newMockTitleLookup();
 		$this->watchedItemStore = $this->createMock( WatchedItemStoreInterface::class );
 	}
@@ -130,8 +137,13 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 			->build();
 
 		$this->redirector->expects( $this->once() )
-			->method( 'redirect' )
-			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId() );
+			->method( 'createRedirect' )
+			->with( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), false, [], $this->context )
+			->willReturn( EntityRedirectCreationStatus::newGood( [
+				'savedTempUser' => null,
+				'context' => $this->context,
+				// leave out entityRedirect, not used
+			] ) );
 
 		$statementsMerger = WikibaseRepo::getChangeOpFactoryProvider()
 			->getMergeFactory()->getStatementsMerger();
@@ -286,7 +298,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 	}
 
 	private function newMockRedirectorAndFactory() {
-		$redirector = $this->createMock( LexemeRedirector::class );
+		$redirector = $this->createMock( MediaWikiLexemeRedirector::class );
 		$factory = $this->createMock( MediaWikiLexemeRedirectorFactory::class );
 		$factory->method( 'newFromContext' )
 			->with( $this->context, $this->anything(), $this->anything() )

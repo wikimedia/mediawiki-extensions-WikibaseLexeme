@@ -6,9 +6,12 @@ use ChangeTags;
 use Exception;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Language\RawMessage;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Request\WebResponse;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use SpecialPageTestBase;
@@ -36,6 +39,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	use HamcrestPHPUnitIntegration;
+	use TempUserTestTrait;
 
 	private const TAGS = [ 'mw-replace' ];
 
@@ -84,6 +88,24 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 				havingChild( tagMatchingOutline( '<input name="from-id">' ) )
 			)->andAlso( havingChild( tagMatchingOutline( '<input name="to-id">' ) ) )
 			) )
+		);
+	}
+
+	public function testSuccessMessageShown(): void {
+		[ $output ] = $this->executeSpecialPage( null, new FauxRequest( [
+			'from-id' => 'L1',
+			'to-id' => 'L2',
+			'success' => '1',
+		] ) );
+
+		$this->assertThatHamcrest(
+			$output,
+			is( htmlPiece( havingChild(
+				both( withTagName( 'p' ) )
+					->andAlso( havingTextContents(
+						containsString( '(wikibase-lexeme-mergelexemes-success: ' )
+					) )
+			) ) )
 		);
 	}
 
@@ -212,6 +234,51 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 			$output,
 			$expectedErrorMsg
 		);
+	}
+
+	public function testTempUserCreatedRedirect(): void {
+		$this->enableAutoCreateTempUser();
+		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
+
+		$item = NewItem::withId( 'Q1' )->build();
+		$source = NewLexeme::havingId( 'L1' )
+			->withLanguage( $item->getId() )
+			->withLexicalCategory( $item->getId() )
+			->withLemma( 'en', 'color' )
+			->build();
+		$target = NewLexeme::havingId( 'L2' )
+			->withLanguage( $item->getId() )
+			->withLexicalCategory( $item->getId() )
+			->withLemma( 'en-gb', 'colour' )
+			->build();
+		$this->saveEntity( $item );
+		$this->saveEntity( $source );
+		$this->saveEntity( $target );
+
+		$this->mergeInteractor = WikibaseLexemeServices::getMergeLexemesInteractor();
+
+		$request = new FauxRequest( [
+			'from-id' => 'L1',
+			'to-id' => 'L2',
+		], true );
+		$this->setTemporaryHook( 'TempUserCreatedRedirect', function (
+			$session,
+			$user,
+			string $returnTo,
+			string $returnToQuery,
+			string $returnToAnchor,
+			&$redirectUrl
+		) {
+			$this->assertSame( 'Special:MergeLexemes', $returnTo );
+			$this->assertSame( 'from-id=L1&to-id=L2&success=1', $returnToQuery );
+			$this->assertSame( '', $returnToAnchor );
+			$redirectUrl = 'https://wiki.example/';
+		} );
+
+		/** @var WebResponse $response */
+		[ , $response ] = $this->executeSpecialPage( '', $request );
+
+		$this->assertSame( 'https://wiki.example/', $response->getHeader( 'location' ) );
 	}
 
 	private function saveEntity( EntityDocument $entity ) {

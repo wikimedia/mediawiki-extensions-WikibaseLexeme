@@ -29,6 +29,7 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	private const FROM_ID = 'from-id';
 	private const TO_ID = 'to-id';
+	private const SUCCESS = 'success';
 
 	/** @var string[] */
 	private array $tags;
@@ -74,7 +75,24 @@ class SpecialMergeLexemes extends SpecialPage {
 		$targetId = $this->getTextParam( self::TO_ID );
 
 		if ( $sourceId && $targetId ) {
-			$this->mergeLexemes( $sourceId, $targetId );
+			$sourceLexemeId = $this->getLexemeId( $sourceId );
+			$targetLexemeId = $this->getLexemeId( $targetId );
+			if ( $sourceLexemeId && $targetLexemeId ) {
+				if ( $this->getRequest()->getBool( self::SUCCESS ) ) {
+					// redirected back here after a successful edit + temp user, show success now
+					// (the success may be inaccurate if users created this URL manually, but that’s harmless)
+					$this->showSuccessMessage( $sourceLexemeId, $targetLexemeId );
+				} else {
+					$this->mergeLexemes( $sourceLexemeId, $targetLexemeId );
+				}
+			} else {
+				if ( !$sourceLexemeId ) {
+					$this->showInvalidLexemeIdError( $sourceId );
+				}
+				if ( !$targetLexemeId ) {
+					$this->showInvalidLexemeIdError( $targetId );
+				}
+			}
 		}
 
 		$this->showMergeForm();
@@ -165,21 +183,9 @@ class SpecialMergeLexemes extends SpecialPage {
 		return '';
 	}
 
-	private function mergeLexemes( $serializedSourceId, $serializedTargetId ): void {
-		$sourceId = $this->getLexemeId( $serializedSourceId );
-		$targetId = $this->getLexemeId( $serializedTargetId );
-
-		if ( !$sourceId ) {
-			$this->showInvalidLexemeIdError( $serializedSourceId );
-			return;
-		}
-		if ( !$targetId ) {
-			$this->showInvalidLexemeIdError( $serializedTargetId );
-			return;
-		}
-
+	private function mergeLexemes( LexemeId $sourceId, LexemeId $targetId ): void {
 		try {
-			$this->mergeInteractor->mergeLexemes(
+			$status = $this->mergeInteractor->mergeLexemes(
 				$sourceId,
 				$targetId,
 				$this->getContext(),
@@ -187,9 +193,30 @@ class SpecialMergeLexemes extends SpecialPage {
 				false,
 				$this->tags
 			);
+			$savedTempUser = $status->getSavedTempUser();
 		} catch ( MergingException $e ) {
 			$this->showErrorHTML( $e->getErrorMessage()->escaped() );
 			return;
+		}
+
+		if ( $savedTempUser !== null ) {
+			$redirectUrl = '';
+			$this->getHookRunner()->onTempUserCreatedRedirect(
+				$this->getRequest()->getSession(),
+				$savedTempUser,
+				$this->getPageTitle()->getPrefixedDBkey(),
+				wfArrayToCgi( [
+					self::FROM_ID => $sourceId->getSerialization(),
+					self::TO_ID => $targetId->getSerialization(),
+					self::SUCCESS => '1',
+				] ),
+				'',
+				$redirectUrl
+			);
+			if ( $redirectUrl ) {
+				$this->getOutput()->redirect( $redirectUrl );
+				return; // success will be shown when returning here from redirect
+			}
 		}
 
 		$this->showSuccessMessage( $sourceId, $targetId );
