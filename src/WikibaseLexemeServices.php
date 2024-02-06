@@ -54,9 +54,11 @@ class WikibaseLexemeServices {
 			WikibaseRepo::getSummaryFormatter( $mwServices ),
 			$this->newLexemeRedirectorFactory(),
 			WikibaseRepo::getEntityPermissionChecker( $mwServices ),
+			$mwServices->getPermissionManager(),
 			WikibaseRepo::getEntityTitleStoreLookup( $mwServices ),
 			$mwServices->getWatchedItemStore(),
-			$this->getLexemeRepositoryFactory()
+			$this->getLexemeRepositoryFactory(),
+			WikibaseRepo::getEditEntityFactory( $mwServices )
 		);
 	}
 
