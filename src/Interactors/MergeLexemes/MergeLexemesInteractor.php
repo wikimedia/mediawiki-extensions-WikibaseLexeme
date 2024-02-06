@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
 use IContextSource;
+use MediaWiki\Permissions\PermissionManager;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
@@ -18,9 +19,10 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
 use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
-use Wikibase\Lexeme\Domain\Storage\UpdateLexemeException;
 use Wikibase\Lib\FormatableSummary;
 use Wikibase\Lib\Summary;
+use Wikibase\Repo\Content\EntityContent;
+use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
@@ -47,6 +49,8 @@ class MergeLexemesInteractor {
 
 	private EntityPermissionChecker $permissionChecker;
 
+	private PermissionManager $permissionManager;
+
 	/**
 	 * @var EntityTitleStoreLookup
 	 */
@@ -62,22 +66,28 @@ class MergeLexemesInteractor {
 	 */
 	private $watchedItemStore;
 
+	private MediaWikiEditEntityFactory $editEntityFactory;
+
 	public function __construct(
 		LexemeMerger $lexemeMerger,
 		SummaryFormatter $summaryFormatter,
 		MediaWikiLexemeRedirectorFactory $lexemeRedirectorFactory,
 		EntityPermissionChecker $permissionChecker,
+		PermissionManager $permissionManager,
 		EntityTitleStoreLookup $entityTitleLookup,
 		WatchedItemStoreInterface $watchedItemStore,
-		MediaWikiLexemeRepositoryFactory $repoFactory
+		MediaWikiLexemeRepositoryFactory $repoFactory,
+		MediaWikiEditEntityFactory $editEntityFactory
 	) {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->lexemeRedirectorFactory = $lexemeRedirectorFactory;
 		$this->permissionChecker = $permissionChecker;
+		$this->permissionManager = $permissionManager;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
 		$this->repoFactory = $repoFactory;
+		$this->editEntityFactory = $editEntityFactory;
 	}
 
 	/**
@@ -101,6 +111,7 @@ class MergeLexemesInteractor {
 
 		$repo = $this->repoFactory->newFromContext( $context, $botEditRequested, $tags );
 
+		// TODO replace repo with an EntityLookup
 		$source = $this->getLexeme( $repo, $sourceId );
 		$target = $this->getLexeme( $repo, $targetId );
 
@@ -108,7 +119,7 @@ class MergeLexemesInteractor {
 
 		$this->lexemeMerger->merge( $source, $target );
 
-		$this->attemptSaveMerge( $repo, $source, $target, $summary );
+		$this->attemptSaveMerge( $source, $target, $context, $summary, $botEditRequested, $tags );
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
 		$this->lexemeRedirectorFactory
@@ -173,37 +184,57 @@ class MergeLexemesInteractor {
 	}
 
 	private function attemptSaveMerge(
-		LexemeRepository $repo,
 		Lexeme $source,
 		Lexeme $target,
-		?string $summary
+		IContextSource $context,
+		?string $summary,
+		bool $botEditRequested,
+		array $tags
 	) {
 		$this->saveLexeme(
-			$repo,
 			$source,
-			$this->getSummary( 'to', $target->getId(), $summary )
+			$context,
+			$this->getSummary( 'to', $target->getId(), $summary ),
+			$botEditRequested,
+			$tags
 		);
 
 		$this->saveLexeme(
-			$repo,
 			$target,
-			$this->getSummary( 'from', $source->getId(), $summary )
+			$context,
+			$this->getSummary( 'from', $source->getId(), $summary ),
+			$botEditRequested,
+			$tags
 		);
 	}
 
 	private function saveLexeme(
-		LexemeRepository $repo,
 		Lexeme $lexeme,
-		FormatableSummary $summary
+		IContextSource $context,
+		FormatableSummary $summary,
+		bool $botEditRequested,
+		array $tags
 	) {
+		// TODO: the EntityContent::EDIT_IGNORE_CONSTRAINTS flag does not seem to be used by Lexeme
+		// (LexemeHandler has no onSaveValidators)
+		$flags = EDIT_UPDATE | EntityContent::EDIT_IGNORE_CONSTRAINTS;
+		if ( $botEditRequested && $this->permissionManager->userHasRight( $context->getUser(), 'bot' ) ) {
+			$flags |= EDIT_FORCE_BOT;
+		}
 
-		try {
-			$repo->updateLexeme(
-				$lexeme,
-				$this->summaryFormatter->formatSummary( $summary )
-			);
-		} catch ( UpdateLexemeException $ex ) {
-			throw new LexemeSaveFailedException( $ex->getMessage(), $ex->getCode(), $ex );
+		$formattedSummary = $this->summaryFormatter->formatSummary( $summary );
+
+		$editEntity = $this->editEntityFactory->newEditEntity( $context, $lexeme->getId() );
+		$status = $editEntity->attemptSave(
+			$lexeme,
+			$formattedSummary,
+			$flags,
+			false,
+			null,
+			$tags
+		);
+		if ( !$status->isOK() ) {
+			throw new LexemeSaveFailedException( $status->getWikiText() );
 		}
 	}
 
