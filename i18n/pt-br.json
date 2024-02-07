@@ -3,6 +3,7 @@
 		"authors": [
 			"Eduardo Addad de Oliveira",
 			"Eduardoaddad",
+			"Fúlvio",
 			"Gustavo.moraes",
 			"Luk3",
 			"Mariagarbin",
@@ -22,6 +23,7 @@
 	"wikibase-entity-summary-wblmergelexemes-to": "Mesclado do lexema em $3",
 	"wikibase-lexeme-gloss-empty": "Nenhuma glosa definida",
 	"wikibase-lexeme-lemma-language-not-recognized": "O código de idioma fornecido não foi reconhecido.",
+	"wikibase-lexeme-lexicographical-data": "Dados lexicográficos",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Falha ao carregar o Lexeme.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes possuem diferentes Lemmas para a mesma variante ortográfica.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Falha ao mesclar Lexemes, resolva os conflitos primeiro. Erro: os Lexemes se conectam em uma instrução.",
@@ -38,6 +40,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Fundir lexemas",
 	"wikibase-lexeme-mergelexemes-success": "$1 foi mesclado em $2 e redirecionado.",
 	"wikibase-lexeme-mergelexemes-to-id": "O identificador no qual fundir",
+	"wikibase-lexeme-randomlexeme": "Lexema aleatório",
 	"wikibase-lexeme-summary-add-form": "Foi adicionada a nova forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Adicionou {{PLURAL:$1|funcionalidade gramatical|funcionalidades gramaticais}} da Forma $3",
 	"wikibase-lexeme-summary-add-form-representations": "Adicionou {{PLURAL:$1|representação|representações}} da Forma $3",

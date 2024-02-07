@@ -4,5 +4,7 @@
 			"Bugoslav"
 		]
 	},
-	"special-newlexeme": "Stvori novi leksem"
+	"special-newlexeme": "Stvori novi leksem",
+	"wikibase-lexeme-lexicographical-data": "Leksikografski podatci",
+	"wikibase-lexeme-randomlexeme": "Slučajni leksem"
 }

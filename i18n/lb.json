@@ -4,7 +4,8 @@
 			"Les Meloures",
 			"McDutchie",
 			"Robby",
-			"Robin van der Vliet"
+			"Robin van der Vliet",
+			"Volvox"
 		]
 	},
 	"datatypes-type-wikibase-form": "Form",
@@ -12,11 +13,13 @@
 	"datatypes-type-wikibase-sense": "Bedeitung",
 	"special-mergelexemes": "Zwee Lexemes fusionéieren",
 	"special-newlexeme": "En neie Lexeem uleeën",
+	"wikibase-lexeme-lexicographical-data": "Lexikografesch Daten",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lexeme konnt net geluede ginn.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "De Lexeme konnt net gespäichert ginn.",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' net fonnt",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Autorisatioun refuséiert.",
 	"wikibase-lexeme-mergelexemes-submit": "Lexemes fusionéieren",
+	"wikibase-lexeme-randomlexeme": "Zoufällege Lexeem",
 	"wikibase-listdatatypes-wikibase-form-head": "Formulaire",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeme",
 	"wikibase-listdatatypes-wikibase-sense-head": "Bedeitung",

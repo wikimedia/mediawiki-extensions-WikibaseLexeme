@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Beeyan",
+			"Chinamoonroll",
 			"Daud I.F. Argana",
 			"Farras"
 		]
@@ -10,6 +11,7 @@
 	"special-newlexeme": "Buat leksem baru",
 	"wikibase-entity-summary-wblmergelexemes-from": "Menggabungkan leksem dari $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "Menggabungkan leksem ke dalam $3",
+	"wikibase-lexeme-lexicographical-data": "Data leksikografi",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Gagal memuat Leksem.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Gagal menggabungkan Leksem, silakan selesaikan konflik terlebih dahulu. Galat: Leksem memiliki Lema yang berbeda untuk varian ejaan yang sama.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Gagal menggabungkan Leksem, silakan selesaikan konflik terlebih dahulu. Galat: Leksem menautkan satu sama lain dalam pernyataan.",
@@ -23,6 +25,7 @@
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Gagal menggabungkan Leksem, silakan selesaikan konflik terlebih dahulu. Galat: Leksem memiliki kategori leksikal yang berbeda.",
 	"wikibase-lexeme-mergelexemes-submit": "Gabungkan Leksem",
 	"wikibase-lexeme-mergelexemes-success": "$1 digabungkan ke $2 dan dialihkan.",
+	"wikibase-lexeme-randomlexeme": "Leksem sembarang",
 	"wikibaselexeme-desc": "Menangani tipe entitas Leksem",
 	"wikibaselexeme-lemma-edit-placeholder": "Lema biasanya adalah bentuk terpendek dari kata",
 	"wikibaselexeme-newlexeme-fieldset": "Buat leksem baru",

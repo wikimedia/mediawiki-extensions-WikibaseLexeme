@@ -2,11 +2,14 @@
 	"@metadata": {
 		"authors": [
 			"Kareyac",
-			"Դավիթ Սարոյան"
+			"Դավիթ Սարոյան",
+			"Սերգեյ Սաֆարյան"
 		]
 	},
 	"datatypes-type-wikibase-lexeme": "Բառույթ",
 	"nstab-lexeme": "Բառույթ",
+	"wikibase-lexeme-lexicographical-data": "Բառարանագրական տվյալներ",
+	"wikibase-lexeme-randomlexeme": "Պատահական բառույթ",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Բառույթ",
 	"wikibaselexeme-diffview-language": "լեզու",
 	"wikibaselexeme-field-language-label": "Լեզու",

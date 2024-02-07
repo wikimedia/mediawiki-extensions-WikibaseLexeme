@@ -6,7 +6,8 @@
 			"Banjo",
 			"Elisardojm",
 			"Maria zaos",
-			"McDutchie"
+			"McDutchie",
+			"Toliño"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
@@ -14,6 +15,8 @@
 	"datatypes-type-wikibase-lexeme": "Lexema",
 	"special-mergelexemes": "Fusionar dous lexemas",
 	"special-newlexeme": "Crear un novo lexema",
+	"wikibase-lexeme-lexicographical-data": "Datos lexicográficos",
+	"wikibase-lexeme-randomlexeme": "Lexema aleatorio",
 	"wikibase-lexeme-summary-wbeditentity-update": "Lexema modificado",
 	"wikibase-listdatatypes-wikibase-form-head": "Formulario",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexema",

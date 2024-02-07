@@ -13,6 +13,8 @@
 	"special-newlexeme": "Krei novan leksemon",
 	"wikibase-lexeme-language-selector-label": "$1 ($2)",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
+	"wikibase-lexeme-lexicographical-data": "Leksikografiaj datumoj",
+	"wikibase-lexeme-randomlexeme": "Hazarda leksemo",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "Nova formo aldonita",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Nova leksemo kreita",
 	"wikibase-lexeme-summary-wbeditentity-create-sense": "Nova senco aldonita",

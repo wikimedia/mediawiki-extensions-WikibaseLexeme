@@ -8,5 +8,7 @@
 	"datatypes-type-wikibase-form": "صيغة",
 	"datatypes-type-wikibase-lexeme": "مفردة",
 	"datatypes-type-wikibase-sense": "معنى",
-	"nstab-lexeme": "مفردة"
+	"nstab-lexeme": "مفردة",
+	"wikibase-lexeme-lexicographical-data": "بيانات معجمية",
+	"wikibase-lexeme-randomlexeme": "مفردة عشوائية"
 }

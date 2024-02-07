@@ -6,7 +6,9 @@
 			"Da voli",
 			"Kareyac",
 			"No Sleep till Krupki",
+			"Plaga med",
 			"Tomato Cream",
+			"Tīgelika",
 			"Чаховіч Уладзіслаў"
 		]
 	},
@@ -21,6 +23,7 @@
 	"wikibase-entity-summary-wblmergelexemes-to": "Лексема аб’яднаная ў $3",
 	"wikibase-lexeme-gloss-empty": "Глоса не пазначана",
 	"wikibase-lexeme-lemma-language-not-recognized": "Пададзены код мовы не быў распазнаны.",
+	"wikibase-lexeme-lexicographical-data": "Лексікаграфічныя даныя",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не атрымалася загрузіць Лексему.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Не атрымалася аб’яднаць Лексемы, спачатку вырашыце канфлікты. Памылка: Лексемы маюць розныя Лемы для аднаго правапіснага варыянта.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Не атрымалася аб’яднаць Лексемы, спачатку вырашыце канфлікты. Памылка: Лексемы спасылаюцца адна на адну ў сцверджанні.",
@@ -37,6 +40,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Аб’яднаць Лексемы",
 	"wikibase-lexeme-mergelexemes-success": "$1 была далучаная да $2 з пакінутай перасылкай.",
 	"wikibase-lexeme-mergelexemes-to-id": "Ідэнтыфікатар для аб’яднання да",
+	"wikibase-lexeme-randomlexeme": "Выпадковая лексема",
 	"wikibase-lexeme-summary-add-form": "Дададзеная новая Форма $3 з {{PLURAL:$1|словаформай|словаформамі}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Дададзеная граматычная прыкмета|Дададзеныя граматычныя прыкметы}} Формы $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Дададзеная словаформа|Дададзеныя словаформы}} Формы $3",

@@ -3,7 +3,8 @@
 		"authors": [
 			"Fitoschido",
 			"McDutchie",
-			"Xuacu"
+			"Xuacu",
+			"YoaR"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema de Wikibase",
@@ -16,6 +17,7 @@
 	"wikibase-entity-summary-wblmergelexemes-to": "Lexema fusionáu en $3",
 	"wikibase-lexeme-gloss-empty": "Nun se definió nenguna glosa",
 	"wikibase-lexeme-lemma-language-not-recognized": "Nun se reconoció'l códigu d'idioma proporcionáu.",
+	"wikibase-lexeme-lexicographical-data": "Datos lexicográficos",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' nun ye una id de Lexema válida",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Nun s'alcontró'l lexema «$1».",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permisu refugáu.",

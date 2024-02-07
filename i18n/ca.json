@@ -3,6 +3,7 @@
 		"authors": [
 			"Fitoschido",
 			"Mguix",
+			"Paucabot",
 			"Toniher",
 			"Vriullop"
 		]
@@ -33,6 +34,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Fusiona els lexemes",
 	"wikibase-lexeme-mergelexemes-success": "S'ha fusionat $1 a $2 i s'ha redirigit.",
 	"wikibase-lexeme-mergelexemes-to-id": "L'ID al qual fusionar",
+	"wikibase-lexeme-randomlexeme": "Lexema aleatori",
 	"wikibase-lexeme-summary-add-form": "Nova forma $3 afegida amb {{PLURAL:$1|representació|representacions}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Tret gramatical|Trets gramaticals}} de la forma $3 {{PLURAL:$1|afegit|afegits}}",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Representació afegida|Representacions afegides}} de la forma $3",

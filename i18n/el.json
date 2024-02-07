@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"DesVaMan",
 			"GR",
 			"KATRINE1992",
 			"KATRINE1993",
@@ -15,6 +16,7 @@
 	"datatypes-type-wikibase-sense": "Νόημα",
 	"special-mergelexemes": "Συγχώνευση δύο Lexeme",
 	"special-newlexeme": "Δημιουργία νέου Lexeme",
+	"wikibase-lexeme-lexicographical-data": "Λεξικογραφικά στοιχεία",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Αποτυχία φόρτωσης του Lexeme.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Δεν μπόρεσε να δεχθεί το Lexemes, παρακαλώ λύστε πρώτα ενδεχόμενα προβλήματα και διαφορές. Σφάλμα: Τα Lexemes έχουν διάφορα Λήμματα για τις ίδιες συλλαβές.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Δεν μπόρεσε να ενσωματώσει το Lexemes, παρακαλώ επιλύστε ενδεχόμενες διαφορές πρώτα. Σφάλμα:Δήλωση της ιστοσελίδας Lexemes μεταξύ άλλων.",
@@ -27,6 +29,7 @@
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Αδυναμία αποδοχής του Lexemes, παρακαλώ λύστε οιεσδήποτε διαφορές πρώτα. Σφάλμα: Το Lexemes έχει διαφορετικές κατηγορίες εννοιών.",
 	"wikibase-lexeme-mergelexemes-intro": "Αν συνδυάσετε δύο Lexemes, όλα τα Λήμματα, οι Φράσεις, Τύποι και Όροι θα μετακινηθούν από το  Lexeme στο άλλο.",
 	"wikibase-lexeme-mergelexemes-submit": "Συγχώνευση lexeme",
+	"wikibase-lexeme-randomlexeme": "Τυχαίο Λεξικό",
 	"wikibase-lexeme-summary-add-form": "Προστέθηκε νέα Φόρμα $3 with {{PLURAL:$1|γλωσσικός όρος//όροι}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Προστέθηκε στοιχείο γραμματικής της Φόρμας{{PLURAL:$1|feature|features}}  $3",
 	"wikibase-lexeme-summary-add-form-representations": "Γλωσσικός όρος που προστέθηκε  {{PLURAL:$1|έννοια|έννοιες}} Τύπου $3",

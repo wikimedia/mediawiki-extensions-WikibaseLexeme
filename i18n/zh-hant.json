@@ -3,6 +3,7 @@
 		"authors": [
 			"A Retired User",
 			"Kly",
+			"Lakejason0",
 			"Liuxinyu970226",
 			"Mutolisp",
 			"SupaplexTW",
@@ -25,6 +26,7 @@
 	"wikibase-lexeme-language-selector-label": "$1 ($2)",
 	"wikibase-lexeme-lemma-language-not-recognized": "所提供的語言代碼無法確認。",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
+	"wikibase-lexeme-lexicographical-data": "詞典編纂資料",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "載入詞位失敗。",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "合併詞位失敗，請先解決衝突。錯誤：詞位含有用於同一拼寫變體的不同主題。",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "合併詞位失敗，請先解決衝突。錯誤：在陳述裡詞位彼此連結。",
@@ -41,6 +43,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "合併詞位",
 	"wikibase-lexeme-mergelexemes-success": "已合併 $1 至 $2 並重新導向。",
 	"wikibase-lexeme-mergelexemes-to-id": "要合併的目標 ID",
+	"wikibase-lexeme-randomlexeme": "隨機詞彙",
 	"wikibase-lexeme-summary-add-form": "已添加具{{PLURAL:$1|表述|表述}}的新詞性 $3",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "已添加詞性 $3 的語法{{PLURAL:$1|特徵|特徵}}",
 	"wikibase-lexeme-summary-add-form-representations": "已添加詞性 $3 的{{PLURAL:$1|表述|表述}}",

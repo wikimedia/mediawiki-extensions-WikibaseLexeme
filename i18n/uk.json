@@ -9,7 +9,8 @@
 			"Piramidion",
 			"Renamerr",
 			"Vlad5250",
-			"Ата"
+			"Ата",
+			"Пан Хаунд"
 		]
 	},
 	"content-model-wikibase-lexeme": "Лексема Вікібази",
@@ -24,6 +25,7 @@
 	"wikibase-lexeme-language-selector-label": "$1 ($2)",
 	"wikibase-lexeme-lemma-language-not-recognized": "Вказаний код мови не розпізнано.",
 	"wikibase-lexeme-lemma-language-option": "$1 ($2)",
+	"wikibase-lexeme-lexicographical-data": "Лексикографічні дані",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Не вдалося завантажити Лексему.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Об'єднання Лексем зазнало невдачі; будь ласка, спершу вирішіть будь-які конфлікти. Помилка: Лексеми мають різні леми для одного й того ж варіанту написання.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Об'єднання Лексем зазнало невдачі; будь ласка, спершу вирішіть будь-які конфлікти. Помилка: Лексеми посилаються одна на одну у твердженні.",
@@ -40,6 +42,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Об'єднати Лексеми",
 	"wikibase-lexeme-mergelexemes-success": "$1 приєднано до $2 і створено перенаправлення.",
 	"wikibase-lexeme-mergelexemes-to-id": "Ідентифікатор, до якого приєднувати",
+	"wikibase-lexeme-randomlexeme": "Випадкова Лексема",
 	"wikibase-lexeme-summary-add-form": "Додано нову форму $3 з {{PLURAL:$1|репрезентацією|репрезентаціями}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Додано {{PLURAL:$1|граматичну ознаку|граматичні ознаки}} Форми $3",
 	"wikibase-lexeme-summary-add-form-representations": "Додано {{PLURAL:$1|репрезентацію|репрезентації}} Форми $3",
