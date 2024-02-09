@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use InvalidArgumentException;
@@ -19,15 +21,8 @@ class FormIdTextFormatter implements EntityIdFormatter {
 	private const REPRESENTATION_SEPARATOR_I18N =
 		'wikibaselexeme-formidformatter-separator-multiple-representation';
 
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $revisionLookup;
-
-	/**
-	 * @var LocalizedTextProvider
-	 */
-	private $localizedTextProvider;
+	private EntityRevisionLookup $revisionLookup;
+	private LocalizedTextProvider $localizedTextProvider;
 
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
@@ -37,12 +32,7 @@ class FormIdTextFormatter implements EntityIdFormatter {
 		$this->localizedTextProvider = $localizedTextProvider;
 	}
 
-	/**
-	 * @param EntityId $formId
-	 *
-	 * @return string plain text
-	 */
-	public function formatEntityId( EntityId $formId ) {
+	public function formatEntityId( EntityId $formId ): string {
 		if ( !( $formId instanceof FormId ) ) {
 			throw new InvalidArgumentException(
 				'Attemped to format a non-Form entity as a Form: ' . $formId->getSerialization() );
