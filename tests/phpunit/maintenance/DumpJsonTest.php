@@ -240,6 +240,7 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 	 * @dataProvider dumpParameterProvider
 	 */
 	public function testScript( array $opts, $expectedLogFile, $expectedOutFile ) {
+		$this->markTestSkipped( 'Disabling test to prepare for dump schema changes from Wikibase T255706' );
 		$dumpScript = $this->getDumpJson( $opts );
 
 		$logFileName = tempnam( sys_get_temp_dir(), "Wikibase-DumpJsonTest" );
