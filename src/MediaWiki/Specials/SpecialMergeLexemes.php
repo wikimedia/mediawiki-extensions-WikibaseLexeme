@@ -180,6 +180,19 @@ class SpecialMergeLexemes extends SpecialPage {
 			return;
 		}
 
+		// TODO inject interactor+localizer once this is public
+		// phpcs:disable MediaWiki.Classes.FullQualifiedClassName.Found
+		try {
+			\Wikibase\Repo\WikibaseRepo::getTokenCheckInteractor()
+				->checkRequestToken( $this->getContext(), 'wpEditToken' );
+		} catch ( \Wikibase\Repo\Interactors\TokenCheckException $e ) {
+			$message = \Wikibase\Repo\WikibaseRepo::getExceptionLocalizer()
+				->getExceptionMessage( $e );
+			$this->showErrorHTML( $message->parse() );
+			return;
+		}
+		// phpcs:enable
+
 		try {
 			/** @var LexemeId $sourceId */
 			/** @var LexemeId $targetId */
