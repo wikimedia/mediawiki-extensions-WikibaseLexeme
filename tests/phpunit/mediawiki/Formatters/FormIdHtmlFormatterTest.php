@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use HamcrestPHPUnitIntegration;
@@ -34,30 +36,11 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 
 	private const REPRESENTATION_SEPARATOR = '-S-';
 
-	/**
-	 * @var EntityRevisionLookup|MockObject
-	 */
-	private $revisionLookup;
-
-	/**
-	 * @var LabelDescriptionLookup|MockObject
-	 */
-	private $labelLookup;
-
-	/**
-	 * @var EntityTitleLookup|MockObject
-	 */
-	private $titleLookup;
-
-	/**
-	 * @var LocalizedTextProvider|MockObject
-	 */
-	private $textProvider;
-
-	/**
-	 * @var RedirectedLexemeSubEntityIdHtmlFormatter|MockObject
-	 */
-	private $redirectedLexemeSubEntityIdHtmlFormatter;
+	private EntityRevisionLookup $revisionLookup;
+	private LabelDescriptionLookup $labelLookup;
+	private EntityTitleLookup $titleLookup;
+	private LocalizedTextProvider $textProvider;
+	private RedirectedLexemeSubEntityIdHtmlFormatter $redirectedLexemeSubEntityIdHtmlFormatter;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -70,11 +53,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			$this->createMock( RedirectedLexemeSubEntityIdHtmlFormatter::class );
 	}
 
-	/**
-	 * @param FormId $expectedFormId
-	 * @return MockObject|EntityTitleLookup
-	 */
-	private function makeTitleLookupReturnMainPage( FormId $expectedFormId ) {
+	private function makeTitleLookupReturnMainPage( FormId $expectedFormId ): void {
 		$title = $this->createMock( Title::class );
 		$title->method( 'isLocal' )->willReturn( true );
 		$title->method( 'getLinkUrl' )->willReturn( 'LOCAL-URL#FORM' );
@@ -84,10 +63,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 			->willReturn( $title );
 	}
 
-	/**
-	 * @return MockObject|LocalizedTextProvider
-	 */
-	private function getMockTextProvider() {
+	private function getMockTextProvider(): LocalizedTextProvider {
 		$mock = $this->createMock( LocalizedTextProvider::class );
 
 		$getMethodValuesMap = [
@@ -108,7 +84,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		return $mock;
 	}
 
-	public function testNonExistingFormatterIsCalledForNonExistingIds_noRevision() {
+	public function testNonExistingFormatterIsCalledForNonExistingIds_noRevision(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		/** @var EntityRevisionLookup|MockObject $revisionLookup */
@@ -126,7 +102,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function testRedirectedLexemeSubEntityIdHtmlFormatterIsCalledForRedirectedLexemes() {
+	public function testRedirectedLexemeSubEntityIdHtmlFormatterIsCalledForRedirectedLexemes(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
@@ -152,7 +128,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function testNonExistingFormatterIsCalledForNonExistingIds_noTitle() {
+	public function testNonExistingFormatterIsCalledForNonExistingIds_noTitle(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$this->revisionLookup->method( 'getEntityRevision' )
@@ -180,7 +156,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		string $representationLanguage,
 		string $langAttr,
 		string $dirAttr
-	) {
+	): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$representationText = 'fOo';
@@ -221,7 +197,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		yield 'rtl language' => [ 'he', 'he', 'rtl' ];
 	}
 
-	public function testFormatId_multipleRepresentations() {
+	public function testFormatId_multipleRepresentations(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$representation1Language = 'pt';
@@ -268,7 +244,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function testFormatId_htmlEscapesRepresentation() {
+	public function testFormatId_htmlEscapesRepresentation(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$formRevision = new EntityRevision( new Form( $formId, new TermList( [
@@ -291,7 +267,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function testFormatId_addsIdAndGramaticalFeaturesToTitleAttribute() {
+	public function testFormatId_addsIdAndGramaticalFeaturesToTitleAttribute(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$grammaticalFeature1 = new ItemId( 'Q123' );
@@ -323,7 +299,7 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 		);
 	}
 
-	public function testFormatId_exceptionOnInvalidEntity() {
+	public function testFormatId_exceptionOnInvalidEntity(): void {
 		$nonFormId = new ItemId( 'Q99' );
 		$this->expectException( InvalidArgumentException::class );
 		$this->newFormIdHtmlFormatter()->formatEntityId( $nonFormId );

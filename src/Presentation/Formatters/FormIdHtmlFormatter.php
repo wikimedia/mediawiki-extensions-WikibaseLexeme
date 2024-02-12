@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use InvalidArgumentException;
@@ -28,40 +30,13 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 	private const GRAMMATICAL_FEATURES_SEPARATOR_I18N =
 		'wikibaselexeme-formidformatter-separator-grammatical-features';
 
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $revisionLookup;
-
-	/**
-	 * @var EntityTitleLookup
-	 */
-	private $titleLookup;
-
-	/**
-	 * @var NonExistingEntityIdHtmlFormatter
-	 */
-	private $nonExistingIdFormatter;
-
-	/**
-	 * @var LocalizedTextProvider
-	 */
-	private $localizedTextProvider;
-
-	/**
-	 * @var RedirectedLexemeSubEntityIdHtmlFormatter
-	 */
-	private $redirectedLexemeSubEntityIdHtmlFormatter;
-
-	/**
-	 * @var LabelDescriptionLookup
-	 */
-	private $labelDescriptionLookup;
-
-	/**
-	 * @var LanguageFactory
-	 */
-	private $languageFactory;
+	private EntityRevisionLookup $revisionLookup;
+	private EntityTitleLookup $titleLookup;
+	private NonExistingEntityIdHtmlFormatter $nonExistingIdFormatter;
+	private LocalizedTextProvider $localizedTextProvider;
+	private RedirectedLexemeSubEntityIdHtmlFormatter $redirectedLexemeSubEntityIdHtmlFormatter;
+	private LabelDescriptionLookup $labelDescriptionLookup;
+	private LanguageFactory $languageFactory;
 
 	public function __construct(
 		EntityRevisionLookup $revisionLookup,
@@ -82,12 +57,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		$this->languageFactory = $languageFactory;
 	}
 
-	/**
-	 * @param EntityId|FormId $formId
-	 *
-	 * @return string Html
-	 */
-	public function formatEntityId( EntityId $formId ) {
+	public function formatEntityId( EntityId $formId ): string {
 		try {
 			$formRevision = $this->revisionLookup->getEntityRevision( $formId );
 			$title = $this->titleLookup->getTitleForId( $formId );
@@ -124,11 +94,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		);
 	}
 
-	/**
-	 * @param Form $form
-	 * @return string
-	 */
-	private function getLinkTitle( $form ) {
+	private function getLinkTitle( Form $form ): string {
 		$serializedId = $form->getId()->getSerialization();
 		$labels = implode(
 			$this->localizedTextProvider->get( self::GRAMMATICAL_FEATURES_SEPARATOR_I18N ),
@@ -147,11 +113,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		return $title;
 	}
 
-	/**
-	 * @param Form $form
-	 * @return array
-	 */
-	private function getLabels( $form ) {
+	private function getLabels( Form $form ): array {
 		$labels = [];
 
 		foreach ( $form->getGrammaticalFeatures() as $grammaticalFeaturesId ) {

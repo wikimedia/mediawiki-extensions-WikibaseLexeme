@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Formatters;
 
 use InvalidArgumentException;
@@ -24,17 +26,14 @@ use Wikibase\View\LocalizedTextProvider;
  */
 class FormIdTextFormatterTest extends TestCase {
 
-	/**
-	 * @return MockObject|LocalizedTextProvider
-	 */
-	private function getMockTextProvider() {
+	private function getMockTextProvider(): LocalizedTextProvider {
 		$mock = $this->createMock( LocalizedTextProvider::class );
 		$mock->method( 'get' )
 			->willReturn( '-S-' );
 		return $mock;
 	}
 
-	public function testNonExistingFormatterIsCalledForNonExistingIds() {
+	public function testNonExistingFormatterIsCalledForNonExistingIds(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
@@ -48,7 +47,7 @@ class FormIdTextFormatterTest extends TestCase {
 		$this->assertSame( 'L999-F666', $result );
 	}
 
-	public function testFormatEntityIdReturnsPlainFormIdForRedirectedLexeme() {
+	public function testFormatEntityIdReturnsPlainFormIdForRedirectedLexeme(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		/** @var EntityRevisionLookup|MockObject $mockLookup */
@@ -70,7 +69,7 @@ class FormIdTextFormatterTest extends TestCase {
 		$this->assertSame( 'L999-F666', $result );
 	}
 
-	public function testFormatId_oneRepresentation() {
+	public function testFormatId_oneRepresentation(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$formRevision = new EntityRevision(
@@ -88,7 +87,7 @@ class FormIdTextFormatterTest extends TestCase {
 		$this->assertSame( 'fOo', $result );
 	}
 
-	public function testFormatId_multipleRepresentations() {
+	public function testFormatId_multipleRepresentations(): void {
 		$formId = new FormId( 'L999-F666' );
 
 		$representations = new TermList( [ new Term( 'pt', 'fOo' ), new Term( 'en', 'bAr' ) ] );
@@ -107,7 +106,7 @@ class FormIdTextFormatterTest extends TestCase {
 		$this->assertSame( 'fOo-S-bAr', $result );
 	}
 
-	public function testFormatId_exceptionOnInvalidEntity() {
+	public function testFormatId_exceptionOnInvalidEntity(): void {
 		$nonFormId = new ItemId( 'Q99' );
 		$mockLookup = $this->createMock( EntityRevisionLookup::class );
 		$formatter = new FormIdTextFormatter( $mockLookup, $this->getMockTextProvider() );
