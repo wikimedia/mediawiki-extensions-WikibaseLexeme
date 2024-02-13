@@ -269,9 +269,11 @@ return call_user_func( static function () {
 				$summaryFormatter,
 				$lexemeRedirectorFactory,
 				$entityPermissionChecker,
+				$mediaWikiServices->getPermissionManager(),
 				$entityTitleStoreLookup,
 				$mediaWikiServices->getWatchedItemStore(),
-				$lexemeRepositoryFactory
+				$lexemeRepositoryFactory,
+				WikibaseRepo::getEditEntityFactory( $mediaWikiServices )
 			);
 		},
 	];
