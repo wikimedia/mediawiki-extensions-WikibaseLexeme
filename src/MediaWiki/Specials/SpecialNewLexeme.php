@@ -8,6 +8,7 @@ use HTMLForm;
 use Iterator;
 use LanguageCode;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
+use MediaWiki\Config\ConfigException;
 use MediaWiki\Html\Html;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\Linker\LinkRenderer;
@@ -342,8 +343,8 @@ class SpecialNewLexeme extends SpecialPage {
 			$lexemeLanguageCodePropertyIdString
 		);
 		if ( !( $lexemeLanguageCodePropertyId instanceof PropertyId ) ) {
-			throw new Exception(
-				'This should be a valid Property Id, but isn\'t: ' . $lexemeLanguageCodePropertyIdString
+			throw new ConfigException(
+				'LexemeLanguageCodePropertyId must be a property ID, but isn’t: ' . $lexemeLanguageCodePropertyIdString
 			);
 		}
 		$languageCodeStatements = $languageItem->getStatements()->getByPropertyId(
@@ -386,10 +387,17 @@ class SpecialNewLexeme extends SpecialPage {
 	}
 
 	private function createTemplateParamsFromLexemeId( string $lexemeIdString ): array {
-		$lexemeId = $this->entityIdParser->parse( $lexemeIdString );
-		$lexeme = $this->entityLookup->getEntity( $lexemeId );
+		try {
+			$lexemeId = $this->entityIdParser->parse( $lexemeIdString );
+			$lexeme = $this->entityLookup->getEntity( $lexemeId );
+		} catch ( EntityIdParsingException $e ) {
+			$lexeme = null;
+		}
 		if ( !( $lexeme instanceof Lexeme ) ) {
-			throw new Exception( 'Lexeme missing or not a Lexeme' );
+			throw new ConfigException(
+				'MediaWiki:wikibaselexeme-newlexeme-info-panel-example-lexeme-id must be ' .
+				'the ID of an existing lexeme, but isn’t: ' . $lexemeIdString
+			);
 		}
 
 		$lemma = $lexeme->getLemmas()->getIterator()->current();
