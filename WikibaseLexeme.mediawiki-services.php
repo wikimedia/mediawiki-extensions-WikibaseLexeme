@@ -8,7 +8,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
@@ -248,7 +248,7 @@ return call_user_func( static function () {
 			$entityStore = WikibaseRepo::getEntityStore( $mediaWikiServices );
 			$summaryFormatter = WikibaseRepo::getSummaryFormatter( $mediaWikiServices );
 			$entityTitleStoreLookup = WikibaseRepo::getEntityTitleStoreLookup( $mediaWikiServices );
-			$lexemeRedirectorFactory = new MediaWikiLexemeRedirectorFactory(
+			$lexemeRedirector = new MediaWikiLexemeRedirector(
 				$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 				$entityStore,
 				$entityPermissionChecker,
@@ -268,7 +268,7 @@ return call_user_func( static function () {
 			return new MergeLexemesInteractor(
 				$lexemeMerger,
 				$summaryFormatter,
-				$lexemeRedirectorFactory,
+				$lexemeRedirector,
 				$entityPermissionChecker,
 				$mediaWikiServices->getPermissionManager(),
 				$entityTitleStoreLookup,

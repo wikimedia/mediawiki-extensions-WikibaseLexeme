@@ -6,7 +6,7 @@ use IContextSource;
 use MediaWiki\Permissions\PermissionManager;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
+use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
@@ -44,9 +44,9 @@ class MergeLexemesInteractor {
 	private $repoFactory;
 
 	/**
-	 * @var MediaWikiLexemeRedirectorFactory
+	 * @var MediaWikiLexemeRedirector
 	 */
-	private $lexemeRedirectorFactory;
+	private $lexemeRedirector;
 
 	private EntityPermissionChecker $permissionChecker;
 
@@ -72,7 +72,7 @@ class MergeLexemesInteractor {
 	public function __construct(
 		LexemeMerger $lexemeMerger,
 		SummaryFormatter $summaryFormatter,
-		MediaWikiLexemeRedirectorFactory $lexemeRedirectorFactory,
+		MediaWikiLexemeRedirector $lexemeRedirector,
 		EntityPermissionChecker $permissionChecker,
 		PermissionManager $permissionManager,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -82,7 +82,7 @@ class MergeLexemesInteractor {
 	) {
 		$this->lexemeMerger = $lexemeMerger;
 		$this->summaryFormatter = $summaryFormatter;
-		$this->lexemeRedirectorFactory = $lexemeRedirectorFactory;
+		$this->lexemeRedirector = $lexemeRedirector;
 		$this->permissionChecker = $permissionChecker;
 		$this->permissionManager = $permissionManager;
 		$this->entityTitleLookup = $entityTitleLookup;
@@ -129,8 +129,7 @@ class MergeLexemesInteractor {
 		$context = $mergeStatus->getContext();
 		$this->updateWatchlistEntries( $sourceId, $targetId );
 
-		$redirectStatus = $this->lexemeRedirectorFactory
-			->newFromContext( $context, $botEditRequested, $tags )
+		$redirectStatus = $this->lexemeRedirector
 			->createRedirect( $sourceId, $targetId, $botEditRequested, $tags, $context );
 		$context = $redirectStatus->getContext();
 
