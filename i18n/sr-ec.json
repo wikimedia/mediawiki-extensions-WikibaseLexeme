@@ -96,6 +96,7 @@
 	"wikibaselexeme-lexeme-link-title": "$1: $2",
 	"wikibaselexeme-newlexeme-fieldset": "Прављење нове лексеме",
 	"wikibaselexeme-newlexeme-info-panel-heading": "О лексемама",
+	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "Лексема садржи [[Special:MyLanguage/Project:Lexicographical data|лексикографске податке]] а то су подаци о речима или фразама као на пример језик, етимологија, флексија итд. На пример:",
 	"wikibaselexeme-newlexeme-language": "Језик лексеме",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
 	"wikibaselexeme-newlexeme-lemma-language": "Језик писања леме",
