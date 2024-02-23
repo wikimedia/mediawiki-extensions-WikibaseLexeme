@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Akolpoka"
+			"Akolpoka",
+			"Amoramah"
 		]
 	},
 	"content-model-wikibase-lexeme": "\"Wikibase Lexeme\"",
@@ -16,6 +17,7 @@
 	"wikibase-entity-summary-wblmergelexemes-to": "Lagesɛ \"lexeme\" ze'ele $3",
 	"wikibase-lexeme-gloss-empty": "\"Gloss\" ka pa'alɛ",
 	"wikibase-lexeme-lemma-language-not-recognized": "yetɔgum la ka baŋɛ ni.",
+	"wikibase-lexeme-lexicographical-data": "'Lexicographical data'",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Ka nyaŋɛ ni zɛ \"lexeme\"",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Ka nyaŋɛ n wan lagesɛ \"lexemes\" la, n beleni fu mɛ maalɛ nɔkpe'ene woo yia. Tuure: \"Lexemes\" tari la \"Lemmas\" tɔka tɔka n boi itegɔ yima yima.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Ka nyaŋɛ lagesɛ \"Lexemes\" n beleni fu mɛ maalɛ nɔkpe'ene woo yia. Tuure: \"Lexemes\" n tɔkɛ taaba n boi sɔsega puan.",
@@ -32,6 +34,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "Lagesɛ \"Lexemes\"",
 	"wikibase-lexeme-mergelexemes-success": "$1 lagesɛ ni mɛ pa'asɛ $2 gee lebese ni.",
 	"wikibase-lexeme-mergelexemes-to-id": "\"ID\" la ti fu yeti fu lagum la",
+	"wikibase-lexeme-randomlexeme": "Ahaya yelebɛa",
 	"wikibase-lexeme-summary-add-form": "\"Form\" paalɛ n pa'asɛ $3 la \n{{PLURAL:$1|representation|representations}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Tɔgum naaŋɔ n pa'asɛ {{PLURAL:$1|feature|features}} \"Form\" $3 la puan",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|representation|representations}} n pa'asɛ \"Form\" $3 la puan",
