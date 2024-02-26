@@ -44,6 +44,7 @@ use Wikibase\Lib\Summary;
 use Wikibase\Repo\AnonymousEditWarningBuilder;
 use Wikibase\Repo\CopyrightMessageBuilder;
 use Wikibase\Repo\EditEntity\EditEntity;
+use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Specials\HTMLForm\HTMLItemReferenceField;
 use Wikibase\Repo\Specials\HTMLForm\HTMLTrimmedTextField;
@@ -237,7 +238,9 @@ class SpecialNewLexeme extends SpecialPage {
 		);
 
 		if ( $status instanceof Status && $status->isGood() ) {
-			$this->redirectToEntityPage( $status->getValue() );
+			// wrap it, in case HTMLForm turned it into a generic Status
+			$status = EditEntityStatus::wrap( $status );
+			$this->redirectToEntityPage( $status );
 			return;
 		}
 
@@ -517,7 +520,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 					$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.nojs.create' );
 
-					return Status::newGood( $entity );
+					return $saveStatus;
 				}
 			)->addPreHtml( '<noscript>' )
 			->addPostHtml( '</noscript>' );
@@ -556,7 +559,8 @@ class SpecialNewLexeme extends SpecialPage {
 		return $summary;
 	}
 
-	private function redirectToEntityPage( EntityDocument $entity ) {
+	private function redirectToEntityPage( EditEntityStatus $status ) {
+		$entity = $status->getRevision()->getEntity();
 		$this->getOutput()->redirect(
 			$this->entityTitleLookup->getTitleForId( $entity->getId() )->getFullURL()
 		);
@@ -575,7 +579,7 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityDocument $entity,
 		FormatableSummary $summary,
 		string $token
-	): Status {
+	): EditEntityStatus {
 		return $this->newEditEntity()->attemptSave(
 			$entity,
 			$this->summaryFormatter->formatSummary( $summary ),

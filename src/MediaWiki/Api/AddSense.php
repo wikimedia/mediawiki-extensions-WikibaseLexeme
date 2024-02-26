@@ -20,7 +20,6 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeser
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeserializer;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
-use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\StorageException;
@@ -254,12 +253,12 @@ class AddSense extends ApiBase {
 			$this->dieStatus( $status ); // Seems like it is good enough
 		}
 
-		/** @var EntityRevision $entityRevision */
-		$entityRevision = $status->getValue()['revision'];
+		$entityRevision = $status->getRevision();
 		$revisionId = $entityRevision->getRevisionId();
 
 		/** @var Lexeme $editedLexeme */
 		$editedLexeme = $entityRevision->getEntity();
+		'@phan-var Lexeme $editedLexeme';
 		$newSense = $this->getSenseWithMaxId( $editedLexeme );
 		$serializedSense = $this->senseSerializer->serialize( $newSense );
 

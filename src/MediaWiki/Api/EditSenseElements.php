@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
 use Deserializers\Deserializer;
-use MediaWiki\Status\Status;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -18,7 +17,6 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\GlossesChangeOpDeseria
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
 use Wikibase\Lexeme\Serialization\SenseSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
-use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LookupConstants;
@@ -30,6 +28,7 @@ use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpFactoryProvider;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
@@ -213,7 +212,7 @@ class EditSenseElements extends \ApiBase {
 	 * @param string $summary
 	 * @param int $baseRevisionId
 	 * @param array $params
-	 * @return Status
+	 * @return EditEntityStatus
 	 */
 	private function saveSense(
 		Sense $sense,
@@ -246,18 +245,13 @@ class EditSenseElements extends \ApiBase {
 		);
 	}
 
-	/**
-	 * @param Sense $sense
-	 * @param Status $status
-	 */
-	private function generateResponse( Sense $sense, Status $status ) {
+	private function generateResponse( Sense $sense, EditEntityStatus $status ) {
 		$apiResult = $this->getResult();
 
 		$serializedSense = $this->senseSerializer->serialize( $sense );
 		unset( $serializedSense['claims'] );
 
-		/** @var EntityRevision $entityRevision */
-		$entityRevision = $status->getValue()['revision'];
+		$entityRevision = $status->getRevision();
 		$revisionId = $entityRevision->getRevisionId();
 
 		$apiResult->addValue( null, 'lastrevid', $revisionId );

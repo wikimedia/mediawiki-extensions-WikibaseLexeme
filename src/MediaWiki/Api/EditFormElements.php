@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiMain;
-use MediaWiki\Status\Status;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Serializers\SerializerFactory;
@@ -12,7 +11,6 @@ use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
 use Wikibase\Lexeme\Serialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
-use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\EntityStore;
 use Wikibase\Lib\Store\LookupConstants;
@@ -21,6 +19,7 @@ use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
+use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
@@ -191,7 +190,7 @@ class EditFormElements extends \ApiBase {
 	 * @param string $summary
 	 * @param int $baseRevisionId
 	 * @param array $params
-	 * @return Status
+	 * @return EditEntityStatus
 	 */
 	private function saveForm(
 		Form $form,
@@ -224,17 +223,12 @@ class EditFormElements extends \ApiBase {
 		);
 	}
 
-	/**
-	 * @param Form $form
-	 * @param Status $status
-	 */
-	private function generateResponse( Form $form, Status $status ) {
+	private function generateResponse( Form $form, EditEntityStatus $status ) {
 		$apiResult = $this->getResult();
 
 		$serializedForm = $this->formSerializer->serialize( $form );
 
-		/** @var EntityRevision $entityRevision */
-		$entityRevision = $status->getValue()['revision'];
+		$entityRevision = $status->getRevision();
 		$revisionId = $entityRevision->getRevisionId();
 
 		$apiResult->addValue( null, 'lastrevid', $revisionId );

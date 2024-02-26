@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiBase;
 use ApiMain;
 use LogicException;
-use MediaWiki\Status\Status;
 use RuntimeException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -25,6 +24,7 @@ use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
+use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\SummaryFormatter;
@@ -326,7 +326,7 @@ class AddForm extends ApiBase {
 		FormatableSummary $summary,
 		$flags,
 		array $tags
-	): Status {
+	): EditEntityStatus {
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
 			$lexeme->getId(),
@@ -354,14 +354,13 @@ class AddForm extends ApiBase {
 		return $status;
 	}
 
-	private function fillApiResultFromStatus( Status $status ) {
-
-		/** @var EntityRevision $entityRevision */
-		$entityRevision = $status->getValue()['revision'];
+	private function fillApiResultFromStatus( EditEntityStatus $status ) {
+		$entityRevision = $status->getRevision();
 		$revisionId = $entityRevision->getRevisionId();
 
 		/** @var Lexeme $editedLexeme */
 		$editedLexeme = $entityRevision->getEntity();
+		'@phan-var Lexeme $editedLexeme';
 		$newForm = $this->getFormWithMaxId( $editedLexeme );
 		$serializedForm = $this->formSerializer->serialize( $newForm );
 

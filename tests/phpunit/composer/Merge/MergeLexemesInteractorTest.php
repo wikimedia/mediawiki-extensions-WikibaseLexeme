@@ -31,6 +31,7 @@ use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikibase\Lib\Store\StorageException;
 use Wikibase\Repo\EditEntity\EditEntity;
+use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
@@ -237,7 +238,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 	public function testGivenEntitySaveFails_throwsException() {
 		$failingEditEntity = $this->createMock( EditEntity::class );
 		$failingEditEntity->method( 'attemptSave' )
-			->willReturn( Status::newFatal( 'failed-save' ) );
+			->willReturn( EditEntityStatus::newFatal( 'failed-save' ) );
 		$this->setService( 'WikibaseRepo.EditEntityFactory',
 			$this->createConfiguredMock( MediaWikiEditEntityFactory::class, [
 				'newEditEntity' => $failingEditEntity,

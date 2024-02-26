@@ -11,7 +11,6 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\Error\FormNotFound;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
-use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\StorageException;
@@ -189,8 +188,7 @@ class RemoveForm extends ApiBase {
 			$this->dieStatus( $status );
 		}
 
-		/** @var EntityRevision $entityRevision */
-		$entityRevision = $status->getValue()['revision'];
+		$entityRevision = $status->getRevision();
 
 		$apiResult = $this->getResult();
 		$apiResult->addValue( null, 'lastrevid', $entityRevision->getRevisionId() );
