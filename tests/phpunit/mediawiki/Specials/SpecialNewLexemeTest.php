@@ -10,9 +10,12 @@ use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
+use MediaWiki\Session\Session;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
 use MediaWiki\User\User;
+use MediaWiki\User\UserIdentity;
 use PermissionsError;
 use PHPUnit\Framework\MockObject\MockObject;
 use RequestContext;
@@ -48,6 +51,8 @@ use Wikibase\Repo\WikibaseRepo;
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
 class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
+
+	use TempUserTestTrait;
 
 	private const EXISTING_ITEM_ID = 'Q1';
 	private const NON_EXISTING_ITEM_ID = 'Q100';
@@ -643,6 +648,28 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 				unset( $expectedStats[$stat] );
 			} );
 		parent::testEntityIsBeingCreated_WhenValidInputIsGiven( $formData );
+	}
+
+	public function testTempUserCreatedRedirect(): void {
+		$this->enableAutoCreateTempUser();
+		$formData = $this->provideValidEntityCreationRequests()['everything is set'][0];
+		$this->setTemporaryHook( 'TempUserCreatedRedirect', function (
+			Session $session,
+			UserIdentity $user,
+			string $returnTo,
+			string $returnToQuery,
+			string $returnToAnchor,
+			&$redirectUrl
+		) {
+			$userNameUtils = $this->getServiceContainer()->getUserNameUtils();
+			$this->assertTrue( $userNameUtils->isTemp( $user ) );
+			$redirectUrl = 'http://centralwiki.test?returnto=' . $returnTo;
+		} );
+
+		[ , $webResponse ] = $this->executeSpecialPage( '', new FauxRequest( $formData, true ) );
+
+		$redirectUrl = $webResponse->getHeader( 'location' );
+		$this->assertStringStartsWith( 'http://centralwiki.test?returnto=', $redirectUrl );
 	}
 
 	/**

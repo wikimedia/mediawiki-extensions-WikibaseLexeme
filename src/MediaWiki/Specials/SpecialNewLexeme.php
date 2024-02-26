@@ -561,9 +561,23 @@ class SpecialNewLexeme extends SpecialPage {
 
 	private function redirectToEntityPage( EditEntityStatus $status ) {
 		$entity = $status->getRevision()->getEntity();
-		$this->getOutput()->redirect(
-			$this->entityTitleLookup->getTitleForId( $entity->getId() )->getFullURL()
-		);
+		$title = $this->entityTitleLookup->getTitleForId( $entity->getId() );
+		$savedTempUser = $status->getSavedTempUser();
+		$redirectUrl = '';
+		if ( $savedTempUser !== null ) {
+			$this->getHookRunner()->onTempUserCreatedRedirect(
+				$this->getRequest()->getSession(),
+				$savedTempUser,
+				$title->getPrefixedDBkey(),
+				'',
+				'',
+				$redirectUrl
+			);
+		}
+		if ( !$redirectUrl ) {
+			$redirectUrl = $title->getFullURL();
+		}
+		$this->getOutput()->redirect( $redirectUrl );
 	}
 
 	private function newEditEntity(): EditEntity {
