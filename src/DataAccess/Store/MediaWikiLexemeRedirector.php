@@ -48,7 +48,6 @@ class MediaWikiLexemeRedirector extends EntityRedirectCreationInteractor
 		$this->tags = $tags;
 		$this->context = $context;
 
-		// @phan-suppress-next-line PhanParamTooMany
 		parent::__construct(
 			$entityRevisionLookup,
 			$entityStore,
