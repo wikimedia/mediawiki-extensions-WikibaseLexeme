@@ -6,6 +6,7 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 	var expect = require( 'unexpected' ).clone();
 
 	global.$ = require( 'jquery' ); // eslint-disable-line no-restricted-globals
+	global.wikibase = require('./helpers/wikibase-stubs')(); // eslint-disable-line no-restricted-globals
 
 	var newLexemeHeaderStore = require( './../../resources/widgets/LexemeHeader.newLexemeHeaderStore.js' );
 	var Lemma = require( './../../resources/datamodel/Lemma.js' );
@@ -167,8 +168,50 @@ describe( 'LexemeHeader.newLexemeHeaderStore', function () {
 	}
 
 	it(
+		'action save on success processes tempuser values when present',
+		function ( done ) {
+			var state = { isSaving: false, baseRevId: 1, lemmas: new LemmaList( [] ) };
+
+			var targetUrl = 'http://wiki.example';
+			var newRevisionId = 2;
+			var response = {
+				entity: {
+					lastrevid: newRevisionId,
+					lemmas: { en: { value: 'lemma1', language: 'en' } },
+					language: 'Q123',
+					lexicalCategory: 'Q234'
+				},
+				tempuserredirect: targetUrl
+			};
+
+			var repoApi = {
+				editEntity: function ( id, baseRevId, data, clear ) {
+					return Promise.resolve( response );
+				},
+				formatValue: function ( dataValue, options, dataType, outputFormat, propertyId ) {
+					return Promise.resolve( { result: 'Link for ' + dataValue.value.id } );
+				}
+			};
+
+			var actions = newLexemeHeaderStore( repoApi, {}, 0, 'Some language', 'Some category' ).actions;
+
+			actions.save( { commit: function() {}, state: state }, {
+				lemmas: [ new Lemma( 'lemma1', 'en' ) ],
+				language: 'Q123',
+				lexicalCategory: 'Q234'
+			}).then( function( valueChangeResult ) {
+				expect( valueChangeResult.getTempUserWatcher().getRedirectUrl(), 'to equal', targetUrl );
+				done();
+			}).catch( function( error ) {
+				done.fail( error );
+			});
+		}
+	);
+
+	it(
 		'action save on success mutates the state to start saving, updates state and finishes saving',
 		function ( done ) {
+			var targetUrl = 'http://wiki.example';
 			var state = { isSaving: false, baseRevId: 1, lemmas: new LemmaList( [] ) };
 
 			var newRevisionId = 2;

@@ -1,8 +1,9 @@
-module.exports = ( function () {
+module.exports = ( function ( wb ) {
 	'use strict';
 
 	var Lemma = require( '../datamodel/Lemma.js' );
 	var LemmaList = require( '../datatransfer/LemmaList.js' );
+	var ENTITY_CHANGERS = wb.entityChangers;
 
 	function getRequestLemmas( origLemmas, currentLemmas ) {
 		var removedLemmas = [], origLemmaValues = {};
@@ -167,6 +168,9 @@ module.exports = ( function () {
 						} );
 
 						context.commit( 'finishSaving' );
+						var tempUserWatcher = new ENTITY_CHANGERS.TempUserWatcher();
+						tempUserWatcher.processApiResult( response );
+						return new ENTITY_CHANGERS.ValueChangeResult( saveLexeme, tempUserWatcher );
 					} ).fail( function () {
 						context.commit( 'finishSaving' );
 					} );
@@ -174,4 +178,4 @@ module.exports = ( function () {
 			}
 		};
 	};
-}() );
+}( wikibase ) );

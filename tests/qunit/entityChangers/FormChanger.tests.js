@@ -88,7 +88,8 @@
 
 		assert.expect( 3 );
 
-		changer.save( form ).then( function ( saveForm ) {
+		changer.save( form ).then( function ( valueChangeResult ) {
+			var saveForm = valueChangeResult.getSavedValue();
 			assert.strictEqual( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.strictEqual(
 				saveForm.getRepresentations().getItemByKey( 'en' ).getText(),
@@ -100,6 +101,42 @@
 				[ 'Q1', 'Q2' ],
 				'Saved grammatical features'
 			);
+			done();
+		} ).catch( done );
+	} );
+
+	QUnit.test( 'New form - save - handles tempuser redirect if present', function ( assert ) {
+		var done = assert.async();
+		var targetUrl = 'https://wiki.example';
+
+		var api = {
+			post: function () {
+				return $.Deferred().resolve( {
+					form: {
+						id: 'L1-F100',
+						representations: {
+							en: {
+								language: 'en',
+								value: 'some representation'
+							}
+						},
+						grammaticalFeatures: [ 'Q1', 'Q2' ]
+					},
+					tempusercreated: 'tempuser',
+					tempuserredirect: targetUrl
+				} ).promise();
+			}
+		};
+
+		var changer = new FormChanger( api, revisionStore, 'L1', {} );
+
+		var form = new Form( null, null, [] );
+
+		assert.expect( 1 );
+
+		changer.save( form ).then( function ( valueChangeResult ) {
+			var tempUserWatcher = valueChangeResult.getTempUserWatcher();
+			assert.strictEqual( targetUrl, tempUserWatcher.getRedirectUrl() );
 			done();
 		} ).catch( done );
 	} );
@@ -355,6 +392,42 @@
 		);
 	} );
 
+	QUnit.test( 'Representation removed - temp user redirect handled if present', function ( assert ) {
+		var done = assert.async();
+		var targetUrl = 'https://wiki.example';
+		var api = {
+			post: function () {
+				return $.Deferred().resolve( {
+					form: {},
+					tempusercreated: 'tempuser',
+					tempuserredirect: targetUrl
+				} ).promise();
+			}
+		};
+
+		var formId = 'L11-F2';
+		var oldFormData = {
+			representations: {
+				en: { language: 'en', value: 'test representation' },
+				'en-gb': { language: 'en-gb', value: 'test representation gb' }
+			},
+			grammaticalFeatures: [ 'Q1' ]
+		};
+		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
+
+		var form = new Form( formId, representations, [ 'Q1' ] );
+
+		var changer = new FormChanger( api, revisionStore, 'L1', oldFormData );
+
+		assert.expect( 1 );
+
+		changer.remove( form ).then( function ( valueChangeResult ) {
+			var tempUserWatcher = valueChangeResult.getTempUserWatcher();
+			assert.strictEqual( targetUrl, tempUserWatcher.getRedirectUrl() );
+			done();
+		} ).catch( done );
+	} );
+
 	QUnit.test( 'Existing Form data changed - save - returns deserialized Form from API result', function ( assert ) {
 		var done = assert.async();
 
@@ -391,7 +464,8 @@
 
 		assert.expect( 3 );
 
-		changer.save( form ).then( function ( saveForm ) {
+		changer.save( form ).then( function ( valueChangeResult ) {
+			var saveForm = valueChangeResult.getSavedValue();
 			assert.strictEqual( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.strictEqual(
 				saveForm.getRepresentations().getItemByKey( 'en' ).getText(),

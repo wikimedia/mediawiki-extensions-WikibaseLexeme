@@ -49,11 +49,14 @@ module.exports = ( function () {
 							lexicalCategory: this.lexicalCategory,
 							language: this.language
 						}
-					).then( function () {
+					).then( function ( valueChangeResult ) {
 						this.setEditMode( false );
 						this.lemmas = this.$store.state.lemmas.copy();
 						this.language = this.$store.state.language;
 						this.lexicalCategory = this.$store.state.lexicalCategory;
+						if ( valueChangeResult.getTempUserWatcher().getRedirectUrl() ) {
+							window.location.href = valueChangeResult.getTempUserWatcher().getRedirectUrl();
+						}
 					}
 						.bind( this ) )
 						.catch( function ( error ) {

@@ -82,13 +82,47 @@
 
 		assert.expect( 2 );
 
-		changer.save( sense ).then( function ( saveSense ) {
-			assert.strictEqual( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
+		changer.save( sense ).then( function ( valueChangeResult ) {
+			assert.strictEqual( valueChangeResult.getSavedValue().getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.strictEqual(
-				saveSense.getGlosses().getItemByKey( 'en' ).getText(),
+				valueChangeResult.getSavedValue().getGlosses().getItemByKey( 'en' ).getText(),
 				'some gloss',
 				'Saved gloss'
 			);
+			done();
+		} ).catch( done );
+	} );
+
+	QUnit.test( 'New sense - save - handles redirecturl if present in API response', function ( assert ) {
+		var done = assert.async();
+		var targetUrl = 'https://wiki.example/';
+
+		var api = {
+			post: function () {
+				return $.Deferred().resolve( {
+					sense: {
+						id: 'L1-S100',
+						glosses: {
+							en: {
+								language: 'en',
+								value: 'some gloss'
+							}
+						}
+					},
+					tempusercreated: 'tempuser',
+					tempuserredirect: targetUrl
+				} ).promise();
+			}
+		};
+
+		var changer = new SenseChanger( api, revisionStore, 'L1', {} );
+
+		var sense = new Sense( null, null );
+
+		assert.expect( 1 );
+
+		changer.save( sense ).then( function ( valueChangeResult ) {
+			assert.strictEqual( targetUrl, valueChangeResult.getTempUserWatcher().getRedirectUrl() );
 			done();
 		} ).catch( done );
 	} );
@@ -336,6 +370,31 @@
 		);
 	} );
 
+	QUnit.test( 'Sense removed - handles redirecturl if present in API response', function ( assert ) {
+		var done = assert.async();
+		var targetUrl = 'https://wiki.example';
+		var api = {
+			post: sinon.stub().returns(
+				$.Deferred().resolve( {
+					sense: {},
+					tempusercreated: 'tempuser',
+					tempuserredirect: targetUrl
+				} )
+			)
+		};
+
+		var changer = new SenseChanger( api, revisionStore, 'L11', {} );
+		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
+		var sense = new Sense( 'L11-S300', glosses );
+
+		assert.expect( 1 );
+
+		changer.remove( sense ).then( function ( valueChangeResult ) {
+			assert.strictEqual( targetUrl, valueChangeResult.getTempUserWatcher().getRedirectUrl() );
+			done();
+		} ).catch( done );
+	} );
+
 	QUnit.test( 'Existing Sense data changed - save - returns deserialized Sense from API result', function ( assert ) {
 		var done = assert.async();
 
@@ -369,10 +428,10 @@
 
 		assert.expect( 2 );
 
-		changer.save( sense ).then( function ( saveSense ) {
-			assert.strictEqual( saveSense.getId(), 'L1-S100', 'Saved Sense ID' );
+		changer.save( sense ).then( function ( valueChangeResult ) {
+			assert.strictEqual( valueChangeResult.getSavedValue().getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.strictEqual(
-				saveSense.getGlosses().getItemByKey( 'en' ).getText(),
+				valueChangeResult.getSavedValue().getGlosses().getItemByKey( 'en' ).getText(),
 				'test gloss',
 				'Saved gloss'
 			);

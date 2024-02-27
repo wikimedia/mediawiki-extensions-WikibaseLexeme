@@ -6,7 +6,8 @@
 	'use strict';
 
 	var SenseSerializer = require( '../serialization/SenseSerializer.js' ),
-		getDeserializer = require( 'wikibase.lexeme.getDeserializer' );
+		getDeserializer = require( 'wikibase.lexeme.getDeserializer' ),
+		ENTITY_CHANGERS = wb.entityChangers;
 
 	/**
 	 * @constructor
@@ -122,7 +123,7 @@
 			} ).then( function ( data ) {
 				var sense = self.lexemeDeserializer.deserializeSense( data.sense );
 				self.senseData = self.senseSerializer.serialize( sense );
-				return sense;
+				return self._handleTempUserAndCreateSavedValueResult( sense, data );
 			} ).catch( function ( code, response ) {
 				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
 			} );
@@ -142,14 +143,21 @@
 				var sense = self.lexemeDeserializer.deserializeSense( data.sense );
 				self.revisionStore.setSenseRevision( data.lastrevid, sense.getId() );
 				self.senseData = self.senseSerializer.serialize( sense );
-				return sense;
+				return self._handleTempUserAndCreateSavedValueResult( sense, data );
 			} ).catch( function ( code, response ) {
 				throw convertPlainTextErrorsToRepoApiError( response.errors, 'save' );
 			} );
 		},
 
+		_handleTempUserAndCreateSavedValueResult: function ( sense, data ) {
+			var tempUserWatcher = new ENTITY_CHANGERS.TempUserWatcher();
+			tempUserWatcher.processApiResult( data );
+			return new ENTITY_CHANGERS.ValueChangeResult( sense, tempUserWatcher );
+		},
+
 		remove: function ( sense ) {
 			var deferred = $.Deferred();
+			var self = this;
 
 			this.api.post( {
 				action: 'wblremovesense',
@@ -159,7 +167,9 @@
 				bot: 0,
 				tags: this.getTags()
 			} )
-				.then( deferred.resolve )
+				.then( function ( data ) {
+					deferred.resolve( self._handleTempUserAndCreateSavedValueResult( null, data ) );
+				} )
 				.fail( function ( code, response ) {
 					deferred.reject( convertPlainTextErrorsToRepoApiError( response.errors, 'remove' ) );
 				} );
