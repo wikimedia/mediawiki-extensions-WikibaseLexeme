@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
+use ApiCreateTempUserTrait;
 use ApiMain;
 use Deserializers\Deserializer;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
@@ -24,6 +25,7 @@ use Wikibase\Lib\StringNormalizer;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
+use Wikibase\Repo\Api\ResultBuilder;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpFactoryProvider;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
@@ -38,6 +40,8 @@ use Wikimedia\ParamValidator\ParamValidator;
  * @license GPL-2.0-or-later
  */
 class EditSenseElements extends \ApiBase {
+
+	use ApiCreateTempUserTrait;
 
 	private const LATEST_REVISION = 0;
 
@@ -65,6 +69,8 @@ class EditSenseElements extends \ApiBase {
 	 * @var SenseSerializer
 	 */
 	private $senseSerializer;
+
+	private ResultBuilder $resultBuilder;
 
 	/**
 	 * @var ApiErrorReporter
@@ -118,9 +124,7 @@ class EditSenseElements extends \ApiBase {
 			),
 			$summaryFormatter,
 			$senseSerializer,
-			static function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getErrorReporter( $module );
-			},
+			$apiHelperFactory,
 			$entityStore
 		);
 	}
@@ -133,7 +137,7 @@ class EditSenseElements extends \ApiBase {
 		EditSenseElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		SenseSerializer $senseSerializer,
-		callable $errorReporterInstantiator,
+		ApiHelperFactory $apiHelperFactory,
 		EntityStore $entityStore
 	) {
 		parent::__construct( $mainModule, $moduleName );
@@ -143,7 +147,8 @@ class EditSenseElements extends \ApiBase {
 		$this->requestParser = $requestParser;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->senseSerializer = $senseSerializer;
-		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->resultBuilder = $apiHelperFactory->getResultBuilder( $this );
+		$this->errorReporter = $apiHelperFactory->getErrorReporter( $this );
 		$this->entityStore = $entityStore;
 	}
 
@@ -204,7 +209,7 @@ class EditSenseElements extends \ApiBase {
 			$this->dieStatus( $status );
 		}
 
-		$this->generateResponse( $sense, $status );
+		$this->generateResponse( $sense, $status, $params );
 	}
 
 	/**
@@ -245,25 +250,20 @@ class EditSenseElements extends \ApiBase {
 		);
 	}
 
-	private function generateResponse( Sense $sense, EditEntityStatus $status ) {
-		$apiResult = $this->getResult();
+	private function generateResponse( Sense $sense, EditEntityStatus $status, array $params ) {
+		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
+		$this->resultBuilder->markSuccess();
 
 		$serializedSense = $this->senseSerializer->serialize( $sense );
 		unset( $serializedSense['claims'] );
+		$this->getResult()->addValue( null, 'sense', $serializedSense );
 
-		$entityRevision = $status->getRevision();
-		$revisionId = $entityRevision->getRevisionId();
-
-		$apiResult->addValue( null, 'lastrevid', $revisionId );
-
-		// TODO: Do we really need `success` property in response?
-		$apiResult->addValue( null, 'success', 1 );
-		$apiResult->addValue( null, 'sense', $serializedSense );
+		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return [
+		return array_merge( [
 			EditSenseElementsRequestParser::PARAM_SENSE_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
@@ -283,7 +283,7 @@ class EditSenseElements extends \ApiBase {
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_DEFAULT => false,
 			],
-		];
+		], $this->getCreateTempUserParams() );
 	}
 
 	/** @inheritDoc */

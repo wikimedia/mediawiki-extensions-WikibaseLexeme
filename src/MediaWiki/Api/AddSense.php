@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
+use ApiCreateTempUserTrait;
 use ApiMain;
 use Deserializers\Deserializer;
 use LogicException;
@@ -27,6 +28,7 @@ use Wikibase\Lib\StringNormalizer;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
+use Wikibase\Repo\Api\ResultBuilder;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpFactoryProvider;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
@@ -41,12 +43,16 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class AddSense extends ApiBase {
 
+	use ApiCreateTempUserTrait;
+
 	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var AddSenseRequestParser
 	 */
 	private $requestParser;
+
+	private ResultBuilder $resultBuilder;
 
 	/**
 	 * @var ApiErrorReporter
@@ -117,9 +123,7 @@ class AddSense extends ApiBase {
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$editEntityFactory,
 			$summaryFormatter,
-			static function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getErrorReporter( $module );
-			}
+			$apiHelperFactory
 		);
 	}
 
@@ -131,11 +135,12 @@ class AddSense extends ApiBase {
 		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
-		callable $errorReporterInstantiator
+		ApiHelperFactory $apiHelperFactory
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
-		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->resultBuilder = $apiHelperFactory->getResultBuilder( $this );
+		$this->errorReporter = $apiHelperFactory->getErrorReporter( $this );
 		$this->requestParser = $requestParser;
 		$this->senseSerializer = $senseSerializer;
 		$this->editEntityFactory = $editEntityFactory;
@@ -254,7 +259,6 @@ class AddSense extends ApiBase {
 		}
 
 		$entityRevision = $status->getRevision();
-		$revisionId = $entityRevision->getRevisionId();
 
 		/** @var Lexeme $editedLexeme */
 		$editedLexeme = $entityRevision->getEntity();
@@ -262,16 +266,15 @@ class AddSense extends ApiBase {
 		$newSense = $this->getSenseWithMaxId( $editedLexeme );
 		$serializedSense = $this->senseSerializer->serialize( $newSense );
 
-		$apiResult = $this->getResult();
-		$apiResult->addValue( null, 'lastrevid', $revisionId );
-		// TODO: Do we really need `success` property in response?
-		$apiResult->addValue( null, 'success', 1 );
-		$apiResult->addValue( null, 'sense', $serializedSense );
+		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
+		$this->resultBuilder->markSuccess();
+		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
+		$this->getResult()->addValue( null, 'sense', $serializedSense );
 	}
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return [
+		return array_merge( [
 			AddSenseRequestParser::PARAM_LEXEME_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
@@ -291,7 +294,7 @@ class AddSense extends ApiBase {
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_DEFAULT => false,
 			],
-		];
+		], $this->getCreateTempUserParams() );
 	}
 
 	/** @inheritDoc */

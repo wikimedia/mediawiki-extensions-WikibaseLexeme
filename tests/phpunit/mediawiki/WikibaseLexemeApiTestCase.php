@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiUsageException;
 use IApiMessage;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lib\Store\EntityStore;
@@ -18,6 +19,8 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  */
 abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
+
+	use TempUserTestTrait;
 
 	/**
 	 * @var EntityStore
@@ -102,6 +105,33 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$serializedEntityId . StatementGuid::SEPARATOR,
 			$guid
 		);
+	}
+
+	/** Run a test to ensure that temp user redirects are correctly returned. */
+	protected function doTestTempUserCreatedRedirect( array $params ): void {
+		$this->enableAutoCreateTempUser();
+		$this->setTemporaryHook( 'TempUserCreatedRedirect', function (
+			$session,
+			$user,
+			$returnTo,
+			$returnToQuery,
+			$returnToAnchor,
+			&$redirectUrl
+		) {
+			$this->assertSame( 'Lexeme:L1', $returnTo );
+			$this->assertSame( 'b=c', $returnToQuery );
+			$this->assertSame( '#d', $returnToAnchor );
+			$redirectUrl = 'https://example.com/Lexeme:L1?b=c#d';
+		} );
+
+		[ $result ] = $this->doApiRequestWithToken( array_merge( $params, [
+			'returnto' => 'Lexeme:L1',
+			'returntoquery' => 'b=c',
+			'returntoanchor' => 'd',
+		] ), null, $this->getServiceContainer()->getUserFactory()->newAnonymous() );
+
+		$this->assertArrayHasKey( 'tempusercreated', $result );
+		$this->assertSame( 'https://example.com/Lexeme:L1?b=c#d', $result['tempuserredirect'] );
 	}
 
 }

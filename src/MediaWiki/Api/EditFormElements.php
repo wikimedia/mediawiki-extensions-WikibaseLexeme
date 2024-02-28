@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
+use ApiCreateTempUserTrait;
 use ApiMain;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -17,6 +18,7 @@ use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
+use Wikibase\Repo\Api\ResultBuilder;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\EditEntityStatus;
@@ -29,6 +31,8 @@ use Wikimedia\ParamValidator\ParamValidator;
  * @license GPL-2.0-or-later
  */
 class EditFormElements extends \ApiBase {
+
+	use ApiCreateTempUserTrait;
 
 	private const LATEST_REVISION = 0;
 
@@ -56,6 +60,8 @@ class EditFormElements extends \ApiBase {
 	 * @var FormSerializer
 	 */
 	private $formSerializer;
+
+	private ResultBuilder $resultBuilder;
 
 	/**
 	 * @var ApiErrorReporter
@@ -94,9 +100,7 @@ class EditFormElements extends \ApiBase {
 			),
 			$summaryFormatter,
 			$formSerializer,
-			static function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getErrorReporter( $module );
-			},
+			$apiHelperFactory,
 			$entityStore
 		);
 	}
@@ -109,7 +113,7 @@ class EditFormElements extends \ApiBase {
 		EditFormElementsRequestParser $requestParser,
 		SummaryFormatter $summaryFormatter,
 		FormSerializer $formSerializer,
-		callable $errorReporterInstantiator,
+		ApiHelperFactory $apiHelperFactory,
 		EntityStore $entityStore
 	) {
 		parent::__construct( $mainModule, $moduleName );
@@ -119,7 +123,8 @@ class EditFormElements extends \ApiBase {
 		$this->requestParser = $requestParser;
 		$this->summaryFormatter = $summaryFormatter;
 		$this->formSerializer = $formSerializer;
-		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->resultBuilder = $apiHelperFactory->getResultBuilder( $this );
+		$this->errorReporter = $apiHelperFactory->getErrorReporter( $this );
 		$this->entityStore = $entityStore;
 	}
 
@@ -182,7 +187,7 @@ class EditFormElements extends \ApiBase {
 			$this->dieStatus( $status );
 		}
 
-		$this->generateResponse( $form, $status );
+		$this->generateResponse( $form, $status, $params );
 	}
 
 	/**
@@ -223,24 +228,19 @@ class EditFormElements extends \ApiBase {
 		);
 	}
 
-	private function generateResponse( Form $form, EditEntityStatus $status ) {
-		$apiResult = $this->getResult();
+	private function generateResponse( Form $form, EditEntityStatus $status, array $params ) {
+		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
+		$this->resultBuilder->markSuccess();
 
 		$serializedForm = $this->formSerializer->serialize( $form );
+		$this->getResult()->addValue( null, 'form', $serializedForm );
 
-		$entityRevision = $status->getRevision();
-		$revisionId = $entityRevision->getRevisionId();
-
-		$apiResult->addValue( null, 'lastrevid', $revisionId );
-
-		// TODO: Do we really need `success` property in response?
-		$apiResult->addValue( null, 'success', 1 );
-		$apiResult->addValue( null, 'form', $serializedForm );
+		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return [
+		return array_merge( [
 			EditFormElementsRequestParser::PARAM_FORM_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
@@ -260,7 +260,7 @@ class EditFormElements extends \ApiBase {
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_DEFAULT => false,
 			],
-		];
+		], $this->getCreateTempUserParams() );
 	}
 
 	/** @inheritDoc */

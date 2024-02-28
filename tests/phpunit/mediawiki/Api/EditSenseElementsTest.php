@@ -664,4 +664,22 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
+	public function testTempUserCreatedRedirect(): void {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'test' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+
+		$this->doTestTempUserCreatedRedirect( [
+			'action' => 'wbleditsenseelements',
+			'senseId' => self::DEFAULT_SENSE_ID,
+			'data' => json_encode( [
+				'glosses' => [ 'en' => [ 'language' => 'en', 'value' => 'TEST' ] ],
+			] ),
+		] );
+	}
+
 }

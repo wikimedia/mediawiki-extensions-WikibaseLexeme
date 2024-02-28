@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
+use ApiCreateTempUserTrait;
 use ApiMain;
 use LogicException;
 use RuntimeException;
@@ -23,6 +24,7 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
+use Wikibase\Repo\Api\ResultBuilder;
 use Wikibase\Repo\ChangeOp\ChangeOpException;
 use Wikibase\Repo\EditEntity\EditEntityStatus;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
@@ -35,12 +37,16 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class AddForm extends ApiBase {
 
+	use ApiCreateTempUserTrait;
+
 	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var AddFormRequestParser
 	 */
 	private $requestParser;
+
+	private ResultBuilder $resultBuilder;
 
 	/**
 	 * @var ApiErrorReporter
@@ -93,9 +99,7 @@ class AddForm extends ApiBase {
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$editEntityFactory,
 			$summaryFormatter,
-			static function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getErrorReporter( $module );
-			}
+			$apiHelperFactory
 		);
 	}
 
@@ -107,11 +111,12 @@ class AddForm extends ApiBase {
 		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
-		callable $errorReporterInstantiator
+		ApiHelperFactory $apiHelperFactory
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
-		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->resultBuilder = $apiHelperFactory->getResultBuilder( $this );
+		$this->errorReporter = $apiHelperFactory->getErrorReporter( $this );
 		$this->requestParser = $requestParser;
 		$this->formSerializer = $formSerializer;
 		$this->editEntityFactory = $editEntityFactory;
@@ -175,12 +180,12 @@ class AddForm extends ApiBase {
 			$this->dieStatus( $status ); // Seems like it is good enough
 		}
 
-		$this->fillApiResultFromStatus( $status );
+		$this->fillApiResultFromStatus( $status, $params );
 	}
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return [
+		return array_merge( [
 			AddFormRequestParser::PARAM_LEXEME_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
@@ -200,7 +205,7 @@ class AddForm extends ApiBase {
 				ParamValidator::PARAM_TYPE => 'boolean',
 				ParamValidator::PARAM_DEFAULT => false,
 			],
-		];
+		], $this->getCreateTempUserParams() );
 	}
 
 	/** @inheritDoc */
@@ -354,9 +359,8 @@ class AddForm extends ApiBase {
 		return $status;
 	}
 
-	private function fillApiResultFromStatus( EditEntityStatus $status ) {
+	private function fillApiResultFromStatus( EditEntityStatus $status, array $params ) {
 		$entityRevision = $status->getRevision();
-		$revisionId = $entityRevision->getRevisionId();
 
 		/** @var Lexeme $editedLexeme */
 		$editedLexeme = $entityRevision->getEntity();
@@ -364,11 +368,10 @@ class AddForm extends ApiBase {
 		$newForm = $this->getFormWithMaxId( $editedLexeme );
 		$serializedForm = $this->formSerializer->serialize( $newForm );
 
-		$apiResult = $this->getResult();
-		$apiResult->addValue( null, 'lastrevid', $revisionId );
-		// TODO: Do we really need `success` property in response?
-		$apiResult->addValue( null, 'success', 1 );
-		$apiResult->addValue( null, 'form', $serializedForm );
+		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
+		$this->resultBuilder->markSuccess();
+		$this->getResult()->addValue( null, 'form', $serializedForm );
+		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
 }
