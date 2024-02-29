@@ -10,6 +10,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Tests\MockRepository;
+use Wikimedia\TestingAccessWrapper;
 
 if (
 	!ExtensionRegistry::getInstance()->isLoaded( 'WikibaseClient' ) ||
@@ -106,6 +107,39 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 		foreach ( $lexeme->getSenses()->toArrayUnordered() as $sense ) {
 			$mockRepository->putEntity( $sense );
 		}
+	}
+
+	protected function newScribuntoLuaWikibaseLexemeLibrary( string $klass ) {
+		$engine = $this->getEngine();
+		$engine->load();
+		return new $klass( $engine );
+	}
+
+	private static function getParserOutputFromRedirectUsageAccumulator( $redirectUsageAccumulator ) {
+		$innerAccumulator = TestingAccessWrapper::newFromObject( $redirectUsageAccumulator )->innerUsageAccumulator;
+		return TestingAccessWrapper::newFromObject( $innerAccumulator )->getParserOutput();
+	}
+
+	public function makeParserOutputUsageAccumulatorAssertions( string $klass ): void {
+		$luaWikibaseLibrary = $this->newScribuntoLuaWikibaseLexemeLibrary( $klass );
+		$libraryWithMemberAccess = TestingAccessWrapper::newFromObject( $luaWikibaseLibrary );
+		$parserOutput = $libraryWithMemberAccess->getParser()->getOutput();
+		$usageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
+		$this->assertSame(
+			$parserOutput,
+			self::getParserOutputFromRedirectUsageAccumulator( $usageAccumulator ),
+			"Current engine parser output should be used by usage accumulator" );
+		$libraryWithMemberAccess->getParser()->resetOutput();
+		$newUsageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
+		$this->assertSame( $usageAccumulator, $newUsageAccumulator,
+			"Usage accumulator should not be reconstructed after parser output reset" );
+		$newParserOutput = $libraryWithMemberAccess->getParser()->getOutput();
+		$this->assertNotSame( $newParserOutput, $parserOutput,
+			"Engine should have a new parser output after a reset" );
+		$this->assertSame(
+			$newParserOutput,
+			self::getParserOutputFromRedirectUsageAccumulator( $newUsageAccumulator ),
+			"Usage accumulator should be using the new parser output" );
 	}
 
 	protected function tearDown(): void {

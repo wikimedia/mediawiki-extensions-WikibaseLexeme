@@ -2,7 +2,9 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Scribunto;
 
+use MediaWiki\Parser\ParserOutput;
 use Scribunto_LuaLibraryBase;
+use Wikibase\Client\ParserOutput\ParserOutputProvider;
 use Wikibase\Client\Usage\UsageAccumulator;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -11,7 +13,8 @@ use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 /**
  * @license GPL-2.0-or-later
  */
-abstract class Scribunto_LuaWikibaseLexemeAbstractEntityLibrary extends Scribunto_LuaLibraryBase {
+abstract class Scribunto_LuaWikibaseLexemeAbstractEntityLibrary
+	extends Scribunto_LuaLibraryBase implements ParserOutputProvider {
 
 	/** @var UsageAccumulator|null */
 	private $usageAccumulator;
@@ -21,9 +24,8 @@ abstract class Scribunto_LuaWikibaseLexemeAbstractEntityLibrary extends Scribunt
 
 	private function getUsageAccumulator(): UsageAccumulator {
 		if ( $this->usageAccumulator === null ) {
-			$parserOutput = $this->getParser()->getOutput();
 			$this->usageAccumulator = WikibaseClient::getUsageAccumulatorFactory()
-				->newFromParserOutput( $parserOutput );
+				->newFromParserOutputProvider( $this );
 		}
 
 		return $this->usageAccumulator;
@@ -45,4 +47,7 @@ abstract class Scribunto_LuaWikibaseLexemeAbstractEntityLibrary extends Scribunt
 		}
 	}
 
+	public function getParserOutput(): ParserOutput {
+		return $this->getParser()->getOutput();
+	}
 }
