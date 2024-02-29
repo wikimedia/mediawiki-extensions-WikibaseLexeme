@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
@@ -70,7 +72,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	public static function provideInvalidParams() {
+	public static function provideInvalidParams(): iterable {
 		$basicData = [
 			'representations' => [
 				'en' => [
@@ -232,7 +234,7 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		);
 	}
 
-	private static function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ): string {
 		$simpleData = [
 			'representations' => [
 				'en' => [
@@ -435,22 +437,12 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Lexeme|null
-	 */
-	private function getLexeme( $id ) {
+	private function getLexeme( string $id ): ?Lexeme {
 		$lookup = WikibaseRepo::getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return EntityRevision|null
-	 */
-	private function getCurrentRevisionForLexeme( $id ) {
+	private function getCurrentRevisionForLexeme( string $id ): ?EntityRevision {
 		$lookup = WikibaseRepo::getEntityRevisionLookup();
 
 		return $lookup->getEntityRevision( new LexemeId( $id ) );

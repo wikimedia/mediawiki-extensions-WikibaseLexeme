@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiCreateTempUserTrait;
@@ -36,42 +38,14 @@ class EditFormElements extends \ApiBase {
 
 	private const LATEST_REVISION = 0;
 
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
-
-	/**
-	 * @var MediaWikiEditEntityFactory
-	 */
-	private $editEntityFactory;
-
-	/**
-	 * @var EditFormElementsRequestParser
-	 */
-	private $requestParser;
-
-	/**
-	 * @var SummaryFormatter
-	 */
-	private $summaryFormatter;
-
-	/**
-	 * @var FormSerializer
-	 */
-	private $formSerializer;
-
+	private EntityRevisionLookup $entityRevisionLookup;
+	private MediaWikiEditEntityFactory $editEntityFactory;
+	private EditFormElementsRequestParser $requestParser;
+	private SummaryFormatter $summaryFormatter;
+	private FormSerializer $formSerializer;
 	private ResultBuilder $resultBuilder;
-
-	/**
-	 * @var ApiErrorReporter
-	 */
-	private $errorReporter;
-
-	/**
-	 * @var EntityStore
-	 */
-	private $entityStore;
+	private ApiErrorReporter $errorReporter;
+	private EntityStore $entityStore;
 
 	public static function factory(
 		ApiMain $mainModule,
@@ -107,7 +81,7 @@ class EditFormElements extends \ApiBase {
 
 	public function __construct(
 		ApiMain $mainModule,
-		$moduleName,
+		string $moduleName,
 		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		EditFormElementsRequestParser $requestParser,
@@ -132,7 +106,7 @@ class EditFormElements extends \ApiBase {
 	 * @inheritDoc
 	 * @suppress PhanTypeMismatchArgument
 	 */
-	public function execute() {
+	public function execute(): void {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
 		if ( $request->getBaseRevId() ) {
@@ -190,19 +164,12 @@ class EditFormElements extends \ApiBase {
 		$this->generateResponse( $form, $status, $params );
 	}
 
-	/**
-	 * @param Form $form
-	 * @param string $summary
-	 * @param int $baseRevisionId
-	 * @param array $params
-	 * @return EditEntityStatus
-	 */
 	private function saveForm(
 		Form $form,
-		$summary,
-		$baseRevisionId,
+		string $summary,
+		int $baseRevisionId,
 		array $params
-	) {
+	): EditEntityStatus {
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
 			$form->getId(),
@@ -228,7 +195,7 @@ class EditFormElements extends \ApiBase {
 		);
 	}
 
-	private function generateResponse( Form $form, EditEntityStatus $status, array $params ) {
+	private function generateResponse( Form $form, EditEntityStatus $status, array $params ): void {
 		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
 		$this->resultBuilder->markSuccess();
 
@@ -238,8 +205,7 @@ class EditFormElements extends \ApiBase {
 		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
-	/** @inheritDoc */
-	protected function getAllowedParams() {
+	protected function getAllowedParams(): array {
 		return array_merge( [
 			EditFormElementsRequestParser::PARAM_FORM_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
@@ -263,8 +229,7 @@ class EditFormElements extends \ApiBase {
 		], $this->getCreateTempUserParams() );
 	}
 
-	/** @inheritDoc */
-	public function isWriteMode() {
+	public function isWriteMode(): bool {
 		return true;
 	}
 
@@ -272,21 +237,19 @@ class EditFormElements extends \ApiBase {
 	 * As long as this codebase is in development and APIs might change any time without notice, we
 	 * mark all as internal. This adds an "unstable" notice, but does not hide them in any way.
 	 */
-	public function isInternal() {
+	public function isInternal(): bool {
 		return true;
 	}
 
-	/** @inheritDoc */
-	public function needsToken() {
+	public function needsToken(): string {
 		return 'csrf';
 	}
 
-	/** @inheritDoc */
-	public function mustBePosted() {
+	public function mustBePosted(): bool {
 		return true;
 	}
 
-	protected function getExamplesMessages() {
+	protected function getExamplesMessages(): array {
 		$formId = 'L12-F1';
 		$exampleData = [
 			'representations' => [
@@ -329,17 +292,12 @@ class EditFormElements extends \ApiBase {
 	/**
 	 * Returns $latestRevisionId if all of edits since $baseRevId are done
 	 * by the same user, otherwise returns $baseRevId.
-	 *
-	 * @param int $latestRevisionId
-	 * @param int $baseRevId
-	 * @param EntityId $entityId
-	 * @return int
 	 */
 	private function getRevIdForWhenUserWasLastToEdit(
-		$latestRevisionId,
-		$baseRevId,
+		int $latestRevisionId,
+		int $baseRevId,
 		EntityId $entityId
-	) {
+	): int {
 		if ( $baseRevId === self::LATEST_REVISION || $latestRevisionId === $baseRevId ) {
 			return $latestRevisionId;
 		}

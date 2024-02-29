@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use ApiUsageException;
@@ -22,10 +24,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 
 	use TempUserTestTrait;
 
-	/**
-	 * @var EntityStore
-	 */
-	protected $entityStore;
+	protected EntityStore $entityStore;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -43,11 +42,8 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	 *
 	 * In addition to WikibaseApiTestCase::doTestQueryExceptions() capabilities it allows asserting
 	 * ApiMessageTrait::getApiData() content
-	 *
-	 * @param array $params
-	 * @param array $exception
 	 */
-	public function doTestQueryApiException( array $params, array $exception ) {
+	public function doTestQueryApiException( array $params, array $exception ): void {
 		try {
 			$this->doApiRequestWithToken( $params );
 			$this->fail( 'No API error was raised' );
@@ -88,7 +84,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		}
 	}
 
-	public function saveEntity( EntityDocument $entity ) {
+	public function saveEntity( EntityDocument $entity ): void {
 		$this->entityStore->saveEntity(
 			$entity,
 			static::class,
@@ -100,7 +96,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 	 * @param string $serializedEntityId
 	 * @param string $guid GUID of a statement
 	 */
-	protected function assertStatementGuidHasEntityId( $serializedEntityId, $guid ) {
+	protected function assertStatementGuidHasEntityId( string $serializedEntityId, string $guid ): void {
 		$this->assertStringStartsWith(
 			$serializedEntityId . StatementGuid::SEPARATOR,
 			$guid

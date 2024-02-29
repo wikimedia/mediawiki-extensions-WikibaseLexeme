@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
@@ -34,32 +36,12 @@ class RemoveSense extends ApiBase {
 
 	private const LATEST_REVISION = 0;
 
-	/**
-	 * @var RemoveSenseRequestParser
-	 */
-	private $requestParser;
-
+	private RemoveSenseRequestParser $requestParser;
 	private ResultBuilder $resultBuilder;
-
-	/**
-	 * @var ApiErrorReporter
-	 */
-	private $errorReporter;
-
-	/**
-	 * @var MediaWikiEditEntityFactory
-	 */
-	private $editEntityFactory;
-
-	/**
-	 * @var SummaryFormatter
-	 */
-	private $summaryFormatter;
-
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
+	private ApiErrorReporter $errorReporter;
+	private MediaWikiEditEntityFactory $editEntityFactory;
+	private SummaryFormatter $summaryFormatter;
+	private EntityRevisionLookup $entityRevisionLookup;
 
 	public static function factory(
 		ApiMain $mainModule,
@@ -85,7 +67,7 @@ class RemoveSense extends ApiBase {
 
 	public function __construct(
 		ApiMain $mainModule,
-		$moduleName,
+		string $moduleName,
 		RemoveSenseRequestParser $requestParser,
 		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory,
@@ -107,7 +89,7 @@ class RemoveSense extends ApiBase {
 	 *
 	 * @throws \ApiUsageException
 	 */
-	public function execute() {
+	public function execute(): void {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
 		if ( $request->getBaseRevId() ) {
@@ -198,8 +180,7 @@ class RemoveSense extends ApiBase {
 		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
-	/** @inheritDoc */
-	protected function getAllowedParams() {
+	protected function getAllowedParams(): array {
 		return array_merge( [
 			RemoveSenseRequestParser::PARAM_SENSE_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
@@ -219,8 +200,7 @@ class RemoveSense extends ApiBase {
 		], $this->getCreateTempUserParams() );
 	}
 
-	/** @inheritDoc */
-	public function isWriteMode() {
+	public function isWriteMode(): bool {
 		return true;
 	}
 
@@ -228,21 +208,19 @@ class RemoveSense extends ApiBase {
 	 * As long as this codebase is in development and APIs might change any time without notice, we
 	 * mark all as internal. This adds an "unstable" notice, but does not hide them in any way.
 	 */
-	public function isInternal() {
+	public function isInternal(): bool {
 		return true;
 	}
 
-	/** @inheritDoc */
-	public function needsToken() {
+	public function needsToken(): string {
 		return 'csrf';
 	}
 
-	/** @inheritDoc */
-	public function mustBePosted() {
+	public function mustBePosted(): bool {
 		return true;
 	}
 
-	protected function getExamplesMessages() {
+	protected function getExamplesMessages(): array {
 		$senseId = 'L10-S20';
 
 		$query = http_build_query( [

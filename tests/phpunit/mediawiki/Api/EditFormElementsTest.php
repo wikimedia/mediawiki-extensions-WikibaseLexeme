@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
@@ -78,7 +80,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	private static function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ): string {
 		$simpleData = [
 			'representations' => [
 				'en' => [
@@ -92,7 +94,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		return json_encode( array_merge( $simpleData, $dataToUse ) );
 	}
 
-	public static function provideInvalidParams() {
+	public static function provideInvalidParams(): iterable {
 		$basicData = [
 			'representations' => [
 				'en' => [
@@ -1007,33 +1009,18 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Lexeme|null
-	 */
-	private function getLexeme( $id ) {
+	private function getLexeme( string $id ): ?Lexeme {
 		$lookup = WikibaseRepo::getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return EntityRevision|null
-	 */
-	private function getCurrentRevisionForForm( $id ) {
+	private function getCurrentRevisionForForm( string $id ): ?EntityRevision {
 		$lookup = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 
 		return $lookup->getEntityRevision( new FormId( $id ) );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return EntityRevision|null
-	 */
-	private function getCurrentRevisionForLexeme( $id ) {
+	private function getCurrentRevisionForLexeme( string $id ): ?EntityRevision {
 		$lookup = WikibaseRepo::getEntityRevisionLookup();
 
 		return $lookup->getEntityRevision( new LexemeId( $id ) );
