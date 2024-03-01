@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
 use IContextSource;
@@ -34,40 +36,14 @@ use Wikibase\Repo\SummaryFormatter;
  */
 class MergeLexemesInteractor {
 
-	/**
-	 * @var SummaryFormatter
-	 */
-	private $summaryFormatter;
-
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
-
-	/**
-	 * @var MediaWikiLexemeRedirector
-	 */
-	private $lexemeRedirector;
-
+	private SummaryFormatter $summaryFormatter;
+	private EntityRevisionLookup $entityRevisionLookup;
+	private MediaWikiLexemeRedirector $lexemeRedirector;
 	private EntityPermissionChecker $permissionChecker;
-
 	private PermissionManager $permissionManager;
-
-	/**
-	 * @var EntityTitleStoreLookup
-	 */
-	private $entityTitleLookup;
-
-	/**
-	 * @var LexemeMerger
-	 */
-	private $lexemeMerger;
-
-	/**
-	 * @var WatchedItemStoreInterface
-	 */
-	private $watchedItemStore;
-
+	private EntityTitleStoreLookup $entityTitleLookup;
+	private LexemeMerger $lexemeMerger;
+	private WatchedItemStoreInterface $watchedItemStore;
 	private MediaWikiEditEntityFactory $editEntityFactory;
 
 	public function __construct(
@@ -173,12 +149,9 @@ class MergeLexemesInteractor {
 	}
 
 	/**
-	 * @param EntityDocument $fromEntity
-	 * @param EntityDocument $toEntity
-	 *
 	 * @throws ReferenceSameLexemeException
 	 */
-	private function validateEntities( EntityDocument $fromEntity, EntityDocument $toEntity ) {
+	private function validateEntities( EntityDocument $fromEntity, EntityDocument $toEntity ): void {
 		if ( $toEntity->getId()->equals( $fromEntity->getId() ) ) {
 			throw new ReferenceSameLexemeException();
 		}
@@ -191,7 +164,11 @@ class MergeLexemesInteractor {
 	 *
 	 * @return Summary
 	 */
-	private function getSummary( $direction, LexemeId $id, $customSummary = null ) {
+	private function getSummary(
+		string $direction,
+		LexemeId $id,
+		?string $customSummary = null
+	): Summary {
 		$summary = new Summary( 'wblmergelexemes', $direction, null, [ $id->getSerialization() ] );
 		$summary->setUserSummary( $customSummary );
 
@@ -262,7 +239,7 @@ class MergeLexemesInteractor {
 		return $status;
 	}
 
-	private function updateWatchlistEntries( LexemeId $fromId, LexemeId $toId ) {
+	private function updateWatchlistEntries( LexemeId $fromId, LexemeId $toId ): void {
 		$this->watchedItemStore->duplicateAllAssociatedEntries(
 			$this->entityTitleLookup->getTitleForId( $fromId ),
 			$this->entityTitleLookup->getTitleForId( $toId )
