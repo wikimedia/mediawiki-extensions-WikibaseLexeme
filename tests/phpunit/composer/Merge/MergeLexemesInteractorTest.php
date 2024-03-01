@@ -12,7 +12,6 @@ use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirectorFactory;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
@@ -72,9 +71,6 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 	 */
 	private $redirector;
 
-	/** @var MediaWikiLexemeRedirectorFactory|MockObject */
-	private $redirectorFactory;
-
 	/**
 	 * @var EntityTitleStoreLookup|MockObject
 	 */
@@ -113,7 +109,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 			->willReturn( new FauxRequest() );
 		$this->context->method( 'getConfig' )
 			->willReturn( $this->getServiceContainer()->getMainConfig() );
-		[ $this->redirector, $this->redirectorFactory ] = $this->newMockRedirectorAndFactory();
+		$this->redirector = $this->createMock( MediaWikiLexemeRedirector::class );
 		$this->redirector->method( 'createRedirect' )
 			->willReturn( EntityRedirectCreationStatus::newGood( [
 				'savedTempUser' => null,
@@ -280,7 +276,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 		return new MergeLexemesInteractor(
 			$this->lexemeMerger,
 			$this->summaryFormatter,
-			$this->redirectorFactory,
+			$this->redirector,
 			$this->permissionChecker,
 			$permissionManager,
 			$this->entityTitleLookup,
@@ -295,15 +291,6 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 		$summaryFormatter->method( 'formatSummary' )
 			->willReturn( '' );
 		return $summaryFormatter;
-	}
-
-	private function newMockRedirectorAndFactory() {
-		$redirector = $this->createMock( MediaWikiLexemeRedirector::class );
-		$factory = $this->createMock( MediaWikiLexemeRedirectorFactory::class );
-		$factory->method( 'newFromContext' )
-			->with( $this->context, $this->anything(), $this->anything() )
-			->willReturn( $redirector );
-		return [ $redirector, $factory ];
 	}
 
 	private function newMockTitleLookup() {

@@ -34,9 +34,13 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 		$this->saveEntity( $source );
 		$this->saveEntity( $target );
 
+		$context = new RequestContext();
+		$context->setRequest( new FauxRequest() );
+		$context->setUser( $this->getTestUser()->getUser() );
+
 		$interactor = $this->newRedirector();
 
-		$interactor->redirect( $source->getId(), $target->getId() );
+		$interactor->createRedirect( $source->getId(), $target->getId(), false, [], $context );
 
 		$this->assertEquals(
 			$target->getId(),
@@ -46,22 +50,15 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	}
 
 	private function newRedirector() {
-		$context = new RequestContext();
-		$context->setRequest( new FauxRequest() );
-		$context->setUser( $this->getTestUser()->getUser() );
-
 		return new MediaWikiLexemeRedirector(
 			WikibaseRepo::getEntityRevisionLookup(),
 			$this->getEntityStore(),
 			$this->getMockEntityPermissionChecker(),
 			$this->getMockSummaryFormatter(),
-			$context,
 			$this->getMockEditFilterHookRunner(),
 			WikibaseRepo::getStore()->getEntityRedirectLookup(),
 			$this->getMockEntityTitleLookup(),
-			$this->getServiceContainer()->getTempUserCreator(),
-			false,
-			[]
+			$this->getServiceContainer()->getTempUserCreator()
 		);
 	}
 
