@@ -6,6 +6,7 @@ use ApiMain;
 use ApiUsageException;
 use ChangeTags;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use RequestContext;
 use Wikibase\DataModel\Tests\NewItem;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -27,6 +28,8 @@ use Wikibase\Repo\WikibaseRepo;
  * @group medium
  */
 class MergeLexemesTest extends WikibaseLexemeApiTestCase {
+
+	use TempUserTestTrait;
 
 	private const API_ACTION = 'wblmergelexemes';
 
@@ -197,6 +200,48 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		->map();
 
 		$this->assertContains( $dummyTag, ChangeTags::getTags( $this->db, null, $lastRevIdResult ) );
+	}
+
+	public function testTempUserCreatedRedirect(): void {
+		$this->enableAutoCreateTempUser();
+		$this->setTemporaryHook( 'TempUserCreatedRedirect', function (
+			$session,
+			$user,
+			string $returnTo,
+			string $returnToQuery,
+			string $returnToAnchor,
+			&$redirectUrl
+		) {
+			$this->assertSame( 'ReturnTo', $returnTo );
+			$this->assertSame( 'query=string', $returnToQuery );
+			$this->assertSame( '#anchor', $returnToAnchor );
+			$redirectUrl = 'https://wiki.example/';
+		} );
+
+		$source = NewLexeme::havingId( 'L1' )
+			->withLexicalCategory( self::DEFAULT_LEXICAL_CATEGORY )
+			->withLanguage( self::DEFAULT_LANGUAGE )
+			->withLemma( 'en', 'color' )
+			->build();
+		$target = NewLexeme::havingId( 'L2' )
+			->withLexicalCategory( self::DEFAULT_LEXICAL_CATEGORY )
+			->withLanguage( self::DEFAULT_LANGUAGE )
+			->withLemma( 'en-gb', 'colour' )
+			->build();
+		$this->saveLexemes( $source, $target );
+
+		$user = $this->getServiceContainer()->getUserFactory()->newAnonymous();
+		[ $result ] = $this->doApiRequestWithToken( [
+			'action' => self::API_ACTION,
+			MergeLexemes::SOURCE_ID_PARAM => $source->getId(),
+			MergeLexemes::TARGET_ID_PARAM => $target->getId(),
+			'returnto' => 'ReturnTo',
+			'returntoquery' => '?query=string',
+			'returntoanchor' => 'anchor',
+		], null, $user );
+
+		$this->assertArrayHasKey( 'tempusercreated', $result );
+		$this->assertSame( 'https://wiki.example/', $result['tempuserredirect'] );
 	}
 
 	private function executeApiWithIds( $sourceId, $targetId, $summary = null ) {
