@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
@@ -15,6 +17,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditSenseChangeOpDeserializer;
@@ -47,37 +50,14 @@ class AddSense extends ApiBase {
 
 	private const LATEST_REVISION = 0;
 
-	/**
-	 * @var AddSenseRequestParser
-	 */
-	private $requestParser;
+	private AddSenseRequestParser $requestParser;
 
 	private ResultBuilder $resultBuilder;
-
-	/**
-	 * @var ApiErrorReporter
-	 */
-	private $errorReporter;
-
-	/**
-	 * @var SenseSerializer
-	 */
-	private $senseSerializer;
-
-	/**
-	 * @var MediaWikiEditEntityFactory
-	 */
-	private $editEntityFactory;
-
-	/**
-	 * @var SummaryFormatter
-	 */
-	private $summaryFormatter;
-
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
+	private ApiErrorReporter $errorReporter;
+	private SenseSerializer $senseSerializer;
+	private MediaWikiEditEntityFactory $editEntityFactory;
+	private SummaryFormatter $summaryFormatter;
+	private EntityRevisionLookup $entityRevisionLookup;
 
 	/**
 	 * @return self
@@ -129,7 +109,7 @@ class AddSense extends ApiBase {
 
 	public function __construct(
 		ApiMain $mainModule,
-		$moduleName,
+		string $moduleName,
 		AddSenseRequestParser $requestParser,
 		SenseSerializer $senseSerializer,
 		EntityRevisionLookup $entityRevisionLookup,
@@ -153,7 +133,7 @@ class AddSense extends ApiBase {
 	 *
 	 * @throws \ApiUsageException
 	 */
-	public function execute() { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
+	public function execute(): void { // phpcs:ignore Generic.Metrics.CyclomaticComplexity.TooHigh
 		/*
 		 * {
 			  "glosses": [
@@ -170,9 +150,6 @@ class AddSense extends ApiBase {
 		 *
 		 */
 
-		//FIXME: Response structure? - Added sense
-
-		//TODO: Corresponding HTTP codes on failure (e.g. 400, 404, 422) (?)
 		//TODO: Documenting response structure. Is it possible?
 
 		$params = $this->extractRequestParams();
@@ -240,7 +217,6 @@ class AddSense extends ApiBase {
 		}
 
 		$tokenThatDoesNotNeedChecking = false;
-		// FIXME: Handle failure
 		try {
 			$status = $editEntity->attemptSave(
 				$lexeme,
@@ -255,7 +231,7 @@ class AddSense extends ApiBase {
 		}
 
 		if ( !$status->isGood() ) {
-			$this->dieStatus( $status ); // Seems like it is good enough
+			$this->dieStatus( $status );
 		}
 
 		$entityRevision = $status->getRevision();
@@ -273,7 +249,7 @@ class AddSense extends ApiBase {
 	}
 
 	/** @inheritDoc */
-	protected function getAllowedParams() {
+	protected function getAllowedParams(): array {
 		return array_merge( [
 			AddSenseRequestParser::PARAM_LEXEME_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
@@ -297,8 +273,7 @@ class AddSense extends ApiBase {
 		], $this->getCreateTempUserParams() );
 	}
 
-	/** @inheritDoc */
-	public function isWriteMode() {
+	public function isWriteMode(): bool {
 		return true;
 	}
 
@@ -306,21 +281,19 @@ class AddSense extends ApiBase {
 	 * As long as this codebase is in development and APIs might change any time without notice, we
 	 * mark all as internal. This adds an "unstable" notice, but does not hide them in any way.
 	 */
-	public function isInternal() {
+	public function isInternal(): bool {
 		return true;
 	}
 
-	/** @inheritDoc */
-	public function needsToken() {
+	public function needsToken(): string {
 		return 'csrf';
 	}
 
-	/** @inheritDoc */
-	public function mustBePosted() {
+	public function mustBePosted(): bool {
 		return true;
 	}
 
-	protected function getExamplesMessages() {
+	protected function getExamplesMessages(): array {
 		$lexemeId = 'L12';
 		$exampleData = [
 			'glosses' => [
@@ -355,7 +328,7 @@ class AddSense extends ApiBase {
 		];
 	}
 
-	private function getSenseWithMaxId( Lexeme $lexeme ) {
+	private function getSenseWithMaxId( Lexeme $lexeme ): Sense {
 		// TODO: This is all rather nasty
 		$maxIdNumber = $lexeme->getSenses()->maxSenseIdNumber();
 		// TODO: Use some service to get the ID object!

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiCreateTempUserTrait;
@@ -45,42 +47,14 @@ class EditSenseElements extends \ApiBase {
 
 	private const LATEST_REVISION = 0;
 
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
-
-	/**
-	 * @var MediaWikiEditEntityFactory
-	 */
-	private $editEntityFactory;
-
-	/**
-	 * @var EditSenseElementsRequestParser
-	 */
-	private $requestParser;
-
-	/**
-	 * @var SummaryFormatter
-	 */
-	private $summaryFormatter;
-
-	/**
-	 * @var SenseSerializer
-	 */
-	private $senseSerializer;
-
+	private EntityRevisionLookup $entityRevisionLookup;
+	private MediaWikiEditEntityFactory $editEntityFactory;
+	private EditSenseElementsRequestParser $requestParser;
+	private SummaryFormatter $summaryFormatter;
+	private SenseSerializer $senseSerializer;
 	private ResultBuilder $resultBuilder;
-
-	/**
-	 * @var ApiErrorReporter
-	 */
-	private $errorReporter;
-
-	/**
-	 * @var EntityStore
-	 */
-	private $entityStore;
+	private ApiErrorReporter $errorReporter;
+	private EntityStore $entityStore;
 
 	public static function factory(
 		ApiMain $mainModule,
@@ -131,7 +105,7 @@ class EditSenseElements extends \ApiBase {
 
 	public function __construct(
 		ApiMain $mainModule,
-		$moduleName,
+		string $moduleName,
 		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		EditSenseElementsRequestParser $requestParser,
@@ -156,7 +130,7 @@ class EditSenseElements extends \ApiBase {
 	 * @inheritDoc
 	 * @suppress PhanTypeMismatchArgument
 	 */
-	public function execute() {
+	public function execute(): void {
 		$params = $this->extractRequestParams();
 		$request = $this->requestParser->parse( $params );
 		if ( $request->getBaseRevId() ) {
@@ -212,19 +186,12 @@ class EditSenseElements extends \ApiBase {
 		$this->generateResponse( $sense, $status, $params );
 	}
 
-	/**
-	 * @param Sense $sense
-	 * @param string $summary
-	 * @param int $baseRevisionId
-	 * @param array $params
-	 * @return EditEntityStatus
-	 */
 	private function saveSense(
 		Sense $sense,
-		$summary,
-		$baseRevisionId,
+		string $summary,
+		int $baseRevisionId,
 		array $params
-	) {
+	): EditEntityStatus {
 		$editEntity = $this->editEntityFactory->newEditEntity(
 			$this->getContext(),
 			$sense->getId(),
@@ -250,7 +217,7 @@ class EditSenseElements extends \ApiBase {
 		);
 	}
 
-	private function generateResponse( Sense $sense, EditEntityStatus $status, array $params ) {
+	private function generateResponse( Sense $sense, EditEntityStatus $status, array $params ): void {
 		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
 		$this->resultBuilder->markSuccess();
 
@@ -261,8 +228,7 @@ class EditSenseElements extends \ApiBase {
 		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
-	/** @inheritDoc */
-	protected function getAllowedParams() {
+	protected function getAllowedParams(): array {
 		return array_merge( [
 			EditSenseElementsRequestParser::PARAM_SENSE_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
@@ -286,8 +252,7 @@ class EditSenseElements extends \ApiBase {
 		], $this->getCreateTempUserParams() );
 	}
 
-	/** @inheritDoc */
-	public function isWriteMode() {
+	public function isWriteMode(): bool {
 		return true;
 	}
 
@@ -295,21 +260,19 @@ class EditSenseElements extends \ApiBase {
 	 * As long as this codebase is in development and APIs might change any time without notice, we
 	 * mark all as internal. This adds an "unstable" notice, but does not hide them in any way.
 	 */
-	public function isInternal() {
+	public function isInternal(): bool {
 		return true;
 	}
 
-	/** @inheritDoc */
-	public function needsToken() {
+	public function needsToken(): string {
 		return 'csrf';
 	}
 
-	/** @inheritDoc */
-	public function mustBePosted() {
+	public function mustBePosted(): bool {
 		return true;
 	}
 
-	protected function getExamplesMessages() {
+	protected function getExamplesMessages(): array {
 		$senseId = 'L12-S1';
 		$exampleData = [
 			'glosses' => [
@@ -353,17 +316,12 @@ class EditSenseElements extends \ApiBase {
 	/**
 	 * Returns $latestRevisionId if all of edits since $baseRevId are done
 	 * by the same user, otherwise returns $baseRevId.
-	 *
-	 * @param int $latestRevisionId
-	 * @param int $baseRevId
-	 * @param EntityId $entityId
-	 * @return int
 	 */
 	private function getRevIdForWhenUserWasLastToEdit(
-		$latestRevisionId,
-		$baseRevId,
+		int $latestRevisionId,
+		int $baseRevId,
 		EntityId $entityId
-	) {
+	): int {
 		if ( $baseRevId === self::LATEST_REVISION || $latestRevisionId === $baseRevId ) {
 			return $latestRevisionId;
 		}

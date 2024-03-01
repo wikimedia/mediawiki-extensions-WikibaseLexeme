@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
@@ -65,7 +67,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$this->doTestQueryApiException( $params, $expectedError );
 	}
 
-	public static function provideInvalidParams() {
+	public static function provideInvalidParams(): iterable {
 		return [
 			'no lexemeId param' => [
 				[ 'data' => self::getDataParam() ],
@@ -199,7 +201,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		$this->assertSame( 'furry animal', $senses[0]->getGlosses()->getByLanguage( 'en' )->getText() );
 	}
 
-	private static function getDataParam( array $dataToUse = [] ) {
+	private static function getDataParam( array $dataToUse = [] ): string {
 		$simpleData = [
 			'glosses' => [
 				'en' => [
@@ -365,22 +367,12 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return Lexeme|null
-	 */
-	private function getLexeme( $id ) {
+	private function getLexeme( string $id ): ?Lexeme {
 		$lookup = WikibaseRepo::getEntityLookup();
 		return $lookup->getEntity( new LexemeId( $id ) );
 	}
 
-	/**
-	 * @param string $id
-	 *
-	 * @return EntityRevision|null
-	 */
-	private function getCurrentRevisionForLexeme( $id ) {
+	private function getCurrentRevisionForLexeme( string $id ): ?EntityRevision {
 		$lookup = WikibaseRepo::getEntityRevisionLookup();
 
 		return $lookup->getEntityRevision( new LexemeId( $id ) );

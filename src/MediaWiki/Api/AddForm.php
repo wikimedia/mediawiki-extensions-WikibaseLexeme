@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
@@ -11,6 +13,7 @@ use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
+use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;
@@ -41,37 +44,13 @@ class AddForm extends ApiBase {
 
 	private const LATEST_REVISION = 0;
 
-	/**
-	 * @var AddFormRequestParser
-	 */
-	private $requestParser;
-
+	private AddFormRequestParser $requestParser;
 	private ResultBuilder $resultBuilder;
-
-	/**
-	 * @var ApiErrorReporter
-	 */
-	private $errorReporter;
-
-	/**
-	 * @var FormSerializer
-	 */
-	private $formSerializer;
-
-	/**
-	 * @var MediaWikiEditEntityFactory
-	 */
-	private $editEntityFactory;
-
-	/**
-	 * @var SummaryFormatter
-	 */
-	private $summaryFormatter;
-
-	/**
-	 * @var EntityRevisionLookup
-	 */
-	private $entityRevisionLookup;
+	private ApiErrorReporter $errorReporter;
+	private FormSerializer $formSerializer;
+	private MediaWikiEditEntityFactory $editEntityFactory;
+	private SummaryFormatter $summaryFormatter;
+	private EntityRevisionLookup $entityRevisionLookup;
 
 	public static function factory(
 		ApiMain $mainModule,
@@ -105,7 +84,7 @@ class AddForm extends ApiBase {
 
 	public function __construct(
 		ApiMain $mainModule,
-		$moduleName,
+		string $moduleName,
 		AddFormRequestParser $requestParser,
 		FormSerializer $formSerializer,
 		EntityRevisionLookup $entityRevisionLookup,
@@ -129,7 +108,7 @@ class AddForm extends ApiBase {
 	 *
 	 * @throws \ApiUsageException
 	 */
-	public function execute() {
+	public function execute(): void {
 		/*
 		 * {
 			  "representations": [
@@ -150,10 +129,8 @@ class AddForm extends ApiBase {
 		 *
 		 */
 
-		//FIXME: Response structure? - Added form
 		//FIXME: Representation text normalization
 
-		//TODO: Corresponding HTTP codes on failure (e.g. 400, 404, 422) (?)
 		//TODO: Documenting response structure. Is it possible?
 
 		$params = $this->extractRequestParams();
@@ -177,14 +154,13 @@ class AddForm extends ApiBase {
 		$status = $this->saveNewLexemeRevision( $lexeme, $baseRevId, $summary, $flags, $params['tags'] ?: [] );
 
 		if ( !$status->isGood() ) {
-			$this->dieStatus( $status ); // Seems like it is good enough
+			$this->dieStatus( $status );
 		}
 
 		$this->fillApiResultFromStatus( $status, $params );
 	}
 
-	/** @inheritDoc */
-	protected function getAllowedParams() {
+	protected function getAllowedParams(): array {
 		return array_merge( [
 			AddFormRequestParser::PARAM_LEXEME_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
@@ -208,8 +184,7 @@ class AddForm extends ApiBase {
 		], $this->getCreateTempUserParams() );
 	}
 
-	/** @inheritDoc */
-	public function isWriteMode() {
+	public function isWriteMode(): bool {
 		return true;
 	}
 
@@ -217,21 +192,19 @@ class AddForm extends ApiBase {
 	 * As long as this codebase is in development and APIs might change any time without notice, we
 	 * mark all as internal. This adds an "unstable" notice, but does not hide them in any way.
 	 */
-	public function isInternal() {
+	public function isInternal(): bool {
 		return true;
 	}
 
-	/** @inheritDoc */
-	public function needsToken() {
+	public function needsToken(): string {
 		return 'csrf';
 	}
 
-	/** @inheritDoc */
-	public function mustBePosted() {
+	public function mustBePosted(): bool {
 		return true;
 	}
 
-	protected function getExamplesMessages() {
+	protected function getExamplesMessages(): array {
 		$lexemeId = 'L12';
 		$exampleData = [
 			'representations' => [
@@ -271,7 +244,7 @@ class AddForm extends ApiBase {
 		];
 	}
 
-	private function getFormWithMaxId( Lexeme $lexeme ) {
+	private function getFormWithMaxId( Lexeme $lexeme ): Form {
 		// TODO: This is all rather nasty
 		$maxIdNumber = $lexeme->getForms()->maxFormIdNumber();
 		// TODO: Use some service to get the ID object!
@@ -312,10 +285,7 @@ class AddForm extends ApiBase {
 		return $lexemeRevision;
 	}
 
-	/**
-	 * @return int
-	 */
-	private function buildSaveFlags( array $params ) {
+	private function buildSaveFlags( array $params ): int {
 		$flags = EDIT_UPDATE;
 		if ( isset( $params['bot'] ) && $params['bot'] &&
 			$this->getPermissionManager()->userHasRight( $this->getUser(), 'bot' )
@@ -329,7 +299,7 @@ class AddForm extends ApiBase {
 		EntityDocument $lexeme,
 		int $baseRevId,
 		FormatableSummary $summary,
-		$flags,
+		int $flags,
 		array $tags
 	): EditEntityStatus {
 		$editEntity = $this->editEntityFactory->newEditEntity(
@@ -342,7 +312,6 @@ class AddForm extends ApiBase {
 		);
 
 		$tokenThatDoesNotNeedChecking = false;
-		// FIXME: Handle failure
 		try {
 			$status = $editEntity->attemptSave(
 				$lexeme,
@@ -359,7 +328,7 @@ class AddForm extends ApiBase {
 		return $status;
 	}
 
-	private function fillApiResultFromStatus( EditEntityStatus $status, array $params ) {
+	private function fillApiResultFromStatus( EditEntityStatus $status, array $params ): void {
 		$entityRevision = $status->getRevision();
 
 		/** @var Lexeme $editedLexeme */
