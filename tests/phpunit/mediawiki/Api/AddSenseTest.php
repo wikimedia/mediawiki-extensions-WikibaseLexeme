@@ -354,6 +354,17 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
+	public function testTempUserCreatedRedirect(): void {
+		$lexeme = NewLexeme::havingId( 'L1' )->build();
+		$this->saveEntity( $lexeme );
+
+		$this->doTestTempUserCreatedRedirect( [
+			'action' => 'wbladdsense',
+			'lexemeId' => 'L1',
+			'data' => self::getDataParam(),
+		] );
+	}
+
 	/**
 	 * @param string $id
 	 *

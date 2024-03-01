@@ -335,4 +335,19 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
+	public function testTempUserCreatedRedirect(): void {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'test' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+
+		$this->doTestTempUserCreatedRedirect( [
+			'action' => 'wblremovesense',
+			'id' => 'L1-S1',
+		] );
+	}
+
 }

@@ -986,6 +986,27 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		] );
 	}
 
+	public function testTempUserCreatedRedirect(): void {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'test' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+
+		$this->doTestTempUserCreatedRedirect( [
+			'action' => 'wbleditformelements',
+			'formId' => self::DEFAULT_FORM_ID,
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [ 'language' => 'en', 'value' => 'TEST' ],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		] );
+	}
+
 	/**
 	 * @param string $id
 	 *

@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiBase;
+use ApiCreateTempUserTrait;
 use ApiMain;
 use LogicException;
 use Message;
@@ -17,6 +18,7 @@ use Wikibase\Lib\Store\StorageException;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Api\ApiErrorReporter;
 use Wikibase\Repo\Api\ApiHelperFactory;
+use Wikibase\Repo\Api\ResultBuilder;
 use Wikibase\Repo\ChangeOp\ChangeOpValidationException;
 use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\Store;
@@ -28,12 +30,16 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class RemoveForm extends ApiBase {
 
+	use ApiCreateTempUserTrait;
+
 	private const LATEST_REVISION = 0;
 
 	/**
 	 * @var RemoveFormRequestParser
 	 */
 	private $requestParser;
+
+	private ResultBuilder $resultBuilder;
 
 	/**
 	 * @var ApiErrorReporter
@@ -73,9 +79,7 @@ class RemoveForm extends ApiBase {
 			$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
 			$editEntityFactory,
 			$summaryFormatter,
-			static function ( $module ) use ( $apiHelperFactory ) {
-				return $apiHelperFactory->getErrorReporter( $module );
-			}
+			$apiHelperFactory
 		);
 	}
 
@@ -86,11 +90,12 @@ class RemoveForm extends ApiBase {
 		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		SummaryFormatter $summaryFormatter,
-		callable $errorReporterInstantiator
+		ApiHelperFactory $apiHelperFactory
 	) {
 		parent::__construct( $mainModule, $moduleName );
 
-		$this->errorReporter = $errorReporterInstantiator( $this );
+		$this->resultBuilder = $apiHelperFactory->getResultBuilder( $this );
+		$this->errorReporter = $apiHelperFactory->getErrorReporter( $this );
 		$this->requestParser = $requestParser;
 		$this->editEntityFactory = $editEntityFactory;
 		$this->entityRevisionLookup = $entityRevisionLookup;
@@ -188,16 +193,14 @@ class RemoveForm extends ApiBase {
 			$this->dieStatus( $status );
 		}
 
-		$entityRevision = $status->getRevision();
-
-		$apiResult = $this->getResult();
-		$apiResult->addValue( null, 'lastrevid', $entityRevision->getRevisionId() );
-		$apiResult->addValue( null, 'success', 1 );
+		$this->resultBuilder->addRevisionIdFromStatusToResult( $status, null );
+		$this->resultBuilder->markSuccess();
+		$this->resultBuilder->addTempUser( $status, fn ( $user ) => $this->getTempUserRedirectUrl( $params, $user ) );
 	}
 
 	/** @inheritDoc */
 	protected function getAllowedParams() {
-		return [
+		return array_merge( [
 			RemoveFormRequestParser::PARAM_FORM_ID => [
 				ParamValidator::PARAM_TYPE => 'string',
 				ParamValidator::PARAM_REQUIRED => true,
@@ -213,7 +216,7 @@ class RemoveForm extends ApiBase {
 			RemoveFormRequestParser::PARAM_BASEREVID => [
 				ParamValidator::PARAM_TYPE => 'integer',
 			],
-		];
+		], $this->getCreateTempUserParams() );
 	}
 
 	/** @inheritDoc */

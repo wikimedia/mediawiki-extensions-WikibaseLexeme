@@ -337,4 +337,19 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		$this->assertCount( 0, $forms );
 	}
 
+	public function testTempUserCreatedRedirect(): void {
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'test' )
+			)
+			->build();
+		$this->saveEntity( $lexeme );
+
+		$this->doTestTempUserCreatedRedirect( [
+			'action' => 'wblremoveform',
+			'id' => 'L1-F1',
+		] );
+	}
+
 }
