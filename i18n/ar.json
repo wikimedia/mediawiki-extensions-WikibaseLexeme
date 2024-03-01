@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"BAB ZAA",
+			"Hubaishan",
 			"Meno25",
 			"Michel Bakni",
 			"Mr. Ibrahem",
@@ -9,14 +10,14 @@
 			"محمد أحمد عبد الفتاح"
 		]
 	},
-	"content-model-wikibase-lexeme": "قاعدة الويكي للمفردة",
+	"content-model-wikibase-lexeme": "مفردة ويكي بايس",
 	"datatypes-type-wikibase-form": "صيغة",
 	"datatypes-type-wikibase-lexeme": "مفردة",
 	"datatypes-type-wikibase-sense": "معنى",
 	"nstab-lexeme": "مفردة",
 	"special-mergelexemes": "ادمج مفردتين",
-	"special-newlexeme": "إنشاء وحدة معجمية جديدة",
-	"tooltip-ca-nstab-lexeme": "تعريف ليكسيم",
+	"special-newlexeme": "إنشاء مفردة جديدة",
+	"tooltip-ca-nstab-lexeme": "تعريف المفردات",
 	"wikibase-entity-summary-wblmergelexemes-from": "دمج مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دمج المفردة إلى $3",
 	"wikibase-lexeme-gloss-empty": "لا يوجد تفسير محدد",
@@ -38,7 +39,7 @@
 	"wikibase-lexeme-mergelexemes-submit": "ادمج مفردتين",
 	"wikibase-lexeme-mergelexemes-success": "تم دمج وتحويل $1 إلى $2.",
 	"wikibase-lexeme-mergelexemes-to-id": "المعرف للدمج إليه",
-	"wikibase-lexeme-randomlexeme": "وحدة معجمية عشوائية",
+	"wikibase-lexeme-randomlexeme": "مفردة عشوائية",
 	"wikibase-lexeme-summary-add-form": "إضافة صيغة جديدة $3 مع {{PLURAL:$1|تمثيل|تمثيلات}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "إضافة {{PLURAL:$1|ميزة|مزايا}} نحوية للصيغة $3",
 	"wikibase-lexeme-summary-add-form-representations": "إضافة {{PLURAL:$1|تمثيل|تمثيلات}} للصيغة $3",
@@ -74,7 +75,7 @@
 	"wikibaselexeme-deletedentity-form": "صيغة محذوفة",
 	"wikibaselexeme-deletedentity-lexeme": "مفردة محذوفة",
 	"wikibaselexeme-deletedentity-sense": "معنى محذوف",
-	"wikibaselexeme-desc": "التعامل مع نوع الكيان Lexeme",
+	"wikibaselexeme-desc": "التعامل مع نوع الكيان «مفردة»",
 	"wikibaselexeme-diffview-form": "الصيغة",
 	"wikibaselexeme-diffview-gloss": "التفسير",
 	"wikibaselexeme-diffview-grammatical-feature": "الميزة النحوية",
