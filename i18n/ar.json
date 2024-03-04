@@ -6,15 +6,16 @@
 			"ديفيد",
 			"محمد أحمد عبد الفتاح",
 			"Meno25",
-			"Michel Bakni"
+			"Michel Bakni",
+			"Hubaishan"
 		]
 	},
-	"content-model-wikibase-lexeme": "قاعدة الويكي للمفردة",
+	"content-model-wikibase-lexeme": "مفردة ويكي بايس",
 	"datatypes-type-wikibase-form": "صيغة",
 	"datatypes-type-wikibase-lexeme": "مفردة",
 	"datatypes-type-wikibase-sense": "معنى",
 	"special-mergelexemes": "ادمج مفردتين",
-	"special-newlexeme": "إنشاء وحدة معجمية جديدة",
+	"special-newlexeme": "إنشاء مفردة جديدة",
 	"special-newlexeme-alpha": "إنشاء مفردة جديدة (تجريبي)",
 	"wikibase-entity-summary-wblmergelexemes-from": "دمج مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دمج المفردة إلى $3",
@@ -71,7 +72,7 @@
 	"wikibaselexeme-deletedentity-form": "صيغة محذوفة",
 	"wikibaselexeme-deletedentity-lexeme": "مفردة محذوفة",
 	"wikibaselexeme-deletedentity-sense": "معنى محذوف",
-	"wikibaselexeme-desc": "التعامل مع نوع الكيان Lexeme",
+	"wikibaselexeme-desc": "التعامل مع نوع الكيان «مفردة»",
 	"wikibaselexeme-diffview-form": "الصيغة",
 	"wikibaselexeme-diffview-gloss": "التفسير",
 	"wikibaselexeme-diffview-grammatical-feature": "الميزة النحوية",
