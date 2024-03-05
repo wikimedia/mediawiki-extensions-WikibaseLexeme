@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
+use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLibrary;
+
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLibrary
  *
@@ -22,4 +24,7 @@ class Scribunto_LuaWikibaseLexemeEntityFormLibraryTest
 		];
 	}
 
+	public function testParserOutputUsageAccumulatorTracking() {
+		$this->makeParserOutputUsageAccumulatorAssertions( Scribunto_LuaWikibaseLexemeEntityFormLibrary::class );
+	}
 }

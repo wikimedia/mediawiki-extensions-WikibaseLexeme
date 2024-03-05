@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
+use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeLibrary;
+
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeLibrary
  *
@@ -22,4 +24,7 @@ class Scribunto_LuaWikibaseLexemeEntityLexemeLibraryTest
 		];
 	}
 
+	public function testParserOutputUsageAccumulatorTracking() {
+		$this->makeParserOutputUsageAccumulatorAssertions( Scribunto_LuaWikibaseLexemeEntityLexemeLibrary::class );
+	}
 }
