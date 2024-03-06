@@ -4,7 +4,8 @@
 			"Amire80",
 			"BAB ZAA",
 			"Mr. Ibrahem",
-			"ديفيد"
+			"ديفيد",
+			"Hubaishan"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "يجب أن يحتوي الصيغة على تمثيل واحد على الأقل",
@@ -59,10 +60,10 @@
 	"apihelp-wblremoveform-example-1": "إزالة نموذج من Lexeme بالمعرف <samp>$1</samp>",
 	"apihelp-wblremoveform-param-bot": "علم على هذا التعديل كروبوت، علم المسار هذا سيتم احترامه فقط إذا ما كان المستخدم ينتمي للمجموعة \"{{int:group-bot}}\".",
 	"apihelp-wblremoveform-param-id": "معرف النموذج على سبيل المثال L10-F20",
-	"apihelp-wblremoveform-summary": "يزيل نموذجا من Lexeme",
+	"apihelp-wblremoveform-summary": "يزيل صيغة من مفردة",
 	"apihelp-wblremovesense-example-1": "إزالة نموذج من Lexeme بالمعرف <samp>$1</samp>",
 	"apihelp-wblremovesense-param-baserevid": "معرف مراجعة الأساس لبكسيم، إذا كان التحقق من تعارض التحرير مطلوبا.",
 	"apihelp-wblremovesense-param-bot": "علم هذا التعديل كبوت، سيتم فقط احترام علامة المسار إذا كان المستخدم ينتمي إلى المجموعة \"{{int:group-bot}}\".",
 	"apihelp-wblremovesense-param-id": "معرف المعنى، مثل L10-S20",
-	"apihelp-wblremovesense-summary": "يزيل نموذجا من Lexeme"
+	"apihelp-wblremovesense-summary": "يزيل حالة من مفردة"
 }
