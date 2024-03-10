@@ -145,7 +145,7 @@ class AddForm extends ApiBase {
 		try {
 			$changeOp->apply( $lexeme, $summary );
 		} catch ( ChangeOpException $exception ) {
-			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
+			$this->errorReporter->dieException( $exception, 'unprocessable-request' );
 		}
 
 		$baseRevId = $request->getBaseRevId() ?: $lexemeRevision->getRevisionId();

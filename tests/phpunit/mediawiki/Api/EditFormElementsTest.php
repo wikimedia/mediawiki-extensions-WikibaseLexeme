@@ -184,7 +184,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
-				] ,
+				],
 				[
 					'key' => 'apierror-wikibaselexeme-json-field-not-item-id',
 					'params' => [ 'data', 'grammaticalFeatures/0', '"L2"' ],
@@ -201,7 +201,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'Q2' ] ]
 					),
-				] ,
+				],
 				[
 					'key' => 'apierror-wikibaselexeme-invalid-item-id',
 					'params' => [ 'data', 'grammaticalFeatures', 'Q2' ],

@@ -24,7 +24,7 @@ use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
- * @covers LexemeHistoryAction
+ * @covers \Wikibase\Lexeme\MediaWiki\Actions\LexemeHistoryAction
  */
 final class LexemeHistoryActionTest extends TestCase {
 

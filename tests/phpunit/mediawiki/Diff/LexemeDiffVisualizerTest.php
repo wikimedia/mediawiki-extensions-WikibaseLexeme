@@ -366,8 +366,8 @@ class LexemeDiffVisualizerTest extends MediaWikiIntegrationTestCase {
 
 		$diffHtml = $this->getVisualizer()->visualizeEntityContentDiff( $diff );
 
-		$this->assertThatHamcrest( $diffHtml,  $this->getAddRowHamcrestMatcher( 'formatted Q3' ) );
-		$this->assertThatHamcrest( $diffHtml,  $this->getDeleteRowHamcrestMatcher( 'formatted Q2' ) );
+		$this->assertThatHamcrest( $diffHtml, $this->getAddRowHamcrestMatcher( 'formatted Q3' ) );
+		$this->assertThatHamcrest( $diffHtml, $this->getDeleteRowHamcrestMatcher( 'formatted Q2' ) );
 	}
 
 	public function testGenerateEntityContentDiffOrder() {

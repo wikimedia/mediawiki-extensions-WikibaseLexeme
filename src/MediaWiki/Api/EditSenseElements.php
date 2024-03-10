@@ -172,7 +172,7 @@ class EditSenseElements extends \ApiBase {
 		try {
 			$changeOp->apply( $sense, $summary );
 		} catch ( ChangeOpException $exception ) {
-			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
+			$this->errorReporter->dieException( $exception, 'unprocessable-request' );
 		}
 
 		$summaryString = $this->summaryFormatter->formatSummary( $summary );

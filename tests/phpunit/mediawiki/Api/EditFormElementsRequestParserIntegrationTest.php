@@ -239,7 +239,7 @@ class EditFormElementsRequestParserIntegrationTest extends \MediaWikiIntegration
 					'data' => self::getDataAsJson(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
-				] ,
+				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
 					new JsonFieldIsNotAnItemId( 'L2' ),

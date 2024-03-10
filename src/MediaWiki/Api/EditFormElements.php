@@ -150,7 +150,7 @@ class EditFormElements extends \ApiBase {
 		try {
 			$changeOp->apply( $form, $summary );
 		} catch ( ChangeOpException $exception ) {
-			$this->errorReporter->dieException( $exception,  'unprocessable-request' );
+			$this->errorReporter->dieException( $exception, 'unprocessable-request' );
 		}
 
 		$summaryString = $this->summaryFormatter->formatSummary( $summary );

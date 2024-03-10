@@ -223,7 +223,7 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 					'data' => self::getDataParam(
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
-				] ,
+				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
 					new JsonFieldIsNotAnItemId( 'L2' ),
@@ -235,7 +235,7 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 					'data' => self::getDataParam(
 						[ 'claims' => 'not an array' ]
 					),
-				] ,
+				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
 					new JsonFieldHasWrongType( 'array', 'string' ),
@@ -247,7 +247,7 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 					'data' => self::getDataParam(
 						[ 'claims' => [ [ 'invalid' ] ] ]
 					),
-				] ,
+				],
 				[
 					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
 					new InvalidFormClaims(),
