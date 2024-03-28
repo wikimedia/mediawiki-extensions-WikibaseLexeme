@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Merge;
 
 use IContextSource;
@@ -48,47 +50,32 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 	/**
 	 * @var LexemeMerger|MockObject
 	 */
-	private $lexemeMerger;
+	private LexemeMerger $lexemeMerger;
 
-	/**
-	 * @var EntityPermissionChecker
-	 */
-	private $permissionChecker;
+	private EntityPermissionChecker $permissionChecker;
 
-	/**
-	 * @var SummaryFormatter|MockObject
-	 */
-	private $summaryFormatter;
+	private SummaryFormatter $summaryFormatter;
 
 	/**
 	 * @var IContextSource|MockObject
 	 */
-	private $context;
+	private IContextSource $context;
 
 	/**
 	 * @var MediaWikiLexemeRedirector|MockObject
 	 */
-	private $redirector;
+	private MediaWikiLexemeRedirector $redirector;
 
-	/**
-	 * @var EntityTitleStoreLookup|MockObject
-	 */
-	private $entityTitleLookup;
+	private EntityTitleStoreLookup $entityTitleLookup;
 
 	/**
 	 * @var WatchedItemStoreInterface|MockObject
 	 */
-	private $watchedItemStore;
+	private WatchedItemStoreInterface $watchedItemStore;
 
-	/**
-	 * @var ?Lexeme
-	 */
-	private $sourceLexeme;
+	private ?Lexeme $sourceLexeme;
 
-	/**
-	 * @var ?Lexeme
-	 */
-	private $targetLexeme;
+	private ?Lexeme $targetLexeme;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -256,7 +243,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 			->mergeLexemes( $this->sourceLexeme->getId(), $this->targetLexeme->getId(), $this->context );
 	}
 
-	private function newMergeInteractor() {
+	private function newMergeInteractor(): MergeLexemesInteractor {
 		$services = $this->getServiceContainer();
 		$entityStore = WikibaseRepo::getEntityStore( $services );
 		$user = $this->getTestUser()->getUser();
@@ -281,14 +268,14 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	private function newMockSummaryFormatter() {
+	private function newMockSummaryFormatter(): SummaryFormatter {
 		$summaryFormatter = $this->createMock( SummaryFormatter::class );
 		$summaryFormatter->method( 'formatSummary' )
 			->willReturn( '' );
 		return $summaryFormatter;
 	}
 
-	private function newMockTitleLookup() {
+	private function newMockTitleLookup(): EntityTitleStoreLookup {
 		$lookup = $this->createMock( EntityTitleStoreLookup::class );
 
 		$lookup->method( 'getTitleForId' )
