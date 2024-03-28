@@ -7,7 +7,6 @@ use MediaWiki\Permissions\PermissionManager;
 use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -17,9 +16,11 @@ use Wikibase\Lexeme\Domain\Merge\Exceptions\ReferenceSameLexemeException;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Storage\GetLexemeException;
-use Wikibase\Lexeme\Domain\Storage\LexemeRepository;
 use Wikibase\Lib\FormatableSummary;
+use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\LookupConstants;
+use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
+use Wikibase\Lib\Store\StorageException;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Content\EntityContent;
 use Wikibase\Repo\EditEntity\EditEntityStatus;
@@ -39,9 +40,9 @@ class MergeLexemesInteractor {
 	private $summaryFormatter;
 
 	/**
-	 * @var MediaWikiLexemeRepositoryFactory
+	 * @var EntityRevisionLookup
 	 */
-	private $repoFactory;
+	private $entityRevisionLookup;
 
 	/**
 	 * @var MediaWikiLexemeRedirector
@@ -77,7 +78,7 @@ class MergeLexemesInteractor {
 		PermissionManager $permissionManager,
 		EntityTitleStoreLookup $entityTitleLookup,
 		WatchedItemStoreInterface $watchedItemStore,
-		MediaWikiLexemeRepositoryFactory $repoFactory,
+		EntityRevisionLookup $entityRevisionLookup,
 		MediaWikiEditEntityFactory $editEntityFactory
 	) {
 		$this->lexemeMerger = $lexemeMerger;
@@ -87,7 +88,7 @@ class MergeLexemesInteractor {
 		$this->permissionManager = $permissionManager;
 		$this->entityTitleLookup = $entityTitleLookup;
 		$this->watchedItemStore = $watchedItemStore;
-		$this->repoFactory = $repoFactory;
+		$this->entityRevisionLookup = $entityRevisionLookup;
 		$this->editEntityFactory = $editEntityFactory;
 	}
 
@@ -115,11 +116,8 @@ class MergeLexemesInteractor {
 		$this->checkCanMerge( $sourceId, $context );
 		$this->checkCanMerge( $targetId, $context );
 
-		$repo = $this->repoFactory->newFromContext( $context, $botEditRequested, $tags );
-
-		// TODO replace repo with an EntityLookup
-		$source = $this->getLexeme( $repo, $sourceId );
-		$target = $this->getLexeme( $repo, $targetId );
+		$source = $this->getLexeme( $sourceId );
+		$target = $this->getLexeme( $targetId );
 
 		$this->validateEntities( $source, $target );
 
@@ -155,18 +153,23 @@ class MergeLexemesInteractor {
 	/**
 	 * @throws MergingException
 	 */
-	private function getLexeme( LexemeRepository $repo, LexemeId $lexemeId ): Lexeme {
+	private function getLexeme( LexemeId $lexemeId ): Lexeme {
 		try {
-			$lexeme = $repo->getLexemeById( $lexemeId );
-		} catch ( GetLexemeException $ex ) {
+			$revision = $this->entityRevisionLookup->getEntityRevision(
+				$lexemeId,
+				0,
+				LookupConstants::LATEST_FROM_MASTER
+			);
+
+			if ( $revision ) {
+				// @phan-suppress-next-line PhanTypeMismatchReturnSuperType
+				return $revision->getEntity();
+			} else {
+				throw new LexemeNotFoundException( $lexemeId );
+			}
+		} catch ( StorageException | RevisionedUnresolvedRedirectException $ex ) {
 			throw new LexemeLoadingException();
 		}
-
-		if ( $lexeme === null ) {
-			throw new LexemeNotFoundException( $lexemeId );
-		}
-
-		return $lexeme;
 	}
 
 	/**

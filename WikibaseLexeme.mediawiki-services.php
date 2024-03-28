@@ -9,7 +9,6 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
@@ -245,24 +244,18 @@ return call_user_func( static function () {
 			$entityPermissionChecker = WikibaseRepo::getEntityPermissionChecker( $mediaWikiServices );
 
 			$store = WikibaseRepo::getStore( $mediaWikiServices );
-			$entityStore = WikibaseRepo::getEntityStore( $mediaWikiServices );
+			$entityRevisionLookup = $store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED );
 			$summaryFormatter = WikibaseRepo::getSummaryFormatter( $mediaWikiServices );
 			$entityTitleStoreLookup = WikibaseRepo::getEntityTitleStoreLookup( $mediaWikiServices );
 			$lexemeRedirector = new MediaWikiLexemeRedirector(
-				$store->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED ),
-				$entityStore,
+				$entityRevisionLookup,
+				WikibaseRepo::getEntityStore( $mediaWikiServices ),
 				$entityPermissionChecker,
 				$summaryFormatter,
 				WikibaseRepo::getEditFilterHookRunner( $mediaWikiServices ),
 				$store->getEntityRedirectLookup(),
 				$entityTitleStoreLookup,
 				$mediaWikiServices->getTempUserCreator()
-			);
-
-			$lexemeRepositoryFactory = new MediaWikiLexemeRepositoryFactory(
-				$entityStore,
-				WikibaseRepo::getEntityRevisionLookup( $mediaWikiServices ),
-				$mediaWikiServices->getPermissionManager()
 			);
 
 			return new MergeLexemesInteractor(
@@ -273,7 +266,7 @@ return call_user_func( static function () {
 				$mediaWikiServices->getPermissionManager(),
 				$entityTitleStoreLookup,
 				$mediaWikiServices->getWatchedItemStore(),
-				$lexemeRepositoryFactory,
+				$entityRevisionLookup,
 				WikibaseRepo::getEditEntityFactory( $mediaWikiServices )
 			);
 		},

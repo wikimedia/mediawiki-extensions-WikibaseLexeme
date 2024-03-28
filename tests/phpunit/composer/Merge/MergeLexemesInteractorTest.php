@@ -12,7 +12,6 @@ use WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
-use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRepositoryFactory;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeNotFoundException;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeSaveFailedException;
@@ -268,10 +267,6 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 			$entityStore->saveEntity( $this->targetLexeme, 'test setup', $user );
 		}
 		$permissionManager = $services->getPermissionManager();
-		$lexemeRepositoryFactory = new MediaWikiLexemeRepositoryFactory(
-			$entityStore,
-			WikibaseRepo::getEntityRevisionLookup( $services ), $permissionManager
-		);
 
 		return new MergeLexemesInteractor(
 			$this->lexemeMerger,
@@ -281,7 +276,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 			$permissionManager,
 			$this->entityTitleLookup,
 			$this->watchedItemStore,
-			$lexemeRepositoryFactory,
+			WikibaseRepo::getEntityRevisionLookup( $services ),
 			WikibaseRepo::getEditEntityFactory( $services )
 		);
 	}
