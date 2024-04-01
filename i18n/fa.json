@@ -8,7 +8,8 @@
 			"Ommmmid",
 			"Reza koulivand",
 			"Reza1615",
-			"Darafsh"
+			"Darafsh",
+			"Ebraminio"
 		]
 	},
 	"content-model-wikibase-lexeme": "ویکی‌بیس تکواژه",
@@ -27,7 +28,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "شکست در ادغام لکسیم‌ها، لطفاً اول هرگونه ناسازگاری را برطرف کنید.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "شکست در ذحیره‌سازی تکواژه.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' یک شناسهٔ تکواژهٔ معتبر نیست",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "تکواژهٔ '$1' یافت نشده‌است.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "تکواژهٔ '$1' یافت نشده است.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "اجازه داده نشد.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "نمی‌توان بن‌مایه را با خودش ادغام کرد.",
 	"wikibase-lexeme-mergelexemes-from-id": "شناسه برای ادغام از",
@@ -53,7 +54,7 @@
 	"wikibaselexeme-diffview-lexical-category": "ردهٔ واژه‌ای",
 	"wikibaselexeme-diffview-representation": "نمایش",
 	"wikibaselexeme-diffview-sense": "معنی",
-	"wikibaselexeme-empty-form-representation": "هیچ بیانگر فرمی تعریف نشده‌است",
+	"wikibaselexeme-empty-form-representation": "هیچ بیانگر فرمی تعریف نشده است",
 	"wikibaselexeme-enter-form-representation": "یک بیانگر فرم وارد کنید",
 	"wikibaselexeme-field-language-label": "زبان",
 	"wikibaselexeme-field-lexical-category-label": "ردهٔ تکواژه",
