@@ -236,6 +236,34 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		);
 	}
 
+	public function testGivenBadToken_showsErrorMessage(): void {
+		$expectedErrorMsg = 'bad token happened';
+		$this->exceptionLocalizer = $this->createMock( ExceptionLocalizer::class );
+		$this->exceptionLocalizer->expects( $this->once() )
+			->method( 'getExceptionMessage' )
+			->willReturn( new RawMessage( $expectedErrorMsg ) );
+
+		$output = $this->executeSpecialPageWithIds( 'L111', 'L222', 'bad token' );
+		$this->assertShowsErrorWithMessage(
+			$output,
+			$expectedErrorMsg
+		);
+	}
+
+	public function testGivenGetRequestWithData_showsErrorMessage(): void {
+		$expectedErrorMsg = 'bad request happened';
+		$this->exceptionLocalizer = $this->createMock( ExceptionLocalizer::class );
+		$this->exceptionLocalizer->expects( $this->once() )
+			->method( 'getExceptionMessage' )
+			->willReturn( new RawMessage( $expectedErrorMsg ) );
+
+		$output = $this->executeSpecialPageWithIds( 'L111', 'L222', null, false );
+		$this->assertShowsErrorWithMessage(
+			$output,
+			$expectedErrorMsg
+		);
+	}
+
 	public function testTempUserCreatedRedirect(): void {
 		$this->enableAutoCreateTempUser();
 		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
@@ -289,6 +317,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 		return new SpecialMergeLexemes(
 			self::TAGS,
 			$this->mergeInteractor,
+			WikibaseRepo::getTokenCheckInteractor( $this->getServiceContainer() ),
 			$this->titleLookup,
 			$this->exceptionLocalizer,
 			$this->permissionManager,
@@ -312,15 +341,24 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	 *
 	 * @return string
 	 */
-	private function executeSpecialPageWithIds( $source, $target ) {
+	private function executeSpecialPageWithIds(
+		string $source,
+		string $target,
+		?string $token = null,
+		bool $wasPosted = true
+	): string {
+		$data = [
+			'from-id' => $source,
+			'to-id' => $target,
+		];
+		if ( $token !== null ) {
+			$data['wpEditToken'] = $token; // otherwise filled in by default
+		}
+
 		[ $output ] = $this->executeSpecialPage(
 			'',
-			new FauxRequest( [
-				'from-id' => $source,
-				'to-id' => $target,
-			], true )
+			new FauxRequest( $data, $wasPosted )
 		);
-
 		return $output;
 	}
 

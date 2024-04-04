@@ -145,6 +145,7 @@ class Registrar {
 				'WikibaseRepo.EntityTitleLookup',
 				'WikibaseRepo.ExceptionLocalizer',
 				'WikibaseRepo.Settings',
+				'WikibaseRepo.TokenCheckInteractor',
 				'WikibaseLexemeMergeLexemesInteractor',
 			],
 		];

@@ -18,6 +18,8 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lib\SettingsArray;
 use Wikibase\Lib\Store\EntityTitleLookup;
 use Wikibase\Repo\AnonymousEditWarningBuilder;
+use Wikibase\Repo\Interactors\TokenCheckException;
+use Wikibase\Repo\Interactors\TokenCheckInteractor;
 use Wikibase\Repo\Localizer\ExceptionLocalizer;
 
 /**
@@ -36,6 +38,8 @@ class SpecialMergeLexemes extends SpecialPage {
 
 	private MergeLexemesInteractor $mergeInteractor;
 
+	private TokenCheckInteractor $tokenCheckInteractor;
+
 	private EntityTitleLookup $titleLookup;
 
 	private ExceptionLocalizer $exceptionLocalizer;
@@ -47,6 +51,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	public function __construct(
 		array $tags,
 		MergeLexemesInteractor $mergeInteractor,
+		TokenCheckInteractor $tokenCheckInteractor,
 		EntityTitleLookup $titleLookup,
 		ExceptionLocalizer $exceptionLocalizer,
 		PermissionManager $permissionManager,
@@ -55,6 +60,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		parent::__construct( 'MergeLexemes', 'item-merge' );
 		$this->tags = $tags;
 		$this->mergeInteractor = $mergeInteractor;
+		$this->tokenCheckInteractor = $tokenCheckInteractor;
 		$this->titleLookup = $titleLookup;
 		$this->exceptionLocalizer = $exceptionLocalizer;
 		$this->permissionManager = $permissionManager;
@@ -125,11 +131,13 @@ class SpecialMergeLexemes extends SpecialPage {
 		EntityTitleLookup $entityTitleLookup,
 		ExceptionLocalizer $exceptionLocalizer,
 		SettingsArray $repoSettings,
+		TokenCheckInteractor $tokenCheckInteractor,
 		MergeLexemesInteractor $mergeLexemesInteractor
 	): self {
 		return new self(
 			$repoSettings->getSetting( 'specialPageTags' ),
 			$mergeLexemesInteractor,
+			$tokenCheckInteractor,
 			$entityTitleLookup,
 			$exceptionLocalizer,
 			$permissionManager,
@@ -184,18 +192,13 @@ class SpecialMergeLexemes extends SpecialPage {
 	}
 
 	private function mergeLexemes( LexemeId $sourceId, LexemeId $targetId ): void {
-		// TODO inject interactor+localizer once this is public
-		// phpcs:disable MediaWiki.Classes.FullQualifiedClassName.Found
 		try {
-			\Wikibase\Repo\WikibaseRepo::getTokenCheckInteractor()
-				->checkRequestToken( $this->getContext(), 'wpEditToken' );
-		} catch ( \Wikibase\Repo\Interactors\TokenCheckException $e ) {
-			$message = \Wikibase\Repo\WikibaseRepo::getExceptionLocalizer()
-				->getExceptionMessage( $e );
+			$this->tokenCheckInteractor->checkRequestToken( $this->getContext(), 'wpEditToken' );
+		} catch ( TokenCheckException $e ) {
+			$message = $this->exceptionLocalizer->getExceptionMessage( $e );
 			$this->showErrorHTML( $message->parse() );
 			return;
 		}
-		// phpcs:enable
 
 		try {
 			$status = $this->mergeInteractor->mergeLexemes(
