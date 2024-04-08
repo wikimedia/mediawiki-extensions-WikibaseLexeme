@@ -57,6 +57,8 @@
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lekseem",
 	"wikibase-listdatatypes-wikibase-sense-body": "Link projekti tähenduste juurde. Sisestatud väärtusele vastavaid tähendusi otsitakse projekti nimeruumist \"Lexeme\".",
 	"wikibase-listdatatypes-wikibase-sense-head": "Tähendus",
+	"wikibase-pageinfo-wbl-forms": "Vormide arv",
+	"wikibase-pageinfo-wbl-senses": "Tähenduste arv",
 	"wikibase-validator-form-not-found": "Lekseemil puudub sellise identifikaatoriga vorm",
 	"wikibaselexeme-add-form": "lisa vorm",
 	"wikibaselexeme-add-sense": "lisa tähendus",
