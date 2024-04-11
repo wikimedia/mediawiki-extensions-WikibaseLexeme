@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class ChangeSenseDiffOp extends EntityDiff implements SenseDiff {
 
-	use Unserializable;
+	use Nonserializable;
 
 	/**
 	 * @var SenseId

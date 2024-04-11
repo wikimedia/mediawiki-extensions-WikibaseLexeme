@@ -11,7 +11,7 @@ use Wikibase\Lexeme\Domain\Model\Form;
  */
 class AddFormDiff implements FormDiff {
 
-	use Unserializable;
+	use Nonserializable;
 
 	/**
 	 * @var Form

@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class RemoveSenseDiff implements SenseDiff {
 
-	use Unserializable;
+	use Nonserializable;
 
 	/**
 	 * @var SenseId

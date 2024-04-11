@@ -11,7 +11,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class RemoveFormDiff implements FormDiff {
 
-	use Unserializable;
+	use Nonserializable;
 
 	/**
 	 * @var FormId

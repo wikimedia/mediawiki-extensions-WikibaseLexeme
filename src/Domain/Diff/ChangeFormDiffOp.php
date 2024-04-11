@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class ChangeFormDiffOp extends EntityDiff implements FormDiff {
 
-	use Unserializable;
+	use Nonserializable;
 
 	/**
 	 * @var FormId

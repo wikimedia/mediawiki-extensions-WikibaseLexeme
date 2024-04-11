@@ -12,7 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Sense;
  */
 class AddSenseDiff implements SenseDiff {
 
-	use Unserializable;
+	use Nonserializable;
 
 	/**
 	 * @var Sense

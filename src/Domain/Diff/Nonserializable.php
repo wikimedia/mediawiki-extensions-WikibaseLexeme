@@ -7,12 +7,12 @@ namespace Wikibase\Lexeme\Domain\Diff;
 use LogicException;
 
 /**
- * Private helper trait to make some diffs unserializable.
+ * Private helper trait to make some diffs nonserializable.
  *
  * @license GPL-2.0-or-later
  * @phan-file-suppress PhanPluginNeverReturnMethod
  */
-trait Unserializable {
+trait Nonserializable {
 
 	public function __serialize(): array {
 		throw new LogicException( "serialize() is not implemented" );
