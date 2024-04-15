@@ -4,7 +4,8 @@
 			"MITO",
 			"Nike",
 			"Pyscowicz",
-			"Yupik"
+			"Yupik",
+			"Samoasambia"
 		]
 	},
 	"content-model-wikibase-lexeme": "Wikibase-lekseemi",
@@ -15,6 +16,7 @@
 	"special-newlexeme": "Luo uusi lekseemi",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lekseemin lataaminen epäonnistui.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseemin tallentaminen epäonnistui.",
+	"wikibase-lexeme-mergelexemes-error-permission-denied": "Käyttö estetty.",
 	"wikibase-lexeme-summary-wbeditentity-create-form": "Uusi sananmuoto lisätty",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Loi uuden lekseemin",
 	"wikibase-listdatatypes-wikibase-form-head": "Muoto",
@@ -38,5 +40,6 @@
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Ohje)",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Leksikaalinen luokka",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Syötä leksikaalinen luokka, esim. substantiivi",
+	"wikibaselexeme-unknown-category": "Tuntematon",
 	"wikibaselexeme-unknown-language": "Tuntematon kieli"
 }
