@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataModel\Serialization;
 
+use DataValues\Deserializers\DataValueDeserializer;
 use Deserializers\Deserializer;
 use MediaWikiUnitTestCase;
 use Serializers\Serializer;
@@ -17,6 +18,7 @@ use Wikibase\DataModel\Serializers\StatementListSerializer;
 use Wikibase\DataModel\Serializers\StatementSerializer;
 use Wikibase\DataModel\Serializers\TermListSerializer;
 use Wikibase\DataModel\Serializers\TermSerializer;
+use Wikibase\DataModel\Services\Lookup\InMemoryDataTypeLookup;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
@@ -118,10 +120,12 @@ class SenseDeserializerTest extends MediaWikiUnitTestCase {
 	}
 
 	private function newStatementListDeserializer() {
-		$this->markTestSkipped( 'Temporarily while DeserializerFactory is WIP' );
 		$deserializerFactory = new DeserializerFactory(
-			$this->createMock( Deserializer::class ),
-			new BasicEntityIdParser()
+			$this->createMock( DataValueDeserializer::class ),
+			new BasicEntityIdParser(),
+			new InMemoryDataTypeLookup(),
+			[],
+			[]
 		);
 
 		return new StatementListDeserializer( new StatementDeserializer(

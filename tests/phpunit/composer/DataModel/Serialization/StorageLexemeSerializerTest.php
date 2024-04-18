@@ -14,6 +14,7 @@ use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Serializers\SerializerFactory;
+use Wikibase\DataModel\Services\Lookup\InMemoryDataTypeLookup;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Snak\PropertySomeValueSnak;
 use Wikibase\DataModel\Snak\PropertyValueSnak;
@@ -248,10 +249,12 @@ class StorageLexemeSerializerTest extends TestCase {
 				},
 			]
 		);
-		$this->markTestSkipped( 'Temporarily while DeserializerFactory is WIP' );
 		$factory = new DeserializerFactory(
 			$this->newDataValueDeserializer(),
-			$entityIdParser
+			$entityIdParser,
+			new InMemoryDataTypeLookup(),
+			[],
+			[]
 		);
 		$statementListDeserializer = $factory->newStatementListDeserializer();
 		return new LexemeDeserializer(
