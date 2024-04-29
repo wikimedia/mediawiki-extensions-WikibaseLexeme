@@ -3,7 +3,8 @@
 		"authors": [
 			"Liuxinyu970226",
 			"Shimamura Sakura",
-			"列维劳德"
+			"列维劳德",
+			"沈澄心"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "词形必须至少有一个表现形式",
@@ -34,6 +35,7 @@
 	"apihelp-wbladdsense-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wbladdsense-param-data": "用于义项的JSON编码数据，即其注释",
 	"apihelp-wbladdsense-param-lexemeId": "词位的ID，例如L10",
+	"apihelp-wbladdsense-param-tags": "应用到此修订的更改标签。",
 	"apihelp-wbladdsense-summary": "添加意义至词位",
 	"apihelp-wbleditformelements-example-1": "编辑ID为<samp>$1</samp>的词形，使其在语言<samp>$3</samp>中分别拥有表现形式<samp>$2</samp>，以及语法特征<samp>$4</samp>。",
 	"apihelp-wbleditformelements-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时受尊重。",
@@ -45,7 +47,12 @@
 	"apihelp-wbleditsenseelements-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wbleditsenseelements-param-data": "JSON编码的注解数据",
 	"apihelp-wbleditsenseelements-param-senseId": "意义的ID，例如L10-F2",
+	"apihelp-wbleditsenseelements-param-tags": "应用到此修订的更改标签。",
 	"apihelp-wbleditsenseelements-summary": "编辑意义的注解",
+	"apihelp-wblmergelexemes-param-source": "要合并的来源ID",
+	"apihelp-wblmergelexemes-param-tags": "应用到此修订的更改标签。",
+	"apihelp-wblmergelexemes-param-target": "要合并到的ID",
+	"apihelp-wblmergelexemes-summary": "合并两个词位。",
 	"apihelp-wblremoveform-example-1": "从ID为<samp>$1</samp>的词位中移除词形",
 	"apihelp-wblremoveform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wblremoveform-param-id": "词形ID，例如L10-F20",
