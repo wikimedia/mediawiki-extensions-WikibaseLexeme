@@ -8,6 +8,7 @@
 	"datatypes-type-wikibase-lexeme": "Lexemo",
 	"datatypes-type-wikibase-sense": "Senco",
 	"special-newlexeme": "Krear nova lexemo*",
+	"wikibase-lexeme-lexicographical-data": "Lexikografiala* datumo",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Permiso vetata.",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexemo",
 	"wikibaselexeme-diffview-language": "linguo",
