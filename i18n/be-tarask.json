@@ -4,13 +4,21 @@
 			"Renessaince"
 		]
 	},
+	"content-model-wikibase-lexeme": "Лексэма Вікібазы",
 	"datatypes-type-wikibase-form": "Форма",
 	"datatypes-type-wikibase-lexeme": "Лексэма",
 	"datatypes-type-wikibase-sense": "Значэньне",
+	"nstab-lexeme": "Лексэма",
 	"special-mergelexemes": "Аб’яднаць дзьве лексэмы",
 	"special-newlexeme": "Стварыць новую лексэму",
+	"tooltip-ca-nstab-lexeme": "Азначэньне лексэмы",
+	"wikibase-entity-summary-wblmergelexemes-from": "Далучаная лексэма з $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Лексэма далучаная да $3",
 	"wikibase-lexeme-gloss-empty": "Ня вызначаная глёса",
+	"wikibase-lexeme-lemma-language-not-recognized": "Пазначаны код мовы не распазнаны.",
 	"wikibase-lexeme-lexicographical-data": "Лексыкаграфічныя зьвесткі",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Памылка загрузкі лексэмы.",
+	"wikibase-lexeme-randomlexeme": "Выпадковая лексэма",
 	"wikibase-lexeme-summary-wbeditentity-update": "Зьмененая лексэма",
 	"wikibase-listdatatypes-wikibase-form-body": "Спасылка на формы ў праекце. Калі значэньне ўведзенае, адпаведныя формы будуць шукацца ў прасторы назваў «Lexeme» праекту.",
 	"wikibase-listdatatypes-wikibase-form-head": "Форма",
@@ -46,5 +54,7 @@
 	"wikibaselexeme-sense-gloss-invalid-language": "Моўныя коды глёсаў мусяць быць існымі",
 	"wikibaselexeme-sense-gloss-redundant-language": "Немагчыма ўвесьці некалькі глёсаў з адной мовай.",
 	"wikibaselexeme-statementsection-statements-about-form": "Сьцьверджаньні пра $1",
-	"wikibaselexeme-statementsection-statements-about-sense": "Сьцьверджаньні пра $1"
+	"wikibaselexeme-statementsection-statements-about-sense": "Сьцьверджаньні пра $1",
+	"wikibaselexeme-unknown-category": "Невядома",
+	"wikibaselexeme-unknown-language": "Невядомая мова"
 }

@@ -21,7 +21,7 @@
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "Лексемала бирлешдирилемеди. Тилейбиз, алгъы бурун, дауланы къоратыгъыз. Халат: Лексемаланы джазыу вариантладан башха леммлары барды.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "Лексемала бирлешдирилемеди. Тилейбиз, алгъы бурун, дауланы къоратыгъыз. Халат: Лексемала бири-бирине джибериу бередиле.",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Лексемала бирлешдирилемеди, алгъы бурун, дауланы къоратыгъыз.",
-	"wikibase-lexeme-mergelexemes-error-failed-save": "Лексема сакълау джетишимсиз болду.",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "Лексема сакъландырыу джетишимсиз болду.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1' джараулу Лексема ID тюлдю",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "'$1' Лексема табылалмады.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Эркинлик берилмеди.",

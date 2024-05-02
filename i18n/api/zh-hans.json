@@ -49,6 +49,7 @@
 	"apihelp-wbleditsenseelements-param-senseId": "意义的ID，例如L10-F2",
 	"apihelp-wbleditsenseelements-param-tags": "应用到此修订的更改标签。",
 	"apihelp-wbleditsenseelements-summary": "编辑意义的注解",
+	"apihelp-wblmergelexemes-example-1": "将数据从<samp>L123</samp>合并至<samp>L321</samp>",
 	"apihelp-wblmergelexemes-param-source": "要合并的来源ID",
 	"apihelp-wblmergelexemes-param-tags": "应用到此修订的更改标签。",
 	"apihelp-wblmergelexemes-param-target": "要合并到的ID",
@@ -56,5 +57,9 @@
 	"apihelp-wblremoveform-example-1": "从ID为<samp>$1</samp>的词位中移除词形",
 	"apihelp-wblremoveform-param-bot": "将此编辑标记为机器人编辑。此URL标记将只在用户属于“{{int:group-bot}}”用户组时被沿用。",
 	"apihelp-wblremoveform-param-id": "词形ID，例如L10-F20",
-	"apihelp-wblremoveform-summary": "从词位移除词形"
+	"apihelp-wblremoveform-param-tags": "更改标签以应用于修订版本。",
+	"apihelp-wblremoveform-summary": "从词位移除词形",
+	"apihelp-wblremovesense-param-id": "义项的ID，例如L10-S20",
+	"apihelp-wblremovesense-param-tags": "更改标签以应用于修订版本。",
+	"apihelp-wblremovesense-summary": "从词位移除义项"
 }
