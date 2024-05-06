@@ -8,7 +8,9 @@
 			"予弦",
 			"列维劳德",
 			"Winston Sung",
-			"SupaplexTW"
+			"SupaplexTW",
+			"Lakejason0",
+			"沈澄心"
 		]
 	},
 	"content-model-wikibase-lexeme": "Wikibase詞位",
@@ -101,7 +103,7 @@
 	"wikibaselexeme-gloss-field-gloss-label": "註解",
 	"wikibaselexeme-gloss-field-language-label": "語言",
 	"wikibaselexeme-grammatical-features-input-placeholder": "例如：標準、比較、過去式...",
-	"wikibaselexeme-header-forms": "詞性",
+	"wikibaselexeme-header-forms": "詞形",
 	"wikibaselexeme-header-senses": "意義",
 	"wikibaselexeme-lemma-edit-placeholder": "主題通常是字詞的最短詞性",
 	"wikibaselexeme-lemma-field-language-label": "拼寫變體",
