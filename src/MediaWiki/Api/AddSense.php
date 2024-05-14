@@ -139,11 +139,11 @@ class AddSense extends ApiBase {
 			  "glosses": [
 				"en-GB": {
 				  "value": "colour",
-				  "language": "en-GB"
+				  "language": "en-gb"
 				},
 				"en-US": {
 				  "value": "color",
-				  "language": "en-US"
+				  "language": "en-us"
 				}
 			  ]
 			}
@@ -297,8 +297,8 @@ class AddSense extends ApiBase {
 		$lexemeId = 'L12';
 		$exampleData = [
 			'glosses' => [
-				'en-US' => [ 'value' => 'Some text value', 'language' => 'en-US' ],
-				'en-GB' => [ 'value' => 'Another text value', 'language' => 'en-GB' ],
+				'en-us' => [ 'value' => 'Some text value', 'language' => 'en-us' ],
+				'en-gb' => [ 'value' => 'Another text value', 'language' => 'en-gb' ],
 			],
 		];
 

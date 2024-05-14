@@ -112,13 +112,13 @@ class AddForm extends ApiBase {
 		/*
 		 * {
 			  "representations": [
-				"en-GB": {
+				"en-gb": {
 				  "value": "colour",
-				  "language": "en-GB"
+				  "language": "en-gb"
 				},
-				"en-US": {
+				"en-us": {
 				  "value": "color",
-				  "language": "en-US"
+				  "language": "en-us"
 				}
 			  ],
 			  "grammaticalFeatures": [
@@ -208,8 +208,8 @@ class AddForm extends ApiBase {
 		$lexemeId = 'L12';
 		$exampleData = [
 			'representations' => [
-				'en-US' => [ 'value' => 'color', 'language' => 'en-US' ],
-				'en-GB' => [ 'value' => 'colour', 'language' => 'en-GB' ],
+				'en-us' => [ 'value' => 'color', 'language' => 'en-us' ],
+				'en-gb' => [ 'value' => 'colour', 'language' => 'en-gb' ],
 			],
 			'grammaticalFeatures' => [
 				'Q1', 'Q2',
