@@ -4,9 +4,14 @@
 			"Alshamiri1",
 			"Asma",
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Hubaishan"
 		]
 	},
+	"wikibase-lexeme-language-name-apc": "عربية شامية",
+	"wikibase-lexeme-language-name-bas": "الباسا",
+	"wikibase-lexeme-language-name-bfi": "لغة الإشارة البريطانية",
+	"wikibase-lexeme-language-name-bzs": "لغة الإشارة البرازيلية",
 	"wikibase-lexeme-language-name-gmh": "الألمانية العليا الوسطى",
 	"wikibase-lexeme-language-name-goh": "الألمانية العليا القديمة",
 	"wikibase-lexeme-language-name-mis": "أخرى",
@@ -19,5 +24,6 @@
 	"wikibase-lexeme-language-name-rm-surmiran": "السورمانية",
 	"wikibase-lexeme-language-name-rm-sursilv": "سورسيلفية",
 	"wikibase-lexeme-language-name-rm-sutsilv": "ساتسيلفية",
-	"wikibase-lexeme-language-name-rm-vallader": "فالدر"
+	"wikibase-lexeme-language-name-rm-vallader": "فالدر",
+	"wikibase-lexeme-language-name-txg": "تانغوت"
 }
