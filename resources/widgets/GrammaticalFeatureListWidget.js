@@ -7,9 +7,9 @@ module.exports = ( function () {
 	 * @mixin OO.ui.mixin.RequestManager
 	 *
 	 * @param {Object} config Configuration object
-	 * @cfg {mw.Api} api Api object to access 'wbsearchentities' action
-	 * @cfg {string} language
-	 * @cfg {wikibase.LabelFormattingService} labelFormattingService
+	 * @param {mw.Api} config.api Api object to access 'wbsearchentities' action
+	 * @param {string} config.language
+	 * @param {wikibase.LabelFormattingService} config.labelFormattingService
 	 *
 	 * @license GPL-2.0-or-later
 	 */
