@@ -57,7 +57,7 @@
 		"unexpected": "^13.2.1",
 		"unexpected-dom": "^6.0.1",
 		"unexpected-sinon": "^11.1.0",
-		"vue": "3.3.9",
+		"vue": "3.4.27",
 		"vuex": "4.0.2"
 	}
 }
