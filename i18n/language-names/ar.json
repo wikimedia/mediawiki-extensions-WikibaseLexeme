@@ -2,9 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"ديفيد",
-			"محمد أحمد عبد الفتاح"
+			"محمد أحمد عبد الفتاح",
+			"Alshamiri1",
+			"Asma",
+			"Hubaishan"
 		]
 	},
+	"wikibase-lexeme-language-name-bas": "الباسا",
+	"wikibase-lexeme-language-name-bfi": "لغة الإشارة البريطانية",
+	"wikibase-lexeme-language-name-bzs": "لغة الإشارة البرازيلية",
 	"wikibase-lexeme-language-name-gmh": "الألمانية العليا الوسطى",
 	"wikibase-lexeme-language-name-goh": "الألمانية العليا القديمة",
 	"wikibase-lexeme-language-name-mis": "أخرى",

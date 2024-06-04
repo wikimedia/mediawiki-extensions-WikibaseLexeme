@@ -90,6 +90,7 @@
 	"wikibaselexeme-form-description": "$1 لـ: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "اختلاف التهجئة",
 	"wikibaselexeme-form-field-representation-label": "التمثيل",
+	"wikibaselexeme-form-field-required": "حقل مطلوب",
 	"wikibaselexeme-form-grammatical-features": "الميزات النحوية",
 	"wikibaselexeme-form-representation-redundant-language": "ليس من الممكن إدخال تمثيلات متعددة بنفس اختلاف التهجئة.",
 	"wikibaselexeme-gloss-field-gloss-label": "التفسير",
