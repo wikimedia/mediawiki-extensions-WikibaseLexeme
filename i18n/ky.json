@@ -4,8 +4,12 @@
 			"Bosogo"
 		]
 	},
+	"special-newlexeme": "Жаңы лексема түзүү",
+	"wikibase-lexeme-lexicographical-data": "Лексикографиялык маалымат",
 	"wikibaselexeme-diffview-language": "Тил",
 	"wikibaselexeme-field-language-label": "Тил",
 	"wikibaselexeme-gloss-field-language-label": "Тил",
+	"wikibaselexeme-newlexeme-fieldset": "Жаңы лексема түзүү",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Лексемалар тууралуу",
 	"wikibaselexeme-unknown-category": "Белгисиз"
 }
