@@ -200,7 +200,7 @@ return call_user_func( static function () {
 					$mediaWikiServices->getTitleFactory()
 						->newFromTextThrow( 'MediaWiki:WikibaseLexeme-SortedGrammaticalFeatures' )
 				),
-				ObjectCache::getLocalClusterInstance(),
+				$mediaWikiServices->getObjectCacheFactory()->getLocalClusterInstance(),
 				'wikibaseLexeme-grammaticalFeaturesOrderProvider'
 			);
 
