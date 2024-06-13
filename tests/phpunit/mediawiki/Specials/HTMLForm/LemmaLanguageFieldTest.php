@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
-use HTMLForm;
 use InvalidArgumentException;
-use Message;
+use MediaWiki\HTMLForm\HTMLForm;
+use MediaWiki\Message\Message;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lexeme\WikibaseLexemeServices;

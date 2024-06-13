@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\ParserOutput;
 
 use DataValues\StringValue;
+use MediaWiki\Message\Message;
 use MediaWiki\Parser\ParserOutput;
-use Message;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;

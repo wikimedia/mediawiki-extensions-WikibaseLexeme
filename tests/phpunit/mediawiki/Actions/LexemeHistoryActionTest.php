@@ -5,9 +5,9 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\Unit\mediawiki;
 
 use Article;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Message\Message;
 use MediaWiki\Title\Title;
-use Message;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\DataModel\Term\Term;

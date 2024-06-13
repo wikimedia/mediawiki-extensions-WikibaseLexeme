@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
+use MediaWiki\Message\Message;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
@@ -90,7 +91,7 @@ class ApiErrorTranslationTest extends TestCase {
 	}
 
 	private function assertEnglishTranslationContainsAllTheParameters(
-		\Message $apiMessage,
+		Message $apiMessage,
 		array $paramValues
 	) {
 		$text = $apiMessage->inLanguage( 'en' )->text();

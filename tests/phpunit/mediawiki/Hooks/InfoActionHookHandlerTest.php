@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Page\PageProps;
 use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
-use RequestContext;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;

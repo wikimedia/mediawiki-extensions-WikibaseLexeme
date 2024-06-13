@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use ApiTestCase;
 use ApiUsageException;
 use ExtensionRegistry;
+use MediaWiki\Tests\Api\ApiTestCase;
 
 /**
  * TODO: Those test should not really be skipped but always run. There is no way

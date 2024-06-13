@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\Merge;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;

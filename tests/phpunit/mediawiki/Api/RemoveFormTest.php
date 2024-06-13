@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -281,7 +282,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 		];
 		// Do the mid edit using another user to avoid wikibase ignoring edit as "self-conflict"
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
-		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+		RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
 		$params = [
 			'action' => 'wblremoveform',
 			'id' => 'L1-F1',
@@ -313,7 +314,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
-		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+		RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
 		$params = [
 			'action' => 'wblremoveform',
 			'id' => 'L1-F1',

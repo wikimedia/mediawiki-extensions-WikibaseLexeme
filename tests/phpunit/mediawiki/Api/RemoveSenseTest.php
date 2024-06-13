@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiUsageException;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
@@ -296,7 +297,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			'data' => '{"lemmas":{"en":{"value":"Hello","language":"en"}}}',
 		];
 		$this->doApiRequestWithToken( $params, null, User::newSystemUser( 'Tester' ) );
-		\RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
+		RequestContext::getMain()->setUser( User::newSystemUser( 'Tester2' ) );
 		$params = [
 			'action' => 'wblremovesense',
 			'id' => 'L1-S1',
