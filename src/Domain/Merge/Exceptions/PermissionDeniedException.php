@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Domain\Merge\Exceptions;
 
-use Message;
+use MediaWiki\Message\Message;
 
 /**
  * @license GPL-2.0-or-later

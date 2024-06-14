@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme\MediaWiki\Actions;
 
 use Article;
 use HistoryAction;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;

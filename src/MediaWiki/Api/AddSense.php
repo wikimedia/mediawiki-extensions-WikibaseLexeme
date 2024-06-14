@@ -9,6 +9,7 @@ use ApiCreateTempUserTrait;
 use ApiMain;
 use Deserializers\Deserializer;
 use LogicException;
+use MediaWiki\Message\Message;
 use RuntimeException;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -314,7 +315,7 @@ class AddSense extends ApiBase {
 		$glossesText = $this->getLanguage()->commaList( $glosses );
 		$languagesText = $this->getLanguage()->commaList( $languages );
 
-		$exampleMessage = new \Message(
+		$exampleMessage = new Message(
 			'apihelp-wbladdsense-example-1',
 			[
 				$lexemeId,

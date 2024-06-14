@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Presentation\View;
 
-use DerivativeContext;
 use Language;
-use RequestContext;
+use MediaWiki\Context\DerivativeContext;
+use MediaWiki\Context\RequestContext;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\WikibaseLexemeServices;

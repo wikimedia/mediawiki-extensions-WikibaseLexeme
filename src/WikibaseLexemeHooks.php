@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Hook\CanonicalNamespacesHook;
 use MediaWiki\Hook\InfoActionHook;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;

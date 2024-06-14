@@ -8,6 +8,7 @@ use ApiBase;
 use ApiCreateTempUserTrait;
 use ApiMain;
 use LogicException;
+use MediaWiki\Message\Message;
 use RuntimeException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -229,7 +230,7 @@ class AddForm extends ApiBase {
 		$languagesText = $this->getLanguage()->commaList( $languages );
 		$grammaticalFeaturesText = $this->getLanguage()->commaList( $exampleData['grammaticalFeatures'] );
 
-		$exampleMessage = new \Message(
+		$exampleMessage = new Message(
 			'apihelp-wbladdform-example-1',
 			[
 				$lexemeId,

@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
 use ApiMessage;
-use Message;
+use MediaWiki\Message\Message;
 use Wikibase\Lexeme\Domain\Model\FormId;
 
 /**

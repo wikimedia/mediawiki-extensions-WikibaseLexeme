@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Domain\Merge\Exceptions;
 
-use Message;
+use MediaWiki\Message\Message;
 use Throwable;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 

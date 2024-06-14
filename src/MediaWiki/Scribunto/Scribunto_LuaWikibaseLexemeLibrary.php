@@ -2,12 +2,12 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Scribunto;
 
-use Scribunto_LuaLibraryBase;
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 
 /**
  * @license GPL-2.0-or-later
  */
-class Scribunto_LuaWikibaseLexemeLibrary extends Scribunto_LuaLibraryBase {
+class Scribunto_LuaWikibaseLexemeLibrary extends LibraryBase {
 
 	/**
 	 * Register the mw.wikibase.lexeme.lua library.

@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
-use Message;
+use MediaWiki\Message\Message;
 
 /**
  * @license GPL-2.0-or-later
