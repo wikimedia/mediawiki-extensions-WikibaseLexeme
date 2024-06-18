@@ -4,8 +4,18 @@
 			"Bosogo"
 		]
 	},
+	"datatypes-type-wikibase-lexeme": "Лексема",
+	"nstab-lexeme": "Лексема",
+	"special-newlexeme": "Жаңы лексема түзүү",
+	"tooltip-ca-nstab-lexeme": "Лексеманын аныктамасы",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "Лексема",
 	"wikibaselexeme-diffview-language": "Тил",
+	"wikibaselexeme-diffview-lemma": "Лемма",
 	"wikibaselexeme-field-language-label": "Тил",
 	"wikibaselexeme-gloss-field-language-label": "Тил",
+	"wikibaselexeme-lemma-field-lemma-label": "Лемма",
+	"wikibaselexeme-newlexeme-fieldset": "Жаңы лексема түзүү",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Лексемалар тууралуу",
+	"wikibaselexeme-newlexeme-lemma": "Лемма",
 	"wikibaselexeme-unknown-category": "Белгисиз"
 }
