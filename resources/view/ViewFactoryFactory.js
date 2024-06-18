@@ -8,7 +8,7 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function () {
 		ControllerViewFactory = require( './ControllerViewFactory.js' ),
 		ReadModeViewFactory = require( './ReadModeViewFactory.js' );
 
-	$.extend( ViewFactoryFactory.prototype, {
+	Object.assign( ViewFactoryFactory.prototype, {
 
 		/**
 		 * @see wikibase.view.ViewFactoryFactory

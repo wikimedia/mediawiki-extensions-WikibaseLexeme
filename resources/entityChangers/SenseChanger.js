@@ -37,7 +37,7 @@
 	/**
 	 * @class wikibase.lexeme.entityChangers.SenseChanger
 	 */
-	$.extend( SELF.prototype, {
+	Object.assign( SELF.prototype, {
 
 		/**
 		 * @type {wikibase.api.RepoApi}

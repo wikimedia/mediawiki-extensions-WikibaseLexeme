@@ -1,7 +1,7 @@
 {
 	"root": true,
 	"extends": [
-		"wikimedia/client-es5",
+		"wikimedia/client",
 		"wikimedia/jquery",
 		"wikimedia/mediawiki"
 	],
@@ -32,7 +32,9 @@
 		"max-len": "off",
 		"operator-linebreak": "off",
 		"promise/no-native": "error",
-		"mediawiki/no-nodelist-unsupported-methods": "warn"
+		"mediawiki/no-nodelist-unsupported-methods": "warn",
+		"no-var": "off",
+		"prefer-arrow-callback": "off"
 	},
 	"settings": {
 		"jsdoc": {

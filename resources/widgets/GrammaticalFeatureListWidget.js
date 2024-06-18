@@ -52,7 +52,7 @@ module.exports = ( function () {
 	OO.inheritClass( GrammaticalFeatureListWidget, OO.ui.MenuTagMultiselectWidget );
 	OO.mixinClass( GrammaticalFeatureListWidget, OO.ui.mixin.RequestManager );
 
-	$.extend( GrammaticalFeatureListWidget.prototype, {
+	Object.assign( GrammaticalFeatureListWidget.prototype, {
 
 		/**
 		 * @property {string}
