@@ -61,7 +61,12 @@ module.exports = function ( grunt ) {
 		}
 	} );
 
-	grunt.registerTask( 'test', [ 'eslint:all', 'banana', 'jasmine_nodejs', 'stylelint' ] );
+	grunt.registerTask( 'jasmine_nodejs_reset', 'Reset JSDOM globals after Jasmine.', function () {
+		if ( typeof global.jsdomGlobalReset === 'function' ) {
+			global.jsdomGlobalReset();
+		}
+	} );
+	grunt.registerTask( 'test', [ 'eslint:all', 'banana', 'jasmine_nodejs', 'jasmine_nodejs_reset', 'stylelint' ] );
 	grunt.registerTask( 'fix', function () {
 		grunt.config.set( 'eslint.options.fix', true );
 		grunt.task.run( 'eslint' );
