@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Actions;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Page\PageProps;
 use MediaWiki\Title\Title;
 use Wikibase\Lexeme\Domain\Model\LexemeId;

@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\User\UserIdentity;
 use Wikibase\Repo\TempUserStatus;
 

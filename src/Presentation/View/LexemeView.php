@@ -3,7 +3,7 @@
 namespace Wikibase\Lexeme\Presentation\View;
 
 use InvalidArgumentException;
-use Message;
+use MediaWiki\Message\Message;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Term\Term;

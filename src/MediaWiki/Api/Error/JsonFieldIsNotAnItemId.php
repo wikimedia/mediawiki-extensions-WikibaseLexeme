@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Message\Message;
+
 /**
  * @license GPL-2.0-or-later
  */
@@ -26,7 +28,7 @@ class JsonFieldIsNotAnItemId implements ApiError {
 	 * @param string[] $path
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
-		$message = new \Message(
+		$message = new Message(
 		'apierror-wikibaselexeme-json-field-not-item-id',
 			[ $parameterName, implode( '/', $path ), json_encode( $this->given ) ]
 		);

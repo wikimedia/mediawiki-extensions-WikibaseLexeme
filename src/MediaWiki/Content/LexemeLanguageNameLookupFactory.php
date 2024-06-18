@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\Content;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MessageLocalizer;
 use Wikibase\Lib\LanguageNameLookupFactory;
 

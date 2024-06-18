@@ -8,7 +8,7 @@ use ApiBase;
 use ApiCreateTempUserTrait;
 use ApiMain;
 use LogicException;
-use Message;
+use MediaWiki\Message\Message;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Api\Error\LexemeNotFound;

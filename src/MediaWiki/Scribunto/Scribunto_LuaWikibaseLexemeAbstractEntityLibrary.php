@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Scribunto;
 
+use MediaWiki\Extension\Scribunto\Engines\LuaCommon\LibraryBase;
 use MediaWiki\Parser\ParserOutput;
-use Scribunto_LuaLibraryBase;
 use Wikibase\Client\ParserOutput\ParserOutputProvider;
 use Wikibase\Client\Usage\UsageAccumulator;
 use Wikibase\Client\WikibaseClient;
@@ -14,7 +14,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
  * @license GPL-2.0-or-later
  */
 abstract class Scribunto_LuaWikibaseLexemeAbstractEntityLibrary
-	extends Scribunto_LuaLibraryBase implements ParserOutputProvider {
+	extends LibraryBase implements ParserOutputProvider {
 
 	/** @var UsageAccumulator|null */
 	private $usageAccumulator;

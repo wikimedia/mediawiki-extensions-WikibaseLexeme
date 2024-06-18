@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Message\Message;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
@@ -22,7 +23,7 @@ class LexemeNotFound implements ApiError {
 	 * @return \ApiMessage
 	 */
 	public function asApiMessage( $parameterName, array $path ) {
-		$message = new \Message(
+		$message = new Message(
 			'apierror-wikibaselexeme-lexeme-not-found',
 			[ $parameterName, $this->lexemeId->getSerialization() ]
 		);

@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Message\Message;
+
 /**
  * TODO Special. Only happens in RequestParser
  *
@@ -25,7 +27,7 @@ class ParameterIsNotLexemeId implements ApiError {
 	/** @inheritDoc */
 	public function asApiMessage( $parameterName, array $path = [] ) {
 		// Parameter "$1" expected to be a valid Lexeme ID (ex. "L10"), given "$2"
-		$message = new \Message(
+		$message = new Message(
 			'apierror-wikibaselexeme-parameter-not-lexeme-id',
 			[ $parameterName, json_encode( $this->given ) ]
 		);

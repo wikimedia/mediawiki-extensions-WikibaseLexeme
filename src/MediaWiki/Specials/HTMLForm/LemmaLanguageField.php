@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Specials\HTMLForm;
 
-use HTMLComboboxField;
 use InvalidArgumentException;
-use RequestContext;
+use MediaWiki\Context\RequestContext;
+use MediaWiki\HTMLForm\Field\HTMLComboboxField;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\ContentLanguages;

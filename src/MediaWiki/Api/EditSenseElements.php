@@ -7,6 +7,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 use ApiCreateTempUserTrait;
 use ApiMain;
 use Deserializers\Deserializer;
+use MediaWiki\Message\Message;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -299,7 +300,7 @@ class EditSenseElements extends \ApiBase {
 		$glossesText = $this->getLanguage()->commaList( $glosses );
 		$languagesText = $this->getLanguage()->commaList( $languages );
 
-		$exampleMessage = new \Message(
+		$exampleMessage = new Message(
 			'apihelp-wbleditsenseelements-example-1',
 			[
 				$senseId,

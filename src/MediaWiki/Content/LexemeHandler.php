@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\Content;
 
 use Article;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\Title\Title;
 use Psr\Container\ContainerInterface;
 use UnexpectedValueException;

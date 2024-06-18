@@ -6,6 +6,7 @@ namespace Wikibase\Lexeme\MediaWiki\Api;
 
 use ApiCreateTempUserTrait;
 use ApiMain;
+use MediaWiki\Message\Message;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Serializers\SerializerFactory;
@@ -274,7 +275,7 @@ class EditFormElements extends \ApiBase {
 		$languagesText = $this->getLanguage()->commaList( $languages );
 		$grammaticalFeaturesText = $this->getLanguage()->commaList( $exampleData['grammaticalFeatures'] );
 
-		$exampleMessage = new \Message(
+		$exampleMessage = new Message(
 			'apihelp-wbleditformelements-example-1',
 			[
 				$formId,
