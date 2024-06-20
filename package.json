@@ -36,9 +36,9 @@
 	},
 	"devDependencies": {
 		"@wmde/lib-version-check": "^0.1.1-alpha.2",
-		"eslint-config-wikimedia": "^0.27.0",
-		"eslint-plugin-jsonc": "^2.15.1",
-		"eslint-plugin-promise": "^6.1.1",
+		"eslint-config-wikimedia": "^0.28.2",
+		"eslint-plugin-jsonc": "^2.16.0",
+		"eslint-plugin-promise": "^6.2.0",
 		"grunt": "1.6.1",
 		"grunt-banana-checker": "0.13.0",
 		"grunt-eslint": "^24.3.0",

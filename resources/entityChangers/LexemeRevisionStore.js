@@ -12,7 +12,7 @@
 		this.senseStatementRevisions = {};
 	};
 
-	$.extend( SELF.prototype, {
+	Object.assign( SELF.prototype, {
 		/**
 		 * @param {string} claimGuid
 		 * @return {number}

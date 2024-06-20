@@ -42,7 +42,7 @@
 	 *
 	 * @class wikibase.lexeme.entityChangers.FormChanger
 	 */
-	$.extend( SELF.prototype, {
+	Object.assign( SELF.prototype, {
 
 		/**
 		 * @type {wikibase.api.RepoApi}
