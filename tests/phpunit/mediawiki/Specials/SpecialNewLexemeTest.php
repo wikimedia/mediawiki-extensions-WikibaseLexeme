@@ -384,6 +384,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			],
 		];
 
+		$html = str_replace( "\n", '', $html );
 		$this->assertStringContainsString( json_encode( $expected ), $html );
 	}
 
