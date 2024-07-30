@@ -58,8 +58,6 @@
 	} );
 
 	QUnit.test( 'New sense - save - returns deserialized Sense from API result', function ( assert ) {
-		var done = assert.async();
-
 		var api = {
 			post: function () {
 				return $.Deferred().resolve( {
@@ -80,21 +78,17 @@
 
 		var sense = new Sense( null, null );
 
-		assert.expect( 2 );
-
-		changer.save( sense ).then( function ( valueChangeResult ) {
+		return changer.save( sense ).then( function ( valueChangeResult ) {
 			assert.strictEqual( valueChangeResult.getSavedValue().getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.strictEqual(
 				valueChangeResult.getSavedValue().getGlosses().getItemByKey( 'en' ).getText(),
 				'some gloss',
 				'Saved gloss'
 			);
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test( 'New sense - save - handles redirecturl if present in API response', function ( assert ) {
-		var done = assert.async();
 		var targetUrl = 'https://wiki.example/';
 
 		var api = {
@@ -119,17 +113,12 @@
 
 		var sense = new Sense( null, null );
 
-		assert.expect( 1 );
-
-		changer.save( sense ).then( function ( valueChangeResult ) {
+		return changer.save( sense ).then( function ( valueChangeResult ) {
 			assert.strictEqual( targetUrl, valueChangeResult.getTempUserWatcher().getRedirectUrl() );
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test( 'New sense - save - sets the base revision to the one from API result', function ( assert ) {
-		var done = assert.async();
-
 		var api = {
 			post: function () {
 				return $.Deferred().resolve( {
@@ -157,19 +146,14 @@
 
 		var sense = new Sense( null, null );
 
-		assert.expect( 1 );
-
-		changer.save( sense ).then( function () {
+		return changer.save( sense ).then( function () {
 			assert.strictEqual( revisionStore2.getSenseRevision( 'L1-S100' ), 303 );
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test(
 		'New sense - save fails with errors - converts errors to single RepoApiError',
-		function ( assert ) {
-			var done = assert.async();
-
+		async function ( assert ) {
 			var api = {
 				post: function () {
 					return $.Deferred().reject(
@@ -189,23 +173,23 @@
 
 			var sense = new Sense( null, null );
 
-			assert.expect( 3 );
-
-			changer.save( sense ).catch( function ( error ) {
+			try {
+				await changer.save( sense );
+				assert.true( false, 'expected uncaught error' );
+			} catch ( error ) {
 				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
+					error.detailedMessage.includes( 'Some text 1' ),
 					'Detailed message contains text of the first error'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
+					error.detailedMessage.includes( 'Some text 2' ),
 					'Detailed message contains text of the second error'
 				);
-				done();
-			} );
+			}
 
 			function createError( code, text ) {
 				return {
@@ -371,7 +355,6 @@
 	} );
 
 	QUnit.test( 'Sense removed - handles redirecturl if present in API response', function ( assert ) {
-		var done = assert.async();
 		var targetUrl = 'https://wiki.example';
 		var api = {
 			post: sinon.stub().returns(
@@ -387,17 +370,12 @@
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( 'L11-S300', glosses );
 
-		assert.expect( 1 );
-
-		changer.remove( sense ).then( function ( valueChangeResult ) {
+		return changer.remove( sense ).then( function ( valueChangeResult ) {
 			assert.strictEqual( targetUrl, valueChangeResult.getTempUserWatcher().getRedirectUrl() );
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test( 'Existing Sense data changed - save - returns deserialized Sense from API result', function ( assert ) {
-		var done = assert.async();
-
 		var senseId = 'L1-S100';
 		var oldSenseData = {
 			glosses: {
@@ -426,24 +404,19 @@
 
 		var changer = new SenseChanger( api, revisionStore, 'L1', oldSenseData );
 
-		assert.expect( 2 );
-
-		changer.save( sense ).then( function ( valueChangeResult ) {
+		return changer.save( sense ).then( function ( valueChangeResult ) {
 			assert.strictEqual( valueChangeResult.getSavedValue().getId(), 'L1-S100', 'Saved Sense ID' );
 			assert.strictEqual(
 				valueChangeResult.getSavedValue().getGlosses().getItemByKey( 'en' ).getText(),
 				'test gloss',
 				'Saved gloss'
 			);
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test(
 		'Existing Sense data changed - save fails with errors - converts errors to single RepoApiError',
-		function ( assert ) {
-			var done = assert.async();
-
+		async function ( assert ) {
 			var api = {
 				post: function () {
 					return $.Deferred().reject(
@@ -463,23 +436,23 @@
 
 			var sense = new Sense( 'L1-S1', null );
 
-			assert.expect( 3 );
-
-			changer.save( sense ).catch( function ( error ) {
+			try {
+				await changer.save( sense );
+				assert.true( false, 'expected uncaught error' );
+			} catch ( error ) {
 				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
+					error.detailedMessage.includes( 'Some text 1' ),
 					'Detailed message contains text of the first error'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
+					error.detailedMessage.includes( 'Some text 2' ),
 					'Detailed message contains text of the second error'
 				);
-				done();
-			} );
+			}
 
 			function createError( code, text ) {
 				return {
@@ -515,7 +488,7 @@
 		assert.strictEqual( gotParameters.baserevid, 123, 'Base revision Id' );
 	} );
 
-	QUnit.test( 'Existing Sense removal fails - formats and passes API errors', function ( assert ) {
+	QUnit.test( 'Existing Sense removal fails - formats and passes API errors', async function ( assert ) {
 		var api = {
 			post: sinon.stub().returns(
 				$.Deferred().reject( 'irrelevant', { errors: [ { code: 'bad', '*': 'foo' } ] } )
@@ -526,20 +499,16 @@
 		var glosses = new TermMap( { en: new Term( 'en', 'test gloss' ) } );
 		var sense = new Sense( 'L11-S300', glosses );
 
-		var testPromise = $.Deferred();
-
-		assert.expect( 4 );
-
-		changer.remove( sense ).fail( function ( apiError ) {
+		try {
+			await changer.remove( sense );
+			assert.true( false, 'expected uncaught error' );
+		} catch ( apiError ) {
 			assert.true( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
 			assert.strictEqual( apiError.code, 'bad', 'Code from API gets set' );
 			assert.strictEqual( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
 			assert.strictEqual( apiError.action, 'remove', 'Action that failed gets set' );
 
-			testPromise.resolve();
-		} );
-
-		return testPromise;
+		}
 	} );
 
 }( wikibase ) );

@@ -63,8 +63,6 @@
 	} );
 
 	QUnit.test( 'New form - save - returns deserialized Form from API result', function ( assert ) {
-		var done = assert.async();
-
 		var api = {
 			post: function () {
 				return $.Deferred().resolve( {
@@ -86,9 +84,7 @@
 
 		var form = new Form( null, null, [] );
 
-		assert.expect( 3 );
-
-		changer.save( form ).then( function ( valueChangeResult ) {
+		return changer.save( form ).then( function ( valueChangeResult ) {
 			var saveForm = valueChangeResult.getSavedValue();
 			assert.strictEqual( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.strictEqual(
@@ -101,12 +97,10 @@
 				[ 'Q1', 'Q2' ],
 				'Saved grammatical features'
 			);
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test( 'New form - save - handles tempuser redirect if present', function ( assert ) {
-		var done = assert.async();
 		var targetUrl = 'https://wiki.example';
 
 		var api = {
@@ -132,18 +126,13 @@
 
 		var form = new Form( null, null, [] );
 
-		assert.expect( 1 );
-
-		changer.save( form ).then( function ( valueChangeResult ) {
+		return changer.save( form ).then( function ( valueChangeResult ) {
 			var tempUserWatcher = valueChangeResult.getTempUserWatcher();
 			assert.strictEqual( targetUrl, tempUserWatcher.getRedirectUrl() );
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test( 'New form - save - sets the base revision to the one from API result', function ( assert ) {
-		var done = assert.async();
-
 		var api = {
 			post: function () {
 				return $.Deferred().resolve( {
@@ -171,19 +160,14 @@
 
 		var form = new Form( null, null, [] );
 
-		assert.expect( 1 );
-
-		changer.save( form ).then( function () {
+		return changer.save( form ).then( function () {
 			assert.strictEqual( revisionStore2.getFormRevision( 'L1-F100' ), 303 );
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test(
 		'New form - save fails with errors - converts errors to single RepoApiError',
-		function ( assert ) {
-			var done = assert.async();
-
+		async function ( assert ) {
 			var api = {
 				post: function () {
 					return $.Deferred().reject(
@@ -203,23 +187,23 @@
 
 			var form = new Form( null, null, [] );
 
-			assert.expect( 3 );
-
-			changer.save( form ).catch( function ( error ) {
+			try {
+				await changer.save( form );
+				assert.true( false, 'expected uncaught error' );
+			} catch ( error ) {
 				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
+					error.detailedMessage.includes( 'Some text 1' ),
 					'Detailed message contains text of the first error'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
+					error.detailedMessage.includes( 'Some text 2' ),
 					'Detailed message contains text of the second error'
 				);
-				done();
-			} );
+			}
 
 			function createError( code, text ) {
 				return {
@@ -393,7 +377,6 @@
 	} );
 
 	QUnit.test( 'Representation removed - temp user redirect handled if present', function ( assert ) {
-		var done = assert.async();
 		var targetUrl = 'https://wiki.example';
 		var api = {
 			post: function () {
@@ -419,18 +402,13 @@
 
 		var changer = new FormChanger( api, revisionStore, 'L1', oldFormData );
 
-		assert.expect( 1 );
-
-		changer.remove( form ).then( function ( valueChangeResult ) {
+		return changer.remove( form ).then( function ( valueChangeResult ) {
 			var tempUserWatcher = valueChangeResult.getTempUserWatcher();
 			assert.strictEqual( targetUrl, tempUserWatcher.getRedirectUrl() );
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test( 'Existing Form data changed - save - returns deserialized Form from API result', function ( assert ) {
-		var done = assert.async();
-
 		var formId = 'L1-F100';
 		var oldFormData = {
 			representations: {
@@ -462,9 +440,7 @@
 
 		var changer = new FormChanger( api, revisionStore, 'L1', oldFormData );
 
-		assert.expect( 3 );
-
-		changer.save( form ).then( function ( valueChangeResult ) {
+		return changer.save( form ).then( function ( valueChangeResult ) {
 			var saveForm = valueChangeResult.getSavedValue();
 			assert.strictEqual( saveForm.getId(), 'L1-F100', 'Saved Form ID' );
 			assert.strictEqual(
@@ -477,15 +453,12 @@
 				[ 'Q1', 'Q2' ],
 				'Saved grammatical features'
 			);
-			done();
-		} ).catch( done );
+		} );
 	} );
 
 	QUnit.test(
 		'Existing Form data changed - save fails with errors - converts errors to single RepoApiError',
-		function ( assert ) {
-			var done = assert.async();
-
+		async function ( assert ) {
 			var api = {
 				post: function () {
 					return $.Deferred().reject(
@@ -505,23 +478,24 @@
 
 			var form = new Form( 'L1-F1', null, [] );
 
-			assert.expect( 3 );
-
-			changer.save( form ).catch( function ( error ) {
+			try {
+				await changer.save( form );
+				assert.true( false, 'expected uncaught error' );
+			} catch ( error ) {
 				assert.true(
 					error instanceof wb.api.RepoApiError,
 					'Error is instance of RepoApiError'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 1' ) > -1,
+					error.detailedMessage.includes( 'Some text 1' ),
 					'Detailed message contains text of the first error'
 				);
 				assert.true(
-					error.detailedMessage.indexOf( 'Some text 2' ) > -1,
+					error.detailedMessage.includes( 'Some text 2' ),
 					'Detailed message contains text of the second error'
 				);
-				done();
-			} );
+
+			}
 
 			function createError( code, text ) {
 				return {
@@ -557,7 +531,7 @@
 		assert.strictEqual( gotParameters.bot, 0, 'Disables bot flag' );
 	} );
 
-	QUnit.test( 'Existing Form removal fails - formats and passes API errors', function ( assert ) {
+	QUnit.test( 'Existing Form removal fails - formats and passes API errors', async function ( assert ) {
 		var api = {
 			post: sinon.stub().returns(
 				$.Deferred().reject( 'irrelevant', { errors: [ { code: 'bad', '*': 'foo' } ] } )
@@ -568,20 +542,16 @@
 		var representations = new TermMap( { en: new Term( 'en', 'test representation' ) } );
 		var form = new Form( 'L11-F300', representations, [ 'Q1', 'Q2' ] );
 
-		var testPromise = $.Deferred();
-
-		assert.expect( 4 );
-
-		changer.remove( form ).fail( function ( apiError ) {
+		try {
+			await changer.remove( form );
+			assert.true( false, 'should throw apiEror' );
+		} catch ( apiError ) {
 			assert.true( apiError instanceof wb.api.RepoApiError, 'Is custom API error' );
 			assert.strictEqual( apiError.code, 'bad', 'Code from API gets set' );
 			assert.strictEqual( apiError.detailedMessage, '<li>foo</li>', 'Message from API gets set and decorated' );
 			assert.strictEqual( apiError.action, 'remove', 'Action that failed gets set' );
 
-			testPromise.resolve();
-		} );
-
-		return testPromise;
+		}
 	} );
 
 }( wikibase ) );

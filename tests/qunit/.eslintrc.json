@@ -1,15 +1,24 @@
 {
+	"root": true,
 	"extends": [
+		"wikimedia/client-common",
+		"wikimedia/language/es2020",
+		"wikimedia/jquery",
+		"wikimedia/mediawiki",
 		"wikimedia/qunit"
 	],
 	"globals": {
+		"wikibase": "readonly",
 		"sinon": "readonly"
 	},
 	"rules": {
 		"max-len": "off",
 		"no-new": "off",
+		"no-underscore-dangle": "off",
+		"no-var": "off",
+		"operator-linebreak": "off",
+		"prefer-arrow-callback": "off",
 		"qunit/resolve-async": "off",
-		"qunit/require-expect": "off",
 		"no-jquery/no-parse-html-literal": "off"
 	}
 }
