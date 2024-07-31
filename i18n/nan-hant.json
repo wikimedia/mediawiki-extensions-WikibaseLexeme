@@ -1,0 +1,22 @@
+{
+	"@metadata": {
+		"authors": [
+			"SupaplexTW"
+		]
+	},
+	"content-model-wikibase-lexeme": "Wikibase詞位",
+	"datatypes-type-wikibase-form": "詞性",
+	"datatypes-type-wikibase-lexeme": "詞位",
+	"datatypes-type-wikibase-sense": "含意",
+	"nstab-lexeme": "詞位",
+	"special-mergelexemes": "合併兩个詞位",
+	"special-newlexeme": "建立一个新詞位",
+	"tooltip-ca-nstab-lexeme": "詞位定義",
+	"wikibase-entity-summary-wblmergelexemes-from": "已對 $3 合併詞位",
+	"wikibase-entity-summary-wblmergelexemes-to": "已合併詞位到 $3",
+	"wikibase-lexeme-gloss-empty": "未定義註解",
+	"wikibase-lexeme-lemma-language-not-recognized": "所提供的語言代碼無法辨識。",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "載入詞位失敗。",
+	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "合併詞位失敗，請先解決衝突。錯誤：詞位有用佇仝拼寫變體的無仝主題。",
+	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "合併詞位失敗，請先解決衝突。錯誤：在陳述內詞位彼此連結。"
+}
