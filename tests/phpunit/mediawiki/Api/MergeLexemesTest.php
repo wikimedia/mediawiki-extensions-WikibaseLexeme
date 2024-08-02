@@ -116,7 +116,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			$this->fail( 'User without merge permissions should not be able to merge' );
 		} catch ( ApiUsageException $e ) {
 			$this->assertEquals(
-				'writeapidenied',
+				'permissiondenied',
 				$e->getMessageObject()->getApiCode()
 			);
 		}
