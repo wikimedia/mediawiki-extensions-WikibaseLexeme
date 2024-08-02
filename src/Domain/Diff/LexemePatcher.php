@@ -184,10 +184,10 @@ class LexemePatcher implements EntityPatcherStrategy {
 						 */
 						WikibaseRepo::getLogger()->warning( __METHOD__ . ': Form not found', [
 							'formId' => $formDiff->getFormId(),
-							'representationDiff' => $formDiff->getRepresentationDiff()->serialize(),
-							'grammaticalFeaturesDiff' => $formDiff->getGrammaticalFeaturesDiff()->serialize(),
-							'statementsDiff' => $formDiff->getStatementsDiff()->serialize(),
-							'lexemeDiff' => $patch->serialize(),
+							'representationDiff' => var_export( $formDiff->getRepresentationDiff(), true ),
+							'grammaticalFeaturesDiff' => var_export( $formDiff->getGrammaticalFeaturesDiff(), true ),
+							'statementsDiff' => var_export( $formDiff->getStatementsDiff(), true ),
+							'lexemeDiff' => var_export( $patch, true ),
 							'existingForms' => implode( ', ', array_map(
 								fn ( $form ) => $form->getId()->getSerialization(),
 								$lexeme->getForms()->toArray()
@@ -234,9 +234,9 @@ class LexemePatcher implements EntityPatcherStrategy {
 						 */
 						WikibaseRepo::getLogger()->warning( __METHOD__ . ': Sense not found', [
 							'senseId' => $senseDiff->getSenseId(),
-							'glossesDiff' => $senseDiff->getGlossesDiff()->serialize(),
-							'statementsDiff' => $senseDiff->getStatementsDiff()->serialize(),
-							'lexemeDiff' => $patch->serialize(),
+							'glossesDiff' => var_export( $senseDiff->getGlossesDiff(), true ),
+							'statementsDiff' => var_export( $senseDiff->getStatementsDiff(), true ),
+							'lexemeDiff' => var_export( $patch, true ),
 							'existingSenses' => implode( ', ', array_map(
 								fn ( $sense ) => $sense->getId()->getSerialization(),
 								$lexeme->getSenses()->toArray()
