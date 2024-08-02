@@ -799,6 +799,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L1' )->withForm( $form )->build();
 
 		$this->saveEntity( $lexeme );
+		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
 			'*' => [
@@ -814,9 +815,9 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				'formId' => self::DEFAULT_FORM_ID,
 				'data' => self::getDataParam(),
 			], null, self::createTestUser()->getUser() );
-			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+			$this->fail( 'Expected permissionserrors to be raised' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertStatusError( 'apierror-writeapidenied', $exception->getStatusValue() );
+			$this->assertStatusError( 'permissionserrors', $exception->getStatusValue() );
 		}
 	}
 

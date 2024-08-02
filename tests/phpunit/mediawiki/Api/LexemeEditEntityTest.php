@@ -1310,9 +1310,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 				'id' => self::EXISTING_LEXEME_ID,
 				'data' => json_encode( $editData ),
 			], null, self::createTestUser()->getUser() );
-			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+			$this->fail( 'Expected wikibase-api-permissiondenied to be raised' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertStatusError( 'apierror-writeapidenied', $exception->getStatusValue() );
+			$this->assertStatusError( 'wikibase-api-permissiondenied', $exception->getStatusValue() );
 		}
 	}
 

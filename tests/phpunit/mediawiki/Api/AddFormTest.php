@@ -310,9 +310,9 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 				'lexemeId' => 'L1',
 				'data' => self::getDataParam(),
 			], null, self::createTestUser()->getUser() );
-			$this->fail( 'Expected apierror-writeapidenied to be raised' );
+			$this->fail( 'Expected permissionserrors to be raised' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertStatusError( 'apierror-writeapidenied', $exception->getStatusValue() );
+			$this->assertStatusError( 'permissionserrors', $exception->getStatusValue() );
 		}
 	}
 
