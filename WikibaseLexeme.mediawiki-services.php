@@ -46,6 +46,7 @@ return call_user_func( static function () {
 		'bat-smg',
 		'be-x-old',
 		'ccp-beng', // T272442
+		'cdz-beng', // T371773
 		'de-formal',
 		'eo-hsistemo', // T257422
 		'eo-xsistemo', // T257422
@@ -53,7 +54,11 @@ return call_user_func( static function () {
 		'fiu-vro',
 		'ha-arab', // T282512
 		'hu-formal',
+		'ksy-beng', // T371773
+		'kyw-beng', // T371773
+		'kyw-deva', // T371773
 		'lad-hebr', // T308794
+		'mjx-beng', // T371773
 		'nl-informal',
 		'nn-hognorsk', // T235344
 		'pt-ao1990', // T270043
@@ -67,6 +72,7 @@ return call_user_func( static function () {
 		'sux-latn', // T282512
 		'sux-xsux', // T282512
 		'syl-beng', // T267480
+		'txo-beng', // T371773
 		'zh-classical',
 		'zh-min-nan',
 		'zh-yue',

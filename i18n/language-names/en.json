@@ -16,6 +16,7 @@
 	"wikibase-lexeme-language-name-cak": "Kaqchikel",
 	"wikibase-lexeme-language-name-ccp": "Chakma",
 	"wikibase-lexeme-language-name-ccp-beng": "Chakma (Bengali script)",
+	"wikibase-lexeme-language-name-cdz-beng": "Koda (Bengali script)",
 	"wikibase-lexeme-language-name-cnh": "Hakha-Chin",
 	"wikibase-lexeme-language-name-ctg": "Chittagonian",
 	"wikibase-lexeme-language-name-de-1901": "German (traditional orthography)",
@@ -33,9 +34,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "Japanese (Hiragana script)",
 	"wikibase-lexeme-language-name-ja-hrkt": "Japanese (Kana script)",
 	"wikibase-lexeme-language-name-ja-kana": "Japanese (Katakana script)",
+	"wikibase-lexeme-language-name-ksy-beng": "Kharia Thar (Bengali script)",
+	"wikibase-lexeme-language-name-kyw-beng": "Kurmali (Bengali script)",
+	"wikibase-lexeme-language-name-kyw-deva": "Kurmali (Devanagari script)",
 	"wikibase-lexeme-language-name-lad-hebr": "Ladino (Hebrew script)",
 	"wikibase-lexeme-language-name-lij-mc": "Monégasque",
 	"wikibase-lexeme-language-name-mis": "unsupported language",
+	"wikibase-lexeme-language-name-mjx-beng": "Mahali (Bengali script)",
 	"wikibase-lexeme-language-name-mvf": "Peripheral Mongolian",
 	"wikibase-lexeme-language-name-nd": "North Ndebele",
 	"wikibase-lexeme-language-name-nn-hognorsk": "Norwegian Høgnorsk",
@@ -69,5 +74,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon (Latin script)",
 	"wikibase-lexeme-language-name-tlh-piqd": "Klingon (Klingon script)",
 	"wikibase-lexeme-language-name-txg": "Tangut",
+	"wikibase-lexeme-language-name-txo-beng": "Toto (Bengali script)",
 	"wikibase-lexeme-language-name-xbm": "Middle Breton"
 }

@@ -17,6 +17,7 @@
 	"wikibase-lexeme-language-name-cak": "Name for language code for Kaqchikel",
 	"wikibase-lexeme-language-name-ccp": "Name for language code for [[:wikipedia:en:Chakma language|Chakma]]",
 	"wikibase-lexeme-language-name-ccp-beng": "Name for language code for [[:wikipedia:en:Chakma language|Chakma]] in Bengali script",
+	"wikibase-lexeme-language-name-cdz-beng": "Name for language code for Koda in Bengali script",
 	"wikibase-lexeme-language-name-cnh": "Name for language code for Hakha-Chin",
 	"wikibase-lexeme-language-name-ctg": "Name for language code for Chittagonian",
 	"wikibase-lexeme-language-name-de-1901": "Name for language code for German (before 1996 reform)",
@@ -34,9 +35,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "Name for language code for Japanese written in hiragana",
 	"wikibase-lexeme-language-name-ja-hrkt": "Name for language code for Japanese written in hiragana and katakana",
 	"wikibase-lexeme-language-name-ja-kana": "Name for language code for Japanese written in katakana",
+	"wikibase-lexeme-language-name-ksy-beng": "Name for language code for Kharia Thar in Bengali script",
+	"wikibase-lexeme-language-name-kyw-beng": "Name for language code for Kurmali in Bengali script",
+	"wikibase-lexeme-language-name-kyw-deva": "Name for language code for Kurmali in Devanagari script",
 	"wikibase-lexeme-language-name-lad-hebr": "Name for language code for Judaeo-Spanish in Hebrew script",
 	"wikibase-lexeme-language-name-lij-mc": "Name for language code for Monégasque",
 	"wikibase-lexeme-language-name-mis": "Name of a special code for languages which have not (yet) been included in the ISO standard. https://en.wikipedia.org/wiki/ISO_639-3#Special_codes",
+	"wikibase-lexeme-language-name-mjx-beng": "Name for language code for Mahali in Bengali script",
 	"wikibase-lexeme-language-name-mvf": "Name for language code for Peripheral Mongolian",
 	"wikibase-lexeme-language-name-nd": "Name for language code for North Ndebele",
 	"wikibase-lexeme-language-name-nn-hognorsk": "Name for language code for Høgnorsk",
@@ -70,5 +75,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "Name for language code for Klingon in Latin script",
 	"wikibase-lexeme-language-name-tlh-piqd": "Name for language code for Klingon in Klingon script",
 	"wikibase-lexeme-language-name-txg": "Name for language code for Tangut",
+	"wikibase-lexeme-language-name-txo-beng": "Name for language code for Toto in Bengali script",
 	"wikibase-lexeme-language-name-xbm": "Name for language code for Middle Breton"
 }
