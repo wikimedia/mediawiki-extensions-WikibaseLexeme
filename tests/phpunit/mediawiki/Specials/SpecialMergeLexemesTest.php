@@ -110,11 +110,9 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 	}
 
 	public function testRequestByUserWithoutPermission_accessIsDenied() {
-		$this->setMwGlobals( [
-			'wgGroupPermissions' => [
-				'*' => [
-					'lexeme-merge' => false,
-				],
+		$this->overrideConfigValue( MainConfigNames::GroupPermissions, [
+			'*' => [
+				'lexeme-merge' => false,
 			],
 		] );
 

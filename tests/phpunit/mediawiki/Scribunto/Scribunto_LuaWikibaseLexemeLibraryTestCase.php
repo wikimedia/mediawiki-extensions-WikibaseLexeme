@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
 use ExtensionRegistry;
+use MediaWiki\MainConfigNames;
 use PHPUnit\Framework\TestSuite;
 use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
@@ -79,7 +80,7 @@ class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLi
 
 		self::enableDataTransclusion();
 
-		$this->setMwGlobals( 'wgLanguageCode', 'en' );
+		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
 
 		/** @var MockRepository $mockRepository */
 		$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
