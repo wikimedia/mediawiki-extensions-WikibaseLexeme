@@ -12,6 +12,7 @@
 	"wikibase-lexeme-language-name-bfi": "Lingua dei segni inglese",
 	"wikibase-lexeme-language-name-bzs": "Lingua dei segni brasiliana",
 	"wikibase-lexeme-language-name-ccp-beng": "Chakma (scrittura bengalese)",
+	"wikibase-lexeme-language-name-cdz-beng": "Koda (scrittura bengalese)",
 	"wikibase-lexeme-language-name-de-1901": "Tedesco (ortografia tradizionale)",
 	"wikibase-lexeme-language-name-enm": "Lingua inglese media",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (ortografia del sistema h)",
@@ -26,9 +27,12 @@
 	"wikibase-lexeme-language-name-ja-hira": "Giapponese (scrittura Hiragana)",
 	"wikibase-lexeme-language-name-ja-hrkt": "Giapponese (scrittura Kana)",
 	"wikibase-lexeme-language-name-ja-kana": "Giapponese (scrittura Katakana)",
+	"wikibase-lexeme-language-name-ksy-beng": "Kharia Thar (scrittura bengalese)",
+	"wikibase-lexeme-language-name-kyw-beng": "Kurmali (scrittura bengalese)",
 	"wikibase-lexeme-language-name-lad-hebr": "Ladino (scrittura ebraica)",
 	"wikibase-lexeme-language-name-lij-mc": "Monegasco",
 	"wikibase-lexeme-language-name-mis": "lingua non supportata",
+	"wikibase-lexeme-language-name-mjx-beng": "Mahali (scrittura bengalese)",
 	"wikibase-lexeme-language-name-mvf": "Mongolo periferico",
 	"wikibase-lexeme-language-name-nn-hognorsk": "Alto norvegese",
 	"wikibase-lexeme-language-name-non": "Norreno",
@@ -56,5 +60,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti (scrittura bengalese)",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon (scrittura latina)",
 	"wikibase-lexeme-language-name-tlh-piqd": "Klingon (scrittura Klingon)",
-	"wikibase-lexeme-language-name-txg": "Tangut"
+	"wikibase-lexeme-language-name-txg": "Tangut",
+	"wikibase-lexeme-language-name-txo-beng": "Toto (scrittura bengalese)"
 }
