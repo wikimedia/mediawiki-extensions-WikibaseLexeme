@@ -9,6 +9,7 @@ use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Session\Session;
@@ -206,11 +207,9 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	}
 
 	public function testRequestByUserWithoutPermission_accessIsDenied(): void {
-		$this->setMwGlobals( [
-			'wgGroupPermissions' => [
-				'*' => [
-					'createpage' => false,
-				],
+		$this->overrideConfigValue( MainConfigNames::GroupPermissions, [
+			'*' => [
+				'createpage' => false,
 			],
 		] );
 		$this->resetServices();
@@ -248,9 +247,9 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			Title::makeTitle( NS_MEDIAWIKI, 'Wikibaselexeme-newlexeme-info-panel-example-lexeme-id' ),
 			"\n \n \n " . $exampleLexemeId
 		);
-		$this->setMwGlobals( [
-			'wgUseDatabaseMessages' => true,
-			'wgLanguageCode' => 'en',
+		$this->overrideConfigValues( [
+			MainConfigNames::UseDatabaseMessages => true,
+			MainConfigNames::LanguageCode => 'en',
 		] );
 		$uselang = 'de'; // should fall back to the wgLanguageCode (en) message created above
 
@@ -290,9 +289,9 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			Title::makeTitle( NS_MEDIAWIKI, 'Wikibaselexeme-newlexeme-info-panel-example-lexeme-id/de' ),
 			$exampleLexemeId
 		);
-		$this->setMwGlobals( [
-			'wgUseDatabaseMessages' => true,
-			'wgLanguageCode' => 'en',
+		$this->overrideConfigValues( [
+			MainConfigNames::UseDatabaseMessages => true,
+			MainConfigNames::LanguageCode => 'en',
 		] );
 		$uselang = 'de-at'; // should fall back to the de message created above
 
@@ -318,9 +317,9 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * Assert that JSON information about them ends up in the mw.config of the output.
 	 */
 	public function testLexicalCategorySuggestions(): void {
-		$this->setMwGlobals( [
-			'wgLexemeLexicalCategoryItemIds' => [ 'Q1', 'Q2' ],
-			'wgLanguageCode' => 'de',
+		$this->overrideConfigValues( [
+			'LexemeLexicalCategoryItemIds' => [ 'Q1', 'Q2' ],
+			MainConfigNames::LanguageCode => 'de',
 		] );
 		$labelDescriptionLookup = $this->createMock( FallbackLabelDescriptionLookup::class );
 		$labelDescriptionLookup->expects( $this->exactly( 2 ) )
@@ -499,8 +498,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @dataProvider provideUrlParameterTestData
 	 */
 	public function testUrlParsing( $urlParams, $expectedConfigValue, $itemsToCreate = [] ): void {
-		$this->setMwGlobals( [
-			'wgLexemeLanguageCodePropertyId' => 'P123',
+		$this->overrideConfigValues( [
+			'LexemeLanguageCodePropertyId' => 'P123',
 		] );
 
 		foreach ( $itemsToCreate as $item ) {

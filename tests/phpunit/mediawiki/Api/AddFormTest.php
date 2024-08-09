@@ -297,11 +297,11 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 		$this->saveEntity( $lexeme );
 		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
-				'*' => [
-					'read' => true,
-					'edit' => false,
-				],
+		$this->setGroupPermissions( [
+			'*' => [
+				'read' => true,
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 		try {

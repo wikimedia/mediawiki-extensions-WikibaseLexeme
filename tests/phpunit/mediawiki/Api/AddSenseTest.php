@@ -257,11 +257,11 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 
 		$this->saveEntity( $lexeme );
 
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
-				'*' => [
-					'read' => true,
-					'edit' => false,
-				],
+		$this->setGroupPermissions( [
+			'*' => [
+				'read' => true,
+				'edit' => false,
+			],
 		] );
 		$this->resetServices();
 		try {

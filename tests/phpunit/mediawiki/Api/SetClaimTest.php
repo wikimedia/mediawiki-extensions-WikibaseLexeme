@@ -228,7 +228,7 @@ class SetClaimTest extends WikibaseLexemeApiTestCase {
 
 		$this->saveEntity( $lexeme );
 
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+		$this->setGroupPermissions( [
 			'*' => [
 				'read' => true,
 				'edit' => false,

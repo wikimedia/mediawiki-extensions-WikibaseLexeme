@@ -6,6 +6,7 @@ use ApiMain;
 use ApiUsageException;
 use ChangeTags;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use Wikibase\DataModel\Tests\NewItem;
@@ -101,12 +102,10 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testRequestByUserWithoutPermission_accessIsDenied() {
-		$this->setMwGlobals( [
-			'wgGroupPermissions' => [
-				'*' => [
-					'read' => true,
-					'lexeme-merge' => false,
-				],
+		$this->overrideConfigValue( MainConfigNames::GroupPermissions, [
+			'*' => [
+				'read' => true,
+				'lexeme-merge' => false,
 			],
 		] );
 		$this->resetServices();

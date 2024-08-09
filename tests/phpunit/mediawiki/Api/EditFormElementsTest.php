@@ -801,7 +801,7 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->saveEntity( $lexeme );
 		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+		$this->setGroupPermissions( [
 			'*' => [
 				'read' => true,
 				'edit' => false,

@@ -217,7 +217,7 @@ class RemoveSenseTest extends WikibaseLexemeApiTestCase {
 			->build();
 		$this->saveEntity( $lexeme );
 
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+		$this->setGroupPermissions( [
 			'*' => [
 				'read' => true,
 				'edit' => false,

@@ -1296,7 +1296,7 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	public function testEditOfLexemeWithoutEditPermission_violationIsReported( array $editData ) {
 		$this->saveDummyLexemeToDatabase();
 
-		$this->mergeMwGlobalArrayValue( 'wgGroupPermissions', [
+		$this->setGroupPermissions( [
 			'*' => [
 				'read' => true,
 				'edit' => false,
