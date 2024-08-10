@@ -120,7 +120,7 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 			$this->executeSpecialPage();
 			$this->fail();
 		} catch ( PermissionsError $exception ) {
-			$this->assertSame( 'badaccess-group0', $exception->errors[0][0] );
+			$this->assertSame( 'badaccess-group0', $exception->getMessageObject()->getKey() );
 		}
 	}
 
