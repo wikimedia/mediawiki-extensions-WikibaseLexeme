@@ -14,6 +14,7 @@
 	"wikibase-lexeme-language-name-cak": "喀克其奎語",
 	"wikibase-lexeme-language-name-ccp": "查克瑪語",
 	"wikibase-lexeme-language-name-ccp-beng": "查克瑪語（孟加拉文字）",
+	"wikibase-lexeme-language-name-cdz-beng": "科達語（孟加拉文字）",
 	"wikibase-lexeme-language-name-cnh": "哈卡欽語",
 	"wikibase-lexeme-language-name-ctg": "吉大港語",
 	"wikibase-lexeme-language-name-de-1901": "德語（傳統正寫法）",
@@ -31,9 +32,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "日語（平假名文字）",
 	"wikibase-lexeme-language-name-ja-hrkt": "日語（假名文字）",
 	"wikibase-lexeme-language-name-ja-kana": "日語（片假名文字）",
+	"wikibase-lexeme-language-name-ksy-beng": "Kharia Thar語（孟加拉文字）",
+	"wikibase-lexeme-language-name-kyw-beng": "庫馬利語（孟加拉文字）",
+	"wikibase-lexeme-language-name-kyw-deva": "庫馬利語（天城文文字）",
 	"wikibase-lexeme-language-name-lad-hebr": "拉迪諾語（希伯來文字）",
 	"wikibase-lexeme-language-name-lij-mc": "摩納哥語",
 	"wikibase-lexeme-language-name-mis": "不支援的語言",
+	"wikibase-lexeme-language-name-mjx-beng": "Mahali語（孟加拉文字）",
 	"wikibase-lexeme-language-name-mvf": "周邊蒙古語",
 	"wikibase-lexeme-language-name-nd": "北恩德貝萊語",
 	"wikibase-lexeme-language-name-nn-hognorsk": "高地挪威語",
@@ -67,5 +72,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "克林貢語（拉丁文字）",
 	"wikibase-lexeme-language-name-tlh-piqd": "克林貢語（克林貢文字）",
 	"wikibase-lexeme-language-name-txg": "西夏語",
+	"wikibase-lexeme-language-name-txo-beng": "投投語（孟加拉文字）",
 	"wikibase-lexeme-language-name-xbm": "中古布列塔尼語"
 }

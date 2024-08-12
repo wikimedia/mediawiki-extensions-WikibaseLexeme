@@ -9,6 +9,7 @@
 	"wikibase-lexeme-language-name-az-cyrl": "Aserbaidjanesch (kyrillesch Schrëft)",
 	"wikibase-lexeme-language-name-bfi": "Brittesch Zeechesprooch",
 	"wikibase-lexeme-language-name-bzs": "Brasilianesch Gebärdesprooch",
+	"wikibase-lexeme-language-name-cdz-beng": "Koda (bengalesch Schrëft)",
 	"wikibase-lexeme-language-name-de-1901": "Däitsch (traditionell Orthografie)",
 	"wikibase-lexeme-language-name-enm": "Mëttelenglesch",
 	"wikibase-lexeme-language-name-eo-hsistemo": "Esperanto (H-System-Orthografie)",
@@ -23,9 +24,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "Japanesch (Hiragana-Schrëft)",
 	"wikibase-lexeme-language-name-ja-hrkt": "Japanesch (Kana-Schrëft)",
 	"wikibase-lexeme-language-name-ja-kana": "Japanesch (Katakana-Schrëft)",
+	"wikibase-lexeme-language-name-ksy-beng": "Kharia Thar (bengalesch Schrëft)",
+	"wikibase-lexeme-language-name-kyw-beng": "Kurmali (bengalesch Schrëft)",
+	"wikibase-lexeme-language-name-kyw-deva": "Kurmali (Devanagari-Schrëft)",
 	"wikibase-lexeme-language-name-lad-hebr": "Ladino (hebräesch Schrëft)",
 	"wikibase-lexeme-language-name-lij-mc": "Monegassesch",
 	"wikibase-lexeme-language-name-mis": "net ënnerstëtzt Sprooch",
+	"wikibase-lexeme-language-name-mjx-beng": "Mahali (bengalesch Schrëft)",
 	"wikibase-lexeme-language-name-non": "Alnorweegesch",
 	"wikibase-lexeme-language-name-obt": "Albretonesch",
 	"wikibase-lexeme-language-name-pks": "Pakistanesch Gebäerdesprooch",
@@ -37,5 +42,6 @@
 	"wikibase-lexeme-language-name-syl-beng": "Sylheti (bengalesch Schrëft)",
 	"wikibase-lexeme-language-name-tlh-latn": "Klingonesch (laténgesch Schrëft)",
 	"wikibase-lexeme-language-name-tlh-piqd": "Klingonesch (klingonesch Schrëft)",
+	"wikibase-lexeme-language-name-txo-beng": "Toto (bengalesch Schrëft)",
 	"wikibase-lexeme-language-name-xbm": "Mëttelbretonesch"
 }

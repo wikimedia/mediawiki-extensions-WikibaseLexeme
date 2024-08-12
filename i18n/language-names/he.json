@@ -12,6 +12,7 @@
 	"wikibase-lexeme-language-name-cak": "קקצ'יקל",
 	"wikibase-lexeme-language-name-ccp": "צ'קמה",
 	"wikibase-lexeme-language-name-ccp-beng": "צ'קמה בכתב בנגלי",
+	"wikibase-lexeme-language-name-cdz-beng": "קודה בכתב בנגלי",
 	"wikibase-lexeme-language-name-cnh": "הקהה־צ'ין",
 	"wikibase-lexeme-language-name-ctg": "צ'יטגונית",
 	"wikibase-lexeme-language-name-de-1901": "גרמנית בכתיב מסורתי",
@@ -29,9 +30,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "יפנית בהיראגאנה",
 	"wikibase-lexeme-language-name-ja-hrkt": "יפנית בהיראגאנה ובקאטאקאנה",
 	"wikibase-lexeme-language-name-ja-kana": "יפנית בקאטאקאנה",
+	"wikibase-lexeme-language-name-ksy-beng": "קאריה תר בכתב בנגלי",
+	"wikibase-lexeme-language-name-kyw-beng": "קורמלית בכתב בנגלי",
+	"wikibase-lexeme-language-name-kyw-deva": "קורמלית בכתב דוואגרי",
 	"wikibase-lexeme-language-name-lad-hebr": "לדינו בכתב עברי",
 	"wikibase-lexeme-language-name-lij-mc": "מונגסקית",
 	"wikibase-lexeme-language-name-mis": "שפה שאינה נתמכת",
+	"wikibase-lexeme-language-name-mjx-beng": "מהאלית בכתב בנגלי",
 	"wikibase-lexeme-language-name-mvf": "מונגולית פריפרית",
 	"wikibase-lexeme-language-name-nd": "נדבלה צפונית",
 	"wikibase-lexeme-language-name-nn-hognorsk": "נורווגית גבוהה",
@@ -65,5 +70,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "קלינגונית בכתב לטיני",
 	"wikibase-lexeme-language-name-tlh-piqd": "קלינגונית בכתב קלינגוני",
 	"wikibase-lexeme-language-name-txg": "טנגוט",
+	"wikibase-lexeme-language-name-txo-beng": "טוטו בכתב בנגלי",
 	"wikibase-lexeme-language-name-xbm": "ברטונית בינונית"
 }

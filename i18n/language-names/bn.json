@@ -12,6 +12,7 @@
 	"wikibase-lexeme-language-name-bzs": "ব্রাজিলীয় ইশারা ভাষা",
 	"wikibase-lexeme-language-name-ccp": "চাকমা",
 	"wikibase-lexeme-language-name-ccp-beng": "চাকমা (বাংলা লিপি)",
+	"wikibase-lexeme-language-name-cdz-beng": "কোডা (বাংলা লিপি)",
 	"wikibase-lexeme-language-name-cnh": "হাকা-চিন",
 	"wikibase-lexeme-language-name-ctg": "চাটগাঁইয়া",
 	"wikibase-lexeme-language-name-enm": "মধ্য ইংরেজি",
@@ -22,8 +23,12 @@
 	"wikibase-lexeme-language-name-ja-hira": "জাপানি (হিরাগানা লিপি)",
 	"wikibase-lexeme-language-name-ja-hrkt": "জাপানি (কানা লিপি)",
 	"wikibase-lexeme-language-name-ja-kana": "জাপানি (কাতাকানা লিপি)",
+	"wikibase-lexeme-language-name-ksy-beng": "খাড়িয়া থর (বাংলা লিপি)",
+	"wikibase-lexeme-language-name-kyw-beng": "কুড়মালি (বাংলা লিপি)",
+	"wikibase-lexeme-language-name-kyw-deva": "কুড়মালি (দেবনগরী লিপি)",
 	"wikibase-lexeme-language-name-lad-hebr": "লাদিনো (হিব্রু লিপি)",
 	"wikibase-lexeme-language-name-mis": "অসমর্থিত ভাষা",
+	"wikibase-lexeme-language-name-mjx-beng": "মাহালী (বাংলা লিপি)",
 	"wikibase-lexeme-language-name-obt": "পুরনো ব্রেটন",
 	"wikibase-lexeme-language-name-pks": "পাকিস্তান ইশারা ভাষা",
 	"wikibase-lexeme-language-name-rhg-rohg": "রোহিঙ্গা (হানিফি রোহিঙ্গা লিপি)",
@@ -37,5 +42,6 @@
 	"wikibase-lexeme-language-name-sux-xsux": "সুমেরীয় (সুমেরীয় লিপি)",
 	"wikibase-lexeme-language-name-syl-beng": "সিলেটি (বাংলা লিপি)",
 	"wikibase-lexeme-language-name-tlh-latn": "ক্লিনগন (লাতিন লিপি)",
-	"wikibase-lexeme-language-name-tlh-piqd": "ক্লিনগন (ক্লিনগন লিপি)"
+	"wikibase-lexeme-language-name-tlh-piqd": "ক্লিনগন (ক্লিনগন লিপি)",
+	"wikibase-lexeme-language-name-txo-beng": "টোটো (বাংলা লিপি)"
 }

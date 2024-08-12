@@ -1,8 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ahmedadeljaff"
+			"Ahmedadeljaff",
+			"MRidhaAJ"
 		]
 	},
-	"wikibase-lexeme-language-name-apc": "الشامية العربية"
+	"wikibase-lexeme-language-name-apc": "الشامية العربية",
+	"wikibase-lexeme-language-name-cdz-beng": "كودا (سكربت بنكالي)",
+	"wikibase-lexeme-language-name-ksy-beng": "خاريا ثار (سكربت بنكالي)",
+	"wikibase-lexeme-language-name-kyw-beng": "كرمالي (سكربت بنكالي)",
+	"wikibase-lexeme-language-name-kyw-deva": "كرمالي (سكربت دفاناكاري)",
+	"wikibase-lexeme-language-name-mjx-beng": "ماهالي (سكربت بنكالي)",
+	"wikibase-lexeme-language-name-txo-beng": "توتو (سكربت بنكالي)"
 }
