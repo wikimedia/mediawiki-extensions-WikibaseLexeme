@@ -22,3 +22,8 @@ tests/selenium/log/
 /.eslintcache
 
 /docs/php/
+
+cypress/.cache
+cypress/videos
+cypress/screenshots
+cypress/downloads
