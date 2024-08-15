@@ -26,32 +26,15 @@ class WikibaseLexemeExtensionRegistrationTest extends ApiTestCase {
 	/**
 	 * @dataProvider provideLexemeApiModules
 	 */
-	public function testGivenRepoEnabledLexemeApiModulesRegistered( $module ) {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
-
+	public function testLexemeApiModulesRegistered( $module ) {
 		try {
 			$this->doApiRequest( [ 'action' => $module ] );
 			$this->fail( 'Exception expected but not thrown' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertStatusError( 'paramvalidator-missingparam', $e->getStatusValue() );
-		}
-	}
-
-	/**
-	 * @dataProvider provideLexemeApiModules
-	 */
-	public function testGivenRepoNotEnabledNoLexemeApiModulesRegistered( $module ) {
-		if ( ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo enabled' );
-		}
-
-		try {
-			$this->doApiRequest( [ 'action' => $module ] );
-			$this->fail( 'Exception expected but not thrown' );
-		} catch ( ApiUsageException $e ) {
-			$this->assertStatusError( 'paramvalidator-badvalue-enumnotmulti', $e->getStatusValue() );
+			$expected = ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ?
+				'paramvalidator-missingparam' :
+				'paramvalidator-badvalue-enumnotmulti';
+			$this->assertStatusError( $expected, $e->getStatusValue() );
 		}
 	}
 
