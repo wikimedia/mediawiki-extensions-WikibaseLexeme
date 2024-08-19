@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use ExtensionRegistry;
 use MediaWikiIntegrationTestCase;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Repo\WikibaseRepo;
@@ -19,9 +18,7 @@ use Wikibase\Repo\WikibaseRepo;
 class EnabledEntityTypesTest extends MediaWikiIntegrationTestCase {
 
 	public function testRepoEnabledEntityTypes() {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 
 		$this->assertHasLexemeEntityTypes( WikibaseRepo::getEnabledEntityTypes() );
 	}
@@ -33,9 +30,7 @@ class EnabledEntityTypesTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testEntityTypeDefinitions_repo() {
-		if ( !ExtensionRegistry::getInstance()->isLoaded( 'WikibaseRepository' ) ) {
-			$this->markTestSkipped( 'WikibaseRepo not enabled' );
-		}
+		$this->markTestSkippedIfExtensionNotLoaded( 'WikibaseRepository' );
 
 		$this->assertHasLexemeEntityTypes(
 			WikibaseRepo::getEntityTypeDefinitions()->getEntityTypes()
