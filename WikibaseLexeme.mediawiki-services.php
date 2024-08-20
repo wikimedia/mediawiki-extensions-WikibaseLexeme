@@ -204,7 +204,7 @@ return call_user_func( static function () {
 				new WikiPageItemOrderProvider(
 					$mediaWikiServices->getWikiPageFactory(),
 					$mediaWikiServices->getTitleFactory()
-						->newFromTextThrow( 'MediaWiki:WikibaseLexeme-SortedGrammaticalFeatures' )
+						->makeTitle( NS_MEDIAWIKI, 'WikibaseLexeme-SortedGrammaticalFeatures' )
 				),
 				$mediaWikiServices->getObjectCacheFactory()->getLocalClusterInstance(),
 				'wikibaseLexeme-grammaticalFeaturesOrderProvider'
