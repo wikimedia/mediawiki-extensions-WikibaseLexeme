@@ -119,12 +119,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 	public function setGrammaticalFeatures( array $grammaticalFeatures ) {
 		Assert::parameterElementType( ItemId::class, $grammaticalFeatures, '$grammaticalFeatures' );
 
-		$result = [];
-		foreach ( $grammaticalFeatures as $grammaticalFeature ) {
-			if ( !in_array( $grammaticalFeature, $result ) ) {
-				$result[] = $grammaticalFeature;
-			}
-		}
+		$result = array_unique( $grammaticalFeatures );
 
 		usort( $result, static function ( ItemId $a, ItemId $b ) {
 			return strcmp( $a->getSerialization(), $b->getSerialization() );
