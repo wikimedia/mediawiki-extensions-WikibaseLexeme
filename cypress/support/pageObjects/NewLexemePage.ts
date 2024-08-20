@@ -1,31 +1,40 @@
 export class NewLexemePage {
 
-	static NEW_LEXEME_SELECTORS = {
-		LEMMA: '.wbl-snl-lemma-input',
-		LANGUAGE: '.wbl-snl-language-lookup',
-		SPELLING_VARIANT: '.wbl-snl-spelling-variant-lookup',
-		LEXICAL_CATEGORY: '.wbl-snl-lexical-category-lookup',
+	private static get NEW_LEXEME_SELECTORS(): Record<string, string> {
+		return {
+			LEMMA: '.wbl-snl-lemma-input',
+			LANGUAGE: '.wbl-snl-language-lookup',
+			SPELLING_VARIANT: '.wbl-snl-spelling-variant-lookup',
+			LEXICAL_CATEGORY: '.wbl-snl-lexical-category-lookup',
 
-		SUBMIT_BUTTON: '.wbl-snl-form button[type=submit]'
+			SUBMIT_BUTTON: '.wbl-snl-form button[type=submit]'
+		};
 	}
 
-	static WIKIT_LOOKUP_SELECTORS = {
-		SELECTED_ELEMENT: '.wikit-LookupInput__menu .wikit-OptionsMenu__item'
+	private static get WIKIT_LOOKUP_SELECTORS(): Record<string, string> {
+		return {
+			SELECTED_ELEMENT: '.wikit-LookupInput__menu .wikit-OptionsMenu__item'
+		};
 	}
 
-	open() {
-		cy.visit( 'index.php?title=Special:NewLexeme' )
-		return this
+	public open(): this {
+		cy.visit( 'index.php?title=Special:NewLexeme' );
+		return this;
 	}
 
-	showsForm() {
+	public showsForm(): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEMMA );
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE );
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY );
-		return this
+		return this;
 	}
 
-	createLexeme( lemma, language, lexicalCategory, languageVariant ) {
+	public createLexeme(
+		lemma: string,
+		language: string,
+		lexicalCategory: string,
+		languageVariant: string
+	): this {
 		this.setLemma( lemma );
 
 		this.setLexemeLanguage( language );
@@ -36,38 +45,38 @@ export class NewLexemePage {
 		return this;
 	}
 
-	setLemma( lemma ) {
+	public setLemma( lemma: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).clear().type( lemma );
 		return this;
 	}
 
-	setLexemeLanguage( language ) {
+	public setLexemeLanguage( language: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).within( () => {
 			this._wikitValueLookup( language );
-		} )
+		} );
 		return this;
 	}
 
-	setLexicalCategory( lexicalCategory ) {
+	public setLexicalCategory( lexicalCategory: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).within( () => {
 			this._wikitValueLookup( lexicalCategory );
-		} )
+		} );
 		return this;
 	}
 
-	setSpellingVariant( languageVariant ) {
+	public setSpellingVariant( languageVariant: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT ).within( () => {
 			this._wikitValueLookup( languageVariant );
-		} )
+		} );
 		return this;
 	}
 
-	_wikitValueLookup( value ) {
+	private _wikitValueLookup( value: string ): void {
 		cy.get( 'input' ).clear().type( value );
 		cy.get( this.constructor.WIKIT_LOOKUP_SELECTORS.SELECTED_ELEMENT ).click();
 	}
 
-	submit() {
+	public submit(): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.SUBMIT_BUTTON ).click();
 		return this;
 	}

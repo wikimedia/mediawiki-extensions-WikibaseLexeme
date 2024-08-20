@@ -1,22 +1,27 @@
+import Chainable = Cypress.Chainable;
+
 export class LexemePage {
 
-	static LEMMA_WIDGET_SELECTORS = {
-		LEMMA_LIST: '.lemma-widget_lemma-list'
+	private static get LEMMA_WIDGET_SELECTORS(): Record<string, string> {
+		return { LEMMA_LIST: '.lemma-widget_lemma-list' };
 	}
 
-	static LEMMA_PAGE_SELECTORS = {
-		HEADER_ID: '.wb-lexeme-header_id'
+	private static get LEMMA_PAGE_SELECTORS(): Record<string, string> {
+		return { HEADER_ID: '.wb-lexeme-header_id' };
 	}
 
-	lemmaContainer() {
+	public lemmaContainer(): this {
 		cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.LEMMA_LIST );
 		return this;
 	}
 
-	getHeaderId() {
-		return cy.get( this.constructor.LEMMA_PAGE_SELECTORS.HEADER_ID ).then( ( element ) => {
-			return element.text().replace( /[^L0-9]/g, '' );
-		} );
+	public getHeaderId(): Chainable<string> {
+		return cy.get( this.constructor.LEMMA_PAGE_SELECTORS.HEADER_ID )
+			.then(
+				( element ) => element
+					.text()
+					.replace( /[^L0-9]/g, '' )
+			);
 	}
 
 }
