@@ -11,8 +11,8 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class AddFormRequest {
 
-	private $lexemeId;
-	private $editFormchangeOp;
+	private LexemeId $lexemeId;
+	private ChangeOp $editFormchangeOp;
 
 	/**
 	 * @var int|null

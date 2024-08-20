@@ -21,7 +21,8 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpsFormsEdit implements ChangeOp {
 
-	private $changeOpForForm;
+	/** @var ChangeOp[] */
+	private array $changeOpForForm;
 
 	/**
 	 * @param ChangeOp[] $changeOpForForm [ string $formId => ChangeOp $changeOp ]

@@ -12,9 +12,9 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class AddSenseRequest {
 
-	private $lexemeId;
-	private $editSenseChangeOp;
-	private $baseRevId;
+	private LexemeId $lexemeId;
+	private ChangeOp $editSenseChangeOp;
+	private ?int $baseRevId;
 
 	public function __construct(
 		LexemeId $lexemeId,

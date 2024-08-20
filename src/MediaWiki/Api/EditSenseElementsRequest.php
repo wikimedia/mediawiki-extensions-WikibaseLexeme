@@ -10,8 +10,8 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class EditSenseElementsRequest {
 
-	private $senseId;
-	private $changeOp;
+	private SenseId $senseId;
+	private ChangeOp $changeOp;
 	private $baseRevId;
 
 	public function __construct( SenseId $senseId, ChangeOp $changeOp, $baseRevId ) {

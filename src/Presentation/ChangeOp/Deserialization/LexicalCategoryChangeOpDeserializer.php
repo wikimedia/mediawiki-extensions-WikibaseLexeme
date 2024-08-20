@@ -20,8 +20,8 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class LexicalCategoryChangeOpDeserializer implements ChangeOpDeserializer {
 
-	private $lexicalCategoryValidator;
-	private $stringNormalizer;
+	private ValueValidator $lexicalCategoryValidator;
+	private StringNormalizer $stringNormalizer;
 
 	public function __construct(
 		ValueValidator $lexicalCategoryValidator,

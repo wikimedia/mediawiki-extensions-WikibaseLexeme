@@ -19,9 +19,9 @@ use Wikimedia\Assert\Assert;
  */
 class LexemeStatementEntityReferenceExtractor implements EntityReferenceExtractor {
 
-	private $statementRefExtractor;
-	private $formStatementRefExtractor;
-	private $senseStatementRefExtractor;
+	private StatementEntityReferenceExtractor $statementRefExtractor;
+	private FormsStatementEntityReferenceExtractor $formStatementRefExtractor;
+	private SensesStatementEntityReferenceExtractor $senseStatementRefExtractor;
 
 	public function __construct(
 		StatementEntityReferenceExtractor $statementRefExtractor,

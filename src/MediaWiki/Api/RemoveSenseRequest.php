@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class RemoveSenseRequest {
 
-	private $senseId;
+	private SenseId $senseId;
 
 	/**
 	 * @var int|null

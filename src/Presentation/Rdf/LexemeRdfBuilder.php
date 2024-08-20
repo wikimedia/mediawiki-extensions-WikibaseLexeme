@@ -13,9 +13,9 @@ use Wikibase\Repo\Rdf\TruthyStatementRdfBuilderFactory;
  */
 
 class LexemeRdfBuilder implements EntityRdfBuilder {
-	private $truthyStatementRdfBuilder;
-	private $fullStatementRdfBuilder;
-	private $lexemeSpecificComponentsRdfBuilder;
+	private ?EntityRdfBuilder $truthyStatementRdfBuilder = null;
+	private ?EntityRdfBuilder $fullStatementRdfBuilder = null;
+	private EntityRdfBuilder $lexemeSpecificComponentsRdfBuilder;
 
 	public function __construct(
 		int $flavorFlags,

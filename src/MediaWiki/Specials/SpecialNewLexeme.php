@@ -71,20 +71,20 @@ class SpecialNewLexeme extends SpecialPage {
 	private const FALLBACK_LANGUAGE_LABEL = 'English';
 	private const FALLBACK_LEXICAL_CATEGORY_LABEL = 'verb';
 
-	private $tags;
-	private $linkRenderer;
-	private $statsDataFactory;
-	private $editEntityFactory;
-	private $entityNamespaceLookup;
-	private $entityTitleLookup;
-	private $entityLookup;
-	private $entityIdParser;
-	private $summaryFormatter;
-	private $entityIdFormatterFactory;
-	private $labelDescriptionLookupFactory;
-	private $validatorErrorLocalizer;
-	private $lemmaTermValidator;
-	private $copyrightView;
+	private array $tags;
+	private LinkRenderer $linkRenderer;
+	private StatsdDataFactoryInterface $statsDataFactory;
+	private MediaWikiEditEntityFactory $editEntityFactory;
+	private EntityNamespaceLookup $entityNamespaceLookup;
+	private EntityTitleStoreLookup $entityTitleLookup;
+	private EntityLookup $entityLookup;
+	private EntityIdParser $entityIdParser;
+	private SummaryFormatter $summaryFormatter;
+	private EntityIdFormatterFactory $entityIdFormatterFactory;
+	private FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory;
+	private ValidatorErrorLocalizer $validatorErrorLocalizer;
+	private LemmaTermValidator $lemmaTermValidator;
+	private SpecialPageCopyrightView $copyrightView;
 	private AnonymousEditWarningBuilder $anonymousEditWarningBuilder;
 	private TempUserConfig $tempUserConfig;
 

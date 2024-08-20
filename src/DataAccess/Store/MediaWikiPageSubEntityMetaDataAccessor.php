@@ -19,7 +19,7 @@ use Wikibase\Lib\Store\Sql\WikiPageEntityMetaDataAccessor;
  */
 class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAccessor {
 
-	private $wikiPageEntityMetaDataLookup;
+	private WikiPageEntityMetaDataAccessor $wikiPageEntityMetaDataLookup;
 
 	public function __construct( WikiPageEntityMetaDataAccessor $entityMetaDataAccessor ) {
 		$this->wikiPageEntityMetaDataLookup = $entityMetaDataAccessor;
