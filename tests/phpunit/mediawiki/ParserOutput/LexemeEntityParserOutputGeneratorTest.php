@@ -29,8 +29,10 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTestCase {
 
+	/** @var int */
 	private $itemNamespace;
 
+	/** @var int */
 	private $propertyNamespace;
 
 	protected function setUp(): void {

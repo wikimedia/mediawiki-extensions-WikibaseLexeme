@@ -15,6 +15,7 @@ use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeL
 class Scribunto_LuaWikibaseLexemeEntityLexemeLibraryTest
 	extends Scribunto_LuaWikibaseLexemeLibraryTestCase {
 
+	/** @var string */
 	protected static $moduleName = 'LuaWikibaseLexemeEntityLexemeLibraryTests';
 
 	protected function getTestModules() {

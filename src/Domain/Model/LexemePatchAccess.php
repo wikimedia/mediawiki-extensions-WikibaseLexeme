@@ -27,6 +27,7 @@ class LexemePatchAccess {
 	 */
 	private $senses;
 
+	/** @var bool */
 	private $isClosed = false;
 
 	/**

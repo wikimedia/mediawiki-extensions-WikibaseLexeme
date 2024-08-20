@@ -17,6 +17,7 @@ use Wikibase\Lexeme\DataAccess\LexemeDescription;
 class LexemeDescriptionTest extends TestCase {
 	use LexemeDescriptionTestCase;
 
+	/** @var array */
 	private $labels = [
 		'Q1' => [
 			'en' => 'English',

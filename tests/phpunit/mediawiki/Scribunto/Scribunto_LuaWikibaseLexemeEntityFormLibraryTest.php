@@ -15,6 +15,7 @@ use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLib
 class Scribunto_LuaWikibaseLexemeEntityFormLibraryTest
 	extends Scribunto_LuaWikibaseLexemeLibraryTestCase {
 
+	/** @var string */
 	protected static $moduleName = 'LuaWikibaseLexemeEntityFormLibraryTests';
 
 	protected function getTestModules() {

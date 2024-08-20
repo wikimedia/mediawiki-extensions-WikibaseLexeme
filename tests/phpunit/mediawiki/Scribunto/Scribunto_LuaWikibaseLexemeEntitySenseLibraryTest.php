@@ -15,6 +15,7 @@ use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntitySenseLi
 class Scribunto_LuaWikibaseLexemeEntitySenseLibraryTest
 	extends Scribunto_LuaWikibaseLexemeLibraryTestCase {
 
+	/** @var string */
 	protected static $moduleName = 'LuaWikibaseLexemeEntitySenseLibraryTests';
 
 	protected function getTestModules() {

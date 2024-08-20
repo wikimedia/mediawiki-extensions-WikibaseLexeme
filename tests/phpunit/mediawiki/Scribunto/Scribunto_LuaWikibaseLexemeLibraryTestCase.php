@@ -40,6 +40,7 @@ if (
  */
 class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLibraryTestCase {
 
+	/** @var bool */
 	private static $originalLexemeEnableDataTransclusion;
 
 	/**
