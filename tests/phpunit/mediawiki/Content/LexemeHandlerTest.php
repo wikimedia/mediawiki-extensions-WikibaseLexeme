@@ -71,11 +71,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	}
 
 	protected function newEntityContent( ?EntityDocument $entity = null ): EntityContent {
-		if ( $entity === null ) {
-			$entity = $this->newEntity();
-		}
-
-		return new LexemeContent( new EntityInstanceHolder( $entity ) );
+		return new LexemeContent( new EntityInstanceHolder( $entity ?? $this->newEntity() ) );
 	}
 
 	protected function newRedirectContent( EntityId $id, EntityId $target ): ?EntityContent {

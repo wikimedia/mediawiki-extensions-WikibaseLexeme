@@ -49,9 +49,7 @@ class LexemeSpecialEntityDataTest extends \SpecialPageTestBase {
 	 * @param Lexeme|NewLexeme|null $lexeme
 	 */
 	private function saveLexemeToDb( $lexeme = null ) {
-		if ( $lexeme === null ) {
-			$lexeme = NewLexeme::havingId( self::LEXEME_ID );
-		}
+		$lexeme ??= NewLexeme::havingId( self::LEXEME_ID );
 		if ( $lexeme instanceof NewLexeme ) {
 			$lexeme = $lexeme->build();
 		}

@@ -204,9 +204,11 @@ class LexemeIdHtmlFormatterTest extends TestCase {
 		$lookup->method( $this->anything() )
 			->willReturnCallback( static function ( ItemId $id ) {
 				if ( $id->getSerialization() === self::LANGUAGE_ID ) {
-					return new Term( 'en', self::LANGUAGE );
+					$text = self::LANGUAGE;
+				} else {
+					$text = self::LEXICAL_CATEGORY;
 				}
-				return new Term( 'en', self::LEXICAL_CATEGORY );
+				return new Term( 'en', $text );
 			} );
 
 		return $lookup;

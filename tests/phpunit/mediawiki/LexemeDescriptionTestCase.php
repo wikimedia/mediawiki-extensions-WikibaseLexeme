@@ -28,10 +28,7 @@ trait LexemeDescriptionTestCase {
 		if ( !isset( $this->labels[$id] ) ) {
 			throw new TermLookupException( $id, $language );
 		}
-		if ( !isset( $this->labels[$id][$language] ) ) {
-			return null;
-		}
-		return $this->labels[$id][$language];
+		return $this->labels[$id][$language] ?? null;
 	}
 
 	/**
