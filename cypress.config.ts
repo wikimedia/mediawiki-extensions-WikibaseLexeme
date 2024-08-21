@@ -10,16 +10,18 @@ if ( process.env.MW_SERVER === undefined || process.env.MW_SCRIPT_PATH === undef
 process.env.REST_BASE_URL = process.env.MW_SERVER + process.env.MW_SCRIPT_PATH + '/';
 
 import { mwApiCommands } from 'cypress-wikibase-api';
+import { mwApiLexemeCommands } from './cypress/support/MwLexemePlugin';
 
 export default defineConfig({
 	e2e: {
-		supportFile: false,
+		supportFile: 'cypress/support/e2e.ts',
 		baseUrl: process.env.MW_SERVER + process.env.MW_SCRIPT_PATH,
 		mediawikiAdminUsername: process.env.MEDIAWIKI_USER,
 		mediawikiAdminPassword: process.env.MEDIAWIKI_PASSWORD,
 		setupNodeEvents( on, config ) {
 			on( 'task', {
 				...mwApiCommands( config ),
+				...mwApiLexemeCommands( config, mwApiCommands(config) )
 			} );
 		},
 	},
