@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
+use IApiMessage;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -165,7 +166,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		}
 
 		$status = $exception->getStatusValue();
-		$message = $exception->getMessageObject();
+		/** @var IApiMessage $message */
+		$message = $status->getMessages()[0];
 		$this->assertEquals( 'unprocessable-request', $message->getApiCode() );
 		$this->assertStatusError(
 			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',

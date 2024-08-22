@@ -50,7 +50,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		} catch ( ApiUsageException $e ) {
 			$status = $e->getStatusValue();
 			/** @var IApiMessage $message */
-			$message = $e->getMessageObject();
+			$message = $status->getMessages()[0];
 
 			$this->assertInstanceOf( IApiMessage::class, $message );
 

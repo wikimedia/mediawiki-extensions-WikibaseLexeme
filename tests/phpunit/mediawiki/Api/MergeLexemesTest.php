@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use ApiMain;
 use ApiUsageException;
 use ChangeTags;
+use IApiMessage;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
@@ -114,10 +115,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			$this->executeApiWithIds( 'L123', 'L321' );
 			$this->fail( 'User without merge permissions should not be able to merge' );
 		} catch ( ApiUsageException $e ) {
-			$this->assertEquals(
-				'permissiondenied',
-				$e->getMessageObject()->getApiCode()
-			);
+			$this->assertStatusError( 'wikibase-api-permissiondenied', $e->getStatusValue() );
 		}
 	}
 
@@ -128,9 +126,9 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->executeApiWithIds( $source, $target );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertEquals(
-				'invalid-entity-id',
-				$exception->getMessageObject()->getApiCode()
+			$this->assertStatusError(
+				'wikibase-api-invalid-entity-id',
+				$exception->getStatusValue()
 			);
 		}
 	}
@@ -146,10 +144,9 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->executeApiWithIds( 'L123', 'L123' );
 		} catch ( ApiUsageException $exception ) {
-			$this->assertEquals(
-				'cant-merge-self',
-				$exception->getMessageObject()->getApiCode()
-			);
+			/** @var IApiMessage $message */
+			$message = $exception->getStatusValue()->getMessages()[0];
+			$this->assertEquals( 'cant-merge-self', $message->getApiCode() );
 		}
 	}
 
