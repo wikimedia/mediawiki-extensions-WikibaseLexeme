@@ -50,5 +50,13 @@
 				"RepoApi": "RepoApi"
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"files": [ "cypress/**/*.ts" ],
+			"extends": [
+				"@wmde/wikimedia-typescript"
+			]
+		}
+	]
 }

@@ -18,6 +18,7 @@ module.exports = function ( grunt ) {
 			},
 			all: [
 				'**/*.{js,json}',
+				'cypress/**/*.ts',
 				'!node_modules/**',
 				'!resources/special/new-lexeme/**',
 				'!resources/special/new-lexeme-dist/**',
