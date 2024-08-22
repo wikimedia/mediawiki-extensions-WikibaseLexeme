@@ -24,4 +24,9 @@ export class LexemePage {
 			);
 	}
 
+	public open( lexemeId: string ): this {
+		const title = 'Lexeme:' + lexemeId;
+		cy.visitTitle( title );
+		return this;
+	}
 }
