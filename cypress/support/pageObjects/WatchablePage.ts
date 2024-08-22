@@ -13,6 +13,7 @@ export class WatchablePage {
 	}
 
 	public watch( title: string ): Chainable {
-		return cy.visitTitle( { title, qs: { action: 'watch' } } ).then( () => this.getConfirmWatch().click() );
+		return cy.visitTitle( { title, qs: { action: 'watch' } } )
+			.then( () => this.getConfirmWatch().click() );
 	}
 }

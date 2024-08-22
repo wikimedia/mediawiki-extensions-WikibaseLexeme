@@ -20,13 +20,20 @@ describe( 'Special:Watchlist', () => {
 			}
 		}
 		} ).then( ( lexemeId ) => cy.task( 'MwApi:CreateUser', { usernamePrefix: 'watchlisttest' } )
-			.then( ( { username, password } ) => ( { username, password, lexemeId } ) ) ).then( ( { username, password, lexemeId } ) => loginPage.login( username, password ).then( () => watchablePage.watch( 'Lexeme:' + lexemeId ).then( () => specialWatchlistPage.open() ).then( () => specialWatchlistPage.getTitles() ).then( ( titles ) => {
-			const title = titles.first().text();
+			.then( ( { username, password } ) => ( { username, password, lexemeId } ) ) )
+			.then( ( { username, password, lexemeId } ) => {
+				loginPage.login( username, password )
+					.then( () => watchablePage.watch( 'Lexeme:' + lexemeId ) )
+					.then( () => specialWatchlistPage.open() )
+					.then( () => specialWatchlistPage.getTitles() )
+					.then( ( titles ) => {
+						const title = titles.first().text();
 
-			expect( title ).to.include( 'color' );
-			expect( title ).to.include( 'colour' );
-			expect( title ).to.include( lexemeId );
-		} ) ) );
+						expect( title ).to.include( 'color' );
+						expect( title ).to.include( 'colour' );
+						expect( title ).to.include( lexemeId );
+					} );
+			} );
 	} );
 
 } );

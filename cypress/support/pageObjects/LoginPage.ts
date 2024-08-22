@@ -25,7 +25,10 @@ export class LoginPage {
 	}
 
 	public login( username: string, password: string ): Chainable {
-		return this.open().then( () => this.setUsername( username ) ).then( () => this.setPassword( password ) ).then( () => this.getLoginButton().click() );
+		return this.open()
+			.then( () => this.setUsername( username ) )
+			.then( () => this.setPassword( password ) )
+			.then( () => this.getLoginButton().click() );
 	}
 
 }

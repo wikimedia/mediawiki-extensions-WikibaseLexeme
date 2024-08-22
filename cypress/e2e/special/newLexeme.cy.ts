@@ -20,24 +20,25 @@ describe( 'NewLexeme:Page', () => {
 		newLexemePage.open();
 
 		cy.task( 'MwApi:CreateItem', { label: language } ).then( ( languageId ) => {
-			cy.task( 'MwApi:CreateItem', { label: lexicalCategory } ).then( ( lexicalCategoryId ) => {
-				newLexemePage.createLexeme(
-					lemma,
-					languageId,
-					lexicalCategoryId,
-					languageItemsLanguageCode
-				);
+			cy.task( 'MwApi:CreateItem', { label: lexicalCategory } )
+				.then( ( lexicalCategoryId ) => {
+					newLexemePage.createLexeme(
+						lemma,
+						languageId,
+						lexicalCategoryId,
+						languageItemsLanguageCode
+					);
 
-				lexemePage.lemmaContainer();
+					lexemePage.lemmaContainer();
 
-				lexemePage.getHeaderId().then(
-					( lexemeId ) => cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
-				).then( ( lexeme ) => {
-					expect( lexeme.lemmas[ languageItemsLanguageCode ].value ).to.eq( lemma );
-					expect( lexeme.language ).to.eq( languageId );
-					expect( lexeme.lexicalCategory ).to.eq( lexicalCategoryId );
+					lexemePage.getHeaderId().then(
+						( lexemeId ) => cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
+					).then( ( lexeme ) => {
+						expect( lexeme.lemmas[ languageItemsLanguageCode ].value ).to.eq( lemma );
+						expect( lexeme.language ).to.eq( languageId );
+						expect( lexeme.lexicalCategory ).to.eq( lexicalCategoryId );
+					} );
 				} );
-			} );
 		} );
 	} );
 

@@ -29,7 +29,8 @@ export class MergeLexemesPage {
 	}
 
 	public userIsBlocked(): this {
-		cy.get( this.constructor.MERGE_LEXEME_SELECTORS.FIRST_HEADING ).contains( 'User is blocked' );
+		cy.get( this.constructor.MERGE_LEXEME_SELECTORS.FIRST_HEADING )
+			.contains( 'User is blocked' );
 		return this;
 	}
 }

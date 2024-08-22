@@ -11,6 +11,7 @@ export function mwApiLexemeCommands(
 				lexicalCategory = Util.getTestString( 'lexicalCategory-' );
 
 			return mwApiCommands[ 'MwApi:CreateItem' ]( { label: language } )
+				// eslint-disable-next-line max-len
 				.then( ( languageId ) => mwApiCommands[ 'MwApi:CreateItem' ]( { label: lexicalCategory } )
 					.then( ( lexicalCategoryId ) => {
 						const data = {
