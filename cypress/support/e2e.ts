@@ -21,3 +21,22 @@ Cypress.Commands.add( 'visitTitle', ( args ) => {
 	}
 	return cy.visit( Object.assign( options, { url: 'index.php' } ) );
 } );
+
+/**
+ * Add a typed version of the 'get' command for fetching aliased <string> values
+ */
+Cypress.Commands.add( 'getStringAlias', ( alias: string ) => cy.get( `${ alias }` )
+	.then( ( value ) => value as unknown as string )
+);
+
+/**
+ * Export the type information for the new command
+ */
+declare global {
+	// eslint-disable-next-line @typescript-eslint/no-namespace
+	namespace Cypress {
+		interface Chainable {
+			getStringAlias( alias: string ): Cypress.Chainable<string>;
+		}
+	}
+}

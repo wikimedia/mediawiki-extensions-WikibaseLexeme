@@ -55,11 +55,17 @@ module.exports = ( function () {
 			},
 			watch: {
 				value: function ( value ) {
-					$( this.$el ).data( 'entityselector' ).selectedEntity( value );
+					var selector = $( this.$el ).data( 'entityselector' );
+					if ( selector ) {
+						selector.selectedEntity( value );
+					}
 				}
 			},
 			unmounted: function () {
-				$( this.$el ).data( 'entityselector' ).destroy();
+				var selector = $( this.$el ).data( 'entityselector' );
+				if ( selector ) {
+					selector.destroy();
+				}
 			}
 		};
 	};

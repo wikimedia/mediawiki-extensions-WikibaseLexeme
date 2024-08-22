@@ -3,7 +3,13 @@ import Chainable = Cypress.Chainable;
 export class LexemePage {
 
 	private static get LEMMA_WIDGET_SELECTORS(): Record<string, string> {
-		return { LEMMA_LIST: '.lemma-widget_lemma-list' };
+		return {
+			EDIT_BUTTON: '.lemma-widget_edit',
+			EDIT_INPUT_LEXEME_LANGUAGE: '#lexeme-language',
+			EDIT_INPUT_LEXEME_LEXICAL_CATEGORY: '#lexeme-lexical-category',
+			SAVE_BUTTON: '.lemma-widget_save',
+			LEMMA_LIST: '.lemma-widget_lemma-list'
+		};
 	}
 
 	private static get LEMMA_PAGE_SELECTORS(): Record<string, string> {
@@ -24,6 +30,12 @@ export class LexemePage {
 			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values',
 			REPRESENTATION_WIDGET: '.representation-widget',
 			REPRESENTATION_LANGUAGE: '.representation-widget_representation-language'
+		};
+	}
+
+	private static get OOUI_SELECTORS(): Record<string, string> {
+		return {
+			VISIBLE_ENTITY_SUGGESTION: 'ul.ui-suggester-list li'
 		};
 	}
 
@@ -99,9 +111,62 @@ export class LexemePage {
 			);
 	}
 
-	public open( lexemeId: string ): this {
+	public open( lexemeId: string ): Chainable {
 		const title = 'Lexeme:' + lexemeId;
-		cy.visitTitle( title );
+		return cy.visitTitle( title );
+	}
+
+	public startHeaderEditMode(): this {
+		cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).click();
+		this.getLexemeLanguageInput().invoke( 'val' ).should( 'not.be.empty' );
+		return this;
+	}
+
+	public getLexemeLanguageInput(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LANGUAGE );
+	}
+
+	public setLexemeLanguageToItem( item: string ): this {
+		this.getLexemeLanguageInput().clear();
+		this.getLexemeLanguageInput().type( item );
+		return this;
+	}
+
+	public getLexemeLexicalCategoryInput(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LEXICAL_CATEGORY );
+	}
+
+	public setLexemeLexicalCategoryToItem( item: string ): this {
+		this.getLexemeLexicalCategoryInput().clear();
+		this.getLexemeLexicalCategoryInput().type( item );
+		return this;
+	}
+
+	public selectFirstSuggestedEntityOnEntitySelector(): this {
+		cy.get( this.constructor.OOUI_SELECTORS.VISIBLE_ENTITY_SUGGESTION )
+			.filter( ':visible' ).click();
+		return this;
+	}
+
+	public headerSaveButton(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON ).not( ':disabled' );
+	}
+
+	public headerSaveButtonNotPresent(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON ).should( 'not.exist' );
+	}
+
+	public setLexemeLanguageItem( item: string ): this {
+		this.setLexemeLanguageToItem( item );
+		this.selectFirstSuggestedEntityOnEntitySelector();
+		this.headerSaveButton().click();
+		return this;
+	}
+
+	public setLexicalCategoryItem( item: string ): this {
+		this.setLexemeLexicalCategoryToItem( item );
+		this.selectFirstSuggestedEntityOnEntitySelector();
+		this.headerSaveButton().click();
 		return this;
 	}
 }
