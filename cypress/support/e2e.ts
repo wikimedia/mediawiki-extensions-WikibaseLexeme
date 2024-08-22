@@ -1,14 +1,23 @@
 Cypress.Commands.add( 'visitTitle', ( args ) => {
+	let options = null;
 	let title = null;
-	let qs = {};
 	if ( typeof args === 'string' ) {
 		title = args;
+		options = {
+			qs: {
+				title: args
+			}
+		};
 	} else {
-		title = args.title;
-		qs = args.qs;
+		options = args;
+		title = options.title;
+		if ( options.qs !== undefined ) {
+			options.qs.title = title;
+		} else {
+			options.qs = {
+				title
+			};
+		}
 	}
-	return cy.visit( {
-		url: 'index.php',
-		qs: Object.assign( { title }, qs )
-	} );
+	return cy.visit( Object.assign( options, { url: 'index.php' } ) );
 } );
