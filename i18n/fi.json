@@ -16,7 +16,7 @@
 	"special-mergelexemes": "Yhdistä kaksi lekseemiä",
 	"special-newlexeme": "Luo uusi lekseemi",
 	"tooltip-ca-nstab-lexeme": "Lekseemin määritelmä",
-	"wikibase-lexeme-lexicographical-data": "Leksikografiset tiedot",
+	"wikibase-lexeme-lexicographical-data": "Leksikografinen data",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Lekseemin lataaminen epäonnistui.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Lekseemin tallentaminen epäonnistui.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Käyttö estetty.",
