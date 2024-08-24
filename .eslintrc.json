@@ -53,12 +53,17 @@
 	},
 	"overrides": [
 		{
-			"files": [ "cypress/**/*.ts" ],
+			"files": [
+				"cypress/**/*.ts"
+			],
 			"extends": [
 				"@wmde/wikimedia-typescript"
 			],
 			"rules": {
-				"max-len": [ "error", 100 ]
+				"max-len": [
+					"error",
+					100
+				]
 			}
 		}
 	]
