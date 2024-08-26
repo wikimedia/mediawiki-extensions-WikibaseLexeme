@@ -42,6 +42,13 @@ export function mwApiLexemeCommands(
 				label: label,
 				data: formData
 			} );
+		},
+		'MwLexemeApi:AddSense'( { lexemeId, senseData } ): Chainable<string> {
+			return mwApiCommands[ 'MwApi:BotRequest' ]( { isEdit: true, isPost: true, parameters: {
+				action: 'wbladdsense',
+				lexemeId: lexemeId,
+				data: JSON.stringify( senseData )
+			} } );
 		}
 
 	};
