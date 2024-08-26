@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Song GK"
+		]
+	},
+	"content-model-wikibase-lexeme": "Leksem Wikibase",
+	"datatypes-type-wikibase-form": "Tukuh",
+	"datatypes-type-wikibase-lexeme": "Leksem",
+	"datatypes-type-wikibase-sense": "Reti",
+	"nstab-lexeme": "Leksem",
+	"special-mergelexemes": "Ngempung dua iti Leksem",
+	"special-newlexeme": "Ngaga Lexeme ti baru",
+	"tooltip-ca-nstab-lexeme": "Definisyen leksem"
+}
