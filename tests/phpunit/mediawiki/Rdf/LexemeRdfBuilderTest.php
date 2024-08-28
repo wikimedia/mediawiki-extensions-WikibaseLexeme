@@ -2,11 +2,10 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
-use Wikibase\Lexeme\Presentation\Rdf\LexemeSpecificComponentsRdfBuilder;
+use Wikibase\Repo\Rdf\EntityRdfBuilder;
 use Wikibase\Repo\Rdf\FullStatementRdfBuilder;
 use Wikibase\Repo\Rdf\FullStatementRdfBuilderFactory;
 use Wikibase\Repo\Rdf\RdfProducer;
@@ -23,86 +22,69 @@ use Wikibase\Repo\Rdf\TruthyStatementRdfBuilderFactory;
  */
 class LexemeRdfBuilderTest extends TestCase {
 
-	/** @var TruthyStatementRdfBuilderFactory&MockObject */
-	private $truthyStatementRdfBuilderFactory;
-	/** @var FullStatementRdfBuilderFactory&MockObject */
-	private $fullStatementRdfBuilderFactory;
-	/** @var LexemeSpecificComponentsRdfBuilder&MockObject */
-	private $lexemeSpecificComponentsRdfBuilder;
-
-	protected function setUp(): void {
-		parent::setUp();
-		$this->truthyStatementRdfBuilderFactory = $this->createMock( TruthyStatementRdfBuilderFactory::class );
-		$this->fullStatementRdfBuilderFactory = $this->createMock( FullStatementRdfBuilderFactory::class );
-		$this->lexemeSpecificComponentsRdfBuilder = $this->createMock( LexemeSpecificComponentsRdfBuilder::class );
-	}
-
 	/**
 	 * @dataProvider provideAddEntity
 	 */
 	public function testInternalRdfBuildersCallsAddEntity_dependingOnFlavorFlags(
 		int $flavorFlags,
-		Lexeme $lexeme,
-		bool $expectTruthyBuilderCalled = false,
-		bool $expectFullBuilderCalled = false
+		bool $expectTruthyBuilderCalled,
+		bool $expectFullBuilderCalled
 	): void {
-		$this->lexemeSpecificComponentsRdfBuilder->expects( $this->atLeastOnce() )
+		$lexeme = new Lexeme();
+
+		$truthyBuilder = $this->createMock( TruthyStatementRdfBuilder::class );
+		$truthyBuilder->expects( $this->exactly( (int)$expectTruthyBuilderCalled ) )
+			->method( 'addEntity' )
+			->with( $lexeme );
+		$truthyBuilderFactory = $this->createMock( TruthyStatementRdfBuilderFactory::class );
+		$truthyBuilderFactory->method( 'getTruthyStatementRdfBuilder' )
+			->willReturn( $truthyBuilder );
+
+		$fullBuilder = $this->createMock( FullStatementRdfBuilder::class );
+		$fullBuilder->expects( $this->exactly( (int)$expectFullBuilderCalled ) )
+			->method( 'addEntity' )
+			->with( $lexeme );
+		$fullBuilderFactory = $this->createMock( FullStatementRdfBuilderFactory::class );
+		$fullBuilderFactory->method( 'getFullStatementRdfBuilder' )
+			->willReturn( $fullBuilder );
+
+		$lexemeSpecificComponentsRdfBuilder = $this->createMock( EntityRdfBuilder::class );
+		$lexemeSpecificComponentsRdfBuilder->expects( $this->once() )
 			->method( 'addEntity' )
 			->with( $lexeme );
 
-		$truthyStatementRdfBuilder = $this->createMock( TruthyStatementRdfBuilder::class );
-		$this->truthyStatementRdfBuilderFactory->method( 'getTruthyStatementRdfBuilder' )
-			->willReturn( $truthyStatementRdfBuilder );
-
-		if ( $expectTruthyBuilderCalled ) {
-			$truthyStatementRdfBuilder->expects( $this->atLeastOnce() )->method( 'addEntity' )->with( $lexeme );
-		} else {
-			$truthyStatementRdfBuilder->expects( $this->never() )->method( 'addEntity' );
-		}
-
-		$fullStatementRdfBuilder = $this->createMock( FullStatementRdfBuilder::class );
-		$this->fullStatementRdfBuilderFactory->method( 'getFullStatementRdfBuilder' )
-			->willReturn( $fullStatementRdfBuilder );
-
-		if ( $expectFullBuilderCalled ) {
-			$fullStatementRdfBuilder->expects( $this->atLeastOnce() )->method( 'addEntity' )->with( $lexeme );
-		} else {
-			$fullStatementRdfBuilder->expects( $this->never() )->method( 'addEntity' );
-		}
-
-		$builder = $this->getBuilder( $flavorFlags );
+		$builder = new LexemeRdfBuilder(
+			$flavorFlags,
+			$truthyBuilderFactory,
+			$fullBuilderFactory,
+			$lexemeSpecificComponentsRdfBuilder
+		);
 		$builder->addEntity( $lexeme );
 	}
 
 	public static function provideAddEntity(): array {
 		return [
-			'No flavors selected' => [ 0, new Lexeme() ],
+			'No flavors selected' => [
+				0,
+				false,
+				false,
+			],
 			'Just truthy statements requested' => [
 				RdfProducer::PRODUCE_TRUTHY_STATEMENTS,
-				new Lexeme(),
 				true,
+				false,
 			],
 			'Full statements requested' => [
 				RdfProducer::PRODUCE_ALL_STATEMENTS,
-				new Lexeme(),
 				false,
 				true,
 			],
 			'All statements requested' => [
 				RdfProducer::PRODUCE_ALL,
-				new Lexeme(),
 				true,
 				true,
 			],
 		];
 	}
 
-	private function getBuilder( $flavorFlags ): LexemeRdfBuilder {
-		return new LexemeRdfBuilder(
-			$flavorFlags,
-			$this->truthyStatementRdfBuilderFactory,
-			$this->fullStatementRdfBuilderFactory,
-			$this->lexemeSpecificComponentsRdfBuilder
-		);
-	}
 }
