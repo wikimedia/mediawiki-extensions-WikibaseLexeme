@@ -14,15 +14,23 @@ export function mwApiLexemeCommands(
 				// eslint-disable-next-line max-len
 				.then( ( languageId ) => mwApiCommands[ 'MwApi:CreateItem' ]( { label: lexicalCategory } )
 					.then( ( lexicalCategoryId ) => {
-						const data = {
+						const createData = {
 							lexicalCategory: lexicalCategoryId,
 							language: languageId,
-							lemmas: lexemeData.lemmas
+							lemmas: {
+								en: {
+									value: 'color',
+									language: 'en'
+								}
+							}
 						};
+						if ( lexemeData && lexemeData.lemmas ) {
+							createData.lemmas = lexemeData.lemmas;
+						}
 						return mwApiCommands[ 'MwApi:CreateEntity' ]( {
 							entityType: 'lexeme',
 							label: lemma,
-							data: data
+							data: createData
 						} );
 					} )
 				);
