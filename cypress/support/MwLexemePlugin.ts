@@ -34,6 +34,14 @@ export function mwApiLexemeCommands(
 						} );
 					} )
 				);
+		},
+		'MwLexemeApi:AddForm'( formData ): Chainable<string> {
+			const label = Util.getTestString( 'form-' );
+			return mwApiCommands[ 'MwApi:CreateEntity' ]( {
+				entityType: 'form',
+				label: label,
+				data: formData
+			} );
 		}
 	};
 }
