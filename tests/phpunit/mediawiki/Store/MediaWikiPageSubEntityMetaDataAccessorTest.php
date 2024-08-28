@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Store;
 
-use BadMethodCallException;
 use LogicException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityId;
@@ -25,7 +24,7 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 		$accessor = new MediaWikiPageSubEntityMetaDataAccessor(
 			$this->createMock( WikiPageEntityMetaDataAccessor::class )
 		);
-		$this->expectException( BadMethodCallException::class );
+		$this->expectException( LogicException::class );
 		$accessor->loadRevisionInformationByRevisionId( $this->createMock( EntityId::class ), 1 );
 	}
 
