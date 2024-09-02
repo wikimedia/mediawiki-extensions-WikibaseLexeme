@@ -243,8 +243,8 @@ class DumpJsonTest extends MediaWikiIntegrationTestCase {
 		$this->markTestSkipped( 'Disabling test to prepare for dump schema changes from Wikibase T255706' );
 		$dumpScript = $this->getDumpJson( $opts );
 
-		$logFileName = tempnam( sys_get_temp_dir(), "Wikibase-DumpJsonTest" );
-		$outFileName = tempnam( sys_get_temp_dir(), "Wikibase-DumpJsonTest" );
+		$logFileName = $this->getNewTempFile();
+		$outFileName = $this->getNewTempFile();
 
 		$opts = $opts + [ 'log' => $logFileName, 'output' => $outFileName ];
 		$dumpScript->loadParamsAndArgs( null, $opts );
