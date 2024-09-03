@@ -16,11 +16,11 @@ use Wikibase\Lexeme\Domain\Model\Form;
  */
 class FormPatcher implements EntityPatcherStrategy {
 
-	private $termListPatcher;
+	private TermListPatcher $termListPatcher;
 
-	private $statementListPatcher;
+	private StatementListPatcher $statementListPatcher;
 
-	private $listPatcher;
+	private ListPatcher $listPatcher;
 
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();

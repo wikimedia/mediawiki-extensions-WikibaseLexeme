@@ -20,8 +20,8 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
  */
 class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 
-	private $languageValidator;
-	private $stringNormalizer;
+	private ValueValidator $languageValidator;
+	private StringNormalizer $stringNormalizer;
 
 	public function __construct(
 		ValueValidator $languageValidator,

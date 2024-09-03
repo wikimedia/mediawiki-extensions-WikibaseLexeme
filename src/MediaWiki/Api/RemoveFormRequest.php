@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class RemoveFormRequest {
 
-	private $formId;
+	private FormId $formId;
 
 	/**
 	 * @var int|null

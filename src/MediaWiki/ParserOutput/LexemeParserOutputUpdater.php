@@ -13,7 +13,7 @@ use Wikibase\Repo\ParserOutput\StatementDataUpdater;
  */
 class LexemeParserOutputUpdater implements EntityParserOutputUpdater {
 
-	private $statementDataUpdater;
+	private StatementDataUpdater $statementDataUpdater;
 
 	public function __construct( StatementDataUpdater $statementDataUpdater ) {
 		$this->statementDataUpdater = $statementDataUpdater;

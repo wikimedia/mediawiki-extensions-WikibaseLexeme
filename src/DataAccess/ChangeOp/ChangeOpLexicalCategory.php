@@ -18,8 +18,8 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpLexicalCategory extends ChangeOpBase {
 
-	private $lexicalCategory;
-	private $lexicalCategoryValidator;
+	private ItemId $lexicalCategory;
+	private ValueValidator $lexicalCategoryValidator;
 
 	public function __construct(
 		ItemId $lexicalCategory,

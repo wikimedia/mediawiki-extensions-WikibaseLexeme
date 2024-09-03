@@ -10,8 +10,8 @@ use Wikibase\Repo\ChangeOp\ChangeOp;
  */
 class EditFormElementsRequest {
 
-	private $formId;
-	private $changeOp;
+	private FormId $formId;
+	private ChangeOp $changeOp;
 	private $baseRevId;
 
 	public function __construct( FormId $formId, ChangeOp $changeOp, $baseRevId ) {

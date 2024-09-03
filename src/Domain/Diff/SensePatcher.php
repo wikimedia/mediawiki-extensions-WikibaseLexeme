@@ -15,9 +15,9 @@ use Wikibase\Lexeme\Domain\Model\Sense;
  */
 class SensePatcher implements EntityPatcherStrategy {
 
-	private $termListPatcher;
+	private TermListPatcher $termListPatcher;
 
-	private $statementListPatcher;
+	private StatementListPatcher $statementListPatcher;
 
 	public function __construct() {
 		$this->termListPatcher = new TermListPatcher();

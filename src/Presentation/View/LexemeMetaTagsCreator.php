@@ -15,7 +15,7 @@ use Wikimedia\Assert\Assert;
 class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 
 	private $lemmaSeparator;
-	private $labelDescriptionLookup;
+	private FallbackLabelDescriptionLookup $labelDescriptionLookup;
 
 	/**
 	 * @param string $lemmaSeparator
