@@ -5,10 +5,15 @@ export class LexemePage {
 	private static get LEMMA_WIDGET_SELECTORS(): Record<string, string> {
 		return {
 			EDIT_BUTTON: '.lemma-widget_edit',
+			EDIT_INPUT_VALUE: '.lemma-widget_lemma-value-input',
+			EDIT_INPUT_LANGUAGE: '.lemma-widget_lemma-language-input',
 			EDIT_INPUT_LEXEME_LANGUAGE: '#lexeme-language',
 			EDIT_INPUT_LEXEME_LEXICAL_CATEGORY: '#lexeme-lexical-category',
+			ADD_BUTTON: '.lemma-widget_add',
 			SAVE_BUTTON: '.lemma-widget_save',
-			LEMMA_LIST: '.lemma-widget_lemma-list'
+			LEMMA_LIST: '.lemma-widget_lemma-list',
+			LEMMA_EDIT_BOX: '.lemma-widget_lemma-edit-box',
+			REDUNDANT_LANGUAGE_WARNING: '.lemma-widget_redundant-language-warning'
 		};
 	}
 
@@ -42,7 +47,7 @@ export class LexemePage {
 	/**
 	 * @param formId If provided, get a specific form item. When omitted, gets all.
 	 */
-	public getFormListItem( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getFormListItem( formId?: string ): Chainable {
 		if ( typeof formId === 'undefined' ) {
 			return cy.get( this.constructor.FORM_WIDGET_SELECTORS.FORM_LIST_ITEM );
 		} else {
@@ -53,45 +58,57 @@ export class LexemePage {
 		}
 	}
 
-	public getFormId( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getFormId( formId?: string ): Chainable {
 		return this.getFormListItem( formId )
 			.find( this.constructor.FORM_WIDGET_SELECTORS.FORM_ID );
 	}
 
-	public getFormEditButton( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getFormEditButton( formId?: string ): Chainable {
 		return this.getFormListItem( formId )
 			.find( this.constructor.LEMMA_PAGE_SELECTORS.EDIT_BUTTON );
 	}
 
-	public getFormRemoveButton( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getFormRemoveButton( formId?: string ): Chainable {
 		return this.getFormListItem( formId )
 			.find( this.constructor.LEMMA_PAGE_SELECTORS.REMOVE_BUTTON );
 	}
 
-	public getFormsHeader(): Chainable<JQuery<HTMLElement>> {
+	public getFormsHeader(): Chainable {
 		return cy.get( this.constructor.FORM_WIDGET_SELECTORS.FORM_SECTION_HEADER );
 	}
 
-	public getFormsContainer(): Chainable<JQuery<HTMLElement>> {
+	public getFormsContainer(): Chainable {
 		return cy.get( this.constructor.FORM_WIDGET_SELECTORS.FORM_SECTION_CONTAINER );
 	}
 
-	public getGrammaticalFeatureList( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getGrammaticalFeatureList( formId?: string ): Chainable {
 		return this.getFormListItem( formId )
 			.find( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES );
 	}
 
-	public getRepresentationWidget( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getRedundantLanguageWarning(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.REDUNDANT_LANGUAGE_WARNING );
+	}
+
+	public getRepresentationWidget( formId?: string ): Chainable {
 		return this.getFormListItem( formId )
 			.find( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_WIDGET );
 	}
 
-	public getRepresentationLanguage( formId?: string ): Chainable<JQuery<HTMLElement>> {
+	public getRepresentationLanguage( formId?: string ): Chainable {
 		return this.getFormListItem( formId )
 			.find( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_LANGUAGE );
 	}
 
-	public getLemmaContainer(): Chainable<JQuery<HTMLElement>> {
+	private getLemmaEditBoxes(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.LEMMA_EDIT_BOX );
+	}
+
+	private getLemmaWidgetAddButton(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.ADD_BUTTON );
+	}
+
+	public getLemmaContainer(): Chainable {
 		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.LEMMA_LIST );
 	}
 
@@ -148,8 +165,14 @@ export class LexemePage {
 		return this;
 	}
 
-	public headerSaveButton(): Chainable {
-		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON ).not( ':disabled' );
+	public getHeaderSaveButton(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON );
+	}
+
+	public clickHeaderSaveButton(): this {
+		this.getHeaderSaveButton().not( ':disabled' ).click();
+		this.headerSaveButtonNotPresent();
+		return this;
 	}
 
 	public headerSaveButtonNotPresent(): Chainable {
@@ -159,14 +182,49 @@ export class LexemePage {
 	public setLexemeLanguageItem( item: string ): this {
 		this.setLexemeLanguageToItem( item );
 		this.selectFirstSuggestedEntityOnEntitySelector();
-		this.headerSaveButton().click();
+		this.clickHeaderSaveButton();
 		return this;
 	}
 
 	public setLexicalCategoryItem( item: string ): this {
 		this.setLexemeLexicalCategoryToItem( item );
 		this.selectFirstSuggestedEntityOnEntitySelector();
-		this.headerSaveButton().click();
+		this.clickHeaderSaveButton();
+		return this;
+	}
+
+	public setNthLemma( position: number, lemmaText: string, languageCode: string ): this {
+		this.startHeaderEditMode();
+		this.fillNthLemma( position, lemmaText, languageCode );
+		this.clickHeaderSaveButton();
+		this.getLemmaEditBoxes().should( 'not.exist' );
+		return this;
+	}
+
+	public fillNthLemma( position: number, lemmaText: string, languageCode: string ): this {
+		this.getLemmaEditBoxes().then( ( lemmaBoxes ) => {
+			const lemmaBoxesCount = lemmaBoxes.length;
+
+			if ( lemmaBoxesCount - 1 < position ) {
+				this.getLemmaWidgetAddButton().click();
+				this.getLemmaEditBoxes().should( 'have.length', lemmaBoxesCount + 1 );
+				this.fillNthLemma( position, lemmaText, languageCode );
+			} else {
+				this.getLemmaEditBoxes()
+					.eq( position )
+					.find( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_VALUE )
+					.as( 'nthInputValue' );
+				cy.get( '@nthInputValue' ).clear();
+				cy.get( '@nthInputValue' ).type( lemmaText );
+
+				this.getLemmaEditBoxes()
+					.eq( position )
+					.find( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE )
+					.as( 'nthInputLanguage' );
+				cy.get( '@nthInputLanguage' ).clear();
+				cy.get( '@nthInputLanguage' ).type( languageCode );
+			}
+		} );
 		return this;
 	}
 }
