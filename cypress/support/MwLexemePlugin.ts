@@ -43,5 +43,6 @@ export function mwApiLexemeCommands(
 				data: formData
 			} );
 		}
+
 	};
 }

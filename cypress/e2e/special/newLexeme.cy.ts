@@ -29,7 +29,7 @@ describe( 'NewLexeme:Page', () => {
 						languageItemsLanguageCode
 					);
 
-					lexemePage.lemmaContainer();
+					lexemePage.getLemmaContainer();
 
 					lexemePage.getHeaderId().then(
 						( lexemeId ) => cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
