@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 use InvalidArgumentException;
@@ -18,10 +20,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 
 	public const SUBENTITY_ID_SEPARATOR = '-';
 
-	/**
-	 * @return string
-	 */
-	public function getSerialization() {
+	public function getSerialization(): string {
 		return $this->serialization;
 	}
 
@@ -36,20 +35,15 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 		}
 	}
 
-	/**
-	 * @return LexemeId
-	 */
-	public function getLexemeId() {
+	public function getLexemeId(): LexemeId {
 		return new LexemeId( $this->extractLexemeIdAndSubEntityId()[0] );
 	}
 
 	/**
 	 * Returns the sub-entity id suffix, e.g. 'F1' for L1-F1, or 'S1' for L1-S1.
 	 * Returns empty string for dummy ids and the like.
-	 *
-	 * @return string
 	 */
-	public function getIdSuffix() {
+	public function getIdSuffix(): string {
 		if ( $this->serialization !== null ) {
 			return $this->extractLexemeIdAndSubEntityId()[1];
 		}
@@ -70,7 +64,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 		EntityId $containerEntityId,
 		string $idPrefix,
 		int $id
-	) {
+	): string {
 		return $containerEntityId->getSerialization() .
 			self::SUBENTITY_ID_SEPARATOR .
 			$idPrefix . $id;
@@ -82,7 +76,7 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	 * @return string[] two strings containing the lexeme id serialization and the sub-entity suffix,
 	 *                  e.g. ['L1', 'F1'] for form id L1-F1.
 	 */
-	private function extractLexemeIdAndSubEntityId() {
+	private function extractLexemeIdAndSubEntityId(): array {
 		$parts = explode( self::SUBENTITY_ID_SEPARATOR, $this->serialization, 2 );
 
 		if ( count( $parts ) !== 2 ) {

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use Wikibase\DataModel\Entity\ItemId;
@@ -25,35 +27,26 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
  */
 class NewForm {
 
-	/**
-	 * @var string
-	 */
-	private $lexemeId = 'L1';
+	private string $lexemeId = 'L1';
 
-	/**
-	 * @var string|null
-	 */
-	private $formId = null;
+	private ?string $formId = null;
 
 	/**
 	 * @var string[] Indexed by language
 	 */
-	private $representations = [];
+	private array $representations = [];
 
 	/**
 	 * @var Statement[]
 	 */
-	private $statements = [];
+	private array $statements = [];
 
 	/**
 	 * @var ItemId[]
 	 */
-	private $grammaticalFeatures = [];
+	private array $grammaticalFeatures = [];
 
-	/**
-	 * @return self
-	 */
-	public static function any() {
+	public static function any(): self {
 		return new self();
 	}
 
@@ -62,10 +55,8 @@ class NewForm {
 
 	/**
 	 * @param Lexeme|LexemeId|string $lexeme
-	 *
-	 * @return self
 	 */
-	public function andLexeme( $lexeme ) {
+	public function andLexeme( $lexeme ): self {
 		$result = clone $this;
 
 		if ( $lexeme instanceof Lexeme ) {
@@ -83,10 +74,8 @@ class NewForm {
 
 	/**
 	 * @param FormId|string $formId
-	 *
-	 * @return self
 	 */
-	public function andId( $formId ) {
+	public function andId( $formId ): self {
 		if ( $this->formId ) {
 			throw new \LogicException( 'Form ID is already set. You are not allowed to change it' );
 		}
@@ -102,13 +91,7 @@ class NewForm {
 		return $result;
 	}
 
-	/**
-	 * @param string $language
-	 * @param string $representation
-	 *
-	 * @return self
-	 */
-	public function andRepresentation( $language, $representation ) {
+	public function andRepresentation( string $language, string $representation ): self {
 		if ( array_key_exists( $language, $this->representations ) ) {
 			throw new \LogicException(
 				"Representation for '{$language}' is already set. You are not allowed to change it"
@@ -121,10 +104,8 @@ class NewForm {
 
 	/**
 	 * @param ItemId|string $itemId
-	 *
-	 * @return self
 	 */
-	public function andGrammaticalFeature( $itemId ) {
+	public function andGrammaticalFeature( $itemId ): self {
 		$result = clone $this;
 		if ( is_string( $itemId ) ) {
 			$itemId = new ItemId( $itemId );
@@ -136,10 +117,8 @@ class NewForm {
 
 	/**
 	 * @param Statement|Snak|NewStatement $statement
-	 *
-	 * @return self
 	 */
-	public function andStatement( $statement ) {
+	public function andStatement( $statement ): self {
 		$result = clone $this;
 		if ( $statement instanceof NewStatement ) {
 			$statement = $statement->build();
@@ -151,10 +130,7 @@ class NewForm {
 		return $result;
 	}
 
-	/**
-	 * @return Form
-	 */
-	public function build() {
+	public function build(): Form {
 		$formId = $this->formId ?: $this->newRandomFormIdFormPart();
 
 		if ( empty( $this->representations ) ) {
@@ -176,13 +152,7 @@ class NewForm {
 		);
 	}
 
-	/**
-	 * @param string $name
-	 * @param array $arguments
-	 *
-	 * @return self
-	 */
-	public static function __callStatic( $name, $arguments ) {
+	public static function __callStatic( string $name, array $arguments ): self {
 		$result = new self();
 		$methodName = str_replace( 'having', 'and', $name );
 		return call_user_func_array( [ $result, $methodName ], $arguments );
@@ -192,10 +162,7 @@ class NewForm {
 		$this->statements = $this->cloneArrayOfObjects( $this->statements );
 	}
 
-	/**
-	 * @return string
-	 */
-	private function newRandomFormIdFormPart() {
+	private function newRandomFormIdFormPart(): string {
 		return 'F' . mt_rand( 1, mt_getrandmax() );
 	}
 
@@ -204,7 +171,7 @@ class NewForm {
 	 *
 	 * @return object[]
 	 */
-	private function cloneArrayOfObjects( array $objects ) {
+	private function cloneArrayOfObjects( array $objects ): array {
 		$result = [];
 		foreach ( $objects as $object ) {
 			$result[] = clone $object;

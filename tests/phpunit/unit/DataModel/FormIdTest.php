@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
@@ -20,11 +22,9 @@ class FormIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 'L1-F1', $id->getSerialization() );
 	}
 
-	public static function provideInvalidSerializations() {
+	public static function provideInvalidSerializations(): iterable {
 		return [
-			[ null ],
 			[ '' ],
-			[ 1 ],
 			[ '1' ],
 			[ 'L1-F' ],
 			[ 'L1-F0' ],
@@ -38,7 +38,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideInvalidSerializations
 	 */
-	public function testGivenInvalidSerialization_constructorThrowsAnException( $id ) {
+	public function testGivenInvalidSerialization_constructorThrowsAnException( string $id ) {
 		$this->expectException( InvalidArgumentException::class );
 		new FormId( $id );
 	}
@@ -49,16 +49,16 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	}
 
 	/** @dataProvider provideInvalidSerializations */
-	public function testGivenInvalidSerialization_unserializeThrowsAnException( $id ): void {
-		$id = new FormId( 'L1-F1' );
+	public function testGivenInvalidSerialization_unserializeThrowsAnException( string $id ): void {
+		$formId = new FormId( 'L1-F1' );
 		$this->expectException( InvalidArgumentException::class );
-		$id->__unserialize( [ 'serialization' => $id ] );
+		$formId->__unserialize( [ 'serialization' => $id ] );
 	}
 
 	/**
 	 * @dataProvider provideLexemeIdMatchingFormId
 	 */
-	public function testGetLexemeId_yieldsIdMatchingLocalPart( $expectedLexemeId, $givenFormId ) {
+	public function testGetLexemeId_yieldsIdMatchingLocalPart( string $expectedLexemeId, string $givenFormId ) {
 		$id = new FormId( $givenFormId );
 		$lexemeId = $id->getLexemeId();
 
@@ -69,7 +69,7 @@ class FormIdTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public static function provideLexemeIdMatchingFormId() {
+	public static function provideLexemeIdMatchingFormId(): iterable {
 		yield [ 'L1', 'L1-F1' ];
 		yield [ 'L777', 'L777-F123' ];
 	}
@@ -77,14 +77,14 @@ class FormIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider idSuffixProvider
 	 */
-	public function testGetIdSuffix( $expected, $formIdSerialization ) {
+	public function testGetIdSuffix( string $expected, string $formIdSerialization ) {
 		$this->assertSame(
 			$expected,
 			( new FormId( $formIdSerialization ) )->getIdSuffix()
 		);
 	}
 
-	public static function idSuffixProvider() {
+	public static function idSuffixProvider(): iterable {
 		yield [ 'F1', 'L1-F1' ];
 		yield [ 'F123', 'L321-F123' ];
 	}

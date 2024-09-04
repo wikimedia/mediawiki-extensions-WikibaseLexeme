@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 use Countable;
@@ -17,7 +19,7 @@ class SenseSet implements Countable {
 	/**
 	 * @var Sense[] indexed by serialization of SenseId
 	 */
-	private $senses = [];
+	private array $senses = [];
 
 	/**
 	 * @param Sense[] $senses
@@ -35,7 +37,7 @@ class SenseSet implements Countable {
 	/**
 	 * @return Sense[]
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		$senses = $this->sortSenses( $this->senses );
 		return array_values( $senses );
 	}
@@ -55,9 +57,9 @@ class SenseSet implements Countable {
 
 	/**
 	 * @param Sense[] $senses
-	 * @return array sorted array mapping numeric id to the sense
+	 * @return Sense[] sorted array mapping numeric id to the sense
 	 */
-	private function sortSenses( array $senses ) {
+	private function sortSenses( array $senses ): array {
 		$sortedSenses = [];
 		foreach ( $senses as $sense ) {
 			$senseIdPart = explode( '-', $sense->getId()->getSerialization(), 2 )[1];
@@ -69,17 +71,11 @@ class SenseSet implements Countable {
 		return $sortedSenses;
 	}
 
-	/**
-	 * @return int
-	 */
 	public function count(): int {
 		return count( $this->senses );
 	}
 
-	/**
-	 * @return int
-	 */
-	public function maxSenseIdNumber() {
+	public function maxSenseIdNumber(): int {
 		$max = 0;
 
 		foreach ( $this->senses as $senseId => $sense ) {
@@ -93,7 +89,7 @@ class SenseSet implements Countable {
 		return $max;
 	}
 
-	public function add( Sense $sense ) {
+	public function add( Sense $sense ): void {
 		$senseId = $sense->getId()->getSerialization();
 		if ( array_key_exists( $senseId, $this->senses ) ) {
 			throw new ConflictException(
@@ -104,33 +100,23 @@ class SenseSet implements Countable {
 		$this->senses[$senseId] = $sense;
 	}
 
-	public function remove( SenseId $senseId ) {
+	public function remove( SenseId $senseId ): void {
 		unset( $this->senses[$senseId->getSerialization()] );
 	}
 
 	/**
 	 * Replace the sense identified by $sense->getId() with the given one or add it.
-	 *
-	 * @param Sense $sense
 	 */
-	public function put( Sense $sense ) {
+	public function put( Sense $sense ): void {
 		$this->remove( $sense->getId() );
 		$this->add( $sense );
 	}
 
-	/**
-	 * @param SenseId $senseId
-	 *
-	 * @return Sense|null
-	 */
-	public function getById( SenseId $senseId ) {
+	public function getById( SenseId $senseId ): ?Sense {
 		return $this->senses[$senseId->getSerialization()] ?? null;
 	}
 
-	/**
-	 * @return self
-	 */
-	public function copy() {
+	public function copy(): self {
 		return clone $this;
 	}
 
@@ -145,14 +131,11 @@ class SenseSet implements Countable {
 		$this->senses = $clonedSenses;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		return $this->senses === [];
 	}
 
-	public function equals( $other ) {
+	public function equals( $other ): bool {
 		if ( $this === $other ) {
 			return true;
 		}
@@ -168,10 +151,7 @@ class SenseSet implements Countable {
 		return $this->getById( $id ) !== null;
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function sameSenses( SenseSet $other ) {
+	private function sameSenses( SenseSet $other ): bool {
 		if ( $this->count() !== $other->count() ) {
 			return false;
 		}

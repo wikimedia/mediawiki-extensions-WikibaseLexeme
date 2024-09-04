@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
@@ -85,7 +87,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $form->isEmpty() );
 	}
 
-	public static function provideNonEmptyForms() {
+	public static function provideNonEmptyForms(): iterable {
 		return [
 			'2 representations' => [
 				NewForm::havingRepresentation( 'en', 'one' )
@@ -110,7 +112,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $form->isEmpty() );
 	}
 
-	public static function provideEqualForms() {
+	public static function provideEqualForms(): iterable {
 		$minimal = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'minimal' );
 		$nonEmpty = $minimal->andGrammaticalFeature( 'Q1' )
 			->andStatement( self::newStatement() );
@@ -152,7 +154,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $form1->equals( $form2 ) );
 	}
 
-	public static function provideUnequalForms() {
+	public static function provideUnequalForms(): iterable {
 		$form = NewForm::havingId( 'F1' )->andRepresentation( 'en', 'minimal' );
 
 		return [
@@ -202,7 +204,7 @@ class FormTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $copy->getStatements()->isEmpty() );
 	}
 
-	private static function newStatement() {
+	private static function newStatement(): Statement {
 		return new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
 	}
 
@@ -256,14 +258,14 @@ class FormTest extends MediaWikiUnitTestCase {
 		NewForm::any()->build()->setId( $id );
 	}
 
-	public static function nonFormIdProvider() {
+	public static function nonFormIdProvider(): iterable {
 		yield [ 'L1-F1' ];
 		yield [ null ];
 		yield [ new ItemId( 'Q1' ) ];
 		yield [ new LexemeId( 'L1' ) ];
 	}
 
-	public static function clearableProvider() {
+	public static function clearableProvider(): iterable {
 		return [
 			'empty' => [ NewForm::havingId( 'F1' )->build() ],
 			'with representation' => [

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 use InvalidArgumentException;
@@ -19,21 +21,17 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 	public const PATTERN = '/^L[1-9]\d{0,9}\z/i';
 
 	/**
-	 * @param string $serialization
-	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( $serialization ) {
+	public function __construct( string $serialization ) {
 		$this->assertValidIdFormat( $serialization );
 		parent::__construct( strtoupper( $serialization ) );
 	}
 
 	/**
-	 * @param string $serialization
-	 *
 	 * @throws InvalidArgumentException
 	 */
-	private function assertValidIdFormat( $serialization ) {
+	private function assertValidIdFormat( string $serialization ): void {
 		Assert::parameterType( 'string', $serialization, '$serialization' );
 		Assert::parameter(
 			preg_match( self::PATTERN, $serialization ),
@@ -58,19 +56,11 @@ class LexemeId extends SerializableEntityId implements Int32EntityId {
 		}
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getEntityType() {
+	public function getEntityType(): string {
 		return 'lexeme';
 	}
 
-	/**
-	 * @see Int32EntityId::getNumericId
-	 *
-	 * @return int
-	 */
-	public function getNumericId() {
+	public function getNumericId(): int {
 		return (int)substr( $this->serialization, 1 );
 	}
 

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use Wikibase\DataModel\Entity\ItemId;
@@ -19,64 +21,51 @@ use Wikibase\Lexeme\Domain\Model\SenseSet;
  */
 class NewLexeme {
 
-	/**
-	 * @var ItemId
-	 */
-	private $lexicalCategory;
+	private ItemId $lexicalCategory;
 
-	/**
-	 * @var ItemId
-	 */
-	private $language;
+	private ItemId $language;
 
-	/**
-	 * @var LexemeId|null
-	 */
-	private $lexemeId;
+	private ?LexemeId $lexemeId = null;
 
 	/**
 	 * FIXME: deceptive name
 	 * @var Snak[]
 	 */
-	private $statements = [];
+	private array $statements = [];
 
 	/**
 	 * @var string[] Lemmas indexed by language
 	 */
-	private $lemmas = [];
+	private array $lemmas = [];
 
 	/**
 	 * @var Sense[]
 	 */
-	private $senses = [];
+	private array $senses = [];
 
 	/**
 	 * @var Form[]
 	 */
-	private $forms = [];
+	private array $forms = [];
 
 	private const DEFAULT_ID = 'L1';
 
-	public static function create() {
+	public static function create(): self {
 		return new self();
 	}
 
 	/**
 	 * @param Form|NewForm $form
-	 *
-	 * @return self
 	 */
-	public static function havingForm( $form ) {
+	public static function havingForm( $form ): self {
 		$result = new self();
 		return $result->withForm( $form );
 	}
 
 	/**
 	 * @param Sense|NewSense $sense
-	 *
-	 * @return self
 	 */
-	public static function havingSense( $sense ) {
+	public static function havingSense( $sense ): self {
 		$result = new self();
 		return $result->withSense( $sense );
 	}
@@ -86,10 +75,7 @@ class NewLexeme {
 		$this->language = $this->newRandomItemId();
 	}
 
-	/**
-	 * @return Lexeme
-	 */
-	public function build() {
+	public function build(): Lexeme {
 		$forms = new FormSet( $this->forms );
 		$nextFormId = $forms->maxFormIdNumber() + 1;
 
@@ -129,10 +115,8 @@ class NewLexeme {
 
 	/**
 	 * @param ItemId|string $itemId
-	 *
-	 * @return self
 	 */
-	public function withLexicalCategory( $itemId ) {
+	public function withLexicalCategory( $itemId ): self {
 		$result = clone $this;
 		if ( !$itemId instanceof ItemId ) {
 			$itemId = new ItemId( $itemId );
@@ -143,10 +127,8 @@ class NewLexeme {
 
 	/**
 	 * @param ItemId|string $itemId
-	 *
-	 * @return self
 	 */
-	public function withLanguage( $itemId ) {
+	public function withLanguage( $itemId ): self {
 		$result = clone $this;
 		if ( !$itemId instanceof ItemId ) {
 			$itemId = new ItemId( $itemId );
@@ -157,10 +139,8 @@ class NewLexeme {
 
 	/**
 	 * @param LexemeId|string $lexemeId
-	 *
-	 * @return self
 	 */
-	public function withId( $lexemeId ) {
+	public function withId( $lexemeId ): self {
 		$result = clone $this;
 		if ( !$lexemeId instanceof LexemeId ) {
 			$lexemeId = new LexemeId( $lexemeId );
@@ -170,37 +150,31 @@ class NewLexeme {
 	}
 
 	// FIXME: deceptive name
-	public function withStatement( Snak $mainSnak ) {
+	public function withStatement( Snak $mainSnak ): self {
 		$result = clone $this;
 		$result->statements[] = clone $mainSnak;
 		return $result;
 	}
 
-	/**
-	 * @param string $language
-	 * @param string $lemma
-	 *
-	 * @return self
-	 */
-	public function withLemma( $language, $lemma ) {
+	public function withLemma( string $language, string $lemma ): self {
 		$result = clone $this;
 		$result->lemmas[$language] = $lemma;
 		return $result;
 	}
 
-	private function newRandomItemId() {
+	private function newRandomItemId(): ItemId {
 		return new ItemId( 'Q' . mt_rand( 1, ItemId::MAX ) );
 	}
 
-	private function newRandomLanguageCode() {
+	private function newRandomLanguageCode(): string {
 		return $this->newRandomString( 2 );
 	}
 
-	private function newRandomLemma() {
+	private function newRandomLemma(): string {
 		return $this->newRandomString( mt_rand( 5, 10 ) );
 	}
 
-	private function newRandomString( $length ) {
+	private function newRandomString( int $length ): string {
 		$characters = 'abcdefghijklmnopqrstuvwxyz';
 
 		return substr( str_shuffle( $characters ), 0, $length );
@@ -213,10 +187,8 @@ class NewLexeme {
 
 	/**
 	 * @param Sense|NewSense $sense
-	 *
-	 * @return self
 	 */
-	public function withSense( $sense ) {
+	public function withSense( $sense ): self {
 		$result = clone $this;
 
 		if ( $sense instanceof NewSense ) {
@@ -231,10 +203,8 @@ class NewLexeme {
 
 	/**
 	 * @param Form|NewForm $form
-	 *
-	 * @return self
 	 */
-	public function withForm( $form ) {
+	public function withForm( $form ): self {
 		$result = clone $this;
 
 		if ( $form instanceof NewForm ) {
@@ -246,13 +216,7 @@ class NewLexeme {
 		return $result;
 	}
 
-	/**
-	 * @param string $name
-	 * @param array $arguments
-	 *
-	 * @return self
-	 */
-	public static function __callStatic( $name, $arguments ) {
+	public static function __callStatic( string $name, array $arguments ): self {
 		$result = new self();
 		$methodName = str_replace( 'having', 'with', $name );
 		return call_user_func_array( [ $result, $methodName ], $arguments );
@@ -263,7 +227,7 @@ class NewLexeme {
 	 *
 	 * @return object[]
 	 */
-	private function cloneArrayOfObjects( array $objects ) {
+	private function cloneArrayOfObjects( array $objects ): array {
 		$result = [];
 		foreach ( $objects as $object ) {
 			$result[] = clone $object;

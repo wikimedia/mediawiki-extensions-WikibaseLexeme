@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use MediaWikiUnitTestCase;
@@ -157,11 +159,11 @@ class FormSetTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider equalsProvider
 	 */
-	public function testEquals( FormSet $set1, $set2, $isEqual ) {
+	public function testEquals( FormSet $set1, $set2, bool $isEqual ) {
 		$this->assertSame( $isEqual, $set1->equals( $set2 ) );
 	}
 
-	public static function equalsProvider() {
+	public static function equalsProvider(): iterable {
 		yield 'empty sets' => [
 			new FormSet(),
 			new FormSet(),
@@ -218,7 +220,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $formSet->hasFormWithId( $formId ) );
 	}
 
-	public static function provideFormSetAndContainedFormId() {
+	public static function provideFormSetAndContainedFormId(): iterable {
 		yield 'FormId already contained in set' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
 			new FormId( 'L42-F1' ),
@@ -236,7 +238,7 @@ class FormSetTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $formSet->hasFormWithId( $formId ) );
 	}
 
-	public static function provideFormSetAndUnaccountedFormId() {
+	public static function provideFormSetAndUnaccountedFormId(): iterable {
 		yield 'form not added to this set (yet)' => [
 			new FormSet( [ NewForm::havingLexeme( 'L42' )->andId( 'F1' )->build() ] ),
 			new FormId( 'L42-F17' ),

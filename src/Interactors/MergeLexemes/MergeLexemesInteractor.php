@@ -30,6 +30,7 @@ use Wikibase\Repo\EditEntity\MediaWikiEditEntityFactory;
 use Wikibase\Repo\Store\EntityPermissionChecker;
 use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
@@ -159,16 +160,19 @@ class MergeLexemesInteractor {
 
 	/**
 	 * @param string $direction either 'from' or 'to'
-	 * @param LexemeId $id
+	 * @param Lexeme $lexeme
 	 * @param string|null $customSummary
 	 *
 	 * @return Summary
 	 */
 	private function getSummary(
 		string $direction,
-		LexemeId $id,
+		Lexeme $lexeme,
 		?string $customSummary = null
 	): Summary {
+		$id = $lexeme->getId();
+		Assert::parameter( $id !== null, '$lexeme', 'must have a lexeme ID' );
+
 		$summary = new Summary( 'wblmergelexemes', $direction, null, [ $id->getSerialization() ] );
 		$summary->setUserSummary( $customSummary );
 
@@ -186,7 +190,7 @@ class MergeLexemesInteractor {
 		$toResult = $this->saveLexeme(
 			$source,
 			$context,
-			$this->getSummary( 'to', $target->getId(), $summary ),
+			$this->getSummary( 'to', $target, $summary ),
 			$botEditRequested,
 			$tags
 		);
@@ -195,7 +199,7 @@ class MergeLexemesInteractor {
 		$fromResult = $this->saveLexeme(
 			$target,
 			$context,
-			$this->getSummary( 'from', $source->getId(), $summary ),
+			$this->getSummary( 'from', $source, $summary ),
 			$botEditRequested,
 			$tags
 		);

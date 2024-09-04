@@ -7,6 +7,7 @@ use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityRefere
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
+use Wikimedia\Assert\Assert;
 
 /**
  * @license GPL-2.0-or-later
@@ -37,6 +38,8 @@ class NoCrossReferencingLexemeStatements {
 	public function validate( Lexeme $one, Lexeme $two ) {
 		$oneId = $one->getId();
 		$twoId = $two->getId();
+		Assert::parameter( $oneId !== null, '$one', 'must have a lexeme ID' );
+		Assert::parameter( $twoId !== null, '$two', 'must have a lexeme ID' );
 
 		$oneRefIds = $this->refExtractor->extractEntityIds( $one );
 		$twoRefIds = $this->refExtractor->extractEntityIds( $two );
