@@ -24,6 +24,7 @@ export default defineConfig({
 				...mwApiLexemeCommands( config, mwApiCommands(config) )
 			} );
 		},
+		defaultCommandTimeout: 20000,
 	},
 	screenshotsFolder: envLogDir || 'cypress/screenshots',
 	videosFolder: envLogDir || 'cypress/videos',
