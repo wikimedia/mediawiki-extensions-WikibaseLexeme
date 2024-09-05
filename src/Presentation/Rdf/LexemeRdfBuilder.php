@@ -11,8 +11,8 @@ use Wikibase\Repo\Rdf\TruthyStatementRdfBuilderFactory;
 /**
  * @license GPL-2.0-or-later
  */
-
 class LexemeRdfBuilder implements EntityRdfBuilder {
+
 	private ?EntityRdfBuilder $truthyStatementRdfBuilder = null;
 	private ?EntityRdfBuilder $fullStatementRdfBuilder = null;
 	private EntityRdfBuilder $lexemeSpecificComponentsRdfBuilder;
@@ -21,7 +21,7 @@ class LexemeRdfBuilder implements EntityRdfBuilder {
 		int $flavorFlags,
 		TruthyStatementRdfBuilderFactory $truthyStatementRdfBuilderFactory,
 		FullStatementRdfBuilderFactory $fullStatementRdfBuilderFactory,
-		LexemeSpecificComponentsRdfBuilder $lexemeSpecificComponentsRdfBuilder
+		EntityRdfBuilder $lexemeSpecificComponentsRdfBuilder
 	) {
 		if ( $flavorFlags & RdfProducer::PRODUCE_TRUTHY_STATEMENTS ) {
 			$this->truthyStatementRdfBuilder = $truthyStatementRdfBuilderFactory->getTruthyStatementRdfBuilder(
