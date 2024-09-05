@@ -30,6 +30,7 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
  */
 class ResultBuilderLexemeTest extends TestCase {
 
+	/** @var array */
 	private $originalWBRepoSettings;
 
 	protected function setUp(): void {

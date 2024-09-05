@@ -12,6 +12,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
  */
 class Scribunto_LuaWikibaseLexemeLibraryTest extends Scribunto_LuaWikibaseLexemeLibraryTestCase {
 
+	/** @var string */
 	protected static $moduleName = 'LuaWikibaseLexemeLibraryTests';
 
 	protected function getTestModules() {

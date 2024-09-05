@@ -19,6 +19,7 @@ use Wikimedia\Assert\Assert;
  */
 class ChangeOpSenseClone implements ChangeOp {
 
+	/** @var Sense */
 	private $sourceSense;
 
 	/**

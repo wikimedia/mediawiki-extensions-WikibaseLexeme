@@ -12,6 +12,7 @@ class EditFormElementsRequest {
 
 	private FormId $formId;
 	private ChangeOp $changeOp;
+	/** @var int|null */
 	private $baseRevId;
 
 	public function __construct( FormId $formId, ChangeOp $changeOp, $baseRevId ) {

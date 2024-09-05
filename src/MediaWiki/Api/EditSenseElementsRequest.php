@@ -12,6 +12,7 @@ class EditSenseElementsRequest {
 
 	private SenseId $senseId;
 	private ChangeOp $changeOp;
+	/** @var int|null */
 	private $baseRevId;
 
 	public function __construct( SenseId $senseId, ChangeOp $changeOp, $baseRevId ) {

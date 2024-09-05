@@ -16,8 +16,10 @@ class ValidationContext {
 	 */
 	private $parentContext;
 
+	/** @var string */
 	private $field;
 
+	/** @var string */
 	private $level = '';
 
 	/**

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Presentation\Rdf\LexemeRdfBuilder;
@@ -22,8 +23,11 @@ use Wikibase\Repo\Rdf\TruthyStatementRdfBuilderFactory;
  */
 class LexemeRdfBuilderTest extends TestCase {
 
+	/** @var TruthyStatementRdfBuilderFactory&MockObject */
 	private $truthyStatementRdfBuilderFactory;
+	/** @var FullStatementRdfBuilderFactory&MockObject */
 	private $fullStatementRdfBuilderFactory;
+	/** @var LexemeSpecificComponentsRdfBuilder&MockObject */
 	private $lexemeSpecificComponentsRdfBuilder;
 
 	protected function setUp(): void {
