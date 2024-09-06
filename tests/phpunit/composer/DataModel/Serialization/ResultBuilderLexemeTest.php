@@ -2,10 +2,8 @@
 
 use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
-use MediaWiki\MediaWikiServices;
 use MediaWiki\Site\HashSiteStore;
 use MediaWiki\Title\Title;
-use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\PropertyId;
@@ -28,25 +26,14 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
  *
  * @license GPL-2.0-or-later
  */
-class ResultBuilderLexemeTest extends TestCase {
-
-	/** @var array */
-	private $originalWBRepoSettings;
+class ResultBuilderLexemeTest extends MediaWikiIntegrationTestCase {
 
 	protected function setUp(): void {
 		global $wgWBRepoSettings;
 
 		parent::setUp();
-		$this->originalWBRepoSettings = $wgWBRepoSettings;
+		$this->stashMwGlobals( [ 'wgWBRepoSettings' ] );
 		$wgWBRepoSettings['tmpSerializeEmptyListsAsObjects'] = true;
-		MediaWikiServices::getInstance()->resetServiceForTesting( 'WikibaseRepo.Settings' );
-	}
-
-	protected function tearDown(): void {
-		global $wgWBRepoSettings;
-
-		$wgWBRepoSettings = $this->originalWBRepoSettings;
-		MediaWikiServices::getInstance()->resetServiceForTesting( 'WikibaseRepo.Settings' );
 	}
 
 	/**
