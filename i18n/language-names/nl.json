@@ -15,6 +15,7 @@
 	"wikibase-lexeme-language-name-cak": "Kaqchikel",
 	"wikibase-lexeme-language-name-ccp": "Chakma",
 	"wikibase-lexeme-language-name-ccp-beng": "Chakma (Bengaals schrift)",
+	"wikibase-lexeme-language-name-cdz-beng": "Koda (Bengaals schrift)",
 	"wikibase-lexeme-language-name-cnh": "Hakha-Chin",
 	"wikibase-lexeme-language-name-ctg": "Chitgonisch",
 	"wikibase-lexeme-language-name-de-1901": "Duits (traditionele spelling)",
@@ -32,9 +33,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "Japans (Hiragana-schrift)",
 	"wikibase-lexeme-language-name-ja-hrkt": "Japans (Kana-schrift)",
 	"wikibase-lexeme-language-name-ja-kana": "Japans (Katakana-schrift)",
+	"wikibase-lexeme-language-name-ksy-beng": "Kharia Thar (Bengaals schrift)",
+	"wikibase-lexeme-language-name-kyw-beng": "Kurmali (Bengaals schrift)",
+	"wikibase-lexeme-language-name-kyw-deva": "Kurmali (Devanagari-schrift)",
 	"wikibase-lexeme-language-name-lad-hebr": "Ladino (Hebreeuws schrift)",
 	"wikibase-lexeme-language-name-lij-mc": "Monegaskisch",
 	"wikibase-lexeme-language-name-mis": "niet-ondersteunde taal",
+	"wikibase-lexeme-language-name-mjx-beng": "Mahali (Bengaals schrift)",
 	"wikibase-lexeme-language-name-mvf": "Binnen-Mongools",
 	"wikibase-lexeme-language-name-nd": "Noord-Ndebele",
 	"wikibase-lexeme-language-name-nn-hognorsk": "Noors (Høgnorsk)",
@@ -68,5 +73,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "Klingon (Latijns schrift)",
 	"wikibase-lexeme-language-name-tlh-piqd": "Klingon (Klingon-schrift)",
 	"wikibase-lexeme-language-name-txg": "Tangut",
+	"wikibase-lexeme-language-name-txo-beng": "Toto (Bengaals schrift)",
 	"wikibase-lexeme-language-name-xbm": "Midden-Bretons"
 }
