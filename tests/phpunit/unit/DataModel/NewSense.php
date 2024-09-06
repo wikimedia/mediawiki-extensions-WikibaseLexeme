@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use Wikibase\DataModel\Entity\PropertyId;
@@ -25,29 +27,27 @@ class NewSense {
 	/**
 	 * @var string the ID of the lexeme to which the sense belongs (not yet modifiable)
 	 */
-	private $lexemeId = 'L1';
+	private string $lexemeId = 'L1';
 
 	/**
 	 * @var string|null the sense-specific part of the sense ID, excluding the lexeme ID
 	 */
-	private $senseId = null;
+	private ?string $senseId = null;
 
 	/**
 	 * @var Term[] Indexed by language
 	 */
-	private $glosses = [];
+	private array $glosses = [];
 
 	/**
 	 * @var Statement[]
 	 */
-	private $statements = [];
+	private array $statements = [];
 
 	/**
 	 * @param SenseId|string $senseId
-	 *
-	 * @return self
 	 */
-	public static function havingId( $senseId ) {
+	public static function havingId( $senseId ): self {
 		$senseBuilder = new self();
 		if ( $senseId instanceof SenseId ) {
 			$senseId = explode( '-', $senseId->getSerialization(), 2 )[1];
@@ -56,22 +56,14 @@ class NewSense {
 		return $senseBuilder;
 	}
 
-	/**
-	 * @param string $lang
-	 * @param string $gloss
-	 *
-	 * @return self
-	 */
-	public static function havingGloss( $lang, $gloss ) {
+	public static function havingGloss( string $lang, string $gloss ): self {
 		return ( new self() )->withGloss( $lang, $gloss );
 	}
 
 	/**
 	 * @param Statement|Snak|PropertyId $arg
-	 *
-	 * @return self
 	 */
-	public static function havingStatement( $arg ) {
+	public static function havingStatement( $arg ): self {
 		return ( new self() )->withStatement( $arg );
 	}
 
@@ -84,13 +76,7 @@ class NewSense {
 		$this->statements = $statements;
 	}
 
-	/**
-	 * @param string $language
-	 * @param string $gloss
-	 *
-	 * @return self
-	 */
-	public function withGloss( $language, $gloss ) {
+	public function withGloss( string $language, string $gloss ): self {
 		$result = clone $this;
 		if ( isset( $result->glosses[$language] ) ) {
 			throw new \LogicException(
@@ -104,10 +90,8 @@ class NewSense {
 
 	/**
 	 * @param Statement|Snak|PropertyId|NewStatement $arg
-	 *
-	 * @return self
 	 */
-	public function withStatement( $arg ) {
+	public function withStatement( $arg ): self {
 		$result = clone $this;
 		$statement = $arg;
 		if ( $arg instanceof NewStatement ) {
@@ -123,10 +107,8 @@ class NewSense {
 
 	/**
 	 * @param Lexeme|LexemeId|string $lexeme
-	 *
-	 * @return self
 	 */
-	public function andLexeme( $lexeme ) {
+	public function andLexeme( $lexeme ): self {
 		$result = clone $this;
 
 		if ( $lexeme instanceof Lexeme ) {
@@ -142,10 +124,7 @@ class NewSense {
 		return $result;
 	}
 
-	/**
-	 * @return Sense
-	 */
-	public function build() {
+	public function build(): Sense {
 		$senseId = $this->senseId ?: $this->newRandomSenseIdSensePart();
 
 		return new Sense(
@@ -155,7 +134,7 @@ class NewSense {
 		);
 	}
 
-	private function newRandomSenseIdSensePart() {
+	private function newRandomSenseIdSensePart(): string {
 		return 'S' . mt_rand( 1, mt_getrandmax() );
 	}
 

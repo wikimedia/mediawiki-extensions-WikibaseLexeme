@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use Wikibase\Lexeme\Domain\Model\FormId;
@@ -9,7 +11,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class DummyFormId extends FormId {
 
-	public function equals( $target ) {
+	public function equals( $target ): bool {
 		return $this->stemsFromNewlyCreatedForm( $target )
 			|| parent::equals( $target );
 	}
@@ -18,7 +20,7 @@ class DummyFormId extends FormId {
 	 * @param mixed $target
 	 * @return bool
 	 */
-	private function stemsFromNewlyCreatedForm( $target ) {
+	private function stemsFromNewlyCreatedForm( $target ): bool {
 		return $target instanceof NullFormId;
 	}
 

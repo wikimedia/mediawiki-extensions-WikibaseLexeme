@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use Wikibase\Lexeme\Domain\Model\SenseId;
@@ -11,7 +13,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class DummySenseId extends SenseId {
 
-	public function equals( $target ) {
+	public function equals( $target ): bool {
 		return $this->stemsFromNewlyCreatedSense( $target )
 			|| parent::equals( $target );
 	}
@@ -20,7 +22,7 @@ class DummySenseId extends SenseId {
 	 * @param mixed $target
 	 * @return bool
 	 */
-	private function stemsFromNewlyCreatedSense( $target ) {
+	private function stemsFromNewlyCreatedSense( $target ): bool {
 		return $target instanceof NullSenseId;
 	}
 

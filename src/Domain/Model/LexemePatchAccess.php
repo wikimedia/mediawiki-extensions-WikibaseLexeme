@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 /**
@@ -7,42 +9,23 @@ namespace Wikibase\Lexeme\Domain\Model;
  */
 class LexemePatchAccess {
 
-	/**
-	 * @var int
-	 */
-	private $nextFormId;
+	private int $nextFormId;
 
-	/**
-	 * @var FormSet
-	 */
-	private $forms;
+	private FormSet $forms;
 
-	/**
-	 * @var int
-	 */
-	private $nextSenseId;
+	private int $nextSenseId;
 
-	/**
-	 * @var SenseSet
-	 */
-	private $senses;
+	private SenseSet $senses;
 
-	/** @var bool */
-	private $isClosed = false;
+	private bool $isClosed = false;
 
-	/**
-	 * @param int $nextFormId
-	 * @param FormSet $forms
-	 * @param int $nextSenseId
-	 * @param SenseSet $senses
-	 */
-	public function __construct( $nextFormId, FormSet $forms, $nextSenseId, SenseSet $senses ) {
-		if ( !is_int( $nextFormId ) || $nextFormId < 1 ) {
+	public function __construct( int $nextFormId, FormSet $forms, int $nextSenseId, SenseSet $senses ) {
+		if ( $nextFormId < 1 ) {
 			throw new \InvalidArgumentException(
 				"nextFormId should be positive integer. Given: {$nextFormId}"
 			);
 		}
-		if ( !is_int( $nextSenseId ) || $nextSenseId < 1 ) {
+		if ( $nextSenseId < 1 ) {
 			throw new \InvalidArgumentException(
 				"nextSenseId should be positive integer. Given: {$nextSenseId}"
 			);
@@ -54,20 +37,13 @@ class LexemePatchAccess {
 		$this->senses = clone $senses;
 	}
 
-	public function addForm( Form $form ) {
+	public function addForm( Form $form ): void {
 		$this->assertIsNotClosed();
 
 		$this->forms->add( $form );
 	}
 
-	/**
-	 * @param int $number
-	 */
-	public function increaseNextFormIdTo( $number ) {
-		if ( !is_int( $number ) ) {
-			throw new \InvalidArgumentException( '$number` must be integer' );
-		}
-
+	public function increaseNextFormIdTo( int $number ): void {
 		if ( $number < $this->nextFormId ) {
 			throw new \LogicException(
 				"Cannot increase `nextFormId` because given number is less than counter value " .
@@ -78,17 +54,13 @@ class LexemePatchAccess {
 		$this->nextFormId = $number;
 	}
 
-	public function addSense( Sense $sense ) {
+	public function addSense( Sense $sense ): void {
 		$this->assertIsNotClosed();
 
 		$this->senses->add( $sense );
 	}
 
-	public function increaseNextSenseIdTo( $number ) {
-		if ( !is_int( $number ) ) {
-			throw new \InvalidArgumentException( '$number` must be integer' );
-		}
-
+	public function increaseNextSenseIdTo( int $number ): void {
 		if ( $number < $this->nextSenseId ) {
 			throw new \LogicException(
 				"Cannot increase `nextSenseId` because given number is less than counter value " .
@@ -99,39 +71,27 @@ class LexemePatchAccess {
 		$this->nextSenseId = $number;
 	}
 
-	public function close() {
+	public function close(): void {
 		$this->isClosed = true;
 	}
 
-	/**
-	 * @return FormSet
-	 */
-	public function getForms() {
+	public function getForms(): FormSet {
 		return $this->forms;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getNextFormId() {
+	public function getNextFormId(): int {
 		return $this->nextFormId;
 	}
 
-	/**
-	 * @return SenseSet
-	 */
-	public function getSenses() {
+	public function getSenses(): SenseSet {
 		return $this->senses;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getNextSenseId() {
+	public function getNextSenseId(): int {
 		return $this->nextSenseId;
 	}
 
-	private function assertIsNotClosed() {
+	private function assertIsNotClosed(): void {
 		if ( $this->isClosed ) {
 			throw new \LogicException( "Cannot modify closed LexemePatchAccess" );
 		}

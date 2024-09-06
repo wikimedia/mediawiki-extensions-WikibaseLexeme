@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
@@ -20,11 +22,9 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 'L1-S1', $id->getSerialization() );
 	}
 
-	public static function provideInvalidSerializations() {
+	public static function provideInvalidSerializations(): iterable {
 		return [
-			[ null ],
 			[ '' ],
-			[ 1 ],
 			[ '1' ],
 			[ 'L1-S' ],
 			[ 'L1-S0' ],
@@ -39,7 +39,7 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider provideInvalidSerializations
 	 */
-	public function testGivenInvalidSerialization_constructorThrowsAnException( $id ) {
+	public function testGivenInvalidSerialization_constructorThrowsAnException( string $id ) {
 		$this->expectException( InvalidArgumentException::class );
 		new SenseId( $id );
 	}
@@ -50,16 +50,16 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 	}
 
 	/** @dataProvider provideInvalidSerializations */
-	public function testGivenInvalidSerialization_unserializeThrowsAnException( $id ): void {
-		$id = new SenseId( 'L1-S1' );
+	public function testGivenInvalidSerialization_unserializeThrowsAnException( string $id ): void {
+		$senseId = new SenseId( 'L1-S1' );
 		$this->expectException( InvalidArgumentException::class );
-		$id->__unserialize( [ 'serialization' => $id ] );
+		$senseId->__unserialize( [ 'serialization' => $id ] );
 	}
 
 	/**
 	 * @dataProvider provideLexemeIdMatchingSenseId
 	 */
-	public function testGetLexemeId_yieldsIdMatchingLocalPart( $expectedLexemeId, $givenSenseId ) {
+	public function testGetLexemeId_yieldsIdMatchingLocalPart( string $expectedLexemeId, string $givenSenseId ) {
 		$id = new SenseId( $givenSenseId );
 		$lexemeId = $id->getLexemeId();
 
@@ -67,7 +67,7 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $expectedLexemeId, $lexemeId->getSerialization() );
 	}
 
-	public static function provideLexemeIdMatchingSenseId() {
+	public static function provideLexemeIdMatchingSenseId(): iterable {
 		yield [ 'L1', 'L1-S1' ];
 		yield [ 'L777', 'L777-S123' ];
 	}
@@ -75,14 +75,14 @@ class SenseIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider idSuffixProvider
 	 */
-	public function testGetIdSuffix( $expected, $senseIdSerialization ) {
+	public function testGetIdSuffix( string $expected, string $senseIdSerialization ) {
 		$this->assertSame(
 			$expected,
 			( new SenseId( $senseIdSerialization ) )->getIdSuffix()
 		);
 	}
 
-	public static function idSuffixProvider() {
+	public static function idSuffixProvider(): iterable {
 		yield [ 'S1', 'L1-S1' ];
 		yield [ 'S123', 'L321-S123' ];
 	}

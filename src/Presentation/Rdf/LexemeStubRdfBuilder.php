@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Repo\Rdf\EntityStubRdfBuilder;
 use Wikibase\Repo\Rdf\RdfVocabulary;
+use Wikimedia\Assert\Assert;
 use Wikimedia\Purtle\RdfWriter;
 
 /**
@@ -83,6 +84,7 @@ class LexemeStubRdfBuilder implements EntityStubRdfBuilder {
 	 */
 	private function addLexemeStub( Lexeme $lexeme ): void {
 		$lexemeId = $lexeme->getId();
+		Assert::parameter( $lexemeId !== null, '$lexeme', 'must have a lexeme ID' );
 		$lexemeLName = $this->vocabulary->getEntityLName( $lexemeId );
 		$repositoryName = $this->vocabulary->getEntityRepositoryName( $lexemeId );
 		$lexemePrefix = $this->vocabulary->entityNamespaceNames[ $repositoryName ];

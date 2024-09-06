@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use Wikibase\DataModel\Term\TermList;
@@ -21,7 +23,7 @@ class BlankSense extends Sense {
 		);
 	}
 
-	public function setId( $id ) {
+	public function setId( $id ): void {
 		parent::setId( new DummySenseId( $id->getSerialization() ) );
 	}
 

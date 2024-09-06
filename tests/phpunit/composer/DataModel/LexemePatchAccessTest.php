@@ -67,13 +67,6 @@ class LexemePatchAccessTest extends TestCase {
 		$lexemePatchAccess->increaseNextFormIdTo( 1 );
 	}
 
-	public function testIncreaseNextFormIdTo_GivenNonInteger_ThrowsAnException() {
-		$lexemePatchAccess = new LexemePatchAccess( 1, new FormSet(), 1, new SenseSet() );
-
-		$this->expectException( \Exception::class );
-		$lexemePatchAccess->increaseNextFormIdTo( 2.0 );
-	}
-
 	public function testCanAddASense() {
 		$lexemePatchAccess = new LexemePatchAccess( 1, new FormSet(), 1, new SenseSet() );
 		$sense = NewSense::havingId( 'S1' )->build();
@@ -121,13 +114,6 @@ class LexemePatchAccessTest extends TestCase {
 
 		$this->expectException( \Exception::class );
 		$lexemePatchAccess->increaseNextSenseIdTo( 1 );
-	}
-
-	public function testIncreaseNextSenseIdTo_GivenNonInteger_ThrowsAnException() {
-		$lexemePatchAccess = new LexemePatchAccess( 1, new FormSet(), 1, new SenseSet() );
-
-		$this->expectException( \Exception::class );
-		$lexemePatchAccess->increaseNextSenseIdTo( 2.0 );
 	}
 
 }

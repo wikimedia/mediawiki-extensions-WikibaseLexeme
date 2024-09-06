@@ -91,18 +91,6 @@ class LexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $id, $lexeme->getId() );
 	}
 
-	public function testCanNotCreateWithNonIntNextFormId() {
-		$this->expectException( \Exception::class );
-		new Lexeme(
-			new LexemeId( 'L1' ),
-			null,
-			null,
-			null,
-			null,
-			1.0
-		);
-	}
-
 	public function testCanNotCreateWithNonPositiveNextFormId() {
 		$this->expectException( \Exception::class );
 		new Lexeme(
@@ -138,20 +126,6 @@ class LexemeTest extends MediaWikiUnitTestCase {
 			null,
 			1,
 			new FormSet( [ NewForm::havingId( 'F1' )->build() ] )
-		);
-	}
-
-	public function testCanNotCreateWithNonIntNextSenseId() {
-		$this->expectException( \Exception::class );
-		new Lexeme(
-			new LexemeId( 'L1' ),
-			null,
-			null,
-			null,
-			null,
-			1,
-			null,
-			1.0
 		);
 	}
 

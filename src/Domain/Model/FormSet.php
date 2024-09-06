@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 use Countable;
@@ -16,7 +18,7 @@ class FormSet implements Countable {
 	/**
 	 * @var Form[] indexed by serialization of FormId
 	 */
-	private $forms = [];
+	private array $forms = [];
 
 	/**
 	 * @param Form[] $forms
@@ -34,7 +36,7 @@ class FormSet implements Countable {
 	/**
 	 * @return Form[]
 	 */
-	public function toArray() {
+	public function toArray(): array {
 		$forms = $this->sortForms( $this->forms );
 		return array_values( $forms );
 	}
@@ -54,9 +56,9 @@ class FormSet implements Countable {
 
 	/**
 	 * @param Form[] $forms
-	 * @return array sorted array mapping numeric id to the form
+	 * @return Form[] sorted array mapping numeric id to the form
 	 */
-	private function sortForms( array $forms ) {
+	private function sortForms( array $forms ): array {
 		$sortedForms = [];
 		foreach ( $forms as $form ) {
 			$formIdPart = explode( '-', $form->getId()->getSerialization(), 2 )[1];
@@ -68,17 +70,11 @@ class FormSet implements Countable {
 		return $sortedForms;
 	}
 
-	/**
-	 * @return int
-	 */
 	public function count(): int {
 		return count( $this->forms );
 	}
 
-	/**
-	 * @return int
-	 */
-	public function maxFormIdNumber() {
+	public function maxFormIdNumber(): int {
 		if ( !$this->forms ) {
 			return 0;
 		}
@@ -90,7 +86,7 @@ class FormSet implements Countable {
 		return max( $numbers );
 	}
 
-	public function add( Form $form ) {
+	public function add( Form $form ): void {
 		$formId = $form->getId()->getSerialization();
 		if ( isset( $this->forms[$formId] ) ) {
 			throw new ConflictException(
@@ -101,33 +97,23 @@ class FormSet implements Countable {
 		$this->forms[$formId] = $form;
 	}
 
-	public function remove( FormId $formId ) {
+	public function remove( FormId $formId ): void {
 		unset( $this->forms[$formId->getSerialization()] );
 	}
 
 	/**
 	 * Replace the form identified by $form->getId() with the given one or add it
-	 *
-	 * @param Form $form
 	 */
-	public function put( Form $form ) {
+	public function put( Form $form ): void {
 		$this->remove( $form->getId() );
 		$this->add( $form );
 	}
 
-	/**
-	 * @param FormId $formId
-	 *
-	 * @return Form|null
-	 */
-	public function getById( FormId $formId ) {
+	public function getById( FormId $formId ): ?Form {
 		return $this->forms[$formId->getSerialization()] ?? null;
 	}
 
-	/**
-	 * @return self
-	 */
-	public function copy() {
+	public function copy(): self {
 		return clone $this;
 	}
 
@@ -142,14 +128,11 @@ class FormSet implements Countable {
 		$this->forms = $clonedForms;
 	}
 
-	/**
-	 * @return bool
-	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		return !$this->forms;
 	}
 
-	public function equals( $other ) {
+	public function equals( $other ): bool {
 		if ( $this === $other ) {
 			return true;
 		}
@@ -161,18 +144,11 @@ class FormSet implements Countable {
 		return $this->sameForms( $other );
 	}
 
-	/**
-	 * @param FormId $formId
-	 * @return bool
-	 */
-	public function hasFormWithId( FormId $formId ) {
+	public function hasFormWithId( FormId $formId ): bool {
 		return $this->getById( $formId ) !== null;
 	}
 
-	/**
-	 * @return bool
-	 */
-	private function sameForms( FormSet $other ) {
+	private function sameForms( FormSet $other ): bool {
 		if ( $this->count() !== $other->count() ) {
 			return false;
 		}

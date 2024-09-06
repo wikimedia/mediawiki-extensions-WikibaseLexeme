@@ -1,8 +1,9 @@
 <?php
 
+declare( strict_types  = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
-use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\ClearableEntity;
 use Wikibase\DataModel\Entity\ItemId;
@@ -25,33 +26,20 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 
 	public const ENTITY_TYPE = 'form';
 
-	/**
-	 * @var FormId
-	 */
-	protected $id;
+	protected FormId $id;
 
-	/**
-	 * @var TermList
-	 */
-	protected $representations;
+	protected TermList $representations;
 
-	/**
-	 * @var ItemId[]
-	 */
-	protected $grammaticalFeatures;
+	/** @var ItemId[] */
+	protected array $grammaticalFeatures;
 
-	/**
-	 * @var StatementList
-	 */
-	protected $statementList;
+	protected StatementList $statementList;
 
 	/**
 	 * @param FormId $id
 	 * @param TermList $representations
 	 * @param ItemId[] $grammaticalFeatures
 	 * @param StatementList|null $statementList
-	 *
-	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
 		FormId $id,
@@ -65,24 +53,18 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 		$this->statementList = $statementList ?: new StatementList();
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getType() {
+	public function getType(): string {
 		return self::ENTITY_TYPE;
 	}
 
-	/**
-	 * @return FormId
-	 */
-	public function getId() {
+	public function getId(): FormId {
 		return $this->id;
 	}
 
 	/**
 	 * @param FormId $id
 	 */
-	public function setId( $id ) {
+	public function setId( $id ): void {
 		Assert::parameterType( FormId::class, $id, '$id' );
 
 		// all dummy FormIds are also FormIds that's why this check looks overly complicated
@@ -98,25 +80,23 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 	 *
 	 * Note that in some places "representation" means just the text of a representation and the
 	 * language code is called "spelling variant".
-	 *
-	 * @return TermList
 	 */
-	public function getRepresentations() {
+	public function getRepresentations(): TermList {
 		return $this->representations;
 	}
 
-	public function setRepresentations( TermList $representations ) {
+	public function setRepresentations( TermList $representations ): void {
 		$this->representations = $representations;
 	}
 
 	/**
 	 * @return ItemId[]
 	 */
-	public function getGrammaticalFeatures() {
+	public function getGrammaticalFeatures(): array {
 		return $this->grammaticalFeatures;
 	}
 
-	public function setGrammaticalFeatures( array $grammaticalFeatures ) {
+	public function setGrammaticalFeatures( array $grammaticalFeatures ): void {
 		Assert::parameterElementType( ItemId::class, $grammaticalFeatures, '$grammaticalFeatures' );
 
 		$result = array_unique( $grammaticalFeatures );
@@ -129,16 +109,11 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 	}
 
 	/** @inheritDoc */
-	public function getStatements() {
+	public function getStatements(): StatementList {
 		return $this->statementList;
 	}
 
-	/**
-	 * @see EntityDocument::isEmpty
-	 *
-	 * @return bool
-	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		return $this->representations->isEmpty()
 			&& $this->grammaticalFeatures === []
 			&& $this->statementList->isEmpty();
@@ -151,7 +126,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 	 *
 	 * @return bool True if the forms contents are equal. Does not consider the ID.
 	 */
-	public function equals( $target ) {
+	public function equals( $target ): bool {
 		if ( $this === $target ) {
 			return true;
 		}
@@ -162,12 +137,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 			&& $this->statementList->equals( $target->statementList );
 	}
 
-	/**
-	 * @see EntityDocument::copy
-	 *
-	 * @return self
-	 */
-	public function copy() {
+	public function copy(): self {
 		return clone $this;
 	}
 
@@ -184,7 +154,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 	 * Clears the representations, grammatical features and statements of a form.
 	 * Note that this leaves the form in an insufficiently initialized state.
 	 */
-	public function clear() {
+	public function clear(): void {
 		$this->representations = new TermList();
 		$this->grammaticalFeatures = [];
 		$this->statementList = new StatementList();

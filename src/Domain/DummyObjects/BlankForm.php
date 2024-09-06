@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use Wikibase\DataModel\Term\TermList;
@@ -18,7 +20,7 @@ class BlankForm extends Form {
 		);
 	}
 
-	public function setId( $id ) {
+	public function setId( $id ): void {
 		parent::setId( new DummyFormId( $id->getSerialization() ) );
 	}
 

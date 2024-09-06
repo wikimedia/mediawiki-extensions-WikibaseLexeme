@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use Exception;
@@ -159,11 +161,11 @@ class SenseSetTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider equalsProvider
 	 */
-	public function testEquals( SenseSet $set1, $set2, $isEqual ) {
+	public function testEquals( SenseSet $set1, $set2, bool $isEqual ) {
 		$this->assertSame( $isEqual, $set1->equals( $set2 ) );
 	}
 
-	public static function equalsProvider() {
+	public static function equalsProvider(): iterable {
 		yield 'empty sets' => [
 			new SenseSet(),
 			new SenseSet(),

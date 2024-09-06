@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 use InvalidArgumentException;
@@ -25,65 +27,28 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 
 	public const ENTITY_TYPE = 'lexeme';
 
-	/**
-	 * @var LexemeId|null
-	 */
-	private $id;
+	private ?LexemeId $id;
 
-	/**
-	 * @var StatementList
-	 */
-	private $statements;
+	private StatementList $statements;
 
-	/**
-	 * @var TermList
-	 */
-	private $lemmas;
+	private TermList $lemmas;
 
-	/**
-	 * @var ItemId|null
-	 */
-	private $lexicalCategory;
+	private ?ItemId $lexicalCategory;
 
-	/**
-	 * @var ItemId|null
-	 */
-	private $language;
+	private ?ItemId $language;
 
-	/**
-	 * @var FormSet
-	 */
-	private $forms;
+	private FormSet $forms;
 
-	/**
-	 * @var SenseSet
-	 */
-	private $senses;
+	private SenseSet $senses;
 
-	/**
-	 * @var int
-	 */
-	private $nextFormId;
+	private int $nextFormId;
 
-	/**
-	 * @var int
-	 */
-	private $nextSenseId;
+	private int $nextSenseId;
 
 	/**
 	 * Note that $lexicalCategory and $language can only be null during construction time. Their
 	 * setters can not be called with null, and their getters will throw an exception if the
 	 * corresponding field was never initialized.
-	 *
-	 * @param LexemeId|null $id
-	 * @param TermList|null $lemmas
-	 * @param ItemId|null $lexicalCategory
-	 * @param ItemId|null $language
-	 * @param StatementList|null $statements
-	 * @param int $nextFormId
-	 * @param FormSet|null $forms
-	 * @param int $nextSenseId
-	 * @param SenseSet|null $senses
 	 */
 	public function __construct(
 		LexemeId $id = null,
@@ -91,9 +56,9 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		ItemId $lexicalCategory = null,
 		ItemId $language = null,
 		StatementList $statements = null,
-		$nextFormId = 1,
+		int $nextFormId = 1,
 		FormSet $forms = null,
-		$nextSenseId = 1,
+		int $nextSenseId = 1,
 		SenseSet $senses = null
 	) {
 		$this->id = $id;
@@ -110,17 +75,11 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		$this->nextSenseId = $nextSenseId;
 	}
 
-	/**
-	 * @return LexemeId|null
-	 */
-	public function getId() {
+	public function getId(): ?LexemeId {
 		return $this->id;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getType() {
+	public function getType(): string {
 		return self::ENTITY_TYPE;
 	}
 
@@ -148,7 +107,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	 *  that neither ID nor lexical category nor language can be set to null, and are therefor not
 	 *  taken into account.
 	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		return $this->lemmas->isEmpty()
 			&& $this->statements->isEmpty()
 			&& $this->forms->isEmpty()
@@ -162,7 +121,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	 *
 	 * @return bool
 	 */
-	public function equals( $target ) {
+	public function equals( $target ): bool {
 		if ( $this === $target ) {
 			return true;
 		}
@@ -194,12 +153,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 			&& $this->statements->equals( $target->statements );
 	}
 
-	/**
-	 * @see EntityDocument::copy
-	 *
-	 * @return self
-	 */
-	public function copy() {
+	public function copy(): self {
 		return clone $this;
 	}
 
@@ -218,16 +172,15 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		return $this->lemmas;
 	}
 
-	public function setLemmas( TermList $lemmas ) {
+	public function setLemmas( TermList $lemmas ): void {
 		$this->lemmas = $lemmas;
 	}
 
 	/**
 	 * @throws UnexpectedValueException when the object was constructed with $lexicalCategory set to
 	 * null, and the field was never initialized since then.
-	 * @return ItemId
 	 */
-	public function getLexicalCategory() {
+	public function getLexicalCategory(): ItemId {
 		if ( !$this->lexicalCategory ) {
 			throw new UnexpectedValueException( 'Can not access uninitialized field' );
 		}
@@ -235,13 +188,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		return $this->lexicalCategory;
 	}
 
-	/**
-	 * @param ItemId|null $lexicalCategory
-	 */
-	public function setLexicalCategory( $lexicalCategory ) {
-		if ( !$lexicalCategory instanceof ItemId && $lexicalCategory !== null ) {
-			throw new InvalidArgumentException( '$lexicalCategory must be an ItemId or null' );
-		}
+	public function setLexicalCategory( ?ItemId $lexicalCategory ): void {
 		$this->lexicalCategory = $lexicalCategory;
 	}
 
@@ -257,13 +204,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		return $this->language;
 	}
 
-	/**
-	 * @param ItemId|null $language
-	 */
-	public function setLanguage( $language ) {
-		if ( !$language instanceof ItemId && $language !== null ) {
-			throw new InvalidArgumentException( '$language must be an ItemId or null' );
-		}
+	public function setLanguage( ?ItemId $language ): void {
 		$this->language = $language;
 	}
 
@@ -278,25 +219,18 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	/**
 	 * @return bool False if a non-optional field was never initialized, true otherwise.
 	 */
-	public function isSufficientlyInitialized() {
+	public function isSufficientlyInitialized(): bool {
 		return $this->id !== null
 			&& $this->language !== null
 			&& $this->lexicalCategory !== null
-			&& $this->lemmas !== null
 			&& !$this->lemmas->isEmpty();
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getNextFormId() {
+	public function getNextFormId(): int {
 		return $this->nextFormId;
 	}
 
-	/**
-	 * @return int
-	 */
-	public function getNextSenseId() {
+	public function getNextSenseId(): int {
 		return $this->nextSenseId;
 	}
 
@@ -336,10 +270,8 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	 * Replace the form identified by $form->getId() with the given one or add it.
 	 *
 	 * New form ids are generated for forms with a NullFormId or an unknown DummyFormId.
-	 *
-	 * @param Form $form
 	 */
-	public function addOrUpdateForm( Form $form ) {
+	public function addOrUpdateForm( Form $form ): void {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Can not add forms to a lexeme with no ID' );
 		}
@@ -360,7 +292,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	/**
 	 * Replace the sense identified by $sense->getId() with the given one or add it.
 	 */
-	public function addOrUpdateSense( Sense $sense ) {
+	public function addOrUpdateSense( Sense $sense ): void {
 		if ( !$this->id ) {
 			throw new \LogicException( 'Cannot add sense to a lexeme with no ID' );
 		}
@@ -377,22 +309,15 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		$this->assertCorrectNextSenseIdIsGiven( $this->getNextSenseId(), $this->getSenses() );
 	}
 
-	public function removeForm( FormId $formId ) {
+	public function removeForm( FormId $formId ): void {
 		$this->forms->remove( $formId );
 	}
 
-	public function removeSense( SenseId $senseId ) {
+	public function removeSense( SenseId $senseId ): void {
 		$this->senses->remove( $senseId );
 	}
 
-	/**
-	 * @param int $number
-	 */
-	private function increaseNextFormIdTo( $number ) {
-		if ( !is_int( $number ) ) {
-			throw new \InvalidArgumentException( '$number` must be integer' );
-		}
-
+	private function increaseNextFormIdTo( int $number ): void {
 		if ( $number < $this->nextFormId ) {
 			throw new \LogicException(
 				"Cannot increase `nextFormId` because given number is less than counter value " .
@@ -403,14 +328,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		$this->nextFormId = $number;
 	}
 
-	/**
-	 * @param int $number
-	 */
-	private function increaseNextSenseIdTo( $number ) {
-		if ( !is_int( $number ) ) {
-			throw new \InvalidArgumentException( '$number` must be integer' );
-		}
-
+	private function increaseNextSenseIdTo( int $number ): void {
 		if ( $number < $this->nextSenseId ) {
 			throw new \LogicException(
 				"Cannot increase `nextSenseId` because given number is less than counter value " .
@@ -421,7 +339,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		$this->nextSenseId = $number;
 	}
 
-	public function patch( callable $patcher ) {
+	public function patch( callable $patcher ): void {
 		$lexemePatchAccess = new LexemePatchAccess(
 			$this->nextFormId,
 			$this->forms,
@@ -447,12 +365,8 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		$this->senses = $newSenseSet;
 	}
 
-	/**
-	 * @param int $nextFormId
-	 * @param FormSet $formSet
-	 */
-	private function assertCorrectNextFormIdIsGiven( $nextFormId, FormSet $formSet ) {
-		if ( !is_int( $nextFormId ) || $nextFormId < 1 ) {
+	private function assertCorrectNextFormIdIsGiven( int $nextFormId, FormSet $formSet ): void {
+		if ( $nextFormId < 1 ) {
 			throw new \InvalidArgumentException( '$nextFormId should be a positive integer' );
 		}
 
@@ -479,12 +393,8 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		}
 	}
 
-	/**
-	 * @param int $nextSenseId
-	 * @param SenseSet $senseSet
-	 */
-	private function assertCorrectNextSenseIdIsGiven( $nextSenseId, SenseSet $senseSet ) {
-		if ( !is_int( $nextSenseId ) || $nextSenseId < 1 ) {
+	private function assertCorrectNextSenseIdIsGiven( int $nextSenseId, SenseSet $senseSet ): void {
+		if ( $nextSenseId < 1 ) {
 			throw new InvalidArgumentException( '$nextSenseId should be a positive integer' );
 		}
 
@@ -515,7 +425,7 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	 * Clears lemmas, language, lexical category, statements, forms, and senses of the lexeme.
 	 * Note that this leaves the lexeme in an insufficiently initialized state.
 	 */
-	public function clear() {
+	public function clear(): void {
 		$this->lemmas = new TermList();
 		$this->statements = new StatementList();
 		$this->forms = new FormSet( [] );

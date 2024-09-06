@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Domain\Model;
 
 use LogicException;
@@ -23,20 +25,11 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 
 	public const ENTITY_TYPE = 'sense';
 
-	/**
-	 * @var SenseId
-	 */
-	protected $id;
+	protected SenseId $id;
 
-	/**
-	 * @var TermList
-	 */
-	protected $glossList;
+	protected TermList $glossList;
 
-	/**
-	 * @var StatementList
-	 */
-	protected $statementList;
+	protected StatementList $statementList;
 
 	public function __construct(
 		SenseId $id,
@@ -48,35 +41,19 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 		$this->statementList = $statementList ?: new StatementList();
 	}
 
-	/**
-	 * @return SenseId
-	 */
-	public function getId() {
+	public function getId(): SenseId {
 		return $this->id;
 	}
 
-	/**
-	 * @return TermList
-	 */
-	public function getGlosses() {
+	public function getGlosses(): TermList {
 		return $this->glossList;
 	}
 
-	/**
-	 * @return StatementList
-	 */
-	public function getStatements() {
+	public function getStatements(): StatementList {
 		return $this->statementList;
 	}
 
-	/**
-	 * @see EntityDocument::copy
-	 *
-	 * @since 0.1
-	 *
-	 * @return self
-	 */
-	public function copy() {
+	public function copy(): self {
 		return clone $this;
 	}
 
@@ -91,17 +68,14 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 		$this->statementList = clone $this->statementList;
 	}
 
-	/**
-	 * @return string
-	 */
-	public function getType() {
+	public function getType(): string {
 		return 'sense';
 	}
 
 	/**
 	 * @param SenseId $id
 	 */
-	public function setId( $id ) {
+	public function setId( $id ): void {
 		Assert::parameterType( SenseId::class, $id, '$id' );
 
 		if ( !( $this->id instanceof NullSenseId || $this->id instanceof DummySenseId ) ) {
@@ -111,12 +85,7 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 		$this->id = $id;
 	}
 
-	/**
-	 * @see EntityDocument::isEmpty
-	 *
-	 * @return bool
-	 */
-	public function isEmpty() {
+	public function isEmpty(): bool {
 		return $this->glossList->isEmpty()
 			&& $this->statementList->isEmpty();
 	}
@@ -128,7 +97,7 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 	 *
 	 * @return bool True if the sense's contents are equal. Does not consider the ID.
 	 */
-	public function equals( $target ) {
+	public function equals( $target ): bool {
 		if ( $this === $target ) {
 			return true;
 		}
@@ -142,7 +111,7 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 	 * Clears the glosses and statements of a sense.
 	 * Note that this leaves the sense in an insufficiently initialized state.
 	 */
-	public function clear() {
+	public function clear(): void {
 		$this->glossList = new TermList();
 		$this->statementList = new StatementList();
 	}

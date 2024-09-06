@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use LogicException;
@@ -52,7 +54,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $sense->isEmpty() );
 	}
 
-	public static function provideNonEmptySenses() {
+	public static function provideNonEmptySenses(): iterable {
 		return [
 			'2 glosses' => [
 				NewSense::havingGloss( 'en', 'one' )
@@ -73,7 +75,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $sense->isEmpty() );
 	}
 
-	public static function provideEqualSenses() {
+	public static function provideEqualSenses(): iterable {
 		$minimal = NewSense::havingId( 'S1' )->withGloss( 'en', 'minimal' );
 		$nonEmpty = $minimal->withStatement( self::newStatement() );
 
@@ -106,7 +108,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $sense1->equals( $sense2 ) );
 	}
 
-	public static function provideUnequalSenses() {
+	public static function provideUnequalSenses(): iterable {
 		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'minimal' );
 
 		return [
@@ -132,7 +134,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertFalse( $sense1->equals( $sense2 ) );
 	}
 
-	private static function newStatement() {
+	private static function newStatement(): Statement {
 		return new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
 	}
 
@@ -148,7 +150,7 @@ class SenseTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( $clone->getId(), $sense->getId(), 'ids must be equal' );
 	}
 
-	public static function clearableProvider() {
+	public static function clearableProvider(): iterable {
 		return [
 			'empty' => [ NewSense::havingId( 'S1' )->build() ],
 			'with gloss' => [

@@ -1,5 +1,7 @@
 <?php
 
+declare( strict_types = 1 );
+
 namespace Wikibase\Lexeme\Tests\Unit\DataModel;
 
 use InvalidArgumentException;
@@ -16,7 +18,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider idSerializationProvider
 	 */
-	public function testCanConstructId( $serialization, $normalizedSerialization ) {
+	public function testCanConstructId( string $serialization, string $normalizedSerialization ) {
 		$id = new LexemeId( $serialization );
 		$this->assertSame( $normalizedSerialization, $id->getSerialization() );
 	}
@@ -24,7 +26,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider idSerializationProvider
 	 */
-	public function testSerializationWorksProperly( $serialization ) {
+	public function testSerializationWorksProperly( string $serialization ) {
 		$expected = new LexemeId( $serialization );
 
 		/** @var LexemeId $unserialized */
@@ -33,7 +35,7 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $expected->equals( $unserialized ), 'equality as defined in EntityId' );
 	}
 
-	public static function idSerializationProvider() {
+	public static function idSerializationProvider(): iterable {
 		return [
 			[ 'l1', 'L1' ],
 			[ 'l100', 'L100' ],
@@ -48,12 +50,12 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 	/**
 	 * @dataProvider invalidIdSerializationProvider
 	 */
-	public function testCannotConstructWithInvalidSerialization( $invalidSerialization ) {
+	public function testCannotConstructWithInvalidSerialization( string $invalidSerialization ) {
 		$this->expectException( InvalidArgumentException::class );
 		new LexemeId( $invalidSerialization );
 	}
 
-	public static function invalidIdSerializationProvider() {
+	public static function invalidIdSerializationProvider(): iterable {
 		return [
 			[ "L1\n" ],
 			[ 'l' ],
@@ -68,8 +70,6 @@ class LexemeIdTest extends MediaWikiUnitTestCase {
 			[ ' ' ],
 			[ '' ],
 			[ '0' ],
-			[ 0 ],
-			[ 1 ],
 			[ 'L2147483648' ],
 			[ 'L99999999999' ],
 			[ ':L42', 'L42' ],
