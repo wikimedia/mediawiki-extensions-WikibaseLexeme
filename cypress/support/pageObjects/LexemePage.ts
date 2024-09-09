@@ -48,6 +48,16 @@ export class LexemePage {
 		};
 	}
 
+	private static get MEDIAWIKI_PAGE_SELECTORS(): Record<string, string> {
+		return {
+			VIEW_HISTORY_LINK: '#right-navigation #p-views #ca-history a',
+			RESTORE_REVISION_LINK: 'a[href*=restore]',
+			UNDO_OR_RESTORE_SAVE_PAGE_BUTTON:
+				'#bodyContent #mw-content-text .editOptions .editButtons button',
+			UNDO_REVISION_LINK: '#mw-content-text #pagehistory li .mw-history-undo a'
+		};
+	}
+
 	public getRedundantLanguageWarning(): Chainable {
 		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.REDUNDANT_LANGUAGE_WARNING );
 	}
@@ -222,4 +232,37 @@ export class LexemePage {
 		} );
 		return this;
 	}
+
+	private viewHistoryLink(): Chainable {
+		return cy.get( this.constructor.MEDIAWIKI_PAGE_SELECTORS.VIEW_HISTORY_LINK );
+	}
+
+	private restoreRevisionLink(): Chainable {
+		return cy.get( this.constructor.MEDIAWIKI_PAGE_SELECTORS.RESTORE_REVISION_LINK );
+	}
+
+	private undoOrRestoreSavePageButton(): Chainable {
+		return cy.get(
+			this.constructor.MEDIAWIKI_PAGE_SELECTORS.UNDO_OR_RESTORE_SAVE_PAGE_BUTTON
+		);
+	}
+
+	private undoRevisionLink(): Chainable {
+		return cy.get( this.constructor.MEDIAWIKI_PAGE_SELECTORS.UNDO_REVISION_LINK );
+	}
+
+	public restorePreviousRevision(): this {
+		this.viewHistoryLink().click( { force: true } );
+		this.restoreRevisionLink().click();
+		this.undoOrRestoreSavePageButton().click();
+		return this;
+	}
+
+	public undoLatestRevision(): this {
+		this.viewHistoryLink().click( { force: true } );
+		this.undoRevisionLink().click();
+		this.undoOrRestoreSavePageButton().click();
+		return this;
+	}
+
 }
