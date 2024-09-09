@@ -1,6 +1,8 @@
 import { LexemePage } from '../support/pageObjects/LexemePage';
+import { FormsSection } from '../support/pageObjects/FormsSection';
 
 const lexemePage = new LexemePage();
+const formsSection = new FormsSection();
 
 describe( 'Lexeme:Forms', () => {
 	it( 'can be removed', () => {
@@ -22,7 +24,7 @@ describe( 'Lexeme:Forms', () => {
 				}
 			} ).then( ( formId ) => {
 				lexemePage.open( lexemeId );
-				lexemePage.removeForm( formId );
+				formsSection.removeForm( formId );
 
 				cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
 					.then( ( lexeme ) => {

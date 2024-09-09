@@ -1,6 +1,8 @@
 import { LexemePage } from '../support/pageObjects/LexemePage';
+import { FormsSection } from '../support/pageObjects/FormsSection';
 
 const lexemePage = new LexemePage();
+const formsSection = new FormsSection();
 
 describe( 'Form:Section', () => {
 	beforeEach( () => {
@@ -27,16 +29,16 @@ describe( 'Form:Section', () => {
 	} );
 
 	it( 'Forms section exists with a header', () => {
-		lexemePage.getFormsContainer();
-		lexemePage.getFormsHeader();
+		formsSection.getFormsContainer();
+		formsSection.getFormsHeader();
 	} );
 
 	it( 'a form has an ID, representation, language, and grammatical features', () => {
-		cy.get( '@formId' ).then( ( formId ) => {
-			lexemePage.getFormId( formId ).should( 'have.text', formId );
-			lexemePage.getRepresentationWidget( formId );
-			lexemePage.getRepresentationLanguage( formId ).should( 'have.text', 'en' );
-			lexemePage.getGrammaticalFeatureList( formId );
+		cy.getStringAlias( '@formId' ).then( ( formId ) => {
+			formsSection.getFormId( formId ).should( 'have.text', formId );
+			formsSection.getRepresentationWidget( formId );
+			formsSection.getRepresentationLanguage( formId ).should( 'have.text', 'en' );
+			formsSection.getGrammaticalFeatureList( formId );
 		} );
 	} );
 } );

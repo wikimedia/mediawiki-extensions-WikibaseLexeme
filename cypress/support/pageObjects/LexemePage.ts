@@ -25,19 +25,6 @@ export class LexemePage {
 		};
 	}
 
-	private static get FORM_WIDGET_SELECTORS(): Record<string, string> {
-		return {
-			FORM_SECTION_CONTAINER: '.wikibase-lexeme-forms',
-			FORM_SECTION_HEADER: '.wikibase-lexeme-forms-section h2#forms',
-			FORM_HEADER: '.wikibase-lexeme-form-header',
-			FORM_ID: '.wikibase-lexeme-form-id',
-			FORM_LIST_ITEM: '.wikibase-lexeme-form',
-			GRAMMATICAL_FEATURES: '.wikibase-lexeme-form-grammatical-features-values',
-			REPRESENTATION_WIDGET: '.representation-widget',
-			REPRESENTATION_LANGUAGE: '.representation-widget_representation-language'
-		};
-	}
-
 	private static get STATEMENT_SELECTORS(): Record<string, string> {
 		return {
 			MAIN_STATEMENTS_CONTAINER:
@@ -61,60 +48,8 @@ export class LexemePage {
 		};
 	}
 
-	/**
-	 * @param formId If provided, get a specific form item. When omitted, gets all.
-	 */
-	public getFormListItem( formId?: string ): Chainable {
-		if ( typeof formId === 'undefined' ) {
-			return cy.get( this.constructor.FORM_WIDGET_SELECTORS.FORM_LIST_ITEM );
-		} else {
-			// an example formId: L516-F1
-			// the part after the '-' is also the element id for the form's container
-			const containerId = '#' + formId.split( '-' )[ 1 ];
-			return cy.get( containerId );
-		}
-	}
-
-	public getFormId( formId?: string ): Chainable {
-		return this.getFormListItem( formId )
-			.find( this.constructor.FORM_WIDGET_SELECTORS.FORM_ID );
-	}
-
-	public getFormEditButton( formId?: string ): Chainable {
-		return this.getFormListItem( formId )
-			.find( this.constructor.LEMMA_PAGE_SELECTORS.EDIT_BUTTON );
-	}
-
-	public getFormRemoveButton( formId?: string ): Chainable {
-		return this.getFormListItem( formId )
-			.find( this.constructor.LEMMA_PAGE_SELECTORS.REMOVE_BUTTON );
-	}
-
-	public getFormsHeader(): Chainable {
-		return cy.get( this.constructor.FORM_WIDGET_SELECTORS.FORM_SECTION_HEADER );
-	}
-
-	public getFormsContainer(): Chainable {
-		return cy.get( this.constructor.FORM_WIDGET_SELECTORS.FORM_SECTION_CONTAINER );
-	}
-
-	public getGrammaticalFeatureList( formId?: string ): Chainable {
-		return this.getFormListItem( formId )
-			.find( this.constructor.FORM_WIDGET_SELECTORS.GRAMMATICAL_FEATURES );
-	}
-
 	public getRedundantLanguageWarning(): Chainable {
 		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.REDUNDANT_LANGUAGE_WARNING );
-	}
-
-	public getRepresentationWidget( formId?: string ): Chainable {
-		return this.getFormListItem( formId )
-			.find( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_WIDGET );
-	}
-
-	public getRepresentationLanguage( formId?: string ): Chainable {
-		return this.getFormListItem( formId )
-			.find( this.constructor.FORM_WIDGET_SELECTORS.REPRESENTATION_LANGUAGE );
 	}
 
 	private getLemmaEditBoxes(): Chainable {
@@ -202,13 +137,6 @@ export class LexemePage {
 		this.getStatementSaveButton().click();
 		this.getStatementSaveButton().should( 'not.exist' );
 
-		return this;
-	}
-
-	public removeForm( formId: string ): this {
-		this.getFormEditButton( formId ).click();
-		this.getFormRemoveButton( formId ).click();
-		this.getFormListItem( formId ).should( 'not.exist' );
 		return this;
 	}
 
