@@ -296,6 +296,7 @@ return call_user_func( static function () {
 			"dependencies" => [
 				'vue',
 				'vuex',
+				'@wikimedia/codex',
 				'mediawiki.user',
 				'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig',
 			],
