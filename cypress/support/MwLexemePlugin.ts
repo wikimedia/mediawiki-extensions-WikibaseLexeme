@@ -50,6 +50,5 @@ export function mwApiLexemeCommands(
 				data: JSON.stringify( senseData )
 			} } );
 		}
-
 	};
 }

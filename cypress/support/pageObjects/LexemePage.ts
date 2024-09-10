@@ -38,9 +38,26 @@ export class LexemePage {
 		};
 	}
 
+	private static get STATEMENT_SELECTORS(): Record<string, string> {
+		return {
+			MAIN_STATEMENTS_CONTAINER:
+				'.wikibase-entityview-main > .wikibase-statementgrouplistview',
+			ADD_MAIN_STATEMENT_LINK: '.wikibase-addtoolbar > span > a',
+			EDIT_PROPERTY_INPUT: '.wikibase-snakview-property input',
+			EDIT_VALUE_INPUT: '.valueview-input',
+			STATEMENT_VALUE: '.wikibase-snakview-value'
+		};
+	}
+
 	private static get OOUI_SELECTORS(): Record<string, string> {
 		return {
 			VISIBLE_ENTITY_SUGGESTION: 'ul.ui-suggester-list li'
+		};
+	}
+
+	private static get WIKIBASE_TOOLBAR_SELECTORS(): Record<string, string> {
+		return {
+			SAVE_BUTTON: '.wikibase-toolbar-button-save'
 		};
 	}
 
@@ -112,11 +129,50 @@ export class LexemePage {
 		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.LEMMA_LIST );
 	}
 
-	public removeForm( formId: string ): this {
-		this.getFormEditButton( formId ).click();
-		this.getFormRemoveButton( formId ).click();
-		this.getFormListItem( formId ).should( 'not.exist' );
-		return this;
+	public getMainStatementsContainer(): Chainable {
+		return cy.get( this.constructor.STATEMENT_SELECTORS.MAIN_STATEMENTS_CONTAINER );
+	}
+
+	public getAddMainStatementLink(): Chainable {
+		return this.getMainStatementsContainer().find(
+			this.constructor.STATEMENT_SELECTORS.ADD_MAIN_STATEMENT_LINK
+		);
+	}
+
+	public getLexemeLanguageInput(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LANGUAGE );
+	}
+
+	public getLexemeLexicalCategoryInput(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LEXICAL_CATEGORY );
+	}
+
+	public getHeaderSaveButton(): Chainable {
+		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON );
+	}
+
+	public getStatementPropertyInput(): Chainable {
+		return this.getMainStatementsContainer().find(
+			this.constructor.STATEMENT_SELECTORS.EDIT_PROPERTY_INPUT
+		);
+	}
+
+	public getStatementValueInput(): Chainable {
+		return this.getMainStatementsContainer().find(
+			this.constructor.STATEMENT_SELECTORS.EDIT_VALUE_INPUT
+		);
+	}
+
+	public getStatementValueElement(): Chainable {
+		return this.getMainStatementsContainer().find(
+			this.constructor.STATEMENT_SELECTORS.STATEMENT_VALUE
+		);
+	}
+
+	public getStatementSaveButton(): Chainable {
+		return this.getMainStatementsContainer().find(
+			this.constructor.WIKIBASE_TOOLBAR_SELECTORS.SAVE_BUTTON
+		);
 	}
 
 	public getHeaderId(): Chainable<string> {
@@ -133,24 +189,39 @@ export class LexemePage {
 		return cy.visitTitle( title );
 	}
 
+	public addMainStatement( propertyId: string, value: string ): this {
+		this.getAddMainStatementLink().click();
+		this.getStatementPropertyInput().clear();
+		this.getStatementPropertyInput().type( propertyId );
+		this.selectFirstSuggestedEntityOnEntitySelector();
+
+		this.getStatementValueInput().clear();
+		this.getStatementValueInput().type( value );
+
+		this.getStatementSaveButton().invoke( 'attr', 'aria-disabled' ).should( 'not.eq', 'true' );
+		this.getStatementSaveButton().click();
+		this.getStatementSaveButton().should( 'not.exist' );
+
+		return this;
+	}
+
+	public removeForm( formId: string ): this {
+		this.getFormEditButton( formId ).click();
+		this.getFormRemoveButton( formId ).click();
+		this.getFormListItem( formId ).should( 'not.exist' );
+		return this;
+	}
+
 	public startHeaderEditMode(): this {
 		cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_BUTTON ).click();
 		this.getLexemeLanguageInput().invoke( 'val' ).should( 'not.be.empty' );
 		return this;
 	}
 
-	public getLexemeLanguageInput(): Chainable {
-		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LANGUAGE );
-	}
-
 	public setLexemeLanguageToItem( item: string ): this {
 		this.getLexemeLanguageInput().clear();
 		this.getLexemeLanguageInput().type( item );
 		return this;
-	}
-
-	public getLexemeLexicalCategoryInput(): Chainable {
-		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.EDIT_INPUT_LEXEME_LEXICAL_CATEGORY );
 	}
 
 	public setLexemeLexicalCategoryToItem( item: string ): this {
@@ -163,10 +234,6 @@ export class LexemePage {
 		cy.get( this.constructor.OOUI_SELECTORS.VISIBLE_ENTITY_SUGGESTION )
 			.filter( ':visible' ).click();
 		return this;
-	}
-
-	public getHeaderSaveButton(): Chainable {
-		return cy.get( this.constructor.LEMMA_WIDGET_SELECTORS.SAVE_BUTTON );
 	}
 
 	public clickHeaderSaveButton(): this {
