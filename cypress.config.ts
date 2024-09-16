@@ -18,6 +18,9 @@ export default defineConfig({
 		baseUrl: process.env.MW_SERVER + process.env.MW_SCRIPT_PATH,
 		mediawikiAdminUsername: process.env.MEDIAWIKI_USER,
 		mediawikiAdminPassword: process.env.MEDIAWIKI_PASSWORD,
+		wikibasePropertyIds: {
+			string: process.env.WIKIBASE_PROPERTY_STRING
+		},
 		setupNodeEvents( on, config ) {
 			on( 'task', {
 				...mwApiCommands( config ),
