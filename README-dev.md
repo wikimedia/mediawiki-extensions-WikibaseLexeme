@@ -131,9 +131,7 @@ For more information see the [Mediawiki manual for Javascript tests](https://www
 
 ### Browser tests
 
-Selenium tests are being replaced with Cypress tests.
-For more information, see the [Cypress README](./cypress/README.md)
-or the [Selenium README](./tests/selenium/README.md).
+We use Cypress for browser testing. See the [Cypress README](./cypress/README.md) for details.
 
 ### Adding language code support for lexemes
 
