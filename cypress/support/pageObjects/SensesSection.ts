@@ -1,4 +1,4 @@
-export class SensesPage {
+export class SensesSection {
 
 	private static get SENSES_CONTAINER_SELECTORS(): Record<string, string> {
 		return {
@@ -134,14 +134,14 @@ export class SensesPage {
 			.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE );
 	}
 
-	private setSenseInputFormValue( value: string ): this {
+	public setSenseInputFormValue( value: string ): this {
 		this.getGlossEditInputValue().clear();
 		this.getGlossEditInputValue().type( value );
 		this.getGlossEditInputValue().invoke( 'val', value );
 		return this;
 	}
 
-	private submitNthSense( index: number ): this {
+	public submitNthSense( index: number ): this {
 		this.getNthSense( index )
 			.find( this.constructor.GLOSS_WIDGET_SELECTORS.SAVE_BUTTON )
 			.click();

@@ -7,12 +7,7 @@ const lexemePage = new LexemePage();
 
 describe( 'NewLexeme:Page', () => {
 
-	it( 'request with "createpage" right shows form', () => {
-		newLexemePage.open();
-		newLexemePage.showsForm();
-	} );
-
-	it( 'can create lexeme', () => {
+	it( 'shows the form and creating a lexeme is possible', () => {
 		const lemma = Util.getTestString( 'lemma-' ),
 			language = Util.getTestString( 'language-' ),
 			languageItemsLanguageCode = 'aae',

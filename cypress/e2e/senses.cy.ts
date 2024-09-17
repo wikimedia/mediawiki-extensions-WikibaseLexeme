@@ -1,8 +1,8 @@
 import { LexemePage } from '../support/pageObjects/LexemePage';
-import { SensesPage } from '../support/pageObjects/SensesPage';
+import { SensesSection } from '../support/pageObjects/SensesSection';
 
 const lexemePage = new LexemePage();
-const sensesPage = new SensesPage();
+const sensesSection = new SensesSection();
 
 describe( 'Lexeme:Senses', () => {
 	before( () => {
@@ -13,12 +13,12 @@ describe( 'Lexeme:Senses', () => {
 		cy.getStringAlias( '@lexemeId' ).then( ( lexemeId: string ) => {
 			lexemePage.open( lexemeId );
 
-			sensesPage.getSensesHeaderElement();
-			sensesPage.getSenseIdElement().should( 'not.exist' );
-			sensesPage.addSense( 'en', 'Yacht' );
-			sensesPage.getSensesHeaderElement().should( 'have.text', 'Senses' );
+			sensesSection.getSensesHeaderElement();
+			sensesSection.getSenseIdElement().should( 'not.exist' );
+			sensesSection.addSense( 'en', 'Yacht' );
+			sensesSection.getSensesHeaderElement().should( 'have.text', 'Senses' );
 
-			sensesPage.getSenseIdElement().should( 'have.text', lexemeId + '-S1' );
+			sensesSection.getSenseIdElement().should( 'have.text', lexemeId + '-S1' );
 		} );
 	} );
 } );

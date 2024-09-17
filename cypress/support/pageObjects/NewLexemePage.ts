@@ -22,13 +22,6 @@ export class NewLexemePage {
 		return this;
 	}
 
-	public showsForm(): this {
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEMMA );
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE );
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY );
-		return this;
-	}
-
 	public createLexeme(
 		lemma: string,
 		language: string,

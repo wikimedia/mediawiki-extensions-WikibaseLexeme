@@ -13,7 +13,7 @@ describe( 'Lexeme:Forms', () => {
 					language: 'en'
 				}
 			}
-		} ).then( ( lexemeId ) => {
+		} ).then( ( lexemeId: string ) => {
 			cy.task( 'MwLexemeApi:AddForm', {
 				lexemeId: lexemeId,
 				representations: {
@@ -22,7 +22,7 @@ describe( 'Lexeme:Forms', () => {
 						value: 'remoooove'
 					}
 				}
-			} ).then( ( formId ) => {
+			} ).then( ( formId: string ) => {
 				lexemePage.open( lexemeId );
 				formsSection.removeForm( formId );
 

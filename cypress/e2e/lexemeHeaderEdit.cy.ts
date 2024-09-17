@@ -12,33 +12,24 @@ describe( 'Lexeme:Header', () => {
 		cy.task( 'MwApi:CreateItem', { label: testLabel } ).as( 'itemId' );
 	} );
 
-	it( 'can edit the language of a Lexeme', () => {
+	it( 'can edit the language and lexical category of a Lexeme', () => {
 		cy.getStringAlias( '@lexemeId' )
 			.then( ( lexemeId ) => cy.getStringAlias( '@itemId' )
 				.then( ( itemId ) => {
 					lexemePage.open( lexemeId );
-					lexemePage.startHeaderEditMode();
 
+					// edit the language
+					lexemePage.startHeaderEditMode();
 					lexemePage.setLexemeLanguageItem( itemId );
-					lexemePage.headerSaveButtonNotPresent();
+
+					// edit the lexical category
+					lexemePage.startHeaderEditMode();
+					lexemePage.setLexicalCategoryItem( itemId );
+
+					// verify both via the API
 					cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
 						.then( ( lexemeData ) => {
 							expect( lexemeData.language ).to.eq( itemId );
-						} );
-				} ) );
-	} );
-
-	it( 'can edit the lexical category of a Lexeme', () => {
-		cy.getStringAlias( '@lexemeId' )
-			.then( ( lexemeId ) => cy.getStringAlias( '@itemId' )
-				.then( ( itemId ) => {
-					lexemePage.open( lexemeId );
-					lexemePage.startHeaderEditMode();
-
-					lexemePage.setLexicalCategoryItem( itemId );
-					lexemePage.headerSaveButtonNotPresent();
-					cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
-						.then( ( lexemeData ) => {
 							expect( lexemeData.lexicalCategory ).to.eq( itemId );
 						} );
 				} ) );
