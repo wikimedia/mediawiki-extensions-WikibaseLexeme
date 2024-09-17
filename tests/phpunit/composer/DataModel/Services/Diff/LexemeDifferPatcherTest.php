@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
 /**
  * @covers \Wikibase\Lexeme\Domain\Diff\LexemeDiffer
@@ -215,6 +216,37 @@ class LexemeDifferPatcherTest extends TestCase {
 			'value-2-2',
 			$form2->getRepresentations()->getByLanguage( 'en' )->getText()
 		);
+	}
+
+	public function testDiffAndPatchSkipsRemovedFormOrSense(): void {
+		$differ = new LexemeDiffer();
+		$patcher = new LexemePatcher();
+		$initialLexeme = NewLexeme::havingId( 'L1' );
+		$lexeme1 = $initialLexeme
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'representation-1' )
+			)->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'gloss-1' )
+			)->build();
+		$lexeme2 = $initialLexeme
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andRepresentation( 'en', 'representation-2' )
+			)->withSense(
+				NewSense::havingId( 'S1' )
+					->withGloss( 'en', 'gloss-2' )
+			)->build();
+		$lexeme3 = $initialLexeme->build();
+
+		// diff where the representation and gloss were edited
+		$diff = $differ->diffLexemes( $lexeme1, $lexeme2 );
+		// applied to a lexeme where the form and sense don’t exist (anymore), T326768/T284061
+		$patcher->patchEntity( $lexeme3, $diff );
+
+		$this->assertSame( [], $lexeme3->getForms()->toArrayUnordered() );
+		$this->assertSame( [], $lexeme3->getSenses()->toArrayUnordered() );
 	}
 
 }

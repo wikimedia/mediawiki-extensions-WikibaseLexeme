@@ -8,7 +8,6 @@ use Diff\DiffOp\DiffOpChange;
 use Diff\DiffOp\DiffOpRemove;
 use Diff\Patcher\PatcherException;
 use InvalidArgumentException;
-use MediaWiki\Context\RequestContext;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Diff\EntityDiff;
@@ -17,7 +16,6 @@ use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
-use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Assert\Assert;
 
 /**
@@ -176,26 +174,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 					try {
 						$form = $lexeme->getForm( $formDiff->getFormId() );
 					} catch ( \OutOfRangeException $e ) {
-						/**
-						 * This should never happen, but somehow sometimes a request to remove a form ends up here
-						 * for unknown reasons. See T326768.
-						 *
-						 * Log what data we have to hopefully help figure out the problem
-						 */
-						WikibaseRepo::getLogger()->warning( __METHOD__ . ': Form not found', [
-							'formId' => $formDiff->getFormId(),
-							'representationDiff' => var_export( $formDiff->getRepresentationDiff(), true ),
-							'grammaticalFeaturesDiff' => var_export( $formDiff->getGrammaticalFeaturesDiff(), true ),
-							'statementsDiff' => var_export( $formDiff->getStatementsDiff(), true ),
-							'lexemeDiff' => var_export( $patch, true ),
-							'existingForms' => implode( ', ', array_map(
-								fn ( $form ) => $form->getId()->getSerialization(),
-								$lexeme->getForms()->toArray()
-							) ),
-							'requestPostValues' => RequestContext::getMain()->getRequest()->getPostValues(),
-						] );
-
-						throw $e;
+						// form does not exist (anymore? may have been removed), nothing to patch (T326768)
+						break;
 					}
 					$this->formPatcher->patch( $form, $formDiff );
 					break;
@@ -226,25 +206,8 @@ class LexemePatcher implements EntityPatcherStrategy {
 					try {
 						$sense = $lexeme->getSense( $senseDiff->getSenseId() );
 					} catch ( \OutOfRangeException $e ) {
-						/**
-						 * This should never happen, but somehow sometimes a request to remove a sense ends up here
-						 * for unknown reasons. See T326768 / T284061.
-						 *
-						 * Log what data we have to hopefully help figure out the problem
-						 */
-						WikibaseRepo::getLogger()->warning( __METHOD__ . ': Sense not found', [
-							'senseId' => $senseDiff->getSenseId(),
-							'glossesDiff' => var_export( $senseDiff->getGlossesDiff(), true ),
-							'statementsDiff' => var_export( $senseDiff->getStatementsDiff(), true ),
-							'lexemeDiff' => var_export( $patch, true ),
-							'existingSenses' => implode( ', ', array_map(
-								fn ( $sense ) => $sense->getId()->getSerialization(),
-								$lexeme->getSenses()->toArray()
-							) ),
-							'requestPostValues' => RequestContext::getMain()->getRequest()->getPostValues(),
-						] );
-
-						throw $e;
+						// sense does not exist (anymore? may have been removed), nothing to patch (T284061)
+						break;
 					}
 					$this->sensePatcher->patchEntity( $sense, $senseDiff );
 					break;
