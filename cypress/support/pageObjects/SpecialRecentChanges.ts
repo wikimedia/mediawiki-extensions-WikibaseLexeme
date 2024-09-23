@@ -2,7 +2,7 @@ export class SpecialRecentChanges {
 
 	private static get RECENT_CHANGES_SELECTORS(): Record<string, string> {
 		return {
-			LAST_LEXEME: '[data-target-page^="Lexeme:L"]'
+			RECENT_LEXEMES: '[data-target-page^="Lexeme:L"]'
 		};
 	}
 
@@ -11,8 +11,8 @@ export class SpecialRecentChanges {
 		return this;
 	}
 
-	public getLastLexeme(): Chainable {
-		return cy.get( this.constructor.RECENT_CHANGES_SELECTORS.LAST_LEXEME );
+	public getRecentLexemeChanges(): Chainable {
+		return cy.get( this.constructor.RECENT_CHANGES_SELECTORS.RECENT_LEXEMES );
 	}
 
 }
