@@ -4,6 +4,7 @@
 			"GuoPC",
 			"Hmgrmb",
 			"Liuxinyu970226",
+			"Midleading",
 			"Shizhao",
 			"沈澄心"
 		]
@@ -33,6 +34,8 @@
 	"wikibase-lexeme-language-name-ja-hira": "日语（平假名文字）",
 	"wikibase-lexeme-language-name-ja-hrkt": "日语（假名文字）",
 	"wikibase-lexeme-language-name-ja-kana": "日语（片假名文字）",
+	"wikibase-lexeme-language-name-kyw-beng": "库马利语（孟加拉文字）",
+	"wikibase-lexeme-language-name-kyw-deva": "库马利语（天城文文字）",
 	"wikibase-lexeme-language-name-lad-hebr": "拉迪诺语（希伯来文字）",
 	"wikibase-lexeme-language-name-lij-mc": "摩纳哥语",
 	"wikibase-lexeme-language-name-mis": "不支持的语言",
@@ -69,5 +72,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "克林贡语（拉丁文字）",
 	"wikibase-lexeme-language-name-tlh-piqd": "克林贡语（克林贡文字）",
 	"wikibase-lexeme-language-name-txg": "西夏语",
+	"wikibase-lexeme-language-name-txo-beng": "投投语（孟加拉文字）",
 	"wikibase-lexeme-language-name-xbm": "中古布列塔尼语"
 }
