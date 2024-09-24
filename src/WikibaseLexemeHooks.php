@@ -11,10 +11,10 @@ use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Maintenance\FixPagePropsSortkey;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
-use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityFormLibrary;
-use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntityLexemeLibrary;
-use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeEntitySenseLibrary;
-use Wikibase\Lexeme\MediaWiki\Scribunto\Scribunto_LuaWikibaseLexemeLibrary;
+use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntityFormLibrary;
+use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntityLexemeLibrary;
+use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntitySenseLibrary;
+use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeLibrary;
 use Wikibase\Lib\WikibaseSettings;
 use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 use Wikibase\Repo\WikibaseRepo;
@@ -238,17 +238,17 @@ class WikibaseLexemeHooks implements
 
 		if ( $engine == 'lua' ) {
 			$extraLibraries['mw.wikibase.lexeme']
-				= Scribunto_LuaWikibaseLexemeLibrary::class;
+				= WikibaseLexemeLibrary::class;
 			$extraLibraries['mw.wikibase.lexeme.entity.lexeme'] = [
-				'class' => Scribunto_LuaWikibaseLexemeEntityLexemeLibrary::class,
+				'class' => WikibaseLexemeEntityLexemeLibrary::class,
 				'deferLoad' => true,
 			];
 			$extraLibraries['mw.wikibase.lexeme.entity.form'] = [
-				'class' => Scribunto_LuaWikibaseLexemeEntityFormLibrary::class,
+				'class' => WikibaseLexemeEntityFormLibrary::class,
 				'deferLoad' => true,
 			];
 			$extraLibraries['mw.wikibase.lexeme.entity.sense'] = [
-				'class' => Scribunto_LuaWikibaseLexemeEntitySenseLibrary::class,
+				'class' => WikibaseLexemeEntitySenseLibrary::class,
 				'deferLoad' => true,
 			];
 		}

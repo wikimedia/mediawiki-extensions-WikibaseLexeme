@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
 /**
  * @license GPL-2.0-or-later
  */
-abstract class Scribunto_LuaWikibaseLexemeAbstractEntityLibrary
+abstract class WikibaseLexemeAbstractEntityLibrary
 	extends LibraryBase implements ParserOutputProvider {
 
 	/** @var UsageAccumulator|null */

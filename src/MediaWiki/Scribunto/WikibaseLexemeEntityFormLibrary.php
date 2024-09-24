@@ -5,10 +5,10 @@ namespace Wikibase\Lexeme\MediaWiki\Scribunto;
 /**
  * @license GPL-2.0-or-later
  */
-class Scribunto_LuaWikibaseLexemeEntitySenseLibrary extends Scribunto_LuaWikibaseLexemeAbstractEntityLibrary {
+class WikibaseLexemeEntityFormLibrary extends WikibaseLexemeAbstractEntityLibrary {
 
 	/**
-	 * Register the mw.wikibase.lexeme.entity.sense.lua library.
+	 * Register the mw.wikibase.lexeme.entity.form.lua library.
 	 */
 	public function register() {
 		// These functions will be exposed to the Lua module.
@@ -19,7 +19,7 @@ class Scribunto_LuaWikibaseLexemeEntitySenseLibrary extends Scribunto_LuaWikibas
 		];
 
 		return $this->getEngine()->registerInterface(
-			__DIR__ . '/mw.wikibase.lexeme.entity.sense.lua', $lib, []
+			__DIR__ . '/mw.wikibase.lexeme.entity.form.lua', $lib, []
 		);
 	}
 
