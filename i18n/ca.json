@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
+			"Lluis Cat",
 			"Mguix",
 			"Paucabot",
 			"Toniher",
@@ -99,11 +100,11 @@
 	"wikibaselexeme-lemma-redundant-language": "No és possible introduir més d'un lema amb la mateixa variant ortogràfica.",
 	"wikibaselexeme-newlexeme-fieldset": "Crea un lexema nou",
 	"wikibaselexeme-newlexeme-language": "Llengua del lexema",
-	"wikibaselexeme-newlexeme-language-placeholder": "Introduïu la llengua, p. ex., català",
+	"wikibaselexeme-newlexeme-language-placeholder": "Llengua del lexema, p. ex., «català»",
 	"wikibaselexeme-newlexeme-lemma": "Lema",
 	"wikibaselexeme-newlexeme-lemma-language": "Variant ortogràfica del lema",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Categoria lèxica",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Introduïu la categoria lèxica, p. ex., substantiu",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Categoria del lexema, p. ex., «numeral»",
 	"wikibaselexeme-no-features": "cap tret",
 	"wikibaselexeme-search-result-stats": "$1 {{PLURAL:$1|afirmació|afirmacions}}, $2 {{PLURAL:$2|forma|formes}}",
 	"wikibaselexeme-sense-gloss-invalid-language": "Els codis de llengua de les glosses han de ser vàlids",
