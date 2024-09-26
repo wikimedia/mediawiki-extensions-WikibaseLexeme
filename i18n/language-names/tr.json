@@ -9,7 +9,7 @@
 		]
 	},
 	"wikibase-lexeme-language-name-apc": "Levanten Arapça",
-	"wikibase-lexeme-language-name-az-cyrl": "Kiril alfabesiyle yazılmış Azerice",
+	"wikibase-lexeme-language-name-az-cyrl": "Azerice (Kiril alfabesi)",
 	"wikibase-lexeme-language-name-bas": "Basaaca",
 	"wikibase-lexeme-language-name-bfi": "Britanya İşaret Dili",
 	"wikibase-lexeme-language-name-bzs": "Brezilya İşaret Dili",
@@ -66,8 +66,8 @@
 	"wikibase-lexeme-language-name-sux-latn": "Latin harfleriyle Sümerce",
 	"wikibase-lexeme-language-name-sux-xsux": "Sümer harfleriyle Sümerce",
 	"wikibase-lexeme-language-name-syl-beng": "Bengal yazısıyla Sylheti",
-	"wikibase-lexeme-language-name-tlh-latn": "Latin harfleriyle Klingonca",
-	"wikibase-lexeme-language-name-tlh-piqd": "Klingon harfleriyle Klingonca",
+	"wikibase-lexeme-language-name-tlh-latn": "Klingonca (Latin yazısı)",
+	"wikibase-lexeme-language-name-tlh-piqd": "Klingonca (Klingon yazısı)",
 	"wikibase-lexeme-language-name-txg": "Tangutça",
 	"wikibase-lexeme-language-name-xbm": "Orta Bretonca"
 }
