@@ -13,6 +13,7 @@
 	"wikibase-lexeme-language-name-cak": "Caqchiquel",
 	"wikibase-lexeme-language-name-ccp": "chakma",
 	"wikibase-lexeme-language-name-ccp-beng": "chakma (scriptura bengali)",
+	"wikibase-lexeme-language-name-cdz-beng": "koda (scriptura bengali)",
 	"wikibase-lexeme-language-name-cnh": "Hakha-Chin",
 	"wikibase-lexeme-language-name-ctg": "chittagoniano",
 	"wikibase-lexeme-language-name-de-1901": "germano (orthographia traditional)",
@@ -30,9 +31,13 @@
 	"wikibase-lexeme-language-name-ja-hira": "japonese (scriptura Hiragana)",
 	"wikibase-lexeme-language-name-ja-hrkt": "japonese (scriptura Kana)",
 	"wikibase-lexeme-language-name-ja-kana": "japonese (scriptura Katakana)",
+	"wikibase-lexeme-language-name-ksy-beng": "kharia thar (scriptura bengali)",
+	"wikibase-lexeme-language-name-kyw-beng": "kurmali (scriptura bengali)",
+	"wikibase-lexeme-language-name-kyw-deva": "kurmali (scriptura devanagari)",
 	"wikibase-lexeme-language-name-lad-hebr": "ladino (scripto hebraic)",
 	"wikibase-lexeme-language-name-lij-mc": "monegasco",
 	"wikibase-lexeme-language-name-mis": "lingua non supportate",
+	"wikibase-lexeme-language-name-mjx-beng": "mahali (scriptura bengali)",
 	"wikibase-lexeme-language-name-mvf": "mongol peripheric",
 	"wikibase-lexeme-language-name-nd": "ndebele del nord",
 	"wikibase-lexeme-language-name-nn-hognorsk": "norvegiano høgnorsk",
@@ -66,5 +71,6 @@
 	"wikibase-lexeme-language-name-tlh-latn": "klingon (scriptura latin)",
 	"wikibase-lexeme-language-name-tlh-piqd": "klingon (scriptura klingon)",
 	"wikibase-lexeme-language-name-txg": "tangut",
+	"wikibase-lexeme-language-name-txo-beng": "toto (scriptura bengali)",
 	"wikibase-lexeme-language-name-xbm": "breton medie"
 }
