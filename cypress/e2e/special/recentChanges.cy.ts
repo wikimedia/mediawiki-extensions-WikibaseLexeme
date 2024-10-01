@@ -19,16 +19,16 @@ describe( 'Special:RecentChanges', () => {
 				language: 'ruq-cyrl'
 			}
 		}
-		} ).then( ( lemmaId ) => {
+		} ).then( ( lexemeId ) => {
 			specialRecentChanges.open();
 
-			specialRecentChanges.getLastLexeme().then( ( lexeme ) => {
-				const title = lexeme.text();
-				expect( title ).to.include( 'entrôpi' );
-				expect( title ).to.include( 'entropy' );
-				expect( title ).to.include( 'ентропы' );
-				expect( title ).to.include( lemmaId );
-			} );
+			specialRecentChanges.getRecentLexemeChanges()
+				.contains( lexemeId )
+				.should( ( titleElement ) => {
+					expect( titleElement ).to.contain( 'entrôpi' );
+					expect( titleElement ).to.contain( 'entropy' );
+					expect( titleElement ).to.contain( 'ентропы' );
+				} );
 		} );
 	} );
 

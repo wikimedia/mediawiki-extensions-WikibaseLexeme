@@ -14,7 +14,7 @@
 		}
 	},
 	"scripts": {
-		"selenium-test": "npm run cypress:run",
+		"selenium-test": "npm run cypress:parallel",
 		"test": "run-s test:*",
 		"test:grunt": "grunt test",
 		"test:snl-distnodiff": "run-s snl:install snl:build snl:cp snl:diff",
@@ -34,12 +34,14 @@
 		"snl:dev": "run-s snl:build snl:cp",
 		"snl:diff": "git diff --exit-code $npm_package_config_snl_dist",
 		"cypress:open": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress open",
-		"cypress:run": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress run"
+		"cypress:run": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress run",
+		"cypress:parallel": "cypress-parallel -s cypress:run -t 2 -d './cypress/e2e/**/*.cy.ts'"
 	},
 	"devDependencies": {
 		"@wmde/eslint-config-wikimedia-typescript": "^0.2.12",
 		"@wmde/lib-version-check": "^0.1.1-alpha.2",
 		"cypress": "^13.13.2",
+		"cypress-parallel": "^0.14.0",
 		"cypress-wikibase-api": "^0.0.6",
 		"eslint-config-wikimedia": "^0.28.2",
 		"eslint-plugin-chai-friendly": "^1.0.1",

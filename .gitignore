@@ -25,3 +25,6 @@ cypress/.cache
 cypress/videos
 cypress/screenshots
 cypress/downloads
+cypress/parallel-weights.json
+multi-reporter-config.json
+runner-results
