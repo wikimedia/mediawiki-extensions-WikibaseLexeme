@@ -47,7 +47,7 @@
 		"eslint-plugin-chai-friendly": "^1.0.1",
 		"eslint-plugin-cypress": "^3.4.0",
 		"eslint-plugin-jsonc": "^2.16.0",
-		"eslint-plugin-promise": "^6.2.0",
+		"eslint-plugin-promise": "^7.1.0",
 		"grunt": "1.6.1",
 		"grunt-banana-checker": "0.13.0",
 		"grunt-eslint": "^24.3.0",
