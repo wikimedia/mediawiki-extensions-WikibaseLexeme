@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
-use ChangeTags;
 use Exception;
 use HamcrestPHPUnitIntegration;
 use MediaWiki\Language\RawMessage;
@@ -173,16 +172,18 @@ class SpecialMergeLexemesTest extends SpecialPageTestBase {
 			$postMergeTarget->getLemmas()->getByLanguage( 'en-gb' )
 		);
 
+		$changeTagsStore = $this->getServiceContainer()->getChangeTagsStore();
+
 		$entityTitleStoreLookup = WikibaseRepo::getEntityTitleStoreLookup();
 		$titles = $entityTitleStoreLookup->getTitlesForIds( [
 			$this->source->getId(),
 			$this->target->getId(),
 		] );
 		$targetTitle = $titles[$this->target->getId()->getSerialization()];
-		$targetTags = ChangeTags::getTags( $this->db, null, $targetTitle->getLatestRevID() );
+		$targetTags = $changeTagsStore->getTags( $this->db, null, $targetTitle->getLatestRevID() );
 		$this->assertArrayEquals( self::TAGS, $targetTags );
 		$sourceTitle = $titles[$this->source->getId()->getSerialization()];
-		$sourceTags = ChangeTags::getTags( $this->db, null, $sourceTitle->getLatestRevID() );
+		$sourceTags = $changeTagsStore->getTags( $this->db, null, $sourceTitle->getLatestRevID() );
 		$this->assertArrayEquals( array_merge( self::TAGS, [ 'mw-new-redirect' ] ), $sourceTags );
 	}
 

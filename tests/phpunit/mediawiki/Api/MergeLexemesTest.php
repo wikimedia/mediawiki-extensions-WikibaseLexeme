@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use ApiMain;
 use ApiUsageException;
-use ChangeTags;
 use IApiMessage;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MainConfigNames;
@@ -171,7 +170,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 
 		$this->saveLexemes( $source, $target );
 		$dummyTag = __METHOD__ . '-dummy-tag';
-		ChangeTags::defineTag( $dummyTag );
+		$this->getServiceContainer()->getChangeTagsStore()->defineTag( $dummyTag );
 
 		$params = [
 			'action' => self::API_ACTION,
@@ -195,7 +194,10 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		->onNonexistentEntity( $shouldNotBeCalled )
 		->map();
 
-		$this->assertContains( $dummyTag, ChangeTags::getTags( $this->db, null, $lastRevIdResult ) );
+		$this->assertContains(
+			$dummyTag,
+			$this->getServiceContainer()->getChangeTagsStore()->getTags( $this->db, null, $lastRevIdResult )
+		);
 	}
 
 	public function testTempUserCreatedRedirect(): void {
