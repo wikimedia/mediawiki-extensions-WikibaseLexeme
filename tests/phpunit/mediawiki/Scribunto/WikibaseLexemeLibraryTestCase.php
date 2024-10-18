@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 use ExtensionRegistry;
 use MediaWiki\MainConfigNames;
 use PHPUnit\Framework\TestSuite;
-use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\Scribunto_LuaWikibaseLibraryTestCase;
+use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\WikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -20,7 +20,7 @@ if (
 	/**
 	 * Fake base class in case Scribunto or Wikibase client is not available.
 	 */
-	abstract class Scribunto_LuaWikibaseLexemeLibraryTestCase extends \PHPUnit\Framework\TestCase {
+	abstract class WikibaseLexemeLibraryTestCase extends \PHPUnit\Framework\TestCase {
 
 		protected function setUp(): void {
 			$this->markTestSkipped( 'WikibaseClient and Scribunto extensions are needed to run the tests' );
@@ -38,7 +38,7 @@ if (
 /**
  * @license GPL-2.0-or-later
  */
-class Scribunto_LuaWikibaseLexemeLibraryTestCase extends Scribunto_LuaWikibaseLibraryTestCase {
+class WikibaseLexemeLibraryTestCase extends WikibaseLibraryTestCase {
 
 	/** @var bool */
 	private static $originalLexemeEnableDataTransclusion;

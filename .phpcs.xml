@@ -37,15 +37,11 @@
 		<exclude-pattern>resources/templates\.php</exclude-pattern>
 	</rule>
 
-	<rule ref="Squiz.Classes.ValidClassName.NotCamelCaps">
-		<exclude-pattern>Scribunto_LuaWikibaseLexeme*</exclude-pattern>
-	</rule>
-
 	<rule ref="Generic.Classes.DuplicateClassName">
-		<exclude-pattern>Scribunto_LuaWikibaseLexemeLibraryTestCase</exclude-pattern>
+		<exclude-pattern>WikibaseLexemeLibraryTestCase</exclude-pattern>
 	</rule>
 	<rule ref="Generic.Files.OneObjectStructurePerFile">
-		<exclude-pattern>Scribunto_LuaWikibaseLexemeLibraryTestCase</exclude-pattern>
+		<exclude-pattern>WikibaseLexemeLibraryTestCase</exclude-pattern>
 	</rule>
 
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
