@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use ApiUsageException;
-use IApiMessage;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;

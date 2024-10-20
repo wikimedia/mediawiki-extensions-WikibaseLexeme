@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use ApiUsageException;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\User\User;

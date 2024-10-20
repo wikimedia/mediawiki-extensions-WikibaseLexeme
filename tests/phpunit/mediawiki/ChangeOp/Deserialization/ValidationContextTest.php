@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
-use ApiMessage;
-use ApiUsageException;
-use IApiMessage;
+use MediaWiki\Api\ApiMessage;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ValidationContext;
 

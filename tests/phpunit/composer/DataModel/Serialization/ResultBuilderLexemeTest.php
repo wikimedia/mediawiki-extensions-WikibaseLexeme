@@ -2,6 +2,7 @@
 
 use DataValues\Serializers\DataValueSerializer;
 use DataValues\StringValue;
+use MediaWiki\Api\ApiResult;
 use MediaWiki\Site\HashSiteStore;
 use MediaWiki\Title\Title;
 use Wikibase\DataModel\Entity\EntityIdParser;

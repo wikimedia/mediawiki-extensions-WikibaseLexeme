@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use ApiUsageException;
-use IApiMessage;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;

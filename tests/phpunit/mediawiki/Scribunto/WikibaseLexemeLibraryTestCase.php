@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
-use ExtensionRegistry;
 use MediaWiki\MainConfigNames;
+use MediaWiki\Registration\ExtensionRegistry;
 use PHPUnit\Framework\TestSuite;
 use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\WikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;

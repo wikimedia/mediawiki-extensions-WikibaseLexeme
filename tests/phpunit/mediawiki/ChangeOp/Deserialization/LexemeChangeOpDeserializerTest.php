@@ -2,7 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
-use IApiMessage;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -161,7 +162,7 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 			$deserializer->createEntityChangeOp(
 				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
 			);
-		} catch ( \ApiUsageException $ex ) {
+		} catch ( ApiUsageException $ex ) {
 			$exception = $ex;
 		}
 

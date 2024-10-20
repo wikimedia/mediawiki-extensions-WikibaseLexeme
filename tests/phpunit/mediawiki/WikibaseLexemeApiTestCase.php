@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use ApiUsageException;
-use IApiMessage;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use MediaWiki\Tests\User\TempUser\TempUserTestTrait;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Statement\StatementGuid;

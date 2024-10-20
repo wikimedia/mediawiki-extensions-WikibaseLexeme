@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -39,7 +40,7 @@ class ApiErrorTranslationTest extends TestCase {
 	public function testApiErrorsAreTranslated( ApiError $error, array $paramValues ) {
 		$apiMessage = $error->asApiMessage( 'param-1', [ 'a', 1, 'b' ] );
 
-		$this->assertInstanceOf( \ApiMessage::class, $apiMessage );
+		$this->assertInstanceOf( ApiMessage::class, $apiMessage );
 		$messageKey = $apiMessage->getKey();
 		$this->assertTrue( $apiMessage->exists(), "Message '{$messageKey}' is not translated" );
 		$this->assertEnglishTranslationContainsAllTheParameters( $apiMessage, $paramValues );

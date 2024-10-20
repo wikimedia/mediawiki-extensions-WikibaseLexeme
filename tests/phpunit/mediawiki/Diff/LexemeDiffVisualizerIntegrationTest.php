@@ -26,6 +26,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeIntegrationTestCase;
 use Wikibase\Repo\Content\EntityContentDiff;
 use Wikibase\Repo\WikibaseRepo;
+use Wikimedia\ObjectCache\HashBagOStuff;
 
 /**
  * Covers entity-diff-visualizer-callback in WikibaseLexeme.entitytypes.php
@@ -44,7 +45,7 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		parent::setUp();
 
 		// non-EmptyBagOStuff cache needed for the CachingPrefetchingTermLookup for items
-		$this->setService( 'LocalServerObjectCache', new \HashBagOStuff() );
+		$this->setService( 'LocalServerObjectCache', new HashBagOStuff() );
 	}
 
 	public function testAddedStatementsWithLexemesAsTargetDisplayLemma() {

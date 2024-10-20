@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use ApiUsageException;
 use DataValues\StringValue;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Entity\Property;

@@ -2,7 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp\Deserialization;
 
-use IApiMessage;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
@@ -128,7 +129,7 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 			$deserializer->createEntityChangeOp(
 				[ 'lemmas' => [ 'invalid' => [ 'language' => 'invalid', 'value' => 'abc' ] ] ]
 			);
-		} catch ( \ApiUsageException $ex ) {
+		} catch ( ApiUsageException $ex ) {
 			$exception = $ex;
 		}
 
@@ -168,7 +169,7 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 			$deserializer->createEntityChangeOp(
 				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => '' ] ] ]
 			);
-		} catch ( \ApiUsageException $ex ) {
+		} catch ( ApiUsageException $ex ) {
 			$exception = $ex;
 		}
 

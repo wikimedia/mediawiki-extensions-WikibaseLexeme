@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
-use ApiUsageException;
-use ExtensionRegistry;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Registration\ExtensionRegistry;
 use MediaWiki\Tests\Api\ApiTestCase;
 
 /**

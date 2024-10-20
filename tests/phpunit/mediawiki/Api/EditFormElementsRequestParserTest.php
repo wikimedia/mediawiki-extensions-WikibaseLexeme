@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use ApiUsageException;
+use MediaWiki\Api\ApiUsageException;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\Domain\Model\FormId;

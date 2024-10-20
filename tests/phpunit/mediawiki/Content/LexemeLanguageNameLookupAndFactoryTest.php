@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Content;
 
-use Language;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Language\Language;
 use MediaWiki\Message\Message;
 use MessageLocalizer;
 use PHPUnit\Framework\TestCase;

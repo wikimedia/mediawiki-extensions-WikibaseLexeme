@@ -2,9 +2,9 @@
 
 namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
-use ApiMain;
-use ApiUsageException;
-use IApiMessage;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
+use MediaWiki\Api\IApiMessage;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
