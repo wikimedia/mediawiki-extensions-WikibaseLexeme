@@ -2,7 +2,7 @@
 
 namespace Wikibase;
 
-use Maintenance;
+use MediaWiki\Maintenance\Maintenance;
 use MediaWiki\User\User;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;

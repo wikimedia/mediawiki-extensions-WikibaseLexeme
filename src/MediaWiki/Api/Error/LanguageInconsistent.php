@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -34,7 +35,7 @@ class LanguageInconsistent implements ApiError {
 			'apierror-wikibaselexeme-language-inconsistent',
 			[ $parameterName, implode( '/', $path ), $this->expectedLanguage, $this->givenLanguage ]
 		);
-		return new \ApiMessage(
+		return new ApiMessage(
 			$message,
 			'inconsistent-language',
 			[

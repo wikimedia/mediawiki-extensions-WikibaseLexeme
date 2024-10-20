@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -33,7 +34,7 @@ class JsonFieldIsNotAnItemId implements ApiError {
 			[ $parameterName, implode( '/', $path ), json_encode( $this->given ) ]
 		);
 		// TODO: should be something more specific than bad-request
-		return new \ApiMessage( $message, 'bad-request' );
+		return new ApiMessage( $message, 'bad-request' );
 	}
 
 }

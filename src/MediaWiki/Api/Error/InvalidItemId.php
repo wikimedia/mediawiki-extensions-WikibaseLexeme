@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -22,7 +23,7 @@ class InvalidItemId implements ApiError {
 
 	/** @inheritDoc */
 	public function asApiMessage( $parameterName, array $path ) {
-		return new \ApiMessage( new Message(
+		return new ApiMessage( new Message(
 			'apierror-wikibaselexeme-invalid-item-id',
 			[ $parameterName, implode( '/', $path ), $this->given ]
 		), 'bad-request' );

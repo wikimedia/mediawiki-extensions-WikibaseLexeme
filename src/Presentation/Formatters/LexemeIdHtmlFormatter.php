@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use InvalidArgumentException;
 use MediaWiki\Html\Html;
+use MediaWiki\Language\LanguageCode;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
@@ -112,7 +113,7 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 		foreach ( $lemmas->toTextArray() as $languageCode => $lemma ) {
 			$elements[] = Html::element(
 				'span',
-				[ 'lang' => \LanguageCode::bcp47( $languageCode ) ],
+				[ 'lang' => LanguageCode::bcp47( $languageCode ) ],
 				$lemma
 			);
 		}

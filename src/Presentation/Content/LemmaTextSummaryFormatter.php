@@ -3,7 +3,7 @@
 declare( strict_types=1 );
 namespace Wikibase\Lexeme\Presentation\Content;
 
-use Language;
+use MediaWiki\Language\Language;
 use Wikibase\DataModel\Term\TermList;
 
 /**

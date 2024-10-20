@@ -2,12 +2,12 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use ApiBase;
-use ApiCreateTempUserTrait;
-use ApiMain;
-use ApiUsageException;
 use Exception;
 use InvalidArgumentException;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiCreateTempUserTrait;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\User\UserIdentity;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\MergingException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;

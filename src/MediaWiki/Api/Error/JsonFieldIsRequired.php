@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -29,7 +30,7 @@ class JsonFieldIsRequired implements ApiError {
 			'apierror-wikibaselexeme-json-field-required',
 			[ $parameterName, implode( '/', $path ), $this->field ]
 		);
-		return new \ApiMessage( $message, 'bad-request' );
+		return new ApiMessage( $message, 'bad-request' );
 	}
 
 }

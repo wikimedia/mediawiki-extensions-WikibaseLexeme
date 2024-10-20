@@ -4,7 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Maintenance;
 
-use LoggedUpdateMaintenance;
+use MediaWiki\Maintenance\LoggedUpdateMaintenance;
 
 /**
  * Maintenance script to fix the pp_sortkey column of the page_props table

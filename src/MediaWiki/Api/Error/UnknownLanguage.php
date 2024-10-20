@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -39,7 +40,7 @@ class UnknownLanguage implements ApiError {
 				[ $parameterName, implode( '/', $path ), $this->given ]
 			);
 		}
-		return new \ApiMessage( $message, 'not-recognized-language' );
+		return new ApiMessage( $message, 'not-recognized-language' );
 	}
 
 }

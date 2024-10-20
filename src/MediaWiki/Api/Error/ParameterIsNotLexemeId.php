@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -31,7 +32,7 @@ class ParameterIsNotLexemeId implements ApiError {
 			'apierror-wikibaselexeme-parameter-not-lexeme-id',
 			[ $parameterName, json_encode( $this->given ) ]
 		);
-		return new \ApiMessage( $message, 'bad-request' );
+		return new ApiMessage( $message, 'bad-request' );
 	}
 
 }

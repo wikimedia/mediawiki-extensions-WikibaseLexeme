@@ -4,10 +4,11 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use ApiBase;
-use ApiCreateTempUserTrait;
-use ApiMain;
 use LogicException;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiCreateTempUserTrait;
+use MediaWiki\Api\ApiMain;
+use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Message\Message;
 use RuntimeException;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -107,7 +108,7 @@ class AddForm extends ApiBase {
 	/**
 	 * @see ApiBase::execute()
 	 *
-	 * @throws \ApiUsageException
+	 * @throws ApiUsageException
 	 */
 	public function execute(): void {
 		/*
@@ -254,7 +255,7 @@ class AddForm extends ApiBase {
 	}
 
 	/**
-	 * @throws \ApiUsageException
+	 * @throws ApiUsageException
 	 */
 	private function getBaseLexemeRevisionFromRequest( AddFormRequest $request ): EntityRevision {
 		$lexemeId = $request->getLexemeId();

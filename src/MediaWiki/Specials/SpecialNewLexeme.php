@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
 use Iterator;
-use LanguageCode;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Html\Html;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\HTMLForm\HTMLForm;
+use MediaWiki\Language\LanguageCode;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\SpecialPage\SpecialPage;

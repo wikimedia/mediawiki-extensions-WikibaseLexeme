@@ -4,9 +4,10 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use ApiCreateTempUserTrait;
-use ApiMain;
 use Deserializers\Deserializer;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiCreateTempUserTrait;
+use MediaWiki\Api\ApiMain;
 use MediaWiki\Message\Message;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityId;
@@ -42,7 +43,7 @@ use Wikimedia\ParamValidator\ParamValidator;
 /**
  * @license GPL-2.0-or-later
  */
-class EditSenseElements extends \ApiBase {
+class EditSenseElements extends ApiBase {
 
 	use ApiCreateTempUserTrait;
 

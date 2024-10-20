@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\Presentation\View;
 
-use FormatJson;
+use MediaWiki\Json\FormatJson;
 // phpcs:disable MediaWiki.Classes.FullQualifiedClassName -- T308814
 use MediaWiki\ResourceLoader as RL;
 use Wikibase\View\Template\TemplateRegistry;

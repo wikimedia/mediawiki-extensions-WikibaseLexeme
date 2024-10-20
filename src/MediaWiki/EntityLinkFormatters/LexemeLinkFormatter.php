@@ -5,7 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\EntityLinkFormatters;
 
 use HtmlArmor;
-use Language;
+use MediaWiki\Language\Language;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Domain\Model\LexemeId;

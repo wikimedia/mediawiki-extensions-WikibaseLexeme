@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -39,7 +40,7 @@ class JsonFieldHasWrongType implements ApiError {
 				$this->givenType,
 			]
 		);
-		return new \ApiMessage( $message, 'bad-request' );
+		return new ApiMessage( $message, 'bad-request' );
 	}
 
 }

@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -15,7 +16,7 @@ class LexemeTermTextCanNotBeEmpty implements ApiError {
 			'apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty',
 			[]
 		);
-		return new \ApiMessage(
+		return new ApiMessage(
 			$message,
 			'unprocessable-request',
 			[

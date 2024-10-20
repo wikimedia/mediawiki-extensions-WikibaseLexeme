@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\DataAccess;
 
-use Language;
+use MediaWiki\Language\Language;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityIdParsingException;

@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Permissions\PermissionManager;
-use WatchedItemStoreInterface;
+use MediaWiki\Watchlist\WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\Domain\Merge\Exceptions\LexemeLoadingException;

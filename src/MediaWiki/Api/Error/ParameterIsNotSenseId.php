@@ -2,7 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
-use ApiMessage;
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**

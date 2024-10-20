@@ -4,8 +4,9 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\Api;
 
-use ApiCreateTempUserTrait;
-use ApiMain;
+use MediaWiki\Api\ApiBase;
+use MediaWiki\Api\ApiCreateTempUserTrait;
+use MediaWiki\Api\ApiMain;
 use MediaWiki\Message\Message;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -33,7 +34,7 @@ use Wikimedia\ParamValidator\ParamValidator;
 /**
  * @license GPL-2.0-or-later
  */
-class EditFormElements extends \ApiBase {
+class EditFormElements extends ApiBase {
 
 	use ApiCreateTempUserTrait;
 

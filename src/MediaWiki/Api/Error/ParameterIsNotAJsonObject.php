@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\Api\Error;
 
+use MediaWiki\Api\ApiMessage;
 use MediaWiki\Message\Message;
 
 /**
@@ -36,7 +37,7 @@ class ParameterIsNotAJsonObject implements ApiError {
 			'apierror-wikibaselexeme-parameter-invalid-json-object',
 			[ $this->parameterName, $this->given ]
 		);
-		return new \ApiMessage( $message, 'bad-request' );
+		return new ApiMessage( $message, 'bad-request' );
 	}
 
 }
