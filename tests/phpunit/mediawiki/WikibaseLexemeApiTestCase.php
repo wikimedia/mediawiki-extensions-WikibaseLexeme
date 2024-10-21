@@ -59,7 +59,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			}
 
 			if ( array_key_exists( 'params', $exception ) ) {
-				$this->assertSame(
+				$this->assertEquals(
 					$exception['params'],
 					$message->getParams(),
 					'Wrong message parameters'
