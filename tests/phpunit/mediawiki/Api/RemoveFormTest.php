@@ -7,6 +7,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -86,7 +87,7 @@ class RemoveFormTest extends WikibaseLexemeApiTestCase {
 				[],
 				[
 					'key' => 'paramvalidator-missingparam',
-					'params' => [ [ 'plaintext' => 'id' ] ],
+					'params' => [ Message::plaintextParam( 'id' ) ],
 					'code' => 'missingparam',
 					'data' => [],
 				],

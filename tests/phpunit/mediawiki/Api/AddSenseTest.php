@@ -6,6 +6,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Message\Message;
 use MediaWiki\User\User;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
@@ -73,7 +74,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 				[ 'data' => self::getDataParam() ],
 				[
 					'key' => 'paramvalidator-missingparam',
-					'params' => [ [ 'plaintext' => 'lexemeId' ] ],
+					'params' => [ Message::plaintextParam( 'lexemeId' ) ],
 					'code' => 'missingparam',
 					'data' => [],
 				],
@@ -82,7 +83,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 				[ 'lexemeId' => 'L1' ],
 				[
 					'key' => 'paramvalidator-missingparam',
-					'params' => [ [ 'plaintext' => 'data' ] ],
+					'params' => [ Message::plaintextParam( 'data' ) ],
 					'code' => 'missingparam',
 					'data' => [],
 				],
