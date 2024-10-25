@@ -39,7 +39,7 @@ class MergeLexemes extends ApiBase {
 
 	public function __construct(
 		ApiMain $mainModule,
-		$moduleName,
+		string $moduleName,
 		callable $errorReporterCallback,
 		MergeLexemesInteractor $mergeLexemesInteractor
 	) {
