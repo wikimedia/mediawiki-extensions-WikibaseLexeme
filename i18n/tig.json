@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Bbeshir"
+		]
+	},
+	"datatypes-type-wikibase-form": "እስትማረት",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "ሓዳስ እስትማራት ወሰከት",
+	"wikibase-listdatatypes-wikibase-form-head": "እስትማረት",
+	"wikibaselexeme-add-form": "እስትማረት ወስክ",
+	"wikibaselexeme-deletedentity-form": "እስትማረት ምሳሕ",
+	"wikibaselexeme-diffview-form": "እስትማረት",
+	"wikibaselexeme-field-language-label": "ሉቀት",
+	"wikibaselexeme-form-description": "$1 እግል: $2 ($3): $4",
+	"wikibaselexeme-form-field-representation-label": "ተምሲል",
+	"wikibaselexeme-header-forms": "እስትማራት",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(ሰዳየት)"
+}
