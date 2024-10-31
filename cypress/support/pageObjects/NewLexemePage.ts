@@ -11,9 +11,9 @@ export class NewLexemePage {
 		};
 	}
 
-	private static get WIKIT_LOOKUP_SELECTORS(): Record<string, string> {
+	private static get CODEX_LOOKUP_SELECTORS(): Record<string, string> {
 		return {
-			SELECTED_ELEMENT: '.wikit-LookupInput__menu .wikit-OptionsMenu__item'
+			SELECTED_ELEMENT: '.cdx-menu .cdx-menu-item--enabled'
 		};
 	}
 
@@ -45,28 +45,28 @@ export class NewLexemePage {
 
 	public setLexemeLanguage( language: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).within( () => {
-			this._wikitValueLookup( language );
+			this._codexValueLookup( language );
 		} );
 		return this;
 	}
 
 	public setLexicalCategory( lexicalCategory: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).within( () => {
-			this._wikitValueLookup( lexicalCategory );
+			this._codexValueLookup( lexicalCategory );
 		} );
 		return this;
 	}
 
 	public setSpellingVariant( languageVariant: string ): this {
 		cy.get( this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT ).within( () => {
-			this._wikitValueLookup( languageVariant );
+			this._codexValueLookup( languageVariant );
 		} );
 		return this;
 	}
 
-	private _wikitValueLookup( value: string ): void {
+	private _codexValueLookup( value: string ): void {
 		cy.get( 'input' ).clear().type( value );
-		cy.get( this.constructor.WIKIT_LOOKUP_SELECTORS.SELECTED_ELEMENT ).click();
+		cy.get( this.constructor.CODEX_LOOKUP_SELECTORS.SELECTED_ELEMENT ).click();
 	}
 
 	public submit(): this {
