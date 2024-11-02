@@ -37,7 +37,7 @@ class ChangeOpFormClone implements ChangeOp {
 		$this->guidGenerator = $guidGenerator;
 	}
 
-	public function apply( EntityDocument $entity, Summary $summary = null ) {
+	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Form::class, $entity, '$entity' );
 		'@phan-var Form $entity';
 		/** @var Form $entity */

@@ -40,7 +40,7 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 		return Result::newSuccess();
 	}
 
-	public function apply( EntityDocument $sense, Summary $summary = null ) {
+	public function apply( EntityDocument $sense, ?Summary $summary = null ) {
 		Assert::parameterType( BlankSense::class, $sense, '$entity' );
 		'@phan-var BlankSense $sense';
 

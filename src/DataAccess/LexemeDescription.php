@@ -46,7 +46,7 @@ class LexemeDescription {
 	 * @return string Label or "" if does not exist.
 	 */
 	public function getLabelOrDefault(
-		EntityId $id = null,
+		?EntityId $id = null,
 		$default = ""
 	) {
 		if ( !$id ) {

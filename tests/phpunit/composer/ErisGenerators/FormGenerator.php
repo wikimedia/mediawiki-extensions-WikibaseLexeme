@@ -35,7 +35,7 @@ class FormGenerator implements Generator {
 	 */
 	private $formIdGenerator;
 
-	public function __construct( FormId $formId = null ) {
+	public function __construct( ?FormId $formId = null ) {
 		$this->representationGenerator = new TermListGenerator( 1 );
 		$this->grammaticalFeaturesGenerator = new SetGenerator( new ItemIdGenerator( 50 ) );
 		if ( $formId ) {

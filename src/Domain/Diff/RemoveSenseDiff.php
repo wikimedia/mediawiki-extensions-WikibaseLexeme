@@ -55,7 +55,7 @@ class RemoveSenseDiff implements SenseDiff {
 		return false;
 	}
 
-	public function toArray( callable $valueConverter = null ): array {
+	public function toArray( ?callable $valueConverter = null ): array {
 		throw new LogicException( 'toArray() is not implemented' );
 	}
 

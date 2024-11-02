@@ -60,7 +60,7 @@ class LexemeHandler extends EntityHandler {
 		FieldDefinitions $lexemeFieldDefinitions,
 		LemmaLookup $lemmaLookup,
 		LexemeTermFormatter $lexemeTermFormatter,
-		callable $legacyExportFormatDetector = null
+		?callable $legacyExportFormatDetector = null
 	) {
 		parent::__construct(
 			LexemeContent::CONTENT_MODEL_ID,
@@ -141,7 +141,7 @@ class LexemeHandler extends EntityHandler {
 	/**
 	 * @see EntityHandler::newEntityContent
 	 */
-	protected function newEntityContent( EntityHolder $entityHolder = null ): LexemeContent {
+	protected function newEntityContent( ?EntityHolder $entityHolder = null ): LexemeContent {
 		if ( $entityHolder !== null && $entityHolder->getEntityType() === Form::ENTITY_TYPE ) {
 			$formId = $entityHolder->getEntityId();
 			if ( !( $formId instanceof FormId ) ) {

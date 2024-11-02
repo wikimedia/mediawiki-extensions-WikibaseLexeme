@@ -47,7 +47,7 @@ class ChangeOpLemmaRemove extends ChangeOpBase {
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function apply( EntityDocument $entity, Summary $summary = null ) {
+	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';
 
