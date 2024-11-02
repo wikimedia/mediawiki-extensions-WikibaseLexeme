@@ -61,7 +61,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	 *
 	 * @return EntityHandler
 	 */
-	protected function getHandler( SettingsArray $settings = null ) {
+	protected function getHandler( ?SettingsArray $settings = null ) {
 		// This parent method is still called, as it sets up mocks for required
 		// service dependencies
 		$this->getWikibaseRepo( $settings );
@@ -70,7 +70,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 			->getContentHandlerForType( Lexeme::ENTITY_TYPE );
 	}
 
-	protected function newEntityContent( EntityDocument $entity = null ): EntityContent {
+	protected function newEntityContent( ?EntityDocument $entity = null ): EntityContent {
 		if ( $entity === null ) {
 			$entity = $this->newEntity();
 		}
@@ -94,7 +94,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	 *
 	 * @return EntityDocument
 	 */
-	protected function newEntity( EntityId $id = null ) {
+	protected function newEntity( ?EntityId $id = null ) {
 		if ( !$id ) {
 			$id = new LexemeId( 'L7' );
 		}

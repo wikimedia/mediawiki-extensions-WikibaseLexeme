@@ -48,9 +48,9 @@ class LexemeContent extends EntityContent {
 	 * @throws InvalidArgumentException
 	 */
 	public function __construct(
-		EntityHolder $lexemeHolder = null,
-		EntityRedirect $redirect = null,
-		Title $redirectTitle = null
+		?EntityHolder $lexemeHolder = null,
+		?EntityRedirect $redirect = null,
+		?Title $redirectTitle = null
 	) {
 		parent::__construct( self::CONTENT_MODEL_ID );
 
@@ -202,7 +202,7 @@ class LexemeContent extends EntityContent {
 		$this->lexemeHolder = $lexemeHolder;
 	}
 
-	private function constructAsRedirect( EntityRedirect $redirect, Title $redirectTitle = null ) {
+	private function constructAsRedirect( EntityRedirect $redirect, ?Title $redirectTitle = null ) {
 		if ( $redirectTitle === null ) {
 			throw new InvalidArgumentException(
 				'$redirect and $redirectTitle must both be provided or both be empty.'

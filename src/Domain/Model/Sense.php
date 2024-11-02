@@ -34,7 +34,7 @@ class Sense implements StatementListProvidingEntity, ClearableEntity {
 	public function __construct(
 		SenseId $id,
 		TermList $glossList,
-		StatementList $statementList = null
+		?StatementList $statementList = null
 	) {
 		$this->id = $id;
 		$this->glossList = $glossList; // TODO: check there is at least gloss in one language provided

@@ -11,7 +11,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class WikibaseLexemeGenerators {
 
-	public static function lexeme( LexemeId $lexemeId = null ) {
+	public static function lexeme( ?LexemeId $lexemeId = null ) {
 		return new LexemeGenerator( $lexemeId );
 	}
 

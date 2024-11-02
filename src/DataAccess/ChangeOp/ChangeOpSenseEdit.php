@@ -39,7 +39,7 @@ class ChangeOpSenseEdit implements ChangeOp {
 		$this->summaryAggregator = new SummaryAggregator( self::SUMMARY_ACTION_AGGREGATE );
 	}
 
-	public function apply( EntityDocument $entity, Summary $summary = null ) {
+	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
 		'@phan-var Sense $entity';
 

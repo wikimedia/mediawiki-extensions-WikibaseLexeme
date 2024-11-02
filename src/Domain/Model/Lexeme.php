@@ -51,15 +51,15 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 	 * corresponding field was never initialized.
 	 */
 	public function __construct(
-		LexemeId $id = null,
-		TermList $lemmas = null,
-		ItemId $lexicalCategory = null,
-		ItemId $language = null,
-		StatementList $statements = null,
+		?LexemeId $id = null,
+		?TermList $lemmas = null,
+		?ItemId $lexicalCategory = null,
+		?ItemId $language = null,
+		?StatementList $statements = null,
 		int $nextFormId = 1,
-		FormSet $forms = null,
+		?FormSet $forms = null,
 		int $nextSenseId = 1,
-		SenseSet $senses = null
+		?SenseSet $senses = null
 	) {
 		$this->id = $id;
 		$this->lemmas = $lemmas ?: new TermList();

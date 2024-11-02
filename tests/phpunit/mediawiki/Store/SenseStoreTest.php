@@ -320,7 +320,7 @@ class SenseStoreTest extends TestCase {
 	 *
 	 * @return EntityRevisionLookup
 	 */
-	private function newEntityRevisionLookup( Lexeme $expectedLexeme = null ) {
+	private function newEntityRevisionLookup( ?Lexeme $expectedLexeme = null ) {
 		$lookup = $this->createMock( EntityRevisionLookup::class );
 
 		if ( $expectedLexeme ) {

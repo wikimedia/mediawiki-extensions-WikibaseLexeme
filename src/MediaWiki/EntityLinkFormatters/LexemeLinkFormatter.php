@@ -47,7 +47,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	/**
 	 * @inheritDoc
 	 */
-	public function getHtml( EntityId $entityId, array $labelData = null ): string {
+	public function getHtml( EntityId $entityId, ?array $labelData = null ): string {
 		Assert::parameterType( LexemeId::class, $entityId, '$entityId' );
 		'@phan-var LexemeId $entityId';
 
@@ -67,8 +67,8 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	 */
 	public function getTitleAttribute(
 		EntityId $entityId,
-		array $labelData = null,
-		array $descriptionData = null
+		?array $labelData = null,
+		?array $descriptionData = null
 	): string {
 		// TODO Can't this use $entityId->getSerialization() directly?
 		//      It may have only used the Title text for historical reasons.

@@ -40,7 +40,7 @@ class AddFormToLexemeChangeOp implements ChangeOp {
 		return Result::newSuccess();
 	}
 
-	public function apply( EntityDocument $form, Summary $summary = null ) {
+	public function apply( EntityDocument $form, ?Summary $summary = null ) {
 		Assert::parameterType( BlankForm::class, $form, '$form' );
 		'@phan-var BlankForm $form';
 

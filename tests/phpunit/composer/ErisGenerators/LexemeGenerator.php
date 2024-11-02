@@ -46,7 +46,7 @@ class LexemeGenerator implements Generator {
 	 */
 	private $lexemeIdGenerator;
 
-	public function __construct( LexemeId $lexemeId = null ) {
+	public function __construct( ?LexemeId $lexemeId = null ) {
 		if ( $lexemeId ) {
 			$this->lexemeIdGenerator = new ConstantGenerator( $lexemeId );
 		} else {

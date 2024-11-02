@@ -99,7 +99,7 @@ class LexemeDiff extends EntityDiff {
 		return $this['nextSenseId'] ?? new Diff( [], true );
 	}
 
-	public function toArray( callable $valueConverter = null ): array {
+	public function toArray( ?callable $valueConverter = null ): array {
 		throw new \LogicException( 'toArray() is not implemented' );
 	}
 

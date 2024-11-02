@@ -37,7 +37,7 @@ class ChangeOpGlossList implements ChangeOp {
 		$this->summaryAggregator = new SummaryAggregator( self::SUMMARY_ACTION_AGGREGATE );
 	}
 
-	public function apply( EntityDocument $entity, Summary $summary = null ) {
+	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
 
 		foreach ( $this->changeOps as $changeOp ) {

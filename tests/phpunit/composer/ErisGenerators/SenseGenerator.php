@@ -29,7 +29,7 @@ class SenseGenerator implements Generator {
 	 */
 	private $senseIdGenerator;
 
-	public function __construct( SenseId $senseId = null ) {
+	public function __construct( ?SenseId $senseId = null ) {
 		$this->representationGenerator = new TermListGenerator( 1 );
 		if ( $senseId ) {
 			$this->senseIdGenerator = ConstantGenerator::box( $senseId );

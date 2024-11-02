@@ -65,7 +65,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return StatementSectionsView
 	 */
-	private function newStatementSectionsViewMock( StatementList $expectedStatements = null ) {
+	private function newStatementSectionsViewMock( ?StatementList $expectedStatements = null ) {
 		$statementSectionsView = $this->createMock( StatementSectionsView::class );
 
 		$statementSectionsView->expects( $expectedStatements ? $this->once() : $this->never() )
@@ -87,7 +87,7 @@ class LexemeViewTest extends \MediaWikiIntegrationTestCase {
 		return $languageDirectionalityLookup;
 	}
 
-	private function newLexemeView( StatementList $expectedStatements = null ) {
+	private function newLexemeView( ?StatementList $expectedStatements = null ) {
 		$languageDirectionalityLookup = $this->newLanguageDirectionalityLookupMock();
 
 		$lemmaFormatter = new LexemeTermFormatter( '/' );

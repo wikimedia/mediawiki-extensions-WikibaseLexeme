@@ -45,7 +45,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 		FormId $id,
 		TermList $representations,
 		array $grammaticalFeatures,
-		StatementList $statementList = null
+		?StatementList $statementList = null
 	) {
 		$this->id = $id;
 		$this->representations = $representations;

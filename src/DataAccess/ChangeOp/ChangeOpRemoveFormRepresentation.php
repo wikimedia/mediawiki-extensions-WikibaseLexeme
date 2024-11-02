@@ -38,7 +38,7 @@ class ChangeOpRemoveFormRepresentation implements ChangeOp {
 		return Result::newSuccess();
 	}
 
-	public function apply( EntityDocument $entity, Summary $summary = null ) {
+	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Form::class, $entity, '$entity' );
 		'@phan-var Form $entity';
 
@@ -57,7 +57,7 @@ class ChangeOpRemoveFormRepresentation implements ChangeOp {
 		return new DummyChangeOpResult();
 	}
 
-	private function updateSummary( Form $form, Summary $summary = null ) {
+	private function updateSummary( Form $form, ?Summary $summary = null ) {
 		if ( $summary === null ) {
 			return;
 		}
