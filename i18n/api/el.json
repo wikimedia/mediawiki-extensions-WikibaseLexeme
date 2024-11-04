@@ -3,8 +3,7 @@
 		"authors": [
 			"KATRINE1993",
 			"NikosLikomitros",
-			"Nikosgranturismogt",
-			"Amire80"
+			"Nikosgranturismogt"
 		]
 	},
 	"apierror-wikibaselexeme-form-not-found": "Το πεδίο \"$1\" περιέχει ένα ID της Φόρμας \"$2\" που δεν μπόρεσε να βρεθεί.",

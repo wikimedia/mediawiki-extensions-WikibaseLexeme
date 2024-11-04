@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"BadDog",
-			"Милан Јелисавчић"
+			"Милан Јелисавчић",
+			"Zenfiric"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Облици морају имати бар једно представљање",
