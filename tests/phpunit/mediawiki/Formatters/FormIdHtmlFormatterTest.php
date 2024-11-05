@@ -9,7 +9,6 @@ use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWikiLangTestCase;
-use PHPUnit\Framework\MockObject\MockObject;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
 use Wikibase\DataModel\Services\Lookup\UnresolvedEntityRedirectException;
@@ -87,7 +86,6 @@ class FormIdHtmlFormatterTest extends MediaWikiLangTestCase {
 	public function testNonExistingFormatterIsCalledForNonExistingIds_noRevision(): void {
 		$formId = new FormId( 'L999-F666' );
 
-		/** @var EntityRevisionLookup|MockObject $revisionLookup */
 		$this->revisionLookup->method( 'getEntityRevision' )
 			->with( $formId )
 			->willReturn( null );
