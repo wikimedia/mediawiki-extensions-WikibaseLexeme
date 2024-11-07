@@ -1,13 +1,21 @@
 {
 	"@metadata": {
 		"authors": [
-			"Bgo eiu"
+			"Bgo eiu",
+			"Kuldeepburjbhalaike"
 		]
 	},
-	"content-model-wikibase-lexeme": "ਵਿਕੀਬੇਸ ਸ਼ਬਦਾਵਲੀ",
+	"content-model-wikibase-lexeme": "ਵਿਕੀਬੇਸ ਲੈਕਸੀਮ",
 	"datatypes-type-wikibase-form": "ਰੂਪ",
-	"datatypes-type-wikibase-lexeme": "ਸ਼ਬਦਾਵਲੀ",
+	"datatypes-type-wikibase-lexeme": "ਲੈਕਸੀਮ",
 	"datatypes-type-wikibase-sense": "ਅਰਥ",
+	"nstab-lexeme": "ਲੈਕਸੀਮ",
+	"special-mergelexemes": "ਦੋ ਲੈਕਸੀਮ ਰਲ਼ਾਓ",
+	"special-newlexeme": "ਇੱਕ ਨਵਾਂ ਲੈਕਸੀਮ ਬਣਾਓ",
+	"tooltip-ca-nstab-lexeme": "ਲੈਕਸੀਮ ਪਰਿਭਾਸ਼ਾ",
+	"wikibase-lexeme-mergelexemes-submit": "ਲੈਕਸੀਮ ਰਲ਼ਾਓ",
+	"wikibase-lexeme-randomlexeme": "ਬੇਤਰਤੀਬ ਲੈਕਸੀਮ",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "ਇੱਕ ਨਵਾਂ ਲੈਕਸੀਮ ਬਣਾਓ",
 	"wikibase-listdatatypes-wikibase-form-head": "ਰੂਪ",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "ਸ਼ਬਦਾਵਲੀ",
 	"wikibase-listdatatypes-wikibase-sense-head": "ਅਰਥ",
@@ -15,5 +23,14 @@
 	"wikibaselexeme-diffview-language": "ਭਾਸ਼ਾ",
 	"wikibaselexeme-diffview-sense": "ਅਰਥ",
 	"wikibaselexeme-field-language-label": "ਭਾਸ਼ਾ",
-	"wikibaselexeme-gloss-field-language-label": "ਭਾਸ਼ਾ"
+	"wikibaselexeme-gloss-field-language-label": "ਭਾਸ਼ਾ",
+	"wikibaselexeme-newlexeme-fieldset": "ਇੱਕ ਨਵਾਂ ਲੈਕਸੀਮ ਬਣਾਓ",
+	"wikibaselexeme-newlexeme-info-panel-heading": "ਲੈਕਸੀਮ ਬਾਰੇ",
+	"wikibaselexeme-newlexeme-language": "ਲੈਕਸੀਮ ਦੀ ਭਾਸ਼ਾ",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(ਮਦਦ)",
+	"wikibaselexeme-newlexeme-submit": "ਲੈਕਸੀਮ ਬਣਾਓ",
+	"wikibaselexeme-newlexeme-submitting": "ਲੈਕਸੀਮ ਬਣਾ ਰਿਹਾ ਹੈ...",
+	"wikibaselexeme-no-features": "ਕੋਈ ਵਿਸ਼ੇਸ਼ਤਾਵਾਂ ਨਹੀਂ",
+	"wikibaselexeme-unknown-category": "ਅਣਜਾਣ",
+	"wikibaselexeme-unknown-language": "ਅਣਜਾਣ ਭਾਸ਼ਾ"
 }
