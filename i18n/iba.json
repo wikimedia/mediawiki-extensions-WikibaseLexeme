@@ -11,5 +11,20 @@
 	"nstab-lexeme": "Leksem",
 	"special-mergelexemes": "Ngempung dua iti Leksem",
 	"special-newlexeme": "Ngaga Lexeme ti baru",
-	"tooltip-ca-nstab-lexeme": "Definisyen leksem"
+	"tooltip-ca-nstab-lexeme": "Definisyen leksem",
+	"wikibase-entity-summary-wblmergelexemes-from": "Leksem ti dipegulai ari $3",
+	"wikibase-entity-summary-wblmergelexemes-to": "Leksem ti dipegulai ngagai $3",
+	"wikibase-lexeme-gloss-empty": "Nadai penyetipak leka jaku ditukuka",
+	"wikibase-lexeme-lemma-language-not-recognized": "Kod jaku ti dibekal enda dikelala.",
+	"wikibase-lexeme-lexicographical-data": "Data leksikografi",
+	"wikibase-lexeme-mergelexemes-error-cannot-load": "Enda mujur muat Leksem.",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Tukuh baru ditambah",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Leksem baru digaga",
+	"wikibaselexeme-diffview-language": "jaku",
+	"wikibaselexeme-diffview-lemma": "Lema",
+	"wikibaselexeme-diffview-lexical-category": "kategori leksikal",
+	"wikibaselexeme-diffview-representation": "pengari",
+	"wikibaselexeme-diffview-sense": "Reti",
+	"wikibaselexeme-unknown-category": "Enda ditemu",
+	"wikibaselexeme-unknown-language": "Jaku enda ditemu"
 }
