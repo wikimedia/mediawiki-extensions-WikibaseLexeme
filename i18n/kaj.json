@@ -39,10 +39,20 @@
 	"wikibase-lexeme-summary-remove-form-grammatical-features": "Tun yya  ba̱ryyat {{PLURAL:$1|kyang|nkyang}} anyyi Fom $3",
 	"wikibase-lexeme-summary-remove-form-representations": "Tun {{PLURAL:$1|ssa̱ng|ssa̱ng}} a̱nyyi Foom$3",
 	"wikibase-lexeme-summary-remove-sense": "Tun A̱zancci $3 bu̱ {{PLURAL:$1|[$2]abyai|bbbābyai}}",
-	"wikibase-lexeme-summary-remove-sense-glosses": "Tun {{PLURAL:$1|[$2] a̱byai|ba̱byai}} a̱nyyi ǡ\na̱zancci",
-	"wikibase-lexeme-summary-set-form-representations": "Shei {{PLURAL:$1||a̱ssa̱ng|ba̱ssa̱ng}} a̱nyyi Fom $3",
+	"wikibase-lexeme-summary-remove-sense-glosses": "Tun {{PLURAL:$1|[$2] a̱byai|ba̱byai}} a̱nyyi ǡ\na̱zancci $3",
+	"wikibase-lexeme-summary-set-form-representations": "Shei {{PLURAL:$1||a̱ssa̱ng|ba̱ssa̱ng}} a̱nyyi Fom $3̧",
 	"wikibase-lexeme-summary-set-sense-glosses": "Shei {{PLURAL:$1|[$2] abyai|bǡbyai}} a̱nyyi A̱zancci $3",
 	"wikibase-lexeme-summary-update-form-elements": "Shedi bạssa̱ng bu̱/au nkyang yya ba̱ryyat a̱nyyi Fom $3",
 	"wikibase-lexeme-summary-update-form-grammatical-features": "Shei ba̱ssang bu̱/a̱u yya ba̱ryyat a̱nyyi Fom $3",
-	"wikibase-lexeme-summary-update-sense-elements": "Shei bā̇byai anyyi ạ̱zancci"
+	"wikibase-lexeme-summary-update-form-representations": "Kashei yya ji ban jji bu̱/au assang yya ryyat wap anyi fom $3",
+	"wikibase-lexeme-summary-update-sense-elements": "Shei bā̇byai anyyi ạ̱zancci",
+	"wikibase-lexeme-summary-update-sense-glosses": "Ka̱shei a̱byai a̱nyi a̱zancci $3",
+	"wikibase-lexeme-summary-wbeditentity-create-form": "Ba nbrang a̱hwai nfom",
+	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "Ba yya ahwai lakzim",
+	"wikibase-lexeme-summary-wbeditentity-create-sense": "Ba nbrang a̱hwai a̱zancci",
+	"wikibase-lexeme-summary-wbeditentity-update": "Bba shei lakzim",
+	"wikibase-listdatatypes-wikibase-form-body": "Pfwok fom ji a kasak ka. Ku ba ntyi zuzzwa, lakzim ka̱sak u , ba nu cat kabvwaduyreg ka a ryyi fom ji myim ni .",
+	"wikibase-listdatatypes-wikibase-form-head": "Fom",
+	"wikibase-listdatatypes-wikibase-lexeme-body": "Pfwok balakzim ba u ka̱sak ka. Ku ba ntyi zuzzwa \"lakzim kasak u\" ba nu cat kamyim lakzim nyai u kabvwa duyreg",
+	"wikibase-listdatatypes-wikibase-lexeme-head": "lakzim"
 }
