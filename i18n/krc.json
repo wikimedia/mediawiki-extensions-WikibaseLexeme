@@ -31,7 +31,7 @@
 	"wikibase-lexeme-mergelexemes-from-id": "Бирлешдириллик келген ID",
 	"wikibase-lexeme-mergelexemes-intro": "Эки лексеманы бирлешдирсегиз, бютеу леммала, декларацияла, формала эмда ангыламла бир лексемадан башхасына кёчюрюллюкдюле.",
 	"wikibase-lexeme-mergelexemes-submit": "Лексемаланы бирлешдир",
-	"wikibase-lexeme-mergelexemes-success": "$1, $2 бла бирлешдирилди эмда джангыдан джиберилди.",
+	"wikibase-lexeme-mergelexemes-success": "$1, $2 бла бирлешдирилди эмда джолландырылды.",
 	"wikibase-lexeme-mergelexemes-to-id": "Бирлешдирилген ID",
 	"wikibase-lexeme-randomlexeme": "Рандом лексема",
 	"wikibase-lexeme-summary-add-form": "{{PLURAL:$1|репрезентация|репрезентациялары}} бла джангы $3 форманы къошду",
