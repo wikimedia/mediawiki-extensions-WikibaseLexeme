@@ -38,6 +38,7 @@ use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookupFactory;
 use Wikibase\Repo\Specials\SpecialPageCopyrightView;
 use Wikibase\Repo\SummaryFormatter;
+use Wikibase\Repo\Tests\Specials\SpecialNewEntityTestCase;
 use Wikibase\Repo\WikibaseRepo;
 
 /**
@@ -50,7 +51,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  * @author Amir Sarabadani <ladsgroup@gmail.com>
  */
-class SpecialNewLexemeTest extends \MediaWikiIntegrationTestCase {
+class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	use TempUserTestTrait;
 
@@ -63,7 +64,6 @@ class SpecialNewLexemeTest extends \MediaWikiIntegrationTestCase {
 	private $stats;
 
 	protected function setUp(): void {
-		$this->markTestSkipped( 'Temporarily skipping while dataProviders in EntityHandlerTestCase are made static' );
 		parent::setUp();
 		$this->setUserLang( 'qqx' );
 
@@ -525,7 +525,7 @@ class SpecialNewLexemeTest extends \MediaWikiIntegrationTestCase {
 		$this->assertStringContainsString( $expectedHTML, $scriptHTML[0] );
 	}
 
-	public function provideValidEntityCreationRequests(): array {
+	public static function provideValidEntityCreationRequests(): array {
 		return [
 			'everything is set' => [
 				[
@@ -546,7 +546,7 @@ class SpecialNewLexemeTest extends \MediaWikiIntegrationTestCase {
 		];
 	}
 
-	public function provideInvalidEntityCreationRequests() {
+	public static function provideInvalidEntityCreationRequests() {
 		return [
 			'unknown language' => [
 				[

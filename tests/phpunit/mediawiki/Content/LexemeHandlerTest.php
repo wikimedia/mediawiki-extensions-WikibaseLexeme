@@ -27,6 +27,7 @@ use Wikibase\Repo\Content\EntityContent;
 use Wikibase\Repo\Content\EntityHandler;
 use Wikibase\Repo\Content\EntityInstanceHolder;
 use Wikibase\Repo\Search\Fields\NoFieldDefinitions;
+use Wikibase\Repo\Tests\Content\EntityHandlerTestCase;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Repo\WikibaseRepo;
@@ -39,11 +40,7 @@ use Wikibase\Repo\WikibaseRepo;
  * @license GPL-2.0-or-later
  * @author Bene* < benestar.wikimedia@gmail.com >
  */
-class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
-
-	protected function setUp(): void {
-		$this->markTestSkipped( 'Temporarily skipping while dataProviders in EntityHandlerTestCase are made static' );
-	}
+class LexemeHandlerTest extends EntityHandlerTestCase {
 
 	/**
 	 * @return string
@@ -55,7 +52,7 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @return LexemeContent
 	 */
-	protected function newEmptyContent() {
+	protected static function newEmptyContent() {
 		return new LexemeContent();
 	}
 
@@ -73,11 +70,11 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 			->getContentHandlerForType( Lexeme::ENTITY_TYPE );
 	}
 
-	protected function newEntityContent( ?EntityDocument $entity = null ): EntityContent {
-		return new LexemeContent( new EntityInstanceHolder( $entity ?? $this->newEntity() ) );
+	protected static function newEntityContent( ?EntityDocument $entity = null ): EntityContent {
+		return new LexemeContent( new EntityInstanceHolder( $entity ?? static::newEntity() ) );
 	}
 
-	protected function newRedirectContent( EntityId $id, EntityId $target ): ?EntityContent {
+	protected static function newRedirectContent( EntityId $id, EntityId $target ): ?EntityContent {
 		$redirect = new EntityRedirect( $id, $target );
 
 		$title = Title::makeTitle( 100, $target->getSerialization() );
@@ -93,7 +90,7 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return EntityDocument
 	 */
-	protected function newEntity( ?EntityId $id = null ) {
+	protected static function newEntity( ?EntityId $id = null ) {
 		if ( !$id ) {
 			$id = new LexemeId( 'L7' );
 		}
@@ -118,8 +115,8 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 	 *
 	 * @return array[]
 	 */
-	public function contentProvider() {
-		$content = $this->newEntityContent();
+	public static function contentProvider(): array {
+		$content = self::newEntityContent();
 
 		return [
 			[ $content ],
@@ -129,7 +126,7 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 	/**
 	 * @return array
 	 */
-	public function entityIdProvider() {
+	public static function entityIdProvider() {
 		return [
 			[ 'L7' ],
 		];
@@ -149,7 +146,7 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 		return $this->newEntityContent();
 	}
 
-	protected function getEntityTypeDefinitionsConfiguration(): array {
+	protected static function getEntityTypeDefinitionsConfiguration(): array {
 		return array_merge(
 			parent::getEntityTypeDefinitionsConfiguration(),
 			wfArrayPlus2d(
@@ -159,9 +156,9 @@ class LexemeHandlerTest extends \MediaWikiIntegrationTestCase {
 		);
 	}
 
-	protected function getEntitySerializer() {
+	protected static function getEntitySerializer() {
 		$baseModelSerializerFactory = WikibaseRepo::getBaseDataModelSerializerFactory();
-		$entityTypeDefinitions = $this->getEntityTypeDefinitions();
+		$entityTypeDefinitions = self::getEntityTypeDefinitions();
 		$serializerFactoryCallbacks = $entityTypeDefinitions->getSerializerFactoryCallbacks();
 		return $serializerFactoryCallbacks['lexeme']( $baseModelSerializerFactory );
 	}
