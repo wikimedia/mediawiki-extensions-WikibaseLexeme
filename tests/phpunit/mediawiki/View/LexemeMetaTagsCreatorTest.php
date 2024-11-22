@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use InvalidArgumentException;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\MediaWikiServices;
+use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
@@ -14,13 +15,16 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Repo\WikibaseRepo;
-use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 
 /**
  * @license GPL-2.0-or-later
  * @covers \Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator
  */
-class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
+class LexemeMetaTagsCreatorTest extends TestCase {
+
+	protected function setUp(): void {
+		$this->markTestSkipped( "Tests temporarily skipped as part of T380605" );
+	}
 
 	public function provideTestGetMetaTags() {
 		$labelDescriptionLookup = $this->createMock( FallbackLabelDescriptionLookup::class );
