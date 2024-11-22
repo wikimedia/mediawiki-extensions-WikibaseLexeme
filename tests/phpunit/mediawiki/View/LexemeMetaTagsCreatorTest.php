@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\View;
 use InvalidArgumentException;
 use MediaWiki\Language\RawMessage;
 use MediaWiki\MediaWikiServices;
-use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
@@ -15,37 +14,36 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator;
 use Wikibase\Lib\Store\FallbackLabelDescriptionLookup;
 use Wikibase\Repo\WikibaseRepo;
+use Wikibase\View\Tests\EntityMetaTagsCreatorTestCase;
 
 /**
  * @license GPL-2.0-or-later
  * @covers \Wikibase\Lexeme\Presentation\View\LexemeMetaTagsCreator
  */
-class LexemeMetaTagsCreatorTest extends TestCase {
+class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 
-	protected function setUp(): void {
-		$this->markTestSkipped( "Tests temporarily skipped as part of T380605" );
-	}
-
-	public function provideTestGetMetaTags() {
-		$labelDescriptionLookup = $this->createMock( FallbackLabelDescriptionLookup::class );
-
-		$lexemeMetaTags = new LexemeMetaTagsCreator( '/', $labelDescriptionLookup );
-
+	public static function provideTestGetMetaTags() {
 		$languageItemId = new ItemId( 'Q123' );
-		$languageTerm = new TermFallback( 'en', 'The language', 'en', null );
 
 		$categoryItemId = new ItemId( 'Q321' );
-		$categoryTerm = new TermFallback( 'en', 'The category', 'en', null );
 
-		$labelDescriptionLookup->method( 'getLabel' )->willReturnMap( [
-				[ $languageItemId, $languageTerm ],
-				[ $categoryItemId, $categoryTerm ],
-			] );
+		$metaTagsFactory = static function ( self $self ) use ( $categoryItemId, $languageItemId ) {
+			$categoryTerm = new TermFallback( 'en', 'The category', 'en', null );
+			$languageTerm = new TermFallback( 'en', 'The language', 'en', null );
+
+			$labelDescriptionLookup = $self->createMock( FallbackLabelDescriptionLookup::class );
+			$labelDescriptionLookup->method( 'getLabel' )->willReturnMap( [
+					[ $languageItemId, $languageTerm ],
+					[ $categoryItemId, $categoryTerm ],
+				] );
+
+			return new LexemeMetaTagsCreator( '/', $labelDescriptionLookup );
+		};
 
 		return [
 			[
-				$lexemeMetaTags,
-				new Lexeme(
+				$metaTagsFactory,
+				fn () => new Lexeme(
 					new LexemeId( 'L84389' ),
 					new TermList( [ new Term( 'en', 'goat' ) ] ),
 					new ItemId( 'Q999' ),
@@ -58,8 +56,8 @@ class LexemeMetaTagsCreatorTest extends TestCase {
 				],
 			],
 			[
-				$lexemeMetaTags,
-				new Lexeme(
+				$metaTagsFactory,
+				fn () => new Lexeme(
 					new LexemeId( 'L84389' ),
 					new TermList( [ new Term( 'en', 'goat' ), new Term( 'fr', 'taog' ) ] ),
 					$categoryItemId,
