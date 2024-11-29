@@ -46,9 +46,7 @@ class LexemeFormsMerger {
 		$changeOps = new ChangeOps();
 
 		foreach ( $source->getForms()->toArray() as $sourceForm ) {
-			/** @var $sourceForm Form */
 			foreach ( $target->getForms()->toArray() as $targetForm ) {
-				/** @var $targetForm Form */
 				if ( $formMergeability->validate( $sourceForm, $targetForm ) ) {
 					$this->mergeForms( $sourceForm, $targetForm );
 					continue 2; // source form will only be merged into first matching target form
