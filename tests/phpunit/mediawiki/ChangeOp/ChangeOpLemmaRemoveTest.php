@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -35,29 +34,18 @@ class ChangeOpLemmaRemoveTest extends TestCase {
 		$this->assertTrue( $result->isValid() );
 	}
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
+	public function testGivenNotALemmasProvider_validateThrowsException() {
+		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = new ChangeOpLemmaRemove( 'en' );
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
+	public function testGivenNotALemmasProvider_applyThrowsException() {
+		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = new ChangeOpLemmaRemove( 'en' );
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
-	}
-
-	public function invalidEntityProvider() {
-		return [
-			[ $this->createMock( EntityDocument::class ) ],
-			[ new Item( new ItemId( 'Q123' ) ) ],
-		];
 	}
 
 	public function testGivenRemovalLanguageAndMatchingLemmaTerm_applyRemovesLemmaAndSetsTheSummary() {

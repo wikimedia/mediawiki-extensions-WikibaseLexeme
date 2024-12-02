@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLanguage;
@@ -19,20 +18,11 @@ use Wikibase\Repo\Validators\CompositeValidator;
  */
 class ChangeOpLanguageTest extends TestCase {
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALanguageProvider_validateThrowsException(
-		EntityDocument $entity
-	) {
+	public function testGivenNotALanguageProvider_validateThrowsException() {
+		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q2' ) );
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
-	}
-
-	public function invalidEntityProvider() {
-		yield [ $this->createMock( EntityDocument::class ) ];
-		yield [ new Item( new ItemId( 'Q123' ) ) ];
 	}
 
 	private function newChangeOpLanguage( ItemId $id ) {
@@ -48,10 +38,8 @@ class ChangeOpLanguageTest extends TestCase {
 		$this->assertTrue( $changeOp->validate( new Lexeme() )->isValid() );
 	}
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALanguageProvider_applyThrowsException( EntityDocument $entity ) {
+	public function testGivenNotALanguageProvider_applyThrowsException() {
+		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = $this->newChangeOpLanguage( new ItemId( 'Q123' ) );
 
 		$this->expectException( InvalidArgumentException::class );

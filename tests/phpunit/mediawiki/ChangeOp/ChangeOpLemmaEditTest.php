@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 use ValueValidators\Result;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -41,21 +40,12 @@ class ChangeOpLemmaEditTest extends TestCase {
 		];
 	}
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALemmasProvider_validateThrowsException( EntityDocument $entity ) {
-		$this->expectException( InvalidArgumentException::class );
+	public function testGivenNotALemmasProvider_validateThrowsException() {
+		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
 			$this->createMock( LemmaTermValidator::class ) );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
-	}
-
-	public function invalidEntityProvider() {
-		return [
-			[ $this->createMock( EntityDocument::class ) ],
-			[ new Item( new ItemId( 'Q123' ) ) ],
-		];
 	}
 
 	/**
@@ -95,13 +85,11 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
 	}
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALemmasProvider_applyThrowsException( EntityDocument $entity ) {
-		$this->expectException( InvalidArgumentException::class );
+	public function testGivenNotALemmasProvider_applyThrowsException() {
+		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
 			$this->createMock( LemmaTermValidator::class ) );
+		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
 	}
 

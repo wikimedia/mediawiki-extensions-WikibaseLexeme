@@ -181,7 +181,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 		$assertions( $lexeme, $patchedEntity );
 	}
 
-	public function provideGetPatchedCopy() {
+	public static function provideGetPatchedCopy() {
 		$lexemeDiffer = new LexemeDiffer();
 
 		$newLexemeL1 = NewLexeme::havingId( 'L1' );

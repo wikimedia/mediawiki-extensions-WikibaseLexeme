@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLexicalCategory;
@@ -19,23 +18,12 @@ use Wikibase\Repo\Validators\CompositeValidator;
  */
 class ChangeOpLexicalCategoryTest extends TestCase {
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALexicalCategoryProvider_validateThrowsException(
-		EntityDocument $entity
-	) {
+	public function testGivenNotALexicalCategoryProvider_validateThrowsException() {
+		$entity = new Item( new ItemId( 'Q234' ) );
 		$changeOp = $this->newChangeOpLexicalCategory( new ItemId( 'Q2' ) );
 
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
-	}
-
-	public function invalidEntityProvider() {
-		return [
-			[ $this->createMock( EntityDocument::class ) ],
-			[ new Item( new ItemId( 'Q234' ) ) ],
-		];
 	}
 
 	private function newChangeOpLexicalCategory( ItemId $id ) {
@@ -51,12 +39,8 @@ class ChangeOpLexicalCategoryTest extends TestCase {
 		$this->assertTrue( $changeOp->validate( new Lexeme() )->isValid() );
 	}
 
-	/**
-	 * @dataProvider invalidEntityProvider
-	 */
-	public function testGivenNotALexicalCategoryProvider_applyThrowsException(
-		EntityDocument $entity
-	) {
+	public function testGivenNotALexicalCategoryProvider_applyThrowsException() {
+		$entity = new Item( new ItemId( 'Q234' ) );
 		$changeOp = $this->newChangeOpLexicalCategory( new ItemId( 'Q234' ) );
 
 		$this->expectException( InvalidArgumentException::class );

@@ -23,7 +23,7 @@ class LemmaTermValidatorTest extends TestCase {
 		$this->assertTrue( $validator->validate( $validTerm )->isValid() );
 	}
 
-	public function dataProvider_validTerms() {
+	public static function dataProvider_validTerms() {
 		return [
 			'simple' => [ 'foo' ],
 			'cyrillic "х"' => [ 'х' ],
@@ -39,7 +39,7 @@ class LemmaTermValidatorTest extends TestCase {
 		$this->assertFalse( $validator->validate( $invalidTerm )->isValid() );
 	}
 
-	public function dataProvider_invalidTerms() {
+	public static function dataProvider_invalidTerms() {
 		return [
 			'not a string' => [ false ],
 			'empty' => [ '' ],
