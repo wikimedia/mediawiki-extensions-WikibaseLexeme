@@ -32,11 +32,6 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 		$this->entityStore = WikibaseRepo::getEntityStore();
 	}
 
-	protected function tearDown(): void {
-		$this->resetServices();
-		parent::tearDown();
-	}
-
 	/**
 	 * Check that the query with params result in an ApiUsageException with given properties
 	 *
