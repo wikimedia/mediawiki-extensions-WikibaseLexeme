@@ -20,7 +20,6 @@ module.exports = ( function () {
 
 	return function ( api ) {
 		return {
-			compatConfig: { MODE: 3 },
 			props: [ 'value' ],
 			template: '<input>',
 			mounted: function () {

@@ -13,7 +13,6 @@ module.exports = ( function () {
 	 */
 	return function ( template, api, messages ) {
 		return {
-			compatConfig: { MODE: 3 },
 			props: [ 'language', 'lexicalCategory', 'inEditMode', 'isSaving' ],
 			template: template,
 			components: {
