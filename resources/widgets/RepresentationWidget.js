@@ -17,7 +17,6 @@ module.exports = ( function () {
 	function newComponent( formIndex, template, beforeUpdate, mw ) {
 
 		return {
-			compatConfig: { MODE: 3 },
 			template: template,
 
 			mixins: [ RedundantLanguageIndicator( 'representations' ) ],

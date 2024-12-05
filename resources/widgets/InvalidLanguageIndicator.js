@@ -11,7 +11,6 @@ module.exports = ( function () {
 	 */
 	return function ( watchedProperty, validLanguages ) {
 		var definition = {
-			compatConfig: { MODE: 3 },
 			data: function () {
 				return {
 					InvalidLanguages: []
