@@ -4,13 +4,15 @@
 			"BAB ZAA",
 			"Mr. Ibrahem",
 			"ديفيد",
-			"Hubaishan"
+			"Hubaishan",
+			"Meno25"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "يجب أن يحتوي الصيغة على تمثيل واحد على الأقل",
 	"apierror-wikibaselexeme-form-not-found": "يحتوي الحقل \"$1\" على معرف الصيغة \"$2\" الذي تعذر العثور عليه.",
 	"apierror-wikibaselexeme-invalid-form-claims": "ادعاءات غير صالحة في الحقل \"$1\" في \"$2\".",
 	"apierror-wikibaselexeme-invalid-item-id": "معرف عنصر غير صالح \"$3\" في الحقل \"$1\" في \"$2\".",
+	"apierror-wikibaselexeme-invalid-sense-claims": "ادعاءات غير صالحة في الحقل \"$1\" في \"$2\".",
 	"apierror-wikibaselexeme-json-field-has-wrong-type": "الحقل \"$2\" في الوسيط \"$1\" من المتوقع أن يكون من النوع \"$3\"، المعطى: \"$4\"",
 	"apierror-wikibaselexeme-json-field-not-item-id": "الحقل \"$2\" في الوسيط \"$1\" من المتوقع أن يكون معرف عنصر، المعطى: \"$3\"",
 	"apierror-wikibaselexeme-json-field-required": "الحقل $3 في \"$2\" في الوسيط \"$1\" مطلوب",
@@ -26,6 +28,7 @@
 	"apierror-wikibaselexeme-sense-must-have-at-least-one-gloss": "يجب أن يكون لمعنى تفسير واحد على الأقل",
 	"apierror-wikibaselexeme-sense-not-found": "يحتوي الحقل \"$1\" على معرف المعنى \"$2\" الذي تعذر العثور عليه.",
 	"apierror-wikibaselexeme-unknown-language": "لغة غير معروفة \"$3\" في الحقل \"$1\" في \"$2\".",
+	"apierror-wikibaselexeme-unknown-language-withtext": "لغة غير معروفة \"$3\" للمصطلح \"$4\" في الحقل \"$1\" في \"$2\".",
 	"apihelp-query+wbcontentlanguages-paramvalue-context-term-lexicographical": "شروط للوحدة المعجمية (إملاء المفردات، أو تمثيلات الصيغ، أو تفسيرات المعنى).",
 	"apihelp-wbladdform-example-1": "أضف صيغة إلى المفردة بمعرف <samp>$1</samp> يحتوي على تمثيلات <samp>$2</samp> باللغات <samp>$3</samp> على التوالي والميزات النحوية <samp>$4</samp>",
 	"apihelp-wbladdform-param-baserevid": "معرف مراجعة الأساس للمفردة، إذا كان التحقق من تعارض التحرير مطلوبا.",
