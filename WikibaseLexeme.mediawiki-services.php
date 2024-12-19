@@ -78,58 +78,6 @@ return call_user_func( static function () {
 		'zh-yue',
 	];
 
-	$additionalLocalizedLanguages = array_merge( $additionalTermLanguages, [
-		// Languages that are supported in Wikibase (via cldr) but localized here in LexemeLanguageNameLookup.
-		// These should be localized via the cldr extension (T352922).
-		'apc',
-		'az-cyrl',
-		'bas',
-		'bfi',
-		'bzs',
-		'cak',
-		'ccp',
-		'cnh',
-		'ctg',
-		'de-1901',
-		'enm',
-		'fon',
-		'frm',
-		'fro',
-		'gmh',
-		'goh',
-		'gsg',
-		'hoc',
-		'ja-hira',
-		'ja-hrkt',
-		'ja-kana',
-		'lij-mc',
-		'mis',
-		'mvf',
-		'nd',
-		'non',
-		'non-runr',
-		'nr',
-		'nrf-gg',
-		'nrf-je',
-		'obt',
-		'pks',
-		'quc',
-		'rah',
-		'rkt',
-		'rm-puter',
-		'rm-rumgr',
-		'rm-surmiran',
-		'rm-sursilv',
-		'rm-sutsilv',
-		'rm-vallader',
-		'sia',
-		'sjk',
-		'tlh-latn',
-		'tlh-piqd',
-		'txg',
-		'xbm',
-	] );
-
 	return [
 		'WikibaseLexemeTermLanguages' => static function (
 			MediaWikiServices $mediawikiServices
@@ -145,12 +93,10 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexemeLanguageNameLookupFactory' => static function (
 			MediaWikiServices $mediawikiServices
-		) use (
-			$additionalLocalizedLanguages
 		): LexemeLanguageNameLookupFactory {
 			return new LexemeLanguageNameLookupFactory(
 				WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
-				$additionalLocalizedLanguages
+				[] // TODO remove LexemeLanguageNameLookup(Factory) completely (T352922)
 			);
 		},
 		'WikibaseLexemeMobileView' =>
