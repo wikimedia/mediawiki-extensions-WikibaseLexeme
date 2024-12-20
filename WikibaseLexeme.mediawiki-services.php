@@ -17,7 +17,6 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
@@ -89,14 +88,6 @@ return call_user_func( static function () {
 				WikibaseContentLanguages::getDefaultMonolingualTextLanguages(
 					$mediawikiServices->getLanguageNameUtils()
 				)
-			);
-		},
-		'WikibaseLexemeLanguageNameLookupFactory' => static function (
-			MediaWikiServices $mediawikiServices
-		): LexemeLanguageNameLookupFactory {
-			return new LexemeLanguageNameLookupFactory(
-				WikibaseRepo::getLanguageNameLookupFactory( $mediawikiServices ),
-				[] // TODO remove LexemeLanguageNameLookup(Factory) completely (T352922)
 			);
 		},
 		'WikibaseLexemeMobileView' =>

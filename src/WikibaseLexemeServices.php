@@ -7,7 +7,6 @@ use Psr\Container\ContainerInterface;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
@@ -22,13 +21,6 @@ class WikibaseLexemeServices {
 	): ContentLanguages {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexemeTermLanguages' );
-	}
-
-	public static function getLanguageNameLookupFactory(
-		?ContainerInterface $services = null
-	): LexemeLanguageNameLookupFactory {
-		return ( $services ?: MediaWikiServices::getInstance() )
-			->get( 'WikibaseLexemeLanguageNameLookupFactory' );
 	}
 
 	public static function getMobileView(

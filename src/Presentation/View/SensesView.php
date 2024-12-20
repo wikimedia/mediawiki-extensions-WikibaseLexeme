@@ -5,9 +5,9 @@ namespace Wikibase\Lexeme\Presentation\View;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\Presentation\View\Template\VueTemplates;
+use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\View\LanguageDirectionalityLookup;
 use Wikibase\View\LocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
@@ -39,23 +39,16 @@ class SensesView {
 	private $statementGroupListView;
 
 	/**
-	 * @var LexemeLanguageNameLookup
+	 * @var LanguageNameLookup
 	 */
 	private $languageNameLookup;
 
-	/**
-	 * @param LocalizedTextProvider $textProvider
-	 * @param LanguageDirectionalityLookup $languageDirectionalityLookup
-	 * @param LexemeTemplateFactory $templateFactory
-	 * @param StatementGroupListView $statementGroupListView
-	 * @param LexemeLanguageNameLookup $languageNameLookup
-	 */
 	public function __construct(
 		LocalizedTextProvider $textProvider,
 		LanguageDirectionalityLookup $languageDirectionalityLookup,
 		LexemeTemplateFactory $templateFactory,
 		StatementGroupListView $statementGroupListView,
-		LexemeLanguageNameLookup $languageNameLookup
+		LanguageNameLookup $languageNameLookup
 	) {
 		$this->textProvider = $textProvider;
 		$this->languageDirectionalityLookup = $languageDirectionalityLookup;
