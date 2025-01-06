@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookupFactory;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\ContentLanguages;
@@ -26,13 +25,6 @@ class WikibaseLexemeServicesTest extends TestCase {
 			count( $baseLanguages->getLanguages() ),
 			count( $languages->getLanguages() ),
 			'additional languages appended to default languages'
-		);
-	}
-
-	public function testGetLanguageNameLookupFactory() {
-		$this->assertInstanceOf(
-			LexemeLanguageNameLookupFactory::class,
-			WikibaseLexemeServices::getLanguageNameLookupFactory()
 		);
 	}
 

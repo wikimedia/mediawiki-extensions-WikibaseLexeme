@@ -10,10 +10,10 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
-use Wikibase\Lexeme\MediaWiki\Content\LexemeLanguageNameLookup;
 use Wikibase\Lexeme\Presentation\View\SensesView;
 use Wikibase\Lexeme\Presentation\View\Template\LexemeTemplateFactory;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
+use Wikibase\Lib\LanguageNameLookup;
 use Wikibase\Repo\WikibaseRepo;
 use Wikibase\View\DummyLocalizedTextProvider;
 use Wikibase\View\StatementGroupListView;
@@ -179,12 +179,10 @@ class SensesViewTest extends TestCase {
 		return LexemeTemplateFactory::factory();
 	}
 
-	private function getLanguageNameMock(): LexemeLanguageNameLookup {
-		$languageNameMock = $this->createMock(
-			LexemeLanguageNameLookup::class
-		);
-		$languageNameMock->method( 'getName' )->willReturn( 'English' );
-		return $languageNameMock;
+	private function getLanguageNameMock(): LanguageNameLookup {
+		return $this->createConfiguredMock( LanguageNameLookup::class, [
+			'getName' => 'English',
+		] );
 	}
 
 }
