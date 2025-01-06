@@ -1,14 +1,16 @@
 <?xml version="1.0"?>
 <ruleset>
-	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki">
-		<exclude name="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment" />
-	</rule>
+	<rule ref="./vendor/mediawiki/mediawiki-codesniffer/MediaWiki" />
 
 	<rule ref="MediaWiki.Arrays.TrailingComma">
 		<properties>
 			<property name="singleLine" value="false" />
 			<property name="multiLine" value="true" />
 		</properties>
+	</rule>
+
+	<rule ref="MediaWiki.WhiteSpace.SpaceBeforeSingleLineComment.NewLineComment">
+		<severity>0</severity>
 	</rule>
 
 	<!-- BEGIN rules copied from wikibase-codesniffer (T268831) -->
