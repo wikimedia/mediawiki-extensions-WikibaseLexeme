@@ -39,12 +39,8 @@ class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 			'by' => $testuser,
 			'expiry' => (string)( time() + 60 ),
 		] );
-		$this->block->insert();
-	}
-
-	protected function tearDown(): void {
-		$this->block->delete();
-		parent::tearDown();
+		$this->getServiceContainer()->getDatabaseBlockStore()
+			->insertBlock( $this->block );
 	}
 
 	public static function dataProvider() {

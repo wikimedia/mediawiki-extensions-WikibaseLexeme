@@ -173,7 +173,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			'expiry' => time() + 100500,
 			'sitewide' => $blockIsSitewide,
 		] );
-		$block->insert();
+		$this->getServiceContainer()->getDatabaseBlockStore()
+			->insertBlock( $block );
 		if ( $blockedNamespaces !== null ) {
 			$restrictions = [];
 			foreach ( $blockedNamespaces as $blockedNamespace ) {
