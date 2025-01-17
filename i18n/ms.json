@@ -100,6 +100,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "Kod bahasa untuk kelainan ejaan Lema, contohnya 'ms'",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Kod bahasa untuk kelainan ejaan Lema, contohnya '$1'",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Bentuk pendek suatu perkataan, contohnya 'pertama'",
+	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Bentuk dasar perkataan, contohnya '$1'",
 	"wikibaselexeme-newlexeme-lemma-too-long-error": "Leksem tidak boleh melebihi $1 {{PLURAL:$1|aksara}}.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Kategori leksikal",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Medan kategori leksikal tidak boleh kosong.",
