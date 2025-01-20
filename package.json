@@ -10,7 +10,7 @@
 			"src": "resources/special/new-lexeme",
 			"dist": "resources/special/new-lexeme-dist",
 			"cjs": "SpecialNewLexeme.cjs.js",
-			"css": "style.css"
+			"css": "new-lexeme-special-page.css"
 		}
 	},
 	"scripts": {

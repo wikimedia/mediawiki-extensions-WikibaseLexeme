@@ -288,7 +288,7 @@ return call_user_func( static function () {
 				],
 			],
 			"styles" => [
-				'special/new-lexeme-dist/style.css',
+				'special/new-lexeme-dist/new-lexeme-special-page.css',
 			],
 			"dependencies" => [
 				'vue',
