@@ -49,7 +49,7 @@ class CartesianProduct {
 
 		return $result->map(
 			static function ( array $args ) use ( $fn ) {
-				return call_user_func_array( $fn, $args );
+				return $fn( ...$args );
 			},
 			$generatorName
 		);

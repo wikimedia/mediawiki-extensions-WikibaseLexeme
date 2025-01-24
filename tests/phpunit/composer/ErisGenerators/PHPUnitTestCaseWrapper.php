@@ -29,7 +29,7 @@ class PHPUnitTestCaseWrapper {
 	}
 
 	public function __call( $name, $arguments ) {
-		return call_user_func_array( [ $this->testCase, $name ], $arguments );
+		return $this->testCase->$name( ...$arguments );
 	}
 
 	public function seed( $seed ) {
