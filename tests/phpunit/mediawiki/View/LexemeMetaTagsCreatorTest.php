@@ -43,7 +43,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 		return [
 			[
 				$metaTagsFactory,
-				fn () => new Lexeme(
+				static fn () => new Lexeme(
 					new LexemeId( 'L84389' ),
 					new TermList( [ new Term( 'en', 'goat' ) ] ),
 					new ItemId( 'Q999' ),
@@ -57,7 +57,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 			],
 			[
 				$metaTagsFactory,
-				fn () => new Lexeme(
+				static fn () => new Lexeme(
 					new LexemeId( 'L84389' ),
 					new TermList( [ new Term( 'en', 'goat' ), new Term( 'fr', 'taog' ) ] ),
 					$categoryItemId,
