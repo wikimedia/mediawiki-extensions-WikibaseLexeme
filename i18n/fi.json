@@ -39,12 +39,17 @@
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma on yleensä sanan lyhin muoto",
 	"wikibaselexeme-lemma-field-lemma-label": "Lemma",
 	"wikibaselexeme-newlexeme-fieldset": "Luo uusi lekseemi",
+	"wikibaselexeme-newlexeme-info-panel-heading": "Tietoja lekseemeistä",
 	"wikibaselexeme-newlexeme-language": "Lekseemin kieli",
 	"wikibaselexeme-newlexeme-language-placeholder": "Lekseemin kieli, esim. suomi",
+	"wikibaselexeme-newlexeme-language-placeholder-with-example": "Lekseemin kieli, esim. '$1'",
 	"wikibaselexeme-newlexeme-lemma": "Lemma",
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Ohje)",
+	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Sanan perusmuoto, esim. '$1'",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Leksikaalinen luokka",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Syötä leksikaalinen luokka, esim. substantiivi",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example": "Lekseemin leksikaalinen luokka, esim. '$1'",
+	"wikibaselexeme-newlexeme-submit": "Luo lekseemi",
 	"wikibaselexeme-unknown-category": "Tuntematon",
 	"wikibaselexeme-unknown-language": "Tuntematon kieli"
 }
