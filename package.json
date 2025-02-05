@@ -2,10 +2,6 @@
 	"name": "WikibaseLexeme",
 	"private": true,
 	"config": {
-		"remoteVersion": {
-			"vue": "https://raw.githubusercontent.com/wikimedia/mediawiki/#{ZUUL_BRANCH}/resources/lib/vue/vue.common.prod.js",
-			"vuex": "https://raw.githubusercontent.com/wikimedia/mediawiki/#{ZUUL_BRANCH}/resources/lib/vuex/vuex.js"
-		},
 		"snl": {
 			"src": "resources/special/new-lexeme",
 			"dist": "resources/special/new-lexeme-dist",
@@ -19,7 +15,6 @@
 		"test:grunt": "grunt test",
 		"test:snl-distnodiff": "run-s snl:install snl:build snl:cp snl:diff",
 		"test:snl-main": "git -C $npm_package_config_snl_src branch --contains HEAD main | grep -q .",
-		"test:mwlibs": "echo 'disabled (T297381)' # ZUUL_BRANCH=${ZUUL_BRANCH:-master} lib-version-check",
 		"fix": "grunt fix",
 		"bump-special-new-lexeme": "run-s snl:fetch snl:checkout snl:install snl:build snl:cp snl:add snl:restore",
 		"snl:fetch": "git -C $npm_package_config_snl_src fetch origin main",
@@ -39,7 +34,6 @@
 	},
 	"devDependencies": {
 		"@wmde/eslint-config-wikimedia-typescript": "^0.2.12",
-		"@wmde/lib-version-check": "^0.1.1-alpha.2",
 		"cypress": "^13.17.0",
 		"cypress-parallel": "^0.14.0",
 		"cypress-wikibase-api": "^0.0.6",
