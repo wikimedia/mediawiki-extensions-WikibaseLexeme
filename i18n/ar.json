@@ -7,7 +7,8 @@
 			"محمد أحمد عبد الفتاح",
 			"Meno25",
 			"Michel Bakni",
-			"Hubaishan"
+			"Hubaishan",
+			"Mohanad"
 		]
 	},
 	"content-model-wikibase-lexeme": "مفردة ويكي بايس",
@@ -15,7 +16,7 @@
 	"datatypes-type-wikibase-lexeme": "مفردة",
 	"datatypes-type-wikibase-sense": "معنى",
 	"special-mergelexemes": "ادمج مفردتين",
-	"special-newlexeme": "إنشاء وحدة معجمية جديدة",
+	"special-newlexeme": "إنشاء معجمية جديدة",
 	"special-newlexeme-alpha": "إنشاء مفردة جديدة (تجريبي)",
 	"wikibase-entity-summary-wblmergelexemes-from": "دُمِجَت مفردة من $3",
 	"wikibase-entity-summary-wblmergelexemes-to": "دُمِجَت المفردة إلى $3",
