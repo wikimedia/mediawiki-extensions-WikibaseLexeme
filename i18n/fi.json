@@ -47,7 +47,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Ohje)",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Sanan perusmuoto, esim. '$1'",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Leksikaalinen luokka",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Syötä leksikaalinen luokka, esim. substantiivi",
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Lekseemin luokka, esim. ”substantiivi”",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example": "Lekseemin leksikaalinen luokka, esim. '$1'",
 	"wikibaselexeme-newlexeme-submit": "Luo lekseemi",
 	"wikibaselexeme-unknown-category": "Tuntematon",
