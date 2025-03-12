@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
-use Iterator;
 use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Html\Html;
@@ -53,7 +52,6 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\View\EntityIdFormatterFactory;
-use Wikimedia\Assert\Assert;
 
 /**
  * New page for creating new Lexeme entities.
@@ -547,11 +545,6 @@ class SpecialNewLexeme extends SpecialPage {
 		$summary->setLanguage( $uiLanguageCode );
 
 		$lemmaIterator = $lexeme->getLemmas()->getIterator();
-		// As getIterator can also in theory return a Traversable, guard against that
-		Assert::invariant(
-			$lemmaIterator instanceof Iterator,
-			'TermList::getIterator did not return an instance of Iterator'
-		);
 		/** @var Term|null $lemmaTerm */
 		$lemmaTerm = $lemmaIterator->current();
 		$summary->addAutoSummaryArgs( $lemmaTerm->getText() );
