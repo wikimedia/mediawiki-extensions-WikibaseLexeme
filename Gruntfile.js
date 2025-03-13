@@ -26,7 +26,8 @@ module.exports = function ( grunt ) {
 		},
 		stylelint: {
 			options: {
-				fix: grunt.option( 'fix' )
+				fix: grunt.option( 'fix' ),
+				cache: true
 			},
 			all: [
 				'**/*.less',
