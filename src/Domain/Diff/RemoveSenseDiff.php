@@ -29,7 +29,7 @@ class RemoveSenseDiff implements SenseDiff {
 		$this->diffOps = $diffOps;
 	}
 
-	public function getRemovedSenseId() {
+	public function getRemovedSenseId(): SenseId {
 		return $this->senseId;
 	}
 

@@ -44,7 +44,7 @@ class CartesianProduct {
 		$this->generatedValues = $generatedValues;
 	}
 
-	public function map( callable $fn, $generatorName = 'CartesianProduct' ) {
+	public function map( callable $fn, string $generatorName = 'CartesianProduct' ): GeneratedValueOptions {
 		$result = $this->combine( $generatorName );
 
 		return $result->map(
@@ -98,9 +98,9 @@ class CartesianProduct {
 	private function cartesianProduct(
 		GeneratedValueOptions $v1,
 		GeneratedValueOptions $v2,
-		$generatorName,
+		string $generatorName,
 		callable $merge
-	) {
+	): GeneratedValueOptions {
 		$options = [];
 		foreach ( $v1 as $firstPart ) {
 			foreach ( $v2 as $secondPart ) {

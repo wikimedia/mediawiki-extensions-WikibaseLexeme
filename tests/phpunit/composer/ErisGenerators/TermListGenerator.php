@@ -25,7 +25,7 @@ class TermListGenerator implements Generator {
 	 */
 	private $minimalSize;
 
-	public function __construct( $minimalSize = 0 ) {
+	public function __construct( int $minimalSize = 0 ) {
 		$this->termGenerator = new TermGenerator();
 		$this->minimalSize = $minimalSize;
 	}

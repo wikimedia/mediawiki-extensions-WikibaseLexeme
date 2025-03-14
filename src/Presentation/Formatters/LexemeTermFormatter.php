@@ -15,7 +15,7 @@ class LexemeTermFormatter {
 	/** @var string */
 	private $separator;
 
-	public function __construct( $separator ) {
+	public function __construct( string $separator ) {
 		$this->separator = $separator;
 	}
 
@@ -37,7 +37,7 @@ class LexemeTermFormatter {
 		);
 	}
 
-	private function getTermHtml( Term $term ) {
+	private function getTermHtml( Term $term ): string {
 		$language = MediaWikiServices::getInstance()->getLanguageFactory()->getLanguage( $term->getLanguageCode() );
 
 		return Html::element(

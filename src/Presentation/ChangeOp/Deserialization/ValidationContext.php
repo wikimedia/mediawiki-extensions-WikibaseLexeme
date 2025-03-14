@@ -35,7 +35,7 @@ class ValidationContext {
 		}
 	}
 
-	public static function create( $field ) {
+	public static function create( string $field ): self {
 		return new self( null, $field );
 	}
 

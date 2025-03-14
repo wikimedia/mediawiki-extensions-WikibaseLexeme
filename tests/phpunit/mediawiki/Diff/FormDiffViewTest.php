@@ -225,7 +225,7 @@ class FormDiffViewTest extends TestCase {
 	/**
 	 * @return Statement
 	 */
-	private function someStatement( $propertyId, $guid ) {
+	private function someStatement( string $propertyId, string $guid ) {
 		$statement = new Statement(
 			new PropertySomeValueSnak( new NumericPropertyId( $propertyId ) )
 		);

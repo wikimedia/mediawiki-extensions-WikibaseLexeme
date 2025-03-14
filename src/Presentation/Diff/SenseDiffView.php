@@ -82,7 +82,7 @@ class SenseDiffView extends BasicDiffView {
 		return $html;
 	}
 
-	private function generateSenseOpHtml( array $path, SenseDiff $op, $key ) {
+	private function generateSenseOpHtml( array $path, SenseDiff $op, string $key ): string {
 		$html = '';
 
 		$html .= parent::generateOpHtml(

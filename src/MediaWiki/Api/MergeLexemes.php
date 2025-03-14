@@ -100,7 +100,7 @@ class MergeLexemes extends ApiBase {
 		$this->showSuccessMessage( $params, $savedTempUser );
 	}
 
-	private function getLexemeIdFromParamOrDie( $serialization ): LexemeId {
+	private function getLexemeIdFromParamOrDie( string $serialization ): LexemeId {
 		try {
 			return new LexemeId( $serialization );
 		} catch ( InvalidArgumentException $e ) {

@@ -19,7 +19,7 @@ class GrammaticalFeatureDiffVisualizer {
 		$this->itemRefDiffVisualizer = $itemRefDiffVisualizer;
 	}
 
-	public function visualize( array $path, DiffOp $diff ) {
+	public function visualize( array $path, DiffOp $diff ): string {
 		if ( $diff->isAtomic() ) {
 			return $this->itemRefDiffVisualizer->visualize(
 				$this->buildPathHeader( $path ),
@@ -39,7 +39,7 @@ class GrammaticalFeatureDiffVisualizer {
 		return $html;
 	}
 
-	private function buildPathHeader( $path ) {
+	private function buildPathHeader( array $path ): string {
 		return implode( ' / ', $path );
 	}
 

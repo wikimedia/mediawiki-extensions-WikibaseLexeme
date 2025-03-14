@@ -28,7 +28,7 @@ class AddFormDiff implements FormDiff {
 		$this->diffOps = $diffOps;
 	}
 
-	public function getAddedForm() {
+	public function getAddedForm(): Form {
 		return $this->form;
 	}
 

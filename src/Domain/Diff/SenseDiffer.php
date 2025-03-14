@@ -101,7 +101,7 @@ class SenseDiffer implements EntityDifferStrategy {
 		return new ChangeSenseDiffOp( $old->getId(), new Diff( $diffOps ) );
 	}
 
-	public function getAddSenseDiff( Sense $sense ) {
+	public function getAddSenseDiff( Sense $sense ): SenseDiff {
 		$diffOps = $this->recursiveMapDiffer->doDiff(
 			[],
 			$this->toSenseDiffArray( $sense )
@@ -114,7 +114,7 @@ class SenseDiffer implements EntityDifferStrategy {
 		return new AddSenseDiff( $sense, new Diff( $diffOps ) );
 	}
 
-	public function getRemoveSenseDiff( Sense $sense ) {
+	public function getRemoveSenseDiff( Sense $sense ): SenseDiff {
 		$diffOps = $this->recursiveMapDiffer->doDiff(
 			$this->toSenseDiffArray( $sense ),
 			[]

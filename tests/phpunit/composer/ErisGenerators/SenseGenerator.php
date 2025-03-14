@@ -56,7 +56,7 @@ class SenseGenerator implements Generator {
 		return GeneratedValueSingle::fromJustValue( $sense, 'sense' );
 	}
 
-	public function shrink( GeneratedValue $element ) {
+	public function shrink( GeneratedValue $element ): GeneratedValue {
 		return $element;
 	}
 

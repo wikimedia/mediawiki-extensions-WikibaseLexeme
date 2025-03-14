@@ -101,7 +101,7 @@ class FormDiffer implements EntityDifferStrategy {
 		return new ChangeFormDiffOp( $old->getId(), new Diff( $diffOps ) );
 	}
 
-	public function getAddFormDiff( Form $form ) {
+	public function getAddFormDiff( Form $form ): FormDiff {
 		$diffOps = $this->recursiveMapDiffer->doDiff(
 			[],
 			$this->toFormDiffArray( $form )
@@ -114,7 +114,7 @@ class FormDiffer implements EntityDifferStrategy {
 		return new AddFormDiff( $form, new Diff( $diffOps ) );
 	}
 
-	public function getRemoveFormDiff( Form $form ) {
+	public function getRemoveFormDiff( Form $form ): FormDiff {
 		$diffOps = $this->recursiveMapDiffer->doDiff(
 			$this->toFormDiffArray( $form ),
 			[]

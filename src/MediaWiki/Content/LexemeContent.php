@@ -71,11 +71,11 @@ class LexemeContent extends EntityContent {
 		);
 	}
 
-	public static function newFromRedirect( $redirect, $title ) {
+	public static function newFromRedirect( ?EntityRedirect $redirect, ?Title $title ): self {
 		return new self( null, $redirect, $title );
 	}
 
-	protected function getIgnoreKeysForFilters() {
+	protected function getIgnoreKeysForFilters(): array {
 		// FIXME: This was the default list of keys as extracted form EntityContent
 		// Lexemes should probably have different keys set here but we need to know what
 		// is already being used in AbuseFilter on wikidata.org

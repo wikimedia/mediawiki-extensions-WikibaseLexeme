@@ -91,11 +91,11 @@ class LexemeDiff extends EntityDiff {
 			&& $this->getNextSenseIdDiff()->isEmpty();
 	}
 
-	public function getNextFormIdDiff() {
+	public function getNextFormIdDiff(): Diff {
 		return $this['nextFormId'] ?? new Diff( [], true );
 	}
 
-	public function getNextSenseIdDiff() {
+	public function getNextSenseIdDiff(): Diff {
 		return $this['nextSenseId'] ?? new Diff( [], true );
 	}
 

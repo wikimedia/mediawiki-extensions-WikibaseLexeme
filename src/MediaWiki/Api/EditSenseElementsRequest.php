@@ -15,7 +15,7 @@ class EditSenseElementsRequest {
 	/** @var int|null */
 	private $baseRevId;
 
-	public function __construct( SenseId $senseId, ChangeOp $changeOp, $baseRevId ) {
+	public function __construct( SenseId $senseId, ChangeOp $changeOp, ?int $baseRevId ) {
 		$this->senseId = $senseId;
 		$this->changeOp = $changeOp;
 		$this->baseRevId = $baseRevId;
@@ -29,7 +29,7 @@ class EditSenseElementsRequest {
 		return $this->senseId;
 	}
 
-	public function getBaseRevId() {
+	public function getBaseRevId(): ?int {
 		return $this->baseRevId;
 	}
 
