@@ -37,7 +37,7 @@ class LexemeNotFoundException extends MergingException {
 		);
 	}
 
-	public function getApiErrorCode() {
+	public function getApiErrorCode(): string {
 		return 'no-such-entity';
 	}
 

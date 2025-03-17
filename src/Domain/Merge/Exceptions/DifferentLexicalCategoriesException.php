@@ -13,7 +13,7 @@ class DifferentLexicalCategoriesException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-same-lexical-category' );
 	}
 
-	public function getApiErrorCode() {
+	public function getApiErrorCode(): string {
 		return 'failed-modify';
 	}
 
