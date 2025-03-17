@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"Bgo eiu",
-			"Kuldeepburjbhalaike"
+			"Kuldeepburjbhalaike",
+			"Cabal"
 		]
 	},
-	"content-model-wikibase-lexeme": "ਵਿਕੀਬੇਸ ਲੈਕਸੀਮ",
+	"content-model-wikibase-lexeme": "ਵਿਕੀਅਧਾਰ ਸ਼ਬਦਾਵਲੀ",
 	"datatypes-type-wikibase-form": "ਰੂਪ",
 	"datatypes-type-wikibase-lexeme": "ਲੈਕਸੀਮ",
 	"datatypes-type-wikibase-sense": "ਅਰਥ",
-	"special-mergelexemes": "ਦੋ ਲੈਕਸੀਮ ਰਲ਼ਾਓ",
+	"special-mergelexemes": "ਦੋ ਸ਼ਬਦਾਵਲੀਆਂ ਨੂੰ ਰਲਾਓ",
 	"special-newlexeme": "ਇੱਕ ਨਵਾਂ ਲੈਕਸੀਮ ਬਣਾਓ",
 	"wikibase-lexeme-mergelexemes-submit": "ਲੈਕਸੀਮ ਰਲ਼ਾਓ",
 	"wikibase-lexeme-summary-wbeditentity-create-lexeme": "ਇੱਕ ਨਵਾਂ ਲੈਕਸੀਮ ਬਣਾਓ",
