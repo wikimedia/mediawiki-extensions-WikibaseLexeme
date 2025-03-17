@@ -24,11 +24,11 @@ class ItemReferenceDifferenceVisualizer {
 		$this->idFormatter = $idFormatter;
 	}
 
-	public function visualize( $headerText, Diff $diff ) {
+	public function visualize( string $headerText, Diff $diff ): string {
 		return $this->visualizeDifference( $headerText, $diff );
 	}
 
-	private function visualizeDifference( $headerText, DiffOp $diff ) {
+	private function visualizeDifference( string $headerText, DiffOp $diff ): string {
 		if ( !$diff->isAtomic() ) {
 			$html = '';
 			// @phan-suppress-next-line PhanTypeNoPropertiesForeach

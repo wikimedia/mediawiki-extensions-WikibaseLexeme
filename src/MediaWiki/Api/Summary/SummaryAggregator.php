@@ -67,23 +67,23 @@ class SummaryAggregator {
 		return $this->createSameActionAggregation( $summary, $subSummary );
 	}
 
-	private function hasNothingToMerge( Summary $summary ) {
+	private function hasNothingToMerge( Summary $summary ): bool {
 		return $summary->getMessageKey() === null;
 	}
 
-	private function isAlreadyAggregate( Summary $summary ) {
+	private function isAlreadyAggregate( Summary $summary ): bool {
 		return $summary->getMessageKey() === $this->aggregateAction;
 	}
 
-	private function hasNoExistingSummary( Summary $summary ) {
+	private function hasNoExistingSummary( Summary $summary ): bool {
 		return $summary->getMessageKey() === null;
 	}
 
-	private function haveDifferentActions( Summary $summary, Summary $subSummary ) {
+	private function haveDifferentActions( Summary $summary, Summary $subSummary ): bool {
 		return $summary->getMessageKey() !== $subSummary->getMessageKey();
 	}
 
-	private function createDifferentActionAggregation( Summary $summary, Summary $subSummary ) {
+	private function createDifferentActionAggregation( Summary $summary, Summary $subSummary ): Summary {
 		$newSummary = new Summary();
 		$newSummary->setAction( $this->aggregateAction );
 		$newSummary->setLanguage( null );
@@ -99,7 +99,7 @@ class SummaryAggregator {
 		return $newSummary;
 	}
 
-	private function createSameActionAggregation( Summary $summary, Summary $subSummary ) {
+	private function createSameActionAggregation( Summary $summary, Summary $subSummary ): Summary {
 		if ( $summary->getLanguageCode() === $subSummary->getLanguageCode() ) {
 			// TODO bubble the language into the aggregation here?
 			// $language = $summary->getLanguageCode();

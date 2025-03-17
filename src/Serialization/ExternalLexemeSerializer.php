@@ -56,7 +56,7 @@ class ExternalLexemeSerializer implements DispatchableSerializer {
 		return $this->getSerialized( $object );
 	}
 
-	private function getSerialized( Lexeme $lexeme ) {
+	private function getSerialized( Lexeme $lexeme ): array {
 		$internalSerialization = $this->internalSerializer->serialize( $lexeme );
 
 		unset( $internalSerialization['nextFormId'] );

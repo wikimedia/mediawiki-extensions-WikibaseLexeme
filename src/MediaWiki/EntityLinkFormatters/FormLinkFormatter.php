@@ -50,7 +50,7 @@ class FormLinkFormatter implements EntityLinkFormatter {
 		$this->representationsFormatter = $representationsFormatter;
 	}
 
-	public function getHtml( EntityId $entityId, ?array $labelData = null ) {
+	public function getHtml( EntityId $entityId, ?array $labelData = null ): string {
 		Assert::parameterType( FormId::class, $entityId, '$entityId' );
 		'@phan-var FormId $entityId';
 

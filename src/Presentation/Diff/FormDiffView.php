@@ -89,7 +89,7 @@ class FormDiffView extends BasicDiffView {
 		return $html;
 	}
 
-	private function generateFormOpHtml( array $path, FormDiff $op, $key ) {
+	private function generateFormOpHtml( array $path, FormDiff $op, string $key ): string {
 		$html = '';
 
 		$html .= parent::generateOpHtml(

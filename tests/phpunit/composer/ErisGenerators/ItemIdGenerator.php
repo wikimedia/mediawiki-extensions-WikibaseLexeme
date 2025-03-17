@@ -20,7 +20,7 @@ class ItemIdGenerator implements Generator {
 	 */
 	private $numericItemIdGenerator;
 
-	public function __construct( $maxItemId = self::MAX_ITEM_ID ) {
+	public function __construct( int $maxItemId = self::MAX_ITEM_ID ) {
 		$this->numericItemIdGenerator = new ChooseGenerator( 1, $maxItemId );
 	}
 

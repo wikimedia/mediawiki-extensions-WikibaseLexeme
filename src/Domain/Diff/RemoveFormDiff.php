@@ -28,7 +28,7 @@ class RemoveFormDiff implements FormDiff {
 		$this->diffOps = $diffOps;
 	}
 
-	public function getRemovedFormId() {
+	public function getRemovedFormId(): FormId {
 		return $this->formId;
 	}
 

@@ -71,7 +71,7 @@ class LexemeMetaTagsCreator implements EntityMetaTagsCreator {
 		return implode( $this->lemmaSeparator, $lemmas );
 	}
 
-	private function getDescriptionText( Lexeme $entity ) {
+	private function getDescriptionText( Lexeme $entity ): string {
 		$language = $this->labelDescriptionLookup->getLabel( $entity->getLanguage() );
 		$category = $this->labelDescriptionLookup->getLabel( $entity->getLexicalCategory() );
 

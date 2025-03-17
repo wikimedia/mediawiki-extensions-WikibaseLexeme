@@ -47,7 +47,7 @@ class FormSetGenerator implements Generator {
 		return GeneratedValueSingle::fromJustValue( $result, 'FormSet' );
 	}
 
-	public function shrink( GeneratedValue $element ) {
+	public function shrink( GeneratedValue $element ): GeneratedValue {
 		/** @var FormSet $formSet */
 		$formSet = $element->unbox();
 

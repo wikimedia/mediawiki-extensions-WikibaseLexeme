@@ -15,7 +15,7 @@ class EditFormElementsRequest {
 	/** @var int|null */
 	private $baseRevId;
 
-	public function __construct( FormId $formId, ChangeOp $changeOp, $baseRevId ) {
+	public function __construct( FormId $formId, ChangeOp $changeOp, ?int $baseRevId ) {
 		$this->formId = $formId;
 		$this->changeOp = $changeOp;
 		$this->baseRevId = $baseRevId;
@@ -29,7 +29,7 @@ class EditFormElementsRequest {
 		return $this->formId;
 	}
 
-	public function getBaseRevId() {
+	public function getBaseRevId(): ?int {
 		return $this->baseRevId;
 	}
 

@@ -29,7 +29,7 @@ class AddSenseDiff implements SenseDiff {
 		$this->diffOps = $diffOps;
 	}
 
-	public function getAddedSense() {
+	public function getAddedSense(): Sense {
 		return $this->sense;
 	}
 

@@ -194,7 +194,7 @@ class LexemeDeserializer extends TypedObjectDeserializer {
 		return new Form( $id, $representations, $grammaticalFeatures, $statements );
 	}
 
-	private function deserializeSenses( array $serialization ) {
+	private function deserializeSenses( array $serialization ): SenseSet {
 		$senses = new SenseSet();
 
 		if ( array_key_exists( 'senses', $serialization ) ) {

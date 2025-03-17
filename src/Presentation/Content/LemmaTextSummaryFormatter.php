@@ -16,7 +16,7 @@ class LemmaTextSummaryFormatter {
 	 */
 	private $language;
 
-	public function __construct( $contentLanguage ) {
+	public function __construct( Language $contentLanguage ) {
 		$this->language = $contentLanguage;
 	}
 

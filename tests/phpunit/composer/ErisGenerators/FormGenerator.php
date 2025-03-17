@@ -65,7 +65,7 @@ class FormGenerator implements Generator {
 		return GeneratedValueSingle::fromJustValue( $form, 'form' );
 	}
 
-	public function shrink( GeneratedValue $element ) {
+	public function shrink( GeneratedValue $element ): GeneratedValue {
 		return $element;
 	}
 

@@ -276,7 +276,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		);
 	}
 
-	private function showInvalidLexemeIdError( $id ): void {
+	private function showInvalidLexemeIdError( string $id ): void {
 		$this->showErrorHTML(
 			( new Message( 'wikibase-lexeme-mergelexemes-error-invalid-id', [ $id ] ) )
 				->escaped()
@@ -287,7 +287,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		return 'wikibase';
 	}
 
-	protected function showErrorHTML( $error ): void {
+	protected function showErrorHTML( string $error ): void {
 		$this->getOutput()->addHTML( '<p class="error">' . $error . '</p>' );
 	}
 

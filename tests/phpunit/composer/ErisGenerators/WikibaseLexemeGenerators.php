@@ -11,15 +11,15 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class WikibaseLexemeGenerators {
 
-	public static function lexeme( ?LexemeId $lexemeId = null ) {
+	public static function lexeme( ?LexemeId $lexemeId = null ): LexemeGenerator {
 		return new LexemeGenerator( $lexemeId );
 	}
 
-	public static function form( FormId $formId ) {
+	public static function form( FormId $formId ): FormGenerator {
 		return new FormGenerator( $formId );
 	}
 
-	public static function sense( SenseId $senseId ) {
+	public static function sense( SenseId $senseId ): SenseGenerator {
 		return new SenseGenerator( $senseId );
 	}
 
