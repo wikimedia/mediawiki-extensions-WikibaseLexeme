@@ -45,7 +45,7 @@ class SensePatcher implements EntityPatcherStrategy {
 		}
 
 		// @phan-suppress-next-line PhanTypeMismatchArgumentSuperType
-		return $this->patch( $entity, $patch );
+		$this->patch( $entity, $patch );
 	}
 
 	/**
