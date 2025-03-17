@@ -35,6 +35,7 @@
 	"wikibase-lexeme-mergelexemes-to-id": "The ID to merge to",
 	"wikibase-lexeme-randomlexeme": "Random Lexeme",
 	"wikibase-lexeme-randomlexeme-url": "Special:Random/Lexeme",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexemes",
 	"wikibase-lexeme-summary-add-form": "Added new Form $3 with {{PLURAL:$1|representation|representations}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Added grammatical {{PLURAL:$1|feature|features}} of Form $3",
 	"wikibase-lexeme-summary-add-form-representations": "Added {{PLURAL:$1|representation|representations}} of Form $3",

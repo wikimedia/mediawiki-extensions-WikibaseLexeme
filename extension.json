@@ -120,6 +120,7 @@
 		"WikibaseClientDataTypes": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientDataTypes"
 		],
+		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onParserOutputUpdaterConstruction"
 		],
@@ -130,6 +131,9 @@
 	"HookHandlers": {
 		"main": {
 			"class": "Wikibase\\Lexeme\\WikibaseLexemeHooks"
+		},
+		"WikibaseRepoSearchableEntityScopesMessages": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoSearchableEntityScopesMessagesHookHandler"
 		}
 	},
 	"MessagesDirs": {
