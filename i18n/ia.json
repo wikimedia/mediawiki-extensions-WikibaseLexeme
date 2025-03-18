@@ -35,6 +35,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 ha essite fusionate in $2 e redirigite.",
 	"wikibase-lexeme-mergelexemes-to-id": "Le ID in le qual fusionar",
 	"wikibase-lexeme-randomlexeme": "Lexema aleatori",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexemas",
 	"wikibase-lexeme-summary-add-form": "Nove forma $3 addite con $1 representation{{PLURAL:$1||es}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "$1 characteristica{{PLURAL:$1||s}} grammatical del forma $3 addite",
 	"wikibase-lexeme-summary-add-form-representations": "$1 representation{{PLURAL:$1||es}} del forma $3 addite",

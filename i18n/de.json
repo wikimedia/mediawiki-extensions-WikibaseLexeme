@@ -41,6 +41,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 wurde in $2 zusammengeführt und weitergeleitet.",
 	"wikibase-lexeme-mergelexemes-to-id": "Zusammenführen in Kennung",
 	"wikibase-lexeme-randomlexeme": "Zufälliges Lexem",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexeme",
 	"wikibase-lexeme-summary-add-form": "Neue Form $3 mit {{PLURAL:$1|Darstellung|Darstellungen}} hinzugefügt",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Grammatikalische {{PLURAL:$1|Funktion|Funktionen}} der Form $3 hinzugefügt",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Darstellung|Darstellungen}} der Form $3 hinzugefügt",
