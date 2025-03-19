@@ -13,7 +13,7 @@ class PermissionDeniedException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-permission-denied' );
 	}
 
-	public function getApiErrorCode() {
+	public function getApiErrorCode(): string {
 		return 'permissiondenied';
 	}
 

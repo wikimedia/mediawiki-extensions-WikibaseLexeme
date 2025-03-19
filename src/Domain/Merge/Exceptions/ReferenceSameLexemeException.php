@@ -13,7 +13,7 @@ class ReferenceSameLexemeException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-same-lexemes' );
 	}
 
-	public function getApiErrorCode() {
+	public function getApiErrorCode(): string {
 		return 'cant-merge-self';
 	}
 

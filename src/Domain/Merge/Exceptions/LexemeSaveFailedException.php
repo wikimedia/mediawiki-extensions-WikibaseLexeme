@@ -13,7 +13,7 @@ class LexemeSaveFailedException extends MergingException {
 		return new Message( 'wikibase-lexeme-mergelexemes-error-failed-save' );
 	}
 
-	public function getApiErrorCode() {
+	public function getApiErrorCode(): string {
 		return 'failed-save';
 	}
 
