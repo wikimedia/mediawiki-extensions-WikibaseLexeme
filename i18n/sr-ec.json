@@ -39,6 +39,7 @@
 	"wikibase-lexeme-mergelexemes-success": "Лексема $1 је обједињена у $2 и преусмерена.",
 	"wikibase-lexeme-mergelexemes-to-id": "Идентификатор за спајање у",
 	"wikibase-lexeme-randomlexeme": "Случајна лексема",
+	"wikibase-lexeme-scoped-search-scope-name": "Лексема",
 	"wikibase-lexeme-summary-add-form": "Додат нови облик $3 са {{PLURAL:$1|представљањем|представљањима}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Додата граматичка особина|Додате граматичке особине}} облика $3",
 	"wikibase-lexeme-summary-add-sense-glosses": "{{PLURAL:$1|Додато тумачење ([$2])|Додата тумачења}} значења $3",

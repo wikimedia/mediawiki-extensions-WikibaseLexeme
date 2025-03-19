@@ -37,6 +37,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 dicantumkan kepada $2 dan dilencongkan.",
 	"wikibase-lexeme-mergelexemes-to-id": "ID untuk cantum kepada",
 	"wikibase-lexeme-randomlexeme": "Leksem Rawak",
+	"wikibase-lexeme-scoped-search-scope-name": "Leksem",
 	"wikibase-lexeme-summary-add-form": "Telah menambah Bentuk baharu $3 dengan {{PLURAL:$1|perwakilan}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Menambahkan {{PLURAL:$1|ciri}} tatabahasa Bentuk $3",
 	"wikibase-lexeme-summary-add-form-representations": "Telah menambah {{PLURAL:$1|perwakilan}} Bentuk $3",

@@ -36,6 +36,7 @@
 	"wikibase-lexeme-mergelexemes-success": "היחידה $1 מוזגה אל $2 ונוצרה ממנה הפניה.",
 	"wikibase-lexeme-mergelexemes-to-id": "לאיזה מזהה למזג",
 	"wikibase-lexeme-randomlexeme": "יחידה מילונית אקראית",
+	"wikibase-lexeme-scoped-search-scope-name": "יחידות מילוניות",
 	"wikibase-lexeme-summary-add-form": "נוספה הצורה החדשה $3 עם {{PLURAL:$1|ייצוג|ייצוגים}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|נוספה תכונה דקדוקית|נוספו תכונות דקדוקיות}} של הצורה $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|נוסף ייצוג|נוספו ייצוגים}} של הצורה $3",
