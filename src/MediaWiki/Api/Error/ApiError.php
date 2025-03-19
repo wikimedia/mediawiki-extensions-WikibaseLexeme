@@ -9,12 +9,6 @@ use MediaWiki\Api\ApiMessage;
  */
 interface ApiError {
 
-	/**
-	 * @param string $parameterName
-	 * @param array $path
-	 *
-	 * @return ApiMessage
-	 */
-	public function asApiMessage( $parameterName, array $path );
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage;
 
 }

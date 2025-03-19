@@ -28,7 +28,7 @@ class UnknownLanguage implements ApiError {
 		$this->termText = $termText;
 	}
 
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		if ( $this->termText !== null ) {
 			$message = new Message(
 				'apierror-wikibaselexeme-unknown-language-withtext',

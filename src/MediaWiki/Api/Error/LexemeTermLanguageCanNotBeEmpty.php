@@ -10,8 +10,7 @@ use MediaWiki\Message\Message;
  */
 class LexemeTermLanguageCanNotBeEmpty implements ApiError {
 
-	/** @inheritDoc */
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		$message = new Message(
 			'apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty',
 			[]

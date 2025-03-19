@@ -29,8 +29,7 @@ class JsonFieldHasWrongType implements ApiError {
 		$this->givenType = $givenType;
 	}
 
-	/** @inheritDoc */
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		$message = new Message(
 			'apierror-wikibaselexeme-json-field-has-wrong-type',
 			[

@@ -25,8 +25,7 @@ class ParameterIsNotLexemeId implements ApiError {
 		$this->given = $given;
 	}
 
-	/** @inheritDoc */
-	public function asApiMessage( $parameterName, array $path = [] ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		// Parameter "$1" expected to be a valid Lexeme ID (ex. "L10"), given "$2"
 		$message = new Message(
 			'apierror-wikibaselexeme-parameter-not-lexeme-id',

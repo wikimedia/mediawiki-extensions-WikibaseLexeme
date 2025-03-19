@@ -25,10 +25,8 @@ class ParameterIsNotSenseId implements ApiError {
 	/**
 	 * TODO senseId can occur as param (senseId) or in json (data). Clean generic $path solution?
 	 * Proposal: Unification of field and path (fields being first part of path no extra treatment)
-	 *
-	 * @see ApiError::asApiMessage()
 	 */
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		$message = new Message(
 			'apierror-wikibaselexeme-parameter-not-sense-id',
 			[ $parameterName, implode( '/', $path ), json_encode( $this->given ) ]
