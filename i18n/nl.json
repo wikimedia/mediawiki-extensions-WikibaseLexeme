@@ -47,6 +47,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 is samengevoegd in $2 en is doorverwezen.",
 	"wikibase-lexeme-mergelexemes-to-id": "De ID waarin moet worden samengevoegd",
 	"wikibase-lexeme-randomlexeme": "Willekeurig lexeem",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexemen",
 	"wikibase-lexeme-summary-add-form": "Nieuwe vorm $3 toegevoegd met $1 representatie{{PLURAL:$1||s}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "$1 grammaticale eigenschap{{PLURAL:$1||pen}} aan de vorm $3 toegevoegd",
 	"wikibase-lexeme-summary-add-form-representations": "$1 representatie{{PLURAL:$1||s}} aan de vorm $3 toegevoegd",
