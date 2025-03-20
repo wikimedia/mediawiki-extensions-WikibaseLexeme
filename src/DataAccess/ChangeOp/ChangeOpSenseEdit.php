@@ -39,6 +39,7 @@ class ChangeOpSenseEdit implements ChangeOp {
 		$this->summaryAggregator = new SummaryAggregator( self::SUMMARY_ACTION_AGGREGATE );
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
 		'@phan-var Sense $entity';
@@ -63,6 +64,7 @@ class ChangeOpSenseEdit implements ChangeOp {
 		return new DummyChangeOpResult();
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		// TODO: should rather combine the validation results from individual change ops
 		// OR: return error on first validation error occurred
@@ -71,6 +73,7 @@ class ChangeOpSenseEdit implements ChangeOp {
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		// TODO: should rather combine the actions of individual change ops
 		return [ EntityPermissionChecker::ACTION_EDIT ];

@@ -10,10 +10,12 @@ use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;
  */
 class NullLabelDescriptionLookup implements LabelDescriptionLookup {
 
+	/** @inheritDoc */
 	public function getLabel( EntityId $entityId ) {
 		return null;
 	}
 
+	/** @inheritDoc */
 	public function getDescription( EntityId $entityId ) {
 		return null;
 	}

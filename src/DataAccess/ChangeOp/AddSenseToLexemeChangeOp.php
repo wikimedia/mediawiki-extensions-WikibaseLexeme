@@ -32,6 +32,7 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 		$this->changeOpSenseEdit = $changeOpSenseEdit;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( BlankSense::class, $entity, '$entity' );
 
@@ -40,6 +41,7 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $sense, ?Summary $summary = null ) {
 		Assert::parameterType( BlankSense::class, $sense, '$entity' );
 		'@phan-var BlankSense $sense';
@@ -51,6 +53,7 @@ class AddSenseToLexemeChangeOp implements ChangeOp {
 		return new DummyChangeOpResult();
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		return [ EntityPermissionChecker::ACTION_EDIT ];
 	}

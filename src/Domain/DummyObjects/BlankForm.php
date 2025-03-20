@@ -20,6 +20,7 @@ class BlankForm extends Form {
 		);
 	}
 
+	/** @inheritDoc */
 	public function setId( $id ): void {
 		parent::setId( new DummyFormId( $id->getSerialization() ) );
 	}

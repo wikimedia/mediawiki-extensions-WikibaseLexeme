@@ -32,12 +32,14 @@ class ChangeOpRemoveFormRepresentation implements ChangeOp {
 		$this->language = $language;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Form::class, $entity, '$entity' );
 
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Form::class, $entity, '$entity' );
 		'@phan-var Form $entity';
@@ -73,6 +75,7 @@ class ChangeOpRemoveFormRepresentation implements ChangeOp {
 		] );
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		return [ EntityPermissionChecker::ACTION_EDIT ];
 	}

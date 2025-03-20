@@ -61,6 +61,7 @@ class LemmaLanguageField extends HTMLComboboxField {
 		return $languageOptions;
 	}
 
+	/** @inheritDoc */
 	public function validate( $value, $alldata ) {
 		if ( !in_array( $value, $this->getOptions(), true ) ) {
 			return $this->msg( 'wikibase-lexeme-lemma-language-not-recognized' );

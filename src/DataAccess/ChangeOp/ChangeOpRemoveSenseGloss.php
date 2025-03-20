@@ -32,12 +32,14 @@ class ChangeOpRemoveSenseGloss implements ChangeOp {
 		$this->language = $language;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
 
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Sense::class, $entity, '$entity' );
 		'@phan-var Sense $entity';
@@ -73,6 +75,7 @@ class ChangeOpRemoveSenseGloss implements ChangeOp {
 		] );
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		return [ EntityPermissionChecker::ACTION_EDIT ];
 	}

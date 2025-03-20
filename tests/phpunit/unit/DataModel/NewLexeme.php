@@ -223,8 +223,10 @@ class NewLexeme {
 	}
 
 	/**
+	 * @phpcs:ignore MediaWiki.Commenting.FunctionComment.ObjectTypeHintParam
 	 * @param object[] $objects
 	 *
+	 * @phpcs:ignore MediaWiki.Commenting.FunctionComment.ObjectTypeHintReturn
 	 * @return object[]
 	 */
 	private function cloneArrayOfObjects( array $objects ): array {

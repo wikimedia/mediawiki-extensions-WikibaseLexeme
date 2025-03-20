@@ -13,6 +13,7 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  */
 class DummySenseId extends SenseId {
 
+	/** @inheritDoc */
 	public function equals( $target ): bool {
 		return $this->stemsFromNewlyCreatedSense( $target )
 			|| parent::equals( $target );

@@ -76,6 +76,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 			?? $entityId->getSerialization();
 	}
 
+	/** @inheritDoc */
 	public function getFragment( EntityId $entityId, $fragment ): string {
 		return $fragment;
 	}

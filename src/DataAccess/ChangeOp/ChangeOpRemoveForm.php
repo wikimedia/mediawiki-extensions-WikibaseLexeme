@@ -31,6 +31,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 		$this->formId = $formId;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';
@@ -50,6 +51,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';
@@ -69,6 +71,7 @@ class ChangeOpRemoveForm extends ChangeOpBase {
 		return new DummyChangeOpResult();
 	}
 
+	/** @inheritDoc */
 	protected function updateSummary( ?Summary $summary, $action, $language = '', $args = '' ) {
 		parent::updateSummary( $summary, $action, $language, $args );
 		if ( $summary !== null ) {

@@ -31,10 +31,12 @@ class ChangeOpsSensesEdit implements ChangeOp {
 		$this->changeOpForSense = $changeOpForSense;
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		return [];
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';
@@ -57,6 +59,7 @@ class ChangeOpsSensesEdit implements ChangeOp {
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';

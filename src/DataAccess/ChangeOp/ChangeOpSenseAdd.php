@@ -38,12 +38,14 @@ class ChangeOpSenseAdd extends ChangeOpBase {
 		$this->guidGenerator = $guidGenerator;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';

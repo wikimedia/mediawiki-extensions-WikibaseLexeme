@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Domain\Model\FormId;
  */
 class DummyFormId extends FormId {
 
+	/** @inheritDoc */
 	public function equals( $target ): bool {
 		return $this->stemsFromNewlyCreatedForm( $target )
 			|| parent::equals( $target );

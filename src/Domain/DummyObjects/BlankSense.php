@@ -23,6 +23,7 @@ class BlankSense extends Sense {
 		);
 	}
 
+	/** @inheritDoc */
 	public function setId( $id ): void {
 		parent::setId( new DummySenseId( $id->getSerialization() ) );
 	}

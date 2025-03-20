@@ -11,6 +11,8 @@ class WikibaseLexemeLibrary extends LibraryBase {
 
 	/**
 	 * Register the mw.wikibase.lexeme.lua library.
+	 *
+	 * @inheritDoc
 	 */
 	public function register() {
 		// These functions will be exposed to the Lua module.

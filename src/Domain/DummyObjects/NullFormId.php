@@ -30,6 +30,7 @@ class NullFormId extends FormId {
 		throw new LogicException( 'Shall never be called' );
 	}
 
+	/** @inheritDoc */
 	public function equals( $target ): bool {
 		return true;
 	}

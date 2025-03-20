@@ -29,6 +29,7 @@ class ChangeOpSenseClone implements ChangeOp {
 		$this->sourceSense = $sourceSense->copy();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( BlankSense::class, $entity, '$entity' );
 		'@phan-var Sense $entity';
@@ -51,12 +52,14 @@ class ChangeOpSenseClone implements ChangeOp {
 		return new DummyChangeOpResult();
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ): Result {
 		Assert::parameterType( BlankSense::class, $entity, '$entity' );
 
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		return [ EntityPermissionChecker::ACTION_EDIT ];
 	}
