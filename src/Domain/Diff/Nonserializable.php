@@ -26,6 +26,7 @@ trait Nonserializable {
 		throw new LogicException( "serialize() is not implemented" );
 	}
 
+	/** @param mixed $serialized */
 	public function unserialize( $serialized ) {
 		throw new LogicException( "unserialize() is not implemented" );
 	}

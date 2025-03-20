@@ -57,8 +57,8 @@ class InfoActionHookHandlerTest extends TestCase {
 	}
 
 	/**
-	 * @param string[] $subscriptions
 	 * @param IContextSource $context
+	 * @param array $pagePropsValues
 	 *
 	 * @return InfoActionHookHandler
 	 */

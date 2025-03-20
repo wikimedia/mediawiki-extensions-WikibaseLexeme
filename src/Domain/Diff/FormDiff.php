@@ -15,8 +15,14 @@ interface FormDiff extends DiffOp {
 	 */
 	public function getRepresentationDiff();
 
+	/**
+	 * @return Diff
+	 */
 	public function getGrammaticalFeaturesDiff();
 
+	/**
+	 * @return Diff
+	 */
 	public function getStatementsDiff();
 
 }

@@ -96,6 +96,9 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 		return $changeOps;
 	}
 
+	/**
+	 * @param mixed $lemmaSerialization
+	 */
 	private function assertIsArray( $lemmaSerialization ) {
 		if ( !is_array( $lemmaSerialization ) ) {
 			throw new ChangeOpDeserializationException(

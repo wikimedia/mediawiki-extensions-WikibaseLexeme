@@ -72,7 +72,9 @@ class MergeLexemesInteractor {
 	/**
 	 * @param LexemeId $sourceId
 	 * @param LexemeId $targetId
+	 * @param IContextSource $context
 	 * @param string|null $summary - only relevant when called through the API
+	 * @param bool $botEditRequested
 	 * @param string[] $tags
 	 *
 	 * @return MergeLexemesStatus Note that the status is only returned

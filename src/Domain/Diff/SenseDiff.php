@@ -15,6 +15,9 @@ interface SenseDiff extends DiffOp {
 	 */
 	public function getGlossesDiff();
 
+	/**
+	 * @return Diff
+	 */
 	public function getStatementsDiff();
 
 }

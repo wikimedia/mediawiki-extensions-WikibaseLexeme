@@ -331,6 +331,7 @@ class SpecialNewLexeme extends SpecialPage {
 		return $params;
 	}
 
+	/** @return mixed|null */
 	private function extractLanguageCode( EntityId $languageId ) {
 		$lexemeLanguageCodePropertyIdString = $this->getConfig()->get( 'LexemeLanguageCodePropertyId' );
 		if ( !$lexemeLanguageCodePropertyIdString ) {

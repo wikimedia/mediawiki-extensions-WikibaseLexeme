@@ -36,7 +36,7 @@ class LexemeTemplateFactory {
 	 * be sure to escape your params before using this function!
 	 *
 	 * @param string $key template key
-	 * @param array  ...$params normal template parameters
+	 * @param array ...$params normal template parameters
 	 *
 	 * @return string
 	 */
