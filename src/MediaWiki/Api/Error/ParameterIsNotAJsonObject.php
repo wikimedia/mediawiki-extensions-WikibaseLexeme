@@ -31,8 +31,7 @@ class ParameterIsNotAJsonObject implements ApiError {
 		$this->given = $given;
 	}
 
-	/** @inheritDoc */
-	public function asApiMessage( $parameterName = null, array $path = [] ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		$message = new Message(
 			'apierror-wikibaselexeme-parameter-invalid-json-object',
 			[ $this->parameterName, $this->given ]

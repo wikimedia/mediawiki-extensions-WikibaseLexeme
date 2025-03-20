@@ -10,7 +10,7 @@ use MediaWiki\Message\Message;
  */
 class InvalidFormClaims implements ApiError {
 
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		return new ApiMessage( new Message(
 			'apierror-wikibaselexeme-invalid-form-claims',
 			[ $parameterName, implode( '/', $path ) ]

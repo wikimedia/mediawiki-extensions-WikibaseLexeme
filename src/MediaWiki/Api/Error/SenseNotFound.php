@@ -20,10 +20,7 @@ class SenseNotFound implements ApiError {
 		$this->senseId = $senseId;
 	}
 
-	/**
-	 * @return ApiMessage
-	 */
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		$message = new Message(
 			'apierror-wikibaselexeme-sense-not-found',
 			[ $parameterName, $this->senseId->getSerialization() ]

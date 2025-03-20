@@ -29,8 +29,7 @@ class LanguageInconsistent implements ApiError {
 		$this->givenLanguage = $givenLanguage;
 	}
 
-	/** @inheritDoc */
-	public function asApiMessage( $parameterName, array $path ) {
+	public function asApiMessage( string $parameterName, array $path ): ApiMessage {
 		$message = new Message(
 			'apierror-wikibaselexeme-language-inconsistent',
 			[ $parameterName, implode( '/', $path ), $this->expectedLanguage, $this->givenLanguage ]
