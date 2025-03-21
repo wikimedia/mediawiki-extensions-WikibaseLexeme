@@ -35,6 +35,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 е споена со $2 и пренасочена.",
 	"wikibase-lexeme-mergelexemes-to-id": "Назнака во која се спојува",
 	"wikibase-lexeme-randomlexeme": "Случајна лексема",
+	"wikibase-lexeme-scoped-search-scope-name": "Лексеми",
 	"wikibase-lexeme-summary-add-form": "Ставен нов образец $3 со {{PLURAL:$1|претстава|претстави}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Додадена граматичка можност|Додадени граматички можности}} од образецот $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Додадено претставување|Додадени претставувања}} од образецот $3",
