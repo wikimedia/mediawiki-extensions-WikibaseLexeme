@@ -24,6 +24,11 @@ use Wikibase\Lib\Tests\FakeCache;
  */
 trait LexemeDescriptionTestCase {
 
+	/**
+	 * @param string $id
+	 * @param string $language
+	 * @return mixed|null
+	 */
 	private function getMockLabel( $id, $language ) {
 		if ( !isset( $this->labels[$id] ) ) {
 			throw new TermLookupException( $id, $language );
@@ -51,6 +56,7 @@ trait LexemeDescriptionTestCase {
 
 	/**
 	 * @param string[] $lookupIds
+	 * @param array $languages
 	 * @return TermBuffer
 	 */
 	private function getMockTermBuffer( $lookupIds, $languages ) {
@@ -90,6 +96,7 @@ trait LexemeDescriptionTestCase {
 		);
 	}
 
+	/** @return RedirectResolvingLatestRevisionLookup */
 	private function getFakeRedirectResolvingLatestRevisionLookup() {
 		$lookup = $this->createMock( RedirectResolvingLatestRevisionLookup::class );
 		$lookup->method( 'lookupLatestRevisionResolvingRedirect' )->willReturnCallback(

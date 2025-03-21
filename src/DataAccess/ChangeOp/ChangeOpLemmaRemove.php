@@ -23,6 +23,9 @@ class ChangeOpLemmaRemove extends ChangeOpBase {
 	 */
 	private $language;
 
+	/**
+	 * @param string $language
+	 */
 	public function __construct( $language ) {
 		Assert::parameterType( 'string', $language, '$language' );
 
@@ -44,6 +47,7 @@ class ChangeOpLemmaRemove extends ChangeOpBase {
 	/**
 	 * @param EntityDocument $entity
 	 * @param Summary|null $summary
+	 * @return DummyChangeOpResult
 	 *
 	 * @throws InvalidArgumentException
 	 */

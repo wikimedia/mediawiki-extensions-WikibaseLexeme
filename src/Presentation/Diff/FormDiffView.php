@@ -46,6 +46,7 @@ class FormDiffView extends BasicDiffView {
 	 * @param Diff $diff
 	 * @param ClaimDiffer $claimDiffer
 	 * @param ClaimDifferenceVisualizer $claimDiffVisualizer
+	 * @param ItemReferenceDifferenceVisualizer $itemReferenceDifferenceVisualizer
 	 * @param MessageLocalizer $messageLocalizer
 	 */
 	public function __construct(

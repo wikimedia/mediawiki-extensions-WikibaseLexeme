@@ -106,6 +106,7 @@ class SenseStore implements EntityStore {
 	 * @param User $user
 	 * @param int $flags
 	 * @param int|bool $baseRevId
+	 * @param array $tags
 	 *
 	 * @throws \DomainException always
 	 * @return never

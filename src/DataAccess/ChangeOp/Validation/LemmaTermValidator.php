@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\DataAccess\ChangeOp\Validation;
 
+use ValueValidators\Result;
 use Wikibase\Repo\Validators\CompositeValidator;
 use Wikibase\Repo\Validators\RegexValidator;
 use Wikibase\Repo\Validators\StringLengthValidator;
@@ -34,6 +35,10 @@ class LemmaTermValidator {
 		);
 	}
 
+	/**
+	 * @param mixed $value
+	 * @return Result
+	 */
 	public function validate( $value ) {
 		return $this->validator->validate( $value );
 	}

@@ -41,6 +41,7 @@ class ChangeOpLanguage extends ChangeOpBase {
 	/**
 	 * @param EntityDocument $entity
 	 * @param Summary|null $summary
+	 * @return DummyChangeOpResult
 	 *
 	 * @throws InvalidArgumentException
 	 */

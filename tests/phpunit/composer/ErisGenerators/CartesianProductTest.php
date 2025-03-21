@@ -144,6 +144,7 @@ class CartesianProductTest extends TestCase {
 	}
 
 	/**
+	 * @param mixed $value
 	 * @return GeneratedValueOptions
 	 */
 	private function createOptionsWithSingleValue( $value ) {

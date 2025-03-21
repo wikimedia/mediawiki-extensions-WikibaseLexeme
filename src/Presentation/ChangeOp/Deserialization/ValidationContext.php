@@ -27,6 +27,11 @@ class ValidationContext {
 	 */
 	private $violations = [];
 
+	/**
+	 * @param self|null $parentContext
+	 * @param string $field
+	 * @param string|null $level
+	 */
 	private function __construct( ?self $parentContext, $field, $level = null ) {
 		$this->parentContext = $parentContext;
 		$this->field = $field;
@@ -68,6 +73,9 @@ class ValidationContext {
 		}
 	}
 
+	/**
+	 * @return string[]
+	 */
 	private function getParts() {
 		if ( $this->parentContext === null ) {
 			return [];

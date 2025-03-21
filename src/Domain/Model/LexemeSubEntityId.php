@@ -54,9 +54,9 @@ abstract class LexemeSubEntityId extends SerializableEntityId {
 	/**
 	 * Format a serialization of a sub entity id, e.g. 'L1-F3'
 	 *
-	 * @param EntityId  $containerEntityId Id of the entity in which the sub entity resides, e.g. L1
-	 * @param string    $idPrefix          The prefix of the sub entity, e.g. 'F'
-	 * @param int       $id                The id of the sub entity, e.g. '3'
+	 * @param EntityId $containerEntityId Id of the entity in which the sub entity resides, e.g. L1
+	 * @param string $idPrefix The prefix of the sub entity, e.g. 'F'
+	 * @param int $id The id of the sub entity, e.g. '3'
 	 *
 	 * @return string
 	 */

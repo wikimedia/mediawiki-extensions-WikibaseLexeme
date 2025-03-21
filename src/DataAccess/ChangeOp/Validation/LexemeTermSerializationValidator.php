@@ -71,6 +71,8 @@ class LexemeTermSerializationValidator {
 	 * {@link LexemeTermSerializationValidator::validateStructure() validated for structural correctness}.
 	 *
 	 * @param string $language (checking that it is a string is part of the validation)
+	 * @param array $serialization
+	 * @param ValidationContext $context
 	 */
 	public function validateLanguage( $language, array $serialization, ValidationContext $context ) {
 		$this->languageValidator->validate( $language, $context, $serialization['value'] ?? null );

@@ -71,7 +71,7 @@ class AddFormToLexemeChangeOpTest extends TestCase {
 	}
 
 	/**
-	 * @param $lexeme
+	 * @param Lexeme $lexeme
 	 *
 	 * @return AddFormToLexemeChangeOp
 	 */

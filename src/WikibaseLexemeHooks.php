@@ -35,7 +35,7 @@ class WikibaseLexemeHooks implements
 	/**
 	 * Hook to register the lexeme and other entity namespaces for EntityNamespaceLookup.
 	 *
-	 * @param int[] $entityNamespacesSetting
+	 * @param int[] &$entityNamespacesSetting
 	 */
 	public static function onWikibaseRepoEntityNamespaces( array &$entityNamespacesSetting ) {
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
@@ -53,6 +53,8 @@ class WikibaseLexemeHooks implements
 	 * Hook to register the default namespace names.
 	 *
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/CanonicalNamespaces
+	 *
+	 * @param string[] &$namespaces
 	 */
 	public function onCanonicalNamespaces( &$namespaces ) {
 		// XXX: ExtensionProcessor should define an extra config object for every extension.
@@ -98,7 +100,7 @@ class WikibaseLexemeHooks implements
 	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
 	 * objects or loading classes here!
 	 *
-	 * @param array[] $entityTypeDefinitions
+	 * @param array[] &$entityTypeDefinitions
 	 */
 	public static function onWikibaseClientEntityTypes( array &$entityTypeDefinitions ) {
 		$entityTypeDefinitions = array_merge(
@@ -113,7 +115,7 @@ class WikibaseLexemeHooks implements
 	 * @see WikibaseLexeme.entitytypes.php
 	 * @see WikibaseLexeme.entitytypes.repo.php
 	 *
-	 * @param array[] $entityTypeDefinitions
+	 * @param array[] &$entityTypeDefinitions
 	 */
 	public static function onWikibaseRepoEntityTypes( array &$entityTypeDefinitions ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
@@ -139,7 +141,7 @@ class WikibaseLexemeHooks implements
 	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
 	 * objects or loading classes here!
 	 *
-	 * @param array[] $dataTypeDefinitions
+	 * @param array[] &$dataTypeDefinitions
 	 */
 	public static function onWikibaseDataTypes( array &$dataTypeDefinitions ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
@@ -159,7 +161,7 @@ class WikibaseLexemeHooks implements
 	 *
 	 * @see WikibaseLexeme.datatypes.client.php
 	 *
-	 * @param array[] $dataTypeDefinitions
+	 * @param array[] &$dataTypeDefinitions
 	 */
 	public static function onWikibaseClientDataTypes( array &$dataTypeDefinitions ) {
 		$dataTypeDefinitions = array_merge(

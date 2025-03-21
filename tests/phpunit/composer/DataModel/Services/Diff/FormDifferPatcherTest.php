@@ -208,6 +208,8 @@ class FormDifferPatcherTest extends TestCase {
 	}
 
 	/**
+	 * @param string $propertyId
+	 * @param string $guid
 	 * @return mixed
 	 */
 	private function someStatement( $propertyId, $guid ) {
