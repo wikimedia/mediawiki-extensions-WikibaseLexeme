@@ -31,12 +31,14 @@ class ChangeOpFormAdd extends ChangeOpBase {
 		$this->changeOpForm = $changeOpForm;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ): Result {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';

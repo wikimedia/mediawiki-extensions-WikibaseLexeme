@@ -32,6 +32,7 @@ class AddFormToLexemeChangeOp implements ChangeOp {
 		$this->changeOpFormEdit = $changeOpFormEdit;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $form ) {
 		Assert::parameterType( BlankForm::class, $form, '$form' );
 
@@ -40,6 +41,7 @@ class AddFormToLexemeChangeOp implements ChangeOp {
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $form, ?Summary $summary = null ) {
 		Assert::parameterType( BlankForm::class, $form, '$form' );
 		'@phan-var BlankForm $form';
@@ -51,6 +53,7 @@ class AddFormToLexemeChangeOp implements ChangeOp {
 		return new DummyChangeOpResult();
 	}
 
+	/** @inheritDoc */
 	public function getActions() {
 		return [ EntityPermissionChecker::ACTION_EDIT ];
 	}

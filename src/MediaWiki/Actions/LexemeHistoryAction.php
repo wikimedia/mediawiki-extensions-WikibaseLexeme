@@ -35,6 +35,7 @@ class LexemeHistoryAction extends HistoryAction {
 		$this->lexemeTermFormatter = $lexemeTermFormatter;
 	}
 
+	/** @inheritDoc */
 	protected function getPageTitle() {
 		/** @var LexemeId $lexemeId */
 		$lexemeId = $this->entityIdLookup->getEntityIdForTitle( $this->getTitle() );

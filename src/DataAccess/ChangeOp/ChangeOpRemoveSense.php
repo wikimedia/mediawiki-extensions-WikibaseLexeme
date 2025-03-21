@@ -31,6 +31,7 @@ class ChangeOpRemoveSense extends ChangeOpBase {
 		$this->senseId = $senseId;
 	}
 
+	/** @inheritDoc */
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';
@@ -50,6 +51,7 @@ class ChangeOpRemoveSense extends ChangeOpBase {
 		return Result::newSuccess();
 	}
 
+	/** @inheritDoc */
 	public function apply( EntityDocument $entity, ?Summary $summary = null ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 		'@phan-var Lexeme $entity';
@@ -77,6 +79,7 @@ class ChangeOpRemoveSense extends ChangeOpBase {
 		return new DummyChangeOpResult();
 	}
 
+	/** @inheritDoc */
 	protected function updateSummary( ?Summary $summary, $action, $language = '', $args = '' ) {
 		parent::updateSummary( $summary, $action, $language, $args );
 		if ( $summary !== null ) {

@@ -135,6 +135,7 @@ class SenseSet implements Countable {
 		return $this->senses === [];
 	}
 
+	/** @inheritDoc */
 	public function equals( $other ): bool {
 		if ( $this === $other ) {
 			return true;

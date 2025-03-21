@@ -122,10 +122,12 @@ class LexemeContent extends EntityContent {
 		return $this->lexemeHolder;
 	}
 
+	/** @inheritDoc */
 	public function getEntityRedirect() {
 		return $this->redirect;
 	}
 
+	/** @inheritDoc */
 	public function getRedirectTarget() {
 		return $this->redirectTitle;
 	}
@@ -174,6 +176,8 @@ class LexemeContent extends EntityContent {
 	/**
 	 * Make text representation of the Lexeme as list of all lemmas and form representations.
 	 * @see EntityContent::getTextForSearchIndex()
+	 *
+	 * @inheritDoc
 	 */
 	public function getTextForSearchIndex() {
 		if ( $this->isRedirect() ) {

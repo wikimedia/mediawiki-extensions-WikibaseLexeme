@@ -9,6 +9,8 @@ class WikibaseLexemeEntityLexemeLibrary extends WikibaseLexemeAbstractEntityLibr
 
 	/**
 	 * Register the mw.wikibase.lexeme.entity.lexeme.lua library.
+	 *
+	 * @inheritDoc
 	 */
 	public function register() {
 		// These functions will be exposed to the Lua module.

@@ -228,6 +228,7 @@ class WikibaseLexemeHooks implements
 		$pageInfo = $infoActionHookHandler->handle( $context, $pageInfo );
 	}
 
+	/** @inheritDoc */
 	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		if ( !$config->get( 'LexemeEnableDataTransclusion' ) ) {
@@ -263,6 +264,7 @@ class WikibaseLexemeHooks implements
 		];
 	}
 
+	/** @inheritDoc */
 	public function onLoadExtensionSchemaUpdates( $updater ) {
 		$updater->addPostDatabaseUpdateMaintenance( FixPagePropsSortkey::class );
 	}

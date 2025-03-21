@@ -61,6 +61,7 @@ class LexemeIdHtmlFormatter implements EntityIdFormatter {
 		$this->nonExistingFormatter = $nonExistingEntityIdHtmlFormatter;
 	}
 
+	/** @inheritDoc */
 	public function formatEntityId( EntityId $id ) {
 		if ( !$id instanceof LexemeId ) {
 			throw new InvalidArgumentException( 'Not a lexeme ID: ' . $id->getSerialization() );
