@@ -41,6 +41,7 @@
 	"wikibase-lexeme-mergelexemes-success": "تم دمج وتحويل $1 إلى $2.",
 	"wikibase-lexeme-mergelexemes-to-id": "المعرف للدمج إليه",
 	"wikibase-lexeme-randomlexeme": "معجمية عشوائية",
+	"wikibase-lexeme-scoped-search-scope-name": "وحدات معجمية",
 	"wikibase-lexeme-summary-add-form": "إضافة صيغة جديدة $3 مع {{PLURAL:$1|تمثيل|تمثيلات}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "إضافة {{PLURAL:$1|ميزة|مزايا}} نحوية للصيغة $3",
 	"wikibase-lexeme-summary-add-form-representations": "إضافة {{PLURAL:$1|تمثيل|تمثيلات}} للصيغة $3",
