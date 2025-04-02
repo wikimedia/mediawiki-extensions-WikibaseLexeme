@@ -183,4 +183,4 @@ An example call might look like this:
 sense:getGloss( 'en' ) -- example: 'a rubber sack designed to be inflated with air', 'en'
 ```
 
-[mw.wikibase.entity]: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_lua.html#mw_wikibase_entity
+[mw.wikibase.entity]: https://doc.wikimedia.org/Wikibase/master/php/docs_topics_lua.html#mw_wikibase_entity

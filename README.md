@@ -12,7 +12,7 @@ To add WikibaseLexeme to an already installed MediaWiki Wikibase instance, pleas
 
 ## Configuration
 
-See the [options documentation](https://doc.wikimedia.org/WikibaseLexeme/master/php/md_docs_topics_options.html).
+See the [options documentation](https://doc.wikimedia.org/WikibaseLexeme/master/php/docs_topics_options.html).
 
 ## Development Setup
 

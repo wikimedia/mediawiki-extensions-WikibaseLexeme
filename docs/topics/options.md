@@ -74,6 +74,6 @@ This option corresponds to the [WikibaseClient allowDataTransclusion setting][].
 
 DEFAULT: `false`
 
-[Wikibase: Options]: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html
+[Wikibase: Options]: https://doc.wikimedia.org/Wikibase/master/php/docs_topics_options.html
 [WikibaseLexeme Lua interface]: @ref docs_topics_lua
-[WikibaseClient allowDataTransclusion setting]: https://doc.wikimedia.org/Wikibase/master/php/md_docs_topics_options.html#client_allowDataTransclusion
+[WikibaseClient allowDataTransclusion setting]: https://doc.wikimedia.org/Wikibase/master/php/docs_topics_options.html#client_allowDataTransclusion
