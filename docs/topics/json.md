@@ -1,4 +1,4 @@
-# JSON
+# JSON {#docs_topics_json}
 
 This document describes the canonical JSON format used to represent WikibaseLexeme entities in the API, in JSON dumps, as well as by Special:EntityData (when using JSON output).
 This format can be expected to be reasonably stable, and is designed with flexibility and robustness in mind.

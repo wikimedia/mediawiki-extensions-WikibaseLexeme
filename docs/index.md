@@ -3,8 +3,8 @@ Welcome to the WikibaseLexeme.git documentation site.
 Take a look at the high level @subpage README.md.
 
 The lower level hand crafted documentation:
-* @subpage md_docs_adr_index
-* @subpage md_docs_topics_index
+* @subpage docs_adr_index
+* @subpage docs_topics_index
 
 And the lower level generated documentation:
 * [**PHP Namespaces**](namespaces.html)

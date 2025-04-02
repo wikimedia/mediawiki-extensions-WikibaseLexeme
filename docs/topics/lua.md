@@ -1,4 +1,4 @@
-# Lua
+# Lua {#docs_topics_lua}
 
 WikibaseLexeme provides a Lua [Scribunto](https://www.mediawiki.org/wiki/Scribunto) interface that implements functions to access data from the Wikibase repository, if the Wikibase Client configuration enables `allowDataTransclusion` and `$wgLexemeEnableDataTransclusion`. Lua modules and wiki templates can invoke these functions.
 
