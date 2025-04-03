@@ -1,4 +1,4 @@
-# Change op serialization
+# Change op serialization {#docs_topics_change_op_serialization}
 
 This document describes the JSON structure used in change requests (e.g. in wbeditentity API requests) regarding elements specific to this extension.
 
