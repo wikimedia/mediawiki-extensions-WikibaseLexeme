@@ -37,7 +37,7 @@ class LexemeViewFactory {
 		$this->language = $language;
 	}
 
-	public function newLexemeView() {
+	public function newLexemeView(): LexemeView {
 		$templates = include __DIR__ . '/../../../resources/templates.php';
 		$templateFactory = new LexemeTemplateFactory( $templates );
 
@@ -97,7 +97,7 @@ class LexemeViewFactory {
 		);
 	}
 
-	private function newToolbarEditSectionGenerator() {
+	private function newToolbarEditSectionGenerator(): ToolbarEditSectionGenerator {
 		return new ToolbarEditSectionGenerator(
 			new RepoSpecialPageLinker(),
 			TemplateFactory::getDefaultInstance(),
