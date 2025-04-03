@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
-use Liuggio\StatsdClient\Factory\StatsdDataFactoryInterface;
 use MediaWiki\Config\ConfigException;
 use MediaWiki\Html\Html;
 use MediaWiki\Html\TemplateParser;
@@ -52,6 +51,7 @@ use Wikibase\Repo\Store\EntityTitleStoreLookup;
 use Wikibase\Repo\SummaryFormatter;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\View\EntityIdFormatterFactory;
+use Wikimedia\Stats\StatsFactory;
 
 /**
  * New page for creating new Lexeme entities.
@@ -71,7 +71,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 	private array $tags;
 	private LinkRenderer $linkRenderer;
-	private StatsdDataFactoryInterface $statsDataFactory;
+	private StatsFactory $statsFactory;
 	private MediaWikiEditEntityFactory $editEntityFactory;
 	private EntityNamespaceLookup $entityNamespaceLookup;
 	private EntityTitleStoreLookup $entityTitleLookup;
@@ -90,7 +90,7 @@ class SpecialNewLexeme extends SpecialPage {
 		array $tags,
 		SpecialPageCopyrightView $copyrightView,
 		LinkRenderer $linkRenderer,
-		StatsdDataFactoryInterface $statsDataFactory,
+		StatsFactory $statsFactory,
 		MediaWikiEditEntityFactory $editEntityFactory,
 		EntityNamespaceLookup $entityNamespaceLookup,
 		EntityTitleStoreLookup $entityTitleLookup,
@@ -111,7 +111,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 		$this->tags = $tags;
 		$this->linkRenderer = $linkRenderer;
-		$this->statsDataFactory = $statsDataFactory;
+		$this->statsFactory = $statsFactory;
 		$this->editEntityFactory = $editEntityFactory;
 		$this->entityNamespaceLookup = $entityNamespaceLookup;
 		$this->entityTitleLookup = $entityTitleLookup;
@@ -129,7 +129,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 	public static function factory(
 		LinkRenderer $linkRenderer,
-		StatsdDataFactoryInterface $statsDataFactory,
+		StatsFactory $statsFactory,
 		TempUserConfig $tempUserConfig,
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		MediaWikiEditEntityFactory $editEntityFactory,
@@ -154,7 +154,7 @@ class SpecialNewLexeme extends SpecialPage {
 			$repoSettings->getSetting( 'specialPageTags' ),
 			$copyrightView,
 			$linkRenderer,
-			$statsDataFactory,
+			$statsFactory,
 			$editEntityFactory,
 			$entityNamespaceLookup,
 			$entityTitleLookup,
@@ -178,7 +178,8 @@ class SpecialNewLexeme extends SpecialPage {
 	 * @param string|null $subPage
 	 */
 	public function execute( $subPage ): void {
-		$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.views' );
+		$metric = $this->statsFactory->getCounter( 'special_new_lexeme_views_total' );
+		$metric->copyToStatsdAt( 'wikibase.lexeme.special.NewLexeme.views' )->increment();
 
 		parent::execute( $subPage );
 
@@ -517,7 +518,8 @@ class SpecialNewLexeme extends SpecialPage {
 						return $saveStatus;
 					}
 
-					$this->statsDataFactory->increment( 'wikibase.lexeme.special.NewLexeme.nojs.create' );
+					$metric = $this->statsFactory->getCounter( 'special_new_lexeme_nojs_create_total' );
+					$metric->copyToStatsdAt( 'wikibase.lexeme.special.NewLexeme.nojs.create' )->increment();
 
 					return $saveStatus;
 				}
