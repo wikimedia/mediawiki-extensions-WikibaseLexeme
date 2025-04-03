@@ -13,5 +13,5 @@ And the lower level generated documentation:
 * @subpage deprecated
 
 If you want to see the documentation for the docs,
-take a look at the [Wikibase docs docs](https://doc.wikimedia.org/Wikibase/master/php/md_docs_documentation.html),
+take a look at the [Wikibase docs docs](https://doc.wikimedia.org/Wikibase/master/php/docs_documentation.html),
 the WikibaseLexeme documentation is not very different.
