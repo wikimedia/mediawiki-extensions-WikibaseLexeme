@@ -12,7 +12,7 @@ use Wikibase\Repo\Hooks\WikibaseRepoSearchableEntityScopesMessagesHook;
  */
 class WikibaseRepoSearchableEntityScopesMessagesHookHandler implements WikibaseRepoSearchableEntityScopesMessagesHook {
 
-	public const LEXEME_MESSAGE_KEY = 'wikibase-scoped-search-lexeme-scope-name';
+	public const LEXEME_MESSAGE_KEY = 'wikibase-lexeme-scoped-search-scope-name';
 
 	public function onWikibaseRepoSearchableEntityScopesMessages( array &$messages ): void {
 		if ( !array_key_exists( Lexeme::ENTITY_TYPE, $messages ) ) {
