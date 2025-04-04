@@ -38,7 +38,7 @@ trait ErisTest {
 		$this->testCaseWrapper->erisSetup();
 	}
 
-	protected function eris() {
+	protected function eris(): PHPUnitTestCaseWrapper {
 		$this->skipTestIfErisIsNotInstalled();
 
 		$this->testCaseWrapper->seedingRandomNumberGeneration();
