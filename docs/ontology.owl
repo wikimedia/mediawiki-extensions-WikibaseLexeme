@@ -38,15 +38,15 @@
   </owl:Class>
 
   <owl:Class rdf:about="&wikibase;Form">
-      <rdfs:label>Form</rdfs:label>
-      <rdfs:comment>Wikibase form.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="&wikibase;Entity"/>
+    <rdfs:label>Form</rdfs:label>
+    <rdfs:comment>Wikibase form.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="&wikibase;Entity"/>
   </owl:Class>
 
   <owl:Class rdf:about="&wikibase;Sense">
-      <rdfs:label>Sense</rdfs:label>
-      <rdfs:comment>Wikibase sense.</rdfs:comment>
-      <rdfs:subClassOf rdf:resource="&wikibase;Entity"/>
+    <rdfs:label>Sense</rdfs:label>
+    <rdfs:comment>Wikibase sense.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="&wikibase;Entity"/>
   </owl:Class>
 
   <!--
@@ -58,24 +58,24 @@
   -->
 
   <owl:ObjectProperty rdf:about="&wikibase;lexicalCategory">
-      <rdfs:label>lexicalCategory</rdfs:label>
-      <rdfs:comment>Lexeme lexical category.</rdfs:comment>
-      <rdfs:domain rdf:resource="&wikibase;Lexeme"/>
-      <rdfs:range rdf:resource="&wikibase;Item"/>
+    <rdfs:label>lexicalCategory</rdfs:label>
+    <rdfs:comment>Lexeme lexical category.</rdfs:comment>
+    <rdfs:domain rdf:resource="&wikibase;Lexeme"/>
+    <rdfs:range rdf:resource="&wikibase;Item"/>
   </owl:ObjectProperty>
 
   <owl:ObjectProperty rdf:about="&wikibase;grammaticalFeature">
-      <rdfs:label>grammaticalFeature</rdfs:label>
-      <rdfs:comment>Form grammatical feature.</rdfs:comment>
-      <rdfs:domain rdf:resource="&wikibase;Form"/>
-      <rdfs:range rdf:resource="&wikibase;Item"/>
+    <rdfs:label>grammaticalFeature</rdfs:label>
+    <rdfs:comment>Form grammatical feature.</rdfs:comment>
+    <rdfs:domain rdf:resource="&wikibase;Form"/>
+    <rdfs:range rdf:resource="&wikibase;Item"/>
   </owl:ObjectProperty>
 
   <owl:DatatypeProperty rdf:about="&wikibase;lemma">
-      <rdfs:label>lemma</rdfs:label>
-      <rdfs:comment>Lexeme lemma.</rdfs:comment>
-      <rdfs:domain rdf:resource="&wikibase;Lexeme"/>
-      <rdfs:range rdf:resource="&rdf;langString"/>
+    <rdfs:label>lemma</rdfs:label>
+    <rdfs:comment>Lexeme lemma.</rdfs:comment>
+    <rdfs:domain rdf:resource="&wikibase;Lexeme"/>
+    <rdfs:range rdf:resource="&rdf;langString"/>
   </owl:DatatypeProperty>
 
 </rdf:RDF>
