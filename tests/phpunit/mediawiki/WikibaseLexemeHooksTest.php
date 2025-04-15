@@ -5,11 +5,10 @@ namespace Wikibase\Lexeme\Tests\MediaWiki;
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\WikibaseLexemeHooks;
-use Wikibase\Lexeme\WikibaseLexemeServices;
 
 /**
  * @covers \Wikibase\Lexeme\WikibaseLexemeHooks
- *
+ * @group Wikibase
  * @license GPL-2.0-or-later
  */
 class WikibaseLexemeHooksTest extends TestCase {
@@ -43,15 +42,6 @@ class WikibaseLexemeHooksTest extends TestCase {
 
 		$this->expectException( \Exception::class );
 		( new WikibaseLexemeHooks )->onCanonicalNamespaces( $namespaces );
-	}
-
-	public function testOnWikibaseContentLanguages() {
-		$contentLanguages = [];
-		$lexemeTermLanguages = WikibaseLexemeServices::getTermLanguages();
-
-		WikibaseLexemeHooks::onWikibaseContentLanguages( $contentLanguages );
-
-		$this->assertSame( $lexemeTermLanguages, $contentLanguages['term-lexicographical'] );
 	}
 
 }

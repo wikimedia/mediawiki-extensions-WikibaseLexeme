@@ -99,38 +99,48 @@
 		]
 	},
 	"Hooks": {
-		"InfoAction": "main",
-		"WikibaseRepoEntityNamespaces": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityNamespaces"
-		],
 		"CanonicalNamespaces": "main",
+		"InfoAction": "main",
 		"LoadExtensionSchemaUpdates": "main",
-		"WikibaseRepoEntityTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseRepoEntityTypes"
-		],
-		"WikibaseRepoDataTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseDataTypes"
-		],
-		"WikibaseContentLanguages": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseContentLanguages"
-		],
-		"WikibaseClientEntityTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientEntityTypes"
-		],
-		"WikibaseClientDataTypes": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onWikibaseClientDataTypes"
-		],
-		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
-		"WikibaseRepoOnParserOutputUpdaterConstruction": [
-			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onParserOutputUpdaterConstruction"
-		],
 		"ScribuntoExternalLibraries": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onScribuntoExternalLibraries"
-		]
+		],
+		"WikibaseClientDataTypes": "WikibaseClient",
+		"WikibaseClientEntityTypes": "WikibaseClient",
+		"WikibaseContentLanguages": "WikibaseContentLanguages",
+		"WikibaseRepoDataTypes": "WikibaseRepoDataTypes",
+		"WikibaseRepoEntityNamespaces": "WikibaseRepoEntityNamespaces",
+		"WikibaseRepoEntityTypes": "WikibaseRepo",
+		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepo",
+		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages"
 	},
 	"HookHandlers": {
 		"main": {
 			"class": "Wikibase\\Lexeme\\WikibaseLexemeHooks"
+		},
+		"WikibaseClient": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseClientHookHandler"
+		},
+		"WikibaseContentLanguages": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseContentLanguagesHookHandler",
+			"services": [
+				"WikibaseLexemeTermLanguages"
+			]
+		},
+		"WikibaseRepo": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoHookHandler"
+		},
+		"WikibaseRepoEntityNamespaces": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoEntityNamespacesHookHandler",
+			"services": [
+				"MainConfig"
+			]
+		},
+		"WikibaseRepoDataTypes": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoDataTypesHookHandler",
+			"services": [
+				"MainConfig"
+			]
 		},
 		"WikibaseRepoSearchableEntityScopesMessages": {
 			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoSearchableEntityScopesMessagesHookHandler"
