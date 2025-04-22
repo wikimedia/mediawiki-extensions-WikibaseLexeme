@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"wikibaselexeme-field-language-label": "ژبه",
+	"wikibaselexeme-form-field-language-label": "ليکدوديزه بلبڼه",
+	"wikibaselexeme-form-field-representation-label": "استازيتوب",
+	"wikibaselexeme-form-field-required": "اړين ډگر",
+	"wikibaselexeme-form-grammatical-features": "گرامري غونی",
+	"wikibaselexeme-form-representation-redundant-language": "د ورته ليکدود بلبڼې سره د څو استازيتوبونو ننوتل ناشوني دي.",
+	"wikibaselexeme-gloss-field-gloss-label": "لمنليک",
+	"wikibaselexeme-gloss-field-language-label": "ژبه"
+}
