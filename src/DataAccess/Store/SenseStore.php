@@ -2,8 +2,8 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
+use MediaWiki\Exception\PermissionsError;
 use MediaWiki\User\User;
-use PermissionsError;
 use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;

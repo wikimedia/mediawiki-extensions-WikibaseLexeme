@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\MediaWiki\Specials;
 
 use Exception;
 use MediaWiki\Config\ConfigException;
+use MediaWiki\Exception\UserBlockedError;
 use MediaWiki\Html\Html;
 use MediaWiki\Html\TemplateParser;
 use MediaWiki\HTMLForm\HTMLForm;
@@ -15,7 +16,6 @@ use MediaWiki\SpecialPage\SpecialPage;
 use MediaWiki\Status\Status;
 use MediaWiki\User\TempUser\TempUserConfig;
 use OOUI\IconWidget;
-use UserBlockedError;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;

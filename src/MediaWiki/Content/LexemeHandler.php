@@ -4,8 +4,8 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\Content;
 
-use Article;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Page\Article;
 use MediaWiki\Title\Title;
 use Psr\Container\ContainerInterface;
 use UnexpectedValueException;

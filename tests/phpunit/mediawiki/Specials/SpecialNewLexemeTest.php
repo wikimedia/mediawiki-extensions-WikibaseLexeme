@@ -7,6 +7,8 @@ use Exception;
 use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Exception\PermissionsError;
+use MediaWiki\Exception\UserBlockedError;
 use MediaWiki\Language\Language;
 use MediaWiki\MainConfigNames;
 use MediaWiki\MediaWikiServices;
@@ -17,7 +19,6 @@ use MediaWiki\Title\Title;
 use MediaWiki\User\TempUser\TempUserConfig;
 use MediaWiki\User\User;
 use MediaWiki\User\UserIdentity;
-use PermissionsError;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermFallback;
@@ -146,7 +147,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedOnNamespace(): void {
 		$user = $this->getTestBlockedUser( false, [ 146 ] );
 
-		$this->expectException( \UserBlockedError::class );
+		$this->expectException( UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 	}
 
@@ -164,7 +165,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	public function testExceptionWhenUserBlockedSitewide(): void {
 		$user = $this->getTestBlockedUser( true );
 
-		$this->expectException( \UserBlockedError::class );
+		$this->expectException( UserBlockedError::class );
 		$this->executeSpecialPage( '', null, null, $user );
 
 		$this->assertSame(

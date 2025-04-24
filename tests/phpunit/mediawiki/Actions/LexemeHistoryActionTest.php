@@ -4,9 +4,10 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Tests\Unit\mediawiki;
 
-use Article;
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Message\Message;
+use MediaWiki\Page\Article;
+use MediaWiki\Page\WikiPage;
 use MediaWiki\Title\Title;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -20,7 +21,6 @@ use Wikibase\Lexeme\MediaWiki\Actions\LexemeHistoryAction;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lib\Store\EntityIdLookup;
 use Wikimedia\TestingAccessWrapper;
-use WikiPage;
 
 /**
  * @license GPL-2.0-or-later
