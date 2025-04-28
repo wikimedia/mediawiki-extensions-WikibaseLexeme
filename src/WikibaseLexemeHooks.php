@@ -10,13 +10,11 @@ use MediaWiki\MediaWikiServices;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Maintenance\FixPagePropsSortkey;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
-use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
 use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntityFormLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntityLexemeLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntitySenseLibrary;
 use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeLibrary;
 use Wikibase\Lib\WikibaseSettings;
-use Wikibase\Repo\ParserOutput\CompositeStatementDataUpdater;
 use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\Assert\Assert;
 
@@ -31,23 +29,6 @@ class WikibaseLexemeHooks implements
 	CanonicalNamespacesHook,
 	LoadExtensionSchemaUpdatesHook
 {
-
-	/**
-	 * Hook to register the lexeme and other entity namespaces for EntityNamespaceLookup.
-	 *
-	 * @param int[] &$entityNamespacesSetting
-	 */
-	public static function onWikibaseRepoEntityNamespaces( array &$entityNamespacesSetting ) {
-		// XXX: ExtensionProcessor should define an extra config object for every extension.
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-
-		if ( !$config->get( 'LexemeEnableRepo' ) ) {
-			return;
-		}
-
-		// Setting the namespace to false disabled automatic registration.
-		$entityNamespacesSetting['lexeme'] = $config->get( 'LexemeNamespace' );
-	}
 
 	/**
 	 * Hook to register the default namespace names.
@@ -93,88 +74,6 @@ class WikibaseLexemeHooks implements
 	}
 
 	/**
-	 * Adds the definition of the lexeme entity type to the definitions array Wikibase uses.
-	 *
-	 * @see WikibaseLexeme.entitytypes.php
-	 *
-	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
-	 * objects or loading classes here!
-	 *
-	 * @param array[] &$entityTypeDefinitions
-	 */
-	public static function onWikibaseClientEntityTypes( array &$entityTypeDefinitions ) {
-		$entityTypeDefinitions = array_merge(
-			$entityTypeDefinitions,
-			require __DIR__ . '/../WikibaseLexeme.entitytypes.php'
-		);
-	}
-
-	/**
-	 * Adds the definition of the lexeme entity type to the definitions array Wikibase uses.
-	 *
-	 * @see WikibaseLexeme.entitytypes.php
-	 * @see WikibaseLexeme.entitytypes.repo.php
-	 *
-	 * @param array[] &$entityTypeDefinitions
-	 */
-	public static function onWikibaseRepoEntityTypes( array &$entityTypeDefinitions ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		if ( !$config->get( 'LexemeEnableRepo' ) ) {
-			return;
-		}
-
-		$entityTypeDefinitions = array_merge(
-			$entityTypeDefinitions,
-			wfArrayPlus2d(
-				require __DIR__ . '/../WikibaseLexeme.entitytypes.repo.php',
-				require __DIR__ . '/../WikibaseLexeme.entitytypes.php'
-			)
-		);
-	}
-
-	/**
-	 * Adds the definition of the data types related to lexeme to the definitions array
-	 * Wikibase uses.
-	 *
-	 * @see WikibaseLexeme.datatypes.php
-	 *
-	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
-	 * objects or loading classes here!
-	 *
-	 * @param array[] &$dataTypeDefinitions
-	 */
-	public static function onWikibaseDataTypes( array &$dataTypeDefinitions ) {
-		$config = MediaWikiServices::getInstance()->getMainConfig();
-		if ( !$config->get( 'LexemeEnableRepo' ) ) {
-			return;
-		}
-
-		$dataTypeDefinitions = array_merge(
-			$dataTypeDefinitions,
-			require __DIR__ . '/../WikibaseLexeme.datatypes.php'
-		);
-	}
-
-	/**
-	 * Adds the definition of the data types related to lexeme to the definitions array
-	 * Wikibase uses.
-	 *
-	 * @see WikibaseLexeme.datatypes.client.php
-	 *
-	 * @param array[] &$dataTypeDefinitions
-	 */
-	public static function onWikibaseClientDataTypes( array &$dataTypeDefinitions ) {
-		$dataTypeDefinitions = array_merge(
-			$dataTypeDefinitions,
-			require __DIR__ . '/../WikibaseLexeme.datatypes.client.php'
-		);
-	}
-
-	public static function onWikibaseContentLanguages( array &$contentLanguages ) {
-		$contentLanguages['term-lexicographical'] = WikibaseLexemeServices::getTermLanguages();
-	}
-
-	/**
 	 * @param string[] $namespaces
 	 * @param int $namespaceId
 	 * @param string $namespaceName
@@ -196,12 +95,6 @@ class WikibaseLexemeHooks implements
 		$namespaces[$namespaceId] = $namespaceName;
 
 		return $namespaces;
-	}
-
-	public static function onParserOutputUpdaterConstruction(
-		CompositeStatementDataUpdater $statementUpdater, array &$entityUpdaters
-	) {
-		$entityUpdaters[] = new LexemeParserOutputUpdater( $statementUpdater );
 	}
 
 	/**
