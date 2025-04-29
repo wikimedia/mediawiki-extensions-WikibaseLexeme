@@ -1,0 +1,23 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"wikibase-listdatatypes-wikibase-form-head": "فورم",
+	"wikibaselexeme-diffview-form": "فورم",
+	"wikibaselexeme-field-language-label": "ژبه",
+	"wikibaselexeme-form-field-language-label": "ليکدوديزه بلبڼه",
+	"wikibaselexeme-form-field-representation-label": "استازيتوب",
+	"wikibaselexeme-form-field-required": "اړين ډگر",
+	"wikibaselexeme-form-grammatical-features": "گرامري غونی",
+	"wikibaselexeme-form-representation-redundant-language": "د ورته ليکدود بلبڼې سره د څو استازيتوبونو ننوتل ناشوني دي.",
+	"wikibaselexeme-gloss-field-gloss-label": "لمنليک",
+	"wikibaselexeme-gloss-field-language-label": "ژبه",
+	"wikibaselexeme-header-forms": "فورمې",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(لارښود)",
+	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "ليکدود بڼه بايد د ژبې يو باوري کوډ وي.",
+	"wikibaselexeme-no-features": "بې ځانگړنو",
+	"wikibaselexeme-unknown-category": "ناڅرگند",
+	"wikibaselexeme-unknown-language": "ناڅرگنده ژبه"
+}
