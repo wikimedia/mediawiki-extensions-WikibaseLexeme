@@ -90,4 +90,5 @@
 
 	<file>.</file>
 	<exclude-pattern type="relative">^resources/special/new-lexeme/*</exclude-pattern>
+	<exclude-pattern type="relative">^cypress/.cache/*</exclude-pattern>
 </ruleset>
