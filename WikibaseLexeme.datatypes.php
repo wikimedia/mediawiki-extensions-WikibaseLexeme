@@ -19,6 +19,7 @@
 
 use MediaWiki\MediaWikiServices;
 use ValueFormatters\FormatterOptions;
+use ValueFormatters\ValueFormatter;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
@@ -29,6 +30,7 @@ use Wikibase\Lexeme\Presentation\Formatters\RedirectedLexemeSubEntityIdHtmlForma
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdHtmlFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\SenseIdTextFormatter;
 use Wikibase\Lib\Formatters\EntityIdValueFormatter;
+use Wikibase\Lib\Formatters\FormatterLabelDescriptionLookupFactory;
 use Wikibase\Lib\Formatters\NonExistingEntityIdHtmlFormatter;
 use Wikibase\Lib\Formatters\SnakFormat;
 use Wikibase\Lib\Formatters\SnakFormatter;
@@ -47,16 +49,20 @@ return [
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
-				$userLanguage = WikibaseRepo::getUserLanguage();
+				$services = MediaWikiServices::getInstance();
 
-				$labelDescriptionLookup = WikibaseRepo::getFallbackLabelDescriptionLookupFactory()
+				$options->requireOption( ValueFormatter::OPT_LANG );
+				$userLanguage = $services->getLanguageFactory()
+					->getLanguage( $options->getOption( ValueFormatter::OPT_LANG ) );
+
+				$labelDescriptionLookup = WikibaseRepo::getFallbackLabelDescriptionLookupFactory( $services )
 					->newLabelDescriptionLookup( $userLanguage );
 
 				return new EntityIdValueFormatter(
 					new LexemeIdHtmlFormatter(
-						WikibaseRepo::getEntityLookup(),
+						WikibaseRepo::getEntityLookup( $services ),
 						$labelDescriptionLookup,
-						WikibaseRepo::getEntityTitleLookup(),
+						WikibaseRepo::getEntityTitleLookup( $services ),
 						new MediaWikiLocalizedTextProvider( $userLanguage ),
 						new NonExistingEntityIdHtmlFormatter(
 							'wikibaselexeme-deletedentity-'
@@ -78,7 +84,9 @@ return [
 		},
 		'formatter-factory-callback' => static function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
-			$userLanguage = WikibaseRepo::getUserLanguage( $mwServices );
+			$options->requireOption( ValueFormatter::OPT_LANG );
+			$userLanguage = $mwServices->getLanguageFactory()
+				->getLanguage( $options->getOption( ValueFormatter::OPT_LANG ) );
 			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
 			$textProvider = new MediaWikiLocalizedTextProvider( $userLanguage );
 			$snakFormat = new SnakFormat();
@@ -115,14 +123,21 @@ return [
 		'formatter-factory-callback' => static function ( $format, FormatterOptions $options ) {
 			$mwServices = MediaWikiServices::getInstance();
 			$revisionLookup = WikibaseRepo::getEntityRevisionLookup( $mwServices );
-			$language = WikibaseRepo::getUserLanguage( $mwServices ); // TODO get from $options (T281799)
+			$options->requireOption( ValueFormatter::OPT_LANG );
+			$language = $mwServices->getLanguageFactory()
+				->getLanguage( $options->getOption( ValueFormatter::OPT_LANG ) );
 
 			$localizedTextProvider = new MediaWikiLocalizedTextProvider( $language );
 			$entityIdLabelFormatter = WikibaseRepo::getEntityIdLabelFormatterFactory( $mwServices )
 				->getEntityIdFormatter( $language );
 
-			$languageFallbackChainFactory = WikibaseRepo::getLanguageFallbackChainFactory();
-			$fallbackChain = $languageFallbackChainFactory->newFromLanguage( $language );
+			$fallbackchainOption = FormatterLabelDescriptionLookupFactory::OPT_LANGUAGE_FALLBACK_CHAIN;
+			if ( $options->hasOption( $fallbackchainOption ) ) {
+				$fallbackChain = $options->getOption( $fallbackchainOption );
+			} else {
+				$languageFallbackChainFactory = WikibaseRepo::getLanguageFallbackChainFactory( $mwServices );
+				$fallbackChain = $languageFallbackChainFactory->newFromLanguage( $language );
+			}
 			$snakFormat = new SnakFormat();
 
 			if ( $snakFormat->getBaseFormat( $format ) === SnakFormatter::FORMAT_HTML ) {
