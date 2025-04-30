@@ -495,7 +495,9 @@ return [
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
 			$entityLookup = WikibaseRepo::getEntityLookup();
-			$userLanguage = WikibaseRepo::getUserLanguage();
+			$context = new RequestContext();
+			$context->setRequest( $request );
+			$userLanguage = $context->getLanguage();
 			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
 				$entityLookup,
 				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
