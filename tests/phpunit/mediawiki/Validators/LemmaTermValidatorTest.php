@@ -15,7 +15,7 @@ class LemmaTermValidatorTest extends TestCase {
 	private const MAX_LENGTH = 10;
 
 	/**
-	 * @dataProvider dataProvider_validTerms
+	 * @dataProvider provideValidTerms
 	 */
 	public function testValidValueGiven_ReturnsTrue( $validTerm ) {
 		$validator = new LemmaTermValidator( self::MAX_LENGTH );
@@ -23,7 +23,7 @@ class LemmaTermValidatorTest extends TestCase {
 		$this->assertTrue( $validator->validate( $validTerm )->isValid() );
 	}
 
-	public static function dataProvider_validTerms() {
+	public static function provideValidTerms() {
 		return [
 			'simple' => [ 'foo' ],
 			'cyrillic "х"' => [ 'х' ],
@@ -31,7 +31,7 @@ class LemmaTermValidatorTest extends TestCase {
 	}
 
 	/**
-	 * @dataProvider dataProvider_invalidTerms
+	 * @dataProvider provideInvalidTerms
 	 */
 	public function testInvalidValueGiven_ReturnsFalse( $invalidTerm ) {
 		$validator = new LemmaTermValidator( self::MAX_LENGTH );
@@ -39,7 +39,7 @@ class LemmaTermValidatorTest extends TestCase {
 		$this->assertFalse( $validator->validate( $invalidTerm )->isValid() );
 	}
 
-	public static function dataProvider_invalidTerms() {
+	public static function provideInvalidTerms() {
 		return [
 			'not a string' => [ false ],
 			'empty' => [ '' ],
