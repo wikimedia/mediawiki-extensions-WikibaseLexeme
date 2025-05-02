@@ -7,6 +7,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
  *
  * @group WikibaseScribunto
  * @group WikibaseIntegration
+ * @group Database
  *
  * @license GPL-2.0-or-later
  */
