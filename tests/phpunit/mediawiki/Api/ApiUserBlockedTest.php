@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 
 use MediaWiki\Api\ApiMessage;
 use MediaWiki\Api\ApiUsageException;
-use MediaWiki\Block\DatabaseBlock;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
@@ -24,23 +23,19 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  */
 class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 
-	/** @var DatabaseBlock */
-	private $block;
-
 	private const GRAMMATICAL_FEATURE_ITEM_ID = 'Q1';
 
 	protected function setUp(): void {
 		parent::setUp();
 
 		$testuser = self::getTestUser()->getUser();
-		$this->block = new DatabaseBlock( [
-			'address' => $testuser,
-			'reason' => 'testing in ' . __CLASS__,
-			'by' => $testuser,
-			'expiry' => (string)( time() + 60 ),
-		] );
 		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( $this->block );
+			->insertBlockWithParams( [
+				'targetUser' => $testuser,
+				'reason' => 'testing in ' . __CLASS__,
+				'by' => $testuser,
+				'expiry' => (string)( time() + 60 ),
+			] );
 	}
 
 	public static function dataProvider() {
