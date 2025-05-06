@@ -19,8 +19,9 @@ function wikibaseLexeme.setupInterface()
 		return string.match( id, '^L[1-9]%d*$' )
 	end
 
-	local wikibase = require 'mw.wikibase'
-	wikibase.lexeme = wikibaseLexeme
+	mw = mw or {}
+	mw.wikibase = mw.wikibase or {}
+	mw.wikibase.lexeme = wikibaseLexeme
 	package.loaded['mw.wikibase.lexeme'] = wikibaseLexeme
 	wikibaseLexeme.setupInterface = nil
 end

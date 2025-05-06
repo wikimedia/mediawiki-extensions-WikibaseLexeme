@@ -9,6 +9,7 @@ use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntitySenseLibrary;
  *
  * @group WikibaseScribunto
  * @group WikibaseIntegration
+ * @group Database
  *
  * @license GPL-2.0-or-later
  */
