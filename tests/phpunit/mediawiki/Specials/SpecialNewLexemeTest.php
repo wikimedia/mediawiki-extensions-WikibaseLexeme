@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Specials;
 
 use DataValues\StringValue;
 use Exception;
-use MediaWiki\Block\DatabaseBlock;
 use MediaWiki\Block\Restriction\NamespaceRestriction;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\Exception\PermissionsError;
@@ -176,16 +175,15 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 
 	private function getTestBlockedUser( $blockIsSitewide, $blockedNamespaces = null ): User {
 		$user = self::getMutableTestUser()->getUser();
-		$block = new DatabaseBlock( [
-			'address' => $user->getName(),
-			'user' => $user->getId(),
-			'by' => self::getTestSysop()->getUser(),
-			'reason' => __METHOD__,
-			'expiry' => time() + 100500,
-			'sitewide' => $blockIsSitewide,
-		] );
-		$this->getServiceContainer()->getDatabaseBlockStore()
-			->insertBlock( $block );
+		$block = $this->getServiceContainer()->getDatabaseBlockStore()
+			->insertBlockWithParams( [
+				'targetUser' => $user,
+				'user' => $user->getId(),
+				'by' => self::getTestSysop()->getUser(),
+				'reason' => __METHOD__,
+				'expiry' => time() + 100500,
+				'sitewide' => $blockIsSitewide,
+			] );
 		if ( $blockedNamespaces !== null ) {
 			$restrictions = [];
 			foreach ( $blockedNamespaces as $blockedNamespace ) {
