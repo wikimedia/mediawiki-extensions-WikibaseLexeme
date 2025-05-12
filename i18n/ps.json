@@ -40,7 +40,7 @@
 	"wikibase-lexeme-summary-remove-form-representations": "له $3 څخه د {{PLURAL:$1|استازيتوب لرې شو|استازولۍ لرې شوې}}",
 	"wikibase-lexeme-summary-remove-sense": "$3 جاج له {{PLURAL:$1|[$2] لمنليک|لمنليکونو}} سره لرې شو",
 	"wikibase-lexeme-summary-remove-sense-glosses": "د $3 جاج {{PLURAL:$1|[$2] لمنليک|لمنليکونه}} لرې شو",
-	"wikibase-lexeme-summary-set-form-representations": "$3 بڼې {{PLURAL:$1|[$2] استازيتوب بدل شو|استازولۍ بدلې شوې}}",
+	"wikibase-lexeme-summary-set-form-representations": "$3 بڼې {{PLURAL:$1|استازيتوب بدل شو|استازولۍ بدلې شوې}}",
 	"wikibase-lexeme-summary-set-sense-glosses": "$3 جاج {{PLURAL:$1|[$2] لمنليک بدل شو|لمنليکونه بدل شوه}}",
 	"wikibase-lexeme-summary-update-form-elements": "د $3 بڼې استازولۍ او/يا گرامري ځانگړتياوې بدلې شوې",
 	"wikibase-lexeme-summary-update-form-grammatical-features": "د $3 بڼې استازولۍ او/يا گرامري ځانگړتياوې بدلې شوې",
