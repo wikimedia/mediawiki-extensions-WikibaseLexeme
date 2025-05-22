@@ -12,5 +12,6 @@
 	"apihelp-wbladdform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
 	"apihelp-wbladdform-param-lexemeId": "ID vum Lexeem, z.&nbsp;B. L10",
 	"apihelp-wbladdsense-param-lexemeId": "ID vum Lexeem, z.&nbsp;B. L10",
-	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert."
+	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
+	"apihelp-wblmergelexemes-summary": "Fusionéiert zwee Lexeemer."
 }
