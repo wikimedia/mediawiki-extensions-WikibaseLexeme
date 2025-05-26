@@ -13,5 +13,6 @@
 	"apihelp-wbladdform-param-lexemeId": "ID vum Lexeem, z.&nbsp;B. L10",
 	"apihelp-wbladdsense-param-lexemeId": "ID vum Lexeem, z.&nbsp;B. L10",
 	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
-	"apihelp-wblmergelexemes-description": "Fusionnéiert 2 Lexemen:"
+	"apihelp-wblmergelexemes-description": "Fusionnéiert 2 Lexemen:",
+	"apihelp-wblmergelexemes-summary": "Fusionéiert zwee Lexeemer."
 }
