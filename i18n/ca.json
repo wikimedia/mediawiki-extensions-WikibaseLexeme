@@ -19,6 +19,7 @@
 	"wikibase-entity-summary-wblmergelexemes-to": "S'ha fusionat el lexema a $3",
 	"wikibase-lexeme-gloss-empty": "Cap glossa definida",
 	"wikibase-lexeme-lemma-language-not-recognized": "No s'ha reconegut el codi de llengua proporcionat.",
+	"wikibase-lexeme-lexicographical-data": "Dades lexicogràfiques",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "No s'ha pogut carregar el lexema.",
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "No s'han pogut fusionar els lexemes. Resolgueu els conflictes abans. Error: els lexemes tenen la mateixa variant ortogràfica.",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "No s'han pogut fusionar els lexemes. Resolgueu els conflictes abans. Error: els lexemes s'enllacen mútuament en una afirmació.",
