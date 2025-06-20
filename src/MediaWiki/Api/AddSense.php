@@ -161,7 +161,7 @@ class AddSense extends ApiBase {
 			$lexemeId = $request->getLexemeId();
 			$lexemeRevision = $this->entityRevisionLookup->getEntityRevision(
 				$lexemeId,
-				self::LATEST_REVISION,
+				$request->getBaseRevId() ?? self::LATEST_REVISION,
 				LookupConstants::LATEST_FROM_MASTER
 			);
 
