@@ -135,6 +135,8 @@
 	"wikibaselexeme-newlexeme-lemma-language-invalid-error": "拼写变体必须是有效的语言代码。",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder": "词目拼写变体的语言代码，例如“en”",
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "词目拼写变体的语言代码，例如“$1”",
+	"wikibaselexeme-newlexeme-lemma-placeholder": "单词的缩写形式，例如“first”",
+	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "单词的基本形式，例如“$1”",
 	"wikibaselexeme-newlexeme-lemma-too-long-error": "词目不能超过$1{{PLURAL:$1|个字符}}。",
 	"wikibaselexeme-newlexeme-lexicalcategory": "词性",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "词类字段不能为空。",
