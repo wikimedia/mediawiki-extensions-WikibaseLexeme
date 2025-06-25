@@ -34,6 +34,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 on liidetud lekseemiga $2 ja ümber suunatud.",
 	"wikibase-lexeme-mergelexemes-to-id": "Lekseem, millega liidad, identifikaator",
 	"wikibase-lexeme-randomlexeme": "Juhuslik lekseem",
+	"wikibase-lexeme-scoped-search-scope-name": "Lekseemid",
 	"wikibase-lexeme-summary-add-form": "Lisatud uus {{PLURAL:$1|kirjakujuga|kirjakujudega}} vorm $3",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Lisatud vormi $3 {{PLURAL:$1|grammatiline tähendus|grammatilised tähendused}}",
 	"wikibase-lexeme-summary-add-form-representations": "Lisatud vormi $3 {{PLURAL:$1|kirjakuju|kirjakujud}}",

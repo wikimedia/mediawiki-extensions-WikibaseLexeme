@@ -37,6 +37,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 byl sloučen do $2 a přesměrován.",
 	"wikibase-lexeme-mergelexemes-to-id": "Identifikátor objektu, kam se má slučovat",
 	"wikibase-lexeme-randomlexeme": "Náhodný lexém",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexémy",
 	"wikibase-lexeme-summary-add-form": "Přidán nový tvar $3 s {{PLURAL:$1|reprezentací|reprezentacemi}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "{{PLURAL:$1|Přidána gramatická vlastnost|Přidány gramatické vlastnosti}} tvaru $3",
 	"wikibase-lexeme-summary-add-form-representations": "{{PLURAL:$1|Přidána|Přidány}} reprezentace tvaru $3",
