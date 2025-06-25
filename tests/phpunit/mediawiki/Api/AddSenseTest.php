@@ -188,7 +188,7 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 		try {
 			$this->doApiRequestWithToken( $params );
 		} catch ( ApiUsageException $e ) {
-			$this->assertStatusError( 'wikibase-self-conflict-patched', $e->getStatusValue() );
+			$this->assertStatusError( 'wikibase-conflict-patched', $e->getStatusValue() );
 		}
 
 		$lexeme = $this->getLexeme( 'L1' );
