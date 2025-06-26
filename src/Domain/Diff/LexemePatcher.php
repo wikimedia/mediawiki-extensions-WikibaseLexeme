@@ -14,6 +14,7 @@ use Wikibase\DataModel\Services\Diff\EntityDiff;
 use Wikibase\DataModel\Services\Diff\EntityPatcherStrategy;
 use Wikibase\DataModel\Services\Diff\StatementListPatcher;
 use Wikibase\DataModel\Services\Diff\TermListPatcher;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ConflictException;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemePatchAccess;
 use Wikimedia\Assert\Assert;
@@ -158,12 +159,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 		foreach ( $patch->getFormsDiff() as $formDiff ) {
 			switch ( true ) {
 				case $formDiff instanceof AddFormDiff:
-					$form = $formDiff->getAddedForm();
-					$lexeme->patch(
-						static function ( LexemePatchAccess $patchAccess ) use ( $form ) {
-							$patchAccess->addForm( $form );
-						}
-					);
+					$this->patchAddForm( $lexeme, $patch, $formDiff );
 					break;
 
 				case $formDiff instanceof RemoveFormDiff:
@@ -186,16 +182,29 @@ class LexemePatcher implements EntityPatcherStrategy {
 		}
 	}
 
+	private function patchAddForm( Lexeme $lexeme, LexemeDiff $patch, AddFormDiff $formDiff ): void {
+		$form = $formDiff->getAddedForm();
+		$lexeme->patch(
+			static function ( LexemePatchAccess $patchAccess ) use ( $form, $patch ) {
+				try {
+					$patchAccess->addForm( $form );
+				} catch ( ConflictException $e ) {
+					if ( $patch->getNextFormIdDiff()->isEmpty() ) {
+						// the patch was restoring, not newly adding, a form;
+						// if a form by this ID already exists, there’s nothing else to do (T392372)
+					} else {
+						throw $e;
+					}
+				}
+			}
+		);
+	}
+
 	private function patchSenses( Lexeme $lexeme, LexemeDiff $patch ) {
 		foreach ( $patch->getSensesDiff() as $senseDiff ) {
 			switch ( true ) {
 				case $senseDiff instanceof AddSenseDiff:
-					$sense = $senseDiff->getAddedSense();
-					$lexeme->patch(
-						static function ( LexemePatchAccess $patchAccess ) use ( $sense ) {
-							$patchAccess->addSense( $sense );
-						}
-					);
+					$this->patchAddSense( $lexeme, $patch, $senseDiff );
 					break;
 
 				case $senseDiff instanceof RemoveSenseDiff:
@@ -216,6 +225,24 @@ class LexemePatcher implements EntityPatcherStrategy {
 					throw new PatcherException( 'Invalid senses list diff: ' . get_class( $senseDiff ) );
 			}
 		}
+	}
+
+	public function patchAddSense( Lexeme $lexeme, LexemeDiff $patch, AddSenseDiff $senseDiff ): void {
+		$sense = $senseDiff->getAddedSense();
+		$lexeme->patch(
+			static function ( LexemePatchAccess $patchAccess ) use ( $sense, $patch ) {
+				try {
+					$patchAccess->addSense( $sense );
+				} catch ( ConflictException $e ) {
+					if ( $patch->getNextSenseIdDiff()->isEmpty() ) {
+						// the patch was restoring, not newly adding, a sense;
+						// if a sense by this ID already exists, there’s nothing else to do (T392372)
+					} else {
+						throw $e;
+					}
+				}
+			}
+		);
 	}
 
 }
