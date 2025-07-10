@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"Умар"
+		]
+	},
+	"apierror-wikibaselexeme-lexeme-term-language-cannot-be-empty": "Мотт баьсса хила йиш йац",
+	"apierror-wikibaselexeme-lexeme-term-text-cannot-be-empty": "Терман текст йаьсса хила йиш йац",
+	"apihelp-wbladdform-param-tags": "Хийцамийн историна тӀетоьхна хир йолу хийцаман билгалонаш.",
+	"apihelp-wbladdform-summary": "Лексеман форма тӀетохар",
+	"apihelp-wblmergelexemes-param-source": "Вовшахтуху идентификатор",
+	"apihelp-wblmergelexemes-param-tags": "Хийцамийн историна тӀетоьхна хир йолу хийцаман билгалонаш.",
+	"apihelp-wblmergelexemes-param-target": "Вовшахтуху идентификатор",
+	"apihelp-wblmergelexemes-summary": "Ши Лексема вовшахтохар.",
+	"apihelp-wblremoveform-summary": "Форма дӀайаккха Лексема чуьра",
+	"apihelp-wblremovesense-summary": "МаьӀна дӀадаккха Лексема чуьра"
+}
