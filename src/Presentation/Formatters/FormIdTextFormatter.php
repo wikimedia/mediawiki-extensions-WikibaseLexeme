@@ -39,7 +39,7 @@ class FormIdTextFormatter implements EntityIdFormatter {
 		}
 		try {
 			$formRevision = $this->revisionLookup->getEntityRevision( $formId );
-		} catch ( UnresolvedEntityRedirectException $exception ) {
+		} catch ( UnresolvedEntityRedirectException ) {
 			return $formId->getSerialization();
 		}
 

@@ -169,7 +169,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 				case $formDiff instanceof ChangeFormDiffOp:
 					try {
 						$form = $lexeme->getForm( $formDiff->getFormId() );
-					} catch ( \OutOfRangeException $e ) {
+					} catch ( \OutOfRangeException ) {
 						// form does not exist (anymore? may have been removed), nothing to patch (T326768)
 						break;
 					}
@@ -214,7 +214,7 @@ class LexemePatcher implements EntityPatcherStrategy {
 				case $senseDiff instanceof ChangeSenseDiffOp:
 					try {
 						$sense = $lexeme->getSense( $senseDiff->getSenseId() );
-					} catch ( \OutOfRangeException $e ) {
+					} catch ( \OutOfRangeException ) {
 						// sense does not exist (anymore? may have been removed), nothing to patch (T284061)
 						break;
 					}

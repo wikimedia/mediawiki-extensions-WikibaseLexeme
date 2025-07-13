@@ -33,7 +33,7 @@ class ItemIdListDeserializer {
 			$context = $validationContext->at( $index );
 			try {
 				$itemIdList[] = $this->itemIdParser->parse( $itemId );
-			} catch ( EntityIdParsingException $ex ) {
+			} catch ( EntityIdParsingException ) {
 				$context->addViolation( new JsonFieldIsNotAnItemId( $itemId ) );
 			}
 		}

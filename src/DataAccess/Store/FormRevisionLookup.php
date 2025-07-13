@@ -67,7 +67,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 		try {
 			// TODO use hasForm on Lexeme or FormSet when it exists
 			$form = $lexeme->getForm( $formId );
-		} catch ( OutOfRangeException $ex ) {
+		} catch ( OutOfRangeException ) {
 			return null;
 		}
 
@@ -108,7 +108,7 @@ class FormRevisionLookup implements EntityRevisionLookup {
 
 					try {
 						$lexeme->getForm( $formId );
-					} catch ( OutOfRangeException $ex ) {
+					} catch ( OutOfRangeException ) {
 						return LatestRevisionIdResult::nonexistentEntity();
 					}
 

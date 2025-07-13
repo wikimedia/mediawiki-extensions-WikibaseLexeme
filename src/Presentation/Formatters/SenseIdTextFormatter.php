@@ -47,7 +47,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 		}
 		try {
 			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
-		} catch ( RevisionedUnresolvedRedirectException | StorageException $e ) {
+		} catch ( RevisionedUnresolvedRedirectException | StorageException ) {
 			$lexemeRevision = null; // see fallback below
 		}
 
@@ -60,7 +60,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 		'@phan-var Lexeme $lexeme';
 		try {
 			$sense = $lexeme->getSense( $value );
-		} catch ( OutOfRangeException $e ) {
+		} catch ( OutOfRangeException ) {
 			return $value->getSerialization();
 		}
 
@@ -77,7 +77,7 @@ class SenseIdTextFormatter implements EntityIdFormatter {
 		try {
 			// TODO language fallbacks (T200983)
 			$gloss = $sense->getGlosses()->getByLanguage( $languageCode )->getText();
-		} catch ( OutOfBoundsException $e ) {
+		} catch ( OutOfBoundsException ) {
 			return $value->getSerialization();
 		}
 

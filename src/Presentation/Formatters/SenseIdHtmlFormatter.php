@@ -69,7 +69,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 
 		try {
 			$lexemeRevision = $this->revisionLookup->getEntityRevision( $value->getLexemeId() );
-		} catch ( RevisionedUnresolvedRedirectException $e ) {
+		} catch ( RevisionedUnresolvedRedirectException ) {
 			$lexemeRevision = null; // see fallback below
 		}
 
@@ -82,7 +82,7 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 		'@phan-var Lexeme $lexeme';
 		try {
 			$sense = $lexeme->getSense( $value );
-		} catch ( OutOfRangeException $e ) {
+		} catch ( OutOfRangeException ) {
 			return $this->getTextWrappedInLink( $value->getSerialization(), $title );
 		}
 

@@ -298,7 +298,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	private function getLexicalCategoryAsArray( Lexeme $lexeme ): array {
 		try {
 			return [ 'id' => $lexeme->getLexicalCategory() ];
-		} catch ( UnexpectedValueException $ex ) {
+		} catch ( UnexpectedValueException ) {
 			return []; // It's fine to skip uninitialized properties in a diff
 		}
 	}
@@ -306,7 +306,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 	private function getLanguageAsArray( Lexeme $lexeme ): array {
 		try {
 			return [ 'id' => $lexeme->getLanguage() ];
-		} catch ( UnexpectedValueException $ex ) {
+		} catch ( UnexpectedValueException ) {
 			return []; // It's fine to skip uninitialized properties in a diff
 		}
 	}

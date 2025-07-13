@@ -33,7 +33,7 @@ class SenseIdDeserializer {
 	public function deserialize( $id, ValidationContext $validationContext ) {
 		try {
 			$senseId = $this->entityIdParser->parse( $id );
-		} catch ( EntityIdParsingException $e ) {
+		} catch ( EntityIdParsingException ) {
 			$validationContext->addViolation( new ParameterIsNotSenseId( $id ) );
 			return null;
 		}

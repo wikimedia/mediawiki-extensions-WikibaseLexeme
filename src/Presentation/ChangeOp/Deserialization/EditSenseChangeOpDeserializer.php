@@ -87,7 +87,7 @@ class EditSenseChangeOpDeserializer implements ChangeOpDeserializer {
 			} else {
 				try {
 					$changeOps[] = $this->statementsChangeOpDeserializer->createEntityChangeOp( $changeRequest );
-				} catch ( ChangeOpDeserializationException $exception ) {
+				} catch ( ChangeOpDeserializationException ) {
 					$statementsContext->addViolation( new InvalidSenseClaims() );
 				}
 			}

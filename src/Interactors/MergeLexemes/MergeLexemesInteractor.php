@@ -146,7 +146,7 @@ class MergeLexemesInteractor {
 			} else {
 				throw new LexemeNotFoundException( $lexemeId );
 			}
-		} catch ( StorageException | RevisionedUnresolvedRedirectException $ex ) {
+		} catch ( StorageException | RevisionedUnresolvedRedirectException ) {
 			throw new LexemeLoadingException();
 		}
 	}

@@ -65,7 +65,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 		try {
 			// TODO use hasSense on Lexeme or SenseSet when it exists
 			$sense = $lexeme->getSense( $senseId );
-		} catch ( OutOfRangeException $ex ) {
+		} catch ( OutOfRangeException ) {
 			return null;
 		}
 
@@ -105,7 +105,7 @@ class SenseRevisionLookup implements EntityRevisionLookup {
 
 					try {
 						$lexeme->getSense( $senseId );
-					} catch ( OutOfRangeException $ex ) {
+					} catch ( OutOfRangeException ) {
 						return LatestRevisionIdResult::nonexistentEntity();
 					}
 

@@ -130,7 +130,7 @@ class LexemeDescription {
 	public static function parseOrNull( $text, EntityIdParser $idParser ) {
 		try {
 			$id = $idParser->parse( $text );
-		} catch ( EntityIdParsingException $ex ) {
+		} catch ( EntityIdParsingException ) {
 			return null;
 		}
 		return $id;

@@ -83,7 +83,7 @@ class AddSenseRequestParser {
 	private function parseLexemeId( $id, ValidationContext $validationContext ) {
 		try {
 			$lexemeId = $this->entityIdParser->parse( $id );
-		} catch ( EntityIdParsingException $e ) {
+		} catch ( EntityIdParsingException ) {
 			$validationContext->addViolation( new ParameterIsNotLexemeId( $id ) );
 			return null;
 		}

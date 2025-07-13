@@ -251,7 +251,7 @@ class SpecialMergeLexemes extends SpecialPage {
 	private function getLexemeId( string $idSerialization ) {
 		try {
 			return new LexemeId( $idSerialization );
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			return false;
 		}
 	}

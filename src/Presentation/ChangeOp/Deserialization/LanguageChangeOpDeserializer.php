@@ -65,7 +65,7 @@ class LanguageChangeOpDeserializer implements ChangeOpDeserializer {
 	private function validateItemId( $idSerialization ) {
 		try {
 			return new ItemId( $idSerialization );
-		} catch ( InvalidArgumentException $e ) {
+		} catch ( InvalidArgumentException ) {
 			throw new ChangeOpDeserializationException(
 				'Item id can not be parsed',
 				'invalid-item-id'

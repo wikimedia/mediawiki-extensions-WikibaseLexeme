@@ -280,14 +280,14 @@ class SpecialNewLexeme extends SpecialPage {
 			$languageId = $this->entityIdParser->parse(
 				$this->getRequest()->getText( self::FIELD_LEXEME_LANGUAGE )
 			);
-		} catch ( EntityIdParsingException $e ) {
+		} catch ( EntityIdParsingException ) {
 			$languageId = null;
 		}
 		try {
 			$lexCatId = $this->entityIdParser->parse(
 				$this->getRequest()->getText( self::FIELD_LEXICAL_CATEGORY )
 			);
-		} catch ( EntityIdParsingException $e ) {
+		} catch ( EntityIdParsingException ) {
 			$lexCatId = null;
 		}
 
@@ -393,7 +393,7 @@ class SpecialNewLexeme extends SpecialPage {
 		try {
 			$lexemeId = $this->entityIdParser->parse( $lexemeIdString );
 			$lexeme = $this->entityLookup->getEntity( $lexemeId );
-		} catch ( EntityIdParsingException $e ) {
+		} catch ( EntityIdParsingException ) {
 			$lexeme = null;
 		}
 		if ( !( $lexeme instanceof Lexeme ) ) {

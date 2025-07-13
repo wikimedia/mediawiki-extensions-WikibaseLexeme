@@ -61,7 +61,7 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		try {
 			$formRevision = $this->revisionLookup->getEntityRevision( $formId );
 			$title = $this->titleLookup->getTitleForId( $formId );
-		} catch ( UnresolvedEntityRedirectException $exception ) {
+		} catch ( UnresolvedEntityRedirectException ) {
 			return $this->redirectedLexemeSubEntityIdHtmlFormatter->formatEntityId( $formId );
 		}
 		if ( !( $formId instanceof FormId ) ) {

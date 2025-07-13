@@ -24,7 +24,7 @@ class EntityLookupLemmaLookup implements LemmaLookup {
 	public function getLemmas( LexemeId $lexemeId ): TermList {
 		try {
 			$lexeme = $this->entityLookup->getEntity( $lexemeId );
-		} catch ( UnresolvedEntityRedirectException $ex ) { // T228996
+		} catch ( UnresolvedEntityRedirectException ) { // T228996
 			// Regression catch.
 			// When there's a double redirect in Lexemes (eg. L1 -> L2 -> L3)
 			// then getting lemmas of L1 will fatal as the second redirect is

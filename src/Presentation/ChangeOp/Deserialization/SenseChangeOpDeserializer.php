@@ -108,7 +108,7 @@ class SenseChangeOpDeserializer implements ChangeOpDeserializer {
 	private function getLexemeId( $id ) {
 		try {
 			$lexemeId = $this->entityIdParser->parse( $id );
-		} catch ( EntityIdParsingException $ex ) {
+		} catch ( EntityIdParsingException ) {
 			return null;
 		}
 

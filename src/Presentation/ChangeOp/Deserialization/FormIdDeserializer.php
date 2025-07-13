@@ -33,7 +33,7 @@ class FormIdDeserializer {
 	public function deserialize( $id, ValidationContext $validationContext ) {
 		try {
 			$formId = $this->entityIdParser->parse( $id );
-		} catch ( EntityIdParsingException $e ) {
+		} catch ( EntityIdParsingException ) {
 			$validationContext->addViolation( new ParameterIsNotFormId( $id ) );
 			return null;
 		}
