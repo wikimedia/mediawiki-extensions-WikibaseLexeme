@@ -12,11 +12,13 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lib\WikibaseSettings;
 use Wikibase\Repo\WikibaseRepo;
 
+// @codeCoverageIgnoreStart
 $basePath = getenv( 'MW_INSTALL_PATH' ) !== false
 	? getenv( 'MW_INSTALL_PATH' )
 	: __DIR__ . '/../../../..';
 
 require_once $basePath . '/maintenance/Maintenance.php';
+// @codeCoverageIgnoreEnd
 
 /**
  * Maintenance script for creating reserved Lexeme entities.
@@ -182,5 +184,7 @@ class CreateReservedLexemes extends Maintenance {
 
 }
 
+// @codeCoverageIgnoreStart
 $maintClass = CreateReservedLexemes::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
+// @codeCoverageIgnoreEnd
