@@ -44,6 +44,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1, $2 ile birleştirildi ve yönlendirildi",
 	"wikibase-lexeme-mergelexemes-to-id": "Birleştirilen kimlik",
 	"wikibase-lexeme-randomlexeme": "Rastgele Sözlükbirim",
+	"wikibase-lexeme-scoped-search-scope-name": "Sözlükbirimler",
 	"wikibase-lexeme-summary-add-form": "{{PLURAL:$1|sunumu|sunumları}} ile yeni $3 Formu eklendi",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "$3 Formunun gramer {{PLURAL:$1|özelliği|özellikleri}} eklendi",
 	"wikibase-lexeme-summary-add-form-representations": "$3 Formunun {{PLURAL:$1|sunumu|sunumları}} eklendi",
