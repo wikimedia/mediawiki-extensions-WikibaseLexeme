@@ -2,7 +2,7 @@
 
 declare( strict_types = 1 );
 
-namespace Wikibase\Lexeme\Tests\Unit\mediawiki;
+namespace Wikibase\Lexeme\Tests\MediaWiki\Actions;
 
 use MediaWiki\Context\IContextSource;
 use MediaWiki\Message\Message;
