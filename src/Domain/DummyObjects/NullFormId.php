@@ -2,6 +2,8 @@
 
 declare( strict_types = 1 );
 
+// @phan-file-suppress PhanPluginNeverReturnMethod
+
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use LogicException;
@@ -10,7 +12,6 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 
 /**
  * @license GPL-2.0-or-later
- * @phan-file-suppress PhanPluginNeverReturnMethod
  */
 class NullFormId extends FormId {
 

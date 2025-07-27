@@ -1,5 +1,7 @@
 <?php
 
+// @phan-file-suppress PhanPluginNeverReturnMethod
+
 namespace Wikibase\Lexeme\Domain\Diff;
 
 use Diff\DiffOp\Diff\Diff;
@@ -9,7 +11,6 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @license GPL-2.0-or-later
- * @phan-file-suppress PhanPluginNeverReturnMethod
  */
 class ChangeSenseDiffOp extends EntityDiff implements SenseDiff {
 

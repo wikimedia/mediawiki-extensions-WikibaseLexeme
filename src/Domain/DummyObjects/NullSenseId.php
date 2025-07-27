@@ -2,6 +2,8 @@
 
 declare( strict_types = 1 );
 
+// @phan-file-suppress PhanPluginNeverReturnMethod
+
 namespace Wikibase\Lexeme\Domain\DummyObjects;
 
 use LogicException;
@@ -12,7 +14,6 @@ use Wikibase\Lexeme\Domain\Model\SenseId;
  * An ID for a BlankSense which has not yet been associated with any lexeme.
  *
  * @license GPL-2.0-or-later
- * @phan-file-suppress PhanPluginNeverReturnMethod
  */
 class NullSenseId extends SenseId {
 
