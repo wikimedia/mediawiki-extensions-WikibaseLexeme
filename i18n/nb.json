@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"EdoAug",
 			"Jon Harald Søby",
 			"Telaneo"
 		]
@@ -35,6 +36,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 ble slått sammen til $2 og omdirigert.",
 	"wikibase-lexeme-mergelexemes-to-id": "ID-en det skal slås sammen til",
 	"wikibase-lexeme-randomlexeme": "Tilfeldig leksem",
+	"wikibase-lexeme-scoped-search-scope-name": "Leksemer",
 	"wikibase-lexeme-summary-add-form": "La til ny form $3 med {{PLURAL:$1|representasjon|representasjoner}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "La til {{PLURAL:$1|grammatisk|grammatiske}} trekk for formen $3",
 	"wikibase-lexeme-summary-add-form-representations": "La til {{PLURAL:$1|representasjon|representasjoner}} for formen $3",
