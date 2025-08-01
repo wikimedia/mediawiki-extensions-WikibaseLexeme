@@ -52,7 +52,7 @@ class LexemeViewFactory {
 			->getForLanguage( $this->language );
 
 		$statementSectionsView = $viewFactory->newStatementSectionsView(
-			$this->language->getCode(),
+			$this->language,
 			$this->termFallbackChain,
 			$editSectionGenerator
 		);
