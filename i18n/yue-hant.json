@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"JeffreyKim"
+			"JeffreyKim",
+			"Ktchankt"
 		]
 	},
 	"content-model-wikibase-lexeme": "維基庫詞典",
@@ -21,7 +22,7 @@
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "合併唔到啲詞典，請解決任何衝突錯誤先：詞典對於同一個拼寫變體有唔同嘅引理。",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "合併唔到詞典，請解決任何衝突先。錯誤：詞組喺聲明入面互相噉連結。",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "合併唔到啲詞典，請解決任何衝突先。",
-	"wikibase-lexeme-mergelexemes-error-failed-save": "些乎唔到啲詞典。",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "儲存唔到啲詞位。",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1'唔係有效嘅詞典ID 。",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "搵唔到詞典'$1'。",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "權限拒絕咗",
