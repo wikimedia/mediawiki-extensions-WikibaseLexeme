@@ -9,6 +9,7 @@ use MediaWiki\User\UserIdentity;
 use Wikibase\Repo\TempUserStatus;
 
 /**
+ * @inherits TempUserStatus<array{savedTempUser:?UserIdentity,context:IContextSource}>
  * @license GPL-2.0-or-later
  */
 class MergeLexemesStatus extends TempUserStatus {
