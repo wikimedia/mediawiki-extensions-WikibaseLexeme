@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"JeffreyKim",
-			"Ktchankt"
+			"Ktchankt",
+			"Yueman"
 		]
 	},
 	"content-model-wikibase-lexeme": "維基庫詞典",
@@ -32,7 +33,7 @@
 	"wikibase-lexeme-mergelexemes-from-id": "要合併埋嘅 ID",
 	"wikibase-lexeme-mergelexemes-intro": "如果你合併兩個詞典，所有引理、陳述、形式同感覺都會由一個詞典移動到另一個詞組。",
 	"wikibase-lexeme-mergelexemes-submit": "合併埋啲詞典",
-	"wikibase-lexeme-mergelexemes-success": "$1被合併埋成$2並重新返導向。",
+	"wikibase-lexeme-mergelexemes-success": "$1被合併埋成$2同跳轉咗。",
 	"wikibase-lexeme-mergelexemes-to-id": "要合併埋嘅ID",
 	"wikibase-lexeme-randomlexeme": "是但嘅詞典",
 	"wikibase-lexeme-scoped-search-scope-name": "詞典",
