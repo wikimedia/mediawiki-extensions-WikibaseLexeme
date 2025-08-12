@@ -1,7 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
-			"JeffreyKim"
+			"JeffreyKim",
+			"Ktchankt",
+			"Yueman"
 		]
 	},
 	"content-model-wikibase-lexeme": "維基庫詞典",
@@ -21,7 +23,7 @@
 	"wikibase-lexeme-mergelexemes-error-conflicting-lemma": "合併唔到啲詞典，請解決任何衝突錯誤先：詞典對於同一個拼寫變體有唔同嘅引理。",
 	"wikibase-lexeme-mergelexemes-error-cross-referencing-statement": "合併唔到詞典，請解決任何衝突先。錯誤：詞組喺聲明入面互相噉連結。",
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "合併唔到啲詞典，請解決任何衝突先。",
-	"wikibase-lexeme-mergelexemes-error-failed-save": "些乎唔到啲詞典。",
+	"wikibase-lexeme-mergelexemes-error-failed-save": "儲存唔到啲詞位。",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "'$1'唔係有效嘅詞典ID 。",
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "搵唔到詞典'$1'。",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "權限拒絕咗",
@@ -31,7 +33,7 @@
 	"wikibase-lexeme-mergelexemes-from-id": "要合併埋嘅 ID",
 	"wikibase-lexeme-mergelexemes-intro": "如果你合併兩個詞典，所有引理、陳述、形式同感覺都會由一個詞典移動到另一個詞組。",
 	"wikibase-lexeme-mergelexemes-submit": "合併埋啲詞典",
-	"wikibase-lexeme-mergelexemes-success": "$1被合併埋成$2並重新返導向。",
+	"wikibase-lexeme-mergelexemes-success": "$1被合併埋成$2同跳轉咗。",
 	"wikibase-lexeme-mergelexemes-to-id": "要合併埋嘅ID",
 	"wikibase-lexeme-randomlexeme": "是但嘅詞典",
 	"wikibase-lexeme-summary-add-form": "加咗新表格 $3 同{{PLURAL:$1|representation|代表}}",
