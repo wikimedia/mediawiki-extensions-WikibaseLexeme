@@ -67,11 +67,11 @@
 	"apihelp-wblremoveform-param-bot": "將呢個編輯標記為機械人。淨係有當用戶屬於「{{int:group-bot}}」群組嗰陣，先至會尊重呢個網址嘅旗號。",
 	"apihelp-wblremoveform-param-id": "表格嘅ID，例如L10-F20",
 	"apihelp-wblremoveform-param-tags": "更改標籤嚟套用喺修訂版本。",
-	"apihelp-wblremoveform-summary": "喺詞典入面移除表格",
+	"apihelp-wblremoveform-summary": "喺詞典入面剷走表格",
 	"apihelp-wblremovesense-example-1": "喺用ID<samp>$1</samp>嘅詞組入面移除意義",
 	"apihelp-wblremovesense-param-baserevid": "如果需要檢查編輯之間嘅衝突，就要檢查啲詞典嘅基本修訂ID。",
 	"apihelp-wblremovesense-param-bot": "將呢個編輯標記為機械人。淨係有當用戶屬於「{{int:group-bot}}」群組嗰陣，先至會尊重呢個網址嘅旗號。",
 	"apihelp-wblremovesense-param-id": "場景嘅ID，例如L10-S20",
 	"apihelp-wblremovesense-param-tags": "更改標籤嚟套用喺修訂版本。",
-	"apihelp-wblremovesense-summary": "喺詞典入面移除咗意義"
+	"apihelp-wblremovesense-summary": "喺詞典入面剷走咗意義"
 }
