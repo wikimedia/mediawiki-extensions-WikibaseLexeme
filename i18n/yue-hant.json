@@ -83,7 +83,7 @@
 	"wikibaselexeme-diffview-sense": "場景",
 	"wikibaselexeme-empty-form-representation": "冇定義表格表示",
 	"wikibaselexeme-enter-form-representation": "輸入新嘅表格嘅表示方式",
-	"wikibaselexeme-error-cannot-remove-last-lemma": "發生咗個錯誤：移除唔到最後一個引理。",
+	"wikibaselexeme-error-cannot-remove-last-lemma": "發生咗個錯誤：最後一個引理剷唔到走。",
 	"wikibaselexeme-field-language-label": "語言",
 	"wikibaselexeme-field-lexical-category-label": "詞彙類別",
 	"wikibaselexeme-form-description": "$1用喺：$2（$3）：$4",
