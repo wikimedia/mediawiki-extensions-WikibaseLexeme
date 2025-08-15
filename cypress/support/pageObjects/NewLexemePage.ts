@@ -11,12 +11,6 @@ export class NewLexemePage {
 		};
 	}
 
-	private static get CODEX_LOOKUP_SELECTORS(): Record<string, string> {
-		return {
-			SELECTED_ELEMENT: '.cdx-menu .cdx-menu-item--enabled'
-		};
-	}
-
 	public open(): this {
 		cy.visit( 'index.php?title=Special:NewLexeme' );
 		return this;
@@ -44,29 +38,37 @@ export class NewLexemePage {
 	}
 
 	public setLexemeLanguage( language: string ): this {
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE ).within( () => {
-			this._codexValueLookup( language );
-		} );
+		this._setCodexLookupValue(
+			this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE,
+			language
+		);
 		return this;
 	}
 
 	public setLexicalCategory( lexicalCategory: string ): this {
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY ).within( () => {
-			this._codexValueLookup( lexicalCategory );
-		} );
+		this._setCodexLookupValue(
+			this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY,
+			lexicalCategory
+		);
 		return this;
 	}
 
 	public setSpellingVariant( languageVariant: string ): this {
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT ).within( () => {
-			this._codexValueLookup( languageVariant );
-		} );
+		this._setCodexLookupValue(
+			this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT,
+			languageVariant
+		);
 		return this;
 	}
 
-	private _codexValueLookup( value: string ): void {
-		cy.get( 'input' ).clear().type( value );
-		cy.get( this.constructor.CODEX_LOOKUP_SELECTORS.SELECTED_ELEMENT ).click();
+	private _setCodexLookupValue( selector: string, value: string ): this {
+		cy.get( selector ).find( 'input[aria-controls]' )
+			.clear().type( value )
+			.invoke( 'attr', 'aria-controls' ).then( ( id ) => {
+				cy.get( `#${ id }` ).find( '.cdx-menu-item--enabled' )
+					.click();
+			} );
+		return this;
 	}
 
 	public submit(): this {
