@@ -2,14 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"JeffreyKim",
-			"Ktchankt"
+			"Ktchankt",
+			"Yueman"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "表格必須至少有一個表示方式",
 	"apierror-wikibaselexeme-form-not-found": "「$1」欄位包含搵唔到表格「$2」嘅ID。",
-	"apierror-wikibaselexeme-invalid-form-claims": "喺「$2」欄位「$1」入面嘅無效索償。",
+	"apierror-wikibaselexeme-invalid-form-claims": "喺「$2」欄位「$1」入面嘅無效聲稱。",
 	"apierror-wikibaselexeme-invalid-item-id": "喺「$2」嘅欄位「$1」入面嘅項目ID「$3」無效。",
-	"apierror-wikibaselexeme-invalid-sense-claims": "喺「$2」欄位「$1」入面嘅無效索償。",
+	"apierror-wikibaselexeme-invalid-sense-claims": "喺「$2」欄位「$1」入面嘅無效聲稱。",
 	"apierror-wikibaselexeme-json-field-has-wrong-type": "參數「$1」入面嘅欄位「$2 」預計係「$3」類型。畀咗：「$4」",
 	"apierror-wikibaselexeme-json-field-not-item-id": "參數「$1」入面嘅欄位「$2」預計會係項目 ID 。 \n畀咗：「$3」",
 	"apierror-wikibaselexeme-json-field-required": "參數「$1」入面嘅「$2」欄位「$3」係必要嘅",
