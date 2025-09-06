@@ -27,7 +27,6 @@ class WikibaseRepoDataTypesHookHandler implements WikibaseRepoDataTypesHook {
 	 *
 	 * @note This is bootstrap code, it is executed for EVERY request. Avoid instantiating
 	 * objects or loading classes here!
-	 *
 	 */
 	public function onWikibaseRepoDataTypes( array &$dataTypeDefinitions ): void {
 		if ( !$this->config->get( 'LexemeEnableRepo' ) ) {

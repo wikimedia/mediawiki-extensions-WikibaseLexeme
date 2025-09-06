@@ -19,7 +19,6 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  * @group medium
  * @group WikibaseLexeme
  * @group Database
- *
  */
 class ApiUserBlockedTest extends WikibaseLexemeApiTestCase {
 
