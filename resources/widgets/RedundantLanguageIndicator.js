@@ -28,7 +28,7 @@ module.exports = ( function () {
 				 * @return {boolean}
 				 */
 				isRedundantLanguage: function ( language ) {
-					return this.redundantLanguages.indexOf( language ) > -1;
+					return this.redundantLanguages.includes( language );
 				}
 			}
 		};
@@ -55,7 +55,7 @@ module.exports = ( function () {
 				continue; // blank forms are not considered conflicting
 			}
 
-			if ( languages.indexOf( language ) > -1 ) {
+			if ( languages.includes( language ) ) {
 				redundantLanguages.push( language );
 			}
 

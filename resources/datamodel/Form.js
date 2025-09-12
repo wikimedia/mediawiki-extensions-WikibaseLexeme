@@ -96,7 +96,7 @@
 				var hasAllGrammaticalFeatures = true;
 				this._grammaticalFeatures.forEach( function ( gf ) {
 					hasAllGrammaticalFeatures = hasAllGrammaticalFeatures &&
-						other._grammaticalFeatures.indexOf( gf ) >= 0;
+						other._grammaticalFeatures.includes( gf );
 				} );
 
 				return this.getId() === other.getId()

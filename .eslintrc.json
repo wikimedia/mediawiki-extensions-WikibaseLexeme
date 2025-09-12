@@ -35,8 +35,7 @@
 		"mediawiki/no-nodelist-unsupported-methods": "warn",
 		"no-var": "off",
 		"prefer-arrow-callback": "off",
-		"no-jquery/no-done-fail": "warn",
-		"unicorn/prefer-includes": "warn"
+		"no-jquery/no-done-fail": "warn"
 	},
 	"settings": {
 		"jsdoc": {
