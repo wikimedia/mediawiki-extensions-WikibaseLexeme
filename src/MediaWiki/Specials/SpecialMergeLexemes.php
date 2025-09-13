@@ -183,7 +183,8 @@ class SpecialMergeLexemes extends SpecialPage {
 			$fullTitle = $this->getPageTitle();
 			$this->getOutput()->addModuleStyles( 'mediawiki.codex.messagebox.styles' );
 			return Html::warningBox(
-				$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
+				$this->msg( $this->anonymousEditWarningBuilder->buildAnonymousEditWarningMessage( $fullTitle ) )
+					->parse()
 			);
 		}
 

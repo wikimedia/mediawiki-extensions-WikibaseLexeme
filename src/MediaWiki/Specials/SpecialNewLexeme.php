@@ -717,9 +717,8 @@ class SpecialNewLexeme extends SpecialPage {
 					'noscript',
 					[],
 					Html::warningBox(
-						$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML(
-							$fullTitle->getPrefixedText()
-						),
+						$this->msg( $this->anonymousEditWarningBuilder->buildAnonymousEditWarningMessage( $fullTitle ) )
+							->parse(),
 						'wbl-snl-anonymous-edit-warning-no-js'
 					)
 				)
