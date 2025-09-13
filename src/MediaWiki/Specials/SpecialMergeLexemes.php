@@ -181,9 +181,8 @@ class SpecialMergeLexemes extends SpecialPage {
 	private function anonymousEditWarning(): string {
 		if ( !$this->getUser()->isRegistered() ) {
 			$fullTitle = $this->getPageTitle();
-			return Html::rawElement(
-				'p',
-				[ 'class' => 'warning' ],
+			$this->getOutput()->addModuleStyles( 'mediawiki.codex.messagebox.styles' );
+			return Html::warningBox(
 				$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
 			);
 		}

@@ -203,7 +203,7 @@ class SpecialNewLexeme extends SpecialPage {
 			. '</div>'
 		);
 		$output->enableOOUI();
-		$output->addHTML( $this->anonymousEditWarning() );
+		$this->showAnonymousEditWarning();
 		$output->addHTML( '<div class="wbl-snl-main-content">' );
 		$output->addHTML( '<div id="special-newlexeme-root"></div>' );
 		$output->addModules( [
@@ -708,26 +708,22 @@ class SpecialNewLexeme extends SpecialPage {
 		);
 	}
 
-	/**
-	 * @return string HTML
-	 */
-	private function anonymousEditWarning() {
-		$warningIconHtml = ( new IconWidget( [ 'icon' => 'alert' ] ) )->toString();
-
+	private function showAnonymousEditWarning(): void {
 		if ( !$this->getUser()->isRegistered() ) {
 			$fullTitle = $this->getPageTitle();
-			$messageSpan = Html::rawElement(
-				'span',
-				[ 'class' => 'warning' ],
-				$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML( $fullTitle->getPrefixedText() )
+			$this->getOutput()->addModuleStyles( 'mediawiki.codex.messagebox.styles' );
+			$this->getOutput()->addHTML(
+				Html::rawElement(
+					'noscript',
+					[],
+					Html::warningBox(
+						$this->anonymousEditWarningBuilder->buildAnonymousEditWarningHTML(
+							$fullTitle->getPrefixedText()
+						),
+						'wbl-snl-anonymous-edit-warning-no-js'
+					)
+				)
 			);
-			return '<noscript>
-				<div class="wbl-snl-anonymous-edit-warning-no-js wbl-snl-message-warning">'
-				. $warningIconHtml
-				. $messageSpan
-				. '</div></noscript>';
 		}
-
-		return '';
 	}
 }
