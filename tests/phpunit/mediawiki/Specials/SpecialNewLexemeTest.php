@@ -648,6 +648,11 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 	 * @dataProvider provideValidEntityCreationRequests
 	 */
 	public function testEntityIsBeingCreated_WhenValidInputIsGiven( array $formData ) {
+
+		if ( $formData[SpecialNewLexeme::FIELD_LEMMA_LANGUAGE] === 'mis' ) {
+			$this->markTestSkippedIfExtensionNotLoaded( 'CLDR' );
+		}
+
 		parent::testEntityIsBeingCreated_WhenValidInputIsGiven( $formData );
 		$this->assertSame(
 			1,

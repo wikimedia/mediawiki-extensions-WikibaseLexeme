@@ -48,6 +48,9 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	private const EXISTING_LEXEME_FORM_2_ID = 'F2';
 	private const EXISTING_LEXEME_FORM_2_LANGUAGE = 'en';
 	private const EXISTING_LEXEME_FORM_2_TEXT = 'Malus';
+	/**
+	 * 'mis' is defined by cldr as the 'unsupported language'
+	 */
 	private const SPECIAL_TERM_LANGUAGE = 'mis';
 	private const EXISTING_LEXEME_SENSE_ID = 'S1';
 	private const EXISTING_LEXEME_SENSE_GLOSS_LANG = 'en';
@@ -206,6 +209,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenIdOfExistingLexemeAndLemmaWithSpecialLanguage_lemmaIsAdded() {
+		$this->markTestSkippedIfExtensionNotLoaded( 'CLDR' );  // For 'mis' language
+
 		$this->saveDummyLexemeToDatabase();
 
 		$params = [
@@ -2090,6 +2095,8 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenExistingFormAndRepresentationsWithSpecialLanguage_formIsUpdated() {
+		$this->markTestSkippedIfExtensionNotLoaded( 'CLDR' ); // For 'mis' language
+
 		$this->saveDummyLexemeToDatabase();
 
 		$params = [
