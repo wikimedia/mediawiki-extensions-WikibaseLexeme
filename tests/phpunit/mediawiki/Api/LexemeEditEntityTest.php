@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Api;
 use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Api\IApiMessage;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -209,7 +210,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenIdOfExistingLexemeAndLemmaWithSpecialLanguage_lemmaIsAdded() {
-		$this->markTestSkippedIfExtensionNotLoaded( 'CLDR' );  // For 'mis' language
+		if ( !(
+			ExtensionRegistry::getInstance()->isLoaded( 'cldr' )
+			|| ExtensionRegistry::getInstance()->isLoaded( 'CLDR' )
+		) ) {
+			// For 'mis' language
+			$this->markTestSkipped( 'cldr extension is required for this test' );
+		}
 
 		$this->saveDummyLexemeToDatabase();
 
@@ -2095,7 +2102,13 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 	}
 
 	public function testGivenExistingFormAndRepresentationsWithSpecialLanguage_formIsUpdated() {
-		$this->markTestSkippedIfExtensionNotLoaded( 'CLDR' ); // For 'mis' language
+		if ( !(
+			ExtensionRegistry::getInstance()->isLoaded( 'cldr' )
+			|| ExtensionRegistry::getInstance()->isLoaded( 'CLDR' )
+		) ) {
+			// For 'mis' language
+			$this->markTestSkipped( 'cldr extension is required for this test' );
+		}
 
 		$this->saveDummyLexemeToDatabase();
 
