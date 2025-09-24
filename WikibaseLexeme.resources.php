@@ -92,6 +92,7 @@ return call_user_func( static function () {
 				"oojs-ui-widgets",
 			],
 			"messages" => [
+				"colon-separator",
 				"wikibaselexeme-add-form",
 				"wikibaselexeme-add-sense",
 				"wikibaselexeme-empty-form-representation",
