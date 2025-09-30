@@ -1,10 +1,17 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ajiniyaz Nurniyazov"
+			"Ajiniyaz Nurniyazov",
+			"Inabat Allanova"
 		]
 	},
 	"nstab-lexeme": "Leksema",
 	"tooltip-ca-nstab-lexeme": "Leksemanıń anıqlaması",
-	"wikibaselexeme-form-field-required": "Shártli maydan"
+	"wikibaselexeme-form-field-required": "Shártli maydan",
+	"wikibaselexeme-gloss-field-language-label": "Tili",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Járdem)",
+	"wikibaselexeme-newlexeme-submit": "Jańa leksema jaratıńız",
+	"wikibaselexeme-newlexeme-submitting": "Leksema jaratılmaqta...",
+	"wikibaselexeme-unknown-category": "Belgisiz",
+	"wikibaselexeme-unknown-language": "Belgisiz til"
 }
