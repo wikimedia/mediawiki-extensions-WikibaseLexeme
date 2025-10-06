@@ -16,7 +16,6 @@ class PHPUnitTestCaseWrapper {
 		shrinkingTimeLimit as private traitShrinkingTimeLimit;
 		withRand as private traitWithRand;
 		seedingRandomNumberGeneration as private traitSeedingRandomNumberGeneration;
-		dumpSeedForReproducing as private traitDumpSeedForReproducing;
 	}
 
 	/**
@@ -62,11 +61,6 @@ class PHPUnitTestCaseWrapper {
 	/** @inheritDoc */
 	public function seedingRandomNumberGeneration() {
 		return $this->traitSeedingRandomNumberGeneration();
-	}
-
-	/** @inheritDoc */
-	public function dumpSeedForReproducing() {
-		return $this->traitDumpSeedForReproducing();
 	}
 
 }

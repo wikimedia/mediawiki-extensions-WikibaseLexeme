@@ -181,4 +181,4 @@ then run `composer outdated --direct` to check that direct dependencies are up t
 Most of the time, there are few enough libraries to upgrade that no grouping is necessary.
 The following dependencies are special cases that should potentially be ignored:
 
-- giorgiosironi/eris: Needs to stay on 0.14 until we drop support for PHP < 8.1 (1.0.0 requires PHP >= 8.1).
+- giorgiosironi/eris: Needs to stay on 0.14 until we use PHPUnit 10 (required by Eris 1.0.0; see [T328919](https://phabricator.wikimedia.org/T328919) and [T406470](https://phabricator.wikimedia.org/T406470)).
