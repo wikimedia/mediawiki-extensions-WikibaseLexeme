@@ -58,14 +58,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
-		$this->assertArrayHasKey(
-			$propertyId,
-			$output->getLinks()[$this->propertyNamespace]
-		);
-		$this->assertArrayHasKey(
-			$valueItemId,
-			$output->getLinks()[$this->itemNamespace]
-		);
+		$this->assertLinksContain( $output, $this->propertyNamespace, $propertyId );
+		$this->assertLinksContain( $output, $this->itemNamespace, $valueItemId );
 	}
 
 	public function testParserOutputContainsLinksForEntityIdsReferencedInStatements() {
@@ -82,14 +76,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
-		$this->assertArrayHasKey(
-			$propertyId,
-			$output->getLinks()[$this->propertyNamespace]
-		);
-		$this->assertArrayHasKey(
-			$valueItemId,
-			$output->getLinks()[$this->itemNamespace]
-		);
+		$this->assertLinksContain( $output, $this->propertyNamespace, $propertyId );
+		$this->assertLinksContain( $output, $this->itemNamespace, $valueItemId );
 	}
 
 	public function testParserOutputContainsLanguageItemIdLink() {
@@ -101,10 +89,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
-		$this->assertArrayHasKey(
-			$languageItemId,
-			$output->getLinks()[$this->itemNamespace]
-		);
+		$this->assertLinksContain( $output, $this->itemNamespace, $languageItemId );
 	}
 
 	public function testParserOutputContainsLexicalCategoryItemIdLink() {
@@ -116,10 +101,7 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
-		$this->assertArrayHasKey(
-			$lexicalCategoryItemId,
-			$output->getLinks()[$this->itemNamespace]
-		);
+		$this->assertLinksContain( $output, $this->itemNamespace, $lexicalCategoryItemId );
 	}
 
 	public function testParserOutputContainsGrammaticalFeatureItemIdLinks() {
@@ -135,14 +117,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
-		$this->assertArrayHasKey(
-			$grammaticalFeatureItemId1,
-			$output->getLinks()[$this->itemNamespace]
-		);
-		$this->assertArrayHasKey(
-			$grammaticalFeatureItemId2,
-			$output->getLinks()[$this->itemNamespace]
-		);
+		$this->assertLinksContain( $output, $this->itemNamespace, $grammaticalFeatureItemId1 );
+		$this->assertLinksContain( $output, $this->itemNamespace, $grammaticalFeatureItemId2 );
 	}
 
 	public function testTitleText_Lemma() {
