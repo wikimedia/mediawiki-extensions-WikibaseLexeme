@@ -71,6 +71,7 @@
 	"wikibaselexeme-empty-form-representation": "Δεν ορίστηκε τύπος Μορφής",
 	"wikibaselexeme-enter-form-representation": "Εισάγετε νέο τύπο της Μορφής",
 	"wikibaselexeme-error-cannot-remove-last-lemma": "Υπήρξε σφάλμα: Το τελευταίο Λήμμα δεν μπόρεσε να αφαιρεθεί.",
+	"wikibaselexeme-field-language-label": "Γλώσσα",
 	"wikibaselexeme-field-lexical-category-label": "λεκτική κατηγορία",
 	"wikibaselexeme-form-description": "$1 για: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Παραλλαγή ορθογραφίας",
