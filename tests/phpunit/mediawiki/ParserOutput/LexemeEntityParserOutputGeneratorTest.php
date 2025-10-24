@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ParserOutput;
 
 use DataValues\StringValue;
 use MediaWiki\Message\Message;
+use MediaWiki\Parser\ParserOptions;
 use MediaWiki\Parser\ParserOutput;
 use Wikibase\DataModel\Entity\EntityIdValue;
 use Wikibase\DataModel\Entity\ItemId;
@@ -143,10 +144,10 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 	}
 
 	private function newParserOutputGenerator(): EntityParserOutputGenerator {
+		$parserOptions = ParserOptions::newFromAnon();
+		$parserOptions->setUserLang( $this->getServiceContainer()->getContentLanguage() );
 		return WikibaseRepo::getEntityParserOutputGeneratorFactory()
-			->getEntityParserOutputGenerator(
-				$this->getServiceContainer()->getLanguageFactory()->getLanguage( 'en' )
-			);
+			->getEntityParserOutputGeneratorForParserOptions( $parserOptions );
 	}
 
 	/**
