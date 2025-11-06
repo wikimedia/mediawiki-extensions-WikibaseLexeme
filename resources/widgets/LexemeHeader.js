@@ -108,11 +108,13 @@ wikibase.lexeme.widgets.buildLexemeHeader = ( function ( wb ) {
 				deferred.resolve( hydrateLexeme( wbEntity ) );
 			} );
 		} )
-			.then( init )
-			.fail( function ( reason ) {
-				// FIXME: Change to lexeme-extension-specific logger once defined
-				mw.log.error( 'LexemeHeader could not be initialized from wikibase.entityPage.entityLoaded', reason );
-			} );
+			.then(
+				init,
+				function ( reason ) {
+					// FIXME: Change to lexeme-extension-specific logger once defined
+					mw.log.error( 'LexemeHeader could not be initialized from wikibase.entityPage.entityLoaded', reason );
+				}
+			);
 	};
 
 }( wikibase ) );

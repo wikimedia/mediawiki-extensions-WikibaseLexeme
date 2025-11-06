@@ -284,10 +284,10 @@
 	 * Creates a separate store per form - with all resulting limitations
 	 * TODO Continue refactoring by moving store creation upstream (ControllerViewFactory)
 	 *
-	 * @param lemmas
-	 * @param formIndex
-	 * @param formId
-	 * @param representations
+	 * @param {Object} lemmas
+	 * @param {number} formIndex
+	 * @param {string} formId
+	 * @param {Object} representations
 	 * @return {Vuex.Store}
 	 */
 	function getStore( lemmas, formIndex, formId, representations ) {

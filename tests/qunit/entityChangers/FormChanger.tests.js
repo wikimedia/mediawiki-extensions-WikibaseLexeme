@@ -2,6 +2,9 @@
  * @license GPL-2.0-or-later
  */
 
+/**
+ * @param {Object} wb Wikibase object
+ */
 ( function ( wb ) {
 	'use strict';
 

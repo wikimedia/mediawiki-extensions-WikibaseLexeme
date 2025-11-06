@@ -1,3 +1,7 @@
+/**
+ * @param {Object} wb Wikibase object
+ * @param {Object} util Util object
+ */
 ( function ( wb, util ) {
 	'use strict';
 
@@ -7,7 +11,7 @@
 
 	/**
 	 * @class LexemeDeserializer
-	 * @extends SERIALIZER.Deserializer
+	 * extends SERIALIZER.Deserializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor

@@ -139,6 +139,7 @@ module.exports = ( function ( wb ) {
 								} );
 						} );
 
+					// eslint-disable-next-line no-jquery/no-done-fail
 					return $.when(
 						saveRequest,
 						formatEntityId( repoApi, saveLexeme.language ),

@@ -2,6 +2,9 @@
  * @license GPL-2.0-or-later
  */
 
+/**
+ * @param {Object} wb Wikibase object
+ */
 ( function ( wb ) {
 	'use strict';
 
@@ -169,8 +172,7 @@
 			} )
 				.then( function ( data ) {
 					deferred.resolve( self._handleTempUserAndCreateSavedValueResult( null, data ) );
-				} )
-				.fail( function ( code, response ) {
+				}, function ( code, response ) {
 					deferred.reject( convertPlainTextErrorsToRepoApiError( response.errors, 'remove' ) );
 				} );
 

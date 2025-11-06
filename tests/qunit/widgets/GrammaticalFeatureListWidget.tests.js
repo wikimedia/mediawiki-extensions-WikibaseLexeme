@@ -2,6 +2,11 @@
  * @license GPL-2.0-or-later
  */
 
+/**
+ * @param {Object} QUnit
+ * @param {any} require
+ * @param {any} sinon
+ */
 ( function ( QUnit, require, sinon ) {
 	'use strict';
 

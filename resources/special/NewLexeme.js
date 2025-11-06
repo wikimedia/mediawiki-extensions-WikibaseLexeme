@@ -3,7 +3,6 @@
 	var settings = require( './settings.json' );
 	var languageNames = require( './languageNames.json' );
 
-	// eslint-disable-next-line no-undef
 	var languageNamesMap = new Map();
 	for ( var languageName in languageNames ) {
 		languageNamesMap.set( languageName, languageNames[ languageName ] );

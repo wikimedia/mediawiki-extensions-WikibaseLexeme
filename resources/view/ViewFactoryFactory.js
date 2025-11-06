@@ -14,7 +14,7 @@ wikibase.lexeme.view.ViewFactoryFactory = ( function () {
 		 * @see wikibase.view.ViewFactoryFactory
 		 *
 		 * @param {boolean} isEditable
-		 * @param {[]} factoryArguments
+		 * @param {Array} factoryArguments
 		 *
 		 * @return {ControllerViewFactory|ReadModeViewFactory}
 		 */

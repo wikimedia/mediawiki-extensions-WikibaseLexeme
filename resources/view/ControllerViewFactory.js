@@ -167,7 +167,7 @@
 
 		// Empty formviews (added with the "add" button) should start in edit mode
 		if ( !form ) {
-			controller.startEditing().done( formView.focus.bind( formView ) );
+			controller.startEditing().then( formView.focus.bind( formView ) );
 		}
 
 		return formView;
@@ -213,7 +213,7 @@
 			);
 
 		if ( !sense ) {
-			controller.startEditing().done( senseView.focus.bind( senseView ) );
+			controller.startEditing().then( senseView.focus.bind( senseView ) );
 		}
 
 		return senseView;

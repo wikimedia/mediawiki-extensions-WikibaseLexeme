@@ -3,6 +3,9 @@
  * @author Jonas Kress
  */
 
+/**
+ * @param {Object} wb Wikibase object
+ */
 ( function ( wb ) {
 	'use strict';
 

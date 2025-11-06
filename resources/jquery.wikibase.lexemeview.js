@@ -22,7 +22,6 @@
 	 * @param {Function} options.buildSenseListView
 	 *
 	 * @constructor
-	 *
 	 */
 	$.widget( 'wikibase.lexemeview', PARENT, {
 		/**

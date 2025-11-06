@@ -31,7 +31,7 @@ module.exports = ( function ( require, wb ) {
 	/**
 	 * @param {mw.messages} messages
 	 * @param {string} template
-	 * @param {[{ value: string, language: string }]} glosses
+	 * @param {{ value: string, language: string }} glosses
 	 * @param {Function} beforeUpdate
 	 * @param {Function} getDirectionality
 	 * @return {Object}

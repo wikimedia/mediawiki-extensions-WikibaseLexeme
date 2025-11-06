@@ -141,7 +141,8 @@ export class FormsSection {
 	}
 
 	/**
-	 * @param formId If provided, get a specific form item. When omitted, gets all.
+	 * @param {?string} formId If provided, get a specific form item. When omitted, gets all.
+	 * @return {Chainable}
 	 */
 	public getFormListItem( formId?: string ): Chainable {
 		if ( typeof formId === 'undefined' ) {
