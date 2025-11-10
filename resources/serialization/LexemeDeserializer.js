@@ -11,7 +11,7 @@
 
 	/**
 	 * @class LexemeDeserializer
-	 * extends SERIALIZER.Deserializer
+	 * @extends SERIALIZER.Deserializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor

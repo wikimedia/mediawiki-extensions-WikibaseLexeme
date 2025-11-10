@@ -10,7 +10,7 @@
 	 *
 	 * @class wikibase.lexeme.serialization.FormSerializer
 	 *
-	 * extends serialization.Serializer
+	 * @extends serialization.Serializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor

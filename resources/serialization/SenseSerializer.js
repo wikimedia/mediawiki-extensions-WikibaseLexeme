@@ -9,7 +9,7 @@
 	 * Statements are currently not serialized.
 	 *
 	 * @class wikibase.lexeme.serialization.SenseSerializer
-	 * extends serialization.Serializer
+	 * @extends serialization.Serializer
 	 * @license GNU GPL v2+
 	 *
 	 * @constructor
