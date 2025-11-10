@@ -1,31 +1,26 @@
-Cypress.Commands.add( 'visitTitle', ( args, qsDefaults = {} ) => {
+Cypress.Commands.add( 'visitTitle', ( args ) => {
 	let options = null;
 	let title = null;
 	if ( typeof args === 'string' ) {
 		title = args;
 		options = {
-			qs: Object.assign( qsDefaults, {
+			qs: {
 				title: args
-			} )
+			}
 		};
 	} else {
 		options = args;
 		title = options.title;
 		if ( options.qs !== undefined ) {
-			options.qs = Object.assign( qsDefaults, options.qs, { title } );
+			options.qs.title = title;
 		} else {
-			options.qs = Object.assign( qsDefaults, {
+			options.qs = {
 				title
-			} );
+			};
 		}
 	}
 	return cy.visit( Object.assign( options, { url: 'index.php' } ) );
 } );
-
-Cypress.Commands.add(
-	'visitTitleMobile',
-	( args ) => cy.visitTitle( args, { mobileaction: 'toggle_view_mobile' } )
-);
 
 /**
  * Add a typed version of the 'get' command for fetching aliased <string> values
@@ -42,8 +37,6 @@ declare global {
 	namespace Cypress {
 		interface Chainable {
 			getStringAlias( alias: string ): Cypress.Chainable<string>;
-			visitTitle( args: string|object, qsDefaults: object ): Chainable<Window>;
-			visitTitleMobile( args: string|object ): Chainable<void>;
 		}
 	}
 }

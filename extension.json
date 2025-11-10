@@ -102,7 +102,6 @@
 		"CanonicalNamespaces": "main",
 		"InfoAction": "main",
 		"LoadExtensionSchemaUpdates": "main",
-		"ResourceLoaderRegisterModules": "ResourceLoaderRegisterModulesHookHandler",
 		"ScribuntoExternalLibraries": [
 			"Wikibase\\Lexeme\\WikibaseLexemeHooks::onScribuntoExternalLibraries"
 		],
@@ -113,18 +112,11 @@
 		"WikibaseRepoEntityNamespaces": "WikibaseRepoEntityNamespaces",
 		"WikibaseRepoEntityTypes": "WikibaseRepo",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepo",
-		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
-		"WikibaseRepoWbui2025InitResourceDependenciesHook": "WikibaseRepoWbui2025InitResourceDependenciesHookHandler"
+		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages"
 	},
 	"HookHandlers": {
 		"main": {
 			"class": "Wikibase\\Lexeme\\WikibaseLexemeHooks"
-		},
-		"ResourceLoaderRegisterModulesHookHandler": {
-			"class": "Wikibase\\Lexeme\\Hooks\\ResourceLoaderRegisterModulesHookHandler",
-			"services": [
-				"WikibaseRepo.Settings"
-			]
 		},
 		"WikibaseClient": {
 			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseClientHookHandler"
@@ -152,9 +144,6 @@
 		},
 		"WikibaseRepoSearchableEntityScopesMessages": {
 			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoSearchableEntityScopesMessagesHookHandler"
-		},
-		"WikibaseRepoWbui2025InitResourceDependenciesHookHandler": {
-			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoWbui2025InitResourceDependenciesHookHandler"
 		}
 	},
 	"MessagesDirs": {

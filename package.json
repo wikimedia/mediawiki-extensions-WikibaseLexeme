@@ -36,7 +36,7 @@
 		"@wmde/eslint-config-wikimedia-typescript": "0.2.13",
 		"cypress": "^13.17.0",
 		"cypress-parallel": "^0.14.0",
-		"cypress-wikibase-api": "^0.0.7",
+		"cypress-wikibase-api": "^0.0.6",
 		"eslint-config-wikimedia": "0.29.1",
 		"eslint-plugin-chai-friendly": "^1.0.1",
 		"eslint-plugin-cypress": "^3.6.0",
