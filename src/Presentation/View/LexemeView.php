@@ -227,9 +227,7 @@ HTML;
 				'isUnsaveable' => true,
 			],
 			[
-				'message' => function ( $key ) {
-					return $this->getLocalizedMessage( $key );
-				},
+				'message' => $this->getLocalizedMessage( ... ),
 			]
 		);
 
@@ -263,9 +261,7 @@ HTML;
 				'lexicalCategory' => $lexicalCategoryId->getSerialization(),
 			],
 			[
-				'message' => function ( $key ) {
-					return $this->getLocalizedMessage( $key );
-				},
+				'message' => $this->getLocalizedMessage( ... ),
 			]
 		);
 
