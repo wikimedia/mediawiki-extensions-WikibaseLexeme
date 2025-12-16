@@ -20,7 +20,8 @@
 			"夢蝶葬花",
 			"沈澄心",
 			"神樂坂秀吉",
-			"铁桶"
+			"铁桶",
+			"Peterxy12"
 		]
 	},
 	"content-model-wikibase-lexeme": "Wikibase词位",
@@ -143,6 +144,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-invalid-error": "词类必须是有效项目。",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "词性，例如“数词”",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder-with-example": "词位的词类，例如“$1”",
+	"wikibaselexeme-newlexeme-search-existing": "你可以通过[$1 搜索]来确定词条是否存在，你也可以在帮助方框中学习有关词条的知识。",
 	"wikibaselexeme-newlexeme-submit": "创建词位",
 	"wikibaselexeme-newlexeme-submit-error": "服务器遇到临时错误，无法完成您的请求。请再试一次。",
 	"wikibaselexeme-newlexeme-submitting": "正在创建词位…",

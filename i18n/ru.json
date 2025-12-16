@@ -16,7 +16,8 @@
 			"Putnik",
 			"Redredsonia",
 			"Stjn",
-			"Vlad5250"
+			"Vlad5250",
+			"Kaganer"
 		]
 	},
 	"content-model-wikibase-lexeme": "Викибазная лексема",
@@ -38,7 +39,7 @@
 	"wikibase-lexeme-mergelexemes-error-failed-modify": "Не удалось объединить лексемы, сперва устраните конфликты.",
 	"wikibase-lexeme-mergelexemes-error-failed-save": "Не удалось сохранить лексему.",
 	"wikibase-lexeme-mergelexemes-error-invalid-id": "«$1» — некорректный идентификатор лексемы",
-	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Лексема '$1' не найдена.",
+	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Лексема «$1» не найдена.",
 	"wikibase-lexeme-mergelexemes-error-permission-denied": "Доступ запрещён.",
 	"wikibase-lexeme-mergelexemes-error-same-language": "Не удалось объединить лексемы, сначала устраните конфликты. Ошибка: Лексемы имеют разные языки.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Вы не можете объединить лексему с собой.",
