@@ -3,7 +3,8 @@
 		"authors": [
 			"Athena in Wonderland",
 			"Hamilton Abreu",
-			"Ldacosta"
+			"Ldacosta",
+			"RogueScholar"
 		]
 	},
 	"content-model-wikibase-lexeme": "Lexema Wikibase",
@@ -36,6 +37,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 foi fundido com $2 e redirecionado.",
 	"wikibase-lexeme-mergelexemes-to-id": "O identificador no qual fundir",
 	"wikibase-lexeme-randomlexeme": "Lexema aleatório",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexemas",
 	"wikibase-lexeme-summary-add-form": "Adição da nova forma $3 com {{PLURAL:$1|representação|representações}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "Adição de {{PLURAL:$1|funcionalidade gramatical|funcionalidades gramaticais}} da forma $3",
 	"wikibase-lexeme-summary-add-form-representations": "Adição de {{PLURAL:$1|representação|representações}} da forma $3",
