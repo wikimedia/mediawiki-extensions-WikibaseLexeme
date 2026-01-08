@@ -5,8 +5,8 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\Merge;
 
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Request\FauxRequest;
-use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\Watchlist\WatchedItemStoreInterface;
 use MediaWikiIntegrationTestCase;
@@ -78,7 +78,6 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 	private ?Lexeme $targetLexeme;
 
 	protected function setUp(): void {
-		$this->markTestSkipped( 'Temporarily skipped for an interface change in WB' );
 		parent::setUp();
 
 		$this->sourceLexeme = NewLexeme::havingId( 'L123' )->build();
@@ -86,7 +85,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 
 		$this->lexemeMerger = $this->createMock( LexemeMerger::class );
 		$this->permissionChecker = $this->createConfiguredMock( EntityPermissionChecker::class, [
-			'getPermissionStatusForEntityId' => Status::newGood(),
+			'getPermissionStatusForEntityId' => PermissionStatus::newGood(),
 		] );
 		$this->summaryFormatter = $this->newMockSummaryFormatter();
 		$this->context = $this->createMock( IContextSource::class );
@@ -191,7 +190,7 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 
 	public function testGivenUserDoesNotHavePermission_throwsException() {
 		$this->permissionChecker = $this->createConfiguredMock( EntityPermissionChecker::class, [
-			'getPermissionStatusForEntityId' => Status::newFatal( 'message' ),
+			'getPermissionStatusForEntityId' => PermissionStatus::newFatal( 'message' ),
 		] );
 
 		$this->expectException( PermissionDeniedException::class );

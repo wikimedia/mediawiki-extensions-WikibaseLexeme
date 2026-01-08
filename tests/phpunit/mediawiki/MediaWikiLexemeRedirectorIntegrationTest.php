@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki;
 
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Permissions\PermissionStatus;
 use MediaWiki\Request\FauxRequest;
 use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
@@ -27,7 +28,6 @@ use Wikibase\Repo\WikibaseRepo;
 class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
 	public function testCanCreateLexemeRedirect() {
-		$this->markTestSkipped( 'Temporarily skipped for an interface change in WB' );
 		$source = NewLexeme::havingId( 'L123' )
 			->build();
 		$target = NewLexeme::havingId( 'L321' )
@@ -84,7 +84,7 @@ class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegration
 	private function getMockEntityPermissionChecker() {
 		$permissionChecker = $this->createMock( EntityPermissionChecker::class );
 		$permissionChecker->method( 'getPermissionStatusForEntityId' )
-			->willReturn( Status::newGood() );
+			->willReturn( PermissionStatus::newGood() );
 
 		return $permissionChecker;
 	}
