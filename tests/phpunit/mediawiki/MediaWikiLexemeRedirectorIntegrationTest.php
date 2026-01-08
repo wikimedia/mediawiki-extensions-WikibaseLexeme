@@ -27,6 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
 class MediaWikiLexemeRedirectorIntegrationTest extends WikibaseLexemeIntegrationTestCase {
 
 	public function testCanCreateLexemeRedirect() {
+		$this->markTestSkipped( 'Temporarily skipped for an interface change in WB' );
 		$source = NewLexeme::havingId( 'L123' )
 			->build();
 		$target = NewLexeme::havingId( 'L321' )
