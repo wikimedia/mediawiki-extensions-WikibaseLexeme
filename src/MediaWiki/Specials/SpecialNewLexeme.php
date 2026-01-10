@@ -374,7 +374,7 @@ class SpecialNewLexeme extends SpecialPage {
 		}
 		try {
 			return $this->createTemplateParamsFromLexemeId( $lexemeIdString );
-		} catch ( Exception $_ ) {
+		} catch ( Exception ) {
 			return [
 				'lexeme_id_HTML' => 'L1',
 				'lemma_text' => 'speak',
