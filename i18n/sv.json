@@ -5,7 +5,8 @@
 			"Alicia Fagerving (WMSE)",
 			"Bengtsson96",
 			"Sabelöga",
-			"WikiPhoenix"
+			"WikiPhoenix",
+			"Stefan2255"
 		]
 	},
 	"content-model-wikibase-lexeme": "Wikibase-lexem",
@@ -40,6 +41,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 sammanfogades till $2 och omdirigerades.",
 	"wikibase-lexeme-mergelexemes-to-id": "ID att sammanfoga till",
 	"wikibase-lexeme-randomlexeme": "Slumplexem",
+	"wikibase-lexeme-scoped-search-scope-name": "Lexem",
 	"wikibase-lexeme-summary-add-form": "Lade till nya formen $3 med {{PLURAL:$1|representation|representationer}}",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "La till {{PLURAL:$1|grammatisk funktion|grammatiska funktioner}} för form $3",
 	"wikibase-lexeme-summary-add-form-representations": "La till {{PLURAL:$1|representation|representationer}} för form $3",
