@@ -5,5 +5,9 @@ module.exports = {
 	],
 	parserOptions: {
 		sourceType: 'module'
+	},
+	rules: {
+		'comma-dangle': 'off',
+		'cypress/unsafe-to-chain-command': 'warn'
 	}
 }
