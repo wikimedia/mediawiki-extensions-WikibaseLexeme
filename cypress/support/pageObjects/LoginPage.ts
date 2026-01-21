@@ -8,12 +8,14 @@ export class LoginPage {
 		};
 	}
 
-	public setUsername( username: string ): Chainable {
-		return cy.get( this.constructor.LOGIN_FORM_SELECTORS.USERNAME ).clear().type( username );
+	public setUsername( username: string ): void {
+		cy.get( this.constructor.LOGIN_FORM_SELECTORS.USERNAME ).clear();
+		cy.get( this.constructor.LOGIN_FORM_SELECTORS.USERNAME ).type( username );
 	}
 
-	public setPassword( password: string ): Chainable {
-		return cy.get( this.constructor.LOGIN_FORM_SELECTORS.PASSWORD ).clear().type( password );
+	public setPassword( password: string ): void {
+		cy.get( this.constructor.LOGIN_FORM_SELECTORS.PASSWORD ).clear();
+		cy.get( this.constructor.LOGIN_FORM_SELECTORS.PASSWORD ).type( password );
 	}
 
 	private getLoginButton(): Chainable {

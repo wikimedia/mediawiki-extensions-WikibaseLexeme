@@ -196,10 +196,23 @@ export class SensesSection {
 
 				cy.wrap( newGloss )
 					.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE )
-					.clear().type( language ).invoke( 'val', language );
+					.clear();
+				cy.wrap( newGloss )
+					.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE )
+					.type( language );
+				cy.wrap( newGloss )
+					.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_LANGUAGE )
+					.invoke( 'val', language );
+
 				cy.wrap( newGloss )
 					.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE )
-					.clear().type( gloss ).invoke( 'val', gloss );
+					.clear();
+				cy.wrap( newGloss )
+					.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE )
+					.type( gloss );
+				cy.wrap( newGloss )
+					.find( this.constructor.GLOSS_WIDGET_SELECTORS.EDIT_INPUT_VALUE )
+					.invoke( 'val', gloss );
 
 				if ( submitImmediately !== false ) {
 					this.submitNthSense( index );

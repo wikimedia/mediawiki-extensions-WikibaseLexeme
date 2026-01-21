@@ -33,7 +33,8 @@ export class NewLexemePage {
 	}
 
 	public setLemma( lemma: string ): this {
-		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).clear().type( lemma );
+		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).clear();
+		cy.get( this.constructor.NEW_LEXEME_SELECTORS.LEMMA + ' input' ).type( lemma );
 		return this;
 	}
 
@@ -62,9 +63,10 @@ export class NewLexemePage {
 	}
 
 	private _setCodexLookupValue( selector: string, value: string ): this {
-		cy.get( selector ).find( 'input[aria-controls]' )
-			.clear().type( value )
-			.invoke( 'attr', 'aria-controls' ).then( ( id ) => {
+		cy.get( selector ).find( 'input[aria-controls]' ).clear();
+		cy.get( selector ).find( 'input[aria-controls]' ).type( value );
+		cy.get( selector ).find( 'input[aria-controls]' ).invoke( 'attr', 'aria-controls' )
+			.then( ( id ) => {
 				cy.get( `#${ id }` ).find( '.cdx-menu-item--enabled' )
 					.click();
 			} );
