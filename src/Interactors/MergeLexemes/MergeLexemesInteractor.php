@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Interactors\MergeLexemes;
 
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Language\FormatterFactory;
 use MediaWiki\Permissions\PermissionManager;
 use MediaWiki\Watchlist\WatchedItemStoreInterface;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -37,36 +38,18 @@ use Wikimedia\Assert\Assert;
  */
 class MergeLexemesInteractor {
 
-	private SummaryFormatter $summaryFormatter;
-	private EntityRevisionLookup $entityRevisionLookup;
-	private MediaWikiLexemeRedirector $lexemeRedirector;
-	private EntityPermissionChecker $permissionChecker;
-	private PermissionManager $permissionManager;
-	private EntityTitleStoreLookup $entityTitleLookup;
-	private LexemeMerger $lexemeMerger;
-	private WatchedItemStoreInterface $watchedItemStore;
-	private MediaWikiEditEntityFactory $editEntityFactory;
-
 	public function __construct(
-		LexemeMerger $lexemeMerger,
-		SummaryFormatter $summaryFormatter,
-		MediaWikiLexemeRedirector $lexemeRedirector,
-		EntityPermissionChecker $permissionChecker,
-		PermissionManager $permissionManager,
-		EntityTitleStoreLookup $entityTitleLookup,
-		WatchedItemStoreInterface $watchedItemStore,
-		EntityRevisionLookup $entityRevisionLookup,
-		MediaWikiEditEntityFactory $editEntityFactory
+		private readonly LexemeMerger $lexemeMerger,
+		private readonly SummaryFormatter $summaryFormatter,
+		private readonly MediaWikiLexemeRedirector $lexemeRedirector,
+		private readonly EntityPermissionChecker $permissionChecker,
+		private readonly PermissionManager $permissionManager,
+		private readonly EntityTitleStoreLookup $entityTitleLookup,
+		private readonly WatchedItemStoreInterface $watchedItemStore,
+		private readonly EntityRevisionLookup $entityRevisionLookup,
+		private readonly MediaWikiEditEntityFactory $editEntityFactory,
+		private readonly FormatterFactory $formatterFactory,
 	) {
-		$this->lexemeMerger = $lexemeMerger;
-		$this->summaryFormatter = $summaryFormatter;
-		$this->lexemeRedirector = $lexemeRedirector;
-		$this->permissionChecker = $permissionChecker;
-		$this->permissionManager = $permissionManager;
-		$this->entityTitleLookup = $entityTitleLookup;
-		$this->watchedItemStore = $watchedItemStore;
-		$this->entityRevisionLookup = $entityRevisionLookup;
-		$this->editEntityFactory = $editEntityFactory;
 	}
 
 	/**
@@ -239,7 +222,9 @@ class MergeLexemesInteractor {
 			$tags
 		);
 		if ( !$status->isOK() ) {
-			throw new LexemeSaveFailedException( $status->getWikiText() );
+			$wikiText = $this->formatterFactory->getStatusFormatter( $context )
+				->getWikiText( $status );
+			throw new LexemeSaveFailedException( $wikiText );
 		}
 
 		return $status;

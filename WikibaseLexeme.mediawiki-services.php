@@ -210,7 +210,8 @@ return call_user_func( static function () {
 				$entityTitleStoreLookup,
 				$mediaWikiServices->getWatchedItemStore(),
 				$entityRevisionLookup,
-				WikibaseRepo::getEditEntityFactory( $mediaWikiServices )
+				WikibaseRepo::getEditEntityFactory( $mediaWikiServices ),
+				$mediaWikiServices->getFormatterFactory(),
 			);
 		},
 	];

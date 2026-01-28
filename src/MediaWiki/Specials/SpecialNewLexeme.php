@@ -13,9 +13,9 @@ use MediaWiki\Language\LanguageCode;
 use MediaWiki\Linker\LinkRenderer;
 use MediaWiki\Message\Message;
 use MediaWiki\SpecialPage\SpecialPage;
-use MediaWiki\Status\Status;
 use MediaWiki\User\TempUser\TempUserConfig;
 use OOUI\IconWidget;
+use StatusValue;
 use Wikibase\DataModel\Entity\EntityDocument;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
@@ -236,9 +236,9 @@ class SpecialNewLexeme extends SpecialPage {
 			. '</noscript>'
 		);
 
-		if ( $status instanceof Status && $status->isGood() ) {
-			// wrap it, in case HTMLForm turned it into a generic Status
-			$status = EditEntityStatus::wrap( $status );
+		if ( $status instanceof StatusValue && $status->isGood() ) {
+			// cast it, in case HTMLForm turned it into a generic Status
+			$status = EditEntityStatus::cast( $status );
 			$this->redirectToEntityPage( $status );
 			return;
 		}
