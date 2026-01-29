@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Renessaince"
+			"Renessaince",
+			"Ucukor"
 		]
 	},
 	"content-model-wikibase-lexeme": "Лексэма Вікібазы",
@@ -58,7 +59,7 @@
 	"wikibaselexeme-field-lexical-category-label": "Лексычная катэгорыя",
 	"wikibaselexeme-form-field-language-label": "Артаграфічны варыянт",
 	"wikibaselexeme-form-field-representation-label": "Тэкст словаформы",
-	"wikibaselexeme-form-representation-redundant-language": "Немагчыма ўвесьці некалькі словаформаў з адным варыянтам напісаньня.",
+	"wikibaselexeme-form-representation-redundant-language": "Немагчыма ўвесьці мноства словаформаў з адным варыянтам напісаньня.",
 	"wikibaselexeme-gloss-field-gloss-label": "Глёса",
 	"wikibaselexeme-gloss-field-language-label": "Мова",
 	"wikibaselexeme-header-forms": "Формы",
@@ -66,7 +67,7 @@
 	"wikibaselexeme-lemma-edit-placeholder": "Лема — звычайна найкарацейшая форма слова",
 	"wikibaselexeme-lemma-field-language-label": "Артаграфічны варыянт",
 	"wikibaselexeme-lemma-field-lemma-label": "Лема",
-	"wikibaselexeme-lemma-redundant-language": "Немагчыма ўвесьці некалькі лемаў з адным варыянтам напісаньня.",
+	"wikibaselexeme-lemma-redundant-language": "Немагчыма ўвесьці мноства лемаў з адным варыянтам напісаньня.",
 	"wikibaselexeme-newlexeme-fieldset": "Стварыць новую лексэму",
 	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "Лексэмы месьцяць [[Special:MyLanguage/Project:Lexicographical data|лексыкаграфічныя зьвесткі]], то бок зьвесткі пра словы ці выразы, такія як мова, этымалёгія, зьмяненьні ды інш. Вось прыклад:",
 	"wikibaselexeme-newlexeme-language": "Мова лексэмы",
@@ -77,7 +78,7 @@
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Лексычная катэгорыя, напр. „назоўнік“",
 	"wikibaselexeme-newlexeme-submit": "Стварыць лексэму",
 	"wikibaselexeme-sense-gloss-invalid-language": "Моўныя коды глёсаў мусяць быць існымі",
-	"wikibaselexeme-sense-gloss-redundant-language": "Немагчыма ўвесьці некалькі глёсаў з адной мовай.",
+	"wikibaselexeme-sense-gloss-redundant-language": "Немагчыма ўвесьці мноства глёсаў з адной мовай.",
 	"wikibaselexeme-statementsection-statements-about-form": "Сьцьверджаньні пра $1",
 	"wikibaselexeme-statementsection-statements-about-sense": "Сьцьверджаньні пра $1",
 	"wikibaselexeme-unknown-category": "Невядома",
