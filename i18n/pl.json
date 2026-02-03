@@ -93,6 +93,7 @@
 	"wikibaselexeme-form-description": "$1 dla: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Wariant pisowni",
 	"wikibaselexeme-form-field-representation-label": "Reprezentacja",
+	"wikibaselexeme-form-field-required": "Pole wymagane",
 	"wikibaselexeme-form-grammatical-features": "Cechy gramatyczne",
 	"wikibaselexeme-form-representation-redundant-language": "Nie jest możliwe wprowadzenie kilku reprezentacji z tym samym wariantem pisowni.",
 	"wikibaselexeme-gloss-field-gloss-label": "Definicja",
