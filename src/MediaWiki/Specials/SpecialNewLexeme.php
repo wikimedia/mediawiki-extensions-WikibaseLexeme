@@ -217,7 +217,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 		$exampleLexemeParams = $this->createExampleParameters();
 		$form = $this->createForm( $exampleLexemeParams );
-		$form->setSubmitText( $this->msg( 'wikibaselexeme-newlexeme-submit' ) );
+		$form->setSubmitTextMsg( $this->msg( 'wikibaselexeme-newlexeme-submit' ) );
 
 		// handle submit (submit callback may create form, see below)
 		// or show form (possibly with errors); status represents submit result
