@@ -14,6 +14,7 @@
 			"Patio",
 			"Robin van der Vliet",
 			"Romaine",
+			"Siebrand",
 			"Sjoerddebruin"
 		]
 	},
@@ -73,7 +74,7 @@
 	"wikibase-listdatatypes-wikibase-form-head": "Vorm",
 	"wikibase-listdatatypes-wikibase-lexeme-body": "Koppeling naar lexemen op het project. Wanneer een waarde wordt ingevoerd, wordt in de naamruimte “Lexeme” van het project gezocht naar overeenkomende lexemen.",
 	"wikibase-listdatatypes-wikibase-lexeme-head": "Lexeem",
-	"wikibase-listdatatypes-wikibase-sense-body": "Link naar betekenissen op het project. Wanneer een waarde wordt ingevoerd, wordt in de naamruimte “Lexeme” van het project gezocht naar overeenkomende betekenissen.",
+	"wikibase-listdatatypes-wikibase-sense-body": "Koppeling naar betekenissen op het project. Wanneer een waarde wordt ingevoerd, wordt in de naamruimte “Lexeme” van het project gezocht naar overeenkomende betekenissen.",
 	"wikibase-listdatatypes-wikibase-sense-head": "Betekenis",
 	"wikibase-pageinfo-wbl-forms": "Aantal vormen",
 	"wikibase-pageinfo-wbl-senses": "Aantal betekenissen",
