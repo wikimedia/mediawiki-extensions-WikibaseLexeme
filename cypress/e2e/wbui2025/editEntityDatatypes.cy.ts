@@ -142,11 +142,10 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 
 				editFormPage.menu().should( 'be.visible' );
 
-				editFormPage.menuItems().first().click();
-				editFormPage.lookupInput().should(
-					'have.value',
-					( datatype === 'sense' ? newLinkedEntityLabel : newLinkedEntityId )
-				);
+				const menuItemContents = datatype === 'sense' ?
+					newLinkedEntityLabel : newLinkedEntityId;
+				editFormPage.menuItemByName( menuItemContents ).click();
+				editFormPage.lookupInput().should( 'have.value', menuItemContents );
 
 				editFormPage.publishButton().click();
 
