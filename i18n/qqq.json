@@ -15,7 +15,8 @@
 			"Raymond",
 			"Robby",
 			"Umherirrender",
-			"Verdy p"
+			"Verdy p",
+			"Warudo"
 		]
 	},
 	"content-model-wikibase-lexeme": "The name for Wikibase Lexeme content model, used when describing what type of content a page contains.",
@@ -44,11 +45,11 @@
 	"wikibase-lexeme-mergelexemes-error-same-language": "Error message that is displayed when the lexemes to be merged have the same language",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Error message that is displayed when the lexemes to be merged are identical",
 	"wikibase-lexeme-mergelexemes-error-same-lexical-category": "Error message that is displayed when the Lexemes to be merged have the same lexical category",
-	"wikibase-lexeme-mergelexemes-from-id": "Label for the input field to select the ID of the entity to merge from. See also:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}}",
+	"wikibase-lexeme-mergelexemes-from-id": "Label for the input field to select the ID of the entity to merge from. See also:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}}\n* {{msg-mw|Wikibase-mergeitems-fromid}}",
 	"wikibase-lexeme-mergelexemes-intro": "A short text at the top of the page that allows users to merge two lexemes, explaining the form.\n\nFollowed by the following input box labels:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}} \n\nThis supports Wikitext.",
 	"wikibase-lexeme-mergelexemes-submit": "Label for the button that activates the action.\n\nPreceded by the following input box labels:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}\n* {{msg-mw|Wikibase-lexeme-mergelexemes-to-id}}",
 	"wikibase-lexeme-mergelexemes-success": "Message that is displayed after a successful merge\n\nParameters:\n* $1 - Source Lexeme link\n* $2 - Target Lexeme link",
-	"wikibase-lexeme-mergelexemes-to-id": "Label for the input field to select the ID of the entity to merge to. See also:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}",
+	"wikibase-lexeme-mergelexemes-to-id": "Label for the input field to select the ID of the entity to merge to. See also:\n* {{msg-mw|Wikibase-lexeme-mergelexemes-from-id}}\n* {{msg-mw|Wikibase-mergeitems-toid}}",
 	"wikibase-lexeme-randomlexeme": "A label for a link title in the sidebar. Takes the user to a random page in the Lexeme namespace.",
 	"wikibase-lexeme-randomlexeme-url": "{{Ignored}}\nA link to a random lexeme.",
 	"wikibase-lexeme-summary-add-form": "{{wikibase summary messages|lexeme|Automatic edit summary generated when adding new lexicographical Form to a Lexeme.}}\n\nParameters:\n* $1 - Number of representations of the lexicographical Form added.\n* $2 - empty.\n* $3 - lexicographical Form ID.",
