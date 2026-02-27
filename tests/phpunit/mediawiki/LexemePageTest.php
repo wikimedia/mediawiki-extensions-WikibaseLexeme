@@ -27,7 +27,7 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 			->newDeletePage( $pageIdentity, $authority );
 
 		$status = $deletePage->deleteIfAllowed( '' );
-		$this->assertFalse( $status->isOK() );
+		$this->assertStatusNotOK( $status );
 	}
 
 	public function testGivenUserHasDeleteRights_lexemePageCanBeDeleted() {
@@ -39,7 +39,7 @@ class LexemePageTest extends WikibaseLexemeIntegrationTestCase {
 			->newDeletePage( $pageIdentity, $authority );
 
 		$status = $deletePage->deleteIfAllowed( '' );
-		$this->assertTrue( $status->isOK() );
+		$this->assertStatusOK( $status );
 	}
 
 	private function createTestLexeme( $id ) {
