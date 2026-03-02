@@ -11,7 +11,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
  *
  * @license GPL-2.0-or-later
  */
-class WikibaseLexemeLibraryTest extends WikibaseLexemeLibraryTestCase {
+abstract class WikibaseLexemeLibraryTestBase extends WikibaseLexemeLibraryTestCase {
 
 	/** @var string */
 	protected static $moduleName = 'WikibaseLexemeLibraryTests';

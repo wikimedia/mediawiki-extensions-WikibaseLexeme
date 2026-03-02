@@ -13,7 +13,7 @@ use Wikibase\Lexeme\MediaWiki\Scribunto\WikibaseLexemeEntityLexemeLibrary;
  *
  * @license GPL-2.0-or-later
  */
-class WikibaseLexemeEntityLexemeLibraryTest
+abstract class WikibaseLexemeEntityLexemeLibraryTestBase
 	extends WikibaseLexemeLibraryTestCase {
 
 	/** @var string */

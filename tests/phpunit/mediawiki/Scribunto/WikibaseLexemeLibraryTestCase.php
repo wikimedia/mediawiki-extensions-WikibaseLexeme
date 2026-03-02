@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\Scribunto;
 
 use MediaWiki\MainConfigNames;
 use MediaWiki\Registration\ExtensionRegistry;
-use PHPUnit\Framework\TestSuite;
 use Wikibase\Client\Tests\Integration\DataAccess\Scribunto\WikibaseLibraryTestCase;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
@@ -40,48 +39,11 @@ if (
  */
 class WikibaseLexemeLibraryTestCase extends WikibaseLibraryTestCase {
 
-	/** @var bool */
-	private static $originalLexemeEnableDataTransclusion;
-
-	/**
-	 * Make sure data transclusion is enabled regardless of wiki configuration.
-	 */
-	private static function enableDataTransclusion() {
-		global $wgLexemeEnableDataTransclusion;
-		self::$originalLexemeEnableDataTransclusion = $wgLexemeEnableDataTransclusion;
-		$wgLexemeEnableDataTransclusion = true;
-	}
-
-	private static function resetDataTransclusion() {
-		global $wgLexemeEnableDataTransclusion;
-		$wgLexemeEnableDataTransclusion = self::$originalLexemeEnableDataTransclusion;
-	}
-
-	/**
-	 * Set up stuff we need to have in place even before Scribunto does its stuff.
-	 * And remove that again after suite is done, so that other test won't get
-	 * affected.
-	 *
-	 * @param string $className
-	 *
-	 * @return TestSuite
-	 */
-	public static function suite( $className ) {
-		self::enableDataTransclusion();
-
-		$res = parent::suite( $className );
-
-		self::resetDataTransclusion();
-
-		return $res;
-	}
-
 	protected function setUp(): void {
 		parent::setUp();
 
-		self::enableDataTransclusion();
-
 		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
+		$this->overrideConfigValue( 'LexemeEnableDataTransclusion', true );
 
 		/** @var MockRepository $mockRepository */
 		$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
@@ -142,12 +104,6 @@ class WikibaseLexemeLibraryTestCase extends WikibaseLibraryTestCase {
 			$newParserOutput,
 			self::getParserOutputFromRedirectUsageAccumulator( $newUsageAccumulator ),
 			"Usage accumulator should be using the new parser output" );
-	}
-
-	protected function tearDown(): void {
-		self::resetDataTransclusion();
-
-		parent::tearDown();
 	}
 
 }
