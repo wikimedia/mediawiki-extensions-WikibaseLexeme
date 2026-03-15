@@ -405,6 +405,7 @@ class SpecialNewLexeme extends SpecialPage {
 
 		$lemma = $lexeme->getLemmas()->getIterator()->current();
 		$lexemeIdLink = $this->linkRenderer->makeKnownLink(
+			// @phan-suppress-next-line PhanPossiblyUndeclaredVariable
 			$this->entityTitleLookup->getTitleForId( $lexemeId ),
 			$lexemeIdString
 		);

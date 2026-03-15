@@ -283,7 +283,6 @@ class AddForm extends ApiBase {
 			$this->dieWithError( $error->asApiMessage( AddFormRequestParser::PARAM_LEXEME_ID, [] ) );
 		}
 
-		// @phan-suppress-next-line PhanTypeMismatchReturnNullable
 		return $lexemeRevision;
 	}
 

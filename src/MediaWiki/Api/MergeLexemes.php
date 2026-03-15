@@ -97,6 +97,7 @@ class MergeLexemes extends ApiBase {
 			);
 		}
 
+		// @phan-suppress-next-line PhanPossiblyUndeclaredVariable
 		$this->showSuccessMessage( $params, $savedTempUser );
 	}
 

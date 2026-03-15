@@ -33,7 +33,7 @@ class LexemeLinkFormatter implements EntityLinkFormatter {
 	public function __construct(
 		EntityTitleTextLookup $entityTitleTextLookup,
 		LemmaLookup $lemmaLookup,
-		EntityLinkFormatter $linkFormatter,
+		DefaultEntityLinkFormatter $linkFormatter,
 		LexemeTermFormatter $lemmaFormatter,
 		Language $language
 	) {

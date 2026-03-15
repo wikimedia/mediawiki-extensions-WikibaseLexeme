@@ -44,7 +44,7 @@ class LexemeDiffVisualizer implements EntityDiffVisualizer {
 
 	public function __construct(
 		MessageLocalizer $messageLocalizer,
-		EntityDiffVisualizer $basicEntityDiffVisualizer,
+		BasicEntityDiffVisualizer $basicEntityDiffVisualizer,
 		ClaimDiffer $claimDiffer,
 		ClaimDifferenceVisualizer $claimDiffView,
 		ItemReferenceDifferenceVisualizer $itemReferenceDifferenceVisualizer
