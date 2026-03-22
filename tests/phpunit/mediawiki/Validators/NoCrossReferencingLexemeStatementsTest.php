@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTestTrait;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
@@ -27,7 +27,7 @@ use Wikibase\Repo\WikibaseRepo;
  */
 class NoCrossReferencingLexemeStatementsTest extends TestCase {
 
-	use ErisTest;
+	use ErisTestTrait;
 
 	private function getLexemeStatementEntityReferenceExtractor() {
 		$statementEntityReferenceExtractor = new StatementEntityReferenceExtractor(

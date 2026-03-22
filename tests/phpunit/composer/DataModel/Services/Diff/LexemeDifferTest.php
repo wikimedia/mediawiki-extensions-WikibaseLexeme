@@ -14,7 +14,7 @@ use Wikibase\Lexeme\Domain\Diff\LexemeDiff;
 use Wikibase\Lexeme\Domain\Diff\LexemeDiffer;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTestTrait;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 
 /**
@@ -24,7 +24,7 @@ use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
  */
 class LexemeDifferTest extends TestCase {
 
-	use ErisTest;
+	use ErisTestTrait;
 
 	public function testGivenTwoEmptyLexemes_emptyLexemeDiffIsReturned() {
 		$differ = new LexemeDiffer();

@@ -10,7 +10,7 @@ use Wikibase\Lexeme\Domain\Diff\SenseDiffer;
 use Wikibase\Lexeme\Domain\Diff\SensePatcher;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
-use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTestTrait;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 
@@ -22,7 +22,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  */
 class SenseDifferPatcherTest extends TestCase {
 
-	use ErisTest;
+	use ErisTestTrait;
 
 	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
 		$differ = new SenseDiffer();

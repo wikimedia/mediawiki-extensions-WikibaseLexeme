@@ -8,7 +8,7 @@ use Wikibase\Lexeme\Domain\Diff\LexemePatcher;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Tests\ErisGenerators\ErisTest;
+use Wikibase\Lexeme\Tests\ErisGenerators\ErisTestTrait;
 use Wikibase\Lexeme\Tests\ErisGenerators\WikibaseLexemeGenerators;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
@@ -22,7 +22,7 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
  */
 class LexemeDifferPatcherTest extends TestCase {
 
-	use ErisTest;
+	use ErisTestTrait;
 
 	public function testProperty_PatchingLexemeWithGeneratedDiffAlwaysRestoresItToTheTargetState() {
 		$differ = new LexemeDiffer();

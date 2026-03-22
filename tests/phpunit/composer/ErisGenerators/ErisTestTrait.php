@@ -11,7 +11,7 @@ use Eris\Facade;
  *
  * @license GPL-2.0-or-later
  */
-trait ErisTest {
+trait ErisTestTrait {
 
 	private static bool $erisIsInstalled = false;
 

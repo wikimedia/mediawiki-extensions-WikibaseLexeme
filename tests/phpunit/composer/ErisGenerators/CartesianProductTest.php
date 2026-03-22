@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CartesianProductTest extends TestCase {
 
-	use ErisTest;
+	use ErisTestTrait;
 
 	public function testCanHandleOneGeneratedValueOptions() {
 		$this->skipTestIfErisIsNotInstalled();
