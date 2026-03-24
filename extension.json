@@ -114,6 +114,7 @@
 		"WikibaseRepoEntityTypes": "WikibaseRepo",
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepo",
 		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
+		"WikibaseRepoControllers": "WikibaseRepo",
 		"WikibaseRepoWbui2025InitResourceDependenciesHook": "WikibaseRepoWbui2025InitResourceDependenciesHookHandler"
 	},
 	"HookHandlers": {

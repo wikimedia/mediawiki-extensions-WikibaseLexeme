@@ -6,6 +6,7 @@ namespace Wikibase\Lexeme\Hooks;
 
 use MediaWiki\MediaWikiServices;
 use Wikibase\Lexeme\MediaWiki\ParserOutput\LexemeParserOutputUpdater;
+use Wikibase\Repo\Hooks\WikibaseRepoControllersHook;
 use Wikibase\Repo\Hooks\WikibaseRepoEntityTypesHook;
 use Wikibase\Repo\Hooks\WikibaseRepoOnParserOutputUpdaterConstructionHook;
 use Wikibase\Repo\ParserOutput\StatementDataUpdater;
@@ -14,9 +15,17 @@ use Wikibase\Repo\ParserOutput\StatementDataUpdater;
  * @license GPL-2.0-or-later
  */
 class WikibaseRepoHookHandler implements
+	WikibaseRepoControllersHook,
 	WikibaseRepoEntityTypesHook,
 	WikibaseRepoOnParserOutputUpdaterConstructionHook
 {
+
+	public function onWikibaseRepoControllers( array &$controllerDefinitions ): void {
+		$controllerDefinitions = array_merge(
+			$controllerDefinitions,
+			require __DIR__ . '/../../WikibaseLexeme.controllers.php'
+		);
+	}
 
 	/**
 	 * Adds the definition of the lexeme entity type to the definitions array Wikibase uses.
