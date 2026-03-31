@@ -9,6 +9,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
+use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexemeStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
@@ -20,6 +21,7 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
@@ -28,6 +30,8 @@ use Wikibase\Lib\Store\LookupConstants;
 use Wikibase\Lib\Store\WikiPageItemOrderProvider;
 use Wikibase\Lib\UnionContentLanguages;
 use Wikibase\Lib\WikibaseContentLanguages;
+use Wikibase\Repo\Api\EntityIdSearchHelper;
+use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\Store\Store;
@@ -78,6 +82,22 @@ return call_user_func( static function () {
 	];
 
 	return [
+		'WikibaseLexeme.LexemeSearchHelper' => static function (
+			MediaWikiServices $services
+		): EntitySearchHelper {
+			if ( $services->getExtensionRegistry()->isLoaded( 'WikibaseLexemeCirrusSearch' )
+				&& $services->getMainConfig()->get( 'LexemeUseCirrus' ) ) {
+				// @phan-suppress-next-line PhanUndeclaredClassMethod WikibaseLexemeCirrusSearch is ok here
+				return WikibaseLexemeCirrusSearch::getLexemeSearchHelper( $services );
+			}
+
+			return new EntityIdSearchHelper(
+				WikibaseRepo::getEntityLookup( $services ),
+				WikibaseRepo::getEntityIdParser( $services ),
+				new NullLabelDescriptionLookup(),
+				WikibaseRepo::getEnabledEntityTypes( $services )
+			);
+		},
 		'WikibaseLexemeTermLanguages' => static function (
 			MediaWikiServices $mediawikiServices
 		) use (

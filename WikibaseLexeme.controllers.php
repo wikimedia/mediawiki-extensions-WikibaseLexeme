@@ -1,6 +1,7 @@
 <?php
 
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\ControllerRegistry;
 use Wikibase\Repo\Domains\Search\Infrastructure\Controllers\FallbackEntitySearchHelperController;
 use Wikibase\Repo\WikibaseRepo;
@@ -16,11 +17,9 @@ use Wikibase\Repo\WikibaseRepo;
 return [
 	Lexeme::ENTITY_TYPE => [
 		ControllerRegistry::WB_SEARCH_ENTITIES_CONTROLLER => static function (): FallbackEntitySearchHelperController {
-			// This just serves as an example.
-			// The fallback implementation should no longer be used once T420683 is done.
 			return new FallbackEntitySearchHelperController(
 				Lexeme::ENTITY_TYPE,
-				WikibaseRepo::getEntitySearchHelper(),
+				WikibaseLexemeServices::getLexemeSearchHelper(),
 				WikibaseRepo::getEntitySourceLookup(),
 			);
 		},

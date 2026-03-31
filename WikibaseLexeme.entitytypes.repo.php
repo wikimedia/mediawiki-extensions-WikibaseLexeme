@@ -277,12 +277,7 @@ return [
 			);
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			return new EntityIdSearchHelper(
-				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getEntityIdParser(),
-				new NullLabelDescriptionLookup(),
-				WikibaseRepo::getEnabledEntityTypes()
-			);
+			return WikibaseLexemeServices::getLexemeSearchHelper();
 		},
 		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$requestContext = RequestContext::getMain();

@@ -10,11 +10,19 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
+use Wikibase\Repo\Api\EntitySearchHelper;
 
 /**
  * @license GPL-2.0-or-later
  */
 class WikibaseLexemeServices {
+
+	public static function getLexemeSearchHelper(
+		?ContainerInterface $services = null
+	): EntitySearchHelper {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.LexemeSearchHelper' );
+	}
 
 	public static function getTermLanguages(
 		?ContainerInterface $services = null
