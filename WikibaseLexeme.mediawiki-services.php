@@ -82,6 +82,22 @@ return call_user_func( static function () {
 	];
 
 	return [
+		'WikibaseLexeme.FormSearchHelper' => static function (
+			MediaWikiServices $services
+		): EntitySearchHelper {
+			if ( $services->getExtensionRegistry()->isLoaded( 'WikibaseLexemeCirrusSearch' )
+				&& $services->getMainConfig()->get( 'LexemeUseCirrus' ) ) {
+				// @phan-suppress-next-line PhanUndeclaredClassMethod WikibaseLexemeCirrusSearch is ok here
+				return WikibaseLexemeCirrusSearch::getFormSearchHelper( $services );
+			}
+
+			return new EntityIdSearchHelper(
+				WikibaseRepo::getEntityLookup( $services ),
+				WikibaseRepo::getEntityIdParser( $services ),
+				new NullLabelDescriptionLookup(),
+				WikibaseRepo::getEnabledEntityTypes( $services )
+			);
+		},
 		'WikibaseLexeme.LexemeSearchHelper' => static function (
 			MediaWikiServices $services
 		): EntitySearchHelper {

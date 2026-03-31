@@ -17,6 +17,13 @@ use Wikibase\Repo\Api\EntitySearchHelper;
  */
 class WikibaseLexemeServices {
 
+	public static function getFormSearchHelper(
+		?ContainerInterface $services = null
+	): EntitySearchHelper {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.FormSearchHelper' );
+	}
+
 	public static function getLexemeSearchHelper(
 		?ContainerInterface $services = null
 	): EntitySearchHelper {

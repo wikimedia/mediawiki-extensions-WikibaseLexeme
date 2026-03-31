@@ -12,7 +12,6 @@ use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiPageSubEntityMetaDataAccessor;
-use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -349,12 +348,7 @@ return [
 			return LexemeHandler::factory( $services, $requestContext );
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			return new EntityIdSearchHelper(
-				WikibaseRepo::getEntityLookup(),
-				WikibaseRepo::getEntityIdParser(),
-				new NullLabelDescriptionLookup(),
-				WikibaseRepo::getEnabledEntityTypes()
-			);
+			return WikibaseLexemeServices::getFormSearchHelper();
 		},
 		DEF::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
