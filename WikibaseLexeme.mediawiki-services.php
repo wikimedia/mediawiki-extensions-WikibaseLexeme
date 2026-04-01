@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeFormsMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
+use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
@@ -34,6 +35,7 @@ use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
+use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
@@ -111,6 +113,24 @@ return call_user_func( static function () {
 				WikibaseRepo::getEntityLookup( $services ),
 				WikibaseRepo::getEntityIdParser( $services ),
 				new NullLabelDescriptionLookup(),
+				WikibaseRepo::getEnabledEntityTypes( $services )
+			);
+		},
+		'WikibaseLexeme.SenseSearchHelper' => static function (
+			MediaWikiServices $services
+		): EntitySearchHelper {
+			$entityLookup = WikibaseRepo::getEntityLookup( $services );
+			$userLanguage = RequestContext::getMain()->getLanguage();
+			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
+				$entityLookup,
+				WikibaseRepo::getLanguageFallbackChainFactory( $services )->newFromLanguage( $userLanguage ),
+				new MediaWikiLocalizedTextProvider( $userLanguage )
+			);
+
+			return new EntityIdSearchHelper(
+				$entityLookup,
+				WikibaseRepo::getEntityIdParser( $services ),
+				$senseLabelDescriptionLookup,
 				WikibaseRepo::getEnabledEntityTypes( $services )
 			);
 		},

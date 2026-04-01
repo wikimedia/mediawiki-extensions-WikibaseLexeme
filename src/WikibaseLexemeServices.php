@@ -31,6 +31,13 @@ class WikibaseLexemeServices {
 			->get( 'WikibaseLexeme.LexemeSearchHelper' );
 	}
 
+	public static function getSenseSearchHelper(
+		?ContainerInterface $services = null
+	): EntitySearchHelper {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.SenseSearchHelper' );
+	}
+
 	public static function getTermLanguages(
 		?ContainerInterface $services = null
 	): ContentLanguages {

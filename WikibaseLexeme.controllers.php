@@ -2,6 +2,7 @@
 
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\ControllerRegistry;
 use Wikibase\Repo\Domains\Search\Infrastructure\Controllers\FallbackEntitySearchHelperController;
@@ -30,6 +31,15 @@ return [
 			return new FallbackEntitySearchHelperController(
 				Lexeme::ENTITY_TYPE,
 				WikibaseLexemeServices::getLexemeSearchHelper(),
+				WikibaseRepo::getEntitySourceLookup(),
+			);
+		},
+	],
+	Sense::ENTITY_TYPE => [
+		ControllerRegistry::WB_SEARCH_ENTITIES_CONTROLLER => static function (): FallbackEntitySearchHelperController {
+			return new FallbackEntitySearchHelperController(
+				Sense::ENTITY_TYPE,
+				WikibaseLexemeServices::getSenseSearchHelper(),
 				WikibaseRepo::getEntitySourceLookup(),
 			);
 		},

@@ -20,7 +20,6 @@ use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LanguageItemIdExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\LexicalCategoryItemIdExtractor;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\SensesStatementEntityReferenceExtractor;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
-use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeContent;
 use Wikibase\Lexeme\MediaWiki\Content\LexemeHandler;
 use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter;
@@ -63,7 +62,6 @@ use Wikibase\Lib\Store\TitleLookupBasedEntityTitleTextLookup;
 use Wikibase\Lib\Store\TitleLookupBasedEntityUrlLookup;
 use Wikibase\Lib\TermLanguageFallbackChain;
 use Wikibase\Repo\Api\EditEntity;
-use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Diff\BasicEntityDiffVisualizer;
 use Wikibase\Repo\Diff\ClaimDiffer;
@@ -483,22 +481,7 @@ return [
 			return LexemeHandler::factory( $services, $requestContext );
 		},
 		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			$entityLookup = WikibaseRepo::getEntityLookup();
-			$context = new RequestContext();
-			$context->setRequest( $request );
-			$userLanguage = $context->getLanguage();
-			$senseLabelDescriptionLookup = new SenseLabelDescriptionLookup(
-				$entityLookup,
-				WikibaseRepo::getLanguageFallbackChainFactory()->newFromLanguage( $userLanguage ),
-				new MediaWikiLocalizedTextProvider( $userLanguage )
-			);
-
-			return new EntityIdSearchHelper(
-				$entityLookup,
-				WikibaseRepo::getEntityIdParser(),
-				$senseLabelDescriptionLookup,
-				WikibaseRepo::getEnabledEntityTypes()
-			);
+			return WikibaseLexemeServices::getSenseSearchHelper();
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$senseChangeOpDeserializer = new SenseChangeOpDeserializer(
