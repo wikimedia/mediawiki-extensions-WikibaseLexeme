@@ -1,13 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"J budissin"
+			"J budissin",
+			"Michawiki"
 		]
 	},
 	"special-newlexeme": "Nowy leksem wutworić",
 	"tooltip-ca-nstab-lexeme": "Definicija leksema",
 	"wikibase-entity-summary-wblmergelexemes-from": "Leksem zjednoćeny z $3",
-	"wikibase-entity-summary-wblmergelexemes-to": "Leksem zjednoćeny do",
+	"wikibase-entity-summary-wblmergelexemes-to": "Leksem zjednoćeny do $3",
 	"wikibase-lexeme-lemma-language-not-recognized": "Zapodata rěčna skrótšenka njeje so spóznała.",
 	"wikibase-lexeme-lexicographical-data": "Leksikografiske daty",
 	"wikibase-lexeme-mergelexemes-error-cannot-load": "Leksem njeje so začitać dał.",
@@ -17,7 +18,7 @@
 	"wikibase-lexeme-mergelexemes-error-lexeme-not-found": "Leksem „$1“ njeje so namakał.",
 	"wikibase-lexeme-mergelexemes-error-same-lexemes": "Leksem njemóže so ze sobu samym zjednoćić.",
 	"wikibase-lexeme-mergelexemes-submit": "Leksemaj zjednoćić",
-	"wikibase-lexeme-mergelexemes-success": "$1 je so z $3 zjednoćiło a dale posrědkowało.",
+	"wikibase-lexeme-mergelexemes-success": "$1 je so do $2 zjednoćiło a dale posrědkowało.",
 	"wikibase-lexeme-mergelexemes-to-id": "Zjednoćenje do ID",
 	"wikibase-lexeme-randomlexeme": "Připadny leksem",
 	"wikibase-lexeme-scoped-search-scope-name": "Leksemy",
