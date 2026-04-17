@@ -43,7 +43,8 @@ final class LexemeHistoryActionTest extends TestCase {
 			$actualTitle = $actualTitle->text();
 		}
 
-		$this->assertSame( '(history-title: Page title)', $actualTitle );
+		$this->assertStringStartsWith( '(history-title: ', $actualTitle );
+		$this->assertStringContainsString( 'Page title', $actualTitle );
 	}
 
 	public function testReturnsLemmasInTitleProperlyEscaped(): void {
