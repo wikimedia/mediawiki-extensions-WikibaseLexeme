@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 
 use HamcrestPHPUnitIntegration;
-use HtmlArmor;
 use InvalidArgumentException;
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\MockObject\MockObject;
@@ -17,6 +16,7 @@ use Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter;
 use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
+use Wikimedia\HtmlArmor\HtmlArmor;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\FormLinkFormatter

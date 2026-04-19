@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks\Formatters;
 
 use HamcrestPHPUnitIntegration;
-use HtmlArmor;
 use MediaWiki\MediaWikiServices;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
@@ -23,6 +22,7 @@ use Wikibase\Lib\Store\EntityTitleTextLookup;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\ParameterTypeException;
+use Wikimedia\HtmlArmor\HtmlArmor;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\EntityLinkFormatters\LexemeLinkFormatter

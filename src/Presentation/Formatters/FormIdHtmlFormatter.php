@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use InvalidArgumentException;
 use MediaWiki\Html\Html;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\EntityId\EntityIdFormatter;
 use Wikibase\DataModel\Services\Lookup\LabelDescriptionLookup;

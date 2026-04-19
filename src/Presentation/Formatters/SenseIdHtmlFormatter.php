@@ -6,7 +6,7 @@ namespace Wikibase\Lexeme\Presentation\Formatters;
 
 use InvalidArgumentException;
 use MediaWiki\Html\Html;
-use MediaWiki\Languages\LanguageFactory;
+use MediaWiki\Language\LanguageFactory;
 use MediaWiki\Title\Title;
 use OutOfRangeException;
 use Wikibase\DataModel\Entity\EntityId;

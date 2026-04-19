@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\MediaWiki\EntityLinkFormatters;
 
-use HtmlArmor;
 use MediaWiki\Language\Language;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
@@ -12,6 +11,7 @@ use Wikibase\Lexeme\Presentation\Formatters\LexemeTermFormatter;
 use Wikibase\Repo\Hooks\Formatters\DefaultEntityLinkFormatter;
 use Wikibase\Repo\Hooks\Formatters\EntityLinkFormatter;
 use Wikimedia\Assert\Assert;
+use Wikimedia\HtmlArmor\HtmlArmor;
 
 /**
  * @license GPL-2.0-or-later

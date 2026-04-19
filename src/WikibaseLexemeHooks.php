@@ -2,11 +2,11 @@
 
 namespace Wikibase\Lexeme;
 
+use MediaWiki\Actions\Hook\InfoActionHook;
 use MediaWiki\Context\IContextSource;
-use MediaWiki\Hook\CanonicalNamespacesHook;
-use MediaWiki\Hook\InfoActionHook;
 use MediaWiki\Installer\Hook\LoadExtensionSchemaUpdatesHook;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Hook\CanonicalNamespacesHook;
 use Wikibase\Client\WikibaseClient;
 use Wikibase\Lexeme\Maintenance\FixPagePropsSortkey;
 use Wikibase\Lexeme\MediaWiki\Actions\InfoActionHookHandler;
