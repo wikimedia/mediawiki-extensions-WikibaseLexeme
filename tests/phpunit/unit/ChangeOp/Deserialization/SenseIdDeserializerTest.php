@@ -52,6 +52,21 @@ class SenseIdDeserializerTest extends MediaWikiUnitTestCase {
 		$this->assertNull( $deserializer->deserialize( 'somesome', $context ) );
 	}
 
+	public function testDeserializeWrongTypeSenseId_returnsNullAndContextHasViolation() {
+		$entityIdParser = $this->createMock( EntityIdParser::class );
+		$entityIdParser->expects( $this->never() )->method( 'parse' );
+
+		$context = $this->createMock( ValidationContext::class );
+		$context
+			->expects( $this->once() )
+			->method( 'addViolation' )
+			->with( new ParameterIsNotSenseId( [] ) );
+
+		$deserializer = new SenseIdDeserializer( $entityIdParser );
+
+		$this->assertNull( $deserializer->deserialize( [], $context ) );
+	}
+
 	public function testDeserializeNonSenseReferencingSenseId_returnsNullAndContextHasViolation() {
 		$senseId = $this->createMock( SenseId::class );
 		$senseId->method( 'getEntityType' )
