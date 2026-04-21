@@ -26,11 +26,16 @@ class SenseIdDeserializer {
 	}
 
 	/**
-	 * @param string $id
+	 * @param mixed $id
 	 * @param ValidationContext $validationContext
 	 * @return SenseId|null
 	 */
 	public function deserialize( $id, ValidationContext $validationContext ) {
+		if ( !is_string( $id ) ) {
+			$validationContext->addViolation( new ParameterIsNotSenseId( $id ) );
+			return null;
+		}
+
 		try {
 			$senseId = $this->entityIdParser->parse( $id );
 		} catch ( EntityIdParsingException $e ) {

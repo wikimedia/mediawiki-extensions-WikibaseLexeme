@@ -52,6 +52,21 @@ class FormIdDeserializerTest extends MediaWikiUnitTestCase {
 		$this->assertNull( $deserializer->deserialize( 'somesome', $context ) );
 	}
 
+	public function testDeserializeWrongTypeFormId_returnsNullAndContextHasViolation() {
+		$entityIdParser = $this->createMock( EntityIdParser::class );
+		$entityIdParser->expects( $this->never() )->method( 'parse' );
+
+		$context = $this->createMock( ValidationContext::class );
+		$context
+			->expects( $this->once() )
+			->method( 'addViolation' )
+			->with( new ParameterIsNotFormId( [] ) );
+
+		$deserializer = new FormIdDeserializer( $entityIdParser );
+
+		$this->assertNull( $deserializer->deserialize( [], $context ) );
+	}
+
 	public function testDeserializeNonFormReferencingFormId_returnsNullAndContextHasViolation() {
 		$formId = $this->createMock( FormId::class );
 		$formId->method( 'getEntityType' )
