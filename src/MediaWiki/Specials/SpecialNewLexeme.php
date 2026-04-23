@@ -104,10 +104,7 @@ class SpecialNewLexeme extends SpecialPage {
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		TempUserConfig $tempUserConfig
 	) {
-		parent::__construct(
-			'NewLexeme',
-			'createpage'
-		);
+		parent::__construct( 'NewLexeme' );
 
 		$this->tags = $tags;
 		$this->linkRenderer = $linkRenderer;
@@ -125,6 +122,11 @@ class SpecialNewLexeme extends SpecialPage {
 		$this->copyrightView = $copyrightView;
 		$this->anonymousEditWarningBuilder = $anonymousEditWarningBuilder;
 		$this->tempUserConfig = $tempUserConfig;
+	}
+
+	/** @inheritDoc */
+	public function getRestriction(): string {
+		return 'createpage';
 	}
 
 	public static function factory(

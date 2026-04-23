@@ -57,7 +57,7 @@ class SpecialMergeLexemes extends SpecialPage {
 		PermissionManager $permissionManager,
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder
 	) {
-		parent::__construct( 'MergeLexemes', 'item-merge' );
+		parent::__construct( 'MergeLexemes' );
 		$this->tags = $tags;
 		$this->mergeInteractor = $mergeInteractor;
 		$this->tokenCheckInteractor = $tokenCheckInteractor;
@@ -65,6 +65,11 @@ class SpecialMergeLexemes extends SpecialPage {
 		$this->exceptionLocalizer = $exceptionLocalizer;
 		$this->permissionManager = $permissionManager;
 		$this->anonymousEditWarningBuilder = $anonymousEditWarningBuilder;
+	}
+
+	/** @inheritDoc */
+	public function getRestriction(): string {
+		return 'item-merge';
 	}
 
 	/** @inheritDoc */
