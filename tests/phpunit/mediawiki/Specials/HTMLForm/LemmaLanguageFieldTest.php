@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Tests\MediaWiki\Specials\HTMLForm;
 
 use InvalidArgumentException;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\HTMLForm\HTMLForm;
 use MediaWiki\Message\Message;
 use PHPUnit\Framework\TestCase;
@@ -79,6 +80,8 @@ class LemmaLanguageFieldTest extends TestCase {
 		$form = $this->createStub( HTMLForm::class );
 		$form->method( 'msg' )
 			->willReturnCallback( 'wfMessage' );
+		$form->method( 'getContext' )
+			->willReturn( RequestContext::getMain() );
 
 		return $form;
 	}

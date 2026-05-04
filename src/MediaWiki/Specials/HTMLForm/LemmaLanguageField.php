@@ -3,7 +3,6 @@
 namespace Wikibase\Lexeme\MediaWiki\Specials\HTMLForm;
 
 use InvalidArgumentException;
-use MediaWiki\Context\RequestContext;
 use MediaWiki\HTMLForm\Field\HTMLComboboxField;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\ContentLanguages;
@@ -34,10 +33,11 @@ class LemmaLanguageField extends HTMLComboboxField {
 
 		parent::__construct( $params );
 
+		$lang = $this->mParent->getContext()->getLanguage();
 		$this->mParams['options'] = $this->constructOptions(
 			WikibaseLexemeServices::getTermLanguages(),
 			WikibaseRepo::getLanguageNameLookupFactory()
-				->getForLanguage( RequestContext::getMain()->getLanguage() )
+				->getForLanguage( $lang )
 		);
 	}
 
