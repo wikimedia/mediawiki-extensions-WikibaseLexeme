@@ -32,13 +32,13 @@ class LemmaLanguageField extends HTMLComboboxField {
 			);
 		}
 
-		$params['options'] = $this->constructOptions(
+		parent::__construct( $params );
+
+		$this->mParams['options'] = $this->constructOptions(
 			WikibaseLexemeServices::getTermLanguages(),
 			WikibaseRepo::getLanguageNameLookupFactory()
 				->getForLanguage( RequestContext::getMain()->getLanguage() )
 		);
-
-		parent::__construct( $params );
 	}
 
 	private function constructOptions(
