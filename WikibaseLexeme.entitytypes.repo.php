@@ -4,7 +4,6 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\Language\Language;
 use MediaWiki\Language\MessageLocalizer;
 use MediaWiki\MediaWikiServices;
-use MediaWiki\Request\WebRequest;
 use MediaWiki\Site\SiteLookup;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\EntityDocument;
@@ -274,9 +273,6 @@ return [
 				)
 			);
 		},
-		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			return WikibaseLexemeServices::getLexemeSearchHelper();
-		},
 		Def::LINK_FORMATTER_CALLBACK => static function ( Language $language ) {
 			$requestContext = RequestContext::getMain();
 			$linkFormatter = WikibaseRepo::getEntityLinkFormatterFactory()->getDefaultLinkFormatter( $language );
@@ -345,9 +341,6 @@ return [
 			$services = MediaWikiServices::getInstance();
 			$requestContext = RequestContext::getMain();
 			return LexemeHandler::factory( $services, $requestContext );
-		},
-		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			return WikibaseLexemeServices::getFormSearchHelper();
 		},
 		DEF::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
@@ -480,9 +473,6 @@ return [
 			$services = MediaWikiServices::getInstance();
 			$requestContext = RequestContext::getMain();
 			return LexemeHandler::factory( $services, $requestContext );
-		},
-		Def::ENTITY_SEARCH_CALLBACK => static function ( WebRequest $request ) {
-			return WikibaseLexemeServices::getSenseSearchHelper();
 		},
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$senseChangeOpDeserializer = new SenseChangeOpDeserializer(
