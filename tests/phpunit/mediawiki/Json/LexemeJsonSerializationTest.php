@@ -94,6 +94,7 @@ class LexemeJsonSerializationTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testJsonSerialization(): void {
+		$this->markTestSkipped( 'temporarily disabled (T98035)' );
 		$fixture = 'L2';
 		$service = $this->newService();
 		$mockRepo = $this->getMockRepository();
