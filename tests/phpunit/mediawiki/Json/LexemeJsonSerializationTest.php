@@ -5,11 +5,11 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use DataValues\Serializers\DataValueSerializer;
-use MediaWiki\Site\HashSiteStore;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use Serializers\DispatchingSerializer;
 use Wikibase\DataAccess\Tests\InMemoryPrefetchingTermLookup;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Serializers\SerializerFactory;
 use Wikibase\DataModel\Services\Lookup\PropertyDataTypeLookup;
@@ -56,6 +56,8 @@ class LexemeJsonSerializationTest extends MediaWikiIntegrationTestCase {
 		$dataTypeLookup->method( 'getDataTypeIdForProperty' )
 			->willReturn( 'wikibase-item' );
 
+		$entityIdParser = new BasicEntityIdParser();
+
 		$entityTitleStoreLookup = $this->createMock( EntityTitleStoreLookup::class );
 		$entityTitleStoreLookup->method( 'getTitleForId' )
 			->willReturnCallback( static function ( EntityId $id ) {
@@ -82,19 +84,16 @@ class LexemeJsonSerializationTest extends MediaWikiIntegrationTestCase {
 			),
 		] );
 		return new EntityDataSerializationService(
+			$serializer,
+			new EntityDataFormatProvider(),
+			$rdfBuilderFactory,
 			$entityTitleStoreLookup,
 			$dataTypeLookup,
-			new EntityDataFormatProvider(),
-			$serializerFactory,
-			$serializer,
-			new HashSiteStore(),
-			$rdfBuilderFactory,
-			WikibaseRepo::getEntityIdParser()
+			$entityIdParser,
 		);
 	}
 
 	public function testJsonSerialization(): void {
-		$this->markTestSkipped( 'temporarily disabled (T98035)' );
 		$fixture = 'L2';
 		$service = $this->newService();
 		$mockRepo = $this->getMockRepository();
