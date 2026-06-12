@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Luky001"
+			"Luky001",
+			"Wizzard"
 		]
 	},
 	"special-newlexeme": "Vytvoriť novú lexému",
@@ -11,7 +12,7 @@
 	"wikibaselexeme-lemma-edit-placeholder": "Lemma je spravidla najkratší tvar slova",
 	"wikibaselexeme-newlexeme-fieldset": "Vytvoriť novú lexému",
 	"wikibaselexeme-newlexeme-language": "Jazyk lexémy",
-	"wikibaselexeme-newlexeme-language-placeholder": "Zadajte jazyk, napr. angličtina",
+	"wikibaselexeme-newlexeme-language-placeholder": "Jazyk lexémy, napr. „slovenčina“",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Slovný druh",
-	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Zadajte slovný druh, napr. podstatné meno"
+	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Kategória lexémy, napr. „číslovka“"
 }
