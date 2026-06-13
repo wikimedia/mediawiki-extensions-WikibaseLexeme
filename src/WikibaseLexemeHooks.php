@@ -121,7 +121,10 @@ class WikibaseLexemeHooks implements
 		$pageInfo = $infoActionHookHandler->handle( $context, $pageInfo );
 	}
 
-	/** @inheritDoc */
+	/**
+	 * @param string $engine
+	 * @param array &$extraLibraries
+	 */
 	public static function onScribuntoExternalLibraries( $engine, array &$extraLibraries ) {
 		$config = MediaWikiServices::getInstance()->getMainConfig();
 		if ( !$config->get( 'LexemeEnableDataTransclusion' ) ) {

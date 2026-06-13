@@ -132,7 +132,9 @@ class FormSet implements Countable {
 		return !$this->forms;
 	}
 
-	/** @inheritDoc */
+	/**
+	 * @param mixed $other
+	 */
 	public function equals( $other ): bool {
 		if ( $this === $other ) {
 			return true;
