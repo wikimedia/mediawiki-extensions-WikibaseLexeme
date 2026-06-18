@@ -460,7 +460,7 @@ class LexemeContentTest extends MediaWikiLangTestCase {
 			'redirect' => [
 				null,
 				new EntityRedirect( new LexemeId( 'L1' ), new LexemeId( 'L2' ) ),
-				Title::newFromText( 'redirectTitle' ),
+				Title::makeTitle( NS_MAIN, 'RedirectTitle' ),
 				'#REDIRECT [[RedirectTitle]]',
 				250,
 			],
