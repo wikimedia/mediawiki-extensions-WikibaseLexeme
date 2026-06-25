@@ -23,4 +23,18 @@ class LexemeLanguageCodePropertyIdConfig extends RL\Module {
 		] ) . ');';
 	}
 
+	/**
+	 * Include the LexemeLanguageCodePropertyId in the definition summary to ensure that changes
+	 * to the configuration are sent to the frontend and a stale configuration is not kept
+	 * in the ResourceLoader cache.
+	 *
+	 * @inheritDoc
+	 */
+	public function getDefinitionSummary( RL\Context $context ) {
+		$summary = parent::getDefinitionSummary( $context );
+		$summary[] = [
+			'LexemeLanguageCodePropertyId' => $this->getConfig()->get( 'LexemeLanguageCodePropertyId' ),
+		];
+		return $summary;
+	}
 }

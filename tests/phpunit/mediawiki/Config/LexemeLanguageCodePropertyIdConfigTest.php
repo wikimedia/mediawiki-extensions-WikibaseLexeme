@@ -49,4 +49,21 @@ class LexemeLanguageCodePropertyIdConfigTest extends MediaWikiIntegrationTestCas
 		);
 	}
 
+	public function testGetDefinitionSummary_notEqualForConfigValues(): void {
+		$module1 = new LexemeLanguageCodePropertyIdConfig();
+		$module1->setConfig( new HashConfig( [
+			'LexemeLanguageCodePropertyId' => 'P1',
+		] ) );
+
+		$module2 = new LexemeLanguageCodePropertyIdConfig();
+		$module2->setConfig( new HashConfig( [
+			'LexemeLanguageCodePropertyId' => 'P2',
+		] ) );
+
+		$this->assertNotEquals(
+			$module1->getDefinitionSummary( $this->newRLContext() ),
+			$module2->getDefinitionSummary( $this->newRLContext() )
+		);
+	}
+
 }
