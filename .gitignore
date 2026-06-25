@@ -28,3 +28,5 @@ cypress/parallel-weights.json
 multi-reporter-config.json
 runner-results
 /.stylelintcache
+
+.api-testing.config.json
