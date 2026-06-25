@@ -10,6 +10,7 @@
 		}
 	},
 	"scripts": {
+		"api-testing": "mocha --timeout 0 --recursive tests/api",
 		"selenium-test": "npm run cypress:parallel",
 		"test": "run-s test:*",
 		"test:grunt": "grunt test",
@@ -34,6 +35,7 @@
 	},
 	"devDependencies": {
 		"@wmde/eslint-config-wikimedia-typescript": "0.2.13",
+		"api-testing": "^1.7.3",
 		"cypress": "^13.17.0",
 		"cypress-parallel": "^0.14.0",
 		"cypress-wikibase-api": "^0.0.7",
@@ -51,6 +53,7 @@
 		"jquery": "3.7.1",
 		"jsdom": "^25.0.1",
 		"lodash": "^4.17.21",
+		"mocha": "^11.7.6",
 		"module-alias": "^2.2.3",
 		"npm-run-all": "^4.1.5",
 		"request": "^2.88.2",
