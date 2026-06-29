@@ -1,0 +1,15 @@
+services:
+	-
+		class: Wikibase\Lexeme\Tests\Architecture\ArchitectureTest
+		tags:
+			- phpat.test
+parameters:
+    level: 1
+    phpat:
+        ignore_built_in_classes: true
+    paths:
+        - ./src/
+        - ./tests/architecture/
+
+includes:
+    - vendor/phpat/phpat/extension.neon

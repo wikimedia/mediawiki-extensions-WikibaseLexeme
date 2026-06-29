@@ -26,7 +26,9 @@
 		"mediawiki/mediawiki-phan-config": "0.20.0",
 		"mediawiki/minus-x": "2.0.1",
 		"php-parallel-lint/php-console-highlighter": "1.0.0",
-		"php-parallel-lint/php-parallel-lint": "1.4.0"
+		"php-parallel-lint/php-parallel-lint": "1.4.0",
+		"phpat/phpat": "^0.11.4",
+		"phpstan/phpstan": "^2.1"
 	},
 	"scripts": {
 		"fix": [
@@ -36,6 +38,7 @@
 		"test": [
 			"parallel-lint . --exclude vendor --exclude node_modules --exclude resources/special/new-lexeme",
 			"@phpcs",
+			"composer phpstan",
 			"minus-x check ."
 		],
 		"mediawiki-vendor-diff": [
@@ -45,7 +48,8 @@
 			"composer-lock-diff --from ./composer.lock --to https://raw.githubusercontent.com/wikimedia/mediawiki-vendor/master/composer.lock | grep -v \"| REMOVED\" | grep -v \"| NEW\""
 		],
 		"phan": "phan -d . --long-progress-bar",
-		"phpcs": "phpcs -sp --cache"
+		"phpcs": "phpcs -sp --cache",
+		"phpstan": "bash build/runPhpstanUnlessMissingDeps.sh"
 	},
 	"config": {
 		"allow-plugins": {
