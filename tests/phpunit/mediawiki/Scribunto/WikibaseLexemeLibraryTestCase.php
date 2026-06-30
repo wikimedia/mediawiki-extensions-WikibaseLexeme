@@ -12,6 +12,10 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Tests\MockRepository;
 use Wikimedia\TestingAccessWrapper;
 
+/**
+ * @license GPL-2.0-or-later
+ */
+
 if (
 	!ExtensionRegistry::getInstance()->isLoaded( 'WikibaseClient' ) ||
 	!ExtensionRegistry::getInstance()->isLoaded( 'Scribunto' )
@@ -31,79 +35,79 @@ if (
 
 	}
 
-	return;
-}
+} else {
 
-/**
- * @license GPL-2.0-or-later
- */
-class WikibaseLexemeLibraryTestCase extends WikibaseLibraryTestCase {
+	/**
+	 * Real base class when deps are available.
+	 */
+	class WikibaseLexemeLibraryTestCase extends WikibaseLibraryTestCase {
 
-	protected function setUp(): void {
-		parent::setUp();
+		protected function setUp(): void {
+			parent::setUp();
 
-		$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
-		$this->overrideConfigValue( 'LexemeEnableDataTransclusion', true );
+			$this->overrideConfigValue( MainConfigNames::LanguageCode, 'en' );
+			$this->overrideConfigValue( 'LexemeEnableDataTransclusion', true );
 
-		/** @var MockRepository $mockRepository */
-		$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
-		$lexeme = NewLexeme::havingId( 'L1' )
-			->withLemma( 'en', 'English lemma' )
-			->withLemma( 'en-gb', 'British English lemma' )
-			->withLanguage( 'Q1' )
-			->withLexicalCategory( 'Q2' )
-			->withForm(
-				NewForm::havingId( 'F1' )
-					->andRepresentation( 'en', 'English representation' )
-					->andRepresentation( 'en-gb', 'British English representation' )
-					->andGrammaticalFeature( 'Q1' )
-			)
-			->withSense(
-				NewSense::havingId( 'S1' )
-					->withGloss( 'en', 'English gloss' )
-					->withGloss( 'en-gb', 'British English gloss' )
-			)
-			->build();
-		$mockRepository->putEntity( $lexeme );
-		foreach ( $lexeme->getForms()->toArrayUnordered() as $form ) {
-			$mockRepository->putEntity( $form );
+			/** @var MockRepository $mockRepository */
+			$mockRepository = WikibaseClient::getStore()->getSiteLinkLookup();
+			$lexeme = NewLexeme::havingId( 'L1' )
+				->withLemma( 'en', 'English lemma' )
+				->withLemma( 'en-gb', 'British English lemma' )
+				->withLanguage( 'Q1' )
+				->withLexicalCategory( 'Q2' )
+				->withForm(
+					NewForm::havingId( 'F1' )
+						->andRepresentation( 'en', 'English representation' )
+						->andRepresentation( 'en-gb', 'British English representation' )
+						->andGrammaticalFeature( 'Q1' )
+				)
+				->withSense(
+					NewSense::havingId( 'S1' )
+						->withGloss( 'en', 'English gloss' )
+						->withGloss( 'en-gb', 'British English gloss' )
+				)
+				->build();
+			$mockRepository->putEntity( $lexeme );
+			foreach ( $lexeme->getForms()->toArrayUnordered() as $form ) {
+				$mockRepository->putEntity( $form );
+			}
+			foreach ( $lexeme->getSenses()->toArrayUnordered() as $sense ) {
+				$mockRepository->putEntity( $sense );
+			}
 		}
-		foreach ( $lexeme->getSenses()->toArrayUnordered() as $sense ) {
-			$mockRepository->putEntity( $sense );
+
+		protected function newScribuntoLuaWikibaseLexemeLibrary( string $klass ) {
+			$engine = $this->getEngine();
+			$engine->load();
+			return new $klass( $engine );
 		}
-	}
 
-	protected function newScribuntoLuaWikibaseLexemeLibrary( string $klass ) {
-		$engine = $this->getEngine();
-		$engine->load();
-		return new $klass( $engine );
-	}
+		private static function getParserOutputFromRedirectUsageAccumulator( $redirectUsageAccumulator ) {
+			$innerAccumulator = TestingAccessWrapper::newFromObject( $redirectUsageAccumulator )->innerUsageAccumulator;
+			return TestingAccessWrapper::newFromObject( $innerAccumulator )->getParserOutput();
+		}
 
-	private static function getParserOutputFromRedirectUsageAccumulator( $redirectUsageAccumulator ) {
-		$innerAccumulator = TestingAccessWrapper::newFromObject( $redirectUsageAccumulator )->innerUsageAccumulator;
-		return TestingAccessWrapper::newFromObject( $innerAccumulator )->getParserOutput();
-	}
+		public function makeParserOutputUsageAccumulatorAssertions( string $klass ): void {
+			$luaWikibaseLibrary = $this->newScribuntoLuaWikibaseLexemeLibrary( $klass );
+			$libraryWithMemberAccess = TestingAccessWrapper::newFromObject( $luaWikibaseLibrary );
+			$parserOutput = $libraryWithMemberAccess->getParser()->getOutput();
+			$usageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
+			$this->assertSame(
+				$parserOutput,
+				self::getParserOutputFromRedirectUsageAccumulator( $usageAccumulator ),
+				"Current engine parser output should be used by usage accumulator" );
+			$libraryWithMemberAccess->getParser()->resetOutput();
+			$newUsageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
+			$this->assertSame( $usageAccumulator, $newUsageAccumulator,
+				"Usage accumulator should not be reconstructed after parser output reset" );
+			$newParserOutput = $libraryWithMemberAccess->getParser()->getOutput();
+			$this->assertNotSame( $newParserOutput, $parserOutput,
+				"Engine should have a new parser output after a reset" );
+			$this->assertSame(
+				$newParserOutput,
+				self::getParserOutputFromRedirectUsageAccumulator( $newUsageAccumulator ),
+				"Usage accumulator should be using the new parser output" );
+		}
 
-	public function makeParserOutputUsageAccumulatorAssertions( string $klass ): void {
-		$luaWikibaseLibrary = $this->newScribuntoLuaWikibaseLexemeLibrary( $klass );
-		$libraryWithMemberAccess = TestingAccessWrapper::newFromObject( $luaWikibaseLibrary );
-		$parserOutput = $libraryWithMemberAccess->getParser()->getOutput();
-		$usageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
-		$this->assertSame(
-			$parserOutput,
-			self::getParserOutputFromRedirectUsageAccumulator( $usageAccumulator ),
-			"Current engine parser output should be used by usage accumulator" );
-		$libraryWithMemberAccess->getParser()->resetOutput();
-		$newUsageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
-		$this->assertSame( $usageAccumulator, $newUsageAccumulator,
-			"Usage accumulator should not be reconstructed after parser output reset" );
-		$newParserOutput = $libraryWithMemberAccess->getParser()->getOutput();
-		$this->assertNotSame( $newParserOutput, $parserOutput,
-			"Engine should have a new parser output after a reset" );
-		$this->assertSame(
-			$newParserOutput,
-			self::getParserOutputFromRedirectUsageAccumulator( $newUsageAccumulator ),
-			"Usage accumulator should be using the new parser output" );
 	}
-
 }
