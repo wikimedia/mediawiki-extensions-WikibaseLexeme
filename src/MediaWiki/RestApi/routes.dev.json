@@ -1,0 +1,7 @@
+[
+	{
+		"path": "/wikibase/v0/entities/lexemes/{lexeme_id}",
+		"method": "GET",
+		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\GetLexemeRouteHandler::factory"
+	}
+]

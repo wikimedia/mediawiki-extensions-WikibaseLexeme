@@ -97,6 +97,14 @@ and Special:NewLexeme was a separate (older) implementation of similar functiona
 which was eventually replaced with the new implementation.
 You might come across the NewLexemeAlpha name in git logs or similar.
 
+## REST API
+
+To enable routes in development (not recommended for production use), add:
+
+```php
+$wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json';
+```
+
 ## Running tests
 
 ### PHP
