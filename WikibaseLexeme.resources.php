@@ -199,9 +199,6 @@ return call_user_func( static function () {
 				"wikibase.api.RepoApi",
 			],
 		],
-		"wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig" => $moduleTemplate + [
-			"class" => "Wikibase\\Lexeme\\MediaWiki\\Config\\LexemeLanguageCodePropertyIdConfig",
-		],
 		"wikibase.experts.Lexeme" => $moduleTemplate + [
 			"scripts" => [
 				"experts/Lexeme.js",
@@ -296,7 +293,6 @@ return call_user_func( static function () {
 				'vuex',
 				'@wikimedia/codex',
 				'mediawiki.user',
-				'wikibase.lexeme.config.LexemeLanguageCodePropertyIdConfig',
 			],
 			"messages" => [
 				"wikibaselexeme-newlexeme-lemma",

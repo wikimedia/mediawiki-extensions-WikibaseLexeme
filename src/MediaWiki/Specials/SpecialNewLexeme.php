@@ -189,11 +189,12 @@ class SpecialNewLexeme extends SpecialPage {
 		$this->checkBlockedOnNamespace();
 		$this->checkReadOnly();
 
+		$config = $this->getConfig();
 		$output = $this->getOutput();
 		$this->setHeaders();
 		$searchUrl = SpecialPage::getTitleFor( 'Search' )
 			->getFullURL( [
-				'ns' . $this->getConfig()->get( 'LexemeNamespace' ) => '',
+				'ns' . $config->get( 'LexemeNamespace' ) => '',
 				'search' => $this->getRequest()->getText( self::FIELD_LEMMA ),
 			] );
 		$searchExisting = $this->msg( 'wikibaselexeme-newlexeme-search-existing' )
@@ -245,6 +246,10 @@ class SpecialNewLexeme extends SpecialPage {
 			return;
 		}
 
+		$output->addJsConfigVars(
+			'LexemeLanguageCodePropertyId',
+			$config->get( 'LexemeLanguageCodePropertyId' )
+		);
 		$output->addJsConfigVars( 'wblSpecialNewLexemeParams',
 			$this->getUrlParamsForConfig()
 		);
