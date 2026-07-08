@@ -32,6 +32,7 @@ use Wikibase\Repo\Tests\Content\EntityHandlerTestCase;
 use Wikibase\Repo\Validators\EntityConstraintProvider;
 use Wikibase\Repo\Validators\ValidatorErrorLocalizer;
 use Wikibase\Repo\WikibaseRepo;
+use Wikimedia\ArrayUtils\ArrayUtils;
 
 /**
  * @covers \Wikibase\Lexeme\MediaWiki\Content\LexemeHandler
@@ -150,7 +151,7 @@ class LexemeHandlerTest extends EntityHandlerTestCase {
 	protected static function getEntityTypeDefinitionsConfiguration(): array {
 		return array_merge(
 			parent::getEntityTypeDefinitionsConfiguration(),
-			wfArrayPlus2d(
+			ArrayUtils::arrayPlus2d(
 				require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.repo.php',
 				require __DIR__ . '/../../../../WikibaseLexeme.entitytypes.php'
 			)

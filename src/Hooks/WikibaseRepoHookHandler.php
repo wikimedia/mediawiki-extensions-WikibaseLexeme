@@ -10,6 +10,7 @@ use Wikibase\Repo\Hooks\WikibaseRepoControllersHook;
 use Wikibase\Repo\Hooks\WikibaseRepoEntityTypesHook;
 use Wikibase\Repo\Hooks\WikibaseRepoOnParserOutputUpdaterConstructionHook;
 use Wikibase\Repo\ParserOutput\StatementDataUpdater;
+use Wikimedia\ArrayUtils\ArrayUtils;
 
 /**
  * @license GPL-2.0-or-later
@@ -45,7 +46,7 @@ class WikibaseRepoHookHandler implements
 
 		$entityTypeDefinitions = array_merge(
 			$entityTypeDefinitions,
-			wfArrayPlus2d(
+			ArrayUtils::arrayPlus2d(
 				require __DIR__ . '/../../WikibaseLexeme.entitytypes.repo.php',
 				require __DIR__ . '/../../WikibaseLexeme.entitytypes.php'
 			)
