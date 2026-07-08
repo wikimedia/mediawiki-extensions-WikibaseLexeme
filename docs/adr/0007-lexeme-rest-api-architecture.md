@@ -1,4 +1,4 @@
-# 1. Lexeme REST API architecture {#adr_0007}
+# 7) Lexeme REST API architecture {#adr_0007}
 
 Date: 2026-06-30
 
