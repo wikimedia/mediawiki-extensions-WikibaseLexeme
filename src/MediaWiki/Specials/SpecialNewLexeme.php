@@ -181,7 +181,7 @@ class SpecialNewLexeme extends SpecialPage {
 	 */
 	public function execute( $subPage ): void {
 		$metric = $this->statsFactory->getCounter( 'special_new_lexeme_views_total' );
-		$metric->copyToStatsdAt( 'wikibase.lexeme.special.NewLexeme.views' )->increment();
+		$metric->increment();
 
 		parent::execute( $subPage );
 
@@ -527,7 +527,7 @@ class SpecialNewLexeme extends SpecialPage {
 					}
 
 					$metric = $this->statsFactory->getCounter( 'special_new_lexeme_nojs_create_total' );
-					$metric->copyToStatsdAt( 'wikibase.lexeme.special.NewLexeme.nojs.create' )->increment();
+					$metric->increment();
 
 					return $saveStatus;
 				}
