@@ -12,6 +12,7 @@ use Wikibase\Lexeme\DataAccess\Store\EntityLookupLexemeRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
+use Wikibase\Repo\WikibaseRepo;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -28,7 +29,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 
 	public static function factory(): Handler {
 		return new self(
-			new GetLexeme( new EntityLookupLexemeRetriever() )
+			new GetLexeme( new EntityLookupLexemeRetriever( WikibaseRepo::getEntityLookup() ) )
 		);
 	}
 
@@ -43,7 +44,9 @@ class GetLexemeRouteHandler extends SimpleHandler {
 		$httpResponse->setHeader( 'Content-Type', 'application/json' );
 		$httpResponse->setBody( new StringStream(
 			json_encode(
-				[ 'id' => $useCaseResponse->lexeme->id->getSerialization() ],
+				[
+					'id' => $useCaseResponse->lexeme->id->getSerialization(),
+				],
 				JSON_UNESCAPED_SLASHES
 			)
 		) );
