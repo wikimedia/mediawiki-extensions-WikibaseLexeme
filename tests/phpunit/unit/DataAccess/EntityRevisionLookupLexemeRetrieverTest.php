@@ -7,6 +7,8 @@ namespace Wikibase\Lexeme\Tests\Unit\DataAccess;
 use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
@@ -22,17 +24,23 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 
 	public function testGetLexeme(): void {
 		$lexemeId = new LexemeId( 'L123' );
-		$lexeme = NewLexeme::havingId( $lexemeId )->build();
+		$language = 'en';
+		$lemma = 'potato';
+		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )->withLemma( $language, $lemma )->build();
+		$expectedLexemeReadModel = new Lexeme(
+			$lexemeId,
+			new Lemmas( new Lemma( $language, $lemma ) ),
+		);
 
 		$entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
 		$entityRevisionLookup->expects( $this->once() )
 			->method( 'getEntityRevision' )
 			->with( $lexemeId )
-			->willReturn( new EntityRevision( $lexeme ) );
+			->willReturn( new EntityRevision( $lexemeWriteModel ) );
 
 		$retriever = new EntityRevisionLookupLexemeRetriever( $entityRevisionLookup );
 
-		$this->assertEquals( new Lexeme( $lexemeId ), $retriever->getLexeme( $lexemeId ) );
+		$this->assertEquals( $expectedLexemeReadModel, $retriever->getLexeme( $lexemeId ) );
 	}
 
 	public function testGivenLexemeDoesNotExist_getLexemeReturnsNull(): void {

@@ -11,6 +11,7 @@ use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
+use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -24,7 +25,8 @@ class GetLexemeRouteHandler extends SimpleHandler {
 
 	public function __construct(
 		private GetLexeme $getLexeme,
-		private MiddlewareHandler $middlewareHandler
+		private MiddlewareHandler $middlewareHandler,
+		private LemmasSerializer $lemmasSerializer
 	) {
 	}
 
@@ -33,7 +35,8 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getGetLexeme(),
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
-			] )
+			] ),
+			new LemmasSerializer()
 		);
 	}
 
@@ -54,6 +57,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			json_encode(
 				[
 					'id' => $useCaseResponse->lexeme->id->getSerialization(),
+					'lemmas' => $this->lemmasSerializer->serialize( $useCaseResponse->lexeme->lemmas ),
 				],
 				JSON_UNESCAPED_SLASHES
 			)

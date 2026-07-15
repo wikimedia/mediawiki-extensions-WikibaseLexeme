@@ -6,6 +6,7 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lib\Store\EntityRevisionLookup;
@@ -27,7 +28,7 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 		}
 
 		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
-		return new Lexeme( $lexeme->getId() );
+		return new Lexeme( $lexeme->getId(), Lemmas::fromTermList( $lexeme->getLemmas() ) );
 	}
 
 	private function getLexemeWriteModel( LexemeId $lexemeId ): ?LexemeWriteModel {

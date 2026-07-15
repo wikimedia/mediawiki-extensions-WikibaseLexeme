@@ -35,7 +35,10 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		const { entity: { id } } = await anon.action( 'wbeditentity', {
 			new: 'lexeme',
 			data: JSON.stringify( {
-				lemmas: { en: { language: 'en', value: 'ice' } },
+				lemmas: {
+					'en-ca': { language: 'en-ca', value: 'colour' },
+					'en-us': { language: 'en-us', value: 'color' }
+				},
 				language: languageId,
 				lexicalCategory: lexicalCategoryId
 			} ),
@@ -44,10 +47,10 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		lexemeId = id;
 	} );
 
-	it( 'returns the lexeme with the requested ID', async () => {
+	it( 'returns the lexeme with the requested ID and lemmas', async () => {
 		const response = await client.get( `/entities/lexemes/${ lexemeId }` );
 
 		assert.strictEqual( response.status, 200, response.text );
-		assert.deepStrictEqual( response.body, { id: lexemeId } );
+		assert.deepStrictEqual( response.body, { id: lexemeId, lemmas: { 'en-ca': 'colour', 'en-us': 'color' } } );
 	} );
 } );

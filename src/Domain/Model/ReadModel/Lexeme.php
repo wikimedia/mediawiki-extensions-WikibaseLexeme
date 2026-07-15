@@ -12,7 +12,8 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 class Lexeme {
 
 	public function __construct(
-		public readonly LexemeId $id
+		public readonly LexemeId $id,
+		public readonly Lemmas $lemmas
 	) {
 	}
 

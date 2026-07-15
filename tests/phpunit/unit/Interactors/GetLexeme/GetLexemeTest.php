@@ -6,6 +6,8 @@ namespace Wikibase\Lexeme\Tests\Unit\Interactors\GetLexeme;
 
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
@@ -20,7 +22,11 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 
 	public function testExecuteRetrievesLexeme(): void {
 		$lexemeId = new LexemeId( 'L123' );
-		$expectedLexeme = new Lexeme( $lexemeId );
+		$lemmas = new Lemmas(
+			new Lemma( 'en-ca', 'colour' ),
+			new Lemma( 'en-us', 'color' ),
+			);
+		$expectedLexeme = new Lexeme( $lexemeId, $lemmas );
 
 		$retriever = $this->createMock( LexemeRetriever::class );
 		$retriever->expects( $this->once() )
@@ -32,6 +38,7 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			->execute( new GetLexemeRequest( 'L123' ) );
 
 		$this->assertSame( $lexemeId, $response->lexeme->id );
+		$this->assertSame( $lemmas, $response->lexeme->lemmas );
 	}
 
 }

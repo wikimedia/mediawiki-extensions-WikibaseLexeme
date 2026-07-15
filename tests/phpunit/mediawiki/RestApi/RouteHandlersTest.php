@@ -12,6 +12,8 @@ use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
@@ -93,7 +95,9 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 	public static function routeHandlersProvider(): Generator {
 		yield 'GetLexeme' => [ [
 			'useCase' => GetLexeme::class,
-			'useCaseResponse' => new GetLexemeResponse( new Lexeme( new LexemeId( 'L1' ) ) ),
+			'useCaseResponse' => new GetLexemeResponse( new Lexeme( new LexemeId( 'L1' ),
+			new Lemmas( new Lemma( 'en-ca', 'colour' ), new Lemma( 'en-us', 'color' ) )
+			) ),
 			'serviceName' => 'WikibaseLexeme.GetLexeme',
 			'validRequest' => [ 'pathParams' => [ 'lexeme_id' => 'L1' ] ],
 		] ];
