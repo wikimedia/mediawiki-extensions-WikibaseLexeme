@@ -5,14 +5,17 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\RestApi;
 use Generator;
 use LogicException;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Rest\Reporter\ErrorReporter;
 use MediaWiki\Rest\RequestData;
 use MediaWiki\Rest\Response;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWikiIntegrationTestCase;
+use RuntimeException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
+use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
  * @coversNothing
@@ -54,6 +57,26 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 			$this->logicalAnd( $this->greaterThanOrEqual( 200 ), $this->lessThan( 300 ) )
 		);
 		$this->assertSame( [ 'application/json' ], $response->getHeader( 'Content-Type' ) );
+	}
+
+	/**
+	 * @dataProvider routeHandlersProvider
+	 */
+	public function testHandlesUnexpectedErrors( array $routeHandler ): void {
+		$useCase = $this->createStub( $routeHandler['useCase'] );
+		$useCase->method( 'execute' )->willThrowException( new RuntimeException() );
+		$this->setService( $routeHandler['serviceName'], $useCase );
+		$this->setService( 'WikibaseLexeme.ErrorReporter', $this->createStub( ErrorReporter::class ) );
+
+		/** @var Response $response */
+		$response = $this->newHandlerWithValidRequest(
+			$this->getRouteForUseCase( $routeHandler['useCase'] ),
+			$routeHandler['validRequest']
+		)->execute();
+
+		$this->assertSame( 500, $response->getStatusCode() );
+		$responseBody = json_decode( $response->getBody()->getContents() );
+		$this->assertSame( UnexpectedErrorHandlerMiddleware::ERROR_CODE, $responseBody->code );
 	}
 
 	/**

@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -22,17 +23,25 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	public const LEXEME_ID_PATH_PARAM = 'lexeme_id';
 
 	public function __construct(
-		private GetLexeme $getLexeme
+		private GetLexeme $getLexeme,
+		private MiddlewareHandler $middlewareHandler
 	) {
 	}
 
 	public static function factory(): Handler {
 		return new self(
-			WikibaseLexemeServices::getGetLexeme()
+			WikibaseLexemeServices::getGetLexeme(),
+			new MiddlewareHandler( [
+				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+			] )
 		);
 	}
 
 	public function run( string $lexemeId ): Response {
+		return $this->middlewareHandler->run( $this, fn () => $this->runUseCase( $lexemeId ) );
+	}
+
+	public function runUseCase( string $lexemeId ): Response {
 		return $this->newSuccessHttpResponse(
 			$this->getLexeme->execute( new GetLexemeRequest( $lexemeId ) )
 		);

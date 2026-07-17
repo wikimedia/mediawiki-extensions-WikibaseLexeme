@@ -2,6 +2,8 @@
 
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Rest\Reporter\ErrorReporter;
+use MediaWiki\Rest\Reporter\MWErrorReporter;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
@@ -39,6 +41,7 @@ use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
+use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
 use Wikibase\Repo\WikibaseRepo;
@@ -212,6 +215,14 @@ return call_user_func( static function () {
 			return new GetLexeme(
 				new EntityRevisionLookupLexemeRetriever( WikibaseRepo::getEntityRevisionLookup( $services ) )
 			);
+		},
+		'WikibaseLexeme.ErrorReporter' => static function ( MediaWikiServices $services ): ErrorReporter {
+			return new MWErrorReporter();
+		},
+		'WikibaseLexeme.UnexpectedErrorHandlerMiddleware' => static function (
+			MediaWikiServices $services
+		): UnexpectedErrorHandlerMiddleware {
+			return new UnexpectedErrorHandlerMiddleware( $services->get( 'WikibaseLexeme.ErrorReporter' ) );
 		},
 		'WikibaseLexemeMergeLexemesInteractor' => static function (
 			MediaWikiServices $mediaWikiServices

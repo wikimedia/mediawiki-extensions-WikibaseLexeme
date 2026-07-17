@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeseri
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\Repo\Api\EntitySearchHelper;
+use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
  * @license GPL-2.0-or-later
@@ -91,6 +92,13 @@ class WikibaseLexemeServices {
 	public static function getGetLexeme( ?ContainerInterface $services = null ): GetLexeme {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexeme.GetLexeme' );
+	}
+
+	public static function getUnexpectedErrorHandlerMiddleware(
+		?ContainerInterface $services = null
+	): UnexpectedErrorHandlerMiddleware {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.UnexpectedErrorHandlerMiddleware' );
 	}
 
 }
