@@ -8,11 +8,10 @@ use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
-use Wikibase\Lexeme\DataAccess\Store\EntityLookupLexemeRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
-use Wikibase\Repo\WikibaseRepo;
+use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -29,7 +28,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 
 	public static function factory(): Handler {
 		return new self(
-			new GetLexeme( new EntityLookupLexemeRetriever( WikibaseRepo::getEntityLookup() ) )
+			WikibaseLexemeServices::getGetLexeme()
 		);
 	}
 

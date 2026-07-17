@@ -9,6 +9,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
+use Wikibase\Lexeme\DataAccess\Store\EntityLookupLexemeRetriever;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -19,6 +20,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
+use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
@@ -205,6 +207,11 @@ return call_user_func( static function () {
 			);
 
 			return $grammaticalFeaturesOrderProvider;
+		},
+		'WikibaseLexeme.GetLexeme' => static function ( MediaWikiServices $services ): GetLexeme {
+			return new GetLexeme(
+				new EntityLookupLexemeRetriever( WikibaseRepo::getEntityLookup( $services ) )
+			);
 		},
 		'WikibaseLexemeMergeLexemesInteractor' => static function (
 			MediaWikiServices $mediaWikiServices
