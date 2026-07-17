@@ -93,11 +93,21 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public static function routeHandlersProvider(): Generator {
+		$lastModified = '20260731042031';
+
 		yield 'GetLexeme' => [ [
 			'useCase' => GetLexeme::class,
-			'useCaseResponse' => new GetLexemeResponse( new Lexeme( new LexemeId( 'L1' ),
-			new Lemmas( new Lemma( 'en-ca', 'colour' ), new Lemma( 'en-us', 'color' ) )
-			) ),
+			'useCaseResponse' => new GetLexemeResponse(
+				new Lexeme(
+					new LexemeId( 'L1' ),
+					new Lemmas(
+						new Lemma( 'en-ca', 'colour' ),
+						new Lemma( 'en-us', 'color' )
+					)
+				),
+				42,
+				$lastModified
+			),
 			'serviceName' => 'WikibaseLexeme.GetLexeme',
 			'validRequest' => [ 'pathParams' => [ 'lexeme_id' => 'L1' ] ],
 		] ];

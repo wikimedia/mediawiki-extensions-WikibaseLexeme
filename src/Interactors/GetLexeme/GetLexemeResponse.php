@@ -12,7 +12,9 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 class GetLexemeResponse {
 
 	public function __construct(
-		public readonly Lexeme $lexeme
+		public readonly Lexeme $lexeme,
+		public int $revisionId,
+		public string $lastModified,
 	) {
 	}
 

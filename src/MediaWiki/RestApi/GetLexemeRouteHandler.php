@@ -15,6 +15,8 @@ use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
+use Wikimedia\Timestamp\ConvertibleTimestamp;
+use Wikimedia\Timestamp\TimestampFormat as TS;
 
 /**
  * @license GPL-2.0-or-later
@@ -53,6 +55,11 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	private function newSuccessHttpResponse( GetLexemeResponse $useCaseResponse ): Response {
 		$httpResponse = $this->getResponseFactory()->create();
 		$httpResponse->setHeader( 'Content-Type', 'application/json' );
+		$httpResponse->setHeader(
+			'Last-Modified',
+			ConvertibleTimestamp::convert( TS::RFC2822, $useCaseResponse->lastModified )
+		);
+		$httpResponse->setHeader( 'ETag', "\"{$useCaseResponse->revisionId}\"" );
 		$httpResponse->setBody( new StringStream(
 			json_encode(
 				[

@@ -6,10 +6,12 @@ namespace Wikibase\Lexeme\Tests\Unit\Interactors\GetLexeme;
 
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\LatestLexemeRevisionMetadataResult;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
+use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 
@@ -27,18 +29,26 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			new Lemma( 'en-us', 'color' ),
 			);
 		$expectedLexeme = new Lexeme( $lexemeId, $lemmas );
+		$lastModifiedTimestamp = '20261111070707';
+		$revisionId = 42;
 
-		$retriever = $this->createMock( LexemeRetriever::class );
-		$retriever->expects( $this->once() )
+		$lexemeRetriever = $this->createMock( LexemeRetriever::class );
+		$lexemeRetriever->expects( $this->once() )
 			->method( 'getLexeme' )
 			->with( $lexemeId )
 			->willReturn( $expectedLexeme );
 
-		$response = ( new GetLexeme( $retriever ) )
+		$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn( LatestLexemeRevisionMetadataResult::concreteRevision( $revisionId, $lastModifiedTimestamp ) );
+
+		$response = ( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
 			->execute( new GetLexemeRequest( 'L123' ) );
 
 		$this->assertSame( $lexemeId, $response->lexeme->id );
 		$this->assertSame( $lemmas, $response->lexeme->lemmas );
+		$this->assertSame( $revisionId, $response->revisionId );
+		$this->assertSame( $lastModifiedTimestamp, $response->lastModified );
 	}
 
 }

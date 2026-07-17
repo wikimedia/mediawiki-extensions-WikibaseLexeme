@@ -19,6 +19,8 @@ crudClient.req.set( 'User-Agent', 'api-tests' );
 
 describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let lexemeId;
+	let testModified;
+	let testRevisionId;
 
 	before( async () => {
 		const { body: { id: languageId } } = await crudClient.post(
@@ -45,6 +47,11 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			token: await anon.token()
 		}, 'POST' );
 		lexemeId = id;
+
+		const testLexemeCreationMetadata = await getLatestEditMetadata( lexemeId );
+		testModified = testLexemeCreationMetadata.timestamp;
+		testRevisionId = testLexemeCreationMetadata.revid;
+
 	} );
 
 	it( 'returns the lexeme with the requested ID and lemmas', async () => {
@@ -52,5 +59,22 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.deepStrictEqual( response.body, { id: lexemeId, lemmas: { 'en-ca': 'colour', 'en-us': 'color' } } );
+		assert.equal( response.header[ 'last-modified' ], testModified );
+		assert.equal( response.header.etag, `"${ testRevisionId }"` );
 	} );
+
+	async function getLatestEditMetadata( id ) {
+		const editMetadata = ( await action.getAnon().action( 'query', {
+			list: 'recentchanges',
+			rctitle: `Lexeme:${ id }`,
+			rclimit: 1,
+			rcprop: 'tags|flags|comment|ids|timestamp|user'
+		} ) ).query.recentchanges[ 0 ];
+
+		return {
+			...editMetadata,
+			timestamp: new Date( editMetadata.timestamp ).toUTCString()
+		};
+	}
+
 } );

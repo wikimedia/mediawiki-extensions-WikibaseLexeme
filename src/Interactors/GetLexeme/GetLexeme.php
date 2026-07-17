@@ -6,6 +6,7 @@ namespace Wikibase\Lexeme\Interactors\GetLexeme;
 
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
+use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 
 /**
  * @license GPL-2.0-or-later
@@ -13,15 +14,18 @@ use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 class GetLexeme {
 
 	public function __construct(
-		private LexemeRetriever $lexemeRetriever
+		private LexemeRetriever $lexemeRetriever,
+		private LexemeRevisionMetadataRetriever $metadataRetriever,
 	) {
 	}
 
 	public function execute( GetLexemeRequest $request ): GetLexemeResponse {
-		$lexeme = $this->lexemeRetriever->getLexeme( new LexemeId( $request->lexemeId ) );
+		$lexemeId = new LexemeId( $request->lexemeId );
+		$metaData = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
+		$lexeme = $this->lexemeRetriever->getLexeme( $lexemeId );
 
 		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable TODO handle Lexeme not found
-		return new GetLexemeResponse( $lexeme );
+		return new GetLexemeResponse( $lexeme, $metaData->getRevisionId(), $metaData->getRevisionTimestamp() );
 	}
 
 }
