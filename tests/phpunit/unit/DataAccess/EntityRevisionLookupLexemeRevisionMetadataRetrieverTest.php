@@ -32,4 +32,20 @@ class EntityRevisionLookupLexemeRevisionMetadataRetrieverTest extends TestCase {
 		$this->assertSame( $expectedRevisionTimestamp, $result->getRevisionTimestamp() );
 	}
 
+	public function testGivenRedirect_returnsRedirectMetadata(): void {
+		$lexemeId = new LexemeId( 'L1234' );
+		$redirectTarget = new LexemeId( 'L5678' );
+		$entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
+		$entityRevisionLookup->expects( $this->once() )
+			->method( 'getLatestRevisionId' )
+			->with( $lexemeId )
+			->willReturn( LatestRevisionIdResult::redirect( 42, $redirectTarget ) );
+
+		$metaDataRetriever = new EntityRevisionLookupLexemeRevisionMetadataRetriever( $entityRevisionLookup );
+		$result = $metaDataRetriever->getLatestRevisionMetadata( $lexemeId );
+
+		$this->assertTrue( $result->isRedirect() );
+		$this->assertSame( $redirectTarget, $result->getRedirectTarget() );
+	}
+
 }

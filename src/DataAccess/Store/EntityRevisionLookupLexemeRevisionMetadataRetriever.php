@@ -19,7 +19,9 @@ class EntityRevisionLookupLexemeRevisionMetadataRetriever implements LexemeRevis
 		return $this->revisionLookup->getLatestRevisionId( $lexemeId )
 			->onConcreteRevision( MetadataResult::concreteRevision( ... ) )
 			->onNonexistentEntity( static fn () => new MetadataResult() ) // TODO handle not-found
-			->onRedirect( static fn () => new MetadataResult() ) // TODO handle redirect
+			->onRedirect(
+				static fn ( int $revId, LexemeId $redirectTarget ) => MetadataResult::redirect( $redirectTarget )
+			)
 			->map();
 	}
 }

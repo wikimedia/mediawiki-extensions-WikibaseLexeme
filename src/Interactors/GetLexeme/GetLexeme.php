@@ -19,9 +19,17 @@ class GetLexeme {
 	) {
 	}
 
+	/**
+	 * @throws LexemeRedirect
+	 */
 	public function execute( GetLexemeRequest $request ): GetLexemeResponse {
 		$lexemeId = new LexemeId( $request->lexemeId );
 		$metaData = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
+
+		if ( $metaData->isRedirect() ) {
+			throw new LexemeRedirect( $metaData->getRedirectTarget() );
+		}
+
 		$lexeme = $this->lexemeRetriever->getLexeme( $lexemeId );
 
 		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable TODO handle Lexeme not found

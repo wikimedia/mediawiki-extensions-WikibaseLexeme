@@ -11,6 +11,7 @@ use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
@@ -47,9 +48,13 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	}
 
 	public function runUseCase( string $lexemeId ): Response {
-		return $this->newSuccessHttpResponse(
-			$this->getLexeme->execute( new GetLexemeRequest( $lexemeId ) )
-		);
+		try {
+			return $this->newSuccessHttpResponse(
+				$this->getLexeme->execute( new GetLexemeRequest( $lexemeId ) )
+			);
+		} catch ( LexemeRedirect $e ) {
+			return $this->newRedirectHttpResponse( $e );
+		}
 	}
 
 	private function newSuccessHttpResponse( GetLexemeResponse $useCaseResponse ): Response {
@@ -69,6 +74,20 @@ class GetLexemeRouteHandler extends SimpleHandler {
 				JSON_UNESCAPED_SLASHES
 			)
 		) );
+
+		return $httpResponse;
+	}
+
+	private function newRedirectHttpResponse( LexemeRedirect $e ): Response {
+		$httpResponse = $this->getResponseFactory()->create();
+		$httpResponse->setHeader(
+			'Location',
+			$this->getRouteUrl(
+				[ self::LEXEME_ID_PATH_PARAM => $e->redirectTarget->getSerialization() ],
+				$this->getRequest()->getQueryParams(),
+			)
+		);
+		$httpResponse->setStatus( 308 );
 
 		return $httpResponse;
 	}

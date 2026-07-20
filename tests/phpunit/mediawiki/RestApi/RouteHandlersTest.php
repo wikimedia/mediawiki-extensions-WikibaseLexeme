@@ -11,12 +11,14 @@ use MediaWiki\Rest\Response;
 use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
+use Throwable;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
@@ -92,8 +94,18 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 		$this->assertSame( $routeData['method'] !== 'GET', $routeHandler->needsWriteAccess() );
 	}
 
+	/**
+	 * @dataProvider routeHandlersProvider
+	 */
+	public function testHandlesExpectedExceptions( array $routeHandler ): void {
+		foreach ( $routeHandler['expectedExceptions'] as [ $error, $assertExpectedResponse ] ) {
+			$assertExpectedResponse( $this->getHttpResponseForThrowingUseCase( $routeHandler, $error ) );
+		}
+	}
+
 	public static function routeHandlersProvider(): Generator {
 		$lastModified = '20260731042031';
+		$hasHttpStatus = fn ( int $status ) => fn ( Response $r ) => self::assertSame( $status, $r->getStatusCode() );
 
 		yield 'GetLexeme' => [ [
 			'useCase' => GetLexeme::class,
@@ -110,7 +122,21 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 			),
 			'serviceName' => 'WikibaseLexeme.GetLexeme',
 			'validRequest' => [ 'pathParams' => [ 'lexeme_id' => 'L1' ] ],
+			'expectedExceptions' => [
+				[ new LexemeRedirect( new LexemeId( 'L2' ) ), $hasHttpStatus( 308 ) ],
+			],
 		] ];
+	}
+
+	private function getHttpResponseForThrowingUseCase( array $routeHandler, Throwable $error ): Response {
+		$useCase = $this->createStub( $routeHandler['useCase'] );
+		$useCase->method( 'execute' )->willThrowException( $error );
+		$this->setService( $routeHandler['serviceName'], $useCase );
+
+		return $this->newHandlerWithValidRequest(
+			$this->getRouteForUseCase( $routeHandler['useCase'] ),
+			$routeHandler['validRequest']
+		)->execute();
 	}
 
 	private function newHandlerWithValidRequest( array $routeData, array $validRequest ): Handler {

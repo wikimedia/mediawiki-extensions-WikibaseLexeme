@@ -14,6 +14,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 
 /**
  * @covers \Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme
@@ -49,6 +50,26 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $lemmas, $response->lexeme->lemmas );
 		$this->assertSame( $revisionId, $response->revisionId );
 		$this->assertSame( $lastModifiedTimestamp, $response->lastModified );
+	}
+
+	public function testGivenLexemeIsRedirect_executeThrowsLexemeRedirect(): void {
+		$redirectTarget = new LexemeId( 'L456' );
+
+		$lexemeRetriever = $this->createMock( LexemeRetriever::class );
+		$lexemeRetriever->expects( $this->never() )
+			->method( 'getLexeme' );
+
+		$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn( LatestLexemeRevisionMetadataResult::redirect( $redirectTarget ) );
+
+		try {
+			( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
+				->execute( new GetLexemeRequest( 'L123' ) );
+			$this->fail( 'Expected LexemeRedirect to be thrown' );
+		} catch ( LexemeRedirect $e ) {
+			$this->assertSame( $redirectTarget, $e->redirectTarget );
+		}
 	}
 
 }
