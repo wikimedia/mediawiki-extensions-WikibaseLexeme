@@ -18,6 +18,8 @@ class ArchitectureTest {
 	private const APPLICATION_REST_SERIALIZATION = 'Wikibase\Lexeme\Presentation\RestSerialization';
 	private const APPLICATION_VALIDATORS = 'Wikibase\Lexeme\Validation';
 	private const APPLICATION_USE_CASES = 'Wikibase\Lexeme\Interactors';
+	private const STATEMENTS_READMODEL = 'Wikibase\Repo\Domains\Statements\Domain\ReadModel';
+	private const STATEMENTS_SERIALIZATION = 'Wikibase\Repo\Domains\Statements\Application\Serialization';
 
 	public function testDomainModel(): Rule {
 		return PHPat::rule()
@@ -51,6 +53,7 @@ class ArchitectureTest {
 	 * Domain services may depend on:
 	 *  - the domain models namespace and everything it depends on
 	 *  - some hand-picked DataModel services
+	 *  - the shared Statements domain read models and serializers
 	 *  - other classes from their own namespace
 	 */
 	private function allowedDomainServicesDependencies(): array {
@@ -58,6 +61,8 @@ class ArchitectureTest {
 			...$this->allowedDomainModelDependencies(),
 			...$this->allowedDataModelServices(),
 			Selector::inNamespace( self::DOMAIN_SERVICES ),
+			Selector::inNamespace( self::STATEMENTS_READMODEL ),
+			Selector::inNamespace( self::STATEMENTS_SERIALIZATION ),
 		];
 	}
 
