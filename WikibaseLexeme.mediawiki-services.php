@@ -9,7 +9,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
-use Wikibase\Lexeme\DataAccess\Store\EntityLookupLexemeRetriever;
+use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -210,7 +210,7 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.GetLexeme' => static function ( MediaWikiServices $services ): GetLexeme {
 			return new GetLexeme(
-				new EntityLookupLexemeRetriever( WikibaseRepo::getEntityLookup( $services ) )
+				new EntityRevisionLookupLexemeRetriever( WikibaseRepo::getEntityRevisionLookup( $services ) )
 			);
 		},
 		'WikibaseLexemeMergeLexemesInteractor' => static function (
