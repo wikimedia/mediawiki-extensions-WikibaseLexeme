@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
@@ -29,7 +30,8 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	public function __construct(
 		private GetLexeme $getLexeme,
 		private MiddlewareHandler $middlewareHandler,
-		private LemmasSerializer $lemmasSerializer
+		private LemmasSerializer $lemmasSerializer,
+		private ResponseFactory $responseFactory
 	) {
 	}
 
@@ -39,7 +41,8 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
 			] ),
-			new LemmasSerializer()
+			new LemmasSerializer(),
+			new ResponseFactory()
 		);
 	}
 
@@ -54,6 +57,8 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			);
 		} catch ( LexemeRedirect $e ) {
 			return $this->newRedirectHttpResponse( $e );
+		} catch ( UseCaseError $e ) {
+			return $this->responseFactory->newErrorResponseFromException( $e );
 		}
 	}
 

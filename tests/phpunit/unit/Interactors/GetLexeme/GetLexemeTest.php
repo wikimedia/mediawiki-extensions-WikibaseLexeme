@@ -15,6 +15,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
  * @covers \Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme
@@ -69,6 +70,25 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			$this->fail( 'Expected LexemeRedirect to be thrown' );
 		} catch ( LexemeRedirect $e ) {
 			$this->assertSame( $redirectTarget, $e->redirectTarget );
+		}
+	}
+
+	public function testGivenLexemeNotFound_executeThrowsUseCaseError(): void {
+		$lexemeRetriever = $this->createMock( LexemeRetriever::class );
+		$lexemeRetriever->expects( $this->never() )
+			->method( 'getLexeme' );
+
+		$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn( LatestLexemeRevisionMetadataResult::lexemeNotFound() );
+
+		try {
+			( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
+				->execute( new GetLexemeRequest( 'L123' ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::LEXEME_NOT_FOUND, $e->errorCode );
+			$this->assertEquals( 'The requested lexeme does not exist', $e->errorMessage );
 		}
 	}
 

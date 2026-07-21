@@ -72,6 +72,16 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );
 	} );
 
+	it( 'responds with a 404 error if lexeme not found', async () => {
+		const response = await client.get( '/entities/lexemes/L999999' );
+
+		assert.strictEqual( response.status, 404, response.text );
+		assert.header( response, 'Content-Language', 'en' );
+		assert.header( response, 'Content-Type', 'application/json' );
+		assert.strictEqual( response.body.code, 'lexeme-not-found' );
+		assert.strictEqual( response.body.message, 'The requested lexeme does not exist' );
+	} );
+
 	describe( 'redirects', () => {
 		let redirectSourceId;
 

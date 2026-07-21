@@ -29,6 +29,10 @@ final class LatestLexemeRevisionMetadataResult {
 		return $result;
 	}
 
+	public static function lexemeNotFound(): self {
+		return new self();
+	}
+
 	/**
 	 * @throws RuntimeException if not a concrete revision result
 	 */
@@ -65,4 +69,9 @@ final class LatestLexemeRevisionMetadataResult {
 	public function isRedirect(): bool {
 		return $this->redirectTarget !== null;
 	}
+
+	public function lexemeExists(): bool {
+		return $this->revisionId || $this->redirectTarget;
+	}
+
 }

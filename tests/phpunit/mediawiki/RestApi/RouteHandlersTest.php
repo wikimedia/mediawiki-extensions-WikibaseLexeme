@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
@@ -106,6 +107,10 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 	public static function routeHandlersProvider(): Generator {
 		$lastModified = '20260731042031';
 		$hasHttpStatus = fn ( int $status ) => fn ( Response $r ) => self::assertSame( $status, $r->getStatusCode() );
+		$hasErrorCode = fn ( string $errorCode ) => function ( Response $response ) use ( $errorCode ): void {
+			self::assertSame( $errorCode, json_decode( (string)$response->getBody() )->code );
+			self::assertSame( [ 'en' ], $response->getHeader( 'Content-Language' ) );
+		}; // phpcs:ignore -- phpcs doesn't like the semicolon here, but it's very much needed.
 
 		yield 'GetLexeme' => [ [
 			'useCase' => GetLexeme::class,
@@ -123,6 +128,7 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 			'serviceName' => 'WikibaseLexeme.GetLexeme',
 			'validRequest' => [ 'pathParams' => [ 'lexeme_id' => 'L1' ] ],
 			'expectedExceptions' => [
+				[ UseCaseError::newLexemeNotFound(), $hasErrorCode( UseCaseError::LEXEME_NOT_FOUND ) ],
 				[ new LexemeRedirect( new LexemeId( 'L2' ) ), $hasHttpStatus( 308 ) ],
 			],
 		] ];
