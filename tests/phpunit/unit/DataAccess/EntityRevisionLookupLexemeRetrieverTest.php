@@ -9,10 +9,16 @@ use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Gloss;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Glosses;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Sense;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
@@ -31,11 +37,21 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 		$lexemeId = new LexemeId( 'L123' );
 		$language = 'en';
 		$lemma = 'potato';
-		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )->withLemma( $language, $lemma )->build();
+		$gloss = 'an edible tuber';
+		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )
+			->withLemma( $language, $lemma )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( $language, $gloss ) )
+			->build();
 		$expectedLexemeReadModel = new Lexeme(
 			$lexemeId,
 			new Lemmas( new Lemma( $language, $lemma ) ),
 			new StatementList(),
+			new Senses(
+				new Sense(
+					new SenseId( 'L123-S1' ),
+					new Glosses( new Gloss( $language, $gloss ) )
+				)
+			),
 		);
 
 		$entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );

@@ -70,6 +70,10 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 					datavalue: { value: 'potato', type: 'string' }
 				},
 				type: 'statement'
+			} ],
+			senses: [ {
+				add: '',
+				glosses: { en: { language: 'en', value: 'a colour' } }
 			} ]
 		} );
 
@@ -79,7 +83,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 	} );
 
-	it( 'returns the lexeme', async () => {
+	it( 'returns the lexeme with the requested ID, lemmas, statements and senses', async () => {
 		const response = await client.get( `/entities/lexemes/${ lexemeId }` );
 
 		assert.strictEqual( response.status, 200, response.text );
@@ -93,6 +97,10 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		assert.strictEqual( statement.value.type, 'value' );
 		assert.strictEqual( statement.value.content, 'potato' );
 		assert.strictEqual( statement.rank, 'normal' );
+
+		assert.deepStrictEqual( response.body.senses, [
+			{ id: `${ lexemeId }-S1`, glosses: { en: 'a colour' } }
+		] );
 
 		assert.equal( response.header[ 'last-modified' ], testModified );
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );

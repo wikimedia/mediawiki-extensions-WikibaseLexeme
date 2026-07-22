@@ -16,6 +16,7 @@ class Lexeme {
 		public readonly LexemeId $id,
 		public readonly Lemmas $lemmas,
 		public readonly StatementList $statements,
+		public readonly Senses $senses,
 	) {
 	}
 

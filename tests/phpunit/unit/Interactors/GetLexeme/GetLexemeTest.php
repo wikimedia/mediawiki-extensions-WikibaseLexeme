@@ -10,6 +10,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\LatestLexemeRevisionMetadataResult;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
@@ -34,6 +35,7 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 				new Lemma( 'en-us', 'color' ),
 			),
 			new StatementList(),
+			new Senses(),
 		);
 		$lastModifiedTimestamp = '20261111070707';
 		$revisionId = 42;

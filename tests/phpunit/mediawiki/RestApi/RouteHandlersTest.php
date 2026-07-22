@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
@@ -122,7 +123,8 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 						new Lemma( 'en-ca', 'colour' ),
 						new Lemma( 'en-us', 'color' )
 					),
-					new StatementList()
+					new StatementList(),
+					new Senses()
 				),
 				42,
 				$lastModified

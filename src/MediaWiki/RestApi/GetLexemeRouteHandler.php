@@ -13,7 +13,9 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
@@ -36,6 +38,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 		private MiddlewareHandler $middlewareHandler,
 		private LemmasSerializer $lemmasSerializer,
 		private StatementListSerializer $statementListSerializer,
+		private SensesSerializer $sensesSerializer,
 		private ResponseFactory $responseFactory,
 	) {
 	}
@@ -55,6 +58,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 					new ReferenceSerializer( $propertyValuePairSerializer )
 				)
 			),
+			new SensesSerializer( new GlossesSerializer() ),
 			new ResponseFactory(),
 		);
 	}
@@ -91,6 +95,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 					'statements' => $this->statementListSerializer->serialize(
 						$useCaseResponse->lexeme->statements
 					),
+					'senses' => $this->sensesSerializer->serialize( $useCaseResponse->lexeme->senses ),
 				],
 				JSON_UNESCAPED_SLASHES
 			)
