@@ -11,13 +11,18 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
+use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
  * @license GPL-2.0-or-later
  */
 class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 
-	public function __construct( private EntityRevisionLookup $entityRevisionLookup ) {
+	public function __construct(
+		private EntityRevisionLookup $entityRevisionLookup,
+		private StatementReadModelConverter $statementReadModelConverter
+	) {
 	}
 
 	public function getLexeme( LexemeId $lexemeId ): ?Lexeme {
@@ -27,8 +32,15 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 			return null;
 		}
 
-		// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
-		return new Lexeme( $lexeme->getId(), Lemmas::fromTermList( $lexeme->getLemmas() ) );
+		return new Lexeme(
+			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
+			$lexeme->getId(),
+			Lemmas::fromTermList( $lexeme->getLemmas() ),
+			new StatementList( ...array_map(
+				$this->statementReadModelConverter->convert( ... ),
+				iterator_to_array( $lexeme->getStatements() )
+			) )
+		);
 	}
 
 	private function getLexemeWriteModel( LexemeId $lexemeId ): ?LexemeWriteModel {

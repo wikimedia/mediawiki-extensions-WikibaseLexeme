@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 'use strict';
 
-const { assert, action, REST } = require( 'api-testing' );
+const { assert, action, utils, REST } = require( 'api-testing' );
 
 const client = new REST( 'rest.php/wikibase/v0' );
 // TODO create something like Wikibase.ci.php to avoid loading routes this way
@@ -20,6 +20,7 @@ crudClient.req.set( 'User-Agent', 'api-tests' );
 describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let languageId;
 	let lexicalCategoryId;
+	let propertyId;
 	let lexemeId;
 	let testModified;
 	let testRevisionId;
@@ -48,13 +49,28 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		);
 		lexicalCategoryId = lexicalCategoryResponse.body.id;
 
+		const propertyResponse = await crudClient.post(
+			'/entities/properties',
+			// eslint-disable-next-line camelcase
+			{ property: { data_type: 'string', labels: { en: `test-property-${ utils.uniq() }` } } }
+		);
+		propertyId = propertyResponse.body.id;
+
 		lexemeId = await createLexeme( {
 			lemmas: {
 				'en-ca': { language: 'en-ca', value: 'colour' },
 				'en-us': { language: 'en-us', value: 'color' }
 			},
 			language: languageId,
-			lexicalCategory: lexicalCategoryId
+			lexicalCategory: lexicalCategoryId,
+			claims: [ {
+				mainsnak: {
+					snaktype: 'value',
+					property: propertyId,
+					datavalue: { value: 'potato', type: 'string' }
+				},
+				type: 'statement'
+			} ]
 		} );
 
 		const testLexemeCreationMetadata = await getLatestEditMetadata( lexemeId );
@@ -63,11 +79,21 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 	} );
 
-	it( 'returns the lexeme with the requested ID and lemmas', async () => {
+	it( 'returns the lexeme', async () => {
 		const response = await client.get( `/entities/lexemes/${ lexemeId }` );
 
 		assert.strictEqual( response.status, 200, response.text );
-		assert.deepStrictEqual( response.body, { id: lexemeId, lemmas: { 'en-ca': 'colour', 'en-us': 'color' } } );
+		assert.strictEqual( response.body.id, lexemeId );
+		assert.deepStrictEqual( response.body.lemmas, { 'en-ca': 'colour', 'en-us': 'color' } );
+
+		assert.deepStrictEqual( Object.keys( response.body.statements ), [ propertyId ] );
+		const [ statement ] = response.body.statements[ propertyId ];
+		assert.strictEqual( statement.property.id, propertyId );
+		assert.strictEqual( statement.property.data_type, 'string' );
+		assert.strictEqual( statement.value.type, 'value' );
+		assert.strictEqual( statement.value.content, 'potato' );
+		assert.strictEqual( statement.rank, 'normal' );
+
 		assert.equal( response.header[ 'last-modified' ], testModified );
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );
 	} );

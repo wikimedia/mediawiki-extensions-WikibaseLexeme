@@ -20,6 +20,7 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
@@ -120,7 +121,8 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 					new Lemmas(
 						new Lemma( 'en-ca', 'colour' ),
 						new Lemma( 'en-us', 'color' )
-					)
+					),
+					new StatementList()
 				),
 				42,
 				$lastModified

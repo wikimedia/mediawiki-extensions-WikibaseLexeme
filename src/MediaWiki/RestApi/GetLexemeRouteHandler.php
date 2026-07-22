@@ -15,6 +15,10 @@ use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
@@ -31,18 +35,27 @@ class GetLexemeRouteHandler extends SimpleHandler {
 		private GetLexeme $getLexeme,
 		private MiddlewareHandler $middlewareHandler,
 		private LemmasSerializer $lemmasSerializer,
-		private ResponseFactory $responseFactory
+		private StatementListSerializer $statementListSerializer,
+		private ResponseFactory $responseFactory,
 	) {
 	}
 
 	public static function factory(): Handler {
+		$propertyValuePairSerializer = new PropertyValuePairSerializer();
+
 		return new self(
 			WikibaseLexemeServices::getGetLexeme(),
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
 			] ),
 			new LemmasSerializer(),
-			new ResponseFactory()
+			new StatementListSerializer(
+				new StatementSerializer(
+					$propertyValuePairSerializer,
+					new ReferenceSerializer( $propertyValuePairSerializer )
+				)
+			),
+			new ResponseFactory(),
 		);
 	}
 
@@ -75,6 +88,9 @@ class GetLexemeRouteHandler extends SimpleHandler {
 				[
 					'id' => $useCaseResponse->lexeme->id->getSerialization(),
 					'lemmas' => $this->lemmasSerializer->serialize( $useCaseResponse->lexeme->lemmas ),
+					'statements' => $this->statementListSerializer->serialize(
+						$useCaseResponse->lexeme->statements
+					),
 				],
 				JSON_UNESCAPED_SLASHES
 			)

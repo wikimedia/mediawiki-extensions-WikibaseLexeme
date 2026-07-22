@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 
 /**
  * @covers \Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme
@@ -26,11 +27,14 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 
 	public function testExecuteRetrievesLexeme(): void {
 		$lexemeId = new LexemeId( 'L123' );
-		$lemmas = new Lemmas(
-			new Lemma( 'en-ca', 'colour' ),
-			new Lemma( 'en-us', 'color' ),
-			);
-		$expectedLexeme = new Lexeme( $lexemeId, $lemmas );
+		$expectedLexeme = new Lexeme(
+			$lexemeId,
+			new Lemmas(
+				new Lemma( 'en-ca', 'colour' ),
+				new Lemma( 'en-us', 'color' ),
+			),
+			new StatementList(),
+		);
 		$lastModifiedTimestamp = '20261111070707';
 		$revisionId = 42;
 
@@ -45,10 +49,9 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			->willReturn( LatestLexemeRevisionMetadataResult::concreteRevision( $revisionId, $lastModifiedTimestamp ) );
 
 		$response = ( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
-			->execute( new GetLexemeRequest( 'L123' ) );
+			->execute( new GetLexemeRequest( "$lexemeId" ) );
 
-		$this->assertSame( $lexemeId, $response->lexeme->id );
-		$this->assertSame( $lemmas, $response->lexeme->lemmas );
+		$this->assertSame( $expectedLexeme, $response->lexeme );
 		$this->assertSame( $revisionId, $response->revisionId );
 		$this->assertSame( $lastModifiedTimestamp, $response->lastModified );
 	}

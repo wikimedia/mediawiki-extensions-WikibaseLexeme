@@ -40,6 +40,7 @@ use Wikibase\Lib\WikibaseContentLanguages;
 use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
@@ -214,7 +215,13 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.GetLexeme' => static function ( MediaWikiServices $services ): GetLexeme {
 			return new GetLexeme(
-				new EntityRevisionLookupLexemeRetriever( WikibaseRepo::getEntityRevisionLookup( $services ) ),
+				new EntityRevisionLookupLexemeRetriever(
+					WikibaseRepo::getEntityRevisionLookup( $services ),
+					new StatementReadModelConverter(
+						WikibaseRepo::getStatementGuidParser( $services ),
+						WikibaseRepo::getPropertyDataTypeLookup( $services ),
+					),
+				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup()
 				),
