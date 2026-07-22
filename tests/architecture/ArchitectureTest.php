@@ -32,6 +32,7 @@ class ArchitectureTest {
 	 * Domain models may depend on:
 	 *  - DataModel namespaces containing entities and their parts
 	 *  - the domain's DummyObjects namespace
+	 *  - the shared Statements domain read models
 	 *  - other classes from their own namespace
 	 */
 	private function allowedDomainModelDependencies(): array {
@@ -39,6 +40,7 @@ class ArchitectureTest {
 			...$this->dataModelNamespaces(),
 			Selector::inNamespace( self::DOMAIN_MODELS ),
 			Selector::inNamespace( self::DOMAIN_DUMMY ),
+			Selector::inNamespace( self::STATEMENTS_READMODEL ),
 		];
 	}
 
