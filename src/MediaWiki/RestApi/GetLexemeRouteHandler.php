@@ -15,6 +15,7 @@ use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
@@ -36,9 +37,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	public function __construct(
 		private GetLexeme $getLexeme,
 		private MiddlewareHandler $middlewareHandler,
-		private LemmasSerializer $lemmasSerializer,
-		private StatementListSerializer $statementListSerializer,
-		private SensesSerializer $sensesSerializer,
+		private LexemeSerializer $lexemeSerializer,
 		private ResponseFactory $responseFactory,
 	) {
 	}
@@ -57,9 +56,11 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
 			] ),
-			new LemmasSerializer(),
-			$statementListSerializer,
-			new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
+			new LexemeSerializer(
+				new LemmasSerializer(),
+				$statementListSerializer,
+				new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
+			),
 			new ResponseFactory(),
 		);
 	}
@@ -90,14 +91,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 		$httpResponse->setHeader( 'ETag', "\"{$useCaseResponse->revisionId}\"" );
 		$httpResponse->setBody( new StringStream(
 			json_encode(
-				[
-					'id' => $useCaseResponse->lexeme->id->getSerialization(),
-					'lemmas' => $this->lemmasSerializer->serialize( $useCaseResponse->lexeme->lemmas ),
-					'statements' => $this->statementListSerializer->serialize(
-						$useCaseResponse->lexeme->statements
-					),
-					'senses' => $this->sensesSerializer->serialize( $useCaseResponse->lexeme->senses ),
-				],
+				$this->lexemeSerializer->serialize( $useCaseResponse->lexeme ),
 				JSON_UNESCAPED_SLASHES
 			)
 		) );
