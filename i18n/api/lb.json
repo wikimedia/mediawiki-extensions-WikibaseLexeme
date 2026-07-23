@@ -11,7 +11,14 @@
 	"apierror-wikibaselexeme-parameter-required": "Parameter \"$1\" ass obligatoresch",
 	"apihelp-wbladdform-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
 	"apihelp-wbladdform-param-lexemeId": "ID vum Lexeem, z.&nbsp;B. L10",
+	"apihelp-wbladdform-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren.",
 	"apihelp-wbladdsense-param-lexemeId": "ID vum Lexeem, z.&nbsp;B. L10",
+	"apihelp-wbladdsense-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren.",
 	"apihelp-wbleditformelements-param-bot": "Dës Ännerung als Bot markéieren. Dës URL Markéierung gëtt nëmme respektéiert wann de Benotzer zur Grupp \"{{int:group-bot}}\" gehéiert.",
-	"apihelp-wblmergelexemes-summary": "Fusionéiert zwee Lexeemer."
+	"apihelp-wbleditformelements-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren.",
+	"apihelp-wbleditsenseelements-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren.",
+	"apihelp-wblmergelexemes-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren.",
+	"apihelp-wblmergelexemes-summary": "Fusionéiert zwee Lexeemer.",
+	"apihelp-wblremoveform-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren.",
+	"apihelp-wblremovesense-param-tags": "Ännerungsmarkéierunge fir op d'Versioun z'applizéieren."
 }
