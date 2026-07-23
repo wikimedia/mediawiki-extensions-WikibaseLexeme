@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Presentation\RestSerialization;
 
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
 
 /**
  * @license GPL-2.0-or-later
@@ -12,7 +13,8 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 class SensesSerializer {
 
 	public function __construct(
-		private GlossesSerializer $glossesSerializer
+		private GlossesSerializer $glossesSerializer,
+		private StatementListSerializer $statementListSerializer,
 	) {
 	}
 
@@ -22,6 +24,7 @@ class SensesSerializer {
 			$result[] = [
 				'id' => $sense->id->getSerialization(),
 				'glosses' => $this->glossesSerializer->serialize( $sense->glosses ),
+				'statements' => $this->statementListSerializer->serialize( $sense->statements ),
 			];
 		}
 		return $result;

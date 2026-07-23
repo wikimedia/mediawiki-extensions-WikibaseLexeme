@@ -12,6 +12,8 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 
 /**
  * @covers \Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer
@@ -22,17 +24,26 @@ use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
  */
 class SensesSerializerTest extends TestCase {
 
+	private const SERIALIZED_STATEMENTS = [ 'P1' => [ 'a serialized statement' ] ];
+
 	/**
 	 * @dataProvider sensesProvider
 	 */
 	public function testSerialize( Senses $senses, array $serialization ): void {
+		$statementListSerializer = $this->createStub( StatementListSerializer::class );
+		$statementListSerializer->method( 'serialize' )
+			->willReturn( new ArrayObject( self::SERIALIZED_STATEMENTS ) );
+
 		$this->assertEquals(
 			$serialization,
-			( new SensesSerializer( new GlossesSerializer() ) )->serialize( $senses )
+			( new SensesSerializer( new GlossesSerializer(), $statementListSerializer ) )
+				->serialize( $senses )
 		);
 	}
 
 	public static function sensesProvider(): Generator {
+		$statements = new ArrayObject( self::SERIALIZED_STATEMENTS );
+
 		yield 'empty' => [
 			new Senses(),
 			[],
@@ -42,13 +53,15 @@ class SensesSerializerTest extends TestCase {
 			new Senses(
 				new Sense(
 					new SenseId( 'L1-S1' ),
-					new Glosses( new Gloss( 'en', 'a domesticated animal' ) )
+					new Glosses( new Gloss( 'en', 'a domesticated animal' ) ),
+					new StatementList()
 				)
 			),
 			[
 				[
 					'id' => 'L1-S1',
 					'glosses' => new ArrayObject( [ 'en' => 'a domesticated animal' ] ),
+					'statements' => $statements,
 				],
 			],
 		];
@@ -57,20 +70,23 @@ class SensesSerializerTest extends TestCase {
 			new Senses(
 				new Sense(
 					new SenseId( 'L1-S1' ),
-					new Glosses( new Gloss( 'en', 'a domesticated animal' ) )
+					new Glosses( new Gloss( 'en', 'a domesticated animal' ) ),
+					new StatementList()
 				),
 				new Sense(
 					new SenseId( 'L1-S2' ),
 					new Glosses(
 						new Gloss( 'en', 'a wild animal' ),
 						new Gloss( 'de', 'ein wildes Tier' )
-					)
+					),
+					new StatementList()
 				)
 			),
 			[
 				[
 					'id' => 'L1-S1',
 					'glosses' => new ArrayObject( [ 'en' => 'a domesticated animal' ] ),
+					'statements' => $statements,
 				],
 				[
 					'id' => 'L1-S2',
@@ -78,6 +94,7 @@ class SensesSerializerTest extends TestCase {
 						'en' => 'a wild animal',
 						'de' => 'ein wildes Tier',
 					] ),
+					'statements' => $statements,
 				],
 			],
 		];

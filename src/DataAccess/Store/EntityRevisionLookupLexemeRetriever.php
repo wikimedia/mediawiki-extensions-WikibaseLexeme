@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
+use Wikibase\DataModel\Statement\StatementList as StatementListWriteModel;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Glosses;
@@ -40,10 +41,7 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			$lexeme->getId(),
 			Lemmas::fromTermList( $lexeme->getLemmas() ),
-			new StatementList( ...array_map(
-				$this->statementReadModelConverter->convert( ... ),
-				iterator_to_array( $lexeme->getStatements() )
-			) ),
+			$this->convertStatements( $lexeme->getStatements() ),
 			$this->buildSenses( $lexeme->getSenses() )
 		);
 	}
@@ -53,10 +51,18 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 		foreach ( $senses->toArray() as $sense ) {
 			$readModelSenses[] = new Sense(
 				$sense->getId(),
-				Glosses::fromTermList( $sense->getGlosses() )
+				Glosses::fromTermList( $sense->getGlosses() ),
+				$this->convertStatements( $sense->getStatements() )
 			);
 		}
 		return new Senses( ...$readModelSenses );
+	}
+
+	private function convertStatements( StatementListWriteModel $statements ): StatementList {
+		return new StatementList( ...array_map(
+			$this->statementReadModelConverter->convert( ... ),
+			iterator_to_array( $statements )
+		) );
 	}
 
 	private function getLexemeWriteModel( LexemeId $lexemeId ): ?LexemeWriteModel {

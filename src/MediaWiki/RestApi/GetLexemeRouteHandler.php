@@ -45,6 +45,12 @@ class GetLexemeRouteHandler extends SimpleHandler {
 
 	public static function factory(): Handler {
 		$propertyValuePairSerializer = new PropertyValuePairSerializer();
+		$statementListSerializer = new StatementListSerializer(
+			new StatementSerializer(
+				$propertyValuePairSerializer,
+				new ReferenceSerializer( $propertyValuePairSerializer )
+			)
+		);
 
 		return new self(
 			WikibaseLexemeServices::getGetLexeme(),
@@ -52,13 +58,8 @@ class GetLexemeRouteHandler extends SimpleHandler {
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
 			] ),
 			new LemmasSerializer(),
-			new StatementListSerializer(
-				new StatementSerializer(
-					$propertyValuePairSerializer,
-					new ReferenceSerializer( $propertyValuePairSerializer )
-				)
-			),
-			new SensesSerializer( new GlossesSerializer() ),
+			$statementListSerializer,
+			new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
 			new ResponseFactory(),
 		);
 	}

@@ -49,7 +49,8 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 			new Senses(
 				new Sense(
 					new SenseId( 'L123-S1' ),
-					new Glosses( new Gloss( $language, $gloss ) )
+					new Glosses( new Gloss( $language, $gloss ) ),
+					new StatementList()
 				)
 			),
 		);
@@ -94,6 +95,38 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 		$this->assertEquals(
 			new StatementList( $readModelStatement ),
 			$retriever->getLexeme( $lexemeId )->statements,
+		);
+	}
+
+	public function testGetLexemeConvertsSenseStatements(): void {
+		$lexemeId = new LexemeId( 'L123' );
+		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )
+			->withSense(
+				NewSense::havingId( 'S1' )->withStatement( new NumericPropertyId( 'P1' ) )
+			)
+			->build();
+
+		$readModelStatement = $this->createStub( Statement::class );
+		$statementReadModelConverter = $this->createMock( StatementReadModelConverter::class );
+		$statementReadModelConverter->expects( $this->once() )
+			->method( 'convert' )
+			->willReturn( $readModelStatement );
+
+		$entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
+		$entityRevisionLookup->expects( $this->once() )
+			->method( 'getEntityRevision' )
+			->with( $lexemeId )
+			->willReturn( new EntityRevision( $lexemeWriteModel ) );
+
+		$retriever = new EntityRevisionLookupLexemeRetriever(
+			$entityRevisionLookup,
+			$statementReadModelConverter,
+		);
+
+		$senses = $retriever->getLexeme( $lexemeId )->senses;
+		$this->assertEquals(
+			new StatementList( $readModelStatement ),
+			iterator_to_array( $senses, false )[0]->statements,
 		);
 	}
 

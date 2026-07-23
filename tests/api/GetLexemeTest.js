@@ -73,7 +73,11 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			} ],
 			senses: [ {
 				add: '',
-				glosses: { en: { language: 'en', value: 'a colour' } }
+				glosses: { en: { language: 'en', value: 'a colour' } },
+				claims: [ {
+					mainsnak: { snaktype: 'novalue', property: propertyId },
+					type: 'statement'
+				} ]
 			} ]
 		} );
 
@@ -98,9 +102,14 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		assert.strictEqual( statement.value.content, 'potato' );
 		assert.strictEqual( statement.rank, 'normal' );
 
-		assert.deepStrictEqual( response.body.senses, [
-			{ id: `${ lexemeId }-S1`, glosses: { en: 'a colour' } }
-		] );
+		assert.strictEqual( response.body.senses.length, 1 );
+		const sense = response.body.senses[ 0 ];
+		assert.strictEqual( sense.id, `${ lexemeId }-S1` );
+		assert.deepStrictEqual( sense.glosses, { en: 'a colour' } );
+		assert.deepStrictEqual( Object.keys( sense.statements ), [ propertyId ] );
+		assert.strictEqual( sense.statements[ propertyId ].length, 1 );
+		assert.strictEqual( sense.statements[ propertyId ][ 0 ].property.id, propertyId );
+		assert.strictEqual( sense.statements[ propertyId ][ 0 ].value.type, 'novalue' );
 
 		assert.equal( response.header[ 'last-modified' ], testModified );
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );
