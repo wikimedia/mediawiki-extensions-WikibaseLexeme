@@ -15,6 +15,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
+use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeValidator;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
@@ -50,7 +51,7 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 		$metadataRetriever->method( 'getLatestRevisionMetadata' )
 			->willReturn( LatestLexemeRevisionMetadataResult::concreteRevision( $revisionId, $lastModifiedTimestamp ) );
 
-		$response = ( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
+		$response = ( new GetLexeme( $lexemeRetriever, $metadataRetriever, new GetLexemeValidator() ) )
 			->execute( new GetLexemeRequest( "$lexemeId" ) );
 
 		$this->assertSame( $expectedLexeme, $response->lexeme );
@@ -70,11 +71,31 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			->willReturn( LatestLexemeRevisionMetadataResult::redirect( $redirectTarget ) );
 
 		try {
-			( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
+			( new GetLexeme( $lexemeRetriever, $metadataRetriever, new GetLexemeValidator() ) )
 				->execute( new GetLexemeRequest( 'L123' ) );
 			$this->fail( 'Expected LexemeRedirect to be thrown' );
 		} catch ( LexemeRedirect $e ) {
 			$this->assertSame( $redirectTarget, $e->redirectTarget );
+		}
+	}
+
+	public function testGivenInvalidLexemeId_executeThrowsUseCaseError(): void {
+		$lexemeRetriever = $this->createMock( LexemeRetriever::class );
+		$lexemeRetriever->expects( $this->never() )
+			->method( 'getLexeme' );
+
+		$metadataRetriever = $this->createMock( LexemeRevisionMetadataRetriever::class );
+		$metadataRetriever->expects( $this->never() )
+			->method( 'getLatestRevisionMetadata' );
+
+		try {
+			( new GetLexeme( $lexemeRetriever, $metadataRetriever, new GetLexemeValidator() ) )
+				->execute( new GetLexemeRequest( 'not-a-lexeme-id' ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::INVALID_PATH_PARAMETER, $e->errorCode );
+			$this->assertSame( "Invalid path parameter: 'lexeme_id'", $e->errorMessage );
+			$this->assertSame( [ UseCaseError::CONTEXT_PARAMETER => 'lexeme_id' ], $e->context );
 		}
 	}
 
@@ -88,7 +109,7 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			->willReturn( LatestLexemeRevisionMetadataResult::lexemeNotFound() );
 
 		try {
-			( new GetLexeme( $lexemeRetriever, $metadataRetriever ) )
+			( new GetLexeme( $lexemeRetriever, $metadataRetriever, new GetLexemeValidator() ) )
 				->execute( new GetLexemeRequest( 'L123' ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {

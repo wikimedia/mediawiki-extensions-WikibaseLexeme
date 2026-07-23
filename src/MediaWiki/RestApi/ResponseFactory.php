@@ -13,22 +13,25 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 class ResponseFactory {
 
 	private const array HTTP_STATUS_LOOKUP_TABLE = [
+		// 400 errors:
+		UseCaseError::INVALID_PATH_PARAMETER => 400,
 		// 404 errors:
 		UseCaseError::LEXEME_NOT_FOUND => 404,
 	];
 
 	public function newErrorResponseFromException( UseCaseError $e ): Response {
-		return $this->newErrorResponse( $e->errorCode, $e->errorMessage );
+		return $this->newErrorResponse( $e->errorCode, $e->errorMessage, $e->context );
 	}
 
-	private function newErrorResponse( string $code, string $message ): Response {
+	private function newErrorResponse( string $code, string $message, array $context = [] ): Response {
 		$httpResponse = new Response();
 		$httpResponse->setHeader( 'Content-Type', 'application/json' );
 		$httpResponse->setHeader( 'Content-Language', 'en' );
 		$httpResponse->setStatus( $this->lookupHttpStatus( $code ) );
 		$httpResponse->setBody(
 			new StringStream( json_encode(
-					[ 'code' => $code, 'message' => $message ],
+					// array_filter drops 'context' from the body when it is empty
+					array_filter( [ 'code' => $code, 'message' => $message, 'context' => $context ] ),
 					JSON_UNESCAPED_SLASHES )
 			) );
 

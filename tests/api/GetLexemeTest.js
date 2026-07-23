@@ -115,6 +115,17 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );
 	} );
 
+	it( 'responds with a 400 error if the lexeme id is invalid', async () => {
+		const response = await client.get( '/entities/lexemes/X123' );
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.header( response, 'Content-Language', 'en' );
+		assert.header( response, 'Content-Type', 'application/json' );
+		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
+		assert.strictEqual( response.body.message, "Invalid path parameter: 'lexeme_id'" );
+		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
+	} );
+
 	it( 'responds with a 404 error if lexeme not found', async () => {
 		const response = await client.get( '/entities/lexemes/L999999' );
 

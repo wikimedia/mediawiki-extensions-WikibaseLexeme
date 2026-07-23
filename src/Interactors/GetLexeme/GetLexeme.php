@@ -4,7 +4,6 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Interactors\GetLexeme;
 
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -17,6 +16,7 @@ class GetLexeme {
 	public function __construct(
 		private LexemeRetriever $lexemeRetriever,
 		private LexemeRevisionMetadataRetriever $metadataRetriever,
+		private GetLexemeValidator $validator,
 	) {
 	}
 
@@ -24,7 +24,9 @@ class GetLexeme {
 	 * @throws LexemeRedirect
 	 */
 	public function execute( GetLexemeRequest $request ): GetLexemeResponse {
-		$lexemeId = new LexemeId( $request->lexemeId );
+		$this->validator->validate( $request );
+		$lexemeId = $this->validator->getValidatedLexemeId();
+
 		$metaData = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
 
 		if ( !$metaData->lexemeExists() ) {

@@ -32,6 +32,20 @@ class ResponseFactoryTest extends TestCase {
 		$this->assertSame( $httpStatus, $httpResponse->getStatusCode() );
 	}
 
+	public function testNewErrorResponseFromException_includesContext(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newInvalidPathParameter( 'lexeme_id' )
+		);
+
+		$this->assertSame( 400, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "invalid-path-parameter",'
+				. ' "message": "Invalid path parameter: \'lexeme_id\'",'
+				. ' "context": { "parameter": "lexeme_id" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
 	public function testGivenErrorCodeNotAssignedStatusCode_throwLogicException(): void {
 		$this->expectException( LogicException::class );
 
