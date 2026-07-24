@@ -61,8 +61,8 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 				'en-ca': { language: 'en-ca', value: 'colour' },
 				'en-us': { language: 'en-us', value: 'color' }
 			},
-			language: languageId,
 			lexicalCategory: lexicalCategoryId,
+			language: languageId,
 			claims: [ {
 				mainsnak: {
 					snaktype: 'value',
@@ -87,12 +87,14 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 	} );
 
-	it( 'returns the lexeme with the requested ID, lemmas, statements and senses', async () => {
+	it( 'returns the lexeme with all its data', async () => {
 		const response = await client.get( `/entities/lexemes/${ lexemeId }` );
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.strictEqual( response.body.id, lexemeId );
 		assert.deepStrictEqual( response.body.lemmas, { 'en-ca': 'colour', 'en-us': 'color' } );
+		assert.deepStrictEqual( response.body.lexical_category, lexicalCategoryId );
+		assert.deepStrictEqual( response.body.language, languageId );
 
 		assert.deepStrictEqual( Object.keys( response.body.statements ), [ propertyId ] );
 		const [ statement ] = response.body.statements[ propertyId ];

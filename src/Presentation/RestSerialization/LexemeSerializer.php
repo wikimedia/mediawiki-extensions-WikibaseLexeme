@@ -23,6 +23,8 @@ class LexemeSerializer {
 		return [
 			'id' => $lexeme->id->getSerialization(),
 			'lemmas' => $this->lemmasSerializer->serialize( $lexeme->lemmas ),
+			'lexical_category' => $lexeme->lexicalCategory->getSerialization(),
+			'language' => $lexeme->language->getSerialization(),
 			'statements' => $this->statementListSerializer->serialize( $lexeme->statements ),
 			'senses' => $this->sensesSerializer->serialize( $lexeme->senses ),
 		];

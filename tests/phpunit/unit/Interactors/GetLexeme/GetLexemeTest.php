@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\Unit\Interactors\GetLexeme;
 
 use MediaWikiUnitTestCase;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LatestLexemeRevisionMetadataResult;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
@@ -35,6 +36,8 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 				new Lemma( 'en-ca', 'colour' ),
 				new Lemma( 'en-us', 'color' ),
 			),
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
 			new StatementList(),
 			new Senses(),
 		);

@@ -5,6 +5,7 @@ declare( strict_types=1 );
 namespace Wikibase\Lexeme\Tests\Unit\DataAccess;
 
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
@@ -35,21 +36,27 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 
 	public function testGetLexeme(): void {
 		$lexemeId = new LexemeId( 'L123' );
-		$language = 'en';
+		$languageCode = 'en';
 		$lemma = 'potato';
+		$lexicalCategory = new ItemId( 'Q1' );
+		$language = new ItemId( 'Q2' );
 		$gloss = 'an edible tuber';
 		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )
-			->withLemma( $language, $lemma )
-			->withSense( NewSense::havingId( 'S1' )->withGloss( $language, $gloss ) )
+			->withLemma( $languageCode, $lemma )
+			->withLexicalCategory( $lexicalCategory )
+			->withLanguage( $language )
+			->withSense( NewSense::havingId( 'S1' )->withGloss( $languageCode, $gloss ) )
 			->build();
 		$expectedLexemeReadModel = new Lexeme(
 			$lexemeId,
-			new Lemmas( new Lemma( $language, $lemma ) ),
+			new Lemmas( new Lemma( $languageCode, $lemma ) ),
+			$lexicalCategory,
+			$language,
 			new StatementList(),
 			new Senses(
 				new Sense(
 					new SenseId( 'L123-S1' ),
-					new Glosses( new Gloss( $language, $gloss ) ),
+					new Glosses( new Gloss( $languageCode, $gloss ) ),
 					new StatementList()
 				)
 			),

@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\Unit\Presentation\RestSerialization;
 
 use ArrayObject;
 use PHPUnit\Framework\TestCase;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
@@ -26,9 +27,11 @@ class LexemeSerializerTest extends TestCase {
 	public function testSerialize(): void {
 		$id = new LexemeId( 'L1' );
 		$lemmas = $this->createStub( Lemmas::class );
+		$lexicalCategory = new ItemId( 'Q1' );
+		$language = new ItemId( 'Q2' );
 		$statements = $this->createStub( StatementList::class );
 		$senses = $this->createStub( Senses::class );
-		$lexeme = new Lexeme( $id, $lemmas, $statements, $senses );
+		$lexeme = new Lexeme( $id, $lemmas, $lexicalCategory, $language, $statements, $senses );
 
 		$serializedLemmas = new ArrayObject( [ 'en' => 'colour' ] );
 		$serializedStatements = new ArrayObject( [ 'P1' => [ 'a serialized statement' ] ] );
@@ -56,6 +59,8 @@ class LexemeSerializerTest extends TestCase {
 			[
 				'id' => "$id",
 				'lemmas' => $serializedLemmas,
+				'lexical_category' => "$lexicalCategory",
+				'language' => "$language",
 				'statements' => $serializedStatements,
 				'senses' => $serializedSenses,
 			],

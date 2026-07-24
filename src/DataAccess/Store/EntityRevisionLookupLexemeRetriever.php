@@ -41,6 +41,8 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			$lexeme->getId(),
 			Lemmas::fromTermList( $lexeme->getLemmas() ),
+			$lexeme->getLexicalCategory(),
+			$lexeme->getLanguage(),
 			$this->convertStatements( $lexeme->getStatements() ),
 			$this->buildSenses( $lexeme->getSenses() )
 		);

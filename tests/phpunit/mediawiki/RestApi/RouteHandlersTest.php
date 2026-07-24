@@ -12,6 +12,7 @@ use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Throwable;
+use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
@@ -123,6 +124,8 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 						new Lemma( 'en-ca', 'colour' ),
 						new Lemma( 'en-us', 'color' )
 					),
+					new ItemId( 'Q1' ),
+					new ItemId( 'Q2' ),
 					new StatementList(),
 					new Senses()
 				),
