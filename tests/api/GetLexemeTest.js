@@ -71,6 +71,18 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 				},
 				type: 'statement'
 			} ],
+			forms: [ {
+				add: '',
+				representations: {
+					'en-gb': { language: 'en-gb', value: 'colourise' },
+					'en-us': { language: 'en-us', value: 'colorize' }
+				},
+				grammaticalFeatures: [ 'Q1', 'Q2' ],
+				claims: [ {
+					mainsnak: { snaktype: 'novalue', property: propertyId },
+					type: 'statement'
+				} ]
+			} ],
 			senses: [ {
 				add: '',
 				glosses: { en: { language: 'en', value: 'a colour' } },
@@ -103,6 +115,15 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		assert.strictEqual( statement.value.type, 'value' );
 		assert.strictEqual( statement.value.content, 'potato' );
 		assert.strictEqual( statement.rank, 'normal' );
+
+		assert.strictEqual( response.body.forms.length, 1 );
+		const form = response.body.forms[ 0 ];
+		assert.strictEqual( form.id, `${ lexemeId }-F1` );
+		assert.deepStrictEqual( form.representations, { 'en-gb': 'colourise', 'en-us': 'colorize' } );
+		assert.deepStrictEqual( form.grammatical_features, [ 'Q1', 'Q2' ] );
+		assert.deepStrictEqual( Object.keys( form.statements ), [ propertyId ] );
+		assert.strictEqual( form.statements[ propertyId ][ 0 ].property.id, propertyId );
+		assert.strictEqual( form.statements[ propertyId ][ 0 ].value.type, 'novalue' );
 
 		assert.strictEqual( response.body.senses.length, 1 );
 		const sense = response.body.senses[ 0 ];

@@ -19,6 +19,7 @@ class Lexeme {
 		public readonly ItemId $lexicalCategory,
 		public readonly ItemId $language,
 		public readonly StatementList $statements,
+		public readonly Forms $forms,
 		public readonly Senses $senses,
 	) {
 	}

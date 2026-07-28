@@ -5,11 +5,16 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use Wikibase\DataModel\Statement\StatementList as StatementListWriteModel;
+use Wikibase\Lexeme\Domain\Model\FormSet;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Form;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Glosses;
+use Wikibase\Lexeme\Domain\Model\ReadModel\GrammaticalFeatures;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Representations;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Sense;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
@@ -44,8 +49,22 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 			$lexeme->getLexicalCategory(),
 			$lexeme->getLanguage(),
 			$this->convertStatements( $lexeme->getStatements() ),
+			$this->buildForms( $lexeme->getForms() ),
 			$this->buildSenses( $lexeme->getSenses() )
 		);
+	}
+
+	private function buildForms( FormSet $forms ): Forms {
+		$readModelForms = [];
+		foreach ( $forms->toArray() as $form ) {
+			$readModelForms[] = new Form(
+				$form->getId(),
+				Representations::fromTermList( $form->getRepresentations() ),
+				new GrammaticalFeatures( ...$form->getGrammaticalFeatures() ),
+				$this->convertStatements( $form->getStatements() )
+			);
+		}
+		return new Forms( ...$readModelForms );
 	}
 
 	private function buildSenses( SenseSet $senses ): Senses {

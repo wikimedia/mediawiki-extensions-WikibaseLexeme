@@ -15,6 +15,7 @@ class LexemeSerializer {
 	public function __construct(
 		private LemmasSerializer $lemmasSerializer,
 		private StatementListSerializer $statementListSerializer,
+		private FormsSerializer $formsSerializer,
 		private SensesSerializer $sensesSerializer,
 	) {
 	}
@@ -26,6 +27,7 @@ class LexemeSerializer {
 			'lexical_category' => $lexeme->lexicalCategory->getSerialization(),
 			'language' => $lexeme->language->getSerialization(),
 			'statements' => $this->statementListSerializer->serialize( $lexeme->statements ),
+			'forms' => $this->formsSerializer->serialize( $lexeme->forms ),
 			'senses' => $this->sensesSerializer->serialize( $lexeme->senses ),
 		];
 	}

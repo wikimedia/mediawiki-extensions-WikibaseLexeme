@@ -14,6 +14,7 @@ use RuntimeException;
 use Throwable;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
@@ -127,6 +128,7 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 					new ItemId( 'Q1' ),
 					new ItemId( 'Q2' ),
 					new StatementList(),
+					new Forms(),
 					new Senses()
 				),
 				42,

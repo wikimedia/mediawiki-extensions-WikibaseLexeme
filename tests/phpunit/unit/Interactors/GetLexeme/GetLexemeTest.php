@@ -7,6 +7,7 @@ namespace Wikibase\Lexeme\Tests\Unit\Interactors\GetLexeme;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LatestLexemeRevisionMetadataResult;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
@@ -39,6 +40,7 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 			new ItemId( 'Q1' ),
 			new ItemId( 'Q2' ),
 			new StatementList(),
+			new Forms(),
 			new Senses(),
 		);
 		$lastModifiedTimestamp = '20261111070707';

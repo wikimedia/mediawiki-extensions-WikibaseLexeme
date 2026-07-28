@@ -6,9 +6,11 @@ use ArrayObject;
 use PHPUnit\Framework\TestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Presentation\RestSerialization\FormsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
@@ -30,11 +32,12 @@ class LexemeSerializerTest extends TestCase {
 		$lexicalCategory = new ItemId( 'Q1' );
 		$language = new ItemId( 'Q2' );
 		$statements = $this->createStub( StatementList::class );
+		$forms = $this->createStub( Forms::class );
 		$senses = $this->createStub( Senses::class );
-		$lexeme = new Lexeme( $id, $lemmas, $lexicalCategory, $language, $statements, $senses );
-
+		$lexeme = new Lexeme( $id, $lemmas, $lexicalCategory, $language, $statements, $forms, $senses );
 		$serializedLemmas = new ArrayObject( [ 'en' => 'colour' ] );
 		$serializedStatements = new ArrayObject( [ 'P1' => [ 'a serialized statement' ] ] );
+		$serializedForms = [ [ 'id' => 'L1-F1' ] ];
 		$serializedSenses = [ [ 'id' => 'L1-S1' ] ];
 
 		$lemmasSerializer = $this->createMock( LemmasSerializer::class );
@@ -49,6 +52,12 @@ class LexemeSerializerTest extends TestCase {
 			->with( $statements )
 			->willReturn( $serializedStatements );
 
+		$formsSerializer = $this->createMock( FormsSerializer::class );
+		$formsSerializer->expects( $this->once() )
+			->method( 'serialize' )
+			->with( $this->isInstanceOf( Forms::class ) )
+			->willReturn( $serializedForms );
+
 		$sensesSerializer = $this->createMock( SensesSerializer::class );
 		$sensesSerializer->expects( $this->once() )
 			->method( 'serialize' )
@@ -62,11 +71,13 @@ class LexemeSerializerTest extends TestCase {
 				'lexical_category' => "$lexicalCategory",
 				'language' => "$language",
 				'statements' => $serializedStatements,
+				'forms' => $serializedForms,
 				'senses' => $serializedSenses,
 			],
 			( new LexemeSerializer(
 				$lemmasSerializer,
 				$statementListSerializer,
+				$formsSerializer,
 				$sensesSerializer,
 			) )->serialize( $lexeme )
 		);

@@ -9,15 +9,22 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Form;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Gloss;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Glosses;
+use Wikibase\Lexeme\Domain\Model\ReadModel\GrammaticalFeatures;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Representation;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Representations;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Sense;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
@@ -40,11 +47,18 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 		$lemma = 'potato';
 		$lexicalCategory = new ItemId( 'Q1' );
 		$language = new ItemId( 'Q2' );
+		$representation = 'potatoes';
+		$itemIds = [ new ItemId( 'Q1' ), new ItemId( 'Q3' ) ];
 		$gloss = 'an edible tuber';
 		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )
 			->withLemma( $languageCode, $lemma )
 			->withLexicalCategory( $lexicalCategory )
 			->withLanguage( $language )
+			->withForm( NewForm::havingId( 'F1' )
+				->andRepresentation( $languageCode, $representation )
+				->andGrammaticalFeature( $itemIds[0] )
+				->andGrammaticalFeature( $itemIds[1] )
+			)
 			->withSense( NewSense::havingId( 'S1' )->withGloss( $languageCode, $gloss ) )
 			->build();
 		$expectedLexemeReadModel = new Lexeme(
@@ -53,6 +67,14 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 			$lexicalCategory,
 			$language,
 			new StatementList(),
+			new Forms(
+				new Form(
+					new FormId( 'L123-F1' ),
+					new Representations( new Representation( $languageCode, $representation ) ),
+					new GrammaticalFeatures( ...$itemIds ),
+					new StatementList()
+				)
+			),
 			new Senses(
 				new Sense(
 					new SenseId( 'L123-S1' ),
@@ -102,6 +124,38 @@ class EntityRevisionLookupLexemeRetrieverTest extends TestCase {
 		$this->assertEquals(
 			new StatementList( $readModelStatement ),
 			$retriever->getLexeme( $lexemeId )->statements,
+		);
+	}
+
+	public function testGetLexemeConvertsFormStatements(): void {
+		$lexemeId = new LexemeId( 'L123' );
+		$lexemeWriteModel = NewLexeme::havingId( $lexemeId )
+			->withForm(
+				NewForm::havingId( 'F1' )->andStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
+			)
+			->build();
+
+		$readModelStatement = $this->createStub( Statement::class );
+		$statementReadModelConverter = $this->createMock( StatementReadModelConverter::class );
+		$statementReadModelConverter->expects( $this->once() )
+			->method( 'convert' )
+			->willReturn( $readModelStatement );
+
+		$entityRevisionLookup = $this->createMock( EntityRevisionLookup::class );
+		$entityRevisionLookup->expects( $this->once() )
+			->method( 'getEntityRevision' )
+			->with( $lexemeId )
+			->willReturn( new EntityRevision( $lexemeWriteModel ) );
+
+		$retriever = new EntityRevisionLookupLexemeRetriever(
+			$entityRevisionLookup,
+			$statementReadModelConverter,
+		);
+
+		$forms = $retriever->getLexeme( $lexemeId )->forms;
+		$this->assertEquals(
+			new StatementList( $readModelStatement ),
+			iterator_to_array( $forms, false )[0]->statements,
 		);
 	}
 

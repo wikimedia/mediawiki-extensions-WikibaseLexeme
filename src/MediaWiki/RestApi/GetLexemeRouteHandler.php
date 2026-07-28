@@ -13,9 +13,12 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\Presentation\RestSerialization\FormsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\GrammaticalFeaturesSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
@@ -59,6 +62,11 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			new LexemeSerializer(
 				new LemmasSerializer(),
 				$statementListSerializer,
+				new FormsSerializer(
+					new RepresentationsSerializer(),
+					new GrammaticalFeaturesSerializer(),
+					$statementListSerializer
+				),
 				new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
 			),
 			new ResponseFactory(),
