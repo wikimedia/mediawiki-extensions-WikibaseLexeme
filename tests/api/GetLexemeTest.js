@@ -3,16 +3,19 @@
 
 const { assert, action, utils, REST } = require( 'api-testing' );
 
-const client = new REST( 'rest.php/wikibase/v0' );
-// TODO create something like Wikibase.ci.php to avoid loading routes this way
-client.req.set(
-	'X-Config-Override',
-	JSON.stringify( {
+function newLexemeClient( user = null ) {
+	const restClient = new REST( 'rest.php/wikibase/v0', user );
+	// TODO create something like Wikibase.ci.php to avoid loading routes this way
+	restClient.req.set( 'X-Config-Override', JSON.stringify( {
 		wgRestAPIAdditionalRouteFiles: [
 			'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json'
 		]
-	} )
-);
+	} ) );
+
+	return restClient;
+}
+
+const client = newLexemeClient();
 
 const crudClient = new REST( '/rest.php/wikibase/v1' );
 crudClient.req.set( 'User-Agent', 'api-tests' );
@@ -136,6 +139,15 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 		assert.equal( response.header[ 'last-modified' ], testModified );
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );
+	} );
+
+	it( 'responds with an X-Authenticated-User header for a logged in user', async () => {
+		const user = await action.alice();
+
+		const response = await newLexemeClient( user ).get( `/entities/lexemes/${ lexemeId }` );
+
+		assert.strictEqual( response.status, 200, response.text );
+		assert.header( response, 'X-Authenticated-User', user.username );
 	} );
 
 	it( 'responds with a 400 error if the lexeme id is invalid', async () => {

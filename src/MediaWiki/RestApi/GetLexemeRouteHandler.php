@@ -4,6 +4,7 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
@@ -25,6 +26,7 @@ use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePair
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
+use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
@@ -58,6 +60,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getGetLexeme(),
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
 			] ),
 			new LexemeSerializer(
 				new LemmasSerializer(),
