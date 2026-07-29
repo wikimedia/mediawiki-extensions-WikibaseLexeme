@@ -28,6 +28,7 @@ use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSeri
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
 use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
+use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 use Wikimedia\Timestamp\TimestampFormat as TS;
@@ -60,6 +61,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getGetLexeme(),
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+				new UserAgentCheckMiddleware(),
 				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
 			] ),
 			new LexemeSerializer(

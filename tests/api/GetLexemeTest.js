@@ -5,6 +5,7 @@ const { assert, action, utils, REST } = require( 'api-testing' );
 
 function newLexemeClient( user = null ) {
 	const restClient = new REST( 'rest.php/wikibase/v0', user );
+	restClient.req.set( 'User-Agent', 'api-tests' );
 	// TODO create something like Wikibase.ci.php to avoid loading routes this way
 	restClient.req.set( 'X-Config-Override', JSON.stringify( {
 		wgRestAPIAdditionalRouteFiles: [
@@ -148,6 +149,19 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.header( response, 'X-Authenticated-User', user.username );
+	} );
+
+	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
+		const response = await client.get(
+			`/entities/lexemes/${ lexemeId }`,
+			{},
+			{ 'user-agent': '' }
+		);
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.header( response, 'Content-Language', 'en' );
+		assert.strictEqual( response.body.code, 'missing-user-agent' );
+		assert.include( response.body.message, 'User-Agent' );
 	} );
 
 	it( 'responds with a 400 error if the lexeme id is invalid', async () => {
