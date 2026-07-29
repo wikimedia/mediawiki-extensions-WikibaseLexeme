@@ -3,8 +3,8 @@
 
 const { assert, action, utils, REST } = require( 'api-testing' );
 
-function newLexemeClient( user = null ) {
-	const restClient = new REST( 'rest.php/wikibase/v0', user );
+function newClient( user = null ) {
+	const restClient = new REST( 'rest.php/wikibase', user );
 	restClient.req.set( 'User-Agent', 'api-tests' );
 	// TODO create something like Wikibase.ci.php to avoid loading routes this way
 	restClient.req.set( 'X-Config-Override', JSON.stringify( {
@@ -16,10 +16,7 @@ function newLexemeClient( user = null ) {
 	return restClient;
 }
 
-const client = newLexemeClient();
-
-const crudClient = new REST( '/rest.php/wikibase/v1' );
-crudClient.req.set( 'User-Agent', 'api-tests' );
+const client = newClient();
 
 describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let languageId;
@@ -41,20 +38,20 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	}
 
 	before( async () => {
-		const languageResponse = await crudClient.post(
-			'/entities/items',
+		const languageResponse = await client.post(
+			'/v1/entities/items',
 			{ item: { labels: { en: 'test-language' } } }
 		);
 		languageId = languageResponse.body.id;
 
-		const lexicalCategoryResponse = await crudClient.post(
-			'/entities/items',
+		const lexicalCategoryResponse = await client.post(
+			'/v1/entities/items',
 			{ item: { labels: { en: 'test-lexical-category' } } }
 		);
 		lexicalCategoryId = lexicalCategoryResponse.body.id;
 
-		const propertyResponse = await crudClient.post(
-			'/entities/properties',
+		const propertyResponse = await client.post(
+			'/v1/entities/properties',
 			// eslint-disable-next-line camelcase
 			{ property: { data_type: 'string', labels: { en: `test-property-${ utils.uniq() }` } } }
 		);
@@ -104,7 +101,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	it( 'returns the lexeme with all its data', async () => {
-		const response = await client.get( `/entities/lexemes/${ lexemeId }` );
+		const response = await client.get( `/v0/entities/lexemes/${ lexemeId }` );
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.strictEqual( response.body.id, lexemeId );
@@ -145,7 +142,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	it( 'responds with an X-Authenticated-User header for a logged in user', async () => {
 		const user = await action.alice();
 
-		const response = await newLexemeClient( user ).get( `/entities/lexemes/${ lexemeId }` );
+		const response = await newClient( user ).get( `/v0/entities/lexemes/${ lexemeId }` );
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.header( response, 'X-Authenticated-User', user.username );
@@ -153,7 +150,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
 		const response = await client.get(
-			`/entities/lexemes/${ lexemeId }`,
+			`/v0/entities/lexemes/${ lexemeId }`,
 			{},
 			{ 'user-agent': '' }
 		);
@@ -165,7 +162,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	it( 'responds with a 400 error if the lexeme id is invalid', async () => {
-		const response = await client.get( '/entities/lexemes/X123' );
+		const response = await client.get( '/v0/entities/lexemes/X123' );
 
 		assert.strictEqual( response.status, 400, response.text );
 		assert.header( response, 'Content-Language', 'en' );
@@ -176,7 +173,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	it( 'responds with a 404 error if lexeme not found', async () => {
-		const response = await client.get( '/entities/lexemes/L999999' );
+		const response = await client.get( '/v0/entities/lexemes/L999999' );
 
 		assert.strictEqual( response.status, 404, response.text );
 		assert.header( response, 'Content-Language', 'en' );
@@ -204,7 +201,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		} );
 
 		it( 'responds with a 308 including the redirect target location', async () => {
-			const response = await client.get( `/entities/lexemes/${ redirectSourceId }` );
+			const response = await client.get( `/v0/entities/lexemes/${ redirectSourceId }` );
 
 			assert.strictEqual( response.status, 308, response.text );
 			assert.isTrue(
