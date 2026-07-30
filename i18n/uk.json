@@ -10,7 +10,8 @@
 			"Renamerr",
 			"Vlad5250",
 			"Ата",
-			"Пан Хаунд"
+			"Пан Хаунд",
+			"Repakr"
 		]
 	},
 	"content-model-wikibase-lexeme": "Лексема Вікібази",
@@ -96,6 +97,7 @@
 	"wikibaselexeme-form-description": "$1 для: $2 ($3): $4",
 	"wikibaselexeme-form-field-language-label": "Варіант написання",
 	"wikibaselexeme-form-field-representation-label": "Репрезентація",
+	"wikibaselexeme-form-field-required": "Обов'язкове поле",
 	"wikibaselexeme-form-grammatical-features": "Граматичні ознаки",
 	"wikibaselexeme-form-representation-redundant-language": "Неможливо ввести кілька репрезентацій з одним і тим самим варіантом написання.",
 	"wikibaselexeme-formidformatter-link-title": "$1: $2",
@@ -116,6 +118,7 @@
 	"wikibaselexeme-newlexeme-language-placeholder": "Введіть мову лексеми, напр., «українська»",
 	"wikibaselexeme-newlexeme-lemma": "Лема",
 	"wikibaselexeme-newlexeme-lemma-language": "Варіант написання Леми",
+	"wikibaselexeme-newlexeme-lemma-language-help-link-text": "(Довідка)",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Коротка форма слова, напр., «перший»",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексична категорія",
 	"wikibaselexeme-newlexeme-lexicalcategory-placeholder": "Введіть категорію лексеми, напр., «чисельник»",
