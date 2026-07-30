@@ -21,6 +21,8 @@ const client = newClient();
 describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let languageId;
 	let lexicalCategoryId;
+	let grammaticalFeature1Id;
+	let grammaticalFeature2Id;
 	let propertyId;
 	let lexemeId;
 	let testModified;
@@ -50,6 +52,18 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		);
 		lexicalCategoryId = lexicalCategoryResponse.body.id;
 
+		const grammaticalFeature1Response = await client.post(
+			'/v1/entities/items',
+			{ item: { labels: { en: 'test-grammatical-feature1' } } }
+		);
+		grammaticalFeature1Id = grammaticalFeature1Response.body.id;
+
+		const grammaticalFeature2Response = await client.post(
+			'/v1/entities/items',
+			{ item: { labels: { en: 'test-grammatical-feature2' } } }
+		);
+		grammaticalFeature2Id = grammaticalFeature2Response.body.id;
+
 		const propertyResponse = await client.post(
 			'/v1/entities/properties',
 			// eslint-disable-next-line camelcase
@@ -78,7 +92,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 					'en-gb': { language: 'en-gb', value: 'colourise' },
 					'en-us': { language: 'en-us', value: 'colorize' }
 				},
-				grammaticalFeatures: [ 'Q1', 'Q2' ],
+				grammaticalFeatures: [ grammaticalFeature1Id, grammaticalFeature2Id ],
 				claims: [ {
 					mainsnak: { snaktype: 'novalue', property: propertyId },
 					type: 'statement'
@@ -121,7 +135,12 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		const form = response.body.forms[ 0 ];
 		assert.strictEqual( form.id, `${ lexemeId }-F1` );
 		assert.deepStrictEqual( form.representations, { 'en-gb': 'colourise', 'en-us': 'colorize' } );
-		assert.deepStrictEqual( form.grammatical_features, [ 'Q1', 'Q2' ] );
+		assert.deepStrictEqual(
+			form.grammatical_features,
+			[
+				grammaticalFeature1Id,
+				grammaticalFeature2Id
+			] );
 		assert.deepStrictEqual( Object.keys( form.statements ), [ propertyId ] );
 		assert.strictEqual( form.statements[ propertyId ][ 0 ].property.id, propertyId );
 		assert.strictEqual( form.statements[ propertyId ][ 0 ].value.type, 'novalue' );
