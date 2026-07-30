@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeseri
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\Repo\Api\EntitySearchHelper;
+use Wikibase\Repo\RestApi\Middleware\PreconditionMiddlewareFactory;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
@@ -99,6 +100,13 @@ class WikibaseLexemeServices {
 	): UnexpectedErrorHandlerMiddleware {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexeme.UnexpectedErrorHandlerMiddleware' );
+	}
+
+	public static function getPreconditionMiddlewareFactory(
+		?ContainerInterface $services = null
+	): PreconditionMiddlewareFactory {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.PreconditionMiddlewareFactory' );
 	}
 
 }

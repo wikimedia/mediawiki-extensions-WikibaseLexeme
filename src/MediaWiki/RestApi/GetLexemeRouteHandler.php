@@ -6,7 +6,9 @@ namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Rest\RequestInterface;
 use MediaWiki\Rest\Response;
+use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
@@ -63,6 +65,9 @@ class GetLexemeRouteHandler extends SimpleHandler {
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
 				new UserAgentCheckMiddleware(),
 				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
+				WikibaseLexemeServices::getPreconditionMiddlewareFactory()->newPreconditionMiddleware(
+					fn ( RequestInterface $request ): string => $request->getPathParam( self::LEXEME_ID_PATH_PARAM )
+				),
 			] ),
 			new LexemeSerializer(
 				new LemmasSerializer(),
@@ -138,6 +143,13 @@ class GetLexemeRouteHandler extends SimpleHandler {
 
 	public function needsWriteAccess(): bool {
 		return false;
+	}
+
+	/**
+	 * Preconditions are checked via {@link PreconditionMiddleware}
+	 */
+	public function checkPreconditions(): ?ResponseInterface {
+		return null;
 	}
 
 }

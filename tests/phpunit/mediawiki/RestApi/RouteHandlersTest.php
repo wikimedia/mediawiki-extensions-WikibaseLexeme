@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\RestApi;
 
 use Generator;
 use LogicException;
+use MediaWiki\Rest\ConditionalHeaderUtil;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Reporter\ErrorReporter;
 use MediaWiki\Rest\RequestData;
@@ -12,6 +13,7 @@ use MediaWiki\Tests\Rest\Handler\HandlerTestTrait;
 use MediaWikiIntegrationTestCase;
 use RuntimeException;
 use Throwable;
+use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
@@ -23,7 +25,10 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lib\Store\EntityRevisionLookup;
+use Wikibase\Lib\Store\LatestRevisionIdResult;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
+use Wikibase\Repo\RestApi\Middleware\PreconditionMiddlewareFactory;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
 /**
@@ -45,6 +50,11 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 			file_get_contents( __DIR__ . '/../../../../src/MediaWiki/RestApi/routes.dev.json' ),
 			true
 		);
+	}
+
+	protected function setUp(): void {
+		parent::setUp();
+		$this->stubPreconditionMiddlewareFactory();
 	}
 
 	/**
@@ -189,6 +199,20 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 		}
 
 		throw new LogicException( "No route found for use case $useCaseName" );
+	}
+
+	/**
+	 * Overrides the PreconditionMiddlewareFactory service with one that doesn't need the database.
+	 */
+	private function stubPreconditionMiddlewareFactory(): void {
+		$entityRevLookup = $this->createStub( EntityRevisionLookup::class );
+		$entityRevLookup->method( 'getLatestRevisionId' )->willReturn( LatestRevisionIdResult::nonexistentEntity() );
+		$preconditionMiddlewareFactory = new PreconditionMiddlewareFactory(
+			$entityRevLookup,
+			new BasicEntityIdParser(),
+			new ConditionalHeaderUtil()
+		);
+		$this->setService( 'WikibaseLexeme.PreconditionMiddlewareFactory', $preconditionMiddlewareFactory );
 	}
 
 }

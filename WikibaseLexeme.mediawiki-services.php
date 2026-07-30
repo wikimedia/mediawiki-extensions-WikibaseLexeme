@@ -2,6 +2,7 @@
 
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Rest\ConditionalHeaderUtil;
 use MediaWiki\Rest\Reporter\ErrorReporter;
 use MediaWiki\Rest\Reporter\MWErrorReporter;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
@@ -44,6 +45,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
+use Wikibase\Repo\RestApi\Middleware\PreconditionMiddlewareFactory;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 use Wikibase\Repo\Store\Store;
 use Wikibase\Repo\Validators\EntityExistsValidator;
@@ -231,6 +233,15 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.ErrorReporter' => static function ( MediaWikiServices $services ): ErrorReporter {
 			return new MWErrorReporter();
+		},
+		'WikibaseLexeme.PreconditionMiddlewareFactory' => static function (
+			MediaWikiServices $services
+		): PreconditionMiddlewareFactory {
+			return new PreconditionMiddlewareFactory(
+				WikibaseRepo::getEntityRevisionLookup( $services ),
+				WikibaseRepo::getEntityIdParser( $services ),
+				new ConditionalHeaderUtil()
+			);
 		},
 		'WikibaseLexeme.UnexpectedErrorHandlerMiddleware' => static function (
 			MediaWikiServices $services

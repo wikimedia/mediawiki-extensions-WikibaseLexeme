@@ -1,6 +1,39 @@
 'use strict';
 
-const { action } = require( 'api-testing' );
+const { action, utils } = require( 'api-testing' );
+const { newCreateItemRequestBuilder } = require( './RequestBuilderFactory' );
+
+let testItemId;
+let testLexemeId;
+
+/**
+ * Creates a reusable item on the first call and returns it on subsequent calls.
+ * Use this only when the existing item data does not matter.
+ */
+
+async function getItemId() {
+
+	const response = ( await newCreateItemRequestBuilder( {} ).makeRequest() );
+	testItemId = testItemId || response.body.id;
+	return testItemId;
+}
+
+/**
+ * Creates a reusable lexeme on the first call and returns it on subsequent calls.
+ * Use this only when the existing lexeme data does not matter.
+ */
+
+async function getLexemeId() {
+	testLexemeId = testLexemeId || ( await createLexeme(
+		{
+			lemmas: { en: { language: 'en', value: `test-lemma-${ utils.uniq() }` } },
+			lexicalCategory: await getItemId(),
+			language: await getItemId()
+		}
+	) );
+
+	return testLexemeId;
+}
 
 async function createLexeme( lexeme ) {
 	const anon = await action.getAnon();
@@ -28,6 +61,7 @@ async function getLatestEditMetadata( lexemeId ) {
 }
 
 module.exports = {
+	getLexemeId,
 	createLexeme,
 	getLatestEditMetadata
 };
