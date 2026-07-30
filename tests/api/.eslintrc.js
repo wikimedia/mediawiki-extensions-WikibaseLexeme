@@ -7,5 +7,10 @@ module.exports = {
 		'wikimedia/language/es2022',
 		'wikimedia/mocha'
 	],
-	root: true
+	root: true,
+	rules: {
+		"mocha/no-setup-in-describe": 0,
+		"max-len": [ "warn", { code: 130 } ]
+	}
+
 };

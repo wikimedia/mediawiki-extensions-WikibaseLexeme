@@ -1,22 +1,13 @@
 /* eslint-env mocha */
 'use strict';
 
-const { assert, action, utils, REST } = require( 'api-testing' );
-
-function newClient( user = null ) {
-	const restClient = new REST( 'rest.php/wikibase', user );
-	restClient.req.set( 'User-Agent', 'api-tests' );
-	// TODO create something like Wikibase.ci.php to avoid loading routes this way
-	restClient.req.set( 'X-Config-Override', JSON.stringify( {
-		wgRestAPIAdditionalRouteFiles: [
-			'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json'
-		]
-	} ) );
-
-	return restClient;
-}
-
-const client = newClient();
+const { assert, action, utils } = require( 'api-testing' );
+const { createLexeme, getLatestEditMetadata } = require( './helpers/entityHelper' );
+const {
+	newGetLexemeRequestBuilder,
+	newCreateItemRequestBuilder,
+	newCreatePropertyRequestBuilder
+} = require( './helpers/RequestBuilderFactory' );
 
 describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let languageId;
@@ -28,48 +19,27 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let testModified;
 	let testRevisionId;
 
-	async function createLexeme( lexeme ) {
-		const anon = await action.getAnon();
-		const { entity: { id } } = await anon.action( 'wbeditentity', {
-			new: 'lexeme',
-			data: JSON.stringify( lexeme ),
-			token: await anon.token()
-		}, 'POST' );
-
-		return id;
-	}
-
 	before( async () => {
-		const languageResponse = await client.post(
-			'/v1/entities/items',
-			{ item: { labels: { en: 'test-language' } } }
-		);
-		languageId = languageResponse.body.id;
+		languageId = ( await newCreateItemRequestBuilder(
+			{ labels: { en: 'test-language' } }
+		).makeRequest() ).body.id;
 
-		const lexicalCategoryResponse = await client.post(
-			'/v1/entities/items',
-			{ item: { labels: { en: 'test-lexical-category' } } }
-		);
-		lexicalCategoryId = lexicalCategoryResponse.body.id;
+		lexicalCategoryId = ( await newCreateItemRequestBuilder(
+			{ labels: { en: 'test-category' } }
+		).makeRequest() ).body.id;
 
-		const grammaticalFeature1Response = await client.post(
-			'/v1/entities/items',
+		grammaticalFeature1Id = ( await newCreateItemRequestBuilder(
 			{ item: { labels: { en: 'test-grammatical-feature1' } } }
-		);
-		grammaticalFeature1Id = grammaticalFeature1Response.body.id;
+		).makeRequest() ).body.id;
 
-		const grammaticalFeature2Response = await client.post(
-			'/v1/entities/items',
+		grammaticalFeature2Id = ( await newCreateItemRequestBuilder(
 			{ item: { labels: { en: 'test-grammatical-feature2' } } }
-		);
-		grammaticalFeature2Id = grammaticalFeature2Response.body.id;
+		).makeRequest() ).body.id;
 
-		const propertyResponse = await client.post(
-			'/v1/entities/properties',
+		propertyId = ( await newCreatePropertyRequestBuilder(
 			// eslint-disable-next-line camelcase
-			{ property: { data_type: 'string', labels: { en: `test-property-${ utils.uniq() }` } } }
-		);
-		propertyId = propertyResponse.body.id;
+			{ data_type: 'string', labels: { en: `test-property-${ utils.uniq() }` } }
+		).makeRequest() ).body.id;
 
 		lexemeId = await createLexeme( {
 			lemmas: {
@@ -115,7 +85,8 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	it( 'returns the lexeme with all its data', async () => {
-		const response = await client.get( `/v0/entities/lexemes/${ lexemeId }` );
+		const response = await newGetLexemeRequestBuilder( lexemeId )
+			.makeRequest();
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.strictEqual( response.body.id, lexemeId );
@@ -160,19 +131,18 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 	it( 'responds with an X-Authenticated-User header for a logged in user', async () => {
 		const user = await action.alice();
-
-		const response = await newClient( user ).get( `/v0/entities/lexemes/${ lexemeId }` );
+		const response = await newGetLexemeRequestBuilder( lexemeId )
+			.withUser( user )
+			.makeRequest();
 
 		assert.strictEqual( response.status, 200, response.text );
 		assert.header( response, 'X-Authenticated-User', user.username );
 	} );
 
 	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
-		const response = await client.get(
-			`/v0/entities/lexemes/${ lexemeId }`,
-			{},
-			{ 'user-agent': '' }
-		);
+		const response = await newGetLexemeRequestBuilder( lexemeId )
+			.withHeader( 'user-agent', '' )
+			.makeRequest();
 
 		assert.strictEqual( response.status, 400, response.text );
 		assert.header( response, 'Content-Language', 'en' );
@@ -181,7 +151,8 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	it( 'responds with a 400 error if the lexeme id is invalid', async () => {
-		const response = await client.get( '/v0/entities/lexemes/X123' );
+		const response = await newGetLexemeRequestBuilder( 'X123' )
+			.makeRequest();
 
 		assert.strictEqual( response.status, 400, response.text );
 		assert.header( response, 'Content-Language', 'en' );
@@ -192,7 +163,8 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	it( 'responds with a 404 error if lexeme not found', async () => {
-		const response = await client.get( '/v0/entities/lexemes/L999999' );
+		const response = await newGetLexemeRequestBuilder( 'L999999' )
+			.makeRequest();
 
 		assert.strictEqual( response.status, 404, response.text );
 		assert.header( response, 'Content-Language', 'en' );
@@ -220,7 +192,8 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		} );
 
 		it( 'responds with a 308 including the redirect target location', async () => {
-			const response = await client.get( `/v0/entities/lexemes/${ redirectSourceId }` );
+			const response = await newGetLexemeRequestBuilder( redirectSourceId )
+				.makeRequest();
 
 			assert.strictEqual( response.status, 308, response.text );
 			assert.isTrue(
@@ -228,19 +201,4 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			);
 		} );
 	} );
-
-	async function getLatestEditMetadata( id ) {
-		const editMetadata = ( await action.getAnon().action( 'query', {
-			list: 'recentchanges',
-			rctitle: `Lexeme:${ id }`,
-			rclimit: 1,
-			rcprop: 'tags|flags|comment|ids|timestamp|user'
-		} ) ).query.recentchanges[ 0 ];
-
-		return {
-			...editMetadata,
-			timestamp: new Date( editMetadata.timestamp ).toUTCString()
-		};
-	}
-
 } );
