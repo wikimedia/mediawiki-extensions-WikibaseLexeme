@@ -83,6 +83,7 @@
 	"wikibaselexeme-form-field-representation-label": "Reprezentace",
 	"wikibaselexeme-form-field-required": "Povinné pole",
 	"wikibaselexeme-form-grammatical-features": "Gramatické vlastnosti",
+	"wikibaselexeme-form-representation-redundant-language": "Není dovoleno vložit více reprezentací se stejnou variantou zápisu",
 	"wikibaselexeme-gloss-field-language-label": "Jazyk",
 	"wikibaselexeme-grammatical-features-input-placeholder": "Například: normativ, komparativ, minulý čas...",
 	"wikibaselexeme-header-forms": "Tvary",
