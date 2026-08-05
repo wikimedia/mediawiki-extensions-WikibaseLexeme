@@ -43,11 +43,16 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 	use HandlerTestTrait;
 
 	private static array $routes = [];
+	private static array $prodRoutes = [];
 
 	public static function setUpBeforeClass(): void {
 		parent::setUpBeforeClass();
+		self::$prodRoutes = json_decode(
+			file_get_contents( __DIR__ . '/../../../../extension.json' ),
+			true
+		)['RestRoutes'];
 		self::$routes = array_merge(
-			json_decode( file_get_contents( __DIR__ . '/../../../../extension.json' ), true )['RestRoutes'],
+			self::$prodRoutes,
 			json_decode( file_get_contents( __DIR__ . '/../../../../src/MediaWiki/RestApi/routes.dev.json' ), true )
 		);
 	}
@@ -156,6 +161,20 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 				[ new LexemeRedirect( new LexemeId( 'L2' ) ), $hasHttpStatus( 308 ) ],
 			],
 		] ];
+	}
+
+	/**
+	 * @doesNotPerformAssertions
+	 */
+	public function testAllProductionRoutesAreCovered(): void {
+		foreach ( self::$prodRoutes as $route ) {
+			foreach ( $this->routeHandlersProvider() as $routeTestData ) {
+				if ( $route === $this->getRouteForUseCase( $routeTestData[0]['useCase'] ) ) {
+					continue 2;
+				}
+			}
+			$this->fail( "Route handler {$route['factory']} is not covered by any tests" );
+		}
 	}
 
 	private function getHttpResponseForThrowingUseCase( array $routeHandler, Throwable $error ): Response {
