@@ -1,0 +1,31 @@
+{
+	"openapi": "3.1.0",
+	"info": { "title": "WikibaseLexeme REST API fragment", "version": "0.1" },
+	"tags": [ { "name": "lexemes", "description": "Wikibase Lexemes" } ],
+	"paths": {
+		"/v0/entities/lexemes/{lexeme_id}": {
+			"get": {
+				"operationId": "getLexeme",
+				"tags": [ "lexemes" ],
+				"summary": "Retrieve a single Lexeme by ID",
+				"parameters": [ {
+					"name": "lexeme_id",
+					"in": "path",
+					"required": true,
+					"description": "The ID of the required Lexeme",
+					"schema": { "type": "string" },
+					"example": "L42"
+				} ],
+				"responses": {
+					"200": {
+						"description": "A single Lexeme",
+						"content": { "application/json": { "schema": { "type": "object" } } }
+					},
+					"400": { "$ref": "../../../../../Wikibase/repo/rest-api/src/openapi.json#/components/responses/InvalidEntityIdInput" },
+					"404": { "$ref": "../../../../../Wikibase/repo/rest-api/src/openapi.json#/components/responses/ResourceNotFound" },
+					"500": { "$ref": "../../../../../Wikibase/repo/rest-api/src/openapi.json#/components/responses/UnexpectedError" }
+				}
+			}
+		}
+	}
+}

@@ -30,3 +30,6 @@ runner-results
 /.stylelintcache
 
 .api-testing.config.json
+
+/specs/openapi-combined.json
+/specs/openapi.fragment.dereferenced.rebuilt.json

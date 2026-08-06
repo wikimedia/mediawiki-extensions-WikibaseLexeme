@@ -1,0 +1,8 @@
+extends:
+  - recommended-strict
+
+rules:
+  security-defined: off
+  # The combined doc joins two already-dereferenced documents, so Wikibase's
+  # shared components arrive with nothing referencing them.
+  no-unused-components: off

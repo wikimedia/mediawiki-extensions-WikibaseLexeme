@@ -22,7 +22,10 @@ module.exports = function ( grunt ) {
 				'!node_modules/**',
 				'!resources/special/new-lexeme/**',
 				'!resources/special/new-lexeme-dist/**',
-				'!vendor/**'
+				'!vendor/**',
+				'!specs/openapi-*.json',
+				'!specs/openapi.fragment.dereferenced.rebuilt.json',
+				'!src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json'
 			]
 		},
 		stylelint: {

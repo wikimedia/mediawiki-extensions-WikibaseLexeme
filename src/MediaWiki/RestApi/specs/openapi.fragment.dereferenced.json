@@ -1,0 +1,176 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "WikibaseLexeme REST API fragment",
+    "version": "0.1"
+  },
+  "tags": [
+    {
+      "name": "lexemes",
+      "description": "Wikibase Lexemes"
+    }
+  ],
+  "paths": {
+    "/v0/entities/lexemes/{lexeme_id}": {
+      "get": {
+        "operationId": "getLexeme",
+        "tags": [
+          "lexemes"
+        ],
+        "summary": "Retrieve a single Lexeme by ID",
+        "parameters": [
+          {
+            "name": "lexeme_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the required Lexeme",
+            "schema": {
+              "type": "string"
+            },
+            "example": "L42"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A single Lexeme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The request cannot be processed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "invalid-path-parameter": {
+                    "value": {
+                      "code": "invalid-path-parameter",
+                      "message": "Invalid path parameter: '{path_parameter}'",
+                      "context": {
+                        "parameter": "{path_parameter}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "resource-not-found": {
+                    "value": {
+                      "code": "resource-not-found",
+                      "message": "The requested resource does not exist",
+                      "context": {
+                        "resource_type": "{resource_type}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "code": "unexpected-error",
+                  "message": "Unexpected Error"
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

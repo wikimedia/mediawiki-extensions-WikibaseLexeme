@@ -1,5 +1,10 @@
 {
 	"root": true,
+	"ignorePatterns": [
+		"specs/openapi-combined.json",
+		"specs/openapi.fragment.dereferenced.rebuilt.json",
+		"src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json"
+	],
 	"extends": [
 		"wikimedia/client",
 		"wikimedia/jquery",

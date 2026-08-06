@@ -116,6 +116,7 @@
 		"WikibaseRepoOnParserOutputUpdaterConstruction": "WikibaseRepo",
 		"WikibaseRepoSearchableEntityScopesMessages": "WikibaseRepoSearchableEntityScopesMessages",
 		"WikibaseRepoControllers": "WikibaseRepo",
+		"WikibaseRepoOpenApiDocFragments": "WikibaseRepoOpenApiDocFragments",
 		"WikibaseRepoWbui2025InitResourceDependenciesHook": "WikibaseRepoWbui2025InitResourceDependenciesHookHandler"
 	},
 	"HookHandlers": {
@@ -145,6 +146,9 @@
 			"services": [
 				"MainConfig"
 			]
+		},
+		"WikibaseRepoOpenApiDocFragments": {
+			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoOpenApiDocFragmentsHookHandler"
 		},
 		"WikibaseRepoDataTypes": {
 			"class": "Wikibase\\Lexeme\\Hooks\\WikibaseRepoDataTypesHookHandler",

@@ -105,6 +105,39 @@ To enable routes in development (not recommended for production use), add:
 $wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json';
 ```
 
+### REST API doc fragment
+
+`src/MediaWiki/RestApi/specs/openapi.fragment.json` documents this extension's
+REST routes as an OpenAPI fragment. Its `$ref`s point into the sibling
+`Wikibase` checkout's committed OpenAPI doc (`repo/rest-api/src/openapi.json`)
+by relative path, so building the combined document requires `Wikibase` to be
+checked out next to this extension in the standard extensions-directory layout.
+
+After editing the fragment, rebuild its committed, self-contained build
+(in the container: `mw dev mw fresh -- npm run spec:fragment`):
+
+```
+npm run spec:fragment
+```
+
+This dereferences the fragment into
+`src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json`, which is
+committed and must be kept in sync with its sources — a test in `tests/spec/`
+fails when it is stale. A hook handler registers that artifact through
+Wikibase's `WikibaseRepoOpenApiDocFragments` hook; Wikibase merges only the
+paths the wiki's REST router can actually serve into
+`/wikibase/v1/openapi.json`, so the lexeme route is documented exactly when
+the dev routes are enabled.
+
+For linting and docs, `npm run spec:combine` joins the committed artifact with
+the sibling Wikibase checkout's spec into the gitignored
+`specs/openapi-combined.json` (`npm run lint:spec-combined` lints it). Tests
+for this tooling live in `tests/spec/`.
+
+The fragment documents the route as `/v0/entities/lexemes/{lexeme_id}`: paths
+in Wikibase's spec are relative to its `…/rest.php/wikibase` server, and the
+dev route above lives under `/wikibase/v0/`.
+
 ## Running tests
 
 ### PHP

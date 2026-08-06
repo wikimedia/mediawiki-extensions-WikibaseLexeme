@@ -10,9 +10,14 @@
 		}
 	},
 	"scripts": {
-		"api-testing": "mocha --timeout 0 --recursive tests/api",
+		"api-testing": "mocha --timeout 0 --recursive tests/api tests/spec",
 		"selenium-test": "npm run cypress:parallel",
 		"test": "run-s test:*",
+		"spec:fragment": "redocly bundle src/MediaWiki/RestApi/specs/openapi.fragment.json --dereferenced --remove-unused-components -o src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json",
+		"spec:combine": "redocly join --without-x-tag-groups ../Wikibase/repo/rest-api/src/openapi.json src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json -o specs/openapi-combined.json",
+		"lint:spec-combined": "run-s spec:combine lint:spec-combined:run",
+		"lint:spec-combined:run": "redocly lint specs/openapi-combined.json",
+		"test:spec-tools": "mocha --timeout 0 tests/spec",
 		"test:grunt": "grunt test",
 		"test:snl-distnodiff": "run-s snl:install snl:build snl:cp snl:diff",
 		"test:snl-main": "git -C $npm_package_config_snl_src branch --contains HEAD main | grep -q .",
@@ -34,6 +39,7 @@
 		"cypress:parallel": "cypress-parallel -s cypress:run -t 2 -d './cypress/e2e/**/*.cy.ts'"
 	},
 	"devDependencies": {
+		"@redocly/cli": "^1.25.11",
 		"@wmde/eslint-config-wikimedia-typescript": "0.2.13",
 		"api-testing": "^1.7.3",
 		"cypress": "^13.17.0",
