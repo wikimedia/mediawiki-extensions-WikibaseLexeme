@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Rdf;
 
 use DataValues\Serializers\DataValueSerializer;
+use MediaWiki\Site\HashSiteStore;
 use MediaWiki\Title\Title;
 use MediaWikiIntegrationTestCase;
 use Serializers\DispatchingSerializer;
@@ -86,6 +87,7 @@ class LexemeJsonSerializationTest extends MediaWikiIntegrationTestCase {
 		return new EntityDataSerializationService(
 			$serializer,
 			new EntityDataFormatProvider(),
+			new HashSiteStore(),
 			$rdfBuilderFactory,
 			$entityTitleStoreLookup,
 			$dataTypeLookup,
@@ -94,7 +96,6 @@ class LexemeJsonSerializationTest extends MediaWikiIntegrationTestCase {
 	}
 
 	public function testJsonSerialization(): void {
-		$this->markTestSkipped( 'temporarily disabled (T429674)' );
 		$fixture = 'L2';
 		$service = $this->newService();
 		$mockRepo = $this->getMockRepository();
