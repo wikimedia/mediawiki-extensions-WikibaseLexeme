@@ -1,1 +1,7 @@
-[]
+[
+	{
+		"path": "/wikibase/v0/entities/lexemes",
+		"method": "POST",
+		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\CreateLexemeRouteHandler::factory"
+	}
+]

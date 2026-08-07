@@ -27,7 +27,10 @@ class WikibaseRepoOpenApiDocFragmentsHookHandlerTest extends \MediaWikiIntegrati
 		( new WikibaseRepoOpenApiDocFragmentsHookHandler() )
 			->onWikibaseRepoOpenApiDocFragments( $joiner );
 
-		$this->assertSame( [ '/v0/entities/lexemes/{lexeme_id}' ], array_keys( $joinedFragment['paths'] ) );
+		$this->assertSame(
+			[ '/v0/entities/lexemes', '/v0/entities/lexemes/{lexeme_id}' ],
+			array_keys( $joinedFragment['paths'] )
+		);
 		// the joined fragment must be self-contained: nothing resolves $refs at runtime
 		$this->assertStringNotContainsString( '"$ref"', json_encode( $joinedFragment ) );
 	}

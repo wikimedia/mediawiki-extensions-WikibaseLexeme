@@ -20,7 +20,8 @@ describe( 'spec:combine (integration)', () => {
 
 		const combined = JSON.parse( fs.readFileSync( COMBINED_SPEC, 'utf8' ) );
 
-		assert.equal( Object.keys( combined.paths ).length, 34 );
+		assert.equal( Object.keys( combined.paths ).length, 35 );
+		assert.ok( '/v0/entities/lexemes' in combined.paths );
 		assert.ok( '/v0/entities/lexemes/{lexeme_id}' in combined.paths );
 
 		const getResponses = combined.paths[ '/v0/entities/lexemes/{lexeme_id}' ].get.responses;

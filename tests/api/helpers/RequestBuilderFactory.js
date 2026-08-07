@@ -9,6 +9,12 @@ module.exports = {
 			.withPathParam( 'lexeme_id', lexemeId );
 	},
 
+	newCreateLexemeRequestBuilder( lexeme ) {
+		return new RequestBuilder()
+			.withRoute( 'POST', '/v0/entities/lexemes' )
+			.withJsonBodyParam( 'lexeme', lexeme );
+	},
+
 	newCreateItemRequestBuilder( item ) {
 		return new RequestBuilder()
 			.withRoute( 'POST', '/v1/entities/items' )
