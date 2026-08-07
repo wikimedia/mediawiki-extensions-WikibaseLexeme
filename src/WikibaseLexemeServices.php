@@ -9,6 +9,7 @@ use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
 use Wikibase\Repo\Api\EntitySearchHelper;
@@ -93,6 +94,11 @@ class WikibaseLexemeServices {
 	public static function getGetLexeme( ?ContainerInterface $services = null ): GetLexeme {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexeme.GetLexeme' );
+	}
+
+	public static function getLexemeSerializer( ?ContainerInterface $services = null ): LexemeSerializer {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.LexemeSerializer' );
 	}
 
 	public static function getUnexpectedErrorHandlerMiddleware(

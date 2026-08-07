@@ -30,6 +30,13 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\FormsSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\GrammaticalFeaturesSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
@@ -42,6 +49,10 @@ use Wikibase\Lib\WikibaseContentLanguages;
 use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
@@ -229,6 +240,28 @@ return call_user_func( static function () {
 					WikibaseRepo::getEntityRevisionLookup()
 				),
 				new GetLexemeValidator(),
+			);
+		},
+		'WikibaseLexeme.LexemeSerializer' => static function (
+			MediaWikiServices $services
+		): LexemeSerializer {
+			$propertyValuePairSerializer = new PropertyValuePairSerializer();
+			$statementListSerializer = new StatementListSerializer(
+				new StatementSerializer(
+					$propertyValuePairSerializer,
+					new ReferenceSerializer( $propertyValuePairSerializer )
+				)
+			);
+
+			return new LexemeSerializer(
+				new LemmasSerializer(),
+				$statementListSerializer,
+				new FormsSerializer(
+					new RepresentationsSerializer(),
+					new GrammaticalFeaturesSerializer(),
+					$statementListSerializer
+				),
+				new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
 			);
 		},
 		'WikibaseLexeme.ErrorReporter' => static function ( MediaWikiServices $services ): ErrorReporter {

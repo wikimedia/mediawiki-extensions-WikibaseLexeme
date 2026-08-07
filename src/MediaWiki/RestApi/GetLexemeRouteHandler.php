@@ -16,18 +16,8 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
-use Wikibase\Lexeme\Presentation\RestSerialization\FormsSerializer;
-use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
-use Wikibase\Lexeme\Presentation\RestSerialization\GrammaticalFeaturesSerializer;
-use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
-use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
-use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
-use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
-use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
-use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
-use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
 use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
@@ -51,14 +41,6 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	}
 
 	public static function factory(): Handler {
-		$propertyValuePairSerializer = new PropertyValuePairSerializer();
-		$statementListSerializer = new StatementListSerializer(
-			new StatementSerializer(
-				$propertyValuePairSerializer,
-				new ReferenceSerializer( $propertyValuePairSerializer )
-			)
-		);
-
 		return new self(
 			WikibaseLexemeServices::getGetLexeme(),
 			new MiddlewareHandler( [
@@ -69,16 +51,7 @@ class GetLexemeRouteHandler extends SimpleHandler {
 					fn ( RequestInterface $request ): string => $request->getPathParam( self::LEXEME_ID_PATH_PARAM )
 				),
 			] ),
-			new LexemeSerializer(
-				new LemmasSerializer(),
-				$statementListSerializer,
-				new FormsSerializer(
-					new RepresentationsSerializer(),
-					new GrammaticalFeaturesSerializer(),
-					$statementListSerializer
-				),
-				new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
-			),
+			WikibaseLexemeServices::getLexemeSerializer(),
 			new ResponseFactory(),
 		);
 	}
