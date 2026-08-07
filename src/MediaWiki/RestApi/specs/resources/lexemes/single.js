@@ -1,31 +1,36 @@
 /* eslint-env node */
 'use strict';
 
-// $refs into the sibling Wikibase checkout resolve relative to the generated
-// fragment in src/MediaWiki/RestApi/specs/, not relative to this module
-const wikibaseOpenApi = '../../../../../Wikibase/repo/rest-api/src/openapi.json';
+const { wikibaseRef, LEXEME_ID_PATTERN } = require( '../../helpers.js' );
 
 module.exports = {
 	"get": {
 		"operationId": "getLexeme",
 		"tags": [ "lexemes" ],
 		"summary": "Retrieve a single Lexeme by ID",
-		"parameters": [ {
-			"name": "lexeme_id",
-			"in": "path",
-			"required": true,
-			"description": "The ID of the required Lexeme",
-			"schema": { "type": "string" },
-			"example": "L42"
-		} ],
-		"responses": {
-			"200": {
-				"description": "A single Lexeme",
-				"content": { "application/json": { "schema": { "type": "object" } } }
+		"parameters": [
+			{
+				"name": "lexeme_id",
+				"in": "path",
+				"required": true,
+				"description": "The ID of the required Lexeme",
+				"schema": { "type": "string", "pattern": LEXEME_ID_PATTERN },
+				"example": "L42"
 			},
-			"400": { "$ref": wikibaseOpenApi + '#/components/responses/InvalidEntityIdInput' },
-			"404": { "$ref": wikibaseOpenApi + '#/components/responses/ResourceNotFound' },
-			"500": { "$ref": wikibaseOpenApi + '#/components/responses/UnexpectedError' }
+			wikibaseRef( '#/components/parameters/IfNoneMatch' ),
+			wikibaseRef( '#/components/parameters/IfModifiedSince' ),
+			wikibaseRef( '#/components/parameters/IfMatch' ),
+			wikibaseRef( '#/components/parameters/IfUnmodifiedSince' ),
+			wikibaseRef( '#/components/parameters/Authorization' )
+		],
+		"responses": {
+			"200": { "$ref": "#/components/responses/Lexeme" },
+			"304": wikibaseRef( '#/components/responses/NotModified' ),
+			"308": wikibaseRef( '#/components/responses/MovedPermanently' ),
+			"400": wikibaseRef( '#/components/responses/InvalidEntityIdInput' ),
+			"404": { "$ref": "#/components/responses/LexemeNotFound" },
+			"412": wikibaseRef( '#/components/responses/PreconditionFailedError' ),
+			"500": wikibaseRef( '#/components/responses/UnexpectedError' )
 		}
 	}
 };

@@ -7,6 +7,10 @@ const openapi = {
 	"tags": require( './global/tags.js' ),
 	"paths": {
 		"/v0/entities/lexemes/{lexeme_id}": require( './resources/lexemes/single.js' )
+	},
+	"components": {
+		"responses": require( './global/responses.js' ),
+		"schemas": require( './global/schemas.js' )
 	}
 };
 

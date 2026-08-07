@@ -1,6 +1,12 @@
 extends:
   - recommended-strict
 
+plugins:
+  - ./specs/plugin-remove-components.js
+
+decorators:
+  fragment/removeComponents: on
+
 rules:
   security-defined: off
   # The combined doc joins two already-dereferenced documents, so Wikibase's
