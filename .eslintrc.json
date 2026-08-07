@@ -3,7 +3,8 @@
 	"ignorePatterns": [
 		"specs/openapi-combined.json",
 		"specs/openapi.fragment.dereferenced.rebuilt.json",
-		"src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json"
+		"src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json",
+		"src/MediaWiki/RestApi/specs/openapi.fragment.generated.json"
 	],
 	"extends": [
 		"wikimedia/client",

@@ -7,7 +7,11 @@ const fs = require( 'fs' );
 const path = require( 'path' );
 
 const EXTENSION_ROOT = path.resolve( __dirname, '../..' );
-const RAW_FRAGMENT = path.join( EXTENSION_ROOT, 'src/MediaWiki/RestApi/specs/openapi.fragment.json' );
+const FRAGMENT_ENTRY = path.join( EXTENSION_ROOT, 'src/MediaWiki/RestApi/specs/index.fragment.js' );
+const GENERATED_FRAGMENT = path.join(
+	EXTENSION_ROOT,
+	'src/MediaWiki/RestApi/specs/openapi.fragment.generated.json'
+);
 const COMMITTED_ARTIFACT = path.join(
 	EXTENSION_ROOT,
 	'src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json'
@@ -44,8 +48,12 @@ describe( 'committed dereferenced fragment artifact', () => {
 			this.skip();
 		}
 
+		fs.writeFileSync(
+			GENERATED_FRAGMENT,
+			execFileSync( 'node', [ FRAGMENT_ENTRY ], { cwd: EXTENSION_ROOT } )
+		);
 		execFileSync( 'npx', [
-			'redocly', 'bundle', RAW_FRAGMENT,
+			'redocly', 'bundle', GENERATED_FRAGMENT,
 			'--dereferenced', '--remove-unused-components',
 			'-o', REBUILT_ARTIFACT
 		], { cwd: EXTENSION_ROOT } );

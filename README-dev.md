@@ -107,20 +107,25 @@ $wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/Rest
 
 ### REST API doc fragment
 
-`src/MediaWiki/RestApi/specs/openapi.fragment.json` documents this extension's
-REST routes as an OpenAPI fragment. Its `$ref`s point into the sibling
-`Wikibase` checkout's committed OpenAPI doc (`repo/rest-api/src/openapi.json`)
-by relative path, so building the combined document requires `Wikibase` to be
-checked out next to this extension in the standard extensions-directory layout.
+This extension's REST routes are documented as an OpenAPI fragment, authored
+as JS modules under `src/MediaWiki/RestApi/specs/` (mirroring Wikibase's
+`repo/domains/*/specs/` layout): `index.fragment.js` assembles the fragment
+from `global/` (tags, shared components) and `resources/` (one module per
+route). `$ref`s point into the sibling `Wikibase` checkout's committed OpenAPI
+doc (`repo/rest-api/src/openapi.json`) by relative path, so building the
+combined document requires `Wikibase` to be checked out next to this
+extension in the standard extensions-directory layout.
 
-After editing the fragment, rebuild its committed, self-contained build
+After editing the spec modules, rebuild the committed, self-contained build
 (in the container: `mw dev mw fresh -- npm run spec:fragment`):
 
 ```
 npm run spec:fragment
 ```
 
-This dereferences the fragment into
+This prints the fragment to the gitignored
+`src/MediaWiki/RestApi/specs/openapi.fragment.generated.json` and dereferences
+it into
 `src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json`, which is
 committed and must be kept in sync with its sources — a test in `tests/spec/`
 fails when it is stale. A hook handler registers that artifact through
