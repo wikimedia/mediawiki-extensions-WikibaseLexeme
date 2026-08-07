@@ -5,6 +5,7 @@ const { strict: assert } = require( 'assert' );
 const { execFileSync } = require( 'child_process' );
 const fs = require( 'fs' );
 const path = require( 'path' );
+const { getRoutePaths } = require( './helpers/restRoutes.js' );
 
 const EXTENSION_ROOT = path.resolve( __dirname, '../..' );
 const FRAGMENT_ENTRY = path.join( EXTENSION_ROOT, 'src/MediaWiki/RestApi/specs/index.fragment.js' );
@@ -19,23 +20,11 @@ const COMMITTED_ARTIFACT = path.join(
 const REBUILT_ARTIFACT = path.join( EXTENSION_ROOT, 'specs/openapi.fragment.dereferenced.rebuilt.json' );
 const SIBLING_OPENAPI = path.resolve( __dirname, '../../../Wikibase/repo/rest-api/src/openapi.json' );
 
-function registeredRoutePaths() {
-	// same merge as RouteHandlersTest: production routes plus the dev-only ones
-	const extensionJson = JSON.parse( fs.readFileSync( path.join( EXTENSION_ROOT, 'extension.json' ), 'utf8' ) );
-	const devRoutes = JSON.parse(
-		fs.readFileSync( path.join( EXTENSION_ROOT, 'src/MediaWiki/RestApi/routes.dev.json' ), 'utf8' )
-	);
-
-	return [ ...( extensionJson.RestRoutes || [] ), ...devRoutes ]
-		// fragment paths are relative to Wikibase's …/rest.php/wikibase server
-		.map( ( route ) => route.path.replace( /^\/wikibase/, '' ) );
-}
-
 describe( 'committed dereferenced fragment artifact', () => {
 	it( 'is self-contained and documents exactly the WikibaseLexeme REST API routes', () => {
 		const artifact = JSON.parse( fs.readFileSync( COMMITTED_ARTIFACT, 'utf8' ) );
 
-		assert.deepEqual( Object.keys( artifact.paths ).sort(), registeredRoutePaths().sort() );
+		assert.deepEqual( Object.keys( artifact.paths ).sort(), getRoutePaths().sort() );
 		// the artifact is registered with Wikibase's openapi.json route handler,
 		// and nothing at runtime resolves $refs
 		assert.ok( !JSON.stringify( artifact ).includes( '"$ref"' ) );

@@ -5,6 +5,7 @@ const { strict: assert } = require( 'assert' );
 const { execFileSync } = require( 'child_process' );
 const fs = require( 'fs' );
 const path = require( 'path' );
+const { getRoutePaths } = require( './helpers/restRoutes.js' );
 
 const EXTENSION_ROOT = path.resolve( __dirname, '../..' );
 const SIBLING_OPENAPI = path.resolve( __dirname, '../../../Wikibase/repo/rest-api/src/openapi.json' );
@@ -20,9 +21,11 @@ describe( 'spec:combine (integration)', () => {
 
 		const combined = JSON.parse( fs.readFileSync( COMBINED_SPEC, 'utf8' ) );
 
-		assert.equal( Object.keys( combined.paths ).length, 35 );
-		assert.ok( '/v0/entities/lexemes' in combined.paths );
-		assert.ok( '/v0/entities/lexemes/{lexeme_id}' in combined.paths );
+		const wikibasePaths = Object.keys( JSON.parse( fs.readFileSync( SIBLING_OPENAPI, 'utf8' ) ).paths );
+		assert.deepEqual(
+			Object.keys( combined.paths ).sort(),
+			[ ...wikibasePaths, ...getRoutePaths() ].sort()
+		);
 
 		const getResponses = combined.paths[ '/v0/entities/lexemes/{lexeme_id}' ].get.responses;
 		assert.equal( typeof getResponses[ '404' ].$ref, 'undefined' );

@@ -51,10 +51,7 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 			file_get_contents( __DIR__ . '/../../../../extension.json' ),
 			true
 		)['RestRoutes'];
-		self::$routes = array_merge(
-			self::$prodRoutes,
-			json_decode( file_get_contents( __DIR__ . '/../../../../src/MediaWiki/RestApi/routes.dev.json' ), true )
-		);
+		self::$routes = RestRoutes::getAllRouteDefinitions();
 	}
 
 	protected function setUp(): void {

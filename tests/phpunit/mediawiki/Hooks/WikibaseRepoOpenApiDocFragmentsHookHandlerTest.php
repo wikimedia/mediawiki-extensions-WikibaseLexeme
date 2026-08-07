@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Tests\MediaWiki\Hooks;
 
 use Wikibase\Lexeme\Hooks\WikibaseRepoOpenApiDocFragmentsHookHandler;
+use Wikibase\Lexeme\Tests\MediaWiki\RestApi\RestRoutes;
 use Wikibase\Repo\RestApi\OpenApiDocFragmentJoiner;
 
 /**
@@ -27,10 +28,11 @@ class WikibaseRepoOpenApiDocFragmentsHookHandlerTest extends \MediaWikiIntegrati
 		( new WikibaseRepoOpenApiDocFragmentsHookHandler() )
 			->onWikibaseRepoOpenApiDocFragments( $joiner );
 
-		$this->assertSame(
-			[ '/v0/entities/lexemes', '/v0/entities/lexemes/{lexeme_id}' ],
-			array_keys( $joinedFragment['paths'] )
+		$expectedPaths = array_map(
+			static fn ( array $route ) => preg_replace( '/^\/wikibase/', '', $route['path'] ),
+			RestRoutes::getAllRouteDefinitions(),
 		);
+		$this->assertEqualsCanonicalizing( $expectedPaths, array_keys( $joinedFragment['paths'] ) );
 		// the joined fragment must be self-contained: nothing resolves $refs at runtime
 		$this->assertStringNotContainsString( '"$ref"', json_encode( $joinedFragment ) );
 	}
