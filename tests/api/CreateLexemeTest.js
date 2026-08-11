@@ -1,15 +1,40 @@
 /* eslint-env mocha */
 'use strict';
 
-const { assert } = require( 'api-testing' );
-const { newCreateLexemeRequestBuilder } = require( './helpers/RequestBuilderFactory' );
+const { assert, utils } = require( 'api-testing' );
+const {
+	newCreateLexemeRequestBuilder,
+	newGetLexemeRequestBuilder,
+	newCreateItemRequestBuilder
+} = require( './helpers/RequestBuilderFactory' );
 
 describe( 'POST /entities/lexemes', () => {
-	it( 'returns the created lexeme', async () => {
-		const response = await newCreateLexemeRequestBuilder( {} )
-			.makeRequest();
+	let languageId;
+	let lexicalCategoryId;
 
-		assert.strictEqual( response.status, 201 );
-		assert.strictEqual( response.body.id, 'L1' );
+	before( async () => {
+		languageId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+		lexicalCategoryId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+	} );
+
+	it( 'returns the created lexeme and persists it', async () => {
+		const lemma = `test-lemma-${ utils.uniq() }`;
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: lemma },
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 201, response.text );
+		assert.match( response.body.id, /^L\d+$/ );
+		assert.deepStrictEqual( response.body.lemmas, { en: lemma } );
+		assert.strictEqual( response.body.lexical_category, lexicalCategoryId );
+		assert.strictEqual( response.body.language, languageId );
+
+		const getLexemeResponse = await newGetLexemeRequestBuilder( response.body.id ).makeRequest();
+
+		assert.strictEqual( getLexemeResponse.status, 200, getLexemeResponse.text );
+		assert.deepStrictEqual( getLexemeResponse.body, response.body );
 	} );
 } );

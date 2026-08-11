@@ -14,6 +14,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValida
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRevisionMetadataRetriever;
+use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeCreator;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -50,6 +51,7 @@ use Wikibase\Lib\WikibaseContentLanguages;
 use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
+use Wikibase\Repo\Domains\Crud\WbCrud;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
@@ -244,7 +246,9 @@ return call_user_func( static function () {
 			);
 		},
 		'WikibaseLexeme.CreateLexeme' => static function ( MediaWikiServices $services ): CreateLexeme {
-			return new CreateLexeme();
+			return new CreateLexeme(
+				new EntityUpdaterLexemeCreator( WbCrud::getEntityUpdater( $services ) ),
+			);
 		},
 		'WikibaseLexeme.LexemeSerializer' => static function (
 			MediaWikiServices $services
