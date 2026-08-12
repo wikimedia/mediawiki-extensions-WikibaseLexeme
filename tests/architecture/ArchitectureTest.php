@@ -24,7 +24,8 @@ class ArchitectureTest {
 	public function testDomainModel(): Rule {
 		return PHPat::rule()
 			->classes( Selector::inNamespace( self::DOMAIN_MODELS ) )
-			->canOnlyDependOn()
+			->canOnly()
+			->dependOn()
 			->classes( ...$this->allowedDomainModelDependencies() );
 	}
 
@@ -47,7 +48,8 @@ class ArchitectureTest {
 	public function testDomainServices(): Rule {
 		return PHPat::rule()
 			->classes( Selector::inNamespace( self::DOMAIN_SERVICES ) )
-			->canOnlyDependOn()
+			->canOnly()
+			->dependOn()
 			->classes( ...$this->allowedDomainServicesDependencies() );
 	}
 
@@ -71,7 +73,8 @@ class ArchitectureTest {
 	public function testSerialization(): Rule {
 		return PHPat::rule()
 			->classes( Selector::inNamespace( self::APPLICATION_REST_SERIALIZATION ) )
-			->canOnlyDependOn()
+			->canOnly()
+			->dependOn()
 			->classes( ...$this->allowedSerializationDependencies() );
 	}
 
@@ -90,7 +93,8 @@ class ArchitectureTest {
 	public function testValidation(): Rule {
 		return PHPat::rule()
 			->classes( Selector::inNamespace( self::APPLICATION_VALIDATORS ) )
-			->canOnlyDependOn()
+			->canOnly()
+			->dependOn()
 			->classes( ...$this->allowedValidationDependencies() );
 	}
 
@@ -110,7 +114,8 @@ class ArchitectureTest {
 		return PHPat::rule()
 			->classes( Selector::inNamespace( self::APPLICATION_USE_CASES ) )
 			->excluding( Selector::inNamespace( 'Wikibase\Lexeme\Interactors\MergeLexemes' ) )
-			->canOnlyDependOn()
+			->canOnly()
+			->dependOn()
 			->classes( ...$this->allowedUseCasesDependencies() );
 	}
 
