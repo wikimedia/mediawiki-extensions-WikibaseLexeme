@@ -10,7 +10,9 @@
 		}
 	},
 	"scripts": {
-		"api-testing": "mocha --timeout 0 --recursive tests/api tests/spec",
+		"api-testing": "run-s api-testing:*",
+		"api-testing:e2e": "mocha --timeout 0 tests/api",
+		"api-testing:spec": "mocha --timeout 0 tests/api/openapi-validation tests/spec",
 		"selenium-test": "npm run cypress:parallel",
 		"test": "run-s test:*",
 		"spec:fragment": "run-s spec:fragment:generate spec:fragment:bundle",
@@ -43,6 +45,7 @@
 	"devDependencies": {
 		"@redocly/cli": "^1.25.11",
 		"@wmde/eslint-config-wikimedia-typescript": "0.2.13",
+		"ajv": "^8.17.1",
 		"api-testing": "^1.7.3",
 		"cypress": "^13.17.0",
 		"cypress-parallel": "^0.14.0",

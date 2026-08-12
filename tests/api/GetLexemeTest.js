@@ -2,7 +2,11 @@
 'use strict';
 
 const { assert, action, utils } = require( 'api-testing' );
-const { createLexeme, getLatestEditMetadata } = require( './helpers/entityHelper' );
+const {
+	createLexeme,
+	createRedirectForLexeme,
+	getLatestEditMetadata
+} = require( './helpers/entityHelper' );
 const {
 	newGetLexemeRequestBuilder,
 	newCreateItemRequestBuilder,
@@ -177,18 +181,14 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		let redirectSourceId;
 
 		before( async () => {
-			redirectSourceId = await createLexeme( {
-				lemmas: { 'en-gb': { language: 'en-gb', value: 'colour' } },
-				language: languageId,
-				lexicalCategory: lexicalCategoryId
-			} );
-
-			const anon = await action.getAnon();
-			await anon.action( 'wblmergelexemes', {
-				source: redirectSourceId,
-				target: lexemeId,
-				token: await anon.token()
-			}, 'POST' );
+			redirectSourceId = await createRedirectForLexeme(
+				await createLexeme( {
+					lemmas: { 'en-gb': { language: 'en-gb', value: 'colour' } },
+					language: languageId,
+					lexicalCategory: lexicalCategoryId
+				} ),
+				lexemeId
+			);
 		} );
 
 		it( 'responds with a 308 including the redirect target location', async () => {

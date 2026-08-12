@@ -46,6 +46,17 @@ async function createLexeme( lexeme ) {
 	return id;
 }
 
+async function createRedirectForLexeme( sourceId, targetId ) {
+	const anon = await action.getAnon();
+	await anon.action( 'wblmergelexemes', {
+		source: sourceId,
+		target: targetId,
+		token: await anon.token()
+	}, 'POST' );
+
+	return sourceId;
+}
+
 async function getLatestEditMetadata( lexemeId ) {
 	const editMetadata = ( await action.getAnon().action( 'query', {
 		list: 'recentchanges',
@@ -63,5 +74,6 @@ async function getLatestEditMetadata( lexemeId ) {
 module.exports = {
 	getLexemeId,
 	createLexeme,
+	createRedirectForLexeme,
 	getLatestEditMetadata
 };
