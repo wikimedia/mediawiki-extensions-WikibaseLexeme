@@ -50,7 +50,7 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 		self::$prodRoutes = json_decode(
 			file_get_contents( __DIR__ . '/../../../../extension.json' ),
 			true
-		)['RestRoutes'];
+		)['RestRoutes'] ?? [];
 		self::$routes = RestRoutes::getAllRouteDefinitions();
 	}
 
