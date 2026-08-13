@@ -172,7 +172,7 @@ describe( newGetLexemeRequestBuilder().getRouteDescription(), () => {
 				const response = await newRequestBuilder().makeRequest();
 
 				expect( response ).to.have.status( Number( status ) );
-				expect( response ).to.satisfyApiSchema;
+				expect( response ).to.satisfyApiSchema();
 			} );
 		} );
 	} );
