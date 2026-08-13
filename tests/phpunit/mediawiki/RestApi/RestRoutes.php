@@ -11,7 +11,7 @@ class RestRoutes {
 		$extensionRoot = __DIR__ . '/../../../..';
 
 		return array_merge(
-			json_decode( file_get_contents( "$extensionRoot/extension.json" ), true )['RestRoutes'],
+			json_decode( file_get_contents( "$extensionRoot/extension.json" ), true )['RestRoutes'] ?? [],
 			json_decode( file_get_contents( "$extensionRoot/src/MediaWiki/RestApi/routes.dev.json" ), true ),
 		);
 	}
