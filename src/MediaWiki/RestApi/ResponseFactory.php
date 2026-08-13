@@ -15,6 +15,8 @@ class ResponseFactory {
 	private const array HTTP_STATUS_LOOKUP_TABLE = [
 		// 400 errors:
 		UseCaseError::INVALID_PATH_PARAMETER => 400,
+		UseCaseError::MISSING_FIELD => 400,
+		UseCaseError::INVALID_VALUE => 400,
 		// 404 errors:
 		UseCaseError::LEXEME_NOT_FOUND => 404,
 	];

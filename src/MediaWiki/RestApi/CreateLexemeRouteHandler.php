@@ -9,6 +9,7 @@ use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -23,6 +24,7 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 	public function __construct(
 		private CreateLexeme $createLexeme,
 		private LexemeSerializer $lexemeSerializer,
+		private ResponseFactory $responseFactory,
 	) {
 	}
 
@@ -30,6 +32,7 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 		return new self(
 			WikibaseLexemeServices::getCreateLexeme(),
 			WikibaseLexemeServices::getLexemeSerializer(),
+			new ResponseFactory(),
 		);
 	}
 
@@ -37,11 +40,15 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
 
-		return $this->newSuccessHttpResponse(
-			$this->createLexeme->execute(
-				new CreateLexemeRequest( $jsonBody[self::LEXEME_BODY_PARAM] )
-			)
-		);
+		try {
+			return $this->newSuccessHttpResponse(
+				$this->createLexeme->execute(
+					new CreateLexemeRequest( $jsonBody[self::LEXEME_BODY_PARAM] )
+				)
+			);
+		} catch ( UseCaseError $e ) {
+			return $this->responseFactory->newErrorResponseFromException( $e );
+		}
 	}
 
 	private function newSuccessHttpResponse( CreateLexemeResponse $useCaseResponse ): Response {

@@ -16,6 +16,8 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
+use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 
 /**
@@ -50,13 +52,26 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			) )
 			->willReturn( $expectedLexeme );
 
-		$response = ( new CreateLexeme( $lexemeCreator ) )->execute( new CreateLexemeRequest( [
+		$response = ( new CreateLexeme(
+			$lexemeCreator,
+			new CreateLexemeValidator()
+		) )->execute( new CreateLexemeRequest( [
 			'lemmas' => [ 'en' => $enLemma ],
 			'lexical_category' => $lexicalCategory,
 			'language' => $language,
 		] ) );
 
 		$this->assertSame( $expectedLexeme, $response->lexeme );
+	}
+
+	public function testGivenInvalidRequest_throwsWithoutCreating(): void {
+		$lexemeCreator = $this->createMock( LexemeCreator::class );
+		$lexemeCreator->expects( $this->never() )->method( 'create' );
+
+		$this->expectException( UseCaseError::class );
+
+		( new CreateLexeme( $lexemeCreator, new CreateLexemeValidator() ) )
+			->execute( new CreateLexemeRequest( [] ) );
 	}
 
 }

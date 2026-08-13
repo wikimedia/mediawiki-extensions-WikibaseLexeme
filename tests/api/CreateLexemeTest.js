@@ -37,4 +37,35 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( getLexemeResponse.status, 200, getLexemeResponse.text );
 		assert.deepStrictEqual( getLexemeResponse.body, response.body );
 	} );
+
+	[ 'lemmas', 'lexical_category', 'language' ].forEach( ( field ) => {
+		it( `returns 400 if ${ field } is missing`, async () => {
+			const lexeme = {
+				lemmas: { en: `test-lemma-${ utils.uniq() }` },
+				// eslint-disable-next-line camelcase
+				lexical_category: lexicalCategoryId,
+				language: languageId
+			};
+			delete lexeme[ field ];
+
+			const response = await newCreateLexemeRequestBuilder( lexeme ).makeRequest();
+
+			assert.strictEqual( response.status, 400, response.text );
+			assert.strictEqual( response.body.code, 'missing-field' );
+			assert.deepStrictEqual( response.body.context, { path: '/lexeme', field } );
+		} );
+	} );
+
+	it( 'returns 400 if lemmas is empty', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: {},
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas' } );
+	} );
 } );

@@ -14,10 +14,12 @@ class CreateLexeme {
 
 	public function __construct(
 		private LexemeCreator $lexemeCreator,
+		private CreateLexemeValidator $validator,
 	) {
 	}
 
 	public function execute( CreateLexemeRequest $request ): CreateLexemeResponse {
+		$this->validator->validate( $request );
 		$serialization = $request->lexeme;
 
 		$lemmas = new TermList(); // validation + proper deserialization happens in T434436

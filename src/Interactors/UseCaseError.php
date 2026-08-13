@@ -12,12 +12,18 @@ class UseCaseError extends RuntimeException {
 
 	public const string LEXEME_NOT_FOUND = 'lexeme-not-found';
 	public const string INVALID_PATH_PARAMETER = 'invalid-path-parameter';
+	public const string MISSING_FIELD = 'missing-field';
+	public const string INVALID_VALUE = 'invalid-value';
 
 	public const string CONTEXT_PARAMETER = 'parameter';
+	public const string CONTEXT_PATH = 'path';
+	public const string CONTEXT_FIELD = 'field';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
 		self::LEXEME_NOT_FOUND => [],
 		self::INVALID_PATH_PARAMETER => [ self::CONTEXT_PARAMETER ],
+		self::MISSING_FIELD => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
+		self::INVALID_VALUE => [ self::CONTEXT_PATH ],
 	];
 
 	public function __construct(
@@ -58,6 +64,22 @@ class UseCaseError extends RuntimeException {
 			self::INVALID_PATH_PARAMETER,
 			"Invalid path parameter: '$parameterName'",
 			[ self::CONTEXT_PARAMETER => $parameterName ],
+		);
+	}
+
+	public static function newMissingField( string $path, string $field ): self {
+		return new self(
+			self::MISSING_FIELD,
+			'Required field missing',
+			[ self::CONTEXT_PATH => $path, self::CONTEXT_FIELD => $field ],
+		);
+	}
+
+	public static function newInvalidValue( string $path ): self {
+		return new self(
+			self::INVALID_VALUE,
+			"Invalid value at '$path'",
+			[ self::CONTEXT_PATH => $path ],
 		);
 	}
 }

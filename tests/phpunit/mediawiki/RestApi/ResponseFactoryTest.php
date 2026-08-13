@@ -54,4 +54,30 @@ class ResponseFactoryTest extends TestCase {
 		);
 	}
 
+	public function testNewErrorResponseFromException_missingField(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newMissingField( '/lexeme', 'lemmas' )
+		);
+
+		$this->assertSame( 400, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "missing-field", "message": "Required field missing",'
+				. ' "context": { "path": "/lexeme", "field": "lemmas" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
+	public function testNewErrorResponseFromException_invalidValue(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newInvalidValue( '/lexeme/lemmas' )
+		);
+
+		$this->assertSame( 400, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "invalid-value", "message": "Invalid value at \'/lexeme/lemmas\'",'
+				. ' "context": { "path": "/lexeme/lemmas" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
 }
