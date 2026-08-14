@@ -27,11 +27,17 @@ class CreateLexeme {
 			$lemmas->setTextForLanguage( $languageCode, $text );
 		}
 
-		return new CreateLexemeResponse( $this->lexemeCreator->create( new LexemeWriteModel(
+		$lexemeRevision = $this->lexemeCreator->create( new LexemeWriteModel(
 			null,
 			$lemmas,
 			new ItemId( $serialization['lexical_category'] ),
 			new ItemId( $serialization['language'] ),
-		) ) );
+		) );
+
+		return new CreateLexemeResponse(
+			$lexemeRevision->lexeme,
+			$lexemeRevision->revisionId,
+			$lexemeRevision->lastModified,
+		);
 	}
 }

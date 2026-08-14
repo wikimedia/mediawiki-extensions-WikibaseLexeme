@@ -6,6 +6,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Repo\Domains\Crud\Domain\Model\CreateItemEditSummary;
@@ -21,7 +22,7 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 	public function __construct( private EntityUpdater $entityUpdater ) {
 	}
 
-	public function create( LexemeWriteModel $lexeme ): Lexeme {
+	public function create( LexemeWriteModel $lexeme ): LexemeRevision {
 		$entityRevision = $this->entityUpdater->create(
 			$lexeme,
 			new EditMetadata(
@@ -36,15 +37,19 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 		$newLexeme = $entityRevision->getEntity();
 		'@phan-var LexemeWriteModel $newLexeme';
 
-		return new Lexeme(
-			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
-			$newLexeme->getId(),
-			Lemmas::fromTermList( $newLexeme->getLemmas() ),
-			$newLexeme->getLexicalCategory(),
-			$newLexeme->getLanguage(),
-			new StatementList(),
-			new Forms(),
-			new Senses(),
+		return new LexemeRevision(
+			new Lexeme(
+				// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
+				$newLexeme->getId(),
+				Lemmas::fromTermList( $newLexeme->getLemmas() ),
+				$newLexeme->getLexicalCategory(),
+				$newLexeme->getLanguage(),
+				new StatementList(),
+				new Forms(),
+				new Senses(),
+			),
+			$entityRevision->getRevisionId(),
+			$entityRevision->getTimestamp(),
 		);
 	}
 

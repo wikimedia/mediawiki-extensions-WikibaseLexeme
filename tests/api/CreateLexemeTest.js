@@ -36,6 +36,12 @@ describe( 'POST /entities/lexemes', () => {
 
 		assert.strictEqual( getLexemeResponse.status, 200, getLexemeResponse.text );
 		assert.deepStrictEqual( getLexemeResponse.body, response.body );
+		assert.match( response.header.etag, /^"\d+"$/ );
+		assert.strictEqual( response.header.etag, getLexemeResponse.header.etag );
+		assert.strictEqual(
+			response.header[ 'last-modified' ],
+			getLexemeResponse.header[ 'last-modified' ]
+		);
 	} );
 
 	[ 'lemmas', 'lexical_category', 'language' ].forEach( ( field ) => {

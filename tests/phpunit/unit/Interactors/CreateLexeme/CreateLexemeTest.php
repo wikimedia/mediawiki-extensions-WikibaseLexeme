@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
@@ -31,6 +32,8 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 		$enLemma = 'potato';
 		$lexicalCategory = 'Q1';
 		$language = 'Q2';
+		$expectedRevisionId = 123;
+		$expectedLastModified = '20250101120000';
 		$expectedLexeme = new Lexeme(
 			new LexemeId( 'L1' ),
 			new Lemmas( new Lemma( 'en', $enLemma ) ),
@@ -50,7 +53,7 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 				new ItemId( $lexicalCategory ),
 				new ItemId( $language ),
 			) )
-			->willReturn( $expectedLexeme );
+			->willReturn( new LexemeRevision( $expectedLexeme, $expectedRevisionId, $expectedLastModified ) );
 
 		$response = ( new CreateLexeme(
 			$lexemeCreator,
@@ -62,6 +65,8 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 		] ) );
 
 		$this->assertSame( $expectedLexeme, $response->lexeme );
+		$this->assertSame( $expectedRevisionId, $response->revisionId );
+		$this->assertSame( $expectedLastModified, $response->lastModified );
 	}
 
 	public function testGivenInvalidRequest_throwsWithoutCreating(): void {
