@@ -3,7 +3,8 @@
 		"authors": [
 			"DDPAT",
 			"Ice bulldog",
-			"Piramidion"
+			"Piramidion",
+			"Movses"
 		]
 	},
 	"apierror-wikibaselexeme-form-must-have-at-least-one-representation": "Форма повинна мати принаймні одну репрезентацію",
@@ -36,6 +37,7 @@
 	"apihelp-wbladdform-param-tags": "Змініть теги, щоб застосувати до версії.",
 	"apihelp-wbladdform-summary": "Додає Форму до Лексеми",
 	"apihelp-wbladdsense-example-1": "Додати Форму до Лексеми з ідентифікатором <samp>$1</samp>, що має глоси <samp>$2</samp> з мовами <samp>$3</samp>, відповідно",
+	"apihelp-wbladdsense-param-baserevid": "Ідентифікатор базової версії Лексеми, якщо потрібна перевірка на конфлікт редагувань.",
 	"apihelp-wbladdsense-param-bot": "Позначити це редагування як зроблене ботом. Ця позначка URL-адреси буде враховуватись лише якщо користувач належить до групи «{{int:group-bot}}».",
 	"apihelp-wbladdsense-param-data": "JSON-кодовані дані Смислу, напр., його глоси",
 	"apihelp-wbladdsense-param-lexemeId": "Ідентифікатор Лексеми, напр., L10",
@@ -63,6 +65,7 @@
 	"apihelp-wblmergelexemes-param-target": "Ідентифікатор, до якого приєднувати",
 	"apihelp-wblmergelexemes-summary": "Об'єднує дві Лексеми.",
 	"apihelp-wblremoveform-example-1": "Вилучити Форму з Лексеми з ідентифікатором <samp>$1</samp>",
+	"apihelp-wblremoveform-param-baserevid": "Ідентифікатор базової версії Лексеми, якщо потрібна перевірка на конфлікт редагувань.",
 	"apihelp-wblremoveform-param-bot": "Позначити це редагування як зроблене ботом. Ця позначка в URL буде враховуватись лише якщо користувач належить до групи «{{int:group-bot}}».",
 	"apihelp-wblremoveform-param-id": "Ідентифікатор Форми, напр., L10-F20",
 	"apihelp-wblremoveform-param-tags": "Змініть теги, щоб застосувати до версії.",
