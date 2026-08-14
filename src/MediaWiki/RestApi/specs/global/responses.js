@@ -47,6 +47,30 @@ const lexemeExample = {
 	} ]
 };
 
+const createdLexemeExample = {
+	...lexemeExample,
+
+	// no forms and senses on newly created lexemes yet
+	forms: [],
+	senses: []
+};
+
+const contentLanguageHeader = {
+	"description": "Language code of the language in which error message is provided",
+	"schema": { "type": "string" },
+	"required": true
+};
+
+const errorSchema = {
+	"type": "object",
+	"properties": {
+		"code": { "type": "string" },
+		"message": { "type": "string" },
+		"context": { "type": "object" }
+	},
+	"required": [ "code", "message" ]
+};
+
 module.exports = {
 	"Lexeme": {
 		"description": "A single Lexeme",
@@ -61,6 +85,42 @@ module.exports = {
 				"example": lexemeExample
 			}
 		}
+	},
+	"CreatedLexeme": {
+		"description": "The newly created Lexeme",
+		"headers": {
+			"ETag": wikibaseRef( '#/components/headers/ETag' ),
+			"Last-Modified": wikibaseRef( '#/components/headers/Last-Modified' ),
+			"X-Authenticated-User": wikibaseRef( '#/components/headers/X-Authenticated-User' )
+		},
+		"content": {
+			"application/json": {
+				"schema": { "$ref": "#/components/schemas/Lexeme" },
+				"example": createdLexemeExample
+			}
+		}
+	},
+	"InvalidNewLexemeInput": {
+		"description": "The request cannot be processed",
+		"content": {
+			"application/json": {
+				"schema": errorSchema,
+				"examples": {
+					"value-too-long": wikibaseRef( '#/components/examples/ValueTooLongExample' ),
+					"statement-group-property-id-mismatch": wikibaseRef(
+						'#/components/examples/StatementGroupPropertyIdMismatch'
+					),
+					"referenced-resource-not-found": wikibaseRef(
+						'#/components/examples/ReferencedResourceNotFoundExample'
+					),
+					"invalid-value": wikibaseRef( '#/components/examples/InvalidValueExample' ),
+					"missing-field": wikibaseRef( '#/components/examples/MissingFieldExample' ),
+					"invalid-key": wikibaseRef( '#/components/examples/InvalidKeyExample' ),
+					"resource-too-large": wikibaseRef( '#/components/examples/ResourceTooLargeExample' )
+				}
+			}
+		},
+		"headers": { "Content-Language": contentLanguageHeader }
 	},
 	"LexemeNotFound": {
 		"description": "The requested Lexeme was not found",
@@ -84,12 +144,6 @@ module.exports = {
 				}
 			}
 		},
-		"headers": {
-			"Content-Language": {
-				"description": "Language code of the language in which error message is provided",
-				"schema": { "type": "string" },
-				"required": true
-			}
-		}
+		"headers": { "Content-Language": contentLanguageHeader }
 	}
 };
