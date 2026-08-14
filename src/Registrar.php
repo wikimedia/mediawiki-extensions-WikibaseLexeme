@@ -25,7 +25,7 @@ class Registrar {
 			return;
 		}
 
-		global $wgAPIModules, $wgSpecialPages, $wgResourceModules;
+		global $wgAPIModules, $wgSpecialPages, $wgResourceModules, $wgRestAPIAdditionalRouteFiles;
 
 		$wgAPIModules['wbladdform'] = [
 			'class' => AddForm::class,
@@ -154,6 +154,8 @@ class Registrar {
 			$wgResourceModules,
 			include __DIR__ . '/../WikibaseLexeme.resources.php'
 		);
+
+		$wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.json';
 	}
 
 }
