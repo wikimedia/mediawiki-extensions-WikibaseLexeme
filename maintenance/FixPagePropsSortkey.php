@@ -41,7 +41,7 @@ class FixPagePropsSortkey extends LoggedUpdateMaintenance {
 	}
 
 	public function doDBUpdates(): bool {
-		$dbr = $this->getDB( DB_REPLICA );
+		$dbr = $this->getReplicaDB();
 		$dbw = $this->getDB( DB_PRIMARY );
 
 		$pageIdsQueryBuilder = $dbr->newSelectQueryBuilder()
