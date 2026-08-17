@@ -1,7 +1,19 @@
 'use strict';
 
 module.exports = {
-	"rules": { },
+	"root": true,
+	"ignorePatterns": [
+		"openapi.fragment.dereferenced.json",
+		"openapi.fragment.generated.json"
+	],
+	"extends": [
+		"wikimedia",
+		"wikimedia/node",
+		"wikimedia/language/es2022"
+	],
+	"rules": {
+		"no-console": "error"
+	},
 	"overrides": [
 		{
 			"files": [ "*.js" ],
