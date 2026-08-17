@@ -16,6 +16,24 @@ use Wikibase\Lexeme\MediaWiki\RestApi\ResponseFactory;
  */
 class ResponseFactoryTest extends TestCase {
 
+	public function testNewSuccessResponse(): void {
+		$body = '{ "id": "L1" }';
+
+		$httpResponse = ( new ResponseFactory() )->newSuccessResponse( $body, 123, '20240101000000' );
+
+		$this->assertSame( 200, $httpResponse->getStatusCode() );
+		$this->assertSame( 'application/json', $httpResponse->getHeaderLine( 'Content-Type' ) );
+		$this->assertSame( 'Mon, 01 Jan 2024 00:00:00 GMT', $httpResponse->getHeaderLine( 'Last-Modified' ) );
+		$this->assertSame( '"123"', $httpResponse->getHeaderLine( 'ETag' ) );
+		$this->assertSame( $body, $httpResponse->getBody()->getContents() );
+	}
+
+	public function testNewSuccessResponse_withCustomStatus(): void {
+		$httpResponse = ( new ResponseFactory() )->newSuccessResponse( '{}', 123, '20240101000000', 201 );
+
+		$this->assertSame( 201, $httpResponse->getStatusCode() );
+	}
+
 	public function testNewErrorResponseFromException(): void {
 		$httpStatus = 404;
 		$errorCode = 'lexeme-not-found';

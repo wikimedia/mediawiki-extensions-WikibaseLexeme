@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\MediaWiki\RestApi;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
-use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
@@ -13,8 +12,6 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikimedia\ParamValidator\ParamValidator;
-use Wikimedia\Timestamp\ConvertibleTimestamp;
-use Wikimedia\Timestamp\TimestampFormat as TS;
 
 /**
  * @license GPL-2.0-or-later
@@ -54,22 +51,15 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 	}
 
 	private function newSuccessHttpResponse( CreateLexemeResponse $useCaseResponse ): Response {
-		$httpResponse = $this->getResponseFactory()->create();
-		$httpResponse->setStatus( 201 );
-		$httpResponse->setHeader( 'Content-Type', 'application/json' );
-		$httpResponse->setHeader(
-			'Last-Modified',
-			ConvertibleTimestamp::convert( TS::RFC2822, $useCaseResponse->lastModified )
-		);
-		$httpResponse->setHeader( 'ETag', "\"{$useCaseResponse->revisionId}\"" );
-		$httpResponse->setBody( new StringStream(
+		return $this->responseFactory->newSuccessResponse(
 			json_encode(
 				$this->lexemeSerializer->serialize( $useCaseResponse->lexeme ),
 				JSON_UNESCAPED_SLASHES
-			)
-		) );
-
-		return $httpResponse;
+			),
+			$useCaseResponse->revisionId,
+			$useCaseResponse->lastModified,
+			statusCode: 201,
+		);
 	}
 
 	public function getBodyParamSettings(): array {

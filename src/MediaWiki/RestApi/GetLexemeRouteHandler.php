@@ -10,7 +10,6 @@ use MediaWiki\Rest\RequestInterface;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Rest\SimpleHandler;
-use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeRequest;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
@@ -22,8 +21,6 @@ use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
-use Wikimedia\Timestamp\ConvertibleTimestamp;
-use Wikimedia\Timestamp\TimestampFormat as TS;
 
 /**
  * @license GPL-2.0-or-later
@@ -73,21 +70,14 @@ class GetLexemeRouteHandler extends SimpleHandler {
 	}
 
 	private function newSuccessHttpResponse( GetLexemeResponse $useCaseResponse ): Response {
-		$httpResponse = $this->getResponseFactory()->create();
-		$httpResponse->setHeader( 'Content-Type', 'application/json' );
-		$httpResponse->setHeader(
-			'Last-Modified',
-			ConvertibleTimestamp::convert( TS::RFC2822, $useCaseResponse->lastModified )
-		);
-		$httpResponse->setHeader( 'ETag', "\"{$useCaseResponse->revisionId}\"" );
-		$httpResponse->setBody( new StringStream(
+		return $this->responseFactory->newSuccessResponse(
 			json_encode(
 				$this->lexemeSerializer->serialize( $useCaseResponse->lexeme ),
 				JSON_UNESCAPED_SLASHES
-			)
-		) );
-
-		return $httpResponse;
+			),
+			$useCaseResponse->revisionId,
+			$useCaseResponse->lastModified,
+		);
 	}
 
 	private function newRedirectHttpResponse( LexemeRedirect $e ): Response {
