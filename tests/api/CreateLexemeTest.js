@@ -7,6 +7,7 @@ const {
 	newGetLexemeRequestBuilder,
 	newCreateItemRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
+const { getLatestEditMetadata } = require( './helpers/entityHelper' );
 
 describe( 'POST /entities/lexemes', () => {
 	let languageId;
@@ -41,6 +42,9 @@ describe( 'POST /entities/lexemes', () => {
 			response.header[ 'last-modified' ],
 			getLexemeResponse.header[ 'last-modified' ]
 		);
+
+		const editMetadata = await getLatestEditMetadata( response.body.id );
+		assert.strictEqual( editMetadata.comment, '/* wbeditentity-create-lexeme:0| */' );
 	} );
 
 	[ 'lemmas', 'lexical_category', 'language' ].forEach( ( field ) => {

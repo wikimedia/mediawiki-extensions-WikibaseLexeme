@@ -11,6 +11,7 @@ use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRevisionMetadataRetriever;
@@ -52,7 +53,7 @@ use Wikibase\Lib\WikibaseContentLanguages;
 use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
-use Wikibase\Repo\Domains\Crud\WbCrud;
+use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
@@ -248,8 +249,20 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.CreateLexeme' => static function ( MediaWikiServices $services ): CreateLexeme {
 			return new CreateLexeme(
-				new EntityUpdaterLexemeCreator( WbCrud::getEntityUpdater( $services ) ),
+				new EntityUpdaterLexemeCreator( $services->get( 'WikibaseLexeme.EntityUpdater' ) ),
 				new CreateLexemeValidator(),
+			);
+		},
+		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {
+			return new EntityUpdater(
+				RequestContext::getMain(),
+				WikibaseRepo::getEditEntityFactory( $services ),
+				WikibaseRepo::getLogger( $services ),
+				new LexemeEditSummaryFormatter( WikibaseRepo::getSummaryFormatter( $services ) ),
+				$services->getPermissionManager(),
+				WikibaseRepo::getEntityStore( $services ),
+				new GuidGenerator(),
+				WikibaseRepo::getSettings( $services ),
 			);
 		},
 		'WikibaseLexeme.LexemeSerializer' => static function (

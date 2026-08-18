@@ -6,6 +6,8 @@ use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
@@ -47,12 +49,15 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 		$lexemeCreator = $this->createMock( LexemeCreator::class );
 		$lexemeCreator->expects( $this->once() )
 			->method( 'create' )
-			->with( new LexemeWriteModel(
-				null,
-				new TermList( [ new Term( 'en', $enLemma ) ] ),
-				new ItemId( $lexicalCategory ),
-				new ItemId( $language ),
-			) )
+			->with(
+				new LexemeWriteModel(
+					null,
+					new TermList( [ new Term( 'en', $enLemma ) ] ),
+					new ItemId( $lexicalCategory ),
+					new ItemId( $language ),
+				),
+				new EditMetadata( EditSummaryAction::CREATE_LEXEME ),
+			)
 			->willReturn( new LexemeRevision( $expectedLexeme, $expectedRevisionId, $expectedLastModified ) );
 
 		$response = ( new CreateLexeme(

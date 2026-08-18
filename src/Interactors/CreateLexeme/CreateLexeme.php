@@ -4,6 +4,8 @@ namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 
@@ -27,12 +29,15 @@ class CreateLexeme {
 			$lemmas->setTextForLanguage( $languageCode, $text );
 		}
 
-		$lexemeRevision = $this->lexemeCreator->create( new LexemeWriteModel(
-			null,
-			$lemmas,
-			new ItemId( $serialization['lexical_category'] ),
-			new ItemId( $serialization['language'] ),
-		) );
+		$lexemeRevision = $this->lexemeCreator->create(
+			new LexemeWriteModel(
+				null,
+				$lemmas,
+				new ItemId( $serialization['lexical_category'] ),
+				new ItemId( $serialization['language'] ),
+			),
+			new EditMetadata( EditSummaryAction::CREATE_LEXEME ),
+		);
 
 		return new CreateLexemeResponse(
 			$lexemeRevision->lexeme,

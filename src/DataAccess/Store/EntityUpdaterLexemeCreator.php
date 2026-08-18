@@ -2,6 +2,8 @@
 
 namespace Wikibase\Lexeme\DataAccess\Store;
 
+use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
+use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
@@ -9,8 +11,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
-use Wikibase\Repo\Domains\Crud\Domain\Model\CreateItemEditSummary;
-use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata;
+use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 
@@ -22,15 +23,14 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 	public function __construct( private EntityUpdater $entityUpdater ) {
 	}
 
-	public function create( LexemeWriteModel $lexeme ): LexemeRevision {
+	public function create( LexemeWriteModel $lexeme, EditMetadata $editMetadata ): LexemeRevision {
 		$entityRevision = $this->entityUpdater->create(
 			$lexeme,
-			new EditMetadata(
+			new CrudEditMetadata(
 				[],
 				false,
-				// CreateItemEditSummary is just here as a placeholder. This will be replaced in T434528.
-				CreateItemEditSummary::newSummary( null )
-			)
+				new CrudEditSummaryAdapter( $editMetadata->editSummaryAction ),
+			),
 		);
 
 		/** @var LexemeWriteModel $newLexeme */
