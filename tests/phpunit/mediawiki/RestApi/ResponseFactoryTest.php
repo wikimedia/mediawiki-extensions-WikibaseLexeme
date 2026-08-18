@@ -85,6 +85,32 @@ class ResponseFactoryTest extends TestCase {
 		);
 	}
 
+	public function testNewErrorResponseFromException_invalidKey(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newInvalidKey( '/lexeme/lemmas', 'xyz' )
+		);
+
+		$this->assertSame( 400, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "invalid-key", "message": "Invalid key \'xyz\' in \'/lexeme/lemmas\'",'
+				. ' "context": { "path": "/lexeme/lemmas", "key": "xyz" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
+	public function testNewErrorResponseFromException_valueTooLong(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newValueTooLong( '/lexeme/lemmas/en', 1000 )
+		);
+
+		$this->assertSame( 400, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "value-too-long", "message": "The input value is too long",'
+				. ' "context": { "path": "/lexeme/lemmas/en", "limit": 1000 } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
 	public function testNewErrorResponseFromException_invalidValue(): void {
 		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
 			UseCaseError::newInvalidValue( '/lexeme/lemmas' )

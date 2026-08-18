@@ -19,6 +19,8 @@ class ResponseFactory {
 		UseCaseError::INVALID_PATH_PARAMETER => 400,
 		UseCaseError::MISSING_FIELD => 400,
 		UseCaseError::INVALID_VALUE => 400,
+		UseCaseError::INVALID_KEY => 400,
+		UseCaseError::VALUE_TOO_LONG => 400,
 		// 404 errors:
 		UseCaseError::LEXEME_NOT_FOUND => 404,
 	];

@@ -14,16 +14,22 @@ class UseCaseError extends RuntimeException {
 	public const string INVALID_PATH_PARAMETER = 'invalid-path-parameter';
 	public const string MISSING_FIELD = 'missing-field';
 	public const string INVALID_VALUE = 'invalid-value';
+	public const string INVALID_KEY = 'invalid-key';
+	public const string VALUE_TOO_LONG = 'value-too-long';
 
 	public const string CONTEXT_PARAMETER = 'parameter';
 	public const string CONTEXT_PATH = 'path';
 	public const string CONTEXT_FIELD = 'field';
+	public const string CONTEXT_KEY = 'key';
+	public const string CONTEXT_LIMIT = 'limit';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
 		self::LEXEME_NOT_FOUND => [],
 		self::INVALID_PATH_PARAMETER => [ self::CONTEXT_PARAMETER ],
 		self::MISSING_FIELD => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
 		self::INVALID_VALUE => [ self::CONTEXT_PATH ],
+		self::INVALID_KEY => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
+		self::VALUE_TOO_LONG => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
 	];
 
 	public function __construct(
@@ -80,6 +86,22 @@ class UseCaseError extends RuntimeException {
 			self::INVALID_VALUE,
 			"Invalid value at '$path'",
 			[ self::CONTEXT_PATH => $path ],
+		);
+	}
+
+	public static function newInvalidKey( string $path, string $key ): self {
+		return new self(
+			self::INVALID_KEY,
+			"Invalid key '$key' in '$path'",
+			[ self::CONTEXT_PATH => $path, self::CONTEXT_KEY => $key ],
+		);
+	}
+
+	public static function newValueTooLong( string $path, int $maxLength ): self {
+		return new self(
+			self::VALUE_TOO_LONG,
+			'The input value is too long',
+			[ self::CONTEXT_PATH => $path, self::CONTEXT_LIMIT => $maxLength ],
 		);
 	}
 }
