@@ -75,4 +75,78 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( response.body.code, 'invalid-value' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas' } );
 	} );
+
+	it( 'accepts a private use language code and trims the lemma text', async () => {
+		const lemma = `test-lemma-${ utils.uniq() }`;
+		const lemmaLanguage = `en-x-${ languageId }`;
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { [ lemmaLanguage ]: `  ${ lemma }  ` },
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 201, response.text );
+		assert.deepStrictEqual( response.body.lemmas, { [ lemmaLanguage ]: lemma } );
+
+		const getLexemeResponse = await newGetLexemeRequestBuilder( response.body.id ).makeRequest();
+
+		assert.strictEqual( getLexemeResponse.status, 200, getLexemeResponse.text );
+		assert.deepStrictEqual( getLexemeResponse.body.lemmas, { [ lemmaLanguage ]: lemma } );
+	} );
+
+	it( 'returns 400 if lemmas is not an object', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: [ 'potato' ],
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas' } );
+	} );
+
+	it( 'returns 400 if a lemma language code is invalid', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { 'invalid-language-code': `test-lemma-${ utils.uniq() }` },
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'invalid-key' );
+		assert.deepStrictEqual(
+			response.body.context,
+			{ path: '/lexeme/lemmas', key: 'invalid-language-code' }
+		);
+	} );
+
+	it( 'returns 400 if a lemma text is invalid', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: '' },
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas/en' } );
+	} );
+
+	it( 'returns 400 if a lemma text is too long', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: 'x'.repeat( 1001 ) },
+			// eslint-disable-next-line camelcase
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} ).makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'value-too-long' );
+		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas/en', limit: 1000 } );
+	} );
 } );

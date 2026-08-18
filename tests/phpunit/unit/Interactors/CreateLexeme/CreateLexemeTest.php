@@ -46,28 +46,32 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			new Senses(),
 		);
 
-		$lexemeCreator = $this->createMock( LexemeCreator::class );
-		$lexemeCreator->expects( $this->once() )
-			->method( 'create' )
-			->with(
-				new LexemeWriteModel(
-					null,
-					new TermList( [ new Term( 'en', $enLemma ) ] ),
-					new ItemId( $lexicalCategory ),
-					new ItemId( $language ),
-				),
-				new EditMetadata( EditSummaryAction::CREATE_LEXEME ),
-			)
-			->willReturn( new LexemeRevision( $expectedLexeme, $expectedRevisionId, $expectedLastModified ) );
-
-		$response = ( new CreateLexeme(
-			$lexemeCreator,
-			new CreateLexemeValidator()
-		) )->execute( new CreateLexemeRequest( [
+		$request = new CreateLexemeRequest( [
 			'lemmas' => [ 'en' => $enLemma ],
 			'lexical_category' => $lexicalCategory,
 			'language' => $language,
-		] ) );
+		] );
+		$deserializedLexeme = new LexemeWriteModel(
+			null,
+			new TermList( [ new Term( 'en', $enLemma ) ] ),
+			new ItemId( $lexicalCategory ),
+			new ItemId( $language ),
+		);
+
+		$validator = $this->createMock( CreateLexemeValidator::class );
+		$validator->expects( $this->once() )
+			->method( 'validateAndDeserialize' )
+			->with( $request );
+		$validator->method( 'getValidatedLexeme' )
+			->willReturn( $deserializedLexeme );
+
+		$lexemeCreator = $this->createMock( LexemeCreator::class );
+		$lexemeCreator->expects( $this->once() )
+			->method( 'create' )
+			->with( $deserializedLexeme, new EditMetadata( EditSummaryAction::CREATE_LEXEME ) )
+			->willReturn( new LexemeRevision( $expectedLexeme, $expectedRevisionId, $expectedLastModified ) );
+
+		$response = ( new CreateLexeme( $lexemeCreator, $validator ) )->execute( $request );
 
 		$this->assertSame( $expectedLexeme, $response->lexeme );
 		$this->assertSame( $expectedRevisionId, $response->revisionId );
@@ -78,9 +82,13 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 		$lexemeCreator = $this->createMock( LexemeCreator::class );
 		$lexemeCreator->expects( $this->never() )->method( 'create' );
 
+		$validator = $this->createStub( CreateLexemeValidator::class );
+		$validator->method( 'validateAndDeserialize' )
+			->willThrowException( UseCaseError::newMissingField( '/lexeme', 'lemmas' ) );
+
 		$this->expectException( UseCaseError::class );
 
-		( new CreateLexeme( $lexemeCreator, new CreateLexemeValidator() ) )
+		( new CreateLexeme( $lexemeCreator, $validator ) )
 			->execute( new CreateLexemeRequest( [] ) );
 	}
 

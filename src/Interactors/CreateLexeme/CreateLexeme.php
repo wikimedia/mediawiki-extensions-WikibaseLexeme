@@ -2,12 +2,10 @@
 
 namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
-use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
-use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
  * @license GPL-2.0-or-later
@@ -20,22 +18,14 @@ class CreateLexeme {
 	) {
 	}
 
+	/**
+	 * @throws UseCaseError
+	 */
 	public function execute( CreateLexemeRequest $request ): CreateLexemeResponse {
-		$this->validator->validate( $request );
-		$serialization = $request->lexeme;
-
-		$lemmas = new TermList(); // validation + proper deserialization happens in T434436
-		foreach ( $serialization['lemmas'] as $languageCode => $text ) {
-			$lemmas->setTextForLanguage( $languageCode, $text );
-		}
+		$this->validator->validateAndDeserialize( $request );
 
 		$lexemeRevision = $this->lexemeCreator->create(
-			new LexemeWriteModel(
-				null,
-				$lemmas,
-				new ItemId( $serialization['lexical_category'] ),
-				new ItemId( $serialization['language'] ),
-			),
+			$this->validator->getValidatedLexeme(),
 			new EditMetadata( EditSummaryAction::CREATE_LEXEME ),
 		);
 
