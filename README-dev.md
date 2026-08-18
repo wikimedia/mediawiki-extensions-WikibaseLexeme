@@ -105,6 +105,22 @@ To enable routes in development (not recommended for production use), add:
 $wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json';
 ```
 
+The api-testing suites inject `routes.dev.json` into each request themselves,
+and registering a route twice makes the REST router fail with a path conflict.
+The broken route map is cached in APCu; touch one of the route files to
+invalidate it. To keep the routes enabled while the suites run, dedupe the
+route files after all configuration has been loaded:
+
+```php
+$wgExtensionFunctions[] = static function () {
+	// array_unique prevents registering the same routes twice
+	global $wgRestAPIAdditionalRouteFiles;
+	$wgRestAPIAdditionalRouteFiles = array_unique( $wgRestAPIAdditionalRouteFiles );
+};
+```
+
+The dedupe is only needed in development; leave it out of production setups.
+
 ### REST API doc fragment
 
 This extension's REST routes are documented as an OpenAPI fragment, authored
