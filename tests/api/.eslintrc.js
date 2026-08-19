@@ -9,6 +9,7 @@ module.exports = {
 	],
 	root: true,
 	rules: {
+		"camelcase": [ "error", { allow: [ "data_type", "lexical_category" ] } ],
 		"mocha/no-setup-in-describe": 0,
 		"max-len": [ "warn", { code: 130 } ]
 	}

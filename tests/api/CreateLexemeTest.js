@@ -21,7 +21,6 @@ describe( 'POST /entities/lexemes', () => {
 		const lemma = `test-lemma-${ utils.uniq() }`;
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: lemma },
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();
@@ -48,7 +47,6 @@ describe( 'POST /entities/lexemes', () => {
 		it( `returns 400 if ${ field } is missing`, async () => {
 			const lexeme = {
 				lemmas: { en: `test-lemma-${ utils.uniq() }` },
-				// eslint-disable-next-line camelcase
 				lexical_category: lexicalCategoryId,
 				language: languageId
 			};
@@ -65,7 +63,6 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns 400 if lemmas is empty', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: {},
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();

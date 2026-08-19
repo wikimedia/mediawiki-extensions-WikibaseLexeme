@@ -26,7 +26,6 @@ async function createItemId( label ) {
 async function createLexemeWithAllFields( language, lexicalCategory ) {
 	const grammaticalFeature = await createItemId( 'grammatical-feature' );
 	const propertyId = ( await newCreatePropertyRequestBuilder( {
-		// eslint-disable-next-line camelcase
 		data_type: 'string',
 		labels: { en: `spec-test-property-${ utils.uniq() }` }
 	} ).makeRequest() ).body.id;

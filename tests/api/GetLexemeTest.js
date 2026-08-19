@@ -41,7 +41,6 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		).makeRequest() ).body.id;
 
 		propertyId = ( await newCreatePropertyRequestBuilder(
-			// eslint-disable-next-line camelcase
 			{ data_type: 'string', labels: { en: `test-property-${ utils.uniq() }` } }
 		).makeRequest() ).body.id;
 
