@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
+use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -36,16 +37,16 @@ class CreateLexemeValidator {
 		if ( !array_key_exists( 'lexical_category', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'lexical_category' );
 		}
+		$lexicalCategory = $this->validateAndDeserializeItemId(
+			$serialization['lexical_category'],
+			'/lexeme/lexical_category'
+		);
 		if ( !array_key_exists( 'language', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'language' );
 		}
+		$language = $this->validateAndDeserializeItemId( $serialization['language'], '/lexeme/language' );
 
-		$this->lexeme = new LexemeWriteModel(
-			null,
-			$lemmas,
-			new ItemId( $serialization['lexical_category'] ),
-			new ItemId( $serialization['language'] ),
-		);
+		$this->lexeme = new LexemeWriteModel( null, $lemmas, $lexicalCategory, $language );
 	}
 
 	public function getValidatedLexeme(): LexemeWriteModel {
@@ -54,6 +55,20 @@ class CreateLexemeValidator {
 		}
 
 		return $this->lexeme;
+	}
+
+	/**
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeItemId( mixed $value, string $path ): ItemId {
+		if ( !is_string( $value ) ) {
+			throw UseCaseError::newInvalidValue( $path );
+		}
+		try {
+			return new ItemId( $value );
+		} catch ( InvalidArgumentException ) {
+			throw UseCaseError::newInvalidValue( $path );
+		}
 	}
 
 	/**

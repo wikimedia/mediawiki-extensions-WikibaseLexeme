@@ -48,6 +48,34 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	/**
+	 * @dataProvider provideInvalidItemId
+	 */
+	public function testGivenInvalidItemId_throwsUseCaseError( string $field, mixed $value ): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+				array_merge( self::VALID_LEXEME, [ $field => $value ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
+			$this->assertSame( "Invalid value at '/lexeme/$field'", $e->errorMessage );
+			$this->assertSame( [ UseCaseError::CONTEXT_PATH => "/lexeme/$field" ], $e->context );
+		}
+	}
+
+	public static function provideInvalidItemId(): iterable {
+		foreach ( [ 'lexical_category', 'language' ] as $field ) {
+			yield "$field: int" => [ $field, 42 ];
+			yield "$field: null" => [ $field, null ];
+			yield "$field: array" => [ $field, [ 'Q1' ] ];
+			yield "$field: empty string" => [ $field, '' ];
+			yield "$field: not an id" => [ $field, 'potato' ];
+			yield "$field: property id" => [ $field, 'P123' ];
+			yield "$field: lexeme id" => [ $field, 'L1' ];
+		}
+	}
+
+	/**
 	 * @dataProvider provideLemmaTextWithSurroundingWhitespace
 	 */
 	public function testGivenLemmaTextWithSurroundingWhitespace_trims( string $text, string $expectedText ): void {
