@@ -13,10 +13,7 @@ class RequestBuilder {
 		this.jsonBodyParams = {};
 		this.headers = { 'user-agent': 'e2e tests' };
 		this.user = null;
-		// TODO create something like Wikibase.ci.php to avoid loading routes this way
-		this.configOverrides = {
-			wgRestAPIAdditionalRouteFiles: [ 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json' ]
-		};
+		this.configOverrides = {};
 	}
 
 	/**

@@ -156,6 +156,10 @@ class Registrar {
 		);
 
 		$wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.json';
+		if ( defined( 'MW_QUIBBLE_CI' ) ) {
+			// enabling work-in-progress routes in CI so that api-testing can cover them
+			$wgRestAPIAdditionalRouteFiles[] = 'extensions/WikibaseLexeme/src/MediaWiki/RestApi/routes.dev.json';
+		}
 	}
 
 }
