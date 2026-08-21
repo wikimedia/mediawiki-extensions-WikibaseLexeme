@@ -178,4 +178,19 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( response.body.code, 'value-too-long' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas/en', limit: 1000 } );
 	} );
+
+	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} )
+			.withHeader( 'user-agent', '' )
+			.makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.header( response, 'Content-Language', 'en' );
+		assert.strictEqual( response.body.code, 'missing-user-agent' );
+		assert.include( response.body.message, 'User-Agent' );
+	} );
 } );

@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
+use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -34,6 +35,7 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getCreateLexeme(),
 			new MiddlewareHandler( [
 					WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+					new UserAgentCheckMiddleware(),
 				]
 			),
 			WikibaseLexemeServices::getLexemeSerializer(),
