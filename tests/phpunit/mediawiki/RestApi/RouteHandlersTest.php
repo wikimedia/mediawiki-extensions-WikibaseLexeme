@@ -21,6 +21,8 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
+use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
@@ -155,6 +157,49 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 				[ new LexemeRedirect( new LexemeId( 'L2' ) ), $hasHttpStatus( 308 ) ],
 			],
 		] ];
+		yield 'CreateLexeme' => [ [
+			'useCase' => CreateLexeme::class,
+			'useCaseResponse' => new CreateLexemeResponse(
+				new Lexeme(
+					new LexemeId( 'L1' ),
+					new Lemmas(
+						new Lemma( 'en-ca', 'colour' ),
+						new Lemma( 'en-us', 'color' )
+					),
+					new ItemId( 'Q1' ),
+					new ItemId( 'Q2' ),
+					new StatementList(),
+					new Forms(),
+					new Senses()
+				),
+				42,
+				$lastModified
+			),
+			'serviceName' => 'WikibaseLexeme.CreateLexeme',
+			'validRequest' => [
+				'pathParams' => [],
+				'bodyContents' => [
+					'lexeme' => [
+						'lemmas' => [
+							'en-ca' => 'colour',
+							'en-us' => 'color',
+						],
+						'lexical_category' => 'Q1',
+						'language' => 'Q2',
+					],
+				],
+			],
+			'expectedExceptions' => [
+				[
+					UseCaseError::newInvalidValue( '/lexeme/lemmas' ),
+					$hasErrorCode( UseCaseError::INVALID_VALUE ),
+				],
+				[
+					UseCaseError::newMissingField( '/lexeme', 'lexical_category' ),
+					$hasHttpStatus( 400 ),
+				],
+			],
+		] ];
 	}
 
 	/**
@@ -193,6 +238,8 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 					'Content-Type' => 'application/json',
 				],
 				'pathParams' => $validRequest['pathParams'],
+				'bodyContents' => isset( $validRequest['bodyContents'] )
+					? json_encode( $validRequest['bodyContents'] ) : null,
 			] ),
 			[ 'path' => $routeData['path'] ]
 		);

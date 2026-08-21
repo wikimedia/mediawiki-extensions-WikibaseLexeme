@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -22,6 +23,7 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 
 	public function __construct(
 		private CreateLexeme $createLexeme,
+		private MiddlewareHandler $middlewareHandler,
 		private LexemeSerializer $lexemeSerializer,
 		private ResponseFactory $responseFactory,
 	) {
@@ -30,12 +32,20 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 	public static function factory(): Handler {
 		return new self(
 			WikibaseLexemeServices::getCreateLexeme(),
+			new MiddlewareHandler( [
+					WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+				]
+			),
 			WikibaseLexemeServices::getLexemeSerializer(),
 			new ResponseFactory(),
 		);
 	}
 
 	public function run(): Response {
+		return $this->middlewareHandler->run( $this, fn () => $this->runUseCase() );
+	}
+
+	public function runUseCase(): Response {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
 
