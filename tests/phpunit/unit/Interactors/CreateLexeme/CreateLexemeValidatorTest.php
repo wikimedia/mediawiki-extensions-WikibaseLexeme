@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 
 /**
@@ -22,6 +23,8 @@ use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 	private const VALID_LANGUAGE_CODES = [ 'en', 'de' ];
+
+	private const EXISTING_ITEM_IDS = [ 'Q1', 'Q2' ];
 
 	private const VALID_LEXEME = [
 		'lemmas' => [ 'en' => 'potato' ],
@@ -73,6 +76,27 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			yield "$field: property id" => [ $field, 'P123' ];
 			yield "$field: lexeme id" => [ $field, 'L1' ];
 		}
+	}
+
+	/**
+	 * @dataProvider provideNonexistentItemField
+	 */
+	public function testGivenNonexistentItem_throwsUseCaseError( string $field ): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+				array_merge( self::VALID_LEXEME, [ $field => 'Q999' ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::REFERENCED_RESOURCE_NOT_FOUND, $e->errorCode );
+			$this->assertSame( 'The referenced resource does not exist', $e->errorMessage );
+			$this->assertSame( [ UseCaseError::CONTEXT_PATH => "/lexeme/$field" ], $e->context );
+		}
+	}
+
+	public static function provideNonexistentItemField(): iterable {
+		yield 'lexical_category' => [ 'lexical_category' ];
+		yield 'language' => [ 'language' ];
 	}
 
 	/**
@@ -246,6 +270,14 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 				public function isValid( string $languageCode ): bool {
 					return in_array( $languageCode, $this->validLanguageCodes );
+				}
+			},
+			new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
+				public function __construct( private array $existingItemIds ) {
+				}
+
+				public function exists( ItemId $itemId ): bool {
+					return in_array( $itemId->getSerialization(), $this->existingItemIds );
 				}
 			},
 			LemmaTermValidator::LEMMA_MAX_LENGTH

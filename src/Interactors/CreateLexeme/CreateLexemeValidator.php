@@ -9,6 +9,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 
 /**
@@ -20,6 +21,7 @@ class CreateLexemeValidator {
 
 	public function __construct(
 		private LemmaLanguageCodeValidator $lemmaLanguageCodeValidator,
+		private ItemExistenceChecker $itemExistenceChecker,
 		private int $maxLemmaLength,
 	) {
 	}
@@ -65,10 +67,15 @@ class CreateLexemeValidator {
 			throw UseCaseError::newInvalidValue( $path );
 		}
 		try {
-			return new ItemId( $value );
+			$itemId = new ItemId( $value );
 		} catch ( InvalidArgumentException ) {
 			throw UseCaseError::newInvalidValue( $path );
 		}
+		if ( !$this->itemExistenceChecker->exists( $itemId ) ) {
+			throw UseCaseError::newReferencedResourceNotFound( $path );
+		}
+
+		return $itemId;
 	}
 
 	/**

@@ -26,6 +26,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
+use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
@@ -254,6 +255,12 @@ return call_user_func( static function () {
 				new CreateLexemeValidator(
 					new TermLanguagesLemmaLanguageCodeValidator(
 						WikibaseLexemeServices::getTermLanguages( $services )
+					),
+					new EntityLookupItemExistenceChecker(
+						WikibaseRepo::getStore( $services )->getEntityLookup(
+							Store::LOOKUP_CACHING_DISABLED,
+							LookupConstants::LATEST_FROM_MASTER
+						)
 					),
 					LemmaTermValidator::LEMMA_MAX_LENGTH
 				),

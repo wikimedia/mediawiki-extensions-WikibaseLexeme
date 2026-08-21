@@ -16,6 +16,7 @@ class UseCaseError extends RuntimeException {
 	public const string INVALID_VALUE = 'invalid-value';
 	public const string INVALID_KEY = 'invalid-key';
 	public const string VALUE_TOO_LONG = 'value-too-long';
+	public const string REFERENCED_RESOURCE_NOT_FOUND = 'referenced-resource-not-found';
 
 	public const string CONTEXT_PARAMETER = 'parameter';
 	public const string CONTEXT_PATH = 'path';
@@ -30,6 +31,7 @@ class UseCaseError extends RuntimeException {
 		self::INVALID_VALUE => [ self::CONTEXT_PATH ],
 		self::INVALID_KEY => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
 		self::VALUE_TOO_LONG => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
+		self::REFERENCED_RESOURCE_NOT_FOUND => [ self::CONTEXT_PATH ],
 	];
 
 	public function __construct(
@@ -78,6 +80,14 @@ class UseCaseError extends RuntimeException {
 			self::MISSING_FIELD,
 			'Required field missing',
 			[ self::CONTEXT_PATH => $path, self::CONTEXT_FIELD => $field ],
+		);
+	}
+
+	public static function newReferencedResourceNotFound( string $path ): self {
+		return new self(
+			self::REFERENCED_RESOURCE_NOT_FOUND,
+			'The referenced resource does not exist',
+			[ self::CONTEXT_PATH => $path ],
 		);
 	}
 

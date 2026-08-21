@@ -155,6 +155,24 @@ describe( 'POST /entities/lexemes', () => {
 		} );
 	} );
 
+	[ 'lexical_category', 'language' ].forEach( ( field ) => {
+		it( `returns 400 if the ${ field } item does not exist`, async () => {
+			const lexeme = {
+				lemmas: { en: `test-lemma-${ utils.uniq() }` },
+				// eslint-disable-next-line camelcase
+				lexical_category: lexicalCategoryId,
+				language: languageId
+			};
+			lexeme[ field ] = 'Q999999999';
+
+			const response = await newCreateLexemeRequestBuilder( lexeme ).makeRequest();
+
+			assert.strictEqual( response.status, 400, response.text );
+			assert.strictEqual( response.body.code, 'referenced-resource-not-found' );
+			assert.deepStrictEqual( response.body.context, { path: `/lexeme/${ field }` } );
+		} );
+	} );
+
 	it( 'returns 400 if a lemma text is too long', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: 'x'.repeat( 1001 ) },
