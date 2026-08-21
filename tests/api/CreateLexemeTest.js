@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 'use strict';
 
-const { assert, utils } = require( 'api-testing' );
+const { assert, action, utils } = require( 'api-testing' );
 const {
 	newCreateLexemeRequestBuilder,
 	newGetLexemeRequestBuilder,
@@ -192,5 +192,19 @@ describe( 'POST /entities/lexemes', () => {
 		assert.header( response, 'Content-Language', 'en' );
 		assert.strictEqual( response.body.code, 'missing-user-agent' );
 		assert.include( response.body.message, 'User-Agent' );
+	} );
+
+	it( 'responds with an X-Authenticated-User header for a logged in user', async () => {
+		const user = await action.alice();
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} )
+			.withUser( user )
+			.makeRequest();
+
+		assert.strictEqual( response.status, 201, response.text );
+		assert.header( response, 'X-Authenticated-User', user.username );
 	} );
 } );
