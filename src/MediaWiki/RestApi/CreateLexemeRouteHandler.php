@@ -7,6 +7,7 @@ use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
+use MediaWiki\Rest\Validator\Validator;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
@@ -23,6 +24,8 @@ use Wikimedia\ParamValidator\ParamValidator;
  * @license GPL-2.0-or-later
  */
 class CreateLexemeRouteHandler extends SimpleHandler {
+
+	use AssertValidTopLevelFields;
 
 	public const LEXEME_BODY_PARAM = 'lexeme';
 
@@ -49,6 +52,11 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getLexemeSerializer(),
 			new ResponseFactory(),
 		);
+	}
+
+	public function validate( Validator $restValidator ): void {
+		$this->assertValidTopLevelTypes( $this->getRequest()->getParsedBody(), $this->getBodyParamSettings() );
+		parent::validate( $restValidator );
 	}
 
 	public function run(): Response {

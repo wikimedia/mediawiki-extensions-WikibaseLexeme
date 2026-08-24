@@ -48,6 +48,11 @@ class RequestBuilder {
 		return this;
 	}
 
+	withEmptyJsonBody() {
+		this.jsonBodyParams = {};
+		return this;
+	}
+
 	withHeader( name, value ) {
 		this.headers[ name.toLowerCase() ] = value;
 		return this;

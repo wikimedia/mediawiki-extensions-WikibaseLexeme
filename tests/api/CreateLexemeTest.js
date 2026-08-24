@@ -64,6 +64,24 @@ describe( 'POST /entities/lexemes', () => {
 		} );
 	} );
 
+	it( 'returns 400 if the lexeme field is missing', async () => {
+		const response = await newCreateLexemeRequestBuilder( {} )
+			.withEmptyJsonBody()
+			.makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'missing-field' );
+		assert.deepStrictEqual( response.body.context, { path: '', field: 'lexeme' } );
+	} );
+
+	it( 'returns 400 if the lexeme field is not an object', async () => {
+		const response = await newCreateLexemeRequestBuilder( 'potato' ).makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/lexeme' } );
+	} );
+
 	it( 'returns 400 if lemmas is empty', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: {},

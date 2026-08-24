@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
 use LogicException;
+use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -42,6 +43,14 @@ class ResponseFactory {
 		$httpResponse->setBody( new StringStream( $body ) );
 
 		return $httpResponse;
+	}
+
+	public function newHttpExceptionFromError( UseCaseError $e ): HttpException {
+		return new HttpException(
+			$e->errorMessage,
+			$this->lookupHttpStatus( $e->errorCode ),
+			[ 'code' => $e->errorCode, 'context' => $e->context ],
+		);
 	}
 
 	public function newErrorResponseFromException( UseCaseError $e ): Response {
