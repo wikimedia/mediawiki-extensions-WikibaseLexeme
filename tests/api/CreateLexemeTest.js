@@ -81,7 +81,6 @@ describe( 'POST /entities/lexemes', () => {
 		const lemmaLanguage = `en-x-${ languageId }`;
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { [ lemmaLanguage ]: `  ${ lemma }  ` },
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();
@@ -98,7 +97,6 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns 400 if lemmas is not an object', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: [ 'potato' ],
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();
@@ -111,7 +109,6 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns 400 if a lemma language code is invalid', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { 'invalid-language-code': `test-lemma-${ utils.uniq() }` },
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();
@@ -127,7 +124,6 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns 400 if a lemma text is invalid', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: '' },
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();
@@ -141,7 +137,6 @@ describe( 'POST /entities/lexemes', () => {
 		it( `returns 400 if ${ field } is not an item id`, async () => {
 			const lexeme = {
 				lemmas: { en: `test-lemma-${ utils.uniq() }` },
-				// eslint-disable-next-line camelcase
 				lexical_category: lexicalCategoryId,
 				language: languageId
 			};
@@ -159,7 +154,6 @@ describe( 'POST /entities/lexemes', () => {
 		it( `returns 400 if the ${ field } item does not exist`, async () => {
 			const lexeme = {
 				lemmas: { en: `test-lemma-${ utils.uniq() }` },
-				// eslint-disable-next-line camelcase
 				lexical_category: lexicalCategoryId,
 				language: languageId
 			};
@@ -176,7 +170,6 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns 400 if a lemma text is too long', async () => {
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: 'x'.repeat( 1001 ) },
-			// eslint-disable-next-line camelcase
 			lexical_category: lexicalCategoryId,
 			language: languageId
 		} ).makeRequest();
