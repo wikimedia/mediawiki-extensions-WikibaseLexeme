@@ -24,6 +24,8 @@ class ResponseFactory {
 		UseCaseError::REFERENCED_RESOURCE_NOT_FOUND => 400,
 		// 404 errors:
 		UseCaseError::LEXEME_NOT_FOUND => 404,
+		// 429 errors:
+		UseCaseError::REQUEST_LIMIT_REACHED => 429,
 	];
 
 	public function newSuccessResponse(

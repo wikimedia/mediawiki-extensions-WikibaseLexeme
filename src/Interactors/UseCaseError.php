@@ -15,6 +15,8 @@ class UseCaseError extends RuntimeException {
 	public const string MISSING_FIELD = 'missing-field';
 	public const string INVALID_VALUE = 'invalid-value';
 	public const string INVALID_KEY = 'invalid-key';
+	public const string REQUEST_LIMIT_REACHED = 'request-limit-reached';
+	public const string REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT = 'temp-account-creation-limit-reached';
 	public const string VALUE_TOO_LONG = 'value-too-long';
 	public const string REFERENCED_RESOURCE_NOT_FOUND = 'referenced-resource-not-found';
 
@@ -23,6 +25,7 @@ class UseCaseError extends RuntimeException {
 	public const string CONTEXT_FIELD = 'field';
 	public const string CONTEXT_KEY = 'key';
 	public const string CONTEXT_LIMIT = 'limit';
+	public const string CONTEXT_REASON = 'reason';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
 		self::LEXEME_NOT_FOUND => [],
@@ -32,6 +35,7 @@ class UseCaseError extends RuntimeException {
 		self::INVALID_KEY => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
 		self::VALUE_TOO_LONG => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
 		self::REFERENCED_RESOURCE_NOT_FOUND => [ self::CONTEXT_PATH ],
+		self::REQUEST_LIMIT_REACHED => [ self::CONTEXT_REASON ],
 	];
 
 	public function __construct(
@@ -112,6 +116,14 @@ class UseCaseError extends RuntimeException {
 			self::VALUE_TOO_LONG,
 			'The input value is too long',
 			[ self::CONTEXT_PATH => $path, self::CONTEXT_LIMIT => $maxLength ],
+		);
+	}
+
+	public static function newRateLimitReached( string $reason ): self {
+		return new self(
+			self::REQUEST_LIMIT_REACHED,
+			'Exceeded the limit of actions that can be performed in a given span of time',
+			[ self::CONTEXT_REASON => $reason ]
 		);
 	}
 }

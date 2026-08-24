@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
@@ -12,6 +13,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 
@@ -23,15 +25,22 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 	public function __construct( private EntityUpdater $entityUpdater ) {
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	public function create( LexemeWriteModel $lexeme, EditMetadata $editMetadata ): LexemeRevision {
-		$entityRevision = $this->entityUpdater->create(
-			$lexeme,
-			new CrudEditMetadata(
-				[],
-				false,
-				new CrudEditSummaryAdapter( $editMetadata->editSummaryAction ),
-			),
-		);
+		try {
+			$entityRevision = $this->entityUpdater->create(
+				$lexeme,
+				new CrudEditMetadata(
+					[],
+					false,
+					new CrudEditSummaryAdapter( $editMetadata->editSummaryAction ),
+				),
+			);
+		} catch ( CrudTempAccountException ) {
+			throw new TempAccountCreationLimitReached();
+		}
 
 		/** @var LexemeWriteModel $newLexeme */
 		$newLexeme = $entityRevision->getEntity();

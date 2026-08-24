@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
+use MediaWiki\HookContainer\HookRunner;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
@@ -12,6 +13,7 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\Domains\Crud\RouteHandlers\Middleware\TempUserCreationResponseHeaderMiddleware;
 use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
@@ -39,6 +41,9 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 					WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
 					new UserAgentCheckMiddleware(),
 					new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
+					new TempUserCreationResponseHeaderMiddleware(
+						new HookRunner( MediaWikiServices::getInstance()->getHookContainer() )
+					),
 				]
 			),
 			WikibaseLexemeServices::getLexemeSerializer(),
