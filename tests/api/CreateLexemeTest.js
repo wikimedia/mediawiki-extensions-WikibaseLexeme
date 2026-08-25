@@ -225,4 +225,60 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( response.status, 201, response.text );
 		assert.header( response, 'X-Authenticated-User', user.username );
 	} );
+
+	it( 'can create a lexeme with edit metadata provided', async () => {
+		const user = await action.robby();
+		const tag = await action.makeTag( 'e2e test tag', 'Created during e2e test', true );
+		const editSummary = 'omg look i made an edit';
+
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} )
+			.withJsonBodyParam( 'tags', [ tag ] )
+			.withJsonBodyParam( 'bot', true )
+			.withJsonBodyParam( 'comment', editSummary )
+			.withUser( user )
+			.makeRequest();
+
+		assert.strictEqual( response.status, 201, response.text );
+
+		const editMetadata = await getLatestEditMetadata( response.body.id );
+		assert.deepEqual( editMetadata.tags, [ tag ] );
+		assert.property( editMetadata, 'bot' );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* wbeditentity-create-lexeme:0| */ ${ editSummary }`
+		);
+		assert.strictEqual( editMetadata.user, user.username );
+	} );
+
+	it( 'returns 400 if an edit tag is invalid', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} )
+			.withJsonBodyParam( 'tags', [ 'not-a-real-tag' ] )
+			.makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/tags/0' } );
+	} );
+
+	it( 'returns 400 if the comment is too long', async () => {
+		const response = await newCreateLexemeRequestBuilder( {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexicalCategoryId,
+			language: languageId
+		} )
+			.withJsonBodyParam( 'comment', 'x'.repeat( 501 ) )
+			.makeRequest();
+
+		assert.strictEqual( response.status, 400, response.text );
+		assert.strictEqual( response.body.code, 'value-too-long' );
+		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
+	} );
 } );

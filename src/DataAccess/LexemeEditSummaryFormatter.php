@@ -22,11 +22,12 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 			throw new LogicException( 'Unknown summary type ' . get_class( $summary ) );
 		}
 
-		return $this->summaryFormatter->formatSummary(
-			match ( $summary->getEditAction() ) {
-				EditSummaryAction::CREATE_LEXEME->name => new Summary( 'wbeditentity', 'create-lexeme' ),
-			},
-		);
+		$formatterSummary = match ( $summary->getEditAction() ) {
+			EditSummaryAction::CREATE_LEXEME->name => new Summary( 'wbeditentity', 'create-lexeme' ),
+		};
+		$formatterSummary->setUserSummary( $summary->getUserComment() );
+
+		return $this->summaryFormatter->formatSummary( $formatterSummary );
 	}
 
 }

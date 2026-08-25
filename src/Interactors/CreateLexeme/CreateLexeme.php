@@ -2,8 +2,6 @@
 
 namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
-use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -28,7 +26,7 @@ class CreateLexeme {
 		try {
 			$lexemeRevision = $this->lexemeCreator->create(
 				$this->validator->getValidatedLexeme(),
-				new EditMetadata( EditSummaryAction::CREATE_LEXEME ),
+				$this->validator->getValidatedEditMetadata(),
 			);
 		} catch ( TempAccountCreationLimitReached ) {
 			throw UseCaseError::newRateLimitReached( UseCaseError::REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT );

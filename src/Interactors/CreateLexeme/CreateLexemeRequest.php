@@ -8,7 +8,10 @@ namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 class CreateLexemeRequest {
 
 	public function __construct(
-		public readonly array $lexeme
+		public readonly array $lexeme,
+		public readonly array $editTags,
+		public readonly bool $isBot,
+		public readonly ?string $comment,
 	) {
 	}
 }

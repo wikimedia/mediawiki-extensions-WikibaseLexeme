@@ -1,5 +1,6 @@
 <?php
 
+use MediaWiki\CommentStore\CommentStore;
 use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\ConditionalHeaderUtil;
@@ -26,6 +27,7 @@ use Wikibase\Lexeme\Domain\Merge\LexemeMerger;
 use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
+use Wikibase\Lexeme\Infrastructure\ChangeTagsStoreTagsRetriever;
 use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
@@ -262,7 +264,9 @@ return call_user_func( static function () {
 							LookupConstants::LATEST_FROM_MASTER
 						)
 					),
-					LemmaTermValidator::LEMMA_MAX_LENGTH
+					LemmaTermValidator::LEMMA_MAX_LENGTH,
+					new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+					CommentStore::COMMENT_CHARACTER_LIMIT
 				),
 			);
 		},

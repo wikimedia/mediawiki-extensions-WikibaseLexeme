@@ -10,7 +10,10 @@ use Wikibase\Repo\Domains\Crud\Domain\Model\EditSummary;
  */
 class CrudEditSummaryAdapter implements EditSummary {
 
-	public function __construct( private readonly EditSummaryAction $editSummaryAction ) {
+	public function __construct(
+		private readonly EditSummaryAction $editSummaryAction,
+		private readonly ?string $userComment,
+	) {
 	}
 
 	public function getEditAction(): string {
@@ -18,7 +21,7 @@ class CrudEditSummaryAdapter implements EditSummary {
 	}
 
 	public function getUserComment(): ?string {
-		return null; // T434439
+		return $this->userComment;
 	}
 
 }

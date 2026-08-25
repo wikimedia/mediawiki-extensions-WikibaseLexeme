@@ -28,6 +28,9 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 	use AssertValidTopLevelFields;
 
 	public const LEXEME_BODY_PARAM = 'lexeme';
+	public const TAGS_BODY_PARAM = 'tags';
+	public const BOT_BODY_PARAM = 'bot';
+	public const COMMENT_BODY_PARAM = 'comment';
 
 	public function __construct(
 		private CreateLexeme $createLexeme,
@@ -70,7 +73,12 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 		try {
 			return $this->newSuccessHttpResponse(
 				$this->createLexeme->execute(
-					new CreateLexemeRequest( $jsonBody[self::LEXEME_BODY_PARAM] )
+					new CreateLexemeRequest(
+						$jsonBody[self::LEXEME_BODY_PARAM],
+						$jsonBody[self::TAGS_BODY_PARAM] ?? [],
+						$jsonBody[self::BOT_BODY_PARAM] ?? false,
+						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+					)
 				)
 			);
 		} catch ( UseCaseError $e ) {
@@ -96,6 +104,23 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 				self::PARAM_SOURCE => 'body',
 				ParamValidator::PARAM_TYPE => 'array',
 				ParamValidator::PARAM_REQUIRED => true,
+			],
+			self::TAGS_BODY_PARAM => [
+				self::PARAM_SOURCE => 'body',
+				ParamValidator::PARAM_TYPE => 'array',
+				ParamValidator::PARAM_REQUIRED => false,
+				ParamValidator::PARAM_DEFAULT => [],
+			],
+			self::BOT_BODY_PARAM => [
+				self::PARAM_SOURCE => 'body',
+				ParamValidator::PARAM_TYPE => 'boolean',
+				ParamValidator::PARAM_REQUIRED => false,
+				ParamValidator::PARAM_DEFAULT => false,
+			],
+			self::COMMENT_BODY_PARAM => [
+				self::PARAM_SOURCE => 'body',
+				ParamValidator::PARAM_TYPE => 'string',
+				ParamValidator::PARAM_REQUIRED => false,
 			],
 		];
 	}

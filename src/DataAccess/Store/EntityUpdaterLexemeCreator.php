@@ -33,9 +33,9 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 			$entityRevision = $this->entityUpdater->create(
 				$lexeme,
 				new CrudEditMetadata(
-					[],
-					false,
-					new CrudEditSummaryAdapter( $editMetadata->editSummaryAction ),
+					$editMetadata->tags,
+					$editMetadata->isBot,
+					new CrudEditSummaryAdapter( $editMetadata->editSummaryAction, $editMetadata->comment ),
 				),
 			);
 		} catch ( CrudTempAccountException ) {

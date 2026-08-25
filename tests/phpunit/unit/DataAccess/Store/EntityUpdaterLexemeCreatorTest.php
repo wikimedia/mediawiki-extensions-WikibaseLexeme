@@ -27,7 +27,10 @@ class EntityUpdaterLexemeCreatorTest extends MediaWikiUnitTestCase {
 		$lexemeToCreate = $lexemeTemplate->build();
 		$createdLexeme = $lexemeTemplate->withId( 'L1' )->build();
 
-		$editMetadata = new EditMetadata( EditSummaryAction::CREATE_LEXEME );
+		$tags = [ 'some tag' ];
+		$isBot = true;
+		$comment = 'user comment';
+		$editMetadata = new EditMetadata( $tags, $isBot, $comment, EditSummaryAction::CREATE_LEXEME );
 		$revisionId = 123;
 		$lastModified = '20250101120000';
 
@@ -37,9 +40,9 @@ class EntityUpdaterLexemeCreatorTest extends MediaWikiUnitTestCase {
 			->with(
 				$lexemeToCreate,
 				new CrudEditMetadata(
-					[],
-					false,
-					new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME ),
+					$tags,
+					$isBot,
+					new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME, $comment ),
 				),
 			)
 			->willReturn( new EntityRevision( $createdLexeme, $revisionId, $lastModified ) );

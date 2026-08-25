@@ -24,7 +24,16 @@ class LexemeEditSummaryFormatterTest extends MediaWikiLangTestCase {
 		$this->assertSame(
 			'/* wbeditentity-create-lexeme:0| */',
 			$this->newFormatter()->format(
-				new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME ),
+				new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME, null ),
+			),
+		);
+	}
+
+	public function testGivenCreateLexemeActionWithUserComment_appendsComment(): void {
+		$this->assertSame(
+			'/* wbeditentity-create-lexeme:0| */ user comment',
+			$this->newFormatter()->format(
+				new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME, 'user comment' ),
 			),
 		);
 	}

@@ -46,17 +46,23 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			new Senses(),
 		);
 
-		$request = new CreateLexemeRequest( [
-			'lemmas' => [ 'en' => $enLemma ],
-			'lexical_category' => $lexicalCategory,
-			'language' => $language,
-		] );
+		$request = new CreateLexemeRequest(
+			[
+				'lemmas' => [ 'en' => $enLemma ],
+				'lexical_category' => $lexicalCategory,
+				'language' => $language,
+			],
+			[ 'some tag' ],
+			true,
+			'user comment',
+		);
 		$deserializedLexeme = new LexemeWriteModel(
 			null,
 			new TermList( [ new Term( 'en', $enLemma ) ] ),
 			new ItemId( $lexicalCategory ),
 			new ItemId( $language ),
 		);
+		$editMetadata = new EditMetadata( [ 'some tag' ], true, 'user comment', EditSummaryAction::CREATE_LEXEME );
 
 		$validator = $this->createMock( CreateLexemeValidator::class );
 		$validator->expects( $this->once() )
@@ -64,11 +70,13 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			->with( $request );
 		$validator->method( 'getValidatedLexeme' )
 			->willReturn( $deserializedLexeme );
+		$validator->method( 'getValidatedEditMetadata' )
+			->willReturn( $editMetadata );
 
 		$lexemeCreator = $this->createMock( LexemeCreator::class );
 		$lexemeCreator->expects( $this->once() )
 			->method( 'create' )
-			->with( $deserializedLexeme, new EditMetadata( EditSummaryAction::CREATE_LEXEME ) )
+			->with( $deserializedLexeme, $editMetadata )
 			->willReturn( new LexemeRevision( $expectedLexeme, $expectedRevisionId, $expectedLastModified ) );
 
 		$response = ( new CreateLexeme( $lexemeCreator, $validator ) )->execute( $request );
@@ -89,7 +97,7 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 		$this->expectException( UseCaseError::class );
 
 		( new CreateLexeme( $lexemeCreator, $validator ) )
-			->execute( new CreateLexemeRequest( [] ) );
+			->execute( new CreateLexemeRequest( [], [], false, null ) );
 	}
 
 }

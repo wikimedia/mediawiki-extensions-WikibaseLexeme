@@ -8,12 +8,15 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
+use Wikibase\Lexeme\Validation\TagsRetriever;
 
 /**
  * @covers \Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator
@@ -26,6 +29,10 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 	private const EXISTING_ITEM_IDS = [ 'Q1', 'Q2' ];
 
+	private const ALLOWED_TAG = 'allowed tag';
+
+	private const MAX_COMMENT_LENGTH = 42;
+
 	private const VALID_LEXEME = [
 		'lemmas' => [ 'en' => 'potato' ],
 		'lexical_category' => 'Q1',
@@ -35,7 +42,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	public function testGivenValidRequest_exposesLexeme(): void {
 		$validator = $this->newValidator();
 
-		$validator->validateAndDeserialize( new CreateLexemeRequest(
+		$validator->validateAndDeserialize( self::newRequest(
 			array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => 'potato', 'de' => 'Kartoffel' ] ] )
 		) );
 
@@ -55,7 +62,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	 */
 	public function testGivenInvalidItemId_throwsUseCaseError( string $field, mixed $value ): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ $field => $value ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -83,7 +90,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	 */
 	public function testGivenNonexistentItem_throwsUseCaseError( string $field ): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ $field => 'Q999' ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -105,7 +112,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	public function testGivenLemmaTextWithSurroundingWhitespace_trims( string $text, string $expectedText ): void {
 		$validator = $this->newValidator();
 
-		$validator->validateAndDeserialize( new CreateLexemeRequest(
+		$validator->validateAndDeserialize( self::newRequest(
 			array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => $text ] ] )
 		) );
 
@@ -135,7 +142,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		unset( $serialization[$field] );
 
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest( $serialization ) );
+			$this->newValidator()->validateAndDeserialize( self::newRequest( $serialization ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( UseCaseError::MISSING_FIELD, $e->errorCode );
@@ -158,7 +165,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	 */
 	public function testGivenInvalidLemmas_throwsUseCaseError( mixed $lemmas ): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ 'lemmas' => $lemmas ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -178,7 +185,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenInvalidLanguageCode_throwsUseCaseError(): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'xyz' => 'potato' ] ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -197,7 +204,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	 */
 	public function testGivenInvalidLemmaText_throwsUseCaseError( mixed $text ): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => $text ] ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -220,7 +227,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenLemmaTextTooLong_throwsUseCaseError(): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [
 					'lemmas' => [ 'en' => str_repeat( 'x', LemmaTermValidator::LEMMA_MAX_LENGTH + 1 ) ],
 				] )
@@ -241,7 +248,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenInvalidLanguageCodeAndInvalidText_reportsInvalidLanguageCode(): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'xyz' => '' ] ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -252,7 +259,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenMultipleInvalidLemmas_reportsFirst(): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
 				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => '', 'xyz' => 'potato' ] ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -260,6 +267,67 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
 			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/lexeme/lemmas/en' ], $e->context );
 		}
+	}
+
+	public function testGivenValidRequestWithEditMetadata_exposesEditMetadata(): void {
+		$validator = $this->newValidator();
+
+		$validator->validateAndDeserialize( new CreateLexemeRequest(
+			self::VALID_LEXEME,
+			[ self::ALLOWED_TAG ],
+			true,
+			'user comment',
+		) );
+
+		$this->assertEquals(
+			new EditMetadata( [ self::ALLOWED_TAG ], true, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+			$validator->getValidatedEditMetadata()
+		);
+	}
+
+	public function testGivenInvalidTag_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+				self::VALID_LEXEME,
+				[ self::ALLOWED_TAG, 'bad tag' ],
+				false,
+				null,
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
+			$this->assertSame( "Invalid value at '/tags/1'", $e->errorMessage );
+			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/tags/1' ], $e->context );
+		}
+	}
+
+	public function testGivenCommentTooLong_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
+				self::VALID_LEXEME,
+				[],
+				false,
+				str_repeat( 'x', self::MAX_COMMENT_LENGTH + 1 ),
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::VALUE_TOO_LONG, $e->errorCode );
+			$this->assertSame( 'The input value is too long', $e->errorMessage );
+			$this->assertSame(
+				[ UseCaseError::CONTEXT_PATH => '/comment', UseCaseError::CONTEXT_LIMIT => self::MAX_COMMENT_LENGTH ],
+				$e->context
+			);
+		}
+	}
+
+	public function testGivenValidateAndDeserializeNotCalled_getValidatedEditMetadataThrows(): void {
+		$this->expectException( LogicException::class );
+
+		$this->newValidator()->getValidatedEditMetadata();
+	}
+
+	private static function newRequest( array $lexeme ): CreateLexemeRequest {
+		return new CreateLexemeRequest( $lexeme, [], false, null );
 	}
 
 	private function newValidator(): CreateLexemeValidator {
@@ -280,7 +348,16 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 					return in_array( $itemId->getSerialization(), $this->existingItemIds );
 				}
 			},
-			LemmaTermValidator::LEMMA_MAX_LENGTH
+			LemmaTermValidator::LEMMA_MAX_LENGTH,
+			new class( [ self::ALLOWED_TAG ] ) implements TagsRetriever {
+				public function __construct( private array $allowedTags ) {
+				}
+
+				public function getAllowedTags(): array {
+					return $this->allowedTags;
+				}
+			},
+			self::MAX_COMMENT_LENGTH
 		);
 	}
 
