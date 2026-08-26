@@ -8,6 +8,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
+use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
@@ -98,6 +99,30 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 
 		( new CreateLexeme( $lexemeCreator, $validator ) )
 			->execute( new CreateLexemeRequest( [], [], false, null ) );
+	}
+
+	public function testGivenRateLimitReached_throws(): void {
+		$lexemeCreator = $this->createStub( LexemeCreator::class );
+		$lexemeCreator->method( 'create' )
+			->willThrowException( new TempAccountCreationLimitReached() );
+
+		$validator = $this->createStub( CreateLexemeValidator::class );
+
+		try {
+			( new CreateLexeme( $lexemeCreator, $validator ) )
+				->execute( new CreateLexemeRequest( [], [], false, null ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::REQUEST_LIMIT_REACHED, $e->errorCode );
+			$this->assertSame(
+				'Exceeded the limit of actions that can be performed in a given span of time',
+				$e->errorMessage
+			);
+			$this->assertSame(
+				[ UseCaseError::CONTEXT_REASON => UseCaseError::REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT ],
+				$e->context
+			);
+		}
 	}
 
 }
