@@ -2,14 +2,16 @@
 
 namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
-use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
+use Wikibase\Lexeme\Interactors\UpdateExceptionHandler;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
  * @license GPL-2.0-or-later
  */
 class CreateLexeme {
+
+	use UpdateExceptionHandler;
 
 	public function __construct(
 		private LexemeCreator $lexemeCreator,
@@ -23,14 +25,11 @@ class CreateLexeme {
 	public function execute( CreateLexemeRequest $request ): CreateLexemeResponse {
 		$this->validator->validateAndDeserialize( $request );
 
-		try {
-			$lexemeRevision = $this->lexemeCreator->create(
+		$lexemeRevision = $this->executeWithExceptionHandling( fn () => $this->lexemeCreator->create(
 				$this->validator->getValidatedLexeme(),
 				$this->validator->getValidatedEditMetadata(),
-			);
-		} catch ( TempAccountCreationLimitReached ) {
-			throw UseCaseError::newRateLimitReached( UseCaseError::REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT );
-		}
+			)
+		);
 
 		return new CreateLexemeResponse(
 			$lexemeRevision->lexeme,
