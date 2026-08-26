@@ -58,10 +58,13 @@ use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
+use Wikibase\Repo\Domains\Crud\WbCrud;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementListSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 use Wikibase\Repo\EntityReferenceExtractors\StatementEntityReferenceExtractor;
 use Wikibase\Repo\MediaWikiLocalizedTextProvider;
@@ -253,7 +256,13 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.CreateLexeme' => static function ( MediaWikiServices $services ): CreateLexeme {
 			return new CreateLexeme(
-				new EntityUpdaterLexemeCreator( $services->get( 'WikibaseLexeme.EntityUpdater' ) ),
+				new EntityUpdaterLexemeCreator(
+					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					new StatementReadModelConverter(
+						WikibaseRepo::getStatementGuidParser( $services ),
+						WikibaseRepo::getPropertyDataTypeLookup( $services ),
+					),
+				),
 				new CreateLexemeValidator(
 					new TermLanguagesLemmaLanguageCodeValidator(
 						WikibaseLexemeServices::getTermLanguages( $services )
@@ -263,6 +272,9 @@ return call_user_func( static function () {
 							Store::LOOKUP_CACHING_DISABLED,
 							LookupConstants::LATEST_FROM_MASTER
 						)
+					),
+					new StatementsValidator(
+						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					LemmaTermValidator::LEMMA_MAX_LENGTH,
 					new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),

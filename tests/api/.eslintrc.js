@@ -9,7 +9,12 @@ module.exports = {
 	],
 	root: true,
 	rules: {
-		"camelcase": [ "error", { allow: [ "data_type", "lexical_category" ] } ],
+		"camelcase": [ "error", { allow: [
+			"data_type",
+			"lexical_category",
+			"statement_group_property_id",
+			"statement_property_id"
+		] } ],
 		"mocha/no-setup-in-describe": 0,
 		"max-len": [ "warn", { code: 130 } ]
 	}

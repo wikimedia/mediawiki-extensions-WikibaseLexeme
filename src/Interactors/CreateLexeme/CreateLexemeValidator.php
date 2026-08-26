@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
@@ -14,6 +15,9 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Validation\TagsRetriever;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
+use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
 
 /**
  * @license GPL-2.0-or-later
@@ -26,6 +30,7 @@ class CreateLexemeValidator {
 	public function __construct(
 		private LemmaLanguageCodeValidator $lemmaLanguageCodeValidator,
 		private ItemExistenceChecker $itemExistenceChecker,
+		private StatementsValidator $statementsValidator,
 		private int $maxLemmaLength,
 		private TagsRetriever $tagsRetriever,
 		private int $maxCommentLength,
@@ -53,11 +58,12 @@ class CreateLexemeValidator {
 			throw UseCaseError::newMissingField( '/lexeme', 'language' );
 		}
 		$language = $this->validateAndDeserializeItemId( $serialization['language'], '/lexeme/language' );
+		$statements = $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] );
 
 		$this->validateEditTags( $request->editTags );
 		$this->validateComment( $request->comment );
 
-		$this->lexeme = new LexemeWriteModel( null, $lemmas, $lexicalCategory, $language );
+		$this->lexeme = new LexemeWriteModel( null, $lemmas, $lexicalCategory, $language, $statements );
 		$this->editMetadata = new EditMetadata(
 			$request->editTags,
 			$request->isBot,
@@ -120,6 +126,53 @@ class CreateLexemeValidator {
 		}
 
 		return $itemId;
+	}
+
+	/**
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeStatements( mixed $statements ): StatementList {
+		if ( !is_array( $statements ) ) {
+			throw UseCaseError::newInvalidValue( '/lexeme/statements' );
+		}
+
+		$validationError = $this->statementsValidator->validateNewStatements( $statements, '/lexeme/statements' );
+		if ( $validationError !== null ) {
+			$this->throwStatementsValidationError( $validationError );
+		}
+
+		return $this->statementsValidator->getValidatedStatements();
+	}
+
+	/**
+	 * @throws UseCaseError
+	 */
+	private function throwStatementsValidationError( ValidationError $validationError ): never {
+		$context = $validationError->getContext();
+		switch ( $validationError->getCode() ) {
+			case StatementsValidator::CODE_STATEMENTS_NOT_ASSOCIATIVE:
+			case StatementsValidator::CODE_STATEMENT_GROUP_NOT_SEQUENTIAL:
+			case StatementsValidator::CODE_STATEMENT_NOT_ARRAY:
+				throw UseCaseError::newInvalidValue( $context[StatementsValidator::CONTEXT_PATH] );
+			case StatementsValidator::CODE_PROPERTY_ID_MISMATCH:
+				throw UseCaseError::newStatementGroupPropertyIdMismatch(
+					$context[StatementsValidator::CONTEXT_PATH],
+					$context[StatementsValidator::CONTEXT_PROPERTY_ID_KEY],
+					$context[StatementsValidator::CONTEXT_PROPERTY_ID_VALUE],
+				);
+			case StatementValidator::CODE_INVALID_FIELD:
+			case StatementValidator::CODE_INVALID_FIELD_TYPE:
+				throw UseCaseError::newInvalidValue( $context[StatementValidator::CONTEXT_PATH] );
+			case StatementValidator::CODE_MISSING_FIELD:
+				throw UseCaseError::newMissingField(
+					$context[StatementValidator::CONTEXT_PATH],
+					$context[StatementValidator::CONTEXT_FIELD],
+				);
+			case StatementValidator::CODE_PROPERTY_NOT_FOUND:
+				throw UseCaseError::newReferencedResourceNotFound( $context[StatementValidator::CONTEXT_PATH] );
+			default:
+				throw new LogicException( "Unexpected validation error code: {$validationError->getCode()}" );
+		}
 	}
 
 	/**

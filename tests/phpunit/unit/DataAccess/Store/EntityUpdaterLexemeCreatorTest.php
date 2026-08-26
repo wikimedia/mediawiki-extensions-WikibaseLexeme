@@ -3,6 +3,8 @@
 namespace Wikibase\Lexeme\Tests\Unit\DataAccess\Store;
 
 use MediaWikiUnitTestCase;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeCreator;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
@@ -11,6 +13,9 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
+use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeCreator
@@ -23,7 +28,8 @@ class EntityUpdaterLexemeCreatorTest extends MediaWikiUnitTestCase {
 		$lexemeTemplate = NewLexeme::create()
 			->withLemma( 'en', 'potato' )
 			->withLanguage( 'Q1' )
-			->withLexicalCategory( 'Q2' );
+			->withLexicalCategory( 'Q2' )
+			->withStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) );
 		$lexemeToCreate = $lexemeTemplate->build();
 		$createdLexeme = $lexemeTemplate->withId( 'L1' )->build();
 
@@ -33,6 +39,7 @@ class EntityUpdaterLexemeCreatorTest extends MediaWikiUnitTestCase {
 		$editMetadata = new EditMetadata( $tags, $isBot, $comment, EditSummaryAction::CREATE_LEXEME );
 		$revisionId = 123;
 		$lastModified = '20250101120000';
+		$readModelStatement = $this->createStub( Statement::class );
 
 		$entityUpdater = $this->createMock( EntityUpdater::class );
 		$entityUpdater->expects( $this->once() )
@@ -47,12 +54,18 @@ class EntityUpdaterLexemeCreatorTest extends MediaWikiUnitTestCase {
 			)
 			->willReturn( new EntityRevision( $createdLexeme, $revisionId, $lastModified ) );
 
-		$lexemeRevision = ( new EntityUpdaterLexemeCreator( $entityUpdater ) )
-			->create( $lexemeToCreate, $editMetadata );
+		$statementReadModelConverter = $this->createStub( StatementReadModelConverter::class );
+		$statementReadModelConverter->method( 'convert' )->willReturn( $readModelStatement );
+
+		$lexemeRevision = ( new EntityUpdaterLexemeCreator(
+			$entityUpdater,
+			$statementReadModelConverter,
+		) )->create( $lexemeToCreate, $editMetadata );
 
 		$this->assertEquals( $createdLexeme->getId(), $lexemeRevision->lexeme->id );
 		$this->assertSame( $revisionId, $lexemeRevision->revisionId );
 		$this->assertSame( $lastModified, $lexemeRevision->lastModified );
+		$this->assertEquals( new StatementList( $readModelStatement ), $lexemeRevision->lexeme->statements );
 	}
 
 }

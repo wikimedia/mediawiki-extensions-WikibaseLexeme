@@ -23,6 +23,7 @@ class UseCaseError extends RuntimeException {
 	public const string PERMISSION_DENIED_REASON_USER_BLOCKED = 'blocked-user';
 	public const string PERMISSION_DENIED_REASON_IP_BLOCKED = 'blocked-ip';
 	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
+	public const string STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'statement-group-property-id-mismatch';
 
 	public const string CONTEXT_PARAMETER = 'parameter';
 	public const string CONTEXT_PATH = 'path';
@@ -31,6 +32,8 @@ class UseCaseError extends RuntimeException {
 	public const string CONTEXT_LIMIT = 'limit';
 	public const string CONTEXT_REASON = 'reason';
 	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
+	public const string CONTEXT_STATEMENT_GROUP_PROPERTY_ID = 'statement_group_property_id';
+	public const string CONTEXT_STATEMENT_PROPERTY_ID = 'statement_property_id';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
 		self::LEXEME_NOT_FOUND => [],
@@ -43,6 +46,11 @@ class UseCaseError extends RuntimeException {
 		self::REQUEST_LIMIT_REACHED => [ self::CONTEXT_REASON ],
 		self::PERMISSION_DENIED => [ self::CONTEXT_DENIAL_REASON ],
 		self::PERMISSION_DENIED_UNKNOWN_REASON => [],
+		self::STATEMENT_GROUP_PROPERTY_ID_MISMATCH => [
+			self::CONTEXT_PATH,
+			self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID,
+			self::CONTEXT_STATEMENT_PROPERTY_ID,
+		],
 	];
 
 	public function __construct(
@@ -123,6 +131,22 @@ class UseCaseError extends RuntimeException {
 			self::VALUE_TOO_LONG,
 			'The input value is too long',
 			[ self::CONTEXT_PATH => $path, self::CONTEXT_LIMIT => $maxLength ],
+		);
+	}
+
+	public static function newStatementGroupPropertyIdMismatch(
+		string $path,
+		string $statementGroupPropertyId,
+		string $statementPropertyId,
+	): self {
+		return new self(
+			self::STATEMENT_GROUP_PROPERTY_ID_MISMATCH,
+			"Statement's Property ID does not match the Statement group key",
+			[
+				self::CONTEXT_PATH => $path,
+				self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID => $statementGroupPropertyId,
+				self::CONTEXT_STATEMENT_PROPERTY_ID => $statementPropertyId,
+			],
 		);
 	}
 

@@ -24,6 +24,7 @@ class ResponseFactory {
 		UseCaseError::INVALID_KEY => 400,
 		UseCaseError::VALUE_TOO_LONG => 400,
 		UseCaseError::REFERENCED_RESOURCE_NOT_FOUND => 400,
+		UseCaseError::STATEMENT_GROUP_PROPERTY_ID_MISMATCH => 400,
 		// 404 errors:
 		UseCaseError::LEXEME_NOT_FOUND => 404,
 		// 403 errors:

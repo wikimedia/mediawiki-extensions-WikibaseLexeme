@@ -16,13 +16,17 @@ use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
+use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
  * @license GPL-2.0-or-later
  */
 class EntityUpdaterLexemeCreator implements LexemeCreator {
 
-	public function __construct( private EntityUpdater $entityUpdater ) {
+	public function __construct(
+		private EntityUpdater $entityUpdater,
+		private StatementReadModelConverter $statementReadModelConverter,
+	) {
 	}
 
 	/**
@@ -53,7 +57,10 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 				Lemmas::fromTermList( $newLexeme->getLemmas() ),
 				$newLexeme->getLexicalCategory(),
 				$newLexeme->getLanguage(),
-				new StatementList(),
+				new StatementList( ...array_map(
+					$this->statementReadModelConverter->convert( ... ),
+					iterator_to_array( $newLexeme->getStatements() )
+				) ),
 				new Forms(),
 				new Senses(),
 			),

@@ -5,6 +5,10 @@ namespace Wikibase\Lexeme\Tests\Unit\Interactors\CreateLexeme;
 use LogicException;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
@@ -17,6 +21,9 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Validation\TagsRetriever;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
+use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
 
 /**
  * @covers \Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator
@@ -40,10 +47,16 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	];
 
 	public function testGivenValidRequest_exposesLexeme(): void {
-		$validator = $this->newValidator();
+		$statements = new StatementList(
+			new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) )
+		);
+		$validator = $this->newValidator( $this->newStatementsValidator( $statements ) );
 
 		$validator->validateAndDeserialize( self::newRequest(
-			array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => 'potato', 'de' => 'Kartoffel' ] ] )
+			array_merge( self::VALID_LEXEME, [
+				'lemmas' => [ 'en' => 'potato', 'de' => 'Kartoffel' ],
+				'statements' => [ 'P123' => [ [ 'some' => 'statement' ] ] ],
+			] )
 		) );
 
 		$this->assertEquals(
@@ -52,6 +65,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				new TermList( [ new Term( 'en', 'potato' ), new Term( 'de', 'Kartoffel' ) ] ),
 				new ItemId( self::VALID_LEXEME['lexical_category'] ),
 				new ItemId( self::VALID_LEXEME['language'] ),
+				$statements,
 			),
 			$validator->getValidatedLexeme()
 		);
@@ -269,6 +283,130 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testGivenStatementsNotAnArray_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
+				array_merge( self::VALID_LEXEME, [ 'statements' => 'potato' ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
+			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/lexeme/statements' ], $e->context );
+		}
+	}
+
+	public function testGivenStatementsNull_treatedAsAbsent(): void {
+		$validator = $this->newValidator();
+
+		$validator->validateAndDeserialize( self::newRequest(
+			array_merge( self::VALID_LEXEME, [ 'statements' => null ] )
+		) );
+
+		$this->assertTrue( $validator->getValidatedLexeme()->getStatements()->isEmpty() );
+	}
+
+	/**
+	 * @dataProvider provideStatementsValidationError
+	 */
+	public function testGivenStatementsValidationError_throwsUseCaseError(
+		ValidationError $validationError,
+		UseCaseError $expectedError,
+	): void {
+		$validator = $this->newValidator( $this->newStatementsValidatorWithError( $validationError ) );
+
+		try {
+			$validator->validateAndDeserialize( self::newRequest(
+				array_merge( self::VALID_LEXEME, [ 'statements' => [ 'P123' => [] ] ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( $expectedError, $e );
+		}
+	}
+
+	public static function provideStatementsValidationError(): iterable {
+		yield 'statements not associative' => [
+			new ValidationError( StatementsValidator::CODE_STATEMENTS_NOT_ASSOCIATIVE, [
+				StatementsValidator::CONTEXT_PATH => '/lexeme/statements',
+				StatementsValidator::CONTEXT_VALUE => [ 'potato' ],
+			] ),
+			UseCaseError::newInvalidValue( '/lexeme/statements' ),
+		];
+
+		yield 'statement group not sequential' => [
+			new ValidationError( StatementsValidator::CODE_STATEMENT_GROUP_NOT_SEQUENTIAL, [
+				StatementsValidator::CONTEXT_PATH => '/lexeme/statements/P123',
+				StatementsValidator::CONTEXT_VALUE => [ 'potato' => 'tomato' ],
+			] ),
+			UseCaseError::newInvalidValue( '/lexeme/statements/P123' ),
+		];
+
+		yield 'statement not an array' => [
+			new ValidationError( StatementsValidator::CODE_STATEMENT_NOT_ARRAY, [
+				StatementsValidator::CONTEXT_PATH => '/lexeme/statements/P123/0',
+				StatementsValidator::CONTEXT_VALUE => 'potato',
+			] ),
+			UseCaseError::newInvalidValue( '/lexeme/statements/P123/0' ),
+		];
+
+		yield 'property id mismatch' => [
+			new ValidationError( StatementsValidator::CODE_PROPERTY_ID_MISMATCH, [
+				StatementsValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/property/id',
+				StatementsValidator::CONTEXT_PROPERTY_ID_KEY => 'P123',
+				StatementsValidator::CONTEXT_PROPERTY_ID_VALUE => 'P321',
+			] ),
+			UseCaseError::newStatementGroupPropertyIdMismatch(
+				'/lexeme/statements/P123/0/property/id',
+				'P123',
+				'P321',
+			),
+		];
+
+		yield 'invalid statement field' => [
+			new ValidationError( StatementValidator::CODE_INVALID_FIELD, [
+				StatementValidator::CONTEXT_FIELD => 'rank',
+				StatementValidator::CONTEXT_VALUE => 'potato',
+				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/rank',
+			] ),
+			UseCaseError::newInvalidValue( '/lexeme/statements/P123/0/rank' ),
+		];
+
+		yield 'invalid statement field type' => [
+			new ValidationError( StatementValidator::CODE_INVALID_FIELD_TYPE, [
+				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/qualifiers',
+				StatementValidator::CONTEXT_VALUE => 'potato',
+			] ),
+			UseCaseError::newInvalidValue( '/lexeme/statements/P123/0/qualifiers' ),
+		];
+
+		yield 'missing statement field' => [
+			new ValidationError( StatementValidator::CODE_MISSING_FIELD, [
+				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0',
+				StatementValidator::CONTEXT_FIELD => 'value',
+			] ),
+			UseCaseError::newMissingField( '/lexeme/statements/P123/0', 'value' ),
+		];
+
+		yield 'property not found' => [
+			new ValidationError( StatementValidator::CODE_PROPERTY_NOT_FOUND, [
+				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/property/id',
+			] ),
+			UseCaseError::newReferencedResourceNotFound( '/lexeme/statements/P123/0/property/id' ),
+		];
+	}
+
+	public function testGivenUnknownStatementsValidationError_throwsLogicException(): void {
+		$validator = $this->newValidator( $this->newStatementsValidatorWithError(
+			new ValidationError( 'unknown-error-code' )
+		) );
+
+		$this->expectException( LogicException::class );
+
+		$validator->validateAndDeserialize( self::newRequest(
+			array_merge( self::VALID_LEXEME, [ 'statements' => [ 'P123' => [] ] ] )
+		) );
+	}
+
 	public function testGivenValidRequestWithEditMetadata_exposesEditMetadata(): void {
 		$validator = $this->newValidator();
 
@@ -330,7 +468,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		return new CreateLexemeRequest( $lexeme, [], false, null );
 	}
 
-	private function newValidator(): CreateLexemeValidator {
+	private function newValidator( ?StatementsValidator $statementsValidator = null ): CreateLexemeValidator {
 		return new CreateLexemeValidator(
 			new class( self::VALID_LANGUAGE_CODES ) implements LemmaLanguageCodeValidator {
 				public function __construct( private array $validLanguageCodes ) {
@@ -348,6 +486,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 					return in_array( $itemId->getSerialization(), $this->existingItemIds );
 				}
 			},
+			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			LemmaTermValidator::LEMMA_MAX_LENGTH,
 			new class( [ self::ALLOWED_TAG ] ) implements TagsRetriever {
 				public function __construct( private array $allowedTags ) {
@@ -359,6 +498,20 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			},
 			self::MAX_COMMENT_LENGTH
 		);
+	}
+
+	private function newStatementsValidator( StatementList $validatedStatements ): StatementsValidator {
+		$statementsValidator = $this->createStub( StatementsValidator::class );
+		$statementsValidator->method( 'getValidatedStatements' )->willReturn( $validatedStatements );
+
+		return $statementsValidator;
+	}
+
+	private function newStatementsValidatorWithError( ValidationError $error ): StatementsValidator {
+		$statementsValidator = $this->createStub( StatementsValidator::class );
+		$statementsValidator->method( 'validateNewStatements' )->willReturn( $error );
+
+		return $statementsValidator;
 	}
 
 }

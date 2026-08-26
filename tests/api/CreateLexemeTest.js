@@ -5,25 +5,52 @@ const { assert, action, utils } = require( 'api-testing' );
 const {
 	newCreateLexemeRequestBuilder,
 	newGetLexemeRequestBuilder,
-	newCreateItemRequestBuilder
+	newCreateItemRequestBuilder,
+	newCreatePropertyRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { getLatestEditMetadata } = require( './helpers/entityHelper' );
 
 describe( 'POST /entities/lexemes', () => {
 	let languageId;
 	let lexicalCategoryId;
+	let stringPropertyId;
+	let otherStringPropertyId;
+
+	function newValidLexeme( fields = {} ) {
+		return {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexicalCategoryId,
+			language: languageId,
+			...fields
+		};
+	}
 
 	before( async () => {
 		languageId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
 		lexicalCategoryId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+		stringPropertyId = ( await newCreatePropertyRequestBuilder( {
+			data_type: 'string',
+			labels: { en: `test-property-${ utils.uniq() }` }
+		} ).makeRequest() ).body.id;
+		otherStringPropertyId = ( await newCreatePropertyRequestBuilder( {
+			data_type: 'string',
+			labels: { en: `test-property-${ utils.uniq() }` }
+		} ).makeRequest() ).body.id;
 	} );
 
 	it( 'returns the created lexeme and persists it', async () => {
 		const lemma = `test-lemma-${ utils.uniq() }`;
+		const statementValue = 'potato';
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: lemma },
 			lexical_category: lexicalCategoryId,
-			language: languageId
+			language: languageId,
+			statements: {
+				[ stringPropertyId ]: [ {
+					property: { id: stringPropertyId },
+					value: { type: 'value', content: statementValue }
+				} ]
+			}
 		} ).makeRequest();
 
 		assert.strictEqual( response.status, 201, response.text );
@@ -31,6 +58,18 @@ describe( 'POST /entities/lexemes', () => {
 		assert.deepStrictEqual( response.body.lemmas, { en: lemma } );
 		assert.strictEqual( response.body.lexical_category, lexicalCategoryId );
 		assert.strictEqual( response.body.language, languageId );
+
+		assert.deepStrictEqual( Object.keys( response.body.statements ), [ stringPropertyId ] );
+		const [ statement ] = response.body.statements[ stringPropertyId ];
+		assert.strictEqual( statement.id.split( '$' )[ 0 ], response.body.id );
+		assert.deepStrictEqual( statement, {
+			id: statement.id,
+			rank: 'normal',
+			property: { id: stringPropertyId, data_type: 'string' },
+			value: { type: 'value', content: statementValue },
+			qualifiers: [],
+			references: []
+		} );
 
 		const getLexemeResponse = await newGetLexemeRequestBuilder( response.body.id ).makeRequest();
 
@@ -195,6 +234,108 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( response.status, 400, response.text );
 		assert.strictEqual( response.body.code, 'value-too-long' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas/en', limit: 1000 } );
+	} );
+
+	it( 'ignores statement ids provided in the request', async () => {
+		const response = await newCreateLexemeRequestBuilder( newValidLexeme( {
+			statements: {
+				[ stringPropertyId ]: [ {
+					id: 'L1$00000000-0000-0000-0000-000000000000',
+					property: { id: stringPropertyId },
+					value: { type: 'value', content: 'potato' }
+				} ]
+			}
+		} ) ).makeRequest();
+
+		assert.strictEqual( response.status, 201, response.text );
+		assert.strictEqual(
+			response.body.statements[ stringPropertyId ][ 0 ].id.split( '$' )[ 0 ],
+			response.body.id
+		);
+	} );
+
+	[
+		{
+			name: 'statements not an object',
+			statements: () => [ 'potato' ],
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: '/lexeme/statements' } )
+		},
+		{
+			name: 'statement group not a list',
+			statements: () => ( {
+				[ stringPropertyId ]: { property: { id: stringPropertyId } }
+			} ),
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: `/lexeme/statements/${ stringPropertyId }` } )
+		},
+		{
+			name: 'statement not an object',
+			statements: () => ( { [ stringPropertyId ]: [ 'potato' ] } ),
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: `/lexeme/statements/${ stringPropertyId }/0` } )
+		},
+		{
+			name: 'statement rank invalid',
+			statements: () => ( {
+				[ stringPropertyId ]: [ {
+					property: { id: stringPropertyId },
+					value: { type: 'novalue' },
+					rank: 'not-a-rank'
+				} ]
+			} ),
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: `/lexeme/statements/${ stringPropertyId }/0/rank` } )
+		},
+		{
+			name: 'statement field missing',
+			statements: () => ( {
+				[ stringPropertyId ]: [ { property: { id: stringPropertyId } } ]
+			} ),
+			expectedCode: 'missing-field',
+			expectedContext: () => ( {
+				path: `/lexeme/statements/${ stringPropertyId }/0`,
+				field: 'value'
+			} )
+		},
+		{
+			name: 'statement property does not exist',
+			statements: () => ( {
+				P999999999: [ {
+					property: { id: 'P999999999' },
+					value: { type: 'novalue' }
+				} ]
+			} ),
+			expectedCode: 'referenced-resource-not-found',
+			expectedContext: () => ( {
+				path: '/lexeme/statements/P999999999/0/property/id'
+			} )
+		},
+		{
+			name: 'statement property id does not match the group key',
+			statements: () => ( {
+				[ stringPropertyId ]: [ {
+					property: { id: otherStringPropertyId },
+					value: { type: 'novalue' }
+				} ]
+			} ),
+			expectedCode: 'statement-group-property-id-mismatch',
+			expectedContext: () => ( {
+				path: `/lexeme/statements/${ stringPropertyId }/0/property/id`,
+				statement_group_property_id: stringPropertyId,
+				statement_property_id: otherStringPropertyId
+			} )
+		}
+	].forEach( ( { name, statements, expectedCode, expectedContext } ) => {
+		it( `responds 400 - ${ name }`, async () => {
+			const response = await newCreateLexemeRequestBuilder(
+				newValidLexeme( { statements: statements() } )
+			).makeRequest();
+
+			assert.strictEqual( response.status, 400, response.text );
+			assert.strictEqual( response.body.code, expectedCode );
+			assert.deepStrictEqual( response.body.context, expectedContext() );
+		} );
 	} );
 
 	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
