@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Interactors;
 
+use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 
 /**
@@ -17,6 +18,8 @@ trait UpdateExceptionHandler {
 			return $callback();
 		} catch ( TempAccountCreationLimitReached ) {
 			throw UseCaseError::newRateLimitReached( UseCaseError::REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT );
+		} catch ( ResourceTooLargeException $e ) {
+			throw UseCaseError::newResourceTooLarge( $e->resourceSizeLimit );
 		}
 	}
 

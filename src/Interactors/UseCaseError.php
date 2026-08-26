@@ -18,6 +18,7 @@ class UseCaseError extends RuntimeException {
 	public const string REQUEST_LIMIT_REACHED = 'request-limit-reached';
 	public const string REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT = 'temp-account-creation-limit-reached';
 	public const string VALUE_TOO_LONG = 'value-too-long';
+	public const string RESOURCE_TOO_LARGE = 'resource-too-large';
 	public const string REFERENCED_RESOURCE_NOT_FOUND = 'referenced-resource-not-found';
 	public const string PERMISSION_DENIED = 'permission-denied';
 	public const string PERMISSION_DENIED_REASON_USER_BLOCKED = 'blocked-user';
@@ -51,6 +52,7 @@ class UseCaseError extends RuntimeException {
 			self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID,
 			self::CONTEXT_STATEMENT_PROPERTY_ID,
 		],
+		self::RESOURCE_TOO_LARGE => [ self::CONTEXT_LIMIT ],
 	];
 
 	public function __construct(
@@ -163,6 +165,14 @@ class UseCaseError extends RuntimeException {
 			self::PERMISSION_DENIED,
 			'Access to resource is denied',
 			[ self::CONTEXT_DENIAL_REASON => $reason ]
+		);
+	}
+
+	public static function newResourceTooLarge( int $maxSizeInKb ): self {
+		return new self(
+			self::RESOURCE_TOO_LARGE,
+			"Edit resulted in a resource that exceeds the size limit of $maxSizeInKb kB",
+			[ self::CONTEXT_LIMIT => $maxSizeInKb ]
 		);
 	}
 }

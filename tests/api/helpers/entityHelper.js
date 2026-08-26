@@ -71,9 +71,26 @@ async function getLatestEditMetadata( lexemeId ) {
 	};
 }
 
+/**
+ * @param {string} propertyId
+ * @return {{property: {id: string}, value: {type: string, content: string}}}
+ */
+function newStatementWithRandomStringValue( propertyId ) {
+	return {
+		property: {
+			id: propertyId
+		},
+		value: {
+			type: 'value',
+			content: 'random-string-value-' + utils.uniq()
+		}
+	};
+}
+
 module.exports = {
 	getLexemeId,
 	createLexeme,
 	createRedirectForLexeme,
-	getLatestEditMetadata
+	getLatestEditMetadata,
+	newStatementWithRandomStringValue
 };

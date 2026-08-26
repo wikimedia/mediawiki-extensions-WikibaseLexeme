@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
@@ -13,6 +14,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
@@ -44,6 +46,8 @@ class EntityUpdaterLexemeCreator implements LexemeCreator {
 			);
 		} catch ( CrudTempAccountException ) {
 			throw new TempAccountCreationLimitReached();
+		} catch ( CrudResourceTooLargeException $e ) {
+			throw new ResourceTooLargeException( $e->getResourceSizeLimit() );
 		}
 
 		/** @var LexemeWriteModel $newLexeme */

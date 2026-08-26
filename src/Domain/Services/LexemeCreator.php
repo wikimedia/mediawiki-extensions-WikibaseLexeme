@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Domain\Services;
 
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
@@ -13,6 +14,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 interface LexemeCreator {
 
 	/**
+	 * @throws ResourceTooLargeException
 	 * @throws TempAccountCreationLimitReached
 	 */
 	public function create( LexemeWriteModel $lexeme, EditMetadata $editMetadata ): LexemeRevision;
