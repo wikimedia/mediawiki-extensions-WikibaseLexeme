@@ -16,6 +16,7 @@ class UseCaseError extends RuntimeException {
 	public const string INVALID_VALUE = 'invalid-value';
 	public const string INVALID_KEY = 'invalid-key';
 	public const string REQUEST_LIMIT_REACHED = 'request-limit-reached';
+	public const string REQUEST_LIMIT_REASON_RATE_LIMIT = 'rate-limit-reached';
 	public const string REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT = 'temp-account-creation-limit-reached';
 	public const string VALUE_TOO_LONG = 'value-too-long';
 	public const string RESOURCE_TOO_LARGE = 'resource-too-large';

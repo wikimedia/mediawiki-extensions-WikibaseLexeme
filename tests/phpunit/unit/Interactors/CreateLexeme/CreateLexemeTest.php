@@ -9,6 +9,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
+use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
@@ -161,6 +162,13 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 
 	public static function exceptionProvider(): iterable {
 		yield 'rate limit reached' => [
+			new RateLimitReached(),
+			UseCaseError::REQUEST_LIMIT_REACHED,
+			'Exceeded the limit of actions that can be performed in a given span of time',
+			[ UseCaseError::CONTEXT_REASON => UseCaseError::REQUEST_LIMIT_REASON_RATE_LIMIT ],
+		];
+
+		yield 'temp account creation limit reached' => [
 			new TempAccountCreationLimitReached(),
 			UseCaseError::REQUEST_LIMIT_REACHED,
 			'Exceeded the limit of actions that can be performed in a given span of time',

@@ -11,6 +11,7 @@ use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
+use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
@@ -20,6 +21,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as CrudRateLimitReached;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
@@ -159,6 +161,22 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		$lexemeUpdater->update(
 			NewLexeme::create()->build(),
+			new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+		);
+	}
+
+	public function testUpdateRateLimitReached_throws(): void {
+		$entityUpdater = $this->createStub( EntityUpdater::class );
+		$entityUpdater->method( 'update' )->willThrowException( new CrudRateLimitReached() );
+		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
+			$entityUpdater,
+			$this->createStub( StatementReadModelConverter::class ),
+		);
+
+		$this->expectException( RateLimitReached::class );
+
+		$lexemeUpdater->update(
+			NewLexeme::havingId( 'L1' )->build(),
 			new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
 		);
 	}

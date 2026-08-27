@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\DataAccess\Store;
 use InvalidArgumentException;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
@@ -17,6 +18,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as CrudRateLimitReached;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
@@ -44,6 +46,8 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 			throw new TempAccountCreationLimitReached();
 		} catch ( CrudResourceTooLargeException $e ) {
 			throw new ResourceTooLargeException( $e->getResourceSizeLimit() );
+		} catch ( CrudRateLimitReached ) {
+			throw new RateLimitReached();
 		}
 
 		return $this->convertToLexemeRevision( $entityRevision );
@@ -63,6 +67,8 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 			throw new TempAccountCreationLimitReached();
 		} catch ( CrudResourceTooLargeException $e ) {
 			throw new ResourceTooLargeException( $e->getResourceSizeLimit() );
+		} catch ( CrudRateLimitReached ) {
+			throw new RateLimitReached();
 		}
 
 		return $this->convertToLexemeRevision( $entityRevision );
