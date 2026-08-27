@@ -7,6 +7,7 @@ use MediaWiki\Rest\HttpException;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\StringStream;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikimedia\Http\HttpStatus;
 use Wikimedia\Timestamp\ConvertibleTimestamp;
 use Wikimedia\Timestamp\TimestampFormat as TS;
 
@@ -25,6 +26,8 @@ class ResponseFactory {
 		UseCaseError::REFERENCED_RESOURCE_NOT_FOUND => 400,
 		// 404 errors:
 		UseCaseError::LEXEME_NOT_FOUND => 404,
+		// 403 errors:
+		UseCaseError::PERMISSION_DENIED => 403,
 		// 429 errors:
 		UseCaseError::REQUEST_LIMIT_REACHED => 429,
 	];
@@ -58,6 +61,10 @@ class ResponseFactory {
 	}
 
 	private function newErrorResponse( string $code, string $message, array $context = [] ): Response {
+		if ( $code === UseCaseError::PERMISSION_DENIED_UNKNOWN_REASON ) {
+			return $this->newFrameworkAlikePermissionDeniedResponse();
+		}
+
 		$httpResponse = new Response();
 		$httpResponse->setHeader( 'Content-Type', 'application/json' );
 		$httpResponse->setHeader( 'Content-Language', 'en' );
@@ -68,6 +75,19 @@ class ResponseFactory {
 					array_filter( [ 'code' => $code, 'message' => $message, 'context' => $context ] ),
 					JSON_UNESCAPED_SLASHES )
 			) );
+
+		return $httpResponse;
+	}
+
+	private function newFrameworkAlikePermissionDeniedResponse(): Response {
+		$httpResponse = new Response();
+		$httpResponse->setHeader( 'Content-Type', 'application/json' );
+		$httpResponse->setStatus( 403 );
+		$httpResponse->setBody( new StringStream( json_encode( [
+			'error' => 'rest-write-denied',
+			'httpCode' => 403,
+			'httpReason' => HttpStatus::getMessage( 403 ),
+		] ) ) );
 
 		return $httpResponse;
 	}

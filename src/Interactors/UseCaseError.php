@@ -19,6 +19,10 @@ class UseCaseError extends RuntimeException {
 	public const string REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT = 'temp-account-creation-limit-reached';
 	public const string VALUE_TOO_LONG = 'value-too-long';
 	public const string REFERENCED_RESOURCE_NOT_FOUND = 'referenced-resource-not-found';
+	public const string PERMISSION_DENIED = 'permission-denied';
+	public const string PERMISSION_DENIED_REASON_USER_BLOCKED = 'blocked-user';
+	public const string PERMISSION_DENIED_REASON_IP_BLOCKED = 'blocked-ip';
+	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
 
 	public const string CONTEXT_PARAMETER = 'parameter';
 	public const string CONTEXT_PATH = 'path';
@@ -26,6 +30,7 @@ class UseCaseError extends RuntimeException {
 	public const string CONTEXT_KEY = 'key';
 	public const string CONTEXT_LIMIT = 'limit';
 	public const string CONTEXT_REASON = 'reason';
+	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
 		self::LEXEME_NOT_FOUND => [],
@@ -36,6 +41,8 @@ class UseCaseError extends RuntimeException {
 		self::VALUE_TOO_LONG => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
 		self::REFERENCED_RESOURCE_NOT_FOUND => [ self::CONTEXT_PATH ],
 		self::REQUEST_LIMIT_REACHED => [ self::CONTEXT_REASON ],
+		self::PERMISSION_DENIED => [ self::CONTEXT_DENIAL_REASON ],
+		self::PERMISSION_DENIED_UNKNOWN_REASON => [],
 	];
 
 	public function __construct(
@@ -124,6 +131,14 @@ class UseCaseError extends RuntimeException {
 			self::REQUEST_LIMIT_REACHED,
 			'Exceeded the limit of actions that can be performed in a given span of time',
 			[ self::CONTEXT_REASON => $reason ]
+		);
+	}
+
+	public static function newPermissionDenied( string $reason ): self {
+		return new self(
+			self::PERMISSION_DENIED,
+			'Access to resource is denied',
+			[ self::CONTEXT_DENIAL_REASON => $reason ]
 		);
 	}
 }

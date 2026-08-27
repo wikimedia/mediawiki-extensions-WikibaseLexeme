@@ -124,4 +124,33 @@ class ResponseFactoryTest extends TestCase {
 		);
 	}
 
+	public function testNewErrorResponseFromException_permissionDenied(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED )
+		);
+
+		$this->assertSame( 403, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "permission-denied", "message": "Access to resource is denied",'
+				. ' "context": { "denial_reason": "blocked-user" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
+	public function testNewErrorResponseFromException_permissionDeniedUnknownReason_respondsLikeTheFramework(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			new UseCaseError(
+				UseCaseError::PERMISSION_DENIED_UNKNOWN_REASON,
+				'You have no permission to create a lexeme'
+			)
+		);
+
+		$this->assertSame( 403, $httpResponse->getStatusCode() );
+		$this->assertSame( 'application/json', $httpResponse->getHeaderLine( 'Content-Type' ) );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "error": "rest-write-denied", "httpCode": 403, "httpReason": "Forbidden" }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
 }
