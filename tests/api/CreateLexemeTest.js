@@ -422,4 +422,61 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( response.body.code, 'value-too-long' );
 		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
 	} );
+
+	describe( 'Authorization', () => {
+		let root;
+
+		before( async () => {
+			root = await action.root();
+		} );
+
+		describe( 'blocked user', () => {
+			let blockedUser;
+
+			before( async () => {
+				const username = utils.title( 'blocked-user-' );
+				const password = utils.title( 'very-secret-' );
+				await root.createAccount( { username, password } );
+				blockedUser = action.getAnon();
+				await blockedUser.login( username, password );
+				await root.action( 'block', { user: username, reason: 'testing', token: await root.token() }, 'POST' );
+			} );
+
+			after( async () => {
+				await root.action( 'unblock', { user: blockedUser.username, token: await root.token() }, 'POST' );
+			} );
+
+			it( 'returns 403 with the denial reason', async () => {
+				const response = await newCreateLexemeRequestBuilder( {
+					lemmas: { en: `test-lemma-${ utils.uniq() }` },
+					lexical_category: lexicalCategoryId,
+					language: languageId
+				} )
+					.withUser( blockedUser )
+					.makeRequest();
+
+				assert.strictEqual( response.status, 403, response.text );
+				assert.header( response, 'Content-Language', 'en' );
+				assert.strictEqual( response.body.code, 'permission-denied' );
+				assert.deepStrictEqual( response.body.context, { denial_reason: 'blocked-user' } );
+			} );
+		} );
+
+		it( 'returns 403 without the createpage right', async () => {
+			const response = await newCreateLexemeRequestBuilder( {
+				lemmas: { en: `test-lemma-${ utils.uniq() }` },
+				lexical_category: lexicalCategoryId,
+				language: languageId
+			} )
+				.withUser( await action.alice() )
+				.withConfigOverride( 'wgGroupPermissions', {
+					'*': { read: true, edit: true, createpage: false },
+					user: { read: true, edit: true, createpage: false }
+				} )
+				.makeRequest();
+
+			assert.strictEqual( response.status, 403, response.text );
+			assert.strictEqual( response.body.error, 'rest-write-denied' );
+		} );
+	} );
 } );

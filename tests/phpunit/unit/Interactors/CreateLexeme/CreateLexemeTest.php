@@ -19,7 +19,9 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
@@ -58,6 +60,7 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			[ 'some tag' ],
 			true,
 			'user comment',
+			'potato user',
 		);
 		$deserializedLexeme = new LexemeWriteModel(
 			null,
@@ -82,7 +85,12 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			->with( $deserializedLexeme, $editMetadata )
 			->willReturn( new LexemeRevision( $expectedLexeme, $expectedRevisionId, $expectedLastModified ) );
 
-		$response = ( new CreateLexeme( $lexemeCreator, $validator ) )->execute( $request );
+		$assertUserIsAuthorized = $this->createMock( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->expects( $this->once() )
+			->method( 'checkCreateLexemePermissions' )
+			->with( User::withUsername( 'potato user' ) );
+
+		$response = ( new CreateLexeme( $lexemeCreator, $validator, $assertUserIsAuthorized ) )->execute( $request );
 
 		$this->assertSame( $expectedLexeme, $response->lexeme );
 		$this->assertSame( $expectedRevisionId, $response->revisionId );
@@ -99,8 +107,31 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 
 		$this->expectException( UseCaseError::class );
 
-		( new CreateLexeme( $lexemeCreator, $validator ) )
-			->execute( new CreateLexemeRequest( [], [], false, null ) );
+		( new CreateLexeme( $lexemeCreator, $validator, $this->createStub( AssertUserIsAuthorized::class ) ) )
+			->execute( new CreateLexemeRequest( [], [], false, null, null ) );
+	}
+
+	public function testGivenUnauthorizedUser_throwsWithoutCreating(): void {
+		$expectedException = UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED );
+		$lexemeCreator = $this->createMock( LexemeCreator::class );
+		$lexemeCreator->expects( $this->never() )->method( 'create' );
+
+		$assertUserIsAuthorized = $this->createStub( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->method( 'checkCreateLexemePermissions' )
+			->willThrowException( $expectedException );
+
+		$useCase = new CreateLexeme(
+			$lexemeCreator,
+			$this->createStub( CreateLexemeValidator::class ),
+			$assertUserIsAuthorized
+		);
+
+		try {
+			$useCase->execute( new CreateLexemeRequest( [], [], false, null, null ) );
+			$this->fail( 'this should not be reached' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedException, $e );
+		}
 	}
 
 	/**
@@ -118,8 +149,8 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 		$validator = $this->createStub( CreateLexemeValidator::class );
 
 		try {
-			( new CreateLexeme( $lexemeCreator, $validator ) )
-				->execute( new CreateLexemeRequest( [], [], false, null ) );
+			( new CreateLexeme( $lexemeCreator, $validator, $this->createStub( AssertUserIsAuthorized::class ) ) )
+				->execute( new CreateLexemeRequest( [], [], false, null, null ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( $expectedErrorCode, $e->errorCode );

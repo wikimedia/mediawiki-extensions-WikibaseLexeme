@@ -30,6 +30,8 @@ use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Infrastructure\ChangeTagsStoreTagsRetriever;
 use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
+use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
@@ -279,6 +281,12 @@ return call_user_func( static function () {
 					LemmaTermValidator::LEMMA_MAX_LENGTH,
 					new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 					CommentStore::COMMENT_CHARACTER_LIMIT
+				),
+				new AssertUserIsAuthorized(
+					new WikibaseEntityPermissionChecker(
+						WikibaseRepo::getEntityPermissionChecker( $services ),
+						$services->getUserFactory()
+					)
 				),
 			);
 		},

@@ -415,6 +415,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			[ self::ALLOWED_TAG ],
 			true,
 			'user comment',
+			null,
 		) );
 
 		$this->assertEquals(
@@ -429,6 +430,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				self::VALID_LEXEME,
 				[ self::ALLOWED_TAG, 'bad tag' ],
 				false,
+				null,
 				null,
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -446,6 +448,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				[],
 				false,
 				str_repeat( 'x', self::MAX_COMMENT_LENGTH + 1 ),
+				null,
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
@@ -465,7 +468,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	private static function newRequest( array $lexeme ): CreateLexemeRequest {
-		return new CreateLexemeRequest( $lexeme, [], false, null );
+		return new CreateLexemeRequest( $lexeme, [], false, null, null );
 	}
 
 	private function newValidator( ?StatementsValidator $statementsValidator = null ): CreateLexemeValidator {
