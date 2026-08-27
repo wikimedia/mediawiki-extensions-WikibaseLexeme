@@ -16,7 +16,7 @@ use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRevisionMetadataRetriever;
-use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeCreator;
+use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -258,7 +258,7 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.CreateLexeme' => static function ( MediaWikiServices $services ): CreateLexeme {
 			return new CreateLexeme(
-				new EntityUpdaterLexemeCreator(
+				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
 					new StatementReadModelConverter(
 						WikibaseRepo::getStatementGuidParser( $services ),
