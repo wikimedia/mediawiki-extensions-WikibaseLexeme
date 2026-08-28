@@ -93,6 +93,20 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $lastModified, $lexemeRevision->lastModified );
 	}
 
+	public function testCreateWithId_throws(): void {
+		$lexemeCreator = new EntityUpdaterLexemeUpdater(
+			$this->createNoOpMock( EntityUpdater::class ),
+			$this->createStub( StatementReadModelConverter::class ),
+		);
+
+		$this->expectException( InvalidArgumentException::class );
+
+		$lexemeCreator->create(
+			NewLexeme::havingId( 'L1' )->build(),
+			new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+		);
+	}
+
 	public function testUpdate(): void {
 		$lexemeId = new LexemeId( 'L1' );
 		$lemma = new Lemma( 'en', 'potato' );

@@ -40,6 +40,10 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 	 * @inheritDoc
 	 */
 	public function create( LexemeWriteModel $lexeme, EditMetadata $editMetadata ): LexemeRevision {
+		if ( $lexeme->getId() ) {
+			throw new InvalidArgumentException( 'New Lexeme must not have an ID' );
+		}
+
 		try {
 			$entityRevision = $this->entityUpdater->create( $lexeme, $this->convertEditMetadata( $editMetadata ) );
 		} catch ( CrudTempAccountException ) {
