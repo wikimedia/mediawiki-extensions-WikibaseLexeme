@@ -62,12 +62,12 @@ class Lexeme implements StatementListProvidingEntity, ClearableEntity {
 		?SenseSet $senses = null
 	) {
 		$this->id = $id;
-		$this->lemmas = $lemmas ?: new TermList();
+		$this->lemmas = $lemmas ?? new TermList();
 		$this->lexicalCategory = $lexicalCategory;
 		$this->language = $language;
-		$this->statements = $statements ?: new StatementList();
-		$this->forms = $forms ?: new FormSet( [] );
-		$this->senses = $senses ?: new SenseSet( [] );
+		$this->statements = $statements ?? new StatementList();
+		$this->forms = $forms ?? new FormSet( [] );
+		$this->senses = $senses ?? new SenseSet( [] );
 
 		$this->assertCorrectNextFormIdIsGiven( $nextFormId, $this->forms );
 		$this->nextFormId = $nextFormId;

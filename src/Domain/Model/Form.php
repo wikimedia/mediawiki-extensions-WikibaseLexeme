@@ -50,7 +50,7 @@ class Form implements StatementListProvidingEntity, ClearableEntity {
 		$this->id = $id;
 		$this->representations = $representations;
 		$this->setGrammaticalFeatures( $grammaticalFeatures );
-		$this->statementList = $statementList ?: new StatementList();
+		$this->statementList = $statementList ?? new StatementList();
 	}
 
 	public function getType(): string {
