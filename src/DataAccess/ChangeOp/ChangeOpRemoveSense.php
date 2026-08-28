@@ -24,9 +24,6 @@ class ChangeOpRemoveSense extends ChangeOpBase {
 	 */
 	private $senseId;
 
-	/**
-	 * @param SenseId $senseId
-	 */
 	public function __construct( SenseId $senseId ) {
 		$this->senseId = $senseId;
 	}

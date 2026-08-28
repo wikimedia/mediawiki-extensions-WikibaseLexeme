@@ -64,8 +64,6 @@ class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 
 	/**
 	 * Map WikibaseLexeme entities to the RDF graph
-	 *
-	 * @param EntityDocument $entity
 	 */
 	public function addEntity( EntityDocument $entity ) {
 		if ( $entity instanceof Lexeme ) {
@@ -81,8 +79,6 @@ class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 
 	/**
 	 * Map a Lexeme to the RDF graph
-	 *
-	 * @param Lexeme $lexeme
 	 */
 	private function addLexeme( Lexeme $lexeme ) {
 		$lexemeId = $lexeme->getId();
@@ -199,8 +195,6 @@ class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 
 	/**
 	 * Map a Form to the RDF graph
-	 *
-	 * @param Form $form
 	 */
 	private function addForm( Form $form ) {
 		$formLName = $this->vocabulary->getEntityLName( $form->getId() );
@@ -261,8 +255,6 @@ class LexemeSpecificComponentsRdfBuilder implements EntityRdfBuilder {
 
 	/**
 	 * Map a Sense to the RDF graph
-	 *
-	 * @param Sense $sense
 	 */
 	private function addSense( Sense $sense ) {
 		$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );

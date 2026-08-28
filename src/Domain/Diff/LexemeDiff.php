@@ -77,8 +77,6 @@ class LexemeDiff extends EntityDiff {
 
 	/**
 	 * Returns if there are any changes (equivalent to: any differences between the entities).
-	 *
-	 * @return bool
 	 */
 	public function isEmpty(): bool {
 		// FIXME: Needs to be fixed, otherwise conflict resolution may lead to unexpected results

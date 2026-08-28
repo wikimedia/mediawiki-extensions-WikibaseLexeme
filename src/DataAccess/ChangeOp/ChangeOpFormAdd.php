@@ -24,9 +24,6 @@ class ChangeOpFormAdd extends ChangeOpBase {
 	 */
 	private $changeOpForm;
 
-	/**
-	 * @param ChangeOp $changeOpForm
-	 */
 	public function __construct( ChangeOp $changeOpForm ) {
 		$this->changeOpForm = $changeOpForm;
 	}

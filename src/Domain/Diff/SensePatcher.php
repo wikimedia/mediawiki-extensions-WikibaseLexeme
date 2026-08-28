@@ -48,10 +48,6 @@ class SensePatcher implements EntityPatcherStrategy {
 		$this->patch( $entity, $patch );
 	}
 
-	/**
-	 * @param Sense $sense
-	 * @param ChangeSenseDiffOp $diff
-	 */
 	private function patch( Sense $sense, ChangeSenseDiffOp $diff ) {
 		$this->termListPatcher->patchTermList(
 			$sense->getGlosses(),

@@ -22,9 +22,6 @@ class ChangeOpSenseClone implements ChangeOp {
 	/** @var Sense */
 	private $sourceSense;
 
-	/**
-	 * @param Sense $sourceSense
-	 */
 	public function __construct( Sense $sourceSense ) {
 		$this->sourceSense = $sourceSense->copy();
 	}

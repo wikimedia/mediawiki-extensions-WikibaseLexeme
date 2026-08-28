@@ -58,8 +58,6 @@ class LexemeStubRdfBuilder implements EntityStubRdfBuilder {
 	/**
 	 * Map some aspect of an entity to the RDF graph, as it should appear in the stub
 	 * representation of the entity.
-	 *
-	 * @param EntityId $entityId
 	 */
 	public function addEntityStub( EntityId $entityId ): void {
 
@@ -79,8 +77,6 @@ class LexemeStubRdfBuilder implements EntityStubRdfBuilder {
 	/**
 	 * Map some aspect of a Lexeme to the RDF graph, as it should appear in the stub
 	 * representation of the lexeme.
-	 *
-	 * @param Lexeme $lexeme
 	 */
 	private function addLexemeStub( Lexeme $lexeme ): void {
 		$lexemeId = $lexeme->getId();
@@ -97,8 +93,6 @@ class LexemeStubRdfBuilder implements EntityStubRdfBuilder {
 	/**
 	 * Map some aspect of a Form to the RDF graph, as it should appear in the stub
 	 * representation of the form.
-	 *
-	 * @param Form $form
 	 */
 	private function addFormStub( Form $form ): void {
 		$formLName = $this->vocabulary->getEntityLName( $form->getId() );
@@ -112,8 +106,6 @@ class LexemeStubRdfBuilder implements EntityStubRdfBuilder {
 	/**
 	 * Map some aspect of a Sense to the RDF graph, as it should appear in the stub
 	 * representation of the sense.
-	 *
-	 * @param Sense $sense
 	 */
 	private function addSenseStub( Sense $sense ): void {
 		$senseLName = $this->vocabulary->getEntityLName( $sense->getId() );

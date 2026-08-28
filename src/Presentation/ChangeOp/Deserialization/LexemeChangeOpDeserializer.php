@@ -66,9 +66,6 @@ class LexemeChangeOpDeserializer implements ChangeOpDeserializer {
 		$this->senseListChangeOpDeserializer = $senseListChangeOpDeserializer;
 	}
 
-	/**
-	 * @param ValidationContext $validationContext
-	 */
 	public function setContext( ValidationContext $validationContext ) {
 		$this->validationContext = $validationContext;
 	}

@@ -51,8 +51,6 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 
 	/**
 	 * Initialize repository data
-	 *
-	 * @return RdfBuilderTestData
 	 */
 	private function getTestData(): RdfBuilderTestData {
 		if ( $this->testData === null ) {
@@ -97,11 +95,6 @@ class LexemeStubRdfBuilderTest extends MediaWikiIntegrationTestCase {
 		);
 	}
 
-	/**
-	 * @param RdfWriter $writer
-	 *
-	 * @return LexemeStubRdfBuilder
-	 */
 	private function newBuilder( RdfWriter $writer ): LexemeStubRdfBuilder {
 		$vocabulary = $this->getVocabulary();
 
