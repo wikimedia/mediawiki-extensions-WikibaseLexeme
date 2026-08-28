@@ -9,7 +9,7 @@ use Wikibase\Lexeme\Hooks\WikibaseContentLanguagesHookHandler;
 use Wikibase\Lib\ContentLanguages;
 
 /**
- * @covers Wikibase\Lexeme\Hooks\WikibaseContentLanguagesHookHandler
+ * @covers \Wikibase\Lexeme\Hooks\WikibaseContentLanguagesHookHandler
  * @group Wikibase
  * @license GPL-2.0-or-later
  */

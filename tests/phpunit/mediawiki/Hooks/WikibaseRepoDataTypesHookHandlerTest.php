@@ -8,7 +8,7 @@ use MediaWiki\Config\HashConfig;
 use Wikibase\Lexeme\Hooks\WikibaseRepoDataTypesHookHandler;
 
 /**
- * @covers Wikibase\Lexeme\Hooks\WikibaseRepoDataTypesHookHandler
+ * @covers \Wikibase\Lexeme\Hooks\WikibaseRepoDataTypesHookHandler
  * @group Wikibase
  * @license GPL-2.0-or-later
  */

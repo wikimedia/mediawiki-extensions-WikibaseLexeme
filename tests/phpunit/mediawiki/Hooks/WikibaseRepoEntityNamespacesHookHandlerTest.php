@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Wikibase\Lexeme\Hooks\WikibaseRepoEntityNamespacesHookHandler;
 
 /**
- * @covers Wikibase\Lexeme\Hooks\WikibaseRepoEntityNamespacesHookHandler
+ * @covers \Wikibase\Lexeme\Hooks\WikibaseRepoEntityNamespacesHookHandler
  * @group Wikibase
  * @license GPL-2.0-or-later
  */
