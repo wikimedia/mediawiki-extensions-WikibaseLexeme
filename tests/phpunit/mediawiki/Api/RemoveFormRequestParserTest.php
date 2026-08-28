@@ -6,6 +6,7 @@ use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Api\IApiMessage;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotFormId;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveFormRequestParser;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\FormIdDeserializer;
@@ -22,12 +23,11 @@ class RemoveFormRequestParserTest extends \MediaWikiIntegrationTestCase {
 	 */
 	public function testGivenInvalidParams_parseReturnsError(
 		array $params,
-		array $expectedErrors
+		array $expectedContext,
+		ApiError $expectedError
 	) {
 		$parser = $this->newRemoveFormRequestParser();
 
-		$expectedContext = $expectedErrors[0];
-		$expectedError = $expectedErrors[1];
 		$expectedMessage = $expectedError->asApiMessage( 'data', [] );
 
 		try {
@@ -50,11 +50,13 @@ class RemoveFormRequestParserTest extends \MediaWikiIntegrationTestCase {
 		return [
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'foo' ) ],
+				[ 'parameterName' => 'id', 'fieldPath' => [] ],
+				new ParameterIsNotFormId( 'foo' ),
 			],
 			'invalid id (sense ID)' => [
 				[ 'id' => 'L1-S2' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotFormId( 'L1-S2' ) ],
+				[ 'parameterName' => 'id', 'fieldPath' => [] ],
+				new ParameterIsNotFormId( 'L1-S2' ),
 			],
 		];
 	}

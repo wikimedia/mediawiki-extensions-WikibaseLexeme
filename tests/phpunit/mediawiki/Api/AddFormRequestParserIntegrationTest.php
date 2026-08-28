@@ -12,6 +12,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\MediaWiki\Api\Error\InvalidFormClaims;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldHasWrongType;
 use Wikibase\Lexeme\MediaWiki\Api\Error\JsonFieldIsNotAnItemId;
@@ -43,12 +44,11 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 	 */
 	public function testGivenInvalidParams_parseReturnsError(
 		array $params,
-		array $expectedErrors
+		array $expectedContext,
+		ApiError $expectedError
 	) {
 		$parser = $this->newAddFormRequestParser();
 
-		$expectedContext = $expectedErrors[0];
-		$expectedError = $expectedErrors[1];
 		$expectedMessage = $expectedError->asApiMessage( 'data', [] );
 
 		try {
@@ -71,52 +71,44 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 		return [
 			'invalid lexeme ID (random string not ID)' => [
 				[ 'lexemeId' => 'foo', 'data' => self::getDataParam() ],
-				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'foo' ) ],
+				[ 'parameterName' => 'lexemeId', 'fieldPath' => [] ],
+				new ParameterIsNotLexemeId( 'foo' ),
 			],
 			'invalid lexeme ID (not a lexeme ID)' => [
 				[ 'lexemeId' => 'Q11', 'data' => self::getDataParam() ],
-				[ [ 'parameterName' => 'lexemeId', 'fieldPath' => [] ], new ParameterIsNotLexemeId( 'Q11' ) ],
+				[ 'parameterName' => 'lexemeId', 'fieldPath' => [] ],
+				new ParameterIsNotLexemeId( 'Q11' ),
 			],
 			'data not a well-formed JSON' => [
 				[ 'lexemeId' => 'L1', 'data' => '{foo' ],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '{foo' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [] ],
+				new ParameterIsNotAJsonObject( 'data', '{foo' ),
 			],
 			'data not an object - string given' => [
 				[ 'lexemeId' => 'L1', 'data' => '"foo"' ],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '"foo"' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [] ],
+				new ParameterIsNotAJsonObject( 'data', '"foo"' ),
 			],
 			'data not an object - array given' => [
 				[ 'lexemeId' => 'L1', 'data' => '[]' ],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [] ],
-					new ParameterIsNotAJsonObject( 'data', '[]' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [] ],
+				new ParameterIsNotAJsonObject( 'data', '[]' ),
 			],
 			'representations is a string' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => self::getDataParam( [ 'representations' => 'foo' ] ),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations' ] ],
+				new JsonFieldHasWrongType( 'array', 'string' ),
 			],
 			'grammatical features not an array' => [
 				[
 					'lexemeId' => 'L1',
 					'data' => self::getDataParam( [ 'grammaticalFeatures' => 'Q1' ] ),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures' ] ],
+				new JsonFieldHasWrongType( 'array', 'string' ),
 			],
 			'representation list contains only single empty representation' => [
 				[
@@ -125,10 +117,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ 'en' => [ 'value' => '', 'language' => 'en' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LexemeTermTextCanNotBeEmpty(),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
+				new LexemeTermTextCanNotBeEmpty(),
 			],
 			'representation list contains only representation with empty language' => [
 				[
@@ -137,10 +127,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => '' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LanguageInconsistent( 'en', '' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
+				new LanguageInconsistent( 'en', '' ),
 			],
 			'representation list contains representation with empty language key' => [
 				[
@@ -149,10 +137,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ '' => [ 'value' => 'goat', 'language' => 'en' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', '' ] ],
-					new LexemeTermLanguageCanNotBeEmpty(),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', '' ] ],
+				new LexemeTermLanguageCanNotBeEmpty(),
 			],
 			'representation list contains element with inconsistent language' => [
 				[
@@ -161,13 +147,11 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ 'en' => [ 'value' => 'goat', 'language' => 'de' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new LanguageInconsistent(
-						'en',
-						'de'
-					),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
+				new LanguageInconsistent(
+					'en',
+					'de'
+				),
 			],
 			'representation list contains element with unknown language' => [
 				[
@@ -176,10 +160,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ 'foobar' => [ 'value' => 'goat', 'language' => 'foobar' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
-					new UnknownLanguage( 'foobar', 'goat' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'foobar' ] ],
+				new UnknownLanguage( 'foobar', 'goat' ),
 			],
 			'no representation string in data' => [
 				[
@@ -188,10 +170,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ 'en' => [ 'language' => 'en' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new JsonFieldIsRequired( 'value' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
+				new JsonFieldIsRequired( 'value' ),
 			],
 			'no representation language in data' => [
 				[
@@ -200,10 +180,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'representations' => [ 'en' => [ 'value' => 'foo' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
-					new JsonFieldIsRequired( 'language' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'representations', 'en' ] ],
+				new JsonFieldIsRequired( 'language' ),
 			],
 			'invalid item ID as grammatical feature (random string not ID)' => [
 				[
@@ -212,10 +190,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'grammaticalFeatures' => [ 'foo' ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
-					new JsonFieldIsNotAnItemId( 'foo' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
+				new JsonFieldIsNotAnItemId( 'foo' ),
 			],
 			'invalid item ID as grammatical feature (not an item ID)' => [
 				[
@@ -224,10 +200,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'grammaticalFeatures' => [ 'L2' ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
-					new JsonFieldIsNotAnItemId( 'L2' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'grammaticalFeatures', 0 ] ],
+				new JsonFieldIsNotAnItemId( 'L2' ),
 			],
 			'invalid form claims request (not an array)' => [
 				[
@@ -236,10 +210,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'claims' => 'not an array' ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
-					new JsonFieldHasWrongType( 'array', 'string' ),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
+				new JsonFieldHasWrongType( 'array', 'string' ),
 			],
 			'invalid form claims request (invalid serialization)' => [
 				[
@@ -248,10 +220,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 						[ 'claims' => [ [ 'invalid' ] ] ]
 					),
 				],
-				[
-					[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
-					new InvalidFormClaims(),
-				],
+				[ 'parameterName' => 'data', 'fieldPath' => [ 'claims' ] ],
+				new InvalidFormClaims(),
 			],
 		];
 	}

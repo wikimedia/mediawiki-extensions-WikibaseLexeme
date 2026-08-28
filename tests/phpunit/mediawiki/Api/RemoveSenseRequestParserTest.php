@@ -6,6 +6,7 @@ use MediaWiki\Api\ApiUsageException;
 use MediaWiki\Api\IApiMessage;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ParameterIsNotSenseId;
 use Wikibase\Lexeme\MediaWiki\Api\RemoveSenseRequestParser;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\SenseIdDeserializer;
@@ -22,12 +23,11 @@ class RemoveSenseRequestParserTest extends \MediaWikiIntegrationTestCase {
 	 */
 	public function testGivenInvalidParams_parseReturnsError(
 		array $params,
-		array $expectedErrors
+		array $expectedContext,
+		ApiError $expectedError
 	) {
 		$parser = $this->newRemoveSenseRequestParser();
 
-		$expectedContext = $expectedErrors[0];
-		$expectedError = $expectedErrors[1];
 		$expectedMessage = $expectedError->asApiMessage( 'data', [] );
 
 		try {
@@ -50,11 +50,13 @@ class RemoveSenseRequestParserTest extends \MediaWikiIntegrationTestCase {
 		return [
 			'invalid id (random string not ID)' => [
 				[ 'id' => 'foo' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotSenseId( 'foo' ) ],
+				[ 'parameterName' => 'id', 'fieldPath' => [] ],
+				new ParameterIsNotSenseId( 'foo' ),
 			],
 			'invalid id (form id)' => [
 				[ 'id' => 'L1-F2' ],
-				[ [ 'parameterName' => 'id', 'fieldPath' => [] ], new ParameterIsNotSenseId( 'L1-F2' ) ],
+				[ 'parameterName' => 'id', 'fieldPath' => [] ],
+				new ParameterIsNotSenseId( 'L1-F2' ),
 			],
 		];
 	}
