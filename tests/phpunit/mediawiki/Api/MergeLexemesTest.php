@@ -88,9 +88,9 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		);
 
 		$revId = WikibaseRepo::getStore()->getEntityRevisionLookup( Store::LOOKUP_CACHING_DISABLED )
-			->getLatestRevisionId( $target->getId() )->onConcreteRevision( static function ( $id ) {
-				return $id;
-			} )->onNonexistentEntity( function () {
+			->getLatestRevisionId( $target->getId() )
+			->onConcreteRevision( static fn ( $id ) => $id )
+			->onNonexistentEntity( function () {
 				$this->fail( 'Target entity went away!?' );
 			} )->onRedirect( function () {
 				$this->fail( 'Target entity was redirected!?' );
@@ -187,9 +187,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 		$lastRevIdResult = WikibaseRepo::getEntityRevisionLookup()->getLatestRevisionId(
 			$target->getId(),
 			LookupConstants::LATEST_FROM_MASTER
-		)->onConcreteRevision( static function ( $revisionId )  {
-			return $revisionId;
-		} )
+		)->onConcreteRevision( static fn ( $revisionId ) => $revisionId )
 		->onRedirect( $shouldNotBeCalled )
 		->onNonexistentEntity( $shouldNotBeCalled )
 		->map();

@@ -22,11 +22,7 @@ class CartesianProductTest extends TestCase {
 
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1 )
-			->map(
-				static function ( $n1 ) {
-					return $n1;
-				}
-			);
+			->map( static fn ( $n1 ) => $n1 );
 
 		$this->assertSame( 1, $result->count() );
 		$this->assertSame( 1, $result->first()->unbox() );
@@ -40,11 +36,7 @@ class CartesianProductTest extends TestCase {
 
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2 )
-			->map(
-				static function ( $n1, $n2 ) {
-					return [ $n1, $n2 ];
-				}
-			);
+			->map( static fn ( $n1, $n2 ) => [ $n1, $n2 ] );
 
 		$this->assertInstanceOf( GeneratedValueOptions::class, $result );
 		$this->assertSame( 1, $result->count() );
@@ -78,11 +70,7 @@ class CartesianProductTest extends TestCase {
 
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2 )
-			->map(
-				static function ( $n1, $n2 ) {
-					return [ $n1, $n2 ];
-				}
-			);
+			->map( static fn ( $n1, $n2 ) => [ $n1, $n2 ] );
 
 		$this->assertInstanceOf( GeneratedValueOptions::class, $result );
 		$this->assertSame( 1, $result->count() );
@@ -97,11 +85,7 @@ class CartesianProductTest extends TestCase {
 
 		/** @var GeneratedValueOptions $result */
 		$result = CartesianProduct::create( $opt1, $opt2 )
-			->map(
-				static function ( $n1, $n2 ) {
-					return [ $n1, $n2 ];
-				}
-			);
+			->map( static fn ( $n1, $n2 ) => [ $n1, $n2 ] );
 
 		$this->assertSame( 1, $result->count() );
 		$this->assertSame( [ 1, 2 ], $result->first()->unbox() );

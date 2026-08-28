@@ -71,12 +71,8 @@ return [
 		Def::ENTITY_ID_COMPOSER_CALLBACK => static function ( $uniquePart ) {
 			return new LexemeId( 'L' . $uniquePart );
 		},
-		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
-			return new LexemeDiffer();
-		},
-		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
-			return new LexemePatcher();
-		},
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static fn () => new LexemeDiffer(),
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static fn () => new LexemePatcher(),
 
 		// Identifier of a resource loader module that, when `require`d, returns a function
 		// returning a deserializer
@@ -86,9 +82,7 @@ return [
 			'sense',
 		],
 		Def::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.lexeme',
-		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
-			return new NullPrefetchingTermLookup();
-		},
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static fn () => new NullPrefetchingTermLookup(),
 	],
 	'form' => [
 		Def::ARTICLE_ID_LOOKUP_CALLBACK => static function () {
@@ -116,21 +110,15 @@ return [
 		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new FormId( $serialization );
 		},
-		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
-			return new FormDiffer();
-		},
-		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
-			return new FormPatcher();
-		},
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static fn () => new FormDiffer(),
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static fn () => new FormPatcher(),
 		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new FormSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
-		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
-			return new NullPrefetchingTermLookup();
-		},
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static fn () => new NullPrefetchingTermLookup(),
 		DEF::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.form',
 	],
 	'sense' => [
@@ -159,21 +147,15 @@ return [
 		Def::ENTITY_ID_BUILDER => static function ( $serialization ) {
 			return new SenseId( $serialization );
 		},
-		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static function () {
-			return new SenseDiffer();
-		},
-		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static function () {
-			return new SensePatcher();
-		},
+		Def::ENTITY_DIFFER_STRATEGY_BUILDER => static fn () => new SenseDiffer(),
+		Def::ENTITY_PATCHER_STRATEGY_BUILDER => static fn () => new SensePatcher(),
 		Def::SERIALIZER_FACTORY_CALLBACK => static function ( SerializerFactory $serializerFactory ) {
 			return new SenseSerializer(
 				$serializerFactory->newTermListSerializer(),
 				$serializerFactory->newStatementListSerializer()
 			);
 		},
-		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static function () {
-			return new NullPrefetchingTermLookup();
-		},
+		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static fn () => new NullPrefetchingTermLookup(),
 		DEF::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.sense',
 	],
 ];

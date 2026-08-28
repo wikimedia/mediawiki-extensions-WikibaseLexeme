@@ -118,9 +118,7 @@ return [
 			$requestContext = RequestContext::getMain();
 			return LexemeHandler::factory( $services, $requestContext );
 		},
-		Def::ENTITY_FACTORY_CALLBACK => static function () {
-			return new Lexeme();
-		},
+		Def::ENTITY_FACTORY_CALLBACK => static fn () => new Lexeme(),
 		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$services = MediaWikiServices::getInstance();
 			$changeOpFactoryProvider = WikibaseRepo::getChangeOpFactoryProvider( $services );
@@ -353,9 +351,7 @@ return [
 			);
 			return $formChangeOpDeserializer;
 		},
-		Def::ENTITY_FACTORY_CALLBACK => static function () {
-			return new BlankForm();
-		},
+		Def::ENTITY_FACTORY_CALLBACK => static fn () => new BlankForm(),
 		Def::RDF_BUILDER_FACTORY_CALLBACK => static function (
 			$flavorFlags,
 			RdfVocabulary $vocabulary,
@@ -497,9 +493,7 @@ return [
 			);
 			return $senseChangeOpDeserializer;
 		},
-		Def::ENTITY_FACTORY_CALLBACK => static function () {
-			return new BlankSense();
-		},
+		Def::ENTITY_FACTORY_CALLBACK => static fn () => new BlankSense(),
 		Def::RDF_BUILDER_FACTORY_CALLBACK => static function (
 			$flavorFlags,
 			RdfVocabulary $vocabulary,

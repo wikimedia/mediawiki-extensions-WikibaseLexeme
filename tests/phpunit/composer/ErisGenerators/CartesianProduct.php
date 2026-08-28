@@ -63,9 +63,7 @@ class CartesianProduct {
 	private function combine( $generatorName ) {
 		if ( count( $this->generatedValues ) === 1 ) {
 			return $this->generatedValues[0]->map(
-				static function ( $v ) {
-					return [ $v ];
-				},
+				static fn ( $v ) => [ $v ],
 				$generatorName
 			);
 		}
@@ -74,9 +72,7 @@ class CartesianProduct {
 			$this->generatedValues[0],
 			$this->generatedValues[1],
 			$generatorName,
-			static function ( $v1, $v2 ) {
-				return [ $v1, $v2 ];
-			}
+			static fn ( $v1, $v2 ) => [ $v1, $v2 ]
 		);
 
 		$valuesCount = count( $this->generatedValues );

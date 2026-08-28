@@ -179,11 +179,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 		$differ = new MapDiffer(
 			false,
 			null,
-			new CallbackComparer(
-				static function ( Form $from, Form $to ) {
-					return $from == $to;
-				}
-			)
+			new CallbackComparer( static fn ( Form $from, Form $to ) => $from == $to )
 		);
 
 		$from = $this->toFormsDiffArray( $from );
@@ -242,11 +238,7 @@ class LexemeDiffer implements EntityDifferStrategy {
 		$differ = new MapDiffer(
 			false,
 			null,
-			new CallbackComparer(
-				static function ( Sense $from, Sense $to ) {
-					return $from == $to;
-				}
-			)
+			new CallbackComparer( static fn ( Sense $from, Sense $to ) => $from == $to )
 		);
 
 		$from = $this->toSensesDiffArray( $from );

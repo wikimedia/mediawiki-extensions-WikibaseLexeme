@@ -20,11 +20,9 @@ return call_user_func( static function () {
 
 	$defaultViewConfigFile = [
 		"name" => "view/config.json",
-		"callback" => static function () {
-			return [
+		"callback" => static fn () => [
 				'tags' => WikibaseRepo::getSettings()->getSetting( 'viewUiTags' ),
-			];
-		},
+			],
 	];
 
 	$modules = [

@@ -83,15 +83,9 @@ trait LexemeDescriptionTestCase {
 	private function getIdParser() {
 		return new DispatchingEntityIdParser(
 			[
-				LexemeId::PATTERN => static function ( $s ) {
-					return new LexemeId( $s );
-				},
-				FormId::PATTERN => static function ( $s ) {
-					return new FormId( $s );
-				},
-				ItemId::PATTERN => static function ( $s ) {
-					return new ItemId( $s );
-				},
+				LexemeId::PATTERN => static fn ( $s ) => new LexemeId( $s ),
+				FormId::PATTERN => static fn ( $s ) => new FormId( $s ),
+				ItemId::PATTERN => static fn ( $s ) => new ItemId( $s ),
 			]
 		);
 	}
