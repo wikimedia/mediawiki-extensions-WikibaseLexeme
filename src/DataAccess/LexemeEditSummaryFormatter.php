@@ -24,6 +24,11 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 
 		$formatterSummary = match ( $summary->getEditAction() ) {
 			EditSummaryAction::CREATE_LEXEME->name => new Summary( 'wbeditentity', 'create-lexeme' ),
+			EditSummaryAction::ADD_STATEMENT->name => new Summary(
+				'wbsetclaim',
+				'create',
+				// This is incomplete. To be done in T436531.
+			),
 		};
 		$formatterSummary->setUserSummary( $summary->getUserComment() );
 

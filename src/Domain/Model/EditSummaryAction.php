@@ -8,5 +8,6 @@ namespace Wikibase\Lexeme\Domain\Model;
 enum EditSummaryAction {
 
 	case CREATE_LEXEME;
+	case ADD_STATEMENT;
 
 }

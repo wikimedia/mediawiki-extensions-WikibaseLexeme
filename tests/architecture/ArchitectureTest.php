@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Tests\Architecture;
 use PHPat\Selector\Selector;
 use PHPat\Test\Builder\Rule;
 use PHPat\Test\PHPat;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 
 /**
  * @coversNothing
@@ -135,7 +136,9 @@ class ArchitectureTest {
 	}
 
 	private function allowedDataModelServices(): array {
-		return [];
+		return [
+			Selector::classname( GuidGenerator::class ),
+		];
 	}
 
 	private function dataModelNamespaces(): array {

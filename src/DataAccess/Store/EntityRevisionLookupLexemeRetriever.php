@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Sense;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Model\SenseSet;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
+use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\RevisionedUnresolvedRedirectException;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
@@ -27,7 +28,7 @@ use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter
 /**
  * @license GPL-2.0-or-later
  */
-class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
+class EntityRevisionLookupLexemeRetriever implements LexemeRetriever, LexemeWriteModelRetriever {
 
 	public function __construct(
 		private EntityRevisionLookup $entityRevisionLookup,
@@ -86,7 +87,7 @@ class EntityRevisionLookupLexemeRetriever implements LexemeRetriever {
 		) );
 	}
 
-	private function getLexemeWriteModel( LexemeId $lexemeId ): ?LexemeWriteModel {
+	public function getLexemeWriteModel( LexemeId $lexemeId ): ?LexemeWriteModel {
 		try {
 			$entityRevision = $this->entityRevisionLookup->getEntityRevision( $lexemeId );
 		} catch ( RevisionedUnresolvedRedirectException ) {

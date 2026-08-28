@@ -6,6 +6,7 @@ use MediaWiki\MediaWikiServices;
 use Psr\Container\ContainerInterface;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
+use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
@@ -100,6 +101,11 @@ class WikibaseLexemeServices {
 	public static function getCreateLexeme( ?ContainerInterface $services = null ): CreateLexeme {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexeme.CreateLexeme' );
+	}
+
+	public static function getAddLexemeStatement( ?ContainerInterface $services = null ): AddLexemeStatement {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.AddLexemeStatement' );
 	}
 
 	public static function getLexemeSerializer( ?ContainerInterface $services = null ): LexemeSerializer {

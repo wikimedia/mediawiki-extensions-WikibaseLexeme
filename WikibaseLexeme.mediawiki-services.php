@@ -31,6 +31,7 @@ use Wikibase\Lexeme\Infrastructure\ChangeTagsStoreTagsRetriever;
 use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
+use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
@@ -288,6 +289,25 @@ return call_user_func( static function () {
 						$services->getUserFactory()
 					)
 				),
+			);
+		},
+		'WikibaseLexeme.AddLexemeStatement' => static function ( MediaWikiServices $services ): AddLexemeStatement {
+			$statementReadModelConverter = new StatementReadModelConverter(
+				WikibaseRepo::getStatementGuidParser( $services ),
+				WikibaseRepo::getPropertyDataTypeLookup( $services ),
+			);
+
+			return new AddLexemeStatement(
+				new EntityRevisionLookupLexemeRetriever(
+					WikibaseRepo::getEntityRevisionLookup( $services ),
+					$statementReadModelConverter,
+				),
+				new EntityUpdaterLexemeUpdater(
+					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					$statementReadModelConverter,
+				),
+				WbCrud::getStatementDeserializer( $services ),
+				new GuidGenerator(),
 			);
 		},
 		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {

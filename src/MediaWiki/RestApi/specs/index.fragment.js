@@ -7,7 +7,8 @@ const openapi = {
 	"tags": require( './global/tags.js' ),
 	"paths": {
 		"/v0/entities/lexemes": require( './resources/lexemes/list.js' ),
-		"/v0/entities/lexemes/{lexeme_id}": require( './resources/lexemes/single.js' )
+		"/v0/entities/lexemes/{lexeme_id}": require( './resources/lexemes/single.js' ),
+		"/v0/entities/lexemes/{lexeme_id}/statements": require( './resources/lexemes/statements/list.js' )
 	},
 	"components": {
 		"responses": require( './global/responses.js' ),
