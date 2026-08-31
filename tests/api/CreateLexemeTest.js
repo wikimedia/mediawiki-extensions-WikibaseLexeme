@@ -1,6 +1,7 @@
 'use strict';
 
 const { assert, action, utils } = require( 'api-testing' );
+const { expect } = require( './helpers/chaiHelper' );
 const {
 	newCreateLexemeRequestBuilder,
 	newGetLexemeRequestBuilder,
@@ -52,7 +53,7 @@ describe( 'POST /entities/lexemes', () => {
 			}
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 201, response.text );
+		expect( response ).to.have.status( 201 );
 		assert.match( response.body.id, /^L\d+$/ );
 		assert.deepStrictEqual( response.body.lemmas, { en: lemma } );
 		assert.strictEqual( response.body.lexical_category, lexicalCategoryId );
@@ -72,7 +73,7 @@ describe( 'POST /entities/lexemes', () => {
 
 		const getLexemeResponse = await newGetLexemeRequestBuilder( response.body.id ).makeRequest();
 
-		assert.strictEqual( getLexemeResponse.status, 200, getLexemeResponse.text );
+		expect( getLexemeResponse ).to.have.status( 200 );
 		assert.deepStrictEqual( getLexemeResponse.body, response.body );
 		assert.match( response.header.etag, /^"\d+"$/ );
 		assert.strictEqual( response.header.etag, getLexemeResponse.header.etag );
@@ -96,7 +97,7 @@ describe( 'POST /entities/lexemes', () => {
 
 			const response = await newCreateLexemeRequestBuilder( lexeme ).makeRequest();
 
-			assert.strictEqual( response.status, 400, response.text );
+			expect( response ).to.have.status( 400 );
 			assert.strictEqual( response.body.code, 'missing-field' );
 			assert.deepStrictEqual( response.body.context, { path: '/lexeme', field } );
 		} );
@@ -107,7 +108,7 @@ describe( 'POST /entities/lexemes', () => {
 			.withEmptyJsonBody()
 			.makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'missing-field' );
 		assert.deepStrictEqual( response.body.context, { path: '', field: 'lexeme' } );
 	} );
@@ -115,7 +116,7 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns 400 if the lexeme field is not an object', async () => {
 		const response = await newCreateLexemeRequestBuilder( 'potato' ).makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-value' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme' } );
 	} );
@@ -127,7 +128,7 @@ describe( 'POST /entities/lexemes', () => {
 			language: languageId
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-value' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas' } );
 	} );
@@ -141,12 +142,12 @@ describe( 'POST /entities/lexemes', () => {
 			language: languageId
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 201, response.text );
+		expect( response ).to.have.status( 201 );
 		assert.deepStrictEqual( response.body.lemmas, { [ lemmaLanguage ]: lemma } );
 
 		const getLexemeResponse = await newGetLexemeRequestBuilder( response.body.id ).makeRequest();
 
-		assert.strictEqual( getLexemeResponse.status, 200, getLexemeResponse.text );
+		expect( getLexemeResponse ).to.have.status( 200 );
 		assert.deepStrictEqual( getLexemeResponse.body.lemmas, { [ lemmaLanguage ]: lemma } );
 	} );
 
@@ -157,7 +158,7 @@ describe( 'POST /entities/lexemes', () => {
 			language: languageId
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-value' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas' } );
 	} );
@@ -169,7 +170,7 @@ describe( 'POST /entities/lexemes', () => {
 			language: languageId
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-key' );
 		assert.deepStrictEqual(
 			response.body.context,
@@ -184,7 +185,7 @@ describe( 'POST /entities/lexemes', () => {
 			language: languageId
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-value' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas/en' } );
 	} );
@@ -200,7 +201,7 @@ describe( 'POST /entities/lexemes', () => {
 
 			const response = await newCreateLexemeRequestBuilder( lexeme ).makeRequest();
 
-			assert.strictEqual( response.status, 400, response.text );
+			expect( response ).to.have.status( 400 );
 			assert.strictEqual( response.body.code, 'invalid-value' );
 			assert.deepStrictEqual( response.body.context, { path: `/lexeme/${ field }` } );
 		} );
@@ -217,7 +218,7 @@ describe( 'POST /entities/lexemes', () => {
 
 			const response = await newCreateLexemeRequestBuilder( lexeme ).makeRequest();
 
-			assert.strictEqual( response.status, 400, response.text );
+			expect( response ).to.have.status( 400 );
 			assert.strictEqual( response.body.code, 'referenced-resource-not-found' );
 			assert.deepStrictEqual( response.body.context, { path: `/lexeme/${ field }` } );
 		} );
@@ -230,7 +231,7 @@ describe( 'POST /entities/lexemes', () => {
 			language: languageId
 		} ).makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'value-too-long' );
 		assert.deepStrictEqual( response.body.context, { path: '/lexeme/lemmas/en', limit: 1000 } );
 	} );
@@ -246,7 +247,7 @@ describe( 'POST /entities/lexemes', () => {
 			}
 		} ) ).makeRequest();
 
-		assert.strictEqual( response.status, 201, response.text );
+		expect( response ).to.have.status( 201 );
 		assert.strictEqual(
 			response.body.statements[ stringPropertyId ][ 0 ].id.split( '$' )[ 0 ],
 			response.body.id
@@ -331,7 +332,7 @@ describe( 'POST /entities/lexemes', () => {
 				newValidLexeme( { statements: statements() } )
 			).makeRequest();
 
-			assert.strictEqual( response.status, 400, response.text );
+			expect( response ).to.have.status( 400 );
 			assert.strictEqual( response.body.code, expectedCode );
 			assert.deepStrictEqual( response.body.context, expectedContext() );
 		} );
@@ -346,7 +347,7 @@ describe( 'POST /entities/lexemes', () => {
 			.withHeader( 'user-agent', '' )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.header( response, 'Content-Language', 'en' );
 		assert.strictEqual( response.body.code, 'missing-user-agent' );
 		assert.include( response.body.message, 'User-Agent' );
@@ -362,7 +363,7 @@ describe( 'POST /entities/lexemes', () => {
 			.withUser( user )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 201, response.text );
+		expect( response ).to.have.status( 201 );
 		assert.header( response, 'X-Authenticated-User', user.username );
 	} );
 
@@ -382,7 +383,7 @@ describe( 'POST /entities/lexemes', () => {
 			.withUser( user )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 201, response.text );
+		expect( response ).to.have.status( 201 );
 
 		const editMetadata = await getLatestEditMetadata( response.body.id );
 		assert.deepEqual( editMetadata.tags, [ tag ] );
@@ -403,7 +404,7 @@ describe( 'POST /entities/lexemes', () => {
 			.withJsonBodyParam( 'tags', [ 'not-a-real-tag' ] )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-value' );
 		assert.deepStrictEqual( response.body.context, { path: '/tags/0' } );
 	} );
@@ -417,7 +418,7 @@ describe( 'POST /entities/lexemes', () => {
 			.withJsonBodyParam( 'comment', 'x'.repeat( 501 ) )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'value-too-long' );
 		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
 	} );
@@ -454,7 +455,7 @@ describe( 'POST /entities/lexemes', () => {
 					.withUser( blockedUser )
 					.makeRequest();
 
-				assert.strictEqual( response.status, 403, response.text );
+				expect( response ).to.have.status( 403 );
 				assert.header( response, 'Content-Language', 'en' );
 				assert.strictEqual( response.body.code, 'permission-denied' );
 				assert.deepStrictEqual( response.body.context, { denial_reason: 'blocked-user' } );
@@ -474,7 +475,7 @@ describe( 'POST /entities/lexemes', () => {
 				} )
 				.makeRequest();
 
-			assert.strictEqual( response.status, 403, response.text );
+			expect( response ).to.have.status( 403 );
 			assert.strictEqual( response.body.error, 'rest-write-denied' );
 		} );
 	} );

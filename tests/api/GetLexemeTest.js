@@ -1,6 +1,7 @@
 'use strict';
 
 const { assert, action, utils } = require( 'api-testing' );
+const { expect } = require( './helpers/chaiHelper' );
 const {
 	createLexeme,
 	createRedirectForLexeme,
@@ -90,7 +91,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		const response = await newGetLexemeRequestBuilder( lexemeId )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 200, response.text );
+		expect( response ).to.have.status( 200 );
 		assert.strictEqual( response.body.id, lexemeId );
 		assert.deepStrictEqual( response.body.lemmas, { 'en-ca': 'colour', 'en-us': 'color' } );
 		assert.deepStrictEqual( response.body.lexical_category, lexicalCategoryId );
@@ -135,7 +136,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			.withUser( user )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 200, response.text );
+		expect( response ).to.have.status( 200 );
 		assert.header( response, 'X-Authenticated-User', user.username );
 	} );
 
@@ -144,7 +145,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			.withHeader( 'user-agent', '' )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.header( response, 'Content-Language', 'en' );
 		assert.strictEqual( response.body.code, 'missing-user-agent' );
 		assert.include( response.body.message, 'User-Agent' );
@@ -154,7 +155,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		const response = await newGetLexemeRequestBuilder( 'X123' )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 400, response.text );
+		expect( response ).to.have.status( 400 );
 		assert.header( response, 'Content-Language', 'en' );
 		assert.header( response, 'Content-Type', 'application/json' );
 		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
@@ -166,7 +167,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		const response = await newGetLexemeRequestBuilder( 'L999999' )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 404, response.text );
+		expect( response ).to.have.status( 404 );
 		assert.header( response, 'Content-Language', 'en' );
 		assert.header( response, 'Content-Type', 'application/json' );
 		assert.strictEqual( response.body.code, 'lexeme-not-found' );
@@ -191,7 +192,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			const response = await newGetLexemeRequestBuilder( redirectSourceId )
 				.makeRequest();
 
-			assert.strictEqual( response.status, 308, response.text );
+			expect( response ).to.have.status( 308 );
 			assert.isTrue(
 				new URL( response.header.location ).pathname.endsWith( `/entities/lexemes/${ lexemeId }` )
 			);

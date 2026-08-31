@@ -1,6 +1,7 @@
 'use strict';
 
 const { assert } = require( 'api-testing' );
+const { expect } = require( './helpers/chaiHelper' );
 const { RequestBuilder } = require( './helpers/RequestBuilder' );
 
 const committedFragment = require( '../../src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json' );
@@ -14,7 +15,7 @@ describe( 'GET /v1/openapi.json', () => {
 			.withRoute( 'GET', '/v1/openapi.json' )
 			.makeRequest();
 
-		assert.strictEqual( response.status, 200 );
+		expect( response ).to.have.status( 200 );
 		assert.deepStrictEqual( response.body.paths[ LEXEME_PATH ], committedFragment.paths[ LEXEME_PATH ] );
 		assert.ok( response.body.tags.some( ( tag ) => tag.name === 'lexemes' ) );
 		// the Wikibase-owned document is still there underneath
