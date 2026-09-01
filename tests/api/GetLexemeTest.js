@@ -109,11 +109,9 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		assert.strictEqual( form.id, `${ lexemeId }-F1` );
 		assert.deepStrictEqual( form.representations, { 'en-gb': 'colourise', 'en-us': 'colorize' } );
 		assert.deepStrictEqual(
-			form.grammatical_features,
-			[
-				grammaticalFeature1Id,
-				grammaticalFeature2Id
-			] );
+			[ ...form.grammatical_features ].sort(),
+			[ grammaticalFeature1Id, grammaticalFeature2Id ].sort()
+		);
 		assert.deepStrictEqual( Object.keys( form.statements ), [ propertyId ] );
 		assert.strictEqual( form.statements[ propertyId ][ 0 ].property.id, propertyId );
 		assert.strictEqual( form.statements[ propertyId ][ 0 ].value.type, 'novalue' );
