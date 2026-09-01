@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataAccess\Store;
 
+use Exception;
 use InvalidArgumentException;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
@@ -12,6 +13,8 @@ use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
+use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
@@ -22,6 +25,8 @@ use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as CrudRateLimitReached;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
@@ -179,20 +184,69 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		);
 	}
 
-	public function testUpdateRateLimitReached_throws(): void {
+	/**
+	 * @dataProvider exceptionProvider
+	 */
+	public function testCreateGivenCrudException_throwsLexemeException(
+		Exception $crudException,
+		Exception $expectedException
+	): void {
 		$entityUpdater = $this->createStub( EntityUpdater::class );
-		$entityUpdater->method( 'update' )->willThrowException( new CrudRateLimitReached() );
+		$entityUpdater->method( 'create' )->willThrowException( $crudException );
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
 			$this->createStub( StatementReadModelConverter::class ),
 		);
+		try {
+			$lexemeUpdater->create(
+				NewLexeme::create()->build(),
+				new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+			);
+			$this->fail( 'expected Exception not thrown' );
+		} catch ( Exception $e ) {
+			$this->assertEquals( $expectedException, $e );
+		}
+	}
 
-		$this->expectException( RateLimitReached::class );
-
-		$lexemeUpdater->update(
-			NewLexeme::havingId( 'L1' )->build(),
-			new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+	/**
+	 * @dataProvider exceptionProvider
+	 */
+	public function testUpdateGivenCrudException_throwsLexemeException(
+		Exception $crudException,
+		Exception $expectedException
+	): void {
+		$entityUpdater = $this->createStub( EntityUpdater::class );
+		$entityUpdater->method( 'update' )->willThrowException( $crudException );
+		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
+			$entityUpdater,
+			$this->createStub( StatementReadModelConverter::class ),
 		);
+		try {
+			$lexemeUpdater->update(
+				NewLexeme::havingId( 'L1' )->build(),
+				new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+			);
+			$this->fail( 'expected Exception not thrown' );
+		} catch ( Exception $e ) {
+			$this->assertEquals( $expectedException, $e );
+		}
+	}
+
+	public static function exceptionProvider(): iterable {
+		yield 'rate limit reached' => [
+			new CrudRateLimitReached(),
+			new RateLimitReached(),
+		];
+
+		yield 'resource too large' => [
+			new CrudResourceTooLargeException( 42 ),
+			new ResourceTooLargeException( 42 ),
+		];
+
+		yield 'temp account creation limit reached' => [
+			new CrudTempAccountException(),
+			new TempAccountCreationLimitReached(),
+		];
 	}
 
 }
