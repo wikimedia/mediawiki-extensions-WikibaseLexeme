@@ -201,8 +201,9 @@ The following dependencies are special cases that should potentially be ignored:
   so we should use the same versions for testing.
   The current versions shipped by MediaWiki core are listed in [foreign-resources.yaml](https://gerrit.wikimedia.org/g/mediawiki/core/+/master/resources/lib/foreign-resources.yaml).
 - [grunt-eslint](https://github.com/sindresorhus/grunt-eslint) no longer supports "flat" eslint config files (i.e. `.eslintrc.json`) since version 25.0.0 because of changes since eslint 9 (see issue [#176](https://github.com/sindresorhus/grunt-eslint/issues/176)). See [T364065](https://phabricator.wikimedia.org/T364065) for progress with our eslint 9 migration.
-- Any dependencies that are not compatible with Node 20, which we use in CI.
-  <!-- Ticket TBC [see T343827 for Node 20] tracks the upgrade to Node 22. -->
+- other eslint plugins that depend on eslint 10 (for example, eslint-jsonc after version 3 or eslint-plugin-cypress after 3.6.0)
+- Any dependencies that are not compatible with Node 24, which we use in CI.
+- @wmde/eslint-config-wikimedia-typescript cannot be upgraded beyond 0.2.13, because it references @typescript-eslint rules that have been moved to eslint-stylistic in more recent versions of eslint. This unfortunately also pins eslint-config-wikimedia to 0.29.1, since that is the version that @wmde/eslint-config-wikimedia-typescript supports - see [T436626](https://phabricator.wikimedia.org/T436626)
 
 All other dependencies should generally be updated to the latest version.
 If you discover that a dependency should not be updated for some reason, please add it to the above list.
