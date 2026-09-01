@@ -11,6 +11,7 @@ module.exports = {
 	rules: {
 		"camelcase": [ "error", { allow: [
 			"data_type",
+			"denial_context",
 			"denial_reason",
 			"lexical_category",
 			"statement_group_property_id",

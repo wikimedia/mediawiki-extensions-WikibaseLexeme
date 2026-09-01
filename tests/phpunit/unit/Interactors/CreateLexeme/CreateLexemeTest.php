@@ -9,6 +9,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
+use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
@@ -184,6 +185,15 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			UseCaseError::RESOURCE_TOO_LARGE,
 			"Edit resulted in a resource that exceeds the size limit of $limit kB",
 			[ UseCaseError::CONTEXT_LIMIT => $limit ],
+		];
+
+		$blockedText = 'example.com';
+		yield 'edit prevented' => [
+			new EditPrevented( 'spamblacklist', [ 'spamblacklist' => [ 'matches' => [ $blockedText ] ] ] ),
+			UseCaseError::PERMISSION_DENIED,
+			'Access to resource is denied',
+			[ UseCaseError::CONTEXT_DENIAL_REASON => 'spamblacklist',
+				UseCaseError::CONTEXT_DENIAL_CONTEXT => [ 'spamblacklist' => [ 'matches' => [ $blockedText ] ] ] ],
 		];
 	}
 

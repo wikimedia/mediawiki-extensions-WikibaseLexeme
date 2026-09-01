@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Interactors;
 
+use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
@@ -23,6 +24,8 @@ trait UpdateExceptionHandler {
 			throw UseCaseError::newResourceTooLarge( $e->resourceSizeLimit );
 		} catch ( RateLimitReached ) {
 			throw UseCaseError::newRateLimitReached( UseCaseError::REQUEST_LIMIT_REASON_RATE_LIMIT );
+		} catch ( EditPrevented $e ) {
+			throw UseCaseError::newPermissionDenied( $e->reason, $e->context );
 		}
 	}
 

@@ -12,6 +12,7 @@ use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
+use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
@@ -24,6 +25,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
+use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\EditPrevented as CrudEditPrevented;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as CrudRateLimitReached;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
@@ -247,6 +249,10 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 			new CrudTempAccountException(),
 			new TempAccountCreationLimitReached(),
 		];
-	}
 
+		yield 'edit prevented' => [
+			new CrudEditPrevented( 'spamblacklist', [ 'spamblacklist' => [ 'matches' => [ 'example.com' ] ] ] ),
+			new EditPrevented( 'spamblacklist', [ 'spamblacklist' => [ 'matches' => [ 'example.com' ] ] ] ),
+		];
+	}
 }
