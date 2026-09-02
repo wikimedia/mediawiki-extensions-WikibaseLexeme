@@ -10,18 +10,18 @@ describe( 'Lexeme:Forms', () => {
 			lemmas: {
 				en: {
 					value: 'remove',
-					language: 'en'
-				}
-			}
+					language: 'en',
+				},
+			},
 		} ).then( ( lexemeId: string ) => {
 			cy.task( 'MwLexemeApi:AddForm', {
 				lexemeId: lexemeId,
 				representations: {
 					en: {
 						language: 'en',
-						value: 'remoooove'
-					}
-				}
+						value: 'remoooove',
+					},
+				},
 			} ).then( ( formId: string ) => {
 				lexemePage.open( lexemeId );
 				formsSection.removeForm( formId );

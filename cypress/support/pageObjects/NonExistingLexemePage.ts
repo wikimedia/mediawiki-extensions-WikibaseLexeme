@@ -3,7 +3,7 @@ export class NonExistingLexemePage {
 	private static get NON_EXISTING_LEXEME_PAGE_SELECTORS(): Record<string, string> {
 		return {
 			FIRST_HEADING: '#firstHeading',
-			NO_ARTICLE_TEXT: '.noarticletext'
+			NO_ARTICLE_TEXT: '.noarticletext',
 		};
 	}
 

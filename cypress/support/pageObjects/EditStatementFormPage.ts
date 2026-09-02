@@ -13,7 +13,7 @@ export class EditStatementFormPage {
 			LOOKUP_COMPONENT: '.wikibase-wbui2025-edit-statement-value-input .cdx-lookup',
 			MENU: '.wikibase-wbui2025-edit-statement-value-input .cdx-menu',
 			MENU_ITEM: '.wikibase-wbui2025-edit-statement-value-input .cdx-menu-item',
-			REFERENCES: '.wikibase-wbui2025-editable-reference'
+			REFERENCES: '.wikibase-wbui2025-editable-reference',
 		};
 	}
 

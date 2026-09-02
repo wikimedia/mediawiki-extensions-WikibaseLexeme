@@ -16,7 +16,6 @@
 		options = options || {};
 		var $node = $( '<div>' ).appendTo( 'body' );
 
-		// eslint-disable-next-line mediawiki/class-doc
 		$node.addClass( TEST_ELEMENT_CLASS );
 
 		options.api = options.api || {};

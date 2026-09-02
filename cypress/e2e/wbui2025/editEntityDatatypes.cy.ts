@@ -12,24 +12,24 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 	before( () => {
 		cy.task( 'MwApi:CreateItem', {
 			label: Util.getTestString( 'language-' ),
-			data: { claims: [] }
+			data: { claims: [] },
 		} ).then( ( newItemId: string ) => {
 			languageItemId = newItemId;
 			cy.task( 'MwApi:CreateItem', {
 				label: Util.getTestString( 'lexical-category-' ),
-				data: { claims: [] }
+				data: { claims: [] },
 			} ).then( ( newCategoryItemId: string ) => {
 				lexicalCategoryItemId = newCategoryItemId;
 				cy.task( 'MwApi:CreateEntity', {
 					entityType: 'lexeme',
 					data: {
 						lemmas: {
-							en: { language: 'en', value: Util.getTestString( 'parent-lexeme-' ) }
+							en: { language: 'en', value: Util.getTestString( 'parent-lexeme-' ) },
 						},
 						language: languageItemId,
 						lexicalCategory: lexicalCategoryItemId,
-						claims: []
-					}
+						claims: [],
+					},
 				} ).then( ( newLexemeId: string ) => {
 					parentLexemeId = newLexemeId;
 				} );
@@ -45,22 +45,22 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 				lemmas: { en: { language: 'en', value: label } },
 				language: languageItemId,
 				lexicalCategory: lexicalCategoryItemId,
-				claims: []
-			}
+				claims: [],
+			},
 		} ),
 		sense: ( label: string ) => cy.task( 'MwApi:AddSense', {
 			lexemeId: parentLexemeId,
 			data: {
-				glosses: { en: { language: 'en', value: label } }
-			}
+				glosses: { en: { language: 'en', value: label } },
+			},
 		} ),
 		form: ( label: string ) => cy.task( 'MwApi:AddForm', {
 			lexemeId: parentLexemeId,
 			data: {
 				representations: { en: { language: 'en', value: label } },
-				grammaticalFeatures: []
-			}
-		} )
+				grammaticalFeatures: [],
+			},
+		} ),
 	};
 
 	for ( const datatype of [ 'lexeme', 'sense', 'form' ] ) {
@@ -86,7 +86,7 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 					} );
 				cy.task( 'MwApi:CreateProperty', {
 					label: propertyName,
-					data: { datatype: 'wikibase-' + datatype }
+					data: { datatype: 'wikibase-' + datatype },
 				} ).then( ( newPropertyId: string ) => {
 					const statementData = {
 						claims: [ {
@@ -96,19 +96,19 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 								datavalue: {
 									value: {
 										'entity-type': datatype,
-										id: linkedEntityId
+										id: linkedEntityId,
 									},
-									type: 'wikibase-entityid'
+									type: 'wikibase-entityid',
 								},
-								datatype: 'wikibase-' + datatype
+								datatype: 'wikibase-' + datatype,
 							},
 							type: 'statement',
-							rank: 'normal'
-						} ]
+							rank: 'normal',
+						} ],
 					};
 					cy.task( 'MwApi:CreateItem', {
 						label: Util.getTestString( 'item-with-' + datatype + '-statement' ),
-						data: statementData
+						data: statementData,
 					} ).then( ( newItemId: string ) => {
 						entityId = newItemId;
 					} );
@@ -152,7 +152,7 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 				/* Wait for the form to close, and check the value is changed */
 				editFormPage.formHeading().should( 'not.exist' );
 				itemViewPage.mainSnakValues().first().should(
-					'contain.text', newLinkedEntityLabel
+					'contain.text', newLinkedEntityLabel,
 				);
 
 			} );

@@ -12,7 +12,7 @@ describe( 'Special:MergeLexemes', () => {
 		before( () => {
 			cy.task(
 				'MwApi:CreateUser',
-				{ usernamePrefix: 'mergetest' }
+				{ usernamePrefix: 'mergetest' },
 			).then( ( { username, password } ) => {
 				cy.wrap( username ).as( 'blockedUsername' );
 				loginPage.login( username, password );

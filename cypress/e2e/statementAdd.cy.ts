@@ -25,7 +25,7 @@ describe( 'Lexeme:Statements', () => {
 
 			cy.getStringAlias( '@lexemeId' ).then( ( lexemeId ) => {
 				cy.task( 'MwApi:GetEntityData', {
-					entityId: lexemeId
+					entityId: lexemeId,
 				} ).then( ( lexemeObject ) => {
 					cy.wrap( lexemeObject.claims[ propertyId ] )
 						.should( 'have.length', 1 );

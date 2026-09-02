@@ -7,7 +7,7 @@ export class NewLexemePage {
 			SPELLING_VARIANT: '.wbl-snl-spelling-variant-lookup',
 			LEXICAL_CATEGORY: '.wbl-snl-lexical-category-lookup',
 
-			SUBMIT_BUTTON: '.wbl-snl-form button[type=submit]'
+			SUBMIT_BUTTON: '.wbl-snl-form button[type=submit]',
 		};
 	}
 
@@ -20,7 +20,7 @@ export class NewLexemePage {
 		lemma: string,
 		language: string,
 		lexicalCategory: string,
-		languageVariant: string
+		languageVariant: string,
 	): this {
 		this.setLemma( lemma );
 
@@ -39,30 +39,30 @@ export class NewLexemePage {
 	}
 
 	public setLexemeLanguage( language: string ): this {
-		this._setCodexLookupValue(
+		this.setCodexLookupValue(
 			this.constructor.NEW_LEXEME_SELECTORS.LANGUAGE,
-			language
+			language,
 		);
 		return this;
 	}
 
 	public setLexicalCategory( lexicalCategory: string ): this {
-		this._setCodexLookupValue(
+		this.setCodexLookupValue(
 			this.constructor.NEW_LEXEME_SELECTORS.LEXICAL_CATEGORY,
-			lexicalCategory
+			lexicalCategory,
 		);
 		return this;
 	}
 
 	public setSpellingVariant( languageVariant: string ): this {
-		this._setCodexLookupValue(
+		this.setCodexLookupValue(
 			this.constructor.NEW_LEXEME_SELECTORS.SPELLING_VARIANT,
-			languageVariant
+			languageVariant,
 		);
 		return this;
 	}
 
-	private _setCodexLookupValue( selector: string, value: string ): this {
+	private setCodexLookupValue( selector: string, value: string ): this {
 		cy.get( selector ).find( 'input[aria-controls]' ).clear();
 		cy.get( selector ).find( 'input[aria-controls]' ).type( value );
 		cy.get( selector ).find( 'input[aria-controls]' ).invoke( 'attr', 'aria-controls' )

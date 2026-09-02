@@ -16,9 +16,9 @@ const createLexeme = ( lexemeData, mwApiCommands ): Chainable<string> => {
 					lemmas: {
 						en: {
 							value: 'color',
-							language: 'en'
-						}
-					}
+							language: 'en',
+						},
+					},
 				};
 				if ( lexemeData && lexemeData.lemmas ) {
 					createData.lemmas = lexemeData.lemmas;
@@ -26,9 +26,9 @@ const createLexeme = ( lexemeData, mwApiCommands ): Chainable<string> => {
 				return mwApiCommands[ 'MwApi:CreateEntity' ]( {
 					entityType: 'lexeme',
 					label: lemma,
-					data: createData
+					data: createData,
 				} );
-			} )
+			} ),
 		);
 };
 
@@ -37,7 +37,7 @@ const addFormData = ( formData, mwApiCommands ): Chainable<string> => {
 	return mwApiCommands[ 'MwApi:CreateEntity' ]( {
 		entityType: 'form',
 		label: label,
-		data: formData
+		data: formData,
 	} );
 };
 
@@ -60,20 +60,20 @@ export function mwApiLexemeCommands(
 			return createLexeme( null, mwApiCommands )
 				.then( ( lexemeId ) => addFormData( {
 					lexemeId,
-					representations
+					representations,
 				}, mwApiCommands )
 					.then( ( formId ) => ( {
 						lexemeId,
-						formId
-					} ) )
+						formId,
+					} ) ),
 				);
 		},
 		'MwLexemeApi:AddSense'( { lexemeId, senseData } ): Chainable<string> {
 			return mwApiCommands[ 'MwApi:BotRequest' ]( { isEdit: true, isPost: true, parameters: {
 				action: 'wbladdsense',
 				lexemeId: lexemeId,
-				data: JSON.stringify( senseData )
+				data: JSON.stringify( senseData ),
 			} } );
-		}
+		},
 	};
 }

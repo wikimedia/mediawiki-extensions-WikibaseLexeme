@@ -5,8 +5,8 @@ Cypress.Commands.add( 'visitTitle', ( args, qsDefaults = {} ) => {
 		title = args;
 		options = {
 			qs: Object.assign( qsDefaults, {
-				title: args
-			} )
+				title: args,
+			} ),
 		};
 	} else {
 		options = args;
@@ -15,7 +15,7 @@ Cypress.Commands.add( 'visitTitle', ( args, qsDefaults = {} ) => {
 			options.qs = Object.assign( qsDefaults, options.qs, { title } );
 		} else {
 			options.qs = Object.assign( qsDefaults, {
-				title
+				title,
 			} );
 		}
 	}
@@ -24,14 +24,14 @@ Cypress.Commands.add( 'visitTitle', ( args, qsDefaults = {} ) => {
 
 Cypress.Commands.add(
 	'visitTitleMobile',
-	( args ) => cy.visitTitle( args, { mobileaction: 'toggle_view_mobile' } )
+	( args ) => cy.visitTitle( args, { mobileaction: 'toggle_view_mobile' } ),
 );
 
 /**
  * Add a typed version of the 'get' command for fetching aliased <string> values
  */
 Cypress.Commands.add( 'getStringAlias', ( alias: string ) => cy.get( `${ alias }` )
-	.then( ( value ) => value as unknown as string )
+	.then( ( value ) => value as unknown as string ),
 );
 
 /**

@@ -5,7 +5,7 @@ export class MergeLexemesPage {
 			FROM_ID: '#wb-mergelexemes-from-id',
 			TO_ID: '#wb-mergelexemes-to-id',
 			SUBMIT_BUTTON: '#wb-mergelexemes-submit',
-			FIRST_HEADING: '#firstHeading'
+			FIRST_HEADING: '#firstHeading',
 		};
 	}
 

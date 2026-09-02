@@ -21,13 +21,13 @@ describe( 'NewLexeme:Page', () => {
 						lemma,
 						languageId,
 						lexicalCategoryId,
-						languageItemsLanguageCode
+						languageItemsLanguageCode,
 					);
 
 					lexemePage.getLemmaContainer();
 
 					lexemePage.getHeaderId().then(
-						( lexemeId ) => cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } )
+						( lexemeId ) => cy.task( 'MwApi:GetEntityData', { entityId: lexemeId } ),
 					).then( ( lexeme ) => {
 						expect( lexeme.lemmas[ languageItemsLanguageCode ].value ).to.eq( lemma );
 						expect( lexeme.language ).to.eq( languageId );

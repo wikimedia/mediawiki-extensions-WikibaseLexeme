@@ -11,8 +11,8 @@ describe( 'Lexeme:Senses', () => {
 			.then( ( lexemeId ) => {
 				cy.task( 'MwLexemeApi:AddSense', { lexemeId, senseData: {
 					glosses: {
-						en: { language: 'en', value: 'cats' }
-					}
+						en: { language: 'en', value: 'cats' },
+					},
 				} } );
 			} );
 	} );
@@ -39,7 +39,7 @@ describe( 'Lexeme:Senses', () => {
 				// Confirm that whitespace is trimmed
 				sensesSection.getNthSenseData( 0 ).its( 'value' ).should( 'eq', 'goats' );
 			} );
-		}
+		},
 	);
 
 	it(
@@ -79,6 +79,6 @@ describe( 'Lexeme:Senses', () => {
 				sensesSection.removeSense( 0 );
 				sensesSection.getSenses().should( 'not.exist' );
 			} );
-		}
+		},
 	);
 } );

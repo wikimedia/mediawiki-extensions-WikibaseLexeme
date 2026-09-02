@@ -4,7 +4,7 @@ export class WatchablePage {
 
 	private static get WATCHABLE_SELECTORS(): Record<string, string> {
 		return {
-			CONFIRM_WATCH: '#mw-content-text button[type="submit"]'
+			CONFIRM_WATCH: '#mw-content-text button[type="submit"]',
 		};
 	}
 

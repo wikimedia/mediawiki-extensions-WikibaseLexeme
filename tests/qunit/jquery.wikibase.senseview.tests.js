@@ -25,7 +25,6 @@
 		var $node = $( '<div>' ).appendTo( 'body' );
 		options = options || {};
 
-		// eslint-disable-next-line mediawiki/class-doc
 		$node.addClass( TEST_LEXMEFORMVIEW_CLASS );
 
 		options.buildStatementGroupListView = options.buildStatementGroupListView || function () {};

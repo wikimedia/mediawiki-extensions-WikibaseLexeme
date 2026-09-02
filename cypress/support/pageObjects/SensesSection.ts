@@ -7,7 +7,7 @@ export class SensesSection {
 			SENSE_ID: '.wikibase-lexeme-sense-id',
 			SENSE: '.wikibase-lexeme-sense',
 			ADD_SENSE_LINK: '.wikibase-lexeme-senses-section ' +
-				'> .wikibase-addtoolbar .wikibase-toolbar-button-add a'
+				'> .wikibase-addtoolbar .wikibase-toolbar-button-add a',
 		};
 	}
 
@@ -26,7 +26,7 @@ export class SensesSection {
 			SENSE_VALUE: '.wikibase-lexeme-sense-gloss ' +
 				'> .wikibase-lexeme-sense-gloss-value-cell > span',
 			SENSE_LANGUAGE: '.wikibase-lexeme-sense-gloss-language',
-			SENSE_ID: '.wikibase-lexeme-sense-id'
+			SENSE_ID: '.wikibase-lexeme-sense-id',
 		};
 	}
 
@@ -165,9 +165,9 @@ export class SensesSection {
 					.then( ( senseIdElement ) => cy.wrap( {
 						value: valueElement.text().trim(),
 						language: languageElement.text().trim(),
-						senseIdElement: senseIdElement
-					} ) )
-				)
+						senseIdElement: senseIdElement,
+					} ) ),
+				),
 			);
 	}
 
@@ -182,7 +182,7 @@ export class SensesSection {
 		index: number,
 		gloss: string,
 		language: string,
-		submitImmediately: boolean
+		submitImmediately: boolean,
 	): this {
 		this.startEditingNthSense( index );
 		this.getNthSense( index )

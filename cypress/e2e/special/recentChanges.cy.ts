@@ -8,17 +8,17 @@ describe( 'Special:RecentChanges', () => {
 		cy.task( 'MwLexemeApi:CreateLexeme', { lemmas: {
 			ruq: {
 				value: 'entrôpi',
-				language: 'ruq'
+				language: 'ruq',
 			},
 			'ruq-latn': {
 				value: 'entropy',
-				language: 'ruq-latn'
+				language: 'ruq-latn',
 			},
 			'ruq-cyrl': {
 				value: 'ентропы',
-				language: 'ruq-cyrl'
-			}
-		}
+				language: 'ruq-cyrl',
+			},
+		},
 		} ).then( ( lexemeId ) => {
 			specialRecentChanges.open();
 

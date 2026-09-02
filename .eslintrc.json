@@ -62,7 +62,7 @@
 				"cypress/**/*.ts"
 			],
 			"extends": [
-				"@wmde/wikimedia-typescript"
+				"eslint-config-wikimedia"
 			],
 			"rules": {
 				"max-len": [

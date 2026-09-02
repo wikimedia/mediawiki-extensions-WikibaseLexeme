@@ -46,7 +46,7 @@
 						var $header = $( '<h2>' ).applyTemplate(
 							'wb-section-heading',
 							[
-								// eslint-disable-next-line mediawiki/msg-doc
+
 								mw.message( messageKey, sense.getId() ).escaped(),
 								'',
 								'wikibase-statements'

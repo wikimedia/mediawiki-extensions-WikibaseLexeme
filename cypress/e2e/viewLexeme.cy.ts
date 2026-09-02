@@ -10,9 +10,9 @@ describe( 'LexemePage', () => {
 			lemmas: {
 				en: {
 					value: 'section',
-					language: 'en'
-				}
-			}
+					language: 'en',
+				},
+			},
 		} ).as( 'lexemeId' )
 			.then( ( lexemeId: string ) => {
 				cy.task( 'MwLexemeApi:AddForm', {
@@ -20,9 +20,9 @@ describe( 'LexemePage', () => {
 					representations: {
 						en: {
 							language: 'en',
-							value: 'sections'
-						}
-					}
+							value: 'sections',
+						},
+					},
 				} ).as( 'formId' );
 				lexemePage.open( lexemeId );
 			} );
@@ -46,6 +46,6 @@ describe( 'LexemePage', () => {
 				formsSection.getRepresentationLanguage( formId ).should( 'have.text', 'en' );
 				formsSection.getGrammaticalFeatureList( formId );
 			} );
-		}
+		},
 	);
 } );

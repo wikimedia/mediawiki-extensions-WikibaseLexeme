@@ -6,7 +6,7 @@ export class ItemViewPage {
 			STATEMENTS: '#wikibase-wbui2025-statementgrouplistview',
 			VUE_CLIENTSIDE_RENDERED: '[data-v-app]',
 			EDIT_LINKS: '.wikibase-wbui2025-edit-link',
-			MAIN_SNAK_VALUES: '.wikibase-wbui2025-main-snak .wikibase-wbui2025-snak-value'
+			MAIN_SNAK_VALUES: '.wikibase-wbui2025-main-snak .wikibase-wbui2025-snak-value',
 		};
 	}
 
@@ -29,7 +29,8 @@ export class ItemViewPage {
 
 	public editLinks(): Chainable {
 		return cy.get(
-			ItemViewPage.SELECTORS.VUE_CLIENTSIDE_RENDERED + ' ' + ItemViewPage.SELECTORS.EDIT_LINKS
+			ItemViewPage.SELECTORS.VUE_CLIENTSIDE_RENDERED + ' ' +
+			ItemViewPage.SELECTORS.EDIT_LINKS,
 		);
 	}
 

@@ -31,7 +31,7 @@ export class FormsSection {
 			REPRESENTATION_EDIT_BOX: '.representation-widget_representation-edit-box',
 			REPRESENTATION_WIDGET: '.representation-widget',
 			REPRESENTATION_VALUE: '.representation-widget_representation-value',
-			REPRESENTATION_LANGUAGE: '.representation-widget_representation-language'
+			REPRESENTATION_LANGUAGE: '.representation-widget_representation-language',
 		};
 	}
 
@@ -40,7 +40,7 @@ export class FormsSection {
 			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
 			REMOVE_BUTTON: '.wikibase-toolbar-button-remove',
 			SAVE_BUTTON: '.wikibase-toolbar-button-save',
-			CANCEL_BUTTON: '.wikibase-toolbar-button-cancel'
+			CANCEL_BUTTON: '.wikibase-toolbar-button-cancel',
 		};
 	}
 
@@ -49,7 +49,7 @@ export class FormsSection {
 			TAG_ITEM: '.oo-ui-tagItemWidget',
 			BUTTON_ELEMENT: '.oo-ui-buttonElement-button',
 			LABEL_ELEMENT: '.oo-ui-labelElement',
-			MENU_ITEM: '.ui-ooMenu-item'
+			MENU_ITEM: '.ui-ooMenu-item',
 		};
 	}
 
@@ -134,9 +134,9 @@ export class FormsSection {
 					.then( ( grammaticalFeaturesElement ) => cy.wrap( {
 						value: valueElement.last().text().trim(),
 						language: languageElement.last().text().trim(),
-						grammaticalFeatures: grammaticalFeaturesElement.last().text().trim()
-					} ) )
-				)
+						grammaticalFeatures: grammaticalFeaturesElement.last().text().trim(),
+					} ) ),
+				),
 			);
 	}
 
@@ -237,7 +237,7 @@ export class FormsSection {
 		formId: string,
 		representation: string,
 		language: string,
-		submitImmediately: boolean = true
+		submitImmediately: boolean = true,
 	): this {
 		this.getFormEditButton( formId ).click();
 		this.clickAddRepresentationButton( formId );
@@ -263,7 +263,7 @@ export class FormsSection {
 		formId: string,
 		representation: string,
 		language: string,
-		submitImmediately: boolean = true
+		submitImmediately: boolean = true,
 	): this {
 		this.getFormEditButton( formId ).click();
 
@@ -290,7 +290,7 @@ export class FormsSection {
 	public addGrammaticalFeatureToForm(
 		formId: string,
 		grammaticalFeatureId: string,
-		submitImmediately: boolean = true
+		submitImmediately: boolean = true,
 	): this {
 		this.getFormEditButton( formId ).click();
 
@@ -312,7 +312,7 @@ export class FormsSection {
 
 	public removeFirstGrammaticalFeatureFromForm(
 		formId: string,
-		submitImmediately: boolean = true
+		submitImmediately: boolean = true,
 	): this {
 		this.getFormEditButton( formId ).click();
 
@@ -347,15 +347,15 @@ export class FormsSection {
 				.find( this.constructor.FORM_WIDGET_SELECTORS.STATEMENT_VALUE )
 				.then( ( valueElement ) => cy.wrap( {
 					propertyId: propertyIdAttr.split( '-' ),
-					value: valueElement.text()
-				} ) )
+					value: valueElement.text(),
+				} ) ),
 			);
 	}
 
 	public addStatementToForm(
 		formId: string,
 		statementPropertyId: string,
-		statementValue: string
+		statementValue: string,
 	): this {
 		this.getFormListItem( formId )
 			.find( this.constructor.FORM_WIDGET_SELECTORS.ADD_STATEMENT_TO_FORM )

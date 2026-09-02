@@ -13,7 +13,7 @@ describe( 'Lexeme:Forms', () => {
 		'whitespace from representation. Grammatical features can be added ' +
 		' and removed.', () => {
 		cy.task( 'MwLexemeApi:CreateLexemeWithForm', {
-			'en-ca': { language: 'en-ca', value: 'color' }
+			'en-ca': { language: 'en-ca', value: 'color' },
 		} ).then( ( formAndLexeme ) => {
 			lexemePage.open( formAndLexeme.lexemeId );
 
@@ -63,7 +63,7 @@ describe( 'Lexeme:Forms', () => {
 					// Add grammatical feature
 					formsSection.addGrammaticalFeatureToForm(
 						formAndLexeme.formId,
-						grammaticalFeatureId
+						grammaticalFeatureId,
 					);
 					cy.task( 'MwApi:GetEntityData', { entityId: formAndLexeme.lexemeId } )
 						.should( ( lexemeObject ) => {
@@ -139,7 +139,7 @@ describe( 'Lexeme:Forms', () => {
 						formsSection.addStatementToForm(
 							formIdElement.text(),
 							propertyId,
-							statementValue
+							statementValue,
 						);
 
 						formsSection.getFormStatement( formId ).then( ( statementObject ) => {

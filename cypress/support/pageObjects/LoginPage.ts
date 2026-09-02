@@ -4,7 +4,7 @@ export class LoginPage {
 		return {
 			USERNAME: '#wpName1',
 			PASSWORD: '#wpPassword1',
-			LOGIN_BUTTON: '#wpLoginAttempt'
+			LOGIN_BUTTON: '#wpLoginAttempt',
 		};
 	}
 

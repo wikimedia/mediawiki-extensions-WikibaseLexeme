@@ -12,13 +12,13 @@ describe( 'Special:Watchlist', () => {
 		cy.task( 'MwLexemeApi:CreateLexeme', { lemmas: {
 			en: {
 				value: 'color',
-				language: 'en'
+				language: 'en',
 			},
 			'en-gb': {
 				value: 'colour',
-				language: 'en-gb'
-			}
-		}
+				language: 'en-gb',
+			},
+		},
 		} ).then( ( lexemeId ) => cy.task( 'MwApi:CreateUser', { usernamePrefix: 'watchlisttest' } )
 			.then( ( { username, password } ) => {
 				loginPage.login( username, password );

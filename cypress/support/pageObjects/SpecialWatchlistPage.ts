@@ -3,7 +3,7 @@ export class SpecialWatchlistPage {
 	private static get WATCHLIST_SELECTORS(): Record<string, string> {
 		return {
 			CHANGESLIST: '.mw-changeslist',
-			CHANGESLIST_LINE_TITLE: '.mw-changeslist-line .mw-title'
+			CHANGESLIST_LINE_TITLE: '.mw-changeslist-line .mw-title',
 		};
 	}
 

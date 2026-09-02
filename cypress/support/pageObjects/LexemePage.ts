@@ -13,7 +13,7 @@ export class LexemePage {
 			SAVE_BUTTON: '.lemma-widget_save',
 			LEMMA_LIST: '.lemma-widget_lemma-list',
 			LEMMA_EDIT_BOX: '.lemma-widget_lemma-edit-box',
-			REDUNDANT_LANGUAGE_WARNING: '.lemma-widget_redundant-language-warning'
+			REDUNDANT_LANGUAGE_WARNING: '.lemma-widget_redundant-language-warning',
 		};
 	}
 
@@ -21,7 +21,7 @@ export class LexemePage {
 		return {
 			HEADER_ID: '.wb-lexeme-header_id',
 			EDIT_BUTTON: '.wikibase-toolbar-button-edit',
-			REMOVE_BUTTON: '.wikibase-toolbar-button-remove'
+			REMOVE_BUTTON: '.wikibase-toolbar-button-remove',
 		};
 	}
 
@@ -32,19 +32,19 @@ export class LexemePage {
 			ADD_MAIN_STATEMENT_LINK: '.wikibase-addtoolbar > span > a',
 			EDIT_PROPERTY_INPUT: '.wikibase-snakview-property input',
 			EDIT_VALUE_INPUT: '.valueview-input',
-			STATEMENT_VALUE: '.wikibase-snakview-value'
+			STATEMENT_VALUE: '.wikibase-snakview-value',
 		};
 	}
 
 	private static get OOUI_SELECTORS(): Record<string, string> {
 		return {
-			VISIBLE_ENTITY_SUGGESTION: 'ul.ui-suggester-list li'
+			VISIBLE_ENTITY_SUGGESTION: 'ul.ui-suggester-list li',
 		};
 	}
 
 	private static get WIKIBASE_TOOLBAR_SELECTORS(): Record<string, string> {
 		return {
-			SAVE_BUTTON: '.wikibase-toolbar-button-save'
+			SAVE_BUTTON: '.wikibase-toolbar-button-save',
 		};
 	}
 
@@ -54,7 +54,7 @@ export class LexemePage {
 			RESTORE_REVISION_LINK: 'a[href*=restore]',
 			UNDO_OR_RESTORE_SAVE_PAGE_BUTTON:
 				'#bodyContent #mw-content-text .editOptions .editButtons button',
-			UNDO_REVISION_LINK: '#mw-content-text #pagehistory li .mw-history-undo a'
+			UNDO_REVISION_LINK: '#mw-content-text #pagehistory li .mw-history-undo a',
 		};
 	}
 
@@ -80,7 +80,7 @@ export class LexemePage {
 
 	public getAddMainStatementLink(): Chainable {
 		return this.getMainStatementsContainer().find(
-			this.constructor.STATEMENT_SELECTORS.ADD_MAIN_STATEMENT_LINK
+			this.constructor.STATEMENT_SELECTORS.ADD_MAIN_STATEMENT_LINK,
 		);
 	}
 
@@ -98,25 +98,25 @@ export class LexemePage {
 
 	public getStatementPropertyInput(): Chainable {
 		return this.getMainStatementsContainer().find(
-			this.constructor.STATEMENT_SELECTORS.EDIT_PROPERTY_INPUT
+			this.constructor.STATEMENT_SELECTORS.EDIT_PROPERTY_INPUT,
 		);
 	}
 
 	public getStatementValueInput(): Chainable {
 		return this.getMainStatementsContainer().find(
-			this.constructor.STATEMENT_SELECTORS.EDIT_VALUE_INPUT
+			this.constructor.STATEMENT_SELECTORS.EDIT_VALUE_INPUT,
 		);
 	}
 
 	public getStatementValueElement(): Chainable {
 		return this.getMainStatementsContainer().find(
-			this.constructor.STATEMENT_SELECTORS.STATEMENT_VALUE
+			this.constructor.STATEMENT_SELECTORS.STATEMENT_VALUE,
 		);
 	}
 
 	public getStatementSaveButton(): Chainable {
 		return this.getMainStatementsContainer().find(
-			this.constructor.WIKIBASE_TOOLBAR_SELECTORS.SAVE_BUTTON
+			this.constructor.WIKIBASE_TOOLBAR_SELECTORS.SAVE_BUTTON,
 		);
 	}
 
@@ -125,7 +125,7 @@ export class LexemePage {
 			.then(
 				( element ) => element
 					.text()
-					.replace( /[^L0-9]/g, '' )
+					.replace( /[^L0-9]/g, '' ),
 			);
 	}
 
@@ -243,7 +243,7 @@ export class LexemePage {
 
 	private undoOrRestoreSavePageButton(): Chainable {
 		return cy.get(
-			this.constructor.MEDIAWIKI_PAGE_SELECTORS.UNDO_OR_RESTORE_SAVE_PAGE_BUTTON
+			this.constructor.MEDIAWIKI_PAGE_SELECTORS.UNDO_OR_RESTORE_SAVE_PAGE_BUTTON,
 		);
 	}
 

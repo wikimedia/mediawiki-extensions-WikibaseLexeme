@@ -37,6 +37,6 @@ describe( 'Lexeme:Lemma', () => {
 				lexemePage.getHeaderSaveButton().should( 'be.disabled' );
 				lexemePage.getRedundantLanguageWarning();
 			} );
-		}
+		},
 	);
 } );
