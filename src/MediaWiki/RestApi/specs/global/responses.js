@@ -121,29 +121,5 @@ module.exports = {
 			}
 		},
 		"headers": { "Content-Language": contentLanguageHeader }
-	},
-	"LexemeNotFound": {
-		"description": "The requested Lexeme was not found",
-		"content": {
-			"application/json": {
-				"schema": {
-					"type": "object",
-					"properties": {
-						"code": { "type": "string" },
-						"message": { "type": "string" }
-					},
-					"required": [ "code", "message" ]
-				},
-				"examples": {
-					"lexeme-not-found": {
-						"value": {
-							"code": "lexeme-not-found",
-							"message": "The requested lexeme does not exist"
-						}
-					}
-				}
-			}
-		},
-		"headers": { "Content-Language": contentLanguageHeader }
 	}
 };

@@ -170,8 +170,9 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 		expect( response ).to.have.status( 404 );
 		assert.header( response, 'Content-Language', 'en' );
 		assert.header( response, 'Content-Type', 'application/json' );
-		assert.strictEqual( response.body.code, 'lexeme-not-found' );
-		assert.strictEqual( response.body.message, 'The requested lexeme does not exist' );
+		assert.strictEqual( response.body.code, 'resource-not-found' );
+		assert.strictEqual( response.body.message, 'The requested resource does not exist' );
+		assert.deepStrictEqual( response.body.context, { resource_type: 'lexeme' } );
 	} );
 
 	describe( 'redirects', () => {

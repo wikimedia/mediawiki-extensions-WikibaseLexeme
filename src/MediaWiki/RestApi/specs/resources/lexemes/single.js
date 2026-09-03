@@ -28,7 +28,7 @@ module.exports = {
 			"304": wikibaseRef( '#/components/responses/NotModified' ),
 			"308": wikibaseRef( '#/components/responses/MovedPermanently' ),
 			"400": wikibaseRef( '#/components/responses/InvalidEntityIdInput' ),
-			"404": { "$ref": "#/components/responses/LexemeNotFound" },
+			"404": wikibaseRef( '#/components/responses/ResourceNotFound' ),
 			"412": wikibaseRef( '#/components/responses/PreconditionFailedError' ),
 			"500": wikibaseRef( '#/components/responses/UnexpectedError' )
 		}

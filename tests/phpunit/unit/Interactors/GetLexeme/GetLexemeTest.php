@@ -118,8 +118,9 @@ class GetLexemeTest extends MediaWikiUnitTestCase {
 				->execute( new GetLexemeRequest( 'L123' ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
-			$this->assertEquals( UseCaseError::LEXEME_NOT_FOUND, $e->errorCode );
-			$this->assertEquals( 'The requested lexeme does not exist', $e->errorMessage );
+			$this->assertEquals( UseCaseError::RESOURCE_NOT_FOUND, $e->errorCode );
+			$this->assertEquals( 'The requested resource does not exist', $e->errorMessage );
+			$this->assertEquals( [ UseCaseError::CONTEXT_RESOURCE_TYPE => 'lexeme' ], $e->context );
 		}
 	}
 

@@ -36,15 +36,19 @@ class ResponseFactoryTest extends TestCase {
 
 	public function testNewErrorResponseFromException(): void {
 		$httpStatus = 404;
-		$errorCode = 'lexeme-not-found';
+		$errorCode = 'resource-not-found';
 		$errorMessage = 'testNewErrorResponseFromException error message';
 
 		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
-			new UseCaseError( $errorCode, $errorMessage )
+			new UseCaseError( $errorCode, $errorMessage, [ 'resource_type' => 'lexeme' ] )
 		);
 
 		$this->assertJsonStringEqualsJsonString(
-			"{ \"code\": \"{$errorCode}\", \"message\": \"{$errorMessage}\" }",
+			json_encode( [
+				'code' => $errorCode,
+				'message' => $errorMessage,
+				'context' => [ 'resource_type' => 'lexeme' ],
+			] ),
 			$httpResponse->getBody()->getContents()
 		);
 		$this->assertSame( $httpStatus, $httpResponse->getStatusCode() );

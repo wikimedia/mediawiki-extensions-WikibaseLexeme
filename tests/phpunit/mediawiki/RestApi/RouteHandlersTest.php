@@ -148,7 +148,7 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 			'serviceName' => 'WikibaseLexeme.GetLexeme',
 			'validRequest' => [ 'pathParams' => [ 'lexeme_id' => 'L1' ] ],
 			'expectedExceptions' => [
-				[ UseCaseError::newLexemeNotFound(), $hasErrorCode( UseCaseError::LEXEME_NOT_FOUND ) ],
+				[ UseCaseError::newResourceNotFound( 'lexeme' ), $hasErrorCode( UseCaseError::RESOURCE_NOT_FOUND ) ],
 				[
 					UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
 					$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),

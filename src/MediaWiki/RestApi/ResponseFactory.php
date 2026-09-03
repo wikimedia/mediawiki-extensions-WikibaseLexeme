@@ -27,7 +27,7 @@ class ResponseFactory {
 		UseCaseError::RESOURCE_TOO_LARGE => 400,
 		UseCaseError::STATEMENT_GROUP_PROPERTY_ID_MISMATCH => 400,
 		// 404 errors:
-		UseCaseError::LEXEME_NOT_FOUND => 404,
+		UseCaseError::RESOURCE_NOT_FOUND => 404,
 		// 403 errors:
 		UseCaseError::PERMISSION_DENIED => 403,
 		// 429 errors:

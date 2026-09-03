@@ -10,7 +10,7 @@ use RuntimeException;
  */
 class UseCaseError extends RuntimeException {
 
-	public const string LEXEME_NOT_FOUND = 'lexeme-not-found';
+	public const string RESOURCE_NOT_FOUND = 'resource-not-found';
 	public const string INVALID_PATH_PARAMETER = 'invalid-path-parameter';
 	public const string MISSING_FIELD = 'missing-field';
 	public const string INVALID_VALUE = 'invalid-value';
@@ -29,6 +29,7 @@ class UseCaseError extends RuntimeException {
 
 	public const string CONTEXT_DENIAL_CONTEXT = 'denial_context';
 	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
+	public const string CONTEXT_RESOURCE_TYPE = 'resource_type';
 	public const string CONTEXT_PARAMETER = 'parameter';
 	public const string CONTEXT_PATH = 'path';
 	public const string CONTEXT_FIELD = 'field';
@@ -39,8 +40,8 @@ class UseCaseError extends RuntimeException {
 	public const string CONTEXT_STATEMENT_PROPERTY_ID = 'statement_property_id';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
-		self::LEXEME_NOT_FOUND => [
-			'required' => [],
+		self::RESOURCE_NOT_FOUND => [
+			'required' => [ self::CONTEXT_RESOURCE_TYPE ],
 		],
 		self::INVALID_PATH_PARAMETER => [
 			'required' => [ self::CONTEXT_PARAMETER ],
@@ -110,10 +111,11 @@ class UseCaseError extends RuntimeException {
 		}
 	}
 
-	public static function newLexemeNotFound(): self {
+	public static function newResourceNotFound( string $resourceType ): self {
 		return new self(
-			self::LEXEME_NOT_FOUND,
-			'The requested lexeme does not exist',
+			self::RESOURCE_NOT_FOUND,
+			'The requested resource does not exist',
+			[ self::CONTEXT_RESOURCE_TYPE => $resourceType ],
 		);
 	}
 

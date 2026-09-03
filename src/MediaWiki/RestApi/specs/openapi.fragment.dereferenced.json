@@ -1970,7 +1970,7 @@
             }
           },
           "404": {
-            "description": "The requested Lexeme was not found",
+            "description": "The specified resource was not found",
             "content": {
               "application/json": {
                 "schema": {
@@ -1981,6 +1981,9 @@
                     },
                     "message": {
                       "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
                     }
                   },
                   "required": [
@@ -1989,10 +1992,13 @@
                   ]
                 },
                 "examples": {
-                  "lexeme-not-found": {
+                  "resource-not-found": {
                     "value": {
-                      "code": "lexeme-not-found",
-                      "message": "The requested lexeme does not exist"
+                      "code": "resource-not-found",
+                      "message": "The requested resource does not exist",
+                      "context": {
+                        "resource_type": "{resource_type}"
+                      }
                     }
                   }
                 }

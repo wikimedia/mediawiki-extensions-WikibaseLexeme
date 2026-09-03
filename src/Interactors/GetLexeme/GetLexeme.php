@@ -30,7 +30,7 @@ class GetLexeme {
 		$metaData = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
 
 		if ( !$metaData->lexemeExists() ) {
-			throw UseCaseError::newLexemeNotFound();
+			throw UseCaseError::newResourceNotFound( 'lexeme' );
 		}
 
 		if ( $metaData->isRedirect() ) {
