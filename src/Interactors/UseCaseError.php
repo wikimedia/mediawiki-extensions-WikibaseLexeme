@@ -27,33 +27,59 @@ class UseCaseError extends RuntimeException {
 	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
 	public const string STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'statement-group-property-id-mismatch';
 
+	public const string CONTEXT_DENIAL_CONTEXT = 'denial_context';
+	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
 	public const string CONTEXT_PARAMETER = 'parameter';
 	public const string CONTEXT_PATH = 'path';
 	public const string CONTEXT_FIELD = 'field';
 	public const string CONTEXT_KEY = 'key';
 	public const string CONTEXT_LIMIT = 'limit';
 	public const string CONTEXT_REASON = 'reason';
-	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
 	public const string CONTEXT_STATEMENT_GROUP_PROPERTY_ID = 'statement_group_property_id';
 	public const string CONTEXT_STATEMENT_PROPERTY_ID = 'statement_property_id';
 
 	private const array EXPECTED_CONTEXT_KEYS = [
-		self::LEXEME_NOT_FOUND => [],
-		self::INVALID_PATH_PARAMETER => [ self::CONTEXT_PARAMETER ],
-		self::MISSING_FIELD => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
-		self::INVALID_VALUE => [ self::CONTEXT_PATH ],
-		self::INVALID_KEY => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
-		self::VALUE_TOO_LONG => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
-		self::REFERENCED_RESOURCE_NOT_FOUND => [ self::CONTEXT_PATH ],
-		self::REQUEST_LIMIT_REACHED => [ self::CONTEXT_REASON ],
-		self::PERMISSION_DENIED => [ self::CONTEXT_DENIAL_REASON ],
-		self::PERMISSION_DENIED_UNKNOWN_REASON => [],
-		self::STATEMENT_GROUP_PROPERTY_ID_MISMATCH => [
-			self::CONTEXT_PATH,
-			self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID,
-			self::CONTEXT_STATEMENT_PROPERTY_ID,
+		self::LEXEME_NOT_FOUND => [
+			'required' => [],
 		],
-		self::RESOURCE_TOO_LARGE => [ self::CONTEXT_LIMIT ],
+		self::INVALID_PATH_PARAMETER => [
+			'required' => [ self::CONTEXT_PARAMETER ],
+		],
+		self::MISSING_FIELD => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
+		],
+		self::INVALID_VALUE => [
+			'required' => [ self::CONTEXT_PATH ],
+		],
+		self::INVALID_KEY => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
+		],
+		self::VALUE_TOO_LONG => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
+		],
+		self::REFERENCED_RESOURCE_NOT_FOUND => [
+			'required' => [ self::CONTEXT_PATH ],
+		],
+		self::REQUEST_LIMIT_REACHED => [
+			'required' => [ self::CONTEXT_REASON ],
+		],
+		self::PERMISSION_DENIED => [
+			'required' => [ self::CONTEXT_DENIAL_REASON ],
+			'optional' => [ self::CONTEXT_DENIAL_CONTEXT ],
+		],
+		self::PERMISSION_DENIED_UNKNOWN_REASON => [
+			'required' => [],
+		],
+		self::STATEMENT_GROUP_PROPERTY_ID_MISMATCH => [
+			'required' => [
+				self::CONTEXT_PATH,
+				self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID,
+				self::CONTEXT_STATEMENT_PROPERTY_ID,
+			],
+		],
+		self::RESOURCE_TOO_LARGE => [
+			'required' => [ self::CONTEXT_LIMIT ],
+		],
 	];
 
 	public function __construct(
@@ -67,14 +93,16 @@ class UseCaseError extends RuntimeException {
 			throw new LogicException( "Unknown error code: '$errorCode'" );
 		}
 
+		$contextDefinition = self::EXPECTED_CONTEXT_KEYS[$errorCode];
 		$contextKeys = array_keys( $context );
-		$unexpectedContext = array_values( array_diff( $contextKeys, self::EXPECTED_CONTEXT_KEYS[$errorCode] ) );
+		$expectedContextKeys = array_merge( ...array_values( $contextDefinition ) );
+		$unexpectedContext = array_values( array_diff( $contextKeys, $expectedContextKeys ) );
 		if ( $unexpectedContext ) {
 			throw new LogicException(
 				"Error context for '$errorCode' should not contain keys: " . json_encode( $unexpectedContext )
 			);
 		}
-		$missingContext = array_values( array_diff( self::EXPECTED_CONTEXT_KEYS[$errorCode], $contextKeys ) );
+		$missingContext = array_values( array_diff( $contextDefinition['required'], $contextKeys ) );
 		if ( $missingContext ) {
 			throw new LogicException(
 				"Error context for '$errorCode' should contain keys: " . json_encode( $missingContext )
@@ -161,11 +189,17 @@ class UseCaseError extends RuntimeException {
 		);
 	}
 
-	public static function newPermissionDenied( string $reason ): self {
+	public static function newPermissionDenied( string $reason, array $denialContext = [], ): self {
+		$context = [ self::CONTEXT_DENIAL_REASON => $reason ];
+
+		if ( $denialContext ) {
+			$context[self::CONTEXT_DENIAL_CONTEXT] = $denialContext;
+		}
+
 		return new self(
 			self::PERMISSION_DENIED,
 			'Access to resource is denied',
-			[ self::CONTEXT_DENIAL_REASON => $reason ]
+			$context
 		);
 	}
 
