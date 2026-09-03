@@ -11,6 +11,7 @@ const openapi = {
 		"/v0/entities/lexemes/{lexeme_id}/statements": require( './resources/lexemes/statements/list.js' )
 	},
 	"components": {
+		"parameters": require( './global/parameters.js' ),
 		"responses": require( './global/responses.js' ),
 		"schemas": require( './global/schemas.js' )
 	}

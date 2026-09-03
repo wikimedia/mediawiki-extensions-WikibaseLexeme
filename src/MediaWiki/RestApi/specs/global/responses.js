@@ -2,6 +2,7 @@
 'use strict';
 
 const { wikibaseRef } = require( '../helpers.js' );
+const { StatementResponseRequired } = require( './response-parts.js' );
 
 // Real data from Wikidata's L42 ("answer"), trimmed to one form and one sense
 const lexemeExample = {
@@ -46,6 +47,8 @@ const lexemeExample = {
 		} ] }
 	} ]
 };
+
+const lexemeStatementExample = lexemeExample.statements.P5402[ 0 ];
 
 const createdLexemeExample = {
 	...lexemeExample,
@@ -100,6 +103,26 @@ module.exports = {
 			}
 		}
 	},
+	"CreatedLexemeStatement": {
+		"description": "The newly created Statement. Please note that the value of the `ETag` header " +
+			"field refers to the Lexeme's revision ID.",
+		"headers": {
+			"ETag": wikibaseRef( '#/components/headers/ETag' ),
+			"Last-Modified": wikibaseRef( '#/components/headers/Last-Modified' ),
+			"X-Authenticated-User": wikibaseRef( '#/components/headers/X-Authenticated-User' )
+		},
+		"content": {
+			"application/json": {
+				"schema": {
+					"allOf": [
+						wikibaseRef( '#/components/schemas/Statement' ),
+						StatementResponseRequired
+					]
+				},
+				"example": lexemeStatementExample
+			}
+		}
+	},
 	"InvalidNewLexemeInput": {
 		"description": "The request cannot be processed",
 		"content": {
@@ -117,6 +140,24 @@ module.exports = {
 					"missing-field": wikibaseRef( '#/components/examples/MissingFieldExample' ),
 					"invalid-key": wikibaseRef( '#/components/examples/InvalidKeyExample' ),
 					"resource-too-large": wikibaseRef( '#/components/examples/ResourceTooLargeExample' )
+				}
+			}
+		},
+		"headers": { "Content-Language": contentLanguageHeader }
+	},
+	"LexemeRedirected": {
+		"description": "The specified Lexeme was redirected",
+		"content": {
+			"application/json": {
+				"schema": errorSchema,
+				"examples": {
+					"redirected-lexeme": {
+						"value": {
+							"code": "redirected-lexeme",
+							"message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+							"context": { "redirect_target": "{redirect_target_id}" }
+						}
+					}
 				}
 			}
 		},

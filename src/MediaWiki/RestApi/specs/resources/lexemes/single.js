@@ -1,7 +1,7 @@
 /* eslint-env node */
 'use strict';
 
-const { wikibaseRef, LEXEME_ID_PATTERN } = require( '../../helpers.js' );
+const { wikibaseRef } = require( '../../helpers.js' );
 
 module.exports = {
 	"get": {
@@ -9,14 +9,7 @@ module.exports = {
 		"tags": [ "lexemes" ],
 		"summary": "Retrieve a single Lexeme by ID",
 		"parameters": [
-			{
-				"name": "lexeme_id",
-				"in": "path",
-				"required": true,
-				"description": "The ID of the required Lexeme",
-				"schema": { "type": "string", "pattern": LEXEME_ID_PATTERN },
-				"example": "L42"
-			},
+			{ "$ref": "#/components/parameters/LexemeId" },
 			wikibaseRef( '#/components/parameters/IfNoneMatch' ),
 			wikibaseRef( '#/components/parameters/IfModifiedSince' ),
 			wikibaseRef( '#/components/parameters/IfMatch' ),
