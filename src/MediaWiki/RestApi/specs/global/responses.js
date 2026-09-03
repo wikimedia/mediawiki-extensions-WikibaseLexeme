@@ -58,6 +58,12 @@ const createdLexemeExample = {
 	senses: []
 };
 
+const locationHeader = {
+	"description": "The URI of the newly created Lexeme",
+	"schema": { "type": "string" },
+	"required": true
+};
+
 const contentLanguageHeader = {
 	"description": "Language code of the language in which error message is provided",
 	"schema": { "type": "string" },
@@ -94,6 +100,7 @@ module.exports = {
 		"headers": {
 			"ETag": wikibaseRef( '#/components/headers/ETag' ),
 			"Last-Modified": wikibaseRef( '#/components/headers/Last-Modified' ),
+			"Location": locationHeader,
 			"X-Authenticated-User": wikibaseRef( '#/components/headers/X-Authenticated-User' )
 		},
 		"content": {

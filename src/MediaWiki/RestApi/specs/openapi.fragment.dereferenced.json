@@ -303,6 +303,13 @@
                 },
                 "required": true
               },
+              "Location": {
+                "description": "The URI of the newly created Lexeme",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              },
               "X-Authenticated-User": {
                 "description": "Optional username of the user making the request",
                 "schema": {

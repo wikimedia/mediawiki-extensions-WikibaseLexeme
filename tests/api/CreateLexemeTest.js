@@ -55,6 +55,9 @@ describe( 'POST /entities/lexemes', () => {
 
 		expect( response ).to.have.status( 201 );
 		assert.match( response.body.id, /^L\d+$/ );
+		assert.isTrue(
+			new URL( response.header.location ).pathname.endsWith( `/entities/lexemes/${ response.body.id }` )
+		);
 		assert.deepStrictEqual( response.body.lemmas, { en: lemma } );
 		assert.strictEqual( response.body.lexical_category, lexicalCategoryId );
 		assert.strictEqual( response.body.language, languageId );

@@ -27,6 +27,7 @@ use Wikimedia\ParamValidator\ParamValidator;
  */
 class GetLexemeRouteHandler extends SimpleHandler {
 
+	public const ROUTE = '/wikibase/v0/entities/lexemes/{lexeme_id}';
 	public const LEXEME_ID_PATH_PARAM = 'lexeme_id';
 
 	public function __construct(

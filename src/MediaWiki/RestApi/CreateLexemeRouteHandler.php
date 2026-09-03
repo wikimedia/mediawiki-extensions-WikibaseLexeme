@@ -89,7 +89,7 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 	}
 
 	private function newSuccessHttpResponse( CreateLexemeResponse $useCaseResponse ): Response {
-		return $this->responseFactory->newSuccessResponse(
+		$httpResponse = $this->responseFactory->newSuccessResponse(
 			json_encode(
 				$this->lexemeSerializer->serialize( $useCaseResponse->lexeme ),
 				JSON_UNESCAPED_SLASHES
@@ -98,6 +98,15 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 			$useCaseResponse->lastModified,
 			statusCode: 201,
 		);
+		$httpResponse->setHeader(
+			'Location',
+			$this->getRouter()->getRouteUrl(
+				GetLexemeRouteHandler::ROUTE,
+				[ GetLexemeRouteHandler::LEXEME_ID_PATH_PARAM => $useCaseResponse->lexeme->id->getSerialization() ]
+			)
+		);
+
+		return $httpResponse;
 	}
 
 	public function getBodyParamSettings(): array {
