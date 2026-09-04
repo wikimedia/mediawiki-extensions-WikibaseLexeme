@@ -1,4 +1,3 @@
-/* eslint-env node */
 'use strict';
 
 const wikibaseOpenApi = '../../../../../Wikibase/repo/rest-api/src/openapi.json';

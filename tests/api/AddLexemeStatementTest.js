@@ -1,4 +1,3 @@
-/* eslint-env mocha */
 'use strict';
 
 const { assert, utils } = require( 'api-testing' );
