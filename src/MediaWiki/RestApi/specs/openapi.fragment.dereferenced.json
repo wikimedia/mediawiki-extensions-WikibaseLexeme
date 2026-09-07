@@ -54,7 +54,8 @@
                             "type": "object",
                             "additionalProperties": {
                               "type": "string"
-                            }
+                            },
+                            "minProperties": 1
                           },
                           "lexical_category": {
                             "description": "The ID of the Item representing the lexical category of the Lexeme",
@@ -333,7 +334,8 @@
                       "type": "object",
                       "additionalProperties": {
                         "type": "string"
-                      }
+                      },
+                      "minProperties": 1
                     },
                     "lexical_category": {
                       "description": "The ID of the Item representing the lexical category of the Lexeme",
@@ -877,7 +879,16 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "required": [
+                    "id",
+                    "lemmas",
+                    "lexical_category",
+                    "language",
+                    "statements",
+                    "forms",
+                    "senses"
+                  ]
                 },
                 "example": {
                   "id": "L42",
@@ -1266,7 +1277,8 @@
                       "type": "object",
                       "additionalProperties": {
                         "type": "string"
-                      }
+                      },
+                      "minProperties": 1
                     },
                     "lexical_category": {
                       "description": "The ID of the Item representing the lexical category of the Lexeme",
@@ -1810,7 +1822,16 @@
                         }
                       }
                     }
-                  }
+                  },
+                  "required": [
+                    "id",
+                    "lemmas",
+                    "lexical_category",
+                    "language",
+                    "statements",
+                    "forms",
+                    "senses"
+                  ]
                 },
                 "example": {
                   "id": "L42",

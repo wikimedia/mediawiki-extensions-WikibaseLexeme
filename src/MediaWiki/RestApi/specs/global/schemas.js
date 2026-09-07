@@ -34,7 +34,12 @@ const lexemeSchema = {
 		"pattern": LEXEME_ID_PATTERN,
 		"readOnly": true
 	},
-	"lemmas": termMap( "The lemmas of the Lexeme, keyed by language code" ),
+	"lemmas": {
+		... termMap( "The lemmas of the Lexeme, keyed by language code" ),
+
+		// a Lexeme always has at least one lemma
+		"minProperties": 1
+	},
 	"lexical_category": {
 		"description": "The ID of the Item representing the lexical category of the Lexeme",
 		"type": "string",
@@ -61,7 +66,8 @@ const lexemeSchema = {
 module.exports = {
 	"Lexeme": {
 		"type": "object",
-		"properties": lexemeSchema
+		"properties": lexemeSchema,
+		"required": [ "id", "lemmas", "lexical_category", "language", "statements", "forms", "senses" ]
 	},
 	"NewLexeme": {
 		"description": "A Lexeme to be created.",
