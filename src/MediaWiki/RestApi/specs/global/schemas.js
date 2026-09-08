@@ -7,6 +7,7 @@ const {
 	FORM_ID_PATTERN,
 	SENSE_ID_PATTERN
 } = require( '../helpers.js' );
+const { StatementResponse } = require( './response-parts.js' );
 
 function termMap( description ) {
 	return {
@@ -16,13 +17,15 @@ function termMap( description ) {
 	};
 }
 
-function statementMap( description ) {
+const newStatementSchema = wikibaseRef( '#/components/schemas/Statement' );
+
+function statementMap( description, statementSchema = StatementResponse ) {
 	return {
 		"description": description,
 		"type": "object",
 		"additionalProperties": {
 			"type": "array",
-			"items": wikibaseRef( '#/components/schemas/Statement' )
+			"items": statementSchema
 		}
 	};
 }
@@ -74,6 +77,8 @@ module.exports = {
 		"type": "object",
 		"properties": {
 			... lexemeSchema,
+
+			statements: statementMap( "The statements of the Lexeme, keyed by Property ID", newStatementSchema ),
 
 			// no forms and senses on newly created lexemes yet
 			forms: undefined,

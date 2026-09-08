@@ -353,157 +353,249 @@
                       "additionalProperties": {
                         "type": "array",
                         "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "description": "The globally unique identifier for this Statement",
-                              "type": "string",
-                              "readOnly": true
-                            },
-                            "rank": {
-                              "description": "The rank of the Statement",
-                              "type": "string",
-                              "enum": [
-                                "deprecated",
-                                "normal",
-                                "preferred"
-                              ],
-                              "default": "normal"
-                            },
-                            "property": {
+                          "allOf": [
+                            {
                               "type": "object",
                               "properties": {
                                 "id": {
-                                  "description": "The ID of the Property",
-                                  "type": "string"
-                                },
-                                "data_type": {
-                                  "description": "The data type of the Property",
-                                  "type": [
-                                    "string",
-                                    "null"
-                                  ],
+                                  "description": "The globally unique identifier for this Statement",
+                                  "type": "string",
                                   "readOnly": true
-                                }
-                              }
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "description": "The value, if type == \"value\", otherwise omitted"
                                 },
-                                "type": {
-                                  "description": "The value type",
+                                "rank": {
+                                  "description": "The rank of the Statement",
                                   "type": "string",
                                   "enum": [
-                                    "value",
-                                    "somevalue",
-                                    "novalue"
-                                  ]
-                                }
-                              }
-                            },
-                            "qualifiers": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "property": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "description": "The ID of the Property",
-                                        "type": "string"
-                                      },
-                                      "data_type": {
-                                        "description": "The data type of the Property",
-                                        "type": [
-                                          "string",
-                                          "null"
-                                        ],
-                                        "readOnly": true
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "content": {
-                                        "description": "The value, if type == \"value\", otherwise omitted"
-                                      },
-                                      "type": {
-                                        "description": "The value type",
-                                        "type": "string",
-                                        "enum": [
-                                          "value",
-                                          "somevalue",
-                                          "novalue"
-                                        ]
-                                      }
+                                    "deprecated",
+                                    "normal",
+                                    "preferred"
+                                  ],
+                                  "default": "normal"
+                                },
+                                "property": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "description": "The ID of the Property",
+                                      "type": "string"
+                                    },
+                                    "data_type": {
+                                      "description": "The data type of the Property",
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ],
+                                      "readOnly": true
                                     }
                                   }
-                                }
-                              },
-                              "default": []
-                            },
-                            "references": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "hash": {
-                                    "description": "Hash of the Reference",
-                                    "type": "string",
-                                    "readOnly": true
-                                  },
-                                  "parts": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "property": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "description": "The ID of the Property",
-                                              "type": "string"
-                                            },
-                                            "data_type": {
-                                              "description": "The data type of the Property",
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ],
-                                              "readOnly": true
-                                            }
+                                },
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "content": {
+                                      "description": "The value, if type == \"value\", otherwise omitted"
+                                    },
+                                    "type": {
+                                      "description": "The value type",
+                                      "type": "string",
+                                      "enum": [
+                                        "value",
+                                        "somevalue",
+                                        "novalue"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "qualifiers": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
                                           }
-                                        },
-                                        "value": {
+                                        }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": []
+                                },
+                                "references": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "hash": {
+                                        "description": "Hash of the Reference",
+                                        "type": "string",
+                                        "readOnly": true
+                                      },
+                                      "parts": {
+                                        "type": "array",
+                                        "items": {
                                           "type": "object",
                                           "properties": {
-                                            "content": {
-                                              "description": "The value, if type == \"value\", otherwise omitted"
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
+                                                }
+                                              }
                                             },
-                                            "type": {
-                                              "description": "The value type",
-                                              "type": "string",
-                                              "enum": [
-                                                "value",
-                                                "somevalue",
-                                                "novalue"
-                                              ]
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
                                             }
                                           }
                                         }
                                       }
                                     }
-                                  }
+                                  },
+                                  "default": []
                                 }
-                              },
-                              "default": []
+                              }
+                            },
+                            {
+                              "allOf": [
+                                {
+                                  "properties": {
+                                    "property": {
+                                      "required": [
+                                        "id",
+                                        "data_type"
+                                      ]
+                                    },
+                                    "value": {
+                                      "required": [
+                                        "type"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "property",
+                                    "value"
+                                  ]
+                                },
+                                {
+                                  "properties": {
+                                    "qualifiers": {
+                                      "items": {
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ]
+                                      }
+                                    },
+                                    "references": {
+                                      "items": {
+                                        "properties": {
+                                          "hash": {
+                                            "type": "string"
+                                          },
+                                          "parts": {
+                                            "items": {
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "hash",
+                                          "parts"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "rank",
+                                    "qualifiers",
+                                    "references"
+                                  ]
+                                }
+                              ]
                             }
-                          }
+                          ]
                         }
                       }
                     },
@@ -540,157 +632,249 @@
                             "additionalProperties": {
                               "type": "array",
                               "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "description": "The globally unique identifier for this Statement",
-                                    "type": "string",
-                                    "readOnly": true
-                                  },
-                                  "rank": {
-                                    "description": "The rank of the Statement",
-                                    "type": "string",
-                                    "enum": [
-                                      "deprecated",
-                                      "normal",
-                                      "preferred"
-                                    ],
-                                    "default": "normal"
-                                  },
-                                  "property": {
+                                "allOf": [
+                                  {
                                     "type": "object",
                                     "properties": {
                                       "id": {
-                                        "description": "The ID of the Property",
-                                        "type": "string"
-                                      },
-                                      "data_type": {
-                                        "description": "The data type of the Property",
-                                        "type": [
-                                          "string",
-                                          "null"
-                                        ],
+                                        "description": "The globally unique identifier for this Statement",
+                                        "type": "string",
                                         "readOnly": true
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "content": {
-                                        "description": "The value, if type == \"value\", otherwise omitted"
                                       },
-                                      "type": {
-                                        "description": "The value type",
+                                      "rank": {
+                                        "description": "The rank of the Statement",
                                         "type": "string",
                                         "enum": [
-                                          "value",
-                                          "somevalue",
-                                          "novalue"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "qualifiers": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "property": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "description": "The ID of the Property",
-                                              "type": "string"
-                                            },
-                                            "data_type": {
-                                              "description": "The data type of the Property",
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ],
-                                              "readOnly": true
-                                            }
-                                          }
-                                        },
-                                        "value": {
-                                          "type": "object",
-                                          "properties": {
-                                            "content": {
-                                              "description": "The value, if type == \"value\", otherwise omitted"
-                                            },
-                                            "type": {
-                                              "description": "The value type",
-                                              "type": "string",
-                                              "enum": [
-                                                "value",
-                                                "somevalue",
-                                                "novalue"
-                                              ]
-                                            }
+                                          "deprecated",
+                                          "normal",
+                                          "preferred"
+                                        ],
+                                        "default": "normal"
+                                      },
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
                                           }
                                         }
-                                      }
-                                    },
-                                    "default": []
-                                  },
-                                  "references": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "hash": {
-                                          "description": "Hash of the Reference",
-                                          "type": "string",
-                                          "readOnly": true
-                                        },
-                                        "parts": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "property": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "id": {
-                                                    "description": "The ID of the Property",
-                                                    "type": "string"
-                                                  },
-                                                  "data_type": {
-                                                    "description": "The data type of the Property",
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ],
-                                                    "readOnly": true
-                                                  }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "qualifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
                                                 }
-                                              },
-                                              "value": {
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      },
+                                      "references": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "hash": {
+                                              "description": "Hash of the Reference",
+                                              "type": "string",
+                                              "readOnly": true
+                                            },
+                                            "parts": {
+                                              "type": "array",
+                                              "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "content": {
-                                                    "description": "The value, if type == \"value\", otherwise omitted"
+                                                  "property": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "description": "The ID of the Property",
+                                                        "type": "string"
+                                                      },
+                                                      "data_type": {
+                                                        "description": "The data type of the Property",
+                                                        "type": [
+                                                          "string",
+                                                          "null"
+                                                        ],
+                                                        "readOnly": true
+                                                      }
+                                                    }
                                                   },
-                                                  "type": {
-                                                    "description": "The value type",
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "value",
-                                                      "somevalue",
-                                                      "novalue"
-                                                    ]
+                                                  "value": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "content": {
+                                                        "description": "The value, if type == \"value\", otherwise omitted"
+                                                      },
+                                                      "type": {
+                                                        "description": "The value type",
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "value",
+                                                          "somevalue",
+                                                          "novalue"
+                                                        ]
+                                                      }
+                                                    }
                                                   }
                                                 }
                                               }
                                             }
                                           }
-                                        }
+                                        },
+                                        "default": []
                                       }
-                                    },
-                                    "default": []
+                                    }
+                                  },
+                                  {
+                                    "allOf": [
+                                      {
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ]
+                                      },
+                                      {
+                                        "properties": {
+                                          "qualifiers": {
+                                            "items": {
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ]
+                                            }
+                                          },
+                                          "references": {
+                                            "items": {
+                                              "properties": {
+                                                "hash": {
+                                                  "type": "string"
+                                                },
+                                                "parts": {
+                                                  "items": {
+                                                    "properties": {
+                                                      "property": {
+                                                        "required": [
+                                                          "id",
+                                                          "data_type"
+                                                        ]
+                                                      },
+                                                      "value": {
+                                                        "required": [
+                                                          "type"
+                                                        ]
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "property",
+                                                      "value"
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "hash",
+                                                "parts"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "rank",
+                                          "qualifiers",
+                                          "references"
+                                        ]
+                                      }
+                                    ]
                                   }
-                                }
+                                ]
                               }
                             }
                           }
@@ -722,157 +906,249 @@
                             "additionalProperties": {
                               "type": "array",
                               "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "description": "The globally unique identifier for this Statement",
-                                    "type": "string",
-                                    "readOnly": true
-                                  },
-                                  "rank": {
-                                    "description": "The rank of the Statement",
-                                    "type": "string",
-                                    "enum": [
-                                      "deprecated",
-                                      "normal",
-                                      "preferred"
-                                    ],
-                                    "default": "normal"
-                                  },
-                                  "property": {
+                                "allOf": [
+                                  {
                                     "type": "object",
                                     "properties": {
                                       "id": {
-                                        "description": "The ID of the Property",
-                                        "type": "string"
-                                      },
-                                      "data_type": {
-                                        "description": "The data type of the Property",
-                                        "type": [
-                                          "string",
-                                          "null"
-                                        ],
+                                        "description": "The globally unique identifier for this Statement",
+                                        "type": "string",
                                         "readOnly": true
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "content": {
-                                        "description": "The value, if type == \"value\", otherwise omitted"
                                       },
-                                      "type": {
-                                        "description": "The value type",
+                                      "rank": {
+                                        "description": "The rank of the Statement",
                                         "type": "string",
                                         "enum": [
-                                          "value",
-                                          "somevalue",
-                                          "novalue"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "qualifiers": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "property": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "description": "The ID of the Property",
-                                              "type": "string"
-                                            },
-                                            "data_type": {
-                                              "description": "The data type of the Property",
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ],
-                                              "readOnly": true
-                                            }
-                                          }
-                                        },
-                                        "value": {
-                                          "type": "object",
-                                          "properties": {
-                                            "content": {
-                                              "description": "The value, if type == \"value\", otherwise omitted"
-                                            },
-                                            "type": {
-                                              "description": "The value type",
-                                              "type": "string",
-                                              "enum": [
-                                                "value",
-                                                "somevalue",
-                                                "novalue"
-                                              ]
-                                            }
+                                          "deprecated",
+                                          "normal",
+                                          "preferred"
+                                        ],
+                                        "default": "normal"
+                                      },
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
                                           }
                                         }
-                                      }
-                                    },
-                                    "default": []
-                                  },
-                                  "references": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "hash": {
-                                          "description": "Hash of the Reference",
-                                          "type": "string",
-                                          "readOnly": true
-                                        },
-                                        "parts": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "property": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "id": {
-                                                    "description": "The ID of the Property",
-                                                    "type": "string"
-                                                  },
-                                                  "data_type": {
-                                                    "description": "The data type of the Property",
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ],
-                                                    "readOnly": true
-                                                  }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "qualifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
                                                 }
-                                              },
-                                              "value": {
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      },
+                                      "references": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "hash": {
+                                              "description": "Hash of the Reference",
+                                              "type": "string",
+                                              "readOnly": true
+                                            },
+                                            "parts": {
+                                              "type": "array",
+                                              "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "content": {
-                                                    "description": "The value, if type == \"value\", otherwise omitted"
+                                                  "property": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "description": "The ID of the Property",
+                                                        "type": "string"
+                                                      },
+                                                      "data_type": {
+                                                        "description": "The data type of the Property",
+                                                        "type": [
+                                                          "string",
+                                                          "null"
+                                                        ],
+                                                        "readOnly": true
+                                                      }
+                                                    }
                                                   },
-                                                  "type": {
-                                                    "description": "The value type",
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "value",
-                                                      "somevalue",
-                                                      "novalue"
-                                                    ]
+                                                  "value": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "content": {
+                                                        "description": "The value, if type == \"value\", otherwise omitted"
+                                                      },
+                                                      "type": {
+                                                        "description": "The value type",
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "value",
+                                                          "somevalue",
+                                                          "novalue"
+                                                        ]
+                                                      }
+                                                    }
                                                   }
                                                 }
                                               }
                                             }
                                           }
-                                        }
+                                        },
+                                        "default": []
                                       }
-                                    },
-                                    "default": []
+                                    }
+                                  },
+                                  {
+                                    "allOf": [
+                                      {
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ]
+                                      },
+                                      {
+                                        "properties": {
+                                          "qualifiers": {
+                                            "items": {
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ]
+                                            }
+                                          },
+                                          "references": {
+                                            "items": {
+                                              "properties": {
+                                                "hash": {
+                                                  "type": "string"
+                                                },
+                                                "parts": {
+                                                  "items": {
+                                                    "properties": {
+                                                      "property": {
+                                                        "required": [
+                                                          "id",
+                                                          "data_type"
+                                                        ]
+                                                      },
+                                                      "value": {
+                                                        "required": [
+                                                          "type"
+                                                        ]
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "property",
+                                                      "value"
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "hash",
+                                                "parts"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "rank",
+                                          "qualifiers",
+                                          "references"
+                                        ]
+                                      }
+                                    ]
                                   }
-                                }
+                                ]
                               }
                             }
                           }
@@ -1296,157 +1572,249 @@
                       "additionalProperties": {
                         "type": "array",
                         "items": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "description": "The globally unique identifier for this Statement",
-                              "type": "string",
-                              "readOnly": true
-                            },
-                            "rank": {
-                              "description": "The rank of the Statement",
-                              "type": "string",
-                              "enum": [
-                                "deprecated",
-                                "normal",
-                                "preferred"
-                              ],
-                              "default": "normal"
-                            },
-                            "property": {
+                          "allOf": [
+                            {
                               "type": "object",
                               "properties": {
                                 "id": {
-                                  "description": "The ID of the Property",
-                                  "type": "string"
-                                },
-                                "data_type": {
-                                  "description": "The data type of the Property",
-                                  "type": [
-                                    "string",
-                                    "null"
-                                  ],
+                                  "description": "The globally unique identifier for this Statement",
+                                  "type": "string",
                                   "readOnly": true
-                                }
-                              }
-                            },
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "content": {
-                                  "description": "The value, if type == \"value\", otherwise omitted"
                                 },
-                                "type": {
-                                  "description": "The value type",
+                                "rank": {
+                                  "description": "The rank of the Statement",
                                   "type": "string",
                                   "enum": [
-                                    "value",
-                                    "somevalue",
-                                    "novalue"
-                                  ]
-                                }
-                              }
-                            },
-                            "qualifiers": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "property": {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "description": "The ID of the Property",
-                                        "type": "string"
-                                      },
-                                      "data_type": {
-                                        "description": "The data type of the Property",
-                                        "type": [
-                                          "string",
-                                          "null"
-                                        ],
-                                        "readOnly": true
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "content": {
-                                        "description": "The value, if type == \"value\", otherwise omitted"
-                                      },
-                                      "type": {
-                                        "description": "The value type",
-                                        "type": "string",
-                                        "enum": [
-                                          "value",
-                                          "somevalue",
-                                          "novalue"
-                                        ]
-                                      }
+                                    "deprecated",
+                                    "normal",
+                                    "preferred"
+                                  ],
+                                  "default": "normal"
+                                },
+                                "property": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "description": "The ID of the Property",
+                                      "type": "string"
+                                    },
+                                    "data_type": {
+                                      "description": "The data type of the Property",
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ],
+                                      "readOnly": true
                                     }
                                   }
-                                }
-                              },
-                              "default": []
-                            },
-                            "references": {
-                              "type": "array",
-                              "items": {
-                                "type": "object",
-                                "properties": {
-                                  "hash": {
-                                    "description": "Hash of the Reference",
-                                    "type": "string",
-                                    "readOnly": true
-                                  },
-                                  "parts": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "property": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "description": "The ID of the Property",
-                                              "type": "string"
-                                            },
-                                            "data_type": {
-                                              "description": "The data type of the Property",
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ],
-                                              "readOnly": true
-                                            }
+                                },
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "content": {
+                                      "description": "The value, if type == \"value\", otherwise omitted"
+                                    },
+                                    "type": {
+                                      "description": "The value type",
+                                      "type": "string",
+                                      "enum": [
+                                        "value",
+                                        "somevalue",
+                                        "novalue"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "qualifiers": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
                                           }
-                                        },
-                                        "value": {
+                                        }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": []
+                                },
+                                "references": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "hash": {
+                                        "description": "Hash of the Reference",
+                                        "type": "string",
+                                        "readOnly": true
+                                      },
+                                      "parts": {
+                                        "type": "array",
+                                        "items": {
                                           "type": "object",
                                           "properties": {
-                                            "content": {
-                                              "description": "The value, if type == \"value\", otherwise omitted"
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
+                                                }
+                                              }
                                             },
-                                            "type": {
-                                              "description": "The value type",
-                                              "type": "string",
-                                              "enum": [
-                                                "value",
-                                                "somevalue",
-                                                "novalue"
-                                              ]
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
                                             }
                                           }
                                         }
                                       }
                                     }
-                                  }
+                                  },
+                                  "default": []
                                 }
-                              },
-                              "default": []
+                              }
+                            },
+                            {
+                              "allOf": [
+                                {
+                                  "properties": {
+                                    "property": {
+                                      "required": [
+                                        "id",
+                                        "data_type"
+                                      ]
+                                    },
+                                    "value": {
+                                      "required": [
+                                        "type"
+                                      ]
+                                    }
+                                  },
+                                  "required": [
+                                    "property",
+                                    "value"
+                                  ]
+                                },
+                                {
+                                  "properties": {
+                                    "qualifiers": {
+                                      "items": {
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ]
+                                      }
+                                    },
+                                    "references": {
+                                      "items": {
+                                        "properties": {
+                                          "hash": {
+                                            "type": "string"
+                                          },
+                                          "parts": {
+                                            "items": {
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "hash",
+                                          "parts"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "rank",
+                                    "qualifiers",
+                                    "references"
+                                  ]
+                                }
+                              ]
                             }
-                          }
+                          ]
                         }
                       }
                     },
@@ -1483,157 +1851,249 @@
                             "additionalProperties": {
                               "type": "array",
                               "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "description": "The globally unique identifier for this Statement",
-                                    "type": "string",
-                                    "readOnly": true
-                                  },
-                                  "rank": {
-                                    "description": "The rank of the Statement",
-                                    "type": "string",
-                                    "enum": [
-                                      "deprecated",
-                                      "normal",
-                                      "preferred"
-                                    ],
-                                    "default": "normal"
-                                  },
-                                  "property": {
+                                "allOf": [
+                                  {
                                     "type": "object",
                                     "properties": {
                                       "id": {
-                                        "description": "The ID of the Property",
-                                        "type": "string"
-                                      },
-                                      "data_type": {
-                                        "description": "The data type of the Property",
-                                        "type": [
-                                          "string",
-                                          "null"
-                                        ],
+                                        "description": "The globally unique identifier for this Statement",
+                                        "type": "string",
                                         "readOnly": true
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "content": {
-                                        "description": "The value, if type == \"value\", otherwise omitted"
                                       },
-                                      "type": {
-                                        "description": "The value type",
+                                      "rank": {
+                                        "description": "The rank of the Statement",
                                         "type": "string",
                                         "enum": [
-                                          "value",
-                                          "somevalue",
-                                          "novalue"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "qualifiers": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "property": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "description": "The ID of the Property",
-                                              "type": "string"
-                                            },
-                                            "data_type": {
-                                              "description": "The data type of the Property",
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ],
-                                              "readOnly": true
-                                            }
-                                          }
-                                        },
-                                        "value": {
-                                          "type": "object",
-                                          "properties": {
-                                            "content": {
-                                              "description": "The value, if type == \"value\", otherwise omitted"
-                                            },
-                                            "type": {
-                                              "description": "The value type",
-                                              "type": "string",
-                                              "enum": [
-                                                "value",
-                                                "somevalue",
-                                                "novalue"
-                                              ]
-                                            }
+                                          "deprecated",
+                                          "normal",
+                                          "preferred"
+                                        ],
+                                        "default": "normal"
+                                      },
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
                                           }
                                         }
-                                      }
-                                    },
-                                    "default": []
-                                  },
-                                  "references": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "hash": {
-                                          "description": "Hash of the Reference",
-                                          "type": "string",
-                                          "readOnly": true
-                                        },
-                                        "parts": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "property": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "id": {
-                                                    "description": "The ID of the Property",
-                                                    "type": "string"
-                                                  },
-                                                  "data_type": {
-                                                    "description": "The data type of the Property",
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ],
-                                                    "readOnly": true
-                                                  }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "qualifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
                                                 }
-                                              },
-                                              "value": {
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      },
+                                      "references": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "hash": {
+                                              "description": "Hash of the Reference",
+                                              "type": "string",
+                                              "readOnly": true
+                                            },
+                                            "parts": {
+                                              "type": "array",
+                                              "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "content": {
-                                                    "description": "The value, if type == \"value\", otherwise omitted"
+                                                  "property": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "description": "The ID of the Property",
+                                                        "type": "string"
+                                                      },
+                                                      "data_type": {
+                                                        "description": "The data type of the Property",
+                                                        "type": [
+                                                          "string",
+                                                          "null"
+                                                        ],
+                                                        "readOnly": true
+                                                      }
+                                                    }
                                                   },
-                                                  "type": {
-                                                    "description": "The value type",
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "value",
-                                                      "somevalue",
-                                                      "novalue"
-                                                    ]
+                                                  "value": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "content": {
+                                                        "description": "The value, if type == \"value\", otherwise omitted"
+                                                      },
+                                                      "type": {
+                                                        "description": "The value type",
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "value",
+                                                          "somevalue",
+                                                          "novalue"
+                                                        ]
+                                                      }
+                                                    }
                                                   }
                                                 }
                                               }
                                             }
                                           }
-                                        }
+                                        },
+                                        "default": []
                                       }
-                                    },
-                                    "default": []
+                                    }
+                                  },
+                                  {
+                                    "allOf": [
+                                      {
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ]
+                                      },
+                                      {
+                                        "properties": {
+                                          "qualifiers": {
+                                            "items": {
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ]
+                                            }
+                                          },
+                                          "references": {
+                                            "items": {
+                                              "properties": {
+                                                "hash": {
+                                                  "type": "string"
+                                                },
+                                                "parts": {
+                                                  "items": {
+                                                    "properties": {
+                                                      "property": {
+                                                        "required": [
+                                                          "id",
+                                                          "data_type"
+                                                        ]
+                                                      },
+                                                      "value": {
+                                                        "required": [
+                                                          "type"
+                                                        ]
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "property",
+                                                      "value"
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "hash",
+                                                "parts"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "rank",
+                                          "qualifiers",
+                                          "references"
+                                        ]
+                                      }
+                                    ]
                                   }
-                                }
+                                ]
                               }
                             }
                           }
@@ -1665,157 +2125,249 @@
                             "additionalProperties": {
                               "type": "array",
                               "items": {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "description": "The globally unique identifier for this Statement",
-                                    "type": "string",
-                                    "readOnly": true
-                                  },
-                                  "rank": {
-                                    "description": "The rank of the Statement",
-                                    "type": "string",
-                                    "enum": [
-                                      "deprecated",
-                                      "normal",
-                                      "preferred"
-                                    ],
-                                    "default": "normal"
-                                  },
-                                  "property": {
+                                "allOf": [
+                                  {
                                     "type": "object",
                                     "properties": {
                                       "id": {
-                                        "description": "The ID of the Property",
-                                        "type": "string"
-                                      },
-                                      "data_type": {
-                                        "description": "The data type of the Property",
-                                        "type": [
-                                          "string",
-                                          "null"
-                                        ],
+                                        "description": "The globally unique identifier for this Statement",
+                                        "type": "string",
                                         "readOnly": true
-                                      }
-                                    }
-                                  },
-                                  "value": {
-                                    "type": "object",
-                                    "properties": {
-                                      "content": {
-                                        "description": "The value, if type == \"value\", otherwise omitted"
                                       },
-                                      "type": {
-                                        "description": "The value type",
+                                      "rank": {
+                                        "description": "The rank of the Statement",
                                         "type": "string",
                                         "enum": [
-                                          "value",
-                                          "somevalue",
-                                          "novalue"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "qualifiers": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "property": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "description": "The ID of the Property",
-                                              "type": "string"
-                                            },
-                                            "data_type": {
-                                              "description": "The data type of the Property",
-                                              "type": [
-                                                "string",
-                                                "null"
-                                              ],
-                                              "readOnly": true
-                                            }
-                                          }
-                                        },
-                                        "value": {
-                                          "type": "object",
-                                          "properties": {
-                                            "content": {
-                                              "description": "The value, if type == \"value\", otherwise omitted"
-                                            },
-                                            "type": {
-                                              "description": "The value type",
-                                              "type": "string",
-                                              "enum": [
-                                                "value",
-                                                "somevalue",
-                                                "novalue"
-                                              ]
-                                            }
+                                          "deprecated",
+                                          "normal",
+                                          "preferred"
+                                        ],
+                                        "default": "normal"
+                                      },
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
                                           }
                                         }
-                                      }
-                                    },
-                                    "default": []
-                                  },
-                                  "references": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "hash": {
-                                          "description": "Hash of the Reference",
-                                          "type": "string",
-                                          "readOnly": true
-                                        },
-                                        "parts": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "property": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "id": {
-                                                    "description": "The ID of the Property",
-                                                    "type": "string"
-                                                  },
-                                                  "data_type": {
-                                                    "description": "The data type of the Property",
-                                                    "type": [
-                                                      "string",
-                                                      "null"
-                                                    ],
-                                                    "readOnly": true
-                                                  }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "qualifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
                                                 }
-                                              },
-                                              "value": {
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      },
+                                      "references": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "hash": {
+                                              "description": "Hash of the Reference",
+                                              "type": "string",
+                                              "readOnly": true
+                                            },
+                                            "parts": {
+                                              "type": "array",
+                                              "items": {
                                                 "type": "object",
                                                 "properties": {
-                                                  "content": {
-                                                    "description": "The value, if type == \"value\", otherwise omitted"
+                                                  "property": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "description": "The ID of the Property",
+                                                        "type": "string"
+                                                      },
+                                                      "data_type": {
+                                                        "description": "The data type of the Property",
+                                                        "type": [
+                                                          "string",
+                                                          "null"
+                                                        ],
+                                                        "readOnly": true
+                                                      }
+                                                    }
                                                   },
-                                                  "type": {
-                                                    "description": "The value type",
-                                                    "type": "string",
-                                                    "enum": [
-                                                      "value",
-                                                      "somevalue",
-                                                      "novalue"
-                                                    ]
+                                                  "value": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "content": {
+                                                        "description": "The value, if type == \"value\", otherwise omitted"
+                                                      },
+                                                      "type": {
+                                                        "description": "The value type",
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "value",
+                                                          "somevalue",
+                                                          "novalue"
+                                                        ]
+                                                      }
+                                                    }
                                                   }
                                                 }
                                               }
                                             }
                                           }
-                                        }
+                                        },
+                                        "default": []
                                       }
-                                    },
-                                    "default": []
+                                    }
+                                  },
+                                  {
+                                    "allOf": [
+                                      {
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        },
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ]
+                                      },
+                                      {
+                                        "properties": {
+                                          "qualifiers": {
+                                            "items": {
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              },
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ]
+                                            }
+                                          },
+                                          "references": {
+                                            "items": {
+                                              "properties": {
+                                                "hash": {
+                                                  "type": "string"
+                                                },
+                                                "parts": {
+                                                  "items": {
+                                                    "properties": {
+                                                      "property": {
+                                                        "required": [
+                                                          "id",
+                                                          "data_type"
+                                                        ]
+                                                      },
+                                                      "value": {
+                                                        "required": [
+                                                          "type"
+                                                        ]
+                                                      }
+                                                    },
+                                                    "required": [
+                                                      "property",
+                                                      "value"
+                                                    ]
+                                                  }
+                                                }
+                                              },
+                                              "required": [
+                                                "hash",
+                                                "parts"
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        "required": [
+                                          "id",
+                                          "rank",
+                                          "qualifiers",
+                                          "references"
+                                        ]
+                                      }
+                                    ]
                                   }
-                                }
+                                ]
                               }
                             }
                           }

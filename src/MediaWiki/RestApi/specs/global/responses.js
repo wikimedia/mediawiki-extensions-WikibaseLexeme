@@ -1,7 +1,7 @@
 'use strict';
 
 const { wikibaseRef } = require( '../helpers.js' );
-const { StatementResponseRequired } = require( './response-parts.js' );
+const { StatementResponse } = require( './response-parts.js' );
 
 // Real data from Wikidata's L42 ("answer"), trimmed to one form and one sense
 const lexemeExample = {
@@ -119,12 +119,7 @@ module.exports = {
 		},
 		"content": {
 			"application/json": {
-				"schema": {
-					"allOf": [
-						wikibaseRef( '#/components/schemas/Statement' ),
-						StatementResponseRequired
-					]
-				},
+				"schema": StatementResponse,
 				"example": lexemeStatementExample
 			}
 		}

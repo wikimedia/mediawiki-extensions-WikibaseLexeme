@@ -1,6 +1,8 @@
 /* eslint-env node */
 'use strict';
 
+const { wikibaseRef } = require( '../helpers.js' );
+
 // mirrors Wikibase's repo/domains/crud/specs/resources/statements/responses.js
 const PropertyValuePairResponseRequired = {
 	"properties": {
@@ -39,4 +41,11 @@ const StatementResponseRequired = {
 	]
 };
 
-module.exports = { StatementResponseRequired };
+const StatementResponse = {
+	"allOf": [
+		wikibaseRef( '#/components/schemas/Statement' ),
+		StatementResponseRequired
+	]
+};
+
+module.exports = { StatementResponse };
