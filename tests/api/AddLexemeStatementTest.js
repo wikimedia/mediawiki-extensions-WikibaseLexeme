@@ -8,6 +8,7 @@ const {
 	newCreatePropertyRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
+const { getLatestEditMetadata } = require( './helpers/entityHelper' );
 
 describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 	let lexemeId;
@@ -59,5 +60,11 @@ describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 			qualifiers: [],
 			references: []
 		} );
+
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* wbsetclaim-create:1||1 */ [[Property:${ stringPropertyId }]]: ${ statementValue }`
+		);
 	} );
 } );

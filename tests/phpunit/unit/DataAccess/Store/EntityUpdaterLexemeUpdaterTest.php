@@ -10,8 +10,8 @@ use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
+use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
@@ -58,7 +58,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$tags = [ 'some tag' ];
 		$isBot = true;
 		$comment = 'user comment';
-		$editMetadata = new EditMetadata( $tags, $isBot, $comment, EditSummaryAction::CREATE_LEXEME );
+		$editMetadata = new EditMetadata( $tags, $isBot, new CreateLexemeEditSummary( $comment ) );
 		$revisionId = 123;
 		$lastModified = '20250101120000';
 		$readModelStatement = $this->createStub( Statement::class );
@@ -71,7 +71,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 				new CrudEditMetadata(
 					$tags,
 					$isBot,
-					new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME, $comment ),
+					new CrudEditSummaryAdapter( new CreateLexemeEditSummary( $comment ) ),
 				),
 			)
 			->willReturn( new EntityRevision( $createdLexeme, $revisionId, $lastModified ) );
@@ -110,7 +110,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		$lexemeCreator->create(
 			NewLexeme::havingId( 'L1' )->build(),
-			new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+			new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 		);
 	}
 
@@ -130,7 +130,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$tags = [ 'some tag' ];
 		$isBot = true;
 		$comment = 'user comment';
-		$editMetadata = new EditMetadata( $tags, $isBot, $comment, EditSummaryAction::CREATE_LEXEME );
+		$editMetadata = new EditMetadata( $tags, $isBot, new CreateLexemeEditSummary( $comment ) );
 		$revisionId = 123;
 		$lastModified = '20250101120000';
 		$readModelStatement = $this->createStub( Statement::class );
@@ -143,7 +143,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 				new CrudEditMetadata(
 					$tags,
 					$isBot,
-					new CrudEditSummaryAdapter( EditSummaryAction::CREATE_LEXEME, $comment ),
+					new CrudEditSummaryAdapter( new CreateLexemeEditSummary( $comment ) ),
 				),
 			)
 			->willReturn( new EntityRevision( $lexemeToUpdate, $revisionId, $lastModified ) );
@@ -182,7 +182,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		$lexemeUpdater->update(
 			NewLexeme::create()->build(),
-			new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+			new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 		);
 	}
 
@@ -202,7 +202,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		try {
 			$lexemeUpdater->create(
 				NewLexeme::create()->build(),
-				new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+				new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 			);
 			$this->fail( 'expected Exception not thrown' );
 		} catch ( Exception $e ) {
@@ -226,7 +226,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		try {
 			$lexemeUpdater->update(
 				NewLexeme::havingId( 'L1' )->build(),
-				new EditMetadata( [], false, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+				new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 			);
 			$this->fail( 'expected Exception not thrown' );
 		} catch ( Exception $e ) {

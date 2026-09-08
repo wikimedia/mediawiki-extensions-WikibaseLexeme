@@ -92,7 +92,7 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 		return new CrudEditMetadata(
 			$editMetadata->tags,
 			$editMetadata->isBot,
-			new CrudEditSummaryAdapter( $editMetadata->editSummaryAction, $editMetadata->comment ),
+			new CrudEditSummaryAdapter( $editMetadata->editSummary ),
 		);
 	}
 

@@ -5,9 +5,8 @@ namespace Wikibase\Lexeme\Domain\Model;
 /**
  * @license GPL-2.0-or-later
  */
-enum EditSummaryAction {
+interface EditSummary {
 
-	case CREATE_LEXEME;
-	case ADD_STATEMENT;
+	public function getUserComment(): ?string;
 
 }

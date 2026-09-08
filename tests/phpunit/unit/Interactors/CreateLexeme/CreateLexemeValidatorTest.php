@@ -12,8 +12,8 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
@@ -419,7 +419,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		) );
 
 		$this->assertEquals(
-			new EditMetadata( [ self::ALLOWED_TAG ], true, 'user comment', EditSummaryAction::CREATE_LEXEME ),
+			new EditMetadata( [ self::ALLOWED_TAG ], true, new CreateLexemeEditSummary( 'user comment' ) ),
 			$validator->getValidatedEditMetadata()
 		);
 	}

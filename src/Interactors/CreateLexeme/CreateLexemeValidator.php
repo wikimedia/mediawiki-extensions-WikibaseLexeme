@@ -8,8 +8,8 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
@@ -67,8 +67,7 @@ class CreateLexemeValidator {
 		$this->editMetadata = new EditMetadata(
 			$request->editTags,
 			$request->isBot,
-			$request->comment,
-			EditSummaryAction::CREATE_LEXEME,
+			new CreateLexemeEditSummary( $request->comment ),
 		);
 	}
 

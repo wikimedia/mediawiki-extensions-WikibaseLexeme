@@ -7,8 +7,8 @@ use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
@@ -70,7 +70,7 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			new ItemId( $lexicalCategory ),
 			new ItemId( $language ),
 		);
-		$editMetadata = new EditMetadata( [ 'some tag' ], true, 'user comment', EditSummaryAction::CREATE_LEXEME );
+		$editMetadata = new EditMetadata( [ 'some tag' ], true, new CreateLexemeEditSummary( 'user comment' ) );
 
 		$validator = $this->createMock( CreateLexemeValidator::class );
 		$validator->expects( $this->once() )

@@ -10,8 +10,7 @@ class EditMetadata {
 	public function __construct(
 		public readonly array $tags,
 		public readonly bool $isBot,
-		public readonly ?string $comment,
-		public readonly EditSummaryAction $editSummaryAction,
+		public readonly EditSummary $editSummary,
 	) {
 	}
 

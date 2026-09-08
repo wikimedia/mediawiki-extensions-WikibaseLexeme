@@ -3,8 +3,8 @@
 namespace Wikibase\Lexeme\Interactors\AddLexemeStatement;
 
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\EditSummaryAction;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
@@ -38,8 +38,7 @@ class AddLexemeStatement {
 			new EditMetadata(
 				$request->editTags,
 				$request->isBot,
-				$request->comment,
-				EditSummaryAction::ADD_STATEMENT,
+				new AddStatementEditSummary( $request->comment, $statement ),
 			),
 		);
 
