@@ -46,19 +46,10 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 			throw new InvalidArgumentException( 'New Lexeme must not have an ID' );
 		}
 
-		try {
-			$entityRevision = $this->entityUpdater->create( $lexeme, $this->convertEditMetadata( $editMetadata ) );
-		} catch ( CrudTempAccountException ) {
-			throw new TempAccountCreationLimitReached();
-		} catch ( CrudResourceTooLargeException $e ) {
-			throw new ResourceTooLargeException( $e->getResourceSizeLimit() );
-		} catch ( CrudRateLimitReached ) {
-			throw new RateLimitReached();
-		} catch ( CrudEditPrevented $e ) {
-			throw new EditPrevented( $e->getReason(), $e->getContext() );
-		}
-
-		return $this->convertToLexemeRevision( $entityRevision );
+		return $this->storeLexeme( fn () => $this->entityUpdater->create(
+			$lexeme,
+			$this->convertEditMetadata( $editMetadata ),
+		) );
 	}
 
 	/**
@@ -69,8 +60,21 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 			throw new InvalidArgumentException( 'Cannot update a Lexeme without an ID' );
 		}
 
+		return $this->storeLexeme( fn () => $this->entityUpdater->update(
+			$lexeme,
+			$this->convertEditMetadata( $editMetadata ),
+		) );
+	}
+
+	/**
+	 * @throws TempAccountCreationLimitReached
+	 * @throws ResourceTooLargeException
+	 * @throws RateLimitReached
+	 * @throws EditPrevented
+	 */
+	private function storeLexeme( callable $attemptStoringLexeme ): LexemeRevision {
 		try {
-			$entityRevision = $this->entityUpdater->update( $lexeme, $this->convertEditMetadata( $editMetadata ) );
+			$entityRevision = $attemptStoringLexeme();
 		} catch ( CrudTempAccountException ) {
 			throw new TempAccountCreationLimitReached();
 		} catch ( CrudResourceTooLargeException $e ) {
