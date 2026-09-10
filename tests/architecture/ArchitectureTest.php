@@ -19,6 +19,7 @@ class ArchitectureTest {
 	private const APPLICATION_REST_SERIALIZATION = 'Wikibase\Lexeme\Presentation\RestSerialization';
 	private const APPLICATION_VALIDATORS = 'Wikibase\Lexeme\Validation';
 	private const APPLICATION_USE_CASES = 'Wikibase\Lexeme\Interactors';
+	private const APPLICATION_USE_CASE_REQUEST_VALIDATION = 'Wikibase\Lexeme\UseCaseRequestValidation';
 	private const STATEMENTS_READMODEL = 'Wikibase\Repo\Domains\Statements\Domain\ReadModel';
 	private const STATEMENTS_SERIALIZATION = 'Wikibase\Repo\Domains\Statements\Application\Serialization';
 	private const STATEMENTS_VALIDATION = 'Wikibase\Repo\Domains\Statements\Application\Validation';
@@ -126,13 +127,23 @@ class ArchitectureTest {
 	/**
 	 * Use cases may depend on:
 	 *  - the validation namespace and everything it depends on
+	 *  - the use case request validation namespace
 	 *  - other classes from their own namespace
 	 */
 	private function allowedUseCasesDependencies(): array {
 		return [
 			...$this->allowedValidationDependencies(),
 			Selector::inNamespace( self::APPLICATION_USE_CASES ),
+			Selector::inNamespace( self::APPLICATION_USE_CASE_REQUEST_VALIDATION ),
 		];
+	}
+
+	public function testUseCaseRequestValidation(): Rule {
+		return PHPat::rule()
+			->classes( Selector::inNamespace( self::APPLICATION_USE_CASE_REQUEST_VALIDATION ) )
+			->canOnly()
+			->dependOn()
+			->classes( ...$this->allowedUseCasesDependencies() );
 	}
 
 	private function allowedDataModelServices(): array {

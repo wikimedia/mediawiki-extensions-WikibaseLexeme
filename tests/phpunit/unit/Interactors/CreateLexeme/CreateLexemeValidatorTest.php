@@ -18,9 +18,9 @@ use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
-use Wikibase\Lexeme\Validation\TagsRetriever;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
@@ -35,10 +35,6 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	private const VALID_LANGUAGE_CODES = [ 'en', 'de' ];
 
 	private const EXISTING_ITEM_IDS = [ 'Q1', 'Q2' ];
-
-	private const ALLOWED_TAG = 'allowed tag';
-
-	private const MAX_COMMENT_LENGTH = 42;
 
 	private const VALID_LEXEME = [
 		'lemmas' => [ 'en' => 'potato' ],
@@ -412,52 +408,29 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 
 		$validator->validateAndDeserialize( new CreateLexemeRequest(
 			self::VALID_LEXEME,
-			[ self::ALLOWED_TAG ],
+			[ 'allowed tag' ],
 			true,
 			'user comment',
 			null,
 		) );
 
 		$this->assertEquals(
-			new EditMetadata( [ self::ALLOWED_TAG ], true, new CreateLexemeEditSummary( 'user comment' ) ),
+			new EditMetadata( [ 'allowed tag' ], true, new CreateLexemeEditSummary( 'user comment' ) ),
 			$validator->getValidatedEditMetadata()
 		);
 	}
 
-	public function testGivenInvalidTag_throwsUseCaseError(): void {
-		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
-				self::VALID_LEXEME,
-				[ self::ALLOWED_TAG, 'bad tag' ],
-				false,
-				null,
-				null,
-			) );
-			$this->fail( 'Expected UseCaseError to be thrown' );
-		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
-			$this->assertSame( "Invalid value at '/tags/1'", $e->errorMessage );
-			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/tags/1' ], $e->context );
-		}
-	}
+	public function testGivenInvalidEditMetadata_throwsUseCaseError(): void {
+		$expectedError = UseCaseError::newInvalidValue( '/tags/1' );
+		$editMetadataRequestValidator = $this->createStub( EditMetadataRequestValidator::class );
+		$editMetadataRequestValidator->method( 'validate' )->willThrowException( $expectedError );
 
-	public function testGivenCommentTooLong_throwsUseCaseError(): void {
 		try {
-			$this->newValidator()->validateAndDeserialize( new CreateLexemeRequest(
-				self::VALID_LEXEME,
-				[],
-				false,
-				str_repeat( 'x', self::MAX_COMMENT_LENGTH + 1 ),
-				null,
-			) );
+			$this->newValidator( editMetadataRequestValidator: $editMetadataRequestValidator )
+				->validateAndDeserialize( self::newRequest( self::VALID_LEXEME ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::VALUE_TOO_LONG, $e->errorCode );
-			$this->assertSame( 'The input value is too long', $e->errorMessage );
-			$this->assertSame(
-				[ UseCaseError::CONTEXT_PATH => '/comment', UseCaseError::CONTEXT_LIMIT => self::MAX_COMMENT_LENGTH ],
-				$e->context
-			);
+			$this->assertSame( $expectedError, $e );
 		}
 	}
 
@@ -471,7 +444,10 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		return new CreateLexemeRequest( $lexeme, [], false, null, null );
 	}
 
-	private function newValidator( ?StatementsValidator $statementsValidator = null ): CreateLexemeValidator {
+	private function newValidator(
+		?StatementsValidator $statementsValidator = null,
+		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
+	): CreateLexemeValidator {
 		return new CreateLexemeValidator(
 			new class( self::VALID_LANGUAGE_CODES ) implements LemmaLanguageCodeValidator {
 				public function __construct( private array $validLanguageCodes ) {
@@ -491,15 +467,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			},
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			LemmaTermValidator::LEMMA_MAX_LENGTH,
-			new class( [ self::ALLOWED_TAG ] ) implements TagsRetriever {
-				public function __construct( private array $allowedTags ) {
-				}
-
-				public function getAllowedTags(): array {
-					return $this->allowedTags;
-				}
-			},
-			self::MAX_COMMENT_LENGTH
+			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);
 	}
 

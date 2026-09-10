@@ -12,9 +12,9 @@ use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
-use Wikibase\Lexeme\Validation\TagsRetriever;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
@@ -32,8 +32,7 @@ class CreateLexemeValidator {
 		private ItemExistenceChecker $itemExistenceChecker,
 		private StatementsValidator $statementsValidator,
 		private int $maxLemmaLength,
-		private TagsRetriever $tagsRetriever,
-		private int $maxCommentLength,
+		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
 
@@ -60,8 +59,7 @@ class CreateLexemeValidator {
 		$language = $this->validateAndDeserializeItemId( $serialization['language'], '/lexeme/language' );
 		$statements = $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] );
 
-		$this->validateEditTags( $request->editTags );
-		$this->validateComment( $request->comment );
+		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 
 		$this->lexeme = new LexemeWriteModel( null, $lemmas, $lexicalCategory, $language, $statements );
 		$this->editMetadata = new EditMetadata(
@@ -85,27 +83,6 @@ class CreateLexemeValidator {
 		}
 
 		return $this->editMetadata;
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateEditTags( array $editTags ): void {
-		$allowedTags = $this->tagsRetriever->getAllowedTags();
-		foreach ( array_values( $editTags ) as $index => $tag ) {
-			if ( !in_array( $tag, $allowedTags ) ) {
-				throw UseCaseError::newInvalidValue( "/tags/$index" );
-			}
-		}
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateComment( ?string $comment ): void {
-		if ( $comment !== null && strlen( $comment ) > $this->maxCommentLength ) {
-			throw UseCaseError::newValueTooLong( '/comment', $this->maxCommentLength );
-		}
 	}
 
 	/**

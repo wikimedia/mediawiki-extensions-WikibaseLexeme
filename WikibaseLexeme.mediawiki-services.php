@@ -50,6 +50,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
@@ -281,8 +282,10 @@ return call_user_func( static function () {
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					LemmaTermValidator::LEMMA_MAX_LENGTH,
-					new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
-					CommentStore::COMMENT_CHARACTER_LIMIT
+					new EditMetadataRequestValidator(
+						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+						CommentStore::COMMENT_CHARACTER_LIMIT,
+					),
 				),
 				new AssertUserIsAuthorized(
 					new WikibaseEntityPermissionChecker(
@@ -310,8 +313,10 @@ return call_user_func( static function () {
 				WbCrud::getStatementDeserializer( $services ),
 				new GuidGenerator(),
 				new AddLexemeStatementValidator(
-					new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
-					CommentStore::COMMENT_CHARACTER_LIMIT
+					new EditMetadataRequestValidator(
+						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+						CommentStore::COMMENT_CHARACTER_LIMIT,
+					),
 				),
 			);
 		},
