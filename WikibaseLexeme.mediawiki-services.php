@@ -313,9 +313,11 @@ return call_user_func( static function () {
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
 					$statementReadModelConverter,
 				),
-				WbCrud::getStatementDeserializer( $services ),
 				new GuidGenerator(),
 				new AddLexemeStatementValidator(
+					new LexemeIdValidator(),
+					new StatementValidator( WbCrud::getStatementDeserializer( $services ) ),
+					new StatementValidationErrorConverter(),
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 						CommentStore::COMMENT_CHARACTER_LIMIT,

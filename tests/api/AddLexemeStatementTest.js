@@ -94,6 +94,53 @@ describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 		assert.strictEqual( editMetadata.user, user.username );
 	} );
 
+	it( 'returns 400 if the lexeme id is invalid', async () => {
+		const response = await newAddLexemeStatementRequestBuilder(
+			'not-a-lexeme-id',
+			newStatementWithRandomStringValue( stringPropertyId )
+		).makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
+		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
+	} );
+
+	[
+		{
+			name: 'statement rank invalid',
+			statement: () => ( {
+				property: { id: stringPropertyId },
+				value: { type: 'novalue' },
+				rank: 'not-a-rank'
+			} ),
+			expectedCode: 'invalid-value',
+			expectedContext: { path: '/statement/rank' }
+		},
+		{
+			name: 'statement field missing',
+			statement: () => ( { property: { id: stringPropertyId } } ),
+			expectedCode: 'missing-field',
+			expectedContext: { path: '/statement', field: 'value' }
+		},
+		{
+			name: 'statement property does not exist',
+			statement: () => ( {
+				property: { id: 'P999999999' },
+				value: { type: 'novalue' }
+			} ),
+			expectedCode: 'referenced-resource-not-found',
+			expectedContext: { path: '/statement/property/id' }
+		}
+	].forEach( ( { name, statement, expectedCode, expectedContext } ) => {
+		it( `returns 400 - ${ name }`, async () => {
+			const response = await newAddLexemeStatementRequestBuilder( lexemeId, statement() ).makeRequest();
+
+			expect( response ).to.have.status( 400 );
+			assert.strictEqual( response.body.code, expectedCode );
+			assert.deepStrictEqual( response.body.context, expectedContext );
+		} );
+	} );
+
 	it( 'returns 400 if an edit tag is invalid', async () => {
 		const response = await newAddLexemeStatementRequestBuilder(
 			lexemeId,

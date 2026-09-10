@@ -5,11 +5,9 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeStatement;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\UseCaseError;
-use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementDeserializer;
 
 /**
  * @license GPL-2.0-or-later
@@ -19,7 +17,6 @@ class AddLexemeStatement {
 	public function __construct(
 		private LexemeWriteModelRetriever $lexemeRetriever,
 		private LexemeUpdater $lexemeUpdater,
-		private StatementDeserializer $statementDeserializer,
 		private GuidGenerator $guidGenerator,
 		private AddLexemeStatementValidator $validator,
 	) {
@@ -30,11 +27,10 @@ class AddLexemeStatement {
 	 */
 	public function execute( AddLexemeStatementRequest $request ): AddLexemeStatementResponse {
 		$this->validator->validate( $request );
+		$lexemeId = $this->validator->getValidatedLexemeId();
+		$statement = $this->validator->getValidatedStatement();
 
-		$lexemeId = new LexemeId( $request->lexemeId );
 		$statementId = $this->guidGenerator->newStatementId( $lexemeId );
-
-		$statement = $this->statementDeserializer->deserialize( $request->statement );
 		$statement->setGuid( (string)$statementId );
 
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
