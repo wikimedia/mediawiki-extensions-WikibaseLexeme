@@ -8,6 +8,7 @@ use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementResponse;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Domains\Crud\WbCrud;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
@@ -43,17 +44,21 @@ class AddLexemeStatementRouteHandler extends SimpleHandler {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
 
-		return $this->newSuccessHttpResponse(
-			$this->addLexemeStatement->execute(
-				new AddLexemeStatementRequest(
-					$lexemeId,
-					$jsonBody[self::STATEMENT_BODY_PARAM],
-					$jsonBody[self::TAGS_BODY_PARAM] ?? [],
-					$jsonBody[self::BOT_BODY_PARAM] ?? false,
-					$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+		try {
+			return $this->newSuccessHttpResponse(
+				$this->addLexemeStatement->execute(
+					new AddLexemeStatementRequest(
+						$lexemeId,
+						$jsonBody[self::STATEMENT_BODY_PARAM],
+						$jsonBody[self::TAGS_BODY_PARAM] ?? [],
+						$jsonBody[self::BOT_BODY_PARAM] ?? false,
+						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+					)
 				)
-			)
-		);
+			);
+		} catch ( UseCaseError $e ) {
+			return $this->responseFactory->newErrorResponseFromException( $e );
+		}
 	}
 
 	private function newSuccessHttpResponse( AddLexemeStatementResponse $useCaseResponse ): Response {

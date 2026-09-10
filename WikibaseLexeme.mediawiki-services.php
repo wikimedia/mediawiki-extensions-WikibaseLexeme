@@ -32,6 +32,7 @@ use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
+use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
@@ -308,6 +309,10 @@ return call_user_func( static function () {
 				),
 				WbCrud::getStatementDeserializer( $services ),
 				new GuidGenerator(),
+				new AddLexemeStatementValidator(
+					new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+					CommentStore::COMMENT_CHARACTER_LIMIT
+				),
 			);
 		},
 		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {

@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert, utils } = require( 'api-testing' );
+const { assert, action, utils } = require( 'api-testing' );
 const {
 	newAddLexemeStatementRequestBuilder,
 	newCreateLexemeRequestBuilder,
@@ -8,7 +8,7 @@ const {
 	newCreatePropertyRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
-const { getLatestEditMetadata } = require( './helpers/entityHelper' );
+const { getLatestEditMetadata, newStatementWithRandomStringValue } = require( './helpers/entityHelper' );
 
 describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 	let lexemeId;
@@ -66,5 +66,57 @@ describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 			editMetadata.comment,
 			`/* wbsetclaim-create:1||1 */ [[Property:${ stringPropertyId }]]: ${ statementValue }`
 		);
+	} );
+
+	it( 'can add a statement with edit metadata provided', async () => {
+		const user = await action.robby();
+		const tag = await action.makeTag( 'e2e test tag', 'Created during e2e test', true );
+		const editSummary = 'omg look i made an edit';
+		const statement = newStatementWithRandomStringValue( stringPropertyId );
+
+		const response = await newAddLexemeStatementRequestBuilder( lexemeId, statement )
+			.withJsonBodyParam( 'tags', [ tag ] )
+			.withJsonBodyParam( 'bot', true )
+			.withJsonBodyParam( 'comment', editSummary )
+			.withUser( user )
+			.makeRequest();
+
+		expect( response ).to.have.status( 201 );
+
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.deepEqual( editMetadata.tags, [ tag ] );
+		assert.property( editMetadata, 'bot' );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* wbsetclaim-create:1||1 */ [[Property:${ stringPropertyId }]]: ` +
+			`${ statement.value.content }, ${ editSummary }`
+		);
+		assert.strictEqual( editMetadata.user, user.username );
+	} );
+
+	it( 'returns 400 if an edit tag is invalid', async () => {
+		const response = await newAddLexemeStatementRequestBuilder(
+			lexemeId,
+			newStatementWithRandomStringValue( stringPropertyId )
+		)
+			.withJsonBodyParam( 'tags', [ 'not-a-real-tag' ] )
+			.makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/tags/0' } );
+	} );
+
+	it( 'returns 400 if the comment is too long', async () => {
+		const response = await newAddLexemeStatementRequestBuilder(
+			lexemeId,
+			newStatementWithRandomStringValue( stringPropertyId )
+		)
+			.withJsonBodyParam( 'comment', 'x'.repeat( 501 ) )
+			.makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'value-too-long' );
+		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
 	} );
 } );

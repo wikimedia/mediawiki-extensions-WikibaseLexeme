@@ -8,6 +8,7 @@ use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementDeserializer;
 
 /**
@@ -20,10 +21,16 @@ class AddLexemeStatement {
 		private LexemeUpdater $lexemeUpdater,
 		private StatementDeserializer $statementDeserializer,
 		private GuidGenerator $guidGenerator,
+		private AddLexemeStatementValidator $validator,
 	) {
 	}
 
+	/**
+	 * @throws UseCaseError
+	 */
 	public function execute( AddLexemeStatementRequest $request ): AddLexemeStatementResponse {
+		$this->validator->validate( $request );
+
 		$lexemeId = new LexemeId( $request->lexemeId );
 		$statementId = $this->guidGenerator->newStatementId( $lexemeId );
 
