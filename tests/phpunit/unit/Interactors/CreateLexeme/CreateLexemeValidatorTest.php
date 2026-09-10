@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
@@ -358,49 +359,13 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			),
 		];
 
-		yield 'invalid statement field' => [
-			new ValidationError( StatementValidator::CODE_INVALID_FIELD, [
-				StatementValidator::CONTEXT_FIELD => 'rank',
-				StatementValidator::CONTEXT_VALUE => 'potato',
-				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/rank',
-			] ),
-			UseCaseError::newInvalidValue( '/lexeme/statements/P123/0/rank' ),
-		];
-
-		yield 'invalid statement field type' => [
-			new ValidationError( StatementValidator::CODE_INVALID_FIELD_TYPE, [
-				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/qualifiers',
-				StatementValidator::CONTEXT_VALUE => 'potato',
-			] ),
-			UseCaseError::newInvalidValue( '/lexeme/statements/P123/0/qualifiers' ),
-		];
-
-		yield 'missing statement field' => [
+		yield 'single statement error' => [
 			new ValidationError( StatementValidator::CODE_MISSING_FIELD, [
 				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0',
 				StatementValidator::CONTEXT_FIELD => 'value',
 			] ),
 			UseCaseError::newMissingField( '/lexeme/statements/P123/0', 'value' ),
 		];
-
-		yield 'property not found' => [
-			new ValidationError( StatementValidator::CODE_PROPERTY_NOT_FOUND, [
-				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/property/id',
-			] ),
-			UseCaseError::newReferencedResourceNotFound( '/lexeme/statements/P123/0/property/id' ),
-		];
-	}
-
-	public function testGivenUnknownStatementsValidationError_throwsLogicException(): void {
-		$validator = $this->newValidator( $this->newStatementsValidatorWithError(
-			new ValidationError( 'unknown-error-code' )
-		) );
-
-		$this->expectException( LogicException::class );
-
-		$validator->validateAndDeserialize( self::newRequest(
-			array_merge( self::VALID_LEXEME, [ 'statements' => [ 'P123' => [] ] ] )
-		) );
 	}
 
 	public function testGivenValidRequestWithEditMetadata_exposesEditMetadata(): void {
@@ -466,6 +431,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				}
 			},
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
+			new StatementValidationErrorConverter(),
 			LemmaTermValidator::LEMMA_MAX_LENGTH,
 			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);

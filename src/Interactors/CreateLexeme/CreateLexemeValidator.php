@@ -13,10 +13,10 @@ use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
-use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
 
 /**
@@ -31,6 +31,7 @@ class CreateLexemeValidator {
 		private LemmaLanguageCodeValidator $lemmaLanguageCodeValidator,
 		private ItemExistenceChecker $itemExistenceChecker,
 		private StatementsValidator $statementsValidator,
+		private StatementValidationErrorConverter $statementValidationErrorConverter,
 		private int $maxLemmaLength,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
@@ -136,18 +137,8 @@ class CreateLexemeValidator {
 					$context[StatementsValidator::CONTEXT_PROPERTY_ID_KEY],
 					$context[StatementsValidator::CONTEXT_PROPERTY_ID_VALUE],
 				);
-			case StatementValidator::CODE_INVALID_FIELD:
-			case StatementValidator::CODE_INVALID_FIELD_TYPE:
-				throw UseCaseError::newInvalidValue( $context[StatementValidator::CONTEXT_PATH] );
-			case StatementValidator::CODE_MISSING_FIELD:
-				throw UseCaseError::newMissingField(
-					$context[StatementValidator::CONTEXT_PATH],
-					$context[StatementValidator::CONTEXT_FIELD],
-				);
-			case StatementValidator::CODE_PROPERTY_NOT_FOUND:
-				throw UseCaseError::newReferencedResourceNotFound( $context[StatementValidator::CONTEXT_PATH] );
 			default:
-				throw new LogicException( "Unexpected validation error code: {$validationError->getCode()}" );
+				throw $this->statementValidationErrorConverter->toUseCaseError( $validationError );
 		}
 	}
 

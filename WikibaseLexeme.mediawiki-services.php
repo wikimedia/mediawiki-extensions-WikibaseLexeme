@@ -52,6 +52,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
@@ -282,6 +283,7 @@ return call_user_func( static function () {
 					new StatementsValidator(
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
+					new StatementValidationErrorConverter(),
 					LemmaTermValidator::LEMMA_MAX_LENGTH,
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
