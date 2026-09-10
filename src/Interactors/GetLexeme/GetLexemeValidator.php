@@ -4,10 +4,10 @@ declare( strict_types = 1 );
 
 namespace Wikibase\Lexeme\Interactors\GetLexeme;
 
-use InvalidArgumentException;
 use LogicException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 
 /**
  * @license GPL-2.0-or-later
@@ -16,15 +16,14 @@ class GetLexemeValidator {
 
 	private ?LexemeId $lexemeId = null;
 
+	public function __construct( private LexemeIdValidator $lexemeIdValidator ) {
+	}
+
 	/**
 	 * @throws UseCaseError
 	 */
 	public function validate( GetLexemeRequest $request ): void {
-		try {
-			$this->lexemeId = new LexemeId( $request->lexemeId );
-		} catch ( InvalidArgumentException ) {
-			throw UseCaseError::newInvalidPathParameter( 'lexeme_id' );
-		}
+		$this->lexemeId = $this->lexemeIdValidator->validate( $request->lexemeId );
 	}
 
 	public function getValidatedLexemeId(): LexemeId {

@@ -51,6 +51,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
@@ -256,7 +257,7 @@ return call_user_func( static function () {
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup()
 				),
-				new GetLexemeValidator(),
+				new GetLexemeValidator( new LexemeIdValidator() ),
 			);
 		},
 		'WikibaseLexeme.CreateLexeme' => static function ( MediaWikiServices $services ): CreateLexeme {
