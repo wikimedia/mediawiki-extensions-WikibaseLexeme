@@ -15,6 +15,7 @@ class UseCaseError extends RuntimeException {
 	public const string MISSING_FIELD = 'missing-field';
 	public const string INVALID_VALUE = 'invalid-value';
 	public const string INVALID_KEY = 'invalid-key';
+	public const string REDIRECTED_LEXEME = 'redirected-lexeme';
 	public const string REQUEST_LIMIT_REACHED = 'request-limit-reached';
 	public const string REQUEST_LIMIT_REASON_RATE_LIMIT = 'rate-limit-reached';
 	public const string REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT = 'temp-account-creation-limit-reached';
@@ -36,6 +37,7 @@ class UseCaseError extends RuntimeException {
 	public const string CONTEXT_KEY = 'key';
 	public const string CONTEXT_LIMIT = 'limit';
 	public const string CONTEXT_REASON = 'reason';
+	public const string CONTEXT_REDIRECT_TARGET = 'redirect_target';
 	public const string CONTEXT_STATEMENT_GROUP_PROPERTY_ID = 'statement_group_property_id';
 	public const string CONTEXT_STATEMENT_PROPERTY_ID = 'statement_property_id';
 
@@ -54,6 +56,9 @@ class UseCaseError extends RuntimeException {
 		],
 		self::INVALID_KEY => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
+		],
+		self::REDIRECTED_LEXEME => [
+			'required' => [ self::CONTEXT_REDIRECT_TARGET ],
 		],
 		self::VALUE_TOO_LONG => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
@@ -210,6 +215,17 @@ class UseCaseError extends RuntimeException {
 			self::RESOURCE_TOO_LARGE,
 			"Edit resulted in a resource that exceeds the size limit of $maxSizeInKb kB",
 			[ self::CONTEXT_LIMIT => $maxSizeInKb ]
+		);
+	}
+
+	public static function newLexemeRedirected(
+		string $lexemeId,
+		string $redirectTarget
+	): self {
+		return new self(
+			self::REDIRECTED_LEXEME,
+			"Lexeme $lexemeId has been redirected to $redirectTarget.",
+			[ self::CONTEXT_REDIRECT_TARGET => $redirectTarget ],
 		);
 	}
 }

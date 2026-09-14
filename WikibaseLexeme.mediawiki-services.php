@@ -323,6 +323,9 @@ return call_user_func( static function () {
 						CommentStore::COMMENT_CHARACTER_LIMIT,
 					),
 				),
+				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
+					WikibaseRepo::getEntityRevisionLookup( $services )
+				),
 			);
 		},
 		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {

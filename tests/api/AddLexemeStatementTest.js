@@ -8,16 +8,21 @@ const {
 	newCreatePropertyRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
-const { getLatestEditMetadata, newStatementWithRandomStringValue } = require( './helpers/entityHelper' );
+const {
+	createRedirectForLexeme,
+	getLatestEditMetadata,
+	newStatementWithRandomStringValue
+} = require( './helpers/entityHelper' );
 
 describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
+	let itemId;
 	let lexemeId;
 	let originalEtag;
 	let originalLastModified;
 	let stringPropertyId;
 
 	before( async () => {
-		const itemId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+		itemId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
 		const createLexemeResponse = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
 			lexical_category: itemId,
@@ -165,5 +170,49 @@ describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'value-too-long' );
 		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
+	} );
+
+	it( 'returns 404 if the lexeme does not exist', async () => {
+		const response = await newAddLexemeStatementRequestBuilder(
+			'L999999',
+			newStatementWithRandomStringValue( stringPropertyId )
+		).makeRequest();
+
+		expect( response ).to.have.status( 404 );
+		assert.strictEqual( response.body.code, 'resource-not-found' );
+		assert.deepStrictEqual( response.body.context, { resource_type: 'lexeme' } );
+	} );
+
+	it( 'returns 409 if the lexeme has been redirected', async () => {
+		const sourceLexemeResponse = await newCreateLexemeRequestBuilder( {
+			lemmas: { 'en-ca': `redirect-${ utils.uniq() }` },
+			lexical_category: itemId,
+			language: itemId
+		} ).makeRequest();
+
+		const sourceLexemeId = sourceLexemeResponse.body.id;
+
+		await createRedirectForLexeme(
+			sourceLexemeId,
+			lexemeId
+		);
+
+		const response = await newAddLexemeStatementRequestBuilder(
+			sourceLexemeId,
+			{
+				property: { id: stringPropertyId },
+				value: { type: 'value', content: 'potato' }
+			}
+		).makeRequest();
+
+		expect( response ).to.have.status( 409 );
+
+		assert.deepStrictEqual( response.body, {
+			code: 'redirected-lexeme',
+			message: `Lexeme ${ sourceLexemeId } has been redirected to ${ lexemeId }.`,
+			context: {
+				redirect_target: lexemeId
+			}
+		} );
 	} );
 } );

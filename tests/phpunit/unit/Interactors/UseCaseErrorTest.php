@@ -51,6 +51,12 @@ class UseCaseErrorTest extends TestCase {
 				UseCaseError::CONTEXT_DENIAL_CONTEXT => [ 'some' => 'context' ],
 			],
 		];
+
+		yield 'redirected lexeme' => [
+			UseCaseError::REDIRECTED_LEXEME,
+			'Lexeme L1 has been redirected to L2',
+			[ UseCaseError::CONTEXT_REDIRECT_TARGET => 'L2' ],
+		];
 	}
 
 	/**

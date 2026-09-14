@@ -15,15 +15,18 @@ use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
+use Wikibase\Lexeme\Domain\Model\ReadModel\LatestLexemeRevisionMetadataResult;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement as ReadModelStatement;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
@@ -86,7 +89,23 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 				$expectedLastModified,
 			) );
 
-		$response = ( new AddLexemeStatement( $lexemeRetriever, $lexemeUpdater, $guidGenerator, $validator ) )
+		$metadataRetriever = $this->createStub(
+			LexemeRevisionMetadataRetriever::class
+		);
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn(
+				LatestLexemeRevisionMetadataResult::concreteRevision(
+					1,
+					'20260910070707',
+				)
+		);
+		$response = ( new AddLexemeStatement(
+			$lexemeRetriever,
+			$lexemeUpdater,
+			$guidGenerator,
+			$validator,
+			$metadataRetriever
+		) )
 			->execute( $request );
 
 		$this->assertSame( $expectedStatement, $response->statement );
@@ -109,7 +128,115 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			$lexemeUpdater,
 			$this->createStub( GuidGenerator::class ),
 			$validator,
-		) )->execute( new AddLexemeStatementRequest( 'X', [], [], false, null ) );
+			$this->createStub( LexemeRevisionMetadataRetriever::class ),
+		) )->execute(
+			new AddLexemeStatementRequest( 'X', [], [], false, null )
+		);
 	}
 
+	private function newUseCase(
+		?LexemeRevisionMetadataRetriever $metadataRetriever = null,
+		?LexemeWriteModelRetriever $lexemeRetriever = null,
+	): AddLexemeStatement {
+		$validator = $this->createStub( AddLexemeStatementValidator::class );
+		$validator->method( 'getValidatedLexemeId' )
+			->willReturn( new LexemeId( 'L123' ) );
+		return new AddLexemeStatement(
+			$lexemeRetriever ?? $this->createStub(
+				LexemeWriteModelRetriever::class
+			),
+			$this->createStub(
+				LexemeUpdater::class
+			),
+			$this->createStub(
+				GuidGenerator::class
+			),
+			$validator,
+			$metadataRetriever ?? $this->createStub(
+				LexemeRevisionMetadataRetriever::class
+			),
+		);
+	}
+
+	public function testGivenLexemeIsRedirect_throws(): void {
+		$redirectTarget = new LexemeId( 'L456' );
+
+		$metadataRetriever = $this->createStub(
+			LexemeRevisionMetadataRetriever::class
+		);
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn(
+				LatestLexemeRevisionMetadataResult::redirect( $redirectTarget )
+			);
+
+		$lexemeRetriever = $this->createMock(
+			LexemeWriteModelRetriever::class
+		);
+		$lexemeRetriever->expects( $this->never() )
+			->method( 'getLexemeWriteModel' );
+
+		try {
+			$this->newUseCase(
+				metadataRetriever: $metadataRetriever,
+				lexemeRetriever: $lexemeRetriever,
+			)->execute(
+				new AddLexemeStatementRequest(
+					'L123',
+					[],
+					[],
+					false,
+					null,
+				)
+			);
+			$this->fail( 'Expected LexemeRedirect to be thrown' );
+		} catch ( LexemeRedirect $e ) {
+			$this->assertSame(
+				$redirectTarget,
+				$e->redirectTarget
+			);
+		}
+	}
+
+	public function testGivenLexemeNotFound_throws(): void {
+		$metadataRetriever = $this->createStub(
+			LexemeRevisionMetadataRetriever::class
+		);
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn( LatestLexemeRevisionMetadataResult::lexemeNotFound() );
+
+		$lexemeRetriever = $this->createMock(
+			LexemeWriteModelRetriever::class
+		);
+		$lexemeRetriever->expects( $this->never() )
+			->method( 'getLexemeWriteModel' );
+
+		try {
+			$this->newUseCase(
+				metadataRetriever: $metadataRetriever,
+				lexemeRetriever: $lexemeRetriever,
+			)->execute(
+				new AddLexemeStatementRequest(
+					'L123',
+					[],
+					[],
+					false,
+					null,
+				)
+			);
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame(
+				UseCaseError::RESOURCE_NOT_FOUND,
+				$e->errorCode
+			);
+			$this->assertSame(
+				'The requested resource does not exist',
+				$e->errorMessage
+			);
+			$this->assertSame(
+				[ UseCaseError::CONTEXT_RESOURCE_TYPE => 'lexeme' ],
+				$e->context
+			);
+		}
+	}
 }

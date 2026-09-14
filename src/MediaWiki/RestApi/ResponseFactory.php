@@ -32,6 +32,8 @@ class ResponseFactory {
 		UseCaseError::PERMISSION_DENIED => 403,
 		// 429 errors:
 		UseCaseError::REQUEST_LIMIT_REACHED => 429,
+		// 409 errors:
+		UseCaseError::REDIRECTED_LEXEME => 409,
 	];
 
 	public function newSuccessResponse(

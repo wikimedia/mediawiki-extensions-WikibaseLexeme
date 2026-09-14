@@ -16,7 +16,8 @@ module.exports = {
 			"lexical_category",
 			"statement_group_property_id",
 			"statement_property_id",
-			"resource_type"
+			"resource_type",
+			"redirect_target"
 		] } ],
 		"mocha/no-setup-in-describe": 0,
 		"max-len": [ "warn", { code: 130 } ]

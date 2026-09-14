@@ -8,6 +8,7 @@ use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementResponse;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Domains\Crud\WbCrud;
@@ -54,6 +55,15 @@ class AddLexemeStatementRouteHandler extends SimpleHandler {
 						$jsonBody[self::BOT_BODY_PARAM] ?? false,
 						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
 					)
+				)
+			);
+		} catch ( LexemeRedirect $e ) {
+			$redirectTarget = $e->redirectTarget->getSerialization();
+
+			return $this->responseFactory->newErrorResponseFromException(
+				UseCaseError::newLexemeRedirected(
+					$lexemeId,
+					$redirectTarget
 				)
 			);
 		} catch ( UseCaseError $e ) {
@@ -109,5 +119,4 @@ class AddLexemeStatementRouteHandler extends SimpleHandler {
 			],
 		];
 	}
-
 }
