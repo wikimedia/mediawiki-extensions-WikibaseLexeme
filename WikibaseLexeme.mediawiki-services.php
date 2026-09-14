@@ -17,6 +17,7 @@ use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
+use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
 use Wikibase\Lexeme\DataAccess\Store\MediaWikiLexemeRedirector;
 use Wikibase\Lexeme\DataAccess\Store\NullLabelDescriptionLookup;
 use Wikibase\Lexeme\Domain\EntityReferenceExtractors\FormsStatementEntityReferenceExtractor;
@@ -250,10 +251,7 @@ return call_user_func( static function () {
 			return new GetLexeme(
 				new EntityRevisionLookupLexemeRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services ),
-					new StatementReadModelConverter(
-						WikibaseRepo::getStatementGuidParser( $services ),
-						WikibaseRepo::getPropertyDataTypeLookup( $services ),
-					),
+					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup()
@@ -265,10 +263,7 @@ return call_user_func( static function () {
 			return new CreateLexeme(
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
-					new StatementReadModelConverter(
-						WikibaseRepo::getStatementGuidParser( $services ),
-						WikibaseRepo::getPropertyDataTypeLookup( $services ),
-					),
+					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 				),
 				new CreateLexemeValidator(
 					new TermLanguagesLemmaLanguageCodeValidator(
@@ -298,20 +293,25 @@ return call_user_func( static function () {
 				),
 			);
 		},
-		'WikibaseLexeme.AddLexemeStatement' => static function ( MediaWikiServices $services ): AddLexemeStatement {
-			$statementReadModelConverter = new StatementReadModelConverter(
+		'WikibaseLexeme.LexemeReadModelConverter' => static function (
+			MediaWikiServices $services
+		): LexemeReadModelConverter {
+			return new LexemeReadModelConverter( new StatementReadModelConverter(
 				WikibaseRepo::getStatementGuidParser( $services ),
 				WikibaseRepo::getPropertyDataTypeLookup( $services ),
-			);
+			) );
+		},
+		'WikibaseLexeme.AddLexemeStatement' => static function ( MediaWikiServices $services ): AddLexemeStatement {
+			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
 
 			return new AddLexemeStatement(
 				new EntityRevisionLookupLexemeRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services ),
-					$statementReadModelConverter,
+					$lexemeReadModelConverter,
 				),
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
-					$statementReadModelConverter,
+					$lexemeReadModelConverter,
 				),
 				new GuidGenerator(),
 				new AddLexemeStatementValidator(

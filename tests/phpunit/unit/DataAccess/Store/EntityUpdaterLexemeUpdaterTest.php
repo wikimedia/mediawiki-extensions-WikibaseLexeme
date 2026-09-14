@@ -6,10 +6,9 @@ use Exception;
 use InvalidArgumentException;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\DataModel\Entity\NumericPropertyId;
-use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
+use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
@@ -17,11 +16,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
@@ -30,9 +25,6 @@ use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as Cr
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
-use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement;
-use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
-use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
  * @covers \Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater
@@ -43,15 +35,11 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 	public function testCreate(): void {
 		$lexemeId = new LexemeId( 'L1' );
-		$lemma = new Lemma( 'en', 'potato' );
-		$language = new ItemId( 'Q1' );
-		$lexicalCategory = new ItemId( 'Q2' );
 
 		$lexemeTemplate = NewLexeme::create()
-			->withLemma( $lemma->languageCode, $lemma->text )
-			->withLanguage( $language )
-			->withLexicalCategory( $lexicalCategory )
-			->withStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) );
+			->withLemma( 'en', 'potato' )
+			->withLanguage( new ItemId( 'Q1' ) )
+			->withLexicalCategory( new ItemId( 'Q2' ) );
 		$lexemeToCreate = $lexemeTemplate->build();
 		$createdLexeme = $lexemeTemplate->withId( $lexemeId )->build();
 
@@ -61,7 +49,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$editMetadata = new EditMetadata( $tags, $isBot, new CreateLexemeEditSummary( $comment ) );
 		$revisionId = 123;
 		$lastModified = '20250101120000';
-		$readModelStatement = $this->createStub( Statement::class );
+		$lexemeReadModel = $this->createStub( Lexeme::class );
 
 		$entityUpdater = $this->createMock( EntityUpdater::class );
 		$entityUpdater->expects( $this->once() )
@@ -76,26 +64,18 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 			)
 			->willReturn( new EntityRevision( $createdLexeme, $revisionId, $lastModified ) );
 
-		$statementReadModelConverter = $this->createStub( StatementReadModelConverter::class );
-		$statementReadModelConverter->method( 'convert' )->willReturn( $readModelStatement );
+		$lexemeReadModelConverter = $this->createMock( LexemeReadModelConverter::class );
+		$lexemeReadModelConverter->expects( $this->once() )
+			->method( 'convert' )
+			->with( $createdLexeme )
+			->willReturn( $lexemeReadModel );
 
 		$lexemeRevision = ( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
-			$statementReadModelConverter,
+			$lexemeReadModelConverter,
 		) )->create( $lexemeToCreate, $editMetadata );
 
-		$this->assertEquals(
-			new Lexeme(
-				$lexemeId,
-				new Lemmas( $lemma ),
-				$lexicalCategory,
-				$language,
-				new StatementList( $readModelStatement ),
-				new Forms(),
-				new Senses(),
-			),
-			$lexemeRevision->lexeme,
-		);
+		$this->assertSame( $lexemeReadModel, $lexemeRevision->lexeme );
 		$this->assertSame( $revisionId, $lexemeRevision->revisionId );
 		$this->assertSame( $lastModified, $lexemeRevision->lastModified );
 	}
@@ -103,7 +83,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	public function testCreateWithId_throws(): void {
 		$lexemeCreator = new EntityUpdaterLexemeUpdater(
 			$this->createNoOpMock( EntityUpdater::class ),
-			$this->createStub( StatementReadModelConverter::class ),
+			$this->createStub( LexemeReadModelConverter::class ),
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -115,16 +95,10 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testUpdate(): void {
-		$lexemeId = new LexemeId( 'L1' );
-		$lemma = new Lemma( 'en', 'potato' );
-		$language = new ItemId( 'Q1' );
-		$lexicalCategory = new ItemId( 'Q2' );
-
-		$lexemeToUpdate = NewLexeme::havingId( $lexemeId )
-			->withLemma( $lemma->languageCode, $lemma->text )
-			->withLanguage( $language )
-			->withLexicalCategory( $lexicalCategory )
-			->withStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) )
+		$lexemeToUpdate = NewLexeme::havingId( new LexemeId( 'L1' ) )
+			->withLemma( 'en', 'potato' )
+			->withLanguage( new ItemId( 'Q1' ) )
+			->withLexicalCategory( new ItemId( 'Q2' ) )
 			->build();
 
 		$tags = [ 'some tag' ];
@@ -133,7 +107,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$editMetadata = new EditMetadata( $tags, $isBot, new CreateLexemeEditSummary( $comment ) );
 		$revisionId = 123;
 		$lastModified = '20250101120000';
-		$readModelStatement = $this->createStub( Statement::class );
+		$lexemeReadModel = $this->createStub( Lexeme::class );
 
 		$entityUpdater = $this->createMock( EntityUpdater::class );
 		$entityUpdater->expects( $this->once() )
@@ -148,26 +122,18 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 			)
 			->willReturn( new EntityRevision( $lexemeToUpdate, $revisionId, $lastModified ) );
 
-		$statementReadModelConverter = $this->createStub( StatementReadModelConverter::class );
-		$statementReadModelConverter->method( 'convert' )->willReturn( $readModelStatement );
+		$lexemeReadModelConverter = $this->createMock( LexemeReadModelConverter::class );
+		$lexemeReadModelConverter->expects( $this->once() )
+			->method( 'convert' )
+			->with( $lexemeToUpdate )
+			->willReturn( $lexemeReadModel );
 
 		$lexemeRevision = ( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
-			$statementReadModelConverter,
+			$lexemeReadModelConverter,
 		) )->update( $lexemeToUpdate, $editMetadata );
 
-		$this->assertEquals(
-			new Lexeme(
-				$lexemeId,
-				new Lemmas( $lemma ),
-				$lexicalCategory,
-				$language,
-				new StatementList( $readModelStatement ),
-				new Forms(),
-				new Senses(),
-			),
-			$lexemeRevision->lexeme,
-		);
+		$this->assertSame( $lexemeReadModel, $lexemeRevision->lexeme );
 		$this->assertSame( $revisionId, $lexemeRevision->revisionId );
 		$this->assertSame( $lastModified, $lexemeRevision->lastModified );
 	}
@@ -175,7 +141,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	public function testUpdateWithoutId_throws(): void {
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$this->createNoOpMock( EntityUpdater::class ),
-			$this->createStub( StatementReadModelConverter::class ),
+			$this->createStub( LexemeReadModelConverter::class ),
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -197,7 +163,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$entityUpdater->method( 'create' )->willThrowException( $crudException );
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
-			$this->createStub( StatementReadModelConverter::class ),
+			$this->createStub( LexemeReadModelConverter::class ),
 		);
 		try {
 			$lexemeUpdater->create(
@@ -221,7 +187,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$entityUpdater->method( 'update' )->willThrowException( $crudException );
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
-			$this->createStub( StatementReadModelConverter::class ),
+			$this->createStub( LexemeReadModelConverter::class ),
 		);
 		try {
 			$lexemeUpdater->update(

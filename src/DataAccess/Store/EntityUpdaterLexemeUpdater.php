@@ -10,11 +10,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
-use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lib\Store\EntityRevision;
@@ -24,8 +20,6 @@ use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as Cr
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
-use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
-use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
  * @license GPL-2.0-or-later
@@ -34,7 +28,7 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 
 	public function __construct(
 		private EntityUpdater $entityUpdater,
-		private StatementReadModelConverter $statementReadModelConverter,
+		private LexemeReadModelConverter $lexemeReadModelConverter,
 	) {
 	}
 
@@ -102,19 +96,7 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 		'@phan-var LexemeWriteModel $lexeme';
 
 		return new LexemeRevision(
-			new Lexeme(
-				// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
-				$lexeme->getId(),
-				Lemmas::fromTermList( $lexeme->getLemmas() ),
-				$lexeme->getLexicalCategory(),
-				$lexeme->getLanguage(),
-				new StatementList( ...array_map(
-					$this->statementReadModelConverter->convert( ... ),
-					iterator_to_array( $lexeme->getStatements() )
-				) ),
-				new Forms(),
-				new Senses(),
-			),
+			$this->lexemeReadModelConverter->convert( $lexeme ),
 			$entityRevision->getRevisionId(),
 			$entityRevision->getTimestamp(),
 		);
