@@ -202,6 +202,7 @@ The following dependencies are special cases that should potentially be ignored:
   The current versions shipped by MediaWiki core are listed in [foreign-resources.yaml](https://gerrit.wikimedia.org/g/mediawiki/core/+/master/resources/lib/foreign-resources.yaml).
 - [grunt-eslint](https://github.com/sindresorhus/grunt-eslint) no longer supports "flat" eslint config files (i.e. `.eslintrc.json`) since version 25.0.0 because of changes since eslint 9 (see issue [#176](https://github.com/sindresorhus/grunt-eslint/issues/176)). See [T364065](https://phabricator.wikimedia.org/T364065) for progress with our eslint 9 migration.
 - other eslint plugins that depend on eslint 10 (for example, eslint-jsonc after version 3 or eslint-plugin-cypress after 3.6.0)
+- typescript beyond 5.9.3 - newer versions conflict with the typescript-eslint plugin, which is pinned for the above compatibility reasons
 - Any dependencies that are not compatible with Node 24, which we use in CI.
 - api-testing must stay at 1.7.3 since 1.8.0 introduces a dependency on the nodeJs Filesystem module, causing browser tests that use the libary to fail
 

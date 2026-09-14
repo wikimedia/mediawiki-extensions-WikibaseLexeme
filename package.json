@@ -69,7 +69,7 @@
 		"request": "^2.88.2",
 		"sinon": "^22.1.0",
 		"stylelint-config-wikimedia": "^0.19.4",
-		"typescript": "^5.7.2",
+		"typescript": "^5.9.3",
 		"typescript-eslint": "^8.70.0",
 		"unexpected": "^13.2.1",
 		"unexpected-dom": "^6.0.1",
