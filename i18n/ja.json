@@ -8,6 +8,7 @@
 			"Nikki",
 			"Omotecho",
 			"Shirayuki",
+			"Waki285",
 			"Yamagata Yusuke"
 		]
 	},
@@ -18,6 +19,7 @@
 	"nstab-lexeme": "語彙素",
 	"special-mergelexemes": "2つの語彙素を統合",
 	"special-newlexeme": "語彙素の新規作成",
+	"tooltip-ca-nstab-lexeme": "語彙素の定義",
 	"wikibase-entity-summary-wblmergelexemes-from": "語彙素に$3を統合しました",
 	"wikibase-entity-summary-wblmergelexemes-to": "語彙素を$3に統合しました",
 	"wikibase-lexeme-gloss-empty": "注釈がありません",
@@ -40,6 +42,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1は$2へと統合されリダイレクトされました。",
 	"wikibase-lexeme-mergelexemes-to-id": "統合先の ID",
 	"wikibase-lexeme-randomlexeme": "おまかせ表示（語彙素）",
+	"wikibase-lexeme-scoped-search-scope-name": "語彙素",
 	"wikibase-lexeme-summary-add-form": "$3とその{{PLURAL:$1|表現}}を追加",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "$3の{{PLURAL:$1|文法的特徴}}を追加",
 	"wikibase-lexeme-summary-add-form-representations": "$3の{{PLURAL:$1|表現}}を追加",
