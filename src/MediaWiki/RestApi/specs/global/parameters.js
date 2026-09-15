@@ -8,7 +8,7 @@ module.exports = {
 		"name": "lexeme_id",
 		"in": "path",
 		"required": true,
-		"description": "The ID of the required Lexeme",
+		"description": "The ID of the Lexeme",
 		"schema": { "type": "string", "pattern": LEXEME_ID_PATTERN },
 		"example": "L42"
 	}

@@ -1445,7 +1445,7 @@
             "name": "lexeme_id",
             "in": "path",
             "required": true,
-            "description": "The ID of the required Lexeme",
+            "description": "The ID of the Lexeme",
             "schema": {
               "type": "string",
               "pattern": "^L[1-9]\\d{0,9}$"
@@ -2650,7 +2650,7 @@
             "name": "lexeme_id",
             "in": "path",
             "required": true,
-            "description": "The ID of the required Lexeme",
+            "description": "The ID of the Lexeme",
             "schema": {
               "type": "string",
               "pattern": "^L[1-9]\\d{0,9}$"
@@ -3608,7 +3608,7 @@
             "name": "lexeme_id",
             "in": "path",
             "required": true,
-            "description": "The ID of the required Lexeme",
+            "description": "The ID of the Lexeme",
             "schema": {
               "type": "string",
               "pattern": "^L[1-9]\\d{0,9}$"
