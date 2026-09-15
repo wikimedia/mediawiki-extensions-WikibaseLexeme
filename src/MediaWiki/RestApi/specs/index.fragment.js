@@ -7,7 +7,8 @@ const openapi = {
 	"paths": {
 		"/v0/entities/lexemes": require( './resources/lexemes/list.js' ),
 		"/v0/entities/lexemes/{lexeme_id}": require( './resources/lexemes/single.js' ),
-		"/v0/entities/lexemes/{lexeme_id}/statements": require( './resources/lexemes/statements/list.js' )
+		"/v0/entities/lexemes/{lexeme_id}/statements": require( './resources/lexemes/statements/list.js' ),
+		"/v0/entities/lexemes/{lexeme_id}/forms": require( './resources/lexemes/forms/list.js' )
 	},
 	"components": {
 		"parameters": require( './global/parameters.js' ),

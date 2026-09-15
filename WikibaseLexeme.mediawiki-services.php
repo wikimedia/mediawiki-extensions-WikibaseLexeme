@@ -32,6 +32,7 @@ use Wikibase\Lexeme\Infrastructure\ChangeTagsStoreTagsRetriever;
 use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
+use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
@@ -326,6 +327,20 @@ return call_user_func( static function () {
 				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services )
+				),
+			);
+		},
+		'WikibaseLexeme.AddLexemeForm' => static function ( MediaWikiServices $services ): AddLexemeForm {
+			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
+
+			return new AddLexemeForm(
+				new EntityRevisionLookupLexemeRetriever(
+					WikibaseRepo::getEntityRevisionLookup( $services ),
+					$lexemeReadModelConverter,
+				),
+				new EntityUpdaterLexemeUpdater(
+					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					$lexemeReadModelConverter,
 				),
 			);
 		},

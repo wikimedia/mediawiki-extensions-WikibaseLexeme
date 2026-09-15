@@ -6,11 +6,13 @@ use MediaWiki\MediaWikiServices;
 use Psr\Container\ContainerInterface;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
+use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lib\ContentLanguages;
 use Wikibase\Lib\Store\ItemOrderProvider;
@@ -106,6 +108,16 @@ class WikibaseLexemeServices {
 	public static function getAddLexemeStatement( ?ContainerInterface $services = null ): AddLexemeStatement {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexeme.AddLexemeStatement' );
+	}
+
+	public static function getAddLexemeForm( ?ContainerInterface $services = null ): AddLexemeForm {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.AddLexemeForm' );
+	}
+
+	public static function getFormSerializer( ?ContainerInterface $services = null ): FormSerializer {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.FormSerializer' );
 	}
 
 	public static function getLexemeSerializer( ?ContainerInterface $services = null ): LexemeSerializer {

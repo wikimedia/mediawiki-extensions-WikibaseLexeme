@@ -13,6 +13,7 @@ module.exports = {
 			"data_type",
 			"denial_context",
 			"denial_reason",
+			"grammatical_features",
 			"lexical_category",
 			"statement_group_property_id",
 			"statement_property_id",

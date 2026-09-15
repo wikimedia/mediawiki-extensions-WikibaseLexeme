@@ -3595,6 +3595,36 @@
           }
         }
       }
+    },
+    "/v0/entities/lexemes/{lexeme_id}/forms": {
+      "post": {
+        "operationId": "addLexemeForm",
+        "tags": [
+          "lexemes"
+        ],
+        "summary": "Add a Form to a Lexeme",
+        "parameters": [
+          {
+            "name": "lexeme_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the required Lexeme",
+            "schema": {
+              "type": "string",
+              "pattern": "^L[1-9]\\d{0,9}$"
+            },
+            "example": "L42"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The newly added Form"
+          },
+          "400": {
+            "description": "The request cannot be processed"
+          }
+        }
+      }
     }
   }
 }

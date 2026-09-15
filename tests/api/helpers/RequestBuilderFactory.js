@@ -22,6 +22,13 @@ module.exports = {
 			.withJsonBodyParam( 'statement', statement );
 	},
 
+	newAddLexemeFormRequestBuilder( lexemeId, form ) {
+		return new RequestBuilder()
+			.withRoute( 'POST', '/v0/entities/lexemes/{lexeme_id}/forms' )
+			.withPathParam( 'lexeme_id', lexemeId )
+			.withJsonBodyParam( 'form', form );
+	},
+
 	newCreateItemRequestBuilder( item ) {
 		return new RequestBuilder()
 			.withRoute( 'POST', '/v1/entities/items' )
