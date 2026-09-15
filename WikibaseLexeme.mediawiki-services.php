@@ -43,6 +43,7 @@ use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\FormsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\GlossesSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\GrammaticalFeaturesSerializer;
@@ -340,25 +341,34 @@ return call_user_func( static function () {
 				WikibaseRepo::getSettings( $services ),
 			);
 		},
-		'WikibaseLexeme.LexemeSerializer' => static function (
+		'WikibaseLexeme.FormSerializer' => static function ( MediaWikiServices $services ): FormSerializer {
+			return new FormSerializer(
+				new RepresentationsSerializer(),
+				new GrammaticalFeaturesSerializer(),
+				$services->get( 'WikibaseLexeme.StatementListSerializer' ),
+			);
+		},
+		'WikibaseLexeme.StatementListSerializer' => static function (
 			MediaWikiServices $services
-		): LexemeSerializer {
+		): StatementListSerializer {
 			$propertyValuePairSerializer = new PropertyValuePairSerializer();
-			$statementListSerializer = new StatementListSerializer(
+
+			return new StatementListSerializer(
 				new StatementSerializer(
 					$propertyValuePairSerializer,
 					new ReferenceSerializer( $propertyValuePairSerializer )
 				)
 			);
+		},
+		'WikibaseLexeme.LexemeSerializer' => static function (
+			MediaWikiServices $services
+		): LexemeSerializer {
+			$statementListSerializer = $services->get( 'WikibaseLexeme.StatementListSerializer' );
 
 			return new LexemeSerializer(
 				new LemmasSerializer(),
 				$statementListSerializer,
-				new FormsSerializer(
-					new RepresentationsSerializer(),
-					new GrammaticalFeaturesSerializer(),
-					$statementListSerializer
-				),
+				new FormsSerializer( $services->get( 'WikibaseLexeme.FormSerializer' ) ),
 				new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
 			);
 		},
