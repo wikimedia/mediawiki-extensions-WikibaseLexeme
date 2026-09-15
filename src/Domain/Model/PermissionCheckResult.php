@@ -10,6 +10,7 @@ enum PermissionCheckResult {
 	case ALLOWED;
 	case USER_BLOCKED;
 	case IP_BLOCKED;
+	case PAGE_PROTECTED;
 	case DENIED_UNKNOWN_REASON;
 
 }

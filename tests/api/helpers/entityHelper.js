@@ -1,16 +1,21 @@
 'use strict';
 
 const { action, utils } = require( 'api-testing' );
-const { newCreateItemRequestBuilder } = require( './RequestBuilderFactory' );
+const {
+	newCreateItemRequestBuilder,
+	newCreatePropertyRequestBuilder
+} = require( './RequestBuilderFactory' );
 
 let testItemId;
 let testLexemeId;
+let stringPropertyId;
 
 /**
  * Creates a reusable item on the first call and returns it on subsequent calls.
  * Use this only when the existing item data does not matter.
+ *
+ * @return {Promise<string>} - the id of the item
  */
-
 async function getItemId() {
 
 	const response = ( await newCreateItemRequestBuilder( {} ).makeRequest() );
@@ -21,8 +26,9 @@ async function getItemId() {
 /**
  * Creates a reusable lexeme on the first call and returns it on subsequent calls.
  * Use this only when the existing lexeme data does not matter.
+ *
+ * @return {Promise<string>} - the id of the lexeme
  */
-
 async function getLexemeId() {
 	testLexemeId = testLexemeId || ( await createLexeme(
 		{
@@ -87,10 +93,42 @@ function newStatementWithRandomStringValue( propertyId ) {
 	};
 }
 
+/**
+ * Creates a reusable property on the first call and returns it on subsequent calls.
+ * Use this only when the existing property data does not matter.
+ *
+ * @return {Promise<string>} - the id of the property
+ */
+async function getStringPropertyId() {
+	stringPropertyId = stringPropertyId || ( await createUniqueStringProperty() ).body.id;
+
+	return stringPropertyId;
+}
+
+async function createUniqueStringProperty() {
+	return await newCreatePropertyRequestBuilder( {
+		data_type: 'string',
+		labels: { en: `string-property-${ utils.uniq() }` }
+	} ).makeRequest();
+}
+
+async function changeLexemeProtectionStatus( lexemeId, allowedUserGroup ) {
+	const admin = await action.root();
+	await admin.action( 'protect', {
+		title: `Lexeme:${ lexemeId }`,
+		token: await admin.token(),
+		protections: `edit=${ allowedUserGroup }`,
+		expiry: 'infinite'
+	}, 'POST' );
+}
+
 module.exports = {
+	getItemId,
 	getLexemeId,
 	createLexeme,
 	createRedirectForLexeme,
 	getLatestEditMetadata,
-	newStatementWithRandomStringValue
+	newStatementWithRandomStringValue,
+	getStringPropertyId,
+	changeLexemeProtectionStatus
 };

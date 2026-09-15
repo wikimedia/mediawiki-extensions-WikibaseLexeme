@@ -15,6 +15,7 @@ use MediaWiki\User\UserFactory;
 use MediaWiki\User\UserIdentityValue;
 use MediaWikiUnitTestCase;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\PermissionCheckResult;
 use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
@@ -43,9 +44,16 @@ class WikibaseEntityPermissionCheckerTest extends MediaWikiUnitTestCase {
 			->with( 'user123' )
 			->willReturn( $mwUser );
 
+		$wbPermissionChecker = $this->createMock( EntityPermissionChecker::class );
+		$wbPermissionChecker->expects( $this->once() )
+			->method( 'getPermissionStatusForEntity' )
+			->with( $mwUser, EntityPermissionChecker::ACTION_EDIT, new Lexeme() )
+			->willReturn( $permissionStatus );
+		$newChecker = new WikibaseEntityPermissionChecker( $wbPermissionChecker, $userFactory );
+
 		$this->assertSame(
 			$expectedResult,
-			$this->newChecker( $mwUser, $permissionStatus, $userFactory )->canCreateLexeme( $user )
+			$newChecker->canCreateLexeme( $user )
 		);
 	}
 
@@ -62,10 +70,72 @@ class WikibaseEntityPermissionCheckerTest extends MediaWikiUnitTestCase {
 			->method( 'newAnonymous' )
 			->willReturn( $mwUser );
 
+		$wbPermissionChecker = $this->createMock( EntityPermissionChecker::class );
+		$wbPermissionChecker->expects( $this->once() )
+			->method( 'getPermissionStatusForEntity' )
+			->with( $mwUser, EntityPermissionChecker::ACTION_EDIT, new Lexeme() )
+			->willReturn( $permissionStatus );
+		$newChecker = new WikibaseEntityPermissionChecker( $wbPermissionChecker, $userFactory );
+
 		$this->assertSame(
 			$expectedResult,
-			$this->newChecker( $mwUser, $permissionStatus, $userFactory )->canCreateLexeme( User::newAnonymous() )
+			$newChecker->canCreateLexeme( User::newAnonymous() )
 		);
+	}
+
+	/**
+	 * @dataProvider permissionStatusProvider
+	 */
+	public function testCanEditLexemeAsRegisteredUser(
+		PermissionStatus $permissionStatus,
+		PermissionCheckResult $expectedResult
+	): void {
+		$user = User::withUsername( 'potato' );
+		$lexemeId = new LexemeId( 'L123' );
+
+		$mwUser = $this->createStub( MediaWikiUser::class );
+		$userFactory = $this->createMock( UserFactory::class );
+		$userFactory->expects( $this->once() )
+			->method( 'newFromName' )
+			->with( $user->getUsername() )
+			->willReturn( $mwUser );
+
+		$wbPermissionChecker = $this->createMock( EntityPermissionChecker::class );
+		$wbPermissionChecker->expects( $this->once() )
+			->method( 'getPermissionStatusForEntityId' )
+			->with( $mwUser, EntityPermissionChecker::ACTION_EDIT, $lexemeId )
+			->willReturn( $permissionStatus );
+		$newChecker = new WikibaseEntityPermissionChecker( $wbPermissionChecker, $userFactory );
+
+		$this->assertEquals(
+			$expectedResult,
+			$newChecker->canEditLexeme( $user, $lexemeId )
+		);
+	}
+
+	/**
+	 * @dataProvider permissionStatusProvider
+	 */
+	public function testCanEditAsAnonymousUser(
+		PermissionStatus $permissionStatus,
+		PermissionCheckResult $result
+	): void {
+		$mwUser = $this->createStub( MediaWikiUser::class );
+		$userFactory = $this->createMock( UserFactory::class );
+		$userFactory->expects( $this->once() )
+			->method( 'newAnonymous' )
+			->willReturn( $mwUser );
+		$lexemeId = new LexemeId( 'L123' );
+
+		$wbPermissionChecker = $this->createMock( EntityPermissionChecker::class );
+		$wbPermissionChecker->expects( $this->once() )
+			->method( 'getPermissionStatusForEntityId' )
+			->with( $mwUser, EntityPermissionChecker::ACTION_EDIT, $lexemeId )
+			->willReturn( $permissionStatus );
+
+		$newChecker = new WikibaseEntityPermissionChecker( $wbPermissionChecker, $userFactory );
+
+		$this->assertEquals( $result, $newChecker->canEditLexeme( User::newAnonymous(), $lexemeId ) );
 	}
 
 	public static function permissionStatusProvider(): Generator {
@@ -95,20 +165,6 @@ class WikibaseEntityPermissionCheckerTest extends MediaWikiUnitTestCase {
 			self::newBlockedStatus( new AutoBlockTarget( 0 ) ),
 			PermissionCheckResult::IP_BLOCKED,
 		];
-	}
-
-	private function newChecker(
-		MediaWikiUser $mwUser,
-		PermissionStatus $permissionStatus,
-		UserFactory $userFactory
-	): WikibaseEntityPermissionChecker {
-		$wbPermissionChecker = $this->createMock( EntityPermissionChecker::class );
-		$wbPermissionChecker->expects( $this->once() )
-			->method( 'getPermissionStatusForEntity' )
-			->with( $mwUser, EntityPermissionChecker::ACTION_EDIT, new Lexeme() )
-			->willReturn( $permissionStatus );
-
-		return new WikibaseEntityPermissionChecker( $wbPermissionChecker, $userFactory );
 	}
 
 	private static function newBlockedStatus( BlockTarget $blockTarget ): PermissionStatus {

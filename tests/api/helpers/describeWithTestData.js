@@ -1,6 +1,10 @@
 'use strict';
 
-const { getLexemeId } = require( './entityHelper' );
+const {
+	getLexemeId,
+	getItemId,
+	getStringPropertyId
+} = require( './entityHelper' );
 
 /**
  * `describeWithTestData` is intended for testing behaviors across multiple related route categories
@@ -31,7 +35,15 @@ function describeWithTestData( testName, runAllTests ) {
 
 	describe( testName, () => {
 		before( async () => {
-			lexemeRequestInputs.lexemeId = await getLexemeId();
+			const statementPropertyId = await getStringPropertyId();
+			const lexemeId = await getLexemeId();
+
+			lexemeRequestInputs.mainTestSubject = lexemeId;
+			lexemeRequestInputs.lexemeId = lexemeId;
+			lexemeRequestInputs.lemmas = { 'en-ca': 'colour', 'en-us': 'color' };
+			lexemeRequestInputs.language = await getItemId();
+			lexemeRequestInputs.lexicalCategory = await getItemId();
+			lexemeRequestInputs.statementPropertyId = statementPropertyId;
 		} );
 
 		runAllTests( lexemeRequestInputs, describeEachRoute );

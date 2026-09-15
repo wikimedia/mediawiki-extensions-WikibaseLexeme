@@ -25,6 +25,7 @@ class UseCaseError extends RuntimeException {
 	public const string PERMISSION_DENIED = 'permission-denied';
 	public const string PERMISSION_DENIED_REASON_USER_BLOCKED = 'blocked-user';
 	public const string PERMISSION_DENIED_REASON_IP_BLOCKED = 'blocked-ip';
+	public const string PERMISSION_DENIED_REASON_PAGE_PROTECTED = 'resource-protected';
 	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
 	public const string STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'statement-group-property-id-mismatch';
 

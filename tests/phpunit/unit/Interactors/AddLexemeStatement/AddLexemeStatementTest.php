@@ -31,6 +31,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement as ReadModelStatement;
@@ -53,6 +54,7 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			[ 'some tag' ],
 			true,
 			'user comment',
+			null,
 		);
 		$expectedRevisionId = 123;
 		$expectedLastModified = '20250101120000';
@@ -131,8 +133,30 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			lexemeUpdater: $lexemeUpdater,
 			validator: $validator,
 		)->execute(
-			new AddLexemeStatementRequest( 'X', [], [], false, null )
+			new AddLexemeStatementRequest( 'X', [], [], false, null, null )
 		);
+	}
+
+	public function testGivenUnauthorizedUser_throwsWithoutUpdating(): void {
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		$expectedException = UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED );
+		$assertUserIsAuthorized = $this->createStub( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->method( 'checkEditPermissions' )
+			->willThrowException( $expectedException );
+
+		try {
+			$this->newUseCase(
+				lexemeUpdater: $lexemeUpdater,
+				assertUserIsAuthorized: $assertUserIsAuthorized,
+			)->execute(
+				new AddLexemeStatementRequest( 'L1', [], [], true, 'user comment', null )
+			);
+			$this->fail( 'this should not be reached' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedException, $e );
+		}
 	}
 
 	public function testGivenLexemeIsRedirect_throws(): void {
@@ -162,6 +186,7 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 					[],
 					[],
 					false,
+					null,
 					null,
 				)
 			);
@@ -197,6 +222,7 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 					[],
 					[],
 					false,
+					null,
 					null,
 				)
 			);
@@ -238,6 +264,7 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			[],
 			false,
 			null,
+			null
 		);
 
 		$validator = $this->createStub( AddLexemeStatementValidator::class );
@@ -330,7 +357,14 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 		?LexemeUpdater $lexemeUpdater = null,
 		?GuidGenerator $guidGenerator = null,
 		?AddLexemeStatementValidator $validator = null,
+		?AssertUserIsAuthorized $assertUserIsAuthorized = null,
 	): AddLexemeStatement {
+		if ( $metadataRetriever === null ) {
+			$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
+			$metadataRetriever->method( 'getLatestRevisionMetadata' )
+				->willReturn( LatestLexemeRevisionMetadataResult::concreteRevision( 1, '20260910070707' ) );
+		}
+
 		if ( $validator === null ) {
 			$validator = $this->createStub( AddLexemeStatementValidator::class );
 			$validator->method( 'getValidatedLexemeId' )
@@ -341,7 +375,8 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			$lexemeUpdater ?? $this->createStub( LexemeUpdater::class ),
 			$guidGenerator ?? $this->createStub( GuidGenerator::class ),
 			$validator,
-			$metadataRetriever ?? $this->createStub( LexemeRevisionMetadataRetriever::class ),
+			$metadataRetriever,
+			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
 		);
 	}
 }

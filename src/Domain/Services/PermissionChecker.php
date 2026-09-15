@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Domain\Services;
 
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\PermissionCheckResult;
 use Wikibase\Lexeme\Domain\Model\User;
 
@@ -11,5 +12,7 @@ use Wikibase\Lexeme\Domain\Model\User;
 interface PermissionChecker {
 
 	public function canCreateLexeme( User $user ): PermissionCheckResult;
+
+	public function canEditLexeme( User $user, LexemeId $id ): PermissionCheckResult;
 
 }

@@ -5,9 +5,11 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeStatement;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UpdateExceptionHandler;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -25,6 +27,7 @@ class AddLexemeStatement {
 		private GuidGenerator $guidGenerator,
 		private AddLexemeStatementValidator $validator,
 		private LexemeRevisionMetadataRetriever $metadataRetriever,
+		private AssertUserIsAuthorized $assertUserIsAuthorized,
 	) {
 	}
 
@@ -44,6 +47,12 @@ class AddLexemeStatement {
 		if ( $metaData->isRedirect() ) {
 			throw new LexemeRedirect( $metaData->getRedirectTarget() );
 		}
+
+		$this->assertUserIsAuthorized->checkEditPermissions(
+			$request->username === null ? User::newAnonymous() : User::withUsername( $request->username ),
+			$lexemeId
+		);
+
 		$statementId = $this->guidGenerator->newStatementId( $lexemeId );
 		$statement->setGuid( (string)$statementId );
 

@@ -54,7 +54,7 @@ class AddLexemeStatementValidatorTest extends MediaWikiUnitTestCase {
 	public function testGivenInvalidLexemeId_throwsUseCaseError(): void {
 		try {
 			$this->newValidator()->validate(
-				new AddLexemeStatementRequest( 'not-a-lexeme-id', self::VALID_STATEMENT, [], false, null )
+				new AddLexemeStatementRequest( 'not-a-lexeme-id', self::VALID_STATEMENT, [], false, null, null )
 			);
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
@@ -93,7 +93,7 @@ class AddLexemeStatementValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	private static function newRequest( array $editTags, ?string $comment ): AddLexemeStatementRequest {
-		return new AddLexemeStatementRequest( 'L1', self::VALID_STATEMENT, $editTags, false, $comment );
+		return new AddLexemeStatementRequest( 'L1', self::VALID_STATEMENT, $editTags, false, $comment, null );
 	}
 
 	private function newValidator(

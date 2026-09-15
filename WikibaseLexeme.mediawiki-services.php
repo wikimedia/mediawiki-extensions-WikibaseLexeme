@@ -328,6 +328,12 @@ return call_user_func( static function () {
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services )
 				),
+				new AssertUserIsAuthorized(
+					new WikibaseEntityPermissionChecker(
+						WikibaseRepo::getEntityPermissionChecker( $services ),
+						$services->getUserFactory()
+					)
+				),
 			);
 		},
 		'WikibaseLexeme.AddLexemeForm' => static function ( MediaWikiServices $services ): AddLexemeForm {

@@ -86,6 +86,7 @@ class ResponseFactory {
 	private function newFrameworkAlikePermissionDeniedResponse(): Response {
 		$httpResponse = new Response();
 		$httpResponse->setHeader( 'Content-Type', 'application/json' );
+		$httpResponse->setHeader( 'Content-Language', 'en' );
 		$httpResponse->setStatus( 403 );
 		$httpResponse->setBody( new StringStream( json_encode( [
 			'error' => 'rest-write-denied',
