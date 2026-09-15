@@ -99,14 +99,13 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 					'20260910070707',
 				)
 		);
-		$response = ( new AddLexemeStatement(
-			$lexemeRetriever,
-			$lexemeUpdater,
-			$guidGenerator,
-			$validator,
-			$metadataRetriever
-		) )
-			->execute( $request );
+		$response = $this->newUseCase(
+			metadataRetriever: $metadataRetriever,
+			lexemeRetriever: $lexemeRetriever,
+			lexemeUpdater: $lexemeUpdater,
+			guidGenerator: $guidGenerator,
+			validator: $validator,
+		)->execute( $request );
 
 		$this->assertSame( $expectedStatement, $response->statement );
 		$this->assertSame( $expectedRevisionId, $response->revisionId );
@@ -123,38 +122,11 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 
 		$this->expectException( UseCaseError::class );
 
-		( new AddLexemeStatement(
-			$this->createStub( LexemeWriteModelRetriever::class ),
-			$lexemeUpdater,
-			$this->createStub( GuidGenerator::class ),
-			$validator,
-			$this->createStub( LexemeRevisionMetadataRetriever::class ),
-		) )->execute(
+		$this->newUseCase(
+			lexemeUpdater: $lexemeUpdater,
+			validator: $validator,
+		)->execute(
 			new AddLexemeStatementRequest( 'X', [], [], false, null )
-		);
-	}
-
-	private function newUseCase(
-		?LexemeRevisionMetadataRetriever $metadataRetriever = null,
-		?LexemeWriteModelRetriever $lexemeRetriever = null,
-	): AddLexemeStatement {
-		$validator = $this->createStub( AddLexemeStatementValidator::class );
-		$validator->method( 'getValidatedLexemeId' )
-			->willReturn( new LexemeId( 'L123' ) );
-		return new AddLexemeStatement(
-			$lexemeRetriever ?? $this->createStub(
-				LexemeWriteModelRetriever::class
-			),
-			$this->createStub(
-				LexemeUpdater::class
-			),
-			$this->createStub(
-				GuidGenerator::class
-			),
-			$validator,
-			$metadataRetriever ?? $this->createStub(
-				LexemeRevisionMetadataRetriever::class
-			),
 		);
 	}
 
@@ -239,4 +211,26 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			);
 		}
 	}
+
+	private function newUseCase(
+		?LexemeRevisionMetadataRetriever $metadataRetriever = null,
+		?LexemeWriteModelRetriever $lexemeRetriever = null,
+		?LexemeUpdater $lexemeUpdater = null,
+		?GuidGenerator $guidGenerator = null,
+		?AddLexemeStatementValidator $validator = null,
+	): AddLexemeStatement {
+		if ( $validator === null ) {
+			$validator = $this->createStub( AddLexemeStatementValidator::class );
+			$validator->method( 'getValidatedLexemeId' )
+				->willReturn( new LexemeId( 'L123' ) );
+		}
+		return new AddLexemeStatement(
+			$lexemeRetriever ?? $this->createStub( LexemeWriteModelRetriever::class ),
+			$lexemeUpdater ?? $this->createStub( LexemeUpdater::class ),
+			$guidGenerator ?? $this->createStub( GuidGenerator::class ),
+			$validator,
+			$metadataRetriever ?? $this->createStub( LexemeRevisionMetadataRetriever::class ),
+		);
+	}
+
 }
