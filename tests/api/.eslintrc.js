@@ -21,7 +21,7 @@ module.exports = {
 			"redirect_target"
 		] } ],
 		"mocha/no-setup-in-describe": 0,
-		"max-len": [ "warn", { code: 130 } ]
-	}
-
+		"max-len": [ "warn", { code: 130 } ],
+		"n/no-missing-require": "off"
+	},
 };

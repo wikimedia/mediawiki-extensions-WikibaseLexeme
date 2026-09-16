@@ -4,8 +4,10 @@ const { action, assert, utils } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const entityHelper = require( './helpers/entityHelper' );
 const {
+	newAddLexemeStatementRequestBuilder,
+	newCreateItemRequestBuilder,
 	newCreateLexemeRequestBuilder,
-	newCreateItemRequestBuilder
+	newCreatePropertyRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 
 describe( 'IP masking', () => {
@@ -18,7 +20,6 @@ describe( 'IP masking', () => {
 		languageId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
 		lexicalCategoryId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
 		const lemma = `test-lemma-${ utils.uniq() }`;
-
 		const lexeme = {
 			lemmas: { en: lemma },
 			lexical_category: lexicalCategoryId,
@@ -68,6 +69,38 @@ describe( 'IP masking', () => {
 			expect( response ).to.have.status( 429 );
 			assert.strictEqual( response.body.code, 'request-limit-reached' );
 			assert.deepStrictEqual( response.body.context, { reason: 'temp-account-creation-limit-reached' } );
+		} );
+
+		it( 'responds 429 when adding a statement and the temp user creation limit is reached', async () => {
+			const propertyId = ( await newCreatePropertyRequestBuilder(
+				{ data_type: 'string', labels: { en: `string-property-${ utils.uniq() }` } }
+			).makeRequest() ).body.id;
+			const lexemeId = ( await newRequestBuilder().makeRequest() ).body.id;
+
+			const requestBuilder = withTempUsersEnabled(
+				newAddLexemeStatementRequestBuilder(
+					lexemeId,
+					{
+						property: { id: propertyId },
+						value: { type: 'value', content: 'potato' }
+					}
+				)
+			)
+				.withConfigOverride( 'wgMainCacheType', -1 )
+				.withConfigOverride(
+					'wgTempAccountCreationThrottle',
+					[ { count: 1, seconds: 86400 } ]
+				);
+
+			await requestBuilder.makeRequest();
+			const response = await requestBuilder.makeRequest();
+
+			expect( response ).to.have.status( 429 );
+			assert.strictEqual( response.body.code, 'request-limit-reached' );
+			assert.deepStrictEqual(
+				response.body.context,
+				{ reason: 'temp-account-creation-limit-reached' }
+			);
 		} );
 
 		describe( 'temp user authentication', () => {

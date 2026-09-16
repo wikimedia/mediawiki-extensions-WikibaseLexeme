@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\Interactors\AddLexemeStatement;
 
+use Exception;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
@@ -12,6 +13,10 @@ use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
+use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
+use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
@@ -212,6 +217,113 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	/**
+	 * @dataProvider exceptionProvider
+	 */
+	public function testGivenLexemeUpdaterException_throwsUseCaseError(
+		Exception $exception,
+		string $expectedErrorCode,
+		string $expectedErrorMessage,
+		array $expectedContext
+	): void {
+		$lexemeId = new LexemeId( 'L1' );
+		$statementId = new StatementGuid( $lexemeId, 'some-guid' );
+		$statement = new Statement(
+			new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) )
+		);
+
+		$request = new AddLexemeStatementRequest(
+			'L1',
+			[],
+			[],
+			false,
+			null,
+		);
+
+		$validator = $this->createStub( AddLexemeStatementValidator::class );
+		$validator->method( 'getValidatedLexemeId' )->willReturn( $lexemeId );
+		$validator->method( 'getValidatedStatement' )->willReturn( $statement );
+
+		$guidGenerator = $this->createStub( GuidGenerator::class );
+		$guidGenerator->method( 'newStatementId' )->willReturn( $statementId );
+
+		$lexeme = new LexemeWriteModel(
+			$lexemeId,
+			new TermList(),
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
+		);
+
+		$lexemeRetriever = $this->createStub( LexemeWriteModelRetriever::class );
+		$lexemeRetriever->method( 'getLexemeWriteModel' )->willReturn( $lexeme );
+
+		$lexemeUpdater = $this->createStub( LexemeUpdater::class );
+		$lexemeUpdater->method( 'update' )->willThrowException( $exception );
+
+		$metadataRetriever = $this->createStub(
+			LexemeRevisionMetadataRetriever::class
+		);
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn(
+				LatestLexemeRevisionMetadataResult::concreteRevision(
+					1,
+					'20260910070707',
+				)
+			);
+
+		try {
+			$this->newUseCase(
+				metadataRetriever: $metadataRetriever,
+				lexemeRetriever: $lexemeRetriever,
+				lexemeUpdater: $lexemeUpdater,
+				guidGenerator: $guidGenerator,
+				validator: $validator,
+			)->execute( $request );
+
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedErrorCode, $e->errorCode );
+			$this->assertSame( $expectedErrorMessage, $e->errorMessage );
+			$this->assertSame( $expectedContext, $e->context );
+		}
+	}
+
+	public static function exceptionProvider(): iterable {
+		yield 'rate limit reached' => [
+			new RateLimitReached(),
+			UseCaseError::REQUEST_LIMIT_REACHED,
+			'Exceeded the limit of actions that can be performed in a given span of time',
+			[ UseCaseError::CONTEXT_REASON => UseCaseError::REQUEST_LIMIT_REASON_RATE_LIMIT ],
+		];
+
+		yield 'temp account creation limit reached' => [
+			new TempAccountCreationLimitReached(),
+			UseCaseError::REQUEST_LIMIT_REACHED,
+			'Exceeded the limit of actions that can be performed in a given span of time',
+			[
+				UseCaseError::CONTEXT_REASON =>
+					UseCaseError::REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT,
+			],
+		];
+
+		$limit = 1024;
+		yield 'resource too large' => [
+			new ResourceTooLargeException( $limit ),
+			UseCaseError::RESOURCE_TOO_LARGE,
+			"Edit resulted in a resource that exceeds the size limit of $limit kB",
+			[ UseCaseError::CONTEXT_LIMIT => $limit ],
+		];
+
+		$blockedText = 'example.com';
+		yield 'edit prevented' => [
+			new EditPrevented( 'spamblacklist', [ 'spamblacklist' => [ 'matches' => [ $blockedText ] ] ] ),
+			UseCaseError::PERMISSION_DENIED,
+			'Access to resource is denied',
+			[ UseCaseError::CONTEXT_DENIAL_REASON => 'spamblacklist',
+				UseCaseError::CONTEXT_DENIAL_CONTEXT => [ 'spamblacklist' => [ 'matches' => [ $blockedText ] ] ] ],
+		];
+	}
+
 	private function newUseCase(
 		?LexemeRevisionMetadataRetriever $metadataRetriever = null,
 		?LexemeWriteModelRetriever $lexemeRetriever = null,
@@ -232,5 +344,4 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 			$metadataRetriever ?? $this->createStub( LexemeRevisionMetadataRetriever::class ),
 		);
 	}
-
 }

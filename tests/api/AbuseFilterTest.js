@@ -1,15 +1,18 @@
 'use strict';
 
-// eslint-disable-next-line n/no-missing-require
 const { requireExtensions } = require( '../../../Wikibase/tests/api-testing/utils' );
 const { assert, clientFactory, action, utils } = require( 'api-testing' );
 const config = require( 'api-testing/lib/config' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
+	newAddLexemeStatementRequestBuilder,
+	newCreateItemRequestBuilder,
 	newCreateLexemeRequestBuilder,
-	newCreateItemRequestBuilder
+	newCreatePropertyRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 /**
+ * AbuseFilter is used here to exercise the generic EditPrevented handling.
+ *
  * AbuseFilter doesn't have an API to create filters. This is a very hacky way around the issue:
  * - get the edit token (a CSRF token salted for the AbuseFilter form)
  * - make a POST request that looks like it's coming from said form
@@ -74,6 +77,45 @@ describe( 'Edit prevented with abuse filter', () => {
 		assert.strictEqual( response.body.code, 'permission-denied' );
 		assert.deepStrictEqual(
 			response.body.context, {
+				denial_reason: 'abusefilter-disallowed',
+				denial_context: {
+					abusefilter: {
+						actions: [ 'disallow' ],
+						description: filterDescription,
+						id: filterId.toString()
+					}
+				}
+			}
+		);
+	} );
+
+	it( 'responds 403 when adding a statement is prevented', async () => {
+		const safeLexeme = {
+			lemmas: { en: `test-lemma-${ utils.uniq() }` },
+			lexical_category: lexeme.lexical_category,
+			language: lexeme.language
+		};
+
+		const lexemeId = ( await newCreateLexemeRequestBuilder( safeLexeme )
+			.makeRequest() ).body.id;
+
+		const propertyId = ( await newCreatePropertyRequestBuilder(
+			{ data_type: 'string', labels: { en: `string-property-${ utils.uniq() }` } }
+		).makeRequest() ).body.id;
+
+		const response = await newAddLexemeStatementRequestBuilder(
+			lexemeId,
+			{
+				property: { id: propertyId },
+				value: { type: 'value', content: filterTriggerWord }
+			}
+		).makeRequest();
+
+		expect( response ).to.have.status( 403 );
+		assert.strictEqual( response.body.code, 'permission-denied' );
+		assert.deepStrictEqual(
+			response.body.context,
+			{
 				denial_reason: 'abusefilter-disallowed',
 				denial_context: {
 					abusefilter: {
