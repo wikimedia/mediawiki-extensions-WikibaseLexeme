@@ -119,7 +119,7 @@
 	"wikibaselexeme-newlexeme-lemma-language-placeholder-with-example": "Лемма орфографин вариантан меттан код, масала, «$1»",
 	"wikibaselexeme-newlexeme-lemma-placeholder": "Дешан йоца форма, масала, \"хьалхара\".",
 	"wikibaselexeme-newlexeme-lemma-placeholder-with-example": "Дешан базин форма, масала, «$1»",
-	"wikibaselexeme-newlexeme-lemma-too-long-error": "Лемма $1 {{PLURAL:$1|хьаьркаш}} сов хила йиш йац.",
+	"wikibaselexeme-newlexeme-lemma-too-long-error": "Лемма $1 {{PLURAL:$1|символ}} сов хила йиш йац.",
 	"wikibaselexeme-newlexeme-lexicalcategory": "Лексикин категори",
 	"wikibaselexeme-newlexeme-lexicalcategory-empty-error": "Лексикин категорин меттиг йаьсса хила йиш йац.",
 	"wikibaselexeme-newlexeme-lexicalcategory-invalid-error": "Лексикин категори нийса Элемент хила йеза.",
