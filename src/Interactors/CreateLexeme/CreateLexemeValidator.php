@@ -13,11 +13,10 @@ use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
-use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
 
 /**
  * @license GPL-2.0-or-later
@@ -31,7 +30,7 @@ class CreateLexemeValidator {
 		private LemmaLanguageCodeValidator $lemmaLanguageCodeValidator,
 		private ItemExistenceChecker $itemExistenceChecker,
 		private StatementsValidator $statementsValidator,
-		private StatementValidationErrorConverter $statementValidationErrorConverter,
+		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 		private int $maxLemmaLength,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
@@ -115,31 +114,10 @@ class CreateLexemeValidator {
 
 		$validationError = $this->statementsValidator->validateNewStatements( $statements, '/lexeme/statements' );
 		if ( $validationError !== null ) {
-			$this->throwStatementsValidationError( $validationError );
+			throw $this->statementsValidationErrorConverter->toUseCaseError( $validationError );
 		}
 
 		return $this->statementsValidator->getValidatedStatements();
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function throwStatementsValidationError( ValidationError $validationError ): never {
-		$context = $validationError->getContext();
-		switch ( $validationError->getCode() ) {
-			case StatementsValidator::CODE_STATEMENTS_NOT_ASSOCIATIVE:
-			case StatementsValidator::CODE_STATEMENT_GROUP_NOT_SEQUENTIAL:
-			case StatementsValidator::CODE_STATEMENT_NOT_ARRAY:
-				throw UseCaseError::newInvalidValue( $context[StatementsValidator::CONTEXT_PATH] );
-			case StatementsValidator::CODE_PROPERTY_ID_MISMATCH:
-				throw UseCaseError::newStatementGroupPropertyIdMismatch(
-					$context[StatementsValidator::CONTEXT_PATH],
-					$context[StatementsValidator::CONTEXT_PROPERTY_ID_KEY],
-					$context[StatementsValidator::CONTEXT_PROPERTY_ID_VALUE],
-				);
-			default:
-				throw $this->statementValidationErrorConverter->toUseCaseError( $validationError );
-		}
 	}
 
 	/**

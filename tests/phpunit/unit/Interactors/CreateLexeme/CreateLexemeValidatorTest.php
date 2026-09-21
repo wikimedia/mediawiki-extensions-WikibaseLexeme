@@ -19,7 +19,7 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
@@ -302,14 +302,13 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		$this->assertTrue( $validator->getValidatedLexeme()->getStatements()->isEmpty() );
 	}
 
-	/**
-	 * @dataProvider provideStatementsValidationError
-	 */
-	public function testGivenStatementsValidationError_throwsUseCaseError(
-		ValidationError $validationError,
-		UseCaseError $expectedError,
-	): void {
-		$validator = $this->newValidator( $this->newStatementsValidatorWithError( $validationError ) );
+	public function testGivenStatementsValidationError_throwsUseCaseError(): void {
+		$validator = $this->newValidator( $this->newStatementsValidatorWithError(
+			new ValidationError( StatementValidator::CODE_MISSING_FIELD, [
+				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0',
+				StatementValidator::CONTEXT_FIELD => 'value',
+			] )
+		) );
 
 		try {
 			$validator->validateAndDeserialize( self::newRequest(
@@ -317,55 +316,8 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
-			$this->assertEquals( $expectedError, $e );
+			$this->assertEquals( UseCaseError::newMissingField( '/lexeme/statements/P123/0', 'value' ), $e );
 		}
-	}
-
-	public static function provideStatementsValidationError(): iterable {
-		yield 'statements not associative' => [
-			new ValidationError( StatementsValidator::CODE_STATEMENTS_NOT_ASSOCIATIVE, [
-				StatementsValidator::CONTEXT_PATH => '/lexeme/statements',
-				StatementsValidator::CONTEXT_VALUE => [ 'potato' ],
-			] ),
-			UseCaseError::newInvalidValue( '/lexeme/statements' ),
-		];
-
-		yield 'statement group not sequential' => [
-			new ValidationError( StatementsValidator::CODE_STATEMENT_GROUP_NOT_SEQUENTIAL, [
-				StatementsValidator::CONTEXT_PATH => '/lexeme/statements/P123',
-				StatementsValidator::CONTEXT_VALUE => [ 'potato' => 'tomato' ],
-			] ),
-			UseCaseError::newInvalidValue( '/lexeme/statements/P123' ),
-		];
-
-		yield 'statement not an array' => [
-			new ValidationError( StatementsValidator::CODE_STATEMENT_NOT_ARRAY, [
-				StatementsValidator::CONTEXT_PATH => '/lexeme/statements/P123/0',
-				StatementsValidator::CONTEXT_VALUE => 'potato',
-			] ),
-			UseCaseError::newInvalidValue( '/lexeme/statements/P123/0' ),
-		];
-
-		yield 'property id mismatch' => [
-			new ValidationError( StatementsValidator::CODE_PROPERTY_ID_MISMATCH, [
-				StatementsValidator::CONTEXT_PATH => '/lexeme/statements/P123/0/property/id',
-				StatementsValidator::CONTEXT_PROPERTY_ID_KEY => 'P123',
-				StatementsValidator::CONTEXT_PROPERTY_ID_VALUE => 'P321',
-			] ),
-			UseCaseError::newStatementGroupPropertyIdMismatch(
-				'/lexeme/statements/P123/0/property/id',
-				'P123',
-				'P321',
-			),
-		];
-
-		yield 'single statement error' => [
-			new ValidationError( StatementValidator::CODE_MISSING_FIELD, [
-				StatementValidator::CONTEXT_PATH => '/lexeme/statements/P123/0',
-				StatementValidator::CONTEXT_FIELD => 'value',
-			] ),
-			UseCaseError::newMissingField( '/lexeme/statements/P123/0', 'value' ),
-		];
 	}
 
 	public function testGivenValidRequestWithEditMetadata_exposesEditMetadata(): void {
@@ -431,7 +383,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				}
 			},
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
-			new StatementValidationErrorConverter(),
+			new StatementsValidationErrorConverter(),
 			LemmaTermValidator::LEMMA_MAX_LENGTH,
 			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);

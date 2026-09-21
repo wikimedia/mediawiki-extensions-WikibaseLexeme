@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
 
@@ -105,7 +105,7 @@ class AddLexemeStatementValidatorTest extends MediaWikiUnitTestCase {
 			$statementValidator ?? $this->newStatementValidator(
 				new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) )
 			),
-			new StatementValidationErrorConverter(),
+			new StatementsValidationErrorConverter(),
 			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);
 	}

@@ -55,7 +55,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
@@ -280,7 +280,7 @@ return call_user_func( static function () {
 					new StatementsValidator(
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
-					new StatementValidationErrorConverter(),
+					new StatementsValidationErrorConverter(),
 					LemmaTermValidator::LEMMA_MAX_LENGTH,
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
@@ -319,7 +319,7 @@ return call_user_func( static function () {
 				new AddLexemeStatementValidator(
 					new LexemeIdValidator(),
 					new StatementValidator( WbCrud::getStatementDeserializer( $services ) ),
-					new StatementValidationErrorConverter(),
+					new StatementsValidationErrorConverter(),
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 						CommentStore::COMMENT_CHARACTER_LIMIT,

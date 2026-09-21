@@ -8,7 +8,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\StatementValidationErrorConverter;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 
 /**
@@ -22,7 +22,7 @@ class AddLexemeStatementValidator {
 	public function __construct(
 		private LexemeIdValidator $lexemeIdValidator,
 		private StatementValidator $statementValidator,
-		private StatementValidationErrorConverter $statementValidationErrorConverter,
+		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
@@ -35,7 +35,7 @@ class AddLexemeStatementValidator {
 
 		$statementValidationError = $this->statementValidator->validate( $request->statement, '/statement' );
 		if ( $statementValidationError !== null ) {
-			throw $this->statementValidationErrorConverter->toUseCaseError( $statementValidationError );
+			throw $this->statementsValidationErrorConverter->toUseCaseError( $statementValidationError );
 		}
 		$this->statement = $this->statementValidator->getValidatedStatement();
 
