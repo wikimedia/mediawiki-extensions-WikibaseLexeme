@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\DataAccess\Store;
 
 use InvalidArgumentException;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
@@ -29,6 +30,7 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 	public function __construct(
 		private EntityUpdater $entityUpdater,
 		private LexemeReadModelConverter $lexemeReadModelConverter,
+		private GuidGenerator $guidGenerator,
 	) {
 	}
 
@@ -53,11 +55,26 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 		if ( !$lexeme->getId() ) {
 			throw new InvalidArgumentException( 'Cannot update a Lexeme without an ID' );
 		}
+		$this->generateFormStatementIds( $lexeme );
 
 		return $this->storeLexeme( fn () => $this->entityUpdater->update(
 			$lexeme,
 			$this->convertEditMetadata( $editMetadata ),
 		) );
+	}
+
+	/**
+	 * EntityUpdater only generates IDs for the statements of the Lexeme itself,
+	 * so the statements of its Forms are dealt with here.
+	 */
+	private function generateFormStatementIds( LexemeWriteModel $lexeme ): void {
+		foreach ( $lexeme->getForms()->toArray() as $form ) {
+			foreach ( $form->getStatements() as $statement ) {
+				if ( $statement->getGuid() === null ) {
+					$statement->setGuid( $this->guidGenerator->newGuid( $form->getId() ) );
+				}
+			}
+		}
 	}
 
 	/**

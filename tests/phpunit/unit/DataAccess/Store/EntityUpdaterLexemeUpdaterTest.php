@@ -6,6 +6,10 @@ use Exception;
 use InvalidArgumentException;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Services\Statement\GuidGenerator;
+use Wikibase\DataModel\Snak\PropertyNoValueSnak;
+use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
 use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
@@ -17,6 +21,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
@@ -73,6 +78,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$lexemeRevision = ( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
 			$lexemeReadModelConverter,
+			new GuidGenerator(),
 		) )->create( $lexemeToCreate, $editMetadata );
 
 		$this->assertSame( $lexemeReadModel, $lexemeRevision->lexeme );
@@ -84,6 +90,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$lexemeCreator = new EntityUpdaterLexemeUpdater(
 			$this->createNoOpMock( EntityUpdater::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -131,6 +138,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$lexemeRevision = ( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
 			$lexemeReadModelConverter,
+			new GuidGenerator(),
 		) )->update( $lexemeToUpdate, $editMetadata );
 
 		$this->assertSame( $lexemeReadModel, $lexemeRevision->lexeme );
@@ -138,10 +146,38 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $lastModified, $lexemeRevision->lastModified );
 	}
 
+	public function testUpdateGeneratesFormStatementIds(): void {
+		$existingStatementId = 'L1-F1$00000000-0000-0000-0000-000000000000';
+		$statementWithId = new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P321' ) ) );
+		$statementWithId->setGuid( $existingStatementId );
+
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andStatement( new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) ) )
+					->andStatement( $statementWithId )
+			)
+			->build();
+
+		$entityUpdater = $this->createStub( EntityUpdater::class );
+		$entityUpdater->method( 'update' )->willReturn( new EntityRevision( $lexeme, 123, '20250101120000' ) );
+
+		( new EntityUpdaterLexemeUpdater(
+			$entityUpdater,
+			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
+		) )->update( $lexeme, new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ) );
+
+		$formStatements = $lexeme->getForms()->toArray()[0]->getStatements()->toArray();
+		$this->assertStringStartsWith( 'L1-F1$', (string)$formStatements[0]->getGuid() );
+		$this->assertSame( $existingStatementId, $formStatements[1]->getGuid() );
+	}
+
 	public function testUpdateWithoutId_throws(): void {
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$this->createNoOpMock( EntityUpdater::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
 		);
 
 		$this->expectException( InvalidArgumentException::class );
@@ -164,6 +200,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
 			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
 		);
 		try {
 			$lexemeUpdater->create(
@@ -188,6 +225,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
 			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
 		);
 		try {
 			$lexemeUpdater->update(

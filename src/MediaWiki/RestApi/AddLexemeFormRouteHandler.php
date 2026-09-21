@@ -8,6 +8,7 @@ use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormResponse;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -42,17 +43,21 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
 
-		return $this->newSuccessHttpResponse(
-			$this->addLexemeForm->execute(
-				new AddLexemeFormRequest(
-					$lexemeId,
-					$jsonBody[self::FORM_BODY_PARAM],
-					$jsonBody[self::TAGS_BODY_PARAM] ?? [],
-					$jsonBody[self::BOT_BODY_PARAM] ?? false,
-					$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+		try {
+			return $this->newSuccessHttpResponse(
+				$this->addLexemeForm->execute(
+					new AddLexemeFormRequest(
+						$lexemeId,
+						$jsonBody[self::FORM_BODY_PARAM],
+						$jsonBody[self::TAGS_BODY_PARAM] ?? [],
+						$jsonBody[self::BOT_BODY_PARAM] ?? false,
+						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+					)
 				)
-			)
-		);
+			);
+		} catch ( UseCaseError $e ) {
+			return $this->responseFactory->newErrorResponseFromException( $e );
+		}
 	}
 
 	private function newSuccessHttpResponse( AddLexemeFormResponse $useCaseResponse ): Response {

@@ -33,6 +33,7 @@ use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
+use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
@@ -266,6 +267,7 @@ return call_user_func( static function () {
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
 					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
+					new GuidGenerator(),
 				),
 				new CreateLexemeValidator(
 					new TermLanguagesLemmaLanguageCodeValidator(
@@ -314,6 +316,7 @@ return call_user_func( static function () {
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
 					$lexemeReadModelConverter,
+					new GuidGenerator(),
 				),
 				new GuidGenerator(),
 				new AddLexemeStatementValidator(
@@ -347,6 +350,13 @@ return call_user_func( static function () {
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
 					$lexemeReadModelConverter,
+					new GuidGenerator(),
+				),
+				new AddLexemeFormValidator(
+					new StatementsValidator(
+						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+					),
+					new StatementsValidationErrorConverter(),
 				),
 			);
 		},
