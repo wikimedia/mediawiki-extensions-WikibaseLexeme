@@ -2,8 +2,12 @@
 
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
+use MediaWiki\HookContainer\HookRunner;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Rest\RequestInterface;
 use MediaWiki\Rest\Response;
+use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementRequest;
@@ -11,8 +15,12 @@ use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\Domains\Crud\RouteHandlers\Middleware\TempUserCreationResponseHeaderMiddleware;
 use Wikibase\Repo\Domains\Crud\WbCrud;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\StatementSerializer;
+use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
+use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
+use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -28,6 +36,7 @@ class AddLexemeStatementRouteHandler extends SimpleHandler {
 
 	public function __construct(
 		private AddLexemeStatement $addLexemeStatement,
+		private MiddlewareHandler $middlewareHandler,
 		private StatementSerializer $statementSerializer,
 		private ResponseFactory $responseFactory,
 	) {
@@ -36,12 +45,34 @@ class AddLexemeStatementRouteHandler extends SimpleHandler {
 	public static function factory(): Handler {
 		return new self(
 			WikibaseLexemeServices::getAddLexemeStatement(),
+			new MiddlewareHandler( [
+				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+				new UserAgentCheckMiddleware(),
+				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
+				WikibaseLexemeServices::getPreconditionMiddlewareFactory()->newPreconditionMiddleware(
+					fn ( RequestInterface $request ): string => $request->getPathParam( self::LEXEME_ID_PATH_PARAM )
+				),
+				new TempUserCreationResponseHeaderMiddleware(
+					new HookRunner( MediaWikiServices::getInstance()->getHookContainer() )
+				),
+			] ),
 			WbCrud::getStatementSerializer(),
 			new ResponseFactory(),
 		);
 	}
 
+	/**
+	 * Preconditions are checked via {@link PreconditionMiddleware}
+	 */
+	public function checkPreconditions(): ?ResponseInterface {
+		return null;
+	}
+
 	public function run( string $lexemeId ): Response {
+		return $this->middlewareHandler->run( $this, fn () => $this->runUseCase( $lexemeId ) );
+	}
+
+	public function runUseCase( string $lexemeId ): Response {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
 		$mwUser = $this->getAuthority()->getUser();

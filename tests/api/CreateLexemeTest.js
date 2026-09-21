@@ -341,35 +341,6 @@ describe( 'POST /entities/lexemes', () => {
 		} );
 	} );
 
-	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
-		const response = await newCreateLexemeRequestBuilder( {
-			lemmas: { en: `test-lemma-${ utils.uniq() }` },
-			lexical_category: lexicalCategoryId,
-			language: languageId
-		} )
-			.withHeader( 'user-agent', '' )
-			.makeRequest();
-
-		expect( response ).to.have.status( 400 );
-		assert.header( response, 'Content-Language', 'en' );
-		assert.strictEqual( response.body.code, 'missing-user-agent' );
-		assert.include( response.body.message, 'User-Agent' );
-	} );
-
-	it( 'responds with an X-Authenticated-User header for a logged in user', async () => {
-		const user = await action.alice();
-		const response = await newCreateLexemeRequestBuilder( {
-			lemmas: { en: `test-lemma-${ utils.uniq() }` },
-			lexical_category: lexicalCategoryId,
-			language: languageId
-		} )
-			.withUser( user )
-			.makeRequest();
-
-		expect( response ).to.have.status( 201 );
-		assert.header( response, 'X-Authenticated-User', user.username );
-	} );
-
 	it( 'can create a lexeme with edit metadata provided', async () => {
 		const user = await action.robby();
 		const tag = await action.makeTag( 'e2e test tag', 'Created during e2e test', true );

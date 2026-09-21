@@ -15,12 +15,16 @@ use RuntimeException;
 use Throwable;
 use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\DataModel\Entity\NumericPropertyId;
+use Wikibase\DataModel\Statement\StatementGuid;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
+use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementResponse;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
@@ -29,7 +33,13 @@ use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\PredicateProperty;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Qualifiers;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Rank;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\References;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Statement;
 use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\Value;
 use Wikibase\Repo\RestApi\Middleware\PreconditionMiddlewareFactory;
 use Wikibase\Repo\RestApi\Middleware\UnexpectedErrorHandlerMiddleware;
 
@@ -200,6 +210,55 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 				],
 			],
 		] ];
+
+		yield 'AddLexemeStatement' => [
+			[
+				'useCase' => AddLexemeStatement::class,
+				'useCaseResponse' => new AddLexemeStatementResponse(
+					new Statement(
+						new StatementGuid(
+							new LexemeId( 'L1' ),
+							'AAA-BBB-CCC'
+						),
+						new PredicateProperty( new NumericPropertyId( 'P1' ), 'string' ),
+						new Value( Value::TYPE_NO_VALUE ),
+						Rank::normal(),
+						new Qualifiers(),
+						new References(),
+					),
+					42,
+					$lastModified
+				),
+				'serviceName' => 'WikibaseLexeme.AddLexemeStatement',
+				'validRequest' => [
+					'pathParams' => [ 'lexeme_id' => 'L1' ],
+					'bodyContents' => [
+						'statement' => [
+							'id' => 'AAA-BBB-CCC',
+							'rank' => 'normal',
+							'qualifiers' => [],
+							'references' => [],
+							'property' => [ 'id' => 'P1', 'data_type' => 'string' ],
+							'value' => [ 'type' => 'novalue' ],
+						],
+					],
+				],
+				'expectedExceptions' => [
+					[
+						UseCaseError::newResourceNotFound( 'lexeme' ),
+						$hasHttpStatus( 404 ),
+					],
+					[
+						new LexemeRedirect( new LexemeId( 'L2' ) ),
+						$hasHttpStatus( 409 ),
+					],
+					[
+						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
+						$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),
+					],
+				],
+			],
+		];
 	}
 
 	/**

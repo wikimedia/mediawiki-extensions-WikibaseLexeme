@@ -1,6 +1,5 @@
 'use strict';
 
-// eslint-disable-next-line n/no-missing-require
 const { requireExtensions } = require( '../../../Wikibase/tests/api-testing/utils' );
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
 const { assert, action } = require( 'api-testing' );
@@ -55,6 +54,29 @@ describeWithTestData( 'Auth', (
 		...editRoutes,
 		lexemeCreateRequest( lexemeRequestInputs )
 	];
+
+	describe( 'Authentication', () => {
+		describeEachRouteWithReset( editAndCreateRoutes, ( newRequestBuilder ) => {
+			it( 'has an X-Authenticated-User header with the logged in user', async () => {
+				const response = await newRequestBuilder().withUser( user ).makeRequest();
+
+				expect( response ).status.to.be.within( 200, 299 );
+				assert.header( response, 'X-Authenticated-User', user.username );
+			} );
+
+			describe.skip( 'OAuth', () => {
+				before( requireExtensions( [ 'OAuth' ] ) );
+
+				it( 'responds with an error given an invalid bearer token', async () => {
+					const response = await newRequestBuilder()
+						.withHeader( 'Authorization', 'Bearer this-is-an-invalid-token' )
+						.makeRequest();
+
+					expect( response ).to.have.status( 403 );
+				} );
+			} );
+		} );
+	} );
 
 	describe( 'Authorization', () => {
 		describe( 'Blocked user', () => {
