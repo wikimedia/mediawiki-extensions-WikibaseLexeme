@@ -49,6 +49,8 @@ const lexemeExample = {
 
 const lexemeStatementExample = lexemeExample.statements.P5402[ 0 ];
 
+const lexemeFormExample = lexemeExample.forms[ 0 ];
+
 const createdLexemeExample = {
 	...lexemeExample,
 
@@ -109,6 +111,21 @@ module.exports = {
 			}
 		}
 	},
+	"CreatedLexemeForm": {
+		"description": "The newly created Form. Please note that the value of the `ETag` header " +
+			"field refers to the Lexeme's revision ID.",
+		"headers": {
+			"ETag": wikibaseRef( '#/components/headers/ETag' ),
+			"Last-Modified": wikibaseRef( '#/components/headers/Last-Modified' ),
+			"X-Authenticated-User": wikibaseRef( '#/components/headers/X-Authenticated-User' )
+		},
+		"content": {
+			"application/json": {
+				"schema": { "$ref": "#/components/schemas/Form" },
+				"example": lexemeFormExample
+			}
+		}
+	},
 	"CreatedLexemeStatement": {
 		"description": "The newly created Statement. Please note that the value of the `ETag` header " +
 			"field refers to the Lexeme's revision ID.",
@@ -130,6 +147,29 @@ module.exports = {
 			"application/json": {
 				"schema": errorSchema,
 				"examples": {
+					"value-too-long": wikibaseRef( '#/components/examples/ValueTooLongExample' ),
+					"statement-group-property-id-mismatch": wikibaseRef(
+						'#/components/examples/StatementGroupPropertyIdMismatch'
+					),
+					"referenced-resource-not-found": wikibaseRef(
+						'#/components/examples/ReferencedResourceNotFoundExample'
+					),
+					"invalid-value": wikibaseRef( '#/components/examples/InvalidValueExample' ),
+					"missing-field": wikibaseRef( '#/components/examples/MissingFieldExample' ),
+					"invalid-key": wikibaseRef( '#/components/examples/InvalidKeyExample' ),
+					"resource-too-large": wikibaseRef( '#/components/examples/ResourceTooLargeExample' )
+				}
+			}
+		},
+		"headers": { "Content-Language": contentLanguageHeader }
+	},
+	"InvalidNewFormInput": {
+		"description": "The request cannot be processed",
+		"content": {
+			"application/json": {
+				"schema": errorSchema,
+				"examples": {
+					"invalid-path-parameter": wikibaseRef( '#/components/examples/InvalidPathParameterExample' ),
 					"value-too-long": wikibaseRef( '#/components/examples/ValueTooLongExample' ),
 					"statement-group-property-id-mismatch": wikibaseRef(
 						'#/components/examples/StatementGroupPropertyIdMismatch'

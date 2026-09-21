@@ -66,6 +66,27 @@ const lexemeSchema = {
 	}
 };
 
+const formSchema = {
+	"id": {
+		"description": "The ID of the Form",
+		"type": "string",
+		"pattern": FORM_ID_PATTERN,
+		"readOnly": true
+	},
+	"representations": {
+		...termMap( "The representations of the Form, keyed by language code" ),
+
+		// a Form always has at least one representation
+		"minProperties": 1
+	},
+	"grammatical_features": {
+		"description": "The IDs of the Items representing the grammatical features of the Form",
+		"type": "array",
+		"items": { "type": "string", "pattern": ITEM_ID_PATTERN }
+	},
+	"statements": statementMap( "The statements of the Form, keyed by Property ID" )
+};
+
 module.exports = {
 	"Lexeme": {
 		"type": "object",
@@ -88,21 +109,18 @@ module.exports = {
 	},
 	"Form": {
 		"type": "object",
+		"properties": formSchema,
+		"required": [ "id", "representations", "grammatical_features", "statements" ]
+	},
+	"NewForm": {
+		"description": "A Form to be added to a Lexeme.",
+		"type": "object",
 		"properties": {
-			"id": {
-				"description": "The ID of the Form",
-				"type": "string",
-				"pattern": FORM_ID_PATTERN,
-				"readOnly": true
-			},
-			"representations": termMap( "The representations of the Form, keyed by language code" ),
-			"grammatical_features": {
-				"description": "The IDs of the Items representing the grammatical features of the Form",
-				"type": "array",
-				"items": { "type": "string", "pattern": ITEM_ID_PATTERN }
-			},
-			"statements": statementMap( "The statements of the Form, keyed by Property ID" )
-		}
+			... formSchema,
+
+			statements: statementMap( "The statements of the Form, keyed by Property ID", newStatementSchema )
+		},
+		"required": [ "representations" ]
 	},
 	"Sense": {
 		"type": "object",
