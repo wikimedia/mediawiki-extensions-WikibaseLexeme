@@ -131,7 +131,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 				$this->assertSame( 'edit', $action );
 				$result = true;
 				return false;
-			} );
+			}
+		);
 
 		$formData['wpEditToken'] = RequestContext::getMain()->getUser()->getEditToken();
 		$request = new FauxRequest( $formData, true );
@@ -358,8 +359,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 						throw new Exception( 'Expected Q1 or Q2, got ' . $itemId->getSerialization() );
 				}
 			} );
-		$labelDescriptionLookupFactory = $this->createMock(
-			FallbackLabelDescriptionLookupFactory::class );
+		$labelDescriptionLookupFactory = $this->createMock( FallbackLabelDescriptionLookupFactory::class );
 		$labelDescriptionLookupFactory->expects( $this->once() )
 			->method( 'newLabelDescriptionLookup' )
 			->with(
@@ -371,7 +371,8 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			)
 			->willReturn( $labelDescriptionLookup );
 		$this->setService( 'WikibaseRepo.FallbackLabelDescriptionLookupFactory',
-			$labelDescriptionLookupFactory );
+			$labelDescriptionLookupFactory
+		);
 
 		[ $html ] = $this->executeSpecialPage( '', null, 'de', null, true );
 
@@ -681,7 +682,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			string $returnToQuery,
 			string $returnToAnchor,
 			&$redirectUrl
-		) {
+			) {
 			$userNameUtils = $this->getServiceContainer()->getUserNameUtils();
 			$this->assertTrue( $userNameUtils->isTemp( $user ) );
 			$redirectUrl = 'http://centralwiki.test?returnto=' . $returnTo;

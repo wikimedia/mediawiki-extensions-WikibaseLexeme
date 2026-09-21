@@ -56,7 +56,8 @@ class GrammaticalFeatureItemIdsExtractorTest extends TestCase {
 				NewLexeme::havingId( 'L123' )
 					->withForm( NewForm::havingId( 'F1' )
 						->andGrammaticalFeature( 'Q2' )
-						->andGrammaticalFeature( 'Q3' ) )
+						->andGrammaticalFeature( 'Q3' )
+					)
 					->build(),
 				[ new ItemId( 'Q2' ), new ItemId( 'Q3' ) ],
 			],
@@ -65,10 +66,12 @@ class GrammaticalFeatureItemIdsExtractorTest extends TestCase {
 					->withForm( NewForm::havingId( 'F1' ) )
 					->withForm( NewForm::havingId( 'F2' )
 						->andGrammaticalFeature( 'Q321' )
-						->andGrammaticalFeature( 'Q123' ) )
+						->andGrammaticalFeature( 'Q123' )
+					)
 					->withForm( NewForm::havingId( 'F3' )
 						->andGrammaticalFeature( 'Q234' )
-						->andGrammaticalFeature( 'Q123' ) )
+						->andGrammaticalFeature( 'Q123' )
+					)
 					->build(),
 				[ new ItemId( 'Q123' ), new ItemId( 'Q321' ), new ItemId( 'Q234' ) ],
 			],

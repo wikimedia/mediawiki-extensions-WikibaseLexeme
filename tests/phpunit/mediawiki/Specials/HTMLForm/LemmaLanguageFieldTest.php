@@ -24,7 +24,8 @@ class LemmaLanguageFieldTest extends TestCase {
 	public function testConstructionWithForbiddenParametersFails( $param ) {
 		$this->expectException( InvalidArgumentException::class );
 		$this->expectExceptionMessage(
-			"Cannot set options for content language field. It already has it's own options" );
+			"Cannot set options for content language field. It already has it's own options"
+		);
 		new LemmaLanguageField( [ $param => 'value' ] );
 	}
 

@@ -207,7 +207,7 @@ class MergeLexemesTest extends WikibaseLexemeApiTestCase {
 			string $returnToQuery,
 			string $returnToAnchor,
 			&$redirectUrl
-		) {
+			) {
 			$this->assertSame( 'ReturnTo', $returnTo );
 			$this->assertSame( 'query=string', $returnToQuery );
 			$this->assertSame( '#anchor', $returnToAnchor );

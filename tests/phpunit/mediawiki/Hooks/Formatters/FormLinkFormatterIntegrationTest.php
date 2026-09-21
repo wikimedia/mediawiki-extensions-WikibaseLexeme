@@ -25,7 +25,8 @@ class FormLinkFormatterIntegrationTest extends WikibaseLexemeIntegrationTestCase
 		$representationLanguage = 'de';
 		$lexeme = NewLexeme::havingId( 'L321' )
 			->withForm( NewForm::havingId( $formId )
-				->andRepresentation( $representationLanguage, $representation ) )
+				->andRepresentation( $representationLanguage, $representation )
+			)
 			->build();
 		$this->saveEntity( $lexeme );
 

@@ -35,6 +35,7 @@ class WikibaseRepoDataTypesHookHandler implements WikibaseRepoDataTypesHook {
 
 		$dataTypeDefinitions =
 			array_merge( $dataTypeDefinitions,
-				require __DIR__ . '/../../WikibaseLexeme.datatypes.php' );
+				require __DIR__ . '/../../WikibaseLexeme.datatypes.php'
+			);
 	}
 }

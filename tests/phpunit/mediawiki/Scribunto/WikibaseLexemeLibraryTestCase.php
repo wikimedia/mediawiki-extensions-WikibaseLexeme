@@ -95,18 +95,22 @@ if (
 			$this->assertSame(
 				$parserOutput,
 				self::getParserOutputFromRedirectUsageAccumulator( $usageAccumulator ),
-				"Current engine parser output should be used by usage accumulator" );
+				"Current engine parser output should be used by usage accumulator"
+			);
 			$libraryWithMemberAccess->getParser()->resetOutput();
 			$newUsageAccumulator = $libraryWithMemberAccess->getUsageAccumulator();
 			$this->assertSame( $usageAccumulator, $newUsageAccumulator,
-				"Usage accumulator should not be reconstructed after parser output reset" );
+				"Usage accumulator should not be reconstructed after parser output reset"
+			);
 			$newParserOutput = $libraryWithMemberAccess->getParser()->getOutput();
 			$this->assertNotSame( $newParserOutput, $parserOutput,
-				"Engine should have a new parser output after a reset" );
+				"Engine should have a new parser output after a reset"
+			);
 			$this->assertSame(
 				$newParserOutput,
 				self::getParserOutputFromRedirectUsageAccumulator( $newUsageAccumulator ),
-				"Usage accumulator should be using the new parser output" );
+				"Usage accumulator should be using the new parser output"
+			);
 		}
 
 	}

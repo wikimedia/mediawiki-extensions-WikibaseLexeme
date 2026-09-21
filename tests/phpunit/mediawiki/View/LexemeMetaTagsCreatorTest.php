@@ -35,7 +35,7 @@ class LexemeMetaTagsCreatorTest extends EntityMetaTagsCreatorTestCase {
 			$labelDescriptionLookup->method( 'getLabel' )->willReturnMap( [
 					[ $languageItemId, $languageTerm ],
 					[ $categoryItemId, $categoryTerm ],
-				] );
+			] );
 
 			return new LexemeMetaTagsCreator( '/', $labelDescriptionLookup );
 		};

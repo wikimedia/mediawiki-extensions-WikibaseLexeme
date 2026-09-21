@@ -103,7 +103,8 @@ class LexemeReadModelConverterTest extends TestCase {
 	public function testConvertsFormStatements(): void {
 		$lexemeWriteModel = NewLexeme::havingId( 'L123' )
 			->withForm( NewForm::havingId( 'F1' )
-				->andStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) ) )
+				->andStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) )
+			)
 			->build();
 		$statement = $lexemeWriteModel->getForms()->toArray()[0]->getStatements()->toArray()[0];
 		$readModelStatement = $this->createStub( Statement::class );
@@ -120,7 +121,8 @@ class LexemeReadModelConverterTest extends TestCase {
 	public function testConvertsSenseStatements(): void {
 		$lexemeWriteModel = NewLexeme::havingId( 'L123' )
 			->withSense( NewSense::havingId( 'S1' )
-				->withStatement( new NumericPropertyId( 'P1' ) ) )
+				->withStatement( new NumericPropertyId( 'P1' ) )
+			)
 			->build();
 		$statement = $lexemeWriteModel->getSenses()->toArray()[0]->getStatements()->toArray()[0];
 		$readModelStatement = $this->createStub( Statement::class );

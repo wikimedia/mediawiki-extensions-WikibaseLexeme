@@ -74,7 +74,8 @@ class FormChangeOpDeserializerTest extends TestCase {
 			->willReturnCallback(
 				static function ( $id ) {
 					return new LexemeId( $id );
-				} );
+				}
+			);
 
 		$deserializer = new FormChangeOpDeserializer(
 			$entityLookup,
@@ -195,7 +196,8 @@ class FormChangeOpDeserializerTest extends TestCase {
 			->willReturnCallback(
 				static function ( $id ) {
 					return new LexemeId( $id );
-				} );
+				}
+			);
 
 		$idContext = $this->createMock( ValidationContext::class );
 		$idContext->expects( $this->once() )

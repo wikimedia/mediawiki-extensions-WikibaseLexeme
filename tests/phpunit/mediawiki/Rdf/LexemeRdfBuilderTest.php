@@ -36,15 +36,19 @@ class LexemeRdfBuilderTest extends TestCase {
 		$truthyBuilder->expects( $this->exactly( (int)$expectTruthyBuilderCalled ) )
 			->method( 'addEntity' )
 			->with( $lexeme );
-		$truthyBuilderFactory = $this->createConfiguredMock( TruthyStatementRdfBuilderFactory::class,
-			[ 'getTruthyStatementRdfBuilder' => $truthyBuilder ] );
+		$truthyBuilderFactory = $this->createConfiguredMock(
+			TruthyStatementRdfBuilderFactory::class,
+			[ 'getTruthyStatementRdfBuilder' => $truthyBuilder ]
+		);
 
 		$fullBuilder = $this->createMock( FullStatementRdfBuilder::class );
 		$fullBuilder->expects( $this->exactly( (int)$expectFullBuilderCalled ) )
 			->method( 'addEntity' )
 			->with( $lexeme );
-		$fullBuilderFactory = $this->createConfiguredMock( FullStatementRdfBuilderFactory::class,
-			[ 'getFullStatementRdfBuilder' => $fullBuilder ] );
+		$fullBuilderFactory = $this->createConfiguredMock(
+			FullStatementRdfBuilderFactory::class,
+			[ 'getFullStatementRdfBuilder' => $fullBuilder ]
+		);
 
 		$lexemeSpecificComponentsRdfBuilder = $this->createMock( EntityRdfBuilder::class );
 		$lexemeSpecificComponentsRdfBuilder->expects( $this->once() )

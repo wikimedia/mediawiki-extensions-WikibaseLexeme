@@ -67,7 +67,8 @@ class FormDiffer implements EntityDifferStrategy {
 	 */
 	public function getConstructionDiff( EntityDocument $entity ) {
 		throw new DomainException( 'Forms aren\'t stored as separate wiki pages, and can only show '
-			. 'up in regular diffs that add or remove a Form' );
+			. 'up in regular diffs that add or remove a Form'
+		);
 	}
 
 	/**
@@ -78,7 +79,8 @@ class FormDiffer implements EntityDifferStrategy {
 	 */
 	public function getDestructionDiff( EntityDocument $entity ) {
 		throw new DomainException( 'Forms aren\'t stored as separate wiki pages, and can only show '
-			. 'up in regular diffs that add or remove a Form' );
+			. 'up in regular diffs that add or remove a Form'
+		);
 	}
 
 	/**

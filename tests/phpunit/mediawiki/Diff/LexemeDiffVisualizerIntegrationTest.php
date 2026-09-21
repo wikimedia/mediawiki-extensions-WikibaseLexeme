@@ -65,8 +65,12 @@ class LexemeDiffVisualizerIntegrationTest extends WikibaseLexemeIntegrationTestC
 		$store->saveEntity( $l1, self::class, $this->getTestUser()->getUser() );
 		$store->saveEntity( $p1, self::class, $this->getTestUser()->getUser() );
 
-		$addedStatement = new Statement( new PropertyValueSnak( $p1->getId(),
-			new EntityIdValue( $l1->getId() ) ), null, null, 's1' );
+		$addedStatement = new Statement(
+			new PropertyValueSnak( $p1->getId(), new EntityIdValue( $l1->getId() ) ),
+			null,
+			null,
+			's1'
+		);
 
 		$diff = new EntityContentDiff(
 			new LexemeDiff( [

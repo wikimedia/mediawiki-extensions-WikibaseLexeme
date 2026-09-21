@@ -159,7 +159,7 @@ return [
 			}
 
 			return new EntityIdValueFormatter(
-					new SenseIdTextFormatter(
+				new SenseIdTextFormatter(
 					$revisionLookup,
 					$localizedTextProvider,
 					$entityIdLabelFormatter

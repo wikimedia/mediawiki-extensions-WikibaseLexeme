@@ -77,7 +77,8 @@ class SenseIdTextFormatterTest extends TestCase {
 					->withLemma( 'en', 'lemma' )
 					->withLanguage( 'Q123' )
 					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'qqx', 'gloss' ) )
+						->withGloss( 'qqx', 'gloss' )
+					)
 					->build();
 				return new EntityRevision( $entity );
 			} );
@@ -105,7 +106,8 @@ class SenseIdTextFormatterTest extends TestCase {
 					->withLemma( 'el', 'λεμμα' )
 					->withLanguage( 'Q123' )
 					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'qqx', 'gloss' ) )
+						->withGloss( 'qqx', 'gloss' )
+					)
 					->build();
 				return new EntityRevision( $entity );
 			} );
@@ -136,7 +138,8 @@ class SenseIdTextFormatterTest extends TestCase {
 					->withId( $entityId )
 					->withLemma( 'en', 'lemma' )
 					->withSense( NewSense::havingId( $senseId )
-						->withGloss( 'en', 'gloss' ) )
+						->withGloss( 'en', 'gloss' )
+					)
 					->build();
 				return new EntityRevision( $entity );
 			} );

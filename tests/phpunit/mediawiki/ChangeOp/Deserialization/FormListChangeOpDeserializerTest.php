@@ -128,7 +128,8 @@ class FormListChangeOpDeserializerTest extends TestCase {
 
 		$this->expectException( ApiUsageException::class );
 		$this->expectExceptionMessage(
-			'Field "forms" in parameter "data" expected to be of type "array". Given: "NULL"' );
+			'Field "forms" in parameter "data" expected to be of type "array". Given: "NULL"'
+		);
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => null ]
 		);
@@ -141,7 +142,8 @@ class FormListChangeOpDeserializerTest extends TestCase {
 
 		$this->expectException( ApiUsageException::class );
 		$this->expectExceptionMessage(
-			'Field "forms/0" in parameter "data" expected to be of type "array". Given: "NULL"' );
+			'Field "forms/0" in parameter "data" expected to be of type "array". Given: "NULL"'
+		);
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'forms' => [ null ] ]
 		);

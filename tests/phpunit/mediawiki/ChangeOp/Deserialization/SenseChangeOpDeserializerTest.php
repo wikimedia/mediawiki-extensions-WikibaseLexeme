@@ -74,7 +74,8 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->willReturnCallback(
 				static function ( $id ) {
 					return new LexemeId( $id );
-				} );
+				}
+			);
 
 		$deserializer = new SenseChangeOpDeserializer(
 			$entityLookup,
@@ -195,7 +196,8 @@ class SenseChangeOpDeserializerTest extends TestCase {
 			->willReturnCallback(
 				static function ( $id ) {
 					return new LexemeId( $id );
-				} );
+				}
+			);
 
 		$idContext = $this->createMock( ValidationContext::class );
 		$idContext->expects( $this->once() )

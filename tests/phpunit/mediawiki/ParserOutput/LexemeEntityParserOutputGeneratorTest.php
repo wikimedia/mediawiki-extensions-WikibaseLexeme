@@ -54,8 +54,10 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 				->andStatement( new PropertyValueSnak(
 					new NumericPropertyId( $propertyId ),
 					new EntityIdValue( new ItemId( $valueItemId ) )
-				) ) )
-			->build() );
+				) )
+			)
+			->build()
+		);
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
@@ -73,7 +75,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 				new NumericPropertyId( $propertyId ),
 				new EntityIdValue( new ItemId( $valueItemId ) )
 			) )
-			->build() );
+			->build()
+		);
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
@@ -86,7 +89,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->saveEntity( NewItem::withId( $languageItemId )->build() );
 		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withLanguage( $languageItemId )
-			->build() );
+			->build()
+		);
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
@@ -98,7 +102,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->saveEntity( NewItem::withId( $lexicalCategoryItemId )->build() );
 		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withLexicalCategory( $lexicalCategoryItemId )
-			->build() );
+			->build()
+		);
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
@@ -113,8 +118,10 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withForm( NewForm::havingId( 'F1' )
 				->andGrammaticalFeature( $grammaticalFeatureItemId1 )
-				->andGrammaticalFeature( $grammaticalFeatureItemId2 ) )
-			->build() );
+				->andGrammaticalFeature( $grammaticalFeatureItemId2 )
+			)
+			->build()
+		);
 
 		$output = $this->newParserOutputGenerator()->getParserOutput( $entityRevision );
 
@@ -128,7 +135,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$entityRevision = new EntityRevision( NewLexeme::havingId( 'L1' )
 			->withLemma( 'en', 'goat' )
 			->withLemma( 'fr', 'taog' )
-			->build() );
+			->build()
+		);
 
 		$parserOutput = $entityParserOutputGenerator->getParserOutput( $entityRevision );
 		$title = $parserOutput->getExtensionData( 'wikibase-meta-tags' )['title'];
@@ -137,8 +145,8 @@ class LexemeEntityParserOutputGeneratorTest extends WikibaseLexemeIntegrationTes
 		$this->assertStringContainsString( 'taog', $title );
 		$this->assertStringContainsString(
 			( new Message(
-				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma' )
-			)->escaped(),
+				'wikibaselexeme-presentation-lexeme-display-label-separator-multiple-lemma'
+			) )->escaped(),
 			$title
 		);
 	}

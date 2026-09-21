@@ -56,7 +56,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 				$this->assertSame( 'edit', $action );
 				$result = true;
 				return false;
-			} );
+			}
+		);
 
 		try {
 			$this->doApiRequestWithToken( $params );
@@ -826,7 +827,8 @@ class EditFormElementsTest extends WikibaseLexemeApiTestCase {
 		$this->saveEntity( NewLexeme::havingId( 'L1' )
 			->withForm(
 				NewForm::havingId( 'F1' )
-			)->build() );
+			)->build()
+		);
 		$this->saveEntity( new Item( new ItemId( self::GRAMMATICAL_FEATURE_ITEM_ID ) ) );
 
 		$property = 'P909';

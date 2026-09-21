@@ -105,7 +105,7 @@ class AddLexemeStatementTest extends MediaWikiUnitTestCase {
 					1,
 					'20260910070707',
 				)
-		);
+			);
 		$response = $this->newUseCase(
 			metadataRetriever: $metadataRetriever,
 			lexemeRetriever: $lexemeRetriever,

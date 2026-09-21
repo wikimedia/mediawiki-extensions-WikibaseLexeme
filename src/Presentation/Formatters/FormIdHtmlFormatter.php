@@ -66,7 +66,8 @@ class FormIdHtmlFormatter implements EntityIdFormatter {
 		}
 		if ( !( $formId instanceof FormId ) ) {
 			throw new InvalidArgumentException(
-				'Attemped to format a non-Form entity as a Form: ' . $formId->getSerialization() );
+				'Attemped to format a non-Form entity as a Form: ' . $formId->getSerialization()
+			);
 		}
 
 		if ( $formRevision === null || $title === null ) {

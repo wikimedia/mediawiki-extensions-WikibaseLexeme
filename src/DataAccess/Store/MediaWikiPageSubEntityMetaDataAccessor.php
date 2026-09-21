@@ -47,7 +47,8 @@ class MediaWikiPageSubEntityMetaDataAccessor implements WikiPageEntityMetaDataAc
 				$entityIds[$key] = $entityId->getLexemeId();
 			} else {
 				throw new LogicException(
-					$entityId->getSerialization() . ' is not instance of ' . LexemeSubEntityId::class );
+					$entityId->getSerialization() . ' is not instance of ' . LexemeSubEntityId::class
+				);
 			}
 		}
 

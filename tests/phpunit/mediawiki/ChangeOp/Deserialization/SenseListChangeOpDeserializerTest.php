@@ -131,7 +131,8 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 
 		$this->expectException( ApiUsageException::class );
 		$this->expectExceptionMessage(
-			'Field "senses" in parameter "data" expected to be of type "array". Given: "NULL"' );
+			'Field "senses" in parameter "data" expected to be of type "array". Given: "NULL"'
+		);
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'senses' => null ]
 		);
@@ -144,7 +145,8 @@ class SenseListChangeOpDeserializerTest extends TestCase {
 
 		$this->expectException( ApiUsageException::class );
 		$this->expectExceptionMessage(
-			'Field "senses/0" in parameter "data" expected to be of type "array". Given: "NULL"' );
+			'Field "senses/0" in parameter "data" expected to be of type "array". Given: "NULL"'
+		);
 		$changeOps = $this->getDeserializer()->createEntityChangeOp(
 			[ 'senses' => [ null ] ]
 		);

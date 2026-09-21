@@ -18,7 +18,8 @@ class LexemeNamespaceTest extends TestCase {
 	 */
 	public function testNamespaceMoveability( $namespace, $moveable ) {
 		$this->assertSame( $moveable, MediaWikiServices::getInstance()->getNamespaceInfo()
-			->isMovable( $namespace ) );
+			->isMovable( $namespace )
+		);
 	}
 
 	public static function provideNamespacesAndMoveability() {

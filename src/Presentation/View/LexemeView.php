@@ -183,7 +183,8 @@ HTML;
 		}
 
 		$title = $isEmpty ? htmlspecialchars(
-			$this->getLocalizedMessage( 'wikibase-label-empty' ) ) : $labelHtml;
+			$this->getLocalizedMessage( 'wikibase-label-empty' )
+		) : $labelHtml;
 
 		return $this->templateFactory->render(
 			'wikibase-title',

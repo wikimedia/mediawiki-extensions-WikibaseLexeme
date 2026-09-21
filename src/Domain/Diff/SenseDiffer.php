@@ -67,7 +67,8 @@ class SenseDiffer implements EntityDifferStrategy {
 	 */
 	public function getConstructionDiff( EntityDocument $entity ) {
 		throw new DomainException( 'Sense aren\'t stored as separate wiki pages, and can only show '
-			. 'up in regular diffs that add or remove a Sense' );
+			. 'up in regular diffs that add or remove a Sense'
+		);
 	}
 
 	/**
@@ -78,7 +79,8 @@ class SenseDiffer implements EntityDifferStrategy {
 	 */
 	public function getDestructionDiff( EntityDocument $entity ) {
 		throw new DomainException( 'Senses aren\'t stored as separate wiki pages, and can only show '
-			. 'up in regular diffs that add or remove a Sense' );
+			. 'up in regular diffs that add or remove a Sense'
+		);
 	}
 
 	/**

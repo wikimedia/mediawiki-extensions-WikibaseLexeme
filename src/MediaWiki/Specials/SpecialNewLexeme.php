@@ -212,7 +212,7 @@ class SpecialNewLexeme extends SpecialPage {
 		$output->addModules( [
 			'wikibase.lexeme.special.NewLexeme',
 			'wikibase.lexeme.special.NewLexeme.legacyBrowserFallback',
-			] );
+		] );
 		$output->addModuleStyles( [
 			'wikibase.lexeme.special.NewLexeme.styles',
 			'wikibase.alltargets', // T322687

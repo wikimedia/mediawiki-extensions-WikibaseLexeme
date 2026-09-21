@@ -238,7 +238,8 @@ class MergeLexemesInteractorTest extends MediaWikiIntegrationTestCase {
 		$this->setService( 'WikibaseRepo.EditEntityFactory',
 			$this->createConfiguredMock( MediaWikiEditEntityFactory::class, [
 				'newEditEntity' => $failingEditEntity,
-			] ) );
+			] )
+		);
 
 		$this->expectException( LexemeSaveFailedException::class );
 		$this->newMergeInteractor()

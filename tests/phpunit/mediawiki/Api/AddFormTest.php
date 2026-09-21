@@ -47,7 +47,8 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 				$this->assertSame( 'edit', $action );
 				$result = true;
 				return false;
-			} );
+			}
+		);
 
 		try {
 			$this->doApiRequestWithToken( $params );

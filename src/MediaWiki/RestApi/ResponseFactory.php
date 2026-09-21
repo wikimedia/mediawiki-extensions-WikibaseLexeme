@@ -75,10 +75,11 @@ class ResponseFactory {
 		$httpResponse->setStatus( $this->lookupHttpStatus( $code ) );
 		$httpResponse->setBody(
 			new StringStream( json_encode(
-					// array_filter drops 'context' from the body when it is empty
-					array_filter( [ 'code' => $code, 'message' => $message, 'context' => $context ] ),
-					JSON_UNESCAPED_SLASHES )
-			) );
+				// array_filter drops 'context' from the body when it is empty
+				array_filter( [ 'code' => $code, 'message' => $message, 'context' => $context ] ),
+				JSON_UNESCAPED_SLASHES
+			) )
+		);
 
 		return $httpResponse;
 	}

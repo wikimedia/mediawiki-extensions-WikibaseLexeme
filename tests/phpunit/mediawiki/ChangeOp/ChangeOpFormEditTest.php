@@ -154,8 +154,7 @@ class ChangeOpFormEditTest extends TestCase {
 
 		$changeOp = new ChangeOpFormEdit( [ new ChangeOpRemoveFormRepresentation( 'en' ) ] );
 		$this->expectException( ChangeOpApplyException::class );
-		$this->expectExceptionMessage(
-			'apierror-wikibaselexeme-form-must-have-at-least-one-representation' );
+		$this->expectExceptionMessage( 'apierror-wikibaselexeme-form-must-have-at-least-one-representation' );
 		$changeOp->apply( $form );
 	}
 

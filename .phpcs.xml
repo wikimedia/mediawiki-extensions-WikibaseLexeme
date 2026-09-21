@@ -34,6 +34,28 @@
 		<exclude-pattern>WikibaseLexemeLibraryTestCase</exclude-pattern>
 	</rule>
 
+	<!-- Excluding test files with non-standard indentation in nested Hamcrest matchers. -->
+	<rule ref="PEAR.Functions.FunctionCallSignature.Indent">
+		<exclude-pattern>tests/phpunit/composer/DataModel/Serialization/ExternalLexemeSerializerTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Diff/ItemReferenceDifferenceVisualizerTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Diff/LexemeDiffVisualizerIntegrationTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Diff/LexemeDiffVisualizerTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Formatters/FormIdHtmlFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Formatters/LexemeIdHtmlFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Formatters/LexemeTermFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Formatters/RedirectedLexemeSubEntityIdHtmlFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Formatters/SenseIdHtmlFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Hooks/Formatters/FormLinkFormatterIntegrationTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Hooks/Formatters/FormLinkFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Hooks/Formatters/LexemeLinkFormatterIntegrationTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Hooks/Formatters/LexemeLinkFormatterTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/Specials/SpecialMergeLexemesTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/View/FormsViewTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/View/LexemeViewTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/View/SensesViewTest.php</exclude-pattern>
+		<exclude-pattern>tests/phpunit/mediawiki/WikibaseLexemeIntegrationTestCase.php</exclude-pattern>
+	</rule>
+
 	<rule ref="Generic.Metrics.CyclomaticComplexity" />
 	<rule ref="Generic.Metrics.NestingLevel" />
 

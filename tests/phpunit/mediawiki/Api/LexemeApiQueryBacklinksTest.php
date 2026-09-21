@@ -133,15 +133,23 @@ class LexemeApiQueryBacklinksTest extends WikibaseLexemeApiTestCase {
 		$lexeme = NewLexeme::havingId( 'L123' )
 			->withLanguage( $language->getId() )
 			->withLexicalCategory( $lexCat->getId() )
-			->withForm( NewForm::havingId( 'F1' )
-				->andGrammaticalFeature( $gf1->getId() )
-				->andStatement( NewStatement::forProperty( $p4711->getId() )
-					->withValue( $formStatementValueItem->getId() ) ) )
-			->withForm( NewForm::havingId( 'F2' )
-				->andGrammaticalFeature( $gf2->getId() ) )
-			->withSense( NewSense::havingId( 'S1' )
-				->withStatement( NewStatement::forProperty( $p4711->getId() )
-					->withValue( $senseStatementValueItem->getId() ) ) )
+			->withForm(
+				NewForm::havingId( 'F1' )
+					->andGrammaticalFeature( $gf1->getId() )
+					->andStatement( NewStatement::forProperty( $p4711->getId() )
+						->withValue( $formStatementValueItem->getId() )
+					)
+			)
+			->withForm(
+				NewForm::havingId( 'F2' )
+					->andGrammaticalFeature( $gf2->getId() )
+			)
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withStatement( NewStatement::forProperty( $p4711->getId() )
+						->withValue( $senseStatementValueItem->getId() )
+					)
+			)
 			->build();
 
 		$this->saveEntity( $lexeme );

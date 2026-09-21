@@ -168,7 +168,8 @@ class AddSense extends ApiBase {
 			if ( !$lexemeRevision ) {
 				$error = new LexemeNotFound( $lexemeId );
 				$this->dieWithError( $error->asApiMessage( AddSenseRequestParser::PARAM_LEXEME_ID,
-					[] ) );
+					[]
+				) );
 			}
 		} catch ( StorageException $e ) {
 			// TODO Test it

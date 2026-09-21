@@ -190,7 +190,8 @@ class LexemeContent extends EntityContent {
 
 		foreach ( $lexeme->getForms()->toArray() as $form ) {
 			$terms = array_merge( $terms,
-				array_values( $form->getRepresentations()->toTextArray() ) );
+				array_values( $form->getRepresentations()->toTextArray() )
+			);
 		}
 
 		return implode( ' ', $terms );

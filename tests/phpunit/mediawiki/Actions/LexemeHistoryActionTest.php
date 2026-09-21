@@ -86,7 +86,8 @@ final class LexemeHistoryActionTest extends TestCase {
 				$lemmaLookup,
 				new LexemeTermFormatter( $context
 					->msg( self::SEP_MESSAGE_KEY )
-					->escaped() )
+					->escaped()
+				)
 			)
 		);
 	}

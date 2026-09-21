@@ -31,7 +31,8 @@ class CreateLexeme {
 			$request->username === null ? User::newAnonymous() : User::withUsername( $request->username )
 		);
 
-		$lexemeRevision = $this->executeWithExceptionHandling( fn () => $this->lexemeCreator->create(
+		$lexemeRevision = $this->executeWithExceptionHandling(
+			fn () => $this->lexemeCreator->create(
 				$this->validator->getValidatedLexeme(),
 				$this->validator->getValidatedEditMetadata(),
 			)

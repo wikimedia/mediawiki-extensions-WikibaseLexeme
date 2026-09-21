@@ -78,7 +78,8 @@ class LexemeSensesMergerTest extends TestCase {
 				->withSense(
 					NewSense::havingId( 'S2' )
 						->withGloss( 'en', 'color' )
-						->withGloss( 'en-gb', 'colour' ) )
+						->withGloss( 'en-gb', 'colour' )
+				)
 				->build(),
 			self::newMinimumValidLexeme( 'L1' )
 				->withSense(

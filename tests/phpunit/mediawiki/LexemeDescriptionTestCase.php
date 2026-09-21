@@ -119,7 +119,8 @@ trait LexemeDescriptionTestCase {
 			),
 			$this->getMockTermLookup(),
 			$this->getMockTermBuffer( $fetchIds,
-				$langFactory->newFromLanguageCode( $displayLanguage )->getFetchLanguageCodes() )
+				$langFactory->newFromLanguageCode( $displayLanguage )->getFetchLanguageCodes()
+			)
 		);
 	}
 

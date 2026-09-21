@@ -72,14 +72,18 @@ class LexemeDescription {
 		return wfMessage( 'wikibaselexeme-description' )
 			->inLanguage( $this->displayLanguage )
 			->params(
-				$this->getLabelOrDefault( $languageId,
+				$this->getLabelOrDefault(
+					$languageId,
 					wfMessage( 'wikibaselexeme-unknown-language' )
 						->inLanguage( $this->displayLanguage )
-						->text() ),
-				$this->getLabelOrDefault( $categoryId,
+						->text()
+				),
+				$this->getLabelOrDefault(
+					$categoryId,
 					wfMessage( 'wikibaselexeme-unknown-category' )
 						->inLanguage( $this->displayLanguage )
-						->text() )
+						->text()
+				)
 			)->text();
 	}
 
@@ -103,10 +107,14 @@ class LexemeDescription {
 		$featuresString = implode( $comma, array_filter( array_map(
 			function ( EntityId $featureId ) {
 				// TODO: do we need separate string for this?
-				return $this->getLabelOrDefault( $featureId,
+				return $this->getLabelOrDefault(
+					$featureId,
 					wfMessage( 'wikibaselexeme-unknown-category' )
-						->inLanguage( $this->displayLanguage )->text() );
-			}, $features ) ) );
+						->inLanguage( $this->displayLanguage )->text()
+				);
+			},
+			$features
+		) ) );
 		if ( $featuresString === '' ) {
 			$featuresString = wfMessage( 'wikibaselexeme-no-features' )
 				->inLanguage( $this->displayLanguage )->text();

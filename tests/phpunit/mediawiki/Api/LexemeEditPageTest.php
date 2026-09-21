@@ -26,7 +26,8 @@ class LexemeEditPageTest extends WikibaseLexemeApiTestCase {
 		$gf2 = NewItem::withId( 'Q321' )->build();
 		$lexeme = NewLexeme::havingId( 'L123' )
 			->withForm( NewForm::havingId( 'F1' )
-				->andGrammaticalFeature( $gf1->getId() ) )
+				->andGrammaticalFeature( $gf1->getId() )
+			)
 			->build();
 
 		$expected = $lexeme->copy();

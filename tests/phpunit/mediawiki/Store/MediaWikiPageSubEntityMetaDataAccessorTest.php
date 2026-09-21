@@ -39,7 +39,9 @@ class MediaWikiPageSubEntityMetaDataAccessorTest extends TestCase {
 		);
 
 		$actualReturn = $entityDataAccessor->loadRevisionInformation(
-			$entityIds, LookupConstants::LATEST_FROM_MASTER );
+			$entityIds,
+			LookupConstants::LATEST_FROM_MASTER
+		);
 
 		$this->assertEquals( $expectedReturn, $actualReturn );
 	}

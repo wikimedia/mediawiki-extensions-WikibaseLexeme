@@ -35,7 +35,8 @@ class FormIdTextFormatter implements EntityIdFormatter {
 	public function formatEntityId( EntityId $formId ): string {
 		if ( !( $formId instanceof FormId ) ) {
 			throw new InvalidArgumentException(
-				'Attemped to format a non-Form entity as a Form: ' . $formId->getSerialization() );
+				'Attemped to format a non-Form entity as a Form: ' . $formId->getSerialization()
+			);
 		}
 		try {
 			$formRevision = $this->revisionLookup->getEntityRevision( $formId );

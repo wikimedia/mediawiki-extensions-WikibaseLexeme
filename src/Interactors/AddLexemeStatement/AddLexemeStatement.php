@@ -62,11 +62,11 @@ class AddLexemeStatement {
 		$lexemeRevision = $this->executeWithExceptionHandling(
 			fn () => $this->lexemeUpdater->update(
 				$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
-			new EditMetadata(
-				$request->editTags,
-				$request->isBot,
-				new AddStatementEditSummary( $request->comment, $statement ),
-			),
+				new EditMetadata(
+					$request->editTags,
+					$request->isBot,
+					new AddStatementEditSummary( $request->comment, $statement ),
+				),
 			)
 		);
 

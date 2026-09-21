@@ -63,7 +63,8 @@ class SenseIdHtmlFormatter implements EntityIdFormatter {
 	public function formatEntityId( EntityId $value ): string {
 		if ( !( $value instanceof SenseId ) ) {
 			throw new InvalidArgumentException(
-				'Attempted to format non-Sense entity as Sense: ' . $value->getSerialization() );
+				'Attempted to format non-Sense entity as Sense: ' . $value->getSerialization()
+			);
 		}
 		$title = $this->titleLookup->getTitleForId( $value );
 

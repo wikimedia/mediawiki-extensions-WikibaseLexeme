@@ -67,7 +67,8 @@ class GlossesChangeOpDeserializer implements ChangeOpDeserializer {
 				$changeOps[] = new ChangeOpRemoveSenseGloss( $gloss[self::PARAM_LANGUAGE] );
 			} else {
 				$this->termSerializationValidator->validateLanguage(
-					$language, $gloss, $languageContext );
+					$language, $gloss, $languageContext
+				);
 				$trimmedGloss = [
 					self::PARAM_LANGUAGE => $gloss[self::PARAM_LANGUAGE],
 					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $gloss[self::PARAM_VALUE] ),

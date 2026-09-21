@@ -108,7 +108,7 @@ abstract class WikibaseLexemeApiTestCase extends WikibaseApiTestCase {
 			$returnToQuery,
 			$returnToAnchor,
 			&$redirectUrl
-		) {
+			) {
 			$this->assertSame( 'Lexeme:L1', $returnTo );
 			$this->assertSame( 'b=c', $returnToQuery );
 			$this->assertSame( '#d', $returnToAnchor );
