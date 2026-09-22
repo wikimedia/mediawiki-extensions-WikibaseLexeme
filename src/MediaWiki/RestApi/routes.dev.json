@@ -1,10 +1,5 @@
 [
 	{
-		"path": "/wikibase/v0/entities/lexemes",
-		"method": "POST",
-		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\CreateLexemeRouteHandler::factory"
-	},
-	{
 		"path": "/wikibase/v0/entities/lexemes/{lexeme_id}/statements",
 		"method": "POST",
 		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\AddLexemeStatementRouteHandler::factory"
