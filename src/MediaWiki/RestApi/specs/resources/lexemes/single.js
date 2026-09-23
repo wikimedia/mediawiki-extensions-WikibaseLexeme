@@ -1,5 +1,6 @@
 'use strict';
 
+const parameterSets = require( '../../global/parameter-sets.js' );
 const { wikibaseRef } = require( '../../helpers.js' );
 
 module.exports = {
@@ -9,10 +10,7 @@ module.exports = {
 		"summary": "Retrieve a single Lexeme by ID",
 		"parameters": [
 			{ "$ref": "#/components/parameters/LexemeId" },
-			wikibaseRef( '#/components/parameters/IfNoneMatch' ),
-			wikibaseRef( '#/components/parameters/IfModifiedSince' ),
-			wikibaseRef( '#/components/parameters/IfMatch' ),
-			wikibaseRef( '#/components/parameters/IfUnmodifiedSince' ),
+			...parameterSets.ReadConditionalHeaders,
 			wikibaseRef( '#/components/parameters/Authorization' )
 		],
 		"responses": {

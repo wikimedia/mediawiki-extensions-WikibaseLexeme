@@ -1,5 +1,6 @@
 'use strict';
 
+const parameterSets = require( '../../../global/parameter-sets.js' );
 const { wikibaseRef } = require( '../../../helpers.js' );
 const { MediawikiEdit } = require( '../../../global/request-parts.js' );
 
@@ -10,9 +11,7 @@ module.exports = {
 		"summary": "Add a new Form to a Lexeme",
 		"parameters": [
 			{ "$ref": "#/components/parameters/LexemeId" },
-			wikibaseRef( '#/components/parameters/IfMatch' ),
-			wikibaseRef( '#/components/parameters/IfUnmodifiedSince' ),
-			wikibaseRef( '#/components/parameters/IfNoneMatch' ),
+			...parameterSets.EditConditionalHeaders,
 			wikibaseRef( '#/components/parameters/Authorization' )
 		],
 		"requestBody": {
