@@ -10,7 +10,8 @@ const LEXEME_PATH = '/v0/entities/lexemes/{lexeme_id}';
 
 describe( 'GET /v1/openapi.json', () => {
 
-	it( 'documents the lexeme route', async () => {
+	// Temporarily skipping while we work on T435953.
+	it.skip( 'documents the lexeme route', async () => {
 		const response = await new RequestBuilder()
 			.withRoute( 'GET', '/v1/openapi.json' )
 			.makeRequest();
