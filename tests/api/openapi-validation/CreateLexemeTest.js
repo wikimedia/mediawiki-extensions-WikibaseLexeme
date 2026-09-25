@@ -2,32 +2,20 @@
 
 const { assert, action, utils } = require( 'api-testing' );
 const { expect } = require( '../helpers/chaiHelper' );
-const {
-	newCreateLexemeRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreatePropertyRequestBuilder
-} = require( '../helpers/RequestBuilderFactory' );
+const { newCreateLexemeRequestBuilder } = require( '../helpers/RequestBuilderFactory' );
+const { getItemId, getStringPropertyId } = require( '../helpers/entityHelper' );
 const fragment = require( '../../../src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json' );
 
 const UNREACHABLE_STATUSES = [ '500' ];
-
-async function createItem( label ) {
-	return ( await newCreateItemRequestBuilder( {
-		labels: { en: `${ label }-${ utils.uniq() }` }
-	} ).makeRequest() ).body.id;
-}
 
 describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
 
 	const testData = {};
 
 	before( async () => {
-		testData.language = await createItem( 'language' );
-		testData.lexicalCategory = await createItem( 'lexical-category' );
-		testData.propertyId = ( await newCreatePropertyRequestBuilder( {
-			data_type: 'string',
-			labels: { en: `spec-test-property-${ utils.uniq() }` }
-		} ).makeRequest() ).body.id;
+		testData.language = await getItemId();
+		testData.lexicalCategory = await getItemId();
+		testData.propertyId = await getStringPropertyId();
 		testData.blockedUser = await action.blockedUser();
 	} );
 

@@ -6,10 +6,9 @@ const config = require( 'api-testing/lib/config' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreateLexemeRequestBuilder,
-	newCreatePropertyRequestBuilder
+	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
+const { getItemId, getStringPropertyId } = require( './helpers/entityHelper' );
 /**
  * AbuseFilter is used here to exercise the generic EditPrevented handling.
  *
@@ -66,8 +65,8 @@ describe( 'Edit prevented with abuse filter', () => {
 		filterId = await createAbuseFilter( filterDescription, `"${ filterTriggerWord }" in new_wikitext` );
 		lexeme = {
 			lemmas: { en: filterTriggerWord },
-			lexical_category: ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id,
-			language: ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id
+			lexical_category: await getItemId(),
+			language: await getItemId()
 		};
 	} );
 
@@ -99,9 +98,7 @@ describe( 'Edit prevented with abuse filter', () => {
 		const lexemeId = ( await newCreateLexemeRequestBuilder( safeLexeme )
 			.makeRequest() ).body.id;
 
-		const propertyId = ( await newCreatePropertyRequestBuilder(
-			{ data_type: 'string', labels: { en: `string-property-${ utils.uniq() }` } }
-		).makeRequest() ).body.id;
+		const propertyId = await getStringPropertyId();
 
 		const response = await newAddLexemeStatementRequestBuilder(
 			lexemeId,

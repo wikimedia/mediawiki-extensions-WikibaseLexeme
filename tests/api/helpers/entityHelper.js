@@ -7,8 +7,10 @@ const {
 } = require( './RequestBuilderFactory' );
 
 let testItemId;
+let otherTestItemId;
 let testLexemeId;
 let stringPropertyId;
+let otherStringPropertyId;
 
 /**
  * Creates a reusable item on the first call and returns it on subsequent calls.
@@ -17,10 +19,20 @@ let stringPropertyId;
  * @return {Promise<string>} - the id of the item
  */
 async function getItemId() {
+	testItemId = testItemId || ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
 
-	const response = ( await newCreateItemRequestBuilder( {} ).makeRequest() );
-	testItemId = testItemId || response.body.id;
 	return testItemId;
+}
+
+/**
+ * Like getItemId(), but returns a different item. Use this when a test needs two distinct items.
+ *
+ * @return {Promise<string>} - the id of the item
+ */
+async function getOtherItemId() {
+	otherTestItemId = otherTestItemId || ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+
+	return otherTestItemId;
 }
 
 /**
@@ -105,6 +117,17 @@ async function getStringPropertyId() {
 	return stringPropertyId;
 }
 
+/**
+ * Like getStringPropertyId(), but returns a different property. Use this when a test needs two distinct properties.
+ *
+ * @return {Promise<string>} - the id of the property
+ */
+async function getOtherStringPropertyId() {
+	otherStringPropertyId = otherStringPropertyId || ( await createUniqueStringProperty() ).body.id;
+
+	return otherStringPropertyId;
+}
+
 async function createUniqueStringProperty() {
 	return await newCreatePropertyRequestBuilder( {
 		data_type: 'string',
@@ -124,11 +147,13 @@ async function changeLexemeProtectionStatus( lexemeId, allowedUserGroup ) {
 
 module.exports = {
 	getItemId,
+	getOtherItemId,
 	getLexemeId,
 	createLexeme,
 	createRedirectForLexeme,
 	getLatestEditMetadata,
 	newStatementWithRandomStringValue,
 	getStringPropertyId,
+	getOtherStringPropertyId,
 	changeLexemeProtectionStatus
 };

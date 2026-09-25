@@ -4,10 +4,9 @@ const { assert, utils } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreateLexemeRequestBuilder,
-	newCreatePropertyRequestBuilder
+	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
+const { getItemId, getStringPropertyId } = require( './helpers/entityHelper' );
 
 describe( 'Rate Limiting', () => {
 	let lexeme;
@@ -16,13 +15,10 @@ describe( 'Rate Limiting', () => {
 	before( async () => {
 		lexeme = {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
-			lexical_category: ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id,
-			language: ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id
+			lexical_category: await getItemId(),
+			language: await getItemId()
 		};
-		propertyId = ( await newCreatePropertyRequestBuilder( {
-			data_type: 'string',
-			labels: { en: `string-property-${ utils.uniq() }` }
-		} ).makeRequest() ).body.id;
+		propertyId = await getStringPropertyId();
 	} );
 
 	it( 'responds 429 when the edit rate limit is reached', async () => {

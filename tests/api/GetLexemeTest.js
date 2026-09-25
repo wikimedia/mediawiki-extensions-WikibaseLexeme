@@ -1,17 +1,16 @@
 'use strict';
 
-const { assert, action, utils } = require( 'api-testing' );
+const { assert, action } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	createLexeme,
 	createRedirectForLexeme,
-	getLatestEditMetadata
+	getItemId,
+	getLatestEditMetadata,
+	getOtherItemId,
+	getStringPropertyId
 } = require( './helpers/entityHelper' );
-const {
-	newGetLexemeRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreatePropertyRequestBuilder
-} = require( './helpers/RequestBuilderFactory' );
+const { newGetLexemeRequestBuilder } = require( './helpers/RequestBuilderFactory' );
 
 describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let languageId;
@@ -24,25 +23,11 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 	let testRevisionId;
 
 	before( async () => {
-		languageId = ( await newCreateItemRequestBuilder(
-			{ labels: { en: 'test-language' } }
-		).makeRequest() ).body.id;
-
-		lexicalCategoryId = ( await newCreateItemRequestBuilder(
-			{ labels: { en: 'test-category' } }
-		).makeRequest() ).body.id;
-
-		grammaticalFeature1Id = ( await newCreateItemRequestBuilder(
-			{ item: { labels: { en: 'test-grammatical-feature1' } } }
-		).makeRequest() ).body.id;
-
-		grammaticalFeature2Id = ( await newCreateItemRequestBuilder(
-			{ item: { labels: { en: 'test-grammatical-feature2' } } }
-		).makeRequest() ).body.id;
-
-		propertyId = ( await newCreatePropertyRequestBuilder(
-			{ data_type: 'string', labels: { en: `test-property-${ utils.uniq() }` } }
-		).makeRequest() ).body.id;
+		languageId = await getItemId();
+		lexicalCategoryId = await getItemId();
+		grammaticalFeature1Id = await getItemId();
+		grammaticalFeature2Id = await getOtherItemId();
+		propertyId = await getStringPropertyId();
 
 		lexemeId = await createLexeme( {
 			lemmas: {

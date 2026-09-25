@@ -4,12 +4,12 @@ const { assert, action, utils } = require( 'api-testing' );
 const { expect } = require( '../helpers/chaiHelper' );
 const {
 	createLexeme,
-	createRedirectForLexeme
+	createRedirectForLexeme,
+	getItemId,
+	getStringPropertyId
 } = require( '../helpers/entityHelper' );
 const {
 	newCreateLexemeRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreatePropertyRequestBuilder,
 	newAddLexemeStatementRequestBuilder
 } = require( '../helpers/RequestBuilderFactory' );
 
@@ -17,19 +17,13 @@ const fragment = require( '../../../src/MediaWiki/RestApi/specs/openapi.fragment
 
 const UNREACHABLE_STATUSES = [ '500' ];
 
-async function createItem( label ) {
-	return ( await newCreateItemRequestBuilder( {
-		labels: { en: `${ label }-${ utils.uniq() }` }
-	} ).makeRequest() ).body.id;
-}
-
 describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
 
 	const testData = {};
 
 	before( async () => {
-		const language = await createItem( 'language' );
-		const lexicalCategory = await createItem( 'lexical-category' );
+		const language = await getItemId();
+		const lexicalCategory = await getItemId();
 		testData.lexemeId = await createLexeme( {
 			lemmas: { en: { language: 'en', value: `test-lexeme-${ utils.uniq() }` } },
 			language,
@@ -43,10 +37,7 @@ describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
 			} ),
 			testData.lexemeId
 		);
-		testData.stringPropertyId = ( await newCreatePropertyRequestBuilder( {
-			data_type: 'string',
-			labels: { en: `spec-test-property-${ utils.uniq() }` }
-		} ).makeRequest() ).body.id;
+		testData.stringPropertyId = await getStringPropertyId();
 		testData.blockedUser = await action.blockedUser();
 	} );
 

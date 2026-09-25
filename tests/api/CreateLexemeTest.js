@@ -4,11 +4,14 @@ const { assert, action, utils } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	newCreateLexemeRequestBuilder,
-	newGetLexemeRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreatePropertyRequestBuilder
+	newGetLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
-const { getLatestEditMetadata } = require( './helpers/entityHelper' );
+const {
+	getItemId,
+	getLatestEditMetadata,
+	getOtherStringPropertyId,
+	getStringPropertyId
+} = require( './helpers/entityHelper' );
 
 describe( 'POST /entities/lexemes', () => {
 	let languageId;
@@ -26,16 +29,10 @@ describe( 'POST /entities/lexemes', () => {
 	}
 
 	before( async () => {
-		languageId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
-		lexicalCategoryId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
-		stringPropertyId = ( await newCreatePropertyRequestBuilder( {
-			data_type: 'string',
-			labels: { en: `test-property-${ utils.uniq() }` }
-		} ).makeRequest() ).body.id;
-		otherStringPropertyId = ( await newCreatePropertyRequestBuilder( {
-			data_type: 'string',
-			labels: { en: `test-property-${ utils.uniq() }` }
-		} ).makeRequest() ).body.id;
+		languageId = await getItemId();
+		lexicalCategoryId = await getItemId();
+		stringPropertyId = await getStringPropertyId();
+		otherStringPropertyId = await getOtherStringPropertyId();
 	} );
 
 	it( 'returns the created lexeme and persists it', async () => {

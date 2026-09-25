@@ -3,14 +3,14 @@
 const { assert, action, utils } = require( 'api-testing' );
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateLexemeRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreatePropertyRequestBuilder
+	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	createRedirectForLexeme,
+	getItemId,
 	getLatestEditMetadata,
+	getStringPropertyId,
 	newStatementWithRandomStringValue
 } = require( './helpers/entityHelper' );
 
@@ -22,7 +22,7 @@ describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 	let stringPropertyId;
 
 	before( async () => {
-		itemId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+		itemId = await getItemId();
 		const createLexemeResponse = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
 			lexical_category: itemId,
@@ -31,10 +31,7 @@ describe( 'POST /entities/lexemes/{lexeme_id}/statements', () => {
 		lexemeId = createLexemeResponse.body.id;
 		originalEtag = createLexemeResponse.header.etag;
 		originalLastModified = new Date( createLexemeResponse.header[ 'last-modified' ] );
-		stringPropertyId = ( await newCreatePropertyRequestBuilder( {
-			data_type: 'string',
-			labels: { en: `test-property-${ utils.uniq() }` }
-		} ).makeRequest() ).body.id;
+		stringPropertyId = await getStringPropertyId();
 
 		// wait 1s so that the last modified timestamp of the next edit is different
 		await new Promise( ( resolve ) => {

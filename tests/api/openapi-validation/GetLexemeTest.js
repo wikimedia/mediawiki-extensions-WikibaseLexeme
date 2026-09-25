@@ -5,30 +5,19 @@ const { expect } = require( '../helpers/chaiHelper' );
 const {
 	createLexeme,
 	createRedirectForLexeme,
-	getLatestEditMetadata
+	getItemId,
+	getLatestEditMetadata,
+	getStringPropertyId
 } = require( '../helpers/entityHelper' );
-const {
-	newGetLexemeRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreatePropertyRequestBuilder
-} = require( '../helpers/RequestBuilderFactory' );
+const { newGetLexemeRequestBuilder } = require( '../helpers/RequestBuilderFactory' );
 const { makeEtag } = require( '../helpers/httpHelper' );
 const fragment = require( '../../../src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json' );
 
 const UNREACHABLE_STATUSES = [ '500' ];
 
-async function createItemId( label ) {
-	return ( await newCreateItemRequestBuilder(
-		{ labels: { en: `${ label }-${ utils.uniq() }` } }
-	).makeRequest() ).body.id;
-}
-
 async function createLexemeWithAllFields( language, lexicalCategory ) {
-	const grammaticalFeature = await createItemId( 'grammatical-feature' );
-	const propertyId = ( await newCreatePropertyRequestBuilder( {
-		data_type: 'string',
-		labels: { en: `spec-test-property-${ utils.uniq() }` }
-	} ).makeRequest() ).body.id;
+	const grammaticalFeature = await getItemId();
+	const propertyId = await getStringPropertyId();
 
 	const statementWithQualifiersAndReferences = {
 		mainsnak: {
@@ -86,8 +75,8 @@ describe( newGetLexemeRequestBuilder().getRouteDescription(), () => {
 	const testData = {};
 
 	before( async () => {
-		const language = await createItemId( 'language' );
-		const lexicalCategory = await createItemId( 'lexical-category' );
+		const language = await getItemId();
+		const lexicalCategory = await getItemId();
 
 		testData.lexemeId = await createLexemeWithAllFields( language, lexicalCategory );
 

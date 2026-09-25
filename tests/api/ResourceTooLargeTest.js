@@ -2,12 +2,14 @@
 
 const { assert, utils } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
-const { newStatementWithRandomStringValue } = require( './helpers/entityHelper' );
+const {
+	getItemId,
+	getStringPropertyId,
+	newStatementWithRandomStringValue
+} = require( './helpers/entityHelper' );
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateItemRequestBuilder,
-	newCreateLexemeRequestBuilder,
-	newCreatePropertyRequestBuilder
+	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 
 describe( 'resource too large', () => {
@@ -16,15 +18,13 @@ describe( 'resource too large', () => {
 	const maxSizeInKb = 1;
 
 	before( async () => {
-		lexicalCategoryId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
-		languageId = ( await newCreateItemRequestBuilder( {} ).makeRequest() ).body.id;
+		lexicalCategoryId = await getItemId();
+		languageId = await getItemId();
 	} );
 
 	it( 'responds 400 - lexeme is too large', async () => {
 		const statements = [];
-		const propertyId = ( await newCreatePropertyRequestBuilder(
-			{ data_type: 'string', labels: { en: `string-property-${ utils.uniq() }` } }
-		).makeRequest() ).body.id;
+		const propertyId = await getStringPropertyId();
 		for ( let i = 0; i < 5; i++ ) {
 			statements.push( newStatementWithRandomStringValue( propertyId ) );
 		}
@@ -51,9 +51,7 @@ describe( 'resource too large', () => {
 
 	it( 'responds 400 - lexeme is too large when adding a statement', async () => {
 		const statements = [];
-		const propertyId = ( await newCreatePropertyRequestBuilder(
-			{ data_type: 'string', labels: { en: `string-property-${ utils.uniq() }` } }
-		).makeRequest() ).body.id;
+		const propertyId = await getStringPropertyId();
 		for ( let i = 0; i < 3; i++ ) {
 			statements.push( newStatementWithRandomStringValue( propertyId ) );
 		}
