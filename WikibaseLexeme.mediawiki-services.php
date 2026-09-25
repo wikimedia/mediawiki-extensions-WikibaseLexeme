@@ -358,6 +358,9 @@ return call_user_func( static function () {
 					),
 					new StatementsValidationErrorConverter(),
 				),
+				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
+					WikibaseRepo::getEntityRevisionLookup( $services )
+				),
 			);
 		},
 		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {

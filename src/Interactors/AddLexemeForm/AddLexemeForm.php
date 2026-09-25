@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -18,6 +19,7 @@ class AddLexemeForm {
 		private LexemeWriteModelRetriever $lexemeRetriever,
 		private LexemeUpdater $lexemeUpdater,
 		private AddLexemeFormValidator $validator,
+		private LexemeRevisionMetadataRetriever $metadataRetriever,
 	) {
 	}
 
@@ -28,6 +30,10 @@ class AddLexemeForm {
 		$this->validator->validate( $request );
 		$form = $this->validator->getValidatedForm();
 		$lexemeId = new LexemeId( $request->lexemeId );
+
+		if ( !$this->metadataRetriever->getLatestRevisionMetadata( $lexemeId )->lexemeExists() ) {
+			throw UseCaseError::newResourceNotFound( 'lexeme' );
+		}
 
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
 		$lexeme->addOrUpdateForm( $form );

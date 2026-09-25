@@ -191,4 +191,12 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 			assert.deepStrictEqual( response.body.context, expectedContext() );
 		} );
 	} );
+
+	it( 'responds 404 if the lexeme does not exist', async () => {
+		const response = await newAddLexemeFormRequestBuilder( 'L999999', newValidForm() ).makeRequest();
+
+		expect( response ).to.have.status( 404 );
+		assert.strictEqual( response.body.code, 'resource-not-found' );
+		assert.deepStrictEqual( response.body.context, { resource_type: 'lexeme' } );
+	} );
 } );
