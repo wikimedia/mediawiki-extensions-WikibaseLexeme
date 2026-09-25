@@ -6,21 +6,20 @@ const { RequestBuilder } = require( './helpers/RequestBuilder' );
 
 const committedFragment = require( '../../src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json' );
 
-const LEXEME_PATH = '/v0/entities/lexemes/{lexeme_id}';
+const LEXEME_PATH = '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}';
 
-describe( 'GET /v1/openapi.json', () => {
+describe( 'GET /wikibase/v1/openapi.json', () => {
 
-	// Temporarily skipping while we work on T435953.
-	it.skip( 'documents the lexeme route', async () => {
+	it( 'documents the lexeme route', async () => {
 		const response = await new RequestBuilder()
-			.withRoute( 'GET', '/v1/openapi.json' )
+			.withRoute( 'GET', '/wikibase/v1/openapi.json' )
 			.makeRequest();
 
 		expect( response ).to.have.status( 200 );
 		assert.deepStrictEqual( response.body.paths[ LEXEME_PATH ], committedFragment.paths[ LEXEME_PATH ] );
 		assert.ok( response.body.tags.some( ( tag ) => tag.name === 'lexemes' ) );
 		// the Wikibase-owned document is still there underneath
-		assert.ok( '/v1/openapi.json' in response.body.paths );
+		assert.ok( '/wikibase/v1/openapi.json' in response.body.paths );
 	} );
 
 } );

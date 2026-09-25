@@ -10,8 +10,7 @@ function getRoutePaths() {
 	const devRoutes = JSON.parse(
 		fs.readFileSync( path.join( EXTENSION_ROOT, 'src/MediaWiki/RestApi/routes.dev.json' ), 'utf8' )
 	);
-	return [ ...prodRoutes, ...devRoutes ]
-		.map( ( route ) => route.path.replace( /^\/wikibase/, '' ) );
+	return [ ...prodRoutes, ...devRoutes ].map( ( route ) => route.path );
 }
 
 module.exports = { getRoutePaths };

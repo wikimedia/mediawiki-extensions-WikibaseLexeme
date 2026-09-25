@@ -139,9 +139,7 @@ the sibling Wikibase checkout's spec into the gitignored
 `specs/openapi-combined.json` (`npm run lint:spec-combined` lints it). Tests
 for this tooling live in `tests/spec/`.
 
-The fragment documents the route as `/v0/entities/lexemes/{lexeme_id}`: paths
-in Wikibase's spec are relative to its `…/rest.php/wikibase` server, and the
-dev route above lives under `/wikibase/v0/`.
+The fragment documents the route as `/wikibaselexeme/v0/entities/lexemes/{lexeme_id}`: paths in Wikibase's spec are relative to its `…/rest.php` server, so they include the route's module prefix.
 
 ## Running tests
 

@@ -5,39 +5,39 @@ const { RequestBuilder } = require( './RequestBuilder' );
 module.exports = {
 	newGetLexemeRequestBuilder( lexemeId ) {
 		return new RequestBuilder()
-			.withRoute( 'GET', '/v0/entities/lexemes/{lexeme_id}' )
+			.withRoute( 'GET', '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}' )
 			.withPathParam( 'lexeme_id', lexemeId );
 	},
 
 	newCreateLexemeRequestBuilder( lexeme ) {
 		return new RequestBuilder()
-			.withRoute( 'POST', '/v0/entities/lexemes' )
+			.withRoute( 'POST', '/wikibaselexeme/v0/entities/lexemes' )
 			.withJsonBodyParam( 'lexeme', lexeme );
 	},
 
 	newAddLexemeStatementRequestBuilder( lexemeId, statement ) {
 		return new RequestBuilder()
-			.withRoute( 'POST', '/v0/entities/lexemes/{lexeme_id}/statements' )
+			.withRoute( 'POST', '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/statements' )
 			.withPathParam( 'lexeme_id', lexemeId )
 			.withJsonBodyParam( 'statement', statement );
 	},
 
 	newAddLexemeFormRequestBuilder( lexemeId, form ) {
 		return new RequestBuilder()
-			.withRoute( 'POST', '/v0/entities/lexemes/{lexeme_id}/forms' )
+			.withRoute( 'POST', '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/forms' )
 			.withPathParam( 'lexeme_id', lexemeId )
 			.withJsonBodyParam( 'form', form );
 	},
 
 	newCreateItemRequestBuilder( item ) {
 		return new RequestBuilder()
-			.withRoute( 'POST', '/v1/entities/items' )
+			.withRoute( 'POST', '/wikibase/v1/entities/items' )
 			.withJsonBodyParam( 'item', item );
 	},
 
 	newCreatePropertyRequestBuilder( property ) {
 		return new RequestBuilder()
-			.withRoute( 'POST', '/v1/entities/properties' )
+			.withRoute( 'POST', '/wikibase/v1/entities/properties' )
 			.withJsonBodyParam( 'property', property );
 	}
 };

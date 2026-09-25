@@ -11,7 +11,7 @@
     }
   ],
   "paths": {
-    "/v0/entities/lexemes": {
+    "/wikibaselexeme/v0/entities/lexemes": {
       "post": {
         "operationId": "addLexeme",
         "tags": [
@@ -1440,7 +1440,7 @@
         }
       }
     },
-    "/v0/entities/lexemes/{lexeme_id}": {
+    "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}": {
       "get": {
         "operationId": "getLexeme",
         "tags": [
@@ -2652,7 +2652,7 @@
         }
       }
     },
-    "/v0/entities/lexemes/{lexeme_id}/statements": {
+    "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/statements": {
       "post": {
         "operationId": "addLexemeStatement",
         "tags": [
@@ -3610,7 +3610,7 @@
         }
       }
     },
-    "/v0/entities/lexemes/{lexeme_id}/forms": {
+    "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/forms": {
       "post": {
         "operationId": "addLexemeForm",
         "tags": [

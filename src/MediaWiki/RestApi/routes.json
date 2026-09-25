@@ -1,11 +1,11 @@
 [
 	{
-		"path": "/wikibase/v0/entities/lexemes/{lexeme_id}",
+		"path": "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}",
 		"method": "GET",
 		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\GetLexemeRouteHandler::factory"
 	},
 	{
-		"path": "/wikibase/v0/entities/lexemes",
+		"path": "/wikibaselexeme/v0/entities/lexemes",
 		"method": "POST",
 		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\CreateLexemeRouteHandler::factory"
 	}

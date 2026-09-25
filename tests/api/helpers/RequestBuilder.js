@@ -1,7 +1,7 @@
 'use strict';
 
 const { clientFactory } = require( 'api-testing' );
-const basePath = '/rest.php/wikibase';
+const basePath = '/rest.php';
 
 class RequestBuilder {
 
@@ -18,7 +18,7 @@ class RequestBuilder {
 
 	/**
 	 * @param {string} method HTTP method to use for the request
-	 * @param {string} route the route as it appears in the spec, e.g. '/v1/entities/items/{item_id}'
+	 * @param {string} route the route as it appears in the spec, e.g. '/wikibase/v1/entities/items/{item_id}'
 	 * @return {this}
 	 */
 	withRoute( method, route ) {
@@ -28,7 +28,7 @@ class RequestBuilder {
 	}
 
 	/**
-	 * @param {string} name path param name, e.g. 'item_id' for /v1/entities/items/{item_id}
+	 * @param {string} name path param name, e.g. 'item_id' for /wikibase/v1/entities/items/{item_id}
 	 * @param {string} value
 	 * @return {this}
 	 */

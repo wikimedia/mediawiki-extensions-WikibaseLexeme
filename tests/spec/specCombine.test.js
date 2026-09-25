@@ -26,7 +26,7 @@ describe( 'spec:combine (integration)', () => {
 			[ ...wikibasePaths, ...getRoutePaths() ].sort()
 		);
 
-		const getResponses = combined.paths[ '/v0/entities/lexemes/{lexeme_id}' ].get.responses;
+		const getResponses = combined.paths[ '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}' ].get.responses;
 		assert.equal( typeof getResponses[ '404' ].$ref, 'undefined' );
 		assert.equal( typeof getResponses[ '404' ].description, 'string' );
 
