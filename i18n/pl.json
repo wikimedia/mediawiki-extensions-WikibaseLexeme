@@ -8,7 +8,8 @@
 			"Msz2001",
 			"Railfail536",
 			"Rzuwig",
-			"Woytecr"
+			"Woytecr",
+			"PanWor"
 		]
 	},
 	"content-model-wikibase-lexeme": "Leksem Wikibase",
@@ -71,7 +72,7 @@
 	"wikibase-listdatatypes-wikibase-sense-head": "Znaczenie",
 	"wikibase-pageinfo-wbl-forms": "Liczba form",
 	"wikibase-pageinfo-wbl-senses": "Liczba znaczeń",
-	"wikibase-validator-form-not-found": "Leksem nie posiada formy z podanym ID",
+	"wikibase-validator-form-not-found": "Leksem nie ma formy z podanym identyfikatorem",
 	"wikibaselexeme-add-form": "dodaj formę",
 	"wikibaselexeme-add-sense": "dodaj znaczenie",
 	"wikibaselexeme-deletedentity-form": "Forma usunięta",
@@ -110,7 +111,7 @@
 	"wikibaselexeme-newlexeme-info-panel-heading": "O leksemach",
 	"wikibaselexeme-newlexeme-info-panel-lexicographical-data": "Leksemy zawierają [[Special:MyLanguage/Project:Lexicographical data|dane leksykograficzne]], czyli dane o słowach lub wyrażeniach odnoszące się do ich języka, etymologii, odmiany itp. Oto przykład:",
 	"wikibaselexeme-newlexeme-info-panel-no-general-data": "Leksemy nie zawierają danych ogólnych (urodzin, dat otwarcia, autorów, państw, współrzędnych geograficznych, stron internetowych itp.) o obiekcie lub pojęciu, do którego się odnoszą. Jeżeli planujesz wprowadzić dane ogólne, udaj się zamiast tego do [[Special:NewItem|strony tworzenia nowego elementu]].",
-	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Ten element posiada nierozpoznany kod języka. Proszę wybrać jeden z dostępnych poniżej.",
+	"wikibaselexeme-newlexeme-invalid-language-code-warning": "Ten element ma nierozpoznany kod języka. Wybierz jeden z dostępnych poniżej.",
 	"wikibaselexeme-newlexeme-language": "Język leksemu",
 	"wikibaselexeme-newlexeme-language-empty-error": "Pole języka leksemu nie może być puste.",
 	"wikibaselexeme-newlexeme-language-invalid-error": "Język leksemu musi być prawidłowym elementem.",
