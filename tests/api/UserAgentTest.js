@@ -7,24 +7,9 @@ const entityHelper = require( './helpers/entityHelper' );
 const { newStatementWithRandomStringValue } = entityHelper;
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateLexemeRequestBuilder
+	newCreateLexemeRequestBuilder,
+	newGetLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
-
-const lexemeEditRequests = ( requestInputs ) => ( [
-	() => newAddLexemeStatementRequestBuilder(
-		requestInputs.lexemeId,
-		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
-	)
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
-
-const lexemeCreateRequest = ( requestInputs ) => ( {
-	newRequestBuilder: () => newCreateLexemeRequestBuilder( {
-		lemmas: requestInputs.lemmas,
-		language: requestInputs.language,
-		lexical_category: requestInputs.lexicalCategory
-	} ),
-	requestInputs
-} );
 
 function assertValid400Response( response ) {
 	expect( response ).to.have.status( 400 );
@@ -38,15 +23,23 @@ describeWithTestData( 'User-Agent requests', (
 	describeEachRouteWithReset
 ) => {
 
-	const editRoutes = [
-		...lexemeEditRequests( lexemeRequestInputs )
-	];
-	const editAndCreateRoutes = [
-		...editRoutes,
-		lexemeCreateRequest( lexemeRequestInputs )
-	];
+	const routes = [
+		() => newAddLexemeStatementRequestBuilder(
+			lexemeRequestInputs.lexemeId,
+			newStatementWithRandomStringValue( lexemeRequestInputs.statementPropertyId )
+		),
+		() => newCreateLexemeRequestBuilder( {
+			lemmas: lexemeRequestInputs.lemmas,
+			language: lexemeRequestInputs.language,
+			lexical_category: lexemeRequestInputs.lexicalCategory
+		} ),
+		() => newGetLexemeRequestBuilder( lexemeRequestInputs.lexemeId )
+	].map( ( newRequestBuilder ) => ( {
+		newRequestBuilder,
+		requestInputs: lexemeRequestInputs
+	} ) );
 
-	describeEachRouteWithReset( editAndCreateRoutes, ( newRequestBuilder ) => {
+	describeEachRouteWithReset( routes, ( newRequestBuilder ) => {
 		it( 'No User-Agent header provided', async () => {
 			const requestBuilder = newRequestBuilder();
 			delete requestBuilder.headers[ 'user-agent' ];

@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert, action } = require( 'api-testing' );
+const { assert } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	createLexeme,
@@ -113,27 +113,6 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 
 		assert.equal( response.header[ 'last-modified' ], testModified );
 		assert.equal( response.header.etag, `"${ testRevisionId }"` );
-	} );
-
-	it( 'responds with an X-Authenticated-User header for a logged in user', async () => {
-		const user = await action.alice();
-		const response = await newGetLexemeRequestBuilder( lexemeId )
-			.withUser( user )
-			.makeRequest();
-
-		expect( response ).to.have.status( 200 );
-		assert.header( response, 'X-Authenticated-User', user.username );
-	} );
-
-	it( 'responds with a 400 error if the User-Agent header is empty', async () => {
-		const response = await newGetLexemeRequestBuilder( lexemeId )
-			.withHeader( 'user-agent', '' )
-			.makeRequest();
-
-		expect( response ).to.have.status( 400 );
-		assert.header( response, 'Content-Language', 'en' );
-		assert.strictEqual( response.body.code, 'missing-user-agent' );
-		assert.include( response.body.message, 'User-Agent' );
 	} );
 
 	it( 'responds with a 400 error if the lexeme id is invalid', async () => {

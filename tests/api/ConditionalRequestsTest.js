@@ -7,7 +7,7 @@ const { makeEtag } = require( './helpers/httpHelper' );
 const rbf = require( './helpers/RequestBuilderFactory' );
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
 
-const getLexemeRequests = ( requestInputs ) => ( [
+const lexemeGetRequests = ( requestInputs ) => ( [
 	() => rbf.newGetLexemeRequestBuilder( requestInputs.lexemeId )
 ].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
 
@@ -50,7 +50,7 @@ describeWithTestData( 'Conditional requests', (
 ) => {
 
 	const getRoutes = [
-		...getLexemeRequests( lexemeRequestInputs )
+		...lexemeGetRequests( lexemeRequestInputs )
 	];
 	const editRoutes = [
 		...lexemeEditRequests( lexemeRequestInputs )

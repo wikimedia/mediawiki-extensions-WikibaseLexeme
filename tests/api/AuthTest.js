@@ -10,17 +10,11 @@ const {
 } = require( './helpers/entityHelper' );
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateLexemeRequestBuilder
+	newCreateLexemeRequestBuilder,
+	newGetLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 
-const lexemeEditRequests = ( requestInputs ) => ( [
-	() => newAddLexemeStatementRequestBuilder(
-		requestInputs.lexemeId,
-		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
-	)
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
-
-const lexemeCreateRequest = ( requestInputs ) => ( {
+const lexemeCreateRequests = ( requestInputs ) => ( {
 	newRequestBuilder: () => newCreateLexemeRequestBuilder( {
 		lemmas: requestInputs.lemmas,
 		language: requestInputs.language,
@@ -28,6 +22,17 @@ const lexemeCreateRequest = ( requestInputs ) => ( {
 	} ),
 	requestInputs
 } );
+
+const lexemeGetRequests = ( requestInputs ) => ( [
+	() => newGetLexemeRequestBuilder( requestInputs.lexemeId )
+].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
+
+const lexemeEditRequests = ( requestInputs ) => ( [
+	() => newAddLexemeStatementRequestBuilder(
+		requestInputs.lexemeId,
+		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
+	)
+].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
 
 const { getOrCreateAuthTestUser } = require( './helpers/testUsers' );
 const { assertValidError } = require( './helpers/responseValidator' );
@@ -52,11 +57,15 @@ describeWithTestData( 'Auth', (
 	];
 	const editAndCreateRoutes = [
 		...editRoutes,
-		lexemeCreateRequest( lexemeRequestInputs )
+		lexemeCreateRequests( lexemeRequestInputs )
+	];
+	const allRoutes = [
+		...editAndCreateRoutes,
+		...lexemeGetRequests( lexemeRequestInputs )
 	];
 
 	describe( 'Authentication', () => {
-		describeEachRouteWithReset( editAndCreateRoutes, ( newRequestBuilder ) => {
+		describeEachRouteWithReset( allRoutes, ( newRequestBuilder ) => {
 			it( 'has an X-Authenticated-User header with the logged in user', async () => {
 				const response = await newRequestBuilder().withUser( user ).makeRequest();
 

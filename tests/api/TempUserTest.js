@@ -10,34 +10,25 @@ const {
 	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 
-const lexemeEditRequests = ( requestInputs ) => ( [
-	() => newAddLexemeStatementRequestBuilder(
-		requestInputs.lexemeId,
-		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
-	)
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
-
-const lexemeCreateRequest = ( requestInputs ) => ( {
-	newRequestBuilder: () => newCreateLexemeRequestBuilder( {
-		lemmas: requestInputs.lemmas,
-		language: requestInputs.language,
-		lexical_category: requestInputs.lexicalCategory
-	} ),
-	requestInputs
-} );
-
 describeWithTestData( 'IP masking', (
 	lexemeRequestInputs,
 	describeEachRouteWithReset
 ) => {
 
-	const editRoutes = [
-		...lexemeEditRequests( lexemeRequestInputs )
-	];
-	const editAndCreateRoutes = [
-		...editRoutes,
-		lexemeCreateRequest( lexemeRequestInputs )
-	];
+	const routes = [
+		() => newAddLexemeStatementRequestBuilder(
+			lexemeRequestInputs.lexemeId,
+			newStatementWithRandomStringValue( lexemeRequestInputs.statementPropertyId )
+		),
+		() => newCreateLexemeRequestBuilder( {
+			lemmas: lexemeRequestInputs.lemmas,
+			language: lexemeRequestInputs.language,
+			lexical_category: lexemeRequestInputs.lexicalCategory
+		} )
+	].map( ( newRequestBuilder ) => ( {
+		newRequestBuilder,
+		requestInputs: lexemeRequestInputs
+	} ) );
 
 	const tempUserPrefix = 'TempUserTest';
 
@@ -47,7 +38,7 @@ describeWithTestData( 'IP masking', (
 			genPattern: `${ tempUserPrefix } $1`
 		} );
 
-	describeEachRouteWithReset( editAndCreateRoutes, ( newRequestBuilder ) => {
+	describeEachRouteWithReset( routes, ( newRequestBuilder ) => {
 
 		it( 'makes an edit as an IP user with tempUser disabled', async () => {
 			const response = await newRequestBuilder()
