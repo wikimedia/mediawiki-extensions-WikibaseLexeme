@@ -6,7 +6,7 @@ const {
 	createLexeme,
 	createRedirectForLexeme,
 	getItemId,
-	getLatestEditMetadata,
+	getLatestRevisionMetadata,
 	getOtherItemId,
 	getStringPropertyId
 } = require( './helpers/entityHelper' );
@@ -66,7 +66,7 @@ describe( 'GET /entities/lexemes/{lexeme_id}', () => {
 			} ]
 		} );
 
-		const testLexemeCreationMetadata = await getLatestEditMetadata( lexemeId );
+		const testLexemeCreationMetadata = await getLatestRevisionMetadata( lexemeId );
 		testModified = testLexemeCreationMetadata.timestamp;
 		testRevisionId = testLexemeCreationMetadata.revid;
 

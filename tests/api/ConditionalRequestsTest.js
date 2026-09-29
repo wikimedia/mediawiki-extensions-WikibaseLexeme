@@ -2,7 +2,7 @@
 
 const { assert } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
-const { getLatestEditMetadata, newStatementWithRandomStringValue } = require( './helpers/entityHelper' );
+const { getLatestRevisionMetadata, newStatementWithRandomStringValue } = require( './helpers/entityHelper' );
 const { makeEtag } = require( './helpers/httpHelper' );
 const rbf = require( './helpers/RequestBuilderFactory' );
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
@@ -26,7 +26,7 @@ function assertValid200Response( response, revisionId, lastModified ) {
 
 async function assertValid201Response( response, lexemeId ) {
 	expect( response ).to.have.status( 201 );
-	const latestRevision = await getLatestEditMetadata( lexemeId );
+	const latestRevision = await getLatestRevisionMetadata( lexemeId );
 	assert.equal( response.header[ 'last-modified' ], latestRevision.timestamp );
 	assert.equal( response.header.etag, makeEtag( latestRevision.revid ) );
 }
@@ -59,7 +59,7 @@ describeWithTestData( 'Conditional requests', (
 	describeEachRouteWithReset( getRoutes, ( newRequestBuilder, requestInputs ) => {
 		// eslint-disable-next-line mocha/no-top-level-hooks
 		before( async () => {
-			const latestRevision = await getLatestEditMetadata( requestInputs.lexemeId );
+			const latestRevision = await getLatestRevisionMetadata( requestInputs.lexemeId );
 			requestInputs.latestRevId = latestRevision.revid;
 			requestInputs.latestRevTimestamp = latestRevision.timestamp;
 		} );
@@ -288,7 +288,7 @@ describeWithTestData( 'Conditional requests', (
 	describeEachRouteWithReset( editRoutes, ( newRequestBuilder, requestInputs ) => {
 		// eslint-disable-next-line mocha/no-top-level-hooks
 		beforeEach( async () => {
-			const latestRevision = await getLatestEditMetadata( requestInputs.lexemeId );
+			const latestRevision = await getLatestRevisionMetadata( requestInputs.lexemeId );
 			requestInputs.latestRevId = latestRevision.revid;
 			requestInputs.latestRevTimestamp = latestRevision.timestamp;
 		} );

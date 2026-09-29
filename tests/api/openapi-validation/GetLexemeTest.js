@@ -6,7 +6,7 @@ const {
 	createLexeme,
 	createRedirectForLexeme,
 	getItemId,
-	getLatestEditMetadata,
+	getLatestRevisionMetadata,
 	getStringPropertyId
 } = require( '../helpers/entityHelper' );
 const { newGetLexemeRequestBuilder } = require( '../helpers/RequestBuilderFactory' );
@@ -95,7 +95,7 @@ describe( newGetLexemeRequestBuilder().getRouteDescription(), () => {
 			testData.lexemeId
 		);
 
-		testData.latestRevisionId = ( await getLatestEditMetadata( testData.lexemeId ) ).revid;
+		testData.latestRevisionId = ( await getLatestRevisionMetadata( testData.lexemeId ) ).revid;
 
 		testData.user = await action.alice();
 	} );

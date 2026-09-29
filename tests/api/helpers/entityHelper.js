@@ -75,10 +75,17 @@ async function createRedirectForLexeme( sourceId, targetId ) {
 	return sourceId;
 }
 
+/**
+ * Should be used to check what metadata an edit recorded, such as its comment, tags, user or bot flag.
+ *
+ * @param {string} lexemeId
+ * @return {Promise<Object>}
+ */
 async function getLatestEditMetadata( lexemeId ) {
 	const editMetadata = ( await action.getAnon().action( 'query', {
 		list: 'recentchanges',
 		rctitle: `Lexeme:${ lexemeId }`,
+		rctype: 'edit|new',
 		rclimit: 1,
 		rcprop: 'tags|flags|comment|ids|timestamp|user'
 	} ) ).query.recentchanges[ 0 ];
@@ -87,6 +94,27 @@ async function getLatestEditMetadata( lexemeId ) {
 		...editMetadata,
 		timestamp: new Date( editMetadata.timestamp ).toUTCString()
 	};
+}
+
+/**
+ *  Should be used when comparing against a response's ETag or Last-Modified header.
+ *
+ * Unlike getLatestEditMetadata(), this reads the revision itself rather than recentchanges. Page (un)protections show
+ * up in recentchanges with the timestamp of the corresponding log entry, which can be a second later than that of the
+ * associated revision.
+ *
+ * @param {string} lexemeId
+ * @return {Promise<{revid: number, timestamp: string}>}
+ */
+async function getLatestRevisionMetadata( lexemeId ) {
+	const { revid, timestamp } = Object.values( ( await action.getAnon().action( 'query', {
+		prop: 'revisions',
+		titles: `Lexeme:${ lexemeId }`,
+		rvlimit: 1,
+		rvprop: 'ids|timestamp'
+	} ) ).query.pages )[ 0 ].revisions[ 0 ];
+
+	return { revid, timestamp: new Date( timestamp ).toUTCString() };
 }
 
 /**
@@ -152,6 +180,7 @@ module.exports = {
 	createLexeme,
 	createRedirectForLexeme,
 	getLatestEditMetadata,
+	getLatestRevisionMetadata,
 	newStatementWithRandomStringValue,
 	getStringPropertyId,
 	getOtherStringPropertyId,
