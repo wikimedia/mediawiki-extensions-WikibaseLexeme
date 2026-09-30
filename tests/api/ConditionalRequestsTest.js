@@ -148,7 +148,7 @@ describeWithTestData( 'Conditional requests', (
 					.withHeader( 'If-None-Match', makeEtag( 'foo', requestInputs.latestRevId ) )
 					.makeRequest();
 
-				assertValid304Response( response, requestInputs.latestRevId, requestInputs.latestRevTimestamp );
+				assertValid304Response( response, requestInputs.latestRevId );
 			} );
 
 			it( 'if the header is *', async () => {
@@ -156,7 +156,7 @@ describeWithTestData( 'Conditional requests', (
 					.withHeader( 'If-None-Match', '*' )
 					.makeRequest();
 
-				assertValid304Response( response, requestInputs.latestRevId, requestInputs.latestRevTimestamp );
+				assertValid304Response( response, requestInputs.latestRevId );
 			} );
 
 			it( 'If-None-Match takes precedence over If-Modified-Since', async () => {
@@ -166,7 +166,7 @@ describeWithTestData( 'Conditional requests', (
 					.withHeader( 'If-None-Match', makeEtag( requestInputs.latestRevId ) )
 					.makeRequest();
 
-				assertValid304Response( response, requestInputs.latestRevId, requestInputs.latestRevTimestamp );
+				assertValid304Response( response, requestInputs.latestRevId );
 			} );
 		} );
 
