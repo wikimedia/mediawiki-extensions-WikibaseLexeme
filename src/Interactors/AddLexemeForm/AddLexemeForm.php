@@ -49,7 +49,7 @@ class AddLexemeForm {
 			new EditMetadata(
 				$request->editTags,
 				$request->isBot,
-				new AddFormEditSummary( $request->comment ),
+				new AddFormEditSummary( $request->comment, $form ),
 			),
 		);
 

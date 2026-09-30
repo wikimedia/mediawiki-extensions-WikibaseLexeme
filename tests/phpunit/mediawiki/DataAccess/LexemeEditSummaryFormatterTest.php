@@ -5,12 +5,17 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\DataAccess;
 use Generator;
 use LogicException;
 use MediaWikiLangTestCase;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\DataModel\Tests\NewStatement;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
+use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
+use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Repo\Domains\Crud\Domain\Model\LabelEditSummary;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -53,6 +58,20 @@ class LexemeEditSummaryFormatterTest extends MediaWikiLangTestCase {
 				new AddStatementEditSummary( 'user comment', NewStatement::noValueFor( 'P123' )->build() ),
 			),
 			'/* wbsetclaim-create:1||1 */ [[Property:P123]]: no value, user comment',
+		];
+
+		yield 'add form with user comment' => [
+			new CrudEditSummaryAdapter(
+				new AddFormEditSummary( 'user comment',
+					new Form(
+						new FormId( 'L1138-F1' ),
+						new TermList( [ new Term( 'en', 'potatoes' ) ] ),
+						[],
+						new StatementList(),
+					)
+				),
+			),
+			'/* add-form:1||L1138-F1 */ potatoes, user comment',
 		];
 	}
 

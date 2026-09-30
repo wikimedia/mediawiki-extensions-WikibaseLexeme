@@ -7,6 +7,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
+use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditSummary;
 use Wikibase\Repo\Domains\Crud\Infrastructure\EditSummaryFormatter;
@@ -31,7 +32,7 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 			$lexemeSummary instanceof AddStatementEditSummary => $this->newAddStatementSummary(
 				$lexemeSummary->statement
 			),
-			$lexemeSummary instanceof AddFormEditSummary => new Summary( 'add-form' ), // TODO T436822
+			$lexemeSummary instanceof AddFormEditSummary => $this->newAddFormSummary( $lexemeSummary->form ),
 			default => throw new LogicException( 'Unknown summary type ' . get_class( $summary ) ),
 		};
 		$formatterSummary->setUserSummary( $lexemeSummary->getUserComment() );
@@ -46,6 +47,16 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 		] );
 		// the number of edited statements in wbsetclaim-related messages
 		$summary->addAutoCommentArgs( 1 );
+
+		return $summary;
+	}
+
+	private function newAddFormSummary( Form $form ): Summary {
+		$summary = new Summary( null, 'add-form' );
+		$summary->addAutoSummaryArgs(
+			array_values( $form->getRepresentations()->toTextArray() )
+		);
+		$summary->addAutoCommentArgs( $form->getId()->getSerialization() );
 
 		return $summary;
 	}

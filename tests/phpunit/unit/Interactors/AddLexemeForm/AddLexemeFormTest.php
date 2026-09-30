@@ -8,6 +8,8 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
+use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\GrammaticalFeatures;
@@ -34,15 +36,17 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 		$lexemeId = new LexemeId( 'L1' );
 		$grammaticalFeature = new ItemId( 'Q123' );
 		$formRepresentation = 'potatoes';
+		$tags = [ 'some tag' ];
+		$userComment = 'user comment';
 		$request = new AddLexemeFormRequest(
 			'L1',
 			[
 				'representations' => [ 'en' => $formRepresentation ],
 				'grammatical_features' => [ $grammaticalFeature->getSerialization() ],
 			],
-			[ 'some tag' ],
+			$tags,
 			true,
-			'user comment',
+			$userComment,
 		);
 
 		$form = new BlankForm();
@@ -61,7 +65,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
 		$lexemeUpdater->expects( $this->once() )
 			->method( 'update' )
-			->with( $lexeme )
+			->with( $lexeme, new EditMetadata( $tags, true, new AddFormEditSummary( $userComment, $form ) ) )
 			->willReturnCallback( fn ( LexemeWriteModel $l ) => new LexemeRevision(
 				( new LexemeReadModelConverter( $this->createStub( StatementReadModelConverter::class ) ) )
 					->convert( $l ),

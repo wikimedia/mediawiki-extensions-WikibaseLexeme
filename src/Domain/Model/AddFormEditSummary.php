@@ -9,6 +9,7 @@ class AddFormEditSummary implements EditSummary {
 
 	public function __construct(
 		private readonly ?string $userComment,
+		public readonly Form $form,
 	) {
 	}
 

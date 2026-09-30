@@ -9,6 +9,7 @@ const { expect } = require( './helpers/chaiHelper' );
 const {
 	createRedirectForLexeme,
 	getItemId,
+	getLatestEditMetadata,
 	getOtherStringPropertyId,
 	getStringPropertyId
 } = require( './helpers/entityHelper' );
@@ -89,6 +90,12 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 				} ]
 			}
 		} );
+
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* add-form:1||${ formId } */ ${ representation }`
+		);
 	} );
 
 	it( 'ignores statement ids provided in the request', async () => {
