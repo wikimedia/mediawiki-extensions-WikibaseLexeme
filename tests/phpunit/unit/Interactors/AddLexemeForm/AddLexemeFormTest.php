@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
@@ -124,6 +125,39 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( UseCaseError::RESOURCE_NOT_FOUND, $e->errorCode );
 			$this->assertSame( [ UseCaseError::CONTEXT_RESOURCE_TYPE => 'lexeme' ], $e->context );
+		}
+	}
+
+	public function testGivenLexemeIsRedirect_throws(): void {
+		$redirectTarget = new LexemeId( 'L456' );
+
+		$metadataRetriever = $this->createStub(
+			LexemeRevisionMetadataRetriever::class
+		);
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn(
+				LatestLexemeRevisionMetadataResult::redirect( $redirectTarget )
+			);
+
+		$lexemeRetriever = $this->createMock(
+			LexemeWriteModelRetriever::class
+		);
+		$lexemeRetriever->expects( $this->never() )
+			->method( 'getLexemeWriteModel' );
+
+		try {
+			$this->newUseCase(
+				metadataRetriever: $metadataRetriever,
+				lexemeRetriever: $lexemeRetriever,
+			)->execute(
+				new AddLexemeFormRequest( 'L1', [], [], false, null )
+			);
+			$this->fail( 'Expected LexemeRedirect to be thrown' );
+		} catch ( LexemeRedirect $e ) {
+			$this->assertSame(
+				$redirectTarget,
+				$e->redirectTarget
+			);
 		}
 	}
 

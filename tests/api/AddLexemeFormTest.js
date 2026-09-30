@@ -7,6 +7,7 @@ const {
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
 const {
+	createRedirectForLexeme,
 	getItemId,
 	getOtherStringPropertyId,
 	getStringPropertyId
@@ -19,6 +20,7 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 	let otherStringPropertyId;
 	let originalEtag;
 	let originalLastModified;
+	let itemId;
 
 	function newValidForm( fields = {} ) {
 		return {
@@ -28,7 +30,7 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 	}
 
 	before( async () => {
-		const itemId = await getItemId();
+		itemId = await getItemId();
 		grammaticalFeatureId = await getItemId();
 		stringPropertyId = await getStringPropertyId();
 		otherStringPropertyId = await getOtherStringPropertyId();
@@ -198,5 +200,31 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		expect( response ).to.have.status( 404 );
 		assert.strictEqual( response.body.code, 'resource-not-found' );
 		assert.deepStrictEqual( response.body.context, { resource_type: 'lexeme' } );
+	} );
+
+	it( 'returns 409 if the lexeme has been redirected', async () => {
+		const sourceLexemeResponse = await newCreateLexemeRequestBuilder( {
+			lemmas: { 'en-ca': `redirect-${ utils.uniq() }` },
+			lexical_category: itemId,
+			language: itemId
+		} ).makeRequest();
+
+		const sourceLexemeId = sourceLexemeResponse.body.id;
+
+		await createRedirectForLexeme(
+			sourceLexemeId,
+			lexemeId
+		);
+
+		const response = await newAddLexemeFormRequestBuilder( sourceLexemeId, newValidForm() ).makeRequest();
+		expect( response ).to.have.status( 409 );
+
+		assert.deepStrictEqual( response.body, {
+			code: 'redirected-lexeme',
+			message: `Lexeme ${ sourceLexemeId } has been redirected to ${ lexemeId }.`,
+			context: {
+				redirect_target: lexemeId
+			}
+		} );
 	} );
 } );

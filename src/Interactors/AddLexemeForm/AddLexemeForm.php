@@ -8,6 +8,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
@@ -24,15 +25,20 @@ class AddLexemeForm {
 	}
 
 	/**
+	 * @throws LexemeRedirect
 	 * @throws UseCaseError
 	 */
 	public function execute( AddLexemeFormRequest $request ): AddLexemeFormResponse {
 		$this->validator->validate( $request );
 		$form = $this->validator->getValidatedForm();
 		$lexemeId = new LexemeId( $request->lexemeId );
+		$metadata = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
 
-		if ( !$this->metadataRetriever->getLatestRevisionMetadata( $lexemeId )->lexemeExists() ) {
+		if ( !$metadata->lexemeExists() ) {
 			throw UseCaseError::newResourceNotFound( 'lexeme' );
+		}
+		if ( $metadata->isRedirect() ) {
+			throw new LexemeRedirect( $metadata->getRedirectTarget() );
 		}
 
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );

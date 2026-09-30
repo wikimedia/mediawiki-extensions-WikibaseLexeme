@@ -8,6 +8,7 @@ use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormResponse;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
@@ -55,6 +56,16 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 					)
 				)
 			);
+		} catch ( LexemeRedirect $e ) {
+			$redirectTarget = $e->redirectTarget->getSerialization();
+
+			return $this->responseFactory->newErrorResponseFromException(
+				UseCaseError::newLexemeRedirected(
+					$lexemeId,
+					$redirectTarget
+				)
+			);
+
 		} catch ( UseCaseError $e ) {
 			return $this->responseFactory->newErrorResponseFromException( $e );
 		}
