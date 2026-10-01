@@ -19,9 +19,10 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
-use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
+use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
@@ -117,28 +118,6 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		yield 'language' => [ 'language' ];
 	}
 
-	/**
-	 * @dataProvider provideLemmaTextWithSurroundingWhitespace
-	 */
-	public function testGivenLemmaTextWithSurroundingWhitespace_trims( string $text, string $expectedText ): void {
-		$validator = $this->newValidator();
-
-		$validator->validateAndDeserialize( self::newRequest(
-			array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => $text ] ] )
-		) );
-
-		$this->assertEquals(
-			new TermList( [ new Term( 'en', $expectedText ) ] ),
-			$validator->getValidatedLexeme()->getLemmas()
-		);
-	}
-
-	public static function provideLemmaTextWithSurroundingWhitespace(): iterable {
-		yield 'leading whitespace' => [ ' potato', 'potato' ];
-		yield 'trailing whitespace' => [ 'potato ', 'potato' ];
-		yield 'surrounding whitespace incl. vertical' => [ "  sweet potato \n", 'sweet potato' ];
-	}
-
 	public function testGivenValidateAndDeserializeNotCalled_getValidatedLexemeThrows(): void {
 		$this->expectException( LogicException::class );
 
@@ -171,112 +150,14 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		yield 'language' => [ 'language' ];
 	}
 
-	/**
-	 * @dataProvider provideInvalidLemmas
-	 */
-	public function testGivenInvalidLemmas_throwsUseCaseError( mixed $lemmas ): void {
+	public function testGivenInvalidLemmas_throwsUseCaseError(): void {
 		try {
 			$this->newValidator()->validateAndDeserialize( self::newRequest(
-				array_merge( self::VALID_LEXEME, [ 'lemmas' => $lemmas ] )
+				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => '' ] ] )
 			) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
-			$this->assertSame( "Invalid value at '/lexeme/lemmas'", $e->errorMessage );
-			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/lexeme/lemmas' ], $e->context );
-		}
-	}
-
-	public static function provideInvalidLemmas(): iterable {
-		yield 'empty map' => [ [] ];
-		yield 'string' => [ 'potato' ];
-		yield 'int' => [ 42 ];
-		yield 'list' => [ [ 'potato' ] ];
-	}
-
-	public function testGivenInvalidLanguageCode_throwsUseCaseError(): void {
-		try {
-			$this->newValidator()->validateAndDeserialize( self::newRequest(
-				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'xyz' => 'potato' ] ] )
-			) );
-			$this->fail( 'Expected UseCaseError to be thrown' );
-		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::INVALID_KEY, $e->errorCode );
-			$this->assertSame( "Invalid key 'xyz' in '/lexeme/lemmas'", $e->errorMessage );
-			$this->assertSame(
-				[ UseCaseError::CONTEXT_PATH => '/lexeme/lemmas', UseCaseError::CONTEXT_KEY => 'xyz' ],
-				$e->context
-			);
-		}
-	}
-
-	/**
-	 * @dataProvider provideInvalidLemmaText
-	 */
-	public function testGivenInvalidLemmaText_throwsUseCaseError( mixed $text ): void {
-		try {
-			$this->newValidator()->validateAndDeserialize( self::newRequest(
-				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => $text ] ] )
-			) );
-			$this->fail( 'Expected UseCaseError to be thrown' );
-		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
-			$this->assertSame( "Invalid value at '/lexeme/lemmas/en'", $e->errorMessage );
-			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/lexeme/lemmas/en' ], $e->context );
-		}
-	}
-
-	public static function provideInvalidLemmaText(): iterable {
-		yield 'int' => [ 42 ];
-		yield 'null' => [ null ];
-		yield 'array' => [ [ 'potato' ] ];
-		yield 'empty string' => [ '' ];
-		yield 'whitespace only' => [ '   ' ];
-		yield 'tab inside' => [ "pot\tato" ];
-		yield 'vertical whitespace inside' => [ "pot\nato" ];
-	}
-
-	public function testGivenLemmaTextTooLong_throwsUseCaseError(): void {
-		try {
-			$this->newValidator()->validateAndDeserialize( self::newRequest(
-				array_merge( self::VALID_LEXEME, [
-					'lemmas' => [ 'en' => str_repeat( 'x', LemmaTermValidator::LEMMA_MAX_LENGTH + 1 ) ],
-				] )
-			) );
-			$this->fail( 'Expected UseCaseError to be thrown' );
-		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::VALUE_TOO_LONG, $e->errorCode );
-			$this->assertSame( 'The input value is too long', $e->errorMessage );
-			$this->assertSame(
-				[
-					UseCaseError::CONTEXT_PATH => '/lexeme/lemmas/en',
-					UseCaseError::CONTEXT_LIMIT => LemmaTermValidator::LEMMA_MAX_LENGTH,
-				],
-				$e->context
-			);
-		}
-	}
-
-	public function testGivenInvalidLanguageCodeAndInvalidText_reportsInvalidLanguageCode(): void {
-		try {
-			$this->newValidator()->validateAndDeserialize( self::newRequest(
-				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'xyz' => '' ] ] )
-			) );
-			$this->fail( 'Expected UseCaseError to be thrown' );
-		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::INVALID_KEY, $e->errorCode );
-		}
-	}
-
-	public function testGivenMultipleInvalidLemmas_reportsFirst(): void {
-		try {
-			$this->newValidator()->validateAndDeserialize( self::newRequest(
-				array_merge( self::VALID_LEXEME, [ 'lemmas' => [ 'en' => '', 'xyz' => 'potato' ] ] )
-			) );
-			$this->fail( 'Expected UseCaseError to be thrown' );
-		} catch ( UseCaseError $e ) {
-			$this->assertSame( UseCaseError::INVALID_VALUE, $e->errorCode );
-			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/lexeme/lemmas/en' ], $e->context );
+			$this->assertEquals( UseCaseError::newInvalidValue( '/lexeme/lemmas/en' ), $e );
 		}
 	}
 
@@ -366,14 +247,17 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
 	): CreateLexemeValidator {
 		return new CreateLexemeValidator(
-			new class( self::VALID_LANGUAGE_CODES ) implements LemmaLanguageCodeValidator {
-				public function __construct( private array $validLanguageCodes ) {
-				}
+			new LexemeTermsValidator(
+				new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
+					public function __construct( private array $validLanguageCodes ) {
+					}
 
-				public function isValid( string $languageCode ): bool {
-					return in_array( $languageCode, $this->validLanguageCodes );
-				}
-			},
+					public function isValid( string $languageCode ): bool {
+						return in_array( $languageCode, $this->validLanguageCodes );
+					}
+				},
+				LemmaTermValidator::LEMMA_MAX_LENGTH,
+			),
 			new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
 				public function __construct( private array $existingItemIds ) {
 				}
@@ -384,7 +268,6 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			},
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
-			LemmaTermValidator::LEMMA_MAX_LENGTH,
 			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);
 	}

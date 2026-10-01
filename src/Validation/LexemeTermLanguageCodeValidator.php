@@ -5,7 +5,7 @@ namespace Wikibase\Lexeme\Validation;
 /**
  * @license GPL-2.0-or-later
  */
-interface LemmaLanguageCodeValidator {
+interface LexemeTermLanguageCodeValidator {
 
 	public function isValid( string $languageCode ): bool;
 

@@ -6,16 +6,14 @@ use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
-use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
 /**
@@ -27,11 +25,10 @@ class CreateLexemeValidator {
 	private ?EditMetadata $editMetadata = null;
 
 	public function __construct(
-		private LemmaLanguageCodeValidator $lemmaLanguageCodeValidator,
+		private LexemeTermsValidator $lexemeTermsValidator,
 		private ItemExistenceChecker $itemExistenceChecker,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
-		private int $maxLemmaLength,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
@@ -45,7 +42,7 @@ class CreateLexemeValidator {
 		if ( !array_key_exists( 'lemmas', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'lemmas' );
 		}
-		$lemmas = $this->validateAndDeserializeLemmas( $serialization['lemmas'] );
+		$lemmas = $this->lexemeTermsValidator->validateAndDeserialize( $serialization['lemmas'], '/lexeme/lemmas' );
 		if ( !array_key_exists( 'lexical_category', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'lexical_category' );
 		}
@@ -118,44 +115,6 @@ class CreateLexemeValidator {
 		}
 
 		return $this->statementsValidator->getValidatedStatements();
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateAndDeserializeLemmas( mixed $lemmas ): TermList {
-		if ( !is_array( $lemmas ) || !$lemmas || array_is_list( $lemmas ) ) {
-			throw UseCaseError::newInvalidValue( '/lexeme/lemmas' );
-		}
-
-		$terms = [];
-		foreach ( $lemmas as $languageCode => $text ) {
-			$languageCode = (string)$languageCode;
-			if ( !$this->lemmaLanguageCodeValidator->isValid( $languageCode ) ) {
-				throw UseCaseError::newInvalidKey( '/lexeme/lemmas', $languageCode );
-			}
-			$terms[] = new Term( $languageCode, $this->validateLemmaText( $text, $languageCode ) );
-		}
-
-		return new TermList( $terms );
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateLemmaText( mixed $text, string $languageCode ): string {
-		if ( !is_string( $text ) ) {
-			throw UseCaseError::newInvalidValue( "/lexeme/lemmas/$languageCode" );
-		}
-		$text = trim( $text );
-		if ( $text === '' || preg_match( '/[\v\t]/u', $text ) ) {
-			throw UseCaseError::newInvalidValue( "/lexeme/lemmas/$languageCode" );
-		}
-		if ( mb_strlen( $text ) > $this->maxLemmaLength ) {
-			throw UseCaseError::newValueTooLong( "/lexeme/lemmas/$languageCode", $this->maxLemmaLength );
-		}
-
-		return $text;
 	}
 
 }

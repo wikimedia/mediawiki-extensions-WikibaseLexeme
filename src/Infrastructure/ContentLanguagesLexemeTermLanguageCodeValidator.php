@@ -3,13 +3,13 @@
 namespace Wikibase\Lexeme\Infrastructure;
 
 use Wikibase\DataModel\Entity\ItemId;
-use Wikibase\Lexeme\Validation\LemmaLanguageCodeValidator;
+use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
 use Wikibase\Lib\ContentLanguages;
 
 /**
  * @license GPL-2.0-or-later
  */
-class TermLanguagesLemmaLanguageCodeValidator implements LemmaLanguageCodeValidator {
+class ContentLanguagesLexemeTermLanguageCodeValidator implements LexemeTermLanguageCodeValidator {
 
 	/**
 	 * According to BCP 47 (https://tools.ietf.org/html/bcp47)

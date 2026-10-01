@@ -3,15 +3,15 @@
 namespace Wikibase\Lexeme\Tests\Unit\Infrastructure;
 
 use MediaWikiUnitTestCase;
-use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
+use Wikibase\Lexeme\Infrastructure\ContentLanguagesLexemeTermLanguageCodeValidator;
 use Wikibase\Lib\StaticContentLanguages;
 
 /**
- * @covers \Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator
+ * @covers \Wikibase\Lexeme\Infrastructure\ContentLanguagesLexemeTermLanguageCodeValidator
  *
  * @license GPL-2.0-or-later
  */
-class TermLanguagesLemmaLanguageCodeValidatorTest extends MediaWikiUnitTestCase {
+class ContentLanguagesLexemeTermLanguageCodeValidatorTest extends MediaWikiUnitTestCase {
 
 	/**
 	 * @dataProvider provideValidLanguageCode
@@ -43,8 +43,8 @@ class TermLanguagesLemmaLanguageCodeValidatorTest extends MediaWikiUnitTestCase 
 		yield 'repeated separator' => [ 'en-x-Q1-x-Q2' ];
 	}
 
-	private function newValidator(): TermLanguagesLemmaLanguageCodeValidator {
-		return new TermLanguagesLemmaLanguageCodeValidator(
+	private function newValidator(): ContentLanguagesLexemeTermLanguageCodeValidator {
+		return new ContentLanguagesLexemeTermLanguageCodeValidator(
 			new StaticContentLanguages( [ 'en', 'mis' ] )
 		);
 	}

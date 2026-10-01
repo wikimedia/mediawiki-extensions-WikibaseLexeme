@@ -29,8 +29,8 @@ use Wikibase\Lexeme\Domain\Merge\LexemeSensesMerger;
 use Wikibase\Lexeme\Domain\Merge\NoCrossReferencingLexemeStatements;
 use Wikibase\Lexeme\Domain\Storage\SenseLabelDescriptionLookup;
 use Wikibase\Lexeme\Infrastructure\ChangeTagsStoreTagsRetriever;
+use Wikibase\Lexeme\Infrastructure\ContentLanguagesLexemeTermLanguageCodeValidator;
 use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
-use Wikibase\Lexeme\Infrastructure\TermLanguagesLemmaLanguageCodeValidator;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
@@ -56,6 +56,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
@@ -270,8 +271,11 @@ return call_user_func( static function () {
 					new GuidGenerator(),
 				),
 				new CreateLexemeValidator(
-					new TermLanguagesLemmaLanguageCodeValidator(
-						WikibaseLexemeServices::getTermLanguages( $services )
+					new LexemeTermsValidator(
+						new ContentLanguagesLexemeTermLanguageCodeValidator(
+							WikibaseLexemeServices::getTermLanguages( $services )
+						),
+						LemmaTermValidator::LEMMA_MAX_LENGTH,
 					),
 					new EntityLookupItemExistenceChecker(
 						WikibaseRepo::getStore( $services )->getEntityLookup(
@@ -283,7 +287,6 @@ return call_user_func( static function () {
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					new StatementsValidationErrorConverter(),
-					LemmaTermValidator::LEMMA_MAX_LENGTH,
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 						CommentStore::COMMENT_CHARACTER_LIMIT,
