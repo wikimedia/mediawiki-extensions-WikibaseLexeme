@@ -72,7 +72,7 @@ class AddLexemeStatementRouteHandler extends SimpleHandler {
 		return $this->middlewareHandler->run( $this, fn () => $this->runUseCase( $lexemeId ) );
 	}
 
-	public function runUseCase( string $lexemeId ): Response {
+	private function runUseCase( string $lexemeId ): Response {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
 		$mwUser = $this->getAuthority()->getUser();

@@ -5,9 +5,11 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
@@ -21,6 +23,7 @@ class AddLexemeForm {
 		private LexemeUpdater $lexemeUpdater,
 		private AddLexemeFormValidator $validator,
 		private LexemeRevisionMetadataRetriever $metadataRetriever,
+		private AssertUserIsAuthorized $assertUserIsAuthorized,
 	) {
 	}
 
@@ -40,6 +43,10 @@ class AddLexemeForm {
 		if ( $metadata->isRedirect() ) {
 			throw new LexemeRedirect( $metadata->getRedirectTarget() );
 		}
+		$this->assertUserIsAuthorized->checkEditPermissions(
+			$request->username === null ? User::newAnonymous() : User::withUsername( $request->username ),
+			$lexemeId
+		);
 
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
 		$lexeme->addOrUpdateForm( $form );

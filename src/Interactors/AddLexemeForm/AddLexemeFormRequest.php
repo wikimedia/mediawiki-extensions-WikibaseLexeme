@@ -13,6 +13,7 @@ class AddLexemeFormRequest {
 		public readonly array $editTags,
 		public readonly bool $isBot,
 		public readonly ?string $comment,
+		public readonly ?string $username
 	) {
 	}
 

@@ -9,6 +9,7 @@ const {
 	newStatementWithRandomStringValue
 } = require( './helpers/entityHelper' );
 const {
+	newAddLexemeFormRequestBuilder,
 	newAddLexemeStatementRequestBuilder,
 	newCreateLexemeRequestBuilder,
 	newGetLexemeRequestBuilder
@@ -31,6 +32,13 @@ const lexemeEditRequests = ( requestInputs ) => ( [
 	() => newAddLexemeStatementRequestBuilder(
 		requestInputs.lexemeId,
 		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
+	),
+	() => newAddLexemeFormRequestBuilder(
+		requestInputs.lexemeId,
+		{
+			representations: { en: `potato-representation-${ Math.random() }` },
+			grammatical_features: [ requestInputs.grammaticalFeatureId ]
+		}
 	)
 ].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
 

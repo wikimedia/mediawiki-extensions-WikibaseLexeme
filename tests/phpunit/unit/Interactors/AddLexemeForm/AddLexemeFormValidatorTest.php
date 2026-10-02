@@ -102,7 +102,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	private function newRequest( array $form ): AddLexemeFormRequest {
-		return new AddLexemeFormRequest( 'L1', $form, [], false, null );
+		return new AddLexemeFormRequest( 'L1', $form, [], false, null, null );
 	}
 
 	private function newValidator( ?StatementsValidator $statementsValidator = null ): AddLexemeFormValidator {

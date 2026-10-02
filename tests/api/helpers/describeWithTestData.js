@@ -44,6 +44,7 @@ function describeWithTestData( testName, runAllTests ) {
 			lexemeRequestInputs.language = await getItemId();
 			lexemeRequestInputs.lexicalCategory = await getItemId();
 			lexemeRequestInputs.statementPropertyId = statementPropertyId;
+			lexemeRequestInputs.grammaticalFeatureId = await getItemId();
 		} );
 
 		runAllTests( lexemeRequestInputs, describeEachRoute );

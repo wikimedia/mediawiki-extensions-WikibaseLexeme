@@ -21,6 +21,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
@@ -47,6 +48,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 			$tags,
 			true,
 			$userComment,
+			null,
 		);
 
 		$form = new BlankForm();
@@ -87,7 +89,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGivenInvalidRequest_throwsWithoutUpdating(): void {
-		$request = new AddLexemeFormRequest( 'L1', [], [], false, null );
+		$request = new AddLexemeFormRequest( 'L1', [], [], false, 'user comment', null );
 		$expectedException = $this->createStub( UseCaseError::class );
 
 		$validator = $this->createMock( AddLexemeFormValidator::class );
@@ -124,7 +126,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 				lexemeRetriever: $lexemeRetriever,
 				lexemeUpdater: $lexemeUpdater,
 				metadataRetriever: $metadataRetriever,
-			)->execute( new AddLexemeFormRequest( 'L999', [], [], false, null ) );
+			)->execute( new AddLexemeFormRequest( 'L999', [], [], false, 'user comment', null ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( UseCaseError::RESOURCE_NOT_FOUND, $e->errorCode );
@@ -154,7 +156,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 				metadataRetriever: $metadataRetriever,
 				lexemeRetriever: $lexemeRetriever,
 			)->execute(
-				new AddLexemeFormRequest( 'L1', [], [], false, null )
+				new AddLexemeFormRequest( 'L1', [], [], false, 'user comment', null )
 			);
 			$this->fail( 'Expected LexemeRedirect to be thrown' );
 		} catch ( LexemeRedirect $e ) {
@@ -165,11 +167,34 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testGivenUnauthorizedUser_throwsWithoutUpdating(): void {
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		$expectedException = UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED );
+		$assertUserIsAuthorized = $this->createStub( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->method( 'checkEditPermissions' )
+			->willThrowException( $expectedException );
+
+		try {
+			$this->newUseCase(
+				lexemeUpdater: $lexemeUpdater,
+				assertUserIsAuthorized: $assertUserIsAuthorized,
+			)->execute(
+				new AddLexemeFormRequest( 'L1', [], [], true, 'user comment', null )
+			);
+			$this->fail( 'this should not be reached' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedException, $e );
+		}
+	}
+
 	private function newUseCase(
 		?LexemeWriteModelRetriever $lexemeRetriever = null,
 		?LexemeUpdater $lexemeUpdater = null,
 		?AddLexemeFormValidator $validator = null,
 		?LexemeRevisionMetadataRetriever $metadataRetriever = null,
+		?AssertUserIsAuthorized $assertUserIsAuthorized = null,
 	): AddLexemeForm {
 		if ( $metadataRetriever === null ) {
 			$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
@@ -182,6 +207,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 			$lexemeUpdater ?? $this->createStub( LexemeUpdater::class ),
 			$validator ?? $this->createStub( AddLexemeFormValidator::class ),
 			$metadataRetriever,
+			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
 		);
 	}
 

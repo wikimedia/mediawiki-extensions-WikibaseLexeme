@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
@@ -12,6 +13,8 @@ use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
+use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -27,6 +30,7 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 
 	public function __construct(
 		private AddLexemeForm $addLexemeForm,
+		private MiddlewareHandler $middlewareHandler,
 		private FormSerializer $formSerializer,
 		private ResponseFactory $responseFactory,
 	) {
@@ -35,14 +39,22 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 	public static function factory(): Handler {
 		return new self(
 			WikibaseLexemeServices::getAddLexemeForm(),
+			new MiddlewareHandler( [
+				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
+			] ),
 			WikibaseLexemeServices::getFormSerializer(),
 			new ResponseFactory(),
 		);
 	}
 
 	public function run( string $lexemeId ): Response {
+		return $this->middlewareHandler->run( $this, fn () => $this->runUseCase( $lexemeId ) );
+	}
+
+	private function runUseCase( string $lexemeId ): Response {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
+		$mwUser = $this->getAuthority()->getUser();
 
 		try {
 			return $this->newSuccessHttpResponse(
@@ -53,6 +65,7 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 						$jsonBody[self::TAGS_BODY_PARAM] ?? [],
 						$jsonBody[self::BOT_BODY_PARAM] ?? false,
 						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+						$mwUser->isRegistered() ? $mwUser->getName() : null,
 					)
 				)
 			);
