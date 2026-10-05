@@ -363,6 +363,7 @@ return call_user_func( static function () {
 					new GuidGenerator(),
 				),
 				new AddLexemeFormValidator(
+					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
 					new StatementsValidator(
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),

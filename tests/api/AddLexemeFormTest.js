@@ -98,6 +98,17 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		);
 	} );
 
+	it( 'accepts a language code containing an item ID and trims the representation text', async () => {
+		const representation = `test-representation-${ utils.uniq() }`;
+		const representationLanguage = `en-x-${ itemId }`;
+		const response = await newAddLexemeFormRequestBuilder( lexemeId, {
+			representations: { [ representationLanguage ]: `  ${ representation }  ` }
+		} ).makeRequest();
+
+		expect( response ).to.have.status( 201 );
+		assert.deepStrictEqual( response.body.representations, { [ representationLanguage ]: representation } );
+	} );
+
 	it( 'ignores statement ids provided in the request', async () => {
 		const statementIdSuffix = '00000000-0000-0000-0000-000000000000';
 		const response = await newAddLexemeFormRequestBuilder( lexemeId, newValidForm( {
@@ -198,6 +209,53 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 			expect( response ).to.have.status( 400 );
 			assert.strictEqual( response.body.code, expectedCode );
 			assert.deepStrictEqual( response.body.context, expectedContext() );
+		} );
+	} );
+
+	[
+		{
+			name: 'representations missing',
+			form: () => ( {} ),
+			expectedCode: 'missing-field',
+			expectedContext: { path: '/form', field: 'representations' }
+		},
+		{
+			name: 'representations not an object',
+			form: () => ( { representations: [ 'potatoes' ] } ),
+			expectedCode: 'invalid-value',
+			expectedContext: { path: '/form/representations' }
+		},
+		{
+			name: 'representations empty',
+			form: () => ( { representations: {} } ),
+			expectedCode: 'invalid-value',
+			expectedContext: { path: '/form/representations' }
+		},
+		{
+			name: 'representation language code invalid',
+			form: () => ( { representations: { 'invalid-language-code': 'potatoes' } } ),
+			expectedCode: 'invalid-key',
+			expectedContext: { path: '/form/representations', key: 'invalid-language-code' }
+		},
+		{
+			name: 'representation text invalid',
+			form: () => ( { representations: { en: '' } } ),
+			expectedCode: 'invalid-value',
+			expectedContext: { path: '/form/representations/en' }
+		},
+		{
+			name: 'representation text too long',
+			form: () => ( { representations: { en: 'x'.repeat( 1001 ) } } ),
+			expectedCode: 'value-too-long',
+			expectedContext: { path: '/form/representations/en', limit: 1000 }
+		}
+	].forEach( ( { name, form, expectedCode, expectedContext } ) => {
+		it( `responds 400 - ${ name }`, async () => {
+			const response = await newAddLexemeFormRequestBuilder( lexemeId, form() ).makeRequest();
+
+			expect( response ).to.have.status( 400 );
+			assert.strictEqual( response.body.code, expectedCode );
+			assert.deepStrictEqual( response.body.context, expectedContext );
 		} );
 	} );
 

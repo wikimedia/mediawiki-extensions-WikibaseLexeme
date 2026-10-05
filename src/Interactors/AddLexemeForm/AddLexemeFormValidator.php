@@ -5,10 +5,9 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 use LogicException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
@@ -20,6 +19,7 @@ class AddLexemeFormValidator {
 	private ?BlankForm $form = null;
 
 	public function __construct(
+		private LexemeTermsValidator $lexemeTermsValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 	) {
@@ -31,8 +31,15 @@ class AddLexemeFormValidator {
 	public function validate( AddLexemeFormRequest $request ): void {
 		$serialization = $request->form;
 
+		if ( !array_key_exists( 'representations', $serialization ) ) {
+			throw UseCaseError::newMissingField( '/form', 'representations' );
+		}
+
 		$form = new BlankForm();
-		$form->setRepresentations( $this->deserializeRepresentations( $serialization['representations'] ) );
+		$form->setRepresentations( $this->lexemeTermsValidator->validateAndDeserialize(
+			$serialization['representations'],
+			'/form/representations',
+		) );
 		$form->setGrammaticalFeatures( array_map(
 			static fn ( string $itemId ) => new ItemId( $itemId ),
 			$serialization['grammatical_features'] ?? [],
@@ -50,15 +57,6 @@ class AddLexemeFormValidator {
 		}
 
 		return $this->form;
-	}
-
-	private function deserializeRepresentations( array $representations ): TermList {
-		$terms = [];
-		foreach ( $representations as $languageCode => $text ) {
-			$terms[] = new Term( (string)$languageCode, $text );
-		}
-
-		return new TermList( $terms );
 	}
 
 	/**

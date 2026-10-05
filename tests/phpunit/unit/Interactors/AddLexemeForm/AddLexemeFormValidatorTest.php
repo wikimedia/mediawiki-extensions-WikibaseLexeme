@@ -11,10 +11,13 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
+use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
@@ -25,6 +28,8 @@ use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
  * @license GPL-2.0-or-later
  */
 class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
+
+	private const VALID_LANGUAGE_CODES = [ 'en', 'en-gb' ];
 
 	private const VALID_FORM = [
 		'representations' => [ 'en' => 'potatoes' ],
@@ -52,6 +57,24 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		);
 		$this->assertEquals( [ $grammaticalFeatureId ], $form->getGrammaticalFeatures() );
 		$this->assertEquals( new StatementList( $statement ), $form->getStatements() );
+	}
+
+	public function testGivenMissingRepresentations_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validate( $this->newRequest( [] ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newMissingField( '/form', 'representations' ), $e );
+		}
+	}
+
+	public function testGivenInvalidRepresentations_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validate( $this->newRequest( [ 'representations' => [ 'en' => '' ] ] ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newInvalidValue( '/form/representations/en' ), $e );
+		}
 	}
 
 	public function testGivenStatementsNotAnArray_throwsUseCaseError(): void {
@@ -107,6 +130,17 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 
 	private function newValidator( ?StatementsValidator $statementsValidator = null ): AddLexemeFormValidator {
 		return new AddLexemeFormValidator(
+			new LexemeTermsValidator(
+				new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
+					public function __construct( private array $validLanguageCodes ) {
+					}
+
+					public function isValid( string $languageCode ): bool {
+						return in_array( $languageCode, $this->validLanguageCodes );
+					}
+				},
+				LemmaTermValidator::LEMMA_MAX_LENGTH,
+			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
 		);
