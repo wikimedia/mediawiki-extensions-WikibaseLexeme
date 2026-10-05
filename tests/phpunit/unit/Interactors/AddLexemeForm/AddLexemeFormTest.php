@@ -94,7 +94,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 
 		$validator = $this->createMock( AddLexemeFormValidator::class );
 		$validator->expects( $this->once() )
-			->method( 'validate' )
+			->method( 'validateAndDeserialize' )
 			->with( $request )
 			->willThrowException( $expectedException );
 

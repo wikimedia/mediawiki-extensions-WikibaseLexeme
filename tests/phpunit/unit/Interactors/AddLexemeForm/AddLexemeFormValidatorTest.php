@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
+use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
@@ -30,6 +31,7 @@ use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
 class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 
 	private const VALID_LANGUAGE_CODES = [ 'en', 'en-gb' ];
+	private const EXISTING_ITEM_IDS = [ 'Q1', 'Q2', 'Q123' ];
 
 	private const VALID_FORM = [
 		'representations' => [ 'en' => 'potatoes' ],
@@ -44,7 +46,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 
 		$validator = $this->newValidator( $this->newStatementsValidator( new StatementList( $statement ) ) );
 
-		$validator->validate( $this->newRequest( [
+		$validator->validateAndDeserialize( $this->newRequest( [
 			'representations' => [ 'en' => $enRepresentation, 'en-gb' => $enGbRepresentation ],
 			'grammatical_features' => [ $grammaticalFeatureId->getSerialization() ],
 			'statements' => [ $propertyId->getSerialization() => [ [ 'some' => 'statement' ] ] ],
@@ -61,7 +63,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenMissingRepresentations_throwsUseCaseError(): void {
 		try {
-			$this->newValidator()->validate( $this->newRequest( [] ) );
+			$this->newValidator()->validateAndDeserialize( $this->newRequest( [] ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertEquals( UseCaseError::newMissingField( '/form', 'representations' ), $e );
@@ -70,7 +72,8 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenInvalidRepresentations_throwsUseCaseError(): void {
 		try {
-			$this->newValidator()->validate( $this->newRequest( [ 'representations' => [ 'en' => '' ] ] ) );
+			$this->newValidator()
+				->validateAndDeserialize( $this->newRequest( [ 'representations' => [ 'en' => '' ] ] ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertEquals( UseCaseError::newInvalidValue( '/form/representations/en' ), $e );
@@ -79,7 +82,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 
 	public function testGivenStatementsNotAnArray_throwsUseCaseError(): void {
 		try {
-			$this->newValidator()->validate(
+			$this->newValidator()->validateAndDeserialize(
 				$this->newRequest( array_merge( self::VALID_FORM, [ 'statements' => 'potato' ] ) )
 			);
 			$this->fail( 'Expected UseCaseError to be thrown' );
@@ -92,7 +95,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 	public function testGivenStatementsNull_treatedAsAbsent(): void {
 		$validator = $this->newValidator();
 
-		$validator->validate(
+		$validator->validateAndDeserialize(
 			$this->newRequest( array_merge( self::VALID_FORM, [ 'statements' => null ] ) )
 		);
 
@@ -109,12 +112,78 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		);
 
 		try {
-			$this->newValidator( $statementsValidator )->validate(
+			$this->newValidator( $statementsValidator )->validateAndDeserialize(
 				$this->newRequest( array_merge( self::VALID_FORM, [ 'statements' => [ 'P123' => [] ] ] ) )
 			);
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertEquals( UseCaseError::newMissingField( '/form/statements/P123/0', 'value' ), $e );
+		}
+	}
+
+	public function testGivenGrammaticalFeaturesNotAnArray_throwsUseCaseError(): void {
+		try {
+			$this->newValidator( $this->createStub( StatementsValidator::class ) )
+				->validateAndDeserialize(
+					$this->newRequest( array_merge( self::VALID_FORM, [ 'grammatical_features' => 'Q123' ] ) )
+				);
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newInvalidValue( '/form/grammatical_features' ), $e );
+		}
+	}
+
+	public function testGivenGrammaticalFeaturesNotAList_throwsUseCaseError(): void {
+		try {
+			$this->newValidator( $this->createStub( StatementsValidator::class ) )
+				->validateAndDeserialize(
+					$this->newRequest( array_merge( self::VALID_FORM, [ 'grammatical_features' => [ 'foo' => 'Q123' ] ]
+					) )
+				);
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newInvalidValue( '/form/grammatical_features' ), $e );
+		}
+	}
+
+	/**
+	 * @dataProvider provideInvalidGrammaticalFeature
+	 */
+	public function testGivenGrammaticalFeatureInvalidItemId_throwsUseCaseError(
+		array $grammaticalFeatures,
+		int $index
+	): void {
+		try {
+			$this->newValidator( $this->createStub( StatementsValidator::class ) )->validateAndDeserialize(
+				$this->newRequest( array_merge( self::VALID_FORM, [ 'grammatical_features' => $grammaticalFeatures ] ) )
+			);
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newInvalidValue( "/form/grammatical_features/$index" ), $e );
+		}
+	}
+
+	public static function provideInvalidGrammaticalFeature(): iterable {
+		yield "int" => [ [ 42 ], 0 ];
+		yield "null" => [ [ null ], 0 ];
+		yield "array" => [ [ [ 'Q1' ] ], 0 ];
+		yield "empty string" => [ [ '' ], 0 ];
+		yield "not an id" => [ [ 'potato' ], 0 ];
+		yield "property id" => [ [ 'P123' ], 0 ];
+		yield "lexeme id" => [ [ 'L1' ], 0 ];
+		yield "second element invalid" => [ [ 'Q1', 'P2' ], 1 ];
+	}
+
+	public function testGivenNonexistentGrammaticalFeature_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
+				array_merge( self::VALID_FORM, [ 'grammatical_features' => [ 'Q999' ] ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::REFERENCED_RESOURCE_NOT_FOUND, $e->errorCode );
+			$this->assertSame( 'The referenced resource does not exist', $e->errorMessage );
+			$this->assertSame( [ UseCaseError::CONTEXT_PATH => '/form/grammatical_features/0' ], $e->context );
 		}
 	}
 
@@ -143,6 +212,14 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
+			new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
+				public function __construct( private array $existingItemIds ) {
+				}
+
+				public function exists( ItemId $itemId ): bool {
+					return in_array( $itemId->getSerialization(), $this->existingItemIds );
+				}
+			},
 		);
 	}
 

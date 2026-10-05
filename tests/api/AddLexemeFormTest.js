@@ -259,6 +259,36 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		} );
 	} );
 
+	it( "returns 400 if 'grammatical_features' is not an array", async () => {
+		const response = await newAddLexemeFormRequestBuilder(
+			lexemeId,
+			newValidForm( { grammatical_features: 'Q1' } )
+		).makeRequest();
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/form/grammatical_features' } );
+	} );
+
+	it( "returns 400 if a 'grammatical_features' element is not an item id", async () => {
+		const response = await newAddLexemeFormRequestBuilder(
+			lexemeId,
+			newValidForm( { grammatical_features: [ grammaticalFeatureId, 'X1' ] } )
+		).makeRequest();
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/form/grammatical_features/1' } );
+	} );
+
+	it( "returns 400 if a 'grammatical_features' item does not exist", async () => {
+		const response = await newAddLexemeFormRequestBuilder(
+			lexemeId,
+			newValidForm( { grammatical_features: [ 'Q999999999' ] } )
+		).makeRequest();
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'referenced-resource-not-found' );
+		assert.deepStrictEqual( response.body.context, { path: '/form/grammatical_features/0' } );
+	} );
+
 	it( 'responds 404 if the lexeme does not exist', async () => {
 		const response = await newAddLexemeFormRequestBuilder( 'L999999', newValidForm() ).makeRequest();
 

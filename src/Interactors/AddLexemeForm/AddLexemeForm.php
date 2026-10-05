@@ -32,7 +32,7 @@ class AddLexemeForm {
 	 * @throws UseCaseError
 	 */
 	public function execute( AddLexemeFormRequest $request ): AddLexemeFormResponse {
-		$this->validator->validate( $request );
+		$this->validator->validateAndDeserialize( $request );
 		$form = $this->validator->getValidatedForm();
 		$lexemeId = new LexemeId( $request->lexemeId );
 		$metadata = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );

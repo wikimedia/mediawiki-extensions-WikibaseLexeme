@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 
+use InvalidArgumentException;
 use LogicException;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
@@ -9,6 +10,7 @@ use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
+use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
 /**
@@ -22,13 +24,14 @@ class AddLexemeFormValidator {
 		private LexemeTermsValidator $lexemeTermsValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
+		private ItemExistenceChecker $itemExistenceChecker,
 	) {
 	}
 
 	/**
 	 * @throws UseCaseError
 	 */
-	public function validate( AddLexemeFormRequest $request ): void {
+	public function validateAndDeserialize( AddLexemeFormRequest $request ): void {
 		$serialization = $request->form;
 
 		if ( !array_key_exists( 'representations', $serialization ) ) {
@@ -40,9 +43,8 @@ class AddLexemeFormValidator {
 			$serialization['representations'],
 			'/form/representations',
 		) );
-		$form->setGrammaticalFeatures( array_map(
-			static fn ( string $itemId ) => new ItemId( $itemId ),
-			$serialization['grammatical_features'] ?? [],
+		$form->setGrammaticalFeatures( $this->validateAndDeserializeGrammaticalFeatures(
+			$serialization['grammatical_features'] ?? []
 		) );
 		foreach ( $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] ) as $statement ) {
 			$form->getStatements()->addStatement( $statement );
@@ -75,4 +77,40 @@ class AddLexemeFormValidator {
 		return $this->statementsValidator->getValidatedStatements();
 	}
 
+	/**
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeGrammaticalFeatures( mixed $grammaticalFeatures ): array {
+		if ( !is_array( $grammaticalFeatures ) || !array_is_list( $grammaticalFeatures ) ) {
+			throw UseCaseError::newInvalidValue( '/form/grammatical_features' );
+		}
+
+		return array_map(
+			fn ( mixed $itemId, int $index ) => $this->validateAndDeserializeItemId(
+				$itemId,
+				"/form/grammatical_features/$index"
+			),
+			$grammaticalFeatures,
+			array_keys( $grammaticalFeatures )
+		);
+	}
+
+	/**
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeItemId( mixed $value, string $path ): ItemId {
+		if ( !is_string( $value ) ) {
+			throw UseCaseError::newInvalidValue( $path );
+		}
+		try {
+			$itemId = new ItemId( $value );
+		} catch ( InvalidArgumentException ) {
+			throw UseCaseError::newInvalidValue( $path );
+		}
+		if ( !$this->itemExistenceChecker->exists( $itemId ) ) {
+			throw UseCaseError::newReferencedResourceNotFound( $path );
+		}
+
+		return $itemId;
+	}
 }

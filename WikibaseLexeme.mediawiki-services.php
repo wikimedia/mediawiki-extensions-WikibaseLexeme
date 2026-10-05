@@ -368,6 +368,12 @@ return call_user_func( static function () {
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					new StatementsValidationErrorConverter(),
+					new EntityLookupItemExistenceChecker(
+						WikibaseRepo::getStore( $services )->getEntityLookup(
+							Store::LOOKUP_CACHING_DISABLED,
+							LookupConstants::LATEST_FROM_MASTER
+						)
+					),
 				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services )
