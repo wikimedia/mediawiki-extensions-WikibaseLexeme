@@ -271,12 +271,7 @@ return call_user_func( static function () {
 					new GuidGenerator(),
 				),
 				new CreateLexemeValidator(
-					new LexemeTermsValidator(
-						new ContentLanguagesLexemeTermLanguageCodeValidator(
-							WikibaseLexemeServices::getTermLanguages( $services )
-						),
-						LemmaTermValidator::LEMMA_MAX_LENGTH,
-					),
+					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
 					new EntityLookupItemExistenceChecker(
 						WikibaseRepo::getStore( $services )->getEntityLookup(
 							Store::LOOKUP_CACHING_DISABLED,
@@ -307,6 +302,18 @@ return call_user_func( static function () {
 				WikibaseRepo::getStatementGuidParser( $services ),
 				WikibaseRepo::getPropertyDataTypeLookup( $services ),
 			) );
+		},
+		'WikibaseLexeme.LexemeTermsValidator' => static function (
+			MediaWikiServices $services
+		): LexemeTermsValidator {
+			return new LexemeTermsValidator(
+				new ContentLanguagesLexemeTermLanguageCodeValidator(
+					WikibaseLexemeServices::getTermLanguages( $services )
+				),
+				// this validator is also used for representations and glosses, and we've decided that the same limit
+				// of 1000 characters is fine for all of them.
+				LemmaTermValidator::LEMMA_MAX_LENGTH,
+			);
 		},
 		'WikibaseLexeme.AddLexemeStatement' => static function ( MediaWikiServices $services ): AddLexemeStatement {
 			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
