@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert, utils } = require( 'api-testing' );
+const { assert, action, utils } = require( 'api-testing' );
 const {
 	newAddLexemeFormRequestBuilder,
 	newCreateLexemeRequestBuilder
@@ -96,6 +96,31 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 			editMetadata.comment,
 			`/* add-form:1||${ formId } */ ${ representation }`
 		);
+	} );
+
+	it( 'can add a form with edit metadata provided', async () => {
+		const user = await action.robby();
+		const tag = await action.makeTag( 'e2e test tag', 'Created during e2e test', true );
+		const editSummary = 'omg look i made an edit';
+		const form = newValidForm();
+
+		const response = await newAddLexemeFormRequestBuilder( lexemeId, form )
+			.withJsonBodyParam( 'tags', [ tag ] )
+			.withJsonBodyParam( 'bot', true )
+			.withJsonBodyParam( 'comment', editSummary )
+			.withUser( user )
+			.makeRequest();
+
+		expect( response ).to.have.status( 201 );
+
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.deepEqual( editMetadata.tags, [ tag ] );
+		assert.property( editMetadata, 'bot' );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* add-form:1||${ response.body.id } */ ${ form.representations.en }, ${ editSummary }`
+		);
+		assert.strictEqual( editMetadata.user, user.username );
 	} );
 
 	it( 'accepts a language code containing an item ID and trims the representation text', async () => {
@@ -287,6 +312,26 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'referenced-resource-not-found' );
 		assert.deepStrictEqual( response.body.context, { path: '/form/grammatical_features/0' } );
+	} );
+
+	it( 'responds 400 if an edit tag is invalid', async () => {
+		const response = await newAddLexemeFormRequestBuilder( lexemeId, newValidForm() )
+			.withJsonBodyParam( 'tags', [ 'not-a-real-tag' ] )
+			.makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-value' );
+		assert.deepStrictEqual( response.body.context, { path: '/tags/0' } );
+	} );
+
+	it( 'responds 400 if the comment is too long', async () => {
+		const response = await newAddLexemeFormRequestBuilder( lexemeId, newValidForm() )
+			.withJsonBodyParam( 'comment', 'x'.repeat( 501 ) )
+			.makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'value-too-long' );
+		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
 	} );
 
 	it( 'responds 404 if the lexeme does not exist', async () => {

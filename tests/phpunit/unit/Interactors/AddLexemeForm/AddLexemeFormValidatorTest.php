@@ -15,6 +15,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
@@ -60,6 +61,19 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		);
 		$this->assertEquals( [ $grammaticalFeatureId ], $form->getGrammaticalFeatures() );
 		$this->assertEquals( new StatementList( $statement ), $form->getStatements() );
+	}
+
+	public function testGivenValidRequest_validatesEditMetadata(): void {
+		$editTags = [ 'allowed tag' ];
+		$comment = 'user comment';
+		$editMetadataRequestValidator = $this->createMock( EditMetadataRequestValidator::class );
+		$editMetadataRequestValidator->expects( $this->once() )
+			->method( 'validate' )
+			->with( $editTags, $comment );
+
+		$this->newValidator( null, $editMetadataRequestValidator )->validateAndDeserialize(
+			new AddLexemeFormRequest( 'L1', self::VALID_FORM, $editTags, false, $comment, null )
+		);
 	}
 
 	public function testGivenMissingRepresentations_throwsUseCaseError(): void {
@@ -198,7 +212,10 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		return new AddLexemeFormRequest( 'L1', $form, [], false, null, null );
 	}
 
-	private function newValidator( ?StatementsValidator $statementsValidator = null ): AddLexemeFormValidator {
+	private function newValidator(
+		?StatementsValidator $statementsValidator = null,
+		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
+	): AddLexemeFormValidator {
 		return new AddLexemeFormValidator(
 			new LexemeTermsValidator(
 				new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
@@ -222,7 +239,8 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 						return in_array( $itemId->getSerialization(), $this->existingItemIds );
 					}
 				}
-			)
+			),
+			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);
 	}
 

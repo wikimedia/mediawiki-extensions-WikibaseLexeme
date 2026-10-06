@@ -377,6 +377,10 @@ return call_user_func( static function () {
 					),
 					new StatementsValidationErrorConverter(),
 					$services->get( 'WikibaseLexeme.ItemIdValidator' ),
+					new EditMetadataRequestValidator(
+						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+						CommentStore::COMMENT_CHARACTER_LIMIT,
+					),
 				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services )

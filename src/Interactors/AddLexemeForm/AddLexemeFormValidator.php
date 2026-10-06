@@ -6,6 +6,7 @@ use LogicException;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
@@ -23,6 +24,7 @@ class AddLexemeFormValidator {
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 		private ItemIdValidator $itemIdValidator,
+		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
 
@@ -49,6 +51,8 @@ class AddLexemeFormValidator {
 		}
 
 		$this->form = $form;
+
+		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 	}
 
 	public function getValidatedForm(): BlankForm {
