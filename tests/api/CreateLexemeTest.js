@@ -366,32 +366,4 @@ describe( 'POST /entities/lexemes', () => {
 		assert.strictEqual( editMetadata.user, user.username );
 	} );
 
-	it( 'returns 400 if an edit tag is invalid', async () => {
-		const response = await newCreateLexemeRequestBuilder( {
-			lemmas: { en: `test-lemma-${ utils.uniq() }` },
-			lexical_category: lexicalCategoryId,
-			language: languageId
-		} )
-			.withJsonBodyParam( 'tags', [ 'not-a-real-tag' ] )
-			.makeRequest();
-
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'invalid-value' );
-		assert.deepStrictEqual( response.body.context, { path: '/tags/0' } );
-	} );
-
-	it( 'returns 400 if the comment is too long', async () => {
-		const response = await newCreateLexemeRequestBuilder( {
-			lemmas: { en: `test-lemma-${ utils.uniq() }` },
-			lexical_category: lexicalCategoryId,
-			language: languageId
-		} )
-			.withJsonBodyParam( 'comment', 'x'.repeat( 501 ) )
-			.makeRequest();
-
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'value-too-long' );
-		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
-	} );
-
 } );

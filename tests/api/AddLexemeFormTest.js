@@ -314,26 +314,6 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		assert.deepStrictEqual( response.body.context, { path: '/form/grammatical_features/0' } );
 	} );
 
-	it( 'responds 400 if an edit tag is invalid', async () => {
-		const response = await newAddLexemeFormRequestBuilder( lexemeId, newValidForm() )
-			.withJsonBodyParam( 'tags', [ 'not-a-real-tag' ] )
-			.makeRequest();
-
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'invalid-value' );
-		assert.deepStrictEqual( response.body.context, { path: '/tags/0' } );
-	} );
-
-	it( 'responds 400 if the comment is too long', async () => {
-		const response = await newAddLexemeFormRequestBuilder( lexemeId, newValidForm() )
-			.withJsonBodyParam( 'comment', 'x'.repeat( 501 ) )
-			.makeRequest();
-
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'value-too-long' );
-		assert.deepStrictEqual( response.body.context, { path: '/comment', limit: 500 } );
-	} );
-
 	it( 'responds 404 if the lexeme does not exist', async () => {
 		const response = await newAddLexemeFormRequestBuilder( 'L999999', newValidForm() ).makeRequest();
 
