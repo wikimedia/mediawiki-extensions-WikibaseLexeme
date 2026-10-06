@@ -2,18 +2,16 @@
 
 namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
-use InvalidArgumentException;
 use LogicException;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
-use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
 /**
@@ -26,7 +24,7 @@ class CreateLexemeValidator {
 
 	public function __construct(
 		private LexemeTermsValidator $lexemeTermsValidator,
-		private ItemExistenceChecker $itemExistenceChecker,
+		private ItemIdValidator $itemIdValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
@@ -46,14 +44,14 @@ class CreateLexemeValidator {
 		if ( !array_key_exists( 'lexical_category', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'lexical_category' );
 		}
-		$lexicalCategory = $this->validateAndDeserializeItemId(
+		$lexicalCategory = $this->itemIdValidator->validateItemId(
 			$serialization['lexical_category'],
 			'/lexeme/lexical_category'
 		);
 		if ( !array_key_exists( 'language', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'language' );
 		}
-		$language = $this->validateAndDeserializeItemId( $serialization['language'], '/lexeme/language' );
+		$language = $this->itemIdValidator->validateItemId( $serialization['language'], '/lexeme/language' );
 		$statements = $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] );
 
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
@@ -80,25 +78,6 @@ class CreateLexemeValidator {
 		}
 
 		return $this->editMetadata;
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateAndDeserializeItemId( mixed $value, string $path ): ItemId {
-		if ( !is_string( $value ) ) {
-			throw UseCaseError::newInvalidValue( $path );
-		}
-		try {
-			$itemId = new ItemId( $value );
-		} catch ( InvalidArgumentException ) {
-			throw UseCaseError::newInvalidValue( $path );
-		}
-		if ( !$this->itemExistenceChecker->exists( $itemId ) ) {
-			throw UseCaseError::newReferencedResourceNotFound( $path );
-		}
-
-		return $itemId;
 	}
 
 	/**

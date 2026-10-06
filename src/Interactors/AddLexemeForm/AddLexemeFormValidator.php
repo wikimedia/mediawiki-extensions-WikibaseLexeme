@@ -2,15 +2,13 @@
 
 namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 
-use InvalidArgumentException;
 use LogicException;
-use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
-use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
 /**
@@ -24,7 +22,7 @@ class AddLexemeFormValidator {
 		private LexemeTermsValidator $lexemeTermsValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
-		private ItemExistenceChecker $itemExistenceChecker,
+		private ItemIdValidator $itemIdValidator,
 	) {
 	}
 
@@ -86,31 +84,12 @@ class AddLexemeFormValidator {
 		}
 
 		return array_map(
-			fn ( mixed $itemId, int $index ) => $this->validateAndDeserializeItemId(
+			fn ( mixed $itemId, int $index ) => $this->itemIdValidator->validateItemId(
 				$itemId,
 				"/form/grammatical_features/$index"
 			),
 			$grammaticalFeatures,
 			array_keys( $grammaticalFeatures )
 		);
-	}
-
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateAndDeserializeItemId( mixed $value, string $path ): ItemId {
-		if ( !is_string( $value ) ) {
-			throw UseCaseError::newInvalidValue( $path );
-		}
-		try {
-			$itemId = new ItemId( $value );
-		} catch ( InvalidArgumentException ) {
-			throw UseCaseError::newInvalidValue( $path );
-		}
-		if ( !$this->itemExistenceChecker->exists( $itemId ) ) {
-			throw UseCaseError::newReferencedResourceNotFound( $path );
-		}
-
-		return $itemId;
 	}
 }

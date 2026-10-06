@@ -55,6 +55,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
@@ -272,12 +273,7 @@ return call_user_func( static function () {
 				),
 				new CreateLexemeValidator(
 					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
-					new EntityLookupItemExistenceChecker(
-						WikibaseRepo::getStore( $services )->getEntityLookup(
-							Store::LOOKUP_CACHING_DISABLED,
-							LookupConstants::LATEST_FROM_MASTER
-						)
-					),
+					$services->get( 'WikibaseLexeme.ItemIdValidator' ),
 					new StatementsValidator(
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
@@ -313,6 +309,18 @@ return call_user_func( static function () {
 				// this validator is also used for representations and glosses, and we've decided that the same limit
 				// of 1000 characters is fine for all of them.
 				LemmaTermValidator::LEMMA_MAX_LENGTH,
+			);
+		},
+		'WikibaseLexeme.ItemIdValidator' => static function (
+			MediaWikiServices $services
+		): ItemIdValidator {
+			return new ItemIdValidator(
+				new EntityLookupItemExistenceChecker(
+					WikibaseRepo::getStore( $services )->getEntityLookup(
+						Store::LOOKUP_CACHING_DISABLED,
+						LookupConstants::LATEST_FROM_MASTER
+					)
+				),
 			);
 		},
 		'WikibaseLexeme.AddLexemeStatement' => static function ( MediaWikiServices $services ): AddLexemeStatement {
@@ -368,12 +376,7 @@ return call_user_func( static function () {
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					new StatementsValidationErrorConverter(),
-					new EntityLookupItemExistenceChecker(
-						WikibaseRepo::getStore( $services )->getEntityLookup(
-							Store::LOOKUP_CACHING_DISABLED,
-							LookupConstants::LATEST_FROM_MASTER
-						)
-					),
+					$services->get( 'WikibaseLexeme.ItemIdValidator' ),
 				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services )

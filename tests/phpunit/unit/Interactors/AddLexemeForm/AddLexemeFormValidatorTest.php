@@ -15,6 +15,7 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
@@ -212,14 +213,16 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
-			new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
-				public function __construct( private array $existingItemIds ) {
-				}
+			new ItemIdValidator(
+				new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
+					public function __construct( private array $existingItemIds ) {
+					}
 
-				public function exists( ItemId $itemId ): bool {
-					return in_array( $itemId->getSerialization(), $this->existingItemIds );
+					public function exists( ItemId $itemId ): bool {
+						return in_array( $itemId->getSerialization(), $this->existingItemIds );
+					}
 				}
-			},
+			)
 		);
 	}
 

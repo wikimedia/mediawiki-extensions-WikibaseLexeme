@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
@@ -258,14 +259,16 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				},
 				LemmaTermValidator::LEMMA_MAX_LENGTH,
 			),
-			new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
-				public function __construct( private array $existingItemIds ) {
-				}
+			new ItemIdValidator(
+				new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {
+					public function __construct( private array $existingItemIds ) {
+					}
 
-				public function exists( ItemId $itemId ): bool {
-					return in_array( $itemId->getSerialization(), $this->existingItemIds );
+					public function exists( ItemId $itemId ): bool {
+						return in_array( $itemId->getSerialization(), $this->existingItemIds );
+					}
 				}
-			},
+			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
 			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
