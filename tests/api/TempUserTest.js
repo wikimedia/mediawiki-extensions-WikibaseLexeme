@@ -4,11 +4,7 @@ const { describeWithTestData } = require( './helpers/describeWithTestData' );
 const { action, assert } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const entityHelper = require( './helpers/entityHelper' );
-const { newStatementWithRandomStringValue } = entityHelper;
-const {
-	newAddLexemeStatementRequestBuilder,
-	newCreateLexemeRequestBuilder
-} = require( './helpers/RequestBuilderFactory' );
+const { lexemeCreateRequests, lexemeEditRequests } = require( './helpers/happyPathRequestBuilders' );
 
 describeWithTestData( 'IP masking', (
 	lexemeRequestInputs,
@@ -16,19 +12,9 @@ describeWithTestData( 'IP masking', (
 ) => {
 
 	const routes = [
-		() => newAddLexemeStatementRequestBuilder(
-			lexemeRequestInputs.lexemeId,
-			newStatementWithRandomStringValue( lexemeRequestInputs.statementPropertyId )
-		),
-		() => newCreateLexemeRequestBuilder( {
-			lemmas: lexemeRequestInputs.lemmas,
-			language: lexemeRequestInputs.language,
-			lexical_category: lexemeRequestInputs.lexicalCategory
-		} )
-	].map( ( newRequestBuilder ) => ( {
-		newRequestBuilder,
-		requestInputs: lexemeRequestInputs
-	} ) );
+		...lexemeEditRequests( lexemeRequestInputs ),
+		...lexemeCreateRequests( lexemeRequestInputs )
+	];
 
 	const tempUserPrefix = 'TempUserTest';
 

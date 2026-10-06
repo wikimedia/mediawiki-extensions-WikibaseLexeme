@@ -4,44 +4,14 @@ const { requireExtensions } = require( '../../../Wikibase/tests/api-testing/util
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
 const { assert, action } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
+const { changeLexemeProtectionStatus } = require( './helpers/entityHelper' );
+const { newCreateLexemeRequestBuilder } = require( './helpers/RequestBuilderFactory' );
 const {
-	changeLexemeProtectionStatus,
-	newStatementWithRandomStringValue
-} = require( './helpers/entityHelper' );
-const {
-	newAddLexemeFormRequestBuilder,
-	newAddLexemeStatementRequestBuilder,
-	newCreateLexemeRequestBuilder,
-	newGetLexemeRequestBuilder
-} = require( './helpers/RequestBuilderFactory' );
-
-const lexemeCreateRequests = ( requestInputs ) => ( {
-	newRequestBuilder: () => newCreateLexemeRequestBuilder( {
-		lemmas: requestInputs.lemmas,
-		language: requestInputs.language,
-		lexical_category: requestInputs.lexicalCategory
-	} ),
-	requestInputs
-} );
-
-const lexemeGetRequests = ( requestInputs ) => ( [
-	() => newGetLexemeRequestBuilder( requestInputs.lexemeId )
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
-
-const lexemeEditRequests = ( requestInputs ) => ( [
-	() => newAddLexemeStatementRequestBuilder(
-		requestInputs.lexemeId,
-		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
-	),
-	() => newAddLexemeFormRequestBuilder(
-		requestInputs.lexemeId,
-		{
-			representations: { en: `potato-representation-${ Math.random() }` },
-			grammatical_features: [ requestInputs.grammaticalFeatureId ]
-		}
-	)
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
-
+	addLexemeFormRequest,
+	lexemeCreateRequests,
+	lexemeEditRequests,
+	lexemeGetRequests
+} = require( './helpers/happyPathRequestBuilders' );
 const { getOrCreateAuthTestUser } = require( './helpers/testUsers' );
 const { assertValidError } = require( './helpers/responseValidator' );
 const { runAllJobs } = require( 'api-testing/lib/wiki' );
@@ -61,11 +31,12 @@ describeWithTestData( 'Auth', (
 	} );
 
 	const editRoutes = [
-		...lexemeEditRequests( lexemeRequestInputs )
+		...lexemeEditRequests( lexemeRequestInputs ),
+		addLexemeFormRequest( lexemeRequestInputs )
 	];
 	const editAndCreateRoutes = [
 		...editRoutes,
-		lexemeCreateRequests( lexemeRequestInputs )
+		...lexemeCreateRequests( lexemeRequestInputs )
 	];
 	const allRoutes = [
 		...editAndCreateRoutes,

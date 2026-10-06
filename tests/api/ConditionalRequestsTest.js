@@ -2,21 +2,10 @@
 
 const { assert } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
-const { getLatestRevisionMetadata, newStatementWithRandomStringValue } = require( './helpers/entityHelper' );
+const { getLatestRevisionMetadata } = require( './helpers/entityHelper' );
 const { makeEtag } = require( './helpers/httpHelper' );
-const rbf = require( './helpers/RequestBuilderFactory' );
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
-
-const lexemeGetRequests = ( requestInputs ) => ( [
-	() => rbf.newGetLexemeRequestBuilder( requestInputs.lexemeId )
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
-
-const lexemeEditRequests = ( requestInputs ) => ( [
-	() => rbf.newAddLexemeStatementRequestBuilder(
-		requestInputs.lexemeId,
-		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
-	)
-].map( ( newRequestBuilder ) => ( { newRequestBuilder, requestInputs } ) ) );
+const { lexemeEditRequests, lexemeGetRequests } = require( './helpers/happyPathRequestBuilders' );
 
 function assertValid200Response( response, revisionId, lastModified ) {
 	expect( response ).to.have.status( 200 );
