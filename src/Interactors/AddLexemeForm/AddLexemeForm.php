@@ -11,12 +11,15 @@ use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
+use Wikibase\Lexeme\Interactors\UpdateExceptionHandler;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
  * @license GPL-2.0-or-later
  */
 class AddLexemeForm {
+
+	use UpdateExceptionHandler;
 
 	public function __construct(
 		private LexemeWriteModelRetriever $lexemeRetriever,
@@ -51,17 +54,18 @@ class AddLexemeForm {
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
 		$lexeme->addOrUpdateForm( $form );
 
-		$lexemeRevision = $this->lexemeUpdater->update(
-			$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
-			new EditMetadata(
-				$request->editTags,
-				$request->isBot,
-				new AddFormEditSummary( $request->comment, $form ),
-			),
+		$lexemeRevision = $this->executeWithExceptionHandling(
+			fn () => $this->lexemeUpdater->update(
+				$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
+				new EditMetadata(
+					$request->editTags,
+					$request->isBot,
+					new AddFormEditSummary( $request->comment, $form ),
+				),
+			)
 		);
 
 		return new AddLexemeFormResponse(
-			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable the Form was just added
 			$lexemeRevision->lexeme->forms->getById( $form->getId() ),
 			$lexemeRevision->revisionId,
 			$lexemeRevision->lastModified,

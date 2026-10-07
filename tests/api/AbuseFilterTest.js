@@ -5,7 +5,8 @@ const { clientFactory, action, utils } = require( 'api-testing' );
 const config = require( 'api-testing/lib/config' );
 const {
 	newAddLexemeStatementRequestBuilder,
-	newCreateLexemeRequestBuilder
+	newCreateLexemeRequestBuilder,
+	newAddLexemeFormRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { getItemId, getStringPropertyId } = require( './helpers/entityHelper' );
 const { assertValidError } = require( './helpers/responseValidator' );
@@ -88,6 +89,10 @@ describe( 'Edit prevented with abuse filter', () => {
 				property: { id: testPropertyId },
 				value: { type: 'value', content: filterTriggerWord }
 			}
+		),
+		() => newAddLexemeFormRequestBuilder(
+			testLexemeId,
+			{ representations: { en: filterTriggerWord } }
 		)
 	].forEach( ( newRequestBuilder ) => {
 		it( `${ newRequestBuilder().getRouteDescription() } rejects edits matching an abuse filter`, async () => {
