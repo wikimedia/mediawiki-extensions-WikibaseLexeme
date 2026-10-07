@@ -12,6 +12,9 @@ const {
 	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 
+// This test is focused on the endpoints for creating a lexeme and adding a statement only.
+// Testing other cases has been deemed too complex for now and can be revisited in the future
+// if it's determined that the extra effort is worthwhile.
 describe( 'resource too large', () => {
 	let lexicalCategoryId;
 	let languageId;

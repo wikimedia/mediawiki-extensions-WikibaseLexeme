@@ -1,14 +1,14 @@
 'use strict';
 
 const { requireExtensions } = require( '../../../Wikibase/tests/api-testing/utils' );
-const { assert, clientFactory, action, utils } = require( 'api-testing' );
+const { clientFactory, action, utils } = require( 'api-testing' );
 const config = require( 'api-testing/lib/config' );
-const { expect } = require( './helpers/chaiHelper' );
 const {
 	newAddLexemeStatementRequestBuilder,
 	newCreateLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { getItemId, getStringPropertyId } = require( './helpers/entityHelper' );
+const { assertValidError } = require( './helpers/responseValidator' );
 /**
  * AbuseFilter is used here to exercise the generic EditPrevented handling.
  *
@@ -56,72 +56,50 @@ describe( 'Edit prevented with abuse filter', () => {
 
 	const filterTriggerWord = utils.title( 'ABUSE-FILTER-TRIGGER-' );
 	const filterDescription = `Filter: ${ filterTriggerWord }`;
-	let lexeme;
 	let filterId;
+	let testLexicalCategory;
+	let testLanguage;
+	let testLexemeId;
+	let testPropertyId;
 
 	before( async function () {
 		await requireExtensions( [ 'Abuse Filter' ] ).call( this );
 
 		filterId = await createAbuseFilter( filterDescription, `"${ filterTriggerWord }" in new_wikitext` );
-		lexeme = {
-			lemmas: { en: filterTriggerWord },
-			lexical_category: await getItemId(),
-			language: await getItemId()
-		};
-	} );
-
-	it( 'responds 403 when the edit is prevented', async () => {
-		const response = await newCreateLexemeRequestBuilder( lexeme ).makeRequest();
-		expect( response ).to.have.status( 403 );
-		assert.strictEqual( response.body.code, 'permission-denied' );
-		assert.deepStrictEqual(
-			response.body.context, {
-				denial_reason: 'abusefilter-disallowed',
-				denial_context: {
-					abusefilter: {
-						actions: [ 'disallow' ],
-						description: filterDescription,
-						id: filterId.toString()
-					}
-				}
-			}
-		);
-	} );
-
-	it( 'responds 403 when adding a statement is prevented', async () => {
-		const safeLexeme = {
+		testLexicalCategory = await getItemId();
+		testLanguage = await getItemId();
+		testLexemeId = ( await newCreateLexemeRequestBuilder( {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
-			lexical_category: lexeme.lexical_category,
-			language: lexeme.language
-		};
+			lexical_category: testLexicalCategory,
+			language: testLanguage
+		} ).makeRequest() ).body.id;
+		testPropertyId = await getStringPropertyId();
+	} );
 
-		const lexemeId = ( await newCreateLexemeRequestBuilder( safeLexeme )
-			.makeRequest() ).body.id;
-
-		const propertyId = await getStringPropertyId();
-
-		const response = await newAddLexemeStatementRequestBuilder(
-			lexemeId,
+	[
+		() => newCreateLexemeRequestBuilder( {
+			lemmas: { en: filterTriggerWord },
+			lexical_category: testLexicalCategory,
+			language: testLanguage
+		} ),
+		() => newAddLexemeStatementRequestBuilder(
+			testLexemeId,
 			{
-				property: { id: propertyId },
+				property: { id: testPropertyId },
 				value: { type: 'value', content: filterTriggerWord }
 			}
-		).makeRequest();
-
-		expect( response ).to.have.status( 403 );
-		assert.strictEqual( response.body.code, 'permission-denied' );
-		assert.deepStrictEqual(
-			response.body.context,
-			{
+		)
+	].forEach( ( newRequestBuilder ) => {
+		it( `${ newRequestBuilder().getRouteDescription() } rejects edits matching an abuse filter`, async () => {
+			const response = await newRequestBuilder().makeRequest();
+			assertValidError( response, 403, 'permission-denied', {
 				denial_reason: 'abusefilter-disallowed',
-				denial_context: {
-					abusefilter: {
-						actions: [ 'disallow' ],
-						description: filterDescription,
-						id: filterId.toString()
-					}
-				}
-			}
-		);
+				denial_context: { abusefilter: {
+					actions: [ 'disallow' ],
+					description: filterDescription,
+					id: filterId.toString()
+				} }
+			} );
+		} );
 	} );
 } );
