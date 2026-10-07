@@ -52,6 +52,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\GrammaticalFeaturesSerializer
 use Wikibase\Lexeme\Presentation\RestSerialization\LemmasSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\RepresentationsSerializer;
+use Wikibase\Lexeme\Presentation\RestSerialization\SenseSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
@@ -412,6 +413,12 @@ return call_user_func( static function () {
 				$services->get( 'WikibaseLexeme.StatementListSerializer' ),
 			);
 		},
+		'WikibaseLexeme.SenseSerializer' => static function ( MediaWikiServices $services ): SenseSerializer {
+			return new SenseSerializer(
+				new GlossesSerializer(),
+				$services->get( 'WikibaseLexeme.StatementListSerializer' ),
+			);
+		},
 		'WikibaseLexeme.StatementListSerializer' => static function (
 			MediaWikiServices $services
 		): StatementListSerializer {
@@ -427,13 +434,11 @@ return call_user_func( static function () {
 		'WikibaseLexeme.LexemeSerializer' => static function (
 			MediaWikiServices $services
 		): LexemeSerializer {
-			$statementListSerializer = $services->get( 'WikibaseLexeme.StatementListSerializer' );
-
 			return new LexemeSerializer(
 				new LemmasSerializer(),
-				$statementListSerializer,
+				$services->get( 'WikibaseLexeme.StatementListSerializer' ),
 				new FormsSerializer( $services->get( 'WikibaseLexeme.FormSerializer' ) ),
-				new SensesSerializer( new GlossesSerializer(), $statementListSerializer ),
+				new SensesSerializer( $services->get( 'WikibaseLexeme.SenseSerializer' ) ),
 			);
 		},
 		'WikibaseLexeme.ErrorReporter' => static function ( MediaWikiServices $services ): ErrorReporter {
