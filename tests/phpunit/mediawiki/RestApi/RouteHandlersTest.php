@@ -17,12 +17,19 @@ use Wikibase\DataModel\Entity\BasicEntityIdParser;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Statement\StatementGuid;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Form;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
+use Wikibase\Lexeme\Domain\Model\ReadModel\GrammaticalFeatures;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Representation;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Representations;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
+use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormResponse;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementResponse;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
@@ -240,6 +247,48 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 							'references' => [],
 							'property' => [ 'id' => 'P1', 'data_type' => 'string' ],
 							'value' => [ 'type' => 'novalue' ],
+						],
+					],
+				],
+				'expectedExceptions' => [
+					[
+						UseCaseError::newResourceNotFound( 'lexeme' ),
+						$hasHttpStatus( 404 ),
+					],
+					[
+						new LexemeRedirect( new LexemeId( 'L2' ) ),
+						$hasHttpStatus( 409 ),
+					],
+					[
+						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
+						$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),
+					],
+				],
+			],
+		];
+
+		yield 'AddLexemeForm' => [
+			[
+				'useCase' => AddLexemeForm::class,
+				'useCaseResponse' => new AddLexemeFormResponse(
+					new Form(
+						new FormId( 'L1-F1' ),
+						new Representations(
+							new Representation( 'en', 'potatoes' )
+						),
+						new GrammaticalFeatures( new ItemId( 'Q1' ) ),
+						new StatementList(),
+					),
+					42,
+					$lastModified
+				),
+				'serviceName' => 'WikibaseLexeme.AddLexemeForm',
+				'validRequest' => [
+					'pathParams' => [ 'lexeme_id' => 'L1' ],
+					'bodyContents' => [
+						'form' => [
+							'representations' => [ 'en' => 'potatoes' ],
+							'grammatical_features' => [ 'Q1' ],
 						],
 					],
 				],

@@ -7,7 +7,6 @@ const { expect } = require( './helpers/chaiHelper' );
 const { changeLexemeProtectionStatus } = require( './helpers/entityHelper' );
 const { newCreateLexemeRequestBuilder } = require( './helpers/RequestBuilderFactory' );
 const {
-	addLexemeFormRequest,
 	lexemeCreateRequests,
 	lexemeEditRequests,
 	lexemeGetRequests
@@ -31,8 +30,7 @@ describeWithTestData( 'Auth', (
 	} );
 
 	const editRoutes = [
-		...lexemeEditRequests( lexemeRequestInputs ),
-		addLexemeFormRequest( lexemeRequestInputs )
+		...lexemeEditRequests( lexemeRequestInputs )
 	];
 	const editAndCreateRoutes = [
 		...editRoutes,

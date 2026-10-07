@@ -2,9 +2,12 @@
 
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
+use MediaWiki\HookContainer\HookRunner;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Rest\RequestInterface;
 use MediaWiki\Rest\Response;
+use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
@@ -13,8 +16,10 @@ use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\Domains\Crud\RouteHandlers\Middleware\TempUserCreationResponseHeaderMiddleware;
 use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
+use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -40,11 +45,26 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 		return new self(
 			WikibaseLexemeServices::getAddLexemeForm(),
 			new MiddlewareHandler( [
+				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+				new UserAgentCheckMiddleware(),
 				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
+				WikibaseLexemeServices::getPreconditionMiddlewareFactory()->newPreconditionMiddleware(
+					fn ( RequestInterface $request ): string => $request->getPathParam( self::LEXEME_ID_PATH_PARAM )
+				),
+				new TempUserCreationResponseHeaderMiddleware(
+					new HookRunner( MediaWikiServices::getInstance()->getHookContainer() )
+				),
 			] ),
 			WikibaseLexemeServices::getFormSerializer(),
 			new ResponseFactory(),
 		);
+	}
+
+	/**
+	 * Preconditions are checked via {@link PreconditionMiddleware}
+	 */
+	public function checkPreconditions(): ?ResponseInterface {
+		return null;
 	}
 
 	public function run( string $lexemeId ): Response {

@@ -28,24 +28,18 @@ const lexemeEditRequests = ( requestInputs ) => withRequestInputs( requestInputs
 	() => newAddLexemeStatementRequestBuilder(
 		requestInputs.lexemeId,
 		newStatementWithRandomStringValue( requestInputs.statementPropertyId )
-	)
-] );
-
-// move to lexemeEditRequests once finished
-const addLexemeFormRequest = ( requestInputs ) => ( {
-	newRequestBuilder: () => newAddLexemeFormRequestBuilder(
+	),
+	() => newAddLexemeFormRequestBuilder(
 		requestInputs.lexemeId,
 		{
 			representations: { en: `potato-representation-${ Math.random() }` },
 			grammatical_features: [ requestInputs.grammaticalFeatureId ]
 		}
-	),
-	requestInputs
-} );
+	)
+] );
 
 module.exports = {
 	lexemeCreateRequests,
 	lexemeGetRequests,
-	lexemeEditRequests,
-	addLexemeFormRequest
+	lexemeEditRequests
 };

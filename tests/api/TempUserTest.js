@@ -5,7 +5,6 @@ const { action, assert } = require( 'api-testing' );
 const { expect } = require( './helpers/chaiHelper' );
 const entityHelper = require( './helpers/entityHelper' );
 const { lexemeCreateRequests, lexemeEditRequests } = require( './helpers/happyPathRequestBuilders' );
-
 describeWithTestData( 'IP masking', (
 	lexemeRequestInputs,
 	describeEachRouteWithReset
@@ -32,7 +31,7 @@ describeWithTestData( 'IP masking', (
 				.makeRequest();
 
 			expect( response ).status.to.be.within( 200, 299 );
-			const { user } = await entityHelper.getLatestEditMetadata( response.body.id.split( '$' )[ 0 ] );
+			const { user } = await entityHelper.getLatestEditMetadata( response.body.id.split( /[$-]/ )[ 0 ] );
 
 			assert.match( user, /^\d+\.\d+\.\d+\.\d+$/ );
 		} );
@@ -42,7 +41,7 @@ describeWithTestData( 'IP masking', (
 				const response = await withTempUsersEnabled( newRequestBuilder() ).makeRequest();
 
 				expect( response ).status.to.be.within( 200, 299 );
-				const { user } = await entityHelper.getLatestEditMetadata( response.body.id.split( '$' )[ 0 ] );
+				const { user } = await entityHelper.getLatestEditMetadata( response.body.id.split( /[$-]/ )[ 0 ] );
 				assert.include( user, tempUserPrefix );
 				assert.header( response, 'X-Temporary-User-Created', user );
 			} );
@@ -73,7 +72,7 @@ describeWithTestData( 'IP masking', (
 					.withUser( userSession ).makeRequest();
 
 				expect( initialEdit ).status.to.be.within( 200, 299 );
-				const editMeta = await entityHelper.getLatestEditMetadata( initialEdit.body.id.split( '$' )[ 0 ] );
+				const editMeta = await entityHelper.getLatestEditMetadata( initialEdit.body.id.split( /[$-]/ )[ 0 ] );
 				existingTempUserName = editMeta.user;
 			} );
 
@@ -83,7 +82,7 @@ describeWithTestData( 'IP masking', (
 					.makeRequest();
 
 				expect( response ).status.to.be.within( 200, 299 );
-				const { user } = await entityHelper.getLatestEditMetadata( response.body.id.split( '$' )[ 0 ] );
+				const { user } = await entityHelper.getLatestEditMetadata( response.body.id.split( /[$-]/ )[ 0 ] );
 				assert.include( user, tempUserPrefix );
 				assert.strictEqual( user, existingTempUserName );
 				assert.header( response, 'X-Authenticated-User', undefined );
