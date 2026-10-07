@@ -8,7 +8,8 @@ const openapi = {
 		"/wikibaselexeme/v0/entities/lexemes": require( './resources/lexemes/list.js' ),
 		"/wikibaselexeme/v0/entities/lexemes/{lexeme_id}": require( './resources/lexemes/single.js' ),
 		"/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/statements": require( './resources/lexemes/statements/list.js' ),
-		"/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/forms": require( './resources/lexemes/forms/list.js' )
+		"/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/forms": require( './resources/lexemes/forms/list.js' ),
+		"/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/senses": require( './resources/lexemes/senses/list.js' )
 	},
 	"components": {
 		"parameters": require( './global/parameters.js' ),

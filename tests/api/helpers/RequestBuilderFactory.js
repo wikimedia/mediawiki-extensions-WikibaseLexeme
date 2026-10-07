@@ -29,6 +29,13 @@ module.exports = {
 			.withJsonBodyParam( 'form', form );
 	},
 
+	newAddLexemeSenseRequestBuilder( lexemeId, sense ) {
+		return new RequestBuilder()
+			.withRoute( 'POST', '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/senses' )
+			.withPathParam( 'lexeme_id', lexemeId )
+			.withJsonBodyParam( 'sense', sense );
+	},
+
 	newCreateItemRequestBuilder( item ) {
 		return new RequestBuilder()
 			.withRoute( 'POST', '/wikibase/v1/entities/items' )

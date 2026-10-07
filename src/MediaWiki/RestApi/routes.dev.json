@@ -3,5 +3,10 @@
 		"path": "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/forms",
 		"method": "POST",
 		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\AddLexemeFormRouteHandler::factory"
+	},
+	{
+		"path": "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/senses",
+		"method": "POST",
+		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\AddLexemeSenseRouteHandler::factory"
 	}
 ]

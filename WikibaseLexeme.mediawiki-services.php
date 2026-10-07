@@ -34,6 +34,7 @@ use Wikibase\Lexeme\Infrastructure\EntityLookupItemExistenceChecker;
 use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
+use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
@@ -391,6 +392,21 @@ return call_user_func( static function () {
 						WikibaseRepo::getEntityPermissionChecker( $services ),
 						$services->getUserFactory()
 					)
+				),
+			);
+		},
+		'WikibaseLexeme.AddLexemeSense' => static function ( MediaWikiServices $services ): AddLexemeSense {
+			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
+
+			return new AddLexemeSense(
+				new EntityRevisionLookupLexemeRetriever(
+					WikibaseRepo::getEntityRevisionLookup( $services ),
+					$lexemeReadModelConverter,
+				),
+				new EntityUpdaterLexemeUpdater(
+					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					$lexemeReadModelConverter,
+					new GuidGenerator(),
 				),
 			);
 		},

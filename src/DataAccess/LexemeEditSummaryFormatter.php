@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\DataAccess;
 use LogicException;
 use Wikibase\DataModel\Statement\Statement;
 use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
+use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Form;
@@ -33,6 +34,7 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 				$lexemeSummary->statement
 			),
 			$lexemeSummary instanceof AddFormEditSummary => $this->newAddFormSummary( $lexemeSummary->form ),
+			$lexemeSummary instanceof AddSenseEditSummary => new Summary( null, 'add-sense' ), // TODO
 			default => throw new LogicException( 'Unknown summary type ' . get_class( $summary ) ),
 		};
 		$formatterSummary->setUserSummary( $lexemeSummary->getUserComment() );

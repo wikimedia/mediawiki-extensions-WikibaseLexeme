@@ -4623,6 +4623,36 @@
           }
         }
       }
+    },
+    "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/senses": {
+      "post": {
+        "operationId": "addLexemeSense",
+        "tags": [
+          "lexemes"
+        ],
+        "summary": "Add a new Sense to a Lexeme",
+        "parameters": [
+          {
+            "name": "lexeme_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the Lexeme",
+            "schema": {
+              "type": "string",
+              "pattern": "^L[1-9]\\d{0,9}$"
+            },
+            "example": "L42"
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "The newly added Sense"
+          },
+          "400": {
+            "description": "The request cannot be processed"
+          }
+        }
+      }
     }
   }
 }

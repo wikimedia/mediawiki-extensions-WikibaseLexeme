@@ -5,6 +5,7 @@ declare( strict_types = 1 );
 namespace Wikibase\Lexeme\Domain\Model\ReadModel;
 
 use ArrayObject;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 
 /**
  * @license GPL-2.0-or-later
@@ -18,6 +19,10 @@ class Senses extends ArrayObject {
 				$senses
 			)
 		);
+	}
+
+	public function getById( SenseId $senseId ): ?Sense {
+		return $this[$senseId->getSerialization()] ?? null;
 	}
 
 }
