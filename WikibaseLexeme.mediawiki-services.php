@@ -35,6 +35,7 @@ use Wikibase\Lexeme\Infrastructure\WikibaseEntityPermissionChecker;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
+use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseValidator;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
@@ -408,6 +409,7 @@ return call_user_func( static function () {
 					$lexemeReadModelConverter,
 					new GuidGenerator(),
 				),
+				new AddLexemeSenseValidator( $services->get( 'WikibaseLexeme.LexemeTermsValidator' ) ),
 			);
 		},
 		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {
