@@ -34,6 +34,7 @@
 	"wikibase-lexeme-mergelexemes-success": "$1 के $2 मे मिलाके पुनर्निर्देशन कर देल गेलै ।",
 	"wikibase-lexeme-mergelexemes-to-id": "आइडि जेकरामे विलय करेला हे",
 	"wikibase-lexeme-randomlexeme": "यादृच्छिक लेक्सेमे",
+	"wikibase-lexeme-scoped-search-scope-name": "लेक्सिमे",
 	"wikibase-lexeme-summary-add-form": "{{PLURAL:$1|प्रतिनिधित्व}} सङ्गे नया रूप $3 जोड़ल गेलै",
 	"wikibase-lexeme-summary-add-form-grammatical-features": "रूप $3 लागि व्याकरणिक गुण {{PLURAL:$1|जोड़ल गेलै}}",
 	"wikibase-lexeme-summary-add-form-representations": "रूप $3 लागि प्रतिनिधत्व {{PLURAL:$1|जोड़ल गेलै}}",
