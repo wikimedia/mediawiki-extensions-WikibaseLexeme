@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 
 use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
@@ -36,8 +35,8 @@ class AddLexemeForm {
 	 */
 	public function execute( AddLexemeFormRequest $request ): AddLexemeFormResponse {
 		$this->validator->validateAndDeserialize( $request );
+		$lexemeId = $this->validator->getValidatedLexemeId();
 		$form = $this->validator->getValidatedForm();
-		$lexemeId = new LexemeId( $request->lexemeId );
 		$metadata = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
 
 		if ( !$metadata->lexemeExists() ) {

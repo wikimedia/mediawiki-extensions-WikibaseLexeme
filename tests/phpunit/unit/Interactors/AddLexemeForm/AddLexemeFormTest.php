@@ -61,6 +61,7 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 		$form->setGrammaticalFeatures( [ $grammaticalFeature ] );
 
 		$validator = $this->createMock( AddLexemeFormValidator::class );
+		$validator->method( 'getValidatedLexemeId' )->willReturn( $lexemeId );
 		$validator->method( 'getValidatedForm' )->willReturn( $form );
 
 		$lexeme = new LexemeWriteModel( $lexemeId, new TermList(), new ItemId( 'Q1' ), new ItemId( 'Q2' ) );
@@ -210,9 +211,6 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 		$lexemeUpdater = $this->createStub( LexemeUpdater::class );
 		$lexemeUpdater->method( 'update' )->willThrowException( $exception );
 
-		$validator = $this->createStub( AddLexemeFormValidator::class );
-		$validator->method( 'getValidatedForm' )->willReturn( new BlankForm() );
-
 		$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
 		$metadataRetriever->method( 'getLatestRevisionMetadata' )
 			->willReturn(
@@ -223,7 +221,6 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 			$this->newUseCase(
 				lexemeRetriever: $lexemeRetriever,
 				lexemeUpdater: $lexemeUpdater,
-				validator: $validator,
 				metadataRetriever: $metadataRetriever,
 			)->execute( new AddLexemeFormRequest( 'L1', [], [], false, null, null ) );
 
@@ -284,10 +281,16 @@ class AddLexemeFormTest extends MediaWikiUnitTestCase {
 				->willReturn( LatestLexemeRevisionMetadataResult::concreteRevision( 1, '20260925070707' ) );
 		}
 
+		if ( $validator === null ) {
+			$validator = $this->createStub( AddLexemeFormValidator::class );
+			$validator->method( 'getValidatedLexemeId' )->willReturn( new LexemeId( 'L1' ) );
+			$validator->method( 'getValidatedForm' )->willReturn( new BlankForm() );
+		}
+
 		return new AddLexemeForm(
 			$lexemeRetriever ?? $this->createStub( LexemeWriteModelRetriever::class ),
 			$lexemeUpdater ?? $this->createStub( LexemeUpdater::class ),
-			$validator ?? $this->createStub( AddLexemeFormValidator::class ),
+			$validator,
 			$metadataRetriever,
 			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
 		);

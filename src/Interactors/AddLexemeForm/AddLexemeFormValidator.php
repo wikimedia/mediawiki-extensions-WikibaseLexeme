@@ -5,9 +5,11 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeForm;
 use LogicException;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
@@ -17,9 +19,11 @@ use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
  */
 class AddLexemeFormValidator {
 
+	private ?LexemeId $lexemeId = null;
 	private ?BlankForm $form = null;
 
 	public function __construct(
+		private LexemeIdValidator $lexemeIdValidator,
 		private LexemeTermsValidator $lexemeTermsValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
@@ -32,6 +36,8 @@ class AddLexemeFormValidator {
 	 * @throws UseCaseError
 	 */
 	public function validateAndDeserialize( AddLexemeFormRequest $request ): void {
+		$this->lexemeId = $this->lexemeIdValidator->validate( $request->lexemeId );
+
 		$serialization = $request->form;
 
 		if ( !array_key_exists( 'representations', $serialization ) ) {
@@ -53,6 +59,14 @@ class AddLexemeFormValidator {
 		$this->form = $form;
 
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
+	}
+
+	public function getValidatedLexemeId(): LexemeId {
+		if ( $this->lexemeId === null ) {
+			throw new LogicException( 'Must not call getValidatedLexemeId() before validateAndDeserialize()' );
+		}
+
+		return $this->lexemeId;
 	}
 
 	public function getValidatedForm(): BlankForm {

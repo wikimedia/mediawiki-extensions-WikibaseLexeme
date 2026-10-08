@@ -374,6 +374,7 @@ return call_user_func( static function () {
 					new GuidGenerator(),
 				),
 				new AddLexemeFormValidator(
+					new LexemeIdValidator(),
 					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
 					new StatementsValidator(
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )

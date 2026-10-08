@@ -314,6 +314,14 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		assert.deepStrictEqual( response.body.context, { path: '/form/grammatical_features/0' } );
 	} );
 
+	it( 'responds 400 if the lexeme id is invalid', async () => {
+		const response = await newAddLexemeFormRequestBuilder( 'not-a-lexeme-id', newValidForm() ).makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
+		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
+	} );
+
 	it( 'responds 404 if the lexeme does not exist', async () => {
 		const response = await newAddLexemeFormRequestBuilder( 'L999999', newValidForm() ).makeRequest();
 

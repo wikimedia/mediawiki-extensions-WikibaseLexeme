@@ -12,11 +12,13 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
@@ -39,7 +41,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		'representations' => [ 'en' => 'potatoes' ],
 	];
 
-	public function testGivenValidRequest_exposesForm(): void {
+	public function testGivenValidRequest_exposesLexemeIdAndForm(): void {
 		$enRepresentation = 'colors';
 		$enGbRepresentation = 'colours';
 		$grammaticalFeatureId = new ItemId( 'Q123' );
@@ -54,6 +56,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 			'statements' => [ $propertyId->getSerialization() => [ [ 'some' => 'statement' ] ] ],
 		] ) );
 
+		$this->assertEquals( new LexemeId( 'L1' ), $validator->getValidatedLexemeId() );
 		$form = $validator->getValidatedForm();
 		$this->assertEquals(
 			new TermList( [ new Term( 'en', $enRepresentation ), new Term( 'en-gb', $enGbRepresentation ) ] ),
@@ -74,6 +77,18 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		$this->newValidator( null, $editMetadataRequestValidator )->validateAndDeserialize(
 			new AddLexemeFormRequest( 'L1', self::VALID_FORM, $editTags, false, $comment, null )
 		);
+	}
+
+	public function testGivenInvalidLexemeId_throwsUseCaseError(): void {
+		try {
+			$this->newValidator()->validateAndDeserialize(
+				new AddLexemeFormRequest( 'not-a-lexeme-id', self::VALID_FORM, [], false, null, null )
+			);
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::INVALID_PATH_PARAMETER, $e->errorCode );
+			$this->assertSame( [ UseCaseError::CONTEXT_PARAMETER => 'lexeme_id' ], $e->context );
+		}
 	}
 
 	public function testGivenMissingRepresentations_throwsUseCaseError(): void {
@@ -202,6 +217,12 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testGivenValidateAndDeserializeNotCalled_getValidatedLexemeIdThrows(): void {
+		$this->expectException( LogicException::class );
+
+		$this->newValidator()->getValidatedLexemeId();
+	}
+
 	public function testGivenValidateAndDeserializeNotCalled_getValidatedFormThrows(): void {
 		$this->expectException( LogicException::class );
 
@@ -217,6 +238,7 @@ class AddLexemeFormValidatorTest extends MediaWikiUnitTestCase {
 		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
 	): AddLexemeFormValidator {
 		return new AddLexemeFormValidator(
+			new LexemeIdValidator(),
 			new LexemeTermsValidator(
 				new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
 					public function __construct( private array $validLanguageCodes ) {
