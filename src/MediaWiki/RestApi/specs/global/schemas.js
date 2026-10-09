@@ -87,6 +87,22 @@ const formSchema = {
 	"statements": statementMap( "The statements of the Form, keyed by Property ID" )
 };
 
+const senseSchema = {
+	"id": {
+		"description": "The ID of the Sense",
+		"type": "string",
+		"pattern": SENSE_ID_PATTERN,
+		"readOnly": true
+	},
+	"glosses": {
+		...termMap( "The glosses of the Sense, keyed by language code" ),
+
+		// a Sense always has at least one gloss
+		"minProperties": 1
+	},
+	"statements": statementMap( "The statements of the Sense, keyed by Property ID" )
+};
+
 module.exports = {
 	"Lexeme": {
 		"type": "object",
@@ -124,15 +140,17 @@ module.exports = {
 	},
 	"Sense": {
 		"type": "object",
+		"properties": senseSchema,
+		"required": [ "id", "glosses", "statements" ]
+	},
+	"NewSense": {
+		"description": "A Sense to be added to a Lexeme.",
+		"type": "object",
 		"properties": {
-			"id": {
-				"description": "The ID of the Sense",
-				"type": "string",
-				"pattern": SENSE_ID_PATTERN,
-				"readOnly": true
-			},
-			"glosses": termMap( "The glosses of the Sense, keyed by language code" ),
-			"statements": statementMap( "The statements of the Sense, keyed by Property ID" )
-		}
+			... senseSchema,
+
+			statements: statementMap( "The statements of the Sense, keyed by Property ID", newStatementSchema )
+		},
+		"required": [ "glosses" ]
 	}
 };
