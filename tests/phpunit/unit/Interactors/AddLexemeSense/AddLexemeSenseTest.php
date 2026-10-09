@@ -44,6 +44,7 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 		$sense = new BlankSense();
 		$sense->getGlosses()->setTerm( new Term( 'en', $gloss ) );
 		$validator = $this->createStub( AddLexemeSenseValidator::class );
+		$validator->method( 'getValidatedLexemeId' )->willReturn( $lexemeId );
 		$validator->method( 'getValidatedSense' )->willReturn( $sense );
 
 		$lexeme = new LexemeWriteModel( $lexemeId, new TermList(), new ItemId( 'Q1' ), new ItemId( 'Q2' ) );

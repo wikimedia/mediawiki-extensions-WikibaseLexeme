@@ -4,7 +4,9 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeSense;
 
 use LogicException;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
+use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 
 /**
@@ -12,9 +14,11 @@ use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
  */
 class AddLexemeSenseValidator {
 
+	private ?LexemeId $lexemeId = null;
 	private ?BlankSense $sense = null;
 
 	public function __construct(
+		private LexemeIdValidator $lexemeIdValidator,
 		private LexemeTermsValidator $lexemeTermsValidator,
 	) {
 	}
@@ -23,6 +27,8 @@ class AddLexemeSenseValidator {
 	 * @throws UseCaseError
 	 */
 	public function validate( AddLexemeSenseRequest $request ): void {
+		$this->lexemeId = $this->lexemeIdValidator->validate( $request->lexemeId );
+
 		$serialization = $request->sense;
 
 		if ( !array_key_exists( 'glosses', $serialization ) ) {
@@ -36,6 +42,14 @@ class AddLexemeSenseValidator {
 		) );
 
 		$this->sense = $sense;
+	}
+
+	public function getValidatedLexemeId(): LexemeId {
+		if ( $this->lexemeId === null ) {
+			throw new LogicException( 'Must not call getValidatedLexemeId() before validate()' );
+		}
+
+		return $this->lexemeId;
 	}
 
 	public function getValidatedSense(): BlankSense {

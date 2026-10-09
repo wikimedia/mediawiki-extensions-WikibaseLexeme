@@ -410,7 +410,10 @@ return call_user_func( static function () {
 					$lexemeReadModelConverter,
 					new GuidGenerator(),
 				),
-				new AddLexemeSenseValidator( $services->get( 'WikibaseLexeme.LexemeTermsValidator' ) ),
+				new AddLexemeSenseValidator(
+					new LexemeIdValidator(),
+					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+				),
 			);
 		},
 		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {

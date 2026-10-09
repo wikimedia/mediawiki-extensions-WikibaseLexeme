@@ -4,7 +4,6 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeSense;
 
 use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -26,8 +25,8 @@ class AddLexemeSense {
 	 */
 	public function execute( AddLexemeSenseRequest $request ): AddLexemeSenseResponse {
 		$this->validator->validate( $request );
+		$lexemeId = $this->validator->getValidatedLexemeId();
 		$sense = $this->validator->getValidatedSense();
-		$lexemeId = new LexemeId( $request->lexemeId );
 
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
 		$lexeme->addOrUpdateSense( $sense );

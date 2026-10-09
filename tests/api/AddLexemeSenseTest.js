@@ -108,4 +108,15 @@ describe( 'POST /entities/lexemes/{lexeme_id}/senses', () => {
 			assert.deepStrictEqual( response.body.context, expectedContext );
 		} );
 	} );
+
+	it( 'responds 400 if the lexeme id is invalid', async () => {
+		const response = await newAddLexemeSenseRequestBuilder(
+			'not-a-lexeme-id',
+			{ glosses: { en: 'a starchy tuber' } }
+		).makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
+		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
+	} );
 } );
