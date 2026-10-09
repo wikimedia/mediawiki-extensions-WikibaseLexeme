@@ -3,12 +3,15 @@
 namespace Wikibase\Lexeme\Interactors\AddLexemeSense;
 
 use LogicException;
+use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
+use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
 /**
  * @license GPL-2.0-or-later
@@ -21,6 +24,8 @@ class AddLexemeSenseValidator {
 	public function __construct(
 		private LexemeIdValidator $lexemeIdValidator,
 		private LexemeTermsValidator $lexemeTermsValidator,
+		private StatementsValidator $statementsValidator,
+		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
@@ -43,6 +48,10 @@ class AddLexemeSenseValidator {
 			'/sense/glosses',
 		) );
 
+		foreach ( $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] ) as $statement ) {
+			$sense->getStatements()->addStatement( $statement );
+		}
+
 		$this->sense = $sense;
 
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
@@ -64,4 +73,19 @@ class AddLexemeSenseValidator {
 		return $this->sense;
 	}
 
+	/**
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeStatements( mixed $statements ): StatementList {
+		if ( !is_array( $statements ) ) {
+			throw UseCaseError::newInvalidValue( '/sense/statements' );
+		}
+
+		$validationError = $this->statementsValidator->validateNewStatements( $statements, '/sense/statements' );
+		if ( $validationError !== null ) {
+			throw $this->statementsValidationErrorConverter->toUseCaseError( $validationError );
+		}
+
+		return $this->statementsValidator->getValidatedStatements();
+	}
 }

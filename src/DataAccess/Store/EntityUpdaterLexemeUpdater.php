@@ -55,7 +55,7 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 		if ( !$lexeme->getId() ) {
 			throw new InvalidArgumentException( 'Cannot update a Lexeme without an ID' );
 		}
-		$this->generateFormStatementIds( $lexeme );
+		$this->generateStatementIdsForFormsAndSenses( $lexeme );
 
 		return $this->storeLexeme( fn () => $this->entityUpdater->update(
 			$lexeme,
@@ -65,13 +65,21 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 
 	/**
 	 * EntityUpdater only generates IDs for the statements of the Lexeme itself,
-	 * so the statements of its Forms are dealt with here.
+	 * so the statements of its Forms and Senses are dealt with here.
 	 */
-	private function generateFormStatementIds( LexemeWriteModel $lexeme ): void {
+	private function generateStatementIdsForFormsAndSenses( LexemeWriteModel $lexeme ): void {
 		foreach ( $lexeme->getForms()->toArray() as $form ) {
 			foreach ( $form->getStatements() as $statement ) {
 				if ( $statement->getGuid() === null ) {
 					$statement->setGuid( $this->guidGenerator->newGuid( $form->getId() ) );
+				}
+			}
+		}
+
+		foreach ( $lexeme->getSenses()->toArray() as $sense ) {
+			foreach ( $sense->getStatements() as $statement ) {
+				if ( $statement->getGuid() === null ) {
+					$statement->setGuid( $this->guidGenerator->newGuid( $sense->getId() ) );
 				}
 			}
 		}

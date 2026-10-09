@@ -23,6 +23,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
+use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
 use Wikibase\Lib\Store\EntityRevision;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditMetadata as CrudEditMetadata;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\EditPrevented as CrudEditPrevented;
@@ -171,6 +172,33 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$formStatements = $lexeme->getForms()->toArray()[0]->getStatements()->toArray();
 		$this->assertStringStartsWith( 'L1-F1$', (string)$formStatements[0]->getGuid() );
 		$this->assertSame( $existingStatementId, $formStatements[1]->getGuid() );
+	}
+
+	public function testUpdateGeneratesSenseStatementIds(): void {
+		$existingStatementId = 'L1-S1$00000000-0000-0000-0000-000000000000';
+		$statementWithId = new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P321' ) ) );
+		$statementWithId->setGuid( $existingStatementId );
+
+		$lexeme = NewLexeme::havingId( 'L1' )
+			->withSense(
+				NewSense::havingId( 'S1' )
+					->withStatement( new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) ) )
+					->withStatement( $statementWithId )
+			)
+			->build();
+
+		$entityUpdater = $this->createStub( EntityUpdater::class );
+		$entityUpdater->method( 'update' )->willReturn( new EntityRevision( $lexeme, 123, '20250101120000' ) );
+
+		( new EntityUpdaterLexemeUpdater(
+			$entityUpdater,
+			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
+		) )->update( $lexeme, new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ) );
+
+		$senseStatements = $lexeme->getSenses()->toArray()[0]->getStatements()->toArray();
+		$this->assertStringStartsWith( 'L1-S1$', (string)$senseStatements[0]->getGuid() );
+		$this->assertSame( $existingStatementId, $senseStatements[1]->getGuid() );
 	}
 
 	public function testUpdateWithoutId_throws(): void {
