@@ -3,6 +3,7 @@
 const { newStatementWithRandomStringValue } = require( './entityHelper' );
 const {
 	newAddLexemeFormRequestBuilder,
+	newAddLexemeSenseRequestBuilder,
 	newAddLexemeStatementRequestBuilder,
 	newCreateLexemeRequestBuilder,
 	newGetLexemeRequestBuilder
@@ -38,8 +39,18 @@ const lexemeEditRequests = ( requestInputs ) => withRequestInputs( requestInputs
 	)
 ] );
 
+// move to lexemeEditRequests once finished
+const addLexemeSenseRequest = ( requestInputs ) => ( {
+	newRequestBuilder: () => newAddLexemeSenseRequestBuilder(
+		requestInputs.lexemeId,
+		{ glosses: { en: `potato-gloss-${ Math.random() }` } }
+	),
+	requestInputs
+} );
+
 module.exports = {
 	lexemeCreateRequests,
 	lexemeGetRequests,
-	lexemeEditRequests
+	lexemeEditRequests,
+	addLexemeSenseRequest
 };

@@ -413,6 +413,10 @@ return call_user_func( static function () {
 				new AddLexemeSenseValidator(
 					new LexemeIdValidator(),
 					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+					new EditMetadataRequestValidator(
+						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+						CommentStore::COMMENT_CHARACTER_LIMIT,
+					),
 				),
 			);
 		},

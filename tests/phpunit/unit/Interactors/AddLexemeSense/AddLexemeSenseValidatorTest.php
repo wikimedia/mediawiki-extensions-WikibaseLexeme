@@ -11,6 +11,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
@@ -37,6 +38,19 @@ class AddLexemeSenseValidatorTest extends MediaWikiUnitTestCase {
 		$this->assertEquals(
 			new TermList( [ new Term( 'en', $enGloss ) ] ),
 			$validator->getValidatedSense()->getGlosses()
+		);
+	}
+
+	public function testGivenValidRequest_validatesEditMetadata(): void {
+		$editTags = [ 'allowed tag' ];
+		$comment = 'user comment';
+		$editMetadataRequestValidator = $this->createMock( EditMetadataRequestValidator::class );
+		$editMetadataRequestValidator->expects( $this->once() )
+			->method( 'validate' )
+			->with( $editTags, $comment );
+
+		$this->newValidator( $editMetadataRequestValidator )->validate(
+			new AddLexemeSenseRequest( 'L1', [ 'glosses' => [ 'en' => 'gloss' ] ], $editTags, false, $comment )
 		);
 	}
 
@@ -86,7 +100,9 @@ class AddLexemeSenseValidatorTest extends MediaWikiUnitTestCase {
 		return new AddLexemeSenseRequest( 'L1', $sense, [], false, null );
 	}
 
-	private function newValidator(): AddLexemeSenseValidator {
+	private function newValidator(
+		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
+	): AddLexemeSenseValidator {
 		return new AddLexemeSenseValidator(
 			new LexemeIdValidator(),
 			new LexemeTermsValidator(
@@ -100,6 +116,7 @@ class AddLexemeSenseValidatorTest extends MediaWikiUnitTestCase {
 				},
 				LemmaTermValidator::LEMMA_MAX_LENGTH,
 			),
+			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);
 	}
 

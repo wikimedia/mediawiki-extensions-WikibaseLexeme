@@ -6,6 +6,7 @@ use LogicException;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 
@@ -20,6 +21,7 @@ class AddLexemeSenseValidator {
 	public function __construct(
 		private LexemeIdValidator $lexemeIdValidator,
 		private LexemeTermsValidator $lexemeTermsValidator,
+		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
 
@@ -42,6 +44,8 @@ class AddLexemeSenseValidator {
 		) );
 
 		$this->sense = $sense;
+
+		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 	}
 
 	public function getValidatedLexemeId(): LexemeId {
