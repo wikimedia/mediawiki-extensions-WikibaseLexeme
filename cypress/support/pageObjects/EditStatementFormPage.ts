@@ -7,9 +7,7 @@ export class EditStatementFormPage {
 			MODAL_ROOT: '.wikibase-wbui2025-edit-statement-group-modal',
 			FORM: '.wikibase-wbui2025-edit-statement',
 			PROPERTY_NAME: '.wikibase-wbui2025-property-name > a',
-			// Temporary backward-compatibility, to be cleaned up in a followup (T440572)
-			SUBMIT_BUTTONS: '.wikibase-wbui2025-edit-form-actions > .cdx-button,' +
-				'.wikibase-wbui2025-modal-overlay__footer__actions > .cdx-button',
+			SUBMIT_BUTTONS: '.wikibase-wbui2025-modal-overlay__footer__actions > .cdx-button',
 			TEXT_INPUT: '.wikibase-wbui2025-edit-statement-value-input .cdx-text-input input',
 			LOOKUP_INPUT: '.wikibase-wbui2025-edit-statement-value-input .cdx-lookup input',
 			LOOKUP_COMPONENT: '.wikibase-wbui2025-edit-statement-value-input .cdx-lookup',
