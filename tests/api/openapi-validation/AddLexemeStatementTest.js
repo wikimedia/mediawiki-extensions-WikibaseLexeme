@@ -8,16 +8,13 @@ const {
 	getItemId,
 	getStringPropertyId
 } = require( '../helpers/entityHelper' );
-const {
-	newCreateLexemeRequestBuilder,
-	newAddLexemeStatementRequestBuilder
-} = require( '../helpers/RequestBuilderFactory' );
+const { newAddLexemeStatementRequestBuilder } = require( '../helpers/RequestBuilderFactory' );
 
 const fragment = require( '../../../src/MediaWiki/RestApi/specs/openapi.fragment.dereferenced.json' );
 
 const UNREACHABLE_STATUSES = [ '500' ];
 
-describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
+describe( newAddLexemeStatementRequestBuilder().getRouteDescription(), () => {
 
 	const testData = {};
 
