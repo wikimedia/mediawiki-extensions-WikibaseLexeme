@@ -13,11 +13,13 @@ use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
+use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseValidator;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
@@ -39,6 +41,7 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 			$tags,
 			true,
 			$userComment,
+			null,
 		);
 
 		$sense = new BlankSense();
@@ -77,7 +80,7 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGivenInvalidRequest_throwsWithoutUpdating(): void {
-		$request = new AddLexemeSenseRequest( 'L1', [], [], false, 'user comment' );
+		$request = new AddLexemeSenseRequest( 'L1', [], [], false, 'user comment', null );
 		$expectedException = $this->createStub( UseCaseError::class );
 
 		$validator = $this->createMock( AddLexemeSenseValidator::class );
@@ -98,15 +101,47 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testGivenUnauthorizedUser_throwsWithoutUpdating(): void {
+		$lexemeId = new LexemeId( 'L1' );
+		$username = 'SomeUser';
+		$validator = $this->createStub( AddLexemeSenseValidator::class );
+		$validator->method( 'getValidatedLexemeId' )->willReturn( $lexemeId );
+
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		$expectedException = UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED );
+		$assertUserIsAuthorized = $this->createMock( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->expects( $this->once() )
+			->method( 'checkEditPermissions' )
+			->with( User::withUsername( $username ), $lexemeId )
+			->willThrowException( $expectedException );
+
+		try {
+			$this->newUseCase(
+				lexemeUpdater: $lexemeUpdater,
+				validator: $validator,
+				assertUserIsAuthorized: $assertUserIsAuthorized,
+			)->execute(
+				new AddLexemeSenseRequest( 'L1', [], [], false, 'user comment', $username )
+			);
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedException, $e );
+		}
+	}
+
 	private function newUseCase(
 		?LexemeWriteModelRetriever $lexemeRetriever = null,
 		?LexemeUpdater $lexemeUpdater = null,
 		?AddLexemeSenseValidator $validator = null,
+		?AssertUserIsAuthorized $assertUserIsAuthorized = null,
 	): AddLexemeSense {
 		return new AddLexemeSense(
 			$lexemeRetriever ?? $this->createStub( LexemeWriteModelRetriever::class ),
 			$lexemeUpdater ?? $this->createStub( LexemeUpdater::class ),
 			$validator ?? $this->createStub( AddLexemeSenseValidator::class ),
+			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
 		);
 	}
 

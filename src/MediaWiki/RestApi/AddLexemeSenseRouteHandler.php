@@ -42,6 +42,7 @@ class AddLexemeSenseRouteHandler extends SimpleHandler {
 	public function run( string $lexemeId ): Response {
 		$jsonBody = $this->getValidatedBody();
 		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
+		$mwUser = $this->getAuthority()->getUser();
 
 		try {
 			return $this->newSuccessHttpResponse(
@@ -52,6 +53,7 @@ class AddLexemeSenseRouteHandler extends SimpleHandler {
 						$jsonBody[self::TAGS_BODY_PARAM] ?? [],
 						$jsonBody[self::BOT_BODY_PARAM] ?? false,
 						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
+						$mwUser->isRegistered() ? $mwUser->getName() : null,
 					)
 				)
 			);

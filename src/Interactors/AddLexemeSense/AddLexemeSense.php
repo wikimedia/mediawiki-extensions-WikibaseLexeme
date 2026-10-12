@@ -4,8 +4,10 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeSense;
 
 use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
@@ -17,6 +19,7 @@ class AddLexemeSense {
 		private LexemeWriteModelRetriever $lexemeRetriever,
 		private LexemeUpdater $lexemeUpdater,
 		private AddLexemeSenseValidator $validator,
+		private AssertUserIsAuthorized $assertUserIsAuthorized,
 	) {
 	}
 
@@ -27,6 +30,11 @@ class AddLexemeSense {
 		$this->validator->validate( $request );
 		$lexemeId = $this->validator->getValidatedLexemeId();
 		$sense = $this->validator->getValidatedSense();
+
+		$this->assertUserIsAuthorized->checkEditPermissions(
+			$request->username === null ? User::newAnonymous() : User::withUsername( $request->username ),
+			$lexemeId,
+		);
 
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
 		$lexeme->addOrUpdateSense( $sense );

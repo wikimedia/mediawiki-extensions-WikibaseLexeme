@@ -66,14 +66,21 @@ class AddLexemeSenseValidatorTest extends MediaWikiUnitTestCase {
 			->with( $editTags, $comment );
 
 		$this->newValidator( editMetadataRequestValidator: $editMetadataRequestValidator )->validate(
-			new AddLexemeSenseRequest( 'L1', [ 'glosses' => [ 'en' => 'gloss' ] ], $editTags, false, $comment )
+			new AddLexemeSenseRequest( 'L1', [ 'glosses' => [ 'en' => 'gloss' ] ], $editTags, false, $comment, null )
 		);
 	}
 
 	public function testGivenInvalidLexemeId_throwsUseCaseError(): void {
 		try {
 			$this->newValidator()->validate(
-				new AddLexemeSenseRequest( 'not-a-lexeme-id', [ 'glosses' => [ 'en' => 'gloss' ] ], [], false, null )
+				new AddLexemeSenseRequest(
+					'not-a-lexeme-id',
+					[ 'glosses' => [ 'en' => 'gloss' ] ],
+					[],
+					false,
+					null,
+					null,
+				)
 			);
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
@@ -154,7 +161,7 @@ class AddLexemeSenseValidatorTest extends MediaWikiUnitTestCase {
 	}
 
 	private function newRequest( array $sense ): AddLexemeSenseRequest {
-		return new AddLexemeSenseRequest( 'L1', $sense, [], false, null );
+		return new AddLexemeSenseRequest( 'L1', $sense, [], false, null, null );
 	}
 
 	private function newValidator(
