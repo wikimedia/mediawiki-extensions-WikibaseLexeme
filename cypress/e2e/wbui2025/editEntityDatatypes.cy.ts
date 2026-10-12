@@ -127,7 +127,7 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 				itemViewPage.editLinks().first().click();
 
 				const editFormPage = new EditStatementFormPage();
-				editFormPage.formHeading().should( 'exist' );
+				editFormPage.root().should( 'exist' );
 				editFormPage.propertyName().should( 'have.text', propertyName );
 
 				editFormPage.lookupComponent()
@@ -150,7 +150,7 @@ describe( 'wbui2025 Lexeme entityId datatypes (lexeme, form, sense)', () => {
 				editFormPage.publishButton().click();
 
 				/* Wait for the form to close, and check the value is changed */
-				editFormPage.formHeading().should( 'not.exist' );
+				editFormPage.root().should( 'not.exist' );
 				itemViewPage.mainSnakValues().first().should(
 					'contain.text', newLinkedEntityLabel,
 				);
