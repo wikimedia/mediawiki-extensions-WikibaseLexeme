@@ -5,9 +5,11 @@ namespace Wikibase\Lexeme\Interactors\AddLexemeSense;
 use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\User;
+use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
+use Wikibase\Lexeme\Interactors\UpdateExceptionHandler;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
 /**
@@ -15,10 +17,13 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
  */
 class AddLexemeSense {
 
+	use UpdateExceptionHandler;
+
 	public function __construct(
 		private LexemeWriteModelRetriever $lexemeRetriever,
 		private LexemeUpdater $lexemeUpdater,
 		private AddLexemeSenseValidator $validator,
+		private LexemeRevisionMetadataRetriever $metadataRetriever,
 		private AssertUserIsAuthorized $assertUserIsAuthorized,
 	) {
 	}
@@ -39,17 +44,18 @@ class AddLexemeSense {
 		$lexeme = $this->lexemeRetriever->getLexemeWriteModel( $lexemeId );
 		$lexeme->addOrUpdateSense( $sense );
 
-		$lexemeRevision = $this->lexemeUpdater->update(
-			$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
-			new EditMetadata(
-				$request->editTags,
-				$request->isBot,
-				new AddSenseEditSummary( $request->comment ),
-			),
+		$lexemeRevision = $this->executeWithExceptionHandling(
+			fn () => $this->lexemeUpdater->update(
+				$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
+				new EditMetadata(
+					$request->editTags,
+					$request->isBot,
+					new AddSenseEditSummary( $request->comment ),
+				),
+			)
 		);
 
 		return new AddLexemeSenseResponse(
-			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable the Sense was just added
 			$lexemeRevision->lexeme->senses->getById( $sense->getId() ),
 			$lexemeRevision->revisionId,
 			$lexemeRevision->lastModified,
