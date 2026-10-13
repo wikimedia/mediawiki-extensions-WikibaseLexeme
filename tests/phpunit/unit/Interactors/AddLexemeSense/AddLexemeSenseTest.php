@@ -211,6 +211,38 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testGivenLexemeNotFound_throwsWithoutUpdating(): void {
+		$validator = $this->createStub( AddLexemeSenseValidator::class );
+		$validator->method( 'getValidatedLexemeId' )->willReturn( new LexemeId( 'L999' ) );
+
+		$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn( LatestLexemeRevisionMetadataResult::lexemeNotFound() );
+
+		$assertUserIsAuthorized = $this->createMock( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->expects( $this->never() )->method( 'checkEditPermissions' );
+
+		$lexemeRetriever = $this->createMock( LexemeWriteModelRetriever::class );
+		$lexemeRetriever->expects( $this->never() )->method( 'getLexemeWriteModel' );
+
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		try {
+			$this->newUseCase(
+				lexemeRetriever: $lexemeRetriever,
+				lexemeUpdater: $lexemeUpdater,
+				validator: $validator,
+				metadataRetriever: $metadataRetriever,
+				assertUserIsAuthorized: $assertUserIsAuthorized,
+			)->execute( new AddLexemeSenseRequest( 'L999', [], [], false, null, null ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( UseCaseError::RESOURCE_NOT_FOUND, $e->errorCode );
+			$this->assertSame( [ UseCaseError::CONTEXT_RESOURCE_TYPE => 'lexeme' ], $e->context );
+		}
+	}
+
 	private function newUseCase(
 		?LexemeWriteModelRetriever $lexemeRetriever = null,
 		?LexemeUpdater $lexemeUpdater = null,

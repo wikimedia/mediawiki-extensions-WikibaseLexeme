@@ -188,6 +188,14 @@ describe( 'POST /entities/lexemes/{lexeme_id}/senses', () => {
 		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
 	} );
 
+	it( 'responds 404 if the lexeme does not exist', async () => {
+		const response = await newAddLexemeSenseRequestBuilder( 'L999999', newValidSense() ).makeRequest();
+
+		expect( response ).to.have.status( 404 );
+		assert.strictEqual( response.body.code, 'resource-not-found' );
+		assert.deepStrictEqual( response.body.context, { resource_type: 'lexeme' } );
+	} );
+
 	it( 'ignores statement ids provided in the request', async () => {
 		const statementIdSuffix = '00000000-0000-0000-0000-000000000000';
 		const response = await newAddLexemeSenseRequestBuilder( lexemeId, newValidSense( {

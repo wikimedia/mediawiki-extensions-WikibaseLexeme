@@ -36,6 +36,10 @@ class AddLexemeSense {
 		$lexemeId = $this->validator->getValidatedLexemeId();
 		$sense = $this->validator->getValidatedSense();
 
+		if ( !$this->metadataRetriever->getLatestRevisionMetadata( $lexemeId )->lexemeExists() ) {
+			throw UseCaseError::newResourceNotFound( 'lexeme' );
+		}
+
 		$this->assertUserIsAuthorized->checkEditPermissions(
 			$request->username === null ? User::newAnonymous() : User::withUsername( $request->username ),
 			$lexemeId,
