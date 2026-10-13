@@ -66,7 +66,7 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
 		$lexemeUpdater->expects( $this->once() )
 			->method( 'update' )
-			->with( $lexeme, new EditMetadata( $tags, true, new AddSenseEditSummary( $userComment ) ) )
+			->with( $lexeme, new EditMetadata( $tags, true, new AddSenseEditSummary( $userComment, $sense ) ) )
 			->willReturnCallback( fn ( LexemeWriteModel $l ) => new LexemeRevision(
 				( new LexemeReadModelConverter( $this->createStub( StatementReadModelConverter::class ) ) )
 					->convert( $l ),

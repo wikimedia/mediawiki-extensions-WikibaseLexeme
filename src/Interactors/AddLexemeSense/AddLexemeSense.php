@@ -50,7 +50,7 @@ class AddLexemeSense {
 				new EditMetadata(
 					$request->editTags,
 					$request->isBot,
-					new AddSenseEditSummary( $request->comment ),
+					new AddSenseEditSummary( $request->comment, $sense ),
 				),
 			)
 		);

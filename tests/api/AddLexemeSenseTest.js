@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert, utils } = require( 'api-testing' );
+const { assert, action, utils } = require( 'api-testing' );
 const {
 	newAddLexemeSenseRequestBuilder,
 	newCreateLexemeRequestBuilder
@@ -8,6 +8,7 @@ const {
 const { expect } = require( './helpers/chaiHelper' );
 const {
 	getItemId,
+	getLatestEditMetadata,
 	getOtherStringPropertyId,
 	getStringPropertyId
 } = require( './helpers/entityHelper' );
@@ -85,6 +86,37 @@ describe( 'POST /entities/lexemes/{lexeme_id}/senses', () => {
 			}
 
 		} );
+
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* add-sense:1|en|${ senseId } */ ${ gloss }`
+		);
+	} );
+
+	it( 'can add a sense with edit metadata provided', async () => {
+		const user = await action.robby();
+		const tag = await action.makeTag( 'e2e test tag', 'Created during e2e test', true );
+		const editSummary = 'omg look i made an edit';
+		const sense = newValidSense();
+
+		const response = await newAddLexemeSenseRequestBuilder( lexemeId, sense )
+			.withJsonBodyParam( 'tags', [ tag ] )
+			.withJsonBodyParam( 'bot', true )
+			.withJsonBodyParam( 'comment', editSummary )
+			.withUser( user )
+			.makeRequest();
+
+		expect( response ).to.have.status( 201 );
+
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.deepEqual( editMetadata.tags, [ tag ] );
+		assert.property( editMetadata, 'bot' );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* add-sense:1|en|${ response.body.id } */ ${ sense.glosses.en }, ${ editSummary }`
+		);
+		assert.strictEqual( editMetadata.user, user.username );
 	} );
 
 	it( 'accepts a language code containing an item ID and trims the gloss text', async () => {

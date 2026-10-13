@@ -9,6 +9,7 @@ use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditSummary;
 use Wikibase\Repo\Domains\Crud\Infrastructure\EditSummaryFormatter;
@@ -34,7 +35,7 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 				$lexemeSummary->statement
 			),
 			$lexemeSummary instanceof AddFormEditSummary => $this->newAddFormSummary( $lexemeSummary->form ),
-			$lexemeSummary instanceof AddSenseEditSummary => new Summary( null, 'add-sense' ), // TODO
+			$lexemeSummary instanceof AddSenseEditSummary => $this->newAddSenseSummary( $lexemeSummary->sense ),
 			default => throw new LogicException( 'Unknown summary type ' . get_class( $summary ) ),
 		};
 		$formatterSummary->setUserSummary( $lexemeSummary->getUserComment() );
@@ -59,6 +60,20 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 			array_values( $form->getRepresentations()->toTextArray() )
 		);
 		$summary->addAutoCommentArgs( $form->getId()->getSerialization() );
+
+		return $summary;
+	}
+
+	private function newAddSenseSummary( Sense $sense ): Summary {
+		$glosses = $sense->getGlosses()->toTextArray();
+		$summary = new Summary(
+			null,
+			'add-sense',
+			// the gloss language is only part of the summary if there is exactly one gloss
+			count( $glosses ) === 1 ? array_key_first( $glosses ) : null,
+		);
+		$summary->addAutoSummaryArgs( array_values( $glosses ) );
+		$summary->addAutoCommentArgs( $sense->getId()->getSerialization() );
 
 		return $summary;
 	}

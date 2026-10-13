@@ -12,10 +12,13 @@ use Wikibase\DataModel\Tests\NewStatement;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
 use Wikibase\Lexeme\Domain\Model\AddFormEditSummary;
+use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Repo\Domains\Crud\Domain\Model\LabelEditSummary;
 use Wikibase\Repo\WikibaseRepo;
 
@@ -72,6 +75,33 @@ class LexemeEditSummaryFormatterTest extends MediaWikiLangTestCase {
 				),
 			),
 			'/* add-form:1||L1138-F1 */ potatoes, user comment',
+		];
+
+		yield 'add sense with user comment' => [
+			new CrudEditSummaryAdapter(
+				new AddSenseEditSummary( 'user comment',
+					new Sense(
+						new SenseId( 'L1138-S1' ),
+						new TermList( [ new Term( 'en', 'a starchy tuber' ) ] ),
+					)
+				),
+			),
+			'/* add-sense:1|en|L1138-S1 */ a starchy tuber, user comment',
+		];
+
+		yield 'add sense with multiple glosses' => [
+			new CrudEditSummaryAdapter(
+				new AddSenseEditSummary( null,
+					new Sense(
+						new SenseId( 'L1138-S1' ),
+						new TermList( [
+							new Term( 'en', 'a starchy tuber' ),
+							new Term( 'de', 'eine stärkehaltige Knolle' ),
+						] ),
+					)
+				),
+			),
+			'/* add-sense:2||L1138-S1 */ a starchy tuber, eine stärkehaltige Knolle',
 		];
 	}
 
