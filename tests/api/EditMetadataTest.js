@@ -3,7 +3,6 @@
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
 const { assertValidError } = require( './helpers/responseValidator' );
 const {
-	addLexemeSenseRequest,
 	lexemeCreateRequests,
 	lexemeEditRequests
 } = require( './helpers/happyPathRequestBuilders' );
@@ -14,7 +13,6 @@ describeWithTestData( 'Edit metadata validation', (
 ) => {
 	const editAndCreateRoutes = [
 		...lexemeEditRequests( lexemeRequestInputs ),
-		addLexemeSenseRequest( lexemeRequestInputs ),
 		...lexemeCreateRequests( lexemeRequestInputs )
 	];
 

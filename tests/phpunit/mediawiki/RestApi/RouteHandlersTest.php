@@ -21,15 +21,21 @@ use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Form;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Gloss;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Glosses;
 use Wikibase\Lexeme\Domain\Model\ReadModel\GrammaticalFeatures;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Representation;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Representations;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Sense;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeFormResponse;
+use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
+use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseResponse;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementResponse;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
@@ -300,6 +306,42 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 					[
 						new LexemeRedirect( new LexemeId( 'L2' ) ),
 						$hasHttpStatus( 409 ),
+					],
+					[
+						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
+						$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),
+					],
+				],
+			],
+		];
+
+		yield 'AddLexemeSense' => [
+			[
+				'useCase' => AddLexemeSense::class,
+				'useCaseResponse' => new AddLexemeSenseResponse(
+					new Sense(
+						new SenseId( 'L1-S1' ),
+						new Glosses(
+							new Gloss( 'en', 'potato' )
+						),
+						new StatementList(),
+					),
+					42,
+					$lastModified
+				),
+				'serviceName' => 'WikibaseLexeme.AddLexemeSense',
+				'validRequest' => [
+					'pathParams' => [ 'lexeme_id' => 'L1' ],
+					'bodyContents' => [
+						'sense' => [
+							'glosses' => [ 'en' => 'potato' ],
+						],
+					],
+				],
+				'expectedExceptions' => [
+					[
+						UseCaseError::newResourceNotFound( 'lexeme' ),
+						$hasHttpStatus( 404 ),
 					],
 					[
 						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),

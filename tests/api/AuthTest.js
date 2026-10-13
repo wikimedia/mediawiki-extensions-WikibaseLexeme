@@ -7,7 +7,6 @@ const { expect } = require( './helpers/chaiHelper' );
 const { changeLexemeProtectionStatus } = require( './helpers/entityHelper' );
 const { newCreateLexemeRequestBuilder } = require( './helpers/RequestBuilderFactory' );
 const {
-	addLexemeSenseRequest,
 	lexemeCreateRequests,
 	lexemeEditRequests,
 	lexemeGetRequests
@@ -41,10 +40,6 @@ describeWithTestData( 'Auth', (
 		...editAndCreateRoutes,
 		...lexemeGetRequests( lexemeRequestInputs )
 	];
-
-	// remove the following two lines once lexemeEditRequests contains addLexemeSenseRequest
-	editRoutes.push( addLexemeSenseRequest( lexemeRequestInputs ) );
-	editAndCreateRoutes.push( addLexemeSenseRequest( lexemeRequestInputs ) );
 
 	describe( 'Authentication', () => {
 		describeEachRouteWithReset( allRoutes, ( newRequestBuilder ) => {

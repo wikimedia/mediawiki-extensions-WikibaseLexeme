@@ -36,21 +36,15 @@ const lexemeEditRequests = ( requestInputs ) => withRequestInputs( requestInputs
 			representations: { en: `potato-representation-${ Math.random() }` },
 			grammatical_features: [ requestInputs.grammaticalFeatureId ]
 		}
-	)
-] );
-
-// move to lexemeEditRequests once finished
-const addLexemeSenseRequest = ( requestInputs ) => ( {
-	newRequestBuilder: () => newAddLexemeSenseRequestBuilder(
+	),
+	() => newAddLexemeSenseRequestBuilder(
 		requestInputs.lexemeId,
 		{ glosses: { en: `potato-gloss-${ Math.random() }` } }
-	),
-	requestInputs
-} );
+	)
+] );
 
 module.exports = {
 	lexemeCreateRequests,
 	lexemeGetRequests,
-	lexemeEditRequests,
-	addLexemeSenseRequest
+	lexemeEditRequests
 };
