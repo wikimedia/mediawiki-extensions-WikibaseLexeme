@@ -53,14 +53,6 @@ const lexemeFormExample = lexemeExample.forms[ 0 ];
 
 const lexemeSenseExample = lexemeExample.senses[ 0 ];
 
-const createdLexemeExample = {
-	...lexemeExample,
-
-	// no forms and senses on newly created lexemes yet
-	forms: [],
-	senses: []
-};
-
 const locationHeader = {
 	"description": "The URI of the newly created Lexeme",
 	"schema": { "type": "string" },
@@ -109,7 +101,7 @@ module.exports = {
 		"content": {
 			"application/json": {
 				"schema": { "$ref": "#/components/schemas/Lexeme" },
-				"example": createdLexemeExample
+				"example": lexemeExample
 			}
 		}
 	},

@@ -117,9 +117,15 @@ module.exports = {
 
 			statements: statementMap( "The statements of the Lexeme, keyed by Property ID", newStatementSchema ),
 
-			// no forms and senses on newly created lexemes yet
-			forms: undefined,
-			senses: undefined
+			forms: {
+				...lexemeSchema.forms,
+				"items": { "$ref": "#/components/schemas/NewForm" }
+			},
+
+			senses: {
+				...lexemeSchema.senses,
+				"items": { "$ref": "#/components/schemas/NewSense" }
+			}
 		},
 		"required": [ "lemmas", "lexical_category", "language" ]
 	},

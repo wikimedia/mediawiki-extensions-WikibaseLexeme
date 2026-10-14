@@ -40,7 +40,23 @@ module.exports = {
 										"value": { "type": "value", "content": "L961" }
 									}
 								]
-							}
+							},
+							"forms": [ {
+								"representations": { "en": "answer" },
+								"grammatical_features": [ "Q110786" ],
+								"statements": { "P443": [ {
+									"property": { "id": "P443", "data_type": "commonsMedia" },
+									"value": { "type": "value", "content": "En-us-answer.ogg" }
+								} ] }
+							} ],
+							"senses": [ {
+								"glosses": { "en": "reply; reaction to a question" },
+								"statements": { "P5137": [ {
+									"property": { "id": "P5137", "data_type": "wikibase-item" },
+									"value": { "type": "value", "content": "Q1920566" }
+								} ] }
+							} ]
+
 						},
 						"comment": "Create a Lexeme for the English noun \"answer\""
 					}
