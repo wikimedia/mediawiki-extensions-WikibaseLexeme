@@ -27,6 +27,7 @@ use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
@@ -240,6 +241,35 @@ class AddLexemeSenseTest extends MediaWikiUnitTestCase {
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( UseCaseError::RESOURCE_NOT_FOUND, $e->errorCode );
 			$this->assertSame( [ UseCaseError::CONTEXT_RESOURCE_TYPE => 'lexeme' ], $e->context );
+		}
+	}
+
+	public function testGivenLexemeIsRedirect_throwsWithoutUpdating(): void {
+		$redirectTarget = new LexemeId( 'L456' );
+
+		$metadataRetriever = $this->createStub( LexemeRevisionMetadataRetriever::class );
+		$metadataRetriever->method( 'getLatestRevisionMetadata' )
+			->willReturn( LatestLexemeRevisionMetadataResult::redirect( $redirectTarget ) );
+
+		$assertUserIsAuthorized = $this->createMock( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->expects( $this->never() )->method( 'checkEditPermissions' );
+
+		$lexemeRetriever = $this->createMock( LexemeWriteModelRetriever::class );
+		$lexemeRetriever->expects( $this->never() )->method( 'getLexemeWriteModel' );
+
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		try {
+			$this->newUseCase(
+				lexemeRetriever: $lexemeRetriever,
+				lexemeUpdater: $lexemeUpdater,
+				metadataRetriever: $metadataRetriever,
+				assertUserIsAuthorized: $assertUserIsAuthorized,
+			)->execute( new AddLexemeSenseRequest( 'L1', [], [], false, null, null ) );
+			$this->fail( 'Expected LexemeRedirect to be thrown' );
+		} catch ( LexemeRedirect $e ) {
+			$this->assertSame( $redirectTarget, $e->redirectTarget );
 		}
 	}
 

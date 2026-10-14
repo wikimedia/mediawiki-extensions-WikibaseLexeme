@@ -9,6 +9,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeRevisionMetadataRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UpdateExceptionHandler;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 
@@ -29,6 +30,7 @@ class AddLexemeSense {
 	}
 
 	/**
+	 * @throws LexemeRedirect
 	 * @throws UseCaseError
 	 */
 	public function execute( AddLexemeSenseRequest $request ): AddLexemeSenseResponse {
@@ -36,8 +38,13 @@ class AddLexemeSense {
 		$lexemeId = $this->validator->getValidatedLexemeId();
 		$sense = $this->validator->getValidatedSense();
 
-		if ( !$this->metadataRetriever->getLatestRevisionMetadata( $lexemeId )->lexemeExists() ) {
+		$metadata = $this->metadataRetriever->getLatestRevisionMetadata( $lexemeId );
+
+		if ( !$metadata->lexemeExists() ) {
 			throw UseCaseError::newResourceNotFound( 'lexeme' );
+		}
+		if ( $metadata->isRedirect() ) {
+			throw new LexemeRedirect( $metadata->getRedirectTarget() );
 		}
 
 		$this->assertUserIsAuthorized->checkEditPermissions(

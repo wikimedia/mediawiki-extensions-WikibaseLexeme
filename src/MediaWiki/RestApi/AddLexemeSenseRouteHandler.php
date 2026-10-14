@@ -12,6 +12,7 @@ use MediaWiki\Rest\SimpleHandler;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseRequest;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseResponse;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\SenseSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
@@ -87,6 +88,10 @@ class AddLexemeSenseRouteHandler extends SimpleHandler {
 						$mwUser->isRegistered() ? $mwUser->getName() : null,
 					)
 				)
+			);
+		} catch ( LexemeRedirect $e ) {
+			return $this->responseFactory->newErrorResponseFromException(
+				UseCaseError::newLexemeRedirected( $lexemeId, $e->redirectTarget->getSerialization() )
 			);
 		} catch ( UseCaseError $e ) {
 			return $this->responseFactory->newErrorResponseFromException( $e );

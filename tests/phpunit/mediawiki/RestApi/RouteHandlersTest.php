@@ -344,6 +344,10 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 						$hasHttpStatus( 404 ),
 					],
 					[
+						new LexemeRedirect( new LexemeId( 'L2' ) ),
+						$hasHttpStatus( 409 ),
+					],
+					[
 						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
 						$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),
 					],
