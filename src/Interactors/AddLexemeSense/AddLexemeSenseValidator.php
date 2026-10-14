@@ -3,15 +3,12 @@
 namespace Wikibase\Lexeme\Interactors\AddLexemeSense;
 
 use LogicException;
-use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
-use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 
 /**
  * @license GPL-2.0-or-later
@@ -23,9 +20,7 @@ class AddLexemeSenseValidator {
 
 	public function __construct(
 		private LexemeIdValidator $lexemeIdValidator,
-		private LexemeTermsValidator $lexemeTermsValidator,
-		private StatementsValidator $statementsValidator,
-		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
+		private SenseValidator $senseValidator,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
@@ -35,25 +30,7 @@ class AddLexemeSenseValidator {
 	 */
 	public function validate( AddLexemeSenseRequest $request ): void {
 		$this->lexemeId = $this->lexemeIdValidator->validate( $request->lexemeId );
-
-		$serialization = $request->sense;
-
-		if ( !array_key_exists( 'glosses', $serialization ) ) {
-			throw UseCaseError::newMissingField( '/sense', 'glosses' );
-		}
-
-		$sense = new BlankSense();
-		$sense->getGlosses()->addAll( $this->lexemeTermsValidator->validateAndDeserialize(
-			$serialization['glosses'],
-			'/sense/glosses',
-		) );
-
-		foreach ( $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] ) as $statement ) {
-			$sense->getStatements()->addStatement( $statement );
-		}
-
-		$this->sense = $sense;
-
+		$this->sense = $this->senseValidator->validateAndDeserialize( $request->sense, '/sense' );
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 	}
 
@@ -73,19 +50,4 @@ class AddLexemeSenseValidator {
 		return $this->sense;
 	}
 
-	/**
-	 * @throws UseCaseError
-	 */
-	private function validateAndDeserializeStatements( mixed $statements ): StatementList {
-		if ( !is_array( $statements ) ) {
-			throw UseCaseError::newInvalidValue( '/sense/statements' );
-		}
-
-		$validationError = $this->statementsValidator->validateNewStatements( $statements, '/sense/statements' );
-		if ( $validationError !== null ) {
-			throw $this->statementsValidationErrorConverter->toUseCaseError( $validationError );
-		}
-
-		return $this->statementsValidator->getValidatedStatements();
-	}
 }

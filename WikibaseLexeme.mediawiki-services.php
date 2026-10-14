@@ -61,6 +61,7 @@ use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
@@ -412,11 +413,13 @@ return call_user_func( static function () {
 				),
 				new AddLexemeSenseValidator(
 					new LexemeIdValidator(),
-					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
-					new StatementsValidator(
-						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+					new SenseValidator(
+						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						new StatementsValidator(
+							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+						),
+						new StatementsValidationErrorConverter(),
 					),
-					new StatementsValidationErrorConverter(),
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 						CommentStore::COMMENT_CHARACTER_LIMIT,
