@@ -272,6 +272,7 @@ return call_user_func( static function () {
 			return new CreateLexeme(
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					WbCrud::getEntityIdAllocator( $services ),
 					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 					new GuidGenerator(),
 				),
@@ -337,6 +338,7 @@ return call_user_func( static function () {
 				),
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					WbCrud::getEntityIdAllocator( $services ),
 					$lexemeReadModelConverter,
 					new GuidGenerator(),
 				),
@@ -371,6 +373,7 @@ return call_user_func( static function () {
 				),
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					WbCrud::getEntityIdAllocator( $services ),
 					$lexemeReadModelConverter,
 					new GuidGenerator(),
 				),
@@ -408,6 +411,7 @@ return call_user_func( static function () {
 				),
 				new EntityUpdaterLexemeUpdater(
 					$services->get( 'WikibaseLexeme.EntityUpdater' ),
+					WbCrud::getEntityIdAllocator( $services ),
 					$lexemeReadModelConverter,
 					new GuidGenerator(),
 				),
@@ -443,7 +447,6 @@ return call_user_func( static function () {
 				WikibaseRepo::getLogger( $services ),
 				new LexemeEditSummaryFormatter( WikibaseRepo::getSummaryFormatter( $services ) ),
 				$services->getPermissionManager(),
-				WikibaseRepo::getEntityStore( $services ),
 				new GuidGenerator(),
 				WikibaseRepo::getSettings( $services ),
 			);

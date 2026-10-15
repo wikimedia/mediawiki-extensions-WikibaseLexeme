@@ -19,6 +19,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
+use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
@@ -30,6 +31,7 @@ use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\EditPrevented as CrudE
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as CrudRateLimitReached;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
+use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityIdAllocator;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 
 /**
@@ -48,6 +50,12 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 			->withLexicalCategory( new ItemId( 'Q2' ) );
 		$lexemeToCreate = $lexemeTemplate->build();
 		$createdLexeme = $lexemeTemplate->withId( $lexemeId )->build();
+
+		$entityIdAllocator = $this->createMock( EntityIdAllocator::class );
+		$entityIdAllocator->expects( $this->once() )
+			->method( 'allocateId' )
+			->with( $lexemeToCreate )
+			->willReturnCallback( static fn ( LexemeWriteModel $lexeme ) => $lexeme->setId( $lexemeId ) );
 
 		$tags = [ 'some tag' ];
 		$isBot = true;
@@ -68,7 +76,12 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 					new CrudEditSummaryAdapter( new CreateLexemeEditSummary( $comment ) ),
 				),
 			)
-			->willReturn( new EntityRevision( $createdLexeme, $revisionId, $lastModified ) );
+			->willReturnCallback(
+				function ( LexemeWriteModel $lexeme ) use ( $lexemeId, $createdLexeme, $revisionId, $lastModified ) {
+					$this->assertEquals( $lexemeId, $lexeme->getId() );
+					return new EntityRevision( $createdLexeme, $revisionId, $lastModified );
+				},
+			);
 
 		$lexemeReadModelConverter = $this->createMock( LexemeReadModelConverter::class );
 		$lexemeReadModelConverter->expects( $this->once() )
@@ -78,6 +91,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		$lexemeRevision = ( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
+			$entityIdAllocator,
 			$lexemeReadModelConverter,
 			new GuidGenerator(),
 		) )->create( $lexemeToCreate, $editMetadata );
@@ -90,6 +104,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	public function testCreateWithId_throws(): void {
 		$lexemeCreator = new EntityUpdaterLexemeUpdater(
 			$this->createNoOpMock( EntityUpdater::class ),
+			$this->createNoOpMock( EntityIdAllocator::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
 		);
@@ -138,6 +153,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		$lexemeRevision = ( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
+			$this->createNoOpMock( EntityIdAllocator::class ),
 			$lexemeReadModelConverter,
 			new GuidGenerator(),
 		) )->update( $lexemeToUpdate, $editMetadata );
@@ -165,6 +181,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
+			$this->createNoOpMock( EntityIdAllocator::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
 		) )->update( $lexeme, new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ) );
@@ -192,6 +209,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 
 		( new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
+			$this->createNoOpMock( EntityIdAllocator::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
 		) )->update( $lexeme, new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ) );
@@ -204,6 +222,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	public function testUpdateWithoutId_throws(): void {
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$this->createNoOpMock( EntityUpdater::class ),
+			$this->createNoOpMock( EntityIdAllocator::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
 		);
@@ -225,8 +244,13 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	): void {
 		$entityUpdater = $this->createStub( EntityUpdater::class );
 		$entityUpdater->method( 'create' )->willThrowException( $crudException );
+		$entityIdAllocator = $this->createStub( EntityIdAllocator::class );
+		$entityIdAllocator->method( 'allocateId' )->willReturnCallback(
+			static fn ( LexemeWriteModel $lexeme ) => $lexeme->setId( new LexemeId( 'L1' ) )
+		);
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
+			$entityIdAllocator,
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
 		);
@@ -241,6 +265,24 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	public function testCreateGivenRateLimitReachedDuringIdAssignment_throws(): void {
+		$entityIdAllocator = $this->createStub( EntityIdAllocator::class );
+		$entityIdAllocator->method( 'allocateId' )->willThrowException( new CrudRateLimitReached() );
+		$lexemeCreator = new EntityUpdaterLexemeUpdater(
+			$this->createNoOpMock( EntityUpdater::class ),
+			$entityIdAllocator,
+			$this->createStub( LexemeReadModelConverter::class ),
+			new GuidGenerator(),
+		);
+
+		$this->expectException( RateLimitReached::class );
+
+		$lexemeCreator->create(
+			NewLexeme::create()->build(),
+			new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
+		);
+	}
+
 	/**
 	 * @dataProvider exceptionProvider
 	 */
@@ -252,6 +294,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$entityUpdater->method( 'update' )->willThrowException( $crudException );
 		$lexemeUpdater = new EntityUpdaterLexemeUpdater(
 			$entityUpdater,
+			$this->createNoOpMock( EntityIdAllocator::class ),
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
 		);

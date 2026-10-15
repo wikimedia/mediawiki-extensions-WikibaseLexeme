@@ -20,6 +20,7 @@ use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\EditPrevented as CrudE
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\RateLimitReached as CrudRateLimitReached;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\ResourceTooLargeException as CrudResourceTooLargeException;
 use Wikibase\Repo\Domains\Crud\Domain\Services\Exceptions\TempAccountCreationLimitReached as CrudTempAccountException;
+use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityIdAllocator;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
 
 /**
@@ -29,6 +30,7 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 
 	public function __construct(
 		private EntityUpdater $entityUpdater,
+		private EntityIdAllocator $entityIdAllocator,
 		private LexemeReadModelConverter $lexemeReadModelConverter,
 		private GuidGenerator $guidGenerator,
 	) {
@@ -42,10 +44,15 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 			throw new InvalidArgumentException( 'New Lexeme must not have an ID' );
 		}
 
-		return $this->storeLexeme( fn () => $this->entityUpdater->create(
-			$lexeme,
-			$this->convertEditMetadata( $editMetadata ),
-		) );
+		return $this->storeLexeme( function () use ( $lexeme, $editMetadata ) {
+			$this->entityIdAllocator->allocateId( $lexeme );
+			$this->generateStatementIdsForFormsAndSenses( $lexeme );
+
+			return $this->entityUpdater->create(
+				$lexeme,
+				$this->convertEditMetadata( $editMetadata ),
+			);
+		} );
 	}
 
 	/**
