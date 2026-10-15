@@ -7,8 +7,8 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
-use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
+use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 
 /**
  * @license GPL-2.0-or-later
@@ -21,6 +21,6 @@ interface LexemeCreator {
 	 * @throws ResourceTooLargeException
 	 * @throws TempAccountCreationLimitReached
 	 */
-	public function create( LexemeWriteModel $lexeme, EditMetadata $editMetadata ): LexemeRevision;
+	public function create( LexemeToCreate $lexemeToCreate, EditMetadata $editMetadata ): LexemeRevision;
 
 }

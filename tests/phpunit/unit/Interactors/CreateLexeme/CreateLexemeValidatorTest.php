@@ -14,7 +14,7 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
+use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeRequest;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -59,11 +59,10 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		) );
 
 		$this->assertEquals(
-			new LexemeWriteModel(
-				null,
-				new TermList( [ new Term( 'en', 'potato' ), new Term( 'de', 'Kartoffel' ) ] ),
-				new ItemId( self::VALID_LEXEME['lexical_category'] ),
+			new LexemeToCreate(
 				new ItemId( self::VALID_LEXEME['language'] ),
+				new ItemId( self::VALID_LEXEME['lexical_category'] ),
+				new TermList( [ new Term( 'en', 'potato' ), new Term( 'de', 'Kartoffel' ) ] ),
 				$statements,
 			),
 			$validator->getValidatedLexeme()
@@ -181,7 +180,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			array_merge( self::VALID_LEXEME, [ 'statements' => null ] )
 		) );
 
-		$this->assertTrue( $validator->getValidatedLexeme()->getStatements()->isEmpty() );
+		$this->assertTrue( $validator->getValidatedLexeme()->statements->isEmpty() );
 	}
 
 	public function testGivenStatementsValidationError_throwsUseCaseError(): void {

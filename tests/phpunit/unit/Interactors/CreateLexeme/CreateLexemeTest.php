@@ -13,7 +13,6 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
-use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
@@ -22,6 +21,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Model\User;
+use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
@@ -64,11 +64,10 @@ class CreateLexemeTest extends MediaWikiUnitTestCase {
 			'user comment',
 			'potato user',
 		);
-		$deserializedLexeme = new LexemeWriteModel(
-			null,
-			new TermList( [ new Term( 'en', $enLemma ) ] ),
-			new ItemId( $lexicalCategory ),
+		$deserializedLexeme = new LexemeToCreate(
 			new ItemId( $language ),
+			new ItemId( $lexicalCategory ),
+			new TermList( [ new Term( 'en', $enLemma ) ] ),
 		);
 		$editMetadata = new EditMetadata( [ 'some tag' ], true, new CreateLexemeEditSummary( 'user comment' ) );
 

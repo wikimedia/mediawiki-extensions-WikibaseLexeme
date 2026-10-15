@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
+use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 use Wikibase\Lexeme\Domain\Services\LexemeCreator;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lib\Store\EntityRevision;
@@ -39,13 +40,24 @@ class EntityUpdaterLexemeUpdater implements LexemeCreator, LexemeUpdater {
 	/**
 	 * @inheritDoc
 	 */
-	public function create( LexemeWriteModel $lexeme, EditMetadata $editMetadata ): LexemeRevision {
-		if ( $lexeme->getId() ) {
-			throw new InvalidArgumentException( 'New Lexeme must not have an ID' );
-		}
-
-		return $this->storeLexeme( function () use ( $lexeme, $editMetadata ) {
+	public function create( LexemeToCreate $lexemeToCreate, EditMetadata $editMetadata ): LexemeRevision {
+		return $this->storeLexeme( function () use ( $lexemeToCreate, $editMetadata ) {
+			$lexeme = new LexemeWriteModel(
+				null,
+				$lexemeToCreate->lemmas,
+				$lexemeToCreate->lexicalCategory,
+				$lexemeToCreate->language,
+				$lexemeToCreate->statements,
+			);
 			$this->entityIdAllocator->allocateId( $lexeme );
+
+			// Forms and Senses get their IDs when they are added, which requires the Lexeme to have an ID.
+			foreach ( $lexemeToCreate->forms as $form ) {
+				$lexeme->addOrUpdateForm( $form );
+			}
+			foreach ( $lexemeToCreate->senses as $sense ) {
+				$lexeme->addOrUpdateSense( $sense );
+			}
 			$this->generateStatementIdsForFormsAndSenses( $lexeme );
 
 			return $this->entityUpdater->create(

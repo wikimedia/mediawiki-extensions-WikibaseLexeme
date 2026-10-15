@@ -10,18 +10,26 @@ use Wikibase\DataModel\Entity\NumericPropertyId;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\DataModel\Snak\PropertyNoValueSnak;
 use Wikibase\DataModel\Statement\Statement;
+use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\DataModel\Term\Term;
+use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\CrudEditSummaryAdapter;
 use Wikibase\Lexeme\DataAccess\Store\EntityUpdaterLexemeUpdater;
 use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
 use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
 use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
 use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
+use Wikibase\Lexeme\Domain\Model\SenseId;
+use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewForm;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewLexeme;
 use Wikibase\Lexeme\Tests\Unit\DataModel\NewSense;
@@ -44,17 +52,20 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 	public function testCreate(): void {
 		$lexemeId = new LexemeId( 'L1' );
 
-		$lexemeTemplate = NewLexeme::create()
+		$lexemeToCreate = new LexemeToCreate(
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
+			new TermList( [ new Term( 'en', 'potato' ) ] ),
+		);
+		$createdLexeme = NewLexeme::havingId( $lexemeId )
 			->withLemma( 'en', 'potato' )
 			->withLanguage( new ItemId( 'Q1' ) )
-			->withLexicalCategory( new ItemId( 'Q2' ) );
-		$lexemeToCreate = $lexemeTemplate->build();
-		$createdLexeme = $lexemeTemplate->withId( $lexemeId )->build();
+			->withLexicalCategory( new ItemId( 'Q2' ) )
+			->build();
 
 		$entityIdAllocator = $this->createMock( EntityIdAllocator::class );
 		$entityIdAllocator->expects( $this->once() )
 			->method( 'allocateId' )
-			->with( $lexemeToCreate )
 			->willReturnCallback( static fn ( LexemeWriteModel $lexeme ) => $lexeme->setId( $lexemeId ) );
 
 		$tags = [ 'some tag' ];
@@ -69,19 +80,14 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$entityUpdater->expects( $this->once() )
 			->method( 'create' )
 			->with(
-				$lexemeToCreate,
+				$createdLexeme,
 				new CrudEditMetadata(
 					$tags,
 					$isBot,
 					new CrudEditSummaryAdapter( new CreateLexemeEditSummary( $comment ) ),
 				),
 			)
-			->willReturnCallback(
-				function ( LexemeWriteModel $lexeme ) use ( $lexemeId, $createdLexeme, $revisionId, $lastModified ) {
-					$this->assertEquals( $lexemeId, $lexeme->getId() );
-					return new EntityRevision( $createdLexeme, $revisionId, $lastModified );
-				},
-			);
+			->willReturn( new EntityRevision( $createdLexeme, $revisionId, $lastModified ) );
 
 		$lexemeReadModelConverter = $this->createMock( LexemeReadModelConverter::class );
 		$lexemeReadModelConverter->expects( $this->once() )
@@ -101,20 +107,42 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$this->assertSame( $lastModified, $lexemeRevision->lastModified );
 	}
 
-	public function testCreateWithId_throws(): void {
-		$lexemeCreator = new EntityUpdaterLexemeUpdater(
-			$this->createNoOpMock( EntityUpdater::class ),
-			$this->createNoOpMock( EntityIdAllocator::class ),
+	public function testCreateWithFormsAndSenses(): void {
+		$form = new BlankForm();
+		$form->getStatements()->addNewStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P1' ) ) );
+		$sense = new BlankSense();
+		$sense->getStatements()->addNewStatement( new PropertyNoValueSnak( new NumericPropertyId( 'P2' ) ) );
+
+		$entityIdAllocator = $this->createStub( EntityIdAllocator::class );
+		$entityIdAllocator->method( 'allocateId' )->willReturnCallback(
+			static fn ( LexemeWriteModel $lexeme ) => $lexeme->setId( new LexemeId( 'L1' ) )
+		);
+
+		$savedLexeme = null;
+		$entityUpdater = $this->createStub( EntityUpdater::class );
+		$entityUpdater->method( 'create' )->willReturnCallback(
+			static function ( LexemeWriteModel $lexeme ) use ( &$savedLexeme ) {
+				$savedLexeme = $lexeme;
+				return new EntityRevision( $lexeme, 123, '20250101120000' );
+			}
+		);
+
+		( new EntityUpdaterLexemeUpdater(
+			$entityUpdater,
+			$entityIdAllocator,
 			$this->createStub( LexemeReadModelConverter::class ),
 			new GuidGenerator(),
-		);
-
-		$this->expectException( InvalidArgumentException::class );
-
-		$lexemeCreator->create(
-			NewLexeme::havingId( 'L1' )->build(),
+		) )->create(
+			$this->newLexemeToCreate( [ $form, new BlankForm() ], [ $sense ] ),
 			new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 		);
+
+		$savedForm = $savedLexeme->getForm( new FormId( 'L1-F1' ) );
+		$this->assertStringStartsWith( 'L1-F1$', $savedForm->getStatements()->toArray()[0]->getGuid() );
+		$this->assertTrue( $savedLexeme->getForms()->hasFormWithId( new FormId( 'L1-F2' ) ) );
+
+		$savedSense = $savedLexeme->getSense( new SenseId( 'L1-S1' ) );
+		$this->assertStringStartsWith( 'L1-S1$', $savedSense->getStatements()->toArray()[0]->getGuid() );
 	}
 
 	public function testUpdate(): void {
@@ -256,7 +284,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		);
 		try {
 			$lexemeUpdater->create(
-				NewLexeme::create()->build(),
+				$this->newLexemeToCreate(),
 				new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 			);
 			$this->fail( 'expected Exception not thrown' );
@@ -278,7 +306,7 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		$this->expectException( RateLimitReached::class );
 
 		$lexemeCreator->create(
-			NewLexeme::create()->build(),
+			$this->newLexemeToCreate(),
 			new EditMetadata( [], false, new CreateLexemeEditSummary( 'user comment' ) ),
 		);
 	}
@@ -307,6 +335,21 @@ class EntityUpdaterLexemeUpdaterTest extends MediaWikiUnitTestCase {
 		} catch ( Exception $e ) {
 			$this->assertEquals( $expectedException, $e );
 		}
+	}
+
+	/**
+	 * @param BlankForm[] $forms
+	 * @param BlankSense[] $senses
+	 */
+	private function newLexemeToCreate( array $forms = [], array $senses = [] ): LexemeToCreate {
+		return new LexemeToCreate(
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
+			new TermList( [ new Term( 'en', 'potato' ) ] ),
+			new StatementList(),
+			$forms,
+			$senses,
+		);
 	}
 
 	public static function exceptionProvider(): iterable {

@@ -6,7 +6,7 @@ use LogicException;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
+use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
@@ -19,7 +19,7 @@ use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
  */
 class CreateLexemeValidator {
 
-	private ?LexemeWriteModel $lexeme = null;
+	private ?LexemeToCreate $lexeme = null;
 	private ?EditMetadata $editMetadata = null;
 
 	public function __construct(
@@ -56,7 +56,7 @@ class CreateLexemeValidator {
 
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 
-		$this->lexeme = new LexemeWriteModel( null, $lemmas, $lexicalCategory, $language, $statements );
+		$this->lexeme = new LexemeToCreate( $language, $lexicalCategory, $lemmas, $statements );
 		$this->editMetadata = new EditMetadata(
 			$request->editTags,
 			$request->isBot,
@@ -64,7 +64,7 @@ class CreateLexemeValidator {
 		);
 	}
 
-	public function getValidatedLexeme(): LexemeWriteModel {
+	public function getValidatedLexeme(): LexemeToCreate {
 		if ( $this->lexeme === null ) {
 			throw new LogicException( 'Must not call getValidatedLexeme() before validateAndDeserialize()' );
 		}
