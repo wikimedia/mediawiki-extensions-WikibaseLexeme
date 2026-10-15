@@ -13,28 +13,21 @@ use Wikibase\Lib\SettingsArray;
  */
 class ResourceLoaderRegisterModulesHookHandler implements ResourceLoaderRegisterModulesHook {
 
-	private ?SettingsArray $settings;
-
-	public function __construct( ?SettingsArray $settings ) {
-		$this->settings = $settings;
+	public function __construct(
+		private readonly ?SettingsArray $settings,
+	) {
 	}
 
 	public function onResourceLoaderRegisterModules( ResourceLoader $rl ): void {
-		if ( !$this->settings ) {
-			return;
-		}
 		$moduleTemplate = [
 			'localBasePath' => __DIR__ . '/../..',
 			'remoteExtPath' => 'WikibaseLexeme',
 		];
 
-		// temporarily register this RL module only if the feature flag for mobile editing or its beta feature are
+		// Temporarily register this RL module only if the feature flag for mobile editing is
 		// enabled, so that wikis without either feature flag don't even pay the small cost of loading the module
 		// *definition* (when the feature stabilizes, this should move into repo/resources/Resources.php: T395783)
-		if (
-			$this->settings->getSetting( 'tmpMobileEditingUI' ) ||
-			$this->settings->getSetting( 'tmpEnableMobileEditingUIBetaFeature' )
-		) {
+		if ( $this->settings?->getSetting( 'tmpMobileEditingUI' ) ) {
 			$modules = [ 'wikibaseLexeme.wbui2025.entityViewInit' => $moduleTemplate +
 				[
 					'packageFiles' => [
