@@ -58,6 +58,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\SenseSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\SensesSerializer;
 use Wikibase\Lexeme\Search\Elastic\WikibaseLexemeCirrusSearch;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\FormValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
@@ -386,16 +387,19 @@ return call_user_func( static function () {
 				),
 				new AddLexemeFormValidator(
 					new LexemeIdValidator(),
-					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
-					new StatementsValidator(
-						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+					new FormValidator(
+						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						new StatementsValidator(
+							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+						),
+						new StatementsValidationErrorConverter(),
+						$services->get( 'WikibaseLexeme.ItemIdValidator' ),
 					),
-					new StatementsValidationErrorConverter(),
-					$services->get( 'WikibaseLexeme.ItemIdValidator' ),
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 						CommentStore::COMMENT_CHARACTER_LIMIT,
 					),
+
 				),
 				new EntityRevisionLookupLexemeRevisionMetadataRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services )
