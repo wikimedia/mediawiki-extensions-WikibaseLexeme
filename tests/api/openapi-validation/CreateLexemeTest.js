@@ -47,7 +47,16 @@ describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
 							} ]
 						}
 					]
-				}
+				},
+				senses: [ {
+					glosses: { en: 'a hue' },
+					statements: {
+						[ testData.propertyId ]: [ {
+							property: { id: testData.propertyId },
+							value: { type: 'value', content: 'sense statement value' }
+						} ]
+					}
+				} ]
 			} )
 		] ],
 		400: [ [

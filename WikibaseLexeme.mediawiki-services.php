@@ -283,6 +283,13 @@ return call_user_func( static function () {
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					new StatementsValidationErrorConverter(),
+					new SenseValidator(
+						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						new StatementsValidator(
+							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+						),
+						new StatementsValidationErrorConverter(),
+					),
 					new EditMetadataRequestValidator(
 						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
 						CommentStore::COMMENT_CHARACTER_LIMIT,

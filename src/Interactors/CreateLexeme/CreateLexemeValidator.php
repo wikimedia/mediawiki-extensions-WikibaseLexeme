@@ -4,6 +4,7 @@ namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
 use LogicException;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
@@ -11,6 +12,7 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
@@ -27,6 +29,7 @@ class CreateLexemeValidator {
 		private ItemIdValidator $itemIdValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
+		private SenseValidator $senseValidator,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
@@ -53,10 +56,17 @@ class CreateLexemeValidator {
 		}
 		$language = $this->itemIdValidator->validateItemId( $serialization['language'], '/lexeme/language' );
 		$statements = $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] );
+		$senses = $this->validateAndDeserializeSenses( $serialization['senses'] ?? [] );
 
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 
-		$this->lexeme = new LexemeToCreate( $language, $lexicalCategory, $lemmas, $statements );
+		$this->lexeme = new LexemeToCreate(
+			$language,
+			$lexicalCategory,
+			$lemmas,
+			$statements,
+			senses: $senses,
+		);
 		$this->editMetadata = new EditMetadata(
 			$request->editTags,
 			$request->isBot,
@@ -94,6 +104,27 @@ class CreateLexemeValidator {
 		}
 
 		return $this->statementsValidator->getValidatedStatements();
+	}
+
+	/**
+	 * @return BlankSense[]
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeSenses( mixed $senses ): array {
+		if ( !is_array( $senses ) || !array_is_list( $senses ) ) {
+			throw UseCaseError::newInvalidValue( '/lexeme/senses' );
+		}
+
+		$deserializedSenses = [];
+		foreach ( $senses as $index => $sense ) {
+			$path = "/lexeme/senses/$index";
+			if ( !is_array( $sense ) || ( $sense && array_is_list( $sense ) ) ) {
+				throw UseCaseError::newInvalidValue( $path );
+			}
+			$deserializedSenses[] = $this->senseValidator->validateAndDeserialize( $sense, $path );
+		}
+
+		return $deserializedSenses;
 	}
 
 }

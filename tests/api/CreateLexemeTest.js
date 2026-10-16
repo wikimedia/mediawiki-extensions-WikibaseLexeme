@@ -38,6 +38,8 @@ describe( 'POST /entities/lexemes', () => {
 	it( 'returns the created lexeme and persists it', async () => {
 		const lemma = `test-lemma-${ utils.uniq() }`;
 		const statementValue = 'potato';
+		const gloss = 'a starchy tuber';
+		const senseStatementValue = 'tuber';
 		const response = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: lemma },
 			lexical_category: lexicalCategoryId,
@@ -47,7 +49,16 @@ describe( 'POST /entities/lexemes', () => {
 					property: { id: stringPropertyId },
 					value: { type: 'value', content: statementValue }
 				} ]
-			}
+			},
+			senses: [ {
+				glosses: { en: gloss },
+				statements: {
+					[ stringPropertyId ]: [ {
+						property: { id: stringPropertyId },
+						value: { type: 'value', content: senseStatementValue }
+					} ]
+				}
+			} ]
 		} ).makeRequest();
 
 		expect( response ).to.have.status( 201 );
@@ -70,6 +81,24 @@ describe( 'POST /entities/lexemes', () => {
 			qualifiers: [],
 			references: []
 		} );
+
+		const senseId = `${ response.body.id }-S1`;
+		const [ senseStatement ] = response.body.senses[ 0 ].statements[ stringPropertyId ];
+		assert.strictEqual( senseStatement.id.split( '$' )[ 0 ], senseId );
+		assert.deepStrictEqual( response.body.senses, [ {
+			id: senseId,
+			glosses: { en: gloss },
+			statements: {
+				[ stringPropertyId ]: [ {
+					id: senseStatement.id,
+					rank: 'normal',
+					property: { id: stringPropertyId, data_type: 'string' },
+					value: { type: 'value', content: senseStatementValue },
+					qualifiers: [],
+					references: []
+				} ]
+			}
+		} ] );
 
 		const getLexemeResponse = await newGetLexemeRequestBuilder( response.body.id ).makeRequest();
 
@@ -364,6 +393,55 @@ describe( 'POST /entities/lexemes', () => {
 			`/* wbeditentity-create-lexeme:0| */ ${ editSummary }`
 		);
 		assert.strictEqual( editMetadata.user, user.username );
+	} );
+
+	[
+		{
+			name: 'senses not a list',
+			senses: () => ( { S1: { glosses: { en: 'a starchy tuber' } } } ),
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: '/lexeme/senses' } )
+		},
+		{
+			name: 'sense not an object',
+			senses: () => [ 'potato' ],
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: '/lexeme/senses/0' } )
+		},
+		{
+			name: 'sense glosses missing',
+			senses: () => [ { glosses: { en: 'a starchy tuber' } }, {} ],
+			expectedCode: 'missing-field',
+			expectedContext: () => ( { path: '/lexeme/senses/1', field: 'glosses' } )
+		},
+		{
+			name: 'sense gloss text invalid',
+			senses: () => [ { glosses: { en: '' } } ],
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: '/lexeme/senses/0/glosses/en' } )
+		},
+		{
+			name: 'sense statement field missing',
+			senses: () => [ {
+				glosses: { en: 'a starchy tuber' },
+				statements: { [ stringPropertyId ]: [ { property: { id: stringPropertyId } } ] }
+			} ],
+			expectedCode: 'missing-field',
+			expectedContext: () => ( {
+				path: `/lexeme/senses/0/statements/${ stringPropertyId }/0`,
+				field: 'value'
+			} )
+		}
+	].forEach( ( { name, senses, expectedCode, expectedContext } ) => {
+		it( `responds 400 - ${ name }`, async () => {
+			const response = await newCreateLexemeRequestBuilder(
+				newValidLexeme( { senses: senses() } )
+			).makeRequest();
+
+			expect( response ).to.have.status( 400 );
+			assert.strictEqual( response.body.code, expectedCode );
+			assert.deepStrictEqual( response.body.context, expectedContext() );
+		} );
 	} );
 
 } );

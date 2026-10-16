@@ -12,6 +12,7 @@ use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
@@ -21,6 +22,7 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
@@ -45,16 +47,28 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		'language' => 'Q2',
 	];
 
+	private const VALID_SENSE = [ 'glosses' => [ 'en' => 'a starchy tuber' ] ];
+
 	public function testGivenValidRequest_exposesLexeme(): void {
 		$statements = new StatementList(
 			new Statement( new PropertyNoValueSnak( new NumericPropertyId( 'P123' ) ) )
 		);
-		$validator = $this->newValidator( $this->newStatementsValidator( $statements ) );
+		$sense = new BlankSense();
+		$senseValidator = $this->createMock( SenseValidator::class );
+		$senseValidator->expects( $this->once() )
+			->method( 'validateAndDeserialize' )
+			->with( self::VALID_SENSE, '/lexeme/senses/0' )
+			->willReturn( $sense );
+		$validator = $this->newValidator(
+			$this->newStatementsValidator( $statements ),
+			senseValidator: $senseValidator,
+		);
 
 		$validator->validateAndDeserialize( self::newRequest(
 			array_merge( self::VALID_LEXEME, [
 				'lemmas' => [ 'en' => 'potato', 'de' => 'Kartoffel' ],
 				'statements' => [ 'P123' => [ [ 'some' => 'statement' ] ] ],
+				'senses' => [ self::VALID_SENSE ],
 			] )
 		) );
 
@@ -64,6 +78,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 				new ItemId( self::VALID_LEXEME['lexical_category'] ),
 				new TermList( [ new Term( 'en', 'potato' ), new Term( 'de', 'Kartoffel' ) ] ),
 				$statements,
+				senses: [ $sense ],
 			),
 			$validator->getValidatedLexeme()
 		);
@@ -201,6 +216,60 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 		}
 	}
 
+	/**
+	 * @dataProvider provideSensesNotAList
+	 */
+	public function testGivenSensesNotAList_throwsUseCaseError( mixed $senses ): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
+				array_merge( self::VALID_LEXEME, [ 'senses' => $senses ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newInvalidValue( '/lexeme/senses' ), $e );
+		}
+	}
+
+	public static function provideSensesNotAList(): iterable {
+		yield 'string' => [ 'potato' ];
+		yield 'associative array' => [ [ 'S1' => self::VALID_SENSE ] ];
+	}
+
+	/**
+	 * @dataProvider provideSenseNotAnObject
+	 */
+	public function testGivenSenseNotAnObject_throwsUseCaseError( mixed $sense ): void {
+		try {
+			$this->newValidator()->validateAndDeserialize( self::newRequest(
+				array_merge( self::VALID_LEXEME, [ 'senses' => [ self::VALID_SENSE, $sense ] ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertEquals( UseCaseError::newInvalidValue( '/lexeme/senses/1' ), $e );
+		}
+	}
+
+	public static function provideSenseNotAnObject(): iterable {
+		yield 'string' => [ 'potato' ];
+		yield 'null' => [ null ];
+		yield 'list' => [ [ 'a starchy tuber' ] ];
+	}
+
+	public function testGivenSenseValidationError_throwsUseCaseError(): void {
+		$expectedError = UseCaseError::newMissingField( '/lexeme/senses/0', 'glosses' );
+		$senseValidator = $this->createStub( SenseValidator::class );
+		$senseValidator->method( 'validateAndDeserialize' )->willThrowException( $expectedError );
+
+		try {
+			$this->newValidator( senseValidator: $senseValidator )->validateAndDeserialize( self::newRequest(
+				array_merge( self::VALID_LEXEME, [ 'senses' => [ [] ] ] )
+			) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedError, $e );
+		}
+	}
+
 	public function testGivenValidRequestWithEditMetadata_exposesEditMetadata(): void {
 		$validator = $this->newValidator();
 
@@ -245,7 +314,13 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 	private function newValidator(
 		?StatementsValidator $statementsValidator = null,
 		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
+		?SenseValidator $senseValidator = null,
 	): CreateLexemeValidator {
+		if ( $senseValidator === null ) {
+			$senseValidator = $this->createStub( SenseValidator::class );
+			$senseValidator->method( 'validateAndDeserialize' )->willReturn( new BlankSense() );
+		}
+
 		return new CreateLexemeValidator(
 			new LexemeTermsValidator(
 				new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
@@ -270,6 +345,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
+			$senseValidator,
 			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
 		);
 	}
