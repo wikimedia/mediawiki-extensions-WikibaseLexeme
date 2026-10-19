@@ -1,7 +1,1 @@
-[
-	{
-		"path": "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/senses",
-		"method": "POST",
-		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\AddLexemeSenseRouteHandler::factory"
-	}
-]
+[ ]
