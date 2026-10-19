@@ -284,6 +284,14 @@ return call_user_func( static function () {
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					new StatementsValidationErrorConverter(),
+					new FormValidator(
+						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						new StatementsValidator(
+							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
+						),
+						new StatementsValidationErrorConverter(),
+						$services->get( 'WikibaseLexeme.ItemIdValidator' ),
+					),
 					new SenseValidator(
 						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
 						new StatementsValidator(

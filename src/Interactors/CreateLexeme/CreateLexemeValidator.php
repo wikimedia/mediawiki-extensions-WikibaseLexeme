@@ -4,12 +4,14 @@ namespace Wikibase\Lexeme\Interactors\CreateLexeme;
 
 use LogicException;
 use Wikibase\DataModel\Statement\StatementList;
+use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\WriteModel\LexemeToCreate;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\FormValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
@@ -29,6 +31,7 @@ class CreateLexemeValidator {
 		private ItemIdValidator $itemIdValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
+		private FormValidator $formValidator,
 		private SenseValidator $senseValidator,
 		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
@@ -56,6 +59,7 @@ class CreateLexemeValidator {
 		}
 		$language = $this->itemIdValidator->validateItemId( $serialization['language'], '/lexeme/language' );
 		$statements = $this->validateAndDeserializeStatements( $serialization['statements'] ?? [] );
+		$forms = $this->validateAndDeserializeForms( $serialization['forms'] ?? [] );
 		$senses = $this->validateAndDeserializeSenses( $serialization['senses'] ?? [] );
 
 		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
@@ -65,6 +69,7 @@ class CreateLexemeValidator {
 			$lexicalCategory,
 			$lemmas,
 			$statements,
+			forms: $forms,
 			senses: $senses,
 		);
 		$this->editMetadata = new EditMetadata(
@@ -107,6 +112,27 @@ class CreateLexemeValidator {
 	}
 
 	/**
+	 * @return BlankForm[]
+	 * @throws UseCaseError
+	 */
+	private function validateAndDeserializeForms( mixed $forms ): array {
+		if ( !is_array( $forms ) || !array_is_list( $forms ) ) {
+			throw UseCaseError::newInvalidValue( '/lexeme/forms' );
+		}
+
+		$deserializedForms = [];
+		foreach ( $forms as $index => $form ) {
+			$path = "/lexeme/forms/$index";
+			if ( !is_array( $form ) || ( $form && array_is_list( $form ) ) ) {
+				throw UseCaseError::newInvalidValue( $path );
+			}
+			$deserializedForms[] = $this->formValidator->validateAndDeserialize( $form, $path );
+		}
+
+		return $deserializedForms;
+	}
+
+	/**
 	 * @return BlankSense[]
 	 * @throws UseCaseError
 	 */
@@ -126,5 +152,4 @@ class CreateLexemeValidator {
 
 		return $deserializedSenses;
 	}
-
 }

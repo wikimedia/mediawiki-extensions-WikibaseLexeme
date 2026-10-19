@@ -17,6 +17,7 @@ describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
 		testData.lexicalCategory = await getItemId();
 		testData.propertyId = await getStringPropertyId();
 		testData.blockedUser = await action.blockedUser();
+		testData.grammaticalFeature = await getItemId();
 	} );
 
 	const casesByStatus = {
@@ -48,6 +49,19 @@ describe( newCreateLexemeRequestBuilder().getRouteDescription(), () => {
 						}
 					]
 				},
+				forms: [ {
+					representations: {
+						'en-ca': 'colour',
+						'en-us': 'color'
+					},
+					grammatical_features: [ testData.grammaticalFeature ],
+					statements: {
+						[ testData.propertyId ]: [ {
+							property: { id: testData.propertyId },
+							value: { type: 'value', content: 'form statement value' }
+						} ]
+					}
+				} ],
 				senses: [ {
 					glosses: { en: 'a hue' },
 					statements: {
