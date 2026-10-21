@@ -12,7 +12,10 @@ module.exports = {
 		"wikimedia/language/es2022"
 	],
 	"rules": {
-		"no-console": "error"
+		"no-console": "error",
+		// spec parts are required from the sibling Wikibase checkout,
+		// which the extension-only CI job does not have
+		"n/no-missing-require": "off"
 	},
 	"overrides": [
 		{
