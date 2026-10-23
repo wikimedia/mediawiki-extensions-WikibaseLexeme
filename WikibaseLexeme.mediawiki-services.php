@@ -271,12 +271,7 @@ return call_user_func( static function () {
 		},
 		'WikibaseLexeme.CreateLexeme' => static function ( MediaWikiServices $services ): CreateLexeme {
 			return new CreateLexeme(
-				new EntityUpdaterLexemeUpdater(
-					$services->get( 'WikibaseLexeme.EntityUpdater' ),
-					WbCrud::getEntityIdAllocator( $services ),
-					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
-					new GuidGenerator(),
-				),
+				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 				new CreateLexemeValidator(
 					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
 					$services->get( 'WikibaseLexeme.ItemIdValidator' ),
@@ -345,19 +340,12 @@ return call_user_func( static function () {
 			);
 		},
 		'WikibaseLexeme.AddLexemeStatement' => static function ( MediaWikiServices $services ): AddLexemeStatement {
-			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
-
 			return new AddLexemeStatement(
 				new EntityRevisionLookupLexemeRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services ),
-					$lexemeReadModelConverter,
+					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 				),
-				new EntityUpdaterLexemeUpdater(
-					$services->get( 'WikibaseLexeme.EntityUpdater' ),
-					WbCrud::getEntityIdAllocator( $services ),
-					$lexemeReadModelConverter,
-					new GuidGenerator(),
-				),
+				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 				new GuidGenerator(),
 				new AddLexemeStatementValidator(
 					new LexemeIdValidator(),
@@ -380,19 +368,12 @@ return call_user_func( static function () {
 			);
 		},
 		'WikibaseLexeme.AddLexemeForm' => static function ( MediaWikiServices $services ): AddLexemeForm {
-			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
-
 			return new AddLexemeForm(
 				new EntityRevisionLookupLexemeRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services ),
-					$lexemeReadModelConverter,
+					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 				),
-				new EntityUpdaterLexemeUpdater(
-					$services->get( 'WikibaseLexeme.EntityUpdater' ),
-					WbCrud::getEntityIdAllocator( $services ),
-					$lexemeReadModelConverter,
-					new GuidGenerator(),
-				),
+				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 				new AddLexemeFormValidator(
 					new LexemeIdValidator(),
 					new FormValidator(
@@ -421,19 +402,12 @@ return call_user_func( static function () {
 			);
 		},
 		'WikibaseLexeme.AddLexemeSense' => static function ( MediaWikiServices $services ): AddLexemeSense {
-			$lexemeReadModelConverter = $services->get( 'WikibaseLexeme.LexemeReadModelConverter' );
-
 			return new AddLexemeSense(
 				new EntityRevisionLookupLexemeRetriever(
 					WikibaseRepo::getEntityRevisionLookup( $services ),
-					$lexemeReadModelConverter,
+					$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 				),
-				new EntityUpdaterLexemeUpdater(
-					$services->get( 'WikibaseLexeme.EntityUpdater' ),
-					WbCrud::getEntityIdAllocator( $services ),
-					$lexemeReadModelConverter,
-					new GuidGenerator(),
-				),
+				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 				new AddLexemeSenseValidator(
 					new LexemeIdValidator(),
 					new SenseValidator(
@@ -459,15 +433,20 @@ return call_user_func( static function () {
 				),
 			);
 		},
-		'WikibaseLexeme.EntityUpdater' => static function ( MediaWikiServices $services ): EntityUpdater {
-			return new EntityUpdater(
-				RequestContext::getMain(),
-				WikibaseRepo::getEditEntityFactory( $services ),
-				WikibaseRepo::getLogger( $services ),
-				new LexemeEditSummaryFormatter( WikibaseRepo::getSummaryFormatter( $services ) ),
-				$services->getPermissionManager(),
+		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {
+			return new EntityUpdaterLexemeUpdater(
+				new EntityUpdater(
+					RequestContext::getMain(),
+					WikibaseRepo::getEditEntityFactory( $services ),
+					WikibaseRepo::getLogger( $services ),
+					new LexemeEditSummaryFormatter( WikibaseRepo::getSummaryFormatter( $services ) ),
+					$services->getPermissionManager(),
+					new GuidGenerator(),
+					WikibaseRepo::getSettings( $services ),
+				),
+				WbCrud::getEntityIdAllocator( $services ),
+				$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
 				new GuidGenerator(),
-				WikibaseRepo::getSettings( $services ),
 			);
 		},
 		'WikibaseLexeme.FormSerializer' => static function ( MediaWikiServices $services ): FormSerializer {
