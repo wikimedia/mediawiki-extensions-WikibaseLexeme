@@ -469,6 +469,27 @@ describe( 'POST /entities/lexemes', () => {
 				path: `/lexeme/forms/0/statements/${ stringPropertyId }/0`,
 				field: 'value'
 			} )
+		},
+		{
+			name: 'form grammatical_features not a list',
+			forms: () => [ { representations: { en: 'potato' }, grammatical_features: 'Q1' } ],
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: '/lexeme/forms/0/grammatical_features' } )
+		},
+		{
+			name: 'form grammatical feature not an item id',
+			forms: () => [ {
+				representations: { en: 'potato' },
+				grammatical_features: [ grammaticalFeatureId, 'X1' ]
+			} ],
+			expectedCode: 'invalid-value',
+			expectedContext: () => ( { path: '/lexeme/forms/0/grammatical_features/1' } )
+		},
+		{
+			name: 'form grammatical feature item does not exist',
+			forms: () => [ { representations: { en: 'potato' }, grammatical_features: [ 'Q999999999' ] } ],
+			expectedCode: 'referenced-resource-not-found',
+			expectedContext: () => ( { path: '/lexeme/forms/0/grammatical_features/0' } )
 		}
 	].forEach( ( { name, forms, expectedCode, expectedContext } ) => {
 		it( `responds 400 - ${ name }`, async () => {
@@ -480,48 +501,6 @@ describe( 'POST /entities/lexemes', () => {
 			assert.strictEqual( response.body.code, expectedCode );
 			assert.deepStrictEqual( response.body.context, expectedContext() );
 		} );
-	} );
-
-	it( "returns 400 if 'grammatical_features' is not an array", async () => {
-		const response = await newCreateLexemeRequestBuilder(
-			newValidLexeme( {
-				forms: [ {
-					representations: { en: 'potato' },
-					grammatical_features: 'Q1'
-				} ]
-			} )
-		).makeRequest();
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'invalid-value' );
-		assert.deepStrictEqual( response.body.context, { path: '/lexeme/forms/0/grammatical_features' } );
-	} );
-
-	it( "returns 400 if a 'grammatical_features' element is not an item id", async () => {
-		const response = await newCreateLexemeRequestBuilder(
-			newValidLexeme( {
-				forms: [ {
-					representations: { en: 'potato' },
-					grammatical_features: [ grammaticalFeatureId, 'X1' ]
-				} ]
-			} )
-		).makeRequest();
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'invalid-value' );
-		assert.deepStrictEqual( response.body.context, { path: '/lexeme/forms/0/grammatical_features/1' } );
-	} );
-
-	it( "returns 400 if a 'grammatical_features' item does not exist", async () => {
-		const response = await newCreateLexemeRequestBuilder(
-			newValidLexeme( {
-				forms: [ {
-					representations: { en: 'potato' },
-					grammatical_features: [ 'Q999999999' ]
-				} ]
-			} )
-		).makeRequest();
-		expect( response ).to.have.status( 400 );
-		assert.strictEqual( response.body.code, 'referenced-resource-not-found' );
-		assert.deepStrictEqual( response.body.context, { path: '/lexeme/forms/0/grammatical_features/0' } );
 	} );
 
 	[
