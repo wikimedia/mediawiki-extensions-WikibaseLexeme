@@ -11,7 +11,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankForm;
 use Wikibase\Lexeme\Domain\DummyObjects\BlankSense;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
@@ -402,7 +402,7 @@ class CreateLexemeValidatorTest extends MediaWikiUnitTestCase {
 						return in_array( $languageCode, $this->validLanguageCodes );
 					}
 				},
-				LemmaTermValidator::LEMMA_MAX_LENGTH,
+				LexemeTermValueValidator::MAX_LENGTH,
 			),
 			new ItemIdValidator(
 				new class( self::EXISTING_ITEM_IDS ) implements ItemExistenceChecker {

@@ -30,7 +30,7 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\DataModel\Term\TermTypes;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\MediaWiki\Specials\HTMLForm\LemmaLanguageField;
 use Wikibase\Lib\FormatableSummary;
@@ -81,7 +81,7 @@ class SpecialNewLexeme extends SpecialPage {
 	private EntityIdFormatterFactory $entityIdFormatterFactory;
 	private FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory;
 	private ValidatorErrorLocalizer $validatorErrorLocalizer;
-	private LemmaTermValidator $lemmaTermValidator;
+	private LexemeTermValueValidator $lemmaTermValidator;
 	private SpecialPageCopyrightView $copyrightView;
 	private AnonymousEditWarningBuilder $anonymousEditWarningBuilder;
 	private TempUserConfig $tempUserConfig;
@@ -100,7 +100,7 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityIdFormatterFactory $entityIdFormatterFactory,
 		FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
-		LemmaTermValidator $lemmaTermValidator,
+		LexemeTermValueValidator $lemmaTermValidator,
 		AnonymousEditWarningBuilder $anonymousEditWarningBuilder,
 		TempUserConfig $tempUserConfig
 	) {
@@ -144,7 +144,7 @@ class SpecialNewLexeme extends SpecialPage {
 		EntityIdFormatterFactory $entityIdFormatterFactory,
 		FallbackLabelDescriptionLookupFactory $labelDescriptionLookupFactory,
 		ValidatorErrorLocalizer $validatorErrorLocalizer,
-		LemmaTermValidator $lemmaTermValidator
+		LexemeTermValueValidator $lemmaTermValidator
 	): self {
 		$copyrightView = new SpecialPageCopyrightView(
 			new CopyrightMessageBuilder(),

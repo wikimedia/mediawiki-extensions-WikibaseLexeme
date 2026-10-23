@@ -4,8 +4,8 @@ namespace Wikibase\Lexeme\Presentation\ChangeOp\Deserialization;
 
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lib\StringNormalizer;
 use Wikibase\Repo\ChangeOp\ChangeOp;
 use Wikibase\Repo\ChangeOp\ChangeOpDeserializer;
@@ -22,7 +22,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	/**
-	 * @var \Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator
+	 * @var \Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator
 	 */
 	private $lemmaTermValidator;
 
@@ -40,7 +40,7 @@ class LemmaChangeOpDeserializer implements ChangeOpDeserializer {
 
 	public function __construct(
 		LexemeTermSerializationValidator $termChangeOpSerializationValidator,
-		LemmaTermValidator $lemmaTermValidator,
+		LexemeTermValueValidator $lemmaTermValidator,
 		StringNormalizer $stringNormalizer
 	) {
 		$this->termSerializationValidator = $termChangeOpSerializationValidator;

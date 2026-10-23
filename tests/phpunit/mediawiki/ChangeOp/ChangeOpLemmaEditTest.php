@@ -10,7 +10,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lib\Summary;
 
@@ -27,7 +27,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenInvalidArguments_constructorThrowsException( $language, $lemma ) {
 		$this->expectException( InvalidArgumentException::class );
 		new ChangeOpLemmaEdit( $language, $lemma,
-			$this->createMock( LemmaTermValidator::class )
+			$this->createMock( LexemeTermValueValidator::class )
 		);
 	}
 
@@ -44,7 +44,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenNotALemmasProvider_validateThrowsException() {
 		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
-			$this->createMock( LemmaTermValidator::class )
+			$this->createMock( LexemeTermValueValidator::class )
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
@@ -56,7 +56,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenInvalidLemmaTerm_validateReturnsInvalidResult( $lemmaTerm ) {
 		$lexeme = new Lexeme();
 
-		$lemmasTermValidator = $this->createMock( LemmaTermValidator::class );
+		$lemmasTermValidator = $this->createMock( LexemeTermValueValidator::class );
 		$lemmasTermValidator
 			->expects( $this->once() )
 			->method( 'validate' )
@@ -76,7 +76,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenValidLemmaTerm_validateReturnsValidResult() {
 		$lexeme = new Lexeme();
 
-		$lemmasTermValidator = $this->createMock( LemmaTermValidator::class );
+		$lemmasTermValidator = $this->createMock( LexemeTermValueValidator::class );
 		$lemmasTermValidator
 			->expects( $this->once() )
 			->method( 'validate' )
@@ -90,7 +90,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	public function testGivenNotALemmasProvider_applyThrowsException() {
 		$entity = new Item( new ItemId( 'Q123' ) );
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
-			$this->createMock( LemmaTermValidator::class )
+			$this->createMock( LexemeTermValueValidator::class )
 		);
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
@@ -104,7 +104,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$summary = new Summary();
 
 		$changeOp = new ChangeOpLemmaEdit( 'de', 'Ente',
-			$this->createMock( LemmaTermValidator::class )
+			$this->createMock( LexemeTermValueValidator::class )
 		);
 
 		$changeOp->apply( $lexeme, $summary );
@@ -127,7 +127,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$summary = new Summary();
 
 		$changeOp = new ChangeOpLemmaEdit( 'en', 'bar',
-			$this->createMock( LemmaTermValidator::class )
+			$this->createMock( LexemeTermValueValidator::class )
 		);
 
 		$changeOp->apply( $lexeme, $summary );

@@ -9,9 +9,9 @@ use MediaWiki\Rest\Reporter\MWErrorReporter;
 use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\DataModel\Services\Statement\GuidGenerator;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
@@ -210,11 +210,11 @@ return call_user_func( static function () {
 			static function ( MediaWikiServices $mediawikiServices ): EntityLookupLemmaLookup {
 				return new EntityLookupLemmaLookup( WikibaseRepo::getEntityLookup( $mediawikiServices ) );
 			},
-		'WikibaseLexemeLemmaTermValidator' => static function (
+		'WikibaseLexemeLexemeTermValueValidator' => static function (
 			MediaWikiServices $services
-		): LemmaTermValidator {
+		): LexemeTermValueValidator {
 			// TODO: move to setting
-			return new LemmaTermValidator( LemmaTermValidator::LEMMA_MAX_LENGTH );
+			return new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH );
 		},
 		'WikibaseLexemeEditFormChangeOpDeserializer' => static function (
 			MediaWikiServices $mediaWikiServices
@@ -329,7 +329,7 @@ return call_user_func( static function () {
 				),
 				// this validator is also used for representations and glosses, and we've decided that the same limit
 				// of 1000 characters is fine for all of them.
-				LemmaTermValidator::LEMMA_MAX_LENGTH,
+				LexemeTermValueValidator::MAX_LENGTH,
 			);
 		},
 		'WikibaseLexeme.ItemIdValidator' => static function (

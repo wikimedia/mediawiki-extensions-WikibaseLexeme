@@ -25,7 +25,7 @@ use Wikibase\DataModel\Term\TermFallback;
 use Wikibase\DataModel\Term\TermTypes;
 use Wikibase\DataModel\Tests\NewItem;
 use Wikibase\DataModel\Tests\NewStatement;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Specials\SpecialNewLexeme;
@@ -116,7 +116,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 			WikibaseRepo::getEntityIdHtmlLinkFormatterFactory(),
 			WikibaseRepo::getFallbackLabelDescriptionLookupFactory(),
 			WikibaseRepo::getValidatorErrorLocalizer(),
-			WikibaseLexemeServices::getLemmaTermValidator(),
+			WikibaseLexemeServices::getLexemeTermValueValidator(),
 			WikibaseRepo::getAnonymousEditWarningBuilder(),
 			$tempUserConfig
 		);
@@ -583,7 +583,7 @@ class SpecialNewLexemeTest extends SpecialNewEntityTestCase {
 				[
 					SpecialNewLexeme::FIELD_LEMMA_LANGUAGE => 'en',
 					SpecialNewLexeme::FIELD_LEMMA =>
-						str_repeat( 'a', LemmaTermValidator::LEMMA_MAX_LENGTH + 1 ),
+						str_repeat( 'a', LexemeTermValueValidator::MAX_LENGTH + 1 ),
 					SpecialNewLexeme::FIELD_LEXICAL_CATEGORY => self::EXISTING_ITEM_ID,
 					SpecialNewLexeme::FIELD_LEXEME_LANGUAGE => self::EXISTING_ITEM_ID,
 				],

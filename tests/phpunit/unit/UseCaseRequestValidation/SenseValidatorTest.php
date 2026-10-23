@@ -9,7 +9,7 @@ use Wikibase\DataModel\Statement\Statement;
 use Wikibase\DataModel\Statement\StatementList;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
@@ -123,7 +123,7 @@ class SenseValidatorTest extends MediaWikiUnitTestCase {
 						return in_array( $languageCode, $this->validLanguageCodes );
 					}
 				},
-				LemmaTermValidator::LEMMA_MAX_LENGTH,
+				LexemeTermValueValidator::MAX_LENGTH,
 			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),

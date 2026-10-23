@@ -7,7 +7,7 @@
 
 use MediaWiki\MediaWikiServices;
 use MediaWiki\ResourceLoader\Context;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Presentation\View\TemplateModule;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\WikibaseRepo;
@@ -250,7 +250,7 @@ return call_user_func( static function () {
 							'licenseUrl' => $wbRepoSettings->getSetting( 'dataRightsUrl' ),
 							'licenseText' => $wbRepoSettings->getSetting( 'dataRightsText' ),
 							'tags' => $wbRepoSettings->getSetting( 'specialPageTags' ),
-							'maxLemmaLength' => LemmaTermValidator::LEMMA_MAX_LENGTH,
+							'maxLemmaLength' => LexemeTermValueValidator::MAX_LENGTH,
 							'availableSearchProfiles' => array_keys(
 								$wbRepoSettings->getSetting( 'searchProfiles' )
 							),

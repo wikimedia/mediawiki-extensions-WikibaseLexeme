@@ -8,9 +8,9 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaRemove;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\LemmaChangeOpDeserializer;
@@ -27,7 +27,7 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 
 	private function newLemmaChangeOpDeserializer() {
-		$lemmaTermValidator = $this->createMock( LemmaTermValidator::class );
+		$lemmaTermValidator = $this->createMock( LexemeTermValueValidator::class );
 
 		return new LemmaChangeOpDeserializer(
 			new LexemeTermSerializationValidator(
@@ -52,7 +52,7 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 			->method( 'validateStructure' )
 			->willThrowException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) );
 
-		$lemmaTermValidator = $this->createMock( LemmaTermValidator::class );
+		$lemmaTermValidator = $this->createMock( LexemeTermValueValidator::class );
 
 		$deserializer = new LemmaChangeOpDeserializer(
 			$termSerializationValidator,

@@ -4,7 +4,7 @@ namespace Wikibase\Lexeme;
 
 use MediaWiki\MediaWikiServices;
 use Psr\Container\ContainerInterface;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LemmaTermValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
 use Wikibase\Lexeme\Interactors\AddLexemeForm\AddLexemeForm;
 use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSense;
@@ -69,11 +69,11 @@ class WikibaseLexemeServices {
 			->get( 'WikibaseLexemeLemmaLookup' );
 	}
 
-	public static function getLemmaTermValidator(
+	public static function getLexemeTermValueValidator(
 		?ContainerInterface $services = null
-	): LemmaTermValidator {
+	): LexemeTermValueValidator {
 		return ( $services ?: MediaWikiServices::getInstance() )
-			->get( 'WikibaseLexemeLemmaTermValidator' );
+			->get( 'WikibaseLexemeLexemeTermValueValidator' );
 	}
 
 	public static function getEditFormChangeOpDeserializer(

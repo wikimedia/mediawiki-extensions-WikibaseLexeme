@@ -11,9 +11,9 @@ use Wikibase\Repo\Validators\TypeValidator;
 /**
  * @license GPL-2.0-or-later
  */
-class LemmaTermValidator {
+class LexemeTermValueValidator {
 
-	public const LEMMA_MAX_LENGTH = 1000;
+	public const MAX_LENGTH = 1000;
 
 	/**
 	 * @var CompositeValidator
@@ -21,7 +21,7 @@ class LemmaTermValidator {
 	private $validator;
 
 	/**
-	 * @param int $maxTermLength LEMMA_MAX_LENGTH
+	 * @param int $maxTermLength MAX_LENGTH
 	 */
 	public function __construct( $maxTermLength ) {
 		// TODO: validate UTF8

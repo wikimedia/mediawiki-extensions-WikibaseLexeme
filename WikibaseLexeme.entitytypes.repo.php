@@ -141,7 +141,7 @@ return [
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages( $services ) )
 					),
-					WikibaseLexemeServices::getLemmaTermValidator( $services ),
+					WikibaseLexemeServices::getLexemeTermValueValidator( $services ),
 					$stringNormalizer
 				),
 				new LexicalCategoryChangeOpDeserializer(

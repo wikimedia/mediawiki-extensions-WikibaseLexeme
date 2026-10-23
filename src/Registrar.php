@@ -132,7 +132,7 @@ class Registrar {
 				'WikibaseRepo.EntityIdHtmlLinkFormatterFactory',
 				'WikibaseRepo.FallbackLabelDescriptionLookupFactory',
 				'WikibaseRepo.ValidatorErrorLocalizer',
-				'WikibaseLexemeLemmaTermValidator',
+				'WikibaseLexemeLexemeTermValueValidator',
 			],
 		];
 
