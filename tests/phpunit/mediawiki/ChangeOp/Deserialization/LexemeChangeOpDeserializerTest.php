@@ -57,9 +57,9 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 		$lexemeChangeOpDeserializer = new LexemeChangeOpDeserializer(
 			new LemmaChangeOpDeserializer(
 				new LexemeTermSerializationValidator(
-					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) )
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'enm' ] ) ),
+					new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 				),
-				new LexemeTermValueValidator( 100 ),
 				$stringNormalizer
 			),
 			new LexicalCategoryChangeOpDeserializer( new CompositeValidator( [] ), $stringNormalizer ),
@@ -75,7 +75,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 							new TermDeserializer(),
 							$stringNormalizer,
 							new LexemeTermSerializationValidator(
-								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) ),
+								new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 							)
 						),
 						new ItemIdListDeserializer( new ItemIdParser() ),
@@ -94,7 +95,8 @@ class LexemeChangeOpDeserializerTest extends WikibaseLexemeIntegrationTestCase {
 							new TermDeserializer(),
 							$stringNormalizer,
 							new LexemeTermSerializationValidator(
-								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+								new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) ),
+								new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 							)
 						),
 						$statementChangeOpDeserializer

@@ -139,9 +139,9 @@ return [
 				// TODO: WikibaseRepo::getTermsLanguage is not necessarily the list of language codes
 				// that should be allowed as "languages" of lemma terms
 					new LexemeTermSerializationValidator(
-						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages( $services ) )
+						new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages( $services ) ),
+						WikibaseLexemeServices::getLexemeTermValueValidator( $services ),
 					),
-					WikibaseLexemeServices::getLexemeTermValueValidator( $services ),
 					$stringNormalizer
 				),
 				new LexicalCategoryChangeOpDeserializer(
@@ -173,7 +173,8 @@ return [
 								new LexemeTermSerializationValidator(
 									new LexemeTermLanguageValidator(
 										WikibaseLexemeServices::getTermLanguages( $services )
-									)
+									),
+									WikibaseLexemeServices::getLexemeTermValueValidator( $services ),
 								)
 							),
 							new ClaimsChangeOpDeserializer(
@@ -479,7 +480,8 @@ return [
 						new TermDeserializer(),
 						WikibaseRepo::getStringNormalizer(),
 						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() ),
+							WikibaseLexemeServices::getLexemeTermValueValidator(),
 						)
 					),
 					new ClaimsChangeOpDeserializer(

@@ -92,6 +92,10 @@ class RepresentationsChangeOpDeserializerTest extends TestCase {
 			->willReturn( $languageContext );
 		$deserializer->setContext( $representationContext );
 
+		$validator->expects( $this->once() )
+			->method( 'validateText' )
+			->with( 'smth', $languageContext );
+
 		$changeOps = $deserializer->createEntityChangeOp( [
 			'en' => [ 'language' => 'en', 'value' => " \t smth \v\n " ],
 		] );

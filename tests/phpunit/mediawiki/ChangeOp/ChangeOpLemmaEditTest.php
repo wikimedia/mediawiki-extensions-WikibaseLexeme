@@ -4,13 +4,11 @@ namespace Wikibase\Lexeme\Tests\MediaWiki\ChangeOp;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
-use ValueValidators\Result;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\ChangeOpLemmaEdit;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lib\Summary;
 
@@ -26,9 +24,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 	 */
 	public function testGivenInvalidArguments_constructorThrowsException( $language, $lemma ) {
 		$this->expectException( InvalidArgumentException::class );
-		new ChangeOpLemmaEdit( $language, $lemma,
-			$this->createMock( LexemeTermValueValidator::class )
-		);
+		new ChangeOpLemmaEdit( $language, $lemma );
 	}
 
 	public static function invalidConstructorArgumentsProvider() {
@@ -43,55 +39,20 @@ class ChangeOpLemmaEditTest extends TestCase {
 
 	public function testGivenNotALemmasProvider_validateThrowsException() {
 		$entity = new Item( new ItemId( 'Q123' ) );
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
-			$this->createMock( LexemeTermValueValidator::class )
-		);
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck' );
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->validate( $entity );
 	}
 
-	/**
-	 * @dataProvider invalidLemmaTermProvider
-	 */
-	public function testGivenInvalidLemmaTerm_validateReturnsInvalidResult( $lemmaTerm ) {
-		$lexeme = new Lexeme();
+	public function testValidateReturnsValidResult() {
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck' );
 
-		$lemmasTermValidator = $this->createMock( LexemeTermValueValidator::class );
-		$lemmasTermValidator
-			->expects( $this->once() )
-			->method( 'validate' )
-			->willReturn( Result::newError( [] ) );
-		$changeOp = new ChangeOpLemmaEdit( 'en', $lemmaTerm, $lemmasTermValidator );
-
-		$this->assertFalse( $changeOp->validate( $lexeme )->isValid() );
-	}
-
-	public static function invalidLemmaTermProvider() {
-		return [
-			'empty string' => [ '' ],
-			'too long text' => [ 'Lorem ipsum dolor sit amet' ],
-		];
-	}
-
-	public function testGivenValidLemmaTerm_validateReturnsValidResult() {
-		$lexeme = new Lexeme();
-
-		$lemmasTermValidator = $this->createMock( LexemeTermValueValidator::class );
-		$lemmasTermValidator
-			->expects( $this->once() )
-			->method( 'validate' )
-			->willReturn( Result::newSuccess() );
-
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck', $lemmasTermValidator );
-
-		$this->assertTrue( $changeOp->validate( $lexeme )->isValid() );
+		$this->assertTrue( $changeOp->validate( new Lexeme() )->isValid() );
 	}
 
 	public function testGivenNotALemmasProvider_applyThrowsException() {
 		$entity = new Item( new ItemId( 'Q123' ) );
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck',
-			$this->createMock( LexemeTermValueValidator::class )
-		);
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'duck' );
 		$this->expectException( InvalidArgumentException::class );
 		$changeOp->apply( $entity );
 	}
@@ -103,9 +64,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemmaEdit( 'de', 'Ente',
-			$this->createMock( LexemeTermValueValidator::class )
-		);
+		$changeOp = new ChangeOpLemmaEdit( 'de', 'Ente' );
 
 		$changeOp->apply( $lexeme, $summary );
 
@@ -126,9 +85,7 @@ class ChangeOpLemmaEditTest extends TestCase {
 		$lexeme = new Lexeme( null, $lemmas );
 		$summary = new Summary();
 
-		$changeOp = new ChangeOpLemmaEdit( 'en', 'bar',
-			$this->createMock( LexemeTermValueValidator::class )
-		);
+		$changeOp = new ChangeOpLemmaEdit( 'en', 'bar' );
 
 		$changeOp->apply( $lexeme, $summary );
 

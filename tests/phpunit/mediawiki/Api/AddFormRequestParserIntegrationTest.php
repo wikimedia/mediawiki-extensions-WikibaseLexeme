@@ -10,6 +10,7 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\MediaWiki\Api\AddFormRequestParser;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
@@ -267,7 +268,8 @@ class AddFormRequestParserIntegrationTest extends \MediaWikiIntegrationTestCase 
 				new TermDeserializer(),
 				new StringNormalizer(),
 				new LexemeTermSerializationValidator(
-					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) ),
+					new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 				)
 			),
 			new ItemIdListDeserializer( new ItemIdParser() ),

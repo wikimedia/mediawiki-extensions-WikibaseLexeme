@@ -9,6 +9,7 @@ use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\DataModel\Entity\ItemIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\MediaWiki\Api\EditFormElementsRequestParser;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
@@ -247,7 +248,8 @@ class EditFormElementsRequestParserIntegrationTest extends \MediaWikiIntegration
 				new TermDeserializer(),
 				new StringNormalizer(),
 				new LexemeTermSerializationValidator(
-					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) ),
+					new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 				)
 			),
 			new ItemIdListDeserializer( new ItemIdParser() ),

@@ -564,7 +564,22 @@ class LexemeEditEntityTest extends WikibaseLexemeApiTestCase {
 			],
 			'too long term in lemma change request' => [
 				[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => str_repeat( 'x', 10000 ) ] ] ],
-				'modification-failed',
+				'unprocessable-request',
+			],
+			'too long representation in new form' => [
+				[ 'forms' => [ [
+					'add' => '',
+					'representations' => [ 'en' => [ 'language' => 'en', 'value' => str_repeat( 'x', 10000 ) ] ],
+					'grammaticalFeatures' => [],
+				] ] ],
+				'unprocessable-request',
+			],
+			'too long gloss in new sense' => [
+				[ 'senses' => [ [
+					'add' => '',
+					'glosses' => [ 'en' => [ 'language' => 'en', 'value' => str_repeat( 'x', 10000 ) ] ],
+				] ] ],
+				'unprocessable-request',
 			],
 		];
 	}

@@ -8,6 +8,7 @@ use Wikibase\DataModel\Deserializers\TermDeserializer;
 use Wikibase\DataModel\Entity\DispatchingEntityIdParser;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Api\EditSenseElementsRequestParser;
 use Wikibase\Lexeme\MediaWiki\Api\Error\ApiError;
@@ -213,7 +214,8 @@ class EditSenseElementsRequestParserIntegrationTest extends \MediaWikiIntegratio
 				new TermDeserializer(),
 				new StringNormalizer(),
 				new LexemeTermSerializationValidator(
-					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) )
+					new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en', 'de' ] ) ),
+					new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 				)
 			),
 			$this->createStub( ClaimsChangeOpDeserializer::class )

@@ -73,6 +73,10 @@ class RepresentationsChangeOpDeserializer implements ChangeOpDeserializer {
 					self::PARAM_LANGUAGE => $representation[self::PARAM_LANGUAGE],
 					self::PARAM_VALUE => $this->stringNormalizer->trimToNFC( $representation[self::PARAM_VALUE] ),
 				];
+				$this->termSerializationValidator->validateText(
+					$trimmedRepresentation[self::PARAM_VALUE],
+					$languageContext,
+				);
 
 				$changeOps[] = new ChangeOpRepresentation(
 					$this->representationDeserializer->deserialize( $trimmedRepresentation )

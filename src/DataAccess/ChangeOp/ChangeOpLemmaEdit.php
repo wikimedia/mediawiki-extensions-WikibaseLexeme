@@ -5,7 +5,6 @@ namespace Wikibase\Lexeme\DataAccess\ChangeOp;
 use InvalidArgumentException;
 use ValueValidators\Result;
 use Wikibase\DataModel\Entity\EntityDocument;
-use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\ChangeOp\ChangeOpBase;
@@ -31,24 +30,17 @@ class ChangeOpLemmaEdit extends ChangeOpBase {
 	private $lemma;
 
 	/**
-	 * @var LexemeTermValueValidator
-	 */
-	private $lemmaTermValidator;
-
-	/**
 	 * @param string $language
 	 * @param string $lemma
-	 * @param LexemeTermValueValidator $lemmaTermValidator
 	 *
 	 * @throws InvalidArgumentException
 	 */
-	public function __construct( $language, $lemma, LexemeTermValueValidator $lemmaTermValidator ) {
+	public function __construct( $language, $lemma ) {
 		Assert::parameterType( 'string', $language, '$language' );
 		Assert::parameterType( 'string', $lemma, '$lemma' );
 
 		$this->language = $language;
 		$this->lemma = $lemma;
-		$this->lemmaTermValidator = $lemmaTermValidator;
 	}
 
 	/**
@@ -60,7 +52,7 @@ class ChangeOpLemmaEdit extends ChangeOpBase {
 	public function validate( EntityDocument $entity ) {
 		Assert::parameterType( Lexeme::class, $entity, '$entity' );
 
-		return $this->lemmaTermValidator->validate( $this->lemma );
+		return Result::newSuccess();
 	}
 
 	/**

@@ -27,13 +27,11 @@ use Wikibase\Repo\ChangeOp\Deserialization\ChangeOpDeserializationException;
 class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 
 	private function newLemmaChangeOpDeserializer() {
-		$lemmaTermValidator = $this->createMock( LexemeTermValueValidator::class );
-
 		return new LemmaChangeOpDeserializer(
 			new LexemeTermSerializationValidator(
-				new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en' ] ) )
+				new LexemeTermLanguageValidator( new StaticContentLanguages( [ 'en' ] ) ),
+				new LexemeTermValueValidator( LexemeTermValueValidator::MAX_LENGTH ),
 			),
-			$lemmaTermValidator,
 			new StringNormalizer()
 		);
 	}
@@ -52,17 +50,41 @@ class LemmaChangeOpDeserializerTest extends \MediaWikiIntegrationTestCase {
 			->method( 'validateStructure' )
 			->willThrowException( new ChangeOpDeserializationException( 'Invalid serialization', 'test' ) );
 
-		$lemmaTermValidator = $this->createMock( LexemeTermValueValidator::class );
-
 		$deserializer = new LemmaChangeOpDeserializer(
 			$termSerializationValidator,
-			$lemmaTermValidator,
 			new StringNormalizer()
 		);
 
 		$this->expectException( ChangeOpDeserializationException::class );
 
 		$deserializer->createEntityChangeOp( [ 'lemmas' => [ 'invalid term change serialization' ] ] );
+	}
+
+	public function testGivenTooLongLemma_exceptionIsThrown() {
+		$deserializer = $this->newLemmaChangeOpDeserializer();
+
+		$this->expectException( ApiUsageException::class );
+
+		$deserializer->createEntityChangeOp( [ 'lemmas' => [ 'en' => [
+			'language' => 'en',
+			'value' => str_repeat( 'x', LexemeTermValueValidator::MAX_LENGTH + 1 ),
+		] ] ] );
+	}
+
+	public function testGivenLemmaWithSurroundingWhitespace_validatesTrimmedLemma() {
+		$termSerializationValidator = $this->createMock( LexemeTermSerializationValidator::class );
+		$termSerializationValidator->expects( $this->once() )
+			->method( 'validateText' )
+			->with( 'rat' );
+
+		$deserializer = new LemmaChangeOpDeserializer(
+			$termSerializationValidator,
+			new StringNormalizer()
+		);
+
+		$deserializer->createEntityChangeOp(
+			[ 'lemmas' => [ 'en' => [ 'language' => 'en', 'value' => " \t rat \n " ] ] ]
+		);
 	}
 
 	// TODO: should case of ChangeOp with invalid Term (ie. throwing ChangeOpException

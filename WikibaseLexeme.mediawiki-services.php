@@ -230,7 +230,8 @@ return call_user_func( static function () {
 					new LexemeTermSerializationValidator(
 						new LexemeTermLanguageValidator(
 							WikibaseLexemeServices::getTermLanguages( $mediaWikiServices )
-						)
+						),
+						WikibaseLexemeServices::getLexemeTermValueValidator( $mediaWikiServices ),
 					)
 				),
 				new ItemIdListDeserializer( new ItemIdParser() ),

@@ -89,7 +89,8 @@ class EditSenseElements extends ApiBase {
 						new TermDeserializer(),
 						$stringNormalizer,
 						new LexemeTermSerializationValidator(
-							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() )
+							new LexemeTermLanguageValidator( WikibaseLexemeServices::getTermLanguages() ),
+							WikibaseLexemeServices::getLexemeTermValueValidator(),
 						)
 					),
 					new ClaimsChangeOpDeserializer(
