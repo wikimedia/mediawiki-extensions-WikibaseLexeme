@@ -52,7 +52,7 @@ module.exports = {
 			"400": wikibaseRef( '#/components/responses/InvalidNewStatementInput' ),
 			"403": wikibaseRef( '#/components/responses/PermissionDenied' ),
 			"404": wikibaseRef( '#/components/responses/ResourceNotFound' ),
-			"409": { "$ref": "#/components/responses/LexemeRedirected" },
+			"409": wikibaseRef( '#/components/responses/ResourceRedirected' ),
 			"412": wikibaseRef( '#/components/responses/PreconditionFailedError' ),
 			"429": wikibaseRef( '#/components/responses/RequestLimitReached' ),
 			"500": wikibaseRef( '#/components/responses/UnexpectedError' )

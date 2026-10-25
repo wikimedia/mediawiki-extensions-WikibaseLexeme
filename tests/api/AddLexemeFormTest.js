@@ -336,8 +336,8 @@ describe( 'POST /entities/lexemes/{lexeme_id}/forms', () => {
 		expect( response ).to.have.status( 409 );
 
 		assert.deepStrictEqual( response.body, {
-			code: 'redirected-lexeme',
-			message: `Lexeme ${ sourceLexemeId } has been redirected to ${ lexemeId }.`,
+			code: 'resource-redirected',
+			message: `Resource ${ sourceLexemeId } has been redirected to ${ lexemeId }.`,
 			context: {
 				redirect_target: lexemeId
 			}

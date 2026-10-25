@@ -4549,10 +4549,10 @@
                   ]
                 },
                 "examples": {
-                  "redirected-lexeme": {
+                  "resource-redirected": {
                     "value": {
-                      "code": "redirected-lexeme",
-                      "message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+                      "code": "resource-redirected",
+                      "message": "Resource {redirect_source_id} has been redirected to {redirect_target_id}",
                       "context": {
                         "redirect_target": "{redirect_target_id}"
                       }
@@ -5610,7 +5610,7 @@
             }
           },
           "409": {
-            "description": "The specified Lexeme was redirected",
+            "description": "The specified resource was redirected",
             "content": {
               "application/json": {
                 "schema": {
@@ -5632,10 +5632,10 @@
                   ]
                 },
                 "examples": {
-                  "redirected-lexeme": {
+                  "resource-redirected": {
                     "value": {
-                      "code": "redirected-lexeme",
-                      "message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+                      "code": "resource-redirected",
+                      "message": "Resource {redirect_source_id} has been redirected to {redirect_target_id}",
                       "context": {
                         "redirect_target": "{redirect_target_id}"
                       }
@@ -6624,7 +6624,7 @@
             }
           },
           "409": {
-            "description": "The specified Lexeme was redirected",
+            "description": "The specified resource was redirected",
             "content": {
               "application/json": {
                 "schema": {
@@ -6646,10 +6646,10 @@
                   ]
                 },
                 "examples": {
-                  "redirected-lexeme": {
+                  "resource-redirected": {
                     "value": {
-                      "code": "redirected-lexeme",
-                      "message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+                      "code": "resource-redirected",
+                      "message": "Resource {redirect_source_id} has been redirected to {redirect_target_id}",
                       "context": {
                         "redirect_target": "{redirect_target_id}"
                       }
@@ -7604,7 +7604,7 @@
             }
           },
           "409": {
-            "description": "The specified Lexeme was redirected",
+            "description": "The specified resource was redirected",
             "content": {
               "application/json": {
                 "schema": {
@@ -7626,10 +7626,10 @@
                   ]
                 },
                 "examples": {
-                  "redirected-lexeme": {
+                  "resource-redirected": {
                     "value": {
-                      "code": "redirected-lexeme",
-                      "message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+                      "code": "resource-redirected",
+                      "message": "Resource {redirect_source_id} has been redirected to {redirect_target_id}",
                       "context": {
                         "redirect_target": "{redirect_target_id}"
                       }

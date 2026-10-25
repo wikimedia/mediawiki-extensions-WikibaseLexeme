@@ -211,8 +211,8 @@ describe( 'POST /entities/lexemes/{lexeme_id}/senses', () => {
 
 		expect( response ).to.have.status( 409 );
 		assert.deepStrictEqual( response.body, {
-			code: 'redirected-lexeme',
-			message: `Lexeme ${ redirectSourceId } has been redirected to ${ redirectTargetId }.`,
+			code: 'resource-redirected',
+			message: `Resource ${ redirectSourceId } has been redirected to ${ redirectTargetId }.`,
 			context: { redirect_target: redirectTargetId }
 		} );
 	} );

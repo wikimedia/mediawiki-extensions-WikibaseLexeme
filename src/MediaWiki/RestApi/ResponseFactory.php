@@ -33,7 +33,7 @@ class ResponseFactory {
 		// 429 errors:
 		UseCaseError::REQUEST_LIMIT_REACHED => 429,
 		// 409 errors:
-		UseCaseError::REDIRECTED_LEXEME => 409,
+		UseCaseError::RESOURCE_REDIRECTED => 409,
 	];
 
 	public function newSuccessResponse(

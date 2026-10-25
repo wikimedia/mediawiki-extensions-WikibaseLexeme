@@ -15,7 +15,7 @@ class UseCaseError extends RuntimeException {
 	public const string MISSING_FIELD = 'missing-field';
 	public const string INVALID_VALUE = 'invalid-value';
 	public const string INVALID_KEY = 'invalid-key';
-	public const string REDIRECTED_LEXEME = 'redirected-lexeme';
+	public const string RESOURCE_REDIRECTED = 'resource-redirected';
 	public const string REQUEST_LIMIT_REACHED = 'request-limit-reached';
 	public const string REQUEST_LIMIT_REASON_RATE_LIMIT = 'rate-limit-reached';
 	public const string REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT = 'temp-account-creation-limit-reached';
@@ -58,7 +58,7 @@ class UseCaseError extends RuntimeException {
 		self::INVALID_KEY => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
 		],
-		self::REDIRECTED_LEXEME => [
+		self::RESOURCE_REDIRECTED => [
 			'required' => [ self::CONTEXT_REDIRECT_TARGET ],
 		],
 		self::VALUE_TOO_LONG => [
@@ -224,8 +224,8 @@ class UseCaseError extends RuntimeException {
 		string $redirectTarget
 	): self {
 		return new self(
-			self::REDIRECTED_LEXEME,
-			"Lexeme $lexemeId has been redirected to $redirectTarget.",
+			self::RESOURCE_REDIRECTED,
+			"Resource $lexemeId has been redirected to $redirectTarget.",
 			[ self::CONTEXT_REDIRECT_TARGET => $redirectTarget ],
 		);
 	}

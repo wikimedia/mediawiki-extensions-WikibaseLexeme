@@ -75,14 +75,6 @@ const errorSchema = {
 	"required": [ "code", "message" ]
 };
 
-const redirectedLexemeExample = {
-	"value": {
-		"code": "redirected-lexeme",
-		"message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
-		"context": { "redirect_target": "{redirect_target_id}" }
-	}
-};
-
 module.exports = {
 	"Lexeme": {
 		"description": "A single Lexeme",
@@ -226,25 +218,13 @@ module.exports = {
 		},
 		"headers": { "Content-Language": contentLanguageHeader }
 	},
-	"LexemeRedirected": {
-		"description": "The specified Lexeme was redirected",
-		"content": {
-			"application/json": {
-				"schema": errorSchema,
-				"examples": {
-					"redirected-lexeme": redirectedLexemeExample
-				}
-			}
-		},
-		"headers": { "Content-Language": contentLanguageHeader }
-	},
 	"CannotApplyLexemePatch": {
 		"description": "The provided JSON Patch cannot be applied",
 		"content": {
 			"application/json": {
 				"schema": errorSchema,
 				"examples": {
-					"redirected-lexeme": redirectedLexemeExample,
+					"resource-redirected": wikibaseRef( '#/components/examples/ResourceRedirectedExample' ),
 					"patch-test-failed": wikibaseRef( '#/components/examples/PatchTestFailedExample' ),
 					"patch-target-not-found": wikibaseRef( '#/components/examples/PatchTargetNotFoundExample' )
 				}

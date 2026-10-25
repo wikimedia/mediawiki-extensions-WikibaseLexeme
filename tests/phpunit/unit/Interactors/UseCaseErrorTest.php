@@ -53,8 +53,8 @@ class UseCaseErrorTest extends TestCase {
 		];
 
 		yield 'redirected lexeme' => [
-			UseCaseError::REDIRECTED_LEXEME,
-			'Lexeme L1 has been redirected to L2',
+			UseCaseError::RESOURCE_REDIRECTED,
+			'Resource L1 has been redirected to L2',
 			[ UseCaseError::CONTEXT_REDIRECT_TARGET => 'L2' ],
 		];
 	}
