@@ -8,6 +8,7 @@ use MediaWiki\Api\ApiUsageException;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\User\User;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
@@ -142,6 +143,28 @@ class AddSenseTest extends WikibaseLexemeApiTestCase {
 
 		$this->doTestQueryApiException( $params, [
 			'key' => 'apierror-wikibaselexeme-sense-must-have-at-least-one-gloss',
+			'code' => 'unprocessable-request',
+		] );
+	}
+
+	public function testGivenTooLongGloss_errorIsReported() {
+		$this->saveEntity( NewLexeme::havingId( 'L1' )->build() );
+
+		$params = [
+			'action' => 'wbladdsense',
+			'lexemeId' => 'L1',
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [
+						'language' => 'en',
+						'value' => str_repeat( 'x', LexemeTermValueValidator::MAX_LENGTH + 1 ),
+					],
+				],
+			] ),
+		];
+
+		$this->doTestQueryApiException( $params, [
+			'key' => 'wikibase-validator-too-long',
 			'code' => 'unprocessable-request',
 		] );
 	}

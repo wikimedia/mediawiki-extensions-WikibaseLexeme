@@ -9,6 +9,7 @@ use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Message\Message;
 use MediaWiki\User\User;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\SenseId;
@@ -194,6 +195,29 @@ class EditSenseElementsTest extends WikibaseLexemeApiTestCase {
 
 		$this->doTestQueryApiException( $params, [
 			'key' => 'apierror-wikibaselexeme-sense-must-have-at-least-one-gloss',
+			'code' => 'unprocessable-request',
+		] );
+	}
+
+	public function testGivenTooLongGloss_errorIsReported() {
+		$sense = NewSense::havingId( 'S1' )->withGloss( 'en', 'furry animal' )->build();
+		$this->saveEntity( NewLexeme::havingId( 'L1' )->withSense( $sense )->build() );
+
+		$params = [
+			'action' => 'wbleditsenseelements',
+			'senseId' => self::DEFAULT_SENSE_ID,
+			'data' => json_encode( [
+				'glosses' => [
+					'en' => [
+						'language' => 'en',
+						'value' => str_repeat( 'x', LexemeTermValueValidator::MAX_LENGTH + 1 ),
+					],
+				],
+			] ),
+		];
+
+		$this->doTestQueryApiException( $params, [
+			'key' => 'wikibase-validator-too-long',
 			'code' => 'unprocessable-request',
 		] );
 	}

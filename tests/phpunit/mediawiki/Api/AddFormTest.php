@@ -10,6 +10,7 @@ use MediaWiki\Message\Message;
 use MediaWiki\User\User;
 use Wikibase\DataModel\Entity\Item;
 use Wikibase\DataModel\Entity\ItemId;
+use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Tests\MediaWiki\WikibaseLexemeApiTestCase;
@@ -169,6 +170,29 @@ class AddFormTest extends WikibaseLexemeApiTestCase {
 
 		$this->doTestQueryApiException( $params, [
 			'key' => 'apierror-wikibaselexeme-form-must-have-at-least-one-representation',
+			'code' => 'unprocessable-request',
+		] );
+	}
+
+	public function testGivenTooLongRepresentation_errorIsReported() {
+		$this->saveEntity( NewLexeme::havingId( 'L1' )->build() );
+
+		$params = [
+			'action' => 'wbladdform',
+			'lexemeId' => 'L1',
+			'data' => json_encode( [
+				'representations' => [
+					'en' => [
+						'language' => 'en',
+						'value' => str_repeat( 'x', LexemeTermValueValidator::MAX_LENGTH + 1 ),
+					],
+				],
+				'grammaticalFeatures' => [],
+			] ),
+		];
+
+		$this->doTestQueryApiException( $params, [
+			'key' => 'wikibase-validator-too-long',
 			'code' => 'unprocessable-request',
 		] );
 	}
