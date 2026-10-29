@@ -28,7 +28,7 @@ class WikibaseRepoOpenApiDocFragmentsHookHandlerTest extends \MediaWikiIntegrati
 		( new WikibaseRepoOpenApiDocFragmentsHookHandler() )
 			->onWikibaseRepoOpenApiDocFragments( $joiner );
 
-		$expectedPaths = array_column( RestRoutes::getAllRouteDefinitions(), 'path' );
+		$expectedPaths = array_unique( array_column( RestRoutes::getAllRouteDefinitions(), 'path' ) );
 		$this->assertEqualsCanonicalizing( $expectedPaths, array_keys( $joinedFragment['paths'] ) );
 		// the joined fragment must be self-contained: nothing resolves $refs at runtime
 		$this->assertStringNotContainsString( '"$ref"', json_encode( $joinedFragment ) );

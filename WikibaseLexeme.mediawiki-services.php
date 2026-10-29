@@ -12,6 +12,7 @@ use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
+use Wikibase\Lexeme\DataAccess\JsonDiffLexemeJsonPatcher;
 use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
 use Wikibase\Lexeme\DataAccess\Store\EntityRevisionLookupLexemeRetriever;
@@ -44,6 +45,7 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeValidator;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
@@ -76,6 +78,7 @@ use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
+use Wikibase\Repo\Domains\Crud\Infrastructure\JsonDiffJsonPatcher;
 use Wikibase\Repo\Domains\Crud\WbCrud;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
@@ -432,6 +435,20 @@ return call_user_func( static function () {
 						$services->getUserFactory()
 					)
 				),
+			);
+		},
+		'WikibaseLexeme.PatchLexeme' => static function ( MediaWikiServices $services ): PatchLexeme {
+			$lexemeRetriever = new EntityRevisionLookupLexemeRetriever(
+				WikibaseRepo::getEntityRevisionLookup( $services ),
+				$services->get( 'WikibaseLexeme.LexemeReadModelConverter' ),
+			);
+
+			return new PatchLexeme(
+				$lexemeRetriever,
+				$services->get( 'WikibaseLexeme.LexemeSerializer' ),
+				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
+				$lexemeRetriever,
+				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 			);
 		},
 		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {

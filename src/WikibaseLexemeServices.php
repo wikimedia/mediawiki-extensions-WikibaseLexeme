@@ -12,6 +12,7 @@ use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatement;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\FormSerializer;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
@@ -125,6 +126,11 @@ class WikibaseLexemeServices {
 	public static function getAddLexemeSense( ?ContainerInterface $services = null ): AddLexemeSense {
 		return ( $services ?: MediaWikiServices::getInstance() )
 			->get( 'WikibaseLexeme.AddLexemeSense' );
+	}
+
+	public static function getPatchLexeme( ?ContainerInterface $services = null ): PatchLexeme {
+		return ( $services ?: MediaWikiServices::getInstance() )
+			->get( 'WikibaseLexeme.PatchLexeme' );
 	}
 
 	public static function getSenseSerializer( ?ContainerInterface $services = null ): SenseSerializer {

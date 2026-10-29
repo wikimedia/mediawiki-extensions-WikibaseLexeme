@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
+use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Repo\Domains\Crud\Domain\Model\LabelEditSummary;
@@ -47,6 +48,11 @@ class LexemeEditSummaryFormatterTest extends MediaWikiLangTestCase {
 		yield 'create lexeme with user comment' => [
 			new CrudEditSummaryAdapter( new CreateLexemeEditSummary( 'user comment' ) ),
 			'/* wbeditentity-create-lexeme:0| */ user comment',
+		];
+
+		yield 'patch lexeme with user comment' => [
+			new CrudEditSummaryAdapter( new PatchLexemeEditSummary( 'user comment' ) ),
+			'/* wbeditentity-update:0| */ user comment',
 		];
 
 		yield 'add statement' => [

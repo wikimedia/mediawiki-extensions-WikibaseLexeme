@@ -1,1 +1,7 @@
-[ ]
+[
+	{
+		"path": "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}",
+		"method": "PATCH",
+		"factory": "Wikibase\\Lexeme\\MediaWiki\\RestApi\\PatchLexemeRouteHandler::factory"
+	}
+]

@@ -43,6 +43,8 @@ use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeResponse;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeResponse;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lib\Store\EntityRevisionLookup;
 use Wikibase\Lib\Store\LatestRevisionIdResult;
@@ -347,6 +349,38 @@ class RouteHandlersTest extends MediaWikiIntegrationTestCase {
 						new LexemeRedirect( new LexemeId( 'L2' ) ),
 						$hasHttpStatus( 409 ),
 					],
+					[
+						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
+						$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),
+					],
+				],
+			],
+		];
+
+		yield 'PatchLexeme' => [
+			[
+				'useCase' => PatchLexeme::class,
+				'useCaseResponse' => new PatchLexemeResponse(
+					new Lexeme(
+						new LexemeId( 'L1' ),
+						new Lemmas( new Lemma( 'en', 'colour' ) ),
+						new ItemId( 'Q1' ),
+						new ItemId( 'Q2' ),
+						new StatementList(),
+						new Forms(),
+						new Senses()
+					),
+					42,
+					$lastModified
+				),
+				'serviceName' => 'WikibaseLexeme.PatchLexeme',
+				'validRequest' => [
+					'pathParams' => [ 'lexeme_id' => 'L1' ],
+					'bodyContents' => [
+						'patch' => [ [ 'op' => 'replace', 'path' => '/lemmas/en', 'value' => 'colour' ] ],
+					],
+				],
+				'expectedExceptions' => [
 					[
 						UseCaseError::newInvalidPathParameter( 'lexeme_id' ),
 						$hasErrorCode( UseCaseError::INVALID_PATH_PARAMETER ),

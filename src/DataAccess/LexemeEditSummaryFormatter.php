@@ -9,6 +9,7 @@ use Wikibase\Lexeme\Domain\Model\AddSenseEditSummary;
 use Wikibase\Lexeme\Domain\Model\AddStatementEditSummary;
 use Wikibase\Lexeme\Domain\Model\CreateLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lib\Summary;
 use Wikibase\Repo\Domains\Crud\Domain\Model\EditSummary;
@@ -36,6 +37,7 @@ class LexemeEditSummaryFormatter extends EditSummaryFormatter {
 			),
 			$lexemeSummary instanceof AddFormEditSummary => $this->newAddFormSummary( $lexemeSummary->form ),
 			$lexemeSummary instanceof AddSenseEditSummary => $this->newAddSenseSummary( $lexemeSummary->sense ),
+			$lexemeSummary instanceof PatchLexemeEditSummary => new Summary( 'wbeditentity', 'update' ),
 			default => throw new LogicException( 'Unknown summary type ' . get_class( $summary ) ),
 		};
 		$formatterSummary->setUserSummary( $lexemeSummary->getUserComment() );

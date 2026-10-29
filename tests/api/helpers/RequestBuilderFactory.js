@@ -36,6 +36,13 @@ module.exports = {
 			.withJsonBodyParam( 'sense', sense );
 	},
 
+	newPatchLexemeRequestBuilder( lexemeId, patch ) {
+		return new RequestBuilder()
+			.withRoute( 'PATCH', '/wikibaselexeme/v0/entities/lexemes/{lexeme_id}' )
+			.withPathParam( 'lexeme_id', lexemeId )
+			.withJsonBodyParam( 'patch', patch );
+	},
+
 	newCreateItemRequestBuilder( item ) {
 		return new RequestBuilder()
 			.withRoute( 'POST', '/wikibase/v1/entities/items' )
