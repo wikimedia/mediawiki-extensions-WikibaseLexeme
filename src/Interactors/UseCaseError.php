@@ -42,33 +42,19 @@ class UseCaseError extends RuntimeException {
 	public const string CONTEXT_STATEMENT_GROUP_PROPERTY_ID = 'statement_group_property_id';
 	public const string CONTEXT_STATEMENT_PROPERTY_ID = 'statement_property_id';
 
+	/** @phpcs-require-sorted-array */
 	private const array EXPECTED_CONTEXT_KEYS = [
-		self::RESOURCE_NOT_FOUND => [
-			'required' => [ self::CONTEXT_RESOURCE_TYPE ],
+		self::INVALID_KEY => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
 		],
 		self::INVALID_PATH_PARAMETER => [
 			'required' => [ self::CONTEXT_PARAMETER ],
 		],
-		self::MISSING_FIELD => [
-			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
-		],
 		self::INVALID_VALUE => [
 			'required' => [ self::CONTEXT_PATH ],
 		],
-		self::INVALID_KEY => [
-			'required' => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
-		],
-		self::RESOURCE_REDIRECTED => [
-			'required' => [ self::CONTEXT_REDIRECT_TARGET ],
-		],
-		self::VALUE_TOO_LONG => [
-			'required' => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
-		],
-		self::REFERENCED_RESOURCE_NOT_FOUND => [
-			'required' => [ self::CONTEXT_PATH ],
-		],
-		self::REQUEST_LIMIT_REACHED => [
-			'required' => [ self::CONTEXT_REASON ],
+		self::MISSING_FIELD => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
 		],
 		self::PERMISSION_DENIED => [
 			'required' => [ self::CONTEXT_DENIAL_REASON ],
@@ -77,6 +63,21 @@ class UseCaseError extends RuntimeException {
 		self::PERMISSION_DENIED_UNKNOWN_REASON => [
 			'required' => [],
 		],
+		self::REFERENCED_RESOURCE_NOT_FOUND => [
+			'required' => [ self::CONTEXT_PATH ],
+		],
+		self::REQUEST_LIMIT_REACHED => [
+			'required' => [ self::CONTEXT_REASON ],
+		],
+		self::RESOURCE_NOT_FOUND => [
+			'required' => [ self::CONTEXT_RESOURCE_TYPE ],
+		],
+		self::RESOURCE_REDIRECTED => [
+			'required' => [ self::CONTEXT_REDIRECT_TARGET ],
+		],
+		self::RESOURCE_TOO_LARGE => [
+			'required' => [ self::CONTEXT_LIMIT ],
+		],
 		self::STATEMENT_GROUP_PROPERTY_ID_MISMATCH => [
 			'required' => [
 				self::CONTEXT_PATH,
@@ -84,8 +85,8 @@ class UseCaseError extends RuntimeException {
 				self::CONTEXT_STATEMENT_PROPERTY_ID,
 			],
 		],
-		self::RESOURCE_TOO_LARGE => [
-			'required' => [ self::CONTEXT_LIMIT ],
+		self::VALUE_TOO_LONG => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
 		],
 	];
 
