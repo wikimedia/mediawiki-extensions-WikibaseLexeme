@@ -75,6 +75,14 @@ const errorSchema = {
 	"required": [ "code", "message" ]
 };
 
+const redirectedLexemeExample = {
+	"value": {
+		"code": "redirected-lexeme",
+		"message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+		"context": { "redirect_target": "{redirect_target_id}" }
+	}
+};
+
 module.exports = {
 	"Lexeme": {
 		"description": "A single Lexeme",
@@ -224,13 +232,45 @@ module.exports = {
 			"application/json": {
 				"schema": errorSchema,
 				"examples": {
-					"redirected-lexeme": {
-						"value": {
-							"code": "redirected-lexeme",
-							"message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
-							"context": { "redirect_target": "{redirect_target_id}" }
-						}
-					}
+					"redirected-lexeme": redirectedLexemeExample
+				}
+			}
+		},
+		"headers": { "Content-Language": contentLanguageHeader }
+	},
+	"CannotApplyLexemePatch": {
+		"description": "The provided JSON Patch cannot be applied",
+		"content": {
+			"application/json": {
+				"schema": errorSchema,
+				"examples": {
+					"redirected-lexeme": redirectedLexemeExample,
+					"patch-test-failed": wikibaseRef( '#/components/examples/PatchTestFailedExample' ),
+					"patch-target-not-found": wikibaseRef( '#/components/examples/PatchTargetNotFoundExample' )
+				}
+			}
+		},
+		"headers": { "Content-Language": contentLanguageHeader }
+	},
+	"InvalidPatchedLexeme": {
+		"description": "Applying the provided JSON Patch results in an invalid Lexeme",
+		"content": {
+			"application/json": {
+				"schema": errorSchema,
+				"examples": {
+					"patch-result-invalid-value": wikibaseRef( '#/components/examples/PatchResultInvalidValueExample' ),
+					"patched-statement-group-property-id-mismatch": wikibaseRef(
+						'#/components/examples/PatchedStatementGroupPropertyIdMismatchExample'
+					),
+					"patch-result-referenced-resource-not-found": wikibaseRef(
+						'#/components/examples/PatchResultResourceNotFoundExample'
+					),
+					"patch-result-missing-field": wikibaseRef( '#/components/examples/PatchResultMissingFieldExample' ),
+					"patch-result-invalid-key": wikibaseRef( '#/components/examples/PatchResultInvalidKeyExample' ),
+					"patch-result-value-too-long": wikibaseRef( '#/components/examples/PatchResultValueTooLongExample' ),
+					"patch-result-modified-read-only-value": wikibaseRef(
+						'#/components/examples/PatchResultModifiedReadOnlyValue'
+					)
 				}
 			}
 		},

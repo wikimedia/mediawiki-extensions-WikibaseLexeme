@@ -3153,6 +3153,1636 @@
             }
           }
         }
+      },
+      "patch": {
+        "operationId": "patchLexeme",
+        "tags": [
+          "lexemes"
+        ],
+        "summary": "Change a single Lexeme by ID",
+        "parameters": [
+          {
+            "name": "lexeme_id",
+            "in": "path",
+            "required": true,
+            "description": "The ID of the Lexeme",
+            "schema": {
+              "type": "string",
+              "pattern": "^L[1-9]\\d{0,9}$"
+            },
+            "example": "L42"
+          },
+          {
+            "name": "If-None-Match",
+            "in": "header",
+            "description": "Conditionally perform the request only if the resource has been modified since the specified entity revision numbers",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(?:\".+\"|\\*)$"
+              }
+            },
+            "example": [
+              "\"1276705620\""
+            ]
+          },
+          {
+            "name": "If-Match",
+            "in": "header",
+            "description": "Conditionally perform the request only if the resource has not been modified since one of the specified entity revision numbers",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "pattern": "^(?:\".+\"|\\*)$"
+              }
+            },
+            "example": [
+              "\"1276705620\""
+            ]
+          },
+          {
+            "name": "If-Unmodified-Since",
+            "in": "header",
+            "description": "Conditionally perform the request only if the resource has not been modified after the specified date",
+            "schema": {
+              "type": "string",
+              "format": "http-date"
+            },
+            "example": "Sat, 06 Jun 2020 16:38:47 GMT"
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Make authenticated request using a provided bearer token",
+            "schema": {
+              "type": "string"
+            },
+            "example": "Bearer mF_9.B5f-4.1JqM"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patch": {
+                    "description": "A JSON Patch document as defined by RFC 6902",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "op": {
+                          "description": "The operation to perform",
+                          "type": "string",
+                          "enum": [
+                            "add",
+                            "copy",
+                            "move",
+                            "remove",
+                            "replace",
+                            "test"
+                          ]
+                        },
+                        "path": {
+                          "description": "A JSON Pointer",
+                          "type": "string"
+                        },
+                        "from": {
+                          "description": "A JSON Pointer",
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "The value to be used within the operation"
+                        }
+                      },
+                      "required": [
+                        "op",
+                        "path"
+                      ]
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": []
+                  },
+                  "bot": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "comment": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "patch"
+                ]
+              },
+              "example": {
+                "patch": [
+                  {
+                    "op": "replace",
+                    "path": "/lemmas/en",
+                    "value": "answer"
+                  }
+                ],
+                "tags": [],
+                "bot": false,
+                "comment": "Update the English lemma"
+              }
+            },
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "patch": {
+                    "description": "A JSON Patch document as defined by RFC 6902",
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "op": {
+                          "description": "The operation to perform",
+                          "type": "string",
+                          "enum": [
+                            "add",
+                            "copy",
+                            "move",
+                            "remove",
+                            "replace",
+                            "test"
+                          ]
+                        },
+                        "path": {
+                          "description": "A JSON Pointer",
+                          "type": "string"
+                        },
+                        "from": {
+                          "description": "A JSON Pointer",
+                          "type": "string"
+                        },
+                        "value": {
+                          "description": "The value to be used within the operation"
+                        }
+                      },
+                      "required": [
+                        "op",
+                        "path"
+                      ]
+                    }
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    },
+                    "default": []
+                  },
+                  "bot": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "comment": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "patch"
+                ]
+              },
+              "example": {
+                "patch": [
+                  {
+                    "op": "replace",
+                    "path": "/lemmas/en",
+                    "value": "answer"
+                  }
+                ],
+                "tags": [],
+                "bot": false,
+                "comment": "Update the English lemma"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "A single Lexeme",
+            "headers": {
+              "ETag": {
+                "description": "Last entity revision number",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              },
+              "Last-Modified": {
+                "description": "Last modified date",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              },
+              "X-Authenticated-User": {
+                "description": "Optional username of the user making the request",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "description": "The ID of the Lexeme",
+                      "type": "string",
+                      "pattern": "^L[1-9]\\d{0,9}$",
+                      "readOnly": true
+                    },
+                    "lemmas": {
+                      "description": "The lemmas of the Lexeme, keyed by language code",
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "minProperties": 1
+                    },
+                    "lexical_category": {
+                      "description": "The ID of the Item representing the lexical category of the Lexeme",
+                      "type": "string",
+                      "pattern": "^Q[1-9]\\d{0,9}$"
+                    },
+                    "language": {
+                      "description": "The ID of the Item representing the language of the Lexeme",
+                      "type": "string",
+                      "pattern": "^Q[1-9]\\d{0,9}$"
+                    },
+                    "statements": {
+                      "description": "The statements of the Lexeme, keyed by Property ID",
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "allOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "description": "The globally unique identifier for this Statement",
+                                  "type": "string",
+                                  "readOnly": true
+                                },
+                                "rank": {
+                                  "description": "The rank of the Statement",
+                                  "type": "string",
+                                  "enum": [
+                                    "deprecated",
+                                    "normal",
+                                    "preferred"
+                                  ],
+                                  "default": "normal"
+                                },
+                                "property": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "description": "The ID of the Property",
+                                      "type": "string"
+                                    },
+                                    "data_type": {
+                                      "description": "The data type of the Property",
+                                      "type": [
+                                        "string",
+                                        "null"
+                                      ],
+                                      "readOnly": true
+                                    }
+                                  }
+                                },
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "content": {
+                                      "description": "The value, if type == \"value\", otherwise omitted"
+                                    },
+                                    "type": {
+                                      "description": "The value type",
+                                      "type": "string",
+                                      "enum": [
+                                        "value",
+                                        "somevalue",
+                                        "novalue"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "qualifiers": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
+                                          }
+                                        }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": []
+                                },
+                                "references": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "hash": {
+                                        "description": "Hash of the Reference",
+                                        "type": "string",
+                                        "readOnly": true
+                                      },
+                                      "parts": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
+                                                }
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  },
+                                  "default": []
+                                }
+                              }
+                            },
+                            {
+                              "allOf": [
+                                {
+                                  "required": [
+                                    "property",
+                                    "value"
+                                  ],
+                                  "properties": {
+                                    "property": {
+                                      "required": [
+                                        "id",
+                                        "data_type"
+                                      ]
+                                    },
+                                    "value": {
+                                      "required": [
+                                        "type"
+                                      ]
+                                    }
+                                  }
+                                },
+                                {
+                                  "required": [
+                                    "id",
+                                    "rank",
+                                    "qualifiers",
+                                    "references"
+                                  ],
+                                  "properties": {
+                                    "qualifiers": {
+                                      "items": {
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ],
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        }
+                                      }
+                                    },
+                                    "references": {
+                                      "items": {
+                                        "required": [
+                                          "hash",
+                                          "parts"
+                                        ],
+                                        "properties": {
+                                          "hash": {
+                                            "type": "string"
+                                          },
+                                          "parts": {
+                                            "items": {
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ],
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    "forms": {
+                      "description": "The Forms of the Lexeme",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "description": "The ID of the Form",
+                            "type": "string",
+                            "pattern": "^L[1-9]\\d*-F[1-9]\\d*$",
+                            "readOnly": true
+                          },
+                          "representations": {
+                            "description": "The representations of the Form, keyed by language code",
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "string"
+                            },
+                            "minProperties": 1
+                          },
+                          "grammatical_features": {
+                            "description": "The IDs of the Items representing the grammatical features of the Form",
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "pattern": "^Q[1-9]\\d{0,9}$"
+                            }
+                          },
+                          "statements": {
+                            "description": "The statements of the Form, keyed by Property ID",
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "array",
+                              "items": {
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "description": "The globally unique identifier for this Statement",
+                                        "type": "string",
+                                        "readOnly": true
+                                      },
+                                      "rank": {
+                                        "description": "The rank of the Statement",
+                                        "type": "string",
+                                        "enum": [
+                                          "deprecated",
+                                          "normal",
+                                          "preferred"
+                                        ],
+                                        "default": "normal"
+                                      },
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
+                                          }
+                                        }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "qualifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
+                                                }
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      },
+                                      "references": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "hash": {
+                                              "description": "Hash of the Reference",
+                                              "type": "string",
+                                              "readOnly": true
+                                            },
+                                            "parts": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "property": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "description": "The ID of the Property",
+                                                        "type": "string"
+                                                      },
+                                                      "data_type": {
+                                                        "description": "The data type of the Property",
+                                                        "type": [
+                                                          "string",
+                                                          "null"
+                                                        ],
+                                                        "readOnly": true
+                                                      }
+                                                    }
+                                                  },
+                                                  "value": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "content": {
+                                                        "description": "The value, if type == \"value\", otherwise omitted"
+                                                      },
+                                                      "type": {
+                                                        "description": "The value type",
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "value",
+                                                          "somevalue",
+                                                          "novalue"
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "allOf": [
+                                      {
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ],
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "required": [
+                                          "id",
+                                          "rank",
+                                          "qualifiers",
+                                          "references"
+                                        ],
+                                        "properties": {
+                                          "qualifiers": {
+                                            "items": {
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ],
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "references": {
+                                            "items": {
+                                              "required": [
+                                                "hash",
+                                                "parts"
+                                              ],
+                                              "properties": {
+                                                "hash": {
+                                                  "type": "string"
+                                                },
+                                                "parts": {
+                                                  "items": {
+                                                    "required": [
+                                                      "property",
+                                                      "value"
+                                                    ],
+                                                    "properties": {
+                                                      "property": {
+                                                        "required": [
+                                                          "id",
+                                                          "data_type"
+                                                        ]
+                                                      },
+                                                      "value": {
+                                                        "required": [
+                                                          "type"
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "representations",
+                          "grammatical_features",
+                          "statements"
+                        ]
+                      }
+                    },
+                    "senses": {
+                      "description": "The Senses of the Lexeme",
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "description": "The ID of the Sense",
+                            "type": "string",
+                            "pattern": "^L[1-9]\\d*-S[1-9]\\d*$",
+                            "readOnly": true
+                          },
+                          "glosses": {
+                            "description": "The glosses of the Sense, keyed by language code",
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "string"
+                            },
+                            "minProperties": 1
+                          },
+                          "statements": {
+                            "description": "The statements of the Sense, keyed by Property ID",
+                            "type": "object",
+                            "additionalProperties": {
+                              "type": "array",
+                              "items": {
+                                "allOf": [
+                                  {
+                                    "type": "object",
+                                    "properties": {
+                                      "id": {
+                                        "description": "The globally unique identifier for this Statement",
+                                        "type": "string",
+                                        "readOnly": true
+                                      },
+                                      "rank": {
+                                        "description": "The rank of the Statement",
+                                        "type": "string",
+                                        "enum": [
+                                          "deprecated",
+                                          "normal",
+                                          "preferred"
+                                        ],
+                                        "default": "normal"
+                                      },
+                                      "property": {
+                                        "type": "object",
+                                        "properties": {
+                                          "id": {
+                                            "description": "The ID of the Property",
+                                            "type": "string"
+                                          },
+                                          "data_type": {
+                                            "description": "The data type of the Property",
+                                            "type": [
+                                              "string",
+                                              "null"
+                                            ],
+                                            "readOnly": true
+                                          }
+                                        }
+                                      },
+                                      "value": {
+                                        "type": "object",
+                                        "properties": {
+                                          "content": {
+                                            "description": "The value, if type == \"value\", otherwise omitted"
+                                          },
+                                          "type": {
+                                            "description": "The value type",
+                                            "type": "string",
+                                            "enum": [
+                                              "value",
+                                              "somevalue",
+                                              "novalue"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "qualifiers": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "property": {
+                                              "type": "object",
+                                              "properties": {
+                                                "id": {
+                                                  "description": "The ID of the Property",
+                                                  "type": "string"
+                                                },
+                                                "data_type": {
+                                                  "description": "The data type of the Property",
+                                                  "type": [
+                                                    "string",
+                                                    "null"
+                                                  ],
+                                                  "readOnly": true
+                                                }
+                                              }
+                                            },
+                                            "value": {
+                                              "type": "object",
+                                              "properties": {
+                                                "content": {
+                                                  "description": "The value, if type == \"value\", otherwise omitted"
+                                                },
+                                                "type": {
+                                                  "description": "The value type",
+                                                  "type": "string",
+                                                  "enum": [
+                                                    "value",
+                                                    "somevalue",
+                                                    "novalue"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      },
+                                      "references": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "hash": {
+                                              "description": "Hash of the Reference",
+                                              "type": "string",
+                                              "readOnly": true
+                                            },
+                                            "parts": {
+                                              "type": "array",
+                                              "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                  "property": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "id": {
+                                                        "description": "The ID of the Property",
+                                                        "type": "string"
+                                                      },
+                                                      "data_type": {
+                                                        "description": "The data type of the Property",
+                                                        "type": [
+                                                          "string",
+                                                          "null"
+                                                        ],
+                                                        "readOnly": true
+                                                      }
+                                                    }
+                                                  },
+                                                  "value": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                      "content": {
+                                                        "description": "The value, if type == \"value\", otherwise omitted"
+                                                      },
+                                                      "type": {
+                                                        "description": "The value type",
+                                                        "type": "string",
+                                                        "enum": [
+                                                          "value",
+                                                          "somevalue",
+                                                          "novalue"
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        },
+                                        "default": []
+                                      }
+                                    }
+                                  },
+                                  {
+                                    "allOf": [
+                                      {
+                                        "required": [
+                                          "property",
+                                          "value"
+                                        ],
+                                        "properties": {
+                                          "property": {
+                                            "required": [
+                                              "id",
+                                              "data_type"
+                                            ]
+                                          },
+                                          "value": {
+                                            "required": [
+                                              "type"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      {
+                                        "required": [
+                                          "id",
+                                          "rank",
+                                          "qualifiers",
+                                          "references"
+                                        ],
+                                        "properties": {
+                                          "qualifiers": {
+                                            "items": {
+                                              "required": [
+                                                "property",
+                                                "value"
+                                              ],
+                                              "properties": {
+                                                "property": {
+                                                  "required": [
+                                                    "id",
+                                                    "data_type"
+                                                  ]
+                                                },
+                                                "value": {
+                                                  "required": [
+                                                    "type"
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          },
+                                          "references": {
+                                            "items": {
+                                              "required": [
+                                                "hash",
+                                                "parts"
+                                              ],
+                                              "properties": {
+                                                "hash": {
+                                                  "type": "string"
+                                                },
+                                                "parts": {
+                                                  "items": {
+                                                    "required": [
+                                                      "property",
+                                                      "value"
+                                                    ],
+                                                    "properties": {
+                                                      "property": {
+                                                        "required": [
+                                                          "id",
+                                                          "data_type"
+                                                        ]
+                                                      },
+                                                      "value": {
+                                                        "required": [
+                                                          "type"
+                                                        ]
+                                                      }
+                                                    }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    ]
+                                  }
+                                ]
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "glosses",
+                          "statements"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "lemmas",
+                    "lexical_category",
+                    "language",
+                    "statements",
+                    "forms",
+                    "senses"
+                  ]
+                },
+                "example": {
+                  "id": "L42",
+                  "lemmas": {
+                    "en": "answer"
+                  },
+                  "lexical_category": "Q1084",
+                  "language": "Q1860",
+                  "statements": {
+                    "P5402": [
+                      {
+                        "id": "L42$06e1e5e0-42ee-f89d-6780-2131e657e121",
+                        "rank": "normal",
+                        "property": {
+                          "id": "P5402",
+                          "data_type": "wikibase-lexeme"
+                        },
+                        "value": {
+                          "type": "value",
+                          "content": "L961"
+                        },
+                        "qualifiers": [],
+                        "references": []
+                      }
+                    ]
+                  },
+                  "forms": [
+                    {
+                      "id": "L42-F1",
+                      "representations": {
+                        "en": "answer"
+                      },
+                      "grammatical_features": [
+                        "Q110786"
+                      ],
+                      "statements": {
+                        "P443": [
+                          {
+                            "id": "L42-F1$885f84f6-4d51-3331-5afb-a8edb72c24fc",
+                            "rank": "normal",
+                            "property": {
+                              "id": "P443",
+                              "data_type": "commonsMedia"
+                            },
+                            "value": {
+                              "type": "value",
+                              "content": "En-us-answer.ogg"
+                            },
+                            "qualifiers": [
+                              {
+                                "property": {
+                                  "id": "P5237",
+                                  "data_type": "wikibase-item"
+                                },
+                                "value": {
+                                  "type": "value",
+                                  "content": "Q7976"
+                                }
+                              }
+                            ],
+                            "references": []
+                          }
+                        ]
+                      }
+                    }
+                  ],
+                  "senses": [
+                    {
+                      "id": "L42-S1",
+                      "glosses": {
+                        "en": "reply; reaction to a question"
+                      },
+                      "statements": {
+                        "P5137": [
+                          {
+                            "id": "L42-S1$6d0f034a-455c-0b68-3020-208a5c969435",
+                            "rank": "normal",
+                            "property": {
+                              "id": "P5137",
+                              "data_type": "wikibase-item"
+                            },
+                            "value": {
+                              "type": "value",
+                              "content": "Q1920566"
+                            },
+                            "qualifiers": [],
+                            "references": []
+                          }
+                        ]
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The provided JSON Patch request is invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "invalid-path-parameter": {
+                    "value": {
+                      "code": "invalid-path-parameter",
+                      "message": "Invalid path parameter: '{path_parameter}'",
+                      "context": {
+                        "parameter": "{path_parameter}"
+                      }
+                    }
+                  },
+                  "invalid-value": {
+                    "value": {
+                      "code": "invalid-value",
+                      "message": "Invalid value at '{json_pointer}'",
+                      "context": {
+                        "path": "{json_pointer}"
+                      }
+                    }
+                  },
+                  "missing-field": {
+                    "value": {
+                      "code": "missing-field",
+                      "message": "Required field missing",
+                      "context": {
+                        "path": "{json_pointer_to_parent}",
+                        "field": "{missing_field}"
+                      }
+                    }
+                  },
+                  "value-too-long": {
+                    "value": {
+                      "code": "value-too-long",
+                      "message": "The input value is too long",
+                      "context": {
+                        "path": "{json_pointer_to_element}",
+                        "limit": "{configured_limit}"
+                      }
+                    }
+                  },
+                  "resource-too-large": {
+                    "value": {
+                      "code": "resource-too-large",
+                      "message": "Edit resulted in a resource that exceeds the size limit of {configured_limit}",
+                      "context": {
+                        "limit": "configured_limit_as_int"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "403": {
+            "description": "The access to resource was denied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "permission-denied": {
+                    "value": {
+                      "code": "permission-denied",
+                      "message": "Access to resource is denied",
+                      "context": {
+                        "denial_reason": "{reason_code}",
+                        "denial_context": "{additional_context}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource was not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "resource-not-found": {
+                    "value": {
+                      "code": "resource-not-found",
+                      "message": "The requested resource does not exist",
+                      "context": {
+                        "resource_type": "{resource_type}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "409": {
+            "description": "The provided JSON Patch cannot be applied",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "redirected-lexeme": {
+                    "value": {
+                      "code": "redirected-lexeme",
+                      "message": "Lexeme {lexeme_id} has been redirected to {redirect_target_id}",
+                      "context": {
+                        "redirect_target": "{redirect_target_id}"
+                      }
+                    }
+                  },
+                  "patch-test-failed": {
+                    "value": {
+                      "code": "patch-test-failed",
+                      "message": "Test operation in the provided patch failed",
+                      "context": {
+                        "path": "{json_pointer_to_patch_operation}",
+                        "actual_value": "actual value"
+                      }
+                    }
+                  },
+                  "patch-target-not-found": {
+                    "value": {
+                      "code": "patch-target-not-found",
+                      "message": "Target not found on resource",
+                      "context": {
+                        "path": "{json_pointer_to_target_in_patch}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "412": {
+            "description": "The condition defined by a conditional request header is not fulfilled"
+          },
+          "422": {
+            "description": "Applying the provided JSON Patch results in an invalid Lexeme",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "patch-result-invalid-value": {
+                    "value": {
+                      "code": "patch-result-invalid-value",
+                      "message": "Invalid value in patch result",
+                      "context": {
+                        "value": "{value}",
+                        "path": "{path}"
+                      }
+                    }
+                  },
+                  "patched-statement-group-property-id-mismatch": {
+                    "value": {
+                      "code": "patched-statement-group-property-id-mismatch",
+                      "message": "Statement's Property ID does not match the Statement group key",
+                      "context": {
+                        "path": "{property_id_key}/{index}/property/id",
+                        "statement_group_property_id": "{property_id_key}",
+                        "statement_property_id": "{property_id_value}"
+                      }
+                    }
+                  },
+                  "patch-result-referenced-resource-not-found": {
+                    "value": {
+                      "code": "patch-result-referenced-resource-not-found",
+                      "message": "The referenced resource does not exist",
+                      "context": {
+                        "path": "{json_pointer_to_missing_resource_in_patch_result}",
+                        "value": "{value}"
+                      }
+                    }
+                  },
+                  "patch-result-missing-field": {
+                    "value": {
+                      "code": "patch-result-missing-field",
+                      "message": "Required field missing in patch result",
+                      "context": {
+                        "path": "{json_pointer_to_parent}",
+                        "field": "{missing_field}"
+                      }
+                    }
+                  },
+                  "patch-result-invalid-key": {
+                    "value": {
+                      "code": "patch-result-invalid-key",
+                      "message": "Invalid key in patch result",
+                      "context": {
+                        "path": "{json_pointer_to_parent_in_patch_result}",
+                        "key": "{key}"
+                      }
+                    }
+                  },
+                  "patch-result-value-too-long": {
+                    "value": {
+                      "code": "patch-result-value-too-long",
+                      "message": "Patched value is too long",
+                      "context": {
+                        "path": "{json_pointer_to_patched_element}",
+                        "limit": "{configured_limit}"
+                      }
+                    }
+                  },
+                  "patch-result-modified-read-only-value": {
+                    "value": {
+                      "code": "patch-result-modified-read-only-value",
+                      "message": "Read only value in patch result cannot be modified",
+                      "context": {
+                        "path": "{json_pointer_to_readonly_value}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "429": {
+            "description": "Too many requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "examples": {
+                  "request-limit-reached": {
+                    "value": {
+                      "code": "request-limit-reached",
+                      "message": "Exceeded the limit of actions that can be performed in a given span of time",
+                      "context": {
+                        "reason": "{reason_code}"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected error has occurred",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string"
+                    },
+                    "message": {
+                      "type": "string"
+                    },
+                    "context": {
+                      "type": "object"
+                    }
+                  },
+                  "required": [
+                    "code",
+                    "message"
+                  ]
+                },
+                "example": {
+                  "code": "unexpected-error",
+                  "message": "Unexpected Error"
+                }
+              }
+            },
+            "headers": {
+              "Content-Language": {
+                "description": "Language code of the language in which error message is provided",
+                "schema": {
+                  "type": "string"
+                },
+                "required": true
+              }
+            }
+          }
+        }
       }
     },
     "/wikibaselexeme/v0/entities/lexemes/{lexeme_id}/statements": {
