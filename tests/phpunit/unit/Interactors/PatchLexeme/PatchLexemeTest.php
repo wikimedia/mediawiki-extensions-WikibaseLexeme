@@ -18,7 +18,10 @@ use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Repo\Domains\Crud\Infrastructure\JsonDiffJsonPatcher;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
@@ -68,6 +71,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
 			$writeModelRetriever,
 			$lexemeUpdater,
+			new PatchLexemeValidator( new LexemeIdValidator() ),
 		) )->execute( new PatchLexemeRequest(
 			'L1',
 			[
@@ -86,6 +90,34 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		$this->assertSame( 'colour', $response->lexeme->lemmas['en-gb']->text );
 		$this->assertSame( $expectedRevisionId, $response->revisionId );
 		$this->assertSame( $expectedLastModified, $response->lastModified );
+	}
+
+	public function testGivenInvalidRequest_throwsWithoutUpdating(): void {
+		$request = new PatchLexemeRequest( 'L1', [], [], false, null );
+		$expectedException = $this->createStub( UseCaseError::class );
+
+		$validator = $this->createMock( PatchLexemeValidator::class );
+		$validator->expects( $this->once() )
+			->method( 'validate' )
+			->with( $request )
+			->willThrowException( $expectedException );
+
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		try {
+			( new PatchLexeme(
+				$this->createStub( LexemeRetriever::class ),
+				$this->createStub( LexemeSerializer::class ),
+				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
+				$this->createStub( LexemeWriteModelRetriever::class ),
+				$lexemeUpdater,
+				$validator,
+			) )->execute( $request );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedException, $e );
+		}
 	}
 
 }

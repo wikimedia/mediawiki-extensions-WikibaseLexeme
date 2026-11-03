@@ -46,6 +46,7 @@ use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeValidator;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\EditFormChangeOpDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\ItemIdListDeserializer;
 use Wikibase\Lexeme\Presentation\ChangeOp\Deserialization\RepresentationsChangeOpDeserializer;
@@ -449,6 +450,7 @@ return call_user_func( static function () {
 				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
 				$lexemeRetriever,
 				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
+				new PatchLexemeValidator( new LexemeIdValidator() ),
 			);
 		},
 		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {

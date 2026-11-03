@@ -5,12 +5,12 @@ namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
-use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Services\LexemeJsonPatcher;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 
 /**
@@ -24,11 +24,16 @@ class PatchLexeme {
 		private LexemeJsonPatcher $jsonPatcher,
 		private LexemeWriteModelRetriever $lexemeWriteModelRetriever,
 		private LexemeUpdater $lexemeUpdater,
+		private PatchLexemeValidator $validator,
 	) {
 	}
 
+	/**
+	 * @throws UseCaseError
+	 */
 	public function execute( PatchLexemeRequest $request ): PatchLexemeResponse {
-		$lexemeId = new LexemeId( $request->lexemeId );
+		$this->validator->validate( $request );
+		$lexemeId = $this->validator->getValidatedLexemeId();
 
 		$patchedSerialization = $this->jsonPatcher->patch(
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable

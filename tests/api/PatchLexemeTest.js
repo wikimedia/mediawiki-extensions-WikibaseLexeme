@@ -54,4 +54,14 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 		assert.deepStrictEqual( getResponse.body.lemmas, expectedLemmas );
 	} );
 
+	it( 'responds 400 if the lexeme id is invalid', async () => {
+		const response = await newPatchLexemeRequestBuilder( 'not-a-lexeme-id', [
+			{ op: 'add', path: '/lemmas/en-gb', value: `test-lemma-${ utils.uniq() }` }
+		] ).makeRequest();
+
+		expect( response ).to.have.status( 400 );
+		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
+		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
+	} );
+
 } );
