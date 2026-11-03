@@ -4,7 +4,7 @@ const { strict: assert } = require( 'assert' );
 const { execFileSync } = require( 'child_process' );
 const fs = require( 'fs' );
 const path = require( 'path' );
-const { getRoutePaths } = require( './helpers/restRoutes.js' );
+const { getRegisteredEndpoints, getDocumentedEndpoints } = require( './helpers/restRoutes.js' );
 
 const EXTENSION_ROOT = path.resolve( __dirname, '../..' );
 const FRAGMENT_ENTRY = path.join( EXTENSION_ROOT, 'src/MediaWiki/RestApi/specs/index.fragment.js' );
@@ -23,7 +23,10 @@ describe( 'committed dereferenced fragment artifact', () => {
 	it( 'is self-contained and documents exactly the WikibaseLexeme REST API routes', () => {
 		const artifact = JSON.parse( fs.readFileSync( COMMITTED_ARTIFACT, 'utf8' ) );
 
-		assert.deepEqual( Object.keys( artifact.paths ).sort(), getRoutePaths().sort() );
+		assert.deepEqual(
+			getDocumentedEndpoints( artifact ).sort(),
+			getRegisteredEndpoints().sort()
+		);
 		// the artifact is registered with Wikibase's openapi.json route handler,
 		// and nothing at runtime resolves $refs
 		assert.ok( !JSON.stringify( artifact ).includes( '"$ref"' ) );
