@@ -77,6 +77,17 @@ class RequestBuilder {
 		return this;
 	}
 
+	/**
+	 * No-op that exists for compatibility with Wikibase's shared test helpers (e.g. testValidatesPatch).
+	 * Wikibase's request builder validates requests against its own OpenAPI document, which doesn't
+	 * contain the Lexeme routes.
+	 *
+	 * @return {this}
+	 */
+	assertInvalidRequest() {
+		return this;
+	}
+
 	async makeRequest() {
 		const XDEBUG_SESSION = process.env.XDEBUG_SESSION;
 		if ( XDEBUG_SESSION ) {
