@@ -46,7 +46,7 @@
 		"@redocly/cli": "^2.66.0",
 		"ajv": "^8.17.1",
 		"api-testing": "^1.8.1",
-		"cypress": "^13.17.0",
+		"cypress": "15.21.1",
 		"cypress-parallel": "^0.15.0",
 		"cypress-wikibase-api": "^0.0.10",
 		"eslint-config-wikimedia": "^0.32.6",
