@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\MediaWiki\RestApi;
 use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
+use MediaWiki\Rest\Validator\Validator;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeResponse;
@@ -18,6 +19,8 @@ use Wikimedia\ParamValidator\ParamValidator;
  * @license GPL-2.0-or-later
  */
 class PatchLexemeRouteHandler extends SimpleHandler {
+
+	use AssertValidTopLevelFields;
 
 	private const LEXEME_ID_PATH_PARAM = 'lexeme_id';
 	private const PATCH_BODY_PARAM = 'patch';
@@ -42,6 +45,11 @@ class PatchLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getLexemeSerializer(),
 			new ResponseFactory(),
 		);
+	}
+
+	public function validate( Validator $restValidator ): void {
+		$this->assertValidTopLevelTypes( $this->getRequest()->getParsedBody(), $this->getBodyParamSettings() );
+		parent::validate( $restValidator );
 	}
 
 	public function run( string $lexemeId ): Response {

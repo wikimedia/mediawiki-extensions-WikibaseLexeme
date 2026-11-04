@@ -6,6 +6,7 @@ use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
+use Wikibase\Lexeme\DataAccess\JsonDiffJsonPatchValidator;
 use Wikibase\Lexeme\DataAccess\JsonDiffLexemeJsonPatcher;
 use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
@@ -71,7 +72,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
 			$writeModelRetriever,
 			$lexemeUpdater,
-			new PatchLexemeValidator( new LexemeIdValidator() ),
+			new PatchLexemeValidator( new LexemeIdValidator(), new JsonDiffJsonPatchValidator() ),
 		) )->execute( new PatchLexemeRequest(
 			'L1',
 			[

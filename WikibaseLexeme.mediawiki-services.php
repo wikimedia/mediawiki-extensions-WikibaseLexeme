@@ -12,6 +12,7 @@ use Wikibase\DataModel\Services\Statement\GuidGenerator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermLanguageValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermSerializationValidator;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
+use Wikibase\Lexeme\DataAccess\JsonDiffJsonPatchValidator;
 use Wikibase\Lexeme\DataAccess\JsonDiffLexemeJsonPatcher;
 use Wikibase\Lexeme\DataAccess\LexemeEditSummaryFormatter;
 use Wikibase\Lexeme\DataAccess\Store\EntityLookupLemmaLookup;
@@ -450,7 +451,7 @@ return call_user_func( static function () {
 				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
 				$lexemeRetriever,
 				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
-				new PatchLexemeValidator( new LexemeIdValidator() ),
+				new PatchLexemeValidator( new LexemeIdValidator(), new JsonDiffJsonPatchValidator() ),
 			);
 		},
 		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {
