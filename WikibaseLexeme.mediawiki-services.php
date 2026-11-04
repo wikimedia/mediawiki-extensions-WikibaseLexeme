@@ -451,7 +451,14 @@ return call_user_func( static function () {
 				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
 				$lexemeRetriever,
 				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
-				new PatchLexemeValidator( new LexemeIdValidator(), new JsonDiffJsonPatchValidator() ),
+				new PatchLexemeValidator(
+					new LexemeIdValidator(),
+					new JsonDiffJsonPatchValidator(),
+					new EditMetadataRequestValidator(
+						new ChangeTagsStoreTagsRetriever( $services->getChangeTagsStore() ),
+						CommentStore::COMMENT_CHARACTER_LIMIT,
+					),
+				),
 			);
 		},
 		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {

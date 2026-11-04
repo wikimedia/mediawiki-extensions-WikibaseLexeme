@@ -10,6 +10,7 @@ use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 
 /**
@@ -28,11 +29,21 @@ class PatchLexemeValidatorTest extends MediaWikiUnitTestCase {
 		$this->assertEquals( new LexemeId( 'L123' ), $validator->getValidatedLexemeId() );
 	}
 
-	public function testGivenInvalidLexemeId_throwsUseCaseError(): void {
-		$validator = $this->newValidator();
+	public function testGivenValidRequest_validatesEditMetadata(): void {
+		$editTags = [ 'allowed tag' ];
+		$comment = 'user comment';
+		$editMetadataRequestValidator = $this->createMock( EditMetadataRequestValidator::class );
+		$editMetadataRequestValidator->expects( $this->once() )
+			->method( 'validate' )
+			->with( $editTags, $comment );
 
+		$this->newValidator( $editMetadataRequestValidator )
+			->validate( self::newRequest( 'L123', [], $editTags, $comment ) );
+	}
+
+	public function testGivenInvalidLexemeId_throwsUseCaseError(): void {
 		try {
-			$validator->validate( $this->newRequest( 'not-a-lexeme-id' ) );
+			$this->newValidator()->validate( $this->newRequest( 'not-a-lexeme-id' ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( UseCaseError::INVALID_PATH_PARAMETER, $e->errorCode );
@@ -113,12 +124,22 @@ class PatchLexemeValidatorTest extends MediaWikiUnitTestCase {
 		$this->newValidator()->getValidatedLexemeId();
 	}
 
-	private function newValidator(): PatchLexemeValidator {
-		return new PatchLexemeValidator( new LexemeIdValidator(), new JsonDiffJsonPatchValidator() );
+	private function newRequest(
+		string $lexemeId,
+		array $patch = [],
+		array $editTags = [],
+		?string $comment = null
+	): PatchLexemeRequest {
+		return new PatchLexemeRequest( $lexemeId, $patch, $editTags, false, $comment );
 	}
 
-	private function newRequest( string $lexemeId, array $patch = [] ): PatchLexemeRequest {
-		return new PatchLexemeRequest( $lexemeId, $patch, [], false, null );
+	private function newValidator(
+		?EditMetadataRequestValidator $editMetadataRequestValidator = null,
+	): PatchLexemeValidator {
+		return new PatchLexemeValidator(
+			new LexemeIdValidator(),
+			new JsonDiffJsonPatchValidator(),
+			$editMetadataRequestValidator ?? $this->createStub( EditMetadataRequestValidator::class ),
+		);
 	}
-
 }

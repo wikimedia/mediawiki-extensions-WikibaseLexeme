@@ -1,6 +1,6 @@
 'use strict';
 
-const { assert, utils } = require( 'api-testing' );
+const { assert, action, utils } = require( 'api-testing' );
 const {
 	newCreateLexemeRequestBuilder,
 	newGetLexemeRequestBuilder,
@@ -8,7 +8,7 @@ const {
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
 const testValidatesPatch = require( '../../../Wikibase/repo/domains/crud/tests/mocha/helpers/testValidatesPatch' );
-const { getItemId } = require( './helpers/entityHelper' );
+const { getItemId, getLatestEditMetadata } = require( './helpers/entityHelper' );
 
 describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 	let lexemeId;
@@ -53,6 +53,33 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 
 		const getResponse = await newGetLexemeRequestBuilder( lexemeId ).makeRequest();
 		assert.deepStrictEqual( getResponse.body.lemmas, expectedLemmas );
+	} );
+
+	it( 'patches a lexeme with edit metadata provided', async () => {
+		const user = await action.robby();
+		const tag = await action.makeTag( 'e2e test tag', 'Created during e2e test', true );
+		const editSummary = 'omg look i patched a lexeme';
+		const newLemma = `test-lemma-${ utils.uniq() }`;
+		const otherNewLemma = `test-lemma-${ utils.uniq() }`;
+
+		const response = await newPatchLexemeRequestBuilder( lexemeId, [
+			{ op: 'replace', path: '/lemmas/en', value: newLemma },
+			{ op: 'add', path: '/lemmas/en-gb', value: otherNewLemma }
+		] ).withJsonBodyParam( 'tags', [ tag ] )
+			.withJsonBodyParam( 'bot', true )
+			.withJsonBodyParam( 'comment', editSummary )
+			.withUser( user )
+			.makeRequest();
+
+		expect( response ).to.have.status( 200 );
+		const editMetadata = await getLatestEditMetadata( lexemeId );
+		assert.deepEqual( editMetadata.tags, [ tag ] );
+		assert.property( editMetadata, 'bot' );
+		assert.strictEqual(
+			editMetadata.comment,
+			`/* wbeditentity-update:0| */ ${ editSummary }`
+		);
+		assert.strictEqual( editMetadata.user, user.username );
 	} );
 
 	it( 'responds 400 if the lexeme id is invalid', async () => {

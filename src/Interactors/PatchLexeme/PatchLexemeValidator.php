@@ -5,6 +5,7 @@ namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 use LogicException;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Interactors\UseCaseError;
+use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Lexeme\Validation\JsonPatchValidator;
 
@@ -18,6 +19,7 @@ class PatchLexemeValidator {
 	public function __construct(
 		private LexemeIdValidator $lexemeIdValidator,
 		private JsonPatchValidator $jsonPatchValidator,
+		private EditMetadataRequestValidator $editMetadataRequestValidator,
 	) {
 	}
 
@@ -27,6 +29,7 @@ class PatchLexemeValidator {
 	public function validate( PatchLexemeRequest $request ): void {
 		$this->lexemeId = $this->lexemeIdValidator->validate( $request->lexemeId );
 		$this->validatePatch( $request->patch );
+		$this->editMetadataRequestValidator->validate( $request->editTags, $request->comment );
 	}
 
 	public function getValidatedLexemeId(): LexemeId {

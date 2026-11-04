@@ -6,7 +6,6 @@ use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
-use Wikibase\Lexeme\DataAccess\JsonDiffJsonPatchValidator;
 use Wikibase\Lexeme\DataAccess\JsonDiffLexemeJsonPatcher;
 use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
@@ -22,7 +21,6 @@ use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
-use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
 use Wikibase\Repo\Domains\Crud\Infrastructure\JsonDiffJsonPatcher;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
@@ -66,14 +64,12 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 				$expectedLastModified,
 			) );
 
-		$response = ( new PatchLexeme(
-			$lexemeRetriever,
-			$lexemeSerializer,
-			new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
-			$writeModelRetriever,
-			$lexemeUpdater,
-			new PatchLexemeValidator( new LexemeIdValidator(), new JsonDiffJsonPatchValidator() ),
-		) )->execute( new PatchLexemeRequest(
+		$response = $this->newUseCase(
+			lexemeRetriever: $lexemeRetriever,
+			lexemeSerializer: $lexemeSerializer,
+			lexemeWriteModelRetriever:  $writeModelRetriever,
+			lexemeUpdater: $lexemeUpdater
+		)->execute( new PatchLexemeRequest(
 			'L1',
 			[
 				[ 'op' => 'replace', 'path' => '/lemmas/en', 'value' => 'colour' ],
@@ -107,18 +103,36 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		$lexemeUpdater->expects( $this->never() )->method( 'update' );
 
 		try {
-			( new PatchLexeme(
-				$this->createStub( LexemeRetriever::class ),
-				$this->createStub( LexemeSerializer::class ),
-				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
-				$this->createStub( LexemeWriteModelRetriever::class ),
-				$lexemeUpdater,
-				$validator,
+			( $this->newUseCase(
+				lexemeUpdater: $lexemeUpdater,
+				validator: $validator,
 			) )->execute( $request );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( $expectedException, $e );
 		}
+	}
+
+	private function newUseCase(
+		?LexemeRetriever $lexemeRetriever = null,
+		?LexemeSerializer $lexemeSerializer = null,
+		?LexemeWriteModelRetriever $lexemeWriteModelRetriever = null,
+		?LexemeUpdater $lexemeUpdater = null,
+		?PatchLexemeValidator $validator = null,
+	): PatchLexeme {
+		if ( $validator === null ) {
+			$validator = $this->createStub( PatchLexemeValidator::class );
+			$validator->method( 'getValidatedLexemeId' )
+				->willReturn( new LexemeId( 'L1' ) );
+		}
+		return new PatchLexeme(
+			$lexemeRetriever ?? $this->createStub( LexemeRetriever::class ),
+			$lexemeSerializer ?? $this->createStub( LexemeSerializer::class ),
+			new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
+			$lexemeWriteModelRetriever ?? $this->createStub( LexemeWriteModelRetriever::class ),
+			$lexemeUpdater,
+			$validator,
+		);
 	}
 
 }

@@ -6,7 +6,8 @@ const {
 	newAddLexemeSenseRequestBuilder,
 	newAddLexemeStatementRequestBuilder,
 	newCreateLexemeRequestBuilder,
-	newGetLexemeRequestBuilder
+	newGetLexemeRequestBuilder,
+	newPatchLexemeRequestBuilder
 } = require( './RequestBuilderFactory' );
 
 const withRequestInputs = ( requestInputs, newRequestBuilders ) => newRequestBuilders.map(
@@ -43,8 +44,18 @@ const lexemeEditRequests = ( requestInputs ) => withRequestInputs( requestInputs
 	)
 ] );
 
+// move to lexemeEditRequests once finished
+const patchLexemeRequest = ( requestInputs ) => ( {
+	newRequestBuilder: () => newPatchLexemeRequestBuilder(
+		requestInputs.lexemeId,
+		[ { op: 'replace', path: '/lemmas/en', value: `test-lemma-${ Math.random() }` } ]
+	),
+	requestInputs
+} );
+
 module.exports = {
 	lexemeCreateRequests,
 	lexemeGetRequests,
-	lexemeEditRequests
+	lexemeEditRequests,
+	patchLexemeRequest
 };
