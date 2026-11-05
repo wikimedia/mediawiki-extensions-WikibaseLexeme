@@ -21,7 +21,6 @@ use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
-use Wikibase\Repo\Domains\Crud\Infrastructure\JsonDiffJsonPatcher;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
@@ -128,7 +127,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		return new PatchLexeme(
 			$lexemeRetriever ?? $this->createStub( LexemeRetriever::class ),
 			$lexemeSerializer ?? $this->createStub( LexemeSerializer::class ),
-			new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
+			new JsonDiffLexemeJsonPatcher(),
 			$lexemeWriteModelRetriever ?? $this->createStub( LexemeWriteModelRetriever::class ),
 			$lexemeUpdater,
 			$validator,

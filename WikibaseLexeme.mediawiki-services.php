@@ -80,7 +80,6 @@ use Wikibase\Repo\Api\EntityIdSearchHelper;
 use Wikibase\Repo\Api\EntitySearchHelper;
 use Wikibase\Repo\ChangeOp\Deserialization\ClaimsChangeOpDeserializer;
 use Wikibase\Repo\Domains\Crud\Infrastructure\DataAccess\EntityUpdater;
-use Wikibase\Repo\Domains\Crud\Infrastructure\JsonDiffJsonPatcher;
 use Wikibase\Repo\Domains\Crud\WbCrud;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\PropertyValuePairSerializer;
 use Wikibase\Repo\Domains\Statements\Application\Serialization\ReferenceSerializer;
@@ -448,7 +447,7 @@ return call_user_func( static function () {
 			return new PatchLexeme(
 				$lexemeRetriever,
 				$services->get( 'WikibaseLexeme.LexemeSerializer' ),
-				new JsonDiffLexemeJsonPatcher( new JsonDiffJsonPatcher() ),
+				new JsonDiffLexemeJsonPatcher(),
 				$lexemeRetriever,
 				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 				new PatchLexemeValidator(
