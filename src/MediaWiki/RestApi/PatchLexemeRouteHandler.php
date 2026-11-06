@@ -6,6 +6,7 @@ use MediaWiki\Rest\Handler;
 use MediaWiki\Rest\Response;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Validator\Validator;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeResponse;
@@ -70,6 +71,15 @@ class PatchLexemeRouteHandler extends SimpleHandler {
 						$jsonBody[self::BOT_BODY_PARAM] ?? false,
 						$jsonBody[self::COMMENT_BODY_PARAM] ?? null,
 					)
+				)
+			);
+		} catch ( LexemeRedirect $e ) {
+			$redirectTarget = $e->redirectTarget->getSerialization();
+
+			return $this->responseFactory->newErrorResponseFromException(
+				UseCaseError::newLexemeRedirected(
+					$lexemeId,
+					$redirectTarget
 				)
 			);
 		} catch ( UseCaseError $e ) {

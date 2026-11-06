@@ -10,6 +10,8 @@ use Wikibase\Lexeme\Domain\Services\LexemeJsonPatcher;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
+use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 
@@ -19,6 +21,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 class PatchLexeme {
 
 	public function __construct(
+		private GetLatestLexemeRevisionMetadata $getLatestRevisionMetadata,
 		private LexemeRetriever $lexemeRetriever,
 		private LexemeSerializer $lexemeSerializer,
 		private LexemeJsonPatcher $jsonPatcher,
@@ -30,11 +33,13 @@ class PatchLexeme {
 
 	/**
 	 * @throws UseCaseError
+	 * @throws LexemeRedirect
 	 */
 	public function execute( PatchLexemeRequest $request ): PatchLexemeResponse {
 		$this->validator->validate( $request );
 		$lexemeId = $this->validator->getValidatedLexemeId();
 
+		$this->getLatestRevisionMetadata->assertLexemeExists( $lexemeId );
 		$patchedSerialization = $this->jsonPatcher->patch(
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			$this->lexemeSerializer->serialize( $this->lexemeRetriever->getLexeme( $lexemeId ) ),

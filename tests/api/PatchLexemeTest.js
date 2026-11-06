@@ -8,15 +8,20 @@ const {
 } = require( './helpers/RequestBuilderFactory' );
 const { expect } = require( './helpers/chaiHelper' );
 const testValidatesPatch = require( '../../../Wikibase/repo/domains/crud/tests/mocha/helpers/testValidatesPatch' );
-const { getItemId, getLatestEditMetadata } = require( './helpers/entityHelper' );
+const {
+	getItemId,
+	getLatestEditMetadata,
+	createRedirectForLexeme
+} = require( './helpers/entityHelper' );
 
 describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
+	let itemId;
 	let lexemeId;
 	let originalEtag;
 	let originalLastModified;
 
 	before( async () => {
-		const itemId = await getItemId();
+		itemId = await getItemId();
 		const createLexemeResponse = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
 			lexical_category: itemId,
@@ -90,6 +95,42 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 		expect( response ).to.have.status( 400 );
 		assert.strictEqual( response.body.code, 'invalid-path-parameter' );
 		assert.deepStrictEqual( response.body.context, { parameter: 'lexeme_id' } );
+	} );
+
+	it( 'returns 404 if the lexeme does not exist', async () => {
+		const response = await newPatchLexemeRequestBuilder( 'L999999', [] ).makeRequest();
+
+		expect( response ).to.have.status( 404 );
+		assert.strictEqual( response.body.code, 'resource-not-found' );
+		assert.deepStrictEqual( response.body.context, { resource_type: 'lexeme' } );
+	} );
+
+	it( 'returns 409 if the lexeme has been redirected', async () => {
+		const sourceLexemeResponse = await newCreateLexemeRequestBuilder( {
+			lemmas: { 'en-ca': `redirect-${ utils.uniq() }` },
+			lexical_category: itemId,
+			language: itemId
+		} ).makeRequest();
+
+		const sourceLexemeId = sourceLexemeResponse.body.id;
+
+		await createRedirectForLexeme(
+			sourceLexemeId,
+			lexemeId
+		);
+
+		const response = await newPatchLexemeRequestBuilder( sourceLexemeId, [] )
+			.makeRequest();
+
+		expect( response ).to.have.status( 409 );
+
+		assert.deepStrictEqual( response.body, {
+			code: 'resource-redirected',
+			message: `Resource ${ sourceLexemeId } has been redirected to ${ lexemeId }.`,
+			context: {
+				redirect_target: lexemeId
+			}
+		} );
 	} );
 
 	testValidatesPatch( ( patch ) => newPatchLexemeRequestBuilder( lexemeId, patch ) );

@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
@@ -125,6 +126,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 				->willReturn( new LexemeId( 'L1' ) );
 		}
 		return new PatchLexeme(
+			$this->createStub( GetLatestLexemeRevisionMetadata::class ),
 			$lexemeRetriever ?? $this->createStub( LexemeRetriever::class ),
 			$lexemeSerializer ?? $this->createStub( LexemeSerializer::class ),
 			new JsonDiffLexemeJsonPatcher(),

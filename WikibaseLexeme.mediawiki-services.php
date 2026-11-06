@@ -43,6 +43,7 @@ use Wikibase\Lexeme\Interactors\AddLexemeStatement\AddLexemeStatementValidator;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexeme;
 use Wikibase\Lexeme\Interactors\CreateLexeme\CreateLexemeValidator;
+use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexeme;
 use Wikibase\Lexeme\Interactors\GetLexeme\GetLexemeValidator;
 use Wikibase\Lexeme\Interactors\MergeLexemes\MergeLexemesInteractor;
@@ -445,6 +446,11 @@ return call_user_func( static function () {
 			);
 
 			return new PatchLexeme(
+				new GetLatestLexemeRevisionMetadata(
+					new EntityRevisionLookupLexemeRevisionMetadataRetriever(
+						WikibaseRepo::getEntityRevisionLookup( $services )
+					)
+				),
 				$lexemeRetriever,
 				$services->get( 'WikibaseLexeme.LexemeSerializer' ),
 				new JsonDiffLexemeJsonPatcher(),
