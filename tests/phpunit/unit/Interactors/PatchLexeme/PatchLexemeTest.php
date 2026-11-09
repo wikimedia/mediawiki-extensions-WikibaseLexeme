@@ -18,6 +18,7 @@ use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
@@ -80,6 +81,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			$tags,
 			true,
 			$userComment,
+			null
 		) );
 
 		$this->assertSame(
@@ -92,7 +94,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 	}
 
 	public function testGivenInvalidRequest_throwsWithoutUpdating(): void {
-		$request = new PatchLexemeRequest( 'L1', [], [], false, null );
+		$request = new PatchLexemeRequest( 'L1', [], [], false, null, null );
 		$expectedException = $this->createStub( UseCaseError::class );
 
 		$validator = $this->createMock( PatchLexemeValidator::class );
@@ -137,7 +139,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 				lexemeRetriever: $lexemeRetriever,
 				lexemeSerializer: $lexemeSerializer,
 				lexemeUpdater: $lexemeUpdater,
-			)->execute( new PatchLexemeRequest( 'L1', $patch, [], false, null ) );
+			)->execute( new PatchLexemeRequest( 'L1', $patch, [], false, null, null ) );
 			$this->fail( 'Expected UseCaseError to be thrown' );
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( $expectedErrorCode, $e->errorCode );
@@ -168,12 +170,35 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		];
 	}
 
+	public function testGivenUnauthorizedUser_throwsWithoutUpdating(): void {
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		$expectedException = UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED );
+		$assertUserIsAuthorized = $this->createStub( AssertUserIsAuthorized::class );
+		$assertUserIsAuthorized->method( 'checkEditPermissions' )
+			->willThrowException( $expectedException );
+
+		try {
+			$this->newUseCase(
+				lexemeUpdater: $lexemeUpdater,
+				assertUserIsAuthorized: $assertUserIsAuthorized,
+			)->execute(
+				new PatchLexemeRequest( 'L1', [], [], true, 'user comment', null )
+			);
+			$this->fail( 'this should not be reached' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedException, $e );
+		}
+	}
+
 	private function newUseCase(
 		?LexemeRetriever $lexemeRetriever = null,
 		?LexemeSerializer $lexemeSerializer = null,
 		?LexemeWriteModelRetriever $lexemeWriteModelRetriever = null,
 		?LexemeUpdater $lexemeUpdater = null,
 		?PatchLexemeValidator $validator = null,
+		?AssertUserIsAuthorized $assertUserIsAuthorized = null,
 	): PatchLexeme {
 		if ( $validator === null ) {
 			$validator = $this->createStub( PatchLexemeValidator::class );
@@ -188,6 +213,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			$lexemeWriteModelRetriever ?? $this->createStub( LexemeWriteModelRetriever::class ),
 			$lexemeUpdater,
 			$validator,
+			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
 		);
 	}
 

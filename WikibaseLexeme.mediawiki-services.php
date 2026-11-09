@@ -464,6 +464,12 @@ return call_user_func( static function () {
 						CommentStore::COMMENT_CHARACTER_LIMIT,
 					),
 				),
+				new AssertUserIsAuthorized(
+					new WikibaseEntityPermissionChecker(
+						WikibaseRepo::getEntityPermissionChecker( $services ),
+						$services->getUserFactory()
+					)
+				),
 			);
 		},
 		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {

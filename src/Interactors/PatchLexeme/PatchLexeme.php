@@ -7,12 +7,14 @@ use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
+use Wikibase\Lexeme\Domain\Model\User;
 use Wikibase\Lexeme\Domain\Services\Exceptions\PatchPathException;
 use Wikibase\Lexeme\Domain\Services\Exceptions\PatchTestConditionFailedException;
 use Wikibase\Lexeme\Domain\Services\LexemeJsonPatcher;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
+use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -31,6 +33,7 @@ class PatchLexeme {
 		private LexemeWriteModelRetriever $lexemeWriteModelRetriever,
 		private LexemeUpdater $lexemeUpdater,
 		private PatchLexemeValidator $validator,
+		private AssertUserIsAuthorized $assertUserIsAuthorized,
 	) {
 	}
 
@@ -43,6 +46,11 @@ class PatchLexeme {
 		$lexemeId = $this->validator->getValidatedLexemeId();
 
 		$this->getLatestRevisionMetadata->assertLexemeExists( $lexemeId );
+		$this->assertUserIsAuthorized->checkEditPermissions(
+			$request->username === null ? User::newAnonymous() : User::withUsername( $request->username ),
+			$lexemeId
+		);
+
 		$patchedSerialization = $this->patchLexemeSerialization(
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			$this->lexemeSerializer->serialize( $this->lexemeRetriever->getLexeme( $lexemeId ) ),

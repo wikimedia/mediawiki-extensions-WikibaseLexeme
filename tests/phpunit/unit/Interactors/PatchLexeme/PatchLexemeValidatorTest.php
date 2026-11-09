@@ -130,7 +130,7 @@ class PatchLexemeValidatorTest extends MediaWikiUnitTestCase {
 		array $editTags = [],
 		?string $comment = null
 	): PatchLexemeRequest {
-		return new PatchLexemeRequest( $lexemeId, $patch, $editTags, false, $comment );
+		return new PatchLexemeRequest( $lexemeId, $patch, $editTags, false, $comment, null );
 	}
 
 	private function newValidator(
