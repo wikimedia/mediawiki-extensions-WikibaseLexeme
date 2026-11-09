@@ -17,6 +17,7 @@ use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
+use Wikibase\Lexeme\Interactors\UpdateExceptionHandler;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 
@@ -24,6 +25,8 @@ use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
  * @license GPL-2.0-or-later
  */
 class PatchLexeme {
+
+	use UpdateExceptionHandler;
 
 	public function __construct(
 		private GetLatestLexemeRevisionMetadata $getLatestRevisionMetadata,
@@ -64,12 +67,14 @@ class PatchLexeme {
 			$patchedSerialization['lemmas']
 		) ) );
 
-		$lexemeRevision = $this->lexemeUpdater->update(
-			$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
-			new EditMetadata(
-				$request->editTags,
-				$request->isBot,
-				new PatchLexemeEditSummary( $request->comment ),
+		$lexemeRevision = $this->executeWithExceptionHandling(
+			fn () => $this->lexemeUpdater->update(
+				$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
+				new EditMetadata(
+					$request->editTags,
+					$request->isBot,
+					new PatchLexemeEditSummary( $request->comment ),
+				),
 			),
 		);
 

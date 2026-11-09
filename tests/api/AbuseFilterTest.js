@@ -7,7 +7,8 @@ const {
 	newAddLexemeStatementRequestBuilder,
 	newCreateLexemeRequestBuilder,
 	newAddLexemeFormRequestBuilder,
-	newAddLexemeSenseRequestBuilder
+	newAddLexemeSenseRequestBuilder,
+	newPatchLexemeRequestBuilder
 } = require( './helpers/RequestBuilderFactory' );
 const { getItemId, getStringPropertyId } = require( './helpers/entityHelper' );
 const { assertValidError } = require( './helpers/responseValidator' );
@@ -98,6 +99,10 @@ describe( 'Edit prevented with abuse filter', () => {
 		() => newAddLexemeSenseRequestBuilder(
 			testLexemeId,
 			{ glosses: { en: filterTriggerWord } }
+		),
+		() => newPatchLexemeRequestBuilder(
+			testLexemeId,
+			[ { op: 'replace', path: '/lemmas/en', value: filterTriggerWord } ]
 		)
 	].forEach( ( newRequestBuilder ) => {
 		it( `${ newRequestBuilder().getRouteDescription() } rejects edits matching an abuse filter`, async () => {

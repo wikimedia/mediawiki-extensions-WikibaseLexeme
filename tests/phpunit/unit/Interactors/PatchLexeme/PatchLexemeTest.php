@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\Interactors\PatchLexeme;
 
+use Exception;
 use Generator;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
@@ -10,6 +11,10 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\JsonDiffLexemeJsonPatcher;
 use Wikibase\Lexeme\DataAccess\Store\LexemeReadModelConverter;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
+use Wikibase\Lexeme\Domain\Model\Exceptions\EditPrevented;
+use Wikibase\Lexeme\Domain\Model\Exceptions\RateLimitReached;
+use Wikibase\Lexeme\Domain\Model\Exceptions\ResourceTooLargeException;
+use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
@@ -190,6 +195,94 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( $expectedException, $e );
 		}
+	}
+
+	/**
+	 * @dataProvider exceptionProvider
+	 */
+	public function testGivenLexemeUpdaterException_throwsUseCaseError(
+		Exception $exception,
+		string $expectedErrorCode,
+		string $expectedErrorMessage,
+		array $expectedContext,
+	): void {
+		$lexeme = new LexemeWriteModel(
+			new LexemeId( 'L1' ),
+			new TermList( [ new Term( 'en', 'color' ) ] ),
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
+		);
+		$readModelConverter = new LexemeReadModelConverter( $this->createStub( StatementReadModelConverter::class ) );
+
+		$lexemeRetriever = $this->createStub( LexemeRetriever::class );
+		$lexemeRetriever->method( 'getLexeme' )->willReturn( $readModelConverter->convert( $lexeme ) );
+		$lexemeSerializer = $this->createStub( LexemeSerializer::class );
+		$lexemeSerializer->method( 'serialize' )->willReturn( [ 'lemmas' => [ 'en' => 'color' ] ] );
+		$writeModelRetriever = $this->createStub( LexemeWriteModelRetriever::class );
+		$writeModelRetriever->method( 'getLexemeWriteModel' )->willReturn( $lexeme->copy() );
+
+		$lexemeUpdater = $this->createStub( LexemeUpdater::class );
+		$lexemeUpdater->method( 'update' )->willThrowException( $exception );
+
+		try {
+			$this->newUseCase(
+				lexemeRetriever: $lexemeRetriever,
+				lexemeSerializer: $lexemeSerializer,
+				lexemeWriteModelRetriever: $writeModelRetriever,
+				lexemeUpdater: $lexemeUpdater,
+			)->execute( new PatchLexemeRequest(
+				'L1',
+				[ [ 'op' => 'replace', 'path' => '/lemmas/en', 'value' => 'colour' ] ],
+				[],
+				false,
+				null,
+				null,
+			) );
+
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedErrorCode, $e->errorCode );
+			$this->assertSame( $expectedErrorMessage, $e->errorMessage );
+			$this->assertSame( $expectedContext, $e->context );
+		}
+	}
+
+	public static function exceptionProvider(): iterable {
+		yield 'rate limit reached' => [
+			new RateLimitReached(),
+			UseCaseError::REQUEST_LIMIT_REACHED,
+			'Exceeded the limit of actions that can be performed in a given span of time',
+			[ UseCaseError::CONTEXT_REASON => UseCaseError::REQUEST_LIMIT_REASON_RATE_LIMIT ],
+		];
+
+		yield 'temp account creation limit reached' => [
+			new TempAccountCreationLimitReached(),
+			UseCaseError::REQUEST_LIMIT_REACHED,
+			'Exceeded the limit of actions that can be performed in a given span of time',
+			[
+				UseCaseError::CONTEXT_REASON =>
+					UseCaseError::REQUEST_LIMIT_REASON_TEMP_ACCOUNT_CREATION_LIMIT,
+			],
+		];
+
+		$limit = 1024;
+		yield 'resource too large' => [
+			new ResourceTooLargeException( $limit ),
+			UseCaseError::RESOURCE_TOO_LARGE,
+			"Edit resulted in a resource that exceeds the size limit of $limit kB",
+			[ UseCaseError::CONTEXT_LIMIT => $limit ],
+		];
+
+		$blockedText = 'example.com';
+		yield 'edit prevented' => [
+			new EditPrevented( 'spamblacklist', [ 'spamblacklist' => [ 'matches' => [ $blockedText ] ] ] ),
+			UseCaseError::PERMISSION_DENIED,
+			'Access to resource is denied',
+			[
+				UseCaseError::CONTEXT_DENIAL_REASON => 'spamblacklist',
+				UseCaseError::CONTEXT_DENIAL_CONTEXT => [ 'spamblacklist' => [ 'matches' => [ $blockedText ] ] ],
+			],
+		];
 	}
 
 	private function newUseCase(
