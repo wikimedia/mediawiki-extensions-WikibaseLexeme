@@ -10,6 +10,7 @@ module.exports = {
 	root: true,
 	rules: {
 		"camelcase": [ "error", { allow: [
+			"actual_value",
 			"data_type",
 			"denial_context",
 			"denial_reason",

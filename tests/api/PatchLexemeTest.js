@@ -13,6 +13,7 @@ const {
 	getLatestEditMetadata,
 	createRedirectForLexeme
 } = require( './helpers/entityHelper' );
+const { assertValidError } = require( './helpers/responseValidator' );
 
 describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 	let itemId;
@@ -134,5 +135,35 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 	} );
 
 	testValidatesPatch( ( patch ) => newPatchLexemeRequestBuilder( lexemeId, patch ) );
+
+	describe( '409 error response', () => {
+		it( '"path" field target does not exist', async () => {
+			const operation = { op: 'remove', path: '/path/does/not/exist' };
+
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [ operation ] ).makeRequest();
+
+			assertValidError( response, 409, 'patch-target-not-found', { path: '/patch/0/path' } );
+			assert.strictEqual( response.body.message, 'Target not found on resource' );
+		} );
+
+		it( '"from" field target does not exist', async () => {
+			const operation = { op: 'copy', from: '/path/does/not/exist', path: '/lemmas/en' };
+
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [ operation ] ).makeRequest();
+
+			assertValidError( response, 409, 'patch-target-not-found', { path: '/patch/0/from' } );
+			assert.strictEqual( response.body.message, 'Target not found on resource' );
+		} );
+
+		it( 'patch test condition failed', async () => {
+			const currentLemma = ( await newGetLexemeRequestBuilder( lexemeId ).makeRequest() ).body.lemmas.en;
+			const operation = { op: 'test', path: '/lemmas/en', value: `not-${ currentLemma }` };
+
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [ operation ] ).makeRequest();
+
+			assertValidError( response, 409, 'patch-test-failed', { path: '/patch/0', actual_value: currentLemma } );
+			assert.strictEqual( response.body.message, 'Test operation in the provided patch failed' );
+		} );
+	} );
 
 } );

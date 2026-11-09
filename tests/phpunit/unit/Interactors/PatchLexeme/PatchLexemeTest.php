@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\Interactors\PatchLexeme;
 
+use Generator;
 use MediaWikiUnitTestCase;
 use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
@@ -12,6 +13,7 @@ use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
@@ -111,6 +113,59 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		} catch ( UseCaseError $e ) {
 			$this->assertSame( $expectedException, $e );
 		}
+	}
+
+	/**
+	 * @dataProvider provideInapplicablePatch
+	 */
+	public function testGivenInapplicablePatch_throwsWithoutUpdating(
+		array $patch,
+		string $expectedErrorCode,
+		array $expectedContext,
+	): void {
+		$lexemeRetriever = $this->createStub( LexemeRetriever::class );
+		$lexemeRetriever->method( 'getLexeme' )
+			->willReturn( $this->createStub( Lexeme::class ) );
+		$lexemeSerializer = $this->createStub( LexemeSerializer::class );
+		$lexemeSerializer->method( 'serialize' )->willReturn( [ 'lemmas' => [ 'en' => 'color' ] ] );
+
+		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
+		$lexemeUpdater->expects( $this->never() )->method( 'update' );
+
+		try {
+			$this->newUseCase(
+				lexemeRetriever: $lexemeRetriever,
+				lexemeSerializer: $lexemeSerializer,
+				lexemeUpdater: $lexemeUpdater,
+			)->execute( new PatchLexemeRequest( 'L1', $patch, [], false, null ) );
+			$this->fail( 'Expected UseCaseError to be thrown' );
+		} catch ( UseCaseError $e ) {
+			$this->assertSame( $expectedErrorCode, $e->errorCode );
+			$this->assertSame( $expectedContext, $e->context );
+		}
+	}
+
+	public static function provideInapplicablePatch(): Generator {
+		yield 'non-existent path' => [
+			[ [ 'op' => 'remove', 'path' => '/lemmas/de' ] ],
+			UseCaseError::PATCH_TARGET_NOT_FOUND,
+			[ UseCaseError::CONTEXT_PATH => '/patch/0/path' ],
+		];
+
+		yield 'non-existent from' => [
+			[ [ 'op' => 'copy', 'from' => '/lemmas/de', 'path' => '/lemmas/en-gb' ] ],
+			UseCaseError::PATCH_TARGET_NOT_FOUND,
+			[ UseCaseError::CONTEXT_PATH => '/patch/0/from' ],
+		];
+
+		yield 'failed test operation' => [
+			[
+				[ 'op' => 'add', 'path' => '/lemmas/en-gb', 'value' => 'colour' ],
+				[ 'op' => 'test', 'path' => '/lemmas/en', 'value' => 'colour' ],
+			],
+			UseCaseError::PATCH_TEST_FAILED,
+			[ UseCaseError::CONTEXT_PATH => '/patch/1', UseCaseError::CONTEXT_ACTUAL_VALUE => 'color' ],
+		];
 	}
 
 	private function newUseCase(

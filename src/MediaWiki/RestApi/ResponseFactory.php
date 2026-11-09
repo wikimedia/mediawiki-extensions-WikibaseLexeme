@@ -34,6 +34,8 @@ class ResponseFactory {
 		UseCaseError::REQUEST_LIMIT_REACHED => 429,
 		// 409 errors:
 		UseCaseError::RESOURCE_REDIRECTED => 409,
+		UseCaseError::PATCH_TARGET_NOT_FOUND => 409,
+		UseCaseError::PATCH_TEST_FAILED => 409,
 	];
 
 	public function newSuccessResponse(

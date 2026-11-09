@@ -2,10 +2,13 @@
 
 namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 
+use LogicException;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
+use Wikibase\Lexeme\Domain\Services\Exceptions\PatchPathException;
+use Wikibase\Lexeme\Domain\Services\Exceptions\PatchTestConditionFailedException;
 use Wikibase\Lexeme\Domain\Services\LexemeJsonPatcher;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
@@ -40,7 +43,7 @@ class PatchLexeme {
 		$lexemeId = $this->validator->getValidatedLexemeId();
 
 		$this->getLatestRevisionMetadata->assertLexemeExists( $lexemeId );
-		$patchedSerialization = $this->jsonPatcher->patch(
+		$patchedSerialization = $this->patchLexemeSerialization(
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
 			$this->lexemeSerializer->serialize( $this->lexemeRetriever->getLexeme( $lexemeId ) ),
 			$request->patch
@@ -67,6 +70,23 @@ class PatchLexeme {
 			$lexemeRevision->revisionId,
 			$lexemeRevision->lastModified,
 		);
+	}
+
+	/**
+	 * @throws UseCaseError
+	 */
+	private function patchLexemeSerialization( array $serialization, array $patch ): mixed {
+		try {
+			return $this->jsonPatcher->patch( $serialization, $patch );
+		} catch ( PatchPathException $e ) {
+			throw UseCaseError::newPatchTargetNotFound( "/patch/{$e->getOpIndex()}/{$e->getField()}" );
+		} catch ( PatchTestConditionFailedException $e ) {
+			$opIndex = array_search( $e->getOperation(), $patch );
+			if ( !is_int( $opIndex ) ) {
+				throw new LogicException( "The failed test operation wasn't found in the original patch document" );
+			}
+			throw UseCaseError::newPatchTestFailed( "/patch/$opIndex", $e->getActualValue() );
+		}
 	}
 
 }

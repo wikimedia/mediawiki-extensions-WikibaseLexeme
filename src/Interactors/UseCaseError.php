@@ -28,7 +28,10 @@ class UseCaseError extends RuntimeException {
 	public const string PERMISSION_DENIED_REASON_PAGE_PROTECTED = 'resource-protected';
 	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
 	public const string STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'statement-group-property-id-mismatch';
+	public const string PATCH_TARGET_NOT_FOUND = 'patch-target-not-found';
+	public const string PATCH_TEST_FAILED = 'patch-test-failed';
 
+	public const string CONTEXT_ACTUAL_VALUE = 'actual_value';
 	public const string CONTEXT_DENIAL_CONTEXT = 'denial_context';
 	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
 	public const string CONTEXT_RESOURCE_TYPE = 'resource_type';
@@ -55,6 +58,12 @@ class UseCaseError extends RuntimeException {
 		],
 		self::MISSING_FIELD => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
+		],
+		self::PATCH_TARGET_NOT_FOUND => [
+			'required' => [ self::CONTEXT_PATH ],
+		],
+		self::PATCH_TEST_FAILED => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_ACTUAL_VALUE ],
 		],
 		self::PERMISSION_DENIED => [
 			'required' => [ self::CONTEXT_DENIAL_REASON ],
@@ -187,6 +196,22 @@ class UseCaseError extends RuntimeException {
 				self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID => $statementGroupPropertyId,
 				self::CONTEXT_STATEMENT_PROPERTY_ID => $statementPropertyId,
 			],
+		);
+	}
+
+	public static function newPatchTargetNotFound( string $path ): self {
+		return new self(
+			self::PATCH_TARGET_NOT_FOUND,
+			'Target not found on resource',
+			[ self::CONTEXT_PATH => $path ],
+		);
+	}
+
+	public static function newPatchTestFailed( string $path, mixed $actualValue ): self {
+		return new self(
+			self::PATCH_TEST_FAILED,
+			'Test operation in the provided patch failed',
+			[ self::CONTEXT_PATH => $path, self::CONTEXT_ACTUAL_VALUE => $actualValue ],
 		);
 	}
 
