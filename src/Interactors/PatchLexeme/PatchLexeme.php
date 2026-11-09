@@ -3,8 +3,6 @@
 namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 
 use LogicException;
-use Wikibase\DataModel\Term\Term;
-use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
 use Wikibase\Lexeme\Domain\Model\User;
@@ -37,6 +35,7 @@ class PatchLexeme {
 		private LexemeUpdater $lexemeUpdater,
 		private PatchLexemeValidator $validator,
 		private AssertUserIsAuthorized $assertUserIsAuthorized,
+		private PatchedLexemeValidator $patchedLexemeValidator,
 	) {
 	}
 
@@ -60,16 +59,16 @@ class PatchLexeme {
 			$request->patch
 		);
 
-		$lexeme = $this->lexemeWriteModelRetriever->getLexemeWriteModel( $lexemeId );
-		$lexeme->setLemmas( new TermList( array_map(
-			static fn ( string $language, string $text ) => new Term( $language, $text ),
-			array_keys( $patchedSerialization['lemmas'] ),
-			$patchedSerialization['lemmas']
-		) ) );
+		$originalLexeme = $this->lexemeWriteModelRetriever->getLexemeWriteModel( $lexemeId );
+
+		$patchedLexeme = $this->patchedLexemeValidator->validateAndDeserialize(
+			$patchedSerialization,
+			$originalLexeme // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
+		);
 
 		$lexemeRevision = $this->executeWithExceptionHandling(
 			fn () => $this->lexemeUpdater->update(
-				$lexeme, // @phan-suppress-current-line PhanTypeMismatchArgumentNullable
+				$patchedLexeme,
 				new EditMetadata(
 					$request->editTags,
 					$request->isBot,

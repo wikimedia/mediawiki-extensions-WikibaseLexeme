@@ -18,18 +18,24 @@ use Wikibase\Lexeme\Domain\Model\Exceptions\TempAccountCreationLimitReached;
 use Wikibase\Lexeme\Domain\Model\Lexeme as LexemeWriteModel;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Forms;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemma;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Lemmas;
 use Wikibase\Lexeme\Domain\Model\ReadModel\Lexeme;
 use Wikibase\Lexeme\Domain\Model\ReadModel\LexemeRevision;
+use Wikibase\Lexeme\Domain\Model\ReadModel\Senses;
 use Wikibase\Lexeme\Domain\Services\LexemeRetriever;
 use Wikibase\Lexeme\Domain\Services\LexemeUpdater;
 use Wikibase\Lexeme\Domain\Services\LexemeWriteModelRetriever;
 use Wikibase\Lexeme\Interactors\AssertUserIsAuthorized;
 use Wikibase\Lexeme\Interactors\GetLatestLexemeRevisionMetadata;
+use Wikibase\Lexeme\Interactors\PatchLexeme\PatchedLexemeValidator;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexeme;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeRequest;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
+use Wikibase\Repo\Domains\Statements\Domain\ReadModel\StatementList;
 use Wikibase\Repo\Domains\Statements\Domain\Services\StatementReadModelConverter;
 
 /**
@@ -49,23 +55,41 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			$lexemeId,
 			new TermList( [ new Term( 'en', 'color' ) ] ),
 			new ItemId( 'Q1' ),
-			new ItemId( 'Q2' )
+			new ItemId( 'Q2' ),
+			nextFormId: 8,
+			nextSenseId: 5,
 		);
 		$lexemeRetriever = $this->createStub( LexemeRetriever::class );
 		$lexemeRetriever->method( 'getLexeme' )->willReturn( $readModelConverter->convert( $originalLexeme ) );
 		$lexemeSerializer = $this->createStub( LexemeSerializer::class );
-		$lexemeSerializer->method( 'serialize' )->willReturn( [ 'lemmas' => [ 'en' => 'color' ] ] );
+		$lexemeSerializer->method( 'serialize' )->willReturn( [
+			'lemmas' => [ 'en' => 'color' ],
+			'lexical_category' => 'Q1',
+			'language' => 'Q2',
+		] );
 
-		$lexemeToUpdate = $originalLexeme->copy();
+		$expectedPatchedLexeme = new LexemeWriteModel(
+			$lexemeId,
+			new TermList( [
+				new Term( 'en', 'colour' ),
+				new Term( 'en-gb', 'colour' ),
+			] ),
+			new ItemId( 'Q1' ),
+			new ItemId( 'Q2' ),
+			nextFormId: 8,
+			nextSenseId: 5,
+		);
 		$writeModelRetriever = $this->createStub( LexemeWriteModelRetriever::class );
-		$writeModelRetriever->method( 'getLexemeWriteModel' )->willReturn( $lexemeToUpdate );
+		$writeModelRetriever->method( 'getLexemeWriteModel' )->willReturn( $originalLexeme );
 
 		$expectedRevisionId = 123;
 		$expectedLastModified = '20250101120000';
 		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
 		$lexemeUpdater->expects( $this->once() )
 			->method( 'update' )
-			->with( $lexemeToUpdate, new EditMetadata( $tags, true, new PatchLexemeEditSummary( $userComment ) ) )
+			->with( $expectedPatchedLexeme,
+				new EditMetadata( $tags, true, new PatchLexemeEditSummary( $userComment ) )
+			)
 			->willReturnCallback( static fn ( LexemeWriteModel $l ) => new LexemeRevision(
 				$readModelConverter->convert( $l ),
 				$expectedRevisionId,
@@ -76,7 +100,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			lexemeRetriever: $lexemeRetriever,
 			lexemeSerializer: $lexemeSerializer,
 			lexemeWriteModelRetriever:  $writeModelRetriever,
-			lexemeUpdater: $lexemeUpdater
+			lexemeUpdater: $lexemeUpdater,
 		)->execute( new PatchLexemeRequest(
 			'L1',
 			[
@@ -89,11 +113,20 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			null
 		) );
 
-		$this->assertSame(
-			[ 'en' => 'colour', 'en-gb' => 'colour' ],
-			$lexemeToUpdate->getLemmas()->toTextArray()
+		$expectedResponseLexeme = new Lexeme(
+			id: $lexemeId,
+			lemmas: new Lemmas(
+				new Lemma( 'en', 'colour' ),
+				new Lemma( 'en-gb', 'colour' ),
+			),
+			lexicalCategory: new ItemId( 'Q1' ),
+			language: new ItemId( 'Q2' ),
+			statements: new StatementList(),
+			forms: new Forms(),
+			senses: new Senses(),
 		);
-		$this->assertSame( 'colour', $response->lexeme->lemmas['en-gb']->text );
+
+		$this->assertEquals( $expectedResponseLexeme, $response->lexeme );
 		$this->assertSame( $expectedRevisionId, $response->revisionId );
 		$this->assertSame( $expectedLastModified, $response->lastModified );
 	}
@@ -217,7 +250,11 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		$lexemeRetriever = $this->createStub( LexemeRetriever::class );
 		$lexemeRetriever->method( 'getLexeme' )->willReturn( $readModelConverter->convert( $lexeme ) );
 		$lexemeSerializer = $this->createStub( LexemeSerializer::class );
-		$lexemeSerializer->method( 'serialize' )->willReturn( [ 'lemmas' => [ 'en' => 'color' ] ] );
+		$lexemeSerializer->method( 'serialize' )->willReturn( [
+			'lemmas' => [ 'en' => 'color' ],
+			'lexical_category' => 'Q1',
+			'language' => 'Q2',
+		] );
 		$writeModelRetriever = $this->createStub( LexemeWriteModelRetriever::class );
 		$writeModelRetriever->method( 'getLexemeWriteModel' )->willReturn( $lexeme->copy() );
 
@@ -307,6 +344,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			$lexemeUpdater,
 			$validator,
 			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
+			new PatchedLexemeValidator(),
 		);
 	}
 

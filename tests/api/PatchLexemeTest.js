@@ -166,4 +166,17 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 		} );
 	} );
 
+	describe( '422 error response', () => {
+		it( 'returns patch-result-missing-field when the patch removes language', async () => {
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [
+				{ op: 'remove', path: '/language' }
+			] ).makeRequest();
+
+			assertValidError( response, 422, 'patch-result-missing-field', {
+				path: '',
+				field: 'language'
+			} );
+		} );
+	} );
+
 } );

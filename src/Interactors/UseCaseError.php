@@ -22,6 +22,7 @@ class UseCaseError extends RuntimeException {
 	public const string VALUE_TOO_LONG = 'value-too-long';
 	public const string RESOURCE_TOO_LARGE = 'resource-too-large';
 	public const string REFERENCED_RESOURCE_NOT_FOUND = 'referenced-resource-not-found';
+	public const string PATCH_RESULT_MISSING_FIELD = 'patch-result-missing-field';
 	public const string PERMISSION_DENIED = 'permission-denied';
 	public const string PERMISSION_DENIED_REASON_USER_BLOCKED = 'blocked-user';
 	public const string PERMISSION_DENIED_REASON_IP_BLOCKED = 'blocked-ip';
@@ -57,6 +58,9 @@ class UseCaseError extends RuntimeException {
 			'required' => [ self::CONTEXT_PATH ],
 		],
 		self::MISSING_FIELD => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
+		],
+		self::PATCH_RESULT_MISSING_FIELD => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
 		],
 		self::PATCH_TARGET_NOT_FOUND => [
@@ -172,6 +176,14 @@ class UseCaseError extends RuntimeException {
 			self::INVALID_KEY,
 			"Invalid key '$key' in '$path'",
 			[ self::CONTEXT_PATH => $path, self::CONTEXT_KEY => $key ],
+		);
+	}
+
+	public static function newMissingFieldInPatchResult( string $path, string $field ): self {
+		return new self(
+			self::PATCH_RESULT_MISSING_FIELD,
+			'Required field missing in patch result',
+			[ self::CONTEXT_PATH => $path, self::CONTEXT_FIELD => $field ],
 		);
 	}
 
