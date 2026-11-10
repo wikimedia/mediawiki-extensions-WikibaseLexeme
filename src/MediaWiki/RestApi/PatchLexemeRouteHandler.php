@@ -2,8 +2,12 @@
 
 namespace Wikibase\Lexeme\MediaWiki\RestApi;
 
+use MediaWiki\HookContainer\HookRunner;
+use MediaWiki\MediaWikiServices;
 use MediaWiki\Rest\Handler;
+use MediaWiki\Rest\RequestInterface;
 use MediaWiki\Rest\Response;
+use MediaWiki\Rest\ResponseInterface;
 use MediaWiki\Rest\SimpleHandler;
 use MediaWiki\Rest\Validator\Validator;
 use Wikibase\Lexeme\Interactors\GetLexeme\LexemeRedirect;
@@ -13,7 +17,10 @@ use Wikibase\Lexeme\Interactors\PatchLexeme\PatchLexemeResponse;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
+use Wikibase\Repo\Domains\Crud\RouteHandlers\Middleware\TempUserCreationResponseHeaderMiddleware;
+use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
+use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
 
 /**
@@ -42,6 +49,14 @@ class PatchLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getPatchLexeme(),
 			new MiddlewareHandler( [
 				WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+				new UserAgentCheckMiddleware(),
+				new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
+				WikibaseLexemeServices::getPreconditionMiddlewareFactory()->newPreconditionMiddleware(
+					fn ( RequestInterface $request ): string => $request->getPathParam( self::LEXEME_ID_PATH_PARAM )
+				),
+				new TempUserCreationResponseHeaderMiddleware(
+					new HookRunner( MediaWikiServices::getInstance()->getHookContainer() )
+				),
 			] ),
 			WikibaseLexemeServices::getLexemeSerializer(),
 			new ResponseFactory(),
@@ -51,6 +66,13 @@ class PatchLexemeRouteHandler extends SimpleHandler {
 	public function validate( Validator $restValidator ): void {
 		$this->assertValidTopLevelTypes( $this->getRequest()->getParsedBody(), $this->getBodyParamSettings() );
 		parent::validate( $restValidator );
+	}
+
+	/**
+	 * Preconditions are checked via {@link PreconditionMiddleware}
+	 */
+	public function checkPreconditions(): ?ResponseInterface {
+		return null;
 	}
 
 	public function run( string $lexemeId ): Response {

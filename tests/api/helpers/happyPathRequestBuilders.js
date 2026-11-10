@@ -41,21 +41,15 @@ const lexemeEditRequests = ( requestInputs ) => withRequestInputs( requestInputs
 	() => newAddLexemeSenseRequestBuilder(
 		requestInputs.lexemeId,
 		{ glosses: { en: `potato-gloss-${ Math.random() }` } }
-	)
-] );
-
-// move to lexemeEditRequests once finished
-const patchLexemeRequest = ( requestInputs ) => ( {
-	newRequestBuilder: () => newPatchLexemeRequestBuilder(
+	),
+	() => newPatchLexemeRequestBuilder(
 		requestInputs.lexemeId,
 		[ { op: 'replace', path: '/lemmas/en', value: `test-lemma-${ Math.random() }` } ]
-	),
-	requestInputs
-} );
+	)
+] );
 
 module.exports = {
 	lexemeCreateRequests,
 	lexemeGetRequests,
-	lexemeEditRequests,
-	patchLexemeRequest
+	lexemeEditRequests
 };

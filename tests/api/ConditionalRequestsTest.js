@@ -5,7 +5,10 @@ const { expect } = require( './helpers/chaiHelper' );
 const { getLatestRevisionMetadata } = require( './helpers/entityHelper' );
 const { makeEtag } = require( './helpers/httpHelper' );
 const { describeWithTestData } = require( './helpers/describeWithTestData' );
-const { lexemeEditRequests, lexemeGetRequests } = require( './helpers/happyPathRequestBuilders' );
+const {
+	lexemeEditRequests,
+	lexemeGetRequests
+} = require( './helpers/happyPathRequestBuilders' );
 
 function assertValid200Response( response, revisionId, lastModified ) {
 	expect( response ).to.have.status( 200 );
@@ -13,8 +16,8 @@ function assertValid200Response( response, revisionId, lastModified ) {
 	assert.equal( response.header.etag, makeEtag( revisionId ) );
 }
 
-async function assertValid201Response( response, lexemeId ) {
-	expect( response ).to.have.status( 201 );
+async function assertValidSuccessfulEditResponse( response, lexemeId ) {
+	expect( response ).status.to.be.within( 200, 299 );
 	const latestRevision = await getLatestRevisionMetadata( lexemeId );
 	assert.equal( response.header[ 'last-modified' ], latestRevision.timestamp );
 	assert.equal( response.header.etag, makeEtag( latestRevision.revid ) );
@@ -283,12 +286,12 @@ describeWithTestData( 'Conditional requests', (
 		} );
 
 		describe( 'If-Match', () => {
-			it( 'responds 201 given If-Match is the current revision ETag', async () => {
+			it( 'succeeds given If-Match is the current revision ETag', async () => {
 				const response = await newRequestBuilder()
 					.withHeader( 'If-Match', makeEtag( requestInputs.latestRevId ) )
 					.makeRequest();
 
-				await assertValid201Response( response, requestInputs.lexemeId );
+				await assertValidSuccessfulEditResponse( response, requestInputs.lexemeId );
 			} );
 
 			it( 'responds 412 given If-Match is a previous revision ETag', async () => {
@@ -299,12 +302,12 @@ describeWithTestData( 'Conditional requests', (
 				assertValid412Response( response );
 			} );
 
-			it( 'responds 201 given If-Match is *', async () => {
+			it( 'succeeds given If-Match is *', async () => {
 				const response = await newRequestBuilder()
 					.withHeader( 'If-Match', '*' )
 					.makeRequest();
 
-				await assertValid201Response( response, requestInputs.lexemeId );
+				await assertValidSuccessfulEditResponse( response, requestInputs.lexemeId );
 			} );
 		} );
 
@@ -317,12 +320,12 @@ describeWithTestData( 'Conditional requests', (
 				assertValid412Response( response );
 			} );
 
-			it( 'responds 201 given If-None-Match is a previous revision ETag', async () => {
+			it( 'succeeds given If-None-Match is a previous revision ETag', async () => {
 				const response = await newRequestBuilder()
 					.withHeader( 'If-None-Match', makeEtag( requestInputs.latestRevId - 1 ) )
 					.makeRequest();
 
-				await assertValid201Response( response, requestInputs.lexemeId );
+				await assertValidSuccessfulEditResponse( response, requestInputs.lexemeId );
 			} );
 
 			it( 'responds 412 given If-None-Match is *', async () => {
@@ -335,12 +338,12 @@ describeWithTestData( 'Conditional requests', (
 		} );
 
 		describe( 'If-Unmodified-Since', () => {
-			it( 'responds 201 given If-Unmodified-Since is the current revision timestamp', async () => {
+			it( 'succeeds given If-Unmodified-Since is the current revision timestamp', async () => {
 				const response = await newRequestBuilder()
 					.withHeader( 'If-Unmodified-Since', requestInputs.latestRevTimestamp )
 					.makeRequest();
 
-				await assertValid201Response( response, requestInputs.lexemeId );
+				await assertValidSuccessfulEditResponse( response, requestInputs.lexemeId );
 			} );
 
 			it( 'responds 412 given If-Unmodified-Since is before the current revision timestamp', async () => {
@@ -355,12 +358,12 @@ describeWithTestData( 'Conditional requests', (
 
 		// If-Modified-Since is ignored for edit requests; it only applies to GET and HEAD.
 		describe( 'If-Modified-Since', () => {
-			it( 'responds 201 because If-Modified-Since is ignored for edit requests', async () => {
+			it( 'succeeds because If-Modified-Since is ignored for edit requests', async () => {
 				const response = await newRequestBuilder()
 					.withHeader( 'If-Modified-Since', requestInputs.latestRevTimestamp )
 					.makeRequest();
 
-				await assertValid201Response( response, requestInputs.lexemeId );
+				await assertValidSuccessfulEditResponse( response, requestInputs.lexemeId );
 			} );
 		} );
 	} );
