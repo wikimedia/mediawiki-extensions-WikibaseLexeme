@@ -20,7 +20,7 @@
 	"apihelp-wbladdform-param-data": "Τα κωδικοποιημένα στοιχεία JSON για τη Μορφή π.χ διάφορες αναπαραστάσεις και γραμματικά χαρακτηριστικά",
 	"apihelp-wbladdform-param-lexemeId": "Αναγνωριστικό του Λεξήματος, π.χ. L10",
 	"apihelp-wbladdform-summary": "Προσθέτει Μορφή στο Λέξημα",
-	"apihelp-wbladdsense-example-1": "Προσθέσετε μια Φόρμα στο Lexeme με ID <samp>$1</samp> μαζί με την σχετική γλωσσική ορολογία <samp>$2</samp> <samp>$3</samp>",
+	"apihelp-wbladdsense-example-1": "Προσθέσετε Μορφή στο Λέξημα με αναγνωριστικό <samp>$1</samp> που έχει σχόλια <samp>$2</samp> με γλώσσες <samp>$3</samp> αντίστοιχα",
 	"apihelp-wbladdsense-param-data": "JSON-κωδικοποίηση Εννοιών, π.χ σχολίων",
 	"apihelp-wbladdsense-param-lexemeId": "Αναγνωριστικό του Λεξήματος, π.χ. L10",
 	"apihelp-wbladdsense-summary": "Προσθέτει Έννοια στο Λέξημα",
@@ -28,14 +28,15 @@
 	"apihelp-wbleditformelements-param-formId": "Αναγνωριστικό της Μορφής, π.χ L10-F2",
 	"apihelp-wbleditformelements-summary": "Αλλάζει αναπαραστάσεις και γραμματικά χαρακτηριστικά μιας Μορφής",
 	"apihelp-wbleditsenseelements-example-1": "Αλλάζει την Έννοια με το αναγνωριστικό <samp>$1</samp> ώστε να έχει σχόλια <samp>$2</samp> στις γλώσσες <samp>$3</samp> αντίστοιχα.",
-	"apihelp-wbleditsenseelements-param-senseId": "Αναγνωριστικό έννοιας, π.x L10-S2",
+	"apihelp-wbleditsenseelements-param-senseId": "Αναγνωριστικό της Έννοιας, π.χ L10-S2",
 	"apihelp-wbleditsenseelements-summary": "Αλλάζει σχόλια μιας Έννοιας",
-	"apihelp-wblmergelexemes-param-source": "Το αναγνωριστικό για συγχώνευση από",
+	"apihelp-wblmergelexemes-param-source": "Το αναγνωριστικό από το οποίο θα γίνει συγχώνευση",
+	"apihelp-wblmergelexemes-param-target": "Το αναγνωριστικό προς το οποίο θα γίνει συγχώνευση",
 	"apihelp-wblmergelexemes-summary": "Συγχωνεύει δύο λεξήματα.",
 	"apihelp-wblremoveform-example-1": "Αφαίρεση Μορφής από το Λέξημα με αναγνωριστικό <samp>$1</samp>",
 	"apihelp-wblremoveform-param-id": "Αναγνωριστικό της Μορφής, π.χ. L10-F20",
-	"apihelp-wblremoveform-summary": "Αφαιρεί Μορφές από το Λέξημα",
+	"apihelp-wblremoveform-summary": "Αφαιρεί την Μορφή από το Λέξημα",
 	"apihelp-wblremovesense-example-1": "Αφαίρεση Έννοιας από το Λέξημα με αναγνωριστικό <samp>$1</samp>",
 	"apihelp-wblremovesense-param-id": "Αναγνωριστικό της Έννοιας, π.χ. L10-S20",
-	"apihelp-wblremovesense-summary": "Αφαιρεί την έννοια από το Λέξημα"
+	"apihelp-wblremovesense-summary": "Αφαιρεί την Έννοια από το Λέξημα"
 }
