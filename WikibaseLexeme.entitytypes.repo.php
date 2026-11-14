@@ -341,7 +341,7 @@ return [
 			$requestContext = RequestContext::getMain();
 			return LexemeHandler::factory( $services, $requestContext );
 		},
-		DEF::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
+		Def::CHANGEOP_DESERIALIZER_CALLBACK => static function () {
 			$formChangeOpDeserializer = new FormChangeOpDeserializer(
 				WikibaseRepo::getEntityLookup(),
 				WikibaseRepo::getEntityIdParser(),

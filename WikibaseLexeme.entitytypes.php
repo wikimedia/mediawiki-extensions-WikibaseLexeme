@@ -119,7 +119,7 @@ return [
 			);
 		},
 		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static fn () => new NullPrefetchingTermLookup(),
-		DEF::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.form',
+		Def::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.form',
 	],
 	'sense' => [
 		Def::ARTICLE_ID_LOOKUP_CALLBACK => static function () {
@@ -156,6 +156,6 @@ return [
 			);
 		},
 		Def::PREFETCHING_TERM_LOOKUP_CALLBACK => static fn () => new NullPrefetchingTermLookup(),
-		DEF::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.sense',
+		Def::LUA_ENTITY_MODULE => 'mw.wikibase.lexeme.entity.sense',
 	],
 ];
