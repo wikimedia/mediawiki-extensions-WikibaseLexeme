@@ -8,18 +8,15 @@ use MediaWiki\Context\IContextSource;
 use MediaWiki\Page\Article;
 use MediaWiki\Title\Title;
 use Psr\Container\ContainerInterface;
-use UnexpectedValueException;
 use Wikibase\DataModel\Entity\EntityId;
 use Wikibase\DataModel\Entity\EntityIdParser;
 use Wikibase\DataModel\Entity\EntityRedirect;
 use Wikibase\DataModel\Services\Lookup\EntityLookup;
 use Wikibase\Lexeme\DataAccess\Store\LemmaLookup;
-use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\LexemeSubEntityId;
-use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\MediaWiki\Actions\LexemeHistoryAction;
 use Wikibase\Lexeme\MediaWiki\Actions\ViewLexemeAction;
@@ -142,22 +139,14 @@ class LexemeHandler extends EntityHandler {
 	 * @see EntityHandler::newEntityContent
 	 */
 	protected function newEntityContent( ?EntityHolder $entityHolder ): LexemeContent {
-		if ( $entityHolder !== null && $entityHolder->getEntityType() === Form::ENTITY_TYPE ) {
-			$formId = $entityHolder->getEntityId();
-			if ( !( $formId instanceof FormId ) ) {
-				throw new UnexpectedValueException( '$formId must be a FormId' );
-			}
-			$lexemeId = $formId->getLexemeId();
-			$entityHolder = new EntityInstanceHolder( $this->entityLookup->getEntity( $lexemeId ) );
+		$entityId = $entityHolder?->getEntityId();
+		// We optionally accept a Form or Sense to construct the corresponsing LexemeContent
+		if ( $entityId instanceof LexemeSubEntityId ) {
+			$lexemeId = $entityId->getLexemeId();
+			$lexeme = $this->entityLookup->getEntity( $lexemeId );
+			$entityHolder = $lexeme ? new EntityInstanceHolder( $lexeme ) : null;
 		}
-		if ( $entityHolder !== null && $entityHolder->getEntityType() === Sense::ENTITY_TYPE ) {
-			$senseId = $entityHolder->getEntityId();
-			if ( !( $senseId instanceof SenseId ) ) {
-				throw new UnexpectedValueException( '$senseId must be a SenseId' );
-			}
-			$lexemeId = $senseId->getLexemeId();
-			$entityHolder = new EntityInstanceHolder( $this->entityLookup->getEntity( $lexemeId ) );
-		}
+
 		return new LexemeContent( $entityHolder );
 	}
 
