@@ -82,6 +82,11 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		$writeModelRetriever = $this->createStub( LexemeWriteModelRetriever::class );
 		$writeModelRetriever->method( 'getLexemeWriteModel' )->willReturn( $originalLexeme );
 
+		$patchedLexemeValidator = $this->createStub( PatchedLexemeValidator::class );
+		$patchedLexemeValidator->expects( $this->once() )
+			->method( 'validateAndDeserialize' )
+			->willReturn( $expectedPatchedLexeme );
+
 		$expectedRevisionId = 123;
 		$expectedLastModified = '20250101120000';
 		$lexemeUpdater = $this->createMock( LexemeUpdater::class );
@@ -101,6 +106,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			lexemeSerializer: $lexemeSerializer,
 			lexemeWriteModelRetriever:  $writeModelRetriever,
 			lexemeUpdater: $lexemeUpdater,
+			patchedLexemeValidator: $patchedLexemeValidator,
 		)->execute( new PatchLexemeRequest(
 			'L1',
 			[
@@ -329,6 +335,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		?LexemeUpdater $lexemeUpdater = null,
 		?PatchLexemeValidator $validator = null,
 		?AssertUserIsAuthorized $assertUserIsAuthorized = null,
+		?PatchedLexemeValidator $patchedLexemeValidator = null,
 	): PatchLexeme {
 		if ( $validator === null ) {
 			$validator = $this->createStub( PatchLexemeValidator::class );
@@ -344,7 +351,7 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 			$lexemeUpdater,
 			$validator,
 			$assertUserIsAuthorized ?? $this->createStub( AssertUserIsAuthorized::class ),
-			new PatchedLexemeValidator(),
+			$patchedLexemeValidator ?? $this->createStub( PatchedLexemeValidator::class ),
 		);
 	}
 

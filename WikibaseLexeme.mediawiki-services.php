@@ -479,7 +479,9 @@ return call_user_func( static function () {
 						$services->getUserFactory()
 					)
 				),
-				new PatchedLexemeValidator(),
+				new PatchedLexemeValidator(
+					$services->get( 'WikibaseLexeme.LexemeTermsValidator' )
+				),
 			);
 		},
 		'WikibaseLexeme.LexemeUpdater' => static function ( MediaWikiServices $services ): EntityUpdaterLexemeUpdater {

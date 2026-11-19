@@ -39,6 +39,9 @@ class ResponseFactory {
 		// 422 errors:
 		UseCaseError::PATCH_RESULT_MISSING_FIELD => 422,
 		UseCaseError::PATCH_RESULT_MODIFIED_READ_ONLY_VALUE => 422,
+		UseCaseError::PATCH_RESULT_INVALID_KEY => 422,
+		UseCaseError::PATCH_RESULT_INVALID_VALUE => 422,
+		UseCaseError::PATCH_RESULT_VALUE_TOO_LONG => 422,
 	];
 
 	public function newSuccessResponse(

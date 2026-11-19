@@ -177,6 +177,7 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 				field: 'language'
 			} );
 		} );
+
 		it( 'returns patch-result-modified-read-only-value when the patch modifies a read-only field', async () => {
 			const response = await newPatchLexemeRequestBuilder( lexemeId, [
 				{ op: 'replace', path: '/id', value: 'new-id' }
@@ -186,6 +187,59 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 				path: '/id'
 			} );
 		} );
-	} );
 
+		[
+			{
+				name: 'invalid lemmas type',
+				path: '/lemmas',
+				invalidValue: [ 'not', 'an', 'object' ]
+			},
+			{
+				name: 'invalid lemma',
+				path: '/lemmas/en',
+				invalidValue: 'tab characters \t not allowed'
+			},
+			{
+				name: 'invalid lemma type',
+				path: '/lemmas/en',
+				invalidValue: { object: 'not allowed' }
+			},
+			{
+				name: 'empty lemma',
+				path: '/lemmas/en',
+				invalidValue: ''
+			}
+		].forEach( ( { name, path, invalidValue } ) => {
+			it( `responds 422 - ${ name }`, async () => {
+				const response = await newPatchLexemeRequestBuilder( lexemeId, [
+					{ op: 'replace', path: path, value: invalidValue }
+				] ).makeRequest();
+
+				assertValidError( response, 422, 'patch-result-invalid-value', { value: invalidValue, path: path } );
+				assert.strictEqual( response.body.message, 'Invalid value in patch result' );
+			} );
+		} );
+
+		it( 'responds 422 - invalid lemma key', async () => {
+			const path = '/lemmas';
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [
+				{ op: 'add', path: path, value: { 'not-a-valid-language-code': 'color' } }
+			] ).makeRequest();
+
+			assertValidError( response, 422, 'patch-result-invalid-key', { path: path, key: 'not-a-valid-language-code' } );
+			assert.strictEqual( response.body.message, 'Invalid key in patch result' );
+		} );
+
+		it( 'responds 422 - lemma value too long', async () => {
+			const path = '/lemmas/en';
+			const tooLongValue = 'x'.repeat( 1001 );
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [
+				{ op: 'replace', path: path, value: tooLongValue }
+			] ).makeRequest();
+
+			assertValidError( response, 422, 'patch-result-value-too-long', { path: path, limit: 1000 } );
+			assert.strictEqual( response.body.message, 'Patched value is too long' );
+		} );
+
+	} );
 } );
