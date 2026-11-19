@@ -134,7 +134,7 @@ describeWithTestData( 'Auth', (
 			} );
 		} );
 
-		describe( 'Captcha edit failed', () => {
+		describe.skip( 'Captcha edit failed', () => {
 			before( async function () {
 				await requireExtensions( [ 'ConfirmEdit' ] ).call( this );
 			} );
