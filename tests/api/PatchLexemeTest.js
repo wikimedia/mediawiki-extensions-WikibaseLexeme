@@ -26,7 +26,13 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 		const createLexemeResponse = await newCreateLexemeRequestBuilder( {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
 			lexical_category: itemId,
-			language: itemId
+			language: itemId,
+			senses: [
+				{
+					glosses: { en: 'a test sense' },
+					statements: {}
+				}
+			]
 		} ).makeRequest();
 		lexemeId = createLexemeResponse.body.id;
 		originalEtag = createLexemeResponse.header.etag;
@@ -178,13 +184,24 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 			} );
 		} );
 
-		it( 'returns patch-result-modified-read-only-value when the patch modifies a read-only field', async () => {
-			const response = await newPatchLexemeRequestBuilder( lexemeId, [
-				{ op: 'replace', path: '/id', value: 'new-id' }
-			] ).makeRequest();
-
-			assertValidError( response, 422, 'patch-result-modified-read-only-value', {
+		[
+			{
+				name: 'modifies lexeme ID',
+				patch: [ { op: 'replace', path: '/id', value: 'L999999' } ],
 				path: '/id'
+			},
+			{
+				name: 'modifies sense ID',
+				patch: [ { op: 'replace', path: '/senses/0/id', value: 'L999999-S999999' } ],
+				path: '/senses/0/id'
+			}
+		].forEach( ( { name, patch, path } ) => {
+			it( `returns patch-result-modified-read-only-value when patch ${ name }`, async () => {
+				const response = await newPatchLexemeRequestBuilder( lexemeId, patch ).makeRequest();
+
+				assertValidError( response, 422, 'patch-result-modified-read-only-value', {
+					path: path
+				} );
 			} );
 		} );
 
@@ -208,6 +225,11 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 				name: 'empty lemma',
 				path: '/lemmas/en',
 				invalidValue: ''
+			},
+			{
+				name: 'invalid senses type',
+				path: '/senses',
+				invalidValue: 'not an array'
 			}
 		].forEach( ( { name, path, invalidValue } ) => {
 			it( `responds 422 - ${ name }`, async () => {
@@ -240,6 +262,5 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 			assertValidError( response, 422, 'patch-result-value-too-long', { path: path, limit: 1000 } );
 			assert.strictEqual( response.body.message, 'Patched value is too long' );
 		} );
-
 	} );
 } );

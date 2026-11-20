@@ -10,6 +10,8 @@ use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
+use Wikibase\Lexeme\Domain\Model\Sense;
+use Wikibase\Lexeme\Domain\Model\SenseId;
 use Wikibase\Lexeme\Infrastructure\ContentLanguagesLexemeTermLanguageCodeValidator;
 use Wikibase\Lexeme\Interactors\PatchLexeme\PatchedLexemeValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -87,6 +89,7 @@ class PatchedLexemeValidatorTest extends TestCase {
 
 	/**
 	 * @dataProvider provideIllegalModificationsLexemeID
+	 * @dataProvider provideIllegalModificationsSenseID
 	 */
 	public function testGivenIllegalModification_throws(
 		Lexeme $originalLexeme,
@@ -195,6 +198,38 @@ class PatchedLexemeValidatorTest extends TestCase {
 			$this->assertSame( 'patch-result-value-too-long', $e->errorCode );
 			$this->assertSame( [ 'path' => '/lemmas/en', 'limit' => 1000 ], $e->context );
 		}
+	}
+
+	public static function provideIllegalModificationsSenseID(): Generator {
+		$originalLexeme = self::newOriginalLexeme();
+		$originalLexeme->addOrUpdateSense( new Sense(
+			new SenseId( 'L1-S1' ),
+			new TermList( [ new Term( 'en', 'a visual property' ) ] ),
+		) );
+
+		$originalSerialization = self::newSerialization();
+		$originalSerialization['senses'] = [ [
+			'id' => 'L1-S1',
+			'glosses' => [ 'en' => 'a visual property' ],
+		] ];
+
+		$changedExistingSenseId = $originalSerialization;
+		$changedExistingSenseId['senses'][0]['id'] = 'L1-S9999';
+
+		yield 'change existing sense ID' => [
+			$originalLexeme,
+			$changedExistingSenseId,
+			UseCaseError::newPatchResultModifiedReadOnlyValue( '/senses/0/id' ),
+		];
+
+		$duplicateExistingSenseId = $originalSerialization;
+		$duplicateExistingSenseId['senses'][] = $originalSerialization['senses'][0];
+
+		yield 'duplicate existing sense ID' => [
+			$originalLexeme,
+			$duplicateExistingSenseId,
+			UseCaseError::newPatchResultModifiedReadOnlyValue( '/senses/1/id' ),
+		];
 	}
 
 	private function newValidator( ?LexemeTermsValidator $lexemeTermsValidator = null ): PatchedLexemeValidator {

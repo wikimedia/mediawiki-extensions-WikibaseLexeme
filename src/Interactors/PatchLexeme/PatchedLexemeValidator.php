@@ -3,6 +3,7 @@
 namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 
 use Wikibase\Lexeme\Domain\Model\Lexeme;
+use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\Validation\LexemeTermsValidator;
 
@@ -48,14 +49,62 @@ class PatchedLexemeValidator {
 	 * @throws UseCaseError
 	 */
 	private function assertNoIllegalModification(
-		array $serialization,
+		array $patchedSerialization,
 		Lexeme $originalLexeme
 	): void {
 		if (
-			isset( $serialization['id'] ) &&
-			$serialization['id'] !== $originalLexeme->getId()->getSerialization()
+			isset( $patchedSerialization['id'] ) &&
+			$patchedSerialization['id'] !== $originalLexeme->getId()->getSerialization()
 		) {
 			throw UseCaseError::newPatchResultModifiedReadOnlyValue( '/id' );
+		}
+
+		$this->assertNoSubEntityIdModification(
+			'senses',
+			array_map(
+				static fn ( Sense $s ) => $s->getId()->getSerialization(),
+				$originalLexeme->getSenses()->toArray()
+			),
+			$patchedSerialization
+		);
+	}
+
+	/**
+	 * @throws UseCaseError
+	 */
+	private function assertNoSubEntityIdModification(
+		string $type,
+		array $originalIds,
+		array $patchedSerialization
+		): void {
+		if (
+			array_key_exists( $type, $patchedSerialization ) &&
+			!is_array( $patchedSerialization[ $type ] )
+		) {
+			throw UseCaseError::newPatchResultInvalidValue(
+				$patchedSerialization[ $type ],
+				"/$type"
+			);
+		}
+
+		$patchedIds = array_map(
+			static fn ( $patched ) => $patched[ 'id' ] ?? null,
+			$patchedSerialization[ $type ] ?? []
+		);
+
+		$seenIds = []; // track which IDs have been seen in the patch result to detect duplicates
+
+		foreach ( $patchedIds as $index => $id ) {
+			if ( $id && (
+				!in_array( $id, $originalIds, true ) ||
+				in_array( $id, $seenIds, true )
+			) ) {
+				throw UseCaseError::newPatchResultModifiedReadOnlyValue(
+					"/$type/$index/id"
+				);
+			}
+
+			$seenIds[] = $id;
 		}
 	}
 
