@@ -16,6 +16,7 @@ use Wikibase\Lexeme\Presentation\RestSerialization\LexemeSerializer;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Repo\Domains\Crud\RouteHandlers\Middleware\TempUserCreationResponseHeaderMiddleware;
 use Wikibase\Repo\RestApi\Middleware\AuthenticationMiddleware;
+use Wikibase\Repo\RestApi\Middleware\CaptchaMiddleware;
 use Wikibase\Repo\RestApi\Middleware\MiddlewareHandler;
 use Wikibase\Repo\RestApi\Middleware\UserAgentCheckMiddleware;
 use Wikimedia\ParamValidator\ParamValidator;
@@ -45,6 +46,7 @@ class CreateLexemeRouteHandler extends SimpleHandler {
 			WikibaseLexemeServices::getCreateLexeme(),
 			new MiddlewareHandler( [
 					WikibaseLexemeServices::getUnexpectedErrorHandlerMiddleware(),
+					new CaptchaMiddleware(),
 					new UserAgentCheckMiddleware(),
 					new AuthenticationMiddleware( MediaWikiServices::getInstance()->getUserIdentityUtils() ),
 					new TempUserCreationResponseHeaderMiddleware(
