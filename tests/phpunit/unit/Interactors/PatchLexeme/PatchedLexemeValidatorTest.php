@@ -8,6 +8,8 @@ use Wikibase\DataModel\Entity\ItemId;
 use Wikibase\DataModel\Term\Term;
 use Wikibase\DataModel\Term\TermList;
 use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
+use Wikibase\Lexeme\Domain\Model\Form;
+use Wikibase\Lexeme\Domain\Model\FormId;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\LexemeId;
 use Wikibase\Lexeme\Domain\Model\Sense;
@@ -90,6 +92,7 @@ class PatchedLexemeValidatorTest extends TestCase {
 	/**
 	 * @dataProvider provideIllegalModificationsLexemeID
 	 * @dataProvider provideIllegalModificationsSenseID
+	 * @dataProvider provideIllegalModificationsFormID
 	 */
 	public function testGivenIllegalModification_throws(
 		Lexeme $originalLexeme,
@@ -229,6 +232,40 @@ class PatchedLexemeValidatorTest extends TestCase {
 			$originalLexeme,
 			$duplicateExistingSenseId,
 			UseCaseError::newPatchResultModifiedReadOnlyValue( '/senses/1/id' ),
+		];
+	}
+
+	public static function provideIllegalModificationsFormID(): Generator {
+		$originalLexeme = self::newOriginalLexeme();
+		$originalLexeme->addOrUpdateForm( new Form(
+			new FormId( 'L1-F1' ),
+			new TermList( [ new Term( 'en', 'a form' ) ] ),
+			[]
+		) );
+
+		$originalSerialization = self::newSerialization();
+		$originalSerialization['forms'] = [ [
+			'id' => 'L1-F1',
+			'representations' => [ 'en' => 'a form' ],
+			'grammatical_features' => [],
+		] ];
+
+		$changedExistingFormId = $originalSerialization;
+		$changedExistingFormId['forms'][0]['id'] = 'L1-F9999';
+
+		yield 'change existing form ID' => [
+			$originalLexeme,
+			$changedExistingFormId,
+			UseCaseError::newPatchResultModifiedReadOnlyValue( '/forms/0/id' ),
+		];
+
+		$duplicateExistingFormId = $originalSerialization;
+		$duplicateExistingFormId['forms'][] = $originalSerialization['forms'][0];
+
+		yield 'duplicate existing form ID' => [
+			$originalLexeme,
+			$duplicateExistingFormId,
+			UseCaseError::newPatchResultModifiedReadOnlyValue( '/forms/1/id' ),
 		];
 	}
 

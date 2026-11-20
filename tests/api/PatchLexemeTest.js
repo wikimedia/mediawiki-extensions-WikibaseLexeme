@@ -27,6 +27,13 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 			lemmas: { en: `test-lemma-${ utils.uniq() }` },
 			lexical_category: itemId,
 			language: itemId,
+			forms: [
+				{
+					representations: { en: 'a test form' },
+					grammatical_features: [ itemId ],
+					statements: {}
+				}
+			],
 			senses: [
 				{
 					glosses: { en: 'a test sense' },
@@ -189,6 +196,11 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 				name: 'modifies lexeme ID',
 				patch: [ { op: 'replace', path: '/id', value: 'L999999' } ],
 				path: '/id'
+			},
+			{
+				name: 'modifies form ID',
+				patch: [ { op: 'replace', path: '/forms/0/id', value: `${ lexemeId }-F999999` } ],
+				path: '/forms/0/id'
 			},
 			{
 				name: 'modifies sense ID',

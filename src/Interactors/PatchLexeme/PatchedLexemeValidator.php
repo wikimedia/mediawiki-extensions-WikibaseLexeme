@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 
+use Wikibase\Lexeme\Domain\Model\Form;
 use Wikibase\Lexeme\Domain\Model\Lexeme;
 use Wikibase\Lexeme\Domain\Model\Sense;
 use Wikibase\Lexeme\Interactors\UseCaseError;
@@ -60,6 +61,15 @@ class PatchedLexemeValidator {
 		}
 
 		$this->assertNoSubEntityIdModification(
+			'forms',
+			array_map(
+				static fn ( Form $form ) => $form->getId()->getSerialization(),
+				$originalLexeme->getForms()->toArray()
+			),
+			$patchedSerialization
+		);
+
+		$this->assertNoSubEntityIdModification(
 			'senses',
 			array_map(
 				static fn ( Sense $s ) => $s->getId()->getSerialization(),
@@ -76,7 +86,8 @@ class PatchedLexemeValidator {
 		string $type,
 		array $originalIds,
 		array $patchedSerialization
-		): void {
+	): void {
+		// TODO move this later to the validator for forms and senses
 		if (
 			array_key_exists( $type, $patchedSerialization ) &&
 			!is_array( $patchedSerialization[ $type ] )
