@@ -72,8 +72,7 @@ class AddLexemeFormRouteHandler extends SimpleHandler {
 	}
 
 	private function runUseCase( string $lexemeId ): Response {
-		$jsonBody = $this->getValidatedBody();
-		'@phan-var array $jsonBody'; // guaranteed to be an array per getBodyParamSettings()
+		$jsonBody = $this->getValidatedBodyArray();
 		$mwUser = $this->getAuthority()->getUser();
 
 		try {
