@@ -29,9 +29,9 @@ class UseCaseError extends RuntimeException {
 	public const string PERMISSION_DENIED_REASON_PAGE_PROTECTED = 'resource-protected';
 	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
 	public const string STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'statement-group-property-id-mismatch';
+	public const string PATCH_RESULT_MODIFIED_READ_ONLY_VALUE = 'patch-result-modified-read-only-value';
 	public const string PATCH_TARGET_NOT_FOUND = 'patch-target-not-found';
 	public const string PATCH_TEST_FAILED = 'patch-test-failed';
-
 	public const string CONTEXT_ACTUAL_VALUE = 'actual_value';
 	public const string CONTEXT_DENIAL_CONTEXT = 'denial_context';
 	public const string CONTEXT_DENIAL_REASON = 'denial_reason';
@@ -62,6 +62,9 @@ class UseCaseError extends RuntimeException {
 		],
 		self::PATCH_RESULT_MISSING_FIELD => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
+		],
+		self::PATCH_RESULT_MODIFIED_READ_ONLY_VALUE => [
+			'required' => [ self::CONTEXT_PATH ],
 		],
 		self::PATCH_TARGET_NOT_FOUND => [
 			'required' => [ self::CONTEXT_PATH ],
@@ -265,6 +268,14 @@ class UseCaseError extends RuntimeException {
 			self::RESOURCE_REDIRECTED,
 			"Resource $lexemeId has been redirected to $redirectTarget.",
 			[ self::CONTEXT_REDIRECT_TARGET => $redirectTarget ],
+		);
+	}
+
+	public static function newPatchResultModifiedReadOnlyValue( string $path ): self {
+		return new self(
+			self::PATCH_RESULT_MODIFIED_READ_ONLY_VALUE,
+			"Read only value in patch result cannot be modified",
+			[ self::CONTEXT_PATH => $path ],
 		);
 	}
 }

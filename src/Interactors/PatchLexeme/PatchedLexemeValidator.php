@@ -18,6 +18,7 @@ class PatchedLexemeValidator {
 	): Lexeme {
 
 		$this->assertNoMissingMandatoryFields( $patchedSerialization );
+		$this->assertNoIllegalModification( $patchedSerialization, $originalLexeme );
 
 		$patchedLexeme = $originalLexeme->copy();
 
@@ -36,6 +37,18 @@ class PatchedLexemeValidator {
 			if ( !isset( $patchedSerialization[$field] ) ) {
 				throw UseCaseError::newMissingFieldInPatchResult( '', $field );
 			}
+		}
+	}
+
+	private function assertNoIllegalModification(
+		array $serialization,
+		Lexeme $originalLexeme
+	): void {
+		if (
+			isset( $serialization['id'] ) &&
+			$serialization['id'] !== $originalLexeme->getId()->getSerialization()
+		) {
+			throw UseCaseError::newPatchResultModifiedReadOnlyValue( '/id' );
 		}
 	}
 }

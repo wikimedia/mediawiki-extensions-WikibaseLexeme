@@ -38,6 +38,7 @@ class ResponseFactory {
 		UseCaseError::PATCH_TEST_FAILED => 409,
 		// 422 errors:
 		UseCaseError::PATCH_RESULT_MISSING_FIELD => 422,
+		UseCaseError::PATCH_RESULT_MODIFIED_READ_ONLY_VALUE => 422,
 	];
 
 	public function newSuccessResponse(

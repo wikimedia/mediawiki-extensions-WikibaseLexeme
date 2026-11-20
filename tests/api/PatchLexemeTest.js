@@ -177,6 +177,15 @@ describe( 'PATCH /entities/lexemes/{lexeme_id}', () => {
 				field: 'language'
 			} );
 		} );
+		it( 'returns patch-result-modified-read-only-value when the patch modifies a read-only field', async () => {
+			const response = await newPatchLexemeRequestBuilder( lexemeId, [
+				{ op: 'replace', path: '/id', value: 'new-id' }
+			] ).makeRequest();
+
+			assertValidError( response, 422, 'patch-result-modified-read-only-value', {
+				path: '/id'
+			} );
+		} );
 	} );
 
 } );
