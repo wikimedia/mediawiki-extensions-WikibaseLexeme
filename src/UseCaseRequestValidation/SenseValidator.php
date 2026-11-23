@@ -12,7 +12,7 @@ use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 class SenseValidator {
 
 	public function __construct(
-		private LexemeTermsValidator $lexemeTermsValidator,
+		private LexemeTermsRequestValidator $lexemeTermsRequestValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 	) {
@@ -27,7 +27,7 @@ class SenseValidator {
 		}
 
 		$sense = new BlankSense();
-		$sense->getGlosses()->addAll( $this->lexemeTermsValidator->validateAndDeserialize(
+		$sense->getGlosses()->addAll( $this->lexemeTermsRequestValidator->validateAndDeserialize(
 			$serialization['glosses'],
 			"$basePath/glosses",
 		) );
@@ -46,5 +46,4 @@ class SenseValidator {
 
 		return $sense;
 	}
-
 }

@@ -17,10 +17,11 @@ use Wikibase\Lexeme\Interactors\AddLexemeSense\AddLexemeSenseValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
+use Wikibase\Lexeme\Validation\LexemeTermsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 
 /**
@@ -117,16 +118,18 @@ class AddLexemeSenseValidatorTest extends MediaWikiUnitTestCase {
 		return new AddLexemeSenseValidator(
 			new LexemeIdValidator(),
 			new SenseValidator(
-				new LexemeTermsValidator(
-					new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
-						public function __construct( private array $validLanguageCodes ) {
-						}
+				new LexemeTermsRequestValidator(
+					new LexemeTermsValidator(
+						new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
+							public function __construct( private array $validLanguageCodes ) {
+							}
 
-						public function isValid( string $languageCode ): bool {
-							return in_array( $languageCode, $this->validLanguageCodes );
-						}
-					},
-					LexemeTermValueValidator::MAX_LENGTH,
+							public function isValid( string $languageCode ): bool {
+								return in_array( $languageCode, $this->validLanguageCodes );
+							}
+						},
+						LexemeTermValueValidator::MAX_LENGTH,
+					),
 				),
 				$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 				new StatementsValidationErrorConverter(),

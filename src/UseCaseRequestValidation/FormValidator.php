@@ -13,7 +13,7 @@ use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 class FormValidator {
 
 	public function __construct(
-		private LexemeTermsValidator $lexemeTermsValidator,
+		private LexemeTermsRequestValidator $lexemeTermsRequestValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
 		private ItemIdValidator $itemIdValidator,
@@ -31,7 +31,7 @@ class FormValidator {
 
 		$form = new BlankForm();
 
-		$form->setRepresentations( $this->lexemeTermsValidator->validateAndDeserialize(
+		$form->setRepresentations( $this->lexemeTermsRequestValidator->validateAndDeserialize(
 			$serialization['representations'],
 			"$basePath/representations",
 		) );

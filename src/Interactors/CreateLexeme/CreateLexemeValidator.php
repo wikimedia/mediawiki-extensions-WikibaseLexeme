@@ -13,7 +13,7 @@ use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\FormValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
@@ -27,7 +27,7 @@ class CreateLexemeValidator {
 	private ?EditMetadata $editMetadata = null;
 
 	public function __construct(
-		private LexemeTermsValidator $lexemeTermsValidator,
+		private LexemeTermsRequestValidator $lexemeTermsRequestValidator,
 		private ItemIdValidator $itemIdValidator,
 		private StatementsValidator $statementsValidator,
 		private StatementsValidationErrorConverter $statementsValidationErrorConverter,
@@ -46,7 +46,8 @@ class CreateLexemeValidator {
 		if ( !array_key_exists( 'lemmas', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'lemmas' );
 		}
-		$lemmas = $this->lexemeTermsValidator->validateAndDeserialize( $serialization['lemmas'], '/lexeme/lemmas' );
+		$lemmas = $this->lexemeTermsRequestValidator
+			->validateAndDeserialize( $serialization['lemmas'], '/lexeme/lemmas' );
 		if ( !array_key_exists( 'lexical_category', $serialization ) ) {
 			throw UseCaseError::newMissingField( '/lexeme', 'lexical_category' );
 		}

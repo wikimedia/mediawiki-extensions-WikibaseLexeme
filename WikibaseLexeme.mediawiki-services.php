@@ -67,9 +67,10 @@ use Wikibase\Lexeme\UseCaseRequestValidation\EditMetadataRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\FormValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\LexemeIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\SenseValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
+use Wikibase\Lexeme\Validation\LexemeTermsValidator;
 use Wikibase\Lexeme\WikibaseLexemeServices;
 use Wikibase\Lib\StaticContentLanguages;
 use Wikibase\Lib\Store\CachingItemOrderProvider;
@@ -280,14 +281,14 @@ return call_user_func( static function () {
 			return new CreateLexeme(
 				$services->get( 'WikibaseLexeme.LexemeUpdater' ),
 				new CreateLexemeValidator(
-					$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+					$services->get( 'WikibaseLexeme.LexemeTermsRequestValidator' ),
 					$services->get( 'WikibaseLexeme.ItemIdValidator' ),
 					new StatementsValidator(
 						new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 					),
 					new StatementsValidationErrorConverter(),
 					new FormValidator(
-						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						$services->get( 'WikibaseLexeme.LexemeTermsRequestValidator' ),
 						new StatementsValidator(
 							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 						),
@@ -295,7 +296,7 @@ return call_user_func( static function () {
 						$services->get( 'WikibaseLexeme.ItemIdValidator' ),
 					),
 					new SenseValidator(
-						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						$services->get( 'WikibaseLexeme.LexemeTermsRequestValidator' ),
 						new StatementsValidator(
 							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 						),
@@ -332,6 +333,13 @@ return call_user_func( static function () {
 				// this validator is also used for representations and glosses, and we've decided that the same limit
 				// of 1000 characters is fine for all of them.
 				LexemeTermValueValidator::MAX_LENGTH,
+			);
+		},
+		'WikibaseLexeme.LexemeTermsRequestValidator' => static function (
+			MediaWikiServices $services
+		): LexemeTermsRequestValidator {
+			return new LexemeTermsRequestValidator(
+				$services->get( 'WikibaseLexeme.LexemeTermsValidator' )
 			);
 		},
 		'WikibaseLexeme.ItemIdValidator' => static function (
@@ -384,7 +392,7 @@ return call_user_func( static function () {
 				new AddLexemeFormValidator(
 					new LexemeIdValidator(),
 					new FormValidator(
-						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						$services->get( 'WikibaseLexeme.LexemeTermsRequestValidator' ),
 						new StatementsValidator(
 							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 						),
@@ -418,7 +426,7 @@ return call_user_func( static function () {
 				new AddLexemeSenseValidator(
 					new LexemeIdValidator(),
 					new SenseValidator(
-						$services->get( 'WikibaseLexeme.LexemeTermsValidator' ),
+						$services->get( 'WikibaseLexeme.LexemeTermsRequestValidator' ),
 						new StatementsValidator(
 							new StatementValidator( WbCrud::getStatementDeserializer( $services ) )
 						),

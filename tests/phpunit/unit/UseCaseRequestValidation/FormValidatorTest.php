@@ -14,10 +14,11 @@ use Wikibase\Lexeme\DataAccess\ChangeOp\Validation\LexemeTermValueValidator;
 use Wikibase\Lexeme\Interactors\UseCaseError;
 use Wikibase\Lexeme\UseCaseRequestValidation\FormValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\ItemIdValidator;
-use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsValidator;
+use Wikibase\Lexeme\UseCaseRequestValidation\LexemeTermsRequestValidator;
 use Wikibase\Lexeme\UseCaseRequestValidation\StatementsValidationErrorConverter;
 use Wikibase\Lexeme\Validation\ItemExistenceChecker;
 use Wikibase\Lexeme\Validation\LexemeTermLanguageCodeValidator;
+use Wikibase\Lexeme\Validation\LexemeTermsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementsValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\StatementValidator;
 use Wikibase\Repo\Domains\Statements\Application\Validation\ValidationError;
@@ -199,16 +200,18 @@ class FormValidatorTest extends MediaWikiUnitTestCase {
 		?StatementsValidator $statementsValidator = null,
 	): FormValidator {
 		return new FormValidator(
-			new LexemeTermsValidator(
-				new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
-					public function __construct( private array $validLanguageCodes ) {
-					}
+			new LexemeTermsRequestValidator(
+				new LexemeTermsValidator(
+					new class( self::VALID_LANGUAGE_CODES ) implements LexemeTermLanguageCodeValidator {
+						public function __construct( private array $validLanguageCodes ) {
+						}
 
-					public function isValid( string $languageCode ): bool {
-						return in_array( $languageCode, $this->validLanguageCodes );
-					}
-				},
-				LexemeTermValueValidator::MAX_LENGTH,
+						public function isValid( string $languageCode ): bool {
+							return in_array( $languageCode, $this->validLanguageCodes );
+						}
+					},
+					LexemeTermValueValidator::MAX_LENGTH,
+				),
 			),
 			$statementsValidator ?? $this->newStatementsValidator( new StatementList() ),
 			new StatementsValidationErrorConverter(),
