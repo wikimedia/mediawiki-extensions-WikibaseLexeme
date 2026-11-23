@@ -38,8 +38,8 @@
 		"snl:restore": "git -C $npm_package_config_snl_src checkout -",
 		"snl:dev": "run-s snl:build snl:cp",
 		"snl:diff": "git diff --exit-code $npm_package_config_snl_dist",
-		"cypress:open": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress open",
-		"cypress:run": "CYPRESS_CACHE_FOLDER=./cypress/.cache cypress run",
+		"cypress:open": "cypress open",
+		"cypress:run": "cypress run",
 		"cypress:parallel": "cypress-parallel -s cypress:run -t 2 -d './cypress/e2e/**/*.cy.ts'"
 	},
 	"devDependencies": {

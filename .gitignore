@@ -21,7 +21,6 @@ tests/browser/config/config.yml
 
 /docs/php/
 
-cypress/.cache
 cypress/videos
 cypress/screenshots
 cypress/downloads
