@@ -1,7 +1,7 @@
 'use strict';
 
 const { wikibaseRef } = require( '../../helpers.js' );
-const { MediawikiEdit } = require( '../../global/request-parts.js' );
+const { MediawikiEdit } = require( '../../../../../../../Wikibase/repo/rest-api/specs/shared.js' );
 
 module.exports = {
 	"post": {

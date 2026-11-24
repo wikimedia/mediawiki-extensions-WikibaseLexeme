@@ -2,8 +2,7 @@
 
 const parameterSets = require( '../../../global/parameter-sets.js' );
 const { wikibaseRef } = require( '../../../helpers.js' );
-const { MediawikiEdit } = require( '../../../global/request-parts.js' );
-const { StatementRequestRequired } = require( '../../../../../../../../Wikibase/repo/rest-api/specs/shared.js' );
+const { MediawikiEdit, StatementRequestRequired } = require( '../../../../../../../../Wikibase/repo/rest-api/specs/shared.js' );
 
 module.exports = {
 	"post": {
