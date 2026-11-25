@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Interactors\PatchLexeme;
 
+use ArrayObject;
 use LogicException;
 use Wikibase\Lexeme\Domain\Model\EditMetadata;
 use Wikibase\Lexeme\Domain\Model\PatchLexemeEditSummary;
@@ -53,11 +54,11 @@ class PatchLexeme {
 			$lexemeId
 		);
 
-		$patchedSerialization = $this->patchLexemeSerialization(
+		$originalSerialization = $this->convertArrayObjectsToArray(
 			// @phan-suppress-next-line PhanTypeMismatchArgumentNullable
-			$this->lexemeSerializer->serialize( $this->lexemeRetriever->getLexeme( $lexemeId ) ),
-			$request->patch
+			$this->lexemeSerializer->serialize( $this->lexemeRetriever->getLexeme( $lexemeId ) )
 		);
+		$patchedSerialization = $this->patchLexemeSerialization( $originalSerialization, $request->patch );
 
 		$originalLexeme = $this->lexemeWriteModelRetriever->getLexemeWriteModel( $lexemeId );
 
@@ -82,6 +83,20 @@ class PatchLexeme {
 			$lexemeRevision->revisionId,
 			$lexemeRevision->lastModified,
 		);
+	}
+
+	private function convertArrayObjectsToArray( iterable $serialization ): array {
+		$output = [];
+		foreach ( $serialization as $key => $value ) {
+			if ( is_array( $value ) ) {
+				$output[ $key ] = $this->convertArrayObjectsToArray( $value );
+			} elseif ( $value instanceof ArrayObject ) {
+				$output[ $key ] = $this->convertArrayObjectsToArray( (array)$value );
+			} else {
+				$output[ $key ] = $value;
+			}
+		}
+		return $output;
 	}
 
 	/**

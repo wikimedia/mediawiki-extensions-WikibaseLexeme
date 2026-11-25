@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\DataAccess;
 
-use ArrayObject;
 use Generator;
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
@@ -147,27 +146,6 @@ class JsonDiffLexemeJsonPatcherTest extends TestCase {
 			$this->assertSame( 1, $exception->getOpIndex() );
 			$this->assertSame( 'path', $exception->getField() );
 		}
-	}
-
-	public function testPatchesSerializationContainingArrayObjects(): void {
-		$patcher = new JsonDiffLexemeJsonPatcher();
-
-		$this->assertSame(
-			[
-				'lemmas' => [ 'en' => 'colour', 'en-gb' => 'colour' ],
-				'statements' => [],
-			],
-			$patcher->patch(
-				[
-					'lemmas' => new ArrayObject( [ 'en' => 'color' ] ),
-					'statements' => new ArrayObject(),
-				],
-				[
-					[ 'op' => 'replace', 'path' => '/lemmas/en', 'value' => 'colour' ],
-					[ 'op' => 'add', 'path' => '/lemmas/en-gb', 'value' => 'colour' ],
-				]
-			)
-		);
 	}
 
 }

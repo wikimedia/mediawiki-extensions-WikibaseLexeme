@@ -2,6 +2,7 @@
 
 namespace Wikibase\Lexeme\Tests\Unit\Interactors\PatchLexeme;
 
+use ArrayObject;
 use Exception;
 use Generator;
 use MediaWikiUnitTestCase;
@@ -63,9 +64,10 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		$lexemeRetriever->method( 'getLexeme' )->willReturn( $readModelConverter->convert( $originalLexeme ) );
 		$lexemeSerializer = $this->createStub( LexemeSerializer::class );
 		$lexemeSerializer->method( 'serialize' )->willReturn( [
-			'lemmas' => [ 'en' => 'color' ],
+			'lemmas' => new ArrayObject( [ 'en' => 'color' ] ),
 			'lexical_category' => 'Q1',
 			'language' => 'Q2',
+			'statements' => new ArrayObject(),
 		] );
 
 		$expectedPatchedLexeme = new LexemeWriteModel(
@@ -82,9 +84,18 @@ class PatchLexemeTest extends MediaWikiUnitTestCase {
 		$writeModelRetriever = $this->createStub( LexemeWriteModelRetriever::class );
 		$writeModelRetriever->method( 'getLexemeWriteModel' )->willReturn( $originalLexeme );
 
-		$patchedLexemeValidator = $this->createStub( PatchedLexemeValidator::class );
+		$patchedLexemeValidator = $this->createMock( PatchedLexemeValidator::class );
 		$patchedLexemeValidator->expects( $this->once() )
 			->method( 'validateAndDeserialize' )
+			->with(
+				[
+					'lemmas' => [ 'en' => 'colour', 'en-gb' => 'colour' ],
+					'lexical_category' => 'Q1',
+					'language' => 'Q2',
+					'statements' => [],
+				],
+				$originalLexeme
+			)
 			->willReturn( $expectedPatchedLexeme );
 
 		$expectedRevisionId = 123;

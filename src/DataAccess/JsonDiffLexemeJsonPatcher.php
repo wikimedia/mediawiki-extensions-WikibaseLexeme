@@ -2,7 +2,6 @@
 
 namespace Wikibase\Lexeme\DataAccess;
 
-use ArrayObject;
 use Exception;
 use InvalidArgumentException;
 use Swaggest\JsonDiff\JsonPatch;
@@ -31,7 +30,6 @@ class JsonDiffLexemeJsonPatcher implements LexemeJsonPatcher {
 
 		$patchDocument->setFlags( JsonPatch::TOLERATE_ASSOCIATIVE_ARRAYS );
 
-		$target = $this->convertArrayObjectsToArray( $target );
 		try {
 			$patchDocument->apply( $target );
 		} catch ( PatchTestOperationFailedException $e ) {
@@ -46,20 +44,6 @@ class JsonDiffLexemeJsonPatcher implements LexemeJsonPatcher {
 
 		// JsonPatch (sometimes) adds/replaces new values as object, not associative array
 		return $this->convertObjectsToArray( $target );
-	}
-
-	private function convertArrayObjectsToArray( iterable $serialization ): array {
-		$output = [];
-		foreach ( $serialization as $key => $value ) {
-			if ( is_array( $value ) ) {
-				$output[ $key ] = $this->convertArrayObjectsToArray( $value );
-			} elseif ( $value instanceof ArrayObject ) {
-				$output[ $key ] = $this->convertArrayObjectsToArray( (array)$value );
-			} else {
-				$output[ $key ] = $value;
-			}
-		}
-		return $output;
 	}
 
 	private function convertObjectsToArray( mixed $serialization ): mixed {
