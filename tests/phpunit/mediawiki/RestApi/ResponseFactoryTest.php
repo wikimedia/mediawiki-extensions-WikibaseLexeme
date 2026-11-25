@@ -128,6 +128,35 @@ class ResponseFactoryTest extends TestCase {
 		);
 	}
 
+	public function testNewErrorResponseFromException_patchResultReferencedResourceNotFound(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newPatchResultReferencedResourceNotFound( '/statements/P999/0/property/id', 'P999' )
+		);
+
+		$this->assertSame( 422, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "patch-result-referenced-resource-not-found",'
+				. ' "message": "The referenced resource does not exist",'
+				. ' "context": { "path": "/statements/P999/0/property/id", "value": "P999" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
+	public function testNewErrorResponseFromException_patchedStatementGroupPropertyIdMismatch(): void {
+		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
+			UseCaseError::newPatchedStatementGroupPropertyIdMismatch( '/statements/P1/0/property/id', 'P1', 'P2' )
+		);
+
+		$this->assertSame( 422, $httpResponse->getStatusCode() );
+		$this->assertJsonStringEqualsJsonString(
+			'{ "code": "patched-statement-group-property-id-mismatch",'
+				. ' "message": "Statement\'s Property ID does not match the Statement group key",'
+				. ' "context": { "path": "/statements/P1/0/property/id",'
+				. ' "statement_group_property_id": "P1", "statement_property_id": "P2" } }',
+			$httpResponse->getBody()->getContents()
+		);
+	}
+
 	public function testNewErrorResponseFromException_permissionDenied(): void {
 		$httpResponse = ( new ResponseFactory() )->newErrorResponseFromException(
 			UseCaseError::newPermissionDenied( UseCaseError::PERMISSION_DENIED_REASON_USER_BLOCKED )

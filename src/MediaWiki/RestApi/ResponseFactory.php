@@ -42,6 +42,8 @@ class ResponseFactory {
 		UseCaseError::PATCH_RESULT_INVALID_KEY => 422,
 		UseCaseError::PATCH_RESULT_INVALID_VALUE => 422,
 		UseCaseError::PATCH_RESULT_VALUE_TOO_LONG => 422,
+		UseCaseError::PATCH_RESULT_REFERENCED_RESOURCE_NOT_FOUND => 422,
+		UseCaseError::PATCHED_STATEMENT_GROUP_PROPERTY_ID_MISMATCH => 422,
 	];
 
 	public function newSuccessResponse(

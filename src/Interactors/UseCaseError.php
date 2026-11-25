@@ -25,6 +25,7 @@ class UseCaseError extends RuntimeException {
 	public const string PATCH_RESULT_INVALID_KEY = 'patch-result-invalid-key';
 	public const string PATCH_RESULT_INVALID_VALUE = 'patch-result-invalid-value';
 	public const string PATCH_RESULT_MISSING_FIELD = 'patch-result-missing-field';
+	public const string PATCH_RESULT_REFERENCED_RESOURCE_NOT_FOUND = 'patch-result-referenced-resource-not-found';
 	public const string PATCH_RESULT_VALUE_TOO_LONG = 'patch-result-value-too-long';
 	public const string PERMISSION_DENIED = 'permission-denied';
 	public const string PERMISSION_DENIED_REASON_USER_BLOCKED = 'blocked-user';
@@ -33,6 +34,7 @@ class UseCaseError extends RuntimeException {
 	public const string PERMISSION_DENIED_UNKNOWN_REASON = 'permission-denied-unknown-reason';
 	public const string STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'statement-group-property-id-mismatch';
 	public const string PATCH_RESULT_MODIFIED_READ_ONLY_VALUE = 'patch-result-modified-read-only-value';
+	public const string PATCHED_STATEMENT_GROUP_PROPERTY_ID_MISMATCH = 'patched-statement-group-property-id-mismatch';
 	public const string PATCH_TARGET_NOT_FOUND = 'patch-target-not-found';
 	public const string PATCH_TEST_FAILED = 'patch-test-failed';
 	public const string CONTEXT_ACTUAL_VALUE = 'actual_value';
@@ -64,6 +66,13 @@ class UseCaseError extends RuntimeException {
 		self::MISSING_FIELD => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_FIELD ],
 		],
+		self::PATCHED_STATEMENT_GROUP_PROPERTY_ID_MISMATCH => [
+			'required' => [
+				self::CONTEXT_PATH,
+				self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID,
+				self::CONTEXT_STATEMENT_PROPERTY_ID,
+			],
+		],
 		self::PATCH_RESULT_INVALID_KEY => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_KEY ],
 		],
@@ -75,6 +84,9 @@ class UseCaseError extends RuntimeException {
 		],
 		self::PATCH_RESULT_MODIFIED_READ_ONLY_VALUE => [
 			'required' => [ self::CONTEXT_PATH ],
+		],
+		self::PATCH_RESULT_REFERENCED_RESOURCE_NOT_FOUND => [
+			'required' => [ self::CONTEXT_PATH, self::CONTEXT_VALUE ],
 		],
 		self::PATCH_RESULT_VALUE_TOO_LONG => [
 			'required' => [ self::CONTEXT_PATH, self::CONTEXT_LIMIT ],
@@ -248,6 +260,30 @@ class UseCaseError extends RuntimeException {
 			self::PATCH_RESULT_VALUE_TOO_LONG,
 			'Patched value is too long',
 			[ self::CONTEXT_PATH => $path, self::CONTEXT_LIMIT => $maxLength ],
+		);
+	}
+
+	public static function newPatchResultReferencedResourceNotFound( string $path, string $value ): self {
+		return new self(
+			self::PATCH_RESULT_REFERENCED_RESOURCE_NOT_FOUND,
+			'The referenced resource does not exist',
+			[ self::CONTEXT_PATH => $path, self::CONTEXT_VALUE => $value ],
+		);
+	}
+
+	public static function newPatchedStatementGroupPropertyIdMismatch(
+		string $path,
+		string $statementGroupPropertyId,
+		string $statementPropertyId,
+	): self {
+		return new self(
+			self::PATCHED_STATEMENT_GROUP_PROPERTY_ID_MISMATCH,
+			"Statement's Property ID does not match the Statement group key",
+			[
+				self::CONTEXT_PATH => $path,
+				self::CONTEXT_STATEMENT_GROUP_PROPERTY_ID => $statementGroupPropertyId,
+				self::CONTEXT_STATEMENT_PROPERTY_ID => $statementPropertyId,
+			],
 		);
 	}
 
