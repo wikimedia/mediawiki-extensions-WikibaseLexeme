@@ -84,7 +84,7 @@ class MergeLexemes extends ApiBase {
 				$params[self::BOT_PARAM],
 				$params['tags'] ?: []
 			);
-			$savedTempUser = $status->getSavedTempUser();
+			$savedTempUser = $status->getTempUserToAnnounce();
 		} catch ( MergingException $e ) {
 			$this->errorReporter->dieException(
 				$e,

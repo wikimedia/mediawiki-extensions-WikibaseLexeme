@@ -214,7 +214,7 @@ class SpecialMergeLexemes extends SpecialPage {
 				false,
 				$this->tags
 			);
-			$savedTempUser = $status->getSavedTempUser();
+			$savedTempUser = $status->getTempUserToAnnounce();
 		} catch ( MergingException $e ) {
 			$this->showErrorHTML( $e->getErrorMessage()->escaped() );
 			return;

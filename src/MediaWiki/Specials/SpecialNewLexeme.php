@@ -566,7 +566,7 @@ class SpecialNewLexeme extends SpecialPage {
 	private function redirectToEntityPage( EditEntityStatus $status ) {
 		$entity = $status->getRevision()->getEntity();
 		$title = $this->entityTitleLookup->getTitleForId( $entity->getId() );
-		$savedTempUser = $status->getSavedTempUser();
+		$savedTempUser = $status->getTempUserToAnnounce();
 		$redirectUrl = '';
 		if ( $savedTempUser !== null ) {
 			$this->getHookRunner()->onTempUserCreatedRedirect(
